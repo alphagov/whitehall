@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldwideOfficeTest < ActiveSupport::TestCase
   %w{contact worldwide_organisation worldwide_office_type}.each do |param|
@@ -20,7 +20,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
                      locality: "Dandytown",
                      region: "Dandyville",
                      postal_code: "D12 4CY", contact_numbers: [create(:contact_number)],
-                     country: create(:world_location, iso2: 'GB'))
+                     country: create(:world_location, iso2: "GB"))
     office = create(:worldwide_office, contact: contact)
 
     # attributes
@@ -44,47 +44,47 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal contact.has_postal_address?, office.has_postal_address?
   end
 
-  test 'sets a slug based on the title' do
+  test "sets a slug based on the title" do
     office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
     assert office.contact
 
-    assert_equal 'consulate-generals-office', office.slug
+    assert_equal "consulate-generals-office", office.slug
   end
 
-  test 'scopes the slug to the worldwide organisation' do
+  test "scopes the slug to the worldwide organisation" do
     office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
     office_at_same_org = create(:worldwide_office, worldwide_organisation: office.worldwide_organisation, contact: create(:contact, title: "Consulate General's Office"))
 
-    assert_equal 'consulate-generals-office', office.slug
-    assert_equal 'consulate-generals-office--2', office_at_same_org.slug
+    assert_equal "consulate-generals-office", office.slug
+    assert_equal "consulate-generals-office--2", office_at_same_org.slug
 
     office_at_different_org = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
-    assert_equal 'consulate-generals-office', office_at_different_org.slug
+    assert_equal "consulate-generals-office", office_at_different_org.slug
   end
 
-  test 'returns nil if no default or custom access info has been set' do
+  test "returns nil if no default or custom access info has been set" do
     office = create(:worldwide_office)
     assert_nil office.access_and_opening_times_body
   end
 
-  test 'defaults to the access info of the worldwide organisation' do
+  test "defaults to the access info of the worldwide organisation" do
     office = create(:worldwide_office)
     access_and_opening_times = create(:access_and_opening_times, accessible: office.worldwide_organisation)
     assert_equal access_and_opening_times.body, office.access_and_opening_times_body
   end
 
-  test 'returns custom access info ahead of a default one it present' do
+  test "returns custom access info ahead of a default one it present" do
     office = create(:worldwide_office)
     create(:access_and_opening_times, accessible: office.worldwide_organisation)
-    create(:access_and_opening_times, accessible: office, body: 'custom body')
-    assert_equal 'custom body', office.access_and_opening_times_body
+    create(:access_and_opening_times, accessible: office, body: "custom body")
+    assert_equal "custom body", office.access_and_opening_times_body
   end
 
-  test 'is not translatable just yet' do
+  test "is not translatable just yet" do
     refute WorldwideOffice.new.available_in_multiple_languages?
   end
 
-  test 'removes itself from any home page lists when it is destroyed' do
+  test "removes itself from any home page lists when it is destroyed" do
     office = create(:worldwide_office)
     list = create(:home_page_list)
     list.add_item(office)

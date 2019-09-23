@@ -23,16 +23,16 @@ module Whitehall
       end
 
       OPTION_NAMES_TO_FILTER_KEYS = {
-        document_type: 'document_type',
-        publication_type: 'publication_filter_option',
-        organisations: 'departments',
-        topics: 'topics',
-        announcement_type: 'announcement_filter_option',
-        official_documents: 'official_document_status',
-        locations: 'world_locations',
-        people: 'people',
-        taxons: 'taxons',
-        subtaxons: 'subtaxons',
+        document_type: "document_type",
+        publication_type: "publication_filter_option",
+        organisations: "departments",
+        topics: "topics",
+        announcement_type: "announcement_filter_option",
+        official_documents: "official_document_status",
+        locations: "world_locations",
+        people: "people",
+        taxons: "taxons",
+        subtaxons: "subtaxons",
       }.freeze
 
       def valid_option_name?(option_name)
@@ -105,7 +105,7 @@ module Whitehall
             # Only show subtopics that make sense given the selected
             # topic
             show_option = selected_taxons.include?(
-              taxon.parent_node.content_id
+              taxon.parent_node.content_id,
             )
 
             [
@@ -116,8 +116,8 @@ module Whitehall
               # changed
               {
                 "hidden" => !show_option,
-                "data-parent-content-id" => taxon.parent_node.content_id
-              }
+                "data-parent-content-id" => taxon.parent_node.content_id,
+              },
             ]
           end
 
@@ -128,7 +128,7 @@ module Whitehall
       def options_for_people
         @options_for_people ||= StructuredOptions.new(
           all_label: "All people",
-          ungrouped: Person.all.sort_by(&:name).map { |o| [o.name, o.slug] }
+          ungrouped: Person.all.sort_by(&:name).map { |o| [o.name, o.slug] },
         )
       end
 
@@ -138,8 +138,8 @@ module Whitehall
           ungrouped: [
             %w[Announcements announcements],
             %w[Policies policies],
-            %w[Publications publications]
-          ]
+            %w[Publications publications],
+          ],
         )
       end
 
@@ -155,17 +155,17 @@ module Whitehall
         @options_for_official_documents ||= StructuredOptions.new(
           all_label: "All documents",
           ungrouped: [
-            ['Command or act papers', 'command_and_act_papers'],
-            ['Command papers only', 'command_papers_only'],
-            ['Act papers only', 'act_papers_only']
-          ]
+            ["Command or act papers", "command_and_act_papers"],
+            ["Command papers only", "command_papers_only"],
+            ["Act papers only", "act_papers_only"],
+          ],
         )
       end
 
       def options_for_locations
         @options_for_locations ||= StructuredOptions.new(
           all_label: I18n.t("document_filters.world_locations.all"),
-          ungrouped: WorldLocation.includes(:translations).ordered_by_name.map { |l| [l.name, l.slug] }
+          ungrouped: WorldLocation.includes(:translations).ordered_by_name.map { |l| [l.name, l.slug] },
         )
       end
     end

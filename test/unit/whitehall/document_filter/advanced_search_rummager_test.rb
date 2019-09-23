@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module Whitehall::DocumentFilter
   class AdvancedSearchRummagerTest < ActiveSupport::TestCase
@@ -16,8 +16,8 @@ module Whitehall::DocumentFilter
         .expects(:advanced_search)
         .with(
           has_entry(
-            search_format_types: format_types
-          )
+            search_format_types: format_types,
+          ),
         )
     end
 
@@ -27,8 +27,8 @@ module Whitehall::DocumentFilter
         .expects(:advanced_search)
         .with(
           has_entry(
-            part_of_taxonomy_tree: taxons
-          )
+            part_of_taxonomy_tree: taxons,
+          ),
         )
     end
 
@@ -37,24 +37,24 @@ module Whitehall::DocumentFilter
         .government_search_client
         .expects(:advanced_search)
         .with(
-          has_entry(people: people)
+          has_entry(people: people),
         )
     end
 
-    test 'publications_search looks for Publications, Consultations, and StatisticalDataSets by default' do
+    test "publications_search looks for Publications, Consultations, and StatisticalDataSets by default" do
       rummager = AdvancedSearchRummager.new({})
       expect_search_by_format_types(format_types(Consultation, Publication, StatisticalDataSet))
       rummager.publications_search
     end
 
-    test 'publications_search looks for a specific announcement sub type if we use the publication_type option' do
-      rummager = AdvancedSearchRummager.new(publication_type: 'policy-papers')
+    test "publications_search looks for a specific announcement sub type if we use the publication_type option" do
+      rummager = AdvancedSearchRummager.new(publication_type: "policy-papers")
       expect_search_by_format_types(PublicationType::PolicyPaper.search_format_types)
       rummager.publications_search
     end
 
-    test 'publications_search search the taxonomy tree if we use the taxons option' do
-      rummager = AdvancedSearchRummager.new(taxons: 'content-id')
+    test "publications_search search the taxonomy tree if we use the taxons option" do
+      rummager = AdvancedSearchRummager.new(taxons: "content-id")
       expect_search_by_taxonomy_tree(%w[content-id])
       rummager.publications_search
     end

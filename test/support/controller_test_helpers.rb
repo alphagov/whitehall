@@ -29,7 +29,7 @@ module ControllerTestHelpers
   def govspeak_transformation_fixture(transformation)
     methods_to_stub = {
       GovspeakHelper => "bare_govspeak_to_html",
-      Admin::AdminGovspeakHelper => "bare_govspeak_to_admin_html"
+      Admin::AdminGovspeakHelper => "bare_govspeak_to_admin_html",
     }
     begin
       methods_to_stub.each do |helper_module, method_name|

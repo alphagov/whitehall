@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 # NB: Topic is being renamed to "Policy Area" across GOV.UK.
 class TopicTest < ActiveSupport::TestCase
@@ -7,22 +7,22 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "should set a slug from the topic name" do
-    topic = create(:topic, name: 'Love all the people')
-    assert_equal 'love-all-the-people', topic.slug
+    topic = create(:topic, name: "Love all the people")
+    assert_equal "love-all-the-people", topic.slug
   end
 
   test "should not change the slug when the name is changed" do
-    topic = create(:topic, name: 'Love all the people')
-    topic.update_attributes(name: 'Hold hands')
-    assert_equal 'love-all-the-people', topic.slug
+    topic = create(:topic, name: "Love all the people")
+    topic.update_attributes(name: "Hold hands")
+    assert_equal "love-all-the-people", topic.slug
   end
 
   test "should not include apostrophes in slug" do
     topic = create(:topic, name: "Bob's bike")
-    assert_equal 'bobs-bike', topic.slug
+    assert_equal "bobs-bike", topic.slug
   end
 
-  test 'includes linked policies with multiple parents' do
+  test "includes linked policies with multiple parents" do
     topic = create(:topic)
     assert_equal [], topic.policy_content_ids
 
@@ -69,21 +69,21 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [], topic_2.related_classifications
   end
 
-  test 'should return search index data suitable for Rummageable' do
-    topic = create(:topic, content_id: 'aa1f1646-6ae6-4a65-86e3-9803fa870c6a', name: "topic name", description: "topic description")
+  test "should return search index data suitable for Rummageable" do
+    topic = create(:topic, content_id: "aa1f1646-6ae6-4a65-86e3-9803fa870c6a", name: "topic name", description: "topic description")
     assert_equal({
-                  'content_id' => 'aa1f1646-6ae6-4a65-86e3-9803fa870c6a',
-                  'title' => 'topic name',
-                  'link' => '/government/topics/topic-name',
-                  'indexable_content' => 'topic description',
-                  'format' => 'topic',
-                  'description' => 'topic description',
-                  'slug' => 'topic-name'
+                  "content_id" => "aa1f1646-6ae6-4a65-86e3-9803fa870c6a",
+                  "title" => "topic name",
+                  "link" => "/government/topics/topic-name",
+                  "indexable_content" => "topic description",
+                  "format" => "topic",
+                  "description" => "topic description",
+                  "slug" => "topic-name",
                   },
                  topic.search_index)
   end
 
-  test 'should add topic to search index on creating' do
+  test "should add topic to search index on creating" do
     topic = build(:topic)
 
     Whitehall::SearchIndex.expects(:add).with(topic)
@@ -91,22 +91,22 @@ class TopicTest < ActiveSupport::TestCase
     topic.save
   end
 
-  test 'should add topic to search index on updating' do
+  test "should add topic to search index on updating" do
     topic = create(:topic)
 
     Whitehall::SearchIndex.expects(:add).with(topic)
 
-    topic.name = 'different topic name'
+    topic.name = "different topic name"
     topic.save
   end
 
-  test 'should remove topic from search index on destroying' do
+  test "should remove topic from search index on destroying" do
     topic = create(:topic)
     Whitehall::SearchIndex.expects(:delete).with(topic)
     topic.destroy
   end
 
-  test 'should return search index data for all topics' do
+  test "should return search index data for all topics" do
     create(:topic)
     create(:topic)
     create(:topic)
@@ -117,7 +117,7 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 4, results.length
   end
 
-  test 'should be retrievable in an alphabetically ordered list' do
+  test "should be retrievable in an alphabetically ordered list" do
     cheese = create(:topic, name: "Cheese")
     bananas = create(:topic, name: "Bananas")
     dates = create(:topic, name: "Dates")
@@ -128,14 +128,14 @@ class TopicTest < ActiveSupport::TestCase
 
   ### Describing top tasks ###
 
-  test 'should be creatable with featured link data' do
+  test "should be creatable with featured link data" do
     params = {
       featured_links_attributes: [
         { url: "https://www.gov.uk/blah/blah",
          title: "Blah blah" },
         { url: "https://www.gov.uk/wah/wah",
          title: "Wah wah" },
-      ]
+      ],
     }
     topic = create(:topic, params)
 
@@ -147,24 +147,24 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal "Wah wah", links[1].title
   end
 
-  test 'feature links are returned in order of creation' do
+  test "feature links are returned in order of creation" do
     topic = create(:topic)
-    link_1 = create(:featured_link, linkable: topic, title: '2 days ago', created_at: 2.days.ago)
-    link_2 = create(:featured_link, linkable: topic, title: '12 days ago', created_at: 12.days.ago)
-    link_3 = create(:featured_link, linkable: topic, title: '1 hour ago', created_at: 1.hour.ago)
-    link_4 = create(:featured_link, linkable: topic, title: '2 hours ago', created_at: 2.hours.ago)
-    link_5 = create(:featured_link, linkable: topic, title: '20 minutes ago', created_at: 20.minutes.ago)
-    link_6 = create(:featured_link, linkable: topic, title: '2 years ago', created_at: 2.years.ago)
+    link_1 = create(:featured_link, linkable: topic, title: "2 days ago", created_at: 2.days.ago)
+    link_2 = create(:featured_link, linkable: topic, title: "12 days ago", created_at: 12.days.ago)
+    link_3 = create(:featured_link, linkable: topic, title: "1 hour ago", created_at: 1.hour.ago)
+    link_4 = create(:featured_link, linkable: topic, title: "2 hours ago", created_at: 2.hours.ago)
+    link_5 = create(:featured_link, linkable: topic, title: "20 minutes ago", created_at: 20.minutes.ago)
+    link_6 = create(:featured_link, linkable: topic, title: "2 years ago", created_at: 2.years.ago)
 
     assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], topic.featured_links
   end
 
-  test 'should ignore blank featured link attributes' do
+  test "should ignore blank featured link attributes" do
     params = {
       featured_links_attributes: [
         { url: "",
-         title: "" }
-      ]
+         title: "" },
+      ],
     }
     topic = build(:topic, params)
     assert topic.featured_links.empty?

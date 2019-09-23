@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class SanitiseDBTest < ActiveSupport::TestCase
   self.use_transactional_tests = false
@@ -11,7 +11,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
     DatabaseCleaner.clean_with :truncation, pre_count: true
   end
 
-  test 'scrub script runs' do
+  test "scrub script runs" do
     run_script
     assert Integer($?).zero?, "Script exited non-zero"
   end
@@ -89,7 +89,7 @@ private
 
     # Use the right port, if one is specified in the Rails
     # configuration
-    ENV['MYSQL_TCP_PORT'] = port.to_s if port
+    ENV["MYSQL_TCP_PORT"] = port.to_s if port
     host_arg = "-H #{host}" if host
 
     `./script/scrub-database --no-copy #{host_arg} -D #{database} -U #{username} -P #{password}`

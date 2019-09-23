@@ -8,6 +8,6 @@ document_ids.each do |document_id|
   print "."
   PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
     "bulk_republishing",
-    document_id
+    document_id,
   )
 end

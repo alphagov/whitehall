@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ChiefScientificAdvisorTest < ActiveSupport::TestCase
   test "should not be a permanent secretary" do

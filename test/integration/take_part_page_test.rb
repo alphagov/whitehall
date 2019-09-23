@@ -15,18 +15,18 @@ class TakePartPageTest < ActiveSupport::TestCase
       expected_json = presenter.content.merge(
         # This is to simulate what the time public timestamp will be after the
         # page has been published
-        public_updated_at: Time.zone.now.as_json
+        public_updated_at: Time.zone.now.as_json,
       )
 
       assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
       assert_publishing_api_publish(@take_part_page.content_id, { update_type: nil,
-                                                                  locale: 'en' }, 1)
+                                                                  locale: "en" }, 1)
     end
   end
 
   test "TakePartPage publishes gone route to the Publishing API on destroy" do
     Sidekiq::Testing.inline! do
-      Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+      Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
       @take_part_page.save!
 
       gone_request = stub_publishing_api_unpublish(
@@ -35,7 +35,7 @@ class TakePartPageTest < ActiveSupport::TestCase
           type: "gone",
           locale: "en",
           discard_drafts: true,
-        }
+        },
       )
 
       @take_part_page.destroy
@@ -54,12 +54,12 @@ class TakePartPageTest < ActiveSupport::TestCase
       expected_json = presenter.content.merge(
         # This is to simulate what the time public timestamp will be after the
         # page has been published
-        public_updated_at: Time.zone.now.as_json
+        public_updated_at: Time.zone.now.as_json,
       )
 
       assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
       assert_publishing_api_publish(@take_part_page.content_id, { update_type: nil,
-                                                                 locale: 'en' }, 2)
+                                                                 locale: "en" }, 2)
     end
   end
 end

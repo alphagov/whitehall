@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class CollectionPageTest < ActiveSupport::TestCase
   def build(collection_subset, options = {})

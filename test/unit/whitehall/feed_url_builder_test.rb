@@ -3,22 +3,22 @@ require "test_helper"
 module Whitehall
   class FeedUrlBuilderTest < ActiveSupport::TestCase
     test "with :document_type as publications it generates the publications atom feed url" do
-      assert_equal feed_url("publications.atom"), FeedUrlBuilder.new(document_type: 'publications').url
+      assert_equal feed_url("publications.atom"), FeedUrlBuilder.new(document_type: "publications").url
     end
 
     test "with :document_type as announcements it generates the announcements feed url" do
-      assert_equal feed_url("announcements.atom"), FeedUrlBuilder.new(document_type: 'announcements').url
+      assert_equal feed_url("announcements.atom"), FeedUrlBuilder.new(document_type: "announcements").url
     end
 
     test "with :document_type as statistics it generates the statistics feed url" do
-      assert_equal feed_url("statistics.atom"), FeedUrlBuilder.new(document_type: 'statistics').url
+      assert_equal feed_url("statistics.atom"), FeedUrlBuilder.new(document_type: "statistics").url
     end
 
     test "with :document_type as publications and other params it generate a publications atom feed url with the given params as query string" do
       filter_params = {
-        document_type: 'publications',
+        document_type: "publications",
         departments: %w[1 2],
-        official_document_status: "command_and_act_papers"
+        official_document_status: "command_and_act_papers",
       }
 
       assert_equal feed_url("publications.atom?departments%5B%5D=1&departments%5B%5D=2&official_document_status=command_and_act_papers"),
@@ -26,21 +26,21 @@ module Whitehall
     end
 
     test 'it strips blank filter params or those with a value of "all"' do
-      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: nil).url
-      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "all").url
-      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "").url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: "publications", official_document_status: nil).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: "publications", official_document_status: "all").url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: "publications", official_document_status: "").url
       assert_equal feed_url("publications.atom?official_document_status=something"),
-                   Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "something").url
+                   Whitehall::FeedUrlBuilder.new(document_type: "publications", official_document_status: "something").url
 
-      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: []).url
-      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: %w[all]).url
-      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: [""]).url
-      assert_equal feed_url("publications.atom?departments%5B%5D=something"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: %w[something]).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: "publications", departments: []).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: "publications", departments: %w[all]).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: "publications", departments: [""]).url
+      assert_equal feed_url("publications.atom?departments%5B%5D=something"), Whitehall::FeedUrlBuilder.new(document_type: "publications", departments: %w[something]).url
     end
 
     test "it strips out invalid filter params" do
       assert_equal feed_url("publications.atom?departments%5B%5D=something"),
-                   Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: %w[something], favourite_power_ranger: ["the blue one"]).url
+                   Whitehall::FeedUrlBuilder.new(document_type: "publications", departments: %w[something], favourite_power_ranger: ["the blue one"]).url
     end
 
   protected

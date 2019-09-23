@@ -1,1 +1,1 @@
-FeatureFlag.destroy('how_government_works')
+FeatureFlag.destroy("how_government_works")

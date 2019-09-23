@@ -10,7 +10,7 @@ module AuthorityTestHelper
 end
 
 # if we've already loaded rails, no point jumping through hoops to avoid it
-require 'test_helper'
+require "test_helper"
 
 module AuthorityTestHelper
   def self.define_edition_factory_methods(edition_type)

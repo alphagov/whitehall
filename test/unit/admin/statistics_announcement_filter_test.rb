@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   setup do
@@ -21,7 +21,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     last_month = statistics_announcement_for(1.month.ago)
 
     assert_equal [last_week, last_month].map(&:id),
-                 filter(dates: 'past').statistics_announcements.map(&:id)
+                 filter(dates: "past").statistics_announcements.map(&:id)
   end
 
   test "filtering future releases returns them in date order" do
@@ -31,7 +31,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     _last_month = statistics_announcement_for(1.month.ago)
 
     assert_equal [today, tomorrow].map(&:id),
-                 filter(dates: 'future').statistics_announcements.map(&:id)
+                 filter(dates: "future").statistics_announcements.map(&:id)
   end
 
   test "filtering for imminent announcements returns them in date order" do
@@ -41,7 +41,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     _one_month = statistics_announcement_for(1.month.from_now)
 
     assert_equal [today, tomorrow].map(&:id),
-                 filter(dates: 'imminent').statistics_announcements.map(&:id)
+                 filter(dates: "imminent").statistics_announcements.map(&:id)
   end
 
   test "can filter only those announcements that do not have a linked publication" do
@@ -54,10 +54,10 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
                  filter.statistics_announcements
 
     assert_equal [next_week, yesterday],
-                 filter(unlinked_only: '1').statistics_announcements
+                 filter(unlinked_only: "1").statistics_announcements
 
     assert_equal [next_week],
-                 filter(dates: 'future', unlinked_only: '1').statistics_announcements
+                 filter(dates: "future", unlinked_only: "1").statistics_announcements
   end
 
   test "can filter by title" do
@@ -84,10 +84,10 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     date_change.save!
 
     assert_equal 1,
-                 filter(dates: 'future').statistics_announcements.total_count
+                 filter(dates: "future").statistics_announcements.total_count
 
     assert_equal new_date,
-                 filter(dates: 'future').statistics_announcements[0].release_date
+                 filter(dates: "future").statistics_announcements[0].release_date
   end
 
   test "filter eager loads the correct date for an announcement when ordered descending" do
@@ -98,10 +98,10 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     date_change.save!
 
     assert_equal 1,
-                 filter(dates: 'past').statistics_announcements.total_count
+                 filter(dates: "past").statistics_announcements.total_count
 
     assert_equal new_date,
-                 filter(dates: 'past').statistics_announcements[0].release_date
+                 filter(dates: "past").statistics_announcements[0].release_date
   end
 
   test "#title gives the high-level description for the announcements being returned, based on organisation" do
@@ -132,20 +132,20 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     create(:statistics_announcement, release_date: next_week)
 
     assert_equal "1 upcoming statistics release",
-                 filter(dates: 'future').description
+                 filter(dates: "future").description
 
     2.times { create(:statistics_announcement, release_date: next_week) }
 
     assert_equal "3 upcoming statistics releases",
-                 filter(dates: 'future').description
+                 filter(dates: "future").description
   end
 
   test "#description describes past releases" do
     create(:statistics_announcement, release_date: past_date)
-    assert_equal "1 statistics announcement in the past", filter(dates: 'past').description
+    assert_equal "1 statistics announcement in the past", filter(dates: "past").description
 
     create(:statistics_announcement, release_date: past_date)
-    assert_equal "2 statistics announcements in the past", filter(dates: 'past').description
+    assert_equal "2 statistics announcements in the past", filter(dates: "past").description
   end
 
   test "#description describes all releases" do
@@ -173,7 +173,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     create(:statistics_announcement, publication: create(:draft_statistics))
 
     assert_equal "3 statistics announcements (without a publication)",
-                 filter(unlinked_only: '1').description
+                 filter(unlinked_only: "1").description
   end
 
   test "excludes unpublished announcements" do

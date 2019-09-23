@@ -1,6 +1,6 @@
-require 'gds_api/router'
+require "gds_api/router"
 
-router = GdsApi::Router.new(Plek.find('router-api'))
+router = GdsApi::Router.new(Plek.find("router-api"))
 
 updated = false
 
@@ -13,7 +13,7 @@ Document.find_by_sql("SELECT *, LENGTH(slug) AS slug_length FROM documents HAVIN
     document.update_attribute(:slug, new_slug)
     new_path = Whitehall.url_maker.document_path(published.reload)
     puts "Redirecting '#{old_path}' to '#{new_path}'"
-    router.add_redirect_route(old_path, 'exact', new_path)
+    router.add_redirect_route(old_path, "exact", new_path)
     updated = true
   end
 end

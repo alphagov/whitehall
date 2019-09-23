@@ -1,4 +1,4 @@
-Organisation.where(govuk_status: 'exempt').each do |organisation|
+Organisation.where(govuk_status: "exempt").each do |organisation|
   @logger.info "Processing #{organisation.slug}"
   if organisation.organisation_logo_type == OrganisationLogoType::CustomLogo
     organisation.organisation_logo_type = OrganisationLogoType::NoIdentity

@@ -130,7 +130,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal "First published.", history.first.note
   end
 
-  test 'returns change history' do
+  test "returns change history" do
     document = create(:document)
     history = document.change_history
 
@@ -148,7 +148,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
     superseded = create(:superseded_edition, document: document)
-    withdrawn = create(:edition, state: 'withdrawn', document: document)
+    withdrawn = create(:edition, state: "withdrawn", document: document)
     current = create(:published_edition, document: document)
 
     assert_equal [superseded, withdrawn, current], document.ever_published_editions
@@ -194,7 +194,7 @@ class DocumentTest < ActiveSupport::TestCase
                 role: "a",
                 goal: "b",
                 benefit: "c",
-            }
+            },
         },
         {
             content_id: SecureRandom.uuid,
@@ -202,20 +202,20 @@ class DocumentTest < ActiveSupport::TestCase
                 role: "d",
                 goal: "e",
                 benefit: "f",
-            }
-        }
+            },
+        },
     ]
     publishing_api_has_links(
       content_id: document.content_id,
       links: {
-          meets_user_needs: needs.map { |need| need[:content_id] }
-      }
+          meets_user_needs: needs.map { |need| need[:content_id] },
+      },
     )
     publishing_api_has_expanded_links(
       content_id: document.content_id,
       expanded_links: {
-          meets_user_needs: needs
-      }
+          meets_user_needs: needs,
+      },
     )
 
     assert_equal needs.first[:content_id], document.associated_needs.first["content_id"]
@@ -239,7 +239,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal document.patch_meets_user_needs_links, "Links updated"
   end
 
-  test 'should raise an exception when attempting to modify a locked document' do
+  test "should raise an exception when attempting to modify a locked document" do
     document = create(:document, locked: true)
     document.id = 42
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do

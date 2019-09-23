@@ -35,7 +35,7 @@ module PublishingApi
         schema_name: schema_name,
       )
       content.merge!(
-        PayloadBuilder::PolymorphicPath.for(item, additional_routes: additional_routes)
+        PayloadBuilder::PolymorphicPath.for(item, additional_routes: additional_routes),
       )
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
@@ -49,7 +49,7 @@ module PublishingApi
         ordered_successor_organisations: successor_organisation_links,
         ordered_high_profile_groups: high_profile_groups_links,
         ordered_roles: roles_links,
-        primary_publishing_organisation: [content_id]
+        primary_publishing_organisation: [content_id],
       }
     end
 
@@ -173,56 +173,56 @@ module PublishingApi
 
         if about_page.present?
           cips << {
-            title: I18n.t('corporate_information_page.type.title.about'),
-            href: Whitehall.url_maker.public_document_path(about_page)
+            title: I18n.t("corporate_information_page.type.title.about"),
+            href: Whitehall.url_maker.public_document_path(about_page),
           }
         end
       end
 
       if item.organisation_chart_url.present?
         cips << {
-          title: I18n.t('organisation.corporate_information.organisation_chart'),
-          href: item.organisation_chart_url
+          title: I18n.t("organisation.corporate_information.organisation_chart"),
+          href: item.organisation_chart_url,
         }
       end
 
       item.corporate_information_pages.published.by_menu_heading(:our_information).each do |cip|
         cips << {
           title: cip.title,
-          href: Whitehall.url_maker.public_document_path(cip)
+          href: Whitehall.url_maker.public_document_path(cip),
         }
       end
 
       if item.has_published_publications_of_type?(PublicationType::CorporateReport)
         cips << {
-          title: I18n.t('organisation.headings.corporate_reports'),
+          title: I18n.t("organisation.headings.corporate_reports"),
           href: transparency_and_freedom_of_information_href(
             item,
-            content_store_document_type: 'corporate_report',
-          )
+            content_store_document_type: "corporate_report",
+          ),
         }
       end
 
       if item.has_published_publications_of_type?(PublicationType::TransparencyData)
         cips << {
-          title: I18n.t('organisation.corporate_information.transparency'),
+          title: I18n.t("organisation.corporate_information.transparency"),
           href: transparency_and_freedom_of_information_href(
             item,
-            content_store_document_type: 'transparency'
-          )
+            content_store_document_type: "transparency",
+          ),
         }
       end
 
       item.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |cip|
         cips << {
           title: cip.title,
-          href: Whitehall.url_maker.public_document_path(cip)
+          href: Whitehall.url_maker.public_document_path(cip),
         }
       end
 
       cips << {
-        title: I18n.t('organisation.corporate_information.jobs'),
-        href: item.jobs_url
+        title: I18n.t("organisation.corporate_information.jobs"),
+        href: item.jobs_url,
       }
 
       cips
@@ -273,7 +273,7 @@ module PublishingApi
       link_to(
         t_corporate_information_page_type_link_text(page),
         Whitehall.url_maker.public_document_path(page),
-        class: "brand__color"
+        class: "brand__color",
       )
     end
 
@@ -281,7 +281,7 @@ module PublishingApi
       item.visible_featured_links.map do |link|
         {
           title: link.title,
-          href: link.url
+          href: link.url,
         }
       end
     end
@@ -306,11 +306,11 @@ module PublishingApi
         href: Whitehall.url_maker.public_document_path(edition),
         image: {
           url: feature.image.url,
-          alt_text: feature.alt_text
+          alt_text: feature.alt_text,
         },
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(edition.summary),
         public_updated_at: edition.public_timestamp,
-        document_type: edition.display_type
+        document_type: edition.display_type,
       }
     end
 
@@ -322,11 +322,11 @@ module PublishingApi
         href: Whitehall.url_maker.polymorphic_path(topical_event),
         image: {
           url: feature.image.url,
-          alt_text: feature.alt_text
+          alt_text: feature.alt_text,
         },
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
         public_updated_at: topical_event.start_date,
-        document_type: nil # We don't want a type for topical events
+        document_type: nil, # We don't want a type for topical events
       }
     end
 
@@ -338,11 +338,11 @@ module PublishingApi
         href: offsite_link.url,
         image: {
           url: feature.image.url,
-          alt_text: feature.alt_text
+          alt_text: feature.alt_text,
         },
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(offsite_link.summary),
         public_updated_at: offsite_link.date,
-        document_type: offsite_link.display_type
+        document_type: offsite_link.display_type,
       }
     end
 
@@ -359,17 +359,17 @@ module PublishingApi
               summary: promotional_feature_item.summary,
               image: {
                 url: promotional_feature_item.image_url,
-                alt_text: promotional_feature_item.image_alt_text
+                alt_text: promotional_feature_item.image_alt_text,
               },
               double_width: promotional_feature_item.double_width,
               links: promotional_feature_item.links.map do |link|
                 {
                   title: link.text,
-                  href: link.url
+                  href: link.url,
                 }
-              end
+              end,
             }
-          end
+          end,
         }
       end
     end
@@ -414,13 +414,13 @@ module PublishingApi
               href: Whitehall.url_maker.polymorphic_path(person),
               role_href: role_href,
               payment_type: role.role_payment_type&.name,
-              attends_cabinet_type: role.attends_cabinet_type&.name
+              attends_cabinet_type: role.attends_cabinet_type&.name,
             }
 
             unless person.image.url.nil?
               person_object[:image] = {
                 url: person.image.url,
-                alt_text: full_name
+                alt_text: full_name,
               }
             end
 
@@ -443,7 +443,7 @@ module PublishingApi
       {
         status: consolidated_organisation_govuk_status,
         url: organisation_url,
-        updated_at: item.closed_at
+        updated_at: item.closed_at,
       }
     end
 
@@ -472,7 +472,7 @@ module PublishingApi
         {
           service_type: account.service_name.parameterize,
           title: account.display_name,
-          href: account.url
+          href: account.url,
         }
       end
     end

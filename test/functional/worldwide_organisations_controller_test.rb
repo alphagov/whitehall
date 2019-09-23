@@ -11,11 +11,11 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "sets meta description" do
     organisation = create(:worldwide_organisation)
-    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: organisation, summary: 'my summary')
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: organisation, summary: "my summary")
 
     get :show, params: { id: organisation.id }
 
-    assert_equal 'my summary', assigns(:meta_description)
+    assert_equal "my summary", assigns(:meta_description)
   end
 
   test "should populate slimmer organisations header with worldwide organisation and its sponsored organisations" do
@@ -68,11 +68,11 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     login_as :gds_editor
 
     worldwide_organisation = create(:worldwide_organisation)
-    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'pre-edit body')
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: "pre-edit body")
     get :show, params: { id: worldwide_organisation }
     assert_select ".description", text: "pre-edit body"
 
-    draft_cip = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'post-edit body')
+    draft_cip = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: "post-edit body")
 
     get :show, params: { id: worldwide_organisation }
     assert_select ".description", text: "pre-edit body"
@@ -83,11 +83,11 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   view_test "not showing a preview of draft content when requested and a user is not logged in" do
     worldwide_organisation = create(:worldwide_organisation)
-    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'pre-edit body')
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: "pre-edit body")
     get :show, params: { id: worldwide_organisation }
     assert_select ".description", text: "pre-edit body"
 
-    draft_cip = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'post-edit body')
+    draft_cip = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: "post-edit body")
     get :show, params: { id: worldwide_organisation, preview: draft_cip.id }
     assert_select ".description", text: "pre-edit body"
   end

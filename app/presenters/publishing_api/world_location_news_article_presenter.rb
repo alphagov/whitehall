@@ -30,7 +30,7 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        %i(worldwide_organisations parent policy_areas topics world_locations)
+        %i(worldwide_organisations parent policy_areas topics world_locations),
       )
     end
 
@@ -56,7 +56,7 @@ module PublishingApi
       {
         url: image_url,
         alt_text: presented_world_location_news_article.lead_image_alt_text,
-        caption: presented_world_location_news_article.lead_image_caption
+        caption: presented_world_location_news_article.lead_image_caption,
       }
     end
 

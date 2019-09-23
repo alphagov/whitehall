@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApiCorporateInformationPagesWorkerTest < ActiveSupport::TestCase
   def assert_document_republished(document_id)
@@ -32,55 +32,55 @@ class PublishingApiCorporateInformationPagesWorkerTest < ActiveSupport::TestCase
   end
 
   class Delete < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class ForcePublish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class Publish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class Republish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class Unpublish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class Unwithdraw < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class UpdateDraft < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class UpdateDraftTranslation < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end
 
   class Withdraw < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       assert_document_republished about_page.document_id
     end
   end

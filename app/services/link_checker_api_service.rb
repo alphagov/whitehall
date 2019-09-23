@@ -25,7 +25,7 @@ class LinkCheckerApiService
         uris,
         checked_within: checked_within,
         webhook_uri: webhook_uri,
-        webhook_secret_token: webhook_secret_token
+        webhook_secret_token: webhook_secret_token,
       )
 
       LinkCheckerApiReport.create_from_batch_report(batch_report, reportable)

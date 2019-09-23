@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Taxonomy::MappingTest < ActiveSupport::TestCase
   setup do
@@ -10,7 +10,7 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
 
   test "legacy_mapping_for_taxon with a direct mapping" do
     result = Taxonomy::Mapping.new.legacy_mapping_for_taxon(
-      test_taxon_with_direct_mapping.content_id
+      test_taxon_with_direct_mapping.content_id,
     )
 
     assert_equal "Test Specialist Sector", result.dig("topic", 0, "title")
@@ -18,7 +18,7 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
 
   test "legacy_mapping_for_taxon with a indirect mapping" do
     result = Taxonomy::Mapping.new.legacy_mapping_for_taxon(
-      test_taxon_with_indirect_mapping.content_id
+      test_taxon_with_indirect_mapping.content_id,
     )
 
     assert_equal "Test Specialist Sector", result.dig("topic", 0, "title")
@@ -26,13 +26,13 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
 
   test "legacy_mapping_for_taxons" do
     result = Taxonomy::Mapping.new.legacy_mapping_for_taxons(
-      all_taxons.map(&:content_id)
+      all_taxons.map(&:content_id),
     )
 
     assert_equal 2, result.length
     assert_same_elements(
       ["Test Specialist Sector", "Another Test Specialist Sector"],
-      result.map { |x| x["title"] }
+      result.map { |x| x["title"] },
     )
   end
 
@@ -40,7 +40,7 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
     [
       test_taxon_with_direct_mapping,
       test_taxon_with_indirect_mapping,
-      another_test_taxon_with_direct_mapping
+      another_test_taxon_with_direct_mapping,
     ]
   end
 
@@ -53,10 +53,10 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
         "topic" => [
           {
             "content_id" => "35baa314-9f31-4276-bad2-30bba3f40975",
-            "title" => "Test Specialist Sector"
-          }
-        ]
-      }
+            "title" => "Test Specialist Sector",
+          },
+        ],
+      },
     )
   end
 
@@ -82,10 +82,10 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
         "topic" => [
           {
             "content_id" => "e2aa4b5a-60d1-40c8-a1fd-ae94ee469efc",
-            "title" => "Another Test Specialist Sector"
-          }
-        ]
-      }
+            "title" => "Another Test Specialist Sector",
+          },
+        ],
+      },
     )
   end
 end

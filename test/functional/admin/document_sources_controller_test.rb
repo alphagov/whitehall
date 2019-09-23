@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::DocumentSourcesControllerTest < ActionController::TestCase
   setup do
@@ -15,12 +15,12 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
     refute edition.document.document_sources.empty?
     assert_equal 1, edition.document.document_sources.size
     assert_equal "http://woo.example.com", edition.document.document_sources.first.url
-    assert_redirected_to admin_publication_path(edition, anchor: 'document-sources')
+    assert_redirected_to admin_publication_path(edition, anchor: "document-sources")
   end
 
   test "update should remove a document source" do
     edition = create(:draft_publication)
-    document_source = edition.document.document_sources.create(url: 'http://www.example.com/')
+    document_source = edition.document.document_sources.create(url: "http://www.example.com/")
 
     put :update, params: { edition_id: edition, document_sources: "" }
 
@@ -30,7 +30,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
     assert_raise ActiveRecord::RecordNotFound do
       document_source.reload
     end
-    assert_redirected_to admin_publication_path(edition, anchor: 'document-sources')
+    assert_redirected_to admin_publication_path(edition, anchor: "document-sources")
   end
 
   test "update should add multiple document sources" do
@@ -42,12 +42,12 @@ http://woo.example.com} }
     refute edition.document.document_sources.empty?
     assert_equal 2, edition.document.document_sources.size
     assert_equal ["http://www.example.com", "http://woo.example.com"], edition.document.document_sources.map(&:url)
-    assert_redirected_to admin_publication_path(edition, anchor: 'document-sources')
+    assert_redirected_to admin_publication_path(edition, anchor: "document-sources")
   end
 
   test "update should not duplicate existing document sources" do
     edition = create(:draft_publication)
-    edition.document.document_sources.create(url: 'http://www.example.com/')
+    edition.document.document_sources.create(url: "http://www.example.com/")
 
     put :update, params: { edition_id: edition, document_sources: %{http://www.example.com
 http://woo.example.com} }
@@ -56,7 +56,7 @@ http://woo.example.com} }
     refute edition.document.document_sources.empty?
     assert_equal 2, edition.document.document_sources.size
     assert_equal ["http://www.example.com", "http://woo.example.com"], edition.document.document_sources.map(&:url)
-    assert_redirected_to admin_publication_path(edition, anchor: 'document-sources')
+    assert_redirected_to admin_publication_path(edition, anchor: "document-sources")
   end
 
   test "update should redirect to the document show page if the document is locked" do

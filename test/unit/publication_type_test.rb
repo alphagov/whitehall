@@ -12,10 +12,10 @@ class PublicationTypeTest < ActiveSupport::TestCase
   end
 
   test "should allow listing of all publication types by prevalence" do
-    primary = [stub('primary publication type')]
-    less_common = [stub('less_common publication type')]
-    use_discouraged = [stub('use_discouraged publication type')]
-    migration = [stub('migration publication type')]
+    primary = [stub("primary publication type")]
+    less_common = [stub("less_common publication type")]
+    use_discouraged = [stub("use_discouraged publication type")]
+    migration = [stub("migration publication type")]
 
     PublicationType.stubs(:primary).returns([primary])
     PublicationType.stubs(:less_common).returns([less_common])
@@ -37,18 +37,18 @@ class PublicationTypeTest < ActiveSupport::TestCase
     end
   end
 
-  test 'search_format_types tags the type with the singular name, prefixed with publication-' do
+  test "search_format_types tags the type with the singular name, prefixed with publication-" do
     PublicationType.all.each do |publication_type|
-      assert publication_type.search_format_types.include?('publication-' + publication_type.singular_name.parameterize)
+      assert publication_type.search_format_types.include?("publication-" + publication_type.singular_name.parameterize)
     end
   end
 
-  test 'search_format_types tags the type with the publicationesque-statistics if the type is statistical' do
+  test "search_format_types tags the type with the publicationesque-statistics if the type is statistical" do
     PublicationType.statistical.each do |publication_type|
-      assert publication_type.search_format_types.include?('publicationesque-statistics')
+      assert publication_type.search_format_types.include?("publicationesque-statistics")
     end
     (PublicationType.all - PublicationType.statistical).each do |publication_type|
-      refute publication_type.search_format_types.include?('publicationesque-statistics')
+      refute publication_type.search_format_types.include?("publicationesque-statistics")
     end
   end
 end

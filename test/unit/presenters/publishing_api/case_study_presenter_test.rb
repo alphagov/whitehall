@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   def present(edition)
@@ -8,37 +8,37 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   test "case study presentation includes the correct values" do
     case_study = create(
       :published_case_study,
-      title: 'Case study title',
-      summary: 'The summary',
-      body: 'Some content',
+      title: "Case study title",
+      summary: "The summary",
+      body: "Some content",
     )
     public_path = Whitehall.url_maker.public_document_path(case_study)
     expected_content = {
       base_path: public_path,
-      title: 'Case study title',
-      description: 'The summary',
-      schema_name: 'case_study',
-      document_type: 'case_study',
-      locale: 'en',
+      title: "Case study title",
+      description: "The summary",
+      schema_name: "case_study",
+      document_type: "case_study",
+      locale: "en",
       public_updated_at: case_study.public_timestamp,
-      publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      publishing_app: "whitehall",
+      rendering_app: "government-frontend",
       routes: [
-        { path: public_path, type: 'exact' }
+        { path: public_path, type: "exact" },
       ],
       update_type: "major",
       redirects: [],
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
-        format_display_type: 'case_study',
+        format_display_type: "case_study",
         first_public_at: case_study.first_public_at,
         change_history: [
-          { public_timestamp: case_study.public_timestamp, note: 'change-note' }.as_json
+          { public_timestamp: case_study.public_timestamp, note: "change-note" }.as_json,
         ],
         tags: {
           browse_pages: [],
           topics: [],
-          policies: []
+          policies: [],
         },
         emphasised_organisations: case_study.lead_organisations.map(&:content_id),
       },
@@ -54,14 +54,14 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, 'case_study')
-    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
+    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal expected_content.except(:details), presented_item.content.except(:details)
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html(
       expected_content[:details].delete(:body),
-      presented_item.content[:details].delete(:body)
+      presented_item.content[:details].delete(:body),
     )
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
     assert_hash_includes presented_item.links, expected_links
@@ -69,32 +69,32 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   end
 
   test "includes details of the case study image if present" do
-    image = build(:image, alt_text: 'Image alt text', caption: 'A caption')
+    image = build(:image, alt_text: "Image alt text", caption: "A caption")
     case_study = create(:published_case_study, images: [image])
 
     expected_hash = {
       url: image.url(:s300),
       alt_text: image.alt_text,
-      caption: image.caption
+      caption: image.caption,
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, 'case_study')
+    assert_valid_against_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
   test "returns case study image caption as nil (not false) when it is blank" do
-    image = build(:image, alt_text: 'Image alt text', caption: '')
+    image = build(:image, alt_text: "Image alt text", caption: "")
     case_study = create(:published_case_study, images: [image])
 
     expected_hash = {
       url: image.url(:s300),
       alt_text: image.alt_text,
-      caption: nil
+      caption: nil,
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, 'case_study')
+    assert_valid_against_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
@@ -106,16 +106,16 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       url: organisation_image.file.url(:s300),
-      alt_text: 'placeholder',
-      caption: nil
+      alt_text: "placeholder",
+      caption: nil,
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, 'case_study')
+    assert_valid_against_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
-  test 'links hash includes topics and parent if set' do
+  test "links hash includes topics and parent if set" do
     edition = create(:published_case_study)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
     create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
@@ -143,7 +143,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       worldwide_organisations: [],
     }
 
-    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_hash_includes presented_item.links, expected_links_hash
   end
 
@@ -153,11 +153,11 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     new_timestamp = Time.zone.now
     new_edition = create(:published_case_study, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
     presented_item = present(new_edition)
-    assert_valid_against_schema(presented_item.content, 'case_study')
+    assert_valid_against_schema(presented_item.content, "case_study")
     presented_history = presented_item.content[:details][:change_history]
     expected_history = [
       { public_timestamp: new_timestamp, note: "More changes" },
-      { public_timestamp: original_timestamp, note: "change-note" }
+      { public_timestamp: original_timestamp, note: "change-note" },
     ].as_json
     assert_equal expected_history, presented_history
   end
@@ -167,7 +167,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     case_study = create(:published_case_study,
                         world_locations: [location])
     presented_item = present(case_study)
-    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal [location.content_id], presented_item.links[:world_locations]
   end
 
@@ -176,15 +176,15 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     case_study = create(:published_case_study,
                         worldwide_organisations: [wworg])
     presented_item = present(case_study)
-    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal [wworg.content_id], presented_item.links[:worldwide_organisations]
   end
 
-  test 'links hash includes related policies' do
+  test "links hash includes related policies" do
     case_study = create(:published_case_study, policy_content_ids: [policy_1["content_id"]])
     presented_item = present(case_study)
 
-    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal [policy_area_1["content_id"], policy_1["content_id"]], presented_item.links[:related_policies]
   end
 

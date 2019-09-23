@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::RolesControllerTest < ActionController::TestCase
   setup do
@@ -183,8 +183,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
         :ministerial_role,
         name: "role-name",
         role_type: "minister",
-        organisation_ids: [org_one.id, org_two.id]
-      )
+        organisation_ids: [org_one.id, org_two.id],
+      ),
     }
 
     assert role = MinisterialRole.last
@@ -196,7 +196,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new board level manager role" do
     post :create, params: {
       role: attributes_for(:board_member_role,
-                           role_type: "board_level_manager")
+                           role_type: "board_level_manager"),
     }
 
     assert BoardMemberRole.last
@@ -205,7 +205,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new military role" do
     post :create, params: {
       role: attributes_for(:military_role,
-                           role_type: "chief_of_staff")
+                           role_type: "chief_of_staff"),
     }
 
     assert MilitaryRole.last
@@ -214,7 +214,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new special representative role" do
     post :create, params: {
       role: attributes_for(:special_representative_role,
-                           role_type: "special_representative")
+                           role_type: "special_representative"),
     }
 
     assert SpecialRepresentativeRole.last
@@ -223,7 +223,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new chief professional officer role" do
     post :create, params: {
       role: attributes_for(:chief_professional_officer_role,
-                           role_type: "chief_professional_officer")
+                           role_type: "chief_professional_officer"),
     }
 
     assert ChiefProfessionalOfficerRole.last
@@ -273,7 +273,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     put :update, params: { id: role, role: {
       name: "new-name",
       role_type: "permanent_secretary",
-      organisation_ids: [org_two.id]
+      organisation_ids: [org_two.id],
     } }
 
     role = Role.find(role.id)

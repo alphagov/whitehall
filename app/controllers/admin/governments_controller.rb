@@ -17,9 +17,9 @@ class Admin::GovernmentsController < Admin::BaseController
     @government = Government.new(government_params)
 
     if @government.save
-      redirect_to admin_governments_path, notice: 'Created government information'
+      redirect_to admin_governments_path, notice: "Created government information"
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
@@ -27,9 +27,9 @@ class Admin::GovernmentsController < Admin::BaseController
     @government = Government.find(params[:id])
 
     if @government.update_attributes(government_params)
-      redirect_to admin_governments_path, notice: 'Updated government information'
+      redirect_to admin_governments_path, notice: "Updated government information"
     else
-      render action: 'edit'
+      render action: "edit"
     end
   end
 

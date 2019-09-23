@@ -1,5 +1,5 @@
-require 'unit/whitehall/authority/authority_test_helper'
-require 'ostruct'
+require "unit/whitehall/authority/authority_test_helper"
+require "ostruct"
 
 class ScheduledPublishingRobotTest < ActiveSupport::TestCase
   def scheduled_publishing_robot(id = 1)
@@ -9,7 +9,7 @@ class ScheduledPublishingRobotTest < ActiveSupport::TestCase
 
   include AuthorityTestHelper
 
-  test 'can publish a scheduled edition' do
+  test "can publish a scheduled edition" do
     assert enforcer_for(scheduled_publishing_robot, scheduled_edition).can?(:publish)
   end
 end

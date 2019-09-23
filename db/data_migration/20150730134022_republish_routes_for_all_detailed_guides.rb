@@ -1,5 +1,5 @@
-require 'plek'
-require 'gds_api/router'
+require "plek"
+require "gds_api/router"
 
 class GdsApi::UrlArbiter < GdsApi::Base
   def publishing_app_for_path(path)
@@ -13,8 +13,8 @@ class GdsApi::UrlArbiter < GdsApi::Base
 end
 
 
-router_api = GdsApi::Router.new(Plek.find('router-api'))
-url_arbiter = GdsApi::UrlArbiter.new(Plek.find('url-arbiter'))
+router_api = GdsApi::Router.new(Plek.find("router-api"))
+url_arbiter = GdsApi::UrlArbiter.new(Plek.find("url-arbiter"))
 
 scope = Edition.unscoped.
   where(type: "DetailedGuide").
@@ -26,7 +26,7 @@ scope = Edition.unscoped.
 count = scope.count.keys.size
 
 scope.each_with_index do |edition, i|
-  slug = edition.document.slug.sub(%r{^deleted-}, '')
+  slug = edition.document.slug.sub(%r{^deleted-}, "")
   publishing_app = url_arbiter.publishing_app_for_path("/#{slug}")
   if publishing_app && publishing_app != "whitehall"
     puts "WARNING: Couldn't add route for /#{slug}, owned by #{publishing_app}"

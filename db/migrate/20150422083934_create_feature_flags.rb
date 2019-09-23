@@ -5,6 +5,6 @@ class CreateFeatureFlags < ActiveRecord::Migration
       t.boolean :enabled, default: false
     end
 
-    FeatureFlag.create(key: 'future_policies')
+    FeatureFlag.create(key: "future_policies")
   end
 end

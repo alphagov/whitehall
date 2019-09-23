@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class AttachmentDataReporter
   include ActionView::Helpers::NumberHelper
@@ -16,7 +16,7 @@ class AttachmentDataReporter
 
     grouped_editions = published_editions_with_attachments.group_by { |e| e.organisations.first }
 
-    CSV.open(csv_file_path('overview'), 'wb') do |csv|
+    CSV.open(csv_file_path("overview"), "wb") do |csv|
       csv << ["Organisation", "Total attachments", "Total accessible", "Content types", "Combined size"]
       grouped_editions.each do |org, editions|
         org_attachments = editions.map(&:attachments).flatten
@@ -31,7 +31,7 @@ class AttachmentDataReporter
   end
 
   def report
-    CSV.open(csv_file_path, 'wb') do |csv|
+    CSV.open(csv_file_path, "wb") do |csv|
       csv << ["Slug", "Organisations", "Total attachments", "Accessible attachments", "Content types", "Combined size"]
       published_editions_with_attachments.each do |edition|
         csv << [edition.document.slug, edition.organisations.map(&:name).join(","), edition.attachments.size,
@@ -63,7 +63,7 @@ class AttachmentDataReporter
 
     results = ActiveRecord::Base.connection.execute(sql)
 
-    CSV.open(csv_file_path('upload-report'), 'wb') do |csv|
+    CSV.open(csv_file_path("upload-report"), "wb") do |csv|
       csv << ["Attached date", "Document title", "Attachment title", "Organisation", "Mime type", "Filename"]
       results.each do |result|
         csv << result
@@ -117,7 +117,7 @@ private
     number_to_percentage((number.to_f / total) * 100)
   end
 
-  def csv_file_path(report_type = 'report')
+  def csv_file_path(report_type = "report")
     File.join(data_path, "attachments-#{report_type}-#{Time.zone.now.strftime('%y%m%d-%H%M%S')}.csv")
   end
 end

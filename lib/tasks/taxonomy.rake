@@ -1,4 +1,4 @@
-require 'redis-lock'
+require "redis-lock"
 
 namespace :taxonomy do
   task rebuild_cache: [:environment] do
@@ -34,8 +34,8 @@ namespace :taxonomy do
     root_taxon_content_id = "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a"
     taxon_links = {
       links: {
-        root_taxon: [root_taxon_content_id]
-      }
+        root_taxon: [root_taxon_content_id],
+      },
     }
 
     Services.publishing_api.put_content(taxon_content_id, taxon_payload)

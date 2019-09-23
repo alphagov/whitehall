@@ -5,7 +5,7 @@ class WithdrawingTest < ActiveSupport::TestCase
   test "When an edition is withdrawn, it gets republished to the Publishing API with an withdrawn notice" do
     Sidekiq::Testing.inline! do
       edition = create(:published_case_study)
-      edition.build_unpublishing(explanation: 'Old information',
+      edition.build_unpublishing(explanation: "Old information",
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
       request = stub_publishing_api_unpublish(
@@ -15,7 +15,7 @@ class WithdrawingTest < ActiveSupport::TestCase
           locale: "en",
           explanation: "<div class=\"govspeak\"><p>Old information</p>\n</div>",
           unpublished_at: edition.updated_at.utc.iso8601,
-        }
+        },
       )
 
       perform_withdrawal(edition)

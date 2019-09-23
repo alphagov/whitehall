@@ -1,5 +1,5 @@
 class ConsultationParticipation < ApplicationRecord
-  belongs_to :consultation, foreign_key: 'edition_id'
+  belongs_to :consultation, foreign_key: "edition_id"
   belongs_to :consultation_response_form
   accepts_nested_attributes_for :consultation_response_form,
                                 reject_if: :no_substantive_form_attributes?,

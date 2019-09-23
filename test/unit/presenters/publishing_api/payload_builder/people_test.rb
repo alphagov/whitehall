@@ -47,7 +47,7 @@ module PublishingApi
         expected_hash = {
           people: role_appointments.map do |role_appointment|
             role_appointment.person.content_id
-          end
+          end,
         }
 
         assert_equal expected_hash, People.for(stubbed_edition, :people)

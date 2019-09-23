@@ -3,7 +3,7 @@
 
 document_ids = Edition.joins(
   "INNER JOIN attachments ON attachable_id = editions.id
-   AND attachments.type = 'HtmlAttachment'"
+   AND attachments.type = 'HtmlAttachment'",
 ).pluck(:document_id).uniq
 
 puts "Republishing #{document_ids.count} documents"

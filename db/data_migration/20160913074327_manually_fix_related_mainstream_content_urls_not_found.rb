@@ -12,7 +12,7 @@
 # :additional_related_mainstream_content_url
 # depending on which field is to be updated
 def update_related_mainstream_url(field_name, current_mainstream_url, fixed_url)
-  detailed_guides = DetailedGuide.where(field_name => current_mainstream_url).where.not(state: 'superseded')
+  detailed_guides = DetailedGuide.where(field_name => current_mainstream_url).where.not(state: "superseded")
 
   detailed_guides.each do |detailed_guide|
     detailed_guide.update_attribute(field_name, fixed_url)
@@ -28,20 +28,20 @@ end
 
 def fix_related_mainstream_content_urls
   urls = {
-    'https://www.gov.uk/freight-forwarders' => 'https://www.gov.uk/guidance/freight-forwarding-moving-goods',
-    'https://www.gov.uk/exportcontrol' => 'https://www.gov.uk/starting-to-export',
-    'https://www.gov.uk/buy-a-uk-fishing-rod-licence' => 'https://www.gov.uk/fishing-licences',
-    'www.gov.uk/mutuals' => 'https://www.gov.uk/government/get-involved/take-part/start-a-public-service-mutual',
-    '/vat-rates' => 'https://www.gov.uk/vat-rates',
-    'https://www.gov.uk/uk-welcomes-business' => 'https://www.gov.uk/set-up-business-uk',
+    "https://www.gov.uk/freight-forwarders" => "https://www.gov.uk/guidance/freight-forwarding-moving-goods",
+    "https://www.gov.uk/exportcontrol" => "https://www.gov.uk/starting-to-export",
+    "https://www.gov.uk/buy-a-uk-fishing-rod-licence" => "https://www.gov.uk/fishing-licences",
+    "www.gov.uk/mutuals" => "https://www.gov.uk/government/get-involved/take-part/start-a-public-service-mutual",
+    "/vat-rates" => "https://www.gov.uk/vat-rates",
+    "https://www.gov.uk/uk-welcomes-business" => "https://www.gov.uk/set-up-business-uk",
   }
   iterate_and_update(:related_mainstream_content_url, urls)
 end
 
 def fix_additional_mainstream_content_urls
   urls = {
-    '/vat-businesses' => 'https://www.gov.uk/vat-businesses',
-    'https://www.gov.uk/freight-forwarders' => 'https://www.gov.uk/guidance/freight-forwarding-moving-goods',
+    "/vat-businesses" => "https://www.gov.uk/vat-businesses",
+    "https://www.gov.uk/freight-forwarders" => "https://www.gov.uk/guidance/freight-forwarding-moving-goods",
   }
   iterate_and_update(:additional_related_mainstream_content_url, urls)
 end

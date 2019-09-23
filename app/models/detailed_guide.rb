@@ -21,7 +21,7 @@ class DetailedGuide < Edition
   include Edition::RelatedDocuments
 
   def self.format_name
-    'detailed guidance'
+    "detailed guidance"
   end
 
   has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
@@ -50,7 +50,7 @@ class DetailedGuide < Edition
   end
 
   def related_detailed_guide_ids
-    related_to_editions.where(type: 'DetailedGuide').pluck(:id)
+    related_to_editions.where(type: "DetailedGuide").pluck(:id)
   end
 
   def related_detailed_guide_content_ids
@@ -60,7 +60,7 @@ class DetailedGuide < Edition
   # Ensure that we set related detailed guides without stomping on other related documents
   def related_detailed_guide_ids=(detailed_guide_ids)
     detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)
-    other_related_documents   = self.related_documents.reject { |document| document.document_type == 'DetailedGuide' }
+    other_related_documents   = self.related_documents.reject { |document| document.document_type == "DetailedGuide" }
     detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map(&:document)
 
     self.related_documents = other_related_documents + detailed_guide_documents
@@ -95,7 +95,7 @@ class DetailedGuide < Edition
   end
 
   def self.search_format_type
-    'detailed-guidance'
+    "detailed-guidance"
   end
 
   def translatable?
@@ -142,7 +142,7 @@ private
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides
-    related_documents.published.where(document_type: 'DetailedGuide').map(&:published_edition).compact
+    related_documents.published.where(document_type: "DetailedGuide").map(&:published_edition).compact
   end
 
   # Returns the published editions that are related to this edition's document.
@@ -154,7 +154,7 @@ private
     return nil if url.nil? || url.empty?
 
     parsed_url = URI.parse(url)
-    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
+    url_is_invalid = !["gov.uk", "www.gov.uk"].include?(parsed_url.host)
     return nil if url_is_invalid
 
     parsed_url.path

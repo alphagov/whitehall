@@ -1,5 +1,5 @@
 all_attachment_datas_on_deleted_attachments = AttachmentData.joins(
-  :attachments
+  :attachments,
 ).where(attachments: { deleted: true })
 
 #AttachmentData objects can be shared across multiple attachments

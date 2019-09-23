@@ -1,4 +1,4 @@
-require 'address_formatter/formatter'
+require "address_formatter/formatter"
 
 module AddressFormatter
   class Text < Formatter
@@ -9,7 +9,7 @@ module AddressFormatter
   private
 
     def strip_blank_lines(address)
-      address.gsub(/\n{2,}/, "\n").gsub(/\A\n|\n\Z/, '')
+      address.gsub(/\n{2,}/, "\n").gsub(/\A\n|\n\Z/, "")
     end
   end
 end

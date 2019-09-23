@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldTaxonomyTagFormTest < ActiveSupport::TestCase
   include TaxonomyHelper
@@ -9,8 +9,8 @@ class WorldTaxonomyTagFormTest < ActiveSupport::TestCase
     body = {
       "error" => {
         "code" => 404,
-        "message" => "Could not find link set with content_id: #{content_id}"
-      }
+        "message" => "Could not find link set with content_id: #{content_id}",
+      },
     }.to_json
 
     stub_request(:get, %r{.*/v2/links/#{content_id}.*})
@@ -21,7 +21,7 @@ class WorldTaxonomyTagFormTest < ActiveSupport::TestCase
     assert_equal form.selected_taxons, []
   end
 
-  test '#load should request links to publishing-api' do
+  test "#load should request links to publishing-api" do
     content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
     taxons = %w[c58fdadd-7743-46d6-9629-90bb3ccc4ef0]
 
@@ -30,7 +30,7 @@ class WorldTaxonomyTagFormTest < ActiveSupport::TestCase
       "links" => {
         "taxons" => taxons,
       },
-      "version" => 1
+      "version" => 1,
     )
 
     form = WorldTaxonomyTagForm.load(content_id)

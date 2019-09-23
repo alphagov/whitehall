@@ -11,22 +11,22 @@ class RummagerDocumentPresenter < ActionView::Base
 
   def initialize(document_hash)
     @document = document_hash
-    @link = @document.fetch('link', '')
-    @title = @document.fetch('title', '')
-    @summary = @document.fetch('description', '')
-    @content_id = @document.fetch('content_id', SecureRandom.uuid)
+    @link = @document.fetch("link", "")
+    @title = @document.fetch("title", "")
+    @summary = @document.fetch("description", "")
+    @content_id = @document.fetch("content_id", SecureRandom.uuid)
   end
 
   def publication_date
-    I18n.l @document.fetch('public_timestamp', '').to_date, format: :long_ordinal
+    I18n.l @document.fetch("public_timestamp", "").to_date, format: :long_ordinal
   end
 
   def public_timestamp
-    @document.fetch('public_timestamp', '').to_time
+    @document.fetch("public_timestamp", "").to_time
   end
 
   def display_type_key
-    key = @document.fetch('display_type', nil) || @document.fetch('content_store_document_type', '')
+    key = @document.fetch("display_type", nil) || @document.fetch("content_store_document_type", "")
     key.parameterize.underscore
   end
 
@@ -45,33 +45,33 @@ class RummagerDocumentPresenter < ActionView::Base
   end
 
   def publication_collections
-    links = @document.fetch('document_collections', []).map { |collection| format_link(collection["title"], collection["link"]) }.compact
+    links = @document.fetch("document_collections", []).map { |collection| format_link(collection["title"], collection["link"]) }.compact
 
     "Part of a collection: #{links.to_sentence}" if links.any?
   end
 
   def type
-    @document.fetch('format', '')
+    @document.fetch("format", "")
   end
 
   def government_name
-    @document.fetch('government_name', '')
+    @document.fetch("government_name", "")
   end
 
   def historic?
-    @document.fetch('is_historic', false)
+    @document.fetch("is_historic", false)
   end
 
   def organisations
-    orgs = @document.fetch('organisations', []).map do |organisation|
-      organisation.fetch('acronym', nil) || organisation.fetch('title', nil)
+    orgs = @document.fetch("organisations", []).map do |organisation|
+      organisation.fetch("acronym", nil) || organisation.fetch("title", nil)
     end
     orgs.compact
     orgs.to_sentence if orgs.any?
   end
 
   def field_of_operation
-    operational_field = @document.fetch('operational_field', '')
+    operational_field = @document.fetch("operational_field", "")
     "Field of operation: #{operational_field_link(operational_field)}" if operational_field.present?
   end
 
@@ -99,7 +99,7 @@ class RummagerDocumentPresenter < ActionView::Base
       historic?: historic?,
       government_name: government_name,
       field_of_operation: field_of_operation,
-      publication_collections: publication_collections
+      publication_collections: publication_collections,
     }
   end
 

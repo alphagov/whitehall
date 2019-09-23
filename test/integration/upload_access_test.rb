@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UploadAccessTest < ActionDispatch::IntegrationTest
   def asset_host
@@ -9,24 +9,24 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     host! asset_host
   end
 
-  test 'redirects all non-attachment, non-hmrc asset requests to the asset host' do
-    upload = '/government/uploads/general-upload.jpg'
+  test "redirects all non-attachment, non-hmrc asset requests to the asset host" do
+    upload = "/government/uploads/general-upload.jpg"
 
     get upload
 
     assert_redirected_to "http://#{asset_host}/government/uploads/general-upload.jpg"
   end
 
-  test 'redirects requests for files with uppercase names (as well as lowercase)' do
-    upload = '/government/uploads/GENERAL-UPLOAD.JPG'
+  test "redirects requests for files with uppercase names (as well as lowercase)" do
+    upload = "/government/uploads/GENERAL-UPLOAD.JPG"
 
     get upload
 
     assert_redirected_to "http://#{asset_host}/government/uploads/GENERAL-UPLOAD.JPG"
   end
 
-  test 'redirects all attachment requests to the asset host' do
-    upload = '/government/uploads/system/uploads/attachment_data/file/123/attachment.pdf'
+  test "redirects all attachment requests to the asset host" do
+    upload = "/government/uploads/system/uploads/attachment_data/file/123/attachment.pdf"
 
     get upload
 

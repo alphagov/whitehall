@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class PromotionalFeatureLinkTest < ActiveSupport::TestCase
-  test 'is not valid without a url, text or promotional_feature_item' do
+  test "is not valid without a url, text or promotional_feature_item" do
     %w(url text promotional_feature_item).each do |attribute|
       link = build(:promotional_feature_link, attribute => nil)
       refute link.valid?
@@ -9,9 +9,9 @@ class PromotionalFeatureLinkTest < ActiveSupport::TestCase
     end
   end
 
-  test 'must have a valid URL' do
-    link = build(:promotional_feature_link, url: 'example.com')
+  test "must have a valid URL" do
+    link = build(:promotional_feature_link, url: "example.com")
     refute link.valid?
-    assert_equal ['is not valid. Make sure it starts with http(s)'], link.errors[:url]
+    assert_equal ["is not valid. Make sure it starts with http(s)"], link.errors[:url]
   end
 end

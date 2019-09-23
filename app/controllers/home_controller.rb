@@ -1,10 +1,10 @@
 class HomeController < PublicFacingController
-  layout 'frontend'
+  layout "frontend"
 
   def how_government_works
     sitewide_setting = load_reshuffle_setting
     @is_during_reshuffle = sitewide_setting.on if sitewide_setting
-    @prime_minister = MinisterialRole.find_by(slug: 'prime-minister').current_person
+    @prime_minister = MinisterialRole.find_by(slug: "prime-minister").current_person
     sorter = MinisterSorter.new
     @cabinet_minister_count = sorter.cabinet_ministers.count - 1 # subtract one to discount PM
     @other_minister_count = sorter.other_ministers.count

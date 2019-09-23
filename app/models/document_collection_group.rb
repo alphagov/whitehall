@@ -1,19 +1,19 @@
 class DocumentCollectionGroup < ApplicationRecord
   belongs_to :document_collection, inverse_of: :groups, touch: true
   has_many :memberships,
-           -> { order('document_collection_group_memberships.ordering') },
-           class_name: 'DocumentCollectionGroupMembership',
+           -> { order("document_collection_group_memberships.ordering") },
+           class_name: "DocumentCollectionGroupMembership",
            inverse_of: :document_collection_group,
            dependent: :destroy
   has_many :documents,
-           -> { order('document_collection_group_memberships.ordering') },
+           -> { order("document_collection_group_memberships.ordering") },
            through: :memberships
   has_many :non_whitehall_links,
-           -> { order('document_collection_group_memberships.ordering') },
-           class_name: 'DocumentCollectionNonWhitehallLink',
+           -> { order("document_collection_group_memberships.ordering") },
+           class_name: "DocumentCollectionNonWhitehallLink",
            through: :memberships
   has_many :editions,
-           -> { order('document_collection_group_memberships.ordering') },
+           -> { order("document_collection_group_memberships.ordering") },
            through: :documents
 
   scope :live, -> do
@@ -35,7 +35,7 @@ class DocumentCollectionGroup < ApplicationRecord
   end
 
   def self.default_attributes
-    { heading: 'Documents' }
+    { heading: "Documents" }
   end
 
   def editable_members

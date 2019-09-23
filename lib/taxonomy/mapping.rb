@@ -19,12 +19,12 @@ class Taxonomy::Mapping
       taxon.content_id == start_taxon_content_id
     end
 
-    result = start_taxon.legacy_mapping.slice('topic')
+    result = start_taxon.legacy_mapping.slice("topic")
 
     start_taxon.ancestors.each do |ancestor|
-      break if result['topic'].present?
+      break if result["topic"].present?
 
-      result['topic'] = ancestor.legacy_mapping.fetch('topic', [])
+      result["topic"] = ancestor.legacy_mapping.fetch("topic", [])
     end
 
     result

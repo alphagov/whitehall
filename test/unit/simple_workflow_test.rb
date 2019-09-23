@@ -1,18 +1,18 @@
 require "test_helper"
 
 class SimpleWorkflowTest < ActiveSupport::TestCase
-  test 'should be current when newly created' do
+  test "should be current when newly created" do
     assert_equal :current, create(:topic).current_state
   end
 
-  test 'should call destroyable? when trying to delete' do
+  test "should call destroyable? when trying to delete" do
     topic = create(:topic)
     topic.stubs(:destroyable?).returns(true)
     topic.delete!
     assert_equal :deleted, topic.reload.current_state
   end
 
-  test 'should not delete if destroyable returns false' do
+  test "should not delete if destroyable returns false" do
     topic = create(:topic)
     topic.stubs(:destroyable?).returns(false)
     topic.delete!

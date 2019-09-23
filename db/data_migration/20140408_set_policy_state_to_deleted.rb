@@ -1,1 +1,1 @@
-Edition.find(309962).update_attribute(:state, 'deleted')
+Edition.find(309962).update_attribute(:state, "deleted")

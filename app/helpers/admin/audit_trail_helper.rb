@@ -19,21 +19,21 @@ module Admin::AuditTrailHelper
   end
 
   def paginated_audit_trail_url(page)
-    url_for(params.permit!.except(:host, :controller, :action).merge(controller: 'admin/edition_audit_trail', action: 'index', page: (page <= 1 ? nil : page)))
+    url_for(params.permit!.except(:host, :controller, :action).merge(controller: "admin/edition_audit_trail", action: "index", page: (page <= 1 ? nil : page)))
   end
 
   def render_editorial_remarks_in_sidebar(remarks, edition)
     this_edition_remarks, other_edition_remarks = remarks.partition { |r| r.edition == edition }
-    out = ''
+    out = ""
     if this_edition_remarks.any?
-      out << content_tag(:h2, 'On this edition')
-      out << content_tag(:ul, class: 'list-unstyled') do
+      out << content_tag(:h2, "On this edition")
+      out << content_tag(:ul, class: "list-unstyled") do
         render partial: "admin/editions/audit_trail_entry", collection: this_edition_remarks
       end
     end
     if other_edition_remarks.any?
-      out << content_tag(:h2, 'On previous editions', class: 'add-top-margin')
-      out << content_tag(:ul, class: 'list-unstyled') do
+      out << content_tag(:h2, "On previous editions", class: "add-top-margin")
+      out << content_tag(:ul, class: "list-unstyled") do
         render partial: "admin/editions/audit_trail_entry", collection: other_edition_remarks
       end
     end

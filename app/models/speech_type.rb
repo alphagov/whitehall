@@ -16,7 +16,7 @@ class SpeechType
     super({
       owner_key_group: "delivery_title",
       published_externally_key: "delivered_on",
-      location_relevant: true
+      location_relevant: true,
     }.merge(attributes))
   end
 
@@ -53,13 +53,13 @@ class SpeechType
   end
 
   def search_format_types
-    types = ['speech-' + self.singular_name.parameterize]
-    types << 'speech-statement-to-parliament' if statement_to_parliament?
+    types = ["speech-" + self.singular_name.parameterize]
+    types << "speech-statement-to-parliament" if statement_to_parliament?
     types
   end
 
   def genus_key
-    'speech'
+    "speech"
   end
 
   def display_type_key

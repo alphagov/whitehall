@@ -54,7 +54,7 @@ module PolicyTaggingHelpers
         "format" => "policy",
         "title" => title,
         "base_path" => "/government/policies/#{title.parameterize}",
-        "links" => {}
+        "links" => {},
       }
     }
 
@@ -79,8 +79,8 @@ module PolicyTaggingHelpers
         "links" => {
           "policy_areas" => [
             policy_area_1["content_id"],
-          ]
-        }
+          ],
+        },
       }
   end
 
@@ -94,8 +94,8 @@ module PolicyTaggingHelpers
           "policy_areas" => [
             policy_area_1["content_id"],
             policy_area_2["content_id"],
-          ]
-        }
+          ],
+        },
       }
   end
 
@@ -108,8 +108,8 @@ module PolicyTaggingHelpers
         "links" => {
           "policy_areas" => [
             policy_area_3["content_id"],
-          ]
-        }
+          ],
+        },
       }
   end
 
@@ -122,8 +122,8 @@ module PolicyTaggingHelpers
         "links" => {
           "policy_areas" => [
             policy_area_4["content_id"],
-          ]
-        }
+          ],
+        },
       }
   end
 

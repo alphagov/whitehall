@@ -1,4 +1,4 @@
-require 'whitehall'
+require "whitehall"
 
 module Whitehall::RandomKey
   extend ActiveSupport::Concern

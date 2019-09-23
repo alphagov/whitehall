@@ -10,12 +10,12 @@ module Edition::SpecialistSectors
     has_many :specialist_sectors, foreign_key: :edition_id, dependent: :destroy
     has_many :primary_specialist_sectors,
              -> { where(primary: true) },
-             class_name: 'SpecialistSector',
+             class_name: "SpecialistSector",
              foreign_key: :edition_id,
              dependent: :destroy
     has_many :secondary_specialist_sectors,
              -> { where(primary: false) },
-             class_name: 'SpecialistSector',
+             class_name: "SpecialistSector",
              foreign_key: :edition_id,
              dependent: :destroy
 
@@ -59,7 +59,7 @@ module Edition::SpecialistSectors
 private
 
   def set_specialist_sectors(content_ids, primary: false)
-    relation = primary ? 'primary_specialist_sectors' : 'secondary_specialist_sectors'
+    relation = primary ? "primary_specialist_sectors" : "secondary_specialist_sectors"
 
     sectors = content_ids.reject(&:blank?).map do |content_id|
       self.specialist_sectors.where(topic_content_id: content_id).first_or_initialize.tap do |sector|

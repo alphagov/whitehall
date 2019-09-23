@@ -36,7 +36,7 @@ module ServiceListeners
     def test_populate_adds_any_contacts_in_attachments_to_the_edition
       attachments = [
         stub(govspeak_content_body: "[Contact:1]"),
-        stub(govspeak_content_body: "booyah")
+        stub(govspeak_content_body: "booyah"),
       ]
       edition = stub(html_attachments: attachments)
       edition.stubs(:depended_upon_contacts).returns(edition_contacts = TestAssociation.new)
@@ -53,7 +53,7 @@ module ServiceListeners
     def test_populate_adds_any_contacts_from_multiple_attachments_to_the_edition
       attachments = [
         stub(govspeak_content_body: "[Contact:1]"),
-        stub(govspeak_content_body: "[Contact:2]")
+        stub(govspeak_content_body: "[Contact:2]"),
       ]
       edition = stub(html_attachments: attachments)
       edition.stubs(:depended_upon_contacts).returns(edition_contacts = TestAssociation.new)

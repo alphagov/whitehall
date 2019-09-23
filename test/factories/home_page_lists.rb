@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :home_page_list do
     owner { create(:organisation) }
-    name { 'contacts' }
+    name { "contacts" }
   end
 end

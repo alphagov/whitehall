@@ -18,5 +18,5 @@ Unpublishing.create(
   unpublishing_reason_id: 5,
   explanation: "This scheme has been completed and no further claims are permissible",
   document_type: "Publication",
-  slug: "part-i-claim-a66-long-newton-grade-separated-junction"
+  slug: "part-i-claim-a66-long-newton-grade-separated-junction",
 )

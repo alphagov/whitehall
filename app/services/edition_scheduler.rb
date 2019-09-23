@@ -1,12 +1,12 @@
-require 'data_hygiene/govspeak_link_validator'
+require "data_hygiene/govspeak_link_validator"
 
 class EditionScheduler < EditionService
   def verb
-    'schedule'
+    "schedule"
   end
 
   def past_participle
-    'scheduled'
+    "scheduled"
   end
 
   def failure_reason

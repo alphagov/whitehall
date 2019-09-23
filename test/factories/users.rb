@@ -68,7 +68,7 @@ FactoryBot.define do
 
   factory :gds_team_user, parent: :user do
     name { "GDS Inside Government Team" }
-    email { 'govuk-whitehall@digital.cabinet-office.gov.uk' }
+    email { "govuk-whitehall@digital.cabinet-office.gov.uk" }
     permissions {
       [
         User::Permissions::SIGNIN,

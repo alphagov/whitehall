@@ -6,7 +6,7 @@ SLUGS = [
   "national-security/groups/joint-intelligence-organisation",
   "national-security/groups/national-security-council",
   "civil-service/groups/civil-service-board",
-  "cabinet-office/groups/cabinet-office-board"
+  "cabinet-office/groups/cabinet-office-board",
 ].freeze
 
 SLUGS.each do |slug|

@@ -4,8 +4,8 @@ class TopicalEventsController < ClassificationsController
   def show
     @topical_event = TopicalEvent.friendly.find(params[:id])
     @content_item = Whitehall.content_store.content_item(@topical_event.base_path)
-    @publications =  find_documents(filter_format: 'publication', count: 3)
-    @consultations = find_documents(filter_format: 'consultation', count: 3)
+    @publications =  find_documents(filter_format: "publication", count: 3)
+    @consultations = find_documents(filter_format: "consultation", count: 3)
     @announcements = find_documents(filter_content_store_document_type: announcement_document_types, count: 3)
     @detailed_guides = @topical_event.published_detailed_guides.includes(:translations, :document).limit(5)
     @featurings = decorate_collection(@topical_event.classification_featurings.includes(:image, edition: :document).limit(5), ClassificationFeaturingPresenter)
@@ -17,10 +17,10 @@ class TopicalEventsController < ClassificationsController
     set_expiry 5.minutes
     respond_to do |format|
       format.html do
-        @recently_changed_documents = find_documents(count: 3)['results']
+        @recently_changed_documents = find_documents(count: 3)["results"]
       end
       format.atom do
-        @recently_changed_documents = find_documents(count: 10)['results']
+        @recently_changed_documents = find_documents(count: 10)["results"]
       end
     end
   end

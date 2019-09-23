@@ -1,5 +1,5 @@
-require 'gds_api/router'
-require 'gds_api/publishing_api'
+require "gds_api/router"
+require "gds_api/publishing_api"
 
 namespace :reslug do
   desc "Change a person slug (DANGER!).\n

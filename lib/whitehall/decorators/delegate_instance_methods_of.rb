@@ -37,7 +37,7 @@ module Whitehall
           to: :model,
           without_methods_of: Object,
           with_default_methods: true,
-          with_extra_methods: []
+          with_extra_methods: [],
         }
         delegate_options = delegate_options.merge(model_classes.pop) if model_classes.last.is_a? Hash
         # make sure each AR class is fully realised with methods for

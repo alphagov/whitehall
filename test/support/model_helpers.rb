@@ -106,10 +106,10 @@ module ModelHelpers
       test "#{class_from_test_name.name} does not allow footnotes in #{attribute_name}" do
         instance = build(class_from_test_name.name.underscore)
 
-        instance.public_send("#{attribute_name}=", 'text without footnote')
+        instance.public_send("#{attribute_name}=", "text without footnote")
         assert instance.valid?
 
-        instance.public_send("#{attribute_name}=", 'text with footnote[^1]')
+        instance.public_send("#{attribute_name}=", "text with footnote[^1]")
         refute instance.valid?
       end
     end

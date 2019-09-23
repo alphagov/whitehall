@@ -1,4 +1,4 @@
-require 'gds_api/router'
+require "gds_api/router"
 
 old_slug = "flexibly-accessed-pension-payment-repayment-claim-tax-year-2015-2016-p55"
 new_slug = "flexibly-accessed-pension-payment-repayment-claim-tax-year-p55"

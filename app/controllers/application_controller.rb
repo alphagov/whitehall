@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_audit_trail_whodunnit
   before_action :set_authenticated_user_header
 
-  layout 'frontend'
+  layout "frontend"
   after_action :set_slimmer_template
 
 private
@@ -32,7 +32,7 @@ private
   end
 
   def set_slimmer_application_name
-    set_slimmer_headers(application_name: 'inside_government')
+    set_slimmer_headers(application_name: "inside_government")
   end
 
   # Always open the finder (organisations filter box) on the search results page

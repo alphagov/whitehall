@@ -1,4 +1,4 @@
-require 'ruby-progressbar'
+require "ruby-progressbar"
 
 class WithdrawHighwaysEnglandPressReleases
   def run!
@@ -15,12 +15,12 @@ class WithdrawHighwaysEnglandPressReleases
         remark: "Withdrawn",
         unpublishing: {
           unpublishing_reason: ::UnpublishingReason::Withdrawn,
-          explanation: <<-EXPLANATION.strip_heredoc
+          explanation: <<-EXPLANATION.strip_heredoc,
             These bulletins are now sent directly to journalists. Contact the [Highways England Press Office](https://www.gov.uk/government/organisations/highways-england/about/media-enquiries) directly to be added to the circulation list.
 
             Otherwise you can check on the [live roadworks search tool](http://roads.highways.gov.uk/).
           EXPLANATION
-        }
+        },
       )
       withdrawer.perform!
       progress_bar.increment

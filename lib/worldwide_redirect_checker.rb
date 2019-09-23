@@ -59,7 +59,7 @@ class WorldwideRedirectChecker
 private
 
   def connection
-    @connection ||= Faraday.new(headers: { accept_encoding: 'none' }) do |faraday|
+    @connection ||= Faraday.new(headers: { accept_encoding: "none" }) do |faraday|
       faraday.adapter Faraday.default_adapter
       faraday.basic_auth(user, password) if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
     end

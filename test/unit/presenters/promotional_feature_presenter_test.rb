@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PromotionalFeaturePresenterTest < ActionView::TestCase
   setup do
@@ -30,13 +30,13 @@ class PromotionalFeaturePresenterTest < ActionView::TestCase
   end
 
   test "#clear_class returns 'clear-promo' when the position is a modulus of 3" do
-    assert_equal 'clear-promo', feature_presenter([], 0).clear_class
+    assert_equal "clear-promo", feature_presenter([], 0).clear_class
     assert_nil                  feature_presenter([], 1).clear_class
     assert_nil                  feature_presenter([], 2).clear_class
-    assert_equal 'clear-promo', feature_presenter([], 3).clear_class
+    assert_equal "clear-promo", feature_presenter([], 3).clear_class
     assert_nil                  feature_presenter([], 4).clear_class
     assert_nil                  feature_presenter([], 5).clear_class
-    assert_equal 'clear-promo', feature_presenter([], 6).clear_class
+    assert_equal "clear-promo", feature_presenter([], 6).clear_class
   end
 
 private

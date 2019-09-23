@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class EditionForceSchedulerTest < ActiveSupport::TestCase
-  test '#perform! with a draft edition transitions the edition to scheduled with the force_published flag set' do
+  test "#perform! with a draft edition transitions the edition to scheduled with the force_published flag set" do
     edition   = create(:draft_edition, scheduled_publication: 1.day.from_now)
     scheduler = EditionForceScheduler.new(edition)
 
@@ -11,7 +11,7 @@ class EditionForceSchedulerTest < ActiveSupport::TestCase
     assert edition.scheduled?
   end
 
-  test '#perform! with a submitted edition transitions the edition to scheduled with the force_published flag set' do
+  test "#perform! with a submitted edition transitions the edition to scheduled with the force_published flag set" do
     edition   = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     scheduler = EditionForceScheduler.new(edition)
 

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   class NationalApplicabilityTest < ActionController::TestCase

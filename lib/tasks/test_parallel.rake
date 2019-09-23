@@ -5,14 +5,14 @@
 namespace :test do
   desc "Run the entire test suite using parallel test runners"
   task in_parallel: :environment do
-    ENV['CUCUMBER_FORMAT'] = 'progress'
-    ENV['RAILS_ENV'] = 'test'
+    ENV["CUCUMBER_FORMAT"] = "progress"
+    ENV["RAILS_ENV"] = "test"
 
-    test_tasks = ['test_queue', 'shared_mustache:compile', 'parallel:features', 'test:javascript']
-    cleanup_tasks = ['test:cleanup']
+    test_tasks = ["test_queue", "shared_mustache:compile", "parallel:features", "test:javascript"]
+    cleanup_tasks = ["test:cleanup"]
 
     ParallelTests::Tasks.run_in_parallel(
-      "rake db:reset RAILS_ENV=test DISABLE_DATABASE_ENVIRONMENT_CHECK=1"
+      "rake db:reset RAILS_ENV=test DISABLE_DATABASE_ENVIRONMENT_CHECK=1",
     )
     ParallelTests::Tasks.check_for_pending_migrations
 
@@ -26,11 +26,11 @@ end
 #   RAILS_ENV=test rake parallel:create parallel:prepare
 desc "Runs units, functionals and integrations together using the test-queue runner. By default it uses all available processors. Set TEST_QUEUE_WORKERS to override."
 task :test_queue do
-  files = Dir.chdir('test') do
-    Dir['unit/**/*_test.rb', 'functional/**/*_test.rb', 'integration/**/*_test.rb']
+  files = Dir.chdir("test") do
+    Dir["unit/**/*_test.rb", "functional/**/*_test.rb", "integration/**/*_test.rb"]
   end
   # Ensure the number of workers matches the number of PARALLEL_TEST_PROCESSORS
-  ENV['TEST_QUEUE_WORKERS'] ||= ENV['PARALLEL_TEST_PROCESSORS']
+  ENV["TEST_QUEUE_WORKERS"] ||= ENV["PARALLEL_TEST_PROCESSORS"]
   puts "Running unit, functional and integration tests from #{files.size} files across #{ENV['TEST_QUEUE_WORKERS']} processors."
   command = "./script/test_queue"
   abort unless system(command, *files)

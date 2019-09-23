@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module Whitehall
   class DataMigratorTest < ActiveSupport::TestCase
@@ -8,7 +8,7 @@ module Whitehall
     end
 
     test "finds all migrations in the specified directory" do
-      assert_equal ['20100101120000_migrate_some_data.rb', '20130529103338_bad_data_migration_that_creates_a_person.rb'], @migrator.migrations.map(&:filename)
+      assert_equal ["20100101120000_migrate_some_data.rb", "20130529103338_bad_data_migration_that_creates_a_person.rb"], @migrator.migrations.map(&:filename)
       assert @migrator.migrations.first.is_a?(Whitehall::DataMigration)
     end
 
@@ -25,9 +25,9 @@ module Whitehall
     end
 
     test "#due excludes migrations that have already been run" do
-      assert_equal ['20100101120000_migrate_some_data.rb', '20130529103338_bad_data_migration_that_creates_a_person.rb'], @migrator.due.map(&:filename)
+      assert_equal ["20100101120000_migrate_some_data.rb", "20130529103338_bad_data_migration_that_creates_a_person.rb"], @migrator.due.map(&:filename)
       DataMigrationRecord.create!(version: "20100101120000")
-      assert_equal ['20130529103338_bad_data_migration_that_creates_a_person.rb'], @migrator.due.map(&:filename)
+      assert_equal ["20130529103338_bad_data_migration_that_creates_a_person.rb"], @migrator.due.map(&:filename)
     end
   end
 end

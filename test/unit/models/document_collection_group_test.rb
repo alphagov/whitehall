@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentSeriesGroupTest < ActiveSupport::TestCase
-  test 'new groups should set #ordering when assigned to a series' do
+  test "new groups should set #ordering when assigned to a series" do
     series = create(:document_collection)
     series.groups << build(:document_collection_group)
 
@@ -30,11 +30,11 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal 1, group.memberships.find(membership_1.id).ordering
   end
 
-  test '#dup should also clone document memberships' do
+  test "#dup should also clone document memberships" do
     group = create(:document_collection_group, documents: [
       build(:document),
       build(:document),
-      build(:document)
+      build(:document),
     ])
 
     group.memberships[0].ordering = 2
@@ -49,12 +49,12 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal     3,                             new_group.memberships[2].ordering
   end
 
-  test '#slug generates slugs of the heading' do
-    group = create(:document_collection_group, heading: 'Foo bar')
-    assert_equal group.slug, 'foo-bar'
+  test "#slug generates slugs of the heading" do
+    group = create(:document_collection_group, heading: "Foo bar")
+    assert_equal group.slug, "foo-bar"
   end
 
-  test '#content_ids contain document and non-whitehall links in order' do
+  test "#content_ids contain document and non-whitehall links in order" do
     document = build(:document)
     non_whitehall_link = build(:document_collection_non_whitehall_link)
     group = create(:document_collection_group, memberships: [

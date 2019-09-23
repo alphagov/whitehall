@@ -21,13 +21,13 @@ private
 
     if response_form_params[:id]
       case response_form_params.delete(:attachment_action).to_s.downcase
-      when 'keep'
+      when "keep"
         response_form_params.delete(:_destroy)
         response_form_params.delete(:consultation_response_form_data_attributes)
-      when 'remove'
-        response_form_params['_destroy'] = '1'
+      when "remove"
+        response_form_params["_destroy"] = "1"
         response_form_params.delete(:consultation_response_form_data_attributes)
-      when 'replace'
+      when "replace"
         response_form_params.delete(:_destroy)
       else
         response_form_params.delete(:_destroy)

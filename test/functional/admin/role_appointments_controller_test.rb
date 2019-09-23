@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   setup do
@@ -10,13 +10,13 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "new should display a form for creating an appointment" do
     role = create(:role)
     get :new, params: { role_id: role.id }
-    assert_select 'form[action=?]', admin_role_role_appointments_path(role)
+    assert_select "form[action=?]", admin_role_role_appointments_path(role)
   end
 
   view_test "new should display a form for creating an appointment that will curtail the previous appointment if make_current is set" do
     role = create(:role)
     get :new, params: { role_id: role.id, make_current: true }
-    assert_select 'form[action=?]', admin_role_role_appointments_path(role) do
+    assert_select "form[action=?]", admin_role_role_appointments_path(role) do
       assert_select "input[name='role_appointment[make_current]'][value=true]"
     end
   end
@@ -24,7 +24,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "new should display a form for creating new an appoint, with started_at set to today, if make_current is set" do
     role = create(:role)
     get :new, params: { role_id: role.id, make_current: true }
-    assert_select 'form[action=?]', admin_role_role_appointments_path(role) do
+    assert_select "form[action=?]", admin_role_role_appointments_path(role) do
       assert_select "input[name='role_appointment[make_current]']"
       assert_select "select[name='role_appointment[started_at(1i)]'] option[value='#{Date.today.year}'][selected='selected']"
       assert_select "select[name='role_appointment[started_at(2i)]'] option[value='#{Date.today.month}'][selected='selected']"
@@ -35,7 +35,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "new should display a form for creating a historical appointment if make_current is not set" do
     role = create(:role)
     get :new, params: { role_id: role.id }
-    assert_select 'form[action=?]', admin_role_role_appointments_path(role) do
+    assert_select "form[action=?]", admin_role_role_appointments_path(role) do
       assert_select "input[name='role_appointment[make_current]']", false
     end
   end
@@ -76,32 +76,32 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "edit should display an editing form for an existing appointment" do
     appointment = create(:role_appointment)
     get :edit, params: { id: appointment.id }
-    assert_select 'form[action=?]', admin_role_appointment_path(appointment)
+    assert_select "form[action=?]", admin_role_appointment_path(appointment)
   end
 
   view_test "edit should show a button to delete an appointment" do
     appointment = create(:role_appointment)
     get :edit, params: { id: appointment.id }
-    assert_select 'form[action=?]', admin_role_appointment_path(appointment)
+    assert_select "form[action=?]", admin_role_appointment_path(appointment)
   end
 
   view_test "edit should not show a button to delete an undeleteable appointment" do
     appointment = create(:role_appointment)
     get :edit, params: { id: appointment.id }
-    assert_select 'form[action=?]', admin_role_appointment_path(appointment)
+    assert_select "form[action=?]", admin_role_appointment_path(appointment)
   end
 
   view_test "edit should show speeches associated with this appointment" do
     appointment = create(:role_appointment)
     create(:speech, title: "Some Speech", role_appointment: appointment)
     get :edit, params: { id: appointment.id }
-    assert_select '.speeches', text: /Some Speech/
+    assert_select ".speeches", text: /Some Speech/
   end
 
   view_test "edit should not allow the person to be changed" do
     appointment = create(:role_appointment)
     get :edit, params: { id: appointment.id }
-    assert_select 'select#role_appointment_person_id[disabled=disabled]'
+    assert_select "select#role_appointment_person_id[disabled=disabled]"
   end
 
   test "update should update an existing role appointment" do

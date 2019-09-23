@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldLocationNewsArticlePresenterTest < ActionView::TestCase
   test "lead_image_path returns the world wide organisation default image" do

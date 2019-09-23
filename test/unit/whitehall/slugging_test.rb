@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class SluggingTest < ActiveSupport::TestCase
   test "should try and limit the length of the slug to 150" do
@@ -9,13 +9,13 @@ class SluggingTest < ActiveSupport::TestCase
   test "should resolve a conflict" do
     _document_1 = create(:document, sluggable_string: "Slug conflict")
     document_2 = create(:document, sluggable_string: "Slug conflict")
-    assert_equal 'slug-conflict--2', document_2.slug
+    assert_equal "slug-conflict--2", document_2.slug
   end
 
-  test 'should handle document titles with numbers' do
+  test "should handle document titles with numbers" do
     _document_1 = create(:document, sluggable_string: "2010-2015 conflict")
     document_2 = create(:document, sluggable_string: "2010-2015 conflict")
-    assert_equal '2010-2015-conflict--2', document_2.slug
+    assert_equal "2010-2015-conflict--2", document_2.slug
   end
 
   test "should strip punctuation properly" do

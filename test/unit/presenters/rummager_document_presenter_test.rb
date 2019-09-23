@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   def rummager_result
@@ -14,11 +14,11 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
       "document_collections" => [
         {
           "title" => "Wizarding sports",
-          "link" => "/government/collections/wizarding-sports"
+          "link" => "/government/collections/wizarding-sports",
         },
         {
           "title" => "Guidance for hosting wizarding competitions",
-          "link" => "/government/collections/guidance-for-hosting-wizarding-competitions"
+          "link" => "/government/collections/guidance-for-hosting-wizarding-competitions",
         },
       ],
       "organisations" => [
@@ -27,9 +27,9 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
         },
         {
           "acronym" => "MOM",
-        }
+        },
       ],
-      "operational_field" => "hogwarts"
+      "operational_field" => "hogwarts",
     }
   end
 
@@ -38,15 +38,15 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   end
 
   test "will provide access to document attributes required for Finders and Lists" do
-    assert_equal rummager_result['title'], presenter.title
-    assert_equal rummager_result['link'], presenter.link
-    assert_equal rummager_result['format'], presenter.type
-    assert_equal rummager_result['government_name'], presenter.government_name
-    assert_equal rummager_result['is_historic'], presenter.historic?
+    assert_equal rummager_result["title"], presenter.title
+    assert_equal rummager_result["link"], presenter.link
+    assert_equal rummager_result["format"], presenter.type
+    assert_equal rummager_result["government_name"], presenter.government_name
+    assert_equal rummager_result["is_historic"], presenter.historic?
   end
 
   test "will produce a humanized publication date required by Finders and Lists" do
-    assert_equal presenter.publication_date, '25 October 2018'
+    assert_equal presenter.publication_date, "25 October 2018"
   end
 
   test "will produce an html block containing a time tag and the publication date" do
@@ -75,8 +75,8 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
       "organisations" => [
         {
           "title" => "Department for Magical Games and Sports",
-        }
-      ]
+        },
+      ],
     }
 
     assert_equal search_result["organisations"].first["title"], RummagerDocumentPresenter.new(search_result).organisations

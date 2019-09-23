@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
@@ -7,7 +7,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     PublishingApi::PersonPresenter.new(model_instance, options)
   end
 
-  test 'presents a Person ready for adding to the publishing API' do
+  test "presents a Person ready for adding to the publishing API" do
     person = create(
       :person,
       title: "Sir",
@@ -15,8 +15,8 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       surname: "Churchill",
       letters: "PM",
       privy_counsellor: true,
-      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'),
-      biography: "Sir Winston Churchill was a Prime Minister."
+      image: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+      biography: "Sir Winston Churchill was a Prime Minister.",
     )
     current_role = create(:role)
     previous_role = create(:role)
@@ -24,14 +24,14 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       :role_appointment,
       person: person,
       role: current_role,
-      started_at: 1.hour.ago
+      started_at: 1.hour.ago,
     )
     previous_role_appointment = create(
       :role_appointment,
       person: person,
       role: previous_role,
       started_at: 1.year.ago,
-      ended_at: 1.month.ago
+      ended_at: 1.month.ago,
     )
 
     public_path = Whitehall.url_maker.person_path(person)
@@ -42,9 +42,9 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       description: nil,
       schema_name: "person",
       document_type: "person",
-      locale: 'en',
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      locale: "en",
+      publishing_app: "whitehall",
+      rendering_app: "whitehall-frontend",
       public_updated_at: person.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
@@ -76,10 +76,10 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal person.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, 'person')
+    assert_valid_against_schema(presented_item.content, "person")
   end
 
-  test 'accepts people without an image' do
+  test "accepts people without an image" do
     person = create(
       :person,
       title: "Sir",
@@ -91,6 +91,6 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
 
     presented_item = present(person)
 
-    assert_valid_against_schema(presented_item.content, 'person')
+    assert_valid_against_schema(presented_item.content, "person")
   end
 end

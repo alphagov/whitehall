@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'capybara/rails'
+require "test_helper"
+require "capybara/rails"
 
 class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
@@ -8,16 +8,16 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   include PublicDocumentRoutesHelper
   include TaxonomyHelper
 
-  let(:filename) { 'sample.docx' }
-  let(:asset_id) { 'asset-id' }
+  let(:filename) { "sample.docx" }
+  let(:asset_id) { "asset-id" }
 
   before do
     login_as create(:managing_editor)
-    publishing_api_has_linkables([], document_type: 'topic')
+    publishing_api_has_linkables([], document_type: "topic")
     stub_whitehall_asset(filename, id: asset_id, draft: asset_initially_draft)
   end
 
-  context 'given a file attachment' do
+  context "given a file attachment" do
     let(:file) { File.open(path_to_attachment(filename)) }
     let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
     let(:attachable) { edition }
@@ -29,11 +29,11 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
       attachable.save!
     end
 
-    context 'on a draft document' do
+    context "on a draft document" do
       let(:edition) { create(:news_article) }
       let(:asset_initially_draft) { true }
 
-      it 'sets link to parent document in Asset Manager when document is published' do
+      it "sets link to parent document in Asset Manager when document is published" do
         visit admin_news_article_path(edition)
         force_publish_document
 
@@ -41,7 +41,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
 
         Services.asset_manager.expects(:update_asset)
           .at_least_once
-          .with(asset_id, has_entry('parent_document_url', parent_document_url))
+          .with(asset_id, has_entry("parent_document_url", parent_document_url))
 
         AssetManagerAttachmentMetadataWorker.drain
       end
@@ -71,9 +71,9 @@ private
   end
 
   def force_publish_document
-    click_link 'Force publish'
-    fill_in 'Reason for force publishing', with: 'testing'
-    click_button 'Force publish'
+    click_link "Force publish"
+    fill_in "Reason for force publishing", with: "testing"
+    click_button "Force publish"
     assert_text %r{The document .* has been published}
   end
 end

@@ -1,5 +1,5 @@
 class PastForeignSecretariesController < PublicFacingController
-  layout 'frontend'
+  layout "frontend"
 
   def show
     if valid_names.include?(params[:id])

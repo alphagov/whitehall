@@ -32,7 +32,7 @@ module ServiceListeners
           api.publish_withdrawal_async(
             edition.content_id,
             edition.unpublishing.explanation,
-            translation.locale.to_s
+            translation.locale.to_s,
           )
         end
       when "force_schedule", "schedule"
@@ -80,7 +80,7 @@ module ServiceListeners
             edition.content_id,
             "",
             "This translation is no longer available. You can find the original version of this content at [#{edition_url}](#{edition_url})",
-            locale
+            locale,
           )
         end
       end

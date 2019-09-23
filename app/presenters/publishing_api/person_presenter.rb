@@ -55,8 +55,8 @@ module PublishingApi
       [
         {
           content_type: "text/html",
-          content: item.biography || ""
-        }
+          content: item.biography || "",
+        },
       ]
     end
   end

@@ -17,7 +17,7 @@ class EditionUnpublisher < EditionService
   end
 
   def verb
-    'unpublish'
+    "unpublish"
   end
 
 private

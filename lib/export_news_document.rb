@@ -131,7 +131,7 @@ private
 
       if attachment.respond_to?(:govspeak_content)
         data[:govspeak_content] = attachment.govspeak_content.as_json(
-          expect: :html_attachment_id
+          expect: :html_attachment_id,
         )
       end
 

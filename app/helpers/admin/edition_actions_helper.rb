@@ -1,35 +1,35 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit draft', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-default btn-lg add-left-margin"
+    link_to "Edit draft", edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-default btn-lg add-left-margin"
   end
 
   def redraft_edition_button(edition)
-    button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-default btn-lg"
+    button_to "Create new edition to edit", revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-default btn-lg"
   end
 
   def content_data_button(edition)
     url = content_data_page_data_url(edition)
 
-    link_to 'View data about page',
+    link_to "View data about page",
             url,
-            class: 'btn btn-default btn-lg pull-right',
+            class: "btn btn-default btn-lg pull-right",
             data: {
-              track_category: 'external-link-clicked',
+              track_category: "external-link-clicked",
               track_action: url,
-              track_label:  'View data about page',
+              track_label:  "View data about page",
             }
   end
 
   def content_publisher_button(edition)
     url = content_publisher_document_summary_url(edition)
 
-    link_to 'Edit in Content Publisher',
+    link_to "Edit in Content Publisher",
             url,
-            class: 'btn btn-lg btn-primary public_version',
+            class: "btn btn-lg btn-primary public_version",
             data: {
-              track_category: 'external-link-clicked',
+              track_category: "external-link-clicked",
               track_action: url,
-              track_label: 'Edit in Content Publisher',
+              track_label: "Edit in Content Publisher",
             }
   end
 
@@ -38,7 +38,7 @@ module Admin::EditionActionsHelper
       1 => public_document_path(edition),
       2 => edition.type.underscore,
       3 => root_taxon_paths,
-      4 => edition.document.content_id
+      4 => edition.document.content_id,
     }
   end
 
@@ -63,9 +63,9 @@ module Admin::EditionActionsHelper
 
   def convert_to_draft_edition_form(edition)
     url = convert_to_draft_admin_edition_path(edition, lock_version: edition.lock_version)
-    options = { title: "Convert to draft #{edition.title}", class: 'btn btn-success' }
-    options[:disabled] = 'disabled' unless edition.valid_as_draft?
-    button_to 'Convert to draft', url, options
+    options = { title: "Convert to draft #{edition.title}", class: "btn btn-success" }
+    options[:disabled] = "disabled" unless edition.valid_as_draft?
+    button_to "Convert to draft", url, options
   end
 
   def publish_edition_form(edition, options = {})
@@ -113,16 +113,16 @@ module Admin::EditionActionsHelper
   end
 
   def delete_edition_button(edition)
-    button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", data: { confirm: "Are you sure you want to discard this draft?" }, class: "btn btn-danger"
+    button_to "Discard draft", admin_edition_path(edition), method: :delete, title: "Delete", data: { confirm: "Are you sure you want to discard this draft?" }, class: "btn btn-danger"
   end
 
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     content_tag(:ul,
                 class: "masthead-menu list-unstyled js-hidden",
-                id: 'new-document-menu',
-                role: 'menu',
-                'aria-labelledby' => 'new-document-label') do
+                id: "new-document-menu",
+                role: "menu",
+                "aria-labelledby" => "new-document-label") do
       edition_types = [
         Consultation,
         Publication,
@@ -137,11 +137,11 @@ module Admin::EditionActionsHelper
       edition_types
         .select { |edition_type| can?(:create, edition_type) }
         .map { |edition_type|
-          content_tag(:li, class: 'masthead-menu-item') do
+          content_tag(:li, class: "masthead-menu-item") do
             link_to(edition_type.model_name.human,
                     polymorphic_path([:new, :admin, edition_type.name.underscore]),
                     title: "Create #{edition_type.model_name.human.titleize}",
-                    role: 'menuitem')
+                    role: "menuitem")
           end
         }
         .join
@@ -167,9 +167,9 @@ private
 
   def edition_sub_type_options_for_select(selected)
     subtype_options_hash = {
-      'Publication sub-types' => PublicationType.ordered_by_prevalence.map { |sub_type| [sub_type.plural_name, "publication_#{sub_type.id}"] },
-      'News article sub-types' => NewsArticleType.all.map { |sub_type| [sub_type.plural_name, "news_article_#{sub_type.id}"] },
-      'Speech sub-types' => SpeechType.all.map { |sub_type| [sub_type.plural_name, "speech_#{sub_type.id}"] }
+      "Publication sub-types" => PublicationType.ordered_by_prevalence.map { |sub_type| [sub_type.plural_name, "publication_#{sub_type.id}"] },
+      "News article sub-types" => NewsArticleType.all.map { |sub_type| [sub_type.plural_name, "news_article_#{sub_type.id}"] },
+      "Speech sub-types" => SpeechType.all.map { |sub_type| [sub_type.plural_name, "speech_#{sub_type.id}"] },
     }
     grouped_options_for_select(subtype_options_hash, selected)
   end
@@ -180,11 +180,11 @@ private
       .map(&:base_path)
       .uniq
       .map(&method(:delete_leading_slash))
-      .sort.join(', ')
+      .sort.join(", ")
   end
 
   def delete_leading_slash(str)
-    str.delete_prefix('/')
+    str.delete_prefix("/")
   end
 
   def get_root(taxon)

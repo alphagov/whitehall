@@ -11,11 +11,11 @@
 # file first. Only when it's something that basically every test needs should
 # you add it here.
 
-require 'bundler/setup'
-$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require "bundler/setup"
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 $LOAD_PATH.unshift File.expand_path(__dir__)
 
-require 'minitest/autorun'
-require 'mocha/setup'
+require "minitest/autorun"
+require "mocha/setup"
 
-require 'logger'
+require "logger"

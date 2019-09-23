@@ -1,5 +1,5 @@
-old_slug = 'associate-network-architect'
-new_slug = 'associate-network-architect-skills-they-need'
+old_slug = "associate-network-architect"
+new_slug = "associate-network-architect-skills-they-need"
 
 document = Document.find_by(slug: old_slug)
 

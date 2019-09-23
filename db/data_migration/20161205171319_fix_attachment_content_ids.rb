@@ -22,7 +22,7 @@ html_attachment_changes = {
   #/government/publications/st-ives-lock/st-ives-lock
   "d92976b6-60be-4e88-8a1f-0701baaf983c" => "dd93e284-5e3d-4b57-9e60-82b044473fdb",
   #/government/publications/cma-markets-work-recommendations/energy
-  "b98e9fe7-b10b-4bd3-ae1c-b0af7d8b80b5" => "50772ee7-b555-44e1-a5d3-c006f232559d"
+  "b98e9fe7-b10b-4bd3-ae1c-b0af7d8b80b5" => "50772ee7-b555-44e1-a5d3-c006f232559d",
 }
 
 html_attachment_changes.each do |from, to|
@@ -37,7 +37,7 @@ document_changes = {
   #/government/publications/equality-information-report-2015
   "39a5245d-e1ed-422c-943d-08bb0a241eec" => "53fed749-53ca-476f-9243-da67ea0e8ad7",
   #/government/publications/anti-dumping-duty-measure-ad2138/anti-dumping-duty-measure-ad2138
-  "d53aeb37-2841-4e8a-a3f5-4d51f1bd31bd" => "09b404ef-dfad-434f-975f-57d5d21d6b50"
+  "d53aeb37-2841-4e8a-a3f5-4d51f1bd31bd" => "09b404ef-dfad-434f-975f-57d5d21d6b50",
 }
 
 document_changes.each do |from, to|

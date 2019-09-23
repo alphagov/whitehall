@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::GovernmentPresenterTest < PresenterTestCase
   setup do
-    @government = stub_record(:government, slug: 'old-gov')
+    @government = stub_record(:government, slug: "old-gov")
     @presenter = Api::GovernmentPresenter.new(@government, @view_context)
     stubs_helper_method(:params).returns(format: :json)
   end
@@ -20,8 +20,8 @@ class Api::GovernmentPresenterTest < PresenterTestCase
     assert_equal @government, paginated.page.first.model
   end
 
-  test 'links has a self link, pointing to the request-relative api government url' do
-    self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self' }
+  test "links has a self link, pointing to the request-relative api government url" do
+    self_link = @presenter.links.detect { |(_url, attrs)| attrs["rel"] == "self" }
     assert self_link
     url, _attrs = *self_link
     assert_equal api_government_url(@government.slug), url
@@ -32,8 +32,8 @@ class Api::GovernmentPresenterTest < PresenterTestCase
   end
 
   test "json includes government name as title" do
-    @government.stubs(:name).returns('government-name')
-    assert_equal 'government-name', @presenter.as_json[:title]
+    @government.stubs(:name).returns("government-name")
+    assert_equal "government-name", @presenter.as_json[:title]
   end
 
   test "json includes government start_date and end_date in details hash" do

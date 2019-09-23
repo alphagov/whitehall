@@ -32,19 +32,19 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when 'submit', 'unschedule', 'convert_to_draft'
+    when "submit", "unschedule", "convert_to_draft"
       enforce_permission!(:update, @edition)
-    when 'reject'
+    when "reject"
       enforce_permission!(:reject, @edition)
-    when 'publish', 'schedule'
+    when "publish", "schedule"
       enforce_permission!(:publish, @edition)
-    when 'force_publish', 'confirm_force_publish', 'force_schedule'
+    when "force_publish", "confirm_force_publish", "force_schedule"
       enforce_permission!(:force_publish, @edition)
-    when 'unpublish', 'confirm_unpublish'
+    when "unpublish", "confirm_unpublish"
       enforce_permission!(:unpublish, @edition)
-    when 'unwithdraw', 'confirm_unwithdraw'
+    when "unwithdraw", "confirm_unwithdraw"
       enforce_permission!(:unwithdraw, @edition)
-    when 'approve_retrospectively'
+    when "approve_retrospectively"
       enforce_permission!(:approve, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
@@ -78,13 +78,13 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def confirm_force_publish
     unless @edition.valid?(:publish)
-      redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join('. ')
+      redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ")
     end
   end
 
   def force_publish
     unless @edition.valid?(:publish)
-      return redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join('. ')
+      return redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join(". ")
     end
 
     edition_publisher = Whitehall.edition_services.force_publisher(@edition, user: current_user, remark: force_publish_reason)
@@ -217,7 +217,7 @@ private
     if params[:lock_version]
       @edition.lock_version = params[:lock_version]
     else
-      render plain: 'All workflow actions require a lock version', status: 422
+      render plain: "All workflow actions require a lock version", status: 422
     end
   end
 
@@ -235,7 +235,7 @@ private
 
   def action_name_as_human_interaction(action_name)
     case action_name.to_s
-    when 'convert_to_draft'
+    when "convert_to_draft"
       "convert this imported edition to a draft"
     when "approve_retrospectively"
       "retrospectively approve this edition"

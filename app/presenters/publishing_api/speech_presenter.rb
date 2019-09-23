@@ -57,7 +57,7 @@ module PublishingApi
           policy_areas
           related_policies
           world_locations
-        ]
+        ],
       )
       links.merge!(links_for_speaker)
       links.merge!(links_for_topical_events)
@@ -90,8 +90,8 @@ module PublishingApi
       {
         image: {
           alt_text: alt_text,
-          url: image.url
-        }
+          url: image.url,
+        },
       }
     end
 

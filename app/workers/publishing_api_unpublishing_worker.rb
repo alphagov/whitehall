@@ -2,7 +2,7 @@ class PublishingApiUnpublishingWorker
   include Sidekiq::Worker
   include LockedDocumentConcern
 
-  sidekiq_options queue: 'publishing_api'
+  sidekiq_options queue: "publishing_api"
 
   def perform(unpublishing_id, allow_draft = false)
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
@@ -19,7 +19,7 @@ class PublishingApiUnpublishingWorker
             content_id,
             unpublishing.alternative_path,
             locale,
-            allow_draft
+            allow_draft,
           )
         else
           PublishingApiGoneWorker.new.perform(
@@ -27,7 +27,7 @@ class PublishingApiUnpublishingWorker
             unpublishing.alternative_path,
             unpublishing.explanation,
             locale,
-            allow_draft
+            allow_draft,
           )
         end
       when UnpublishingReason::CONSOLIDATED_ID
@@ -35,14 +35,14 @@ class PublishingApiUnpublishingWorker
           content_id,
           unpublishing.alternative_path,
           locale,
-          allow_draft
+          allow_draft,
         )
       when UnpublishingReason::WITHDRAWN_ID
         PublishingApiWithdrawalWorker.new.perform(
           content_id,
           unpublishing.explanation,
           locale,
-          allow_draft
+          allow_draft,
         )
       end
     end

@@ -16,7 +16,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
       expected_json = presenter.content.merge(
         # This is to simulate what the time public timestamp will be after the
         # page has been published
-        public_updated_at: Time.zone.now.as_json
+        public_updated_at: Time.zone.now.as_json,
       )
 
       assert_publishing_api_put_content(@topical_event_about_page.content_id, expected_json)
@@ -24,9 +24,9 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
         @topical_event_about_page.content_id,
         {
           update_type: nil,
-          locale: 'en'
+          locale: "en",
         },
-        1
+        1,
       )
     end
   end
@@ -41,7 +41,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
           type: "gone",
           locale: "en",
           discard_drafts: true,
-        }
+        },
       )
 
       @topical_event_about_page.destroy
@@ -59,7 +59,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
       expected_json = presenter.content.merge(
         # This is to simulate what the time public timestamp will be after the
         # page has been published
-        public_updated_at: Time.zone.now.as_json
+        public_updated_at: Time.zone.now.as_json,
       )
 
       assert_publishing_api_put_content(@topical_event_about_page.content_id, expected_json)
@@ -67,9 +67,9 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
         @topical_event_about_page.content_id,
         {
           update_type: nil,
-          locale: 'en'
+          locale: "en",
         },
-        2
+        2,
       )
     end
   end

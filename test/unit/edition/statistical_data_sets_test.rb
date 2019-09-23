@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
   class EditionWithStatisticalDataSets < Edition
@@ -9,9 +9,9 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
 
   def valid_edition_attributes
     {
-      title:   'edition-title',
-      body:    'edition-body',
-      summary: 'edition-summary',
+      title:   "edition-title",
+      body:    "edition-body",
+      summary: "edition-summary",
       creator: create(:user),
       previously_published: false,
     }
@@ -20,7 +20,7 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
   def statistical_data_sets
     @statistical_data_sets ||= [
       create(:statistical_data_set, document: create(:document)),
-      create(:statistical_data_set, document: create(:document))
+      create(:statistical_data_set, document: create(:document)),
     ]
   end
 

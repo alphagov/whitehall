@@ -117,7 +117,7 @@ module Searchable
     extend ActiveSupport::Concern
 
     KEY_MAPPING = {
-      content: 'indexable_content',
+      content: "indexable_content",
     }.freeze
 
     # Build the payload to pass to the search index

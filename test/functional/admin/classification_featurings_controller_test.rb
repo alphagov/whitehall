@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
@@ -25,10 +25,10 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   test "GET :index assigns a filtered list to tagged_editions when given a title" do
     create(:published_news_article, topics: [@topic])
-    news_article = create(:published_news_article, topics: [@topic], title: 'Specific title')
-    _unrelated_article = create(:published_news_article, :with_topics, title: 'Specific title')
+    news_article = create(:published_news_article, topics: [@topic], title: "Specific title")
+    _unrelated_article = create(:published_news_article, :with_topics, title: "Specific title")
 
-    get :index, params: { topic_id: @topic, title: 'specific' }
+    get :index, params: { topic_id: @topic, title: "specific" }
 
     tagged_editions = assigns(:tagged_editions)
     assert_equal [news_article], tagged_editions
@@ -74,7 +74,7 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     get :index, params: { topic_id: create(:topic) }
 
     assert_equal 0, assigns(:tagged_editions).count
-    assert_match 'No documents found', response.body
+    assert_match "No documents found", response.body
   end
 
   test "PUT :order saves the new order of featurings" do
@@ -83,9 +83,9 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     feature_3 = create(:classification_featuring, classification: @topic)
 
     put :order, params: { topic_id: @topic, ordering: {
-                                        feature_1.id.to_s => '1',
-                                        feature_2.id.to_s => '2',
-                                        feature_3.id.to_s => '0'
+                                        feature_1.id.to_s => "1",
+                                        feature_2.id.to_s => "2",
+                                        feature_3.id.to_s => "0",
                                       } }
 
     assert_response :redirect

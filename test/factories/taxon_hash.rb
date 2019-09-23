@@ -9,14 +9,14 @@ FactoryBot.define do
     sequence("title") { |i| "Taxon Name #{i}" }
     sequence("base_path") { |i| "/path/to_taxon_#{i}" }
     sequence("content_id") { |i| "taxon_uuid_#{i}" }
-    phase { 'live' }
+    phase { "live" }
     after :build do |hash, evaluator|
       hash["links"] = {
         "child_taxons" => evaluator.children,
-        "parent_taxons" => evaluator.parents
+        "parent_taxons" => evaluator.parents,
       }
       hash["details"] = {
-        "visible_to_departmental_editors" => evaluator.visibility
+        "visible_to_departmental_editors" => evaluator.visibility,
       }
       hash.stringify_keys!
     end

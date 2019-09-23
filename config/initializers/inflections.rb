@@ -8,7 +8,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
-  inflect.acronym 'FOI'
+  inflect.acronym "FOI"
 
   inflect.plural %r[^(Minister)], '\0s'
   inflect.plural %r[^Chancellor], '\0s'

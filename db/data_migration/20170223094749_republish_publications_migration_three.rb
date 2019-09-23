@@ -1,11 +1,11 @@
 document_scope = Document.where(
-  id: Publication.where(state: %w(draft published withdrawn)).pluck(:document_id)
+  id: Publication.where(state: %w(draft published withdrawn)).pluck(:document_id),
 )
 
 lowest_id_for_this_republish = 0
 highest_id_for_this_republish = 260000
 document_scope = document_scope.where(
-  id: lowest_id_for_this_republish..highest_id_for_this_republish
+  id: lowest_id_for_this_republish..highest_id_for_this_republish,
 ).order(id: :desc)
 
 puts "Republishing #{document_scope.count} documents"

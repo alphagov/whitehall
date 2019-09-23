@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -8,7 +8,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     create(:government)
     stub_request(
       :get,
-      %r{\A#{Plek.find('publishing-api')}/v2/links}
+      %r{\A#{Plek.find('publishing-api')}/v2/links},
     ).to_return(body: { links: {} }.to_json)
     publishing_api_has_linkables([], document_type: "need")
   end
@@ -37,8 +37,8 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     publishing_api_has_links(
       content_id: detailed_guide.document.content_id,
       links: {
-        meets_user_needs: [content_id_a, content_id_b]
-      }
+        meets_user_needs: [content_id_a, content_id_b],
+      },
     )
     publishing_api_has_expanded_links(
       content_id: detailed_guide.document.content_id,
@@ -50,20 +50,20 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
             details: {
               role: "x",
               goal: "y",
-              benefit: "z"
-            }
+              benefit: "z",
+            },
           },
           {
             content_id: content_id_b,
             details: {
               role: "c",
               goal: "d",
-              benefit: "e"
-            }
-          }
-        ]
+              benefit: "e",
+            },
+          },
+        ],
       },
-      version: 1
+      version: 1,
     )
 
     get :show, params: { id: detailed_guide.id }
@@ -85,7 +85,7 @@ private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(
-      alternative_format_provider_id: create(:alternative_format_provider).id
+      alternative_format_provider_id: create(:alternative_format_provider).id,
     )
   end
 end

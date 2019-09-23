@@ -47,12 +47,12 @@ private
 
   def log_error_and_render_400(exception)
     logger.error "\n#{exception.class} (#{exception.message}):\n#{exception.backtrace.join("\n")}\n\n"
-    render plain: 'Bad API request', status: :bad_request
+    render plain: "Bad API request", status: :bad_request
   end
 
   def log_error_and_render_500(exception)
     logger.error "\n#{exception.class} (#{exception.message}):\n#{exception.backtrace.join("\n")}\n\n"
-    render plain: 'API error', status: :internal_server_error
+    render plain: "API error", status: :internal_server_error
   end
 
   def set_locale(&block)
@@ -68,7 +68,7 @@ private
   end
 
   def set_api_access_control_allow_origin_headers
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers["Access-Control-Allow-Origin"] = "*"
   end
 
   def restrict_request_formats
@@ -121,6 +121,6 @@ private
   end
 
   def set_x_frame_options
-    response.headers['X-Frame-Options'] = 'ALLOWALL'
+    response.headers["X-Frame-Options"] = "ALLOWALL"
   end
 end

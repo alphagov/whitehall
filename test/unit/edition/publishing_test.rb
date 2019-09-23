@@ -31,17 +31,17 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
 
   test "is valid with change note when previous published edition exists" do
     published_edition = create(:published_edition)
-    edition = build(:draft_edition, change_note: 'something', minor_change: false, document: published_edition.document)
+    edition = build(:draft_edition, change_note: "something", minor_change: false, document: published_edition.document)
     assert edition.valid?
   end
 end
 
 class Edition::PublishingTest < ActiveSupport::TestCase
-  test '#build_unpublishing builds an unpublishing for the edition with the slug and type set' do
+  test "#build_unpublishing builds an unpublishing for the edition with the slug and type set" do
     edition = create(:published_edition)
     params  = {
       unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
-      explanation: 'This document was published by mistake'
+      explanation: "This document was published by mistake",
     }
 
     edition.build_unpublishing(params)
@@ -74,14 +74,14 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   test "incrementing the version number of a first edition sets published version to 1.0" do
     edition = create(:submitted_edition)
     edition.increment_version_number
-    assert_equal '1.0', edition.published_version
+    assert_equal "1.0", edition.published_version
   end
 
   test "incrementing the version number on a major change resets the minor version and increments the major version" do
     edition = create(:published_edition, published_major_version: 1, published_minor_version: 2)
     new_draft = edition.create_draft(create(:departmental_editor))
     new_draft.increment_version_number
-    assert_equal '2.0', new_draft.published_version
+    assert_equal "2.0", new_draft.published_version
   end
 
   test "incrementing the version number on a minor change updates the minor version" do
@@ -89,26 +89,26 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(create(:writer))
     new_draft.minor_change = true
     new_draft.increment_version_number
-    assert_equal '1.1', new_draft.published_version
+    assert_equal "1.1", new_draft.published_version
   end
 
-  test '#reset_version_numbers on a first edition resets the version numbers back to nil' do
+  test "#reset_version_numbers on a first edition resets the version numbers back to nil" do
     edition = create(:published_edition)
     edition.reset_version_numbers
 
     assert_nil edition.published_version
   end
 
-  test '#reset_version_numbers on a re-editioned edition resets the version numbers back to that of the previous edition' do
+  test "#reset_version_numbers on a re-editioned edition resets the version numbers back to that of the previous edition" do
     previous_edition = create(:published_edition, published_major_version: 2, published_minor_version: 4)
     new_edition = previous_edition.create_draft(create(:writer))
     new_edition.minor_change = true
     force_publish(new_edition)
 
-    assert_equal '2.5', new_edition.published_version
+    assert_equal "2.5", new_edition.published_version
 
     new_edition.reset_version_numbers
-    assert_equal '2.4', new_edition.published_version
+    assert_equal "2.4", new_edition.published_version
   end
 
   test "#approve_retrospectively should clear the force_published flag, and return true on success" do
@@ -122,35 +122,35 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_publication)
 
     refute edition.approve_retrospectively
-    assert edition.errors[:base].include?('This document has not been force-published')
+    assert edition.errors[:base].include?("This document has not been force-published")
   end
 
-  test '#unpublished? returns false if publicly visible' do
+  test "#unpublished? returns false if publicly visible" do
     published_edition = build(:published_edition)
 
     refute published_edition.unpublished?
   end
 
-  test '#unpublished? returns false if no unpublishing exists' do
+  test "#unpublished? returns false if no unpublishing exists" do
     draft_edition = build(:draft_edition)
 
     refute draft_edition.unpublished?
   end
 
-  test '#unpublished? returns true if not publicly visible and unpublishing exists' do
+  test "#unpublished? returns true if not publicly visible and unpublishing exists" do
     unpublishing = build(:unpublishing)
     draft_edition_with_unpublishing = build(:draft_edition, unpublishing: unpublishing)
 
     assert draft_edition_with_unpublishing.unpublished?
   end
 
-  test '#unpublished_edition returns nil if not unpublished' do
+  test "#unpublished_edition returns nil if not unpublished" do
     edition = build(:published_edition)
 
     assert_nil edition.unpublished_edition
   end
 
-  test '#unpublished_edition returns unpublished edition if unpublished' do
+  test "#unpublished_edition returns unpublished edition if unpublished" do
     edition = create(:draft_edition, :with_document)
     edition.build_unpublishing(edition: edition)
 

@@ -21,12 +21,12 @@ Whitehall::Application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
+  if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=172800'
+      "Cache-Control" => "public, max-age=172800",
     }
   else
     config.action_controller.perform_caching = false
@@ -42,7 +42,7 @@ Whitehall::Application.configure do
   # Send emails to the local MailHog instance
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    port: 1025
+    port: 1025,
   }
 
   # Print deprecation notices to the Rails logger.
@@ -64,7 +64,7 @@ Whitehall::Application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = ENV['DISABLE_ASSETS_DEBUG'].nil?
+  config.assets.debug = ENV["DISABLE_ASSETS_DEBUG"].nil?
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -77,9 +77,9 @@ Whitehall::Application.configure do
 
   config.assets.cache_store = :null_store
   config.sass.cache = false
-  config.slimmer.asset_host = ENV['STATIC_DEV'] || Plek.find('static')
+  config.slimmer.asset_host = ENV["STATIC_DEV"] || Plek.find("static")
 
-  if ENV['SHOW_PRODUCTION_IMAGES']
-    config.asset_host = 'https://assets.publishing.service.gov.uk'
+  if ENV["SHOW_PRODUCTION_IMAGES"]
+    config.asset_host = "https://assets.publishing.service.gov.uk"
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
   # we need this because locale param might be stripped by our path
@@ -12,7 +12,7 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
 
   test "visiting a world_location_news_article with a spurious locale=en param will redirect to remove it" do
     canonical_path = send("world_location_news_article_path", "a-world_location_news_article")
-    extra_path = with_locale_param(canonical_path, 'en')
+    extra_path = with_locale_param(canonical_path, "en")
     get extra_path
 
     assert_redirected_to canonical_path
@@ -20,7 +20,7 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
 
   test "visiting the world_location_news_article index with a spurious locale=en param will redirect to remove it" do
     canonical_path = send("world_location_news_articles_path")
-    extra_path = with_locale_param(canonical_path, 'en')
+    extra_path = with_locale_param(canonical_path, "en")
     get extra_path
 
     assert_redirected_to canonical_path
@@ -28,7 +28,7 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
 
   test "visiting the publication index with a spurious locale=en param will redirect to remove it" do
     canonical_path = send("publications_path")
-    extra_path = with_locale_param(canonical_path, 'en')
+    extra_path = with_locale_param(canonical_path, "en")
     get extra_path
 
     assert_redirected_to canonical_path
@@ -36,9 +36,9 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
 
   # news articles and fatality notices redirect to announcements
   # index, instead of serving their own
-  test 'visiting the announcements index with a spurious locale=en param will redirect to remove it' do
+  test "visiting the announcements index with a spurious locale=en param will redirect to remove it" do
     canonical_path = announcements_path
-    extra_path = with_locale_param(canonical_path, 'en')
+    extra_path = with_locale_param(canonical_path, "en")
     get extra_path
 
     assert_redirected_to canonical_path

@@ -2,7 +2,7 @@ class ImageValidator < ActiveModel::Validator
   DEFAULT_MIME_TYPES = {
     "image/jpeg" => /(\.jpeg|\.jpg)$/,
     "image/gif"  => /\.gif$/,
-    "image/png"  => /\.png$/
+    "image/png"  => /\.png$/,
   }.freeze
 
   def initialize(options = {})

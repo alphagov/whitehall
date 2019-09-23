@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class NotificationsEditionPublishedByMonitoredUserTest < ActionMailer::TestCase
   enable_url_helpers

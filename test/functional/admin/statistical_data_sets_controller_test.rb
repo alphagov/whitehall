@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   setup do
@@ -20,7 +20,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(
-      alternative_format_provider_id: create(:alternative_format_provider).id
+      alternative_format_provider_id: create(:alternative_format_provider).id,
     )
   end
 end

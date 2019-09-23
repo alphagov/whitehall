@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::EditionActionsHelperTest < ActionView::TestCase
   test "should generate publish form for edition" do

@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'capybara/rails'
+require "test_helper"
+require "capybara/rails"
 
 class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
@@ -7,19 +7,19 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
 
-  context 'given a draft document with a file attachment' do
+  context "given a draft document with a file attachment" do
     let(:managing_editor) { create(:managing_editor) }
 
-    let(:filename) { 'sample.docx' }
+    let(:filename) { "sample.docx" }
     let(:file) { File.open(path_to_attachment(filename)) }
     let(:attachment) { build(:file_attachment, attachable: edition, file: file) }
-    let(:asset_id) { 'asset-id' }
+    let(:asset_id) { "asset-id" }
 
     let(:edition) { create(:news_article) }
 
     before do
       login_as(managing_editor)
-      publishing_api_has_linkables([], document_type: 'topic')
+      publishing_api_has_linkables([], document_type: "topic")
       edition.attachments << attachment
       setup_publishing_api_for(edition)
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
@@ -28,29 +28,29 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       edition.save!
     end
 
-    context 'when attachment is deleted' do
+    context "when attachment is deleted" do
       before do
         visit admin_news_article_path(edition)
-        click_link 'Modify attachments'
-        within '.existing-attachments' do
-          click_link 'Delete'
+        click_link "Modify attachments"
+        within ".existing-attachments" do
+          click_link "Delete"
         end
-        assert_text 'Attachment deleted'
+        assert_text "Attachment deleted"
       end
 
-      it 'deletes corresponding asset(s) in Asset Manager' do
+      it "deletes corresponding asset(s) in Asset Manager" do
         Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
         AssetManagerAttachmentMetadataWorker.drain
       end
     end
 
-    context 'when draft document is discarded' do
+    context "when draft document is discarded" do
       before do
         visit admin_news_article_path(edition)
-        click_button 'Discard draft'
+        click_button "Discard draft"
       end
 
-      it 'deletes corresponding asset(s) in Asset Manager' do
+      it "deletes corresponding asset(s) in Asset Manager" do
         Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
         AssetManagerAttachmentMetadataWorker.drain
       end
@@ -66,7 +66,7 @@ private
   def setup_publishing_api_for(edition)
     publishing_api_has_links(
       content_id: edition.document.content_id,
-      links: {}
+      links: {},
     )
   end
 

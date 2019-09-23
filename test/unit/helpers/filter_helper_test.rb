@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class FilterHelperTest < ActionView::TestCase
   include TaxonomyHelper
@@ -21,21 +21,21 @@ class FilterHelperTest < ActionView::TestCase
   end
 
   test "#topic_options_for_statistics_announcement_filter renders select options for all topics with an associated release announcement in alphabetical order selecting passed in topic" do
-    topic_b = build(:taxon_hash, content_id: 'b-content-id', title: 'B')
-    topic_c = build(:taxon_hash, content_id: 'c-content-id', title: 'C')
-    topic_z = build(:taxon_hash, content_id: 'z-content-id', title: 'Z')
+    topic_b = build(:taxon_hash, content_id: "b-content-id", title: "B")
+    topic_c = build(:taxon_hash, content_id: "c-content-id", title: "C")
+    topic_z = build(:taxon_hash, content_id: "z-content-id", title: "Z")
 
     redis_cache_has_taxons([topic_b, topic_c, topic_z])
 
     create :statistics_announcement
     create :statistics_announcement
 
-    rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_b['content_id']))
+    rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_b["content_id"]))
     options = rendered.css("option")
     option_values = options.map { |option| option[:value] }
 
-    assert_equal ["All topics", topic_b['title'], topic_c['title'], topic_z['title']], options.map(&:text)
-    assert_equal ["", topic_b['content_id'], topic_c['content_id'], topic_z['content_id']], option_values
+    assert_equal ["All topics", topic_b["title"], topic_c["title"], topic_z["title"]], options.map(&:text)
+    assert_equal ["", topic_b["content_id"], topic_c["content_id"], topic_z["content_id"]], option_values
     assert options[1][:selected]
   end
 end
@@ -113,7 +113,7 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
       organisations: [organisation.slug],
       topics: [topic_object.content_id],
       from_date: "2040-01-01",
-      to_date: "2050-01-01"
+      to_date: "2050-01-01",
     }
 
     filter.stubs(:valid_filter_params).returns(expected_filter_params)

@@ -3,7 +3,7 @@ require "test_helper"
 class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
   test "should call original news_article_path with locale set" do
     controller = FakeController.new(locale: "fr")
-    object = stub('news article')
+    object = stub("news article")
     object.stubs(:available_in_locale?).with("fr").returns(true)
     controller.expects(:news_article_path_was_called).with(object, locale: "fr")
     controller.news_article_path(object)
@@ -11,7 +11,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
 
   test "should not generate paths including locale with en locale set" do
     controller = FakeController.new(locale: "en")
-    object = stub('news article')
+    object = stub("news article")
     object.stubs(:available_in_locale?).returns(true)
     controller.expects(:news_article_path_was_called).with(object, {})
     controller.news_article_path(object)
@@ -19,7 +19,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
 
   test "should not generate paths include locale when target object is not available in that locale" do
     controller = FakeController.new(locale: "fr")
-    object = stub('news article')
+    object = stub("news article")
     object.stubs(:available_in_locale?).with("fr").returns(false)
     controller.expects(:news_article_path_was_called).with(object, {})
     controller.news_article_path(object)
@@ -27,16 +27,16 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
 
   test "should generate paths including locale for nested models" do
     controller = FakeController.new(locale: "fr")
-    parent = stub('parent resource')
-    object = stub('coporate_information_page')
+    parent = stub("parent resource")
+    object = stub("coporate_information_page")
     object.stubs(:available_in_locale?).with("fr").returns(true)
-    controller.expects(:worldwide_organisation_corporate_information_page_path_was_called).with(parent, object, locale: 'fr')
+    controller.expects(:worldwide_organisation_corporate_information_page_path_was_called).with(parent, object, locale: "fr")
     controller.worldwide_organisation_corporate_information_page_path(parent, object)
   end
 
-  test 'if locale is not provided to path helper, and it is not set in params, should fall back to I18n.locale' do
+  test "if locale is not provided to path helper, and it is not set in params, should fall back to I18n.locale" do
     controller = FakeController.new
-    object = stub('news article')
+    object = stub("news article")
 
     object.expects(:available_in_locale?).with(:fr).returns(true)
     I18n.with_locale :fr do

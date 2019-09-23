@@ -30,7 +30,7 @@ private
     people_and_roles.map do |person, roles|
       [
         PersonPresenter.new(person, view_context),
-        roles.map { |r| RolePresenter.new(r, view_context) }
+        roles.map { |r| RolePresenter.new(r, view_context) },
       ]
     end
   end
@@ -41,7 +41,7 @@ private
       with_translations.
       with_translations_for(:ministerial_roles).
       includes(ministerial_roles: [:current_people]).
-      order('organisations.ministerial_ordering, organisation_roles.ordering').map do |organisation|
+      order("organisations.ministerial_ordering, organisation_roles.ordering").map do |organisation|
       roles_presenter = RolesPresenter.new(organisation.ministerial_roles, view_context)
       roles_presenter.remove_unfilled_roles!
       [organisation, roles_presenter]

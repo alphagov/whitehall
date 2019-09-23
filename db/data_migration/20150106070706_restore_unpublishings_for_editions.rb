@@ -10,7 +10,7 @@
         unpublishing = edition
                          .build_unpublishing(
                            unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-                           explanation: 'This content is no longer current.'
+                           explanation: "This content is no longer current.",
                          )
         unpublishing.save!
         puts "#{id}: Unpublishing created"

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PersonRoleTest < ActiveSupport::TestCase
   test "creating a new role and person republishes the linked organisation" do

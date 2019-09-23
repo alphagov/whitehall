@@ -48,7 +48,7 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status, response.body
 
     onward_headers = {
-      "GOVUK-Request-Id" => @govuk_request_id
+      "GOVUK-Request-Id" => @govuk_request_id,
     }
 
     # Main document

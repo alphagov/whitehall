@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 require "gds_api/test_helpers/search"
 
 class PeopleControllerTest < ActionController::TestCase
@@ -12,7 +12,7 @@ class PeopleControllerTest < ActionController::TestCase
 
     role_appointment_attributes = {
       role: stub_translatable_record(role_type, organisations: [organisation]),
-      person: stub_translatable_record(:person, organisations: [organisation])
+      person: stub_translatable_record(:person, organisations: [organisation]),
     }.merge(options)
 
     stub_record(:role_appointment, role_appointment_attributes)
@@ -41,7 +41,7 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'show has atom feed autodiscovery link' do
+  view_test "show has atom feed autodiscovery link" do
     get :show, params: { id: @person }
     assert_select_autodiscovery_link atom_feed_url_for(@person)
   end
@@ -54,18 +54,18 @@ class PeopleControllerTest < ActionController::TestCase
     assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
   end
 
-  test 'GET :show does not set the organisations slimmer header if the person is not associated with one' do
+  test "GET :show does not set the organisations slimmer header if the person is not associated with one" do
     get :show, params: { id: @person }
 
     assert_nil response.headers["X-Slimmer-Organisations"]
   end
 
   view_test "#show generates an atom feed of news and speeches associated with the person" do
-    person = create(:person, slug: 'a-person')
+    person = create(:person, slug: "a-person")
 
     get :show, params: { id: person }, format: :atom
 
-    assert_redirected_to '/government/announcements.atom?people[]=a-person'
+    assert_redirected_to "/government/announcements.atom?people[]=a-person"
   end
 
   view_test "should display the person's policies with content" do

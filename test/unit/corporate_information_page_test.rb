@@ -11,15 +11,15 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   should_be_invalid_without(:corporate_information_page, :corporate_information_page_type)
   should_be_invalid_without(:corporate_information_page, :body)
 
-  test 'AboutUs pages do not require a body' do
+  test "AboutUs pages do not require a body" do
     corporate_information_page = build(:corporate_information_page,
-                                       body: '',
+                                       body: "",
                                        corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
 
     assert corporate_information_page.valid?
   end
 
-  test 'should be invalid if has both organisation and worldwide org' do
+  test "should be invalid if has both organisation and worldwide org" do
     organisation = create(:organisation)
     worldwide_org = create(:worldwide_organisation)
     corporate_information_page = build(:corporate_information_page,
@@ -28,12 +28,12 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     refute corporate_information_page.valid?
   end
 
-  test 'should be invalid if it refers to the same document of another page' do
+  test "should be invalid if it refers to the same document of another page" do
     organisation = create(:organisation)
     corporate_information_page_1 = build(:corporate_information_page,
                                          organisation: organisation,
                                          corporate_information_page_type: CorporateInformationPageType::AboutUs,
-                                         state: 'published',
+                                         state: "published",
                                          major_change_published_at: Time.zone.now)
     corporate_information_page_1.save!
 
@@ -45,12 +45,12 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert corporate_information_page_2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
   end
 
-  test 'should be valid if it is a new draft of the same document' do
+  test "should be valid if it is a new draft of the same document" do
     organisation = create(:organisation)
     corporate_information_page_1 = build(:corporate_information_page,
                                          organisation: organisation,
                                          corporate_information_page_type: CorporateInformationPageType::AboutUs,
-                                         state: 'published',
+                                         state: "published",
                                          major_change_published_at: Time.zone.now)
     corporate_information_page_1.save!
 
@@ -58,24 +58,24 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
                                          organisation: organisation,
                                          corporate_information_page_type: CorporateInformationPageType::AboutUs,
                                          document_id: corporate_information_page_1.document_id,
-                                         state: 'draft')
+                                         state: "draft")
     assert corporate_information_page_2.valid?
   end
 
-  test 'should return search index data suitable for Rummageable' do
+  test "should return search index data suitable for Rummageable" do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page,
                                         corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
                                         organisation: organisation)
 
-    assert_equal corporate_information_page.content_id, corporate_information_page.search_index['content_id']
-    assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index['title']
-    assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']
+    assert_equal corporate_information_page.content_id, corporate_information_page.search_index["content_id"]
+    assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index["title"]
+    assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index["link"]
   end
 
-  test 'with_translations scope loads corporate information pages despite not have titles explicitly saved' do
+  test "with_translations scope loads corporate information pages despite not have titles explicitly saved" do
     cip_1 = create(:corporate_information_page, title: nil)
-    cip_2 = create(:corporate_information_page, title: 'Should not be saved')
+    cip_2 = create(:corporate_information_page, title: "Should not be saved")
 
     assert_equal [cip_1, cip_2], CorporateInformationPage.with_translations
   end
@@ -111,12 +111,12 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   end
 
   test "can find type by slug" do
-    assert_equal CorporateInformationPageType::TermsOfReference, CorporateInformationPageType.find('terms-of-reference')
+    assert_equal CorporateInformationPageType::TermsOfReference, CorporateInformationPageType.find("terms-of-reference")
   end
 
   test "when finding type by slug, raises if not found" do
     assert_raise ActiveRecord::RecordNotFound do
-      CorporateInformationPageType.find('does-not-exist')
+      CorporateInformationPageType.find("does-not-exist")
     end
   end
 
@@ -152,15 +152,15 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       ],
       jobs_and_contracts: [
         CorporateInformationPageType::Procurement,
-        CorporateInformationPageType::Recruitment
+        CorporateInformationPageType::Recruitment,
       ],
       other: [
         CorporateInformationPageType::PublicationScheme,
         CorporateInformationPageType::WelshLanguageScheme,
         CorporateInformationPageType::PersonalInformationCharter,
         CorporateInformationPageType::SocialMediaUse,
-        CorporateInformationPageType::AboutOurServices
-      ]
+        CorporateInformationPageType::AboutOurServices,
+      ],
     }
 
     by_menu_heading.values.flatten.each do |type|
@@ -172,11 +172,11 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     end
   end
 
-  test 'will not be indexed if the org it belongs to is not live on gov.uk' do
-    joining_org = create(:organisation, govuk_status: 'joining')
-    exempt_org = create(:organisation, govuk_status: 'exempt')
-    transitioning_org = create(:organisation, govuk_status: 'transitioning')
-    live_org = create(:organisation, govuk_status: 'live')
+  test "will not be indexed if the org it belongs to is not live on gov.uk" do
+    joining_org = create(:organisation, govuk_status: "joining")
+    exempt_org = create(:organisation, govuk_status: "exempt")
+    transitioning_org = create(:organisation, govuk_status: "transitioning")
+    live_org = create(:organisation, govuk_status: "live")
 
     corporate_information_page_1 = create(:corporate_information_page, :published, organisation: joining_org)
     corporate_information_page_2 = create(:corporate_information_page, :published, organisation: exempt_org)
@@ -193,7 +193,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page_4.update_in_search_index
   end
 
-  test 'until we launch worldwide will not be indexed if the org it belongs to is a worldwide org' do
+  test "until we launch worldwide will not be indexed if the org it belongs to is a worldwide org" do
     world_org = create(:worldwide_organisation)
 
     corp_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: world_org)
@@ -202,7 +202,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   end
 
   test "re-indexes the organisation after the 'About Us' CIP is saved" do
-    org = create(:organisation, govuk_status: 'live')
+    org = create(:organisation, govuk_status: "live")
     corp_page = create(
       :corporate_information_page,
       :published,
@@ -229,7 +229,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   end
 
   test "does not re-index organisation for other types of corporate info page" do
-    org = create(:organisation, govuk_status: 'live')
+    org = create(:organisation, govuk_status: "live")
     other_page = create(:corporate_information_page, :published, organisation: org)
     Whitehall::SearchIndex.expects(:add).with(org).never
     other_page.save!

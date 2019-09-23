@@ -5,7 +5,7 @@ class PublishingApiVanishWorker < PublishingApiWorker
     Services.publishing_api.unpublish(
       content_id,
       type: "vanish",
-      locale: locale
+      locale: locale,
     )
   rescue GdsApi::HTTPNotFound, GdsApi::HTTPUnprocessableEntity
     # nothing to do here as we can't unpublish something that doesn't exist

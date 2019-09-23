@@ -4,7 +4,7 @@ slugs = [
   "countryside-stewardship-water-capital-grants-catchment-sensitive-farming",
   "countryside-stewardship-woodland-capital-grants-2015",
   "countryside-productivity-scheme",
-  "rural-development-programme-for-england-leader-funding"
+  "rural-development-programme-for-england-leader-funding",
 ]
 logo_url = "https://assets.digital.cabinet-office.gov.uk/media/55547b94ed915d15d8000057/european-agricultural-fund-for-rural-development.gif"
 

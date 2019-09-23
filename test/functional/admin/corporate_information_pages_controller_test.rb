@@ -119,7 +119,7 @@ private
     {
       body: "This is the body",
       corporate_information_page_type_id: CorporateInformationPageType::TermsOfReference.id,
-      summary: "This is the summary"
+      summary: "This is the summary",
     }.merge(overrides)
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   setup do
@@ -9,7 +9,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'GET :new loads the organisation and feature and instantiates a new item and link' do
+  test "GET :new loads the organisation and feature and instantiates a new item and link" do
     get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }
 
     assert_response :success
@@ -20,27 +20,27 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
-  test 'POST :create saves the new promotional item to the feature' do
+  test "POST :create saves the new promotional item to the feature" do
     post :create,
          params: {
            organisation_id: @organisation,
            promotional_feature_id: @promotional_feature,
            promotional_feature_item: {
-             summary: 'Summary text',
-             image_alt_text: 'Alt text',
-             image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-           }
+             summary: "Summary text",
+             image_alt_text: "Alt text",
+             image: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+           },
          }
 
     assert promotional_feature_item = @promotional_feature.reload.promotional_feature_items.first
-    assert_equal 'Alt text', promotional_feature_item.image_alt_text
-    assert_equal 'minister-of-funk.960x640.jpg', promotional_feature_item.image.file.filename
+    assert_equal "Alt text", promotional_feature_item.image_alt_text
+    assert_equal "minister-of-funk.960x640.jpg", promotional_feature_item.image.file.filename
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
-    assert_equal 'Feature item added.', flash[:notice]
+    assert_equal "Feature item added.", flash[:notice]
   end
 
-  test 'GET :edit loads the item and its links renders the template' do
+  test "GET :edit loads the item and its links renders the template" do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
     link = create(:promotional_feature_link, promotional_feature_item: promotional_feature_item)
     get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
@@ -53,7 +53,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal [link], assigns(:promotional_feature_item).links
   end
 
-  test 'GET :edit assigns a blank link if the item does not already have one' do
+  test "GET :edit assigns a blank link if the item does not already have one" do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
     get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
@@ -64,35 +64,35 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert link.is_a?(PromotionalFeatureLink)
   end
 
-  test 'PUT :update updates the item and redirects to the feature' do
+  test "PUT :update updates the item and redirects to the feature" do
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
 
     put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: {
-                    summary: 'Updated summary',
-                    links_attributes: { '0' => { url: link.url, text: link.text, id: link.id, _destroy: false } }
+                    summary: "Updated summary",
+                    links_attributes: { "0" => { url: link.url, text: link.text, id: link.id, _destroy: false } },
                   } }
 
-    assert_equal 'Updated summary', promotional_feature_item.reload.summary
+    assert_equal "Updated summary", promotional_feature_item.reload.summary
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
-    assert_equal 'Feature item updated.', flash[:notice]
+    assert_equal "Feature item updated.", flash[:notice]
   end
 
-  test 'PUT :update re-renders edit if the feature item does not save' do
-    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: 'Old summary')
-    put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: { summary: '' } }
+  test "PUT :update re-renders edit if the feature item does not save" do
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: "Old summary")
+    put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: { summary: "" } }
 
     assert_template :edit
-    assert_equal 'Old summary', promotional_feature_item.reload.summary
+    assert_equal "Old summary", promotional_feature_item.reload.summary
   end
 
-  test 'DELETE :destroy deletes the promotional item' do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+  test "DELETE :destroy deletes the promotional item" do
+    Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
     refute PromotionalFeatureItem.exists?(promotional_feature_item.id)
-    assert_equal 'Feature item deleted.', flash[:notice]
+    assert_equal "Feature item deleted.", flash[:notice]
   end
 end

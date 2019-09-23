@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TextHelperTest < ActionView::TestCase
   test "#with_this_determiner prefixes singular strings with 'this'" do

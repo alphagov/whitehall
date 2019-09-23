@@ -1,4 +1,4 @@
-require 'data_hygiene/organisation_reslugger'
+require "data_hygiene/organisation_reslugger"
 
  dfid = WorldwideOrganisation.find_by(slug: "dfid-burma")
  dit = WorldwideOrganisation.find_by(slug: "department-for-international-trade-burma")

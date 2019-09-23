@@ -6,7 +6,7 @@ d = Document.find(168857)
 # ["superseded", "draft", "published"]
 #                ^^^^^^^ - This is wrong and shouldn't happen today, let's fix it.
 corrupted_edition = d.editions[1]
-corrupted_edition.state = 'superseded'
+corrupted_edition.state = "superseded"
 corrupted_edition.unpublishing.destroy!
 
 # The validate: false is necessary to get around the lack of a policy area on this document.
@@ -22,7 +22,7 @@ d = Document.find(216539)
 # ["superseded", "superseded", "draft", "published"]
 #                              ^^^^^^^ - As above, this is wrong.
 corrupted_edition = d.editions[2]
-corrupted_edition.state = 'superseded'
+corrupted_edition.state = "superseded"
 corrupted_edition.unpublishing.destroy!
 
 # This one doesn't need validate: false.

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TextDirectionTest < ActiveSupport::TestCase
   paths = Dir[File.join(__dir__, "..", "..", "config", "locales", "*.yml")]

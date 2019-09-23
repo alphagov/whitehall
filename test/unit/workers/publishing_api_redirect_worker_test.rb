@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "test_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -16,11 +16,11 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
     request = stub_publishing_api_unpublish(
       @uuid,
       body: {
-        type: 'redirect',
-        locale: 'fr',
+        type: "redirect",
+        locale: "fr",
         alternative_path: @destination,
         discard_drafts: true,
-      }
+      },
     )
 
     PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr")
@@ -32,11 +32,11 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
     request = stub_publishing_api_unpublish(
       @uuid,
       body: {
-        type: 'redirect',
-        locale: 'fr',
+        type: "redirect",
+        locale: "fr",
         alternative_path: @destination,
         allow_draft: true,
-      }
+      },
     )
 
     PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
@@ -49,11 +49,11 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
     request = stub_publishing_api_unpublish(
       @uuid,
       body: {
-        type: 'redirect',
-        locale: 'fr',
+        type: "redirect",
+        locale: "fr",
         alternative_path: "/government/has-been-redirected.fr",
         allow_draft: true,
-      }
+      },
     )
 
     PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)

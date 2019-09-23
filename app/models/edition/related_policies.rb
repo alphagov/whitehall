@@ -61,7 +61,7 @@ module Edition::RelatedPolicies
 
   def search_index
     super.merge(
-      policies: policies.map(&:slug)
+      policies: policies.map(&:slug),
     )
   end
 

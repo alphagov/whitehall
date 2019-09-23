@@ -1,5 +1,5 @@
-require 'tmpdir'
-require 'open3'
+require "tmpdir"
+require "open3"
 
 # There are two ways to create and use a BulkUpload instance. You can
 # either a) call BulkUpload.from_files, which will build new FileAttachment
@@ -66,7 +66,7 @@ class BulkUpload
 
   def attachments_must_be_valid
     unless attachments.all?(&:valid?)
-      errors[:base] << 'Please enter missing fields for each attachment'
+      errors[:base] << "Please enter missing fields for each attachment"
     end
   end
 
@@ -123,7 +123,7 @@ private
         lines = lines
           .reject { |line| line =~ /\A(Archive|creating):/ }
           .reject { |line| line =~ /\/__MACOSX\// }
-        files = lines.map { |f| f.gsub(/\A(inflating|extracting):\s+/, '') }
+        files = lines.map { |f| f.gsub(/\A(inflating|extracting):\s+/, "") }
         @extracted_files_paths = files.map { |file| File.expand_path(file) }
       end
       @extracted_files_paths
@@ -135,13 +135,13 @@ private
 
     def extract_contents
       unzip = Whitehall.system_binaries[:unzip]
-      destination = File.join(self.temp_dir, 'extracted')
+      destination = File.join(self.temp_dir, "extracted")
       @extract_contents ||= `#{unzip} -o -d #{destination} #{self.temp_location.shellescape}`
     end
 
     def must_be_a_zip_file
       if @zip_file.present? && !is_a_zip?
-        errors.add(:zip_file, 'not a zip file')
+        errors.add(:zip_file, "not a zip file")
       end
     end
 
@@ -155,13 +155,13 @@ private
 
     def contains_only_whitelisted_file_types
       if @zip_file.present? && is_a_zip? && contains_disallowed_file_types?
-        errors.add(:zip_file, 'contains invalid files')
+        errors.add(:zip_file, "contains invalid files")
       end
     end
 
     def contains_disallowed_file_types?
       extracted_file_paths.any? do |path|
-        extension = File.extname(path).sub(/^\./, '')
+        extension = File.extname(path).sub(/^\./, "")
         !AttachmentUploader::EXTENSION_WHITELIST.include?(extension)
       end
     end

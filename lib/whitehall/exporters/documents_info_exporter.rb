@@ -12,8 +12,8 @@ class Whitehall::Exporters::DocumentsInfoExporter
         document_information: {
           locales: locales_hash[doc_id],
           subtypes: subtypes_hash[doc_id],
-          lead_organisations: lead_orgs_for_latest_edition_hash[doc_id]
-        }
+          lead_organisations: lead_orgs_for_latest_edition_hash[doc_id],
+        },
       }
     end
   end

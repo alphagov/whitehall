@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
   test 'presents a valid placeholder "topical_event" content item' do
     topical_event = create(:topical_event, :active, name: "Humans going to Mars")
-    public_path = '/government/topical-events/humans-going-to-mars'
+    public_path = "/government/topical-events/humans-going-to-mars"
 
     expected_hash = {
       base_path: public_path,
@@ -17,8 +17,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       routes: [
         {
           path: public_path,
-          type: 'exact'
-        }
+          type: "exact",
+        },
       ],
       update_type: "major",
       redirects: [],
@@ -26,18 +26,18 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       details: {
         start_date: topical_event.start_date,
         end_date: topical_event.end_date,
-      }
+      },
     }
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, 'placeholder')
+    assert_valid_against_schema(presenter.content, "placeholder")
   end
 
-  test 'handles topical events without dates' do
+  test "handles topical events without dates" do
     topical_event = create(:topical_event, name: "Humans going to Mars")
-    public_path = '/government/topical-events/humans-going-to-mars'
+    public_path = "/government/topical-events/humans-going-to-mars"
 
     expected_hash = {
       base_path: public_path,
@@ -51,19 +51,19 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       routes: [
         {
           path: public_path,
-          type: 'exact'
-        }
+          type: "exact",
+        },
       ],
       update_type: "major",
       redirects: [],
       public_updated_at: topical_event.updated_at,
-      details: {}
+      details: {},
     }
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, 'placeholder')
+    assert_valid_against_schema(presenter.content, "placeholder")
   end
 
   test "handles topical events without an end_date" do
@@ -72,6 +72,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal({ start_date: Date.today }, presenter.content[:details])
-    assert_valid_against_schema(presenter.content, 'placeholder')
+    assert_valid_against_schema(presenter.content, "placeholder")
   end
 end

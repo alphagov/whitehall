@@ -85,8 +85,8 @@ private
   def filter_defaults
     {
       organisation_id: current_user.organisation.try(:id),
-      dates: 'future',
-      user_id: current_user.id
+      dates: "future",
+      user_id: current_user.id,
     }
   end
 
@@ -95,7 +95,7 @@ private
   end
 
   def filtering_imminent_unlinked_announcements?
-    @filter.options[:dates] == 'imminent' && @filter.options[:unlinked_only] == '1'
+    @filter.options[:dates] == "imminent" && @filter.options[:unlinked_only] == "1"
   end
 
   def unlinked_announcements_count
@@ -103,6 +103,6 @@ private
   end
 
   def unlinked_announcements_filter
-    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: 'imminent', unlinked_only: '1', organisation_id: filter_params[:organisation_id])
+    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: "imminent", unlinked_only: "1", organisation_id: filter_params[:organisation_id])
   end
 end

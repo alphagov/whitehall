@@ -36,7 +36,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       create(:person,
              forename: "Tony",
              image: File.open(
-               Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+               Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
              ))
     end
 
@@ -85,7 +85,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         PublishingApi::SpeechPresenter
           .new(create(:published_speech))
           .content[:details][:change_history]
-          .length
+          .length,
       )
     end
   end
@@ -171,8 +171,8 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         :person,
         forename: "Tony",
         image: File.open(
-          Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
-        )
+          Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
+        ),
       )
     end
 
@@ -182,7 +182,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         title: "Speech title",
         summary: "The description",
         body: "# Woo!\nSome content",
-        role_appointment: role_appointment
+        role_appointment: role_appointment,
       )
     end
 
@@ -193,9 +193,9 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           :feature,
           document: speech.document,
           image: File.open(
-            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
           ),
-          alt_text: "featured image"
+          alt_text: "featured image",
         )
       end
 
@@ -204,9 +204,9 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           :feature,
           document: speech.document,
           image: File.open(
-            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
           ),
-          alt_text: "featured image two"
+          alt_text: "featured image two",
         )
       end
 

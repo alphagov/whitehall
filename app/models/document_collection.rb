@@ -15,8 +15,8 @@ class DocumentCollection < Edition
   include Edition::TopicalEvents
 
   has_many :groups,
-           -> { order('document_collection_groups.ordering') },
-           class_name: 'DocumentCollectionGroup',
+           -> { order("document_collection_groups.ordering") },
+           class_name: "DocumentCollectionGroup",
            dependent: :destroy,
            inverse_of: :document_collection
 
@@ -43,7 +43,7 @@ class DocumentCollection < Edition
       Govspeak::Document.new(body).to_text,
       groups.live.map do |group|
         [group.heading, Govspeak::Document.new(group.body).to_text]
-      end
+      end,
     ].flatten.join("\n")
   end
 

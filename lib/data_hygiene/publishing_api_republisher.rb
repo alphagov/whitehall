@@ -27,7 +27,7 @@ module DataHygiene
 
     def republish(instance)
       Whitehall::PublishingApi.bulk_republish_async(instance)
-      logger << '.'
+      logger << "."
       @queued += 1
     end
   end

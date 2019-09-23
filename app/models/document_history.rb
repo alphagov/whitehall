@@ -7,7 +7,7 @@ class DocumentHistory
 
   delegate :first, :last, :length, :size, :[], :empty?, to: :changes
 
-  def initialize(document, default_first_published_note = 'First published.')
+  def initialize(document, default_first_published_note = "First published.")
     @default_first_published_note = default_first_published_note
     @document = document
 
@@ -67,6 +67,6 @@ private
   end
 
   def all_published_editions_in_creation_order
-    document.ever_published_editions.order('created_at')
+    document.ever_published_editions.order("created_at")
   end
 end

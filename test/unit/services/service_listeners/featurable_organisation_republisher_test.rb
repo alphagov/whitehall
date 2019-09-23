@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class ServiceListeners::FeaturableOrganisationRepublisherTest < ActiveSupport::TestCase
   setup do
     stub_any_publishing_api_call
   end
 
-  test 'republish organisation to Publishing API' do
+  test "republish organisation to Publishing API" do
     organisation = create(:organisation, :with_feature_list, :with_published_edition)
 
     feature_list = organisation.feature_lists.first

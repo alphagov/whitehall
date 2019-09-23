@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RoleAppointmentPresenterTest < PresenterTestCase
   setup do
@@ -7,12 +7,12 @@ class RoleAppointmentPresenterTest < PresenterTestCase
     @presenter = RoleAppointmentPresenter.new(@appointment, @view_context)
   end
 
-  test 'role decorates appointment#role with a RolePresenter' do
+  test "role decorates appointment#role with a RolePresenter" do
     assert @presenter.role.is_a? RolePresenter
     assert_same @presenter.role.model, @appointment.role
   end
 
-  test 'role_link delegates to role#link' do
+  test "role_link delegates to role#link" do
     @presenter.role.stubs(:link).returns(:link_from_role)
     assert_equal :link_from_role, @presenter.role_link
   end

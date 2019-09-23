@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require 'test_helper'
+require "test_helper"
 
 class ApplicationHelperTest < ActionView::TestCase
   include ERB::Util
@@ -19,20 +19,20 @@ class ApplicationHelperTest < ActionView::TestCase
                  policies_finder_path(organisations: %w[slug1 slug2])
 
     assert_equal "/government/policies?keywords=word&organisations%5B%5D=slug1",
-                 policies_finder_path(keywords: 'word', organisations: %w[slug1])
+                 policies_finder_path(keywords: "word", organisations: %w[slug1])
   end
 
-  test '#link_to_attachment returns nil when attachment is nil' do
+  test "#link_to_attachment returns nil when attachment is nil" do
     assert_nil link_to_attachment(nil)
   end
 
-  test '#link_to_attachment returns link to an attachment given attachment' do
+  test "#link_to_attachment returns link to an attachment given attachment" do
     attachment = create(:file_attachment)
     assert_equal %{<a href="#{attachment.url}">#{File.basename(attachment.filename)}</a>}, link_to_attachment(attachment)
   end
 
-  test '#link_to_attachment truncates filename if :truncate is true' do
-    attachment = create(:file_attachment, file: File.open(Rails.root.join('test', 'fixtures', 'consultation_uploader_test_sample.csv')))
+  test "#link_to_attachment truncates filename if :truncate is true" do
+    attachment = create(:file_attachment, file: File.open(Rails.root.join("test", "fixtures", "consultation_uploader_test_sample.csv")))
     assert_equal %{<a href="#{attachment.url}">consultation_uploader_test_...</a>}, link_to_attachment(attachment, truncate: true)
   end
 
@@ -69,8 +69,8 @@ class ApplicationHelperTest < ActionView::TestCase
   test "should render a list of ministerial roles" do
     roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role, name: "Jill")]
     html = render_list_of_ministerial_roles(roles) { |ministerial_role| "<p>#{ministerial_role.name}</p>" }
-    assert_select_within_html(html, 'ul li p', text: "Jack")
-    assert_select_within_html(html, 'ul li p', text: "Jill")
+    assert_select_within_html(html, "ul li p", text: "Jack")
+    assert_select_within_html(html, "ul li p", text: "Jill")
   end
 
   test "should render a object's datetime using the datetime microformat" do
@@ -98,17 +98,17 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "statistics-related publication filter should be related to statistics main navigation" do
-    assert_equal publications_path(publication_filter_option: 'statistics'), current_main_navigation_path(controller: "publications", action: "index", publication_filter_option: 'statistics')
+    assert_equal publications_path(publication_filter_option: "statistics"), current_main_navigation_path(controller: "publications", action: "index", publication_filter_option: "statistics")
   end
 
   test "consultation-related pages should be related to consulatations main navigation" do
-    expected = publications_path(publication_filter_option: 'consultations')
+    expected = publications_path(publication_filter_option: "consultations")
     assert_equal expected, current_main_navigation_path(controller: "consultations", action: "index")
     assert_equal expected, current_main_navigation_path(controller: "consultations", action: "open")
     assert_equal expected, current_main_navigation_path(controller: "consultations", action: "closed")
     assert_equal expected, current_main_navigation_path(controller: "consultations", action: "show")
     assert_equal expected, current_main_navigation_path(controller: "consultation_responses", action: "show")
-    assert_equal expected, current_main_navigation_path(controller: "publications", action: "index", publication_filter_option: 'consultations')
+    assert_equal expected, current_main_navigation_path(controller: "publications", action: "index", publication_filter_option: "consultations")
   end
 
   test "minister-related pages should be related to ministers main navigation" do
@@ -161,10 +161,10 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "correctly identifies external links" do
-    assert is_external?('http://www.facebook.com/something'), 'wrong host'
-    refute is_external?('/something'), 'no host'
-    refute is_external?(Whitehall.public_root), 'good host'
-    refute is_external?("#{Whitehall.public_root}/something"), 'good host with path'
+    assert is_external?("http://www.facebook.com/something"), "wrong host"
+    refute is_external?("/something"), "no host"
+    refute is_external?(Whitehall.public_root), "good host"
+    refute is_external?("#{Whitehall.public_root}/something"), "good host with path"
   end
 
   test "full_width_tabs should render tabs" do
@@ -172,7 +172,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs([
       { label: "Guitar tabs", link_to: "/hipster-guitars" },
-      { label: "Document tabs", link_to: "/stationary" }
+      { label: "Document tabs", link_to: "/stationary" },
     ])).children.first
 
     assert_equal "nav", rendered.name
@@ -189,11 +189,11 @@ class ApplicationHelperTest < ActionView::TestCase
   test "full_width_tabs supports :current_when" do
     rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs([
       { label: "Guitar tabs", link_to: "/hipster-guitars", current_when: false },
-      { label: "Document tabs", link_to: "/stationary", current_when: true }
+      { label: "Document tabs", link_to: "/stationary", current_when: true },
     ])).children.first
 
-    refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
-    assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'
+    refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? "current"
+    assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? "current"
   end
 
 private

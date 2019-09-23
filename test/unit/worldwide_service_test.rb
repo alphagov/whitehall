@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldwideOfficeTest < ActiveSupport::TestCase
   %w{name service_type_id}.each do |param|

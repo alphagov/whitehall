@@ -21,7 +21,7 @@ module Services
   def self.email_alert_api
     @email_alert_api ||= GdsApi::EmailAlertApi.new(
       Plek.find("email-alert-api"),
-      bearer_token: ENV.fetch("EMAIL_ALERT_API_BEARER_TOKEN", "gazorpazorp")
+      bearer_token: ENV.fetch("EMAIL_ALERT_API_BEARER_TOKEN", "gazorpazorp"),
     )
   end
 

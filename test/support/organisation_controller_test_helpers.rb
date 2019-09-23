@@ -1,4 +1,4 @@
-require 'gds_api/test_helpers/content_store'
+require "gds_api/test_helpers/content_store"
 
 module OrganisationControllerTestHelpers
   extend ActiveSupport::Concern
@@ -8,11 +8,11 @@ module OrganisationControllerTestHelpers
     def should_display_organisation_page_elements_for(org_type)
       test "#{org_type} sets meta description" do
         organisation = create_org_and_stub_content_store(org_type)
-        create(:about_corporate_information_page, organisation: organisation, summary: 'my org description')
+        create(:about_corporate_information_page, organisation: organisation, summary: "my org description")
 
         get :show, params: { id: organisation }
 
-        assert_equal 'my org description', assigns(:meta_description)
+        assert_equal "my org description", assigns(:meta_description)
       end
 
       view_test "#{org_type}:shows organisation name" do
@@ -61,9 +61,9 @@ module OrganisationControllerTestHelpers
           street_address: "1 Smashing Place, London", postal_code: "LO1 8DN",
           contact_numbers_attributes: [
             { label: "Helpline", number: "02079460000" },
-            { label: "Fax", number: "02079460001" }
+            { label: "Fax", number: "02079460001" },
           ],
-          country: create(:world_location, iso2: 'GB')
+          country: create(:world_location, iso2: "GB")
         )
         organisation.add_contact_to_home_page!(organisation.contacts.first)
         get :show, params: { id: organisation }

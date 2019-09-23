@@ -1,5 +1,5 @@
-require 'pdf-reader'
-require 'timeout'
+require "pdf-reader"
+require "timeout"
 
 class AttachmentData < ApplicationRecord
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
@@ -14,7 +14,7 @@ class AttachmentData < ApplicationRecord
   validate :file_is_not_empty
 
   attr_accessor :to_replace_id
-  belongs_to :replaced_by, class_name: 'AttachmentData'
+  belongs_to :replaced_by, class_name: "AttachmentData"
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
 
@@ -29,11 +29,11 @@ class AttachmentData < ApplicationRecord
   end
 
   def filename_without_extension
-    url && filename.sub(/.[^\.]*$/, '')
+    url && filename.sub(/.[^\.]*$/, "")
   end
 
   def file_extension
-    File.extname(url).delete('.') if url.present?
+    File.extname(url).delete(".") if url.present?
   end
 
   def pdf?

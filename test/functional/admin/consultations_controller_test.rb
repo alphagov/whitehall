@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::ConsultationsControllerTest < ActionController::TestCase
   include TaxonomyHelper
@@ -21,7 +21,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :consultation
   should_allow_access_limiting_of :consultation
 
-  view_test 'new displays consultation fields' do
+  view_test "new displays consultation fields" do
     get :new
 
     assert_select "form#new_edition" do
@@ -44,10 +44,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         consultation_response_form_attributes: {
           title: "the title of the response form",
           consultation_response_form_data_attributes: {
-            file: fixture_file_upload('two-pages.pdf')
-          }
-        }
-      }
+            file: fixture_file_upload("two-pages.pdf"),
+          },
+        },
+      },
     )
 
     post :create, params: { edition: attributes }
@@ -72,10 +72,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         consultation_response_form_attributes: {
           title: nil,
           consultation_response_form_data_attributes: {
-            file: nil
-          }
-        }
-      }
+            file: nil,
+          },
+        },
+      },
     )
 
     post :create, params: { edition: attributes }
@@ -93,10 +93,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         consultation_response_form_attributes: {
           title: nil,
           consultation_response_form_data_attributes: {
-            file: fixture_file_upload('two-pages.pdf')
-          }
-        }
-      }
+            file: fixture_file_upload("two-pages.pdf"),
+          },
+        },
+      },
     )
 
     post :create, params: { edition: attributes }
@@ -145,8 +145,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       closing_at: 50.days.from_now,
       consultation_participation_attributes: {
         link_url: "http://consult.com",
-        email: "tell-us-what-you-think@gov.uk"
-      }
+        email: "tell-us-what-you-think@gov.uk",
+      },
     } }
 
     consultation.reload
@@ -163,15 +163,15 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     put :update, params: { id: consultation, edition: {
       consultation_participation_attributes: {
         link_url: nil,
-        email: nil
-      }
+        email: nil,
+      },
     } }
 
     consultation.reload
     assert_nil consultation.consultation_participation
   end
 
-  view_test 'updating should not allow removal of response form without explicit action' do
+  view_test "updating should not allow removal of response form without explicit action" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
@@ -181,9 +181,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         id: participation.id,
         consultation_response_form_attributes: {
           id: response_form.id,
-          _destroy: '1'
-        }
-      }
+          _destroy: "1",
+        },
+      },
     } }
 
     refute_select ".errors"
@@ -191,9 +191,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_not_nil consultation.consultation_participation.consultation_response_form
   end
 
-  view_test 'updating should respect the attachment_action for response forms to keep it' do
-    two_pages_pdf = fixture_file_upload('two-pages.pdf')
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+  view_test "updating should respect the attachment_action for response forms to keep it" do
+    two_pages_pdf = fixture_file_upload("two-pages.pdf")
+    greenpaper_pdf = fixture_file_upload("greenpaper.pdf")
 
     response_form = create(:consultation_response_form, file: two_pages_pdf)
     participation = create(:consultation_participation, consultation_response_form: response_form)
@@ -204,23 +204,23 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         id: participation.id,
         consultation_response_form_attributes: {
           id: response_form.id,
-          attachment_action: 'keep',
-          _destroy: '1',
+          attachment_action: "keep",
+          _destroy: "1",
           consultation_response_form_data_attributes: {
             id: response_form.consultation_response_form_data.id,
-            file: greenpaper_pdf
-          }
-        }
-      }
+            file: greenpaper_pdf,
+          },
+        },
+      },
     } }
 
     refute_select ".errors"
     consultation.reload
     assert_not_nil consultation.consultation_participation.consultation_response_form
-    assert_equal 'two-pages.pdf', consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
+    assert_equal "two-pages.pdf", consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
   end
 
-  view_test 'updating should respect the attachment_action for response forms to remove it' do
+  view_test "updating should respect the attachment_action for response forms to remove it" do
     AssetManagerDeleteAssetWorker.stubs(:perform_async)
 
     response_form = create(:consultation_response_form)
@@ -232,9 +232,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         id: participation.id,
         consultation_response_form_attributes: {
           id: response_form.id,
-          attachment_action: 'remove'
-        }
-      }
+          attachment_action: "remove",
+        },
+      },
     } }
 
     refute_select ".errors"
@@ -248,12 +248,12 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'updating should respect the attachment_action for response forms to replace it' do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+  view_test "updating should respect the attachment_action for response forms to replace it" do
+    Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     Services.asset_manager.stubs(:delete_asset)
 
-    two_pages_pdf = fixture_file_upload('two-pages.pdf')
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+    two_pages_pdf = fixture_file_upload("two-pages.pdf")
+    greenpaper_pdf = fixture_file_upload("greenpaper.pdf")
 
     response_form = create(:consultation_response_form, file: two_pages_pdf)
     participation = create(:consultation_participation, consultation_response_form: response_form)
@@ -264,27 +264,27 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         id: participation.id,
         consultation_response_form_attributes: {
           id: response_form.id,
-          attachment_action: 'replace',
-          _destroy: '1',
+          attachment_action: "replace",
+          _destroy: "1",
           consultation_response_form_data_attributes: {
             id: response_form.consultation_response_form_data.id,
-            file: greenpaper_pdf
-          }
-        }
-      }
+            file: greenpaper_pdf,
+          },
+        },
+      },
     } }
 
     refute_select ".errors"
     consultation.reload
     assert_not_nil consultation.consultation_participation.consultation_response_form
-    assert_equal 'greenpaper.pdf', consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
+    assert_equal "greenpaper.pdf", consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
   end
 
 private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(
-      alternative_format_provider_id: create(:alternative_format_provider).id
+      alternative_format_provider_id: create(:alternative_format_provider).id,
     )
   end
 end

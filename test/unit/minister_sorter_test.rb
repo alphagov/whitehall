@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class MinisterSorterTest < ActiveSupport::TestCase
   MockRole = Struct.new(:name, :seniority, :cabinet_member, :current_people) do

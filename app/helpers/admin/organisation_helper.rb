@@ -17,7 +17,7 @@ module Admin::OrganisationHelper
   def organisation_tabs(organisation)
     tabs = {
       "Details" => admin_organisation_path(organisation),
-      "Contacts" => admin_organisation_contacts_path(organisation)
+      "Contacts" => admin_organisation_contacts_path(organisation),
     }
     if organisation.type.allowed_promotional?
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
@@ -51,14 +51,14 @@ module Admin::OrganisationHelper
     if organisation.organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
       nil
     else
-      'hidden'
+      "hidden"
     end
   end
 
   def topical_event_dates_string(topical_event)
     [
       topical_event.start_date.try(:to_date),
-      topical_event.end_date.try(:to_date)
-    ].compact.map { |date| l(date) }.join(' to ')
+      topical_event.end_date.try(:to_date),
+    ].compact.map { |date| l(date) }.join(" to ")
   end
 end

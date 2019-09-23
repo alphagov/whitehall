@@ -20,7 +20,7 @@ def top_3_policy_results(organisation)
     filter_organisations: [organisation.slug],
     filter_format: "policy",
     count: "3",
-    order: "-public_timestamp"
+    order: "-public_timestamp",
   ).results
 end
 
@@ -40,7 +40,7 @@ policies_to_organisations(policies).each do |organisation|
     FeaturedPolicy.create(
       organisation: organisation,
       policy_content_id: policy_content_id(policies, policy.link),
-      ordering: index
+      ordering: index,
     )
   end
 end

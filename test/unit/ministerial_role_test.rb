@@ -1,15 +1,15 @@
-require 'test_helper'
+require "test_helper"
 
 class MinisterialRoleTest < ActiveSupport::TestCase
   test "should set a slug from the ministerial role name" do
-    role = create(:ministerial_role, name: 'Prime Minister, Cabinet Office')
-    assert_equal 'prime-minister-cabinet-office', role.slug
+    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
+    assert_equal "prime-minister-cabinet-office", role.slug
   end
 
   test "should not change the slug when the name is changed" do
-    role = create(:ministerial_role, name: 'Prime Minister, Cabinet Office')
-    role.update_attributes(name: 'Prime Minister')
-    assert_equal 'prime-minister-cabinet-office', role.slug
+    role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
+    role.update_attributes(name: "Prime Minister")
+    assert_equal "prime-minister-cabinet-office", role.slug
   end
 
   test "should be able to get news_articles associated with a role" do
@@ -77,19 +77,19 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     refute ministerial_role.chief_of_the_defence_staff?
   end
 
-  test 'should return search index data suitable for Rummageable' do
-    person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
-    ministerial_role = create(:ministerial_role_without_organisation, name: 'Prime Minister')
+  test "should return search index data suitable for Rummageable" do
+    person = create(:person, forename: "David", surname: "Cameron", biography: "David Cameron became Prime Minister in May 2010.")
+    ministerial_role = create(:ministerial_role_without_organisation, name: "Prime Minister")
     create(:ministerial_role_appointment, role: ministerial_role, person: person)
 
-    assert_equal 'Prime Minister', ministerial_role.search_index['title']
-    assert_equal "/government/ministers/#{ministerial_role.slug}", ministerial_role.search_index['link']
-    assert_equal 'David Cameron became Prime Minister in May 2010.', ministerial_role.search_index['indexable_content']
-    assert_equal 'Current role holder: David Cameron.', ministerial_role.search_index['description']
-    assert_equal 'minister', ministerial_role.search_index['format']
+    assert_equal "Prime Minister", ministerial_role.search_index["title"]
+    assert_equal "/government/ministers/#{ministerial_role.slug}", ministerial_role.search_index["link"]
+    assert_equal "David Cameron became Prime Minister in May 2010.", ministerial_role.search_index["indexable_content"]
+    assert_equal "Current role holder: David Cameron.", ministerial_role.search_index["description"]
+    assert_equal "minister", ministerial_role.search_index["format"]
   end
 
-  test 'should add ministerial role to search index on creating' do
+  test "should add ministerial role to search index on creating" do
     ministerial_role = build(:ministerial_role_without_organisation)
 
     Whitehall::SearchIndex.expects(:add).with(ministerial_role)
@@ -97,31 +97,31 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     ministerial_role.save
   end
 
-  test 'should add ministerial role to search index on updating' do
+  test "should add ministerial role to search index on updating" do
     ministerial_role = create(:ministerial_role_without_organisation)
 
     Whitehall::SearchIndex.expects(:add).with(ministerial_role)
 
-    ministerial_role.name = 'Ministry of Junk'
+    ministerial_role.name = "Ministry of Junk"
     ministerial_role.save
   end
 
-  test 'should remove ministerial role from search index on destroying' do
+  test "should remove ministerial role from search index on destroying" do
     ministerial_role = create(:ministerial_role_without_organisation)
     Whitehall::SearchIndex.expects(:delete).with(ministerial_role)
     ministerial_role.destroy
   end
 
-  test 'should return search index data for all ministerial roles' do
-    nick_clegg = create(:person, forename: 'Nick', surname: 'Clegg', biography: 'Cleggy.')
-    jeremy_hunt = create(:person, forename: 'Jeremy', surname: 'Hunt', biography: 'Hunty.')
-    edward_garnier = create(:person, forename: 'Edward', surname: 'Garnier', biography: 'Garnerian.')
-    david_cameron = create(:person, forename: 'David', surname: 'Cameron', biography: 'Cameronian.')
+  test "should return search index data for all ministerial roles" do
+    nick_clegg = create(:person, forename: "Nick", surname: "Clegg", biography: "Cleggy.")
+    jeremy_hunt = create(:person, forename: "Jeremy", surname: "Hunt", biography: "Hunty.")
+    edward_garnier = create(:person, forename: "Edward", surname: "Garnier", biography: "Garnerian.")
+    david_cameron = create(:person, forename: "David", surname: "Cameron", biography: "Cameronian.")
 
-    deputy_prime_minister = create(:ministerial_role_without_organisation, name: 'Deputy Prime Minister', cabinet_member: true)
-    culture_minister = create(:ministerial_role_without_organisation, name: 'Secretary of State for Culture', cabinet_member: true)
-    solicitor_general = create(:ministerial_role_without_organisation, name: 'Solicitor General', cabinet_member: false)
-    prime_minister = create(:ministerial_role_without_organisation, name: 'Prime Minister', cabinet_member: true)
+    deputy_prime_minister = create(:ministerial_role_without_organisation, name: "Deputy Prime Minister", cabinet_member: true)
+    culture_minister = create(:ministerial_role_without_organisation, name: "Secretary of State for Culture", cabinet_member: true)
+    solicitor_general = create(:ministerial_role_without_organisation, name: "Solicitor General", cabinet_member: false)
+    prime_minister = create(:ministerial_role_without_organisation, name: "Prime Minister", cabinet_member: true)
 
     create(:ministerial_role_appointment, role: deputy_prime_minister, person: nick_clegg)
     create(:ministerial_role_appointment, role: culture_minister, person: jeremy_hunt)
@@ -131,30 +131,30 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     results = MinisterialRole.search_index.to_a
 
     assert_equal 4, results.length
-    assert_equal({ 'title' => 'Deputy Prime Minister',
-                  'content_id' => deputy_prime_minister.content_id,
-                  'link' => '/government/ministers/deputy-prime-minister',
-                  'indexable_content' => 'Cleggy.',
-                  'format' => 'minister',
-                  'description' => 'Current role holder: Nick Clegg.' }, results[0])
-    assert_equal({ 'title' => 'Secretary of State for Culture',
-                  'content_id' => culture_minister.content_id,
-                  'link' => '/government/ministers/secretary-of-state-for-culture',
-                  'indexable_content' => 'Hunty.',
-                  'format' => 'minister',
-                  'description' => 'Current role holder: Jeremy Hunt.' }, results[1])
-    assert_equal({ 'title' => 'Solicitor General',
-                  'content_id' => solicitor_general.content_id,
-                  'link' => '/government/ministers/solicitor-general',
-                  'indexable_content' => 'Garnerian.',
-                  'format' => 'minister',
-                  'description' => 'Current role holder: Edward Garnier.' }, results[2])
-    assert_equal({ 'title' => 'Prime Minister',
-                  'content_id' => prime_minister.content_id,
-                  'link' => '/government/ministers/prime-minister',
-                  'indexable_content' => 'Cameronian.',
-                  'format' => 'minister',
-                  'description' => 'Current role holder: David Cameron.' }, results[3])
+    assert_equal({ "title" => "Deputy Prime Minister",
+                  "content_id" => deputy_prime_minister.content_id,
+                  "link" => "/government/ministers/deputy-prime-minister",
+                  "indexable_content" => "Cleggy.",
+                  "format" => "minister",
+                  "description" => "Current role holder: Nick Clegg." }, results[0])
+    assert_equal({ "title" => "Secretary of State for Culture",
+                  "content_id" => culture_minister.content_id,
+                  "link" => "/government/ministers/secretary-of-state-for-culture",
+                  "indexable_content" => "Hunty.",
+                  "format" => "minister",
+                  "description" => "Current role holder: Jeremy Hunt." }, results[1])
+    assert_equal({ "title" => "Solicitor General",
+                  "content_id" => solicitor_general.content_id,
+                  "link" => "/government/ministers/solicitor-general",
+                  "indexable_content" => "Garnerian.",
+                  "format" => "minister",
+                  "description" => "Current role holder: Edward Garnier." }, results[2])
+    assert_equal({ "title" => "Prime Minister",
+                  "content_id" => prime_minister.content_id,
+                  "link" => "/government/ministers/prime-minister",
+                  "indexable_content" => "Cameronian.",
+                  "format" => "minister",
+                  "description" => "Current role holder: David Cameron." }, results[3])
   end
 
   test "#current_person_name should return the role name when vacant" do

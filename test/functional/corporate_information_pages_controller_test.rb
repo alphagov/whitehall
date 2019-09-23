@@ -52,7 +52,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
     organisation = create(:organisation, editions: [
       published_corporate_publication,
-      draft_corporate_publication
+      draft_corporate_publication,
     ])
 
     get :index, params: { organisation_id: organisation }
@@ -62,9 +62,9 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
   end
 
   test "should display published corporate publications on about-us page in order published" do
-    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2011-01-01'))
-    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2011-01-03'))
-    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2011-01-02'))
+    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-01"))
+    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-03"))
+    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-02"))
 
     organisation = create(:organisation, editions: [
       old_published_corporate_publication,
@@ -77,7 +77,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     assert_equal [
       new_published_corporate_publication,
       middle_published_corporate_publication,
-      old_published_corporate_publication
+      old_published_corporate_publication,
     ], assigns(:corporate_publications)
   end
 
@@ -96,7 +96,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     refute_select "#corporate-information"
   end
 
-  test 'finds unpublishing for a corporate information page' do
+  test "finds unpublishing for a corporate information page" do
     organisation = create(:organisation)
     cip = create(:corporate_information_page, :unpublished, organisation: organisation)
     alternative_url = Whitehall.url_maker.root_url
@@ -107,9 +107,9 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     assert_redirected_to alternative_url
   end
 
-  test 'unpublishing is specific to the organisation' do
+  test "unpublishing is specific to the organisation" do
     organisation = create(:organisation)
-    organisation_2 = create(:organisation, slug: 'another_organisation')
+    organisation_2 = create(:organisation, slug: "another_organisation")
     cip = create(:corporate_information_page, :unpublished, organisation: organisation)
     alternative_url = Whitehall.url_maker.root_url
     cip.unpublishing.update_attributes!(redirect: true, slug: cip.slug, alternative_url: alternative_url)

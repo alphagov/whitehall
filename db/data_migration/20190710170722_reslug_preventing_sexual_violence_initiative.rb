@@ -1,4 +1,4 @@
-require 'data_hygiene/organisation_reslugger'
+require "data_hygiene/organisation_reslugger"
 
 organisation = Organisation.find_by(slug: "preventing-sexual-violence-initiative")
 

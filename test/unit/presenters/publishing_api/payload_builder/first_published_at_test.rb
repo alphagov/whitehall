@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module PublishingApi
   module PayloadBuilder
@@ -9,7 +9,7 @@ module PublishingApi
 
         assert_equal(
           { first_published_at: first_published_at },
-          FirstPublishedAt.for(item)
+          FirstPublishedAt.for(item),
         )
       end
 

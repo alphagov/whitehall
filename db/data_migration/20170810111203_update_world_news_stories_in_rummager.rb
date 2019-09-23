@@ -11,11 +11,11 @@ editions.each do |edition|
   SearchIndexAddWorker.perform_async_in_queue(
     "bulk_republishing",
     edition.class.name,
-    edition.id
+    edition.id,
   )
   SearchIndexDeleteWorker.perform_async_in_queue(
     "bulk_republishing",
     "/government/world-location-news/#{edition.slug}",
-    edition.rummager_index
+    edition.rummager_index,
   )
 end

@@ -5,7 +5,7 @@ module Whitehall
     def label(method, text = nil, options = {})
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
-          add_class_to_options(options, 'required')
+          add_class_to_options(options, "required")
           text_override = text || method.to_s.humanize
           text = "#{text_override}<span>*</span>".html_safe
         end
@@ -20,7 +20,7 @@ module Whitehall
       label_opts = {}
       label_opts = label_opts.merge(radio_button_args.shift) if radio_button_args.first.is_a?(Hash)
 
-      @template.content_tag(:div, 'class' => 'radio') do
+      @template.content_tag(:div, "class" => "radio") do
         @template.label_tag(nil, label_opts) do
           radio_button(*radio_button_args) + label_text
         end
@@ -40,25 +40,25 @@ module Whitehall
       @template.content_tag(:ul, "class" => "errors disc") do
         analytics_action = "#{object.class.name.demodulize.underscore.dasherize}-error"
         object.errors.full_messages.each do |msg|
-          @template.concat @template.content_tag(:li, msg, data: track_analytics_data('form-error', analytics_action, msg))
+          @template.concat @template.content_tag(:li, msg, data: track_analytics_data("form-error", analytics_action, msg))
         end
       end
     end
 
     def form_actions(options = {})
-      @template.content_tag(:div, "class" => "form-actions", data: { module: 'track-button-click', 'track-category' => 'form-button', 'track-action' => "#{object.class.name.demodulize.underscore.dasherize}-button" }) {
+      @template.content_tag(:div, "class" => "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) {
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
         @template.concat @template.content_tag(:span, "class" => "or_cancel") {
           @template.concat %{ or }
-          @template.concat @template.link_to('cancel', cancel_path(options[:cancel]))
+          @template.concat @template.link_to("cancel", cancel_path(options[:cancel]))
         }
       }
     end
 
     def save_or_cancel(options = {})
-      form_actions(options.reverse_merge(buttons: { save: 'Save' }))
+      form_actions(options.reverse_merge(buttons: { save: "Save" }))
     end
 
     def save_or_cancel_buttons(options = {})
@@ -66,32 +66,32 @@ module Whitehall
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-lg btn-primary")
         end
-        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-default btn-lg add-left-margin')
+        @template.concat @template.link_to("Cancel", cancel_path(options[:cancel]), class: "btn btn-default btn-lg add-left-margin")
       }
     end
 
     def save_or_continue_or_cancel(options = {})
-      buttons = { save: 'Save', save_and_continue: 'Save and continue' }
+      buttons = { save: "Save", save_and_continue: "Save and continue" }
       form_actions(options.reverse_merge(buttons: buttons))
     end
 
     def text_field(method, options = {})
-      add_class_to_options(options, 'form-control')
+      add_class_to_options(options, "form-control")
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
 
-      @template.content_tag(:div, class: 'form-group') do
+      @template.content_tag(:div, class: "form-group") do
         label(method, label_text, label_options) + super(method, options)
       end
     end
 
     def text_area(method, *args)
       options = (args.last || {})
-      add_class_to_options(options, 'form-control')
+      add_class_to_options(options, "form-control")
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
 
-      @template.content_tag(:div, class: 'form-group') do
+      @template.content_tag(:div, class: "form-group") do
         label(method, label_text, label_options) + super
       end
     end
@@ -113,7 +113,7 @@ module Whitehall
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text) || method.to_s.humanize
 
-      @template.content_tag(:div, class: 'checkbox') do
+      @template.content_tag(:div, class: "checkbox") do
         label(method, label_text, label_options) { super + label_text }
       end
     end
@@ -133,7 +133,7 @@ module Whitehall
         fields += check_box(:"remove_#{method}", label_text: allow_removal_label_text)
       end
 
-      @template.content_tag(:div, class: 'form-group') do
+      @template.content_tag(:div, class: "form-group") do
         label(method, label_text, label_options) + fields
       end
     end
@@ -198,7 +198,7 @@ module Whitehall
     end
 
     def translated_input(method, input, _options = {})
-      options = right_to_left? ? { class: 'right-to-left' } : {}
+      options = right_to_left? ? { class: "right-to-left" } : {}
       @template.content_tag :fieldset, options do
         input + untranslated_text(method)
       end
@@ -206,7 +206,7 @@ module Whitehall
 
     def translated_input_options(options)
       if right_to_left?
-        options.merge(dir: 'rtl')
+        options.merge(dir: "rtl")
       else
         options
       end
@@ -235,7 +235,7 @@ module Whitehall
     end
 
     def file_cache_already_uploaded(method)
-      @template.content_tag(:span, "#{File.basename(object.send("#{method}_cache"))} already uploaded", class: 'already_uploaded')
+      @template.content_tag(:span, "#{File.basename(object.send("#{method}_cache"))} already uploaded", class: "already_uploaded")
     end
   end
 end

@@ -1,18 +1,18 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::Export::DocumentControllerTest < ActionController::TestCase
   test "show responds with JSON representation of a document" do
-    document = stub_record(:document, id: 1, slug: 'some-document')
+    document = stub_record(:document, id: 1, slug: "some-document")
     Document.stubs(:find).with(document.id.to_s).returns(document)
 
     login_as :export_data_user
-    get :show, params: { id: document.id }, format: 'json'
-    assert_equal 'some-document', json_response['document']['slug']
+    get :show, params: { id: document.id }, format: "json"
+    assert_equal "some-document", json_response["document"]["slug"]
   end
 
   test "shows forbidden if user does not have export data permission" do
     login_as :world_editor
-    get :show, params: { id: '1' }, format: 'json'
+    get :show, params: { id: "1" }, format: "json"
     assert_response :forbidden
   end
 
@@ -27,7 +27,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     login_as :export_data_user
 
     get :index, params: { lead_organisation: org.content_id,
-                          type: 'NewsArticle' }, format: 'json'
+                          type: "NewsArticle" }, format: "json"
 
     expected_response =
       {
@@ -36,12 +36,12 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
           "document_information" => {
             "locales" => %w[en],
             "subtypes" => %w[news_story],
-            "lead_organisations" => [org.content_id]
-          }
+            "lead_organisations" => [org.content_id],
+          },
         }],
         "page_number" => 1,
         "page_count" => 1,
-        "_response_info" => { "status" => "ok" }
+        "_response_info" => { "status" => "ok" },
     }
 
     assert_equal expected_response, json_response
@@ -71,14 +71,14 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     login_as :export_data_user
 
     get :index, params: { lead_organisation: published_edition_org.content_id,
-                          type: 'NewsArticle' }, format: 'json'
+                          type: "NewsArticle" }, format: "json"
 
     expected_response =
       {
         "documents" => [],
         "page_number" => 1,
         "page_count" => 0,
-        "_response_info" => { "status" => "ok" }
+        "_response_info" => { "status" => "ok" },
     }
 
     assert_equal expected_response, json_response

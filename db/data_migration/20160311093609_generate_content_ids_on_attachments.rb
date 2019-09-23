@@ -1,4 +1,4 @@
-require 'securerandom'
+require "securerandom"
 
 Attachment.where(content_id: nil).pluck(:id).each do |id|
   print "."

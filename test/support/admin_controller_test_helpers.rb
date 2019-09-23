@@ -19,10 +19,10 @@ module AdminControllerTestHelpers
               "0" =>
               {
                 social_media_service_id: social_media_service.id,
-                url: "https://twitter.com/#!/bisgovuk"
-              }
-            }
-          )
+                url: "https://twitter.com/#!/bisgovuk",
+              },
+            },
+          ),
         }
 
         assert object = target_class.last
@@ -32,7 +32,7 @@ module AdminControllerTestHelpers
       end
 
       test "creating with invalid data should build another social media account" do
-        post :create, params: { type => attributes_for(type).merge(name: '') }
+        post :create, params: { type => attributes_for(type).merge(name: "") }
         assert_kind_of SocialMediaAccount, assigns(type).social_media_accounts.first
       end
 
@@ -42,9 +42,9 @@ module AdminControllerTestHelpers
             social_media_accounts_attributes: {
               "0" => {
                 social_media_service_id: "", url: ""
-              }
-            }
-          )
+              },
+            },
+          ),
         }
 
         assert created_object = target_class.last
@@ -69,8 +69,8 @@ module AdminControllerTestHelpers
         put :update, params: { id: object, type => object.attributes.merge(
           social_media_accounts_attributes: { "0" => {
           social_media_service_id: social_media_service.id,
-          url: "https://twitter.com/#!/bisgovuk"
-        } }
+          url: "https://twitter.com/#!/bisgovuk",
+        } },
         ) }
 
         assert social_media_account = object.social_media_accounts.last
@@ -87,8 +87,8 @@ module AdminControllerTestHelpers
           social_media_accounts_attributes: { "0" => {
           id: account.id,
           social_media_service_id: "",
-          url: ""
-        } }
+          url: "",
+        } },
         ) }
 
         assert_equal 0, object.social_media_accounts.count
@@ -100,8 +100,8 @@ module AdminControllerTestHelpers
         put :update, params: { id: object, type => object.attributes.merge(
           social_media_accounts_attributes: { "0" => {
           social_media_service_id: "",
-          url: ""
-        } }
+          url: "",
+        } },
         ) }
 
         assert object.social_media_accounts.empty?
@@ -136,12 +136,12 @@ module AdminControllerTestHelpers
                 contact_numbers_attributes: [
                   {
                     label: "Fax",
-                    number: "020712435678"
-                  }
-                ]
-              }
+                    number: "020712435678",
+                  },
+                ],
+              },
             ],
-          )
+          ),
         }
 
         assert object = target_class.last
@@ -161,10 +161,10 @@ module AdminControllerTestHelpers
                 contact_numbers_attributes: {
                   "0" => { label: " ", number: " " },
                   "1" => { label: " ", number: " " },
-                }
-              }
-            }
-          )
+                },
+              },
+            },
+          ),
         }
 
         created_object = target_class.last
@@ -175,7 +175,7 @@ module AdminControllerTestHelpers
       test "updating with an empty contact should not create that contact" do
         object = create(type)
         attributes = {
-          contacts_attributes: [{ description: "", number: "" }]
+          contacts_attributes: [{ description: "", number: "" }],
         }
 
         put :update, params: { id: object, type => attributes }
@@ -191,8 +191,8 @@ module AdminControllerTestHelpers
         put :update, params: { id: object, type => { contacts_attributes: { 0 => {
           id: contact,
           contact_numbers_attributes: {
-          0 => { label: " ", number: " ", id: contact_number }
-        }
+          0 => { label: " ", number: " ", id: contact_number },
+        },
         } } } }
 
         contact.reload

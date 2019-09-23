@@ -3,7 +3,7 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::AttachmentUpdater.call(attachable: edition)
   end
 
-  coordinator.subscribe('unpublish') do |_event, edition, _options|
+  coordinator.subscribe("unpublish") do |_event, edition, _options|
     # handling edition's dependency on other content
     edition.edition_dependencies.destroy_all
 

@@ -25,8 +25,8 @@ module Admin::AdminGovspeakHelper
       end
 
       content_tag :span, class: "#{state}_link" do
-        annotation = content_tag(:sup, safe_join(['(', explanation, ')']), class: 'explanation')
-        safe_join [replacement_html, annotation], ' '
+        annotation = content_tag(:sup, safe_join(["(", explanation, ")"]), class: "explanation")
+        safe_join [replacement_html, annotation], " "
       end
     end
   end

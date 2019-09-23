@@ -7,7 +7,7 @@ guides = DetailedGuide.where([
                 OR
                 additional_related_mainstream_content_url != ''
               )
-              AND state != 'superseded'"
+              AND state != 'superseded'",
          ])
 related_mainstream_not_found = []
 additional_related_mainstream_not_found = []

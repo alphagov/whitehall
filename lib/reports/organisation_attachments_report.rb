@@ -9,7 +9,7 @@ module Reports
       csv_headers = ["Attachment title", "Attachment path", "File type", "Accessible", "Content type", "Content URL", "Publication date", "Last amended date"]
 
       CSV.open(path, "wb", headers: csv_headers, write_headers: true) do |csv|
-        organisation_id = Organisation.where(slug: @organisation_slug, govuk_status: 'live').limit(1).pluck(:id).first
+        organisation_id = Organisation.where(slug: @organisation_slug, govuk_status: "live").limit(1).pluck(:id).first
 
         editions = get_editions_by_organisation(organisation_id)
 
@@ -26,7 +26,7 @@ module Reports
                 edition.type,
                 "/government/publications/#{edition.slug}",
                 edition.first_published_at,
-                attachment.updated_at
+                attachment.updated_at,
               ]
             end
           end

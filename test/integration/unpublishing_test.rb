@@ -28,7 +28,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     assert_publishing_api_unpublish(
       @published_edition.document.content_id,
-      request_json_includes(type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "en")
+      request_json_includes(type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "en"),
     )
   end
 
@@ -41,7 +41,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "when a translated edition is unpublished, an request is made for each locale" do
-    I18n.with_locale 'fr' do
+    I18n.with_locale "fr" do
       @published_edition.title = "French title"
       @published_edition.body = "French body"
       @published_edition.save!(validate: false)
@@ -57,7 +57,7 @@ class UnpublishingTest < ActiveSupport::TestCase
         type: "gone",
         explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>",
         locale: locale,
-        discard_drafts: true
+        discard_drafts: true,
       )
     end
   end
@@ -66,18 +66,18 @@ class UnpublishingTest < ActiveSupport::TestCase
     redirect_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: redirect_uuid)
 
-    I18n.with_locale 'fr' do
+    I18n.with_locale "fr" do
       @published_edition.title = "French title"
       @published_edition.body = "French body"
       @published_edition.save!(validate: false)
     end
 
-    alternative_url = Whitehall.public_root + '/government/page'
+    alternative_url = Whitehall.public_root + "/government/page"
 
     unpublishing_redirect_params = unpublishing_params
                                      .merge(
                                        redirect: true,
-                                       alternative_url: alternative_url
+                                       alternative_url: alternative_url,
                                      )
 
     Sidekiq::Testing.inline! do
@@ -90,7 +90,7 @@ class UnpublishingTest < ActiveSupport::TestCase
         type: "redirect",
         alternative_path: "/government/page",
         locale: locale,
-        discard_drafts: true
+        discard_drafts: true,
       )
     end
   end

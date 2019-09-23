@@ -13,7 +13,7 @@ before_fork do |_server, _worker|
     ActiveRecord::Base.connection.disconnect!
 
   # Force translations to be loaded into memory.
-  I18n.t('activerecord')
+  I18n.t("activerecord")
 end
 
 after_fork do |_server, _worker|

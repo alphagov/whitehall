@@ -26,7 +26,7 @@ module Edition::HasDocumentCollections
   # edition for speed tagging
   def document_collection_group_ids=(ids)
     if new_record?
-      raise(StandardError, 'cannot assign document collection to an unsaved edition')
+      raise(StandardError, "cannot assign document collection to an unsaved edition")
     end
 
     document.document_collection_group_ids = ids

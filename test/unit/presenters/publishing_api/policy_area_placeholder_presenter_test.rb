@@ -1,23 +1,23 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::PolicyAreaPlaceholderPresenterTest < ActionView::TestCase
   def present(model_instance, options = {})
     PublishingApi::PolicyAreaPlaceholderPresenter.new(model_instance, options)
   end
 
-  test 'presents a policy area ready for adding to the publishing API' do
-    policy_area = create(:topic, name: 'Policy Area of Things')
+  test "presents a policy area ready for adding to the publishing API" do
+    policy_area = create(:topic, name: "Policy Area of Things")
     public_path = Whitehall.url_maker.polymorphic_path(policy_area)
 
     expected_hash = {
       base_path: public_path,
       title: "Policy Area of Things",
       description: nil,
-      schema_name: 'placeholder',
-      document_type: 'policy_area',
-      locale: 'en',
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      schema_name: "placeholder",
+      document_type: "policy_area",
+      locale: "en",
+      publishing_app: "whitehall",
+      rendering_app: "whitehall-frontend",
       public_updated_at: policy_area.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
@@ -33,6 +33,6 @@ class PublishingApi::PolicyAreaPlaceholderPresenterTest < ActionView::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal policy_area.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, 'placeholder')
+    assert_valid_against_schema(presented_item.content, "placeholder")
   end
 end

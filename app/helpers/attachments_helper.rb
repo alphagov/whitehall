@@ -1,6 +1,6 @@
 module AttachmentsHelper
   def default_url_options
-    { host: Plek.new.website_root, protocol: 'https' }
+    { host: Plek.new.website_root, protocol: "https" }
   end
 
   def previewable?(attachment)
@@ -18,13 +18,13 @@ module AttachmentsHelper
                         published_on = nil)
     attachments.collect do |attachment|
       render(
-        partial: 'documents/attachment',
+        partial: "documents/attachment",
         formats: :html,
         object: attachment,
         locals: {
           alternative_format_contact_email: alternative_format_contact_email,
           published_on: published_on,
-        }
+        },
       )
     end
   end

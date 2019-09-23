@@ -25,7 +25,7 @@ class ExternalAttachment < Attachment
   end
 
   def file_extension
-    ''
+    ""
   end
 
   def name_for_link
@@ -37,7 +37,7 @@ class ExternalAttachment < Attachment
   end
 
   def content_type
-    'text/html'
+    "text/html"
   end
 
   def url(_options = {})
@@ -51,6 +51,6 @@ class ExternalAttachment < Attachment
   end
 
   def readable_type
-    'external'
+    "external"
   end
 end

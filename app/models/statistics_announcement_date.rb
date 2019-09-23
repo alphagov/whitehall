@@ -2,7 +2,7 @@ class StatisticsAnnouncementDate < ApplicationRecord
   PRECISION = { exact: 0, one_month: 1, two_month: 2 }.freeze
 
   belongs_to :statistics_announcement, touch: true
-  belongs_to :creator, class_name: 'User'
+  belongs_to :creator, class_name: "User"
 
   after_save :update_statistics_announcement_current_release_date
 
@@ -29,7 +29,7 @@ private
 
   def confirmed_date_must_be_exact
     if confirmed? && precision != PRECISION[:exact]
-      errors[:precision] << 'Must be exact if date is confirmed'
+      errors[:precision] << "Must be exact if date is confirmed"
     end
   end
 end

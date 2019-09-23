@@ -23,8 +23,8 @@ module ResourceTestHelpers
       end
 
       test "index lists newest #{plural} first" do
-        oldest_thing = create(:"published_#{type}", title: 'oldest', timestamp_key => 4.hours.ago)
-        newest_thing = create(:"published_#{type}", title: 'newest', timestamp_key => 2.hours.ago)
+        oldest_thing = create(:"published_#{type}", title: "oldest", timestamp_key => 4.hours.ago)
+        newest_thing = create(:"published_#{type}", title: "newest", timestamp_key => 2.hours.ago)
         get :index
         assert_equal [newest_thing, oldest_thing], assigns(plural.to_sym)
       end

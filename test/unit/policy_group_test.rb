@@ -2,7 +2,7 @@ require "test_helper"
 
 class PolicyGroupTest < ActiveSupport::TestCase
   test "should be invalid without a name" do
-    policy_group = build(:policy_group, name: '')
+    policy_group = build(:policy_group, name: "")
     refute policy_group.valid?
   end
 
@@ -40,32 +40,32 @@ class PolicyGroupTest < ActiveSupport::TestCase
     assert_published_policies_returns_all_tagged_policies(policy_group)
   end
 
-  test '#access_limited? returns false' do
+  test "#access_limited? returns false" do
     policy_group = FactoryBot.build(:policy_group)
     refute policy_group.access_limited?
   end
 
-  test '#access_limited_object returns nil' do
+  test "#access_limited_object returns nil" do
     policy_group = FactoryBot.build(:policy_group)
     assert_nil policy_group.access_limited_object
   end
 
-  test 'is always publicly visible' do
+  test "is always publicly visible" do
     policy_group = FactoryBot.build(:policy_group)
     assert policy_group.publicly_visible?
   end
 
-  test 'is never unpublished' do
+  test "is never unpublished" do
     policy_group = FactoryBot.build(:policy_group)
     refute policy_group.unpublished?
   end
 
-  test 'never has unpublished edition' do
+  test "never has unpublished edition" do
     policy_group = FactoryBot.build(:policy_group)
     assert_nil policy_group.unpublished_edition
   end
 
-  test 'is always accessible' do
+  test "is always accessible" do
     policy_group = FactoryBot.build(:policy_group)
     assert policy_group.accessible_to?(nil)
   end

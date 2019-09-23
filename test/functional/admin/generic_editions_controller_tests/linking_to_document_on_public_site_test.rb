@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::GenericEditionsController::LinkingToDocumentOnPublicSiteTest < ActionController::TestCase
   include TaxonomyHelper

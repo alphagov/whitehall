@@ -62,14 +62,14 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test 'should be invalid when it duplicates lead organisations on create' do
+  test "should be invalid when it duplicates lead organisations on create" do
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [organisation_1, organisation_1])
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates lead organisations on save' do
+  test "should be invalid when it duplicates lead organisations on save" do
     organisation_1 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [organisation_1])
@@ -77,7 +77,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates organisations via lead and supporting on create' do
+  test "should be invalid when it duplicates organisations via lead and supporting on create" do
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [organisation_1],
@@ -85,7 +85,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates organisations via lead and supporting on save' do
+  test "should be invalid when it duplicates organisations via lead and supporting on save" do
     organisation_1 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [organisation_1])
@@ -94,7 +94,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates organisations via edition organisations directly on create' do
+  test "should be invalid when it duplicates organisations via edition organisations directly on create" do
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
                               edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true),
@@ -102,7 +102,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates organisations via edition organisations directly on save' do
+  test "should be invalid when it duplicates organisations via edition organisations directly on save" do
     organisation_1 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
                                edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true)])
@@ -110,7 +110,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates support organisations on create' do
+  test "should be invalid when it duplicates support organisations on create" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
@@ -119,7 +119,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be invalid when it duplicates support organisations on save' do
+  test "should be invalid when it duplicates support organisations on save" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
@@ -129,7 +129,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test 'should be valid when it swaps a lead and support organisation on save' do
+  test "should be valid when it swaps a lead and support organisation on save" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
@@ -140,7 +140,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test 'should be valid when it removes one lead and replaces it with the other on save' do
+  test "should be valid when it removes one lead and replaces it with the other on save" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
@@ -150,7 +150,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test 'should be valid when it removes a lead to make it supporting, and swaps the other lead\'s position on save' do
+  test "should be valid when it removes a lead to make it supporting, and swaps the other lead's position on save" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
@@ -162,7 +162,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test 'should raise an exception when attempting to modify an edition of a locked document' do
+  test "should raise an exception when attempting to modify an edition of a locked document" do
     edition = create(:unpublished_edition, :with_locked_document)
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       edition.title = "hello world"
@@ -170,7 +170,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     end
   end
 
-  test 'should raise an exception when attempting to create an edition for a locked document' do
+  test "should raise an exception when attempting to create an edition for a locked document" do
     document = create(:document, locked: true)
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       create(:edition, document: document)

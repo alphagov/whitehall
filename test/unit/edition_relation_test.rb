@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EditionRelationTest < ActiveSupport::TestCase
   test "should be invalid without a edition_id" do

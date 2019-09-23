@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   setup do
@@ -35,10 +35,10 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the new promotional feature and redirects to the show page" do
-    post :create, params: { organisation_id: @organisation, promotional_feature: { title: 'Promotional feature title' } }
+    post :create, params: { organisation_id: @organisation, promotional_feature: { title: "Promotional feature title" } }
 
     assert promotional_feature = @organisation.reload.promotional_features.last
-    assert_equal 'Promotional feature title', promotional_feature.title
+    assert_equal "Promotional feature title", promotional_feature.title
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, promotional_feature)
   end
 
@@ -62,10 +62,10 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
   test "PUT :update saves the promotional feature and redirects to the show page" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
-    put :update, params: { organisation_id: @organisation, id: promotional_feature, promotional_feature: { title: 'New title' } }
+    put :update, params: { organisation_id: @organisation, id: promotional_feature, promotional_feature: { title: "New title" } }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, promotional_feature)
-    assert_equal 'New title', promotional_feature.reload.title
+    assert_equal "New title", promotional_feature.reload.title
   end
 
   test "DELETE :destroy deletes the promotional feature" do
@@ -74,6 +74,6 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_promotional_features_url(@organisation)
     refute PromotionalFeature.exists?(promotional_feature.id)
-    assert_equal 'Promotional feature deleted.', flash[:notice]
+    assert_equal "Promotional feature deleted.", flash[:notice]
   end
 end

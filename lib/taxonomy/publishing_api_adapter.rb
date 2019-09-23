@@ -5,12 +5,12 @@ module Taxonomy
 
     def taxon_data
       @_taxon_data = expand_taxon_array(
-        level_one_taxons
+        level_one_taxons,
       )
     end
 
     def world_taxon_data
-      expanded_links_hash(WORLD_CONTENT_ID).dig('expanded_links', 'child_taxons') || []
+      expanded_links_hash(WORLD_CONTENT_ID).dig("expanded_links", "child_taxons") || []
     end
 
   private
@@ -18,15 +18,15 @@ module Taxonomy
     def expand_taxon_array(taxons)
       taxons.map do |taxon_hash|
         taxon_hash.tap do |hash|
-          hash['links'] = expanded_links_hash(
-            taxon_hash['content_id']
-          )['expanded_links']
+          hash["links"] = expanded_links_hash(
+            taxon_hash["content_id"],
+          )["expanded_links"]
         end
       end
     end
 
     def level_one_taxons
-      expanded_links_hash(HOMEPAGE_CONTENT_ID).dig('expanded_links', 'level_one_taxons') || []
+      expanded_links_hash(HOMEPAGE_CONTENT_ID).dig("expanded_links", "level_one_taxons") || []
     end
 
     def expanded_links_hash(content_id)

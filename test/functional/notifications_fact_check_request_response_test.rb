@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   enable_url_helpers
@@ -8,15 +8,15 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     @requestor = build(:fact_check_requestor, name: "<requestor-name>")
     @request = build(
       :fact_check_request,
-      email_address: 'fact-checker@example.com',
+      email_address: "fact-checker@example.com",
       edition: @publication,
-      requestor: @requestor
+      requestor: @requestor,
     )
     @mail = Notifications.fact_check_request(@request, host: "example.com")
   end
 
   test "email should be sent to the fact checker email address" do
-    assert_equal ['fact-checker@example.com'], @mail.to
+    assert_equal ["fact-checker@example.com"], @mail.to
   end
 
   test "email subject should include the name of the requestor and the edition title" do
@@ -63,19 +63,19 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     @requestor = build(
       :fact_check_requestor,
       name: "<requestor-name>",
-      email: "fact-check-requestor@example.com"
+      email: "fact-check-requestor@example.com",
     )
     @request = build(
       :fact_check_request,
-      email_address: 'fact-checker@example.com',
+      email_address: "fact-checker@example.com",
       edition: @publication,
-      requestor: @requestor
+      requestor: @requestor,
     )
     @mail = Notifications.fact_check_response(@request, host: "example.com")
   end
 
   test "email should be sent to the requestor email address" do
-    assert_equal ['fact-check-requestor@example.com'], @mail.to
+    assert_equal ["fact-check-requestor@example.com"], @mail.to
   end
 
   test "email subject should include the name of the requestor and the edition title" do
@@ -83,7 +83,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain a link to the comment on the edition page" do
-    url = admin_edition_url(@request.edition, anchor: dom_id(@request), host: 'example.com')
+    url = admin_edition_url(@request.edition, anchor: dom_id(@request), host: "example.com")
     assert_match Regexp.new(url), @mail.body.to_s
   end
 
@@ -111,28 +111,28 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "#broken_link_reports mail includes the supplied file as an attachment" do
-    file_path = file_fixture('sample_attachment.zip').path
-    receiver  = 'test@gov.co.uk'
+    file_path = file_fixture("sample_attachment.zip").path
+    receiver  = "test@gov.co.uk"
     mail      = Notifications.broken_link_reports(file_path, receiver)
 
-    assert_equal ['test@gov.co.uk'], mail.to
-    assert_equal 'GOV.UK broken link reports', mail.subject
+    assert_equal ["test@gov.co.uk"], mail.to
+    assert_equal "GOV.UK broken link reports", mail.subject
     assert attachment = mail.attachments.first
-    assert_equal 'sample_attachment.zip', attachment.filename
+    assert_equal "sample_attachment.zip", attachment.filename
     assert_match %r{bad link reports}, mail.parts.first.body.to_s
   end
 
   test "#document_list uses the supplied file object as an attachment" do
-    file = file_fixture('sample.csv').read
-    receiver = 'test@gov.co.uk'
+    file = file_fixture("sample.csv").read
+    receiver = "test@gov.co.uk"
     mail = Notifications.document_list(file, receiver, "Everyone's documents")
-    assert_equal 'document_list.zip', mail.attachments.first.filename
+    assert_equal "document_list.zip", mail.attachments.first.filename
     assert_match %r{list of documents}, mail.parts.first.body.to_s
   end
 
   test "#document_list uses the supplied title in the mail subject" do
-    file = file_fixture('sample.csv').read
-    receiver = 'test@gov.co.uk'
+    file = file_fixture("sample.csv").read
+    receiver = "test@gov.co.uk"
     mail = Notifications.document_list(file, receiver, "Everyone's documents")
     assert_equal "Everyone's documents from GOV.UK", mail.subject
   end

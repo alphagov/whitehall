@@ -1,17 +1,17 @@
-require 'test_helper'
+require "test_helper"
 
 class Whitehall::PublishingApi::RedirectTest < ActiveSupport::TestCase
   setup do
     @base_path = "/government/thong"
     @redirects = [
-      { path: @base_path, type: "exact", destination: "/government/thing" }
+      { path: @base_path, type: "exact", destination: "/government/thing" },
     ]
     @redirect = Whitehall::PublishingApi::Redirect.new(@base_path, @redirects)
     @output_hash = @redirect.as_json
   end
 
   test "generates a valid redirect content item" do
-    assert_valid_against_schema(@output_hash, 'redirect')
+    assert_valid_against_schema(@output_hash, "redirect")
   end
 
   test "#base_path returns the base_path" do

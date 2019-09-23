@@ -8,7 +8,7 @@
 # chapters and save.
 # Finally, the scripts outputs any items that need manual updating.
 
-require 'gds-api-adapters'
+require "gds-api-adapters"
 
 def validate_url_content_id(url)
   url = url.chomp
@@ -34,7 +34,7 @@ end
 def clean_the_url(url)
   clean_url = url[/(http(s?):\/\/www.gov.uk\/)([^\/]*)/]
   if !clean_url.nil?
-    clean_url.insert(4, 's') if clean_url.start_with?('http://')
+    clean_url.insert(4, "s") if clean_url.start_with?("http://")
     clean_url = clean_url.chop if clean_url[-1] == "/"
   end
   clean_url
@@ -49,8 +49,8 @@ related_mainstream_content_urls = DetailedGuide
                                       [
                                         "related_mainstream_content_url IS NOT NULL " \
                                         "AND related_mainstream_content_url != '' " \
-                                        "AND state != 'superseded'"
-                                      ]
+                                        "AND state != 'superseded'",
+                                      ],
                                     )
 puts "#{related_mainstream_content_urls.length} Related mainstream content urls"
 related_mainstream_content_urls.each do |detailed_guide|
@@ -67,14 +67,14 @@ end
 additional_related_mainstream_content_urls = DetailedGuide
                                                .select(
                                                  :id,
-                                                 :additional_related_mainstream_content_url
+                                                 :additional_related_mainstream_content_url,
                                                )
                                                .where(
                                                  [
                                                    "additional_related_mainstream_content_url IS NOT NULL " \
                                                    "AND additional_related_mainstream_content_url != ''" \
-                                                   "AND state != 'superseded'"
-                                                 ]
+                                                   "AND state != 'superseded'",
+                                                 ],
                                                )
 puts "\n#{additional_related_mainstream_content_urls.length} Additional related mainstream content urls"
 

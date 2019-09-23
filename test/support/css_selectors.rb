@@ -2,11 +2,11 @@ module CssSelectors
   include ActionView::RecordIdentifier
 
   def record_css_selector(object, prefix = nil)
-    '#' + dom_id(object, prefix)
+    "#" + dom_id(object, prefix)
   end
 
   def search_result_css_selector(object)
-    '#' + object.type.underscore + "_" + object.content_id
+    "#" + object.type.underscore + "_" + object.content_id
   end
 
   def record_id_from(element)

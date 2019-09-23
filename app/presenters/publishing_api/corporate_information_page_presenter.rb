@@ -3,7 +3,7 @@ module PublishingApi
     extend Forwardable
     include UpdateTypeHelper
 
-    SCHEMA_NAME = 'corporate_information_page'.freeze
+    SCHEMA_NAME = "corporate_information_page".freeze
 
     attr_reader :update_type
 
@@ -44,7 +44,7 @@ module PublishingApi
         %i(
           organisations
           parent
-        )
+        ),
       ).merge(CorporateInformationPages.for(corporate_information_page))
     end
 
@@ -224,7 +224,7 @@ module PublishingApi
           url_maker
             .publications_filter_path(
               organisation,
-              publication_type: 'corporate-reports',
+              publication_type: "corporate-reports",
             )
 
         {
@@ -235,7 +235,7 @@ module PublishingApi
 
       def payload_for_jobs
         {
-          title: 'Jobs',
+          title: "Jobs",
           url: organisation.jobs_url,
         }
       end
@@ -256,7 +256,7 @@ module PublishingApi
           url_maker
             .publications_filter_path(
               organisation,
-              publication_type: 'transparency-data',
+              publication_type: "transparency-data",
             )
 
         {
@@ -299,11 +299,11 @@ module PublishingApi
         @pages ||= [].tap { |pages|
           pages.push(*page_content_ids_for_menu_heading(:jobs_and_contracts))
           pages.push(*page_content_ids_for_menu_heading(:our_information))
-          pages.push(page_content_id_for_slug('about-our-services'))
-          pages.push(page_content_id_for_slug('personal-information-charter'))
-          pages.push(page_content_id_for_slug('publication-scheme'))
-          pages.push(page_content_id_for_slug('social-media-use'))
-          pages.push(page_content_id_for_slug('welsh-language-scheme'))
+          pages.push(page_content_id_for_slug("about-our-services"))
+          pages.push(page_content_id_for_slug("personal-information-charter"))
+          pages.push(page_content_id_for_slug("publication-scheme"))
+          pages.push(page_content_id_for_slug("social-media-use"))
+          pages.push(page_content_id_for_slug("welsh-language-scheme"))
         }.compact
       end
 
@@ -339,7 +339,7 @@ module PublishingApi
         return {} unless organisation.present?
 
         {
-          organisation: organisation.content_id
+          organisation: organisation.content_id,
         }
       end
 

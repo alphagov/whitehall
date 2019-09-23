@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   include TaxonomyHelper
@@ -13,8 +13,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
     body = {
       "error" => {
         "code" => 404,
-        "message" => "Could not find link set with content_id: #{content_id}"
-      }
+        "message" => "Could not find link set with content_id: #{content_id}",
+      },
     }.to_json
 
     stub_request(:get, %r{.*/v2/expanded-links/#{content_id}.*})
@@ -28,7 +28,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   test "it returns '[]' if there are no taxons" do
     publishing_api_has_expanded_links(
       content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {}
+      expanded_links:  {},
     )
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
@@ -48,12 +48,12 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "base_path" => "/i-am-a-taxon",
             "details" => { "visible_to_departmental_editors" => true },
             "links" => {},
-          }
-        ]
-      }
+          },
+        ],
+      },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
-    assert_equal 'aaaa', taxons.first.content_id
+    assert_equal "aaaa", taxons.first.content_id
   end
 
   test "it returns a taxon with a parent" do
@@ -73,17 +73,17 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
-                }
-              ]
-            }
-          }
-        ]
-      }
+                  "links" => {},
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
-    assert_equal 'aaaa', taxons.first.content_id
-    assert_equal 'bbbb', taxons.first.parent_node.content_id
+    assert_equal "aaaa", taxons.first.content_id
+    assert_equal "bbbb", taxons.first.parent_node.content_id
   end
 
   test "it returns a taxon with parent and grandparent" do
@@ -109,20 +109,20 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                       "content_id" => "cccc",
                       "base_path" => "/i-am-a-grand-parent-taxon",
                       "details" => { "visible_to_departmental_editors" => true },
-                      "links" => {}
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
+                      "links" => {},
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
-    assert_equal 'aaaa', taxons.first.content_id
-    assert_equal 'bbbb', taxons.first.parent_node.content_id
-    assert_equal 'cccc', taxons.first.parent_node.parent_node.content_id
+    assert_equal "aaaa", taxons.first.content_id
+    assert_equal "bbbb", taxons.first.parent_node.content_id
+    assert_equal "cccc", taxons.first.parent_node.parent_node.content_id
   end
 
   test "it returns paths for multiple taxons" do
@@ -142,10 +142,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
-                }
-              ]
-            }
+                  "links" => {},
+                },
+              ],
+            },
           },
           {
             "title" => "Paying taxes",
@@ -159,13 +159,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "dddd",
                   "base_path" => "/i-am-another-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
-                }
-              ]
-            }
-          }
-        ]
-      }
+                  "links" => {},
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 2, taxons.count
@@ -192,20 +192,20 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
+                  "links" => {},
                 },
                 {
                   "title" => "Work and pensions",
                   "content_id" => "cccc",
                   "base_path" => "/i-am-another-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
+                  "links" => {},
                 },
-              ]
-            }
-          }
-        ]
-      }
+              ],
+            },
+          },
+        ],
+      },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal "aaaa", taxons.first.content_id
@@ -229,10 +229,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
+                  "links" => {},
                 },
-              ]
-            }
+              ],
+            },
           },
           {
             "title" => "I am the visible draft taxon",
@@ -246,10 +246,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "dddd",
                   "base_path" => "/i-am-another-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
+                  "links" => {},
                 },
-              ]
-            }
+              ],
+            },
           },
           {
             "title" => "I am the invisible draft taxon",
@@ -263,13 +263,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "ffff",
                   "base_path" => "/i-am-yet-another-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => false },
-                  "links" => {}
+                  "links" => {},
                 },
-              ]
-            }
-          }
-        ]
-      }
+              ],
+            },
+          },
+        ],
+      },
     )
 
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
@@ -293,10 +293,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
+                  "links" => {},
                 },
-              ]
-            }
+              ],
+            },
           },
           {
             "title" => "I am the world taxon",
@@ -310,17 +310,17 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "content_id" => "dddd",
                   "base_path" => "/world/all",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
+                  "links" => {},
                 },
-              ]
-            }
-          }
-        ]
-      }
+              ],
+            },
+          },
+        ],
+      },
     )
-    redis_cache_has_world_taxons([build(:taxon_hash, content_id: 'world-taxon')])
+    redis_cache_has_world_taxons([build(:taxon_hash, content_id: "world-taxon")])
 
-    redis_cache_has_world_taxons([build(:taxon_hash, content_id: 'world-taxon')])
+    redis_cache_has_world_taxons([build(:taxon_hash, content_id: "world-taxon")])
 
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch_world_taxons
     assert_equal %w[world-taxon], taxons.map(&:content_id)
@@ -342,16 +342,16 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                   "title" => "Something",
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-policy",
-                  "document_type" => "policy"
-                }
-              ]
-            }
-          }
-        ]
-      }
+                  "document_type" => "policy",
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
 
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
-    assert_equal 'policy', taxons.first.legacy_mapping["policy"][0]["document_type"]
+    assert_equal "policy", taxons.first.legacy_mapping["policy"][0]["document_type"]
   end
 end

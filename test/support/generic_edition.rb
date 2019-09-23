@@ -1,4 +1,4 @@
-require 'public_document_routes_helper'
+require "public_document_routes_helper"
 
 class GenericEdition < Edition
   include Attachable
@@ -17,7 +17,7 @@ module PublicDocumentRoutesHelper
   end
 
   def generic_edition_url(options = {})
-    host = options[:host] || ''
+    host = options[:host] || ""
     host + generic_edition_path(options)
   end
 end

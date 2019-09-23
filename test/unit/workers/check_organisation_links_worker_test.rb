@@ -69,7 +69,7 @@ private
 
   def assert_report_count_increased
     stub_organisation_edition_limit(2) do
-      assert_difference 'LinkCheckerApiReport.count', 2 do
+      assert_difference "LinkCheckerApiReport.count", 2 do
         CheckOrganisationLinksWorker.new.perform(@hmrc.id)
       end
     end
@@ -78,7 +78,7 @@ private
   def stub_published_publication
     links = [
       { uri: "https://www.gov.uk/bad-link" },
-      { uri: "https://www.gov.uk/another-good-link" }
+      { uri: "https://www.gov.uk/another-good-link" },
     ]
 
     body = link_checker_api_batch_report_hash(id: 6, links: links)
@@ -89,7 +89,7 @@ private
   def create_and_stub_an_edition(organisation)
     links = [
       { uri: "https://www.gov.uk/very-bad-link" },
-      { uri: "https://www.gov.uk/yet-another-good-link" }
+      { uri: "https://www.gov.uk/yet-another-good-link" },
     ]
 
     create_published_publication(organisation, links)
@@ -102,7 +102,7 @@ private
   def create_and_stub_an_edition_with_checks(organisation)
     links = [
       { uri: "https://www.gov.uk/very-bad-link-1" },
-      { uri: "https://www.gov.uk/yet-another-good-link-1" }
+      { uri: "https://www.gov.uk/yet-another-good-link-1" },
     ]
 
     publication = create_published_publication(organisation, links)
@@ -117,7 +117,7 @@ private
   def create_and_stub_edition_with_historic_checks(organisation)
     links = [
       { uri: "https://www.gov.uk/very-old-link" },
-      { uri: "https://www.gov.uk/yet-another-old-link" }
+      { uri: "https://www.gov.uk/yet-another-old-link" },
     ]
 
     publication = create_published_publication(organisation, links)
@@ -144,7 +144,7 @@ private
   def create_published_publication(organisation, links)
     create(:published_publication,
            lead_organisations: [organisation],
-           body: links.map { |link| "[a link](#{link[:uri]})" }.join(' '))
+           body: links.map { |link| "[a link](#{link[:uri]})" }.join(" "))
   end
 
   def request_body(links)
@@ -152,8 +152,8 @@ private
 
     {
       uris: uris,
-      webhook_uri: admin_link_checker_api_callback_url(host: Plek.find('whitehall-admin')),
-      webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token
+      webhook_uri: admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")),
+      webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token,
     }
   end
 

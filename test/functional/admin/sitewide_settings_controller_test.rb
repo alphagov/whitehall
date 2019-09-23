@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::SitewideSettingsControllerTest < ActionController::TestCase
   setup do
@@ -25,7 +25,7 @@ class Admin::SitewideSettingsControllerTest < ActionController::TestCase
     sitewide_setting = create(:sitewide_setting)
     put :update, params: { id: sitewide_setting, sitewide_setting: { on: true, govspeak: "govspeak text" } }
 
-    assert_equal 'govspeak text', sitewide_setting.reload.govspeak
+    assert_equal "govspeak text", sitewide_setting.reload.govspeak
     assert_equal true, sitewide_setting.reload.on
     assert_redirected_to admin_sitewide_settings_path
   end

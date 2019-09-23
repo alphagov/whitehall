@@ -5,7 +5,7 @@ namespace :publishing_api do
   task publish_special_routes: :environment do
     publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
       logger: Logger.new(STDOUT),
-      publishing_api: Services.publishing_api
+      publishing_api: Services.publishing_api,
     )
 
     [
@@ -55,7 +55,7 @@ namespace :publishing_api do
           update_type: "major",
           type: "prefix",
           public_updated_at: Time.zone.now.iso8601,
-        }.merge(route)
+        }.merge(route),
       )
     end
   end
@@ -145,7 +145,7 @@ namespace :publishing_api do
     return unless document
 
     puts "Document with this content ID exists: #{document}"
-    abort 'This Rake task is only for unknown content'
+    abort "This Rake task is only for unknown content"
   end
 
   desc "Manually unpublish content with a redirect"
@@ -155,7 +155,7 @@ namespace :publishing_api do
   # has a record of.
   namespace :unpublish_with_redirect do
     task :dry_run, %i[content_id alternative_path locale] => :environment do |_, args|
-      args.with_defaults(locale: 'en')
+      args.with_defaults(locale: "en")
 
       ensure_document_with_content_id_doesnt_exist(args[:content_id])
 
@@ -164,15 +164,15 @@ namespace :publishing_api do
     end
 
     task :real, %i[content_id alternative_path locale] => :environment do |_, args|
-      args.with_defaults(locale: 'en')
+      args.with_defaults(locale: "en")
 
       ensure_document_with_content_id_doesnt_exist(args[:content_id])
 
       response = Services.publishing_api.unpublish(
         args[:content_id],
-        type: 'redirect',
+        type: "redirect",
         locale: args[:locale],
-        alternative_path: args[:alternative_path].strip
+        alternative_path: args[:alternative_path].strip,
       )
 
       puts response
@@ -205,12 +205,12 @@ namespace :publishing_api do
       end
       puts "Processing #{i}-#{i + 99} of #{count} publications - #{attachment_count} attachments updated" if (i % 100).zero?
     end
-    puts 'Finished sending HTML Attachments to publishing API'
+    puts "Finished sending HTML Attachments to publishing API"
   end
 
   desc "Discard all draft about pages that have the same base_path as their WorldwideOrganisation"
   task discard_draft_worldwide_organisation_about_pages: :environment do
-    about_pages = YAML.load_file(File.join(Rails.root, 'lib', 'tasks', 'about_pages.yml'))
+    about_pages = YAML.load_file(File.join(Rails.root, "lib", "tasks", "about_pages.yml"))
 
     about_pages.each do |content_id, locale|
       PublishingApiDiscardDraftWorker.perform_async(content_id, locale)

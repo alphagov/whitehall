@@ -174,8 +174,8 @@ PUBLISHED_COMING_SOON_CONTENT_IDS = %w[
 PUBLISHED_COMING_SOON_CONTENT_IDS.each do |content_id|
   Services.publishing_api.unpublish(
     content_id,
-    type: 'vanish',
-    discard_drafts: true
+    type: "vanish",
+    discard_drafts: true,
   )
 
   puts "unpublished #{content_id}"

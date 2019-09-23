@@ -7,7 +7,7 @@ class Admin::DocumentsController < Admin::BaseController
       HtmlAttachment.find_by(content_id: params[:content_id])&.attachable
     )
 
-    url_maker = Whitehall::UrlMaker.new(host: Plek.find('whitehall'))
+    url_maker = Whitehall::UrlMaker.new(host: Plek.find("whitehall"))
     if document
       redirect_to url_maker.admin_edition_path(document.latest_edition)
     else

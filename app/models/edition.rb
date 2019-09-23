@@ -37,11 +37,11 @@ class Edition < ApplicationRecord
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
   has_many :classification_featurings, inverse_of: :edition
-  has_many :link_check_reports, as: :link_reportable, class_name: 'LinkCheckerApiReport'
+  has_many :link_check_reports, as: :link_reportable, class_name: "LinkCheckerApiReport"
 
   has_many :edition_dependencies, dependent: :destroy
-  has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: 'Contact'
-  has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: 'Edition'
+  has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: "Contact"
+  has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: "Edition"
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
@@ -69,7 +69,7 @@ class Edition < ApplicationRecord
   }
 
   scope :with_title_containing, ->(keywords) {
-    escaped_like_expression = keywords.gsub(/([%_])/, '%' => '\\%', '_' => '\\_')
+    escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
     like_clause = "%#{escaped_like_expression}%"
 
     in_default_locale
@@ -109,7 +109,7 @@ class Edition < ApplicationRecord
 
     def modifiable_attributes(previous_state, current_state)
       modifiable = %w{state updated_at force_published}
-      if previous_state == 'scheduled'
+      if previous_state == "scheduled"
         modifiable += %w{major_change_published_at first_published_at access_limited}
       end
       if PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
@@ -119,7 +119,7 @@ class Edition < ApplicationRecord
     end
 
     def being_unpublished?(previous_state, current_state)
-      previous_state == 'published' && %w(draft withdrawn).include?(current_state)
+      previous_state == "published" && %w(draft withdrawn).include?(current_state)
     end
   end
 
@@ -149,7 +149,7 @@ class Edition < ApplicationRecord
       .order(
         arel_table[:public_timestamp].desc,
         arel_table[:document_id].desc,
-        arel_table[:id].desc
+        arel_table[:id].desc,
       )
   end
 
@@ -189,7 +189,7 @@ class Edition < ApplicationRecord
 
   # used by Admin::EditionFilter
   def self.in_world_location(world_location)
-    joins(:world_locations).where('world_locations.id' => world_location)
+    joins(:world_locations).where("world_locations.id" => world_location)
   end
 
   def self.from_date(date)
@@ -211,7 +211,7 @@ class Edition < ApplicationRecord
   # used by Admin::EditionFilter
   def self.without_locked_documents
     joins(:document)
-    .where.not('documents.locked = true')
+    .where.not("documents.locked = true")
   end
 
   def self.latest_edition
@@ -233,7 +233,7 @@ class Edition < ApplicationRecord
   end
 
   def self.search_format_type
-    self.name.underscore.tr('_', '-')
+    self.name.underscore.tr("_", "-")
   end
 
   def self.concrete_descendants
@@ -246,7 +246,7 @@ class Edition < ApplicationRecord
 
   # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
   def self.with_classification(classification)
-    joins('INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id').
+    joins("INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id").
       where("classification_memberships.classification_id" => classification.id)
   end
 
@@ -467,7 +467,7 @@ class Edition < ApplicationRecord
     ignorable_attribute_keys = %w(id type state created_at updated_at change_note
                                   minor_change force_published scheduled_publication)
     draft_attributes = attributes.except(*ignorable_attribute_keys)
-      .merge('state' => 'draft', 'creator' => user, 'previously_published' => previously_published)
+      .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 
     self.class.new(draft_attributes).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
@@ -484,17 +484,17 @@ class Edition < ApplicationRecord
   end
 
   def rejected_by
-    rejected_event = latest_version_audit_entry_for('rejected')
+    rejected_event = latest_version_audit_entry_for("rejected")
     rejected_event && rejected_event.actor
   end
 
   def published_by
-    published_event = latest_version_audit_entry_for('published')
+    published_event = latest_version_audit_entry_for("published")
     published_event && published_event.actor
   end
 
   def scheduled_by
-    scheduled_event = latest_version_audit_entry_for('scheduled')
+    scheduled_event = latest_version_audit_entry_for("scheduled")
     scheduled_event && scheduled_event.actor
   end
 
@@ -544,7 +544,7 @@ class Edition < ApplicationRecord
 
   def most_recent_change_note
     if minor_change?
-      previous_major_version = Edition.unscoped.where('document_id=? and published_major_version=? and published_minor_version=0', document_id, published_major_version)
+      previous_major_version = Edition.unscoped.where("document_id=? and published_major_version=? and published_minor_version=0", document_id, published_major_version)
       previous_major_version.first.change_note if previous_major_version.any?
     else
       change_note unless first_published_version?
@@ -564,7 +564,7 @@ class Edition < ApplicationRecord
   end
 
   def display_type_key
-    format_name.tr(' ', '_')
+    format_name.tr(" ", "_")
   end
 
   def first_public_at
@@ -659,7 +659,7 @@ class Edition < ApplicationRecord
   end
 
   def withdrawn?
-    self.state == 'withdrawn'
+    self.state == "withdrawn"
   end
 
   def detailed_format

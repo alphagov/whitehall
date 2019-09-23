@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 module CsvSampleHelpers
   def consultation_csv_sample(first_row_overrides = {}, extra_row_overrides = [])
@@ -8,7 +8,7 @@ module CsvSampleHelpers
 
   def publication_csv_sample(first_row_overrides = {})
     rows = [
-      minimally_valid_publication_row.merge(first_row_overrides)
+      minimally_valid_publication_row.merge(first_row_overrides),
     ]
     csv_sample(rows)
   end
@@ -27,7 +27,7 @@ module CsvSampleHelpers
       "title"             => "title",
       "summary"           => "summary",
       "body"              => "body",
-      "organisation"      => sample_organisation.slug
+      "organisation"      => sample_organisation.slug,
     }
   end
 
@@ -39,14 +39,14 @@ module CsvSampleHelpers
       "consultation_URN"  => "",
       "response_date"     => "20-Nov-2012",
       "response_summary"  => "summary required",
-      "topic_1"           => sample_topic.slug
+      "topic_1"           => sample_topic.slug,
     )
   end
 
   def minimally_valid_publication_row
     minimally_valid_edition_row.merge(
       "publication_type" => "guidance",
-      "publication_date" => "2011-01-01"
+      "publication_date" => "2011-01-01",
     )
   end
 

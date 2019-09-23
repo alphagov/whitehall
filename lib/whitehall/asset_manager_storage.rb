@@ -4,12 +4,12 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     temporary_location = ::File.join(
       Whitehall.asset_manager_tmp_dir,
       SecureRandom.uuid,
-      ::File.basename(original_file)
+      ::File.basename(original_file),
     )
 
     FileUtils.mkdir_p(::File.dirname(temporary_location))
     FileUtils.cp(original_file, temporary_location)
-    legacy_url_path = ::File.join('/government/uploads', uploader.store_path)
+    legacy_url_path = ::File.join("/government/uploads", uploader.store_path)
     draft = uploader.assets_protected?
     if uploader.model.respond_to?(:attachable)
       model_class = uploader.model.attachable && uploader.model.attachable.class.to_s
@@ -26,7 +26,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
   class File
     def initialize(asset_path)
-      @legacy_url_path = ::File.join('/government', 'uploads', asset_path)
+      @legacy_url_path = ::File.join("/government", "uploads", asset_path)
     end
 
     def delete

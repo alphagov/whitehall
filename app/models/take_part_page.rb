@@ -21,7 +21,7 @@ class TakePartPage < ApplicationRecord
              link: :search_link,
              content: :body_without_markup,
              description: :summary,
-             format: 'take_part'
+             format: "take_part"
 
   include PublishesToPublishingApi
 
@@ -45,7 +45,7 @@ class TakePartPage < ApplicationRecord
       TakePartPage.where(id: ids_in_new_ordering).each do |page|
         page.update_column(:ordering, ids_in_new_ordering.index(page.id.to_s) + 1)
       end
-      TakePartPage.where('id NOT IN (?)', ids_in_new_ordering).update_all(ordering: ids_in_new_ordering.size + 1)
+      TakePartPage.where("id NOT IN (?)", ids_in_new_ordering).update_all(ordering: ids_in_new_ordering.size + 1)
     end
   end
 

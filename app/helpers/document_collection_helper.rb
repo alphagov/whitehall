@@ -8,7 +8,7 @@ module DocumentCollectionHelper
 
   def array_of_links_to_document_collections(edition)
     edition.published_document_collections.map do |dc|
-      link_to dc.title, public_document_path(dc), class: 'collection-link'
+      link_to dc.title, public_document_path(dc), class: "collection-link"
     end
   end
 

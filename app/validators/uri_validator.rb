@@ -1,5 +1,5 @@
 # Modified from https://gist.github.com/timocratic/5113293
-require 'addressable/uri'
+require "addressable/uri"
 
 #Accepts options[:message] and options[:allowed_protocols]
 class UriValidator < ActiveModel::EachValidator

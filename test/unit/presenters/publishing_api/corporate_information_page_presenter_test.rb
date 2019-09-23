@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module PublishingApi::CorporateInformationPagePresenterTest
   class TestCase < ActiveSupport::TestCase
@@ -62,11 +62,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
       self.corporate_information_page = create(:corporate_information_page)
     end
 
-    test 'base' do
+    test "base" do
       attributes_double = {
-        base_attribute_one: 'base_attribute_one',
-        base_attribute_two: 'base_attribute_two',
-        base_attribute_three: 'base_attribute_three',
+        base_attribute_one: "base_attribute_one",
+        base_attribute_two: "base_attribute_two",
+        base_attribute_three: "base_attribute_three",
       }
 
       PublishingApi::BaseItemPresenter
@@ -80,27 +80,27 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_equal actual_content, expected_content
     end
 
-    test 'base links' do
+    test "base links" do
       expected_link_keys = %i(
         organisations
         parent
       )
 
       links_double = {
-        link_one: 'link_one',
-        link_two: 'link_two',
-        link_three: 'link_three',
+        link_one: "link_one",
+        link_two: "link_two",
+        link_three: "link_three",
       }
 
       PublishingApi::LinksPresenter
         .expects(:new)
         .with(corporate_information_page)
         .returns(
-          mock('PublishingApi::LinksPresenter') {
+          mock("PublishingApi::LinksPresenter") {
             expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          }
+          },
         )
 
       actual_links = presented_links
@@ -110,10 +110,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
 
-    test 'body details' do
+    test "body details" do
       body_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer
         .expects(:govspeak_edition_to_html)
@@ -125,39 +125,39 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_details_attribute :body, body_double
     end
 
-    test 'corporate information groups' do
+    test "corporate information groups" do
       refute_details_attribute :corporate_information_groups
     end
 
-    test 'description' do
+    test "description" do
       assert_attribute :description, corporate_information_page.summary
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'publication_scheme'
+    test "document type" do
+      assert_attribute :document_type, "publication_scheme"
     end
 
-    test 'links' do
+    test "links" do
       expected_link_keys = %i(
         organisations
         parent
       )
 
       links_double = {
-        link_one: 'link_one',
-        link_two: 'link_two',
-        link_three: 'link_three',
+        link_one: "link_one",
+        link_two: "link_two",
+        link_three: "link_three",
       }
 
       PublishingApi::LinksPresenter
         .stubs(:new)
         .with(corporate_information_page)
         .returns(
-          mock('PublishingApi::LinksPresenter') {
+          mock("PublishingApi::LinksPresenter") {
             stubs(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          }
+          },
         )
 
       actual_links = presented_links
@@ -166,33 +166,33 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_attribute :links, expected_links
     end
 
-    test 'organisation details' do
-      organisation = create(:organisation, content_id: '7bcea45b-57b1-4200-b35f-29d8324e9a68')
+    test "organisation details" do
+      organisation = create(:organisation, content_id: "7bcea45b-57b1-4200-b35f-29d8324e9a68")
 
       corporate_information_page
         .stubs(owning_organisation: organisation)
 
-      assert_details_attribute :organisation, '7bcea45b-57b1-4200-b35f-29d8324e9a68'
+      assert_details_attribute :organisation, "7bcea45b-57b1-4200-b35f-29d8324e9a68"
     end
 
-    test 'public document path' do
-      assert_payload 'PublishingApi::PayloadBuilder::PublicDocumentPath'
+    test "public document path" do
+      assert_payload "PublishingApi::PayloadBuilder::PublicDocumentPath"
     end
 
-    test 'rendering app' do
-      assert_attribute :rendering_app, 'government-frontend'
+    test "rendering app" do
+      assert_attribute :rendering_app, "government-frontend"
     end
 
-    test 'schema name' do
-      assert_attribute :schema_name, 'corporate_information_page'
+    test "schema name" do
+      assert_attribute :schema_name, "corporate_information_page"
     end
 
-    test 'tags' do
-      assert_details_payload 'PublishingApi::PayloadBuilder::TagDetails'
+    test "tags" do
+      assert_details_payload "PublishingApi::PayloadBuilder::TagDetails"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'corporate_information_page'
+    test "validity" do
+      assert_valid_against_schema presented_content, "corporate_information_page"
     end
   end
 
@@ -200,7 +200,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     setup do
       organisation = create(
         :organisation,
-        organisation_chart_url: 'https://www.example.com/path/to/org/chart',
+        organisation_chart_url: "https://www.example.com/path/to/org/chart",
       )
 
       self.corporate_information_page =
@@ -249,9 +249,9 @@ module PublishingApi::CorporateInformationPagePresenterTest
                   organisations: [organisation])
     end
 
-    test 'corporate information groups' do
+    test "corporate information groups" do
       organisation_chart = {
-        title: 'Our organisation chart',
+        title: "Our organisation chart",
         url: corporate_information_page.organisation.organisation_chart_url,
       }
 
@@ -259,7 +259,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
         @procurement_corporate_information_page.content_id,
         @recruitment_corporate_information_page.content_id,
         {
-          title: 'Jobs',
+          title: "Jobs",
           url: corporate_information_page.organisation.jobs_url,
         },
       ]
@@ -270,22 +270,22 @@ module PublishingApi::CorporateInformationPagePresenterTest
       ]
 
       corporate_reports_publications_filter = {
-        title: 'Corporate reports',
-        path: '/government/publications?' +
+        title: "Corporate reports",
+        path: "/government/publications?" +
           "departments%5B%5D=#{corporate_information_page.organisation.slug}&" +
-          'publication_type=corporate-reports',
+          "publication_type=corporate-reports",
       }
 
       transparency_data_publications_filter = {
-        title: 'Transparency data',
-        path: '/government/publications?' +
+        title: "Transparency data",
+        path: "/government/publications?" +
           "departments%5B%5D=#{corporate_information_page.organisation.slug}&" +
-          'publication_type=transparency-data',
+          "publication_type=transparency-data",
       }
 
       expected_groups = [
         {
-          name: 'Access our information',
+          name: "Access our information",
           contents: [].tap { |contents|
             contents.push(organisation_chart)
             contents.push(*our_information)
@@ -294,17 +294,17 @@ module PublishingApi::CorporateInformationPagePresenterTest
           },
         },
         {
-          name: 'Jobs and contracts',
+          name: "Jobs and contracts",
           contents: [].tap { |contents|
             contents.push(*jobs)
           },
-        }
+        },
       ]
 
       assert_details_attribute :corporate_information_groups, expected_groups
     end
 
-    test 'corporate information page links' do
+    test "corporate information page links" do
       expected_content_ids = [
         @about_our_services_corporate_information_page.content_id,
         @complaints_procedure_corporate_information_page.content_id,
@@ -320,12 +320,12 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_links :corporate_information_pages, expected_content_ids
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'about'
+    test "document type" do
+      assert_attribute :document_type, "about"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'corporate_information_page'
+    test "validity" do
+      assert_valid_against_schema presented_content, "corporate_information_page"
     end
   end
 
@@ -335,12 +335,12 @@ module PublishingApi::CorporateInformationPagePresenterTest
         create(:complaints_procedure_corporate_information_page)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'complaints_procedure'
+    test "document type" do
+      assert_attribute :document_type, "complaints_procedure"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'corporate_information_page'
+    test "validity" do
+      assert_valid_against_schema presented_content, "corporate_information_page"
     end
   end
 
@@ -348,27 +348,27 @@ module PublishingApi::CorporateInformationPagePresenterTest
     setup do
       self.corporate_information_page = create(:corporate_information_page,
                                                minor_change: false)
-      self.update_type = 'major'
+      self.update_type = "major"
     end
 
-    test 'update type' do
-      assert_equal 'major', presented_corporate_information_page.update_type
+    test "update type" do
+      assert_equal "major", presented_corporate_information_page.update_type
     end
   end
 
   class PublishedCorporateInformationPage < TestCase
     setup do
       self.corporate_information_page = create(
-        :published_corporate_information_page
+        :published_corporate_information_page,
       )
     end
 
-    test 'change history' do
+    test "change history" do
       assert_equal(
         1,
         presented_corporate_information_page
           .content[:details][:change_history]
-          .length
+          .length,
       )
     end
   end
@@ -379,8 +379,8 @@ module PublishingApi::CorporateInformationPagePresenterTest
                                                minor_change: true)
     end
 
-    test 'update type' do
-      assert_equal 'minor', presented_corporate_information_page.update_type
+    test "update type" do
+      assert_equal "minor", presented_corporate_information_page.update_type
     end
   end
 
@@ -390,8 +390,8 @@ module PublishingApi::CorporateInformationPagePresenterTest
                                                minor_change: false)
     end
 
-    test 'update type' do
-      assert_equal 'major', presented_corporate_information_page.update_type
+    test "update type" do
+      assert_equal "major", presented_corporate_information_page.update_type
     end
   end
 
@@ -403,13 +403,13 @@ module PublishingApi::CorporateInformationPagePresenterTest
                                        updated_at: Date.new(2012))
     end
 
-    test 'public updated at' do
+    test "public updated at" do
       assert_attribute :public_updated_at,
-                       '1999-01-01T00:00:00+00:00'
+                       "1999-01-01T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'corporate_information_page'
+    test "validity" do
+      assert_valid_against_schema presented_content, "corporate_information_page"
     end
   end
 
@@ -421,13 +421,13 @@ module PublishingApi::CorporateInformationPagePresenterTest
                                        updated_at: Date.new(2012))
     end
 
-    test 'public updated at' do
+    test "public updated at" do
       assert_attribute :public_updated_at,
-                       '2012-01-01T00:00:00+00:00'
+                       "2012-01-01T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'corporate_information_page'
+    test "validity" do
+      assert_valid_against_schema presented_content, "corporate_information_page"
     end
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class LinkCheckerApiServiceTest < ActiveSupport::TestCase
   WEBHOOK_URI = "https://example.com/webhook_uri".freeze

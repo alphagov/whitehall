@@ -32,7 +32,7 @@ class MinisterialRole < Role
              link: :search_link,
              content: :current_person_biography,
              description: :search_description,
-             format: 'minister'
+             format: "minister"
 
   def self.cabinet
     where(cabinet_member: true).alphabetical_by_person

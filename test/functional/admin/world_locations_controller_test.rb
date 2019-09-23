@@ -8,14 +8,14 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'should return active and inactive world locations in alphabetical order' do
+  test "should return active and inactive world locations in alphabetical order" do
     active = [
-      create(:world_location, name: 'zzz', active: true),
-      create(:world_location, name: 'aaa', active: true)
+      create(:world_location, name: "zzz", active: true),
+      create(:world_location, name: "aaa", active: true),
     ]
     inactive = [
-      create(:world_location, name: 'zzz', active: false),
-      create(:world_location, name: 'aaa', active: false)
+      create(:world_location, name: "zzz", active: false),
+      create(:world_location, name: "aaa", active: false),
     ]
 
     get :index
@@ -24,29 +24,29 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_equal inactive.sort_by(&:name), assigns(:inactive_world_locations)
   end
 
-  view_test 'should allow modification of existing world location data' do
+  view_test "should allow modification of existing world location data" do
     world_location = create(:world_location)
 
     get :edit, params: { id: world_location }
 
-    assert_template 'world_locations/edit'
+    assert_template "world_locations/edit"
     assert_select "input[name='world_location[title]']"
     assert_select "textarea[name='world_location[mission_statement]']"
   end
 
-  test 'updating should modify the world location' do
+  test "updating should modify the world location" do
     world_location = create(:world_location)
 
-    put :update, params: { id: world_location, world_location: { mission_statement: 'country-mission-statement' } }
+    put :update, params: { id: world_location, world_location: { mission_statement: "country-mission-statement" } }
 
     world_location.reload
-    assert_equal 'country-mission-statement', world_location.mission_statement
+    assert_equal "country-mission-statement", world_location.mission_statement
   end
 
-  test 'after updating redirects to world location show page' do
+  test "after updating redirects to world location show page" do
     world_location = create(:world_location)
 
-    put :update, params: { id: world_location, world_location: { mission_statement: 'country-mission-statement' } }
+    put :update, params: { id: world_location, world_location: { mission_statement: "country-mission-statement" } }
 
     assert_redirected_to [:admin, world_location]
   end
@@ -57,8 +57,8 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     post :update, params: { id: world_location, world_location: {
       featured_links_attributes: { "0" => {
         url: "http://www.gov.uk/mainstream/something",
-        title: "Something on mainstream"
-      } }
+        title: "Something on mainstream",
+      } },
     } }
 
     assert world_location = WorldLocation.last
@@ -74,8 +74,8 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     post :update, params: { id: world_location, world_location: {
       featured_links_attributes: { "0" => {
         id: featured_link.id,
-        _destroy: "1"
-      } }
+        _destroy: "1",
+      } },
     } }
 
     refute FeaturedLink.exists?(featured_link.id)
@@ -84,7 +84,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   view_test "the 'View on website' link on the show page goes to the news page" do
     world_location = create(:world_location, slug: "germany")
     get :show, params: { id: world_location }
-    assert_select 'a' do |links|
+    assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
       assert_match(/\/world\/germany\/news/, view_links.first["href"])
     end
@@ -94,7 +94,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location, slug: "france", translated_into: [:fr])
     get :features, params: { id: world_location }
 
-    assert_select 'a' do |links|
+    assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
       assert_match(/\/world\/france\/news/, view_links.first["href"])
     end
@@ -104,7 +104,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location, slug: "france", translated_into: [:fr])
     get :features, params: { id: world_location, locale: "fr" }
 
-    assert_select 'a' do |links|
+    assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
       assert_match(/\/world\/france\/news\.fr/, view_links.first["href"])
     end

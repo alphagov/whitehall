@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::FeaturableTest < ActiveSupport::TestCase
   test "#feature_list_for_locale should return the feature list for the given locale, or build one if not" do

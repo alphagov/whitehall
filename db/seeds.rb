@@ -11,7 +11,7 @@ else
     name: "Test user",
     permissions: ["signin", "GDS Admin", "GDS Editor", "Managing Editor", "Export data"],
     organisation_content_id: gds_organisation_id,
-    organisation_slug: "test-organisation"
+    organisation_slug: "test-organisation",
   )
 end
 
@@ -25,7 +25,7 @@ else
     acronym: "HRMC",
     organisation_type_key: :other,
     logo_formatted_name: "Test",
-    content_id: "6667cce2-e809-4e21-ae09-cb0bdc1ddda3"
+    content_id: "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
   )
 end
 
@@ -37,7 +37,7 @@ else
     slug: "test-organisation",
     acronym: "TO",
     organisation_type_key: :other,
-    logo_formatted_name: "Test"
+    logo_formatted_name: "Test",
   )
 end
 
@@ -46,7 +46,7 @@ if Government.where(name: "Test Government").present?
 else
   Government.create(
     name: "Test Government",
-    start_date: Time.new(2001, 1, 1)
+    start_date: Time.new(2001, 1, 1),
   )
 end
 
@@ -56,7 +56,7 @@ else
   Topic.skip_callback(:commit, :after, :publish_to_publishing_api)
   Topic.create(
     name: "Test Policy Area",
-    description: "Test Policy Area Description"
+    description: "Test Policy Area Description",
   )
 end
 
@@ -65,6 +65,6 @@ if WorldLocation.where(name: "Test World Location").present?
 else
   WorldLocation.create(
     name: "Test World Location",
-    world_location_type_id: 1
+    world_location_type_id: 1,
   )
 end

@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "test_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -11,7 +11,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
     ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
@@ -25,7 +25,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
     ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
@@ -41,7 +41,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       requests = [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
         stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-        stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
+        stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
       ]
 
       PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
@@ -52,7 +52,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
   test "fails gracefully if the model cannot be found" do
     non_existent_id = 12
-    PublishingApiWorker.new.perform('Edition', non_existent_id)
+    PublishingApiWorker.new.perform("Edition", non_existent_id)
   end
 
   test "passes the update_type option to the presenter" do
@@ -64,7 +64,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
     ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
@@ -84,11 +84,11 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
         [
           stub_publishing_api_put_content(presenter.content_id, presenter.content),
           stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-          stub_publishing_api_publish(presenter.content_id, locale: "es", update_type: nil)
+          stub_publishing_api_publish(presenter.content_id, locale: "es", update_type: nil),
         ]
       end
 
-      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'es')
+      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, "es")
 
       assert_all_requested requests
     end
@@ -100,7 +100,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     stub_any_publishing_api_put_content.and_raise(GdsApi::HTTPServerError.new(500))
 
     assert_raises(GdsApi::HTTPServerError) do
-      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
+      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, "en")
     end
   end
 
@@ -112,7 +112,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     GovukError.expects(:notify)
       .with(error, extra: { explanation: "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried." })
-    PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
+    PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, "en")
   end
 
   test "raises an error if an edition's document is locked" do

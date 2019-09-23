@@ -1,25 +1,25 @@
-require 'test_helper'
+require "test_helper"
 
 class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
-  test '#index! indexes published edition' do
+  test "#index! indexes published edition" do
     edition = create(:published_news_article)
 
     expect_indexing(edition)
     ServiceListeners::SearchIndexer.new(edition).index!
   end
 
-  test '#index! does nothing if edition cannot be indexed (i.e. non-english)' do
+  test "#index! does nothing if edition cannot be indexed (i.e. non-english)" do
     non_english_edition = I18n.with_locale(:fr) { create(:world_location_news_article, :published, primary_locale: :fr) }
 
     Whitehall::SearchIndex.expects(:add).never
     ServiceListeners::SearchIndexer.new(non_english_edition).index!
   end
 
-  test '#index! also indexes all collection documents for collections' do
+  test "#index! also indexes all collection documents for collections" do
     publication = create(:published_publication)
     consultation = create(:published_consultation)
     collection = create(:published_document_collection, groups: [
-      create(:document_collection_group, documents: [publication.document, consultation.document])
+      create(:document_collection_group, documents: [publication.document, consultation.document]),
     ])
 
     expect_indexing(collection, publication, consultation)
@@ -27,18 +27,18 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(collection).index!
   end
 
-  test '#remove! removes the edition from the search index' do
+  test "#remove! removes the edition from the search index" do
     edition = create(:published_news_article)
 
     expect_removal_from_index(edition)
     ServiceListeners::SearchIndexer.new(edition).remove!
   end
 
-  test '#remove! also indexes all collection documents for collections' do
+  test "#remove! also indexes all collection documents for collections" do
     publication = create(:published_publication)
     consultation = create(:published_consultation)
     collection = create(:published_document_collection, groups: [
-      create(:document_collection_group, documents: [publication.document, consultation.document])
+      create(:document_collection_group, documents: [publication.document, consultation.document]),
     ])
 
     expect_removal_from_index(collection)

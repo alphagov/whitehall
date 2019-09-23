@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ImageUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
@@ -11,7 +11,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     ImageUploader.enable_processing = false
   end
 
-  test 'uses the asset manager and quarantined file storage engine' do
+  test "uses the asset manager and quarantined file storage engine" do
     assert_equal Whitehall::AssetManagerStorage, ImageUploader.storage
   end
 
@@ -30,7 +30,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     end
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+      @uploader.store!(fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
     end
   end
 
@@ -52,7 +52,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s216_minister-of-funk.960x640.jpg/))
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+      @uploader.store!(fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
     end
   end
 
@@ -63,7 +63,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/test-svg.svg/))
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(fixture_file_upload('images/test-svg.svg', 'image/svg+xml'))
+      @uploader.store!(fixture_file_upload("images/test-svg.svg", "image/svg+xml"))
     end
   end
 
@@ -79,7 +79,7 @@ private
       "s630_minister-of-funk.960x640.jpg" => [630, 420],
       "s465_minister-of-funk.960x640.jpg" => [465, 310],
       "s300_minister-of-funk.960x640.jpg" => [300, 195],
-      "s216_minister-of-funk.960x640.jpg" => [216, 140]
+      "s216_minister-of-funk.960x640.jpg" => [216, 140],
     }
 
     width, height = expected_sizes[filename]

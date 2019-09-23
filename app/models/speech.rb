@@ -27,7 +27,7 @@ class Speech < Announcement
 
   def search_index
     super.merge(
-      "image_url" => lead_image_url
+      "image_url" => lead_image_url,
     )
   end
 

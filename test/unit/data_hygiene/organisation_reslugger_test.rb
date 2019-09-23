@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
 module OrganisationResluggerTest
@@ -11,7 +11,7 @@ module OrganisationResluggerTest
       @organisation = create_org_and_stub_content_store
       WebMock.reset! # clear the Publishing API calls after org creation
       stub_any_publishing_api_call
-      @reslugger = DataHygiene::OrganisationReslugger.new(@organisation, 'corrected-slug')
+      @reslugger = DataHygiene::OrganisationReslugger.new(@organisation, "corrected-slug")
     end
 
     def teardown
@@ -20,7 +20,7 @@ module OrganisationResluggerTest
 
     test "re-slugs the organisation" do
       @reslugger.run!
-      assert_equal 'corrected-slug', @organisation.slug
+      assert_equal "corrected-slug", @organisation.slug
     end
 
     test "publishes to Publishing API with the new slug" do
@@ -36,7 +36,7 @@ module OrganisationResluggerTest
 
       expected_publish_requests = [
         stub_publishing_api_put_content(content_item.content_id, content_item.content),
-        stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: nil)
+        stub_publishing_api_publish(content_item.content_id, locale: "en", update_type: nil),
       ]
 
       Sidekiq::Testing.inline! do
@@ -47,12 +47,12 @@ module OrganisationResluggerTest
     end
 
     test "deletes the old slug from the search index" do
-      Whitehall::SearchIndex.expects(:delete).with { |org| org.slug == 'old-slug' }
+      Whitehall::SearchIndex.expects(:delete).with { |org| org.slug == "old-slug" }
       @reslugger.run!
     end
 
     test "adds the new slug from the search index" do
-      Whitehall::SearchIndex.expects(:add).with { |org| org.slug == 'corrected-slug' }
+      Whitehall::SearchIndex.expects(:add).with { |org| org.slug == "corrected-slug" }
       @reslugger.run!
     end
   end

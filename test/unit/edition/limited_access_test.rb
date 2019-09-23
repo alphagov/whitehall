@@ -42,7 +42,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       create(:draft_news_article),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation], authors: [user]),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation]),
     ]
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
@@ -67,7 +67,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       create(:draft_publication, access_limited: false, world_locations: [other_location]),
       create(:draft_publication, access_limited: false, organisations: [my_organisation]),
       create(:draft_publication, access_limited: true, organisations: [my_organisation], world_locations: [other_location]),
-      create(:draft_publication, access_limited: true, organisations: [other_organisation], world_locations: [my_location])
+      create(:draft_publication, access_limited: true, organisations: [other_organisation], world_locations: [my_location]),
     ]
 
     accessible.each.with_index do |edition, i|
@@ -78,23 +78,23 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     end
   end
 
-  test '#access_limited_object returns self' do
+  test "#access_limited_object returns self" do
     edition = LimitedAccessEdition.new
 
     assert_equal edition, edition.access_limited_object
   end
 
-  test 'is not accessible if no user specified' do
+  test "is not accessible if no user specified" do
     edition = LimitedAccessEdition.new
 
     refute edition.accessible_to?(nil)
   end
 
-  test 'is not accessible if edition is not accessible to user' do
+  test "is not accessible if edition is not accessible to user" do
     user = build(:user)
     edition_id = 123
     edition = LimitedAccessEdition.new(id: edition_id)
-    accessible_scope = stub('accessible-scope')
+    accessible_scope = stub("accessible-scope")
     LimitedAccessEdition.stubs(:accessible_to).with(user)
       .returns(accessible_scope)
 
@@ -103,11 +103,11 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     refute edition.accessible_to?(user)
   end
 
-  test 'is accessible if edition is accessible to user' do
+  test "is accessible if edition is accessible to user" do
     user = build(:user)
     edition_id = 123
     edition = LimitedAccessEdition.new(id: edition_id)
-    accessible_scope = stub('accessible-scope')
+    accessible_scope = stub("accessible-scope")
     LimitedAccessEdition.stubs(:accessible_to).with(user)
       .returns(accessible_scope)
 

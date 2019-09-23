@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EditionWorldwideOrganisationTest < ActiveSupport::TestCase
   test "should be invalid without an edition" do

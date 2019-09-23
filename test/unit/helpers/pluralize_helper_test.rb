@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PluralizeHelperTest < ActionView::TestCase
   include PluralizeHelper
@@ -9,9 +9,9 @@ class PluralizeHelperTest < ActionView::TestCase
 
   test "behaves like regular Rails test helper" do
     examples = [
-                [1, 'policy'],
-                [2, 'policy'],
-                [3, 'sheep']
+                [1, "policy"],
+                [2, "policy"],
+                [3, "sheep"],
                ]
     original = OriginalHelper.new
     examples.each do |args|
@@ -20,8 +20,8 @@ class PluralizeHelperTest < ActionView::TestCase
   end
 
   test "can be passed a block for formatting" do
-    expected = '2 - policies'
-    actual = pluralize(2, 'policy') do |count_str, suffix|
+    expected = "2 - policies"
+    actual = pluralize(2, "policy") do |count_str, suffix|
       "#{count_str} - #{suffix}"
     end
     assert_equal expected, actual

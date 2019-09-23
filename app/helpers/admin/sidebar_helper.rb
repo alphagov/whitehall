@@ -5,7 +5,7 @@ module Admin::SidebarHelper
         tab_content = []
         tab_content << render("admin/editions/govspeak_help", options)
         tab_content << render("admin/editions/words_to_avoid_guidance")
-        tab_content << content_tag(:h3, 'Style', class: 'style-title')
+        tab_content << content_tag(:h3, "Style", class: "style-title")
         tab_content << content_tag(:p) do
           raw %<For style, see the #{link_to('style guide', 'https://www.gov.uk/guidance/style-guide')}>
         end
@@ -47,7 +47,7 @@ module Admin::SidebarHelper
       link = content_tag(:a, link_content, "href" => "##{id}", "data-toggle" => "tab")
       content_tag(:li, link, class: (index.zero? ? "active" : nil))
     end
-    content_tag(:div, class: ["sidebar tabbable", options[:class]].compact.join(' ')) do
+    content_tag(:div, class: ["sidebar tabbable", options[:class]].compact.join(" ")) do
       content_tag(:ul, class: "nav nav-tabs add-bottom-margin") { tab_tags.join.html_safe } +
         content_tag(:div, class: "tab-content") { yield TabPaneState.new(self) }
     end

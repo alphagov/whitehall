@@ -1,17 +1,17 @@
 slugs = [
-  'erdf-programmes-and-resources',
-  'erdf-programmes-progress-and-achievements',
-  'applying-for-erdf-funding',
-  'erdf-national-guidance',
-  'previous-erdf-programmes-retaining-documents',
-  'european-territorial-cooperation-programmes',
-  'reuniting-europe-programme-turkey'
+  "erdf-programmes-and-resources",
+  "erdf-programmes-progress-and-achievements",
+  "applying-for-erdf-funding",
+  "erdf-national-guidance",
+  "previous-erdf-programmes-retaining-documents",
+  "european-territorial-cooperation-programmes",
+  "reuniting-europe-programme-turkey",
 ]
 logo_url = "https://assets.digital.cabinet-office.gov.uk/media/55a7cc72ed915d5374000001/erdf-logo.png"
 
 puts "Adding logos to ERDF editions"
 slugs.each do |slug|
-  document = Document.find_by(document_type: 'DetailedGuide', slug: slug)
+  document = Document.find_by(document_type: "DetailedGuide", slug: slug)
   latest_published_edition = document.editions.latest_published_edition.first
   draft_edition = document.editions.latest_edition.draft.first
 

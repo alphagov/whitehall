@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::RolesHelperTest < ActionView::TestCase
   test "unsaved role appointment is a new appointment" do

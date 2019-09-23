@@ -1,5 +1,5 @@
 namespace :finders do
-  desc 'Publish finder pages to the publishing API'
+  desc "Publish finder pages to the publishing API"
   task publish: :environment do
     Dir[Rails.root + "lib/finders/*.json"].each do |file_path|
       puts "Publishing #{file_path}"

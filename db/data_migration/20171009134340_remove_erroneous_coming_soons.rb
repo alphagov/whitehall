@@ -183,7 +183,7 @@ content_store_results = [
   ["/government/publications/from-waste-to-resource-productivity-commercial-and-industrial-waste", "fc8c03f7-0f1f-4ed2-a392-e8a3a17f7bc1", "2017-09-12T10:30:00.000+01:00"],
   ["/government/publications/council-tax-number-of-insertions-in-postcode-district-cm3", "32017dfd-4a8e-47c1-b71e-6c7f7004b1ec", "2017-09-15T09:30:00.000+01:00"],
   ["/government/statistics/escherichia-coli-e-coli-bacteraemia-monthly-data-split-by-location-of-onset", "a1f9e10b-3f16-4ad1-9812-1c8e4b610924", "2017-10-04T09:30:00.000+01:00"],
-  ["/government/statistics/klebsiella-species-bacteraemia-monthly-data-split-by-location-of-onset", "d0710b74-0902-497a-b5fd-f75662ca3e42", "2017-10-04T09:30:00.000+01:00"]
+  ["/government/statistics/klebsiella-species-bacteraemia-monthly-data-split-by-location-of-onset", "d0710b74-0902-497a-b5fd-f75662ca3e42", "2017-10-04T09:30:00.000+01:00"],
 ]
 
 content_store_results.each do |result|

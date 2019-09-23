@@ -1,4 +1,4 @@
-organisation = Organisation.find_by(slug: 'appointed-person-for-england-and-wales-under-the-proceeds-of-crime-act-2002')
+organisation = Organisation.find_by(slug: "appointed-person-for-england-and-wales-under-the-proceeds-of-crime-act-2002")
 if organisation.present?
   # This association does have a dependent destroy, but if there are documents
   # we probably need to do some more 410/404 stuff

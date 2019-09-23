@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class CsrfTest < ActionController::TestCase
   class TestAdminController < Admin::BaseController
     def create
-      render plain: 'OK'
+      render plain: "OK"
     end
   end
   tests TestAdminController
@@ -35,7 +35,7 @@ class CsrfTest < ActionController::TestCase
   def with_test_routes(&block)
     with_routing do |map|
       map.draw do
-        post '/post_csrf', to: 'csrf_test/test_admin#create'
+        post "/post_csrf", to: "csrf_test/test_admin#create"
       end
       yield block
     end

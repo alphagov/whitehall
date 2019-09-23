@@ -13,7 +13,7 @@ class AddContentIdToSpecialistSector < ActiveRecord::Migration
     SpecialistSector.find_each do |tagging|
       print "."
       tagging.update_columns(
-        topic_content_id: SLUGS_TO_CONTENT_ID["/topic/#{tagging.tag}"]
+        topic_content_id: SLUGS_TO_CONTENT_ID["/topic/#{tagging.tag}"],
       )
     end
   end

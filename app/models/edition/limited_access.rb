@@ -7,7 +7,7 @@ module Edition::LimitedAccess
 
   module ClassMethods
     def accessible_to(user)
-      access_clauses = ['access_limited = false']
+      access_clauses = ["access_limited = false"]
       loc_clauses = []
       binds = {}
       if user
@@ -37,8 +37,8 @@ module Edition::LimitedAccess
         end
       end
       # we want ((access_limited = false or (in_org or is_author)) and (in_loc))
-      access_clause = access_clauses.join(' OR ')
-      loc_clause = loc_clauses.join(' OR ')
+      access_clause = access_clauses.join(" OR ")
+      loc_clause = loc_clauses.join(" OR ")
       where_clause = access_clause
       where_clause = "(#{where_clause}) AND (#{loc_clause})" unless loc_clause.blank?
       where(where_clause, binds)
