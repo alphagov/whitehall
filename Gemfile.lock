@@ -50,7 +50,7 @@ GEM
     ast (2.4.0)
     autoprefixer-rails (9.5.0)
       execjs
-    babosa (1.0.2)
+    babosa (1.0.3)
     better_errors (2.5.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -565,7 +565,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   addressable (>= 2.3.7)
-  babosa (= 1.0.2)
+  babosa (= 1.0.3)
   better_errors
   binding_of_caller
   bootsnap
