@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::SpeechesControllerTest < ActionController::TestCase
   setup do
@@ -66,7 +66,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
       role_appointment_id: new_role_appointment.id,
       speech_type_id: new_speech_type.id,
       delivered_on: new_delivered_on,
-      location: "new-location"
+      location: "new-location",
     } }
 
     speech = Speech.last
@@ -81,7 +81,7 @@ private
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:role_appointment, :speech_type).reverse_merge(
       role_appointment_id: create(:role_appointment).id,
-      speech_type_id: SpeechType::Transcript.id
+      speech_type_id: SpeechType::Transcript.id,
     )
   end
 end

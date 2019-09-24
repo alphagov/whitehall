@@ -3,9 +3,9 @@ class EmailSignupsController < PublicFacingController
     if non_finder_url
       redirect_to email_alert_frontend_signup
     elsif feed_url.match?(%r{/government/(publications|announcements|statistics)\.atom})
-      redirect_to feed_url.sub('.atom', '')
+      redirect_to feed_url.sub(".atom", "")
     else
-      redirect_to '/'
+      redirect_to "/"
     end
   end
 
@@ -21,7 +21,7 @@ private
   end
 
   def email_alert_frontend_signup
-    base_path = URI.parse(feed_url).path.chomp('.atom')
+    base_path = URI.parse(feed_url).path.chomp(".atom")
     "/email-signup?link=#{base_path}"
   end
 end

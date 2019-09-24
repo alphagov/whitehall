@@ -3,7 +3,7 @@ module PublishingApi
     extend Forwardable
     include UpdateTypeHelper
 
-    SCHEMA_NAME = 'consultation'.freeze
+    SCHEMA_NAME = "consultation".freeze
 
     attr_reader :update_type
     def_delegator :consultation, :content_id
@@ -293,7 +293,7 @@ module PublishingApi
             link_url: link_url,
             postal_address: postal_address,
             attachment_url: attachment_url,
-          }.compact
+          }.compact,
         }.compact
       end
 

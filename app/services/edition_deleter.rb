@@ -1,10 +1,10 @@
 class EditionDeleter < EditionService
   def verb
-    'delete'
+    "delete"
   end
 
   def past_participle
-    'deleted'
+    "deleted"
   end
 
   def failure_reason

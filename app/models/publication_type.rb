@@ -1,6 +1,6 @@
-require 'active_record_like_interface'
-require 'active_support/core_ext/object/blank.rb'
-require 'active_support/core_ext/string/inflections.rb'
+require "active_record_like_interface"
+require "active_support/core_ext/object/blank.rb"
+require "active_support/core_ext/string/inflections.rb"
 
 class PublicationType
   include ActiveRecordLikeInterface
@@ -81,7 +81,7 @@ class PublicationType
   end
 
   def primary_search_format_type
-    'publication-' + self.singular_name.parameterize
+    "publication-" + self.singular_name.parameterize
   end
 
   def additional_search_format_types
@@ -89,7 +89,7 @@ class PublicationType
   end
 
   def genus_key
-    'publication'
+    "publication"
   end
 
   PolicyPaper            = create(id: 1, key: "policy_paper", singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)

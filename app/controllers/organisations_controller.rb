@@ -35,7 +35,7 @@ class OrganisationsController < PublicFacingController
 
           if @organisation.organisation_type.allowed_promotional?
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
-            render 'show-promotional'
+            render "show-promotional"
           else
             @topics = @organisation.topics
             @ministers = ministers
@@ -50,7 +50,7 @@ class OrganisationsController < PublicFacingController
             @foi_contacts = @organisation.foi_contacts
           end
         else
-          render action: 'not_live'
+          render action: "not_live"
         end
       end
       format.atom do

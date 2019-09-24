@@ -37,7 +37,7 @@ private
     Services.publishing_api.patch_links(
       payload.content_id,
       links: payload.links,
-      bulk_publishing: bulk_publishing
+      bulk_publishing: bulk_publishing,
     )
     Services.publishing_api.publish(payload.content_id, nil, locale: locale)
   end

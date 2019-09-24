@@ -1,14 +1,14 @@
-require 'test_helper'
+require "test_helper"
 
 class EditionUnwithdrawerTest < ActiveSupport::TestCase
   setup do
-    @edition = FactoryBot.create(:published_edition, state: 'withdrawn')
+    @edition = FactoryBot.create(:published_edition, state: "withdrawn")
     @user = FactoryBot.create(:user)
     stub_any_publishing_api_call
   end
 
   test "initialize raises an error unless the edition is withdrawn" do
-    @edition = FactoryBot.create(:published_edition, state: 'published')
+    @edition = FactoryBot.create(:published_edition, state: "published")
     unwithdraw
 
     assert_equal ["An edition that is published cannot be unwithdrawn"], @unwithdrawer.failure_reasons
@@ -41,7 +41,7 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
   end
 
   test "unwithdraw handles legacy withdrawn editions" do
-    edition = FactoryBot.create(:published_edition, state: 'withdrawn')
+    edition = FactoryBot.create(:published_edition, state: "withdrawn")
 
     unwithdrawn_edition = unwithdraw(edition)
 

@@ -41,7 +41,7 @@ class ClassificationRelation < ApplicationRecord
     unless inverse_relation.present?
       self.class.create!(
         classification_id: related_classification_id,
-        related_classification_id: classification_id
+        related_classification_id: classification_id,
       )
     end
   end

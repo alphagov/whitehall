@@ -45,7 +45,7 @@ class Admin::ClassificationsController < Admin::BaseController
     # `PolicyArea` used to be called `Topic` in the frontend part of Whitehall.
     # This hack can be removed when `Topic` will become `PolicyArea` in the
     # backend too.
-    return 'Policy area' if model_name == 'topic'
+    return "Policy area" if model_name == "topic"
 
     model_name.humanize
   end

@@ -15,7 +15,7 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
   end
 
   def call_change_note_remover
-    DataHygiene::ChangeNoteRemover.call(document.content_id, 'en', query, dry_run: dry_run)
+    DataHygiene::ChangeNoteRemover.call(document.content_id, "en", query, dry_run: dry_run)
   end
 
   context "during a dry run" do
@@ -69,8 +69,8 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
           document.change_history.changes,
           [
             DocumentHistory::Change.new(previous_major_edition.public_timestamp, previous_major_edition.change_note),
-            DocumentHistory::Change.new(superseded_edition.public_timestamp, superseded_edition.change_note)
-          ]
+            DocumentHistory::Change.new(superseded_edition.public_timestamp, superseded_edition.change_note),
+          ],
         )
       end
 

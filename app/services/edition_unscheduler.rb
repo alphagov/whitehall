@@ -1,10 +1,10 @@
 class EditionUnscheduler < EditionService
   def verb
-    'unschedule'
+    "unschedule"
   end
 
   def past_participle
-    'unscheduled'
+    "unscheduled"
   end
 
   def failure_reason

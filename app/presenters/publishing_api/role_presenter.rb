@@ -69,8 +69,8 @@ module PublishingApi
       [
         {
           content_type: "text/html",
-          content: item.responsibilities || ""
-        }
+          content: item.responsibilities || "",
+        },
       ]
     end
   end

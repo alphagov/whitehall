@@ -8,7 +8,7 @@ class CreateStatisticsAnnouncementTopics < ActiveRecord::Migration
     end
 
     add_index :statistics_announcement_topics, :statistics_announcement_id,
-      name: 'index_statistics_announcement_topics_on_statistics_announcement'
+      name: "index_statistics_announcement_topics_on_statistics_announcement"
 
     add_index :statistics_announcement_topics, :topic_id
   end

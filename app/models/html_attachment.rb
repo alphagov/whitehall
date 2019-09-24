@@ -51,11 +51,11 @@ class HtmlAttachment < Attachment
   end
 
   def content_type
-    'text/html'
+    "text/html"
   end
 
   def name_for_link
-    'HTML attachment'
+    "HTML attachment"
   end
 
   def url(options = {})
@@ -99,7 +99,7 @@ class HtmlAttachment < Attachment
   end
 
   def readable_type
-    'HTML'
+    "HTML"
   end
 
   def translated_locales

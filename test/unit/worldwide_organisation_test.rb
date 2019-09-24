@@ -1,24 +1,24 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldwideOrganisationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name
 
   test "should set a slug from the field name" do
-    worldwide_organisation = create(:worldwide_organisation, name: 'Office Name')
-    assert_equal 'office-name', worldwide_organisation.slug
+    worldwide_organisation = create(:worldwide_organisation, name: "Office Name")
+    assert_equal "office-name", worldwide_organisation.slug
   end
 
-  test 'should set an analytics identifier on create' do
-    worldwide_organisation = create(:worldwide_organisation, name: 'Office name')
-    assert_equal 'WO' + worldwide_organisation.id.to_s, worldwide_organisation.analytics_identifier
+  test "should set an analytics identifier on create" do
+    worldwide_organisation = create(:worldwide_organisation, name: "Office name")
+    assert_equal "WO" + worldwide_organisation.id.to_s, worldwide_organisation.analytics_identifier
   end
 
-  test 'can be associated with multiple world locations' do
+  test "can be associated with multiple world locations" do
     countries = [
-      create(:world_location, name: 'France'),
-      create(:world_location, name: 'Spain')
+      create(:world_location, name: "France"),
+      create(:world_location, name: "Spain"),
     ]
-    worldwide_organisation = create(:worldwide_organisation, name: 'Office Name', world_locations: countries)
+    worldwide_organisation = create(:worldwide_organisation, name: "Office Name", world_locations: countries)
 
     assert_equal countries.sort_by(&:name), worldwide_organisation.world_locations.sort_by(&:name)
   end
@@ -40,7 +40,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal organisation, worldwide_organisation.reload.sponsoring_organisation
   end
 
-  test 'can have a default news article image' do
+  test "can have a default news article image" do
     image = build(:default_news_organisation_image_data)
     worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
     assert_equal image, worldwide_organisation.default_news_image
@@ -65,7 +65,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     refute AccessAndOpeningTimes.exists?(office_access_info.id)
   end
 
-  test 'destroys associated corporate information page documents and editions' do
+  test "destroys associated corporate information page documents and editions" do
     worldwide_organisation = create(:worldwide_organisation)
     create(:corporate_information_page, worldwide_organisation: worldwide_organisation, organisation: nil)
 
@@ -201,7 +201,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal types, organisation.reload.unused_corporate_information_page_types
   end
 
-  test 'adds worldwide organisation to search index on creating' do
+  test "adds worldwide organisation to search index on creating" do
     worldwide_organisation = build(:worldwide_organisation)
 
     Whitehall::SearchIndex.expects(:add).with(worldwide_organisation)
@@ -209,34 +209,34 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation.save
   end
 
-  test 'adds worldwide organisation to search index on updating' do
+  test "adds worldwide organisation to search index on updating" do
     worldwide_organisation = create(:worldwide_organisation)
 
     Whitehall::SearchIndex.expects(:add).with(worldwide_organisation)
 
-    worldwide_organisation.name = 'British Embassy to Hat land'
+    worldwide_organisation.name = "British Embassy to Hat land"
     worldwide_organisation.save
   end
 
-  test 'removes worldwide organisation role from search index on destroying if it is active' do
+  test "removes worldwide organisation role from search index on destroying if it is active" do
     worldwide_organisation = create(:worldwide_organisation)
     Whitehall::SearchIndex.expects(:delete).with(worldwide_organisation)
     worldwide_organisation.destroy
   end
 
-  test 'search index data for a worldwide organisation includes name, summary, the correct link and format' do
-    worldwide_organisation = create(:worldwide_organisation, content_id: '7d58b5d8-6d91-4dbb-b3e1-c2a27f131046', name: 'British Embassy to Hat land', slug: 'british-embassy-to-hat-land')
-    create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find('about'), worldwide_organisation: worldwide_organisation, organisation: nil, summary: 'Providing assistance to uk residents in hat land')
+  test "search index data for a worldwide organisation includes name, summary, the correct link and format" do
+    worldwide_organisation = create(:worldwide_organisation, content_id: "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046", name: "British Embassy to Hat land", slug: "british-embassy-to-hat-land")
+    create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find("about"), worldwide_organisation: worldwide_organisation, organisation: nil, summary: "Providing assistance to uk residents in hat land")
 
-    assert_equal({ 'title' => worldwide_organisation.name,
-                  'content_id' => '7d58b5d8-6d91-4dbb-b3e1-c2a27f131046',
-                  'link' => '/world/organisations/british-embassy-to-hat-land',
-                  'indexable_content' => 'Providing assistance to uk residents in hat land',
-                  'format' => 'worldwide_organisation',
-                  'description' => 'Providing assistance to uk residents in hat land' }, worldwide_organisation.search_index)
+    assert_equal({ "title" => worldwide_organisation.name,
+                  "content_id" => "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046",
+                  "link" => "/world/organisations/british-embassy-to-hat-land",
+                  "indexable_content" => "Providing assistance to uk residents in hat land",
+                  "format" => "worldwide_organisation",
+                  "description" => "Providing assistance to uk residents in hat land" }, worldwide_organisation.search_index)
   end
 
-  test 'knows if a given office is on its home page' do
+  test "knows if a given office is on its home page" do
     world_organisation = build(:worldwide_organisation)
     office = build(:worldwide_office)
     h = build(:home_page_list)
@@ -246,7 +246,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal :the_answer, world_organisation.office_shown_on_home_page?(office)
   end
 
-  test 'knows that the main office is on the home page, even if it\'s not explicitly in the list' do
+  test "knows that the main office is on the home page, even if it's not explicitly in the list" do
     world_organisation = create(:worldwide_organisation)
     office_1 = create(:worldwide_office, worldwide_organisation: world_organisation)
     office_2 = create(:worldwide_office, worldwide_organisation: world_organisation)
@@ -256,7 +256,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert world_organisation.office_shown_on_home_page?(office_2)
   end
 
-  test 'has a list of offices that are on its home page' do
+  test "has a list of offices that are on its home page" do
     world_organisation = build(:worldwide_organisation)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
@@ -265,7 +265,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal [:the_list_of_offices], world_organisation.home_page_offices
   end
 
-  test 'the list of offices that are on its home page excludes the main office' do
+  test "the list of offices that are on its home page excludes the main office" do
     world_organisation = create(:worldwide_organisation)
     office_1 = create(:worldwide_office, worldwide_organisation: world_organisation)
     office_2 = create(:worldwide_office, worldwide_organisation: world_organisation)
@@ -278,7 +278,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal [office_1, office_3], world_organisation.home_page_offices
   end
 
-  test 'can add a office to the list of those that are on its home page' do
+  test "can add a office to the list of those that are on its home page" do
     world_organisation = build(:worldwide_organisation)
     office = build(:worldwide_office)
     h = build(:home_page_list)
@@ -288,7 +288,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal :a_result, world_organisation.add_office_to_home_page!(office)
   end
 
-  test 'can remove a office from the list of those that are on its home page' do
+  test "can remove a office from the list of those that are on its home page" do
     world_organisation = build(:worldwide_organisation)
     office = build(:worldwide_office)
     h = build(:home_page_list)
@@ -298,7 +298,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal :a_result, world_organisation.remove_office_from_home_page!(office)
   end
 
-  test 'can reorder the contacts on the list' do
+  test "can reorder the contacts on the list" do
     world_organisation = build(:worldwide_organisation)
     office_1 = build(:worldwide_office)
     office_2 = build(:worldwide_office)
@@ -309,13 +309,13 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal :a_result, world_organisation.reorder_offices_on_home_page!([office_1, office_2])
   end
 
-  test 'maintains a home page list for storing offices' do
+  test "maintains a home page list for storing offices" do
     world_organisation = build(:worldwide_organisation)
-    HomePageList.expects(:get).with(has_entries(owned_by: world_organisation, called: 'offices')).returns :a_home_page_list_of_offices
+    HomePageList.expects(:get).with(has_entries(owned_by: world_organisation, called: "offices")).returns :a_home_page_list_of_offices
     assert_equal :a_home_page_list_of_offices, world_organisation.__send__(:home_page_offices_list)
   end
 
-  test 'when destroyed, will remove its home page list for storing offices' do
+  test "when destroyed, will remove its home page list for storing offices" do
     world_organisation = create(:worldwide_organisation)
     h = world_organisation.__send__(:home_page_offices_list)
     world_organisation.destroy

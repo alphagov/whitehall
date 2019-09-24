@@ -20,7 +20,7 @@ namespace :search do
   end
 
   desc "indexes all published searchable whitehall content"
-  task index: ['search:index:detailed', 'search:index:government']
+  task index: ["search:index:detailed", "search:index:government"]
 
   namespace :index do
     desc "indexes all organisations"
@@ -56,10 +56,10 @@ namespace :search do
     # useful if a topical event changes and we want to change related docs
     desc "indexes all topical events and related documents"
     task topical_event_editions: :environment do
-      puts 'Getting documents related to a topical event...'
+      puts "Getting documents related to a topical event..."
       index = Whitehall::SearchIndex.for(:government)
       related_editions = TopicalEvent.all.flat_map(&:editions).uniq
-      puts 'Getting search indexes for document editions...'
+      puts "Getting search indexes for document editions..."
       related_edition_search_indexes = related_editions.lazy.map(&:search_index)
       puts "Adding batch of #{related_editions.count} documents to indexing queue..."
       index.add_batch(related_edition_search_indexes)
@@ -105,7 +105,7 @@ namespace :search do
   end
 
   desc "removes and re-indexes all searchable whitehall content"
-  task reset: ['search:reset:detailed', 'search:reset:government']
+  task reset: ["search:reset:detailed", "search:reset:government"]
 
   namespace :reset do
     task government: :environment do

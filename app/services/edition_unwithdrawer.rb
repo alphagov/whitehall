@@ -1,10 +1,10 @@
 class EditionUnwithdrawer < EditionPublisher
   def verb
-    'unwithdraw'
+    "unwithdraw"
   end
 
   def past_participle
-    'unwithdrawn'
+    "unwithdrawn"
   end
 
   def failure_reason

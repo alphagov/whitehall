@@ -17,8 +17,8 @@ module Edition::AuditTrail
     has_many :versions, -> { order("created_at ASC, id ASC") }, as: :item
 
     has_one :most_recent_version,
-            -> { order('versions.created_at DESC, versions.id DESC') },
-            class_name: 'Version',
+            -> { order("versions.created_at DESC, versions.id DESC") },
+            class_name: "Version",
             as: :item
     has_one :last_author,
             through: :most_recent_version,
@@ -30,7 +30,7 @@ module Edition::AuditTrail
 
   def record_create
     user = Edition::AuditTrail.whodunnit
-    versions.create event: 'create', user: user, state: state
+    versions.create event: "create", user: user, state: state
     alert!(user)
   end
   private :record_create
@@ -38,7 +38,7 @@ module Edition::AuditTrail
   def record_update
     if changed.any?
       user = Edition::AuditTrail.whodunnit
-      versions.build event: 'update', user: user, state: state
+      versions.build event: "update", user: user, state: state
       alert!(user)
     end
   end
@@ -52,8 +52,8 @@ module Edition::AuditTrail
   private :alert!
 
   def should_alert_for?(user)
-    ENV['CO_NSS_WATCHKEEPER_EMAIL_ADDRESS'].present? &&
-      user.email == ENV['CO_NSS_WATCHKEEPER_EMAIL_ADDRESS']
+    ENV["CO_NSS_WATCHKEEPER_EMAIL_ADDRESS"].present? &&
+      user.email == ENV["CO_NSS_WATCHKEEPER_EMAIL_ADDRESS"]
   end
   private :should_alert_for?
 
@@ -105,7 +105,7 @@ module Edition::AuditTrail
   def most_recent_submission_audit_entry
     matching_entry = nil
     edition_version_trail.reverse.map do |audit_entry|
-      if audit_entry.version.state == 'submitted'
+      if audit_entry.version.state == "submitted"
         matching_entry = audit_entry
       elsif matching_entry.present?
         break
@@ -115,7 +115,7 @@ module Edition::AuditTrail
   end
 
   def publication_audit_entry
-    document_version_trail.detect { |audit_entry| audit_entry.version.state == 'published' }
+    document_version_trail.detect { |audit_entry| audit_entry.version.state == "published" }
   end
 
   class AuditEntry

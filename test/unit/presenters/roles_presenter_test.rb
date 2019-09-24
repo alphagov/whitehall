@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RolesPresenterTest < PresenterTestCase
   setup do
@@ -49,7 +49,7 @@ class RolesPresenterTest < PresenterTestCase
     assert_equal [RolePresenter.new(@role_1), RolePresenter.new(@role_2)], @presenter.roles_for(@role_1.current_person)
   end
 
-  test 'it can strip out roles that are not filled' do
+  test "it can strip out roles that are not filled" do
     @presenter.remove_unfilled_roles!
 
     assert_equal [RolePresenter.new(@role_1),
@@ -57,7 +57,7 @@ class RolesPresenterTest < PresenterTestCase
                   RolePresenter.new(@role_3)], @presenter.decorated_collection
   end
 
-  test 'it can strip out roles that are not filled (even after looking at the collection)' do
+  test "it can strip out roles that are not filled (even after looking at the collection)" do
     @presenter.decorated_collection
     @presenter.remove_unfilled_roles!
 

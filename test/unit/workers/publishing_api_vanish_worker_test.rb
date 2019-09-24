@@ -11,8 +11,8 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
       publication.document.content_id,
       body: {
         type: "vanish",
-        locale: "en"
-      }
+        locale: "en",
+      },
     )
 
     PublishingApiVanishWorker.new.perform(

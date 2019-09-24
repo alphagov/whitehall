@@ -47,7 +47,7 @@ module PublishingApi
         image: {
           url: item.image_url(:s300),
           alt_text: item.image_alt_text,
-        }
+        },
       }
     end
 

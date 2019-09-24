@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::FeatureListsControllerTest < ActionController::TestCase
   setup do
@@ -22,7 +22,7 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
     post :reorder, params: { id: feature_list, ordering: {
       feature_2.id.to_s => "1",
-      feature_1.id.to_s => "2"
+      feature_1.id.to_s => "2",
     } }
 
     assert_equal [feature_2, feature_1], feature_list.reload.features

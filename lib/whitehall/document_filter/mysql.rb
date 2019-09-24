@@ -1,4 +1,4 @@
-require 'whitehall/document_filter/filterer'
+require "whitehall/document_filter/filterer"
 
 module Whitehall::DocumentFilter
   class Mysql < Filterer
@@ -69,8 +69,8 @@ module Whitehall::DocumentFilter
           editions = @documents.arel_table
           @documents = @documents.where(
             editions[:publication_type_id].in(publication_ids).or(
-              editions[:type].in(edition_types)
-            )
+              editions[:type].in(edition_types),
+            ),
           )
         else
           @documents = @documents.where(publication_type_id: publication_ids)
@@ -85,8 +85,8 @@ module Whitehall::DocumentFilter
                          @documents
                            .arel_table[:type]
                            .in(
-                             selected_announcement_filter_option.edition_types
-                           )
+                             selected_announcement_filter_option.edition_types,
+                           ),
                        )
         if selected_announcement_filter_option.speech_types.present?
           @documents = @documents
@@ -94,8 +94,8 @@ module Whitehall::DocumentFilter
                            @documents
                              .arel_table[:speech_type_id]
                              .in(
-                               selected_announcement_filter_option.speech_types.map(&:id)
-                             )
+                               selected_announcement_filter_option.speech_types.map(&:id),
+                             ),
                          )
         elsif selected_announcement_filter_option.news_article_types.present?
           @documents = @documents
@@ -103,8 +103,8 @@ module Whitehall::DocumentFilter
                            @documents
                              .arel_table[:news_article_type_id]
                              .in(
-                               selected_announcement_filter_option.news_article_types.map(&:id)
-                             )
+                               selected_announcement_filter_option.news_article_types.map(&:id),
+                             ),
                          )
         end
       end

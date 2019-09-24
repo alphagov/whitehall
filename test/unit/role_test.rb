@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RoleTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :responsibilities
@@ -103,20 +103,20 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal [parker, swingler, ziller], Role.alphabetical_by_person
   end
 
-  test 'should set a slug from the name' do
-    role = create(:role, name: 'Prime Minister')
-    assert_equal 'prime-minister', role.slug
+  test "should set a slug from the name" do
+    role = create(:role, name: "Prime Minister")
+    assert_equal "prime-minister", role.slug
   end
 
-  test 'should not change the slug when the name is changed' do
-    role = create(:role, name: 'Prime Minister')
-    role.update_attributes(name: 'Chancellor of the Exchequer')
-    assert_equal 'prime-minister', role.slug
+  test "should not change the slug when the name is changed" do
+    role = create(:role, name: "Prime Minister")
+    role.update_attributes(name: "Chancellor of the Exchequer")
+    assert_equal "prime-minister", role.slug
   end
 
   test "should not include apostrophes in slug" do
     role = create(:role, name: "Bob's bike")
-    assert_equal 'bobs-bike', role.slug
+    assert_equal "bobs-bike", role.slug
   end
 
   test "should not be destroyable when it has appointments" do
@@ -200,21 +200,21 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "#historic_param maps the role to the appropriate historic role url parameter" do
-    pm_role = create(:ministerial_role, name: 'Prime Minister')
-    assert_equal 'past-prime-ministers', pm_role.historic_param
+    pm_role = create(:ministerial_role, name: "Prime Minister")
+    assert_equal "past-prime-ministers", pm_role.historic_param
 
-    chancellor_role = create(:ministerial_role, name: 'Chancellor of the Exchequer')
-    assert_equal 'past-chancellors', chancellor_role.historic_param
+    chancellor_role = create(:ministerial_role, name: "Chancellor of the Exchequer")
+    assert_equal "past-chancellors", chancellor_role.historic_param
 
-    assert_nil create(:role, name: 'Another role').historic_param
+    assert_nil create(:role, name: "Another role").historic_param
   end
 
-  test 'touches any role appointments after being updated' do
+  test "touches any role appointments after being updated" do
     role = create(:role)
     role_appointment = create(:role_appointment, role: role)
 
     Timecop.freeze 1.month do
-      role.update_attributes!(name: 'Name change')
+      role.update_attributes!(name: "Name change")
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end

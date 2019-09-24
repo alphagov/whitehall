@@ -18,7 +18,7 @@ Whitehall::Application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=3600'
+    "Cache-Control" => "public, max-age=3600",
   }
 
   # Show full error reports and disable caching.
@@ -38,7 +38,7 @@ Whitehall::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  config.log_level = (ENV['LOG_LEVEL'].presence || :debug).to_sym
+  config.log_level = (ENV["LOG_LEVEL"].presence || :debug).to_sym
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -56,9 +56,9 @@ Whitehall::Application.configure do
 
   # These environment variables are required for Plek. Conditionally setting
   # them here means we don't have to explicitly set them just to run tests.
-  ENV['GOVUK_APP_DOMAIN'] ||= 'test.gov.uk'
-  ENV['GOVUK_APP_DOMAIN_EXTERNAL'] ||= 'test.gov.uk'
-  ENV['GOVUK_ASSET_ROOT'] ||= 'https://static.test.gov.uk'
+  ENV["GOVUK_APP_DOMAIN"] ||= "test.gov.uk"
+  ENV["GOVUK_APP_DOMAIN_EXTERNAL"] ||= "test.gov.uk"
+  ENV["GOVUK_ASSET_ROOT"] ||= "https://static.test.gov.uk"
 end
 
 require Rails.root.join("test/support/skip_slimmer")

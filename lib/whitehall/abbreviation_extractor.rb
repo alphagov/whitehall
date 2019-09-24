@@ -9,7 +9,7 @@ module Whitehall
         .map { |abbr_tag|
           {
             terms: [
-              abbr_tag.attr('title'),
+              abbr_tag.attr("title"),
               abbr_tag.inner_text,
             ],
             type: "abbreviation",
@@ -28,7 +28,7 @@ module Whitehall
       helpers.govspeak_to_html(
         @edition.body,
         [],
-        heading_numbering: :manual, contact_heading_tag: 'h4'
+        heading_numbering: :manual, contact_heading_tag: "h4",
       )
     end
 

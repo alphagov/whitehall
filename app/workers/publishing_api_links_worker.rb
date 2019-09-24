@@ -15,7 +15,7 @@ class PublishingApiLinksWorker < WorkerBase
       Services.publishing_api.patch_links(
         content_id,
         links: links,
-        bulk_publishing: true
+        bulk_publishing: true,
       )
     end
   end

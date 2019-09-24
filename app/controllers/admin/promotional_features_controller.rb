@@ -15,7 +15,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   def create
     @promotional_feature = @organisation.promotional_features.build(promotional_feature_params)
     if @promotional_feature.save
-      redirect_to [:admin, @organisation, @promotional_feature], notice: 'Promotional feature created'
+      redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature created"
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def update
     if @promotional_feature.update_attributes(promotional_feature_params)
-      redirect_to [:admin, @organisation, @promotional_feature], notice: 'Promotional feature updated'
+      redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature updated"
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def destroy
     @promotional_feature.destroy
-    redirect_to [:admin, @organisation, PromotionalFeature], notice: 'Promotional feature deleted.'
+    redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
 
 private
@@ -55,7 +55,7 @@ private
         :summary, :image, :image_alt_text, :title, :title_url, :double_width,
         :image_cache,
         links_attributes: %i[url text _destroy]
-      ]
+      ],
     )
   end
 end

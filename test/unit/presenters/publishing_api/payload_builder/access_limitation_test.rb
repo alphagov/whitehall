@@ -10,12 +10,12 @@ module PublishingApi
         stubbed_item = stub(
           access_limited?: true,
           publicly_visible?: false,
-          organisations: [organisation]
+          organisations: [organisation],
         )
         expected_hash = {
           access_limited: {
-            users: [user.uid]
-          }
+            users: [user.uid],
+          },
         }
 
         assert_equal AccessLimitation.for(stubbed_item), expected_hash
@@ -28,7 +28,7 @@ module PublishingApi
         stubbed_item = stub(
           access_limited?: true,
           publicly_visible?: false,
-          organisations: [organisation]
+          organisations: [organisation],
         )
 
         assert_equal [], AccessLimitation.for(stubbed_item)[:access_limited][:users]

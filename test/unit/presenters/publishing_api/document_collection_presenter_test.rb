@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   setup do
@@ -7,7 +7,7 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     @document_collection = create(
       :document_collection,
       title: "Document Collection title",
-      summary: "Document Collection summary"
+      summary: "Document Collection summary",
     )
 
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
@@ -39,11 +39,11 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the publishing_app as whitehall" do
-    assert_equal 'whitehall', @presented_content[:publishing_app]
+    assert_equal "whitehall", @presented_content[:publishing_app]
   end
 
   test "it presents the rendering_app as government-frontend" do
-    assert_equal 'government-frontend', @presented_content[:rendering_app]
+    assert_equal "government-frontend", @presented_content[:rendering_app]
   end
 
   test "it presents the schema_name as document_collection" do
@@ -63,7 +63,7 @@ class PublishingApi::DocumentCollectionPresenterWithPublicTimestampTest < Active
   setup do
     @expected_time = Time.zone.parse("10/01/2016")
     @document_collection = create(
-      :document_collection
+      :document_collection,
     )
     @document_collection.public_timestamp = @expected_time
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
@@ -79,12 +79,12 @@ class PublishingApi::DraftDocumentCollectionBelongingToPublishedDocumentNoticePr
     presented_notice = PublishingApi::DocumentCollectionPresenter.new(
       create(:published_document_collection) do |document_collection|
         document_collection.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
-      end
+      end,
     )
 
     assert_equal(
       Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
+      presented_notice.content[:details][:first_public_at],
     )
   end
 end
@@ -101,7 +101,7 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
     group_two.stubs(:heading).returns("Group 2")
 
     presenter = PublishingApi::DocumentCollectionPresenter.new(
-      document_collection
+      document_collection,
     )
     @presented_details = presenter.content[:details]
     @presented_links = presenter.content[:links]
@@ -113,15 +113,15 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
         {
           "title": "Group 1",
           "body": "<div class=\"govspeak\"><p>Group body text</p>\n</div>",
-          "documents": %w(aaa bbb)
+          "documents": %w(aaa bbb),
         },
         {
           "title": "Group 2",
           "body": "<div class=\"govspeak\"><p>Group body text</p>\n</div>",
-          "documents": %w(fff eee)
-        }
+          "documents": %w(fff eee),
+        },
       ],
-      @presented_details[:collection_groups]
+      @presented_details[:collection_groups],
     )
   end
 end
@@ -132,14 +132,14 @@ class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSu
     document_collection.stubs(:content_ids).returns(%w(faf afa))
 
     @presented_links = PublishingApi::DocumentCollectionPresenter.new(
-      document_collection
+      document_collection,
     ).content[:links]
   end
 
   test "it presents the document content_ids as links, documents" do
     assert_equal(
       %w(faf afa),
-      @presented_links[:documents]
+      @presented_links[:documents],
     )
   end
 end
@@ -151,7 +151,7 @@ class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSup
       :document_collection,
       :published,
       body: "*Test string*",
-      first_published_at: @expected_first_published_at
+      first_published_at: @expected_first_published_at,
     )
 
     @presented_content = PublishingApi::DocumentCollectionPresenter.new(@document_collection).content
@@ -166,8 +166,8 @@ class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSup
     change_history = [
       {
         "public_timestamp" => @expected_first_published_at,
-        "note" => "change-note"
-      }
+        "note" => "change-note",
+      },
     ]
 
     assert_equal change_history, @presented_details[:change_history]
@@ -176,7 +176,7 @@ class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSup
   test "it presents the lead organisation content_ids as details, emphasised_organisations" do
     assert_equal(
       @document_collection.lead_organisations.map(&:content_id),
-      @presented_details[:emphasised_organisations]
+      @presented_details[:emphasised_organisations],
     )
   end
 end
@@ -191,28 +191,28 @@ class PublishingApi::PublishedDocumentCollectionPresenterLinksTest < ActiveSuppo
   test "it presents the organisation content_ids as links, organisations" do
     assert_equal(
       @document_collection.organisations.map(&:content_id),
-      @presented_links[:organisations]
+      @presented_links[:organisations],
     )
   end
 
   test "it presents the policy area content_ids as links, policy_areas" do
     assert_equal(
       @document_collection.topics.map(&:content_id),
-      @presented_links[:policy_areas]
+      @presented_links[:policy_areas],
     )
   end
 
   test "it presents the topic content_ids as links, topics" do
     assert_equal(
       @document_collection.specialist_sectors.map(&:content_id),
-      @presented_links[:topics]
+      @presented_links[:topics],
     )
   end
 
   test "it presents the primary_specialist_sector content_id as links, parent" do
     assert_equal(
       @document_collection.primary_specialist_sectors.map(&:content_id),
-      @presented_links[:parent]
+      @presented_links[:parent],
     )
   end
 end
@@ -227,42 +227,42 @@ class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < Acti
   test "it presents the documents content_ids as links, documents" do
     assert_equal(
       @document_collection.content_ids,
-      @presented_links[:documents]
+      @presented_links[:documents],
     )
   end
 
   test "it presents the organisation content_ids as links, organisations" do
     assert_equal(
       @document_collection.organisations.map(&:content_id),
-      @presented_links[:organisations]
+      @presented_links[:organisations],
     )
   end
 
   test "it presents the policy area content_ids as links, policy_areas" do
     assert_equal(
       @document_collection.topics.map(&:content_id),
-      @presented_links[:policy_areas]
+      @presented_links[:policy_areas],
     )
   end
 
   test "it presents the topic content_ids as links, topics" do
     assert_equal(
       @document_collection.specialist_sectors.map(&:content_id),
-      @presented_links[:topics]
+      @presented_links[:topics],
     )
   end
 
   test "it presents the topical_events content_ids as links, topical_events" do
     assert_equal(
       @document_collection.topical_events.map(&:content_id),
-      @presented_links[:topical_events]
+      @presented_links[:topical_events],
     )
   end
 
   test "it presentes the primary_specialist_sector content_ids as links, parent" do
     assert_equal(
       @document_collection.primary_specialist_sectors.map(&:content_id),
-      @presented_links[:parent]
+      @presented_links[:parent],
     )
   end
 end
@@ -279,14 +279,14 @@ class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest 
   test "it doesn't present duplicate content ids in content, links, documents" do
     assert_equal(
       %w(test ers),
-      @presented_edition_links[:documents]
+      @presented_edition_links[:documents],
     )
   end
 
   test "it doesn't present duplicate content ids in links, documents" do
     assert_equal(
       %w(test ers),
-      @presented_links[:documents]
+      @presented_links[:documents],
     )
   end
 end
@@ -305,14 +305,14 @@ class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest 
   test "it presents the policy_content_ids as links, related_policies" do
     assert_equal(
       @document_collection.policy_content_ids,
-      @presented_document_collection.links[:related_policies]
+      @presented_document_collection.links[:related_policies],
     )
   end
 
   test "it presents the policy_content_ids as content, links, related_policies" do
     assert_equal(
       @document_collection.policy_content_ids,
-      @presented_document_collection.content[:links][:related_policies]
+      @presented_document_collection.content[:links][:related_policies],
     )
   end
 end
@@ -327,14 +327,14 @@ class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest 
   test "it presents the topical events as links, topical_events" do
     assert_equal(
       %w[bfa],
-      @presented_document_collection.links[:topical_events]
+      @presented_document_collection.links[:topical_events],
     )
   end
 
   test "it presents the topical events as content, links, topical_events" do
     assert_equal(
       %w[bfa],
-      @presented_document_collection.content[:links][:topical_events]
+      @presented_document_collection.content[:links][:topical_events],
     )
   end
 end
@@ -342,7 +342,7 @@ end
 class PublishingApi::DocumentCollectionPresenterUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      create(:document_collection, minor_change: false)
+      create(:document_collection, minor_change: false),
     )
   end
 
@@ -354,7 +354,7 @@ end
 class PublishingApi::DocumentCollectionPresenterMinorUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      create(:document_collection, minor_change: true)
+      create(:document_collection, minor_change: true),
     )
   end
 
@@ -367,7 +367,7 @@ class PublishingApi::DocumentCollectionPresenterUpdateTypeArgumentTest < ActiveS
   setup do
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       create(:document_collection, minor_change: true),
-      update_type: "major"
+      update_type: "major",
     )
   end
 
@@ -386,7 +386,7 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
       slug: "the-current-government",
     )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      create(:document_collection)
+      create(:document_collection),
     )
   end
 
@@ -395,9 +395,9 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
       {
         "title": "The Current Government",
         "slug": "the-current-government",
-        "current": true
+        "current": true,
       },
-      @presented_document_collection.content[:details][:government]
+      @presented_document_collection.content[:details][:government],
     )
   end
 end
@@ -415,8 +415,8 @@ class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveS
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       create(
         :document_collection,
-        first_published_at: previous_government.start_date + 1.day
-      )
+        first_published_at: previous_government.start_date + 1.day,
+      ),
     )
   end
 
@@ -425,9 +425,9 @@ class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveS
       {
         "title": "A Previous Government",
         "slug": "a-previous-government",
-        "current": false
+        "current": false,
       },
-      @presented_document_collection.content[:details][:government]
+      @presented_document_collection.content[:details][:government],
     )
   end
 end
@@ -437,7 +437,7 @@ class PublishingApi::DocumentCollectionPresenterPoliticalTest < ActiveSupport::T
     document_collection = create(:document_collection)
     document_collection.stubs(:political?).returns(true)
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      document_collection
+      document_collection,
     )
   end
 
@@ -454,10 +454,10 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(document_collection)
       .returns(
-        access_limited: { users: %w(abcdef12345) }
+        access_limited: { users: %w(abcdef12345) },
       )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      document_collection
+      document_collection,
     )
   end
 

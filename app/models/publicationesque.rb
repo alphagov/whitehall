@@ -52,5 +52,5 @@ protected
   end
 end
 
-require_relative 'publication'
-require_relative 'consultation'
+require_relative "publication"
+require_relative "consultation"

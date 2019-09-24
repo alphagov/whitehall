@@ -1,25 +1,25 @@
-require 'test_helper'
+require "test_helper"
 
 class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
-  test 'should reindex all ministerial roles when a person is updated' do
+  test "should reindex all ministerial roles when a person is updated" do
     person = create(:person)
 
     MinisterialRole.expects(:reindex_all)
 
-    person.forename = 'Jim'
+    person.forename = "Jim"
     person.save
   end
 
-  test 'should reindex all ministerial roles when an organisation is updated' do
+  test "should reindex all ministerial roles when an organisation is updated" do
     organisation = create(:organisation)
 
     MinisterialRole.expects(:reindex_all)
 
-    organisation.name = 'Ministry of Funk'
+    organisation.name = "Ministry of Funk"
     organisation.save
   end
 
-  test 'should reindex all ministerial roles when a role appointment is created' do
+  test "should reindex all ministerial roles when a role appointment is created" do
     role_appointment = build(:ministerial_role_appointment)
 
     MinisterialRole.expects(:reindex_all)
@@ -27,7 +27,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
     role_appointment.save
   end
 
-  test 'should reindex all ministerial roles when a role appointment is updated' do
+  test "should reindex all ministerial roles when a role appointment is updated" do
     role_appointment = create(:ministerial_role_appointment)
     person = create(:person)
 
@@ -37,7 +37,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
     role_appointment.save
   end
 
-  test 'should reindex all ministerial roles when a role appointment is destroyed' do
+  test "should reindex all ministerial roles when a role appointment is destroyed" do
     role_appointment = create(:ministerial_role_appointment)
 
     MinisterialRole.expects(:reindex_all)
@@ -45,7 +45,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
     role_appointment.destroy
   end
 
-  test 'should reindex all ministerial roles when an organisation role is created' do
+  test "should reindex all ministerial roles when an organisation role is created" do
     organisation_role = build(:organisation_role)
 
     MinisterialRole.expects(:reindex_all)
@@ -53,7 +53,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
     organisation_role.save
   end
 
-  test 'should reindex all ministerial roles when an organisation role is updated' do
+  test "should reindex all ministerial roles when an organisation role is updated" do
     organisation_role = create(:organisation_role)
     organisation = create(:organisation)
 
@@ -63,7 +63,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
     organisation_role.save
   end
 
-  test 'should reindex all ministerial roles when an organisation role is destroyed' do
+  test "should reindex all ministerial roles when an organisation role is destroyed" do
     organisation_role = create(:organisation_role)
 
     MinisterialRole.expects(:reindex_all)

@@ -1,6 +1,6 @@
 #encoding: UTF-8
 
-require 'test_helper'
+require "test_helper"
 
 class Admin::EditionsControllerTest < ActionController::TestCase
   include Admin::EditionRoutesHelper
@@ -11,7 +11,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'should pass filter parameters to an edition filter' do
+  test "should pass filter parameters to an edition filter" do
     stub_filter = stub_edition_filter
     Admin::EditionFilter.expects(:new).with(anything, anything, has_entries(state: "draft", type: "publication")).returns(stub_filter)
 
@@ -32,7 +32,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { type: :publication }
   end
 
-  view_test 'should distinguish between edition types when viewing the list of editions' do
+  view_test "should distinguish between edition types when viewing the list of editions" do
     guide = create(:draft_detailed_guide)
     publication = create(:draft_publication)
     stub_filter = stub_edition_filter(editions: [guide, publication])
@@ -45,7 +45,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Publication: Policy paper" }
   end
 
-  view_test '#index should respond to xhr requests with only the filter results html' do
+  view_test "#index should respond to xhr requests with only the filter results html" do
     get :index, params: { state: :active }, xhr: true
     response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
 
@@ -53,12 +53,12 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_match "Everyone’s documents", response_html.children[0].text
   end
 
-  view_test '#index should show unpublishing information' do
+  view_test "#index should show unpublishing information" do
     create(:unpublished_edition)
     get :index, params: { state: :active }, xhr: true
 
-    assert_select 'td.title', text: /edition.title/
-    assert_select 'td.title', text: /unpublished less than a minute ago/
+    assert_select "td.title", text: /edition.title/
+    assert_select "td.title", text: /unpublished less than a minute ago/
   end
 
   test "diffing against a previous version" do
@@ -129,29 +129,29 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "should remember standard filter options" do
-    get :index, params: { state: :draft, type: 'consultation' }
-    assert_equal 'consultation', session[:document_filters]['type']
+    get :index, params: { state: :draft, type: "consultation" }
+    assert_equal "consultation", session[:document_filters]["type"]
   end
 
   test "should remember author filter options" do
     get :index, params: { state: :draft, author: current_user }
-    assert_equal current_user.to_param, session[:document_filters]['author']
+    assert_equal current_user.to_param, session[:document_filters]["author"]
   end
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
     get :index, params: { state: :draft, organisation: organisation }
-    assert_equal organisation.to_param, session[:document_filters]['organisation']
+    assert_equal organisation.to_param, session[:document_filters]["organisation"]
   end
 
   test "should remember state filter options" do
     get :index, params: { state: :draft }
-    assert_equal 'draft', session[:document_filters]['state']
+    assert_equal "draft", session[:document_filters]["state"]
   end
 
   test "should remember title filter options" do
     get :index, params: { title: "test" }
-    assert_equal "test", session[:document_filters]['title']
+    assert_equal "test", session[:document_filters]["title"]
   end
 
   test "index should redirect to remembered filtered options if available" do
@@ -164,8 +164,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "index should redirect to remembered filtered options if selected filter is invalid" do
     organisation = create(:organisation)
-    session[:document_filters] = { 'state' => 'submitted', 'author' => current_user.to_param, 'organisation' => organisation.to_param }
-    get :index, params: { author: 'invalid' }
+    session[:document_filters] = { "state" => "submitted", "author" => current_user.to_param, "organisation" => organisation.to_param }
+    get :index, params: { author: "invalid" }
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
   end
 
@@ -203,7 +203,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   view_test "should not display the featured column when viewing all active editions" do
     create(:published_news_article)
 
-    get :index, params: { state: :active, type: 'news_article' }
+    get :index, params: { state: :active, type: "news_article" }
 
     refute_select "th", text: "Featured"
     refute_select "td.featured"
@@ -240,7 +240,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     accessible = [
       create(:draft_publication),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation]),
     ]
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
@@ -281,7 +281,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       include_last_author: true,
       include_link_check_reports: true,
       include_unpublishing: true,
-      state: 'active',
+      state: "active",
     }
     assert_equal "The document list is too large for export", flash[:alert]
   end
@@ -301,10 +301,10 @@ private
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
-      page_title: '', edition_state: '', valid?: true,
+      page_title: "", edition_state: "", valid?: true,
       options: {},
-      hide_type: false,
+      hide_type: false
     }
-    stub('edition filter', default_attributes.merge(attributes.except(:editions)))
+    stub("edition filter", default_attributes.merge(attributes.except(:editions)))
   end
 end

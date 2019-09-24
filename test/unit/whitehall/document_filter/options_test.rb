@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module Whitehall
   module DocumentFilter
@@ -39,7 +39,7 @@ module Whitehall
         assert_equal "All locations", filter_options.label_for("world_locations", "all")
       end
 
-      test '#label_for downcases topics' do
+      test "#label_for downcases topics" do
         create(:topic, name: "Example Topic", slug: "example-topic")
         create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
 
@@ -48,7 +48,7 @@ module Whitehall
         assert_equal "All policy areas", filter_options.label_for("topics", "all")
       end
 
-      test '#label_for downcases official docs' do
+      test "#label_for downcases official docs" do
         assert_equal "Command or act papers", filter_options.label_for("official_document_status", "command_and_act_papers")
         assert_equal "All documents", filter_options.label_for("official_document_status", "all")
       end
@@ -109,7 +109,7 @@ module Whitehall
       end
 
       test "valid_resource_filter_options? doesn't choke on string values" do
-        refute filter_options.valid_resource_filter_options?(topics: 'string-option')
+        refute filter_options.valid_resource_filter_options?(topics: "string-option")
       end
 
       test "can get the list of options for taxons" do
@@ -118,8 +118,8 @@ module Whitehall
 
         assert_equal ["All topics", "all"], options.all
         assert_equal(
-          [[root_taxon['title'], root_taxon['content_id']]],
-          options.ungrouped
+          [[root_taxon["title"], root_taxon["content_id"]]],
+          options.ungrouped,
         )
         assert_empty options.grouped
       end
@@ -146,9 +146,9 @@ module Whitehall
         expected_grouped_options = {
           "Ministerial departments" => [[example_organisation.name, example_organisation.slug]],
           "Other departments & public bodies" => [],
-          "Closed organisations" => []
+          "Closed organisations" => [],
         }
-        assert_equal ['All departments', 'all'], options.all
+        assert_equal ["All departments", "all"], options.all
         assert_equal expected_grouped_options, options.grouped
         assert_equal [], options.ungrouped
       end
@@ -161,7 +161,7 @@ module Whitehall
 
         expected_grouped_options = {
           "Policy areas" => [[topic.name, topic.slug]],
-          "Topical events" => [[topical_event.name, topical_event.slug]]
+          "Topical events" => [[topical_event.name, topical_event.slug]],
         }
         assert_equal ["All policy areas", "all"], options.all
         assert_equal expected_grouped_options, options.grouped
@@ -185,7 +185,7 @@ module Whitehall
       test "can get the list of options for official documents" do
         options = filter_options.for(:official_documents)
         assert_equal ["All documents", "all"], options.all
-        assert_includes options.ungrouped, ['Command or act papers', 'command_and_act_papers']
+        assert_includes options.ungrouped, ["Command or act papers", "command_and_act_papers"]
         assert_equal({}, options.grouped)
       end
 

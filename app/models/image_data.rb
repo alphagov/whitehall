@@ -1,4 +1,4 @@
-require 'mini_magick'
+require "mini_magick"
 
 class ImageData < ApplicationRecord
   has_many :images

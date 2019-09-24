@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class OrganisationTypeTest < ActiveSupport::TestCase
   test "it should take key, name and analytics_prefix as initialize arguments and expose them as properties" do
@@ -24,7 +24,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "get should accept keys as strings" do
-    assert_equal "Public corporation", OrganisationType.get('public_corporation').name
+    assert_equal "Public corporation", OrganisationType.get("public_corporation").name
   end
 
   test "get should throw a KeyError if bad key is given" do
@@ -76,7 +76,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
         civil_service
         court
       ],
-      OrganisationType.in_listing_order.map(&:key)
+      OrganisationType.in_listing_order.map(&:key),
     )
   end
 

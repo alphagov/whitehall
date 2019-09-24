@@ -57,13 +57,13 @@ private
 
   def research_and_statistics_query_string
     {
-      content_store_document_type: 'published_statistics',
-      keywords: params['keywords'],
-      level_one_taxon: params['taxons'].try(:first),
-      organisations: filter_query_array(params['departments']),
+      content_store_document_type: "published_statistics",
+      keywords: params["keywords"],
+      level_one_taxon: params["taxons"].try(:first),
+      organisations: filter_query_array(params["departments"]),
       public_timestamp: {
-        from: params['from_date'],
-        to: params['to_date']
+        from: params["from_date"],
+        to: params["to_date"],
       }.compact.presence,
     }.compact.to_query
   end

@@ -11,27 +11,27 @@ class DocumentListExportPresenter
 
   def self.header_row
     [
-      'Public URL',
-      'Admin URL',
-      'Title',
-      'Lead organisations',
-      'Supporting organisations',
-      'First published',
-      'First published on GOV.UK',
-      'Published by',
-      'Last updated',
-      'Content type',
-      'Content sub-type',
-      'State',
-      'Attachments',
-      'Policies',
-      'Specialist sectors',
-      'Collections',
-      'Can have history-mode',
-      'History-mode applied',
-      'Primary language',
-      'Translations available',
-      'Summary',
+      "Public URL",
+      "Admin URL",
+      "Title",
+      "Lead organisations",
+      "Supporting organisations",
+      "First published",
+      "First published on GOV.UK",
+      "Published by",
+      "Last updated",
+      "Content type",
+      "Content sub-type",
+      "State",
+      "Attachments",
+      "Policies",
+      "Specialist sectors",
+      "Collections",
+      "Can have history-mode",
+      "History-mode applied",
+      "Primary language",
+      "Translations available",
+      "Summary",
     ]
   end
 
@@ -88,7 +88,7 @@ class DocumentListExportPresenter
     when CorporateInformationPage
       edition.corporate_information_page_type.slug.underscore.humanize
     else
-      'N/A'
+      "N/A"
     end
   end
 
@@ -147,14 +147,14 @@ class DocumentListExportPresenter
     data.map do |elem|
       case elem
       when Array
-        elem.join(' | ')
+        elem.join(" | ")
       when Time
         # YYYY-MM-DD hh:mm:ss, which seems to be best understood by spreadsheets.
         elem.to_formatted_s(:db)
       when true
-        'yes'
+        "yes"
       when false
-        'no'
+        "no"
       else
         elem
       end
@@ -169,7 +169,7 @@ class DocumentListExportPresenter
     # we don't use available_in_multiple_languages? here because it
     # returns true for editions with one english version and only one
     # other language version; which is not exactly what we want here
-    return 'none' unless edition.translated_locales.count > 1
+    return "none" unless edition.translated_locales.count > 1
 
     edition.
       translated_locales.

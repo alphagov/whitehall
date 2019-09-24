@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
   setup do
@@ -17,7 +17,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
                                 postal_code: "WC2B 6NH",
                                 country: world_location,
                                 contact_numbers: [
-                                  ContactNumber.new(label: "Mail Room", number: "+44 12345 67890")
+                                  ContactNumber.new(label: "Mail Room", number: "+44 12345 67890"),
                                 ],
                                 comments: "Quiet at weekends",
                                 email: "gds-mailroom@digital.cabinet-office.gov.uk",
@@ -47,7 +47,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
         contact_form_links: [
           {
             link: "https://www.gov.uk",
-          }
+          },
         ],
         post_addresses: [
           {
@@ -56,25 +56,25 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
             postal_code: "WC2B 6NH",
             world_location: "United Kingdom",
             iso2_country_code: "gb",
-          }
+          },
         ],
         email_addresses: [
           {
             title: "GDS Mail Room",
             email: "gds-mailroom@digital.cabinet-office.gov.uk",
-          }
+          },
         ],
         phone_numbers: [
           {
             title: "Mail Room",
             number: "+44 12345 67890",
-          }
+          },
         ],
-      }
+      },
     }
 
     assert_equal expected_content, @presented.content
-    assert_valid_against_schema(@presented.content, 'contact')
+    assert_valid_against_schema(@presented.content, "contact")
   end
 
   test "links hash includes organisations" do

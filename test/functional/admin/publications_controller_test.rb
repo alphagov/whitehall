@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   include TaxonomyHelper
@@ -36,7 +36,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'GET :new pre-fills the pubication when a statistics announcement id is provided' do
+  test "GET :new pre-fills the pubication when a statistics announcement id is provided" do
     statistics_announcement = create(:statistics_announcement)
     get :new, params: { statistics_announcement_id: statistics_announcement.id }
 
@@ -48,13 +48,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal statistics_announcement.release_date.to_i, assigns(:edition).scheduled_publication.to_i
   end
 
-  test 'POST :create with an statistics announcement id assigns the publication to the announcement' do
+  test "POST :create with an statistics announcement id assigns the publication to the announcement" do
     statistics_announcement = create(:statistics_announcement)
     post :create, params: {
       edition: controller_attributes_for(:publication,
                                          publication_type_id: PublicationType::OfficialStatistics.id,
                                          lead_organisation_ids: [@organisation.id],
-                                         statistics_announcement_id: statistics_announcement.id)
+                                         statistics_announcement_id: statistics_announcement.id),
     }
 
     publication = Publication.last
@@ -68,7 +68,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     post :create, params: {
       edition: controller_attributes_for(:publication,
                                          first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
-                                         publication_type_id: PublicationType::ResearchAndAnalysis.id)
+                                         publication_type_id: PublicationType::ResearchAndAnalysis.id),
     }
 
     created_publication = Publication.last
@@ -82,7 +82,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "should validate first_published_at field on create if previously_published is true" do
-    post :create, params: { edition: controller_attributes_for(:publication).merge(previously_published: 'true') }
+    post :create, params: { edition: controller_attributes_for(:publication).merge(previously_published: "true") }
     assert_equal "First published at can't be blank", assigns(:edition).errors.full_messages.last
   end
 
@@ -101,7 +101,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(:publication)
 
     put :update, params: { id: publication, edition: {
-      first_published_at: Time.zone.parse("2001-06-18 00:00:00")
+      first_published_at: Time.zone.parse("2001-06-18 00:00:00"),
     } }
 
     saved_publication = publication.reload
@@ -151,7 +151,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication_has_no_expanded_links(publication.content_id)
     get :show, params: { id: publication }
 
-    assert_select '.taxonomy-topics .btn', "Add topic"
+    assert_select ".taxonomy-topics .btn", "Add topic"
   end
 
   view_test "when edition is tagged to the new taxonomy" do
@@ -160,7 +160,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(
       :publication,
       publication_type: PublicationType::Guidance,
-      organisations: [world_tagging_organisation]
+      organisations: [world_tagging_organisation],
     )
 
     login_as(create(:user, organisation: world_tagging_organisation))
@@ -169,10 +169,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    refute_select '.taxonomy-topics#topic-new-taxonomy .no-content'
-    assert_select '.taxonomy-topics .content li', "Education, Training and Skills"
-    assert_select '.taxonomy-topics .content li', "Primary Education"
-    assert_select '.taxonomy-topics#world-taxonomy .no-content'
+    refute_select ".taxonomy-topics#topic-new-taxonomy .no-content"
+    assert_select ".taxonomy-topics .content li", "Education, Training and Skills"
+    assert_select ".taxonomy-topics .content li", "Primary Education"
+    assert_select ".taxonomy-topics#world-taxonomy .no-content"
   end
 
   view_test "when edition is tagged to the world taxonomy" do
@@ -181,7 +181,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(
       :publication,
       publication_type: PublicationType::Guidance,
-      organisations: [world_tagging_organisation]
+      organisations: [world_tagging_organisation],
     )
 
     login_as(create(:user, organisation: world_tagging_organisation))
@@ -190,10 +190,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    refute_select '.taxonomy-topics#world-taxonomy .no-content'
-    assert_select '.taxonomy-topics .content li', "World Child Taxon"
-    assert_select '.taxonomy-topics .content li', "World Grandchild Taxon"
-    assert_select '.taxonomy-topics#topic-new-taxonomy .no-content'
+    refute_select ".taxonomy-topics#world-taxonomy .no-content"
+    assert_select ".taxonomy-topics .content li", "World Child Taxon"
+    assert_select ".taxonomy-topics .content li", "World Grandchild Taxon"
+    assert_select ".taxonomy-topics#topic-new-taxonomy .no-content"
   end
 
   view_test "shows summary when edition is tagged to all legacy associations" do
@@ -203,10 +203,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(
       :publication,
       organisations: [organisation],
-      policy_content_ids: [policy_1['content_id']],
+      policy_content_ids: [policy_1["content_id"]],
       topic_ids: [policy_area.id],
-      primary_specialist_sector_tag: 'WELLS',
-      secondary_specialist_sector_tags: %w(FIELDS OFFSHORE)
+      primary_specialist_sector_tag: "WELLS",
+      secondary_specialist_sector_tags: %w(FIELDS OFFSHORE),
     )
 
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
@@ -215,7 +215,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".policies li", policy_1['title']
+    assert_select ".policies li", policy_1["title"]
     assert_select ".policy-areas li", policy_area.name
     assert_selected_specialist_sectors_are_displayed
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/
@@ -235,11 +235,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: organisation))
     get :show, params: { id: publication }
 
-    refute_select '.policies'
-    refute_select '.policy-areas'
-    refute_select '.primary-specialist-sector'
-    refute_select '.secondary-specialist-sectors'
-    assert_select '.no-content.no-content-bordered', 'No associations'
+    refute_select ".policies"
+    refute_select ".policy-areas"
+    refute_select ".primary-specialist-sector"
+    refute_select ".secondary-specialist-sectors"
+    assert_select ".no-content.no-content-bordered", "No associations"
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add Associations/
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-plus-sign"
   end
@@ -250,40 +250,40 @@ private
     publishing_api_has_linkables(
       [
         {
-          'content_id' => 'WELLS',
-          'internal_name' => 'Oil and Gas / Wells',
-          'publication_state' => 'published',
+          "content_id" => "WELLS",
+          "internal_name" => "Oil and Gas / Wells",
+          "publication_state" => "published",
         },
         {
-          'content_id' => 'FIELDS',
-          'internal_name' => 'Oil and Gas / Fields',
-          'publication_state' => 'published',
+          "content_id" => "FIELDS",
+          "internal_name" => "Oil and Gas / Fields",
+          "publication_state" => "published",
         },
         {
-          'content_id' => 'OFFSHORE',
-          'internal_name' => 'Oil and Gas / Offshore',
-          'publication_state' => 'published',
+          "content_id" => "OFFSHORE",
+          "internal_name" => "Oil and Gas / Offshore",
+          "publication_state" => "published",
         },
         {
-          'content_id' => 'DISTILL',
-          'internal_name' => 'Oil and Gas / Distillation',
-          'publication_state' => 'draft',
+          "content_id" => "DISTILL",
+          "internal_name" => "Oil and Gas / Distillation",
+          "publication_state" => "draft",
         },
       ],
-      document_type: 'topic'
+      document_type: "topic",
     )
   end
 
   def assert_selected_specialist_sectors_are_displayed
-    assert_select ".primary-specialist-sector li", 'Oil and Gas: Wells'
-    assert_select ".secondary-specialist-sectors li", 'Oil and Gas: Fields'
-    assert_select ".secondary-specialist-sectors li", 'Oil and Gas: Offshore'
+    assert_select ".primary-specialist-sector li", "Oil and Gas: Wells"
+    assert_select ".secondary-specialist-sectors li", "Oil and Gas: Fields"
+    assert_select ".secondary-specialist-sectors li", "Oil and Gas: Offshore"
   end
 
   def publication_has_no_expanded_links(content_id)
     publishing_api_has_expanded_links(
       content_id: content_id,
-      expanded_links: {}
+      expanded_links: {},
     )
   end
 
@@ -304,13 +304,13 @@ private
                   "content_id" => "bbbb",
                   "base_path" => "i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
-                }
-              ]
-            }
-          }
-        ]
-      }
+                  "links" => {},
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
   end
 
@@ -331,19 +331,19 @@ private
                   "content_id" => world_child_taxon_content_id,
                   "base_path" => "i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
-                }
-              ]
-            }
-          }
-        ]
-      }
+                  "links" => {},
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
   end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(
-      alternative_format_provider_id: create(:alternative_format_provider).id
+      alternative_format_provider_id: create(:alternative_format_provider).id,
     )
   end
 end

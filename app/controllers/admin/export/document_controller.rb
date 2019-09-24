@@ -12,7 +12,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     respond_with(
       documents: result_set,
       page_number: page_number,
-      page_count: result_set.count
+      page_count: result_set.count,
     )
   end
 

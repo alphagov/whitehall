@@ -4,7 +4,7 @@ class ConsultationOutcome < Response
   end
 
   def friendly_name
-    'outcome'
+    "outcome"
   end
 
   def allows_attachment_references?

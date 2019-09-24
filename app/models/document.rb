@@ -15,11 +15,11 @@ class Document < ApplicationRecord
 
   has_one  :published_edition,
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
-           class_name: 'Edition',
+           class_name: "Edition",
            inverse_of: :document
   has_one  :pre_publication_edition,
            -> { where(state: Edition::PRE_PUBLICATION_STATES) },
-           class_name: 'Edition',
+           class_name: "Edition",
            inverse_of: :document
 
   has_one  :latest_edition,
@@ -31,7 +31,7 @@ class Document < ApplicationRecord
                AND e2.id > editions.id
                AND e2.state <> 'deleted')))
            },
-           class_name: 'Edition',
+           class_name: "Edition",
            inverse_of: :document
 
   has_many :document_sources, dependent: :destroy
@@ -77,7 +77,7 @@ class Document < ApplicationRecord
 
     scope.where("slug IN (?) OR slug LIKE ?",
                 [slug, slug_without_sequence].uniq,
-                slug_without_sequence + sequence_separator + '%').count > 1
+                slug_without_sequence + sequence_separator + "%").count > 1
   end
 
   def should_generate_new_friendly_id?
@@ -121,7 +121,7 @@ class Document < ApplicationRecord
   end
 
   def humanized_document_type
-    document_type.underscore.tr('_', ' ')
+    document_type.underscore.tr("_", " ")
   end
 
 private

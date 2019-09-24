@@ -4,7 +4,7 @@ class WithTranslationsTest < ActiveSupport::TestCase
   setup do
     role = build(:ministerial_role)
     with_locale(:en) do
-      role.name = 'Minister of fun'
+      role.name = "Minister of fun"
     end
     with_locale(:fr) do
       role.name = "Ministre de l'amusement"

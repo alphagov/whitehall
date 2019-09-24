@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class SafeHtmlValidatorTest < ActiveSupport::TestCase
   def setup
@@ -6,7 +6,7 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
   end
 
   test "it marks HTML-unsafe attributes as such" do
-    test_model = build(:publication, body: '<script>alert("hax!")</script>', title: 'Safe title')
+    test_model = build(:publication, body: '<script>alert("hax!")</script>', title: "Safe title")
 
     SafeHtmlValidator.new({}).validate(test_model)
 

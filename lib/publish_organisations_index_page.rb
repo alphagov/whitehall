@@ -31,7 +31,7 @@ private
         ],
         public_updated_at: Time.zone.now.iso8601,
         update_type: "minor",
-      }
+      },
     }
   end
 
@@ -43,7 +43,7 @@ private
       ordered_agencies_and_other_public_bodies: organisation_details(:agencies_and_government_bodies),
       ordered_high_profile_groups: organisation_details(:high_profile_groups),
       ordered_public_corporations: organisation_details(:public_corporations),
-      ordered_devolved_administrations: organisation_details(:devolved_administrations)
+      ordered_devolved_administrations: organisation_details(:devolved_administrations),
     }
   end
 
@@ -76,20 +76,20 @@ private
   def organisation_logo(organisation)
     if organisation.organisation_crest == "no-identity"
       {
-        formatted_title: organisation.logo_formatted_name
+        formatted_title: organisation.logo_formatted_name,
       }
     elsif organisation.organisation_crest == "custom"
       {
         formatted_title: organisation.logo_formatted_name,
         image: {
           url: organisation.logo_url,
-          alt_text: organisation.name
-        }
+          alt_text: organisation.name,
+        },
       }
     else
       {
         formatted_title: organisation.logo_formatted_name,
-        crest: organisation.organisation_crest
+        crest: organisation.organisation_crest,
       }
     end
   end
@@ -120,7 +120,7 @@ private
   def summary_organisation(organisation)
     {
       title: organisation.name,
-      href: Whitehall.url_maker.polymorphic_path(organisation)
+      href: Whitehall.url_maker.polymorphic_path(organisation),
     }
   end
 

@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class ConsultationResponseFormTest < ActiveSupport::TestCase
-  test 'should be invalid without a title' do
+  test "should be invalid without a title" do
     form = build(:consultation_response_form, title: nil)
     refute form.valid?
   end

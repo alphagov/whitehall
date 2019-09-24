@@ -90,7 +90,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://link.com")
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     draft_consultation = published_consultation.create_draft(create(:writer))
-    draft_consultation.change_note = 'change-note'
+    draft_consultation.change_note = "change-note"
 
     assert draft_consultation.valid?
 
@@ -122,9 +122,9 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should build a draft copy with copies of translations" do
     editor = create(:gds_editor)
     spanish_translation_attributes = {
-      title: 'spanish-title',
-      summary: 'spanish-summary',
-      body: 'spanish-body'
+      title: "spanish-title",
+      summary: "spanish-summary",
+      body: "spanish-body",
     }
     publication = create(:draft_publication)
     with_locale(:es) { publication.update_attributes!(spanish_translation_attributes) }
@@ -136,16 +136,16 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
     assert_equal 2, draft_publication.translations.length
     with_locale(:es) do
-      assert_equal 'spanish-title', draft_publication.title
-      assert_equal 'spanish-summary', draft_publication.summary
-      assert_equal 'spanish-body', draft_publication.body
+      assert_equal "spanish-title", draft_publication.title
+      assert_equal "spanish-summary", draft_publication.summary
+      assert_equal "spanish-body", draft_publication.body
     end
   end
 
   test "should copy logo url when creating draft " do
-    published_edition = create(:published_edition, logo_url: 'logos/flag.jpeg')
+    published_edition = create(:published_edition, logo_url: "logos/flag.jpeg")
     draft_edition = published_edition.create_draft(create(:writer))
 
-    assert_equal 'logos/flag.jpeg', draft_edition.logo_url
+    assert_equal "logos/flag.jpeg", draft_edition.logo_url
   end
 end

@@ -2,7 +2,7 @@ stuck_draft_editions = [
   #/government/statistics/statistical-release-provisional-uk-official-development-assistance-oda-as-a-proportion-of-gross-national-income-2012
   167273,
   #/government/statistics/statistical-release-provisional-uk-official-development-assistance-oda-tables-2012
-  167561
+  167561,
 ]
 
 stuck_draft_editions.each do |edition_id|

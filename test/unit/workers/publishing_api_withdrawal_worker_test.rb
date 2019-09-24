@@ -13,8 +13,8 @@ class PublishingApiWithdrawalWorkerTest < ActiveSupport::TestCase
         type: "withdrawal",
         locale: "en",
         explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>",
-        unpublished_at: publication.updated_at.utc.iso8601
-      }
+        unpublished_at: publication.updated_at.utc.iso8601,
+      },
     )
 
     PublishingApiWithdrawalWorker.new.perform(

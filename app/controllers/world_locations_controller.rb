@@ -51,7 +51,7 @@ private
   def fetch_documents
     filter_params = {
       count: 10,
-      filter_world_locations: @world_location.slug
+      filter_world_locations: @world_location.slug,
     }
     SearchRummagerService.new.fetch_related_documents(filter_params)["results"]
   end

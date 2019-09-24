@@ -7,8 +7,8 @@ FactoryBot.define do
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
 
     trait(:closed) do
-      govuk_status { 'closed' }
-      govuk_closed_status { 'no_longer_exists' }
+      govuk_status { "closed" }
+      govuk_closed_status { "no_longer_exists" }
     end
 
     trait(:with_published_edition) {
@@ -67,7 +67,7 @@ FactoryBot.define do
 
   factory :devolved_administration, parent: :organisation do
     organisation_type_key { :devolved_administration }
-    govuk_status { 'exempt' }
+    govuk_status { "exempt" }
   end
 
   factory :court, parent: :organisation do

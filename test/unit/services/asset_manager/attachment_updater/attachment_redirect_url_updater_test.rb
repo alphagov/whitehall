@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
@@ -10,7 +10,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
   let(:unpublished_edition) { FactoryBot.create(:unpublished_edition) }
   let(:redirect_url) { Whitehall.url_maker.public_document_url(unpublished_edition) }
   let(:unpublished) { true }
-  let(:update_worker) { mock('asset-manager-update-asset-worker') }
+  let(:update_worker) { mock("asset-manager-update-asset-worker") }
 
   around do |test|
     AssetManager.stub_const(:AssetUpdater, update_worker) do
@@ -18,8 +18,8 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
     end
   end
 
-  context 'when attachment is not a PDF' do
-    let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
+  context "when attachment is not a PDF" do
+    let(:sample_rtf) { File.open(fixture_path.join("sample.rtf")) }
     let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
 
     before do
@@ -28,16 +28,16 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
       AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
     end
 
-    it 'updates redirect URL of corresponding asset' do
+    it "updates redirect URL of corresponding asset" do
       update_worker.expects(:call)
-        .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
+        .with(attachment_data, attachment.file.asset_manager_path, "redirect_url" => redirect_url)
 
       updater.call(attachment_data, redirect_url: true)
     end
   end
 
-  context 'when attachment is a PDF' do
-    let(:simple_pdf) { File.open(fixture_path.join('simple.pdf')) }
+  context "when attachment is a PDF" do
+    let(:simple_pdf) { File.open(fixture_path.join("simple.pdf")) }
     let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
 
     before do
@@ -46,24 +46,24 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
       AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
     end
 
-    it 'updates redirect URL of asset for attachment & its thumbnail' do
+    it "updates redirect URL of asset for attachment & its thumbnail" do
       update_worker.expects(:call)
-        .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
+        .with(attachment_data, attachment.file.asset_manager_path, "redirect_url" => redirect_url)
       update_worker.expects(:call)
-        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => redirect_url)
+        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "redirect_url" => redirect_url)
 
       updater.call(attachment_data, redirect_url: true)
     end
 
-    context 'and attachment is not unpublished' do
+    context "and attachment is not unpublished" do
       let(:unpublished) { false }
       let(:unpublished_edition) { nil }
 
-      it 'resets redirect URL of asset for attachment & its thumbnail' do
+      it "resets redirect URL of asset for attachment & its thumbnail" do
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => nil)
+          .with(attachment_data, attachment.file.asset_manager_path, "redirect_url" => nil)
         update_worker.expects(:call)
-          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => nil)
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, "redirect_url" => nil)
 
         updater.call(attachment_data, redirect_url: true)
       end

@@ -14,5 +14,5 @@ class Newsesque < Announcement
   end
 end
 
-require_relative 'news_article'
-require_relative 'world_location_news_article'
+require_relative "news_article"
+require_relative "world_location_news_article"

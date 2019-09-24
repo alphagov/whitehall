@@ -5,16 +5,16 @@ module AddressFormatter
     end
 
     def self.contact_properties(contact)
-      { 'fn' => contact.recipient,
-        'street-address' => contact.street_address,
-        'postal-code' => contact.postal_code,
-        'locality' => contact.locality,
-        'region' => contact.region,
-        'country-name' => country_name(contact) }
+      { "fn" => contact.recipient,
+        "street-address" => contact.street_address,
+        "postal-code" => contact.postal_code,
+        "locality" => contact.locality,
+        "region" => contact.region,
+        "country-name" => country_name(contact) }
     end
 
     def self.country_name(contact)
-      contact.country_name unless contact.country_code == 'GB'
+      contact.country_name unless contact.country_code == "GB"
     end
 
     def self.property_keys
@@ -41,7 +41,7 @@ module AddressFormatter
     end
 
     def interpolate_address_property(property_name)
-      properties[property_name].present? ? properties[property_name] : ''
+      properties[property_name].present? ? properties[property_name] : ""
     end
 
   private
@@ -51,7 +51,7 @@ module AddressFormatter
     end
 
     def default_format_string
-      Formatter.address_formats['gb']
+      Formatter.address_formats["gb"]
     end
   end
 end

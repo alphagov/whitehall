@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 class AttachmentUploader < WhitehallUploader
-  PDF_CONTENT_TYPE = 'application/pdf'.freeze
+  PDF_CONTENT_TYPE = "application/pdf".freeze
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
-  FALLBACK_PDF_THUMBNAIL = File.expand_path('../assets/images/pub-cover.png', __dir__)
+  FALLBACK_PDF_THUMBNAIL = File.expand_path("../assets/images/pub-cover.png", __dir__)
   EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt vcf wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
 
   before :cache, :validate_zipfile_contents!
@@ -172,7 +172,7 @@ class AttachmentUploader < WhitehallUploader
           Hash[
             files_with_extensions.
               reject { |_file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '') }.
+              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, "") }.
               map { |shape, files|
                 [shape, files.group_by { |_file, ext| ext }]
               }
@@ -229,15 +229,15 @@ class AttachmentUploader < WhitehallUploader
 
   def validate_zipfile_contents!(new_file)
     extension = new_file.extension.to_s
-    return unless extension == 'zip'
+    return unless extension == "zip"
 
     zip_file = ZipFile.new(new_file.path)
     examiners = [
       ZipFile::UTF8FilenamesExaminer.new(zip_file),
       ZipFile::AnyValidExaminer.new(zip_file, [
         ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - %w[zip]),
-        ZipFile::ArcGISShapefileExaminer.new(zip_file)
-      ])
+        ZipFile::ArcGISShapefileExaminer.new(zip_file),
+      ]),
     ]
     problem = examiners.detect { |examiner| !examiner.valid? }
     raise CarrierWave::IntegrityError, problem.failure_message if problem

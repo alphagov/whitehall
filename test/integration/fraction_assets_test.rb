@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class FractionAssetsTest < ActiveSupport::TestCase
   test "fraction assets directory and contents are fixed" do

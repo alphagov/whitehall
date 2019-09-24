@@ -18,7 +18,7 @@ module Edition::Identifiable
   def ensure_presence_of_document
     self.document ||= Document.new(
       sluggable_string: string_for_slug,
-      content_id: SecureRandom.uuid
+      content_id: SecureRandom.uuid,
     )
   end
 

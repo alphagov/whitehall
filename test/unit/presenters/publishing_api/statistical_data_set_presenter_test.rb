@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
   setup do
@@ -7,7 +7,7 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
     @statistical_data_set = create(
       :statistical_data_set,
       title: "Statistical Data Set title",
-      summary: "Statistical Data Set summary"
+      summary: "Statistical Data Set summary",
     )
 
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(@statistical_data_set)
@@ -39,11 +39,11 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the publishing_app as whitehall" do
-    assert_equal 'whitehall', @presented_content[:publishing_app]
+    assert_equal "whitehall", @presented_content[:publishing_app]
   end
 
   test "it presents the rendering_app as government-frontend" do
-    assert_equal 'government-frontend', @presented_content[:rendering_app]
+    assert_equal "government-frontend", @presented_content[:rendering_app]
   end
 
   test "it presents the schema_name as statistical_data_set" do
@@ -63,7 +63,7 @@ class PublishingApi::StatisticalDataSetWithPublicTimestampTest < ActiveSupport::
   setup do
     @expected_time = Time.zone.parse("10/01/2016")
     @statistical_data_set = create(
-      :statistical_data_set
+      :statistical_data_set,
     )
     @statistical_data_set.public_timestamp = @expected_time
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(@statistical_data_set)
@@ -79,12 +79,12 @@ class PublishingApi::StatisticalDataSetBelongingToPublishedDocumentNoticePresent
     presented_notice = PublishingApi::StatisticalDataSetPresenter.new(
       create(:published_statistical_data_set) do |statistical_data_set|
         statistical_data_set.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
-      end
+      end,
     )
 
     assert_equal(
       Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
+      presented_notice.content[:details][:first_public_at],
     )
   end
 end
@@ -96,7 +96,7 @@ class PublishingApi::PublishedStatisticalDataSetPresenterDetailsTest < ActiveSup
       :statistical_data_set,
       :published,
       body: "*Test string*",
-      first_published_at: @expected_first_published_at
+      first_published_at: @expected_first_published_at,
     )
 
     @presented_content = PublishingApi::StatisticalDataSetPresenter.new(@statistical_data_set).content
@@ -111,8 +111,8 @@ class PublishingApi::PublishedStatisticalDataSetPresenterDetailsTest < ActiveSup
     change_history = [
       {
         "public_timestamp" => @expected_first_published_at,
-        "note" => "change-note"
-      }
+        "note" => "change-note",
+      },
     ]
 
     assert_equal change_history, @presented_details[:change_history]
@@ -121,7 +121,7 @@ class PublishingApi::PublishedStatisticalDataSetPresenterDetailsTest < ActiveSup
   test "it presents the lead organisation content_ids as details, emphasised_organisations" do
     assert_equal(
       @statistical_data_set.lead_organisations.map(&:content_id),
-      @presented_details[:emphasised_organisations]
+      @presented_details[:emphasised_organisations],
     )
   end
 end
@@ -136,28 +136,28 @@ class PublishingApi::PublishedStatisticalDataSetPresenterLinksTest < ActiveSuppo
   test "it presents the organisation content_ids as links, organisations" do
     assert_equal(
       @statistical_data_set.organisations.map(&:content_id),
-      @presented_links[:organisations]
+      @presented_links[:organisations],
     )
   end
 
   test "it presents the policy area content_ids as links, policy_areas" do
     assert_equal(
       @statistical_data_set.topics.map(&:content_id),
-      @presented_links[:policy_areas]
+      @presented_links[:policy_areas],
     )
   end
 
   test "it presents the topic content_ids as links, topics" do
     assert_equal(
       @statistical_data_set.specialist_sectors.map(&:content_id),
-      @presented_links[:topics]
+      @presented_links[:topics],
     )
   end
 
   test "it presents the primary_specialist_sector content_ids as links, parent" do
     assert_equal(
       @statistical_data_set.primary_specialist_sectors.map(&:content_id),
-      @presented_links[:parent]
+      @presented_links[:parent],
     )
   end
 end
@@ -165,7 +165,7 @@ end
 class PublishingApi::StatisticalDataSetPresenterUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      create(:statistical_data_set, minor_change: false)
+      create(:statistical_data_set, minor_change: false),
     )
   end
 
@@ -177,7 +177,7 @@ end
 class PublishingApi::StatisticalDataSetPresenterMinorUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      create(:statistical_data_set, minor_change: true)
+      create(:statistical_data_set, minor_change: true),
     )
   end
 
@@ -190,7 +190,7 @@ class PublishingApi::StatisticalDataSetPresenterUpdateTypeArgumentTest < ActiveS
   setup do
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
       create(:statistical_data_set, minor_change: true),
-      update_type: "major"
+      update_type: "major",
     )
   end
 
@@ -209,7 +209,7 @@ class PublishingApi::StatisticalDataSetPresenterCurrentGovernmentTest < ActiveSu
       slug: "the-current-government",
     )
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      create(:statistical_data_set)
+      create(:statistical_data_set),
     )
   end
 
@@ -218,9 +218,9 @@ class PublishingApi::StatisticalDataSetPresenterCurrentGovernmentTest < ActiveSu
       {
         "title": "The Current Government",
         "slug": "the-current-government",
-        "current": true
+        "current": true,
       },
-      @presented_statistical_data_set.content[:details][:government]
+      @presented_statistical_data_set.content[:details][:government],
     )
   end
 end
@@ -238,8 +238,8 @@ class PublishingApi::StatisticalDataSetPresenterPreviousGovernmentTest < ActiveS
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
       create(
         :statistical_data_set,
-        first_published_at: previous_government.start_date + 1.day
-      )
+        first_published_at: previous_government.start_date + 1.day,
+      ),
     )
   end
 
@@ -248,9 +248,9 @@ class PublishingApi::StatisticalDataSetPresenterPreviousGovernmentTest < ActiveS
       {
         "title": "A Previous Government",
         "slug": "a-previous-government",
-        "current": false
+        "current": false,
       },
-      @presented_statistical_data_set.content[:details][:government]
+      @presented_statistical_data_set.content[:details][:government],
     )
   end
 end
@@ -260,7 +260,7 @@ class PublishingApi::StatisticalDataSetPresenterPoliticalTest < ActiveSupport::T
     statistical_data_set = create(:statistical_data_set)
     statistical_data_set.stubs(:political?).returns(true)
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      statistical_data_set
+      statistical_data_set,
     )
   end
 
@@ -277,10 +277,10 @@ class PublishingApi::StatisticalDataSetAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(statistical_data_set)
       .returns(
-        access_limited: { users: %w(abcdef12345) }
+        access_limited: { users: %w(abcdef12345) },
       )
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      statistical_data_set
+      statistical_data_set,
     )
   end
 

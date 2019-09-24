@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::LinksPresenterTest < ActionView::TestCase
   ALL_LINK_TYPES = PublishingApi::LinksPresenter::LINK_NAMES_TO_METHODS_MAP.keys
@@ -7,7 +7,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
     LinksPresenter.new(item).extract(filter_links)
   end
 
-  test 'extracts content_ids from a detailed guide' do
+  test "extracts content_ids from a detailed guide" do
     document = create(:detailed_guide)
     links = links_for(document)
 
@@ -15,7 +15,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
     assert_equal document.topics.map(&:content_id), links[:policy_areas]
   end
 
-  test 'returns a links hash derived from the edition' do
+  test "returns a links hash derived from the edition" do
     edition = create(:edition)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: false)
 
@@ -29,11 +29,11 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         primary_publishing_organisation: [],
         original_primary_publishing_organisation: [],
       },
-      links
+      links,
     )
   end
 
-  test 'it treats the primary specialist sector of the item as the parent' do
+  test "it treats the primary specialist sector of the item as the parent" do
     edition = create(:edition)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
     create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
@@ -48,7 +48,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         primary_publishing_organisation: [],
         original_primary_publishing_organisation: [],
       },
-      links
+      links,
     )
   end
 
@@ -64,7 +64,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         primary_publishing_organisation: [],
         original_primary_publishing_organisation: [],
       },
-      links
+      links,
     )
   end
 
@@ -80,7 +80,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         primary_publishing_organisation: [organisation.content_id],
         original_primary_publishing_organisation: [organisation.content_id],
       },
-      links
+      links,
     )
   end
 
@@ -99,7 +99,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         primary_publishing_organisation: [new_organisation.content_id],
         original_primary_publishing_organisation: [organisation.content_id],
       },
-      links
+      links,
     )
   end
 end

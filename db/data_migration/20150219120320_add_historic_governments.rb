@@ -53,7 +53,7 @@ governments = [
   ["1807 to 1812 Tory government", "1807-06-22", "1812-11-23"],
   ["1806 to 1807 Whig government", "1806-12-13", "1807-06-21"],
   ["1802 to 1806 Tory government", "1802-08-31", "1806-12-12"],
-  ["1801 to 1802 Tory government", "1801-01-22", "1802-08-30"]
+  ["1801 to 1802 Tory government", "1801-01-22", "1802-08-30"],
 ]
 governments.each do |name, start_date, end_date|
   Government.create(name: name, start_date: start_date, end_date: end_date)

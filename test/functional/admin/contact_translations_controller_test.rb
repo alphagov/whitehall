@@ -43,7 +43,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
 
     put :update, params: { organisation_id: organisation, contact_id: contact, id: "fr", contact: {
         title: "Afrolasie Bureau",
-        comments: "Enseigner aux gens comment infuser le thé"
+        comments: "Enseigner aux gens comment infuser le thé",
       } }
 
     contact.reload

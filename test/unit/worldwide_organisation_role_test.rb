@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldwideOfficeRoleTest < ActiveSupport::TestCase
   test "should be invalid without a worldwide organisation" do

@@ -1,5 +1,5 @@
-require 'gds_api/router'
-router_api = GdsApi::Router.new(Plek.find('router-api'))
+require "gds_api/router"
+router_api = GdsApi::Router.new(Plek.find("router-api"))
 
 REDIRECT_TO = "/international-development-funding".freeze
 
@@ -11,7 +11,7 @@ categories.each do |category|
   guides = category.detailed_guides
 
   puts "\t registering redirect: #{old_path} => #{REDIRECT_TO}"
-  router_api.add_redirect_route(old_path, 'exact', REDIRECT_TO)
+  router_api.add_redirect_route(old_path, "exact", REDIRECT_TO)
 
   puts "\t removing association to category from #{guides.count} guides"
   guides.each do |guide|

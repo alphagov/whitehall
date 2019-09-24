@@ -11,7 +11,7 @@ module LocaleHelper
   end
 
   def options_for_foreign_language_locale(edition)
-    options = [['Choose foreign language...', nil]] + options_for_locales(Locale.non_english)
+    options = [["Choose foreign language...", nil]] + options_for_locales(Locale.non_english)
     options_for_select(options, edition.non_english_edition? ? edition.primary_locale : nil)
   end
 end

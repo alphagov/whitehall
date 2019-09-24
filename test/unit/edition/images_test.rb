@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::ImagesTest < ActiveSupport::TestCase
   class EditionWithImages < Edition
@@ -19,18 +19,18 @@ class Edition::ImagesTest < ActiveSupport::TestCase
             alt_text: "Something about this image",
             caption: "Text to be visible along with the image",
             image_data_attributes: {
-              file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-            }
+              file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+            },
           },
           {
             alt_text: "alt-text-2",
             caption: "caption-2",
             image_data_attributes: {
-              file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-            }
-          }
-        ]
-      )
+              file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+            },
+          },
+        ],
+      ),
     )
 
     assert_equal 2, edition.images.count
@@ -41,18 +41,18 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "#create_draft should include copies of image attributes" do
-    image = create(:image, caption: 'image-caption')
+    image = create(:image, caption: "image-caption")
     published_edition = EditionWithImages.create!(
       valid_edition_attributes.merge(
-        state: 'published',
+        state: "published",
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
-        images: [image]
-      )
+        images: [image],
+      ),
     )
 
     draft_edition = published_edition.create_draft(build(:user))
-    draft_edition.change_note = 'change-note'
+    draft_edition.change_note = "change-note"
 
     assert draft_edition.valid?
 
@@ -66,11 +66,11 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     image = create(:image)
     published_edition = EditionWithImages.create!(
       valid_edition_attributes.merge(
-        state: 'published',
+        state: "published",
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
-        images: [image]
-      )
+        images: [image],
+      ),
     )
 
     draft_edition = published_edition.create_draft(build(:user))
@@ -82,7 +82,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   test "#create_draft should carry-over images even when there are validation errors in image data" do
     published_edition = EditionWithImages.new(
       valid_edition_attributes.merge(
-        state: 'published',
+        state: "published",
         document: create(:document),
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
@@ -90,10 +90,10 @@ class Edition::ImagesTest < ActiveSupport::TestCase
                               alt_text: "image smaller than 960x640",
                               caption: "some-caption",
                               image_data_attributes: {
-                                file: fixture_file_upload('horrible-image.64x96.jpg', 'image/jpg')
-                              }
-                            }]
-      )
+                                file: fixture_file_upload("horrible-image.64x96.jpg", "image/jpg"),
+                              },
+                            }],
+      ),
     )
     published_edition.save(validate: false)
 
@@ -107,17 +107,17 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   test "captions for images can be changed between versions" do
     published_edition = EditionWithImages.create!(
       valid_edition_attributes.merge(
-        state: 'published',
+        state: "published",
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{
                               alt_text: "alt-text",
                               caption: "original-caption",
                               image_data_attributes: {
-                                file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-                              }
-                            }]
-      )
+                                file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+                              },
+                            }],
+      ),
     )
 
     draft_edition = published_edition.create_draft(build(:user))
@@ -127,7 +127,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "#destroy should also remove the image" do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+    Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     image = create(:image)
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images: [image]))
     edition.destroy
@@ -142,10 +142,10 @@ private
 
   def valid_edition_attributes
     {
-      title:   'edition-title',
-      body:    'edition-body',
-      summary: 'edition-summary',
-      creator: build(:user)
+      title:   "edition-title",
+      body:    "edition-body",
+      summary: "edition-summary",
+      creator: build(:user),
     }
   end
 end

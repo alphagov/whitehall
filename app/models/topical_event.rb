@@ -5,7 +5,7 @@ class TopicalEvent < Classification
   searchable title: :name,
              link: :search_link,
              content: :description,
-             format: 'topical_event',
+             format: "topical_event",
              description: :description_without_markup,
              slug: :slug,
              start_date: :start_date,

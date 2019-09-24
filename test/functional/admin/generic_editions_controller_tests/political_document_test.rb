@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController::TestCase
   tests Admin::NewsArticlesController
@@ -13,25 +13,25 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     published_edition = create(:published_news_article, first_published_at: 2.days.ago)
     new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
     get :edit, params: { id: new_draft }
-    assert_select '.political-status', count: 1
+    assert_select ".political-status", count: 1
   end
 
   view_test "doesn't display the political checkbox for non-privileged users " do
     published_edition = create(:published_news_article)
     new_draft = create(:news_article, document: published_edition.document)
     get :edit, params: { id: new_draft }
-    assert_select '.political-status', count: 0
+    assert_select ".political-status", count: 0
   end
 
   view_test "doesn't display the political checkbox on creation" do
     login_as :managing_editor
     get :new
-    assert_select '.political-status', count: 0
+    assert_select ".political-status", count: 0
   end
 
   view_test "doesn't let non-gds users edit historic documents" do
-    create(:previous_government, name: 'old')
-    create(:current_government, name: 'new')
+    create(:previous_government, name: "old")
+    create(:current_government, name: "new")
 
     login_as :managing_editor
 
@@ -44,8 +44,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   end
 
   view_test "lets gds users edit historic documents" do
-    create(:previous_government, name: 'old')
-    create(:current_government, name: 'new')
+    create(:previous_government, name: "old")
+    create(:current_government, name: "new")
 
     login_as :gds_editor
 

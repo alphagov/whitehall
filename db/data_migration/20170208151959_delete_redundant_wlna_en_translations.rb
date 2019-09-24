@@ -50,7 +50,7 @@ bad_wlna_ids = [
 wlnas = Edition.where(id: bad_wlna_ids)
 
 wlnas.each do |wlna|
-  if wlna.available_locales.include?(:en) && wlna.primary_locale != 'en'
-    wlna.translations.where(locale: 'en').delete_all
+  if wlna.available_locales.include?(:en) && wlna.primary_locale != "en"
+    wlna.translations.where(locale: "en").delete_all
   end
 end

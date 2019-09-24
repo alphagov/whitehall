@@ -1,14 +1,14 @@
-require 'benchmark'
-require 'json'
-require 'multi_json'
-require 'null_logger'
-require 'rest_client'
+require "benchmark"
+require "json"
+require "multi_json"
+require "null_logger"
+require "rest_client"
 
 module Whitehall
   module Rummageable
     class Index
       def initialize(base_url, index_name, options = {})
-        @index_url = [base_url, index_name.sub(%r{^/}, '')].join('/')
+        @index_url = [base_url, index_name.sub(%r{^/}, "")].join("/")
         @logger = options[:logger] || NullLogger.instance
         @batch_size = options.fetch(:batch_size, 20)
         @retry_delay = options.fetch(:retry_delay, 2)
@@ -36,7 +36,7 @@ module Whitehall
       end
 
       def delete(id, options = {})
-        type = options[:type] || 'edition'
+        type = options[:type] || "edition"
         repeatedly do
           make_request(:delete, documents_url(id: id, type: type))
         end
@@ -44,13 +44,13 @@ module Whitehall
 
       def delete_all
         repeatedly do
-          make_request(:delete, documents_url + '?delete_all=1')
+          make_request(:delete, documents_url + "?delete_all=1")
         end
       end
 
       def commit
         repeatedly do
-          make_request(:post, [@index_url, 'commit'].join('/'), MultiJson.encode({}))
+          make_request(:post, [@index_url, "commit"].join("/"), MultiJson.encode({}))
         end
       end
 
@@ -64,7 +64,7 @@ module Whitehall
             @logger.warn e.message
             raise if @attempts == i + 1
 
-            @logger.info 'Retrying...'
+            @logger.info "Retrying..."
             sleep(@retry_delay) if @retry_delay
           end
         end
@@ -75,8 +75,8 @@ module Whitehall
       end
 
       def log_response(method, call_time, response, url, payload = nil)
-        time = sprintf('%.03f', call_time)
-        result = response.length.positive? ? JSON.parse(response).fetch('result', 'UNKNOWN') : 'UNKNOWN'
+        time = sprintf("%.03f", call_time)
+        result = response.length.positive? ? JSON.parse(response).fetch("result", "UNKNOWN") : "UNKNOWN"
         log("Rummageable response", method, url, payload, time: time, result: result)
       end
 
@@ -101,10 +101,10 @@ module Whitehall
       def documents_url(options = {})
         options[:id] ||= options[:link]
 
-        parts = [@index_url, 'documents']
+        parts = [@index_url, "documents"]
         parts << CGI.escape(options[:type]) if options[:type]
         parts << CGI.escape(options[:id]) if options[:id]
-        parts.join('/')
+        parts.join("/")
       end
     end
   end

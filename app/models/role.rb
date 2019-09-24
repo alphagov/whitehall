@@ -3,9 +3,9 @@ class Role < ApplicationRecord
   include HasContentId
   include PublishesToPublishingApi
 
-  HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
-                                   'past-chancellors'     => 'chancellor-of-the-exchequer',
-                                   'past-foreign-secretaries' => 'foreign-secretary' }.freeze
+  HISTORIC_ROLE_PARAM_MAPPINGS = { "past-prime-ministers" => "prime-minister",
+                                   "past-chancellors"     => "chancellor-of-the-exchequer",
+                                   "past-foreign-secretaries" => "foreign-secretary" }.freeze
 
   def self.columns
     # This is here to enable us to gracefully remove the biography column
@@ -18,11 +18,11 @@ class Role < ApplicationRecord
 
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION) },
-           class_name: 'RoleAppointment'
+           class_name: "RoleAppointment"
   has_many :previous_role_appointments,
            -> { where.not(RoleAppointment::CURRENT_CONDITION) },
-           class_name: 'RoleAppointment'
-  has_many :current_people, class_name: 'Person', through: :current_role_appointments, source: :person
+           class_name: "RoleAppointment"
+  has_many :current_people, class_name: "Person", through: :current_role_appointments, source: :person
 
   has_many :organisation_roles, inverse_of: :role
   has_many :organisations, through: :organisation_roles
@@ -33,15 +33,15 @@ class Role < ApplicationRecord
   has_many :historical_account_roles, inverse_of: :role
   has_many :historical_accounts, through: :historical_account_roles
 
-  scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order('people.surname', 'people.forename') }
+  scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order("people.surname", "people.forename") }
 
-  scope :ministerial,                -> { where(type: 'MinisterialRole') }
-  scope :board_member,               -> { where(type: 'BoardMemberRole') }
+  scope :ministerial,                -> { where(type: "MinisterialRole") }
+  scope :board_member,               -> { where(type: "BoardMemberRole") }
   scope :management,                 -> { where("type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'") }
-  scope :traffic_commissioner,       -> { where(type: 'TrafficCommissionerRole') }
-  scope :military,                   -> { where(type: 'MilitaryRole') }
-  scope :special_representative,     -> { where(type: 'SpecialRepresentativeRole') }
-  scope :chief_professional_officer, -> { where(type: 'ChiefProfessionalOfficerRole') }
+  scope :traffic_commissioner,       -> { where(type: "TrafficCommissionerRole") }
+  scope :military,                   -> { where(type: "MilitaryRole") }
+  scope :special_representative,     -> { where(type: "SpecialRepresentativeRole") }
+  scope :chief_professional_officer, -> { where(type: "ChiefProfessionalOfficerRole") }
   scope :occupied,                   -> { where(id: RoleAppointment.current.pluck(:role_id)) }
 
   validates :name, presence: true
@@ -133,7 +133,7 @@ class Role < ApplicationRecord
   end
 
   def organisation_names
-    organisations.map(&:name).join(' and ')
+    organisations.map(&:name).join(" and ")
   end
 
   def name_and_organisations

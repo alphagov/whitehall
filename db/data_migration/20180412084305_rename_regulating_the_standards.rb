@@ -17,7 +17,7 @@ if document
   from_path = "/government/publications/#{old_slug}"
   to_path = "/government/publications/#{new_slug}"
   redirects = [
-    { path: from_path, type: "exact", destination: to_path }
+    { path: from_path, type: "exact", destination: to_path },
   ]
   redirect = Whitehall::PublishingApi::Redirect.new(from_path, redirects)
   content_id = SecureRandom.uuid

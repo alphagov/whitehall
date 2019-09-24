@@ -1,5 +1,5 @@
 Document.where(
-  id: Edition.where(state: :scheduled).select(:document_id)
+  id: Edition.where(state: :scheduled).select(:document_id),
 ).all.each do |document|
   next unless document.published_edition.nil?
 

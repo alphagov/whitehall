@@ -3,11 +3,11 @@ module Attachable
 
   included do
     has_many :attachments,
-             -> { not_deleted.order('attachments.ordering, attachments.id') },
+             -> { not_deleted.order("attachments.ordering, attachments.id") },
              as: :attachable,
              inverse_of: :attachable
     has_many :html_attachments,
-             -> { not_deleted.order('attachments.ordering, attachments.id') },
+             -> { not_deleted.order("attachments.ordering, attachments.id") },
              as: :attachable
 
     has_many :deleted_html_attachments,

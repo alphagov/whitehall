@@ -16,25 +16,25 @@ class User < ApplicationRecord
   scope :enabled, -> { where(disabled: false) }
 
   module Permissions
-    SIGNIN = 'signin'.freeze
-    DEPARTMENTAL_EDITOR = 'Editor'.freeze
-    MANAGING_EDITOR = 'Managing Editor'.freeze
-    GDS_EDITOR = 'GDS Editor'.freeze
-    PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'.freeze
-    IMPORT = 'Import CSVs'.freeze
-    WORLD_WRITER = 'World Writer'.freeze
-    WORLD_EDITOR = 'World Editor'.freeze
-    FORCE_PUBLISH_ANYTHING = 'Force publish anything'.freeze
-    GDS_ADMIN = 'GDS Admin'.freeze
-    EXPORT_DATA = 'Export data'.freeze
+    SIGNIN = "signin".freeze
+    DEPARTMENTAL_EDITOR = "Editor".freeze
+    MANAGING_EDITOR = "Managing Editor".freeze
+    GDS_EDITOR = "GDS Editor".freeze
+    PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
+    IMPORT = "Import CSVs".freeze
+    WORLD_WRITER = "World Writer".freeze
+    WORLD_EDITOR = "World Editor".freeze
+    FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
+    GDS_ADMIN = "GDS Admin".freeze
+    EXPORT_DATA = "Export data".freeze
   end
 
   def role
     if gds_editor? then "GDS Editor"
     elsif departmental_editor? then "Departmental Editor"
     elsif managing_editor? then "Managing Editor"
-    elsif world_editor? then 'World Editor'
-    elsif world_writer? then 'World Writer'
+    elsif world_editor? then "World Editor"
+    elsif world_writer? then "World Writer"
     else "Writer"
     end
   end
@@ -110,7 +110,7 @@ class User < ApplicationRecord
   def organisation_content_id
     return organisation.content_id if organisation
 
-    @organisation_content_id || ''
+    @organisation_content_id || ""
   end
 
   attr_writer :organisation_content_id

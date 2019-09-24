@@ -1,13 +1,13 @@
 class ScheduledEditionPublisher < EditionPublisher
   def verb
-    'publish'
+    "publish"
   end
 
 private
 
   def failure_reasons
     @failure_reasons ||= [].tap do |reasons|
-      reasons << 'Only scheduled editions can be published with ScheduledEditionPublisher' unless scheduled_for_publication?
+      reasons << "Only scheduled editions can be published with ScheduledEditionPublisher" unless scheduled_for_publication?
       reasons << "This edition is scheduled for publication on #{edition.scheduled_publication}, and may not be published before" if too_early_to_publish?
     end
   end

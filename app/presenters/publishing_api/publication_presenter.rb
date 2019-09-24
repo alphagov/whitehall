@@ -47,16 +47,16 @@ module PublishingApi
           world_locations
           policy_areas
           related_policies
-        ]
+        ],
       ).merge(
-        PayloadBuilder::TopicalEvents.for(item)
+        PayloadBuilder::TopicalEvents.for(item),
       ).merge(
         ministers: ministers,
         related_statistical_data_sets: related_statistical_data_sets,
       ).merge(
-        PayloadBuilder::Roles.for(item)
+        PayloadBuilder::Roles.for(item),
       ).merge(
-        PayloadBuilder::People.for(item, :people)
+        PayloadBuilder::People.for(item, :people),
       )
     end
 
@@ -94,7 +94,7 @@ module PublishingApi
 
       Whitehall::GovspeakRenderer.new.block_attachments(
         attachments_for_current_locale,
-        alternative_format_email
+        alternative_format_email,
       )
     end
 

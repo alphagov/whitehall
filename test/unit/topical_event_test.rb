@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TopicalEventTest < ActiveSupport::TestCase
   test "supersede topical event when it ends" do
@@ -9,7 +9,7 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   test "should include slug in search_index data" do
     topical_event = create(:topical_event, name: "mazzops 2013")
-    assert_equal 'mazzops-2013', topical_event.search_index['slug']
+    assert_equal "mazzops-2013", topical_event.search_index["slug"]
   end
 
   test "should not last more than a year" do
@@ -74,7 +74,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_equal 0, feature_list.features.size
   end
 
-  test '#save republishes any organisations that feature the topical event' do
+  test "#save republishes any organisations that feature the topical event" do
     topical_event = create(:topical_event)
     organisation = create(:organisation, :with_feature_list)
 

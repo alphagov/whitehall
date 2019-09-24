@@ -13,7 +13,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   def create
     @historical_account = @person.historical_accounts.build(historical_account_params)
     if @historical_account.save
-      redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account created'
+      redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account created"
     else
       render :new
     end
@@ -23,7 +23,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
   def update
     if @historical_account.update_attributes(historical_account_params)
-      redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account updated'
+      redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account updated"
     else
       render :edit
     end
@@ -31,7 +31,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
   def destroy
     @historical_account.destroy
-    redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account deleted'
+    redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account deleted"
   end
 
 private

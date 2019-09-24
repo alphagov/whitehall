@@ -13,13 +13,13 @@ class OperationalFieldPublishingTest < ActiveSupport::TestCase
 
       assert_publishing_api_put_content(
         operational_field.content_id,
-        PublishingApiPresenters.presenter_for(operational_field).content
+        PublishingApiPresenters.presenter_for(operational_field).content,
       )
 
       assert_publishing_api_publish(
         operational_field.content_id,
-        { update_type: nil, locale: 'en' },
-        1
+        { update_type: nil, locale: "en" },
+        1,
       )
     end
   end

@@ -15,9 +15,9 @@ class EmailCurationQueueItemNotifier < Whitehall::GovUkDelivery::Notifier
     if should_notify_govuk_delivery?
       Whitehall::GovUkDelivery::Worker.notify!(
         edition,
-        @email_curation_queue_item['notification_date'],
-        @email_curation_queue_item['title'],
-        @email_curation_queue_item['summary']
+        @email_curation_queue_item["notification_date"],
+        @email_curation_queue_item["title"],
+        @email_curation_queue_item["summary"],
       )
     end
 
@@ -29,7 +29,7 @@ puts "Sending notifications to subscribers for email curation queue items and de
 
 email_curation_queue_items = ActiveRecord::Base.connection.select_all("SELECT * FROM email_curation_queue_items;")
 email_curation_queue_items.each do |email_curation_queue_item|
-  edition = Edition.find(email_curation_queue_item['edition_id'])
+  edition = Edition.find(email_curation_queue_item["edition_id"])
   EmailCurationQueueItemNotifier.new(edition, email_curation_queue_item).notify
 
   print "."

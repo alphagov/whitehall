@@ -1,5 +1,5 @@
 unless Rails.env.production?
-  require 'teaspoon/suite_controller'
+  require "teaspoon/suite_controller"
 
   class Teaspoon::SuiteController
     before_action -> {

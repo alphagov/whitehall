@@ -10,7 +10,7 @@ class Admin::DocumentSourcesController < Admin::BaseController
       @edition.document.document_sources.create(url: source)
     end
 
-    redirect_to admin_edition_path(@edition, anchor: 'document-sources')
+    redirect_to admin_edition_path(@edition, anchor: "document-sources")
   end
 
 private

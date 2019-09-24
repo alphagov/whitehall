@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class BoardMemberRoleTest < ActiveSupport::TestCase
   test "should not be a cabinet member" do

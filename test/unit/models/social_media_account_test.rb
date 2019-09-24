@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class SocialMediaAccountTest < ActiveSupport::TestCase
   # These tests use organisations as a candidate, but any object with this module

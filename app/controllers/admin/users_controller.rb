@@ -32,7 +32,7 @@ private
 
   def user_params
     { world_location_ids: [] }.merge(
-      params.require(:user).permit(world_location_ids: [])
+      params.require(:user).permit(world_location_ids: []),
     )
   end
 end

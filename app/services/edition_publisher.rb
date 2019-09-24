@@ -1,4 +1,4 @@
-require 'data_hygiene/govspeak_link_validator'
+require "data_hygiene/govspeak_link_validator"
 
 class EditionPublisher < EditionService
   def failure_reason
@@ -22,7 +22,7 @@ class EditionPublisher < EditionService
   end
 
   def verb
-    'publish'
+    "publish"
   end
 
 private

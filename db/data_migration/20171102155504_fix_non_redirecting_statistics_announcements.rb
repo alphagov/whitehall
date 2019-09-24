@@ -4885,7 +4885,7 @@ slugs = [
   "youth-reoffending-in-northern-ireland-201112-cohort",
   "youth-unemployment-innovation-fund-pilot-starts-and-outcomes-march-2015--2",
   "youth-unemployment-innovation-fund-pilot-starts-and-outcomes-to-mar-2015",
-  "youth-work-in-wales-2013-14"
+  "youth-work-in-wales-2013-14",
 ]
 
 slugs.each do |slug|

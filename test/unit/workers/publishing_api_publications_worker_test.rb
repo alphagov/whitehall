@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   def about_pages
@@ -23,12 +23,12 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
       .new
       .perform(
         publication.id,
-        'delete',
+        "delete",
       )
   end
 
   class Publish < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page when related' do
+    test "it republishes the corresponding about page when related" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -39,7 +39,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
       call :foi_release
     end
 
-    test 'it does not republish the corresponding about page when unrelated' do
+    test "it does not republish the corresponding about page when unrelated" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -53,7 +53,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class Delete < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -66,7 +66,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class ForcePublish < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -79,7 +79,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class Republish < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -92,7 +92,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class Unpublish < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -105,7 +105,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class Unwithdraw < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -118,7 +118,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class UpdateDraft < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -131,7 +131,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class UpdateDraftTranslation < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker
@@ -144,7 +144,7 @@ class PublishingApiPublicationsWorkerTest < ActiveSupport::TestCase
   end
 
   class Withdraw < PublishingApiPublicationsWorkerTest
-    test 'it republishes the corresponding about page' do
+    test "it republishes the corresponding about page" do
       about_page_document_ids
         .each { |document_id|
           PublishingApiDocumentRepublishingWorker

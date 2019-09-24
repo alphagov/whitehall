@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class StatisticsAnnouncementOrganisationTest < ActiveSupport::TestCase
   test "should be invalid without a statistics announcement" do

@@ -16,7 +16,7 @@ module TranslationControllerConcern
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
     else
-      render action: 'edit'
+      render action: "edit"
     end
   end
 

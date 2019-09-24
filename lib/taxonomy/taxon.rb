@@ -7,7 +7,7 @@ module Taxonomy
     attr_accessor :parent_node, :children
     def_delegators :taxon_list, :map, :each
 
-    def initialize(title:, base_path:, content_id:, phase: 'live', visible_to_departmental_editors: true, legacy_mapping:)
+    def initialize(title:, base_path:, content_id:, phase: "live", visible_to_departmental_editors: true, legacy_mapping:)
       @name = title
       @content_id = content_id
       @base_path = base_path
@@ -19,14 +19,14 @@ module Taxonomy
 
     def self.from_taxon_hash(taxon_hash)
       taxon = Taxon.new(
-        title: taxon_hash['title'],
-        base_path: taxon_hash['base_path'],
-        content_id: taxon_hash['content_id'],
-        phase: taxon_hash['phase'],
+        title: taxon_hash["title"],
+        base_path: taxon_hash["base_path"],
+        content_id: taxon_hash["content_id"],
+        phase: taxon_hash["phase"],
         visible_to_departmental_editors: !!taxon_hash.dig(
-          'details', 'visible_to_departmental_editors'
+          "details", "visible_to_departmental_editors"
         ),
-        legacy_mapping: legacy_mapping(taxon_hash)
+        legacy_mapping: legacy_mapping(taxon_hash),
       )
 
       parent_taxons = taxon_hash.dig("links", "parent_taxons")
@@ -40,20 +40,20 @@ module Taxonomy
     end
 
     def self.legacy_mapping(taxon_hash)
-      legacy_taxon_links = taxon_hash.dig('links', 'legacy_taxons') || []
+      legacy_taxon_links = taxon_hash.dig("links", "legacy_taxons") || []
 
       legacy_taxon_links.each do |legacy_page|
         # Dealing with placeholders is a pain, so pretend everything
         # is not a placeholder
-        legacy_page['document_type'] =
-          legacy_page['document_type'].remove("placeholder_")
+        legacy_page["document_type"] =
+          legacy_page["document_type"].remove("placeholder_")
       end
 
       # Because the different types of legacy taxon (policy, policy
       # area, specialist topic) need to be handled differently,
       # separate them out by document type here
       legacy_taxon_links.group_by do |legacy_page|
-        legacy_page['document_type']
+        legacy_page["document_type"]
       end
     end
 

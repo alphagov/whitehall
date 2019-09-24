@@ -8,7 +8,7 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
     assert_equal [collection.slug], edition.search_index["document_collections"]
   end
 
-  test '#part_of_published_collection? returns true when its document is in a published collection' do
+  test "#part_of_published_collection? returns true when its document is in a published collection" do
     edition = create(:published_publication)
     refute edition.part_of_published_collection?
 
@@ -18,7 +18,7 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
     assert edition.reload.part_of_published_collection?
   end
 
-  test '#part_of_published_collection? returns false when its document is in a draft collection' do
+  test "#part_of_published_collection? returns false when its document is in a draft collection" do
     edition = create(:published_publication)
     refute edition.part_of_published_collection?
 
@@ -28,14 +28,14 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
     refute edition.reload.part_of_published_collection?
   end
 
-  test 'allows assignment of document collection on a saved edition' do
+  test "allows assignment of document collection on a saved edition" do
     edition = create(:imported_publication)
     document_collection = create(:document_collection, :with_group)
     edition.document_collection_group_ids = [document_collection.groups.first.id]
     assert_equal [document_collection], edition.document.document_collections
   end
 
-  test 'raises an exception if attempt is made to set document collection on a new edition' do
+  test "raises an exception if attempt is made to set document collection on a new edition" do
     collection = create(:document_collection, :with_group)
     assert_raise(StandardError) do
       Publication.new(document_collection_group_ids: [collection.groups.first.id])

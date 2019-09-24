@@ -1,5 +1,5 @@
-old_slug = 'digital-data-and-technology-job-roles-in-government'
-new_slug = 'digital-data-and-technology-profession-capability-framework'
+old_slug = "digital-data-and-technology-job-roles-in-government"
+new_slug = "digital-data-and-technology-profession-capability-framework"
 
 document = Document.find_by(slug: old_slug)
 

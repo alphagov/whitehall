@@ -14,6 +14,6 @@ class ContactType
     id: 2, name: "Freedom of Information contact",
   )
   Media = create(
-    id: 3, name: 'Media contact',
+    id: 3, name: "Media contact",
   )
 end

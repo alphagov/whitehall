@@ -8,20 +8,20 @@ class PublicationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
   should_allow_external_attachments
 
-  test 'imported publications are valid when the publication_type is imported-awaiting-type' do
-    publication = build(:publication, state: 'imported',
-                        publication_type: PublicationType.find_by_slug('imported-awaiting-type'),
+  test "imported publications are valid when the publication_type is imported-awaiting-type" do
+    publication = build(:publication, state: "imported",
+                        publication_type: PublicationType.find_by_slug("imported-awaiting-type"),
                         first_published_at: 1.year.ago)
     assert publication.valid?
   end
 
-  test 'imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type' do
-    publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+  test "imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type" do
+    publication = build(:publication, state: "imported", publication_type: PublicationType.find_by_slug("imported-awaiting-type"))
     refute publication.valid_as_draft?
   end
 
-  test 'imported publications are not valid_as_draft? if the first_published_at timestamp is blank' do
-    publication = build(:publication, state: 'imported', first_published_at: nil)
+  test "imported publications are not valid_as_draft? if the first_published_at timestamp is blank" do
+    publication = build(:publication, state: "imported", first_published_at: nil)
     refute publication.valid_as_draft?
   end
 
@@ -33,7 +33,7 @@ class PublicationTest < ActiveSupport::TestCase
     end
   end
 
-  test 'is not valid for publishing without attachments' do
+  test "is not valid for publishing without attachments" do
     publication = build(:published_publication, attachments: [])
     refute publication.valid?
 
@@ -113,7 +113,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert e.access_limited?
   end
 
-  test 'existing instances don\'t change access_limit when their publication_type does' do
+  test "existing instances don't change access_limit when their publication_type does" do
     limit_by_default, dont_limit_by_default = PublicationType.all.partition(&:access_limited_by_default?).map(&:first)
     e = create(:draft_publication, access_limited: false)
     e.publication_type = limit_by_default
@@ -139,7 +139,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal [publication], topical_event.publications
   end
 
-  test '#search_index should include has_command_paper and has_act_paper' do
+  test "#search_index should include has_command_paper and has_act_paper" do
     pub = create(:publication)
     pub.stubs(:has_command_paper?).returns(true)
     pub.stubs(:has_act_paper?).returns(true)
@@ -175,7 +175,7 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   test "returns publications with any of the listed topics" do
     publications = [
       create(:published_publication, topics: [@topic_1]),
-      create(:published_publication, topics: [@topic_2])
+      create(:published_publication, topics: [@topic_2]),
     ]
 
     assert_equal publications, Publication.published_in_topic([@topic_1, @topic_2]).load
@@ -194,22 +194,22 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert_equal [scheduled_publication], Publication.scheduled_in_topic([@topic_1]).load
   end
 
-  test 'search_format_types tags the publication as a publication' do
+  test "search_format_types tags the publication as a publication" do
     publication = build(:publication)
-    assert publication.search_format_types.include?('publication')
+    assert publication.search_format_types.include?("publication")
   end
 
-  test 'search_format_types includes search_format_types of the publication_type' do
+  test "search_format_types includes search_format_types of the publication_type" do
     publication_type = mock
     publication_type.responds_like(SpeechType.new)
     publication_type.stubs(:search_format_types).returns(%w[stuff-innit other-thing])
     publication = build(:publication)
     publication.stubs(:publication_type).returns(publication_type)
-    assert publication.search_format_types.include?('stuff-innit')
-    assert publication.search_format_types.include?('other-thing')
+    assert publication.search_format_types.include?("stuff-innit")
+    assert publication.search_format_types.include?("other-thing")
   end
 
-  test 'can assign statistics to a statistics announcement' do
+  test "can assign statistics to a statistics announcement" do
     statistics_announcement = create(:statistics_announcement)
     publication = build(:draft_statistics, statistics_announcement_id: statistics_announcement.id)
     publication.save!
@@ -217,7 +217,7 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert_equal publication, statistics_announcement.reload.publication
   end
 
-  test 'touches statistics_announcement on save' do
+  test "touches statistics_announcement on save" do
     statistics_announcement = create(:statistics_announcement)
     publication = build(:published_statistics, statistics_announcement: statistics_announcement)
     statistics_announcement.expects(:touch)

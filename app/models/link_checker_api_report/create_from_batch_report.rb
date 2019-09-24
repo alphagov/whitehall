@@ -41,7 +41,7 @@ private
   def create_links(report)
     payload.fetch("links", []).each_with_index do |link_payload, index|
       report.links.create!(
-        link_attributes_from_report(link_payload, index)
+        link_attributes_from_report(link_payload, index),
       )
     end
   end

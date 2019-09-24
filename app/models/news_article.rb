@@ -44,7 +44,7 @@ class NewsArticle < Newsesque
   def search_index
     super.merge(
       "news_article_type" => news_article_type.slug,
-      "image_url" => image_url
+      "image_url" => image_url,
     )
   end
 
@@ -70,7 +70,7 @@ class NewsArticle < Newsesque
 
   def non_english_primary_locale_only_for_world_news_story
     if non_english_edition? && !world_news_story?
-      errors.add(:foreign_language, 'is not allowed')
+      errors.add(:foreign_language, "is not allowed")
     end
   end
 

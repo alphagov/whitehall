@@ -1,13 +1,13 @@
-require 'test_helper'
+require "test_helper"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-  test 'can set publication type using an ID' do
+  test "can set publication type using an ID" do
     announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::OfficialStatistics.id)
 
     assert_equal PublicationType::OfficialStatistics, announcement.publication_type
   end
 
-  test 'only statistical publication types are valid' do
+  test "only statistical publication types are valid" do
     assert build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id).valid?
     assert build(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id).valid?
 
@@ -17,21 +17,21 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_match %r[must be a statistical type], announcement.errors[:publication_type_id].first
   end
 
-  test 'when unpublished, a redirect_url is required' do
+  test "when unpublished, a redirect_url is required" do
     announcement = build(:unpublished_statistics_announcement, redirect_url: nil)
     refute announcement.valid?
 
     assert_match %r[must be provided when unpublishing an announcement], announcement.errors[:redirect_url].first
   end
 
-  test 'when unpublished, a GOV.UK redirect_url is required' do
+  test "when unpublished, a GOV.UK redirect_url is required" do
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.youtube.com")
     refute announcement.valid?
 
     assert_match %r{must be in the form of https://www.test.gov.uk/example}, announcement.errors[:redirect_url].first
   end
 
-  test 'when unpublished, it cannot redirect to itself' do
+  test "when unpublished, it cannot redirect to itself" do
     announcement = build(:unpublished_statistics_announcement, slug: "dummy")
     announcement.redirect_url = announcement.public_path
     refute announcement.valid?
@@ -39,33 +39,33 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_match %r[cannot redirect to itself], announcement.errors[:redirect_url].first
   end
 
-  test 'when unpublished, is valid with a GOV.UK redirect_url' do
+  test "when unpublished, is valid with a GOV.UK redirect_url" do
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics")
     assert announcement.valid?
   end
 
-  test 'generates slug from its title' do
-    announcement = create(:statistics_announcement, title: 'Beard statistics 2015')
-    assert_equal 'beard-statistics-2015', announcement.slug
+  test "generates slug from its title" do
+    announcement = create(:statistics_announcement, title: "Beard statistics 2015")
+    assert_equal "beard-statistics-2015", announcement.slug
   end
 
-  test 'is search indexable' do
+  test "is search indexable" do
     announcement = create_announcement_with_changes
     expected_indexed_content = {
-      'content_id' => announcement.content_id,
-      'title' => announcement.title,
-      'link' => announcement.public_path,
-      'format' => 'statistics_announcement',
-      'description' => announcement.summary,
-      'organisations' => announcement.organisations.map(&:slug),
-      'policy_areas' => announcement.topics.map(&:slug),
-      'public_timestamp' => announcement.updated_at,
-      'display_date' => announcement.display_date,
-      'display_type' => announcement.display_type,
-      'slug' => announcement.slug,
-      'release_timestamp' => announcement.release_date,
-      'statistics_announcement_state' => announcement.state,
-      'metadata' => {
+      "content_id" => announcement.content_id,
+      "title" => announcement.title,
+      "link" => announcement.public_path,
+      "format" => "statistics_announcement",
+      "description" => announcement.summary,
+      "organisations" => announcement.organisations.map(&:slug),
+      "policy_areas" => announcement.topics.map(&:slug),
+      "public_timestamp" => announcement.updated_at,
+      "display_date" => announcement.display_date,
+      "display_type" => announcement.display_type,
+      "slug" => announcement.slug,
+      "release_timestamp" => announcement.release_date,
+      "statistics_announcement_state" => announcement.state,
+      "metadata" => {
         # TODO: the "confirmed" metadata becomes redundant once all entries are
         # updated with a "statistics_announcement_state". Get rid.
         confirmed: announcement.confirmed?,
@@ -74,14 +74,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         previous_display_date: announcement.previous_display_date,
         cancelled_at: announcement.cancelled_at,
         cancellation_reason: announcement.cancellation_reason,
-      }
+      },
     }
 
     assert announcement.can_index_in_search?
     assert_equal expected_indexed_content, announcement.search_index
   end
 
-  test 'only valid when associated publication is of a matching type' do
+  test "only valid when associated publication is of a matching type" do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)
     policy_paper        = create(:draft_policy_paper)
@@ -110,22 +110,22 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal [match], StatisticsAnnouncement.with_title_containing("mq5")
   end
 
-  test '#most_recent_change_note returns the most recent change note' do
+  test "#most_recent_change_note returns the most recent change note" do
     announcement = create_announcement_with_changes
 
-    assert_equal '18 January 2012 9:30am', announcement.reload.display_date
+    assert_equal "18 January 2012 9:30am", announcement.reload.display_date
     assert announcement.confirmed?
-    assert_equal 'Delayed because of census', announcement.last_change_note
+    assert_equal "Delayed because of census", announcement.last_change_note
   end
 
-  test '#previous_display_date returns the release date prior to the most recent change note' do
+  test "#previous_display_date returns the release date prior to the most recent change note" do
     announcement = create_announcement_with_changes
 
-    assert_equal '18 January 2012 9:30am', announcement.reload.display_date
-    assert_equal 'December 2011', announcement.previous_display_date
+    assert_equal "18 January 2012 9:30am", announcement.reload.display_date
+    assert_equal "December 2011", announcement.previous_display_date
   end
 
-  test '#build_statistics_announcement_date_change returns a date change based on the current date' do
+  test "#build_statistics_announcement_date_change returns a date change based on the current date" do
     announcement = build(:statistics_announcement)
     current_date = announcement.current_release_date
     date_change  = announcement.build_statistics_announcement_date_change
@@ -138,16 +138,16 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal current_date.confirmed, date_change.confirmed
   end
 
-  test '#build_statistics_announcement_date_change can override attributes' do
+  test "#build_statistics_announcement_date_change can override attributes" do
     announcement = build(:statistics_announcement)
     current_date = announcement.current_release_date
-    date_change  = announcement.build_statistics_announcement_date_change(change_note: 'Some changes being made')
+    date_change  = announcement.build_statistics_announcement_date_change(change_note: "Some changes being made")
 
-    assert_equal 'Some changes being made', date_change.change_note
+    assert_equal "Some changes being made", date_change.change_note
     assert_equal current_date.release_date, date_change.release_date
   end
 
-  test '#cancel! cancels an announcement' do
+  test "#cancel! cancels an announcement" do
     announcement = create(:statistics_announcement)
     announcement.cancel!("Reason for cancellation", announcement.creator)
 
@@ -179,10 +179,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "confirmed", announcement.state
   end
 
-  test 'cannot cancel without a reason' do
+  test "cannot cancel without a reason" do
     announcement = create(:statistics_announcement)
 
-    refute announcement.cancel!('', announcement.creator)
+    refute announcement.cancel!("", announcement.creator)
     assert_match %r[must be provided when cancelling an announcement], announcement.errors[:cancellation_reason].first
   end
 
@@ -206,21 +206,21 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_includes announcement.reload.organisations, organisation
   end
 
-  test '#destroy destroys organisation associations' do
+  test "#destroy destroys organisation associations" do
     statistics_announcement = create(:statistics_announcement)
     assert_difference %w(StatisticsAnnouncement.count StatisticsAnnouncementOrganisation.count), -1 do
       statistics_announcement.destroy
     end
   end
 
-  test '#destroy destroys topic associations' do
+  test "#destroy destroys topic associations" do
     statistics_announcement = create(:statistics_announcement)
     assert_difference %w(StatisticsAnnouncement.count StatisticsAnnouncementTopic.count), -1 do
       statistics_announcement.destroy
     end
   end
 
-  test 'StatisticsAnnouncement.with_topics scope returns announcements with matching topics' do
+  test "StatisticsAnnouncement.with_topics scope returns announcements with matching topics" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     announcement_1 = create(:statistics_announcement, topics: [topic_1, topic_2])
@@ -233,42 +233,42 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
                  StatisticsAnnouncement.with_topics([topic_2])
   end
 
-  test 'requires_redirect? returns true when unpublished?' do
+  test "requires_redirect? returns true when unpublished?" do
     statistics_announcement = build(
       :statistics_announcement,
-      publishing_state: 'unpublished',
+      publishing_state: "unpublished",
     )
     assert statistics_announcement.requires_redirect?
   end
 
-  test 'requires_redirect? returns false when not unpublished?' do
+  test "requires_redirect? returns false when not unpublished?" do
     statistics_announcement = build(
       :statistics_announcement,
-      publishing_state: 'published',
+      publishing_state: "published",
       publication: nil,
     )
     refute statistics_announcement.requires_redirect?
   end
 
-  test 'requires_redirect? returns true when when publication is published?' do
+  test "requires_redirect? returns true when when publication is published?" do
     statistics_announcement = build(
       :statistics_announcement,
-      publishing_state: 'published',
+      publishing_state: "published",
       publication: build(:published_statistics),
     )
     assert statistics_announcement.requires_redirect?
   end
 
-  test 'requires_redirect? returns false when when publication is draft' do
+  test "requires_redirect? returns false when when publication is draft" do
     statistics_announcement = build(
       :statistics_announcement,
-      publishing_state: 'published',
+      publishing_state: "published",
       publication: build(:draft_statistics),
     )
     refute statistics_announcement.requires_redirect?
   end
 
-  test 'publishes to publishing api with a minor update type' do
+  test "publishes to publishing api with a minor update type" do
     Sidekiq::Testing.inline! do
       edition = create(:statistics_announcement)
 
@@ -276,7 +276,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       requests = [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
         stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-        stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: nil)
+        stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: nil),
       ]
 
       requests.each { |request| assert_requested request }
@@ -296,7 +296,7 @@ private
       create(:statistics_announcement_date,
              statistics_announcement: announcement,
              release_date: announcement.release_date + 1.month,
-             change_note: 'Delayed because of census')
+             change_note: "Delayed because of census")
     end
     _second_minor_change = Timecop.travel(3.days) do
       create(:statistics_announcement_date,

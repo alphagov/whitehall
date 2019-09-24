@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class OrganisationTypeConcernTest < ActiveSupport::TestCase
   ### Describing organisation type getters and setters ###
   test "should ensure that organisation_type_key is always returned as a symbol" do
-    assert_equal :executive_office, build(:organisation, organisation_type_key: 'executive_office').organisation_type_key
+    assert_equal :executive_office, build(:organisation, organisation_type_key: "executive_office").organisation_type_key
   end
 
   test "should implement organisation_type, which returns an instance of the OrganisationType indicated by organisation_type_key" do
@@ -33,15 +33,15 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_valid build(:organisation, organisation_type_key: :executive_office, parent_organisations: [])
   end
 
-  test 'sub-organisations are not valid without a parent organisation' do
+  test "sub-organisations are not valid without a parent organisation" do
     sub_organisation = build(:sub_organisation, parent_organisations: [])
     assert_invalid sub_organisation
     assert sub_organisation.errors.full_messages.include?("Parent organisations must not be empty for sub-organisations")
   end
 
   test "should validate that an organisation is govuk_status exempt if it's a devolved administration" do
-    assert_invalid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: 'live')
-    assert_valid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: 'exempt')
+    assert_invalid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: "live")
+    assert_valid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: "exempt")
   end
 
   ### Describing Scopes ###
@@ -50,7 +50,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
       org = if key == :sub_organisation
               create(:sub_organisation)
             elsif key == :devolved_administration
-              create(:organisation, organisation_type_key: key, govuk_status: 'exempt')
+              create(:organisation, organisation_type_key: key, govuk_status: "exempt")
             else
               create(:organisation, organisation_type_key: key)
             end
@@ -146,11 +146,11 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
 
     assert_equal [
       [OrganisationType.executive_agency, [child_org_1]],
-      [OrganisationType.advisory_ndpb,    [child_org_2]]
+      [OrganisationType.advisory_ndpb,    [child_org_2]],
     ], parent_org.supporting_bodies_grouped_by_type
   end
 
-  test 'can list its sub-organisations' do
+  test "can list its sub-organisations" do
     parent = create(:organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [parent])
     assert_equal [sub_organisation], parent.sub_organisations

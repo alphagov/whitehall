@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
   test 'presents a valid "working_group" content item' do
@@ -8,7 +8,7 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
                    summary: "This is some plaintext in the summary field",
                    description: "This is some *Govspeak* in the description field")
 
-    public_path = '/government/groups/government-digital-service'
+    public_path = "/government/groups/government-digital-service"
 
     expected_hash = {
       base_path: public_path,
@@ -22,8 +22,8 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
       routes: [
         {
           path: public_path,
-          type: 'exact'
-        }
+          type: "exact",
+        },
       ],
       redirects: [],
       public_updated_at: group.updated_at,
@@ -31,13 +31,13 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
       details: {
         email: "group-1@example.com",
         body: "<div class=\"govspeak\"><p>This is some <em>Govspeak</em> in the description field</p>\n</div>", # This is deliberately the 'wrong' way around
-      }
+      },
     }
 
     presenter = PublishingApi::WorkingGroupPresenter.new(group)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, 'working_group')
+    assert_valid_against_schema(presenter.content, "working_group")
   end
 
   test "renders attachments in the body" do

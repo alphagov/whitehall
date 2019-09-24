@@ -2,7 +2,7 @@
 
 module FilterHelper
   def organisation_options_for_statistics_announcement_filter(selected_slug = nil)
-    options_for_select(Organisation.with_statistics_announcements.alphabetical.map { |org| [org.name, org.slug] }.unshift(['All departments', nil]), Array(selected_slug))
+    options_for_select(Organisation.with_statistics_announcements.alphabetical.map { |org| [org.name, org.slug] }.unshift(["All departments", nil]), Array(selected_slug))
   end
 
   def topic_options_for_statistics_announcement_filter(content_id = nil)
@@ -10,7 +10,7 @@ module FilterHelper
       Taxonomy::TopicTaxonomy
         .new
         .ordered_taxons
-        .map { |taxon| [taxon.name, taxon.content_id] }.unshift(['All topics', nil]), Array(content_id)
+        .map { |taxon| [taxon.name, taxon.content_id] }.unshift(["All topics", nil]), Array(content_id)
     )
   end
 
@@ -27,7 +27,7 @@ module FilterHelper
     def initialize(filter, base_url, opts = {})
       @filter = filter
       @base_url = base_url
-      @date_prefix_text = opts[:date_prefix_text] || 'published'
+      @date_prefix_text = opts[:date_prefix_text] || "published"
     end
 
     def render
@@ -36,17 +36,17 @@ module FilterHelper
         keywords_fragment,
         topics_fragment,
         organisations_fragment,
-        date_fragment
-      ].compact.join(' ').html_safe
+        date_fragment,
+      ].compact.join(" ").html_safe
     end
 
   private
 
     def count_fragment
       [
-        content_tag(:span, number_with_delimiter(filter.result_count), class: 'count'),
-        content_tag(:strong, filter.filter_type.pluralize(filter.result_count))
-      ].join(' ')
+        content_tag(:span, number_with_delimiter(filter.result_count), class: "count"),
+        content_tag(:strong, filter.filter_type.pluralize(filter.result_count)),
+      ].join(" ")
     end
 
     def keywords_fragment
@@ -73,7 +73,7 @@ module FilterHelper
 
     def date_fragment
       if to_date_fragment.present? || from_date_fragment.present?
-        [date_prefix_text, [from_date_fragment, to_date_fragment].compact.to_sentence].join(' ')
+        [date_prefix_text, [from_date_fragment, to_date_fragment].compact.to_sentence].join(" ")
       end
     end
 
@@ -90,7 +90,7 @@ module FilterHelper
     end
 
     def remove_field_link(field, value, text)
-      url = (base_url + '?' + filter.valid_filter_params.except(field).to_query).chomp('?')
+      url = (base_url + "?" + filter.valid_filter_params.except(field).to_query).chomp("?")
       link_to "×", url, "data-field" => field, "data-value" => value, "title" => "Remove #{text}"
     end
   end

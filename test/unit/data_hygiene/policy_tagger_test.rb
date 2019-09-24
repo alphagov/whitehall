@@ -45,7 +45,7 @@ class PolicyTaggerTest < ActiveSupport::TestCase
         slug: "foo",
         policies_to_remove: [],
         policies_to_add: [],
-        logger: Logger.new(log_output)
+        logger: Logger.new(log_output),
       ).process
     end
 

@@ -41,7 +41,7 @@ class Admin::DocumentSearchesController < Admin::BaseController
         end
       end
 
-      filters << ->(editions) { editions.in_state(params[:state] || 'active') }
+      filters << ->(editions) { editions.in_state(params[:state] || "active") }
 
       filters
     end

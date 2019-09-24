@@ -8,7 +8,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
   test "runs PublishingApiGoneWorker with path and explanation when redirect is false" do
     unpublished_edition = create(
       :unpublished_edition,
-      :published_in_error_no_redirect
+      :published_in_error_no_redirect,
     )
 
     PublishingApiGoneWorker.expects(:new).returns(gone_worker = mock)
@@ -19,7 +19,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublishing.alternative_path,
       unpublishing.explanation,
       :en,
-      false
+      false,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -29,7 +29,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
   test "runs PublishingApiGoneWorker with path when redirect is true" do
     unpublished_edition = create(
       :unpublished_edition,
-      :published_in_error_redirect
+      :published_in_error_redirect,
     )
 
     PublishingApiRedirectWorker.expects(:new).returns(redirect_worker = mock)
@@ -39,7 +39,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       :en,
-      false
+      false,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -49,7 +49,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
   test "runs PublishingApiRedirectWorker with alternative path" do
     unpublished_edition = create(
       :unpublished_edition,
-      :consolidated_redirect
+      :consolidated_redirect,
     )
 
     PublishingApiRedirectWorker.expects(:new).returns(redirect_worker = mock)
@@ -59,7 +59,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       :en,
-      false
+      false,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -68,7 +68,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
   #UnpublishingReason: 5 - withdrawn
   test "runs PublishingApiWithdrawalWorker with alternative path" do
     unpublished_edition = create(
-      :withdrawn_edition
+      :withdrawn_edition,
     )
 
     PublishingApiWithdrawalWorker.expects(:new).returns(withdrawal_worker = mock)
@@ -78,7 +78,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublished_edition.document.content_id,
       unpublishing.explanation,
       :en,
-      false
+      false,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -87,7 +87,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
   test "resends a draft to the publishing api" do
     unpublished_edition = create(
       :unpublished_edition,
-      :consolidated_redirect
+      :consolidated_redirect,
     )
 
     Whitehall::PublishingApi.expects(:save_draft).with(unpublished_edition)
@@ -96,7 +96,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
 
   test "passes allow_draft if supplied" do
     unpublished_edition = create(
-      :withdrawn_edition
+      :withdrawn_edition,
     )
 
     PublishingApiWithdrawalWorker.expects(:new).returns(withdrawal_worker = mock)
@@ -106,7 +106,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublished_edition.document.content_id,
       unpublishing.explanation,
       :en,
-      true
+      true,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id, true)

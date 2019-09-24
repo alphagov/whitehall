@@ -36,7 +36,7 @@ private
   end
 
   def search_rummager(params)
-    SearchRummagerService.new.fetch_related_documents(params)['results']
+    SearchRummagerService.new.fetch_related_documents(params)["results"]
   end
 
   class OrganisationFilter < LatestDocumentsFilter
@@ -49,7 +49,7 @@ private
                                 organisation
                                 person
                                 statistics_announcement
-                                topical_event]
+                                topical_event],
         }
       )
     end
@@ -60,7 +60,7 @@ private
       super(
         {
           filter_topical_events: subject.slug,
-          reject_any_content_store_document_type: 'news_article'
+          reject_any_content_store_document_type: "news_article",
         }
       )
     end

@@ -9,6 +9,6 @@ if links
   Services.publishing_api.patch_links(
     pub.document.content_id,
     links: links,
-    bulk_publishing: true
+    bulk_publishing: true,
   )
 end

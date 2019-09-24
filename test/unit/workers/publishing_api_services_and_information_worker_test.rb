@@ -47,7 +47,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
   test "correctly re-publishes a services and information page" do
     stub_request(:post, "#{Plek.new.find('publishing-api')}/lookup-by-base-path")
       .to_return(body: {
-        "/government/organisations/things/services-information": "another-content-id"
+        "/government/organisations/things/services-information": "another-content-id",
       }.to_json)
     Organisation.any_instance.stubs(:has_services_and_information_link?).returns(true)
 

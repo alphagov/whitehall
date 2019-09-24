@@ -1,28 +1,28 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::AttachmentsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   def valid_file_attachment_params
     {
-      title: 'Attachment title',
-      attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') }
+      title: "Attachment title",
+      attachment_data_attributes: { file: fixture_file_upload("whitepaper.pdf") },
     }
   end
 
   def valid_html_attachment_params
     {
-      title: 'Attachment title',
+      title: "Attachment title",
       govspeak_content_attributes: {
-        body: 'Some **govspeak** body'
-      }
+        body: "Some **govspeak** body",
+      },
     }
   end
 
   def valid_external_attachment_params
     {
-      title: 'Attachment title',
-      external_url: 'http://www.somewebsite.com/somepath',
+      title: "Attachment title",
+      external_url: "http://www.somewebsite.com/somepath",
     }
   end
 
@@ -43,12 +43,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   supported_attachable_types.each do |type, param_name|
     view_test "GET :index handles #{type} as attachable" do
       attachable = create(type)
-      create(:file_attachment, isbn: '817525766-0', attachable: attachable)
+      create(:file_attachment, isbn: "817525766-0", attachable: attachable)
 
       get :index, params: { param_name => attachable.id }
 
       assert_response :success
-      assert_select 'p', text: /ISBN: 817525766-0/
+      assert_select "p", text: /ISBN: 817525766-0/
     end
 
     view_test "GET :new handles #{type} as attachable" do
@@ -67,8 +67,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
       assert_response :redirect
       assert_equal 1, attachable.reload.attachments.size
-      assert_equal 'Attachment title', attachable.attachments.first.title
-      assert_equal 'whitepaper.pdf', attachable.attachments.first.filename
+      assert_equal "Attachment title", attachable.attachments.first.title
+      assert_equal "whitepaper.pdf", attachable.attachments.first.filename
     end
 
     test "DELETE :destroy handles file attachments for #{type} as attachable" do
@@ -78,7 +78,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       delete :destroy, params: { param_name => attachable.id, id: attachment.id }
 
       assert_response :redirect
-      assert Attachment.find(attachment.id).deleted?, 'attachment should have been soft-deleted'
+      assert Attachment.find(attachment.id).deleted?, "attachment should have been soft-deleted"
     end
   end
 
@@ -100,13 +100,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
-  view_test 'GET :index shows html attachments' do
-    create(:html_attachment, title: 'An HTML attachment', attachable: @edition)
+  view_test "GET :index shows html attachments" do
+    create(:html_attachment, title: "An HTML attachment", attachable: @edition)
 
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select '.existing-attachments li strong', text: 'An HTML attachment'
+    assert_select ".existing-attachments li strong", text: "An HTML attachment"
   end
 
   test "GET :index should redirect to the document show page if the document is locked" do
@@ -118,66 +118,66 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
-  test 'POST :create handles html attachments when attachable allows them' do
-    post :create, params: { edition_id: @edition, type: 'html', attachment: valid_html_attachment_params }
+  test "POST :create handles html attachments when attachable allows them" do
+    post :create, params: { edition_id: @edition, type: "html", attachment: valid_html_attachment_params }
 
     assert_response :redirect
     assert_equal 1, @edition.reload.attachments.size
-    assert_equal 'Attachment title', @edition.attachments.first.title
-    assert_equal 'Some **govspeak** body', @edition.attachments.first.govspeak_content_body
+    assert_equal "Attachment title", @edition.attachments.first.title
+    assert_equal "Some **govspeak** body", @edition.attachments.first.govspeak_content_body
   end
 
-  test 'POST :create saves an attachment on the draft edition' do
+  test "POST :create saves an attachment on the draft edition" do
     attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid)
 
-    post :create, params: { edition_id: @edition.id, type: 'html', attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "html", attachment: attachment }
     refute_nil(Attachment.find_by(title: attachment[:title]))
   end
 
-  test 'POST :create for an HtmlAttachment updates the publishing api' do
+  test "POST :create for an HtmlAttachment updates the publishing api" do
     attachment = valid_html_attachment_params
 
     Whitehall::PublishingApi
       .expects(:save_draft)
       .with(instance_of(HtmlAttachment))
 
-    post :create, params: { edition_id: @edition.id, type: 'html', attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "html", attachment: attachment }
   end
 
-  test 'POST :create for a FileAttachnment doesnt update the publishing api' do
+  test "POST :create for a FileAttachnment doesnt update the publishing api" do
     attachment = valid_file_attachment_params
 
     Whitehall::PublishingApi
       .expects(:save_draft)
       .never
 
-    post :create, params: { edition_id: @edition.id, type: 'file', attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "file", attachment: attachment }
   end
 
-  test 'POST :create ignores html attachments when attachable does not allow them' do
+  test "POST :create ignores html attachments when attachable does not allow them" do
     attachable = create(:statistical_data_set, access_limited: false)
 
-    post :create, params: { edition_id: attachable, type: 'html', attachment: valid_html_attachment_params }
+    post :create, params: { edition_id: attachable, type: "html", attachment: valid_html_attachment_params }
 
     assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
   end
 
-  test 'POST :create triggers a job to be queued to store the attachment in Asset Manager' do
+  test "POST :create triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = valid_file_attachment_params
 
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id)
 
-    post :create, params: { edition_id: @edition.id, type: 'file', attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "file", attachment: attachment }
   end
 
-  test 'DELETE :destroy handles html attachments' do
+  test "DELETE :destroy handles html attachments" do
     attachment = create(:html_attachment, attachable: @edition)
 
     delete :destroy, params: { edition_id: @edition, id: attachment.id }
 
     assert_response :redirect
-    assert Attachment.find(attachment.id).deleted?, 'attachment should have been deleted'
+    assert Attachment.find(attachment.id).deleted?, "attachment should have been deleted"
   end
 
   test "DELETE :destroy should redirect to the document show page if the document is locked" do
@@ -190,35 +190,35 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
-  view_test 'GET :index shows external attachments' do
-    create(:external_attachment, title: 'An external attachment', attachable: @edition)
+  view_test "GET :index shows external attachments" do
+    create(:external_attachment, title: "An external attachment", attachable: @edition)
 
     get :index, params: { edition_id: @edition }
 
     assert_response :success
-    assert_select '.existing-attachments li strong', text: 'An external attachment'
+    assert_select ".existing-attachments li strong", text: "An external attachment"
   end
 
-  test 'POST :create handles external attachments when attachable allows them' do
+  test "POST :create handles external attachments when attachable allows them" do
     publication = create(:publication, attachments: [])
-    post :create, params: { edition_id: publication, type: 'external', attachment: valid_external_attachment_params }
+    post :create, params: { edition_id: publication, type: "external", attachment: valid_external_attachment_params }
 
     assert_response :redirect
     assert_equal 1, publication.reload.attachments.size
-    assert_equal 'Attachment title', publication.attachments.first.title
-    assert_equal 'http://www.somewebsite.com/somepath', publication.attachments.first.external_url
+    assert_equal "Attachment title", publication.attachments.first.title
+    assert_equal "http://www.somewebsite.com/somepath", publication.attachments.first.external_url
   end
 
-  test 'POST :create ignores external attachments when attachable does not allow them' do
+  test "POST :create ignores external attachments when attachable does not allow them" do
     attachable = create(:statistical_data_set, access_limited: false)
 
-    post :create, params: { edition_id: attachable, type: 'external', attachment: valid_external_attachment_params }
+    post :create, params: { edition_id: attachable, type: "external", attachment: valid_external_attachment_params }
 
     assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
   end
 
-  test 'Actions are unavailable on unmodifiable editions' do
+  test "Actions are unavailable on unmodifiable editions" do
     edition = create(:published_news_article)
 
     get :index, params: { edition_id: edition }
@@ -230,9 +230,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Consultation.any_instance.expects(:reorder_attachments).with([c.id.to_s, a.id.to_s, b.id.to_s]).once
 
-    put :order, params: { edition_id: @edition, ordering: { a.id.to_s => '1',
-                                                  b.id.to_s => '2',
-                                                  c.id.to_s => '0' } }
+    put :order, params: { edition_id: @edition, ordering: { a.id.to_s => "1",
+                                                  b.id.to_s => "2",
+                                                  c.id.to_s => "0" } }
 
     assert_response :redirect
   end
@@ -242,9 +242,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Consultation.any_instance.expects(:reorder_attachments).with([a.id.to_s, b.id.to_s, c.id.to_s]).once
 
-    put :order, params: { edition_id: @edition, ordering: { a.id.to_s => '9',
-                                                  b.id.to_s => '10',
-                                                  c.id.to_s => '11' } }
+    put :order, params: { edition_id: @edition, ordering: { a.id.to_s => "9",
+                                                  b.id.to_s => "10",
+                                                  c.id.to_s => "11" } }
 
     assert_response :redirect
   end
@@ -266,7 +266,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   view_test "GET :new for a publication includes House of Commons metadata for file attachments" do
     publication = create(:publication)
-    get :new, params: { edition_id: publication, type: 'file' }
+    get :new, params: { edition_id: publication, type: "file" }
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
@@ -274,7 +274,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   view_test "GET :new for a publication includes House of Commons metadata for HTML attachments" do
     publication = create(:publication)
-    get :new, params: { edition_id: publication, type: 'html' }
+    get :new, params: { edition_id: publication, type: "html" }
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
@@ -324,12 +324,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       edition_id: @edition,
       id: attachment.id,
       attachment: {
-        title: 'New title',
-        govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
-      }
+        title: "New title",
+        govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
+      },
     }
-    assert_equal 'New title', attachment.reload.title
-    assert_equal 'New body', attachment.reload.govspeak_content_body
+    assert_equal "New title", attachment.reload.title
+    assert_equal "New body", attachment.reload.govspeak_content_body
   end
 
   test "PUT :update for HTML attachment updates the publishing api" do
@@ -343,9 +343,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       edition_id: @edition,
       id: attachment.id,
       attachment: {
-        title: 'New title',
-        govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
-      }
+        title: "New title",
+        govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
+      },
     }
   end
 
@@ -360,8 +360,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       edition_id: @edition,
       id: attachment.id,
       attachment: {
-        title: 'New title'
-      }
+        title: "New title",
+      },
     }
   end
 
@@ -379,7 +379,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
-  test 'PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager' do
+  test "PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager" do
     attachment = create(:file_attachment, attachable: @edition)
 
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id)
@@ -389,13 +389,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       id: attachment.id,
       attachment: {
         attachment_data_attributes: {
-          file: fixture_file_upload('whitepaper.pdf')
-        }
-      }
+          file: fixture_file_upload("whitepaper.pdf"),
+        },
+      },
     }
   end
 
-  test 'PUT :updates an attachment on the draft edition' do
+  test "PUT :updates an attachment on the draft edition" do
     attachment = create(:html_attachment, attachable: @edition)
     title = SecureRandom.uuid
 
@@ -404,8 +404,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       id: attachment.id,
       attachment: {
         title: title,
-        govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
-      }
+        govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
+      },
     }
 
     refute_nil(Attachment.find_by(title: title))
@@ -418,11 +418,11 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       edition_id: @edition,
       id: attachment,
       attachment: {
-        title: 'New title',
-        attachment_data_attributes: { file_cache: '', to_replace_id: attachment.attachment_data.id }
-      }
+        title: "New title",
+        attachment_data_attributes: { file_cache: "", to_replace_id: attachment.attachment_data.id },
+      },
     }
-    assert_equal 'New title', attachment.reload.title
+    assert_equal "New title", attachment.reload.title
     assert_equal attachment_data, attachment.attachment_data
   end
 
@@ -433,26 +433,26 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       edition_id: @edition,
       id: attachment,
       attachment: {
-        attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload('whitepaper.pdf') }
-      }
+        attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload("whitepaper.pdf") },
+      },
     }
     attachment.reload
     old_data.reload
 
     refute_equal old_data, attachment.attachment_data
     assert_equal attachment.attachment_data, old_data.replaced_by
-    assert_equal 'whitepaper.pdf', attachment.filename
+    assert_equal "whitepaper.pdf", attachment.filename
   end
 
   test "PUT :update_many changes attributes of multiple attachments" do
-    files = Dir.glob(Rails.root.join('test', 'fixtures', '*.csv')).take(4)
+    files = Dir.glob(Rails.root.join("test", "fixtures", "*.csv")).take(4)
     files.each_with_index do |f, i|
       create(:file_attachment, title: "attachment_#{i}", attachable: @edition, file: File.open(f))
     end
     attachments = @edition.reload.attachments
 
     # append '_' to every attachment title in the collection
-    new_data = attachments.map { |a| [a.id.to_s, { title: a.title + '_' }] }
+    new_data = attachments.map { |a| [a.id.to_s, { title: a.title + "_" }] }
     put :update_many, params: { edition_id: @edition, attachments: Hash[new_data] }
 
     @edition.reload.attachments.each do |attachment|
@@ -462,14 +462,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "PUT :update_many should redirect to the document show page if the document is locked" do
     edition = create(:news_article, :with_locked_document)
-    files = Dir.glob(Rails.root.join('test', 'fixtures', '*.csv')).take(4)
+    files = Dir.glob(Rails.root.join("test", "fixtures", "*.csv")).take(4)
 
     files.each_with_index do |f, i|
       create(:file_attachment, title: "attachment_#{i}", attachable: edition, file: File.open(f))
     end
     attachments = edition.reload.attachments
 
-    new_data = attachments.map { |a| [a.id.to_s, { title: a.title + '_' }] }
+    new_data = attachments.map { |a| [a.id.to_s, { title: a.title + "_" }] }
     put :update_many, params: { edition_id: edition, attachments: Hash[new_data] }
 
     assert_redirected_to show_locked_admin_edition_path(edition)
@@ -486,7 +486,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal ["Title can't be blank"], response_json["errors"][attachment.id.to_s]
   end
 
-  test 'attachment access is forbidden for users without access to the edition' do
+  test "attachment access is forbidden for users without access to the edition" do
     login_as :world_editor
     get :new, params: { edition_id: @edition }
     assert_response :forbidden

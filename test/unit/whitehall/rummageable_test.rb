@@ -1,21 +1,21 @@
-require 'test_helper'
+require "test_helper"
 
 class RummageableTest < ActiveSupport::TestCase
   def rummager_url
-    'http://search.test.gov.uk'
+    "http://search.test.gov.uk"
   end
 
   def index_name
-    'index-name'
+    "index-name"
   end
 
   def documents_url(options = {})
     options[:id] ||= options[:link]
 
-    parts = rummager_url, options.fetch(:index, index_name), 'documents'
+    parts = rummager_url, options.fetch(:index, index_name), "documents"
     parts << CGI.escape(options[:type]) if options[:type]
     parts << CGI.escape(options[:id]) if options[:id]
-    parts.join('/')
+    parts.join("/")
   end
 
   def link_url
@@ -25,14 +25,14 @@ class RummageableTest < ActiveSupport::TestCase
   def status(http_code)
     {
       200 => { status: 200, body: '{"result":"OK"}' },
-      502 => { status: 502, body: 'Bad gateway' }
+      502 => { status: 502, body: "Bad gateway" },
     }.fetch(http_code)
   end
 
   def build_document(index)
     {
-      'title' => "TITLE #{index}",
-      'link' => "/link#{index}"
+      "title" => "TITLE #{index}",
+      "link" => "/link#{index}",
     }
   end
 
@@ -45,15 +45,15 @@ class RummageableTest < ActiveSupport::TestCase
   end
 
   def link
-    '/path'
+    "/path"
   end
 
   def commit_url
-    [rummager_url, index_name, 'commit'].join('/')
+    [rummager_url, index_name, "commit"].join("/")
   end
 
   def document_url
-    'http://example.com/foo'
+    "http://example.com/foo"
   end
 
   def stub_successful_request
@@ -70,11 +70,11 @@ class RummageableTest < ActiveSupport::TestCase
   end
 
   def stub_successful_delete_request
-    stub_request(:delete, documents_url(id: document_url, type: 'edition')).to_return(status(200))
+    stub_request(:delete, documents_url(id: document_url, type: "edition")).to_return(status(200))
   end
 
   def stub_one_failed_delete_request
-    stub_request(:delete, documents_url(id: document_url, type: 'edition')).
+    stub_request(:delete, documents_url(id: document_url, type: "edition")).
       to_return(status(502)).times(1).then.to_return(status(200))
   end
 
@@ -84,8 +84,8 @@ class RummageableTest < ActiveSupport::TestCase
     index.add(one_document)
     assert_requested :post, documents_url, times: 1 do |request|
       request.body == [one_document].to_json &&
-        request.headers['Content-Type'] == 'application/json' &&
-        request.headers['Accept'] == 'application/json'
+        request.headers["Content-Type"] == "application/json" &&
+        request.headers["Accept"] == "application/json"
     end
   end
 
@@ -108,14 +108,14 @@ class RummageableTest < ActiveSupport::TestCase
   test "add should return true when successful" do
     stub_successful_request
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
-    assert index.add(one_document), 'should return true on success'
+    assert index.add(one_document), "should return true on success"
   end
 
   test "add should sleep and retry on bad gateway errors" do
     stub_one_failed_request
     Whitehall::Rummageable::Index.any_instance.expects(:sleep).with(1)
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name, retry_delay: 1)
-    assert index.add(one_document), 'should return true on success'
+    assert index.add(one_document), "should return true on success"
     assert_requested :post, documents_url, times: 2
   end
 
@@ -139,7 +139,7 @@ class RummageableTest < ActiveSupport::TestCase
 
   test "add should log attempts to post to rummager" do
     stub_successful_request
-    logger = stub('logger', debug: true)
+    logger = stub("logger", debug: true)
     logger.expects(:info).twice
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
     index.add(one_document)
@@ -148,7 +148,7 @@ class RummageableTest < ActiveSupport::TestCase
   test "add should log failures" do
     stub_one_failed_request
     Whitehall::Rummageable::Index.any_instance.stubs(:sleep)
-    logger = stub('logger', debug: true, info: true)
+    logger = stub("logger", debug: true, info: true)
     logger.expects(:warn).once
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
     index.add(one_document)
@@ -158,18 +158,18 @@ class RummageableTest < ActiveSupport::TestCase
     RestClient.expects(:send).returns("")
     Whitehall::Rummageable::Index.any_instance.stubs(:sleep)
 
-    logger = stub('logger', debug: true, info: true)
-    logger.expects(:info).once.with(has_entry(:result, 'UNKNOWN'))
+    logger = stub("logger", debug: true, info: true)
+    logger.expects(:info).once.with(has_entry(:result, "UNKNOWN"))
 
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
     index.add(one_document)
   end
 
   test "amend should post amendments to a document by its link" do
-    new_document = { 'title' => 'Cheese', 'indexable_content' => 'Blah' }
+    new_document = { "title" => "Cheese", "indexable_content" => "Blah" }
     stub_request(:post, link_url).with(body: new_document).to_return(status(200))
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
-    index.amend(link, 'title' => 'Cheese', 'indexable_content' => 'Blah')
+    index.amend(link, "title" => "Cheese", "indexable_content" => "Blah")
     assert_requested :post, link_url, body: new_document
   end
 
@@ -184,21 +184,21 @@ class RummageableTest < ActiveSupport::TestCase
     stub_successful_delete_request
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
     index.delete(document_url)
-    assert_requested :delete, documents_url(id: document_url, type: 'edition') do |request|
-      request.headers['Content-Type'] == 'application/json' &&
-        request.headers['Accept'] == 'application/json'
+    assert_requested :delete, documents_url(id: document_url, type: "edition") do |request|
+      request.headers["Content-Type"] == "application/json" &&
+        request.headers["Accept"] == "application/json"
     end
   end
 
   test "delete should delete a document by its type and id" do
-    stub_request(:delete, documents_url(id: 'jobs-exact', type: 'best_bet')).to_return(status(200))
+    stub_request(:delete, documents_url(id: "jobs-exact", type: "best_bet")).to_return(status(200))
 
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
-    index.delete('jobs-exact', type: 'best_bet')
+    index.delete("jobs-exact", type: "best_bet")
 
-    assert_requested :delete, documents_url(id: 'jobs-exact', type: 'best_bet') do |request|
-      request.headers['Content-Type'] == 'application/json' &&
-        request.headers['Accept'] == 'application/json'
+    assert_requested :delete, documents_url(id: "jobs-exact", type: "best_bet") do |request|
+      request.headers["Content-Type"] == "application/json" &&
+        request.headers["Accept"] == "application/json"
     end
   end
 
@@ -207,8 +207,8 @@ class RummageableTest < ActiveSupport::TestCase
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
     index.delete_all
     assert_requested :delete, documents_url, query: { delete_all: 1 } do |request|
-      request.headers['Content-Type'] == 'application/json' &&
-        request.headers['Accept'] == 'application/json'
+      request.headers["Content-Type"] == "application/json" &&
+        request.headers["Accept"] == "application/json"
     end
   end
 
@@ -217,12 +217,12 @@ class RummageableTest < ActiveSupport::TestCase
     Whitehall::Rummageable::Index.any_instance.expects(:sleep).once
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
     index.delete(document_url)
-    assert_requested :delete, documents_url(id: document_url, type: 'edition'), times: 2
+    assert_requested :delete, documents_url(id: document_url, type: "edition"), times: 2
   end
 
   test "delete should log attempts to delete documents from rummager" do
     stub_successful_delete_request
-    logger = stub('logger')
+    logger = stub("logger")
     logger.expects(:info).twice
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
     index.delete(document_url)

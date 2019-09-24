@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class GovspeakContentWorkerTest < ActiveSupport::TestCase
   setup do
@@ -29,7 +29,7 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   end
 
   test "saves generated HTML with image interpolation" do
-    image = create(:image, alt_text: 'Alt')
+    image = create(:image, alt_text: "Alt")
     publication = create(:publication, images: [image])
     govspeak_content = create(:html_attachment,
                               attachable: publication,

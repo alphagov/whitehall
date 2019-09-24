@@ -11,14 +11,14 @@ module Whitehall
         new(all_label: all_label, grouped: grouped, ungrouped: ungrouped)
       end
 
-      def initialize(all_label: 'All', grouped: {}, ungrouped: [])
+      def initialize(all_label: "All", grouped: {}, ungrouped: [])
         @all_label = all_label
         @grouped = grouped
         @ungrouped = ungrouped
       end
 
       def all
-        [all_label, 'all']
+        [all_label, "all"]
       end
       attr_reader :grouped, :ungrouped
 

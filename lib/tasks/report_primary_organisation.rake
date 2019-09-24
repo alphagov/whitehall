@@ -4,8 +4,8 @@ namespace :report_primary_organisation do
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
 
     if args[:user_email].present? && args[:start_date].present? && args[:user_email].match(VALID_EMAIL_REGEX)
-      require 'csv'
-      require 'ruby-progressbar'
+      require "csv"
+      require "ruby-progressbar"
 
       class CSVReport
         def author_belongs_to_diff_org?(author, organisation)
@@ -13,17 +13,17 @@ namespace :report_primary_organisation do
         end
 
         def header_row
-          ['Admin URL',
-           'First published',
-           'Title',
-           'Format',
-           'Lead organisation',
-           'First Author Name',
-           'First Author Email Address',
-           'First Author Organisation',
-           'Last Author Name',
-           'Last Author Email Address',
-           'Last Author Organisation']
+          ["Admin URL",
+           "First published",
+           "Title",
+           "Format",
+           "Lead organisation",
+           "First Author Name",
+           "First Author Email Address",
+           "First Author Organisation",
+           "Last Author Name",
+           "Last Author Email Address",
+           "Last Author Organisation"]
         end
 
         def get_last_author(edition)
@@ -37,7 +37,7 @@ namespace :report_primary_organisation do
         def progress_bar
           @progress_bar ||= ProgressBar.create(
             autostart: false,
-            format: "%e [%b>%i] [%c/%C]"
+            format: "%e [%b>%i] [%c/%C]",
           )
         end
 
@@ -53,7 +53,7 @@ namespace :report_primary_organisation do
               progress_bar.log("Processing edition ##{e.id}...")
 
               first_author = e.creator
-              primary_organisation = e.type == 'CorporateInformationPage' ? e.owning_organisation : e.lead_organisations.first
+              primary_organisation = e.type == "CorporateInformationPage" ? e.owning_organisation : e.lead_organisations.first
 
               if author_belongs_to_diff_org?(first_author, primary_organisation)
                 last_author = get_last_author(e)
@@ -63,12 +63,12 @@ namespace :report_primary_organisation do
                 row << e.title
                 row << e.type.titleize
                 row << primary_organisation
-                row << first_author.try(:name) || 'Name missing'
-                row << first_author.try(:email_address) || 'Email missing'
-                row << first_author.try(:organisation) || 'Missing organisation'
-                row << last_author.try(:name) || 'Name missing'
-                row << last_author.try(:email_address) || 'Email missing'
-                row << last_author.try(:organisation) || 'Missing organisation'
+                row << first_author.try(:name) || "Name missing"
+                row << first_author.try(:email_address) || "Email missing"
+                row << first_author.try(:organisation) || "Missing organisation"
+                row << last_author.try(:name) || "Name missing"
+                row << last_author.try(:email_address) || "Email missing"
+                row << last_author.try(:organisation) || "Missing organisation"
 
                 csv << row
               end

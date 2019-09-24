@@ -7,11 +7,11 @@ class EditionWithdrawer < EditionUnpublisher
   end
 
   def verb
-    'withdraw'
+    "withdraw"
   end
 
   def past_participle
-    'withdrawn'
+    "withdrawn"
   end
 
 private

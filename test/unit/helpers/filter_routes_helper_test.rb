@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require 'test_helper'
+require "test_helper"
 
 class FilterRoutesHelperTest < ActionView::TestCase
   %i[announcements publications].each do |filter|
@@ -27,7 +27,7 @@ class FilterRoutesHelperTest < ActionView::TestCase
     end
 
     test "uses optional hash to route to #{filter} filter" do
-      assert_equal send("#{filter}_path", publication_type: 'transparency-data'), send("#{filter}_filter_path", publication_type: 'transparency-data')
+      assert_equal send("#{filter}_path", publication_type: "transparency-data"), send("#{filter}_filter_path", publication_type: "transparency-data")
     end
   end
 

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TopicTreePresenterTest < ActiveSupport::TestCase
   test ".toggle_classes when collapsed is false" do

@@ -20,8 +20,8 @@ module PersonHelper
   def forename_surname(person)
     [
       person.forename.try(:strip),
-      person.surname.try(:strip)
-    ].join(' ')
+      person.surname.try(:strip),
+    ].join(" ")
   end
 
   def disambiguate_option(person)

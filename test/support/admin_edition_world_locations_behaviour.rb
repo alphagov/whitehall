@@ -13,7 +13,7 @@ module AdminEditionWorldLocationsBehaviour
             assert_equal 1, elements.length
             assert_data_attributes_for_world_locations(
               element: elements.first,
-              track_label: new_edition_path(document_type)
+              track_label: new_edition_path(document_type),
             )
           end
         end
@@ -26,8 +26,8 @@ module AdminEditionWorldLocationsBehaviour
 
         post :create, params: {
           edition: attributes.merge(
-            world_location_ids: [world_location_1.id, world_location_2.id]
-          )
+            world_location_ids: [world_location_1.id, world_location_2.id],
+          ),
         }
 
         assert document = edition_class.last
@@ -43,7 +43,7 @@ module AdminEditionWorldLocationsBehaviour
             assert_equal 1, elements.length
             assert_data_attributes_for_world_locations(
               element: elements.first,
-              track_label: edit_edition_path(document_type)
+              track_label: edit_edition_path(document_type),
             )
           end
         end
@@ -56,7 +56,7 @@ module AdminEditionWorldLocationsBehaviour
         document = create(document_type, world_locations: [world_location_2])
 
         put :update, params: { id: document, edition: {
-          world_location_ids: [world_location_1.id]
+          world_location_ids: [world_location_1.id],
         } }
 
         document = document.reload
@@ -80,9 +80,9 @@ module AdminEditionWorldLocationsBehaviour
 private
 
   def assert_data_attributes_for_world_locations(element:, track_label:)
-    assert_equal 'World locations…', element['data-placeholder']
-    assert_equal 'track-select-click', element['data-module']
-    assert_equal 'worldLocationSelection', element['data-track-category']
-    assert_equal track_label, element['data-track-label']
+    assert_equal "World locations…", element["data-placeholder"]
+    assert_equal "track-select-click", element["data-module"]
+    assert_equal "worldLocationSelection", element["data-track-category"]
+    assert_equal track_label, element["data-track-label"]
   end
 end

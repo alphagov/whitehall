@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 class PublishingApi::WorldLocationNewsArticlePresenterTest < ActiveSupport::TestCase
   setup do
     create(:current_government)
@@ -6,7 +6,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterTest < ActiveSupport::Test
     @world_location_news_article = create(
       :world_location_news_article,
       title: "World Location News Article title",
-      summary: "World Location News Article summary"
+      summary: "World Location News Article summary",
     )
 
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(@world_location_news_article)
@@ -38,11 +38,11 @@ class PublishingApi::WorldLocationNewsArticlePresenterTest < ActiveSupport::Test
   end
 
   test "it presents the publishing_app as whitehall" do
-    assert_equal 'whitehall', @presented_content[:publishing_app]
+    assert_equal "whitehall", @presented_content[:publishing_app]
   end
 
   test "it presents the rendering_app as government-frontend" do
-    assert_equal 'government-frontend', @presented_content[:rendering_app]
+    assert_equal "government-frontend", @presented_content[:rendering_app]
   end
 
   test "it presents the schema_name as world_location_news_article" do
@@ -62,7 +62,7 @@ class PublishingApi::WorldLocationNewsArticleWithPublicTimestampTest < ActiveSup
   setup do
     @expected_time = Time.zone.parse("10/01/2016")
     @world_location_news_article = create(
-      :world_location_news_article
+      :world_location_news_article,
     )
     @world_location_news_article.public_timestamp = @expected_time
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(@world_location_news_article)
@@ -78,12 +78,12 @@ class PublishingApi::WorldLocationNewsArticleBelongingToPublishedDocumentNoticeP
     presented_notice = PublishingApi::WorldLocationNewsArticlePresenter.new(
       create(:published_world_location_news_article) do |world_location_news_article|
         world_location_news_article.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
-      end
+      end,
     )
 
     assert_equal(
       Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
+      presented_notice.content[:details][:first_public_at],
     )
   end
 end
@@ -95,7 +95,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterDetailsTest < ActiveSuppor
       :world_location_news_article,
       :published,
       body: "*Test string*",
-      first_published_at: @expected_first_published_at
+      first_published_at: @expected_first_published_at,
     )
 
     @presented_content = PublishingApi::WorldLocationNewsArticlePresenter.new(@world_location_news_article).content
@@ -110,8 +110,8 @@ class PublishingApi::WorldLocationNewsArticlePresenterDetailsTest < ActiveSuppor
     change_history = [
       {
         "public_timestamp" => @expected_first_published_at,
-        "note" => "change-note"
-      }
+        "note" => "change-note",
+      },
     ]
 
     assert_equal change_history, @presented_details[:change_history]
@@ -128,28 +128,28 @@ class PublishingApi::WorldLocationNewsArticlePresenterLinksTest < ActiveSupport:
   test "it presents the worldwide organisation content_ids as links, worldwide_organisations" do
     assert_equal(
       @world_location_news_article.worldwide_organisations.map(&:content_id),
-      @presented_links[:worldwide_organisations]
+      @presented_links[:worldwide_organisations],
     )
   end
 
   test "it presents the world location content_ids as links, world_locations" do
     assert_equal(
       @world_location_news_article.world_locations.map(&:content_id),
-      @presented_links[:world_locations]
+      @presented_links[:world_locations],
     )
   end
 
   test "it presents the topics(or specialist sectors as they used to be) content_ids as links, topics" do
     assert_equal(
       @world_location_news_article.specialist_sectors.map(&:content_id),
-      @presented_links[:topics]
+      @presented_links[:topics],
     )
   end
 
   test "it presents the primary_specialist_sector content_ids as links, parent" do
     assert_equal(
       @world_location_news_article.primary_specialist_sectors.map(&:content_id),
-      @presented_links[:parent]
+      @presented_links[:parent],
     )
   end
 end
@@ -157,7 +157,7 @@ end
 class PublishingApi::WorldLocationNewsArticlePresenterUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
-      create(:world_location_news_article, minor_change: false)
+      create(:world_location_news_article, minor_change: false),
     )
   end
 
@@ -169,7 +169,7 @@ end
 class PublishingApi::WorldLocationNewsArticlePresenterMinorUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
-      create(:world_location_news_article, minor_change: true)
+      create(:world_location_news_article, minor_change: true),
     )
   end
 
@@ -182,7 +182,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterUpdateTypeArgumentTest < A
   setup do
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
       create(:world_location_news_article, minor_change: true),
-      update_type: "major"
+      update_type: "major",
     )
   end
 
@@ -201,7 +201,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterCurrentGovernmentTest < Ac
       slug: "the-current-government",
     )
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
-      create(:world_location_news_article)
+      create(:world_location_news_article),
     )
   end
 
@@ -210,9 +210,9 @@ class PublishingApi::WorldLocationNewsArticlePresenterCurrentGovernmentTest < Ac
       {
         "title": "The Current Government",
         "slug": "the-current-government",
-        "current": true
+        "current": true,
       },
-      @presented_world_location_news_article.content[:details][:government]
+      @presented_world_location_news_article.content[:details][:government],
     )
   end
 end
@@ -230,8 +230,8 @@ class PublishingApi::WorldLocationNewsArticlePresenterPreviousGovernmentTest < A
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
       create(
         :world_location_news_article,
-        first_published_at: previous_government.start_date + 1.day
-      )
+        first_published_at: previous_government.start_date + 1.day,
+      ),
     )
   end
 
@@ -240,9 +240,9 @@ class PublishingApi::WorldLocationNewsArticlePresenterPreviousGovernmentTest < A
       {
         "title": "A Previous Government",
         "slug": "a-previous-government",
-        "current": false
+        "current": false,
       },
-      @presented_world_location_news_article.content[:details][:government]
+      @presented_world_location_news_article.content[:details][:government],
     )
   end
 end
@@ -252,7 +252,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterPoliticalTest < ActiveSupp
     world_location_news_article = create(:world_location_news_article)
     world_location_news_article.stubs(:political?).returns(true)
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
-      world_location_news_article
+      world_location_news_article,
     )
   end
 
@@ -269,10 +269,10 @@ class PublishingApi::WorldLocationNewsArticleAccessLimitedTest < ActiveSupport::
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(world_location_news_article)
       .returns(
-        access_limited: { users: %w(abcdef12345) }
+        access_limited: { users: %w(abcdef12345) },
       )
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
-      world_location_news_article
+      world_location_news_article,
     )
   end
 
@@ -288,7 +288,7 @@ end
 class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::TestCase
   setup do
     create(:current_government)
-    @image = build(:image, alt_text: 'Image alt text', caption: 'Image caption')
+    @image = build(:image, alt_text: "Image alt text", caption: "Image caption")
     @world_location_news_article = create(:world_location_news_article, images: [@image])
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(@world_location_news_article)
   end
@@ -297,10 +297,10 @@ class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::T
     expected_hash = {
       url: @image.url(:s300),
       alt_text: @image.alt_text,
-      caption: @image.caption
+      caption: @image.caption,
     }
 
-    assert_valid_against_schema(@presented_world_location_news_article.content, 'world_location_news_article')
+    assert_valid_against_schema(@presented_world_location_news_article.content, "world_location_news_article")
     assert_equal expected_hash, @presented_world_location_news_article.content[:details][:image]
   end
 end
@@ -316,7 +316,7 @@ class PublishingApi::WorldLocationNewsArticlePlaceholderImageTest < ActiveSuppor
     expected_placeholder_image = {
       alt_text: "placeholder",
       caption: nil,
-      url: Whitehall.public_asset_host + "/government/assets/placeholder.jpg"
+      url: Whitehall.public_asset_host + "/government/assets/placeholder.jpg",
     }
 
     assert_equal expected_placeholder_image, @presented_wlna.content[:details][:image]

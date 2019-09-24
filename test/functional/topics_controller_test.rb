@@ -1,5 +1,5 @@
 require "test_helper"
-require 'gds_api/test_helpers/content_store'
+require "gds_api/test_helpers/content_store"
 
 class TopicsControllerTest < ActionController::TestCase
   include FeedHelper
@@ -45,15 +45,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#publications" do
       published.take(3).each_with_index do |edition, edition_index|
         data_attributes = build_data_attributes_for(
-          'Publications',
+          "Publications",
           edition,
-          edition_index
+          edition_index,
         )
 
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: routes_helper.public_document_path(edition)
+          href: routes_helper.public_document_path(edition),
         )
 
         assert_select_object(edition) do
@@ -76,15 +76,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#consultations" do
       published.take(3).each_with_index do |edition, edition_index|
         data_attributes = build_data_attributes_for(
-          'Consultations',
+          "Consultations",
           edition,
-          edition_index
+          edition_index,
         )
 
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: routes_helper.public_document_path(edition)
+          href: routes_helper.public_document_path(edition),
         )
       end
       refute_select "a", text: published[3].title
@@ -103,15 +103,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#statistics" do
       published.take(3).each_with_index do |edition, edition_index|
         data_attributes = build_data_attributes_for(
-          'Statistics',
+          "Statistics",
           edition,
-          edition_index
+          edition_index,
         )
 
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: routes_helper.public_document_path(edition)
+          href: routes_helper.public_document_path(edition),
         )
       end
       refute_select "a", text: published[3].title
@@ -130,15 +130,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#announcements" do
       published.take(3).each_with_index do |edition, edition_index|
         data_attributes = build_data_attributes_for(
-          'Announcements',
+          "Announcements",
           edition,
-          edition_index
+          edition_index,
         )
 
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: routes_helper.public_document_path(edition)
+          href: routes_helper.public_document_path(edition),
         )
 
         assert_select_object(edition) do
@@ -165,16 +165,16 @@ class TopicsControllerTest < ActionController::TestCase
         end
 
         data_attributes = build_data_attributes_for(
-          'DetailedGuides',
+          "DetailedGuides",
           guide,
           guide_index,
-          total: '5'
+          total: "5",
         )
 
         assert_select(
           "a#{data_attributes}",
           text: guide.title,
-          href: routes_helper.public_document_path(guide)
+          href: routes_helper.public_document_path(guide),
         )
       end
       refute_select_object(published_detailed_guides[5])
@@ -200,14 +200,14 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link atom_feed_url_for(topic)
   end
 
-  test 'GET :show has a 5 minute expiry time' do
+  test "GET :show has a 5 minute expiry time" do
     topic = create_topic_and_stub_content_store
     get :show, params: { id: topic }
 
     assert_cache_control("max-age=#{5.minutes}")
   end
 
-  test 'GET :show caps max expiry to 5 minute when there are future scheduled editions' do
+  test "GET :show caps max expiry to 5 minute when there are future scheduled editions" do
     topic = create_topic_and_stub_content_store
     create(:scheduled_publication, scheduled_publication: 1.day.from_now, topics: [topic])
 
@@ -216,7 +216,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{5.minutes}")
   end
 
-  test 'GET :show sets analytics organisation headers' do
+  test "GET :show sets analytics organisation headers" do
     organisation = create(:organisation)
     topic = create_topic_and_stub_content_store
     topic.organisations << organisation
@@ -237,14 +237,14 @@ class TopicsControllerTest < ActionController::TestCase
     topic
   end
 
-  def build_data_attributes_for(type, edition, edition_index, total: '3')
+  def build_data_attributes_for(type, edition, edition_index, total: "3")
     track_options = { dimension28: total, dimension29: edition.title }
 
     [
       "[data-track-category='navPolicyAreaLinkClicked']",
       "[data-track-action='#{type}.#{edition_index + 1}']",
       "[data-track-label='#{routes_helper.public_document_path(edition)}']",
-      "[data-track-options='#{JSON.dump(track_options)}']"
-    ].join('')
+      "[data-track-options='#{JSON.dump(track_options)}']",
+    ].join("")
   end
 end

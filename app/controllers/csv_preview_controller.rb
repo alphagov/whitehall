@@ -8,7 +8,7 @@ class CsvPreviewController < ApplicationController
           @edition = visible_edition
           @attachment = attachment_data.visible_attachment_for(current_user)
           @csv_preview = CsvFileFromPublicHost.csv_preview_from(@csv_response)
-          render layout: 'html_attachments'
+          render layout: "html_attachments"
         else
           fail
         end
@@ -45,7 +45,7 @@ private
   end
 
   def redirect_path_matches_placeholder_path
-    URI.parse(@csv_response.headers['Location']).path == placeholder_path
+    URI.parse(@csv_response.headers["Location"]).path == placeholder_path
   end
 
   def upload_exists?
@@ -53,7 +53,7 @@ private
   end
 
   def set_slimmer_template
-    slimmer_template 'chromeless'
+    slimmer_template "chromeless"
   end
 
   def attachment_data

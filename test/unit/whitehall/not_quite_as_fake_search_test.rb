@@ -7,7 +7,7 @@ module Whitehall
       setup do
         @store = Store.new
         SearchIndex.indexer_class.store = @store
-        @index = SearchIndex.indexer_class.new('http://search.test', 'government')
+        @index = SearchIndex.indexer_class.new("http://search.test", "government")
       end
 
       teardown do
@@ -15,68 +15,68 @@ module Whitehall
       end
 
       test "a document is present in the store after adding to Rummageable" do
-        @index.add('link' => '/foo', 'title' => 'Foo')
-        expected_index = { '/foo' => { 'link' => '/foo', 'title' => 'Foo' } }
-        assert_equal expected_index, @store.index('government')
+        @index.add("link" => "/foo", "title" => "Foo")
+        expected_index = { "/foo" => { "link" => "/foo", "title" => "Foo" } }
+        assert_equal expected_index, @store.index("government")
       end
 
       test "date fields are converted to strings when fetched from the store" do
-        @index.add('my_date' => Time.zone.parse("2013-01-01 12:13 +00:00"), 'link' => '/example')
-        expected_index = { '/example' => { 'link' => '/example', 'my_date' => '2013-01-01 12:13:00 +0000' } }
-        assert_equal expected_index, @store.index('government')
+        @index.add("my_date" => Time.zone.parse("2013-01-01 12:13 +00:00"), "link" => "/example")
+        expected_index = { "/example" => { "link" => "/example", "my_date" => "2013-01-01 12:13:00 +0000" } }
+        assert_equal expected_index, @store.index("government")
       end
 
       test "a document can be retrieved by advanced search" do
-        @index.add('link' => '/foo', 'title' => 'Foo')
-        client = GdsApiRummager.new('government', @store)
+        @index.add("link" => "/foo", "title" => "Foo")
+        client = GdsApiRummager.new("government", @store)
         actual_results = client.advanced_search(per_page: "10", page: "1", keywords: "Foo")
         expected_results = {
-          'total' => 1,
-          'results' => [{ 'link' => '/foo', 'title' => 'Foo' }]
+          "total" => 1,
+          "results" => [{ "link" => "/foo", "title" => "Foo" }],
         }
         assert_equal expected_results, actual_results
       end
 
       test "advanced search finds documents with the requested keywords in the title" do
-        @index.add_batch(build_documents('Foo', 'Bar'))
+        @index.add_batch(build_documents("Foo", "Bar"))
         assert_search_returns_documents %w{Bar}, keywords: "Bar"
       end
 
       test "advanced search finds documents with the requested keywords in the description" do
-        @index.add_batch(build_documents('Foo', 'Bar'))
+        @index.add_batch(build_documents("Foo", "Bar"))
         assert_search_returns_documents %w{Bar}, keywords: "Bar-description"
       end
 
       test "advanced search finds documents with the requested keywords in the indexable content" do
-        @index.add_batch(build_documents('Foo', 'Bar'))
+        @index.add_batch(build_documents("Foo", "Bar"))
         assert_search_returns_documents %w{Bar}, keywords: "Bar-indexable_content"
       end
 
       test "advanced search can select documents with a field matching a list of values" do
-        @index.add_batch(build_documents('Foo', 'Bar'))
+        @index.add_batch(build_documents("Foo", "Bar"))
         assert_search_returns_documents %w{Bar}, policy_areas: %w[Bar-topic1]
       end
 
       test "advanced search can select documents with a field matching any item from a list of values" do
-        @index.add_batch(build_documents('Foo', 'Bar', 'FooBar'))
+        @index.add_batch(build_documents("Foo", "Bar", "FooBar"))
         assert_search_returns_documents %w{Foo Bar}, policy_areas: %w[Foo-topic2 Bar-topic1]
       end
 
       test "advanced search can select documents with a field matching a single value" do
-        @index.add_batch(build_documents('Foo', 'Bar'))
+        @index.add_batch(build_documents("Foo", "Bar"))
         assert_search_returns_documents %w{Bar}, policy_areas: "Bar-topic1"
       end
 
       test "advanced search for a field which is not present in a document does not return the document" do
-        documents = build_documents('Foo', 'Bar')
-        documents[0]['world_locations'] = %w[Hawaii]
+        documents = build_documents("Foo", "Bar")
+        documents[0]["world_locations"] = %w[Hawaii]
         @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, world_locations: "Hawaii"
       end
 
       test "advanced search can select documents using a boolean filter" do
-        documents = build_documents('Foo', 'Bar')
-        documents[0]['has_official_document'] = true
+        documents = build_documents("Foo", "Bar")
+        documents[0]["has_official_document"] = true
         @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, has_official_document: "true"
         assert_search_returns_documents %w{Foo}, has_official_document: "1"
@@ -98,10 +98,10 @@ module Whitehall
       end
 
       test "advanced search can select documents using a date filter" do
-        documents = build_documents('Foo', 'Bar', 'Qux')
-        documents[0]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
-        documents[1]['public_timestamp'] = Time.zone.parse("2011-02-02 02:02:02")
-        documents[2]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
+        documents = build_documents("Foo", "Bar", "Qux")
+        documents[0]["public_timestamp"] = Time.zone.parse("2011-01-01 01:01:01")
+        documents[1]["public_timestamp"] = Time.zone.parse("2011-02-02 02:02:02")
+        documents[2]["public_timestamp"] = Time.zone.parse("2011-03-03 02:02:02")
         @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, public_timestamp: { to: "2011-01-31" }
         assert_search_returns_documents %w{Qux Bar}, public_timestamp: { from: "2011-01-31" }
@@ -109,10 +109,10 @@ module Whitehall
       end
 
       test "advanced search can order documents explicitly" do
-        documents = build_documents('Foo', 'Bar', 'Qux')
-        documents[0]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
-        documents[1]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
-        documents[2]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
+        documents = build_documents("Foo", "Bar", "Qux")
+        documents[0]["public_timestamp"] = Time.zone.parse("2011-01-01 01:01:01")
+        documents[1]["public_timestamp"] = Time.zone.parse("2011-03-03 02:02:02")
+        documents[2]["public_timestamp"] = Time.zone.parse("2011-01-01 01:01:01")
         @index.add_batch(documents)
         assert_search_returns_documents %w{Bar Foo Qux}, order: { title: "asc" }
         assert_search_returns_documents %w{Qux Foo Bar}, order: { title: "desc" }
@@ -120,10 +120,10 @@ module Whitehall
       end
 
       test "advanced search raises if order direction is not asc or desc" do
-        assert_invalid_search(order: { title: 'up' })
-        assert_invalid_search(order: { title: 'down' })
-        assert_invalid_search(order: { title: 'description' })
-        assert_invalid_search(order: { public_timestamp: 'asc', title: 'description' })
+        assert_invalid_search(order: { title: "up" })
+        assert_invalid_search(order: { title: "down" })
+        assert_invalid_search(order: { title: "description" })
+        assert_invalid_search(order: { public_timestamp: "asc", title: "description" })
       end
 
       test "advanced search can be paginated" do
@@ -150,7 +150,7 @@ module Whitehall
 
       def assert_search_returns_documents(expected_document_titles, search_params)
         actual_results = GdsApiRummager.new("government", @store).advanced_search(default_search_params.merge(search_params))
-        actual_result_titles = actual_results["results"].map { |r| r['title'] }
+        actual_result_titles = actual_results["results"].map { |r| r["title"] }
         assert_equal expected_document_titles, actual_result_titles
       end
 
@@ -178,7 +178,7 @@ module Whitehall
             "indexable_content" => "#{title}-indexable_content",
             "policy_areas" => ["#{title}-topic1", "#{title}-topic2"],
             "has_official_document" => false,
-            "public_timestamp" => Time.zone.parse("2011-01-01 00:00:00")
+            "public_timestamp" => Time.zone.parse("2011-01-01 00:00:00"),
           }
         end
       end

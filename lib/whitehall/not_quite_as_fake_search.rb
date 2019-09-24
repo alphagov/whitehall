@@ -1,4 +1,4 @@
-require 'whitehall/document_filter/filterer'
+require "whitehall/document_filter/filterer"
 module Whitehall
   module NotQuiteAsFakeSearch
     def self.stop_faking_it_quite_so_much!
@@ -87,7 +87,7 @@ module Whitehall
             has_official_document
             has_command_paper
             has_act_paper
-          }
+          },
         }
       end
 
@@ -120,7 +120,7 @@ module Whitehall
         end
         {
           "total" => results.count,
-          "results" => paginate(results, per_page, page)
+          "results" => paginate(results, per_page, page),
         }
       end
 
@@ -250,7 +250,7 @@ module Whitehall
         docs.each do |document|
           document = normalize(document)
           index = self.index(index_name)
-          index[document['link']] = document
+          index[document["link"]] = document
         end
       end
 

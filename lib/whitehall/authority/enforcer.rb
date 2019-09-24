@@ -1,10 +1,10 @@
-require 'whitehall/authority/rules/object_rules'
-require 'whitehall/authority/rules/edition_rules'
-require 'whitehall/authority/rules/fatality_notice_rules'
-require 'whitehall/authority/rules/document_rules'
-require 'whitehall/authority/rules/ministerial_role_rules'
-require 'whitehall/authority/rules/policy_group_rules'
-require 'whitehall/authority/rules/miscellaneous_rules'
+require "whitehall/authority/rules/object_rules"
+require "whitehall/authority/rules/edition_rules"
+require "whitehall/authority/rules/fatality_notice_rules"
+require "whitehall/authority/rules/document_rules"
+require "whitehall/authority/rules/ministerial_role_rules"
+require "whitehall/authority/rules/policy_group_rules"
+require "whitehall/authority/rules/miscellaneous_rules"
 
 module Whitehall::Authority
   class Enforcer
@@ -36,15 +36,15 @@ module Whitehall::Authority
   end
 
   RULESMAP = {
-    'Object' => Rules::ObjectRules,
-    'Symbol' => Rules::MiscellaneousRules,
-    'Document' => Rules::DocumentRules,
-    'Edition' => Rules::EditionRules,
-    'FatalityNotice' => Rules::FatalityNoticeRules,
-    'MinisterialRole' => Rules::MinisterialRoleRules,
-    'PolicyGroup' => Rules::PolicyGroupRules,
-    'Organisation' => Rules::OrganisationRules,
-    'Government' => Rules::GovernmentRules,
-    'StatisticsAnnouncement' => Rules::StatisticsAnnouncementRules,
+    "Object" => Rules::ObjectRules,
+    "Symbol" => Rules::MiscellaneousRules,
+    "Document" => Rules::DocumentRules,
+    "Edition" => Rules::EditionRules,
+    "FatalityNotice" => Rules::FatalityNoticeRules,
+    "MinisterialRole" => Rules::MinisterialRoleRules,
+    "PolicyGroup" => Rules::PolicyGroupRules,
+    "Organisation" => Rules::OrganisationRules,
+    "Government" => Rules::GovernmentRules,
+    "StatisticsAnnouncement" => Rules::StatisticsAnnouncementRules,
   }.freeze
 end

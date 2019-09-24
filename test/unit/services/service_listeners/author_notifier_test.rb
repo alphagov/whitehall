@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
   setup { ActionMailer::Base.deliveries.clear }
 
-  test 'notifies users' do
+  test "notifies users" do
     edition = create(:edition)
     creator = edition.creator
     second_author = create(:gds_editor)
@@ -20,7 +20,7 @@ class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
     assert_match(/\'#{edition.title}\' has been published/, second_notification.subject)
   end
 
-  test 'skips any users that are passed in' do
+  test "skips any users that are passed in" do
     edition = create(:edition)
     creator = edition.creator
     second_author = create(:gds_editor)
@@ -64,7 +64,7 @@ class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
     assert_equal '"GOV.UK publishing" <inside-government@digital.cabinet-office.gov.uk>', production_notification[:from].to_s
   end
 
-  test 'sets a suitable footer' do
+  test "sets a suitable footer" do
     notify
     notify(environment: "integration")
     notify(environment: "production")

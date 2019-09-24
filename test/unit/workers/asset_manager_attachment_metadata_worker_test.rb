@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
@@ -17,7 +17,7 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
     )
 
     AssetManager::AttachmentDeleter.expects(:call).with(
-      attachment_data
+      attachment_data,
     )
 
     worker.perform(attachment_data.id)

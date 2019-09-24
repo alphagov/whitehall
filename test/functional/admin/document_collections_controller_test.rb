@@ -15,7 +15,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   should_allow_related_policies_for :document_collection
   should_allow_organisations_for :document_collection
 
-  view_test 'GET #show displays the document collection' do
+  view_test "GET #show displays the document collection" do
     collection = create(:document_collection,
                         title: "collection-title",
                         summary: "the summary")
@@ -46,8 +46,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
                 body: "collection-body",
                 lead_organisation_ids: [@organisation.id],
                 topic_ids: [@topic.id],
-                previously_published: false
-              }
+                previously_published: false,
+              },
     }
 
     assert_equal 1, DocumentCollection.count
@@ -55,7 +55,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     assert_equal "collection-title", document_collection.title
     assert_equal "collection-summary", document_collection.summary
     assert_equal "collection-body", document_collection.body
-    assert document_collection.groups.present?, 'should have a group'
+    assert document_collection.groups.present?, "should have a group"
   end
 
   view_test "POST #create with invalid params re-renders form the with errors" do

@@ -20,7 +20,7 @@ module ModelStubbingHelpers
       translations.stubs(
         loaded?: true,
         translated_locales: [:en],
-        where: stub(exists?: false)
+        where: stub(exists?: false),
       )
     end
     record = stub_record(type, options)

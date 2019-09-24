@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   setup do
@@ -13,9 +13,9 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     post :create, params: {
               social_media_account: {
           social_media_service_id: @social_media_service.id,
-          url: "http://foo"
+          url: "http://foo",
           },
-          worldwide_organisation_id: worldwide_organisation
+          worldwide_organisation_id: worldwide_organisation,
     }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
@@ -34,8 +34,8 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
           worldwide_organisation_id: worldwide_organisation,
           social_media_account: {
             social_media_service_id: @social_media_service.id,
-            url: "http://bar"
-          }
+            url: "http://bar",
+          },
         }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
@@ -47,7 +47,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     post :create, params: { worldwide_organisation_id: worldwide_organisation, social_media_account: {
       social_media_service_id: @social_media_service.id,
-      url: "http://foo "
+      url: "http://foo ",
     } }
 
     social_media_account = worldwide_organisation.social_media_accounts.first
@@ -58,8 +58,8 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
       worldwide_organisation_id: worldwide_organisation,
       social_media_account: {
         social_media_service_id: @social_media_service.id,
-        url: "http://bar "
-      }
+        url: "http://bar ",
+      },
     }
     assert_equal "http://bar", social_media_account.reload.url
   end

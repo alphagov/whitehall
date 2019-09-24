@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentFilterPresenterTest < PresenterTestCase
   setup do
@@ -11,14 +11,14 @@ class DocumentFilterPresenterTest < PresenterTestCase
   def stub_publication
     @stub_publication ||= begin
       stub_document = stub_record(:document)
-      stub_document.stubs(:to_param).returns('some-doc')
+      stub_document.stubs(:to_param).returns("some-doc")
       organisation = stub_record(:organisation, name: "Ministry of Silly")
       publication = stub_record(
         "publication",
         document: stub_document,
         attachments: [],
         organisations: [organisation],
-        public_timestamp: 3.days.ago.as_json
+        public_timestamp: 3.days.ago.as_json,
       )
       government = Government.new
       publication.stubs(:government).returns(government)
@@ -35,23 +35,23 @@ class DocumentFilterPresenterTest < PresenterTestCase
     assert JSON.parse(presenter.to_json)
   end
 
-  test 'json provides pagination info' do
+  test "json provides pagination info" do
     @filter.documents.stubs(:current_page).returns(2)
     @filter.documents.stubs(:count).returns(45)
     @filter.documents.stubs(:total_pages).returns(3)
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
-    assert_equal 45, json['count']
-    assert_equal 2, json['current_page']
-    assert_equal 3, json['total_pages']
-    assert_equal 3, json['next_page']
-    assert_equal 1, json['prev_page']
-    assert_equal "/government/publications.json?page=3", json['next_page_url']
-    assert_equal "/government/publications.json?page=1", json['prev_page_url']
-    assert_equal "/government/publications?page=3", json['next_page_web_url']
-    assert_equal "/government/publications?page=1", json['prev_page_web_url']
+    assert_equal 45, json["count"]
+    assert_equal 2, json["current_page"]
+    assert_equal 3, json["total_pages"]
+    assert_equal 3, json["next_page"]
+    assert_equal 1, json["prev_page"]
+    assert_equal "/government/publications.json?page=3", json["next_page_url"]
+    assert_equal "/government/publications.json?page=1", json["prev_page_url"]
+    assert_equal "/government/publications?page=3", json["next_page_web_url"]
+    assert_equal "/government/publications?page=1", json["prev_page_web_url"]
   end
 
-  test 'next_page omitted if last page' do
+  test "next_page omitted if last page" do
     @filter.documents.stubs(:last_page?).returns(true)
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     refute json.has_key?("next_page")
@@ -59,7 +59,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
     refute json.has_key?("next_page_web_url")
   end
 
-  test 'prev_page omitted if first page' do
+  test "prev_page omitted if first page" do
     @filter.documents.stubs(:first_page?).returns(true)
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     refute json.has_key?("prev_page")
@@ -67,13 +67,13 @@ class DocumentFilterPresenterTest < PresenterTestCase
     refute json.has_key?("prev_page_web_url")
   end
 
-  test 'json provides a list of documents with their positions' do
+  test "json provides a list of documents with their positions" do
     presenters = [PublicationesquePresenter.new(stub_publication, @view_context)]
     @filter.stubs(:documents).returns(Kaminari.paginate_array(presenters).page(1))
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
-    assert_equal 1, json['results'].size
+    assert_equal 1, json["results"].size
     expected_result = {
-      'result' => {
+      "result" => {
         "id" => stub_publication.id,
         "type" => "publication",
         "display_type" => "Policy paper",
@@ -86,13 +86,13 @@ class DocumentFilterPresenterTest < PresenterTestCase
         "government_name" => nil,
         "publication_collections" => nil,
       },
-      'index' => 1,
+      "index" => 1,
     }
 
-    assert_equal(expected_result, json['results'].first)
+    assert_equal(expected_result, json["results"].first)
   end
 
-  test 'decorates each documents with the given decorator class' do
+  test "decorates each documents with the given decorator class" do
     MyDecorator = Struct.new(:model, :context)
 
     stub_document = stub(:document)
@@ -105,13 +105,13 @@ class DocumentFilterPresenterTest < PresenterTestCase
     assert_equal @view_context, presenter.documents.first.context
   end
 
-  test 'includes the category of documents being presented' do
+  test "includes the category of documents being presented" do
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
 
     assert_equal(
-      'Document',
-      json['category'],
-      'It should have a category attribute of "Document"'
+      "Document",
+      json["category"],
+      'It should have a category attribute of "Document"',
     )
   end
 end

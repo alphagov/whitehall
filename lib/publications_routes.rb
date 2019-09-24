@@ -1,80 +1,80 @@
 module PublicationsRoutes
-  DEFAULT_PUBLICATIONS_PATH = 'search/all'.freeze
+  DEFAULT_PUBLICATIONS_PATH = "search/all".freeze
   PUBLICATIONS_ROUTES = {
-    'command_and_act_papers' => {
-      base_path: 'official-documents',
+    "command_and_act_papers" => {
+      base_path: "official-documents",
     },
-    'command_papers' => {
-      base_path: 'official-documents',
+    "command_papers" => {
+      base_path: "official-documents",
       special_params: {
-        content_store_document_type: 'command_papers',
-      }
+        content_store_document_type: "command_papers",
+      },
     },
-    'act_papers' => {
-      base_path: 'official-documents',
+    "act_papers" => {
+      base_path: "official-documents",
       special_params: {
-        content_store_document_type: 'act_papers',
-      }
+        content_store_document_type: "act_papers",
+      },
     },
-    'consultations' => {
-      base_path: 'search/policy-papers-and-consultations',
+    "consultations" => {
+      base_path: "search/policy-papers-and-consultations",
       special_params: {
         content_store_document_type: %w[open_consultations closed_consultations],
-      }
+      },
     },
-    'closed-consultations' => {
-      base_path: 'search/policy-papers-and-consultations',
+    "closed-consultations" => {
+      base_path: "search/policy-papers-and-consultations",
       special_params: {
-        content_store_document_type: 'closed_consultations',
-      }
+        content_store_document_type: "closed_consultations",
+      },
     },
-    'open-consultations' => {
-      base_path: 'search/policy-papers-and-consultations',
+    "open-consultations" => {
+      base_path: "search/policy-papers-and-consultations",
       special_params: {
-        content_store_document_type: 'open_consultations',
-      }
+        content_store_document_type: "open_consultations",
+      },
     },
-    'foi-releases' => {
-      base_path: 'search/transparency-and-freedom-of-information-releases',
+    "foi-releases" => {
+      base_path: "search/transparency-and-freedom-of-information-releases",
       special_params: {
-        content_store_document_type: 'foi_release',
-      }
+        content_store_document_type: "foi_release",
+      },
     },
-    'transparency-data' => {
-      base_path: 'search/transparency-and-freedom-of-information-releases',
+    "transparency-data" => {
+      base_path: "search/transparency-and-freedom-of-information-releases",
       special_params: {
-        content_store_document_type: 'transparency',
-      }
+        content_store_document_type: "transparency",
+      },
     },
-    'corporate-reports' => {
-      base_path: 'search/transparency-and-freedom-of-information-releases',
+    "corporate-reports" => {
+      base_path: "search/transparency-and-freedom-of-information-releases",
       special_params: {
-        content_store_document_type: 'corporate_report',
-      }
+        content_store_document_type: "corporate_report",
+      },
     },
-    'guidance' => {
-      base_path: 'search/guidance-and-regulation'
+    "guidance" => {
+      base_path: "search/guidance-and-regulation",
     },
-    'regulations' => {
-      base_path: 'search/guidance-and-regulation'
+    "regulations" => {
+      base_path: "search/guidance-and-regulation",
     },
-    'policy-papers' => {
-      base_path: 'search/policy-papers-and-consultations',
+    "policy-papers" => {
+      base_path: "search/policy-papers-and-consultations",
       special_params: {
-        content_store_document_type: 'policy_papers'
-      }
+        content_store_document_type: "policy_papers",
+      },
     },
-    'forms' => {
-      base_path: 'search/services'
+    "forms" => {
+      base_path: "search/services",
     },
-    'research-and-analysis' => {
-      base_path: 'search/research-and-statistics',
+    "research-and-analysis" => {
+      base_path: "search/research-and-statistics",
       special_params: {
-        content_store_document_type: 'research'
-      }
+        content_store_document_type: "research",
+      },
     },
-    'statistics' => {
-      base_path: 'search/research-and-statistics'
-    }
+    "statistics" => {
+      base_path: "search/research-and-statistics",
+    },
   }.freeze
 end

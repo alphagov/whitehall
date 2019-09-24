@@ -49,7 +49,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       :world_location,
       title: "UK mission to the organisation",
       world_location_type: WorldLocationType::InternationalDelegation,
-      mission_statement: "delegation-mission-statement"
+      mission_statement: "delegation-mission-statement",
     )
     get :show, params: { id: world_location }
     assert_select "h1", text: "UK mission to the organisation"
@@ -60,7 +60,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      mission_statement: "Line 1\n\nLine 2"
+      mission_statement: "Line 1\n\nLine 2",
     )
     get :show, params: { id: world_location }
     assert_select ".mission_statement p", /Line 1/
@@ -71,35 +71,35 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "show responds with not found if appropriate translation doesn't exist" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     assert_raise(ActiveRecord::RecordNotFound) do
-      get :show, params: { id: world_location, locale: 'fr' }
+      get :show, params: { id: world_location, locale: "fr" }
     end
   end
 
   test "show when asked for json should redirect to the api controller" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location }, format: :json
     assert_redirected_to api_world_location_path(world_location, format: :json)
   end
 
-  view_test 'show has atom feed autodiscovery link' do
+  view_test "show has atom feed autodiscovery link" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location }
     assert_select_autodiscovery_link atom_feed_url_for(world_location)
   end
 
-  view_test 'show includes a link to the atom feed' do
+  view_test "show includes a link to the atom feed" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location }
     assert_select "a.feed[href=?]", atom_feed_url_for(world_location)
@@ -109,24 +109,24 @@ class WorldLocationsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager, true) do
       world_location = create(
         :world_location,
-        world_location_type: WorldLocationType::WorldLocation
+        world_location_type: WorldLocationType::WorldLocation,
       )
       documents = [
         { "content_store_document_type" => "news_article", "world_location" => world_location.slug, "public_timestamp" => 1.day.ago },
         { "content_store_document_type" => "publication", "world_location" => world_location.slug, "public_timestamp" => 1.week.ago.to_date },
       ]
-      @rummager.expects(:search).returns('results' => documents)
+      @rummager.expects(:search).returns("results" => documents)
 
       get :show, params: { id: world_location }, format: :atom
 
       assert_select_atom_feed do
-        assert_select 'feed > id', 1
-        assert_select 'feed > title', 1
-        assert_select 'feed > author, feed > entry > author'
-        assert_select 'feed > updated', 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        assert_select "feed > id", 1
+        assert_select "feed > title", 1
+        assert_select "feed > author, feed > entry > author"
+        assert_select "feed > updated", 1
+        assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml",
                       world_location_url(format: :atom), 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+        assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", root_url, 1
       end
     end
   end
@@ -135,24 +135,24 @@ class WorldLocationsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager, true) do
       world_location = create(
         :world_location,
-        world_location_type: WorldLocationType::InternationalDelegation
+        world_location_type: WorldLocationType::InternationalDelegation,
       )
       documents = [
         { "content_store_document_type" => "news_article", "world_location" => world_location.slug, "public_timestamp" => 1.day.ago },
         { "content_store_document_type" => "publication", "world_location" => world_location.slug, "public_timestamp" => 1.week.ago.to_date },
       ]
-      @rummager.expects(:search).returns('results' => documents)
+      @rummager.expects(:search).returns("results" => documents)
 
       get :show, params: { id: world_location }, format: :atom
 
       assert_select_atom_feed do
-        assert_select 'feed > id', 1
-        assert_select 'feed > title', 1
-        assert_select 'feed > author, feed > entry > author'
-        assert_select 'feed > updated', 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        assert_select "feed > id", 1
+        assert_select "feed > title", 1
+        assert_select "feed > author, feed > entry > author"
+        assert_select "feed > updated", 1
+        assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml",
                       world_location_url(format: :atom), 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+        assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", root_url, 1
       end
     end
   end
@@ -160,7 +160,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "shows the latest published edition for a featured document" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     news = create(:published_news_article, first_published_at: 2.days.ago)
     editor = create(:departmental_editor)
@@ -174,7 +174,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "shows featured items in defined order for locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     LocalisedModel.new(world_location, :fr).update_attributes(name: "Territoire antarctique britannique")
 
@@ -197,7 +197,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "excludes ended features" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     news = create(:published_news_article, first_published_at: 2.days.ago)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
@@ -209,7 +209,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "shows a maximum of 5 featured news articles" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     english = FeatureList.create!(featurable: world_location, locale: :en)
     6.times do
@@ -223,7 +223,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "show should set world location slimmer headers" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location.id }
     assert_equal "<#{world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
@@ -233,7 +233,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       :with_worldwide_organisations,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location.id }
     related_organisations = world_location.worldwide_organisations_with_sponsoring_organisations
@@ -243,7 +243,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "GET :show does not set empty slimmer header for locations without an org" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location.id }
     assert_nil response.headers["X-Slimmer-Organisations"]
@@ -252,7 +252,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world_location's latest two announcements in reverse chronological order" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
     _announcement_3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -264,7 +264,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
     announcement_3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -272,8 +272,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#announcements" do
       assert_select_object announcement_1 do
-        assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
-        assert_select '.document-type', "Press release"
+        assert_select ".publication-date time[datetime=?]", 1.days.ago.iso8601
+        assert_select ".document-type", "Press release"
       end
       assert_select_object announcement_2
       refute_select_object announcement_3
@@ -286,7 +286,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world_location's latest two non-statistics publications in reverse chronological order" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     publication_2 = create(:published_publication, world_locations: [world_location], first_published_at: 2.days.ago)
     _publication_3 = create(:published_publication, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -299,7 +299,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     publication_2 = create(:published_policy_paper, world_locations: [world_location], first_published_at: 2.days.ago.to_date)
     publication_3 = create(:published_policy_paper, world_locations: [world_location], first_published_at: 3.days.ago.to_date)
@@ -307,8 +307,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#publications" do
       assert_select_object publication_2 do
-        assert_select '.publication-date time[datetime=?]', 2.days.ago.to_date.to_datetime.iso8601
-        assert_select '.document-type', "Policy paper"
+        assert_select ".publication-date time[datetime=?]", 2.days.ago.to_date.to_datetime.iso8601
+        assert_select ".document-type", "Policy paper"
       end
       assert_select_object publication_3
       refute_select_object publication_1
@@ -319,7 +319,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world location's latest two statistics publications in reverse chronological order" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     publication_2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago)
     _publication_3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -331,7 +331,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     publication_2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago.to_date)
     publication_3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago.to_date)
@@ -339,12 +339,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
-        assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
-        assert_select '.document-type', "National Statistics"
+        assert_select ".publication-date time[datetime=?]", 1.days.ago.to_date.to_datetime.iso8601
+        assert_select ".document-type", "National Statistics"
       end
       assert_select_object publication_2
       refute_select_object publication_3
-      assert_select "a[href=?]", publications_filter_path(world_location, publication_filter_option: 'statistics')
+      assert_select "a[href=?]", publications_filter_path(world_location, publication_filter_option: "statistics")
     end
   end
 
@@ -352,11 +352,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     create(:published_news_article, world_locations: [world_location], translated_into: [:fr])
-    get :show, params: { id: world_location, locale: 'fr' }
+    get :show, params: { id: world_location, locale: "fr" }
     assert_select ".type", "Délégation internationale"
     assert_select "#publications .see-all a", /Voir toutes nos publications/
   end
@@ -365,11 +365,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
     translated_speech = create(:published_speech, world_locations: [world_location], translated_into: [:fr])
     _untranslated_speech = create(:published_speech, world_locations: [world_location])
-    get :show, params: { id: world_location, locale: 'fr' }
+    get :show, params: { id: world_location, locale: "fr" }
     assert_equal [translated_speech], assigns(:announcements).object
   end
 
@@ -377,11 +377,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     _untranslated_publication = create(:published_publication, world_locations: [world_location])
-    get :show, params: { id: world_location, locale: 'fr' }
+    get :show, params: { id: world_location, locale: "fr" }
     assert_equal [translated_publication], assigns(:non_statistics_publications).object
   end
 
@@ -389,11 +389,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
     translated_statistics = create(:published_statistics, world_locations: [world_location], translated_into: [:fr])
     _untranslated_statistics = create(:published_statistics, world_locations: [world_location])
-    get :show, params: { id: world_location, locale: 'fr' }
+    get :show, params: { id: world_location, locale: "fr" }
     assert_equal [translated_statistics], assigns(:statistics_publications).object
   end
 
@@ -401,11 +401,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     _untranslated_publication = create(:published_publication, world_locations: [world_location])
-    get :show, params: { id: world_location, locale: 'fr' }
+    get :show, params: { id: world_location, locale: "fr" }
     assert_equal [translated_publication], assigns(:recently_updated)
   end
 
@@ -413,11 +413,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
     translated_edition = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     _untranslated_edition = create(:published_publication, world_locations: [world_location])
-    get :show, params: { id: world_location, locale: 'fr' }, format: :atom
+    get :show, params: { id: world_location, locale: "fr" }, format: :atom
     assert_select_atom_feed do
       with_locale :fr do
         assert_select_atom_entries([translated_edition])
@@ -428,11 +428,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should show featured links if there are some" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
+      world_location_type: WorldLocationType::InternationalDelegation,
     )
     featured_link = create(:featured_link, linkable: world_location)
     get :show, params: { id: world_location }
-    assert_select '.featured-links' do
+    assert_select ".featured-links" do
       assert_select "a[href='#{featured_link.url}']", text: featured_link.title
     end
   end

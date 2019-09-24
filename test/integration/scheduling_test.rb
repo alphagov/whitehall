@@ -20,7 +20,7 @@ class SchedulingTest < ActiveSupport::TestCase
       schedule(@submitted_edition)
       assert_publishing_api_put_intent(
         path,
-        publish_time: @submitted_edition.scheduled_publication.as_json
+        publish_time: @submitted_edition.scheduled_publication.as_json,
       )
     end
   end
@@ -34,7 +34,7 @@ class SchedulingTest < ActiveSupport::TestCase
       disable_publishes_to_publishing_api do
         published_edition = create(:published_publication)
         new_draft = published_edition.create_draft(published_edition.creator)
-        new_draft.change_note = 'changed'
+        new_draft.change_note = "changed"
         new_draft.scheduled_publication = 1.day.from_now
         new_draft.save!
         new_draft.submit!

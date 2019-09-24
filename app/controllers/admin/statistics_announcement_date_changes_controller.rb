@@ -10,7 +10,7 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
     @statistics_announcement_date_change = build_date_change(date_change_params)
 
     if @statistics_announcement_date_change.save
-      redirect_to [:admin, @statistics_announcement], notice: 'Release date changed'
+      redirect_to [:admin, @statistics_announcement], notice: "Release date changed"
     else
       render :new
     end

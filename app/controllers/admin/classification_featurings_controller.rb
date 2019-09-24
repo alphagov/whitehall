@@ -4,7 +4,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
 
   def index
     filter_params = params.permit!.to_h.slice(:page, :type, :author, :organisation, :title).
-      merge(state: 'published', classification: @classification.to_param)
+      merge(state: "published", classification: @classification.to_param)
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
 
     @tagged_editions = editions_to_show
@@ -13,7 +13,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     @featurable_offsite_links = @classification.offsite_links
 
     if request.xhr?
-      render partial: 'admin/classification_featurings/featured_documents'
+      render partial: "admin/classification_featurings/featured_documents"
     else
       render :index
     end
@@ -44,7 +44,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     params[:ordering].each do |classification_featuring_id, ordering|
       @classification.classification_featurings.find(classification_featuring_id).update_column(:ordering, ordering)
     end
-    redirect_to polymorphic_path([:admin, @classification, :classification_featurings]), notice: 'Featured items re-ordered'
+    redirect_to polymorphic_path([:admin, @classification, :classification_featurings]), notice: "Featured items re-ordered"
   end
 
   def destroy
@@ -81,7 +81,7 @@ private
     else
       @classification.editions.published
                               .with_translations
-                              .order('editions.created_at DESC')
+                              .order("editions.created_at DESC")
                               .page(params[:page])
     end
   end
@@ -95,7 +95,7 @@ private
       :alt_text,
       :edition_id,
       :offsite_link_id,
-      image_attributes: %i[file file_cache]
+      image_attributes: %i[file file_cache],
     )
   end
 end

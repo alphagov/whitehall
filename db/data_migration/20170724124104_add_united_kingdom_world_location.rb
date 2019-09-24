@@ -6,5 +6,5 @@ WorldLocation.create!(
   active: false,
   iso2: "GB",
   analytics_identifier: "WL202",
-  content_id: "5e9f371a-7706-11e4-a3cb-005056011aef"
+  content_id: "5e9f371a-7706-11e4-a3cb-005056011aef",
 )

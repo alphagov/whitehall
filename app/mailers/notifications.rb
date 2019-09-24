@@ -1,4 +1,4 @@
-require 'zip'
+require "zip"
 
 class Notifications < ActionMailer::Base
   include ActionView::RecordIdentifier
@@ -55,7 +55,7 @@ class Notifications < ActionMailer::Base
     filename = File.basename(zip_path)
     attachments[filename] = File.read(zip_path)
 
-    mail from: no_reply_email_address, to: recipient_address, subject: 'GOV.UK broken link reports'
+    mail from: no_reply_email_address, to: recipient_address, subject: "GOV.UK broken link reports"
   end
 
   def document_list(csv, recipient_address, filter_title)

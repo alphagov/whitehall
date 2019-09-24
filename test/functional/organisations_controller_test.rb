@@ -18,7 +18,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     content_store_has_item(
       "/courts-tribunals",
       format: "special_route",
-      title: "Court at midwicket"
+      title: "Court at midwicket",
     )
   end
 
@@ -79,13 +79,13 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: organisation }
 
-    assert_select '#corporate-info'
-    assert_select '#high-profile-units'
-    assert_select '#management'
-    assert_select '#ministers'
-    assert_select '#org-contacts'
-    assert_select '#people'
-    assert_select '#what-we-do'
+    assert_select "#corporate-info"
+    assert_select "#high-profile-units"
+    assert_select "#management"
+    assert_select "#ministers"
+    assert_select "#org-contacts"
+    assert_select "#people"
+    assert_select "#what-we-do"
   end
 
   def self.sets_cache_control_max_age_to_time_of_next_scheduled(edition_type)
@@ -157,7 +157,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create_org_and_stub_content_store(
       :organisation,
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-      logo: fixture_file_upload('logo.png')
+      logo: fixture_file_upload("logo.png"),
     )
 
     get :show, params: { id: organisation }
@@ -185,43 +185,43 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing a live organisation renders the show template" do
-    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'live')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: "live")
 
     get :show, params: { id: organisation }
 
-    assert_template 'show'
+    assert_template "show"
   end
 
   test "showing a live promotional style organisation renders the show promotional template" do
-    organisation = create_org_and_stub_content_store(:executive_office, govuk_status: 'live')
+    organisation = create_org_and_stub_content_store(:executive_office, govuk_status: "live")
 
     get :show, params: { id: organisation }
 
-    assert_template 'show-promotional'
+    assert_template "show-promotional"
   end
 
   test "showing a joining organisation renders the not live template" do
-    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'joining')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: "joining")
 
     get :show, params: { id: organisation }
 
-    assert_template 'not_live'
+    assert_template "not_live"
   end
 
   test "showing an exempt organisation renders the not live template" do
-    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'exempt')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: "exempt")
 
     get :show, params: { id: organisation }
 
-    assert_template 'not_live'
+    assert_template "not_live"
   end
 
   test "showing an transitioning organisation renders the not live template" do
-    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'transitioning')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: "transitioning")
 
     get :show, params: { id: organisation }
 
-    assert_template 'not_live'
+    assert_template "not_live"
   end
 
   test "showing a closed organisation renders the not live template" do
@@ -229,7 +229,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: organisation }
 
-    assert_template 'not_live'
+    assert_template "not_live"
   end
 
   view_test "showing a closed organisation does not render the parent_organisations or the url" do
@@ -237,23 +237,23 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: organisation }
 
-    assert_template 'not_live'
+    assert_template "not_live"
     refute_select ".parent_organisations"
     refute_select ".url_link"
   end
 
   view_test "showing a transitioning court or tribunal does not render the parent_organisations or the url" do
-    organisation = create_org_and_stub_content_store(:hmcts_tribunal, govuk_status: 'transitioning')
+    organisation = create_org_and_stub_content_store(:hmcts_tribunal, govuk_status: "transitioning")
 
     get :show, params: { id: organisation, courts_only: true }
 
-    assert_template 'not_live'
+    assert_template "not_live"
     refute_select ".parent_organisations"
     refute_select ".url_link"
   end
 
   view_test "doesn't show a thumbnail if the organisation has no url" do
-    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'exempt', url: '')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: "exempt", url: "")
     create(:published_corporate_information_page, organisation: organisation)
 
     get :show, params: { id: organisation }
@@ -263,7 +263,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "doesn't show a thumbnail if the organisation is closed" do
-    organisation = create_org_and_stub_content_store(:closed_organisation, url: 'http://madeup-url.com')
+    organisation = create_org_and_stub_content_store(:closed_organisation, url: "http://madeup-url.com")
     create(:published_corporate_information_page, organisation: organisation)
 
     get :show, params: { id: organisation }
@@ -332,7 +332,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: organisation }
 
-    assert_select '#announcements' do
+    assert_select "#announcements" do
       assert_select_object(announcement_1) do
         assert_select "time.public_timestamp[datetime=?]", 1.days.ago.iso8601
         assert_select ".document-type", "Press release"
@@ -363,22 +363,22 @@ class OrganisationsControllerTest < ActionController::TestCase
     consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 4.days.ago, opening_at: 4.days.ago, closing_at: 1.days.ago)
     consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago, opening_at: 3.days.ago)
     create(:consultation_outcome, consultation: consultation_3, attachments: [
-      build(:file_attachment)
+      build(:file_attachment),
     ])
 
     get :show, params: { id: organisation }
 
     assert_select "#consultations" do
       assert_select_object consultation_1 do
-        assert_select '.publication-date time[datetime=?]', 3.days.ago.iso8601
-        assert_select '.document-type', "Open consultation"
+        assert_select ".publication-date time[datetime=?]", 3.days.ago.iso8601
+        assert_select ".document-type", "Open consultation"
       end
       assert_select_object consultation_2 do
-        assert_select '.publication-date time[datetime=?]', 4.days.ago.iso8601
-        assert_select '.document-type', "Closed consultation"
+        assert_select ".publication-date time[datetime=?]", 4.days.ago.iso8601
+        assert_select ".document-type", "Closed consultation"
       end
       refute_select_object consultation_3
-      assert_select "a[href=?]", publications_filter_path(organisation, publication_filter_option: 'consultations')
+      assert_select "a[href=?]", publications_filter_path(organisation, publication_filter_option: "consultations")
     end
   end
 
@@ -406,8 +406,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#publications" do
       assert_select_object publication_2 do
-        assert_select '.publication-date time[datetime=?]', 2.days.ago.to_date.to_datetime.iso8601
-        assert_select '.document-type', "Policy paper"
+        assert_select ".publication-date time[datetime=?]", 2.days.ago.to_date.to_datetime.iso8601
+        assert_select ".document-type", "Policy paper"
       end
       assert_select_object publication_3
       refute_select_object publication_1
@@ -434,12 +434,12 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
-        assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
-        assert_select '.document-type', "National Statistics"
+        assert_select ".publication-date time[datetime=?]", 1.days.ago.to_date.to_datetime.iso8601
+        assert_select ".document-type", "National Statistics"
       end
       assert_select_object publication_2
       refute_select_object publication_3
-      assert_select "a[href=?]", publications_filter_path(organisation, publication_filter_option: 'statistics')
+      assert_select "a[href=?]", publications_filter_path(organisation, publication_filter_option: "statistics")
     end
   end
 
@@ -663,11 +663,11 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should show featured links if there are some" do
-    organisation = create_org_and_stub_content_store(:organisation,)
+    organisation = create_org_and_stub_content_store(:organisation)
     featured_link = create(:featured_link, linkable: organisation)
     get :show, params: { id: organisation }
 
-    assert_select '.featured-links' do
+    assert_select ".featured-links" do
       assert_select "a[href=?]", featured_link.url, text: featured_link.title
     end
   end
@@ -682,25 +682,25 @@ class OrganisationsControllerTest < ActionController::TestCase
   view_test "should show FOI contact information if not exempt" do
     organisation = create_org_and_stub_content_store(:organisation)
     get :show, params: { id: organisation }
-    assert_select '#freedom-of-information', /Make an FOI request/
+    assert_select "#freedom-of-information", /Make an FOI request/
   end
 
   view_test "should show FOI exemption notice if exempt" do
     organisation = create_org_and_stub_content_store(:organisation, foi_exempt: true)
     get :show, params: { id: organisation }
-    assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
+    assert_select "#freedom-of-information", /not covered by the Freedom of Information Act/
   end
 
   view_test "should not show FOI for courts" do
     court = create_org_and_stub_content_store(:court)
     get :show, params: { id: court, courts_only: true }
-    refute_select '#freedom-of-information'
+    refute_select "#freedom-of-information"
   end
 
   view_test "should not show FOI for HMCTS tribunals" do
     hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     get :show, params: { id: hmcts_tribunal, courts_only: true }
-    refute_select '#freedom-of-information'
+    refute_select "#freedom-of-information"
   end
 
   test "should not show Courts from the organisations namespace" do

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AttachableEditionTest < ActionController::TestCase
   tests Admin::NewsArticlesController
@@ -11,14 +11,14 @@ class AttachableEditionTest < ActionController::TestCase
 
   view_test 'GET :new displays a "Document" tab' do
     get :new
-    assert_tab 'Document', new_admin_news_article_path
+    assert_tab "Document", new_admin_news_article_path
   end
 
   view_test 'GET :edit displays "Document" and "Attachments" tabs' do
     edition = create(:news_article)
     get :edit, params: { id: edition }
-    assert_tab 'Document', edit_admin_news_article_path(edition)
-    assert_tab 'Attachments', admin_edition_attachments_path(edition)
+    assert_tab "Document", edit_admin_news_article_path(edition)
+    assert_tab "Attachments", admin_edition_attachments_path(edition)
   end
 end
 
@@ -27,14 +27,14 @@ class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
 
   setup { login_as :writer }
 
-  view_test 'GET :edit lists the attachments with markdown hint for editions that support inline attachments' do
+  view_test "GET :edit lists the attachments with markdown hint for editions that support inline attachments" do
     edition = create(:news_article, :with_file_attachment)
     get :edit, params: { id: edition }
     attachment = edition.attachments.first
 
     assert_select "#govspeak_help", text: /Attachments/
-    assert_select 'li', text: %r(#{attachment.title})
-    assert_select 'li code', text: '!@1'
+    assert_select "li", text: %r(#{attachment.title})
+    assert_select "li code", text: "!@1"
   end
 end
 
@@ -43,12 +43,12 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
 
   setup { login_as :writer }
 
-  view_test 'GET :edit does not list the attachments for editions that do not support inline attachments' do
+  view_test "GET :edit does not list the attachments for editions that do not support inline attachments" do
     edition = create(:publication, :with_file_attachment)
     get :edit, params: { id: edition }
     attachment = edition.attachments.first
 
-    assert_select 'li', text: %r(#{attachment.title}), count: 0
-    assert_select 'li code', count: 0
+    assert_select "li", text: %r(#{attachment.title}), count: 0
+    assert_select "li code", count: 0
   end
 end

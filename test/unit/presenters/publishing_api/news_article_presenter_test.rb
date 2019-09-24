@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module PublishingApi::NewsArticlePresenterTest
   class TestCase < ActiveSupport::TestCase
@@ -62,16 +62,16 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:news_article)
     end
 
-    test 'base' do
+    test "base" do
       attributes_double = {
-        base_attribute_one: 'base_attribute_one',
-        base_attribute_two: 'base_attribute_two',
-        base_attribute_three: 'base_attribute_three',
+        base_attribute_one: "base_attribute_one",
+        base_attribute_two: "base_attribute_two",
+        base_attribute_three: "base_attribute_three",
       }
 
       PublishingApi::BaseItemPresenter
         .expects(:new)
-        .with(news_article, update_type: 'major')
+        .with(news_article, update_type: "major")
         .returns(stub(base_attributes: attributes_double))
 
       actual_content = presented_content
@@ -80,7 +80,7 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal actual_content, expected_content
     end
 
-    test 'base links' do
+    test "base links" do
       expected_link_keys = %i(
         organisations
         parent
@@ -92,20 +92,20 @@ module PublishingApi::NewsArticlePresenterTest
       )
 
       links_double = {
-        link_one: 'link_one',
-        link_two: 'link_two',
-        link_three: 'link_three',
+        link_one: "link_one",
+        link_two: "link_two",
+        link_three: "link_three",
       }
 
       PublishingApi::LinksPresenter
         .expects(:new)
         .with(news_article)
         .returns(
-          mock('PublishingApi::LinksPresenter') {
+          mock("PublishingApi::LinksPresenter") {
             expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          }
+          },
         )
 
       actual_links = presented_links
@@ -114,10 +114,10 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal actual_links, expected_links
     end
 
-    test 'body details' do
+    test "body details" do
       body_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer
         .expects(:govspeak_edition_to_html)
@@ -129,53 +129,53 @@ module PublishingApi::NewsArticlePresenterTest
       assert_details_attribute :body, body_double
     end
 
-    test 'access limitation' do
-      assert_payload 'PublishingApi::PayloadBuilder::AccessLimitation'
+    test "access limitation" do
+      assert_payload "PublishingApi::PayloadBuilder::AccessLimitation"
     end
 
-    test 'content id' do
+    test "content id" do
       assert_equal news_article.content_id, presented_news_article.content_id
     end
 
-    test 'description' do
+    test "description" do
       assert_attribute :description, news_article.summary
     end
 
-    test 'emphasised organisations' do
+    test "emphasised organisations" do
       assert_details_attribute :emphasised_organisations,
                                news_article.lead_organisations.map(&:content_id)
     end
 
-    test 'first public at details' do
-      assert_details_payload 'PublishingApi::PayloadBuilder::FirstPublicAt'
+    test "first public at details" do
+      assert_details_payload "PublishingApi::PayloadBuilder::FirstPublicAt"
     end
 
-    test 'first published at details' do
-      assert_payload 'PublishingApi::PayloadBuilder::FirstPublishedAt'
+    test "first published at details" do
+      assert_payload "PublishingApi::PayloadBuilder::FirstPublishedAt"
     end
 
-    test 'political details' do
-      assert_details_payload 'PublishingApi::PayloadBuilder::PoliticalDetails'
+    test "political details" do
+      assert_details_payload "PublishingApi::PayloadBuilder::PoliticalDetails"
     end
 
-    test 'public document path' do
-      assert_payload 'PublishingApi::PayloadBuilder::PublicDocumentPath'
+    test "public document path" do
+      assert_payload "PublishingApi::PayloadBuilder::PublicDocumentPath"
     end
 
-    test 'rendering app' do
+    test "rendering app" do
       assert_attribute :rendering_app, news_article.rendering_app
     end
 
-    test 'schema name' do
-      assert_attribute :schema_name, 'news_article'
+    test "schema name" do
+      assert_attribute :schema_name, "news_article"
     end
 
-    test 'topical events' do
-      assert_links_payload 'PublishingApi::PayloadBuilder::TopicalEvents'
+    test "topical events" do
+      assert_links_payload "PublishingApi::PayloadBuilder::TopicalEvents"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -184,12 +184,12 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:news_article_government_response)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'government_response'
+    test "document type" do
+      assert_attribute :document_type, "government_response"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -198,12 +198,12 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:news_article_news_story)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'news_story'
+    test "document type" do
+      assert_attribute :document_type, "news_story"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -212,12 +212,12 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:news_article_press_release)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'press_release'
+    test "document type" do
+      assert_attribute :document_type, "press_release"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -226,25 +226,25 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:published_news_article)
     end
 
-    test 'image' do
+    test "image" do
       ::NewsArticlePresenter
         .expects(:new)
         .with(news_article)
         .returns(
           stub(
-            lead_image_path: '/foo',
-            high_resolution_lead_image_path: '/foo-large',
-            lead_image_alt_text: 'Bar',
-            lead_image_caption: 'Baz',
-          )
+            lead_image_path: "/foo",
+            high_resolution_lead_image_path: "/foo-large",
+            lead_image_alt_text: "Bar",
+            lead_image_caption: "Baz",
+          ),
         )
 
-      expected_image_caption = 'Baz'
-      expected_image_alt_text = 'Bar'
+      expected_image_caption = "Baz"
+      expected_image_alt_text = "Bar"
 
       expected_image = {
-        high_resolution_url: Whitehall.public_asset_host + '/foo-large',
-        url: Whitehall.public_asset_host + '/foo',
+        high_resolution_url: Whitehall.public_asset_host + "/foo-large",
+        url: Whitehall.public_asset_host + "/foo",
         caption: expected_image_caption,
         alt_text: expected_image_alt_text,
       }
@@ -257,11 +257,11 @@ module PublishingApi::NewsArticlePresenterTest
     setup do
       self.news_article = create(
         :news_article,
-        role_appointments: create_list(:ministerial_role_appointment, 2)
+        role_appointments: create_list(:ministerial_role_appointment, 2),
       )
     end
 
-    test 'ministers' do
+    test "ministers" do
       expected_content_ids = news_article
         .role_appointments
         .map(&:person)
@@ -270,7 +270,7 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal presented_links[:ministers], expected_content_ids
     end
 
-    test 'roles' do
+    test "roles" do
       expected_content_ids = news_article
         .role_appointments
         .map(&:role)
@@ -279,7 +279,7 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal presented_links[:roles], expected_content_ids
     end
 
-    test 'people' do
+    test "people" do
       expected_content_ids = news_article
         .role_appointments
         .map(&:person)
@@ -288,8 +288,8 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal presented_links[:people], expected_content_ids
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -301,13 +301,13 @@ module PublishingApi::NewsArticlePresenterTest
                          updated_at: Date.new(2012))
     end
 
-    test 'public updated at' do
+    test "public updated at" do
       assert_attribute :public_updated_at,
-                       '1999-01-01T00:00:00+00:00'
+                       "1999-01-01T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -319,13 +319,13 @@ module PublishingApi::NewsArticlePresenterTest
                          updated_at: Date.new(2012))
     end
 
-    test 'public updated at' do
+    test "public updated at" do
       assert_attribute :public_updated_at,
-                       '2012-01-01T00:00:00+00:00'
+                       "2012-01-01T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
@@ -334,30 +334,30 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:published_news_article)
     end
 
-    test 'change history' do
+    test "change history" do
       expected_change_history = [
         {
-          'public_timestamp' => '2011-11-09T11:11:11.000+00:00',
-          'note' => 'change-note',
-        }
+          "public_timestamp" => "2011-11-09T11:11:11.000+00:00",
+          "note" => "change-note",
+        },
       ]
 
       assert_details_attribute :change_history, expected_change_history
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'news_article'
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
     end
   end
 
   class NewsArticleWithMajorChange < TestCase
     setup do
       self.news_article = create(:news_article, minor_change: false)
-      self.update_type = 'major'
+      self.update_type = "major"
     end
 
-    test 'update type' do
-      assert_equal 'major', presented_news_article.update_type
+    test "update type" do
+      assert_equal "major", presented_news_article.update_type
     end
   end
 
@@ -366,8 +366,8 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:news_article, minor_change: true)
     end
 
-    test 'update type' do
-      assert_equal 'minor', presented_news_article.update_type
+    test "update type" do
+      assert_equal "minor", presented_news_article.update_type
     end
   end
 
@@ -376,8 +376,8 @@ module PublishingApi::NewsArticlePresenterTest
       self.news_article = create(:news_article, minor_change: false)
     end
 
-    test 'update type' do
-      assert_equal 'major', presented_news_article.update_type
+    test "update type" do
+      assert_equal "major", presented_news_article.update_type
     end
   end
 end

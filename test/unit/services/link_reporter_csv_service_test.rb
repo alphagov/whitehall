@@ -146,13 +146,13 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     csv_test_file_path = reports_dir_pathname.join("no-organisation_links_report.csv")
     assert File.exist?(csv_test_file_path)
     assert_equal 2, csv.size
-    assert_equal ['page', 'admin link', 'public timestamp', 'format', 'broken link count', 'broken links'], csv[0]
+    assert_equal ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"], csv[0]
     assert_equal ["https://www.gov.uk#{Whitehall.url_maker.speech_path(speech.slug)}",
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
                   speech.public_timestamp.to_s,
-                  'Speech',
-                  '1',
-                  'https://www.gov.uk/missing-link'], csv[1]
+                  "Speech",
+                  "1",
+                  "https://www.gov.uk/missing-link"], csv[1]
   end
 
   test "adds editions to the relevant organisation's csv file if no organisation passed to it" do

@@ -1,5 +1,5 @@
-old_slug = 'cica-fair-processing-notice'
-new_slug = 'cica-privacy-notice'
+old_slug = "cica-fair-processing-notice"
+new_slug = "cica-privacy-notice"
 
 document = Document.find_by(slug: old_slug)
 

@@ -2,7 +2,7 @@ class Whitehall::Exporters::Mappings
   STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + %w(published withdrawn)
 
   def export(target)
-    target << ['Old URL', 'New URL', 'Admin URL', 'State']
+    target << ["Old URL", "New URL", "Admin URL", "State"]
     Document.find_each do |document|
       edition = document.published_edition || document.latest_edition
       if edition && STATES_TO_INCLUDE.include?(edition.state)
@@ -26,8 +26,8 @@ class Whitehall::Exporters::Mappings
           path = attachment_source.attachment.url
           attachment_url = "#{Whitehall.public_root}#{path}"
           attachment_data = attachment_source.attachment.attachment_data
-          state = attachment_data.visible_to?(nil) ? 'published' : 'draft'
-          target << [attachment_source.url, attachment_url, '', state]
+          state = attachment_data.visible_to?(nil) ? "published" : "draft"
+          target << [attachment_source.url, attachment_url, "", state]
         end
       rescue StandardError => e
         Rails.logger.error("#{self.class.name}: when exporting #{attachment_source} - #{e} - #{e.backtrace.join("\n")}")
@@ -43,7 +43,7 @@ private
       document_source.url,
       public_url,
       url_maker.admin_edition_url(edition, host: Whitehall.admin_host),
-      edition.state
+      edition.state,
     ]
   end
 

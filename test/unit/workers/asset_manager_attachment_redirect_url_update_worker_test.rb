@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL

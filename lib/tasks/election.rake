@@ -3,7 +3,7 @@ namespace :election do
     puts "Removing MP from MP's letters:"
     Person.where('letters LIKE "%MP%"').each do |person|
       puts "updating #{person.name}"
-      new_letters = person.letters.gsub(/(^|\s)MP(\s|$)/, '')
+      new_letters = person.letters.gsub(/(^|\s)MP(\s|$)/, "")
       if person.letters != new_letters
         person.update_attribute(:letters, new_letters)
       end
@@ -24,7 +24,7 @@ namespace :election do
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
         "bulk_republishing",
         document_id,
-        true # bulk_publishing
+        true, # bulk_publishing
       )
     end
   end

@@ -16,7 +16,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
   attr_reader :published_edition, :pre_publication_edition
 
-  sidekiq_options queue: 'publishing_api'
+  sidekiq_options queue: "publishing_api"
 
   def perform(document_id, bulk_publishing = false)
     @bulk_publishing = bulk_publishing
@@ -98,7 +98,7 @@ private
     Whitehall::PublishingApi.save_draft(
       pre_publication_edition,
       "republish",
-      @bulk_publishing
+      @bulk_publishing,
     )
     handle_attachments_for(pre_publication_edition)
   end
@@ -114,9 +114,9 @@ private
       PublishingApiWorker.new.perform(
         published_edition.class.name,
         published_edition.id,
-        'republish',
+        "republish",
         locale,
-        @bulk_publishing
+        @bulk_publishing,
       )
     end
     handle_attachments_for(published_edition)
@@ -135,7 +135,7 @@ private
   def handle_attachments_for(edition)
     PublishingApiHtmlAttachmentsWorker.new.perform(
       edition.id,
-      "republish"
+      "republish",
     )
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class StatisticsFilterJsonPresenterTest < PresenterTestCase
   setup do
@@ -7,17 +7,17 @@ class StatisticsFilterJsonPresenterTest < PresenterTestCase
     @view_context.params[:controller] = :statistics
   end
 
-  test 'includes the category of documents being presented' do
+  test "includes the category of documents being presented" do
     presenter = JSON.parse(
       StatisticsFilterJsonPresenter.new(
         @filter, @view_context, PublicationesquePresenter
-      ).to_json
+      ).to_json,
     )
 
     assert_equal(
-      'Statistic',
-      presenter['category'],
-      'It should have a category attribute of "Statistic"'
+      "Statistic",
+      presenter["category"],
+      'It should have a category attribute of "Statistic"',
     )
   end
 end

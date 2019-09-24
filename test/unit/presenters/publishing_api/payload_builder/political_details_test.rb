@@ -15,7 +15,7 @@ module PublishingApi
             title: "Foo",
             slug: government.slug,
             current: true,
-          }
+          },
         }
 
         assert_equal PoliticalDetails.for(stubbed_item), expected_hash

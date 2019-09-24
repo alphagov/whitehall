@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RelatedMainstreamTest < ActiveSupport::TestCase
   test "raises an error if creating a record with a nil content_id" do

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class OperationalFieldsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
@@ -56,7 +56,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     get :show, params: { id: iraq }
     assert_equal [
       FatalityNoticePresenter.new(new_iraq_fatality),
-      FatalityNoticePresenter.new(old_iraq_fatality)
+      FatalityNoticePresenter.new(old_iraq_fatality),
     ], assigns(:fatality_notices)
   end
 
@@ -74,7 +74,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     fields = [
       stub_record(:operational_field),
       stub_record(:operational_field),
-      stub_record(:operational_field)
+      stub_record(:operational_field),
     ]
     OperationalField.stubs(:all).returns(fields)
 

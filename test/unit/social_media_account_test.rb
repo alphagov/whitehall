@@ -26,23 +26,23 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     refute account.valid?
   end
 
-  test 'is invalid if the title is longer than 255 characters' do
-    account = build(:social_media_account, title: 'a' * 254) # just under
+  test "is invalid if the title is longer than 255 characters" do
+    account = build(:social_media_account, title: "a" * 254) # just under
     assert account.valid?
-    account.title = 'a' * 255 # exactly maximum
+    account.title = "a" * 255 # exactly maximum
     assert account.valid?
-    account.title = 'a' * 256 # just over
+    account.title = "a" * 256 # just over
     refute account.valid?
   end
 
-  test 'display_name is the title if present' do
-    account = build(:social_media_account, title: 'My face')
-    assert_equal 'My face', account.display_name
+  test "display_name is the title if present" do
+    account = build(:social_media_account, title: "My face")
+    assert_equal "My face", account.display_name
   end
 
-  test 'display_name is the name of the service if the title is blank' do
-    sms = build(:social_media_service, name: 'Facebark')
-    account = build(:social_media_account, title: '', social_media_service: sms)
-    assert_equal 'Facebark', account.display_name
+  test "display_name is the name of the service if the title is blank" do
+    sms = build(:social_media_service, name: "Facebark")
+    account = build(:social_media_account, title: "", social_media_service: sms)
+    assert_equal "Facebark", account.display_name
   end
 end

@@ -1,4 +1,4 @@
-require 'whitehall/document_filter/filterer'
+require "whitehall/document_filter/filterer"
 
 module Whitehall::DocumentFilter
   class FakeSearch < Filterer

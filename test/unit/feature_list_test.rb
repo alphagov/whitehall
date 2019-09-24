@@ -20,7 +20,7 @@ class FeatureListTest < ActiveSupport::TestCase
     features = [
       create(:feature, ordering: 2),
       create(:feature, ordering: 3),
-      create(:feature, ordering: 1)
+      create(:feature, ordering: 1),
     ]
     feature_list = create(:feature_list, locale: :en, features: features)
     feature_list.reload
@@ -70,7 +70,7 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [feature_1, feature_2], feature_list_1.reload.features
   end
 
-  test '#features should still return featured documents after republication' do
+  test "#features should still return featured documents after republication" do
     world_location = create(:world_location)
 
     _item_a = create(:published_news_article, world_locations: [world_location])
@@ -89,7 +89,7 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [new_draft.document], feature_list.features.map(&:document)
   end
 
-  test '#published_features only returns features where there is a published edition' do
+  test "#published_features only returns features where there is a published edition" do
     published = create(:published_news_article)
     draft = create(:draft_news_article)
 
@@ -101,7 +101,7 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal([[published]], feature_list.published_features.map { |f| f.document.editions })
   end
 
-  test '#published_features only excludes features which have ended' do
+  test "#published_features only excludes features which have ended" do
     published = create(:published_news_article)
 
     feature_list = create(:feature_list, locale: :en)

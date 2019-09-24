@@ -24,7 +24,7 @@ class Admin::EditionTagsController < Admin::BaseController
       legacy_associations_changed = TaxonsToLegacyAssociationsTagging.new.call(
         edition: @edition,
         user: current_user,
-        selected_taxons: selected_taxons
+        selected_taxons: selected_taxons,
       )
 
       flash[:legacy_associations_changed] = legacy_associations_changed

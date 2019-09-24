@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
   def unsafe_functions
@@ -28,12 +28,12 @@ class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
       "(" +
         escaped_functions.join("|") +
       ")",
-      Regexp::IGNORECASE
+      Regexp::IGNORECASE,
     )
   end
 
   test "no (suspected) uses of MySQL functions which are unsafe with statement-based replication" do
-    files = Dir.glob(File.join(Rails.root, '**', '*.rb'))
+    files = Dir.glob(File.join(Rails.root, "**", "*.rb"))
     bad_files = files.select do |filename|
       next if filename == File.expand_path(__FILE__)
 

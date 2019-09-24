@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestCase
   include TaxonomyHelper
@@ -11,7 +11,7 @@ class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestC
       draft_edition = create(:draft_edition)
       stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
 
-      request.env['HTTPS'] = 'on'
+      request.env["HTTPS"] = "on"
       get action, params: { id: draft_edition }
 
       assert_select "#history", text: /Created by Tom/ do

@@ -75,7 +75,7 @@ ukti_worldwide_organisation_slugs = [
   ["uk-trade-investment-switzerland", "department-for-international-trade-switzerland"],
   ["uk-trade-investment-trinidad-and-tobago", "department-for-international-trade-trinidad-and-tobago"],
   ["uk-trade-investment-ukraine", "department-for-international-trade-ukraine"],
-  ["uk-trade-investment-venezuela", "department-for-international-trade-venezuela"]
+  ["uk-trade-investment-venezuela", "department-for-international-trade-venezuela"],
 ]
 
 ukti_worldwide_organisation_slugs.each do |slug|

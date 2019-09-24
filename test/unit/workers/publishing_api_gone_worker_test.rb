@@ -17,8 +17,8 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
         alternative_path: "alternative_path",
         explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>",
         locale: "de",
-        discard_drafts: true
-      }
+        discard_drafts: true,
+      },
     )
 
     PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de")
@@ -34,8 +34,8 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
         alternative_path: "alternative_path",
         explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>",
         locale: "de",
-        allow_draft: true
-      }
+        allow_draft: true,
+      },
     )
 
     PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de", true)
@@ -51,8 +51,8 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
         alternative_path: "alternative_path",
         explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>",
         locale: "de",
-        allow_draft: true
-      }
+        allow_draft: true,
+      },
     )
 
     alternative_path_with_trailing_space = "alternative_path "

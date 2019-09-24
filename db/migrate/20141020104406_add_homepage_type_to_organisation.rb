@@ -4,11 +4,11 @@ class AddHomepageTypeToOrganisation < ActiveRecord::Migration
   end
 
   def up
-    add_column :organisations, :homepage_type, :string, default: 'news'
+    add_column :organisations, :homepage_type, :string, default: "news"
 
-    orgs_with_featured_services_and_guidance = FeaturedServicesAndGuidance.where("linkable_type='Organisation'").group('linkable_id').map(&:linkable_id)
+    orgs_with_featured_services_and_guidance = FeaturedServicesAndGuidance.where("linkable_type='Organisation'").group("linkable_id").map(&:linkable_id)
 
-    Organisation.where(id: orgs_with_featured_services_and_guidance).update_all(homepage_type: 'service')
+    Organisation.where(id: orgs_with_featured_services_and_guidance).update_all(homepage_type: "service")
   end
 
   def down

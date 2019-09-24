@@ -16,22 +16,22 @@
 #  Otherwise we assume that the first organisation in the list is a best
 #  guess.
 
-require 'csv'
-require 'ruby-progressbar'
+require "csv"
+require "ruby-progressbar"
 
 class PDFAttachmentReporter
-  POLICY_GROUPS = 'Policy Groups'.freeze
+  POLICY_GROUPS = "Policy Groups".freeze
 
   def initialize(opts = {})
     @data_path = opts.fetch(:data_path, Rails.root)
-    @first_period_start_date = opts.fetch(:first_period_start_date, Date.parse('2016-01-01'))
+    @first_period_start_date = opts.fetch(:first_period_start_date, Date.parse("2016-01-01"))
     @last_time_period_days = opts.fetch(:last_time_period_days, 30)
   end
 
   def pdfs_by_organisation
     second_time_period_date = @last_time_period_days.days.ago.to_date
 
-    live_organisation_names = Organisation.where(govuk_status: 'live').includes(:translations).map(&:name) << POLICY_GROUPS
+    live_organisation_names = Organisation.where(govuk_status: "live").includes(:translations).map(&:name) << POLICY_GROUPS
 
     live_organisation_published_pdfs_total_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
     live_organisation_published_pdfs_since_first_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
@@ -63,12 +63,12 @@ class PDFAttachmentReporter
     end
     progress_bar.finish
 
-    CSV.open(csv_file_path, 'wb') do |csv|
+    CSV.open(csv_file_path, "wb") do |csv|
       csv << [
         "Organisation",
         "Total published PDF attachments",
         "#{@first_period_start_date} - present PDF attachments",
-        "Last #{@last_time_period_days} days PDF attachments"
+        "Last #{@last_time_period_days} days PDF attachments",
       ]
 
       live_organisation_names.each do |organisation_name|
@@ -76,7 +76,7 @@ class PDFAttachmentReporter
           organisation_name,
           live_organisation_published_pdfs_total_counts_hash[organisation_name],
           live_organisation_published_pdfs_since_first_period_counts_hash[organisation_name],
-          live_organisation_published_pdfs_since_second_period_counts_hash[organisation_name]
+          live_organisation_published_pdfs_since_second_period_counts_hash[organisation_name],
         ]
       end
     end
@@ -88,7 +88,7 @@ private
 
   def find_pdf_attachment_data(attachment)
     if attachment.attachable
-      if attachment.attachable_type == 'PolicyGroup'
+      if attachment.attachable_type == "PolicyGroup"
         PDFAttachmentData.new(POLICY_GROUPS, attachment.created_at)
       elsif attachment.attachable.is_a? Response
         # Responses are only sometimes linked to organisations (via a consultation)
@@ -119,14 +119,14 @@ private
   end
 
   def find_last_published_edition_with_attachment(edition, attachment_data)
-    edition.document.ever_published_editions.order('created_at DESC').detect do |ed|
+    edition.document.ever_published_editions.order("created_at DESC").detect do |ed|
       ed.attachments.any? { |a| a.attachment_data_id == attachment_data.id }
     end
   end
 
   def find_first_published_version_with_attachment(edition)
     edition.document.ever_published_editions
-      .order('created_at DESC')
+      .order("created_at DESC")
       .joins("INNER JOIN attachments ON attachable_id = editions.id AND attachable_type = 'Edition'")
       .first
   end
@@ -165,7 +165,7 @@ private
   def unique_published_pdf_attachments
     Attachment.joins(:attachment_data)
       .where(attachment_data: { content_type: AttachmentUploader::PDF_CONTENT_TYPE })
-      .group('attachment_data.id')
+      .group("attachment_data.id")
       .includes(:attachment_data)
   end
 
@@ -182,7 +182,7 @@ private
   def progress_bar
     @progress_bar ||= ProgressBar.create(
       autostart: false,
-      format: "%e [%b>%i] [%c/%C]"
+      format: "%e [%b>%i] [%c/%C]",
     )
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class CorporateInformationPageTest < ActiveSupport::TestCase
   test "creating a new corporate information page republishes the owning organisation" do

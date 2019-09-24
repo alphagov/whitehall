@@ -17,7 +17,7 @@ slugs = [
   "oisc-news",
   "self-assessment-helpsheets-additional-information",
   "social-care-online-questionnaires-2015",
-  "think-act-report-sign-ups-and-case-studies"
+  "think-act-report-sign-ups-and-case-studies",
 ]
 
 Document.where(slug: slugs, document_type: "Collection").each do |doc|

@@ -12,7 +12,7 @@ module Edition::NationalApplicability
   included do
     has_many :nation_inapplicabilities, foreign_key: :edition_id, dependent: :destroy, autosave: true
     validates_associated :nation_inapplicabilities
-    validates :nation_inapplicabilities, length: { maximum: Nation.all.count - 1, message: 'can not exclude all nations' }
+    validates :nation_inapplicabilities, length: { maximum: Nation.all.count - 1, message: "can not exclude all nations" }
 
     add_trait Trait
   end
@@ -63,7 +63,7 @@ module Edition::NationalApplicability
 private
 
   def nation_to_sym(nation)
-    nation.tr(' ', '_').downcase.to_sym
+    nation.tr(" ", "_").downcase.to_sym
   end
 
   def universally_applicable
@@ -72,7 +72,7 @@ private
       key = nation_to_sym(nation)
       hash[key] = {
         label: nation,
-        applicable: true
+        applicable: true,
       }
       hash
     }

@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
   test "Renders basic govspeak" do
-    edition = build(:edition, body: 'Some content')
+    edition = build(:edition, body: "Some content")
 
     assert_equivalent_html '<div class="govspeak"><p>Some content</p></div>',
                            render_govspeak(edition)
@@ -21,7 +21,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
     body = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
     edition = build(:published_detailed_guide, :with_file_attachment, body: body, attachments: [
       attachment_1 = build(:file_attachment, id: 1),
-      attachment_2 = build(:file_attachment, id: 2)
+      attachment_2 = build(:file_attachment, id: 2),
     ])
     html = render_govspeak(edition)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
@@ -36,7 +36,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
 
     # The content_type doesn't get set for some reason, so set it manually
     ad = edition.attachments.first.attachment_data
-    ad.update_column(:content_type, 'application/pdf')
+    ad.update_column(:content_type, "application/pdf")
 
     html = render_govspeak(edition)
     assert_select_within_html html, "#attachment_#{attachment.id}"

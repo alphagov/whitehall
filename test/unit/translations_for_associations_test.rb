@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class TranslationsForAssociationsTest < ActiveSupport::TestCase
-  test 'with_translations_for should eager load the association and it\'s translations' do
+  test "with_translations_for should eager load the association and it's translations" do
     create(:ministerial_role, organisations: [create(:organisation)])
 
     eagerly_loaded = MinisterialRole.with_translations_for(:organisations).to_a.first

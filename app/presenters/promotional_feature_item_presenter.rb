@@ -2,7 +2,7 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of PromotionalFeatureItem
 
   def css_classes
-    ['feature', ('large' if double_width?)].compact.join(' ')
+    ["feature", ("large" if double_width?)].compact.join(" ")
   end
 
   def image_url
@@ -10,7 +10,7 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def display_image
-    return '' if image_tag.blank?
+    return "" if image_tag.blank?
 
     if model.title_url.blank?
       image_tag
@@ -20,13 +20,13 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def image_tag
-    return '' if image_url.blank?
+    return "" if image_url.blank?
 
     context.image_tag(image_url, alt: image_alt_text)
   end
 
   def link_list_class
-    'dash-list' unless double_width?
+    "dash-list" unless double_width?
   end
 
   def width
@@ -48,6 +48,6 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def title_link
-    context.link_to(model.title, model.title_url, ({ rel: 'external' } if context.is_external?(model.title_url)))
+    context.link_to(model.title, model.title_url, ({ rel: "external" } if context.is_external?(model.title_url)))
   end
 end

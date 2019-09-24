@@ -11,11 +11,11 @@ class WorldwideOfficeTypeTest < ActiveSupport::TestCase
     assert_equal worldwide_office_type, WorldwideOfficeType.find_by_slug(worldwide_office_type.slug)
   end
 
-  test 'should be fetchable in order' do
+  test "should be fetchable in order" do
     assert_equal WorldwideOfficeType.all.map(&:listing_order).sort, WorldwideOfficeType.in_listing_order.map(&:listing_order)
   end
 
-  test 'should be fetchable by grouping (retaining order within group)' do
+  test "should be fetchable by grouping (retaining order within group)" do
     in_groups = WorldwideOfficeType.by_grouping
     all_groups = WorldwideOfficeType.all.map(&:grouping).uniq.sort
     assert_equal all_groups, in_groups.keys.sort

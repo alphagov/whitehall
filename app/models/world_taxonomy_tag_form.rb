@@ -20,7 +20,7 @@ class WorldTaxonomyTagForm
     new(
       selected_taxons: selected_taxons,
       content_id: content_id,
-      previous_version: previous_version
+      previous_version: previous_version,
     )
   end
 end

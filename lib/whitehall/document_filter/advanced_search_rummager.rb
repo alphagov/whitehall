@@ -1,4 +1,4 @@
-require 'whitehall/document_filter/filterer'
+require "whitehall/document_filter/filterer"
 
 module Whitehall::DocumentFilter
   class AdvancedSearchRummager < Filterer
@@ -11,7 +11,7 @@ module Whitehall::DocumentFilter
     def default_filter_args
       @default = {
         page: @page.to_s,
-        per_page: @per_page.to_s
+        per_page: @per_page.to_s,
       }
     end
 

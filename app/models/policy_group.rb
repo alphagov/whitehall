@@ -37,7 +37,7 @@ class PolicyGroup < ApplicationRecord
     Whitehall.search_client.search(
       filter_policy_groups: [slug],
       filter_format: "policy",
-      order: "-public_timestamp"
+      order: "-public_timestamp",
     )["results"]
   end
 

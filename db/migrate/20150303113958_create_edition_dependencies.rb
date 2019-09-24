@@ -6,6 +6,6 @@ class CreateEditionDependencies < ActiveRecord::Migration
     end
 
     add_index :edition_dependencies, %i[dependable_id dependable_type edition_id],
-      unique: true, name: 'index_edition_dependencies_on_dependable_and_edition'
+      unique: true, name: "index_edition_dependencies_on_dependable_and_edition"
   end
 end

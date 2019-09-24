@@ -11,17 +11,17 @@ class Admin::AboutPagesController < Admin::BaseController
   def create
     @about_page = @topical_event.build_about_page(about_page_params)
     if @about_page.save
-      redirect_to admin_topical_event_about_pages_path, notice: 'About page created'
+      redirect_to admin_topical_event_about_pages_path, notice: "About page created"
     else
-      render action: 'new'
+      render action: "new"
     end
   end
 
   def update
     if @about_page.update_attributes(about_page_params)
-      redirect_to admin_topical_event_about_pages_path, notice: 'About page saved'
+      redirect_to admin_topical_event_about_pages_path, notice: "About page saved"
     else
-      render action: 'edit'
+      render action: "edit"
     end
   end
 
@@ -37,7 +37,7 @@ class Admin::AboutPagesController < Admin::BaseController
     # `PolicyArea` used to be called `Topic` in the frontend part of Whitehall.
     # This hack can be removed when `Topic` will become `PolicyArea` in the
     # backend too.
-    return 'Policy area' if model_name == 'topic'
+    return "Policy area" if model_name == "topic"
 
     model_name.humanize
   end

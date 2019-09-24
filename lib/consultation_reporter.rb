@@ -1,20 +1,20 @@
-require 'csv'
+require "csv"
 
 class ConsultationReporter
-  HEADERS = ['Organisation', 'Title', 'URL', 'Opening at', 'Closing at', 'Response published on', 'Days response published after close', 'Status'].freeze
+  HEADERS = ["Organisation", "Title", "URL", "Opening at", "Closing at", "Response published on", "Days response published after close", "Status"].freeze
 
   def initialize(opts = {})
     @data_path = opts.fetch(:data_path, Rails.root)
-    @start_date = opts.fetch(:start_date, '2015-05-07')
-    @closed_date = opts.fetch(:closed_date, '2018-05-17')
+    @start_date = opts.fetch(:start_date, "2015-05-07")
+    @closed_date = opts.fetch(:closed_date, "2018-05-17")
   end
 
   def all_consultations
     scope = Consultation
-      .distinct('editions.id')
-      .joins('LEFT JOIN responses ON responses.edition_id = editions.id')
+      .distinct("editions.id")
+      .joins("LEFT JOIN responses ON responses.edition_id = editions.id")
       .where(state: %w{published withdrawn})
-      .where('opening_at >= ?', @start_date)
+      .where("opening_at >= ?", @start_date)
       .order(:opening_at)
 
     write_csv_from_scope(:all_consultations, scope)
@@ -47,16 +47,16 @@ private
 
   def format_consulation(consultation)
     delay = consultation.outcome ? (consultation.outcome.published_on - consultation.closing_at.to_date).to_i : nil
-    status = if consultation.state == 'withdrawn'
-               'Withdrawn'
+    status = if consultation.state == "withdrawn"
+               "Withdrawn"
              elsif delay.nil? && consultation.closing_at < 12.weeks.ago
-               'Overdue'
+               "Overdue"
              elsif delay.nil? && consultation.closing_at >= 12.weeks.ago
-               'Not due yet'
+               "Not due yet"
              elsif delay > 12 * 7
-               'Published late'
+               "Published late"
              elsif delay <= 12 * 7
-               'Published on time'
+               "Published on time"
              end
     [
       consultation.organisations.first.name,

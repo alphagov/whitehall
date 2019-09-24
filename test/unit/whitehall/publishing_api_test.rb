@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class Whitehall::PublishingApiTest < ActiveSupport::TestCase
@@ -22,7 +22,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
     Whitehall::PublishingApi.publish(edition)
@@ -36,7 +36,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(organisation)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
     Whitehall::PublishingApi.publish(organisation)
@@ -50,7 +50,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
     Whitehall::PublishingApi.publish(edition)
@@ -69,13 +69,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
+        stub_publishing_api_publish(presenter.content_id, locale: "fr", update_type: nil),
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: nil),
     ]
 
     Whitehall::PublishingApi.publish(organisation)
@@ -86,13 +86,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
     take_part_page = create(:take_part_page)
-    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: "republish")
     WebMock.reset!
 
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
     Sidekiq::Testing.inline! do
@@ -104,7 +104,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".republish_async republishes all available translations of a translatable model" do
     organisation = create(:organisation)
-    presenter = PublishingApiPresenters.presenter_for(organisation, update_type: 'republish')
+    presenter = PublishingApiPresenters.presenter_for(organisation, update_type: "republish")
 
     french_requests = I18n.with_locale :fr do
       organisation.name = "French name"
@@ -113,13 +113,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
+        stub_publishing_api_publish(presenter.content_id, locale: "fr", update_type: nil),
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: nil),
     ]
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
@@ -142,13 +142,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
     take_part_page = create(:take_part_page)
-    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: "republish")
     WebMock.reset!
 
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
     Sidekiq::Testing.inline! do
@@ -166,21 +166,21 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
         "TakePartPage",
         take_part_page.id,
         "republish",
-        :en
+        :en,
       )
     Whitehall::PublishingApi.bulk_republish_async(take_part_page)
   end
 
   test ".republish_document_async publishes to the publishing API as a 'republish' update_type" do
     edition = create(:published_publication)
-    presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type: "republish")
     html_attachment_content_id = edition.html_attachments.first.content_id
 
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
-      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: nil)
+      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
     Sidekiq::Testing.inline! do
@@ -195,7 +195,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition   = create(:draft_publication, scheduled_publication: timestamp)
 
     I18n.with_locale(:fr) do
-      edition.title = 'French title'
+      edition.title = "French title"
       edition.save!
     end
 
@@ -204,8 +204,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.schedule_async(edition)
 
-    first_job = PublishingApiScheduleWorker.jobs[0]['args']
-    second_job = PublishingApiScheduleWorker.jobs[1]['args']
+    first_job = PublishingApiScheduleWorker.jobs[0]["args"]
+    second_job = PublishingApiScheduleWorker.jobs[1]["args"]
 
     assert_equal english_path, first_job[0]
     assert_equal timestamp, first_job[1]
@@ -220,7 +220,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     updated_edition = create(:draft_publication, scheduled_publication: timestamp, document: existing_edition.document)
 
     I18n.with_locale(:es) do
-      updated_edition.title = 'Spanish title'
+      updated_edition.title = "Spanish title"
       updated_edition.save!
     end
 
@@ -229,8 +229,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.schedule_async(updated_edition)
 
-    first_job = PublishingApiScheduleWorker.jobs[0]['args']
-    second_job = PublishingApiScheduleWorker.jobs[1]['args']
+    first_job = PublishingApiScheduleWorker.jobs[0]["args"]
+    second_job = PublishingApiScheduleWorker.jobs[1]["args"]
 
     assert_equal english_path, first_job[0]
     assert_equal timestamp, first_job[1]
@@ -252,7 +252,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition = create(:scheduled_publication)
 
     I18n.with_locale(:de) do
-      edition.title = 'German title'
+      edition.title = "German title"
       edition.save!(validate: false)
     end
 
@@ -261,8 +261,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.unschedule_async(edition)
 
-    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
-    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
+    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]["args"].first
+    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
   end
 
   test ".unschedule_async for a subsequent edition served from the content store queues jobs to remove publish intents" do
@@ -270,7 +270,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     updated_edition = create(:scheduled_publication, document: existing_edition.document)
 
     I18n.with_locale(:de) do
-      updated_edition.title = 'German title'
+      updated_edition.title = "German title"
       updated_edition.save!(validate: false)
     end
 
@@ -279,8 +279,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.unschedule_async(updated_edition)
 
-    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
-    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
+    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]["args"].first
+    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
   end
 
   test ".unschedule_async raises an error if the edition belongs to a locked document" do
@@ -312,7 +312,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
         alternative_path: destination,
         locale: "en",
         discard_drafts: true,
-      }
+      },
     )
 
     Sidekiq::Testing.inline! do
@@ -331,7 +331,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
         type: "gone",
         locale: "en",
         discard_drafts: true,
-      }
+      },
     )
 
     Sidekiq::Testing.inline! do

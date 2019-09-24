@@ -19,28 +19,28 @@ module DocumentHelper
   end
 
   def published_or_updated(edition)
-    edition.first_published_version? ? t('document.published') : t('document.updated')
+    edition.first_published_version? ? t("document.published") : t("document.updated")
   end
 
   def edition_organisation_class(edition)
     if (organisation = edition.sorted_organisations.first)
       organisation.slug
     else
-      'unknown_organisation'
+      "unknown_organisation"
     end
   end
 
   def national_statistics_logo(edition)
     if edition.national_statistic?
-      content_tag :div, class: 'national-statistic' do
-        image_tag 'national-statistics.png', alt: t('national_statistics.heading'), class: 'national-statistics-logo'
+      content_tag :div, class: "national-statistic" do
+        image_tag "national-statistics.png", alt: t("national_statistics.heading"), class: "national-statistics-logo"
       end
     end
   end
 
   def only_applies_to_nations_list(document)
     if document.respond_to?(:nation_inapplicabilities) && document.nation_inapplicabilities.any?
-      content_tag :span, "#{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}".html_safe, class: 'inapplicable-nations'
+      content_tag :span, "#{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}".html_safe, class: "inapplicable-nations"
     end
   end
 
@@ -66,7 +66,7 @@ module DocumentHelper
   end
 
   def array_of_links_to_statistical_data_sets(data_sets)
-    data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set), class: 'statistical-data-set-link' }
+    data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set), class: "statistical-data-set-link" }
   end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document".freeze
@@ -79,41 +79,41 @@ module DocumentHelper
 
   def humanized_content_type(file_extension)
     file_extension_vs_humanized_content_type = {
-      "chm"  => file_abbr_tag('CHM', 'Microsoft Compiled HTML Help'),
-      "csv"  => file_abbr_tag('CSV', 'Comma-separated Values'),
-      "diff" => file_abbr_tag('DIFF', 'Plain text differences'),
+      "chm"  => file_abbr_tag("CHM", "Microsoft Compiled HTML Help"),
+      "csv"  => file_abbr_tag("CSV", "Comma-separated Values"),
+      "diff" => file_abbr_tag("DIFF", "Plain text differences"),
       "doc"  => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
       "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
-      "dot"  => file_abbr_tag('DOT', 'MS Word Document Template'),
-      "dxf"  => file_abbr_tag('DXF', 'AutoCAD Drawing Exchange Format'),
-      "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
-      "gif"  => file_abbr_tag('GIF', 'Graphics Interchange Format'),
-      "gml"  => file_abbr_tag('GML', 'Geography Markup Language'),
-      "html" => file_abbr_tag('HTML', 'Hypertext Markup Language'),
-      "ics" => file_abbr_tag('ICS', 'iCalendar file'),
+      "dot"  => file_abbr_tag("DOT", "MS Word Document Template"),
+      "dxf"  => file_abbr_tag("DXF", "AutoCAD Drawing Exchange Format"),
+      "eps"  => file_abbr_tag("EPS", "Encapsulated PostScript"),
+      "gif"  => file_abbr_tag("GIF", "Graphics Interchange Format"),
+      "gml"  => file_abbr_tag("GML", "Geography Markup Language"),
+      "html" => file_abbr_tag("HTML", "Hypertext Markup Language"),
+      "ics" => file_abbr_tag("ICS", "iCalendar file"),
       "jpg"  => "JPEG",
-      "odp"  => file_abbr_tag('ODP', 'OpenDocument Presentation'),
-      "ods"  => file_abbr_tag('ODS', 'OpenDocument Spreadsheet'),
-      "odt"  => file_abbr_tag('ODT', 'OpenDocument Text document'),
-      "pdf"  => file_abbr_tag('PDF', 'Portable Document Format'),
-      "png"  => file_abbr_tag('PNG', 'Portable Network Graphic'),
+      "odp"  => file_abbr_tag("ODP", "OpenDocument Presentation"),
+      "ods"  => file_abbr_tag("ODS", "OpenDocument Spreadsheet"),
+      "odt"  => file_abbr_tag("ODT", "OpenDocument Text document"),
+      "pdf"  => file_abbr_tag("PDF", "Portable Document Format"),
+      "png"  => file_abbr_tag("PNG", "Portable Network Graphic"),
       "ppt"  => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
       "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
-      "ps"   => file_abbr_tag('PS', 'PostScript'),
-      "rdf"  => file_abbr_tag('RDF', 'Resource Description Framework'),
-      "rtf"  => file_abbr_tag('RTF', 'Rich Text Format'),
-      "sch"  => file_abbr_tag('SCH', 'XML based Schematic'),
+      "ps"   => file_abbr_tag("PS", "PostScript"),
+      "rdf"  => file_abbr_tag("RDF", "Resource Description Framework"),
+      "rtf"  => file_abbr_tag("RTF", "Rich Text Format"),
+      "sch"  => file_abbr_tag("SCH", "XML based Schematic"),
       "txt"  => "Plain text",
       "vcf"  => "vCard file",
-      "wsdl" => file_abbr_tag('WSDL', 'Web Services Description Language'),
+      "wsdl" => file_abbr_tag("WSDL", "Web Services Description Language"),
       "xls"  => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
-      "xlsm" => file_abbr_tag('XLSM', 'MS Excel Macro-Enabled Workbook'),
+      "xlsm" => file_abbr_tag("XLSM", "MS Excel Macro-Enabled Workbook"),
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
-      "xlt"  => file_abbr_tag('XLT', 'MS Excel Spreadsheet Template'),
-      "xml"  => file_abbr_tag('XML', 'XML document'),
-      "xsd"  => file_abbr_tag('XSD', 'XML Schema'),
-      "xslt" => file_abbr_tag('XSLT', 'Extensible Stylesheet Language Transformation'),
-      "zip"  => file_abbr_tag('ZIP', 'Zip archive'),
+      "xlt"  => file_abbr_tag("XLT", "MS Excel Spreadsheet Template"),
+      "xml"  => file_abbr_tag("XML", "XML document"),
+      "xsd"  => file_abbr_tag("XSD", "XML Schema"),
+      "xslt" => file_abbr_tag("XSLT", "Extensible Stylesheet Language Transformation"),
+      "zip"  => file_abbr_tag("ZIP", "Zip archive"),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
   end
@@ -126,24 +126,24 @@ module DocumentHelper
       ref << content_tag(:span, attachment.command_paper_number, class: "command_paper_number")
     end
     if attachment.hoc_paper_number.present?
-      ref << content_tag(:span, "HC #{attachment.hoc_paper_number}", class: 'house_of_commons_paper_number') + ' ' +
-        content_tag(:span, attachment.parliamentary_session, class: 'parliamentary_session')
+      ref << content_tag(:span, "HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number") + " " +
+        content_tag(:span, attachment.parliamentary_session, class: "parliamentary_session")
     end
 
-    ref.join(', ').html_safe
+    ref.join(", ").html_safe
   end
 
   def attachment_thumbnail(attachment)
     if attachment.pdf?
-      image_tag(attachment.file.thumbnail.url, alt: '')
+      image_tag(attachment.file.thumbnail.url, alt: "")
     elsif attachment.html?
-      image_tag('pub-cover-html.png', alt: '')
+      image_tag("pub-cover-html.png", alt: "")
     elsif %w{doc docx odt}.include? attachment.file_extension
-      image_tag('pub-cover-doc.png', alt: '')
+      image_tag("pub-cover-doc.png", alt: "")
     elsif %w{xls xlsx ods csv}.include? attachment.file_extension.downcase
-      image_tag('pub-cover-spreadsheet.png', alt: '')
+      image_tag("pub-cover-spreadsheet.png", alt: "")
     else
-      image_tag('pub-cover.png', alt: '')
+      image_tag("pub-cover.png", alt: "")
     end
   end
 
@@ -186,15 +186,15 @@ Please tell us:
   def attachment_attributes(attachment)
     attributes = []
     if attachment.html?
-      attributes << content_tag(:span, 'HTML', class: 'type')
+      attributes << content_tag(:span, "HTML", class: "type")
     elsif attachment.external?
-      attributes << content_tag(:span, attachment.url, class: 'url')
+      attributes << content_tag(:span, attachment.url, class: "url")
     else
-      attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
-      attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')
-      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page"), class: 'page-length') if attachment.number_of_pages.present?
+      attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: "type")
+      attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: "file-size")
+      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page"), class: "page-length") if attachment.number_of_pages.present?
     end
-    attributes.join(', ').html_safe
+    attributes.join(", ").html_safe
   end
 
   def native_language_name_for(locale)
@@ -226,7 +226,7 @@ Please tell us:
     end
 
     links_to_topics = sector_tag_finder.topics.map do |topic|
-      link_to topic['title'], topic['web_url'], class: 'sector-link'
+      link_to topic["title"], topic["web_url"], class: "sector-link"
     end
     part_of += links_to_topics
 
@@ -279,21 +279,21 @@ Please tell us:
 
   def political_state_analytics_tag(edition)
     tag :meta,
-        name: 'govuk:political-status',
+        name: "govuk:political-status",
         content: political_state_analytics_value(edition)
   end
 
   def political_state_analytics_value(edition)
-    return 'non-political' unless edition.political?
+    return "non-political" unless edition.political?
 
-    edition.historic? ? 'historic' : 'political'
+    edition.historic? ? "historic" : "political"
   end
 
   def publishing_government_analytics_tag(edition)
     return unless edition.government
 
     tag :meta,
-        name: 'govuk:publishing-government',
+        name: "govuk:publishing-government",
         content: edition.government.slug
   end
 end

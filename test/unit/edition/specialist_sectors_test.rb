@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
-  test '#create_draft should copy specialist sectors' do
-    expected_primary_tag = 'tax/vat'
-    expected_secondary_tags = ['oil-and-gas/taxation', 'tax/corporation-tax']
+  test "#create_draft should copy specialist sectors" do
+    expected_primary_tag = "tax/vat"
+    expected_secondary_tags = ["oil-and-gas/taxation", "tax/corporation-tax"]
     edition = create(:published_publication, primary_specialist_sector_tag: expected_primary_tag, secondary_specialist_sector_tags: expected_secondary_tags)
 
     assert_equal 3, SpecialistSector.count
@@ -16,8 +16,8 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
   end
 
   test "#specialist_sector_tags should return tags ordered from primary to secondary" do
-    expected_primary_tag = 'tax/vat'
-    expected_secondary_tags = ['oil-and-gas/taxation', 'tax/corporation-tax']
+    expected_primary_tag = "tax/vat"
+    expected_secondary_tags = ["oil-and-gas/taxation", "tax/corporation-tax"]
 
     edition = create(
       :published_edition,
@@ -28,7 +28,7 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
 
     assert_equal(
       [expected_primary_tag, expected_secondary_tags].flatten,
-      edition.specialist_sector_tags
+      edition.specialist_sector_tags,
     )
   end
 

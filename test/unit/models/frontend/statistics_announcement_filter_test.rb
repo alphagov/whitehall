@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   include TaxonomyHelper
@@ -21,7 +21,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "#page= casts to integer" do
-    assert build_class_instance(page: '2').page.is_a? Integer
+    assert build_class_instance(page: "2").page.is_a? Integer
   end
 
   test "page default to 1" do
@@ -46,17 +46,17 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     topic_1, topic_2 = 2.times.map { build(:taxon_hash) }
     redis_cache_has_taxons([topic_1, topic_2])
 
-    topics = build_class_instance(topics: [topic_1['content_id'], topic_2['content_id']]).topics
+    topics = build_class_instance(topics: [topic_1["content_id"], topic_2["content_id"]]).topics
 
     assert_equal([true, true], (topics.map { |topic| topic.is_a?(Taxonomy::Taxon) }))
-    assert_equal topics.map(&:name), [topic_1['title'], topic_2['title']]
+    assert_equal topics.map(&:name), [topic_1["title"], topic_2["title"]]
   end
 
   test "topic_ids returns topic ids" do
     topic = build(:taxon_hash)
     redis_cache_has_taxons([topic])
 
-    assert_equal [topic['content_id']], build_class_instance(topics: [topic['content_id']]).topic_ids
+    assert_equal [topic["content_id"]], build_class_instance(topics: [topic["content_id"]]).topic_ids
   end
 
   test "#valid_filter_params returns all attributes if all are present and valid excluding pagination parameters" do
@@ -68,7 +68,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
                    from_date: "2020-01-01",
                    to_date: "2020-02-01",
                    organisations: [organisation.slug],
-                   topics: [topic['content_id']],
+                   topics: [topic["content_id"]],
                    page: 2)
 
     assert_equal(
@@ -80,10 +80,10 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
           organisation.slug,
         ],
         part_of_taxonomy_tree: [
-          topic['content_id'],
+          topic["content_id"],
         ],
       },
-      filter.valid_filter_params
+      filter.valid_filter_params,
     )
   end
 
@@ -112,7 +112,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
 
     stub_provider = mock
     stub_provider.stubs(:search).with(page: 1, per_page: 40).returns(normal_resultset)
-    stub_provider.stubs(:search).with(page: 1, per_page: 40, statistics_announcement_state: 'cancelled', from_date: 1.month.ago.to_date, to_date: Time.zone.now.to_date).returns(cancelled_and_past_resultset)
+    stub_provider.stubs(:search).with(page: 1, per_page: 40, statistics_announcement_state: "cancelled", from_date: 1.month.ago.to_date, to_date: Time.zone.now.to_date).returns(cancelled_and_past_resultset)
 
     filter = build_class_instance
     filter.stubs(:provider).returns(stub_provider)
@@ -132,7 +132,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     stub_provider.stubs(:search).returns((1..50).to_a)
     filter.stubs(:provider).returns(stub_provider)
 
-    assert_equal({ keywords: 'keyword', page: 3 }, filter.next_page_params)
+    assert_equal({ keywords: "keyword", page: 3 }, filter.next_page_params)
   end
 
   test "#previous_page_params returns valid_filter_params with the page number incremented by 1" do
@@ -142,6 +142,6 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     stub_provider.stubs(:search).returns((1..50).to_a)
     filter.stubs(:provider).returns(stub_provider)
 
-    assert_equal({ keywords: 'keyword', page: 1 }, filter.previous_page_params)
+    assert_equal({ keywords: "keyword", page: 1 }, filter.previous_page_params)
   end
 end

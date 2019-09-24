@@ -37,7 +37,7 @@ module PublishingApi
           topics
           world_locations
           worldwide_organisations
-        ]
+        ],
       )
     end
 

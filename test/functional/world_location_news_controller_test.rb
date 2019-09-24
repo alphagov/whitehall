@@ -17,14 +17,14 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       fields: %w[
         display_type title link public_timestamp format content_store_document_type
         description content_id organisations document_collections
-      ]
+      ],
     }
   end
 
   def announcement_search_options
     default_search_options.merge(
       count: 2,
-      filter_content_store_document_type: announcement_document_types
+      filter_content_store_document_type: announcement_document_types,
     )
   end
 
@@ -45,7 +45,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "index displays world location title and mission-statement" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).twice.returns('results' => [])
+      @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
       assert_select "title", text: "UK and India - GOV.UK"
@@ -57,7 +57,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "index responds with not found if appropriate translation doesn't exist" do
     assert_raise(ActiveRecord::RecordNotFound) do
-      get :index, params: { world_location_id: @world_location, locale: 'fr' }
+      get :index, params: { world_location_id: @world_location, locale: "fr" }
     end
   end
 
@@ -66,18 +66,18 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     assert_redirected_to api_world_location_path(@world_location, format: :json)
   end
 
-  view_test 'index has atom feed autodiscovery link' do
+  view_test "index has atom feed autodiscovery link" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).twice.returns('results' => [])
+      @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
       assert_select_autodiscovery_link atom_feed_url_for(@world_location)
     end
   end
 
-  view_test 'index includes a link to the atom feed' do
+  view_test "index includes a link to the atom feed" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).twice.returns('results' => [])
+      @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
       assert_select "a.feed[href=?]", atom_feed_url_for(@world_location)
@@ -87,28 +87,28 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   view_test "index generates an atom feed with entries for latest activity" do
     with_stubbed_rummager(@rummager, true) do
       documents = [
-        { 'content_store_document_type' => 'publication', 'public_timestamp' => 1.week.ago.to_date },
-        { 'content_store_document_type' => 'news_article', 'public_timestamp' => 1.day.ago },
+        { "content_store_document_type" => "publication", "public_timestamp" => 1.week.ago.to_date },
+        { "content_store_document_type" => "news_article", "public_timestamp" => 1.day.ago },
       ]
-      @rummager.expects(:search).once.returns('results' => documents)
+      @rummager.expects(:search).once.returns("results" => documents)
 
       get :index, params: { world_location_id: @world_location }, format: :atom
 
       assert_select_atom_feed do
-        assert_select 'feed > id', 1
-        assert_select 'feed > title', 1
-        assert_select 'feed > author, feed > entry > author'
-        assert_select 'feed > updated', 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        assert_select "feed > id", 1
+        assert_select "feed > title", 1
+        assert_select "feed > author, feed > entry > author"
+        assert_select "feed > updated", 1
+        assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml",
                       world_location_news_index_url(format: :atom, world_location_id: @world_location), 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+        assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", root_url, 1
       end
     end
   end
 
   test "shows the latest published edition for a featured document" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).twice.returns('results' => [])
+      @rummager.expects(:search).twice.returns("results" => [])
       news = create(:published_news_article, first_published_at: 2.days.ago)
       editor = create(:departmental_editor)
       news.create_draft(editor)
@@ -139,7 +139,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       get :index, params: { world_location_id: @world_location, locale: :fr }
       assert_featured_editions [less_recent_news_article, more_recent_news_article]
 
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
       get :index, params: { world_location_id: @world_location, locale: :en }
       assert_featured_editions [less_recent_news_article]
     end
@@ -147,7 +147,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "excludes ended features" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
       news = create(:published_news_article, first_published_at: 2.days.ago)
       feature_list = create(:feature_list, featurable: @world_location, locale: :en)
       create(:feature, feature_list: feature_list, document: news.document, started_at: 2.days.ago, ended_at: 1.day.ago)
@@ -159,7 +159,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "shows a maximum of 5 featured news articles" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
       english = FeatureList.create!(featurable: @world_location, locale: :en)
       6.times do
         news_article = create(:published_news_article)
@@ -174,7 +174,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "should set world location slimmer headers" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
       get :index, params: { world_location_id: @world_location.id }
 
       assert_equal "<#{@world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
@@ -183,7 +183,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).once
+      @rummager.expects(:search).returns("results" => []).once
       @rummager.expects(:search).with(announcement_search_options).returns("results" => [
         { "public_timestamp" => 1.day.ago, "content_id" => "content_id_1", "content_store_document_type" => "news_story" },
         { "public_timestamp" => 2.days.ago, "content_id" => "content_id_2", "content_store_document_type" => "news_story" },
@@ -192,12 +192,12 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       get :index, params: { world_location_id: @world_location }
       assert_select "#our-announcements" do
         assert_select "#announcements_content_id_1" do
-          assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
-          assert_select '.document-type', "News story"
+          assert_select ".publication-date time[datetime=?]", 1.days.ago.iso8601
+          assert_select ".document-type", "News story"
         end
         assert_select "#announcements_content_id_2" do
-          assert_select '.publication-date time[datetime=?]', 2.days.ago.iso8601
-          assert_select '.document-type', "News story"
+          assert_select ".publication-date time[datetime=?]", 2.days.ago.iso8601
+          assert_select ".document-type", "News story"
         end
         assert_select "a[href^='#{announcements_path}'][href*='world_locations%5B%5D=#{@world_location.to_param}']"
       end
@@ -206,7 +206,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "should display world_location's latest two non-statistics publications in reverse chronological order" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_publication, world_locations: [@world_location], first_published_at: 2.days.ago)
       publication_1 = create(:published_publication, world_locations: [@world_location], first_published_at: 1.day.ago)
@@ -222,7 +222,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
       publication_3 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
@@ -232,8 +232,8 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
       assert_select "#publications" do
         assert_select_object publication_2 do
-          assert_select '.publication-date time[datetime=?]', 2.days.ago.to_date.to_datetime.iso8601
-          assert_select '.document-type', "Policy paper"
+          assert_select ".publication-date time[datetime=?]", 2.days.ago.to_date.to_datetime.iso8601
+          assert_select ".document-type", "Policy paper"
         end
         assert_select_object publication_3
         refute_select_object publication_1
@@ -244,7 +244,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "should display world location's latest two statistics publications in reverse chronological order" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago)
       publication_1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
@@ -257,7 +257,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
       publication_3 = create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
@@ -267,12 +267,12 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
       assert_select "#statistics-publications" do
         assert_select_object publication_1 do
-          assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
-          assert_select '.document-type', "National Statistics"
+          assert_select ".publication-date time[datetime=?]", 1.days.ago.to_date.to_datetime.iso8601
+          assert_select ".document-type", "National Statistics"
         end
         assert_select_object publication_2
         refute_select_object publication_3
-        assert_select "a[href=?]", publications_filter_path(@world_location, publication_filter_option: 'statistics')
+        assert_select "a[href=?]", publications_filter_path(@world_location, publication_filter_option: "statistics")
       end
     end
   end
@@ -281,7 +281,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_news_article, world_locations: [@translated_world_location], translated_into: [:fr])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
     assert_select ".type", "World location news"
     assert_select "#publications .see-all a", /Voir toutes nos publications/
@@ -292,7 +292,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_speech = create(:published_speech, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_speech, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
     assert_equal [translated_speech], assigns(:announcements).object
   end
@@ -301,7 +301,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_publication = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
     assert_equal [translated_publication], assigns(:non_statistics_publications).object
   end
@@ -310,7 +310,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_statistics = create(:published_statistics, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_statistics, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
     assert_equal [translated_statistics], assigns(:statistics_publications).object
   end
@@ -319,7 +319,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_publication = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
     assert_equal [translated_publication], assigns(:recently_updated)
   end
@@ -328,7 +328,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_edition = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location.id, locale: 'fr' }, format: :atom
+    get :index, params: { world_location_id: @translated_world_location.id, locale: "fr" }, format: :atom
 
     assert_select_atom_feed do
       with_locale :fr do
@@ -339,12 +339,12 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "should show featured links if there are some" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
       featured_link = create(:featured_link, linkable: @world_location)
 
       get :index, params: { world_location_id: @world_location }
 
-      assert_select '.featured-links' do
+      assert_select ".featured-links" do
         assert_select "a[href='#{featured_link.url}']", text: featured_link.title
       end
     end
@@ -352,12 +352,12 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "does not set lang=en on featured links for english pages" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => []).twice
+      @rummager.expects(:search).returns("results" => []).twice
       create(:featured_link, linkable: @world_location)
 
       get :index, params: { world_location_id: @world_location }
 
-      assert_select '.featured-links[lang=en]', false, "English world location pages should not set lang=en on featured links"
+      assert_select ".featured-links[lang=en]", false, "English world location pages should not set lang=en on featured links"
     end
   end
 
@@ -365,8 +365,8 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
-    assert_select '.featured-links[lang=en]'
+    assert_select ".featured-links[lang=en]"
   end
 end

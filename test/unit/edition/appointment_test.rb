@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::AppointmentTest < ActiveSupport::TestCase
   class EditionWithAppointment < Edition
     include ::Edition::Appointment
 
     def imported?
-      state == 'imported'
+      state == "imported"
     end
   end
 
@@ -13,9 +13,9 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
 
   def valid_edition_attributes
     {
-      title:   'edition-title',
-      body:    'edition-body',
-      creator: build(:user)
+      title:   "edition-title",
+      body:    "edition-body",
+      creator: build(:user),
     }
   end
 
@@ -36,6 +36,6 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
   end
 
   test "editions allowed some invalid data don't have to have a role appointment" do
-    EditionWithAppointment.new(valid_edition_attributes.merge(state: 'imported')).valid?
+    EditionWithAppointment.new(valid_edition_attributes.merge(state: "imported")).valid?
   end
 end

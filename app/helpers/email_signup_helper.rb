@@ -18,7 +18,7 @@ private
   end
 
   def email_alert_frontend_signup_url(feed_url)
-    base_path = URI.parse(feed_url).path.chomp('.atom')
+    base_path = URI.parse(feed_url).path.chomp(".atom")
     "#{Plek.new.website_root}/email-signup?link=#{base_path}"
   end
 end

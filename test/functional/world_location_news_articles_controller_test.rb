@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
@@ -20,7 +20,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
   end
 
   view_test "renders the world location news article summary from plain text" do
-    world_news_article = create(:published_world_location_news_article, summary: 'plain *text* & so on')
+    world_news_article = create(:published_world_location_news_article, summary: "plain *text* & so on")
     get :show, params: { id: world_news_article.document }
 
     assert_select ".summary", text: "plain *text* & so on"

@@ -37,7 +37,7 @@ Whitehall::Application.configure do
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+  config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for nginx
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -90,10 +90,10 @@ Whitehall::Application.configure do
 
   # Send emails via SMTP if SMTP_PORT is set, otherwise send via SES
   # This is mainly used for sending emails to MailHog in the dev VM
-  if ENV['SMTP_PORT']
+  if ENV["SMTP_PORT"]
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      port: ENV['SMTP_PORT']
+      port: ENV["SMTP_PORT"],
     }
   else
     config.action_mailer.delivery_method = :ses

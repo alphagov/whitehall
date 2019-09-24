@@ -624,7 +624,7 @@ non_existent_policies = [
   { id: 259401, edition_id: nil, policy_content_id: "5d646277-7631-11e4-a3cb-005056011aef" },
   { id: 259403, edition_id: nil, policy_content_id: "5d646277-7631-11e4-a3cb-005056011aef" },
   { id: 259421, edition_id: nil, policy_content_id: "5d646277-7631-11e4-a3cb-005056011aef" },
-  { id: 259424, edition_id: nil, policy_content_id: "5d646277-7631-11e4-a3cb-005056011aef" }
+  { id: 259424, edition_id: nil, policy_content_id: "5d646277-7631-11e4-a3cb-005056011aef" },
 ]
 
 ids = non_existent_policies.map { |policy_hash| policy_hash[:id] }

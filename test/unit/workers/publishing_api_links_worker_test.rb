@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApiLinksWorkerTest < ActiveSupport::TestCase
   test "raises an error if an edition's document is locked" do

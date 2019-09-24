@@ -3,16 +3,16 @@ WorldLocation.all.each do |world_location|
 
   english_base_path = Whitehall.url_maker.world_location_news_index_path(
     world_location,
-    locale: "en"
+    locale: "en",
   )
 
   content_id_from_publishing_api = Services.publishing_api.lookup_content_id(
-    base_path: english_base_path
+    base_path: english_base_path,
   )
 
   world_location.update_column(
     :news_page_content_id,
-    content_id_from_publishing_api
+    content_id_from_publishing_api,
   )
 
   print "."

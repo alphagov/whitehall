@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'capybara/rails'
+require "test_helper"
+require "capybara/rails"
 
 class AdminAnalyticsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -9,11 +9,11 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    ENV['GDS_SSO_MOCK_INVALID'] = '1'
+    ENV["GDS_SSO_MOCK_INVALID"] = "1"
   end
 
   teardown do
-    ENV.delete('GDS_SSO_MOCK_INVALID')
+    ENV.delete("GDS_SSO_MOCK_INVALID")
   end
 
   # GA is noisy in tests because all GA calls become console.log so we

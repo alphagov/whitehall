@@ -36,14 +36,14 @@ class Policy
   end
 
   def slug
-    @slug ||= base_path.split('/').last
+    @slug ||= base_path.split("/").last
   end
 
   class << self
     private
 
     def linkables
-      Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
+      Rails.cache.fetch("policy.linkables", expires_in: 5.minutes) do
         Services.publishing_api_with_low_timeout.get_linkables(document_type: "policy").to_a
       end
     rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
@@ -52,7 +52,7 @@ class Policy
       # memcached, so we will have 5 minutes of staleness before the key is evicted.
       # If there's no key in the cache, raise the original error. Frontend controllers can choose to
       # display empty data, but admin controllers will prefer to error the page.
-      stale_data = Rails.cache.fetch('policy.linkables')
+      stale_data = Rails.cache.fetch("policy.linkables")
       return stale_data if stale_data
 
       raise

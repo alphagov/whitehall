@@ -64,7 +64,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.stubs(:publish_withdrawal_async)
 
-    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+    edition.build_unpublishing(explanation: "Old policy", unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
     RummagerPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
@@ -77,7 +77,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     first = create(:published_edition)
 
     major = first.create_draft(user)
-    major.change_note = 'This was a major change'
+    major.change_note = "This was a major change"
     force_publish(major)
 
     assert_equal "This was a major change", major.search_index["latest_change_note"]
@@ -85,7 +85,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should not add edition to search index if it is not available in English" do
     I18n.locale = :fr
-    french_edition = create(:submitted_edition, title: 'French Title', body: 'French Body', primary_locale: :fr)
+    french_edition = create(:submitted_edition, title: "French Title", body: "French Body", primary_locale: :fr)
     stub_publishing_api_registration_for(french_edition)
     I18n.locale = I18n.default_locale
     RummagerPresenters.stubs(:searchable_classes).returns([french_edition.class])

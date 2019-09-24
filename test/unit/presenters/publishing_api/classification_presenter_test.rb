@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::ClassificationTest < ActiveSupport::TestCase
   test "presents a valid placeholder 'topic' content item" do
@@ -17,8 +17,8 @@ class PublishingApi::ClassificationTest < ActiveSupport::TestCase
       routes: [
         {
           path: public_path,
-          type: "exact"
-        }
+          type: "exact",
+        },
       ],
       redirects: [],
       public_updated_at: topic.updated_at,

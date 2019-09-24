@@ -23,10 +23,10 @@ class PromotionalFeaturePresenter < Whitehall::Decorators::Decorator
   end
 
   def clear_class
-    'clear-promo' if (position % 3).zero?
+    "clear-promo" if (position % 3).zero?
   end
 
   def css_classes
-    ['promo', width_class, clear_class].compact.join(' ')
+    ["promo", width_class, clear_class].compact.join(" ")
   end
 end

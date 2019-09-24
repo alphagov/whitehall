@@ -1,1 +1,1 @@
-Edition.archived.update_all(state: 'withdrawn')
+Edition.archived.update_all(state: "withdrawn")

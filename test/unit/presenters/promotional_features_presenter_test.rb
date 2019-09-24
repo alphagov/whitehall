@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class PromotionalFeaturesPresenterTest < ActionView::TestCase
   setup do
     setup_view_context
   end
 
-  test 'returns a position-aware enumerable collection of PromotionalFeaturePresenters' do
+  test "returns a position-aware enumerable collection of PromotionalFeaturePresenters" do
     organisation = create(:executive_office)
     single_feature = create(:promotional_feature, organisation: organisation)
     create(:promotional_feature_item, promotional_feature: single_feature)

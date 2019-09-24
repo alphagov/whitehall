@@ -18,7 +18,7 @@ class Admin::WorldLocationsController < Admin::BaseController
 
     filter_params = default_filter_params
       .merge(params.permit!.to_h.slice(:page, :type, :world_location, :title).symbolize_keys)
-      .merge(state: 'published')
+      .merge(state: "published")
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @world_location.offsite_links
@@ -34,7 +34,7 @@ private
 
   def default_filter_params
     {
-      world_location: @world_location.id
+      world_location: @world_location.id,
     }
   end
 
@@ -48,7 +48,7 @@ private
       :title,
       :active,
       :mission_statement,
-      featured_links_attributes: %i[url title id _destroy]
+      featured_links_attributes: %i[url title id _destroy],
     )
   end
 end

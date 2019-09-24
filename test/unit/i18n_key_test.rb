@@ -10,7 +10,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   test "all locale files are up-to-date" do
     default_keys = keys_in_locale_file(default_locale_file_path)
     required_keys = default_keys - optional_keys
-    locale_files = Dir[Rails.root.join('config', 'locales', '*.yml')] - [default_locale_file_path.to_s]
+    locale_files = Dir[Rails.root.join("config", "locales", "*.yml")] - [default_locale_file_path.to_s]
 
     locale_files.each do |locale_file|
       missing_keys = required_keys - keys_in_locale_file(locale_file)
@@ -76,7 +76,7 @@ private
   end
 
   def default_locale_file_path
-    Rails.root.join('config', 'locales', "#{I18n.default_locale}.yml")
+    Rails.root.join("config", "locales", "#{I18n.default_locale}.yml")
   end
 
   def any_nil_values?(hash)
@@ -91,26 +91,26 @@ private
   def optional_keys
     # These keys are optional, and the code will work around their absence
     [
-      'corporate_information_page.type.link_text.about',
-      'corporate_information_page.type.link_text.about_our_services',
-      'corporate_information_page.type.link_text.access_and_opening',
-      'corporate_information_page.type.link_text.complaints_procedure',
-      'corporate_information_page.type.link_text.equality_and_diversity',
-      'corporate_information_page.type.link_text.media_enquiries',
-      'corporate_information_page.type.link_text.membership',
-      'corporate_information_page.type.link_text.our_energy_use',
-      'corporate_information_page.type.link_text.our_governance',
-      'corporate_information_page.type.link_text.personal_information_charter',
-      'corporate_information_page.type.link_text.petitions_and_campaigns',
-      'corporate_information_page.type.link_text.procurement',
-      'corporate_information_page.type.link_text.publication_scheme',
-      'corporate_information_page.type.link_text.recruitment',
-      'corporate_information_page.type.link_text.research',
-      'corporate_information_page.type.link_text.social_media_use',
-      'corporate_information_page.type.link_text.staff_update',
-      'corporate_information_page.type.link_text.statistics',
-      'corporate_information_page.type.link_text.terms_of_reference',
-      'corporate_information_page.type.link_text.welsh_language_scheme',
+      "corporate_information_page.type.link_text.about",
+      "corporate_information_page.type.link_text.about_our_services",
+      "corporate_information_page.type.link_text.access_and_opening",
+      "corporate_information_page.type.link_text.complaints_procedure",
+      "corporate_information_page.type.link_text.equality_and_diversity",
+      "corporate_information_page.type.link_text.media_enquiries",
+      "corporate_information_page.type.link_text.membership",
+      "corporate_information_page.type.link_text.our_energy_use",
+      "corporate_information_page.type.link_text.our_governance",
+      "corporate_information_page.type.link_text.personal_information_charter",
+      "corporate_information_page.type.link_text.petitions_and_campaigns",
+      "corporate_information_page.type.link_text.procurement",
+      "corporate_information_page.type.link_text.publication_scheme",
+      "corporate_information_page.type.link_text.recruitment",
+      "corporate_information_page.type.link_text.research",
+      "corporate_information_page.type.link_text.social_media_use",
+      "corporate_information_page.type.link_text.staff_update",
+      "corporate_information_page.type.link_text.statistics",
+      "corporate_information_page.type.link_text.terms_of_reference",
+      "corporate_information_page.type.link_text.welsh_language_scheme",
     ]
   end
 

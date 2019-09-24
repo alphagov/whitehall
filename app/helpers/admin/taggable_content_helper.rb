@@ -45,7 +45,7 @@ module Admin::TaggableContentHelper
   # ID of the organisation
   def taggable_organisations_container
     Rails.cache.fetch(taggable_organisations_cache_digest, expires_in: 1.day) do
-      Organisation.with_translations.order('organisation_translations.name').map { |o| [o.select_name, o.id] }
+      Organisation.with_translations.order("organisation_translations.name").map { |o| [o.select_name, o.id] }
     end
   end
 
@@ -157,21 +157,21 @@ module Admin::TaggableContentHelper
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
-    @taggable_topics_cache_digest ||= calculate_digest(Topic.order(:id), 'topics')
+    @taggable_topics_cache_digest ||= calculate_digest(Topic.order(:id), "topics")
   end
 
   # Returns an MD5 digest representing the current set of taggable topical
   # events. This will change if any of the Topics should change or if a new
   # topic event is added.
   def taggable_topical_events_cache_digest
-    @taggable_topical_events_cache_digest ||= calculate_digest(TopicalEvent.order(:id), 'topical-events')
+    @taggable_topical_events_cache_digest ||= calculate_digest(TopicalEvent.order(:id), "topical-events")
   end
 
   # Returns an MD5 digest representing the current set of taggable
   # organisations. This will change if any of the Topics should change or if a
   # new organisation is added.
   def taggable_organisations_cache_digest
-    @taggable_organisations_cache_digest ||= calculate_digest(Organisation.order(:id), 'organisations')
+    @taggable_organisations_cache_digest ||= calculate_digest(Organisation.order(:id), "organisations")
   end
 
   # Returns an MD5 digest representing the current set of taggable ministerial
@@ -182,7 +182,7 @@ module Admin::TaggableContentHelper
       calculate_digest(RoleAppointment.
                         joins(:role).
                         where(roles: { type: "MinisterialRole" }).
-                        order("role_appointments.id"), 'ministerial-role-appointments')
+                        order("role_appointments.id"), "ministerial-role-appointments")
     end
   end
 
@@ -190,58 +190,58 @@ module Admin::TaggableContentHelper
   # role appointments. This will change if any role appointments are added or
   # changed, and also if an occupied Role is updated.
   def taggable_role_appointments_cache_digest
-    @taggable_role_appointments_cache_digest ||= calculate_digest(RoleAppointment.order(:id), 'role-appointments')
+    @taggable_role_appointments_cache_digest ||= calculate_digest(RoleAppointment.order(:id), "role-appointments")
   end
 
   # Returns an MD5 digest representing the current set of taggable ministerial
   # rile appointments. THis will change if any ministerial role is added or
   # updated.
   def taggable_ministerial_roles_cache_digest
-    @taggable_ministerial_roles_cache_digest ||= calculate_digest(MinisterialRole.order(:id), 'ministerial-roles')
+    @taggable_ministerial_roles_cache_digest ||= calculate_digest(MinisterialRole.order(:id), "ministerial-roles")
   end
 
   # Returns an MD5 digest representing all the detailed guides. This wil change
   # if any detailed guides are added or updated.
   def taggable_detailed_guides_cache_digest
-    @taggable_detailed_guides_cache_digest ||= calculate_digest(Document.where(document_type: "DetailedGuide").order(:id), 'detailed-guides')
+    @taggable_detailed_guides_cache_digest ||= calculate_digest(Document.where(document_type: "DetailedGuide").order(:id), "detailed-guides")
   end
 
   # Returns an MD5 digest representing the taggable statistical data sets. This
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
-    @taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: "StatisticalDataSet").order(:id), 'statistical-data-sets')
+    @taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: "StatisticalDataSet").order(:id), "statistical-data-sets")
   end
 
   # Returns an MD5 digest representing the taggable policies. This will change
   # if any policies are added or updated.
   def taggable_policies_cache_digest
-    @taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: "Policy").order(:id), 'policies')
+    @taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: "Policy").order(:id), "policies")
   end
 
   # Returns an MD5 digest representing the taggable world locations. This will
   # change if any world locations are added or updated.
   def taggable_world_locations_cache_digest
-    @taggable_world_locations_cache_digest ||= calculate_digest(WorldLocation.order(:id), 'world-locations')
+    @taggable_world_locations_cache_digest ||= calculate_digest(WorldLocation.order(:id), "world-locations")
   end
 
   # Returns an MD5 digest representing the taggable alternative format
   # providers. This will change if any alternative format providers are
   # changed.
   def taggable_alternative_format_providers_cache_digest
-    @taggable_alternative_format_providers_cache_digest ||= calculate_digest(Organisation.order(:id), 'alternative-format-providers')
+    @taggable_alternative_format_providers_cache_digest ||= calculate_digest(Organisation.order(:id), "alternative-format-providers")
   end
 
   # Returns an MD5 digest representing the taggable document collection
   # groups. This will change if any document collection or group within
   # the collection is changed or any new ones are added.
   def taggable_document_collection_groups_cache_digest
-    @taggable_document_collection_groups_cache_digest ||= calculate_digest(Document.where(document_type: "DocumentCollection").order(:id), 'document-collection-groups')
+    @taggable_document_collection_groups_cache_digest ||= calculate_digest(Document.where(document_type: "DocumentCollection").order(:id), "document-collection-groups")
   end
 
   # Returns an MD5 digest representing the taggable worldwide organisations.
   # This will change if any worldwide organisations are added or updated.
   def taggable_worldwide_organisations_cache_digest
-    @taggable_worldwide_organisations_cache_digest ||= calculate_digest(WorldwideOrganisation.order(:id), 'worldwide-organisations')
+    @taggable_worldwide_organisations_cache_digest ||= calculate_digest(WorldwideOrganisation.order(:id), "worldwide-organisations")
   end
 
 private
@@ -267,6 +267,6 @@ private
       role << " (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
     end
 
-    [person, role, organisations].join(', ')
+    [person, role, organisations].join(", ")
   end
 end

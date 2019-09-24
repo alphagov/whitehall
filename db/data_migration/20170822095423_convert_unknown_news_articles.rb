@@ -4,7 +4,7 @@ begin
   published_edition_ids = unknown_news_articles.published.map(&:id)
 
   # We want to return ActiveRecord relations here, so that `update_all` works
-  press_releases = unknown_news_articles.joins(:document).where("documents.slug REGEXP ?", 'press-release')
+  press_releases = unknown_news_articles.joins(:document).where("documents.slug REGEXP ?", "press-release")
   news_story_ids = (unknown_news_articles - press_releases).map(&:id)
   news_stories = NewsArticle.where(id: news_story_ids)
 
@@ -29,7 +29,7 @@ begin
     SearchIndexAddWorker.perform_async_in_queue(
       "bulk_republishing",
       edition.class.name,
-      edition.id
+      edition.id,
     )
     print "."
   end

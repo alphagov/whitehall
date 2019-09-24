@@ -6,8 +6,8 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     @groups = @collection.groups.includes(
       memberships: [
         { document: { latest_edition: %i[organisations translations] } },
-        :non_whitehall_link
-      ]
+        :non_whitehall_link,
+      ],
     )
   end
 

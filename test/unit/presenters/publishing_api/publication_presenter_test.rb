@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   def present(edition)
@@ -9,24 +9,24 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     government = create(:government)
     statistical_data_set = create(:published_statistical_data_set)
     publication = create(:published_publication,
-                         title: 'Publication title',
-                         summary: 'The summary',
-                         body: 'Some content',
+                         title: "Publication title",
+                         summary: "The summary",
+                         body: "Some content",
                          statistical_data_sets: [statistical_data_set])
 
     public_path = Whitehall.url_maker.public_document_path(publication)
     expected_content = {
       base_path: public_path,
-      title: 'Publication title',
-      description: 'The summary',
-      schema_name: 'publication',
-      document_type: 'policy_paper',
-      locale: 'en',
+      title: "Publication title",
+      description: "The summary",
+      schema_name: "publication",
+      document_type: "policy_paper",
+      locale: "en",
       public_updated_at: publication.public_timestamp,
-      publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      publishing_app: "whitehall",
+      rendering_app: "government-frontend",
       routes: [
-        { path: public_path, type: 'exact' }
+        { path: public_path, type: "exact" },
       ],
       redirects: [],
       first_published_at: publication.first_public_at,
@@ -36,19 +36,19 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         tags: {
           browse_pages: [],
           policies: %w[2012-olympic-and-paralympic-legacy],
-          topics: []
+          topics: [],
         },
         documents: ["<section class=\"attachment embedded\" id=\"attachment_#{publication.attachments.first.id}\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" tabindex=\"-1\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\"><img alt=\"\" src=\"/government/assets/pub-cover-html.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{publication.attachments.first.title}</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"],
         first_public_at: publication.first_public_at,
         change_history: [
-          { public_timestamp: publication.public_timestamp, note: 'change-note' }.as_json
+          { public_timestamp: publication.public_timestamp, note: "change-note" }.as_json,
         ],
         emphasised_organisations: publication.lead_organisations.map(&:content_id),
         political: false,
         government: {
           title: government.name,
           slug: government.slug,
-          current: government.current?
+          current: government.current?,
         },
       },
     }
@@ -72,14 +72,14 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_policies: %w[5d37821b-7631-11e4-a3cb-005056011aef],
       policy_areas: publication.topics.map(&:content_id),
       roles: publication.role_appointments.map(&:role).collect(&:content_id),
-      people: publication.role_appointments.map(&:person).collect(&:content_id)
+      people: publication.role_appointments.map(&:person).collect(&:content_id),
     }
     expected_content[:links] = expected_links
 
     presented_item = present(publication)
 
-    assert_valid_against_schema(presented_item.content, 'publication')
-    assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
+    assert_valid_against_schema(presented_item.content, "publication")
+    assert_valid_against_links_schema({ links: presented_item.links }, "publication")
 
     assert_equal expected_content.except(:details),
                  presented_item.content.except(:details)
@@ -94,7 +94,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal publication.document.content_id, presented_item.content_id
   end
 
-  test 'links hash includes topics and parent if set' do
+  test "links hash includes topics and parent if set" do
     edition = create(:published_publication)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
     create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
@@ -123,7 +123,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
     }
 
-    assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
+    assert_valid_against_links_schema({ links: presented_item.links }, "publication")
     assert_hash_includes presented_item.links, expected_links_hash
     assert_hash_includes presented_item.content[:links], expected_links_hash
   end
@@ -135,11 +135,11 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     create(:government)
     new_edition = create(:published_publication, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
     presented_item = present(new_edition)
-    assert_valid_against_schema(presented_item.content, 'publication')
+    assert_valid_against_schema(presented_item.content, "publication")
     presented_history = presented_item.content[:details][:change_history]
     expected_history = [
       { public_timestamp: new_timestamp, note: "More changes" },
-      { public_timestamp: original_timestamp, note: "change-note" }
+      { public_timestamp: original_timestamp, note: "change-note" },
     ].as_json
     assert_equal expected_history, presented_history
   end
@@ -149,7 +149,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     publication = create(:published_publication,
                          world_locations: [location])
     presented_item = present(publication)
-    assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
+    assert_valid_against_links_schema({ links: presented_item.links }, "publication")
     assert_equal [location.content_id], presented_item.links[:world_locations]
     assert_equal [location.content_id], presented_item.content[:links][:world_locations]
   end
@@ -164,13 +164,13 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "it uses the PayloadBuilder::FirstPublishedAt helper" do
     publication = create(:publication)
-    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns(first_published_at: 'test')
-    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns(first_public_at: 'test')
+    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns(first_published_at: "test")
+    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns(first_public_at: "test")
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
     @presented_content = presented_publication.content
 
-    assert_equal('test', @presented_content[:first_published_at])
-    assert_equal('test', @presented_content[:details][:first_public_at])
+    assert_equal("test", @presented_content[:first_published_at])
+    assert_equal("test", @presented_content[:details][:first_public_at])
   end
 
   test "duplicate roles are only presented once" do
@@ -178,7 +178,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     current_minister = create(:ministerial_role_appointment, role: role)
     former_minister = create(
       :ministerial_role_appointment,
-      role: role, started_at: 2.years.ago, ended_at: 1.year.ago
+      role: role, started_at: 2.years.ago, ended_at: 1.year.ago,
     )
     publication = create(:publication,
                          role_appointments: [current_minister, former_minister])
@@ -192,7 +192,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(locale: 'cy', title: "welsh one")
+    attachment.update_attributes!(locale: "cy", title: "welsh one")
     publication.reload #ensures the html attachment is in #attachments and #html_attachmnents
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
@@ -208,7 +208,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(locale: 'cy', title: "welsh one")
+    attachment.update_attributes!(locale: "cy", title: "welsh one")
     publication.reload
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
@@ -247,8 +247,8 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       [
         build(:csv_attachment, id: 1, title: "en one", locale: "en"),
         build(:csv_attachment, id: 2, title: "cy one", locale: "cy"),
-        build(:csv_attachment, id: 3, title: "nil one", locale: nil)
-      ]
+        build(:csv_attachment, id: 3, title: "nil one", locale: nil),
+      ],
     )
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)

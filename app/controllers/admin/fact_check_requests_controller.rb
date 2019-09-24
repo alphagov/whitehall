@@ -55,7 +55,7 @@ private
 
   def mailer_url_options
     options = { host: request.host }
-    options[:protocol] = request.protocol unless request.protocol == 'http://'
+    options[:protocol] = request.protocol unless request.protocol == "http://"
     options[:port] = request.port unless request.port == 80 || request.port == 443
     options
   end

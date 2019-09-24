@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::TopicalEventsTest < ActiveSupport::TestCase
   test "includes PublishesToPublishingApi" do
@@ -19,7 +19,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     edition = create(:published_news_article, topical_events: [topical_event])
 
     new_edition = edition.create_draft(create(:writer))
-    new_edition.change_note = 'change-note'
+    new_edition.change_note = "change-note"
     force_publish(new_edition)
 
     assert_equal topical_event, new_edition.topical_events.first
@@ -28,7 +28,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
   test "#destroy should also remove the classification featuring relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_news_article)
-    _rel = topical_event.feature(edition_id: edition.id, alt_text: 'Woooo', image: create(:classification_featuring_image_data))
+    _rel = topical_event.feature(edition_id: edition.id, alt_text: "Woooo", image: create(:classification_featuring_image_data))
     relation = edition.classification_featurings.first
     edition.destroy
     refute ClassificationFeaturing.find_by(id: relation.id)
@@ -41,7 +41,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     topical_event.feature(edition_id: edition.id, image: featured_image, alt_text: "alt-text", ordering: 12)
 
     new_edition = edition.create_draft(create(:writer))
-    new_edition.change_note = 'change-note'
+    new_edition.change_note = "change-note"
     force_publish(new_edition)
 
     featuring = new_edition.classification_featurings.first

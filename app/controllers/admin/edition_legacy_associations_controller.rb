@@ -20,8 +20,8 @@ private
 
   def get_path
     paths = {
-      'edit' => edit_admin_edition_path(@edition),
-      'tags' => edit_admin_edition_tags_path(@edition)
+      "edit" => edit_admin_edition_path(@edition),
+      "tags" => edit_admin_edition_tags_path(@edition),
     }
     paths[params[:return]] || admin_edition_path(@edition)
   end

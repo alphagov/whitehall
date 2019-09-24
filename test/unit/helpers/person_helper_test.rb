@@ -7,10 +7,10 @@ class PersonHelperTest < ActionView::TestCase
     person_one = build(:person, forename: "Peter ", surname: "Jones")
     person_two = build(:person, forename: "Peter", surname: "Jones")
     person_one.stubs(:name_with_disambiguator).returns(
-      "Peter Jones - Executive Director, Prisons"
+      "Peter Jones - Executive Director, Prisons",
     )
     person_two.stubs(:name_with_disambiguator).returns(
-      "Peter Jones - Director, Overseas Territories"
+      "Peter Jones - Director, Overseas Territories",
     )
 
     Person.stubs(:includes).returns([person_one, person_two])

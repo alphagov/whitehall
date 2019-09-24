@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
   def present(model_instance)
     PublishingApi::ServicesAndInformationPresenter.new(model_instance)
   end
 
-  test 'presents a Services and Information page ready for adding to the publishing API' do
+  test "presents a Services and Information page ready for adding to the publishing API" do
     organisation = create(:organisation, name: "Organisation of Things")
     public_path = Whitehall.url_maker.organisation_path(organisation) + "/services-information"
 
@@ -26,10 +26,10 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     }
     expected_links = {
       parent: [
-        organisation.content_id
+        organisation.content_id,
       ],
       organisations: [
-        organisation.content_id
+        organisation.content_id,
       ],
     }
     expected_update_type = "minor"

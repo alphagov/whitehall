@@ -11,7 +11,7 @@ module PublishingApi
 
         expected_hash = {
           base_path: "/government/pub/doc/path",
-          routes: [{ path: "/government/pub/doc/path", type: "exact" }]
+          routes: [{ path: "/government/pub/doc/path", type: "exact" }],
         }
 
         assert_equal PublicDocumentPath.for(dummy_item), expected_hash

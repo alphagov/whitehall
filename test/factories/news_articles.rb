@@ -13,7 +13,7 @@ FactoryBot.define do
         document = create(
           :published_policy,
           :with_document,
-          relevant_to_local_government: true
+          relevant_to_local_government: true,
         ).document
         news_article.related_documents << document
       end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 require "gds_api/test_helpers/content_store"
 
 class RoutingTest < ActionDispatch::IntegrationTest
@@ -11,7 +11,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "assets are served under the #{Whitehall.router_prefix} prefix" do
-    content_store_has_item('/courts-tribunals', {})
+    content_store_has_item("/courts-tribunals", {})
     stub_taxonomy_with_all_taxons
     rummager = stub
 
@@ -44,7 +44,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "admin URLs are reachable when accessed via the admin host in production" do
-    admin_host = 'whitehall-admin.production.alphagov.co.uk'
+    admin_host = "whitehall-admin.production.alphagov.co.uk"
     Whitehall.stubs(:admin_host).returns(admin_host)
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
     host! admin_host
@@ -55,9 +55,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "admin URLs are not reachable when accessed via non-admin hosts in production" do
-    Whitehall.stubs(:admin_host).returns('whitehall-admin.production.alphagov.co.uk')
+    Whitehall.stubs(:admin_host).returns("whitehall-admin.production.alphagov.co.uk")
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    host! 'whitehall.production.alphagov.co.uk'
+    host! "whitehall.production.alphagov.co.uk"
     login_as_admin
 
     assert_raise(ActionController::RoutingError) do

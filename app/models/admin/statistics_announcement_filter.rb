@@ -23,7 +23,7 @@ module Admin
     end
 
     def description
-      [date_based_description, additonal_filters_description].compact.join(' ')
+      [date_based_description, additonal_filters_description].compact.join(" ")
     end
 
     def total_count
@@ -96,7 +96,7 @@ module Admin
                             .joins("LEFT OUTER JOIN statistics_announcement_dates sd2
                               ON (sd2.statistics_announcement_id = statistics_announcements.id
                               AND statistics_announcement_dates.created_at > sd2.created_at)")
-                            .group('statistics_announcement_dates.statistics_announcement_id')
+                            .group("statistics_announcement_dates.statistics_announcement_id")
                             .page(options[:page])
     end
 
@@ -106,13 +106,13 @@ module Admin
 
     def date_and_order_scope
       case options[:dates]
-      when 'past'
+      when "past"
         StatisticsAnnouncement.where("statistics_announcement_dates.release_date < ?", Time.zone.now)
                               .order("statistics_announcement_dates.release_date DESC")
-      when 'future'
+      when "future"
         StatisticsAnnouncement.where("statistics_announcement_dates.release_date > ?", Time.zone.now)
                               .order("statistics_announcement_dates.release_date ASC")
-      when 'imminent'
+      when "imminent"
         StatisticsAnnouncement.where("statistics_announcement_dates.release_date > ? AND statistics_announcement_dates.release_date < ?", Time.zone.now, 2.weeks.from_now)
                               .order("statistics_announcement_dates.release_date ASC")
       else
