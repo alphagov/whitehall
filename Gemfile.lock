@@ -295,7 +295,7 @@ GEM
     mini_magick (4.9.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.10.3)
+    minitest (5.12.0)
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
     minitest-stub-const (0.6)
@@ -611,7 +611,7 @@ DEPENDENCIES
   mechanize
   mime-types (~> 3.3)
   mini_magick (~> 4.9.5)
-  minitest (= 5.10.3)
+  minitest (= 5.12.0)
   minitest-fail-fast
   minitest-stub-const
   mlanett-redis-lock
