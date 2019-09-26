@@ -92,7 +92,14 @@ module Whitehall
         response = nil
         log_request(method, *args)
         call_time = Benchmark.realtime do
-          response = RestClient.send(method, *args, content_type: :json, accept: :json, authorization: "Bearer #{ENV['RUMMAGER_BEARER_TOKEN'] || 'example'}")
+          response = RestClient.send(
+            method,
+            *args,
+            content_type: :json,
+            accept: :json,
+            user_agent: "whitehall (rummageable)",
+            authorization: "Bearer #{ENV['RUMMAGER_BEARER_TOKEN'] || 'example'}",
+          )
         end
         log_response(method, call_time, response, *args)
         response
