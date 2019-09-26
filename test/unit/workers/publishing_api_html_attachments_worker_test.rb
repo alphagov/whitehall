@@ -162,6 +162,42 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
 
       call(new_edition)
     end
+
+    test "with deleted html attachments it redirects these to the new edition" do
+      publication = create(:published_publication)
+
+      deleted_attachment = create(:html_attachment)
+      new_attachment = build(:html_attachment)
+
+      edition = publication.create_draft(create(:writer))
+      edition.attachments = [deleted_attachment]
+      edition.minor_change = true
+      edition.submit!
+      edition.publish!
+
+      new_edition = publication.create_draft(create(:writer))
+      deleted_attachment.destroy
+      new_edition.attachments = [deleted_attachment, new_attachment]
+      new_edition.minor_change = true
+
+      new_edition.submit!
+      new_edition.publish!
+
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        "HtmlAttachment",
+        new_attachment.id,
+        "minor",
+        "en",
+      )
+
+      PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        deleted_attachment.content_id,
+        new_edition.search_link,
+        "en",
+      )
+
+      call(new_edition)
+    end
   end
 
   class UpdateDraft < PublishingApiHtmlAttachmentsWorkerTest
