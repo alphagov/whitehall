@@ -60,7 +60,7 @@ gem 'sprockets-rails'
 gem 'statsd-ruby', '~> 1.4.0', require: 'statsd'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'typhoeus', '~> 1.3'
-gem 'uglifier', '~> 4.1'
+gem 'uglifier', '~> 4.2'
 gem 'unicorn', '5.5.1'
 gem 'validates_email_format_of'
 gem 'whenever', '~> 1.0.0', require: false
