@@ -97,6 +97,7 @@ module Whitehall
             *args,
             content_type: :json,
             accept: :json,
+            user_agent: "whitehall (rummageable)",
             authorization: "Bearer #{ENV['RUMMAGER_BEARER_TOKEN'] || 'example'}",
           )
         end
