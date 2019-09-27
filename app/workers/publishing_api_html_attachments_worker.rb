@@ -121,10 +121,11 @@ private
   def content_ids_to_remove
     return Set[] unless previous_edition
 
+    deleted_content_ids = deleted_html_attachments.map(&:content_id).to_set
     old_content_ids = previous_html_attachments.map(&:content_id).to_set
     new_content_ids = current_html_attachments.map(&:content_id).to_set
 
-    old_content_ids - new_content_ids
+    deleted_content_ids + old_content_ids - new_content_ids
   end
 
   def deleted_html_attachments
