@@ -44,6 +44,7 @@ private
     force_publisher = EditionForcePublisher.new(unwithdrawn_edition)
     force_publisher.send(:prepare_edition)
     force_publisher.send(:fire_transition!)
+    force_publisher.send(:update_publishing_api!)
   end
 
   def user
