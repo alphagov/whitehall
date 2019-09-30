@@ -16,13 +16,13 @@ FactoryBot.define do
 
   trait :occupied do
     after :build do |role, _|
-      role.role_appointments = [FactoryBot.build(:role_appointment)]
+      role.role_appointments = [FactoryBot.create(:role_appointment)]
     end
   end
 
   trait :vacant do
     after :build do |role, _|
-      role.role_appointments = [FactoryBot.build(:role_appointment, :ended)]
+      role.role_appointments = [FactoryBot.create(:role_appointment, :ended)]
     end
   end
 end

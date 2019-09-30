@@ -2,9 +2,9 @@ require "test_helper"
 
 class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   setup do
-    @fatality_notice = build(
+    @fatality_notice = create(
       :fatality_notice,
-      document: build(:document, id: 12345, slug: "fatality-notice-title"),
+      document: create(:document, id: 12345, slug: "fatality-notice-title"),
       title: "Fatality Notice title",
       summary: "Fatality Notice summary",
       first_published_at: @first_published_at = Time.zone.now,
