@@ -1,6 +1,8 @@
 require "test_helper"
 
 class EditionUnwithdrawerTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApiV2
+
   setup do
     @edition = FactoryBot.create(:published_edition, state: "withdrawn")
     @user = FactoryBot.create(:user)
@@ -50,6 +52,12 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
     assert_equal edition.document, unwithdrawn_edition.document
     assert_equal @user, unwithdrawn_edition.editorial_remarks.first.author
     assert_equal "Unwithdrawn", unwithdrawn_edition.editorial_remarks.first.body
+  end
+
+  test "unwithdraw sends the new edition to the publishing-api" do
+    unwithdraw
+    assert_publishing_api_put_content(@edition.content_id)
+    assert_publishing_api_publish(@edition.content_id)
   end
 
   def unwithdraw(edition = nil)
