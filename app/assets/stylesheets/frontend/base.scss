@@ -1,5 +1,8 @@
 // BASE STYLESHEET COMPILER
 
+$govuk-use-legacy-palette: true;
+$govuk-typography-use-rem: false;
+
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
@@ -131,3 +134,14 @@
 }
 
 @import "govuk_publishing_components/all_components";
+
+// TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
+// coming from static and the global styles set in `global/_links.scss`. This
+// can be removed when the style from static and Whitehall removed.
+#whitehall-wrapper a.govuk-link{
+  text-decoration: none;
+
+  &:focus {
+    color: $govuk-focus-text-colour;
+  }
+}
