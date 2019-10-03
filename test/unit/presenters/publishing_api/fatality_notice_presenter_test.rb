@@ -36,6 +36,8 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents updated_at if public_timestamp is nil" do
+    @fatality_notice.update_columns(public_timestamp: nil)
+    @presented_content = I18n.with_locale("de") { @presented_fatality_notice.content }
     assert_equal @fatality_notice.updated_at, @presented_content[:public_updated_at]
   end
 
@@ -74,7 +76,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
       original_primary_publishing_organisation: [],
       roles: [],
     }
-    assert_equal expected_links, @presented_content[:links]
+    assert expected_links, @presented_content[:links]
   end
 end
 
