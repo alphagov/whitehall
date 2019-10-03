@@ -2,6 +2,6 @@
 <% if offices.any? -%>
   <li>
     <h3><%= offices.first.contact.locality %></h3>
-    <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug)) %>
+    <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug), class: "govuk-link") %>
   </li>
 <% end -%>

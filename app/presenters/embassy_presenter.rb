@@ -21,6 +21,7 @@ class EmbassyPresenter < SimpleDelegator
       link_to(
         organisation.name,
         worldwide_organisation_path(organisation.slug),
+        class: "govuk-link",
       )
     end
   end
