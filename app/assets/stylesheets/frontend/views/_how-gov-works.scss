@@ -1,17 +1,6 @@
 .inside_gov_how-gov-works {
   .full-width-section{
-    clear:both;
-  }
-
-  p, li{
-    @include ig-core-19;
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  li {
-    margin-left: $gutter;
+    clear: both;
   }
 
   .thirds-width-section,
@@ -21,6 +10,7 @@
     margin-top:$gutter - $gutter-one-sixth;
     margin-bottom:$gutter-two-thirds;
     @extend %contain-floats;
+
     img {
       width: $full-width;
       height: auto;
@@ -31,8 +21,8 @@
     }
 
     @include media(tablet) {
-      margin-left:-$gutter-half;
-      margin-right:-$gutter-half;
+      margin-left: -$gutter-half;
+      margin-right: -$gutter-half;
 
       .inner-block {
         padding: 0 $gutter-half;
@@ -63,8 +53,8 @@
     }
   }
 
-  .ministers{
-    margin-bottom: $gutter*2;
+  .ministers {
+    margin-bottom: $gutter * 2;
   }
 
   .coalition {
@@ -74,128 +64,132 @@
       margin-top: 0;
     }
 
-    p{
-      background-color:$panel-colour;
-      padding:$gutter-half;
-      margin-top:-0.5em;
+    p {
+      background-color: govuk-colour("light-grey", "grey-4");
+      padding: $gutter-half;
+      margin-top: -0.5em;
     }
   }
 
-  .feature-value{
-    font-size:5em;
-    padding-bottom:0;
-    margin:0 0 ($gutter-one-third * -1);
-    color:$grey-1;
-    font-weight: bold;
-    display:block;
-    line-height:1em;
-    a {
-      text-decoration: none;
-      color: $black;
-      &:hover,
-      &:focus {
-        text-decoration: underline;
+  .feature-value {
+    display: block;
+    padding-bottom: 0;
+
+    .feature-value__count {
+      display: block;
+      font-size: 5em;
+      font-weight:  bold;
+      line-height: 1;
+    }
+
+    @include mq($from: tablet, $until: 815px) {
+      &--small .feature-value__count {
+        font-size: 3.85em;
       }
     }
   }
 
-  .feature-caption {
-    @include ig-core-16;
-    display: block;
-    padding-bottom: $gutter;
+  .feature-value__caption {
+    color: inherit;
+    padding: 0 0.2em;
+    position: relative;
+    top: -0.5em;
   }
 
-  .feature-ministers{
-    p {
-      text-align: center;
-      color: $secondary-text-colour;
-      @include ig-core-48;
-      padding: $gutter-half 0 $gutter;
+  .feature-value__link {
+    color: $govuk-link-colour;
+    display: inline-block;
+    text-decoration: none;
+
+    &:focus {
+      @include govuk-focused-text;
+    }
+  }
+
+  .feature-ministers {
+    text-align: center;
+    color: $secondary-text-colour;
+    padding: $gutter-half 0 $gutter;
+
+    .feature-ministers__symbol,
+    .feature-ministers__equals-wrapper {
+      display: inline-block;
     }
 
-    span.circle {
+    .feature-ministers__item {
+      box-sizing: border-box;
+      color: $govuk-text-colour;
       display: inline-block;
-      text-align: center;
+      margin: 0.5em 0;
       padding: 0;
+      text-align: center;
+      text-decoration: none;
       vertical-align: middle;
-      width: 17%;
-      a {
-        text-decoration: none;
-        &:hover,
+      width: 5em;
+
+      @include mq($until: tablet) {
+        &:hover {
+          color: $govuk-link-hover-colour;
+        }
+
         &:focus {
-          text-decoration: underline;
+          @include govuk-focused-text;
         }
       }
 
-      .count {
-        @include core-48;
-        position: relative;
-        top: $gutter-one-third;
-        padding: 0;
-        margin: 0 0 $gutter-one-sixth 0;
-
-        font-size: 1.9em;
-        font-weight: bold;
+      .count,
+      .caption {
         display: block;
         line-height: 1em;
-        a {
-          color:$black;
-        }
       }
 
-      @include media(tablet) {
-        background-color:transparent;
-        border:0.1em solid $inside-gov-secondary;
-        width:3.8em;
-        height:3.8em;
-        -moz-border-radius: 2em;
-        -webkit-border-radius: 2em;
-        border-radius: 5em;
+      @include mq($from: tablet) {
+        border: 0.2em solid $inside-gov-secondary; // https://webaim.org/resources/contrastchecker/?fcolor=0B0C0C&bcolor=57DA95
+        border-radius: 4.5em;
+        height: 9em;
+        width: 9em;
+        padding-top: 1.85em;
+
+        &:hover,
+        &:focus {
+          text-decoration: none;
+        }
 
         &:hover {
-          background-color: darken($inside-gov-secondary,10%);
-          border-color: darken($inside-gov-secondary,10%);
+          color: $govuk-link-hover-colour;
+          background: govuk-colour("white");
+          border-color: $govuk-link-hover-colour;
         }
 
-        a {
-          &:hover,
-          &:focus {
-            text-decoration: none;
-          }
+        &:focus {
+          color: $govuk-focus-text-colour;
+          background: $govuk-focus-colour;
+          border-color: $govuk-focus-text-colour;
+          outline: none;
         }
 
-        .count{
-          padding-top: 0.35em;
-          font-size: 1.9em;
-          font-weight: bold;
-          width:100%;
-          text-align:center;
+        .count,
+        .caption {
+          text-align: center;
         }
-      }
 
-      span{
-        color:black;
-        @include ig-core-16;
-        display: block;
-        padding: 0;
-        margin: 0;
+        .caption {
+          display: inline-block;
+          width: 6em;
+        }
       }
     }
 
     @include media(tablet) {
-      span.invert {
+      .feature-ministers__symbol {
+        margin: 0 1em;
+        position: relative;
+        top: 0.25em;
+      }
+
+      .feature-ministers__item--invert {
         background-color: $inside-gov-secondary;
         border-color: $inside-gov-secondary;
-
-        &:hover {
-          background-color: darken($inside-gov-secondary,10%);
-          border-color: darken($inside-gov-secondary,10%);
-        }
-
-
-        .count a, .caption {
-          color: black;
-        }
       }
     }
   }
@@ -204,68 +198,6 @@
     max-width: 26em;
   }
 
-  h2 {
-    @include ig-core-36;
-    padding-bottom: 1px;
-    border-bottom: 5px solid black;
-    margin: $gutter 0 $gutter;
-    clear:both;
-
-    @include media(tablet) {
-      margin-top: $gutter*2;
-    }
-  }
-
-  h3 {
-    @include ig-core-27;
-    font-weight: bold;
-    margin: 0 0 $gutter-two-thirds;
-    width: $full-width;
-    &.with-gutter {
-      margin-top: $gutter-half;
-    }
-  }
-
-  .prime-minister,
-  .dep-prime-minister {
-    h3 {
-      @include ig-core-27;
-      font-weight: bold;
-    }
-  }
-
-  .depts-cont,
-  .gov-types {
-    h3 {
-      @include ig-core-19;
-      font-weight: bold;
-      margin-bottom: 0;
-    }
-  }
-
-  .gov-types, .ministers, .cabinet, .coalition {
-    h3{
-      border-top:1px solid $border-colour;
-      padding-top:$gutter - $gutter-one-sixth;
-    }
-  }
-
-  .ministers {
-    h3 {
-      margin-bottom: 0;
-      @include media(tablet) {
-        margin-bottom: $gutter-half;
-      }
-    }
-  }
-
-  h4 {
-    @include ig-core-19;
-    font-weight: bold;
-    &.with-gutter {
-      margin-top: $gutter-half;
-    }
-  }
   .block {
     float: none;
     display: block;
@@ -274,14 +206,6 @@
 
   p.small-print {
     @include ig-core-14;
-  }
-  h2.coalition {
-    border-color: black;
-  }
-  .coalition h3 {
-    border-color: black;
-    border-width: $gutter-one-sixth;
-    padding-top: $gutter - 9px;
   }
 
   hr.keyline {
@@ -347,56 +271,6 @@
     .legislation {
       .two-thirds {
         margin-bottom: $gutter-one-third;
-      }
-    }
-  }
-
-  @media (min-width: 640px) and (max-width: 760px) {
-    .feature-ministers {
-      p {
-        font-size: $gutter;
-      }
-      span.circle .count {
-        top: $gutter-one-sixth;
-      }
-      span.circle .caption {
-        position: relative;
-        top: -10px;
-        @include ig-core-14;
-        line-height: 1;
-      }
-    }
-  }
-
-  @media (min-width: 761px) and (max-width: 980px) {
-    .feature-ministers {
-      p {
-        font-size: 35px;
-      }
-      span.circle .count {
-        top: $gutter-one-sixth;
-      }
-      span.circle .caption {
-        position: relative;
-        top: -10px;
-        @include ig-core-14;
-        line-height: 1;
-      }
-    }
-  }
-
-  @media (min-width: 811px) and (max-width: 980px) {
-    .feature-ministers {
-      p {
-        font-size: 39px;
-      }
-      span.circle .count {
-        top: $gutter-one-sixth;
-      }
-      span.circle .caption {
-        position: relative;
-        top: -5px;
-        @include ig-core-14;
       }
     }
   }
