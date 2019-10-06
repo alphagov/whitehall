@@ -1,17 +1,20 @@
 a {
-  color: $link-colour;
+  color: $govuk-link-colour;
   text-decoration: none;
 
   &:visited {
-    color: $link-visited-colour
+    color: $govuk-link-visited-colour;
   }
+
   &:hover {
-    color: $link-hover-colour;
+    color: $govuk-link-hover-colour;
     text-decoration: underline;
   }
+
   &:active {
-    color: $link-active-colour
+    color: $govuk-link-active-colour;
   }
+
   &:focus {
     text-decoration: underline;
   }
