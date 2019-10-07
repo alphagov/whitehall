@@ -20,7 +20,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
   end
 
   test "should reindex all ministerial roles when a role appointment is created" do
-    role_appointment = build(:ministerial_role_appointment)
+    role_appointment = create(:ministerial_role_appointment)
 
     MinisterialRole.expects(:reindex_all)
 
@@ -46,7 +46,7 @@ class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
   end
 
   test "should reindex all ministerial roles when an organisation role is created" do
-    organisation_role = build(:organisation_role)
+    organisation_role = create(:organisation_role)
 
     MinisterialRole.expects(:reindex_all)
 

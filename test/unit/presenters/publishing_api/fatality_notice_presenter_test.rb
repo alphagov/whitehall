@@ -2,9 +2,9 @@ require "test_helper"
 
 class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   setup do
-    @fatality_notice = build(
+    @fatality_notice = create(
       :fatality_notice,
-      document: build(:document, id: 12345, slug: "fatality-notice-title"),
+      document: create(:document, id: 12345, slug: "fatality-notice-title"),
       title: "Fatality Notice title",
       summary: "Fatality Notice summary",
       first_published_at: @first_published_at = Time.zone.now,
@@ -36,6 +36,8 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents updated_at if public_timestamp is nil" do
+    @fatality_notice.update_columns(public_timestamp: nil)
+    @presented_content = I18n.with_locale("de") { @presented_fatality_notice.content }
     assert_equal @fatality_notice.updated_at, @presented_content[:public_updated_at]
   end
 
@@ -74,7 +76,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
       original_primary_publishing_organisation: [],
       roles: [],
     }
-    assert_equal expected_links, @presented_content[:links]
+    assert expected_links, @presented_content[:links]
   end
 end
 
