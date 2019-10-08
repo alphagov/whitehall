@@ -136,13 +136,29 @@ $govuk-typography-use-rem: false;
 }
 
 
-// TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
-// coming from static and the global styles set in `global/_links.scss`. This
-// can be removed when the style from static and Whitehall removed.
-#whitehall-wrapper a.govuk-link{
-  text-decoration: underline;
-  &:focus {
-    color: $govuk-focus-text-colour;
+#whitehall-wrapper {
+  // TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus`
+  // style coming from static and the global styles set in
+  // `global/_links.scss`. This can be removed when the style from static
+  // and Whitehall removed.
+  a.govuk-link{
+    text-decoration: underline;
+
+    &:focus {
+      color: $govuk-focus-text-colour;
+      text-decoration: none;
+    }
+  }
+
+  // TODO: The title component uses `.govuk-link`, so a further override is
+  // needed. This can be removed when the global link styles are gone.
+  a.gem-c-title__context-link {
+    color: $govuk-secondary-text-colour;
     text-decoration: none;
+
+    &:hover {
+      color: $govuk-secondary-text-colour;
+      text-decoration: underline;
+    }
   }
 }

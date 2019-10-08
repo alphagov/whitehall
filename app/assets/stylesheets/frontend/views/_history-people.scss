@@ -1,4 +1,5 @@
 .historic-people-index {
+
   .clear-person {
     clear: both;
   }
@@ -11,20 +12,38 @@
       margin: 0 $gutter-half $gutter-half;
     }
 
-    .name {
-      @include core-19;
-      font-weight: bold;
-    }
     .term {
-      @include core-14;
-      color: $grey-1;
+      color: $govuk-secondary-text-colour;
     }
 
     .person-excerpt {
       .inner {
         .image-holder {
-          img {
-            max-width: $full-width;
+          box-sizing: border-box;
+
+          @include govuk-media-query($until: tablet) {
+            padding-right: govuk-spacing(3);
+          }
+
+          a {
+            background: govuk-colour("mid-grey", #b1b4b6);
+            height: 0;
+            overflow: hidden;
+            padding: 66% 0 0 0;
+            position: relative;
+
+            @include govuk-media-query($from: tablet) {
+              margin: 0 0 govuk-spacing(1) 0;
+            }
+
+            img {
+              max-width: $full-width;
+              position: absolute;
+              height: 100%;
+              width: 100%;
+              top: 0;
+              left: 0;
+            }
           }
         }
       }
@@ -36,28 +55,31 @@
   }
 
   .foreign-secretaries {
-    .heading, ol {
+
+    .inner {
+      padding: 0 govuk-spacing(3) govuk-spacing(1) 0;
+
+      @include govuk-media-query($from: tablet) {
+        padding-bottom: govuk-spacing(4);
+      }
+    }
+
+    .heading,
+    ol {
       @include media(tablet) {
         float: left;
         width: $one-quarter;
       }
     }
+
     ol {
       li {
         list-style: none;
+
         @include media(tablet) {
           float: left;
           width: $one-third;
         }
-        .inner {
-          padding: $gutter-half;
-          h4 {
-            font-weight: bold;
-          }
-        }
-      }
-      @include media(tablet) {
-        width: 75%; // There's no variable for this in the toolkit yet, needs updating when the toolkit gets updated
       }
     }
     .heading {
@@ -75,9 +97,7 @@
       }
     }
   }
-
 }
-
 
 
 .historic-people-show {
@@ -89,13 +109,6 @@
   }
 
   .person-info {
-
-    .name-title, .person-detail, .person-profile {
-      .inner {
-        padding: 0 $gutter-half;
-      }
-    }
-
     .person-profile {
       @include core-14;
       width: 218px;
@@ -103,13 +116,17 @@
       img {
         max-width: $full-width;
       }
+
       .info {
         background-color: $grey-3;
         padding-bottom: $gutter-half;
         margin-bottom: $gutter;
-        h3, p {
+
+        h3,
+        p {
           padding: 0 $gutter-half;
         }
+
         h3 {
           font-weight: bold;
           margin-top: $gutter-half;
@@ -147,12 +164,15 @@
     @include media(tablet) {
       position: relative;
       width: 75%;
+
       .person-profile {
         float: left;
         width: $one-third;
+
         img {
           width: $full-width;
         }
+
         .inner {
           padding: 0 $gutter-half;
         }
