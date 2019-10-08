@@ -49,6 +49,27 @@
       }
     }
 
+    .count {
+
+      @include govuk-media-query($from: desktop) {
+        width: $half;
+      }
+
+      display: block;
+      margin: $gutter-half;
+      @include heading-80;
+      font-weight: bold;
+      text-decoration: none;
+
+      .context {
+        display: block;
+        @include core-16;
+        margin-top:0;
+        color: govuk-colour("black");
+      }
+
+  }
+
     section {
       @include core-19;
       @extend %contain-floats;
@@ -57,48 +78,6 @@
 
       h3, h4 {
         font-weight: bold;
-      }
-
-      dt, dd {
-        @include core-16;
-        display: block;
-      }
-      dt{
-        @include heading-80;
-        font-weight: bold;
-        margin: 0 0 (-$gutter-one-sixth) 0;
-        @include media(tablet) {
-          padding: 0;
-        }
-      }
-
-      .value {
-        @include heading-80;
-        font-weight: bold;
-        @include media(tablet) {
-          padding-bottom: 0;
-        }
-        &+ p {
-          @include core-16;
-          margin-top: -$gutter-one-sixth;
-        }
-      }
-
-      .values {
-        padding-top: $gutter-half;
-        dt, dd {
-          padding: 0 $gutter-half;
-          @include media(desktop) {
-            width: $half;
-          }
-        }
-        dt {
-          padding: 0 $gutter-half;
-          margin-top: $gutter-half;
-          @include media(tablet) {
-            margin: $gutter-half 0 (-$gutter-one-third);
-          }
-        }
       }
 
       .column {
@@ -120,6 +99,10 @@
           padding: $gutter-half $gutter-half 0;
           a {
             color: $white;
+
+            &:focus {
+              color: govuk-colour("black") !important;
+            }
           }
           h3 {
             @include heading-27;
