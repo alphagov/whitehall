@@ -82,7 +82,7 @@
       line-height: 1;
     }
 
-    @include mq($from: tablet, $until: 815px) {
+    @include govuk-media-query($from: tablet, $until: 815px) {
       &--small .feature-value__count {
         font-size: 3.85em;
       }
@@ -127,7 +127,7 @@
       vertical-align: middle;
       width: 5em;
 
-      @include mq($until: tablet) {
+      @include govuk-media-query($until: tablet) {
         &:hover {
           color: $govuk-link-hover-colour;
         }
@@ -143,7 +143,7 @@
         line-height: 1em;
       }
 
-      @include mq($from: tablet) {
+      @include govuk-media-query($from: tablet) {
         border: 0.2em solid $inside-gov-secondary; // https://webaim.org/resources/contrastchecker/?fcolor=0B0C0C&bcolor=57DA95
         border-radius: 4.5em;
         height: 9em;
