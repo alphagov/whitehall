@@ -113,4 +113,12 @@ namespace :reslug do
   task :worldwide_organisation, %i[old_slug new_slug] => :environment do |_task, args|
     reslug_organisation(WorldwideOrganisation, args)
   end
+
+  desc "Change the slug of a StatisticsAnnouncement"
+  task :statistics_annoucement, %i[old_slug new_slug] => :environment do |_task, args|
+    statistics_announcement = StatisticsAnnouncement.find_by!(slug: args.old_slug)
+    Whitehall::SearchIndex.delete(statistics_announcement)
+    statistics_announcement.update_attributes!(slug: args.new_slug)
+    Whitehall::SearchIndex.add(statistics_announcement)
+  end
 end
