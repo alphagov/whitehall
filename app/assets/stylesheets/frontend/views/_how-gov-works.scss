@@ -69,33 +69,41 @@
 
   .coalition {
     margin-top: $gutter;
+  }
 
-    @include media(tablet) {
-      margin-top: 0;
+  .feature-value {
+    display: block;
+    padding-bottom: 0;
+
+    .feature-value__count {
+      display: block;
+      font-size: 5em;
+      font-weight: bold;
+      line-height: 1;
     }
 
-    p{
-      background-color:$panel-colour;
-      padding:$gutter-half;
-      margin-top:-0.5em;
+    @include govuk-media-query($from: tablet, $until: 815px) {
+      &--small .feature-value__count {
+        font-size: 3.85em;
+      }
     }
   }
 
-  .feature-value{
-    font-size:5em;
-    padding-bottom:0;
-    margin:0 0 ($gutter-one-third * -1);
-    color:$grey-1;
-    font-weight: bold;
-    display:block;
-    line-height:1em;
-    a {
+  .feature-value__caption {
+    color: inherit;
+    display: inline-block;
+    padding: 0 0.2em;
+    position: relative;
+    top: -0.5em;
+  }
+
+  .feature-value__link {
+    color: $govuk-link-colour;
+    display: inline-block;
       text-decoration: none;
-      color: $black;
-      &:hover,
+
       &:focus {
-        text-decoration: underline;
-      }
+      @include govuk-focused-text;
     }
   }
 

@@ -10,7 +10,7 @@
           title: "How government works",
         } %>
         <p class="govuk-body-l">In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out <a class="govuk-link" href="#who-runs-government">who runs government</a> and <a class="govuk-link" href="#how-government-is-run">how government is run</a>, as well as learning about the <a class="govuk-link" href="#history-uk-government">history of government</a>.</p>
-    </div>
+      </div>
     </div>
   </header>
 
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-        <div class="halves-width-section cabinet">
+      <div class="halves-width-section cabinet">
         <div class="one-half">
           <div class="inner-block">
             <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
@@ -75,7 +75,7 @@
             } %>
 
             <p class="govuk-body">The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
-            
+
             <p class="govuk-body"><a class="govuk-link" href="/government/ministers">See who is in the Cabinet</a></p>
           </div>
         </div>
@@ -86,8 +86,8 @@
           text: "Ministers",
           heading_level: 3,
         } %>
-          <% if !@is_during_reshuffle %>
-            <div class="feature-ministers">
+        <% if !@is_during_reshuffle %>
+          <div class="feature-ministers">
             <a href="/government/ministers/prime-minister" class="feature-ministers__item">
               <span class="count govuk-!-font-size-48 govuk-!-font-weight-bold">1</span>
               <span class="caption">Prime Minister</span>
@@ -109,11 +109,11 @@
                 <span class="caption">Total ministers</span>
               </a>
             <span>
-            </div>
-          <% end %>
-        
+          </div>
+        <% end %>
+
         <p class="govuk-body">Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords. They are responsible for the actions, successes and failures of their departments.</p>
-        
+
         <p class="govuk-body"><%= link_to "See full list of ministers", ministerial_roles_path, class: "govuk-link" %></p>
       </div>
 
@@ -142,12 +142,26 @@
       <div class="thirds-width-section depts-cont">
         <div class="one-third">
           <div class="inner-block">
-            <p><span class="feature-value"><%= link_to @ministerial_department_count, organisations_path(anchor: 'departments') %></span>
-              <span class="feature-caption">Ministerial departments</span>
-              <span class="feature-value"><a href="/government/organisations#non-ministerial-departments"><%= @non_ministerial_department_count %></a></span>
-              <span class="feature-caption">Non-ministerial departments</span>
-              <span class="feature-value"><a href="/government/organisations#agencies-and-government-bodies">300+</a></span>
-              <span class="feature-caption">Agencies &amp; other public bodies</span></p>
+            <ul class="govuk-list">
+              <li class="feature-value">
+                <a href="<%= organisations_path(anchor: 'departments') %>" class="feature-value__link">
+                  <span class="feature-value__count"><%= @ministerial_department_count %></span>
+                  <span class="feature-value__caption govuk-body-s">Ministerial departments</span>
+                </a>
+              </li>
+              <li class="feature-value">
+                <a href="<%= organisations_path(anchor: 'non-ministerial-departments') %>" class="feature-value__link">
+                  <span class="feature-value__count"><%= @non_ministerial_department_count %></span>
+                  <span class="feature-value__caption govuk-body-s">Non-ministerial departments</span>
+                </a>
+              </li>
+              <li class="feature-value feature-value--small">
+                <a href="<%= organisations_path(anchor: 'agencies-and-government-bodies') %>" class="feature-value__link">
+                  <span class="feature-value__count">300+</span>
+                  <span class="feature-value__caption govuk-body-s">Agencies &amp; other public bodies</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -214,16 +228,16 @@
         <div class="two-thirds">
           <div class="inner-block">
             <p class="govuk-body">The Civil Service does the practical and administrative work of government. It is co-ordinated and managed by the Prime Minister, in their role as Minister for the Civil Service.</p>
-            
+
             <p class="govuk-body">Around half of all civil servants provide services direct to the public, including:</p>
-            
+
             <ul class="govuk-list govuk-list--bullet">
               <li>paying benefits and pensions</li>
               <li>running employment services</li>
               <li>staffing prisons</li>
               <li>issuing driving licences</li>
             </ul>
-            
+
             <p class="govuk-body">The <a class="govuk-link" href="/government/organisations/civil-service">Civil Service</a> is on GOV.UK.</p>
           </div>
         </div>
@@ -240,7 +254,7 @@
               margin_bottom: 2,
               font_size: 19,
             } %>
-            
+
             <p class="govuk-body"><a class="govuk-link" href="https://civilservicejobs.service.gov.uk/">Find and apply</a> for vacancies in departments, executive agencies and non-departmental public bodies.</p>
           </div>
         </div>
@@ -285,7 +299,7 @@
               margin_bottom: 2,
               font_size: 19,
             } %>
-            
+
             <p class="govuk-body">Interact with government through <a class="govuk-link" href="/government/get-involved#engage-with-government">consultations and petitions</a> to inform and influence the decisions it makes.</p>
           </div>
         </div>
@@ -298,7 +312,7 @@
               margin_bottom: 2,
               font_size: 19,
             } %>
-            
+
             <p class="govuk-body"><a class="govuk-link" href="/government/get-involved#take-part">Offer your skills and energy</a> to a project in your neighbourhood, around the UK or overseas.</p>
           </div>
         </div>
@@ -319,7 +333,7 @@
         <div class="two-thirds">
           <div class="inner-block">
             <p class="govuk-body">Laws go through several stages before they are passed by Parliament. The House of Commons and the House of Lords work together to make them.</p>
-            
+
             <p class="govuk-body">They can include:</p>
           </div>
         </div>
@@ -347,9 +361,9 @@
               margin_bottom: 2,
               font_size: 19,
             } %>
-            
+
             <p class="govuk-body">These are bills which have been approved by the Commons, the Lords, and The Queen. The relevant government department is responsible for putting the act into practice.</p>
-            
+
             <p class="govuk-body"><a class="govuk-link" href="http://www.legislation.gov.uk" rel="external">Visit www.legislation.gov.uk</a></p>
           </div>
         </div>
@@ -377,9 +391,9 @@
             } %>
 
             <p class="govuk-body">The Freedom of Information Act gives you the right to ask any public sector organisation for all the recorded information it has on any subject. Anyone can make a request for information – known as a Freedom of Information (or FOI) request.  There are no restrictions on your age, nationality or where you live.</p>
-            
+
             <p class="govuk-body"><%= link_to "How to make a freedom of information request", "/make-a-freedom-of-information-request", class: 'govuk-link' %></p>
-            
+
             <p class="govuk-body"><%= link_to "See FOI releases on GOV.UK", publications_filter_path(:publication_filter_option => 'foi-releases'), class: 'govuk-link' %></p>
 
             <%= render "govuk_publishing_components/components/heading", {
@@ -390,7 +404,7 @@
             } %>
 
             <p class="govuk-body">Government produces Official Statistics about most areas of public life. Statistics are used by people inside and outside government to make informed decisions and to measure the success of government policies and services. <%= link_to "Find out about the legislation", "/government/statistics/how-national-and-official-statistics-are-assured", class: "govuk-link" %> that governs the publication of UK national and Official Statistics.</p>
-            
+
             <p class="govuk-body"><%= link_to "See statistics publications on GOV.UK", "/search/research-and-statistics", class: "govuk-link" %></p>
 
           </div>
@@ -405,22 +419,22 @@
             } %>
 
             <p class="govuk-body">The government publishes information about how government works to allow you to make politicians, public services and public organisations more accountable. We are committed to publishing information about:</p>
-            
+
             <ul class="govuk-list govuk-list--bullet">
               <li>how much public money has been spent on what</li>
               <li>the job titles of senior civil servants and how much they are paid</li>
               <li>how the government is doing against its objectives</li>
             </ul>
-            
+
             <p class="govuk-body"><%= link_to 'See transparency releases on GOV.UK', publications_filter_path(:publication_filter_option => 'transparency-data'), class: 'govuk-link' %></p>
-            
+
             <%= render "govuk_publishing_components/components/heading", {
               text: "Data",
               heading_level: 4,
               margin_bott2m: 4,
               font_size: 19,
             } %>
-            
+
             <p class="govuk-body">Putting data in people’s hands can help them have more of a say in the reform of public services. On <a class="govuk-link" href="https://data.gov.uk" rel="external">data.gov.uk</a> you can easily find, review and use information about our country and communities - for example, to develop web applications.</p>
           </div>
         </div>
@@ -434,11 +448,11 @@
               heading_level: 3,
               margin_bottom: 5,
             } %>
-            
+
             <p class="govuk-body">In <a class="govuk-link" href="https://www.gov.scot/" rel="external">Scotland</a>, <a class="govuk-link" href="https://gov.wales/" rel="external">Wales</a> and <a class="govuk-link" href="https://www.northernireland.gov.uk/" rel="external">Northern Ireland</a>, devolved administrations are responsible for many domestic policy issues, and their Parliaments/Assemblies have law-making powers for those areas.</p>
-            
+
             <p class="govuk-body">Areas the Scottish Government, Welsh Government, and the Northern Ireland Executive are responsible for, include:</p>
-            
+
             <ul class="govuk-list govuk-list--bullet">
               <li>health</li>
               <li>education</li>
@@ -455,11 +469,11 @@
               heading_level: 3,
               margin_bottom: 5,
             } %>
-            
+
             <p class="govuk-body">Councils make and carry out decisions on local services. Many parts of England have 2 tiers of local government: county councils and district, borough or city councils.</p>
-            
+
             <p class="govuk-body">In some parts of the country, there’s just one tier of local government providing all the functions, known as a ‘unitary authority’. This can be a city, borough or county council – or it may just be called ‘council’. As well as these, many areas also have parish or town councils.</p>
-            
+
             <p class="govuk-body"><a class="govuk-link" href="https://www.gov.uk/understand-how-your-council-works/types-of-council">Understand how your council works</a></p>
           </div>
         </div>
@@ -472,15 +486,15 @@
             } %>
 
             <p class="govuk-body">Parliament is separate from government. Made up of the House of Commons and the House of Lords, its role is to:</p>
-            
+
             <ul class="govuk-list govuk-list--bullet">
               <li>look at what the government is doing</li>
               <li>debate issues and pass new laws</li>
               <li>set taxes</li>
             </ul>
-            
+
             <p class="govuk-body"><a class="govuk-link" href="http://www.parliament.uk/" rel="external">Find out about how Parliament works</a></p>
-            
+
             <p class="govuk-body">Read The Official Report at <a class="govuk-link" href="http://www.parliament.uk/business/publications/" rel="external">Hansard</a></p>
           </div>
         </div>
