@@ -1,15 +1,16 @@
 .inside_gov_how-gov-works {
-  .full-width-section{
-    clear:both;
+  .full-width-section {
+    clear: both;
   }
 
   .thirds-width-section,
   .halves-width-section {
-    overflow:visible;
-    clear:both;
-    margin-top:$gutter - $gutter-one-sixth;
-    margin-bottom:$gutter-two-thirds;
+    overflow: visible;
+    clear: both;
+    margin-top: $gutter - $gutter-one-sixth;
+    margin-bottom: $gutter-two-thirds;
     @extend %contain-floats;
+
     img {
       width: $full-width;
       height: auto;
@@ -20,8 +21,8 @@
     }
 
     @include media(tablet) {
-      margin-left:-$gutter-half;
-      margin-right:-$gutter-half;
+      margin-left: -$gutter-half;
+      margin-right: -$gutter-half;
 
       .inner-block {
         padding: 0 $gutter-half;
@@ -72,7 +73,7 @@
         font-size: 3.85em;
       }
     }
-    }
+  }
 
   .feature-value__caption {
     color: inherit;
@@ -85,17 +86,17 @@
   .feature-value__link {
     color: $govuk-link-colour;
     display: inline-block;
-      text-decoration: none;
+    text-decoration: none;
 
-      &:focus {
+    &:focus {
       @include govuk-focused-text;
     }
   }
 
   .feature-ministers {
-      text-align: center;
-      color: $secondary-text-colour;
-      padding: $gutter-half 0 $gutter;
+    text-align: center;
+    color: $secondary-text-colour;
+    padding: $gutter-half 0 $gutter;
 
     .feature-ministers__symbol,
     .feature-ministers__equals-wrapper {
@@ -109,7 +110,7 @@
       margin: 0.5em 0;
       padding: 0;
       text-align: center;
-        text-decoration: none;
+      text-decoration: none;
       vertical-align: middle;
       width: 5em;
 
@@ -127,7 +128,7 @@
       .caption {
         display: block;
         line-height: 1em;
-        }
+      }
 
       @include govuk-media-query($from: tablet) {
         border: 0.2em solid $inside-gov-secondary; // https://webaim.org/resources/contrastchecker/?fcolor=0B0C0C&bcolor=57DA95
@@ -136,23 +137,23 @@
         width: 9em;
         padding-top: 1.85em;
 
-          &:hover,
-          &:focus {
-            text-decoration: none;
-          }
+        &:hover,
+        &:focus {
+          text-decoration: none;
+        }
 
         &:hover {
           color: $govuk-link-hover-colour;
           background: govuk-colour("white");
           border-color: $govuk-link-hover-colour;
-      }
+        }
 
         &:focus {
           color: $govuk-focus-text-colour;
           background: $govuk-focus-colour;
           border-color: $govuk-focus-text-colour;
           outline: none;
-    }
+        }
 
         .count,
         .caption {
@@ -162,23 +163,23 @@
         .caption {
           display: inline-block;
           width: 6em;
+        }
       }
     }
-  }
 
     @include media(tablet) {
       .feature-ministers__symbol {
         margin: 0 1em;
         position: relative;
         top: 0.25em;
-  }
+      }
 
       .feature-ministers__item--invert {
         background-color: $inside-gov-secondary;
         border-color: $inside-gov-secondary;
+      }
     }
   }
-    }
 
   .ministers .caption {
     max-width: 26em;
