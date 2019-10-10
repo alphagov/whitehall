@@ -3,10 +3,13 @@
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { type: link_to('History', histories_path),
-                        heading: "Past #{@role.name.pluralize}",
-                        big: true } %>
+    <%= render "govuk_publishing_components/components/title", {
+        context: {
+          text: "History",
+          href: histories_path,
+        },
+        title: "Past #{@role.name.pluralize}"
+      } %>
   </div>
 </header>
 
