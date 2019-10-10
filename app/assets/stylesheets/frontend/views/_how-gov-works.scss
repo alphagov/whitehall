@@ -3,17 +3,6 @@
     clear:both;
   }
 
-  p, li{
-    @include ig-core-19;
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  li {
-    margin-left: $gutter;
-  }
-
   .thirds-width-section,
   .halves-width-section {
     overflow:visible;
@@ -67,8 +56,7 @@
     margin-bottom: $gutter*2;
   }
 
-  .coalition {
-    margin-top: $gutter;
+  .feature-value {
 
     @include media(tablet) {
       margin-top: 0;
@@ -274,14 +262,6 @@
 
   p.small-print {
     @include ig-core-14;
-  }
-  h2.coalition {
-    border-color: black;
-  }
-  .coalition h3 {
-    border-color: black;
-    border-width: $gutter-one-sixth;
-    padding-top: $gutter - 9px;
   }
 
   hr.keyline {
