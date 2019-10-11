@@ -9,7 +9,7 @@
         <%= render "govuk_publishing_components/components/title", {
           title: "How government works",
         } %>
-        <p class="govuk-body-l">In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out <a class="govuk-link" href="#who-runs-government">who runs government</a> and <a class="govuk-link" href="#how-government-is-run">how government is run</a>, as well as learning about the <a class="govuk-link" href="#history-uk-government">history of government</a>.</p>
+        <p class="govuk-body-l">In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out <%= link_to("who runs government", "#who-runs-government", class: "govuk-link") %> and <%= link_to("how government is run", "#how-government-is-run", class: "govuk-link") %>, as well as learning about the <%= link_to("history of government", "#history-uk-government", class: "govuk-link") %>.</p>
       </div>
     </div>
   </header>
@@ -39,7 +39,7 @@
               margin_bottom: 5,
             } %>
 
-            <p class="govuk-body">The <a class="govuk-link" href="/government/ministers/prime-minister">Prime Minister</a> is the leader of Her Majesty’s Government and is ultimately responsible for all policy and decisions.</p>
+            <p class="govuk-body">The <%= link_to("Prime Minister", "/government/ministers/prime-minister", class: "govuk-link") %> is the leader of Her Majesty’s Government and is ultimately responsible for all policy and decisions.</p>
 
             <p class="govuk-body">The Prime Minister also:</p>
 
@@ -76,7 +76,7 @@
 
             <p class="govuk-body">The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
 
-            <p class="govuk-body"><a class="govuk-link" href="/government/ministers">See who is in the Cabinet</a></p>
+            <p class="govuk-body"><%= link_to("See who is in the Cabinet", "/government/ministers", class: "govuk-link") %></p>
           </div>
         </div>
       </div>
@@ -174,9 +174,9 @@
               font_size: 19,
             } %>
 
-            <p class="govuk-body">Some departments, like the <a class="govuk-link" href="/government/organisations/ministry-of-defence">Ministry of Defence</a>, cover the  whole UK. Others don’t – the <a class="govuk-link" href="/government/organisations/department-for-work-pensions">Department for Work and Pensions</a> doesn't cover Northern Ireland. This is because some aspects of government are devolved to Scotland, Wales and Northern Ireland.</p>
+            <p class="govuk-body">Some departments, like the <%= link_to "Ministry of Defence", "/government/organisations/ministry-of-defence", class: "govuk-link" %>, cover the  whole UK. Others don’t – the <%= link_to "Department for Work and Pensions", "/government/organisations/department-for-work-pensions", class: "govuk-link" %> doesn't cover Northern Ireland. This is because some aspects of government are devolved to Scotland, Wales and Northern Ireland.</p>
 
-            <p class="govuk-body"><a class="govuk-link" href="/government/organisations#non-ministerial-departments">Non-ministerial departments</a> are headed by senior civil servants and not ministers. They usually have a regulatory or inspection function like the Charity Commission.</p>
+            <p class="govuk-body"><%= link_to "Non-ministerial departments", "/government/organisations#non_ministerial_departments", class: "govuk-link" %> are headed by senior civil servants and not ministers. They usually have a regulatory or inspection function like the Charity Commission.</p>
 
             <%= render "govuk_publishing_components/components/heading", {
               text: "Executive agencies",
@@ -187,7 +187,7 @@
 
             <p class="govuk-body">These are part of government departments and usually provide government services rather than decide policy - which is done by the department that oversees the agency.</p>
 
-            <p class="govuk-body">An example is the <a class="govuk-link" href="/government/organisations/driver-and-vehicle-licensing-agency">Driver and Vehicle Licensing Agency</a> (overseen by the <a class="govuk-link" href="/government/organisations/department-for-transport">Department for Transport</a>).</p>
+            <p class="govuk-body">An example is the <%= link_to "Driver and Vehicle Licensing Agency", "/government/organisations/driver-and-vehicle-licensing-agency", class: "govuk-link" %> (overseen by the <%= link_to "Department for Transport", "/government/organisations/department-for-transport", class: "govuk-link" %>).</p>
 
           </div>
         </div>
@@ -238,7 +238,7 @@
               <li>issuing driving licences</li>
             </ul>
 
-            <p class="govuk-body">The <a class="govuk-link" href="/government/organisations/civil-service">Civil Service</a> is on GOV.UK.</p>
+            <p class="govuk-body">The <%= link_to "Civil Service", "/government/organisations/civil-service", class: "govuk-link" %> is on GOV.UK.</p>
           </div>
         </div>
 
@@ -255,7 +255,7 @@
               font_size: 19,
             } %>
 
-            <p class="govuk-body"><a class="govuk-link" href="https://civilservicejobs.service.gov.uk/">Find and apply</a> for vacancies in departments, executive agencies and non-departmental public bodies.</p>
+            <p class="govuk-body"><%= link_to "Find and apply", "https://civilservicejobs.service.gov.uk/", class: "govuk-link" %> for vacancies in departments, executive agencies and non-departmental public bodies.</p>
           </div>
         </div>
         <div class="one-third">
@@ -267,7 +267,7 @@
               font_size: 19,
             } %>
 
-            <p class="govuk-body"><a class="govuk-link" href="https://www.gov.uk/contracts-finder">Search Contracts Finder</a> for any government contract over £10,000 and get details of all previous tenders.</p>
+            <p class="govuk-body"><%= link_to "Search Contracts Finder", "/contracts-finder/", class: "govuk-link" %> for any government contract over £10,000 and get details of all previous tenders.</p>
           </div>
         </div>
       </div>
@@ -287,7 +287,7 @@
 
         <div class="two-thirds">
           <div class="inner-block">
-            <p class="govuk-body">Read about ways to <a class="govuk-link" href="/government/get-involved">get involved</a>.</p>
+            <p class="govuk-body">Read about ways to <%= link_to "get involved", "/government/get-involved/", class: "govuk-link" %>.</p>
           </div>
         </div>
 
@@ -300,7 +300,7 @@
               font_size: 19,
             } %>
 
-            <p class="govuk-body">Interact with government through <a class="govuk-link" href="/government/get-involved#engage-with-government">consultations and petitions</a> to inform and influence the decisions it makes.</p>
+            <p class="govuk-body">Interact with government through <%= link_to "consultations and petitions", "/government/get-involved#engage-with-government", class: "govuk-link" %> to inform and influence the decisions it makes.</p>
           </div>
         </div>
 
@@ -313,7 +313,7 @@
               font_size: 19,
             } %>
 
-            <p class="govuk-body"><a class="govuk-link" href="/government/get-involved#take-part">Offer your skills and energy</a> to a project in your neighbourhood, around the UK or overseas.</p>
+            <p class="govuk-body"><%= link_to "Offer your skills and energy", "/government/get-involved#take-part", class: "govuk-link" %> to a project in your neighbourhood, around the UK or overseas.</p>
           </div>
         </div>
       </div>
@@ -364,7 +364,7 @@
 
             <p class="govuk-body">These are bills which have been approved by the Commons, the Lords, and The Queen. The relevant government department is responsible for putting the act into practice.</p>
 
-            <p class="govuk-body"><a class="govuk-link" href="http://www.legislation.gov.uk" rel="external">Visit www.legislation.gov.uk</a></p>
+            <p class="govuk-body"><%= link_to "Visit www.legislation.gov.uk", "https://www.legislation.gov.uk", class: "govuk-link", rel: "external" %></p>
           </div>
         </div>
       </div>
@@ -392,9 +392,9 @@
 
             <p class="govuk-body">The Freedom of Information Act gives you the right to ask any public sector organisation for all the recorded information it has on any subject. Anyone can make a request for information – known as a Freedom of Information (or FOI) request.  There are no restrictions on your age, nationality or where you live.</p>
 
-            <p class="govuk-body"><%= link_to "How to make a freedom of information request", "/make-a-freedom-of-information-request", class: 'govuk-link' %></p>
+            <p class="govuk-body"><%= link_to "How to make a freedom of information request", "/make-a-freedom-of-information-request", class: "govuk-link" %></p>
 
-            <p class="govuk-body"><%= link_to "See FOI releases on GOV.UK", publications_filter_path(:publication_filter_option => 'foi-releases'), class: 'govuk-link' %></p>
+            <p class="govuk-body"><%= link_to "See FOI releases on GOV.UK", publications_filter_path(:publication_filter_option => 'foi-releases'), class: "govuk-link" %></p>
 
             <%= render "govuk_publishing_components/components/heading", {
               text: "Statistics",
@@ -426,7 +426,7 @@
               <li>how the government is doing against its objectives</li>
             </ul>
 
-            <p class="govuk-body"><%= link_to 'See transparency releases on GOV.UK', publications_filter_path(:publication_filter_option => 'transparency-data'), class: 'govuk-link' %></p>
+            <p class="govuk-body"><%= link_to 'See transparency releases on GOV.UK', publications_filter_path(:publication_filter_option => 'transparency-data'), class: "govuk-link" %></p>
 
             <%= render "govuk_publishing_components/components/heading", {
               text: "Data",
@@ -435,7 +435,7 @@
               font_size: 19,
             } %>
 
-            <p class="govuk-body">Putting data in people’s hands can help them have more of a say in the reform of public services. On <a class="govuk-link" href="https://data.gov.uk" rel="external">data.gov.uk</a> you can easily find, review and use information about our country and communities - for example, to develop web applications.</p>
+            <p class="govuk-body">Putting data in people’s hands can help them have more of a say in the reform of public services. On <%= link_to "data.gov.uk", "https://data.gov.uk/", class: "govuk-link", rel: "external" %> you can easily find, review and use information about our country and communities - for example, to develop web applications.</p>
           </div>
         </div>
       </div>
@@ -449,7 +449,7 @@
               margin_bottom: 5,
             } %>
 
-            <p class="govuk-body">In <a class="govuk-link" href="https://www.gov.scot/" rel="external">Scotland</a>, <a class="govuk-link" href="https://gov.wales/" rel="external">Wales</a> and <a class="govuk-link" href="https://www.northernireland.gov.uk/" rel="external">Northern Ireland</a>, devolved administrations are responsible for many domestic policy issues, and their Parliaments/Assemblies have law-making powers for those areas.</p>
+            <p class="govuk-body">In <%= link_to "Scotland", "https://www.gov.scot/", class: "govuk-link", rel: "external" %>, <%= link_to "Wales", "https://www.gov.wales/", class: "govuk-link", rel: "external" %> and <%= link_to "Northern Ireland", "https://www.northernireland.gov.uk/", class: "govuk-link", rel: "external" %>, devolved administrations are responsible for many domestic policy issues, and their Parliaments/Assemblies have law-making powers for those areas.</p>
 
             <p class="govuk-body">Areas the Scottish Government, Welsh Government, and the Northern Ireland Executive are responsible for, include:</p>
 
@@ -474,7 +474,7 @@
 
             <p class="govuk-body">In some parts of the country, there’s just one tier of local government providing all the functions, known as a ‘unitary authority’. This can be a city, borough or county council – or it may just be called ‘council’. As well as these, many areas also have parish or town councils.</p>
 
-            <p class="govuk-body"><a class="govuk-link" href="https://www.gov.uk/understand-how-your-council-works/types-of-council">Understand how your council works</a></p>
+            <p class="govuk-body"><%= link_to "Understand how your council works", "/understand-how-your-council-works/types-of-council/", class: "govuk-link" %></p>
           </div>
         </div>
         <div class="one-third">
@@ -493,9 +493,11 @@
               <li>set taxes</li>
             </ul>
 
-            <p class="govuk-body"><a class="govuk-link" href="http://www.parliament.uk/" rel="external">Find out about how Parliament works</a></p>
+            <p class="govuk-body">
+              <%= link_to "Find out about how Parliament works", "https://www.parliament.uk/", class: "govuk-link", rel: "external" %>
+            </p>
 
-            <p class="govuk-body">Read The Official Report at <a class="govuk-link" href="http://www.parliament.uk/business/publications/" rel="external">Hansard</a></p>
+            <p class="govuk-body">Read The Official Report at <%= link_to "Hansard", "http://www.parliament.uk/business/publications/", class: "govuk-link", rel: "external" %></p>
           </div>
         </div>
       </div>
@@ -514,11 +516,11 @@
         </div>
         <div class="one-half">
           <div class="inner-block">
-            <p class="govuk-body">Britain has one of the oldest governments in the world. Find out more about how it has worked and who has shaped it in the <a class="govuk-link" href="/government/history">history</a> section.</p>
+            <p class="govuk-body">Britain has one of the oldest governments in the world. Find out more about how it has worked and who has shaped it in the <%= link_to "history", "/government/history/", class: "govuk-link" %> section.</p>
 
-            <p class="govuk-body">Read about past Prime Ministers, Chancellors and Foreign Secretaries in <a class="govuk-link" href="/government/history#notable-people">notable people</a>. Learn more about historic <a class="govuk-link" href="/government/history#government-buildings">government buildings</a> on Whitehall and around the UK.</p>
+            <p class="govuk-body">Read about past Prime Ministers, Chancellors and Foreign Secretaries in <%= link_to "notable people", "/government/history#notable-people", class: "govuk-link" %>. Learn more about historic <%= link_to "government buildings", "/government/history#government-buildings", class: "govuk-link" %> on Whitehall and around the UK.</p>
 
-            <p class="govuk-body">You can also find links to <a class="govuk-link" href="/government/history#historical-research">historical research</a>, documents and records.</p>
+            <p class="govuk-body">You can also find links to <%= link_to "historical research", "/government/history#historical-research", class: "govuk-link" %>, documents and records.</p>
           </div>
         </div>
       </div>
