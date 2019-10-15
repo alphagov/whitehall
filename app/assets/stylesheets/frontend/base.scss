@@ -3,6 +3,8 @@
 $govuk-use-legacy-palette: true;
 $govuk-typography-use-rem: false;
 
+@import "govuk_publishing_components/all_components";
+
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
@@ -132,8 +134,6 @@ $govuk-typography-use-rem: false;
 #whitehall-wrapper {
   @import "layouts/two_column_page";
 }
-
-@import "govuk_publishing_components/all_components";
 
 // TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
 // coming from static and the global styles set in `global/_links.scss`. This
