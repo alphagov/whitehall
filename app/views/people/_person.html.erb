@@ -11,7 +11,7 @@
       <% unless hide_image %>
         <% if person.image %>
           <div class="image-holder">
-            <%= link_to person.image, person, class: "img" %>
+            <%= link_to person.image, person, class: "img", tabindex: '-1', aria: {hidden: true} %>
           </div>
         <% else %>
           <div class="blank-person">

@@ -207,7 +207,7 @@ Please tell us:
     options[:locale] = locale
     options[:locale] = nil if locale.to_s == "en"
 
-    link_to native_language_name_for(locale), options, lang: locale
+    link_to native_language_name_for(locale), options, lang: locale, class: "govuk-link"
   end
 
   def part_of_metadata(document, policies = [], sector_tag_finder = SpecialistTagFinder::Null.new)
