@@ -7,7 +7,7 @@
     margin-bottom: $gutter;
     .profiles {
       @include heading-36;
-      border-bottom: $gutter-one-sixth solid $black;
+      border-bottom: $gutter-one-sixth solid govuk-colour("black");
       margin: 0 $gutter-half $gutter-half;
     }
 
@@ -16,13 +16,17 @@
       font-weight: bold;
     }
     .term {
-      @include core-14;
-      color: $grey-1;
+      color: $govuk-secondary-text-colour;
+      display: block;
     }
 
     .person-excerpt {
       .inner {
         .image-holder {
+            @include govuk-media-query($until: 'tablet') {
+              margin-right: govuk-spacing(2);
+            }
+
           img {
             max-width: $full-width;
           }
@@ -79,9 +83,8 @@
 }
 
 
-
 .historic-people-show {
-  .historic-people-list, .person-info {
+  .person-info {
     @include media(tablet) {
       float: left;
       width: $one-quarter;
