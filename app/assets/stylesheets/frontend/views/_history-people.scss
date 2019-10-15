@@ -35,7 +35,7 @@
     }
 
     @include media(tablet) {
-      margin-bottom: $gutter * 2;
+      margin-bottom: $gutter*2;
     }
   }
 
@@ -77,6 +77,7 @@
   }
 
   .person-info {
+
     .name-title, .person-detail, .person-profile {
       .inner {
         padding: 0 $gutter-half;
@@ -90,17 +91,13 @@
       img {
         max-width: $full-width;
       }
-
       .info {
         background-color: $grey-3;
         padding-bottom: $gutter-half;
         margin-bottom: $gutter;
-
-        h3,
-        p {
+        h3, p {
           padding: 0 $gutter-half;
         }
-
         h3 {
           font-weight: bold;
           margin-top: $gutter-half;
