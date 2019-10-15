@@ -35,7 +35,7 @@
     }
 
     @include media(tablet) {
-      margin-bottom: $gutter*2;
+      margin-bottom: $gutter * 2;
     }
   }
 
@@ -47,8 +47,8 @@
           float: left;
           width: $one-third;
         }
-          }
-        }
+      }
+    }
     .heading {
       h3 {
         @include heading-36;
@@ -77,7 +77,6 @@
   }
 
   .person-info {
-
     .name-title, .person-detail, .person-profile {
       .inner {
         padding: 0 $gutter-half;
@@ -91,13 +90,17 @@
       img {
         max-width: $full-width;
       }
+
       .info {
         background-color: $grey-3;
         padding-bottom: $gutter-half;
         margin-bottom: $gutter;
-        h3, p {
+
+        h3,
+        p {
           padding: 0 $gutter-half;
         }
+
         h3 {
           font-weight: bold;
           margin-top: $gutter-half;
@@ -115,19 +118,6 @@
           display: block;
           color: $grey-1;
           margin-top: $gutter-one-sixth;
-        }
-      }
-    }
-
-    .person-detail {
-      @include core-19;
-      h3 {
-        font-weight: bold;
-      }
-      p {
-        margin-bottom: $gutter;
-        &.intro {
-          font-weight: bold;
         }
       }
     }
