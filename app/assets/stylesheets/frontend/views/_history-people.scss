@@ -23,7 +23,7 @@
     .person-excerpt {
       .inner {
         .image-holder {
-            @include govuk-media-query($until: 'tablet') {
+            @include govuk-media-query($until: tablet) {
               margin-right: govuk-spacing(2);
             }
 
@@ -40,12 +40,6 @@
   }
 
   .foreign-secretaries {
-    .heading, ol {
-      @include media(tablet) {
-        float: left;
-        width: $one-quarter;
-      }
-    }
     ol {
       li {
         list-style: none;
@@ -53,17 +47,8 @@
           float: left;
           width: $one-third;
         }
-        .inner {
-          padding: $gutter-half;
-          h4 {
-            font-weight: bold;
           }
         }
-      }
-      @include media(tablet) {
-        width: 75%; // There's no variable for this in the toolkit yet, needs updating when the toolkit gets updated
-      }
-    }
     .heading {
       h3 {
         @include heading-36;
@@ -172,6 +157,25 @@
   }
 }
 
+// This class should be used on an element that wraps an image to prevent jank
+// (aka that thing where the page jumps around because the image has loaded and
+// now takes up space). For much more information (and a couple of other
+// techniques) take a look at https://css-tricks.com/aspect-ratio-boxes/.
+.aspect-ratio-3\:2 {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  padding: 66% 0 0 0;
+  position: relative;
+
+  img {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
 
 .past-foreign-secretaries-menu li {
   border-bottom: 1px solid $govuk-border-colour;
