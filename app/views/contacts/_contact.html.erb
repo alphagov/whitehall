@@ -22,13 +22,13 @@
           <% if contact.email.present? %>
             <p class="email">
               <span class="type"><%= t('contact.email') %></span>
-              <%= mail_to contact.email, contact.email, class: 'email' %>
+              <%= mail_to contact.email, contact.email, class: "email govuk-link" %>
             </p>
           <% end %>
           <% if contact.contact_form_url.present? %>
             <p class="contact_form_url">
               <span class="type"><%= t('contact.contact_form') %></span>
-              <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %>
+              <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url, class: "govuk-link" %>
             </p>
           <% end %>
           <% contact.contact_numbers.each do |number| %>
@@ -41,7 +41,9 @@
       <% end %>
 
       <% if contact.comments.present? %>
-        <p class="comments"><%= auto_link(format_with_html_line_breaks(h(contact.comments))) %></p>
+        <p class="comments">
+          <%= auto_link(format_with_html_line_breaks(h(contact.comments)), html: { class: "govuk-link" }) %>
+        </p>
       <% end %>
 
       <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
@@ -49,7 +51,7 @@
           fallback = t_fallback('contact.access_and_opening_times')
           lang = fallback if fallback && fallback != I18n.locale
         %>
-        <%= link_to t('contact.access_and_opening_times'), [contact.worldwide_organisation, contact], class: "url", lang: lang %>
+        <%= link_to t('contact.access_and_opening_times'), [contact.worldwide_organisation, contact], class: "url govuk-link", lang: lang %>
       <% end %>
     </div>
   </div>
