@@ -2,8 +2,7 @@ class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
-  after_save :republish_organisation_to_publishing_api
-  after_destroy :republish_organisation_to_publishing_api
+  after_commit :republish_organisation_to_publishing_api
   after_save :reindex_organisation_in_search_index, if: :about_page?
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
