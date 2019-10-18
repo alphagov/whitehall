@@ -103,6 +103,17 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal detailed_guide.additional_related_mainstream_base_path, "/additional-content"
   end
 
+  test "should return stripped base_path's for related mainstream content urls" do
+    detailed_guide = build(
+      :detailed_guide,
+      related_mainstream_content_url: "http://gov.uk/suffix-whitespace  ",
+      additional_related_mainstream_content_url: "  http://gov.uk/prefix-whitespace",
+    )
+
+    assert_equal detailed_guide.related_mainstream_base_path, "/suffix-whitespace"
+    assert_equal detailed_guide.additional_related_mainstream_base_path, "/prefix-whitespace"
+  end
+
   test "related_detailed_guide_ids works correctly" do
     some_detailed_guide = create(:published_detailed_guide)
     detailed_guide = create(
