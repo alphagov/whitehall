@@ -5,7 +5,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   def index
     @groups = @collection.groups.includes(
       memberships: [
-        { document: { latest_edition: %i[organisations translations] } },
+        { document: { latest_edition: %i[translations] } },
         :non_whitehall_link,
       ],
     )

@@ -24,6 +24,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
   view_test "GET #index lets you move docs to another group" do
     @group.documents << create(:publication).document
+    @group.documents << create(:corporate_information_page).document
     @collection.groups << build(:document_collection_group)
     group_1, group_2 = @collection.groups
     get :index, params: { document_collection_id: @collection }
