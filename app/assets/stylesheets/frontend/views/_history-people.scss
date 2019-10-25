@@ -40,15 +40,6 @@
   }
 
   .foreign-secretaries {
-    ol {
-      li {
-        list-style: none;
-        @include media(tablet) {
-          float: left;
-          width: $one-third;
-        }
-      }
-    }
     .heading {
       h3 {
         @include heading-36;
