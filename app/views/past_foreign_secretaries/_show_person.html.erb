@@ -1,24 +1,28 @@
-<header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { type: link_to('History', histories_path),
-                        heading: "Past Foreign Secretaries",
-                        big: true } %>
+<header class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/title", {
+      context: {
+        text: "History",
+        href: histories_path,
+      },
+      title: "Past Foreign Secretaries",
+    } %>
   </div>
 </header>
 
-<div class="block historic-people-list">
-  <div class="inner-block">
-    <a href="#contents" class="js-showhide contents-toggle">Show past Foreign Secretaries</a>
+<div class="govuk-grid-row">
+  <div class="historic-people-list govuk-grid-column-one-quarter govuk-!-padding-left-3 govuk-!-padding-right-3">
+    <a href="#contents" class="js-showhide contents-toggle govuk-!-margin-bottom-3">Show past Foreign Secretaries</a>
     <div id="contents">
-      <ol>
+      <ul class="govuk-list past-foreign-secretaries-menu govuk-!-margin-bottom-6">
         <%= past_foreign_secretary_nav(current_person) %>
-      </ol>
-      <p><a href="/government/history/past-foreign-secretaries">See all past Foreign Secretaries</a></p>
+      </ul>
+      <p class="govuk-body-s">
+        <a href="/government/history/past-foreign-secretaries" class="govuk-link">See all past Foreign Secretaries</a>
+      </p>
     </div>
   </div>
-</div>
-
-<div class="block person-info">
-  <%= yield %>
+  <div class="govuk-grid-column-three-quarters govuk-!-padding-0 person-info">
+    <%= yield %>
+  </div>
 </div>

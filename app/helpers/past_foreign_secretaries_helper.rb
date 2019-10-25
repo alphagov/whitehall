@@ -1,7 +1,7 @@
 module PastForeignSecretariesHelper
   def past_foreign_secretary_nav(current_person)
     people = {
-      "edward-wood" => "Edward Frederick Lindley&nbsp;Wood",
+      "edward-wood" => "Edward Frederick Lindley Wood",
       "austen-chamberlain" => "Sir Austen Chamberlain",
       "george-curzon" => "George Nathaniel Curzon",
       "edward-grey" => "Sir Edward Grey",
@@ -14,8 +14,8 @@ module PastForeignSecretariesHelper
     }
     people
       .map { |slug, name|
-        content_tag(:li) do
-          link_to_if(slug == current_person, name.html_safe, past_foreign_secretary_path(id: slug))
+        content_tag(:li, class: "govuk-!-margin-0 govuk-body-s govuk-!-padding-top-2 govuk-!-padding-bottom-2") do
+          link_to_if(slug != current_person, name.html_safe, past_foreign_secretary_path(id: slug), class: "govuk-link  ")
         end
       }
       .join("")
