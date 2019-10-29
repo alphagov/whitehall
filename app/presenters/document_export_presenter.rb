@@ -61,40 +61,17 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def translate_ids_to_descriptive_values(edition)
-    replacements = []
-
-    if edition[:news_article_type_id].present?
-      replacements << {
-        from: "news_article_type_id",
-        to: "news_article_type",
-        value: edition.news_article_type&.key,
-      }
-    end
-    if edition[:corporate_information_page_type_id].present?
-      replacements << {
-        from: "corporate_information_page_type_id",
-        to: "corporate_information_page_type",
-        value: edition.corporate_information_page_type&.key,
-      }
-    end
-    if edition[:speech_type_id].present?
-      replacements << {
-        from: "speech_type_id",
-        to: "speech_type",
-        value: edition.speech_type&.key,
-      }
-    end
-    if edition[:publication_type_id].present?
-      replacements << {
-        from: "publication_type_id",
-        to: "publication_type",
-        value: edition.publication_type&.key,
-      }
-    end
-
-    replacements.reduce(edition.as_json) do |memo, replacement|
-      memo.delete(replacement[:from])
-      memo[replacement[:to]] = replacement[:value]
+    new_field_names = %w[
+      news_article_type
+      corporate_information_page_type
+      speech_type
+      publication_type
+    ]
+    new_field_names.reduce(edition.as_json) do |memo, new_field_name|
+      if edition["#{new_field_name}_id"].present?
+        memo.delete("#{new_field_name}_id")
+        memo[new_field_name] = edition.send(new_field_name)&.key
+      end
       memo
     end
   end
