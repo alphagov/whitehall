@@ -42,7 +42,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       output[:whitehall_admin_links].concat(resolve_whitehall_admin_links(edition.unpublishing.explanation))
     end
 
-    output[:edition] = translate_ids_to_descriptive_values(output[:edition])
+    output[:edition] = present_edition(output[:edition], output[:associations][:translations])
     output
   end
 
@@ -60,6 +60,11 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     end
   end
 
+  def present_edition(edition, translations)
+    edition = translate_ids_to_descriptive_values(edition)
+    remove_fields_that_exist_in_translations(edition, translations)
+  end
+
   def translate_ids_to_descriptive_values(edition)
     new_field_names = %w[
       news_article_type
@@ -74,6 +79,13 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       end
       memo
     end
+  end
+
+  def remove_fields_that_exist_in_translations(edition, translations = [])
+    translation = translations.find { |lang| lang["locale"] == edition["primary_locale"] }
+    return edition unless translation.present?
+
+    edition.as_json(except: translation.as_json.keys)
   end
 
   def provide_doctype_information(edition, output)

@@ -137,4 +137,19 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_nil edition["publication_type_id"]
     assert_equal "policy_paper", edition["publication_type"]
   end
+
+  test "removes edition fields that are duplicated by the primary translation" do
+    news_result = DocumentExportPresenter.new(create(:news_article).document).as_json
+    edition = news_result[:editions].first[:edition]
+    translation = news_result[:editions].first[:associations][:translations].first
+
+    assert_equal "en", edition["primary_locale"]
+    assert_equal "en", translation["locale"]
+    assert_nil edition["title"]
+    assert_nil edition["summary"]
+    assert_nil edition["body"]
+    assert_equal "news-title", translation["title"]
+    assert_equal "news-summary", translation["summary"]
+    assert_equal "news-body", translation["body"]
+  end
 end
