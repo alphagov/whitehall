@@ -61,13 +61,28 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def translate_ids_to_descriptive_values(edition)
+    replacements = []
+
     if edition[:news_article_type_id].present?
-      news_article_type = edition.news_article_type&.key
-      edition = edition.as_json
-      edition.delete("news_article_type_id")
-      edition["news_article_type"] = news_article_type
+      replacements << {
+        from: "news_article_type_id",
+        to: "news_article_type",
+        value: edition.news_article_type&.key,
+      }
     end
-    edition
+    if edition[:corporate_information_page_type_id].present?
+      replacements << {
+        from: "corporate_information_page_type_id",
+        to: "corporate_information_page_type",
+        value: edition.corporate_information_page_type&.key,
+      }
+    end
+
+    replacements.reduce(edition.as_json) do |memo, replacement|
+      memo.delete(replacement[:from])
+      memo[replacement[:to]] = replacement[:value]
+      memo
+    end
   end
 
   def provide_doctype_information(edition, output)

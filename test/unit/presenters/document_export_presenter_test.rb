@@ -113,10 +113,16 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "converts ids to descriptive fields" do
     news = create(:news_article)
+    corp_info = create(:corporate_information_page)
+
     news_result = DocumentExportPresenter.new(news.document).as_json
     edition = news_result[:editions].first[:edition]
-
     assert_nil edition["news_article_type_id"]
     assert_equal "press_release", edition["news_article_type"]
+
+    corp_result = DocumentExportPresenter.new(corp_info.document).as_json
+    edition = corp_result[:editions].first[:edition]
+    assert_nil edition["corporate_information_page_type_id"]
+    assert_equal "corporate_information_page", edition["corporate_information_page_type"]
   end
 end
