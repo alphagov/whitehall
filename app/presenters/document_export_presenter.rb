@@ -41,6 +41,8 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     if edition.withdrawn?
       output[:whitehall_admin_links].concat(resolve_whitehall_admin_links(edition.unpublishing.explanation))
     end
+
+    output[:edition] = translate_ids_to_descriptive_values(output[:edition])
     output
   end
 
@@ -56,6 +58,16 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
         json.merge!("govspeak_content" => attachment.govspeak_content.as_json) if attachment.respond_to?(:govspeak_content)
       end
     end
+  end
+
+  def translate_ids_to_descriptive_values(edition)
+    if edition[:news_article_type_id].present?
+      news_article_type = edition.news_article_type&.key
+      edition = edition.as_json
+      edition.delete("news_article_type_id")
+      edition["news_article_type"] = news_article_type
+    end
+    edition
   end
 
   def provide_doctype_information(edition, output)

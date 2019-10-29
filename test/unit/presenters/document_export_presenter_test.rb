@@ -110,4 +110,13 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal edition.government, result[:editions].first[:government]
     assert_equal current_government, result[:editions].first[:government]
   end
+
+  test "converts ids to descriptive fields" do
+    news = create(:news_article)
+    news_result = DocumentExportPresenter.new(news.document).as_json
+    edition = news_result[:editions].first[:edition]
+
+    assert_nil edition["news_article_type_id"]
+    assert_equal "press_release", edition["news_article_type"]
+  end
 end
