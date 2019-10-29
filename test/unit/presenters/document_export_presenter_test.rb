@@ -115,6 +115,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     news = create(:news_article)
     corp_info = create(:corporate_information_page)
     speech = create(:speech)
+    publication = create(:publication)
 
     news_result = DocumentExportPresenter.new(news.document).as_json
     edition = news_result[:editions].first[:edition]
@@ -130,5 +131,10 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     edition = speech_result[:editions].first[:edition]
     assert_nil edition["speech_type_id"]
     assert_equal "transcript", edition["speech_type"]
+
+    publication_result = DocumentExportPresenter.new(publication.document).as_json
+    edition = publication_result[:editions].first[:edition]
+    assert_nil edition["publication_type_id"]
+    assert_equal "policy_paper", edition["publication_type"]
   end
 end
