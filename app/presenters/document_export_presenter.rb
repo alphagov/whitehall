@@ -77,6 +77,13 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
         value: edition.corporate_information_page_type&.key,
       }
     end
+    if edition[:speech_type_id].present?
+      replacements << {
+        from: "speech_type_id",
+        to: "speech_type",
+        value: edition.speech_type&.key,
+      }
+    end
 
     replacements.reduce(edition.as_json) do |memo, replacement|
       memo.delete(replacement[:from])
