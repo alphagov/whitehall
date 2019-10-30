@@ -57,6 +57,12 @@ Whitehall::Application.routes.draw do
   get "/world/:id(.:locale)", as: "world_location", to: "world_locations#show", constraints: { locale: VALID_LOCALES_REGEX }
   get "/world/:world_location_id/news(.:locale)", as: "world_location_news_index", to: "world_location_news#index", constraints: { locale: VALID_LOCALES_REGEX }
 
+  # Override the /auth/failure route in gds-sso, as Slimmer gets
+  # involved and causes the page to fail to render
+  #
+  # This can be removed once Slimmer is removed from Whitehall.
+  get '/auth/failure', to: 'admin/base#auth_failure', as: "auth_failure_fixed"
+
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     external_redirect "/organisations/ministry-of-defence-police-and-guarding-agency",
       "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
