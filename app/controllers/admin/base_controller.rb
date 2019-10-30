@@ -4,7 +4,11 @@ class Admin::BaseController < ApplicationController
 
   layout "admin"
   prepend_before_action :skip_slimmer
-  prepend_before_action :authenticate_user!
+  prepend_before_action :authenticate_user!, except: %i[auth_failure]
+
+  def auth_failure
+    render "authentications/failure", status: 403
+  end
 
   def limit_edition_access!
     enforce_permission!(:see, @edition)
