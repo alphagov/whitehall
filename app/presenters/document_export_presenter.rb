@@ -138,7 +138,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     end
 
     def call(edition)
-      links = admin_links(edition.body)
+      links = edition.translations.flat_map { |t| admin_links(t.body) }
 
       if edition.unpublishing&.explanation
         links.concat(admin_links(edition.unpublishing.explanation))
