@@ -135,19 +135,21 @@ $govuk-typography-use-rem: false;
   @import "layouts/two_column_page";
 }
 
+
 // TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
 // coming from static and the global styles set in `global/_links.scss`. This
 // can be removed when the style from static and Whitehall removed.
 #whitehall-wrapper {
-  a.govuk-link {
+  a.govuk-link{
+    text-decoration: underline;
     &:focus {
-      text-decoration: none;
       color: $govuk-focus-text-colour;
+      text-decoration: none;
     }
   }
 
   .gem-c-title__context-link,
   .gem-c-title__context-link:visited {
     color: #6f777b;
-    }
+  }
 }

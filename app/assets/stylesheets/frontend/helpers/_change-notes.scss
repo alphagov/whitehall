@@ -16,7 +16,7 @@
       text-decoration: underline;
     }
     &:active {
-      color: $link-active-colour
+      color: $govuk-link-active-colour;
     }
     &:focus {
       outline: none;
