@@ -11,6 +11,46 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal edition.id, result.dig(:editions, 0, :id)
   end
 
+  test "includes a collection of users involved with the document" do
+    creator = create(:user)
+    Edition::AuditTrail.whodunnit = creator
+    edition = create(:publication)
+    author = edition.authors.first
+    remarker = create(:user)
+    create(:editorial_remark, author: remarker, edition: edition)
+    requestor = create(:user)
+    create(:fact_check_request, requestor: requestor, edition: edition)
+
+    result = DocumentExportPresenter.new(edition.document).as_json
+    expected = [
+      { id: creator.id,
+        uid: creator.uid,
+        name: creator.name,
+        email: creator.email,
+        organisation_slug: creator.organisation_slug,
+        organisation_content_id: creator.organisation_content_id },
+      { id: author.id,
+        uid: author.uid,
+        name: author.name,
+        email: author.email,
+        organisation_slug: author.organisation_slug,
+        organisation_content_id: author.organisation_content_id },
+      { id: remarker.id,
+        uid: remarker.uid,
+        name: remarker.name,
+        email: remarker.email,
+        organisation_slug: remarker.organisation_slug,
+        organisation_content_id: remarker.organisation_content_id },
+      { id: requestor.id,
+        uid: requestor.uid,
+        name: requestor.name,
+        email: requestor.email,
+        organisation_slug: requestor.organisation_slug,
+        organisation_content_id: requestor.organisation_content_id },
+    ]
+    assert_equal expected, result.dig(:users)
+  end
+
   test "removes edition fields that are duplicated by the primary translation" do
     news_result = DocumentExportPresenter.new(create(:news_article).document).as_json
     edition = news_result[:editions].first
@@ -155,8 +195,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     author = edition.authors.first
 
     result = DocumentExportPresenter.new(edition.document).as_json
-    assert_equal ({ id: author.id, uid: author.uid }),
-                 result.dig(:editions, 0, :authors, 0)
+    assert_equal [author.id], result.dig(:editions, 0, :authors)
   end
 
   test "includes contacts" do
@@ -185,22 +224,17 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     expected = { id: remark.id,
                  body: "My remark",
                  author_id: author.id,
-                 created_at: Time.zone.now,
-                 author: { id: author.id, uid: author.uid } }
+                 created_at: Time.zone.now }
     assert_equal expected, result.dig(:editions, 0, :editorial_remarks, 0)
   end
 
   test "returns fact check request details" do
     fact_check_request = create(:fact_check_request)
-    requestor = fact_check_request.requestor
     edition = fact_check_request.edition
 
     result = DocumentExportPresenter.new(edition.document).as_json
-    expected_fact_check_request =
-      fact_check_request.as_json(except: "requestor_id")
-                        .merge(requestor: { id: requestor.id, uid: requestor.uid })
-    assert_equal expected_fact_check_request.deep_symbolize_keys,
-                 result.dig(:editions, 0, :fact_check_requests, 0)
+    expected = fact_check_request.as_json.symbolize_keys
+    assert_equal expected, result.dig(:editions, 0, :fact_check_requests, 0)
   end
 
   test "includes history information" do
@@ -215,15 +249,13 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = [
       { event: "create",
-        whodunnit: user_1.id.to_s,
+        whodunnit: user_1.id,
         created_at: Time.zone.now,
-        state: "draft",
-        user: { id: user_1.id, uid: user_1.uid } },
+        state: "draft" },
       { event: "update",
-        whodunnit: user_2.id.to_s,
+        whodunnit: user_2.id,
         created_at: Time.zone.now,
-        state: "draft",
-        user: { id: user_2.id, uid: user_2.uid } },
+        state: "draft" },
     ]
     assert_equal expected, result.dig(:editions, 0, :revision_history)
   end
@@ -234,8 +266,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     edition.versions.last.update!(whodunnit: user.id)
 
     result = DocumentExportPresenter.new(edition.document).as_json
-    last_author = { id: edition.last_author.id, uid: edition.last_author.uid }
-    assert_equal last_author, result.dig(:editions, 0, :last_author)
+    assert_equal edition.last_author.id, result.dig(:editions, 0, :last_author)
   end
 
   test "includes organisations details" do

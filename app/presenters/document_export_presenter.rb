@@ -9,8 +9,10 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   ].freeze
 
   def as_json
+    presented_editions = model.editions.map { |e| present_edition(e) }
+    presented_users = users.map { |u| present_user(u) }
     model.as_json
-         .merge(editions: model.editions.map { |e| present_edition(e) })
+         .merge(editions: presented_editions, users: presented_users)
          .deep_symbolize_keys
   end
 
@@ -23,7 +25,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     edition.as_json(except: except).merge(
       alternative_format_provider_content_id: edition.try(:alternative_format_provider)&.content_id,
       attachments: present_attachments(edition),
-      authors: edition.authors.map { |u| present_user(u) },
+      authors: edition.authors.pluck(:id),
       contacts: slice_association(edition, :depended_upon_contacts, %i[id content_id]),
       edition_policies: slice_association(edition, :edition_policies, %i[id policy_content_id]),
       editorial_remarks: present_editorial_remarks(edition),
@@ -31,7 +33,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       government: edition.government&.as_json,
       revision_history: present_revision_history(edition),
       images: present_images(edition),
-      last_author: present_user(edition.last_author),
+      last_author: edition.last_author&.id,
       organisations: present_organisations(edition),
       role_appointments: slice_association(edition, %i[role_appointment role_appointments], %i[id content_id]),
       specialist_sectors: slice_association(edition, :specialist_sectors, %i[id topic_content_id primary]),
@@ -75,25 +77,19 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
     edition.editorial_remarks.map do |remark|
       remark.as_json(only: %i[id body created_at author_id])
-            .merge(author: present_user(remark.author))
     end
   end
 
   def present_fact_check_requests(edition)
     return [] unless edition.try(:fact_check_requests)
 
-    edition.fact_check_requests.map do |request|
-      request.as_json(except: "requestor_id")
-             .merge(requestor: present_user(request.requestor))
-    end
+    edition.fact_check_requests.map(&:as_json)
   end
 
   def present_revision_history(edition)
-    user_ids = edition.versions.map(&:whodunnit)
-    users = User.where(id: user_ids).index_by(&:id)
     edition.versions.map do |version|
-      version.as_json(only: %w[created_at event state whodunnit])
-             .merge(user: present_user(users[version.whodunnit.to_i]))
+      version.as_json(only: %w[created_at event state])
+             .merge(whodunnit: version.whodunnit.to_i)
     end
   end
 
@@ -126,9 +122,27 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def present_user(user)
-    return {} unless user
+    {
+      id: user.id,
+      uid: user.uid,
+      name: user.name,
+      email: user.email,
+      organisation_slug: user.organisation_slug,
+      organisation_content_id: user.organisation_content_id,
+    }
+  end
 
-    { id: user.id, uid: user.uid }
+  def users
+    user_ids = model.editions.inject([]) do |memo, edition|
+      whodunnits = edition.versions.pluck(:whodunnit).map(&:to_i)
+      remarkers = edition.editorial_remarks.pluck(:author_id)
+      requestors = edition.try(:fact_check_requests)&.pluck(:requestor_id).to_a
+      authors = edition.authors.pluck(:id)
+
+      memo + whodunnits + remarkers + requestors + authors
+    end
+
+    User.where(id: user_ids).order(:id)
   end
 
   class AdminLinkResolver
