@@ -17,7 +17,9 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   private
 
   def present_edition(edition)
-    edition.as_json.merge(
+    except = DOCUMENT_SUB_TYPES.map { |type| "#{type}_id".to_sym }
+
+    edition.as_json(except: except).merge(
       alternative_format_provider_content_id: edition.try(:alternative_format_provider)&.content_id,
       attachments: present_attachments(edition),
       authors: edition.authors.map { |u| present_user(u) },

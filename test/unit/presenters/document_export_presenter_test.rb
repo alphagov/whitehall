@@ -312,4 +312,15 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal "corporate_information_page",
                  cip_result.dig(:editions, 0, :corporate_information_page_type)
   end
+
+  test "it removes document sub type ids" do
+    edition = create(:edition)
+    result = DocumentExportPresenter.new(edition.document).as_json
+
+    assert_equal edition.id, result.dig(:editions, 0, :id)
+    assert_nil result.dig(:edition, 0, :news_article_type_id)
+    assert_nil result.dig(:edition, 0, :publication_type_id)
+    assert_nil result.dig(:edition, 0, :speech_type_id)
+    assert_nil result.dig(:edition, 0, :corporate_information_page_type_id)
+  end
 end
