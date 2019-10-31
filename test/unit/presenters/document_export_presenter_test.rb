@@ -11,6 +11,21 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal edition.id, result.dig(:editions, 0, :id)
   end
 
+  test "removes edition fields that are duplicated by the primary translation" do
+    news_result = DocumentExportPresenter.new(create(:news_article).document).as_json
+    edition = news_result[:editions].first
+    translation = edition[:translations].first
+
+    assert_equal "en", edition[:primary_locale]
+    assert_equal :en, translation[:locale]
+    assert_nil edition[:title]
+    assert_nil edition[:summary]
+    assert_nil edition[:body]
+    assert_equal "news-title", translation[:title]
+    assert_equal "news-summary", translation[:summary]
+    assert_equal "news-body", translation[:body]
+  end
+
   test "resolves internal Whitehall URLs in edition body with a public URL" do
     body = "Some text which contains an [internal link](/government/admin/news/2) to a public document"
     document = create(:document)
