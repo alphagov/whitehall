@@ -17,6 +17,10 @@ module Admin
       @options = options
     end
 
+    def options_for_export
+      @options.merge(include_locked_documents: false)
+    end
+
     def editions(locale = nil)
       @editions ||= {}
       return @editions[locale] if @editions[locale]

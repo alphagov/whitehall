@@ -17,7 +17,14 @@ private
   end
 
   def create_filter(filter_options, user)
-    Admin::EditionFilter.new(Edition, user, filter_options.symbolize_keys.merge(include_unpublishing: true))
+    Admin::EditionFilter.new(
+      Edition,
+      user,
+      filter_options.symbolize_keys.merge(
+        include_unpublishing: true,
+        include_locked_documents: false,
+      ),
+    )
   end
 
   def generate_csv(filter, csv_file)
