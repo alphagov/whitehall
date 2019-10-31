@@ -148,27 +148,4 @@ namespace :export do
     end
     puts result.to_json
   end
-
-  desc "Export news documents to JSON format e.g. export:news_documents ORGS=org-slug FROM=2018-07-01"
-  task news_documents: :environment do
-    org_slugs = ENV.fetch("ORGS", "").split(",")
-
-    scope = Document
-      .eager_load(:editions)
-      .joins(:latest_edition)
-      .joins("INNER JOIN edition_organisations ON editions.id = edition_organisations.edition_id")
-      .joins("INNER JOIN organisations ON edition_organisations.organisation_id = organisations.id")
-      .where("document_type": "NewsArticle")
-
-    scope = scope.where("organisations.slug": org_slugs) if org_slugs.any?
-    scope = scope.where("editions.updated_at >= ?", ENV["FROM"]) if ENV["FROM"]
-    total = scope.count
-
-    scope.find_each.with_index do |document, index|
-      puts "#{index + 1}/#{total} exported", STDERR if ((index + 1) % 100).zero?
-      puts ExportNewsDocument.new(document).call.to_json
-    rescue Errno::EPIPE
-      break # Can't do much about this, so just break
-    end
-  end
 end
