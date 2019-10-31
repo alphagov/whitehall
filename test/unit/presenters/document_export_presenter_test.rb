@@ -180,6 +180,31 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
                  result.dig(:editions, 0, :fact_check_requests, 0)
   end
 
+  test "includes history information" do
+    user_1 = create(:user)
+    Edition::AuditTrail.whodunnit = user_1
+    edition = create(:edition)
+
+    user_2 = create(:user)
+    Edition::AuditTrail.whodunnit = user_2
+    edition.update!(change_note: "changed")
+
+    result = DocumentExportPresenter.new(edition.document).as_json
+    expected = [
+      { event: "create",
+        whodunnit: user_1.id.to_s,
+        created_at: Time.zone.now,
+        state: "draft",
+        user: { id: user_1.id, uid: user_1.uid } },
+      { event: "update",
+        whodunnit: user_2.id.to_s,
+        created_at: Time.zone.now,
+        state: "draft",
+        user: { id: user_2.id, uid: user_2.uid } },
+    ]
+    assert_equal expected, result.dig(:editions, 0, :revision_history)
+  end
+
   test "includes last_author" do
     edition = create(:edition)
     user = create(:user)

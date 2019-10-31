@@ -27,6 +27,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       edition_policies: slice_association(edition, :edition_policies, %i[id policy_content_id]),
       fact_check_requests: present_fact_check_requests(edition),
       government: edition.government&.as_json,
+      revision_history: present_revision_history(edition),
       images: present_images(edition),
       last_author: present_user(edition.last_author),
       organisations: present_organisations(edition),
@@ -73,6 +74,15 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     edition.fact_check_requests.map do |request|
       request.as_json(except: "requestor_id")
              .merge(requestor: present_user(request.requestor))
+    end
+  end
+
+  def present_revision_history(edition)
+    user_ids = edition.versions.map(&:whodunnit)
+    users = User.where(id: user_ids).index_by(&:id)
+    edition.versions.map do |version|
+      version.as_json(only: %w[created_at event state whodunnit])
+             .merge(user: present_user(users[version.whodunnit.to_i]))
     end
   end
 
