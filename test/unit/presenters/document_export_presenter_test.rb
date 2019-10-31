@@ -159,6 +159,14 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
                  result.dig(:editions, 0, :authors, 0)
   end
 
+  test "includes contacts" do
+    contact = create(:contact)
+    edition = create(:edition, depended_upon_contacts: [contact])
+
+    result = DocumentExportPresenter.new(edition.document).as_json
+    assert_equal [{ id: contact.id, content_id: contact.content_id }], result.dig(:editions, 0, :contacts)
+  end
+
   test "includes edition policies" do
     edition = create(:news_article)
     EditionPolicy.create!(policy_content_id: SecureRandom.uuid, edition_id: edition.id)

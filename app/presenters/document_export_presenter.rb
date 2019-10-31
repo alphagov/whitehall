@@ -24,6 +24,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       alternative_format_provider_content_id: edition.try(:alternative_format_provider)&.content_id,
       attachments: present_attachments(edition),
       authors: edition.authors.map { |u| present_user(u) },
+      contacts: slice_association(edition, :depended_upon_contacts, %i[id content_id]),
       edition_policies: slice_association(edition, :edition_policies, %i[id policy_content_id]),
       editorial_remarks: present_editorial_remarks(edition),
       fact_check_requests: present_fact_check_requests(edition),
