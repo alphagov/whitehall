@@ -1,6 +1,16 @@
 require "test_helper"
 
 class DocumentExportPresenterTest < ActiveSupport::TestCase
+  test "includes basic document and edition information" do
+    document = create(:document)
+    edition = create(:edition, document: document)
+    result = DocumentExportPresenter.new(document).as_json
+
+    assert_equal document.content_id, result[:content_id]
+    assert_equal document.slug, result[:slug]
+    assert_equal edition.id, result.dig(:editions, 0, :id)
+  end
+
   test "resolves internal Whitehall URLs in edition body with a public URL" do
     body = "Some text which contains an [internal link](/government/admin/news/2) to a public document"
     document = create(:document)
