@@ -260,15 +260,6 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal expected, result.dig(:editions, 0, :revision_history)
   end
 
-  test "includes last_author" do
-    edition = create(:edition)
-    user = create(:user)
-    edition.versions.last.update!(whodunnit: user.id)
-
-    result = DocumentExportPresenter.new(edition.document).as_json
-    assert_equal edition.last_author.id, result.dig(:editions, 0, :last_author)
-  end
-
   test "includes organisations details" do
     organisation = create(:organisation)
     edition = create(:news_article, lead_organisations: [organisation])

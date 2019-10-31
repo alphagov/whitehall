@@ -33,7 +33,6 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       government: edition.government&.as_json,
       revision_history: present_revision_history(edition),
       images: present_images(edition),
-      last_author: edition.last_author&.id,
       organisations: present_organisations(edition),
       role_appointments: slice_association(edition, %i[role_appointment role_appointments], %i[id content_id]),
       specialist_sectors: slice_association(edition, :specialist_sectors, %i[id topic_content_id primary]),
