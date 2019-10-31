@@ -43,7 +43,8 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     }]
 
     result = DocumentExportPresenter.new(document).as_json
-    assert_equal expected_whitehall_admin_links, result[:editions][0][:whitehall_admin_links]
+    assert_equal expected_whitehall_admin_links,
+                 result.dig(:editions, 0, :whitehall_admin_links)
   end
 
   test "resolves internal Whitehall URLs in withdrawal explanation with a public URL" do
@@ -63,7 +64,8 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     }]
 
     result = DocumentExportPresenter.new(edition.document).as_json
-    assert_equal expected_whitehall_admin_links, result[:editions][-1][:whitehall_admin_links]
+    assert_equal expected_whitehall_admin_links,
+                 result.dig(:editions, 0, :whitehall_admin_links)
   end
 
   test "appends the image url to the images response hash" do
