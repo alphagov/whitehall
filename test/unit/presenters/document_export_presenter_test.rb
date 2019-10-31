@@ -167,6 +167,19 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal edition_policy, result.dig(:editions, 0, :edition_policies, 0)
   end
 
+  test "includes editorial remarks" do
+    author = create(:user)
+    remark = create(:editorial_remark, body: "My remark", author: author)
+
+    result = DocumentExportPresenter.new(remark.edition.document).as_json
+    expected = { id: remark.id,
+                 body: "My remark",
+                 author_id: author.id,
+                 created_at: Time.zone.now,
+                 author: { id: author.id, uid: author.uid } }
+    assert_equal expected, result.dig(:editions, 0, :editorial_remarks, 0)
+  end
+
   test "returns fact check request details" do
     fact_check_request = create(:fact_check_request)
     requestor = fact_check_request.requestor

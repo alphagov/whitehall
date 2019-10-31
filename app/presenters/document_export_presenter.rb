@@ -25,6 +25,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       attachments: present_attachments(edition),
       authors: edition.authors.map { |u| present_user(u) },
       edition_policies: slice_association(edition, :edition_policies, %i[id policy_content_id]),
+      editorial_remarks: present_editorial_remarks(edition),
       fact_check_requests: present_fact_check_requests(edition),
       government: edition.government&.as_json,
       revision_history: present_revision_history(edition),
@@ -65,6 +66,15 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
                          end
       attachment.as_json(include: :attachment_data, methods: %i[url type])
                 .merge(govspeak_content)
+    end
+  end
+
+  def present_editorial_remarks(edition)
+    return [] unless edition.try(:editorial_remarks)
+
+    edition.editorial_remarks.map do |remark|
+      remark.as_json(only: %i[id body created_at author_id])
+            .merge(author: present_user(remark.author))
     end
   end
 
