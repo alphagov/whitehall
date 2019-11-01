@@ -118,6 +118,26 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
                  result.dig(:editions, 0, :images, 0, :url)
   end
 
+  test "appends the image variants' urls to the images response hash" do
+    image = create(:image)
+    publication = create(:publication, images: [image])
+
+    image_url_parts = image.image_data.file_url.split("/")
+    filename = image_url_parts.pop
+    image_dir_url = image_url_parts.join("/")
+    expected = {
+      s960: "#{image_dir_url}/s960_#{filename}",
+      s712: "#{image_dir_url}/s712_#{filename}",
+      s630: "#{image_dir_url}/s630_#{filename}",
+      s465: "#{image_dir_url}/s465_#{filename}",
+      s300: "#{image_dir_url}/s300_#{filename}",
+      s216: "#{image_dir_url}/s216_#{filename}",
+    }
+
+    result = DocumentExportPresenter.new(publication.document).as_json
+    assert_equal expected, result.dig(:editions, 0, :images, 0, :variants)
+  end
+
   test "appends expected attachment data to the file attachment response hash" do
     publication_file = create(:publication, :with_command_paper)
 
