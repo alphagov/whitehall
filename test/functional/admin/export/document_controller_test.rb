@@ -7,7 +7,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     login_as :export_data_user
     get :show, params: { id: document.id }, format: "json"
-    assert_equal "some-document", json_response["document"]["slug"]
+    assert_equal "some-document", json_response["slug"]
   end
 
   test "shows forbidden if user does not have export data permission" do
