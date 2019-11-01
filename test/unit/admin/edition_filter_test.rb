@@ -345,4 +345,9 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2, include_locked_documents: true)
     assert_includes filter.editions, edition
   end
+
+  test "options for export should set 'include_locked_documents' to false" do
+    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2, include_locked_documents: true)
+    assert_equal filter.options_for_export[:include_locked_documents], false
+  end
 end

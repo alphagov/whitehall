@@ -97,7 +97,7 @@
     <div class="col-md-5">
       <% if show_export && can?(:export, Edition) %>
         <div class="publishing-stats">
-          <%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}" %>
+          <%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options_for_export.to_param}" %>
         </div>
       <% end %>
     </div>
