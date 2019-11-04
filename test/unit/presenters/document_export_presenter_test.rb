@@ -150,6 +150,23 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
                  attachment[:attachment_data]
   end
 
+  test "appends the attachment variants to the file attachment response hash" do
+    publication_file = create(:publication, :with_command_paper)
+    result = DocumentExportPresenter.new(publication_file.document).as_json
+    attachment = result.dig(:editions, 0, :attachments, 0)
+
+    attachment_url_parts = attachment[:url].split("/")
+    filename = attachment_url_parts.pop
+    attachment_dir_url = attachment_url_parts.join("/")
+    expected = {
+      thumbnail: {
+        content_type: "image/png",
+        url: "#{attachment_dir_url}/thumbnail_#{filename}.png",
+      },
+    }
+    assert_equal expected, attachment[:variants]
+  end
+
   test "exports expected data with the external attachment response hash" do
     publication_external = create(:publication, :with_external_attachment)
 
