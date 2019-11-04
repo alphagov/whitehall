@@ -68,6 +68,18 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
                          end
       attachment.as_json(include: :attachment_data, methods: %i[url type])
                 .merge(govspeak_content)
+                .merge(variants: attachment_variants(attachment))
+    end
+  end
+
+  def attachment_variants(attachment)
+    return {} unless attachment.try(:attachment_data)
+
+    attachment.attachment_data.file.versions.each_with_object({}) do |(variant, details), memo|
+      memo[variant] = {
+        content_type: details.content_type,
+        url: details.url,
+      }
     end
   end
 
@@ -95,7 +107,16 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   def present_images(edition)
     return [] unless edition.try(:images)
 
-    edition.images.map { |image| image.as_json(methods: :url) }
+    edition.images.map do |image|
+      image.as_json(methods: :url)
+           .merge(variants: image_variants(image))
+    end
+  end
+
+  def image_variants(image)
+    image.image_data.file.versions.each_with_object({}) do |(variant, details), memo|
+      memo[variant] = details.url
+    end
   end
 
   def present_organisations(edition)
