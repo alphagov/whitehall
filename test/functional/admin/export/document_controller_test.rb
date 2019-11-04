@@ -89,4 +89,14 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     post :lock, params: { id: "1" }, format: "json"
     assert_response :forbidden
   end
+
+  test "locks document" do
+    document = create(:document)
+    login_as :export_data_user
+
+    post :lock, params: { id: document.id }, format: "json"
+
+    assert document.reload.locked
+    assert_response :no_content
+  end
 end

@@ -16,7 +16,10 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     )
   end
 
-  def lock; end
+  def lock
+    document = Document.find(params[:id])
+    document.update!(locked: true)
+  end
 
   private
 
