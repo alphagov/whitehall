@@ -3,7 +3,14 @@ class CheckOrganisationLinksWorker
   include Sidekiq::Worker
   ORGANISATION_EDITION_LIMIT = 500
 
-  sidekiq_options queue: "link_checks"
+  sidekiq_options queue: "link_checks", retry: 6
+  # Stop retrying jobs within a day as new jobs are enqueued each day,
+  # and also retry less times within a day as this isn't a critical
+  # task.
+  sidekiq_retry_in do |retry_count, _exception|
+    # First retry in 15 seconds, 6th (and last) retry at ~5 hours
+    ((0.5 * (retry_count + 1)**4) * 30)
+  end
 
   def perform(organisation_id)
     GovukStatsd.time("link-checking-debug.check-organisation-links-worker") do
