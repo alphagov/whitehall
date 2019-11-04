@@ -99,4 +99,10 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert document.reload.locked
     assert_response :no_content
   end
+
+  test "unlock returns forbidden if user does not have export data permission" do
+    login_as :world_editor
+    post :unlock, params: { id: "1" }, format: "json"
+    assert_response :forbidden
+  end
 end

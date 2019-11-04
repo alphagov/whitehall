@@ -21,6 +21,8 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     document.update!(locked: true)
   end
 
+  def unlock; end
+
   private
 
   def paginated_document_ids

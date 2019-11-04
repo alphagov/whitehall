@@ -192,6 +192,7 @@ Whitehall::Application.routes.draw do
           resources :document, only: %i[show index], defaults: { format: :json } do
             member do
               post :lock
+              post :unlock
             end
           end
         end
