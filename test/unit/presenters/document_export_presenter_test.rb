@@ -145,6 +145,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     attachment = result.dig(:editions, 0, :attachments, 0)
 
     assert_equal publication_file.attachments.first.url, attachment[:url]
+    assert_match(/^file\-attachment\-title\-[0-9]+$/, attachment[:title])
     assert_equal "FileAttachment", attachment[:type]
     assert_equal publication_file.attachments.first.attachment_data.as_json.symbolize_keys,
                  attachment[:attachment_data]
