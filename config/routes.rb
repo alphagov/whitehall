@@ -189,7 +189,11 @@ Whitehall::Application.routes.draw do
         root to: "dashboard#index", via: :get
 
         namespace "export" do
-          resources :document, only: %i[show index], defaults: { format: :json }
+          resources :document, only: %i[show index], defaults: { format: :json } do
+            member do
+              post :lock
+            end
+          end
         end
 
         get "find-in-admin-bookmarklet" => "find_in_admin_bookmarklet#index", as: :find_in_admin_bookmarklet_instructions_index

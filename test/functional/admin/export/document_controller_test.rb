@@ -83,4 +83,10 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     assert_equal expected_response, json_response
   end
+
+  test "lock returns forbidden if user does not have export data permission" do
+    login_as :world_editor
+    post :lock, params: { id: "1" }, format: "json"
+    assert_response :forbidden
+  end
 end

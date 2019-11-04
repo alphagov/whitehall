@@ -16,6 +16,8 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     )
   end
 
+  def lock; end
+
   private
 
   def paginated_document_ids
