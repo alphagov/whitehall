@@ -1,4 +1,5 @@
 class Admin::Export::DocumentController < Admin::Export::BaseController
+  skip_before_action :verify_authenticity_token
   self.responder = Api::Responder
 
   def show
