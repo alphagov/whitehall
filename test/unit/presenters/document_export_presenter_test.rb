@@ -138,6 +138,15 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal expected, result.dig(:editions, 0, :images, 0, :variants)
   end
 
+  test "ignores variants when they do not exist" do
+    svg_image_data = create(:image_data, file: File.open(File.join(Rails.root, "test", "fixtures", "images", "test-svg.svg")))
+    publication = create(:publication, images: [create(:image, image_data: svg_image_data)])
+    expected = {}
+
+    result = DocumentExportPresenter.new(publication.document).as_json
+    assert_equal expected, result.dig(:editions, 0, :images, 0, :variants)
+  end
+
   test "appends expected attachment data to the file attachment response hash" do
     publication_file = create(:publication, :with_command_paper)
 

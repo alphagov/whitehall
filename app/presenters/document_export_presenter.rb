@@ -115,7 +115,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
   def image_variants(image)
     image.image_data.file.versions.each_with_object({}) do |(variant, details), memo|
-      memo[variant] = details.url
+      memo[variant] = details.url if details.url
     end
   end
 
