@@ -4,16 +4,16 @@ env :PATH, "/usr/local/bin:/usr/bin:/bin"
 # We need Rake to use our own environment
 job_type :rake, "cd :path && govuk_setenv whitehall bundle exec rake :task --silent :output"
 
+def integration_or_staging?
+  ENV.fetch("GOVUK_WEBSITE_ROOT") =~ /integration|staging/
+end
+
 every :day, at: ["3am", "12:45pm"], roles: [:admin] do
   rake "export:mappings"
 end
 
 every :hour, roles: [:backend] do
   rake "search:index:consultations"
-end
-
-def integration_or_staging?
-  ENV.fetch("GOVUK_WEBSITE_ROOT") =~ /integration|staging/
 end
 
 def taxonomy_cron_rules
