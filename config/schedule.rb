@@ -12,7 +12,17 @@ every :day, at: ["3am", "12:45pm"], roles: [:admin] do
   rake "export:mappings"
 end
 
-every :hour, roles: [:backend] do
+def search_index_consultations_cron_rule
+  if integration_or_staging?
+    # Don't run near midnight, as this is when the data sync will
+    # likely happen, and the task will error
+    "0 2-22 * * *"
+  else
+    :hour
+  end
+end
+
+every search_index_consultations_cron_rule, roles: [:backend] do
   rake "search:index:consultations"
 end
 
