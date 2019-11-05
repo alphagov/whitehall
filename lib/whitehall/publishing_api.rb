@@ -185,10 +185,6 @@ module Whitehall
       end
     end
 
-    def self.served_from_content_store?(edition)
-      edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    end
-
     def self.assert_public_edition!(instance)
       if instance.is_a?(Edition) && !instance.publicly_visible?
         raise UnpublishableInstanceError, "#{instance.class} with ID #{instance.id} is not publishable"
