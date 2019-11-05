@@ -139,7 +139,7 @@ class DocumentHelperTest < ActionView::TestCase
       locale: "it",
       id: "a-world-location",
     )
-    assert_dom_equal %(<a lang="de" href="/world/a-world-location.de">Deutsch</a>),
+    assert_dom_equal %(<a lang="de" class="govuk-link" href="/world/a-world-location.de">Deutsch</a>),
                      link_to_translation(:de)
   end
 
@@ -150,7 +150,7 @@ class DocumentHelperTest < ActionView::TestCase
       locale: "it",
       id: "a-world-location",
     )
-    assert_dom_equal %(<a lang="en" href="/world/a-world-location">English</a>),
+    assert_dom_equal %(<a lang="en"  class="govuk-link" href="/world/a-world-location">English</a>),
                      link_to_translation(:en)
   end
 
