@@ -139,11 +139,13 @@ $govuk-typography-use-rem: false;
 // TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
 // coming from static and the global styles set in `global/_links.scss`. This
 // can be removed when the style from static and Whitehall removed.
+// When removing ensure all cases are captured - some rules in helpers/_headings.scss
+// are very specific, requiring the !important here
 #whitehall-wrapper {
   a.govuk-link{
     text-decoration: underline;
     &:focus {
-      color: $govuk-focus-text-colour;
+      color: $govuk-focus-text-colour !important;
       text-decoration: none;
     }
   }

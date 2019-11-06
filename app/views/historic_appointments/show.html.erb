@@ -4,7 +4,7 @@
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
-              locals: { type: link_to('History', histories_path),
+              locals: { type: link_to('History', histories_path, class: "govuk-link"),
                         heading: "Past #{@role.name.pluralize}",
                         big: true } %>
   </div>
@@ -36,7 +36,7 @@
   </div>
   <div class="person-detail">
     <div class="inner">
-      <p class="intro"><%= @historical_account.summary %></p>
+      <p class="govuk-body-l"><%= @historical_account.summary %></p>
 
       <%= govspeak_to_html @historical_account.body %>
     </div>
