@@ -404,6 +404,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
       created_at: edition.unpublishing.created_at,
       updated_at: edition.unpublishing.updated_at,
       redirect: false,
+      unpublishing_reason: edition.unpublishing.unpublishing_reason.name,
     }
 
     assert_equal expected, result.dig(:editions, 0, :unpublishing)
@@ -421,6 +422,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
       created_at: edition.unpublishing.created_at,
       updated_at: edition.unpublishing.updated_at,
       redirect: true,
+      unpublishing_reason: edition.unpublishing.unpublishing_reason.name,
     }
 
     assert_equal expected, result.dig(:editions, 0, :unpublishing)

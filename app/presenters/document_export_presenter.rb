@@ -143,18 +143,21 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def present_unpublishing(edition)
-    edition
-      .unpublishing
-      .as_json(
-        only: %i[
-          id
-          explanation
-          alternative_url
-          redirect
-          created_at
-          updated_at
-        ],
-      )
+    if edition.unpublishing
+      edition
+        .unpublishing
+        .as_json(
+          only: %i[
+            id
+            explanation
+            alternative_url
+            redirect
+            created_at
+            updated_at
+          ],
+        )
+        .merge(unpublishing_reason: edition.unpublishing.unpublishing_reason.name)
+    end
   end
 
   def present_user(user)
