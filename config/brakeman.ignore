@@ -33,47 +33,6 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "1b28bbfd8fcc341513e1b805b05624e55defe0ef04198bc7f482b119dd2da7c4",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 29,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o, :class => \"sponsoring-organisation\")\n end.to_sentence",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "CorporateInformationPagesController",
-          "method": "show",
-          "line": 9,
-          "file": "app/controllers/corporate_information_pages_controller.rb",
-          "rendered": {
-            "name": "corporate_information_pages/show_worldwide_organisation",
-            "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "corporate_information_pages/show_worldwide_organisation",
-          "line": 4,
-          "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb",
-          "rendered": {
-            "name": "worldwide_organisations/_header",
-            "file": "app/views/worldwide_organisations/_header.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "worldwide_organisations/_header"
-      },
-      "user_input": "Organisation.friendly.find(params[:organisation_id])",
-      "confidence": "Weak",
-      "note": "We don't link directly to any unescaped model attribute."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "1cc573a78d6cc4fbcde77a4b472fc7095eea27e1135442d379dd20e64f08085c",
       "check_name": "LinkToHref",
@@ -124,6 +83,36 @@
       "note": "The system binaries are constants, and the others are built in code, there is no user input."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "2e8f4b07eb80d409f94338adaee161683ad19c71a77b71aab70ce5591e95cef1",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/contacts/_contact.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.contact_form_url.truncate(25), (Unresolved Model).new.contact_form_url, :class => \"govuk-link\")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "organisations/show",
+          "line": 222,
+          "file": "app/views/organisations/show.html.erb",
+          "rendered": {
+            "name": "contacts/_contact",
+            "file": "app/views/contacts/_contact.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "contacts/_contact"
+      },
+      "user_input": "(Unresolved Model).new.contact_form_url",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "3bbe521f1296024aed2d6a49f3cb14ea53fdd0aaa221aac334d8fc89bd855e17",
@@ -158,7 +147,7 @@
           "type": "controller",
           "class": "Admin::EditionsController",
           "method": "show",
-          "line": 81,
+          "line": 87,
           "file": "app/controllers/admin/editions_controller.rb",
           "rendered": {
             "name": "admin/editions/show",
@@ -183,6 +172,47 @@
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
       "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "3ce1608afbd361b96667e68317e7c2c811a24f7313d7f87c1df5805670ac0813",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/worldwide_organisations/_header.html.erb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l, :class => \"govuk-link\")\n end.to_sentence",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "CorporateInformationPagesController",
+          "method": "show",
+          "line": 9,
+          "file": "app/controllers/corporate_information_pages_controller.rb",
+          "rendered": {
+            "name": "corporate_information_pages/show_worldwide_organisation",
+            "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "corporate_information_pages/show_worldwide_organisation",
+          "line": 4,
+          "file": "app/views/corporate_information_pages/show_worldwide_organisation.html.erb",
+          "rendered": {
+            "name": "worldwide_organisations/_header",
+            "file": "app/views/worldwide_organisations/_header.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "worldwide_organisations/_header"
+      },
+      "user_input": "Organisation.friendly.find(params[:organisation_id])",
+      "confidence": "Weak",
+      "note": ""
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -417,13 +447,13 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "b9a59bd95d6f54e1a34b77c1f7dcceebfe0c44401a1060cf026bcb1f13263b5a",
+      "fingerprint": "bd844c633fbb1e3329169e5ca326d05505ef596d5ef24c9862c034d3cc000534",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 26,
+      "line": 29,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l)\n end.to_sentence",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
       "render_path": [
         {
           "type": "controller",
@@ -453,7 +483,7 @@
       },
       "user_input": "Organisation.friendly.find(params[:organisation_id])",
       "confidence": "Weak",
-      "note": "We don't link directly to any unescaped model attribute."
+      "note": ""
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -474,36 +504,6 @@
       "user_input": "params[:id].underscore",
       "confidence": "Medium",
       "note": "We check that the params[:id] is valid before rendering the template."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "c08711cc21cb1dbf0709db0011a9a4a782bf6c1a6f7a0a1e1d4b000d20462ae2",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/contacts/_contact.html.erb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.contact_form_url.truncate(25), (Unresolved Model).new.contact_form_url)",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "organisations/show",
-          "line": 222,
-          "file": "app/views/organisations/show.html.erb",
-          "rendered": {
-            "name": "contacts/_contact",
-            "file": "app/views/contacts/_contact.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "contacts/_contact"
-      },
-      "user_input": "(Unresolved Model).new.contact_form_url",
-      "confidence": "Weak",
-      "note": "This comes from a new model so we trust the data."
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -657,28 +657,8 @@
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
       "note": "This comes from a new model so we trust the data."
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "eb4406ba30350c46d5613c9dc9bbd8c21c8565b95e19ca4975a4489c120835a0",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/email_signups_controller.rb",
-      "line": 10,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(EmailSignup.new(email_signup_params).signup_url)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "EmailSignupsController",
-        "method": "create"
-      },
-      "user_input": "EmailSignup.new(email_signup_params).signup_url",
-      "confidence": "High",
-      "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2019-07-25 11:30:37 +0100",
-  "brakeman_version": "4.6.1"
+  "updated": "2019-11-05 09:14:39 +0000",
+  "brakeman_version": "4.7.0"
 }

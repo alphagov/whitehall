@@ -67,7 +67,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
     name = ""
     name << "<span class='person-title'>The Rt Hon</span> " if privy_counsellor?
     name << "<strong>#{name_without_privy_counsellor_prefix}</strong>"
-    context.link_to name.html_safe, path, options
+    context.link_to name.html_safe, path, options.merge(class: "govuk-link")
   end
 
   def path

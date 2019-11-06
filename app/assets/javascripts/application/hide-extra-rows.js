@@ -36,7 +36,7 @@
         });
 
         if($hiddenElements.contents().length > 0){
-          var openButton = $('<a class="show-other-content" href="#" title="Show additional content"><span class="plus">+&nbsp;</span>others</a>');
+          var openButton = $('<a class="show-other-content govuk-link" href="#" title="Show additional content"><span class="plus">+&nbsp;</span>others</a>');
 
           openButton.on('click', function(e) {
             e.preventDefault();

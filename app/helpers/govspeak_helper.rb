@@ -131,6 +131,7 @@ private
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
+        add_class_to_links(nokogiri_doc)
         add_class_to_last_blockquote_paragraph(nokogiri_doc)
 
         case options[:heading_numbering]
@@ -202,6 +203,12 @@ private
   def add_class_to_last_blockquote_paragraph(nokogiri_doc)
     nokogiri_doc.css("blockquote p:last-child").map do |el|
       el[:class] = "last-child"
+    end
+  end
+
+  def add_class_to_links(nokogiri_doc)
+    nokogiri_doc.css("a").map do |el|
+      el[:class] = "govuk-link"
     end
   end
 
