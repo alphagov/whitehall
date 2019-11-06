@@ -78,14 +78,17 @@
   .text {
     float: left;
     width: $two-thirds;
+
     @include media(tablet) {
       float: none;
       width: $full-width;
     }
+
     .current-appointee {
       padding-top: 0;
+
       a {
-        display: block;
+        display: inline-block;
         overflow: hidden;
 
         &:hover,
@@ -102,6 +105,7 @@
 
       a {
         text-decoration: none;
+
         &:hover,
         &:focus,
         &:active {
