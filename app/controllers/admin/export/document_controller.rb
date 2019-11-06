@@ -1,4 +1,5 @@
 class Admin::Export::DocumentController < Admin::Export::BaseController
+  skip_before_action :verify_authenticity_token
   self.responder = Api::Responder
 
   def show
@@ -14,6 +15,16 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
       page_number: page_number,
       page_count: result_set.count,
     )
+  end
+
+  def lock
+    document = Document.find(params[:id])
+    document.update!(locked: true)
+  end
+
+  def unlock
+    document = Document.find(params[:id])
+    document.update!(locked: false)
   end
 
   private

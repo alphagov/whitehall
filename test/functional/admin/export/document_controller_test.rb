@@ -83,4 +83,36 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     assert_equal expected_response, json_response
   end
+
+  test "lock returns forbidden if user does not have export data permission" do
+    login_as :world_editor
+    post :lock, params: { id: "1" }, format: "json"
+    assert_response :forbidden
+  end
+
+  test "locks document" do
+    document = create(:document)
+    login_as :export_data_user
+
+    post :lock, params: { id: document.id }, format: "json"
+
+    assert document.reload.locked
+    assert_response :no_content
+  end
+
+  test "unlock returns forbidden if user does not have export data permission" do
+    login_as :world_editor
+    post :unlock, params: { id: "1" }, format: "json"
+    assert_response :forbidden
+  end
+
+  test "unlocks document" do
+    document = create(:document, locked: true)
+    login_as :export_data_user
+
+    post :unlock, params: { id: document.id }, format: "json"
+
+    refute document.reload.locked
+    assert_response :no_content
+  end
 end
