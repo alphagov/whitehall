@@ -14,7 +14,7 @@ gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'faraday'
 gem 'friendly_id', '~> 5.2.4'
 gem "fuzzy_match", "~> 2.1"
-gem 'gds-sso', '~> 14.1'
+gem 'gds-sso', '~> 14.2'
 gem 'globalize', '~> 5'
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.7'
