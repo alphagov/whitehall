@@ -393,6 +393,39 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal expected, result.dig(:editions, 0, :translations)
   end
 
+  test "includes unpublishing details for withdrawn documents" do
+    edition = create(:withdrawn_edition)
+    result = DocumentExportPresenter.new(edition.document).as_json
+
+    expected = {
+      id: edition.unpublishing.id,
+      explanation: edition.unpublishing.explanation,
+      alternative_url: nil,
+      created_at: edition.unpublishing.created_at,
+      updated_at: edition.unpublishing.updated_at,
+      redirect: false,
+    }
+
+    assert_equal expected, result.dig(:editions, 0, :unpublishing)
+  end
+
+  test "includes unpublishing details for unpublished documents" do
+    edition = create(:edition)
+    create(:published_in_error_redirect_unpublishing, edition: edition)
+    result = DocumentExportPresenter.new(edition.document).as_json
+
+    expected = {
+      id: edition.unpublishing.id,
+      explanation: edition.unpublishing.explanation,
+      alternative_url: edition.unpublishing.alternative_url,
+      created_at: edition.unpublishing.created_at,
+      updated_at: edition.unpublishing.updated_at,
+      redirect: true,
+    }
+
+    assert_equal expected, result.dig(:editions, 0, :unpublishing)
+  end
+
   test "includes world locations details" do
     edition = create(:news_article_world_news_story)
     world_location = edition.world_locations.last

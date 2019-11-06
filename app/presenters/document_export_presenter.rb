@@ -38,6 +38,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       specialist_sectors: slice_association(edition, :specialist_sectors, %i[id topic_content_id primary]),
       topical_events: slice_association(edition, :topical_events, %i[id content_id]),
       translations: present_translations(edition),
+      unpublishing: present_unpublishing(edition),
       whitehall_admin_links: AdminLinkResolver.call(edition),
       world_locations: slice_association(edition, :world_locations, %i[id content_id]),
       worldwide_organisations: slice_association(edition, %i[worldwide_organisation worldwide_organisations], %i[id content_id]),
@@ -139,6 +140,21 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       base_path = Whitehall.url_maker.public_document_path(edition, locale: translation.locale)
       translation.as_json(except: :edition_id).merge(base_path: base_path)
     end
+  end
+
+  def present_unpublishing(edition)
+    edition
+      .unpublishing
+      .as_json(
+        only: %i[
+          id
+          explanation
+          alternative_url
+          redirect
+          created_at
+          updated_at
+        ],
+      )
   end
 
   def present_user(user)
