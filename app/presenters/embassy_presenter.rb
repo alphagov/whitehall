@@ -71,11 +71,6 @@ private
       location: "Hong Kong",
       base_path: "/government/world/organisations/british-consulate-general-hong-kong",
     },
-    "Maldives" => {
-      building: "British Embassy Malé",
-      location: "Maldives",
-      base_path: "/government/world/organisations/british-embassy-maldives",
-    },
     "Marshall Islands" => {
       building: "British High Commission Suva",
       location: "Fiji",
