@@ -17,7 +17,7 @@ module Whitehall
       )
 
       @search_backend = Whitehall.search_backend
-      Whitehall.search_backend = Whitehall::DocumentFilter::AdvancedSearchRummager
+      Whitehall.search_backend = Whitehall::DocumentFilter::SearchRummager
     end
 
     def self.start_faking_it_again!

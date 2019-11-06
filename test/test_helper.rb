@@ -63,19 +63,14 @@ class ActiveSupport::TestCase
     Sidekiq::Worker.clear_all
   end
 
-  def with_stubbed_rummager(stubbed_object, announcements = false)
+  def with_stubbed_rummager(stubbed_object)
     previous_client = Whitehall.search_client
     previous_government_search_client = Whitehall.government_search_client
     previous_backend = Whitehall.search_backend
 
     Whitehall.search_client = stubbed_object
     Whitehall.government_search_client = stubbed_object
-    Whitehall.search_backend =
-      if announcements
-        Whitehall::DocumentFilter::SearchRummager
-      else
-        Whitehall::DocumentFilter::AdvancedSearchRummager
-      end
+    Whitehall.search_backend = Whitehall::DocumentFilter::SearchRummager
     yield
 
     Whitehall.search_client = previous_client

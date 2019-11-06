@@ -44,7 +44,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "index displays world location title and mission-statement" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
@@ -67,7 +67,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "index has atom feed autodiscovery link" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
@@ -76,7 +76,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "index includes a link to the atom feed" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
@@ -85,7 +85,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with entries for latest activity" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       documents = [
         { "content_store_document_type" => "publication", "public_timestamp" => 1.week.ago.to_date },
         { "content_store_document_type" => "news_article", "public_timestamp" => 1.day.ago },
@@ -107,7 +107,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "shows the latest published edition for a featured document" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).twice.returns("results" => [])
       news = create(:published_news_article, first_published_at: 2.days.ago)
       editor = create(:departmental_editor)
@@ -123,7 +123,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "shows featured items in defined order for locale" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
       LocalisedModel.new(@world_location, :fr).update_attributes(name: "Territoire antarctique britannique")
 
@@ -146,7 +146,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "excludes ended features" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
       news = create(:published_news_article, first_published_at: 2.days.ago)
       feature_list = create(:feature_list, featurable: @world_location, locale: :en)
@@ -158,7 +158,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "shows a maximum of 5 featured news articles" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
       english = FeatureList.create!(featurable: @world_location, locale: :en)
       6.times do
@@ -173,7 +173,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "should set world location slimmer headers" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
       get :index, params: { world_location_id: @world_location.id }
 
@@ -182,7 +182,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).once
       @rummager.expects(:search).with(announcement_search_options).returns("results" => [
         { "public_timestamp" => 1.day.ago, "content_id" => "content_id_1", "content_store_document_type" => "news_story" },
@@ -205,7 +205,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "should display world_location's latest two non-statistics publications in reverse chronological order" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_publication, world_locations: [@world_location], first_published_at: 2.days.ago)
@@ -221,7 +221,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
@@ -243,7 +243,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "should display world location's latest two statistics publications in reverse chronological order" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago)
@@ -256,7 +256,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
       publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
@@ -338,7 +338,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should show featured links if there are some" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
       featured_link = create(:featured_link, linkable: @world_location)
 
@@ -351,7 +351,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "does not set lang=en on featured links for english pages" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
       create(:featured_link, linkable: @world_location)
 

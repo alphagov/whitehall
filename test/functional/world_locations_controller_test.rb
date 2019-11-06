@@ -106,7 +106,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "show world location generates an atom feed with entries for latest activity" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       world_location = create(
         :world_location,
         world_location_type: WorldLocationType::WorldLocation,
@@ -132,7 +132,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "show international delegation generates an atom feed with entries for latest activity" do
-    with_stubbed_rummager(@rummager, true) do
+    with_stubbed_rummager(@rummager) do
       world_location = create(
         :world_location,
         world_location_type: WorldLocationType::InternationalDelegation,
