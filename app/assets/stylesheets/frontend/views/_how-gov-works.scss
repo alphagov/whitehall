@@ -3,17 +3,6 @@
     clear: both;
   }
 
-  p, li{
-    @include ig-core-19;
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  li {
-    margin-left: $gutter;
-  }
-
   .thirds-width-section,
   .halves-width-section {
     overflow: visible;
@@ -74,7 +63,6 @@
 
   .feature-value {
     display: block;
-    padding-bottom: 0;
 
     .feature-value__count {
       display: block;
@@ -93,6 +81,7 @@
   .feature-value__caption {
     color: inherit;
     display: inline-block;
+    margin: 0;
     padding: 0 0.2em;
     position: relative;
     top: -0.5em;
