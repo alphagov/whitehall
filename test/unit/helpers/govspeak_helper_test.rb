@@ -150,6 +150,30 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equivalent_html expected, rendered_attachment_headers
   end
 
+  test "#html_attachment_govspeak_headers_html correctly renders headings that are not fully numeric" do
+    attachment = build(
+      :html_attachment,
+      body: "## 0GA Text\n{:#overridden-first}\n\n## 0GB Text\n{:#overridden-second}\n\n## 0GC Text\n{:#overridden-third}",
+      manually_numbered_headings: true,
+    )
+    expected = <<-HTML
+      <ol class=\"unnumbered\">
+        <li class=\"numbered\">
+          <a href=\"#overridden-first\"><span class=\"heading-number\">0GA</span> Text</a>
+        </li>
+        <li class=\"numbered\">
+          <a href=\"#overridden-second\"><span class=\"heading-number\">0GB</span> Text</a>
+        </li>
+        <li class=\"numbered\">
+          <a href=\"#overridden-third\"><span class=\"heading-number\">0GC</span> Text</a>
+        </li>
+      </ol>
+    HTML
+
+    rendered_attachment_headers = html_attachment_govspeak_headers_html(attachment)
+    assert_equivalent_html expected, rendered_attachment_headers
+  end
+
   test "should raise exception when extracting header hierarchy with orphaned level 3 headings" do
     e = assert_raise(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
     assert_equal "Heading 3", e.heading
@@ -300,8 +324,8 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "adds manual numbering to heading tags" do
-    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
-    expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2></div>'
+    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence\n\n## 0GD Not all numeric characters"
+    expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2> <h2 id="gd-not-all-numeric-characters"> <span class="number">0GD </span> Not all numeric characters</h2></div>'
     assert_equivalent_html expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, " ")
   end
 

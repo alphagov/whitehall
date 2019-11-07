@@ -44,7 +44,7 @@ module GovspeakHelper
     govspeak_headers(attachment.govspeak_content_body).tap do |headers|
       if attachment.manually_numbered_headings?
         headers.each { |header|
-          header.text = header.text.gsub(/^(\d+.?\d*)\s*/, '<span class="heading-number">\1</span> ').html_safe
+          header.text = header.text.gsub(/^(\d+.?[^\s]*)\s*/, '<span class="heading-number">\1</span> ').html_safe
         }
       end
     end
@@ -236,7 +236,7 @@ private
   end
 
   def extract_number_from_heading(nokogiri_el)
-    nokogiri_el.inner_text[/^\d+.?\d*/]
+    nokogiri_el.inner_text[/^\d+.?[^\s]*/]
   end
 
   def markup_to_nokogiri_doc(govspeak, images = [])
