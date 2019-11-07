@@ -180,11 +180,6 @@ GEM
       sanitize (~> 5)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk-lint (4.2.0)
-      rubocop (~> 0.76)
-      rubocop-rails (~> 2)
-      rubocop-rspec (~> 1.28)
-      scss_lint
     govuk_ab_testing (2.4.1)
     govuk_admin_template (6.7.0)
       bootstrap-sass (= 3.4.1)
@@ -430,6 +425,10 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-govuk (1.0.0)
+      rubocop (~> 0.76)
+      rubocop-rails (~> 2)
+      rubocop-rspec (~> 1.28)
     rubocop-rails (2.3.2)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
@@ -460,8 +459,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scss_lint (0.59.0)
-      sass (~> 3.5, >= 3.5.5)
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
@@ -588,7 +585,6 @@ DEPENDENCIES
   globalize (~> 5)
   govspeak (~> 6.5)
   govuk-content-schema-test-helpers
-  govuk-lint (~> 4)
   govuk_ab_testing (~> 2.4x)
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.0)
@@ -636,6 +632,7 @@ DEPENDENCIES
   redis-namespace
   responders (~> 3.0)
   rinku
+  rubocop-govuk (~> 1)
   ruby-prof
   ruby-progressbar
   rubyzip (~> 1.3)

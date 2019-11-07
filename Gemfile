@@ -86,10 +86,10 @@ end
 # rubocop:enable Bundler/DuplicatedGem
 
 group :development, :test do
-  gem 'govuk-lint', '~> 4'
   gem 'parallel_tests'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem "rubocop-govuk", "~> 1"
   gem 'ruby-prof'
   gem 'teaspoon-qunit'
   gem 'test-queue', '~> 0.2.13'
