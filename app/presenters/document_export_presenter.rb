@@ -53,8 +53,6 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
   def slice_association(edition, associations, fields)
     association_data = Array(associations).flat_map { |a| edition.try(a) }.compact
-    return [] unless association_data
-
     association_data.map { |item| item.as_json(only: fields) }
   end
 
@@ -74,7 +72,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def attachment_variants(attachment)
-    return {} unless attachment.try(:attachment_data)
+    return unless attachment.try(:attachment_data)
 
     attachment.attachment_data.file.versions.each_with_object({}) do |(variant, details), memo|
       memo[variant] = {
@@ -122,7 +120,6 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
   def present_organisations(edition)
     edition_organisations = edition.try(:edition_organisations) || edition.try(:edition_organisation)
-    return [] unless edition_organisations
 
     Array(edition_organisations).map do |edition_organisation|
       organisation = edition_organisation.organisation
@@ -143,21 +140,21 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def present_unpublishing(edition)
-    if edition.unpublishing
-      edition
-        .unpublishing
-        .as_json(
-          only: %i[
-            id
-            explanation
-            alternative_url
-            redirect
-            created_at
-            updated_at
-          ],
-        )
-        .merge(unpublishing_reason: edition.unpublishing.unpublishing_reason.name)
-    end
+    return unless edition.unpublishing
+
+    edition
+      .unpublishing
+      .as_json(
+        only: %i[
+          id
+          explanation
+          alternative_url
+          redirect
+          created_at
+          updated_at
+        ],
+      )
+      .merge(unpublishing_reason: edition.unpublishing.unpublishing_reason.name)
   end
 
   def present_user(user)
