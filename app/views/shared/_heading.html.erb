@@ -7,6 +7,6 @@
 <div class="heading<%= "-big" if big %><%= "-with-extra" if extra %>">
   <div class="inner-heading">
     <% if type %><p class="type"><%= type %></p><% end %>
-    <h1><%= link_to_if url, heading, url %></h1>
+    <h1><%= link_to_if url, heading, url, class: "govuk-link" %></h1>
   </div>
 </div>

@@ -209,7 +209,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, params: { taxons: %w[taxon-1], departments: [organisation], locale: :fr }
 
     feed_url = publications_url(format: "atom", taxons: %w[taxon-1], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-    assert_select "a.feed[href=?]", feed_url
+    assert_select "input[name=\"feed-reader-box\"][value=?]", feed_url
   end
 
   view_test "#index should show relevant document collection information" do
