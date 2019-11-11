@@ -109,16 +109,6 @@ module GovspeakHelper
     links.select { |link| DataHygiene::GovspeakLinkValidator::is_internal_admin_link?(link) }
   end
 
-private
-
-  def remove_extra_quotes_from_blockquotes(govspeak)
-    Whitehall::ExtraQuoteRemover.new.remove(govspeak)
-  end
-
-  def wrapped_in_govspeak_div(html_string)
-    content_tag(:div, html_string.html_safe, class: "govspeak")
-  end
-
   def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
@@ -143,6 +133,16 @@ private
       }
       .to_html
       .html_safe
+  end
+
+private
+
+  def remove_extra_quotes_from_blockquotes(govspeak)
+    Whitehall::ExtraQuoteRemover.new.remove(govspeak)
+  end
+
+  def wrapped_in_govspeak_div(html_string)
+    content_tag(:div, html_string.html_safe, class: "govspeak")
   end
 
   def render_embedded_contacts(govspeak, heading_tag)

@@ -14,13 +14,9 @@
 </header>
 
 <% if @is_during_reshuffle %>
-  <div class="block">
-    <div class="inner-block">
-      <aside class="status-block">
-        <%= govspeak_to_html @reshuffle_messaging %>
-      </aside>
-    </div>
-  </div>
+  <%= render "govuk_publishing_components/components/notice", {
+    description_govspeak: bare_govspeak_to_html(@reshuffle_messaging),
+} %>
 <% else %>
 
 <div class="block-2">
