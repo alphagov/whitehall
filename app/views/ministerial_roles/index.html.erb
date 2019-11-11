@@ -1,14 +1,14 @@
 <% page_title "Ministers" %>
-<% page_class "ministers-index" %>
+<% page_class "ministers-index govuk-width-container" %>
 
-<header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { big: true,
-                        heading: "Ministers" } %>
+<header class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      title: "Ministers"
+    } %>
 
     <% unless @is_during_reshuffle %>
-      <p class="intro-paragraph">Read biographies and responsibilities of <a href="#cabinet-ministers">Cabinet ministers</a> and all <a href="#ministers-by-department">ministers by department</a>, as well as the <a href="#whips">whips</a> who help co-ordinate parliamentary business.</p>
+      <p class="govuk-body-l">Read biographies and responsibilities of <a href="#cabinet-ministers" class="govuk-link">Cabinet ministers</a> and all <a href="#ministers-by-department" class="govuk-link">ministers by department</a>, as well as the <a href="#whips" class="govuk-link">whips</a> who help co-ordinate parliamentary business.</p>
     <% end %>
   </div>
 </header>
