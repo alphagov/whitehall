@@ -1,24 +1,22 @@
 <% page_title @person.name %>
-<% page_class 'people-show biographical-page' %>
+<% page_class "people-show biographical-page govuk-width-container" %>
 
-<%= content_tag_for :div, @person, class: 'two-column-page' do %>
-  <header class="block headings-block">
-    <div class="inner-block floated-children">
-      <%= render partial: 'shared/heading',
-                locals: { type: @person.current_role_appointments.map { |a| a.role.name }.to_sentence,
-                          heading: @person.name,
-                          big: true, extra: true } %>
-      <div class="heading-extra">
-        <div class="inner-heading">
-          <%= render partial: 'shared/available_languages', locals: {object: @person } %>
-        </div>
-      </div>
+<%= content_tag_for :div, @person do %>
+  <header class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/title", {
+        context: @person.current_role_appointments.map { |a| a.role.name }.to_sentence,
+        title: @person.name,
+      } %>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <%= render partial: 'shared/available_languages', locals: {object: @person } %>
     </div>
   </header>
 
-  <div class="block-2 ">
-    <div class="inner-block">
-      <section class="contextual-info in-page-navigation ">
+  <div class="govuk-grid-row govuk-!-padding-bottom-9 govuk-!-margin-bottom-9">
+    <div class="govuk-grid-column-one-quarter">
+      <section class="contextual-info in-page-navigation govuk-!-margin-bottom-7 govuk-!-padding-bottom-7">
         <% if @person.currently_in_a_role? %>
           <div class="image">
             <figure class="img">
@@ -27,7 +25,12 @@
           </div>
         <% end %>
         <nav role="navigation" aria-labelledby="document-contents-heading">
-          <h2 id="document-contents-heading" <%= t_lang('document.contents') %>><%= t('document.contents') %></h2>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: t('document.contents'),
+            lang: t_locale('document.contents'),
+            heading_level: 2,
+            font_size: 19,
+          } %>
           <ul>
             <li <%= t_lang('people.biography') %> >
               <%= link_to t('people.biography'), '#biography', class: "govuk-link" %>
@@ -56,46 +59,63 @@
         </nav>
       </section>
     </div>
-  </div>
 
-  <div class="block-3">
-    <div class="inner-block">
-      <section class="biography" id="biography">
-        <h2 class="label gem-c-heading" <%= t_lang('people.biography') %>><%= t('people.biography') %></h2>
+    <div class="govuk-grid-column-two-thirds">
+      <section class="biography govuk-!-padding-bottom-9" id="biography">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: t('people.biography'),
+            lang: t_locale('people.biography'),
+            heading_level: 2,
+          } %>
         <%= @person.biography %>
       </section>
 
-      <div class="current-roles" id="current-roles">
+      <section class="current-roles" id="current-roles">
         <% @person.current_role_appointments.each do |appointment| %>
-          <%= content_tag_for :section, appointment, class: "role" do %>
-            <h2 class="gem-c-heading" id="<%= appointment.role.name.parameterize%>" <%= t_lang_translated_locales(appointment.role) %> ><%= appointment.role.name %></h2>
-            <div <%= t_lang_translated_locales(appointment.role) %> ><%= appointment.role.responsibilities %></div>
-            <div class="read-more">
-              <% if appointment.role.ministerial? %>
-            <p class="govuk-body-s"><%= link_to t("roles.read_more"), appointment.role, class: "govuk-link" %></p>
-              <% end %>
-              <% if appointment.role.worldwide? %>
-                <%= render partial: 'organisations/organisations_name_list', locals: { organisations: appointment.role.worldwide_organisations } %>
-              <% else %>
-                <%= render  partial: 'organisations/organisations_name_list', locals: { organisations: appointment.role.organisations } %>
-              <% end %>
+          <%= content_tag_for :section, appointment, class: "role govuk-!-padding-bottom-8" do %>
+
+            <%= render "govuk_publishing_components/components/heading", {
+              text: appointment.role.name,
+              lang: t_locale(appointment.role.name),
+              id: appointment.role.name.parameterize,
+              heading_level: 2,
+            } %>
+
+            <div <%= t_lang_translated_locales(appointment.role) %> >
+              <%= appointment.role.responsibilities %>
             </div>
+
+            <% if appointment.role.ministerial? %>
+              <p class="govuk-body-s"><%= link_to t("roles.read_more"), appointment.role, class: "govuk-link" %></p>
+            <% end %>
+            <% if appointment.role.worldwide? %>
+              <%= render partial: "organisations/organisations_name_list", locals: { organisations: appointment.role.worldwide_organisations } %>
+            <% else %>
+              <%= render  partial: "organisations/organisations_name_list", locals: { organisations: appointment.role.organisations } %>
+            <% end %>
+
           <% end %>
         <% end %>
-      </div>
+      </section>
 
       <% if @person.previous_role_appointments.any? %>
-        <section class="previous-roles" id="previous-roles">
-          <h2 class="gem-c-heading" <%= t_lang('people.previous_roles_in_government') %>>
-            <%= t('people.previous_roles_in_government') %>
-          </h2>
+        <section class="previous-roles govuk-!-padding-bottom-9" id="previous-roles">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: t('people.previous_roles_in_government'),
+            lang: t_locale('people.previous_roles_in_government'),
+            heading_level: 2,
+            margin_bottom: 0,
+          } %>
+
           <ol class="document-list">
             <% @person.previous_role_appointments.each do |appointment| %>
               <%= content_tag_for :li, appointment, class: "document-row" do %>
-                <h3 <%= t_lang_translated_locales(appointment.role) %>><%= appointment.role_link %></h3>
-                <ul class="attributes" <%= t_lang_translated_locales(appointment.role) %>>
-                  <li class="date"><%= appointment.date_range %></li>
-                </ul>
+                <h3 class="govuk-heading-s govuk-!-margin-0 govuk-!-padding-top-2" <%= t_lang_translated_locales(appointment.role) %>>
+                  <%= appointment.role_link %>
+                </h3>
+                <p class="date govuk-body-s govuk-!-margin-0" <%= t_lang_translated_locales(appointment.role) %>>
+                  <%= appointment.date_range %>
+                </p>
               <% end %>
             <% end %>
           </ol>
@@ -103,10 +123,12 @@
       <% end %>
 
       <% if @person.has_policy_responsibilities? %>
-        <section id="policy">
-          <h2 class="gem-c-heading" <%= t_lang('policies.heading') %>>
-            <%= t('policies.heading') %>
-          </h2>
+        <section id="policy" class="govuk-!-padding-bottom-9">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: t('policies.heading'),
+            lang: t_locale('policies.heading'),
+            heading_level: 2,
+          } %>
           <%= render 'policies/document_list', policies: @person.published_policies %>
         </section>
       <% end %>
@@ -116,23 +138,26 @@
       <% if @person.announcements.any? %>
         <section class="announcements" id="announcements" <%= t_lang('announcements.heading') %>>
           <%= render 'govuk_publishing_components/components/heading', {
-            text: t('announcements.heading')
+            text: t('announcements.heading'),
+            margin_bottom: 5,
           } %>
 
-          <%= render "govuk_publishing_components/components/subscription-links", {
-            hide_heading: true,
-            email_signup_link: email_signup_path(atom_feed_url_for(@person)),
-            email_signup_link_text: t('feeds.get_email_alerts'),
-            email_signup_link_text_locale: t_locale('feeds.get_email_alerts'),
-            feed_link: atom_feed_url_for(@person),
-            feed_link_text: t('feeds.subscribe_to_feed'),
-            feed_link_text_locale: t_locale('feeds.subscribe_to_feed')
-          } %>
+          <div class="govuk-!-padding-bottom-5">
+            <%= render "govuk_publishing_components/components/subscription-links", {
+              hide_heading: true,
+              email_signup_link: email_signup_path(atom_feed_url_for(@person)),
+              email_signup_link_text: t('feeds.get_email_alerts'),
+              email_signup_link_text_locale: t_locale('feeds.get_email_alerts'),
+              feed_link: atom_feed_url_for(@person),
+              feed_link_text: t('feeds.subscribe_to_feed'),
+              feed_link_text_locale: t_locale('feeds.subscribe_to_feed')
+            } %>
+          </div>
 
           <%= render "govuk_publishing_components/components/document_list", items: @person.announcements %>
 
           <div class="read-more" <%= t_lang('announcements.view_all') %>>
-          <%= link_to t('announcements.view_all'), announcements_path(people: [@person.slug]), class: "govuk-link" %>
+            <%= link_to t('announcements.view_all'), announcements_path(people: [@person.slug]), class: "govuk-link" %>
           </div>
         </section>
       <% end %>
