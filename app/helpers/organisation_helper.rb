@@ -206,7 +206,7 @@ module OrganisationHelper
 
   def array_of_links_to_organisations(organisations)
     organisations.map do |organisation|
-      link_to organisation.name, organisation, class: "organisation-link"
+      link_to organisation.name, organisation, class: "organisation-link govuk-link"
     end
   end
 

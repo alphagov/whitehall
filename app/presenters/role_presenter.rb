@@ -34,7 +34,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
 
   def link
     if path
-      context.link_to name, path
+      context.link_to name, path, class: "govuk-link"
     else
       ERB::Util.html_escape name
     end

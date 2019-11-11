@@ -30,26 +30,26 @@
           <h2 id="document-contents-heading" <%= t_lang('document.contents') %>><%= t('document.contents') %></h2>
           <ul>
             <li <%= t_lang('people.biography') %> >
-              <%= link_to t('people.biography'), '#biography' %>
+              <%= link_to t('people.biography'), '#biography', class: "govuk-link" %>
             </li>
             <% if @person.currently_in_a_role? %>
               <li <%= t_lang('roles.heading', count: @person.current_role_appointments.count) %> >
-                <%= link_to t('roles.heading', count: @person.current_role_appointments.count), "#current-roles" %>
+                <%= link_to t('roles.heading', count: @person.current_role_appointments.count), "#current-roles", class: "govuk-link" %>
               </li>
             <% end %>
             <% if @person.previous_role_appointments.any? %>
               <li <%= t_lang('people.previous_roles') %>>
-                <%= link_to t('people.previous_roles'), "#previous-roles" %>
+                <%= link_to t('people.previous_roles'), "#previous-roles", class: "govuk-link" %>
               </li>
             <% end %>
             <% if @person.has_policy_responsibilities? %>
               <li <%= t_lang('policies.heading') %>>
-                <%= link_to t('policies.heading'), "#policy" %>
+                <%= link_to t('policies.heading'), "#policy", class: "govuk-link" %>
               </li>
             <% end %>
             <% if @person.announcements.any? %>
               <li <%= t_lang('announcements.heading') %>>
-                <%= link_to t('announcements.heading'), "#announcements" %>
+                <%= link_to t('announcements.heading'), "#announcements", class: "govuk-link" %>
               </li>
             <% end %>
           </ul>
@@ -72,7 +72,7 @@
             <div <%= t_lang_translated_locales(appointment.role) %> ><%= appointment.role.responsibilities %></div>
             <div class="read-more">
               <% if appointment.role.ministerial? %>
-                <%= link_to t('roles.read_more'), appointment.role %>
+            <p class="govuk-body-s"><%= link_to t("roles.read_more"), appointment.role, class: "govuk-link" %></p>
               <% end %>
               <% if appointment.role.worldwide? %>
                 <%= render partial: 'organisations/organisations_name_list', locals: { organisations: appointment.role.worldwide_organisations } %>
@@ -132,7 +132,7 @@
           <%= render "govuk_publishing_components/components/document_list", items: @person.announcements %>
 
           <div class="read-more" <%= t_lang('announcements.view_all') %>>
-            <%= link_to t('announcements.view_all'), announcements_path(people: [@person.slug]) %>
+          <%= link_to t('announcements.view_all'), announcements_path(people: [@person.slug]), class: "govuk-link" %>
           </div>
         </section>
       <% end %>
