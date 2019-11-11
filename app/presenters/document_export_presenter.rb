@@ -108,6 +108,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
     edition.images.map do |image|
       image.as_json(methods: :url)
+           .merge(image_dimensions(image))
            .merge(variants: image_variants(image))
     end
   end
@@ -116,6 +117,14 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     image.image_data.file.versions.each_with_object({}) do |(variant, details), memo|
       memo[variant] = details.url if details.url
     end
+  end
+
+  def image_dimensions(image)
+    width, height = FastImage.size(image.url)
+    {
+      width: width,
+      height: height,
+    }
   end
 
   def present_organisations(edition)

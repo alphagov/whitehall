@@ -1,6 +1,15 @@
 require "test_helper"
 
 class DocumentExportPresenterTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
+  before do
+    asset_host = URI.parse(Plek.new.public_asset_host).host
+    img = File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg")).read
+    stub_request(:get, %r{\Ahttps://#{asset_host}/government/uploads/system/uploads/image_data/file/\d+/minister-of-funk.960x640.jpg\z})
+      .to_return(status: 200, body: img)
+  end
+
   test "includes basic document and edition information" do
     document = create(:document)
     edition = create(:edition, document: document)
@@ -116,6 +125,16 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
     assert_equal image.image_data.file_url,
                  result.dig(:editions, 0, :images, 0, :url)
+  end
+
+  test "appends the image dimensions to the images response hash" do
+    image = create(:image)
+    publication = create(:publication, images: [image])
+
+    result = DocumentExportPresenter.new(publication.document).as_json
+
+    assert_equal 960, result.dig(:editions, 0, :images, 0, :width)
+    assert_equal 640, result.dig(:editions, 0, :images, 0, :height)
   end
 
   test "appends the image variants' urls to the images response hash" do
