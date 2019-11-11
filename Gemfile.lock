@@ -138,6 +138,7 @@ GEM
       activesupport (>= 4.2.0)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
+    fastimage (2.1.7)
     ffi (1.11.1)
     friendly_id (5.2.4)
       activerecord (>= 4.0.0)
@@ -578,6 +579,7 @@ DEPENDENCIES
   equivalent-xml (~> 0.6.0)
   factory_bot
   faraday
+  fastimage
   friendly_id (~> 5.2.4)
   fuzzy_match (~> 2.1)
   gds-api-adapters
