@@ -53,7 +53,7 @@ gem 'sass', '~> 3.7'
 gem 'sassc-rails', '~> 2.1'
 gem 'shared_mustache', '~> 1.0.0'
 gem 'sidekiq-scheduler', '~> 3.0'
-gem 'slimmer', '~> 13.1'
+gem 'slimmer', '~> 13.2'
 gem 'sprockets', '~> 3.7'
 gem 'sprockets-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
