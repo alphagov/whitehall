@@ -38,6 +38,16 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "a", text: "‘funny’"
   end
 
+  test "should add govuk-link class to links" do
+    html = govspeak_to_html("[Link text](https://www.gov.uk)")
+    assert_select_within_html html, "a.govuk-link", "Link text"
+  end
+
+  test "does not change css class on buttons" do
+    html = govspeak_to_html("{button}[Link text](https://www.gov.uk){/button}")
+    assert_select_within_html html, "a.button", "Link text"
+  end
+
   test "should not mark admin links as 'external'" do
     speech = create(:published_speech)
     url = admin_speech_url(speech, host: Whitehall.admin_host)
