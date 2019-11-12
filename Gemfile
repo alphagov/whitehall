@@ -56,7 +56,6 @@ gem 'sidekiq-scheduler', '~> 3.0'
 gem 'slimmer', '~> 13.1'
 gem 'sprockets', '~> 3.7'
 gem 'sprockets-rails'
-gem 'statsd-ruby', '~> 1.4.0', require: 'statsd'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'uglifier', '~> 4.2'
 gem 'validates_email_format_of'

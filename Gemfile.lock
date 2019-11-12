@@ -641,7 +641,6 @@ DEPENDENCIES
   sprockets (~> 3.7)
   sprockets-rails
   stackprof
-  statsd-ruby (~> 1.4.0)
   teaspoon-qunit
   test-queue (~> 0.2.13)
   timecop
