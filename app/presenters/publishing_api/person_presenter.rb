@@ -52,12 +52,7 @@ module PublishingApi
     end
 
     def body
-      [
-        {
-          content_type: "text/html",
-          content: item.biography || "",
-        },
-      ]
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.biography || "")
     end
   end
 end

@@ -47,12 +47,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       redirects: [],
       update_type: "major",
       details: {
-        body: [
-          {
-            content_type: "text/html",
-            content: "X and Y",
-          },
-        ],
+        body: "<div class=\"govspeak\"><p>X and Y</p>\n</div>",
         attends_cabinet_type: role.attends_cabinet_type,
         role_payment_type: role.role_payment_type,
         supports_historical_accounts: role.supports_historical_accounts,
@@ -91,12 +86,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       redirects: [],
       update_type: "major",
       details: {
-        body: [
-          {
-            content_type: "text/html",
-            content: "Y and Z",
-          },
-        ],
+        body: "<div class=\"govspeak\"><p>Y and Z</p>\n</div>",
         attends_cabinet_type: role.attends_cabinet_type,
         role_payment_type: role.role_payment_type,
         supports_historical_accounts: role.supports_historical_accounts,

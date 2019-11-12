@@ -55,12 +55,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
           url: person.image_url(:s465),
           alt_text: "The Rt Hon Sir Winston Churchill PM",
         },
-        body: [
-          {
-            content_type: "text/html",
-            content: "Sir Winston Churchill was a Prime Minister.",
-          },
-        ],
+        body: "<div class=\"govspeak\"><p>Sir Winston Churchill was a Prime Minister.</p>\n</div>",
       },
       update_type: "major",
     }
