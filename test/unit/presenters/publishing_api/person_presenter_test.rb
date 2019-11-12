@@ -57,7 +57,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
         },
         body: [
           {
-            content_type: "text/html",
+            content_type: "text/govspeak",
             content: "Sir Winston Churchill was a Prime Minister.",
           },
         ],
