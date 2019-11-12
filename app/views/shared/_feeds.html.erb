@@ -1,10 +1,14 @@
 <% unless atom_url.blank? %>
   <div class="feeds">
-    <span><%= t("feeds.get_updates_to_this_list") %></span>
-    <%= link_to t('feeds.email'), email_signup_path(atom_url), class: 'email-signup' %>&nbsp;<%= link_to t("feeds.feed"), atom_url, class: "feed js-feed" %>
-    <div class="feed-panel js-feed-panel">
-      <h3>Copy and paste this URL in to your feed reader</h3>
-      <input value="<%= atom_url %>">
-    </div>
+    <span class="govuk-body" <%= t_lang("feeds.get_updates_to_this_list") %>><%= t("feeds.get_updates_to_this_list") %></span>
+    <%= render "govuk_publishing_components/components/subscription-links", {
+      hide_heading: true,
+      email_signup_link: email_signup_path(atom_url),
+      email_signup_link_text: t('feeds.email'),
+      email_signup_link_text_locale: t_fallback('feeds.email'),
+      feed_link_box_value: atom_url,
+      feed_link_text: t("feeds.feed"),
+      feed_link_text_locale: t_fallback("feeds.feed"),
+    } %>
   </div>
 <% end %>

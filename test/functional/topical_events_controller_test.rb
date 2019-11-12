@@ -39,7 +39,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: event }
 
-    assert_select "a.feed[href=?]", atom_feed_url_for(event)
+    assert_select "input[name=\"feed-reader-box\"][value=?]", atom_feed_url_for(event)
   end
 
   view_test "show has a link to email signup page" do
@@ -47,7 +47,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: event }
 
-    assert_select ".email-signup[href='https://www.test.gov.uk/email-signup?link=#{event.base_path}']"
+    assert_select "a.gem-c-subscription-links__link[href*=\"email-signup\"]"
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do

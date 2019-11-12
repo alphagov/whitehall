@@ -101,7 +101,7 @@ module OrganisationControllerTestHelpers
         create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
         get :show, params: { id: organisation }
 
-        assert_select "a.feed[href=?]", atom_feed_url_for(organisation)
+        assert_select "input[name=\"feed-reader-box\"][value=?]", atom_feed_url_for(organisation)
       end
 
       view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
@@ -118,8 +118,8 @@ module OrganisationControllerTestHelpers
 
         get :show, params: { id: organisation }
 
-        editions[0, 3].each do |edition|
-          assert_select_prefix_object edition, :recent
+        editions[0, 3].each do |e|
+          assert_select_prefix_object e, :recent
         end
         refute_select_prefix_object editions[3], :recent
       end
@@ -160,7 +160,7 @@ module OrganisationControllerTestHelpers
 
         get :show, params: { id: organisation }
 
-        assert_select ".email-signup[href='https://www.test.gov.uk/email-signup?link=#{organisation.base_path}']"
+        assert_select ".gem-c-subscription-links__link[href='https://www.test.gov.uk/email-signup?link=#{organisation.base_path}']"
       end
 
       view_test "#{org_type}:show has link to published corporate information pages" do

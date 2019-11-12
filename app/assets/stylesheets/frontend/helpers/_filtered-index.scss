@@ -213,12 +213,8 @@
       }
     }
 
-    .feeds {
-      margin-bottom: $gutter;
-    }
-
     .no-results {
-      padding: $gutter 0 $gutter-half;
+      padding: 0 0 $gutter-half;
       border-bottom: 1px solid $border-colour;
       h2 {
         @include core-27;

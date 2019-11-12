@@ -1,6 +1,10 @@
 .document-list {
   clear: both;
 
+  .govuk-link {
+    line-height: 1.16;
+  }
+
   .document-row {
     display: block;
     list-style: none;
