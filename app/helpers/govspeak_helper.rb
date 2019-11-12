@@ -208,7 +208,7 @@ private
 
   def add_class_to_links(nokogiri_doc)
     nokogiri_doc.css("a").map do |el|
-      el[:class] = "govuk-link"
+      el[:class] = "govuk-link" unless el[:class] =~ /button/
     end
   end
 
