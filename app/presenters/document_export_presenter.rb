@@ -110,6 +110,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       image.as_json(methods: :url)
            .merge(image_dimensions(image))
            .merge(variants: image_variants(image))
+           .except("image_data_id", "edition_id")
     end
   end
 

@@ -127,6 +127,16 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
                  result.dig(:editions, 0, :images, 0, :url)
   end
 
+  test "removes redundant fields from the images response hash" do
+    image = create(:image)
+    publication = create(:publication, images: [image])
+
+    result = DocumentExportPresenter.new(publication.document).as_json
+
+    assert_nil result.dig(:editions, 0, :images, 0, :image_data_id)
+    assert_nil result.dig(:editions, 0, :images, 0, :edition_id)
+  end
+
   test "appends the image dimensions to the images response hash" do
     image = create(:image)
     publication = create(:publication, images: [image])
