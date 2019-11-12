@@ -120,6 +120,8 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   end
 
   def image_dimensions(image)
+    return {} if image.url.end_with?(".svg")
+
     width, height = FastImage.size(image.url)
     {
       width: width,
