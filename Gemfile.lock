@@ -596,7 +596,6 @@ DEPENDENCIES
   kaminari (~> 1.1.1)
   launchy
   link_header
-  logstasher (~> 1.3.0)
   maxitest
   mechanize
   mime-types (~> 3.3)
