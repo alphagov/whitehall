@@ -54,7 +54,7 @@ module PublishingApi
     def body
       [
         {
-          content_type: "text/html",
+          content_type: "text/govspeak",
           content: item.biography || "",
         },
       ]

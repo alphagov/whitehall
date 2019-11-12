@@ -49,7 +49,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       details: {
         body: [
           {
-            content_type: "text/html",
+            content_type: "text/govspeak",
             content: "X and Y",
           },
         ],
@@ -93,7 +93,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       details: {
         body: [
           {
-            content_type: "text/html",
+            content_type: "text/govspeak",
             content: "Y and Z",
           },
         ],
