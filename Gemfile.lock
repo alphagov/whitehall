@@ -648,7 +648,6 @@ DEPENDENCIES
   timecop
   transitions
   uglifier (~> 4.2)
-  unicorn (= 5.5.1)
   validates_email_format_of
   webmock
   whenever (~> 1.0.0)
