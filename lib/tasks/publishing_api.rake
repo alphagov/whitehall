@@ -102,6 +102,31 @@ namespace :publishing_api do
     Organisation.find_each(&:publish_to_publishing_api)
   end
 
+  desc "Republish a person to the Publishing API"
+  task :republish_person, [:slug] => :environment do |_, args|
+    Person.find_by!(slug: args[:slug]).publish_to_publishing_api
+  end
+
+  desc "Republish all people to the Publishing API"
+  task republish_all_people: :environment do
+    Person.find_each(&:publish_to_publishing_api)
+  end
+
+  desc "Republish a role to the Publishing API"
+  task :republish_role, [:slug] => :environment do |_, args|
+    Role.find_by!(slug: args[:slug]).publish_to_publishing_api
+  end
+
+  desc "Republish all roles to the Publishing API"
+  task republish_all_roles: :environment do
+    Role.find_each(&:publish_to_publishing_api)
+  end
+
+  desc "Republish all role appointments to the Publishing API"
+  task republish_all_role_appointments: :environment do
+    RoleAppointment.find_each(&:publish_to_publishing_api)
+  end
+
   desc "Send withdrawn item links to Publishing API."
   task patch_withdrawn_item_links: :environment do
     editions = Edition.withdrawn
