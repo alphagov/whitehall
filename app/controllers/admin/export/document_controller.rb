@@ -29,6 +29,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
 
   def migrated
     document = Document.find(params[:id])
+    head :bad_request unless document.locked?
   end
 
   private
