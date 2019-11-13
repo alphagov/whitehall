@@ -41,6 +41,11 @@ class PersonTest < ActiveSupport::TestCase
     refute person.valid?
   end
 
+  test "should strip whitespace from names" do
+    person = build(:person, forename: " forename ", surname: " surname ")
+    assert_equal "forename surname", person.name
+  end
+
   test "should be invalid if image isn't 960x640px" do
     person = build(:person, image: File.open(Rails.root.join("test/fixtures/horrible-image.64x96.jpg")))
     refute person.valid?

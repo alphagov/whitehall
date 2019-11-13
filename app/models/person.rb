@@ -144,7 +144,7 @@ class Person < ApplicationRecord
 private
 
   def name_as_words(*elements)
-    elements.select(&:present?).join(" ")
+    elements.select(&:present?).map(&:strip).join(" ")
   end
 
   def image_changed?
