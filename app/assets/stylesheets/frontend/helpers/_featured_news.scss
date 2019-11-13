@@ -1,6 +1,9 @@
 .featured-news {
   article {
     clear: both;
+    .govuk-link {
+      line-height: 1.16;
+    }
 
     @include media(tablet) {
       float: left;
