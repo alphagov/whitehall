@@ -27,6 +27,10 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     document.update!(locked: false)
   end
 
+  def migrated
+    document = Document.find(params[:id])
+  end
+
   private
 
   def paginated_document_ids

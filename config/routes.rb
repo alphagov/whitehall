@@ -193,6 +193,7 @@ Whitehall::Application.routes.draw do
             member do
               post :lock
               post :unlock
+              post :migrated
             end
           end
         end

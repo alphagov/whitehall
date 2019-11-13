@@ -115,4 +115,13 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     refute document.reload.locked
     assert_response :no_content
   end
+
+  test "marks document as migrated" do
+    document = create(:document)
+    login_as :export_data_user
+
+    post :migrated, params: { id: document.id }, format: "json"
+
+    assert_response :no_content
+  end
 end
