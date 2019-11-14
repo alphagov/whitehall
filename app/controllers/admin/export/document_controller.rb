@@ -27,6 +27,11 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     document.update!(locked: false)
   end
 
+  def migrated
+    document = Document.find(params[:id])
+    head :bad_request unless document.locked?
+  end
+
   private
 
   def paginated_document_ids
