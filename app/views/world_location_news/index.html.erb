@@ -73,7 +73,7 @@
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
               <p class="see-all">
-                <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location) %>
+                <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location), class: "govuk-link" %>
               </p>
             </div>
           </section>
@@ -84,7 +84,7 @@
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
               <p class="see-all">
-                <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
+                <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics'), class: "govuk-link" %>
               </p>
             </div>
           </section>
