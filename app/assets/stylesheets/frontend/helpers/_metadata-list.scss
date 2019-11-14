@@ -12,6 +12,11 @@
   }
 
   dl {
+
+    .govuk-body-s {
+      margin-bottom: 0;
+    }
+
     display: inline;
     @include ig-core-14;
 
@@ -21,7 +26,7 @@
       width: 8em;
       @include media(tablet) {
         width: auto;
-        min-width: ($gutter * 4);
+        min-width: ($gutter * 5);
         padding-right: $gutter-one-third;
 
         @include right-to-left {
