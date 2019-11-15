@@ -61,11 +61,11 @@ Whitehall::Application.routes.draw do
   # involved and causes the page to fail to render
   #
   # This can be removed once Slimmer is removed from Whitehall.
-  get '/auth/failure', to: 'admin/base#auth_failure', as: "auth_failure_fixed"
+  get "/auth/failure", to: "admin/base#auth_failure", as: "auth_failure_fixed"
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     external_redirect "/organisations/ministry-of-defence-police-and-guarding-agency",
-      "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
+                      "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
 
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
