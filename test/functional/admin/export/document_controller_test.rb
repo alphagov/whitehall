@@ -117,19 +117,20 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
   end
 
   test "marks locked document as migrated" do
-    document = create(:document, locked: true)
+    edition = create(:edition_with_document)
+    edition.document.update(locked: true)
     login_as :export_data_user
 
-    post :migrated, params: { id: document.id }, format: "json"
+    post :migrated, params: { id: edition.document.id }, format: "json"
 
     assert_response :no_content
   end
 
   test "does not mark unlocked document as migrated" do
-    document = create(:document, locked: false)
+    edition = create(:edition_with_document)
     login_as :export_data_user
 
-    post :migrated, params: { id: document.id }, format: "json"
+    post :migrated, params: { id: edition.document.id }, format: "json"
 
     assert_response :bad_request
   end
