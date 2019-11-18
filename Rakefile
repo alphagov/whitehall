@@ -6,7 +6,7 @@
 # to log level :warn reduces logging and increases execution speed.
 ENV["LOG_LEVEL"] = "warn"
 
-require File.expand_path('../config/application', __FILE__)
-require 'ci/reporter/rake/minitest' if Rails.env.test?
+require File.expand_path("config/application", __dir__)
+require "ci/reporter/rake/minitest" if Rails.env.test?
 
 Whitehall::Application.load_tasks

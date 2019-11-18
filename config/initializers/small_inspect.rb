@@ -12,4 +12,4 @@ module SmallInspect
   end
 end
 
-ActionView::Base.send(:include, SmallInspect)
+ActionView::Base.include SmallInspect
