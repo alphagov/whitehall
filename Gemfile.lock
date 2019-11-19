@@ -48,7 +48,7 @@ GEM
     afm (0.2.2)
     arel (8.0.0)
     ast (2.4.0)
-    autoprefixer-rails (9.5.0)
+    autoprefixer-rails (9.7.2)
       execjs
     babosa (1.0.3)
     better_errors (2.5.1)
