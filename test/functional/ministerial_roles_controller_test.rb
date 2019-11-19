@@ -316,6 +316,6 @@ private
   end
 
   def assert_minister_role_links_to_their_role(role)
-    assert_select ".role a[href='#{ministerial_role_path(role)}']", text: role.name
+    assert_select ".app-person__roles a[href='#{ministerial_role_path(role)}']", text: role.name
   end
 end
