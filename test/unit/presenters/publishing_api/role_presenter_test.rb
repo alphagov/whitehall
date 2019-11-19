@@ -12,21 +12,6 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       organisations: [organisation],
       responsibilities: "X and Y",
     )
-    current_person = create(:person)
-    previous_person = create(:person)
-    current_role_appointment = create(
-      :role_appointment,
-      person: current_person,
-      role: role,
-      started_at: 1.hour.ago,
-    )
-    previous_role_appointment = create(
-      :role_appointment,
-      person: previous_person,
-      role: role,
-      started_at: 1.year.ago,
-      ended_at: 1.month.ago,
-    )
 
     expected_hash = {
       base_path: "/government/ministers/#{role.slug}",
@@ -60,8 +45,8 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     }
     expected_links = {
       ordered_parent_organisations: [organisation.content_id],
-      ordered_current_appointments: [current_role_appointment.content_id],
-      ordered_previous_appointments: [previous_role_appointment.content_id],
+      ordered_current_appointments: [],
+      ordered_previous_appointments: [],
     }
 
     presented_item = present(role)
