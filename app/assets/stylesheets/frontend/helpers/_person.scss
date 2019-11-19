@@ -95,39 +95,65 @@
         &:focus,
         &:active {
           text-decoration: none;
+  }
+}
+}
+
+// TODO - remove `a` from this selector when Whitehall's global link styles have
+// been expunged, removed, deleted.
+a.app-person-link {
+  @include govuk-link-common;
+  @include govuk-link-style-default;
+
+        display: inline-block;
+  text-decoration: none;
+
+  &:visited {
+    .app-person-link__name {
+      color: $govuk-link-visited-colour;
+    }
+  }
+
+  &:visited:hover {
+    .app-person-link__name {
+      color: $govuk-link-hover-colour;
+    }
+  }
+
+        &:focus,
+  &:focus:hover {
+    .app-person-link__title,
+    .app-person-link__name {
+      color: $govuk-focus-text-colour;
+          text-decoration: none;
         }
       }
     }
 
-    .role {
-      @include core-14;
-      padding-top: $gutter-one-sixth;
+.app-person-link__title {
+  @extend %govuk-body-s;
 
-      a {
+  color: $govuk-secondary-text-colour;
+  display: block;
+  line-height: 1;
+  margin: 0;
+  padding: govuk-spacing(1) 0 0 0;
         text-decoration: none;
+}
 
-        &:hover,
-        &:focus,
-        &:active {
+.app-person-link__name {
+  @extend %govuk-heading-s;
+
+  color: inherit;
+  display: block;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
           text-decoration: underline;
         }
-      }
+
+.app-person-link__name--not-privy-counsellor {
+  @include mq($from: tablet) {
+    margin-top: 22px;
     }
   }
-
-  span {
-    display: block;
-    @include core-14;
-    color: $secondary-text-colour;
-  }
-  strong {
-    display: block;
-    @include core-19;
-    font-weight: bold;
-  }
-  &.privy_counsellor strong {
-    padding-top: 0;
-  }
-
-
-}
