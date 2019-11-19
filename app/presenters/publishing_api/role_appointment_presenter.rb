@@ -43,10 +43,13 @@ module PublishingApi
     end
 
     def details
-      {}.tap { |details|
+      {
+        current: item.current?,
+        person_appointment_order: item.id,
+      }.tap do |details|
         details[:started_on] = item.started_at.rfc3339 if item.started_at.present?
         details[:ended_on] = item.ended_at.rfc3339 if item.ended_at.present?
-      }
+      end
     end
 
     def locale
