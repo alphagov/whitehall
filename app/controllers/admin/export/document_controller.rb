@@ -29,7 +29,11 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
 
   def migrated
     document = Document.find(params[:id])
-    head :bad_request unless document.locked?
+    return head :bad_request unless document.locked?
+
+    document.editions.each do |edition|
+      Whitehall::InternalLinkUpdater.new(edition).call
+    end
   end
 
   private
