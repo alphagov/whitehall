@@ -70,7 +70,7 @@
                              person: role.current_person,
                              roles: @ministerial_roles.roles_for(role.current_person),
                              hlevel: "h3",
-                             extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                             extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt'
                            } %>
               <% end %>
               </ul>
@@ -88,7 +88,7 @@
                               roles: @military_roles.roles_for(role.current_person),
                               hlevel: "h3",
                               hide_image: false,
-                              extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                              extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt'
                             } %>
               <% end %>
               </ul>
@@ -105,7 +105,7 @@
                                person: role.current_person,
                                roles: @board_member_roles.roles_for(role.current_person),
                                hlevel: "h2",
-                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                               extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt'
                              } %>
                 <% end %>
               </ul>
@@ -117,7 +117,7 @@
                                roles: @board_member_roles.roles_for(role.current_person),
                                hlevel: "h2",
                                hide_image: true,
-                               extra_class: extra_board_member_class(@organisation, i)
+                               extra_class: "person-excerpt #{extra_board_member_class(@organisation, i)}",
                              } %>
                 <% end %>
               </ul>
@@ -135,7 +135,7 @@
                                roles: @traffic_commissioner_roles.roles_for(role.current_person),
                                hlevel: "h3",
                                hide_image: false,
-                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                               extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt',
                              } %>
                 <% end %>
               </ul>
@@ -153,7 +153,7 @@
                                roles: @special_representative_roles.roles_for(role.current_person),
                                hlevel: "h3",
                                hide_image: false,
-                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                               extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt',
                              } %>
                 <% end %>
               </ul>
@@ -171,7 +171,7 @@
                                roles: @chief_professional_officer_roles.roles_for(role.current_person),
                                hlevel: "h3",
                                hide_image: false,
-                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                               extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt',
                              } %>
                 <% end %>
               </ul>
@@ -189,7 +189,7 @@
                                roles: @judge_roles.roles_for(role.current_person),
                                hlevel: "h3",
                                hide_image: false,
-                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                               extra_class: (i % 4 == 0) ? 'person-excerpt clear-column' : 'person-excerpt',
                              } %>
                 <% end %>
               </ul>
