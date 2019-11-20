@@ -309,7 +309,7 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
-    nokogumbo (2.0.1)
+    nokogumbo (2.0.2)
       nokogiri (~> 1.8, >= 1.8.4)
     ntlm-http (0.1.1)
     null_logger (0.0.1)
