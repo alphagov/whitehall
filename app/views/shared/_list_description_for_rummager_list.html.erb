@@ -6,6 +6,7 @@
           link_to(
             edition.title,
             edition.link,
+            class: 'govuk-link',
             data: {
               track_category: 'navPolicyAreaLinkClicked',
               track_action: "#{local_assigns.has_key?(:heading) ? heading : "Unknown"}.#{edition_index + 1}",

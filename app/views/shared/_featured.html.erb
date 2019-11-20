@@ -18,7 +18,7 @@
       <% else %>
         <% feature_title = I18n.t("document.read", title: feature.title) %>
       <% end %>
-      <%= link_to image_tag(feature.image(image_size), {class: 'featured-image', alt: feature.alt_text}), feature.public_path, title: feature_title, class: 'img'%>
+      <%= link_to image_tag(feature.image(image_size), {class: 'featured-image', alt: feature.alt_text}), feature.public_path, class: 'img', tabindex: '-1', aria: {hidden:true} %>
     </span>
     <div class="text">
       <% if show_meta %>
@@ -34,7 +34,8 @@
           <% end %>
         </p>
       <% end %>
-      <h2><%= link_to feature.title, feature.public_path, ({rel: 'external'} if is_external?(feature.public_path)) %></h2>
+      <% rel = is_external?(feature.public_path) ? "external" : "internal" %>
+      <h2><%= link_to feature.title, feature.public_path, rel: "#{rel}", class: "govuk-link" %></h2>
       <% unless feature.summary.blank? %>
         <p class="summary"><%= truncate(feature.summary, length: 160, separator: ' ') %></p>
       <% end %>
