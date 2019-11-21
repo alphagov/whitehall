@@ -32,8 +32,8 @@ module PublishingApi
 
     def links
       {
-        ordered_current_appointments: item.current_role_appointments.pluck(:content_id).compact,
-        ordered_previous_appointments: item.previous_role_appointments.pluck(:content_id).compact,
+        ordered_current_appointments: [],
+        ordered_previous_appointments: [],
       }
     end
 
