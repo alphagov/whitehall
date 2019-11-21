@@ -49,15 +49,11 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       },
       update_type: "major",
     }
-    expected_links = {
-      ordered_current_appointments: [],
-      ordered_previous_appointments: [],
-    }
 
     presented_item = present(person.reload)
 
     assert_equal expected_hash, presented_item.content
-    assert_hash_includes presented_item.links, expected_links
+    assert_equal presented_item.links, {}
     assert_equal "major", presented_item.update_type
     assert_equal person.content_id, presented_item.content_id
 

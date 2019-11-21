@@ -31,10 +31,7 @@ module PublishingApi
     end
 
     def links
-      {
-        ordered_current_appointments: [],
-        ordered_previous_appointments: [],
-      }
+      {}
     end
 
     def details
