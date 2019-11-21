@@ -45,8 +45,6 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     }
     expected_links = {
       ordered_parent_organisations: [organisation.content_id],
-      ordered_current_appointments: [],
-      ordered_previous_appointments: [],
     }
 
     presented_item = present(role)
