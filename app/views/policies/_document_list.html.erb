@@ -2,9 +2,9 @@
   <% policies.each do |policy| %>
     <%= content_tag(:li, class: "document-row") do %>
       <% if policy.kind_of? Hash %>
-        <%= link_to policy["title"], policy["link"], class: 'title' %>
+        <%= link_to policy["title"], policy["link"], class: 'title govuk-link' %>
       <% else %>
-        <%= link_to policy.title, policy.link, class: 'title' %>
+        <%= link_to policy.title, policy.link, class: 'title govuk-link' %>
       <% end %>
     <% end %>
   <% end %>

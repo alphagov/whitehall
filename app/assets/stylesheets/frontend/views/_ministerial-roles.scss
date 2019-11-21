@@ -6,7 +6,7 @@
   }
 
   @include ie(7) {
-    .cabinet-list { 
+    .cabinet-list {
       .person-excerpt {
         min-height: 290px;
       }
@@ -151,10 +151,6 @@
     p {
       @include copy-19;
       margin-top: $gutter-half;
-
-      a {
-        text-decoration: underline;
-      }
     }
   }
 }

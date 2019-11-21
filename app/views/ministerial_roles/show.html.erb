@@ -18,14 +18,14 @@
       <aside class="meta metadata-list">
         <div class="inner-heading">
           <dl>
-            <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
+            <dt><p class="govuk-body-s"><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</p</dt>
             <dd>
               <%= render  partial: 'organisations/organisations_name_list',
                           locals: { organisations: @ministerial_role.organisations } %>
             </dd>
             <% if @ministerial_role.occupied? %>
-              <dt><%= t('roles.headings.current_holder') %>:</dt>
-              <dd><%= link_to @ministerial_role.current_person.name, @ministerial_role.current_person %></dd>
+              <dt><p class="govuk-body-s"><%= t('roles.headings.current_holder') %>:</p></dt>
+              <dd><p class="govuk-body-s"><%= link_to @ministerial_role.current_person.name, @ministerial_role.current_person, class: "govuk-link" %></p></dd>
             <% end %>
           </dl>
         </div>
@@ -42,26 +42,26 @@
         <nav role="navigation">
           <ul>
             <li <%= t_lang('roles.headings.responsibilities') %> >
-              <%= link_to t('roles.headings.responsibilities'), '#responsibilities' %>
+              <%= link_to t('roles.headings.responsibilities'), '#responsibilities', class: "govuk-link" %>
             </li>
             <% if @ministerial_role.occupied? %>
               <li <%= t_lang('roles.headings.current_holder') %> >
-                <%= link_to t('roles.headings.current_holder'), "#current-role-holder" %>
+                <%= link_to t('roles.headings.current_holder'), "#current-role-holder", class: "govuk-link" %>
               </li>
             <% end %>
             <% if @ministerial_role.published_policies.any? %>
               <li <%= t_lang('policies.heading') %> >
-                <%= link_to t('policies.heading'), "#policies" %>
+                <%= link_to t('policies.heading'), "#policies", class: "govuk-link" %>
               </li>
             <% end %>
             <% if @ministerial_role.previous_appointments.any? %>
               <li <%= t_lang('roles.headings.previous_holders') %> >
-                <%= link_to t('roles.headings.previous_holders'), "#previous-holders-of-this-role" %>
+                <%= link_to t('roles.headings.previous_holders'), "#previous-holders-of-this-role", class: "govuk-link" %>
               </li>
             <% end %>
             <% if @ministerial_role.announcements.any? %>
               <li <%= t_lang('announcements.heading') %> >
-                <%= link_to t('announcements.heading'), "#announcements" %>
+                <%= link_to t('announcements.heading'), "#announcements", class: "govuk-link" %>
               </li>
             <% end %>
           </ul>
@@ -82,7 +82,7 @@
           <h1><%= t('roles.headings.current_holder') %>: <span class="name"><%= @ministerial_role.current_person.name %></span></h1>
           <%= @ministerial_role.current_person.biography %>
           <div class="read-more">
-            <%= link_to t('people.read_more'), @ministerial_role.current_person %>
+            <%= link_to t('people.read_more'), @ministerial_role.current_person, class: "govuk-link" %>
           </div>
         </section>
       <% end %>
@@ -91,7 +91,7 @@
         <section class="previous-roles" id="previous-holders-of-this-role">
           <h1><%= t('roles.previous_holders') %></h1>
           <% if @ministerial_role.supports_historical_accounts? %>
-            <p>Find out more about previous holders of this role in our <%= link_to "past #{@ministerial_role.name.pluralize}", historic_appointments_path(@ministerial_role.historic_param) %> section.</p>
+            <p>Find out more about previous holders of this role in our <%= link_to "past #{@ministerial_role.name.pluralize}", historic_appointments_path(@ministerial_role.historic_param), class: "govuk-link" %> section.</p>
           <% elsif @ministerial_role.previous_appointments.any? %>
             <ol class="document-list">
               <% @ministerial_role.previous_appointments.each do |appointment| %>
