@@ -34,6 +34,8 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     document.editions.each do |edition|
       Whitehall::InternalLinkUpdater.new(edition).call
     end
+
+    ContentPublisher::FeaturedDocumentMigrator.new(document).call
   end
 
   private
