@@ -14,7 +14,9 @@ class Admin::GovernmentsController < Admin::BaseController
   end
 
   def create
-    @government = Government.new(government_params)
+    @government = Government.new(
+      government_params.merge(content_id: SecureRandom.uuid),
+    )
 
     if @government.save
       redirect_to admin_governments_path, notice: "Created government information"
