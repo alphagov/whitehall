@@ -16,7 +16,7 @@
 <% if @is_during_reshuffle %>
   <%= render "govuk_publishing_components/components/notice", {
     description_govspeak: bare_govspeak_to_html(@reshuffle_messaging),
-} %>
+  } %>
 <% else %>
 
 <section class="cab_ministers govuk-grid-row">
@@ -90,19 +90,21 @@
             heading_level: 3,
           } %>
         </div>
-        <ul class="minister-list govuk-list govuk-grid-column-three-quarters govuk-!-padding-0 govuk-!-padding-bottom-7">
-          <% ministers.with_unique_people.each.with_index do |role, i| %>
-            <%= render partial: "people/person",
-                locals: {
-                  extra_class: (i % 3 == 0) ? 'govuk-grid-column-one-third clear-column' : 'govuk-grid-column-one-third',
-                  hide_image: true,
-                  hlevel: "h4",
-                  person: PersonPresenter.new(role.current_person, self),
-                  prefix: "by-organisation-#{organisation.slug}",
-                  roles: ministers.roles_for(role.current_person),
-                } %>
-          <% end %>
-        </ul>
+        <div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-7">
+          <ul class="minister-list govuk-list govuk-grid-row">
+            <% ministers.with_unique_people.each.with_index do |role, i| %>
+              <%= render partial: "people/person",
+                  locals: {
+                    extra_class: (i % 3 == 0) ? 'govuk-grid-column-one-third clear-column' : 'govuk-grid-column-one-third',
+                    hide_image: true,
+                    hlevel: "h4",
+                    person: PersonPresenter.new(role.current_person, self),
+                    prefix: "by-organisation-#{organisation.slug}",
+                    roles: ministers.roles_for(role.current_person),
+                  } %>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
     <% end %>
 </section>
@@ -130,19 +132,21 @@
           margin_bottom: 2,
         } %>
       </div>
-      <ul class="minister-list govuk-list govuk-grid-column-three-quarters govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-8">
-        <% whips.unique_people.each.with_index do |person, i| %>
-          <%= render partial: "people/person",
-            locals: {
-              extra_class: (i % 3 == 0) ? 'govuk-grid-column-one-third clear-column' : 'govuk-grid-column-one-third',
-              hide_image: true,
-              hlevel: "h4",
-              person: PersonPresenter.new(person, self),
-              prefix: 'by-organisation',
-              roles: whips.roles_for(person),
-            } %>
-        <% end %>
-      </ul>
+      <div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-8">
+        <ul class="minister-list govuk-list">
+          <% whips.unique_people.each.with_index do |person, i| %>
+            <%= render partial: "people/person",
+              locals: {
+                extra_class: (i % 3 == 0) ? 'govuk-grid-column-one-third clear-column' : 'govuk-grid-column-one-third',
+                hide_image: true,
+                hlevel: "h4",
+                person: PersonPresenter.new(person, self),
+                prefix: 'by-organisation',
+                roles: whips.roles_for(person),
+              } %>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
   <% end %>
 </section>
