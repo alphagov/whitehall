@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191122095033) do
+ActiveRecord::Schema.define(version: 20191122124408) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -534,7 +534,8 @@ ActiveRecord::Schema.define(version: 20191122095033) do
     t.date "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "content_id"
+    t.string "content_id", null: false
+    t.index ["content_id"], name: "index_governments_on_content_id", unique: true
     t.index ["end_date"], name: "index_governments_on_end_date"
     t.index ["name"], name: "index_governments_on_name", unique: true
     t.index ["slug"], name: "index_governments_on_slug", unique: true
