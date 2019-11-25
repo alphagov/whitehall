@@ -47,6 +47,7 @@ module PublishingApi
           world_locations
           policy_areas
           related_policies
+          government
         ],
       ).merge(
         PayloadBuilder::TopicalEvents.for(item),

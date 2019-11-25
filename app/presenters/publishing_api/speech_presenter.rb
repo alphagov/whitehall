@@ -57,6 +57,7 @@ module PublishingApi
           policy_areas
           related_policies
           world_locations
+          government
         ],
       )
       links.merge!(links_for_speaker)

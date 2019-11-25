@@ -62,6 +62,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     expected_links = {
       topics: [],
       parent: [],
+      government: [publication.government.content_id],
       primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       original_primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),
