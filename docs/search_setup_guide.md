@@ -12,8 +12,8 @@ serve results.
 
 The easiest way to get a search index is to replicate it from the Integration
 environment.  This will not contain local changes to your content, but will be
-enough for many tests. To fetch the replica, use the `replicate-data-local.sh`
-script from the `development` project (as documented in that project's README).
+enough for many tests. To fetch the replica, use the `replicate-elasticsearch.sh`
+script from `govuk-docker` (as documented in [its README](https://github.com/alphagov/govuk-docker#how-to-replicate-data-locally)).
 If you need to have local changes in your dev environment copied into the
 search index, you will actually need to rebuild the search index.
 
