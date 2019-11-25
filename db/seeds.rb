@@ -44,6 +44,7 @@ end
 if Government.where(name: "Test Government").present?
   puts "Skipping because Test Government already exists"
 else
+  Government.skip_callback(:commit, :after, :publish_to_publishing_api)
   Government.create(
     name: "Test Government",
     start_date: Time.new(2001, 1, 1),
