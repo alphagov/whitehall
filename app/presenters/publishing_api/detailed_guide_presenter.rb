@@ -39,6 +39,7 @@ module PublishingApi
           policy_areas
           related_policies
           topics
+          government
         ],
       ).merge(
         related_guides: item.related_detailed_guide_content_ids,

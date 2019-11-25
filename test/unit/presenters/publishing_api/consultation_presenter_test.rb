@@ -83,6 +83,7 @@ module PublishingApi::ConsultationPresenterTest
         policy_areas
         related_policies
         topics
+        government
       )
 
       links_double = {
