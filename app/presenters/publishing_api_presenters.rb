@@ -14,6 +14,8 @@ module PublishingApiPresenters
       case model
       when ::Edition
         presenter_class_for_edition(model)
+      when Government
+        PublishingApi::GovernmentPresenter
       when AboutPage
         PublishingApi::TopicalEventAboutPagePresenter
       when PolicyGroup
