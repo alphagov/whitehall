@@ -11,6 +11,7 @@ module PublishingApi
       parent: :parent_content_ids,
       world_locations: :world_location_ids,
       worldwide_organisations: :worldwide_organisation_ids,
+      government: :government_id,
     }.freeze
 
     def initialize(item)
@@ -75,6 +76,10 @@ module PublishingApi
     def parent_content_ids
       parent_content_id = item.primary_specialist_sectors.try(:first).try(:topic_content_id)
       parent_content_id ? [parent_content_id] : []
+    end
+
+    def government_id
+      [item.government&.content_id].compact
     end
   end
 end
