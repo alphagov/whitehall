@@ -119,7 +119,10 @@ class ActiveSupport::TestCase
 
   def self.disable_database_queries
     setup do
-      ActiveRecord::Base.connection.expects(:select).never
+      ActiveRecord::Base
+        .connection
+        .stubs(:select)
+        .raises("Database queries are disabled")
     end
     teardown do
       ActiveRecord::Base.connection.unstub(:select)
