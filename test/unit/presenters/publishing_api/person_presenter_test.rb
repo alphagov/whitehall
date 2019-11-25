@@ -24,7 +24,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     expected_hash = {
       base_path: public_path,
       title: "The Rt Hon Sir Winston Churchill PM",
-      description: nil,
+      description: "Sir Winston Churchill was a Prime Minister.",
       schema_name: "person",
       document_type: "person",
       locale: "en",

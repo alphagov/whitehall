@@ -20,7 +20,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        description: nil,
+        description: item.biography_without_markup,
         details: details,
         document_type: "person",
         public_updated_at: item.updated_at,

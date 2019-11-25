@@ -74,6 +74,10 @@ class Person < ApplicationRecord
     Govspeak::Document.new(biography_appropriate_for_role).to_text
   end
 
+  def biography_without_markup
+    Govspeak::Document.new(biography).to_text
+  end
+
   def biography_appropriate_for_role
     if currently_in_a_role?
       biography
