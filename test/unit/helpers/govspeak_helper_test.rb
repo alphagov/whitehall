@@ -475,4 +475,19 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_with_attachments_to_html(body, attachments, "batman@wayne.technology")
     assert html.include? ">batman@wayne.technology</a>"
   end
+
+  test "converts Brexit CTA govspeak to HTML" do
+    body = "$BrexitCTA\nSome other text"
+    output = govspeak_to_html(body)
+    paragraph_text = "The UK is leaving the EU. This page tells you how to "\
+                       "prepare for Brexit and will be updated if anything changes."
+
+    assert_select_within_html output, "div.call-to-action"
+    assert_select_within_html output, "h2#stay-up-to-date", "Stay up to date"
+    assert_select_within_html output, "p", paragraph_text
+    assert_select_within_html output,
+                              "a[href=?]",
+                              "https://www.gov.uk/email-signup?topic=%2Fbrexit",
+                              text: "Sign up for email alerts"
+  end
 end
