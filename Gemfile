@@ -79,6 +79,7 @@ end
 
 
 group :development, :test do
+  gem "brakeman", "< 4.7.2"
   gem "parallel_tests"
   gem "pry-byebug"
   gem "pry-rails"
