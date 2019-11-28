@@ -5,6 +5,7 @@ gem "addressable", ">= 2.3.7"
 gem "babosa", "1.0.3"
 gem "bootsnap", require: false
 gem "bootstrap-kaminari-views", "0.0.5"
+gem "brakeman", "4.7.0"
 gem "carrierwave", "~> 1.3.1"
 gem "carrierwave-i18n"
 gem "chronic"
@@ -19,7 +20,7 @@ gem "globalize", "~> 5"
 gem "govuk_ab_testing", "~> 2.4x"
 gem "govuk_admin_template", "~> 6.7"
 gem "govuk_app_config", "~> 2.0"
-gem "govuk_publishing_components", "~> 21.3.0"
+gem "govuk_publishing_components", "~> 21.13.1"
 gem "govuk_sidekiq", "~> 3"
 gem "invalid_utf8_rejector", "~> 0.0.4"
 gem "isbn_validation"
@@ -79,7 +80,6 @@ end
 
 
 group :development, :test do
-  gem "brakeman", "< 4.7.2"
   gem "parallel_tests"
   gem "pry-byebug"
   gem "pry-rails"

@@ -1,127 +1,154 @@
 <% page_title "Ministers" %>
-<% page_class "ministers-index" %>
+<% page_class "ministers-index govuk-width-container" %>
 
-<header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { big: true,
-                        heading: "Ministers" } %>
+<header class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      title: "Ministers"
+    } %>
 
     <% unless @is_during_reshuffle %>
-      <p class="intro-paragraph">Read biographies and responsibilities of <a href="#cabinet-ministers">Cabinet ministers</a> and all <a href="#ministers-by-department">ministers by department</a>, as well as the <a href="#whips">whips</a> who help co-ordinate parliamentary business.</p>
+      <p class="govuk-body-l">Read biographies and responsibilities of <a href="#cabinet-ministers" class="govuk-link">Cabinet ministers</a> and all <a href="#ministers-by-department" class="govuk-link">ministers by department</a>, as well as the <a href="#whips" class="govuk-link">whips</a> who help co-ordinate parliamentary business.</p>
     <% end %>
   </div>
 </header>
 
 <% if @is_during_reshuffle %>
-  <div class="block">
-    <div class="inner-block">
-      <aside class="status-block">
-        <%= govspeak_to_html @reshuffle_messaging %>
-      </aside>
-    </div>
-  </div>
+  <%= render "govuk_publishing_components/components/notice", {
+    description_govspeak: bare_govspeak_to_html(@reshuffle_messaging),
+  } %>
 <% else %>
 
-<div class="block-2">
-  <div class="inner-block floated-children">
-    <section class="cab_ministers">
-      <h2 class="label" id="cabinet-ministers">Cabinet ministers</h2>
-      <ul id="cabinet" class="cabinet-list">
-        <% @cabinet_ministerial_roles.each_with_index do |(person, roles), i| %>
-          <%= render partial: "people/person",
-              locals: {
-                person: person,
-                roles: roles,
-                hlevel: "h3",
-                hide_image: false,
-                extra_class: (i % 4 == 0) ? 'clear-person' : ''
-          } %>
-        <% end %>
-      </ul>
-    </section>
+<section class="cab_ministers govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Cabinet ministers",
+      id: "cabinet-ministers",
+      margin_bottom: 4,
+      padding: true,
+    } %>
   </div>
-</div>
+  <ul id="cabinet" class="cabinet-list govuk-list">
+    <% @cabinet_ministerial_roles.each_with_index do |(person, roles), i| %>
+      <%= render partial: "people/person",
+        locals: {
+          extra_class: (i % 4 == 0) ? 'govuk-grid-column-one-quarter clear-column' : 'govuk-grid-column-one-quarter',
+          hide_image: false,
+          hlevel: "h3",
+          person: person,
+          roles: roles,
+        } %>
+    <% end %>
+  </ul>
+</section>
+
 <% if @also_attends_cabinet.any? %>
-  <div class="block-2">
-    <div class="inner-block floated-children">
-      <section class="cab_ministers">
-        <h2 class="label" id="also-attends-cabinet-ministers">Also attends Cabinet</h2>
-        <ul id="also-attends-cabinet" class="cabinet-list">
-          <% @also_attends_cabinet.each_with_index do |(person, roles), i| %>
-            <%= render partial: "people/person",
-                locals: {
-                  person: person,
-                  roles: roles,
-                  hlevel: "h3",
-                  hide_image: false,
-                  extra_class: (i % 4 == 0) ? 'clear-person' : '',
-                  display_cabinet_attendance: true
-            } %>
-          <% end %>
-        </ul>
-      </section>
+  <section class="cab_ministers govuk-grid-row govuk-!-padding-top-9">
+    <div class="govuk-grid-column-full">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Also attends Cabinet",
+        id: "also-attends-cabinet-ministers",
+        margin_bottom: 4,
+        padding: true,
+      } %>
     </div>
-  </div>
+    <ul id="also-attends-cabinet" class="cabinet-list govuk-list">
+      <% @also_attends_cabinet.each_with_index do |(person, roles), i| %>
+        <%= render partial: "people/person",
+            locals: {
+              display_cabinet_attendance: true,
+              extra_class: (i % 4 == 0) ? 'govuk-grid-column-one-quarter clear-column' : 'govuk-grid-column-one-quarter',
+              hide_image: false,
+              hlevel: "h3",
+              person: person,
+              roles: roles,
+        } %>
+      <% end %>
+    </ul>
+  </section>
 <% end %>
 
-<div class="ministers-by-organisation">
-  <div class="inner-block floated-children">
-    <h2 id="ministers-by-department">Ministers by department</h2>
+<section class="ministers-by-organisation govuk-grid-row govuk-!-padding-top-9">
+    <div class="govuk-grid-column-full">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Ministers by department",
+        id: "ministers-by-department",
+        margin_bottom: 4,
+        padding: true,
+      } %>
+    </div>
     <% @ministers_by_organisation.each do |organisation, ministers| %>
       <%= content_tag_for :section, organisation do %>
-        <div class="heading">
-          <h3>
-            <%= link_to organisation_path(organisation), class: logo_classes(organisation: organisation,  size: 'medium', stacked: true) do %>
-              <span><%= format_with_html_line_breaks(organisation.logo_formatted_name) %></span>
+        <div class="govuk-grid-column-one-quarter govuk-!-padding-bottom-7">
+          <%= render "govuk_publishing_components/components/organisation_logo", {
+            organisation: {
+              name: sanitize(format_with_html_line_breaks(organisation.logo_formatted_name)),
+              url: organisation_path(organisation),
+              brand: organisation[:slug],
+              crest: organisation.organisation_crest,
+            },
+            heading_level: 3,
+          } %>
+        </div>
+        <div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-7">
+          <ul class="minister-list govuk-list govuk-grid-row">
+            <% ministers.with_unique_people.each.with_index do |role, i| %>
+              <%= render partial: "people/person",
+                  locals: {
+                    extra_class: (i % 3 == 0) ? 'govuk-grid-column-one-third clear-column' : 'govuk-grid-column-one-third',
+                    hide_image: true,
+                    hlevel: "h4",
+                    person: PersonPresenter.new(role.current_person, self),
+                    prefix: "by-organisation-#{organisation.slug}",
+                    roles: ministers.roles_for(role.current_person),
+                  } %>
             <% end %>
-          </h3>
+          </ul>
         </div>
-        <ul class="minister-list">
-          <% ministers.with_unique_people.each.with_index do |role, i| %>
-            <%= render partial: "people/person",
-                locals: {
-                  person: PersonPresenter.new(role.current_person, self),
-                  roles: ministers.roles_for(role.current_person),
-                  hlevel: "h4",
-                  prefix: "by-organisation-#{organisation.slug}",
-                  hide_image: true,
-                  extra_class: (i % 3 == 0) ? 'clear-person' : ''
-                } %>
-          <% end %>
-        </ul>
       <% end %>
-      <hr class="keyline">
     <% end %>
+</section>
+
+<section class="ministers-by-organisation whips">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Whips",
+        id: "whips",
+        margin_bottom: 4,
+        padding: true,
+      } %>
+    </div>
   </div>
-</div>
 
-<div class="ministers-by-organisation whips">
-  <div class="inner-block floated-children">
-    <h2 id="whips">Whips</h2>
-
-    <% @whips_by_organisation.each do |whip_organisation, whips| %>
-      <%= content_tag_for :section, whip_organisation do %>
-        <div class="heading">
-          <h3><%= whip_organisation.name %></h3>
-        </div>
-        <ul class="minister-list">
+  <% @whips_by_organisation.each do |whip_organisation, whips| %>
+    <%= content_tag_for :div, whip_organisation, class: "govuk-grid-row" do %>
+      <div class="govuk-grid-column-one-quarter">
+        <%= render "govuk_publishing_components/components/heading", {
+          font_size: 24,
+          text: whip_organisation.name,
+          id: "whip-#{whip_organisation.name.parameterize}",
+          heading_level: 3,
+          margin_bottom: 2,
+        } %>
+      </div>
+      <div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-8">
+        <ul class="minister-list govuk-list">
           <% whips.unique_people.each.with_index do |person, i| %>
             <%= render partial: "people/person",
-                locals: {
-                  person: PersonPresenter.new(person, self),
-                  roles: whips.roles_for(person),
-                  hlevel: "h4",
-                  prefix: 'by-organisation',
-                  hide_image: true,
-                  extra_class: (i % 3 == 0) ? 'clear-person' : ''
-                } %>
+              locals: {
+                extra_class: (i % 3 == 0) ? 'govuk-grid-column-one-third clear-column' : 'govuk-grid-column-one-third',
+                hide_image: true,
+                hlevel: "h4",
+                person: PersonPresenter.new(person, self),
+                prefix: 'by-organisation',
+                roles: whips.roles_for(person),
+              } %>
           <% end %>
         </ul>
-      <% end %>
-      <hr class="keyline">
+      </div>
     <% end %>
-  </div>
-</div>
+  <% end %>
+</section>
 
 <% end %>

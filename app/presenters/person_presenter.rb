@@ -65,9 +65,9 @@ class PersonPresenter < Whitehall::Decorators::Decorator
 
   def link(options = {})
     name = ""
-    name << "<span class='person-title'>The Rt Hon</span> " if privy_counsellor?
-    name << "<strong>#{name_without_privy_counsellor_prefix}</strong>"
-    context.link_to name.html_safe, path, options.merge(class: "govuk-link")
+    name << "<span class='app-person-link__title'>The Rt Hon</span> " if privy_counsellor?
+    name << "<span class='app-person-link__name govuk-!-padding-0 govuk-!-margin-0}'>#{name_without_privy_counsellor_prefix}</span>"
+    context.link_to name.html_safe, path, options.merge(class: "app-person-link")
   end
 
   def path

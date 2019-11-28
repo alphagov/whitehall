@@ -44,7 +44,7 @@ Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
     assert page.has_css?('.current-appointee', text: minister_name)
-    assert page.has_css?('.role', text: role)
+    assert page.has_css?('.app-person__roles', text: role)
   end
 end
 
@@ -70,7 +70,7 @@ end
 Then(/^I should see that "([^"]*)" is a commons whip "([^"]*)"$/) do |minister_name, role_title|
   within record_css_selector(Whitehall::WhipOrganisation::WhipsHouseOfCommons) do
     assert page.has_css?('.current-appointee', text: minister_name)
-    assert page.has_css?('.role', text: role_title)
+    assert page.has_css?('.app-person__roles', text: role_title)
   end
 end
 

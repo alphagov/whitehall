@@ -40,6 +40,8 @@ $govuk-typography-use-rem: false;
 
 #whitehall-wrapper {
   @import "global/_links";
+  @import "global/_clear";
+  @import "global/_aspect-ratio";
 }
 
 // HELPERS
@@ -146,9 +148,10 @@ $govuk-typography-use-rem: false;
   a[class^="gem-c-"] {
     text-decoration: underline;
 
-    &:focus {
+    &:focus,
+    &:focus * {
       color: $govuk-focus-text-colour !important;
-      text-decoration: none;
+      text-decoration: none !important;
     }
   }
 
@@ -156,4 +159,15 @@ $govuk-typography-use-rem: false;
   .gem-c-title__context-link:visited {
     color: #6f777b;
   }
+
+  .gem-c-organisation-logo__link {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus {
+      color: $govuk-text-colour;
+    }
+  }
+
 }
