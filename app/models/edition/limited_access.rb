@@ -40,7 +40,7 @@ module Edition::LimitedAccess
       access_clause = access_clauses.join(" OR ")
       loc_clause = loc_clauses.join(" OR ")
       where_clause = access_clause
-      where_clause = "(#{where_clause}) AND (#{loc_clause})" unless loc_clause.blank?
+      where_clause = "(#{where_clause}) AND (#{loc_clause})" if loc_clause.present?
       where(where_clause, binds)
     end
 

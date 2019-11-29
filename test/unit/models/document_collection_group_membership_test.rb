@@ -44,22 +44,22 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
   end
 
   test "is invalid without a document or a non-whitehall link" do
-    refute build(:document_collection_group_membership, document: nil, non_whitehall_link: nil).valid?
+    assert_not build(:document_collection_group_membership, document: nil, non_whitehall_link: nil).valid?
   end
 
   test "is invalid with both a document and a external link" do
-    refute build(:document_collection_group_membership,
+    assert_not build(:document_collection_group_membership,
                  document: build(:document),
                  non_whitehall_link: build(:document_collection_non_whitehall_link)).valid?
   end
 
   test "is invalid without a document_collection_group" do
-    refute build(:document_collection_group_membership, document_collection_group: nil).valid?
+    assert_not build(:document_collection_group_membership, document_collection_group: nil).valid?
   end
 
   test "is invalid when document is a document collection" do
     membership = build(:document_collection_group_membership, document: create(:document_collection).document)
-    refute membership.valid?
+    assert_not membership.valid?
   end
 
   test "should raise an exception when attempting to add a locked document to a collection" do

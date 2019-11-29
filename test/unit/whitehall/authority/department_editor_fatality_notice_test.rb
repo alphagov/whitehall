@@ -19,7 +19,7 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test "cannot create a new fatality notice if their organisation cannot handle fatalities" do
-    refute enforcer_for(normal_department_editor, FatalityNotice).can?(:create)
+    assert_not enforcer_for(normal_department_editor, FatalityNotice).can?(:create)
   end
 
   test "cannot do anything to a fatality notice if their organisation cannot handle fatalities" do
@@ -28,7 +28,7 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 
@@ -46,7 +46,7 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
     user = fatality_department_editor(10)
     edition = limited_fatality_notice([OpenStruct.new(id: 100, handles_fatalities?: true)])
 
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test "cannot do anything to a fatality notice they are not allowed to see" do
@@ -55,7 +55,7 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 
@@ -101,7 +101,7 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
 
   test 'cannot clear the "not reviewed" flag on fatality notices they did force publish if their organisation can handle fatalities' do
     user = fatality_department_editor
-    refute enforcer_for(user, force_published_fatality_notice(user)).can?(:approve)
+    assert_not enforcer_for(user, force_published_fatality_notice(user)).can?(:approve)
   end
 
   test "can limit access to a fatality notice if their organisation can handle fatalities" do
@@ -109,6 +109,6 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test "cannot unpublish a fatality notice if their organisation can handle fatalities" do
-    refute enforcer_for(fatality_department_editor, normal_fatality_notice).can?(:unpublish)
+    assert_not enforcer_for(fatality_department_editor, normal_fatality_notice).can?(:unpublish)
   end
 end

@@ -160,7 +160,7 @@ module Admin
     end
 
     def subtype
-      subtype_class.find_by_id(subtype_id) if type && subtype_id
+      subtype_class.find_by(id: subtype_id) if type && subtype_id
     end
 
     def subtype_ids

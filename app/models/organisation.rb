@@ -282,13 +282,13 @@ class Organisation < ApplicationRecord
   end
 
   def ensure_analytics_identifier
-    unless analytics_identifier.present?
+    if analytics_identifier.blank?
       update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
     end
   end
 
   def organisation_logo_type
-    OrganisationLogoType.find_by_id(organisation_logo_type_id)
+    OrganisationLogoType.find_by(id: organisation_logo_type_id)
   end
 
   def organisation_logo_type=(organisation_logo_type)
@@ -300,7 +300,7 @@ class Organisation < ApplicationRecord
   end
 
   def organisation_brand_colour
-    OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
+    OrganisationBrandColour.find_by(id: organisation_brand_colour_id)
   end
 
   def organisation_brand_colour=(organisation_brand_colour)
@@ -415,7 +415,7 @@ class Organisation < ApplicationRecord
   end
 
   def jobs_url
-    custom_jobs_url.present? ? custom_jobs_url : DEFAULT_JOBS_URL
+    custom_jobs_url.presence || DEFAULT_JOBS_URL
   end
 
   def indexable_content

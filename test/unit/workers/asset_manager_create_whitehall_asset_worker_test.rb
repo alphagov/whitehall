@@ -35,12 +35,12 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
   test "removes the file after it has been successfully uploaded" do
     @worker.perform(@file.path, @legacy_url_path)
-    refute File.exist?(@file.path)
+    assert_not File.exist?(@file.path)
   end
 
   test "removes the directory after it has been successfully uploaded" do
     @worker.perform(@file.path, @legacy_url_path)
-    refute Dir.exist?(File.dirname(@file))
+    assert_not Dir.exist?(File.dirname(@file))
   end
 
   test "marks attachments belonging to consultations as access limited" do

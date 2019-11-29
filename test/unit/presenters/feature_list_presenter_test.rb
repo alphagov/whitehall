@@ -10,7 +10,7 @@ class FeatureListPresenterTest < PresenterTestCase
   test "#any_current_features? indicates whether there are any current features" do
     assert feature_list_presenter(stub_feature_list(1)).any_current_features?
     assert feature_list_presenter(stub_feature_list(17)).any_current_features?
-    refute feature_list_presenter(stub_feature_list(0)).any_current_features?
+    assert_not feature_list_presenter(stub_feature_list(0)).any_current_features?
   end
 
   def feature_list_presenter(feature_list)

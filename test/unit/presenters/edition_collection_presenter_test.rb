@@ -47,7 +47,7 @@ class EditionCollectionPresenterTest < PresenterTestCase
     collection = EditionCollectionPresenter.new([DetailedGuide.new, NewsArticle.new], @view_context)
     assert_equal 2, collection.length
     assert collection.any?
-    refute collection.empty?
+    assert_not collection.empty?
   end
 
   test "should wrap results of enumerating" do

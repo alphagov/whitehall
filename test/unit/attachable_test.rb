@@ -12,7 +12,7 @@ class AttachableTest < ActiveSupport::TestCase
     assert attachable.allows_attachment_type?("file")
     assert attachable.allows_attachment_type?("external")
     assert attachable.allows_attachment_type?("html")
-    refute attachable.allows_attachment_type?("unknown")
+    assert_not attachable.allows_attachment_type?("unknown")
   end
 
   test "new attachments are put to the end of the list" do
@@ -42,14 +42,14 @@ class AttachableTest < ActiveSupport::TestCase
   test "should be invalid if an edition has an attachment but no alternative format provider" do
     attachment = build(:file_attachment)
     publication = build(:publication, attachments: [attachment], alternative_format_provider: nil)
-    refute publication.valid?
+    assert_not publication.valid?
   end
 
   test "should be invalid if an edition has an attachment but alternative format provider has no email address set" do
     attachment = build(:file_attachment)
     organisation = build(:organisation, alternative_format_contact_email: nil)
     publication = build(:publication, attachments: [attachment], alternative_format_provider: organisation)
-    refute publication.valid?
+    assert_not publication.valid?
   end
 
   test "should be valid without alternative format provider if no attachments" do
@@ -59,7 +59,7 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "should say a edition does not have a thumbnail when it has no attachments" do
     edition = create(:publication)
-    refute edition.has_thumbnail?
+    assert_not edition.has_thumbnail?
   end
 
   test "should say a edition does not have a thumbnail when it has no thumbnailable attachments" do
@@ -68,7 +68,7 @@ class AttachableTest < ActiveSupport::TestCase
     edition = build(:publication)
     edition.attachments << sample_csv
 
-    refute edition.has_thumbnail?
+    assert_not edition.has_thumbnail?
   end
 
   def build_edition_with_three_attachments
@@ -211,7 +211,7 @@ class AttachableTest < ActiveSupport::TestCase
     pub.stubs(:attachments).returns([
                                       OpenStruct.new(is_command_paper?: false),
                                     ])
-    refute pub.has_command_paper?
+    assert_not pub.has_command_paper?
 
     pub.stubs(:attachments).returns([
                                       OpenStruct.new(is_command_paper?: false),
@@ -225,7 +225,7 @@ class AttachableTest < ActiveSupport::TestCase
     pub.stubs(:attachments).returns([
                                       OpenStruct.new(is_act_paper?: false),
                                     ])
-    refute pub.has_act_paper?
+    assert_not pub.has_act_paper?
 
     pub.stubs(:attachments).returns([
                                       OpenStruct.new(is_act_paper?: false),

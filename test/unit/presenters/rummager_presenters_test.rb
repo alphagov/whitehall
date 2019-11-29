@@ -10,7 +10,7 @@ class RummagerPresentersTest < ActiveSupport::TestCase
 
   test "RummagerPresenters.present_all_government_content excludes DetailedGuide" do
     DetailedGuide.stubs(search_index: ["a detailed guide"])
-    refute RummagerPresenters.present_all_government_content.include?("a detailed guide")
+    assert_not RummagerPresenters.present_all_government_content.include?("a detailed guide")
   end
 
   test "RummagerPresenters.present_all_government_content includes WorldLocationNewsArticles" do

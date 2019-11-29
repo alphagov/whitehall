@@ -92,7 +92,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
-    refute PromotionalFeatureItem.exists?(promotional_feature_item.id)
+    assert_not PromotionalFeatureItem.exists?(promotional_feature_item.id)
     assert_equal "Feature item deleted.", flash[:notice]
   end
 end

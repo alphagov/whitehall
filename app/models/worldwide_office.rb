@@ -29,7 +29,7 @@ class WorldwideOffice < ApplicationRecord
   end
 
   def worldwide_office_type
-    WorldwideOfficeType.find_by_id(worldwide_office_type_id)
+    WorldwideOfficeType.find_by(id: worldwide_office_type_id)
   end
 
   def worldwide_office_type=(worldwide_office_type)

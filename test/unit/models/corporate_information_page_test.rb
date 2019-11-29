@@ -23,6 +23,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   end
 
   test "corporate information pages cannot be previously published" do
-    refute build(:corporate_information_page).previously_published
+    assert_not build(:corporate_information_page).previously_published
   end
 end

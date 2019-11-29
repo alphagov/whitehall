@@ -90,7 +90,7 @@ end
 
 class PublishingApi::WorldLocationNewsArticlePresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = Time.new(2011, 2, 5)
+    @expected_first_published_at = Time.zone.local(2011, 2, 5)
     @world_location_news_article = create(
       :world_location_news_article,
       :published,

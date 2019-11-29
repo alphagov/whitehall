@@ -16,6 +16,6 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
     assert_redirected_to edit_admin_edition_tags_path(edition.id)
 
     assert_equal "fr", edition.reload.primary_locale
-    refute edition.available_in_locale?(:en)
+    assert_not edition.available_in_locale?(:en)
   end
 end

@@ -100,7 +100,7 @@ module PublishingApi
 
     def post_addresses
       # These are the required fields for the schema
-      return [] if !street_address.present? || !country
+      return [] if street_address.blank? || !country
 
       post_address = {
         title: recipient.presence,

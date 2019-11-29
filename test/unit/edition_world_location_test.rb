@@ -5,13 +5,13 @@ class EditionWorldLocationTest < ActiveSupport::TestCase
 
   test "should be invalid without an edition" do
     edition_world_location = build(:edition_world_location, edition: nil)
-    refute edition_world_location.valid?
+    assert_not edition_world_location.valid?
     assert edition_world_location.errors[:edition].present?
   end
 
   test "should be invalid without an world_location" do
     edition_world_location = build(:edition_world_location, world_location: nil)
-    refute edition_world_location.valid?
+    assert_not edition_world_location.valid?
     assert edition_world_location.errors[:world_location].present?
   end
 
@@ -27,9 +27,9 @@ class EditionWorldLocationTest < ActiveSupport::TestCase
 
   test "should hide deprecated columns" do
     assert_includes EditionWorldLocation.column_names, "id"
-    refute_includes EditionWorldLocation.column_names, "featured"
-    refute_includes EditionWorldLocation.column_names, "ordering"
-    refute_includes EditionWorldLocation.column_names, "edition_world_location_image_data_id"
-    refute_includes EditionWorldLocation.column_names, "alt_text"
+    assert_not_includes EditionWorldLocation.column_names, "featured"
+    assert_not_includes EditionWorldLocation.column_names, "ordering"
+    assert_not_includes EditionWorldLocation.column_names, "edition_world_location_image_data_id"
+    assert_not_includes EditionWorldLocation.column_names, "alt_text"
   end
 end

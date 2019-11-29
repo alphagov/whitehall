@@ -8,13 +8,13 @@ class RoleTest < ActiveSupport::TestCase
     # You can safely remove the test, and Role.columns, once it's been deployed and we've subsequently removed
     # these columns for real.
     test "#columns excludes #{column_name} so that we can safely remove it from role in a future migration" do
-      refute Role.columns.map(&:name).include?(column_name)
+      assert_not Role.columns.map(&:name).include?(column_name)
     end
   end
 
   test "should be invalid without a name" do
     role = build(:role, name: nil)
-    refute role.valid?
+    assert_not role.valid?
   end
 
   test "should return the role and organisation name" do
@@ -110,7 +110,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     role = create(:role, name: "Prime Minister")
-    role.update_attributes(name: "Chancellor of the Exchequer")
+    role.update(name: "Chancellor of the Exchequer")
     assert_equal "prime-minister", role.slug
   end
 
@@ -121,19 +121,19 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should not be destroyable when it has appointments" do
     role = create(:role, role_appointments: [create(:role_appointment)])
-    refute role.destroyable?
+    assert_not role.destroyable?
     assert_equal false, role.destroy
   end
 
   test "should not be destroyable when it has organisations" do
     role = create(:role, organisations: [create(:organisation)])
-    refute role.destroyable?
+    assert_not role.destroyable?
     assert_equal false, role.destroy
   end
 
   test "should not be destroyable when it has worldwide organisations" do
     role = create(:role_without_organisations, worldwide_organisations: [create(:worldwide_organisation)])
-    refute role.destroyable?
+    assert_not role.destroyable?
     assert_equal false, role.destroy
   end
 
@@ -150,12 +150,12 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should have a payment type" do
     role = create(:role, role_payment_type_id: 1)
-    assert_equal RolePaymentType.find_by_id(1), role.role_payment_type
+    assert_equal RolePaymentType.find_by(id: 1), role.role_payment_type
   end
 
   test "should have a attendance type" do
     role = create(:role, attends_cabinet_type_id: 1)
-    assert_equal RoleAttendsCabinetType.find_by_id(1), role.attends_cabinet_type
+    assert_equal RoleAttendsCabinetType.find_by(id: 1), role.attends_cabinet_type
   end
 
   test "footnotes should display only payment when option not set" do
@@ -187,7 +187,7 @@ class RoleTest < ActiveSupport::TestCase
     vacant = create(:role, :vacant)
 
     assert_includes Role.occupied, occupied
-    refute_includes Role.occupied, vacant
+    assert_not_includes Role.occupied, vacant
   end
 
   test "has removeable translations" do
@@ -195,7 +195,7 @@ class RoleTest < ActiveSupport::TestCase
 
     role = create(:role, translated_into: %i[fr es])
     role.remove_translations_for(:fr)
-    refute role.translated_locales.include?(:fr)
+    assert_not role.translated_locales.include?(:fr)
     assert role.translated_locales.include?(:es)
   end
 
@@ -214,7 +214,7 @@ class RoleTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role: role)
 
     Timecop.freeze 1.month do
-      role.update_attributes!(name: "Name change")
+      role.update!(name: "Name change")
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end

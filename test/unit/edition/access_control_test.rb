@@ -11,7 +11,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   %i[published superseded deleted].each do |state|
     test "should not be editable if #{state}" do
       edition = build("#{state}_edition")
-      refute edition.editable?
+      assert_not edition.editable?
     end
   end
 
@@ -25,14 +25,14 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   %i[draft submitted rejected published].each do |state|
     test "cannot have some invalid data if #{state}" do
       edition = build("#{state}_edition")
-      refute edition.can_have_some_invalid_data?
+      assert_not edition.can_have_some_invalid_data?
     end
   end
 
   %i[draft rejected published superseded deleted].each do |state|
     test "should not be rejectable if #{state}" do
       edition = build("#{state}_edition")
-      refute edition.can_reject?
+      assert_not edition.can_reject?
     end
   end
 
@@ -46,7 +46,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   %i[submitted published superseded deleted].each do |state|
     test "should not be submittable if #{state}" do
       edition = build("#{state}_edition")
-      refute edition.can_submit?
+      assert_not edition.can_submit?
     end
   end
 
@@ -60,7 +60,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   %i[scheduled published superseded].each do |state|
     test "should not be deletable if #{state}" do
       edition = build("#{state}_edition")
-      refute edition.can_delete?
+      assert_not edition.can_delete?
     end
   end
 end

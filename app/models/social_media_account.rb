@@ -20,6 +20,6 @@ class SocialMediaAccount < ApplicationRecord
   end
 
   def display_name
-    title.present? ? title : service_name
+    title.presence || service_name
   end
 end

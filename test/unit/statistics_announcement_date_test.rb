@@ -6,13 +6,13 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
       assert build(:statistics_announcement_date, precision: value).valid?
     end
 
-    refute build(:statistics_announcement_date, precision: 42).valid?
+    assert_not build(:statistics_announcement_date, precision: 42).valid?
   end
 
   test "#display_date gives exact date when precision is :exact" do
     annoucement_date = build(:statistics_announcement_date,
                              precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                             release_date: Time.new(2013, 11, 10, 9, 30))
+                             release_date: Time.zone.local(2013, 11, 10, 9, 30))
 
     assert_equal "10 November 2013 9:30am", annoucement_date.display_date
   end
@@ -20,7 +20,7 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
   test "#display_date gives month of release when precision is :one_month" do
     annoucement_date = build(:statistics_announcement_date,
                              precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                             release_date: Time.new(2013, 7, 10, 9, 30))
+                             release_date: Time.zone.local(2013, 7, 10, 9, 30))
 
     assert_equal "July 2013", annoucement_date.display_date
   end
@@ -28,17 +28,17 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
   test "#display_date gives two month range when precision is :two_month" do
     annoucement_date = build(:statistics_announcement_date,
                              precision: StatisticsAnnouncementDate::PRECISION[:two_month],
-                             release_date: Time.new(2014, 12, 10, 9, 30))
+                             release_date: Time.zone.local(2014, 12, 10, 9, 30))
 
     assert_equal "December to January 2015", annoucement_date.display_date
   end
 
   test "a confirmed date must be of exact precision" do
-    refute build(:statistics_announcement_date,
+    assert_not build(:statistics_announcement_date,
                  precision: StatisticsAnnouncementDate::PRECISION[:one_month],
                  confirmed: true).valid?
 
-    refute build(:statistics_announcement_date,
+    assert_not build(:statistics_announcement_date,
                  precision: StatisticsAnnouncementDate::PRECISION[:two_month],
                  confirmed: true).valid?
 

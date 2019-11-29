@@ -97,7 +97,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test "it deletes the publish intent when unpublished" do
     Sidekiq::Testing.inline! do
       statistics_announcement = create(:statistics_announcement)
-      statistics_announcement.update_attributes!(publishing_state: "unpublished",
+      statistics_announcement.update!(publishing_state: "unpublished",
                                                  redirect_url: "https://www.test.gov.uk/example")
 
       assert_publishing_api_delete_intent(statistics_announcement.base_path)
@@ -140,7 +140,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
                                      redirect_url: "https://www.test.gov.uk/example")
 
     Whitehall::SearchIndex.expects(:delete).with(statistics_announcement)
-    statistics_announcement.update_attributes!(publishing_state: "unpublished")
+    statistics_announcement.update!(publishing_state: "unpublished")
   end
 
   test "it is republished when the date is changed" do
@@ -194,7 +194,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish_redirect_async)
       .with(statistics_announcement.content_id, "/government/something-else")
 
-    statistics_announcement.update_attributes!(
+    statistics_announcement.update!(
       publishing_state: "unpublished",
       redirect_url: "https://www.test.gov.uk/government/something-else",
     )

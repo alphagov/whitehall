@@ -154,7 +154,7 @@ module ApplicationHelper
     options = options.dup
     path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
     css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
-    options[:class] = css_classes unless css_classes.blank?
+    options[:class] = css_classes if css_classes.present?
 
     link_to name, path, options
   end

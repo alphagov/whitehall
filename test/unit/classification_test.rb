@@ -10,7 +10,7 @@ class ClassificationTest < ActiveSupport::TestCase
 
   test "should be invalid without a name" do
     topic = build(:classification, name: nil)
-    refute topic.valid?
+    assert_not topic.valid?
   end
 
   test "should be current when created" do
@@ -20,18 +20,18 @@ class ClassificationTest < ActiveSupport::TestCase
 
   test "should be invalid with an unsupported state" do
     topic = build(:classification, state: "foobar")
-    refute topic.valid?
+    assert_not topic.valid?
   end
 
   test "should be invalid without a unique name" do
     existing_topic = create(:classification)
     new_topic = build(:classification, name: existing_topic.name)
-    refute new_topic.valid?
+    assert_not new_topic.valid?
   end
 
   test "should be invalid without a description" do
     topic = build(:classification, description: nil)
-    refute topic.valid?
+    assert_not topic.valid?
   end
 
   test "#latest should return specified number of associated publised editions except world location news articles in reverse chronological order" do
@@ -55,7 +55,7 @@ class ClassificationTest < ActiveSupport::TestCase
   test "an unfeatured news article is not featured" do
     topical_event = create(:topical_event)
     news_article = build(:news_article)
-    refute topical_event.featured?(news_article)
+    assert_not topical_event.featured?(news_article)
   end
 
   test "a featured news article is featured" do
@@ -77,8 +77,8 @@ class ClassificationTest < ActiveSupport::TestCase
     news_article.supersede!
 
     featuring = topical_event.reload.featuring_of(news_article)
-    refute featuring
-    refute topical_event.featured?(news_article)
+    assert_not featuring
+    assert_not topical_event.featured?(news_article)
   end
 
   test "#featured_editions returns featured editions by ordering" do
@@ -101,7 +101,7 @@ class ClassificationTest < ActiveSupport::TestCase
     new_version.save
     force_publish(new_version)
 
-    refute topical_event.featured_editions.include?(old_version)
+    assert_not topical_event.featured_editions.include?(old_version)
     assert topical_event.featured_editions.include?(new_version)
   end
 

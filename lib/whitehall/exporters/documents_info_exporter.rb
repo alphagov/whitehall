@@ -31,10 +31,10 @@ class Whitehall::Exporters::DocumentsInfoExporter
 
   def subtypes_hash
     @subtypes_hash ||= subtypes_query.each_with_object({}) do |(document_id, news, speeches, publications, corporate), memo|
-      news_article_types = news.to_s.split(",").map { |id| NewsArticleType.find_by_id(id.to_i)&.key }
-      speech_types = speeches.to_s.split(",").map { |id| SpeechType.find_by_id(id.to_i)&.key }
-      publications_types = publications.to_s.split(",").map { |id| PublicationType.find_by_id(id.to_i)&.key }
-      corporate_types = corporate.to_s.split(",").map { |id| CorporateInformationPageType.find_by_id(id.to_i)&.key }
+      news_article_types = news.to_s.split(",").map { |id| NewsArticleType.find_by(id: id.to_i)&.key }
+      speech_types = speeches.to_s.split(",").map { |id| SpeechType.find_by(id: id.to_i)&.key }
+      publications_types = publications.to_s.split(",").map { |id| PublicationType.find_by(id: id.to_i)&.key }
+      corporate_types = corporate.to_s.split(",").map { |id| CorporateInformationPageType.find_by(id: id.to_i)&.key }
       memo[document_id] = [news_article_types, speech_types, publications_types, corporate_types].flatten
     end
   end

@@ -54,17 +54,17 @@ class DocumentFilterPresenterTest < PresenterTestCase
   test "next_page omitted if last page" do
     @filter.documents.stubs(:last_page?).returns(true)
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
-    refute json.has_key?("next_page")
-    refute json.has_key?("next_page_url")
-    refute json.has_key?("next_page_web_url")
+    assert_not json.has_key?("next_page")
+    assert_not json.has_key?("next_page_url")
+    assert_not json.has_key?("next_page_web_url")
   end
 
   test "prev_page omitted if first page" do
     @filter.documents.stubs(:first_page?).returns(true)
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
-    refute json.has_key?("prev_page")
-    refute json.has_key?("prev_page_url")
-    refute json.has_key?("prev_page_web_url")
+    assert_not json.has_key?("prev_page")
+    assert_not json.has_key?("prev_page_url")
+    assert_not json.has_key?("prev_page_web_url")
   end
 
   test "json provides a list of documents with their positions" do

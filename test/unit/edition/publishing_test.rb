@@ -10,7 +10,7 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
   test "a draft is invalid without change note once saved if a published edition already exists" do
     published_edition = create(:published_edition)
     edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "is valid without change note if no published edition already exists" do
@@ -115,26 +115,26 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_publication, force_published: true)
 
     assert edition.approve_retrospectively
-    refute edition.force_published?
+    assert_not edition.force_published?
   end
 
   test "#approve_retrospectively should return false and set a validation error if document was not force-published" do
     edition = create(:published_publication)
 
-    refute edition.approve_retrospectively
+    assert_not edition.approve_retrospectively
     assert edition.errors[:base].include?("This document has not been force-published")
   end
 
   test "#unpublished? returns false if publicly visible" do
     published_edition = build(:published_edition)
 
-    refute published_edition.unpublished?
+    assert_not published_edition.unpublished?
   end
 
   test "#unpublished? returns false if no unpublishing exists" do
     draft_edition = build(:draft_edition)
 
-    refute draft_edition.unpublished?
+    assert_not draft_edition.unpublished?
   end
 
   test "#unpublished? returns true if not publicly visible and unpublishing exists" do

@@ -76,15 +76,15 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     content_id = @draft_edition.content_id
 
     assert_requested(:put, %r|publishing-api.*content/#{content_id}|) do |request|
-      assert !request.headers.key?("Govuk-Request-Id")
+      assert_not request.headers.key?("Govuk-Request-Id")
     end
 
     assert_requested(:post, %r|publishing-api.*content/#{content_id}/publish|) do |request|
-      assert !request.headers.key?("Govuk-Request-Id")
+      assert_not request.headers.key?("Govuk-Request-Id")
     end
 
     assert_requested(:patch, %r|publishing-api.*links/#{content_id}|) do |request|
-      assert !request.headers.key?("Govuk-Request-Id")
+      assert_not request.headers.key?("Govuk-Request-Id")
     end
   end
 end

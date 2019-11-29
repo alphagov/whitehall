@@ -62,7 +62,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     office_access_info = create(:access_and_opening_times, accessible: worldwide_organisation)
     worldwide_organisation.destroy
-    refute AccessAndOpeningTimes.exists?(office_access_info.id)
+    assert_not AccessAndOpeningTimes.exists?(office_access_info.id)
   end
 
   test "destroys associated corporate information page documents and editions" do
@@ -96,7 +96,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation = build(:worldwide_organisation, offices: offices, main_office: offices.last)
 
     assert worldwide_organisation.is_main_office?(offices.last)
-    refute worldwide_organisation.is_main_office?(offices.first)
+    assert_not worldwide_organisation.is_main_office?(offices.first)
   end
 
   test "can list other offices" do
@@ -189,7 +189,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     worldwide_organisation = create(:worldwide_organisation, translated_into: %i[fr es])
     worldwide_organisation.remove_translations_for(:fr)
-    refute worldwide_organisation.translated_locales.include?(:fr)
+    assert_not worldwide_organisation.translated_locales.include?(:fr)
     assert worldwide_organisation.translated_locales.include?(:es)
   end
 
@@ -319,7 +319,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     world_organisation = create(:worldwide_organisation)
     h = world_organisation.__send__(:home_page_offices_list)
     world_organisation.destroy
-    refute HomePageList.exists?(h.id)
+    assert_not HomePageList.exists?(h.id)
   end
 
   test "#save triggers organisation with a changed default news organisation image to republish news articles" do

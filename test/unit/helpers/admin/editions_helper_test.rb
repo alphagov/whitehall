@@ -7,19 +7,19 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
   test "warn_about_lack_of_contacts_in_body? says no if the edition is not a news article" do
     (Edition.descendants - [NewsArticle] - NewsArticle.descendants).each do |not_a_news_article|
-      refute warn_about_lack_of_contacts_in_body?(not_a_news_article.new)
+      assert_not warn_about_lack_of_contacts_in_body?(not_a_news_article.new)
     end
   end
 
   test "warn_about_lack_of_contacts_in_body? says no if the edition is a news article, but is not a press release" do
     (NewsArticleType.all - [NewsArticleType::PressRelease]).each do |not_a_press_release|
-      refute warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: not_a_press_release))
+      assert_not warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: not_a_press_release))
     end
   end
 
   test "warn_about_lack_of_contacts_in_body? says no if the edition is a press release and it has at least one contact embedded in the body" do
     stubs(:govspeak_embedded_contacts).returns([build(:contact)])
-    refute warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
+    assert_not warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
   end
 
   test "warn_about_lack_of_contacts_in_body? says yes if the edition is a press release and it has at no contacts embedded in the body" do
@@ -29,7 +29,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
   test "default_edition_tabs includes document collection tab for a persisted document collection" do
     document_collection = build(:document_collection)
-    refute_includes default_edition_tabs(document_collection).keys, "Collection documents"
+    assert_not_includes default_edition_tabs(document_collection).keys, "Collection documents"
     document_collection = create(:document_collection)
     assert_includes default_edition_tabs(document_collection).keys, "Collection documents"
   end
@@ -38,7 +38,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     current_user, _another_user = *create_list(:user, 2)
     disabled_user = create(:disabled_user)
 
-    refute_includes admin_author_filter_options(current_user), disabled_user
+    assert_not_includes admin_author_filter_options(current_user), disabled_user
   end
 
   def one_hundred_thousand_words

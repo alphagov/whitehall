@@ -5,6 +5,6 @@ class ImageDataTest < ActiveSupport::TestCase
 
   test "should be invalid without a file" do
     image_data = build(:image_data, file: nil)
-    refute image_data.valid?
+    assert_not image_data.valid?
   end
 end

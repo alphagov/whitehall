@@ -16,7 +16,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
     assert EditionPublisher.new(edition).perform!
     assert edition.published?
-    refute edition.access_limited?
+    assert_not edition.access_limited?
   end
 
   %w(published draft imported rejected superseded).each do |state|
@@ -24,7 +24,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
       edition = create(:"#{state}_edition")
       publisher = EditionPublisher.new(edition)
 
-      refute publisher.perform!
+      assert_not publisher.perform!
       assert_equal state, edition.state
       assert_equal "An edition that is #{state} cannot be published", publisher.failure_reason
     end
@@ -34,8 +34,8 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition = create(:scheduled_edition)
     publisher = EditionPublisher.new(edition)
 
-    refute publisher.perform!
-    refute edition.published?
+    assert_not publisher.perform!
+    assert_not edition.published?
 
     expected_reason = "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}"
     assert_equal expected_reason, publisher.failure_reason
@@ -46,8 +46,8 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition.title = nil
     publisher = EditionPublisher.new(edition)
 
-    refute publisher.perform!
-    refute edition.published?
+    assert_not publisher.perform!
+    assert_not edition.published?
     assert_equal "This edition is invalid: Title can't be blank", publisher.failure_reason
   end
 
@@ -85,7 +85,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition.reload
 
     assert edition.published?
-    refute edition.unpublishing.present?
+    assert_not edition.unpublishing.present?
   end
 
   test "#perform! does not choke if previous editions are invalid" do
@@ -116,19 +116,19 @@ class EditionPublisherTest < ActiveSupport::TestCase
     notifier.expects(:publish).never
     publisher = EditionPublisher.new(edition, notifier: notifier)
 
-    refute publisher.perform!
+    assert_not publisher.perform!
   end
 
   test "a submitted edition with a scheduled publication time cannot be published" do
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
     publisher = EditionPublisher.new(edition)
-    refute publisher.can_perform?
+    assert_not publisher.can_perform?
   end
 
   test "#perform! sets political flag for political content on first publish" do
     edition = create(:submitted_edition)
 
-    refute edition.political?
+    assert_not edition.political?
 
     PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
 
@@ -145,7 +145,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition.minor_change = true
     edition.submit!
 
-    refute edition.political?
+    assert_not edition.political?
 
     PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
 
@@ -153,13 +153,13 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
     assert publisher.perform!
     edition.reload
-    refute edition.political?
+    assert_not edition.political?
   end
 
   test "#perform! does not set political flag for non-political content on first publish" do
     edition = create(:submitted_edition)
 
-    refute edition.political?
+    assert_not edition.political?
 
     PoliticalContentIdentifier.stubs(:political?).with(edition).returns(false)
 
@@ -167,13 +167,13 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
     assert publisher.perform!
     edition.reload
-    refute edition.political?
+    assert_not edition.political?
   end
 
   test "#perform! sets a political flag on political content that has a first_published_at set" do
     edition = create(:submitted_edition, first_published_at: 3.weeks.ago)
 
-    refute edition.political?
+    assert_not edition.political?
 
     PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
 
@@ -199,7 +199,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_raises GdsApi::HTTPGatewayTimeout do
       EditionPublisher.new(edition).perform!
     end
-    refute edition.reload.published?
+    assert_not edition.reload.published?
 
     EditionPublisher.new(edition).perform!
     assert edition.reload.published?

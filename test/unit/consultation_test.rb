@@ -26,7 +26,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
     test "#{state} consultations with a blank opening at time are not open?, they are not_yet_open?" do
       edition = build(:consultation, state: state, opening_at: nil)
-      refute edition.open?
+      assert_not edition.open?
       assert edition.not_yet_open?
     end
 
@@ -39,29 +39,29 @@ class ConsultationTest < ActiveSupport::TestCase
   %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without an opening at time" do
       edition = build(:consultation, state: state, opening_at: nil)
-      refute edition.valid?
+      assert_not edition.valid?
     end
 
     test "#{state} editions are not valid without a closing at time" do
       edition = build(:consultation, state: state, closing_at: nil)
-      refute edition.valid?
+      assert_not edition.valid?
     end
   end
 
   test "external consultations must have a valid external URL" do
     edition = build(:consultation, external: true, external_url: nil)
 
-    refute edition.valid?
+    assert_not edition.valid?
     assert_equal "can't be blank", edition.errors[:external_url].first
 
     edition.external_url = "bad.url"
-    refute edition.valid?
+    assert_not edition.valid?
     assert_match %r[not valid], edition.errors[:external_url].first
   end
 
   test "should be invalid if the opening time is after the closing time" do
     consultation = build(:consultation, opening_at: 1.day.ago, closing_at: 2.days.ago)
-    refute consultation.valid?
+    assert_not consultation.valid?
   end
 
   test "should build a draft copy of the existing consultation with inapplicable nations" do
@@ -95,7 +95,7 @@ class ConsultationTest < ActiveSupport::TestCase
     closed_two_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 2.days.ago)
     _open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
 
-    assert_same_elements [], Consultation.closed_at_or_after(1.days.ago)
+    assert_same_elements [], Consultation.closed_at_or_after(1.day.ago)
     assert_same_elements [closed_two_days_ago], Consultation.closed_at_or_after(2.days.ago)
     assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_at_or_after(3.days.ago)
   end
@@ -153,7 +153,7 @@ class ConsultationTest < ActiveSupport::TestCase
     open_three_days_ago = create(:consultation, opening_at: 3.days.ago)
     open_two_days_ago = create(:consultation, opening_at: 2.days.ago)
 
-    assert_same_elements [], Consultation.opened_at_or_after(1.days.ago)
+    assert_same_elements [], Consultation.opened_at_or_after(1.day.ago)
     assert_same_elements [open_two_days_ago], Consultation.opened_at_or_after(2.days.ago)
     assert_same_elements [open_two_days_ago, open_three_days_ago], Consultation.opened_at_or_after(3.days.ago)
   end
@@ -191,7 +191,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
     consultation.destroy
-    refute ConsultationParticipation.exists?(consultation_participation.id)
+    assert_not ConsultationParticipation.exists?(consultation_participation.id)
   end
 
   test "should destroy the consultation outcome when the consultation is destroyed" do
@@ -200,7 +200,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
     consultation.destroy
 
-    refute ConsultationOutcome.exists?(outcome.id)
+    assert_not ConsultationOutcome.exists?(outcome.id)
   end
 
   test "should copy the outcome summary and link to the original attachments when creating a new draft" do
@@ -266,13 +266,13 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should report that the outcome has not been published if the consultation is still open" do
     consultation = create(:consultation, opening_at: 1.day.ago, closing_at: 1.month.from_now)
 
-    refute consultation.outcome_published?
+    assert_not consultation.outcome_published?
   end
 
   test "should report that the outcome has not been published if the consultation is closed and there is no outcome" do
     consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
 
-    refute consultation.outcome_published?
+    assert_not consultation.outcome_published?
   end
 
   test "should report that the outcome has been published if the consultation is closed and there is an outcome" do
@@ -352,7 +352,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "#search_index :has_official_document should be true if either the consultation or it's outcome has official document attachments" do
     Consultation.any_instance.stubs(:search_link)
 
-    refute create(:consultation).search_index[:has_official_document]
+    assert_not create(:consultation).search_index[:has_official_document]
 
     command_paper_consultation = create(:consultation)
     command_paper_consultation.stubs(:has_official_document?).returns(true)
@@ -366,7 +366,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "#search_index :has_command_paper should be true if either the consultation or it's outcome has command paper attachments" do
     Consultation.any_instance.stubs(:search_link)
 
-    refute create(:consultation).search_index[:has_command_paper]
+    assert_not create(:consultation).search_index[:has_command_paper]
 
     command_paper_consultation = create(:consultation)
     command_paper_consultation.stubs(:has_command_paper?).returns(true)
@@ -381,7 +381,7 @@ class ConsultationTest < ActiveSupport::TestCase
     Consultation.any_instance.stubs(:search_link)
 
     consultation = create(:consultation)
-    refute consultation.search_index[:has_act_paper]
+    assert_not consultation.search_index[:has_act_paper]
 
     command_paper_consultation = create(:consultation)
     command_paper_consultation.stubs(:has_act_paper?).returns(true)
@@ -463,6 +463,6 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "consultations cannot be previously published" do
-    refute build(:consultation).previously_published
+    assert_not build(:consultation).previously_published
   end
 end

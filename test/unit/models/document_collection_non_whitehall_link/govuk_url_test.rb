@@ -34,7 +34,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
-    refute url.valid?
+    assert_not url.valid?
   end
 
   test "should be invalid without a document collection group" do
@@ -43,7 +43,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: nil,
     )
 
-    refute url.valid?
+    assert_not url.valid?
   end
 
   test "should be invalid when an invalid URL is used" do
@@ -52,7 +52,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
-    refute url.valid?
+    assert_not url.valid?
     assert url.errors.full_messages.include?("Url must be a valid GOV.UK URL")
   end
 
@@ -62,7 +62,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
-    refute url.valid?
+    assert_not url.valid?
     assert url.errors.full_messages.include?("Url must be a valid GOV.UK URL")
   end
 
@@ -72,7 +72,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
-    refute url.valid?
+    assert_not url.valid?
     assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
   end
 
@@ -84,7 +84,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
-    refute url.valid?
+    assert_not url.valid?
     assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
   end
 
@@ -96,7 +96,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
-    refute url.valid?
+    assert_not url.valid?
     assert url.errors.full_messages.include?("Link lookup failed, please try again later")
   end
 

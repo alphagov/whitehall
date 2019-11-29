@@ -8,7 +8,7 @@ class TranslatableModelTest < ActiveSupport::TestCase
 
   test "is not available in multiple languages if only available in english" do
     @model.stubs(:translated_locales).returns([:en])
-    refute @model.available_in_multiple_languages?
+    assert_not @model.available_in_multiple_languages?
   end
 
   test "is available in multiple languages if available in english and one or more other languages" do

@@ -6,8 +6,8 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     new_creator = create(:writer)
     draft_edition = published_edition.create_draft(new_creator)
 
-    refute draft_edition.published?
-    refute draft_edition.submitted?
+    assert_not draft_edition.published?
+    assert_not draft_edition.submitted?
     assert_equal new_creator, draft_edition.creator
     assert_equal published_edition.title, draft_edition.title
     assert_equal published_edition.body, draft_edition.body
@@ -32,8 +32,8 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     Timecop.travel 1.minute.from_now
     draft_edition = published_edition.create_draft(create(:writer))
 
-    refute_equal published_edition.created_at, draft_edition.created_at
-    refute_equal published_edition.updated_at, draft_edition.updated_at
+    assert_not_equal published_edition.created_at, draft_edition.created_at
+    assert_not_equal published_edition.updated_at, draft_edition.updated_at
   end
 
   test "should not copy change note when creating draft" do
@@ -54,7 +54,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     published_edition = create(:published_edition, force_published: true)
     draft_edition = published_edition.create_draft(create(:writer))
 
-    refute draft_edition.force_published
+    assert_not draft_edition.force_published
   end
 
   test "should not copy scheduled_publication date when creating draft" do
@@ -95,7 +95,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert draft_consultation.valid?
 
     assert new_consultation_participation = draft_consultation.consultation_participation
-    refute_equal consultation_participation, new_consultation_participation
+    assert_not_equal consultation_participation, new_consultation_participation
     assert_equal consultation_participation.link_url, new_consultation_participation.link_url
   end
 
@@ -103,7 +103,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     topic = create(:topic)
     published_publication = create(:published_publication, topics: [topic])
     association = topic.classification_memberships.where(edition_id: published_publication.id).first
-    association.update_attributes(ordering: 31)
+    association.update(ordering: 31)
 
     draft_publication = published_publication.create_draft(create(:writer))
 
@@ -113,8 +113,8 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should build a draft copy even if parent is invalid" do
     published_publication = create(:published_publication)
-    published_publication.update_attributes(title: nil)
-    refute published_publication.valid?
+    published_publication.update(title: nil)
+    assert_not published_publication.valid?
     draft_publication = published_publication.create_draft(create(:writer))
     assert draft_publication.persisted?
   end
@@ -127,7 +127,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       body: "spanish-body",
     }
     publication = create(:draft_publication)
-    with_locale(:es) { publication.update_attributes!(spanish_translation_attributes) }
+    with_locale(:es) { publication.update!(spanish_translation_attributes) }
     force_publish(publication)
 
     assert_equal 2, publication.translations.length

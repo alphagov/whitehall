@@ -22,7 +22,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def update
-    if @promotional_feature_item.update_attributes(promotional_feature_item_params)
+    if @promotional_feature_item.update(promotional_feature_item_params)
       redirect_to_feature "Feature item updated."
     else
       render :edit

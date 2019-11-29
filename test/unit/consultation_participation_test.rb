@@ -3,7 +3,7 @@ require "test_helper"
 class ConsultationParticipationTest < ActiveSupport::TestCase
   test "should be invalid with malformed link url" do
     participation = build(:consultation_participation, link_url: "invalid-url")
-    refute participation.valid?
+    assert_not participation.valid?
   end
 
   test "should be valid with link url with HTTP protocol" do
@@ -23,7 +23,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
 
   test "should be invalid with malformed email" do
     participation = build(:consultation_participation, email: "invalid-email")
-    refute participation.valid?
+    assert_not participation.valid?
   end
 
   test "should be valid without an email" do
@@ -47,12 +47,12 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     data_attributes = attributes_for(:consultation_response_form_data)
     form_attributes = attributes_for(:consultation_response_form, title: nil, consultation_response_form_data_attributes: data_attributes)
     participation = build(:consultation_participation, consultation_response_form_attributes: form_attributes)
-    refute participation.valid?
+    assert_not participation.valid?
   end
 
   test "should be invalid if the response form's data has no file" do
     participation = build(:consultation_participation, consultation_response_form: build(:consultation_response_form, file: nil))
-    refute participation.valid?
+    assert_not participation.valid?
   end
 
   test "should allow deletion of response form via nested attributes" do
@@ -61,10 +61,10 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: form)
 
-    participation.update_attributes(consultation_response_form_attributes: { id: form.id, "_destroy" => "1" })
+    participation.update(consultation_response_form_attributes: { id: form.id, "_destroy" => "1" })
 
     participation.reload
-    refute participation.consultation_response_form.present?
+    assert_not participation.consultation_response_form.present?
   end
 
   test "destroys attached form when no editions are associated" do

@@ -7,7 +7,7 @@ class WorldwideServiceTypeTest < ActiveSupport::TestCase
   end
 
   test "should be findable by slug" do
-    service_type = WorldwideServiceType.find_by_id(1)
-    assert_equal service_type, WorldwideServiceType.find_by_slug(service_type.slug)
+    service_type = WorldwideServiceType.find_by(id: 1)
+    assert_equal service_type, WorldwideServiceType.find_by(slug: service_type.slug)
   end
 end

@@ -26,7 +26,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def edit; end
 
   def update
-    if @fact_check_request.update_attributes(fact_check_request_params)
+    if @fact_check_request.update(fact_check_request_params)
       if @fact_check_request.requestor_contactable?
         Notifications.fact_check_response(@fact_check_request, mailer_url_options).deliver_now
       end

@@ -20,7 +20,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
   def edit; end
 
   def update
-    if @role_appointment.update_attributes(role_appointment_params)
+    if @role_appointment.update(role_appointment_params)
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been updated"
     else
       render :edit

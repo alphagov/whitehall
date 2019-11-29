@@ -10,7 +10,7 @@ class LocalisedModel < BasicObject
 
   def update_attributes(attributes)
     ::I18n.with_locale @fixed_locale do
-      @model.update_attributes(attributes.merge(locale: @fixed_locale))
+      @model.update(attributes.merge(locale: @fixed_locale))
     end
   end
 

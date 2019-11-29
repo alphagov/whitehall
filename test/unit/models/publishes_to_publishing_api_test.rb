@@ -58,7 +58,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
   test "can publish to publishing api returns false when object not persisted" do
     test_object = include_module(TestObject.new)
     test_object.stubs(persisted?: false)
-    refute test_object.can_publish_to_publishing_api?
+    assert_not test_object.can_publish_to_publishing_api?
   end
 
   test "publish gone to publishing api publishes gone async" do

@@ -14,7 +14,7 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
 
   test "specifically do not limit access" do
     data_set = build(:statistical_data_set, access_limited: false)
-    refute data_set.access_limited?
+    assert_not data_set.access_limited?
   end
 
   test "limit access by default" do

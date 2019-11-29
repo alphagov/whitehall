@@ -69,7 +69,7 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test "get involved has counts of open and closed consultations" do
-    create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.day)
+    create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.days)
 
     # open
     recently_opened_consultations = [
@@ -87,10 +87,10 @@ class HomeControllerTest < ActionController::TestCase
 
     # responded
     recent_outcomes = [
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 8.day),
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 7.day),
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 6.day),
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 5.day),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 8.days),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 7.days),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 6.days),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 5.days),
     ]
 
     # Add a response ahead of the closing date

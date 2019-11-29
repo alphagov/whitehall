@@ -6,7 +6,7 @@ module ModelHelpers
   end
 
   def assert_invalid(model)
-    refute model.valid?, "Expected #{model} not to be valid."
+    assert_not model.valid?, "Expected #{model} not to be valid."
   end
 
   module ClassMethods
@@ -66,7 +66,7 @@ module ModelHelpers
 
     def should_not_allow_external_attachments
       test "should not allow external attachments" do
-        refute class_from_test_name.new.allows_external_attachments?
+        assert_not class_from_test_name.new.allows_external_attachments?
       end
     end
 
@@ -78,7 +78,7 @@ module ModelHelpers
 
     def should_not_allow_inline_attachments
       test "should not allow inline attachments" do
-        refute class_from_test_name.new.allows_inline_attachments?
+        assert_not class_from_test_name.new.allows_inline_attachments?
       end
     end
 
@@ -90,7 +90,7 @@ module ModelHelpers
 
     def should_not_allow_a_summary_to_be_written
       test "should not allow a summary to be written" do
-        refute class_from_test_name.new.can_have_summary?
+        assert_not class_from_test_name.new.can_have_summary?
       end
     end
 
@@ -110,7 +110,7 @@ module ModelHelpers
         assert instance.valid?
 
         instance.public_send("#{attribute_name}=", "text with footnote[^1]")
-        refute instance.valid?
+        assert_not instance.valid?
       end
     end
   end

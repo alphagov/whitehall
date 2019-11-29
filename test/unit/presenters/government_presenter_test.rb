@@ -33,7 +33,7 @@ class GovernmentPresenterTest < PresenterTestCase
     end
 
     test "current is false" do
-      refute @presenter.content.dig(:details, :current)
+      assert_not @presenter.content.dig(:details, :current)
     end
   end
 

@@ -24,7 +24,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def update
-    @worldwide_organisation.update_attributes(worldwide_organisation_params)
+    @worldwide_organisation.update(worldwide_organisation_params)
     respond_with :admin, @worldwide_organisation
   end
 
@@ -37,7 +37,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def set_main_office
     org_params = params.require(:worldwide_organisation).permit(:main_office_id)
-    if @worldwide_organisation.update_attributes(org_params)
+    if @worldwide_organisation.update(org_params)
       flash[:notice] = "Main office updated successfully"
     end
     respond_with :admin, @worldwide_organisation, WorldwideOffice

@@ -104,7 +104,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     document_collection = create(:document_collection)
     delete :destroy, params: { id: document_collection }
 
-    refute DocumentCollection.exists?(document_collection.id)
+    assert_not DocumentCollection.exists?(document_collection.id)
     assert_response :redirect
   end
 end

@@ -4,7 +4,7 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
 
   def update
     @classification = TopicalEvent.friendly.find(params[:id])
-    if @classification.update_attributes(object_params)
+    if @classification.update(object_params)
       if object_params[:classification_featurings_attributes]
         redirect_to [:admin, @classification, :classification_featurings], notice: "Order of featured items updated"
       else

@@ -3,13 +3,13 @@ require "test_helper"
 class SocialMediaAccountTest < ActiveSupport::TestCase
   test "should be invalid without a url" do
     account = build(:social_media_account, url: nil)
-    refute account.valid?
+    assert_not account.valid?
     assert_includes account.errors.full_messages, "Url can't be blank"
   end
 
   test "should be invalid with a malformed url" do
     account = build(:social_media_account, url: "invalid-url", social_media_service: create(:social_media_service))
-    refute account.valid?
+    assert_not account.valid?
     assert_includes account.errors.full_messages, "Url is not valid. Make sure it starts with http(s)"
   end
 
@@ -25,7 +25,7 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
 
   test "should be invalid without a social media service" do
     account = build(:social_media_account, social_media_service_id: nil)
-    refute account.valid?
+    assert_not account.valid?
     assert_includes account.errors.full_messages, "Social media service can't be blank"
   end
 
@@ -35,7 +35,7 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     account.title = "a" * 255 # exactly maximum
     assert account.valid?
     account.title = "a" * 256 # just over
-    refute account.valid?
+    assert_not account.valid?
   end
 
   test "display_name is the title if present" do

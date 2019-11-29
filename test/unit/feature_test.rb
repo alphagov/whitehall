@@ -2,11 +2,11 @@ require "test_helper"
 
 class FeatureTest < ActiveSupport::TestCase
   test "invalid without document" do
-    refute build(:feature, document: nil).valid?
+    assert_not build(:feature, document: nil).valid?
   end
 
   test "invalid without image on create" do
-    refute build(:feature, image: nil).valid?
+    assert_not build(:feature, image: nil).valid?
   end
 
   test "valid without image on update" do

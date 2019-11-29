@@ -92,7 +92,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
-    refute File.file?(reports_dir_pathname.join("british-embassy-paris_links_report.csv"))
+    assert_not File.file?(reports_dir_pathname.join("british-embassy-paris_links_report.csv"))
     assert_equal 3, hmrc_csv.size
   end
 
@@ -120,7 +120,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   "DetailedGuide",
                   "2",
                   "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
-    refute_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
+    assert_not_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
                   publication.public_timestamp.to_s,
                   "Publication",

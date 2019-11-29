@@ -61,13 +61,13 @@ module Whitehall::DocumentFilter
 
     def selected_publication_filter_option
       filter_option = @params[:publication_filter_option] || @params[:publication_type]
-      Whitehall::PublicationFilterOption.find_by_slug(filter_option)
+      Whitehall::PublicationFilterOption.find_by(slug: filter_option)
     end
 
     def selected_announcement_filter_option
       # Keeping announcement_type_option to support legacy feeds
       filter_option = @params[:announcement_filter_option] || @params[:announcement_type_option] || @params[:announcement_type]
-      Whitehall::AnnouncementFilterOption.find_by_slug(filter_option)
+      Whitehall::AnnouncementFilterOption.find_by(slug: filter_option)
     end
 
     def selected_people_option
