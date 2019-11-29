@@ -47,7 +47,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
-    refute response_info.has_key?(:links)
+    assert_not response_info.has_key?(:links)
   end
 
   test "providing links in the options will include them in the _response_info json" do

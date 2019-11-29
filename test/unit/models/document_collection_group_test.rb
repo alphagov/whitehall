@@ -24,7 +24,7 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
 
     assert group.memberships.include? membership_1
     assert group.memberships.include? membership_3
-    refute group.memberships.include? membership_2
+    assert_not group.memberships.include? membership_2
 
     assert_equal 0, group.memberships.find(membership_3.id).ordering
     assert_equal 1, group.memberships.find(membership_1.id).ordering

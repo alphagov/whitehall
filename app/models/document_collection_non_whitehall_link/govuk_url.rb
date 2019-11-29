@@ -29,7 +29,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 private
 
   def linkable_govuk_url
-    return unless url.present?
+    return if url.blank?
 
     parsed_url = URI.parse(url)
 

@@ -24,7 +24,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       let(:attachable) { edition }
 
       it "is not deleted" do
-        refute attachment_data.reload.deleted?
+        assert_not attachment_data.reload.deleted?
       end
 
       it "is draft" do
@@ -32,7 +32,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       it "is not accessible to anonymous user" do
-        refute attachment_data.reload.accessible_to?(anonymous_user)
+        assert_not attachment_data.reload.accessible_to?(anonymous_user)
       end
 
       it "is accessible to user in same organisation" do
@@ -44,7 +44,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       it "is not unpublished" do
-        refute attachment_data.reload.unpublished?
+        assert_not attachment_data.reload.unpublished?
       end
 
       it "has no unpublished edition" do
@@ -52,7 +52,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       it "is not replaced" do
-        refute attachment_data.reload.replaced?
+        assert_not attachment_data.reload.replaced?
       end
 
       context "edition is access-limited" do
@@ -62,7 +62,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
 
         it "is not accessible to anonymous user" do
-          refute attachment_data.reload.accessible_to?(anonymous_user)
+          assert_not attachment_data.reload.accessible_to?(anonymous_user)
         end
 
         it "is accessible to user in same organisation" do
@@ -70,7 +70,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
 
         it "is not accessible to user in another organisation" do
-          refute attachment_data.reload.accessible_to?(user_in_another_organisation)
+          assert_not attachment_data.reload.accessible_to?(user_in_another_organisation)
         end
 
         context "when edition is published" do
@@ -122,11 +122,11 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         before do
           attributes = attributes_for(:attachment_data)
           attributes[:to_replace_id] = attachment_data.id
-          attachment.update_attributes!(attachment_data_attributes: attributes)
+          attachment.update!(attachment_data_attributes: attributes)
         end
 
         it "is not deleted" do
-          refute attachment_data.reload.deleted?
+          assert_not attachment_data.reload.deleted?
         end
 
         it "is draft" do
@@ -144,7 +144,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not deleted" do
-            refute attachment_data.reload.deleted?
+            assert_not attachment_data.reload.deleted?
           end
 
           it "is draft" do
@@ -164,15 +164,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
 
         it "is not deleted" do
-          refute attachment_data.reload.deleted?
+          assert_not attachment_data.reload.deleted?
         end
 
         it "is not draft" do
-          refute attachment_data.reload.draft?
+          assert_not attachment_data.reload.draft?
         end
 
         it "is not unpublished" do
-          refute attachment_data.reload.unpublished?
+          assert_not attachment_data.reload.unpublished?
         end
 
         it "has no unpublished edition" do
@@ -189,15 +189,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not deleted" do
-            refute attachment_data.reload.deleted?
+            assert_not attachment_data.reload.deleted?
           end
 
           it "is not draft" do
-            refute attachment_data.reload.draft?
+            assert_not attachment_data.reload.draft?
           end
 
           it "is not unpublished" do
-            refute attachment_data.reload.unpublished?
+            assert_not attachment_data.reload.unpublished?
           end
 
           it "has no unpublished edition" do
@@ -211,7 +211,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
 
             it "is not deleted" do
-              refute attachment_data.reload.deleted?
+              assert_not attachment_data.reload.deleted?
             end
 
             context "and another new edition is created" do
@@ -222,11 +222,11 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
               end
 
               it "is not deleted" do
-                refute attachment_data.reload.deleted?
+                assert_not attachment_data.reload.deleted?
               end
 
               it "is not draft" do
-                refute attachment_data.reload.draft?
+                assert_not attachment_data.reload.draft?
               end
             end
           end
@@ -239,7 +239,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
 
             it "is not accessible to anonymous user" do
-              refute attachment_data.reload.accessible_to?(anonymous_user)
+              assert_not attachment_data.reload.accessible_to?(anonymous_user)
             end
 
             it "is accessible to user in same organisation" do
@@ -255,15 +255,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             before do
               attributes = attributes_for(:attachment_data)
               attributes[:to_replace_id] = attachment_data.id
-              new_attachment.update_attributes!(attachment_data_attributes: attributes)
+              new_attachment.update!(attachment_data_attributes: attributes)
             end
 
             it "is not deleted" do
-              refute attachment_data.reload.deleted?
+              assert_not attachment_data.reload.deleted?
             end
 
             it "is not draft, because available on published edition" do
-              refute attachment_data.reload.draft?
+              assert_not attachment_data.reload.draft?
             end
 
             it "is replaced" do
@@ -277,11 +277,11 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
 
             it "is not deleted, because available on published edition" do
-              refute attachment_data.reload.deleted?
+              assert_not attachment_data.reload.deleted?
             end
 
             it "is not draft, because available on published edition" do
-              refute attachment_data.reload.draft?
+              assert_not attachment_data.reload.draft?
             end
 
             context "and new edition is published" do
@@ -306,7 +306,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not deleted" do
-            refute attachment_data.reload.deleted?
+            assert_not attachment_data.reload.deleted?
           end
 
           it "is draft" do
@@ -330,15 +330,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not deleted" do
-            refute attachment_data.reload.deleted?
+            assert_not attachment_data.reload.deleted?
           end
 
           it "is not draft" do
-            refute attachment_data.reload.draft?
+            assert_not attachment_data.reload.draft?
           end
 
           it "is is not unpublished" do
-            refute attachment_data.reload.unpublished?
+            assert_not attachment_data.reload.unpublished?
           end
 
           it "has no unpublished edition" do
@@ -355,7 +355,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       let(:attachable) { outcome }
 
       it "is not deleted" do
-        refute attachment_data.reload.deleted?
+        assert_not attachment_data.reload.deleted?
       end
 
       it "is draft" do
@@ -363,7 +363,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       it "is not accessible to anonymous user" do
-        refute attachment_data.reload.accessible_to?(anonymous_user)
+        assert_not attachment_data.reload.accessible_to?(anonymous_user)
       end
 
       it "is accessible to user in same organisation" do
@@ -375,7 +375,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       it "is not unpublished" do
-        refute attachment_data.reload.unpublished?
+        assert_not attachment_data.reload.unpublished?
       end
 
       it "has no unpublished edition" do
@@ -384,11 +384,11 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       context "consultation is access-limited" do
         before do
-          consultation.update_attributes!(access_limited: true)
+          consultation.update!(access_limited: true)
         end
 
         it "is not accessible to anonymous user" do
-          refute attachment_data.reload.accessible_to?(anonymous_user)
+          assert_not attachment_data.reload.accessible_to?(anonymous_user)
         end
 
         it "is accessible to user in same organisation" do
@@ -396,7 +396,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
 
         it "is not accessible to user in another organisation" do
-          refute attachment_data.reload.accessible_to?(user_in_another_organisation)
+          assert_not attachment_data.reload.accessible_to?(user_in_another_organisation)
         end
       end
 
@@ -417,15 +417,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
 
         it "is not deleted" do
-          refute attachment_data.reload.deleted?
+          assert_not attachment_data.reload.deleted?
         end
 
         it "is not draft" do
-          refute attachment_data.reload.draft?
+          assert_not attachment_data.reload.draft?
         end
 
         it "is not unpublished" do
-          refute attachment_data.reload.unpublished?
+          assert_not attachment_data.reload.unpublished?
         end
 
         it "has no unpublished edition" do
@@ -442,15 +442,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not deleted" do
-            refute attachment_data.reload.deleted?
+            assert_not attachment_data.reload.deleted?
           end
 
           it "is not draft" do
-            refute attachment_data.reload.draft?
+            assert_not attachment_data.reload.draft?
           end
 
           it "is not unpublished" do
-            refute attachment_data.reload.unpublished?
+            assert_not attachment_data.reload.unpublished?
           end
 
           it "has no unpublished edition" do
@@ -464,7 +464,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
 
             it "is not deleted" do
-              refute attachment_data.reload.deleted?
+              assert_not attachment_data.reload.deleted?
             end
           end
 
@@ -474,11 +474,11 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
 
             it "is not deleted, because available on published edition" do
-              refute attachment_data.reload.deleted?
+              assert_not attachment_data.reload.deleted?
             end
 
             it "is not draft, because available on published edition" do
-              refute attachment_data.reload.draft?
+              assert_not attachment_data.reload.draft?
             end
 
             context "and new edition is published" do
@@ -503,7 +503,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not deleted" do
-            refute attachment_data.reload.deleted?
+            assert_not attachment_data.reload.deleted?
           end
 
           it "is draft" do
@@ -526,15 +526,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       let(:attachable) { policy_group }
 
       it "is not deleted" do
-        refute attachment_data.reload.deleted?
+        assert_not attachment_data.reload.deleted?
       end
 
       it "is not draft" do
-        refute attachment_data.reload.draft?
+        assert_not attachment_data.reload.draft?
       end
 
       it "is not unpublished" do
-        refute attachment_data.reload.unpublished?
+        assert_not attachment_data.reload.unpublished?
       end
 
       it "has no unpublished edition" do
@@ -585,7 +585,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         let(:deleted) { true }
 
         it "is not visible" do
-          refute attachment_data.visible_to?(nil)
+          assert_not attachment_data.visible_to?(nil)
         end
       end
 
@@ -606,7 +606,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           end
 
           it "is not visible to another user" do
-            refute attachment_data.visible_to?(another_user)
+            assert_not attachment_data.visible_to?(another_user)
           end
         end
 
@@ -614,7 +614,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           let(:accessible) { false }
 
           it "is not visible to user" do
-            refute attachment_data.visible_to?(user)
+            assert_not attachment_data.visible_to?(user)
           end
         end
       end

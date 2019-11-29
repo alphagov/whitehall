@@ -33,7 +33,7 @@ class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
   end
 
   test "no (suspected) uses of MySQL functions which are unsafe with statement-based replication" do
-    files = Dir.glob(File.join(Rails.root, "**", "*.rb"))
+    files = Dir.glob(Rails.root.join("**/*.rb"))
     bad_files = files.select do |filename|
       next if filename == File.expand_path(__FILE__)
 

@@ -12,7 +12,7 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
                      confirmed: true,
                      release_date: (current_date.release_date + 1.day))
 
-    refute new_date.valid?
+    assert_not new_date.valid?
     assert_match %r[required], new_date.errors[:change_note].first
   end
 
@@ -27,7 +27,7 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
                      release_date: current_date.release_date,
                      confirmed: false)
 
-    refute new_date.valid?
+    assert_not new_date.valid?
     assert_match %r[required], new_date.errors[:change_note].first
   end
 

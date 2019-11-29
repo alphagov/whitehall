@@ -8,7 +8,7 @@ class EditionUnschedulerTest < ActiveSupport::TestCase
     assert unscheduler.can_perform?
 
     edition.publish
-    refute unscheduler.can_perform?
+    assert_not unscheduler.can_perform?
     assert_equal "This edition is not scheduled for publication", unscheduler.failure_reason
   end
 
@@ -28,6 +28,6 @@ class EditionUnschedulerTest < ActiveSupport::TestCase
     ScheduledPublishingWorker.expects(:dequeue).with(edition)
     assert unscheduler.perform!
     assert edition.submitted?
-    refute edition.force_published?
+    assert_not edition.force_published?
   end
 end

@@ -41,7 +41,7 @@ namespace :election do
   "
   task :end_ministerial_appointments, [:end_date] => :environment do |_t, args|
     appointments = RoleAppointment.current.for_ministerial_roles
-    end_date = Date.today
+    end_date = Time.zone.today
     prime_ministerial_role_id = 1
     begin
       if args[:end_date]

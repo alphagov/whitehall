@@ -24,7 +24,7 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def update
-    if @role.update_attributes(role_params)
+    if @role.update(role_params)
       redirect_to index_or_edit_path, notice: %{"#{@role.name}" updated.}
     else
       render action: "edit"

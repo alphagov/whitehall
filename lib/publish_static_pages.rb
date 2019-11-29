@@ -167,7 +167,7 @@ class PublishStaticPages
     end
 
     def indexable_content
-      template = File.read("#{Rails.root}/app/views/#{@template_path}.html.erb")
+      template = File.read(Rails.root.join("app/views/#{@template_path}.html.erb"))
       strip_tags(template)
     end
   end

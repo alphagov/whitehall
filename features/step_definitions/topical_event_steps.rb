@@ -13,7 +13,7 @@ When(/^I create a new topical event "([^"]*)" with description "([^"]*)"$/) do |
 end
 
 When(/^I create a new topical event "([^"]*)" with description "([^"]*)" and it ends today$/) do |name, description|
-  create_topical_event_and_stub_in_content_store(name: name, description: description, start_date: 2.months.ago.to_date.to_s, end_date: Date.today.to_s)
+  create_topical_event_and_stub_in_content_store(name: name, description: description, start_date: 2.months.ago.to_date.to_s, end_date: Time.zone.today.to_s)
 end
 
 Then(/^I should see the topical event "([^"]*)" on the frontend is archived$/) do |topical_event_name|

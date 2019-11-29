@@ -18,7 +18,7 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
   def update
-    if @about_page.update_attributes(about_page_params)
+    if @about_page.update(about_page_params)
       redirect_to admin_topical_event_about_pages_path, notice: "About page saved"
     else
       render action: "edit"

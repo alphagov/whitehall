@@ -17,7 +17,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
       edition = create(:"#{state}_edition", scheduled_publication: 1.day.from_now)
       scheduler = EditionScheduler.new(edition)
 
-      refute scheduler.can_perform?
+      assert_not scheduler.can_perform?
       assert_equal "An edition that is #{state} cannot be scheduled", scheduler.failure_reason
     end
   end
@@ -27,7 +27,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     edition.title = nil
     scheduler = EditionScheduler.new(edition)
 
-    refute scheduler.can_perform?
+    assert_not scheduler.can_perform?
     assert_equal "This edition is invalid: Title can't be blank", scheduler.failure_reason
   end
 
@@ -35,7 +35,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     edition = create(:submitted_edition)
     scheduler = EditionScheduler.new(edition)
 
-    refute scheduler.can_perform?
+    assert_not scheduler.can_perform?
     assert_equal "This edition does not have a scheduled publication date set", scheduler.failure_reason
   end
 
@@ -45,7 +45,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     scheduler = EditionScheduler.new(edition)
 
     Timecop.freeze(2.minutes.from_now) do
-      refute scheduler.can_perform?
+      assert_not scheduler.can_perform?
       assert_match %r(Scheduled publication date must be at least 15 minutes from now), scheduler.failure_reason
     end
   end
@@ -54,7 +54,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
     scheduler = EditionScheduler.new(edition)
 
-    refute scheduler.can_perform?
+    assert_not scheduler.can_perform?
     assert_equal "This edition contains links which violate linking guidelines", scheduler.failure_reason
   end
 end

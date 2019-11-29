@@ -38,7 +38,7 @@ module Frontend
         params = params.dup
 
         params[:release_timestamp] = {
-          from: (params.delete(:from_date) || Date.today).try(:iso8601),
+          from: (params.delete(:from_date) || Time.zone.today).try(:iso8601),
           to: params.delete(:to_date).try(:iso8601),
         }.delete_if { |_k, v| v.blank? }
 

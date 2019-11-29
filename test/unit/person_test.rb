@@ -38,7 +38,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
-    refute person.valid?
+    assert_not person.valid?
   end
 
   test "should strip whitespace from names" do
@@ -48,7 +48,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should be invalid if image isn't 960x640px" do
     person = build(:person, image: File.open(Rails.root.join("test/fixtures/horrible-image.64x96.jpg")))
-    refute person.valid?
+    assert_not person.valid?
   end
 
   test "should be valid if legacy image isn't 960x640px" do
@@ -103,7 +103,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "#previous_role_appointments is in reverse chronological order" do
     person = create(:person)
-    older_appointment = create(:ministerial_role_appointment, person: person, started_at: 2.year.ago, ended_at: 1.year.ago)
+    older_appointment = create(:ministerial_role_appointment, person: person, started_at: 2.years.ago, ended_at: 1.year.ago)
     newer_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
     assert_equal [newer_appointment, older_appointment], person.reload.previous_role_appointments
   end
@@ -172,7 +172,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should not be destroyable when it has appointments" do
     person = create(:person, role_appointments: [create(:role_appointment)])
-    refute person.destroyable?
+    assert_not person.destroyable?
     assert_equal false, person.destroy
   end
 
@@ -194,7 +194,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     person = create(:person, forename: "John", surname: "Smith")
-    person.update_attributes(forename: "Joe", surname: "Bloggs")
+    person.update(forename: "Joe", surname: "Bloggs")
     assert_equal "john-smith", person.slug
   end
 
@@ -250,16 +250,16 @@ class PersonTest < ActiveSupport::TestCase
       es: { biography: "spanish-biography" },
     })
     person.remove_translations_for(:fr)
-    refute person.translated_locales.include?(:fr)
+    assert_not person.translated_locales.include?(:fr)
     assert person.translated_locales.include?(:es)
   end
 
   test "#can_have_historical_accounts? returns true when person has roles that support them" do
     person = create(:person)
-    refute person.can_have_historical_accounts?
+    assert_not person.can_have_historical_accounts?
 
     create(:role_appointment, person: person)
-    refute person.reload.can_have_historical_accounts?
+    assert_not person.reload.can_have_historical_accounts?
 
     create(:historic_role_appointment, person: person)
     assert person.reload.can_have_historical_accounts?
@@ -270,7 +270,7 @@ class PersonTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, person: person)
 
     Timecop.freeze 1.month do
-      person.update_attributes!(surname: "Smith")
+      person.update!(surname: "Smith")
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end

@@ -68,7 +68,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "ul.errors li[data-track-action='statistics-announcement-error'][data-track-label=\"Title can't be blank\"]", text: "Title can't be blank"
-    refute StatisticsAnnouncement.any?
+    assert_not StatisticsAnnouncement.any?
   end
 
   view_test "GET :show renders the details of the announcement" do

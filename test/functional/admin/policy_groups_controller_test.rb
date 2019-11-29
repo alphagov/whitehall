@@ -66,6 +66,6 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
-    refute PolicyGroup.exists?(group.id)
+    assert_not PolicyGroup.exists?(group.id)
   end
 end

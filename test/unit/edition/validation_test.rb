@@ -5,56 +5,56 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test "should be invalid without a title" do
     edition = build(:edition, title: nil)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid without a body" do
     edition = build(:edition, body: nil)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid without an creator" do
     edition = build(:edition, creator: nil)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid without a document" do
     edition = build(:edition)
     edition.stubs(:document).returns(nil)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when published without major_change_published_at" do
     edition = build(:published_edition, major_change_published_at: nil)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid if document has existing draft editions" do
     draft_edition = create(:draft_edition)
     edition = build(:edition, document: draft_edition.document.reload)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid if document has existing submitted editions" do
     submitted_edition = create(:submitted_edition)
     edition = build(:edition, document: submitted_edition.document.reload)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid if document has existing editions that need work" do
     rejected_edition = create(:rejected_edition)
     edition = build(:edition, document: rejected_edition.document.reload)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it has no organisations" do
     edition = build(:publication, create_default_organisation: false, lead_organisations: [], supporting_organisations: [])
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it has only supporting organisations" do
     edition = build(:publication, create_default_organisation: false, lead_organisations: [], supporting_organisations: [build(:organisation)])
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be valid when it has a lead organisation, but no supporting organisation" do
@@ -66,7 +66,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [organisation_1, organisation_1])
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates lead organisations on save" do
@@ -74,7 +74,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [organisation_1])
     edition.lead_organisations = [organisation_1, organisation_1]
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates organisations via lead and supporting on create" do
@@ -82,7 +82,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [organisation_1],
                               supporting_organisations: [organisation_1])
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates organisations via lead and supporting on save" do
@@ -91,7 +91,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
                                lead_organisations: [organisation_1])
     edition.lead_organisations = [organisation_1]
     edition.supporting_organisations = [organisation_1]
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates organisations via edition organisations directly on create" do
@@ -99,7 +99,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:publication, create_default_organisation: false,
                               edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true),
                                                       build(:edition_organisation, organisation: organisation_1, lead: false)])
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates organisations via edition organisations directly on save" do
@@ -107,7 +107,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = create(:publication, create_default_organisation: false,
                                edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true)])
     edition.edition_organisations.build(organisation: organisation_1, lead: false)
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates support organisations on create" do
@@ -116,7 +116,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [organisation_1],
                               supporting_organisations: [organisation_2, organisation_2])
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates support organisations on save" do
@@ -126,7 +126,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
                                lead_organisations: [organisation_1],
                                supporting_organisations: [organisation_2])
     edition.supporting_organisations = [organisation_2, organisation_2]
-    refute edition.valid?
+    assert_not edition.valid?
   end
 
   test "should be valid when it swaps a lead and support organisation on save" do

@@ -2,7 +2,7 @@ require "test_helper"
 
 class FeatureFlagTest < ActiveSupport::TestCase
   test "enabled? returns false by default" do
-    refute FeatureFlag.enabled?("undefined-key")
+    assert_not FeatureFlag.enabled?("undefined-key")
   end
 
   test "enabled returns true when set" do
@@ -15,6 +15,6 @@ class FeatureFlagTest < ActiveSupport::TestCase
     FeatureFlag.set("set-key", true)
     assert FeatureFlag.enabled?("set-key")
     FeatureFlag.set("set-key", false)
-    refute FeatureFlag.enabled?("set-key")
+    assert_not FeatureFlag.enabled?("set-key")
   end
 end

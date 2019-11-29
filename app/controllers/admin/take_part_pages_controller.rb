@@ -27,7 +27,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def update
     @take_part_page = TakePartPage.friendly.find(params[:id])
-    if @take_part_page.update_attributes(take_part_page_params)
+    if @take_part_page.update(take_part_page_params)
       redirect_to [:admin, TakePartPage], notice: %{Take part page "#{@take_part_page.title}" updated!}
     else
       render :edit

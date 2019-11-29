@@ -9,7 +9,7 @@ class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
     organisation = create(:worldwide_organisation)
     edition = create(:draft_case_study, worldwide_organisations: [organisation])
     edition.destroy
-    refute edition.edition_worldwide_organisations.any?
+    assert_not edition.edition_worldwide_organisations.any?
     assert WorldwideOrganisation.exists?(organisation.id)
   end
 

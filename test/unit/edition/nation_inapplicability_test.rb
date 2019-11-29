@@ -10,7 +10,7 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
     relation = @edition.nation_inapplicabilities.first
     @edition.destroy
 
-    refute NationInapplicability.find_by(id: relation.id)
+    assert_not NationInapplicability.find_by(id: relation.id)
   end
 
   test "mass-assignment of nation inapplicabilities creates new exclusions" do
@@ -47,7 +47,7 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
 
     @edition.nation_inapplicabilities_attributes = nation_inapplicability_attributes_for(excluded: "0", nation_id: "2", id: @nation_inapplicability.to_param, alternative_url: "http://scotland.org")
 
-    refute @edition.nation_inapplicabilities[0].excluded?
+    assert_not @edition.nation_inapplicabilities[0].excluded?
   end
 
   test "mass-assignment making all nations inapplicable is invalid" do
@@ -62,7 +62,7 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
 
     @edition.nation_inapplicabilities_attributes = nation_inapplicabilities_attributes
 
-    refute @edition.valid?
+    assert_not @edition.valid?
     assert_includes @edition.errors.full_messages, "Excluded nations can not exclude all nations"
   end
 

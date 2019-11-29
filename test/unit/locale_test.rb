@@ -40,7 +40,7 @@ class LocaleTest < ActiveSupport::TestCase
 
   test "knows which locale is english" do
     assert Locale.new(:en).english?
-    assert !Locale.new(:fr).english?
+    assert_not Locale.new(:fr).english?
   end
 
   test "gives access to the current locale" do

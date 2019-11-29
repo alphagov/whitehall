@@ -146,7 +146,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
       },
     }
 
-    refute @organisation.available_in_locale?("fr")
+    assert_not @organisation.available_in_locale?("fr")
     translation_path = admin_organisation_translation_path(@organisation, "fr")
     assert_select "form[action=?]", translation_path
   end
@@ -157,7 +157,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     delete :destroy, params: { organisation_id: organisation, id: "fr" }
 
     organisation.reload
-    refute organisation.translated_locales.include?(:fr)
+    assert_not organisation.translated_locales.include?(:fr)
     assert_redirected_to admin_organisation_translations_path(organisation)
   end
 end

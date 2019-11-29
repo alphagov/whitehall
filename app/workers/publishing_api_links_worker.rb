@@ -11,7 +11,7 @@ class PublishingApiLinksWorker < WorkerBase
     content_id = item.content_id
     links = PublishingApiPresenters.presenter_for(item).links
 
-    if links && !links.empty?
+    if links.present?
       Services.publishing_api.patch_links(
         content_id,
         links: links,

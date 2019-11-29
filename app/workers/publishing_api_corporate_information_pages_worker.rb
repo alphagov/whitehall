@@ -12,7 +12,7 @@ class PublishingApiCorporateInformationPagesWorker
   end
 
   def publish
-    return unless about_us_page.present?
+    return if about_us_page.blank?
 
     PublishingApiDocumentRepublishingWorker.perform_async(
       about_us_page.document_id,
@@ -34,7 +34,7 @@ private
   def_delegator :corporate_information_page, :organisation
 
   def about_us_page
-    return unless organisation.present?
+    return if organisation.blank?
 
     organisation.about_us
   end

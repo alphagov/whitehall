@@ -40,13 +40,13 @@ class WorldEditorTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(organisation_1)
     edition = with_locations(limited_publication([organisation_2]), ["shirt land", "hat land"])
 
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test "cannot see an edition that is not about their location" do
     user = world_editor(["tie land"])
     edition = with_locations(normal_edition, ["shirt land"])
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test "can see an edition that is not about their location if they are a gds editor" do
@@ -61,7 +61,7 @@ class WorldEditorTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 
@@ -108,7 +108,7 @@ class WorldEditorTest < ActiveSupport::TestCase
   end
 
   test "cannot publish a scheduled edition" do
-    refute enforcer_for(world_editor(["hat land"]), scheduled_edition).can?(:publish)
+    assert_not enforcer_for(world_editor(["hat land"]), scheduled_edition).can?(:publish)
   end
 
   test "can reject an edition that is about their location and not access limited" do
@@ -156,7 +156,7 @@ class WorldEditorTest < ActiveSupport::TestCase
   end
 
   test "cannot force publish a scheduled edition" do
-    refute enforcer_for(world_editor(["hat land"]), scheduled_edition).can?(:force_publish)
+    assert_not enforcer_for(world_editor(["hat land"]), scheduled_edition).can?(:force_publish)
   end
 
   test "can make editorial remarks that is about their location and not access limited" do
@@ -184,7 +184,7 @@ class WorldEditorTest < ActiveSupport::TestCase
     user = world_editor(["hat land", "tie land"])
     edition = with_locations(force_published_edition(user), ["shirt land", "hat land"])
 
-    refute enforcer_for(user, edition).can?(:approve)
+    assert_not enforcer_for(user, edition).can?(:approve)
   end
 
   test "can limit access to an edition that is about their location and not access limited" do
@@ -198,21 +198,21 @@ class WorldEditorTest < ActiveSupport::TestCase
     user = world_editor(["hat land", "tie land"])
     edition = with_locations(normal_edition, ["shirt land", "hat land"])
 
-    refute enforcer_for(user, edition).can?(:unpublish)
+    assert_not enforcer_for(user, edition).can?(:unpublish)
   end
 
   test "cannot administer the sitewide_settings" do
     user = world_editor(["hat land", "tie land"])
-    refute enforcer_for(user, :sitewide_settings_section).can?(:administer)
+    assert_not enforcer_for(user, :sitewide_settings_section).can?(:administer)
   end
 
   test "cannot mark editions as political" do
     user = world_editor(["hat land", "tie land"])
-    refute enforcer_for(user, normal_edition).can?(:mark_political)
+    assert_not enforcer_for(user, normal_edition).can?(:mark_political)
   end
 
   test "cannot modify historic editions" do
     user = world_editor(["hat land", "tie land"])
-    refute enforcer_for(user, historic_edition).can?(:modify)
+    assert_not enforcer_for(user, historic_edition).can?(:modify)
   end
 end

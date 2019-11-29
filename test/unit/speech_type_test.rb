@@ -12,7 +12,7 @@ class SpeechTypeTest < ActiveSupport::TestCase
       assert speech_type.search_format_types.include?("speech-statement-to-parliament")
     end
     SpeechType.non_statements.each do |speech_type|
-      refute speech_type.search_format_types.include?("speech-statement-to-parliament")
+      assert_not speech_type.search_format_types.include?("speech-statement-to-parliament")
     end
   end
 end

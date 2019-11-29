@@ -3,12 +3,12 @@ require "test_helper"
 class HomePageListTest < ActiveSupport::TestCase
   test "is invalid without an owner" do
     list = build(:home_page_list, owner: nil)
-    refute list.valid?
+    assert_not list.valid?
   end
 
   test "is invalid without a name" do
     list = build(:home_page_list, name: "")
-    refute list.valid?
+    assert_not list.valid?
   end
 
   test "is invalid if the name would breach the database field size" do
@@ -17,24 +17,24 @@ class HomePageListTest < ActiveSupport::TestCase
     list.name += "a" # 255 - on max
     assert list.valid?
     list.name += "a" # 256 - above max
-    refute list.valid?
+    assert_not list.valid?
   end
 
   test "is invalid if the owner already has a list with that name" do
     o = create(:organisation)
     _list_1 = create(:home_page_list, owner: o, name: "contacts")
     list_2 = build(:home_page_list, owner: o, name: "contacts")
-    refute list_2.valid?
+    assert_not list_2.valid?
   end
 
   test "adding a something to the list ensures it is added to the end of the list" do
     list = build(:home_page_list)
     item_1 = build(:home_page_list_item, home_page_list: list, ordering: nil)
     list.home_page_list_items << item_1
-    refute item_1.ordering.nil?
+    assert_not item_1.ordering.nil?
     item_2 = build(:home_page_list_item, home_page_list: list, ordering: nil)
     list.home_page_list_items << item_2
-    refute item_2.ordering.nil?
+    assert_not item_2.ordering.nil?
     assert item_1.ordering < item_2.ordering
   end
 
@@ -65,7 +65,7 @@ class HomePageListTest < ActiveSupport::TestCase
     list.home_page_list_items << build(:home_page_list_item, item: contact_1)
 
     assert list.shown_on_home_page?(contact_1)
-    refute list.shown_on_home_page?(contact_2)
+    assert_not list.shown_on_home_page?(contact_2)
   end
 
   test "#add_item will put the supplied item onto the list" do
@@ -99,7 +99,7 @@ class HomePageListTest < ActiveSupport::TestCase
     list.home_page_list_items << build(:home_page_list_item, item: contact)
     list.remove_item(contact)
 
-    refute list.home_page_list_items.where(item_id: contact.id, item_type: contact.class.to_s).any?
+    assert_not list.home_page_list_items.where(item_id: contact.id, item_type: contact.class.to_s).any?
   end
 
   test "#remove_item won't complain if the supplied item isn't already on the list" do
@@ -132,7 +132,7 @@ class HomePageListTest < ActiveSupport::TestCase
     o = create(:organisation)
 
     list = HomePageList.get(owned_by: o, called: "cats")
-    refute list.persisted?
+    assert_not list.persisted?
     assert_equal o, list.owner
     assert_equal "cats", list.name
   end
@@ -211,8 +211,8 @@ class HomePageListTest < ActiveSupport::TestCase
     HomePageList.remove_from_all_lists(contact_1)
 
     # removes from all lists it's on
-    refute list_1.shown_on_home_page?(contact_1)
-    refute list_2.shown_on_home_page?(contact_1)
+    assert_not list_1.shown_on_home_page?(contact_1)
+    assert_not list_2.shown_on_home_page?(contact_1)
 
     # doesn't remove other items
     assert list_1.shown_on_home_page?(contact_2)

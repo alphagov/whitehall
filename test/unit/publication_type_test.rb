@@ -32,7 +32,7 @@ class PublicationTypeTest < ActiveSupport::TestCase
       when PublicationType::NationalStatistics, PublicationType::OfficialStatistics
         assert type.access_limited_by_default?
       else
-        refute type.access_limited_by_default?
+        assert_not type.access_limited_by_default?
       end
     end
   end
@@ -48,7 +48,7 @@ class PublicationTypeTest < ActiveSupport::TestCase
       assert publication_type.search_format_types.include?("publicationesque-statistics")
     end
     (PublicationType.all - PublicationType.statistical).each do |publication_type|
-      refute publication_type.search_format_types.include?("publicationesque-statistics")
+      assert_not publication_type.search_format_types.include?("publicationesque-statistics")
     end
   end
 end

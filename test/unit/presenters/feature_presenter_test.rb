@@ -63,8 +63,8 @@ class FeaturePresenterTest < PresenterTestCase
 
     ::I18n.with_locale "fr" do
       assert_equal consultation_path(d.slug), fp.public_path
-      refute_match(/locale=fr/, fp.public_path)
-      refute_match(/\.fr/, fp.public_path)
+      assert_no_match(/locale=fr/, fp.public_path)
+      assert_no_match(/\.fr/, fp.public_path)
     end
   end
 end

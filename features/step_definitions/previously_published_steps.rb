@@ -13,8 +13,8 @@ end
 And(/^I select a previously published date in the future$/) do
   choose "has previously been published on another website."
   select "2018", from:"edition_first_published_at_1i"
-  select "July",  from: "edition_first_published_at_2i"
-  select "1",    from: "edition_first_published_at_3i"
+  select "July", from: "edition_first_published_at_2i"
+  select "1", from: "edition_first_published_at_3i"
 end
 
 And(/^I select that this document has been previously published$/) do
@@ -30,22 +30,22 @@ end
 
 Then(/^I see a validation error for the 'previously published' option$/) do
   assert page.has_content?("You must specify whether the document has been published before"),
-    "Previously published option validation message not found"
+         "Previously published option validation message not found"
 end
 
 Then(/^I see a validation error for the future date$/) do
   assert page_has_first_published_at_in_future_error_message,
-    "Previously published (first_published_at) validation message not found"
+         "Previously published (first_published_at) validation message not found"
 end
 
 Then(/^I see a validation error for the missing publication date$/) do
   assert page.has_content?("First published at can't be blank"),
-    "First published can't be blank validation message found"
+         "First published can't be blank validation message found"
 end
 
 Then(/^I should not see a validation error on the previously published date$/) do
   refute page_has_first_published_at_in_future_error_message,
-    "First published at in the future validation message found"
+         "First published at in the future validation message found"
 end
 
 def page_has_first_published_at_in_future_error_message

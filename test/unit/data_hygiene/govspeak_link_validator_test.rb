@@ -50,8 +50,8 @@ class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
 
   test "should identify internal admin links" do
     assert DataHygiene::GovspeakLinkValidator.is_internal_admin_link?([Whitehall.router_prefix, "admin", "test"].join("/"))
-    refute DataHygiene::GovspeakLinkValidator.is_internal_admin_link?("http://www.google.com/")
-    refute DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(nil)
+    assert_not DataHygiene::GovspeakLinkValidator.is_internal_admin_link?("http://www.google.com/")
+    assert_not DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(nil)
   end
 
   test "should permit mailto links" do

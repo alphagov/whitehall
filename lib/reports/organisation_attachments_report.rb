@@ -5,7 +5,7 @@ module Reports
     end
 
     def report
-      path = "#{Rails.root}/tmp/#{@organisation_slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv"
+      path = Rails.root.join("tmp/#{@organisation_slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
       csv_headers = ["Attachment title", "Attachment path", "File type", "Accessible", "Content type", "Content URL", "Publication date", "Last amended date"]
 
       CSV.open(path, "wb", headers: csv_headers, write_headers: true) do |csv|

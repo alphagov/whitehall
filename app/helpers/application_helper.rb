@@ -154,7 +154,7 @@ module ApplicationHelper
     options = options.dup
     path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
     css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
-    options[:class] = css_classes unless css_classes.blank?
+    options[:class] = css_classes if css_classes.present?
 
     link_to name, path, options
   end
@@ -270,8 +270,8 @@ module ApplicationHelper
   end
 
   def month_filter_options(start_date, selected_date)
-    baseline = (Date.today + 1.month).beginning_of_month
-    number_of_months = ((baseline.to_time - start_date.to_time) / 43829.1 / 60).round + 1
+    baseline = (Time.zone.today + 1.month).beginning_of_month
+    number_of_months = ((baseline - start_date) / 43829.1 / 60).round + 1
     months = (0...number_of_months).map { |i| baseline - i.months }
     options_for_select(months.map { |m| [m.to_s(:short_ordinal), m.to_s] }, selected_date.to_s)
   end

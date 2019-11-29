@@ -34,7 +34,7 @@ end
 Given(/^the topic "([^"]*)" is related to the topic "([^"]*)"$/) do |name, related_name|
   related_topic = create(:topic, name: related_name)
   topic = Topic.find_by(name: name)
-  topic.update_attributes!(related_classifications: [related_topic])
+  topic.update!(related_classifications: [related_topic])
 end
 
 Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|

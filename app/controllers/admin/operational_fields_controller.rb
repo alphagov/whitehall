@@ -24,7 +24,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
   def update
     @operational_field = OperationalField.friendly.find(params[:id])
-    if @operational_field.update_attributes(operational_field_params)
+    if @operational_field.update(operational_field_params)
       redirect_to admin_operational_fields_path, notice: %{"#{@operational_field.name}" saved.}
     else
       render action: "edit"

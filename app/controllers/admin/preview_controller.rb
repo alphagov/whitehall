@@ -15,7 +15,7 @@ class Admin::PreviewController < Admin::BaseController
 private
 
   def alternative_format_contact_email
-    return unless alternative_format_provider_id.present?
+    return if alternative_format_provider_id.blank?
 
     if (organisation = Organisation.friendly.find(alternative_format_provider_id))
       organisation.alternative_format_contact_email

@@ -54,7 +54,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid outcome params saves the outcome and redirects" do
-    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: "Outcome summary", published_on: Date.today }, type: "ConsultationOutcome" }
+    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: "Outcome summary", published_on: Time.zone.today }, type: "ConsultationOutcome" }
 
     assert_response :redirect
     assert outcome = @consultation.outcome
@@ -62,7 +62,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid feedback params saves the feedback and redirects" do
-    post :create, params: { consultation_id: @consultation, consultation_public_feedback: { summary: "Feedback summary", published_on: Date.today }, type: "ConsultationPublicFeedback" }
+    post :create, params: { consultation_id: @consultation, consultation_public_feedback: { summary: "Feedback summary", published_on: Time.zone.today }, type: "ConsultationPublicFeedback" }
 
     assert_response :redirect
     assert public_feedback = @consultation.public_feedback
@@ -70,7 +70,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   view_test "POST :create with invalid params re-renders the form" do
-    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: "", published_on: Date.today }, type: "ConsultationOutcome" }
+    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: "", published_on: Time.zone.today }, type: "ConsultationOutcome" }
 
     assert_response :success
     assert_select "textarea[name='consultation_outcome[summary]']"
@@ -90,14 +90,14 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   test "PUT :update with valid outcome params saves the changes to the outcome" do
     outcome = create_outcome
-    put :update, params: { consultation_id: @consultation, consultation_outcome: { summary: "New summary", published_on: Date.today }, type: "ConsultationOutcome" }
+    put :update, params: { consultation_id: @consultation, consultation_outcome: { summary: "New summary", published_on: Time.zone.today }, type: "ConsultationOutcome" }
     assert_response :redirect
     assert_equal "New summary", outcome.reload.summary
   end
 
   test "PUT :update with valid feedback params saves the changes to the feedback" do
     feedback = create_feedback
-    put :update, params: { consultation_id: @consultation, consultation_public_feedback: { summary: "New summary", published_on: Date.today }, type: "ConsultationPublicFeedback" }
+    put :update, params: { consultation_id: @consultation, consultation_public_feedback: { summary: "New summary", published_on: Time.zone.today }, type: "ConsultationPublicFeedback" }
     assert_response :redirect
     assert_equal "New summary", feedback.reload.summary
   end

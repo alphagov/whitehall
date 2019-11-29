@@ -176,7 +176,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
     )
-    LocalisedModel.new(world_location, :fr).update_attributes(name: "Territoire antarctique britannique")
+    LocalisedModel.new(world_location, :fr).update(name: "Territoire antarctique britannique")
 
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)
@@ -272,7 +272,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#announcements" do
       assert_select_object announcement_1 do
-        assert_select ".publication-date time[datetime=?]", 1.days.ago.iso8601
+        assert_select ".publication-date time[datetime=?]", 1.day.ago.iso8601
         assert_select ".document-type", "Press release"
       end
       assert_select_object announcement_2
@@ -339,7 +339,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
-        assert_select ".publication-date time[datetime=?]", 1.days.ago.to_date.to_datetime.iso8601
+        assert_select ".publication-date time[datetime=?]", 1.day.ago.to_date.to_datetime.iso8601
         assert_select ".document-type", "National Statistics"
       end
       assert_select_object publication_2

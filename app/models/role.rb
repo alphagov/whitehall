@@ -96,7 +96,7 @@ class Role < ApplicationRecord
   end
 
   def role_type=(role_type)
-    unless role_type.blank?
+    if role_type.present?
       role_attributes = RoleTypePresenter.role_attributes_from(role_type)
       self.attributes = role_attributes.except(:type)
     end

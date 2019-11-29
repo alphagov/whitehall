@@ -4,13 +4,13 @@ class I18nKeyTest < ActiveSupport::TestCase
   test "the default locale has values for all keys" do
     default_translation_data = YAML.load_file default_locale_file_path
 
-    refute any_nil_values?(default_translation_data), "Default translation #{I18n.default_locale}.yml contains keys with nil values."
+    assert_not any_nil_values?(default_translation_data), "Default translation #{I18n.default_locale}.yml contains keys with nil values."
   end
 
   test "all locale files are up-to-date" do
     default_keys = keys_in_locale_file(default_locale_file_path)
     required_keys = default_keys - optional_keys
-    locale_files = Dir[Rails.root.join("config", "locales", "*.yml")] - [default_locale_file_path.to_s]
+    locale_files = Dir[Rails.root.join("config/locales/*.yml")] - [default_locale_file_path.to_s]
 
     locale_files.each do |locale_file|
       missing_keys = required_keys - keys_in_locale_file(locale_file)
@@ -76,7 +76,7 @@ private
   end
 
   def default_locale_file_path
-    Rails.root.join("config", "locales", "#{I18n.default_locale}.yml")
+    Rails.root.join("config/locales/#{I18n.default_locale}.yml")
   end
 
   def any_nil_values?(hash)

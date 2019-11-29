@@ -6,7 +6,7 @@ FactoryBot.define do
     political_parties { [PoliticalParty::Labour] }
 
     after(:build) do |account|
-      unless account.roles.present?
+      if account.roles.blank?
         account.roles << build(:historic_role_appointment, person: account.person).role
       end
     end

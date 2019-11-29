@@ -16,7 +16,7 @@ class Admin::FinancialReportsController < Admin::BaseController
   end
 
   def update
-    if @financial_report.update_attributes(financial_report_params)
+    if @financial_report.update(financial_report_params)
       redirect_to [:admin, @organisation, FinancialReport], notice: "Updated Financial Report"
     else
       render :edit, status: :bad_request

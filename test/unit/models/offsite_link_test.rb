@@ -3,22 +3,22 @@ require "test_helper"
 class OffsiteLinkTest < ActiveSupport::TestCase
   test "should be invalid without a title" do
     offsite_link = build(:offsite_link, title: nil)
-    refute offsite_link.valid?
+    assert_not offsite_link.valid?
   end
 
   test "should be invalid without a summary" do
     offsite_link = build(:offsite_link, summary: nil)
-    refute offsite_link.valid?
+    assert_not offsite_link.valid?
   end
 
   test "should be invalid without a url" do
     offsite_link = build(:offsite_link, url: nil)
-    refute offsite_link.valid?
+    assert_not offsite_link.valid?
   end
 
   test "should be invalid with a url that is not part of gov.uk" do
     offsite_link = build(:offsite_link, url: "http://google.com")
-    refute offsite_link.valid?
+    assert_not offsite_link.valid?
   end
 
   test "should be valid with a gov.uk url" do
@@ -61,13 +61,13 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       "http://notthenhs.uk",
     ]
     whitelisted_urls.each do |url|
-      refute build(:offsite_link, url: url).valid?, "#{url} is valid"
+      assert_not build(:offsite_link, url: url).valid?, "#{url} is valid"
     end
   end
 
   test "should not be valid if the type is not supported" do
     offsite_link = build(:offsite_link, link_type: "notarealtype")
-    refute offsite_link.valid?
+    assert_not offsite_link.valid?
   end
 
   test "should be valid if the type is alert" do

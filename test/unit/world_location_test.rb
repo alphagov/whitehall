@@ -9,12 +9,12 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "should be invalid without a name" do
     world_location = build(:world_location, name: nil)
-    refute world_location.valid?
+    assert_not world_location.valid?
   end
 
   test "should be invalid without a world location type" do
     world_location = build(:world_location, world_location_type: nil)
-    refute world_location.valid?
+    assert_not world_location.valid?
   end
 
   test "should set a slug from the name" do
@@ -24,7 +24,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     world_location = create(:world_location, name: "New Holland")
-    world_location.update_attributes(name: "Australia")
+    world_location.update(name: "Australia")
     assert_equal "new-holland", world_location.slug
   end
 
@@ -118,7 +118,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     arabic = location.feature_list_for_locale(:ar)
     assert_equal "ar", arabic.locale
     assert_equal location, arabic.featurable
-    refute arabic.persisted?
+    assert_not arabic.persisted?
   end
 
   test "should be creatable with featured link data" do
@@ -171,7 +171,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     countries = WorldLocation.countries
     assert countries.include?(world_location)
-    refute countries.include?(international_delegation)
+    assert_not countries.include?(international_delegation)
   end
 
   test "we can find those that represent something geographic (if not neccessarily a world location)" do
@@ -180,7 +180,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     geographic = WorldLocation.geographical
     assert geographic.include?(world_location)
-    refute geographic.include?(international_delegation)
+    assert_not geographic.include?(international_delegation)
   end
 
   test "adds world location to search index on creating if it is active and an international delegation" do

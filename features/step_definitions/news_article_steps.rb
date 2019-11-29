@@ -31,7 +31,7 @@ end
 
 When(/^I publish a news article "([^"]*)" associated with "([^"]*)"$/) do |title, person_name|
   begin_drafting_news_article title: title
-  fill_in_news_article_fields(first_published: Date.today.to_s)
+  fill_in_news_article_fields(first_published: Time.zone.today.to_s)
   select person_name, from: "Ministers"
   click_button "Save"
   publish(force: true)
@@ -46,14 +46,14 @@ When(/^I publish a news article "([^"]*)" associated with the (topic|topical eve
     select topic_name, from: "Topical events"
   end
 
-  fill_in_news_article_fields(first_published: Date.today.to_s)
+  fill_in_news_article_fields(first_published: Time.zone.today.to_s)
   click_button "Save"
   publish(force: true)
 end
 
 When(/^I publish a news article "(.*?)" associated with the organisation "(.*?)"$/) do |title, organisation_name|
   begin_drafting_news_article title: title
-  fill_in_news_article_fields(first_published: Date.today.to_s)
+  fill_in_news_article_fields(first_published: Time.zone.today.to_s)
   within '.lead-organisations' do
     select organisation_name, from: "Organisation 1"
   end
@@ -103,7 +103,7 @@ When(/^I browse to the announcements index$/) do
 end
 
 When(/^I publish a new news article of the type "(.*?)" called "(.*?)"$/) do |announcement_type, title|
-  begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: announcement_type)
+  begin_drafting_news_article(title: title, first_published: Time.zone.today.to_s, announcement_type: announcement_type)
   click_button "Save"
   publish(force: true)
 end
@@ -153,12 +153,12 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
   if news_type == "World news story"
     create(:worldwide_organisation, name: "Afghanistan embassy")
     create(:world_location, name: "Afghanistan", active: true)
-    begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
+    begin_drafting_news_article(title: title, first_published: Time.zone.today.to_s, announcement_type: news_type)
     select "Afghanistan embassy", from: "Select the worldwide organisations associated with this news article"
     select "Afghanistan", from: "Select the world locations this news article is about"
     select "", from: "edition_lead_organisation_ids_1"
   else
-    begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
+    begin_drafting_news_article(title: title, first_published: Time.zone.today.to_s, announcement_type: news_type)
   end
 
   click_button "Save"

@@ -7,7 +7,7 @@ class Admin::BaseController < ApplicationController
   prepend_before_action :authenticate_user!, except: %i[auth_failure]
 
   def auth_failure
-    render "authentications/failure", status: 403
+    render "authentications/failure", status: :forbidden
   end
 
   def limit_edition_access!
@@ -55,7 +55,7 @@ class Admin::BaseController < ApplicationController
 private
 
   def forbidden!
-    render "admin/editions/forbidden", status: 403
+    render "admin/editions/forbidden", status: :forbidden
   end
 
   def typecast_for_attachable_routing(attachable)

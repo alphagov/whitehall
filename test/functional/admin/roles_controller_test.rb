@@ -190,7 +190,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert role = MinisterialRole.last
     assert_equal "role-name", role.name
     assert_equal [org_one, org_two], role.organisations
-    refute_nil role.content_id
+    assert_not_nil role.content_id
   end
 
   test "create should create a new board level manager role" do
@@ -313,7 +313,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     delete :destroy, params: { id: role.id }
 
     assert_redirected_to admin_roles_path
-    refute Role.find_by(id: role.id)
+    assert_not Role.find_by(id: role.id)
     assert_equal %{"Prime Minister" destroyed.}, flash[:notice]
   end
 

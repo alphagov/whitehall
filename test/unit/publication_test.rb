@@ -17,25 +17,25 @@ class PublicationTest < ActiveSupport::TestCase
 
   test "imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type" do
     publication = build(:publication, state: "imported", publication_type: PublicationType.find_by_slug("imported-awaiting-type"))
-    refute publication.valid_as_draft?
+    assert_not publication.valid_as_draft?
   end
 
   test "imported publications are not valid_as_draft? if the first_published_at timestamp is blank" do
     publication = build(:publication, state: "imported", first_published_at: nil)
-    refute publication.valid_as_draft?
+    assert_not publication.valid_as_draft?
   end
 
   %w(submitted scheduled published).each do |state|
     test "A #{state} publication is not valid without an attachment" do
       publication = build("#{state}_publication", attachments: [])
-      refute publication.valid?
+      assert_not publication.valid?
       assert_match %r[an attachment or HTML version before being #{state}], publication.errors[:base].first
     end
   end
 
   test "is not valid for publishing without attachments" do
     publication = build(:published_publication, attachments: [])
-    refute publication.valid?
+    assert_not publication.valid?
 
     publication = build(:published_publication, attachments: [build(:external_attachment)])
     assert publication.valid?
@@ -63,7 +63,7 @@ class PublicationTest < ActiveSupport::TestCase
 
   test "should be invalid without a publication type" do
     publication = build(:publication, publication_type: nil)
-    refute publication.valid?
+    assert_not publication.valid?
   end
 
   test 'superseded publications are valid with the "unknown" publication_type' do
@@ -102,13 +102,13 @@ class PublicationTest < ActiveSupport::TestCase
     e = build(:draft_publication, publication_type: limit_by_default)
     assert e.access_limited?
     e = build(:draft_publication, publication_type: dont_limit_by_default)
-    refute e.access_limited?
+    assert_not e.access_limited?
   end
 
   test "new instances respect local access_limited over their publication_type" do
     limit_by_default, dont_limit_by_default = PublicationType.all.partition(&:access_limited_by_default?).map(&:first)
     e = build(:draft_publication, publication_type: limit_by_default, access_limited: false)
-    refute e.access_limited?
+    assert_not e.access_limited?
     e = build(:draft_publication, publication_type: dont_limit_by_default, access_limited: true)
     assert e.access_limited?
   end
@@ -117,7 +117,7 @@ class PublicationTest < ActiveSupport::TestCase
     limit_by_default, dont_limit_by_default = PublicationType.all.partition(&:access_limited_by_default?).map(&:first)
     e = create(:draft_publication, access_limited: false)
     e.publication_type = limit_by_default
-    refute e.access_limited?
+    assert_not e.access_limited?
     e = create(:draft_publication, access_limited: true)
     e.publication_type = dont_limit_by_default
     assert e.access_limited?
@@ -129,7 +129,7 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "is not translatable when non-English" do
-    refute build(:publication, primary_locale: :es).translatable?
+    assert_not build(:publication, primary_locale: :es).translatable?
   end
 
   test "can associate publications with topical events" do

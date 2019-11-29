@@ -112,7 +112,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     post :unlock, params: { id: document.id }, format: "json"
 
-    refute document.reload.locked
+    assert_not document.reload.locked
     assert_response :no_content
   end
 

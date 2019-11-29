@@ -351,10 +351,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation.reload
 
     assert_response :redirect
-    refute organisation.ocpa_regulated?
+    assert_not organisation.ocpa_regulated?
     assert organisation.public_meetings?
     assert organisation.public_minutes?
-    refute organisation.regulatory_function?
+    assert_not organisation.regulatory_function?
   end
 
   test "PUT on :update handles existing featured link attributes" do

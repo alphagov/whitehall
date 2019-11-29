@@ -34,7 +34,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   view_test "edit presents a form to update an existing translation" do
     edition = create(:edition)
-    with_locale(:fr) { edition.update_attributes!(title: "french-title", summary: "french-summary", body: "french-body") }
+    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body") }
 
     get :edit, params: { edition_id: edition, id: "fr" }
 
@@ -200,19 +200,19 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   test "destroy removes translation and redirects to admin edition page" do
     edition = create(:edition)
-    with_locale(:fr) { edition.update_attributes!(title: "french-title", summary: "french-summary", body: "french-body") }
+    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body") }
 
     delete :destroy, params: { edition_id: edition, id: "fr" }
 
     edition.reload
-    refute edition.translated_locales.include?(:fr)
+    assert_not edition.translated_locales.include?(:fr)
     assert_redirected_to @controller.admin_edition_path(edition)
   end
 
   test "#destroy deletes the translation from the publishing API" do
     Sidekiq::Testing.inline! do
       edition = create(:edition)
-      with_locale(:fr) { edition.update_attributes!(title: "french-title", summary: "french-summary", body: "french-body") }
+      with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body") }
 
       delete :destroy, params: { edition_id: edition, id: "fr" }
 
