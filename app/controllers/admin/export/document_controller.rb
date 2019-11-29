@@ -36,6 +36,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     end
 
     ContentPublisher::FeaturedDocumentMigrator.new(document).call
+    ContentPublisher::DocumentCollectionGroupMembershipMigrator.new(document).call
   end
 
   private

@@ -161,4 +161,19 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "content_publisher_press_release", OffsiteLink.last.link_type
   end
+
+  test "calls DocumentCollectionGroupMembershipMigrator when document is marked as migrated" do
+    edition = create(:published_news_article)
+    create(:document_collection_group_membership, document: edition.document)
+    edition.document.update(slug: "some-document", locked: true)
+
+    login_as :export_data_user
+
+    assert_difference -> { DocumentCollectionNonWhitehallLink.count } do
+      post :migrated, params: { id: edition.document.id }, format: "json"
+    end
+
+    assert_response :success
+    assert_equal "content-publisher", DocumentCollectionNonWhitehallLink.last.publishing_app
+  end
 end
