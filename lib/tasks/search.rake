@@ -104,6 +104,13 @@ namespace :search do
     end
   end
 
+  desc "Update search index for all political content"
+  task political: :environment do
+    Edition
+      .where(political: true, state: "published")
+      .find_each { |edition| edition&.update_in_search_index }
+  end
+
   desc "removes and re-indexes all searchable whitehall content"
   task reset: ["search:reset:detailed", "search:reset:government"]
 
