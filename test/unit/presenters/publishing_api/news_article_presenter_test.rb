@@ -102,8 +102,8 @@ module PublishingApi::NewsArticlePresenterTest
         .expects(:new)
         .with(news_article)
         .returns(
-          mock("PublishingApi::LinksPresenter") {
-            expects(:extract)
+          mock("PublishingApi::LinksPresenter").tap { |m|
+            m.expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
           },

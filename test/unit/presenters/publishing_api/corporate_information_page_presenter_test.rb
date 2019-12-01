@@ -96,8 +96,8 @@ module PublishingApi::CorporateInformationPagePresenterTest
         .expects(:new)
         .with(corporate_information_page)
         .returns(
-          mock("PublishingApi::LinksPresenter") {
-            expects(:extract)
+          mock("PublishingApi::LinksPresenter").tap { |m|
+            m.expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
           },
@@ -153,8 +153,8 @@ module PublishingApi::CorporateInformationPagePresenterTest
         .stubs(:new)
         .with(corporate_information_page)
         .returns(
-          mock("PublishingApi::LinksPresenter") {
-            stubs(:extract)
+          mock("PublishingApi::LinksPresenter").tap { |m|
+            m.stubs(:extract)
               .with(expected_link_keys)
               .returns(links_double)
           },
