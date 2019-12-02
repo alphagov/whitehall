@@ -11,7 +11,7 @@ end
 
 require "maxitest/autorun"
 require "rails/test_help"
-require "mocha/setup"
+require "mocha/minitest"
 require "slimmer/test"
 require "factories"
 require "webmock/minitest"
@@ -23,7 +23,9 @@ require "parallel_tests/test/runtime_logger"
 
 Dir[Rails.root.join("test/support/*.rb")].each { |f| require f }
 
-Mocha::Configuration.prevent(:stubbing_non_existent_method)
+Mocha.configure do |c|
+  c.stubbing_non_existent_method = :prevent
+end
 
 GovukContentSchemaTestHelpers.configure do |config|
   config.schema_type = "publisher_v2"

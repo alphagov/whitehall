@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require "mocha/setup"
+require "mocha/minitest"
 require_relative "../../../../lib/govspeak/contacts_extractor"
 require_relative "../../../../app/services/service_listeners/attachment_dependency_populator"
 

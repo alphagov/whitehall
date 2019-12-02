@@ -2,7 +2,7 @@
 # sure these Before / After happen before the ones I define below.  If
 # they go in their own it'll be support/**/*.rb load order defined and
 # who knows what that'll be.
-require 'mocha/setup'
+require 'mocha/api'
 World(Mocha::API)
 
 Before do
