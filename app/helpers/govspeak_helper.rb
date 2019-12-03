@@ -116,6 +116,7 @@ module GovspeakHelper
     govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
     govspeak = set_classes_for_sortable_tables(govspeak)
+    govspeak = convert_brexit_cta(govspeak)
 
     markup_to_nokogiri_doc(govspeak, images)
       .tap { |nokogiri_doc|
@@ -260,6 +261,14 @@ private
       else
         ""
       end
+    end
+  end
+
+  def convert_brexit_cta(govspeak)
+    return govspeak if govspeak.blank?
+
+    govspeak.gsub(/\$BrexitCTA/) do
+      render(partial: "documents/brexit_cta", formats: :text)
     end
   end
 
