@@ -32,5 +32,12 @@ module ContentPublisher
       assert_equal "/government/news/news-title", non_whitehall_link.base_path
       assert_equal "content-publisher", non_whitehall_link.publishing_app
     end
+
+    test "do not create non whitehall link if document is not in document collection" do
+      edition = create(:published_news_article)
+
+      ContentPublisher::DocumentCollectionGroupMembershipMigrator.new(edition.document).call
+      assert_equal 0, DocumentCollectionNonWhitehallLink.count
+    end
   end
 end

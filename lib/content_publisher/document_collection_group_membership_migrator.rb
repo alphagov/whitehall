@@ -9,6 +9,8 @@ module ContentPublisher
     def call
       edition = document.published_edition || document.latest_edition
 
+      return unless DocumentCollectionGroupMembership.exists?(document_id: document.id)
+
       non_whitehall_link = DocumentCollectionNonWhitehallLink.create!(
         content_id: document.content_id,
         title: edition.title,
