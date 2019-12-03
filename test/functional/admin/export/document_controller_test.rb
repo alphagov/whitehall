@@ -146,4 +146,19 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     mock = MiniTest::Mock.new
     mock.expect :call, nil, [Whitehall::InternalLinkUpdater]
   end
+
+  test "calls FeaturedDocumentMigrator when document is marked as migrated" do
+    edition = create(:published_news_article)
+    create(:feature, document: edition.document, feature_list: create(:feature_list, locale: "en"))
+    edition.document.update(slug: "some-document", locked: true)
+
+    login_as :export_data_user
+
+    assert_difference -> { OffsiteLink.count } do
+      post :migrated, params: { id: edition.document.id }, format: "json"
+    end
+
+    assert_response :success
+    assert_equal "content_publisher_press_release", OffsiteLink.last.link_type
+  end
 end
