@@ -262,9 +262,9 @@ Then(/^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
 
   visit worldwide_organisation_path(worldwide_organisation, locale: locale)
 
-  assert page.has_css?('.summary', text: translation["summary"]), "Summary wasn't present"
-  assert page.has_css?('.description', text: translation["description"]), "Description wasn't present"
-  assert page.has_css?('.content', text: translation["services"]), "Services wasn't present"
+  assert page.has_css?('.worldwide-org-summary', text: translation["summary"]), "Summary wasn't present"
+  assert page.has_css?('.worldwide-org-description', text: translation["description"]), "Description wasn't present"
+  assert page.has_css?('.worldwide-org-content', text: translation["services"]), "Services wasn't present"
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|
