@@ -1,20 +1,14 @@
 .worldwide-organisation-header {
-  margin: $gutter-half 0;
-  @include media(tablet) {
+  margin-top: $gutter-half;
+  margin-bottom: $gutter-half;
+
+  @include govuk-media-query($from: tablet) {
     padding-bottom: $gutter;
   }
 
   .logo {
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
       margin-top: $gutter-half;
-      float: left;
-      width: $two-thirds;
-      @include right-to-left {
-        float: right;
-      }
-    }
-    .gem-c-organisation-logo {
-      margin: 0 $gutter-half;
     }
   }
 
@@ -22,39 +16,29 @@
     float: left;
     width: $one-third;
   }
+
   .available-languages {
     ul {
       margin: 0 $gutter-half;
     }
   }
+
   .metadata {
     margin-top: $gutter-one-third;
 
-    @include media(tablet) {
-      float: right;
-      width: $one-third;
-      @include right-to-left {
-        float: left;
-      }
-    }
     dl {
-      @extend %contain-floats;
-      @include core-14;
-      margin: 0 $gutter-half;
+      @extend %govuk-body-s;
+      margin: 0;
 
-      dt {
-        float: left;
-        clear: both;
-        width: 7em;
-        @include right-to-left {
-          float: right;
-        }
+      @supports (display: grid) {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: govuk-spacing(2);
       }
+
+      dt,
       dd {
-        float: left;
-        @include right-to-left {
-          float: right;
-        }
+        display: block;
       }
     }
   }

@@ -176,7 +176,7 @@
   }
   .contact-us,
   .corporate-information {
-    h1 {
+    .keyline-header {
       @include heading-27;
       border-top: $gutter-one-sixth solid $black;
       border-bottom: 1px solid $border-colour;
@@ -190,12 +190,12 @@
     }
   }
   .corporate-information {
-    h1 {
+    .keyline-header {
       border-bottom: 0;
       margin: 0;
       @include media(tablet) {
         margin: 0;
       }
     }
-  }  
+  }
 }

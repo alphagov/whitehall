@@ -16,7 +16,7 @@ When(/^I visit the world organisation that is translated$/) do
 end
 
 Then(/^I should see the translation of that world organisation$/) do
-  assert page.has_css?(".summary", text: "fr-summary"), "expected to see the french summary, but didn't"
+  assert page.has_css?(".worldwide-org-summary", text: "fr-summary"), "expected to see the french summary, but didn't"
 end
 
 Given(/^I have drafted a translatable document "([^"]*)"$/) do |title|
