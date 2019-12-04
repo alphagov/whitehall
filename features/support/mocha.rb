@@ -1,4 +1,4 @@
-require "mocha/api"
+require "mocha/minitest"
 
 World(Mocha::API)
 
