@@ -8,6 +8,8 @@ class ParallelTestRunner < TestQueue::Runner::MiniTest
 
     # Allow the app to instrospect the current test environment number
     ENV["TEST_ENV_NUMBER"] = number.to_s
+
+    Rails.application.load_tasks if Rake::Task.tasks.empty?
   end
 
   # We are relying on the parallel test databases created and used by parallel_test, which are
