@@ -6,6 +6,7 @@ class RepublishBrexitCtaDocumentsTest < ActiveSupport::TestCase
     Rake.application.rake_require "tasks/republish_brexit_cta_documents"
     $stdout.stubs(:puts)
     Rake::Task.define_task(:environment)
+    Rake::Task["republish_brexit_cta_documents"].reenable
   end
 
   test "it should republish all documents with $BrexitCTA in the body" do
