@@ -3,8 +3,8 @@ require "rake"
 
 class RepublishBrexitCtaDocumentsTest < ActiveSupport::TestCase
   setup do
+    Rake.application.rake_require "tasks/republish_brexit_cta_documents"
     $stdout.stubs(:puts)
-    load File.expand_path("../../../lib/tasks/republish_brexit_cta_documents.rake", __dir__)
     Rake::Task.define_task(:environment)
   end
 
