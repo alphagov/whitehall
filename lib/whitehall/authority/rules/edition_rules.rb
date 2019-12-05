@@ -51,12 +51,12 @@ module Whitehall::Authority::Rules
         true
       elsif !can_see?
         false
+      elsif action != :see && @subject.historic?
+        actor.gds_editor? || actor.gds_admin? || actor.managing_editor?
       elsif action == :unpublish && actor.managing_editor?
         true
       elsif action == :unwithdraw && actor.managing_editor?
         true
-      elsif action == :modify && @subject.historic?
-        actor.gds_editor? || actor.gds_admin? || actor.managing_editor?
       elsif actor.gds_admin?
         gds_admin_can?(action)
       elsif actor.gds_editor?

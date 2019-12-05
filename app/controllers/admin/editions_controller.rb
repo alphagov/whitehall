@@ -1,4 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
+  include HistoricContentConcern
+
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
@@ -9,19 +11,12 @@ class Admin::EditionsController < Admin::BaseController
   before_action :detect_other_active_editors, only: [:edit]
   before_action :set_edition_defaults, only: :new
   before_action :build_blank_image, only: %i[new edit]
+  before_action :forbid_editing_of_historic_content!, only: %i[create edit update submit destory revise]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update submit revise diff reject destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
-  before_action :forbid_editing_of_historic_content!, only: %i[create edit update submit destory revise]
   before_action :forbid_editing_of_locked_documents, only: %i[edit update revise destroy]
-
-  def forbid_editing_of_historic_content!
-    unless can?(:modify, @edition)
-      redirect_to [:admin, @edition],
-                  alert: %{This document is in <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode">history mode</a>. Please contact your GOV.UK lead or managing editor if you need to change it}
-    end
-  end
 
   def enforce_permissions!
     case action_name

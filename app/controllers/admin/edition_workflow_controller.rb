@@ -1,8 +1,10 @@
 class Admin::EditionWorkflowController < Admin::BaseController
+  include HistoricContentConcern
   include PublicDocumentRoutesHelper
   include LockedDocumentConcern
 
   before_action :find_edition
+  before_action :forbid_editing_of_historic_content!
   before_action :enforce_permissions!
   before_action :limit_edition_access!
   before_action :lock_edition
