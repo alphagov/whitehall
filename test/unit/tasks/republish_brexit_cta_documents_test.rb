@@ -1,8 +1,11 @@
 require "test_helper"
+require "rake"
 
 class RepublishBrexitCtaDocumentsTest < ActiveSupport::TestCase
   setup do
     $stdout.stubs(:puts)
+    load File.expand_path("../../../lib/tasks/republish_brexit_cta_documents.rake", __dir__)
+    Rake::Task.define_task(:environment)
   end
 
   test "it should republish all documents with $BrexitCTA in the body" do
