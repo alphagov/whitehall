@@ -3,29 +3,25 @@ require "rake"
 
 class RepublishBrexitCtaDocumentsTest < ActiveSupport::TestCase
   setup do
-    Rake.application.rake_require "tasks/republish_brexit_cta_documents"
+    unless Rake::Task.task_defined?("republish_brexit_cta_documents")
+      Rake.application.rake_require "tasks/republish_brexit_cta_documents"
+    end
     Rake::Task.define_task(:environment)
     Rake::Task["republish_brexit_cta_documents"].reenable
-    $stdout.stubs(:puts)
   end
 
   test "it should republish all documents with $BrexitCTA in the body" do
-    edition_one = create(:published_publication, body: "Some content\n\n$BrexitCTA")
-    edition_two = create(:published_publication, body: "$BrexitCTA\n\nSome content")
-    edition_three = create(:published_publication, body: "$CTA\n\nSome other CTA\n\n$CTA")
+    Sidekiq::Testing.fake! do
+      edition_one = create(:published_publication, body: "Some content\n\n$BrexitCTA")
+      edition_two = create(:published_publication, body: "$BrexitCTA\n\nSome content")
+      create(:published_publication, body: "$CTA\n\nSome other CTA\n\n$CTA")
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue)
-                                           .with("bulk_republishing", edition_one.document_id)
-                                           .returns(true)
+      assert_equal(PublishingApiDocumentRepublishingWorker.jobs.size, 0)
+      Rake.application.invoke_task "republish_brexit_cta_documents"
+      assert_equal(PublishingApiDocumentRepublishingWorker.jobs.size, 2)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue)
-                                           .with("bulk_republishing", edition_two.document_id)
-                                           .returns(true)
-
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue)
-                                           .with("bulk_republishing", edition_three.document_id)
-                                           .never
-
-    Rake.application.invoke_task "republish_brexit_cta_documents"
+      ids = PublishingApiDocumentRepublishingWorker.jobs.map { |j| j["args"].first }
+      assert_equal(ids, [edition_one.document_id, edition_two.document_id])
+    end
   end
 end

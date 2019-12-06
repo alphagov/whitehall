@@ -7,15 +7,12 @@ task republish_brexit_cta_documents: :environment do
                                    .uniq
 
   puts "Republishing #{brexit_cta_document_ids.count} documents..."
-  republished_document_count = 0
 
-  brexit_cta_document_ids.each do |document_id|
+  brexit_cta_document_ids.each_with_index do |document_id, republished_document_count|
     PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
       "bulk_republishing",
       document_id,
     )
-
-    republished_document_count += 1
     puts "#{republished_document_count}/#{brexit_cta_document_ids.count} documents republished"
   end
 end
