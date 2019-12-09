@@ -190,7 +190,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing do |map|
       map.draw do
         %w(test json js_or_atom locale api_timeout api_bad_gateway api_unprocessable_entity).each do |action|
-          get "/test/#{action}.{.:format}", params: { to: "public_facing_controller_test/test##{action}" }
+          get "/test/#{action}.{.:format}", to: "public_facing_controller_test/test##{action}"
         end
       end
       yield

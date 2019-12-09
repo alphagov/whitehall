@@ -89,7 +89,7 @@ class Publication < Publicationesque
   end
 
   def publication_type
-    PublicationType.find_by(id: publication_type_id)
+    PublicationType.find_by_id(publication_type_id)
   end
 
   def publication_type=(publication_type)

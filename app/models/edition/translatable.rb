@@ -40,11 +40,11 @@ module Edition::Translatable
   end
 
   def rtl?
-    Locale.find_by(code: primary_locale).rtl?
+    Locale.find_by_code(primary_locale).rtl?
   end
 
   def primary_language_name
-    Locale.find_by(code: primary_locale).english_language_name
+    Locale.find_by_code(primary_locale).english_language_name
   end
 
   def locale_can_be_changed?

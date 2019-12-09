@@ -7,8 +7,8 @@ class WorldwideOfficeTypeTest < ActiveSupport::TestCase
   end
 
   test "should be findable by slug" do
-    worldwide_office_type = WorldwideOfficeType.find_by(id: 1)
-    assert_equal worldwide_office_type, WorldwideOfficeType.find_by(slug: worldwide_office_type.slug)
+    worldwide_office_type = WorldwideOfficeType.find_by_id(1)
+    assert_equal worldwide_office_type, WorldwideOfficeType.find_by_slug(worldwide_office_type.slug)
   end
 
   test "should be fetchable in order" do

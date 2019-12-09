@@ -103,7 +103,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def world_location_type
-    WorldLocationType.find_by(id: world_location_type_id)
+    WorldLocationType.find_by_id(world_location_type_id)
   end
 
   def world_location_type=(new_world_location_type)

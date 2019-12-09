@@ -4,7 +4,7 @@ class WorldwideService < ApplicationRecord
   has_many :offices, through: :worldwide_office_worldwide_services, source: :worldwide_office
 
   def service_type
-    WorldwideServiceType.find_by(id: service_type_id)
+    WorldwideServiceType.find_by_id(service_type_id)
   end
 
   def service_type=(service_type)

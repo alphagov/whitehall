@@ -17,7 +17,7 @@ class NationInapplicability < ApplicationRecord
   end
 
   def nation
-    Nation.find_by(id: nation_id)
+    Nation.find_by_id(nation_id)
   end
 
   def nation=(new_nation)

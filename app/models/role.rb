@@ -69,11 +69,11 @@ class Role < ApplicationRecord
   end
 
   def role_payment_type
-    RolePaymentType.find_by(id: role_payment_type_id)
+    RolePaymentType.find_by_id(role_payment_type_id)
   end
 
   def attends_cabinet_type
-    RoleAttendsCabinetType.find_by(id: attends_cabinet_type_id)
+    RoleAttendsCabinetType.find_by_id(attends_cabinet_type_id)
   end
 
   def self.also_attends_cabinet

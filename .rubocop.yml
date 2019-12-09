@@ -46,3 +46,8 @@ Layout/AccessModifierIndentation:
 
 Style/AccessModifierDeclarations:
   Enabled: false
+
+Rails/DynamicFindBy:
+  Enabled: false
+Rails/HttpPositionalArguments:
+  Enabled: false

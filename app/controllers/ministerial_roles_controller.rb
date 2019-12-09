@@ -61,7 +61,7 @@ private
         roles_presenter.remove_unfilled_roles!
 
         [
-          Whitehall::WhipOrganisation.find_by(id: whip_organisation_id),
+          Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
           roles_presenter,
         ]
       }

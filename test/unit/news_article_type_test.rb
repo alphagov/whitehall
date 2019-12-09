@@ -7,8 +7,8 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
   end
 
   test "should be findable by slug" do
-    news_article_type = NewsArticleType.find_by(id: 1)
-    assert_equal news_article_type, NewsArticleType.find_by(slug: news_article_type.slug)
+    news_article_type = NewsArticleType.find_by_id(1)
+    assert_equal news_article_type, NewsArticleType.find_by_slug(news_article_type.slug)
   end
 
   test "should list all slugs" do

@@ -288,7 +288,7 @@ class Organisation < ApplicationRecord
   end
 
   def organisation_logo_type
-    OrganisationLogoType.find_by(id: organisation_logo_type_id)
+    OrganisationLogoType.find_by_id(organisation_logo_type_id)
   end
 
   def organisation_logo_type=(organisation_logo_type)
@@ -300,7 +300,7 @@ class Organisation < ApplicationRecord
   end
 
   def organisation_brand_colour
-    OrganisationBrandColour.find_by(id: organisation_brand_colour_id)
+    OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
   end
 
   def organisation_brand_colour=(organisation_brand_colour)

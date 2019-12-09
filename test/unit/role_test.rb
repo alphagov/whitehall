@@ -150,12 +150,12 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should have a payment type" do
     role = create(:role, role_payment_type_id: 1)
-    assert_equal RolePaymentType.find_by(id: 1), role.role_payment_type
+    assert_equal RolePaymentType.find_by_id(1), role.role_payment_type
   end
 
   test "should have a attendance type" do
     role = create(:role, attends_cabinet_type_id: 1)
-    assert_equal RoleAttendsCabinetType.find_by(id: 1), role.attends_cabinet_type
+    assert_equal RoleAttendsCabinetType.find_by_id(1), role.attends_cabinet_type
   end
 
   test "footnotes should display only payment when option not set" do

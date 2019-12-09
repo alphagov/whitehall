@@ -21,7 +21,7 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
   test "sets google analytics organisation header to the passed in org list" do
     with_routing do |map|
       map.draw do
-        get "/test_organisations", params: { to: "application_controller_analytics_test/test#test_organisations" }
+        get "/test_organisations", to: "application_controller_analytics_test/test#test_organisations"
       end
       get :test_organisations
     end
@@ -31,7 +31,7 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
   test "sets format header for google analytics" do
     with_routing do |map|
       map.draw do
-        get "/test_format", params: { to: "application_controller_analytics_test/test#test_format" }
+        get "/test_format", to: "application_controller_analytics_test/test#test_format"
       end
       get :test_format
     end
