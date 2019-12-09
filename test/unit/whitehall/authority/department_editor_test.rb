@@ -170,4 +170,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   test "cannot modify historic editions" do
     refute enforcer_for(department_editor, historic_edition).can?(:modify)
   end
+
+  test "cannot publish historic editions" do
+    refute enforcer_for(department_editor, historic_edition).can?(:publish)
+  end
 end

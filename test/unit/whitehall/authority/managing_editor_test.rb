@@ -179,4 +179,8 @@ class ManagingEditorTest < ActiveSupport::TestCase
   test "can modify historic editions" do
     assert enforcer_for(managing_editor, historic_edition).can?(:modify)
   end
+
+  test "can publish historic editions" do
+    assert enforcer_for(managing_editor, historic_edition).can?(:publish)
+  end
 end
