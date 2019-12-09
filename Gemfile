@@ -83,7 +83,7 @@ group :development, :test do
   gem "parallel_tests"
   gem "pry-byebug"
   gem "pry-rails"
-  gem "rubocop-govuk", "~> 1"
+  gem "rubocop-govuk"
   gem "ruby-prof"
   gem "teaspoon-qunit"
   gem "test-queue", "~> 0.2.13"
