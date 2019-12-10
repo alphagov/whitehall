@@ -2,7 +2,7 @@ require "test_helper"
 
 class PaginationHelperTest < ActionView::TestCase
   test "next_page_link should build a link inside an li with the given attributes" do
-    rendered = Nokogiri::HTML::DocumentFragment.parse(next_page_link(url: "/somewhere?page=2", page: 2, of: 10)).children.first
+    rendered = Nokogiri::HTML::DocumentFragment.parse(next_page_link(url: "/somewhere?page=2", page: 2, total_pages: 10)).children.first
 
     assert_equal "li", rendered.name
     assert_equal "next", rendered[:class]
@@ -14,7 +14,7 @@ class PaginationHelperTest < ActionView::TestCase
   end
 
   test "previous_page_link should build a link inside an li with the given attributes" do
-    rendered = Nokogiri::HTML::DocumentFragment.parse(previous_page_link(url: "/somewhere?page=2", page: 2, of: 10)).children.first
+    rendered = Nokogiri::HTML::DocumentFragment.parse(previous_page_link(url: "/somewhere?page=2", page: 2, total_pages: 10)).children.first
 
     assert_equal "li", rendered.name
     assert_equal "previous", rendered[:class]

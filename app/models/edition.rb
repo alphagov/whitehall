@@ -599,7 +599,7 @@ class Edition < ApplicationRecord
       begin
         self.trying_to_convert_to_draft = true
         self.try_draft
-        return valid? ? [] : errors.dup
+        valid? ? [] : errors.dup
       ensure
         self.back_to_imported
         self.trying_to_convert_to_draft = false

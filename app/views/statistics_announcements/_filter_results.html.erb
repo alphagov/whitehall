@@ -20,11 +20,11 @@
     <ul class="previous-next-navigation">
       <%= next_page_link(url:  statistics_announcements_path(@filter.next_page_params),
                          page: @filter.page + 1,
-                         of:   @filter.results.number_of_pages) if @filter.results.next_page? %>
+                         total_pages:   @filter.results.number_of_pages) if @filter.results.next_page? %>
 
       <%= previous_page_link(url:  statistics_announcements_path(@filter.previous_page_params),
                              page: @filter.page - 1,
-                             of:   @filter.results.number_of_pages) if @filter.results.previous_page? %>
+                             total_pages:   @filter.results.number_of_pages) if @filter.results.previous_page? %>
     </ul>
   </nav>
 <% end %>

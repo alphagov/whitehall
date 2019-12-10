@@ -33,7 +33,7 @@ module DataHygiene
         href = Addressable::URI.parse(href)
         href.path.start_with?("#{Whitehall.router_prefix}/admin")
       rescue Addressable::URI::InvalidURIError
-        return false
+        false
       end
     end
 
