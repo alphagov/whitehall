@@ -25,7 +25,7 @@ end
 # To get the databases setup for parallel tests, run the following rake command:
 #   RAILS_ENV=test rake parallel:create parallel:prepare
 desc "Runs units, functionals and integrations together using the test-queue runner. By default it uses all available processors. Set TEST_QUEUE_WORKERS to override."
-task :test_queue do
+task test_queue: :environment do
   files = Dir.chdir("test") do
     Dir["unit/**/*_test.rb", "functional/**/*_test.rb", "integration/**/*_test.rb"]
   end
