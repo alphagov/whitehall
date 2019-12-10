@@ -92,6 +92,7 @@ module PublishingApi
         organisation_featuring_priority: organisation_featuring_priority,
         organisation_govuk_status: organisation_govuk_status,
         organisation_type: organisation_type,
+        organisation_political: organisation_political,
         social_media_links: social_media_links,
       }
       details[:default_news_image] = default_news_image if default_news_image
@@ -116,6 +117,10 @@ module PublishingApi
 
     def html_summary
       Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak_summary)
+    end
+
+    def organisation_political
+      item.political
     end
 
     def text_summary

@@ -86,6 +86,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
           updated_at: nil,
         },
         organisation_type: "other",
+        organisation_political: false,
         social_media_links: [],
         default_news_image: {
           url: news_image.file.url(:s300),
@@ -285,5 +286,16 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     email = presented_item.content.dig(:details, :alternative_format_contact_email)
 
     assert_equal email, "foo@bar.com"
+  end
+
+  test "presents the organisation's political status" do
+    organisation = create(
+      :organisation,
+      political: true,
+    )
+    presented_item = present(organisation)
+    organisation_political = presented_item.content.dig(:details, :organisation_political)
+
+    assert organisation_political
   end
 end
