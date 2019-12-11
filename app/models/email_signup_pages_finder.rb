@@ -26,7 +26,7 @@ class EmailSignupPagesFinder
       ),
       OpenStruct.new(
         text: "Drug Safety Update",
-        description: "Subscribe to the <a href='/drug-safety-update/email-signup'>Drug Safety Update</a>, the monthly newsletter for healthcare professionals, with clinical advice on the safe use of medicines.".html_safe,
+        description: "Subscribe to the <a href='https://public.govdelivery.com/accounts/UKMHRA/subscriber/new?topic_id=UKMHRA_0044'>Drug Safety Update</a>, the monthly newsletter for healthcare professionals, with clinical advice on the safe use of medicines.".html_safe,
       ),
       OpenStruct.new(
         text: "News and publications from the MHRA",
