@@ -13,7 +13,7 @@ class GDSAdminTest < ActiveSupport::TestCase
   include AuthorityTestHelper
 
   test "non gds admin cannot create a new organisation" do
-    refute enforcer_for(non_gds_admin, Organisation).can?(:create)
+    assert_not enforcer_for(non_gds_admin, Organisation).can?(:create)
   end
 
   test "gds admin can create a new organisation" do
@@ -28,7 +28,7 @@ class GDSAdminTest < ActiveSupport::TestCase
     _government = Government.new
     assert enforcer_for(gds_admin, Government).can?(:manage)
 
-    refute enforcer_for(non_gds_admin, Government).can?(:manage)
+    assert_not enforcer_for(non_gds_admin, Government).can?(:manage)
   end
 
   test "can mark editions as political" do

@@ -30,7 +30,7 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
     irrelevant_publication = build(:published_publication, relevant_to_local_government: true)
     irrelevant_publication.policy_content_ids = []
 
-    refute irrelevant_publication.relevant_to_local_government?
+    assert_not irrelevant_publication.relevant_to_local_government?
   end
 
   test "edition obtains relevance to local government from new policies" do
@@ -39,7 +39,7 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
 
     @edition.policy_content_ids = [irrelevant_policy["content_id"]]
     @edition.save!; @edition.reload
-    refute @edition.relevant_to_local_government?
+    assert_not @edition.relevant_to_local_government?
 
     @edition.policy_content_ids = [relevant_published_policy["content_id"], irrelevant_policy["content_id"]]
     @edition.save!; @edition.reload

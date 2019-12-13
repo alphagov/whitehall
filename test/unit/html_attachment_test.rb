@@ -19,7 +19,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
     attachment.destroy
 
-    refute GovspeakContent.exists?(govspeak_content.id)
+    assert_not GovspeakContent.exists?(govspeak_content.id)
   end
 
   test "#deep_clone deep clones the HTML attachment, body, content_id and slug" do
@@ -151,7 +151,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   test "slug is cleared when changing from english to non-english" do
     attachment = create(:html_attachment, locale: "en")
 
-    attachment.update_attributes!(locale: "fr")
+    attachment.update!(locale: "fr")
     assert attachment.slug.blank?
   end
 

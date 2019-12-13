@@ -40,7 +40,7 @@ class CsvFileFromPublicHost
     end
 
     temp_fn = "csv-file-from-public-host"
-    temp_dir = File.join(Rails.root, "tmp")
+    temp_dir = Rails.root.join("tmp")
 
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
       tmp_file.write(csv_file)

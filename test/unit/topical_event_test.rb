@@ -13,33 +13,33 @@ class TopicalEventTest < ActiveSupport::TestCase
   end
 
   test "should not last more than a year" do
-    topical_event = build(:topical_event, start_date: 3.days.ago.to_date, end_date: (Date.today + 1.year))
-    refute topical_event.valid?
+    topical_event = build(:topical_event, start_date: 3.days.ago.to_date, end_date: (Time.zone.today + 1.year))
+    assert_not topical_event.valid?
   end
 
   test "requires a start_date if end_date is set" do
-    topical_event = build(:topical_event, end_date: (Date.today + 1.year))
-    refute topical_event.valid?
+    topical_event = build(:topical_event, end_date: (Time.zone.today + 1.year))
+    assert_not topical_event.valid?
   end
 
   test "can be a year long" do
-    topical_event = build(:topical_event, start_date: Date.today, end_date: (Date.today + 1.year))
+    topical_event = build(:topical_event, start_date: Time.zone.today, end_date: (Time.zone.today + 1.year))
     assert topical_event.valid?
   end
 
   test "can be a year with a day leeway" do
-    topical_event = build(:topical_event, start_date: 1.day.ago.to_date, end_date: (Date.today + 1.year))
+    topical_event = build(:topical_event, start_date: 1.day.ago.to_date, end_date: (Time.zone.today + 1.year))
     assert topical_event.valid?
   end
 
   test "should not end before it starts" do
-    topical_event = build(:topical_event, start_date: Date.today, end_date: 1.day.ago.to_date)
-    refute topical_event.valid?
+    topical_event = build(:topical_event, start_date: Time.zone.today, end_date: 1.day.ago.to_date)
+    assert_not topical_event.valid?
   end
 
   test "should be longer than a day" do
-    topical_event = build(:topical_event, start_date: Date.today, end_date: Date.today)
-    refute topical_event.valid?
+    topical_event = build(:topical_event, start_date: Time.zone.today, end_date: Time.zone.today)
+    assert_not topical_event.valid?
   end
 
   test "for edition returns topical events related to supplied edition" do

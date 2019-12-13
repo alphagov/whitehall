@@ -99,7 +99,7 @@ module Whitehall
 
       def apply_filters(keywords, params, order, per_page, page, announcements_search = false)
         results = @store.index(@index_name).values
-        results = filter_by_keywords(keywords, results) unless keywords.blank?
+        results = filter_by_keywords(keywords, results) if keywords.present?
 
         results = params.inject(results) do |new_results, (field_name, value)|
           field_name = field_name.gsub(/filter_/, "")

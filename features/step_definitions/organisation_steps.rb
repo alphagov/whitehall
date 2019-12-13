@@ -398,7 +398,7 @@ Then(/^when I view the organisation with the locale "([^"]*)" I should see:$/) d
 end
 
 Given(/^the topical event "([^"]*)" exists$/) do |name|
-  TopicalEvent.create(name: name, description: "test", start_date: Date.today, end_date: Date.today + 2.months)
+  TopicalEvent.create(name: name, description: "test", start_date: Time.zone.today, end_date: Time.zone.today + 2.months)
 end
 
 When(/^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$/) do |topic, organisation_name, image_filename|

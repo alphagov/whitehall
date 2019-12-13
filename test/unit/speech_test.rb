@@ -12,7 +12,7 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "should be invalid without a speech type" do
     speech = build(:speech, speech_type: nil)
-    refute speech.valid?
+    assert_not speech.valid?
   end
 
   %i[deleted superseded].each do |state|
@@ -30,7 +30,7 @@ class SpeechTest < ActiveSupport::TestCase
   %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without a delivered on date" do
       edition = build(:speech, state: state, delivered_on: nil)
-      refute edition.valid?
+      assert_not edition.valid?
     end
   end
 
@@ -41,12 +41,12 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "should be invalid without a role_appointment" do
     speech = build(:speech, role_appointment: nil)
-    refute speech.valid?
+    assert_not speech.valid?
   end
 
   test "should be invalid without a person_override and no role_appointment" do
     speech = build(:speech, role_appointment: nil, person_override: nil)
-    refute speech.valid?
+    assert_not speech.valid?
   end
 
   test "does not require an organisation or role appointment when being imported" do
@@ -122,7 +122,7 @@ class SpeechTest < ActiveSupport::TestCase
   end
 
   test "delivered_by_minister? returns false for all other appointments" do
-    refute build(:speech, role_appointment: build(:board_member_role_appointment)).delivered_by_minister?
+    assert_not build(:speech, role_appointment: build(:board_member_role_appointment)).delivered_by_minister?
   end
 
   test "can associate a speech with a topical event" do
@@ -134,7 +134,7 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "search_index does not contain person when person_override is set" do
     speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: nil, person_override: "The Queen")
-    refute speech.search_index.has_key?("people")
+    assert_not speech.search_index.has_key?("people")
   end
 
   test "search_index includes default image_url if it has no image" do
@@ -169,7 +169,7 @@ class SpeechTest < ActiveSupport::TestCase
   end
 
   test "is not translatable when non-English" do
-    refute build(:speech, primary_locale: :es).translatable?
+    assert_not build(:speech, primary_locale: :es).translatable?
   end
 
   test "#government returns the government active on the delivered_on date" do

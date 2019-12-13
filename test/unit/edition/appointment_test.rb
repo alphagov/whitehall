@@ -32,7 +32,7 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
   end
 
   test "editions with role appointment enabled but not set aren't valid" do
-    refute EditionWithAppointment.new(valid_edition_attributes).valid?
+    assert_not EditionWithAppointment.new(valid_edition_attributes).valid?
   end
 
   test "editions allowed some invalid data don't have to have a role appointment" do

@@ -15,7 +15,7 @@ class Admin::ContactsController < Admin::BaseController
   end
 
   def update
-    @contact.update_attributes(contact_params)
+    @contact.update(contact_params)
     if @contact.save
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" updated successfully}

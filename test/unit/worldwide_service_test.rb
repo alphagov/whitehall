@@ -3,7 +3,7 @@ require "test_helper"
 class WorldwideOfficeTest < ActiveSupport::TestCase
   %w{name service_type_id}.each do |param|
     test "should not be valid without a #{param}" do
-      refute build(:worldwide_service, param.to_sym => nil).valid?
+      assert_not build(:worldwide_service, param.to_sym => nil).valid?
     end
   end
 

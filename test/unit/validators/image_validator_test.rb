@@ -52,7 +52,7 @@ private
   def assert_validates_as_valid(validator, image_file_name)
     example = build_example(image_file_name)
     validator.validate(example)
-    refute example.errors.any?
+    assert_not example.errors.any?
   end
 
   def assert_validates_as_invalid(validator, image_file_name)
@@ -63,7 +63,7 @@ private
 
   def build_example(file_name)
     if file_name.present?
-      File.open(File.join(Rails.root, "test/fixtures/images", file_name)) do |file|
+      File.open(Rails.root.join("test/fixtures/images", file_name)) do |file|
         EXAMPLE_MODEL.new(file: file).tap do |image_data|
           carrierwave_file = image_data.file.file
           carrierwave_file.content_type = content_type(file_name)

@@ -3,33 +3,33 @@ require "test_helper"
 class UnpublishingTest < ActiveSupport::TestCase
   test "is not valid without an unpublishing reason" do
     unpublishing = build(:unpublishing, unpublishing_reason: nil)
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
   end
 
   test "is not valid without an edition" do
     unpublishing = build(:unpublishing)
     unpublishing.edition = nil
 
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
   end
 
   test "is not valid without a document type" do
     unpublishing = build(:unpublishing)
     unpublishing.document_type = nil
 
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
   end
 
   test "is not valid without a slug" do
     unpublishing = build(:unpublishing)
     unpublishing.slug = nil
 
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
   end
 
   test "is not valid without a url if redirect is chosen" do
     unpublishing = build(:unpublishing, redirect: true)
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
 
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
@@ -43,13 +43,13 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, document: document)
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path", edition: edition)
 
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
   end
 
   test "alternative_url must not be external (must be in the form of https://www.gov.uk/example)" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
 
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
@@ -90,8 +90,8 @@ class UnpublishingTest < ActiveSupport::TestCase
     case_study = create(:case_study)
     unpublishing = create(:unpublishing, edition: case_study)
 
-    refute Unpublishing.from_slug("wrong-slug", "CaseStudy")
-    refute Unpublishing.from_slug(unpublishing.slug, "OtherDocumentType")
+    assert_not Unpublishing.from_slug("wrong-slug", "CaseStudy")
+    assert_not Unpublishing.from_slug(unpublishing.slug, "OtherDocumentType")
     assert_equal unpublishing, Unpublishing.from_slug(unpublishing.slug, "CaseStudy")
   end
 
@@ -106,7 +106,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test "alternative_url is required if the reason is Consolidated" do
     unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Consolidated, alternative_url: nil)
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
     assert_equal ["must be provided to redirect the document"], unpublishing.errors[:alternative_url]
   end
 
@@ -117,7 +117,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test "explanation is required if the reason is Withdrawn" do
     unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Withdrawn, explanation: nil)
-    refute unpublishing.valid?
+    assert_not unpublishing.valid?
     assert_equal ["must be provided when withdrawing"], unpublishing.errors[:explanation]
   end
 

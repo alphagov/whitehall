@@ -139,7 +139,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
   end
 
   test "ignores variants when they do not exist" do
-    svg_image_data = create(:image_data, file: File.open(File.join(Rails.root, "test", "fixtures", "images", "test-svg.svg")))
+    svg_image_data = create(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
     publication = create(:publication, images: [create(:image, image_data: svg_image_data)])
     expected = {}
 

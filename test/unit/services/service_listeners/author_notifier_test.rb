@@ -80,6 +80,6 @@ class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
     assert_match pattern, integration_notification.to_s
 
     production_notification = ActionMailer::Base.deliveries.third
-    refute_match pattern, production_notification.to_s
+    assert_no_match pattern, production_notification.to_s
   end
 end

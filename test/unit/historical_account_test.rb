@@ -3,14 +3,14 @@ require_relative "../test_helper"
 class HistoricalAccountTest < ActiveSupport::TestCase
   test "is invalid without a summary, body, political party or person" do
     %w(summary body person political_parties).each do |attribute|
-      refute build(:historical_account, attribute => nil).valid?
+      assert_not build(:historical_account, attribute => nil).valid?
     end
   end
 
   test "is not valid without at least one role" do
     historical_account = build(:historical_account)
     historical_account.roles = []
-    refute historical_account.valid?
+    assert_not historical_account.valid?
     historical_account.roles << create(:historic_role)
     assert historical_account.valid?
   end
@@ -20,7 +20,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     assert historical_account.valid?
 
     historical_account = build(:historical_account, roles: [create(:role)])
-    refute historical_account.valid?
+    assert_not historical_account.valid?
     assert_equal ["The selected role(s) do not all support historical accounts"], historical_account.errors[:base]
   end
 
@@ -51,7 +51,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     assert historical_account.valid?
 
     historical_account.political_party_ids = [9999]
-    refute historical_account.valid?, "HistoricalAccount should not be valid with a non-existant political party"
+    assert_not historical_account.valid?, "HistoricalAccount should not be valid with a non-existant political party"
   end
 
   test "returns political membership" do

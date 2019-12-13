@@ -38,7 +38,7 @@ class ClassificationRelation < ApplicationRecord
   end
 
   def create_inverse_relation
-    unless inverse_relation.present?
+    if inverse_relation.blank?
       self.class.create!(
         classification_id: related_classification_id,
         related_classification_id: classification_id,

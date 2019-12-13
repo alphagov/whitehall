@@ -82,7 +82,7 @@ module PublishingApi
 
     def speech_type_explanation
       return {} unless item.speech_type
-      return {} unless item.speech_type.explanation.present?
+      return {} if item.speech_type.explanation.blank?
 
       { speech_type_explanation: item.speech_type.explanation }
     end

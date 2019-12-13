@@ -6,7 +6,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def update
-    if @world_location.update_attributes(world_location_params)
+    if @world_location.update(world_location_params)
       redirect_to [:admin, @world_location], notice: "World location updated successfully"
     else
       render action: :edit

@@ -85,10 +85,10 @@ namespace :publishing do
     desc "Finds editions that were meant to be published between 23:00 yesterday and 01:00 today - helps debug failed publications owing to British Summer Time"
     task around_midnight: :environment do
       yesterday = Date.yesterday
-      today = Date.today
+      today = Time.zone.today
 
-      time_from = Time.new(yesterday.year, yesterday.month, yesterday.day, 23, 0, 0)
-      time_to = Time.new(today.year, today.month, today.day, 0, 0, 0)
+      time_from = Time.zone.local(yesterday.year, yesterday.month, yesterday.day, 23, 0, 0)
+      time_to = Time.zone.local(today.year, today.month, today.day, 0, 0, 0)
 
       editions = Edition.where("scheduled_publication between ? and ?", time_from, time_to)
 

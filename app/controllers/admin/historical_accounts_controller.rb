@@ -22,7 +22,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   def edit; end
 
   def update
-    if @historical_account.update_attributes(historical_account_params)
+    if @historical_account.update(historical_account_params)
       redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account updated"
     else
       render :edit

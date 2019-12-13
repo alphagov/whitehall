@@ -48,7 +48,7 @@ class TopicalEvent < Classification
 
   has_many :features, inverse_of: :topical_event, dependent: :destroy
 
-  scope :active, -> { where("end_date > ?", Date.today) }
+  scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :order_by_start_date, -> { order("start_date DESC") }
   scope :for_edition, ->(id) { joins(:classification_memberships).where(classification_memberships: { edition_id: id }) }
 
@@ -60,7 +60,7 @@ class TopicalEvent < Classification
   alias_method :display_name, :to_s
 
   def archived?
-    if end_date && end_date <= Date.today
+    if end_date && end_date <= Time.zone.today
       true
     else
       false

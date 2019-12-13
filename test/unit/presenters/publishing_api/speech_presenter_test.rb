@@ -36,7 +36,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       create(:person,
              forename: "Tony",
              image: File.open(
-               Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
+               Rails.root.join("test/fixtures/images/960x640_gif.gif"),
              ))
     end
 
@@ -64,7 +64,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_equal("government-frontend", presented.content[:rendering_app])
 
       details = presented.content[:details]
-      refute(details[:political])
+      assert_not(details[:political])
       assert_equal(expected_body,     details[:body])
       assert_match(iso8601_regex,     details[:delivered_on])
       assert_equal("Transcript of the speech, exactly as it was delivered", details[:speech_type_explanation])
@@ -125,7 +125,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       end
 
       it "doesn't present a speaker link" do
-        refute(presented.links.has_key?(:speaker))
+        assert_not(presented.links.has_key?(:speaker))
       end
 
       it "presents an empty roles link" do
@@ -171,7 +171,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         :person,
         forename: "Tony",
         image: File.open(
-          Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
+          Rails.root.join("test/fixtures/images/960x640_gif.gif"),
         ),
       )
     end
@@ -193,7 +193,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           :feature,
           document: speech.document,
           image: File.open(
-            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
+            Rails.root.join("test/fixtures/images/960x640_gif.gif"),
           ),
           alt_text: "featured image",
         )
@@ -204,7 +204,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           :feature,
           document: speech.document,
           image: File.open(
-            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"),
+            Rails.root.join("test/fixtures/images/960x640_gif.gif"),
           ),
           alt_text: "featured image two",
         )

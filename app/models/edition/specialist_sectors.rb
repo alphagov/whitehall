@@ -49,7 +49,7 @@ module Edition::SpecialistSectors
   end
 
   def has_primary_sector?
-    !primary_specialist_sector_tag.blank?
+    primary_specialist_sector_tag.present?
   end
 
   def has_secondary_sectors?

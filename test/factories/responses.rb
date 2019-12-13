@@ -1,7 +1,7 @@
 FactoryBot.define do
   trait :response do
     consultation
-    published_on { Date.today }
+    published_on { Time.zone.today }
   end
 
   factory :consultation_outcome, traits: [:response] do

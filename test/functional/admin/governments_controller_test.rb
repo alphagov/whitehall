@@ -26,14 +26,14 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
   view_test "new should have the default start date of today" do
     login_as :gds_admin
     get :new
-    assert_select "input[name='government[start_date]'][value='#{Date.today}']"
+    assert_select "input[name='government[start_date]'][value='#{Time.zone.today}']"
   end
 
   test "#close sets the end date to today" do
     login_as :gds_admin
     post :close, params: { id: @government.id }
     @government.reload
-    assert_equal Date.today, @government.end_date
+    assert_equal Time.zone.today, @government.end_date
   end
 
   test "#close doesn't overwrite an end date if there is one" do

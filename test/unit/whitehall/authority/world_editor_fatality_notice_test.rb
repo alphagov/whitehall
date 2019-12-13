@@ -19,23 +19,23 @@ class WorldEditorFatalityNoticeTest < ActiveSupport::TestCase
   include AuthorityTestHelper
 
   test "cannot create a new fatality notice about their location if their organisation cannot handle fatalities" do
-    refute enforcer_for(normal_world_editor(["hat land"]), FatalityNotice).can?(:create)
+    assert_not enforcer_for(normal_world_editor(["hat land"]), FatalityNotice).can?(:create)
   end
 
   test "cannot create a new fatality notice about their location even if their organisation can handle fatalities" do
-    refute enforcer_for(fatality_world_editor(["hat land"]), FatalityNotice).can?(:create)
+    assert_not enforcer_for(fatality_world_editor(["hat land"]), FatalityNotice).can?(:create)
   end
 
   test "cannot see a fatality notice about their location if their organisation cannot handle fatalities" do
     user = normal_world_editor(["hat land", "tie land"])
     edition = with_locations(normal_fatality_notice, ["shirt land", "hat land"])
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test "cannot see a fatality notice about their location even if their organisation can handle fatalities" do
     user = fatality_world_editor(["hat land", "tie land"])
     edition = with_locations(normal_fatality_notice, ["shirt land", "hat land"])
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test "cannot do anything to a fatality notice about their location if their organisation cannot handle fatalities" do
@@ -44,7 +44,7 @@ class WorldEditorFatalityNoticeTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 
@@ -54,7 +54,7 @@ class WorldEditorFatalityNoticeTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 end

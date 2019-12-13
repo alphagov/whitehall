@@ -12,7 +12,7 @@ module TranslationControllerConcern
   end
 
   def update
-    if translatable_item.update_attributes(translation_params)
+    if translatable_item.update(translation_params)
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
     else

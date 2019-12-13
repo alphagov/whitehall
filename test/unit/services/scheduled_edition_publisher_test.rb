@@ -5,8 +5,8 @@ class ScheduledEditionPublisherTest < ActiveSupport::TestCase
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     publisher = ScheduledEditionPublisher.new(edition)
 
-    refute publisher.perform!
-    refute edition.published?
+    assert_not publisher.perform!
+    assert_not edition.published?
 
     expected_reason = "Only scheduled editions can be published with ScheduledEditionPublisher"
     assert_equal expected_reason, publisher.failure_reason
@@ -16,8 +16,8 @@ class ScheduledEditionPublisherTest < ActiveSupport::TestCase
     edition = create(:scheduled_edition)
     publisher = ScheduledEditionPublisher.new(edition)
 
-    refute publisher.perform!
-    refute edition.published?
+    assert_not publisher.perform!
+    assert_not edition.published?
 
     expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication}, and may not be published before"
     assert_equal expected_reason, publisher.failure_reason

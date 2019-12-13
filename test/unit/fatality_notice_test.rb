@@ -8,14 +8,14 @@ class FatalityNoticeTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test "is only valid with a field of operation" do
-    refute build(:fatality_notice, operational_field: nil).valid?
+    assert_not build(:fatality_notice, operational_field: nil).valid?
 
     operational_field = build(:operational_field)
     assert build(:fatality_notice, operational_field: operational_field).valid?
   end
 
   test "is not valid without a roll call introduction" do
-    refute build(:fatality_notice, roll_call_introduction: nil).valid?
+    assert_not build(:fatality_notice, roll_call_introduction: nil).valid?
   end
 
   test "has operational field" do

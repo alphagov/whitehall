@@ -46,7 +46,7 @@ class PersonPresenterTest < ActionView::TestCase
     @person.stubs(:translated_locales).returns([:en])
 
     assert_equal [:en], @presenter.translated_locales
-    refute @presenter.available_in_multiple_languages?
+    assert_not @presenter.available_in_multiple_languages?
   end
 
   test "is available in multiple languages" do

@@ -6,7 +6,7 @@ class Admin::ResponsesController < Admin::BaseController
   before_action :find_response, only: %i[edit update]
 
   def show
-    @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Date.today)
+    @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Time.zone.today)
   end
 
   def create
@@ -22,7 +22,7 @@ class Admin::ResponsesController < Admin::BaseController
   def edit; end
 
   def update
-    if @response.update_attributes(response_params)
+    if @response.update(response_params)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
       render :edit

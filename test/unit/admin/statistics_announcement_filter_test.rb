@@ -77,8 +77,8 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "filter eager loads the correct date for an announcement when ordered ascending" do
-    old_date     = Time.new(2014, 10, 1, 9, 30)
-    new_date     = Time.new(2014, 10, 15, 9, 30)
+    old_date     = Time.zone.local(2014, 10, 1, 9, 30)
+    new_date     = Time.zone.local(2014, 10, 15, 9, 30)
     announcement = create(:statistics_announcement, release_date: old_date)
     date_change  = announcement.build_statistics_announcement_date_change(release_date: new_date)
     date_change.save!
@@ -91,8 +91,8 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "filter eager loads the correct date for an announcement when ordered descending" do
-    old_date     = Time.new(2010, 10, 15, 9, 30)
-    new_date     = Time.new(2010, 10, 1, 9, 30)
+    old_date     = Time.zone.local(2010, 10, 15, 9, 30)
+    new_date     = Time.zone.local(2010, 10, 1, 9, 30)
     announcement = create(:statistics_announcement, release_date: old_date)
     date_change  = announcement.build_statistics_announcement_date_change(release_date: new_date)
     date_change.save!
@@ -203,6 +203,6 @@ private
   end
 
   def next_year
-    2.year.from_now
+    2.years.from_now
   end
 end

@@ -50,7 +50,7 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   end
 
   test "will produce an html block containing a time tag and the publication date" do
-    assert_equal presenter.display_date_microformat, '<time class="public_timestamp" datetime="2018-10-25T10:18:32+00:00">25 October 2018</time>'
+    assert_equal presenter.display_date_microformat, '<time class="public_timestamp" datetime="2018-10-25T10:18:32Z">25 October 2018</time>'
   end
 
   test "will returns associated document collections" do

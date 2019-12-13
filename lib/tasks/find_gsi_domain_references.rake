@@ -5,7 +5,7 @@ namespace :report do
   task find_gsi_domain_references: :environment do
     CSV_HEADERS = ["Title", "URL", "Publishing application", "Publishing organisation", "Format", "Domain", "Content ID"].freeze
 
-    CSV.open("#{Rails.root}/tmp/gsi_domain_contact_items.csv", "wb") do |csv|
+    CSV.open(Rails.root.join("tmp/gsi_domain_contact_items.csv"), "wb") do |csv|
       csv << CSV_HEADERS
 
       domains = %w(gsi gse gcsx gsx)
@@ -37,6 +37,7 @@ namespace :report do
     end
 
     puts "Finished searching"
-    puts "CSV file at #{Rails.root}/tmp/gsi_domain_contact_items.csv"
+    csv_path = Rails.root.join("tmp/gsi_domain_contact_items.csv")
+    puts "CSV file at #{csv_path}"
   end
 end

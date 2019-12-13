@@ -22,7 +22,7 @@ class Admin::PeopleController < Admin::BaseController
   def edit; end
 
   def update
-    if @person.update_attributes(person_params)
+    if @person.update(person_params)
       redirect_to [:admin, @person], notice: %{"#{@person.name}" saved.}
     else
       render action: "edit"

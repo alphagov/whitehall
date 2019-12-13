@@ -2,7 +2,7 @@ module Edition::AlternativeFormatProvider
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :alternative_format_provider, class_name: Organisation.name
+    belongs_to :alternative_format_provider, class_name: Organisation.name # rubocop:disable Rails/ReflectionClassName
 
     validates :alternative_format_provider, presence: true, if: :alternative_format_provider_required?
     validate :alternative_format_provider_has_contact_email, if: :alternative_format_provider_required?

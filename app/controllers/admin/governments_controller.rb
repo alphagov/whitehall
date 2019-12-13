@@ -6,7 +6,7 @@ class Admin::GovernmentsController < Admin::BaseController
   end
 
   def new
-    @government = Government.new(start_date: Date.today)
+    @government = Government.new(start_date: Time.zone.today)
   end
 
   def edit
@@ -28,7 +28,7 @@ class Admin::GovernmentsController < Admin::BaseController
   def update
     @government = Government.find(params[:id])
 
-    if @government.update_attributes(government_params)
+    if @government.update(government_params)
       redirect_to admin_governments_path, notice: "Updated government information"
     else
       render action: "edit"
@@ -42,7 +42,7 @@ class Admin::GovernmentsController < Admin::BaseController
   def close
     government = Government.find(params[:id])
 
-    government.update_attribute(:end_date, Date.today) unless government.end_date
+    government.update_attribute(:end_date, Time.zone.today) unless government.end_date
 
     current_active_ministerial_appointments.each do |appointment|
       appointment.update_attribute(:ended_at, government.end_date)

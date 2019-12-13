@@ -29,10 +29,10 @@ class SanitiseDBTest < ActiveSupport::TestCase
     assert_equal "good-title", good_edition.slug
 
     bad_edition.reload
-    refute bad_edition.title =~ /Bad title/, "Expected title to be sanitised"
-    refute bad_edition.summary =~ /Bad summary/, "Expected summary to be sanitised"
-    refute bad_edition.body =~ /Bad body/, "Expected body to be sanitised"
-    refute bad_edition.slug =~ /bad-title/, "Expected slug to be sanitised"
+    assert_not bad_edition.title =~ /Bad title/, "Expected title to be sanitised"
+    assert_not bad_edition.summary =~ /Bad summary/, "Expected summary to be sanitised"
+    assert_not bad_edition.body =~ /Bad body/, "Expected body to be sanitised"
+    assert_not bad_edition.slug =~ /bad-title/, "Expected slug to be sanitised"
   end
 
   test "scrub script sanitises access limited file attachments" do
@@ -46,7 +46,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
     assert_equal "greenpaper.pdf", good_attachment.filename
 
     bad_attachment.reload
-    refute bad_attachment.title =~ /Bad title/, "Expected title to be sanitised"
+    assert_not bad_attachment.title =~ /Bad title/, "Expected title to be sanitised"
     assert_equal "redacted.pdf", bad_attachment.filename, "Expected filename to be sanitised"
   end
 
@@ -62,9 +62,9 @@ class SanitiseDBTest < ActiveSupport::TestCase
     assert_equal "good-title", good_attachment.slug
 
     bad_attachment.reload
-    refute bad_attachment.title =~ /Bad title/, "Expected title to be sanitised"
-    refute bad_attachment.govspeak_content_body =~ /Bad body/, "Expected body to be sanitised"
-    refute bad_attachment.slug =~ /bad-title/, "Expected slug to be sanitised"
+    assert_not bad_attachment.title =~ /Bad title/, "Expected title to be sanitised"
+    assert_not bad_attachment.govspeak_content_body =~ /Bad body/, "Expected body to be sanitised"
+    assert_not bad_attachment.slug =~ /bad-title/, "Expected slug to be sanitised"
   end
 
   test "scrub script sanitises all fact checks" do
@@ -74,10 +74,10 @@ class SanitiseDBTest < ActiveSupport::TestCase
     run_script
 
     fact_check.reload
-    refute fact_check.email_address =~ /important-person/, "Expected email to be sanitised"
+    assert_not fact_check.email_address =~ /important-person/, "Expected email to be sanitised"
     assert_equal "", fact_check.comments, "Expected comments to be sanitised"
     assert_equal "", fact_check.instructions, "Expected instructions to be sanitised"
-    refute fact_check.key =~ /abcdefghijklmnop/, "Expected key to be sanitised"
+    assert_not fact_check.key =~ /abcdefghijklmnop/, "Expected key to be sanitised"
   end
 
 private

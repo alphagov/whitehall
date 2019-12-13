@@ -282,7 +282,7 @@ class Organisation < ApplicationRecord
   end
 
   def ensure_analytics_identifier
-    unless analytics_identifier.present?
+    if analytics_identifier.blank?
       update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
     end
   end
@@ -415,7 +415,7 @@ class Organisation < ApplicationRecord
   end
 
   def jobs_url
-    custom_jobs_url.present? ? custom_jobs_url : DEFAULT_JOBS_URL
+    custom_jobs_url.presence || DEFAULT_JOBS_URL
   end
 
   def indexable_content

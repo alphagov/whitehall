@@ -184,7 +184,7 @@ class ActiveSupport::TestCase
   end
 
   def fixture_path
-    Pathname.new(Rails.root.join("test", "fixtures"))
+    Pathname.new(Rails.root.join("test/fixtures"))
   end
 end
 

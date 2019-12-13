@@ -38,7 +38,7 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [feature_1, feature_2], feature_list.features
 
     assert feature_list.reorder!([feature_2.id, feature_1.id])
-    refute feature_list.errors.any?
+    assert_not feature_list.errors.any?
 
     feature_list.reload
     assert_equal [feature_2, feature_1], feature_list.features
@@ -49,7 +49,7 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list = create(:feature_list, locale: :en, features: [feature_1])
     feature_1.document = nil
     feature_1.save(validate: false)
-    refute feature_list.reorder!([feature_1.id])
+    assert_not feature_list.reorder!([feature_1.id])
     assert_match %r[Can't reorder because '.*'], feature_list.errors.full_messages.to_sentence
   end
 
@@ -61,9 +61,9 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list_1 = create(:feature_list, locale: :en, features: [feature_1, feature_2])
     _feature_list_2 = create(:feature_list, locale: :fr, features: [feature_3])
 
-    refute_nil f3_original_ordering = feature_3.ordering
+    assert_not_nil f3_original_ordering = feature_3.ordering
 
-    refute feature_list_1.reorder!([feature_2.id, feature_3.id, feature_1.id])
+    assert_not feature_list_1.reorder!([feature_2.id, feature_3.id, feature_1.id])
     assert_match %r[Can't reorder because '.*'], feature_list_1.errors[:base].to_sentence
 
     assert_equal f3_original_ordering, feature_3.reload.ordering

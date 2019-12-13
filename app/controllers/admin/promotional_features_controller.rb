@@ -26,7 +26,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   def edit; end
 
   def update
-    if @promotional_feature.update_attributes(promotional_feature_params)
+    if @promotional_feature.update(promotional_feature_params)
       redirect_to [:admin, @organisation, @promotional_feature], notice: "Promotional feature updated"
     else
       render :edit

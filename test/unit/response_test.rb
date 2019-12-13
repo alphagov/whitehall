@@ -3,7 +3,7 @@ require "test_helper"
 class ResponseTest < ActiveSupport::TestCase
   test "responses without a summary are only valid if they have attachments" do
     response = build(:consultation_outcome, summary: nil)
-    refute response.valid?
+    assert_not response.valid?
 
     response.attachments << build(:file_attachment)
     assert response.valid?, response.errors.full_messages.inspect
@@ -30,13 +30,13 @@ class ResponseTest < ActiveSupport::TestCase
     consultation.stubs(:publicly_visible?).returns(false)
     response = build(:consultation_outcome, consultation: consultation)
 
-    refute response.publicly_visible?
+    assert_not response.publicly_visible?
   end
 
   test "is not publicly visible if its consultation is nil" do
     response = build(:consultation_outcome, consultation: nil)
 
-    refute response.publicly_visible?
+    assert_not response.publicly_visible?
   end
 
   test "is unpublished if its consultation is unpublished" do
@@ -52,13 +52,13 @@ class ResponseTest < ActiveSupport::TestCase
     consultation.stubs(:unpublished?).returns(false)
     response = build(:consultation_outcome, consultation: consultation)
 
-    refute response.unpublished?
+    assert_not response.unpublished?
   end
 
   test "is not unpublished if its consultation is nil" do
     response = build(:consultation_outcome, consultation: nil)
 
-    refute response.unpublished?
+    assert_not response.unpublished?
   end
 
   test "returns unpublished edition from its consultation" do
@@ -90,14 +90,14 @@ class ResponseTest < ActiveSupport::TestCase
     consultation.stubs(:accessible_to?).with(user).returns(false)
     response = build(:consultation_outcome, consultation: consultation)
 
-    refute response.accessible_to?(user)
+    assert_not response.accessible_to?(user)
   end
 
   test "is not accessible to user if consultation is nil" do
     user = build(:user)
     response = build(:consultation_outcome, consultation: nil)
 
-    refute response.accessible_to?(user)
+    assert_not response.accessible_to?(user)
   end
 
   test "is access limited if its consultation is access limited" do
@@ -113,13 +113,13 @@ class ResponseTest < ActiveSupport::TestCase
     consultation.stubs(:access_limited?).returns(false)
     response = build(:consultation_outcome, consultation: consultation)
 
-    refute response.access_limited?
+    assert_not response.access_limited?
   end
 
   test "is not access limited if its consultation is nil" do
     response = build(:consultation_outcome, consultation: nil)
 
-    refute response.access_limited?
+    assert_not response.access_limited?
   end
 
   test "returns consultation as its access limited object" do

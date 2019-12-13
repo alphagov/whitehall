@@ -32,7 +32,7 @@ class EditionDeleterTest < ActiveSupport::TestCase
   test "#perform! with a published edition fails" do
     edition = create(:published_edition)
 
-    refute EditionDeleter.new(edition).perform!
+    assert_not EditionDeleter.new(edition).perform!
     assert edition.published?, "Edition should still be published"
   end
 

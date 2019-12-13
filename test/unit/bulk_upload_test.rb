@@ -36,7 +36,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     paths = ["whitepaper.pdf", existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     assert bulk_upload.attachments.first.new_record?, "Attachment should be new record"
-    refute bulk_upload.attachments.last.new_record?, "Attachment shouldn't be new record"
+    assert_not bulk_upload.attachments.last.new_record?, "Attachment shouldn't be new record"
   end
 
   test ".from_files always builds new AttachmentData instances" do
@@ -113,7 +113,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.attachments_attributes = invalid_new_attachments_params
     assert_no_difference("edition.attachments.count") do
-      refute bulk_upload.save_attachments, "should return false"
+      assert_not bulk_upload.save_attachments, "should return false"
     end
   end
 
@@ -128,15 +128,15 @@ end
 
 class BulkUploadZipFileTest < ActiveSupport::TestCase
   test "is invalid without a zip_file" do
-    refute BulkUpload::ZipFile.new(nil).valid?
+    assert_not BulkUpload::ZipFile.new(nil).valid?
   end
 
   test "is invalid if the zip file doesn't superficially look like a zip file" do
-    refute BulkUpload::ZipFile.new(not_a_zip_file).valid?
+    assert_not BulkUpload::ZipFile.new(not_a_zip_file).valid?
   end
 
   test "is invalid if the zip file superficially looks like a zip file, but isn't" do
-    refute BulkUpload::ZipFile.new(superficial_zip_file).valid?
+    assert_not BulkUpload::ZipFile.new(superficial_zip_file).valid?
   end
 
   test "is valid if the file is actually a zip" do
@@ -145,7 +145,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
 
   test "is invalid if the zip file contains illegal file types" do
     zip_file = BulkUpload::ZipFile.new(a_zip_file_with_dodgy_file_types)
-    refute zip_file.valid?
+    assert_not zip_file.valid?
     assert_match %r[contains invalid files], zip_file.errors[:zip_file][0]
   end
 
@@ -162,7 +162,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     extracted = zip_file.extracted_file_paths
     zip_file.cleanup_extracted_files
     assert extracted.none? { |path| File.exist?(path) }, "files should be deleted"
-    refute File.exist?(zip_file.temp_dir), "temporary dir should be deleted"
+    assert_not File.exist?(zip_file.temp_dir), "temporary dir should be deleted"
   end
 
   test "extracted_file_paths ignores OS X resource fork files" do
@@ -174,7 +174,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
 
   def uploaded_file(file_fixturename, file_mime_type)
     Rack::Test::UploadedFile.new(
-      File.open(Rails.root.join("test", "fixtures", file_fixturename)),
+      File.open(Rails.root.join("test/fixtures", file_fixturename)),
       file_mime_type,
     )
   end
@@ -185,7 +185,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
 
   def superficial_zip_file
     Rack::Test::UploadedFile.new(
-      File.open(Rails.root.join("test", "fixtures", "greenpaper-not-a-zip.zip")),
+      File.open(Rails.root.join("test/fixtures/greenpaper-not-a-zip.zip")),
       "application/zip",
     )
   end

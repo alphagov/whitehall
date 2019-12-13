@@ -1,6 +1,7 @@
 inherit_gem:
   rubocop-govuk:
     - config/default.yml
+    - config/rails.yml
 
 AllCops:
   Exclude:
@@ -45,3 +46,24 @@ Layout/AccessModifierIndentation:
 
 Style/AccessModifierDeclarations:
   Enabled: false
+
+Rails/FindBy:
+  Enabled: false
+Rails/DynamicFindBy:
+  Enabled: false
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+Rails/HelperInstanceVariable:
+  Enabled: false
+Rails/InverseOf:
+  Enabled: false
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/FilePath:
+  EnforcedStyle: slashes

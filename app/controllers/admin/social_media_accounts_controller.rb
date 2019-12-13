@@ -14,7 +14,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   def edit; end
 
   def update
-    @social_media_account.update_attributes(social_media_account_params)
+    @social_media_account.update(social_media_account_params)
     if @social_media_account.save
       redirect_to [:admin, @socialable, SocialMediaAccount],
                   notice: "#{@social_media_account.service_name} account updated successfully"

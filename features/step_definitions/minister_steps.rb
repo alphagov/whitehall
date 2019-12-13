@@ -64,7 +64,7 @@ end
 
 Given(/^"([^"]*)" is a commons whip "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
   create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago,
-    role_options: { whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id })
+                          role_options: { whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id })
 end
 
 Then(/^I should see that "([^"]*)" is a commons whip "([^"]*)"$/) do |minister_name, role_title|

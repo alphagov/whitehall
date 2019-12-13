@@ -3,7 +3,7 @@ module FilteringDocumentsHelper
     selector = 'ol.document-list li.document-row'
 
     assert page.has_css?(selector, count: expected_number),
-      "Expected #{expected_number} document(s) to be listed, but #{page.all(selector).size} found instead"
+           "Expected #{expected_number} document(s) to be listed, but #{page.all(selector).size} found instead"
   end
 
   def select_filter(label, value, opts = {})

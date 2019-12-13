@@ -13,7 +13,7 @@ class ImageValidator < ActiveModel::Validator
   end
 
   def validate(record)
-    return unless file_for(record).present?
+    return if file_for(record).blank?
     return unless File.exist?(file_for(record).path)
     return if file_for(record).file.content_type.match?(/svg/)
 

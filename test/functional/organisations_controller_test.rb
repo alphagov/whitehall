@@ -63,7 +63,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     organisation.reload
-    refute organisation.has_home_page_contacts_list?
+    assert_not organisation.has_home_page_contacts_list?
   end
 
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
@@ -317,7 +317,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 2.days.ago)
     _announcement_2 = create(:published_speech, role_appointment: role_appointment, first_published_at: 3.days.ago)
-    announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
+    announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 1.day.ago)
 
     get :show, params: { id: organisation }
 
@@ -326,7 +326,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     organisation = create_org_and_stub_content_store(:organisation)
-    announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
+    announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.day.ago)
     announcement_2 = create(:published_speech, organisations: [organisation], first_published_at: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 3.days.ago)
 
@@ -334,7 +334,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#announcements" do
       assert_select_object(announcement_1) do
-        assert_select "time.public_timestamp[datetime=?]", 1.days.ago.iso8601
+        assert_select "time.public_timestamp[datetime=?]", 1.day.ago.iso8601
         assert_select ".document-type", "Press release"
       end
       assert_select_object(announcement_2) do
@@ -359,8 +359,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
     organisation = create_org_and_stub_content_store(:organisation)
-    consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 5.days.ago, opening_at: 5.days.ago, closing_at: 1.days.ago)
-    consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 4.days.ago, opening_at: 4.days.ago, closing_at: 1.days.ago)
+    consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 5.days.ago, opening_at: 5.days.ago, closing_at: 1.day.ago)
+    consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 4.days.ago, opening_at: 4.days.ago, closing_at: 1.day.ago)
     consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago, opening_at: 3.days.ago)
     create(:consultation_outcome, consultation: consultation_3, attachments: [
       build(:file_attachment),
@@ -388,7 +388,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     _publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago)
 
-    create(:published_consultation, organisations: [organisation], opening_at: 1.days.ago)
+    create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
     create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::OfficialStatistics)
 
     get :show, params: { id: organisation }
@@ -434,7 +434,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
-        assert_select ".publication-date time[datetime=?]", 1.days.ago.to_date.to_datetime.iso8601
+        assert_select ".publication-date time[datetime=?]", 1.day.ago.to_date.to_datetime.iso8601
         assert_select ".document-type", "National Statistics"
       end
       assert_select_object publication_2
@@ -447,8 +447,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create_org_and_stub_content_store(:organisation)
     _cip = create(:published_corporate_information_page, organisation: organisation, first_published_at: 1.day.ago.to_date)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
-    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
-    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago.to_date, publication_type: PublicationType::NationalStatistics)
     get :show, params: { id: organisation }
     assert_equal [publication_1, publication_2, publication_3], assigns[:recently_updated].take(3)
   end

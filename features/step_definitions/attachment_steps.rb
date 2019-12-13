@@ -102,7 +102,7 @@ end
 
 When(/^I publish the draft edition for publication "(.*?)"$/) do |publication_title|
   publication = Publication.find_by title: publication_title
-  publication.update!(state: 'published', major_change_published_at: Date.today)
+  publication.update!(state: 'published', major_change_published_at: Time.zone.today)
 end
 
 Then(/^the html attachment "(.*?)" includes the contact address "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)"$/) do |attachment_title, contact_address, isbn, web_isbn|
@@ -116,5 +116,5 @@ end
 
 Then(/^I see a validation error for uploading attachments$/) do
   assert page.has_content?("must have finished uploading"),
-    "Uploading attachment validation message not found"
+         "Uploading attachment validation message not found"
 end

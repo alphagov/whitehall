@@ -8,7 +8,7 @@ FactoryBot.define do
   factory :file_attachment, traits: [:abstract_attachment] do
     sequence(:title) { |index| "file-attachment-title-#{index}" }
     transient do
-      file { File.open(Rails.root.join("test", "fixtures", "greenpaper.pdf")) }
+      file { File.open(Rails.root.join("test/fixtures/greenpaper.pdf")) }
     end
     after(:build) do |attachment, evaluator|
       attachment.attachment_data ||= build(:attachment_data, file: evaluator.file)
@@ -17,7 +17,7 @@ FactoryBot.define do
 
   factory :csv_attachment, parent: :file_attachment do
     transient do
-      file { File.open(Rails.root.join("test", "fixtures", "sample.csv")) }
+      file { File.open(Rails.root.join("test/fixtures/sample.csv")) }
     end
   end
 

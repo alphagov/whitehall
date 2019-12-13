@@ -16,7 +16,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   def update
     worldwide_office_params[:service_ids] ||= []
-    @worldwide_office.update_attributes(worldwide_office_params)
+    @worldwide_office.update(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
       redirect_to [:admin, @worldwide_organisation, WorldwideOffice]

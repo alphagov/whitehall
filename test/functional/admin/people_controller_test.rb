@@ -34,7 +34,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     post :create, params: { person: attributes }
 
-    refute_nil person = Person.last
+    assert_not_nil person = Person.last
     assert_equal attributes[:title], person.title
     assert_equal attributes[:forename], person.forename
     assert_equal attributes[:surname], person.surname
@@ -53,7 +53,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     attributes[:image] = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
     post :create, params: { person: attributes }
 
-    refute_nil Person.last.image
+    assert_not_nil Person.last.image
   end
 
   test "GET on :show assigns the person and renders the show page" do

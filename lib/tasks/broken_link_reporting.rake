@@ -5,7 +5,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
     reports_dir       = args[:reports_dir]
     email_address     = args[:email_address]
     organisation_slug = args[:organisation_slug]
-    report_zip_name   = "broken-link-reports-#{Date.today.strftime}.zip"
+    report_zip_name   = "broken-link-reports-#{Time.zone.today.strftime}.zip"
     report_zip_path   = Pathname.new(reports_dir).join(report_zip_name)
 
     puts "Cleaning up any existing reports."

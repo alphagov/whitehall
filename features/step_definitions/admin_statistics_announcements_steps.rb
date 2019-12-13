@@ -14,13 +14,13 @@ end
 
 Given(/^there are statistics announcements by my organisation$/) do
   @past_announcement   = create(:statistics_announcement,
-                          organisation_ids: [@user.organisation.id],
-                          current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
-                          publication: create(:draft_statistics))
+                                organisation_ids: [@user.organisation.id],
+                                current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+                                publication: create(:draft_statistics))
 
   @future_announcement = create(:statistics_announcement,
-                          organisation_ids: [@user.organisation.id],
-                          current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+                                organisation_ids: [@user.organisation.id],
+                                current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
 end
 
 
@@ -114,7 +114,7 @@ When(/^I change the release date on the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
   click_on 'Change release date'
 
-  select_datetime "14-Dec-#{Date.today.year.next} 09:30", from: 'Release date'
+  select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: 'Release date'
   check 'Confirmed date?'
   choose 'Exact'
   click_on 'Publish change of date'
@@ -184,7 +184,7 @@ Then(/^I should (see|only see) a statistics announcement called "(.*?)"$/) do |s
 end
 
 Then(/^the new date is reflected on the announcement$/) do
-  assert page.has_content?("14 December #{Date.today.year.next} 9:30am")
+  assert page.has_content?("14 December #{Time.zone.today.year.next} 9:30am")
 end
 
 Then(/^I should be able to filter both past and future announcements$/) do

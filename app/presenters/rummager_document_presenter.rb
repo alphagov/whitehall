@@ -22,7 +22,7 @@ class RummagerDocumentPresenter < ActionView::Base
   end
 
   def public_timestamp
-    @document.fetch("public_timestamp", "").to_time
+    Time.zone.parse(@document.fetch("public_timestamp", "").to_s).utc
   end
 
   def display_type_key

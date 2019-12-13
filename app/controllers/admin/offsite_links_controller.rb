@@ -20,7 +20,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
   def edit; end
 
   def update
-    if @offsite_link.update_attributes(offsite_link_params)
+    if @offsite_link.update(offsite_link_params)
       redirect_to offsite_link_path(@offsite_link)
     else
       render :edit

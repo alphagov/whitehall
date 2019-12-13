@@ -12,7 +12,7 @@ class PublishingApiPublicationsWorker
   end
 
   def publish
-    return unless about_us_pages.present?
+    return if about_us_pages.blank?
 
     about_us_pages
       .map(&:document_id)
@@ -35,7 +35,7 @@ private
   def_delegator :publication, :publication_type
 
   def about_us_pages
-    return unless organisations.present?
+    return if organisations.blank?
 
     organisations
       .map(&:about_us)

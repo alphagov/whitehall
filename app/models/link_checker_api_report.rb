@@ -1,4 +1,4 @@
-class LinkCheckerApiReport < ActiveRecord::Base
+class LinkCheckerApiReport < ApplicationRecord
   belongs_to :link_reportable, polymorphic: true
   has_many :links,
            -> { order(ordering: :asc) },

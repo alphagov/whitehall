@@ -30,7 +30,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   test "new should build a new operational field" do
     get :new
 
-    refute_nil operational_field = assigns(:operational_field)
+    assert_not_nil operational_field = assigns(:operational_field)
     assert_instance_of(OperationalField, operational_field)
   end
 
@@ -46,7 +46,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     post :create, params: { operational_field: { name: "field-a", description: "desc" } }
 
     operational_field = OperationalField.last
-    refute_nil operational_field
+    assert_not_nil operational_field
     assert_equal "field-a", operational_field.name
     assert_equal "desc", operational_field.description
   end
