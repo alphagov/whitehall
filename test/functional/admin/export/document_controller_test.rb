@@ -126,6 +126,18 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert_response :no_content
   end
 
+  test "removes migrated document from search index" do
+    edition = create(:edition_with_document, body: "Some document being migrated to Content Publisher")
+    edition.document.update(slug: "some-document", locked: true)
+    create(:edition_with_document)
+    login_as :export_data_user
+
+    post :migrated, params: { id: edition.document.id }, format: "json"
+
+    mock = MiniTest::Mock.new
+    mock.expect :call, nil, [Whitehall::SearchIndex.delete(edition)]
+  end
+
   test "does not mark unlocked document as migrated" do
     edition = create(:edition_with_document)
     login_as :export_data_user
