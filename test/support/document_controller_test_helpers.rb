@@ -144,33 +144,6 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_related_policies_for(document_type)
-      view_test "show displays related published policies for #{document_type}" do
-        edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"], policy_2["content_id"]])
-        get :show, params: { id: edition.document }
-        assert_select ".meta a", text: "Policy 1"
-      end
-
-      view_test "should not display an empty list of related policies for #{document_type}" do
-        edition = create("published_#{document_type}", policy_content_ids: [])
-        get :show, params: { id: edition.document }
-        refute_select "#related-policies"
-      end
-
-      view_test "should render related policies on #{document_type} pages" do
-        edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"]])
-        get :show, params: { id: edition.document }
-        assert_select ".meta a", text: policy_1["title"]
-      end
-
-      view_test "shows no policies if publishing api is unavailable" do
-        edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"]])
-        publishing_api_isnt_available
-        get :show, params: { id: edition.document }
-        refute_select ".meta a", text: policy_1["title"]
-      end
-    end
-
     def should_show_the_world_locations_associated_with(document_type)
       view_test "should display the world locations associated with this #{document_type}" do
         first_location = create(:world_location)

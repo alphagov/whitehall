@@ -55,7 +55,6 @@ module PublishingApi
         %i[
           organisations
           policy_areas
-          related_policies
           world_locations
           government
         ],

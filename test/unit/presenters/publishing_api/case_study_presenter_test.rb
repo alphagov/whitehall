@@ -38,14 +38,12 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
         tags: {
           browse_pages: [],
           topics: [],
-          policies: [],
         },
         emphasised_organisations: case_study.lead_organisations.map(&:content_id),
       },
     }
     expected_links = {
       organisations: case_study.lead_organisations.map(&:content_id),
-      related_policies: [],
       topics: [],
       parent: [],
       world_locations: [],
@@ -136,7 +134,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     presented_item = present(case_study)
     expected_links_hash = {
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
-      related_policies: [],
       topics: [],
       parent: [],
       world_locations: [],
@@ -178,14 +175,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     presented_item = present(case_study)
     assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal [wworg.content_id], presented_item.links[:worldwide_organisations]
-  end
-
-  test "links hash includes related policies" do
-    case_study = create(:published_case_study, policy_content_ids: [policy_1["content_id"]])
-    presented_item = present(case_study)
-
-    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
-    assert_equal [policy_area_1["content_id"], policy_1["content_id"]], presented_item.links[:related_policies]
   end
 
   test "an unpublished document has a first_public_at of the document creation time" do

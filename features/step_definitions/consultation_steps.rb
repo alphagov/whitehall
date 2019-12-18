@@ -7,8 +7,6 @@ Given(/^an unopened consultation exists$/) do
 end
 
 When(/^I draft a new consultation "([^"]*)"$/) do |title|
-  publishing_api_has_policies([title])
-
   begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
@@ -21,27 +19,6 @@ When(/^I draft a new consultation "([^"]*)"$/) do |title|
   end
   check "Scotland"
   click_button "Save"
-end
-
-Then(/^I tag it to the policy "([^"]*)" and "([^"]*)"$/) do |policy_1, policy_2|
-  policies = publishing_api_has_policies([policy_1, policy_2])
-
-  click_button "Save and continue"
-  click_button "Save and review legacy tagging"
-  select policy_1, from: "Policies"
-  select policy_2, from: "Policies"
-  click_button "Save"
-end
-
-Then(/^I can see the consultation "([^"]*)" tagged to "([^"]*)" and "([^"]*)"$/) do |title, policy_1, policy_2|
-  assert has_css?(".flash.notice", text: "The associations have been saved")
-
-  click_on 'Edit draft'
-  click_on "Save and continue"
-  click_on "Save and review legacy tagging"
-
-  assert has_css?(".policies option[selected]", text: policy_1)
-  assert has_css?(".policies option[selected]", text: policy_2)
 end
 
 Then(/^I can see links to the consultations "([^"]*)" and "([^"]*)"$/) do |title_1, title_2|

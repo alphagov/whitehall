@@ -44,10 +44,6 @@ class RolePresenter < Whitehall::Decorators::Decorator
     "The " + name
   end
 
-  def published_policies
-    model.published_policies
-  end
-
   def previous_appointments
     model.previous_appointments.reorder("started_at DESC").map { |ra| RoleAppointmentPresenter.new(ra, context) }
   end

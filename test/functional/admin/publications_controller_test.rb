@@ -2,7 +2,6 @@ require "test_helper"
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   include TaxonomyHelper
-  include PolicyTaggingHelpers
   setup do
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
@@ -16,7 +15,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_editing_of :publication
 
   should_allow_speed_tagging_of :publication
-  should_allow_related_policies_for :publication
   should_allow_organisations_for :publication
   should_allow_references_to_statistical_data_sets_for :publication
   should_allow_attached_images_for :publication
@@ -203,7 +201,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(
       :publication,
       organisations: [organisation],
-      policy_content_ids: [policy_1["content_id"]],
       topic_ids: [policy_area.id],
       primary_specialist_sector_tag: "WELLS",
       secondary_specialist_sector_tags: %w(FIELDS OFFSHORE),
@@ -215,7 +212,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".policies li", policy_1["title"]
     assert_select ".policy-areas li", policy_area.name
     assert_selected_specialist_sectors_are_displayed
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/

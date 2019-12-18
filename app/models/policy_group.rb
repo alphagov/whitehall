@@ -33,14 +33,6 @@ class PolicyGroup < ApplicationRecord
     nil
   end
 
-  def published_policies
-    Whitehall.search_client.search(
-      filter_policy_groups: [slug],
-      filter_format: "policy",
-      order: "-public_timestamp",
-    )["results"]
-  end
-
   def has_summary?
     true
   end

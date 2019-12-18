@@ -1,9 +1,3 @@
-Given(/^a published news article "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/) do |news_article_title, policy_title_1, policy_title_2|
-  policies = publishing_api_has_policies([policy_title_1, policy_title_2])
-
-  create(:published_news_article, title: news_article_title, policy_content_ids: policies.map { |p| p['content_id'] })
-end
-
 Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |title, appointee|
   appointment = find_person(appointee).current_role_appointments.last
   news_article = create(:published_news_article, title: title, role_appointments: [appointment])
@@ -164,25 +158,6 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
   click_button "Save"
 end
 
-When(/^I tag the article to a policy "([^"]*)"$/) do |policy|
-  policies = publishing_api_has_policies([policy])
-
-  click_button "Save and continue"
-  click_button "Save and review legacy tagging"
-
-  select policy, from: "Policies"
-  click_button "Save"
-end
-
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
   refute NewsArticle.find_by(title: title).nil?
-end
-
-And(/^the news article is tagged to policy "([^"]*)"$/) do |policy|
-  assert has_css?(".flash.notice", text: "The associations have been saved")
-
-  click_on 'Edit draft'
-  click_on "Save and continue"
-  click_on "Save and review legacy tagging"
-  assert has_css?(".policies option[selected]", text: policy)
 end

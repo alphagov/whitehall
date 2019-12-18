@@ -13,7 +13,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_editing_of :consultation
 
   should_allow_speed_tagging_of :consultation
-  should_allow_related_policies_for :consultation
   should_allow_organisations_for :consultation
   should_allow_attached_images_for :consultation
   should_prevent_modification_of_unmodifiable :consultation

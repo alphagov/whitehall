@@ -4,7 +4,6 @@
 
 <%
   header_title ||= ""
-  policies ||= nil
   specialist_tag_finder = SpecialistTagFinder.new(request.path)
 %>
 <%=
@@ -31,7 +30,6 @@
 </div>
 <%= render 'documents/metadata', document: document,
                                  footer_meta: (defined?(footer_meta) ? footer_meta : false),
-                                 policies: policies,
                                  specialist_tag_finder: specialist_tag_finder %>
 
 <% if document.historic? %>

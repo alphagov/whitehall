@@ -12,7 +12,6 @@
                     header_title: header_title,
                     document: @document,
                     footer_meta: true,
-                    policies: @related_policies,
                   } %>
     </div>
   </header>
@@ -42,7 +41,7 @@
   <% end %>
   <div class="block-5">
     <div class="inner-block">
-      <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
+      <%= render partial: 'documents/document_footer_meta', locals: { document: @document } %>
     </div>
   </div>
 <% end %>

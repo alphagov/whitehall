@@ -253,16 +253,6 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal [{ id: contact.id, content_id: contact.content_id }], result.dig(:editions, 0, :contacts)
   end
 
-  test "includes edition policies" do
-    edition = create(:news_article)
-    EditionPolicy.create!(policy_content_id: SecureRandom.uuid, edition_id: edition.id)
-    edition_policy = edition.edition_policies.first
-
-    result = DocumentExportPresenter.new(edition.document).as_json
-    edition_policy = { id: edition_policy.id, policy_content_id: edition_policy.policy_content_id }
-    assert_equal edition_policy, result.dig(:editions, 0, :edition_policies, 0)
-  end
-
   test "includes editorial remarks" do
     author = create(:user)
     remark = create(:editorial_remark, body: "My remark", author: author)

@@ -97,18 +97,6 @@ var firstPublishedAtFieldset =
     '</div>' +
   '</fieldset>'
 
-var policiesFieldset =
-'  <fieldset class="policies">' +
-'    <label for="edition_policy_content_ids">Policies</label>' +
-'    <input name="edition[policy_content_ids][]" type="hidden" value="" />' +
-'    <select multiple="multiple" class="chzn-select form-control" data-placeholder="Choose policies…" name="edition[policy_content_ids][]" id="edition_policy_content_ids">' +
-'      <option value=""></option>' +
-'      <option value="17e4ab26-ee1f-4383-a345-d165c0b75fbf">School and college funding </option>' +
-'      <option value="26e3144d-b07f-4329-9401-54f503349cd1">Civil contingencies and resilience</option>' +
-'      <option value="2dcb5926-db6e-4347-b6d8-64fa9d5779a5">Brexit</option>' +
-'    </select>' +
-'  </fieldset>'
-
 var roleAppointmentFieldset =
 '  <fieldset class="role-appointments">' +
 '    <label for="edition_role_appointment_ids">Ministers</label>' +
@@ -325,7 +313,6 @@ module("admin-edition-form-policies-news-articles: ", {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(newsArticleTypeSelect)
     $('#qunit-fixture form').append(titleFieldset)
-    $('#qunit-fixture form').append(policiesFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -333,28 +320,6 @@ module("admin-edition-form-policies-news-articles: ", {
     });
     $('.js-hidden').hide();
   }
-});
-
-test("the policies fieldset should initially be visible", function () {
-  ok($('fieldset.policies').is(':visible'), 'fieldset containing policies field is not visible');
-});
-
-test("selecting the 'World news story' News Article type hides the policies fieldset and resets the policies", function () {
-  $select = $('select#edition_news_article_type_id')
-
-  $('#edition_policy_content_ids').val('17e4ab26-ee1f-4383-a345-d165c0b75fbf').change();
-
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.policies').is(':hidden'), 'policies fieldset is visible');
-
-  equal($('#edition_policy_content_ids option:selected').val(), undefined, 'no policy selected');
-});
-
-test("unselecting 'World news story' shows the policies fieldset", function () {
-  $select = $('select#edition_news_article_type_id')
-
-  $select.find("option:contains(News story)").prop('selected', true).change();
-  ok($('fieldset.policies').is(':visible'), 'policies fieldset is hidden');
 });
 
 module("admin-edition-form-role-appointments-news-articles: ", {

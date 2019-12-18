@@ -880,25 +880,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [], non_attachable_edition.attachables
   end
 
-  test "when policies not supported" do
-    edition = create(:edition)
-    assert_not edition.has_policies?
-    assert_not edition.has_legacy_tags?
-  end
-
-  test "when policies are supported but no policies" do
-    edition = create(:publication_without_policy_areas, policy_content_ids: [])
-    assert_not edition.has_policies?
-    assert_not edition.has_legacy_tags?
-  end
-
-  test "when policies exist" do
-    edition = create(:publication_without_policy_areas, policy_content_ids: [policy_1["content_id"]])
-    stub_publishing_api_policies
-    assert edition.has_policies?
-    assert edition.has_legacy_tags?
-  end
-
   test "when policy areas are not supported" do
     edition = create(:edition)
     assert_not edition.has_policy_areas?

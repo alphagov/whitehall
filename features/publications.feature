@@ -10,10 +10,6 @@ Scenario: Creating a new draft publication
   When I draft a new publication "Standard Beard Lengths"
   Then I should see the publication "Standard Beard Lengths" in the list of draft documents
 
-Scenario: Creating a new draft publication related to multiple policies
-  When I draft a new publication "Healthy Eating" relating it to the policies "Policy 1" and "Policy 2"
-  Then the publication should be related to "Policy 1" and "Policy 2" policies
-
 Scenario: Submitting a draft publication to a second pair of eyes
   Given a draft publication "Standard Beard Lengths" exists
   When I submit the publication "Standard Beard Lengths"

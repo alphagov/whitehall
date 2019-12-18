@@ -6,14 +6,6 @@ class MinisterialRole < Role
   has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
-  def published_policies
-    if current_person
-      current_person.published_policies
-    else
-      []
-    end
-  end
-
   def published_speeches(options = {})
     speeches
       .latest_published_edition

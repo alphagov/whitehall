@@ -20,7 +20,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   setup do
     @person = create(:person)
-    stub_search_has_no_policies_for_any_type
+    stub_any_search_to_return_no_results
   end
 
   view_test "#show displays the details of the person and their roles" do
@@ -66,16 +66,5 @@ class PeopleControllerTest < ActionController::TestCase
     get :show, params: { id: person }, format: :atom
 
     assert_redirected_to "/government/announcements.atom?people[]=a-person"
-  end
-
-  view_test "should display the person's policies with content" do
-    create(:ministerial_role_appointment, person: @person)
-    stub_search_has_policies_for_every_type
-
-    get :show, params: { id: @person }
-
-    assert_select "#policy" do
-      assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
-    end
   end
 end

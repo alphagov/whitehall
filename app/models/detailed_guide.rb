@@ -17,7 +17,6 @@ class DetailedGuide < Edition
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::TaggableOrganisations
-  include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
   def self.format_name

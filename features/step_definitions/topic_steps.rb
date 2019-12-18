@@ -84,15 +84,6 @@ When(/^I visit the "([^"]*)" (topic|topical event)$/) do |name, type|
   visit polymorphic_path(classification)
 end
 
-When(/^I set the order of the policies in the "([^"]*)" topic to:$/) do |name, table|
-  topic = Topic.find_by!(name: name)
-  visit edit_admin_topic_path(topic)
-  table.rows.each_with_index do |(policy_name), index|
-    fill_in policy_name, with: index
-  end
-  click_button "Save"
-end
-
 When(/^I set the order of the lead organisations in the "([^"]*)" topic to:$/) do |topic_name, table|
   topic = Topic.find_by!(name: topic_name)
   visit edit_admin_topic_path(topic)
@@ -128,14 +119,6 @@ Then(/^I should be able to delete the topic "([^"]*)"$/) do |name|
   click_link name
   click_on 'Edit'
   click_button 'Delete'
-end
-
-Then(/^I should see the order of the policies in the "([^"]*)" topic is:$/) do |name, expected_table|
-  topic = Topic.find_by!(name: name)
-  visit topic_path(topic)
-  rows = find("#policies").all('h2')
-  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
-  expected_table.diff!(table)
 end
 
 Then(/^I should see the order of the lead organisations in the "([^"]*)" topic is:$/) do |topic_name, expected_table|

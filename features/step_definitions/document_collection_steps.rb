@@ -154,14 +154,6 @@ Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |do
   assert page.body.index(doc_title_1) < page.body.index(doc_title_2), "Expected #{doc_title_1} to be before #{doc_title_2}"
 end
 
-And(/^I tag that document collection to the policy "(.*?)"$/) do |policy|
-  policies = publishing_api_has_policies([policy])
-  click_button "Save and continue"
-  click_button "Save and review legacy tagging"
-  select policy, from: "Policies"
-  click_button "Save"
-end
-
 And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"

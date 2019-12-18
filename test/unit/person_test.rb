@@ -275,9 +275,4 @@ class PersonTest < ActiveSupport::TestCase
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end
   end
-
-  test "#published_policies should return all tagged policies" do
-    person = create(:person)
-    assert_published_policies_returns_all_tagged_policies(person)
-  end
 end

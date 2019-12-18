@@ -49,11 +49,6 @@
                 <%= link_to t('roles.headings.current_holder'), "#current-role-holder", class: "govuk-link" %>
               </li>
             <% end %>
-            <% if @ministerial_role.published_policies.any? %>
-              <li <%= t_lang('policies.heading') %> >
-                <%= link_to t('policies.heading'), "#policies", class: "govuk-link" %>
-              </li>
-            <% end %>
             <% if @ministerial_role.previous_appointments.any? %>
               <li <%= t_lang('roles.headings.previous_holders') %> >
                 <%= link_to t('roles.headings.previous_holders'), "#previous-holders-of-this-role", class: "govuk-link" %>
@@ -104,14 +99,6 @@
               <% end %>
             </ol>
           <% end %>
-        </section>
-      <% end %>
-
-      <% if @ministerial_role.published_policies.any? %>
-        <section class="policy" id="policies">
-          <h1><%= t('policies.heading') %></h1>
-
-          <%= render 'policies/document_list', policies: @ministerial_role.published_policies %>
         </section>
       <% end %>
 

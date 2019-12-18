@@ -1,27 +1,6 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
-  # Returns an Array that represents the curret set of taggable (new-world)
-  # policies. Each element of the array consists of two values: the name and
-  # the content id of the policy
-  #
-  # If the Policy is part of a Policy Area, its name will be displayed as:
-  # Policy Area 2: Policy
-  def taggable_policy_content_ids_container
-    Policy.all.map { |policy|
-      [
-        policy.internal_name || policy.title,
-        policy.content_id,
-      ]
-    }
-  end
-
-  # Returns an array of policy names related to the content_ids
-  # @param {array} content_ids Array of content ids to get names for.
-  def tagged_policy_names(content_ids)
-    taggable_policy_content_ids_container.select { |t| content_ids.include? t.last }.map(&:first)
-  end
-
   # Returns an Array that represents the current set of taggable topics.
   # Each element of the array consists of two values: the name and ID of the
   # topic.
@@ -210,12 +189,6 @@ module Admin::TaggableContentHelper
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
     @taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: "StatisticalDataSet").order(:id), "statistical-data-sets")
-  end
-
-  # Returns an MD5 digest representing the taggable policies. This will change
-  # if any policies are added or updated.
-  def taggable_policies_cache_digest
-    @taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: "Policy").order(:id), "policies")
   end
 
   # Returns an MD5 digest representing the taggable world locations. This will

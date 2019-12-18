@@ -7,11 +7,6 @@ class NewsArticleTest < ActiveSupport::TestCase
   should_have_first_image_pulled_out
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "can be related to other editions" do
-    article = build(:news_article)
-    assert article.can_be_related_to_policies?
-  end
-
   test "can associate news articles with topical events" do
     news_article = create(:news_article)
     assert news_article.can_be_associated_with_topical_events?
@@ -83,12 +78,6 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert_not article.world_news_story?
   end
 
-  test "can be related to policies" do
-    article = build(:news_article)
-
-    assert article.can_be_related_to_policies?
-  end
-
   test "can associate news articles with worldwide organisations" do
     news_article = create(:news_article)
     assert news_article.can_be_associated_with_worldwide_organisations?
@@ -128,20 +117,6 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     news_article.worldwide_organisations = []
     assert_not news_article.valid?
     assert news_article.errors[:worldwide_organisations].include?("at least one required")
-  end
-
-  test "can't be related to policies" do
-    article = build(:news_article_world_news_story)
-
-    assert_not article.can_be_related_to_policies?
-  end
-
-  test "is invalid if a policy is associated" do
-    article = build(:news_article_world_news_story)
-    article.stubs(:edition_policies).returns([Policy.new({})])
-
-    assert_not article.valid?
-    assert_equal ["You can't tag a world news story to policies, please remove policy"], article.errors[:base]
   end
 
   test "are invalid if associated with a minister" do

@@ -23,11 +23,6 @@ Then(/^I should see that the policy only applies to:$/) do |nation_names|
   assert page.has_css?(inapplicable_nations_selector, text: message)
 end
 
-Then(/^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/) do |policy_title_1, policy_title_2|
-  assert has_css?(".meta a", text: policy_title_1)
-  assert has_css?(".meta a", text: policy_title_2)
-end
-
 Then(/^I should see a link to the preview version of the publication "([^"]*)"$/) do |publication_title|
   publication = Publication.find_by!(title: publication_title)
   visit admin_edition_path(publication)
