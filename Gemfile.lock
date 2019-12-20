@@ -333,7 +333,7 @@ GEM
       parallel
     parser (2.6.5.0)
       ast (~> 2.4.0)
-    pdf-reader (2.3.0)
+    pdf-reader (2.4.0)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.1)
       hashery (~> 2.0)
