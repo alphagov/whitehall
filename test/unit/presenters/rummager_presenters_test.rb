@@ -33,11 +33,6 @@ class RummagerPresentersTest < ActiveSupport::TestCase
     assert RummagerPresenters.present_all_government_content.include?(:organisations)
   end
 
-  test "RummagerPresenters.present_all_government_content includes ministerial roles" do
-    MinisterialRole.stubs(:search_index).returns([:ministerial_roles])
-    assert RummagerPresenters.present_all_government_content.include?(:ministerial_roles)
-  end
-
   test "RummagerPresenters.present_all_detailed_content includes guidance" do
     DetailedGuide.stubs(:search_index).returns([:guidance])
     assert RummagerPresenters.present_all_detailed_content.include?(:guidance)

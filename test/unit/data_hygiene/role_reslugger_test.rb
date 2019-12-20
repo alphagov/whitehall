@@ -46,14 +46,4 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
 
     assert_all_requested(expected_publish_requests)
   end
-
-  test "deletes the old slug from the search index" do
-    Whitehall::SearchIndex.expects(:delete).with { |minister| minister.slug == "misspelt-role" }
-    @reslugger.run!
-  end
-
-  test "adds the new slug from the search index" do
-    Whitehall::SearchIndex.expects(:add).with { |minister| minister.slug == "corrected-slug" }
-    @reslugger.run!
-  end
 end
