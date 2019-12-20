@@ -16,7 +16,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     expected_hash = {
       base_path: "/government/ministers/#{role.slug}",
       title: role.name,
-      description: nil,
+      description: "X and Y",
       schema_name: "role",
       document_type: "ministerial_role",
       locale: "en",
@@ -63,7 +63,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     expected_hash = {
       base_path: nil,
       title: role.name,
-      description: nil,
+      description: "Y and Z",
       schema_name: "role",
       document_type: "board_member_role",
       locale: "en",
