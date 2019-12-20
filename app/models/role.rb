@@ -168,6 +168,10 @@ class Role < ApplicationRecord
     HISTORIC_ROLE_PARAM_MAPPINGS.invert[slug]
   end
 
+  def responsibilities_without_markup
+    Govspeak::Document.new(responsibilities).to_text
+  end
+
 private
 
   def prevent_destruction_unless_destroyable
