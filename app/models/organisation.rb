@@ -1,7 +1,6 @@
 class Organisation < ApplicationRecord
   include PublishesToPublishingApi
   include Searchable
-  include MinisterialRole::MinisterialRoleReindexingConcern
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
 

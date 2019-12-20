@@ -1,5 +1,4 @@
 class RoleAppointment < ApplicationRecord
-  include MinisterialRole::MinisterialRoleReindexingConcern
   include HasContentId
   include PublishesToPublishingApi
 
