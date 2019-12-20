@@ -1,6 +1,5 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
-  include Searchable
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
@@ -32,12 +31,6 @@ class Person < ApplicationRecord
   validates_with SafeHtmlValidator
 
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
-
-  searchable title: :name,
-             link: :search_link,
-             content: :biography_appropriate_for_role_without_markup,
-             description: :biography_appropriate_for_role_without_markup,
-             slug: :slug
 
   extend FriendlyId
   friendly_id :slug_name

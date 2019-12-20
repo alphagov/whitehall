@@ -67,8 +67,6 @@ class RoleAppointment < ApplicationRecord
 
   after_save :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
-  after_save :update_indexes
-  after_destroy :update_indexes
 
   def republish_organisation_to_publishing_api
     organisations.each do |organisation|
@@ -78,10 +76,6 @@ class RoleAppointment < ApplicationRecord
 
   def self.between(start_time, end_time)
     where(started_at: start_time..end_time)
-  end
-
-  def update_indexes
-    person.update_in_search_index
   end
 
   attr_accessor :make_current
