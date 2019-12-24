@@ -47,7 +47,6 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert_equal expected_response, json_response
   end
 
-
   test "doesnt return the document where the latest edition is not associated with lead org" do
     published_edition_org = create(:organisation)
     draft_edition_org = create(:organisation)
@@ -71,6 +70,67 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     login_as :export_data_user
 
     get :index, params: { lead_organisation: published_edition_org.content_id,
+                          type: "NewsArticle" }, format: "json"
+
+    expected_response =
+      {
+        "documents" => [],
+        "page_number" => 1,
+        "page_count" => 0,
+        "_response_info" => { "status" => "ok" },
+    }
+
+    assert_equal expected_response, json_response
+  end
+
+  test "returns the document for the first lead organisation" do
+    first_lead_org = create(:organisation)
+    edition = create(
+      :news_article,
+      :published,
+      :with_document,
+      news_article_type: NewsArticleType::NewsStory,
+    )
+
+    create(:edition_organisation, edition: edition, organisation: first_lead_org, lead: true, lead_ordering: 1)
+
+    login_as :export_data_user
+
+    get :index, params: { lead_organisation: first_lead_org.content_id,
+                          type: "NewsArticle" }, format: "json"
+
+    expected_response =
+      {
+        "documents" => [{
+          "document_id" => edition.document_id,
+          "document_information" => {
+            "locales" => %w[en],
+            "subtypes" => %w[news_story],
+            "lead_organisations" => [first_lead_org.content_id, edition.organisations.last.content_id],
+          },
+        }],
+        "page_number" => 1,
+        "page_count" => 1,
+        "_response_info" => { "status" => "ok" },
+    }
+    assert_equal expected_response, json_response
+  end
+
+  test "doesn't return the document if the lead organisation is not the first lead organisation" do
+    second_lead_org = create(:organisation)
+    edition = create(
+      :news_article,
+      :published,
+      :with_document,
+      news_article_type: NewsArticleType::NewsStory,
+    )
+
+    create(:edition_organisation, edition: edition, organisation: build(:organisation), lead: true, lead_ordering: 1)
+    create(:edition_organisation, edition: edition, organisation: second_lead_org, lead: true, lead_ordering: 2)
+
+    login_as :export_data_user
+
+    get :index, params: { lead_organisation: second_lead_org.content_id,
                           type: "NewsArticle" }, format: "json"
 
     expected_response =
