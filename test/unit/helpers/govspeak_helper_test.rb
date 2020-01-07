@@ -221,6 +221,7 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     assert_select_within_html html, ".attachment-inline"
+    assert_includes strip_tags(html).gsub("\n", ""), " (PDF, )."
   end
 
   test "should ignore missing block attachments" do
