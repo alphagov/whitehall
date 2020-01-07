@@ -26,10 +26,13 @@ module FeedHelper
     # spec.
     # The interpolation logic is straight out of:
     # http://api.rubyonrails.org/classes/ActionView/Helpers/AtomFeedHelper/AtomFeedBuilder.html#method-i-entry
-    id = record.try(:document) ? record.document.id : record.id
-    return id if record.is_a?(RummagerDocumentPresenter)
+    if record.is_a?(RummagerDocumentPresenter)
+      record.id
+    else
+      id = record&.document&.id || record.id
 
-    "tag:#{host},#{schema_date(builder)}:#{record.class}/#{id}"
+      "tag:#{host},#{schema_date(builder)}:#{record.class}/#{id}"
+    end
   end
 
   def schema_date(builder)
