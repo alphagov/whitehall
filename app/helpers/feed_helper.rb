@@ -29,7 +29,7 @@ module FeedHelper
     if record.is_a?(RummagerDocumentPresenter)
       record.id
     else
-      id = record.try(:document) ? record.document.id : record.id
+      id = record&.document&.id || record.id
 
       "tag:#{host},#{schema_date(builder)}:#{record.class}/#{id}"
     end
