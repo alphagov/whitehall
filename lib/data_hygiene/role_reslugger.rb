@@ -17,7 +17,6 @@ module DataHygiene
     end
 
     def run!
-      remove_from_search_index
       update_slug
     end
 
@@ -25,18 +24,9 @@ module DataHygiene
 
     attr_reader :role, :new_slug, :old_slug
 
-    def remove_from_search_index
-      Whitehall::SearchIndex.delete(role)
-    end
-
     def update_slug
-      # Note: This will trigger calls to both rummager and the Publishing API,
-      # meaning that entries in both places will exist with the correct slug
+      # Note: This will trigger calls to the Publishing API.
       role.update!(slug: new_slug)
-    end
-
-    def new_base_path
-      Whitehall.url_maker.ministerial_role_path(new_slug)
     end
   end
 end
