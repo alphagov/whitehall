@@ -19,7 +19,10 @@ module Edition::RoleAppointments
   end
 
   def search_index
-    super.merge("people" => role_appointments.map(&:slug))
+    super.merge(
+      "people" => role_appointments.map(&:slug),
+      "roles" => role_appointments.filter(&:ministerial?).map { |ra| ra.role.slug },
+    )
   end
 
   def is_associated_with_a_minister?
