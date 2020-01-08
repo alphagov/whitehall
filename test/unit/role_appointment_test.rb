@@ -395,4 +395,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [last_month], RoleAppointment.between(2.months.ago, 1.week.ago)
     assert_equal [today, last_month, last_year], RoleAppointment.between(1.year.ago, Time.zone.now)
   end
+
+  test "delegates ministerial? to the role" do
+    minister = create(:ministerial_role)
+    minister_appointment = create(:role_appointment, role: minister)
+    assert minister_appointment.ministerial?
+
+    non_minister = create(:judge_role)
+    non_minister_appointment = create(:role_appointment, role: non_minister)
+    assert_not non_minister_appointment.ministerial?
+  end
 end

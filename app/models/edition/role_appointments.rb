@@ -23,8 +23,6 @@ module Edition::RoleAppointments
   end
 
   def is_associated_with_a_minister?
-    role_appointments.any? do |role_appointment|
-      role_appointment.role.is_a?(MinisterialRole)
-    end
+    role_appointments.any?(&:ministerial?)
   end
 end

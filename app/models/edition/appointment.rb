@@ -10,7 +10,7 @@ module Edition::Appointment
   end
 
   def is_associated_with_a_minister?
-    role_appointment && role.is_a?(MinisterialRole)
+    role_appointment && role.ministerial?
   end
 
   def person
