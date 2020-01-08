@@ -25,7 +25,10 @@ module Edition::Appointment
     if person_override?
       super
     else
-      super.merge("people" => [person.slug])
+      super.merge({
+        "people" => [person.slug],
+        "roles" => is_associated_with_a_minister? ? [role.slug] : nil,
+      }.compact)
     end
   end
 end
