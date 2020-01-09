@@ -1,6 +1,5 @@
 class HtmlAttachment < Attachment
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: :attachable
 
   include HasContentId
 
