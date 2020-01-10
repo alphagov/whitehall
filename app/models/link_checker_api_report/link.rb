@@ -4,6 +4,10 @@ class LinkCheckerApiReport::Link < ApplicationRecord
 
   belongs_to :report, class_name: "LinkCheckerApiReport"
 
+  scope :status_ok, -> { where(status: "ok") }
+  scope :created_six_months_ago, -> { where("created_at < ?", 6.months.ago) }
+  scope :deletable, -> { self.status_ok.merge(self.created_six_months_ago) }
+
   def self.attributes_from_link_report(payload)
     {
       uri: payload.fetch("uri"),
