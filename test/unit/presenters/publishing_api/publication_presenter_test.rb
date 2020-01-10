@@ -35,7 +35,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         tags: {
           browse_pages: [],
-          policies: %w[2012-olympic-and-paralympic-legacy],
           topics: [],
         },
         documents: ["<section class=\"attachment embedded\" id=\"attachment_#{publication.attachments.first.id}\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" tabindex=\"-1\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\"><img alt=\"\" src=\"/government/assets/pub-cover-html.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{publication.attachments.first.title}</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"],
@@ -57,8 +56,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     publication.role_appointments << minister
     topical_event = create(:topical_event)
     publication.classification_memberships.create(classification_id: topical_event.id)
-    publication.policy_content_ids = %w[5d37821b-7631-11e4-a3cb-005056011aef]
-
     expected_links = {
       topics: [],
       parent: [],
@@ -70,7 +67,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [topical_event.content_id],
-      related_policies: %w[5d37821b-7631-11e4-a3cb-005056011aef],
       policy_areas: publication.topics.map(&:content_id),
       roles: publication.role_appointments.map(&:role).collect(&:content_id),
       people: publication.role_appointments.map(&:person).collect(&:content_id),

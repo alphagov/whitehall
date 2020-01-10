@@ -223,13 +223,6 @@ Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |ed
   assert page.has_no_content?(edition.title)
 end
 
-Then(/^the publication should be related to "([^"]*)" and "([^"]*)" policies$/) do |related_policy_1, related_policy_2|
-  policies_titles = Publication.last.policies.map(&:title)
-
-  assert policies_titles.include?(related_policy_1)
-  assert policies_titles.include?(related_policy_2)
-end
-
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
   assert_equal new_title, find(".conflicting.new #edition_title").value
   assert page.has_css?(".conflicting.latest .document .title", text: latest_title)

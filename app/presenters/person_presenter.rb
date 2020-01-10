@@ -21,10 +21,6 @@ class PersonPresenter < Whitehall::Decorators::Decorator
     model.current_ministerial_roles.map { |role| RolePresenter.new(role, context) }
   end
 
-  def has_policy_responsibilities?
-    model.current_ministerial_roles.any? { |role| role.published_policies.any? }
-  end
-
   def announcements
     search_results = Whitehall.search_client.search(
       filter_people: model.slug,

@@ -1,4 +1,4 @@
-When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)" associated with "([^"]*)"$/) do |title, field, policy|
+When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/) do |title, field|
   links = {
     "links" => {
       "taxons" => ["a-taxon-content-id"]
@@ -6,7 +6,7 @@ When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)" associ
   }
   Services.publishing_api.stubs(:get_links).returns(links)
 
-  draft_fatality_notice(title, field, policy)
+  draft_fatality_notice(title, field)
   publish(force: true)
 end
 
@@ -40,7 +40,7 @@ Then(/^I can see the roll call introduction of the fatality notice titled "([^"]
 end
 
 Then(/^I can create a fatality notice$/) do
-  draft_fatality_notice("Fatality Notice", "Iraq", "Defence Policy")
+  draft_fatality_notice("Fatality Notice", "Iraq")
 end
 
 When(/^I add a casualty to the fatality notice$/) do

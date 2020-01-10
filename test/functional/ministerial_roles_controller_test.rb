@@ -8,7 +8,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   setup do
-    stub_search_has_no_policies_for_any_type
+    stub_any_search_to_return_no_results
   end
 
   test "shows cabinet roles in correct order" do

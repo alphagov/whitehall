@@ -3,7 +3,6 @@ module DocumentHelper
   include CountryHelper
   include DocumentCollectionHelper
   include MinisterialRolesHelper
-  include PolicyHelper
   include PolicyGroupsHelper
   include RoleAppointmentsHelper
   include TopicsHelper
@@ -210,7 +209,7 @@ Please tell us:
     link_to native_language_name_for(locale), options, lang: locale, class: "govuk-link"
   end
 
-  def part_of_metadata(document, policies = [], sector_tag_finder = SpecialistTagFinder::Null.new)
+  def part_of_metadata(document, sector_tag_finder = SpecialistTagFinder::Null.new)
     part_of = []
 
     if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
@@ -229,10 +228,6 @@ Please tell us:
       link_to topic["title"], topic["web_url"], class: "sector-link"
     end
     part_of += links_to_topics
-
-    if policies.any?
-      part_of += array_of_links_to_policies(policies)
-    end
 
     if document.respond_to?(:world_locations) && document.world_locations.any?
       part_of += array_of_links_to_world_locations(document.world_locations)

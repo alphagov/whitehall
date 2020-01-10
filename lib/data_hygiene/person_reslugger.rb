@@ -16,7 +16,6 @@ module DataHygiene
     end
 
     def run!
-      remove_from_search_index
       update_slug
       republish_dependencies
     end
@@ -25,18 +24,9 @@ module DataHygiene
 
     attr_reader :person, :new_slug, :old_slug
 
-    def remove_from_search_index
-      Whitehall::SearchIndex.delete(person)
-    end
-
     def update_slug
-      # Note: This will trigger calls to both rummager and the Publishing API,
-      # meaning that entries in both places will exist with the correct slug
+      # Note: This will trigger calls to the Publishing API.
       person.update!(slug: new_slug)
-    end
-
-    def new_base_path
-      Whitehall.url_maker.person_path(new_slug)
     end
 
     def republish_dependencies

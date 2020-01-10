@@ -1,6 +1,3 @@
-<%
-  policies ||= []
-%>
 <aside class="meta metadata-list">
   <div class="inner-heading">
     <dl>
@@ -9,13 +6,10 @@
         <dd class="js-hide-extra-metadata"><%= from.to_sentence.html_safe %></dd>
       <% end %>
 
-      <%= render  partial: 'document_extra_metadata',
-                  locals: { document: document } %>
-
       <%= render  partial: 'documents/change_notes',
                   locals: { document: document, footer_meta: footer_meta } %>
 
-      <% if (part_of = part_of_metadata(document, policies, specialist_tag_finder)).any? %>
+      <% if (part_of = part_of_metadata(document, specialist_tag_finder)).any? %>
         <dt><%= t('document.headings.part_of') %>:</dt>
         <dd class="js-hide-extra-metadata"><%= part_of.to_sentence.html_safe %></dd>
       <% end %>

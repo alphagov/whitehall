@@ -153,40 +153,6 @@ class Classification < ApplicationRecord
     name
   end
 
-  def policy_content_ids
-    classification_policies.map(&:policy_content_id)
-  end
-
-  def policy_content_ids=(content_ids)
-    # This is a workaround to preserve the functionality
-    # where tagging to a policy automatically tags to the parent
-    # policies, so that the content appears in the parent policies' finders.
-    all_content_ids = parent_policy_content_ids(content_ids) + Set.new(content_ids)
-
-    self.classification_policies = all_content_ids.map { |content_id|
-      ClassificationPolicy.new(policy_content_id: content_id)
-    }
-  end
-
-  def parent_policy_content_ids(content_ids)
-    parent_ids = Set.new
-
-    content_ids.each do |policy_content_id|
-      link_response = Services.publishing_api.get_links(policy_content_id)
-      next unless link_response
-
-      if (pa_links = Services.publishing_api.get_links(policy_content_id)["links"]["policy_areas"])
-        parent_ids += pa_links
-      end
-    end
-
-    parent_ids
-  end
-
-  def policies
-    Policy.from_content_ids(policy_content_ids)
-  end
-
 private
 
   def logo_changed?

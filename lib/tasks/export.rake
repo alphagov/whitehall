@@ -99,7 +99,6 @@ namespace :export do
             edition.public_timestamp,
             edition.respond_to?(:role_appointments) ? edition.role_appointments.map(&:slug).join("|") : nil,
             edition.respond_to?(:published_document_collections) ? edition.published_document_collections.map(&:slug).join("|") : nil,
-            edition.respond_to?(:related_policies) ? edition.related_policies.map(&:slug).join("|") : nil,
             edition.respond_to?(:topics) ? edition.topics.map(&:slug).join("|") : nil,
             edition.respond_to?(:topical_events) ? edition.topical_events.map(&:slug).join("|") : nil,
           ]

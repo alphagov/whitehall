@@ -13,7 +13,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_display_organisation_page_elements_for(:executive_office)
 
   setup do
-    stub_search_has_no_policies_for_any_type
+    stub_any_search_to_return_no_results
 
     content_store_has_item(
       "/courts-tribunals",

@@ -33,6 +33,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
 
     document.editions.each do |edition|
       Whitehall::InternalLinkUpdater.new(edition).call
+      Whitehall::SearchIndex.delete(edition)
     end
 
     ContentPublisher::FeaturedDocumentMigrator.new(document).call
@@ -43,7 +44,14 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
 
   def paginated_document_ids
     Edition
-      .joins("INNER JOIN edition_organisations eo ON eo.edition_id = editions.id")
+      .joins("INNER JOIN edition_organisations eo ON eo.edition_id = editions.id
+        AND eo.organisation_id = (
+          SELECT organisation_id FROM edition_organisations
+          WHERE lead = true AND
+                edition_organisations.edition_id = editions.id
+          ORDER BY lead_ordering ASC
+          LIMIT 1
+          )")
       .joins("INNER JOIN organisations o ON o.id = eo.organisation_id")
       .where(o: { content_id: params.require(:lead_organisation) })
       .where(eo: { lead: true })

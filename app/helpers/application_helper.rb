@@ -1,12 +1,4 @@
 module ApplicationHelper
-  def policies_path
-    "/government/policies"
-  end
-
-  def policies_finder_path(query_params)
-    "#{policies_path}?#{query_params.to_query}"
-  end
-
   def page_title(*title_parts)
     if title_parts.any?
       title_parts.push("Admin") if params[:controller].match?(/^admin\//)
@@ -246,8 +238,6 @@ module ApplicationHelper
       end
     when "world_locations", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
       world_locations_path(locale: :en)
-    when "policy_groups"
-      policies_path
     when "take_part_pages"
       get_involved_path
     when "latest"

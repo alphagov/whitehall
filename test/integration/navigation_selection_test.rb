@@ -18,7 +18,6 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     operational_fields
     organisations
     past_foreign_secretaries
-    policy_groups
     publications
     speeches
     statistical_data_sets

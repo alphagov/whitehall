@@ -18,19 +18,12 @@ module PublishingApi
           # https://gov-uk.atlassian.net/wiki/display/TECH/Email+alerts+2.0
           tags: {
             browse_pages: [],
-            policies: policies,
             topics: specialist_sectors,
           },
         }
       end
 
     private
-
-      def policies
-        return [] unless item.can_be_related_to_policies?
-
-        item.policies.map(&:slug)
-      end
 
       def specialist_sectors
         [item.primary_specialist_sector_tag].compact + item.secondary_specialist_sector_tags

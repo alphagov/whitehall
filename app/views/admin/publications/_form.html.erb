@@ -11,12 +11,8 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <% if Topic.exists? && Policy.all.any? %>
-        <p>You'll be able to select Topics, Policies, Policy Areas and Specialist Sectors later.</p>
-      <% elsif Topic.exists? %>
+      <% if Topic.exists? %>
         <p>You'll be able to select Topics, Policy Areas, and Specialist Sectors later.</p>
-      <% elsif Policy.all.any? %>
-        <p>You'll be able to select Topics, Policies, and Specialist Sectors later.</p>
       <% else %>
         <p>You'll be able to select Topics and Specialist Sectors later.</p>
       <% end %>

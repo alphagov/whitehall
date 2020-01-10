@@ -45,11 +45,6 @@
                 <%= link_to t('people.previous_roles'), "#previous-roles", class: "govuk-link" %>
               </li>
             <% end %>
-            <% if @person.has_policy_responsibilities? %>
-              <li <%= t_lang('policies.heading') %>>
-                <%= link_to t('policies.heading'), "#policy", class: "govuk-link" %>
-              </li>
-            <% end %>
             <% if @person.announcements.any? %>
               <li <%= t_lang('announcements.heading') %>>
                 <%= link_to t('announcements.heading'), "#announcements", class: "govuk-link" %>
@@ -119,17 +114,6 @@
               <% end %>
             <% end %>
           </ol>
-        </section>
-      <% end %>
-
-      <% if @person.has_policy_responsibilities? %>
-        <section id="policy" class="govuk-!-padding-bottom-9">
-          <%= render "govuk_publishing_components/components/heading", {
-            text: t('policies.heading'),
-            lang: t_locale('policies.heading'),
-            heading_level: 2,
-          } %>
-          <%= render 'policies/document_list', policies: @person.published_policies %>
         </section>
       <% end %>
 

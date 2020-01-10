@@ -3,39 +3,6 @@ require "test_helper"
 class PersonTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :biography
 
-  test "should return search index data suitable for Rummageable" do
-    person = create(:person, content_id: "f585949d-3796-4566-ab31-cb0d978aec00", forename: "David", surname: "Cameron", biography: "David Cameron became Prime Minister in May 2010.")
-
-    assert_equal({
-                  "content_id" => "f585949d-3796-4566-ab31-cb0d978aec00",
-                  "title" => "David Cameron",
-                  "link" => "/government/people/david-cameron",
-                  "indexable_content" => "David Cameron became Prime Minister in May 2010.",
-                  "format" => "person",
-                  "description" => "David Cameron became Prime Minister in May 2010.",
-                  "slug" => "david-cameron",
-                  }, person.search_index)
-  end
-
-  test "truncates the biography sent to rummager unless they currently hold a role" do
-    full_bio = <<~BIO
-      Dapibus Mattis Euismod
-
-      Sit Aenean Venenatis
-
-      Vulputate Euismod Vehicula
-    BIO
-
-    person_in_role = FactoryBot.create(:person, biography: full_bio)
-    FactoryBot.create(:role_appointment, person: person_in_role)
-    person_in_role.reload
-
-    person_not_in_role = FactoryBot.create(:person, biography: full_bio)
-
-    assert_equal "Dapibus Mattis Euismod", person_not_in_role.search_index["indexable_content"]
-    assert_equal full_bio.gsub(/[\n]+/, " ").strip, person_in_role.search_index["indexable_content"]
-  end
-
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
     assert_not person.valid?
@@ -274,10 +241,5 @@ class PersonTest < ActiveSupport::TestCase
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end
-  end
-
-  test "#published_policies should return all tagged policies" do
-    person = create(:person)
-    assert_published_policies_returns_all_tagged_policies(person)
   end
 end

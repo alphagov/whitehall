@@ -21,12 +21,6 @@ Given(/^a published speech exists$/) do
   @speech = create(:published_speech)
 end
 
-Given(/^a published speech "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/) do |speech_title, policy_title_1, policy_title_2|
-  policies = publishing_api_has_policies([policy_title_1, policy_title_2])
-
-  create(:published_speech, title: speech_title, policy_content_ids: policies.map { |p| p['content_id'] })
-end
-
 When(/^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/) do |original_title, new_title|
   speech = Speech.find_by!(title: original_title)
   visit admin_edition_path(speech)
@@ -58,16 +52,6 @@ end
 When(/^I visit the speech "([^"]*)"$/) do |title|
   speech = Speech.find_by!(title: title)
   visit public_document_path(speech)
-end
-
-When(/^I draft a new speech "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
-  begin_drafting_speech title: title
-  click_button "Save and continue"
-  click_button "Save and review legacy tagging"
-  # @policies is populated by PolicyTaggingHelpers#stub_publishing_api_policies
-  select first_policy, from: "Policies"
-  select second_policy, from: "Policies"
-  click_button "Save"
 end
 
 Then(/^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/) do |delivered_on, location|
@@ -103,17 +87,4 @@ end
 
 Then(/^I should see that "(.*?)" is listed on the page$/) do |title|
   assert page.has_content?(title)
-end
-
-Then(/^"(.*?)" should be related to "([^"]*)" and "([^"]*)" policies$/) do |title, policy_title_1, policy_title_2|
-  speech = Speech.find_by(title: title).latest_edition
-
-  # @policies is populated by PolicyTaggingHelpers#stub_publishing_api_policies
-  expected_policies = @policies.select do |p|
-    [policy_title_1, policy_title_2].include?(p["title"])
-  end
-  expected_policy_content_ids = expected_policies.map { |p| p["content_id"] }
-  matching_policy_content_ids = (speech.policy_content_ids & expected_policy_content_ids)
-
-  assert_equal(expected_policy_content_ids, matching_policy_content_ids)
 end

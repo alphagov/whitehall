@@ -1,7 +1,5 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
-  include Searchable
-  include MinisterialRole::MinisterialRoleReindexingConcern
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
@@ -34,12 +32,6 @@ class Person < ApplicationRecord
 
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
-  searchable title: :name,
-             link: :search_link,
-             content: :biography_appropriate_for_role_without_markup,
-             description: :biography_appropriate_for_role_without_markup,
-             slug: :slug
-
   extend FriendlyId
   friendly_id :slug_name
 
@@ -56,14 +48,6 @@ class Person < ApplicationRecord
     organisations.each do |organisation|
       Whitehall::PublishingApi.republish_async(organisation)
     end
-  end
-
-  def published_policies
-    Whitehall.search_client.search(
-      filter_people: [slug],
-      filter_format: "policy",
-      order: "-public_timestamp",
-    )["results"]
   end
 
   def search_link

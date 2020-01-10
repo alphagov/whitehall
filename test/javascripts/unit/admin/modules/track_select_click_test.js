@@ -1,18 +1,6 @@
 var form =
   '<form id="non-english" class="js-supports-non-english"></form>'
 
-var policiesTrackedFieldset =
-'  <fieldset class="policies">' +
-'    <label for="edition_policy_content_ids">Policies</label>' +
-'    <input name="edition[policy_content_ids][]" type="hidden" value="" />' +
-'    <select multiple="multiple" class="chzn-select form-control" data-placeholder="Choose policies..." name="edition[policy_content_ids][]" id="edition_policy_content_ids" data-track-label="/government/admin/publication/new" data-track-category="taxonSelectionPolicies" data-module="track-select-click">' +
-'      <option value=""></option>' +
-'      <option value="17e4ab26-ee1f-4383-a345-d165c0b75fbf">School and college funding</option>' +
-'      <option value="26e3144d-b07f-4329-9401-54f503349cd1">Civil contingencies and resilience</option>' +
-'      <option value="2dcb5926-db6e-4347-b6d8-64fa9d5779a5">Brexit</option>' +
-'    </select>' +
-'  </fieldset>'
-
 var policyAreasTrackedFieldset =
 '  <fieldset class="edition-topic-fields">' +
 '    <label for="edition_topic_ids">Policy Areas</label>' +
@@ -67,7 +55,6 @@ module("TrackSelectClick", {
     this.subject = new GOVUKAdmin.Modules.TrackSelectClick();
 
     $('#qunit-fixture').append(form)
-    $('#qunit-fixture form').append(policiesTrackedFieldset)
     $('#qunit-fixture form').append(policyAreasTrackedFieldset)
     $('#qunit-fixture form').append(primarySpecialistSectorTrackedFieldset)
     $('#qunit-fixture form').append(secondarySpecialistSectorTrackedFieldset)
@@ -78,23 +65,6 @@ module("TrackSelectClick", {
     });
     $('.js-hidden').hide();
   }
-});
-
-test("the policies fieldset should send a tracking event on change", function () {
-  var policiesSelectBox = $('#edition_policy_content_ids');
-  var spy = sinon.spy(GOVUKAdmin, 'trackEvent');
-
-  this.subject.start(policiesSelectBox);
-
-  policiesSelectBox.val('17e4ab26-ee1f-4383-a345-d165c0b75fbf').change();
-
-  sinon.assert.calledOnce(spy);
-  deepEqual(
-    spy.args[0],
-    ["taxonSelectionPolicies", "School and college funding", {}]
-  );
-
-  spy.restore()
 });
 
 test("the policy areas fieldset should send a tracking event on change", function () {

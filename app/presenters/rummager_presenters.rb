@@ -22,8 +22,6 @@ module RummagerPresenters
   def self.searchable_classes
     [
       Organisation,
-      MinisterialRole,
-      Person,
       Topic,
       TopicalEvent,
       OperationalField,

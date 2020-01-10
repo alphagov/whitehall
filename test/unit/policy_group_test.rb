@@ -35,11 +35,6 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group.publish_to_publishing_api
   end
 
-  test "#published_policies should return all tagged policies" do
-    policy_group = create(:policy_group)
-    assert_published_policies_returns_all_tagged_policies(policy_group)
-  end
-
   test "#access_limited? returns false" do
     policy_group = FactoryBot.build(:policy_group)
     assert_not policy_group.access_limited?

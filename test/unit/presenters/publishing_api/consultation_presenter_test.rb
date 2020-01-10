@@ -81,7 +81,6 @@ module PublishingApi::ConsultationPresenterTest
         organisations
         parent
         policy_areas
-        related_policies
         topics
         government
       )
@@ -114,7 +113,6 @@ module PublishingApi::ConsultationPresenterTest
         organisations: consultation.organisations.map(&:content_id),
         parent: [],
         policy_areas: consultation.topics.map(&:content_id),
-        related_policies: [],
         topics: [],
       }
 

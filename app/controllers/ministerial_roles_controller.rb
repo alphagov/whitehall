@@ -19,7 +19,6 @@ class MinisterialRolesController < PublicFacingController
 
   def show
     @ministerial_role = RolePresenter.new(MinisterialRole.friendly.find(params[:id]), view_context)
-    @policies = @ministerial_role.published_policies
     set_slimmer_organisations_header(@ministerial_role.organisations)
     set_slimmer_page_owner_header(@ministerial_role.organisations.first)
   end

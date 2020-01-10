@@ -257,7 +257,7 @@ private
     end
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
       if (attachment = attachments[$1.to_i - 1])
-        render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment })
+        render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment }).chomp
       else
         ""
       end

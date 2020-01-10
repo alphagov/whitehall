@@ -37,22 +37,12 @@ private
   def edition_params
     @edition_params ||=
       params.fetch(:edition, {}).permit(*permitted_edition_attributes)
-    clean_blank_values(@edition_params)
-  end
-
-  def clean_blank_values(edition_params)
-    if edition_params[:policy_content_ids]
-      edition_params.merge(policy_content_ids: @edition_params[:policy_content_ids].reject(&:blank?))
-    else
-      edition_params
-    end
   end
 
   def permitted_edition_attributes
     [
       :primary_specialist_sector_tag,
       secondary_specialist_sector_tags: [],
-      policy_content_ids: [],
       topic_ids: [],
     ]
   end

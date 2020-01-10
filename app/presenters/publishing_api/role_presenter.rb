@@ -20,7 +20,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        description: nil,
+        description: item.responsibilities_without_markup,
         details: details,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,

@@ -381,10 +381,6 @@ class Edition < ApplicationRecord
     false
   end
 
-  def can_be_related_to_policies?
-    false
-  end
-
   def can_be_related_to_mainstream_content?
     false
   end
@@ -671,11 +667,7 @@ class Edition < ApplicationRecord
   end
 
   def has_legacy_tags?
-    has_policies? || has_policy_areas? || has_primary_sector? || has_secondary_sectors?
-  end
-
-  def has_policies?
-    false
+    has_policy_areas? || has_primary_sector? || has_secondary_sectors?
   end
 
   def has_policy_areas?

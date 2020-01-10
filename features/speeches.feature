@@ -11,11 +11,6 @@ Scenario: Editing an existing draft speech
   When I edit the speech "Outlaw Moustaches" changing the title to "Ban Moustaches"
   Then I should see the speech "Ban Moustaches" in the list of draft documents
 
-Scenario: Creating a speech related to multiple policies
-  Given I am a writer
-  When I draft a new speech "Fishy Business" relating it to the policies "Policy 1" and "2012 olympic and paralympic legacy"
-  Then "Fishy Business" should be related to "Policy 1" and "2012 olympic and paralympic legacy" policies
-
 Scenario: Trying to save a speech that has been changed by another user
   Given I am a writer
   And a draft speech "Outlaw Moustaches" exists

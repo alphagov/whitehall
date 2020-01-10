@@ -37,7 +37,6 @@ module PublishingApi
         details: {
           tags: {
             browse_pages: [],
-            policies: [],
             topics: ["oil-and-gas/taxation", "oil-and-gas/licensing"],
           },
         },

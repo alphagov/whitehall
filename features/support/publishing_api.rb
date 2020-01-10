@@ -1,4 +1,5 @@
 require 'gds_api/publishing_api_v2'
+require 'gds_api/test_helpers/publishing_api_v2'
 require_relative '../../test/support/policy_tagging_helpers'
 require_relative 'mocha'
 
@@ -59,8 +60,7 @@ Before do
     )
 
   publishing_api_has_linkables([need_1, need_2], document_type: "need")
-
-  stub_publishing_api_policies
 end
 
 World(PolicyTaggingHelpers)
+World(GdsApi::TestHelpers::PublishingApiV2)

@@ -22,18 +22,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal "bobs-bike", topic.slug
   end
 
-  test "includes linked policies with multiple parents" do
-    topic = create(:topic)
-    assert_equal [], topic.policy_content_ids
-
-    topic.policy_content_ids = [policy_2.fetch("content_id")]
-    assert_equal [
-      policy_area_1.fetch("content_id"),
-      policy_area_2.fetch("content_id"),
-      policy_2.fetch("content_id"),
-    ], topic.policy_content_ids
-  end
-
   test "return topics bi-directionally related to specific topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
