@@ -1,4 +1,5 @@
 class ExternalAttachment < Attachment
+  extend FriendlyId
   include HasContentId
 
   validates :external_url, presence: true, uri: true, length: { maximum: 255 }
