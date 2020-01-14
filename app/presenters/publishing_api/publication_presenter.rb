@@ -83,6 +83,7 @@ module PublishingApi
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
+      details_hash.merge!(PayloadBuilder::BrexitNoDealContent.for(item))
     end
 
     def body

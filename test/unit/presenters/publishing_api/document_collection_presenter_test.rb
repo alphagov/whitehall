@@ -8,6 +8,7 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
       :document_collection,
       title: "Document Collection title",
       summary: "Document Collection summary",
+      show_brexit_no_deal_content_notice: true,
     )
 
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
@@ -56,6 +57,10 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
 
   test "it presents the global process wide locale as the locale of the document_collection" do
     assert_equal "de", @presented_content[:locale]
+  end
+
+  test "it presents no deal content notice" do
+    assert_equal [], @presented_content[:details][:brexit_no_deal_notice]
   end
 end
 

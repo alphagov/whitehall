@@ -30,6 +30,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
+      show_brexit_no_deal_content_notice: true,
     )
     EditionPolicy.create(edition_id: detailed_guide.id, policy_content_id: "dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8")
 
@@ -64,6 +65,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         },
         related_mainstream_content: [],
         emphasised_organisations: detailed_guide.lead_organisations.map(&:content_id),
+        brexit_no_deal_notice: [],
       },
     }
     expected_links = {

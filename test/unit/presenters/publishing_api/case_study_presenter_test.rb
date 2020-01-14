@@ -11,6 +11,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       title: "Case study title",
       summary: "The summary",
       body: "Some content",
+      show_brexit_no_deal_content_notice: true,
     )
     public_path = Whitehall.url_maker.public_document_path(case_study)
     expected_content = {
@@ -40,6 +41,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
           topics: [],
         },
         emphasised_organisations: case_study.lead_organisations.map(&:content_id),
+        brexit_no_deal_notice: [],
       },
     }
     expected_links = {

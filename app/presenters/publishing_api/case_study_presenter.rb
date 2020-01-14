@@ -15,17 +15,19 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
-      content.merge!(
-        description: item.summary,
-        details: details,
-        document_type: document_type,
-        public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        schema_name: "case_study",
+      BaseItemPresenter
+        .new(item, update_type: update_type)
+        .base_attributes
+        .merge(PayloadBuilder::PublicDocumentPath.for(item))
+        .merge(PayloadBuilder::AccessLimitation.for(item))
+        .merge(
+          description: item.summary,
+          details: details,
+          document_type: document_type,
+          public_updated_at: item.public_timestamp || item.updated_at,
+          rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+          schema_name: "case_study",
       )
-      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PayloadBuilder::AccessLimitation.for(item))
     end
 
     def links
@@ -56,6 +58,7 @@ module PublishingApi
       }
       details_hash[:image] = image_details if image_available?
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
+      details_hash.merge!(PayloadBuilder::BrexitNoDealContent.for(item))
     end
 
     def first_public_at

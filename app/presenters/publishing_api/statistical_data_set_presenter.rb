@@ -14,18 +14,20 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
-      content.merge!(
-        description: item.summary,
-        details: details,
-        document_type: document_type,
-        public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: item.rendering_app,
-        schema_name: "statistical_data_set",
+      BaseItemPresenter
+        .new(item, update_type: update_type)
+        .base_attributes
+        .merge(PayloadBuilder::AccessLimitation.for(item))
+        .merge(PayloadBuilder::PublicDocumentPath.for(item))
+        .merge(PayloadBuilder::FirstPublishedAt.for(item))
+        .merge(
+          description: item.summary,
+          details: details,
+          document_type: document_type,
+          public_updated_at: item.public_timestamp || item.updated_at,
+          rendering_app: item.rendering_app,
+          schema_name: "statistical_data_set",
       )
-      content.merge!(PayloadBuilder::AccessLimitation.for(item))
-      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
     end
 
     def links

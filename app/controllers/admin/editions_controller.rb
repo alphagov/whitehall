@@ -10,7 +10,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :build_edition, only: %i[new create]
   before_action :detect_other_active_editors, only: [:edit]
   before_action :set_edition_defaults, only: :new
-  before_action :build_blank_image, only: %i[new edit]
+  before_action :build_edition_dependencies, only: %i[new edit]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update submit destory revise]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update submit revise diff reject destroy]
@@ -193,6 +193,8 @@ private
       :corporate_information_page_type_id,
       :political,
       :read_consultation_principles,
+      :show_brexit_no_deal_content_notice,
+      brexit_no_deal_content_notice_links_attributes: %i[id title url],
       secondary_specialist_sector_tags: [],
       lead_organisation_ids: [],
       supporting_organisation_ids: [],
@@ -387,6 +389,12 @@ private
 
     if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
       edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
+    end
+  end
+
+  def build_blank_brexit_no_deal_content_notice_links
+    @edition.brexit_no_deal_content_notice_links_available_count.times do
+      @edition.brexit_no_deal_content_notice_links.build
     end
   end
 end

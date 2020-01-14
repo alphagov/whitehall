@@ -10,8 +10,8 @@ class DocumentCollection < Edition
   # You can help improve this code by renaming all usages of this field to use
   # the new terminology.
   include Edition::Topics
-
   include Edition::TopicalEvents
+  include Edition::BrexitNoDealContentNoticeLinks
 
   has_many :groups,
            -> { order("document_collection_groups.ordering") },

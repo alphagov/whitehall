@@ -14,23 +14,20 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(
-        item,
-        locale: locale,
-        update_type: update_type,
-      ).base_attributes
-
-      content.merge!(
-        base_path: base_path,
-        description: nil,
-        details: details,
-        document_type: schema_name,
-        public_updated_at: item.updated_at,
-        rendering_app: item.rendering_app,
-        schema_name: schema_name,
-        links: edition_links,
+      BaseItemPresenter
+        .new(item, locale: locale, update_type: update_type)
+        .base_attributes
+        .merge(PayloadBuilder::Routes.for(base_path))
+        .merge(
+          base_path: base_path,
+          description: nil,
+          details: details,
+          document_type: schema_name,
+          public_updated_at: item.updated_at,
+          rendering_app: item.rendering_app,
+          schema_name: schema_name,
+          links: edition_links,
       )
-      content.merge!(PayloadBuilder::Routes.for(base_path))
     end
 
     def links
@@ -60,11 +57,12 @@ module PublishingApi
     end
 
     def details
-      {
+      details_hash = {
         body: body,
         public_timestamp: public_timestamp,
         first_published_version: first_published_version?,
       }
+      details_hash.merge!(PayloadBuilder::BrexitNoDealContent.for(parent))
     end
 
     def body
