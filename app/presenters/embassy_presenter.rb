@@ -16,7 +16,7 @@ class EmbassyPresenter < SimpleDelegator
 
   def embassy_path
     if SPECIAL_CASES.key?(name)
-      link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path])
+      link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path], class: "govuk-link")
     elsif organisation
       link_to(
         organisation.name,
