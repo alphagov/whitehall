@@ -11,8 +11,8 @@ class LinkCheckerApiReportLinkTest < ActiveSupport::TestCase
     assert_equal LinkCheckerApiReport::Link.deletable.to_a, []
   end
 
-  test "with an ok link created over 6 months ago, mark as deletable" do
-    link = create(:link_checker_api_report_link, created_at: (6.months + 1.day).ago)
+  test "with an ok link created over 3 months ago, mark as deletable" do
+    link = create(:link_checker_api_report_link, created_at: (3.months + 1.day).ago)
     assert_equal LinkCheckerApiReport::Link.deletable.to_a, [link]
   end
 end
