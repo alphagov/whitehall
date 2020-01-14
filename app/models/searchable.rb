@@ -40,6 +40,7 @@ module Searchable
     :public_timestamp,
     :publication_type,
     :release_timestamp,
+    :roles,
     :search_format_types,
     :slug,
     :speech_type,

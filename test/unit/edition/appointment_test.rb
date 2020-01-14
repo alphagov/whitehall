@@ -7,6 +7,10 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
     def imported?
       state == "imported"
     end
+
+    def search_link
+      "link"
+    end
   end
 
   include ActionDispatch::TestProcess
@@ -20,7 +24,14 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
   end
 
   setup do
-    @edition = EditionWithAppointment.new(valid_edition_attributes.merge(role_appointment: build(:role_appointment)))
+    @appointment = build(:role_appointment)
+    document = build(:document)
+    @edition = EditionWithAppointment.new(
+      valid_edition_attributes.merge(
+        role_appointment: @appointment,
+        document: document,
+      ),
+    )
   end
 
   test "editions can be created with an appointment" do
@@ -31,11 +42,20 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
     assert @edition.person
   end
 
+  test "editions with appointment can access role" do
+    assert @edition.role
+  end
+
   test "editions with role appointment enabled but not set aren't valid" do
     assert_not EditionWithAppointment.new(valid_edition_attributes).valid?
   end
 
   test "editions allowed some invalid data don't have to have a role appointment" do
     EditionWithAppointment.new(valid_edition_attributes.merge(state: "imported")).valid?
+  end
+
+  test "editions with appointment include them in their search info" do
+    assert_equal [@appointment.person.slug], @edition.search_index["people"]
+    assert_equal [@appointment.role.slug], @edition.search_index["roles"]
   end
 end

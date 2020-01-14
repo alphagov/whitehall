@@ -284,6 +284,7 @@ class Edition < ApplicationRecord
     content: :indexable_content,
     description: :summary,
     people: nil,
+    roles: nil,
     display_type: :display_type,
     detailed_format: :detailed_format,
     public_timestamp: :public_timestamp,

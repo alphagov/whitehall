@@ -31,6 +31,7 @@ class RoleAppointment < ApplicationRecord
 
   delegate :slug, to: :person
   delegate :name, to: :role, prefix: true
+  delegate :ministerial?, to: :role
 
   class Validator < ActiveModel::Validator
     def validate(record)
