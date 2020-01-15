@@ -6,6 +6,7 @@ CarrierWave.configure do |config|
   config.storage Whitehall::AssetManagerStorage
   config.enable_processing = false if Rails.env.test?
   config.cache_dir = Rails.root.join "carrierwave-tmp"
+  config.cache_storage = :file
   config.validate_integrity = false
   config.validate_processing = false
 end
