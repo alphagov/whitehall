@@ -38,3 +38,7 @@ end
 every taxonomy_cron_rules, roles: [:backend] do
   rake "taxonomy:rebuild_cache"
 end
+
+every :day, at: "4am", roles: [:backend] do
+  rake "link_checker:delete_old_report_links"
+end
