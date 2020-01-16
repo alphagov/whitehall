@@ -61,12 +61,13 @@
 
           li {
             list-style: none;
+            border-bottom: 1px solid $border-colour;
 
             .location-link {
               @include core-19;
               padding: $gutter-one-sixth 0;
-              display: block;
-              border-bottom: 1px solid $border-colour;
+              display: inline-block;
+
             }
           }
         }

@@ -66,7 +66,7 @@
         <% if filters.include? :locations %>
           <div class="filter">
             <%= label_tag "world_locations", t('document_filters.world_locations.label'), class: "title" %>
-            <%= select_tag "world_locations[]", locations_options(document_type, @filter.selected_locations), class: "single-row-select", id: "world_locations" %>
+            <%= select_tag "world_locations[]", locations_options(document_type, @filter.selected_locations), class: "govuk-select", id: "world_locations" %>
           </div>
         <% end %>
 
