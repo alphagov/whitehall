@@ -29,7 +29,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       document_type: "person",
       locale: "en",
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "collections",
       public_updated_at: person.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
