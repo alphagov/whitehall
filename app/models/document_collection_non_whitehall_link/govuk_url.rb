@@ -1,11 +1,11 @@
 class DocumentCollectionNonWhitehallLink::GovukUrl
   include ActiveModel::Validations
 
-  attr_reader :url, :document_collection_group, :content_item
+  attr_reader :url, :document_collection_group
 
   validates_presence_of :url
   validates_presence_of :document_collection_group
-  validate :linkable_govuk_url
+  validates_with GovUkUrlValidator
 
   def initialize(url:, document_collection_group:)
     @url = url
@@ -26,31 +26,17 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
     content_item["title"]
   end
 
-private
+  private
 
-  def linkable_govuk_url
-    return if url.blank?
+  def content_item
+    @content_item ||= Services.publishing_api.get_content(content_id).to_h
+  end
 
-    parsed_url = URI.parse(url)
+  def content_id
+    @content_id ||= Services.publishing_api.lookup_content_id(base_path: parsed_url.path, with_drafts: true)
+  end
 
-    unless parsed_url.host =~ /(publishing.service|www).gov.uk\Z/
-      errors.add(:url, "must be a valid GOV.UK URL")
-      return
-    end
-
-    content_id = Services.publishing_api.lookup_content_id(base_path: parsed_url.path,
-                                                           with_drafts: true)
-    unless content_id
-      errors.add(:url, "must reference a GOV.UK page")
-      return
-    end
-
-    @content_item = Services.publishing_api.get_content(content_id).to_h
-  rescue URI::InvalidURIError
-    errors.add(:url, "must be a valid GOV.UK URL")
-  rescue GdsApi::HTTPNotFound
-    errors.add(:url, "must reference a GOV.UK page")
-  rescue GdsApi::HTTPIntermittentServerError
-    errors.add(:base, "Link lookup failed, please try again later")
+  def parsed_url
+    URI.parse(url)
   end
 end
