@@ -36,7 +36,6 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
           "document_information" => {
             "locales" => %w[en],
             "subtypes" => %w[news_story],
-            "lead_organisations" => [org.content_id],
           },
         }],
         "page_number" => 1,

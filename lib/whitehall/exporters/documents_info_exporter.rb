@@ -12,7 +12,6 @@ class Whitehall::Exporters::DocumentsInfoExporter
         document_information: {
           locales: locales_hash[doc_id],
           subtypes: subtypes_hash[doc_id],
-          lead_organisations: lead_orgs_for_latest_edition_hash[doc_id],
         },
       }
     end
@@ -37,18 +36,6 @@ class Whitehall::Exporters::DocumentsInfoExporter
       corporate_types = corporate.to_s.split(",").map { |id| CorporateInformationPageType.find_by_id(id.to_i)&.key }
       memo[document_id] = [news_article_types, speech_types, publications_types, corporate_types].flatten
     end
-  end
-
-  def lead_orgs_for_latest_edition_hash
-    @lead_orgs_for_latest_edition_hash ||= Edition
-      .joins("INNER JOIN edition_organisations eo ON eo.edition_id = editions.id")
-      .joins("INNER JOIN organisations o ON o.id = eo.organisation_id")
-      .latest_edition
-      .where(document_id: document_ids)
-      .where(eo: { lead: true })
-      .group(:document_id)
-      .pluck(:document_id, "GROUP_CONCAT(DISTINCT(o.content_id))")
-      .each_with_object({}) { |(k, v), memo| memo[k] = v.split(",") }
   end
 
   def subtypes_query
