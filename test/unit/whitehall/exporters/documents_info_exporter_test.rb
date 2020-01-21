@@ -50,36 +50,5 @@ module Whitehall::Exporters
         documents_info_exporter.call.first[:document_information][:locales],
       )
     end
-
-    test "returns the lead organisations of the latest edition of a document" do
-      published_edition_org = create(:organisation)
-      published_edition_org_2 = create(:organisation)
-      superseded_edition_org = create(:organisation)
-      document = create(:document)
-      create(
-        :news_article,
-        :superseded,
-        document: document,
-        organisations: [superseded_edition_org],
-        news_article_type: NewsArticleType::NewsStory,
-      )
-
-      create(
-        :news_article,
-        :published,
-        document: document,
-        organisations: [published_edition_org, published_edition_org_2],
-        news_article_type: NewsArticleType::NewsStory,
-      )
-
-      documents_info_exporter = DocumentsInfoExporter.new(
-        [document.id],
-      )
-
-      assert_same_elements(
-        [published_edition_org.content_id, published_edition_org_2.content_id],
-        documents_info_exporter.call.first[:document_information][:lead_organisations],
-      )
-    end
   end
 end
