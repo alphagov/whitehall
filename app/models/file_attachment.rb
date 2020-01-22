@@ -1,5 +1,4 @@
 class FileAttachment < Attachment
-  extend FriendlyId
   include HasContentId
 
   delegate :url,

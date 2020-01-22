@@ -1,8 +1,5 @@
 # Abstract base class for Attachments.
 class Attachment < ApplicationRecord
-  extend FriendlyId
-  friendly_id :title, use: :scoped, scope: :attachable
-
   belongs_to :attachable, polymorphic: true
   has_one :attachment_source
 
