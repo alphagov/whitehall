@@ -1,6 +1,5 @@
 class Admin::PublicationsController < Admin::EditionsController
   before_action :pre_fill_edition_from_statistics_announcement, only: :new, if: :statistics_announcement
-  before_action :build_blank_brexit_no_deal_content_notice_links, only: %i[new edit]
 
 private
 
