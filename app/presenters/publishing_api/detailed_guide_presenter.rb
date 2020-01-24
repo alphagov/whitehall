@@ -18,6 +18,9 @@ module PublishingApi
       BaseItemPresenter
         .new(item, update_type: update_type)
         .base_attributes
+        .merge(PayloadBuilder::PublicDocumentPath.for(item))
+        .merge(PayloadBuilder::AccessLimitation.for(item))
+        .merge(PayloadBuilder::FirstPublishedAt.for(item))
         .merge(
           description: item.summary,
           details: details,
@@ -25,10 +28,7 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "detailed_guide",
-          )
-        .merge(PayloadBuilder::PublicDocumentPath.for(item))
-        .merge(PayloadBuilder::AccessLimitation.for(item))
-        .merge(PayloadBuilder::FirstPublishedAt.for(item))
+      )
     end
 
     def links
@@ -70,6 +70,7 @@ module PublishingApi
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
+      details_hash.merge!(PayloadBuilder::BrexitNoDealContent.for(item))
     end
 
     def body

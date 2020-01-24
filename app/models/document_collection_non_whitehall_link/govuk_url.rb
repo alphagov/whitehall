@@ -5,6 +5,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 
   validates_presence_of :url
   validates_presence_of :document_collection_group
+  validate :is_internal_url?
   validates_with GovUkUrlValidator
 
   def initialize(url:, document_collection_group:)
@@ -26,6 +27,15 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
     content_item["title"]
   end
 
+  def is_internal_url?
+    message = "must be a valid GOV.UK URL"
+    if !govuk_url?
+      errors.add(:url, message)
+    end
+  rescue URI::InvalidURIError
+    errors.add(:url, message)
+  end
+
   private
 
   def content_item
@@ -34,6 +44,10 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 
   def content_id
     @content_id ||= Services.publishing_api.lookup_content_id(base_path: parsed_url.path, with_drafts: true)
+  end
+
+  def govuk_url?
+    parsed_url.host =~ /(publishing.service|www).gov.uk\Z/
   end
 
   def parsed_url

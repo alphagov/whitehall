@@ -12,7 +12,11 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presentation includes the correct values" do
-    edition = create(:publication, :with_html_attachment, :published)
+    edition = create(:publication,
+                     :with_html_attachment,
+                     :published,
+                     show_brexit_no_deal_content_notice: true)
+
     html_attachment = HtmlAttachment.last
 
     expected_hash = {
@@ -35,6 +39,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
           .govspeak_to_html(html_attachment.govspeak_content.body),
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
+        brexit_no_deal_notice: [],
       },
     }
     presented_item = present(html_attachment)
@@ -112,5 +117,25 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
 
     assert_equal [html_attachment.attachable.organisations.first.content_id],
                  present(html_attachment).links[:primary_publishing_organisation]
+  end
+
+  test "HtmlAttachment presents Brexit no-deal content notice data" do
+    create(:publication,
+           :with_html_attachment,
+           :published,
+           show_brexit_no_deal_content_notice: true,
+           brexit_no_deal_content_notice_links: [
+             BrexitNoDealContentNoticeLink.new(title: "Link 1", url: "https://www.example.com/1"),
+             BrexitNoDealContentNoticeLink.new(title: "Link 2", url: "https://www.example.com/2"),
+           ])
+
+    expected = [
+      { title: "Link 1", href: "https://www.example.com/1" },
+      { title: "Link 2", href: "https://www.example.com/2" },
+    ]
+
+    html_attachment = HtmlAttachment.last
+
+    assert_equal present(html_attachment).content[:details][:brexit_no_deal_notice], expected
   end
 end

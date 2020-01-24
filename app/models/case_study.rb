@@ -7,6 +7,7 @@ class CaseStudy < Edition
   include Edition::TaggableOrganisations
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
+  include Edition::BrexitNoDealContentNoticeLinks
 
   validates :first_published_at, presence: true, if: ->(e) { e.trying_to_convert_to_draft == true }
 

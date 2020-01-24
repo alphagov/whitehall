@@ -12,6 +12,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
                          title: "Publication title",
                          summary: "The summary",
                          body: "Some content",
+                         show_brexit_no_deal_content_notice: true,
                          statistical_data_sets: [statistical_data_set])
 
     public_path = Whitehall.url_maker.public_document_path(publication)
@@ -49,6 +50,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
           slug: government.slug,
           current: government.current?,
         },
+        brexit_no_deal_notice: [],
       },
     }
 

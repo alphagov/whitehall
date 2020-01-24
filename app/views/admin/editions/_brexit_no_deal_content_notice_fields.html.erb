@@ -1,0 +1,19 @@
+<fieldset class="<% if edition.errors[:brexit_no_deal_content_notice_links].any? %>alert-danger form-errors field_with_errors<% end %>" >
+
+  <legend class="add-bottom-margin">
+    Brexit no-deal content notice
+  </legend>
+
+  <div class="checkbox add-bottom-margin">
+    <%= form.check_box :show_brexit_no_deal_content_notice, label_text: "Display the no-deal content notice on this page" %>
+  </div>
+
+  <p>Add links to the current guidance, which will appear in the no-deal content notice.</p>
+
+  <%= form.fields_for :brexit_no_deal_content_notice_links do |links_fields| %>
+    <div class="well">
+      <%= links_fields.text_field :title, label_text: 'Link text' %>
+      <%= links_fields.text_field :url,  label_text: 'URL' %>
+    </div>
+  <% end %>
+</fieldset>

@@ -1,6 +1,7 @@
 class DetailedGuide < Edition
   include Edition::Images
   include Edition::NationalApplicability
+  include Edition::BrexitNoDealContentNoticeLinks
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"

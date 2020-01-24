@@ -28,5 +28,6 @@
     </fieldset>
 
     <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    <%= render "brexit_no_deal_content_notice_fields", form: form, edition: edition if FeatureFlag.enabled?("no-deal-notice") %>
   <% end %>
 <% end %>

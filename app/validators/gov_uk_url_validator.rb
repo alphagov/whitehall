@@ -2,7 +2,7 @@ class GovUkUrlValidator < ActiveModel::Validator
   def validate(record)
     return if record.url.blank?
 
-    validate_must_be_valid_govuk_url(record)
+    validate_must_be_valid_govuk_host(record)
     validate_must_reference_govuk_page(record)
     validate_link_lookup(record)
   rescue URI::InvalidURIError
@@ -15,8 +15,8 @@ class GovUkUrlValidator < ActiveModel::Validator
 
 private
 
-  def validate_must_be_valid_govuk_url(record)
-    unless parse_url(record.url).host =~ /(publishing.service|www).gov.uk\Z/
+  def validate_must_be_valid_govuk_host(record)
+    if parse_url(record.url).host.present? && !valid_host?(record)
       raise URI::InvalidURIError
     end
   end
@@ -29,6 +29,10 @@ private
 
   def validate_link_lookup(record)
     Services.publishing_api.get_content(content_id(record)).to_h
+  end
+
+  def valid_host?(record)
+    parse_url(record.url).host =~ /(publishing.service|www).gov.uk\Z/
   end
 
   def content_id(record)

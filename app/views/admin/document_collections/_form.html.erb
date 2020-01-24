@@ -11,5 +11,7 @@
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
     </fieldset>
+
+    <%= render("brexit_no_deal_content_notice_fields", form: form, edition: edition) if FeatureFlag.enabled?("no-deal-notice") %>
   <% end %>
 <% end %>
