@@ -135,7 +135,7 @@ GEM
     execjs (2.7.0)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
-    faraday (0.17.1)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.1)
     friendly_id (5.2.4)
@@ -144,7 +144,7 @@ GEM
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (63.0.0)
+    gds-api-adapters (63.3.0)
       addressable
       link_header
       null_logger
@@ -185,15 +185,15 @@ GEM
       jquery-rails (~> 4.3.1)
       plek (>= 2.1.0)
       rails (>= 3.2.0)
-    govuk_app_config (2.0.1)
+    govuk_app_config (2.0.2)
       logstasher (>= 1.2.2, < 1.4.0)
-      sentry-raven (>= 2.7.1, < 2.12.0)
+      sentry-raven (>= 2.7.1, < 2.14.0)
       statsd-ruby (~> 1.4.0)
       unicorn (>= 5.4, < 5.6)
     govuk_frontend_toolkit (8.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (21.19.1)
+    govuk_publishing_components (21.21.1)
       gds-api-adapters
       govuk_app_config
       kramdown
@@ -461,7 +461,7 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
-    sentry-raven (2.11.3)
+    sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
@@ -586,7 +586,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.0)
   govuk_frontend_toolkit (= 8.2.0)
-  govuk_publishing_components (~> 21.19.1)
+  govuk_publishing_components (~> 21.21.1)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
