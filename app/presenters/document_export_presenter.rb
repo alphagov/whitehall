@@ -106,6 +106,8 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
     return [] unless edition.try(:images)
 
     edition.images.map do |image|
+      image["alt_text"].squish! if image["alt_text"]
+      image["caption"].strip! if image["caption"]
       image.as_json(methods: :url)
            .merge(variants: image_variants(image))
     end

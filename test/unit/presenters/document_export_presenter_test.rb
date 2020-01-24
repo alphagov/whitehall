@@ -138,6 +138,16 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal expected, result.dig(:editions, 0, :images, 0, :variants)
   end
 
+  test "strips whitespace from image caption and alt_text" do
+    image = create(:image, alt_text: "Alternative text ", caption: "Caption text ")
+    publication = create(:publication, images: [image])
+
+    result = DocumentExportPresenter.new(publication.document).as_json
+
+    assert_equal "Alternative text", result.dig(:editions, 0, :images, 0, :alt_text)
+    assert_equal "Caption text", result.dig(:editions, 0, :images, 0, :caption)
+  end
+
   test "ignores variants when they do not exist" do
     svg_image_data = create(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
     publication = create(:publication, images: [create(:image, image_data: svg_image_data)])
