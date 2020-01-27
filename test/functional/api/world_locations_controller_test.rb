@@ -71,6 +71,6 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   view_test "no world locations" do
     ActiveRecord::Base.connection.unstub(:select)
     get :index, format: "json"
-    assert_equal nil, json_response["next_page_url"]
+    assert_nil json_response["next_page_url"]
   end
 end

@@ -11,7 +11,12 @@ module Whitehall
     def assert_remover_transforms(options)
       from = options.keys.first
       to = options.values.first
-      assert_equal to, ExtraQuoteRemover.new.remove(from)
+      expected = ExtraQuoteRemover.new.remove(from)
+      if to.nil?
+        assert_nil expected
+      else
+        assert_equal to, expected
+      end
     end
 
     def assert_leaves_untouched(candidate)
