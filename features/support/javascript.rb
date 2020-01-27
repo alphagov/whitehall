@@ -39,7 +39,7 @@ module Capybara::DSL
     field = find_field(options[:from], visible: false, match: :first)
     option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{value}')\").val()")
 
-    if field[:multiple]
+    if field.multiple?
       page.execute_script("value = ['#{option_value}']\; if ($('##{field[:id]}').val()) {$.merge(value, $('##{field[:id]}').val())}")
       option_value = page.evaluate_script("value")
     end
