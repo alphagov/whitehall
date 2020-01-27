@@ -20,7 +20,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     create(:government)
     login_as(managing_editor)
     edition.attachments << attachment
-    publishing_api_has_linkables([], document_type: "topic")
+    stub_publishing_api_has_linkables([], document_type: "topic")
     setup_publishing_api_for(edition)
     stub_whitehall_asset(filename, id: asset_id)
 
@@ -65,7 +65,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     context "when new draft is created and attachment is replaced" do
       before do
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-        publishing_api_has_linkables([], document_type: "topic")
+        stub_publishing_api_has_linkables([], document_type: "topic")
         visit admin_news_article_path(edition)
         click_button "Create new edition to edit"
         click_link "Attachments 1"
@@ -98,7 +98,7 @@ private
   end
 
   def setup_publishing_api_for(edition)
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       content_id: edition.document.content_id,
       links: {},
     )

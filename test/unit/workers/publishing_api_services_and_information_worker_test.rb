@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   setup do
     @organisation = create(:organisation, name: "Organisation of Things", slug: "things")

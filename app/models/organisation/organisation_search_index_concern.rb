@@ -20,6 +20,6 @@ private
   end
 
   def leaving_live_on_govuk?
-    saved_change_to_govuk_status? && govuk_status_was == "live"
+    saved_change_to_govuk_status? && attribute_before_last_save(:govuk_status) == "live"
   end
 end

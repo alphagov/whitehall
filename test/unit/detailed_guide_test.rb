@@ -130,7 +130,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     detailed_guide = build(
       :detailed_guide,
@@ -164,7 +164,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     create(
       :detailed_guide,
@@ -181,7 +181,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     invalid_detailed_guide = build(
       :detailed_guide,
@@ -201,7 +201,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     detailed_guide = create(
       :detailed_guide,
@@ -218,7 +218,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       "/new-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     create(
       :detailed_guide,
@@ -240,7 +240,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     create(
       :detailed_guide,

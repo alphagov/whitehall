@@ -25,7 +25,7 @@ class WorldTaxonomyTagFormTest < ActiveSupport::TestCase
     content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
     taxons = %w[c58fdadd-7743-46d6-9629-90bb3ccc4ef0]
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
       "links" => {
         "taxons" => taxons,

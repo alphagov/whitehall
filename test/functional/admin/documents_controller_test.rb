@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class Admin::DocumentsControllerTest < ActionController::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   def setup
     login_as :user

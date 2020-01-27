@@ -182,7 +182,7 @@ module OrganisationControllerTestHelpers
       format: "organisation",
       title: "Title of organisation",
     }
-    content_store_has_item(organisation.base_path, content_item)
+    stub_content_store_has_item(organisation.base_path, content_item)
 
     organisation
   end

@@ -26,7 +26,7 @@ module Services
   end
 
   def self.publishing_api_client_with_timeout(timeout)
-    GdsApi::PublishingApiV2.new(
+    GdsApi::PublishingApi.new(
       Plek.find("publishing-api"),
       bearer_token: ENV.fetch("PUBLISHING_API_BEARER_TOKEN", "example"),
       timeout: timeout,

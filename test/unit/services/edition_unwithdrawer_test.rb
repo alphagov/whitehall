@@ -1,7 +1,7 @@
 require "test_helper"
 
 class EditionUnwithdrawerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   setup do
     @edition = FactoryBot.create(:published_edition, state: "withdrawn")

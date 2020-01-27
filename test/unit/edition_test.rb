@@ -850,7 +850,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#has_been_tagged? is false when request from publishing-api has no taxons" do
     edition = create(:edition)
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
@@ -864,7 +864,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#has_been_tagged? is true when request from publishing-api has taxons" do
     edition = create(:edition)
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],

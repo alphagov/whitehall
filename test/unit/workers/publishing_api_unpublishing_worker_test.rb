@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   #UnpublishingReason: 1 - in error
   test "runs PublishingApiGoneWorker with path and explanation when redirect is false" do

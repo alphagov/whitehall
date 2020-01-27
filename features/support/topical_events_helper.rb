@@ -42,7 +42,7 @@ module TopicalEventsHelper
 
     base_path = topical_event_path(TopicalEvent.find_by!(name: name))
 
-    content_store_has_item(base_path, content_item)
+    stub_content_store_has_item(base_path, content_item)
   end
 end
 

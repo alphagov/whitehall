@@ -12,7 +12,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
   before do
     login_as managing_editor
-    publishing_api_has_linkables([], document_type: "topic")
+    stub_publishing_api_has_linkables([], document_type: "topic")
   end
 
   context "given a draft document with file attachment" do
@@ -20,7 +20,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       setup_publishing_api_for(edition)
-      publishing_api_has_linkables([], document_type: "topic")
+      stub_publishing_api_has_linkables([], document_type: "topic")
 
       add_file_attachment("logo.png", to: edition)
       edition.attachments[0].attachment_data.uploaded_to_asset_manager!
@@ -118,7 +118,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       setup_publishing_api_for(edition)
-      publishing_api_has_linkables([], document_type: "topic")
+      stub_publishing_api_has_linkables([], document_type: "topic")
 
       stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
     end
@@ -152,7 +152,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       setup_publishing_api_for(edition)
-      publishing_api_has_linkables([], document_type: "topic")
+      stub_publishing_api_has_linkables([], document_type: "topic")
 
       add_file_attachment("logo.png", to: edition)
       edition.attachments[0].attachment_data.uploaded_to_asset_manager!
@@ -201,7 +201,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 private
 
   def setup_publishing_api_for(edition)
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       content_id: edition.document.content_id,
       links: {},
     )

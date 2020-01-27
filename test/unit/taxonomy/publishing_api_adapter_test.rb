@@ -60,11 +60,11 @@ private
   end
 
   def setup_taxons
-    publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
+    stub_publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
 
     level_one_taxons.each do |taxon|
       expanded_link_hash = expanded_link(taxon["content_id"], [taxon("child1"), taxon("child2")])
-      publishing_api_has_expanded_links(expanded_link_hash, with_drafts: false)
+      stub_publishing_api_has_expanded_links(expanded_link_hash, with_drafts: false)
     end
   end
 
@@ -72,6 +72,6 @@ private
     world_content_id = Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID
 
     world_expanded_link_hash = expanded_link(world_content_id, [taxon("country-1"), taxon("country-2")])
-    publishing_api_has_expanded_links(world_expanded_link_hash, with_drafts: false)
+    stub_publishing_api_has_expanded_links(world_expanded_link_hash, with_drafts: false)
   end
 end

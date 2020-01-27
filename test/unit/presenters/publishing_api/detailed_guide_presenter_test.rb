@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   def present(edition)
     PublishingApi::DetailedGuidePresenter.new(edition)
@@ -102,7 +102,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       "/another-mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
     }
 
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
     create(:government)
     detailed_guide = create(
       :detailed_guide,
@@ -125,7 +125,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     lookup_hash = {
       "/guidance/lorem" => "cd7fde45-5f79-4982-8939-cedc4bed161c",
     }
-    publishing_api_has_lookups(lookup_hash)
+    stub_publishing_api_has_lookups(lookup_hash)
 
     create(:government)
     detailed_guide = create(

@@ -243,7 +243,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 private
 
   def stub_specialist_sectors
-    publishing_api_has_linkables(
+    stub_publishing_api_has_linkables(
       [
         {
           "content_id" => "WELLS",
@@ -277,14 +277,14 @@ private
   end
 
   def publication_has_no_expanded_links(content_id)
-    publishing_api_has_expanded_links(
+    stub_publishing_api_has_expanded_links(
       content_id: content_id,
       expanded_links: {},
     )
   end
 
   def publication_has_expanded_links(content_id)
-    publishing_api_has_expanded_links(
+    stub_publishing_api_has_expanded_links(
       content_id: content_id,
       expanded_links: {
         "taxons" => [
@@ -311,7 +311,7 @@ private
   end
 
   def publication_has_world_expanded_links(content_id)
-    publishing_api_has_expanded_links(
+    stub_publishing_api_has_expanded_links(
       content_id:  content_id,
       expanded_links:  {
         "taxons" => [

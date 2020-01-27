@@ -17,7 +17,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
   let(:topic_taxon) { build(:taxon_hash) }
 
   before do
-    publishing_api_has_linkables([], document_type: "topic")
+    stub_publishing_api_has_linkables([], document_type: "topic")
     login_as create(:managing_editor)
     setup_publishing_api_for(edition)
     attachable.attachments << attachment
@@ -217,7 +217,7 @@ private
   end
 
   def setup_publishing_api_for(edition)
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       content_id: edition.document.content_id,
       links: {},
     )
