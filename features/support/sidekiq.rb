@@ -3,7 +3,7 @@ require_relative '../../test/support/sidekiq_test_helpers'
 
 include SidekiqTestHelpers
 
-Around("@without-delay, @not-quite-as-fake-search") do |_scenario, block|
+Around("@without-delay or @not-quite-as-fake-search") do |_scenario, block|
   Sidekiq::Testing.inline! do
     block.call
   end
