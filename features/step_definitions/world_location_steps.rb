@@ -140,15 +140,15 @@ Then(/^I should see the featured items of the (?:world location|international de
 end
 
 Then(/^I should see a (?:world location|international delegation) called "([^"]*)"$/) do |name|
-  assert page.has_css?(".world_location", text: name)
+  assert_selector ".world_location", text: name
 end
 
 Then(/^I should not see a link to the (?:world location|international delegation) called "([^"]*)"$/) do |text|
-  assert page.has_no_css?(".world_location a", text: text)
+  assert_no_selector ".world_location a", text: text
 end
 
 Then(/^I should see that it is an? (world location|international delegation)$/) do |world_location_type|
-  assert has_css?('.type', text: world_location_type.capitalize)
+  assert_selector '.type', text: world_location_type.capitalize
 end
 
 def view_world_location_in_locale(world_location_name, locale)
@@ -160,8 +160,8 @@ end
 Then(/^when viewing the (?:world location|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/) do |world_location_name, locale, table|
   view_world_location_in_locale(world_location_name, locale)
   translation = table.rows_hash
-  assert page.has_css?('h1', text: translation["title"]), "Title wasn't present"
-  assert page.has_css?('.mission_statement', text: translation["mission_statement"]), "Mission statement wasn't present"
+  assert_selector 'h1', text: translation["title"]
+  assert_selector '.mission_statement', text: translation["mission_statement"]
 end
 
 Then(/^I should be able to associate "([^"]+)" with the (?:world location|international delegation) "([^"]+)"$/) do |title, location|
@@ -199,12 +199,12 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" (?:world locati
   world_location = WorldLocation.find_by!(name: world_location_name)
   offsite_link = OffsiteLink.find_by!(title: title)
   visit world_location_path(world_location)
-  page.has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.id, offsite_link.id))
+  has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.id, offsite_link.id))
 end
 
 Then(/^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/) do |expected_title, name|
   visit world_location_path(WorldLocation.find_by!(name: name))
-  assert page.has_css?('.feature h2', text: expected_title)
+  assert_selector '.feature h2', text: expected_title
 end
 
 Then(/^there should be nothing featured on the home page of (?:world location|international delegation) "(.*?)"$/) do |name|
@@ -215,12 +215,12 @@ end
 
 Then(/^I should see the following world locations grouped under "(.*?)" in order:$/) do |letter, ordered_locations|
   within :xpath, ".//*#{xpath_class_selector('world-locations')}//*#{xpath_class_selector('js-filter-block')}[./h2[text()='#{letter}']]" do
-    assert_equal ordered_locations.raw.map(&:first), page.all('.world_location').map(&:text)
+    assert_equal ordered_locations.raw.map(&:first), all('.world_location').map(&:text)
   end
 end
 
 Then(/^I should see the following international delegations in order:$/) do |ordered_delegations|
   within :xpath, ".//*#{xpath_class_selector('world-locations')}//section[@id='international-delegations']" do
-    assert_equal ordered_delegations.raw.map(&:first), page.all('.world_location').map(&:text)
+    assert_equal ordered_delegations.raw.map(&:first), all('.world_location').map(&:text)
   end
 end

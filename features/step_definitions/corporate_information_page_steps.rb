@@ -31,7 +31,7 @@ When(/^I click the "([^"]*)" link$/) do |link_text|
 end
 
 Then(/^I should see the text "([^"]*)"$/) do |text|
-  assert page.has_content?(text, normalize_ws: true)
+  assert_text text, normalize_ws: true
 end
 
 When(/^I add a "([^"]*)" corporate information page to the worldwide organisation$/) do |page_type|
@@ -58,9 +58,9 @@ Then(/^I should see the corporate information on the public worldwide organisati
   worldwide_organisation = WorldwideOrganisation.last
   info_page = worldwide_organisation.corporate_information_pages.last
   visit worldwide_organisation_path(worldwide_organisation)
-  assert page.has_content?(info_page.title)
+  assert_text info_page.title
   click_link info_page.title
-  assert page.has_content?(info_page.body)
+  assert_text info_page.body
 end
 
 When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|
@@ -83,8 +83,8 @@ Then(/^I should be able to read the translated "([^"]*)" corporate information p
   click_link corp_page
   click_link "Français"
 
-  assert page.has_css?(".description", text: "Le summary")
-  assert page.has_css?(".body", text: "Le body")
+  assert_selector ".description", text: "Le summary"
+  assert_selector ".body", text: "Le body"
 end
 
 When(/^I translate the "([^"]*)" corporate information page for the organisation "([^"]*)"$/) do |corp_page, organisation_name|
@@ -107,8 +107,8 @@ Then(/^I should be able to read the translated "([^"]*)" corporate information p
   click_link corp_page
   click_link "Français"
 
-  assert page.has_css?(".description", text: "Le summary")
-  assert page.has_css?(".body", text: "Le body")
+  assert_selector ".description", text: "Le summary"
+  assert_selector ".body", text: "Le body"
 end
 
 Given(/^my organisation has a "(.*?)" corporate information page$/) do |page_title|

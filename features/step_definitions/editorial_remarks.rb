@@ -10,5 +10,5 @@ end
 
 Then(/^my editorial remark should be visible with the document$/) do
   ensure_path admin_edition_path(@edition)
-  assert page.has_css? ".editorial_remark .body", text: @remark_text
+  assert_selector ".editorial_remark .body", text: @remark_text
 end

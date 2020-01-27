@@ -30,7 +30,7 @@ module Assertions
   end
 
   def assert_path(path)
-    assert_equal path, page.current_path
+    assert_equal path, current_path
   end
 end
 

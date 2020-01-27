@@ -29,9 +29,9 @@ module GovernmentsHelper
     government = Government.find_by_name(name)
 
     within("#government_#{government.id}") do
-      assert page.has_content?(name)
-      assert page.has_content?(start_date)
-      assert page.has_content?(end_date) if end_date
+      assert_text name
+      assert_text start_date
+      assert_text end_date if end_date
     end
   end
 

@@ -101,7 +101,7 @@ end
 Then(/^I should see "([^"]*)" listed on the "([^"]*)" organisation page$/) do |person_name, organisation_name|
   visit_organisation organisation_name
   role = find_person(person_name).roles.first
-  assert page.has_css?(record_css_selector(role.current_person))
+  assert_selector record_css_selector(role.current_person)
 end
 
 Then(/^I should see him listed as "([^"]*)" on the worldwide organisation page$/) do |role_name|
@@ -110,7 +110,7 @@ Then(/^I should see him listed as "([^"]*)" on the worldwide organisation page$/
   role = Role.find_by!(name: role_name)
 
   within record_css_selector(person) do
-    assert page.has_content?(person.name)
-    assert page.has_content?(role.name)
+    assert_text person.name
+    assert_text role.name
   end
 end

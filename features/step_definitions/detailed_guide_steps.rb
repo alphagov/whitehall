@@ -15,7 +15,7 @@ Given(/^I start drafting a new detailed guide$/) do
 end
 
 Then(/^I should be able to select another image for the detailed guide$/) do
-  assert_equal 2, page.all(".images input[type=file]").length
+  assert_equal 2, all(".images input[type=file]").length
 end
 
 When(/^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/) do |guide_title, change_note|

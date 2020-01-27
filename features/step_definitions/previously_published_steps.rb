@@ -29,26 +29,17 @@ And(/^I select a previously published date in the past$/) do
 end
 
 Then(/^I see a validation error for the 'previously published' option$/) do
-  assert page.has_content?("You must specify whether the document has been published before"),
-         "Previously published option validation message not found"
+  assert_text "You must specify whether the document has been published before"
 end
 
 Then(/^I see a validation error for the future date$/) do
-  assert page_has_first_published_at_in_future_error_message,
-         "Previously published (first_published_at) validation message not found"
+  assert_text "First published at can't be set to a future date"
 end
 
 Then(/^I see a validation error for the missing publication date$/) do
-  assert page.has_content?("First published at can't be blank"),
-         "First published can't be blank validation message found"
+  assert_text "First published at can't be blank"
 end
 
 Then(/^I should not see a validation error on the previously published date$/) do
-  refute page_has_first_published_at_in_future_error_message,
-         "First published at in the future validation message found"
+  assert_no_text "First published at can't be set to a future date"
 end
-
-def page_has_first_published_at_in_future_error_message
-  page.has_content?("First published at can't be set to a future date")
-end
-

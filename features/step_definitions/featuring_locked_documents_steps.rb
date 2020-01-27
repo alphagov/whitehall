@@ -16,7 +16,7 @@ end
 
 Then(/^I cannot see the document in the list of featurable documents$/) do
   within "#search_results" do
-    assert page.has_no_css?(record_css_selector(@edition))
+    assert_no_selector record_css_selector(@edition)
   end
 end
 

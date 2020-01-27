@@ -27,6 +27,6 @@ Then(/^I can click through to the most recent version of document "([^"]*)"$/) d
 end
 
 Then(/^I cannot click through to the most recent version of document "([^"]*)"$/) do |_title|
-  assert page.has_css?('.alert.access-limited-latest-edition')
-  assert page.has_no_content?('Go to draft')
+  assert_selector '.alert.access-limited-latest-edition'
+  assert_no_text 'Go to draft'
 end

@@ -89,5 +89,5 @@ end
 
 Then(/^I should not be able to discard the draft resulting from the unpublishing$/) do
   visit admin_edition_path(Edition.last)
-  refute page.has_button?('Discard draft')
+  assert has_no_button?('Discard draft')
 end

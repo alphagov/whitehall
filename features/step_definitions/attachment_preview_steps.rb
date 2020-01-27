@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 Given(/^there is a publicly visible CSV attachment on the site$/) do
   @publication = create(:published_publication, :with_file_attachment, attachments: [
     @attachment = build(:csv_attachment)
@@ -22,13 +20,13 @@ When(/^I preview the contents of the attachment$/) do
 end
 
 Then(/^I should see the CSV data previewed on the page$/) do
-  assert page.has_content?(@attachment.title)
+  assert_text @attachment.title
 
   within '.csv-preview table' do
-    header_row = page.all('thead tr th').map(&:text)
+    header_row = all('thead tr th').map(&:text)
     assert_equal ['Department', 'Budget', 'Amount spent'], header_row
 
-    data_rows = page.all('tbody tr').map { |data_row| data_row.all('td').map(&:text) }
+    data_rows = all('tbody tr').map { |data_row| data_row.all('td').map(&:text) }
     assert_equal ['Office for Facial Hair Studies', '£12000000', '£10000000'], data_rows[0]
     assert_equal ['Department of Grooming', '£15000000', '£15600000'], data_rows[1]
   end

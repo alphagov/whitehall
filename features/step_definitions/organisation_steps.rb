@@ -113,7 +113,7 @@ end
 Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert page.has_content?(organisation_name)
+    assert_text organisation_name
   end
 end
 
@@ -202,28 +202,28 @@ end
 Then(/^I should be able to view all civil servants for the "([^"]*)" organisation$/) do |name|
   organisation = Organisation.find_by!(name: name)
   organisation.management_roles.each do |role|
-    assert page.has_css?(record_css_selector(role.current_person))
+    assert_selector record_css_selector(role.current_person)
   end
 end
 
 Then(/^I should be able to view all ministers for the "([^"]*)" organisation$/) do |name|
   organisation = Organisation.find_by!(name: name)
   organisation.ministerial_roles.each do |role|
-    assert page.has_css?(record_css_selector(role.current_person))
+    assert_selector record_css_selector(role.current_person)
   end
 end
 
 Then(/^I should be able to view all traffic commissioners for the "([^"]*)" organisation$/) do |name|
   organisation = Organisation.find_by!(name: name)
   organisation.traffic_commissioner_roles.each do |role|
-    assert page.has_css?(record_css_selector(role.current_person))
+    assert_selector record_css_selector(role.current_person)
   end
 end
 
 Then(/^I should be able to view all chief professional officers for the "([^"]*)" organisation$/) do |name|
   organisation = Organisation.find_by!(name: name)
   organisation.chief_professional_officer_roles.each do |role|
-    assert page.has_css?(record_css_selector(role.current_person))
+    assert_selector record_css_selector(role.current_person)
   end
 end
 
@@ -243,12 +243,12 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation pa
   organisation = Organisation.find_by!(name: organisation_name)
   offsite_link = OffsiteLink.find_by!(title: title)
   visit_organisation organisation_name
-  page.has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.id, offsite_link.id))
+  has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.id, offsite_link.id))
 end
 
 Then(/^there should be nothing featured on the home page of "([^"]*)"$/) do |name|
   visit_organisation name
-  assert page.assert_no_selector(featured_documents_selector)
+  assert_no_selector featured_documents_selector
 end
 
 def navigate_to_organisation(page_name)
@@ -267,12 +267,12 @@ end
 
 Then(/^I cannot see links to Transparency data on the "([^"]*)" about page$/) do |name|
   visit_organisation_about_page name
-  assert page.has_no_css?('a', text: 'Transparency data')
+  assert_no_selector 'a', text: 'Transparency data'
 end
 
 Then(/^I can see a link to "([^"]*)" on the "([^"]*)" about page$/) do |link_text, name|
   visit_organisation_about_page name
-  assert page.has_css?('a', text: link_text)
+  assert_selector 'a', text: link_text
 end
 
 When(/^I associate a Transparency data publication to the "([^"]*)"$/) do |name|
@@ -294,7 +294,7 @@ end
 Then(/^the featured links for the organisation "([^"]*)" should be visible on the public site$/) do |organisation_name|
   visit_organisation organisation_name
   within ".featured-links" do
-    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha")
+    assert_selector "a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha"
   end
 end
 
@@ -313,7 +313,7 @@ end
 Then(/^the featured services and guidance for the organisation "([^"]*)" should be visible on the public site$/) do |organisation_name|
   visit_organisation organisation_name
   within ".featured-links" do
-    assert page.has_css?("a[href='https://www.gov.uk/example/service']", text: "Example Service")
+    assert_selector "a[href='https://www.gov.uk/example/service']", text: "Example Service"
   end
 end
 
@@ -344,8 +344,8 @@ end
 
 Then(/^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/) do |contact_description, address|
   within ".contact" do
-    assert page.has_css?("h3", text: contact_description)
-    assert page.has_css?(".adr .street-address", text: address)
+    assert_selector "h3", text: contact_description
+    assert_selector ".adr .street-address", text: address
   end
 end
 
@@ -387,7 +387,7 @@ Then(/^when I view the organisation with the locale "([^"]*)" I should see:$/) d
   click_link locale
 
   within record_css_selector(organisation) do
-    assert page.has_css?('.organisation-logo', text: translation['logo formatted name']), 'Logo formatted name has not been translated'
+    assert_selector '.organisation-logo', text: translation['logo formatted name']
   end
 end
 
@@ -431,7 +431,7 @@ Then(/^I should see "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/
 
   ensure_path organisation_path(supported_organisation)
   within 'p.parent_organisations' do
-    assert page.has_content?(supporting_org_name)
+    assert_text supporting_org_name
   end
 end
 
@@ -439,14 +439,14 @@ Then(/^I can see information about uk aid on the "(.*?)" page$/) do |org_name|
   org = Organisation.find_by!(name: org_name)
 
   visit organisation_path(org)
-  assert page.has_css?('.uk-aid')
+  assert_selector '.uk-aid'
 end
 
 Then(/^I can not see information about uk aid on the "(.*?)" page$/) do |org_name|
   org = Organisation.find_by!(name: org_name)
 
   visit organisation_path(org)
-  assert page.has_no_css?('.uk-aid')
+  assert_no_selector '.uk-aid'
 end
 
 Given(/^an organisation and some documents exist$/) do
@@ -470,33 +470,33 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
   fill_in "title", with: @documents.first.title
   click_on "enter"
   within "#search_results" do
-    assert page.has_css?(record_css_selector(@documents[0]))
-    assert page.has_no_css?(record_css_selector(@documents[1]))
-    assert page.has_no_css?(record_css_selector(@documents[2]))
+    assert_selector record_css_selector(@documents[0])
+    assert_no_selector record_css_selector(@documents[1])
+    assert_no_selector record_css_selector(@documents[2])
   end
   click_link "Reset all fields"
   within "#search_results" do
-    assert page.has_css?(record_css_selector(@documents[0]))
-    assert page.has_no_css?(record_css_selector(@documents[1]))
-    assert page.has_no_css?(record_css_selector(@documents[2]))
+    assert_selector record_css_selector(@documents[0])
+    assert_no_selector record_css_selector(@documents[1])
+    assert_no_selector record_css_selector(@documents[2])
   end
   select @organisation_2.name, from: "organisation"
   within "#search_results" do
-    assert page.has_no_css?(record_css_selector(@documents[0]))
-    assert page.has_css?(record_css_selector(@documents[1]))
-    assert page.has_css?(record_css_selector(@documents[2]))
+    assert_no_selector record_css_selector(@documents[0])
+    assert_selector record_css_selector(@documents[1])
+    assert_selector record_css_selector(@documents[2])
   end
   select @author_2.name, from: "author"
   within "#search_results" do
-    assert page.has_no_css?(record_css_selector(@documents[0]))
-    assert page.has_no_css?(record_css_selector(@documents[1]))
-    assert page.has_css?(record_css_selector(@documents[2]))
+    assert_no_selector record_css_selector(@documents[0])
+    assert_no_selector record_css_selector(@documents[1])
+    assert_selector record_css_selector(@documents[2])
   end
   select "News articles", from: "type"
   within "#search_results" do
-    assert page.has_no_css?(record_css_selector(@documents[0]))
-    assert page.has_no_css?(record_css_selector(@documents[1]))
-    assert page.has_no_css?(record_css_selector(@documents[2]))
+    assert_no_selector record_css_selector(@documents[0])
+    assert_no_selector record_css_selector(@documents[1])
+    assert_no_selector record_css_selector(@documents[2])
   end
 end
 
@@ -513,7 +513,7 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
   organisation = Organisation.find_by!(name: org_name)
   visit admin_organisation_path(organisation)
 
-  assert page.has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+  assert has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
 end
 
 Given(/^a closed organisation with documents which has been superseded by another$/) do
@@ -530,17 +530,17 @@ When(/^I view the organisation$/) do
 end
 
 Then(/^I can see that the organisation is closed$/) do
-  assert page.has_content?("#{@organisation.name} has closed")
+  assert_text "#{@organisation.name} has closed"
 end
 
 Then(/^I can see that the organisation is closed and has been superseded by the other$/) do
-  assert page.has_content?("#{@organisation.name} was replaced by")
-  assert page.has_content?(@superseding_organisation.name)
+  assert_text "#{@organisation.name} was replaced by"
+  assert_text @superseding_organisation.name
 end
 
 Then(/^I can see the documents associated with that organisation$/) do
-  assert page.has_content?(@organisation_speech.title)
-  assert page.has_content?(@organisation_consultation.title)
-  assert page.has_content?(@organisation_publication.title)
-  assert page.has_content?(@organisation_statistics.title)
+  assert_text @organisation_speech.title
+  assert_text @organisation_consultation.title
+  assert_text @organisation_publication.title
+  assert_text @organisation_statistics.title
 end

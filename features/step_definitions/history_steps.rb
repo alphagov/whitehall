@@ -3,7 +3,7 @@ When(/^I visit the history page$/) do
 end
 
 Then(/^I should see historic information$/) do
-  assert page.has_content?("History of the UK government")
+  assert_text "History of the UK government"
 end
 
 When(/^I visit the "([^"]*)" page$/) do |path|
@@ -11,5 +11,5 @@ When(/^I visit the "([^"]*)" page$/) do |path|
 end
 
 Then(/^I should see historic information about "([^"]*)"$/) do |name|
-  assert page.has_content?(name.titlecase)
+  assert_text name.titlecase
 end

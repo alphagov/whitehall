@@ -44,24 +44,25 @@ When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/)
 end
 
 Then(/^I should see a link to the PDF attachment$/) do
-  assert page.has_css?("a[href*='#{@attachment.filename}']")
+  assert_selector "a[href*='#{@attachment.filename}']"
 end
 
 Then(/^I should see a thumbnail of the first page of the PDF$/) do
-  assert page.has_css?(".attachment img[src*='#{@attachment.filename}.png']") || page.has_css?("div.img img[src*='#{@attachment.filename}.png']")
+  assert has_selector?(".attachment img[src*='#{@attachment.filename}.png']") ||
+    has_selector?("div.img img[src*='#{@attachment.filename}.png']")
 end
 
 Then(/^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/) do |title, organisation|
   visit_organisation organisation
-  assert has_css?("#{corporate_publications_selector}, .publication a", text: title)
+  assert_selector "#{corporate_publications_selector}, .publication a", text: title
 end
 
 Then(/^I should see that the publication is about "([^"]*)"$/) do |world_location_name|
-  assert has_css?(".meta a", text: world_location_name)
+  assert_selector ".meta a", text: world_location_name
 end
 
 Then(/^I should get a "([^"]*)" error$/) do |error_code|
-  assert_equal error_code.to_i, page.status_code
+  assert_equal error_code.to_i, status_code
 end
 
 When(/^I replace the data file of the attachment in a new draft of the publication$/) do
@@ -120,7 +121,7 @@ Given(/^a published publication "([^"]*)" with type "([^"]*)"$/) do |publication
 end
 
 Then(/^I should see "([^"]*)" in the result list$/) do |title|
-  assert page.has_css?(".filter-results h3", text: %r{#{title}})
+  assert_selector ".filter-results h3", text: %r{#{title}}
 end
 
 When(/^I publish a new publication called "([^"]*)"$/) do |title|
@@ -139,7 +140,7 @@ end
 
 Then(/^I should not be able to publish the publication "([^"]*)"$/) do |title|
   visit_edition_admin title
-  assert page.has_no_button?('Publish')
+  assert has_no_button?('Publish')
 end
 
 Given(/^"([^"]*)" submits the publication "([^"]*)"$/) do |user_name, title|

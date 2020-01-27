@@ -18,22 +18,22 @@ end
 
 Then(/^I should (not )?see the minister counts$/) do |negate|
   if negate
-    assert page.has_no_css?(".feature-ministers")
+    assert_no_selector ".feature-ministers"
   else
-    assert page.has_css?(".feature-ministers")
+    assert_selector ".feature-ministers"
   end
 end
 
 Then(/^I should (not )?see a reshuffle warning message$/) do |negate|
   if negate
-    assert page.has_no_content?("Test minister <a rel=\"external\" href=\"http://example.com\">reshuffle</a> message")
+    assert_no_text "Test minister <a rel=\"external\" href=\"http://example.com\">reshuffle</a> message"
   else
-    assert page.has_content?("Test minister reshuffle message")
+    assert_text "Test minister reshuffle message"
   end
 end
 
 Then(/^I should not see the ministers and cabinet$/) do
-  refute page.has_css?("h2", text: "Cabinet ministers")
-  refute page.has_css?("h2", text: "Also attends Cabinet")
-  refute page.has_css?("h2", text: "Ministers by department")
+  assert_no_selector "h2", text: "Cabinet ministers"
+  assert_no_selector "h2", text: "Also attends Cabinet"
+  assert_no_selector "h2", text: "Ministers by department"
 end

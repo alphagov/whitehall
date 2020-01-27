@@ -34,6 +34,6 @@ end
 
 Then(/^I should see all pages of the detailed guide$/) do
   %w(page-1 page-2 page-3).each do |page_id|
-    assert page.find("h2##{page_id}").visible?, "Element h2##{page_id} is not visible"
+    assert_selector "h2##{page_id}", visible: true
   end
 end

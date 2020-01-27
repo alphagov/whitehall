@@ -7,23 +7,23 @@ When(/^I go to speed tag a newly imported (publication|speech|news article|consu
 end
 
 Then(/^I should have to select the publication sub\-type$/) do
-  assert page.has_css?("select[id*=edition_publication_type_id]")
+  assert_selector "select[id*=edition_publication_type_id]"
 end
 
 Then(/^I should have to select the speech type$/) do
-  assert page.has_css?("select[id*=edition_speech_type_id]")
+  assert_selector "select[id*=edition_speech_type_id]"
 end
 
 Then(/^I should have to select the deliverer of the speech$/) do
-  assert page.has_css?("select[id*=edition_role_appointment_id]")
+  assert_selector "select[id*=edition_role_appointment_id]"
 end
 
 When(/^I should be able to tag the (?:publication|news article) with "([^"]*)"$/) do |label|
-  assert page.has_css?("label.checkbox", text: /#{label}/)
+  assert_selector "label.checkbox", text: /#{label}/
 end
 
 When(/^I should not be able to tag the (?:publication|news article) with "([^"]*)"$/) do |label|
-  assert page.has_no_css?("label.checkbox", text: /#{label}/)
+  assert_no_selector "label.checkbox", text: /#{label}/
 end
 
 Then(/^I should be able to select the world location "([^"]*)"$/) do |name|
@@ -31,7 +31,7 @@ Then(/^I should be able to select the world location "([^"]*)"$/) do |name|
 end
 
 When(/^I can only tag the (?:publication|news article) with "([^"]*)" once$/) do |label|
-  assert page.has_css?("label.checkbox", text: /#{label}/, count: 1)
+  assert_selector "label.checkbox", text: /#{label}/, count: 1
 end
 
 Then(/^I should be able to select the first group for the document collection "([^"]*)"$/) do |name|
@@ -40,16 +40,16 @@ Then(/^I should be able to select the first group for the document collection "(
 end
 
 Then(/^I should be able to set the first published date$/) do
-  assert page.has_css?("select[id*=edition_first_published_at_1i]")
+  assert_selector "select[id*=edition_first_published_at_1i]"
   select_datetime '14-Dec-2011 10:30', from: "First published *"
 end
 
 Then(/^I should be able to set the delivered date of the speech$/) do
-  assert page.has_css?("select[id*=edition_delivered_on_1i]")
+  assert_selector "select[id*=edition_delivered_on_1i]"
   select_date '02-May-2013', from: "Delivered on"
 end
 
 Then(/^I should be able to set the consultation dates$/) do
-  assert page.has_css?('select[id*=edition_opening_at]')
-  assert page.has_css?('select[id*=edition_closing_at]')
+  assert_selector 'select[id*=edition_opening_at]'
+  assert_selector 'select[id*=edition_closing_at]'
 end

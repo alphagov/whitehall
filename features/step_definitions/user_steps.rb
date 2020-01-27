@@ -11,14 +11,14 @@ When(/^I view my own user record$/) do
 end
 
 Then(/^I can see my user details/) do
-  assert page.has_css?(".user .name", text: @user.name)
-  assert page.has_css?(".user .email", text: %r{#{@user.email}})
+  assert_selector ".user .name", text: @user.name
+  assert_selector ".user .email", text: %r{#{@user.email}}
 end
 
 Then(/^I cannot change my user details/) do
-  assert page.has_no_css?("a[href='#{edit_admin_user_path(@user)}']")
+  assert_no_selector "a[href='#{edit_admin_user_path(@user)}']"
   visit edit_admin_user_path(@user)
-  assert page.has_no_css?("form")
+  assert_no_selector "form"
 end
 
 When(/^I visit the admin author page for "([^"]*)"$/) do |name|
@@ -29,11 +29,11 @@ end
 Then(/^I should see that I am logged in as a "([^"]*)"$/) do |role|
   visit admin_user_path(@user)
   click_link "#user_settings"
-  assert page.has_css?(".user .settings .role", text: role)
+  assert_selector ".user .settings .role", text: role
 end
 
 Then(/^I should see an email address "([^"]*)"$/) do |email_address|
-  assert page.has_css?(".email", text: email_address)
+  assert_selector ".email", text: email_address
 end
 
 When(/^I visit the user list in the admin section$/) do
@@ -41,5 +41,5 @@ When(/^I visit the user list in the admin section$/) do
 end
 
 Then(/^I should see "([^"]*)" in the user list$/) do |name|
-  assert page.has_content?(name)
+  assert_text name
 end

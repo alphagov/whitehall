@@ -70,38 +70,38 @@ Then(/^I should see the promotional feature on the organisation's page$/) do
   assert_current_url admin_organisation_promotional_feature_url(@executive_office, promotional_feature)
 
   within record_css_selector(promotional_feature) do
-    assert page.has_css?('h1', text: promotional_feature.title)
+    assert_selector 'h1', text: promotional_feature.title
 
     item = promotional_feature.items.first
     within record_css_selector(item) do
-      assert page.has_content?(item.summary)
-      assert page.has_link?(item.title, href: item.title_url)
-      assert page.has_css?("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
+      assert_text item.summary
+      assert has_link?(item.title, href: item.title_url)
+      assert_selector "img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']"
     end
   end
 end
 
 Then(/^I should no longer see the promotional feature$/) do
   assert_current_url admin_organisation_promotional_features_url(@executive_office)
-  assert page.has_no_css?(record_css_selector(@promotional_feature))
+  assert_no_selector record_css_selector(@promotional_feature)
 end
 
 Then(/^I should see the promotional feature item's summary has been updated to "([^"]*)"$/) do |summary_text|
   assert_current_url admin_organisation_promotional_feature_url(@executive_office, @promotional_feature)
 
   within record_css_selector(@promotional_item) do
-    assert page.has_css?('p', text: summary_text)
+    assert_selector 'p', text: summary_text
   end
 end
 
 Then(/^I should no longer see the promotional item$/) do
   within record_css_selector(@promotional_feature) do
-    assert !page.has_css?(record_css_selector(@promotional_item))
+    assert_no_selector record_css_selector(@promotional_item)
   end
 end
 
 Then(/^I should not be able to add any further feature items$/) do
-  assert page.has_no_link?("Add feature item")
+  assert has_no_link?("Add feature item")
 end
 
 Then(/^I should see the promotional feature on the executive office page$/) do
@@ -109,13 +109,15 @@ Then(/^I should see the promotional feature on the executive office page$/) do
 
   within record_css_selector(@executive_office) do
     within 'section.features' do
-      assert page.has_css?('.promotional_feature h2', text: @promotional_feature.title)
+      assert_selector '.promotional_feature h2', text: @promotional_feature.title
 
       within record_css_selector(@promotional_feature) do
         @promotional_feature.items.each do |item|
-          assert page.has_content?(item.summary)
-          assert page.has_css?("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
-          item.links.each { |link| assert page.has_link(link.text, href: link.url) }
+          assert_text item.summary
+          assert_selector "img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']"
+          item.links.each do |link|
+            assert has_link?(link.text, href: link.url)
+          end
         end
       end
     end

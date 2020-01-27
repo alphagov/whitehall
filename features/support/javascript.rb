@@ -37,14 +37,14 @@ module Capybara::DSL
 
   def select_from_chosen(value, options = {})
     field = find_field(options[:from], visible: false, match: :first)
-    option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{value}')\").val()")
+    option_value = evaluate_script("$(\"##{field[:id]} option:contains('#{value}')\").val()")
 
     if field.multiple?
-      page.execute_script("value = ['#{option_value}']\; if ($('##{field[:id]}').val()) {$.merge(value, $('##{field[:id]}').val())}")
-      option_value = page.evaluate_script("value")
+      execute_script("value = ['#{option_value}']\; if ($('##{field[:id]}').val()) {$.merge(value, $('##{field[:id]}').val())}")
+      option_value = evaluate_script("value")
     end
 
-    page.execute_script("$('##{field[:id]}').val(#{option_value.to_json})")
-    page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
+    execute_script("$('##{field[:id]}').val(#{option_value.to_json})")
+    execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   end
 end

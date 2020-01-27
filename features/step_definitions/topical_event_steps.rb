@@ -19,19 +19,19 @@ end
 Then(/^I should see the topical event "([^"]*)" on the frontend is archived$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topical_event_path(topical_event)
-  assert page.has_css?(".archived", text: "Archived")
+  assert_selector ".archived", text: "Archived"
 end
 
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_events_path(topical_event)
-  assert page.has_css?(record_css_selector(topical_event))
+  assert_selector record_css_selector(topical_event)
 end
 
 Then(/^I should see the topical event "([^"]*)" on the frontend$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topical_event_path(topical_event)
-  assert page.has_css?(record_css_selector(topical_event))
+  assert_selector record_css_selector(topical_event)
 end
 
 When(/^I draft a new speech "([^"]*)" relating it to topical event "([^"]*)"$/) do |speech_name, topical_event_name|
@@ -83,7 +83,7 @@ Then("I should see {edition} in {topical_event_section} of the topical event {st
   stub_any_search.to_return(body: rummager_response_of_single_edition(edition))
   visit topical_event_path(topical_event)
   within "##{section}.document-block" do
-    assert page.has_css?("##{section}_#{edition.content_id}")
+    assert_selector "##{section}_#{edition.content_id}"
   end
 end
 
@@ -127,7 +127,7 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topical event p
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   offsite_link = OffsiteLink.find_by!(title: title)
   visit topical_event_path(topical_event)
-  page.has_link?(title, href: edit_admin_topical_event_offsite_link_path(topical_event.id, offsite_link.id))
+  has_link?(title, href: edit_admin_topical_event_offsite_link_path(topical_event.id, offsite_link.id))
 end
 
 Given(/^I'm administering a topical event$/) do
@@ -154,7 +154,7 @@ end
 
 Then(/^a link to the event's about page is visible$/) do
   click_link 'View on website'
-  assert page.has_css?('a[href$="/about"]', text: 'Read more about this event')
+  assert_selector 'a[href$="/about"]', text: 'Read more about this event'
 end
 
 Given(/^a topical event with published documents$/) do

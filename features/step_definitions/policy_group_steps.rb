@@ -12,7 +12,7 @@ end
 
 Then(/^I should not see the policy group "([^"]*)"$/) do |group_name|
   within(".policy_groups") do
-    assert page.has_no_content?(group_name)
+    assert_no_text group_name
   end
 end
 

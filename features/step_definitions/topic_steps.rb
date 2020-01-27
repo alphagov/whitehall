@@ -103,15 +103,15 @@ end
 
 Then(/^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/) do |name, description|
   visit admin_topics_path
-  assert page.has_css?(".name", text: name)
-  assert page.has_css?(".description", text: description)
+  assert_selector ".name", text: name
+  assert_selector ".description", text: description
 end
 
 Then(/^I should see in the admin the "([^"]*)" topic is related to topic "([^"]*)"$/) do |name, related_name|
   visit admin_topics_path
   topic = Topic.find_by(name: name)
   related_topic = Topic.find_by(name: related_name)
-  assert page.has_css?("#{record_css_selector(topic)} .related #{record_css_selector(related_topic)}")
+  assert_selector "#{record_css_selector(topic)} .related #{record_css_selector(related_topic)}"
 end
 
 Then(/^I should be able to delete the topic "([^"]*)"$/) do |name|
@@ -140,13 +140,13 @@ end
 Then(/^I should see the topics "([^"]*)" and "([^"]*)"$/) do |first_topic_name, second_topic_name|
   first_topic = Topic.find_by!(name: first_topic_name)
   second_topic = Topic.find_by!(name: second_topic_name)
-  assert page.has_css?(record_css_selector(first_topic), text: first_topic_name)
-  assert page.has_css?(record_css_selector(second_topic), text: second_topic_name)
+  assert_selector record_css_selector(first_topic), text: first_topic_name
+  assert_selector record_css_selector(second_topic), text: second_topic_name
 end
 
 Then(/^I should see a link to the related topic "([^"]*)"$/) do |related_name|
   related_topic = Topic.find_by(name: related_name)
-  assert page.has_css?(".related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
+  assert_selector ".related-topics a[href='#{topic_path(related_topic)}']", text: related_name
 end
 
 When(/^I feature the publication "([^"]*)" on the topic "([^"]*)"$/) do |publication_name, topic_name|
@@ -194,14 +194,14 @@ Then(/^I should see the publication "([^"]*)" featured on the public topic page 
   visit topic_path(topic)
 
   within('section.featured-news') do
-    assert page.has_content?(publication.title)
+    assert_text publication.title
   end
 end
 
 Then(/^I should see the offsite link featured on the public topic page$/) do
   visit topic_path(@topic)
   within('section.featured-news') do
-    assert page.has_content?(@offsite_link.title)
+    assert_text @offsite_link.title
   end
 end
 
@@ -219,7 +219,7 @@ end
 Then(/^the featured links for the topic "([^"]*)" should be visible on the public site$/) do |topic_name|
   visit_topic topic_name
   within ".featured-links" do
-    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha")
+    assert_selector "a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha"
   end
 end
 
@@ -227,7 +227,7 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topic page$/) d
   topic = Topic.find_by!(name: topic_name)
   offsite_link = OffsiteLink.find_by!(title: title)
   visit admin_topic_path(topic)
-  page.has_link?(title, href: edit_admin_topic_offsite_link_path(topic.id, offsite_link.id))
+  has_link?(title, href: edit_admin_topic_offsite_link_path(topic.id, offsite_link.id))
 end
 
 When(/^I start creating a topic$/) do

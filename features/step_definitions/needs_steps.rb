@@ -9,6 +9,6 @@ When(/^I choose the first need in the dropdown$/) do
 end
 
 Then(/^I should see the first need in the list of associated needs$/) do
-  page.find("h2:contains('Associated user needs')")
+  find("h2:contains('Associated user needs')")
   assert_equal first("td.description").text, "As a x, I need to y, So that z"
 end

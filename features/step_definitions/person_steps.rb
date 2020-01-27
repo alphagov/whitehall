@@ -73,17 +73,17 @@ end
 
 Then(/^I should be able to see "([^"]*)" in the list of people$/) do |name|
   visit_people_admin
-  assert page.has_css?(".person .name", text: name)
+  assert_selector ".person .name", text: name
 end
 
 Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
-  assert page.has_no_css?(".person .name", text: name)
+  assert_no_selector ".person .name", text: name
 end
 
 Then(/^I should see information about the person "([^"]*)"$/) do |name|
   person = find_person(name)
-  assert page.has_css?("h1", text: person.name)
-  assert page.has_css?(".biography", text: person.biography)
+  assert_selector "h1", text: person.name
+  assert_selector ".biography", text: person.biography
 end
 
 Then(/^I should see the worldwide organisation listed on his public page$/) do
@@ -92,8 +92,8 @@ Then(/^I should see the worldwide organisation listed on his public page$/) do
   visit person_url(person)
 
   within record_css_selector(person) do
-    assert page.has_content?(person.name)
-    assert page.has_css?("#current-roles a", text: organisation.name)
+    assert_text person.name
+    assert_selector "#current-roles a", text: organisation.name
   end
 end
 
@@ -102,12 +102,12 @@ Then(/^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:
   translation = table.rows_hash
   visit person_path(person)
   click_link locale
-  assert page.has_css?('.biography', text: translation["biography"]), "Biography wasn't present"
+  assert_selector '.biography', text: translation["biography"]
 end
 
 Then(/^I should see limited information about the person "(.*?)"$/) do |_name|
-  assert page.has_css?('.biography', text: "This is the first paragraph of the biography."), "Biography wasn't present"
-  assert page.has_no_content?("This is the second paragraph.")
-  assert page.has_no_css?('a[href="#current-roles"]')
-  assert page.has_no_css?('figure.img')
+  assert_selector '.biography', text: "This is the first paragraph of the biography."
+  assert_no_text "This is the second paragraph."
+  assert_no_selector 'a[href="#current-roles"]'
+  assert_no_selector 'figure.img'
 end

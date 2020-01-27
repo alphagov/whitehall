@@ -190,42 +190,42 @@ When(/^I edit the (publication|news article|consultation) changing the title to 
 end
 
 Then("I should see {edition}") do |edition|
-  assert has_css?(record_css_selector(edition))
+  assert_selector record_css_selector(edition)
 end
 
 Then("I should not see {edition}") do |edition|
-  assert has_no_css?(record_css_selector(edition))
+  assert_no_selector record_css_selector(edition)
 end
 
 Then("I should see {edition} in the list of announcements") do |edition|
-  assert has_css?(record_css_selector(edition))
+  assert_selector record_css_selector(edition)
 end
 
 Then("I should see {edition} in the list of draft documents") do |edition|
   visit admin_editions_path
-  assert has_css?(record_css_selector(edition))
+  assert_selector record_css_selector(edition)
 end
 
 Then("I should see {edition} in the list of submitted documents") do |edition|
   visit admin_editions_path(state: :submitted)
-  assert has_css?(record_css_selector(edition))
+  assert_selector record_css_selector(edition)
 end
 
 Then("I should see {edition} in the list of published documents") do |edition|
   visit admin_editions_path(state: :published)
-  assert has_css?(record_css_selector(edition))
+  assert_selector record_css_selector(edition)
 end
 
 Then("{edition} should no longer be listed on the public site") do |edition|
   public_edition_path = public_path_for(edition)
   stub_content_item_from_content_store_for(public_edition_path)
   visit_public_index_for(edition)
-  assert page.has_no_content?(edition.title)
+  assert_no_text edition.title
 end
 
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
   assert_equal new_title, find(".conflicting.new #edition_title").value
-  assert page.has_css?(".conflicting.latest .document .title", text: latest_title)
+  assert_selector ".conflicting.latest .document .title", text: latest_title
 end
 
 Then(/^my attempt to publish "([^"]*)" should fail$/) do |title|
@@ -240,7 +240,8 @@ end
 
 Then(/^my attempt to save it should fail with error "([^"]*)"/) do |error_message|
   click_button "Save"
-  assert page.has_css?(".errors li[data-track-category='form-error'][data-track-action$='-error'][data-track-label=\"#{error_message}\"]", text: error_message)
+  assert_selector ".errors li[data-track-category='form-error'][data-track-action$='-error'][data-track-label=\"#{error_message}\"]",
+                  text: error_message
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
