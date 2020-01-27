@@ -15,7 +15,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   setup do
     stub_any_search_to_return_no_results
 
-    content_store_has_item(
+    stub_content_store_has_item(
       "/courts-tribunals",
       format: "special_route",
       title: "Court at midwicket",

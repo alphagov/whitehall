@@ -6,7 +6,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
   should_be_an_admin_controller
 
   view_test "should render edit form correctly populated" do
-    publishing_api_has_linkables(
+    stub_publishing_api_has_linkables(
       [
         {
           "content_id" => "WELLS",

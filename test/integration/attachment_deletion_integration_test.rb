@@ -19,7 +19,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       login_as(managing_editor)
-      publishing_api_has_linkables([], document_type: "topic")
+      stub_publishing_api_has_linkables([], document_type: "topic")
       edition.attachments << attachment
       setup_publishing_api_for(edition)
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
@@ -64,7 +64,7 @@ private
   end
 
   def setup_publishing_api_for(edition)
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       content_id: edition.document.content_id,
       links: {},
     )

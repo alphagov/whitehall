@@ -2,7 +2,7 @@ require "gds_api/test_helpers/publishing_api"
 require "gds_api/test_helpers/publishing_api_v2"
 
 module PublishingApiTestHelpers
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   def stub_publishing_api_publish_intent
     stub_request(:any, %r{\A#{Plek.current.find('publishing-api')}/publish-intent\/.+})

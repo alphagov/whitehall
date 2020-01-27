@@ -11,7 +11,7 @@ class SchedulingTest < ActiveSupport::TestCase
     end
     stub_legacy_sidekiq_scheduling
     stub_any_publishing_api_call
-    stub_default_publishing_api_put_intent
+    stub_any_publishing_api_put_intent
   end
 
   test "scheduling a first-edition publishes a publish intent" do

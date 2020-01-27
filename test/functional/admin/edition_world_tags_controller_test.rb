@@ -6,7 +6,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
 
   setup do
     @user = login_as(:departmental_editor)
-    @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT
+    @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT
     @organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
     @edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [@organisation])
     stub_taxonomy_with_world_taxons

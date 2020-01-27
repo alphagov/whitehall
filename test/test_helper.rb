@@ -214,7 +214,7 @@ class ActionController::TestCase
     # which is currently only used to render specialist sector links in the
     # header.
     stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
-    publishing_api_has_linkables([], document_type: "topic")
+    stub_publishing_api_has_linkables([], document_type: "topic")
 
     stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links/}).to_return(body: { links: {} }.to_json)
   end

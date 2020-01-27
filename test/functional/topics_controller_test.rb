@@ -232,7 +232,7 @@ class TopicsControllerTest < ActionController::TestCase
       format: "topic",
       title: "Title of topic",
     }
-    content_store_has_item(topic.base_path, payload)
+    stub_content_store_has_item(topic.base_path, payload)
 
     topic
   end

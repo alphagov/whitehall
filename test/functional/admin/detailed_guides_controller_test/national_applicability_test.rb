@@ -10,7 +10,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
         :get,
         %r{\A#{Plek.find('publishing-api')}/v2/links},
       ).to_return(body: { links: {} }.to_json)
-      publishing_api_has_linkables([], document_type: "need")
+      stub_publishing_api_has_linkables([], document_type: "need")
     end
 
     include TestsForNationalApplicability

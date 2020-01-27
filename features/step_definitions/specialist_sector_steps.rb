@@ -44,7 +44,7 @@ Given(/^there is a document tagged to specialist sectors$/) do
                               },
                               )
 
-  content_store_has_item(document_base_path, document_content_item)
+  stub_content_store_has_item(document_base_path, document_content_item)
 end
 
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::DetailedGuidesControllerTest < ActionController::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   setup do
     login_as create(:writer, organisation: create(:organisation))
@@ -10,7 +10,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
       :get,
       %r{\A#{Plek.find('publishing-api')}/v2/links},
     ).to_return(body: { links: {} }.to_json)
-    publishing_api_has_linkables([], document_type: "need")
+    stub_publishing_api_has_linkables([], document_type: "need")
   end
 
   should_be_an_admin_controller
@@ -33,13 +33,13 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     content_id_b = SecureRandom.uuid
 
     detailed_guide = create(:detailed_guide)
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       content_id: detailed_guide.document.content_id,
       links: {
         meets_user_needs: [content_id_a, content_id_b],
       },
     )
-    publishing_api_has_expanded_links(
+    stub_publishing_api_has_expanded_links(
       content_id: detailed_guide.document.content_id,
       expanded_links: {
         taxons: [],

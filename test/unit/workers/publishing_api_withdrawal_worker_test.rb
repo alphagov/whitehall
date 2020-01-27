@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiWithdrawalWorkerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   test "publishes a 'withdrawal' item for the supplied content id" do
     publication = create(:withdrawn_publication)

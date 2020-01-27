@@ -8,7 +8,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
   test "is invalid when edition has not been tagged to a taxon" do
     edition = create(:draft_edition)
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
@@ -16,7 +16,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
       "version" => 1,
     )
 
-    publishing_api_has_expanded_links(
+    stub_publishing_api_has_expanded_links(
       content_id:  edition.content_id,
       expanded_links:  {},
     )
@@ -33,7 +33,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
   test "is valid when edition has been tagged to a taxon" do
     edition = create(:draft_edition)
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
@@ -42,7 +42,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
       "version" => 1,
     )
 
-    publishing_api_has_expanded_links(
+    stub_publishing_api_has_expanded_links(
       content_id:  edition.content_id,
       expanded_links:  {
         "taxons" => [

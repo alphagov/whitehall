@@ -116,7 +116,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
       format: "topical_event",
       title: "Title of topical event",
     }
-    content_store_has_item(topical_event.base_path, payload)
+    stub_content_store_has_item(topical_event.base_path, payload)
 
     topical_event
   end

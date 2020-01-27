@@ -18,7 +18,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   setup do
     @content_item = content_item_for_base_path("/government/publications")
-    content_store_has_item(@content_item["base_path"], @content_item)
+    stub_content_store_has_item(@content_item["base_path"], @content_item)
     stub_taxonomy_with_all_taxons
     @default_params = {
       keywords: "one two",

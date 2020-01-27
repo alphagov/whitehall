@@ -10,14 +10,14 @@ Before do
   # stub should be overriden in specific features where this behaviour needs to
   # be tested.
   stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
-  publishing_api_has_linkables([], document_type: 'topic')
+  stub_publishing_api_has_linkables([], document_type: 'topic')
 end
 
 module SpecialistSectorHelper
   include GdsApi::TestHelpers::ContentStore
 
   def stub_specialist_sectors
-    publishing_api_has_linkables(
+    stub_publishing_api_has_linkables(
       [
         {
           'content_id' => 'WELLS',

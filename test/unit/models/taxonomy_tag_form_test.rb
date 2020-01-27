@@ -25,7 +25,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
     taxons = %w[c58fdadd-7743-46d6-9629-90bb3ccc4ef0]
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
       "links" => {
         "taxons" => taxons,
@@ -43,7 +43,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
   test "#invisible_taxons returns all invisible draft taxons tagged to the content item" do
     content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
 
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => content_id,
       "links" => {
         "taxons" => %w[visible_id invisible_id],

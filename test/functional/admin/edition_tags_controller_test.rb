@@ -7,7 +7,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
   setup do
     @user = login_as(:departmental_editor)
-    @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT
+    @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT
     organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
     @edition = create(:publication, organisations: [organisation])
     stub_taxonomy_with_all_taxons
@@ -15,7 +15,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   def stub_publishing_api_links_with_taxons(content_id, taxons)
-    publishing_api_has_links(
+    stub_publishing_api_has_links(
       "content_id" => content_id,
       "links" => {
         "taxons" => taxons,
