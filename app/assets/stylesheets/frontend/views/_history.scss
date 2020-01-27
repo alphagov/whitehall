@@ -9,17 +9,6 @@
     }
   }
 
-  h2 {
-    @include heading-27;
-    font-weight: bold;
-    padding-top: 0;
-    margin-bottom: $gutter-half;
-    @include media(tablet) {
-      padding: 0;
-      margin-bottom: $gutter-two-thirds;
-    }
-  }
-
   .keyline {
     clear: both;
     margin: 0 $gutter-half $gutter;
@@ -30,17 +19,7 @@
   .block {
     clear: both;
     padding-bottom: $gutter-half;
-    ul {
-      margin-top : $gutter;
-      li {
-        list-style: none;
-        margin-bottom: $gutter-one-sixth;
-        &:before {
-          content: "-";
-          margin-right: $gutter-one-sixth;
-        }
-      }
-    }
+
     @include media(tablet) {
       padding-bottom: $gutter*2;
     }
@@ -48,9 +27,6 @@
 
   .content {
     padding: 0 $gutter-half;
-    p {
-      margin-bottom: $gutter-half;
-    }
   }
 
   .floated-children {
@@ -69,20 +45,22 @@
     padding-bottom: $gutter;
 
     p {
-      margin-bottom: $gutter;
       &.intro {
         font-weight: bold;
       }
     }
+
     .keyline {
       border: solid $black;
       border-width: 0 0 $gutter-one-sixth;
     }
+
     .image {
       figcaption {
         @include core-14;
         color: $grey-1;
       }
+
       @include media(tablet) {
         width: $one-third;
         img {
@@ -90,6 +68,7 @@
         }
       }
     }
+
     @include media(tablet) {
       .copy {
         width: $two-thirds;
@@ -116,5 +95,4 @@
   #historical-research {
     padding-bottom: $gutter;
   }
-
 }
