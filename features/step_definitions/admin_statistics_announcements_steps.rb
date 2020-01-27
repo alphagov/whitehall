@@ -82,7 +82,8 @@ end
 
 Then(/^I should see that the announcement is linked to the publication$/) do
   assert_path admin_statistics_announcement_path(@statistics_announcement)
-  assert page.has_content?("Announcement connected to draft document #{@statistics_publication.title}")
+  page.assert_text("Announcement connected to draft document #{@statistics_publication.title}",
+                   normalize_ws: true)
 end
 
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|

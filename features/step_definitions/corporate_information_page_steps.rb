@@ -31,7 +31,7 @@ When(/^I click the "([^"]*)" link$/) do |link_text|
 end
 
 Then(/^I should see the text "([^"]*)"$/) do |text|
-  assert has_css?("body", text: Regexp.new(Regexp.escape(text))), %(Expected: "#{page.text}"\nto include:\n"#{text}")
+  assert page.has_content?(text, normalize_ws: true)
 end
 
 When(/^I add a "([^"]*)" corporate information page to the worldwide organisation$/) do |page_type|
