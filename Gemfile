@@ -124,7 +124,7 @@ group :test_coverage do
 end
 
 group :cucumber, :test do
-  gem "cucumber", "~> 2.4.0"
+  gem "cucumber", "~> 3"
   gem "cucumber-rails", require: false
   gem "govuk_test"
   gem "launchy"
