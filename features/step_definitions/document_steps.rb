@@ -153,24 +153,24 @@ When(/^I view the document$/) do
   visit public_document_path(@document)
 end
 
-When(/^I submit (#{THE_DOCUMENT})$/) do |edition|
+When("I submit {edition}") do |edition|
   visit_edition_admin edition.title
   click_button "Submit for 2nd eyes"
 end
 
-When(/^I publish (#{THE_DOCUMENT})$/) do |edition|
+When("I publish {edition}") do |edition|
   visit_edition_admin edition.title
   publish
 end
 
-When(/^someone publishes (#{THE_DOCUMENT})$/) do |edition|
+When("someone publishes {edition}") do |edition|
   as_user(create(:departmental_editor)) do
     visit_edition_admin edition.title
     publish(force: true)
   end
 end
 
-When(/^I force publish (#{THE_DOCUMENT})$/) do |edition|
+When("I force publish {edition}") do |edition|
   stub_publishing_api_links_with_taxons(edition.content_id, ["a-taxon-content-id"])
   visit_edition_admin edition.title, :draft
   click_link "Edit draft"
@@ -189,34 +189,34 @@ When(/^I edit the (publication|news article|consultation) changing the title to 
   click_button "Save"
 end
 
-Then(/^I should see (#{THE_DOCUMENT})$/) do |edition|
+Then("I should see {edition}") do |edition|
   assert has_css?(record_css_selector(edition))
 end
 
-Then(/^I should not see (#{THE_DOCUMENT})$/) do |edition|
+Then("I should not see {edition}") do |edition|
   assert has_no_css?(record_css_selector(edition))
 end
 
-Then(/^I should see (#{THE_DOCUMENT}) in the list of announcements$/) do |edition|
+Then("I should see {edition} in the list of announcements") do |edition|
   assert has_css?(record_css_selector(edition))
 end
 
-Then(/^I should see (#{THE_DOCUMENT}) in the list of draft documents$/) do |edition|
+Then("I should see {edition} in the list of draft documents") do |edition|
   visit admin_editions_path
   assert has_css?(record_css_selector(edition))
 end
 
-Then(/^I should see (#{THE_DOCUMENT}) in the list of submitted documents$/) do |edition|
+Then("I should see {edition} in the list of submitted documents") do |edition|
   visit admin_editions_path(state: :submitted)
   assert has_css?(record_css_selector(edition))
 end
 
-Then(/^I should see (#{THE_DOCUMENT}) in the list of published documents$/) do |edition|
+Then("I should see {edition} in the list of published documents") do |edition|
   visit admin_editions_path(state: :published)
   assert has_css?(record_css_selector(edition))
 end
 
-Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |edition|
+Then("{edition} should no longer be listed on the public site") do |edition|
   public_edition_path = public_path_for(edition)
   stub_content_item_from_content_store_for(public_edition_path)
   visit_public_index_for(edition)

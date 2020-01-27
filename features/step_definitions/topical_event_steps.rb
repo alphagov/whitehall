@@ -77,7 +77,8 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topical event "(.*?
   click_button "Save"
 end
 
-Then(/^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/) do |edition, section, topical_event_name|
+# Then(/^I should see {edition} in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/) do |edition, section, topical_event_name|
+Then("I should see {edition} in {topical_event_section} of the topical event {string}") do |edition, section, topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   stub_any_search.to_return(body: rummager_response_of_single_edition(edition))
   visit topical_event_path(topical_event)

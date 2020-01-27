@@ -1,6 +1,8 @@
-THE_DOCUMENT = Transform(/the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
-  document_class(document_type).latest_edition.find_by!(title: title)
-end
+ParameterType(
+  name: "edition",
+  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/,
+  transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title: title) },
+)
 
 module DocumentHelper
   def document_class(type)
