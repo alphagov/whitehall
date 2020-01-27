@@ -2,12 +2,16 @@
 <% page_class "home-history" %>
 <% meta_description "In this section you can read short biographies of notable people and explore the history of government buildings. You can also search our online records and read articles and blog posts by historians." %>
 
-<header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { big: true,
-                        heading: "History of the UK&nbsp;government".html_safe } %>
-    <p class="intro-paragraph">In this section you can read short biographies of <a href="#notable-people">notable people</a> and explore the history of <a href="#government-buildings">government buildings</a>. You can also search our <a href="#documents-records">online records</a> and read <a href="#articles-and-blog-posts">articles and blog posts</a> by historians.</p>
+<header class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render "govuk_publishing_components/components/title", {
+        title: "History of the UK&nbsp;government".html_safe
+      } %>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body-l">In this section you can read short biographies of <a href="#notable-people" class="govuk-link">notable people</a> and explore the history of <a href="#government-buildings" class="govuk-link">government buildings</a>. You can also search our <a href="#documents-records" class="govuk-link">online records</a> and read <a href="#articles-and-blog-posts" class="govuk-link">articles and blog posts</a> by historians.</p>
+    </div>
   </div>
 </header>
 
