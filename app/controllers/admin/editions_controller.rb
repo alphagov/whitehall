@@ -259,6 +259,7 @@ private
 
   def build_edition_dependencies
     build_blank_image
+    build_blank_brexit_no_deal_content_notice_links
   end
 
   def set_edition_defaults
@@ -294,6 +295,10 @@ private
       image = @edition.images.build
       image.build_image_data
     end
+  end
+
+  def build_blank_brexit_no_deal_content_notice_links
+    @edition.build_no_deal_notice_links if @edition.allows_brexit_no_deal_content_notice?
   end
 
   def default_filters
@@ -389,12 +394,6 @@ private
 
     if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
       edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
-    end
-  end
-
-  def build_blank_brexit_no_deal_content_notice_links
-    @edition.brexit_no_deal_content_notice_links_available_count.times do
-      @edition.brexit_no_deal_content_notice_links.build
     end
   end
 end

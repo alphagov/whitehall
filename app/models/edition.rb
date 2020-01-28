@@ -1,8 +1,6 @@
 # The base class for almost all editoral content.
 # @abstract Using STI should not create editions directly.
 class Edition < ApplicationRecord
-  MAX_BREXIT_NO_DEAL_CONTENT_NOTICE_LINKS = 3
-
   include Edition::Traits
 
   include Edition::NullImages
@@ -408,6 +406,10 @@ class Edition < ApplicationRecord
     false
   end
 
+  def allows_brexit_no_deal_content_notice?
+    false
+  end
+
   def can_be_grouped_in_collections?
     false
   end
@@ -679,10 +681,6 @@ class Edition < ApplicationRecord
 
   def locked?
     document.locked?
-  end
-
-  def brexit_no_deal_content_notice_links_available_count
-    MAX_BREXIT_NO_DEAL_CONTENT_NOTICE_LINKS - brexit_no_deal_content_notice_links.count
   end
 
 private
