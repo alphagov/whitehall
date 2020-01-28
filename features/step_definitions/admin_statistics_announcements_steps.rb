@@ -88,7 +88,6 @@ end
 
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|
   organisation = Organisation.first || create(:organisation)
-  topic        = Topic.first || create(:topic)
 
   ensure_path admin_statistics_announcements_path
   click_on "Create announcement"

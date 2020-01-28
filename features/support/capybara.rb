@@ -5,7 +5,7 @@ Capybara.default_max_wait_time = 5
 
 module ScreenshotHelper
   def screenshot(name = "capybara")
-    page.driver.render(Rails.root.join("tmp", "#{name}.png"), full: true)
+    page.driver.render(Rails.root.join("tmp/#{name}.png"), full: true)
   end
 end
 

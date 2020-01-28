@@ -29,7 +29,7 @@ When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collectio
   content_id = SecureRandom.uuid
 
   stub_publishing_api_has_lookups(base_path => content_id)
-  res = stub_publishing_api_has_item(
+  stub_publishing_api_has_item(
     content_id: content_id,
     base_path: base_path,
     publishing_app: "content-publisher",
@@ -110,7 +110,8 @@ end
 When(/^I visit the old document series url "(.*?)"$/) do |url|
   begin
     visit url
-  rescue ActionController::RoutingError => e
+  rescue ActionController::RoutingError
+    nil
   end
 end
 

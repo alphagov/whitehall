@@ -10,7 +10,7 @@ class CreateJoinTableStatisticsAnnouncementOrganisation < ActiveRecord::Migratio
     add_index :statistics_announcement_organisations,
               %i[statistics_announcement_id organisation_id],
               name: :index_on_statistics_announcement_id_and_organisation_id
-      # rails generated name is longer than 64 characters, hence not supported
+              # rails generated name is longer than 64 characters, hence not supported
   end
 
   def down

@@ -8,6 +8,7 @@ class RetrospectiveStub
     @calls = []
   end
 
+  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
   def method_missing(method, *args)
     calls << { method: method, args: args }
 
@@ -21,6 +22,7 @@ class RetrospectiveStub
       stub[:returns]
     end
   end
+  # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
   def stub(method, opts = {})
     stubs << {

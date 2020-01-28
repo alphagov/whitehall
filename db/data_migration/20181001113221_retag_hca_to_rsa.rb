@@ -356,7 +356,7 @@ regulator_social_housing = Organisation.find_by(slug: "regulator-of-social-housi
       2.seconds,
       document.id,
     )
-  rescue Exception => e
+  rescue StandardError => e
     puts "#{slug}: #{e.class}, #{e.message}"
   end
 end

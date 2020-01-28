@@ -321,7 +321,7 @@ old = Organisation.find_by(slug: "natural-england")
       5.seconds,
       document.id,
     )
-  rescue Exception => e
+  rescue StandardError => e
     puts "#{slug}: #{e.class}, #{e.message}"
   end
 end
