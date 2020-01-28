@@ -13,15 +13,15 @@ end
 
 Then(/^I cannot edit fields of operation$/) do
   visit admin_root_path
-  assert page.has_no_css?("a", text: /Fields of operation/)
+  assert_no_selector "a", text: /Fields of operation/
   visit admin_operational_fields_path
-  assert page.has_no_content?("Fields of operation")
+  assert_no_text "Fields of operation"
 end
 
 Then(/^I cannot create new fatality notices$/) do
   visit admin_editions_path
-  assert page.has_no_css?("a", text: /fatality/i)
+  assert_no_selector "a", text: /fatality/i
   visit new_admin_fatality_notice_path
-  assert page.has_no_content?("Fatality")
-  assert page.has_no_css?("form")
+  assert_no_text "Fatality"
+  assert_no_selector "form"
 end

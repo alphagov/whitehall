@@ -19,7 +19,7 @@ When(/^I check the document for broken links$/) do
   click_on 'Check for broken links'
 
   # Wait until the check is in progress
-  page.has_content?("Please wait")
+  has_text?("Please wait")
 
   link_checker_api_call_webhook(
     id: 1,
@@ -31,8 +31,8 @@ When(/^I check the document for broken links$/) do
 end
 
 Then(/^I should see a list of the broken links$/) do
-  assert page.has_content?("links in this document that may be broken")
-  assert page.has_link?(@broken_link, href: @broken_link)
+  assert_text "links in this document that may be broken"
+  assert has_link?(@broken_link, href: @broken_link)
 end
 
 When(/^I correct the broken links$/) do
@@ -52,7 +52,7 @@ When(/^I correct the broken links$/) do
   click_on "Save"
 
   # Wait until the check is in progress
-  page.has_content?("Please wait")
+  has_text?("Please wait")
 
   link_checker_api_call_webhook(
     id: 2,
@@ -64,5 +64,5 @@ When(/^I correct the broken links$/) do
 end
 
 Then(/^I should see that the document has no broken links$/) do
-  assert page.has_content?("This document contains no broken links")
+  assert_text "This document contains no broken links"
 end

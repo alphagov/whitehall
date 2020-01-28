@@ -36,24 +36,24 @@ end
 Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)"$/) do |minister_name, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert page.has_css?('.current-appointee', text: minister_name)
+    assert_selector '.current-appointee', text: minister_name
   end
 end
 
 Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^"]*)"$/) do |minister_name, organisation_name, role|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert page.has_css?('.current-appointee', text: minister_name)
-    assert page.has_css?('.app-person__roles', text: role)
+    assert_selector '.current-appointee', text: minister_name
+    assert_selector '.app-person__roles', text: role
   end
 end
 
 Then(/^I should see that the minister is associated with the "([^"]*)"$/) do |organisation_name|
-  assert page.has_css?('.meta', text: organisation_name)
+  assert_selector'.meta', text: organisation_name
 end
 
 Then(/^I should see that the minister has responsibilities "([^"]*)"$/) do |responsibilities|
-  assert page.has_css?(".responsibilities", text: responsibilities)
+  assert_selector ".responsibilities", text: responsibilities
 end
 
 When(/^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/) do |person_name, ministerial_role|
@@ -69,14 +69,14 @@ end
 
 Then(/^I should see that "([^"]*)" is a commons whip "([^"]*)"$/) do |minister_name, role_title|
   within record_css_selector(Whitehall::WhipOrganisation::WhipsHouseOfCommons) do
-    assert page.has_css?('.current-appointee', text: minister_name)
-    assert page.has_css?('.app-person__roles', text: role_title)
+    assert_selector '.current-appointee', text: minister_name
+    assert_selector '.app-person__roles', text: role_title
   end
 end
 
 Then(/^I should see that "([^"]*)" also attends cabinet$/) do |minister_name|
   within "#also-attends-cabinet" do
-    assert page.has_css?('.current-appointee', text: minister_name)
+    assert_selector '.current-appointee', text: minister_name
   end
 end
 
@@ -138,7 +138,7 @@ end
 Then(/^I should see that ordering displayed on the organisation page$/) do
   visit organisation_path(@the_ministerial_organisation)
 
-  minister_headings = page.all('#ministers li h3').map(&:text)
+  minister_headings = all('#ministers li h3').map(&:text)
 
   @the_ordered_ministers.each.with_index do |role_appointment, idx|
     assert_equal role_appointment.person.name, minister_headings[idx]
@@ -149,7 +149,7 @@ Then(/^I should see that ordering displayed on the section for the organisation 
   visit ministers_page
 
   headings_css_selector = "#organisation_#{@the_ministerial_organisation.id} .minister-list li h4"
-  minister_headings = page.all(headings_css_selector).map(&:text)
+  minister_headings = all(headings_css_selector).map(&:text)
 
   @the_ordered_ministers.each.with_index do |role_appointment, idx|
     assert_equal role_appointment.person.name, minister_headings[idx]

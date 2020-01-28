@@ -31,7 +31,7 @@ Then(/^I should see the previous prime ministers listed according the century in
   within '#nineteenth-century-appointments' do
     @nineteenth_century_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert has_content?(appointment.person.name)
+        assert_text appointment.person.name
       end
     end
   end
@@ -39,7 +39,7 @@ Then(/^I should see the previous prime ministers listed according the century in
   within '#eighteenth-century-appointments' do
     @eighteenth_century_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert has_content?(appointment.person.name)
+        assert_text appointment.person.name
       end
     end
   end

@@ -63,12 +63,12 @@ When(/^I mark the consultation as offsite$/) do
 end
 
 Then(/^the consultation can be associated with topical events$/) do
-  assert has_css?('label', text: 'Topical events')
+  assert_selector 'label', text: 'Topical events'
 end
 
 Then(/^I can see that the consultation has been published$/) do
   expected_title = Consultation.last.title
   expected_message = "The document #{expected_title} has been published"
 
-  assert has_css?('.flash', text: expected_message)
+  assert_selector '.flash', text: expected_message
 end

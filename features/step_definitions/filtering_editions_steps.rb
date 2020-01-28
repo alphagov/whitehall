@@ -20,16 +20,16 @@ end
 
 When(/^I view the documents index page$/) do
   visit admin_editions_path(organisation: @department.id)
-  page.click_on "Reset all fields"
+  click_on "Reset all fields"
 end
 
 When(/^I filter by broken links$/) do
-  page.check "Only broken links"
-  page.click_on "Search"
+  check "Only broken links"
+  click_on "Search"
 end
 
 Then(/^I see only documents with broken links$/) do
-  assert page.has_content?("Publication #1")
+  assert_text "Publication #1"
 
-  assert page.has_no_content?("Publication #2")
+  assert_no_text "Publication #2"
 end

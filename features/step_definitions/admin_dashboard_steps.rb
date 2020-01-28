@@ -4,12 +4,12 @@ end
 
 Then(/^I should see the draft document "([^"]*)"$/) do |title|
   edition = Edition.find_by!(title: title).latest_edition
-  assert has_css?(".draft-documents #{record_css_selector(edition)}")
+  assert_selector ".draft-documents #{record_css_selector(edition)}"
 end
 
 Then(/^I should see the force published document "([^"]*)"$/) do |title|
   edition = Edition.find_by!(title: title).latest_edition
-  assert has_css?(".force-published-documents #{record_css_selector(edition)}")
+  assert_selector ".force-published-documents #{record_css_selector(edition)}"
 end
 
 Then(/^I should see a link to the content data app$/) do

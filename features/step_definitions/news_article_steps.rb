@@ -63,12 +63,12 @@ Then(/^the news article tag is the same as the person in the text$/) do
   visit admin_edition_path(NewsArticle.last)
   click_button "Create new edition"
   appointment = NewsArticle.last.role_appointments.first
-  assert has_css?("select#edition_role_appointment_ids option[value='#{appointment.id}'][selected=selected]")
+  assert_selector "select#edition_role_appointment_ids option[value='#{appointment.id}'][selected=selected]"
 end
 
 Then(/^I should see both the news articles for the Deputy Prime Minister role$/) do
-  assert has_css?(".news_article", text: "News from Don, Deputy PM")
-  assert has_css?(".news_article", text: "News from Harriet, Deputy PM")
+  assert_selector ".news_article", text: "News from Don, Deputy PM"
+  assert_selector ".news_article", text: "News from Harriet, Deputy PM"
 end
 
 Given(/^"([^"]*)" has news associated with her$/) do |arg1|
@@ -82,13 +82,13 @@ Given(/^"([^"]*)" has news associated with her$/) do |arg1|
 end
 
 Then(/^I should see both the news articles for Harriet Home$/) do
-  assert has_content?("First article")
-  assert has_content?("Second article")
+  assert_text "First article"
+  assert_text "Second article"
 end
 
 Then(/^I should be informed I shouldn't use this image in the markdown$/) do
   click_on "Edit draft"
-  assert has_no_css?("fieldset#image_fields .image input[value='!!1']")
+  assert_no_selector "fieldset#image_fields .image input[value='!!1']"
 end
 
 When(/^I browse to the announcements index$/) do
@@ -130,17 +130,17 @@ end
 
 Then(/^I should see the news article listed in admin with an indication that it is in French$/) do
   assert_path admin_edition_path(@news_article)
-  assert page.has_content?("This document is French-only")
+  assert_text "This document is French-only"
 end
 
 Then(/^I should only see the news article on the French version of the public "([^"]*)" location page$/) do |world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   visit world_location_path(world_location, locale: :fr)
   within record_css_selector(@news_article) do
-    assert page.has_content?(@news_article.title)
+    assert_text @news_article.title
   end
   visit world_location_path(world_location)
-  assert page.has_no_css?(record_css_selector(@news_article))
+  assert_no_selector record_css_selector(@news_article)
 end
 
 When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do |news_type, title|

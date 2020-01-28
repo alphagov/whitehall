@@ -1,4 +1,3 @@
-
 When(/^I (?:also )?filter by (only )?a keyword$/) do |only|
   fill_in_filter "Contains", "keyword", !!only
 end
@@ -20,12 +19,10 @@ When(/^I (?:also )?filter by (only )?a world location$/) do |only|
 end
 
 When(/^I (?:also )?filter by (only )?published date$/) do |only|
-  if only
-    clear_filters
-  end
-  page.fill_in "Published after", with: "01/01/2013"
-  page.fill_in "Published before", with: "01/03/2013"
-  page.click_on "Refresh results"
+  clear_filters if only
+  fill_in "Published after", with: "01/01/2013"
+  fill_in "Published before", with: "01/03/2013"
+  click_on "Refresh results"
 end
 
 ### Announcements
@@ -43,13 +40,13 @@ When(/^I visit the announcments index in French$/) do
 end
 
 Then(/^I should see only announcements which have French translations$/) do
-  assert page.has_content? "C'est la vie"
-  assert page.has_no_content? "News Article in English only"
+  assert_text "C'est la vie"
+  assert_no_text "News Article in English only"
 end
 
 Then(/^I should be able to filter them by country \(or 'Pays' in French\)$/) do
   within '#document-filter' do
-    assert page.has_selector?('label', count: 1)
-    assert page.has_content?("Pays")
+    assert_selector 'label', count: 1
+    assert_text "Pays"
   end
 end

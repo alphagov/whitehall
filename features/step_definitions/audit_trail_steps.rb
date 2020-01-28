@@ -1,7 +1,7 @@
 Given(/^a document that has gone through many changes$/) do
   begin_drafting_publication('An frequently changed publication')
   click_on "Save and continue"
-  assert page.has_content?('An frequently changed publication')
+  assert_text 'An frequently changed publication'
   @the_publication = Publication.find_by(title: 'An frequently changed publication')
   # fake it
   states = %w[draft submitted published]
@@ -19,17 +19,17 @@ end
 Then(/^I can traverse the audit trail with newer and older navigation$/) do
   click_on 'History'
   within '#history' do
-    assert page.has_css?('.version', count: 30)
-    assert page.has_no_link? '<< Newer'
+    assert_selector '.version', count: 30
+    assert has_no_link?('<< Newer')
     find('.audit-trail-nav', match: :first).click_link('Older >>')
   end
   within '#history' do
     # there are 51 versions (1 real via create 50 fake from step above)
-    assert page.has_css?('.version', count: 21)
-    assert page.has_no_link? 'Older >>'
+    assert_selector '.version', count: 21
+    assert has_no_link?('Older >>')
     find('.audit-trail-nav', match: :first).click_link('<< Newer')
   end
   within '#history' do
-    assert page.has_css?('.version', count: 30)
+    assert_selector '.version', count: 30
   end
 end

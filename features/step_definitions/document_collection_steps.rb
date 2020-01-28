@@ -43,7 +43,7 @@ When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collectio
   end
 
   within 'section.group' do
-    assert page.has_content? title
+    assert_text title
   end
 end
 
@@ -61,7 +61,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   click_on 'Add'
 
   within 'section.group' do
-    assert page.has_content? doc_edition.title
+    assert_text doc_edition.title
   end
 end
 
@@ -73,7 +73,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   click_on "Collection documents"
 
   #Simulate drag-droping document.
-  page.execute_script %{
+  execute_script %{
     (function($) {
       var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
       if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title_1}' in .document-list.");
@@ -87,7 +87,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
     })(jQuery);
   }
   # Wait for post to complete
-  assert page.has_no_css?(".loading-spinner")
+  assert_no_selector ".loading-spinner"
 end
 
 Then(/^I (?:can )?view the document collection in the admin$/) do
@@ -96,7 +96,7 @@ Then(/^I (?:can )?view the document collection in the admin$/) do
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
   click_on "Collection documents"
-  assert page.has_selector?("h1", text: @document_collection.title)
+  assert_selector "h1", text: @document_collection.title
 end
 
 Then(/^I see that the document "(.*?)" is not part of the document collection$/) do |document_title|
@@ -104,7 +104,7 @@ Then(/^I see that the document "(.*?)" is not part of the document collection$/)
 end
 
 Then(/^I should see links back to the collection$/) do
-  assert page.has_css?("a[href='#{public_document_path(@document_collection)}']")
+  assert_selector "a[href='#{public_document_path(@document_collection)}']"
 end
 
 When(/^I visit the old document series url "(.*?)"$/) do |url|
@@ -150,8 +150,8 @@ Then(/^I can see in the admin that "(.*?)" does not appear$/) do |document_title
 end
 
 Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
-  assert page.has_content? doc_title_1
-  assert page.body.index(doc_title_1) < page.body.index(doc_title_2), "Expected #{doc_title_1} to be before #{doc_title_2}"
+  assert_text doc_title_1
+  assert body.index(doc_title_1) < body.index(doc_title_2), "Expected #{doc_title_1} to be before #{doc_title_2}"
 end
 
 And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|

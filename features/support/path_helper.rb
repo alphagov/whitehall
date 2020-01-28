@@ -1,8 +1,8 @@
 module PathHelper
   def assert_final_path(path, expected)
-    previous_location = page.current_path
+    previous_location = current_path
     visit path
-    assert_equal URI(expected).path, page.current_path
+    assert_equal URI(expected).path, current_path
     visit previous_location
   end
 

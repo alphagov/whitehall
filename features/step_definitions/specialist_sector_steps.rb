@@ -48,7 +48,8 @@ Given(/^there is a document tagged to specialist sectors$/) do
 end
 
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do
-  header = find("article header")
-  assert header.has_content?("Top Level Topic")
-  assert header.has_css?('dd', text: "Topic 1 and Topic 2")
+  within "article header" do
+    assert_text "Top Level Topic"
+    assert_selector 'dd', text: "Topic 1 and Topic 2"
+  end
 end

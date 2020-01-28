@@ -1,13 +1,13 @@
 module AttachmentHelper
   def attachment_thumbnail_path
     within record_css_selector(@attachment) do
-      page.find("img")[:src]
+      find("img")[:src]
     end
   end
 
   def attachment_path
     within record_css_selector(@attachment) do
-      page.find_link(@attachment_title)[:href]
+      find_link(@attachment_title)[:href]
     end
   end
 
@@ -43,7 +43,7 @@ module AttachmentHelper
   end
 
   def page_has_attachment?(attachment)
-    page.has_css?('.attachment-details .title', text: attachment.title)
+    has_selector?('.attachment-details .title', text: attachment.title)
   end
 end
 

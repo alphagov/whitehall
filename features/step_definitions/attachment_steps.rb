@@ -58,7 +58,7 @@ When(/^I set the order of attachments to:$/) do |attachment_order|
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|
-  attachment_ids = page.all('.existing-attachments > li').map { |element| element[:id] }
+  attachment_ids = all('.existing-attachments > li').map { |element| element[:id] }
 
   attachment_list.hashes.each_with_index do |attachment_info, index|
     attachment = Attachment.find_by(title: attachment_info[:title])
@@ -77,16 +77,16 @@ When(/^I go to the outcome for the consultation "(.*?)"$/) do |title|
 end
 
 Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do |attachment_title|
-  assert page.has_no_selector?(".flash.alert")
-  assert page.has_content?(attachment_title)
+  assert_no_selector ".flash.alert"
+  assert_text attachment_title
 end
 
 Then(/^I can see the attachment title "([^"]*)"$/) do |text|
-  assert page.has_css?('li.attachment', text: text)
+  assert_selector 'li.attachment', text: text
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
-  assert page.has_link?("a", href: /draft-origin/, text: attachment_title)
+  assert has_link?("a", href: /draft-origin/, text: attachment_title)
 end
 
 When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)" and the contact address "(.*?)"$/) do |title, isbn, web_isbn, contact_address|
@@ -115,6 +115,5 @@ Then(/^the html attachment "(.*?)" includes the contact address "(.*?)" and the 
 end
 
 Then(/^I see a validation error for uploading attachments$/) do
-  assert page.has_content?("must have finished uploading"),
-         "Uploading attachment validation message not found"
+  assert_text "must have finished uploading"
 end

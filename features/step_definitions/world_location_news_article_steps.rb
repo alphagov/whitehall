@@ -2,26 +2,26 @@
 
 Then(/^I should see the world location news article listed in admin with an indication that it is in French$/) do
   assert_path admin_edition_path(@world_location_news_article)
-  assert page.has_content?("This document is French-only")
+  assert_text "This document is French-only"
 end
 
 Then(/^I should only see the world location news article on the French version of the public "([^"]*)" location page$/) do |world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   visit world_location_path(world_location, locale: :fr)
   within record_css_selector(@world_location_news_article) do
-    assert page.has_content?(@world_location_news_article.title)
+    assert_text @world_location_news_article.title
   end
 
   visit world_location_path(world_location)
-  assert page.has_no_css?(record_css_selector(@world_location_news_article))
+  assert_no_selector record_css_selector(@world_location_news_article)
 end
 
 Then(/^I should only be able to view the world location news article article in French$/) do
   visit world_location_news_article_path(@world_location_news_article.document, locale: :fr)
-  assert page.has_content?(@world_location_news_article.title)
+  assert_text @world_location_news_article.title
 
   visit world_location_news_article_path(@world_location_news_article.document, locale: :en)
-  assert_equal 404, page.status_code
+  assert_equal 404, status_code
 end
 
 When(/^I draft a valid world location news article "([^"]*)"$/) do |title|
@@ -44,7 +44,7 @@ Then(/^the worldwide organisation "([^"]+)" is listed as a producing org on the 
   visit document_path(WorldLocationNewsArticle.find_by(title: world_news_title))
   world_org = WorldwideOrganisation.find_by(name: world_org_name)
   within '.meta' do
-    assert page.has_link?(world_org.name, href: worldwide_organisation_path(world_org)), "should have a link to #{world_org.name} as a producing org, but I don't"
+    assert has_link?(world_org.name, href: worldwide_organisation_path(world_org)), "should have a link to #{world_org.name} as a producing org, but I don't"
   end
 end
 
@@ -52,7 +52,7 @@ Then(/^the topical event "([^"]+)" is listed as a topical event on the world loc
   visit document_path(WorldLocationNewsArticle.find_by(title: world_news_title))
   topical_event = TopicalEvent.find_by(name: topical_event_name)
   within '.meta' do
-    assert page.has_link?(topical_event.name, href: topical_event_path(topical_event)), "should have a link to #{topical_event.name} as a topical event, but I don't"
+    assert has_link?(topical_event.name, href: topical_event_path(topical_event)), "should have a link to #{topical_event.name} as a topical event, but I don't"
   end
 end
 
@@ -60,7 +60,7 @@ Then(/^the world location news article "([^"]+)" appears on the (?:world locatio
   visit world_location_path(WorldLocation.find_by(name: world_location_name))
   world_location_news_article = WorldLocationNewsArticle.find_by(title: world_news_title)
   within record_css_selector(world_location_news_article) do
-    assert page.has_content?(world_location_news_article.title)
+    assert_text world_location_news_article.title
   end
 end
 
@@ -75,5 +75,5 @@ When(/^I edit the right\-to\-left non\-English edition$/) do
 end
 
 Then(/^I should see that the form text fields are displayed right to left$/) do
-  assert page.has_css?('form fieldset.right-to-left')
+  assert_selector 'form fieldset.right-to-left'
 end

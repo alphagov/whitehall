@@ -12,7 +12,7 @@ end
 
 Then(/^I should see the legacy url "([^"]*)"$/) do |old_url|
   within "#document-sources-section" do
-    assert has_content?(old_url), "should have legacy url of #{old_url}"
+    assert_text old_url
   end
 end
 

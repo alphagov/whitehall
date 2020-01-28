@@ -27,13 +27,13 @@ end
 
 Then(/^I can see the first page of all the statistics$/) do
   within '.filter-results' do
-    assert page.has_content? "Womble to Wombat population ratios"
-    assert page.has_content? "2055 beard lengths"
-    assert page.has_content? "Wombat population in Wimbledon Common 2063"
-    assert page.has_content? "No. 40 - More stats"
-    assert page.has_content? "No. 4 - More stats"
-    assert page.has_no_content? "No. 3 - More stats"
-    assert_equal 40, page.all(".document-list .document-row").length
+    assert_text "Womble to Wombat population ratios"
+    assert_text "2055 beard lengths"
+    assert_text "Wombat population in Wimbledon Common 2063"
+    assert_text "No. 40 - More stats"
+    assert_text "No. 4 - More stats"
+    assert_no_text "No. 3 - More stats"
+    assert_equal 40, all(".document-list .document-row").length
   end
 end
 
@@ -44,7 +44,7 @@ When(/^I navigate to the next page of statistics$/) do
 end
 
 Then(/^I can see the second page of all the statistics$/) do
-  assert page.has_no_content? "No. 4 - More stats"
-  assert page.has_content? "No. 3 - More stats"
-  assert page.has_content? "No. 1 - More stats"
+  assert_no_text "No. 4 - More stats"
+  assert_text "No. 3 - More stats"
+  assert_text "No. 1 - More stats"
 end

@@ -1,6 +1,8 @@
-THE_DOCUMENT = Transform(/the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
-  document_class(document_type).latest_edition.find_by!(title: title)
-end
+ParameterType(
+  name: "edition",
+  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/,
+  transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title: title) },
+)
 
 module DocumentHelper
   def document_class(type)
@@ -127,13 +129,13 @@ module DocumentHelper
   end
 
   def fill_in_change_note_if_required
-    if has_css?("textarea[name='edition[change_note]']", wait: false)
+    if has_selector?("textarea[name='edition[change_note]']", wait: false)
       fill_in "edition_change_note", with: "changes"
     end
   end
 
   def select_topic_if_required
-    if has_css?(".edition-topic-fields", wait: false)
+    if has_selector?(".edition-topic-fields", wait: false)
       within(".edition-topic-fields") do
         select Topic.first.name, from: "Policy Areas"
       end
@@ -147,7 +149,7 @@ module DocumentHelper
   def publish(options = {})
     if options[:force]
       click_link "Force publish"
-      page.has_css?(".force-publish-form", visible: true)
+      has_selector?(".force-publish-form", visible: true)
       within '.force-publish-form' do
         fill_in 'reason', with: "because"
         click_button 'Force publish'
@@ -163,11 +165,11 @@ module DocumentHelper
     edition = Edition.find_by(title: title)
     visit admin_edition_path(edition)
 
-    assert page.has_css?('.speed-tag')
+    assert_selector '.speed-tag'
     within '.speed-tag' do
       select 'Research and analysis', from: 'Publication type'
       click_on 'Save'
-      assert page.has_no_css?('.speed-tag .alert')
+      assert_no_selector '.speed-tag .alert'
     end
   end
 
@@ -176,7 +178,7 @@ module DocumentHelper
     visit admin_edition_path(edition)
 
     click_on 'Convert to draft'
-    assert page.has_no_css?('.speed-tag')
+    assert_no_selector '.speed-tag'
   end
 end
 

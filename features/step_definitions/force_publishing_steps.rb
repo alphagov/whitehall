@@ -9,12 +9,12 @@ end
 Then(/^the "([^"]*)" publication should not be flagged as force\-published any more$/) do |publication_title|
   visit admin_editions_path(state: :published)
   publication = Publication.find_by(title: publication_title)
-  assert page.has_css? record_css_selector(publication)
-  assert page.has_no_css?(record_css_selector(publication) + ".force_published")
+  assert_selector record_css_selector(publication)
+  assert_no_selector record_css_selector(publication) + ".force_published"
 end
 
 Then(/^the publication "([^"]*)" should have a force publish reason$/) do |publication_title|
   publication = Publication.find_by(title: publication_title)
   ensure_path(admin_edition_path(publication))
-  assert page.has_content?('Force published: because')
+  assert_text "Force published: because"
 end

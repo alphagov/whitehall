@@ -20,7 +20,7 @@ module PersonHelper
   end
 
   def person_image_path
-    page.find(".person img")[:src]
+    find(".person img")[:src]
   end
 
   def visit_people_admin
