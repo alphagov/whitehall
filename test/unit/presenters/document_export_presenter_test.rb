@@ -148,6 +148,15 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal "Caption text", result.dig(:editions, 0, :images, 0, :caption)
   end
 
+  test "returns nil for empty image caption" do
+    image = create(:image, caption: "")
+    publication = create(:publication, images: [image])
+
+    result = DocumentExportPresenter.new(publication.document).as_json
+
+    assert_nil result.dig(:editions, 0, :images, 0, :caption)
+  end
+
   test "ignores variants when they do not exist" do
     svg_image_data = create(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
     publication = create(:publication, images: [create(:image, image_data: svg_image_data)])
