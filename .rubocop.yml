@@ -66,6 +66,14 @@ Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+Rails/BulkChangeTable:
+  Enabled: false
+Rails/ReversibleMigration:
+  Enabled: false
+Rails/NotNullColumn:
+  Enabled: false
+Rails/CreateTableWithTimestamps:
+  Enabled: false
 
 Rails/FilePath:
   EnforcedStyle: slashes
