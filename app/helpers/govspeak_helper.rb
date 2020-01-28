@@ -267,9 +267,7 @@ private
   def convert_brexit_cta(govspeak)
     return govspeak if govspeak.blank?
 
-    govspeak.gsub(/\$BrexitCTA/) do
-      render(partial: "documents/brexit_cta", formats: :text)
-    end
+    govspeak.gsub(/\$BrexitCTA/, "")
   end
 
   def edition_body_with_attachments_and_alt_format_information(edition)
