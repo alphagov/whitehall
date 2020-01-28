@@ -126,8 +126,9 @@ end
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topical event page$/) do |title, topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   offsite_link = OffsiteLink.find_by!(title: title)
-  visit topical_event_path(topical_event)
-  has_link?(title, href: edit_admin_topical_event_offsite_link_path(topical_event.id, offsite_link.id))
+  visit admin_topical_event_path(topical_event)
+  click_link "Features"
+  assert has_link?(title, href: edit_admin_topical_event_offsite_link_path(topical_event.slug, offsite_link.id))
 end
 
 Given(/^I'm administering a topical event$/) do

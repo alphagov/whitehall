@@ -198,8 +198,8 @@ end
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" (?:world location|international delegation) page$/) do |title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   offsite_link = OffsiteLink.find_by!(title: title)
-  visit world_location_path(world_location)
-  has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.id, offsite_link.id))
+  visit features_admin_world_location_path(world_location)
+  assert has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.slug, offsite_link.id))
 end
 
 Then(/^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/) do |expected_title, name|

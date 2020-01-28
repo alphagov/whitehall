@@ -242,8 +242,9 @@ end
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   offsite_link = OffsiteLink.find_by!(title: title)
-  visit_organisation organisation_name
-  has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.id, offsite_link.id))
+  visit admin_organisation_path(organisation)
+  click_link "Features"
+  assert has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.slug, offsite_link.id))
 end
 
 Then(/^there should be nothing featured on the home page of "([^"]*)"$/) do |name|
