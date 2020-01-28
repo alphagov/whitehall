@@ -10,6 +10,20 @@ class BrexitNoDealContentNoticeLinkTest < ActiveSupport::TestCase
                                  publishing_app: "content-publisher")
   end
 
+  test "external link starting with www is invalid" do
+    link = BrexitNoDealContentNoticeLink.new(title: "External Link", url: "www.example.com/foo")
+
+    link.valid?
+
+    assert_includes link.errors.full_messages, "Url is not valid. Make sure it starts with http(s)"
+  end
+
+  test "internal link starting with www is valid" do
+    link = BrexitNoDealContentNoticeLink.new(title: "Internal link", url: "www.gov.uk/test")
+
+    assert link.valid?
+  end
+
   test "should be invalid with a malformed url" do
     link = BrexitNoDealContentNoticeLink.new(title: "External Link", url: "htps://example.com/foo")
 
@@ -147,5 +161,14 @@ class BrexitNoDealContentNoticeLinkTest < ActiveSupport::TestCase
     )
 
     assert_not link.valid?
+  end
+
+  test "a subpage is a valid link" do
+    link = BrexitNoDealContentNoticeLink.new(
+      title: "Internal Link",
+      url: "/test/subpage",
+    )
+
+    assert link.valid?
   end
 end

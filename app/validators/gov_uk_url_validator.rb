@@ -37,9 +37,14 @@ private
 
   def content_id(record)
     Services.publishing_api.lookup_content_id(
-      base_path: parse_url(record.url).path,
+      base_path: base_path(record.url),
       with_drafts: true,
     )
+  end
+
+  def base_path(url)
+    _separator, path, *_subpaths = parse_url(url).path.split("/")
+    "/#{path}"
   end
 
   def parse_url(url)

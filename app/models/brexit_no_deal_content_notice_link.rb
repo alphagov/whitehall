@@ -25,18 +25,28 @@ class BrexitNoDealContentNoticeLink < ApplicationRecord
 private
 
   def has_govuk_host?
-    URI.parse(url).host =~ /(publishing.service|www).gov.uk\Z/
+    govuk_url_regex.match?(host)
   end
 
   def has_no_host?
-    URI.parse(url).host.blank?
+    host.blank?
   end
 
   def link_title_is_not_a_url?
     errors.add(:title, "can't be a URL") if url_regex.match?(title)
   end
 
+  def govuk_url_regex
+    /(publishing.service|www).gov.uk\Z/
+  end
+
   def url_regex
     /https?:\/\/[\S]+/
+  end
+
+  def host
+    return URI.parse("https://#{url}").host if url.start_with?("www.")
+
+    URI.parse(url).host
   end
 end
