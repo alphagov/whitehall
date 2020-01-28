@@ -9,7 +9,7 @@ module Admin::EditionRoutesHelper
   def self.edition_instance_route(name)
     EDITION_TYPES.each do |type|
       method_name = name.to_s.gsub("admin_edition", "admin_#{type.model_name.singular}")
-      class_eval <<~METHOD
+      class_eval <<~METHOD, __FILE__, __LINE__ + 1
         def #{method_name}(*args)
           #{name}(*args)
         end

@@ -22,10 +22,6 @@ Layout/RescueEnsureAlignment:
     - 'app/presenters/detailed_guide_presenter.rb'
     - 'app/presenters/detailed_guide_presenter.rb'
 
-Style/EvalWithLocation:
-  Exclude:
-    - 'app/helpers/admin/edition_routes_helper.rb'
-
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
