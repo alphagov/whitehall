@@ -403,7 +403,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     raindrops (0.19.1)
-    rake (12.3.3)
+    rake (13.0.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -630,7 +630,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 5.1)
   rails_translation_manager (~> 0.1.0)
-  rake (= 12.3.3)
+  rake (= 13.0.1)
   record_tag_helper (~> 1.0)
   redis-namespace
   responders (~> 3.0)
