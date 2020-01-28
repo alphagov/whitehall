@@ -14,15 +14,12 @@ AllCops:
 Metrics/BlockLength:
   Enabled: false
 
-
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
 Style/FormatStringToken:
   Exclude:
     - 'config/routes.rb'
-    # Hopefully this file can be removed soon...
-    - 'lib/migrate_assets_to_asset_manager.rb'
     - 'lib/tasks/scheduled_publishing.rake'
 
 Rails/FindBy:
