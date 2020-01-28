@@ -14,13 +14,6 @@ AllCops:
 Metrics/BlockLength:
   Enabled: false
 
-# This suggests awkward alignment, so disable it
-Layout/RescueEnsureAlignment:
-  Exclude:
-    - 'app/models/email_signup/feed_url_validator.rb'
-    - 'app/models/unpublishing.rb'
-    - 'app/presenters/detailed_guide_presenter.rb'
-    - 'app/presenters/detailed_guide_presenter.rb'
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
