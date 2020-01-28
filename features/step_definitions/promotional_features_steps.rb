@@ -115,9 +115,6 @@ Then(/^I should see the promotional feature on the executive office page$/) do
         @promotional_feature.items.each do |item|
           assert_text item.summary
           assert_selector "img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']"
-          item.links.each do |link|
-            assert has_link?(link.text, href: link.url)
-          end
         end
       end
     end
