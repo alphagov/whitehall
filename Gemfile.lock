@@ -216,11 +216,12 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (>= 2.1)
-    govuk_test (1.0.0)
+    govuk_test (1.0.3)
+      brakeman (~> 4.6)
       capybara
       puma
       selenium-webdriver (>= 3.142)
-      webdrivers
+      webdrivers (>= 4)
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
@@ -468,7 +469,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sentry-raven (2.13.0)
+    sentry-raven (2.11.3)
       faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
