@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
+class AssetManager::AttachmentUpdater::RedirectUrlUpdatesTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper

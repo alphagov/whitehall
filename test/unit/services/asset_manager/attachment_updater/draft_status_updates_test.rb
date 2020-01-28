@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
+class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManager::AttachmentUpdater::DraftStatusUpdates do

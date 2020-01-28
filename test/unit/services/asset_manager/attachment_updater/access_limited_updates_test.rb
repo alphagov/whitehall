@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
+class AssetManager::AttachmentUpdater::AccessLimitedUpdatesTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManager::AttachmentUpdater::AccessLimitedUpdates do

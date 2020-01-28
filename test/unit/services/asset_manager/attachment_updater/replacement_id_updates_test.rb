@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
+class AssetManager::AttachmentUpdater::ReplacementIdUpdatesTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManager::AttachmentUpdater::ReplacementIdUpdates do
