@@ -25,6 +25,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
 
       before do
         attachment_data.stubs(:unpublished?).returns(unpublished)
+        attachment_data.stubs(:present_at_unpublish?).returns(true)
         attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
         AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
       end
@@ -43,6 +44,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
 
       before do
         attachment_data.stubs(:unpublished?).returns(unpublished)
+        attachment_data.stubs(:present_at_unpublish?).returns(true)
         attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
         AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
       end
