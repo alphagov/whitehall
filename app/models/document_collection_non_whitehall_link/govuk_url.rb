@@ -36,7 +36,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
     errors.add(:url, message)
   end
 
-  private
+private
 
   def content_item
     @content_item ||= Services.publishing_api.get_content(content_id).to_h

@@ -36,7 +36,7 @@ module Reports
       puts "Finished! Report available at #{path}"
     end
 
-    private
+  private
 
     attr_reader :organisation_slug
 

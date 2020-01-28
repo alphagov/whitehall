@@ -16,7 +16,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
          .deep_symbolize_keys
   end
 
-  private
+private
 
   def present_edition(edition)
     document_subtype_ids = DOCUMENT_SUB_TYPES.map { |type| "#{type}_id" }

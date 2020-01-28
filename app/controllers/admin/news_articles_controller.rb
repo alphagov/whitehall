@@ -1,5 +1,5 @@
 class Admin::NewsArticlesController < Admin::EditionsController
-  private
+private
 
   def edition_class
     NewsArticle

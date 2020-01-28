@@ -9,7 +9,7 @@ class SearchRummagerService
     end
   end
 
-  private
+private
 
   def default_search_options
     {
