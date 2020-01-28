@@ -5,6 +5,8 @@ inherit_gem:
 
 AllCops:
   Exclude:
+    - 'bin/**/*'
+    - 'config.ru'
     - 'tmp/**/*'
     - 'db/schema.rb'
     - 'lib/tasks/cucumber.rake'
