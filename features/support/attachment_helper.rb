@@ -24,17 +24,17 @@ module AttachmentHelper
   end
 
   def create_external_attachment(url, attachment_title)
-    click_on 'Add new external attachment'
-    fill_in 'Title', with: attachment_title
-    fill_in 'External url', with: url
-    click_on 'Save'
+    click_on "Add new external attachment"
+    fill_in "Title", with: attachment_title
+    fill_in "External url", with: url
+    click_on "Save"
     Attachment.find_by(title: attachment_title)
   end
 
   def add_external_attachment
     location = current_url
     click_link "Modify attachments"
-    create_external_attachment('http://www.example.com/example', 'Example doc')
+    create_external_attachment("http://www.example.com/example", "Example doc")
     visit location
   end
 
@@ -43,7 +43,7 @@ module AttachmentHelper
   end
 
   def page_has_attachment?(attachment)
-    has_selector?('.attachment-details .title', text: attachment.title)
+    has_selector?(".attachment-details .title", text: attachment.title)
   end
 end
 

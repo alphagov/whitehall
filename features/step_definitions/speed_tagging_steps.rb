@@ -27,7 +27,7 @@ When(/^I should not be able to tag the (?:publication|news article) with "([^"]*
 end
 
 Then(/^I should be able to select the world location "([^"]*)"$/) do |name|
-  select name, from: 'edition_world_location_ids'
+  select name, from: "edition_world_location_ids"
 end
 
 When(/^I can only tag the (?:publication|news article) with "([^"]*)" once$/) do |label|
@@ -36,20 +36,20 @@ end
 
 Then(/^I should be able to select the first group for the document collection "([^"]*)"$/) do |name|
   group = @document_collection.groups.first
-  select "#{name} (#{group.heading})", from: 'Document collection'
+  select "#{name} (#{group.heading})", from: "Document collection"
 end
 
 Then(/^I should be able to set the first published date$/) do
   assert_selector "select[id*=edition_first_published_at_1i]"
-  select_datetime '14-Dec-2011 10:30', from: "First published *"
+  select_datetime "14-Dec-2011 10:30", from: "First published *"
 end
 
 Then(/^I should be able to set the delivered date of the speech$/) do
   assert_selector "select[id*=edition_delivered_on_1i]"
-  select_date '02-May-2013', from: "Delivered on"
+  select_date "02-May-2013", from: "Delivered on"
 end
 
 Then(/^I should be able to set the consultation dates$/) do
-  assert_selector 'select[id*=edition_opening_at]'
-  assert_selector 'select[id*=edition_closing_at]'
+  assert_selector "select[id*=edition_opening_at]"
+  assert_selector "select[id*=edition_closing_at]"
 end

@@ -38,7 +38,7 @@ Given(/^the topic "([^"]*)" is related to the topic "([^"]*)"$/) do |name, relat
 end
 
 Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|
-  classification = if type == 'topic'
+  classification = if type == "topic"
                      topic = create(:topic, name: name)
                      stub_topic_in_content_store(name)
                      topic
@@ -75,7 +75,7 @@ When(/^I edit the topic "([^"]*)" to have description "([^"]*)"$/) do |name, des
 end
 
 When(/^I visit the "([^"]*)" (topic|topical event)$/) do |name, type|
-  classification = if type == 'topic'
+  classification = if type == "topic"
                      Topic.find_by!(name: name)
                    else
                      TopicalEvent.find_by!(name: name)
@@ -91,12 +91,12 @@ When(/^I set the order of the lead organisations in the "([^"]*)" topic to:$/) d
   lead_organisations = table.rows.map { |(organisation_name)| organisation_name }
   lead_organisations.each_with_index do |organisation_name, index|
     fill_in organisation_name, with: index
-    fill_in organisation_name + ' is lead?', with: '1'
+    fill_in organisation_name + " is lead?", with: "1"
   end
   other_organisations = topic.organisations.map(&:name) - lead_organisations
   other_organisations.each do |organisation_name|
-    fill_in organisation_name, with: ''
-    fill_in organisation_name + ' is lead?', with: '0'
+    fill_in organisation_name, with: ""
+    fill_in organisation_name + " is lead?", with: "0"
   end
   click_button "Save"
 end
@@ -117,23 +117,23 @@ end
 Then(/^I should be able to delete the topic "([^"]*)"$/) do |name|
   visit admin_topics_path
   click_link name
-  click_on 'Edit'
-  click_button 'Delete'
+  click_on "Edit"
+  click_button "Delete"
 end
 
 Then(/^I should see the order of the lead organisations in the "([^"]*)" topic is:$/) do |topic_name, expected_table|
   topic = Topic.find_by!(name: topic_name)
   visit edit_admin_topic_path(topic)
-  rows = find("#lead_organisation_order").all(:xpath, './/label[./a]')
-  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
+  rows = find("#lead_organisation_order").all(:xpath, ".//label[./a]")
+  table = rows.map { |r| r.all("a").map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
 
 Then(/^I should see the following organisations for the "([^"]*)" topic:$/) do |topic_name, expected_table|
   topic = Topic.find_by!(name: topic_name)
   visit edit_admin_topic_path(topic)
-  rows = find("#organisations").all(:xpath, './/label[./a]')
-  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
+  rows = find("#organisations").all(:xpath, ".//label[./a]")
+  table = rows.map { |r| r.all("a").map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
 
@@ -154,7 +154,7 @@ When(/^I feature the publication "([^"]*)" on the topic "([^"]*)"$/) do |publica
   topic = Topic.find_by!(name: topic_name)
 
   visit admin_topic_path(topic)
-  click_on 'Features'
+  click_on "Features"
 
   within record_css_selector(publication) do
     click_link "Feature"
@@ -169,7 +169,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topic "(.*?)"$/) do
   visit admin_topic_classification_featurings_path(topic)
   click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
-  select type, from: 'offsite_link_link_type'
+  select type, from: "offsite_link_link_type"
   fill_in :offsite_link_summary, with: "summary"
   fill_in :offsite_link_url, with: "http://gov.uk"
   click_button "Save"
@@ -193,14 +193,14 @@ Then(/^I should see the publication "([^"]*)" featured on the public topic page 
 
   visit topic_path(topic)
 
-  within('section.featured-news') do
+  within("section.featured-news") do
     assert_text publication.title
   end
 end
 
 Then(/^I should see the offsite link featured on the public topic page$/) do
   visit topic_path(@topic)
-  within('section.featured-news') do
+  within("section.featured-news") do
     assert_text @offsite_link.title
   end
 end

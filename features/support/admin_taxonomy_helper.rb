@@ -1,4 +1,4 @@
-require_relative '../../test/support/taxonomy_helper'
+require_relative "../../test/support/taxonomy_helper"
 module AdminTaxonomyHelper
   include TaxonomyHelper
 
@@ -8,7 +8,7 @@ module AdminTaxonomyHelper
 
   def select_taxon_and_save(label)
     select_taxon(label)
-    click_button 'Save topic changes'
+    click_button "Save topic changes"
   end
 
   def stub_taxonomy_data

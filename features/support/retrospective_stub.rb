@@ -26,7 +26,7 @@ class RetrospectiveStub
     stubs << {
       method: method,
       with: opts[:with],
-      returns: opts[:returns]
+      returns: opts[:returns],
     }
   end
 

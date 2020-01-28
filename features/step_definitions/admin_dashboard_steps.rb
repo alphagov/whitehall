@@ -13,8 +13,8 @@ Then(/^I should see the force published document "([^"]*)"$/) do |title|
 end
 
 Then(/^I should see a link to the content data app$/) do
-  link = find_link('Content Data', href: 'https://content-data.test.gov.uk/content')
-  assert_equal 'external-link-clicked', link['data-track-category']
-  assert_equal 'https://content-data.test.gov.uk/content', link['data-track-action']
-  assert_equal 'Content Data', link['data-track-label']
+  link = find_link("Content Data", href: "https://content-data.test.gov.uk/content")
+  assert_equal "external-link-clicked", link["data-track-category"]
+  assert_equal "https://content-data.test.gov.uk/content", link["data-track-action"]
+  assert_equal "Content Data", link["data-track-label"]
 end

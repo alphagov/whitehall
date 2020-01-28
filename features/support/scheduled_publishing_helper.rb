@@ -1,4 +1,4 @@
-require 'sidekiq/api'
+require "sidekiq/api"
 
 module ScheduledPublishingHelper
   def execute_scheduled_publication_job_for(edition)
@@ -13,7 +13,7 @@ module ScheduledPublishingHelper
   def scheduled_publishing_job_for(edition)
     Sidekiq::ScheduledSet.new.detect do |job|
       job.args[0] == edition.id &&
-        job.klass == 'ScheduledPublishingWorker'
+        job.klass == "ScheduledPublishingWorker"
     end
   end
 

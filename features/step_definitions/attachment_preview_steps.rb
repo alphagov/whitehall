@@ -1,15 +1,15 @@
 Given(/^there is a publicly visible CSV attachment on the site$/) do
   @publication = create(:published_publication, :with_file_attachment, attachments: [
-    @attachment = build(:csv_attachment)
+    @attachment = build(:csv_attachment),
   ])
 end
 
 When(/^I preview the contents of the attachment$/) do
-  fn = Rails.root.join('test', 'fixtures', 'sample.csv')
+  fn = Rails.root.join("test", "fixtures", "sample.csv")
 
   asset_host = URI.parse(Plek.new.public_asset_host).host
   stub_request(:get, "https://#{asset_host}/government/uploads/system/uploads/attachment_data/file/#{@attachment.attachment_data.id}/sample.csv")
-    .with(headers: { 'Range'=>'bytes=0-300000' })
+    .with(headers: { "Range" => "bytes=0-300000" })
     .to_return(status: 206, body: File.read(fn))
 
   visit csv_preview_path(
@@ -22,12 +22,12 @@ end
 Then(/^I should see the CSV data previewed on the page$/) do
   assert_text @attachment.title
 
-  within '.csv-preview table' do
-    header_row = all('thead tr th').map(&:text)
-    assert_equal ['Department', 'Budget', 'Amount spent'], header_row
+  within ".csv-preview table" do
+    header_row = all("thead tr th").map(&:text)
+    assert_equal ["Department", "Budget", "Amount spent"], header_row
 
-    data_rows = all('tbody tr').map { |data_row| data_row.all('td').map(&:text) }
-    assert_equal ['Office for Facial Hair Studies', '£12000000', '£10000000'], data_rows[0]
-    assert_equal ['Department of Grooming', '£15000000', '£15600000'], data_rows[1]
+    data_rows = all("tbody tr").map { |data_row| data_row.all("td").map(&:text) }
+    assert_equal ["Office for Facial Hair Studies", "\u00A312000000", "\u00A310000000"], data_rows[0]
+    assert_equal ["Department of Grooming", "\u00A315000000", "\u00A315600000"], data_rows[1]
   end
 end

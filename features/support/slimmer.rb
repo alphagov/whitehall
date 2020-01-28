@@ -1,1 +1,1 @@
-require Rails.root.join('test/support/skip_slimmer.rb')
+require Rails.root.join("test/support/skip_slimmer.rb")

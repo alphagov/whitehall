@@ -9,11 +9,11 @@
 # in a parallel manner, one sub-process per CPU/core.
 $LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
 
-require 'pathname'
-require 'logger'
+require "pathname"
+require "logger"
 logger = Logger.new(STDERR)
 logger.info "Booting rails..."
-require 'config/environment'
+require "config/environment"
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")

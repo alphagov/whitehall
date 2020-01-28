@@ -20,6 +20,7 @@ class CreateFeaturedLinks < ActiveRecord::Migration
       if top_task.linkable_type == "Organisation" && orgs_with_featured_services_and_guidance.include?(top_task.linkable_id)
         next
       end
+
       FeaturedLink.create top_task.attributes
     end
     FeaturedServicesAndGuidance.all.each do |featured_link|

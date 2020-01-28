@@ -40,7 +40,7 @@ end
 
 Then(/^I should see the worldwide organisation listed on the page$/) do
   worldwide_organisation = WorldwideOrganisation.last
-  within '.meta' do
+  within ".meta" do
     assert_text worldwide_organisation.name
   end
 end
@@ -91,14 +91,14 @@ Given(/^a worldwide organisation "([^"]*)" exists for the world location "([^"]*
 end
 
 When(/^I add an "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
-  service_1 = create(:worldwide_service, name: 'Dance lessons')
-  _service_2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
-  service_3 = create(:worldwide_service, name: 'Beard grooming')
+  service_1 = create(:worldwide_service, name: "Dance lessons")
+  _service_2 = create(:worldwide_service, name: "Courses in advanced sword fighting")
+  service_3 = create(:worldwide_service, name: "Beard grooming")
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add"
-  fill_in_contact_details(title: description, feature_on_home_page: 'yes')
-  select WorldwideOfficeType.all.sample.name, from: 'Office type'
+  fill_in_contact_details(title: description, feature_on_home_page: "yes")
+  select WorldwideOfficeType.all.sample.name, from: "Office type"
 
   check service_1.name
   check service_3.name
@@ -113,12 +113,12 @@ Then(/^the "([^"]*)" office details should be shown on the public website$/) do 
 
   within "#{record_css_selector(worldwide_office)}.contact" do
     assert_selector "h2", text: worldwide_office.contact.title
-    within find('.vcard') do
+    within find(".vcard") do
       # new lines cause challenges in matching to the rendering
-      address = worldwide_office.contact.street_address.gsub(/\s+/, ' ')
+      address = worldwide_office.contact.street_address.gsub(/\s+/, " ")
       assert_text address, normalize_ws: true
     end
-    assert_selector '.tel', text: worldwide_office.contact.contact_numbers.first.number
+    assert_selector ".tel", text: worldwide_office.contact.contact_numbers.first.number
   end
 end
 
@@ -151,7 +151,7 @@ When(/^I choose "([^"]*)" to be the main office$/) do |contact_title|
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Offices"
   within record_css_selector(worldwide_office) do
-    click_button 'Set as main office'
+    click_button "Set as main office"
   end
 end
 
@@ -184,10 +184,10 @@ end
 
 When(/^I add default access information to the worldwide organisation$/) do
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-  click_link 'Access and opening times'
-  click_link 'Add default access information'
-  fill_in 'Body', with: 'Default body information'
-  click_button 'Save'
+  click_link "Access and opening times"
+  click_link "Add default access information"
+  fill_in "Body", with: "Default body information"
+  click_button "Save"
 end
 
 Then(/^I should see the default access information on the public "([^"]*)" office page$/) do |office_name|
@@ -195,26 +195,26 @@ Then(/^I should see the default access information on the public "([^"]*)" offic
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
   visit worldwide_organisation_path(worldwide_organisation)
   within record_css_selector(worldwide_office) do
-    click_link 'Access and opening times'
+    click_link "Access and opening times"
   end
 
-  within '.body' do
-    assert_text 'Default body information'
+  within ".body" do
+    assert_text "Default body information"
   end
 end
 
 Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
   worldwide_organisation = create(:worldwide_organisation, name: name)
-  create(:access_and_opening_times, accessible: worldwide_organisation, body: 'Default body information')
+  create(:access_and_opening_times, accessible: worldwide_organisation, body: "Default body information")
 end
 
 When(/^I edit the default access information for the worldwide organisation$/) do
   worldwide_organisation = WorldwideOrganisation.last
   visit admin_worldwide_organisation_path(worldwide_organisation)
-  click_link 'Access and opening times'
-  click_on 'Edit'
-  fill_in 'Body', with: 'Edited body information'
-  click_button 'Save'
+  click_link "Access and opening times"
+  click_on "Edit"
+  fill_in "Body", with: "Edited body information"
+  click_button "Save"
 end
 
 Given(/^the offices "([^"]*)" and "([^"]*)"$/) do |contact_1_title, contact_2_title|
@@ -227,13 +227,13 @@ When(/^I give "([^"]*)" custom access information$/) do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
   visit admin_worldwide_organisation_path(worldwide_organisation)
-  click_link 'Offices'
+  click_link "Offices"
   within record_css_selector(worldwide_office) do
-    click_on 'Customise'
+    click_on "Customise"
   end
 
-  fill_in 'Body', with: 'Custom body information'
-  click_button 'Save'
+  fill_in "Body", with: "Custom body information"
+  click_button "Save"
 end
 
 Then(/^I should see the custom access information on the public "([^"]*)" office page$/) do |office_name|
@@ -241,16 +241,16 @@ Then(/^I should see the custom access information on the public "([^"]*)" office
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: office_name }).first
   visit worldwide_organisation_path(worldwide_organisation)
   within record_css_selector(worldwide_office) do
-    click_link 'Access and opening times'
+    click_link "Access and opening times"
   end
 
-  within '.body' do
-    assert_text 'Custom body information'
+  within ".body" do
+    assert_text "Custom body information"
   end
 end
 
 Then(/^I should see the updated default access information$/) do
-  assert_selector '.govspeak p', text: 'Edited body information'
+  assert_selector ".govspeak p", text: "Edited body information"
 end
 
 When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) do |name, table|
@@ -264,9 +264,9 @@ Then(/^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
 
   visit worldwide_organisation_path(worldwide_organisation, locale: locale)
 
-  assert_selector '.worldwide-org-summary', text: translation["summary"]
-  assert_selector '.worldwide-org-description', text: translation["description"]
-  assert_selector '.worldwide-org-content', text: translation["services"]
+  assert_selector ".worldwide-org-summary", text: translation["summary"]
+  assert_selector ".worldwide-org-description", text: translation["description"]
+  assert_selector ".worldwide-org-content", text: translation["services"]
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|

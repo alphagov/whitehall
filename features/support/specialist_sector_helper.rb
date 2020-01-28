@@ -10,7 +10,7 @@ Before do
   # stub should be overriden in specific features where this behaviour needs to
   # be tested.
   stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
-  stub_publishing_api_has_linkables([], document_type: 'topic')
+  stub_publishing_api_has_linkables([], document_type: "topic")
 end
 
 module SpecialistSectorHelper
@@ -20,49 +20,49 @@ module SpecialistSectorHelper
     stub_publishing_api_has_linkables(
       [
         {
-          'content_id' => 'WELLS',
-          'internal_name' => 'Oil and Gas / Wells',
-          'publication_state' => 'published',
+          "content_id" => "WELLS",
+          "internal_name" => "Oil and Gas / Wells",
+          "publication_state" => "published",
         },
         {
-          'content_id' => 'FIELDS',
-          'internal_name' => 'Oil and Gas / Fields',
-          'publication_state' => 'published',
+          "content_id" => "FIELDS",
+          "internal_name" => "Oil and Gas / Fields",
+          "publication_state" => "published",
         },
         {
-          'content_id' => 'OFFSHORE',
-          'internal_name' => 'Oil and Gas / Offshore',
-          'publication_state' => 'published',
+          "content_id" => "OFFSHORE",
+          "internal_name" => "Oil and Gas / Offshore",
+          "publication_state" => "published",
         },
         {
-          'content_id' => 'DISTILL',
-          'internal_name' => 'Oil and Gas / Distillation',
-          'publication_state' => 'draft',
+          "content_id" => "DISTILL",
+          "internal_name" => "Oil and Gas / Distillation",
+          "publication_state" => "draft",
         },
       ],
-      document_type: 'topic'
+      document_type: "topic",
     )
   end
 
   def select_specialist_sectors_in_form
-    select 'Oil and Gas: Wells', from: 'Primary specialist sector'
-    select 'Oil and Gas: Offshore', from: 'Additional specialist sectors'
-    select 'Oil and Gas: Fields', from: 'Additional specialist sectors'
-    select 'Oil and Gas: Distillation (draft)', from: 'Additional specialist sectors'
+    select "Oil and Gas: Wells", from: "Primary specialist sector"
+    select "Oil and Gas: Offshore", from: "Additional specialist sectors"
+    select "Oil and Gas: Fields", from: "Additional specialist sectors"
+    select "Oil and Gas: Distillation (draft)", from: "Additional specialist sectors"
   end
 
   def assert_specialist_sectors_were_saved
-    assert has_css?('.flash.notice')
-    click_on 'Edit draft'
+    assert has_css?(".flash.notice")
+    click_on "Edit draft"
     click_on "Save and continue"
     click_on "Save and review legacy tagging"
-    assert_equal 'WELLS', find_field('Primary specialist sector').value
+    assert_equal "WELLS", find_field("Primary specialist sector").value
     assert_equal %w[OFFSHORE FIELDS DISTILL].to_set,
-                 find_field('Additional specialist sectors').value.to_set
+                 find_field("Additional specialist sectors").value.to_set
   end
 
   def save_document
-    click_button 'Save'
+    click_button "Save"
   end
 end
 

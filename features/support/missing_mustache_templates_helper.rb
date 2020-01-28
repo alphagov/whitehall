@@ -1,7 +1,7 @@
 # features tagged @javascript require mustache templates to be compiled,
 # or else a javascript error for undefined variable: templates occurs
 
-Before('@javascript') do
+Before("@javascript") do
   # to prevent this callback from executing before each scenario
   $mustache_templates_looked_up ||= false
 

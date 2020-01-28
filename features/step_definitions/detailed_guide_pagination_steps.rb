@@ -3,7 +3,7 @@ Given(/^a detailed guide with section headings$/) do
          title: "Detailed guide with pages",
          summary: "Here's the summary of the guide",
          topics: [create(:topic)],
-         body: <<~BODY
+         body: <<~BODY,
            ## Page 1
 
            Here's the content for page one
@@ -23,7 +23,7 @@ Given(/^a detailed guide with section headings$/) do
            ## Page 3
 
            You were expecting something a bit more tabloid? Shame on you.
-  BODY
+         BODY
   )
 end
 

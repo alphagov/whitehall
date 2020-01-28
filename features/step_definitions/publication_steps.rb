@@ -70,14 +70,14 @@ When(/^I replace the data file of the attachment in a new draft of the publicati
   visit edit_admin_publication_path(@old_edition)
   click_button "Create new edition"
   @new_edition = Publication.last
-  click_on 'Attachments'
+  click_on "Attachments"
 
   within record_css_selector(@new_edition.attachments.first.becomes(Attachment)) do
-    click_on 'Edit'
+    click_on "Edit"
   end
   @new_file = pdf_attachment
-  attach_file 'Replace file', @new_file
-  click_on 'Save'
+  attach_file "Replace file", @new_file
+  click_on "Save"
 
   ensure_path edit_admin_publication_path(@new_edition)
   fill_in_change_note_if_required
@@ -97,13 +97,13 @@ Then(/^the new data file should not have replaced the old data file$/) do
 end
 
 When(/^I published the draft edition$/) do
-  stub_publishing_api_links_with_taxons(@new_edition.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(@new_edition.content_id, %w[a-taxon-content-id])
   visit admin_publication_path(@new_edition)
   publish(force: true)
 end
 
 When(/^I try to publish the draft edition$/) do
-  stub_publishing_api_links_with_taxons(@new_edition.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(@new_edition.content_id, %w[a-taxon-content-id])
   visit admin_publication_path(@new_edition)
   publish(force: true, ignore_errors: true)
 end
@@ -140,7 +140,7 @@ end
 
 Then(/^I should not be able to publish the publication "([^"]*)"$/) do |title|
   visit_edition_admin title
-  assert has_no_button?('Publish')
+  assert has_no_button?("Publish")
 end
 
 Given(/^"([^"]*)" submits the publication "([^"]*)"$/) do |user_name, title|

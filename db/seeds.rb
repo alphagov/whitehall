@@ -47,7 +47,7 @@ else
   Government.skip_callback(:commit, :after, :publish_to_publishing_api)
   Government.create(
     name: "Test Government",
-    start_date: Time.new(2001, 1, 1),
+    start_date: Time.zone.local(2001, 1, 1),
   )
 end
 

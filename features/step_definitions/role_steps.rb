@@ -14,7 +14,7 @@ Given(/^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/) do 
   create(
     :ambassador_role_appointment,
     person: create_person(person_name),
-    role: create(:ambassador_role, name: role_name, worldwide_organisations: [WorldwideOrganisation.last])
+    role: create(:ambassador_role, name: role_name, worldwide_organisations: [WorldwideOrganisation.last]),
   )
 end
 
@@ -27,7 +27,7 @@ Given(/^a person called "([^"]*)" appointed as "([^"]*)" with a biography in "([
   locale = Locale.find_by_language_name(language_name)
   person = create_person(person_name, translated_into: {
     en: { biography: "english-biography" },
-    locale.code => { biography: "#{locale}-biography" }
+    locale.code => { biography: "#{locale}-biography" },
   })
   role = Role.find_by!(name: role_name)
   create(:ambassador_role_appointment, role: role, person: person)

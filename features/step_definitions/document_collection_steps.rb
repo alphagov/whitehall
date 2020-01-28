@@ -33,16 +33,16 @@ When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collectio
     content_id: content_id,
     base_path: base_path,
     publishing_app: "content-publisher",
-    title: title
+    title: title,
   )
 
-  within '.non-whitehall-disclosure' do
-    find('summary').click
-    fill_in 'url', with: url
-    click_on 'Add'
+  within ".non-whitehall-disclosure" do
+    find("summary").click
+    fill_in "url", with: url
+    click_on "Add"
   end
 
-  within 'section.group' do
+  within "section.group" do
     assert_text title
   end
 end
@@ -55,12 +55,12 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   click_on "Edit draft"
   click_on "Collection documents"
 
-  fill_in 'title', with: document_title
-  click_on 'Find'
-  find('li.ui-menu-item').click
-  click_on 'Add'
+  fill_in "title", with: document_title
+  click_on "Find"
+  find("li.ui-menu-item").click
+  click_on "Add"
 
-  within 'section.group' do
+  within "section.group" do
     assert_text doc_edition.title
   end
 end
@@ -110,7 +110,7 @@ end
 When(/^I visit the old document series url "(.*?)"$/) do |url|
   begin
     visit url
-  rescue ActionController::RoutingError => @no_collection_controller_error # rubocop:disable Lint/HandleExceptions
+  rescue ActionController::RoutingError => e
   end
 end
 
@@ -163,6 +163,6 @@ And(/^I search for "(.*?)" to add it to the document collection$/) do |document_
 end
 
 Then(/^the document does not appear in the search results$/) do
-  result = find('li.ui-menu-item')
+  result = find("li.ui-menu-item")
   assert_equal result.text, "No results matching search criteria"
 end

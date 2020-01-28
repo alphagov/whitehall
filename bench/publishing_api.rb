@@ -1,9 +1,9 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
-require 'benchmark'
+require ::File.expand_path("../../config/environment", __FILE__)
+require "benchmark"
 
-require 'stackprof'
+require "stackprof"
 
 publications = Publication
   .published
@@ -15,7 +15,7 @@ StackProf.run(mode: :wall, out: "tmp/publishing_api_worker.dump") do
   puts Benchmark.measure do
     publications.each { |publication|
       Whitehall::PublishingApi.locales_for(publication).each { |locale|
-        PublishingApiWorker.new.perform('Edition', publication.id, 'republish', locale.to_s)
+        PublishingApiWorker.new.perform("Edition", publication.id, "republish", locale.to_s)
         print "."
       }
     }

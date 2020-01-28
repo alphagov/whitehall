@@ -19,7 +19,7 @@ end
 Given(/^I force-publish the "([^"]*)" corporate information page for the organisation "([^"]*)"$/) do |page_type, org_name|
   organisation = Organisation.find_by(name: org_name)
   info_page = organisation.corporate_information_pages.last
-  stub_publishing_api_links_with_taxons(info_page.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
   click_link page_type
@@ -47,7 +47,7 @@ end
 When(/^I force-publish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |page_type, org_name|
   organisation = WorldwideOrganisation.find_by(name: org_name)
   info_page = organisation.corporate_information_pages.last
-  stub_publishing_api_links_with_taxons(info_page.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
   visit admin_worldwide_organisation_path(organisation)
   click_link "Corporate information pages"
   click_link page_type
@@ -123,7 +123,7 @@ end
 Then(/^I should be able to add attachments to the "(.*?)" corporate information page$/) do |page_title|
   page_type = find_corporation_information_page_type_by_title(page_title)
   page = @user.organisation.corporate_information_pages.find_by_corporate_information_page_type_id(page_type.id)
-  stub_publishing_api_links_with_taxons(page.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(page.content_id, %w[a-taxon-content-id])
   attachment = upload_pdf_to_corporate_information_page(page)
   insert_attachment_markdown_into_corporate_information_page_body(attachment, page)
   Attachment.last.attachment_data.uploaded_to_asset_manager!

@@ -6,18 +6,18 @@ begin
   ]
   redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
   content_id = SecureRandom.uuid
-  
+
   puts "Redirecting: #{base_path} to #{destination} with a randomly generated content_id: #{content_id}"
-  
+
   Services.publishing_api.put_content(content_id, redirect.as_json)
-  
+
   puts "Publishing content_id: #{content_id} with redirect #{redirect.as_json}"
   Services.publishing_api.publish(content_id, nil, locale: "en")
-  
+
   # Remove editorial remark
   edition = Edition.find(805386)
   remarks = edition.editorial_remarks
-  remarks.each{|r| r.destroy if r.body == "HTML attachment published here in error. Removed and added back here https://whitehall-admin.publishing.service.gov.uk/government/admin/publications/805384"}
+  remarks.each { |r| r.destroy if r.body == "HTML attachment published here in error. Removed and added back here https://whitehall-admin.publishing.service.gov.uk/government/admin/publications/805384" }
 rescue StandardError => e
   puts "Migration has failed with the following error: #{e.message}"
 end

@@ -28,15 +28,15 @@ module TopicalEventsHelper
 
   def sample_document_types_and_titles
     {
-      policy_paper: 'Policy on Topicals',
-      consultation: 'Examination of Events',
-      news_story: 'PM attends summit on topical events',
-      statistics: 'Weekly topical event prices'
+      policy_paper: "Policy on Topicals",
+      consultation: "Examination of Events",
+      news_story: "PM attends summit on topical events",
+      statistics: "Weekly topical event prices",
     }
   end
 
   def rummager_response
-    File.read(Rails.root.join('features/fixtures/rummager_response.json'))
+    File.read(Rails.root.join("features/fixtures/rummager_response.json"))
   end
 
   def stub_topical_event_in_content_store(name)

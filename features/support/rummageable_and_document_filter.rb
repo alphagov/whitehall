@@ -2,7 +2,7 @@
 # sure these Before / After happen before the ones I define below.  If
 # they go in their own it'll be support/**/*.rb load order defined and
 # who knows what that'll be.
-require 'mocha/minitest'
+require "mocha/minitest"
 World(Mocha::API)
 
 Before do
@@ -22,7 +22,7 @@ Before("not @not-quite-as-fake-search") do
   Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
 end
 
-require 'whitehall/not_quite_as_fake_search'
+require "whitehall/not_quite_as_fake_search"
 # Otherwise, because we asked for it, use NotQuiteAsFakeSearch
 Before("@not-quite-as-fake-search") do
   Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!

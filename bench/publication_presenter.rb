@@ -1,9 +1,9 @@
 # /usr/bin/env ruby
 
-require ::File.expand_path('../../config/environment', __FILE__)
-require 'benchmark'
+require ::File.expand_path("../../config/environment", __FILE__)
+require "benchmark"
 
-require 'stackprof'
+require "stackprof"
 
 publications = Publication
   .published

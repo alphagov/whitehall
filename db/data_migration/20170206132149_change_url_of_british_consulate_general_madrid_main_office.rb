@@ -8,4 +8,4 @@ if organisation.slug != "british-consulate-general-madrid"
 end
 
 new_slug = "british-consulate-general-madrid"
-madrid_office.update_attributes!(slug: new_slug)
+madrid_office.update!(slug: new_slug)

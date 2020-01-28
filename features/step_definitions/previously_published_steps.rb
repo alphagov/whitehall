@@ -12,7 +12,7 @@ end
 
 And(/^I select a previously published date in the future$/) do
   choose "has previously been published on another website."
-  select "2018", from:"edition_first_published_at_1i"
+  select "2018", from: "edition_first_published_at_1i"
   select "July", from: "edition_first_published_at_2i"
   select "1", from: "edition_first_published_at_3i"
 end

@@ -9,6 +9,6 @@ if document
   Whitehall::SearchIndex.delete(edition)
 
   # change the slug of the document and create a redirect from the original
-  document.update_attributes!(slug: new_slug)
+  document.update!(slug: new_slug)
   PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 end

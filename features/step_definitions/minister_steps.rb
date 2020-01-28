@@ -36,20 +36,20 @@ end
 Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)"$/) do |minister_name, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert_selector '.current-appointee', text: minister_name
+    assert_selector ".current-appointee", text: minister_name
   end
 end
 
 Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^"]*)"$/) do |minister_name, organisation_name, role|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert_selector '.current-appointee', text: minister_name
-    assert_selector '.app-person__roles', text: role
+    assert_selector ".current-appointee", text: minister_name
+    assert_selector ".app-person__roles", text: role
   end
 end
 
 Then(/^I should see that the minister is associated with the "([^"]*)"$/) do |organisation_name|
-  assert_selector'.meta', text: organisation_name
+  assert_selector".meta", text: organisation_name
 end
 
 Then(/^I should see that the minister has responsibilities "([^"]*)"$/) do |responsibilities|
@@ -69,14 +69,14 @@ end
 
 Then(/^I should see that "([^"]*)" is a commons whip "([^"]*)"$/) do |minister_name, role_title|
   within record_css_selector(Whitehall::WhipOrganisation::WhipsHouseOfCommons) do
-    assert_selector '.current-appointee', text: minister_name
-    assert_selector '.app-person__roles', text: role_title
+    assert_selector ".current-appointee", text: minister_name
+    assert_selector ".app-person__roles", text: role_title
   end
 end
 
 Then(/^I should see that "([^"]*)" also attends cabinet$/) do |minister_name|
   within "#also-attends-cabinet" do
-    assert_selector '.current-appointee', text: minister_name
+    assert_selector ".current-appointee", text: minister_name
   end
 end
 
@@ -116,10 +116,10 @@ Then(/^I should see "([^"]*)", "([^"]*)" in that order on the whips section of t
 end
 
 Given(/^there are some ministers for the "([^"]*)"$/) do |organisation_name|
-  aaron = create_role_appointment('Aaron A. Aadrvark', "Minister of The Start Of The Alphabet", organisation_name, 2.years.ago)
-  marion = create_role_appointment('Marion M. Myddleton', "Minister of The Middle Of The Alphabet", organisation_name, 2.years.ago)
-  zeke = create_role_appointment('Zeke Z. Zaltzman', "Minister of The End Of The Alphabet", organisation_name, 2.years.ago)
-  onezero = create_role_appointment('10101010', "Minister of Numbers", organisation_name, 2.years.ago)
+  aaron = create_role_appointment("Aaron A. Aadrvark", "Minister of The Start Of The Alphabet", organisation_name, 2.years.ago)
+  marion = create_role_appointment("Marion M. Myddleton", "Minister of The Middle Of The Alphabet", organisation_name, 2.years.ago)
+  zeke = create_role_appointment("Zeke Z. Zaltzman", "Minister of The End Of The Alphabet", organisation_name, 2.years.ago)
+  onezero = create_role_appointment("10101010", "Minister of Numbers", organisation_name, 2.years.ago)
   @the_ministers = [aaron, marion, zeke, onezero]
   @the_ministerial_organisation = Organisation.find_by(name: organisation_name)
 end
@@ -132,13 +132,13 @@ When(/^I specify an order for those ministers$/) do
   @the_ordered_ministers.each_with_index do |role_appointment, index|
     fill_in "#{role_appointment.role.name}#{role_appointment.person.name}", with: index
   end
-  click_on 'Save'
+  click_on "Save"
 end
 
 Then(/^I should see that ordering displayed on the organisation page$/) do
   visit organisation_path(@the_ministerial_organisation)
 
-  minister_headings = all('#ministers li h3').map(&:text)
+  minister_headings = all("#ministers li h3").map(&:text)
 
   @the_ordered_ministers.each.with_index do |role_appointment, idx|
     assert_equal role_appointment.person.name, minister_headings[idx]

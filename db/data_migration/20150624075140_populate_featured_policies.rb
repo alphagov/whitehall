@@ -1,4 +1,3 @@
-
 def policies_to_organisations(policies)
   organisation_content_ids = policies.inject([]) do |memo, policy|
     orgs = policy["links"]["organisations"]

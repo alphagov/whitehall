@@ -1,8 +1,8 @@
 When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/) do |title, field|
   links = {
     "links" => {
-      "taxons" => ["a-taxon-content-id"]
-    }
+      "taxons" => %w[a-taxon-content-id],
+    },
   }
   Services.publishing_api.stubs(:get_links).returns(links)
 
@@ -53,7 +53,7 @@ end
 Then(/^I should see a casualty listed on the field of operation page for "(.*?)"$/) do |field|
   visit operational_field_path(OperationalField.find_by(name: field))
 
-  within '.fatality_notice ul.casualties' do
+  within ".fatality_notice ul.casualties" do
     assert_text FatalityNotice.last.title, count: 1
   end
 end

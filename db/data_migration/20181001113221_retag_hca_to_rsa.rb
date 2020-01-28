@@ -346,6 +346,7 @@ regulator_social_housing = Organisation.find_by(slug: "regulator-of-social-housi
 
     lead_organisations = edition.lead_organisations.to_a
     next if lead_organisations.include? regulator_social_housing
+
     lead_organisations << regulator_social_housing
 
     edition.lead_organisations = lead_organisations
@@ -355,7 +356,7 @@ regulator_social_housing = Organisation.find_by(slug: "regulator-of-social-housi
       2.seconds,
       document.id,
     )
-  rescue Exception => ex
-    puts "#{slug}: #{ex.class}, #{ex.message}"
+  rescue Exception => e
+    puts "#{slug}: #{e.class}, #{e.message}"
   end
 end

@@ -28,7 +28,7 @@ When(/^I draft a valid world location news article "([^"]*)"$/) do |title|
   create(:world_location, name: "Afghanistan", active: true)
   create(:worldwide_organisation, name: "Afghanistan embassy")
 
-  begin_drafting_world_location_news_article title: title, body: 'test-body', summary: 'test-summary'
+  begin_drafting_world_location_news_article title: title, body: "test-body", summary: "test-summary"
 
   select "Afghanistan", from: "Select the world locations this world location news article is about"
   select "Afghanistan embassy", from: "Select the worldwide organisations associated with this world location news article"
@@ -43,7 +43,7 @@ end
 Then(/^the worldwide organisation "([^"]+)" is listed as a producing org on the world location news article "([^"]+)"$/) do |world_org_name, world_news_title|
   visit document_path(WorldLocationNewsArticle.find_by(title: world_news_title))
   world_org = WorldwideOrganisation.find_by(name: world_org_name)
-  within '.meta' do
+  within ".meta" do
     assert has_link?(world_org.name, href: worldwide_organisation_path(world_org)), "should have a link to #{world_org.name} as a producing org, but I don't"
   end
 end
@@ -51,7 +51,7 @@ end
 Then(/^the topical event "([^"]+)" is listed as a topical event on the world location news article "([^"]+)"$/) do |topical_event_name, world_news_title|
   visit document_path(WorldLocationNewsArticle.find_by(title: world_news_title))
   topical_event = TopicalEvent.find_by(name: topical_event_name)
-  within '.meta' do
+  within ".meta" do
     assert has_link?(topical_event.name, href: topical_event_path(topical_event)), "should have a link to #{topical_event.name} as a topical event, but I don't"
   end
 end
@@ -66,7 +66,7 @@ end
 
 Given(/^a draft right\-to\-left non\-English edition exists$/) do
   I18n.with_locale(:ar) do
-    @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', primary_locale: :ar)
+    @edition = create(:world_location_news_article, title: "Arabic title", body: "Arabic body", summary: "Arabic summary", primary_locale: :ar)
   end
 end
 
@@ -75,5 +75,5 @@ When(/^I edit the right\-to\-left non\-English edition$/) do
 end
 
 Then(/^I should see that the form text fields are displayed right to left$/) do
-  assert_selector 'form fieldset.right-to-left'
+  assert_selector "form fieldset.right-to-left"
 end

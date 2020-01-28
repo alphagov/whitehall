@@ -10,9 +10,9 @@ Given(/^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managin
             create(:gds_editor)
           when "GDS admin"
             create(:gds_admin)
-          when 'importer'
+          when "importer"
             create(:importer)
-          when 'managing editor'
+          when "managing editor"
             create(:managing_editor)
           end
   login_as @user
@@ -47,8 +47,8 @@ When(/^I log out$/) do
 end
 
 Around("@use_real_sso") do |_scenario, block|
-  current_sso_env = ENV['GDS_SSO_MOCK_INVALID']
-  ENV['GDS_SSO_MOCK_INVALID'] = "1"
+  current_sso_env = ENV["GDS_SSO_MOCK_INVALID"]
+  ENV["GDS_SSO_MOCK_INVALID"] = "1"
   block.call
-  ENV['GDS_SSO_MOCK_INVALID'] = current_sso_env
+  ENV["GDS_SSO_MOCK_INVALID"] = current_sso_env
 end

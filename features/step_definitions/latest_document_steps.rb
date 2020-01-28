@@ -1,14 +1,14 @@
 Then(/^I can see some of the latest documents$/) do
-  within('#recently-updated') do
-    assert_selector 'header', text: 'Latest'
-    assert has_link?('Policy on Topicals')
-    assert has_link?('Examination of Events')
+  within("#recently-updated") do
+    assert_selector "header", text: "Latest"
+    assert has_link?("Policy on Topicals")
+    assert has_link?("Examination of Events")
   end
 end
 
 Then(/^I can follow a link to see all documents$/) do
-  within('#recently-updated') do
-    click_link 'See all'
+  within("#recently-updated") do
+    click_link "See all"
   end
 end
 
@@ -19,10 +19,10 @@ end
 Then(/^I see all documents for that topical event with the most recent first$/) do
   docs = sample_document_types_and_titles
 
-  within('.document-list') do
-    assert_equal(body.scan('document-row').length, docs.length, "Can't see all the documents for the topical event")
+  within(".document-list") do
+    assert_equal(body.scan("document-row").length, docs.length, "Can't see all the documents for the topical event")
     docs.each_value do |title|
-      assert_selector '.document-row', text: title
+      assert_selector ".document-row", text: title
     end
   end
 end
@@ -33,5 +33,5 @@ Then(/^I can see a link back to the topical event page$/) do
 end
 
 Then(/^I can see links to get alerts$/) do
-  assert_selector '.feeds'
+  assert_selector ".feeds"
 end

@@ -5,5 +5,5 @@ edition = document.editions.published.last
 Whitehall::SearchIndex.delete(edition)
 
 # change the slug of the document and create a redirect from the original
-document.update_attributes!(slug: "weekly-national-flu-reports-2017-to-2018-season")
+document.update!(slug: "weekly-national-flu-reports-2017-to-2018-season")
 PublishingApiDocumentRepublishingWorker.new.perform(document.id)

@@ -32,7 +32,7 @@ Then(/^I should see a link to the preview version of the publication "([^"]*)"$/
 end
 
 Then(/^I should see that it was rejected by "([^"]*)"$/) do |rejected_by|
-  assert_selector '.rejected_by', text: rejected_by
+  assert_selector ".rejected_by", text: rejected_by
 end
 
 Then(/^I can see links to the recently changed document "([^"]*)"$/) do |title|

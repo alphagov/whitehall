@@ -21,10 +21,10 @@ ActiveRecord::Base.transaction do
   end
 end
 
-[ { forename: "Karen", surname: "Bradley" },
-  { forename: "John", surname: "Whittingdale" },
-  { forename: "Sajid", surname: "Javid" },
-  { forename: "Maria", surname: "Miller" } ].each do |person_details|
+[{ forename: "Karen", surname: "Bradley" },
+ { forename: "John", surname: "Whittingdale" },
+ { forename: "Sajid", surname: "Javid" },
+ { forename: "Maria", surname: "Miller" }].each do |person_details|
   ActiveRecord::Base.transaction do
     p "Changing role for #{person_details[:forename]} #{person_details[:surname]}"
     person = Person.where(person_details).first

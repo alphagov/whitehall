@@ -1,17 +1,17 @@
 require "slimmer/test"
 
-Before('@javascript') do
+Before("@javascript") do
   ENV["USE_SLIMMER"] = "true"
 end
 
-After('@javascript') do
+After("@javascript") do
   ENV.delete("USE_SLIMMER")
 
   errors = page.driver.browser.manage.logs.get(:browser)
   if errors.present?
     errors.each do |error|
-      STDERR.puts "javascript: #{error.level}:"
-      STDERR.puts error.message
+      warn "javascript: #{error.level}:"
+      warn error.message
     end
   end
 end

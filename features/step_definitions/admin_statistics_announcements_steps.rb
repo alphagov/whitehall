@@ -62,7 +62,7 @@ Then(/^I should see my organisation's statistics announcements on the statistica
 end
 
 When(/^I filter statistics announcements by the other organisation$/) do
-  select @other_organisation_announcement.organisations.first.name, from: 'Organisation'
+  select @other_organisation_announcement.organisations.first.name, from: "Organisation"
   click_on "Search"
 end
 
@@ -73,11 +73,11 @@ end
 
 When(/^I link the announcement to the publication$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on 'connect an existing draft'
+  click_on "connect an existing draft"
 
-  fill_in 'title', with: "statistics"
-  click_on 'Search'
-  find('li.ui-menu-item').click
+  fill_in "title", with: "statistics"
+  click_on "Search"
+  find("li.ui-menu-item").click
 end
 
 Then(/^I should see that the announcement is linked to the publication$/) do
@@ -92,18 +92,18 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
 
   ensure_path admin_statistics_announcements_path
   click_on "Create announcement"
-  choose 'statistics_announcement_publication_type_id_5' # Statistics
+  choose "statistics_announcement_publication_type_id_5" # Statistics
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
   select_date 1.year.from_now.to_s, from: "Release date"
   select organisation.name, from: :statistics_announcement_organisation_ids
 
-  click_on 'Publish announcement'
+  click_on "Publish announcement"
 end
 
 When(/^I draft a document from the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on 'Draft new document'
+  click_on "Draft new document"
 end
 
 When(/^I save the draft statistics document$/) do
@@ -113,26 +113,26 @@ end
 
 When(/^I change the release date on the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on 'Change release date'
+  click_on "Change release date"
 
-  select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: 'Release date'
-  check 'Confirmed date?'
-  choose 'Exact'
-  click_on 'Publish change of date'
+  select_datetime "14-Dec-#{Time.zone.today.year.next} 09:30", from: "Release date"
+  check "Confirmed date?"
+  choose "Exact"
+  click_on "Publish change of date"
 end
 
 When(/^I search for announcements containing "(.*?)"$/) do |keyword|
   visit admin_statistics_announcements_path
-  fill_in 'Title or slug', with: keyword
+  fill_in "Title or slug", with: keyword
   select "All organisations", from: "Organisation"
-  click_on 'Search'
+  click_on "Search"
 end
 
 When(/^I cancel the statistics announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
   click_on "Cancel statistics release"
 
-  fill_in "Official reason for cancellation", with: 'Cancelled because: reasons'
+  fill_in "Official reason for cancellation", with: "Cancelled because: reasons"
   click_on "Publish cancellation"
 end
 
@@ -140,7 +140,7 @@ When(/^I change the cancellation reason$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
 
   click_on "Edit cancellation reason"
-  fill_in "Official reason for cancellation", with: 'Updated cancellation reason'
+  fill_in "Official reason for cancellation", with: "Updated cancellation reason"
   click_on "Update cancellation reason"
 end
 
@@ -165,7 +165,7 @@ end
 
 Then(/^the document becomes linked to the announcement$/) do
   assert publication = Publication.last, "No publication found!"
-  visit admin_statistics_announcements_path(organisation_id: '')
+  visit admin_statistics_announcements_path(organisation_id: "")
 
   within record_css_selector(@statistics_announcement) do
     assert has_link? publication.title, href: admin_publication_path(publication)
@@ -180,7 +180,7 @@ Then(/^I should see the announcement listed on the list of announcements$/) do
 end
 
 Then(/^I should (see|only see) a statistics announcement called "(.*?)"$/) do |single_or_multiple, title|
-  assert_selector "tr.statistics_announcement", count: 1 if single_or_multiple == 'only see'
+  assert_selector "tr.statistics_announcement", count: 1 if single_or_multiple == "only see"
   assert_selector "tr.statistics_announcement", text: title
 end
 
