@@ -23,9 +23,9 @@ module EditionPresenterHelper
   end
 
   def link
-    # rubocop:disable BracesAroundHashParameters
+    # rubocop:disable Style/BracesAroundHashParameters
     context.link_to model.title, url, { class: "govuk-link" }
-    # rubocop:enable BracesAroundHashParameters
+    # rubocop:enable Style/BracesAroundHashParameters
   end
 
   def display_organisations
