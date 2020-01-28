@@ -25,7 +25,7 @@ module PublishingApi
           ],
         }
 
-        assert_equal BrexitNoDealContent.for(stubbed_item), expected_hash
+        assert_equal expected_hash, BrexitNoDealContent.for(stubbed_item)
       end
 
       test "builds Brexit no-deal content banner payload with no links" do
@@ -39,7 +39,7 @@ module PublishingApi
 
         expected_hash = {}
 
-        assert_equal BrexitNoDealContent.for(stubbed_item), expected_hash
+        assert_equal expected_hash, BrexitNoDealContent.for(stubbed_item)
       end
 
       test "internal links expose only the URL path" do
@@ -64,7 +64,28 @@ module PublishingApi
           ],
         }
 
-        assert_equal BrexitNoDealContent.for(stubbed_item), expected_hash
+        assert_equal expected_hash, BrexitNoDealContent.for(stubbed_item)
+      end
+
+      test "blank links are filtered out" do
+        stubbed_item = stub(
+          show_brexit_no_deal_content_notice: true,
+          brexit_no_deal_content_notice_links: [
+            BrexitNoDealContentNoticeLink.new(title: "", url: ""),
+            BrexitNoDealContentNoticeLink.new(title: "Link", url: "https://www.example.com"),
+          ],
+        )
+
+        expected_hash = {
+          brexit_no_deal_notice: [
+            {
+              title: "Link",
+              href: "https://www.example.com",
+            },
+          ],
+        }
+
+        assert_equal expected_hash, BrexitNoDealContent.for(stubbed_item)
       end
     end
   end
