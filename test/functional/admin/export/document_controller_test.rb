@@ -23,6 +23,16 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
       organisations: [org],
       news_article_type: NewsArticleType::NewsStory,
     )
+    press_release = create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::PressRelease,
+    )
+    create(
+      :publication,
+      organisations: [org],
+      publication_type: PublicationType::PolicyPaper,
+    )
 
     login_as :export_data_user
 
@@ -37,9 +47,15 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
             "locales" => %w[en],
             "subtypes" => %w[news_story],
           },
+        }, {
+          "document_id" => press_release.document_id,
+          "document_information" => {
+            "locales" => %w[en],
+            "subtypes" => %w[press_release],
+          },
         }],
         "page_number" => 1,
-        "page_count" => 1,
+        "page_count" => 2,
         "_response_info" => { "status" => "ok" },
     }
 
