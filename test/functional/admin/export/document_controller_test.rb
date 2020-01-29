@@ -62,6 +62,79 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert_equal expected_response, json_response
   end
 
+  test "index responds with document information for a lead org, type and subtypes" do
+    org = create(:organisation)
+    news_story = create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::NewsStory,
+    )
+    press_release = create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::PressRelease,
+    )
+    create(
+      :publication,
+      :policy_paper,
+      organisations: [org],
+      publication_type: PublicationType::PolicyPaper,
+    )
+
+    login_as :export_data_user
+
+    get :index, params: { lead_organisation: org.content_id,
+                          type: "NewsArticle",
+                          subtypes: %w(PressRelease NewsStory) }, format: "json"
+
+    expected_response =
+      {
+        "documents" => [{
+          "document_id" => news_story.document_id,
+          "document_information" => {
+            "locales" => %w[en],
+            "subtypes" => %w[news_story],
+          },
+        }, {
+          "document_id" => press_release.document_id,
+          "document_information" => {
+            "locales" => %w[en],
+            "subtypes" => %w[press_release],
+          },
+        }],
+        "page_number" => 1,
+        "page_count" => 2,
+        "_response_info" => { "status" => "ok" },
+    }
+
+    assert_equal expected_response, json_response
+  end
+
+  test "index responds with no documents for a lead org, valid type and invalid subtype" do
+    org = create(:organisation)
+    create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::PressRelease,
+    )
+
+    login_as :export_data_user
+
+    get :index, params: { lead_organisation: org.content_id,
+                          type: "NewsArticle",
+                          subtypes: %w(SomethingInvalid) }, format: "json"
+
+    expected_response =
+      {
+        "documents" => [],
+        "page_number" => 1,
+        "page_count" => 0,
+        "_response_info" => { "status" => "ok" },
+      }
+
+    assert_equal expected_response, json_response
+  end
+
   test "doesnt return the document where the latest edition is not associated with lead org" do
     published_edition_org = create(:organisation)
     draft_edition_org = create(:organisation)

@@ -172,6 +172,16 @@ class Edition < ApplicationRecord
     end
   end
 
+  def self.by_type_or_subtypes(type, subtypes)
+    if subtypes.nil?
+      by_type(type)
+    elsif subtypes.empty?
+      none
+    else
+      by_subtypes(type, subtypes.pluck(:id))
+    end
+  end
+
   # used by Admin::EditionFilter
   def self.by_type(type)
     where(type: type.to_s)
