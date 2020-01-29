@@ -1,10 +1,10 @@
 When(/^I start editing a draft document which can be tagged to the new taxonomy$/) do
-  create(:organisation, content_id: 'ebd15ade-73b2-4eaf-b1c3-43034a42eb37', name: 'Taxon Org')
-  begin_drafting_publication('The Pub')
+  create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37", name: "Taxon Org")
+  begin_drafting_publication("The Pub")
   stub_taxonomy_data
   stub_patch_links
-  within('.lead-organisations') do
-    select('Taxon Org', from: 'Organisation 1')
+  within(".lead-organisations") do
+    select("Taxon Org", from: "Organisation 1")
   end
 end
 
@@ -22,10 +22,10 @@ end
 When(/^I start editing a draft document which cannot be tagged to the new taxonomy$/) do
   stub_topics
   stub_specialist_sectors
-  create(:organisation, content_id: 'otherzzz-zzzz-zzzz-zzzz-zzzz0000zzzz', name: 'Non Taxon Org')
-  begin_drafting_publication('The Pub', skip_topic_selection: true)
-  within('.lead-organisations') do
-    select('Non Taxon Org', from: 'Organisation 1')
+  create(:organisation, content_id: "otherzzz-zzzz-zzzz-zzzz-zzzz0000zzzz", name: "Non Taxon Org")
+  begin_drafting_publication("The Pub", skip_topic_selection: true)
+  within(".lead-organisations") do
+    select("Non Taxon Org", from: "Organisation 1")
   end
 end
 

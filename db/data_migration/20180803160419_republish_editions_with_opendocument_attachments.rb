@@ -8,6 +8,6 @@ document_ids = Document.joins(:editions)
           OR attachment_data.carrierwave_file like '%.ods'")
   .pluck(:id).uniq
 
-document_ids.each do | document_id |
+document_ids.each do |document_id|
   PublishingApiDocumentRepublishingWorker.perform_async(document_id)
 end

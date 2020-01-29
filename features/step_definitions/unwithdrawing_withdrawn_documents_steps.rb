@@ -2,8 +2,8 @@ When(/^I unwithdraw the publication$/) do
   publication = Publication.last
   visit admin_edition_path(publication)
 
-  click_link 'Unwithdraw'
-  click_button 'Unwithdraw'
+  click_link "Unwithdraw"
+  click_button "Unwithdraw"
 
   @latest_published_edition = publication.document.published_edition
 

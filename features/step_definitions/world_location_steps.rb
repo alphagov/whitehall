@@ -15,28 +15,28 @@ end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists$/) do |world_location_type, name|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  create(world_location_type.tr(' ', '_').to_sym, name: name, active: true)
+  create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/) do |world_location_type, name, mission_statement|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  create(world_location_type.tr(' ', '_').to_sym, name: name, active: true, mission_statement: mission_statement)
+  create(world_location_type.tr(" ", "_").to_sym, name: name, active: true, mission_statement: mission_statement)
 end
 
 Given(/^the (world location|international delegation) "([^"]*)" is inactive/) do |world_location_type, name|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  world_location = WorldLocation.find_by(name: name) || create(world_location_type.tr(' ', '_').to_sym, name: name, active: true)
+  world_location = WorldLocation.find_by(name: name) || create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
   world_location.update_column(:active, false)
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |world_location_type, name, locale|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  location = create(world_location_type.tr(' ', '_').to_sym, name: name, active: true)
+  location = create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
   locale = Locale.find_by_language_name(locale)
 
   translation = LocalisedModel.new(location, locale.code)
-  translation.name = 'Unimportant'
-  translation.title = 'Unimportant'
+  translation.name = "Unimportant"
+  translation.title = "Unimportant"
   translation.save!
 end
 
@@ -55,7 +55,7 @@ When(/^I visit the world locations page$/) do
 end
 
 def feature_news_article_in_world_location(news_article_title, world_location_name, image_filename = nil, locale = "English")
-  image_filename ||= 'minister-of-funk.960x640.jpg'
+  image_filename ||= "minister-of-funk.960x640.jpg"
   world_location = WorldLocation.find_by!(name: world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (#{locale})"
@@ -96,7 +96,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the (?:world location|i
   click_link "Features (English)"
   click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
-  select type, from: 'offsite_link_link_type'
+  select type, from: "offsite_link_link_type"
   fill_in :offsite_link_summary, with: "summary"
   fill_in :offsite_link_url, with: "http://gov.uk"
   click_button "Save"
@@ -128,11 +128,11 @@ end
 Then(/^I should see the featured items of the (?:world location|international delegation) "([^"]*)" are:$/) do |name, expected_table|
   world_location = WorldLocation.find_by!(name: name)
   visit world_location_path(world_location)
-  rows = find(featured_documents_selector).all('.feature')
+  rows = find(featured_documents_selector).all(".feature")
   table = rows.collect do |row|
     [
-      row.find('h2').text.strip,
-      File.basename(row.find('.featured-image')['src'])
+      row.find("h2").text.strip,
+      File.basename(row.find(".featured-image")["src"]),
     ]
   end
   expected_table.diff!(table)
@@ -148,7 +148,7 @@ Then(/^I should not see a link to the (?:world location|international delegation
 end
 
 Then(/^I should see that it is an? (world location|international delegation)$/) do |world_location_type|
-  assert_selector '.type', text: world_location_type.capitalize
+  assert_selector ".type", text: world_location_type.capitalize
 end
 
 def view_world_location_in_locale(world_location_name, locale)
@@ -160,8 +160,8 @@ end
 Then(/^when viewing the (?:world location|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/) do |world_location_name, locale, table|
   view_world_location_in_locale(world_location_name, locale)
   translation = table.rows_hash
-  assert_selector 'h1', text: translation["title"]
-  assert_selector '.mission_statement', text: translation["mission_statement"]
+  assert_selector "h1", text: translation["title"]
+  assert_selector ".mission_statement", text: translation["mission_statement"]
 end
 
 Then(/^I should be able to associate "([^"]+)" with the (?:world location|international delegation) "([^"]+)"$/) do |title, location|
@@ -172,8 +172,8 @@ end
 
 When(/^I click through to see all the announcements for (?:international delegation|world location) "([^"]*)"$/) do |name|
   visit world_location_path(WorldLocation.find_by!(name: name))
-  within '#announcements' do
-    click_link 'See all'
+  within "#announcements" do
+    click_link "See all"
   end
 end
 
@@ -204,23 +204,23 @@ end
 
 Then(/^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/) do |expected_title, name|
   visit world_location_path(WorldLocation.find_by!(name: name))
-  assert_selector '.feature h2', text: expected_title
+  assert_selector ".feature h2", text: expected_title
 end
 
 Then(/^there should be nothing featured on the home page of (?:world location|international delegation) "(.*?)"$/) do |name|
   visit world_location_path(name)
-  rows = find(featured_documents_selector).all('.feature')
+  rows = find(featured_documents_selector).all(".feature")
   assert rows.empty?
 end
 
 Then(/^I should see the following world locations grouped under "(.*?)" in order:$/) do |letter, ordered_locations|
   within :xpath, ".//*#{xpath_class_selector('world-locations')}//*#{xpath_class_selector('js-filter-block')}[./h2[text()='#{letter}']]" do
-    assert_equal ordered_locations.raw.map(&:first), all('.world_location').map(&:text)
+    assert_equal ordered_locations.raw.map(&:first), all(".world_location").map(&:text)
   end
 end
 
 Then(/^I should see the following international delegations in order:$/) do |ordered_delegations|
   within :xpath, ".//*#{xpath_class_selector('world-locations')}//section[@id='international-delegations']" do
-    assert_equal ordered_delegations.raw.map(&:first), all('.world_location').map(&:text)
+    assert_equal ordered_delegations.raw.map(&:first), all(".world_location").map(&:text)
   end
 end

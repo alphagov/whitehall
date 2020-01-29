@@ -44,6 +44,7 @@ slugs_to_fix.each do |slug|
   if correct_content_id.blank?
     raise ArgumentError, "no content id found for #{base_path}"
   end
+
   document.content_id = correct_content_id
   document.save!
 end

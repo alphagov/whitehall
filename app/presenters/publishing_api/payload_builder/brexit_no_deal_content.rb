@@ -17,7 +17,7 @@ module PublishingApi
         { brexit_no_deal_notice: links }
       end
 
-      private
+    private
 
       def links
         item.brexit_no_deal_content_notice_links.map do |link|

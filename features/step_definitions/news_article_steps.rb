@@ -6,8 +6,9 @@ Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |titl
     body: {
       results: [
         { link: document_path(news_article), title: news_article.title },
-      ]
-    }.to_json)
+      ],
+    }.to_json,
+)
 end
 
 Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, _thing|
@@ -18,7 +19,7 @@ When(/^I draft a new news article "([^"]*)"$/) do |title|
   begin_drafting_news_article title: title, summary: "here's a simple summary"
   within ".images" do
     attach_file "File", jpg_image, match: :first
-    fill_in "Alt text", with: 'An alternative description', match: :first
+    fill_in "Alt text", with: "An alternative description", match: :first
   end
   click_button "Save"
 end
@@ -32,9 +33,9 @@ When(/^I publish a news article "([^"]*)" associated with "([^"]*)"$/) do |title
 end
 
 When(/^I publish a news article "([^"]*)" associated with the (topic|topical event) "([^"]*)"$/) do |title, type, topic_name|
-  begin_drafting_news_article title: title, skip_topic_selection: (type == 'topic')
+  begin_drafting_news_article title: title, skip_topic_selection: (type == "topic")
 
-  if type == 'topic'
+  if type == "topic"
     select topic_name, from: "Policy Areas"
   else
     select topic_name, from: "Topical events"
@@ -48,7 +49,7 @@ end
 When(/^I publish a news article "(.*?)" associated with the organisation "(.*?)"$/) do |title, organisation_name|
   begin_drafting_news_article title: title
   fill_in_news_article_fields(first_published: Time.zone.today.to_s)
-  within '.lead-organisations' do
+  within ".lead-organisations" do
     select organisation_name, from: "Organisation 1"
   end
   click_button "Save"
@@ -71,14 +72,15 @@ Then(/^I should see both the news articles for the Deputy Prime Minister role$/)
   assert_selector ".news_article", text: "News from Harriet, Deputy PM"
 end
 
-Given(/^"([^"]*)" has news associated with her$/) do |arg1|
+Given(/^"([^"]*)" has news associated with her$/) do |_|
   stub_any_search.to_return(
     body: {
       results: [
         { link: "/foo", title: "First article" },
-        { link: "/foo", title: "Second article" }
-      ]
-    }.to_json)
+        { link: "/foo", title: "Second article" },
+      ],
+    }.to_json,
+  )
 end
 
 Then(/^I should see both the news articles for Harriet Home$/) do
@@ -105,18 +107,18 @@ end
 When(/^I draft a French\-only "World news story" news article associated with "([^"]*)"$/) do |location_name|
   create(:worldwide_organisation, name: "French embassy")
 
-  begin_drafting_news_article title: "French-only news article", body: 'test-body', summary: 'test-summary', announcement_type: "World news story"
+  begin_drafting_news_article title: "French-only news article", body: "test-body", summary: "test-summary", announcement_type: "World news story"
   select "Français", from: "Document language"
   select location_name, from: "Select the world locations this news article is about"
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
   select "", from: "edition_lead_organisation_ids_1"
   click_button "Save and continue"
   click_button "Save topic changes"
-  @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
+  @news_article = find_news_article_in_locale!(:fr, "French-only news article")
 end
 
 When(/^I publish the French-only news article$/) do
-  stub_publishing_api_links_with_taxons(@news_article.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(@news_article.content_id, %w[a-taxon-content-id])
   visit admin_edition_path(@news_article)
   publish(force: true)
 end

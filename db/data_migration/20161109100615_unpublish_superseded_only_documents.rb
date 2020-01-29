@@ -9,7 +9,7 @@
 # workflow only allows certain state transitions.
 #
 # We also send them through the PublishingApi to resync data in the content store
-content_ids = ["5f5299be-7631-11e4-a3cb-005056011aef", "5d8ff850-7631-11e4-a3cb-005056011aef"]
+content_ids = %w[5f5299be-7631-11e4-a3cb-005056011aef 5d8ff850-7631-11e4-a3cb-005056011aef]
 documents = Document.where(content_id: content_ids)
 
 documents.each do |document|

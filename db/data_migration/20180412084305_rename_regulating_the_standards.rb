@@ -9,7 +9,7 @@ if document
   Whitehall::SearchIndex.delete(edition)
 
   # change the slug of the document
-  document.update_attributes!(slug: new_slug)
+  document.update!(slug: new_slug)
   PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   puts "Renamed slug: #{old_slug} to #{new_slug}"
 

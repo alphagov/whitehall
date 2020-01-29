@@ -8,7 +8,7 @@ end
 
 Given(/^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, locale|
   person = create_person(name, biography: "Unimportant")
-  add_translation_to_person(person, locale: locale, biography: 'Unimportant')
+  add_translation_to_person(person, locale: locale, biography: "Unimportant")
 end
 
 Given(/^a person called "([^"]*)" exists in the role of "([^"]*)"$/) do |name, role_name|
@@ -43,7 +43,7 @@ end
 When(/^I update the person called "([^"]*)" to have the name "([^"]*)"$/) do |old_name, new_name|
   visit_people_admin
   click_link old_name
-  click_on 'Edit'
+  click_on "Edit"
   fill_in_person_name new_name
   fill_in "Biography", with: "Vivamus fringilla libero et augue fermentum eget molestie felis accumsan."
   click_button "Save"
@@ -52,7 +52,7 @@ end
 When(/^I remove the person "([^"]*)"$/) do |name|
   visit_people_admin
   click_link name
-  click_button 'Delete'
+  click_button "Delete"
 end
 
 When(/^I add a new "([^"]*)" translation to the person "([^"]*)" with:$/) do |locale, name, table|
@@ -102,12 +102,12 @@ Then(/^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:
   translation = table.rows_hash
   visit person_path(person)
   click_link locale
-  assert_selector '.biography', text: translation["biography"]
+  assert_selector ".biography", text: translation["biography"]
 end
 
 Then(/^I should see limited information about the person "(.*?)"$/) do |_name|
-  assert_selector '.biography', text: "This is the first paragraph of the biography."
+  assert_selector ".biography", text: "This is the first paragraph of the biography."
   assert_no_text "This is the second paragraph."
   assert_no_selector 'a[href="#current-roles"]'
-  assert_no_selector 'figure.img'
+  assert_no_selector "figure.img"
 end

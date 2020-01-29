@@ -37,7 +37,7 @@ class Admin::EditionTagsController < Admin::BaseController
                 alert: "Somebody changed the tags before you could. Your changes have not been saved."
   end
 
-  private
+private
 
   def redirect_path
     if params[:save]

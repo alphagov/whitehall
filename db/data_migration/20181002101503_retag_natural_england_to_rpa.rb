@@ -7,6 +7,7 @@ docs_with_support = EditionOrganisation.where(organisation: natural_england, lea
 docs_with_lead.each do |document|
   begin
     next if document.document_type == "CorporateInformationPage"
+
     edition = document.latest_edition
     edition.read_consultation_principles = true if document.document_type == "Consultation"
     orgs = edition.lead_organisations.to_a
@@ -16,14 +17,15 @@ docs_with_lead.each do |document|
 
     edition.lead_organisations = orgs
     edition.save(validate: false)
-  rescue StandardError => ex
-    puts "#{document.slug}: #{ex.class}, #{ex.message}"
+  rescue StandardError => e
+    puts "#{document.slug}: #{e.class}, #{e.message}"
   end
 end
 
 docs_with_support.each do |document|
   begin
     next if document.document_type == "CorporateInformationPage"
+
     edition = document.latest_edition
     edition.read_consultation_principles = true if document.document_type == "Consultation"
     orgs = edition.supporting_organisations.to_a
@@ -34,7 +36,7 @@ docs_with_support.each do |document|
 
     edition.supporting_organisations = orgs
     edition.save(validate: false)
-  rescue StandardError => ex
-    puts "#{document.slug}: #{ex.class}, #{ex.message}"
+  rescue StandardError => e
+    puts "#{document.slug}: #{e.class}, #{e.message}"
   end
 end

@@ -6,6 +6,6 @@ document_ids = Document.joins(:editions)
   .where("attachment_data.carrierwave_file like '%.xml'")
   .pluck(:id).uniq
 
-  document_ids.each do | document_id |
-    PublishingApiDocumentRepublishingWorker.perform_async(document_id)
-  end
+document_ids.each do |document_id|
+  PublishingApiDocumentRepublishingWorker.perform_async(document_id)
+end

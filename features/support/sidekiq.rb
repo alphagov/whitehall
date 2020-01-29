@@ -1,7 +1,7 @@
-require 'sidekiq/testing/inline'
-require_relative '../../test/support/sidekiq_test_helpers'
+require "sidekiq/testing/inline"
+require_relative "../../test/support/sidekiq_test_helpers"
 
-include SidekiqTestHelpers
+World(SidekiqTestHelpers)
 
 Around("@without-delay or @not-quite-as-fake-search") do |_scenario, block|
   Sidekiq::Testing.inline! do

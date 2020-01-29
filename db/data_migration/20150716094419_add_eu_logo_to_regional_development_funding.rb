@@ -1,11 +1,11 @@
-slugs = [
-  "erdf-programmes-and-resources",
-  "erdf-programmes-progress-and-achievements",
-  "applying-for-erdf-funding",
-  "erdf-national-guidance",
-  "previous-erdf-programmes-retaining-documents",
-  "european-territorial-cooperation-programmes",
-  "reuniting-europe-programme-turkey",
+slugs = %w[
+  erdf-programmes-and-resources
+  erdf-programmes-progress-and-achievements
+  applying-for-erdf-funding
+  erdf-national-guidance
+  previous-erdf-programmes-retaining-documents
+  european-territorial-cooperation-programmes
+  reuniting-europe-programme-turkey
 ]
 logo_url = "https://assets.digital.cabinet-office.gov.uk/government/assets/erdf-logo.png"
 

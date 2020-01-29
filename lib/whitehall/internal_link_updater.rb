@@ -11,7 +11,7 @@ class Whitehall::InternalLinkUpdater
     update_all_linking_editions(linked_to_edition)
   end
 
-  private
+private
 
   def update_all_linking_editions(linked_to_edition)
     linked_from_editions(linked_to_edition).each do |linked_from_edition|

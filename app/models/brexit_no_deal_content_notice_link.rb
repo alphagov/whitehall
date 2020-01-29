@@ -22,7 +22,7 @@ class BrexitNoDealContentNoticeLink < ApplicationRecord
     has_govuk_host? || has_no_host?
   end
 
-  private
+private
 
   def has_govuk_host?
     URI.parse(url).host =~ /(publishing.service|www).gov.uk\Z/

@@ -17,7 +17,7 @@ class Whitehall::Exporters::DocumentsInfoExporter
     end
   end
 
-  private
+private
 
   def locales_hash
     @locales_hash ||= Edition

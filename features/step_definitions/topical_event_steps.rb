@@ -71,7 +71,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topical event "(.*?
   visit admin_topical_event_classification_featurings_path(topical_event)
   click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
-  select type, from: 'offsite_link_link_type'
+  select type, from: "offsite_link_link_type"
   fill_in :offsite_link_summary, with: "summary"
   fill_in :offsite_link_url, with: "http://gov.uk"
   click_button "Save"
@@ -113,11 +113,11 @@ end
 
 Then(/^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/) do |_type, name, expected_table|
   visit topical_event_path(TopicalEvent.find_by!(name: name))
-  rows = find('.featured-news').all('.feature')
+  rows = find(".featured-news").all(".feature")
   table = rows.collect do |row|
     [
-      row.find('h2').text.strip,
-      File.basename(row.find('.featured-image')['src'])
+      row.find("h2").text.strip,
+      File.basename(row.find(".featured-image")["src"]),
     ]
   end
   expected_table.diff!(table)
@@ -138,28 +138,28 @@ Given(/^I'm administering a topical event$/) do
 end
 
 When(/^I add a page of information about the event$/) do
-  click_link 'About page'
-  click_link 'Create'
-  fill_in 'Name', with: 'Page about the event'
-  fill_in 'Read more link text', with: 'Read more about this event'
-  fill_in 'Summary', with: 'Summary'
-  fill_in 'Body', with: 'Body'
-  click_button 'Save'
+  click_link "About page"
+  click_link "Create"
+  fill_in "Name", with: "Page about the event"
+  fill_in "Read more link text", with: "Read more about this event"
+  fill_in "Summary", with: "Summary"
+  fill_in "Body", with: "Body"
+  click_button "Save"
 end
 
 Then(/^I should be able to edit the event's about page$/) do
-  click_link 'Edit'
-  fill_in 'Name', with: 'About the event'
-  click_button 'Save'
+  click_link "Edit"
+  fill_in "Name", with: "About the event"
+  click_button "Save"
 end
 
 Then(/^a link to the event's about page is visible$/) do
-  click_link 'View on website'
-  assert_selector 'a[href$="/about"]', text: 'Read more about this event'
+  click_link "View on website"
+  assert_selector 'a[href$="/about"]', text: "Read more about this event"
 end
 
 Given(/^a topical event with published documents$/) do
-  name = 'Topical Event with Published Documents'
+  name = "Topical Event with Published Documents"
   @topical_event = create(:topical_event, name: name)
   stub_topical_event_in_content_store(name)
   create_recently_published_documents_for_topical_event(@topical_event)
@@ -173,8 +173,8 @@ end
 Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
   topical_event = TopicalEvent.find_by!(name: name)
   visit admin_topical_event_path(topical_event)
-  click_on 'Edit'
-  click_button 'Delete'
+  click_on "Edit"
+  click_button "Delete"
   refute TopicalEvent.exists?(topical_event.id)
 end
 
@@ -187,6 +187,6 @@ def rummager_response_of_single_edition(edition)
       "display_type" => edition.display_type,
       "description" => edition.summary,
       "content_id" => edition.content_id,
-    }]
+    }],
   }.to_json
 end

@@ -46,7 +46,7 @@ slug_changes.each do |slug_change|
     Whitehall::SearchIndex.delete(edition)
 
     # change the slug of the document and create a redirect from the original
-    document.update_attributes!(slug: slug_change[:new_slug])
+    document.update!(slug: slug_change[:new_slug])
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   else
     "Document can't be found with slug #{slug_change[:old_slug]}"

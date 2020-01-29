@@ -28,35 +28,6 @@ module Edition::AuditTrail
     before_update :record_update
   end
 
-  def record_create
-    user = Edition::AuditTrail.whodunnit
-    versions.create event: "create", user: user, state: state
-    alert!(user)
-  end
-  private :record_create
-
-  def record_update
-    if changed.any?
-      user = Edition::AuditTrail.whodunnit
-      versions.build event: "update", user: user, state: state
-      alert!(user)
-    end
-  end
-  private :record_update
-
-  def alert!(user)
-    if user && should_alert_for?(user)
-      Notifications.edition_published_by_monitored_user(user).deliver_now
-    end
-  end
-  private :alert!
-
-  def should_alert_for?(user)
-    ENV["CO_NSS_WATCHKEEPER_EMAIL_ADDRESS"].present? &&
-      user.email == ENV["CO_NSS_WATCHKEEPER_EMAIL_ADDRESS"]
-  end
-  private :should_alert_for?
-
   def edition_remarks_trail(edition_serial_number = 0)
     self.editorial_remarks.map { |r|
       EditorialRemarkAuditEntry.new(edition_serial_number, self, r)
@@ -80,24 +51,6 @@ module Edition::AuditTrail
     document_trail(superseded: superseded, versions: true)
   end
 
-  def document_trail(superseded: true, versions: false, remarks: false)
-    scope = document.editions
-
-    scope = scope.includes(versions: [:user]) if versions
-    scope = scope.includes(editorial_remarks: [:author]) if remarks
-
-    scope
-      .includes(versions: [:user])
-      .order("created_at asc, id asc")
-      .map.with_index { |edition, i|
-        [
-          (edition.edition_version_trail(i, superseded: superseded) if versions),
-          (edition.edition_remarks_trail(i) if remarks),
-        ].compact
-      }.flatten
-  end
-  private :document_trail
-
   def latest_version_audit_entry_for(state)
     edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }
   end
@@ -116,6 +69,50 @@ module Edition::AuditTrail
 
   def publication_audit_entry
     document_version_trail.detect { |audit_entry| audit_entry.version.state == "published" }
+  end
+
+private
+
+  def record_create
+    user = Edition::AuditTrail.whodunnit
+    versions.create event: "create", user: user, state: state
+    alert!(user)
+  end
+
+  def record_update
+    if changed.any?
+      user = Edition::AuditTrail.whodunnit
+      versions.build event: "update", user: user, state: state
+      alert!(user)
+    end
+  end
+
+  def alert!(user)
+    if user && should_alert_for?(user)
+      Notifications.edition_published_by_monitored_user(user).deliver_now
+    end
+  end
+
+  def should_alert_for?(user)
+    ENV["CO_NSS_WATCHKEEPER_EMAIL_ADDRESS"].present? &&
+      user.email == ENV["CO_NSS_WATCHKEEPER_EMAIL_ADDRESS"]
+  end
+
+  def document_trail(superseded: true, versions: false, remarks: false)
+    scope = document.editions
+
+    scope = scope.includes(versions: [:user]) if versions
+    scope = scope.includes(editorial_remarks: [:author]) if remarks
+
+    scope
+      .includes(versions: [:user])
+      .order("created_at asc, id asc")
+      .map.with_index { |edition, i|
+        [
+          (edition.edition_version_trail(i, superseded: superseded) if versions),
+          (edition.edition_remarks_trail(i) if remarks),
+        ].compact
+      }.flatten
   end
 
   class AuditEntry

@@ -8,7 +8,7 @@ if document
 
   Whitehall::SearchIndex.delete(edition)
 
-  document.update_attributes!(slug: new_slug)
+  document.update!(slug: new_slug)
   PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 
   puts "#{old_slug} -> #{new_slug}"

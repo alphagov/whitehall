@@ -1,5 +1,5 @@
 class Admin::StatisticalDataSetsController < Admin::EditionsController
-  private
+private
 
   def edition_class
     StatisticalDataSet

@@ -1,8 +1,5 @@
 module Assertions
-  # Fix pending - https://github.com/bbatsov/rubocop/issues/4885
-  # rubocop:disable Style/MixinUsage
   include LocalisedUrlPathHelper
-  # rubocop:enable Style/MixinUsage
 
   def assert_current_url(url, message = nil)
     uri = Addressable::URI.parse(url)

@@ -1,4 +1,4 @@
-require 'gds_api/router'
+require "gds_api/router"
 # We never have to go to the Router during Feature tests. Disable.
 module GdsApi
   class Router

@@ -1,6 +1,6 @@
 When(/^click the link for the latest email alerts$/) do
-  within '.feeds' do
-    click_on 'email'
+  within ".feeds" do
+    click_on "email"
   end
 end
 

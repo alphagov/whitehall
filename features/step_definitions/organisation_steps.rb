@@ -12,7 +12,7 @@ Given(/^the organisation "(.*?)" exists with a featured article$/) do |name|
 end
 
 Given(/^the organisation "(.*?)" exists with featured services and guidance$/) do |name|
-  org = create(:organisation, name: name, homepage_type: 'service')
+  org = create(:organisation, name: name, homepage_type: "service")
   create(:featured_link, linkable: org)
 end
 
@@ -94,20 +94,20 @@ Given(/^I have an offsite link "(.*?)" for the organisation "(.*?)"$/) do |title
 end
 
 When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
-  create(:topical_event, name: 'Jazz Bizniz')
+  create(:topical_event, name: "Jazz Bizniz")
 
   visit new_admin_organisation_path
 
-  fill_in 'Name', with: organisation_name
-  fill_in 'Acronym', with: organisation_name.split(' ').collect { |word| word.chars.first }.join
-  fill_in 'Logo formatted name', with: organisation_name
-  select 'Ministerial department', from: 'Organisation type'
-  select 'Jazz Bizniz', from: 'organisation_topical_event_ids_0'
-  within '.featured-links' do
-    fill_in 'Title', with: 'Top task 1'
-    fill_in 'URL', with: 'http://mainstream.co.uk'
+  fill_in "Name", with: organisation_name
+  fill_in "Acronym", with: organisation_name.split(" ").collect { |word| word.chars.first }.join
+  fill_in "Logo formatted name", with: organisation_name
+  select "Ministerial department", from: "Organisation type"
+  select "Jazz Bizniz", from: "organisation_topical_event_ids_0"
+  within ".featured-links" do
+    fill_in "Title", with: "Top task 1"
+    fill_in "URL", with: "http://mainstream.co.uk"
   end
-  click_button 'Save'
+  click_button "Save"
 end
 
 Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |organisation_name|
@@ -131,7 +131,7 @@ When(/^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
   click_link "Features"
   locale = Locale.find_by_language_name("English")
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by(title: news_article_title)
-  fill_in 'title', with: news_article_title.split.first
+  fill_in "title", with: news_article_title.split.first
   within record_css_selector(news_article) do
     click_link "Feature"
   end
@@ -161,7 +161,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)
   visit features_admin_organisation_path(organisation)
   click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
-  select type, from: 'offsite_link_link_type'
+  select type, from: "offsite_link_link_type"
   fill_in :offsite_link_summary, with: "summary"
   fill_in :offsite_link_url, with: "http://gov.uk"
   click_button "Save"
@@ -229,11 +229,11 @@ end
 
 Then(/^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/) do |_type, name, expected_table|
   visit_organisation name
-  rows = find(featured_documents_selector).all('.feature')
+  rows = find(featured_documents_selector).all(".feature")
   table = rows.collect do |row|
     [
-      row.find('h2').text.strip,
-      File.basename(row.find('.featured-image')['src'])
+      row.find("h2").text.strip,
+      File.basename(row.find(".featured-image")["src"]),
     ]
   end
   expected_table.diff!(table)
@@ -253,7 +253,7 @@ Then(/^there should be nothing featured on the home page of "([^"]*)"$/) do |nam
 end
 
 def navigate_to_organisation(page_name)
-  within('nav.sub_navigation') do
+  within("nav.sub_navigation") do
     click_link page_name
   end
 end
@@ -268,12 +268,12 @@ end
 
 Then(/^I cannot see links to Transparency data on the "([^"]*)" about page$/) do |name|
   visit_organisation_about_page name
-  assert_no_selector 'a', text: 'Transparency data'
+  assert_no_selector "a", text: "Transparency data"
 end
 
 Then(/^I can see a link to "([^"]*)" on the "([^"]*)" about page$/) do |link_text, name|
   visit_organisation_about_page name
-  assert_selector 'a', text: link_text
+  assert_selector "a", text: link_text
 end
 
 When(/^I associate a Transparency data publication to the "([^"]*)"$/) do |name|
@@ -307,7 +307,7 @@ When(/^I add some featured services and guidance to the organisation "([^"]*)" v
     fill_in "URL", with: "https://www.gov.uk/example/service"
     fill_in "Title", with: "Example Service"
   end
-  choose 'organisation_homepage_type_service'
+  choose "organisation_homepage_type_service"
   click_button "Save"
 end
 
@@ -388,7 +388,7 @@ Then(/^when I view the organisation with the locale "([^"]*)" I should see:$/) d
   click_link locale
 
   within record_css_selector(organisation) do
-    assert_selector '.organisation-logo', text: translation['logo formatted name']
+    assert_selector ".organisation-logo", text: translation["logo formatted name"]
   end
 end
 
@@ -422,16 +422,16 @@ When(/^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/) do |suppo
   supported_organisation = Organisation.find_by!(name: supported_org_name)
 
   visit admin_organisation_path(supported_organisation)
-  click_on 'Edit'
-  select supporting_org_name, from: 'Sponsoring organisations'
-  click_on 'Save'
+  click_on "Edit"
+  select supporting_org_name, from: "Sponsoring organisations"
+  click_on "Save"
 end
 
 Then(/^I should see "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/) do |supporting_org_name, supported_org_name|
   supported_organisation = Organisation.find_by!(name: supported_org_name)
 
   ensure_path organisation_path(supported_organisation)
-  within 'p.parent_organisations' do
+  within "p.parent_organisations" do
     assert_text supporting_org_name
   end
 end
@@ -440,14 +440,14 @@ Then(/^I can see information about uk aid on the "(.*?)" page$/) do |org_name|
   org = Organisation.find_by!(name: org_name)
 
   visit organisation_path(org)
-  assert_selector '.uk-aid'
+  assert_selector ".uk-aid"
 end
 
 Then(/^I can not see information about uk aid on the "(.*?)" page$/) do |org_name|
   org = Organisation.find_by!(name: org_name)
 
   visit organisation_path(org)
-  assert_no_selector '.uk-aid'
+  assert_no_selector ".uk-aid"
 end
 
 Given(/^an organisation and some documents exist$/) do
@@ -458,7 +458,7 @@ Given(/^an organisation and some documents exist$/) do
   @documents = [
     create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author_1),
     create(:published_news_article, title: "DOC2", organisations: [@organisation_2], creator: @author_1),
-    create(:published_consultation, title: "DOC3", organisations: [@organisation_2], creator: @author_2)
+    create(:published_consultation, title: "DOC3", organisations: [@organisation_2], creator: @author_2),
   ]
 end
 
@@ -519,7 +519,7 @@ end
 
 Given(/^a closed organisation with documents which has been superseded by another$/) do
   @superseding_organisation  = create(:organisation)
-  @organisation              = create_org_and_stub_content_store(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [@superseding_organisation])
+  @organisation              = create_org_and_stub_content_store(:organisation, govuk_status: "closed", govuk_closed_status: "replaced", superseding_organisations: [@superseding_organisation])
   @organisation_speech       = create(:published_speech, organisations: [@organisation])
   @organisation_consultation = create(:published_consultation, organisations: [@organisation])
   @organisation_publication  = create(:published_publication, organisations: [@organisation])

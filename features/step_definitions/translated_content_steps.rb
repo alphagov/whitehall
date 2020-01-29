@@ -43,9 +43,9 @@ end
 Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*?)"$/) do |organisation_name, contact_title|
   organisation = create(:organisation, name: organisation_name, translated_into: :cy)
   contact = create(:contact, title: contact_title, country: create(:world_location, active: true),
-                   street_address: '123 The Avenue', contactable: organisation)
+                   street_address: "123 The Avenue", contactable: organisation)
   create(:contact_number, contact: contact,
-         label: 'English phone', number: '0123456789')
+         label: "English phone", number: "0123456789")
 end
 
 When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_title, english_title|

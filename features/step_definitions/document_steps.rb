@@ -1,5 +1,5 @@
 Given(/^a draft (document|publication|news article|consultation|speech) "([^"]*)"(?: with summary "([^"]*)")? exists$/) do |document_type, title, summary|
-  document_type = 'publication' if document_type == 'document'
+  document_type = "publication" if document_type == "document"
   attributes = { title: title }
   attributes[:summary] = summary if summary
   create("draft_#{document_class(document_type).name.underscore}".to_sym, attributes)
@@ -59,12 +59,12 @@ Given(/^a submitted (publication|news article|consultation|speech|detailed guide
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
-Given(/^another user edits the (publication|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/) do |document_type, original_title, new_title|
+Given(/^another user edits the (publication|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/) do |_document_type, original_title, new_title|
   as_user(create(:writer)) do
-    Capybara.using_session('another_user') do
+    Capybara.using_session("another_user") do
       begin_editing_document original_title
-      fill_in 'Title', with: new_title
-      click_button 'Save'
+      fill_in "Title", with: new_title
+      click_button "Save"
     end
   end
 end
@@ -88,9 +88,9 @@ end
 
 Given(/^a force published (document|publication|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  document_type = 'publication' if document_type == 'document'
+  document_type = "publication" if document_type == "document"
   edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
-  stub_publishing_api_links_with_taxons(edition.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(edition.content_id, %w[a-taxon-content-id])
   visit admin_editions_path(state: :draft)
   click_link title
   publish(force: true)
@@ -134,7 +134,7 @@ When(/^I visit the (publication|consultation) "([^"]*)"$/) do |document_type, ti
 end
 
 When(/^I filter by title or slug "(.*?)" with javascript enabled$/) do |title_or_slug|
-  within '#title_filter' do
+  within "#title_filter" do
     fill_in("Title or slug", with: title_or_slug)
     click_on "enter"
   end
@@ -171,7 +171,7 @@ When("someone publishes {edition}") do |edition|
 end
 
 When("I force publish {edition}") do |edition|
-  stub_publishing_api_links_with_taxons(edition.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(edition.content_id, %w[a-taxon-content-id])
   visit_edition_admin edition.title, :draft
   click_link "Edit draft"
   fill_in_change_note_if_required
@@ -245,15 +245,15 @@ Then(/^my attempt to save it should fail with error "([^"]*)"/) do |error_messag
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
-  document_type = document_type.tr(' ', '_')
+  document_type = document_type.tr(" ", "_")
   document = document_type.classify.constantize.find_by(title: title)
   visit send("edit_admin_#{document_type}_path", document)
 end
 
 When(/^I edit the new edition$/) do
-  fill_in 'Title', with: "New title"
-  fill_in 'Body', with: "New body"
-  click_button 'Save'
+  fill_in "Title", with: "New title"
+  fill_in "Body", with: "New body"
+  click_button "Save"
 end
 
 When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|

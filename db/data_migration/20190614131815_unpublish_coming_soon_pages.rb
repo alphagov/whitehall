@@ -169,7 +169,7 @@ PUBLISHED_COMING_SOON_CONTENT_IDS = %w[
   fde79533-de22-4bfb-8cee-36e684fdd5d1
   fe660845-fe65-435f-91d0-9bc57a1d6f41
   ff8e86ef-6b83-44a3-91b2-0c047604112e
-]
+].freeze
 
 PUBLISHED_COMING_SOON_CONTENT_IDS.each do |content_id|
   Services.publishing_api.unpublish(

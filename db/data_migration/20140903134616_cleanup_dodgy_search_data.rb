@@ -1,4 +1,3 @@
-
 scope = Publication.where(publication_type_id: PublicationType.statistical.map(&:id)).includes(:document)
 
 scope.find_each do |statistics_publication|

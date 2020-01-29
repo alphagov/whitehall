@@ -7,4 +7,3 @@ minister_reshuffle = SitewideSetting.new(
   govspeak: "Some ministerial roles and responsibilities are [changing at the moment](http://example.com) so the information here may change",
 )
 minister_reshuffle.save
-

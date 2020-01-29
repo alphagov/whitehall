@@ -11,7 +11,7 @@ When(/^someone else creates a new edition of the published document "([^"]*)" an
   new_draft = current.create_draft(random_editor)
   new_draft.organisations << org
   new_draft.access_limited = true
-  new_draft.change_note = 'Limited to ' + org.name
+  new_draft.change_note = "Limited to " + org.name
   new_draft.save!
 end
 
@@ -22,11 +22,11 @@ When(/^I view the old edition of document "([^"]*)"$/) do |title|
 end
 
 Then(/^I can click through to the most recent version of document "([^"]*)"$/) do |title|
-  click_on 'Go to draft'
+  click_on "Go to draft"
   assert_path admin_edition_path(Edition.find_by(title: title).latest_edition)
 end
 
 Then(/^I cannot click through to the most recent version of document "([^"]*)"$/) do |_title|
-  assert_selector '.alert.access-limited-latest-edition'
-  assert_no_text 'Go to draft'
+  assert_selector ".alert.access-limited-latest-edition"
+  assert_no_text "Go to draft"
 end

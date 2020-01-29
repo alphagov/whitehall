@@ -11,7 +11,7 @@ slugs.each do |slug|
   Whitehall::SearchIndex.delete(edition)
 
   new_slug = slug.gsub("mercantile", "commercial-circuit")
-  document.update_attributes!(slug: new_slug)
+  document.update!(slug: new_slug)
 
   queue = "bulk_republishing"
   id = document.id

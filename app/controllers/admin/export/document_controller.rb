@@ -40,7 +40,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
     ContentPublisher::DocumentCollectionGroupMembershipMigrator.new(document).call
   end
 
-  private
+private
 
   def paginated_document_ids
     Edition

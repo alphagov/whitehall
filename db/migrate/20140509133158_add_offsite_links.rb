@@ -11,9 +11,9 @@ class AddOffsiteLinks < ActiveRecord::Migration
       t.timestamps
     end
     add_column :features, :offsite_link_id, :integer
-    add_index "features", ["offsite_link_id"], name: "index_features_on_offsite_link_id"
+    add_index "features", %w[offsite_link_id], name: "index_features_on_offsite_link_id"
     add_column :classification_featurings, :offsite_link_id, :integer
-    add_index "classification_featurings", ["offsite_link_id"], name: "index_classification_featurings_on_offsite_link_id"
+    add_index "classification_featurings", %w[offsite_link_id], name: "index_classification_featurings_on_offsite_link_id"
   end
 
   def down

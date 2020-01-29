@@ -1,5 +1,5 @@
 edition_translation_data = {
-  526403 => ["en", "zh", "zh-tw"],
+  526403 => %w[en zh zh-tw],
   654995  => %w[cy en],
   679612  => %w[cy en],
   505871  => %w[cy en],

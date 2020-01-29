@@ -9,7 +9,7 @@ Given(/^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/) do |author
   begin_drafting_speech title: title, body: body
   click_button "Save and continue"
   click_button "Save topic changes"
-  click_button 'Submit'
+  click_button "Submit"
 end
 
 Given(/^a published speech "([^"]*)" by "([^"]*)" on "([^"]*)" at "([^"]*)"$/) do |title, ministerial_role, delivered_on, location|
@@ -41,7 +41,7 @@ end
 When(/^I create a new edition of the published speech$/) do
   visit admin_editions_path(state: :published)
   click_link Speech.published.last.title
-  click_button 'Create new edition'
+  click_button "Create new edition"
 end
 
 When(/^I draft a new speech "([^"]*)"$/) do |title|
@@ -55,13 +55,13 @@ When(/^I visit the speech "([^"]*)"$/) do |title|
 end
 
 Then(/^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/) do |delivered_on, location|
-  assert_selector '.delivered-on', text: delivered_on
-  assert_selector '.location', text: location
+  assert_selector ".delivered-on", text: delivered_on
+  assert_selector ".location", text: location
 end
 
 When(/^I draft a new authored article "([^"]*)"$/) do |title|
   begin_drafting_speech title: title
-  select 'Authored article', from: "Speech type"
+  select "Authored article", from: "Speech type"
 end
 
 Then(/^I should be able to choose who wrote the article$/) do
@@ -82,7 +82,7 @@ Then(/^it should be shown as an authored article in the admin screen$/) do
 end
 
 Then(/^I should see who wrote it clearly labelled in the metadata$/) do
-  assert_selector 'dt', text: "Written on:"
+  assert_selector "dt", text: "Written on:"
 end
 
 Then(/^I should see that "(.*?)" is listed on the page$/) do |title|

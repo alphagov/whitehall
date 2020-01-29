@@ -3,7 +3,7 @@ Given(/^there are some specialist sectors$/) do
 end
 
 When(/^I start editing a draft document$/) do
-  begin_drafting_publication(title: 'A Specialist Publication')
+  begin_drafting_publication(title: "A Specialist Publication")
 end
 
 Then(/^I can tag it to some specialist sectors$/) do
@@ -50,6 +50,6 @@ end
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do
   within "article header" do
     assert_text "Top Level Topic"
-    assert_selector 'dd', text: "Topic 1 and Topic 2"
+    assert_selector "dd", text: "Topic 1 and Topic 2"
   end
 end

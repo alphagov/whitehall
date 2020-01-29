@@ -36,7 +36,7 @@ end
 
 When(/^I visit the announcments index in French$/) do
   stub_content_item_from_content_store_for(announcements_path)
-  visit announcements_path + '.fr'
+  visit announcements_path + ".fr"
 end
 
 Then(/^I should see only announcements which have French translations$/) do
@@ -45,8 +45,8 @@ Then(/^I should see only announcements which have French translations$/) do
 end
 
 Then(/^I should be able to filter them by country \(or 'Pays' in French\)$/) do
-  within '#document-filter' do
-    assert_selector 'label', count: 1
+  within "#document-filter" do
+    assert_selector "label", count: 1
     assert_text "Pays"
   end
 end

@@ -26,7 +26,7 @@ When(/^I visit the Welsh statistics index page$/) do
 end
 
 Then(/^I can see the first page of all the statistics$/) do
-  within '.filter-results' do
+  within ".filter-results" do
     assert_text "Womble to Wombat population ratios"
     assert_text "2055 beard lengths"
     assert_text "Wombat population in Wimbledon Common 2063"
@@ -38,7 +38,7 @@ Then(/^I can see the first page of all the statistics$/) do
 end
 
 When(/^I navigate to the next page of statistics$/) do
-  within '.filter-results' do
+  within ".filter-results" do
     click_on "Next page"
   end
 end

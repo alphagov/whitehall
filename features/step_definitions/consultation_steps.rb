@@ -7,7 +7,7 @@ Given(/^an unopened consultation exists$/) do
 end
 
 When(/^I draft a new consultation "([^"]*)"$/) do |title|
-  begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
+  begin_drafting_document type: "consultation", title: title, summary: "consultation-summary", alternative_format_provider: create(:alternative_format_provider)
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
   select_date 1.day.ago.to_s, from: "Opening Date"
@@ -50,7 +50,7 @@ end
 
 When(/^I save and publish the amended consultation$/) do
   consultation = Consultation.last
-  stub_publishing_api_links_with_taxons(consultation.content_id, ["a-taxon-content-id"])
+  stub_publishing_api_links_with_taxons(consultation.content_id, %w[a-taxon-content-id])
   ensure_path edit_admin_consultation_path(consultation)
   fill_in_change_note_if_required
   click_button "Save and continue"
@@ -59,16 +59,16 @@ When(/^I save and publish the amended consultation$/) do
 end
 
 When(/^I mark the consultation as offsite$/) do
-  check 'This consultation is held on another website'
+  check "This consultation is held on another website"
 end
 
 Then(/^the consultation can be associated with topical events$/) do
-  assert_selector 'label', text: 'Topical events'
+  assert_selector "label", text: "Topical events"
 end
 
 Then(/^I can see that the consultation has been published$/) do
   expected_title = Consultation.last.title
   expected_message = "The document #{expected_title} has been published"
 
-  assert_selector '.flash', text: expected_message
+  assert_selector ".flash", text: expected_message
 end
