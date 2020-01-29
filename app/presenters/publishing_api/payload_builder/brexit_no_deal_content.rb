@@ -20,11 +20,17 @@ module PublishingApi
     private
 
       def links
-        item.brexit_no_deal_content_notice_links.map do |link|
+        non_blank_links.map do |link|
           {
             title: link.title,
             href: href(link),
           }
+        end
+      end
+
+      def non_blank_links
+        item.brexit_no_deal_content_notice_links.reject do |link|
+          link.title.blank? && link.url.blank?
         end
       end
 
