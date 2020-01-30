@@ -47,7 +47,11 @@ private
   end
 
   def govuk_url?
-    parsed_url.host =~ /(publishing.service|www).gov.uk\Z/
+    govuk_url_regex.match?(parsed_url.host)
+  end
+
+  def govuk_url_regex
+    /(publishing.service|www).gov.uk\Z/
   end
 
   def parsed_url
