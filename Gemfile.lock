@@ -469,7 +469,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sentry-raven (2.11.3)
+    sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
