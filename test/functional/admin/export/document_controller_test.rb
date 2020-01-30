@@ -45,13 +45,11 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
           "document_id" => news_story.document_id,
           "document_information" => {
             "locales" => %w[en],
-            "subtypes" => %w[news_story],
           },
         }, {
           "document_id" => press_release.document_id,
           "document_information" => {
             "locales" => %w[en],
-            "subtypes" => %w[press_release],
           },
         }],
         "page_number" => 1,
@@ -93,13 +91,11 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
           "document_id" => news_story.document_id,
           "document_information" => {
             "locales" => %w[en],
-            "subtypes" => %w[news_story],
           },
         }, {
           "document_id" => press_release.document_id,
           "document_information" => {
             "locales" => %w[en],
-            "subtypes" => %w[press_release],
           },
         }],
         "page_number" => 1,
