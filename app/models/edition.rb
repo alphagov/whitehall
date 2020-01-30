@@ -182,22 +182,18 @@ class Edition < ApplicationRecord
     end
   end
 
-  # used by Admin::EditionFilter
   def self.by_type(type)
     where(type: type.to_s)
   end
 
-  # used by Admin::EditionFilter
   def self.by_subtype(type, subtype)
     type.by_subtype(subtype)
   end
 
-  # used by Admin::EditionFilter
   def self.by_subtypes(type, subtype_ids)
     type.by_subtypes(subtype_ids)
   end
 
-  # used by Admin::EditionFilter
   def self.in_world_location(world_location)
     joins(:world_locations).where("world_locations.id" => world_location)
   end
@@ -210,7 +206,6 @@ class Edition < ApplicationRecord
     where("editions.updated_at <= ?", date)
   end
 
-  # used by Admin::EditionFilter
   def self.only_broken_links
     joins("INNER JOIN link_checker_api_reports ON link_checker_api_reports.link_reportable_id = editions.id")
     .joins("INNER JOIN link_checker_api_report_links ON link_checker_api_report_links.link_checker_api_report_id = link_checker_api_reports.id")
@@ -218,7 +213,6 @@ class Edition < ApplicationRecord
     .distinct
   end
 
-  # used by Admin::EditionFilter
   def self.without_locked_documents
     joins(:document)
     .where.not("documents.locked = true")
