@@ -48,7 +48,7 @@ GEM
     afm (0.2.2)
     arel (8.0.0)
     ast (2.4.0)
-    autoprefixer-rails (9.7.3)
+    autoprefixer-rails (9.7.4)
       execjs
     babosa (1.0.3)
     backports (3.15.0)
