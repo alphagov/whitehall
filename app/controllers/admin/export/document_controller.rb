@@ -73,7 +73,7 @@ private
 
   def document_type
     @document_type ||= Whitehall.edition_classes.find do |type|
-      type.name == params.require(:type).classify
+      type.name.underscore == params.require(:type)
     end
   end
 
@@ -81,7 +81,7 @@ private
     return unless document_type.respond_to?(:subtypes) && params[:subtypes]
 
     document_type.subtypes.select do |subtype|
-      Array(params[:subtypes]).include?(subtype.key.classify)
+      Array(params[:subtypes]).include?(subtype.key)
     end
   end
 end
