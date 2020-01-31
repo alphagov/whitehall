@@ -24,4 +24,8 @@ module PublishesToPublishingApi
       Whitehall::PublishingApi.publish_gone_async(content_id, nil, nil)
     end
   end
+
+  def publish_gone_translation_to_publishing_api(locale)
+    Whitehall::PublishingApi.publish_gone_async(content_id, nil, nil, locale)
+  end
 end

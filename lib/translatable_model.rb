@@ -20,6 +20,15 @@ module TranslatableModel
 
     if self.respond_to?(:content_id)
       Whitehall::PublishingApi.discard_translation_async(self, locale: locale)
+
+      # This is a bit of a hack to make sure that models _not_ using the
+      # edition workflow (i.e. people, roles, organisations) correctly remove
+      # translations from the Publishing API.
+      # The method publish_gone_translation_to_publishing_api is defined in the
+      # PublishesToPublishingApi module.
+      if self.respond_to?(:publish_gone_translation_to_publishing_api)
+        self.publish_gone_translation_to_publishing_api(locale)
+      end
     end
   end
 

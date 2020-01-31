@@ -149,9 +149,15 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   test "destroy removes translation and redirects to list of translations" do
     role = create(:role, translated_into: [:fr])
 
-    delete :destroy, params: { role_id: role, id: "fr" }
+    Sidekiq::Testing.inline! do
+      delete :destroy, params: { role_id: role, id: "fr" }
+    end
+
+    assert_publishing_api_discard_draft(role.content_id, locale: "fr")
+    assert_publishing_api_unpublish(role.content_id, request_json_includes(locale: "fr"))
 
     role.reload
+
     assert_not role.translated_locales.include?(:fr)
     assert_redirected_to admin_role_translations_path(role)
   end

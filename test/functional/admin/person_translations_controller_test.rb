@@ -176,18 +176,17 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   end
 
   test "destroy removes translation and redirects to list of translations" do
-    person = create(
-      :person,
-      translated_into: {
-        fr: {
-          biography: "Elle est née. Elle a vécu. Elle est morte.",
-        },
-      },
-    )
+    person = create(:person, translated_into: [:fr])
 
-    delete :destroy, params: { person_id: person, id: "fr" }
+    Sidekiq::Testing.inline! do
+      delete :destroy, params: { person_id: person, id: "fr" }
+    end
+
+    assert_publishing_api_discard_draft(person.content_id, locale: "fr")
+    assert_publishing_api_unpublish(person.content_id, request_json_includes(locale: "fr"))
 
     person.reload
+
     assert_not person.translated_locales.include?(:fr)
     assert_redirected_to admin_person_translations_path(person)
   end
