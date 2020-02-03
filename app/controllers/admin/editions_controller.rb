@@ -310,7 +310,9 @@ private
   end
 
   def params_filters
-    params.permit!.to_h.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date, :only_broken_links)
+    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date, :only_broken_links)
+          .permit!
+          .to_h
   end
 
   def params_filters_with_default_state

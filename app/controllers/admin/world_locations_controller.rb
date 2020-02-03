@@ -16,9 +16,8 @@ class Admin::WorldLocationsController < Admin::BaseController
   def features
     @feature_list = @world_location.load_or_create_feature_list(params[:locale])
 
-    filter_params = default_filter_params
-      .merge(params.permit!.to_h.slice(:page, :type, :world_location, :title).symbolize_keys)
-      .merge(state: "published")
+    filter_params = default_filter_params.merge(optional_filter_params).merge(state: "published")
+
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @world_location.offsite_links
@@ -36,6 +35,10 @@ private
     {
       world_location: @world_location.id,
     }
+  end
+
+  def optional_filter_params
+    params.slice(:page, :type, :world_location, :title).permit!.to_h.symbolize_keys
   end
 
   def load_world_location

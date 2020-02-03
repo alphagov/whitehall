@@ -44,8 +44,10 @@ class Admin::OrganisationsController < Admin::BaseController
 
     filtering_organisation = params[:organisation] || @organisation.id
 
-    filter_params = params.permit!.to_h.slice(:page, :type, :author, :title).
-      merge(state: "published", organisation: filtering_organisation)
+    filter_params = params.slice(:page, :type, :author, :title)
+                          .permit!
+                          .to_h
+                          .merge(state: "published", organisation: filtering_organisation)
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
