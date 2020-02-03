@@ -1,7 +1,7 @@
 // BASE STYLESHEET COMPILER
 
+$govuk-compatibility-govuktemplate: true;
 $govuk-use-legacy-palette: false;
-$govuk-typography-use-rem: false;
 
 @import "govuk_publishing_components/all_components";
 
