@@ -26,11 +26,6 @@
     <%= person_form.text_area :biography, rows: 20, class: "previewable" %>
   </fieldset>
 
-  <div class="alert alert-info">
-    <p>The full biography will show only if a person has been appointed to a <%= link_to "current role", admin_roles_path, class: 'link-inherit' %>.</p>
-    <p>A person without a current role will show just the first paragraph.</p>
-  </div>
-
   <p class="warning">
     <% if show_instantly_live_warning %>
       Warning: changes to people appear instantly on the live site.
