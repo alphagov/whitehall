@@ -23,11 +23,21 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
       organisations: [org],
       news_article_type: NewsArticleType::NewsStory,
     )
+    press_release = create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::PressRelease,
+    )
+    create(
+      :publication,
+      organisations: [org],
+      publication_type: PublicationType::PolicyPaper,
+    )
 
     login_as :export_data_user
 
     get :index, params: { lead_organisation: org.content_id,
-                          type: "NewsArticle" }, format: "json"
+                          type: "news_article" }, format: "json"
 
     expected_response =
       {
@@ -35,13 +45,88 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
           "document_id" => news_story.document_id,
           "document_information" => {
             "locales" => %w[en],
-            "subtypes" => %w[news_story],
+          },
+        }, {
+          "document_id" => press_release.document_id,
+          "document_information" => {
+            "locales" => %w[en],
           },
         }],
         "page_number" => 1,
-        "page_count" => 1,
+        "page_count" => 2,
         "_response_info" => { "status" => "ok" },
     }
+
+    assert_equal expected_response, json_response
+  end
+
+  test "index responds with document information for a lead org, type and subtypes" do
+    org = create(:organisation)
+    news_story = create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::NewsStory,
+    )
+    press_release = create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::PressRelease,
+    )
+    create(
+      :publication,
+      :policy_paper,
+      organisations: [org],
+      publication_type: PublicationType::PolicyPaper,
+    )
+
+    login_as :export_data_user
+
+    get :index, params: { lead_organisation: org.content_id,
+                          type: "news_article",
+                          subtypes: %w(press_release news_story) }, format: "json"
+
+    expected_response =
+      {
+        "documents" => [{
+          "document_id" => news_story.document_id,
+          "document_information" => {
+            "locales" => %w[en],
+          },
+        }, {
+          "document_id" => press_release.document_id,
+          "document_information" => {
+            "locales" => %w[en],
+          },
+        }],
+        "page_number" => 1,
+        "page_count" => 2,
+        "_response_info" => { "status" => "ok" },
+    }
+
+    assert_equal expected_response, json_response
+  end
+
+  test "index responds with no documents for a lead org, valid type and invalid subtype" do
+    org = create(:organisation)
+    create(
+      :news_article,
+      organisations: [org],
+      news_article_type: NewsArticleType::PressRelease,
+    )
+
+    login_as :export_data_user
+
+    get :index, params: { lead_organisation: org.content_id,
+                          type: "news_article",
+                          subtypes: %w(something_invalid) }, format: "json"
+
+    expected_response =
+      {
+        "documents" => [],
+        "page_number" => 1,
+        "page_count" => 0,
+        "_response_info" => { "status" => "ok" },
+      }
 
     assert_equal expected_response, json_response
   end
@@ -69,7 +154,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     login_as :export_data_user
 
     get :index, params: { lead_organisation: published_edition_org.content_id,
-                          type: "NewsArticle" }, format: "json"
+                          type: "news_article" }, format: "json"
 
     expected_response =
       {
@@ -97,7 +182,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     login_as :export_data_user
 
     get :index, params: { lead_organisation: first_lead_org.content_id,
-                          type: "NewsArticle" }, format: "json"
+                          type: "news_article" }, format: "json"
 
     assert_equal edition.document.id, json_response["documents"].first["document_id"]
   end
@@ -116,7 +201,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     login_as :export_data_user
 
     get :index, params: { lead_organisation: second_lead_org.content_id,
-                          type: "NewsArticle" }, format: "json"
+                          type: "news_article" }, format: "json"
 
     assert_empty json_response["documents"]
   end

@@ -55,7 +55,7 @@ private
       .joins("INNER JOIN organisations o ON o.id = eo.organisation_id")
       .where(o: { content_id: params.require(:lead_organisation) })
       .where(eo: { lead: true })
-      .where(type: params.require(:type))
+      .by_type_or_subtypes(document_type, document_subtypes)
       .latest_edition
       .order(:document_id)
       .page(page_number)
@@ -69,5 +69,19 @@ private
 
   def items_per_page
     params.fetch(:page_count, 100)
+  end
+
+  def document_type
+    @document_type ||= Whitehall.edition_classes.find do |type|
+      type.name.underscore == params.require(:type)
+    end
+  end
+
+  def document_subtypes
+    return unless document_type.respond_to?(:subtypes) && params[:subtypes]
+
+    document_type.subtypes.select do |subtype|
+      Array(params[:subtypes]).include?(subtype.key)
+    end
   end
 end

@@ -11,7 +11,6 @@ class Whitehall::Exporters::DocumentsInfoExporter
         document_id: doc_id,
         document_information: {
           locales: locales_hash[doc_id],
-          subtypes: subtypes_hash[doc_id],
         },
       }
     end
@@ -26,26 +25,5 @@ private
       .group(:document_id)
       .pluck(:document_id, "GROUP_CONCAT(DISTINCT(edition_translations.locale))")
       .each_with_object({}) { |(k, v), memo| memo[k] = v.split(",") }
-  end
-
-  def subtypes_hash
-    @subtypes_hash ||= subtypes_query.each_with_object({}) do |(document_id, news, speeches, publications, corporate), memo|
-      news_article_types = news.to_s.split(",").map { |id| NewsArticleType.find_by_id(id.to_i)&.key }
-      speech_types = speeches.to_s.split(",").map { |id| SpeechType.find_by_id(id.to_i)&.key }
-      publications_types = publications.to_s.split(",").map { |id| PublicationType.find_by_id(id.to_i)&.key }
-      corporate_types = corporate.to_s.split(",").map { |id| CorporateInformationPageType.find_by_id(id.to_i)&.key }
-      memo[document_id] = [news_article_types, speech_types, publications_types, corporate_types].flatten
-    end
-  end
-
-  def subtypes_query
-    Edition
-      .where(document_id: document_ids)
-      .group(:document_id)
-      .pluck(:document_id,
-             "GROUP_CONCAT(DISTINCT(editions.news_article_type_id))",
-             "GROUP_CONCAT(DISTINCT(editions.speech_type_id))",
-             "GROUP_CONCAT(DISTINCT(editions.publication_type_id))",
-             "GROUP_CONCAT(DISTINCT(editions.corporate_information_page_type_id))")
   end
 end
