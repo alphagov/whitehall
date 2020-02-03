@@ -57,11 +57,11 @@ class AttachmentDataReporter
       JOIN organisations o ON eo.organisation_id = o.id
       JOIN organisation_translations ot ON o.id = ot.organisation_id
       WHERE e.state = 'published'
-      AND a.created_at BETWEEN '#{start_date.strftime('%Y-%m-%d %H:%M:%S')}' AND '#{end_date.strftime('%Y-%m-%d %H:%M:%S')}'
+      AND a.created_at BETWEEN ? AND ?
       ORDER BY a.created_at DESC
     SQL
 
-    results = ActiveRecord::Base.connection.execute(sql)
+    results = ActiveRecord::Base.connection.execute(sql, start_date.strftime("%Y-%m-%d %H:%M:%S"), end_date.strftime("%Y-%m-%d %H:%M:%S"))
 
     CSV.open(csv_file_path("upload-report"), "wb") do |csv|
       csv << ["Attached date", "Document title", "Attachment title", "Organisation", "Mime type", "Filename"]
