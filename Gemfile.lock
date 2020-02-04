@@ -125,7 +125,7 @@ GEM
     cucumber-tag_expressions (1.1.1)
     cucumber-wire (0.0.1)
     dalli (2.7.10)
-    database_cleaner (1.8.1)
+    database_cleaner (1.8.2)
     debug_inspector (0.0.3)
     deprecated_columns (0.1.1)
       rails (>= 4.0)
