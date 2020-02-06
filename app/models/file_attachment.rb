@@ -1,5 +1,7 @@
 class FileAttachment < Attachment
+  extend FriendlyId
   include HasContentId
+  friendly_id { |config| config.routes = false }
 
   delegate :url,
            :content_type,
@@ -28,6 +30,10 @@ class FileAttachment < Attachment
 
   def readable_type
     "file"
+  end
+
+  def should_generate_new_friendly_id?
+    false
   end
 
 private

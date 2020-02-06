@@ -1,5 +1,7 @@
 class ExternalAttachment < Attachment
+  extend FriendlyId
   include HasContentId
+  friendly_id { |config| config.routes = false }
 
   validates :external_url, presence: true, uri: true, length: { maximum: 255 }
 
@@ -16,6 +18,10 @@ class ExternalAttachment < Attachment
   end
 
   def csv?
+    false
+  end
+
+  def should_generate_new_friendly_id?
     false
   end
 
