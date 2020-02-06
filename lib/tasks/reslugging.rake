@@ -78,6 +78,7 @@ namespace :reslug do
     world_location = WorldLocation.find_by!(slug: args.old_slug)
     Whitehall::SearchIndex.delete(world_location)
     world_location.update!(slug: args.new_slug)
+    world_location.editions.published.each(&:update_in_search_index)
   end
 
   def reslug_organisation(organisation_class, args)

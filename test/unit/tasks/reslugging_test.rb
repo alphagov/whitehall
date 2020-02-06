@@ -39,4 +39,11 @@ class ResluggingTest < ActiveSupport::TestCase
 
     assert_equal 2, Document.where(slug: "a-slug-that-is-not-unique").count
   end
+
+  test "it should reslug the world location" do
+    world_location = create(:world_location, slug: "old-name", news_page_content_id: SecureRandom.uuid)
+    Rake.application.invoke_task "reslug:world_location[old-name,new-name]"
+
+    assert_equal "new-name", world_location.reload.slug
+  end
 end
