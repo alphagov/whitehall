@@ -41,7 +41,7 @@ module PublishingApi
       end
 
       def hide_no_deal_notice?
-        !item.show_brexit_no_deal_content_notice
+        !item.try(:show_brexit_no_deal_content_notice)
       end
     end
   end
