@@ -50,8 +50,6 @@ private
       :title,
       :locale,
       :isbn,
-      :web_isbn,
-      :print_meta_data_contact_address,
       :unique_reference,
       :command_paper_number,
       :unnumbered_command_paper,

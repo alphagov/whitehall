@@ -89,12 +89,10 @@ Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_ti
   assert has_link?("a", href: /draft-origin/, text: attachment_title)
 end
 
-When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)" and the contact address "(.*?)"$/) do |title, isbn, web_isbn, contact_address|
+When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)"$/) do |title, isbn|
   click_on "Add new HTML attachment"
   fill_in "Title", with: title
   fill_in "Print ISBN", with: isbn
-  fill_in "Web ISBN", with: web_isbn
-  fill_in "Organisation's Contact Details", with: contact_address
   fill_in "Body", with: "Body"
   check "Manually numbered headings"
   click_on "Save"
@@ -105,13 +103,11 @@ When(/^I publish the draft edition for publication "(.*?)"$/) do |publication_ti
   publication.update!(state: "published", major_change_published_at: Time.zone.today)
 end
 
-Then(/^the html attachment "(.*?)" includes the contact address "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)"$/) do |attachment_title, contact_address, isbn, web_isbn|
+Then(/^the html attachment "(.*?)" includes the isbn "(.*?)"$/) do |attachment_title, isbn|
   html_attachment = HtmlAttachment.find_by title: attachment_title
 
   assert_equal attachment_title, html_attachment.title
-  assert_equal contact_address, html_attachment.print_meta_data_contact_address
   assert_equal isbn, html_attachment.isbn
-  assert_equal web_isbn, html_attachment.web_isbn
 end
 
 Then(/^I see a validation error for uploading attachments$/) do
