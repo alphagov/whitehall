@@ -16,6 +16,9 @@ class WorldwideOrganisation < ApplicationRecord
   has_many :edition_worldwide_organisations, dependent: :destroy, inverse_of: :worldwide_organisation
   # This include is dependant on the above has_many
   include HasCorporateInformationPages
+
+  has_many :editions, through: :edition_worldwide_organisations
+
   has_one :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
 
