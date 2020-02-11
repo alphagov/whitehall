@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200116125828) do
+ActiveRecord::Schema.define(version: 20200211132528) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -75,8 +75,6 @@ ActiveRecord::Schema.define(version: 20200116125828) do
     t.string "external_url"
     t.string "content_id"
     t.boolean "deleted", default: false, null: false
-    t.string "print_meta_data_contact_address"
-    t.string "web_isbn"
     t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type"
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
