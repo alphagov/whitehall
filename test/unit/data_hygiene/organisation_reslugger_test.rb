@@ -96,5 +96,10 @@ module OrganisationResluggerTest
     def base_path
       "/world/organisations"
     end
+
+    test "calls update_editions" do
+      @reslugger.expects(:update_editions).once
+      @reslugger.run!
+    end
   end
 end
