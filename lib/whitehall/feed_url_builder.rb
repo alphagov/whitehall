@@ -23,7 +23,7 @@ module Whitehall
       params.except(:document_type).reject { |key, value|
         values = Array(value)
         values.empty? || values.all?(&:blank?) || values.include?("all") || DocumentFilter::Options.new.invalid_filter_key?(key)
-      }.merge(format: :atom)
+      }.merge(format: :atom).symbolize_keys
     end
   end
 end
