@@ -7,9 +7,9 @@ module Organisation::OrganisationSearchIndexConcern
 
   def update_search_index
     if going_live_on_govuk?
-      corporate_information_pages.each(&:update_in_search_index)
+      published_corporate_information_pages.each(&:update_in_search_index)
     elsif leaving_live_on_govuk?
-      corporate_information_pages.each(&:remove_from_search_index)
+      published_corporate_information_pages.each(&:remove_from_search_index)
     end
   end
 
