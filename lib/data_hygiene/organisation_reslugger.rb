@@ -20,7 +20,7 @@ module DataHygiene
       remove_from_search_index
       update_slug
       update_users if organisation.is_a? Organisation
-      update_editions if organisation.is_a? Organisation
+      update_editions if organisation.is_a?(Organisation) || organisation.is_a?(WorldwideOrganisation)
     end
 
   private
