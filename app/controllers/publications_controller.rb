@@ -99,8 +99,11 @@ private
   def redirect_statistics_filtering
     if !request.xhr? && (params[:publication_filter_option] == "statistics")
       redirect_to statistics_path(
-        params.permit!.except(:publication_filter_option, :controller, :action, :host).to_h,
-      ), status: :moved_permanently
+        Whitehall::DocumentFilter::CleanedParams.new(
+          params.except(:publication_filter_option, :controller, :action, :host),
+        ),
+        status: :moved_permanently,
+      )
     end
   end
 
