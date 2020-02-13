@@ -78,8 +78,9 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         visit admin_publication_path(edition)
-        unpublish_document_published_in_error
         assert_redirected_in_publishing_api(edition.html_attachments.first.content_id, redirect_path)
+
+        unpublish_document_published_in_error
       end
 
       it "sets redirect URL for attachment in Asset Manager when document is consolidated" do
@@ -253,8 +254,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
           discard_drafts: true,
         )
         .once
-
-      PublishingApiHtmlAttachmentsWorker.drain
     end
 
     def refute_sets_redirect_url_in_asset_manager
