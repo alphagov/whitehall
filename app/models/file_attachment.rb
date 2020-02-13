@@ -36,7 +36,39 @@ class FileAttachment < Attachment
     false
   end
 
+  def publishing_api_details_for_format
+    {
+      accessible: accessible?,
+      alternative_format_contact_email: alternative_format_contact_email,
+      content_type: content_type,
+      file_size: file_size,
+      filename: filename,
+      number_of_pages: number_of_pages,
+      preview_url: preview_url,
+    }
+  end
+
+  def publishing_api_attachment_id
+    filename
+  end
+
 private
+
+  def alternative_format_contact_email
+    attachable.alternative_format_contact_email
+  rescue NoMethodError
+    nil
+  end
+
+  def preview_url
+    if csv? && attachable.is_a?(Edition)
+      Whitehall.url_maker.csv_preview_url(
+        id: attachment_data.id,
+        file: filename_without_extension,
+        extension: file_extension,
+      )
+    end
+  end
 
   def filename_is_unique
     if attachable && attachable.attachments.any? { |a| a.file? && a != self && a.filename.downcase == filename.try(:downcase) }

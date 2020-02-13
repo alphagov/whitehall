@@ -104,6 +104,30 @@ class Attachment < ApplicationRecord
     }
   end
 
+  def publishing_api_details
+    {
+      # fields in common across "file_attachment_asset",
+      # "html_attachment_asset", "external_attachment_asset"
+      attachment_type: readable_type.downcase,
+      id: publishing_api_attachment_id,
+      locale: locale,
+      title: title,
+      url: url,
+      # "publication_attachment_asset" fields
+      command_paper_number: command_paper_number,
+      hoc_paper_number: hoc_paper_number,
+      isbn: isbn,
+      parliamentary_session: nil,
+      unique_reference: unique_reference,
+      unnumbered_command_paper: unnumbered_command_paper?,
+      unnumbered_hoc_paper: unnumbered_hoc_paper?,
+    }.merge(publishing_api_details_for_format).compact
+  end
+
+  def publishing_api_details_for_format
+    {}
+  end
+
   def deep_clone
     dup
   end
@@ -122,6 +146,10 @@ class Attachment < ApplicationRecord
 
   def readable_type
     ""
+  end
+
+  def publishing_api_attachment_id
+    raise NotImplementedError, "Subclasses must implement the publishing_api_attachment_id method"
   end
 
   def url

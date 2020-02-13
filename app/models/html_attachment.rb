@@ -57,6 +57,10 @@ class HtmlAttachment < Attachment
     "HTML attachment"
   end
 
+  def publishing_api_attachment_id
+    slug
+  end
+
   def url(options = {})
     preview = options.delete(:preview)
     full_url = options.delete(:full_url)

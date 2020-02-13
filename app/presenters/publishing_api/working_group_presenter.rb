@@ -48,7 +48,7 @@ module PublishingApi
       {
         email: item.email,
         body: body,
-      }
+      }.merge(PayloadBuilder::Attachments.for(item))
     end
 
     def body

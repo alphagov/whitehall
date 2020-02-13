@@ -46,6 +46,10 @@ class ExternalAttachment < Attachment
     "text/html"
   end
 
+  def publishing_api_attachment_id
+    content_id
+  end
+
   def url(_options = {})
     external_url
   end

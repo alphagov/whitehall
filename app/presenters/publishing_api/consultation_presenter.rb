@@ -79,6 +79,7 @@ module PublishingApi
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
         .merge(PayloadBuilder::TagDetails.for(consultation))
+        .merge(PayloadBuilder::Attachments.for(consultation))
     end
 
     def public_updated_at

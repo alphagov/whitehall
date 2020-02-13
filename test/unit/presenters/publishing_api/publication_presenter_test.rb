@@ -51,6 +51,9 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
           current: government.current?,
         },
         brexit_no_deal_notice: [],
+        attachments: [
+          { attachment_type: "html", id: publication.attachments.first.slug, title: publication.attachments.first.title, url: publication.attachments.first.url, unnumbered_command_paper: false, unnumbered_hoc_paper: false },
+        ],
       },
     }
 
@@ -265,5 +268,37 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       assert_match(/en one/, document_elements.first)
       assert_match(/nil one/, document_elements.last)
     end
+  end
+
+  test "accessibility metadata is included" do
+    publication = create(:published_publication, :with_alternative_format_provider, attachments: [
+      attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en", accessible: false),
+    ])
+    publication.stubs(:alternative_format_contact_email).returns("email-address")
+    attachment.stubs(:attachable).returns(publication)
+
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+
+    attachments = presented_publication.content[:details][:attachments]
+    assert_equal 1, attachments.length
+    assert_equal false, attachments[0][:accessible]
+    assert_equal "email-address", attachments[0][:alternative_format_contact_email]
+  end
+
+  test "csv attachments get a preview URL" do
+    publication = create(:published_publication, :with_alternative_format_provider, attachments: [
+      attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en"),
+    ])
+    attachment.stubs(:attachable).returns(publication)
+    attachment.stubs(:attachment_data).returns(
+      attachment_data = build(:attachment_data, id: 42),
+    )
+    attachment_data.stubs(:csv?).returns(true)
+
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+
+    attachments = presented_publication.content[:details][:attachments]
+    assert_equal 1, attachments.length
+    assert_not_nil attachments[0][:preview_url]
   end
 end
