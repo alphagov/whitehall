@@ -64,7 +64,7 @@ class PublishingApiHtmlAttachmentsWorker
     current_html_attachments.each do |html_attachment|
       PublishingApiWithdrawalWorker.new.perform(
         html_attachment.content_id,
-        edition.unpublishing.explanation,
+        unpublishing.explanation,
         edition.primary_locale,
       )
     end
@@ -95,7 +95,7 @@ private
   end
 
   def unpublish_if_required
-    if edition.unpublishing
+    if unpublishing
       if edition.withdrawn?
         withdraw
       else
