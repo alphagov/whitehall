@@ -77,6 +77,7 @@ module PublishingApi
         body: body,
         change_history: item.change_history.as_json,
         documents: documents,
+        featured_attachments: featured_attachments,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }
       details_hash = maybe_add_national_applicability(details_hash)
@@ -98,6 +99,10 @@ module PublishingApi
         attachments_for_current_locale,
         alternative_format_email,
       )
+    end
+
+    def featured_attachments
+      documents.map { |html| [{ content_type: "text/html", content: html }] }
     end
 
     def attachments_for_current_locale

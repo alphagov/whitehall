@@ -124,7 +124,10 @@ module PublishingApi
       def call
         return {} if consultation.attachments.blank?
 
-        { documents: documents }
+        {
+          documents: documents,
+          featured_attachments: featured_attachments,
+        }
       end
 
     private
@@ -137,6 +140,10 @@ module PublishingApi
           consultation.attachments,
           consultation.alternative_format_contact_email,
         )
+      end
+
+      def featured_attachments
+        documents.map { |html| [{ content_type: "text/html", content: html }] }
       end
     end
 

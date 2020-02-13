@@ -449,15 +449,17 @@ module PublishingApi::ConsultationPresenterTest
           consultation.attachments,
           consultation.alternative_format_contact_email,
         )
-        .returns(attachments_double)
+        .returns([attachments_double])
+        .at_least_once
 
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :documents, attachments_double
+      assert_details_attribute :documents, [attachments_double]
+      assert_details_attribute :featured_attachments, [[{ content_type: "text/html", content: attachments_double }]]
     end
 
     test "validity" do
