@@ -257,7 +257,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes contacts" do
     contact = create(:contact)
-    edition = create(:edition, depended_upon_contacts: [contact])
+    edition = create(:edition, body: "[Contact:#{contact.id}]")
 
     result = DocumentExportPresenter.new(edition.document).as_json
     assert_equal [{ id: contact.id, content_id: contact.content_id }], result.dig(:editions, 0, :contacts)
