@@ -79,7 +79,48 @@
     }
   }
 
-  blockquote {
+
+  .app-figure {
+    margin-bottom: govuk-spacing(6);
+
+    figcaption {
+      color: $secondary-text-colour;
+      padding-top: govuk-spacing(4);
+    }
+  }
+
+  .app-quote {
+    p {
+      color: $govuk-secondary-text-colour;
+
+      @include govuk-media-query($until: tablet) {
+        padding-left: govuk-spacing(2);
+      }
+
+
+      &:before {
+        @include core-48;
+        clear: both;
+        content: "\201C";
+        float: left;
+        margin-left: 0 - govuk-spacing(5);
+        margin-top: 0 - govuk-spacing(1);
+      }
+
+      &:last-child:after {
+        content: "\201D";
+      }
+    }
+
+    cite {
+      color: $govuk-secondary-text-colour;
+      font-style: normal;
+      position: relative;
+      top: -1em;
+    }
+  }
+
+  blockquote:not(.app-quote) {
     padding: 0;
     margin: 0;
     border: 0;
@@ -107,12 +148,6 @@
       @include core-48;
       margin-left: -$gutter;
       margin-top: -$gutter-one-sixth;
-      @include right-to-left {
-        content: "\201D";
-        float: right;
-        margin-left: 0;
-        margin-right: (-$gutter);
-      }
     }
     & p.last-child:after {
       content: "\201D";
