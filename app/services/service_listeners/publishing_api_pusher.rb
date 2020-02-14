@@ -58,9 +58,9 @@ module ServiceListeners
     end
 
     def handle_html_attachments(event)
-      PublishingApiHtmlAttachmentsWorker.perform_async(
-        edition.id, event, edition.unpublishing.try(:id)
-      )
+      if edition.respond_to?(:html_attachments)
+        PublishingApiHtmlAttachments.process(edition, event)
+      end
     end
 
     def handle_publications(event)
