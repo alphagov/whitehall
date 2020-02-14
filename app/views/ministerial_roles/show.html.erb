@@ -123,7 +123,7 @@
           </ol>
 
           <div class="read-more">
-            <%= link_to t('announcements.view_all'), announcements_path("people[]": @ministerial_role.slug), class: "govuk-link" %>
+            <%= link_to t('announcements.view_all'), announcements_path("roles[]": @ministerial_role.slug), class: "govuk-link" %>
           </div>
         </section>
       <% end %>
