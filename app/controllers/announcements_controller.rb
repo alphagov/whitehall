@@ -63,6 +63,7 @@ private
       level_one_taxon: allowed_params["taxons"].try(:first),
       level_two_taxon: allowed_params["subtaxons"].try(:first),
       people: filter_query_array(allowed_params["people"]),
+      roles: filter_query_array(allowed_params["roles"]),
       organisations: filter_query_array(allowed_params["departments"]),
       topical_events: filter_query_array(allowed_params["topical_events"]),
       world_locations: filter_query_array(allowed_params["world_locations"]),

@@ -102,7 +102,31 @@
         </section>
       <% end %>
 
-      <%= render 'shared/announcement_list', announcer: @ministerial_role %>
+      <% atom_discovery_link_tag atom_feed_url_for(@ministerial_role), t('announcements.heading') %>
+
+      <% if @ministerial_role.announcements.any? %>
+        <section class="announcements" id="announcements">
+          <h1><%= t('announcements.heading') %></h1>
+
+          <%= render 'shared/feeds', atom_url: atom_feed_url_for(@ministerial_role) %>
+
+          <ol class="document-list">
+            <% @ministerial_role.announcements.each do |announcement| %>
+              <%= content_tag_for :li, announcement, class: "document-row" do %>
+                <h3><%= announcement.link %></h3>
+                <ul class="attributes">
+                  <li class="date"><%= announcement.display_date_microformat %></li>
+                  <li class="display-type"><%= announcement.display_type %></li>
+                </ul>
+              <% end %>
+            <% end %>
+          </ol>
+
+          <div class="read-more">
+            <%= link_to t('announcements.view_all'), announcements_path("roles[]": @ministerial_role.slug), class: "govuk-link" %>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
 <% end %>
