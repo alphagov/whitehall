@@ -526,7 +526,7 @@ GEM
     tilt (2.0.10)
     timecop (0.9.1)
     transitions (1.2.1)
-    ttfunk (1.6.1)
+    ttfunk (1.6.2)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
