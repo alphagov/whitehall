@@ -5,7 +5,7 @@ gem "addressable", ">= 2.3.7"
 gem "babosa", "1.0.3"
 gem "bootsnap", require: false
 gem "bootstrap-kaminari-views", "0.0.5"
-gem "carrierwave", "~> 2.0.2"
+gem "carrierwave", "~> 2.1.0"
 gem "carrierwave-i18n"
 gem "chronic"
 gem "dalli", "~> 2.7"

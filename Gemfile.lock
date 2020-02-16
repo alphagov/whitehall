@@ -77,7 +77,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
-    carrierwave (2.0.2)
+    carrierwave (2.1.0)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
       addressable (~> 2.6)
@@ -581,7 +581,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   bootstrap-kaminari-views (= 0.0.5)
-  carrierwave (~> 2.0.2)
+  carrierwave (~> 2.1.0)
   carrierwave-i18n
   chronic
   ci_reporter_minitest
