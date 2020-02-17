@@ -102,6 +102,13 @@ namespace :publishing_api do
     Organisation.find_each(&:publish_to_publishing_api)
   end
 
+  desc "Republish all About pages"
+  task republish_all_about_pages: :environment do
+    about_us_pages = Organisation.all.map(&:about_us).compact
+    about_us_pages.map(&:document_id)
+      .each(&PublishingApiDocumentRepublishingWorker.method(:perform_async))
+  end
+
   desc "Republish a person to the Publishing API"
   task :republish_person, [:slug] => :environment do |_, args|
     Person.find_by!(slug: args[:slug]).publish_to_publishing_api
