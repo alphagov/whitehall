@@ -79,7 +79,7 @@ module PublishingApi
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
         .merge(PayloadBuilder::TagDetails.for(consultation))
-        .merge(PayloadBuilder::Attachments.for(consultation))
+        .merge(PayloadBuilder::Attachments.for([consultation, consultation.outcome, consultation.public_feedback]))
     end
 
     def public_updated_at
@@ -185,6 +185,7 @@ module PublishingApi
         {
           final_outcome_detail: final_outcome_detail,
           final_outcome_documents: final_outcome_documents,
+          final_outcome_attachments: final_outcome_attachments,
         }.compact
       end
 
@@ -204,6 +205,10 @@ module PublishingApi
           outcome.attachments,
           outcome.alternative_format_contact_email,
         )
+      end
+
+      def final_outcome_attachments
+        (final_outcome_documents || []).map { |html| [{ content_type: "text/html", content: html }] }
       end
     end
 
@@ -246,6 +251,7 @@ module PublishingApi
         {
           public_feedback_detail: detail,
           public_feedback_documents: documents,
+          public_feedback_attachments: attachments,
           public_feedback_publication_date: publication_date,
         }.compact
       end
@@ -269,6 +275,10 @@ module PublishingApi
           public_feedback.alternative_format_contact_email,
           public_feedback.published_on,
         )
+      end
+
+      def attachments
+        (documents || []).map { |html| [{ content_type: "text/html", content: html }] }
       end
 
       def publication_date

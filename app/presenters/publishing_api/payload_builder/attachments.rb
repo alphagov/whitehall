@@ -1,20 +1,29 @@
 module PublishingApi
   module PayloadBuilder
     class Attachments
-      attr_reader :item
+      attr_reader :items
 
-      def self.for(item)
-        new(item).call
+      def self.for(items)
+        items = [items] unless items.is_a? Array
+        new(items).call
       end
 
-      def initialize(item)
-        @item = item
+      def initialize(items)
+        @items = items
       end
 
       def call
-        {
-          attachments: item.attachments.map(&:publishing_api_details),
-        }
+        { attachments: attachments }
+      end
+
+      def attachments
+        items.flat_map do |item|
+          if item
+            item.attachments.map(&:publishing_api_details)
+          else
+            []
+          end
+        end
       end
     end
   end
