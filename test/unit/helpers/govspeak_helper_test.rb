@@ -476,10 +476,4 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_with_attachments_to_html(body, attachments, "batman@wayne.technology")
     assert html.include? ">batman@wayne.technology</a>"
   end
-
-  test "does not render Brexit CTA govspeak" do
-    body = "$BrexitCTA\nSome other text"
-    output = govspeak_to_html(body)
-    assert_select_within_html output, ".govspeak", text: "Some other text"
-  end
 end
