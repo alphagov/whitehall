@@ -10,6 +10,8 @@ class TakePartPage < ApplicationRecord
   extend FriendlyId
   friendly_id :title
 
+  include PublishesToPublishingApi
+
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
   validates :image, presence: true, on: :create
@@ -22,8 +24,6 @@ class TakePartPage < ApplicationRecord
              content: :body_without_markup,
              description: :summary,
              format: "take_part"
-
-  include PublishesToPublishingApi
 
   def search_link
     Whitehall.url_maker.take_part_page_path(self.slug)
