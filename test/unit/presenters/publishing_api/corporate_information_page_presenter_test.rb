@@ -244,9 +244,6 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
       create_list(:published_publication, 2, :corporate,
                   organisations: [organisation])
-
-      create_list(:published_publication, 2, :transparency_data,
-                  organisations: [organisation])
     end
 
     test "corporate information groups" do
@@ -269,28 +266,12 @@ module PublishingApi::CorporateInformationPagePresenterTest
         @our_energy_use_corporate_information_page.content_id,
       ]
 
-      corporate_reports_publications_filter = {
-        title: "Corporate reports",
-        path: "/government/publications?" +
-          "departments%5B%5D=#{corporate_information_page.organisation.slug}&" +
-          "publication_type=corporate-reports",
-      }
-
-      transparency_data_publications_filter = {
-        title: "Transparency data",
-        path: "/government/publications?" +
-          "departments%5B%5D=#{corporate_information_page.organisation.slug}&" +
-          "publication_type=transparency-data",
-      }
-
       expected_groups = [
         {
           name: "Access our information",
           contents: [].tap { |contents|
             contents.push(organisation_chart)
             contents.push(*our_information)
-            contents.push(corporate_reports_publications_filter)
-            contents.push(transparency_data_publications_filter)
           },
         },
         {
