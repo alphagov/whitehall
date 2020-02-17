@@ -469,16 +469,18 @@ class Edition < ApplicationRecord
       raise "Cannot create new edition based on edition in the #{state} state"
     end
 
-    ignorable_attribute_keys = %w(id type state created_at updated_at change_note
-                                  minor_change force_published scheduled_publication)
-    draft_attributes = attributes.except(*ignorable_attribute_keys)
-      .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
+    ActiveRecord::Base.transaction do
+      ignorable_attribute_keys = %w(id type state created_at updated_at change_note
+                                    minor_change force_published scheduled_publication)
+      draft_attributes = attributes.except(*ignorable_attribute_keys)
+        .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 
-    self.class.new(draft_attributes).tap do |draft|
-      traits.each { |t| t.process_associations_before_save(draft) }
-      if draft.valid? || !draft.errors.key?(:base)
-        if draft.save(validate: false)
-          traits.each { |t| t.process_associations_after_save(draft) }
+      self.class.new(draft_attributes).tap do |draft|
+        traits.each { |t| t.process_associations_before_save(draft) }
+        if draft.valid? || !draft.errors.key?(:base)
+          if draft.save(validate: false)
+            traits.each { |t| t.process_associations_after_save(draft) }
+          end
         end
       end
     end
