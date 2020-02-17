@@ -2,31 +2,16 @@ require "test_helper"
 
 module ServiceListeners
   class PublishingApiPusherTest < ActiveSupport::TestCase
-    def stub_corporate_information_pages_pusher(edition, event)
-      PublishingApiCorporateInformationPagesWorker
-        .any_instance
-        .expects(:perform)
-        .with(edition.id, event)
-    end
-
     def stub_html_attachment_pusher(edition, event)
       PublishingApiHtmlAttachments
         .expects(:process)
         .with(edition, event)
     end
 
-    def stub_publications_pusher(edition, event)
-      PublishingApiPublicationsWorker
-        .any_instance
-        .expects(:perform)
-        .with(edition.id, event)
-    end
-
     test "saves draft async for update_draft" do
       edition = build(:draft_publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
-      stub_publications_pusher(edition, "update_draft")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "update_draft")
       end
@@ -40,7 +25,6 @@ module ServiceListeners
       )
       Whitehall::PublishingApi.expects(:save_draft).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
-      stub_publications_pusher(edition, "update_draft")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "update_draft")
       end
@@ -50,7 +34,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:publish).with(edition)
       stub_html_attachment_pusher(edition, "publish")
-      stub_publications_pusher(edition, "publish")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "publish")
       end
@@ -60,7 +43,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:publish).with(edition)
       stub_html_attachment_pusher(edition, "force_publish")
-      stub_publications_pusher(edition, "force_publish")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "force_publish")
       end
@@ -70,7 +52,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft_translation).with(edition, "en")
       stub_html_attachment_pusher(edition, "update_draft_translation")
-      stub_publications_pusher(edition, "update_draft_translation")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "update_draft_translation", options: { locale: "en" })
       end
@@ -92,7 +73,6 @@ module ServiceListeners
       end
 
       stub_html_attachment_pusher(edition, "withdraw")
-      stub_publications_pusher(edition, "withdraw")
 
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "withdraw")
@@ -103,7 +83,6 @@ module ServiceListeners
       edition = create(:unpublished_publication)
       Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
       stub_html_attachment_pusher(edition, "unpublish")
-      stub_publications_pusher(edition, "unpublish")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "unpublish")
       end
@@ -113,7 +92,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "force_schedule")
-      stub_publications_pusher(edition, "force_schedule")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "force_schedule")
       end
@@ -123,7 +101,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "schedule")
-      stub_publications_pusher(edition, "schedule")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "schedule")
       end
@@ -133,7 +110,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:unschedule_async).with(edition)
       stub_html_attachment_pusher(edition, "unschedule")
-      stub_publications_pusher(edition, "unschedule")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "unschedule")
       end
@@ -143,7 +119,6 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:discard_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "delete")
-      stub_publications_pusher(edition, "delete")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "delete")
       end

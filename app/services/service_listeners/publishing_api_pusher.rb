@@ -43,30 +43,15 @@ module ServiceListeners
         api.discard_draft_async(edition)
       end
 
-      handle_corporate_information_pages(event)
       handle_html_attachments(event)
-      handle_publications(event)
     end
 
   private
-
-    def handle_corporate_information_pages(event)
-      return unless edition.is_a?(CorporateInformationPage)
-
-      PublishingApiCorporateInformationPagesWorker
-        .perform_async(edition.id, event)
-    end
 
     def handle_html_attachments(event)
       if edition.respond_to?(:html_attachments)
         PublishingApiHtmlAttachments.process(edition, event)
       end
-    end
-
-    def handle_publications(event)
-      return unless edition.is_a?(Publication)
-
-      PublishingApiPublicationsWorker.perform_async(edition.id, event)
     end
 
     def handle_translations
