@@ -80,6 +80,7 @@ module PublishingApi
         .merge(PayloadBuilder::FirstPublicAt.for(news_article))
         .merge(PayloadBuilder::PoliticalDetails.for(news_article))
         .merge(PayloadBuilder::TagDetails.for(news_article))
+        .merge(PayloadBuilder::Attachments.for(news_article))
     end
 
     def emphasised_organisations

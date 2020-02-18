@@ -31,6 +31,7 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
       details: {
         email: "group-1@example.com",
         body: "<div class=\"govspeak\"><p>This is some <em>Govspeak</em> in the description field</p>\n</div>", # This is deliberately the 'wrong' way around
+        attachments: [],
       },
     }
 
