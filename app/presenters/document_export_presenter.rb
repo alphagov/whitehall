@@ -26,7 +26,7 @@ private
       alternative_format_provider_content_id: edition.try(:alternative_format_provider)&.content_id,
       attachments: present_attachments(edition),
       authors: edition.authors.pluck(:id).uniq,
-      contacts: slice_association(edition, :depended_upon_contacts, %i[id content_id]),
+      contacts: present_contacts(edition),
       editorial_remarks: present_editorial_remarks(edition),
       fact_check_requests: present_fact_check_requests(edition),
       government: edition.government&.as_json,
@@ -48,6 +48,11 @@ private
     DOCUMENT_SUB_TYPES.each_with_object({}) do |type, memo|
       memo[type] = edition.try(type)&.key
     end
+  end
+
+  def present_contacts(edition)
+    contacts = Govspeak::ContactsExtractor.new(edition.body).contacts
+    contacts.map { |contact| contact.as_json(only: %i[id content_id]) }
   end
 
   def slice_association(edition, associations, fields)
