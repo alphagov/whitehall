@@ -83,7 +83,7 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:delete_asset).with(logo_asset_id)
 
       Sidekiq::Testing.inline! do
-        organisation.remove_logo!
+        organisation.logo.remove!
       end
     end
   end
@@ -173,7 +173,7 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:delete_asset).with(@asset_id).times(expected_number_of_versions)
 
       Sidekiq::Testing.inline! do
-        @person.remove_image!
+        @person.image.remove!
       end
     end
   end
@@ -261,7 +261,7 @@ class AssetManagerIntegrationTest
         .with(@consultation_response_form_asset_id)
 
       Sidekiq::Testing.inline! do
-        @consultation_response_form_data.remove_file!
+        @consultation_response_form_data.file.remove!
       end
     end
   end
