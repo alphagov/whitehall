@@ -45,7 +45,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "does not change css class on buttons" do
     html = govspeak_to_html("{button}[Link text](https://www.gov.uk){/button}")
-    assert_select_within_html html, "a.button", "Link text"
+    assert_select_within_html html, "a.govuk-button", "Link text"
   end
 
   test "should not mark admin links as 'external'" do
