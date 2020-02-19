@@ -2,125 +2,179 @@
 <% page_class "home-history" %>
 <% meta_description "In this section you can read short biographies of notable people and explore the history of government buildings. You can also search our online records and read articles and blog posts by historians." %>
 
-<header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { big: true,
-                        heading: "History of the UK&nbsp;government".html_safe } %>
-    <p class="intro-paragraph">In this section you can read short biographies of <a href="#notable-people">notable people</a> and explore the history of <a href="#government-buildings">government buildings</a>. You can also search our <a href="#documents-records">online records</a> and read <a href="#articles-and-blog-posts">articles and blog posts</a> by historians.</p>
+<header class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render "govuk_publishing_components/components/title", {
+        title: "History of the UK&nbsp;government".html_safe
+      } %>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body-l">In this section you can read short biographies of <a href="#notable-people" class="govuk-link">notable people</a> and explore the history of <a href="#government-buildings" class="govuk-link">government buildings</a>. You can also search our <a href="#documents-records" class="govuk-link">online records</a> and read <a href="#articles-and-blog-posts" class="govuk-link">articles and blog posts</a> by historians.</p>
+    </div>
   </div>
 </header>
 
-<div class="block introduction">
-  <div class="inner-block floated-children">
-    <hr class="keyline">
-    <div class="column copy">
-      <div class="content">
-        <h2>Why is history important?</h2>
-        <p class="intro">Governments are remembered for their leaders and the course they set for their country. The British government has a long and fascinating history, and exploring its past can help us understand how it is run today.</p>
-        <p>The information here provides a starting point for research. It includes objective factual content and research carried out by independent and civil service historians.</p>
-      </div>
+<div class="govuk-width-container">
+  <div class="govuk-grid-row introduction">
+    <div class="govuk-grid-column-full">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
     </div>
-    <div class="column image">
-      <figure class="content">
-        <%= image_tag 'history/horse-guards-vintage.jpg', alt: 'Introduction to history of government' %>
-        <figcaption>Thomas Shotter Boys &ndash; A View of the Horse Guards from Whitehall. Government Art Collection.</figcaption>
-      </figure>
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Why is history important?",
+        id: "why-is-history-important",
+        margin_bottom: 3,
+      } %>
+      <p class="govuk-body-l">Governments are remembered for their leaders and the course they set for their country. The British government has a long and fascinating history, and exploring its past can help us understand how it is run today.</p>
+      <p class="govuk-body">The information here provides a starting point for research. It includes objective factual content and research carried out by independent and civil service historians.</p>
+    </div>
+    <figure class="govuk-grid-column-one-third image">
+      <span class="aspect-ratio-3:2">
+        <%= image_tag "history/horse-guards-vintage.jpg", alt: "An old painting of the Horse Guards building.", loading: "lazy" %>
+      </span>
+      <figcaption>Thomas Shotter Boys &ndash; A View of the Horse Guards from Whitehall. Government Art Collection.</figcaption>
+    </figure>
+  </div>
+
+  <div class="govuk-grid-row notable-people">
+    <div class="govuk-grid-column-full">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
+    </div>
+    <div class="govuk-grid-column-one-half image">
+      <span class="aspect-ratio-3:2">
+        <%= image_tag 'how-gov-works/Churchill_01.jpg', alt: "", loading: "lazy" %>
+      </span>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Notable people",
+        id: "notable-peoples",
+        margin_bottom: 3,
+      } %>
+
+      <p class="govuk-body">You can find out about the life and achievements of those who have led the government as Prime Minister, alongside those who have held the roles of Chancellor and Foreign Secretary.</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <%= link_to 'Prime Ministers', historic_appointments_path('past-prime-ministers'), class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "Chancellors", "/government/history/past-chancellors", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "Foreign Secretaries", "/government/history/past-foreign-secretaries", class: "govuk-link" %>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
 
-<div class="block">
-  <div class="inner-block floated-children">
-    <hr class="keyline">
-    <div class="column">
-      <div class="content">
-        <%= image_tag 'how-gov-works/Churchill_01.jpg', alt: 'History of government' %>
-      </div>
+  <div class="govuk-grid-row government-buildings">
+    <div class="govuk-grid-column-full">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
     </div>
-    <div class="column">
-      <div class="content">
-        <h2 id="notable-people">Notable people</h2>
-        <p>You can find out about the life and achievements of those who have led the government as Prime Minister, alongside those who have held the roles of Chancellor and Foreign Secretary.</p>
-        <ul>
-          <li><%= link_to 'Prime Ministers', historic_appointments_path('past-prime-ministers') %></li>
-          <li><a href="/government/history/past-chancellors">Chancellors</a></li>
-          <li><a href="/government/history/past-foreign-secretaries">Foreign Secretaries</a></li>
-        </ul>
-      </div>
+    <div class="govuk-grid-column-one-half">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Government buildings",
+        id: "government-buildings",
+        margin_bottom: 3,
+      } %>
+
+      <p class="govuk-body">Number 10 Downing Street is the best known government building, but there are others that  play a role in the day-to-day business of government and have had a significant role in our history.</p>
+
+      <p class="govuk-body">You can learn more about the background and take tours of several of the buildings used by government on Whitehall and around the UK.</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <%= link_to "10 Downing Street", "/government/history/10-downing-street", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "11 Downing Street", "/government/history/11-downing-street", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "King Charles Street (FCO)", "/government/history/king-charles-street", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "Lancaster House (FCO)", "/government/history/lancaster-house", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "Ministry of Defence, Whitehall", "/government/publications/history-of-the-ministry-of-defence", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "1 Horse Guards Road", "/government/history/1-horse-guards-road", class: "govuk-link" %>
+        </li>
+        <li>
+          <%= link_to "Hillsborough Castle", "/hillsborough-castle", class: "govuk-link" %>
+        </li>
+      </ul>
+    </div>
+    <div class="govuk-grid-column-one-half image">
+      <span class="aspect-ratio-3:2">
+        <%= image_tag 'history/government-buildings.jpg', alt: "", loading: "lazy" %>
+      <span>
     </div>
   </div>
-</div>
 
-<div class="block government-buildings">
-  <div class="inner-block floated-children">
-    <hr class="keyline">
-    <div class="column">
-      <div class="content">
-        <h2 id="government-buildings">Government buildings</h2>
-        <p>Number 10 Downing Street is the best known government building, but there are others that  play a role in the day-to-day business of government and have had a significant role in our history.</p>
-        <p>You can learn more about the background and take tours of several of the buildings used by government on Whitehall and around the UK.</p>
-        <ul>
-          <li><a href="/government/history/10-downing-street">10 Downing Street</a></li>
-          <li><a href="/government/history/11-downing-street">11 Downing Street</a></li>
-          <li><a href="/government/history/king-charles-street">King Charles Street (FCO)</a></li>
-          <li><a href="/government/history/lancaster-house">Lancaster House (FCO)</a></li>
-          <li><a href="/government/publications/history-of-the-ministry-of-defence">Ministry of Defence, Whitehall</a></li>
-          <li><a href="/government/history/1-horse-guards-road">1 Horse Guards Road</a></li>
-          <li><a href="/hillsborough-castle">Hillsborough Castle</a></li>
-        </ul>
-      </div>
+  <div class="govuk-grid-row documents-and-records">
+    <div class="govuk-grid-column-full">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
     </div>
-    <div class="column">
-      <div class="content">
-        <%= image_tag 'history/government-buildings.jpg', alt: 'Government buildings' %>
-      </div>
+    <div class="govuk-grid-column-one-half image">
+      <span class="aspect-ratio-3:2">
+        <%= image_tag 'history/historical-documents.jpg', alt: "", loading: "lazy" %>
+      <span>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Documents and records",
+        margin_bottom: 3,
+      } %>
+
+      <p class="govuk-body">The National Archives is preserving UK government information from letters and treaties to web pages Cabinet papers. You can search the archive, or browse the themed collections.</p>
+
+      <p class="govuk-body">You can also explore the Government Art Collection online, which contains over 13,500 works of art, mainly from British artists.</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <%= link_to "The National Archives: UK Government Web Archive", "http://www.nationalarchives.gov.uk/webarchive/", class: "govuk-link", rel: "external" %>
+        </li>
+        <li>
+          <%= link_to "Government Art Collection", "http://www.number10.gov.uk/history-and-tour/government-art-collection-at-number-10/", class: "govuk-link", rel: "external" %>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
 
-<div class="block">
-  <div class="inner-block floated-children">
-    <hr class="keyline">
-    <div class="column">
-      <div class="content">
-        <%= image_tag 'history/historical-documents.jpg', alt: 'Historical documents' %>
-      </div>
-    </div>
-    <div class="column">
-      <div class="content">
-        <h2 id="documents-records">Documents and records</h2>
-        <p>The National Archives is preserving UK government information from letters and treaties to web pages Cabinet papers. You can search the archive, or browse the themed collections.</p>
-        <p>You can also explore the Government Art Collection online, which contains over 13,500 works of art, mainly from British artists.</p>
-        <ul>
-          <li><a href="http://www.nationalarchives.gov.uk/webarchive/" rel="external">The National Archives: UK Government Web Archive</a></li>
-          <li><a href="http://www.number10.gov.uk/history-and-tour/government-art-collection-at-number-10/" rel="external">Government Art Collection</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half" id="articles-and-blog-posts">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
 
-<div class="block">
-  <div class="inner-block floated-children">
-    <div class="column">
-      <hr class="keyline">
-      <div class="content" id="articles-and-blog-posts">
-        <h2>Articles and blog posts</h2>
-        <p>Some government departments, including Number 10 and the Foreign and Commonwealth Office, write or commission articles and research to improve our knowledge of the history of the British government.</p>
-        <p>Find out more on the <a href="http://history.blog.gov.uk">history of government blog</a>.</p>
-      </div>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Articles and blog posts",
+        margin_bottom: 3,
+      } %>
+
+      <p class="govuk-body">Some government departments, including Number 10 and the Foreign and Commonwealth Office, write or commission articles and research to improve our knowledge of the history of the British government.</p>
+
+      <p class="govuk-body">Find out more on the <a href="http://history.blog.gov.uk" class="govuk-link">history of government blog</a>.</p>
     </div>
-    <div class="column">
-      <hr class="keyline">
-      <div class="content">
-        <h2>More sources</h2>
-        <p>Many institutions in the UK, including universities, museums and libraries, hold information about the history of our government. The following websites may be useful for further research:</p>
-        <ul>
-          <li><a href="http://www.parliament.uk/about/living-heritage/" rel="external">Parliament - Living Heritage</a></li>
-          <li><a href="http://www.bl.uk/" rel="external">The British Library</a></li>
-        </ul>
-      </div>
+    <div class="govuk-grid-column-one-half">
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--l">
+
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "More sources",
+        margin_bottom: 3,
+      } %>
+
+      <p class="govuk-body">Many institutions in the UK, including universities, museums and libraries, hold information about the history of our government. The following websites may be useful for further research:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <%= link_to "Parliament - Living Heritage", "https://www.parliament.uk/about/living-heritage/", class: "govuk-link", rel: "external" %>
+        <li>
+          <%= link_to "The British Library", "https://www.bl.uk/", class: "govuk-link", rel: "external" %>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

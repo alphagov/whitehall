@@ -1,120 +1,21 @@
 .home-history {
-  @include core-19;
+  .image {
+    margin-bottom: govuk-spacing(3);
 
-  #documents-records,
-  #notable-people {
-    padding-top: $gutter-two-thirds;
+    figcaption {
+      @include core-16;
+
+      color: $govuk-secondary-text-colour;
+      padding-top: govuk-spacing(1);
+    }
+  }
+
+  .notable-people,
+  .documents-and-records {
+    padding-top: govuk-spacing(4);
+
     @include media(tablet) {
       padding-top: 0;
     }
   }
-
-  h2 {
-    @include heading-27;
-    font-weight: bold;
-    padding-top: 0;
-    margin-bottom: $gutter-half;
-    @include media(tablet) {
-      padding: 0;
-      margin-bottom: $gutter-two-thirds;
-    }
-  }
-
-  .keyline {
-    clear: both;
-    margin: 0 $gutter-half $gutter;
-    border: solid $border-colour;
-    border-width: 0 0 1px;
-  }
-
-  .block {
-    clear: both;
-    padding-bottom: $gutter-half;
-    ul {
-      margin-top : $gutter;
-      li {
-        list-style: none;
-        margin-bottom: $gutter-one-sixth;
-        &:before {
-          content: "-";
-          margin-right: $gutter-one-sixth;
-        }
-      }
-    }
-    @include media(tablet) {
-      padding-bottom: $gutter*2;
-    }
-  }
-
-  .content {
-    padding: 0 $gutter-half;
-    p {
-      margin-bottom: $gutter-half;
-    }
-  }
-
-  .floated-children {
-    .column {
-      img {
-        width: $full-width;
-      }
-      @include media(tablet) {
-        float: left;
-        width: $half;
-      }
-    }
-  }
-
-  .introduction {
-    padding-bottom: $gutter;
-
-    p {
-      margin-bottom: $gutter;
-      &.intro {
-        font-weight: bold;
-      }
-    }
-    .keyline {
-      border: solid $black;
-      border-width: 0 0 $gutter-one-sixth;
-    }
-    .image {
-      figcaption {
-        @include core-14;
-        color: $grey-1;
-      }
-      @include media(tablet) {
-        width: $one-third;
-        img {
-          margin-bottom: $gutter-half;
-        }
-      }
-    }
-    @include media(tablet) {
-      .copy {
-        width: $two-thirds;
-      }
-    }
-  }
-
-  .government-buildings {
-    padding-bottom: $gutter;
-
-    img {
-      margin-top: $gutter;
-    }
-
-    @include media(tablet) {
-      padding-bottom: $gutter*2;
-
-      img {
-       margin-top: 0;
-      }
-    }
-  }
-
-  #historical-research {
-    padding-bottom: $gutter;
-  }
-
 }
