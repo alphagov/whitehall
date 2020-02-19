@@ -109,7 +109,7 @@ class Attachment < ApplicationRecord
       # fields in common across "file_attachment_asset",
       # "html_attachment_asset", "external_attachment_asset"
       attachment_type: readable_type.downcase,
-      id: publishing_api_attachment_id || id,
+      id: publishing_api_attachment_id || id.to_s,
       locale: locale,
       title: title,
       url: url,
