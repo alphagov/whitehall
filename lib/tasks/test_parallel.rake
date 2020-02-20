@@ -26,9 +26,8 @@ end
 #   RAILS_ENV=test rake parallel:create parallel:prepare
 desc "Runs units, functionals and integrations together using the test-queue runner. By default it uses all available processors. Set TEST_QUEUE_WORKERS to override."
 task test_queue: :environment do
-  files = Dir.chdir("test") do
-    Dir["unit/**/*_test.rb", "functional/**/*_test.rb", "integration/**/*_test.rb"]
-  end
+  files = Dir["test/unit/**/*_test.rb", "test/functional/**/*_test.rb", "test/integration/**/*_test.rb"]
+
   # Ensure the number of workers matches the number of PARALLEL_TEST_PROCESSORS
   ENV["TEST_QUEUE_WORKERS"] ||= ENV["PARALLEL_TEST_PROCESSORS"]
   puts "Running unit, functional and integration tests from #{files.size} files across #{ENV['TEST_QUEUE_WORKERS']} processors."
