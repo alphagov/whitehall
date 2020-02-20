@@ -5,5 +5,4 @@ require "test_queue"
 require "test_queue/runner/minitest"
 require "parallel_test_runner"
 
-ARGV.each { |f| require(f) }
 ParallelTestRunner.new.execute
