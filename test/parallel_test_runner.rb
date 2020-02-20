@@ -1,7 +1,5 @@
 class ParallelTestRunner < TestQueue::Runner::MiniTest
   def after_fork(number)
-    super
-
     # Use separate mysql database for each fork.
     ActiveRecord::Base.configurations["test"]["database"] << database_number_for(number)
     ActiveRecord::Base.establish_connection(:test)

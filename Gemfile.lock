@@ -530,7 +530,7 @@ GEM
       railties (>= 3.2.5)
     teaspoon-qunit (1.20.0)
       teaspoon (>= 1.0.0)
-    test-queue (0.2.13)
+    test-queue (0.4.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     thwait (0.1.0)
@@ -629,8 +629,8 @@ DEPENDENCIES
   mocha
   mysql2 (~> 0.4.10)
   nokogiri (~> 1.10.5)
-  parallel
-  parallel_tests
+  parallel (~> 1.19.1)
+  parallel_tests (~> 2.31)
   pdf-reader (~> 2.2)
   plek (~> 3.0)
   pry-byebug
@@ -657,7 +657,7 @@ DEPENDENCIES
   slimmer (~> 13.2)
   sprockets-rails
   teaspoon-qunit
-  test-queue (~> 0.2.13)
+  test-queue (~> 0.4.2)
   timecop
   transitions
   uglifier (~> 4.2)

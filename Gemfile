@@ -33,7 +33,7 @@ gem "mini_magick", "~> 4.10.1"
 gem "mlanett-redis-lock"
 gem "mysql2", "~> 0.4.10"
 gem "nokogiri", "~> 1.10.5"
-gem "parallel"
+gem "parallel", "~> 1.19.1"
 gem "pdf-reader", "~> 2.2"
 gem "plek", "~> 3.0"
 gem "ptools"
@@ -60,12 +60,12 @@ gem "validates_email_format_of"
 gem "whenever", "~> 1.0.0", require: false
 
 group :development, :test do
-  gem "parallel_tests"
+  gem "parallel_tests", "~> 2.31"
   gem "pry-byebug"
   gem "pry-rails"
   gem "rubocop-govuk", "~> 3"
   gem "teaspoon-qunit"
-  gem "test-queue", "~> 0.2.13"
+  gem "test-queue", "~> 0.4.2"
   # teaspoon has coffee assets that mean we need coffee script in order
   # to be able to run things
   gem "coffee-rails", "~> 4.2.2"
