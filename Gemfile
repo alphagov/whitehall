@@ -75,7 +75,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "graphviz_transitions"
-  gem 'listen'
+  gem "listen"
   gem "mechanize"
 end
 
