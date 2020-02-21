@@ -51,8 +51,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "#board_member_roles excludes any ministerial roles" do
-    role_appointment = create(:ministerial_role_appointment)
-    person = create(:person, role_appointments: [role_appointment])
+    person = create(:person)
+    create(:ministerial_role_appointment, person: person)
     assert_equal [], person.current_board_member_roles
   end
 
@@ -138,7 +138,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it has appointments" do
-    person = create(:person, role_appointments: [create(:role_appointment)])
+    person = create(:person)
+    create(:role_appointment, person: person)
     assert_not person.destroyable?
     assert_equal false, person.destroy
   end
