@@ -95,11 +95,6 @@ group :test do
   gem "webmock", require: false
 end
 
-group :test_coverage do
-  gem "simplecov"
-  gem "simplecov-rcov"
-end
-
 group :cucumber, :test do
   gem "cucumber", "~> 3"
   gem "cucumber-rails", require: false
