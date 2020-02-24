@@ -1,8 +1,0 @@
-test:
-  adapter: mysql2
-  host: localhost
-  database: whitehall_test
-  username: whitehall
-  password: whitehall
-  encoding: utf8
-  pool: 5
