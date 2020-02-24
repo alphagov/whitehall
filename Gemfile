@@ -9,7 +9,6 @@ gem "carrierwave", "~> 2.1.0"
 gem "carrierwave-i18n"
 gem "chronic"
 gem "dalli", "~> 2.7"
-gem "deprecated_columns", "~> 0.1.1"
 gem "equivalent-xml", "~> 0.6.0", require: false
 gem "faraday"
 gem "friendly_id", "~> 5.3.0"
