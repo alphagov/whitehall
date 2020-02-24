@@ -9,7 +9,6 @@ gem "carrierwave", "~> 2.1.0"
 gem "carrierwave-i18n"
 gem "chronic"
 gem "dalli", "~> 2.7"
-gem "equivalent-xml", "~> 0.6.0", require: false
 gem "faraday"
 gem "friendly_id", "~> 5.3.0"
 gem "fuzzy_match", "~> 2.1"
@@ -97,6 +96,7 @@ end
 group :test do
   gem "ci_reporter_minitest"
   gem "database_cleaner"
+  gem "equivalent-xml", "~> 0.6.0"
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers"
   gem "maxitest"
