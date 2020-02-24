@@ -42,7 +42,7 @@ module OrganisationResluggerTest
 
       stub_any_publishing_api_call
       Sidekiq::Testing.inline! do
-        DataHygiene::OrganisationReslugger.new(@organisation, "corrected-slug").run!
+        DataHygiene::OrganisationReslugger.new(@organisation.reload, "corrected-slug").run!
       end
 
       assert_all_requested expected_publish_requests
