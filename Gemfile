@@ -12,11 +12,14 @@ gem "dalli", "~> 2.7"
 gem "faraday"
 gem "friendly_id", "~> 5.3.0"
 gem "fuzzy_match", "~> 2.1"
+gem "gds-api-adapters"
 gem "gds-sso", "~> 14.2"
 gem "globalize", "~> 5"
+gem "govspeak", "~> 6.5"
 gem "govuk_ab_testing", "~> 2.4x"
 gem "govuk_admin_template", "~> 6.7"
 gem "govuk_app_config", "~> 2.0"
+gem "govuk_frontend_toolkit", "8.2.0"
 gem "govuk_publishing_components", "~> 21.26.0"
 gem "govuk_sidekiq", "~> 3"
 gem "invalid_utf8_rejector", "~> 0.0.4"
@@ -55,24 +58,6 @@ gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "uglifier", "~> 4.2"
 gem "validates_email_format_of"
 gem "whenever", "~> 1.0.0", require: false
-if ENV["GDS_API_ADAPTERS_DEV"]
-  gem "gds-api-adapters", path: "../gds-api-adapters"
-else
-  gem "gds-api-adapters"
-end
-
-if ENV["GOVSPEAK_DEV"]
-  gem "govspeak", path: "../govspeak"
-else
-  gem "govspeak", "~> 6.5"
-end
-
-if ENV["FRONTEND_TOOLKIT_DEV"]
-  gem "govuk_frontend_toolkit", path: "../govuk_frontend_toolkit_gem"
-else
-  gem "govuk_frontend_toolkit", "8.2.0"
-end
-
 
 group :development, :test do
   gem "parallel_tests"
