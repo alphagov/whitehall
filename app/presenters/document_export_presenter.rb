@@ -9,7 +9,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   ].freeze
 
   def as_json
-    presented_editions = model.editions.map { |e| present_edition(e) }
+    presented_editions = model.editions.order(:id).map { |e| present_edition(e) }
     presented_users = users.map { |u| present_user(u) }
     model.as_json
          .merge(editions: presented_editions, users: presented_users)
