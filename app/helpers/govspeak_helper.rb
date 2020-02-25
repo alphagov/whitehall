@@ -93,7 +93,7 @@ module GovspeakHelper
 
   def fraction_image(numerator, denominator)
     denominator.downcase! if %w{X Y}.include? denominator
-    if numerator.present? && denominator.present? && Rails.application.assets.find_asset("fractions/#{numerator}_#{denominator}.png")
+    if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
       asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_asset_host)
     end
   end
@@ -136,6 +136,10 @@ module GovspeakHelper
   end
 
 private
+
+  def asset_exists?(path)
+    Rails.application.assets_manifest.files.values.map { |v| v["logical_path"] }.include?(path)
+  end
 
   def remove_extra_quotes_from_blockquotes(govspeak)
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)
