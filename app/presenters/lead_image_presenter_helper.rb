@@ -60,8 +60,4 @@ private
   def file
     uploader.file
   end
-
-  def find_asset(asset)
-    Rails.application.assets.find_asset(asset)
-  end
 end
