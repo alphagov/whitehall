@@ -52,7 +52,7 @@ GEM
       execjs
     babosa (1.0.3)
     backports (3.16.1)
-    better_errors (2.5.1)
+    better_errors (2.6.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
