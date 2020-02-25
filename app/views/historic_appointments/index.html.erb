@@ -1,8 +1,8 @@
 <% page_title "Past #{@role.name.pluralize}" %>
-<% page_class "historic-appointments historic-appointments-index" %>
+<% page_class "historic-appointments historic-appointments-index govuk-width-container" %>
 
-<header class="block headings-block">
-  <div class="inner-block floated-children">
+<header class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
     <%= render "govuk_publishing_components/components/title", {
         context: {
           text: "History",
