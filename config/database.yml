@@ -17,13 +17,6 @@ test: &test
   password: whitehall
   url: <%= ENV["TEST_DATABASE_URL"] %><%= ENV['TEST_ENV_NUMBER'] if ENV["TEST_DATABASE_URL"] %>
 
-benchmark:
-  encoding: utf8
-  adapter: mysql2
-  database: whitehall_development
-  username: whitehall
-  password: whitehall
-
 production:
   encoding: utf8
   adapter: mysql2

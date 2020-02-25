@@ -3,12 +3,6 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../config/environment", __dir__)
 
-if ENV["TEST_COVERAGE"]
-  Bundler.require(:test_coverage)
-  SimpleCov.start "rails"
-  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-end
-
 require "maxitest/autorun"
 require "rails/test_help"
 require "mocha/minitest"
