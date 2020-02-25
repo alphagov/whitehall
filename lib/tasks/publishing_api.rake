@@ -102,6 +102,21 @@ namespace :publishing_api do
     Organisation.find_each(&:publish_to_publishing_api)
   end
 
+  desc "Republish all About pages"
+  task republish_all_about_pages: :environment do
+    about_us_pages = Organisation.all.map(&:about_us).compact
+    count = about_us_pages.count
+    puts "# Sending #{count} 'about us' pages to Publishing API"
+    about_us_pages.each_with_index do |about_us_page, i|
+      PublishingApiDocumentRepublishingWorker.new.perform(
+        about_us_page.document_id,
+        true, # bulk_publishing
+      )
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
+    end
+    puts "Finished queuing items for Publishing API"
+  end
+
   desc "Republish a person to the Publishing API"
   task :republish_person, [:slug] => :environment do |_, args|
     Person.find_by!(slug: args[:slug]).publish_to_publishing_api

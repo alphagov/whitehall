@@ -125,8 +125,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless corporate_information_page.about_page? &&
-          organisation_has_any_transparency_pages?
+        return {} unless corporate_information_page.about_page?
 
         {
           corporate_information_groups: corporate_information_groups
@@ -161,8 +160,6 @@ module PublishingApi
         [].tap do |contents|
           contents.push(payload_for_organisation_chart)
           contents.push(*page_content_ids_by_menu_heading(:our_information))
-          contents.push(payload_for_corporate_reports)
-          contents.push(payload_for_transparency_data)
         end
       end
 
@@ -173,41 +170,10 @@ module PublishingApi
         end
       end
 
-      def organisation_has_any_transparency_pages?
-        return if organisation.blank?
-
-        organisation_has_freedom_of_information_publications? ||
-          organisation_has_transparency_data_publications?
-      end
-
-      def organisation_has_corporate_report_publications?
-        return if organisation.blank?
-
-        organisation.has_published_publications_of_type?(
-          PublicationType::CorporateReport,
-        )
-      end
-
       def organisation_has_chart_url?
         return if organisation.blank?
 
         organisation.organisation_chart_url.present?
-      end
-
-      def organisation_has_freedom_of_information_publications?
-        return if organisation.blank?
-
-        organisation.has_published_publications_of_type?(
-          PublicationType::FoiRelease,
-        )
-      end
-
-      def organisation_has_transparency_data_publications?
-        return if organisation.blank?
-
-        organisation.has_published_publications_of_type?(
-          PublicationType::TransparencyData,
-        )
       end
 
       def page_content_ids_by_menu_heading(menu_heading)
@@ -216,22 +182,6 @@ module PublishingApi
           .published
           .by_menu_heading(menu_heading)
           .map(&:content_id)
-      end
-
-      def payload_for_corporate_reports
-        return unless organisation_has_corporate_report_publications?
-
-        corporate_reports_path =
-          url_maker
-            .publications_filter_path(
-              organisation,
-              publication_type: "corporate-reports",
-            )
-
-        {
-          title: translation_for_group(:corporate_reports, :headings),
-          path: corporate_reports_path,
-        }
       end
 
       def payload_for_jobs
@@ -247,22 +197,6 @@ module PublishingApi
         {
           title: translation_for_group(:organisation_chart),
           url: organisation.organisation_chart_url,
-        }
-      end
-
-      def payload_for_transparency_data
-        return unless organisation_has_transparency_data_publications?
-
-        transparency_data_path =
-          url_maker
-            .publications_filter_path(
-              organisation,
-              publication_type: "transparency-data",
-            )
-
-        {
-          title: translation_for_group(:transparency),
-          path: transparency_data_path,
         }
       end
 
