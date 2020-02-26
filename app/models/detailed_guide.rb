@@ -19,6 +19,7 @@ class DetailedGuide < Edition
   include Edition::Organisations
   include Edition::TaggableOrganisations
   include Edition::RelatedDocuments
+  include Edition::TopicalEvents
 
   def self.format_name
     "detailed guidance"

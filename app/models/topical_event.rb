@@ -20,7 +20,7 @@ class TopicalEvent < Classification
   has_many :announcements, through: :classification_memberships
   has_many :news_articles, through: :classification_memberships
   has_many :speeches, through: :classification_memberships
-
+  has_many :detailed_guides, through: :classification_memberships
   has_many :publications, through: :classification_memberships
   has_many :consultations, through: :classification_memberships
 

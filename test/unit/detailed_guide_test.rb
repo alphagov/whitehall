@@ -74,6 +74,13 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert guide.has_additional_related_mainstream_content?
   end
 
+  test "can be associated with topical events" do
+    detailed_guide = create(:detailed_guide)
+    assert detailed_guide.can_be_associated_with_topical_events?
+    assert topical_event = detailed_guide.topical_events.create(name: "Test", description: "Test")
+    assert_equal [detailed_guide], topical_event.detailed_guides
+  end
+
   test "should be valid if all level-3 headings have a parent level-2 heading" do
     body = "## Parent1\n\n### Child1\n\n### Child2\n\n## Parent2\n\n### Child3"
     detailed_guide = build(:detailed_guide, body: body)
