@@ -226,7 +226,7 @@ GEM
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
-    hashdiff (1.0.0)
+    hashdiff (1.0.1)
     hashery (2.1.2)
     hashie (3.6.0)
     htmlentities (4.3.4)
