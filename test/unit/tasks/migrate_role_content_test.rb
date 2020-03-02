@@ -19,7 +19,7 @@ class MigrateRoleContentTest < ActiveSupport::TestCase
 
     assert_equal old_role, speech.role
 
-    Rake.application.invoke_task "migrate:role_content[head-slug-and-chief-snail-executive,head-slug]"
+    Rake.application.invoke_task "migrate:role_content[#{old_role_appointment.id},#{new_role_appointment.id}]"
 
     assert_equal new_role, speech.reload.role
   end
