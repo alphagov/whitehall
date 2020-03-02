@@ -1,3 +1,15 @@
+.historic-appointments:not(.historical-past-chancellors) .featured-profiles .year-block {
+  @include media(mobile) {
+    h2.profiles {
+      margin: 0 0 $gutter-one-sixth;
+    }
+
+    .inner {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
 .historic-appointments {
   .historic-people-list {
     @include media(tablet) {
@@ -6,7 +18,7 @@
     }
     h3 {
       @include core-19;
-      margin-bottom: $gutter;
+      margin: $gutter 0;
 
       span {
         @include core-80;
