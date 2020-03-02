@@ -2,7 +2,7 @@ require "test_helper"
 require "rake"
 class MigrateRoleContentTest < ActiveSupport::TestCase
   setup do
-    Rake.application.rake_require "tasks/migrate_role_content"
+    Rake.application.rake_require "tasks/data_hygiene"
     Rake::Task.define_task(:environment)
     Rake::Task["data_hygiene:migrate_role_content"].reenable
   end
