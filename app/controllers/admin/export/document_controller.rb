@@ -19,7 +19,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
 
   def lock
     document = Document.find(params[:id])
-    document.update!(locked: true)
+    document.update!(locked: true) unless document.locked?
   end
 
   def unlock
