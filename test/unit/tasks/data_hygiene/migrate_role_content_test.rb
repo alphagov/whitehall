@@ -4,12 +4,11 @@ class MigrateRoleContentTest < ActiveSupport::TestCase
   setup do
     Rake.application.rake_require "tasks/migrate_role_content"
     Rake::Task.define_task(:environment)
-    Rake::Task["migrate:role_content"].reenable
+    Rake::Task["data_hygiene:migrate_role_content"].reenable
   end
 
-  test "what" do
+  test "it moves content from one role appointment to another" do
     speech = create(:speech)
-    # edition = create(:published_publication, speech: speech)
 
     person = create(:person, forename: "Sluggy", surname: "McSlugson")
     old_role = create(:ministerial_role, slug: "head-slug-and-chief-snail-executive", name: "Head Slug and Chief Snail Executive")
@@ -19,7 +18,7 @@ class MigrateRoleContentTest < ActiveSupport::TestCase
 
     assert_equal old_role, speech.role
 
-    Rake.application.invoke_task "migrate:role_content[#{old_role_appointment.id},#{new_role_appointment.id}]"
+    Rake.application.invoke_task "data_hygiene:migrate_role_content[#{old_role_appointment.id},#{new_role_appointment.id}]"
 
     assert_equal new_role, speech.reload.role
   end

@@ -1,8 +1,8 @@
-namespace :migrate do
+namespace :data_hygiene do
   desc "Move content from one role to another (DANGER!)."
-  task :role_content, %i[old_role_appointment new_role_appointment] => :environment do |_task, args|
-    old_role_app = RoleAppointment.find_by!(id: args[:old_role_appointment])
-    new_role_app = RoleAppointment.find_by!(id: args[:new_role_appointment])
+  task :migrate_role_content, %i[old_role_appointment new_role_appointment] => :environment do |_task, args|
+    old_role_app = RoleAppointment.find(args[:old_role_appointment])
+    new_role_app = RoleAppointment.find(args[:new_role_appointment])
 
     old_role_app.edition_role_appointments.each do |era|
       era.update(role_appointment: new_role_app)
