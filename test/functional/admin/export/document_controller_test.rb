@@ -212,8 +212,18 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "locks document" do
-    document = create(:document)
+  test "locks a document" do
+    document = create(:document, locked: false)
+    login_as :export_data_user
+
+    post :lock, params: { id: document.id }, format: "json"
+
+    assert document.reload.locked
+    assert_response :no_content
+  end
+
+  test "locks a locked document" do
+    document = create(:document, locked: true)
     login_as :export_data_user
 
     post :lock, params: { id: document.id }, format: "json"
@@ -228,8 +238,18 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "unlocks document" do
+  test "unlocks a document" do
     document = create(:document, locked: true)
+    login_as :export_data_user
+
+    post :unlock, params: { id: document.id }, format: "json"
+
+    assert_not document.reload.locked
+    assert_response :no_content
+  end
+
+  test "unlocks an unlocked document" do
+    document = create(:document, locked: false)
     login_as :export_data_user
 
     post :unlock, params: { id: document.id }, format: "json"
