@@ -63,7 +63,7 @@ group :development, :test do
   gem "parallel_tests"
   gem "pry-byebug"
   gem "pry-rails"
-  gem "rubocop-govuk", "~> 2"
+  gem "rubocop-govuk", "~> 3"
   gem "teaspoon-qunit"
   gem "test-queue", "~> 0.2.13"
   # teaspoon has coffee assets that mean we need coffee script in order
