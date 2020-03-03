@@ -7,10 +7,12 @@ class Whitehall::Exporters::DocumentsInfoExporter
 
   def call
     document_ids.map do |doc_id|
+      document = Document.find(doc_id)
       {
         document_id: doc_id,
         document_information: {
           locales: locales_hash[doc_id],
+          content_id: document.content_id
         },
       }
     end
