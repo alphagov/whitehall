@@ -43,14 +43,10 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
       {
         "documents" => [{
           "document_id" => news_story.document_id,
-          "document_information" => {
-            "locales" => %w[en],
-          },
+          "content_id" => news_story.content_id,
         }, {
           "document_id" => press_release.document_id,
-          "document_information" => {
-            "locales" => %w[en],
-          },
+          "content_id" => press_release.content_id,
         }],
         "page_number" => 1,
         "page_count" => 2,
@@ -89,14 +85,10 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
       {
         "documents" => [{
           "document_id" => news_story.document_id,
-          "document_information" => {
-            "locales" => %w[en],
-          },
+          "content_id" => news_story.content_id,
         }, {
           "document_id" => press_release.document_id,
-          "document_information" => {
-            "locales" => %w[en],
-          },
+          "content_id" => press_release.content_id,
         }],
         "page_number" => 1,
         "page_count" => 2,

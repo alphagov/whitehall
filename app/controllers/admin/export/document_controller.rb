@@ -8,8 +8,6 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
   end
 
   def index
-    result_set = Whitehall::Exporters::DocumentsInfoExporter.new(paginated_document_ids).call
-
     respond_with(
       documents: result_set,
       page_number: page_number,
@@ -42,7 +40,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
 
 private
 
-  def paginated_document_ids
+  def paginated_documents
     Edition
       .joins("INNER JOIN edition_organisations eo ON eo.edition_id = editions.id
         AND eo.organisation_id = (
@@ -53,6 +51,7 @@ private
           LIMIT 1
           )")
       .joins("INNER JOIN organisations o ON o.id = eo.organisation_id")
+      .joins(:document)
       .where(o: { content_id: params.require(:lead_organisation) })
       .where(eo: { lead: true })
       .by_type_or_subtypes(document_type, document_subtypes)
@@ -60,7 +59,16 @@ private
       .order(:document_id)
       .page(page_number)
       .per(items_per_page)
-      .pluck(:document_id)
+      .pluck(:document_id, "documents.content_id")
+  end
+
+  def result_set
+    paginated_documents.map do |ids|
+      {
+        document_id: ids[0],
+        content_id: ids[1],
+      }
+    end
   end
 
   def page_number
