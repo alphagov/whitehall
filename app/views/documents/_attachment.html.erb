@@ -56,6 +56,10 @@
         <%= attachment_attributes(attachment) %>
       <% end %>
     </p>
+    <% if attachment.is_official_document? %>
+      <%= link_to t('attachment.headings.order_a_copy'), "https://www.gov.uk/guidance/how-to-buy-printed-copies-of-official-documents",
+            class: "order_url", title: t('attachment.headings.order_a_copy_full') %>
+    <% end %>
 
     <% if attachment.opendocument? %>
       <p class="opendocument-help">

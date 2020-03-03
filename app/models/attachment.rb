@@ -54,6 +54,10 @@ class Attachment < ApplicationRecord
     end
   end
 
+  def is_official_document?
+    is_command_paper? || is_act_paper?
+  end
+
   def is_command_paper?
     command_paper_number.present? || unnumbered_command_paper?
   end
