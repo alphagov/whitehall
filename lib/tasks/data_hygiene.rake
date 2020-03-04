@@ -48,6 +48,8 @@ namespace :data_hygiene do
     end
 
     old_role_app.speeches.each do |speech|
+      next if speech.unmodifiable?
+
       speech.role_appointment = new_role_app
       speech.save!
     end
