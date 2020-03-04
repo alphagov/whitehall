@@ -1,3 +1,15 @@
+.historic-appointments:not(.historical-past-chancellors) .featured-profiles .year-block {
+  @include govuk-media-query($until: tablet) {
+    h2.profiles {
+      margin: 0 0 govuk-spacing(1) 0;
+    }
+
+    .inner {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
 .historic-appointments {
   .historic-people-list {
     @include media(tablet) {
@@ -5,8 +17,8 @@
       width: $one-quarter;
     }
     h3 {
-      @include core-19;
-      margin-bottom: $gutter;
+      @include govuk-font(19);
+      margin: govuk-spacing(6) 0;
 
       span {
         @include core-80;
