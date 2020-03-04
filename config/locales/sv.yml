@@ -217,8 +217,6 @@ sv:
         command_paper_number:
         hoc_paper_number:
         isbn:
-        order_url:
-        price:
         title:
         unique_reference:
         unnumbered_hoc_paper:
@@ -232,8 +230,6 @@ sv:
         command_paper_number:
         hoc_paper_number:
         isbn:
-        order_url:
-        price:
         title:
         unique_reference:
         unnumbered_hoc_paper:
@@ -245,8 +241,6 @@ sv:
       command_paper_number:
       hoc_paper_number:
       isbn:
-      order_url:
-      price:
       title:
       unique_reference:
       unnumbered_hoc_paper:
