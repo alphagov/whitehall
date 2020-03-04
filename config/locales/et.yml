@@ -217,7 +217,6 @@ et:
         command_paper_number:
         hoc_paper_number: 'Parlamendi alamkoja dokumendi nr. '
         isbn: 'Manuse ISBN '
-        price: Manuse hind
         title: Manuse pealkiri
         unique_reference: Manuse unikaalne viide
         unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
@@ -231,7 +230,6 @@ et:
         command_paper_number:
         hoc_paper_number: Parlamendi alamkoja dokumendi nr.
         isbn: Manuse ISBN
-        price: Manuse hind
         title: Manuse pealkiri
         unique_reference: Manuse unikaalne viide
         unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
@@ -243,7 +241,6 @@ et:
       command_paper_number:
       hoc_paper_number: Parlamendi alamkoja dokumendi nr.
       isbn: Manuse ISBN
-      price: Manuse hind
       title: Manuse pealkiri
       unique_reference: Manuse unikaalne viide
       unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument

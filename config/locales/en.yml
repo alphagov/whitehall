@@ -68,7 +68,6 @@ en:
       command_paper_number: Attachment command paper number
       hoc_paper_number: House of Commons paper number
       isbn: Attachment ISBN
-      price: Attachment price
       title: Attachment title
       unique_reference: Attachment unique reference
       unnumbered_hoc_paper: Unnumbered House of Commons paper

@@ -11,7 +11,6 @@ vi:
         command_paper_number:
         hoc_paper_number:
         isbn:
-        price:
         title:
         unique_reference:
         unnumbered_hoc_paper:
@@ -25,7 +24,6 @@ vi:
         command_paper_number:
         hoc_paper_number:
         isbn:
-        price:
         title:
         unique_reference:
         unnumbered_hoc_paper:
@@ -37,7 +35,6 @@ vi:
       command_paper_number:
       hoc_paper_number:
       isbn:
-      price:
       title:
       unique_reference:
       unnumbered_hoc_paper:
