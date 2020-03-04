@@ -23,11 +23,6 @@ class Attachment < ApplicationRecord
     allow_blank: true,
     message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}",
   }
-  validates :order_url, uri: true, allow_blank: true
-  validates :order_url, presence: {
-    message: "must be entered as you've entered a price",
-    if: ->(publication) { publication.price.present? },
-  }
   validates :price, numericality: {
     allow_blank: true, greater_than: 0
   }

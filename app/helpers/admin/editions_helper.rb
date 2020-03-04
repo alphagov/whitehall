@@ -243,7 +243,6 @@ module Admin::EditionsHelper
       isbn: "ISBN",
       unique_reference: "Unique reference",
       command_paper_number: "Command paper number",
-      order_url: "Order URL",
       price: "Price",
       hoc_paper_number: "House of Commons paper number",
       parliamentary_session: "Parliamentary session",

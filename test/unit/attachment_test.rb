@@ -61,31 +61,6 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.errors[:command_paper_number].include?(expected_message)
   end
 
-  test "should be invalid with malformed order url" do
-    attachment = build(:file_attachment, order_url: "invalid-url")
-    assert_not attachment.valid?
-  end
-
-  test "should be valid with order url with HTTP protocol" do
-    attachment = build(:file_attachment, order_url: "http://example.com")
-    assert attachment.valid?
-  end
-
-  test "should be valid with order url with HTTPS protocol" do
-    attachment = build(:file_attachment, order_url: "https://example.com")
-    assert attachment.valid?
-  end
-
-  test "should be valid without order url" do
-    attachment = build(:file_attachment, order_url: nil)
-    assert attachment.valid?
-  end
-
-  test "should be valid with blank order url" do
-    attachment = build(:file_attachment, order_url: nil)
-    assert attachment.valid?
-  end
-
   test "should be valid if the price is nil" do
     attachment = build(:file_attachment, price: nil)
     assert attachment.valid?
@@ -94,50 +69,6 @@ class AttachmentTest < ActiveSupport::TestCase
   test "should be valid if the price is blank" do
     attachment = build(:file_attachment, price: "")
     assert attachment.valid?
-  end
-
-  test "should be valid if the price appears to be in whole pounds" do
-    attachment = build(:file_attachment, price: "9", order_url: "http://example.com")
-    assert attachment.valid?
-  end
-
-  test "should be valid if the price is in pounds and pence" do
-    attachment = build(:file_attachment, price: "1.23", order_url: "http://example.com")
-    assert attachment.valid?
-  end
-
-  test "should be invalid if the price is non numeric" do
-    attachment = build(:file_attachment, price: "free", order_url: "http://example.com")
-    assert_not attachment.valid?
-  end
-
-  test "should be invalid if the price is zero" do
-    attachment = build(:file_attachment, price: "0", order_url: "http://example.com")
-    assert_not attachment.valid?
-  end
-
-  test "should be invalid if the price is less than zero" do
-    attachment = build(:file_attachment, price: "-1.23", order_url: "http://example.com")
-    assert_not attachment.valid?
-  end
-
-  test "should be invalid if a price is entered without an order url" do
-    attachment = build(:file_attachment, price: "1.23")
-    assert_not attachment.valid?
-  end
-
-  test "should save the price as price_in_pence" do
-    attachment = create(:file_attachment, price: "1.23", order_url: "http://example.com")
-    attachment.reload
-    assert_equal 123, attachment.price_in_pence
-  end
-
-  test "should save the price as nil if an existing price_in_pence is being reset to blank" do
-    attachment = create(:file_attachment, price_in_pence: 999, order_url: "http://example.com")
-    attachment.price = ""
-    attachment.save!
-    attachment.reload
-    assert_nil attachment.price_in_pence
   end
 
   test "should not save a nil price as a zero price_in_pence" do
