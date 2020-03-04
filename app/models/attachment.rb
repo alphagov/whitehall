@@ -23,9 +23,6 @@ class Attachment < ApplicationRecord
     allow_blank: true,
     message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}",
   }
-  validates :price, numericality: {
-    allow_blank: true, greater_than: 0
-  }
   validates :unique_reference, length: { maximum: 255 }, allow_blank: true
 
   scope :with_filename, ->(basename) {
@@ -55,19 +52,6 @@ class Attachment < ApplicationRecord
       ends = Date.new(year + 1).strftime("%y") # %y gives last two digits of year
       "#{starts}-#{ends}"
     end
-  end
-
-  def price
-    if @price
-      @price
-    elsif price_in_pence
-      price_in_pence / 100.0
-    end
-  end
-
-  def price=(price_in_pounds)
-    @price = price_in_pounds
-    store_price_in_pence
   end
 
   def is_command_paper?
@@ -165,14 +149,6 @@ class Attachment < ApplicationRecord
   end
 
 private
-
-  def store_price_in_pence
-    self.price_in_pence = if price && price.to_s.empty?
-                            nil
-                          elsif price
-                            price.to_f * 100
-                          end
-  end
 
   def set_ordering
     self.ordering = attachable.next_ordering

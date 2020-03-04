@@ -53,7 +53,6 @@ private
       :unique_reference,
       :command_paper_number,
       :unnumbered_command_paper,
-      :price,
       :hoc_paper_number,
       :unnumbered_hoc_paper,
       :parliamentary_session,

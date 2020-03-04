@@ -61,43 +61,6 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.errors[:command_paper_number].include?(expected_message)
   end
 
-  test "should be valid if the price is nil" do
-    attachment = build(:file_attachment, price: nil)
-    assert attachment.valid?
-  end
-
-  test "should be valid if the price is blank" do
-    attachment = build(:file_attachment, price: "")
-    assert attachment.valid?
-  end
-
-  test "should not save a nil price as a zero price_in_pence" do
-    attachment = create(:file_attachment, price: nil)
-    attachment.reload
-    assert_nil attachment.price_in_pence
-  end
-
-  test "should not save a blank price as a zero price_in_pence" do
-    attachment = create(:file_attachment, price: "")
-    attachment.reload
-    assert_nil attachment.price_in_pence
-  end
-
-  test "should prefer the memoized price over price_in_pence" do
-    attachment = build(:file_attachment, price: "1.23", price_in_pence: 345)
-    assert_equal "1.23", attachment.price
-  end
-
-  test "should convert price_in_pence to price in pounds when a new price hasn't been set" do
-    attachment = build(:file_attachment, price_in_pence: 345)
-    assert_equal 3.45, attachment.price
-  end
-
-  test "should return nil if neither price nor price_in_pence are set" do
-    attachment = build(:file_attachment, price: nil, price_in_pence: nil)
-    assert_nil attachment.price
-  end
-
   test "should be valid without a unique_reference" do
     attachment = build(:file_attachment, unique_reference: nil)
     assert attachment.valid?

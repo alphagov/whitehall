@@ -116,7 +116,7 @@ private
     params.fetch(:attachment, {}).permit(
       :title, :locale, :isbn, :unique_reference,
       :command_paper_number, :unnumbered_command_paper, :hoc_paper_number,
-      :unnumbered_hoc_paper, :parliamentary_session, :price, :accessible,
+      :unnumbered_hoc_paper, :parliamentary_session, :accessible,
       :external_url,
       govspeak_content_attributes: %i[id body manually_numbered_headings],
       attachment_data_attributes: %i[file to_replace_id file_cache]
