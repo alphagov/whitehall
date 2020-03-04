@@ -421,7 +421,6 @@ cy:
         command_paper_number:
         hoc_paper_number:
         isbn:
-        order_url:
         price:
         title:
         unique_reference:
@@ -436,7 +435,6 @@ cy:
         command_paper_number:
         hoc_paper_number:
         isbn:
-        order_url:
         price:
         title:
         unique_reference:
@@ -449,7 +447,6 @@ cy:
       command_paper_number:
       hoc_paper_number:
       isbn:
-      order_url:
       price:
       title:
       unique_reference:
