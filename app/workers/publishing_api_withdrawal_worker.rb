@@ -6,8 +6,9 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
       .joins(:document)
       .where(documents: { content_id: content_id })
       .where(state: "withdrawn")
-      .pluck(:updated_at)
       .first
+      .unpublishing
+      .created_at
 
     Services.publishing_api.unpublish(
       content_id,
