@@ -15,7 +15,7 @@ require "sidekiq/testing"
 require "govuk-content-schema-test-helpers/test_unit"
 require "parallel_tests/test/runtime_logger"
 
-Dir[Rails.root.join("test/support/*.rb")].each { |f| require f }
+Dir[Rails.root.join("test/support/*.rb")].sort.each { |f| require f }
 
 Mocha.configure do |c|
   c.stubbing_non_existent_method = :prevent
