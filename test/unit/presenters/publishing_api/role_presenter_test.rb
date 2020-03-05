@@ -21,7 +21,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       document_type: "ministerial_role",
       locale: "en",
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "collections",
       public_updated_at: role.updated_at,
       routes: [
         {
@@ -68,7 +68,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
       document_type: "board_member_role",
       locale: "en",
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "collections",
       public_updated_at: role.updated_at,
       routes: [],
       redirects: [],
