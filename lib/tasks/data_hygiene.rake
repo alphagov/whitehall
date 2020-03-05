@@ -51,7 +51,7 @@ namespace :data_hygiene do
       next if speech.unmodifiable?
 
       speech.role_appointment = new_role_app
-      speech.save!
+      speech.save(validate: false)
     end
   end
 end
