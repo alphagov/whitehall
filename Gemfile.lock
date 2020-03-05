@@ -448,7 +448,8 @@ GEM
       rubocop (>= 0.72.0)
     rubocop-rspec (1.38.1)
       rubocop (>= 0.68.1)
-    ruby-graphviz (1.2.4)
+    ruby-graphviz (1.2.5)
+      rexml
     ruby-progressbar (1.10.1)
     ruby-rc4 (0.1.5)
     ruby-vips (2.0.17)
