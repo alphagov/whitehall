@@ -143,7 +143,7 @@ module PublishingApi
       end
 
       def featured_attachments
-        documents.map { |html| [{ content_type: "text/html", content: html }] }
+        []
       end
     end
 
@@ -208,7 +208,7 @@ module PublishingApi
       end
 
       def final_outcome_attachments
-        (final_outcome_documents || []).map { |html| [{ content_type: "text/html", content: html }] }
+        []
       end
     end
 
@@ -278,7 +278,7 @@ module PublishingApi
       end
 
       def attachments
-        (documents || []).map { |html| [{ content_type: "text/html", content: html }] }
+        []
       end
 
       def publication_date
