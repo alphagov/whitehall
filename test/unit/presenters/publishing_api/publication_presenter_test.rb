@@ -54,9 +54,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         attachments: [
           { attachment_type: "html", id: publication.attachments.first.slug, title: publication.attachments.first.title, url: publication.attachments.first.url, unnumbered_command_paper: false, unnumbered_hoc_paper: false },
         ],
-        featured_attachments: [
-          [{ content_type: "text/html", content: "<section class=\"attachment embedded\" id=\"attachment_#{publication.attachments.first.id}\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" tabindex=\"-1\" href=\"#{publication.attachments.first.url}\"><img alt=\"\" src=\"/government/assets/pub-cover-html.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"#{publication.attachments.first.url}\">#{publication.attachments.first.title}</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>" }],
-        ],
+        featured_attachments: [],
       },
     }
 

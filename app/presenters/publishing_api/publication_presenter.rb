@@ -102,7 +102,7 @@ module PublishingApi
     end
 
     def featured_attachments
-      documents.map { |html| [{ content_type: "text/html", content: html }] }
+      []
     end
 
     def attachments_for_current_locale
