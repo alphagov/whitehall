@@ -4,7 +4,7 @@
   <%= form.select :locale, options_for_locales(attachable.translated_locales), include_blank: 'All languages' %>
 <% end %>
 
-<%= form.text_field :isbn, label_text: "Print ISBN" %>
+<%= form.text_field :isbn, label_text: "ISBN" %>
 
 <%= form.text_field :unique_reference %>
 <div class="paper-number">

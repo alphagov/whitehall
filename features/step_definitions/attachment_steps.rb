@@ -92,7 +92,7 @@ end
 When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)"$/) do |title, isbn|
   click_on "Add new HTML attachment"
   fill_in "Title", with: title
-  fill_in "Print ISBN", with: isbn
+  fill_in "ISBN", with: isbn
   fill_in "Body", with: "Body"
   check "Manually numbered headings"
   click_on "Save"
