@@ -351,7 +351,8 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
       assert_details_attribute :public_feedback_documents, [attachments_double]
-      assert_details_attribute :public_feedback_attachments, []
+      assert_details_attribute :public_feedback_attachments,
+                               (consultation.public_feedback.attachments.map { |a| a.publishing_api_details[:id] })
     end
 
     test "public feedback publication date" do
@@ -418,7 +419,8 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :final_outcome_documents, [attachments_double]
-      assert_details_attribute :final_outcome_attachments, []
+      assert_details_attribute :final_outcome_attachments,
+                               (consultation.outcome.attachments.map { |a| a.publishing_api_details[:id] })
     end
 
     test "validity" do
@@ -462,7 +464,8 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :documents, [attachments_double]
-      assert_details_attribute :featured_attachments, []
+      assert_details_attribute :featured_attachments,
+                               (consultation.attachments.map { |a| a.publishing_api_details[:id] })
     end
 
     test "validity" do

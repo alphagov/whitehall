@@ -54,7 +54,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         attachments: [
           { attachment_type: "html", id: publication.attachments.first.slug, title: publication.attachments.first.title, url: publication.attachments.first.url, unnumbered_command_paper: false, unnumbered_hoc_paper: false },
         ],
-        featured_attachments: [],
+        featured_attachments: (publication.attachments.map { |a| a.publishing_api_details[:id] }),
       },
     }
 
