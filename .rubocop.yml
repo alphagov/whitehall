@@ -3,6 +3,10 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   Exclude:
     - 'bin/**/*'
