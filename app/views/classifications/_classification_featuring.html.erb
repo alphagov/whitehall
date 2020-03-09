@@ -1,10 +1,15 @@
 <%= content_tag_for(:article, classification_featuring, nil, class: "feature item-#{classification_featuring_counter}") do %>
+
+  <%
+    link_attributes ||= { class: 'govuk-link' }
+    link_attributes[:rel] = "external" if is_external?(classification_featuring.url)
+  %>
   <div class="content">
     <span class="image-holder">
-      <%= link_to classification_featuring.image_tag(:s465), classification_featuring.url, title: t("document.read", title: classification_featuring.title), class: 'img'%>
+      <%= link_to classification_featuring.image_tag(:s465), classification_featuring.url, title: t("document.read", title: classification_featuring.title), class: "img", aria: { hidden: true } %>
     </span>
     <div class="text">
-      <h2><%= link_to classification_featuring.title, classification_featuring.url, ({rel: 'external'} if is_external?(classification_featuring.url)) %></h2>
+      <h2><%= link_to classification_featuring.title, classification_featuring.url, link_attributes %></h2>
       <% unless classification_featuring.summary.blank? %>
         <p class="summary"><%= truncate(classification_featuring.summary, length: 160, separator: ' ') %></p>
       <% end %>
