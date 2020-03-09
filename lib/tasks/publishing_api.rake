@@ -1,6 +1,22 @@
 require "gds_api/publishing_api/special_route_publisher"
 
 namespace :publishing_api do
+  # this will be removed after being run once
+  desc "Republish all consultations with attachments"
+  task republish_consultations: :environment do
+    all_consultations = Document.where(document_type: "Consultation")
+    count = all_consultations.count
+    all_consultations.find_each.with_index do |d, i|
+      puts "#{i.fdiv(count) * 100}%"
+
+      # this matches 4599 documents on staging
+      next unless d.latest_edition
+      next unless d.latest_edition.attachments.count.positive? || (d.latest_edition.outcome && d.latest_edition.outcome.attachments.count.positive?) || (d.latest_edition.public_feedback && d.latest_edition.public_feedback.attachments.count.positive?)
+
+      PublishingApiDocumentRepublishingWorker.new.perform(d.id, true)
+    end
+  end
+
   desc "Publish special routes (eg /government)"
   task publish_special_routes: :environment do
     publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
