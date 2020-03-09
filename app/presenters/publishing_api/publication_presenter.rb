@@ -102,7 +102,7 @@ module PublishingApi
     end
 
     def featured_attachments
-      []
+      attachments_for_current_locale.map { |a| a.publishing_api_details[:id] }
     end
 
     def attachments_for_current_locale
