@@ -205,21 +205,6 @@ namespace :publishing_api do
     puts "Finished queuing items for Publishing API"
   end
 
-  desc "Republish all documents with official attachments"
-  task republish_documents_with_official_attachments: :environment do
-    attachment_scope = Attachment.where("unnumbered_command_paper = true OR command_paper_number != '' OR unnumbered_hoc_paper = true OR hoc_paper_number != ''")
-    edition_ids = attachment_scope.where(attachable_type: "Edition").distinct.pluck(:attachable_id)
-    response_ids = attachment_scope.where(attachable_type: "Response").distinct.pluck(:attachable_id)
-    edition_ids += Response.where(id: response_ids).pluck(:edition_id)
-    document_ids = Document.joins(:editions).where("editions.id": edition_ids).pluck(:document_id).uniq
-
-    puts "# Sending #{document_ids.count} documents to Publishing API"
-
-    document_ids.each do |doc_id|
-      PublishingApiDocumentRepublishingWorker.perform_async(doc_id)
-    end
-  end
-
   desc "Republish a document to the Publishing API"
   task :republish_document, [:slug] => :environment do |_, args|
     document = Document.find_by!(slug: args[:slug])
