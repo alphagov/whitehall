@@ -1,6 +1,28 @@
 require "gds_api/publishing_api/special_route_publisher"
 
 namespace :publishing_api do
+  # this will be removed after being run once
+  desc "Republish all publications with attachments"
+  task republish_publications: :environment do
+    all_publications = Document.where(document_type: "Publication")
+    count = all_publications.count
+    all_publications.find_each.with_index do |d, i|
+      puts "#{i.fdiv(count) * 100}%: #{d.id}"
+
+      # this matches 155746 documents on staging
+      next unless d.latest_edition
+      next unless d.latest_edition.attachments.count.positive?
+
+      # rubocop:disable Lint/SuppressedException
+      begin
+        PublishingApiDocumentRepublishingWorker.new.perform(d.id, true)
+      rescue GdsApi::HTTPUnprocessableEntity
+        # some really old documents fail to publish
+      end
+      # rubocop:enable Lint/SuppressedException
+    end
+  end
+
   desc "Publish special routes (eg /government)"
   task publish_special_routes: :environment do
     publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
