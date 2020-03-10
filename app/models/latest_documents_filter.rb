@@ -18,7 +18,7 @@ class LatestDocumentsFilter
   end
 
   def documents(params = {})
-    paginate_rummager_results(search_rummager(params))
+    paginate_rummager_results(search_results(params))
   end
 
 private
@@ -35,8 +35,8 @@ private
     Kaminari.paginate_array(results).page(page_number).per(page_size)
   end
 
-  def search_rummager(params)
-    SearchRummagerService.new.fetch_related_documents(params)["results"]
+  def search_results(params)
+    SearchRummagerService.new.fetch_related_documents(params)
   end
 
   class OrganisationFilter < LatestDocumentsFilter

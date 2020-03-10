@@ -38,7 +38,10 @@ class WorldLocationsController < PublicFacingController
       end
       format.atom do
         @documents = if Locale.current.english?
-                       fetch_documents
+                       SearchRummagerService.new.fetch_related_documents({
+                         count: 10,
+                         filter_world_locations: @world_location.slug,
+                       })
                      else
                        EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
                      end
@@ -47,14 +50,6 @@ class WorldLocationsController < PublicFacingController
   end
 
 private
-
-  def fetch_documents
-    filter_params = {
-      count: 10,
-      filter_world_locations: @world_location.slug,
-    }
-    SearchRummagerService.new.fetch_related_documents(filter_params)["results"]
-  end
 
   def load_world_location
     @world_location = WorldLocation.with_translations(I18n.locale).find(params[:id])

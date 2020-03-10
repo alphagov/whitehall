@@ -12,12 +12,12 @@ class SearchRummagerServiceTest < ActiveSupport::TestCase
 
   test "returns empty results array if topical event has no documents" do
     stub_any_search_to_return_no_results
-    assert_equal [], SearchRummagerService.new.fetch_related_documents(topical_params)["results"]
+    assert_equal [], SearchRummagerService.new.fetch_related_documents(topical_params)
   end
 
   test "fetches documents related to a topical event" do
     stub_any_search.to_return(body: rummager_response)
-    results = SearchRummagerService.new.fetch_related_documents(topical_params)["results"]
+    results = SearchRummagerService.new.fetch_related_documents(topical_params)
 
     assert_instance_of RummagerDocumentPresenter, results.first
     assert_equal 4, results.count

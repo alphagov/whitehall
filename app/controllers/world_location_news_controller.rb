@@ -41,7 +41,7 @@ private
 
   def fetch_documents(filter_params = {})
     filter_params[:filter_world_locations] = @world_location.slug
-    SearchRummagerService.new.fetch_related_documents(filter_params)["results"]
+    SearchRummagerService.new.fetch_related_documents(filter_params)
   end
 
   def announcement_document_types

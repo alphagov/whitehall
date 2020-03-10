@@ -1,17 +1,17 @@
 class SearchRummagerService
   def fetch_related_documents(filter_params = {})
-    options = default_search_options.merge(filter_params)
-
-    Rails.cache.fetch(options, expires_in: 5.minutes) do
-      search_response = Whitehall.search_client.search(options)
-      search_response["results"].map! { |res| RummagerDocumentPresenter.new(res) }
-      search_response
-    end
+    search_params = default_search_params.merge(filter_params)
+    Rails.cache.fetch(search_params, expires_in: 5.minutes) { search_results(search_params) }
   end
 
 private
 
-  def default_search_options
+  def search_results(search_params)
+    results = Whitehall.search_client.search(search_params)["results"]
+    results.map! { |res| RummagerDocumentPresenter.new(res) }
+  end
+
+  def default_search_params
     {
       order: "-public_timestamp",
       count: 1000,

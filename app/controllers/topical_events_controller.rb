@@ -17,10 +17,10 @@ class TopicalEventsController < ClassificationsController
     set_expiry 5.minutes
     respond_to do |format|
       format.html do
-        @recently_changed_documents = find_documents(count: 3)["results"]
+        @recently_changed_documents = find_documents(count: 3)
       end
       format.atom do
-        @recently_changed_documents = find_documents(count: 10)["results"]
+        @recently_changed_documents = find_documents(count: 10)
       end
     end
   end

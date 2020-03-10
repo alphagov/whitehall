@@ -10,14 +10,11 @@ module SearchRummagerHelper
   end
 
   def search_rummager_service_stub(search_params)
-    results = {}
-    results["results"] = processed_rummager_documents
-
     SearchRummagerService
       .any_instance
       .expects(:fetch_related_documents)
       .with(search_params)
-      .returns(results)
+      .returns(processed_rummager_documents)
   end
 
   def attributes(documents_object)
