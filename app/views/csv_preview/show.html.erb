@@ -22,7 +22,7 @@
 
     <%- end -%>
     <div class="return">
-      <p><%= link_to "See more information about #{with_this_determiner(@edition.display_type.downcase)}", public_document_path(@edition) %></p>
+      <p><%= link_to "See more information about #{with_this_determiner(@edition.display_type.downcase)}", public_document_url(@edition) %></p>
     </div>
   </div>
 </div>
