@@ -10,6 +10,19 @@ class AttachmentValidator < ActiveModel::Validator
     check_format_of_command_paper_number(attachment)
   end
 
+  def command_paper_number_valid?(number)
+    valid_prefixes = Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map { |prefix| Regexp.escape(prefix) }
+    command_paper_number_regex = %r{
+      \A        # beginning of string
+      (#{valid_prefixes.join('|')}) # all allowed prefixes
+      \s        # single space
+      \d+       # number
+      (-[IV]+)? # optional Roman numeral suffix
+      \z        # end of string
+    }x
+    number.match(command_paper_number_regex)
+  end
+
 private
 
   def check_unnumbered_command_papers_dont_have_numbers(attachment)
@@ -69,16 +82,9 @@ private
 
   def check_format_of_command_paper_number(attachment)
     number = attachment.command_paper_number
-    valid_prefixes = Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map { |prefix| Regexp.escape(prefix) }
-    command_paper_number_regex = %r{
-      \A        # beginning of string
-      (#{valid_prefixes.join('|')}) # all allowed prefixes
-      \s        # single space
-      \d+       # number
-      (-[IV]+)? # optional Roman numeral suffix
-      \z        # end of string
-    }x
-    if number.present? && (number !~ command_paper_number_regex)
+    return if number.blank?
+
+    unless command_paper_number_valid?(number)
       attachment.errors[:command_paper_number] << "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}, followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
     end
   end
