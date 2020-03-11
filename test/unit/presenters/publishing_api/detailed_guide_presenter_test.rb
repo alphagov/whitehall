@@ -58,11 +58,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
           topics: [],
         },
         political: false,
-        government: {
-          title: government.name,
-          slug: government.slug,
-          current: government.current?,
-        },
         related_mainstream_content: [],
         emphasised_organisations: detailed_guide.lead_organisations.map(&:content_id),
         brexit_no_deal_notice: [],
@@ -76,6 +71,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       policy_areas: detailed_guide.topics.map(&:content_id),
       related_guides: [],
       related_mainstream_content: [],
+      government: [government.content_id],
     }
     presented_item = present(detailed_guide)
 
@@ -158,13 +154,8 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     presented_item = present(detailed_guide)
     details = presented_item.content[:details]
 
-    expected_government = {
-      title: government.name,
-      slug: government.slug,
-      current: government.current?,
-    }
     assert_equal details[:political], true
-    assert_equal details[:government], expected_government
+    assert_equal presented_item.links[:government][0], government.content_id
   end
 
   test "DetailedGuide presents related_guides correctly" do

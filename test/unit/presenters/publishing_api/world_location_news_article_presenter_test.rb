@@ -195,7 +195,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterCurrentGovernmentTest < Ac
   setup do
     # Goverments are not explicitly associated with an Edition.
     # The Government is determined based on date of publication.
-    create(
+    @current_government = create(
       :current_government,
       name: "The Current Government",
       slug: "the-current-government",
@@ -207,12 +207,8 @@ class PublishingApi::WorldLocationNewsArticlePresenterCurrentGovernmentTest < Ac
 
   test "presents a current government" do
     assert_equal(
-      {
-        "title": "The Current Government",
-        "slug": "the-current-government",
-        "current": true,
-      },
-      @presented_world_location_news_article.content[:details][:government],
+      @current_government.content_id,
+      @presented_world_location_news_article.links.dig(:government, 0),
     )
   end
 end
@@ -222,7 +218,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterPreviousGovernmentTest < A
     # Goverments are not explicitly associated with an Edition.
     # The Government is determined based on date of publication.
     create(:current_government)
-    previous_government = create(
+    @previous_government = create(
       :previous_government,
       name: "A Previous Government",
       slug: "a-previous-government",
@@ -230,19 +226,15 @@ class PublishingApi::WorldLocationNewsArticlePresenterPreviousGovernmentTest < A
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
       create(
         :world_location_news_article,
-        first_published_at: previous_government.start_date + 1.day,
+        first_published_at: @previous_government.start_date + 1.day,
       ),
     )
   end
 
   test "presents a previous government" do
     assert_equal(
-      {
-        "title": "A Previous Government",
-        "slug": "a-previous-government",
-        "current": false,
-      },
-      @presented_world_location_news_article.content[:details][:government],
+      @previous_government.content_id,
+      @presented_world_location_news_article.links.dig(:government, 0),
     )
   end
 end
