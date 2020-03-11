@@ -314,3 +314,21 @@ class PublishingApi::WorldLocationNewsArticlePlaceholderImageTest < ActiveSuppor
     assert_equal expected_placeholder_image, @presented_wlna.content[:details][:image]
   end
 end
+
+class PublishingApi::WorldLocationNewsArticlePresenterAttachmentTest < ActiveSupport::TestCase
+  setup do
+    create(:current_government)
+    @attachment = create(:file_attachment)
+    @wlna = create(:world_location_news_article, attachments: [@attachment])
+    @presented_wlna = PublishingApi::WorldLocationNewsArticlePresenter.new(@wlna)
+  end
+
+  test "it presentes attachments" do
+    assert_equal @presented_wlna.content.dig(:details, :attachments, 0, :id),
+                 @attachment.publishing_api_attachment_id
+  end
+
+  test "its attachments are valid against the schema" do
+    assert_valid_against_schema @presented_wlna.content, "world_location_news_article"
+  end
+end

@@ -88,23 +88,30 @@ class Attachment < ApplicationRecord
   end
 
   def publishing_api_details
-    {
-      # fields in common across "file_attachment_asset",
-      # "html_attachment_asset", "external_attachment_asset"
+    # fields in common across "file_attachment_asset",
+    # "html_attachment_asset", "external_attachment_asset" schemas
+    attachment_fields = {
       attachment_type: readable_type.downcase,
       id: publishing_api_attachment_id || id.to_s,
       locale: locale,
       title: title,
       url: url,
-      # "publication_attachment_asset" fields
-      command_paper_number: command_paper_number,
-      hoc_paper_number: hoc_paper_number,
-      isbn: isbn,
-      parliamentary_session: nil,
-      unique_reference: unique_reference,
-      unnumbered_command_paper: unnumbered_command_paper?,
-      unnumbered_hoc_paper: unnumbered_hoc_paper?,
-    }.merge(publishing_api_details_for_format).compact
+    }
+
+    if attachable.allows_attachment_references?
+      # fields just for "publication_attachment_asset" schema
+      attachment_fields.merge!(
+        command_paper_number: command_paper_number,
+        hoc_paper_number: hoc_paper_number,
+        isbn: isbn,
+        parliamentary_session: nil,
+        unique_reference: unique_reference,
+        unnumbered_command_paper: unnumbered_command_paper?,
+        unnumbered_hoc_paper: unnumbered_hoc_paper?,
+      )
+    end
+
+    attachment_fields.merge(publishing_api_details_for_format).compact
   end
 
   def publishing_api_details_for_format
