@@ -359,7 +359,7 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
   setup do
     # Goverments are not explicitly associated with an Edition.
     # The Government is determined based on date of publication.
-    create(
+    @current_government = create(
       :current_government,
       name: "The Current Government",
       slug: "the-current-government",
@@ -371,12 +371,8 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
 
   test "presents a current government" do
     assert_equal(
-      {
-        "title": "The Current Government",
-        "slug": "the-current-government",
-        "current": true,
-      },
-      @presented_document_collection.content[:details][:government],
+      @current_government.content_id,
+      @presented_document_collection.links.dig(:government, 0),
     )
   end
 end
@@ -386,7 +382,7 @@ class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveS
     # Goverments are not explicitly associated with an Edition.
     # The Government is determined based on date of publication.
     create(:current_government)
-    previous_government = create(
+    @previous_government = create(
       :previous_government,
       name: "A Previous Government",
       slug: "a-previous-government",
@@ -394,19 +390,15 @@ class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveS
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       create(
         :document_collection,
-        first_published_at: previous_government.start_date + 1.day,
+        first_published_at: @previous_government.start_date + 1.day,
       ),
     )
   end
 
   test "presents a previous government" do
     assert_equal(
-      {
-        "title": "A Previous Government",
-        "slug": "a-previous-government",
-        "current": false,
-      },
-      @presented_document_collection.content[:details][:government],
+      @previous_government.content_id,
+      @presented_document_collection.links.dig(:government, 0),
     )
   end
 end

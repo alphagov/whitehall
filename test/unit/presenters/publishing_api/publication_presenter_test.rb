@@ -6,7 +6,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "publication presentation includes the correct values" do
-    government = create(:government)
+    create(:government)
     statistical_data_set = create(:published_statistical_data_set)
     publication = create(:published_publication,
                          title: "Publication title",
@@ -45,11 +45,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         ],
         emphasised_organisations: publication.lead_organisations.map(&:content_id),
         political: false,
-        government: {
-          title: government.name,
-          slug: government.slug,
-          current: government.current?,
-        },
         brexit_no_deal_notice: [],
         attachments: [
           { attachment_type: "html", id: publication.attachments.first.slug, title: publication.attachments.first.title, url: publication.attachments.first.url, unnumbered_command_paper: false, unnumbered_hoc_paper: false },

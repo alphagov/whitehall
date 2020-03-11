@@ -14,20 +14,6 @@ module PublishingApi
       def call
         {
           political: item.political?,
-          government: government,
-        }
-      end
-
-    private
-
-      def government
-        gov = item.government
-        return nil unless gov
-
-        {
-          title: gov.name,
-          slug: gov.slug,
-          current: gov.current?,
         }
       end
     end
