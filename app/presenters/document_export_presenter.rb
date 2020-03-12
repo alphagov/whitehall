@@ -148,19 +148,23 @@ private
   def present_unpublishing(edition)
     return unless edition.unpublishing
 
+    unpublishing_data = {
+      unpublishing_reason: edition.unpublishing.unpublishing_reason.name,
+      alternative_path: edition.unpublishing.alternative_path,
+    }
+
     edition
       .unpublishing
       .as_json(
         only: %i[
           id
           explanation
-          alternative_url
           redirect
           created_at
           updated_at
         ],
       )
-      .merge(unpublishing_reason: edition.unpublishing.unpublishing_reason.name)
+      .merge(unpublishing_data)
   end
 
   def present_user(user)
