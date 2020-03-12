@@ -6,8 +6,8 @@ namespace :publishing_api do
   task republish_publications: :environment do
     all_publications = Document.where(document_type: "Publication")
     count = all_publications.count
-    all_publications.find_each.with_index do |d, i|
-      puts "#{i.fdiv(count) * 100}%: #{d.id}"
+    all_publications.find_each(start: 128025).with_index do |d, i|
+      puts "#{i.fdiv(count) * 100 + 9.788097334775}%: #{d.id}"
 
       # this matches 155746 documents on staging
       next unless d.latest_edition
@@ -16,8 +16,8 @@ namespace :publishing_api do
       # rubocop:disable Lint/SuppressedException
       begin
         PublishingApiDocumentRepublishingWorker.new.perform(d.id, true)
-      rescue GdsApi::HTTPUnprocessableEntity
-        # some really old documents fail to publish
+      rescue StandardError
+        # some really old documents are invalid - even by whitehall's database constraints!
       end
       # rubocop:enable Lint/SuppressedException
     end
