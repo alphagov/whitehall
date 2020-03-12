@@ -58,9 +58,14 @@ class AttachmentTest < ActiveSupport::TestCase
     test "should be invalid when the command paper number starts with '#{prefix}'" do
       attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
       assert_not attachment.valid?
-      expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
+      expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}, followed by a space"
       assert attachment.errors[:command_paper_number].include?(expected_message)
     end
+  end
+
+  test "should be invalid when the command paper number has no space after the prefix" do
+    attachment = build(:file_attachment, command_paper_number: "C.1234")
+    assert_not attachment.valid?
   end
 
   test "should be valid without a unique_reference" do
