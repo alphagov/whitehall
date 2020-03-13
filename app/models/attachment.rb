@@ -92,7 +92,7 @@ class Attachment < ApplicationRecord
     # "html_attachment_asset", "external_attachment_asset" schemas
     attachment_fields = {
       attachment_type: readable_type.downcase,
-      id: publishing_api_attachment_id || id.to_s,
+      id: id.to_s,
       locale: locale,
       title: title,
       url: url,
@@ -136,10 +136,6 @@ class Attachment < ApplicationRecord
 
   def readable_type
     ""
-  end
-
-  def publishing_api_attachment_id
-    raise NotImplementedError, "Subclasses must implement the publishing_api_attachment_id method"
   end
 
   def url

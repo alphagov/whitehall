@@ -421,7 +421,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     test "attachment" do
       attachment = corporate_information_page.attachments.first
       assert_equal presented_content.dig(:details, :attachments, 0, :id),
-                   attachment.publishing_api_attachment_id
+                   attachment.id.to_s
     end
 
     test "validity" do

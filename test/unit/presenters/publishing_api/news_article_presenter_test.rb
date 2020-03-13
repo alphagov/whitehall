@@ -388,7 +388,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "attachment" do
       assert_equal presented_content.dig(:details, :attachments, 0, :id),
-                   news_article.attachments.first.publishing_api_attachment_id
+                   news_article.attachments.first.id.to_s
     end
 
     test "validity" do

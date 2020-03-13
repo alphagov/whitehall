@@ -48,10 +48,6 @@ class FileAttachment < Attachment
     }
   end
 
-  def publishing_api_attachment_id
-    filename
-  end
-
 private
 
   def alternative_format_contact_email

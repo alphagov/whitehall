@@ -239,6 +239,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     presented_item = present(detailed_guide)
     assert_valid_against_schema(presented_item.content, "detailed_guide")
     assert_equal presented_item.content.dig(:details, :attachments, 0, :id),
-                 detailed_guide.attachments.first.publishing_api_attachment_id
+                 detailed_guide.attachments.first.id.to_s
   end
 end

@@ -325,7 +325,7 @@ class PublishingApi::WorldLocationNewsArticlePresenterAttachmentTest < ActiveSup
 
   test "it presentes attachments" do
     assert_equal @presented_wlna.content.dig(:details, :attachments, 0, :id),
-                 @attachment.publishing_api_attachment_id
+                 @attachment.id.to_s
   end
 
   test "its attachments are valid against the schema" do
