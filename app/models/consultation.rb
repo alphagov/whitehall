@@ -60,6 +60,10 @@ class Consultation < Publicationesque
   # closes. We need to republish the consultation at these times to ensure
   # changes are reflected in any external systems.
   after_save do
+    schedule_republishing_workers
+  end
+
+  def schedule_republishing_workers
     if opening_at.try(:future?)
       PublishingApiDocumentRepublishingWorker
         .perform_at(opening_at, document.id)
