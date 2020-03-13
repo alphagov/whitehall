@@ -4,16 +4,27 @@ class EmailSignupsController < PublicFacingController
       redirect_to email_alert_frontend_signup
     elsif feed_url.match?(%r{/government/(publications|announcements|statistics)\.atom})
       redirect_to feed_url.sub(".atom", "")
+    elsif feed_url.match?(%r{/world/.*\.atom$})
+      @email_signup = WorldLocationEmailSignup.new(feed_url)
     else
       redirect_to "/"
+    end
+  end
+
+  def create
+    @email_signup = WorldLocationEmailSignup.new(feed_url)
+
+    if @email_signup.valid?
+      redirect_to @email_signup.signup_url
+    else
+      render action: "new"
     end
   end
 
 private
 
   def non_finder_url
-    feed_url.match?(%r{/government/(organisations|ministers|people|topical-events)/.*\.atom$}) ||
-      feed_url.match?(%r{/world/.*\.atom$})
+    feed_url.match?(%r{/government/(organisations|ministers|people|topical-events)/.*\.atom$})
   end
 
   def feed_url

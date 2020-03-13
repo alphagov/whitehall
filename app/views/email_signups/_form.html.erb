@@ -1,7 +1,7 @@
-<%= form_for email_signup, html: { class: "signup-form" } do |form| %>
+<%= form_for :email_signup, html: { class: "signup-form" }, url: { action: "create" } do |form| %>
   <%= form.hidden_field :feed %>
 
-  <p>You're signing up to all alerts for <strong><%= email_signup.description %></strong></p>
+  <p>You're signing up to all alerts for <strong><%= email_signup.name %></strong></p>
 
   <div class="submit">
     <%= button_tag 'Create subscription' %>
