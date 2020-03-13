@@ -85,7 +85,7 @@ private
     return if number.blank?
 
     unless command_paper_number_valid?(number)
-      attachment.errors[:command_paper_number] << "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}, followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+      attachment.errors[:command_paper_number] << "Command paper number invalid"
     end
   end
 end
