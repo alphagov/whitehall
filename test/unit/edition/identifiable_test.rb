@@ -91,6 +91,14 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert publication.linkable?
   end
 
+  test "should be linkable if scheduled to be published within 5 seconds" do
+    date = Date.new(2010, 1, 1, 9)
+    publication = create(:scheduled_publication, scheduled_publication: date)
+    Timecop.freeze(date - 5.seconds) do
+      assert publication.linkable?
+    end
+  end
+
   test "update slug if title changes on draft edition" do
     publication = create(:draft_publication, title: "This is my publication")
     publication.update!(title: "Another thing")

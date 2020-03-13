@@ -100,6 +100,15 @@ class Document < ApplicationRecord
     )
   end
 
+  # this is to support linking to documents which haven't get been published,
+  # but will be published within 5 seconds
+  def published_very_soon?
+    Edition
+      .scheduled
+      .where("scheduled_publication <= ?", 5.seconds.from_now)
+      .exists?(document_id: id)
+  end
+
   def first_published_date
     published_edition.first_public_at if published?
   end
