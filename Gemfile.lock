@@ -455,7 +455,7 @@ GEM
     ruby-rc4 (0.1.5)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
-    rubyzip (2.2.0)
+    rubyzip (2.3.0)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
     safe_yaml (1.0.5)
