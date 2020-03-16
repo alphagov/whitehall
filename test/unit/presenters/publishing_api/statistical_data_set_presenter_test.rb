@@ -186,6 +186,23 @@ class PublishingApi::StatisticalDataSetPresenterMinorUpdateTypeTest < ActiveSupp
   end
 end
 
+class PublishingApi::StatisticalDataSetPresenterAttachmentTest < ActiveSupport::TestCase
+  setup do
+    @statistical_data_set = create(:statistical_data_set, :with_file_attachment)
+    @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(@statistical_data_set)
+  end
+
+  test "it presentes attachments" do
+    attachment = @statistical_data_set.attachments.first
+    assert_equal @presented_statistical_data_set.content.dig(:details, :attachments, 0, :id),
+                 attachment.publishing_api_attachment_id
+  end
+
+  test "its attachments are valid against the schema" do
+    assert_valid_against_schema @presented_statistical_data_set.content, "statistical_data_set"
+  end
+end
+
 class PublishingApi::StatisticalDataSetPresenterUpdateTypeArgumentTest < ActiveSupport::TestCase
   setup do
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(

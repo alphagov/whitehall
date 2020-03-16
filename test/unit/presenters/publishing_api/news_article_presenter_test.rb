@@ -380,4 +380,19 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal "major", presented_news_article.update_type
     end
   end
+
+  class NewsArticleWithAttachments < TestCase
+    setup do
+      self.news_article = create(:news_article, :with_file_attachment)
+    end
+
+    test "attachment" do
+      assert_equal presented_content.dig(:details, :attachments, 0, :id),
+                   news_article.attachments.first.publishing_api_attachment_id
+    end
+
+    test "validity" do
+      assert_valid_against_schema presented_content, "news_article"
+    end
+  end
 end
