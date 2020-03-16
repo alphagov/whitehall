@@ -232,4 +232,13 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     presented_item = present(detailed_guide)
     assert_equal "http://www.example.com/foo.jpg", presented_item.content[:details][:image][:url]
   end
+
+  test "DetailedGuide presents attachments" do
+    detailed_guide = create(:published_detailed_guide, :with_file_attachment)
+
+    presented_item = present(detailed_guide)
+    assert_valid_against_schema(presented_item.content, "detailed_guide")
+    assert_equal presented_item.content.dig(:details, :attachments, 0, :id),
+                 detailed_guide.attachments.first.publishing_api_attachment_id
+  end
 end

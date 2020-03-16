@@ -411,4 +411,21 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_valid_against_schema presented_content, "corporate_information_page"
     end
   end
+
+  class CorporateInformationPageWithAttachments < TestCase
+    setup do
+      self.corporate_information_page = create(:corporate_information_page,
+                                               attachments: [create(:file_attachment)])
+    end
+
+    test "attachment" do
+      attachment = corporate_information_page.attachments.first
+      assert_equal presented_content.dig(:details, :attachments, 0, :id),
+                   attachment.publishing_api_attachment_id
+    end
+
+    test "validity" do
+      assert_valid_against_schema presented_content, "corporate_information_page"
+    end
+  end
 end
