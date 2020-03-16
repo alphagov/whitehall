@@ -6,7 +6,7 @@
   %>
   <div class="content">
     <span class="image-holder">
-      <%= link_to classification_featuring.image_tag(:s465), classification_featuring.url, title: t("document.read", title: classification_featuring.title), class: "img", aria: { hidden: true } %>
+      <%= link_to classification_featuring.image_tag(:s465), classification_featuring.url, title: t("document.read", title: classification_featuring.title), class: "img", aria: { hidden: true }, tabindex: "-1" %>
     </span>
     <div class="text">
       <h2><%= link_to classification_featuring.title, classification_featuring.url, link_attributes %></h2>

@@ -246,6 +246,36 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "49784789be767f198bf46b4533fc569d006cd147a753d401c97ef3e381a14cf3",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\", :aria => ({ :hidden => true }), :tabindex => \"-1\")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "topical_events/show",
+          "line": 58,
+          "file": "app/views/topical_events/show.html.erb",
+          "rendered": {
+            "name": "classifications/_classification_featuring",
+            "file": "app/views/classifications/_classification_featuring.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "4ab694e969b0cd5569812723ed4985088c9a4e2a8e241316bb97c26325cab992",
       "check_name": "CrossSiteScripting",
@@ -719,6 +749,6 @@
       "note": "This comes from a new model so we trust the data."
     }
   ],
-  "updated": "2020-03-13 15:24:32 +0000",
+  "updated": "2020-03-16 18:18:34 +0000",
   "brakeman_version": "4.8.0"
 }
