@@ -272,11 +272,11 @@ module Whitehall
 
       def normalize(document)
         document = document.stringify_keys
-        document.each_with_object({}) do |(k, v), memo|
-          memo[k] = case v
-                    when String, Array, Integer, TrueClass, FalseClass then v
-                    else v.to_s
-                    end
+        document.transform_values do |v|
+          case v
+          when String, Array, Integer, TrueClass, FalseClass then v
+          else v.to_s
+          end
         end
       end
     end

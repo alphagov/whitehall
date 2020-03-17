@@ -78,8 +78,8 @@ private
   def attachment_variants(attachment)
     return unless attachment.try(:attachment_data)
 
-    attachment.attachment_data.file.versions.each_with_object({}) do |(variant, details), memo|
-      memo[variant] = {
+    attachment.attachment_data.file.versions.transform_values do |details|
+      {
         content_type: details.content_type,
         url: details.url,
       }
