@@ -39,7 +39,7 @@
           <%= govspeak_to_html @topical_event.description %>
           <% if @topical_event.about_page.present? %>
             <p class="read-more">
-              <%= link_to @topical_event.about_page.read_more_link_text, topical_event_about_pages_path(@topical_event) %>
+              <%= link_to @topical_event.about_page.read_more_link_text, topical_event_about_pages_path(@topical_event), class: "govuk-link" %>
             </p>
           <% end %>
           <% if @topical_event.social_media_accounts.any? %>
@@ -81,7 +81,7 @@
             <ol class="document-list">
               <% @detailed_guides.each do |detailed_guide| %>
                 <%= content_tag_for :li, detailed_guide, class: 'document-row' do %>
-                  <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide) %></h2>
+                  <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide), class: "govuk-link" %></h2>
                 <% end %>
               <% end %>
             </ol>
@@ -104,7 +104,7 @@
               <% @topical_event.lead_organisations.each do |organisation| %>
                 <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
                   <%= link_to organisation_path(organisation),
-                        class: logo_classes(organisation: organisation, stacked: true) do %>
+                        class: "#{logo_classes(organisation: organisation, stacked: true)} govuk-link" do %>
                     <span><%= organisation_logo_name(organisation) %></span>
                   <% end %>
                 <% end %>

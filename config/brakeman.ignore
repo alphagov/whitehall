@@ -1,6 +1,36 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "063ee511c443d2e68ca12804d175ea6feaa8fccce2ba71bc5f0f022943ae9d9f",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\", :aria => ({ :hidden => true }))",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "topical_events/show",
+          "line": 58,
+          "file": "app/views/topical_events/show.html.erb",
+          "rendered": {
+            "name": "classifications/_classification_featuring",
+            "file": "app/views/classifications/_classification_featuring.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "0b14d4ff3460aca1ffc72f3408993c9a20264f454f291c3cbd92e1f9ff7239bc",
@@ -15,7 +45,7 @@
           "type": "controller",
           "class": "Admin::OrganisationsController",
           "method": "features",
-          "line": 57,
+          "line": 59,
           "file": "app/controllers/admin/organisations_controller.rb",
           "rendered": {
             "name": "admin/organisations/features",
@@ -147,7 +177,7 @@
           "type": "controller",
           "class": "Admin::EditionsController",
           "method": "show",
-          "line": 87,
+          "line": 82,
           "file": "app/controllers/admin/editions_controller.rb",
           "rendered": {
             "name": "admin/editions/show",
@@ -180,7 +210,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 26,
+      "line": 28,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l, :class => \"govuk-link\")\n end.to_sentence",
       "render_path": [
@@ -213,6 +243,36 @@
       "user_input": "Organisation.friendly.find(params[:organisation_id])",
       "confidence": "Weak",
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "49784789be767f198bf46b4533fc569d006cd147a753d401c97ef3e381a14cf3",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\", :aria => ({ :hidden => true }), :tabindex => \"-1\")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "topical_events/show",
+          "line": 58,
+          "file": "app/views/topical_events/show.html.erb",
+          "rendered": {
+            "name": "classifications/_classification_featuring",
+            "file": "app/views/classifications/_classification_featuring.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -378,6 +438,36 @@
       "note": "We check that the params[:id] is valid before rendering the template."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "7be1721c2118dede65d77aabdab49a1e048e7c7110f9a69821edb3306b657417",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, :class => \"govuk-link\", :rel => \"external\")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "topical_events/show",
+          "line": 58,
+          "file": "app/views/topical_events/show.html.erb",
+          "rendered": {
+            "name": "classifications/_classification_featuring",
+            "file": "app/views/classifications/_classification_featuring.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
+    },
+    {
       "warning_type": "Remote Code Execution",
       "warning_code": 110,
       "fingerprint": "9ae68e59cfee3e5256c0540dadfeb74e6b72c91997fdb60411063a6e8518144a",
@@ -408,7 +498,7 @@
           "type": "controller",
           "class": "Admin::WorldLocationsController",
           "method": "features",
-          "line": 29,
+          "line": 28,
           "file": "app/controllers/admin/world_locations_controller.rb",
           "rendered": {
             "name": "admin/world_locations/features",
@@ -451,7 +541,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 29,
+      "line": 31,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
       "render_path": [
@@ -635,7 +725,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/classifications/_classification_featuring.html.erb",
-      "line": 4,
+      "line": 9,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\")",
       "render_path": [
@@ -659,6 +749,6 @@
       "note": "This comes from a new model so we trust the data."
     }
   ],
-  "updated": "2019-11-05 09:14:39 +0000",
-  "brakeman_version": "4.7.0"
+  "updated": "2020-03-16 18:18:34 +0000",
+  "brakeman_version": "4.8.0"
 }

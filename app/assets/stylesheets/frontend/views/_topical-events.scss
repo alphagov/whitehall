@@ -53,6 +53,10 @@
         float: left;
         padding: 0 $gutter-half $gutter-half;
         min-height: 90px;
+
+        .organisation-logo:focus {
+          padding-bottom: govuk-spacing(1);
+        }
       }
 
       .non-govuk {
