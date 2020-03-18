@@ -85,7 +85,7 @@ private
     return if number.blank?
 
     unless command_paper_number_valid?(number)
-      attachment.errors[:command_paper_number] << "Command paper number invalid"
+      attachment.errors[:command_paper_number] << "invalid"
     end
   end
 end

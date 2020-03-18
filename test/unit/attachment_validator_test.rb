@@ -81,7 +81,7 @@ class AttachmentValidatorTest < ActiveSupport::TestCase
     test "should be invalid when the command paper number starts with '#{prefix}'" do
       attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
       @validator.validate(attachment)
-      assert attachment.errors[:command_paper_number].include?("Command paper number invalid")
+      assert attachment.errors[:command_paper_number].include?("invalid")
     end
   end
 
