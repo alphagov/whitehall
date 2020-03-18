@@ -47,6 +47,20 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
+  ["C.", "Cd.", "Cmd.", "Cmnd.", "Cm."].each do |prefix|
+    test "should be valid when the Command paper number starts with '#{prefix}'" do
+      attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
+      assert attachment.valid?
+    end
+  end
+
+  test "should be invalid when the command paper number starts with an unrecognised prefix" do
+    attachment = build(:file_attachment, command_paper_number: "NA 1234")
+    assert_not attachment.valid?
+    expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
+    assert attachment.errors[:command_paper_number].include?(expected_message)
+  end
+
   test "should be valid without a unique_reference" do
     attachment = build(:file_attachment, unique_reference: nil)
     assert attachment.valid?
