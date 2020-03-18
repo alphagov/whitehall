@@ -137,7 +137,7 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubi (1.9.0)
-    et-orbi (1.2.3)
+    et-orbi (1.2.4)
       tzinfo
     execjs (2.7.0)
     factory_bot (5.1.1)
