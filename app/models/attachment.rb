@@ -12,17 +12,12 @@ class Attachment < ApplicationRecord
   before_save :nilify_locale_if_blank
   before_save :prevent_saving_of_abstract_base_class
 
-  VALID_COMMAND_PAPER_NUMBER_PREFIXES = ["C.", "Cd.", "Cmd.", "Cmnd.", "Cm."].freeze
+  VALID_COMMAND_PAPER_NUMBER_PREFIXES = ["CP", "C.", "Cd.", "Cmd.", "Cmnd.", "Cm."].freeze
 
   validates_with AttachmentValidator
   validates :attachable, presence: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :isbn, isbn_format: true, allow_blank: true
-  validates :command_paper_number, format: {
-    with: /\A(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
-    allow_blank: true,
-    message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}",
-  }
   validates :unique_reference, length: { maximum: 255 }, allow_blank: true
 
   scope :with_filename, ->(basename) {
