@@ -8,7 +8,7 @@ def integration_or_staging?
   ENV.fetch("GOVUK_WEBSITE_ROOT") =~ /integration|staging/
 end
 
-every :day, at: ["3am", "12:45pm"], roles: [:admin] do
+every :day, at: ["3am", "12:45pm"], roles: [:backend] do
   rake "export:mappings"
 end
 
