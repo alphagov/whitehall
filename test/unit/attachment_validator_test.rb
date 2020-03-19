@@ -68,4 +68,43 @@ class AttachmentValidatorTest < ActiveSupport::TestCase
     @validator.validate(attachment)
     assert_error_message %r[^cannot be set on a House of Commons paper], attachment.errors[:command_paper_number]
   end
+
+  ["C.", "Cd.", "Cmd.", "Cmnd.", "Cm.", "CP"].each do |prefix|
+    test "should be valid when the Command paper number starts with '#{prefix}'" do
+      attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
+      @validator.validate(attachment)
+      assert attachment.errors[:command_paper_number].empty?
+    end
+  end
+
+  ["NA", "C", "Cd ", "CM.", "CP."].each do |prefix|
+    test "should be invalid when the command paper number starts with '#{prefix}'" do
+      attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
+      @validator.validate(attachment)
+      expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}, followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+      assert attachment.errors[:command_paper_number].include?(expected_message)
+    end
+  end
+
+  ["-I", "-IV", "-VIII"].each do |suffix|
+    test "should be valid when the command paper number ends with '#{suffix}'" do
+      attachment = build(:file_attachment, command_paper_number: "C. 1234#{suffix}")
+      @validator.validate(attachment)
+      assert attachment.errors[:command_paper_number].empty?
+    end
+  end
+
+  ["-i", "-Iv", "VIII"].each do |suffix|
+    test "should be invalid when the command paper number ends with '#{suffix}'" do
+      attachment = build(:file_attachment, command_paper_number: "C. 1234#{suffix}")
+      @validator.validate(attachment)
+      assert_not attachment.errors[:command_paper_number].empty?
+    end
+  end
+
+  test "should be invalid when the command paper number has no space after the prefix" do
+    attachment = build(:file_attachment, command_paper_number: "C.1234")
+    @validator.validate(attachment)
+    assert_not attachment.errors[:command_paper_number].empty?
+  end
 end
