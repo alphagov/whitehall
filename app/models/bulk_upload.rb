@@ -58,14 +58,14 @@ class BulkUpload
     attachments.each { |attachment| attachment.attachable = edition }
 
     if valid?
-      attachments.all?(&:save)
+      attachments.all? { |a| a.save(context: :user_input) }
     else
       false
     end
   end
 
   def attachments_must_be_valid
-    unless attachments.all?(&:valid?)
+    unless attachments.all? { |a| a.valid?(context: :user_input) }
       errors[:base] << "Please enter missing fields for each attachment"
     end
   end

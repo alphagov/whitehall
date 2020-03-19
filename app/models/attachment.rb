@@ -14,7 +14,7 @@ class Attachment < ApplicationRecord
 
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ["CP", "C.", "Cd.", "Cmd.", "Cmnd.", "Cm."].freeze
 
-  validates_with AttachmentValidator
+  validates_with AttachmentValidator, on: :user_input
   validates :attachable, presence: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :isbn, isbn_format: true, allow_blank: true
