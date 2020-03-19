@@ -6307,6 +6307,7 @@ def unpublish(content_ids, draft)
           edition.unpublishing.explanation,
           locale,
           draft,
+          edition.unpublishing.created_at,
         )
       end
     else

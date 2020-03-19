@@ -32,6 +32,7 @@ module ServiceListeners
           api.publish_withdrawal_async(
             edition.content_id,
             edition.unpublishing.explanation,
+            edition.unpublishing.created_at,
             translation.locale.to_s,
           )
         end

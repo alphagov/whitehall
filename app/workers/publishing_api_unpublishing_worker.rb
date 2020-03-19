@@ -43,6 +43,7 @@ class PublishingApiUnpublishingWorker
           unpublishing.explanation,
           locale,
           allow_draft,
+          unpublishing.created_at,
         )
       end
     end
