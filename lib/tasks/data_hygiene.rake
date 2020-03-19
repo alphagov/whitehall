@@ -53,9 +53,10 @@ namespace :data_hygiene do
     end
   end
 
-  desc "Make attachments' command paper numbers valid"
+  desc "Make attachments' command paper numbers valid and republish affected documents"
   namespace :make_command_paper_numbers_valid do
     def call_attachment_attribute_updater(dry_run:)
+      affected_attachments = []
       Attachment
         .where.not(command_paper_number: nil)
         .where.not(command_paper_number: "")
@@ -65,13 +66,42 @@ namespace :data_hygiene do
           new_attr = DataHygiene::AttachmentAttributeUpdater.call(attachment, dry_run: dry_run)
           if old_attr == new_attr
             puts "Attachment ID #{attachment.id} command paper number is already valid. Skipping..."
-          elsif dry_run
-            puts "Attachment ID #{attachment.id} command paper number would have changed from #{old_attr} to #{new_attr}"
           else
-            puts "Updated attachment ID #{attachment.id} command paper number from #{old_attr} to #{new_attr}"
+            affected_attachments << attachment
+            if dry_run
+              puts "Attachment ID #{attachment.id} command paper number would have changed from #{old_attr} to #{new_attr}"
+            else
+              puts "Updated attachment ID #{attachment.id} command paper number from #{old_attr} to #{new_attr}"
+            end
           end
         rescue DataHygiene::AttachmentAttributeNotFixable
           puts "Attachment ID #{attachment.id} command paper number cannot be fixed automatically: #{old_attr}"
+        end
+      end
+
+      puts "Attachments updated: #{affected_attachments.map(&:id).join(', ')}"
+
+      edition_ids = affected_attachments.map do |attachment|
+        case attachment.attachable_type
+        when "Edition"
+          attachment.attachable_id
+        when "Response"
+          Response.where(id: attachment.attachable_id).pluck(:edition_id).first
+        else
+          raise "Unknown attachable type #{attachment.attachable_type}"
+        end
+      end
+
+      document_ids = Document.joins(:editions).where("editions.id": edition_ids).pluck(:document_id).uniq
+
+      puts "Documents affected: #{document_ids.join(', ')}"
+
+      if dry_run
+        puts "Dry run. Skipping sending #{document_ids.count} documents to Publishing API"
+      else
+        puts "Sending #{document_ids.count} documents to Publishing API"
+        document_ids.each do |doc_id|
+          PublishingApiDocumentRepublishingWorker.new.perform(doc_id, true)
         end
       end
     end
