@@ -19,9 +19,9 @@ class Attachment < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :isbn, isbn_format: true, allow_blank: true
   validates :command_paper_number, format: {
-    with: /\A(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.map { |prefix| Regexp.escape(prefix) }.join('|')}) ?\d+/,
+    with: /\A(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.map { |prefix| Regexp.escape(prefix) }.join('|')}) \d+/,
     allow_blank: true,
-    message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}",
+    message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}, followed by a space",
   }
   validates :unique_reference, length: { maximum: 255 }, allow_blank: true
 
