@@ -47,14 +47,14 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
-  ["C.", "Cd.", "Cmd.", "Cmnd.", "Cm."].each do |prefix|
+  ["C.", "Cd.", "Cmd.", "Cmnd.", "Cm.", "CP"].each do |prefix|
     test "should be valid when the Command paper number starts with '#{prefix}'" do
       attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
       assert attachment.valid?
     end
   end
 
-  ["NA", "C", "Cd ", "CM."].each do |prefix|
+  ["NA", "C", "Cd ", "CM.", "CP."].each do |prefix|
     test "should be invalid when the command paper number starts with '#{prefix}'" do
     attachment = build(:file_attachment, command_paper_number: "#{prefix} 1234")
     assert_not attachment.valid?
