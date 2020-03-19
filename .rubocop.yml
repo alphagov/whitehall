@@ -54,3 +54,8 @@ Rails/CreateTableWithTimestamps:
 
 Rails/FilePath:
   EnforcedStyle: slashes
+
+# This alerts on methods that aren't introduced until rails 6.0
+# it should be removed when we upgrade. 
+Style/HashEachMethods:
+  Enabled: false
