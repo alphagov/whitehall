@@ -596,6 +596,26 @@
       "note": "We check that the params[:id] is valid before rendering the template."
     },
     {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "c210fdc84d925d7f9147ed11600537d94d73fa3cb3152d60a5bb1ead20a303e3",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/email_signups_controller.rb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(WorldLocationEmailSignup.new(feed_url).signup_url)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EmailSignupsController",
+        "method": "create"
+      },
+      "user_input": "WorldLocationEmailSignup.new(feed_url).signup_url",
+      "confidence": "High",
+      "note": "Ignore this warning as the URL being generated comes directly from email-alert-api and so is trusted not to be user inputted data"
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "c4b40274a6e6d5a420ea1cf02c2a29e14817c60e5d3d4b870ce2e2a8b868754f",

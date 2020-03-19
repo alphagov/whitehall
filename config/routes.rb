@@ -94,7 +94,7 @@ Whitehall::Application.routes.draw do
     get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointment"
     resources :histories, path: "history", only: %i[index show]
 
-    resource :email_signups, path: "email-signup", only: %i[new]
+    resource :email_signups, path: "email-signup", only: %i[create new]
     get "/email-signup", to: redirect("/")
 
     get "/tour" => redirect("/tour", prefix: "")
