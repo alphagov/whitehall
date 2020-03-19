@@ -111,7 +111,9 @@ namespace :data_hygiene do
     end
 
     task real: :environment do
-      call_attachment_attribute_updater(dry_run: false)
+      ActiveRecord::Base.transaction do
+        call_attachment_attribute_updater(dry_run: false)
+      end
     end
   end
 end
