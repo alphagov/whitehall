@@ -52,4 +52,36 @@ namespace :data_hygiene do
       speech.save(validate: false)
     end
   end
+
+  desc "Make attachments' command paper numbers valid"
+  namespace :make_command_paper_numbers_valid do
+    def call_attachment_attribute_updater(dry_run:)
+      Attachment
+        .where.not(command_paper_number: nil)
+        .where.not(command_paper_number: "")
+        .each do |attachment|
+        old_attr = attachment.command_paper_number
+        begin
+          new_attr = DataHygiene::AttachmentAttributeUpdater.call(attachment, dry_run: dry_run)
+          if old_attr == new_attr
+            puts "Attachment ID #{attachment.id} command paper number is already valid. Skipping..."
+          elsif dry_run
+            puts "Attachment ID #{attachment.id} command paper number would have changed from #{old_attr} to #{new_attr}"
+          else
+            puts "Updated attachment ID #{attachment.id} command paper number from #{old_attr} to #{new_attr}"
+          end
+        rescue DataHygiene::AttachmentAttributeNotFixable
+          puts "Attachment ID #{attachment.id} command paper number cannot be fixed automatically: #{old_attr}"
+        end
+      end
+    end
+
+    task dry: :environment do
+      call_attachment_attribute_updater(dry_run: true)
+    end
+
+    task real: :environment do
+      call_attachment_attribute_updater(dry_run: false)
+    end
+  end
 end
