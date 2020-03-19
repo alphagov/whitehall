@@ -169,14 +169,13 @@ class AttachmentUploader < WhitehallUploader
 
       def files_by_shape_and_allowed_extension
         @files_by_shape_and_allowed_extension ||=
-          Hash[
-            files_with_extensions.
-              reject { |_file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, "") }.
-              map { |shape, files|
-                [shape, files.group_by { |_file, ext| ext }]
-              }
-          ]
+
+          files_with_extensions.
+            reject { |_file, ext| ext.nil? }.
+            group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, "") }.
+            transform_values { |files|
+              files.group_by { |_file, ext| ext }
+            }
       end
 
       def has_no_extra_files?

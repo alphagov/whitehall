@@ -23,7 +23,7 @@ module EditionPresenterHelper
   end
 
   def link
-    context.link_to model.title, url, { class: "govuk-link" }
+    context.link_to model.title, url, class: "govuk-link"
   end
 
   def display_organisations
