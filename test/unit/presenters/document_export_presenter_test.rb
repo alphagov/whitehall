@@ -400,7 +400,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     expected = {
       id: edition.unpublishing.id,
       explanation: edition.unpublishing.explanation,
-      alternative_url: nil,
+      alternative_path: nil,
       created_at: edition.unpublishing.created_at,
       updated_at: edition.unpublishing.updated_at,
       redirect: false,
@@ -418,7 +418,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     expected = {
       id: edition.unpublishing.id,
       explanation: edition.unpublishing.explanation,
-      alternative_url: edition.unpublishing.alternative_url,
+      alternative_path: edition.unpublishing.alternative_path,
       created_at: edition.unpublishing.created_at,
       updated_at: edition.unpublishing.updated_at,
       redirect: true,
