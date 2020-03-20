@@ -207,10 +207,25 @@ class Edition < ApplicationRecord
   end
 
   def self.only_broken_links
-    joins("INNER JOIN link_checker_api_reports ON link_checker_api_reports.link_reportable_id = editions.id")
-    .joins("INNER JOIN link_checker_api_report_links ON link_checker_api_report_links.link_checker_api_report_id = link_checker_api_reports.id")
-    .where("link_checker_api_reports.link_reportable_type = 'Edition' AND link_checker_api_report_links.status != 'ok'")
-    .distinct
+    joins(
+      "
+LEFT JOIN (
+  SELECT id, link_reportable_type, link_reportable_id
+  FROM link_checker_api_reports
+  GROUP BY link_reportable_type, link_reportable_id
+  ORDER BY id DESC
+) AS latest_link_checker_api_reports
+  ON latest_link_checker_api_reports.link_reportable_type = 'Edition'
+ AND latest_link_checker_api_reports.link_reportable_id = editions.id",
+    ).where(
+      "
+EXISTS (
+  SELECT 1
+  FROM link_checker_api_report_links
+  WHERE link_checker_api_report_id = latest_link_checker_api_reports.id
+    AND link_checker_api_report_links.status != 'ok'
+)",
+    )
   end
 
   def self.without_locked_documents
