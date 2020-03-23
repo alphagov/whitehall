@@ -43,7 +43,8 @@ class Admin::AttachmentsController < Admin::BaseController
     errors = {}
     params[:attachments].each do |id, attributes|
       attachment = attachable.attachments.find(id)
-      if attachment.update(attributes.permit(:title))
+      attachment.assign_attributes(attributes.permit(:title))
+      if attachment.save(context: :user_input)
         attachment_updater
       else
         errors[id] = attachment.errors.full_messages
@@ -187,7 +188,7 @@ private
   end
 
   def save_attachment
-    attachment.save.tap do |result|
+    attachment.save(context: :user_input).tap do |result|
       if result && attachment.is_a?(HtmlAttachment)
         Whitehall::PublishingApi.save_draft(attachment)
       end

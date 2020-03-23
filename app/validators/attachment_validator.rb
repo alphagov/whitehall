@@ -7,6 +7,20 @@ class AttachmentValidator < ActiveModel::Validator
     check_if_hoc_paper_number_required(attachment)
     check_if_parliamentary_session_required(attachment)
     check_format_of_hoc_paper_number(attachment)
+    check_format_of_command_paper_number(attachment)
+  end
+
+  def command_paper_number_valid?(number)
+    valid_prefixes = Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.map { |prefix| Regexp.escape(prefix) }
+    command_paper_number_regex = %r{
+      \A        # beginning of string
+      (#{valid_prefixes.join('|')}) # all allowed prefixes
+      \s        # single space
+      \d+       # number
+      (-[IV]+)? # optional Roman numeral suffix
+      \z        # end of string
+    }x
+    number.match(command_paper_number_regex)
   end
 
 private
@@ -63,6 +77,15 @@ private
     number = attachment.hoc_paper_number
     if number.present? && (number !~ /^\d/)
       attachment.errors[:hoc_paper_number] << "must start with a number"
+    end
+  end
+
+  def check_format_of_command_paper_number(attachment)
+    number = attachment.command_paper_number
+    return if number.blank?
+
+    unless command_paper_number_valid?(number)
+      attachment.errors[:command_paper_number] << "invalid"
     end
   end
 end

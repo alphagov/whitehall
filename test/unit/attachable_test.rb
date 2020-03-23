@@ -258,6 +258,19 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal html_attachment.title, attachment_2.title
   end
 
+  test "re-editioned editions persists invalid attachments" do
+    file_attachment = build(:file_attachment, command_paper_number: "invalid")
+    file_attachment.save(validate: false)
+    publication = create(:published_publication,
+                         :with_alternative_format_provider,
+                         attachments: [file_attachment])
+
+    draft = publication.create_draft(create(:writer))
+
+    assert_equal 1, draft.reload.attachments.size
+    assert draft.attachments[0].persisted?
+  end
+
   test "#delete_all_attachments soft-deletes any attachments that the edition has" do
     publication = create(:draft_publication)
 
