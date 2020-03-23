@@ -337,6 +337,8 @@ module ServiceListeners
             attachment.content_id,
             "content was withdrawn",
             "en",
+            false,
+            publication.unpublishing.created_at,
           )
           call(publication)
         end
@@ -426,6 +428,8 @@ module ServiceListeners
           attachment.content_id,
           "content was withdrawn",
           "en",
+          false,
+          publication.unpublishing.created_at,
         )
         call(publication)
       end

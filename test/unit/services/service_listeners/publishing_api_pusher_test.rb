@@ -65,11 +65,11 @@ module ServiceListeners
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
       Whitehall::PublishingApi.expects(:publish_withdrawal_async)
-        .with(edition.document.content_id, edition.unpublishing.explanation, edition.primary_locale)
+        .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.created_at, edition.primary_locale)
 
       translations.each do |translation|
         Whitehall::PublishingApi.expects(:publish_withdrawal_async)
-          .with(edition.document.content_id, edition.unpublishing.explanation, translation.to_s)
+          .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.created_at, translation.to_s)
       end
 
       stub_html_attachment_pusher(edition, "withdraw")

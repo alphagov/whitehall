@@ -6,7 +6,7 @@ class WithdrawingTest < ActiveSupport::TestCase
     Sidekiq::Testing.inline! do
       edition = create(:published_case_study)
       edition.build_unpublishing(explanation: "Old information",
-        unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+        unpublishing_reason_id: UnpublishingReason::Withdrawn.id).save
 
       request = stub_publishing_api_unpublish(
         edition.content_id,
@@ -14,7 +14,7 @@ class WithdrawingTest < ActiveSupport::TestCase
           type: "withdrawal",
           locale: "en",
           explanation: "<div class=\"govspeak\"><p>Old information</p>\n</div>",
-          unpublished_at: edition.updated_at.utc.iso8601,
+          unpublished_at: edition.unpublishing.created_at.utc.iso8601,
         },
       )
 

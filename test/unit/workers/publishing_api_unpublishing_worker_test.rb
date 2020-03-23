@@ -79,6 +79,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublishing.explanation,
       :en,
       false,
+      unpublishing.created_at,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -107,6 +108,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublishing.explanation,
       :en,
       true,
+      unpublishing.created_at,
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id, true)

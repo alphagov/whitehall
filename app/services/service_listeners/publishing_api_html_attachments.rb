@@ -60,6 +60,8 @@ module ServiceListeners
           html_attachment.content_id,
           edition.unpublishing.explanation,
           edition.primary_locale,
+          false,
+          edition.unpublishing.created_at,
         )
       end
     end
