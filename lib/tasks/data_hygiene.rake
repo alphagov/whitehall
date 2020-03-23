@@ -58,8 +58,10 @@ namespace :data_hygiene do
     def call_attachment_attribute_updater(dry_run:)
       affected_attachments = []
       Attachment
+        .not_deleted
         .where.not(command_paper_number: nil)
         .where.not(command_paper_number: "")
+        .where.not(attachable_id: nil)
         .each do |attachment|
         old_attr = attachment.command_paper_number
         begin
