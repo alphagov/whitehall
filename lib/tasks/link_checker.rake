@@ -1,6 +1,8 @@
 namespace :link_checker do
-  task delete_old_report_links: :environment do
-    count = LinkCheckerApiReport::Link.deletable.delete_all
-    puts "Deleted #{count} old report links."
+  task delete_old_data: :environment do
+    link_count = LinkCheckerApiReport::Link.deletable.delete_all
+    puts "Deleted #{link_count} old report links."
+    report_count = LinkCheckerApiReport.no_links.delete_all
+    puts "Deleted #{report_count} old reports"
   end
 end
