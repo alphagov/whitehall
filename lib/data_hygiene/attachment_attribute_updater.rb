@@ -15,7 +15,7 @@ module DataHygiene
 
       return valid_number if dry_run || old_number == valid_number
 
-      attachment.update!(command_paper_number: valid_number)
+      attachment.update(command_paper_number: valid_number)
       valid_number
     end
 
