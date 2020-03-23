@@ -195,7 +195,7 @@ class PublishingApi::StatisticalDataSetPresenterAttachmentTest < ActiveSupport::
   test "it presentes attachments" do
     attachment = @statistical_data_set.attachments.first
     assert_equal @presented_statistical_data_set.content.dig(:details, :attachments, 0, :id),
-                 attachment.publishing_api_attachment_id
+                 attachment.id.to_s
   end
 
   test "its attachments are valid against the schema" do
