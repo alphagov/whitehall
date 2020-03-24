@@ -15,4 +15,4 @@
     cron: '0 4 * * *' # Runs at 4 a.m every day
     class: CheckAllOrganisationsLinksWorker
   LinkCheckerDeleteOldDataWorker:
-    cron: '0 4 * * *' # Runs at 4 a.m every day
+    cron: '30 3 * * *' # Runs at 4 a.m every day
