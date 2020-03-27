@@ -32,19 +32,27 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
     return unless the_document_has_an_edition_to_check?
 
-    if the_document_has_been_unpublished?
-      send_draft_and_unpublish
-    elsif the_document_has_been_withdrawn?
-      send_published_and_withdraw
-    elsif there_is_only_a_draft?
-      send_draft_edition
-    elsif there_is_only_a_published_edition?
-      send_published_edition
-    elsif there_is_a_newer_draft?
-      send_published_edition
-      send_draft_edition
-    else
-      error_message = <<-ERROR
+    Document.transaction do
+      # Lock the document to prevent other
+      # PublishingApiDocumentRepublishingWorker jobs from sending
+      # requests to the Publishing API at the same time, as this is
+      # unsafe, and the state in the Publishing API might end up being
+      # incorrect.
+      document.lock!
+
+      if the_document_has_been_unpublished?
+        send_draft_and_unpublish
+      elsif the_document_has_been_withdrawn?
+        send_published_and_withdraw
+      elsif there_is_only_a_draft?
+        send_draft_edition
+      elsif there_is_only_a_published_edition?
+        send_published_edition
+      elsif there_is_a_newer_draft?
+        send_published_edition
+        send_draft_edition
+      else
+        error_message = <<-ERROR
           Document id: #{document.id} has an unrecognised state for republishing.
           the_document_has_been_unpublished? = #{the_document_has_been_unpublished?}
           the_document_has_been_withdrawn? = #{the_document_has_been_withdrawn?}
@@ -55,8 +63,9 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
           pre_publication_edition.id = #{pre_publication_edition.try(:id)}
           published_edition.unpublishing = #{published_edition.try(:unpublishing)}
           pre_publication_edition.unpublishing = #{pre_publication_edition.try(:unpublishing)}
-      ERROR
-      raise error_message
+        ERROR
+        raise error_message
+      end
     end
   end
 

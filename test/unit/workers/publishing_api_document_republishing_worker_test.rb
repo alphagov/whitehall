@@ -10,6 +10,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       id: 1,
       pre_publication_edition: draft_edition = build(:edition, id: 2),
       locked?: false,
+      lock!: true,
     )
 
     Document.stubs(:find).returns(document)
@@ -42,6 +43,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       id: 1,
       pre_publication_edition: build(:edition),
       locked?: false,
+      lock!: true,
     )
 
     Document.stubs(:find).returns(document)
@@ -97,6 +99,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       id: 1,
       pre_publication_edition: nil,
       locked?: false,
+      lock!: true,
     )
 
     Document.stubs(:find).returns(document)
@@ -125,6 +128,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       id: 1,
       pre_publication_edition: nil,
       locked?: false,
+      lock!: true,
     )
 
     Document.stubs(:find).returns(document)
