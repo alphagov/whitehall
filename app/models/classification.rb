@@ -49,7 +49,7 @@ class Classification < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :description, presence: true
 
   accepts_nested_attributes_for :classification_memberships

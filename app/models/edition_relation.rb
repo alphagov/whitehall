@@ -4,5 +4,5 @@ class EditionRelation < ApplicationRecord
 
   validates :edition, presence: true
   validates :document, presence: true
-  validates :document_id, uniqueness: { scope: :edition_id }
+  validates :document_id, uniqueness: { scope: :edition_id } # rubocop:disable Rails/UniqueValidationWithoutIndex
 end

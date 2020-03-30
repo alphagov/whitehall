@@ -14,7 +14,7 @@ class ClassificationRelation < ApplicationRecord
 
   validates :classification, presence: true
   validates :related_classification, presence: true
-  validates :classification_id, uniqueness: { scope: :related_classification_id }
+  validates :classification_id, uniqueness: { scope: :related_classification_id } # rubocop:disable Rails/UniqueValidationWithoutIndex
 
   class Validator < ActiveModel::Validator
     def validate(record)
