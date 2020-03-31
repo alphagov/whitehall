@@ -4,7 +4,7 @@ class AboutPage < ApplicationRecord
 
   belongs_to :topical_event
 
-  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 255 } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :read_more_link_text, presence: true, length: { maximum: 255 }
   validates :summary, presence: true, length: { maximum: (16.megabytes - 1) }
   validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
