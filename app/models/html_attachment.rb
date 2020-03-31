@@ -75,18 +75,10 @@ class HtmlAttachment < Attachment
     Whitehall.url_maker.public_send(path_helper, attachable.slug, self, options)
   end
 
-  def extracted_text
-    Govspeak::Document.new(govspeak_content_body).to_text
-  end
-
   def should_generate_new_friendly_id?
     return false unless sluggable_locale?
 
     slug.nil? || attachable.nil? || !attachable.document.published?
-  end
-
-  def search_index
-    super.merge(content: extracted_text)
   end
 
   def deep_clone

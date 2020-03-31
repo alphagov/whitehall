@@ -118,19 +118,6 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal attachment.hoc_paper_number, edition.search_index["attachments"][index][:hoc_paper_number]
   end
 
-  test "should include html_attachment content into the #search_index" do
-    attachment = build(:html_attachment,
-                       title: "The title of the HTML attachment",
-                       unique_reference: "w123",
-                       body: "##Test HTML attachment")
-
-    edition = create(:publication, :with_html_attachment, attachments: [attachment])
-
-    assert_equal "The title of the HTML attachment", edition.search_index["attachments"][0][:title]
-    assert_equal "w123", edition.search_index["attachments"][0][:unique_reference]
-    assert_equal "Test HTML attachment", edition.search_index["attachments"][0][:content]
-  end
-
   test "#reorder_attachments should update the ordering of its attachments" do
     attachable = create(:consultation)
     a, b, c = 3.times.map { create(:file_attachment, attachable: attachable) }

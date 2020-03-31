@@ -50,12 +50,6 @@ class ExternalAttachment < Attachment
     external_url
   end
 
-  def search_index
-    {
-      title: title,
-    }
-  end
-
   def readable_type
     "external"
   end

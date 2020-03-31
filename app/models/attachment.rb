@@ -71,15 +71,8 @@ class Attachment < ApplicationRecord
     Locale.new(locale).rtl?
   end
 
-  # potentially overridden/extended in subclasses.
   def search_index
-    {
-      title: title,
-      isbn: isbn,
-      command_paper_number: command_paper_number,
-      unique_reference: unique_reference,
-      hoc_paper_number: hoc_paper_number,
-    }
+    publishing_api_details
   end
 
   def publishing_api_details
