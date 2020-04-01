@@ -1,48 +1,4 @@
 namespace :search do
-  desc "Re-index documents with HtmlAttachments.  This will be removed after running once."
-  task resend_documents_with_html_attachments: :environment do
-    editions = []
-
-    total = HtmlAttachment.count
-    count = 0
-    HtmlAttachment.find_each do |a|
-      count += 1
-      if (count % 1000).zero?
-        puts "#{a.id}: #{count} of #{total} (#{count.fdiv(total) * 100}%)"
-      end
-
-      # rubocop:disable Lint/SuppressedException
-      begin
-        next if a.attachable.document.latest_edition.nil?
-
-        editions << a.attachable.document.latest_edition
-      rescue StandardError
-        # just ignore any docs with invalid state
-      end
-      # rubocop:enable Lint/SuppressedException
-    end
-
-    unique = editions.uniq
-    total = unique.count
-
-    puts "all editions: #{editions.count}"
-    puts "unique editions: #{total}"
-
-    count = 0
-    unique.each do |ed|
-      count += 1
-      if (count % 1000).zero?
-        puts "#{ed.id}: #{count} of #{total} (#{count.fdiv(total) * 100}%)"
-      end
-
-      begin
-        ed.update_in_search_index
-      rescue StandardError
-        puts "couldn't update #{ed.id}"
-      end
-    end
-  end
-
   desc "Re-index one Document. Takes a `content_id` as argument."
   task :resend_document, [:content_id] => [:environment] do |_, args|
     Document.find_by(content_id: args[:content_id]).published_edition.update_in_search_index
