@@ -7,7 +7,9 @@
       title: "Ministers"
     } %>
 
-    <p class="govuk-body-l">Read biographies and responsibilities of <a href="#cabinet-ministers">Cabinet ministers</a> and all <a href="#ministers-by-department">ministers by department</a>, as well as the <a href="#whips">whips</a> who help co-ordinate parliamentary business.</p>
+    <% unless @is_during_reshuffle %>
+      <p class="govuk-body-l">Read biographies and responsibilities of <a href="#cabinet-ministers" class="govuk-link">Cabinet ministers</a> and all <a href="#ministers-by-department" class="govuk-link">ministers by department</a>, as well as the <a href="#whips" class="govuk-link">whips</a> who help co-ordinate parliamentary business.</p>
+    <% end %>
   </div>
 </header>
 
@@ -15,7 +17,7 @@
   <%= render "govuk_publishing_components/components/notice", {
     description_govspeak: bare_govspeak_to_html(@reshuffle_messaging),
   } %>
-<% end %>
+<% else %>
 
 <section class="cab_ministers govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -148,3 +150,5 @@
     <% end %>
   <% end %>
 </section>
+
+<% end %>
