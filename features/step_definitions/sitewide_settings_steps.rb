@@ -31,3 +31,9 @@ Then(/^I should (not )?see a reshuffle warning message$/) do |negate|
     assert_text "Test minister reshuffle message"
   end
 end
+
+Then(/^I should not see the ministers and cabinet$/) do
+  assert_no_selector "h2", text: "Cabinet ministers"
+  assert_no_selector "h2", text: "Also attends Cabinet"
+  assert_no_selector "h2", text: "Ministers by department"
+end
