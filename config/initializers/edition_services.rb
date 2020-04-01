@@ -32,9 +32,7 @@ Whitehall.edition_services.tap do |coordinator|
       .new(edition)
       .clear!
 
-    ServiceListeners::AuthorNotifier
-      .new(edition, options[:user])
-      .notify!
+    AuthorNotifierWorker.perform_async(edition.id, *[options[:user]&.id].compact)
 
     # Update attachment redirect urls
     ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
