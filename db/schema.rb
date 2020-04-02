@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200211132528) do
+ActiveRecord::Schema.define(version: 20200304165045) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -59,8 +59,6 @@ ActiveRecord::Schema.define(version: 20200211132528) do
     t.string "isbn"
     t.string "unique_reference"
     t.string "command_paper_number"
-    t.string "order_url"
-    t.integer "price_in_pence"
     t.integer "attachment_data_id"
     t.integer "ordering", null: false
     t.string "hoc_paper_number"
