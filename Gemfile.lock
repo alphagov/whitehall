@@ -530,7 +530,7 @@ GEM
     timecop (0.9.1)
     transitions (1.2.1)
     ttfunk (1.6.2.1)
-    tzinfo (1.2.6)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
