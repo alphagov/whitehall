@@ -367,7 +367,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.1.6)
     rack (2.2.2)
-    rack-cache (1.11.0)
+    rack-cache (1.11.1)
       rack (>= 0.4)
     rack-protection (2.0.8.1)
       rack
