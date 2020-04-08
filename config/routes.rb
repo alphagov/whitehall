@@ -26,8 +26,6 @@ Whitehall::Application.routes.draw do
     ::Whitehall.admin_host == request.host
   }
 
-  get "/government/ministers/minister-of-state--11" => redirect("/government/people/kris-hopkins", prefix: "")
-
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace "api" do
@@ -171,7 +169,6 @@ Whitehall::Application.routes.draw do
 
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: VALID_LOCALES_REGEX }
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: VALID_LOCALES_REGEX }
 
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: "groups", only: [:show]
