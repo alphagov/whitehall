@@ -36,31 +36,4 @@ class PersonPresenterTest < ActionView::TestCase
     @person.stubs(:biography).returns("This is the first paragraph.\r\n\r\nThis is the second paragraph")
     assert_no_match %r[This is the second paragraph.], @presenter.biography
   end
-
-  test "is not available in multiple languages if person is not available in multiple languages" do
-    role = stub_translatable_record(:role_without_organisations)
-    role.stubs(:translated_locales).returns(%i[en fr])
-    role_appointment = stub_record(:role_appointment, role: role, person: @person)
-
-    @person.stubs(:current_role_appointments).returns([role_appointment])
-    @person.stubs(:translated_locales).returns([:en])
-
-    assert_equal [:en], @presenter.translated_locales
-    assert_not @presenter.available_in_multiple_languages?
-  end
-
-  test "is available in multiple languages" do
-    role_1 = stub_translatable_record(:role_without_organisations)
-    role_1.stubs(:translated_locales).returns([:en])
-    role_2 = stub_translatable_record(:role_without_organisations)
-    role_2.stubs(:translated_locales).returns(%i[en es])
-    role_appointment_1 = stub_record(:role_appointment, role: role_1, person: @person)
-    role_appointment_2 = stub_record(:role_appointment, role: role_2, person: @person)
-
-    @person.stubs(:current_role_appointments).returns([role_appointment_1, role_appointment_2])
-    @person.stubs(:translated_locales).returns(%i[en es])
-
-    assert_equal %i(en es), @presenter.translated_locales
-    assert @presenter.available_in_multiple_languages?
-  end
 end
