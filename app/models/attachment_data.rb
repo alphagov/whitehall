@@ -77,9 +77,6 @@ class AttachmentData < ApplicationRecord
     raise ActiveRecord::RecordInvalid, self if self.errors.any?
 
     self.update_column(:replaced_by_id, replacement.id)
-    AttachmentData.where(replaced_by_id: self.id).find_each do |ad|
-      ad.replace_with!(replacement)
-    end
   end
 
   def uploaded_to_asset_manager!

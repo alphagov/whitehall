@@ -203,16 +203,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     end
   end
 
-  test "replace_with! will walk the chain and set our replacees to be replaced_by our replacer" do
-    to_be_replaced = create(:attachment_data)
-    replaced = create(:attachment_data, replaced_by: to_be_replaced)
-    replacer = create(:attachment_data)
-
-    to_be_replaced.replace_with!(replacer)
-    assert_equal replacer, to_be_replaced.replaced_by
-    assert_equal replacer, replaced.reload.replaced_by
-  end
-
   test "order attachments by attachable ID" do
     attachment_data = create(:attachment_data)
     edition_1 = create(:edition)
