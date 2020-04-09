@@ -128,10 +128,6 @@ class Role < ApplicationRecord
     current_person && current_person.image_url
   end
 
-  def current_person_biography
-    current_person&.biography_appropriate_for_role_without_markup
-  end
-
   def organisation_names
     organisations.map(&:name).join(" and ")
   end
