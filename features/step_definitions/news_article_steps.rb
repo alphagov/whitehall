@@ -72,17 +72,6 @@ Then(/^I should see both the news articles for the Deputy Prime Minister role$/)
   assert_selector ".news_article", text: "News from Harriet, Deputy PM"
 end
 
-Given(/^"([^"]*)" has news associated with her$/) do |_|
-  stub_any_search.to_return(
-    body: {
-      results: [
-        { link: "/foo", title: "First article" },
-        { link: "/foo", title: "Second article" },
-      ],
-    }.to_json,
-  )
-end
-
 Then(/^I should see both the news articles for Harriet Home$/) do
   assert_text "First article"
   assert_text "Second article"
