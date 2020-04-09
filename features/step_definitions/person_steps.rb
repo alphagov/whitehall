@@ -17,20 +17,6 @@ Given(/^a person called "([^"]*)" exists in the role of "([^"]*)"$/) do |name, r
   create(:role_appointment, role: @role, person: @person)
 end
 
-Given(/^"([^"]*)" is a minister with a history$/) do |name|
-  person = create_person(name, biography: "This is the first paragraph of the biography.\n\nThis is the second paragraph.")
-  role = create(:ministerial_role)
-  create(:ministerial_department, ministerial_roles: [role])
-  create(:role_appointment, role: role, person: person, started_at: 2.years.ago, ended_at: 1.year.ago)
-  role = create(:ministerial_role)
-  create(:ministerial_department, ministerial_roles: [role])
-  create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: 6.months.ago)
-end
-
-When(/^I visit the person page for "([^"]*)"$/) do |name|
-  visit person_url(find_person(name))
-end
-
 When(/^I add a new person called "([^"]*)"$/) do |name|
   visit_people_admin
   click_link "Create person"
@@ -55,19 +41,18 @@ When(/^I remove the person "([^"]*)"$/) do |name|
   click_button "Delete"
 end
 
-When(/^I add a new "([^"]*)" translation to the person "([^"]*)" with:$/) do |locale, name, table|
+When(/^I add a new "([^"]*)" translation to the person "([^"]*)" setting biography to "([^"]*)"$/) do |locale, name, text|
   person = find_person(name)
-  add_translation_to_person(person, table.rows_hash.merge(locale: locale))
+  add_translation_to_person(person, locale: locale, biography: text)
 end
 
-When(/^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:$/) do |locale, name, table|
+When(/^I edit the "([^"]*)" translation for the person "([^"]*)" updating the biography to "([^"]*)"$/) do |locale, name, text|
   person = find_person(name)
-  translation = table.rows_hash.stringify_keys
 
   visit admin_person_path(person)
   click_link "Translations"
   click_link locale
-  fill_in "Biography", with: translation["biography"]
+  fill_in "Biography", with: text
   click_on "Save"
 end
 
@@ -80,34 +65,11 @@ Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
   assert_no_selector ".person .name", text: name
 end
 
-Then(/^I should see information about the person "([^"]*)"$/) do |name|
-  person = find_person(name)
-  assert_selector "h1", text: person.name
-  assert_selector ".biography", text: person.biography
-end
-
-Then(/^I should see the worldwide organisation listed on his public page$/) do
-  person = Person.last
-  organisation = WorldwideOrganisation.last
-  visit person_url(person)
-
-  within record_css_selector(person) do
-    assert_text person.name
-    assert_selector "#current-roles a", text: organisation.name
+Then(/^I should see the translation "([^"]*)" and body text "([^"]*)"$/) do |locale, text|
+  within "#person-translations" do
+    assert_selector ".locale", text: locale
+    click_on locale
   end
-end
 
-Then(/^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:$/) do |name, locale, table|
-  person = find_person(name)
-  translation = table.rows_hash
-  visit person_path(person)
-  click_link locale
-  assert_selector ".biography", text: translation["biography"]
-end
-
-Then(/^I should see limited information about the person "(.*?)"$/) do |_name|
-  assert_selector ".biography", text: "This is the first paragraph of the biography."
-  assert_no_text "This is the second paragraph."
-  assert_no_selector 'a[href="#current-roles"]'
-  assert_no_selector "figure.img"
+  assert_text text
 end
