@@ -105,10 +105,6 @@ module ApplicationHelper
     PersonPresenter.new(person, self).link(class: "person-link")
   end
 
-  def image_for_person(person)
-    PersonPresenter.new(person, self).image
-  end
-
   def render_list_of_roles(roles, class_name = "ministerial_roles")
     raise ArgumentError, "please supply the content of the list item" unless block_given?
 

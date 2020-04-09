@@ -29,52 +29,6 @@ class PersonTest < ActiveSupport::TestCase
     assert person.reload.valid?
   end
 
-  test "#ministerial_roles includes all ministerial roles" do
-    minister = create(:ministerial_role)
-    person = create(:person)
-    create(:role_appointment, role: minister, person: person)
-    assert_equal [minister], person.current_ministerial_roles
-  end
-
-  test "#ministerial_roles excludes non-ministerial roles" do
-    permanent_secretary = create(:board_member_role)
-    person = create(:person)
-    create(:role_appointment, role: permanent_secretary, person: person)
-    assert_equal [], person.current_ministerial_roles
-  end
-
-  test "#board_member_roles includes all non-ministerial roles" do
-    permanent_secretary = create(:board_member_role)
-    person = create(:person)
-    create(:role_appointment, role: permanent_secretary, person: person)
-    assert_equal [permanent_secretary], person.current_board_member_roles
-  end
-
-  test "#board_member_roles excludes any ministerial roles" do
-    role_appointment = create(:ministerial_role_appointment)
-    person = create(:person, role_appointments: [role_appointment])
-    assert_equal [], person.current_board_member_roles
-  end
-
-  test "#previous_role_appointments include appointments that have ended" do
-    person = create(:person)
-    role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
-    assert_equal [role_appointment], person.reload.previous_role_appointments
-  end
-
-  test "#previous_role_appointments excludes current appointments" do
-    person = create(:person)
-    create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
-    assert_equal [], person.previous_role_appointments
-  end
-
-  test "#previous_role_appointments is in reverse chronological order" do
-    person = create(:person)
-    older_appointment = create(:ministerial_role_appointment, person: person, started_at: 2.years.ago, ended_at: 1.year.ago)
-    newer_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
-    assert_equal [newer_appointment, older_appointment], person.reload.previous_role_appointments
-  end
-
   test "#organisations includes organisations linked through current ministerial roles" do
     person = create(:person)
     role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
@@ -177,36 +131,6 @@ class PersonTest < ActiveSupport::TestCase
 
   test "name should not have trailing whitespace" do
     assert_equal "Claire Moriarty", build(:person, title: "", forename: "Claire", surname: "Moriarty", letters: "").name
-  end
-
-  test "#ministerial_roles_at returns the ministerial roles held by the person at the date specified" do
-    person = create(:person)
-    oldest_role = create(:ministerial_role)
-    older_role = create(:ministerial_role)
-    newer_role = create(:ministerial_role)
-    newest_role = create(:ministerial_role)
-    current_non_ministerial_role = create(:board_member_role)
-    create(:role_appointment, person: person, role: oldest_role, started_at: 12.months.ago, ended_at: 8.months.ago)
-    create(:role_appointment, person: person, role: older_role, started_at: 8.months.ago, ended_at: 5.months.ago)
-    create(:role_appointment, person: person, role: newer_role, started_at: 7.months.ago, ended_at: 4.months.ago)
-    create(:role_appointment, person: person, role: newest_role, started_at: 4.months.ago, ended_at: nil)
-    create(:role_appointment, person: person, role: current_non_ministerial_role, started_at: 1.month.ago, ended_at: nil)
-
-    assert_equal [oldest_role], person.ministerial_roles_at(9.months.ago)
-    assert_equal [older_role, newer_role], person.ministerial_roles_at(6.months.ago)
-    assert_equal [newest_role], person.ministerial_roles_at(1.month.ago)
-  end
-
-  test "#role_appointments_at returns the role appointments held by the person at the date specified" do
-    person = create(:person)
-    oldest_role_appointment = create(:role_appointment, person: person, started_at: 12.months.ago, ended_at: 8.months.ago)
-    overlapping_role_appointment_1 = create(:role_appointment, person: person, started_at: 8.months.ago, ended_at: 5.months.ago)
-    overlapping_role_appointment_2 = create(:role_appointment, person: person, started_at: 7.months.ago, ended_at: 4.months.ago)
-    current_role_appointment = create(:role_appointment, person: person, started_at: 4.months.ago, ended_at: nil)
-
-    assert_equal [oldest_role_appointment], person.role_appointments_at(9.months.ago)
-    assert_equal [overlapping_role_appointment_1, overlapping_role_appointment_2], person.role_appointments_at(6.months.ago)
-    assert_equal [current_role_appointment], person.role_appointments_at(1.month.ago)
   end
 
   test "has removeable translations" do
