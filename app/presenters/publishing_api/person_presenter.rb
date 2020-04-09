@@ -26,8 +26,11 @@ module PublishingApi
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "person",
+        base_path: "/government/people/#{item.slug}",
+        routes: [
+          { path: "/government/people/#{item.slug}", type: "exact" },
+        ],
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
     def links
