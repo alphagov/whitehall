@@ -444,7 +444,7 @@ GEM
       rubocop (= 0.80.1)
       rubocop-rails (~> 2)
       rubocop-rspec (~> 1.28)
-    rubocop-rails (2.5.1)
+    rubocop-rails (2.5.2)
       activesupport
       rack (>= 1.1)
       rubocop (>= 0.72.0)
