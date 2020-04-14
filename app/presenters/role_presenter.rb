@@ -17,15 +17,6 @@ class RolePresenter < Whitehall::Decorators::Decorator
     current_person.present?
   end
 
-  def announcements
-    return [] unless ministerial?
-
-    announcements =
-      model.published_speeches.limit(10).map { |s| SpeechPresenter.new(s, context) } +
-      model.published_news_articles.limit(10).map { |na| NewsArticlePresenter.new(na, context) }
-    announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
-  end
-
   def path
     if ministerial?
       context.ministerial_role_path model
@@ -38,18 +29,6 @@ class RolePresenter < Whitehall::Decorators::Decorator
     else
       ERB::Util.html_escape name
     end
-  end
-
-  def name_with_definite_article
-    "The " + name
-  end
-
-  def previous_appointments
-    model.previous_appointments.reorder("started_at DESC").map { |ra| RoleAppointmentPresenter.new(ra, context) }
-  end
-
-  def responsibilities
-    context.govspeak_to_html model.responsibilities
   end
 
   class UnassignedPersonPresenter < PersonPresenter

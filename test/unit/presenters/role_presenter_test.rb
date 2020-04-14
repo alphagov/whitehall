@@ -38,39 +38,4 @@ class RolePresenterTest < ActionView::TestCase
     @role.stubs(:current_person).returns(nil)
     assert @presenter.current_person == RolePresenter::UnassignedPersonPresenter.new(nil, @view_context)
   end
-
-  test "responsibilities generates html from the original govspeak" do
-    @role.stubs(:responsibilities).returns("## Hello")
-    assert_select_within_html @presenter.responsibilities, ".govspeak h2", text: "Hello"
-  end
-
-  test "#announcements returns 10 published speeches and news articles sorted by descending date" do
-    organisation = stub_record(:organisation, organisation_type_key: :ministerial_department)
-    @role = stub_record(:ministerial_role, organisations: [organisation])
-    @presenter = RolePresenter.new(@role, @view_context)
-
-    speech_1 = Speech.new
-    speech_1.stubs(:public_timestamp).returns(1.day.ago)
-
-    speech_2 = Speech.new
-    speech_2.stubs(:public_timestamp).returns(30.days.ago)
-
-    two_published_speeches = [speech_1, speech_2]
-
-    ten_published_news_articles = 10.times.map do |i|
-      article = NewsArticle.new
-      article.stubs(:public_timestamp).returns(i.days.ago - 3.days)
-      article
-    end
-
-    @role
-      .stubs(:published_speeches)
-      .returns(stub("all speeches", limit: two_published_speeches))
-
-    @role
-      .stubs(:published_news_articles)
-      .returns(stub("all news_articles", limit: ten_published_news_articles))
-
-    assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
-  end
 end
