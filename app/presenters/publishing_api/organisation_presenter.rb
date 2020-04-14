@@ -396,7 +396,7 @@ module PublishingApi
               name_prefix: name_prefix,
               name: full_name,
               role: role.name,
-              href: Whitehall.url_maker.polymorphic_path(person),
+              href: "/government/people/#{person.slug}",
               role_href: role_href,
               payment_type: role.role_payment_type&.name,
               attends_cabinet_type: role.attends_cabinet_type&.name,

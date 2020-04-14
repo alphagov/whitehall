@@ -19,10 +19,8 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       biography: "Sir Winston Churchill was a Prime Minister.",
     )
 
-    public_path = Whitehall.url_maker.person_path(person)
-
     expected_hash = {
-      base_path: public_path,
+      base_path: "/government/people/#{person.slug}",
       title: "The Rt Hon Sir Winston Churchill PM",
       description: "Sir Winston Churchill was a Prime Minister.",
       schema_name: "person",
@@ -31,7 +29,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       publishing_app: "whitehall",
       rendering_app: "collections",
       public_updated_at: person.updated_at,
-      routes: [{ path: public_path, type: "exact" }],
+      routes: [{ path: "/government/people/#{person.slug}", type: "exact" }],
       redirects: [],
       details: {
         full_name: "Sir Winston Churchill PM",

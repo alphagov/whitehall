@@ -225,7 +225,7 @@ class DocumentHelperTest < ActionView::TestCase
     metadata_links = from_metadata(speech).join(" ")
     assert_select_within_html metadata_links,
                               "a[href=?]",
-                              person_path(person),
+                              "/government/people/#{person.slug}",
                               text: person.name
   end
 
@@ -238,7 +238,7 @@ class DocumentHelperTest < ActionView::TestCase
     metadata_links = from_metadata(edition).join(" ")
     assert_select_within_html metadata_links,
                               "a[href=?]",
-                              person_path(person),
+                              "/government/people/#{person.slug}",
                               text: person.name
   end
 

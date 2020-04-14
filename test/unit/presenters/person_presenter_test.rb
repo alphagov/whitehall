@@ -8,7 +8,7 @@ class PersonPresenterTest < ActionView::TestCase
   end
 
   test "path is generated using person_path" do
-    assert_equal person_path(@person), @presenter.path
+    assert_equal "/government/people/#{@person.slug}", @presenter.path
   end
 
   test "link links name to path" do

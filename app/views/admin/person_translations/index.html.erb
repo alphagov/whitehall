@@ -3,7 +3,7 @@
 <%= content_tag_for(:div, @person) do %>
   <div class="person-header">
     <h1><%= @person.name %></h1>
-    <%= view_on_website_link_for @person %>
+    <%= link_to "View on website", "/government/people/#{@person.slug}", cachebust_url_options %>
   </div>
   <section class="person-details">
     <%= tab_navigation_for(@person) %>
@@ -20,7 +20,8 @@
           <% @person.non_english_translated_locales.each do |locale| %>
             <tr>
               <td class="locale">
-                <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %> (<%= link_to "view", person_path(@person, locale: locale) %>)
+                <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %>
+                (<%= link_to "view", "/government/people/#{@person.slug}.#{locale.code}", cachebust_url_options %>)
               </td>
               <td class="actions">
                 <%= button_to 'Delete', admin_person_translation_path(@person, locale.code),

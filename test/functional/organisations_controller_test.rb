@@ -128,7 +128,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     assert_select_object person do
-      assert_select "a[href=?]", person_path(person), text: person.name
+      assert_select "a[href=?]", "/government/people/#{person.slug}", text: person.name
     end
   end
 
@@ -557,7 +557,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     assert_select_object person do
-      assert_select "a[href=?]", person_path(person), text: person.name
+      assert_select "a[href=?]", "/government/people/#{person.slug}", text: person.name
     end
   end
 
@@ -574,11 +574,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     assert_select_object(person_1) do
-      assert_select ".current-appointee a[href=?]", person_path(person_1), "Fred"
+      assert_select ".current-appointee a[href=?]", "/government/people/#{person_1.slug}", "Fred"
       assert_select "a[href=?]", ministerial_role_path(ministerial_role_1), text: "Secretary of State"
     end
     assert_select_object(person_2) do
-      assert_select ".current-appointee a[href=?]", person_path(person_2), "Bob"
+      assert_select ".current-appointee a[href=?]", "/government/people/#{person_2.slug}", "Bob"
       assert_select "a[href=?]", ministerial_role_path(ministerial_role_2), text: "Minister of State"
     end
     refute_select_object(minister_in_another_organisation)
@@ -615,10 +615,10 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select management_selector do
       assert_select_object(senior_person) do
-        assert_select "a[href=?]", person_path(senior_person)
+        assert_select "a[href=?]", "/government/people/#{senior_person.slug}"
       end
       assert_select_object(junior_person) do
-        assert_select "a[href=?]", person_path(junior_person)
+        assert_select "a[href=?]", "/government/people/#{junior_person.slug}"
       end
     end
   end
@@ -642,7 +642,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select special_representative_selector do
       assert_select_object(representative) do
-        assert_select "a[href=?]", person_path(representative)
+        assert_select "a[href=?]", "/government/people/#{representative.slug}"
       end
     end
   end

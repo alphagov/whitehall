@@ -3,7 +3,7 @@
 <%= content_tag_for(:div, @person) do %>
   <div class="organisation-header">
     <h1><%= @person.name %></h1>
-    <%= view_on_website_link_for @person %>
+    <%= link_to "View on website", "/government/people/#{@person.slug}", cachebust_url_options %>
   </div>
 
   <section class="organisation-details">
