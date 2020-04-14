@@ -98,7 +98,6 @@ $govuk-use-legacy-palette: false;
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
-  @import "views/_biographical-page";
   @import "views/_corporate-information-pages-worldwide-organisation";
   @import "views/_email-signup";
   @import "views/_email-signup-information";
@@ -115,7 +114,6 @@ $govuk-use-legacy-palette: false;
   @import "views/_new-document-page";
   @import "views/_operational-field";
   @import "views/_organisations";
-  @import "views/_people";
   @import "views/_search";
   @import "views/_site-index";
   @import "views/_topic";

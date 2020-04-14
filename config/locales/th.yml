@@ -340,14 +340,6 @@ th:
       step1_html:
       step2_html:
       step3_html:
-  people:
-    biography:
-    heading:
-      one:
-      other:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: นโยบาย
     view_all:
@@ -356,18 +348,6 @@ th:
     headings:
       detail: รายละเอียด
   read_more: อ่านเพิ่มเติม
-  roles:
-    heading:
-      one:
-      other:
-    headings:
-      current_holder:
-      previous_holders:
-      responsibilities:
-    ministerial:
-    policies_responsible_with_person:
-    previous_holders:
-    read_more:
   see_all:
     announcement: ดูทั้งหมดข่าวสาร
     authored_article: ดูทั้งหมดบทความที่เขียน

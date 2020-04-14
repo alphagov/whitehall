@@ -341,14 +341,6 @@ tr:
       step1_html:
       step2_html:
       step3_html:
-  people:
-    biography:
-    heading:
-      one:
-      other:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: Politikalar
     view_all:
@@ -357,18 +349,6 @@ tr:
     headings:
       detail: Detay
   read_more: Daha fazlası için
-  roles:
-    heading:
-      one:
-      other:
-    headings:
-      current_holder:
-      previous_holders:
-      responsibilities:
-    ministerial:
-    policies_responsible_with_person:
-    previous_holders:
-    read_more:
   see_all:
     announcement: Tamamını görüntüle
     authored_article: Tamamını görüntüle
