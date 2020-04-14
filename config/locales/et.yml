@@ -167,26 +167,6 @@ et:
       written_on: 'Kirjutatud:'
     updated: Täiendatud
     view: 'Vaadake: ''%{title}'''
-  people:
-    heading:
-      one: Isik
-      other: Inimesed
-    biography: CV
-    previous_roles: Varasemad ülesanded
-    previous_roles_in_government: Varasemad ülesanded valitsuses
-    read_more: Temast lähemalt
-  roles:
-    heading:
-      one: Ülesanne
-      other: Ülesanded
-    headings:
-      current_holder: Praegu sellel ametikohal
-      previous_holders: Eelmised ametikoha täitjad
-      responsibilities: Vastutusalad
-    ministerial: Ministri ülesanne
-    policies_responsible_with_person: 'Pädevus haldusala järgi: %{person}, %{role}'
-    previous_holders: 'Varem sellel ametikohal '
-    read_more: Sellest ametikohast lähemalt
   world_location:
     type:
       international_delegation:

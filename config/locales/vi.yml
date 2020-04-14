@@ -342,14 +342,6 @@ vi:
       step1_html:
       step2_html:
       step3_html:
-  people:
-    biography:
-    heading:
-      one:
-      other:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: Các chính sách
     view_all:
@@ -358,18 +350,6 @@ vi:
     headings:
       detail: Chi tiết
   read_more: Đọc thêm
-  roles:
-    heading:
-      one:
-      other:
-    headings:
-      current_holder:
-      previous_holders:
-      responsibilities:
-    ministerial:
-    policies_responsible_with_person:
-    previous_holders:
-    read_more:
   see_all:
     announcement: Xem tất cả các thông báo của chúng tôi
     authored_article: Xem tất cả các bài viết do tác giả của chúng tôi
