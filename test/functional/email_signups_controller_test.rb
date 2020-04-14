@@ -19,13 +19,6 @@ class EmailSignupsControllerTest < ActionController::TestCase
     assert_redirected_to "http://test.host/email-signup?link=/government/ministers/#{ministerial_role.slug}"
   end
 
-  view_test "GET :new redirects to email-alert-frontend if signup is for a person" do
-    person = create(:person)
-    get :new, params: { email_signup: { feed: atom_feed_url_for(person) } }
-
-    assert_redirected_to "http://test.host/email-signup?link=/government/people/#{person.slug}"
-  end
-
   view_test "GET :new redirects to email-alert-frontend if signup is for a topical event" do
     topical_event = create(:topical_event)
     get :new, params: { email_signup: { feed: atom_feed_url_for(topical_event) } }
