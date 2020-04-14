@@ -168,7 +168,6 @@ Whitehall::Application.routes.draw do
       as: :organisation_email_signup_information
 
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: VALID_LOCALES_REGEX }
 
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: "groups", only: [:show]
