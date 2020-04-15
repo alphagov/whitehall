@@ -8,7 +8,7 @@ class AuthorNotifierWorkerTest < ActiveSupport::TestCase
 
   test "calls the AuthorNotifierService" do
     AuthorNotifierService
-      .expects(:new)
+      .expects(:call)
       .with(@edition, @user)
 
     AuthorNotifierWorker.new.perform(@edition.id, @user.id)

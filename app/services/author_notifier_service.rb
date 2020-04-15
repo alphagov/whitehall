@@ -1,6 +1,10 @@
 class AuthorNotifierService
   attr_accessor :edition, :excluded_authors
 
+  def self.call(edition, *excluded_authors)
+    new(edition, *excluded_authors).notify!
+  end
+
   def initialize(edition, *excluded_authors)
     @edition = edition
     @excluded_authors = excluded_authors
