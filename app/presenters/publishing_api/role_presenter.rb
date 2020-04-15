@@ -45,7 +45,15 @@ module PublishingApi
     def polymorphic_path
       # Roles other than ministerial roles don't have base paths
       if item.is_a?(MinisterialRole)
-        PayloadBuilder::PolymorphicPath.for(item)
+        {
+          base_path: "/government/ministers/#{item.slug}",
+          routes: [
+            {
+              path: "/government/ministers/#{item.slug}",
+              type: "exact",
+            },
+          ],
+        }
       else
         {
           base_path: nil,

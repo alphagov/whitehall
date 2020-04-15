@@ -199,7 +199,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     assert_select_prefix_object(person, "by-organisation-#{org.slug}") do
-      assert_select "a[href=?]", person_path(person), text: "John Doe"
+      assert_select "a[href='/government/people/#{person.slug}']", text: person.name
       assert_minister_role_links_to_their_role(ministerial_role)
     end
   end
@@ -221,6 +221,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 private
 
   def assert_minister_role_links_to_their_role(role)
-    assert_select ".app-person__roles a[href='#{ministerial_role_path(role)}']", text: role.name
+    assert_select ".app-person__roles a[href='/government/ministers/#{role.slug}']", text: role.name
   end
 end

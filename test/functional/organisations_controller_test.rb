@@ -574,12 +574,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     assert_select_object(person_1) do
-      assert_select ".current-appointee a[href=?]", "/government/people/#{person_1.slug}", "Fred"
-      assert_select "a[href=?]", ministerial_role_path(ministerial_role_1), text: "Secretary of State"
+      assert_select ".current-appointee a[href='/government/people/#{person_1.slug}']", person_1.name
+      assert_select "a[href='/government/ministers/#{ministerial_role_1.slug}']", text: ministerial_role_1.name
     end
     assert_select_object(person_2) do
-      assert_select ".current-appointee a[href=?]", "/government/people/#{person_2.slug}", "Bob"
-      assert_select "a[href=?]", ministerial_role_path(ministerial_role_2), text: "Minister of State"
+      assert_select ".current-appointee a[href='/government/people/#{person_2.slug}']", person_2.name
+      assert_select "a[href='/government/ministers/#{ministerial_role_2.slug}']", text: ministerial_role_2.name
     end
     refute_select_object(minister_in_another_organisation)
   end

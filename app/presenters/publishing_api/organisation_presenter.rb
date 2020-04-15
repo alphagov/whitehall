@@ -391,7 +391,7 @@ module PublishingApi
           unless person.nil?
             name_prefix = "The Rt Hon" if person.privy_counsellor
             full_name = "#{person.title} #{person.forename} #{person.surname} #{person.letters}".strip
-            role_href = Whitehall.url_maker.polymorphic_path(role) if role.ministerial?
+            role_href = "/government/ministers/#{role.slug}" if role.ministerial?
             person_object = {
               name_prefix: name_prefix,
               name: full_name,
