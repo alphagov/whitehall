@@ -39,6 +39,6 @@ Scenario: Adding a new translation
   When I add a new "Español" translation to the role "Her Majesty's Ambassador to Spain" with:
     | name              | Su Majestad Embajador en España                |
     | responsibilities  | Retrato del Reino Unido en una buena luz.      |
-  Then when viewing the person "Giles Paxman" with the locale "Español" I should see:
+  Then I should see the role translation "Español" with:
     | name              | Su Majestad Embajador en España                |
     | responsibilities  | Retrato del Reino Unido en una buena luz.      |
