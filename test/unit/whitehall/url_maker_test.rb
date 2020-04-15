@@ -20,9 +20,9 @@ module Whitehall
 
     test "the default format can be overridden for a localised resource" do
       maker = Whitehall::UrlMaker.new(host: "gov.uk", format: "atom")
-      role  = create(:ministerial_role)
+      worldwide_organisation = create(:worldwide_organisation)
 
-      assert_equal "http://gov.uk/government/ministers/#{role.slug}.atom", maker.url_for(role)
+      assert_equal "http://gov.uk/world/organisations/#{worldwide_organisation.slug}.atom", maker.url_for(worldwide_organisation)
     end
 
     test "the default format can be overridden for a non-localised resource" do
