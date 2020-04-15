@@ -46,9 +46,3 @@ Scenario: Publishing a submitted speech
   And a submitted speech "Stubble to be Outlawed" exists
   When I publish the speech "Stubble to be Outlawed"
   Then I should see the speech "Stubble to be Outlawed" in the list of published documents
-
-Scenario: Viewing speeches made by a minister
-  Given "David Cameron" is the "Prime Minister" for the "Cabinet Office"
-  And a published speech "Abolish Fig Rolls" by "Prime Minister" on "June 23rd, 2010" at "The Mansion House"
-  When I visit the minister page for "Prime Minister"
-  Then I should see the speech "Abolish Fig Rolls"

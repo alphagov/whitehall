@@ -5,11 +5,6 @@ Given(/^I visit the role page for "(.*?)"$/) do |name|
   visit polymorphic_path(role)
 end
 
-Given(/^I visit the people page for "(.*?)"$/) do |name|
-  person = Person.find_by(name: name)
-  visit polymorphic_path(person)
-end
-
 Given(/^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/) do |role_name, worldwide_organisation_name|
   worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
   create(:ambassador_role, name: role_name, worldwide_organisations: [worldwide_organisation])
@@ -105,4 +100,11 @@ Then(/^I should see him listed as "([^"]*)" on the worldwide organisation page$/
     assert_text person.name
     assert_text role.name
   end
+end
+
+Then(/^I should see the role translation "([^"]*)" with:$/) do |locale, table|
+  fields = table.rows_hash
+  click_link locale
+  assert_selector "input[id=role_name][value='#{fields['name']}']"
+  assert_selector "#role_responsibilities", text: fields["responsibility"]
 end
