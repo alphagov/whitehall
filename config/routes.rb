@@ -26,8 +26,6 @@ Whitehall::Application.routes.draw do
     ::Whitehall.admin_host == request.host
   }
 
-  get "/government/ministers/minister-of-state--11" => redirect("/government/people/kris-hopkins", prefix: "")
-
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace "api" do
