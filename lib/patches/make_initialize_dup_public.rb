@@ -2,6 +2,6 @@
 # so that we can reset errors in the Edition#errors_as_draft method.
 module ActiveModel
   class Errors
-    public :initialize_dup # rubocop:disable Style/AccessModifierDeclarations
+    public :initialize_dup
   end
 end
