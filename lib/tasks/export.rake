@@ -2,10 +2,6 @@ require "csv"
 require "fileutils"
 
 namespace :export do
-  def routes_helper
-    @routes_helper ||= Whitehall.url_maker
-  end
-
   desc "Export mappings (for eg the Transition app to consume)"
   task mappings: :environment do
     # Read off the MySQL slave - we want performance here and
@@ -50,11 +46,11 @@ namespace :export do
             document.slug,
             document.display_type,
             document.latest_edition.state,
-            document.published? ? routes_helper.public_document_url(edition) : nil,
+            document.published? ? Whitehall.url_maker.public_document_url(edition) : nil,
             edition.id,
             edition.title,
             edition.state,
-            routes_helper.admin_edition_url(edition),
+            Whitehall.url_maker.admin_edition_url(edition),
             *edition.authors.uniq.map(&:name),
           ]
         end
@@ -92,8 +88,8 @@ namespace :export do
         org.published_editions.each do |edition|
           csv << [
             org.display_name,
-            routes_helper.public_document_url(edition),
-            routes_helper.admin_edition_url(edition),
+            Whitehall.url_maker.public_document_url(edition),
+            Whitehall.url_maker.admin_edition_url(edition),
             edition.title,
             edition.display_type,
             edition.public_timestamp,

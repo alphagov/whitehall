@@ -195,15 +195,6 @@ namespace :publishing_api do
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
-  def ensure_document_with_content_id_doesnt_exist(content_id)
-    document = Document.find_by(content_id: content_id)
-
-    return unless document
-
-    puts "Document with this content ID exists: #{document}"
-    abort "This Rake task is only for unknown content"
-  end
-
   desc "Bulk republishing"
   namespace :bulk_republish do
     desc "Republish all documents of a given type, eg 'NewsArticle'"
@@ -227,7 +218,8 @@ namespace :publishing_api do
     task :dry_run, %i[content_id alternative_path locale] => :environment do |_, args|
       args.with_defaults(locale: "en")
 
-      ensure_document_with_content_id_doesnt_exist(args[:content_id])
+      document = Document.find_by(content_id: content_id)
+      abort "Document with this content ID exists: #{document}" if document
 
       puts "Would send an unpublish request to the Publishing API for #{args[:content_id]} with:"
       puts "  type 'redirect', locale: #{args[:locale]} and alternative_path #{args[:alternative_path].strip}"
@@ -237,7 +229,8 @@ namespace :publishing_api do
     task :real, %i[content_id alternative_path locale] => :environment do |_, args|
       args.with_defaults(locale: "en")
 
-      ensure_document_with_content_id_doesnt_exist(args[:content_id])
+      document = Document.find_by(content_id: content_id)
+      abort "Document with this content ID exists: #{document}" if document
 
       response = Services.publishing_api.unpublish(
         args[:content_id],
