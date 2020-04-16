@@ -1,4 +1,5 @@
 namespace :governments do
+  desc "Update links for all content tagged to a government"
   task relink: :environment do
     STDOUT.sync = true
     Edition.where.not(state: %w[deleted superseded]).find_each do |edition|

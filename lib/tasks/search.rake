@@ -115,11 +115,13 @@ namespace :search do
   task reset: ["search:reset:detailed", "search:reset:government"]
 
   namespace :reset do
+    desc "Reset the 'government' index"
     task government: :environment do
       Whitehall::SearchIndex.for(:government).delete_all
       Rake::Task["search:index:government"].invoke
     end
 
+    desc "Reset the 'detailed' index"
     task detailed: :environment do
       Whitehall::SearchIndex.for(:detailed_guides).delete_all
       Rake::Task["search:index:detailed"].invoke

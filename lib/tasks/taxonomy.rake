@@ -1,6 +1,7 @@
 require "redis-lock"
 
 namespace :taxonomy do
+  desc "Rebuild the taxonomy cache"
   task rebuild_cache: [:environment] do
     Redis.current.lock("rebuild_taxonomy_cache_worker_lock", life: 10.minutes, acquire: 1) do
       Rails.logger.info "Scheduling taxonomy cache rebuild"
@@ -8,6 +9,7 @@ namespace :taxonomy do
     end
   end
 
+  desc "Populate end-to-end test data"
   task populate_end_to_end_test_data: [:environment] do
     taxon_content_id = "44171085-15e5-4524-89ca-b409d3675f93"
     taxon_payload = {

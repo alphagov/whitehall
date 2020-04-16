@@ -133,6 +133,7 @@ namespace :reporting do
   end
 
   namespace :consultations do
+    desc "Report consultations opened after a specific date"
     task all: :environment do
       options = opts_from_environment(:start_date, :data_path)
       ConsultationReporter.new(options).all_consultations

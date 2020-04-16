@@ -1,4 +1,5 @@
 namespace :election do
+  desc "Remove MP from MP's letters"
   task remove_mp_letters: :environment do
     puts "Removing MP from MP's letters:"
     Person.where('letters LIKE "%MP%"').each do |person|
@@ -11,6 +12,7 @@ namespace :election do
     end
   end
 
+  desc "Republish all political content"
   task republish_political_content: :environment do
     political_document_ids = Edition
       .where(political: true)
