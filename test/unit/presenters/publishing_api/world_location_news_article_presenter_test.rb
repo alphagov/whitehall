@@ -297,24 +297,6 @@ class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::T
   end
 end
 
-class PublishingApi::WorldLocationNewsArticlePlaceholderImageTest < ActiveSupport::TestCase
-  setup do
-    create(:current_government)
-    @wlna = create(:world_location_news_article)
-    @presented_wlna = PublishingApi::WorldLocationNewsArticlePresenter.new(@wlna)
-  end
-
-  test "includes a placeholder image when no image is presented" do
-    expected_placeholder_image = {
-      alt_text: "placeholder",
-      caption: nil,
-      url: Whitehall.public_asset_host + "/government/assets/placeholder.jpg",
-    }
-
-    assert_equal expected_placeholder_image, @presented_wlna.content[:details][:image]
-  end
-end
-
 class PublishingApi::WorldLocationNewsArticlePresenterAttachmentTest < ActiveSupport::TestCase
   setup do
     create(:current_government)

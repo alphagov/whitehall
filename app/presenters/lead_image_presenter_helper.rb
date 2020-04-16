@@ -1,4 +1,8 @@
 module LeadImagePresenterHelper
+  def has_lead_image?
+    !image_data.nil?
+  end
+
   def lead_image_path
     if image_data
       image_url
