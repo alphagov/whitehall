@@ -1,6 +1,4 @@
 class MinisterialRolesController < PublicFacingController
-  enable_request_formats show: [:atom]
-
   def index
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)
@@ -15,12 +13,6 @@ class MinisterialRolesController < PublicFacingController
     @ministers_by_organisation = ministers_by_organisation
     @whips_by_organisation = whips_by_organisation
     set_meta_description("Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business.")
-  end
-
-  def show
-    @ministerial_role = RolePresenter.new(MinisterialRole.friendly.find(params[:id]), view_context)
-    set_slimmer_organisations_header(@ministerial_role.organisations)
-    set_slimmer_page_owner_header(@ministerial_role.organisations.first)
   end
 
 private

@@ -204,97 +204,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "shows only published news and speeches associated with ministerial role" do
-    ministerial_role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    published_speech = create(:published_speech, role_appointment: role_appointment)
-    draft_speech = create(:draft_speech, role_appointment: role_appointment)
-    published_news_article = create(:published_news_article, role_appointments: [role_appointment])
-    draft_news_article = create(:draft_news_article, role_appointments: [role_appointment])
-
-    get :show, params: { id: ministerial_role }
-
-    assert_select_object(published_speech)
-    refute_select_object(draft_speech)
-    assert_select_object(published_news_article)
-    refute_select_object(draft_news_article)
-  end
-
-  view_test "shows only news and speeches associated with ministerial role" do
-    ministerial_role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    published_speech = create(:published_speech, role_appointment: role_appointment)
-    published_news_article = create(:published_news_article, role_appointments: [role_appointment])
-
-    another_ministerial_role = create(:ministerial_role)
-    another_role_appointment = create(:role_appointment, role: another_ministerial_role)
-    another_published_speech = create(:published_speech, role_appointment: another_role_appointment)
-    another_published_news_article = create(:published_news_article, role_appointments: [another_role_appointment])
-
-    get :show, params: { id: ministerial_role }
-
-    assert_select ".announcements" do
-      assert_select_object(published_speech)
-      refute_select_object(another_published_speech)
-      assert_select_object(published_news_article)
-      refute_select_object(another_published_news_article)
-    end
-  end
-
-  view_test "show has atom feed autodiscovery link" do
-    ministerial_role = create(:ministerial_role)
-    get :show, params: { id: ministerial_role }
-    assert_select_autodiscovery_link atom_feed_url_for(ministerial_role)
-  end
-
-  view_test "show generates an atom feed of news and speeches associated with the ministerial role" do
-    ministerial_role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date),
-    ]
-
-    get :show, params: { id: ministerial_role }, format: :atom
-
-    assert_select_atom_feed do
-      assert_select_atom_entries(expected_entries)
-    end
-  end
-
-  view_test "should not display an empty published speeches section" do
-    ministerial_role = create(:ministerial_role)
-
-    get :show, params: { id: ministerial_role }
-
-    refute_select ".news_and_speeches"
-  end
-
-  view_test "show lists previous appointments for non-historic roles" do
-    role = create(:ministerial_role)
-    first_appointment = create(:role_appointment, role: role, started_at: 9.years.ago, ended_at: 4.years.ago)
-    second_appointment = create(:role_appointment, role: role, started_at: 4.years.ago, ended_at: 5.days.ago)
-    get :show, params: { id: role }
-
-    assert_select ".previous-roles" do
-      assert_select_object first_appointment do
-        assert_select "a[href=?]", person_path(first_appointment.person), text: first_appointment.person.name
-      end
-      assert_select_object second_appointment do
-        assert_select "a[href=?]", person_path(second_appointment.person), text: second_appointment.person.name
-      end
-    end
-  end
-
-  view_test "show links to historical appointments when the role is historic" do
-    historic_role = create(:historic_role, name: "Prime Minister")
-    get :show, params: { id: historic_role }
-
-    assert_select ".previous-roles" do
-      assert_select "a[href=?]", historic_appointments_path("past-prime-ministers"), text: "past #{historic_role.name.pluralize}"
-    end
-  end
-
   test "shows only latest role appointments" do
     person = create(:person, forename: "John", surname: "Doe")
     organisation = create(:ministerial_department)
@@ -310,10 +219,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
 private
-
-  def assert_minister_photo_links_to_the_person(person)
-    assert_select ".image_holder a[href='#{person_path(person)}'] img[src='#{person.image_url}']"
-  end
 
   def assert_minister_role_links_to_their_role(role)
     assert_select ".app-person__roles a[href='#{ministerial_role_path(role)}']", text: role.name

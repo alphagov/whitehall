@@ -18,9 +18,9 @@ class FeedHelperTest < ActionView::TestCase
     assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/topics/#{topic.slug}.atom",
                  atom_feed_url_for(topic)
 
-    role = create(:ministerial_role)
-    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/ministers/#{role.slug}.atom",
-                 atom_feed_url_for(role)
+    org = create(:worldwide_organisation)
+    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/world/organisations/#{org.slug}.atom",
+                 atom_feed_url_for(org)
   end
 
   test "documents_as_feed_entries exposes each document as an entry and calls document_as_feed_entry on it" do

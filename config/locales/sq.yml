@@ -167,26 +167,6 @@ sq:
       written_on: 'Shkruar më:'
     updated: rifreskuar
     view: Shiko '%{title}'
-  people:
-    heading:
-      one:
-      other:
-    biography:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
-  roles:
-    heading:
-      one:
-      other:
-    headings:
-      current_holder:
-      previous_holders:
-      responsibilities:
-    ministerial:
-    policies_responsible_with_person:
-    previous_holders:
-    read_more:
   world_location:
     type:
       international_delegation:

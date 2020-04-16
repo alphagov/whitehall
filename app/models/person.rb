@@ -7,9 +7,6 @@ class Person < ApplicationRecord
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION) },
            class_name: "RoleAppointment"
-  has_many :previous_role_appointments,
-           -> { where.not(RoleAppointment::CURRENT_CONDITION) },
-           class_name: "RoleAppointment"
   has_many :speeches, through: :role_appointments
   has_many :news_articles, through: :role_appointments
 
@@ -17,10 +14,8 @@ class Person < ApplicationRecord
   has_many :current_roles, class_name: "Role", through: :current_role_appointments, source: :role
 
   has_many :ministerial_roles, class_name: "MinisterialRole", through: :role_appointments, source: :role
-  has_many :current_ministerial_roles, class_name: "MinisterialRole", through: :current_role_appointments, source: :role
 
   has_many :board_member_roles, class_name: "BoardMemberRole", through: :role_appointments, source: :role
-  has_many :current_board_member_roles, class_name: "BoardMemberRole", through: :current_role_appointments, source: :role
 
   has_many :organisation_roles, through: :current_roles
   has_many :organisations, through: :organisation_roles
@@ -50,39 +45,16 @@ class Person < ApplicationRecord
     end
   end
 
-  def search_link
-    Whitehall.url_maker.person_path(slug)
-  end
-
-  def biography_appropriate_for_role_without_markup
-    Govspeak::Document.new(biography_appropriate_for_role).to_text
-  end
-
   def biography_without_markup
     Govspeak::Document.new(biography).to_text
   end
 
   def biography_appropriate_for_role
-    if currently_in_a_role?
+    if current_role_appointments.any?
       biography
     else
       truncated_biography
     end
-  end
-
-  def currently_in_a_role?
-    current_role_appointments.any?
-  end
-
-  def ministerial_roles_at(date)
-    role_appointments_at(date).map(&:role).select { |role| role.is_a?(MinisterialRole) }
-  end
-
-  def role_appointments_at(date)
-    role_appointments.where([
-      ":date >= started_at AND (:date <= ended_at OR ended_at IS NULL)",
-      { date: date },
-    ])
   end
 
   def published_speeches
@@ -107,10 +79,6 @@ class Person < ApplicationRecord
 
   def name_without_privy_counsellor_prefix
     name_as_words(title, forename, surname, letters)
-  end
-
-  def previous_role_appointments
-    (role_appointments - current_role_appointments).sort_by(&:started_at).reverse
   end
 
   def sort_key

@@ -355,34 +355,6 @@ cy:
       written_on:
     updated: diweddarwyd
     view: Gweld '%{title}'
-  people:
-    heading:
-      zero:
-      one: Person
-      two:
-      few:
-      many: Pobl
-      other:
-    biography: Bywgraffiad
-    previous_roles: Rolau blaenorol
-    previous_roles_in_government: Rolau blaenorol mewn llywodraeth
-    read_more: Mwy am y person yma
-  roles:
-    heading:
-      zero:
-      one: Rôl
-      two:
-      few:
-      many:
-      other: Rolau
-    headings:
-      current_holder: 'Deiliad y rôl  '
-      previous_holders: 'Cyn-ddeiliaid '
-      responsibilities: Cyfrifoldebau
-    ministerial: Rôl Gweinidogol
-    policies_responsible_with_person: dan gyfrifoldeb %{person} fel %{role}
-    previous_holders: Cyn-ddeiliaid y rôl yma
-    read_more: Mwy am y rôl yma
   world_location:
     type:
       international_delegation:
