@@ -204,6 +204,19 @@ namespace :publishing_api do
     abort "This Rake task is only for unknown content"
   end
 
+  desc "Bulk republishing"
+  namespace :bulk_republish do
+    desc "Republish all documents of a given type, eg 'NewsArticle'"
+    task :document_type, [:document_type] => :environment do |_, args|
+      documents = Document.where(document_type: args[:document_type])
+      puts "Enqueueing #{documents.count} documents"
+      documents.find_each do |document|
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.id, true)
+      end
+      puts "Finished enqueueing items for Publishing API"
+    end
+  end
+
   desc "Manually unpublish content with a redirect"
   # This task is for unpublishing Whitehall managed content where
   # Whitehall has forgotten it is managing the content (as it often
