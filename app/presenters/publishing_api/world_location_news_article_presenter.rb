@@ -45,7 +45,7 @@ module PublishingApi
         body: govspeak_renderer.govspeak_edition_to_html(item),
         change_history: item.change_history.as_json,
       }.tap do |details_hash|
-        details_hash[:image] = image_details
+        details_hash.merge!(image_details)
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
         details_hash.merge!(PayloadBuilder::TagDetails.for(item))
         details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
@@ -54,10 +54,14 @@ module PublishingApi
     end
 
     def image_details
+      return {} unless presented_world_location_news_article.has_lead_image?
+
       {
-        url: image_url,
-        alt_text: presented_world_location_news_article.lead_image_alt_text,
-        caption: presented_world_location_news_article.lead_image_caption,
+        image: {
+          url: image_url,
+          alt_text: presented_world_location_news_article.lead_image_alt_text,
+          caption: presented_world_location_news_article.lead_image_caption,
+        },
       }
     end
 

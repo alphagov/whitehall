@@ -232,6 +232,7 @@ module PublishingApi::NewsArticlePresenterTest
         .with(news_article)
         .returns(
           stub(
+            has_lead_image?: true,
             lead_image_path: "/foo",
             high_resolution_lead_image_path: "/foo-large",
             lead_image_alt_text: "Bar",
