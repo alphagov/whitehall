@@ -12,11 +12,8 @@ namespace :reslug do
   - republishes the person to Publishing API (automatically handles the redirect)
   - reindexes all dependent documents in search"
   task :person, %i[old_slug new_slug] => :environment do |_task, args|
-    old_slug = args[:old_slug]
-    new_slug = args[:new_slug]
-    person = Person.find_by!(slug: old_slug)
-
-    DataHygiene::PersonReslugger.new(person, new_slug).run!
+    person = Person.find_by!(slug: args[:old_slug])
+    DataHygiene::PersonReslugger.new(person, args[:new_slug]).run!
   end
 
   desc "Change a role slug (DANGER!).\n
@@ -28,11 +25,8 @@ namespace :reslug do
   - reindexes the role for search
   - republishes the role to Publishing API (automatically handles the redirect)"
   task :role, %i[old_slug new_slug] => :environment do |_task, args|
-    old_slug = args[:old_slug]
-    new_slug = args[:new_slug]
-    role = Role.find_by!(slug: old_slug)
-
-    DataHygiene::RoleReslugger.new(role, new_slug).run!
+    role = Role.find_by!(slug: args[:old_slug])
+    DataHygiene::RoleReslugger.new(role, args[:new_slug]).run!
   end
 
   desc "Change a document's slug in whitehall (DANGER!).\n
@@ -81,14 +75,6 @@ namespace :reslug do
     world_location.editions.published.each(&:update_in_search_index)
   end
 
-  def reslug_organisation(organisation_class, args)
-    old_slug = args[:old_slug]
-    new_slug = args[:new_slug]
-
-    organisation = organisation_class.find_by!(slug: old_slug)
-    DataHygiene::OrganisationReslugger.new(organisation, new_slug).run!
-  end
-
   desc "Change an organisation slug (DANGER!).\n
 
   This rake task changes the slug of an organisation in whitehall.
@@ -99,7 +85,8 @@ namespace :reslug do
   - reindexes the org for search
   - reindexes all dependent documents in search"
   task :organisation, %i[old_slug new_slug] => :environment do |_task, args|
-    reslug_organisation(Organisation, args)
+    organisation = Organisation.find_by!(slug: args[:old_slug])
+    DataHygiene::OrganisationReslugger.new(organisation, args[:new_slug]).run!
   end
 
   desc "Change a worldwide organisation slug (DANGER!).\n
@@ -112,7 +99,8 @@ namespace :reslug do
   - reindexes the org for search
   - reindexes all dependent documents in search"
   task :worldwide_organisation, %i[old_slug new_slug] => :environment do |_task, args|
-    reslug_organisation(WorldwideOrganisation, args)
+    organisation = WorldwideOrganisation.find_by!(slug: args[:old_slug])
+    DataHygiene::OrganisationReslugger.new(organisation, args[:new_slug]).run!
   end
 
   desc "Change the slug of a StatisticsAnnouncement"
