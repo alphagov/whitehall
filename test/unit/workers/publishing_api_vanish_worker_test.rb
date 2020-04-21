@@ -22,6 +22,25 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
     assert_requested request
   end
 
+  test "publishes a 'vanish' item for the supplied content id including the discard drafts flag" do
+    publication = create(:withdrawn_publication)
+
+    request = stub_publishing_api_unpublish(
+      publication.document.content_id,
+      body: {
+        type: "vanish",
+        locale: "en",
+        discard_drafts: true,
+      },
+    )
+
+    PublishingApiVanishWorker.new.perform(
+      publication.document.content_id, "en", discard_drafts: true
+    )
+
+    assert_requested request
+  end
+
   test "an error if document is locked" do
     document = create(:document, locked: true)
 
