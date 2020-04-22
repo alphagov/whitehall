@@ -113,36 +113,6 @@
       "note": "The system binaries are constants, and the others are built in code, there is no user input."
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "2e8f4b07eb80d409f94338adaee161683ad19c71a77b71aab70ce5591e95cef1",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/contacts/_contact.html.erb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.contact_form_url.truncate(25), (Unresolved Model).new.contact_form_url, :class => \"govuk-link\")",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "organisations/show",
-          "line": 222,
-          "file": "app/views/organisations/show.html.erb",
-          "rendered": {
-            "name": "contacts/_contact",
-            "file": "app/views/contacts/_contact.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "contacts/_contact"
-      },
-      "user_input": "(Unresolved Model).new.contact_form_url",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "3bbe521f1296024aed2d6a49f3cb14ea53fdd0aaa221aac334d8fc89bd855e17",
@@ -385,37 +355,6 @@
       "user_input": "Organisation.friendly.find(params[:id])",
       "confidence": "Weak",
       "note": "We don't link directly to any unescaped model attribute."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "700eb8e568347e67e8a5f06e5caf2f051f27158362b6448b57fd48e26b26916f",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/organisations/not_live.html.erb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(Organisation.with_translations(I18n.locale).find(params[:id]).url, Organisation.with_translations(I18n.locale).find(params[:id]).url, :class => \"url-link\")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "OrganisationsController",
-          "method": "show",
-          "line": 53,
-          "file": "app/controllers/organisations_controller.rb",
-          "rendered": {
-            "name": "organisations/not_live",
-            "file": "app/views/organisations/not_live.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "organisations/not_live"
-      },
-      "user_input": "Organisation.with_translations(I18n.locale).find(params[:id]).url",
-      "confidence": "Weak",
-      "note": "We control the organisation URLs in the database."
     },
     {
       "warning_type": "Dynamic Render Path",

@@ -13,23 +13,6 @@ Feature: managing contact details on home pages
     Given I am a GDS editor
     And a world location "United Kingdom" exists
 
-  Scenario: Arranging contacts for an organisation
-    Given there is an organisation with some contacts on its home page
-    When I add a new contact to be featured on the home page of the organisation
-    And I reorder the contacts to highlight my new contact
-    Then I see the contacts in my specified order including the new one on the home page of the organisation
-
-  Scenario: FOI contacts for an organisation
-    Given there is an organisation with some contacts on its home page
-    When I add a new FOI contact to the organisation without adding it to the list of contacts for the home page
-    Then I cannot add or reorder the new FOI contact in the home page list
-    And I see the new FOI contact listed on the home page only once, in the FOI section
-
-  Scenario: Removing contacts from the home page of an organisation
-    Given there is an organisation with some contacts on its home page
-    When I decide that one of the contacts no longer belongs on the home page
-    Then that contact is no longer visible on the home page of the organisation
-
   Scenario: Arranging offices for a worldwide organisation
     Given there is a worldwide organisation with some offices on its home page
     When I add a new office to be featured on the home page of the worldwide organisation

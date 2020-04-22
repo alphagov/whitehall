@@ -31,13 +31,6 @@ Scenario: Publishing an edition I created but did not submit
   And I publish the publication "Britain's Hairiest Ministers"
   Then I should see the publication "Britain's Hairiest Ministers" in the list of published documents
 
-Scenario: Publishing a corporate publication
-  Given I am an editor
-  And the organisation "Ministry of Hair" exists
-  And a submitted corporate publication "Why we care about hair" about the "Ministry of Hair"
-  When I publish the publication "Why we care about hair"
-  Then I should see "Why we care about hair" is a corporate publication of the "Ministry of Hair"
-
 Scenario: Viewing a publication that's been submitted for review with a PDF attachment
   Given a submitted publication "Legalise beards" with a PDF attachment
   And I am an editor

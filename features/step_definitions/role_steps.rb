@@ -85,12 +85,6 @@ Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
   click_on "Save"
 end
 
-Then(/^I should see "([^"]*)" listed on the "([^"]*)" organisation page$/) do |person_name, organisation_name|
-  visit_organisation organisation_name
-  role = find_person(person_name).roles.first
-  assert_selector record_css_selector(role.current_person)
-end
-
 Then(/^I should see him listed as "([^"]*)" on the worldwide organisation page$/) do |role_name|
   visit worldwide_organisation_path(WorldwideOrganisation.last)
   person = Person.last

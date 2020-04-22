@@ -117,10 +117,6 @@ Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |org
   end
 end
 
-When(/^I visit the "([^"]*)" organisation$/) do |name|
-  visit_organisation name
-end
-
 When(/^I feature the news article "([^"]*)" for "([^"]*)"$/) do |news_article_title, organisation_name|
   step %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
 end
@@ -199,57 +195,12 @@ Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
   refute Organisation.find_by(name: name)
 end
 
-Then(/^I should be able to view all civil servants for the "([^"]*)" organisation$/) do |name|
-  organisation = Organisation.find_by!(name: name)
-  organisation.management_roles.each do |role|
-    assert_selector record_css_selector(role.current_person)
-  end
-end
-
-Then(/^I should be able to view all ministers for the "([^"]*)" organisation$/) do |name|
-  organisation = Organisation.find_by!(name: name)
-  organisation.ministerial_roles.each do |role|
-    assert_selector record_css_selector(role.current_person)
-  end
-end
-
-Then(/^I should be able to view all traffic commissioners for the "([^"]*)" organisation$/) do |name|
-  organisation = Organisation.find_by!(name: name)
-  organisation.traffic_commissioner_roles.each do |role|
-    assert_selector record_css_selector(role.current_person)
-  end
-end
-
-Then(/^I should be able to view all chief professional officers for the "([^"]*)" organisation$/) do |name|
-  organisation = Organisation.find_by!(name: name)
-  organisation.chief_professional_officer_roles.each do |role|
-    assert_selector record_css_selector(role.current_person)
-  end
-end
-
-Then(/^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/) do |_type, name, expected_table|
-  visit_organisation name
-  rows = find(featured_documents_selector).all(".feature")
-  table = rows.collect do |row|
-    [
-      row.find("h2").text.strip,
-      File.basename(row.find(".featured-image")["src"]),
-    ]
-  end
-  expected_table.diff!(table)
-end
-
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   offsite_link = OffsiteLink.find_by!(title: title)
   visit admin_organisation_path(organisation)
   click_link "Features"
   assert has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.slug, offsite_link.id))
-end
-
-Then(/^there should be nothing featured on the home page of "([^"]*)"$/) do |name|
-  visit_organisation name
-  assert_no_selector featured_documents_selector
 end
 
 def navigate_to_organisation(page_name)
@@ -279,43 +230,6 @@ end
 When(/^I associate a Transparency data publication to the "([^"]*)"$/) do |name|
   organisation = Organisation.find_by!(name: name)
   create(:published_publication, :transparency_data, organisations: [organisation])
-end
-
-When(/^I add some featured links to the organisation "([^"]*)" via the admin$/) do |organisation_name|
-  organisation = Organisation.find_by!(name: organisation_name)
-  visit admin_organisation_path(organisation)
-  click_link "Edit"
-  within ".featured-links" do
-    fill_in "URL", with: "https://www.gov.uk/mainstream/tool-alpha"
-    fill_in "Title", with: "Tool Alpha"
-  end
-  click_button "Save"
-end
-
-Then(/^the featured links for the organisation "([^"]*)" should be visible on the public site$/) do |organisation_name|
-  visit_organisation organisation_name
-  within ".featured-links" do
-    assert_selector "a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha"
-  end
-end
-
-When(/^I add some featured services and guidance to the organisation "([^"]*)" via the admin$/) do |organisation_name|
-  organisation = Organisation.find_by!(name: organisation_name)
-  visit admin_organisation_path(organisation)
-  click_link "Edit"
-  within ".featured-links" do
-    fill_in "URL", with: "https://www.gov.uk/example/service"
-    fill_in "Title", with: "Example Service"
-  end
-  choose "organisation_homepage_type_service"
-  click_button "Save"
-end
-
-Then(/^the featured services and guidance for the organisation "([^"]*)" should be visible on the public site$/) do |organisation_name|
-  visit_organisation organisation_name
-  within ".featured-links" do
-    assert_selector "a[href='https://www.gov.uk/example/service']", text: "Example Service"
-  end
 end
 
 Given(/^an organisation "([^"]*)" has been assigned to handle fatalities$/) do |organisation_name|
@@ -348,106 +262,6 @@ Then(/^I should see the "([^"]*)" contact in the admin interface with address "(
     assert_selector "h3", text: contact_description
     assert_selector ".adr .street-address", text: address
   end
-end
-
-Given(/^the organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|
-  locale_code = Locale.find_by_language_name(native_locale_name).code
-  organisation = create(:ministerial_department, name: name, translated_into: [locale_code])
-  stub_organisation_in_content_store(name, organisation.base_path)
-  stub_organisation_in_content_store(name, organisation.base_path, locale_code)
-end
-
-When(/^I add a new translation to the organisation with:$/) do |table|
-  organisation = Organisation.last
-  translation = table.rows_hash.stringify_keys
-
-  visit admin_organisation_path(organisation)
-  click_link "Translations"
-  select translation["locale"], from: "Locale"
-  click_on "Create translation"
-  fill_in_organisation_translation_form(translation)
-
-  locale_code = Locale.find_by_language_name(translation["locale"]).code
-  stub_organisation_in_content_store(organisation.name, organisation.base_path, locale_code)
-end
-
-When(/^I edit the translation for the organisation setting:$/) do |table|
-  organisation = Organisation.last
-  translation = table.rows_hash.stringify_keys
-  visit admin_organisation_path(organisation)
-  click_link "Translations"
-  click_link translation["locale"]
-  fill_in_organisation_translation_form(translation)
-end
-
-Then(/^when I view the organisation with the locale "([^"]*)" I should see:$/) do |locale, table|
-  organisation = Organisation.last
-  translation = table.rows_hash
-
-  visit organisation_path(organisation)
-  click_link locale
-
-  within record_css_selector(organisation) do
-    assert_selector ".organisation-logo", text: translation["logo formatted name"]
-  end
-end
-
-Given(/^the topical event "([^"]*)" exists$/) do |name|
-  TopicalEvent.create(name: name, description: "test", start_date: Time.zone.today, end_date: Time.zone.today + 2.months)
-end
-
-When(/^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$/) do |topic, organisation_name, image_filename|
-  organisation = Organisation.find_by!(name: organisation_name)
-  visit admin_organisation_path(organisation)
-  click_link "Features"
-  topical_event = TopicalEvent.find_by(name: topic)
-  within record_css_selector(topical_event) do
-    click_link "Feature"
-  end
-  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :feature_alt_text, with: "An accessible description of the image"
-  click_button "Save"
-end
-
-When(/^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/) do |topic, organisation_name|
-  organisation = Organisation.find_by!(name: organisation_name)
-  visit features_admin_organisation_path(organisation)
-  topical_event = TopicalEvent.find_by(name: topic)
-  within record_css_selector(topical_event) do
-    click_on "Unfeature"
-  end
-end
-
-When(/^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/) do |supporting_org_name, supported_org_name|
-  supported_organisation = Organisation.find_by!(name: supported_org_name)
-
-  visit admin_organisation_path(supported_organisation)
-  click_on "Edit"
-  select supporting_org_name, from: "Sponsoring organisations"
-  click_on "Save"
-end
-
-Then(/^I should see "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/) do |supporting_org_name, supported_org_name|
-  supported_organisation = Organisation.find_by!(name: supported_org_name)
-
-  ensure_path organisation_path(supported_organisation)
-  within "p.parent_organisations" do
-    assert_text supporting_org_name
-  end
-end
-
-Then(/^I can see information about uk aid on the "(.*?)" page$/) do |org_name|
-  org = Organisation.find_by!(name: org_name)
-
-  visit organisation_path(org)
-  assert_selector ".uk-aid"
-end
-
-Then(/^I can not see information about uk aid on the "(.*?)" page$/) do |org_name|
-  org = Organisation.find_by!(name: org_name)
-
-  visit organisation_path(org)
-  assert_no_selector ".uk-aid"
 end
 
 Given(/^an organisation and some documents exist$/) do
