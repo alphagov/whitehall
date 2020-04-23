@@ -8,16 +8,15 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
     publication = create(:withdrawn_publication)
 
     request = stub_publishing_api_unpublish(
-      publication.document.content_id,
+      publication.content_id,
       body: {
         type: "vanish",
         locale: "en",
       },
     )
 
-    PublishingApiVanishWorker.new.perform(
-      publication.document.content_id, "en"
-    )
+    PublishingApiVanishWorker.perform_async(publication.content_id, "en")
+    PublishingApiVanishWorker.drain
 
     assert_requested request
   end
@@ -26,7 +25,7 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
     publication = create(:withdrawn_publication)
 
     request = stub_publishing_api_unpublish(
-      publication.document.content_id,
+      publication.content_id,
       body: {
         type: "vanish",
         locale: "en",
@@ -34,9 +33,8 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiVanishWorker.new.perform(
-      publication.document.content_id, "en", discard_drafts: true
-    )
+    PublishingApiVanishWorker.perform_async(publication.content_id, "en", true)
+    PublishingApiVanishWorker.drain
 
     assert_requested request
   end
@@ -45,7 +43,8 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
     document = create(:document, locked: true)
 
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      PublishingApiVanishWorker.new.perform(document.content_id, "en")
+      PublishingApiVanishWorker.perform_async(document.content_id, "en")
+      PublishingApiVanishWorker.drain
     end
   end
 end
