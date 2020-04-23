@@ -4,5 +4,5 @@ broken_group_content_ids = Services.publishing_api.lookup_content_ids(
 ).values
 
 broken_group_content_ids.each do |content_id|
-  PublishingApiVanishWorker.perform_async(content_id, "en", discard_drafts: true)
+  PublishingApiVanishWorker.perform_async(content_id, "en", true)
 end
