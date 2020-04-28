@@ -76,7 +76,6 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     @topic = create(:topic)
     @edition = create(:publication, title: "the edition")
 
-
     put :update, params: { edition_id: @edition.id,
       edition: {
         topic_ids: ["", @topic.id.to_s],
@@ -99,7 +98,6 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
       primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
       secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
     )
-
 
     put :update, params: { edition_id: @edition.id, edition: {
       topic_ids: [""],

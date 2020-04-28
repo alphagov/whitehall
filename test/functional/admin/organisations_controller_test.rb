@@ -416,7 +416,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
                                   image: image_fixture_file,
                                   alt_text: "Image alternative text")
 
-
     get :features, params: { id: organisation, locale: "en" }
     assert_response :success
   end

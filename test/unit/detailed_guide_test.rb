@@ -150,7 +150,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal %w[9af50189-de1c-49af-a334-6b1d87b593a6 9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
   end
 
-
   test "related_mainstream_found raises two errors for two incorrect related mainstream paths" do
     Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/content-missing-from-publishing-api", "/another-content-missing-from-publishing-api"]).returns({})
 

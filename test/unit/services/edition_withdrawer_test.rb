@@ -13,7 +13,6 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     assert_equal "1.0", edition.published_version
   end
 
-
   test '"published" editions can be withdrawn' do
     edition = create(:published_edition)
     edition.build_unpublishing(unpublishing_params)

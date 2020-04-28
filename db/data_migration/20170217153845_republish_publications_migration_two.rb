@@ -8,7 +8,6 @@ document_scope = document_scope.where(
   id: lowest_id_for_this_republish..highest_id_for_this_republish,
 ).order(id: :desc)
 
-
 puts "Republishing #{document_scope.count} documents"
 
 document_scope.pluck(:id).each do |document_id|

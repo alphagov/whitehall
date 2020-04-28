@@ -47,7 +47,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-
     context "given a file attachment" do
       let(:file) { File.open(path_to_attachment(filename)) }
       let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }

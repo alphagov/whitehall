@@ -135,7 +135,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equivalent_html expected, rendered_attachment_headers
   end
 
-
   test "#html_attachment_govspeak_headers_html correctly renders links to overridden header ids" do
     attachment = build(
       :html_attachment,

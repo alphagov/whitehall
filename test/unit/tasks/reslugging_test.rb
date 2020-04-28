@@ -1,7 +1,6 @@
 require "test_helper"
 require "rake"
 
-
 class ResluggingTest < ActiveSupport::TestCase
   setup do
     Rake.application.rake_require "tasks/reslugging"

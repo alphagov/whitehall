@@ -209,7 +209,6 @@ def navigate_to_organisation(page_name)
   end
 end
 
-
 Then(/^the alternative format contact email is "([^"]*)"$/) do |email|
   publication = Publication.last
   actual = publication.alternative_format_contact_email

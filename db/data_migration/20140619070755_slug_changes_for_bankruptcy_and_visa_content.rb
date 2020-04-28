@@ -32,7 +32,6 @@ document_publications_urls.each do |old_slug, new_slug|
   end
 end
 
-
 document_collections_urls.each do |old_slug, new_slug|
   changeling = Document.find_by(slug: old_slug)
   if changeling
