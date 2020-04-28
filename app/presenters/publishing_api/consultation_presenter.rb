@@ -42,7 +42,7 @@ module PublishingApi
       LinksPresenter
         .new(consultation)
         .extract(%i(organisations parent policy_areas topics government))
-        .merge(PayloadBuilder::People.for(consultation, :people))
+        .merge(PayloadBuilder::People.for(consultation))
         .merge(PayloadBuilder::Roles.for(consultation))
         .merge(PayloadBuilder::TopicalEvents.for(consultation))
     end

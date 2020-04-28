@@ -1,15 +1,14 @@
 module PublishingApi
   module PayloadBuilder
     class People
-      attr_reader :item, :key
+      attr_reader :item
 
-      def self.for(item, key)
-        self.new(item, key).call
+      def self.for(item)
+        self.new(item).call
       end
 
-      def initialize(item, key)
+      def initialize(item)
         @item = item
-        @key = key
       end
 
       def call
@@ -20,7 +19,7 @@ module PublishingApi
 
       def people
         {
-          key => role_appointments
+          people: role_appointments
             .map(&:person)
             .collect(&:content_id),
         }

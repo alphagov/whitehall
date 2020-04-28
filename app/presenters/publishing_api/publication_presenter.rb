@@ -55,7 +55,7 @@ module PublishingApi
       ).merge(
         PayloadBuilder::Roles.for(item),
       ).merge(
-        PayloadBuilder::People.for(item, :people),
+        PayloadBuilder::People.for(item),
       )
     end
 
