@@ -12,7 +12,6 @@ class GdsApi::UrlArbiter < GdsApi::Base
   end
 end
 
-
 router_api = GdsApi::Router.new(Plek.find("router-api"))
 url_arbiter = GdsApi::UrlArbiter.new(Plek.find("url-arbiter"))
 

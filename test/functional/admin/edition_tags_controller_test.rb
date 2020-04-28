@@ -137,7 +137,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     end
   end
 
-
   view_test "should render save and review legacy button with tracking attributes" do
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
 

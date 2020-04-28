@@ -134,7 +134,6 @@ module PublishingApi
 
       attr_accessor :consultation, :renderer
 
-
       def documents
         renderer.block_attachments(
           consultation.attachments,

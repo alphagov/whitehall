@@ -27,7 +27,6 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
     withdrawer.expects(:perform!)
 
-
     put :update, params: { edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" } }
 
     assert_redirected_to @controller.admin_edition_path(@edition)

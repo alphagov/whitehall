@@ -99,7 +99,6 @@ module TaxonomyHelper
     store.add([document.merge("part_of_taxonomy_tree" => taxon_ids)], index_name)
   end
 
-
 private
 
   def redis_client

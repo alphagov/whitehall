@@ -49,7 +49,7 @@ Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^
 end
 
 Then(/^I should see that the minister is associated with the "([^"]*)"$/) do |organisation_name|
-  assert_selector".meta", text: organisation_name
+  assert_selector ".meta", text: organisation_name
 end
 
 Then(/^I should see that the minister has responsibilities "([^"]*)"$/) do |responsibilities|

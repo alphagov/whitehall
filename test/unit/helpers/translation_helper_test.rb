@@ -107,7 +107,6 @@ class TranslationHelperTest < ActionView::TestCase
   test "t_fallback returns default locale if translated string hash is all nil" do
     I18n.default_locale = :en
 
-
     I18n.with_locale(:de) do
       I18n.backend.store_translations :de, testing: { test: { one: nil, others: nil } }
       assert_equal :en, t_fallback("testing.test", count: 2)

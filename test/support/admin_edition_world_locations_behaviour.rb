@@ -49,7 +49,6 @@ module AdminEditionWorldLocationsBehaviour
         end
       end
 
-
       test "updating should save modified document attributes with world locations" do
         world_location_1 = create(:world_location)
         world_location_2 = create(:world_location)

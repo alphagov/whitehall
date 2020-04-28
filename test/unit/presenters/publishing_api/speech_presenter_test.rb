@@ -182,7 +182,6 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         )
       end
 
-
       context "with featured image" do
         let!(:feature) do
           create(

@@ -29,7 +29,6 @@ def policy_content_id(policies, policy_link)
     .fetch("content_id")
 end
 
-
 policies = Whitehall.content_register.entries("policy")
 
 policies_to_organisations(policies).each do |organisation|

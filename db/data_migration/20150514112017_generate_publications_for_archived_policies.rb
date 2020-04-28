@@ -8,7 +8,6 @@ POLICY_TO_PUBLICATION_MAPPINGS = {
 gds_user = User.find_by!(name: "GDS Inside Government Team")
 router = GdsApi::Router.new(Plek.find("router-api"))
 
-
 POLICY_TO_PUBLICATION_MAPPINGS.each_pair do |policy_id, publication_id|
   policy = Policy.find(policy_id)
   publication = Publication.find(publication_id)

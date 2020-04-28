@@ -351,7 +351,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 10, service_organisation.visible_featured_links.count
   end
 
-
   test "should set a slug from the organisation name" do
     organisation = create(:organisation, name: "Love all the people")
     assert_equal "love-all-the-people", organisation.slug

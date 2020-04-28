@@ -109,7 +109,6 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_equal actual_links, expected_links
     end
 
-
     test "body details" do
       body_double = Object.new
 
