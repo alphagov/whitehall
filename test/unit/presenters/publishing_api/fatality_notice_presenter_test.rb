@@ -68,7 +68,6 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   test "it presents edition links" do
     expected_links = {
       field_of_operation: [@fatality_notice.operational_field.content_id],
-      ministers: [],
       organisations: [],
       people: [],
       policy_areas: [],
@@ -194,13 +193,6 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
     assert_equal(
       [@fatality_notice.operational_field.content_id],
       @presented_links[:field_of_operation],
-    )
-  end
-
-  test "it presents the role_appointments person content_ids as links, ministers" do
-    assert_equal(
-      @fatality_notice.role_appointments.map(&:person).collect(&:content_id),
-      @presented_links[:ministers],
     )
   end
 

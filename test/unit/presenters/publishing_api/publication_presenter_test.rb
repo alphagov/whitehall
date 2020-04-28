@@ -51,8 +51,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       },
     }
 
-    minister = create(:ministerial_role_appointment)
-    publication.role_appointments << minister
     topical_event = create(:topical_event)
     publication.classification_memberships.create(classification_id: topical_event.id)
     expected_links = {
@@ -62,7 +60,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       original_primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),
-      ministers: [minister.person.content_id],
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [topical_event.content_id],

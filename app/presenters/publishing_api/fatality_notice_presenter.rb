@@ -45,8 +45,6 @@ module PublishingApi
       ).merge(
         field_of_operation: [item.operational_field.content_id],
       ).merge(
-        PayloadBuilder::People.for(item, :ministers),
-      ).merge(
         PayloadBuilder::People.for(item, :people),
       ).merge(
         PayloadBuilder::Roles.for(item),

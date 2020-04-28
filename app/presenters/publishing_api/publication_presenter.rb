@@ -51,7 +51,6 @@ module PublishingApi
       ).merge(
         PayloadBuilder::TopicalEvents.for(item),
       ).merge(
-        ministers: ministers,
         related_statistical_data_sets: related_statistical_data_sets,
       ).merge(
         PayloadBuilder::Roles.for(item),
@@ -112,10 +111,6 @@ module PublishingApi
       attachments.to_a.select do |attachment|
         locales_that_match.include?(attachment.locale.to_s)
       end
-    end
-
-    def ministers
-      item.role_appointments.collect { |a| a.person.content_id }
     end
 
     def related_statistical_data_sets
