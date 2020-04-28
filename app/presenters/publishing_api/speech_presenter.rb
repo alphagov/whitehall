@@ -64,7 +64,7 @@ module PublishingApi
       links.merge!(links_for_speaker)
       links.merge!(links_for_topical_events)
       links.merge!(PayloadBuilder::Roles.for(item))
-      links.merge!(PayloadBuilder::People.for(item, :people))
+      links.merge!(PayloadBuilder::People.for(item))
     end
 
     def document_type

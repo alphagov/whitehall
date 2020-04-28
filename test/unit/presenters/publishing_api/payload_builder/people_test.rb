@@ -8,7 +8,7 @@ module PublishingApi
 
         expected_hash = { people: [] }
 
-        assert_equal expected_hash, People.for(edition_with_no_roles_or_people, :people)
+        assert_equal expected_hash, People.for(edition_with_no_roles_or_people)
       end
 
       test "returns empty array of people if role_appointment is nil" do
@@ -16,7 +16,7 @@ module PublishingApi
 
         expected_hash = { people: [] }
 
-        assert_equal expected_hash, People.for(stubbed_edition, :people)
+        assert_equal expected_hash, People.for(stubbed_edition)
       end
 
       test "returns single person when role_appointment is present but edition_role_appointments is not" do
@@ -26,7 +26,7 @@ module PublishingApi
         stubbed_edition = stub(role_appointment: role_appointment)
         expected_hash = { people: [person.content_id] }
 
-        assert_equal expected_hash, People.for(stubbed_edition, :people)
+        assert_equal expected_hash, People.for(stubbed_edition)
       end
 
       test "returns an empty array of people if role_appointments are nil" do
@@ -34,7 +34,7 @@ module PublishingApi
 
         expected_hash = { people: [] }
 
-        assert_equal expected_hash, People.for(stubbed_edition, :people)
+        assert_equal expected_hash, People.for(stubbed_edition)
       end
 
       test "returns an array of content_ids from people in edition_role_appointments" do
@@ -50,7 +50,7 @@ module PublishingApi
           end,
         }
 
-        assert_equal expected_hash, People.for(stubbed_edition, :people)
+        assert_equal expected_hash, People.for(stubbed_edition)
       end
     end
   end

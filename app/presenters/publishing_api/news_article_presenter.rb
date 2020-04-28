@@ -45,10 +45,9 @@ module PublishingApi
       LinksPresenter
         .new(news_article)
         .extract(link_keys)
-        .merge(PayloadBuilder::People.for(news_article, :ministers))
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
         .merge(PayloadBuilder::Roles.for(news_article))
-        .merge(PayloadBuilder::People.for(news_article, :people))
+        .merge(PayloadBuilder::People.for(news_article))
     end
 
     def document_type
