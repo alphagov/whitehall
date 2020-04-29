@@ -90,8 +90,10 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location_3 = create(:world_location, name: "Narnia")
 
     I18n.with_locale(:fr) do
-      world_location_1.name = "Pays imaginaire"; world_location_1.save
-      world_location_2.name = "Terre du Milieu"; world_location_2.save
+      world_location_1.name = "Pays imaginaire"
+      world_location_1.save
+      world_location_2.name = "Terre du Milieu"
+      world_location_2.save
 
       assert_equal [world_location_2, world_location_3, world_location_1], WorldLocation.ordered_by_name
     end
@@ -298,7 +300,8 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location = create(:world_location, name: "Neverland")
 
     I18n.with_locale(:fr) do
-      world_location.name = "Pays imaginaire"; world_location.save
+      world_location.name = "Pays imaginaire"
+      world_location.save
     end
 
     PublishingApiWorker.expects(:perform_async).with(

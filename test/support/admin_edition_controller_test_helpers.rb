@@ -1341,7 +1341,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update records new value of access_limited flag" do
-        controller.current_user.organisation = create(:organisation); controller.current_user.save!
+        controller.current_user.organisation = create(:organisation)
+        controller.current_user.save!
         publication = create(edition_type, access_limited: false, organisations: [controller.current_user.organisation])
 
         put :update, params: {
