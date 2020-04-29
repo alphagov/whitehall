@@ -3,8 +3,8 @@ require "test_helper"
 class PublicationFilterJsonPresenterTest < PresenterTestCase
   setup do
     @filter = Whitehall::DocumentFilter::FakeSearch.new
-    self.params[:action] = :index
-    self.params[:controller] = :publications
+    params[:action] = :index
+    params[:controller] = :publications
   end
 
   test "json provides the atom feed url" do

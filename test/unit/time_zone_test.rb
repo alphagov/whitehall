@@ -10,6 +10,6 @@ class TimeZoneTest < ActiveSupport::TestCase
       end
       match
     end
-    assert_equal [], matching_files - [File.expand_path(__FILE__)], %{Avoid issues with daylight-savings time by always building instances of TimeWithZone and not Time. Use methods like Time.zone.now, Time.zone.parse, n.days.ago, m.hours.from_now, etc in preference to methods like Time.now, Time.utc, Time.parse, etc.}
+    assert_equal [], matching_files - [File.expand_path(__FILE__)], %(Avoid issues with daylight-savings time by always building instances of TimeWithZone and not Time. Use methods like Time.zone.now, Time.zone.parse, n.days.ago, m.hours.from_now, etc in preference to methods like Time.now, Time.utc, Time.parse, etc.)
   end
 end

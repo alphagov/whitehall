@@ -73,7 +73,7 @@ class PublicationType
   end
 
   def access_limited_by_default?
-    !!self.access_limited_by_default
+    !!access_limited_by_default
   end
 
   def search_format_types
@@ -81,7 +81,7 @@ class PublicationType
   end
 
   def primary_search_format_type
-    "publication-" + self.singular_name.parameterize
+    "publication-" + singular_name.parameterize
   end
 
   def additional_search_format_types

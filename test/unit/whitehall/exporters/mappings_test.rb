@@ -77,10 +77,10 @@ module Whitehall
 
     test "includes works-in-progress with a Document Source" do
       publications = {
-        "imported"  => publication_with_source(:imported),
-        "draft"     => publication_with_source(:draft),
+        "imported" => publication_with_source(:imported),
+        "draft" => publication_with_source(:draft),
         "submitted" => publication_with_source(:submitted),
-        "rejected"  => publication_with_source(:rejected),
+        "rejected" => publication_with_source(:rejected),
         "scheduled" => publication_with_source(:scheduled),
       }
       publications.each do |state, publication|

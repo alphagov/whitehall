@@ -289,9 +289,9 @@ class OrganisationTest < ActiveSupport::TestCase
     params = {
       featured_links_attributes: [
         { url: "https://www.gov.uk/blah/blah",
-         title: "Blah blah" },
+          title: "Blah blah" },
         { url: "https://www.gov.uk/wah/wah",
-         title: "Wah wah" },
+          title: "Wah wah" },
       ],
     }
     organisation = create(:organisation, params)
@@ -321,7 +321,7 @@ class OrganisationTest < ActiveSupport::TestCase
     params = {
       featured_links_attributes: [
         { url: "",
-         title: "" },
+          title: "" },
       ],
     }
     organisation = build(:organisation, params)
@@ -669,7 +669,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "destroys associated corporate information page documents and editions" do
     organisation = create(:corporate_information_page).organisation
-    assert_difference %w(Organisation.count Document.count CorporateInformationPage.count), -1 do
+    assert_difference %w[Organisation.count Document.count CorporateInformationPage.count], -1 do
       organisation.destroy
     end
   end
@@ -760,7 +760,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     organisation.organisation_classifications.create(classification_id: topics[0].id, ordering: 2)
     organisation.organisation_classifications.create(classification_id: topics[1].id, ordering: 1)
-    assert_match %r[order by]i, organisation.topics.to_sql
+    assert_match %r{order by}i, organisation.topics.to_sql
     assert_equal [topics[1], topics[0]], organisation.topics
   end
 
@@ -769,7 +769,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     organisation.organisation_classifications.create(classification_id: topical_events[0].id, ordering: 2)
     organisation.organisation_classifications.create(classification_id: topical_events[1].id, ordering: 1)
-    assert_match %r[order by]i, organisation.topical_events.to_sql
+    assert_match %r{order by}i, organisation.topical_events.to_sql
     assert_equal [topical_events[1], topical_events[0]], organisation.topical_events
   end
 

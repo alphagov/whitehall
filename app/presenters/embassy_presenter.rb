@@ -27,7 +27,7 @@ class EmbassyPresenter < SimpleDelegator
   end
 
   def has_consular_service_in_location?
-    ! SPECIAL_CASES.key?(name)
+    !SPECIAL_CASES.key?(name)
   end
 
   def has_remote_service?

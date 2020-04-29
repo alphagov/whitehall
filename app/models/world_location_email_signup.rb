@@ -10,9 +10,7 @@ class WorldLocationEmailSignup
     subscriber_list["subscriber_list"]["subscription_url"]
   end
 
-  def name
-    world_location.name
-  end
+  delegate :name, to: :world_location
 
   def valid?
     uri && world_location_slug && world_location.present?

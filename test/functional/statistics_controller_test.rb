@@ -118,7 +118,7 @@ class StatisticsControllerTest < ActionController::TestCase
       assert_equal statistics_publication.id, json["id"]
       assert_equal statistic_path(statistics_publication.document), json["url"]
       assert_equal "org-name et other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">mars 14, 2011</time>}, json["display_date_microformat"]
+      assert_equal %(<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">mars 14, 2011</time>), json["display_date_microformat"]
       assert_equal "Official Statistics", json["display_type"]
     end
   end
@@ -157,8 +157,8 @@ class StatisticsControllerTest < ActionController::TestCase
       result = json["results"].first["result"]
 
       path = @controller.public_document_path(collection)
-      link = %{<a href="#{path}">fr-#{collection.title}</a>}
-      assert_equal %{Part of a collection: #{link}}, result["publication_collections"]
+      link = %(<a href="#{path}">fr-#{collection.title}</a>)
+      assert_equal %(Part of a collection: #{link}), result["publication_collections"]
     end
   end
 

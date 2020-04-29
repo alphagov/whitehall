@@ -8,7 +8,7 @@ Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |titl
         { link: document_path(news_article), title: news_article.title },
       ],
     }.to_json,
-)
+  )
 end
 
 Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, _thing|

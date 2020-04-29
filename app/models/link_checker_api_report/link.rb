@@ -6,7 +6,7 @@ class LinkCheckerApiReport::Link < ApplicationRecord
 
   scope :status_ok, -> { where(status: "ok") }
   scope :created_three_months_ago, -> { where("created_at < ?", 3.months.ago) }
-  scope :deletable, -> { self.status_ok.merge(self.created_three_months_ago) }
+  scope :deletable, -> { status_ok.merge(created_three_months_ago) }
 
   def self.attributes_from_link_report(payload)
     {

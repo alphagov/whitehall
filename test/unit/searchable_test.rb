@@ -10,7 +10,7 @@ class SearchableTest < ActiveSupport::TestCase
     include Searchable
     searchable link: :name, only: :publicly_visible, index_after: [:save], unindex_after: [:destroy]
 
-    scope :publicly_visible, -> { where(state: %w(published withdrawn)) }
+    scope :publicly_visible, -> { where(state: %w[published withdrawn]) }
   end
 
   def setup

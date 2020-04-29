@@ -10,9 +10,7 @@ module PublishingApi
       self.update_type = update_type || default_update_type(item)
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       content = BaseItemPresenter.new(item, update_type: update_type).base_attributes

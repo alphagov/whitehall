@@ -46,7 +46,7 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
     tag = "environmental-management/waste"
     publication = create(:publication, secondary_specialist_sector_tags: [tag])
     publication.update(primary_specialist_sector_tag: tag,
-      secondary_specialist_sector_tags: [])
+                       secondary_specialist_sector_tags: [])
 
     assert publication.save
     assert_equal tag, publication.primary_specialist_sector_tag

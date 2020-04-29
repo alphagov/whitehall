@@ -9,8 +9,8 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
     @world_org = stub_translatable_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
-                                                      offices: [@office],
-                                                      access_and_opening_times: @access_times)
+                                                                   offices: [@office],
+                                                                   access_and_opening_times: @access_times)
     @world_org.stubs(:summary).returns("summary")
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
     stubs_helper_method(:params).returns(format: :json)
@@ -126,13 +126,13 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
   test "json includes main and other offices in offices with separate keys" do
     office_1 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: "best-office", contact_numbers: []),
-                                             services: [],
-                                             worldwide_organisation: nil,
-                                             access_and_opening_times: @access_times)
+                                              services: [],
+                                              worldwide_organisation: nil,
+                                              access_and_opening_times: @access_times)
     office_2 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: "worst-office", contact_numbers: []),
-                                             services: [],
-                                             worldwide_organisation: nil,
-                                             access_and_opening_times: @access_times)
+                                              services: [],
+                                              worldwide_organisation: nil,
+                                              access_and_opening_times: @access_times)
 
     @world_org.stubs(:main_office).returns(office_1)
     @world_org.stubs(:other_offices).returns([office_2])

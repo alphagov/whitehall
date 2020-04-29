@@ -4,7 +4,7 @@ class Role < ApplicationRecord
   include PublishesToPublishingApi
 
   HISTORIC_ROLE_PARAM_MAPPINGS = { "past-prime-ministers" => "prime-minister",
-                                   "past-chancellors"     => "chancellor-of-the-exchequer",
+                                   "past-chancellors" => "chancellor-of-the-exchequer",
                                    "past-foreign-secretaries" => "foreign-secretary" }.freeze
 
   def self.columns
@@ -92,7 +92,7 @@ class Role < ApplicationRecord
   end
 
   def role_type
-    RoleTypePresenter.option_value_for(self, self.type)
+    RoleTypePresenter.option_value_for(self, type)
   end
 
   def role_type=(role_type)

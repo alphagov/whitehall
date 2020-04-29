@@ -113,8 +113,8 @@ private
     def store_temporarily
       return if @zip_file.nil?
 
-      @temp_location = File.join(self.temp_dir, self.zip_file.original_filename)
-      FileUtils.cp(self.zip_file.tempfile, @temp_location)
+      @temp_location = File.join(temp_dir, zip_file.original_filename)
+      FileUtils.cp(zip_file.tempfile, @temp_location)
     end
 
     def extracted_file_paths
@@ -135,8 +135,8 @@ private
 
     def extract_contents
       unzip = Whitehall.system_binaries[:unzip]
-      destination = File.join(self.temp_dir, "extracted")
-      @extract_contents ||= `#{unzip} -o -d #{destination} #{self.temp_location.shellescape}`
+      destination = File.join(temp_dir, "extracted")
+      @extract_contents ||= `#{unzip} -o -d #{destination} #{temp_location.shellescape}`
     end
 
     def must_be_a_zip_file
@@ -147,7 +147,7 @@ private
 
     def is_a_zip?
       zipinfo = Whitehall.system_binaries[:zipinfo]
-      _, _, errs = Open3.popen3("#{zipinfo} -1 #{self.temp_location.shellescape} > /dev/null")
+      _, _, errs = Open3.popen3("#{zipinfo} -1 #{temp_location.shellescape} > /dev/null")
       errs.read.empty?
     end
 

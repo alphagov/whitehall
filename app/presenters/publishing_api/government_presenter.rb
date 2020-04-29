@@ -8,9 +8,7 @@ module PublishingApi
       self.update_type = update_type || "major"
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       BaseItemPresenter.new(

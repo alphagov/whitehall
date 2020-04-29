@@ -74,7 +74,7 @@ module TaxonomyHelper
         "taxons" => taxons,
       },
       "version" => 1,
-      )
+    )
   end
 
   def stub_publishing_api_expanded_links_with_taxons(content_id, taxons)
@@ -84,7 +84,7 @@ module TaxonomyHelper
         "taxons" => taxons,
       },
       "version" => 1,
-      )
+    )
   end
 
   def rummager_can_find_document_with_taxon(search_link,

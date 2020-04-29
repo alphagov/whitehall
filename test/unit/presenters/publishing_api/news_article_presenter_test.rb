@@ -81,7 +81,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "base links" do
-      expected_link_keys = %i(
+      expected_link_keys = %i[
         organisations
         parent
         policy_areas
@@ -89,7 +89,7 @@ module PublishingApi::NewsArticlePresenterTest
         world_locations
         worldwide_organisations
         government
-      )
+      ]
 
       links_double = {
         link_one: "link_one",

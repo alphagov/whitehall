@@ -9,8 +9,8 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
 
   def valid_edition_attributes
     {
-      title:   "edition-title",
-      body:    "edition-body",
+      title: "edition-title",
+      body: "edition-body",
       summary: "edition-summary",
       creator: create(:user),
       previously_published: false,

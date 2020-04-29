@@ -6,7 +6,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
   def scheduled_publication_attributes(scheduled_publication)
     attributes = {}
-    %w{year month day hour min}.each.with_index do |method, i|
+    %w[year month day hour min].each.with_index do |method, i|
       attributes["scheduled_publication(#{i + 1}i)"] = scheduled_publication ? scheduled_publication.send(method.to_sym) : ""
     end
     attributes

@@ -29,7 +29,7 @@ module Edition::WorldLocations
   def at_least_one_world_location
     unless skip_world_location_validation?
       if world_locations.empty?
-        self.errors.add(:world_locations, "at least one required")
+        errors.add(:world_locations, "at least one required")
       end
     end
   end

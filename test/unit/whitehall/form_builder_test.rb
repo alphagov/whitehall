@@ -19,7 +19,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test "Whitehall::FormBuilder#upload returns a label and file upload input field, and a hidden cache field by default" do
-    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image</label>' +
+    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image</label>' \
       '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
       hidden_image_cache_field +
       "</div>"
@@ -28,7 +28,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test "Whitehall::FormBuilder#upload includes a removal checkbox if the allow_removal option is true" do
-    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image</label>' +
+    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image</label>' \
       '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
       hidden_image_cache_field +
       removal_check_box +
@@ -38,7 +38,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test "Whitehall::FormBuilder#upload includes a removal checkbox with custom label text if the allow_removal option is true and the allow_removal_label_text is specified" do
-    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image</label>' +
+    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image</label>' \
       '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
       hidden_image_cache_field +
       removal_check_box("Tick this box to remove image") +
@@ -48,7 +48,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test "Whitehall::FormBuilder#upload allows the label text to be overridden" do
-    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image upload</label>' +
+    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image upload</label>' \
       '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
       hidden_image_cache_field +
       "</div>"
@@ -58,8 +58,8 @@ class FormBuilderTest < ActionView::TestCase
 
   test "Whitehall::FormBuilder#upload includes upload cache fields if object has a cached file" do
     @object.image = image_fixture_file
-    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image upload</label>' +
-      '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
+    expected_html = '<div class="form-group"><label for="promotional_feature_item_image">Image upload</label>' \
+      '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' \
       "<span class='already_uploaded'>#{File.basename(image_fixture_file)} already uploaded</span>" +
       hidden_image_cache_field("value = '#{@object.image_cache}'") +
       "</div>"

@@ -118,7 +118,7 @@ module Whitehall::DocumentFilter
   private
 
     def all_announcement_types
-      %w(world_location_news_article world_news_story).concat(non_world_announcement_types)
+      %w[world_location_news_article world_news_story].concat(non_world_announcement_types)
     end
 
     def non_world_announcement_types

@@ -46,8 +46,8 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
 
   def build_filter(params = {})
     OpenStruct.new(params.reverse_merge(filter_type: "publication",
-      result_count: 1,
-      valid_filter_params: {}))
+                                        result_count: 1,
+                                        valid_filter_params: {}))
   end
 
   def rendered_description(filter, opts = {})

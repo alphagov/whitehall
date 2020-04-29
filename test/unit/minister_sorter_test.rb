@@ -3,7 +3,7 @@ require "test_helper"
 class MinisterSorterTest < ActiveSupport::TestCase
   MockRole = Struct.new(:name, :seniority, :cabinet_member, :current_people) do
     def cabinet_member?
-      self.cabinet_member
+      cabinet_member
     end
 
     def inspect(*_args)

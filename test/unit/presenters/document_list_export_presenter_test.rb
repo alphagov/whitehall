@@ -37,7 +37,7 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
 
   test "#format_elements formats arrays, dates and booleans but leaves strings alone" do
     pr = DocumentListExportPresenter.new("")
-    data = [%w(list of elements), Time.new(2014, 10, 5, 10, 15).utc, "normal string", true, false]
+    data = [%w[list of elements], Time.new(2014, 10, 5, 10, 15).utc, "normal string", true, false]
     assert_equal(["list | of | elements", "2014-10-05 10:15:00", "normal string", "yes", "no"], pr.format_elements(data))
   end
 
@@ -92,13 +92,13 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
   test "#translations_available returns the language name of a documents translation" do
     edition_also_available_in_welsh = create(:edition, :translated, primary_locale: "en", translated_into: "cy")
     presenter = DocumentListExportPresenter.new(edition_also_available_in_welsh)
-    assert_equal %w(Welsh), presenter.translations_available
+    assert_equal %w[Welsh], presenter.translations_available
   end
 
   test "#translations_available returns a list of all the language names of a documents translation, sorted by language code" do
-    edition_translated_many_times = create(:edition, :translated, primary_locale: "en", translated_into: %w(ms ar cy))
+    edition_translated_many_times = create(:edition, :translated, primary_locale: "en", translated_into: %w[ms ar cy])
     presenter = DocumentListExportPresenter.new(edition_translated_many_times)
-    assert_equal %w(Arabic Welsh Malay), presenter.translations_available
+    assert_equal %w[Arabic Welsh Malay], presenter.translations_available
   end
 
   test "#row returns a summary" do

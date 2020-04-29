@@ -74,7 +74,7 @@ module Whitehall
     end
 
     def make_request(_method, *_args)
-      raise RuntimeError.new("Use the in memory index (rather than rummager) in tests")
+      raise "Use the in memory index (rather than rummager) in tests"
     end
 
   private

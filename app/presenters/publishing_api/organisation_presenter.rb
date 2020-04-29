@@ -16,9 +16,7 @@ module PublishingApi
       self.update_type = update_type || "major"
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       content = BaseItemPresenter.new(
@@ -386,7 +384,7 @@ module PublishingApi
     def people_in_role(role_type)
       item.send("#{role_type}_roles")
         .order("organisation_roles.ordering")
-        .reduce([]) do |ary, role|
+        .each_with_object([]) do |role, ary|
           person = role.current_person
           unless person.nil?
             name_prefix = "The Rt Hon" if person.privy_counsellor
@@ -411,8 +409,6 @@ module PublishingApi
 
             ary << person_object
           end
-
-          ary
         end
     end
 

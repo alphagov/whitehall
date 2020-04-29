@@ -18,17 +18,15 @@ class PublishingApiWorker < WorkerBase
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do
-      begin
-        send_item(presenter, locale, bulk_publishing)
-      rescue GdsApi::HTTPConflict => e
-        # The Publishing API sometimes returns: Cannot publish an
-        # already published edition. Ideally we'd avoid this error,
-        # but for now, just avoid recording it in Sentry, as it's
-        # not actionable.
-        logger.error "PublishingApiWorker: HTTPConflict: #{e.message}"
-      rescue GdsApi::HTTPClientError => e
-        handle_client_error(e)
-      end
+      send_item(presenter, locale, bulk_publishing)
+    rescue GdsApi::HTTPConflict => e
+      # The Publishing API sometimes returns: Cannot publish an
+      # already published edition. Ideally we'd avoid this error,
+      # but for now, just avoid recording it in Sentry, as it's
+      # not actionable.
+      logger.error "PublishingApiWorker: HTTPConflict: #{e.message}"
+    rescue GdsApi::HTTPClientError => e
+      handle_client_error(e)
     end
   end
 

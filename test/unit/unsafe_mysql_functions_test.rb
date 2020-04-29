@@ -2,7 +2,7 @@ require "test_helper"
 
 class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
   def unsafe_functions
-    %w{
+    %w[
       FOUND_ROWS()
       GET_LOCK()
       IS_FREE_LOCK()
@@ -19,7 +19,7 @@ class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
       USER()
       UUID()
       UUID_SHORT()
-    }
+    ]
   end
 
   def unsafe_function_regex

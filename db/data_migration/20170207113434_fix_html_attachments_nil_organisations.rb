@@ -1,4 +1,4 @@
-#Fix the interested editions and add MOD to them
+# Fix the interested editions and add MOD to them
 edition_ids = [421608, 421659, 421662, 421675, 421676, 421679, 423612, 464978]
 
 mod_organisation_id = 17

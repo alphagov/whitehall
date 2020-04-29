@@ -125,7 +125,7 @@ protected
           __send__(:"home_page_#{plural_name}_list").destroy if __send__(:"has_home_page_#{plural_name}_list?")
         end
       end
-      self.after_destroy :"__remove_home_page_#{plural_name}_list"
+      after_destroy :"__remove_home_page_#{plural_name}_list"
       include home_page_list_methods
     end
   end
@@ -136,7 +136,7 @@ protected
           HomePageList.remove_from_all_lists(self)
         end
       end
-      self.after_destroy :__remove_home_page_list_items
+      after_destroy :__remove_home_page_list_items
       include home_page_list_methods
     end
   end

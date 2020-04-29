@@ -1,7 +1,7 @@
 # Modified from https://gist.github.com/timocratic/5113293
 require "addressable/uri"
 
-#Accepts options[:message] and options[:allowed_protocols]
+# Accepts options[:message] and options[:allowed_protocols]
 class UriValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     if !(uri = Addressable::URI.parse(value))

@@ -44,6 +44,6 @@ module HtmlAssertions
   end
 
   def assert_has_meta_tag(name, content)
-    assert_select %{meta[name="#{name}"][content="#{content}"]}
+    assert_select %(meta[name="#{name}"][content="#{content}"])
   end
 end

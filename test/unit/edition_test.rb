@@ -494,9 +494,9 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index data for all published editions" do
     create(:published_news_article, title: "news_article-title", body: "this and that",
-           summary: "news_article-summary")
+                                    summary: "news_article-summary")
     create(:published_publication, title: "publication-title",
-           body: "stuff and things", summary: "publication-summary")
+                                   body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     result_titles = Edition.search_index.to_a.map { |r| r["title"] }
@@ -662,7 +662,7 @@ class EditionTest < ActiveSupport::TestCase
     with_locale(:es) { create(:edition, title: "spanish-title-a") }
     with_locale(:en) { create(:edition, title: "english-title-a") }
 
-    assert_equal %w(english-title-a english-title-b), Edition.alphabetical.map(&:title)
+    assert_equal %w[english-title-a english-title-b], Edition.alphabetical.map(&:title)
   end
 
   test "should only consider english titles for Edition.with_title_or_summary_containing" do
@@ -673,7 +673,7 @@ class EditionTest < ActiveSupport::TestCase
     with_locale(:es) { create(:edition, title: "spanish-title-a") }
     with_locale(:en) { create(:edition, title: "english-title-a") }
 
-    assert_same_elements %w(english-title-a english-title-b), Edition.with_title_or_summary_containing("title").map(&:title)
+    assert_same_elements %w[english-title-a english-title-b], Edition.with_title_or_summary_containing("title").map(&:title)
   end
 
   test "should only consider english titles for Edition.with_title_containing" do
@@ -684,7 +684,7 @@ class EditionTest < ActiveSupport::TestCase
     with_locale(:es) { create(:edition, title: "spanish-title-a") }
     with_locale(:en) { create(:edition, title: "english-title-a") }
 
-    assert_same_elements %w(english-title-a english-title-b), Edition.with_title_containing("title").map(&:title)
+    assert_same_elements %w[english-title-a english-title-b], Edition.with_title_containing("title").map(&:title)
   end
 
   test "is available in multiple languages if more than one translation exist" do

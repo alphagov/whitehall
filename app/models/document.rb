@@ -42,7 +42,7 @@ class Document < ApplicationRecord
 
   before_save { check_if_locked_document(document: self) unless locked_changed? }
 
-  validates_presence_of :content_id
+  validates :content_id, presence: true
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"
@@ -136,7 +136,7 @@ class Document < ApplicationRecord
 private
 
   def destroy_all_editions
-    Edition.unscoped.where(document_id: self.id).destroy_all
+    Edition.unscoped.where(document_id: id).destroy_all
   end
 
   def ensure_document_has_a_slug

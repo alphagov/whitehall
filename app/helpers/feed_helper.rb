@@ -39,9 +39,7 @@ module FeedHelper
     builder.instance_variable_get(:@feed_options)[:schema_date]
   end
 
-  def host
-    request.host
-  end
+  delegate :host, to: :request
 
   def feed_display_type_for(document)
     return "News story" if document.is_a?(WorldLocationNewsArticle)

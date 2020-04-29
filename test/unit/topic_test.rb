@@ -120,9 +120,9 @@ class TopicTest < ActiveSupport::TestCase
     params = {
       featured_links_attributes: [
         { url: "https://www.gov.uk/blah/blah",
-         title: "Blah blah" },
+          title: "Blah blah" },
         { url: "https://www.gov.uk/wah/wah",
-         title: "Wah wah" },
+          title: "Wah wah" },
       ],
     }
     topic = create(:topic, params)
@@ -151,7 +151,7 @@ class TopicTest < ActiveSupport::TestCase
     params = {
       featured_links_attributes: [
         { url: "",
-         title: "" },
+          title: "" },
       ],
     }
     topic = build(:topic, params)

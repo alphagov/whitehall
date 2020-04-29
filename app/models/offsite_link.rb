@@ -49,17 +49,15 @@ class OffsiteLink < ApplicationRecord
   validates :link_type, presence: true, inclusion: { in: LinkTypes.all }
 
   def check_url_is_allowed
-    begin
-      if (uri = Addressable::URI.parse(url))
-        host = uri.host
-      end
-
-      unless government_or_whitelisted_url?(host)
-        errors.add(:base, "Please enter a valid government URL, such as https://www.gov.uk/jobsearch")
-      end
-    rescue URI::InvalidURIError
-      errors.add(:base, "Please enter a valid URL, such as https://www.gov.uk/jobsearch")
+    if (uri = Addressable::URI.parse(url))
+      host = uri.host
     end
+
+    unless government_or_whitelisted_url?(host)
+      errors.add(:base, "Please enter a valid government URL, such as https://www.gov.uk/jobsearch")
+    end
+  rescue URI::InvalidURIError
+    errors.add(:base, "Please enter a valid URL, such as https://www.gov.uk/jobsearch")
   end
 
   def humanized_link_type

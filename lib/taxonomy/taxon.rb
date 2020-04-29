@@ -89,9 +89,7 @@ module Taxonomy
       breadcrumb_trail.map { |t| { title: t.name } }
     end
 
-    def count
-      taxon_list.count
-    end
+    delegate :count, to: :taxon_list
 
     def root?
       parent_node.nil?

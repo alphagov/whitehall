@@ -1,7 +1,7 @@
 module Edition::TaggableOrganisations
   extend ActiveSupport::Concern
 
-  WORLD_TAGGABLE_DOCUMENT_TYPES = %w(Publication DetailedGuide DocumentCollection).freeze
+  WORLD_TAGGABLE_DOCUMENT_TYPES = %w[Publication DetailedGuide DocumentCollection].freeze
 
   WORLD_TAGGABLE_PUBLICATION_TYPES = [
     PublicationType::Guidance,
@@ -30,7 +30,7 @@ private
   end
 
   def publication_is_world_taggable_publication_type?
-    WORLD_TAGGABLE_PUBLICATION_TYPES.include?(self.publication_type)
+    WORLD_TAGGABLE_PUBLICATION_TYPES.include?(publication_type)
   end
 
   def organisations_in_world_tagging?

@@ -39,49 +39,49 @@ module Whitehall
 
       test "advanced search finds documents with the requested keywords in the title" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w{Bar}, keywords: "Bar"
+        assert_search_returns_documents %w[Bar], keywords: "Bar"
       end
 
       test "advanced search finds documents with the requested keywords in the description" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w{Bar}, keywords: "Bar-description"
+        assert_search_returns_documents %w[Bar], keywords: "Bar-description"
       end
 
       test "advanced search finds documents with the requested keywords in the indexable content" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w{Bar}, keywords: "Bar-indexable_content"
+        assert_search_returns_documents %w[Bar], keywords: "Bar-indexable_content"
       end
 
       test "advanced search can select documents with a field matching a list of values" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w{Bar}, policy_areas: %w[Bar-topic1]
+        assert_search_returns_documents %w[Bar], policy_areas: %w[Bar-topic1]
       end
 
       test "advanced search can select documents with a field matching any item from a list of values" do
         @index.add_batch(build_documents("Foo", "Bar", "FooBar"))
-        assert_search_returns_documents %w{Foo Bar}, policy_areas: %w[Foo-topic2 Bar-topic1]
+        assert_search_returns_documents %w[Foo Bar], policy_areas: %w[Foo-topic2 Bar-topic1]
       end
 
       test "advanced search can select documents with a field matching a single value" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w{Bar}, policy_areas: "Bar-topic1"
+        assert_search_returns_documents %w[Bar], policy_areas: "Bar-topic1"
       end
 
       test "advanced search for a field which is not present in a document does not return the document" do
         documents = build_documents("Foo", "Bar")
         documents[0]["world_locations"] = %w[Hawaii]
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Foo}, world_locations: "Hawaii"
+        assert_search_returns_documents %w[Foo], world_locations: "Hawaii"
       end
 
       test "advanced search can select documents using a boolean filter" do
         documents = build_documents("Foo", "Bar")
         documents[0]["has_official_document"] = true
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Foo}, has_official_document: "true"
-        assert_search_returns_documents %w{Foo}, has_official_document: "1"
-        assert_search_returns_documents %w{Bar}, has_official_document: "false"
-        assert_search_returns_documents %w{Bar}, has_official_document: "0"
+        assert_search_returns_documents %w[Foo], has_official_document: "true"
+        assert_search_returns_documents %w[Foo], has_official_document: "1"
+        assert_search_returns_documents %w[Bar], has_official_document: "false"
+        assert_search_returns_documents %w[Bar], has_official_document: "0"
       end
 
       test "advanced search raises if boolean filter is not a boolean-ish value" do
@@ -103,9 +103,9 @@ module Whitehall
         documents[1]["public_timestamp"] = Time.zone.parse("2011-02-02 02:02:02")
         documents[2]["public_timestamp"] = Time.zone.parse("2011-03-03 02:02:02")
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Foo}, public_timestamp: { to: "2011-01-31" }
-        assert_search_returns_documents %w{Qux Bar}, public_timestamp: { from: "2011-01-31" }
-        assert_search_returns_documents %w{Bar}, public_timestamp: { from: "2011-01-31", to: "2011-02-28" }
+        assert_search_returns_documents %w[Foo], public_timestamp: { to: "2011-01-31" }
+        assert_search_returns_documents %w[Qux Bar], public_timestamp: { from: "2011-01-31" }
+        assert_search_returns_documents %w[Bar], public_timestamp: { from: "2011-01-31", to: "2011-02-28" }
       end
 
       test "advanced search can order documents explicitly" do
@@ -114,9 +114,9 @@ module Whitehall
         documents[1]["public_timestamp"] = Time.zone.parse("2011-03-03 02:02:02")
         documents[2]["public_timestamp"] = Time.zone.parse("2011-01-01 01:01:01")
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Bar Foo Qux}, order: { title: "asc" }
-        assert_search_returns_documents %w{Qux Foo Bar}, order: { title: "desc" }
-        assert_search_returns_documents %w{Foo Qux Bar}, order: { public_timestamp: "asc", title: "asc" }
+        assert_search_returns_documents %w[Bar Foo Qux], order: { title: "asc" }
+        assert_search_returns_documents %w[Qux Foo Bar], order: { title: "desc" }
+        assert_search_returns_documents %w[Foo Qux Bar], order: { public_timestamp: "asc", title: "asc" }
       end
 
       test "advanced search raises if order direction is not asc or desc" do
@@ -129,20 +129,20 @@ module Whitehall
       test "advanced search can be paginated" do
         documents = build_documents(*(1.upto(20).map { |n| "doc-#{n}" }))
         @index.add_batch(documents)
-        assert_search_returns_documents %w{doc-1 doc-2 doc-3}, page: 1, per_page: 3
-        assert_search_returns_documents %w{doc-4 doc-5 doc-6}, page: 2, per_page: 3
-        assert_search_returns_documents %w{doc-19 doc-20}, page: 7, per_page: 3
+        assert_search_returns_documents %w[doc-1 doc-2 doc-3], page: 1, per_page: 3
+        assert_search_returns_documents %w[doc-4 doc-5 doc-6], page: 2, per_page: 3
+        assert_search_returns_documents %w[doc-19 doc-20], page: 7, per_page: 3
         assert_search_total 20, page: 1, per_page: 3
       end
 
       test "advanced search allows filtering by any known param" do
-        not_quite_as_fake_rummager = GdsApiRummager.new("government", @store, simple: %w{title})
+        not_quite_as_fake_rummager = GdsApiRummager.new("government", @store, simple: %w[title])
         results = not_quite_as_fake_rummager.advanced_search(default_search_params.merge(title: "something"))
         assert_equal [], results["results"]
       end
 
       test "advanced search raises if attempting to filter by an unknown param" do
-        not_quite_as_fake_rummager = GdsApiRummager.new("government", @store, simple: %w{title})
+        not_quite_as_fake_rummager = GdsApiRummager.new("government", @store, simple: %w[title])
         assert_raise GdsApi::HTTPErrorResponse do
           not_quite_as_fake_rummager.advanced_search(default_search_params.merge(topic: "something"))
         end

@@ -14,9 +14,7 @@ module Whitehall::Authority
       @subject = subject
     end
 
-    def can?(action)
-      rules.can?(action)
-    end
+    delegate :can?, to: :rules
 
     def rules
       if @rules.nil?

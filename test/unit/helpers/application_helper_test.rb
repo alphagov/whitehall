@@ -7,9 +7,7 @@ class ApplicationHelperTest < ActionView::TestCase
   include Rails.application.routes.url_helpers
 
   # Exposes request object to helper in tests
-  def request
-    controller.request
-  end
+  delegate :request, to: :controller
 
   test "#link_to_attachment returns nil when attachment is nil" do
     assert_nil link_to_attachment(nil)
@@ -17,12 +15,12 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "#link_to_attachment returns link to an attachment given attachment" do
     attachment = create(:file_attachment)
-    assert_equal %{<a href="#{attachment.url}">#{File.basename(attachment.filename)}</a>}, link_to_attachment(attachment)
+    assert_equal %(<a href="#{attachment.url}">#{File.basename(attachment.filename)}</a>), link_to_attachment(attachment)
   end
 
   test "#link_to_attachment truncates filename if :truncate is true" do
     attachment = create(:file_attachment, file: File.open(Rails.root.join("test/fixtures/consultation_uploader_test_sample.csv")))
-    assert_equal %{<a href="#{attachment.url}">consultation_uploader_test_...</a>}, link_to_attachment(attachment, truncate: true)
+    assert_equal %(<a href="#{attachment.url}">consultation_uploader_test_...</a>), link_to_attachment(attachment, truncate: true)
   end
 
   test "should format into paragraphs" do
@@ -52,7 +50,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "should raise unless you supply the content of the list item" do
     e = assert_raise(ArgumentError) { render_list_of_ministerial_roles([]) }
-    assert_match %r[please supply the content of the list item]i, e.message
+    assert_match %r{please supply the content of the list item}i, e.message
   end
 
   test "should render a list of ministerial roles" do

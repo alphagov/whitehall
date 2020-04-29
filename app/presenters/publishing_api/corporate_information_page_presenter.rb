@@ -41,10 +41,10 @@ module PublishingApi
 
     def edition_links
       links_presenter.extract(
-        %i(
+        %i[
           organisations
           parent
-        ),
+        ],
       ).merge(CorporateInformationPages.for(corporate_information_page))
     end
 

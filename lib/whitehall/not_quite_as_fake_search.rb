@@ -65,7 +65,7 @@ module Whitehall
 
       def default_field_mappings
         {
-          simple: %w{
+          simple: %w[
             id
             title
             description
@@ -81,13 +81,13 @@ module Whitehall
             world_locations
             document_collections
             content_store_document_type
-          },
-          date: %w{public_timestamp},
-          boolean: %w{
+          ],
+          date: %w[public_timestamp],
+          boolean: %w[
             has_official_document
             has_command_paper
             has_act_paper
-          },
+          ],
         }
       end
 
@@ -168,7 +168,7 @@ module Whitehall
 
         def validate_ordering!
           @ordering.find do |field_name, direction|
-            if ! %w{asc desc}.include?(direction)
+            if !%w[asc desc].include?(direction)
               raise GdsApi::HTTPErrorResponse, "bad search direction #{direction} for #{field_name} (expected 'asc' or 'desc')"
             end
           end
@@ -178,7 +178,7 @@ module Whitehall
       def filter_by_keywords(keywords, document_hashes)
         keywords_regexp = /(#{keywords.split(/\s+/).map { |k| Regexp.escape(k) }.join('|')})/
         document_hashes.select do |document_hash|
-          %w{title indexable_content description}.any? { |field| document_hash[field] =~ keywords_regexp }
+          %w[title indexable_content description].any? { |field| document_hash[field] =~ keywords_regexp }
         end
       end
 

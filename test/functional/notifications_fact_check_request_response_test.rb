@@ -37,14 +37,14 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   end
 
   test "email body should contain unescaped instructions" do
-    request = build(:fact_check_request, instructions: %{Don't escape "this" text})
+    request = build(:fact_check_request, instructions: %(Don't escape "this" text))
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Don't escape "this" text}, mail.body.to_s
   end
 
   test "email body should contain unescaped edition title" do
-    publication = build(:publication, title: %{Use "double quotes" everywhere})
+    publication = build(:publication, title: %(Use "double quotes" everywhere))
     request = build(:fact_check_request, edition: publication)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
@@ -96,14 +96,14 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain unescaped instructions" do
-    request = build(:fact_check_request, instructions: %{Don't escape "this" text})
+    request = build(:fact_check_request, instructions: %(Don't escape "this" text))
     mail = Notifications.fact_check_response(request, host: "example.com")
 
     assert_match %r{Don't escape "this" text}, mail.body.to_s
   end
 
   test "email body should contain unescaped edition title" do
-    publication = build(:publication, title: %{Use "double quotes" everywhere})
+    publication = build(:publication, title: %(Use "double quotes" everywhere))
     request = build(:fact_check_request, edition: publication)
     mail = Notifications.fact_check_request(request, host: "example.com")
 

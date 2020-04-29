@@ -86,7 +86,7 @@ class Publication < Publicationesque
   end
 
   def search_format_types
-    super + [Publication.search_format_type] + self.publication_type.search_format_types
+    super + [Publication.search_format_type] + publication_type.search_format_types
   end
 
   def publication_type
@@ -118,8 +118,8 @@ class Publication < Publicationesque
     # be access_limited or not.  When we get a publication_type, we'll
     # sort this out.  Happily, abesence of a publication_type invalidates
     # us, so returning nil is ok even though it would break the SQL insert
-    if self.publication_type.present?
-      self.publication_type.access_limited_by_default?
+    if publication_type.present?
+      publication_type.access_limited_by_default?
     end
   end
 
@@ -152,14 +152,14 @@ class Publication < Publicationesque
 private
 
   def attachment_required_before_moving_out_of_draft
-    if %w(submitted scheduled published).include?(state) && !has_attachments?
+    if %w[submitted scheduled published].include?(state) && !has_attachments?
       errors.add(:base, "Publications must have either a URL for off-site documents, an attachment or HTML version before being #{current_state}")
     end
   end
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type
-    unless self.can_have_some_invalid_data?
-      errors.add(:publication_type, "must be changed") if PublicationType.migration.include?(self.publication_type)
+    unless can_have_some_invalid_data?
+      errors.add(:publication_type, "must be changed") if PublicationType.migration.include?(publication_type)
     end
   end
 end

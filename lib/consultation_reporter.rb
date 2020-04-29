@@ -13,7 +13,7 @@ class ConsultationReporter
     scope = Consultation
       .distinct("editions.id")
       .joins("LEFT JOIN responses ON responses.edition_id = editions.id")
-      .where(state: %w{published withdrawn})
+      .where(state: %w[published withdrawn])
       .where("opening_at >= ?", @start_date)
       .order(:opening_at)
 
@@ -21,7 +21,7 @@ class ConsultationReporter
   end
 
   def response_percentages
-    scope = Consultation.where(state: %w{published withdrawn}).closed
+    scope = Consultation.where(state: %w[published withdrawn]).closed
 
     closed_before_count = scope
       .joins(:public_feedback)

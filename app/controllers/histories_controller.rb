@@ -12,12 +12,12 @@ class HistoriesController < PublicFacingController
 private
 
   def valid_names
-    %w(
+    %w[
       king-charles-street
       lancaster-house
       10-downing-street
       11-downing-street
       1-horse-guards-road
-    )
+    ]
   end
 end

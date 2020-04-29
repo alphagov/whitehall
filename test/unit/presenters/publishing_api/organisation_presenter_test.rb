@@ -125,7 +125,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     presented_item = present(organisation)
 
-    expected_image_url = "https://static.test.gov.uk" +
+    expected_image_url = "https://static.test.gov.uk" \
       "/government/uploads/system/uploads/organisation/logo/#{organisation.logo.model.id}/960x640_jpeg.jpg"
 
     assert_equal(
@@ -220,7 +220,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     organisation = create(
       :court,
       name: "Court and bowled",
-      )
+    )
     def organisation.body; "Habeus corpus"; end
 
     presented_item = present(organisation)

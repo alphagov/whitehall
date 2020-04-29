@@ -51,7 +51,7 @@ class UnpublishingTest < ActiveSupport::TestCase
       unpublish(@published_edition, unpublishing_params)
     end
 
-    %w(en fr).each do |locale|
+    %w[en fr].each do |locale|
       assert_publishing_api_unpublish(
         @published_edition.document.content_id,
         type: "gone",
@@ -84,7 +84,7 @@ class UnpublishingTest < ActiveSupport::TestCase
       unpublish(@published_edition, unpublishing_redirect_params)
     end
 
-    %w(en fr).each do |locale|
+    %w[en fr].each do |locale|
       assert_publishing_api_unpublish(
         @published_edition.document.content_id,
         type: "redirect",

@@ -29,7 +29,7 @@ module Edition::AuditTrail
   end
 
   def edition_remarks_trail(edition_serial_number = 0)
-    self.editorial_remarks.map { |r|
+    editorial_remarks.map { |r|
       EditorialRemarkAuditEntry.new(edition_serial_number, self, r)
     }.sort
   end

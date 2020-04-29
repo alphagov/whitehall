@@ -37,7 +37,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
       title: "the edition",
       topic_ids: [@topic.id.to_s],
       primary_specialist_sector_tag: "WELLS",
-      secondary_specialist_sector_tags: %w(FIELDS OFFSHORE),
+      secondary_specialist_sector_tags: %w[FIELDS OFFSHORE],
     )
     get :edit, params: { edition_id: @edition.id }
     assert_select "#edition_topic_ids option[value='#{@topic.id}'][selected='selected']", @topic.name
@@ -77,7 +77,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     @edition = create(:publication, title: "the edition")
 
     put :update, params: { edition_id: @edition.id,
-      edition: {
+                           edition: {
         topic_ids: ["", @topic.id.to_s],
         primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
         secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],

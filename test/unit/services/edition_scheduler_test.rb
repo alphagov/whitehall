@@ -12,7 +12,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     assert_equal edition.scheduled_publication.to_i, job["at"].to_i
   end
 
-  %w(published draft imported rejected superseded scheduled).each do |state|
+  %w[published draft imported rejected superseded scheduled].each do |state|
     test "#{state} editions cannot be scheduled" do
       edition = create(:"#{state}_edition", scheduled_publication: 1.day.from_now)
       scheduler = EditionScheduler.new(edition)
@@ -46,7 +46,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
 
     Timecop.freeze(2.minutes.from_now) do
       assert_not scheduler.can_perform?
-      assert_match %r(Scheduled publication date must be at least 15 minutes from now), scheduler.failure_reason
+      assert_match %r{Scheduled publication date must be at least 15 minutes from now}, scheduler.failure_reason
     end
   end
 

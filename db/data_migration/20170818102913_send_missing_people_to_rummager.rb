@@ -1,4 +1,4 @@
-slugs = %w(
+slugs = %w[
   nick-hurd
   nick-gibb
   damian-green
@@ -25,7 +25,7 @@ slugs = %w(
   duncan-thompson--2
   david-reed
   ben-merrick
-)
+]
 
 missing_people = Person.where(slug: slugs)
 

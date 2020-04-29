@@ -15,7 +15,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
           social_media_service_id: @social_media_service.id,
           url: "http://foo",
           },
-          worldwide_organisation_id: worldwide_organisation,
+              worldwide_organisation_id: worldwide_organisation,
     }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)

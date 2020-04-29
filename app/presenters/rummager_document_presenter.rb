@@ -78,7 +78,7 @@ class RummagerDocumentPresenter < ActionView::Base
   # Returns a block of html:
   # "<time class=\"public_timestamp\" datetime=\"2018-09-19T17:06:34+01:00\">19 September 2018</time>"
   def display_date_microformat
-    content_tag(:time, class: :public_timestamp, datetime: self.public_timestamp.iso8601) { self.publication_date }
+    content_tag(:time, class: :public_timestamp, datetime: public_timestamp.iso8601) { publication_date }
   end
 
   def topics

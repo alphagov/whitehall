@@ -340,23 +340,21 @@ regulator_social_housing = Organisation.find_by(slug: "regulator-of-social-housi
   "statistical-data-return-2015-to-2016",
   "statistical-data-return-2016-to-2017",
 ].each do |slug|
-  begin
-    document = Document.find_by(slug: slug)
-    edition = document.latest_edition
+  document = Document.find_by(slug: slug)
+  edition = document.latest_edition
 
-    lead_organisations = edition.lead_organisations.to_a
-    next if lead_organisations.include? regulator_social_housing
+  lead_organisations = edition.lead_organisations.to_a
+  next if lead_organisations.include? regulator_social_housing
 
-    lead_organisations << regulator_social_housing
+  lead_organisations << regulator_social_housing
 
-    edition.lead_organisations = lead_organisations
-    edition.save!
+  edition.lead_organisations = lead_organisations
+  edition.save!
 
-    PublishingApiDocumentRepublishingWorker.perform_in(
-      2.seconds,
-      document.id,
-    )
-  rescue StandardError => e
-    puts "#{slug}: #{e.class}, #{e.message}"
-  end
+  PublishingApiDocumentRepublishingWorker.perform_in(
+    2.seconds,
+    document.id,
+  )
+rescue StandardError => e
+  puts "#{slug}: #{e.class}, #{e.message}"
 end

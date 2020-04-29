@@ -4,7 +4,7 @@ module PublishingApi
       attr_reader :item
 
       def self.for(item)
-        self.new(item).call
+        new(item).call
       end
 
       def initialize(item)

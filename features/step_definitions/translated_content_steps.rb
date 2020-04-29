@@ -7,8 +7,8 @@ Given(/^a worldwide organisation that is translated exists$/) do
                                   name: "en-organisation",
                                   translated_into: { fr: { name: "fr-organisation" } })
   create(:about_corporate_information_page, organisation: nil,
-         worldwide_organisation: worldwide_organisation,  summary: "en-summary",
-         translated_into: { fr: { summary: "fr-summary" } })
+                                            worldwide_organisation: worldwide_organisation,  summary: "en-summary",
+                                            translated_into: { fr: { summary: "fr-summary" } })
 end
 
 When(/^I visit the world organisation that is translated$/) do
@@ -35,7 +35,7 @@ When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |fre
   click_button "Save"
 end
 
-Then(/^I should see on the admin edition page that "([^"]*)" has a french translation "([^"]*)"$/)do |english_title, french_title|
+Then(/^I should see on the admin edition page that "([^"]*)" has a french translation "([^"]*)"$/) do |english_title, french_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
   assert_text french_title
 end
@@ -43,9 +43,9 @@ end
 Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*?)"$/) do |organisation_name, contact_title|
   organisation = create(:organisation, name: organisation_name, translated_into: :cy)
   contact = create(:contact, title: contact_title, country: create(:world_location, active: true),
-                   street_address: "123 The Avenue", contactable: organisation)
+                             street_address: "123 The Avenue", contactable: organisation)
   create(:contact_number, contact: contact,
-         label: "English phone", number: "0123456789")
+                          label: "English phone", number: "0123456789")
 end
 
 When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_title, english_title|
@@ -72,7 +72,7 @@ end
 Given(/^the world organisation "(.*?)" is translated into French and has an office "(.*?)"$/) do |organisation_name, office_name|
   organisation = create(:worldwide_organisation, name: organisation_name, translated_into: :fr)
   contact = create(:contact, title: office_name, country: create(:world_location, active: true),
-                   street_address: "123 The Avenue")
+                             street_address: "123 The Avenue")
   create(:contact_number, contact: contact, label: "English phone", number: "0123456789")
   create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
 end

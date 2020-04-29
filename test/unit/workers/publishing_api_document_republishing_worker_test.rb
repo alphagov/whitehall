@@ -138,9 +138,9 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test "it completes silently if there are no published or pre_pub editions" do
-    #whitehall has a lot of old documents that only have superseded editions
-    #we want to ignore these and not have to try and avoid passing them in
-    #when doing bulk republishing
+    # whitehall has a lot of old documents that only have superseded editions
+    # we want to ignore these and not have to try and avoid passing them in
+    # when doing bulk republishing
     document = stub(
       published_edition: nil,
       id: 1,

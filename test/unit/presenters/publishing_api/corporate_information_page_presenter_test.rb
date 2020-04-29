@@ -81,10 +81,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test "base links" do
-      expected_link_keys = %i(
+      expected_link_keys = %i[
         organisations
         parent
-      )
+      ]
 
       links_double = {
         link_one: "link_one",
@@ -137,10 +137,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test "links" do
-      expected_link_keys = %i(
+      expected_link_keys = %i[
         organisations
         parent
-      )
+      ]
 
       links_double = {
         link_one: "link_one",

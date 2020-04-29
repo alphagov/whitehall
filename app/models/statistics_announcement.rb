@@ -45,7 +45,7 @@ class StatisticsAnnouncement < ApplicationRecord
 
   validate  :publication_is_matching_type, if: :publication
   validate  :redirect_not_circular, if: :unpublished?
-  validates :publishing_state, inclusion: %w{published unpublished}
+  validates :publishing_state, inclusion: %w[published unpublished]
   validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
   validates :redirect_url, uri: true, allow_blank: true
   validates :redirect_url, gov_uk_url_format: true, allow_blank: true
@@ -117,14 +117,14 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def self.without_published_publication
-    includes(:publication).
-      references(:editions).
-      where("editions.id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
+    includes(:publication)
+      .references(:editions)
+      .where("editions.id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
   end
 
   def self.with_topics(topic_ids)
-    joins(:statistics_announcement_topics).
-    where(statistics_announcement_topics: { topic_id: topic_ids })
+    joins(:statistics_announcement_topics)
+    .where(statistics_announcement_topics: { topic_id: topic_ids })
   end
 
   def last_change_note
@@ -185,7 +185,7 @@ class StatisticsAnnouncement < ApplicationRecord
     self.cancellation_reason = reason
     self.cancelled_at = Time.zone.now
     self.cancelled_by = user
-    self.save
+    save
   end
 
   def cancelled?
@@ -225,10 +225,10 @@ private
   end
 
   def last_major_change
-    statistics_announcement_dates.
-      where("change_note IS NOT NULL && change_note != ?", "").
-      order(:created_at).
-      last
+    statistics_announcement_dates
+      .where("change_note IS NOT NULL && change_note != ?", "")
+      .order(:created_at)
+      .last
   end
 
   def publication_is_matching_type

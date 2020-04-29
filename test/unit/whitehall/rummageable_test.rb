@@ -61,8 +61,8 @@ class RummageableTest < ActiveSupport::TestCase
   end
 
   def stub_one_failed_request
-    stub_request(:post, documents_url).
-      to_return(status(502)).times(1).then.to_return(status(200))
+    stub_request(:post, documents_url)
+      .to_return(status(502)).times(1).then.to_return(status(200))
   end
 
   def stub_repeatedly_failing_requests(failures)
@@ -74,8 +74,8 @@ class RummageableTest < ActiveSupport::TestCase
   end
 
   def stub_one_failed_delete_request
-    stub_request(:delete, documents_url(id: document_url, type: "edition")).
-      to_return(status(502)).times(1).then.to_return(status(200))
+    stub_request(:delete, documents_url(id: document_url, type: "edition"))
+      .to_return(status(502)).times(1).then.to_return(status(200))
   end
 
   test "add should index a single document by posting it as json" do

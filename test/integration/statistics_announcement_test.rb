@@ -98,7 +98,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     Sidekiq::Testing.inline! do
       statistics_announcement = create(:statistics_announcement)
       statistics_announcement.update!(publishing_state: "unpublished",
-                                                 redirect_url: "https://www.test.gov.uk/example")
+                                      redirect_url: "https://www.test.gov.uk/example")
 
       assert_publishing_api_delete_intent(statistics_announcement.base_path)
     end

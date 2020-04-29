@@ -85,13 +85,9 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     valid_filter_params.merge(page: page - 1)
   end
 
-  def next_page?
-    results.next_page?
-  end
+  delegate :next_page?, to: :results
 
-  def prev_page?
-    results.prev_page?
-  end
+  delegate :prev_page?, to: :results
 
 private
 

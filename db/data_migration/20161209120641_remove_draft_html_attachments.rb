@@ -1,5 +1,5 @@
-#discard draft attachments that have the incorrect content_id from
-#publishing API
+# discard draft attachments that have the incorrect content_id from
+# publishing API
 draft_html_attachment_content_ids = %w[
   09b404ef-dfad-434f-975f-57d5d21d6b50
   7da74881-f5c3-4dc8-becd-4c78a49e6ac8
@@ -10,8 +10,8 @@ draft_html_attachment_content_ids.each do |content_id|
   PublishingApiDiscardDraftWorker.new.perform(content_id, "en")
 end
 
-#republish the 'parent' documents (which will republish the attachments
-#correctly)
+# republish the 'parent' documents (which will republish the attachments
+# correctly)
 parent_document_ids = [337544, 271122, 345564]
 
 parent_document_ids.each do |document_id|

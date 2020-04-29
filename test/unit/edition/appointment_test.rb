@@ -17,8 +17,8 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
 
   def valid_edition_attributes
     {
-      title:   "edition-title",
-      body:    "edition-body",
+      title: "edition-title",
+      body: "edition-body",
       creator: build(:user),
     }
   end

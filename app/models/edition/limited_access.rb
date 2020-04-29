@@ -54,7 +54,7 @@ module Edition::LimitedAccess
   end
 
   def access_limited?
-    read_attribute(:access_limited)
+    self[:access_limited]
   end
 
   def access_limited_by_default?
@@ -63,7 +63,7 @@ module Edition::LimitedAccess
 
   def set_access_limited
     if new_record? && access_limited.nil?
-      self.access_limited = self.access_limited_by_default?
+      self.access_limited = access_limited_by_default?
     end
   end
 

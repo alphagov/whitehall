@@ -188,15 +188,15 @@ private
 
   def announcement_has_no_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {},
+      content_id: content_id,
+      expanded_links: {},
     )
   end
 
   def announcement_has_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {
+      content_id: content_id,
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Primary Education",

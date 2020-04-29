@@ -1,4 +1,4 @@
-$:.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../config/environment", __dir__)
@@ -92,7 +92,7 @@ class ActiveSupport::TestCase
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*_args|
-      count = count + 1
+      count += 1
     end
     yield
     count

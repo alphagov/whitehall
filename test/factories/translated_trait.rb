@@ -11,7 +11,7 @@ FactoryBot.define do
           when Hash
             evaluator.translated_into
           when Array
-            evaluator.translated_into.inject({}) { |trans, locale| trans[locale] = {}; trans }
+            evaluator.translated_into.each_with_object({}) { |locale, trans| trans[locale] = {}; }
           else
             { evaluator.translated_into => {} }
           end

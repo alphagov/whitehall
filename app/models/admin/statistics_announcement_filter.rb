@@ -26,9 +26,7 @@ module Admin
       [date_based_description, additonal_filters_description].compact.join(" ")
     end
 
-    def total_count
-      statistics_announcements.total_count
-    end
+    delegate :total_count, to: :statistics_announcements
 
   private
 

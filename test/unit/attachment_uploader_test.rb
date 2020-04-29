@@ -12,13 +12,13 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "should allow whitelisted file extensions" do
-    graphics = %w(dxf eps gif jpg png ps)
-    documents = %w(chm diff doc docx ics odp odt pdf ppt pptx rdf rtf txt vcf)
-    document_support = %w(ris)
-    spreadsheets = %w(csv ods xls xlsm xlsx)
-    markup = %w(gml kml sch wsdl xml xsd)
-    containers = %w(zip)
-    templates = %w(dot xlt xslt)
+    graphics = %w[dxf eps gif jpg png ps]
+    documents = %w[chm diff doc docx ics odp odt pdf ppt pptx rdf rtf txt vcf]
+    document_support = %w[ris]
+    spreadsheets = %w[csv ods xls xlsm xlsx]
+    markup = %w[gml kml sch wsdl xml xsd]
+    containers = %w[zip]
+    templates = %w[dot xlt xslt]
 
     allowed_attachments = graphics + documents + document_support + spreadsheets + markup + containers + templates
     assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_whitelist.sort
@@ -31,12 +31,12 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
       uploader.store!(fixture_file_upload("dodgy.exe"))
     end
 
-    assert_match %r(You are not allowed to upload "exe" files), exception.message
+    assert_match %r{You are not allowed to upload "exe" files}, exception.message
   end
 
   test "should store uploads in a directory that persists across deploys" do
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
-    assert_match %r[^system], uploader.store_dir
+    assert_match %r{^system}, uploader.store_dir
   end
 
   test "should not generate thumbnail versions of non pdf files" do
@@ -156,11 +156,11 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   def required_arcgis_file_list
-    %w(london.shp london.shx london.dbf)
+    %w[london.shp london.shx london.dbf]
   end
 
   def optional_argis_file_list
-    %w(
+    %w[
       london.aih
       london.ain
       london.atx
@@ -175,7 +175,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
       london.sbx
       london.shp.xml
       london.shp_rxl
-    )
+    ]
   end
 
   def comprehensive_arcgis_file_list

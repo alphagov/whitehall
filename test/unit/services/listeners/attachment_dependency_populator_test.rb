@@ -11,9 +11,7 @@ module ServiceListeners
         @collection = []
       end
 
-      def <<(value)
-        collection << value
-      end
+      delegate :<<, to: :collection
 
       def exists?
         raise "stub me"

@@ -62,12 +62,12 @@ private
     relation = primary ? "primary_specialist_sectors" : "secondary_specialist_sectors"
 
     sectors = content_ids.reject(&:blank?).map do |content_id|
-      self.specialist_sectors.where(topic_content_id: content_id).first_or_initialize.tap do |sector|
+      specialist_sectors.where(topic_content_id: content_id).first_or_initialize.tap do |sector|
         sector.edition = self
         sector.primary = primary
       end
     end
 
-    self.public_send("#{relation}=", sectors)
+    public_send("#{relation}=", sectors)
   end
 end

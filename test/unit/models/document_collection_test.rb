@@ -88,7 +88,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   test "indexes the body without markup as indexable_content" do
     collection = create(:document_collection,
                         title: "A doc collection", body: "This is a *body*")
-    assert_match %r[^This is a body$], collection.search_index["indexable_content"]
+    assert_match %r{^This is a body$}, collection.search_index["indexable_content"]
   end
 
   test "indexes the group headings and body copy without markup as indexable_content" do
@@ -98,9 +98,9 @@ class DocumentCollectionTest < ActiveSupport::TestCase
 
     collection = create(:document_collection, groups: [empty_group, visible_group])
 
-    assert_match %r[^The Heading$], collection.search_index["indexable_content"]
-    assert_no_match %r[^Empty Heading$], collection.search_index["indexable_content"]
-    assert_match %r[^The Body$], collection.search_index["indexable_content"]
+    assert_match %r{^The Heading$}, collection.search_index["indexable_content"]
+    assert_no_match %r{^Empty Heading$}, collection.search_index["indexable_content"]
+    assert_match %r{^The Body$}, collection.search_index["indexable_content"]
   end
 
   test "indexes the summary as description" do

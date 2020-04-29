@@ -40,13 +40,9 @@ module Edition::Topics
       joins(:classification_memberships).where("classification_memberships.classification_id" => topic)
     end
 
-    def published_in_topic(topic)
-      published.in_topic(topic)
-    end
+    delegate :in_topic, to: :published, prefix: true
 
-    def scheduled_in_topic(topic)
-      scheduled.in_topic(topic)
-    end
+    delegate :in_topic, to: :scheduled, prefix: true
   end
 
 private

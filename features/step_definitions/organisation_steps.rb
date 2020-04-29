@@ -118,7 +118,7 @@ Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |org
 end
 
 When(/^I feature the news article "([^"]*)" for "([^"]*)"$/) do |news_article_title, organisation_name|
-  step %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
+  step %(I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg")
 end
 
 When(/^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/) do |news_article_title, organisation_name, image_filename|

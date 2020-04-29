@@ -23,23 +23,23 @@ module CsvSampleHelpers
 
   def minimally_valid_edition_row
     {
-      "old_url"           => "http://example.com",
-      "title"             => "title",
-      "summary"           => "summary",
-      "body"              => "body",
-      "organisation"      => sample_organisation.slug,
+      "old_url" => "http://example.com",
+      "title" => "title",
+      "summary" => "summary",
+      "body" => "body",
+      "organisation" => sample_organisation.slug,
     }
   end
 
   def minimally_valid_consultation_row
     minimally_valid_edition_row.merge(
-      "opening_date"      => "16-Nov-2011",
-      "closing_date"      => "16-Nov-2012",
+      "opening_date" => "16-Nov-2011",
+      "closing_date" => "16-Nov-2012",
       "consultation_ISBN" => "",
-      "consultation_URN"  => "",
-      "response_date"     => "20-Nov-2012",
-      "response_summary"  => "summary required",
-      "topic_1"           => sample_topic.slug,
+      "consultation_URN" => "",
+      "response_date" => "20-Nov-2012",
+      "response_summary" => "summary required",
+      "topic_1" => sample_topic.slug,
     )
   end
 

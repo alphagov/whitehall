@@ -155,7 +155,7 @@ private
 
   def prevent_saving_of_abstract_base_class
     if type.nil? || type == "Attachment"
-      raise RuntimeError, "Attempted to save abstract base class Attachment"
+      raise "Attempted to save abstract base class Attachment"
     end
   end
 end

@@ -18,7 +18,7 @@ class AttachmentData < ApplicationRecord
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
 
-  OPENDOCUMENT_EXTENSIONS = %w(ODT ODP ODS).freeze
+  OPENDOCUMENT_EXTENSIONS = %w[ODT ODP ODS].freeze
 
   attr_accessor :attachable
 
@@ -74,9 +74,9 @@ class AttachmentData < ApplicationRecord
     # virus-checking).
     self.replaced_by = replacement
     cant_be_replaced_by_self
-    raise ActiveRecord::RecordInvalid, self if self.errors.any?
+    raise ActiveRecord::RecordInvalid, self if errors.any?
 
-    self.update_column(:replaced_by_id, replacement.id)
+    update_column(:replaced_by_id, replacement.id)
   end
 
   def uploaded_to_asset_manager!
@@ -96,25 +96,15 @@ class AttachmentData < ApplicationRecord
     !significant_attachable.publicly_visible?
   end
 
-  def accessible_to?(user)
-    significant_attachable.accessible_to?(user)
-  end
+  delegate :accessible_to?, to: :significant_attachable
 
-  def access_limited?
-    last_attachable.access_limited?
-  end
+  delegate :access_limited?, to: :last_attachable
 
-  def access_limited_object
-    last_attachable.access_limited_object
-  end
+  delegate :access_limited_object, to: :last_attachable
 
-  def unpublished?
-    last_attachable.unpublished?
-  end
+  delegate :unpublished?, to: :last_attachable
 
-  def unpublished_edition
-    last_attachable.unpublished_edition
-  end
+  delegate :unpublished_edition, to: :last_attachable
 
   def present_at_unpublish?
     self[:present_at_unpublish]
@@ -184,7 +174,7 @@ private
   end
 
   def calculate_number_of_pages
-    Timeout::timeout(10) do
+    Timeout.timeout(10) do
       PDF::Reader.new(path).page_count
     end
   rescue Timeout::Error, PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError, OpenSSL::Cipher::CipherError

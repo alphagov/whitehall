@@ -1,4 +1,4 @@
-#encoding: UTF-8
+# encoding: UTF-8
 
 require "test_helper"
 
@@ -168,11 +168,11 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
     assert_same_elements [form, policy_paper],
                          Admin::EditionFilter.new(Edition, @current_user, type: "publication",
-                                                  subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
+                                                                          subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
 
     assert_equal [guidance],
                  Admin::EditionFilter.new(Edition, @current_user, type: "publication",
-                                          subtypes: [PublicationType::Guidance.id]).editions
+                                                                  subtypes: [PublicationType::Guidance.id]).editions
   end
 
   test "should filter by title" do

@@ -13,7 +13,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
 
   test "scrub script runs" do
     run_script
-    assert Integer($?).zero?, "Script exited non-zero"
+    assert Integer($CHILD_STATUS).zero?, "Script exited non-zero"
   end
 
   test "scrub script sanitises access limited editions" do
@@ -83,7 +83,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
 private
 
   def run_script
-    database, host, port, username, password = %w(database host port username password).map do |key|
+    database, host, port, username, password = %w[database host port username password].map do |key|
       ActiveRecord::Base.configurations[Rails.env][key]
     end
 

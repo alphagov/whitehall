@@ -65,14 +65,14 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test "should be invalid when it duplicates lead organisations on create" do
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
-                              lead_organisations: [organisation_1, organisation_1])
+                                  lead_organisations: [organisation_1, organisation_1])
     assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates lead organisations on save" do
     organisation_1 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [organisation_1])
+                                   lead_organisations: [organisation_1])
     edition.lead_organisations = [organisation_1, organisation_1]
     assert_not edition.valid?
   end
@@ -80,15 +80,15 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test "should be invalid when it duplicates organisations via lead and supporting on create" do
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
-                              lead_organisations: [organisation_1],
-                              supporting_organisations: [organisation_1])
+                                  lead_organisations: [organisation_1],
+                                  supporting_organisations: [organisation_1])
     assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates organisations via lead and supporting on save" do
     organisation_1 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [organisation_1])
+                                   lead_organisations: [organisation_1])
     edition.lead_organisations = [organisation_1]
     edition.supporting_organisations = [organisation_1]
     assert_not edition.valid?
@@ -97,15 +97,15 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test "should be invalid when it duplicates organisations via edition organisations directly on create" do
     organisation_1 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
-                              edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true),
-                                                      build(:edition_organisation, organisation: organisation_1, lead: false)])
+                                  edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true),
+                                                          build(:edition_organisation, organisation: organisation_1, lead: false)])
     assert_not edition.valid?
   end
 
   test "should be invalid when it duplicates organisations via edition organisations directly on save" do
     organisation_1 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true)])
+                                   edition_organisations: [build(:edition_organisation, organisation: organisation_1, lead: true)])
     edition.edition_organisations.build(organisation: organisation_1, lead: false)
     assert_not edition.valid?
   end
@@ -114,8 +114,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = build(:publication, create_default_organisation: false,
-                              lead_organisations: [organisation_1],
-                              supporting_organisations: [organisation_2, organisation_2])
+                                  lead_organisations: [organisation_1],
+                                  supporting_organisations: [organisation_2, organisation_2])
     assert_not edition.valid?
   end
 
@@ -123,8 +123,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [organisation_1],
-                               supporting_organisations: [organisation_2])
+                                   lead_organisations: [organisation_1],
+                                   supporting_organisations: [organisation_2])
     edition.supporting_organisations = [organisation_2, organisation_2]
     assert_not edition.valid?
   end
@@ -133,8 +133,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [organisation_1],
-                               supporting_organisations: [organisation_2])
+                                   lead_organisations: [organisation_1],
+                                   supporting_organisations: [organisation_2])
     edition.lead_organisations = [organisation_2]
     edition.supporting_organisations = [organisation_1]
     assert edition.valid?
@@ -144,8 +144,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [organisation_1, organisation_2],
-                               supporting_organisations: [])
+                                   lead_organisations: [organisation_1, organisation_2],
+                                   supporting_organisations: [])
     edition.lead_organisations = [organisation_2]
     assert edition.valid?
   end
@@ -154,9 +154,9 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [organisation_1, organisation_2],
-                               supporting_organisations: [],
-                               organisations: [])
+                                   lead_organisations: [organisation_1, organisation_2],
+                                   supporting_organisations: [],
+                                   organisations: [])
     edition.lead_organisations = [organisation_2]
     edition.supporting_organisations = [organisation_1]
     assert edition.valid?

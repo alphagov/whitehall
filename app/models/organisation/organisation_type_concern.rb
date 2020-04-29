@@ -30,9 +30,9 @@ module Organisation::OrganisationTypeConcern
 
     scope :hmcts_tribunals, -> {
       hmcts_id = Organisation.unscoped.where(slug: "hm-courts-and-tribunals-service").ids.first
-      joins(:parent_organisational_relationships).
-      where(organisation_type_key: :tribunal).
-             where("organisational_relationships.parent_organisation_id" => hmcts_id)
+      joins(:parent_organisational_relationships)
+      .where(organisation_type_key: :tribunal)
+             .where("organisational_relationships.parent_organisation_id" => hmcts_id)
     }
 
     scope :excluding_hmcts_tribunals, -> {
@@ -40,11 +40,11 @@ module Organisation::OrganisationTypeConcern
 
       if hmcts_id
         distinct.joins("LEFT JOIN organisational_relationships parent_organisational_relationships
-          ON parent_organisational_relationships.child_organisation_id = organisations.id").
-          where("NOT (parent_organisational_relationships.parent_organisation_id = ? AND
+          ON parent_organisational_relationships.child_organisation_id = organisations.id")
+          .where("NOT (parent_organisational_relationships.parent_organisation_id = ? AND
                 organisations.organisation_type_key = ?) OR
                 parent_organisational_relationships.child_organisation_id IS NULL",
-                hmcts_id, :tribunal)
+                 hmcts_id, :tribunal)
       end
     }
 
@@ -56,7 +56,7 @@ module Organisation::OrganisationTypeConcern
   end
 
   def organisation_type_key
-    read_attribute(:organisation_type_key).nil? ? nil : read_attribute(:organisation_type_key).to_sym
+    self[:organisation_type_key].nil? ? nil : self[:organisation_type_key].to_sym
   end
 
   def organisation_type
@@ -70,18 +70,18 @@ module Organisation::OrganisationTypeConcern
   alias_method :type=, :organisation_type=
 
   def supporting_bodies
-    child_organisations.
-      excluding_govuk_status_closed.
-      excluding_courts_and_tribunals.
-      excluding_sub_organisations.
-      with_translations(I18n.locale).
-      ordered_by_name_ignoring_prefix
+    child_organisations
+      .excluding_govuk_status_closed
+      .excluding_courts_and_tribunals
+      .excluding_sub_organisations
+      .with_translations(I18n.locale)
+      .ordered_by_name_ignoring_prefix
   end
 
   def supporting_bodies_grouped_by_type
-    supporting_bodies.
-      group_by(&:organisation_type).
-      sort_by { |type, _department| type.listing_position }
+    supporting_bodies
+      .group_by(&:organisation_type)
+      .sort_by { |type, _department| type.listing_position }
   end
 
   def hmcts_tribunal?

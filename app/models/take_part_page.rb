@@ -26,7 +26,7 @@ class TakePartPage < ApplicationRecord
              format: "take_part"
 
   def search_link
-    Whitehall.url_maker.take_part_page_path(self.slug)
+    Whitehall.url_maker.take_part_page_path(slug)
   end
 
   def body_without_markup
@@ -56,6 +56,6 @@ protected
   end
 
   def ensure_ordering!
-    self.ordering = TakePartPage.next_ordering if self.ordering.nil?
+    self.ordering = TakePartPage.next_ordering if ordering.nil?
   end
 end

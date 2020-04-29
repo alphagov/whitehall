@@ -1,11 +1,8 @@
-#encoding: UTF-8
+# encoding: UTF-8
 
 module Admin
   class EditionFilter
-    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.reduce({}) do |lookup, klass|
-      lookup[klass.to_s] = klass
-      lookup
-    end
+    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.index_by(&:to_s)
 
     MAX_EXPORT_SIZE = 8000
 
@@ -131,8 +128,8 @@ module Admin
     end
 
     def editions_with_translations(locale = nil)
-      editions_without_translations = unpaginated_editions.
-                                        order("editions.updated_at DESC")
+      editions_without_translations = unpaginated_editions
+                                        .order("editions.updated_at DESC")
 
       if locale
         editions_without_translations.with_translations(locale)

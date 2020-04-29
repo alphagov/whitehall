@@ -57,11 +57,11 @@ class Edition < ApplicationRecord
     record.errors.add(attr, "can't be set to a future date") if value && Time.zone.now < value
   end
 
-  UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
-  FROZEN_STATES = %w(superseded deleted).freeze
-  PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
-  POST_PUBLICATION_STATES = %w(published superseded withdrawn).freeze
-  PUBLICLY_VISIBLE_STATES = %w(published withdrawn).freeze
+  UNMODIFIABLE_STATES = %w[scheduled published superseded deleted].freeze
+  FROZEN_STATES = %w[superseded deleted].freeze
+  PRE_PUBLICATION_STATES = %w[imported draft submitted rejected scheduled].freeze
+  POST_PUBLICATION_STATES = %w[published superseded withdrawn].freeze
+  PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
   scope :with_title_or_summary_containing, ->(*keywords) {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
@@ -80,7 +80,7 @@ class Edition < ApplicationRecord
 
   scope :in_pre_publication_state,      -> { where(state: Edition::PRE_PUBLICATION_STATES) }
   scope :force_published,               -> { where(state: "published", force_published: true) }
-  scope :not_published,                 -> { where(state: %w(draft submitted rejected)) }
+  scope :not_published,                 -> { where(state: %w[draft submitted rejected]) }
 
   scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
   scope :consultations,                 -> { where(type: "Consultation") }
@@ -108,18 +108,18 @@ class Edition < ApplicationRecord
     end
 
     def modifiable_attributes(previous_state, current_state)
-      modifiable = %w{state updated_at force_published}
+      modifiable = %w[state updated_at force_published]
       if previous_state == "scheduled"
-        modifiable += %w{major_change_published_at first_published_at access_limited}
+        modifiable += %w[major_change_published_at first_published_at access_limited]
       end
       if PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
-        modifiable += %w{published_major_version published_minor_version}
+        modifiable += %w[published_major_version published_minor_version]
       end
       modifiable
     end
 
     def being_unpublished?(previous_state, current_state)
-      previous_state == "published" && %w(draft withdrawn).include?(current_state)
+      previous_state == "published" && %w[draft withdrawn].include?(current_state)
     end
   end
 
@@ -252,7 +252,7 @@ EXISTS (
   end
 
   def self.search_format_type
-    self.name.underscore.tr("_", "-")
+    name.underscore.tr("_", "-")
   end
 
   def self.concrete_descendants
@@ -265,8 +265,8 @@ EXISTS (
 
   # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
   def self.with_classification(classification)
-    joins("INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id").
-      where("classification_memberships.classification_id" => classification.id)
+    joins("INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id")
+      .where("classification_memberships.classification_id" => classification.id)
   end
 
   def self.due_for_publication(within_time = 0)
@@ -485,8 +485,8 @@ EXISTS (
     end
 
     ActiveRecord::Base.transaction do
-      ignorable_attribute_keys = %w(id type state created_at updated_at change_note
-                                    minor_change force_published scheduled_publication)
+      ignorable_attribute_keys = %w[id type state created_at updated_at change_note
+                                    minor_change force_published scheduled_publication]
       draft_attributes = attributes.except(*ignorable_attribute_keys)
         .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 
@@ -537,8 +537,8 @@ EXISTS (
   end
 
   def other_editions
-    if self.persisted?
-      document.editions.where(self.class.arel_table[:id].not_eq(self.id))
+    if persisted?
+      document.editions.where(self.class.arel_table[:id].not_eq(id))
     else
       document.editions
     end
@@ -617,15 +617,15 @@ EXISTS (
 
   def errors_as_draft
     if imported?
-      original_errors = self.errors.dup
+      original_errors = errors.dup
       begin
         self.trying_to_convert_to_draft = true
-        self.try_draft
+        try_draft
         valid? ? [] : errors.dup
       ensure
-        self.back_to_imported
+        back_to_imported
         self.trying_to_convert_to_draft = false
-        self.errors.initialize_dup(original_errors)
+        errors.initialize_dup(original_errors)
       end
     else
       valid? ? [] : errors
@@ -681,7 +681,7 @@ EXISTS (
   end
 
   def withdrawn?
-    self.state == "withdrawn"
+    state == "withdrawn"
   end
 
   def detailed_format
@@ -700,9 +700,7 @@ EXISTS (
     false
   end
 
-  def locked?
-    document.locked?
-  end
+  delegate :locked?, to: :document
 
 private
 

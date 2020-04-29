@@ -232,7 +232,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     )
 
     detailed_guide = DetailedGuide.last
-    #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
+    # we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
 
     detailed_guide.related_mainstream_content_url = "http://www.gov.uk/new-mainstream-content"
     detailed_guide.save
@@ -254,7 +254,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     )
 
     detailed_guide = DetailedGuide.last
-    #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
+    # we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
     detailed_guide.related_mainstream_content_url = nil
     detailed_guide.save
 

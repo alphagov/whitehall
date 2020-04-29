@@ -96,11 +96,11 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     links = presented.links
     edition_links = presented.content[:links]
 
-    assert_equal links[:topics], %w(content_id_1 content_id_2)
-    assert_equal links[:parent], %w(content_id_1)
+    assert_equal links[:topics], %w[content_id_1 content_id_2]
+    assert_equal links[:parent], %w[content_id_1]
 
-    assert_equal edition_links[:topics], %w(content_id_1 content_id_2)
-    assert_equal edition_links[:parent], %w(content_id_1)
+    assert_equal edition_links[:topics], %w[content_id_1 content_id_2]
+    assert_equal edition_links[:parent], %w[content_id_1]
   end
 
   test "links hash includes lead and supporting organisations in correct order" do
@@ -182,11 +182,11 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "specific locale attachments are presented for that locale" do
-    #this factory creates an nil locale attachment
+    # this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
     attachment.update!(locale: "cy", title: "welsh one")
-    publication.reload #ensures the html attachment is in #attachments and #html_attachmnents
+    publication.reload # ensures the html attachment is in #attachments and #html_attachmnents
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
@@ -198,7 +198,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "specific locale attachments are not presented for other locales" do
-    #this factory creates an nil locale attachment
+    # this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
     attachment.update!(locale: "cy", title: "welsh one")
@@ -213,7 +213,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "nil locale attachments are present for all locales" do
-    #this factory creates an nil locale attachment
+    # this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
     attachment.update!(title: "nil one")

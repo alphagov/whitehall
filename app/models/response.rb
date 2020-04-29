@@ -4,7 +4,7 @@ class Response < ApplicationRecord
   belongs_to :consultation, foreign_key: :edition_id
 
   validates :published_on, recent_date: true, presence: true
-  validates_presence_of :summary, unless: :has_attachments
+  validates :summary, presence: { unless: :has_attachments }
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :summary
 
@@ -12,33 +12,19 @@ class Response < ApplicationRecord
     consultation
   end
 
-  def access_limited?
-    parent_attachable.access_limited?
-  end
+  delegate :access_limited?, to: :parent_attachable
 
-  def organisations
-    parent_attachable.organisations
-  end
+  delegate :organisations, to: :parent_attachable
 
-  def alternative_format_contact_email
-    consultation.alternative_format_contact_email
-  end
+  delegate :alternative_format_contact_email, to: :consultation
 
-  def publicly_visible?
-    parent_attachable.publicly_visible?
-  end
+  delegate :publicly_visible?, to: :parent_attachable
 
-  def accessible_to?(user)
-    parent_attachable.accessible_to?(user)
-  end
+  delegate :accessible_to?, to: :parent_attachable
 
-  def unpublished?
-    parent_attachable.unpublished?
-  end
+  delegate :unpublished?, to: :parent_attachable
 
-  def unpublished_edition
-    parent_attachable.unpublished_edition
-  end
+  delegate :unpublished_edition, to: :parent_attachable
 
   def can_order_attachments?
     true

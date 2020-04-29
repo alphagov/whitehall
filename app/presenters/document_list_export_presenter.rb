@@ -163,10 +163,10 @@ class DocumentListExportPresenter
     # other language version; which is not exactly what we want here
     return "none" unless edition.translated_locales.count > 1
 
-    edition.
-      translated_locales.
-      reject { |locale_code| locale_code.to_s == edition.primary_locale.to_s }.
-      sort_by(&:to_s).
-      map { |locale_code| Locale.new(locale_code).english_language_name }
+    edition
+      .translated_locales
+      .reject { |locale_code| locale_code.to_s == edition.primary_locale.to_s }
+      .sort_by(&:to_s)
+      .map { |locale_code| Locale.new(locale_code).english_language_name }
   end
 end

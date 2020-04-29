@@ -138,7 +138,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::NewsArticlePresenter, presenter.class
   end
 
-  test ".presenter_for returns a CorporateInformationPagePresenter for a " +
+  test ".presenter_for returns a CorporateInformationPagePresenter for a " \
     "CorporateInformationPage belonging to an Organisation" do
     presenter = PublishingApiPresenters
       .presenter_for(
@@ -154,7 +154,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     )
   end
 
-  test ".presenter_for returns a GenericEditionPresenter for a " +
+  test ".presenter_for returns a GenericEditionPresenter for a " \
     "CorporateInformationPage belonging to an WorldwideOrganisation" do
     presenter = PublishingApiPresenters
       .presenter_for(

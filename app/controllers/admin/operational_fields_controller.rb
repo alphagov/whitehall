@@ -12,7 +12,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
   def create
     @operational_field = OperationalField.new(operational_field_params)
     if @operational_field.save
-      redirect_to admin_operational_fields_path, notice: %{"#{@operational_field.name}" created.}
+      redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" created.)
     else
       render action: "new"
     end
@@ -25,7 +25,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
   def update
     @operational_field = OperationalField.friendly.find(params[:id])
     if @operational_field.update(operational_field_params)
-      redirect_to admin_operational_fields_path, notice: %{"#{@operational_field.name}" saved.}
+      redirect_to admin_operational_fields_path, notice: %("#{@operational_field.name}" saved.)
     else
       render action: "edit"
     end

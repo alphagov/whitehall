@@ -4,8 +4,8 @@ end
 
 Given(/^a draft statistics publication called "(.*?)"$/) do |title|
   @statistics_publication = create(:publication, :draft, access_limited: false,
-                                   publication_type_id: PublicationType::OfficialStatistics.id,
-                                   title: title)
+                                                         publication_type_id: PublicationType::OfficialStatistics.id,
+                                                         title: title)
 end
 
 Given(/^there is a statistics announcement by my organisation$/) do

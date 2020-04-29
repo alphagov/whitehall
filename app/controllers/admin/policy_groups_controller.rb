@@ -12,7 +12,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   def create
     @policy_group = PolicyGroup.new(policy_group_params)
     if @policy_group.save
-      redirect_to admin_policy_groups_path, notice: %{"#{@policy_group.name}" created.}
+      redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" created.)
     else
       render action: "new"
     end
@@ -25,7 +25,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   def update
     @policy_group = PolicyGroup.friendly.find(params[:id])
     if @policy_group.update(policy_group_params)
-      redirect_to admin_policy_groups_path, notice: %{"#{@policy_group.name}" saved.}
+      redirect_to admin_policy_groups_path, notice: %("#{@policy_group.name}" saved.)
     else
       render action: "edit"
     end
@@ -35,7 +35,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
     policy_group = PolicyGroup.friendly.find(params[:id])
     name = policy_group.name
     policy_group.destroy
-    redirect_to admin_policy_groups_path, notice: %{"#{name}" deleted.}
+    redirect_to admin_policy_groups_path, notice: %("#{name}" deleted.)
   end
 
 private

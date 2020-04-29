@@ -136,7 +136,7 @@ class Organisation < ApplicationRecord
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
   accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
-  validates :homepage_type, inclusion: { in: %w{news service} }
+  validates :homepage_type, inclusion: { in: %w[news service] }
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
@@ -154,12 +154,12 @@ class Organisation < ApplicationRecord
     if: :requires_alternative_format?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider",
   }
-  validates :govuk_status, inclusion: { in: %w{live joining exempt transitioning closed} }
-  validates :govuk_closed_status, inclusion: { in: %w{no_longer_exists replaced split merged changed_name left_gov devolved} }, presence: true, if: :closed?
+  validates :govuk_status, inclusion: { in: %w[live joining exempt transitioning closed] }
+  validates :govuk_closed_status, inclusion: { in: %w[no_longer_exists replaced split merged changed_name left_gov devolved] }, presence: true, if: :closed?
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
 
-  validate :exactly_one_superseding_organisation, if: Proc.new { |organisation| organisation.replaced? || organisation.merged? || organisation.changed_name? }
+  validate :exactly_one_superseding_organisation, if: proc { |organisation| organisation.replaced? || organisation.merged? || organisation.changed_name? }
   validate :at_least_two_superseding_organisations, if: :split?
   validate :exactly_one_devolved_superseding_organisation, if: :devolved?
   validate :exempt_organisation_does_not_have_custom_logo
@@ -267,7 +267,7 @@ class Organisation < ApplicationRecord
 
   def self.grouped_by_type(locale = I18n.locale)
     Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do
-      all_orgs = self.with_published_editions.with_translations(locale).ordered_by_name_ignoring_prefix
+      all_orgs = with_published_editions.with_translations(locale).ordered_by_name_ignoring_prefix
 
       closed_orgs, open_orgs = all_orgs.partition(&:closed?)
       ministerial_orgs, other_orgs = open_orgs.partition(&:ministerial_department?)
@@ -282,7 +282,7 @@ class Organisation < ApplicationRecord
 
   def ensure_analytics_identifier
     if analytics_identifier.blank?
-      update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
+      update_column(:analytics_identifier, organisation_type.analytics_prefix + id.to_s)
     end
   end
 
@@ -328,8 +328,8 @@ class Organisation < ApplicationRecord
   end
 
   def self.parent_organisations
-    where("not exists (" +
-      "select * from organisational_relationships " +
+    where("not exists (" \
+      "select * from organisational_relationships " \
       "where organisational_relationships.child_organisation_id=organisations.id)")
   end
 
@@ -499,16 +499,14 @@ class Organisation < ApplicationRecord
     published_editions.statistical_publications
   end
 
-  def corporate_publications
-    editions.corporate_publications
-  end
+  delegate :corporate_publications, to: :editions
 
   def destroyable?
     child_organisations.none? && organisation_roles.none? && !new_record?
   end
 
   def provides_alternative_formats?
-    persisted? && Edition.where(alternative_format_provider_id: self.id).any?
+    persisted? && Edition.where(alternative_format_provider_id: id).any?
   end
 
   def requires_alternative_format?
@@ -556,7 +554,7 @@ class Organisation < ApplicationRecord
   end
 
   def organisations_with_services_and_information_link
-    %w{
+    %w[
       charity-commission
       department-for-education
       department-for-environment-food-rural-affairs
@@ -570,7 +568,7 @@ class Organisation < ApplicationRecord
       medicines-and-healthcare-products-regulatory-agency
       natural-england
       planning-inspectorate
-    }
+    ]
   end
 
 private

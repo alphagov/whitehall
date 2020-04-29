@@ -23,7 +23,7 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   describe "#world_taxon_data" do
     test "#expanded links" do
       setup_world_taxons
-      assert_equal %w(country-1 country-2),
+      assert_equal %w[country-1 country-2],
                    (subject.world_taxon_data.map { |t| t["title"] })
     end
   end

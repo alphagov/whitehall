@@ -18,7 +18,7 @@ module TranslatableModel
   def remove_translations_for(locale)
     translations.where(locale: locale).each(&:destroy)
 
-    if self.respond_to?(:content_id)
+    if respond_to?(:content_id)
       Whitehall::PublishingApi.discard_translation_async(self, locale: locale)
 
       # This is a bit of a hack to make sure that models _not_ using the
@@ -26,8 +26,8 @@ module TranslatableModel
       # translations from the Publishing API.
       # The method publish_gone_translation_to_publishing_api is defined in the
       # PublishesToPublishingApi module.
-      if self.respond_to?(:publish_gone_translation_to_publishing_api)
-        self.publish_gone_translation_to_publishing_api(locale)
+      if respond_to?(:publish_gone_translation_to_publishing_api)
+        publish_gone_translation_to_publishing_api(locale)
       end
     end
   end

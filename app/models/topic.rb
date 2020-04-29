@@ -19,11 +19,11 @@ class Topic < Classification
 
   def unpublish_and_redirect(redirect_path)
     Services.publishing_api.unpublish(
-      self.content_id,
+      content_id,
       alternative_path: redirect_path,
       type: "redirect",
       discard_drafts: true,
     )
-    self.delete
+    delete
   end
 end

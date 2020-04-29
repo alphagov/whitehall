@@ -64,7 +64,7 @@ module Admin::TabbedNavHelper
   end
 
   def tab_navigation_header(tabs)
-    content_tag(:ul, class: %w(nav nav-tabs add-bottom-margin)) do
+    content_tag(:ul, class: %w[nav nav-tabs add-bottom-margin]) do
       tabs.map { |label, content|
         if content.is_a?(Hash)
           tab_dropdown(label, content)

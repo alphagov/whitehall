@@ -113,9 +113,9 @@ module Admin::EditionsHelper
   # when rendering editions' organisation select fields. See the
   # Edition::Organisations mixin module to see why this is required.
   def lead_organisation_id_at_index(edition, index)
-    edition.edition_organisations.
-            select(&:lead?).
-            sort_by(&:lead_ordering)[index].try(:organisation_id)
+    edition.edition_organisations
+            .select(&:lead?)
+            .sort_by(&:lead_ordering)[index].try(:organisation_id)
   end
 
   # As above for the lead_organisation_id_at_index helper, this helper is

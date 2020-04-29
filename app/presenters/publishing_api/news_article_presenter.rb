@@ -32,7 +32,7 @@ module PublishingApi
     end
 
     def links
-      link_keys = %i(
+      link_keys = %i[
         organisations
         parent
         policy_areas
@@ -40,7 +40,7 @@ module PublishingApi
         world_locations
         worldwide_organisations
         government
-      )
+      ]
 
       LinksPresenter
         .new(news_article)

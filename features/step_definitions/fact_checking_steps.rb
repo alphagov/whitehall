@@ -42,7 +42,7 @@ Then(/^"([^"]*)" should be notified by email that "([^"]*)" has requested a fact
   assert_equal 1, unread_emails_for(email_address).size
   email = unread_emails_for(email_address).last
   assert_equal "Fact checking request from #{writer_name}: #{title}", email.subject
-  assert_match %r[#{instructions}], email.body.to_s
+  assert_match %r{#{instructions}}, email.body.to_s
 end
 
 Then(/^"([^"]*)" should be notified by email that "([^"]*)" has added a comment "([^"]*)" to "([^"]*)"$/) do |requestor_email, fact_checker_email, _comment, title|

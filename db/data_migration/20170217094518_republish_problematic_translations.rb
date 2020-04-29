@@ -1,4 +1,4 @@
-publication_slugs = %w(
+publication_slugs = %w[
   uk-house-price-index-summary-october-2016/1847977
   uk-house-price-index-wales-august-2016/1747267
   uk-house-price-index-wales-october-2016/1849478
@@ -10,9 +10,9 @@ publication_slugs = %w(
   nominated-tester-training-ntt-assessment-questions/mot-nominated-tester-training-ntt-assessment-questions
   nominated-tester-training/guidance-on-applying-for-mot-nominated-tester-training-ntt-for-new-and-returning-testers
   post-initial-teacher-training-subject-knowledge-enhancement-teaching-school-alliances/post-initial-teacher-training-subject-knowledge-enhancement-teaching-school-alliances
-)
+]
 
-wlna_slugs = %w(
+wlna_slugs = %w[
   176020.ar
   181967.ar
   186635.ar
@@ -651,7 +651,7 @@ wlna_slugs = %w(
   282404.zh
   286926.zh
   291036.zh
-)
+]
 
 Document.where(slug: publication_slugs, document_type: "Publication").each do |doc|
   puts "Republishing Publication ##{doc.slug}..."

@@ -4,7 +4,7 @@ Given(/^I start editing the speech "([^"]*)" changing the title to "([^"]*)"$/) 
 end
 
 Given(/^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/) do |author, title, body|
-  step %{I am a writer called "#{author}"}
+  step %(I am a writer called "#{author}")
   visit new_admin_speech_path
   begin_drafting_speech title: title, body: body
   click_button "Save and continue"

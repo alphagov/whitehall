@@ -80,15 +80,15 @@ module Searchable
       include Searchable::Mixin
 
       self.searchable_options = options.reverse_merge \
-        format:         ->(o) { o.class.model_name.element },
-        content_id:     ->(o) { o.try(:content_id) },
-        index_after:    :save,
-        unindex_after:  :destroy,
-        only:           :all,
-        description:    ""
+        format: ->(o) { o.class.model_name.element },
+        content_id: ->(o) { o.try(:content_id) },
+        index_after: :save,
+        unindex_after: :destroy,
+        only: :all,
+        description: ""
 
-      self.searchable_options[:index_after] = [self.searchable_options[:index_after]].flatten.select { |e| e }
-      self.searchable_options[:unindex_after] = [self.searchable_options[:unindex_after]].flatten.select { |e| e }
+      searchable_options[:index_after] = [searchable_options[:index_after]].flatten.select { |e| e }
+      searchable_options[:unindex_after] = [searchable_options[:unindex_after]].flatten.select { |e| e }
 
       (SEARCH_FIELDS + [:only]).each do |name|
         value = searchable_options[name]
@@ -123,11 +123,10 @@ module Searchable
 
     # Build the payload to pass to the search index
     def search_index
-      SEARCH_FIELDS.reduce({}) do |result, name|
+      SEARCH_FIELDS.each_with_object({}) do |name, result|
         value = searchable_options[name].call(self)
         key = KEY_MAPPING[name] || name.to_s
         result[key] = value unless value.nil?
-        result
       end
     end
 
@@ -165,6 +164,6 @@ module Searchable
   end
 
   def can_index_in_search?
-    self.class.searchable_instances.find_by(id: self.id).present? && RummagerPresenters.searchable_classes.include?(self.class)
+    self.class.searchable_instances.find_by(id: id).present? && RummagerPresenters.searchable_classes.include?(self.class)
   end
 end

@@ -19,7 +19,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should return the role and organisation name" do
     role = create(:role, name: "Treasury secretary", people: [],
-                   organisations: [create(:organisation, name: "Department of Health")])
+                         organisations: [create(:organisation, name: "Department of Health")])
     assert_equal "Treasury secretary, Department of Health", role.to_s
   end
 

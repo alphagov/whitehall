@@ -11,7 +11,7 @@ class Admin::PeopleController < Admin::BaseController
   def create
     @person = Person.new(person_params)
     if @person.save
-      redirect_to [:admin, @person], notice: %{"#{@person.name}" created.}
+      redirect_to [:admin, @person], notice: %("#{@person.name}" created.)
     else
       render action: "new"
     end
@@ -23,7 +23,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def update
     if @person.update(person_params)
-      redirect_to [:admin, @person], notice: %{"#{@person.name}" saved.}
+      redirect_to [:admin, @person], notice: %("#{@person.name}" saved.)
     else
       render action: "edit"
     end
@@ -31,7 +31,7 @@ class Admin::PeopleController < Admin::BaseController
 
   def destroy
     if @person.destroy
-      redirect_to admin_people_path, notice: %{"#{@person.name}" destroyed.}
+      redirect_to admin_people_path, notice: %("#{@person.name}" destroyed.)
     else
       redirect_to admin_people_path, alert: "Cannot destroy a person with appointments"
     end

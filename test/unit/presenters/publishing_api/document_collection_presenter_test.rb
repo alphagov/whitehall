@@ -100,8 +100,8 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
     group_one = document_collection.groups.first
     group_two = document_collection.groups.second
 
-    group_one.stubs(:content_ids).returns(%w(aaa bbb))
-    group_two.stubs(:content_ids).returns(%w(fff eee))
+    group_one.stubs(:content_ids).returns(%w[aaa bbb])
+    group_two.stubs(:content_ids).returns(%w[fff eee])
     group_one.stubs(:heading).returns("Group 1")
     group_two.stubs(:heading).returns("Group 2")
 
@@ -118,12 +118,12 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
         {
           "title": "Group 1",
           "body": "<div class=\"govspeak\"><p>Group body text</p>\n</div>",
-          "documents": %w(aaa bbb),
+          "documents": %w[aaa bbb],
         },
         {
           "title": "Group 2",
           "body": "<div class=\"govspeak\"><p>Group body text</p>\n</div>",
-          "documents": %w(fff eee),
+          "documents": %w[fff eee],
         },
       ],
       @presented_details[:collection_groups],
@@ -134,7 +134,7 @@ end
 class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    document_collection.stubs(:content_ids).returns(%w(faf afa))
+    document_collection.stubs(:content_ids).returns(%w[faf afa])
 
     @presented_links = PublishingApi::DocumentCollectionPresenter.new(
       document_collection,
@@ -143,7 +143,7 @@ class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSu
 
   test "it presents the document content_ids as links, documents" do
     assert_equal(
-      %w(faf afa),
+      %w[faf afa],
       @presented_links[:documents],
     )
   end
@@ -275,7 +275,7 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest < ActiveSupport::TestCase
   setup do
     @document_collection = create(:document_collection)
-    @document_collection.stubs(:content_ids).returns(%w(test test ers))
+    @document_collection.stubs(:content_ids).returns(%w[test test ers])
     presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
     @presented_edition_links = presented_document_collection.content[:links]
     @presented_links = presented_document_collection.links
@@ -283,14 +283,14 @@ class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest 
 
   test "it doesn't present duplicate content ids in content, links, documents" do
     assert_equal(
-      %w(test ers),
+      %w[test ers],
       @presented_edition_links[:documents],
     )
   end
 
   test "it doesn't present duplicate content ids in links, documents" do
     assert_equal(
-      %w(test ers),
+      %w[test ers],
       @presented_links[:documents],
     )
   end
@@ -425,7 +425,7 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(document_collection)
       .returns(
-        access_limited: { users: %w(abcdef12345) },
+        access_limited: { users: %w[abcdef12345] },
       )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       document_collection,
@@ -433,7 +433,7 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
   end
 
   test "include access limiting" do
-    assert_equal %w(abcdef12345), @presented_document_collection.content[:access_limited][:users]
+    assert_equal %w[abcdef12345], @presented_document_collection.content[:access_limited][:users]
   end
 
   test "is valid against content schemas" do

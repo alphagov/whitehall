@@ -11,7 +11,7 @@ class TextDirectionTest < ActiveSupport::TestCase
       i18n = data[locale]["i18n"]
       direction = i18n["direction"] if i18n
 
-      assert_includes %w(ltr rtl), direction
+      assert_includes %w[ltr rtl], direction
     end
   end
 end

@@ -11,7 +11,7 @@ module Edition::Workflow
     end
 
     def valid_state?(state)
-      %w(active imported draft submitted rejected published scheduled force_published withdrawn not_published).include?(state)
+      %w[active imported draft submitted rejected published scheduled force_published withdrawn not_published].include?(state)
     end
   end
 

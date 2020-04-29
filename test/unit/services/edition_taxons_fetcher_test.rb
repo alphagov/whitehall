@@ -27,8 +27,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns '[]' if there are no taxons" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {},
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {},
     )
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
@@ -39,8 +39,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
     title = "Education, training and skills"
 
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => title,
@@ -58,8 +58,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns a taxon with a parent" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -88,8 +88,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns a taxon with parent and grandparent" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Student Finance",
@@ -127,8 +127,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns paths for multiple taxons" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -177,8 +177,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it sets the first parent taxon if there are multiple parents" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -214,8 +214,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it only returns published or visible draft taxons" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "I am the published taxon",
@@ -278,8 +278,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it gets world taxons tagged to the edition" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "I am the published taxon",
@@ -328,8 +328,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns legacy mappings" do
     stub_publishing_api_has_expanded_links(
-      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links:  {
+      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Further Education",

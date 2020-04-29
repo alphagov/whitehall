@@ -10,9 +10,7 @@ module PublishingApi
       self.update_type = update_type || default_update_type(item)
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
@@ -106,7 +104,7 @@ module PublishingApi
 
     def attachments_for_current_locale
       attachments = item.attachments
-      #nil/"" locale should always be returned
+      # nil/"" locale should always be returned
       locales_that_match = [I18n.locale.to_s, ""]
       attachments.to_a.select do |attachment|
         locales_that_match.include?(attachment.locale.to_s)

@@ -97,7 +97,7 @@ class Document::NeedsTest < ActiveSupport::TestCase
         },
       )
 
-    expected_array = Array.new
+    expected_array = []
     assert_equal expected_array, document.associated_needs
   end
 end

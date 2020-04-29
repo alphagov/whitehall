@@ -14,9 +14,7 @@ class LatestDocumentPresenter < Whitehall::Decorators::Decorator
     end
   end
 
-  def organisations
-    model.organisations
-  end
+  delegate :organisations, to: :model
 
 private
 

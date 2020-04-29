@@ -179,7 +179,7 @@ module Whitehall
     end
 
     def self.push_live(model_instance, update_type_override = nil, queue_override = nil)
-      self.assert_public_edition!(model_instance)
+      assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
         PublishingApiWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
       end

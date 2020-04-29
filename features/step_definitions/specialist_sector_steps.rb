@@ -42,7 +42,7 @@ Given(/^there is a document tagged to specialist sectors$/) do
                                   },
                                 ],
                               },
-                              )
+                            )
 
   stub_content_store_has_item(document_base_path, document_content_item)
 end

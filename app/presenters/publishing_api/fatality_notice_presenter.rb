@@ -9,9 +9,7 @@ module PublishingApi
       @update_type = update_type || default_update_type(item)
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       {}.tap { |content|
@@ -41,7 +39,7 @@ module PublishingApi
 
     def edition_links
       LinksPresenter.new(item).extract(
-        %i(organisations policy_areas),
+        %i[organisations policy_areas],
       ).merge(
         field_of_operation: [item.operational_field.content_id],
       ).merge(

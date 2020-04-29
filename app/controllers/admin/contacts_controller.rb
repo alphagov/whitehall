@@ -18,7 +18,7 @@ class Admin::ContactsController < Admin::BaseController
     @contact.update(contact_params)
     if @contact.save
       handle_show_on_home_page_param
-      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" updated successfully}
+      redirect_to [:admin, @contact.contactable, Contact], notice: %("#{@contact.title}" updated successfully)
     else
       render :edit
     end
@@ -28,7 +28,7 @@ class Admin::ContactsController < Admin::BaseController
     @contact = @contactable.contacts.build(contact_params)
     if @contact.save
       handle_show_on_home_page_param
-      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" created successfully}
+      redirect_to [:admin, @contact.contactable, Contact], notice: %("#{@contact.title}" created successfully)
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class Admin::ContactsController < Admin::BaseController
   def destroy
     title = @contact.title
     if @contact.destroy
-      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{title}" deleted successfully}
+      redirect_to [:admin, @contact.contactable, Contact], notice: %("#{title}" deleted successfully)
     else
       render :edit
     end

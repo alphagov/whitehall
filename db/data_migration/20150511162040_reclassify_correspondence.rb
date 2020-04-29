@@ -1,8 +1,8 @@
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
+PUBLISHED_AND_PUBLISHABLE_STATES = %w[published draft archived submitted rejected scheduled].freeze
 
-correspondence_scope = Publication.
-  where(state: PUBLISHED_AND_PUBLISHABLE_STATES).
-  where(publication_type_id: PublicationType::Correspondence.id)
+correspondence_scope = Publication
+  .where(state: PUBLISHED_AND_PUBLISHABLE_STATES)
+  .where(publication_type_id: PublicationType::Correspondence.id)
 
 count = correspondence_scope.count
 index = 0

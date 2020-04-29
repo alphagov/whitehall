@@ -89,8 +89,8 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal links[:topics], %w(content_id_1 content_id_2)
-    assert_equal links[:parent], %w(content_id_1)
+    assert_equal links[:topics], %w[content_id_1 content_id_2]
+    assert_equal links[:parent], %w[content_id_1]
   end
 
   test "DetailedGuide presents related mainstream in links and details" do

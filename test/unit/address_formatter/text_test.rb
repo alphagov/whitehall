@@ -8,7 +8,7 @@ require "ostruct"
 class AddressFormatter::TextTest < ActiveSupport::TestCase
   setup do
     @old_formats = AddressFormatter::Formatter.address_formats
-    AddressFormatter::Formatter.address_formats = YAML.safe_load(%{
+    AddressFormatter::Formatter.address_formats = YAML.safe_load(%(
       es: |-
           {{fn}}
           {{street-address}}
@@ -26,7 +26,7 @@ class AddressFormatter::TextTest < ActiveSupport::TestCase
           {{region}}{{locality}}{{street-address}}
           {{fn}}
           {{country-name}}
-    })
+    ))
   end
   teardown do
     AddressFormatter::Formatter.address_formats = @old_formats

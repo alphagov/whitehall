@@ -10,9 +10,7 @@ module PublishingApi
       self.update_type = update_type || default_update_type(item)
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       BaseItemPresenter
@@ -27,7 +25,7 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: "case_study",
-      )
+        )
     end
 
     def links

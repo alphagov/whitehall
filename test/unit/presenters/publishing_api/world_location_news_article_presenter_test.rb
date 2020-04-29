@@ -261,7 +261,7 @@ class PublishingApi::WorldLocationNewsArticleAccessLimitedTest < ActiveSupport::
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(world_location_news_article)
       .returns(
-        access_limited: { users: %w(abcdef12345) },
+        access_limited: { users: %w[abcdef12345] },
       )
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
       world_location_news_article,
@@ -269,7 +269,7 @@ class PublishingApi::WorldLocationNewsArticleAccessLimitedTest < ActiveSupport::
   end
 
   test "include access limiting" do
-    assert_equal %w(abcdef12345), @presented_world_location_news_article.content[:access_limited][:users]
+    assert_equal %w[abcdef12345], @presented_world_location_news_article.content[:access_limited][:users]
   end
 
   test "is valid against content schemas" do

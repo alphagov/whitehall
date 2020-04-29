@@ -88,7 +88,7 @@ class WorldwideOrganisation < ApplicationRecord
   end
 
   def display_name
-    self.name
+    name
   end
 
   def acronym

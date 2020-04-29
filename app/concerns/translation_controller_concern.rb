@@ -30,7 +30,7 @@ module TranslationControllerConcern
   end
 
   def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{translated_item_name}" #{action}.}
+    %(#{translation_locale.english_language_name} translation for "#{translated_item_name}" #{action}.)
   end
 
   def save_draft_translation

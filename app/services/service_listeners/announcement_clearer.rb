@@ -10,8 +10,6 @@ module ServiceListeners
       edition.is_a?(Publication) && statistics_announcement.present?
     end
 
-    def statistics_announcement
-      edition.statistics_announcement
-    end
+    delegate :statistics_announcement, to: :edition
   end
 end
