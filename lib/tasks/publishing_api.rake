@@ -218,7 +218,7 @@ namespace :publishing_api do
     task :dry_run, %i[content_id alternative_path locale] => :environment do |_, args|
       args.with_defaults(locale: "en")
 
-      document = Document.find_by(content_id: content_id)
+      document = Document.find_by(content_id: args[:content_id])
       abort "Document with this content ID exists: #{document}" if document
 
       puts "Would send an unpublish request to the Publishing API for #{args[:content_id]} with:"
@@ -229,7 +229,7 @@ namespace :publishing_api do
     task :real, %i[content_id alternative_path locale] => :environment do |_, args|
       args.with_defaults(locale: "en")
 
-      document = Document.find_by(content_id: content_id)
+      document = Document.find_by(content_id: args[:content_id])
       abort "Document with this content ID exists: #{document}" if document
 
       response = Services.publishing_api.unpublish(
