@@ -2,10 +2,9 @@
 # If you're changing it, please consider handling the common case.
 module Taxonomy
   class Taxon
-    extend Forwardable
     attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors, :legacy_mapping
     attr_accessor :parent_node, :children
-    def_delegators :taxon_list, :map, :each
+    delegate :map, :each, :count, to: :taxon_list
 
     def initialize(title:, base_path:, content_id:, phase: "live", visible_to_departmental_editors: true, legacy_mapping:)
       @name = title
@@ -88,8 +87,6 @@ module Taxonomy
     def full_path
       breadcrumb_trail.map { |t| { title: t.name } }
     end
-
-    delegate :count, to: :taxon_list
 
     def root?
       parent_node.nil?

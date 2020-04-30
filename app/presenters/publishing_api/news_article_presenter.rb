@@ -1,6 +1,5 @@
 module PublishingApi
   class NewsArticlePresenter
-    extend Forwardable
     include UpdateTypeHelper
 
     SCHEMA_NAME = "news_article".freeze
@@ -12,7 +11,7 @@ module PublishingApi
       self.update_type = update_type || default_update_type(news_article)
     end
 
-    def_delegator :news_article, :content_id
+    delegate :content_id, to: :news_article
 
     def content
       BaseItemPresenter
@@ -59,7 +58,7 @@ module PublishingApi
     attr_accessor :news_article
     attr_writer :update_type
 
-    def_delegator :news_article, :display_type_key
+    delegate :display_type_key, to: :news_article
 
     def base_details
       {
@@ -96,8 +95,6 @@ module PublishingApi
     end
 
     class ChangeHistory
-      extend Forwardable
-
       def self.for(news_article)
         new(news_article).call
       end
@@ -115,12 +112,10 @@ module PublishingApi
     private
 
       attr_accessor :news_article
-      def_delegator :news_article, :change_history
+      delegate :change_history, to: :news_article
     end
 
     class Image
-      extend Forwardable
-
       def self.for(news_article)
         new(news_article).call
       end
@@ -153,7 +148,8 @@ module PublishingApi
     private
 
       attr_accessor :news_article
-      def_delegator :news_article, :lead_image_caption, :image_caption
+      delegate :lead_image_caption, to: :news_article
+      alias_method :image_caption, :lead_image_caption
 
       def image_alt_text
         news_article.lead_image_alt_text.squish

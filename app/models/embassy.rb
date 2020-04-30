@@ -1,11 +1,9 @@
 class Embassy
-  extend Forwardable
-
   def initialize(world_location)
     @world_location = world_location
   end
 
-  def_delegator :@world_location, :name
+  delegate :name, to: :@world_location
 
   def self.filter_offices(worldwide_organisation)
     worldwide_organisation.offices.select { |o| embassy_office?(o) }
