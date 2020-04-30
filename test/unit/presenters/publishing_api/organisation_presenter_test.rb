@@ -34,6 +34,9 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       summary: "This org is a thing!",
     )
     role = create(:role, organisations: [organisation])
+    minister = create(:person)
+    create(:ministerial_role_appointment, role: role, person: minister)
+
     public_path = Whitehall.url_maker.organisation_path(organisation)
     public_atom_path = "#{public_path}.atom"
 
@@ -72,7 +75,17 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         ordered_featured_links: [],
         ordered_featured_documents: [],
         ordered_promotional_features: [],
-        ordered_ministers: [],
+        ordered_ministers: [
+          {
+            name_prefix: nil,
+            name: minister.name,
+            role: role.name,
+            href: "/government/people/#{minister.slug}",
+            role_href: "/government/ministers/#{role.name}",
+            payment_type: nil,
+            attends_cabinet_type: nil,
+          },
+        ],
         ordered_board_members: [],
         ordered_military_personnel: [],
         ordered_traffic_commissioners: [],
@@ -98,10 +111,11 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     expected_links = {
       ordered_contacts: [],
       ordered_foi_contacts: [],
+      ordered_high_profile_groups: [],
       ordered_parent_organisations: [parent_organisation.content_id],
       ordered_child_organisations: [],
       ordered_successor_organisations: [],
-      ordered_high_profile_groups: [],
+      ordered_ministers: [minister.content_id],
       ordered_roles: [role.content_id],
       primary_publishing_organisation: [organisation.content_id],
     }

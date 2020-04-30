@@ -42,13 +42,19 @@ module PublishingApi
 
     def links
       {
+        ordered_board_members: people_content_items(role: "management"),
+        ordered_chief_professional_officers: people_content_items(role: "chief_professional_officer"),
+        ordered_child_organisations: child_organisation_links,
         ordered_contacts: contacts_links,
         ordered_foi_contacts: foi_contacts_links,
-        ordered_parent_organisations: parent_organisation_links,
-        ordered_child_organisations: child_organisation_links,
-        ordered_successor_organisations: successor_organisation_links,
         ordered_high_profile_groups: high_profile_groups_links,
+        ordered_military_personnel: people_content_items(role: "military"),
+        ordered_ministers: people_content_items(role: "ministerial"),
+        ordered_parent_organisations: parent_organisation_links,
         ordered_roles: roles_links,
+        ordered_special_representatives: people_content_items(role: "special_representative"),
+        ordered_successor_organisations: successor_organisation_links,
+        ordered_traffic_commissioners: people_content_items(role: "traffic_commissioner"),
         primary_publishing_organisation: [content_id],
       }
     end
@@ -414,6 +420,14 @@ module PublishingApi
 
           ary
         end
+    end
+
+    def people_content_items(role:)
+      item.send("#{role}_roles")
+        .order("organisation_roles.ordering")
+        .map(&:current_person)
+        .compact
+        .map(&:content_id)
     end
 
     def important_board_members
