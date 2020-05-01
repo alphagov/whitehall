@@ -316,7 +316,7 @@ GEM
     mustache (1.0.5)
     mysql2 (0.4.10)
     net-http-digest_auth (1.4.1)
-    net-http-persistent (3.1.0)
+    net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.2)
