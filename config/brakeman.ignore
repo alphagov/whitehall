@@ -337,6 +337,26 @@
       "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "83cb07b23845591c7f6f25cf9670c4d48c87e8a7fd77abce67a88f2ca3912733",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 150,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{temp_location.shellescape} > /dev/null\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "is_a_zip?"
+      },
+      "user_input": "Whitehall.system_binaries[:zipinfo]",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Remote Code Execution",
       "warning_code": 110,
       "fingerprint": "9ae68e59cfee3e5256c0540dadfeb74e6b72c91997fdb60411063a6e8518144a",
@@ -547,6 +567,26 @@
       "note": "We don't link directly to any unescaped model attribute"
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "d4d3ca2e3f25f46fa84a65737ad237cbe532de2dd2ebd50b2a1abb341589c058",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 139,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(temp_dir, \"extracted\")} #{temp_location.shellescape}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "extract_contents"
+      },
+      "user_input": "Whitehall.system_binaries[:unzip]",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "e3247d26b239eabad855a8642304816c8635f4c9f6d4eba6ba7ebbb94a7f0def",
@@ -578,6 +618,6 @@
       "note": "We don't use the user data directly to find the template, it comes from the database."
     }
   ],
-  "updated": "2020-05-01 13:17:10 +0000",
+  "updated": "2020-05-01 13:20:11 +0000",
   "brakeman_version": "4.8.1"
 }
