@@ -451,7 +451,7 @@ GEM
       rubocop (>= 0.72.0)
     rubocop-rake (0.5.1)
       rubocop
-    rubocop-rspec (1.38.1)
+    rubocop-rspec (1.39.0)
       rubocop (>= 0.68.1)
     ruby-graphviz (1.2.5)
       rexml
