@@ -4,7 +4,7 @@ require "gds_api/test_helpers/publishing_api_v2"
 class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
-  #UnpublishingReason: 1 - in error
+  # UnpublishingReason: 1 - in error
   test "runs PublishingApiGoneWorker with path and explanation when redirect is false" do
     unpublished_edition = create(
       :unpublished_edition,
@@ -25,7 +25,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
   end
 
-  #UnpublishingReason: 1 - in error, redirect: true
+  # UnpublishingReason: 1 - in error, redirect: true
   test "runs PublishingApiGoneWorker with path when redirect is true" do
     unpublished_edition = create(
       :unpublished_edition,
@@ -45,7 +45,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
   end
 
-  #UnpublishingReason: 4 - consolidated
+  # UnpublishingReason: 4 - consolidated
   test "runs PublishingApiRedirectWorker with alternative path" do
     unpublished_edition = create(
       :unpublished_edition,
@@ -65,7 +65,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
   end
 
-  #UnpublishingReason: 5 - withdrawn
+  # UnpublishingReason: 5 - withdrawn
   test "runs PublishingApiWithdrawalWorker with alternative path" do
     unpublished_edition = create(
       :withdrawn_edition,

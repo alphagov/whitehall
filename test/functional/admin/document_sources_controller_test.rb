@@ -36,8 +36,8 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
   test "update should add multiple document sources" do
     edition = create(:draft_publication)
 
-    put :update, params: { edition_id: edition, document_sources: %{http://www.example.com
-http://woo.example.com} }
+    put :update, params: { edition_id: edition, document_sources: %(http://www.example.com
+http://woo.example.com) }
 
     assert_not edition.document.document_sources.empty?
     assert_equal 2, edition.document.document_sources.size
@@ -49,8 +49,8 @@ http://woo.example.com} }
     edition = create(:draft_publication)
     edition.document.document_sources.create(url: "http://www.example.com/")
 
-    put :update, params: { edition_id: edition, document_sources: %{http://www.example.com
-http://woo.example.com} }
+    put :update, params: { edition_id: edition, document_sources: %(http://www.example.com
+http://woo.example.com) }
 
     edition.document.document_sources.reload
     assert_not edition.document.document_sources.empty?

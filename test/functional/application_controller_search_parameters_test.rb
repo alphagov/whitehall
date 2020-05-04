@@ -26,7 +26,7 @@ class ApplicationControllerSearchParametersTest < ActionController::TestCase
       end
       get :test_scoped
     end
-    assert_equal %{{"filter_organisations":["org1"]}}, response.headers["X-Slimmer-Search-Parameters"]
+    assert_equal %({"filter_organisations":["org1"]}), response.headers["X-Slimmer-Search-Parameters"]
   end
 
   test "doesn't set filter_organisations search parameter header for orgs without scoped search" do
@@ -36,6 +36,6 @@ class ApplicationControllerSearchParametersTest < ActionController::TestCase
       end
       get :test_unscoped
     end
-    assert_equal %{{"show_organisations_filter":true}}, response.headers["X-Slimmer-Search-Parameters"]
+    assert_equal %({"show_organisations_filter":true}), response.headers["X-Slimmer-Search-Parameters"]
   end
 end

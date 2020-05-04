@@ -125,7 +125,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, :draft)
     original_path = Whitehall.url_maker.public_document_path(edition)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason: UnpublishingReason::PublishedInError)
+                                         unpublishing_reason: UnpublishingReason::PublishedInError)
 
     assert_equal original_path, unpublishing.document_path
   end
@@ -133,7 +133,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   test "#document_path returns the URL path using the slug from the unpublishing" do
     edition = create(:detailed_guide, :draft)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason: UnpublishingReason::PublishedInError)
+                                         unpublishing_reason: UnpublishingReason::PublishedInError)
     unpublishing.update_attribute(:slug, "a-different-slug")
 
     assert_equal "/guidance/a-different-slug", unpublishing.document_path
@@ -143,7 +143,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, :draft)
     original_url = Whitehall.url_maker.public_document_url(edition)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason: UnpublishingReason::PublishedInError)
+                                         unpublishing_reason: UnpublishingReason::PublishedInError)
 
     assert_equal original_url, unpublishing.document_url
   end
@@ -151,7 +151,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   test "#document_url returns the URL using the slug from the unpublishing" do
     edition = create(:detailed_guide, :draft)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason: UnpublishingReason::PublishedInError)
+                                         unpublishing_reason: UnpublishingReason::PublishedInError)
     unpublishing.update_attribute(:slug, "a-different-slug")
 
     assert_match "/guidance/a-different-slug", unpublishing.document_url

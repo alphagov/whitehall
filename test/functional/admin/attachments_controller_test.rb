@@ -231,8 +231,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     Consultation.any_instance.expects(:reorder_attachments).with([c.id.to_s, a.id.to_s, b.id.to_s]).once
 
     put :order, params: { edition_id: @edition, ordering: { a.id.to_s => "1",
-                                                  b.id.to_s => "2",
-                                                  c.id.to_s => "0" } }
+                                                            b.id.to_s => "2",
+                                                            c.id.to_s => "0" } }
 
     assert_response :redirect
   end
@@ -243,8 +243,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     Consultation.any_instance.expects(:reorder_attachments).with([a.id.to_s, b.id.to_s, c.id.to_s]).once
 
     put :order, params: { edition_id: @edition, ordering: { a.id.to_s => "9",
-                                                  b.id.to_s => "10",
-                                                  c.id.to_s => "11" } }
+                                                            b.id.to_s => "10",
+                                                            c.id.to_s => "11" } }
 
     assert_response :redirect
   end

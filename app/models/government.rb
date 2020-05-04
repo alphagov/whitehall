@@ -49,7 +49,7 @@ private
   end
 
   def ends_before?(other)
-    self.ended? && end_date <= other.start_date
+    ended? && end_date <= other.start_date
   end
 
   def starts_after?(other)
@@ -57,7 +57,7 @@ private
   end
 
   def ends_after?(other)
-    return true unless self.ended?
+    return true unless ended?
 
     other.ended? && end_date > other.end_date
   end
@@ -66,9 +66,9 @@ private
     self.class.all.find_each do |existing_government|
       next if self == existing_government
 
-      if self.overlaps?(existing_government)
+      if overlaps?(existing_government)
         errors.add(:base, "overlaps #{existing_government.name}:
-          Your new government: #{self.start_date} -> #{self.end_date || 'present'},
+          Your new government: #{start_date} -> #{end_date || 'present'},
           overlapping government: #{existing_government.start_date} -> #{existing_government.end_date || 'present'}
         ")
       end

@@ -30,7 +30,7 @@ private
   # completed before the job is picked up, causing ActiveRecord::RecordNotFound
   # errors.
   def queue_html_compute_job
-    GovspeakContentWorker.perform_in(10.seconds, self.id)
+    GovspeakContentWorker.perform_in(10.seconds, id)
   end
 
   def body_or_numbering_scheme_changed?

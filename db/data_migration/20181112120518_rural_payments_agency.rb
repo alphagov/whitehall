@@ -291,37 +291,35 @@ old = Organisation.find_by(slug: "natural-england")
   "mid-tier-events-2018-countryside-stewardship",
   "tell-the-rural-payments-agency-about-land-changes-and-entitlement-transfers",
 ].each do |slug|
-  begin
-    document = Document.find_by(slug: slug)
-    edition = document.latest_edition
+  document = Document.find_by(slug: slug)
+  edition = document.latest_edition
 
-    lead_organisations = edition.lead_organisations.to_a
-    supporting_organisations = edition.supporting_organisations.to_a
+  lead_organisations = edition.lead_organisations.to_a
+  supporting_organisations = edition.supporting_organisations.to_a
 
-    # replace `old` with `new` in the lead and supporting orgs; if
-    # `old` is lead and `new` is supporting, then this will "promote"
-    # `new` to lead.
-    if lead_organisations.include? old
-      add_to_list(lead_organisations, new)
-      supporting_organisations.delete new
-    elsif supporting_organisations.include?(old) && !lead_organisations.include?(new)
-      add_to_list(supporting_organisations, new)
-    end
-    lead_organisations.delete old
-    supporting_organisations.delete old
-
-    edition.update(
-      lead_organisations: lead_organisations,
-      supporting_organisations: supporting_organisations,
-    )
-
-    # the migration runs inside a transaction, so delay the
-    # republishing until the migration is done
-    PublishingApiDocumentRepublishingWorker.perform_in(
-      5.seconds,
-      document.id,
-    )
-  rescue StandardError => e
-    puts "#{slug}: #{e.class}, #{e.message}"
+  # replace `old` with `new` in the lead and supporting orgs; if
+  # `old` is lead and `new` is supporting, then this will "promote"
+  # `new` to lead.
+  if lead_organisations.include? old
+    add_to_list(lead_organisations, new)
+    supporting_organisations.delete new
+  elsif supporting_organisations.include?(old) && !lead_organisations.include?(new)
+    add_to_list(supporting_organisations, new)
   end
+  lead_organisations.delete old
+  supporting_organisations.delete old
+
+  edition.update(
+    lead_organisations: lead_organisations,
+    supporting_organisations: supporting_organisations,
+  )
+
+  # the migration runs inside a transaction, so delay the
+  # republishing until the migration is done
+  PublishingApiDocumentRepublishingWorker.perform_in(
+    5.seconds,
+    document.id,
+  )
+rescue StandardError => e
+  puts "#{slug}: #{e.class}, #{e.message}"
 end

@@ -77,8 +77,8 @@ class TranslationHelperTest < ActionView::TestCase
 
   test "t_delivered_on returns appropriate translation depending on whether speech was written or delivered" do
     I18n.with_locale(:fr) do
-      assert_match %r[Prononcé le], t_delivered_on(stub("speech_type", published_externally_key: "delivered_on"))
-      assert_match %r[Ecrit le], t_delivered_on(stub("speech_type", published_externally_key: "written_on"))
+      assert_match %r{Prononcé le}, t_delivered_on(stub("speech_type", published_externally_key: "delivered_on"))
+      assert_match %r{Ecrit le}, t_delivered_on(stub("speech_type", published_externally_key: "written_on"))
     end
   end
 
@@ -129,7 +129,7 @@ class TranslationHelperTest < ActionView::TestCase
   end
 
   test "t_lang_translated_locales returns lang=en if translation does not exist" do
-    @model.stubs(:translated_locales).returns(%i(en es de))
+    @model.stubs(:translated_locales).returns(%i[en es de])
 
     I18n.with_locale(:fr) do
       assert_equal "lang=en", t_lang_translated_locales(@model)
@@ -137,7 +137,7 @@ class TranslationHelperTest < ActionView::TestCase
   end
 
   test "t_lang_translated_locales returns nil if translation does exist" do
-    @model.stubs(:translated_locales).returns(%i(en es de))
+    @model.stubs(:translated_locales).returns(%i[en es de])
 
     I18n.with_locale(:de) do
       assert_nil t_lang_translated_locales(@model)

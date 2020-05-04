@@ -23,10 +23,9 @@ module PublishingApi
         filter_links << :original_primary_publishing_organisation
       end
 
-      filter_links.reduce(Hash.new) do |links, link_name|
+      filter_links.each_with_object({}) do |link_name, links|
         private_method_name = LINK_NAMES_TO_METHODS_MAP[link_name]
         links[link_name] = send(private_method_name)
-        links
       end
     end
 

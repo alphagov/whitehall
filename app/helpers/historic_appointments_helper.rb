@@ -6,8 +6,8 @@ module HistoricAppointmentsHelper
   end
 
   def previous_dates_in_office(role, person)
-    role.previous_appointments.for_person(person).
-         map { |r| RoleAppointmentPresenter.new(r, self).date_range }.
-         join(", ")
+    role.previous_appointments.for_person(person)
+         .map { |r| RoleAppointmentPresenter.new(r, self).date_range }
+         .join(", ")
   end
 end

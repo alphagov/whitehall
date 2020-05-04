@@ -79,7 +79,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     get :index, params: { lead_organisation: org.content_id,
                           type: "news_article",
-                          subtypes: %w(press_release news_story) }, format: "json"
+                          subtypes: %w[press_release news_story] }, format: "json"
 
     expected_response =
       {
@@ -110,7 +110,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     get :index, params: { lead_organisation: org.content_id,
                           type: "news_article",
-                          subtypes: %w(something_invalid) }, format: "json"
+                          subtypes: %w[something_invalid] }, format: "json"
 
     expected_response =
       {
@@ -169,7 +169,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     first_lead_org = edition.organisations.first
     create(:edition_organisation, edition: edition, organisation: create(:organisation),
-           lead: true, lead_ordering: 2)
+                                  lead: true, lead_ordering: 2)
 
     login_as :export_data_user
 

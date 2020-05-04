@@ -286,7 +286,7 @@ class PublishingApi::StatisticalDataSetAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(statistical_data_set)
       .returns(
-        access_limited: { users: %w(abcdef12345) },
+        access_limited: { users: %w[abcdef12345] },
       )
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
       statistical_data_set,
@@ -294,7 +294,7 @@ class PublishingApi::StatisticalDataSetAccessLimitedTest < ActiveSupport::TestCa
   end
 
   test "include access limiting" do
-    assert_equal %w(abcdef12345), @presented_statistical_data_set.content[:access_limited][:users]
+    assert_equal %w[abcdef12345], @presented_statistical_data_set.content[:access_limited][:users]
   end
 
   test "is valid against content schemas" do

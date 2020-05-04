@@ -107,7 +107,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     delete :destroy, params: { id: person.id }
 
     assert_response :redirect
-    assert_equal %{"Dave" destroyed.}, flash[:notice]
+    assert_equal %("Dave" destroyed.), flash[:notice]
   end
 
   test "destroying a person which has an appointment" do
@@ -125,11 +125,11 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal %w(A B C), assigns(:people).map(&:name)
+    assert_equal %w[A B C], assigns(:people).map(&:name)
   end
 
   view_test "lists people displaying the first bit of their biography" do
-    create(:person, title: "Colonel", surname: "Hathi", biography: %{Hathi is head of the elephant troop. He is one of the oldest animals of the jungle and represents order, dignity and obedience to the Law of the Jungle. In "How Fear Came", he tells the jungle animals' creation myth and describes Tha, the Creator.})
+    create(:person, title: "Colonel", surname: "Hathi", biography: %(Hathi is head of the elephant troop. He is one of the oldest animals of the jungle and represents order, dignity and obedience to the Law of the Jungle. In "How Fear Came", he tells the jungle animals' creation myth and describes Tha, the Creator.))
 
     get :index
 

@@ -9,7 +9,7 @@ Rails.application.config.assets.version = "1.0"
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w(
+Rails.application.config.assets.precompile += %w[
   admin.css
   admin-ie8.css
   admin-ie7.css
@@ -36,6 +36,6 @@ Rails.application.config.assets.precompile += %w(
   frontend/html-publication-rtl-ie6.css
   frontend/print.css
   admin.js
-)
+]
 
 Rails.application.config.assets.prefix = Whitehall.router_prefix + Rails.application.config.assets.prefix

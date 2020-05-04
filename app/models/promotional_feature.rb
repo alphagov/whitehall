@@ -2,7 +2,7 @@ class PromotionalFeature < ApplicationRecord
   belongs_to :organisation
   has_many :promotional_feature_items, inverse_of: :promotional_feature, dependent: :destroy
 
-  validates_presence_of :organisation, :title
+  validates :organisation, :title, presence: true
 
   accepts_nested_attributes_for :promotional_feature_items
 

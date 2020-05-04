@@ -65,7 +65,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
           dependable_speech.unpublishing = create(:unpublishing, edition: dependable_speech)
 
-          #stub unpublishing worker to avoid the extra save draft calls
+          # stub unpublishing worker to avoid the extra save draft calls
           PublishingApiUnpublishingWorker.stubs(:perform_async)
           assert Whitehall.edition_services.unpublisher(dependable_speech).perform!
 
@@ -96,7 +96,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
   def create_article_dependent_on_speech
     dependable_speech = create(:submitted_speech)
     dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-      body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+                                                        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
     dependent_article.depended_upon_editions << dependable_speech
 
     [dependable_speech, dependent_article]

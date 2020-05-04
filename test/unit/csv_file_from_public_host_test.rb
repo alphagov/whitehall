@@ -115,7 +115,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   end
 
   test "#csv_response uses basic authentication if set in the environment" do
-    stub_csv_request.with(basic_auth: %w(user password))
+    stub_csv_request.with(basic_auth: %w[user password])
     env = { "BASIC_AUTH_CREDENTIALS" => "user:password" }
 
     response = CsvFileFromPublicHost.csv_response("some-path", env: env)

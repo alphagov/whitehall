@@ -31,7 +31,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                                                                 confirmed: false,
                                                                 change_note: nil),
                                                           build(:statistics_announcement_date,
-                                                                release_date:  Time.zone.parse("2050-01-01 09:30"),
+                                                                release_date: Time.zone.parse("2050-01-01 09:30"),
                                                                 precision: StatisticsAnnouncementDate::PRECISION[:exact],
                                                                 confirmed: true,
                                                                 change_note: "The change note")]
@@ -71,18 +71,18 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
 
   test "#advanced_search with release_timestamp[:from] returns release announcements after the given date" do
     create :statistics_announcement, title: "Wanted release announcement",
-           current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
+                                     current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
     create :statistics_announcement, title: "Unwanted release announcement",
-           current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
+                                     current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
 
     assert_equal ["Wanted release announcement"], matched_titles(release_timestamp: { from: 7.days.from_now.iso8601 })
   end
 
   test "#advanced_search with release_timestamp[:to] returns release announcements before the given date" do
     create :statistics_announcement, title: "Unwanted release announcement",
-           current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
+                                     current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
     create :statistics_announcement, title: "Wanted release announcement",
-           current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
+                                     current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
 
     assert_equal ["Wanted release announcement"], matched_titles(release_timestamp: { to: 7.days.from_now.iso8601 })
   end

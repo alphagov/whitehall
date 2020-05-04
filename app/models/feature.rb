@@ -5,7 +5,7 @@ class Feature < ApplicationRecord
   belongs_to :offsite_link
   belongs_to :feature_list
 
-  before_save { check_if_locked_document(document: self.document) }
+  before_save { check_if_locked_document(document: document) }
 
   after_save :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api

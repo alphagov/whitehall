@@ -23,7 +23,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
     assert_equal(
       {
-        topics: %w(content_id_1),
+        topics: %w[content_id_1],
         parent: [],
         organisations: [],
         primary_publishing_organisation: [],
@@ -42,8 +42,8 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
     assert_equal(
       {
-        topics: %w(content_id_1 content_id_2),
-        parent: %w(content_id_1),
+        topics: %w[content_id_1 content_id_2],
+        parent: %w[content_id_1],
         organisations: [],
         primary_publishing_organisation: [],
         original_primary_publishing_organisation: [],

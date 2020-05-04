@@ -1,11 +1,11 @@
 # Documents with the following slugs exist in Whitehall.
-slugs_to_fix = %w{
+slugs_to_fix = %w[
   how-to-appeal-your-rateable-value
   cma-opens-consultation-on-reed-elsevier-undertakings
   uk-visa-operations-in-south-india-are-impacted-by-the-floods-in-chennai
   common-land-guidance-for-commons-registration-authorities-and-applicants
   rpa-remains-on-track-to-pay-bps-2015-claims-from-december
-}
+]
 
 # Each of these documents have published editions and render correctly on the
 # Whitehall frontend.
@@ -16,12 +16,12 @@ slugs_to_fix = %w{
 # The content IDs recorded in Whitehall for these items do not match anything
 # in the publishing API. The content IDs in the publishing API, however, match
 # 5 'similar' documents in Whitehall:
-obsolete_slugs = %w{
+obsolete_slugs = %w[
   deleted-how-to-appeal-your-rateable-value
   deleted-uk-visa-operations-in-south-india-are-impacted-by-the-floods-in-chennai
   deleted-common-land-guidance-for-commons-registration-authorities-and-applicants
   deleted-rpa-remains-on-track-to-pay-bps-2015-claims-from-december
-}
+]
 
 # These appear to be junk documents with no corresponding editions, and can be
 # safely deleted.

@@ -24,9 +24,7 @@ class HtmlAttachment < Attachment
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
-  def manually_numbered_headings?
-    govspeak_content.manually_numbered_headings?
-  end
+  delegate :manually_numbered_headings?, to: :govspeak_content
 
   def accessible?
     true

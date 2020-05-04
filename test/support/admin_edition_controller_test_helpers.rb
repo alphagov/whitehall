@@ -255,7 +255,7 @@ module AdminEditionControllerTestHelpers
         conflicting_edition = edition.reload
         assert_equal conflicting_edition, assigns(:conflicting_edition)
         assert_equal conflicting_edition.lock_version, assigns(:edition).lock_version
-        assert_equal %{This document has been saved since you opened it}, flash[:alert]
+        assert_equal %(This document has been saved since you opened it), flash[:alert]
       end
 
       test "removes blank space from titles for updated editions" do
@@ -407,7 +407,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+                   image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
         post :create, params: {
@@ -428,7 +428,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+                   image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
         ImageData.any_instance.expects(:file=).once
@@ -455,7 +455,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+                   image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
         post :create, params: {
@@ -472,7 +472,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+                   image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
         post :create, params: {
@@ -491,7 +491,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+                   image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
         post :create, params: {
@@ -507,9 +507,9 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image_file_0) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file_0) },
           "1" => { alt_text: "more-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image_file_1) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file_1) },
         }
 
         post :create, params: {
@@ -545,7 +545,7 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         edition = create(edition_type)
         create(:image, alt_text: "blah", edition: edition,
-          image_data_attributes: attributes_for(:image_data, file: image))
+                       image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, params: { id: edition }
 
@@ -604,7 +604,7 @@ module AdminEditionControllerTestHelpers
       test "updating an edition with an existing image allows image attributes to be changed" do
         edition = create(edition_type)
         image = create(:image, edition: edition, alt_text: "old-alt-text", caption: "old-caption",
-          image_data_attributes: attributes_for(:image_data, file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")))
+                               image_data_attributes: attributes_for(:image_data, file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")))
 
         put :update, params: {
           id: edition,
@@ -631,9 +631,9 @@ module AdminEditionControllerTestHelpers
         image_file_1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image_file_0) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file_0) },
           "1" => { alt_text: "more-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image_file_1) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file_1) },
         } }
 
         put :update, params: { id: edition, edition: attributes }
@@ -749,9 +749,9 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type)
         image_1 = create(:image, edition: edition, alt_text: "the first image",
-          image_data_attributes: attributes_for(:image_data, file: image))
+                                 image_data_attributes: attributes_for(:image_data, file: image))
         image_2 = create(:image, edition: edition, alt_text: "the second image",
-          image_data_attributes: attributes_for(:image_data, file: image))
+                                 image_data_attributes: attributes_for(:image_data, file: image))
 
         attributes = {
           images_attributes: {
@@ -1080,7 +1080,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_prevent_modification_of_unmodifiable(edition_type)
-      (Edition::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
+      (Edition::UNMODIFIABLE_STATES - %w[deleted]).each do |state|
         test "edit not allowed for #{state} #{edition_type}" do
           edition = create("#{state}_#{edition_type}")
 
@@ -1341,7 +1341,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update records new value of access_limited flag" do
-        controller.current_user.organisation = create(:organisation); controller.current_user.save!
+        controller.current_user.organisation = create(:organisation)
+        controller.current_user.save!
         publication = create(edition_type, access_limited: false, organisations: [controller.current_user.organisation])
 
         put :update, params: {
@@ -1472,7 +1473,7 @@ module AdminEditionControllerTestHelpers
           assert_select "#edition_worldwide_organisation_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(element: elements.first,
-              track_label: new_edition_path(edition_type))
+                                                               track_label: new_edition_path(edition_type))
           end
         end
       end
@@ -1501,7 +1502,7 @@ module AdminEditionControllerTestHelpers
           assert_select "#edition_worldwide_organisation_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(element: elements.first,
-              track_label: edit_edition_path(edition_type))
+                                                               track_label: edit_edition_path(edition_type))
           end
         end
       end

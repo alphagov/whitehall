@@ -1,6 +1,5 @@
 module PublishingApi
   class CorporateInformationPagePresenter
-    extend Forwardable
     include UpdateTypeHelper
 
     SCHEMA_NAME = "corporate_information_page".freeze
@@ -13,7 +12,7 @@ module PublishingApi
         update_type || default_update_type(corporate_information_page)
     end
 
-    def_delegator :corporate_information_page, :content_id
+    delegate :content_id, to: :corporate_information_page
 
     def content
       BaseItemPresenter
@@ -41,10 +40,10 @@ module PublishingApi
 
     def edition_links
       links_presenter.extract(
-        %i(
+        %i[
           organisations
           parent
-        ),
+        ],
       ).merge(CorporateInformationPages.for(corporate_information_page))
     end
 
@@ -57,7 +56,7 @@ module PublishingApi
     attr_accessor :corporate_information_page
     attr_writer :update_type
 
-    def_delegator :corporate_information_page, :display_type_key
+    delegate :display_type_key, to: :corporate_information_page
 
     def base_details
       {
@@ -110,8 +109,6 @@ module PublishingApi
     end
 
     class CorporateInformationGroups
-      extend Forwardable
-
       def self.for(corporate_information_page)
         new(corporate_information_page).call
       end
@@ -137,8 +134,9 @@ module PublishingApi
 
       attr_accessor :context, :corporate_information_page, :url_maker
 
-      def_delegator :context, :helpers
-      def_delegator :corporate_information_page, :owning_organisation, :organisation
+      delegate :helpers, to: :context
+      delegate :owning_organisation, to: :corporate_information_page
+      alias_method :organisation, :owning_organisation
 
       def corporate_information_groups
         [].tap do |groups|
@@ -206,8 +204,6 @@ module PublishingApi
     end
 
     class CorporateInformationPages
-      extend Forwardable
-
       def self.for(corporate_information_page)
         new(corporate_information_page).call
       end
@@ -228,7 +224,8 @@ module PublishingApi
     private
 
       attr_accessor :corporate_information_page
-      def_delegator :corporate_information_page, :owning_organisation, :organisation
+      delegate :owning_organisation, to: :corporate_information_page
+      alias_method :organisation, :owning_organisation
 
       def pages
         @pages ||= [].tap { |pages|
@@ -260,8 +257,6 @@ module PublishingApi
     end
 
     class Organisation
-      extend Forwardable
-
       def self.for(corporate_information_page)
         new(corporate_information_page).call
       end
@@ -281,7 +276,8 @@ module PublishingApi
     private
 
       attr_accessor :corporate_information_page
-      def_delegator :corporate_information_page, :owning_organisation, :organisation
+      delegate :owning_organisation, to: :corporate_information_page
+      alias_method :organisation, :owning_organisation
     end
   end
 end

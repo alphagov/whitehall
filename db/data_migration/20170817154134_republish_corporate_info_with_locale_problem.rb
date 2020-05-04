@@ -1,4 +1,4 @@
-content_ids = %w(
+content_ids = %w[
   60221f79-7631-11e4-a3cb-005056011aef
   5f5a1fa5-7631-11e4-a3cb-005056011aef
   5f561925-7631-11e4-a3cb-005056011aef
@@ -32,7 +32,7 @@ content_ids = %w(
   5fe611aa-7631-11e4-a3cb-005056011aef
   5fa475be-7631-11e4-a3cb-005056011aef
   602adf53-7631-11e4-a3cb-005056011aef
-)
+]
 
 ids = Document.where(content_id: content_ids).pluck(:id)
 ids.each do |id|

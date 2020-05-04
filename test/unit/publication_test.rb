@@ -10,8 +10,8 @@ class PublicationTest < ActiveSupport::TestCase
 
   test "imported publications are valid when the publication_type is imported-awaiting-type" do
     publication = build(:publication, state: "imported",
-                        publication_type: PublicationType.find_by_slug("imported-awaiting-type"),
-                        first_published_at: 1.year.ago)
+                                      publication_type: PublicationType.find_by_slug("imported-awaiting-type"),
+                                      first_published_at: 1.year.ago)
     assert publication.valid?
   end
 
@@ -25,11 +25,11 @@ class PublicationTest < ActiveSupport::TestCase
     assert_not publication.valid_as_draft?
   end
 
-  %w(submitted scheduled published).each do |state|
+  %w[submitted scheduled published].each do |state|
     test "A #{state} publication is not valid without an attachment" do
       publication = build("#{state}_publication", attachments: [])
       assert_not publication.valid?
-      assert_match %r[an attachment or HTML version before being #{state}], publication.errors[:base].first
+      assert_match %r{an attachment or HTML version before being #{state}}, publication.errors[:base].first
     end
   end
 

@@ -1,7 +1,7 @@
-#Accepts options[:message] and options[:allowed_protocols]
+# Accepts options[:message] and options[:allowed_protocols]
 class GovUkUrlFormatValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    if !%r(\A#{Whitehall.public_protocol}://#{Whitehall.public_host}/).match?(value)
+    if !%r{\A#{Whitehall.public_protocol}://#{Whitehall.public_host}/}.match?(value)
       record.errors[attribute] << failure_message
     end
   end

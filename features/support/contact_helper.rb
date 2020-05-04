@@ -3,10 +3,10 @@ module ContactHelper
     contact_details = {
       title: "Our shiny new office",
       street_address: "address1\naddress2",
-      postal_code:  "12345-123",
+      postal_code: "12345-123",
       email: "foo@bar.com",
       country: WorldLocation.first.name,
-      phone_number_label:  "Main phone number",
+      phone_number_label: "Main phone number",
       phone_number: "+22 (0) 111 111-111",
       feature_on_home_page: "yes",
       contact_type: "General",

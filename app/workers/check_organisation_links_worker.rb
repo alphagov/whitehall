@@ -16,7 +16,7 @@ class CheckOrganisationLinksWorker
     GovukStatsd.time("link-checking-debug.check-organisation-links-worker") do
       organisation = find_organisation(organisation_id)
       editions = public_editions(organisation)
-      logger.info("[link-checking-debug][org_#{organisation_id}][job_#{self.jid}]: Requesting link checks for #{editions.count}")
+      logger.info("[link-checking-debug][org_#{organisation_id}][job_#{jid}]: Requesting link checks for #{editions.count}")
 
       ignored = 0
       editions.each do |edition|
@@ -26,7 +26,7 @@ class CheckOrganisationLinksWorker
           ignored += 1
         end
       end
-      logger.info("[link-checking-debug][org_#{organisation_id}][job_#{self.jid}]: Done requesting link checks for #{editions.count}, ignored #{ignored} of them")
+      logger.info("[link-checking-debug][org_#{organisation_id}][job_#{jid}]: Done requesting link checks for #{editions.count}, ignored #{ignored} of them")
     end
   end
 

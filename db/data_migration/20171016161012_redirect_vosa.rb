@@ -1,8 +1,8 @@
-slugs = %w(
+slugs = %w[
   vosa-directing-board
   vosa-business-performance-board
   vosa-investment-and-change-board
-)
+]
 
 redirect_path = "/government/organisations/vehicle-and-operator-services-agency/about/our-governance"
 

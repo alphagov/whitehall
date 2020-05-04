@@ -16,7 +16,7 @@ module Document::Needs
 
     response["links"]["meets_user_needs"]
   rescue GdsApi::HTTPNotFound
-    # This defends against a race condition where this query is made before the
+    #  This defends against a race condition where this query is made before the
     # Document exists in the PublishingAPI (for example after creating a new
     # edition)
     []
@@ -36,6 +36,6 @@ module Document::Needs
       content_id,
     )
 
-    response["expanded_links"]["meets_user_needs"] || Array.new
+    response["expanded_links"]["meets_user_needs"] || []
   end
 end

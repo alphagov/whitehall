@@ -48,7 +48,7 @@ class NewsArticle < Newsesque
   end
 
   def search_format_types
-    super + [NewsArticle.search_format_type] + self.news_article_type.search_format_types
+    super + [NewsArticle.search_format_type] + news_article_type.search_format_types
   end
 
   def alternative_format_provider_required?

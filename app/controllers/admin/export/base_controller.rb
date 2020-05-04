@@ -9,6 +9,6 @@ private
   end
 
   def forbidden!
-    respond_with Hash.new, status: :forbidden
+    respond_with({}, status: :forbidden)
   end
 end

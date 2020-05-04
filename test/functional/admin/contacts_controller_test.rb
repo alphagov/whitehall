@@ -15,12 +15,12 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                  title: "Main office",
                  contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id,
+                   organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
-    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" created successfully), flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
   end
 
@@ -36,7 +36,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                  },
                  contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id,
+                   organisation_id: organisation.id,
        }
 
     contact = organisation.contacts.last
@@ -45,7 +45,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                        .map { |cn| "#{cn.label}: #{cn.number}" }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" created successfully), flash[:notice]
     assert_equal ["Main phone: 1234"], actual_numbers
   end
 
@@ -58,12 +58,12 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                  show_on_home_page: "1",
                  contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id,
+                   organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
-    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" created successfully), flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
     assert organisation.contact_shown_on_home_page?(contact)
   end
@@ -77,12 +77,12 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                  show_on_home_page: "0",
                  contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id,
+                   organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
-    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" created successfully), flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
     assert_not organisation.contact_shown_on_home_page?(contact)
   end
@@ -95,12 +95,12 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                  title: "Main office",
                  contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id,
+                   organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
-    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" created successfully), flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
     assert_not organisation.contact_shown_on_home_page?(contact)
   end
@@ -112,7 +112,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     put :update, params: { contact: { title: "Head office" }, organisation_id: organisation, id: contact }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.reload.title}" updated successfully}, flash[:notice]
+    assert_equal %("#{contact.reload.title}" updated successfully), flash[:notice]
     assert_equal ["Head office"], organisation.contacts.map(&:title)
   end
 
@@ -129,8 +129,8 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                   "0" => { id: contact_number.id, label: "Main phone", number: "5678" },
                 },
               },
-              organisation_id: organisation,
-              id: contact,
+                  organisation_id: organisation,
+                  id: contact,
       }
 
     actual_numbers = contact
@@ -139,7 +139,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                        .map { |cn| "#{cn.label}: #{cn.number}" }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.reload.title}" updated successfully}, flash[:notice]
+    assert_equal %("#{contact.reload.title}" updated successfully), flash[:notice]
     assert_equal ["Main phone: 5678"], actual_numbers
   end
 
@@ -153,13 +153,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                 title: "Head office",
                 show_on_home_page: "1",
               },
-              organisation_id: organisation,
-              id: contact,
+                  organisation_id: organisation,
+                  id: contact,
       }
 
     contact.reload
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" updated successfully), flash[:notice]
     assert_equal "Head office", contact.title
     assert organisation.contact_shown_on_home_page?(contact)
   end
@@ -175,13 +175,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                 title: "Head office",
                 show_on_home_page: "0",
               },
-              organisation_id: organisation,
-              id: contact,
+                  organisation_id: organisation,
+                  id: contact,
       }
 
     contact.reload
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" updated successfully), flash[:notice]
     assert_equal "Head office", contact.title
     assert_not organisation.contact_shown_on_home_page?(contact)
   end
@@ -196,13 +196,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                   contact: {
                 title: "Head office",
               },
-              organisation_id: organisation,
-              id: contact,
+                  organisation_id: organisation,
+                  id: contact,
       }
 
     contact.reload
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" updated successfully), flash[:notice]
     assert_equal "Head office", contact.title
     assert organisation.contact_shown_on_home_page?(contact)
   end
@@ -214,7 +214,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     delete :destroy, params: { organisation_id: organisation, id: contact }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" deleted successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" deleted successfully), flash[:notice]
     assert_not Contact.exists?(contact.id)
   end
 
@@ -226,7 +226,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     post :remove_from_home_page, params: { organisation_id: organisation, id: contact }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" removed from home page successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" removed from home page successfully), flash[:notice]
     assert_not organisation.contact_shown_on_home_page?(contact)
   end
 
@@ -237,7 +237,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     post :add_to_home_page, params: { organisation_id: organisation, id: contact }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{"#{contact.title}" added to home page successfully}, flash[:notice]
+    assert_equal %("#{contact.title}" added to home page successfully), flash[:notice]
     assert organisation.contact_shown_on_home_page?(contact)
   end
 
@@ -260,7 +260,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{Contacts on home page reordered successfully}, flash[:notice]
+    assert_equal %(Contacts on home page reordered successfully), flash[:notice]
     assert_equal [contact_2, contact_3, contact_1], organisation.reload.home_page_contacts
   end
 
@@ -278,7 +278,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal %{Contacts on home page reordered successfully}, flash[:notice]
+    assert_equal %(Contacts on home page reordered successfully), flash[:notice]
     assert_equal [contact], organisation.reload.home_page_contacts
   end
 end

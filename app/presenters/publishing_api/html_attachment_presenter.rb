@@ -9,9 +9,7 @@ module PublishingApi
       item.govspeak_content.try(:render_govspeak!)
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       BaseItemPresenter
@@ -27,7 +25,7 @@ module PublishingApi
           rendering_app: item.rendering_app,
           schema_name: schema_name,
           links: edition_links,
-      )
+        )
     end
 
     def links

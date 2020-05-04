@@ -1,13 +1,9 @@
 class RoleAppointmentPresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of RoleAppointment
 
-  def role_link
-    role.link
-  end
+  delegate :link, to: :role, prefix: true
 
-  def person_link
-    person.link
-  end
+  delegate :link, to: :person, prefix: true
 
   def role
     @role ||= RolePresenter.new(model.role, context)

@@ -23,6 +23,6 @@ class Api::GovernmentsController < PublicFacingController
 private
 
   def respond_with_not_found
-    respond_with Hash.new, status: :not_found
+    respond_with({}, status: :not_found)
   end
 end

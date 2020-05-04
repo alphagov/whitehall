@@ -1,36 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "063ee511c443d2e68ca12804d175ea6feaa8fccce2ba71bc5f0f022943ae9d9f",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/classifications/_classification_featuring.html.erb",
-      "line": 9,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\", :aria => ({ :hidden => true }))",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "topical_events/show",
-          "line": 58,
-          "file": "app/views/topical_events/show.html.erb",
-          "rendered": {
-            "name": "classifications/_classification_featuring",
-            "file": "app/views/classifications/_classification_featuring.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "classifications/_classification_featuring"
-      },
-      "user_input": "(Unresolved Model).new.url",
-      "confidence": "Weak",
-      "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
-    },
-    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "0b14d4ff3460aca1ffc72f3408993c9a20264f454f291c3cbd92e1f9ff7239bc",
@@ -91,46 +61,6 @@
       "user_input": "Organisation.friendly.find(params[:id]).custom_jobs_url",
       "confidence": "Weak",
       "note": "We control the organisation URLs in the database."
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "21261c5d1c30f8fd170519be7dc8f833099e979a726a9342665e94246e42c00d",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/bulk_upload.rb",
-      "line": 150,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location.shellescape} > /dev/null\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ZipFile",
-        "method": "is_a_zip?"
-      },
-      "user_input": "Whitehall.system_binaries[:zipinfo]",
-      "confidence": "Medium",
-      "note": "The system binaries are constants, and the others are built in code, there is no user input."
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "3bbe521f1296024aed2d6a49f3cb14ea53fdd0aaa221aac334d8fc89bd855e17",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/bulk_upload.rb",
-      "line": 139,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(self.temp_dir, \"extracted\")} #{self.temp_location.shellescape}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ZipFile",
-        "method": "extract_contents"
-      },
-      "user_input": "Whitehall.system_binaries[:unzip]",
-      "confidence": "Medium",
-      "note": "The system binaries are constants, and the others are built in code, there is no user input."
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -407,6 +337,26 @@
       "note": "Abstraction is unchanged. This warning was only caught when additional params for HTML were added to the link_to tag."
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "83cb07b23845591c7f6f25cf9670c4d48c87e8a7fd77abce67a88f2ca3912733",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 150,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{temp_location.shellescape} > /dev/null\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "is_a_zip?"
+      },
+      "user_input": "Whitehall.system_binaries[:zipinfo]",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Remote Code Execution",
       "warning_code": 110,
       "fingerprint": "9ae68e59cfee3e5256c0540dadfeb74e6b72c91997fdb60411063a6e8518144a",
@@ -617,34 +567,24 @@
       "note": "We don't link directly to any unescaped model attribute"
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "d2ed6c34c4abbd741229c6f6eea87abccd5b368b4957f3854fe1e78ef2f6b98e",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/classifications/_classification_featuring.html.erb",
-      "line": 7,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, ({ :rel => \"external\" } if is_external?((Unresolved Model).new.url)))",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "topical_events/show",
-          "line": 58,
-          "file": "app/views/topical_events/show.html.erb",
-          "rendered": {
-            "name": "classifications/_classification_featuring",
-            "file": "app/views/classifications/_classification_featuring.html.erb"
-          }
-        }
-      ],
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "d4d3ca2e3f25f46fa84a65737ad237cbe532de2dd2ebd50b2a1abb341589c058",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 139,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(temp_dir, \"extracted\")} #{temp_location.shellescape}`",
+      "render_path": null,
       "location": {
-        "type": "template",
-        "template": "classifications/_classification_featuring"
+        "type": "method",
+        "class": "ZipFile",
+        "method": "extract_contents"
       },
-      "user_input": "(Unresolved Model).new.url",
-      "confidence": "Weak",
-      "note": "This comes from a new model so we trust the data."
+      "user_input": "Whitehall.system_binaries[:unzip]",
+      "confidence": "Medium",
+      "note": ""
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -676,38 +616,8 @@
       "user_input": "params[:id]",
       "confidence": "Weak",
       "note": "We don't use the user data directly to find the template, it comes from the database."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "e6dc90800cf614086407f331d47a8c66bac55b4eed5d7fe8edafcc6f989abc15",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/classifications/_classification_featuring.html.erb",
-      "line": 9,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\")",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "topical_events/show",
-          "line": 58,
-          "file": "app/views/topical_events/show.html.erb",
-          "rendered": {
-            "name": "classifications/_classification_featuring",
-            "file": "app/views/classifications/_classification_featuring.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "classifications/_classification_featuring"
-      },
-      "user_input": "(Unresolved Model).new.url",
-      "confidence": "Weak",
-      "note": "This comes from a new model so we trust the data."
     }
   ],
-  "updated": "2020-03-16 18:18:34 +0000",
-  "brakeman_version": "4.8.0"
+  "updated": "2020-05-01 13:20:11 +0000",
+  "brakeman_version": "4.8.1"
 }

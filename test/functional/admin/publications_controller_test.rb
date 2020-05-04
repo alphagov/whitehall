@@ -203,7 +203,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       organisations: [organisation],
       topic_ids: [policy_area.id],
       primary_specialist_sector_tag: "WELLS",
-      secondary_specialist_sector_tags: %w(FIELDS OFFSHORE),
+      secondary_specialist_sector_tags: %w[FIELDS OFFSHORE],
     )
 
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
@@ -312,8 +312,8 @@ private
 
   def publication_has_world_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {
+      content_id: content_id,
+      expanded_links: {
         "taxons" => [
           {
             "title" => "World Grandchild Taxon",

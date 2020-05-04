@@ -76,16 +76,16 @@ class Notifications < ApplicationMailer
     @weeks_left = weeks_left
 
     mail from: no_reply_email_address,
-      to: consultation.authors.uniq.map(&:email),
-      subject: "Consultation response due in #{pluralize(weeks_left, 'week')}"
+         to: consultation.authors.uniq.map(&:email),
+         subject: "Consultation response due in #{pluralize(weeks_left, 'week')}"
   end
 
   def consultation_deadline_passed(consultation)
     @title = consultation.title
 
     mail from: no_reply_email_address,
-      to: consultation.authors.uniq.map(&:email),
-      subject: "Consultation deadline breached"
+         to: consultation.authors.uniq.map(&:email),
+         subject: "Consultation deadline breached"
   end
 
   helper_method :production?

@@ -165,7 +165,7 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup" => "email_signup_information#show",
-      as: :organisation_email_signup_information
+        as: :organisation_email_signup_information
 
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: VALID_LOCALES_REGEX }
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: VALID_LOCALES_REGEX }
@@ -210,8 +210,8 @@ Whitehall::Application.routes.draw do
           resources :document_collection_groups, as: :groups, path: "groups" do
             member { get :delete }
             resource :document_collection_group_membership, as: :members,
-                                                        path: "members",
-                                                        only: [:destroy]
+                                                            path: "members",
+                                                            only: [:destroy]
           end
           post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
           post "non-whitehall-member" => "document_collection_group_memberships#create_non_whitehall_member", as: :new_non_whitehall_member

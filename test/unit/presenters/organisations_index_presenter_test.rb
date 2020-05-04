@@ -3,18 +3,18 @@ require "test_helper"
 class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
   def organisation_variety_pack
     {
-      executive_office:            build(:organisation, organisation_type_key: :executive_office),
-      ministerial_department:      build(:organisation, organisation_type_key: :ministerial_department),
-      non_ministerial_department:  build(:organisation, organisation_type_key: :non_ministerial_department),
-      executive_agency:            build(:organisation, organisation_type_key: :executive_agency),
-      executive_ndpb:              build(:organisation, organisation_type_key: :executive_ndpb),
-      advisory_ndpb:               build(:organisation, organisation_type_key: :advisory_ndpb),
-      tribunal:                    build(:organisation, organisation_type_key: :tribunal),
-      public_corporation:          build(:organisation, organisation_type_key: :public_corporation),
+      executive_office: build(:organisation, organisation_type_key: :executive_office),
+      ministerial_department: build(:organisation, organisation_type_key: :ministerial_department),
+      non_ministerial_department: build(:organisation, organisation_type_key: :non_ministerial_department),
+      executive_agency: build(:organisation, organisation_type_key: :executive_agency),
+      executive_ndpb: build(:organisation, organisation_type_key: :executive_ndpb),
+      advisory_ndpb: build(:organisation, organisation_type_key: :advisory_ndpb),
+      tribunal: build(:organisation, organisation_type_key: :tribunal),
+      public_corporation: build(:organisation, organisation_type_key: :public_corporation),
       independent_monitoring_body: build(:organisation, organisation_type_key: :independent_monitoring_body),
-      adhoc_advisory_group:        build(:organisation, organisation_type_key: :adhoc_advisory_group),
-      devolved_administration:     build(:organisation, organisation_type_key: :devolved_administration),
-      other:                       build(:organisation, organisation_type_key: :other),
+      adhoc_advisory_group: build(:organisation, organisation_type_key: :adhoc_advisory_group),
+      devolved_administration: build(:organisation, organisation_type_key: :devolved_administration),
+      other: build(:organisation, organisation_type_key: :other),
     }
   end
 

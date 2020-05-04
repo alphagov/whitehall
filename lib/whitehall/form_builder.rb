@@ -51,7 +51,7 @@ module Whitehall
           @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
         @template.concat @template.content_tag(:span, "class" => "or_cancel") {
-          @template.concat %{ or }
+          @template.concat %( or )
           @template.concat @template.link_to("cancel", cancel_path(options[:cancel]))
         }
       }

@@ -15,12 +15,12 @@ end
 router_api = GdsApi::Router.new(Plek.find("router-api"))
 url_arbiter = GdsApi::UrlArbiter.new(Plek.find("url-arbiter"))
 
-scope = Edition.unscoped.
-  where(type: "DetailedGuide").
-  where("first_published_at IS NOT NULL").
-  includes(:document).
-  joins(:document).
-  group(:document_id)
+scope = Edition.unscoped
+  .where(type: "DetailedGuide")
+  .where("first_published_at IS NOT NULL")
+  .includes(:document)
+  .joins(:document)
+  .group(:document_id)
 
 count = scope.count.keys.size
 

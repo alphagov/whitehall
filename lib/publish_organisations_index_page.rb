@@ -111,9 +111,8 @@ private
   end
 
   def organisation_works_with(organisation)
-    organisation.supporting_bodies_grouped_by_type.inject({}) do |groups, group|
+    organisation.supporting_bodies_grouped_by_type.each_with_object({}) do |group, groups|
       groups[group[0].key] = group[1].map { |o| summary_organisation(o) }
-      groups
     end
   end
 

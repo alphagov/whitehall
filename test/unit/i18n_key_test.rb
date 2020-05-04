@@ -15,7 +15,7 @@ class I18nKeyTest < ActiveSupport::TestCase
     locale_files.each do |locale_file|
       missing_keys = required_keys - keys_in_locale_file(locale_file)
       assert(missing_keys.empty?,
-             "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " +
+             "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " \
              "rake translation:regenerate to add any missing keys?")
     end
   end
@@ -55,12 +55,10 @@ private
   def assert_translations(type_class, translation_prefix)
     failed_types = []
     type_class.all.each do |type|
-      begin
-        I18n.t("#{translation_prefix}.#{type.key}", count: 1)
-        I18n.t("#{translation_prefix}.#{type.key}", count: 2)
-      rescue StandardError
-        failed_types << type
-      end
+      I18n.t("#{translation_prefix}.#{type.key}", count: 1)
+      I18n.t("#{translation_prefix}.#{type.key}", count: 2)
+    rescue StandardError
+      failed_types << type
     end
     if failed_types.any?
       flunk failed_types.map { |type| "No translation for #{type} (#{translation_prefix}.#{type.key})" }.to_sentence

@@ -53,7 +53,7 @@ class SpeechType
   end
 
   def search_format_types
-    types = ["speech-" + self.singular_name.parameterize]
+    types = ["speech-" + singular_name.parameterize]
     types << "speech-statement-to-parliament" if statement_to_parliament?
     types
   end

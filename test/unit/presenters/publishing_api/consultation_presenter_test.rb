@@ -77,13 +77,13 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "base links" do
-      expected_link_keys = %i(
+      expected_link_keys = %i[
         organisations
         parent
         policy_areas
         topics
         government
-      )
+      ]
 
       links_double = {
         link_one: "link_one",

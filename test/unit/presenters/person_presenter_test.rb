@@ -34,6 +34,6 @@ class PersonPresenterTest < ActionView::TestCase
   test "biography is truncated for people without a current role" do
     @person.role_appointments.destroy_all
     @person.stubs(:biography).returns("This is the first paragraph.\r\n\r\nThis is the second paragraph")
-    assert_no_match %r[This is the second paragraph.], @presenter.biography
+    assert_no_match %r{This is the second paragraph.}, @presenter.biography
   end
 end

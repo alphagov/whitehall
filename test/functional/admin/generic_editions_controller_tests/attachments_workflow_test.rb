@@ -33,7 +33,7 @@ class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
     attachment = edition.attachments.first
 
     assert_select "#govspeak_help", text: /Attachments/
-    assert_select "li", text: %r(#{attachment.title})
+    assert_select "li", text: %r{#{attachment.title}}
     assert_select "li code", text: "!@1"
   end
 end
@@ -48,7 +48,7 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
     get :edit, params: { id: edition }
     attachment = edition.attachments.first
 
-    assert_select "li", text: %r(#{attachment.title}), count: 0
+    assert_select "li", text: %r{#{attachment.title}}, count: 0
     assert_select "li code", count: 0
   end
 end

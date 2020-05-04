@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # Export, to stdout, a dump of all data needed to rebuild search indexes.
-# By default, exports the data for the "government" search index.  If the
+#  By default, exports the data for the "government" search index.  If the
 # --detailed flag is supplied on the command line, exports the data for the
 # "detailed" search index.
 #
@@ -71,7 +71,7 @@ def output_es_line(obj, output)
     end
   end
 
-  output.puts %[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
+  output.puts %({"index": {"_type": "edition", "_id": "#{search_index['link']}"}})
   output.puts search_index.to_json
 end
 

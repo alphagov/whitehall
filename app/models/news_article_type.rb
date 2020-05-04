@@ -31,7 +31,7 @@ class NewsArticleType
   end
 
   def search_format_types
-    ["news-article-" + self.key.tr("_", " ").parameterize]
+    ["news-article-" + key.tr("_", " ").parameterize]
   end
 
   def genus_key

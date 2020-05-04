@@ -33,7 +33,7 @@ module DataHygiene
 
     def csv_dump
       CSV.generate do |csv|
-        csv << %w(TYPE ID DEPARTMENT ADMIN_URL PUBLIC_URL FILENAME IDENTICAL?)
+        csv << %w[TYPE ID DEPARTMENT ADMIN_URL PUBLIC_URL FILENAME IDENTICAL?]
         duplicate_edition_results.each do |duplicate_info|
           id, filename,         = duplicate_info
           edition               = Edition.find(id)

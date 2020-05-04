@@ -1,4 +1,4 @@
-dodgy_slugs = %w{
+dodgy_slugs = %w[
   progress-check-at-age-2-and-eyfs-profile
   2-year-old-early-education-entitlement-local-authority-guide
   a-year-until-first-working-parents-receive-doubled-free-childcare
@@ -8,7 +8,7 @@ dodgy_slugs = %w{
   pshe-and-sre-in-schools-government-response
   gcse-results-show-surge-in-pupils-taking-valuable-stem-subjects
   phonics-screening-check-how-to-administer-the-check
-}
+]
 
 dodgy_slugs.each do |slug|
   puts "Republishing #{slug}"

@@ -54,8 +54,8 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   end
 
   test "will returns associated document collections" do
-    expected_result = "Part of a collection: <a href=\"https://www.test.gov.uk/government/collections/wizarding-sports\">" +
-      "Wizarding sports</a> and <a href=\"https://www.test.gov.uk/government/collections/guidance-for-hosting-wizarding-competitions\">" +
+    expected_result = "Part of a collection: <a href=\"https://www.test.gov.uk/government/collections/wizarding-sports\">" \
+      "Wizarding sports</a> and <a href=\"https://www.test.gov.uk/government/collections/guidance-for-hosting-wizarding-competitions\">" \
       "Guidance for hosting wizarding competitions</a>"
     assert_equal expected_result, presenter.publication_collections
   end

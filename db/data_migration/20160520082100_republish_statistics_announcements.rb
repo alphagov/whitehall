@@ -5,6 +5,6 @@ statistics_announcements_to_republish = StatisticsAnnouncement
 
 republisher = DataHygiene::PublishingApiRepublisher.new(
   statistics_announcements_to_republish,
-  )
+)
 
 republisher.perform

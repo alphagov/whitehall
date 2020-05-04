@@ -92,7 +92,7 @@ module GovspeakHelper
   end
 
   def fraction_image(numerator, denominator)
-    denominator.downcase! if %w{X Y}.include? denominator
+    denominator.downcase! if %w[X Y].include? denominator
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
       asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_asset_host)
     end
@@ -106,7 +106,7 @@ module GovspeakHelper
   def whitehall_admin_links(body)
     govspeak = build_govspeak_document(body)
     links = Govspeak::LinkExtractor.new(govspeak).call
-    links.select { |link| DataHygiene::GovspeakLinkValidator::is_internal_admin_link?(link) }
+    links.select { |link| DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(link) }
   end
 
   def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)
@@ -154,7 +154,7 @@ private
 
     heading_tag ||= "h3"
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
-      if (contact = Contact.find_by(id: $1))
+      if (contact = Contact.find_by(id: Regexp.last_match(1)))
         render(partial: "contacts/contact", locals: { contact: contact, heading_tag: heading_tag }, formats: %w[html])
       else
         ""
@@ -166,8 +166,8 @@ private
     return govspeak if govspeak.blank?
 
     govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_match|
-      if $1.present? && $2.present?
-        render(partial: "shared/govspeak_fractions", formats: [:html], locals: { numerator: $1, denominator: $2 })
+      if Regexp.last_match(1).present? && Regexp.last_match(2).present?
+        render(partial: "shared/govspeak_fractions", formats: [:html], locals: { numerator: Regexp.last_match(1), denominator: Regexp.last_match(2) })
       else
         ""
       end
@@ -184,9 +184,9 @@ private
     return govspeak if govspeak.blank?
 
     govspeak.gsub(GovspeakHelper::BARCHART_REGEXP) do
-      stacked = ".mc-stacked" if $1.include? "stacked"
-      compact = ".compact" if $1.include? "compact"
-      negative = ".mc-negative" if $1.include? "negative"
+      stacked = ".mc-stacked" if Regexp.last_match(1).include? "stacked"
+      compact = ".compact" if Regexp.last_match(1).include? "compact"
+      negative = ".mc-negative" if Regexp.last_match(1).include? "negative"
 
       [
        "{:",
@@ -226,7 +226,7 @@ private
       else
         number = "#{h2_depth}.#{h3_depth += 1}"
       end
-      el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{el.inner_html}})
+      el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{el.inner_html}))
     end
   end
 
@@ -234,7 +234,7 @@ private
     nokogiri_doc.css("h2, h3").each do |el|
       if (number = extract_number_from_heading(el))
         heading_without_number = el.inner_html.gsub(number, "")
-        el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{heading_without_number}})
+        el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{heading_without_number}))
       end
     end
   end
@@ -252,14 +252,14 @@ private
 
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
-      if (attachment = attachments[$1.to_i - 1])
+      if (attachment = attachments[Regexp.last_match(1).to_i - 1])
         "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: { alternative_format_contact_email: alternative_format_contact_email }) + "\n\n"
       else
         "\n\n"
       end
     end
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
-      if (attachment = attachments[$1.to_i - 1])
+      if (attachment = attachments[Regexp.last_match(1).to_i - 1])
         render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment }).chomp
       else
         ""

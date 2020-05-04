@@ -72,7 +72,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   click_on "Edit draft"
   click_on "Collection documents"
 
-  #Simulate drag-droping document.
+  # Simulate drag-droping document.
   execute_script %{
     (function($) {
       var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
@@ -108,11 +108,9 @@ Then(/^I should see links back to the collection$/) do
 end
 
 When(/^I visit the old document series url "(.*?)"$/) do |url|
-  begin
-    visit url
-  rescue ActionController::RoutingError
-    nil
-  end
+  visit url
+rescue ActionController::RoutingError
+  nil
 end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|

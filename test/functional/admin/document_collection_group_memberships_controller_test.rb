@@ -23,13 +23,13 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
 
   test "POST #create_whitehall_member warns user when document not found" do
     post :create_whitehall_member, params: id_params.merge(document_id: 1234, title: "blah")
-    assert_match %r[couldn't find.*blah], flash[:alert]
+    assert_match %r{couldn't find.*blah}, flash[:alert]
   end
 
   test "POST #create_whitehall_member handles invalid DocumentCollectionGroupMemberships" do
     collection_document = create(:document, document_type: "DocumentCollection")
     post :create_whitehall_member, params: id_params.merge(document_id: collection_document.id)
-    assert_match %r[Document cannot be a document collection], flash[:alert]
+    assert_match %r{Document cannot be a document collection}, flash[:alert]
   end
 
   test "POST #create_non_whitehall_member adds a non-whitehall document to a group and redirects" do
@@ -76,12 +76,12 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
       delete :destroy, params: remove_params.merge(memberships: [memberships.first.id])
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
-    assert_match %r[1 document removed], flash[:notice]
+    assert_match %r{1 document removed}, flash[:notice]
   end
 
   test "DELETE #destroy sets flash message if no documents selected" do
     delete :destroy, params: remove_params
-    assert_match %r[select one or more documents]i, flash[:alert]
+    assert_match %r{select one or more documents}i, flash[:alert]
   end
 
   test "DELETE #destroy moves documents and redirects when Move clicked" do
@@ -99,6 +99,6 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
       end
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
-    assert_match %r[1 document moved to '#{new_group.heading}'], flash[:notice]
+    assert_match %r{1 document moved to '#{new_group.heading}'}, flash[:notice]
   end
 end

@@ -120,7 +120,7 @@ module Whitehall::DocumentFilter
       date = Chronic.parse(date, endian_precedence: :little)
       date.to_date if date && date_is_not_ancient?(date)
     rescue NoMethodError
-      #Rescue from a bug in Chronic which throws exceptions with certain specifc date strings (eg. 't')
+      # Rescue from a bug in Chronic which throws exceptions with certain specifc date strings (eg. 't')
       nil
     end
 

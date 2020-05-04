@@ -24,7 +24,7 @@ Given(/^a detailed guide with section headings$/) do
 
            You were expecting something a bit more tabloid? Shame on you.
          BODY
-  )
+        )
 end
 
 When(/^I view the detailed guide$/) do
@@ -33,7 +33,7 @@ When(/^I view the detailed guide$/) do
 end
 
 Then(/^I should see all pages of the detailed guide$/) do
-  %w(page-1 page-2 page-3).each do |page_id|
+  %w[page-1 page-2 page-3].each do |page_id|
     assert_selector "h2##{page_id}", visible: true
   end
 end

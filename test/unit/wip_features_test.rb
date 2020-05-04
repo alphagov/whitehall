@@ -10,6 +10,6 @@ class WipFeaturesTest < ActiveSupport::TestCase
       end
       match
     end
-    assert_equal [], matching_files, %{Avoid leaving features or scenarios tagged with @wip}
+    assert_equal [], matching_files, %(Avoid leaving features or scenarios tagged with @wip)
   end
 end

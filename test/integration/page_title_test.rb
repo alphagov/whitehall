@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PageTitleTest < ActiveSupport::TestCase
-  EXCLUDED_TEMPLATES = %w(
+  EXCLUDED_TEMPLATES = %w[
     authentications/failure.html.erb
     admin/about_pages/edit.html.erb
     admin/about_pages/new.html.erb
@@ -11,7 +11,7 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/frontend.html.erb
     layouts/home.html.erb
     layouts/html_attachments.html.erb
-  ).map do |f|
+  ].map do |f|
     File.expand_path(Rails.root + "app/views/" + f)
   end
 

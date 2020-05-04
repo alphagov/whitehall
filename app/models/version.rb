@@ -1,6 +1,6 @@
 class Version < ApplicationRecord
   belongs_to :item, polymorphic: true
-  validates_presence_of :event
+  validates :event, presence: true
   belongs_to :user, foreign_key: "whodunnit"
 
   def self.with_item_keys(item_type, item_id)

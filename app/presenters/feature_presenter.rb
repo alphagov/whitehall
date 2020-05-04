@@ -9,33 +9,23 @@ FeaturePresenter = Struct.new(:feature) do
     true
   end
 
-  def id
-    feature.id
-  end
+  delegate :id, to: :feature
 
-  def document
-    feature.document
-  end
+  delegate :document, to: :feature
 
   def edition
     document.published_edition
   end
 
-  def topical_event
-    feature.topical_event
-  end
+  delegate :topical_event, to: :feature
 
-  def offsite_link
-    feature.offsite_link
-  end
+  delegate :offsite_link, to: :feature
 
   def image(size)
     feature.image.url(size || :s630)
   end
 
-  def alt_text
-    feature.alt_text
-  end
+  delegate :alt_text, to: :feature
 
   def time_stamp
     if feature.document

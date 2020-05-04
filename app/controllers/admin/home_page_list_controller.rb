@@ -11,21 +11,21 @@ module Admin::HomePageListController
         @show_on_home_page = "0"
         handle_show_on_home_page_param
         publish_container_to_publishing_api
-        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %{"#{home_page_list_item.title}" removed from home page successfully}
+        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %("#{home_page_list_item.title}" removed from home page successfully)
       end
 
       define_method(:add_to_home_page) do
         @show_on_home_page = "1"
         handle_show_on_home_page_param
         publish_container_to_publishing_api
-        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %{"#{home_page_list_item.title}" added to home page successfully}
+        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %("#{home_page_list_item.title}" added to home page successfully)
       end
 
       define_method(:reorder_for_home_page) do
         reordered_items = extract_items_from_ordering_params(params[:ordering] || {})
         home_page_list_container.__send__(:"reorder_#{plural_name}_on_home_page!", reordered_items)
         publish_container_to_publishing_api
-        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %{#{plural_name.titleize} on home page reordered successfully}
+        redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %(#{plural_name.titleize} on home page reordered successfully)
       end
 
     protected
@@ -68,7 +68,7 @@ module Admin::HomePageListController
         home_page_list_container.try(:publish_to_publishing_api)
       end
     end
-    self.before_action :extract_show_on_home_page_param, only: %i[create update]
+    before_action :extract_show_on_home_page_param, only: %i[create update]
     include home_page_list_controller_methods
   end
 end

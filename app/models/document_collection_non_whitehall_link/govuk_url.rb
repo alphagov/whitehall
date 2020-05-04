@@ -3,8 +3,8 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 
   attr_reader :url, :document_collection_group
 
-  validates_presence_of :url
-  validates_presence_of :document_collection_group
+  validates :url, presence: true
+  validates :document_collection_group, presence: true
   validate :is_internal_url?
   validates_with GovUkUrlValidator
 

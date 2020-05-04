@@ -3,10 +3,10 @@ class BrexitNoDealContentNoticeLink < ApplicationRecord
 
   validates :title,
             length: { maximum: 255 },
-            presence: true, if: Proc.new { |link| link.url.present? }
+            presence: true, if: proc { |link| link.url.present? }
 
   validates :url,
-            presence: true, if: Proc.new { |link| link.title.present? }
+            presence: true, if: proc { |link| link.title.present? }
 
   validates :url, uri: true, if: :is_external?
 

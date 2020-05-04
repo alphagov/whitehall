@@ -72,7 +72,7 @@ private
       .permit(
         :title, :summary, :publication_type_id, :publication_id,
         :cancellation_reason, organisation_ids: [], topic_ids: [],
-        current_release_date_attributes: %i[id release_date precision confirmed]
+                              current_release_date_attributes: %i[id release_date precision confirmed]
       )
   end
 

@@ -19,12 +19,10 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
   # GA is noisy in tests because all GA calls become console.log so we
   # don't want it enabled for all tests, use this to selectively turn it on
   def with_ga_enabled
-    begin
-      GovukAdminTemplate.configure { |c| c.enable_google_analytics_in_tests = true }
-      yield
-    ensure
-      GovukAdminTemplate.configure { |c| c.enable_google_analytics_in_tests = false }
-    end
+    GovukAdminTemplate.configure { |c| c.enable_google_analytics_in_tests = true }
+    yield
+  ensure
+    GovukAdminTemplate.configure { |c| c.enable_google_analytics_in_tests = false }
   end
 
   def refute_dimension_is_set(dimension)

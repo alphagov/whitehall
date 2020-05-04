@@ -2,11 +2,11 @@
 
 class AttachmentUploader < WhitehallUploader
   PDF_CONTENT_TYPE = "application/pdf".freeze
-  INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
+  INDEXABLE_TYPES = %w[csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml].freeze
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
   FALLBACK_PDF_THUMBNAIL = File.expand_path("../assets/images/pub-cover.png", __dir__)
-  EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt vcf wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
+  EXTENSION_WHITELIST = %w[chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt vcf wsdl xls xlsm xlsx xlt xml xsd xslt zip].freeze
 
   before :cache, :validate_zipfile_contents!
 
@@ -54,7 +54,7 @@ class AttachmentUploader < WhitehallUploader
     output, exit_status = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
       [
         `#{pdf_thumbnail_command(width, height)}`,
-        $?.exitstatus,
+        $CHILD_STATUS.exitstatus,
       ]
     end
 
@@ -78,7 +78,7 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def pdf_thumbnail_command(width, height)
-    %{gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1}
+    %(gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1)
   end
 
   def extension_whitelist
@@ -151,8 +151,8 @@ class AttachmentUploader < WhitehallUploader
     end
 
     class ArcGISShapefileExaminer < Examiner
-      REQUIRED_EXTS = %w(shp shx dbf).freeze
-      OPTIONAL_EXTS = %w(aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl).freeze
+      REQUIRED_EXTS = %w[shp shx dbf].freeze
+      OPTIONAL_EXTS = %w[aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl].freeze
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
       EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e) }.join('|')})\Z/.freeze
 
@@ -170,10 +170,10 @@ class AttachmentUploader < WhitehallUploader
       def files_by_shape_and_allowed_extension
         @files_by_shape_and_allowed_extension ||=
 
-          files_with_extensions.
-            reject { |_file, ext| ext.nil? }.
-            group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, "") }.
-            transform_values { |files|
+          files_with_extensions
+            .reject { |_file, ext| ext.nil? }
+            .group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, "") }
+            .transform_values { |files|
               files.group_by { |_file, ext| ext }
             }
       end
@@ -184,18 +184,18 @@ class AttachmentUploader < WhitehallUploader
 
       def each_shape_has_only_one_of_each_allowed_file?
         files_by_shape_and_allowed_extension.all? do |_shape, files_with_extensions|
-          files_with_extensions.
-            select { |_ext, files| files.size > 1 }.
-            empty?
+          files_with_extensions
+            .select { |_ext, files| files.size > 1 }
+            .empty?
         end
       end
 
       def each_shape_has_required_files?
         files_by_shape_and_allowed_extension.all? do |_shape, files_with_extensions|
-          files_with_extensions.
-            select { |ext, _files| REQUIRED_EXTS.include? ext }.
-            reject { |_ext, files| files.size > 1 }.
-            keys.sort == REQUIRED_EXTS.sort
+          files_with_extensions
+            .select { |ext, _files| REQUIRED_EXTS.include? ext }
+            .reject { |_ext, files| files.size > 1 }
+            .keys.sort == REQUIRED_EXTS.sort
         end
       end
 
@@ -242,9 +242,7 @@ class AttachmentUploader < WhitehallUploader
     raise CarrierWave::IntegrityError, problem.failure_message if problem
   end
 
-  def asset_manager_path
-    file.asset_manager_path
-  end
+  delegate :asset_manager_path, to: :file
 
 private
 

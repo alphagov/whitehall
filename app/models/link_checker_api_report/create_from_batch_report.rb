@@ -17,11 +17,9 @@ private
   attr_reader :payload, :reportable
 
   def replace_or_create_report
-    begin
-      replace_report
-    rescue ActiveRecord::RecordNotFound
-      create_report
-    end
+    replace_report
+  rescue ActiveRecord::RecordNotFound
+    create_report
   end
 
   def replace_report

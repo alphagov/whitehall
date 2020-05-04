@@ -2,8 +2,8 @@ class Admin::RolesController < Admin::BaseController
   before_action :load_role, only: %i[edit update destroy]
 
   def index
-    @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations]).
-                  order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
+    @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
+                  .order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
   end
 
   def new
@@ -13,7 +13,7 @@ class Admin::RolesController < Admin::BaseController
   def create
     @role = Role.new(role_params)
     if @role.save
-      redirect_to index_or_edit_path, notice: %{"#{@role.name}" created.}
+      redirect_to index_or_edit_path, notice: %("#{@role.name}" created.)
     else
       render action: "new"
     end
@@ -25,14 +25,14 @@ class Admin::RolesController < Admin::BaseController
 
   def update
     if @role.update(role_params)
-      redirect_to index_or_edit_path, notice: %{"#{@role.name}" updated.}
+      redirect_to index_or_edit_path, notice: %("#{@role.name}" updated.)
     else
       render action: "edit"
     end
   end
 
   def destroy
-    notice = %{"#{@role.name}" destroyed.}
+    notice = %("#{@role.name}" destroyed.)
     if @role.destroy
       redirect_to admin_roles_path, notice: notice
     else

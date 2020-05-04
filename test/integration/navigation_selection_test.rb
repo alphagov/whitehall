@@ -5,7 +5,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
   Rails.application.routes.default_url_options[:host] = "example.com"
 
-  TESTED_CONTROLLERS = %w(
+  TESTED_CONTROLLERS = %w[
     announcements
     consultations
     corporate_information_pages
@@ -27,7 +27,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     world_locations
     worldwide_offices
     worldwide_organisations
-  ).map do |f|
+  ].map do |f|
     File.expand_path(Rails.root + "app/controllers/#{f}_controller.rb")
   end
 

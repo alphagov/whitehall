@@ -109,12 +109,12 @@ class RoleAppointment < ApplicationRecord
 
   def overlapping_appointments
     if ended_at.nil?
-      other_appointments_for_same_role.where("((:my_started_at BETWEEN started_at AND ended_at) AND :my_started_at != ended_at)" +
-        "OR (started_at >= :my_started_at) " +
+      other_appointments_for_same_role.where("((:my_started_at BETWEEN started_at AND ended_at) AND :my_started_at != ended_at)" \
+        "OR (started_at >= :my_started_at) " \
         "OR (ended_at IS NULL)", my_started_at: started_at)
     else
-      other_appointments_for_same_role.where("((:my_started_at BETWEEN started_at AND ended_at) AND :my_started_at != ended_at)" +
-                                             "OR ((started_at BETWEEN :my_started_at AND :my_ended_at) AND started_at != :my_ended_at)" +
+      other_appointments_for_same_role.where("((:my_started_at BETWEEN started_at AND ended_at) AND :my_started_at != ended_at)" \
+                                             "OR ((started_at BETWEEN :my_started_at AND :my_ended_at) AND started_at != :my_ended_at)" \
                                              "OR (:my_ended_at > started_at AND ended_at IS NULL)",
                                              my_started_at: started_at, my_ended_at: ended_at)
     end
@@ -122,7 +122,7 @@ class RoleAppointment < ApplicationRecord
 
   def other_appointments_for_same_role
     if persisted?
-      self.class.for_role(role).excluding(self.id)
+      self.class.for_role(role).excluding(id)
     else
       self.class.for_role(role)
     end

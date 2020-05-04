@@ -5,7 +5,7 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test "returns acronym in abbr tag if present" do
     organisation = build(:organisation, acronym: "BLAH", name: "Building Law and Hygiene")
-    assert_equal %{<abbr title="Building Law and Hygiene">BLAH</abbr>}, organisation_display_name(organisation)
+    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_display_name(organisation)
   end
 
   test "returns name when acronym is nil" do
@@ -33,14 +33,14 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
     html = organisation_wrapper(organisation) {}
     div = Nokogiri::HTML.fragment(html) / "div"
-    assert_match %r[organisation-slug-yeah], div.attr("class").value
+    assert_match %r{organisation-slug-yeah}, div.attr("class").value
   end
 
   test "organisation_wrapper should place brand colour class onto the div" do
     organisation = build(:organisation, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
     html = organisation_wrapper(organisation) {}
     div = Nokogiri::HTML.fragment(html) / "div"
-    assert_match %r[hm-government-brand-colour], div.attr("class").value
+    assert_match %r{hm-government-brand-colour}, div.attr("class").value
   end
 
   test "organisation_brand_colour_class generates blank class when org has no brand colour" do
@@ -270,7 +270,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:organisation, name: parent_organisation_name)
     child = create(:organisation, parent_organisations: [parent], organisation_type: OrganisationType.ministerial_department)
     actual_html = organisation_display_name_and_parental_relationship(child)
-    assert_match %r[of #{parent.name}], strip_html_tags(actual_html)
+    assert_match %r{of #{parent.name}}, strip_html_tags(actual_html)
   end
 
   def assert_display_name_text(organisation, expected_text)
@@ -281,25 +281,25 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test "basic sentence construction" do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
     child = create(:organisation, acronym: "BLAH",
-      name: "Building Law and Hygiene", parent_organisations: [parent],
-      organisation_type: OrganisationType.executive_agency)
-    expected = %{BLAH is an executive agency, sponsored by the Department of Building Regulation.}
+                                  name: "Building Law and Hygiene", parent_organisations: [parent],
+                                  organisation_type: OrganisationType.executive_agency)
+    expected = %(BLAH is an executive agency, sponsored by the Department of Building Regulation.)
     assert_display_name_text child, expected
   end
 
   test "string returned is html safe" do
     parent = create(:ministerial_department, name: "Department of Economy & Trade")
     child = create(:organisation, acronym: "B&B",
-      name: "Banking & Business", parent_organisations: [parent],
-      organisation_type: OrganisationType.executive_agency)
-    expected = %{B&amp;B is an executive agency, sponsored by the Department of Economy &amp; Trade.}
+                                  name: "Banking & Business", parent_organisations: [parent],
+                                  organisation_type: OrganisationType.executive_agency)
+    expected = %(B&amp;B is an executive agency, sponsored by the Department of Economy &amp; Trade.)
     assert_display_name_text child, expected
     assert organisation_display_name_and_parental_relationship(child).html_safe?
   end
 
   test "description of parent organisations" do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    expected = %{DBR is a ministerial department.}
+    expected = %(DBR is a ministerial department.)
     assert_display_name_text parent, expected
   end
 

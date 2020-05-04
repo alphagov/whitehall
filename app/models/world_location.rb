@@ -41,10 +41,10 @@ class WorldLocation < ApplicationRecord
   include PublishesToPublishingApi
 
   def publish_to_publishing_api
-    #WorldLocations no longer support translations
-    #but the current world news pages use the world location object
-    #to build their featured articles lists so we need to keep
-    #the translations but not publish them.
+    # WorldLocations no longer support translations
+    # but the current world news pages use the world location object
+    # to build their featured articles lists so we need to keep
+    # the translations but not publish them.
     run_callbacks :published do
       PublishingApiWorker.perform_async(
         self.class.name,
@@ -69,7 +69,7 @@ class WorldLocation < ApplicationRecord
 
   after_update :remove_from_index_if_became_inactive
   def remove_from_index_if_became_inactive
-    remove_from_search_index if self.saved_change_to_active? && !self.active
+    remove_from_search_index if saved_change_to_active? && !active
   end
 
   scope :ordered_by_name, -> { with_translations(I18n.default_locale).order("world_location_translations.name") }
@@ -83,21 +83,21 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.with_announcements
-    announcement_conditions = Edition.joins(:edition_world_locations).
-                                            published.
-                                            where(type: Announcement.sti_names).
-                                            where("edition_world_locations.world_location_id = world_locations.id").
-                                            select("*").to_sql
+    announcement_conditions = Edition.joins(:edition_world_locations)
+                                            .published
+                                            .where(type: Announcement.sti_names)
+                                            .where("edition_world_locations.world_location_id = world_locations.id")
+                                            .select("*").to_sql
 
     where("exists (#{announcement_conditions})")
   end
 
   def self.with_publications
-    publication_conditions = Edition.joins(:edition_world_locations).
-                                            published.
-                                            where(type: Publicationesque.sti_names).
-                                            where("edition_world_locations.world_location_id = world_locations.id").
-                                            select("*").to_sql
+    publication_conditions = Edition.joins(:edition_world_locations)
+                                            .published
+                                            .where(type: Publicationesque.sti_names)
+                                            .where("edition_world_locations.world_location_id = world_locations.id")
+                                            .select("*").to_sql
 
     where("exists (#{publication_conditions})")
   end

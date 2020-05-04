@@ -1,5 +1,5 @@
 class Whitehall::Exporters::Mappings
-  STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + %w(published withdrawn)
+  STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + %w[published withdrawn]
 
   def export(target)
     target << ["Old URL", "New URL", "Admin URL", "State"]
@@ -7,31 +7,27 @@ class Whitehall::Exporters::Mappings
       edition = document.published_edition || document.latest_edition
       if edition && STATES_TO_INCLUDE.include?(edition.state)
         document.document_sources.each do |document_source|
-          begin
-            next if fake_source_url?(document_source)
+          next if fake_source_url?(document_source)
 
-            target << document_row(edition, document, document_source)
-          rescue StandardError => e
-            Rails.logger.error("#{self.class.name}: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
-          end
+          target << document_row(edition, document, document_source)
+        rescue StandardError => e
+          Rails.logger.error("#{self.class.name}: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
         end
       end
     end
 
     AttachmentSource.find_each do |attachment_source|
-      begin
-        next if fake_source_url?(attachment_source)
+      next if fake_source_url?(attachment_source)
 
-        if attachment_source.attachment
-          path = attachment_source.attachment.url
-          attachment_url = "#{Whitehall.public_root}#{path}"
-          attachment_data = attachment_source.attachment.attachment_data
-          state = attachment_data.visible_to?(nil) ? "published" : "draft"
-          target << [attachment_source.url, attachment_url, "", state]
-        end
-      rescue StandardError => e
-        Rails.logger.error("#{self.class.name}: when exporting #{attachment_source} - #{e} - #{e.backtrace.join("\n")}")
+      if attachment_source.attachment
+        path = attachment_source.attachment.url
+        attachment_url = "#{Whitehall.public_root}#{path}"
+        attachment_data = attachment_source.attachment.attachment_data
+        state = attachment_data.visible_to?(nil) ? "published" : "draft"
+        target << [attachment_source.url, attachment_url, "", state]
       end
+    rescue StandardError => e
+      Rails.logger.error("#{self.class.name}: when exporting #{attachment_source} - #{e} - #{e.backtrace.join("\n")}")
     end
   end
 

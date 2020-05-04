@@ -1,12 +1,11 @@
 module PublishingApi
   class ConsultationPresenter
-    extend Forwardable
     include UpdateTypeHelper
 
     SCHEMA_NAME = "consultation".freeze
 
     attr_reader :update_type
-    def_delegator :consultation, :content_id
+    delegate :content_id, to: :consultation
 
     def initialize(consultation, update_type: nil)
       self.consultation = consultation
@@ -41,7 +40,7 @@ module PublishingApi
     def edition_links
       LinksPresenter
         .new(consultation)
-        .extract(%i(organisations parent policy_areas topics government))
+        .extract(%i[organisations parent policy_areas topics government])
         .merge(PayloadBuilder::People.for(consultation))
         .merge(PayloadBuilder::Roles.for(consultation))
         .merge(PayloadBuilder::TopicalEvents.for(consultation))
@@ -51,7 +50,8 @@ module PublishingApi
 
     attr_accessor :consultation
     attr_writer :update_type
-    def_delegator :consultation, :display_type_key, :document_type
+    delegate :display_type_key, to: :consultation
+    alias_method :document_type, :display_type_key
 
     def base_details
       {
@@ -166,8 +166,6 @@ module PublishingApi
     end
 
     class FinalOutcome
-      extend Forwardable
-
       def self.for(consultation)
         new(consultation).call
       end
@@ -190,7 +188,7 @@ module PublishingApi
     private
 
       attr_accessor :consultation, :renderer
-      def_delegator :consultation, :outcome
+      delegate :outcome, to: :consultation
 
       def final_outcome_detail
         renderer.govspeak_to_html(outcome.summary)
@@ -231,8 +229,6 @@ module PublishingApi
     end
 
     class PublicFeedback
-      extend Forwardable
-
       def self.for(consultation)
         new(consultation).call
       end
@@ -257,7 +253,7 @@ module PublishingApi
     private
 
       attr_accessor :consultation, :renderer
-      def_delegator :consultation, :public_feedback
+      delegate :public_feedback, to: :consultation
 
       def detail
         return if public_feedback.summary.blank?
@@ -287,8 +283,6 @@ module PublishingApi
     end
 
     class WaysToRespond
-      extend Forwardable
-
       def self.for(consultation)
         new(consultation).call
       end
@@ -316,8 +310,10 @@ module PublishingApi
     private
 
       attr_accessor :consultation, :url_helpers
-      def_delegator :consultation, :consultation_participation, :participation
-      def_delegator :participation, :consultation_response_form, :participation_response_form
+      delegate :consultation_participation, to: :consultation
+      delegate :consultation_response_form, to: :participation
+      alias_method :participation, :consultation_participation
+      alias_method :participation_response_form, :consultation_response_form
 
       def attachment_url
         return unless participation.has_response_form?

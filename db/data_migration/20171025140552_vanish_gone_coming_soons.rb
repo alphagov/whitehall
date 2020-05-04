@@ -191,7 +191,7 @@ content_store_results.each do |result|
   Whitehall::PublishingApi.publish_vanish_async(content_id, "en")
 end
 
-#["/government/news/fuelling-the-momentum-for-a-north-wales-growth-deal--2.cy", "ab123941-88ef-4945-9d07-4bca1323680d", "2017-06-27T00:15:00.000+01:00"],
+# ["/government/news/fuelling-the-momentum-for-a-north-wales-growth-deal--2.cy", "ab123941-88ef-4945-9d07-4bca1323680d", "2017-06-27T00:15:00.000+01:00"],
 Whitehall::PublishingApi.publish_vanish_async(
   "ab123941-88ef-4945-9d07-4bca1323680d", "cy"
 )

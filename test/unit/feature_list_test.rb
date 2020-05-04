@@ -50,7 +50,7 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_1.document = nil
     feature_1.save(validate: false)
     assert_not feature_list.reorder!([feature_1.id])
-    assert_match %r[Can't reorder because '.*'], feature_list.errors.full_messages.to_sentence
+    assert_match %r{Can't reorder because '.*'}, feature_list.errors.full_messages.to_sentence
   end
 
   test "reordering fails if features which are not part of the feature list are referenced when re-ordering" do
@@ -64,7 +64,7 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_not_nil f3_original_ordering = feature_3.ordering
 
     assert_not feature_list_1.reorder!([feature_2.id, feature_3.id, feature_1.id])
-    assert_match %r[Can't reorder because '.*'], feature_list_1.errors[:base].to_sentence
+    assert_match %r{Can't reorder because '.*'}, feature_list_1.errors[:base].to_sentence
 
     assert_equal f3_original_ordering, feature_3.reload.ordering
     assert_equal [feature_1, feature_2], feature_list_1.reload.features

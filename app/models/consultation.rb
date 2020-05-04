@@ -103,9 +103,7 @@ class Consultation < Publicationesque
     closed? && outcome.present?
   end
 
-  def outcome_published_on
-    outcome.published_on
-  end
+  delegate :published_on, to: :outcome, prefix: true
 
   def allows_attachment_references?
     true

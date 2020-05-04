@@ -43,7 +43,7 @@ private
   end
 
   def supported_subjects
-    %w(departments topical_events world_locations)
+    %w[departments topical_events world_locations]
   end
 
   def redirect_unless_subject

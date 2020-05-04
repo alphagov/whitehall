@@ -2,7 +2,7 @@ require_relative "../test_helper"
 
 class HistoricalAccountTest < ActiveSupport::TestCase
   test "is invalid without a summary, body, political party or person" do
-    %w(summary body person political_parties).each do |attribute|
+    %w[summary body person political_parties].each do |attribute|
       assert_not build(:historical_account, attribute => nil).valid?
     end
   end
@@ -34,7 +34,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   test "#political_parties reader does not mind when ids are strings" do
-    historical_account = HistoricalAccount.new(political_party_ids: %w(1 2))
+    historical_account = HistoricalAccount.new(political_party_ids: %w[1 2])
     assert_equal [PoliticalParty::Conservative, PoliticalParty::Labour], historical_account.political_parties
   end
 

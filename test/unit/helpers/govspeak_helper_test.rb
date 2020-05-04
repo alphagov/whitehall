@@ -299,11 +299,11 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should remove extra quotes from blockquote text" do
-    remover = stub("remover");
+    remover = stub("remover")
     remover.expects(:remove).returns("remover return value")
     Whitehall::ExtraQuoteRemover.stubs(:new).returns(remover)
-    edition = build(:published_publication, body: %{He said:\n> "I'm not sure what you mean!"\nOr so we thought.})
-    assert_match %r[remover return value], govspeak_edition_to_html(edition)
+    edition = build(:published_publication, body: %(He said:\n> "I'm not sure what you mean!"\nOr so we thought.))
+    assert_match %r{remover return value}, govspeak_edition_to_html(edition)
   end
 
   test "should add class to last paragraph of blockquote" do
@@ -326,11 +326,11 @@ class GovspeakHelperTest < ActionView::TestCase
     expected_output_2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
     expected_output_2_1 = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
     actual_output = govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, " ")
-    assert_match %r(#{expected_output_1}), actual_output
-    assert_match %r(#{expected_output_1_1}), actual_output
-    assert_match %r(#{expected_output_1_2}), actual_output
-    assert_match %r(#{expected_output_2}), actual_output
-    assert_match %r(#{expected_output_2_1}), actual_output
+    assert_match %r{#{expected_output_1}}, actual_output
+    assert_match %r{#{expected_output_1_1}}, actual_output
+    assert_match %r{#{expected_output_1_2}}, actual_output
+    assert_match %r{#{expected_output_2}}, actual_output
+    assert_match %r{#{expected_output_2_1}}, actual_output
   end
 
   test "adds manual numbering to heading tags" do

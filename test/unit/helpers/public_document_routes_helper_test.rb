@@ -55,7 +55,7 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "/government/organisations/#{org.slug}/about", public_document_path(cip)
     assert_equal "/government/organisations/#{org.slug}/about.fr", public_document_path(cip, locale: :fr)
 
-    cip.organisation.organisation_type = OrganisationType::sub_organisation
+    cip.organisation.organisation_type = OrganisationType.sub_organisation
     assert_equal "/government/organisations/#{org.slug}/about", public_document_path(cip)
     assert_equal "/government/organisations/#{org.slug}/about.fr", public_document_path(cip, locale: :fr)
   end

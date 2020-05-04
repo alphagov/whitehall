@@ -30,8 +30,8 @@ class PublicFacingController < ApplicationController
   #
   def self.enable_request_formats(options)
     options.each do |action, formats|
-      self.acceptable_formats[action.to_sym] ||= Set.new
-      self.acceptable_formats[action.to_sym] += Array(formats)
+      acceptable_formats[action.to_sym] ||= Set.new
+      acceptable_formats[action.to_sym] += Array(formats)
     end
   end
 

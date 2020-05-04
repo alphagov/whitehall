@@ -23,11 +23,11 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     document = Document.find(document_id)
     check_if_locked_document(document: document)
 
-    #this the latest edition in a visible state ie: withdrawn, published
+    # this the latest edition in a visible state ie: withdrawn, published
     @published_edition = document.published_edition
-    #this is the latest edition in a non visible state - draft, scheduled
-    #unpublished editions (other than withdrawn) will be in draft state with
-    #an associated unpublishing
+    # this is the latest edition in a non visible state - draft, scheduled
+    # unpublished editions (other than withdrawn) will be in draft state with
+    # an associated unpublishing
     @pre_publication_edition = document.pre_publication_edition
 
     return unless the_document_has_an_edition_to_check?
@@ -72,8 +72,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 private
 
   def the_document_has_an_edition_to_check?
-    #there are documents in the Whitehall DB with only superseded editions
-    #this is mostly legacy data
+    # there are documents in the Whitehall DB with only superseded editions
+    # this is mostly legacy data
     pre_publication_edition || published_edition
   end
 

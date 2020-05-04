@@ -17,7 +17,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should only allow JPG, GIF, PNG or SVG images" do
     uploader = ImageUploader.new
-    assert_equal %w(jpg jpeg gif png svg), uploader.extension_whitelist
+    assert_equal %w[jpg jpeg gif png svg], uploader.extension_whitelist
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
@@ -36,7 +36,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should store uploads in a directory that persists across deploys" do
     uploader = ImageUploader.new(Person.new(id: 1), "mounted-as")
-    assert_match %r[^system], uploader.store_dir
+    assert_match %r{^system}, uploader.store_dir
   end
 
   test "should store all the versions of a bitmap image in asset manager" do

@@ -20,7 +20,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     empty_file = fixture_file_upload("empty_file.txt", "text/plain")
     attachment = build(:attachment_data, file: empty_file)
     assert_not attachment.valid?
-    assert_match %r[empty file], attachment.errors[:file].first
+    assert_match %r{empty file}, attachment.errors[:file].first
   end
 
   test "should return filename even after reloading" do
@@ -96,7 +96,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "should set number of pages to nil if pdf-reader cannot count the number of pages" do
     greenpage_pdf = fixture_file_upload("greenpaper.pdf")
 
-    errors = %w(PDF::Reader::MalformedPDFError PDF::Reader::UnsupportedFeatureError OpenSSL::Cipher::CipherError)
+    errors = %w[PDF::Reader::MalformedPDFError PDF::Reader::UnsupportedFeatureError OpenSSL::Cipher::CipherError]
     errors.each do |err|
       PDF::Reader.any_instance.stubs(:page_count).raises(err.constantize)
       attachment = create(:attachment_data, file: greenpage_pdf)

@@ -17,8 +17,8 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     )
 
     stub_publishing_api_has_expanded_links(
-      content_id:  edition.content_id,
-      expanded_links:  {},
+      content_id: edition.content_id,
+      expanded_links: {},
     )
 
     @validator.validate(edition)
@@ -43,8 +43,8 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     )
 
     stub_publishing_api_has_expanded_links(
-      content_id:  edition.content_id,
-      expanded_links:  {
+      content_id: edition.content_id,
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Primary Education",

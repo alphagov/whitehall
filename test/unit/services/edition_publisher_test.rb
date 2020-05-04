@@ -19,7 +19,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_not edition.access_limited?
   end
 
-  %w(published draft imported rejected superseded).each do |state|
+  %w[published draft imported rejected superseded].each do |state|
     test "#{state} editions cannot be published" do
       edition = create(:"#{state}_edition")
       publisher = EditionPublisher.new(edition)

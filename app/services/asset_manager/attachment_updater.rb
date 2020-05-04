@@ -15,7 +15,7 @@ class AssetManager::AttachmentUpdater
     updates += RedirectUrlUpdates.call(attachment_data).to_a if redirect_url
     updates += ReplacementIdUpdates.call(attachment_data).to_a if replacement_id
 
-    self.combined_updates(updates).each(&:call)
+    combined_updates(updates).each(&:call)
   end
 
   def self.combined_updates(updates)

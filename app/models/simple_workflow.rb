@@ -16,7 +16,7 @@ module SimpleWorkflow
       end
     end
 
-    #Overwrite this
+    # Overwrite this
     def destroyable?
       true
     end

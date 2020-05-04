@@ -8,9 +8,7 @@ module PublishingApi
       @update_type = "major"
     end
 
-    def content_id
-      operational_field.content_id
-    end
+    delegate :content_id, to: :operational_field
 
     def content
       {}.tap { |content|

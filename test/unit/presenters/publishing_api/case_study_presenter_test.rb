@@ -122,8 +122,8 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal links[:topics], %w(content_id_1 content_id_2)
-    assert_equal links[:parent], %w(content_id_1)
+    assert_equal links[:topics], %w[content_id_1 content_id_2]
+    assert_equal links[:parent], %w[content_id_1]
   end
 
   test "links hash includes lead and supporting organisations in correct order" do

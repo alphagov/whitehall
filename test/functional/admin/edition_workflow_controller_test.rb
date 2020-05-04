@@ -54,7 +54,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "Unable to publish this edition because it is locked.", flash[:alert]
   end
 
-  test "GET #confirm_force_publish renders force publishing form"do
+  test "GET #confirm_force_publish renders force publishing form" do
     stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
@@ -243,7 +243,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     submitted_publication = create(:submitted_publication)
     post :reject, params: { id: submitted_publication, lock_version: submitted_publication.lock_version }
 
-    assert_match %r[\'#{submitted_publication.title}\' was rejected by], ActionMailer::Base.deliveries.last.body.to_s
+    assert_match %r{\'#{submitted_publication.title}\' was rejected by}, ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test "reject responds with 422 if missing a lock version" do
@@ -341,7 +341,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
     assert_response :success
     assert_template :confirm_unpublish
-    assert_match %r[Alternative url must be provided], flash[:alert]
+    assert_match %r{Alternative url must be provided}, flash[:alert]
     assert published_edition.reload.published?
   end
 

@@ -56,9 +56,7 @@ class Unpublishing < ApplicationRecord
     Edition.unscoped.find(edition_id) if edition_id
   end
 
-  def translated_locales
-    edition.translated_locales
-  end
+  delegate :translated_locales, to: :edition
 
   def alternative_path
     return if alternative_uri.nil?

@@ -5,7 +5,7 @@ class String
   def possessive
     return self if empty?
 
-    if self.ends_with?("s")
+    if ends_with?("s")
       self + "’"
     else
       self + "’s"

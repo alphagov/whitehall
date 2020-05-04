@@ -238,7 +238,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should inform the user when a role is created successfully" do
     post :create, params: { role: attributes_for(:role, name: "role-name") }
 
-    assert_equal %{"role-name" created.}, flash[:notice]
+    assert_equal %("role-name" created.), flash[:notice]
   end
 
   view_test "create with invalid data should display errors" do
@@ -296,7 +296,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     put :update, params: { id: role, role: attributes_for(:role, name: "role-name") }
 
-    assert_equal %{"role-name" updated.}, flash[:notice]
+    assert_equal %("role-name" updated.), flash[:notice]
   end
 
   view_test "update with invalid data should display errors" do
@@ -314,7 +314,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_roles_path
     assert_not Role.find_by(id: role.id)
-    assert_equal %{"Prime Minister" destroyed.}, flash[:notice]
+    assert_equal %("Prime Minister" destroyed.), flash[:notice]
   end
 
   test "destroying an indestructible role" do

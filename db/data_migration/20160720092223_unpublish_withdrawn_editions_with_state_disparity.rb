@@ -1,78 +1,76 @@
-=begin
+#
+# There exist some withdrawn editions in Whitehall for which, the coresponding
+# content items in the Publishing API are either in the published, or draft
+# state. To correct this disparity, this data migration unpublishes these content
+# items using the Publishing API. The content ids for the content items that
+# require unpublishing within the Publishing API were extracted from the
+# Whitehall and Publishing API databases, and included below. Also below, is the
+# description of how this was done.
+#
+# This is being done as a Whitehall data migration, as it is within the Whitehall
+# database that the explanations for the unpublishing actions are stored.
+#
+# The first step is to get a list of content ids, for all withdrawn editions from
+# Whitehall, and get this in to the Publishing API database such that it can be
+# used in queries.
+#
+# Run the following query in the Whitehall database, it should produce a file at
+# '/tmp/withdrawn-content-ids-from-whitehall'.
+#
+#   SELECT documents.content_id
+#     FROM editions
+#    INNER
+#     JOIN documents
+#       ON editions.document_id = documents.id
+#    INNER
+#     JOIN (
+#           SELECT MAX(id) AS id
+#             FROM editions
+#            GROUP BY document_id
+#          ) AS latest_editions
+#       ON latest_editions.id   = editions.id
+#    WHERE editions.state       = 'withdrawn'
+#     INTO OUTFILE '/tmp/withdrawn-content-ids-from-whitehall';
+#
+# In the Publishing API database, create a table to hold these content ids, and
+# import the data in the previously generated file in to this new table.
+#
+#   CREATE TABLE withdrawn_content_ids_from_whitehall (content_id character varying not null);
+#
+#   \copy withdrawn_content_ids_from_whitehall FROM '/tmp/withdrawn-content-ids-from-whitehall';
+#
+#   \copy (
+#     SELECT DISTINCT states.name, content_items.content_id
+#     FROM content_items
+#      INNER
+#       JOIN states
+#         ON states.content_item_id                                 =  content_items.id
+#      INNER
+#       JOIN user_facing_versions
+#         ON user_facing_versions.content_item_id                   =  content_items.id
+#      INNER
+#       JOIN (
+#             SELECT content_id, MAX(user_facing_versions.number) AS user_facing_version_number
+#               FROM content_items
+#              INNER
+#               JOIN user_facing_versions
+#                 ON user_facing_versions.content_item_id                   =  content_items.id
+#              GROUP BY content_id
+#            ) AS latest_user_facing_versions
+#         ON latest_user_facing_versions.content_id                 =  content_items.content_id
+#        AND latest_user_facing_versions.user_facing_version_number =  user_facing_versions.number
+#      INNER
+#       JOIN withdrawn_content_ids_from_whitehall
+#         ON withdrawn_content_ids_from_whitehall.content_id        =  content_items.content_id
+#      WHERE states.name                                            != 'unpublished'
+#      ORDER BY states.name, content_items.content_id
+#   ) TO '/tmp/content-ids-by-state';
+#
+# Then transform the data in that file to match the format in this file (I used
+# vim to do it).
+#
 
-There exist some withdrawn editions in Whitehall for which, the coresponding
-content items in the Publishing API are either in the published, or draft
-state. To correct this disparity, this data migration unpublishes these content
-items using the Publishing API. The content ids for the content items that
-require unpublishing within the Publishing API were extracted from the
-Whitehall and Publishing API databases, and included below. Also below, is the
-description of how this was done.
-
-This is being done as a Whitehall data migration, as it is within the Whitehall
-database that the explanations for the unpublishing actions are stored.
-
-The first step is to get a list of content ids, for all withdrawn editions from
-Whitehall, and get this in to the Publishing API database such that it can be
-used in queries.
-
-Run the following query in the Whitehall database, it should produce a file at
-'/tmp/withdrawn-content-ids-from-whitehall'.
-
-  SELECT documents.content_id
-    FROM editions
-   INNER
-    JOIN documents
-      ON editions.document_id = documents.id
-   INNER
-    JOIN (
-          SELECT MAX(id) AS id
-            FROM editions
-           GROUP BY document_id
-         ) AS latest_editions
-      ON latest_editions.id   = editions.id
-   WHERE editions.state       = 'withdrawn'
-    INTO OUTFILE '/tmp/withdrawn-content-ids-from-whitehall';
-
-In the Publishing API database, create a table to hold these content ids, and
-import the data in the previously generated file in to this new table.
-
-  CREATE TABLE withdrawn_content_ids_from_whitehall (content_id character varying not null);
-
-  \copy withdrawn_content_ids_from_whitehall FROM '/tmp/withdrawn-content-ids-from-whitehall';
-
-  \copy (
-    SELECT DISTINCT states.name, content_items.content_id
-    FROM content_items
-     INNER
-      JOIN states
-        ON states.content_item_id                                 =  content_items.id
-     INNER
-      JOIN user_facing_versions
-        ON user_facing_versions.content_item_id                   =  content_items.id
-     INNER
-      JOIN (
-            SELECT content_id, MAX(user_facing_versions.number) AS user_facing_version_number
-              FROM content_items
-             INNER
-              JOIN user_facing_versions
-                ON user_facing_versions.content_item_id                   =  content_items.id
-             GROUP BY content_id
-           ) AS latest_user_facing_versions
-        ON latest_user_facing_versions.content_id                 =  content_items.content_id
-       AND latest_user_facing_versions.user_facing_version_number =  user_facing_versions.number
-     INNER
-      JOIN withdrawn_content_ids_from_whitehall
-        ON withdrawn_content_ids_from_whitehall.content_id        =  content_items.content_id
-     WHERE states.name                                            != 'unpublished'
-     ORDER BY states.name, content_items.content_id
-  ) TO '/tmp/content-ids-by-state';
-
-Then transform the data in that file to match the format in this file (I used
-vim to do it).
-
-=end
-
-published_content_item_content_ids = %w(
+published_content_item_content_ids = %w[
   0046e097-4cc0-4780-9986-c818798e84f7
   005d2c77-55fc-418e-843c-18647a683ceb
   006cdd64-9822-4d20-9553-92ea12381592
@@ -6111,9 +6109,9 @@ published_content_item_content_ids = %w(
   ffd46420-ea33-4f78-ae8d-c25c4556804b
   ffe0a4d6-2728-48cd-a181-6ecb0c870605
   ffe8517f-4e8f-4da9-8425-a4f967ec40ca
-)
+]
 
-draft_content_item_content_ids = %w(
+draft_content_item_content_ids = %w[
   5d3892a4-7631-11e4-a3cb-005056011aef
   5dc4ac4a-7631-11e4-a3cb-005056011aef
   5dc4aca2-7631-11e4-a3cb-005056011aef
@@ -6290,7 +6288,7 @@ draft_content_item_content_ids = %w(
   60320b13-7631-11e4-a3cb-005056011aef
   60320b61-7631-11e4-a3cb-005056011aef
   60320bad-7631-11e4-a3cb-005056011aef
-)
+]
 
 def unpublish(content_ids, draft)
   Document.where(

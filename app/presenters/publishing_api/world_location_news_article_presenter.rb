@@ -9,9 +9,7 @@ module PublishingApi
       @update_type = update_type || default_update_type(item)
     end
 
-    def content_id
-      item.content_id
-    end
+    delegate :content_id, to: :item
 
     def content
       content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
@@ -30,7 +28,7 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        %i(worldwide_organisations parent policy_areas topics world_locations government),
+        %i[worldwide_organisations parent policy_areas topics world_locations government],
       )
     end
 

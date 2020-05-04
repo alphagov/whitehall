@@ -158,10 +158,10 @@ module Admin::TaggableContentHelper
   # changed, and also if an occupied MinisterialRole is updated.
   def taggable_ministerial_role_appointments_cache_digest
     @taggable_ministerial_role_appointments_cache_digest ||= begin
-      calculate_digest(RoleAppointment.
-                        joins(:role).
-                        where(roles: { type: "MinisterialRole" }).
-                        order("role_appointments.id"), "ministerial-role-appointments")
+      calculate_digest(RoleAppointment
+                        .joins(:role)
+                        .where(roles: { type: "MinisterialRole" })
+                        .order("role_appointments.id"), "ministerial-role-appointments")
     end
   end
 
@@ -225,11 +225,11 @@ private
   end
 
   def role_appointments_container_for(scope)
-    scope.
-      includes(:person).
-      with_translations_for(:organisations).
-      with_translations_for(:role).
-      alphabetical_by_person.map { |appointment| [role_appointment_label(appointment), appointment.id] }
+    scope
+      .includes(:person)
+      .with_translations_for(:organisations)
+      .with_translations_for(:role)
+      .alphabetical_by_person.map { |appointment| [role_appointment_label(appointment), appointment.id] }
   end
 
   def role_appointment_label(appointment)

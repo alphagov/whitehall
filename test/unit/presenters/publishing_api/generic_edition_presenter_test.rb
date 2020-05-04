@@ -54,8 +54,8 @@ module PublishingApi
 
       links = present(news_article).links
 
-      assert_equal links[:topics], %w(content_id_1 content_id_2)
-      assert_equal links[:parent], %w(content_id_1)
+      assert_equal links[:topics], %w[content_id_1 content_id_2]
+      assert_equal links[:parent], %w[content_id_1]
     end
 
     test 'minor changes are a "minor" update type' do

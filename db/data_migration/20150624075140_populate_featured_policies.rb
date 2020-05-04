@@ -1,13 +1,11 @@
 def policies_to_organisations(policies)
-  organisation_content_ids = policies.inject([]) do |memo, policy|
+  organisation_content_ids = policies.each_with_object([]) do |policy, memo|
     orgs = policy["links"]["organisations"]
     if orgs
       orgs.each do |org|
         memo << org["content_id"]
       end
     end
-
-    memo
   end
   organisation_content_ids = organisation_content_ids.uniq
 

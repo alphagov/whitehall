@@ -55,7 +55,7 @@ class EmbassyTest < ActiveSupport::TestCase
     toytown_org = toytown.worldwide_organisations.first
     toytown_org.main_office = nil
     contact = create(:contact, title: "British Embassy Legoland",
-                     street_address: "1 Brick Lane", country: legoland)
+                               street_address: "1 Brick Lane", country: legoland)
     toytown_org.offices << create(:worldwide_office,
                                   title: "British Consular Services Legoland",
                                   contact: contact,

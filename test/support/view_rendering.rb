@@ -6,7 +6,7 @@ module ViewRendering
   attr_accessor :controller
 
   def render_views?
-    self.class.view_tests.include?(self.method_name)
+    self.class.view_tests.include?(method_name)
   end
 
   module ClassMethods
@@ -20,7 +20,7 @@ module ViewRendering
     end
 
     def add_view_test(test_name)
-      self.view_tests << test_name
+      view_tests << test_name
     end
   end
   # Delegates find_all to the submitted path set and then returns templates

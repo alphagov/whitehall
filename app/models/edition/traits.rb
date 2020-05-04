@@ -29,7 +29,7 @@ module Edition::Traits
           raise "you must provide a trait or a block"
         end
       end
-      self.traits = self.traits.dup << trait
+      self.traits = traits.dup << trait
     end
   end
 end

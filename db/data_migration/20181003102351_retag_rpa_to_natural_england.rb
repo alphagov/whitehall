@@ -8,39 +8,35 @@ docs_with_lead = EditionOrganisation.where("updated_at > ?", undo_from).where("u
 docs_with_support = EditionOrganisation.where("updated_at > ?", undo_from).where("updated_at < ?", undo_upto).where(organisation: old, lead: false).map(&:edition).compact.map(&:document).uniq
 
 docs_with_lead.each do |document|
-  begin
-    next if document.document_type == "CorporateInformationPage"
+  next if document.document_type == "CorporateInformationPage"
 
-    edition = document.latest_edition
-    edition.read_consultation_principles = true if document.document_type == "Consultation"
-    orgs = edition.lead_organisations.to_a
+  edition = document.latest_edition
+  edition.read_consultation_principles = true if document.document_type == "Consultation"
+  orgs = edition.lead_organisations.to_a
 
-    orgs << new unless orgs.include? new
-    orgs.delete old
+  orgs << new unless orgs.include? new
+  orgs.delete old
 
-    edition.lead_organisations = orgs
-    edition.save(validate: false)
-    puts document.slug
-  rescue StandardError => e
-    puts "#{document.slug}: #{e.class}, #{e.message}"
-  end
+  edition.lead_organisations = orgs
+  edition.save(validate: false)
+  puts document.slug
+rescue StandardError => e
+  puts "#{document.slug}: #{e.class}, #{e.message}"
 end
 
 docs_with_support.each do |document|
-  begin
-    next if document.document_type == "CorporateInformationPage"
+  next if document.document_type == "CorporateInformationPage"
 
-    edition = document.latest_edition
-    edition.read_consultation_principles = true if document.document_type == "Consultation"
-    orgs = edition.supporting_organisations.to_a
+  edition = document.latest_edition
+  edition.read_consultation_principles = true if document.document_type == "Consultation"
+  orgs = edition.supporting_organisations.to_a
 
-    orgs << new unless orgs.include?(new) || edition.lead_organisations.include?(new)
-    orgs.delete old
+  orgs << new unless orgs.include?(new) || edition.lead_organisations.include?(new)
+  orgs.delete old
 
-    edition.supporting_organisations = orgs
-    edition.save(validate: false)
-    puts document.slug
-  rescue StandardError => e
-    puts "#{document.slug}: #{e.class}, #{e.message}"
-  end
+  edition.supporting_organisations = orgs
+  edition.save(validate: false)
+  puts document.slug
+rescue StandardError => e
+  puts "#{document.slug}: #{e.class}, #{e.message}"
 end

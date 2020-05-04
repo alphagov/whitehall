@@ -23,7 +23,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test ".from_files builds Attachment instances for an array of file paths" do
-    paths = %w(simple.pdf whitepaper.pdf).map { |f| file_fixture(f).path }
+    paths = %w[simple.pdf whitepaper.pdf].map { |f| file_fixture(f).path }
     bulk_upload = BulkUpload.from_files(create(:news_article), paths)
     assert_equal 2, bulk_upload.attachments.size
     assert_equal "simple.pdf", bulk_upload.attachments[0].filename
@@ -146,7 +146,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   test "is invalid if the zip file contains illegal file types" do
     zip_file = BulkUpload::ZipFile.new(a_zip_file_with_dodgy_file_types)
     assert_not zip_file.valid?
-    assert_match %r[contains invalid files], zip_file.errors[:zip_file][0]
+    assert_match %r{contains invalid files}, zip_file.errors[:zip_file][0]
   end
 
   test "extracted_file_paths returns extracted file paths" do

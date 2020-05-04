@@ -23,7 +23,11 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   %i[draft scheduled published superseded deleted withdrawn].each do |state|
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
-      edition.reject! rescue nil
+      begin
+        edition.reject!
+      rescue StandardError
+        nil
+      end
       assert_not edition.rejected?
     end
   end
@@ -39,7 +43,11 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   %i[scheduled published superseded deleted withdrawn].each do |state|
     test "should prevent a #{state} edition being submitted" do
       edition = create("#{state}_edition")
-      edition.submit! rescue nil
+      begin
+        edition.submit!
+      rescue StandardError
+        nil
+      end
       assert_not edition.submitted?
     end
   end
@@ -47,7 +55,11 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   %i[draft submitted scheduled rejected deleted withdrawn].each do |state|
     test "should prevent a #{state} edition being superseded" do
       edition = create("#{state}_edition")
-      edition.supersede! rescue nil
+      begin
+        edition.supersede!
+      rescue StandardError
+        nil
+      end
       assert_not edition.superseded?
     end
   end
@@ -163,7 +175,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
     dependable_speech = create(:submitted_speech)
     dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-      body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+                                                        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
     dependent_article.depended_upon_editions << dependable_speech
 
     dependable_speech.major_change_published_at = Time.zone.now

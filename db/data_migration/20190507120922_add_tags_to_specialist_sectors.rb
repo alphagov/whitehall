@@ -14,7 +14,7 @@ specialist_sectors.each do |specialist_sector|
   if (topic = linkable_topic_items.find { |item| item["content_id"] == specialist_sector["topic_content_id"] })
     puts "  Found topic %<topic>s" % { topic: topic.inspect }
     puts "  %<status>s `tag` %<tag>s" %
-             # Remove "/topic/" from beginning of base path (but only from beginning)
+      # Remove "/topic/" from beginning of base path (but only from beginning)
       { tag: specialist_sector.tag = topic["base_path"].gsub(/\A\/topic\//, ""),
         status: specialist_sector.save ? "Assigned" : "Failed to assign" }
   else

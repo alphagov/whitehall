@@ -19,9 +19,7 @@ class FactCheckRequest < ApplicationRecord
     requestor.email.present?
   end
 
-  def edition_title
-    edition.title
-  end
+  delegate :title, to: :edition, prefix: true
 
   def edition_type
     edition.type.downcase

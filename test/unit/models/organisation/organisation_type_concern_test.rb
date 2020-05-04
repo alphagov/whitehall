@@ -80,7 +80,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     def setup
       @other_org = create(:organisation)
       @copyright_tribunal = create(:organisation, organisation_type_key: :tribunal,
-        name: "Copyright Tribunal", parent_organisations: [@other_org])
+                                                  name: "Copyright Tribunal", parent_organisations: [@other_org])
       @multiple_parent_child_org = create(:organisation, parent_organisations: [@other_org, @copyright_tribunal])
       @court = create(:court)
       @hmcts_tribunal = create(:hmcts_tribunal)

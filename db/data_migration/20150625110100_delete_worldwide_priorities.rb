@@ -48,10 +48,10 @@ EditionDependency.where(
 ).delete_all
 
 puts "Hard-deleting all WorldwidePriority editions, documents, and translations"
-Edition.connection.execute(%{
+Edition.connection.execute(%(
   DELETE d, e, et
   FROM documents d
   JOIN editions e ON e.`document_id` = d.id
   JOIN `edition_translations` et ON et.`edition_id` = e.id
   WHERE d.`document_type` = 'WorldwidePriority';
-})
+))

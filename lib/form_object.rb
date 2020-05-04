@@ -5,7 +5,7 @@ class FormObject
 
   def initialize(attrs = {})
     attrs.each do |key, value|
-      self.send("#{key}=", value)
+      send("#{key}=", value)
     end
   end
 

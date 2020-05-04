@@ -6,7 +6,7 @@ class ImageUploader < WhitehallUploader
   end
 
   def extension_whitelist
-    %w(jpg jpeg gif png svg)
+    %w[jpg jpeg gif png svg]
   end
 
   version :s960, if: :bitmap? do

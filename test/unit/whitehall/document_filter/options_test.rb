@@ -54,7 +54,7 @@ module Whitehall
       end
 
       test "#valid_option_name? identifies valid option names" do
-        valid_option_names = %i{
+        valid_option_names = %i[
           publication_type
           organisations
           topics
@@ -62,7 +62,7 @@ module Whitehall
           official_documents
           locations
           people
-        }
+        ]
 
         valid_option_names.each do |option_name|
           assert filter_options.valid_option_name?(option_name)
@@ -72,7 +72,7 @@ module Whitehall
       end
 
       test "#valid_filter_key? identifies valid filter keys" do
-        valid_filter_keys = %w{
+        valid_filter_keys = %w[
           publication_filter_option
           departments
           topics
@@ -80,7 +80,7 @@ module Whitehall
           official_document_status
           world_locations
           people
-        }
+        ]
 
         valid_filter_keys.each do |filter_key|
           assert filter_options.valid_filter_key?(filter_key)
@@ -91,12 +91,12 @@ module Whitehall
 
       test "#valid_keys? returns true when given valid keys" do
         assert filter_options.valid_keys?(Options::OPTION_NAMES_TO_FILTER_KEYS.values)
-        assert filter_options.valid_keys?(%w(topics departments))
-        assert filter_options.valid_keys?(%w(publication_filter_option))
+        assert filter_options.valid_keys?(%w[topics departments])
+        assert filter_options.valid_keys?(%w[publication_filter_option])
       end
 
       test "#valid_keys? returns false when given invalid keys" do
-        assert_not Options.new.valid_keys?(%w(topics frank))
+        assert_not Options.new.valid_keys?(%w[topics frank])
       end
 
       test "#valid_resource_filter_options? returns true when filtered resources exist" do

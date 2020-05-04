@@ -2,8 +2,8 @@ class FeatureList < ApplicationRecord
   has_many :features, -> { order(:ordering) }, dependent: :destroy, before_add: :ensure_ordering!
   belongs_to :featurable, polymorphic: true
 
-  validates_presence_of :locale
-  validates_uniqueness_of :locale, scope: %i[featurable_id featurable_type]
+  validates :locale, presence: true
+  validates :locale, uniqueness: { scope: %i[featurable_id featurable_type] }
 
   accepts_nested_attributes_for :features
 
@@ -15,17 +15,17 @@ class FeatureList < ApplicationRecord
     Feature.connection.transaction do
       start_at = next_ordering
       new_ordering.each.with_index do |feature_id, i|
-        feature = self.features.find(feature_id)
+        feature = features.find(feature_id)
         feature.ordering = start_at + i
         feature.save!
       end
     end
     true
   rescue ActiveRecord::RecordNotFound => e
-    self.errors[:base] << "Can't reorder because '#{e}'"
+    errors[:base] << "Can't reorder because '#{e}'"
     false
   rescue ActiveRecord::RecordInvalid => e
-    self.errors[:base] << "Can't reorder because '#{e}' on '#{e.record}'"
+    errors[:base] << "Can't reorder because '#{e}' on '#{e.record}'"
     false
   end
 
@@ -41,9 +41,7 @@ class FeatureList < ApplicationRecord
     features.current.with_topical_events
   end
 
-  def empty?
-    current.empty?
-  end
+  delegate :empty?, to: :current
 
 private
 

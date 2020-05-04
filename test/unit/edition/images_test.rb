@@ -142,8 +142,8 @@ private
 
   def valid_edition_attributes
     {
-      title:   "edition-title",
-      body:    "edition-body",
+      title: "edition-title",
+      body: "edition-body",
       summary: "edition-summary",
       creator: build(:user),
     }

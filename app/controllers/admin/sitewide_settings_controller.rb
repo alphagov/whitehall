@@ -16,7 +16,7 @@ class Admin::SitewideSettingsController < Admin::BaseController
   def update
     @sitewide_setting = SitewideSetting.find(params[:id])
     if @sitewide_setting.update(sitewide_settings_params)
-      redirect_to admin_sitewide_settings_path, notice: %{"#{@sitewide_setting.name}" updated.}
+      redirect_to admin_sitewide_settings_path, notice: %("#{@sitewide_setting.name}" updated.)
     else
       render action: "edit"
     end

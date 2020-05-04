@@ -1,8 +1,8 @@
-slugs = %w(
+slugs = %w[
   take-a-business-dispute-to-the-mercantile-court
   mercantile-court-judges-and-clerks
   london-mercantile-court-hearing-and-trial-dates
-)
+]
 
 slugs.each do |slug|
   document = Document.find_by!(slug: slug)

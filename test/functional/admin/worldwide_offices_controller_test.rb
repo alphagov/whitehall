@@ -19,7 +19,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                    contact_type_id: ContactType::General.id,
                  },
                },
-               worldwide_organisation_id: worldwide_organisation.id,
+                   worldwide_organisation_id: worldwide_organisation.id,
        }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
@@ -40,7 +40,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  },
                  show_on_home_page: "1",
                },
-               worldwide_organisation_id: worldwide_organisation.id,
+                   worldwide_organisation_id: worldwide_organisation.id,
        }
 
     new_office = worldwide_organisation.offices.last
@@ -61,7 +61,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  },
                  show_on_home_page: "0",
                },
-               worldwide_organisation_id: worldwide_organisation.id,
+                   worldwide_organisation_id: worldwide_organisation.id,
        }
 
     new_office = worldwide_organisation.offices.last
@@ -81,7 +81,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                    contact_type_id: ContactType::General.id,
                  },
                },
-               worldwide_organisation_id: worldwide_organisation.id,
+                   worldwide_organisation_id: worldwide_organisation.id,
        }
 
     new_office = worldwide_organisation.offices.last
@@ -104,7 +104,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  },
                  service_ids: [service_2.id, service_1.id],
                },
-               worldwide_organisation_id: worldwide_organisation.id,
+                   worldwide_organisation_id: worldwide_organisation.id,
        }
 
     assert_equal 1, worldwide_organisation.offices.count
@@ -126,7 +126,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                    },
                  },
                },
-               worldwide_organisation_id: worldwide_organisation.id,
+                   worldwide_organisation_id: worldwide_organisation.id,
        }
 
     actual_numbers = worldwide_organisation
@@ -151,8 +151,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   title: "Head office",
                 },
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -170,8 +170,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                 },
                 show_on_home_page: "1",
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -191,8 +191,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                 },
                 show_on_home_page: "0",
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -211,8 +211,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   title: "Head office",
                 },
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -229,8 +229,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   worldwide_office: {
                 service_ids: [service_3.id, service_2.id],
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal [service_2, service_3], office.reload.services.sort_by(&:id)
@@ -251,8 +251,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   },
                 },
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     actual_numbers = office
@@ -285,8 +285,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   },
                 },
               },
-              id: office,
-              worldwide_organisation_id: worldwide_organisation,
+                  id: office,
+                  worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_not ContactNumber.exists?(contact_number.id)
@@ -299,7 +299,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :remove_from_home_page, params: { worldwide_organisation_id: worldwide_organisation, id: office }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
-    assert_equal %{"#{office.title}" removed from home page successfully}, flash[:notice]
+    assert_equal %("#{office.title}" removed from home page successfully), flash[:notice]
     assert_not worldwide_organisation.office_shown_on_home_page?(office)
   end
 
@@ -309,7 +309,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :add_to_home_page, params: { worldwide_organisation_id: worldwide_organisation, id: office }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
-    assert_equal %{"#{office.title}" added to home page successfully}, flash[:notice]
+    assert_equal %("#{office.title}" added to home page successfully), flash[:notice]
     assert worldwide_organisation.office_shown_on_home_page?(office)
   end
 
@@ -343,7 +343,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
-    assert_equal %{Offices on home page reordered successfully}, flash[:notice]
+    assert_equal %(Offices on home page reordered successfully), flash[:notice]
     assert_equal [office_2, office_3, office_1], worldwide_organisation.reload.home_page_offices
   end
 
@@ -360,7 +360,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
-    assert_equal %{Offices on home page reordered successfully}, flash[:notice]
+    assert_equal %(Offices on home page reordered successfully), flash[:notice]
     assert_equal [office], worldwide_organisation.reload.home_page_offices
   end
 
