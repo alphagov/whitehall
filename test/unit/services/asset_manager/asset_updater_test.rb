@@ -37,7 +37,9 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
       .returns("id" => @asset_url)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.call(@attachment_data, @legacy_url_path)
+    assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
+      @worker.call(@attachment_data, @legacy_url_path)
+    end
   end
 
   test "marks draft asset as published" do
