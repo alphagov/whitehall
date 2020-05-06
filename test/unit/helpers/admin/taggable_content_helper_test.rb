@@ -156,7 +156,7 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Andorra", location_a.id],
       ["Brazil", location_b.id],
       ["Croatia", location_c.id],
-      ], taggable_world_locations_container
+    ], taggable_world_locations_container
   end
 
   test "#taggable_alternative_format_providers_container returns an array of label/ID pairs for organisation alternative format providers" do

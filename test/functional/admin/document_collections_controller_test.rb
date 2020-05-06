@@ -39,14 +39,14 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
   test "POST #create saves the document collection" do
     post :create, params: {
-          edition: {
-                title: "collection-title",
-                summary: "collection-summary",
-                body: "collection-body",
-                lead_organisation_ids: [@organisation.id],
-                topic_ids: [@topic.id],
-                previously_published: false,
-              },
+      edition: {
+        title: "collection-title",
+        summary: "collection-summary",
+        body: "collection-body",
+        lead_organisation_ids: [@organisation.id],
+        topic_ids: [@topic.id],
+        previously_published: false,
+      },
     }
 
     assert_equal 1, DocumentCollection.count

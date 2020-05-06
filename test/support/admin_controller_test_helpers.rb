@@ -68,9 +68,9 @@ module AdminControllerTestHelpers
 
         put :update, params: { id: object, type => object.attributes.merge(
           social_media_accounts_attributes: { "0" => {
-          social_media_service_id: social_media_service.id,
-          url: "https://twitter.com/#!/bisgovuk",
-        } },
+            social_media_service_id: social_media_service.id,
+            url: "https://twitter.com/#!/bisgovuk",
+          } },
         ) }
 
         assert social_media_account = object.social_media_accounts.last
@@ -85,10 +85,10 @@ module AdminControllerTestHelpers
 
         put :update, params: { id: object, type => attributes.merge(
           social_media_accounts_attributes: { "0" => {
-          id: account.id,
-          social_media_service_id: "",
-          url: "",
-        } },
+            id: account.id,
+            social_media_service_id: "",
+            url: "",
+          } },
         ) }
 
         assert_equal 0, object.social_media_accounts.count
@@ -99,9 +99,9 @@ module AdminControllerTestHelpers
 
         put :update, params: { id: object, type => object.attributes.merge(
           social_media_accounts_attributes: { "0" => {
-          social_media_service_id: "",
-          url: "",
-        } },
+            social_media_service_id: "",
+            url: "",
+          } },
         ) }
 
         assert object.social_media_accounts.empty?
@@ -191,8 +191,8 @@ module AdminControllerTestHelpers
         put :update, params: { id: object, type => { contacts_attributes: { 0 => {
           id: contact,
           contact_numbers_attributes: {
-          0 => { label: " ", number: " ", id: contact_number },
-        },
+            0 => { label: " ", number: " ", id: contact_number },
+          },
         } } } }
 
         contact.reload

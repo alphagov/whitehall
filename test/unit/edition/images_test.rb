@@ -87,12 +87,12 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{
-                              alt_text: "image smaller than 960x640",
-                              caption: "some-caption",
-                              image_data_attributes: {
-                                file: fixture_file_upload("horrible-image.64x96.jpg", "image/jpg"),
-                              },
-                            }],
+          alt_text: "image smaller than 960x640",
+          caption: "some-caption",
+          image_data_attributes: {
+            file: fixture_file_upload("horrible-image.64x96.jpg", "image/jpg"),
+          },
+        }],
       ),
     )
     published_edition.save(validate: false)
@@ -111,12 +111,12 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{
-                              alt_text: "alt-text",
-                              caption: "original-caption",
-                              image_data_attributes: {
-                                file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
-                              },
-                            }],
+          alt_text: "alt-text",
+          caption: "original-caption",
+          image_data_attributes: {
+            file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+          },
+        }],
       ),
     )
 

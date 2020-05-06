@@ -78,10 +78,10 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
 
     put :update, params: { edition_id: @edition.id,
                            edition: {
-        topic_ids: ["", @topic.id.to_s],
-        primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
-        secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
-      } }
+                             topic_ids: ["", @topic.id.to_s],
+                             primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
+                             secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
+                           } }
     @edition.reload
     assert_equal [@topic.id], @edition.topic_ids
     assert_equal "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa", @edition.primary_specialist_sector_tag

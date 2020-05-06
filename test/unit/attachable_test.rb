@@ -196,28 +196,28 @@ class AttachableTest < ActiveSupport::TestCase
   test "#has_command_paper? is true if an attachment is a command paper" do
     pub = build(:publication)
     pub.stubs(:attachments).returns([
-                                      OpenStruct.new(is_command_paper?: false),
-                                    ])
+      OpenStruct.new(is_command_paper?: false),
+    ])
     assert_not pub.has_command_paper?
 
     pub.stubs(:attachments).returns([
-                                      OpenStruct.new(is_command_paper?: false),
-                                      OpenStruct.new(is_command_paper?: true),
-                                    ])
+      OpenStruct.new(is_command_paper?: false),
+      OpenStruct.new(is_command_paper?: true),
+    ])
     assert pub.has_command_paper?
   end
 
   test "#has_act_paper? is true if an attachment is an act paper" do
     pub = build(:publication)
     pub.stubs(:attachments).returns([
-                                      OpenStruct.new(is_act_paper?: false),
-                                    ])
+      OpenStruct.new(is_act_paper?: false),
+    ])
     assert_not pub.has_act_paper?
 
     pub.stubs(:attachments).returns([
-                                      OpenStruct.new(is_act_paper?: false),
-                                      OpenStruct.new(is_act_paper?: true),
-                                    ])
+      OpenStruct.new(is_act_paper?: false),
+      OpenStruct.new(is_act_paper?: true),
+    ])
     assert pub.has_act_paper?
   end
 

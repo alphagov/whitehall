@@ -9,10 +9,10 @@ class PluralizeHelperTest < ActionView::TestCase
 
   test "behaves like regular Rails test helper" do
     examples = [
-                [1, "policy"],
-                [2, "policy"],
-                [3, "sheep"],
-               ]
+      [1, "policy"],
+      [2, "policy"],
+      [3, "sheep"],
+    ]
     original = OriginalHelper.new
     examples.each do |args|
       assert_equal pluralize(*args), original.pluralize(*args)

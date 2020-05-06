@@ -188,33 +188,33 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:document)
 
     needs = [
-        {
-            content_id: SecureRandom.uuid,
-            details: {
-                role: "a",
-                goal: "b",
-                benefit: "c",
-            },
+      {
+        content_id: SecureRandom.uuid,
+        details: {
+          role: "a",
+          goal: "b",
+          benefit: "c",
         },
-        {
-            content_id: SecureRandom.uuid,
-            details: {
-                role: "d",
-                goal: "e",
-                benefit: "f",
-            },
+      },
+      {
+        content_id: SecureRandom.uuid,
+        details: {
+          role: "d",
+          goal: "e",
+          benefit: "f",
         },
+      },
     ]
     stub_publishing_api_has_links(
       content_id: document.content_id,
       links: {
-          meets_user_needs: needs.map { |need| need[:content_id] },
+        meets_user_needs: needs.map { |need| need[:content_id] },
       },
     )
     stub_publishing_api_has_expanded_links(
       content_id: document.content_id,
       expanded_links: {
-          meets_user_needs: needs,
+        meets_user_needs: needs,
       },
     )
 

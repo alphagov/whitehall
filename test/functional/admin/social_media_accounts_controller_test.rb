@@ -11,11 +11,11 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
   test "POST on :create creates social media account" do
     worldwide_organisation = create(:worldwide_organisation)
     post :create, params: {
-              social_media_account: {
-          social_media_service_id: @social_media_service.id,
-          url: "http://foo",
-          },
-              worldwide_organisation_id: worldwide_organisation,
+      social_media_account: {
+        social_media_service_id: @social_media_service.id,
+        url: "http://foo",
+      },
+      worldwide_organisation_id: worldwide_organisation,
     }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
