@@ -175,13 +175,6 @@ Whitehall::Application.routes.draw do
     resources :policy_groups, path: "groups", only: [:show]
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
 
-    # Redirect everything under /government/world to /world
-    # It may look like we're redirecting back to the same page but the
-    # source is prefixed with /government.
-    get "/world" => redirect("/world", prefix: "")
-    get "/world/*page.:format" => redirect("/world/%{page}.%{format}", prefix: "")
-    get "/world/*page" => redirect("/world/%{page}", prefix: "")
-
     constraints(AdminRequest) do
       namespace :admin do
         root to: "dashboard#index", via: :get
