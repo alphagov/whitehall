@@ -17,6 +17,9 @@
   )
 %>
 
+<%# This will be hoisted into <head> by Slimmer %>
+<% tag :meta, name: 'robots', content: 'noindex' if document.withdrawn? %>
+
 <%= render('documents/withdrawn_notice', document: document, type: document.format_name) if document.withdrawn? %>
 
 <div class="heading-extra">
