@@ -68,7 +68,6 @@ namespace :publishing_api do
         base_path: "/government/world",
         destination: "/world",
         content_id: "36620cf9-00b3-4d51-afab-e05e457061e3",
-        title: "Redirect to /world",
       },
     ].each do |route|
       Services.publishing_api.put_content(
@@ -76,8 +75,6 @@ namespace :publishing_api do
         base_path: route[:base_path],
         document_type: "redirect",
         schema_name: "redirect",
-        title: route[:title],
-        description: "",
         locale: "en",
         details: {},
         redirects: [
@@ -91,7 +88,7 @@ namespace :publishing_api do
         public_updated_at: Time.zone.now.iso8601,
         update_type: "major",
       )
-      publishing_api.publish(route[:content_id])
+      Services.publishing_api.publish(route[:content_id])
     end
   end
 
