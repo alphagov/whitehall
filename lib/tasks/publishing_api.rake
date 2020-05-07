@@ -61,6 +61,40 @@ namespace :publishing_api do
     end
   end
 
+  desc "Publish redirect routes (eg /government/world)"
+  task publish_redirect_routes: :environment do
+    [
+      {
+        base_path: "/government/world",
+        destination: "/world",
+        content_id: "36620cf9-00b3-4d51-afab-e05e457061e3",
+        title: "Redirect to /world",
+      },
+    ].each do |route|
+      Services.publishing_api.put_content(
+        route[:content_id],
+        base_path: route[:base_path],
+        document_type: "redirect",
+        schema_name: "redirect",
+        title: route[:title],
+        description: "",
+        locale: "en",
+        details: {},
+        redirects: [
+          {
+            path: options[:base_path],
+            type: options.fetch(:type, "prefix"),
+            destination: options[:destination],
+          },
+        ],
+        publishing_app: "whitehall",
+        public_updated_at: Time.zone.now.iso8601,
+        update_type: "major",
+      )
+      publishing_api.publish(route[:content_id])
+    end
+  end
+
   desc "Send published item links to Publishing API."
   task patch_published_item_links: :environment do
     editions = Edition.published
