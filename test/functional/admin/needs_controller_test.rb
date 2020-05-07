@@ -10,18 +10,18 @@ class Admin::NeedsControllerTest < ActionController::TestCase
     @url_maker = Whitehall::UrlMaker.new(host: Plek.find("whitehall"))
 
     @need_1 = {
-        "content_id" => SecureRandom.uuid,
-        "format" => "need",
-        "title" => "Need #1",
-        "base_path" => "/government/needs/need-1",
-        "links" => {},
+      "content_id" => SecureRandom.uuid,
+      "format" => "need",
+      "title" => "Need #1",
+      "base_path" => "/government/needs/need-1",
+      "links" => {},
     }
     @need_2 = {
-        "content_id" => SecureRandom.uuid,
-        "format" => "need",
-        "title" => "Need #2",
-        "base_path" => "/government/needs/need-2",
-        "links" => {},
+      "content_id" => SecureRandom.uuid,
+      "format" => "need",
+      "title" => "Need #2",
+      "base_path" => "/government/needs/need-2",
+      "links" => {},
     }
 
     stub_request(

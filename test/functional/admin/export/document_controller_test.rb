@@ -51,7 +51,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
         "page_number" => 1,
         "page_count" => 2,
         "_response_info" => { "status" => "ok" },
-    }
+      }
 
     assert_equal expected_response, json_response
   end
@@ -93,7 +93,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
         "page_number" => 1,
         "page_count" => 2,
         "_response_info" => { "status" => "ok" },
-    }
+      }
 
     assert_equal expected_response, json_response
   end
@@ -154,7 +154,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
         "page_number" => 1,
         "page_count" => 0,
         "_response_info" => { "status" => "ok" },
-    }
+      }
 
     assert_equal expected_response, json_response
   end

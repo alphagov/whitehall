@@ -309,9 +309,9 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "unpublish unpublishes the edition redirects back with a message" do
     login_as create(:managing_editor)
     unpublish_params = {
-        unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
-        explanation: "Was classified",
-      }
+      unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
+      explanation: "Was classified",
+    }
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
 
     assert_redirected_to admin_publication_path(published_edition)
@@ -322,9 +322,9 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "#unpublish when the edition is being withdrawn sets an appropriate flash message for the user" do
     login_as create(:managing_editor)
     unpublish_params = {
-        unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-        explanation: "No longer government publication",
-      }
+      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
+      explanation: "No longer government publication",
+    }
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
 
     assert_redirected_to admin_publication_path(published_edition)
@@ -335,9 +335,9 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   view_test "#unpublish when there are validation errors re-renders the unpublish form" do
     login_as create(:managing_editor)
     unpublish_params = {
-        unpublishing_reason_id: UnpublishingReason::Consolidated.id,
-        alternative_url: "",
-      }
+      unpublishing_reason_id: UnpublishingReason::Consolidated.id,
+      alternative_url: "",
+    }
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
     assert_response :success
     assert_template :confirm_unpublish

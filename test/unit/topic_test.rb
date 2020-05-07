@@ -60,14 +60,14 @@ class TopicTest < ActiveSupport::TestCase
   test "should return search index data suitable for Rummageable" do
     topic = create(:topic, content_id: "aa1f1646-6ae6-4a65-86e3-9803fa870c6a", name: "topic name", description: "topic description")
     assert_equal({
-                  "content_id" => "aa1f1646-6ae6-4a65-86e3-9803fa870c6a",
-                  "title" => "topic name",
-                  "link" => "/government/topics/topic-name",
-                  "indexable_content" => "topic description",
-                  "format" => "topic",
-                  "description" => "topic description",
-                  "slug" => "topic-name",
-                  },
+      "content_id" => "aa1f1646-6ae6-4a65-86e3-9803fa870c6a",
+      "title" => "topic name",
+      "link" => "/government/topics/topic-name",
+      "indexable_content" => "topic description",
+      "format" => "topic",
+      "description" => "topic description",
+      "slug" => "topic-name",
+    },
                  topic.search_index)
   end
 

@@ -51,6 +51,6 @@ module PolicyTaggingHelpers
       "title" => "Parent Policy 4",
       "base_path" => "/government/policies/parent-policy-4",
       "links" => {},
-      }
+    }
   end
 end

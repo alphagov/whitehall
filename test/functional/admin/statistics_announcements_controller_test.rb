@@ -40,18 +40,18 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   test "POST :create saves the announcement to the database and redirects to the dashboard" do
     post :create, params: {
-                    statistics_announcement: {
-                                    title: "Beard stats 2014",
-                                    summary: "Summary text",
-                                    publication_type_id: PublicationType::OfficialStatistics.id,
-                                    organisation_ids: [@organisation.id],
-                                    topic_ids: [@topic.id],
-                                    current_release_date_attributes: {
-                                      release_date: 1.year.from_now,
-                                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                                      confirmed: "0",
-                                    },
-                                  },
+      statistics_announcement: {
+        title: "Beard stats 2014",
+        summary: "Summary text",
+        publication_type_id: PublicationType::OfficialStatistics.id,
+        organisation_ids: [@organisation.id],
+        topic_ids: [@topic.id],
+        current_release_date_attributes: {
+          release_date: 1.year.from_now,
+          precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+          confirmed: "0",
+        },
+      },
     }
 
     assert_response :redirect

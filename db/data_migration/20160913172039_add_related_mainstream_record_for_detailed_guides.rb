@@ -1,14 +1,14 @@
 RelatedMainstream.delete_all
 
 guides = DetailedGuide.where([
-           "related_mainstream_content_url IS NOT NULL
+  "related_mainstream_content_url IS NOT NULL
               AND (
                 related_mainstream_content_url != ''
                 OR
                 additional_related_mainstream_content_url != ''
               )
               AND state != 'superseded'",
-         ])
+])
 related_mainstream_not_found = []
 additional_related_mainstream_not_found = []
 

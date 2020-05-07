@@ -189,13 +189,13 @@ private
       negative = ".mc-negative" if Regexp.last_match(1).include? "negative"
 
       [
-       "{:",
-       ".js-barchart-table",
-       stacked,
-       compact,
-       negative,
-       ".mc-auto-outdent",
-       "}",
+        "{:",
+        ".js-barchart-table",
+        stacked,
+        compact,
+        negative,
+        ".mc-auto-outdent",
+        "}",
       ].join(" ")
     end
   end
