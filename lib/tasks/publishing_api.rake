@@ -82,9 +82,9 @@ namespace :publishing_api do
         details: {},
         redirects: [
           {
-            path: options[:base_path],
-            type: options.fetch(:type, "prefix"),
-            destination: options[:destination],
+            path: route[:base_path],
+            type: route.fetch(:type, "prefix"),
+            destination: route[:destination],
           },
         ],
         publishing_app: "whitehall",
