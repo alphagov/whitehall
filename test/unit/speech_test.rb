@@ -129,7 +129,7 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "search_index does not contain person when person_override is set" do
     speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: nil, person_override: "The Queen")
-    assert_not speech.search_index.has_key?("people")
+    assert_not speech.search_index.key?("people")
   end
 
   test "search_index includes default image_url if it has no image" do

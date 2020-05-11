@@ -12,7 +12,7 @@ module PublishingApi
     delegate :content_id, to: :item
 
     def content
-      {}.tap { |content|
+      {}.tap do |content|
         content.merge!(BaseItemPresenter.new(item, update_type: update_type).base_attributes)
         content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
         content.merge!(
@@ -26,7 +26,7 @@ module PublishingApi
         )
         content.merge!(PayloadBuilder::AccessLimitation.for(item))
         content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
-      }
+      end
     end
 
     def links

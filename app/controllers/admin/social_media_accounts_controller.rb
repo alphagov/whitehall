@@ -46,9 +46,9 @@ private
 
   def find_socialable
     @socialable =
-      if params.has_key?(:organisation_id)
+      if params.key?(:organisation_id)
         Organisation.friendly.find(params[:organisation_id])
-      elsif params.has_key?(:worldwide_organisation_id)
+      elsif params.key?(:worldwide_organisation_id)
         WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
       else
         raise ActiveRecord::RecordNotFound

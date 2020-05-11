@@ -89,18 +89,18 @@ class DocumentFilterHelperTest < ActionView::TestCase
   test "#organisation_filter_options makes option tags with organsation name as text and slug as value" do
     org = create(:ministerial_department, :with_published_edition, name: "Some organisation")
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
-    option_set.at_css("optgroup option").tap { |option|
+    option_set.at_css("optgroup option").tap do |option|
       assert_equal org.name, option.text
       assert_equal org.slug, option["value"]
-    }
+    end
   end
 
   test "#organisation_filter_options makes an 'All departments' option tag" do
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
-    option_set.at_css("option").tap { |option|
+    option_set.at_css("option").tap do |option|
       assert_equal "All departments", option.text
       assert_equal "all", option["value"]
-    }
+    end
   end
 
   test "#organisation_filter_options return organisations as select options grouped into \
@@ -128,22 +128,22 @@ class DocumentFilterHelperTest < ActionView::TestCase
   test "#official_document_status_filter_options should return the options 'All statuses', 'Command papers' and 'Act papers'" do
     option_set = Nokogiri::HTML::DocumentFragment.parse(official_document_status_filter_options)
 
-    option_set.css("option")[0].tap { |option|
+    option_set.css("option")[0].tap do |option|
       assert_equal "All documents", option.text
       assert_equal "all", option["value"]
-    }
-    option_set.css("option")[1].tap { |option|
+    end
+    option_set.css("option")[1].tap do |option|
       assert_equal "Command or act papers", option.text
       assert_equal "command_and_act_papers", option["value"]
-    }
-    option_set.css("option")[2].tap { |option|
+    end
+    option_set.css("option")[2].tap do |option|
       assert_equal "Command papers only", option.text
       assert_equal "command_papers_only", option["value"]
-    }
-    option_set.css("option")[3].tap { |option|
+    end
+    option_set.css("option")[3].tap do |option|
       assert_equal "Act papers only", option.text
       assert_equal "act_papers_only", option["value"]
-    }
+    end
   end
 
   test "#official_document_status_filter_options should select the passed in option" do

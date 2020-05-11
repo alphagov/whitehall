@@ -58,42 +58,42 @@ module ApplicationHelper
   def publication_type_options
     [
       ["", [""]],
-      ["Common types", PublicationType.primary.map { |publication_type|
+      ["Common types", PublicationType.primary.map do |publication_type|
         [publication_type.singular_name, publication_type.id]
-      }],
-      ["Less common types", PublicationType.less_common.map { |publication_type|
+      end],
+      ["Less common types", PublicationType.less_common.map do |publication_type|
         [publication_type.singular_name, publication_type.id]
-      }],
-      ["Use discouraged", PublicationType.use_discouraged.map { |publication_type|
+      end],
+      ["Use discouraged", PublicationType.use_discouraged.map do |publication_type|
         [publication_type.singular_name, publication_type.id]
-      }],
+      end],
     ]
   end
 
   def worldwide_office_type_options
-    WorldwideOfficeType.by_grouping.map { |grouping, types|
+    WorldwideOfficeType.by_grouping.map do |grouping, types|
       [
         grouping,
         types.map { |t| [t.name, t.id] },
       ]
-    }
+    end
   end
 
   def news_article_type_options
     [
       ["", [""]],
-      ["Common types", NewsArticleType.all.map { |type|
+      ["Common types", NewsArticleType.all.map do |type|
         [type.singular_name, type.id]
-      }],
+      end],
     ]
   end
 
   def speech_type_options
     [
       ["", [""]],
-      ["Common types", SpeechType.primary.map { |type|
+      ["Common types", SpeechType.primary.map do |type|
         [type.singular_name, type.id]
-      }],
+      end],
     ]
   end
 
@@ -123,8 +123,8 @@ module ApplicationHelper
   end
 
   def full_width_tabs(tab_data)
-    content_tag(:nav, class: "activity-navigation") {
-      content_tag(:ul) {
+    content_tag(:nav, class: "activity-navigation") do
+      content_tag(:ul) do
         tab_data.map { |tab|
           content_tag :li do
             if tab[:current_when]
@@ -134,8 +134,8 @@ module ApplicationHelper
             end
           end
         }.join.html_safe
-      }
-    }
+      end
+    end
   end
 
   def link_to_with_current(name, path, options = {})
@@ -227,7 +227,7 @@ module ApplicationHelper
         organisations_path
       end
     when "corporate_information_pages"
-      if parameters.has_key?(:worldwide_organisation_id)
+      if parameters.key?(:worldwide_organisation_id)
         world_locations_path
       else
         organisations_path

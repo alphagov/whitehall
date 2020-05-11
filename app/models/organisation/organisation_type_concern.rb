@@ -6,36 +6,36 @@ module Organisation::OrganisationTypeConcern
               inclusion: { in: OrganisationType.valid_keys }
     validates :parent_organisations,
               length: { minimum: 1, message: "must not be empty for sub-organisations" },
-              if: lambda { organisation_type_key == :sub_organisation }
+              if: -> { organisation_type_key == :sub_organisation }
     validates :govuk_status,
               inclusion: { in: %w[exempt], message: "must be 'exempt' for devolved administrations" },
-              if: lambda { organisation_type_key == :devolved_administration }
+              if: -> { organisation_type_key == :devolved_administration }
 
     # Creates a scope for each department type. (eg. Organisation.ministerial_departments)
     OrganisationType.valid_keys.each do |type_key|
       scope type_key.to_s.pluralize, -> { where(organisation_type_key: type_key) }
     end
 
-    scope :excluding_ministerial_departments, -> {
+    scope :excluding_ministerial_departments, lambda {
       where("organisation_type_key != 'ministerial_department'")
     }
 
-    scope :listable, -> {
+    scope :listable, lambda {
       excluding_govuk_status_closed.with_translations(I18n.locale)
     }
 
-    scope :allowed_promotional, -> {
+    scope :allowed_promotional, lambda {
       where(organisation_type_key: OrganisationType.allowed_promotional_keys)
     }
 
-    scope :hmcts_tribunals, -> {
+    scope :hmcts_tribunals, lambda {
       hmcts_id = Organisation.unscoped.where(slug: "hm-courts-and-tribunals-service").ids.first
       joins(:parent_organisational_relationships)
       .where(organisation_type_key: :tribunal)
              .where("organisational_relationships.parent_organisation_id" => hmcts_id)
     }
 
-    scope :excluding_hmcts_tribunals, -> {
+    scope :excluding_hmcts_tribunals, lambda {
       hmcts_id = Organisation.unscoped.where(slug: "hm-courts-and-tribunals-service").ids.first
 
       if hmcts_id

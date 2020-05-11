@@ -46,7 +46,7 @@ module Whitehall
     end
 
     def form_actions(options = {})
-      @template.content_tag(:div, "class" => "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) {
+      @template.content_tag(:div, "class" => "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) do
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
@@ -54,7 +54,7 @@ module Whitehall
           @template.concat %( or )
           @template.concat @template.link_to("cancel", cancel_path(options[:cancel]))
         }
-      }
+      end
     end
 
     def save_or_cancel(options = {})
@@ -62,12 +62,12 @@ module Whitehall
     end
 
     def save_or_cancel_buttons(options = {})
-      @template.content_tag(:div, "class" => "form-actions") {
+      @template.content_tag(:div, "class" => "form-actions") do
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-lg btn-primary")
         end
         @template.concat @template.link_to("Cancel", cancel_path(options[:cancel]), class: "btn btn-default btn-lg add-left-margin")
-      }
+      end
     end
 
     def save_or_continue_or_cancel(options = {})

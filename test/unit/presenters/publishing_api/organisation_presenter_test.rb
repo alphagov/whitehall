@@ -219,7 +219,9 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       :court,
       name: "Court and bowled",
     )
-    def organisation.body; "Habeus corpus"; end
+    def organisation.body
+      "Habeus corpus"
+    end
 
     presented_item = present(organisation)
 
@@ -231,7 +233,9 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       :organisation,
       name: "Ministry of sound",
     )
-    def organisation.summary; "Habeus loudius noisus"; end
+    def organisation.summary
+      "Habeus loudius noisus"
+    end
 
     presented_item = present(organisation)
 

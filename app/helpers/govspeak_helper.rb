@@ -43,9 +43,9 @@ module GovspeakHelper
   def html_attachment_govspeak_headers(attachment)
     govspeak_headers(attachment.govspeak_content_body).tap do |headers|
       if attachment.manually_numbered_headings?
-        headers.each { |header|
+        headers.each do |header|
           header.text = header.text.gsub(/^(\d+.?[^\s]*)\s*/, '<span class="heading-number">\1</span> ').html_safe
-        }
+        end
       end
     end
   end

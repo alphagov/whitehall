@@ -121,7 +121,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         end
 
         it "doesn't present a speaker link" do
-          assert_not(presented.links.has_key?(:speaker))
+          assert_not(presented.links.key?(:speaker))
         end
 
         it "presents an empty roles link" do

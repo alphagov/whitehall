@@ -226,10 +226,10 @@ class ConsultationTest < ActiveSupport::TestCase
       build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
     ])
 
-    assert_nothing_raised {
+    assert_nothing_raised do
       new_draft = consultation.create_draft(build(:user))
       assert_equal 1, new_draft.outcome.attachments.length
-    }
+    end
   end
 
   test "copies public feedback and its attachments when creating a new draft" do
@@ -257,10 +257,10 @@ class ConsultationTest < ActiveSupport::TestCase
       build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
     ])
 
-    assert_nothing_raised {
+    assert_nothing_raised do
       new_draft = consultation.create_draft(build(:user))
       assert_equal 1, new_draft.public_feedback.attachments.length
-    }
+    end
   end
 
   test "should report that the outcome has not been published if the consultation is still open" do

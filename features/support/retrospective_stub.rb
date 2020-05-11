@@ -33,26 +33,26 @@ class RetrospectiveStub
   end
 
   def assert_method_called(method, opts = {})
-    raise UnsatisfiedAssertion.new("Expected :#{method} to have been called, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? { |call|
+    raise UnsatisfiedAssertion.new("Expected :#{method} to have been called, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? do |call|
       call[:method] == method
-    }
+    end
 
     if opts[:with].present?
-      raise UnsatisfiedAssertion.new("Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? { |call|
+      raise UnsatisfiedAssertion.new("Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? do |call|
         call[:method] == method && (
           opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
         )
-      }
+      end
     end
   end
 
   def refute_method_called(method, opts = {})
     if opts[:with].present?
-      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called #{inspect_args opts[:with]}\n\nCalls: \n#{inspect_calls}") if @calls.any? { |call|
+      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called #{inspect_args opts[:with]}\n\nCalls: \n#{inspect_calls}") if @calls.any? do |call|
         call[:method] == method && (
           opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
         )
-      }
+      end
     elsif @calls.any? { |call| call[:method] == method }
       raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called\n\nCalls: \n#{inspect_calls}")
     end

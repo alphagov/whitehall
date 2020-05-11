@@ -35,8 +35,8 @@ module EditionPresenterHelper
   end
 
   def date_microformat(attribute_name)
-    context.render_datetime_microformat(model, attribute_name) {
+    context.render_datetime_microformat(model, attribute_name) do
       context.l(model.send(attribute_name).to_date, format: :long_ordinal)
-    }
+    end
   end
 end

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 Given(/^I visit the role page for "(.*?)"$/) do |name|
   role = Role.find_by(name: name)
   visit polymorphic_path(role)

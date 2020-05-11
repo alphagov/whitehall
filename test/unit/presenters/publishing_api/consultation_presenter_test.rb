@@ -95,11 +95,11 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:new)
         .with(consultation)
         .returns(
-          mock("PublishingApi::LinksPresenter").tap { |m|
+          mock("PublishingApi::LinksPresenter").tap do |m|
             m.expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          },
+          end,
         )
 
       actual_links = presented_links

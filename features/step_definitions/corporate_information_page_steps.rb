@@ -1,9 +1,7 @@
-# encoding: utf-8
-
 def find_corporation_information_page_type_by_title(title)
-  I18n.with_locale(:en) {
+  I18n.with_locale(:en) do
     CorporateInformationPageType.all.detect { |type| type.title(Organisation.new) == title }
-  }
+  end
 end
 
 Then(/^I should see the text "([^"]*)"$/) do |text|

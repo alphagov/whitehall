@@ -20,7 +20,7 @@ class Attachment < ApplicationRecord
   validates :isbn, isbn_format: true, allow_blank: true
   validates :unique_reference, length: { maximum: 255 }, allow_blank: true
 
-  scope :with_filename, ->(basename) {
+  scope :with_filename, lambda { |basename|
     joins(:attachment_data).where("attachment_data.carrierwave_file = ?", basename)
   }
 

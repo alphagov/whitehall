@@ -96,11 +96,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
         .expects(:new)
         .with(corporate_information_page)
         .returns(
-          mock("PublishingApi::LinksPresenter").tap { |m|
+          mock("PublishingApi::LinksPresenter").tap do |m|
             m.expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          },
+          end,
         )
 
       actual_links = presented_links
@@ -152,11 +152,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
         .stubs(:new)
         .with(corporate_information_page)
         .returns(
-          mock("PublishingApi::LinksPresenter").tap { |m|
+          mock("PublishingApi::LinksPresenter").tap do |m|
             m.stubs(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          },
+          end,
         )
 
       actual_links = presented_links
@@ -268,16 +268,16 @@ module PublishingApi::CorporateInformationPagePresenterTest
       expected_groups = [
         {
           name: "Access our information",
-          contents: [].tap { |contents|
+          contents: [].tap do |contents|
             contents.push(organisation_chart)
             contents.push(*our_information)
-          },
+          end,
         },
         {
           name: "Jobs and contracts",
-          contents: [].tap { |contents|
+          contents: [].tap do |contents|
             contents.push(*jobs)
-          },
+          end,
         },
       ]
 

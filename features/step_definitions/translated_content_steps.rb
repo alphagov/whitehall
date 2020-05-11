@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 Given(/^a worldwide organisation that is translated exists$/) do
   world_location = create(:world_location, active: true)
   worldwide_organisation = create(:worldwide_organisation,

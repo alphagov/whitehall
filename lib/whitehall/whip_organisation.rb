@@ -8,7 +8,7 @@ module Whitehall
       label.downcase.gsub(/[^a-z]+/, "-")
     end
 
-    alias :name :label
+    alias_method :name, :label
 
     def self.find_by_slug(slug)
       all.detect { |wo| wo.slug == slug }

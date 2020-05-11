@@ -73,9 +73,9 @@ module OrganisationHelper
 
   def superseding_organisations_text(organisation)
     if organisation.superseding_organisations.any?
-      organisation_links = organisation.superseding_organisations.map { |org|
+      organisation_links = organisation.superseding_organisations.map do |org|
         link_to(org.name, organisation_path(org))
-      }
+      end
       organisation_links.to_sentence.html_safe
     end
   end

@@ -155,7 +155,9 @@ private
 
     alias_method :version, :object
 
-    def sort_priority; 3; end
+    def sort_priority
+      3
+    end
 
     def action
       previous_state = version.previous && version.previous.state

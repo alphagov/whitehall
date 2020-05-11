@@ -40,10 +40,10 @@ FactoryBot.define do
   end
 
   factory :gds_admin, parent: :user do
-    permissions {
+    permissions do
       [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR,
        User::Permissions::GDS_ADMIN]
-    }
+    end
   end
 
   factory :gds_editor, parent: :user do
@@ -69,13 +69,13 @@ FactoryBot.define do
   factory :gds_team_user, parent: :user do
     name { "GDS Inside Government Team" }
     email { "govuk-whitehall@digital.cabinet-office.gov.uk" }
-    permissions {
+    permissions do
       [
         User::Permissions::SIGNIN,
         User::Permissions::DEPARTMENTAL_EDITOR,
         User::Permissions::GDS_EDITOR,
         User::Permissions::FORCE_PUBLISH_ANYTHING,
       ]
-    }
+    end
   end
 end

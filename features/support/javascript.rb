@@ -22,7 +22,7 @@ end
 # jiggery pokery to make sure we can select stuff in our javascript-enabled tests.
 module Capybara::DSL
   def select(value, options = {})
-    if options.has_key?(:from)
+    if options.key?(:from)
       element = find(:select, options[:from], visible: :all).find(:option, value, visible: :all)
       if element.visible?
         from = options.delete(:from)

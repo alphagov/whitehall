@@ -8,7 +8,7 @@ class CsvFileFromPublicHost
   def self.csv_response(path, env: ENV)
     connection = Faraday.new(url: Plek.new.public_asset_host)
 
-    if env.has_key?("BASIC_AUTH_CREDENTIALS")
+    if env.key?("BASIC_AUTH_CREDENTIALS")
       basic_auth_credentials = env["BASIC_AUTH_CREDENTIALS"].split(":")
       basic_auth_user = basic_auth_credentials[0]
       basic_auth_password = basic_auth_credentials[1]

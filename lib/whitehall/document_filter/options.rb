@@ -36,11 +36,11 @@ module Whitehall
       }.freeze
 
       def valid_option_name?(option_name)
-        OPTION_NAMES_TO_FILTER_KEYS.has_key?(option_name)
+        OPTION_NAMES_TO_FILTER_KEYS.key?(option_name)
       end
 
       def valid_filter_key?(filter_key)
-        OPTION_NAMES_TO_FILTER_KEYS.has_value?(filter_key.to_s)
+        OPTION_NAMES_TO_FILTER_KEYS.value?(filter_key.to_s)
       end
 
       def invalid_filter_key?(filter_key)

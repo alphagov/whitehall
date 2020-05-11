@@ -1,8 +1,8 @@
 module TopicsHelper
   def array_of_links_to_topical_events(topical_events)
-    topical_events.map { |topical_event|
+    topical_events.map do |topical_event|
       link_to topical_event.name, topical_event_path(topical_event), class: "topical-event-link"
-    }
+    end
   end
 
   def classification_contents_breakdown(classification)

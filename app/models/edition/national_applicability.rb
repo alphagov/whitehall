@@ -50,11 +50,11 @@ module Edition::NationalApplicability
     nations = universally_applicable
 
     inapplicabilities = nation_inapplicabilities
-    nations = inapplicabilities.each_with_object(nations) { |inapplicability, hash|
+    nations = inapplicabilities.each_with_object(nations) do |inapplicability, hash|
       key = nation_to_sym(inapplicability.nation.name)
       hash[key][:applicable] = false
       hash[key][:alternative_url] = inapplicability.alternative_url if inapplicability.alternative_url
-    }
+    end
 
     nations
   end
@@ -67,12 +67,12 @@ private
 
   def universally_applicable
     all_nations = %w[England Northern\ Ireland Scotland Wales]
-    all_nations.each_with_object({}) { |nation, hash|
+    all_nations.each_with_object({}) do |nation, hash|
       key = nation_to_sym(nation)
       hash[key] = {
         label: nation,
         applicable: true,
       }
-    }
+    end
   end
 end

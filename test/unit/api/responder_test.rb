@@ -22,7 +22,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     responder = make_responder_for_resource(resource)
 
     responder.to_json
-    assert responder.displayed_json.has_key?(:_response_info)
+    assert responder.displayed_json.key?(:_response_info)
   end
 
   test "the _response_info in the json includes the status" do
@@ -47,7 +47,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
-    assert_not response_info.has_key?(:links)
+    assert_not response_info.key?(:links)
   end
 
   test "providing links in the options will include them in the _response_info json" do
@@ -56,7 +56,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
-    assert response_info.has_key?(:links)
+    assert response_info.key?(:links)
     assert_equal 1, response_info[:links].size
     assert_equal %i[href rel], response_info[:links].first.keys.sort
     assert_equal "http://example.com/woo", response_info[:links].first[:href]
@@ -70,7 +70,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?("Link")
+    assert headers.key?("Link")
     assert_equal '<http://example.com/woo>; rel="self"', headers["Link"]
   end
 
@@ -82,7 +82,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
-    assert response_info.has_key?(:links)
+    assert response_info.key?(:links)
     assert_equal 1, response_info[:links].size
     assert_equal %i[href rel], response_info[:links].first.keys.sort
     assert_equal "http://example.com/woo", response_info[:links].first[:href]
@@ -98,7 +98,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?("Link")
+    assert headers.key?("Link")
     assert_equal '<http://example.com/woo>; rel="self"', headers["Link"]
   end
 
@@ -110,7 +110,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
-    assert response_info.has_key?(:links)
+    assert response_info.key?(:links)
     assert_equal 2, response_info[:links].size
 
     assert_equal %i[href rel], response_info[:links][0].keys.sort
@@ -131,7 +131,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?("Link")
+    assert headers.key?("Link")
     assert_equal '<http://example.com/woo>; rel="self", <http://example.com/foo>; rel="next"', headers["Link"]
   end
 
@@ -143,7 +143,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
-    assert response_info.has_key?(:links)
+    assert response_info.key?(:links)
     assert_equal 1, response_info[:links].size
 
     assert_equal %i[href rel], response_info[:links][0].keys.sort
@@ -160,7 +160,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?("Link")
+    assert headers.key?("Link")
     assert_equal '<http://example.com/woo>; rel="self"', headers["Link"]
   end
 
