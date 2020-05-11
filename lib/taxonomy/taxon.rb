@@ -18,7 +18,7 @@ module Taxonomy
 
     def self.from_taxon_hash(taxon_hash)
       taxon = Taxon.new(
-        title: taxon_hash["title"],
+        title: taxon_hash.dig("details", "internal_name") || taxon_hash["title"],
         base_path: taxon_hash["base_path"],
         content_id: taxon_hash["content_id"],
         phase: taxon_hash["phase"],
