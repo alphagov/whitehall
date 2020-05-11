@@ -1,7 +1,7 @@
 class String
   # Returns the possessive form of a string.
-  # For example, "Bill".possessive returns "Bill’s", whereas "Years".possessive
-  # returns "Years’"
+  # For example, "Bill".possessive returns "Bill's", whereas "Years".possessive
+  # returns "Years'"
   def possessive
     return self if empty?
 

@@ -22,9 +22,9 @@ module Taxonomy
         base_path: taxon_hash["base_path"],
         content_id: taxon_hash["content_id"],
         phase: taxon_hash["phase"],
-        visible_to_departmental_editors: !!taxon_hash.dig(
+        visible_to_departmental_editors: taxon_hash.dig(
           "details", "visible_to_departmental_editors"
-        ),
+        ).present?,
         legacy_mapping: legacy_mapping(taxon_hash),
       )
 

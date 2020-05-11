@@ -10,9 +10,9 @@ class TaxonomyTagForm
       selected_taxons = content_item["links"]["taxons"] || []
       previous_version = content_item["version"] || 0
     rescue GdsApi::HTTPNotFound
-      #  TODO: This is a workaround, because Publishing API
+      # TODO: This is a workaround, because Publishing API
       # returns 404 when the document exists but there are no links.
-      #  This can be removed when that changes.
+      # This can be removed when that changes.
       selected_taxons = []
       previous_version = 0
     end

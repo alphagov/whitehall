@@ -118,7 +118,7 @@ module PublishingApi
     end
 
     def has_featured_image?
-      !!(feature && feature.image)
+      feature && feature.image.present?
     end
 
     def featured_image
@@ -134,7 +134,7 @@ module PublishingApi
     end
 
     def has_image?
-      !!image
+      image.present?
     end
 
     def alt_text

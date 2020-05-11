@@ -73,7 +73,7 @@ class PublicationType
   end
 
   def access_limited_by_default?
-    !!access_limited_by_default
+    access_limited_by_default == true
   end
 
   def search_format_types
