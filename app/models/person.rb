@@ -35,15 +35,8 @@ class Person < ApplicationRecord
 
   delegate :url, to: :image, prefix: :image
 
-  after_save :republish_organisation_to_publishing_api
   before_destroy :prevent_destruction_if_appointed
   after_update :touch_role_appointments
-
-  def republish_organisation_to_publishing_api
-    organisations.each do |organisation|
-      Whitehall::PublishingApi.republish_async(organisation)
-    end
-  end
 
   def biography_without_markup
     Govspeak::Document.new(biography).to_text

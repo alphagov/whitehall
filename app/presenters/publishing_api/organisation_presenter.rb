@@ -40,19 +40,19 @@ module PublishingApi
 
     def links
       {
-        ordered_board_members: people_content_items(role: "management"),
-        ordered_chief_professional_officers: people_content_items(role: "chief_professional_officer"),
+        ordered_board_members: people_content_ids(role: "management"),
+        ordered_chief_professional_officers: people_content_ids(role: "chief_professional_officer"),
         ordered_child_organisations: child_organisation_links,
         ordered_contacts: contacts_links,
         ordered_foi_contacts: foi_contacts_links,
         ordered_high_profile_groups: high_profile_groups_links,
-        ordered_military_personnel: people_content_items(role: "military"),
-        ordered_ministers: people_content_items(role: "ministerial"),
+        ordered_military_personnel: people_content_ids(role: "military"),
+        ordered_ministers: people_content_ids(role: "ministerial"),
         ordered_parent_organisations: parent_organisation_links,
         ordered_roles: roles_links,
-        ordered_special_representatives: people_content_items(role: "special_representative"),
+        ordered_special_representatives: people_content_ids(role: "special_representative"),
         ordered_successor_organisations: successor_organisation_links,
-        ordered_traffic_commissioners: people_content_items(role: "traffic_commissioner"),
+        ordered_traffic_commissioners: people_content_ids(role: "traffic_commissioner"),
         primary_publishing_organisation: [content_id],
       }
     end
@@ -86,12 +86,6 @@ module PublishingApi
         ordered_featured_links: featured_links,
         ordered_featured_documents: featured_documents,
         ordered_promotional_features: promotional_features,
-        ordered_ministers: ministers,
-        ordered_board_members: board_members,
-        ordered_military_personnel: military_personnel,
-        ordered_traffic_commissioners: traffic_commissioners,
-        ordered_chief_professional_officers: chief_professional_officers,
-        ordered_special_representatives: special_representatives,
         important_board_members: important_board_members,
         organisation_featuring_priority: organisation_featuring_priority,
         organisation_govuk_status: organisation_govuk_status,
@@ -363,62 +357,7 @@ module PublishingApi
       end
     end
 
-    def ministers
-      people_in_role("ministerial")
-    end
-
-    def board_members
-      people_in_role("management")
-    end
-
-    def military_personnel
-      people_in_role("military")
-    end
-
-    def traffic_commissioners
-      people_in_role("traffic_commissioner")
-    end
-
-    def chief_professional_officers
-      people_in_role("chief_professional_officer")
-    end
-
-    def special_representatives
-      people_in_role("special_representative")
-    end
-
-    def people_in_role(role_type)
-      item.send("#{role_type}_roles")
-        .order("organisation_roles.ordering")
-        .each_with_object([]) do |role, ary|
-          person = role.current_person
-          unless person.nil?
-            name_prefix = "The Rt Hon" if person.privy_counsellor
-            full_name = "#{person.title} #{person.forename} #{person.surname} #{person.letters}".strip
-            role_href = Whitehall.url_maker.polymorphic_path(role) if role.ministerial?
-            person_object = {
-              name_prefix: name_prefix,
-              name: full_name,
-              role: role.name,
-              href: Whitehall.url_maker.polymorphic_path(person),
-              role_href: role_href,
-              payment_type: role.role_payment_type&.name,
-              attends_cabinet_type: role.attends_cabinet_type&.name,
-            }
-
-            unless person.image.url.nil?
-              person_object[:image] = {
-                url: person.image.url,
-                alt_text: full_name,
-              }
-            end
-
-            ary << person_object
-          end
-        end
-    end
-
-    def people_content_items(role:)
+    def people_content_ids(role:)
       item.send("#{role}_roles")
         .order("organisation_roles.ordering")
         .map(&:current_person)

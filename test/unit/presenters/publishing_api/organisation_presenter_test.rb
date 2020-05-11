@@ -75,22 +75,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         ordered_featured_links: [],
         ordered_featured_documents: [],
         ordered_promotional_features: [],
-        ordered_ministers: [
-          {
-            name_prefix: nil,
-            name: minister.name,
-            role: role.name,
-            href: "/government/people/#{minister.slug}",
-            role_href: "/government/ministers/#{role.name}",
-            payment_type: nil,
-            attends_cabinet_type: nil,
-          },
-        ],
-        ordered_board_members: [],
-        ordered_military_personnel: [],
-        ordered_traffic_commissioners: [],
-        ordered_chief_professional_officers: [],
-        ordered_special_representatives: [],
         important_board_members: 5,
         organisation_featuring_priority: "news",
         organisation_govuk_status: {
