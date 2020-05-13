@@ -260,7 +260,7 @@ class Organisation < ApplicationRecord
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
   scope :closed, -> { where(govuk_status: "closed") }
-  scope :with_statistics_announcements, -> {
+  scope :with_statistics_announcements, lambda {
     joins(:statistics_announcement_organisations)
       .group("statistics_announcement_organisations.organisation_id")
   }

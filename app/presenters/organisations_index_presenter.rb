@@ -32,7 +32,7 @@ class OrganisationsIndexPresenter < Array
 private
 
   def grouped_organisations
-    @grouped_organisations ||= group_by { |org|
+    @grouped_organisations ||= group_by do |org|
       if org.type.agency_or_public_body?
         :agencies_and_government_bodies
       elsif org.type.sub_organisation?
@@ -40,6 +40,6 @@ private
       else
         org.type.key
       end
-    }
+    end
   end
 end

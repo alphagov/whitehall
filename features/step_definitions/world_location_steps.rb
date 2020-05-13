@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 def add_translation_to_world_location(location, translation)
   translation = translation.stringify_keys
   visit admin_world_location_path(location)

@@ -4,7 +4,7 @@ class LinkCheckerApiReport < ApplicationRecord
            -> { order(ordering: :asc) },
            class_name: "LinkCheckerApiReport::Link"
 
-  scope :no_links, -> {
+  scope :no_links, lambda {
     where(
       "
 NOT EXISTS (

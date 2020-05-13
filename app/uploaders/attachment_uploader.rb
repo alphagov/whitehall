@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class AttachmentUploader < WhitehallUploader
   PDF_CONTENT_TYPE = "application/pdf".freeze
   INDEXABLE_TYPES = %w[csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml].freeze
@@ -158,13 +156,13 @@ class AttachmentUploader < WhitehallUploader
 
       def files_with_extensions
         @files_with_extensions ||=
-          zip_file.filenames.map { |f|
+          zip_file.filenames.map do |f|
             if (match = f.match(EXT_MATCHER))
               [f, match[1]]
             else
               [f, nil]
             end
-          }
+          end
       end
 
       def files_by_shape_and_allowed_extension
@@ -173,9 +171,9 @@ class AttachmentUploader < WhitehallUploader
           files_with_extensions
             .reject { |_file, ext| ext.nil? }
             .group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, "") }
-            .transform_values { |files|
+            .transform_values do |files|
               files.group_by { |_file, ext| ext }
-            }
+            end
       end
 
       def has_no_extra_files?

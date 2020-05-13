@@ -121,12 +121,12 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search requires :page and :per_page params to be provided" do
-    assert_raises(ArgumentError) {
+    assert_raises(ArgumentError) do
       subject.advanced_search(page: nil, per_page: "1")
-    }
-    assert_raises(ArgumentError) {
+    end
+    assert_raises(ArgumentError) do
       subject.advanced_search(page: "1", per_page: nil)
-    }
+    end
   end
 
   test "#advanced_search doesn't return duplicate results when announcement has 2 or more announcement dates" do
@@ -137,20 +137,20 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   test "#advanced_search requires all paramaters to be provided as strings" do
     # Due to a bug in Rack::Utils.build_nested_query used by gds-api-adapters to form the request to rummager, non-string values in
     # query hashes are dropped silently. This is here to mimic the actual behavior of the rummager api adapter.
-    assert_raises(ArgumentError) {
+    assert_raises(ArgumentError) do
       subject.advanced_search(some_date: Date.new, page: "1", per_page: "1")
-    }
-    assert_raises(ArgumentError) {
+    end
+    assert_raises(ArgumentError) do
       subject.advanced_search(life_the_universe_and_everything: 42, page: "1", per_page: "1")
-    }
-    assert_raises(ArgumentError) {
+    end
+    assert_raises(ArgumentError) do
       subject.advanced_search(release_timestamp: { from: Time.zone.now }, page: "1", per_page: "1")
-    }
-    assert_nothing_raised {
+    end
+    assert_nothing_raised do
       subject.advanced_search(some_hash: { from: "some date" }, page: "1", per_page: "1")
-    }
-    assert_nothing_raised {
+    end
+    assert_nothing_raised do
       subject.advanced_search(some_array: %w[a-slug], page: "1", per_page: "1")
-    }
+    end
   end
 end

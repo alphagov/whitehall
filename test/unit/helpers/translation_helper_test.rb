@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require "test_helper"
 
 class TranslationHelperTest < ActionView::TestCase

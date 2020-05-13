@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module FilterHelper
   def organisation_options_for_statistics_announcement_filter(selected_slug = nil)
     options_for_select(Organisation.with_statistics_announcements.alphabetical.map { |org| [org.name, org.slug] }.unshift(["All departments", nil]), Array(selected_slug))

@@ -36,9 +36,9 @@ class MinisterSorter
       roles.any?(&:cabinet_member?)
     end
 
-    sorted_ministers = ministers.sort_by { |person, _|
+    sorted_ministers = ministers.sort_by do |person, _|
       person.sort_key
-    }
+    end
 
     sorted_ministers.map do |person, roles|
       [person, roles.sort_by(&:seniority)]
@@ -48,14 +48,14 @@ class MinisterSorter
 private
 
   def expanded_roles_and_people
-    @roles.flat_map { |role|
+    @roles.flat_map do |role|
       role.current_people.map { |person| [role, person] }
-    }
+    end
   end
 
   def roles_by_person
-    expanded_roles_and_people.each_with_object({}) { |(role, person), result|
+    expanded_roles_and_people.each_with_object({}) do |(role, person), result|
       (result[person] ||= []) << role
-    }
+    end
   end
 end

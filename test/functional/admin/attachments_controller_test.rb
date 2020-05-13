@@ -259,9 +259,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "GET :new raises an exception with an unknown parent type" do
-    assert_raise(ActiveRecord::RecordNotFound) {
+    assert_raise(ActiveRecord::RecordNotFound) do
       get :new, params: { edition_id: 123 }
-    }
+    end
   end
 
   view_test "GET :new for a publication includes House of Commons metadata for file attachments" do

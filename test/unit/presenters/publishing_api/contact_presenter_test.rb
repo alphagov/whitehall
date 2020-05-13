@@ -99,7 +99,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     @contact.email = ""
 
     assert @presented.content[:description].nil?
-    assert_not @presented.content[:details][:post_addresses][0].has_key?(:title)
-    assert_not @presented.content[:details].has_key?(:email_addresses)
+    assert_not @presented.content[:details][:post_addresses][0].key?(:title)
+    assert_not @presented.content[:details].key?(:email_addresses)
   end
 end

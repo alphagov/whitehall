@@ -37,9 +37,9 @@ class ImageValidatorTest < ActiveSupport::TestCase
 
   test "it should not throw an exception if a file isn't present" do
     subject = ImageValidator.new
-    assert_nothing_raised {
+    assert_nothing_raised do
       assert_validates_as_valid(subject, nil)
-    }
+    end
   end
 
   test "it allows SVG" do

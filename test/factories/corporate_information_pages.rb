@@ -28,65 +28,65 @@ FactoryBot.define do
 
   factory :about_our_services_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::AboutOurServices.id
-    }
+    end
   end
 
   factory :complaints_procedure_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::ComplaintsProcedure.id
-    }
+    end
   end
 
   factory :our_energy_use_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::OurEnergyUse.id
-    }
+    end
   end
 
   factory :personal_information_charter_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::PersonalInformationCharter.id
-    }
+    end
   end
 
   factory :procurement_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::Procurement.id
-    }
+    end
   end
 
   factory :publication_scheme_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::PublicationScheme.id
-    }
+    end
   end
 
   factory :recruitment_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::Recruitment.id
-    }
+    end
   end
 
   factory :social_media_use_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::SocialMediaUse.id
-    }
+    end
   end
 
   factory :welsh_language_scheme_corporate_information_page,
           parent: :published_corporate_information_page do
-    corporate_information_page_type_id {
+    corporate_information_page_type_id do
       CorporateInformationPageType::WelshLanguageScheme.id
-    }
+    end
   end
 
   factory :published_worldwide_organisation_corporate_information_page, parent: :corporate_information_page, traits: [:published] do

@@ -25,12 +25,12 @@ class Classification < ApplicationRecord
   has_many :classification_relations, inverse_of: :classification
   has_many :related_classifications,
            through: :classification_relations,
-           before_remove: ->(pa, rpa) {
+           before_remove: lambda { |pa, rpa|
              ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
            }
 
   has_many :classification_featurings,
-           -> {
+           lambda {
              where("editions.state = 'published' or classification_featurings.edition_id is null")
                .references(:edition)
                .includes(edition: :translations)

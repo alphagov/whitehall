@@ -11,15 +11,15 @@ FactoryBot.define do
       govuk_closed_status { "no_longer_exists" }
     end
 
-    trait(:with_published_edition) {
+    trait(:with_published_edition) do
       after :create do |organisation, _evaluator|
         FactoryBot.create(:published_publication, lead_organisations: [organisation])
       end
-    }
+    end
 
-    trait(:with_alternative_format_contact_email) {
+    trait(:with_alternative_format_contact_email) do
       sequence(:alternative_format_contact_email) { |n| "organisation-#{n}@example.com" }
-    }
+    end
 
     trait(:with_feature_list) do
       transient do
@@ -74,19 +74,19 @@ FactoryBot.define do
     organisation_type_key { :court }
     organisation_logo_type_id { OrganisationLogoType::NoIdentity.id }
     logo_formatted_name { name }
-    parent_organisations {
+    parent_organisations do
       [Organisation.find_by(slug: "hm-courts-and-tribunals-service") ||
         build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
-    }
+    end
   end
 
   factory :hmcts_tribunal, parent: :organisation do
     organisation_type_key { :tribunal }
     organisation_logo_type_id { OrganisationLogoType::NoIdentity.id }
     logo_formatted_name { name }
-    parent_organisations {
+    parent_organisations do
       [Organisation.find_by(slug: "hm-courts-and-tribunals-service") ||
         build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
-    }
+    end
   end
 end

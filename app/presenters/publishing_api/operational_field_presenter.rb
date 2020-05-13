@@ -11,7 +11,7 @@ module PublishingApi
     delegate :content_id, to: :operational_field
 
     def content
-      {}.tap { |content|
+      {}.tap do |content|
         content.merge!(PayloadBuilder::PolymorphicPath.for(operational_field))
         content.merge!(
           description: operational_field.description,
@@ -24,7 +24,7 @@ module PublishingApi
           title: operational_field.name,
           update_type: update_type,
         )
-      }
+      end
     end
 
   private

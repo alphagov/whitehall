@@ -14,8 +14,8 @@ module ServiceListeners
     def publish
       do_publish(edition.minor_change? ? "minor" : "major")
     end
-    alias :force_publish :publish
-    alias :unwithdraw :publish
+    alias_method :force_publish, :publish
+    alias_method :unwithdraw, :publish
 
     def republish
       update_publishing_api_content
@@ -35,7 +35,7 @@ module ServiceListeners
 
     # We don't care whether this is a translation or the main
     # document, we just send the correct html attachments regardless.
-    alias :update_draft_translation :update_draft
+    alias_method :update_draft_translation, :update_draft
 
     def unpublish(allow_draft: false)
       destination = if edition.unpublishing.redirect?

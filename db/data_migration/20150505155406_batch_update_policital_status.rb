@@ -19,9 +19,9 @@ csv.each do |row|
   end
 
   puts "\tsetting political status to: #{row['political']}"
-  editions.each { |edition|
+  editions.each do |edition|
     edition.update_column(:political, row["political"] == "true")
-  }
+  end
 
   if row["publication-type"]
     new_type = PublicationType.find_by_slug(row["publication-type"].parameterize)
@@ -31,8 +31,8 @@ csv.each do |row|
     end
 
     puts "\tsetting publication type to: #{new_type.singular_name}"
-    editions.each { |edition|
+    editions.each do |edition|
       edition.update_column(:publication_type_id, new_type.id)
-    }
+    end
   end
 end

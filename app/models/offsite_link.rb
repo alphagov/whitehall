@@ -79,15 +79,15 @@ private
   end
 
   def url_is_gov_scot?(host)
-    !!(host =~ /gov\.scot$/)
+    host&.match?(/gov\.scot$/)
   end
 
   def url_is_gov_wales?(host)
-    !!(host =~ /gov\.wales$/)
+    host&.match?(/gov\.wales$/)
   end
 
   def url_is_gov_uk?(host)
-    !!(host =~ /gov\.uk$/)
+    host&.match?(/gov\.uk$/)
   end
 
   def url_is_whitelisted?(host)

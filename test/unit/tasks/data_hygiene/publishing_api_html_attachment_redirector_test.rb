@@ -5,18 +5,18 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
 
   describe DataHygiene::PublishingApiHtmlAttachmentRedirector do
     let!(:document)               { create(:document) }
-    let!(:attachment)             {
+    let!(:attachment)             do
       create(:html_attachment, locale: "en", content_id: SecureRandom.uuid)
-    }
+    end
     let!(:superseded_edition)     { create(:superseded_edition) }
-    let!(:edition)                {
+    let!(:edition)                do
       create(
         :unpublished_edition,
         state: "withdrawn",
         document: document,
         attachments: [attachment],
       )
-    }
+    end
     let!(:redirection)            { "www.example.com/attachment_path" }
     let(:queried_document_id)     {}
 

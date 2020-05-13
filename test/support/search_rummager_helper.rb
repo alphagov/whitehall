@@ -4,9 +4,9 @@ module SearchRummagerHelper
   end
 
   def processed_rummager_documents
-    ActiveSupport::JSON.decode(rummager_response)["results"].map! { |res|
+    ActiveSupport::JSON.decode(rummager_response)["results"].map! do |res|
       RummagerDocumentPresenter.new(res)
-    }
+    end
   end
 
   def search_rummager_service_stub(search_params)

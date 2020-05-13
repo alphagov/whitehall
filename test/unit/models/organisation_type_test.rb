@@ -28,9 +28,9 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "get should throw a KeyError if bad key is given" do
-    assert_raises(KeyError) {
+    assert_raises(KeyError) do
       OrganisationType.get(:non_existant_org_type)
-    }
+    end
   end
 
   test "get should return the same instance when called a second time with the same key" do

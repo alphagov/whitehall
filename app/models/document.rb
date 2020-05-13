@@ -23,7 +23,7 @@ class Document < ApplicationRecord
            inverse_of: :document
 
   has_one  :latest_edition,
-           -> {
+           lambda {
              where(%(
                NOT EXISTS (
                SELECT 1 FROM editions e2

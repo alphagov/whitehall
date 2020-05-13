@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # Export, to stdout, a dump of all data needed to rebuild search indexes.
-#  By default, exports the data for the "government" search index.  If the
+# By default, exports the data for the "government" search index.  If the
 # --detailed flag is supplied on the command line, exports the data for the
 # "detailed" search index.
 #
