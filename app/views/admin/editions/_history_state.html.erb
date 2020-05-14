@@ -1,7 +1,12 @@
 <% if edition.superseded? %>
   <div class="alert alert-danger">
-    <p>This edition has been superseded.</p>
-    <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
+    <% if edition.id == edition.latest_edition.id %>
+      <p>This edition has been marked as superseded, but the edition that supersedes it has been deleted.</p>
+      <p>Fill out the <a href="https://www.gov.uk/support/internal">GDS support form (Zendesk)</a> if you need to create a new edition.</p>
+    <% else %>
+      <p>This edition has been superseded.</p>
+      <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
+    <% end %>
   </div>
 <% elsif edition.pre_publication? && edition.latest_published_edition %>
   <div class="alert alert-info">
