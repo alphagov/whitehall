@@ -3,10 +3,10 @@
 
 Before("@javascript") do
   # to prevent this callback from executing before each scenario
-  $mustache_templates_looked_up ||= false
+  @mustache_templates_looked_up ||= false
 
-  unless $mustache_templates_looked_up
-    $mustache_templates_looked_up = true
+  unless @mustache_templates_looked_up
+    @mustache_templates_looked_up = true
 
     if File.zero?(Rails.root + "app/assets/javascripts/templates.js")
       puts "ERROR: Scenarios tagged @javascript require mustache templates to be compiled first." \
