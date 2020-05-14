@@ -206,43 +206,65 @@ module PublishingApi::CorporateInformationPagePresenterTest
         create(:about_corporate_information_page, organisation: organisation)
 
       @about_our_services_corporate_information_page =
-        create(:about_our_services_corporate_information_page,
-               organisation: organisation)
+        create(
+          :about_our_services_corporate_information_page,
+          organisation: organisation,
+        )
 
       @complaints_procedure_corporate_information_page =
-        create(:complaints_procedure_corporate_information_page,
-               organisation: organisation)
+        create(
+          :complaints_procedure_corporate_information_page,
+          organisation: organisation,
+        )
 
       @our_energy_use_corporate_information_page =
-        create(:our_energy_use_corporate_information_page,
-               organisation: organisation)
+        create(
+          :our_energy_use_corporate_information_page,
+          organisation: organisation,
+        )
 
       @personal_information_charter_corporate_information_page =
-        create(:personal_information_charter_corporate_information_page,
-               organisation: organisation)
+        create(
+          :personal_information_charter_corporate_information_page,
+          organisation: organisation,
+        )
 
       @procurement_corporate_information_page =
-        create(:procurement_corporate_information_page,
-               organisation: organisation)
+        create(
+          :procurement_corporate_information_page,
+          organisation: organisation,
+        )
 
       @publication_scheme_corporate_information_page =
-        create(:publication_scheme_corporate_information_page,
-               organisation: organisation)
+        create(
+          :publication_scheme_corporate_information_page,
+          organisation: organisation,
+        )
 
       @recruitment_corporate_information_page =
-        create(:recruitment_corporate_information_page,
-               organisation: organisation)
+        create(
+          :recruitment_corporate_information_page,
+          organisation: organisation,
+        )
 
       @social_media_use_information_page =
-        create(:social_media_use_corporate_information_page,
-               organisation: organisation)
+        create(
+          :social_media_use_corporate_information_page,
+          organisation: organisation,
+        )
 
       @welsh_language_scheme_corporate_information_page =
-        create(:welsh_language_scheme_corporate_information_page,
-               organisation: organisation)
+        create(
+          :welsh_language_scheme_corporate_information_page,
+          organisation: organisation,
+        )
 
-      create_list(:published_publication, 2, :corporate,
-                  organisations: [organisation])
+      create_list(
+        :published_publication,
+        2,
+        :corporate,
+        organisations: [organisation],
+      )
     end
 
     test "corporate information groups" do
@@ -326,8 +348,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
   class CorporateInformationPageWithMajorChange < TestCase
     setup do
-      self.corporate_information_page = create(:corporate_information_page,
-                                               minor_change: false)
+      self.corporate_information_page = create(
+        :corporate_information_page,
+        minor_change: false,
+      )
       self.update_type = "major"
     end
 
@@ -355,8 +379,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
   class CorporateInformationPageWithMinorChange < TestCase
     setup do
-      self.corporate_information_page = create(:corporate_information_page,
-                                               minor_change: true)
+      self.corporate_information_page = create(
+        :corporate_information_page,
+        minor_change: true,
+      )
     end
 
     test "update type" do
@@ -366,8 +392,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
   class CorporateInformationPageWithoutMinorChange < TestCase
     setup do
-      self.corporate_information_page = create(:corporate_information_page,
-                                               minor_change: false)
+      self.corporate_information_page = create(
+        :corporate_information_page,
+        minor_change: false,
+      )
     end
 
     test "update type" do
@@ -379,8 +407,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     setup do
       self.corporate_information_page = create(:corporate_information_page)
 
-      corporate_information_page.stubs(public_timestamp: Date.new(1999),
-                                       updated_at: Date.new(2012))
+      corporate_information_page.stubs(
+        public_timestamp: Date.new(1999),
+        updated_at: Date.new(2012),
+      )
     end
 
     test "public updated at" do
@@ -397,8 +427,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     setup do
       self.corporate_information_page = create(:corporate_information_page)
 
-      corporate_information_page.stubs(public_timestamp: nil,
-                                       updated_at: Date.new(2012))
+      corporate_information_page.stubs(
+        public_timestamp: nil,
+        updated_at: Date.new(2012),
+      )
     end
 
     test "public updated at" do
@@ -413,8 +445,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
   class CorporateInformationPageWithAttachments < TestCase
     setup do
-      self.corporate_information_page = create(:corporate_information_page,
-                                               attachments: [create(:file_attachment)])
+      self.corporate_information_page = create(
+        :corporate_information_page,
+        attachments: [create(:file_attachment)],
+      )
     end
 
     test "attachment" do

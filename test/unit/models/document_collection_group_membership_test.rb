@@ -23,13 +23,18 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
   end
 
   test "it is given an automatic ordering of the last item" do
-    group = create(:document_collection_group, memberships: [
-      build(:document_collection_group_membership),
-      build(:document_collection_group_membership),
-    ])
+    group = create(
+      :document_collection_group,
+      memberships: [
+        build(:document_collection_group_membership),
+        build(:document_collection_group_membership),
+      ],
+    )
 
-    membership = create(:document_collection_group_membership,
-                        document_collection_group: group)
+    membership = create(
+      :document_collection_group_membership,
+      document_collection_group: group,
+    )
     assert_equal 2, membership.ordering
   end
 
@@ -38,8 +43,10 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
     group = create(:document_collection_group, memberships: [weird_membership])
     weird_membership.update!(ordering: 6)
 
-    membership = create(:document_collection_group_membership,
-                        document_collection_group: group)
+    membership = create(
+      :document_collection_group_membership,
+      document_collection_group: group,
+    )
     assert_equal 7, membership.ordering
   end
 
@@ -48,9 +55,11 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
   end
 
   test "is invalid with both a document and a external link" do
-    assert_not build(:document_collection_group_membership,
-                     document: build(:document),
-                     non_whitehall_link: build(:document_collection_non_whitehall_link)).valid?
+    assert_not build(
+      :document_collection_group_membership,
+      document: build(:document),
+      non_whitehall_link: build(:document_collection_non_whitehall_link),
+    ).valid?
   end
 
   test "is invalid without a document_collection_group" do

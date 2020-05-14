@@ -63,8 +63,13 @@ When(/^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/) do |person_name, m
 end
 
 Given(/^"([^"]*)" is a commons whip "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
-  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago,
-                          role_options: { whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id })
+  create_role_appointment(
+    person_name,
+    ministerial_role,
+    organisation_name,
+    2.years.ago,
+    role_options: { whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id },
+  )
 end
 
 Then(/^I should see that "([^"]*)" is a commons whip "([^"]*)"$/) do |minister_name, role_title|
@@ -87,12 +92,16 @@ end
 
 Given(/^two whips "([^"]*)" and "([^"]*)"$/) do |person_1, person_2|
   whip_organisation_id = Whitehall::WhipOrganisation::WhipsHouseOfCommons.id
-  create(:role_appointment,
-         person: create(:person, forename: person_1),
-         role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false))
-  create(:role_appointment,
-         person: create(:person, forename: person_2),
-         role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false))
+  create(
+    :role_appointment,
+    person: create(:person, forename: person_1),
+    role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false),
+  )
+  create(
+    :role_appointment,
+    person: create(:person, forename: person_2),
+    role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false),
+  )
 end
 
 When(/^I order the (?:cabinet ministers|whips) "([^"]*)", "([^"]*)"$/) do |role_1, role_2|

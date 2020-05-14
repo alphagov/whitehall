@@ -1,5 +1,5 @@
-edition = Edition.find(866063)
-document = Document.find(362647)
+edition = Edition.find(866_063)
+document = Document.find(362_647)
 Whitehall::PublishingApi.republish_document_async(document)
 Whitehall::SearchIndex.add(edition)
 

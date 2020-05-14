@@ -245,8 +245,10 @@ module PublishingApi::ConsultationPresenterTest
         ADDRESS
       )
 
-      self.consultation = create(:open_consultation,
-                                 consultation_participation: participation)
+      self.consultation = create(
+        :open_consultation,
+        consultation_participation: participation,
+      )
     end
 
     test "document type" do
@@ -295,10 +297,12 @@ module PublishingApi::ConsultationPresenterTest
     setup do
       self.consultation = create(:closed_consultation)
 
-      create(:consultation_public_feedback,
-             :with_file_attachment,
-             consultation: consultation,
-             summary: "Public feedback summary")
+      create(
+        :consultation_public_feedback,
+        :with_file_attachment,
+        consultation: consultation,
+        summary: "Public feedback summary",
+      )
     end
 
     test "document type" do
@@ -477,8 +481,10 @@ module PublishingApi::ConsultationPresenterTest
     setup do
       self.consultation = create(:consultation_with_outcome)
 
-      consultation.stubs(public_timestamp: Date.new(1999),
-                         updated_at: Date.new(2012))
+      consultation.stubs(
+        public_timestamp: Date.new(1999),
+        updated_at: Date.new(2012),
+      )
     end
 
     test "public updated at" do
@@ -495,8 +501,10 @@ module PublishingApi::ConsultationPresenterTest
     setup do
       self.consultation = create(:consultation_with_outcome)
 
-      consultation.stubs(public_timestamp: nil,
-                         updated_at: Date.new(2012))
+      consultation.stubs(
+        public_timestamp: nil,
+        updated_at: Date.new(2012),
+      )
     end
 
     test "public updated at" do

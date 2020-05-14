@@ -4,16 +4,17 @@ class LinkCheckerApiReport < ApplicationRecord
            -> { order(ordering: :asc) },
            class_name: "LinkCheckerApiReport::Link"
 
-  scope :no_links, lambda {
-    where(
-      "
+  scope :no_links,
+        lambda {
+          where(
+            "
 NOT EXISTS (
   SELECT 1
   FROM link_checker_api_report_links
   WHERE link_checker_api_report_id = link_checker_api_reports.id
 )",
-    )
-  }
+          )
+        }
 
   def self.create_noop_report(link_reportable)
     create(

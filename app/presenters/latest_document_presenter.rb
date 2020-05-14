@@ -6,8 +6,10 @@ class LatestDocumentPresenter < Whitehall::Decorators::Decorator
   def document_collections
     if has_document_collections?
       links = model.published_document_collections.map do |collection|
-        context.link_to(collection.title,
-                        context.public_document_path(collection))
+        context.link_to(
+          collection.title,
+          context.public_document_path(collection),
+        )
       end
 
       "Part of a collection: #{links.to_sentence}".html_safe

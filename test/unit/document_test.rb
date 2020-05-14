@@ -101,8 +101,10 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#destroy also destroys document collection group memberships" do
     published_edition = create(:published_edition)
-    create(:published_document_collection,
-           groups: [build(:document_collection_group, documents: [published_edition.document])])
+    create(
+      :published_document_collection,
+      groups: [build(:document_collection_group, documents: [published_edition.document])],
+    )
 
     published_edition.document.destroy
     assert_empty DocumentCollectionGroupMembership.where(document_id: published_edition.document.id)

@@ -8,21 +8,25 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
   end
 
   test "#can_be_tagged_to_worldwide_taxonomy? is true for Publication Guidance" do
-    edition = create(:publication,
-                     :draft,
-                     access_limited: false,
-                     publication_type_id: PublicationType::Guidance.id,
-                     organisations: [@lead_org])
+    edition = create(
+      :publication,
+      :draft,
+      access_limited: false,
+      publication_type_id: PublicationType::Guidance.id,
+      organisations: [@lead_org],
+    )
 
     assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
 
   test "#can_be_tagged_to_worldwide_taxonomy? is true for Publication Form" do
-    edition = create(:publication,
-                     :draft,
-                     access_limited: false,
-                     publication_type_id: PublicationType::Form.id,
-                     organisations: [@lead_org])
+    edition = create(
+      :publication,
+      :draft,
+      access_limited: false,
+      publication_type_id: PublicationType::Form.id,
+      organisations: [@lead_org],
+    )
 
     assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
@@ -34,12 +38,14 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     end
 
     other_publication_types.each_with_index do |publication_type, index|
-      edition = create(:publication,
-                       :draft,
-                       title: "Title #{index}",
-                       access_limited: false,
-                       publication_type_id: publication_type.id,
-                       organisations: [@lead_org])
+      edition = create(
+        :publication,
+        :draft,
+        title: "Title #{index}",
+        access_limited: false,
+        publication_type_id: publication_type.id,
+        organisations: [@lead_org],
+      )
 
       assert_not edition.can_be_tagged_to_worldwide_taxonomy?
     end

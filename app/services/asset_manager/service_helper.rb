@@ -18,6 +18,6 @@ private
     id = url[/\/assets\/(.*)/, 1]
     attributes.merge("id" => id, "url" => url)
   rescue GdsApi::HTTPNotFound
-    raise AssetNotFound.new(legacy_url_path)
+    raise AssetNotFound, legacy_url_path
   end
 end

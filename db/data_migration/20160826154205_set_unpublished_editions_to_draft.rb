@@ -7,7 +7,7 @@
 # There isn't a valid transition from submitted back to draft without publishing
 # so this 'seems' like the best approach
 
-edition_ids = [386611, 538971, 539167, 539189, 539205, 580614, 539257, 580652, 320368, 276354, 424191, 231079, 208346, 586588, 231045, 231062, 454878, 438503]
+edition_ids = [386_611, 538_971, 539_167, 539_189, 539_205, 580_614, 539_257, 580_652, 320_368, 276_354, 424_191, 231_079, 208_346, 586_588, 231_045, 231_062, 454_878, 438_503]
 Edition.where(id: edition_ids).each do |edition|
   edition.state = "draft"
   edition.save!

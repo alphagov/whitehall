@@ -228,12 +228,15 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation = create(:worldwide_organisation, content_id: "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046", name: "British Embassy to Hat land", slug: "british-embassy-to-hat-land")
     create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find("about"), worldwide_organisation: worldwide_organisation, organisation: nil, summary: "Providing assistance to uk residents in hat land")
 
-    assert_equal({ "title" => worldwide_organisation.name,
-                   "content_id" => "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046",
-                   "link" => "/world/organisations/british-embassy-to-hat-land",
-                   "indexable_content" => "Providing assistance to uk residents in hat land",
-                   "format" => "worldwide_organisation",
-                   "description" => "Providing assistance to uk residents in hat land" }, worldwide_organisation.search_index)
+    assert_equal(
+      { "title" => worldwide_organisation.name,
+        "content_id" => "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046",
+        "link" => "/world/organisations/british-embassy-to-hat-land",
+        "indexable_content" => "Providing assistance to uk residents in hat land",
+        "format" => "worldwide_organisation",
+        "description" => "Providing assistance to uk residents in hat land" },
+      worldwide_organisation.search_index,
+    )
   end
 
   test "knows if a given office is on its home page" do

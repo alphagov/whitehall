@@ -6,7 +6,7 @@ module Whitehall
       end
 
       def for(option_name, *args)
-        raise ArgumentError.new("Unknown option name #{option_name}") unless valid_option_name?(option_name)
+        raise ArgumentError, "Unknown option name #{option_name}" unless valid_option_name?(option_name)
 
         send(:"options_for_#{option_name}", *args)
       end
@@ -68,7 +68,7 @@ module Whitehall
     protected
 
       def option_name_for_filter_key(filter_key)
-        raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless valid_filter_key?(filter_key)
+        raise UnknownFilterKey, "Unknown filter key #{filter_key}" unless valid_filter_key?(filter_key)
 
         OPTION_NAMES_TO_FILTER_KEYS.key(filter_key)
       end

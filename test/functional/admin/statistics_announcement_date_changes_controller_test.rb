@@ -54,11 +54,13 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
 
   test "POST :create with valid params saves the date change and redirects to the announcement" do
     new_date = Time.zone.local(2013, 5, 11, 9, 30)
-    post :create, params: { statistics_announcement_id: @announcement, statistics_announcement_date_change: {
-      release_date: new_date,
-      confirmed: "1",
-      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-    } }
+    post :create,
+         params: { statistics_announcement_id: @announcement,
+                   statistics_announcement_date_change: {
+                     release_date: new_date,
+                     confirmed: "1",
+                     precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                   } }
 
     @announcement.reload
     assert_redirected_to admin_statistics_announcement_url(@announcement)

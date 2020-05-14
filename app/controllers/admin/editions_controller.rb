@@ -35,7 +35,7 @@ class Admin::EditionsController < Admin::BaseController
     when "export", "confirm_export"
       enforce_permission!(:export, edition_class || Edition)
     else
-      raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
+      raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
   end
 
@@ -180,13 +180,32 @@ private
 
   def permitted_edition_attributes
     [
-      :title, :body, :change_note, :summary, :first_published_at,
-      :publication_type_id, :scheduled_publication, :lock_version,
-      :access_limited, :alternative_format_provider_id, :opening_at,
-      :closing_at, :external, :external_url, :minor_change, :previously_published,
-      :roll_call_introduction, :operational_field_id, :news_article_type_id,
-      :relevant_to_local_government, :role_appointment_id, :speech_type_id,
-      :delivered_on, :location, :person_override, :primary_locale,
+      :title,
+      :body,
+      :change_note,
+      :summary,
+      :first_published_at,
+      :publication_type_id,
+      :scheduled_publication,
+      :lock_version,
+      :access_limited,
+      :alternative_format_provider_id,
+      :opening_at,
+      :closing_at,
+      :external,
+      :external_url,
+      :minor_change,
+      :previously_published,
+      :roll_call_introduction,
+      :operational_field_id,
+      :news_article_type_id,
+      :relevant_to_local_government,
+      :role_appointment_id,
+      :speech_type_id,
+      :delivered_on,
+      :location,
+      :person_override,
+      :primary_locale,
       :related_mainstream_content_url,
       :additional_related_mainstream_content_url,
       :primary_specialist_sector_tag,
@@ -210,18 +229,27 @@ private
       policy_group_ids: [],
       document_collection_group_ids: [],
       images_attributes: [
-        :id, :alt_text, :caption, :_destroy,
-        image_data_attributes: %i[file file_cache]
+        :id,
+        :alt_text,
+        :caption,
+        :_destroy,
+        image_data_attributes: %i[file file_cache],
       ],
       consultation_participation_attributes: [
-        :id, :link_url, :email, :postal_address,
+        :id,
+        :link_url,
+        :email,
+        :postal_address,
         consultation_response_form_attributes: [
-          :id, :title, :_destroy, :attachment_action,
-          consultation_response_form_data_attributes: %i[id file file_cache]
-        ]
+          :id,
+          :title,
+          :_destroy,
+          :attachment_action,
+          consultation_response_form_data_attributes: %i[id file file_cache],
+        ],
       ],
       nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
-      fatality_notice_casualties_attributes: %i[id personal_details _destroy]
+      fatality_notice_casualties_attributes: %i[id personal_details _destroy],
     ]
   end
 

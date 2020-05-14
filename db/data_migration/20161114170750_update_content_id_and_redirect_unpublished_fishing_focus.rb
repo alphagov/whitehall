@@ -1,4 +1,4 @@
-doc = Document.find(199968)
+doc = Document.find(199_968)
 new_content_id = SecureRandom.uuid
 
 doc.content_id = new_content_id

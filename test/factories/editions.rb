@@ -18,21 +18,27 @@ FactoryBot.define do
       end
       after :build do |edition, evaluator|
         if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
-          edition.edition_organisations.build(edition: edition,
-                                              organisation: FactoryBot.build(:organisation),
-                                              lead_ordering: 1,
-                                              lead: true)
+          edition.edition_organisations.build(
+            edition: edition,
+            organisation: FactoryBot.build(:organisation),
+            lead_ordering: 1,
+            lead: true,
+          )
         end
         Array.wrap(evaluator.lead_organisations).each.with_index do |org, idx|
-          edition.edition_organisations.build(edition: edition,
-                                              organisation: org,
-                                              lead_ordering: idx + 1,
-                                              lead: true)
+          edition.edition_organisations.build(
+            edition: edition,
+            organisation: org,
+            lead_ordering: idx + 1,
+            lead: true,
+          )
         end
         Array.wrap(evaluator.supporting_organisations).each do |org|
-          edition.edition_organisations.build(edition: edition,
-                                              organisation: org,
-                                              lead: false)
+          edition.edition_organisations.build(
+            edition: edition,
+            organisation: org,
+            lead: false,
+          )
         end
       end
     end
@@ -40,8 +46,10 @@ FactoryBot.define do
     trait(:with_topics) do
       after :build do |edition, evaluator|
         if evaluator.topics.empty?
-          edition.classification_memberships.build(edition: edition,
-                                                   classification: build(:topic))
+          edition.classification_memberships.build(
+            edition: edition,
+            classification: build(:topic),
+          )
         end
       end
     end
@@ -49,8 +57,10 @@ FactoryBot.define do
     trait(:with_topical_events) do
       after :build do |edition, evaluator|
         if evaluator.topical_events.empty?
-          edition.classification_memberships.build(edition: edition,
-                                                   classification: build(:topical_event))
+          edition.classification_memberships.build(
+            edition: edition,
+            classification: build(:topical_event),
+          )
         end
       end
     end

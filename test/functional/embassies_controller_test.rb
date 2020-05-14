@@ -6,10 +6,12 @@ class EmbassiesControllerTest < ActionController::TestCase
     afghan_org = afghanistan.worldwide_organisations.first
     afghan_org.update_attribute(:name, "The British Embassy Kabul")
     afghan_contact = create(:contact, street_address: "...", country: afghanistan)
-    afghan_org.main_office = create(:worldwide_office,
-                                    contact: afghan_contact,
-                                    worldwide_organisation: afghan_org,
-                                    worldwide_office_type: WorldwideOfficeType::Embassy)
+    afghan_org.main_office = create(
+      :worldwide_office,
+      contact: afghan_contact,
+      worldwide_organisation: afghan_org,
+      worldwide_office_type: WorldwideOfficeType::Embassy,
+    )
 
     afghan_org.offices << create(:worldwide_office, worldwide_organisation: afghan_org, worldwide_office_type: WorldwideOfficeType::Other)
 
@@ -18,10 +20,12 @@ class EmbassiesControllerTest < ActionController::TestCase
     aruban_org = aruba.worldwide_organisations.first
     aruban_contact = create(:contact, street_address: "...", country: netherlands)
     aruban_org.update_attribute(:name, "British Consulate General Amsterdam")
-    aruban_org.main_office = create(:worldwide_office,
-                                    contact: aruban_contact,
-                                    worldwide_organisation: aruban_org,
-                                    worldwide_office_type: WorldwideOfficeType::Embassy)
+    aruban_org.main_office = create(
+      :worldwide_office,
+      contact: aruban_contact,
+      worldwide_organisation: aruban_org,
+      worldwide_office_type: WorldwideOfficeType::Embassy,
+    )
 
     create(:world_location, name: "Sealand")
 

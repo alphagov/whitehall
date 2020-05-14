@@ -54,7 +54,8 @@ module Reports
            AND a.attachable_id = e.id
            AND a.attachment_data_id IS NOT NULL
          )
-         ORDER BY e.created_at DESC", organisation_id
+         ORDER BY e.created_at DESC",
+        organisation_id,
       ])
     end
   end

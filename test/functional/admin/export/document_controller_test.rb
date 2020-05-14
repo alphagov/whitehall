@@ -36,18 +36,21 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     login_as :export_data_user
 
-    get :index, params: { lead_organisation: org.content_id,
-                          type: "news_article" }, format: "json"
+    get :index,
+        params: { lead_organisation: org.content_id,
+                  type: "news_article" },
+        format: "json"
 
     expected_response =
       {
         "documents" => [{
           "document_id" => news_story.document_id,
           "content_id" => news_story.content_id,
-        }, {
-          "document_id" => press_release.document_id,
-          "content_id" => press_release.content_id,
-        }],
+        },
+                        {
+                          "document_id" => press_release.document_id,
+                          "content_id" => press_release.content_id,
+                        }],
         "page_number" => 1,
         "page_count" => 2,
         "_response_info" => { "status" => "ok" },
@@ -77,19 +80,22 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     login_as :export_data_user
 
-    get :index, params: { lead_organisation: org.content_id,
-                          type: "news_article",
-                          subtypes: %w[press_release news_story] }, format: "json"
+    get :index,
+        params: { lead_organisation: org.content_id,
+                  type: "news_article",
+                  subtypes: %w[press_release news_story] },
+        format: "json"
 
     expected_response =
       {
         "documents" => [{
           "document_id" => news_story.document_id,
           "content_id" => news_story.content_id,
-        }, {
-          "document_id" => press_release.document_id,
-          "content_id" => press_release.content_id,
-        }],
+        },
+                        {
+                          "document_id" => press_release.document_id,
+                          "content_id" => press_release.content_id,
+                        }],
         "page_number" => 1,
         "page_count" => 2,
         "_response_info" => { "status" => "ok" },
@@ -108,9 +114,11 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     login_as :export_data_user
 
-    get :index, params: { lead_organisation: org.content_id,
-                          type: "news_article",
-                          subtypes: %w[something_invalid] }, format: "json"
+    get :index,
+        params: { lead_organisation: org.content_id,
+                  type: "news_article",
+                  subtypes: %w[something_invalid] },
+        format: "json"
 
     expected_response =
       {
@@ -145,8 +153,10 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     login_as :export_data_user
 
-    get :index, params: { lead_organisation: published_edition_org.content_id,
-                          type: "news_article" }, format: "json"
+    get :index,
+        params: { lead_organisation: published_edition_org.content_id,
+                  type: "news_article" },
+        format: "json"
 
     expected_response =
       {
@@ -168,13 +178,20 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     )
 
     first_lead_org = edition.organisations.first
-    create(:edition_organisation, edition: edition, organisation: create(:organisation),
-                                  lead: true, lead_ordering: 2)
+    create(
+      :edition_organisation,
+      edition: edition,
+      organisation: create(:organisation),
+      lead: true,
+      lead_ordering: 2,
+    )
 
     login_as :export_data_user
 
-    get :index, params: { lead_organisation: first_lead_org.content_id,
-                          type: "news_article" }, format: "json"
+    get :index,
+        params: { lead_organisation: first_lead_org.content_id,
+                  type: "news_article" },
+        format: "json"
 
     assert_equal edition.document.id, json_response["documents"].first["document_id"]
   end
@@ -192,8 +209,10 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
     login_as :export_data_user
 
-    get :index, params: { lead_organisation: second_lead_org.content_id,
-                          type: "news_article" }, format: "json"
+    get :index,
+        params: { lead_organisation: second_lead_org.content_id,
+                  type: "news_article" },
+        format: "json"
 
     assert_empty json_response["documents"]
   end

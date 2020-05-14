@@ -38,10 +38,15 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         statistics_announcement.statistics_announcement_dates.last.release_date,
       )
 
-      assert_publishing_api_put_content(statistics_announcement.content_id,
-                                        expected)
-      assert_publishing_api_publish(statistics_announcement.content_id,
-                                    { update_type: nil, locale: "en" }, 1)
+      assert_publishing_api_put_content(
+        statistics_announcement.content_id,
+        expected,
+      )
+      assert_publishing_api_publish(
+        statistics_announcement.content_id,
+        { update_type: nil, locale: "en" },
+        1,
+      )
       assert_publishing_api_put_intent(
         statistics_announcement.base_path,
         expected_intent.as_json,
@@ -82,10 +87,15 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         statistics_announcement.statistics_announcement_dates.last.release_date,
       )
 
-      assert_publishing_api_put_content(statistics_announcement.content_id,
-                                        expected)
-      assert_publishing_api_publish(statistics_announcement.content_id,
-                                    { update_type: nil, locale: "en" }, 2)
+      assert_publishing_api_put_content(
+        statistics_announcement.content_id,
+        expected,
+      )
+      assert_publishing_api_publish(
+        statistics_announcement.content_id,
+        { update_type: nil, locale: "en" },
+        2,
+      )
       assert_publishing_api_put_intent(
         statistics_announcement.base_path,
         expected_intent.as_json,
@@ -97,8 +107,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test "it deletes the publish intent when unpublished" do
     Sidekiq::Testing.inline! do
       statistics_announcement = create(:statistics_announcement)
-      statistics_announcement.update!(publishing_state: "unpublished",
-                                      redirect_url: "https://www.test.gov.uk/example")
+      statistics_announcement.update!(
+        publishing_state: "unpublished",
+        redirect_url: "https://www.test.gov.uk/example",
+      )
 
       assert_publishing_api_delete_intent(statistics_announcement.base_path)
     end
@@ -136,8 +148,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test "it is removed from the search index when unpublished" do
     Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.stubs(:delete)
-    statistics_announcement = create(:statistics_announcement,
-                                     redirect_url: "https://www.test.gov.uk/example")
+    statistics_announcement = create(
+      :statistics_announcement,
+      redirect_url: "https://www.test.gov.uk/example",
+    )
 
     Whitehall::SearchIndex.expects(:delete).with(statistics_announcement)
     statistics_announcement.update!(publishing_state: "unpublished")
@@ -166,10 +180,15 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         statistics_announcement.statistics_announcement_dates.last.release_date,
       )
 
-      assert_publishing_api_put_content(statistics_announcement.content_id,
-                                        request_json_includes(expected))
-      assert_publishing_api_publish(statistics_announcement.content_id,
-                                    { update_type: nil, locale: "en" }, 2)
+      assert_publishing_api_put_content(
+        statistics_announcement.content_id,
+        request_json_includes(expected),
+      )
+      assert_publishing_api_publish(
+        statistics_announcement.content_id,
+        { update_type: nil, locale: "en" },
+        2,
+      )
       assert_publishing_api_put_intent(
         statistics_announcement.base_path,
         expected_intent.as_json,

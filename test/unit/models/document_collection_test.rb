@@ -4,11 +4,14 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :title, :summary, :body
 
   test "groups should return related DocumentCollectionGroups ordered by document_collection_group.ordering" do
-    doc_collection = create(:document_collection, groups: groups = [
-      build(:document_collection_group),
-      build(:document_collection_group),
-      build(:document_collection_group),
-    ])
+    doc_collection = create(
+      :document_collection,
+      groups: groups = [
+        build(:document_collection_group),
+        build(:document_collection_group),
+        build(:document_collection_group),
+      ],
+    )
     groups[0].update_attribute(:ordering, 2)
     groups[1].update_attribute(:ordering, 1)
     groups[2].update_attribute(:ordering, 3)
@@ -53,9 +56,12 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   test "#create_draft should clone the document collection and its constituent objects" do
     doc = create(:published_news_article).document
 
-    original = create(:published_document_collection, groups: [
-      build(:document_collection_group, documents: [doc]),
-    ])
+    original = create(
+      :published_document_collection,
+      groups: [
+        build(:document_collection_group, documents: [doc]),
+      ],
+    )
 
     draft = original.create_draft(create(:gds_editor))
     assert_not_equal original.groups, draft.reload.groups
@@ -86,8 +92,11 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test "indexes the body without markup as indexable_content" do
-    collection = create(:document_collection,
-                        title: "A doc collection", body: "This is a *body*")
+    collection = create(
+      :document_collection,
+      title: "A doc collection",
+      body: "This is a *body*",
+    )
     assert_match %r{^This is a body$}, collection.search_index["indexable_content"]
   end
 

@@ -57,7 +57,8 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
       { nation_id: "1", alternative_url: "http://england.org" },
       { nation_id: "2", id: @nation_inapplicability.to_param, alternative_url: "http://scotland.org" },
       { nation_id: "3", alternative_url: "http://wales.org" },
-      nation_id: "4", alternative_url: "http://northern-ireland.org",
+      nation_id: "4",
+      alternative_url: "http://northern-ireland.org",
     )
 
     @edition.nation_inapplicabilities_attributes = nation_inapplicabilities_attributes

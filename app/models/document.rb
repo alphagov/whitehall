@@ -75,9 +75,11 @@ class Document < ApplicationRecord
 
     slug_without_sequence = slug.split(sequence_separator).first
 
-    scope.where("slug IN (?) OR slug LIKE ?",
-                [slug, slug_without_sequence].uniq,
-                slug_without_sequence + sequence_separator + "%").count > 1
+    scope.where(
+      "slug IN (?) OR slug LIKE ?",
+      [slug, slug_without_sequence].uniq,
+      slug_without_sequence + sequence_separator + "%",
+    ).count > 1
   end
 
   def should_generate_new_friendly_id?

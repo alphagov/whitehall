@@ -12,7 +12,7 @@ end
 
 # republish the 'parent' documents (which will republish the attachments
 # correctly)
-parent_document_ids = [337544, 271122, 345564]
+parent_document_ids = [337_544, 271_122, 345_564]
 
 parent_document_ids.each do |document_id|
   PublishingApiDocumentRepublishingWorker.perform_async(document_id)

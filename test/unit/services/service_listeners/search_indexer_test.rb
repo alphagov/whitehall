@@ -18,9 +18,12 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   test "#index! also indexes all collection documents for collections" do
     publication = create(:published_publication)
     consultation = create(:published_consultation)
-    collection = create(:published_document_collection, groups: [
-      create(:document_collection_group, documents: [publication.document, consultation.document]),
-    ])
+    collection = create(
+      :published_document_collection,
+      groups: [
+        create(:document_collection_group, documents: [publication.document, consultation.document]),
+      ],
+    )
 
     expect_indexing(collection, publication, consultation)
 
@@ -37,9 +40,12 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   test "#remove! also indexes all collection documents for collections" do
     publication = create(:published_publication)
     consultation = create(:published_consultation)
-    collection = create(:published_document_collection, groups: [
-      create(:document_collection_group, documents: [publication.document, consultation.document]),
-    ])
+    collection = create(
+      :published_document_collection,
+      groups: [
+        create(:document_collection_group, documents: [publication.document, consultation.document]),
+      ],
+    )
 
     expect_removal_from_index(collection)
     expect_indexing(publication, consultation)

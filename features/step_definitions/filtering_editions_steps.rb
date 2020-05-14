@@ -2,14 +2,18 @@ Given(/^there is a topic with published documents that have links$/) do
   @topic = create(:topic, name: "A Topic")
   @department = create(:ministerial_department, name: "A Department")
 
-  publication_one = create(:published_publication,
-                           title: "Publication #1",
-                           lead_organisations: [@department],
-                           body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
-  publication_two = create(:published_publication,
-                           title: "Publication #2",
-                           lead_organisations: [@department],
-                           body: "[Good](https://www.gov.uk/good-link)\n[A good link](https://www.gov.uk/another-good-link)")
+  publication_one = create(
+    :published_publication,
+    title: "Publication #1",
+    lead_organisations: [@department],
+    body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
+  )
+  publication_two = create(
+    :published_publication,
+    title: "Publication #2",
+    lead_organisations: [@department],
+    body: "[Good](https://www.gov.uk/good-link)\n[A good link](https://www.gov.uk/another-good-link)",
+  )
 
   good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
   another_good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-good-link", status: "ok")

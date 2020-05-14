@@ -289,8 +289,10 @@ module PublishingApi::NewsArticlePresenterTest
     setup do
       self.news_article = create(:published_news_article)
 
-      news_article.stubs(public_timestamp: Date.new(1999),
-                         updated_at: Date.new(2012))
+      news_article.stubs(
+        public_timestamp: Date.new(1999),
+        updated_at: Date.new(2012),
+      )
     end
 
     test "public updated at" do
@@ -307,8 +309,10 @@ module PublishingApi::NewsArticlePresenterTest
     setup do
       self.news_article = create(:published_news_article)
 
-      news_article.stubs(public_timestamp: nil,
-                         updated_at: Date.new(2012))
+      news_article.stubs(
+        public_timestamp: nil,
+        updated_at: Date.new(2012),
+      )
     end
 
     test "public updated at" do

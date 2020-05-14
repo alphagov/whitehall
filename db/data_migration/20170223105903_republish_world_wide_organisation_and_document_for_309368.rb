@@ -6,4 +6,4 @@
 wwo = WorldwideOrganisation.find(373)
 wwo.save if wwo
 
-PublishingApiDocumentRepublishingWorker.new.perform(309368)
+PublishingApiDocumentRepublishingWorker.new.perform(309_368)

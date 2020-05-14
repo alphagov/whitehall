@@ -2,11 +2,11 @@ gone_worker = PublishingApiGoneWorker.new
 url_maker = Whitehall::UrlMaker.new
 
 edition_locales_no_longer_available = {
-  462010 => :ur,
-  469420 => :es,
-  511083 => :sq,
-  522054 => :cy,
-  681937 => :es,
+  462_010 => :ur,
+  469_420 => :es,
+  511_083 => :sq,
+  522_054 => :cy,
+  681_937 => :es,
 }
 
 edition_locales_no_longer_available.each do |edition_id, locale|

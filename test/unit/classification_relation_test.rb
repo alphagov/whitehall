@@ -13,9 +13,11 @@ class ClassificationRelationTest < ActiveSupport::TestCase
 
   test "should be invalid if more than one relation exists from one topic to another" do
     existing_relation = create(:classification_relation)
-    relation = build(:classification_relation,
-                     topic: existing_relation.topic,
-                     related_topic: existing_relation.related_topic)
+    relation = build(
+      :classification_relation,
+      topic: existing_relation.topic,
+      related_topic: existing_relation.related_topic,
+    )
     assert_not relation.valid?
   end
 

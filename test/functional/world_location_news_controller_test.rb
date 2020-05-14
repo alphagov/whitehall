@@ -15,8 +15,16 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       filter_world_locations: @world_location.slug,
       order: "-public_timestamp",
       fields: %w[
-        display_type title link public_timestamp format content_store_document_type
-        description content_id organisations document_collections
+        display_type
+        title
+        link
+        public_timestamp
+        format
+        content_store_document_type
+        description
+        content_id
+        organisations
+        document_collections
       ],
     }
   end
@@ -34,10 +42,12 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   setup do
-    @world_location = create(:world_location,
-                             title: "UK and India",
-                             slug: "india",
-                             mission_statement: "country-mission-statement")
+    @world_location = create(
+      :world_location,
+      title: "UK and India",
+      slug: "india",
+      mission_statement: "country-mission-statement",
+    )
 
     @translated_world_location = create(:world_location, translated_into: [:fr])
     @rummager = stub
@@ -99,8 +109,11 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
         assert_select "feed > title", 1
         assert_select "feed > author, feed > entry > author"
         assert_select "feed > updated", 1
-        assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml",
-                      world_location_news_index_url(format: :atom, world_location_id: @world_location), 1
+        assert_select "feed > link[rel=?][type=?][href=?]",
+                      "self",
+                      "application/atom+xml",
+                      world_location_news_index_url(format: :atom, world_location_id: @world_location),
+                      1
         assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", root_url, 1
       end
     end

@@ -8,9 +8,9 @@ module DataHygiene
 
     def call
       if document
-        raise DataHygiene::EditionNotUnpublished.new unless unpublished_or_withdrawn
+        raise DataHygiene::EditionNotUnpublished unless unpublished_or_withdrawn
       end
-      raise DataHygiene::HTMLAttachmentsNotFound.new unless html_attachments.any?
+      raise DataHygiene::HTMLAttachmentsNotFound unless html_attachments.any?
       return dry_run_results if dry_run
 
       send_redirects_to_publishing_api

@@ -65,10 +65,13 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing consultation with inapplicable nations" do
-    published_consultation = create(:published_consultation, nation_inapplicabilities: [
-      create(:nation_inapplicability, nation_id: Nation.wales.id, alternative_url: "http://wales.gov.uk"),
-      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk"),
-    ])
+    published_consultation = create(
+      :published_consultation,
+      nation_inapplicabilities: [
+        create(:nation_inapplicability, nation_id: Nation.wales.id, alternative_url: "http://wales.gov.uk"),
+        create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk"),
+      ],
+    )
 
     draft_consultation = published_consultation.create_draft(create(:writer))
 
@@ -205,9 +208,13 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the outcome summary and link to the original attachments when creating a new draft" do
     consultation = create(:published_consultation)
-    outcome = create(:consultation_outcome, consultation: consultation, attachments: [
-      attachment = build(:file_attachment, title: "attachment-title"),
-    ])
+    outcome = create(
+      :consultation_outcome,
+      consultation: consultation,
+      attachments: [
+        attachment = build(:file_attachment, title: "attachment-title"),
+      ],
+    )
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
@@ -222,9 +229,14 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the outcome without falling over if the outcome has attachments but no summary" do
     consultation = create(:published_consultation)
-    create(:consultation_outcome, consultation: consultation, summary: "", attachments: [
-      build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
-    ])
+    create(
+      :consultation_outcome,
+      consultation: consultation,
+      summary: "",
+      attachments: [
+        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
+      ],
+    )
 
     assert_nothing_raised do
       new_draft = consultation.create_draft(build(:user))
@@ -234,9 +246,13 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "copies public feedback and its attachments when creating a new draft" do
     consultation = create(:published_consultation)
-    feedback = create(:consultation_public_feedback, consultation: consultation, attachments: [
-      attachment = build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
-    ])
+    feedback = create(
+      :consultation_public_feedback,
+      consultation: consultation,
+      attachments: [
+        attachment = build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
+      ],
+    )
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
@@ -253,9 +269,14 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy public feedback without falling over if the feedback has attachments but no summary" do
     consultation = create(:published_consultation)
-    create(:consultation_public_feedback, consultation: consultation, summary: "", attachments: [
-      build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
-    ])
+    create(
+      :consultation_public_feedback,
+      consultation: consultation,
+      summary: "",
+      attachments: [
+        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
+      ],
+    )
 
     assert_nothing_raised do
       new_draft = consultation.create_draft(build(:user))

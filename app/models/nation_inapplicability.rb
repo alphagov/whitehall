@@ -3,9 +3,10 @@ class NationInapplicability < ApplicationRecord
 
   belongs_to :edition
 
-  scope :for_nation, lambda { |nation|
-    where(nation_id: nation.id)
-  }
+  scope :for_nation,
+        lambda { |nation|
+          where(nation_id: nation.id)
+        }
 
   validates :nation_id, inclusion: { in: Nation.potentially_inapplicable.map(&:id) }
   validates :alternative_url, uri: true, allow_blank: true

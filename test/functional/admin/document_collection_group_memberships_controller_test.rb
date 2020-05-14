@@ -92,10 +92,11 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     @collection.groups << new_group
     assert_difference "new_group.reload.memberships.size", 1 do
       assert_difference "@group.reload.memberships.size", -1 do
-        delete :destroy, params: move_params.merge(
-          memberships: [memberships.first.id],
-          new_group_id: new_group.id,
-        )
+        delete :destroy,
+               params: move_params.merge(
+                 memberships: [memberships.first.id],
+                 new_group_id: new_group.id,
+               )
       end
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)

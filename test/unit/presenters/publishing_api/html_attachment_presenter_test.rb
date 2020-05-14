@@ -12,10 +12,12 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presentation includes the correct values" do
-    edition = create(:publication,
-                     :with_html_attachment,
-                     :published,
-                     show_brexit_no_deal_content_notice: true)
+    edition = create(
+      :publication,
+      :with_html_attachment,
+      :published,
+      show_brexit_no_deal_content_notice: true,
+    )
 
     html_attachment = HtmlAttachment.last
 
@@ -120,14 +122,16 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presents Brexit no-deal content notice data" do
-    create(:publication,
-           :with_html_attachment,
-           :published,
-           show_brexit_no_deal_content_notice: true,
-           brexit_no_deal_content_notice_links: [
-             BrexitNoDealContentNoticeLink.new(title: "Link 1", url: "https://www.example.com/1"),
-             BrexitNoDealContentNoticeLink.new(title: "Link 2", url: "https://www.example.com/2"),
-           ])
+    create(
+      :publication,
+      :with_html_attachment,
+      :published,
+      show_brexit_no_deal_content_notice: true,
+      brexit_no_deal_content_notice_links: [
+        BrexitNoDealContentNoticeLink.new(title: "Link 1", url: "https://www.example.com/1"),
+        BrexitNoDealContentNoticeLink.new(title: "Link 2", url: "https://www.example.com/2"),
+      ],
+    )
 
     expected = [
       { title: "Link 1", href: "https://www.example.com/1" },

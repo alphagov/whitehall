@@ -105,17 +105,22 @@ private
   end
 
   def get_cancelled_announcements_within_preceding_month
-    provider.search(valid_filter_params.merge(page: page,
-                                              per_page: RESULTS_PER_PAGE,
-                                              statistics_announcement_state: "cancelled",
-                                              from_date: 1.month.ago.to_date,
-                                              to_date: Time.zone.now.to_date))
+    provider.search(valid_filter_params.merge(
+                      page: page,
+                      per_page: RESULTS_PER_PAGE,
+                      statistics_announcement_state: "cancelled",
+                      from_date: 1.month.ago.to_date,
+                      to_date: Time.zone.now.to_date,
+                    ))
   end
 
   def prepend_results_to(result_set, prepended_set)
-    CollectionPage.new(prepended_set.concat(result_set), page: 1,
-                                                         per_page: RESULTS_PER_PAGE,
-                                                         total: result_set.total + prepended_set.total)
+    CollectionPage.new(
+      prepended_set.concat(result_set),
+      page: 1,
+      per_page: RESULTS_PER_PAGE,
+      total: result_set.total + prepended_set.total,
+    )
   end
 
   def provider

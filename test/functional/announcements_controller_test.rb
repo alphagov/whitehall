@@ -25,18 +25,19 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "when locale is english it redirects with params for finder-frontend" do
-    get :index, params: {
-      keywords: "one two",
-      taxons: %w[one],
-      subtaxons: %w[two],
-      people: %w[one two],
-      roles: %w[minister-for-magic court-bard],
-      departments: %w[one two],
-      world_locations: %w[one two],
-      from_date: "01/01/2014",
-      to_date: "01/01/2014",
-      topical_events: %w[one two],
-    }
+    get :index,
+        params: {
+          keywords: "one two",
+          taxons: %w[one],
+          subtaxons: %w[two],
+          people: %w[one two],
+          roles: %w[minister-for-magic court-bard],
+          departments: %w[one two],
+          world_locations: %w[one two],
+          from_date: "01/01/2014",
+          to_date: "01/01/2014",
+          topical_events: %w[one two],
+        }
 
     redirect_params_query = {
       keywords: "one two",
@@ -54,19 +55,21 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "when locale is english it redirects and atom feed with params for finder-frontend" do
-    get :index, params: {
-      keywords: "one two",
-      taxons: %w[one],
-      subtaxons: %w[two],
-      people: %w[one two],
-      departments: {
-        "0" => "one",
-        "1" => "two",
-      },
-      world_locations: %w[one two],
-      from_date: "01/01/2014",
-      to_date: "01/01/2014",
-    }, format: :atom
+    get :index,
+        params: {
+          keywords: "one two",
+          taxons: %w[one],
+          subtaxons: %w[two],
+          people: %w[one two],
+          departments: {
+            "0" => "one",
+            "1" => "two",
+          },
+          world_locations: %w[one two],
+          from_date: "01/01/2014",
+          to_date: "01/01/2014",
+        },
+        format: :atom
 
     redirect_params_query = {
       keywords: "one two",
@@ -198,7 +201,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
       "news_article_#{news.second.id}",
       "news_article_#{news.first.id}",
       "speech_#{speeches.second.id}",
-    ], actual_document_ids
+    ],
+                 actual_document_ids
 
     refute_select(speeches.first)
   end
@@ -217,7 +221,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_equal [
       "speech_#{speeches.second.id}",
       "speech_#{speeches.first.id}",
-    ], actual_document_ids
+    ],
+                 actual_document_ids
 
     (news + speeches[0..0]).each do |speech|
       refute_select(speech)
@@ -247,8 +252,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select "feed > title", 1
       assert_select "feed > author, feed > entry > author"
       assert_select "feed > updated", 1
-      assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml",
-                    announcements_url(format: :atom, departments: [org.to_param]), 1
+      assert_select "feed > link[rel=?][type=?][href=?]",
+                    "self",
+                    "application/atom+xml",
+                    announcements_url(format: :atom, departments: [org.to_param]),
+                    1
       assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", root_url, 1
     end
   end

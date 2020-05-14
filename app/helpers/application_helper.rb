@@ -58,15 +58,18 @@ module ApplicationHelper
   def publication_type_options
     [
       ["", [""]],
-      ["Common types", PublicationType.primary.map do |publication_type|
-        [publication_type.singular_name, publication_type.id]
-      end],
-      ["Less common types", PublicationType.less_common.map do |publication_type|
-        [publication_type.singular_name, publication_type.id]
-      end],
-      ["Use discouraged", PublicationType.use_discouraged.map do |publication_type|
-        [publication_type.singular_name, publication_type.id]
-      end],
+      ["Common types",
+       PublicationType.primary.map do |publication_type|
+         [publication_type.singular_name, publication_type.id]
+       end],
+      ["Less common types",
+       PublicationType.less_common.map do |publication_type|
+         [publication_type.singular_name, publication_type.id]
+       end],
+      ["Use discouraged",
+       PublicationType.use_discouraged.map do |publication_type|
+         [publication_type.singular_name, publication_type.id]
+       end],
     ]
   end
 
@@ -82,18 +85,20 @@ module ApplicationHelper
   def news_article_type_options
     [
       ["", [""]],
-      ["Common types", NewsArticleType.all.map do |type|
-        [type.singular_name, type.id]
-      end],
+      ["Common types",
+       NewsArticleType.all.map do |type|
+         [type.singular_name, type.id]
+       end],
     ]
   end
 
   def speech_type_options
     [
       ["", [""]],
-      ["Common types", SpeechType.primary.map do |type|
-        [type.singular_name, type.id]
-      end],
+      ["Common types",
+       SpeechType.primary.map do |type|
+         [type.singular_name, type.id]
+       end],
     ]
   end
 
@@ -158,17 +163,23 @@ module ApplicationHelper
   def absolute_time(time, options = {})
     return unless time
 
-    content_tag(:time, l(time, format: :long_ordinal),
-                class: [options[:class], "datetime"].compact.join(" "),
-                datetime: time.iso8601)
+    content_tag(
+      :time,
+      l(time, format: :long_ordinal),
+      class: [options[:class], "datetime"].compact.join(" "),
+      datetime: time.iso8601,
+    )
   end
 
   def absolute_date(time, options = {})
     return unless time
 
-    content_tag(:time, l(time.to_date, format: :long_ordinal),
-                class: [options[:class], "date"].compact.join(" "),
-                datetime: time.iso8601)
+    content_tag(
+      :time,
+      l(time.to_date, format: :long_ordinal),
+      class: [options[:class], "date"].compact.join(" "),
+      datetime: time.iso8601,
+    )
   end
 
   def main_navigation_link_to(name, path, html_options = {}, &block)
@@ -257,7 +268,7 @@ module ApplicationHelper
 
   def month_filter_options(start_date, selected_date)
     baseline = (Time.zone.today + 1.month).beginning_of_month
-    number_of_months = ((baseline - start_date) / 43829.1 / 60).round + 1
+    number_of_months = ((baseline - start_date) / 43_829.1 / 60).round + 1
     months = (0...number_of_months).map { |i| baseline - i.months }
     options_for_select(months.map { |m| [m.to_s(:short_ordinal), m.to_s] }, selected_date.to_s)
   end

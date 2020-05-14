@@ -167,11 +167,12 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         edition_attributes = scheduled_publication_attributes(selected_time)
                                .merge(first_published_at: Date.parse("2010-06-18"))
 
-        put :update, params: {
-          id: edition,
-          edition: edition_attributes,
-          scheduled_publication_active: "1",
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: edition_attributes,
+              scheduled_publication_active: "1",
+            }
 
         saved_edition = edition.reload
         assert_equal selected_time, saved_edition.scheduled_publication

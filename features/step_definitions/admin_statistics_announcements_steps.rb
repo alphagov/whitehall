@@ -3,9 +3,13 @@ Given(/^a statistics announcement called "(.*?)" exists$/) do |announcement_titl
 end
 
 Given(/^a draft statistics publication called "(.*?)"$/) do |title|
-  @statistics_publication = create(:publication, :draft, access_limited: false,
-                                                         publication_type_id: PublicationType::OfficialStatistics.id,
-                                                         title: title)
+  @statistics_publication = create(
+    :publication,
+    :draft,
+    access_limited: false,
+    publication_type_id: PublicationType::OfficialStatistics.id,
+    title: title,
+  )
 end
 
 Given(/^there is a statistics announcement by my organisation$/) do
@@ -13,32 +17,44 @@ Given(/^there is a statistics announcement by my organisation$/) do
 end
 
 Given(/^there are statistics announcements by my organisation$/) do
-  @past_announcement   = create(:statistics_announcement,
-                                organisation_ids: [@user.organisation.id],
-                                current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
-                                publication: create(:draft_statistics))
+  @past_announcement = create(
+    :statistics_announcement,
+    organisation_ids: [@user.organisation.id],
+    current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+    publication: create(:draft_statistics),
+  )
 
-  @future_announcement = create(:statistics_announcement,
-                                organisation_ids: [@user.organisation.id],
-                                current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+  @future_announcement = create(
+    :statistics_announcement,
+    organisation_ids: [@user.organisation.id],
+    current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now),
+  )
 end
 
 Given(/^there are statistics announcements by my organisation that are unlinked to a publication$/) do
-  @past_announcement = create(:statistics_announcement,
-                              organisation_ids: [@user.organisation.id],
-                              current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+  @past_announcement = create(
+    :statistics_announcement,
+    organisation_ids: [@user.organisation.id],
+    current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+  )
 
-  @tomorrow_announcement = create(:statistics_announcement,
-                                  organisation_ids: [@user.organisation.id],
-                                  current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now))
+  @tomorrow_announcement = create(
+    :statistics_announcement,
+    organisation_ids: [@user.organisation.id],
+    current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now),
+  )
 
-  @next_week_announcement = create(:statistics_announcement,
-                                   organisation_ids: [@user.organisation.id],
-                                   current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+  @next_week_announcement = create(
+    :statistics_announcement,
+    organisation_ids: [@user.organisation.id],
+    current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now),
+  )
 
-  @next_year_announcement = create(:statistics_announcement,
-                                   organisation_ids: [@user.organisation.id],
-                                   current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now))
+  @next_year_announcement = create(
+    :statistics_announcement,
+    organisation_ids: [@user.organisation.id],
+    current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now),
+  )
 end
 
 When(/^I view the statistics announcements index page$/) do

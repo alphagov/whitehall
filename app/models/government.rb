@@ -67,10 +67,13 @@ private
       next if self == existing_government
 
       if overlaps?(existing_government)
-        errors.add(:base, "overlaps #{existing_government.name}:
+        errors.add(
+          :base,
+          "overlaps #{existing_government.name}:
           Your new government: #{start_date} -> #{end_date || 'present'},
           overlapping government: #{existing_government.start_date} -> #{existing_government.end_date || 'present'}
-        ")
+        ",
+        )
       end
     end
   end

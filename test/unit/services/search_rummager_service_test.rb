@@ -68,8 +68,16 @@ class SearchRummagerServiceTest < ActiveSupport::TestCase
     {
       order: "-public_timestamp",
       count: 1000,
-      fields: %w[display_type title link public_timestamp format content_store_document_type
-                 description content_id organisations document_collections],
+      fields: %w[display_type
+                 title
+                 link
+                 public_timestamp
+                 format
+                 content_store_document_type
+                 description
+                 content_id
+                 organisations
+                 document_collections],
     }
   end
 end

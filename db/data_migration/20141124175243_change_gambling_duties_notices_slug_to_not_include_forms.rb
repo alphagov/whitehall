@@ -6,9 +6,11 @@ collection = Document.where(slug: "gambling-duty-forms-and-notices", document_ty
 collection.slug = "gambling-duty-notices"
 collection.save!
 
-router.add_redirect_route("/government/collections/gambling-duty-forms-and-notices",
-                          "exact",
-                          "/government/collections/gambling-duty-notices")
+router.add_redirect_route(
+  "/government/collections/gambling-duty-forms-and-notices",
+  "exact",
+  "/government/collections/gambling-duty-notices",
+)
 router.commit_routes
 
 Whitehall::SearchIndex.for(:government).delete("/government/collections/gambling-duty-forms-and-notices")

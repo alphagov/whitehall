@@ -22,9 +22,11 @@ if (org = Organisation.find_by(slug: old_slug))
   org.update_in_search_index
 
   puts "Creating redirect for old org URL in router"
-  router.add_redirect_route("/government/organisations/#{old_slug}",
-                            "exact",
-                            "/government/organisations/#{new_slug}")
+  router.add_redirect_route(
+    "/government/organisations/#{old_slug}",
+    "exact",
+    "/government/organisations/#{new_slug}",
+  )
 
   puts "Re-registering #{new_slug} published editions in search"
   org.editions.published.each(&:update_in_search_index)

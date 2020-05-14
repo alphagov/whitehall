@@ -99,13 +99,16 @@ class GovspeakHelperTest < ActionView::TestCase
         header: Govspeak::Header.new("Heading 2b", 2, "heading-2b"),
         children: [],
       },
-    ], headers
+    ],
+                 headers
   end
 
   test "#html_attachment_govspeak_headers add number markup for manually numbered HTML attachments" do
-    attachment = build(:html_attachment,
-                       body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
-                       manually_numbered_headings: true)
+    attachment = build(
+      :html_attachment,
+      body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
+      manually_numbered_headings: true,
+    )
     expected_headings = [Govspeak::Header.new("<span class=\"heading-number\">1.</span> First", 2, "first"),
                          Govspeak::Header.new("<span class=\"heading-number\">2.</span> Second", 2, "second")]
 
@@ -254,10 +257,15 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should convert multiple block attachments" do
     text = "#heading\n\n!@1\n\n!@2"
-    document = build(:published_detailed_guide, :with_file_attachment, body: text, attachments: [
-      attachment_1 = build(:file_attachment, id: 1),
-      attachment_2 = build(:file_attachment, id: 2),
-    ])
+    document = build(
+      :published_detailed_guide,
+      :with_file_attachment,
+      body: text,
+      attachments: [
+        attachment_1 = build(:file_attachment, id: 1),
+        attachment_2 = build(:file_attachment, id: 2),
+      ],
+    )
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
@@ -265,10 +273,15 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should convert multiple inline attachments" do
     text = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
-    document = build(:published_detailed_guide, :with_file_attachment, body: text, attachments: [
-      attachment_1 = build(:file_attachment, id: 1),
-      attachment_2 = build(:file_attachment, id: 2),
-    ])
+    document = build(
+      :published_detailed_guide,
+      :with_file_attachment,
+      body: text,
+      attachments: [
+        attachment_1 = build(:file_attachment, id: 1),
+        attachment_2 = build(:file_attachment, id: 2),
+      ],
+    )
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"

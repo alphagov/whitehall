@@ -12,11 +12,12 @@ module AdminEditionControllerTestHelpers
       test "create should create a new #{edition_type} with summary" do
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            summary: "my summary",
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 summary: "my summary",
+               ),
+             }
 
         created_edition = edition_class.last
         assert_equal "my summary", created_edition.summary
@@ -25,12 +26,13 @@ module AdminEditionControllerTestHelpers
       test "update should save modified news article summary" do
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            summary: "new-summary",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                summary: "new-summary",
+              },
+            }
 
         edition.reload
         assert_equal "new-summary", edition.summary
@@ -65,9 +67,10 @@ module AdminEditionControllerTestHelpers
       test "create should create a new edition" do
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         edition = edition_class.last
         assert_equal attributes[:title], edition.title
@@ -82,9 +85,10 @@ module AdminEditionControllerTestHelpers
           lead_organisation_ids: [organisation.id],
         )
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         edition = edition_class.last
 
@@ -96,9 +100,10 @@ module AdminEditionControllerTestHelpers
         Edition.any_instance.stubs(:should_alert_for?).returns(true)
 
         assert_emails 1 do
-          post :create, params: {
-            edition: controller_attributes_for(edition_type),
-          }
+          post :create,
+               params: {
+                 edition: controller_attributes_for(edition_type),
+               }
         end
       end
 
@@ -106,17 +111,19 @@ module AdminEditionControllerTestHelpers
         Edition.any_instance.stubs(:should_alert_for?).returns(false)
 
         assert_no_emails do
-          post :create, params: {
-            edition: controller_attributes_for(edition_type),
-          }
+          post :create,
+               params: {
+                 edition: controller_attributes_for(edition_type),
+               }
         end
       end
 
       test "create with invalid data should leave the writer in the document editor" do
         attributes = controller_attributes_for(edition_type)
-        post :create, params: {
-          edition: attributes.merge(title: ""),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(title: ""),
+             }
 
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
         assert_template "editions/new"
@@ -124,9 +131,10 @@ module AdminEditionControllerTestHelpers
 
       view_test "create with invalid data should indicate there was an error" do
         attributes = controller_attributes_for(edition_type)
-        post :create, params: {
-          edition: attributes.merge(title: ""),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(title: ""),
+             }
 
         assert_select ".field_with_errors input[name='edition[title]']"
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
@@ -136,9 +144,10 @@ module AdminEditionControllerTestHelpers
       test "removes blank space from titles for new editions" do
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(title: "   my title   "),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(title: "   my title   "),
+             }
 
         edition = edition_class.last
         assert_equal "my title", edition.title
@@ -181,13 +190,14 @@ module AdminEditionControllerTestHelpers
       test "update should save modified edition attributes" do
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "new-title",
-            body: "new-body",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "new-title",
+                body: "new-body",
+              },
+            }
 
         edition.reload
         assert_equal "new-title", edition.title
@@ -199,12 +209,13 @@ module AdminEditionControllerTestHelpers
 
         organisation = create(:organisation)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lead_organisation_ids: [organisation.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation.id],
+              },
+            }
 
         assert_redirected_to edit_admin_edition_tags_path(edition.id)
         assert_equal "The document has been saved", flash[:notice]
@@ -213,13 +224,14 @@ module AdminEditionControllerTestHelpers
       test "update records the user who changed the edition" do
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "new-title",
-            body: "new-body",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "new-title",
+                body: "new-body",
+              },
+            }
 
         assert_equal current_user, edition.edition_authors.reload.last.user
       end
@@ -227,12 +239,13 @@ module AdminEditionControllerTestHelpers
       test "update with invalid data should not save the edition" do
         edition = create(edition_type, title: "A Title")
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "",
+              },
+            }
 
         assert_equal "A Title", edition.reload.title
         assert_template "editions/edit"
@@ -244,12 +257,13 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lock_version: lock_version,
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lock_version: lock_version,
+              },
+            }
 
         assert_template "edit"
         conflicting_edition = edition.reload
@@ -261,13 +275,14 @@ module AdminEditionControllerTestHelpers
       test "removes blank space from titles for updated editions" do
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "   my title    ",
-            previously_published: false,
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "   my title    ",
+                previously_published: false,
+              },
+            }
 
         assert_equal "my title", edition.reload.title
       end
@@ -297,12 +312,13 @@ module AdminEditionControllerTestHelpers
           ),
         )
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "updated title",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "updated title",
+              },
+            }
       end
 
       test "updating a rejected edition sends the draft to the content preview environment" do
@@ -315,30 +331,34 @@ module AdminEditionControllerTestHelpers
           ),
         )
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "updated title",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "updated title",
+              },
+            }
       end
 
       view_test "reports an error if the updater has an error on create" do
-        draft_updater = stub("draft updater",
-                             can_perform?: false,
-                             perform!: false,
-                             failure_reason: "Unable to perform draft update")
+        draft_updater = stub(
+          "draft updater",
+          can_perform?: false,
+          perform!: false,
+          failure_reason: "Unable to perform draft update",
+        )
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
         attributes = controller_attributes_for(edition_type)
 
         assert_difference "Edition.count", 0 do
-          post :create, params: {
-            edition: attributes.merge(
-              summary: "my summary",
-            ),
-          }
+          post :create,
+               params: {
+                 edition: attributes.merge(
+                   summary: "my summary",
+                 ),
+               }
         end
 
         assert_template "editions/new"
@@ -349,19 +369,22 @@ module AdminEditionControllerTestHelpers
       view_test "reports an error if the updater has an error on update" do
         edition = create("draft_#{edition_type}", title: "Original title")
 
-        draft_updater = stub("draft updater",
-                             can_perform?: false,
-                             perform!: false,
-                             failure_reason: "Unable to perform draft update")
+        draft_updater = stub(
+          "draft updater",
+          can_perform?: false,
+          perform!: false,
+          failure_reason: "Unable to perform draft update",
+        )
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "updated title",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "updated title",
+              },
+            }
 
         assert_equal "Original title", edition.reload.title
         assert_template "editions/edit"
@@ -374,14 +397,15 @@ module AdminEditionControllerTestHelpers
       test "update should convert #{edition_type} to draft when speed tagging" do
         edition = create("imported_#{edition_type}")
 
-        put :update, params: {
-          id: edition,
-          speed_save_convert: 1,
-          edition: {
-            title: "new-title",
-            body: "new-body",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              speed_save_convert: 1,
+              edition: {
+                title: "new-title",
+                body: "new-body",
+              },
+            }
 
         edition.reload
         assert_equal "draft", edition.state
@@ -406,13 +430,15 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
-          "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
+          "0" => { alt_text: "some-alt-text",
+                   caption: "longer-caption-for-image",
                    image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         assert_response :redirect
 
@@ -433,15 +459,17 @@ module AdminEditionControllerTestHelpers
 
         ImageData.any_instance.expects(:file=).once
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
       end
 
       view_test "creating an edition with invalid data should still show image fields" do
-        post :create, params: {
-          edition: controller_attributes_for(edition_type, title: ""),
-        }
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type, title: ""),
+             }
 
         assert_select "form#new_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
@@ -458,9 +486,10 @@ module AdminEditionControllerTestHelpers
                    image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         assert_select "form#new_edition" do
           assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
@@ -475,9 +504,10 @@ module AdminEditionControllerTestHelpers
                    image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         assert_select "form#new_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
@@ -494,9 +524,10 @@ module AdminEditionControllerTestHelpers
                    image_data_attributes: attributes_for(:image_data, file: image) },
         }
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         refute_select "p.image"
       end
@@ -512,9 +543,10 @@ module AdminEditionControllerTestHelpers
                    image_data_attributes: attributes_for(:image_data, file: image_file_1) },
         }
 
-        post :create, params: {
-          edition: attributes,
-        }
+        post :create,
+             params: {
+               edition: attributes,
+             }
 
         assert_response :redirect
 
@@ -530,13 +562,14 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         invalid_image = fixture_file_upload("horrible-image.64x96.jpg", "image/jpg")
 
-        post :create, params: {
-          edition: attributes.merge(
-            images_attributes: {
-              "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: invalid_image) },
-            },
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 images_attributes: {
+                   "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: invalid_image) },
+                 },
+               ),
+             }
 
         assert_select ".errors", text: "Images image data file must be 960px wide and 640px tall, but is 64px wide and 96px tall"
       end
@@ -544,8 +577,12 @@ module AdminEditionControllerTestHelpers
       view_test "edit displays edition image fields" do
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         edition = create(edition_type)
-        create(:image, alt_text: "blah", edition: edition,
-                       image_data_attributes: attributes_for(:image_data, file: image))
+        create(
+          :image,
+          alt_text: "blah",
+          edition: edition,
+          image_data_attributes: attributes_for(:image_data, file: image),
+        )
 
         get :edit, params: { id: edition }
 
@@ -564,13 +601,15 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload("minister-of-funk.960x640.jpg")
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition, edition: {
-            images_attributes: {
-              "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: image) },
-            },
-          }
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                images_attributes: {
+                  "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: image) },
+                },
+              },
+            }
 
         edition.reload
         assert_equal 1, edition.images.length
@@ -581,19 +620,20 @@ module AdminEditionControllerTestHelpers
       view_test "updating an edition with image alt text but no file attachment should show a validation error" do
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            images_attributes: {
-              "0" => {
-                alt_text: "alt-text",
-                image_data_attributes: {
-                  file_cache: "",
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                images_attributes: {
+                  "0" => {
+                    alt_text: "alt-text",
+                    image_data_attributes: {
+                      file_cache: "",
+                    },
+                  },
                 },
               },
-            },
-          },
-        }
+            }
 
         assert_select ".errors", text: "Images image data file can't be blank"
 
@@ -603,21 +643,27 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition with an existing image allows image attributes to be changed" do
         edition = create(edition_type)
-        image = create(:image, edition: edition, alt_text: "old-alt-text", caption: "old-caption",
-                               image_data_attributes: attributes_for(:image_data, file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")))
+        image = create(
+          :image,
+          edition: edition,
+          alt_text: "old-alt-text",
+          caption: "old-caption",
+          image_data_attributes: attributes_for(:image_data, file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")),
+        )
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            images_attributes: {
-              "0" => {
-                id: image.id,
-                alt_text: "new-alt-text",
-                caption: "new-caption",
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                images_attributes: {
+                  "0" => {
+                    id: image.id,
+                    alt_text: "new-alt-text",
+                    caption: "new-caption",
+                  },
+                },
               },
-            },
-          },
-        }
+            }
 
         assert_response :redirect
         image = edition.reload.images.first
@@ -649,12 +695,13 @@ module AdminEditionControllerTestHelpers
 
       view_test "updating an edition with invalid data should still allow image to be selected for upload" do
         edition = create(edition_type)
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: "",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "",
+              },
+            }
 
         assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
@@ -708,12 +755,13 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lock_version: lock_version,
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lock_version: lock_version,
+              },
+            }
 
         assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
@@ -748,10 +796,18 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
 
         edition = create(edition_type)
-        image_1 = create(:image, edition: edition, alt_text: "the first image",
-                                 image_data_attributes: attributes_for(:image_data, file: image))
-        image_2 = create(:image, edition: edition, alt_text: "the second image",
-                                 image_data_attributes: attributes_for(:image_data, file: image))
+        image_1 = create(
+          :image,
+          edition: edition,
+          alt_text: "the first image",
+          image_data_attributes: attributes_for(:image_data, file: image),
+        )
+        image_2 = create(
+          :image,
+          edition: edition,
+          alt_text: "the second image",
+          image_data_attributes: attributes_for(:image_data, file: image),
+        )
 
         attributes = {
           images_attributes: {
@@ -790,11 +846,12 @@ module AdminEditionControllerTestHelpers
         second_data_set = create(:statistical_data_set, document: create(:document))
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            statistical_data_set_document_ids: [first_data_set.document.id, second_data_set.document.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 statistical_data_set_document_ids: [first_data_set.document.id, second_data_set.document.id],
+               ),
+             }
 
         edition = edition_class.last
         assert_equal [first_data_set, second_data_set], edition.statistical_data_sets
@@ -822,12 +879,13 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, statistical_data_sets: [first_data_set])
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            statistical_data_set_document_ids: [second_data_set.document.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                statistical_data_set_document_ids: [second_data_set.document.id],
+              },
+            }
 
         edition.reload
         assert_equal [second_data_set], edition.statistical_data_sets
@@ -874,11 +932,12 @@ module AdminEditionControllerTestHelpers
         second_organisation = create(:organisation)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            lead_organisation_ids: [second_organisation.id, first_organisation.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 lead_organisation_ids: [second_organisation.id, first_organisation.id],
+               ),
+             }
 
         edition = edition_class.last
         assert_equal [second_organisation, first_organisation], edition.lead_organisations
@@ -913,12 +972,13 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, organisations: [first_organisation])
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lead_organisation_ids: [second_organisation.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [second_organisation.id],
+              },
+            }
 
         edition.reload
         assert_equal [second_organisation], edition.lead_organisations
@@ -930,12 +990,13 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, organisations: [organisation_1, organisation_2])
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lead_organisation_ids: [organisation_2.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation_2.id],
+              },
+            }
 
         edition.reload
         assert_equal [organisation_2], edition.lead_organisations
@@ -949,13 +1010,14 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type, organisations: [organisation_1, organisation_2])
         edition.organisations << organisation_3
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lead_organisation_ids: [organisation_2.id, organisation_3.id],
-            supporting_organisation_ids: [organisation_1.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation_2.id, organisation_3.id],
+                supporting_organisation_ids: [organisation_1.id],
+              },
+            }
 
         edition.reload
         assert_equal [organisation_2, organisation_3], edition.lead_organisations
@@ -971,11 +1033,12 @@ module AdminEditionControllerTestHelpers
         second_topic = create(:topic)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            topic_ids: [first_topic.id, second_topic.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 topic_ids: [first_topic.id, second_topic.id],
+               ),
+             }
 
         edition = edition_class.last!
         assert_equal [first_topic, second_topic], edition.topics
@@ -987,12 +1050,13 @@ module AdminEditionControllerTestHelpers
 
         edition = create("draft_#{edition_type}", topics: [first_topic])
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            topic_ids: [second_topic.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                topic_ids: [second_topic.id],
+              },
+            }
 
         edition.reload
         assert_equal [second_topic], edition.topics
@@ -1004,13 +1068,14 @@ module AdminEditionControllerTestHelpers
         lock_version = edition.lock_version
         edition.touch
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            lock_version: lock_version,
-            topic_ids: edition.topic_ids,
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lock_version: lock_version,
+                topic_ids: edition.topic_ids,
+              },
+            }
 
         assert_select ".document.conflict" do
           assert_select "h1", "Policy Areas"
@@ -1041,11 +1106,12 @@ module AdminEditionControllerTestHelpers
         second_appointment = create(:role_appointment)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            role_appointment_ids: [first_appointment.id, second_appointment.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 role_appointment_ids: [first_appointment.id, second_appointment.id],
+               ),
+             }
 
         edition = edition_class.last
         assert_equal [first_appointment, second_appointment], edition.role_appointments
@@ -1067,12 +1133,13 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type, role_appointments: [first_appointment])
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            role_appointment_ids: [second_appointment.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                role_appointment_ids: [second_appointment.id],
+              },
+            }
 
         edition.reload
         assert_equal [second_appointment], edition.role_appointments
@@ -1092,12 +1159,13 @@ module AdminEditionControllerTestHelpers
         test "update not allowed for #{state} #{edition_type}" do
           edition = create("#{state}_#{edition_type}")
 
-          put :update, params: {
-            id: edition,
-            edition: {
-              title: "new-title",
-            },
-          }
+          put :update,
+              params: {
+                id: edition,
+                edition: {
+                  title: "new-title",
+                },
+              }
 
           assert_redirected_to send("admin_#{edition_type}_path", edition)
         end
@@ -1131,9 +1199,10 @@ module AdminEditionControllerTestHelpers
 
       test "create should save overridden first_published_at attribute" do
         first_published_at = 3.months.ago
-        post :create, params: {
-          edition: controller_attributes_for(edition_type).merge(first_published_at: 3.months.ago),
-        }
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(first_published_at: 3.months.ago),
+             }
 
         edition = edition_class.last
         assert_equal first_published_at, edition.first_published_at
@@ -1143,12 +1212,13 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         first_published_at = 3.months.ago
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            first_published_at: first_published_at,
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                first_published_at: first_published_at,
+              },
+            }
 
         edition.reload
         assert_equal first_published_at, edition.first_published_at
@@ -1202,12 +1272,13 @@ module AdminEditionControllerTestHelpers
         edition.open_for_editing_as(@current_user)
 
         assert_difference "edition.reload.recent_edition_openings.count", -1 do
-          put :update, params: {
-            id: edition,
-            edition: {
-              summary: "A summary",
-            },
-          }
+          put :update,
+              params: {
+                id: edition,
+                edition: {
+                  summary: "A summary",
+                },
+              }
         end
       end
     end
@@ -1239,12 +1310,13 @@ module AdminEditionControllerTestHelpers
       test "create should allow setting of related mainstream content urls" do
         Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns("/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b")
 
-        post :create, params: {
-          edition: controller_attributes_for(edition_type).merge(
-            related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
-            additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates",
-          ),
-        }
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
+                 additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates",
+               ),
+             }
 
         edition = edition_class.last
         assert_equal "https://www.gov.uk/starting-to-export", edition.related_mainstream_content_url
@@ -1254,18 +1326,21 @@ module AdminEditionControllerTestHelpers
       test "update should allow setting of a related mainstream content url" do
         Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns("/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b")
 
-        edition = create(edition_type,
-                         related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
-                         additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates")
+        edition = create(
+          edition_type,
+          related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
+          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates",
+        )
         Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/fishing-licences", "/set-up-business-uk"]).returns("/fishing-licences" => "bc46370c-2f2b-4db7-bf23-ace64b465eca", "/set-up-business-uk" => "5e5bb54d-e471-4d07-977b-291168569f26")
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            related_mainstream_content_url: "https://www.gov.uk/fishing-licences",
-            additional_related_mainstream_content_url: "https://www.gov.uk/set-up-business-uk",
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                related_mainstream_content_url: "https://www.gov.uk/fishing-licences",
+                additional_related_mainstream_content_url: "https://www.gov.uk/set-up-business-uk",
+              },
+            }
 
         edition.reload
         assert_equal "https://www.gov.uk/fishing-licences", edition.related_mainstream_content_url
@@ -1296,12 +1371,13 @@ module AdminEditionControllerTestHelpers
         organisation = create(:organisation_with_alternative_format_contact_email)
         edition = create(edition_type)
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            alternative_format_provider_id: organisation.id,
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                alternative_format_provider_id: organisation.id,
+              },
+            }
 
         saved_edition = edition.reload
         assert_equal organisation, saved_edition.alternative_format_provider
@@ -1316,13 +1392,14 @@ module AdminEditionControllerTestHelpers
         controller.current_user.organisation = organisation
         controller.current_user.save!
 
-        post :create, params: {
-          edition: controller_attributes_for(edition_type).merge(
-            first_published_at: Date.parse("2010-10-21"),
-            access_limited: "1",
-            lead_organisation_ids: [organisation.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 first_published_at: Date.parse("2010-10-21"),
+                 access_limited: "1",
+                 lead_organisation_ids: [organisation.id],
+               ),
+             }
 
         created_publication = edition_class.last
         assert_not created_publication.nil?
@@ -1345,12 +1422,13 @@ module AdminEditionControllerTestHelpers
         controller.current_user.save!
         publication = create(edition_type, access_limited: false, organisations: [controller.current_user.organisation])
 
-        put :update, params: {
-          id: publication,
-          edition: {
-            access_limited: "1",
-          },
-        }
+        put :update,
+            params: {
+              id: publication,
+              edition: {
+                access_limited: "1",
+              },
+            }
 
         assert publication.reload.access_limited?
       end
@@ -1360,13 +1438,14 @@ module AdminEditionControllerTestHelpers
       edition_class = class_for(edition_type)
 
       test "create should record the relevant_to_local_government flag" do
-        post :create, params: {
-          edition: controller_attributes_for(
-            edition_type,
-            first_published_at: Date.parse("2010-10-21"),
-            relevant_to_local_government: "1",
-          ),
-        }
+        post :create,
+             params: {
+               edition: controller_attributes_for(
+                 edition_type,
+                 first_published_at: Date.parse("2010-10-21"),
+                 relevant_to_local_government: "1",
+               ),
+             }
 
         created_publication = edition_class.last!
         assert created_publication.relevant_to_local_government?
@@ -1386,12 +1465,13 @@ module AdminEditionControllerTestHelpers
       test "update records new value of relevant_to_local_government flag" do
         publication = create(edition_type, relevant_to_local_government: false)
 
-        put :update, params: {
-          id: publication,
-          edition: {
-            relevant_to_local_government: "1",
-          },
-        }
+        put :update,
+            params: {
+              id: publication,
+              edition: {
+                relevant_to_local_government: "1",
+              },
+            }
 
         assert publication.reload.relevant_to_local_government?
       end
@@ -1419,11 +1499,12 @@ module AdminEditionControllerTestHelpers
         second_topical_event = create(:topical_event)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            topical_event_ids: [first_topical_event.id, second_topical_event.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 topical_event_ids: [first_topical_event.id, second_topical_event.id],
+               ),
+             }
 
         edition = edition_class.last!
         assert_equal [first_topical_event, second_topical_event], edition.topical_events
@@ -1451,12 +1532,13 @@ module AdminEditionControllerTestHelpers
 
         edition = create("draft_#{edition_type}", topical_events: [first_topical_event])
 
-        put :update, params: {
-          id: edition,
-          edition: {
-            topical_event_ids: [second_topical_event.id],
-          },
-        }
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                topical_event_ids: [second_topical_event.id],
+              },
+            }
 
         edition.reload
         assert_equal [second_topical_event], edition.topical_events
@@ -1472,8 +1554,10 @@ module AdminEditionControllerTestHelpers
         assert_select "form#new_edition" do
           assert_select "#edition_worldwide_organisation_ids" do |elements|
             assert_equal 1, elements.length
-            assert_data_attributes_for_worldwide_organisations(element: elements.first,
-                                                               track_label: new_edition_path(edition_type))
+            assert_data_attributes_for_worldwide_organisations(
+              element: elements.first,
+              track_label: new_edition_path(edition_type),
+            )
           end
         end
       end
@@ -1501,8 +1585,10 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edit_edition" do
           assert_select "#edition_worldwide_organisation_ids" do |elements|
             assert_equal 1, elements.length
-            assert_data_attributes_for_worldwide_organisations(element: elements.first,
-                                                               track_label: edit_edition_path(edition_type))
+            assert_data_attributes_for_worldwide_organisations(
+              element: elements.first,
+              track_label: edit_edition_path(edition_type),
+            )
           end
         end
       end
@@ -1512,11 +1598,12 @@ module AdminEditionControllerTestHelpers
         second_world_organisation = create(:worldwide_organisation)
         attributes = controller_attributes_for(edition_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            worldwide_organisation_ids: [first_world_organisation.id, second_world_organisation.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 worldwide_organisation_ids: [first_world_organisation.id, second_world_organisation.id],
+               ),
+             }
 
         edition = edition_class.last!
         assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations

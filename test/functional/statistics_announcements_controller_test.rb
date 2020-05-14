@@ -7,13 +7,14 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "when locale is english it redirects with params for finder-frontend" do
-    get :index, params: {
-      keywords: "one two",
-      topics: %w[one],
-      organisations: %w[all one two],
-      from_date: "01/01/2014",
-      to_date: "01/01/2014",
-    }
+    get :index,
+        params: {
+          keywords: "one two",
+          topics: %w[one],
+          organisations: %w[all one two],
+          from_date: "01/01/2014",
+          to_date: "01/01/2014",
+        }
 
     redirect_params_query = {
       content_store_document_type: "upcoming_statistics",

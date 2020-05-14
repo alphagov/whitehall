@@ -9,9 +9,12 @@ class PublicationTest < ActiveSupport::TestCase
   should_allow_external_attachments
 
   test "imported publications are valid when the publication_type is imported-awaiting-type" do
-    publication = build(:publication, state: "imported",
-                                      publication_type: PublicationType.find_by_slug("imported-awaiting-type"),
-                                      first_published_at: 1.year.ago)
+    publication = build(
+      :publication,
+      state: "imported",
+      publication_type: PublicationType.find_by_slug("imported-awaiting-type"),
+      first_published_at: 1.year.ago,
+    )
     assert publication.valid?
   end
 
@@ -42,9 +45,12 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing publication" do
-    published = create(:published_publication, :with_file_attachment,
-                       first_published_at: Date.parse("2010-01-01"),
-                       publication_type_id: PublicationType::ResearchAndAnalysis.id)
+    published = create(
+      :published_publication,
+      :with_file_attachment,
+      first_published_at: Date.parse("2010-01-01"),
+      publication_type_id: PublicationType::ResearchAndAnalysis.id,
+    )
 
     draft = published.create_draft(create(:writer))
 

@@ -231,10 +231,13 @@ class AttachmentUploader < WhitehallUploader
     zip_file = ZipFile.new(new_file.path)
     examiners = [
       ZipFile::UTF8FilenamesExaminer.new(zip_file),
-      ZipFile::AnyValidExaminer.new(zip_file, [
-        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - %w[zip]),
-        ZipFile::ArcGISShapefileExaminer.new(zip_file),
-      ]),
+      ZipFile::AnyValidExaminer.new(
+        zip_file,
+        [
+          ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - %w[zip]),
+          ZipFile::ArcGISShapefileExaminer.new(zip_file),
+        ],
+      ),
     ]
     problem = examiners.detect { |examiner| !examiner.valid? }
     raise CarrierWave::IntegrityError, problem.failure_message if problem

@@ -1,7 +1,11 @@
 Given(/^there is a publicly visible CSV attachment on the site$/) do
-  @publication = create(:published_publication, :with_file_attachment, attachments: [
-    @attachment = build(:csv_attachment),
-  ])
+  @publication = create(
+    :published_publication,
+    :with_file_attachment,
+    attachments: [
+      @attachment = build(:csv_attachment),
+    ],
+  )
 end
 
 When(/^I preview the contents of the attachment$/) do

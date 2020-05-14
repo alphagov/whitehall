@@ -56,10 +56,11 @@ private
 
   def worldwide_organisation_params
     params.require(:worldwide_organisation).permit(
-      :name, :logo_formatted_name,
+      :name,
+      :logo_formatted_name,
       world_location_ids: [],
       sponsoring_organisation_ids: [],
-      default_news_image_attributes: %i[file file_cache]
+      default_news_image_attributes: %i[file file_cache],
     )
   end
 end

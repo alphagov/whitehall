@@ -11,8 +11,12 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     test "#{transition}ing an edition populates its dependencies" do
       contact = create(:contact)
       speech = create(:speech)
-      news_article = create(:submitted_news_article, body: "For more information, get in touch at:
-        [Contact:#{contact.id}] or read our [official statement](/government/admin/speeches/#{speech.id})", major_change_published_at: Time.zone.now)
+      news_article = create(
+        :submitted_news_article,
+        body: "For more information, get in touch at:
+        [Contact:#{contact.id}] or read our [official statement](/government/admin/speeches/#{speech.id})",
+        major_change_published_at: Time.zone.now,
+      )
 
       assert Whitehall.edition_services.send(service_name, news_article).perform!
       assert_equal [contact], news_article.depended_upon_contacts
@@ -95,8 +99,11 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
   def create_article_dependent_on_speech
     dependable_speech = create(:submitted_speech)
-    dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-                                                        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+    dependent_article = create(
+      :published_news_article,
+      major_change_published_at: Time.zone.now,
+      body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})",
+    )
     dependent_article.depended_upon_editions << dependable_speech
 
     [dependable_speech, dependent_article]

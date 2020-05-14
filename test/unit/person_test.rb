@@ -136,10 +136,13 @@ class PersonTest < ActiveSupport::TestCase
   test "has removeable translations" do
     stub_any_publishing_api_call
 
-    person = create(:person, translated_into: {
-      fr: { biography: "french-biography" },
-      es: { biography: "spanish-biography" },
-    })
+    person = create(
+      :person,
+      translated_into: {
+        fr: { biography: "french-biography" },
+        es: { biography: "spanish-biography" },
+      },
+    )
     person.remove_translations_for(:fr)
     assert_not person.translated_locales.include?(:fr)
     assert person.translated_locales.include?(:es)

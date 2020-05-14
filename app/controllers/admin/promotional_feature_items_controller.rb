@@ -54,9 +54,14 @@ private
 
   def promotional_feature_item_params
     params.require(:promotional_feature_item).permit(
-      :summary, :image, :image_alt_text, :title, :title_url, :double_width,
+      :summary,
+      :image,
+      :image_alt_text,
+      :title,
+      :title_url,
+      :double_width,
       :image_cache,
-      links_attributes: %i[url text _destroy id]
+      links_attributes: %i[url text _destroy id],
     )
   end
 end

@@ -42,10 +42,15 @@ module DocumentControllerTestHelpers
 
     def should_display_attachments_for(document_type)
       view_test "show displays file attachments" do
-        edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [
-          attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf")),
-          attachment_2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
-        ])
+        edition = create(
+          "published_#{document_type}",
+          :with_alternative_format_provider,
+          body: "!@1\n\n!@2",
+          attachments: [
+            attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf")),
+            attachment_2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
+          ],
+        )
 
         get :show, params: { id: edition.document }
 
@@ -70,10 +75,15 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show information about accessibility" do
-        edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [
-          attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: true),
-          attachment_2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
-        ])
+        edition = create(
+          "published_#{document_type}",
+          :with_alternative_format_provider,
+          body: "!@1\n\n!@2",
+          attachments: [
+            attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: true),
+            attachment_2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
+          ],
+        )
 
         get :show, params: { id: edition.document }
 
@@ -89,9 +99,14 @@ module DocumentControllerTestHelpers
 
       view_test "show alternative format contact email if given" do
         organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
-        edition = create("published_#{document_type}", body: "!@1", attachments: [
-          attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: false),
-        ], alternative_format_provider: organisation)
+        edition = create(
+          "published_#{document_type}",
+          body: "!@1",
+          attachments: [
+            attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: false),
+          ],
+          alternative_format_provider: organisation,
+        )
 
         get :show, params: { id: edition.document }
 
@@ -104,9 +119,14 @@ module DocumentControllerTestHelpers
 
       view_test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload("greenpaper.pdf", "application/pdf")
-        edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [
-          attachment = build(:file_attachment, file: greenpaper_pdf),
-        ])
+        edition = create(
+          "published_#{document_type}",
+          :with_alternative_format_provider,
+          body: "!@1",
+          attachments: [
+            attachment = build(:file_attachment, file: greenpaper_pdf),
+          ],
+        )
 
         get :show, params: { id: edition.document }
 
@@ -119,9 +139,14 @@ module DocumentControllerTestHelpers
 
       view_test "show displays non-PDF attachment metadata" do
         csv = fixture_file_upload("sample.rtf", "text/rtf")
-        edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [
-          attachment = build(:file_attachment, file: csv),
-        ])
+        edition = create(
+          "published_#{document_type}",
+          :with_alternative_format_provider,
+          body: "!@1",
+          attachments: [
+            attachment = build(:file_attachment, file: csv),
+          ],
+        )
 
         get :show, params: { id: edition.document }
 
@@ -219,10 +244,12 @@ module DocumentControllerTestHelpers
       test "#{document_type} preview should be visible for logged in users" do
         first_edition = create("published_#{document_type}")
         document = first_edition.document
-        draft_edition = create("draft_#{document_type}",
-                               document: document,
-                               body: "Draft information",
-                               access_limited: false)
+        draft_edition = create(
+          "draft_#{document_type}",
+          document: document,
+          body: "Draft information",
+          access_limited: false,
+        )
 
         login_as create(:departmental_editor)
         get :show, params: { id: document.id, preview: draft_edition.id }
@@ -233,10 +260,12 @@ module DocumentControllerTestHelpers
       test "#{document_type} preview should be hidden from public" do
         first_edition = create("published_#{document_type}")
         document = first_edition.document
-        draft_edition = create("draft_#{document_type}",
-                               document: document,
-                               body: "Draft information",
-                               access_limited: false)
+        draft_edition = create(
+          "draft_#{document_type}",
+          document: document,
+          body: "Draft information",
+          access_limited: false,
+        )
 
         get :show, params: { id: document.id, preview: draft_edition.id }
         assert_response 404

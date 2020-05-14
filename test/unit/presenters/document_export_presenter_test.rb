@@ -359,10 +359,12 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
   end
 
   test "includes translations" do
-    edition = create(:news_article,
-                     title: "Hello",
-                     summary: "Are you well?",
-                     body: "I am well, thank you")
+    edition = create(
+      :news_article,
+      title: "Hello",
+      summary: "Are you well?",
+      body: "I am well, thank you",
+    )
 
     english_translation = edition.translations.first
     french_translation = edition.translations
@@ -439,9 +441,11 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes worldwide organisation (singular) details" do
     worldwide_organisation = create(:worldwide_organisation)
-    edition = create(:corporate_information_page,
-                     organisation: nil,
-                     worldwide_organisation: worldwide_organisation)
+    edition = create(
+      :corporate_information_page,
+      organisation: nil,
+      worldwide_organisation: worldwide_organisation,
+    )
 
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = { id: worldwide_organisation.id,
@@ -451,8 +455,10 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes worldwide organisations (plural) details" do
     worldwide_organisation = create(:worldwide_organisation)
-    edition = create(:case_study,
-                     worldwide_organisations: [worldwide_organisation])
+    edition = create(
+      :case_study,
+      worldwide_organisations: [worldwide_organisation],
+    )
 
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = { id: worldwide_organisation.id,

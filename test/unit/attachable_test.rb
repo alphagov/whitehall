@@ -16,10 +16,14 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "new attachments are put to the end of the list" do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:file_attachment, ordering: 1, file: file_fixture("whitepaper.pdf")),
-    ])
+    publication = create(
+      :publication,
+      :with_file_attachment,
+      attachments: [
+        attachment_1 = build(:file_attachment, ordering: 0),
+        attachment_2 = build(:file_attachment, ordering: 1, file: file_fixture("whitepaper.pdf")),
+      ],
+    )
 
     attachment_3 = FileAttachment.new(title: "Title", attachment_data: build(:attachment_data, file: file_fixture("sample.rtf")))
     publication.attachments << attachment_3
@@ -28,10 +32,14 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "creating a new attachable thing with multiple attachments sets the correct ordering" do
-    publication = build(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment),
-      attachment_2 = build(:file_attachment, file: file_fixture("whitepaper.pdf")),
-    ])
+    publication = build(
+      :publication,
+      :with_file_attachment,
+      attachments: [
+        attachment_1 = build(:file_attachment),
+        attachment_2 = build(:file_attachment, file: file_fixture("whitepaper.pdf")),
+      ],
+    )
 
     publication.save!
     assert_equal [attachment_1, attachment_2], publication.attachments
@@ -94,17 +102,21 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "should include attachment details into the #search_index" do
-    attachment = build(:file_attachment,
-                       title: "The title of the attachment",
-                       hoc_paper_number: "1234",
-                       parliamentary_session: "2013-14",
-                       command_paper_number: "Cm. 1234",
-                       unique_reference: "w123",
-                       isbn: "0140620222")
+    attachment = build(
+      :file_attachment,
+      title: "The title of the attachment",
+      hoc_paper_number: "1234",
+      parliamentary_session: "2013-14",
+      command_paper_number: "Cm. 1234",
+      unique_reference: "w123",
+      isbn: "0140620222",
+    )
 
-    edition = create(:publication,
-                     :with_file_attachment,
-                     attachments: [attachment])
+    edition = create(
+      :publication,
+      :with_file_attachment,
+      attachments: [attachment],
+    )
 
     index = edition
               .attachments
@@ -167,8 +179,11 @@ class AttachableTest < ActiveSupport::TestCase
     attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1)
     attachment_3 = build(:html_attachment, title: "Title", body: "Testing")
 
-    publication = create(:publication, :with_file_attachment,
-                         attachments: [attachment_1, attachment_2])
+    publication = create(
+      :publication,
+      :with_file_attachment,
+      attachments: [attachment_1, attachment_2],
+    )
 
     publication.attachments << attachment_3
 
@@ -176,19 +191,26 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "attachment association excludes soft-deleted Attachments" do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment),
-      build(:html_attachment, title: "HTML attachment", deleted: true),
-    ])
+    publication = create(
+      :publication,
+      :with_file_attachment,
+      attachments: [
+        attachment_1 = build(:file_attachment),
+        build(:html_attachment, title: "HTML attachment", deleted: true),
+      ],
+    )
 
     assert_equal [attachment_1], publication.attachments.reload
   end
 
   test "html_attachment association excludes soft-deleted HtmlAttachments" do
-    publication = create(:publication, attachments: [
-      attachment_1 = build(:html_attachment, title: "Test HTML attachment"),
-      build(:html_attachment, title: "Another HTML attachment", deleted: true),
-    ])
+    publication = create(
+      :publication,
+      attachments: [
+        attachment_1 = build(:html_attachment, title: "Test HTML attachment"),
+        build(:html_attachment, title: "Another HTML attachment", deleted: true),
+      ],
+    )
 
     assert_equal [attachment_1], publication.html_attachments.reload
   end
@@ -224,9 +246,11 @@ class AttachableTest < ActiveSupport::TestCase
   test "re-editioned editions deep-clones attachments" do
     file_attachment = build(:file_attachment, attachable: nil, ordering: 0)
     html_attachment = build(:html_attachment, attachable: nil, ordering: 1)
-    publication = create(:published_publication,
-                         :with_alternative_format_provider,
-                         attachments: [file_attachment, html_attachment])
+    publication = create(
+      :published_publication,
+      :with_alternative_format_provider,
+      attachments: [file_attachment, html_attachment],
+    )
 
     draft = publication.create_draft(create(:writer))
 
@@ -248,9 +272,11 @@ class AttachableTest < ActiveSupport::TestCase
   test "re-editioned editions persists invalid attachments" do
     file_attachment = build(:file_attachment, command_paper_number: "invalid")
     file_attachment.save(validate: false)
-    publication = create(:published_publication,
-                         :with_alternative_format_provider,
-                         attachments: [file_attachment])
+    publication = create(
+      :published_publication,
+      :with_alternative_format_provider,
+      attachments: [file_attachment],
+    )
 
     draft = publication.create_draft(create(:writer))
 
@@ -271,10 +297,13 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "#deleted_html_attachments returns associated HTML attachments that have been deleted" do
-    publication = create(:draft_publication, attachments: [
-      attachment_1 = build(:html_attachment, title: "First"),
-      attachment_2 = build(:html_attachment, title: "Second"),
-    ])
+    publication = create(
+      :draft_publication,
+      attachments: [
+        attachment_1 = build(:html_attachment, title: "First"),
+        attachment_2 = build(:html_attachment, title: "Second"),
+      ],
+    )
 
     attachment_1.destroy
     attachment_2.destroy
@@ -283,9 +312,12 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "#deleted_html_attachments doesn't return undeleted attachments" do
-    publication = create(:draft_publication, attachments: [
-      build(:html_attachment, title: "First"),
-    ])
+    publication = create(
+      :draft_publication,
+      attachments: [
+        build(:html_attachment, title: "First"),
+      ],
+    )
 
     assert_empty publication.deleted_html_attachments
   end

@@ -24,9 +24,11 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
   end
 
   test "POST :create with invalid params rerenders the form" do
-    post :create, params: { statistics_announcement_id: @announcement, statistics_announcement: {
-      redirect_url: "https://youtube.com",
-    } }
+    post :create,
+         params: { statistics_announcement_id: @announcement,
+                   statistics_announcement: {
+                     redirect_url: "https://youtube.com",
+                   } }
 
     assert_template :new
   end
@@ -36,9 +38,11 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
 
     stub_publishing_api_destroy_intent(@announcement.base_path)
 
-    post :create, params: { statistics_announcement_id: @announcement, statistics_announcement: {
-      redirect_url: redirect_url,
-    } }
+    post :create,
+         params: { statistics_announcement_id: @announcement,
+                   statistics_announcement: {
+                     redirect_url: redirect_url,
+                   } }
 
     @announcement.reload
     assert_redirected_to admin_statistics_announcements_path

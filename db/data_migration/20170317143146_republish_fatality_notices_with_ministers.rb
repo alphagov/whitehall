@@ -1,7 +1,7 @@
 ids = [
-  42786,
-  54892,
-  309262,
+  42_786,
+  54_892,
+  309_262,
 ]
 Document.where(id: ids).each do |document|
   PublishingApiDocumentRepublishingWorker

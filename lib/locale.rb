@@ -47,7 +47,7 @@ Locale = Struct.new(:code) do
     when Locale
       value
     else
-      raise ArgumentError.new("Could not coerce #{value.inspect} to a Locale")
+      raise ArgumentError, "Could not coerce #{value.inspect} to a Locale"
     end
   end
 

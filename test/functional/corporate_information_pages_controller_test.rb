@@ -50,10 +50,13 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     published_corporate_publication = create(:published_corporate_publication)
     draft_corporate_publication = create(:draft_corporate_publication)
 
-    organisation = create(:organisation, editions: [
-      published_corporate_publication,
-      draft_corporate_publication,
-    ])
+    organisation = create(
+      :organisation,
+      editions: [
+        published_corporate_publication,
+        draft_corporate_publication,
+      ],
+    )
 
     get :index, params: { organisation_id: organisation }
 
@@ -66,11 +69,14 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-03"))
     middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse("2011-01-02"))
 
-    organisation = create(:organisation, editions: [
-      old_published_corporate_publication,
-      new_published_corporate_publication,
-      middle_published_corporate_publication,
-    ])
+    organisation = create(
+      :organisation,
+      editions: [
+        old_published_corporate_publication,
+        new_published_corporate_publication,
+        middle_published_corporate_publication,
+      ],
+    )
 
     get :index, params: { organisation_id: organisation }
 
@@ -78,7 +84,8 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
       new_published_corporate_publication,
       middle_published_corporate_publication,
       old_published_corporate_publication,
-    ], assigns(:corporate_publications)
+    ],
+                 assigns(:corporate_publications)
   end
 
   view_test "should display link to corporate information pages on about-us page" do

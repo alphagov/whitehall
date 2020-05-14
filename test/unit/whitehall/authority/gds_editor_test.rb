@@ -3,8 +3,12 @@ require "ostruct"
 
 class GDSEditorTest < ActiveSupport::TestCase
   def gds_editor(id = 1)
-    OpenStruct.new(id: id, gds_editor?: true, organisation: build(:organisation),
-                   can_force_publish_anything?: false)
+    OpenStruct.new(
+      id: id,
+      gds_editor?: true,
+      organisation: build(:organisation),
+      can_force_publish_anything?: false,
+    )
   end
 
   include AuthorityTestHelper

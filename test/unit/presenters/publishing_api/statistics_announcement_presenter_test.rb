@@ -96,9 +96,11 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
   end
 
   test "a statistics announcement with a date change presents both dates and a notice" do
-    statistics_announcement = create(:statistics_announcement,
-                                     previous_display_date: 7.days.from_now,
-                                     change_note: "Reasons")
+    statistics_announcement = create(
+      :statistics_announcement,
+      previous_display_date: 7.days.from_now,
+      change_note: "Reasons",
+    )
 
     public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
 

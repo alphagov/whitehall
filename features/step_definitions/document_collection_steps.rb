@@ -8,9 +8,11 @@ end
 
 Given(/^a published publication called "(.*?)" in the document collection "(.*?)"$/) do |publication_title, collection_title|
   @publication = create(:published_publication, title: publication_title)
-  @document_collection = create(:published_document_collection,
-                                title: collection_title,
-                                groups: [build(:document_collection_group, documents: [@publication.document])])
+  @document_collection = create(
+    :published_document_collection,
+    title: collection_title,
+    groups: [build(:document_collection_group, documents: [@publication.document])],
+  )
   @group = @document_collection.groups.first
 end
 
@@ -128,8 +130,10 @@ end
 
 Given(/^a published publication called "(.*?)" in a published document collection$/) do |publication_title|
   @publication = create(:published_publication, title: publication_title)
-  @document_collection = create(:published_document_collection,
-                                groups: [build(:document_collection_group, documents: [@publication.document])])
+  @document_collection = create(
+    :published_document_collection,
+    groups: [build(:document_collection_group, documents: [@publication.document])],
+  )
   @group = @document_collection.groups.first
 end
 

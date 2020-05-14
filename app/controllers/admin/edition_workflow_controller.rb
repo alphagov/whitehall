@@ -49,7 +49,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     when "approve_retrospectively"
       enforce_permission!(:approve, @edition)
     else
-      raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
+      raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
   end
 

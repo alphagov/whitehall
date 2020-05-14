@@ -251,18 +251,23 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "search index data for a world location includes name, description, the correct link and format" do
     location = build(:world_location, name: "hat land", title: "hat land and the UK", slug: "hat-land")
 
-    assert_equal({ "title" => "hat land and the UK",
-                   "link" => "/world/hat-land",
-                   "description" => "Services if you're visiting, studying, working or living in hat land. Includes information about trading with and doing business in the UK and hat land.",
-                   "format" => "world_location",
-                   "slug" => "hat-land" }, location.search_index)
+    assert_equal(
+      { "title" => "hat land and the UK",
+        "link" => "/world/hat-land",
+        "description" => "Services if you're visiting, studying, working or living in hat land. Includes information about trading with and doing business in the UK and hat land.",
+        "format" => "world_location",
+        "slug" => "hat-land" },
+      location.search_index,
+    )
   end
 
   test "search index description for a international delegation world location" do
-    international_delegation = build(:international_delegation,
-                                     name: "UK Mission to Somewhere",
-                                     title: "UK Mission to Somewhere",
-                                     slug: "uk-mission-to-somewhere")
+    international_delegation = build(
+      :international_delegation,
+      name: "UK Mission to Somewhere",
+      title: "UK Mission to Somewhere",
+      slug: "uk-mission-to-somewhere",
+    )
 
     assert_equal "Updates, news and events from the UK government in UK Mission to Somewhere.",
                  international_delegation.search_index["description"]

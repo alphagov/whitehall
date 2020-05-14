@@ -11,9 +11,19 @@ module Whitehall::DocumentFilter
       @default = {
         start: position_in_result_list.to_s,
         count: @per_page.to_s,
-        fields: %w[content_store_document_type government_name is_historic
-                   public_timestamp organisations operational_field format
-                   content_id title description display_type link document_collections],
+        fields: %w[content_store_document_type
+                   government_name
+                   is_historic
+                   public_timestamp
+                   organisations
+                   operational_field
+                   format
+                   content_id
+                   title
+                   description
+                   display_type
+                   link
+                   document_collections],
       }
     end
 

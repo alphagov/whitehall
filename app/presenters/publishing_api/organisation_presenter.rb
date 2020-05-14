@@ -215,28 +215,38 @@ module PublishingApi
       sentences = []
 
       if item.corporate_information_pages.published.for_slug("publication-scheme").present?
-        sentences << I18n.t("worldwide_organisation.corporate_information.publication_scheme_html",
-                            link: t_corporate_information_page_link(item, "publication-scheme"))
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.publication_scheme_html",
+          link: t_corporate_information_page_link(item, "publication-scheme"),
+        )
       end
 
       if item.corporate_information_pages.published.for_slug("welsh-language-scheme").present?
-        sentences << I18n.t("worldwide_organisation.corporate_information.welsh_language_scheme_html",
-                            link: t_corporate_information_page_link(item, "welsh-language-scheme"))
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.welsh_language_scheme_html",
+          link: t_corporate_information_page_link(item, "welsh-language-scheme"),
+        )
       end
 
       if item.corporate_information_pages.published.for_slug("personal-information-charter").present?
-        sentences << I18n.t("worldwide_organisation.corporate_information.personal_information_charter_html",
-                            link: t_corporate_information_page_link(item, "personal-information-charter"))
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.personal_information_charter_html",
+          link: t_corporate_information_page_link(item, "personal-information-charter"),
+        )
       end
 
       if item.corporate_information_pages.published.for_slug("social-media-use").present?
-        sentences << I18n.t("worldwide_organisation.corporate_information.social_media_use_html",
-                            link: t_corporate_information_page_link(item, "social-media-use"))
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.social_media_use_html",
+          link: t_corporate_information_page_link(item, "social-media-use"),
+        )
       end
 
       if item.corporate_information_pages.published.for_slug("about-our-services").present?
-        sentences << I18n.t("worldwide_organisation.corporate_information.about_our_services_html",
-                            link: t_corporate_information_page_link(item, "about-our-services"))
+        sentences << I18n.t(
+          "worldwide_organisation.corporate_information.about_our_services_html",
+          link: t_corporate_information_page_link(item, "about-our-services"),
+        )
       end
 
       sentences.join(" ")

@@ -8,7 +8,8 @@ module FilterHelper
       Taxonomy::TopicTaxonomy
         .new
         .ordered_taxons
-        .map { |taxon| [taxon.name, taxon.content_id] }.unshift(["All topics", nil]), Array(content_id)
+        .map { |taxon| [taxon.name, taxon.content_id] }.unshift(["All topics", nil]),
+      Array(content_id),
     )
   end
 

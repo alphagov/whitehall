@@ -1,5 +1,5 @@
 # This is a document that is being linked from /government/collections/major-projects-data.
-d = Document.find(168857)
+d = Document.find(168_857)
 
 # Here's the issue:
 # > d.editions.map(&:state)
@@ -15,7 +15,7 @@ corrupted_edition.save(validate: false)
 PublishingApiDocumentRepublishingWorker.new.perform(d.id)
 
 # This is a document that is being linked from /government/collections/employers-illegal-working-penalties
-d = Document.find(216539)
+d = Document.find(216_539)
 
 # Here's the issue:
 # > d.editions.map(&:state)

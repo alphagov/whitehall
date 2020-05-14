@@ -22,9 +22,10 @@ Whitehall::Application.routes.draw do
     get "#{path_prefix}/*anything" => redirect(target, prefix: "")
   end
 
-  root to: redirect("/admin/"), constraints: lambda { |request|
-    ::Whitehall.admin_host == request.host
-  }
+  root to: redirect("/admin/"),
+       constraints: lambda { |request|
+                      ::Whitehall.admin_host == request.host
+                    }
 
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
@@ -202,9 +203,10 @@ Whitehall::Application.routes.draw do
         resources :document_collections, path: "collections", except: [:index] do
           resources :document_collection_groups, as: :groups, path: "groups" do
             member { get :delete }
-            resource :document_collection_group_membership, as: :members,
-                                                            path: "members",
-                                                            only: [:destroy]
+            resource :document_collection_group_membership,
+                     as: :members,
+                     path: "members",
+                     only: [:destroy]
           end
           post "whitehall-member" => "document_collection_group_memberships#create_whitehall_member", as: :new_whitehall_member
           post "non-whitehall-member" => "document_collection_group_memberships#create_non_whitehall_member", as: :new_non_whitehall_member
@@ -420,11 +422,12 @@ Whitehall::Application.routes.draw do
   get "/courts-tribunals(.:locale)", as: "courts", to: "organisations#index", courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
   get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
 
-  get "/healthcheck", to: GovukHealthcheck.rack_response(
-    GovukHealthcheck::SidekiqRedis,
-    GovukHealthcheck::ActiveRecord,
-    Healthcheck::ScheduledPublishing,
-  )
+  get "/healthcheck",
+      to: GovukHealthcheck.rack_response(
+        GovukHealthcheck::SidekiqRedis,
+        GovukHealthcheck::ActiveRecord,
+        Healthcheck::ScheduledPublishing,
+      )
 
   get "healthcheck/overdue" => "healthcheck#overdue"
 

@@ -29,7 +29,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
 
   def is_internal_url?
     message = "must be a valid GOV.UK URL"
-    if !govuk_url?
+    unless govuk_url?
       errors.add(:url, message)
     end
   rescue URI::InvalidURIError

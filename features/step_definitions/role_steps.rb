@@ -10,10 +10,13 @@ end
 
 Given(/^a person called "([^"]*)" appointed as "([^"]*)" with a biography in "([^"]*)"$/) do |person_name, role_name, language_name|
   locale = Locale.find_by_language_name(language_name)
-  person = create_person(person_name, translated_into: {
-    en: { biography: "english-biography" },
-    locale.code => { biography: "#{locale}-biography" },
-  })
+  person = create_person(
+    person_name,
+    translated_into: {
+      en: { biography: "english-biography" },
+      locale.code => { biography: "#{locale}-biography" },
+    },
+  )
   role = Role.find_by!(name: role_name)
   create(:ambassador_role_appointment, role: role, person: person)
 end

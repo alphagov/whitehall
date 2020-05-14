@@ -54,11 +54,12 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test 'should redirect to edition admin page when "Save Topic Changes" is clicked' do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
-    put :update, params: {
-      edition_id: @edition,
-      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
-      save: "Some Value",
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
+          save: "Some Value",
+        }
 
     assert_redirected_to @controller.admin_edition_path(@edition)
   end
@@ -66,11 +67,12 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test 'should redirect to legacy associations page when "Legacy tags" is clicked' do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
-    put :update, params: {
-      edition_id: @edition,
-      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
-      legacy_tags: "Some Value",
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
+          legacy_tags: "Some Value",
+        }
 
     assert_redirected_to edit_admin_edition_legacy_associations_path(@edition, return: :tags)
   end
@@ -154,14 +156,15 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test "should post invisible taxons to publishing-api" do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
-    put :update, params: {
-      edition_id: @edition,
-      taxonomy_tag_form: {
-        taxons: [child_taxon_content_id],
-        invisible_taxons: "invisible_taxon_1_content_id",
-        previous_version: 1,
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          taxonomy_tag_form: {
+            taxons: [child_taxon_content_id],
+            invisible_taxons: "invisible_taxon_1_content_id",
+            previous_version: 1,
+          },
+        }
 
     assert_publishing_api_patch_links(
       @edition.content_id,
@@ -181,13 +184,14 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     stub_publishing_api_expanded_links_with_taxons(@world_and_topic_edition.content_id, [world_child_taxon])
 
-    put :update, params: {
-      edition_id: @world_and_topic_edition,
-      taxonomy_tag_form: {
-        taxons: [child_taxon_content_id],
-        previous_version: 1,
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @world_and_topic_edition,
+          taxonomy_tag_form: {
+            taxons: [child_taxon_content_id],
+            previous_version: 1,
+          },
+        }
 
     assert_publishing_api_patch_links(
       @world_and_topic_edition.content_id,

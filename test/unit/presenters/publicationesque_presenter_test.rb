@@ -32,11 +32,13 @@ class PublicationesquePresenterTest < PresenterTestCase
     organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type_key: :ministerial_department)
     _operational_field = stub_record(:operational_field, name: "Name")
     collection = stub_record(:document_collection, title: "SeriesTitle", document: stub_record(:document))
-    publication = stub_record(:publication,
-                              document: document,
-                              public_timestamp: Time.zone.now,
-                              attachments: [],
-                              organisations: [organisation])
+    publication = stub_record(
+      :publication,
+      document: document,
+      public_timestamp: Time.zone.now,
+      attachments: [],
+      organisations: [organisation],
+    )
     government = Government.new
     publication.stubs(:government).returns(government)
     publication.stubs(:published_document_collections).returns([collection])

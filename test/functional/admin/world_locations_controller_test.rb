@@ -54,12 +54,14 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   test "updating should be able to create a new featured link" do
     world_location = create(:world_location)
 
-    post :update, params: { id: world_location, world_location: {
-      featured_links_attributes: { "0" => {
-        url: "http://www.gov.uk/mainstream/something",
-        title: "Something on mainstream",
-      } },
-    } }
+    post :update,
+         params: { id: world_location,
+                   world_location: {
+                     featured_links_attributes: { "0" => {
+                       url: "http://www.gov.uk/mainstream/something",
+                       title: "Something on mainstream",
+                     } },
+                   } }
 
     assert world_location = WorldLocation.last
     assert featured_link = world_location.featured_links.last
@@ -71,12 +73,14 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
     featured_link = create(:featured_link, linkable: world_location)
 
-    post :update, params: { id: world_location, world_location: {
-      featured_links_attributes: { "0" => {
-        id: featured_link.id,
-        _destroy: "1",
-      } },
-    } }
+    post :update,
+         params: { id: world_location,
+                   world_location: {
+                     featured_links_attributes: { "0" => {
+                       id: featured_link.id,
+                       _destroy: "1",
+                     } },
+                   } }
 
     assert_not FeaturedLink.exists?(featured_link.id)
   end

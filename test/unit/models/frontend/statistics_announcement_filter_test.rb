@@ -64,12 +64,14 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     topic = build(:taxon_hash)
     redis_cache_has_taxons([topic])
 
-    filter = build_class_instance(keywords: "keyword",
-                                  from_date: "2020-01-01",
-                                  to_date: "2020-02-01",
-                                  organisations: [organisation.slug],
-                                  topics: [topic["content_id"]],
-                                  page: 2)
+    filter = build_class_instance(
+      keywords: "keyword",
+      from_date: "2020-01-01",
+      to_date: "2020-02-01",
+      organisations: [organisation.slug],
+      topics: [topic["content_id"]],
+      page: 2,
+    )
 
     assert_equal(
       {

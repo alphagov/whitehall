@@ -24,9 +24,11 @@ document_publications_urls.each do |old_slug, new_slug|
   if changeling
     puts "Changing document slug #{old_slug} -> #{new_slug}"
     changeling.update_attribute(:slug, new_slug)
-    router.add_redirect_route("/government/publications/#{old_slug}",
-                              "exact",
-                              "/government/publications/#{new_slug}")
+    router.add_redirect_route(
+      "/government/publications/#{old_slug}",
+      "exact",
+      "/government/publications/#{new_slug}",
+    )
   else
     puts "Can't find document with slug of #{old_slug} - skipping"
   end
@@ -37,9 +39,11 @@ document_collections_urls.each do |old_slug, new_slug|
   if changeling
     puts "Changing document slug #{old_slug} -> #{new_slug}"
     changeling.update_attribute(:slug, new_slug)
-    router.add_redirect_route("/government/collections/#{old_slug}",
-                              "exact",
-                              "/government/collections/#{new_slug}")
+    router.add_redirect_route(
+      "/government/collections/#{old_slug}",
+      "exact",
+      "/government/collections/#{new_slug}",
+    )
   else
     puts "Can't find document with slug of #{old_slug} - skipping"
   end

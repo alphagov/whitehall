@@ -1,4 +1,4 @@
-document = Document.find_by(id: 231128)
+document = Document.find_by(id: 231_128)
 if document
-  PublishingApiDocumentRepublishingWorker.perform_async(231128)
+  PublishingApiDocumentRepublishingWorker.perform_async(231_128)
 end

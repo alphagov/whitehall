@@ -10,8 +10,10 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
 
   view_test "should link to content-data when published" do
     published_edition = create(:published_edition)
-    stub_publishing_api_expanded_links_with_taxons(published_edition.content_id,
-                                                   [taxon_with_parents, taxon_with_different_root, taxon_with_same_root])
+    stub_publishing_api_expanded_links_with_taxons(
+      published_edition.content_id,
+      [taxon_with_parents, taxon_with_different_root, taxon_with_same_root],
+    )
 
     redis_cache_has_world_taxons([world_taxon])
     get :show, params: { id: published_edition }

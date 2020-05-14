@@ -20,8 +20,14 @@ class Contact < ApplicationRecord
   after_destroy :republish_organisation_to_publishing_api
 
   include TranslatableModel
-  translates :title, :comments, :recipient, :street_address, :locality,
-             :region, :email, :contact_form_url
+  translates :title,
+             :comments,
+             :recipient,
+             :street_address,
+             :locality,
+             :region,
+             :email,
+             :contact_form_url
 
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists

@@ -44,13 +44,17 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     organisation_1 = create(:ministerial_department, ministerial_ordering: 1)
     organisation_2 = create(:ministerial_department, ministerial_ordering: 0)
 
-    create(:ministerial_role_appointment,
-           person: create(:person),
-           role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_1], seniority: 0))
+    create(
+      :ministerial_role_appointment,
+      person: create(:person),
+      role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_1], seniority: 0),
+    )
 
-    create(:ministerial_role_appointment,
-           person: create(:person),
-           role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_2], seniority: 0))
+    create(
+      :ministerial_role_appointment,
+      person: create(:person),
+      role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_2], seniority: 0),
+    )
 
     get :index
 

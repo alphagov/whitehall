@@ -215,8 +215,10 @@ module Admin::EditionsHelper
   def standard_edition_publishing_controls(form, edition)
     content_tag(:div, class: "publishing-controls well") do
       if edition.change_note_required?
-        concat render(partial: "change_notes",
-                      locals: { form: form, edition: edition })
+        concat render(
+          partial: "change_notes",
+          locals: { form: form, edition: edition },
+        )
       end
 
       concat form.save_or_continue_or_cancel
@@ -292,7 +294,7 @@ module Admin::EditionsHelper
   end
 
   def edition_is_a_novel?(edition)
-    edition.body.split.size > 99999
+    edition.body.split.size > 99_999
   end
 
   def edition_has_links?(edition)

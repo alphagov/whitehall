@@ -3,13 +3,13 @@ namespace :publishing do
     desc "Lists editions scheduled for publication"
     task list: :environment do
       previous = nil
-      puts format("%6s  %-25s  %s", "ID", "Scheduled date", "Title")
+      puts sprintf("%6s  %-25s  %s", "ID", "Scheduled date", "Title")
       now = Time.zone.now
       Edition.scheduled.order("scheduled_publication asc").each do |edition|
         if previous && previous.scheduled_publication < now && edition.scheduled_publication >= now
           puts "----NOW----"
         end
-        puts format("%6s  %-25s  %s", edition.id, edition.scheduled_publication.to_s, edition.title)
+        puts sprintf("%6s  %-25s  %s", edition.id, edition.scheduled_publication.to_s, edition.title)
         previous = edition
       end
     end
@@ -107,9 +107,9 @@ namespace :publishing do
   namespace :overdue do
     desc "List scheduled editions overdue for publication by more than one minute"
     task list: :environment do
-      puts format("%6s  %-25s  %s", "ID", "Scheduled date", "Title")
+      puts sprintf("%6s  %-25s  %s", "ID", "Scheduled date", "Title")
       Edition.due_for_publication(1.minute).each do |edition|
-        puts format("%6s  %-25s  %s", edition.id, edition.scheduled_publication.to_s, edition.title)
+        puts sprintf("%6s  %-25s  %s", edition.id, edition.scheduled_publication.to_s, edition.title)
       end
     end
 

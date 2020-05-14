@@ -42,7 +42,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
   end
 
   def one_hundred_thousand_words
-    " There are ten words contained in this sentence there are" * 10000
+    " There are ten words contained in this sentence there are" * 10_000
   end
 
   test "#show_link_check_report does not execute LinkCheckerApiService#has_links? when the edition is novel length" do

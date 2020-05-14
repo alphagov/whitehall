@@ -1,4 +1,4 @@
-publication  = Publication.find(373322)
+publication  = Publication.find(373_322)
 unpublishing = publication.unpublishing
 redirect_url = "#{Whitehall.public_root}/government/publications/review-of-radiation-dose-issues-from-the-use-of-ct-in-the-uk"
 

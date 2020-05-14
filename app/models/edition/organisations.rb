@@ -137,9 +137,11 @@ private
         end
         __edition_organisations_for_destruction_on_save.delete(existing)
       else
-        eo = edition_organisations.build(lead: for_lead,
-                                         organisation_id: new_organisation_id,
-                                         edition: self)
+        eo = edition_organisations.build(
+          lead: for_lead,
+          organisation_id: new_organisation_id,
+          edition: self,
+        )
         eo.lead_ordering = idx + 1 if for_lead
         __edition_organisations_touched_by_lead_or_supporting_organisations_setters << eo
       end

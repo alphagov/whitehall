@@ -3,11 +3,16 @@ require "ostruct"
 
 class WorldWriterTest < ActiveSupport::TestCase
   def world_writer(world_locations, id = 1, gds_editor = false)
-    OpenStruct.new(id: id, gds_editor?: gds_editor,
-                   departmental_editor?: false, world_editor?: false,
-                   world_writer?: true, organisation: nil,
-                   can_force_publish_anything?: false,
-                   world_locations: world_locations || [])
+    OpenStruct.new(
+      id: id,
+      gds_editor?: gds_editor,
+      departmental_editor?: false,
+      world_editor?: false,
+      world_writer?: true,
+      organisation: nil,
+      can_force_publish_anything?: false,
+      world_locations: world_locations || [],
+    )
   end
 
   include AuthorityTestHelper

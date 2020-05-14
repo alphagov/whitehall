@@ -230,9 +230,11 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Consultation.any_instance.expects(:reorder_attachments).with([c.id.to_s, a.id.to_s, b.id.to_s]).once
 
-    put :order, params: { edition_id: @edition, ordering: { a.id.to_s => "1",
-                                                            b.id.to_s => "2",
-                                                            c.id.to_s => "0" } }
+    put :order,
+        params: { edition_id: @edition,
+                  ordering: { a.id.to_s => "1",
+                              b.id.to_s => "2",
+                              c.id.to_s => "0" } }
 
     assert_response :redirect
   end
@@ -242,9 +244,11 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Consultation.any_instance.expects(:reorder_attachments).with([a.id.to_s, b.id.to_s, c.id.to_s]).once
 
-    put :order, params: { edition_id: @edition, ordering: { a.id.to_s => "9",
-                                                            b.id.to_s => "10",
-                                                            c.id.to_s => "11" } }
+    put :order,
+        params: { edition_id: @edition,
+                  ordering: { a.id.to_s => "9",
+                              b.id.to_s => "10",
+                              c.id.to_s => "11" } }
 
     assert_response :redirect
   end
@@ -320,14 +324,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update for HTML attachment updates the attachment" do
     attachment = create(:html_attachment, attachable: @edition)
 
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment.id,
-      attachment: {
-        title: "New title",
-        govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          attachment: {
+            title: "New title",
+            govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
+          },
+        }
     assert_equal "New title", attachment.reload.title
     assert_equal "New body", attachment.reload.govspeak_content_body
   end
@@ -339,14 +344,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft)
       .with(attachment)
 
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment.id,
-      attachment: {
-        title: "New title",
-        govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          attachment: {
+            title: "New title",
+            govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
+          },
+        }
   end
 
   test "PUT :update for file attachment doesn't update the publishing api" do
@@ -356,24 +362,26 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft)
       .never
 
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment.id,
-      attachment: {
-        title: "New title",
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          attachment: {
+            title: "New title",
+          },
+        }
   end
 
   test "PUT :update should redirect to the document show page if the document is locked" do
     edition = create(:news_article, :with_locked_document)
     attachment = create(:file_attachment, attachable: edition)
 
-    put :update, params: {
-      edition_id: edition.id,
-      id: attachment,
-      attachment: { title: "New title" },
-    }
+    put :update,
+        params: {
+          edition_id: edition.id,
+          id: attachment,
+          attachment: { title: "New title" },
+        }
 
     assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
@@ -384,29 +392,31 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id)
 
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment.id,
-      attachment: {
-        attachment_data_attributes: {
-          file: fixture_file_upload("whitepaper.pdf"),
-        },
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          attachment: {
+            attachment_data_attributes: {
+              file: fixture_file_upload("whitepaper.pdf"),
+            },
+          },
+        }
   end
 
   test "PUT :updates an attachment on the draft edition" do
     attachment = create(:html_attachment, attachable: @edition)
     title = SecureRandom.uuid
 
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment.id,
-      attachment: {
-        title: title,
-        govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          attachment: {
+            title: title,
+            govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
+          },
+        }
 
     assert_not_nil(Attachment.find_by(title: title))
   end
@@ -414,14 +424,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do
     attachment = create(:file_attachment, attachable: @edition)
     attachment_data = attachment.attachment_data
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment,
-      attachment: {
-        title: "New title",
-        attachment_data_attributes: { file_cache: "", to_replace_id: attachment.attachment_data.id },
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment,
+          attachment: {
+            title: "New title",
+            attachment_data_attributes: { file_cache: "", to_replace_id: attachment.attachment_data.id },
+          },
+        }
     assert_equal "New title", attachment.reload.title
     assert_equal attachment_data, attachment.attachment_data
   end
@@ -429,13 +440,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update with a file creates a replacement attachment data whilst leaving the original alone" do
     attachment = create(:file_attachment, attachable: @edition)
     old_data = attachment.attachment_data
-    put :update, params: {
-      edition_id: @edition,
-      id: attachment,
-      attachment: {
-        attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload("whitepaper.pdf") },
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment,
+          attachment: {
+            attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload("whitepaper.pdf") },
+          },
+        }
     attachment.reload
     old_data.reload
 

@@ -19,10 +19,12 @@ module TopicalEventsHelper
 
   def create_recently_published_documents_for_topical_event(event)
     sample_document_types_and_titles.each.with_index do |(type, title), index|
-      create(:"published_#{type}",
-             title: title,
-             first_published_at: index.days.ago,
-             topical_events: [event])
+      create(
+        :"published_#{type}",
+        title: title,
+        first_published_at: index.days.ago,
+        topical_events: [event],
+      )
     end
   end
 

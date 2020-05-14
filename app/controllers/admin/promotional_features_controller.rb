@@ -52,9 +52,14 @@ private
     params.require(:promotional_feature).permit(
       :title,
       promotional_feature_items_attributes: [
-        :summary, :image, :image_alt_text, :title, :title_url, :double_width,
+        :summary,
+        :image,
+        :image_alt_text,
+        :title,
+        :title_url,
+        :double_width,
         :image_cache,
-        links_attributes: %i[url text _destroy]
+        links_attributes: %i[url text _destroy],
       ],
     )
   end

@@ -19,8 +19,12 @@ class TakePartPageTest < ActiveSupport::TestCase
       )
 
       assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
-      assert_publishing_api_publish(@take_part_page.content_id, { update_type: nil,
-                                                                  locale: "en" }, 1)
+      assert_publishing_api_publish(
+        @take_part_page.content_id,
+        { update_type: nil,
+          locale: "en" },
+        1,
+      )
     end
   end
 
@@ -58,8 +62,12 @@ class TakePartPageTest < ActiveSupport::TestCase
       )
 
       assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
-      assert_publishing_api_publish(@take_part_page.content_id, { update_type: nil,
-                                                                  locale: "en" }, 2)
+      assert_publishing_api_publish(
+        @take_part_page.content_id,
+        { update_type: nil,
+          locale: "en" },
+        2,
+      )
     end
   end
 end

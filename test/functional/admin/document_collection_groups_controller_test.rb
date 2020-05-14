@@ -126,46 +126,48 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
   test "POST #update_memberships saves the order of group members" do
     given_two_groups_with_memberships
-    post :update_memberships, params: {
-      document_collection_id: @collection.id,
-      groups: {
-        0 => {
-          id: @group_1.id,
-          membership_ids: [
-            @member_1_2.id,
-            @member_1_1.id,
-          ],
-          order: 0,
-        },
-      },
-    }
+    post :update_memberships,
+         params: {
+           document_collection_id: @collection.id,
+           groups: {
+             0 => {
+               id: @group_1.id,
+               membership_ids: [
+                 @member_1_2.id,
+                 @member_1_1.id,
+               ],
+               order: 0,
+             },
+           },
+         }
 
     assert_equal [@member_1_2, @member_1_1], @group_1.reload.memberships
   end
 
   test "POST #update_memberships saves the order of groups" do
     given_two_groups_with_memberships
-    post :update_memberships, params: {
-      document_collection_id: @collection.id,
-      groups: {
-        0 => {
-          id: @group_1.id,
-          membership_ids: [
-            @member_1_1.id,
-            @member_1_2.id,
-          ],
-          order: 1,
-        },
-        1 => {
-          id: @group_2.id,
-          membership_ids: [
-            @member_2_1.id,
-            @member_2_2.id,
-          ],
-          order: 0,
-        },
-      },
-    }
+    post :update_memberships,
+         params: {
+           document_collection_id: @collection.id,
+           groups: {
+             0 => {
+               id: @group_1.id,
+               membership_ids: [
+                 @member_1_1.id,
+                 @member_1_2.id,
+               ],
+               order: 1,
+             },
+             1 => {
+               id: @group_2.id,
+               membership_ids: [
+                 @member_2_1.id,
+                 @member_2_2.id,
+               ],
+               order: 0,
+             },
+           },
+         }
 
     assert_response :success
     assert_equal [@group_2.id, @group_1.id], @collection.reload.groups.pluck(:id)
@@ -173,46 +175,48 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
   test "POST #update_memberships should cope with duplicate members in group" do
     given_two_groups_with_memberships
-    post :update_memberships, params: {
-      document_collection_id: @collection.id,
-      groups: {
-        0 => {
-          id: @group_1.id,
-          membership_ids: [
-            @member_1_1.id,
-            @member_1_1.id,
-          ],
-          order: 0,
-        },
-      },
-    }
+    post :update_memberships,
+         params: {
+           document_collection_id: @collection.id,
+           groups: {
+             0 => {
+               id: @group_1.id,
+               membership_ids: [
+                 @member_1_1.id,
+                 @member_1_1.id,
+               ],
+               order: 0,
+             },
+           },
+         }
 
     assert_equal [@member_1_1], @group_1.reload.memberships
   end
 
   test "POST #update_memberships should support moving memberships between groups" do
     given_two_groups_with_memberships
-    post :update_memberships, params: {
-      document_collection_id: @collection.id,
-      groups: {
-        0 => {
-          id: @group_1.id,
-          membership_ids: [
-            @member_1_1.id,
-          ],
-          order: 0,
-        },
-        1 => {
-          id: @group_2.id,
-          membership_ids: [
-            @member_1_2.id,
-            @member_2_1.id,
-            @member_2_2.id,
-          ],
-          order: 1,
-        },
-      },
-    }
+    post :update_memberships,
+         params: {
+           document_collection_id: @collection.id,
+           groups: {
+             0 => {
+               id: @group_1.id,
+               membership_ids: [
+                 @member_1_1.id,
+               ],
+               order: 0,
+             },
+             1 => {
+               id: @group_2.id,
+               membership_ids: [
+                 @member_1_2.id,
+                 @member_2_1.id,
+                 @member_2_2.id,
+               ],
+               order: 1,
+             },
+           },
+         }
 
     assert @group_2.reload.memberships.include?(@member_1_2)
   end
@@ -220,25 +224,26 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   test "POST #update_memberships should handle empty groups" do
     given_two_groups_with_memberships
 
-    post :update_memberships, params: {
-      document_collection_id: @collection.id,
-      groups: {
-        0 => {
-          id: @group_1.id,
-          membership_ids: [
-            @member_1_1.id,
-            @member_1_2.id,
-            @member_2_1.id,
-            @member_2_2.id,
-          ],
-          order: 0,
-        },
-        1 => {
-          id: @group_2.id,
-          order: 1,
-        },
-      },
-    }
+    post :update_memberships,
+         params: {
+           document_collection_id: @collection.id,
+           groups: {
+             0 => {
+               id: @group_1.id,
+               membership_ids: [
+                 @member_1_1.id,
+                 @member_1_2.id,
+                 @member_2_1.id,
+                 @member_2_2.id,
+               ],
+               order: 0,
+             },
+             1 => {
+               id: @group_2.id,
+               order: 1,
+             },
+           },
+         }
 
     assert_response :success
     assert_equal [@member_1_1, @member_1_2, @member_2_1, @member_2_2], @group_1.reload.memberships

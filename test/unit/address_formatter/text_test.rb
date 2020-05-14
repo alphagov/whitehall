@@ -83,26 +83,30 @@ class AddressFormatter::TextTest < ActiveSupport::TestCase
   end
 
   test "it builds from a Contact" do
-    contact = OpenStruct.new(recipient: "Recipient",
-                             street_address: "Street",
-                             locality: "Locality",
-                             region: "Region",
-                             postal_code: "Postcode",
-                             country_name: "Country",
-                             country_code: "ES")
+    contact = OpenStruct.new(
+      recipient: "Recipient",
+      street_address: "Street",
+      locality: "Locality",
+      region: "Region",
+      postal_code: "Postcode",
+      country_name: "Country",
+      country_code: "ES",
+    )
     hcard = AddressFormatter::Text.from_contact(contact)
 
     assert_equal es_addr, hcard.render
   end
 
   test "it leaves out the country name when building a GB contact" do
-    contact = OpenStruct.new(recipient: "Recipient",
-                             street_address: "Street",
-                             locality: "Locality",
-                             region: "Region",
-                             postal_code: "Postcode",
-                             country_name: "Country",
-                             country_code: "GB")
+    contact = OpenStruct.new(
+      recipient: "Recipient",
+      street_address: "Street",
+      locality: "Locality",
+      region: "Region",
+      postal_code: "Postcode",
+      country_name: "Country",
+      country_code: "GB",
+    )
     hcard = AddressFormatter::Text.from_contact(contact)
 
     assert_equal addr_without_country, hcard.render

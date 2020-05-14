@@ -6,6 +6,6 @@
 # it must be saved without running the validations but should
 # not result in the record being invalid afterwards
 
-speech = Speech.find(995407)
+speech = Speech.find(995_407)
 speech.role_appointment_id = 5815
 speech.save(validate: false)

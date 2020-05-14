@@ -8,7 +8,7 @@ module DataHygiene
     end
 
     def call
-      raise DataHygiene::ChangeNoteNotFound.new unless edition
+      raise DataHygiene::ChangeNoteNotFound unless edition
       return edition if dry_run
 
       downgrade_edition_change_note

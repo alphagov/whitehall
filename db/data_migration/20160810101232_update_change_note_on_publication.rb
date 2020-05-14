@@ -1,4 +1,4 @@
-edition_id = 644875
+edition_id = 644_875
 edition = Edition.where(id: edition_id).first
 
 if edition.present?

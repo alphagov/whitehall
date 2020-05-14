@@ -4,10 +4,12 @@ class BrexitNoDealContentNoticeLinkTest < ActiveSupport::TestCase
   setup do
     @content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/test" => @content_id)
-    stub_publishing_api_has_item(content_id: @content_id,
-                                 title: "Test",
-                                 base_path: "/test",
-                                 publishing_app: "content-publisher")
+    stub_publishing_api_has_item(
+      content_id: @content_id,
+      title: "Test",
+      base_path: "/test",
+      publishing_app: "content-publisher",
+    )
   end
 
   test "a link with both no title and URL is accepted (UI does not accomodate deletion of records)" do
@@ -128,11 +130,13 @@ class BrexitNoDealContentNoticeLinkTest < ActiveSupport::TestCase
   test "a subpage from a mainstream guide is a valid link" do
     content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/foo" => content_id)
-    stub_publishing_api_has_item(content_id: content_id,
-                                 title: "Foo Bar",
-                                 base_path: "/foo",
-                                 document_type: "guide",
-                                 publishing_app: "content-publisher")
+    stub_publishing_api_has_item(
+      content_id: content_id,
+      title: "Foo Bar",
+      base_path: "/foo",
+      document_type: "guide",
+      publishing_app: "content-publisher",
+    )
 
     assert BrexitNoDealContentNoticeLink.new(title: "Internal Link", url: "/foo/subpage").valid?
   end
@@ -140,11 +144,13 @@ class BrexitNoDealContentNoticeLinkTest < ActiveSupport::TestCase
   test "a regular non-existent subpage fails validation" do
     content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/foo" => content_id)
-    stub_publishing_api_has_item(content_id: content_id,
-                                 title: "Foo Bar",
-                                 base_path: "/foo",
-                                 document_type: "publication",
-                                 publishing_app: "content-publisher")
+    stub_publishing_api_has_item(
+      content_id: content_id,
+      title: "Foo Bar",
+      base_path: "/foo",
+      document_type: "publication",
+      publishing_app: "content-publisher",
+    )
 
     link = BrexitNoDealContentNoticeLink.new(
       title: "Internal Link",

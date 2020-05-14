@@ -49,8 +49,8 @@ class Edition < ApplicationRecord
 
   validates :creator, presence: true
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
-  validates :body, presence: true, if: :body_required?, length: { maximum: 16777215 }
-  validates :summary, presence: true, if: :summary_required?, length: { maximum: 65535 }
+  validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }
+  validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :first_published_at, recent_date: true, allow_blank: true
   validates :first_published_at, previously_published: true
   validates_each :first_published_at do |record, attr, value|
@@ -63,20 +63,22 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-  scope :with_title_or_summary_containing, lambda { |*keywords|
-    pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
-  }
+  scope :with_title_or_summary_containing,
+        lambda { |*keywords|
+          pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
+          in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
+        }
 
-  scope :with_title_containing, lambda { |keywords|
-    escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
-    like_clause = "%#{escaped_like_expression}%"
+  scope :with_title_containing,
+        lambda { |keywords|
+          escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
+          like_clause = "%#{escaped_like_expression}%"
 
-    in_default_locale
-      .includes(:document)
-      .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
-      .references(:document)
-  }
+          in_default_locale
+            .includes(:document)
+            .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
+            .references(:document)
+        }
 
   scope :in_pre_publication_state,      -> { where(state: Edition::PRE_PUBLICATION_STATES) }
   scope :force_published,               -> { where(state: "published", force_published: true) }
@@ -163,12 +165,15 @@ class Edition < ApplicationRecord
 
   def self.authored_by(user)
     if user && user.id
-      where("EXISTS (
+      where(
+        "EXISTS (
         SELECT * FROM edition_authors ea_authorship_check
         WHERE
           ea_authorship_check.edition_id=editions.id
           AND ea_authorship_check.user_id=?
-        )", user.id)
+        )",
+        user.id,
+      )
     end
   end
 
@@ -485,8 +490,15 @@ EXISTS (
     end
 
     ActiveRecord::Base.transaction do
-      ignorable_attribute_keys = %w[id type state created_at updated_at change_note
-                                    minor_change force_published scheduled_publication]
+      ignorable_attribute_keys = %w[id
+                                    type
+                                    state
+                                    created_at
+                                    updated_at
+                                    change_note
+                                    minor_change
+                                    force_published
+                                    scheduled_publication]
       draft_attributes = attributes.except(*ignorable_attribute_keys)
         .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 

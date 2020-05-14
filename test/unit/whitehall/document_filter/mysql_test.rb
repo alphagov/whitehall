@@ -223,10 +223,12 @@ module Whitehall::DocumentFilter
       document_scope.expects(:published_in_topic).with([topic]).returns(document_scope)
       document_scope.expects(:page).with(2).returns(document_scope)
 
-      filter = create_filter(document_scope,
-                             departments: [organisation.slug],
-                             topics: [topic.slug],
-                             page: 2)
+      filter = create_filter(
+        document_scope,
+        departments: [organisation.slug],
+        topics: [topic.slug],
+        page: 2,
+      )
 
       assert_equal [organisation], filter.selected_organisations
       assert_equal [topic], filter.selected_topics
@@ -285,10 +287,12 @@ module Whitehall::DocumentFilter
     end
 
     def stub_document_scope(name)
-      document_scope = stub(name,
-                            count: stub_everything,
-                            current_page: stub_everything,
-                            total_pages: stub_everything)
+      document_scope = stub(
+        name,
+        count: stub_everything,
+        current_page: stub_everything,
+        total_pages: stub_everything,
+      )
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
       document_scope.stubs(:without_editions_of_type).returns(document_scope)
       document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
@@ -322,12 +326,15 @@ module Whitehall::DocumentFilter
     end
 
     def stub_publication_filter_option(label, attributes = {})
-      publication_filter_option = stub("publication-filter-option-#{label}", {
-        label: label.humanize.pluralize,
-        slug: label,
-        publication_types: [stub_publication_type(label)],
-        edition_types: [],
-      }.merge(attributes))
+      publication_filter_option = stub(
+        "publication-filter-option-#{label}",
+        {
+          label: label.humanize.pluralize,
+          slug: label,
+          publication_types: [stub_publication_type(label)],
+          edition_types: [],
+        }.merge(attributes),
+      )
       Whitehall::PublicationFilterOption.expects(:find_by_slug).with(label).at_least_once.returns(publication_filter_option)
       publication_filter_option
     end

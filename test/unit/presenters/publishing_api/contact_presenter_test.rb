@@ -5,23 +5,27 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     @organisation_content_id = SecureRandom.uuid
     @world_location_content_id = SecureRandom.uuid
 
-    world_location = FactoryBot.build(:world_location,
-                                      content_id: @world_location_content_id,
-                                      name: "United Kingdom",
-                                      iso2: "GB")
+    world_location = FactoryBot.build(
+      :world_location,
+      content_id: @world_location_content_id,
+      name: "United Kingdom",
+      iso2: "GB",
+    )
 
-    @contact = FactoryBot.build(:contact,
-                                title: "Government Digital Service",
-                                recipient: "GDS Mail Room",
-                                street_address: "Aviation House, 125 Kingsway",
-                                postal_code: "WC2B 6NH",
-                                country: world_location,
-                                contact_numbers: [
-                                  ContactNumber.new(label: "Mail Room", number: "+44 12345 67890"),
-                                ],
-                                comments: "Quiet at weekends",
-                                email: "gds-mailroom@digital.cabinet-office.gov.uk",
-                                contact_form_url: "https://www.gov.uk")
+    @contact = FactoryBot.build(
+      :contact,
+      title: "Government Digital Service",
+      recipient: "GDS Mail Room",
+      street_address: "Aviation House, 125 Kingsway",
+      postal_code: "WC2B 6NH",
+      country: world_location,
+      contact_numbers: [
+        ContactNumber.new(label: "Mail Room", number: "+44 12345 67890"),
+      ],
+      comments: "Quiet at weekends",
+      email: "gds-mailroom@digital.cabinet-office.gov.uk",
+      contact_form_url: "https://www.gov.uk",
+    )
 
     @updated_at = Time.zone.parse("2016-06-23 10:32:00")
     @contact.translation.updated_at = @updated_at
