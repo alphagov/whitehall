@@ -23,9 +23,17 @@
       var $radio_buttons             = $('input[type=radio]', $fieldset);
       var $minor_change_radio_button = $('#edition_minor_change_true', $fieldset);
       var $change_notes_section      = $('.js-change-notes-section', $fieldset);
+      var $change_notes_label        = $('.js-change-notes-section label');
 
       $radio_buttons.change(showOrHideChangeNotes);
+      appendHintToFormLabel();
       showOrHideChangeNotes();
+
+      function appendHintToFormLabel() {
+        var example_text = "For example, \"Edited chapter 6 - centres in Cardiff and Aberystwyth have closed.\""
+        var info_text = "The text will be published on the page and emailed to users signed up to alerts."
+        $change_notes_label.append(`<p class="hint"; style='font-weight: normal'>${example_text}<br>${info_text}<p>`);
+      }
 
       function showOrHideChangeNotes() {
         if ($minor_change_radio_button.prop('checked')){

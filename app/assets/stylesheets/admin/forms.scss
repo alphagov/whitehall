@@ -196,6 +196,9 @@ fieldset.fatality-notice-casualties {
     padding-bottom: $gutter-two-thirds;
     p {
       margin: $gutter-one-third 0 0 0;
+      &.hint {
+        color: #626a6e;
+      }
     }
     label {
       font-size: 16px;
