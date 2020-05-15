@@ -97,21 +97,13 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select ".errors li", text: /Heading/
   end
 
-  view_test "GET #delete explains you can't delete groups that have members" do
-    @group.documents = [create(:publication).document]
-    @collection.groups << build(:document_collection_group)
-    get :delete, params: { document_collection_id: @collection, id: @group }
-    assert_select "div.alert", /can’t delete a group.*documents/
-    assert_select 'input[type="submit"]', count: 0
-  end
-
   view_test "GET #delete explains you can't delete the last group" do
     get :delete, params: { document_collection_id: @collection, id: @group }
     assert_select "div.alert", /can’t\s+delete the last/
     assert_select 'input[type="submit"]', count: 0
   end
 
-  view_test "GET #delete allows you to delete an empty group" do
+  view_test "GET #delete allows you to delete a group" do
     @collection.groups << build(:document_collection_group)
     get :delete, params: { document_collection_id: @collection, id: @group }
     assert_select 'input[type="submit"][value="Delete"]'

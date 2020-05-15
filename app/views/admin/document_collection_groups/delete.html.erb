@@ -5,21 +5,16 @@
   <section class="col-md-8">
     <h1>Delete group</h1>
 
-    <% if (@collection.groups.size == 1) || @group.documents.present? %>
+    <% if @collection.groups.size == 1 %>
       <div class="alert alert-danger">
-        <% if @collection.groups.size == 1 %>
-          <p>
-            Every document collection needs at least one group, so you can’t
-            delete the last one.
-          </p>
-          <p>
-            If you were planning on replacing it you can return to the
-            collection page, click the edit link, and rename it instead.
-          </p>
-        <% else %>
-          You can’t delete a group that has documents in it &ndash;
-          remove the documents first, or move them into another group.
-        <% end %>
+        <p>
+          Every document collection needs at least one group, so you can’t
+          delete the last one.
+        </p>
+        <p>
+          If you were planning on replacing it you can return to the
+          collection page, click the edit link, and rename it instead.
+        </p>
       </div>
 
       <p>
