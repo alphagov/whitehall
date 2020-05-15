@@ -518,6 +518,21 @@ class EditionTest < ActiveSupport::TestCase
     assert_not EditorialRemark.find_by(id: relation.id)
   end
 
+  test "#destroy should also destroy the document if this is the first edition" do
+    document = create(:document)
+    edition = create(:draft_edition, document: document)
+    edition.destroy
+    assert_not Document.find_by(id: document.id)
+  end
+
+  test "#destroy should not destroy the document if it is associated with other editions" do
+    established_document = create(:document)
+    _first_edition = create(:published_edition, document: established_document)
+    second_edition = create(:draft_edition, document: established_document)
+    second_edition.destroy
+    assert Document.find(established_document.id)
+  end
+
   test ".in_chronological_order returns editions in ascending order of first_published_at" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))

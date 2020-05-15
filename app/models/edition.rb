@@ -94,6 +94,7 @@ class Edition < ApplicationRecord
   # @!group Callbacks
   before_save :set_public_timestamp
   before_save { check_if_locked_document(edition: self) }
+  after_destroy :delete_document_if_no_other_editions
   # @!endgroup
 
   class UnmodifiableValidator < ActiveModel::Validator
@@ -638,6 +639,12 @@ EXISTS (
                             else
                               major_change_published_at
                             end
+  end
+
+  def delete_document_if_no_other_editions
+    if document && document.editions.reject(id: id).count.zero?
+      document.destroy
+    end
   end
 
   def title_required?
