@@ -21,7 +21,10 @@ class AttachmentDataReporter
       grouped_editions.each do |org, editions|
         org_attachments = editions.map(&:attachments).flatten
         org_name = org ? org.name : "No Organisation"
-        csv << [org_name, org_attachments.size, accessible_details(org_attachments), content_type_details(org_attachments),
+        csv << [org_name,
+                org_attachments.size,
+                accessible_details(org_attachments),
+                content_type_details(org_attachments),
                 combined_attachments_file_size(org_attachments)]
       end
 
@@ -34,8 +37,11 @@ class AttachmentDataReporter
     CSV.open(csv_file_path, "wb") do |csv|
       csv << ["Slug", "Organisations", "Total attachments", "Accessible attachments", "Content types", "Combined size"]
       published_editions_with_attachments.each do |edition|
-        csv << [edition.document.slug, edition.organisations.map(&:name).join(","), edition.attachments.size,
-                accessible_details(edition.attachments), content_type_details(edition.attachments.to_a),
+        csv << [edition.document.slug,
+                edition.organisations.map(&:name).join(","),
+                edition.attachments.size,
+                accessible_details(edition.attachments),
+                content_type_details(edition.attachments.to_a),
                 combined_attachments_file_size(edition.attachments)]
       end
     end
@@ -109,7 +115,9 @@ private
          AND a.attachment_data_id IS NOT NULL
          AND a.created_at BETWEEN ? AND ?
        )
-       ORDER BY e.created_at DESC", start_date, end_date
+       ORDER BY e.created_at DESC",
+      start_date,
+      end_date,
     ])
   end
 

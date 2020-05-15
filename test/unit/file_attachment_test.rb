@@ -5,7 +5,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     @attachment ||= build(:file_attachment)
   end
 
-  def assert_delegated attachment, method
+  def assert_delegated(attachment, method)
     attachment.attachment_data.expects(method).returns(method.to_s)
     assert_equal method.to_s, attachment.send(method)
   end

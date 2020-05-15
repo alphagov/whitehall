@@ -65,13 +65,23 @@ private
 
   def worldwide_office_params
     params.require(:worldwide_office)
-          .permit(:worldwide_office_type_id, :show_on_home_page,
+          .permit(:worldwide_office_type_id,
+                  :show_on_home_page,
                   service_ids: [],
                   contact_attributes: [
-                    :id, :title, :contact_type_id, :comments, :recipient,
-                    :street_address, :locality, :region, :postal_code,
-                    :country_id, :email, :contact_form_url,
-                    contact_numbers_attributes: %i[id label number _destroy]
+                    :id,
+                    :title,
+                    :contact_type_id,
+                    :comments,
+                    :recipient,
+                    :street_address,
+                    :locality,
+                    :region,
+                    :postal_code,
+                    :country_id,
+                    :email,
+                    :contact_form_url,
+                    contact_numbers_attributes: %i[id label number _destroy],
                   ])
   end
 end

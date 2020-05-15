@@ -77,10 +77,13 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test "update updates translation and redirects back to the index" do
-    put :update, params: { world_location_id: @location, id: "fr", world_location: {
-      name: "Afrolasie",
-      mission_statement: "Enseigner aux gens comment infuser le thé",
-    } }
+    put :update,
+        params: { world_location_id: @location,
+                  id: "fr",
+                  world_location: {
+                    name: "Afrolasie",
+                    mission_statement: "Enseigner aux gens comment infuser le thé",
+                  } }
 
     @location.reload
 
@@ -93,10 +96,13 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test "update re-renders form if translation is invalid" do
-    put :update, params: { world_location_id: @location, id: "fr", world_location: {
-      name: "",
-      mission_statement: "Enseigner aux gens comment infuser le thé",
-    } }
+    put :update,
+        params: { world_location_id: @location,
+                  id: "fr",
+                  world_location: {
+                    name: "",
+                    mission_statement: "Enseigner aux gens comment infuser le thé",
+                  } }
 
     translation_path = admin_world_location_translation_path(@location, "fr")
 

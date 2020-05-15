@@ -19,6 +19,6 @@ second_attachments.update_all(
   slug: "hs220-more-than-one-business-2016",
 )
 
-parent_document_id = 243246
+parent_document_id = 243_246
 
 PublishingApiDocumentRepublishingWorker.new.perform(parent_document_id)

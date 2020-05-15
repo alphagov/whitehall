@@ -3,10 +3,15 @@ require "ostruct"
 
 class WorldEditorTest < ActiveSupport::TestCase
   def world_editor(world_locations, id = 1, gds_editor = false)
-    OpenStruct.new(id: id, gds_editor?: gds_editor,
-                   departmental_editor?: false, world_editor?: true,
-                   organisation: nil, can_force_publish_anything?: false,
-                   world_locations: world_locations || [])
+    OpenStruct.new(
+      id: id,
+      gds_editor?: gds_editor,
+      departmental_editor?: false,
+      world_editor?: true,
+      organisation: nil,
+      can_force_publish_anything?: false,
+      world_locations: world_locations || [],
+    )
   end
 
   include AuthorityTestHelper

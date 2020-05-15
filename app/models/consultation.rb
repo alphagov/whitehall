@@ -22,9 +22,10 @@ class Consultation < Publicationesque
 
   scope :closed, -> { where("closing_at < ?", Time.zone.now) }
   scope :closed_at_or_after, ->(time) { closed.where("closing_at >= ?", time) }
-  scope :closed_at_or_within_24_hours_of, lambda { |time|
-    closed.where("? < closing_at AND closing_at <= ?", time - 24.hours, time)
-  }
+  scope :closed_at_or_within_24_hours_of,
+        lambda { |time|
+          closed.where("? < closing_at AND closing_at <= ?", time - 24.hours, time)
+        }
   scope :open, -> { where("closing_at >= ? AND opening_at <= ?", Time.zone.now, Time.zone.now) }
   scope :opened_at_or_after, ->(time) { open.where("opening_at >= ?", time) }
   scope :upcoming, -> { where("opening_at > ?", Time.zone.now) }

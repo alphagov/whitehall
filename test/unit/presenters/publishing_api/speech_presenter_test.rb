@@ -34,19 +34,23 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
     describe "base attributes and details" do
       let(:person) do
-        create(:person,
-               forename: "Tony",
-               image: File.open(
-                 Rails.root.join("test/fixtures/images/960x640_gif.gif"),
-               ))
+        create(
+          :person,
+          forename: "Tony",
+          image: File.open(
+            Rails.root.join("test/fixtures/images/960x640_gif.gif"),
+          ),
+        )
       end
 
       let(:speech) do
-        create(:speech,
-               title: "Speech title",
-               summary: "The description",
-               body: "# Woo!\nSome content",
-               role_appointment: role_appointment)
+        create(
+          :speech,
+          title: "Speech title",
+          summary: "The description",
+          body: "# Woo!\nSome content",
+          role_appointment: role_appointment,
+        )
       end
 
       let(:expected_body) do

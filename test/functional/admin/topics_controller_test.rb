@@ -52,11 +52,12 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     _second_topic = create(:topic)
     attributes = attributes_for(:topic)
 
-    post :create, params: {
-      topic: attributes.merge(
-        related_classification_ids: [first_topic.id],
-      ),
-    }
+    post :create,
+         params: {
+           topic: attributes.merge(
+             related_classification_ids: [first_topic.id],
+           ),
+         }
 
     assert_response :redirect
 
@@ -88,10 +89,12 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   test "PUT :update saves changes to the topic and redirects" do
     topic = create(:topic)
 
-    put :update, params: { id: topic, topic: {
-      name: "new-name",
-      description: "new-description",
-    } }
+    put :update,
+        params: { id: topic,
+                  topic: {
+                    name: "new-name",
+                    description: "new-description",
+                  } }
 
     assert_response :redirect
     assert_equal "new-name", topic.reload.name
@@ -111,9 +114,13 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     _publication = create(:publication, topics: [topic])
     association = topic.classification_memberships.first
 
-    put :update, params: { id: topic.id, topic: { name: "Blah", description: "Blah", classification_memberships_attributes: {
-      "0" => { id: association.id, ordering: "4" },
-    } } }
+    put :update,
+        params: { id: topic.id,
+                  topic: { name: "Blah",
+                           description: "Blah",
+                           classification_memberships_attributes: {
+                             "0" => { id: association.id, ordering: "4" },
+                           } } }
 
     assert_equal 4, association.reload.ordering
   end

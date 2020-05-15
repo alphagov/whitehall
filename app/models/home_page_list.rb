@@ -2,9 +2,10 @@ class HomePageList < ApplicationRecord
   belongs_to :owner,
              polymorphic: true
   validates :owner, presence: true
-  validates :name, presence: true,
-                   uniqueness: { scope: %i[owner_id owner_type] },
-                   length: { maximum: 255 }
+  validates :name,
+            presence: true,
+            uniqueness: { scope: %i[owner_id owner_type] },
+            length: { maximum: 255 }
 
   has_many :home_page_list_items,
            -> { order(:ordering) },

@@ -1,5 +1,5 @@
 # Fix the interested editions and add MOD to them
-edition_ids = [421608, 421659, 421662, 421675, 421676, 421679, 423612, 464978]
+edition_ids = [421_608, 421_659, 421_662, 421_675, 421_676, 421_679, 423_612, 464_978]
 
 mod_organisation_id = 17
 mod = Organisation.find(mod_organisation_id)

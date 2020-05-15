@@ -14,9 +14,11 @@ class I18nKeyTest < ActiveSupport::TestCase
 
     locale_files.each do |locale_file|
       missing_keys = required_keys - keys_in_locale_file(locale_file)
-      assert(missing_keys.empty?,
-             "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " \
-             "rake translation:regenerate to add any missing keys?")
+      assert(
+        missing_keys.empty?,
+        "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " \
+        "rake translation:regenerate to add any missing keys?",
+      )
     end
   end
 

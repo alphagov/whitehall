@@ -20,10 +20,12 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
     feature_1 = create(:feature, feature_list: feature_list, ordering: 1)
     feature_2 = create(:feature, feature_list: feature_list, ordering: 2)
 
-    post :reorder, params: { id: feature_list, ordering: {
-      feature_2.id.to_s => "1",
-      feature_1.id.to_s => "2",
-    } }
+    post :reorder,
+         params: { id: feature_list,
+                   ordering: {
+                     feature_2.id.to_s => "1",
+                     feature_1.id.to_s => "2",
+                   } }
 
     assert_equal [feature_2, feature_1], feature_list.reload.features
   end

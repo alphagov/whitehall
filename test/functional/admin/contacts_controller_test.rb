@@ -250,14 +250,15 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     organisation.add_contact_to_home_page!(contact_2)
     organisation.add_contact_to_home_page!(contact_3)
 
-    post :reorder_for_home_page, params: {
-      organisation_id: organisation,
-      ordering: {
-        contact_1.id.to_s => "3",
-        contact_2.id.to_s => "1",
-        contact_3.id.to_s => "2",
-      },
-    }
+    post :reorder_for_home_page,
+         params: {
+           organisation_id: organisation,
+           ordering: {
+             contact_1.id.to_s => "3",
+             contact_2.id.to_s => "1",
+             contact_3.id.to_s => "2",
+           },
+         }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %(Contacts on home page reordered successfully), flash[:notice]
@@ -269,13 +270,14 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     contact = organisation.contacts.create(title: "Head office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact)
 
-    post :reorder_for_home_page, params: {
-      organisation_id: organisation,
-      ordering: {
-        contact.id.to_s => "2",
-        "1000000" => "1",
-      },
-    }
+    post :reorder_for_home_page,
+         params: {
+           organisation_id: organisation,
+           ordering: {
+             contact.id.to_s => "2",
+             "1000000" => "1",
+           },
+         }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %(Contacts on home page reordered successfully), flash[:notice]

@@ -93,11 +93,14 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
     edition = create(:draft_edition)
 
-    put :update, params: { edition_id: edition, id: "fr", edition: {
-      title: "translated-title",
-      summary: "translated-summary",
-      body: "translated-body",
-    } }
+    put :update,
+        params: { edition_id: edition,
+                  id: "fr",
+                  edition: {
+                    title: "translated-title",
+                    summary: "translated-summary",
+                    body: "translated-body",
+                  } }
 
     edition.reload
 
@@ -114,11 +117,14 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     published_edition = create(:published_edition)
     draft_edition = published_edition.create_draft(@writer)
 
-    put :update, params: { edition_id: draft_edition, id: "fr", edition: {
-      title: "translated-title",
-      summary: "translated-summary",
-      body: "translated-body",
-    } }
+    put :update,
+        params: { edition_id: draft_edition,
+                  id: "fr",
+                  edition: {
+                    title: "translated-title",
+                    summary: "translated-summary",
+                    body: "translated-body",
+                  } }
 
     draft_edition.reload
 
@@ -132,11 +138,14 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   test "update does not overwrite an existing manually added change note when adding a new translation" do
     edition = create(:draft_edition, change_note: "manually-added-change-note")
 
-    put :update, params: { edition_id: edition, id: "fr", edition: {
-      title: "translated-title",
-      summary: "translated-summary",
-      body: "translated-body",
-    } }
+    put :update,
+        params: { edition_id: edition,
+                  id: "fr",
+                  edition: {
+                    title: "translated-title",
+                    summary: "translated-summary",
+                    body: "translated-body",
+                  } }
 
     edition.reload
 
@@ -155,9 +164,12 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   view_test "update renders the form again, with errors, if the translation is invalid" do
     edition = create(:draft_edition)
 
-    put :update, params: { edition_id: edition, id: "fr", edition: {
-      title: "",
-    } }
+    put :update,
+        params: { edition_id: edition,
+                  id: "fr",
+                  edition: {
+                    title: "",
+                  } }
 
     assert_select ".form-errors"
   end
@@ -166,11 +178,14 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     Sidekiq::Testing.inline! do
       edition = create(:draft_edition)
 
-      put :update, params: { edition_id: edition, id: "fr", edition: {
-        title: "translated-title",
-        summary: "translated-summary",
-        body: "translated-body",
-      } }
+      put :update,
+          params: { edition_id: edition,
+                    id: "fr",
+                    edition: {
+                      title: "translated-title",
+                      summary: "translated-summary",
+                      body: "translated-body",
+                    } }
 
       assert_publishing_api_put_content(
         edition.content_id,

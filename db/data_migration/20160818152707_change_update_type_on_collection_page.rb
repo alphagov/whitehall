@@ -1,4 +1,4 @@
-document_collection = DocumentCollection.find_by(id: 640432)
+document_collection = DocumentCollection.find_by(id: 640_432)
 
 if document_collection.present?
   document_collection.minor_change = true

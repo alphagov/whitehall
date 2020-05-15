@@ -1,1 +1,1 @@
-PublishingApiDocumentRepublishingWorker.perform_async(77434)
+PublishingApiDocumentRepublishingWorker.perform_async(77_434)

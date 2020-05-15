@@ -1,4 +1,4 @@
-pub = Publication.find(124751)
+pub = Publication.find(124_751)
 
 links = PublishingApiPresenters.presenter_for(pub).links
 

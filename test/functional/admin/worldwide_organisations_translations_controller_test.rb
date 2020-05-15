@@ -76,10 +76,12 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   end
 
   view_test "edit presents a form to update an existing translation" do
-    worldwide_organisation = create(:worldwide_organisation,
-                                    translated_into: { fr: {
-                                      name: "Département des barbes en France",
-                                    } })
+    worldwide_organisation = create(
+      :worldwide_organisation,
+      translated_into: { fr: {
+        name: "Département des barbes en France",
+      } },
+    )
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, id: "fr" }
 
@@ -102,9 +104,12 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   end
 
   view_test "update updates translation and redirects back to the index" do
-    put :update, params: { worldwide_organisation_id: @worldwide_organisation, id: "fr", worldwide_organisation: {
-      name: "Département des barbes en France",
-    } }
+    put :update,
+        params: { worldwide_organisation_id: @worldwide_organisation,
+                  id: "fr",
+                  worldwide_organisation: {
+                    name: "Département des barbes en France",
+                  } }
 
     @worldwide_organisation.reload
 
@@ -116,9 +121,12 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   end
 
   view_test "update re-renders form if translation is invalid" do
-    put :update, params: { worldwide_organisation_id: @worldwide_organisation, id: "fr", worldwide_organisation: {
-      name: "",
-    } }
+    put :update,
+        params: { worldwide_organisation_id: @worldwide_organisation,
+                  id: "fr",
+                  worldwide_organisation: {
+                    name: "",
+                  } }
 
     assert_not @worldwide_organisation.available_in_locale?("fr")
     translation_path = admin_worldwide_organisation_translation_path(@worldwide_organisation, "fr")

@@ -48,12 +48,15 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "POST :create with an statistics announcement id assigns the publication to the announcement" do
     statistics_announcement = create(:statistics_announcement)
-    post :create, params: {
-      edition: controller_attributes_for(:publication,
-                                         publication_type_id: PublicationType::OfficialStatistics.id,
-                                         lead_organisation_ids: [@organisation.id],
-                                         statistics_announcement_id: statistics_announcement.id),
-    }
+    post :create,
+         params: {
+           edition: controller_attributes_for(
+             :publication,
+             publication_type_id: PublicationType::OfficialStatistics.id,
+             lead_organisation_ids: [@organisation.id],
+             statistics_announcement_id: statistics_announcement.id,
+           ),
+         }
 
     publication = Publication.last
 
@@ -63,11 +66,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new publication" do
-    post :create, params: {
-      edition: controller_attributes_for(:publication,
-                                         first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
-                                         publication_type_id: PublicationType::ResearchAndAnalysis.id),
-    }
+    post :create,
+         params: {
+           edition: controller_attributes_for(
+             :publication,
+             first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
+             publication_type_id: PublicationType::ResearchAndAnalysis.id,
+           ),
+         }
 
     created_publication = Publication.last
     assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.first_published_at
@@ -98,9 +104,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
-    put :update, params: { id: publication, edition: {
-      first_published_at: Time.zone.parse("2001-06-18 00:00:00"),
-    } }
+    put :update,
+        params: { id: publication,
+                  edition: {
+                    first_published_at: Time.zone.parse("2001-06-18 00:00:00"),
+                  } }
 
     saved_publication = publication.reload
     assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.first_published_at

@@ -158,13 +158,14 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test "update updates translation and redirects back to the index" do
-    put :update, params: {
-      person_id: @person,
-      id: "fr",
-      person: {
-        biography: "Elle est née. Elle a vécu. Elle est morte.",
-      },
-    }
+    put :update,
+        params: {
+          person_id: @person,
+          id: "fr",
+          person: {
+            biography: "Elle est née. Elle a vécu. Elle est morte.",
+          },
+        }
 
     @person.reload
     with_locale :fr do

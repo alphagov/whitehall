@@ -44,27 +44,30 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   test "#search: release announcments are inflated from rummager hashes" do
     organisation = create(:organisation, name: "Cabinet Office", slug: "cabinet-office")
 
-    @mock_source.stubs(:advanced_search).returns("total" => 1, "results" => [{
-      "title" => "A title",
-      "description" => "The summary",
-      "slug" => "a-slug",
-      "release_timestamp" => Time.zone.now,
-      "organisations" => %w[cabinet-office],
-      "policy_areas" => %w[home-affairs],
-      "part_of_taxonomy_tree" => %w[home-affairs-id],
-      "display_type" => "Statistics",
-      "search_format_types" => %w[statistics_announcement],
-      "format" => "statistics_announcement",
-      "statistics_announcement_state" => "cancelled",
-      "metadata" => {
-        "display_date" => "About now",
-        "confirmed" => false,
-        "change_note" => "Change is good",
-        "previous_display_date" => 1.year.ago,
-        "cancellation_reason" => "Cancel reason",
-        "cancelled_at" => 1.week.ago,
-      },
-    }])
+    @mock_source.stubs(:advanced_search).returns(
+      "total" => 1,
+      "results" => [{
+        "title" => "A title",
+        "description" => "The summary",
+        "slug" => "a-slug",
+        "release_timestamp" => Time.zone.now,
+        "organisations" => %w[cabinet-office],
+        "policy_areas" => %w[home-affairs],
+        "part_of_taxonomy_tree" => %w[home-affairs-id],
+        "display_type" => "Statistics",
+        "search_format_types" => %w[statistics_announcement],
+        "format" => "statistics_announcement",
+        "statistics_announcement_state" => "cancelled",
+        "metadata" => {
+          "display_date" => "About now",
+          "confirmed" => false,
+          "change_note" => "Change is good",
+          "previous_display_date" => 1.year.ago,
+          "cancellation_reason" => "Cancel reason",
+          "cancelled_at" => 1.week.ago,
+        },
+      }],
+    )
 
     release_announcement = Frontend::StatisticsAnnouncementProvider.search(page: 1, per_page: 10).first
 

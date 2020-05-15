@@ -93,19 +93,35 @@ private
 
   def organisation_params
     params.require(:organisation).permit(
-      :name, :acronym, :logo_formatted_name, :organisation_logo_type_id,
-      :logo, :logo_cache, :organisation_brand_colour_id, :url,
-      :organisation_type_key, :alternative_format_contact_email,
-      :govuk_status, :govuk_closed_status, :closed_at, :organisation_chart_url,
-      :foi_exempt, :ocpa_regulated, :public_meetings, :public_minutes,
-      :regulatory_function, :important_board_members, :custom_jobs_url,
-      :homepage_type, :political,
+      :name,
+      :acronym,
+      :logo_formatted_name,
+      :organisation_logo_type_id,
+      :logo,
+      :logo_cache,
+      :organisation_brand_colour_id,
+      :url,
+      :organisation_type_key,
+      :alternative_format_contact_email,
+      :govuk_status,
+      :govuk_closed_status,
+      :closed_at,
+      :organisation_chart_url,
+      :foi_exempt,
+      :ocpa_regulated,
+      :public_meetings,
+      :public_minutes,
+      :regulatory_function,
+      :important_board_members,
+      :custom_jobs_url,
+      :homepage_type,
+      :political,
       superseding_organisation_ids: [],
       default_news_image_attributes: %i[file file_cache],
       organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
       organisation_classifications_attributes: %i[classification_id ordering id _destroy],
-      featured_links_attributes: %i[title url _destroy id]
+      featured_links_attributes: %i[title url _destroy id],
     )
   end
 

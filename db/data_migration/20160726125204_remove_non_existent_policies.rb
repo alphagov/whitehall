@@ -9,4 +9,4 @@
 # 480715,/guidance/being-inspected-as-a-boarding-andor-residential-school
 #  ["5d646277-7631-11e4-a3cb-005056011aef"] not in publishing api
 
-EditionPolicy.where(edition_id: [433102, 441050, 480715]).destroy_all
+EditionPolicy.where(edition_id: [433_102, 441_050, 480_715]).destroy_all

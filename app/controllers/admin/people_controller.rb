@@ -45,8 +45,13 @@ private
 
   def person_params
     params.require(:person).permit(
-      :title, :forename, :surname, :letters, :image, :biography,
-      :privy_counsellor
+      :title,
+      :forename,
+      :surname,
+      :letters,
+      :image,
+      :biography,
+      :privy_counsellor,
     )
   end
 end

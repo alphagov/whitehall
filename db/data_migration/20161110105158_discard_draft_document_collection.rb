@@ -1,2 +1,2 @@
-doc = Document.find(229878)
+doc = Document.find(229_878)
 PublishingApiDiscardDraftWorker.new.perform(doc.content_id, :en)

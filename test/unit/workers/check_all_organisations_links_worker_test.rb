@@ -10,13 +10,17 @@ class CheckAllOrganisationsLinksWorkerTest < ActiveSupport::TestCase
     hmrc = create(:organisation, name: "HM Revenue & Customs")
     dft = create(:organisation, name: "DfT")
 
-    create(:published_publication,
-           lead_organisations: [hmrc],
-           body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
+    create(
+      :published_publication,
+      lead_organisations: [hmrc],
+      body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
+    )
 
-    create(:published_publication,
-           lead_organisations: [dft],
-           body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)")
+    create(
+      :published_publication,
+      lead_organisations: [dft],
+      body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
 
     @link_checker_endpoint = "#{Plek.find('link-checker-api')}/batch"
   end

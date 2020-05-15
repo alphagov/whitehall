@@ -15,9 +15,11 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   should_allow_organisations_for :document_collection
 
   view_test "GET #show displays the document collection" do
-    collection = create(:document_collection,
-                        title: "collection-title",
-                        summary: "the summary")
+    collection = create(
+      :document_collection,
+      title: "collection-title",
+      summary: "the summary",
+    )
 
     stub_publishing_api_expanded_links_with_taxons(collection.content_id, [])
 
@@ -38,16 +40,17 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   end
 
   test "POST #create saves the document collection" do
-    post :create, params: {
-      edition: {
-        title: "collection-title",
-        summary: "collection-summary",
-        body: "collection-body",
-        lead_organisation_ids: [@organisation.id],
-        topic_ids: [@topic.id],
-        previously_published: false,
-      },
-    }
+    post :create,
+         params: {
+           edition: {
+             title: "collection-title",
+             summary: "collection-summary",
+             body: "collection-body",
+             lead_organisation_ids: [@organisation.id],
+             topic_ids: [@topic.id],
+             previously_published: false,
+           },
+         }
 
     assert_equal 1, DocumentCollection.count
     document_collection = DocumentCollection.first

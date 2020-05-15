@@ -16,10 +16,11 @@ class DocumentCollectionGroup < ApplicationRecord
            -> { order("document_collection_group_memberships.ordering") },
            through: :documents
 
-  scope :live, lambda {
-    left_joins(:non_whitehall_links, documents: :editions)
-      .where("editions.state = 'published' OR document_collection_non_whitehall_links.id IS NOT NULL")
-  }
+  scope :live,
+        lambda {
+          left_joins(:non_whitehall_links, documents: :editions)
+            .where("editions.state = 'published' OR document_collection_non_whitehall_links.id IS NOT NULL")
+        }
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates_associated :memberships

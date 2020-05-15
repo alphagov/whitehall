@@ -14,7 +14,7 @@
 # edition. This fixes the front end "technical difficulties" notice by displaying
 # a proper withdrawn notification and also sorts out our sync checks
 Unpublishing.create(
-  edition_id: 383738,
+  edition_id: 383_738,
   unpublishing_reason_id: 5,
   explanation: "This scheme has been completed and no further claims are permissible",
   document_type: "Publication",

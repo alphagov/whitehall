@@ -45,8 +45,10 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
   test "moving a secondary tag to the primary tag doesn't fail" do
     tag = "environmental-management/waste"
     publication = create(:publication, secondary_specialist_sector_tags: [tag])
-    publication.update(primary_specialist_sector_tag: tag,
-                       secondary_specialist_sector_tags: [])
+    publication.update(
+      primary_specialist_sector_tag: tag,
+      secondary_specialist_sector_tags: [],
+    )
 
     assert publication.save
     assert_equal tag, publication.primary_specialist_sector_tag

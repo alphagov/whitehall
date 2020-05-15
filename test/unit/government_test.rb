@@ -50,26 +50,38 @@ class GovernmentTest < ActiveSupport::TestCase
   end
 
   test "prevents overlapping governments" do
-    existing_government = create(:government,
-                                 start_date: "2011-01-01",
-                                 end_date: "2012-01-01")
+    existing_government = create(
+      :government,
+      start_date: "2011-01-01",
+      end_date: "2012-01-01",
+    )
 
-    government_overlapping_start = build(:government,
-                                         start_date: "2010-06-01",
-                                         end_date: "2011-06-01")
-    government_overlapping_end = build(:government,
-                                       start_date: "2011-06-01",
-                                       end_date: "2012-06-01")
+    government_overlapping_start = build(
+      :government,
+      start_date: "2010-06-01",
+      end_date: "2011-06-01",
+    )
+    government_overlapping_end = build(
+      :government,
+      start_date: "2011-06-01",
+      end_date: "2012-06-01",
+    )
 
-    government_before = build(:government,
-                              start_date: "2009-06-01",
-                              end_date: "2010-06-01")
-    government_after = build(:government,
-                             start_date: "2012-06-01",
-                             end_date: "2013-06-01")
+    government_before = build(
+      :government,
+      start_date: "2009-06-01",
+      end_date: "2010-06-01",
+    )
+    government_after = build(
+      :government,
+      start_date: "2012-06-01",
+      end_date: "2013-06-01",
+    )
 
-    government_starting_immediately = build(:government,
-                                            start_date: existing_government.end_date)
+    government_starting_immediately = build(
+      :government,
+      start_date: existing_government.end_date,
+    )
 
     assert_not government_overlapping_start.valid?
     assert_not government_overlapping_end.valid?
@@ -81,17 +93,23 @@ class GovernmentTest < ActiveSupport::TestCase
   end
 
   test "prevents new open governments when one is already open" do
-    current_open_government = create(:government,
-                                     start_date: "2011-01-01",
-                                     end_date: nil)
+    current_open_government = create(
+      :government,
+      start_date: "2011-01-01",
+      end_date: nil,
+    )
 
-    historic_government = build(:government,
-                                start_date: "2008-01-01",
-                                end_date: "2010-01-01")
+    historic_government = build(
+      :government,
+      start_date: "2008-01-01",
+      end_date: "2010-01-01",
+    )
 
-    new_open_government = build(:government,
-                                start_date: "2015-01-01",
-                                end_date: nil)
+    new_open_government = build(
+      :government,
+      start_date: "2015-01-01",
+      end_date: nil,
+    )
 
     assert historic_government.valid?
 
@@ -105,9 +123,11 @@ class GovernmentOnDateTest < ActiveSupport::TestCase
   setup do
     @current_government = create(:current_government)
     @previous_government = create(:previous_government)
-    @even_earlier_government = create(:government,
-                                      start_date: @previous_government.start_date - 4.years,
-                                      end_date: @previous_government.start_date - 1.day)
+    @even_earlier_government = create(
+      :government,
+      start_date: @previous_government.start_date - 4.years,
+      end_date: @previous_government.start_date - 1.day,
+    )
   end
 
   test "knows the correct current government" do

@@ -76,12 +76,13 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     @topic = create(:topic)
     @edition = create(:publication, title: "the edition")
 
-    put :update, params: { edition_id: @edition.id,
-                           edition: {
-                             topic_ids: ["", @topic.id.to_s],
-                             primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
-                             secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
-                           } }
+    put :update,
+        params: { edition_id: @edition.id,
+                  edition: {
+                    topic_ids: ["", @topic.id.to_s],
+                    primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
+                    secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
+                  } }
     @edition.reload
     assert_equal [@topic.id], @edition.topic_ids
     assert_equal "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa", @edition.primary_specialist_sector_tag
@@ -99,11 +100,13 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
       secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
     )
 
-    put :update, params: { edition_id: @edition.id, edition: {
-      topic_ids: [""],
-      primary_specialist_sector_tag: "",
-      secondary_specialist_sector_tags: [""],
-    } }
+    put :update,
+        params: { edition_id: @edition.id,
+                  edition: {
+                    topic_ids: [""],
+                    primary_specialist_sector_tag: "",
+                    secondary_specialist_sector_tags: [""],
+                  } }
     @edition.reload
     assert_equal [], @edition.topic_ids
     assert_nil @edition.primary_specialist_sector_tag

@@ -8,10 +8,13 @@ class Admin::GenericEditionsController::SpeedTaggingTest < ActionController::Tes
   test "should show the document when 'Save' is clicked" do
     edition = create(:edition, :imported)
 
-    put :update, params: { id: edition, speed_save: 1, edition: {
-      title: "new-title",
-      body: "new-body",
-    } }
+    put :update,
+        params: { id: edition,
+                  speed_save: 1,
+                  edition: {
+                    title: "new-title",
+                    body: "new-body",
+                  } }
 
     assert edition.reload.imported?
     assert_redirected_to edit_admin_edition_tags_path(edition.id)

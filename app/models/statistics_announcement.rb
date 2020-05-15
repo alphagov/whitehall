@@ -59,14 +59,16 @@ class StatisticsAnnouncement < ApplicationRecord
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
 
-  scope :with_title_containing, lambda { |*keywords|
-    pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
-  }
-  scope :in_organisations, lambda { |organisation_ids|
-    joins(:statistics_announcement_organisations)
-      .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
-  }
+  scope :with_title_containing,
+        lambda { |*keywords|
+          pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
+          where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
+        }
+  scope :in_organisations,
+        lambda { |organisation_ids|
+          joins(:statistics_announcement_organisations)
+            .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
+        }
   scope :published, -> { where(publishing_state: "published") }
 
   default_scope { published }
@@ -91,7 +93,8 @@ class StatisticsAnnouncement < ApplicationRecord
   delegate :release_date,
            :display_date,
            :confirmed?,
-           to: :current_release_date, allow_nil: true
+           to: :current_release_date,
+           allow_nil: true
 
   after_touch :publish_redirect_to_publication, if: :publication_has_been_published?
   set_callback :published, :after, :after_publish

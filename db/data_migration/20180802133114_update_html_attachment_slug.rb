@@ -1,5 +1,5 @@
-edition = Edition.find(866063)
-html_attachment = HtmlAttachment.find(2844573)
+edition = Edition.find(866_063)
+html_attachment = HtmlAttachment.find(2_844_573)
 html_attachment.update(slug: "provisional-findings-of-the-call-for-evidence-into-UK-interest-in-existing-EU-trade-remedy-measures")
 Whitehall::SearchIndex.delete(edition)
 Whitehall::PublishingApi.republish_async(html_attachment)

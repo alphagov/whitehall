@@ -57,7 +57,8 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_equal [
       FatalityNoticePresenter.new(new_iraq_fatality),
       FatalityNoticePresenter.new(old_iraq_fatality),
-    ], assigns(:fatality_notices)
+    ],
+                 assigns(:fatality_notices)
   end
 
   view_test "shows recent casualties" do

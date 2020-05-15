@@ -493,10 +493,18 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should return search index data for all published editions" do
-    create(:published_news_article, title: "news_article-title", body: "this and that",
-                                    summary: "news_article-summary")
-    create(:published_publication, title: "publication-title",
-                                   body: "stuff and things", summary: "publication-summary")
+    create(
+      :published_news_article,
+      title: "news_article-title",
+      body: "this and that",
+      summary: "news_article-summary",
+    )
+    create(
+      :published_publication,
+      title: "publication-title",
+      body: "stuff and things",
+      summary: "publication-summary",
+    )
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     result_titles = Edition.search_index.to_a.map { |r| r["title"] }
@@ -629,10 +637,12 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "set_public_timestamp should use major_change_published_at if not first_published_version" do
-    e = build(:edition,
-              public_timestamp: nil,
-              published_major_version: 2,
-              major_change_published_at: 4.days.ago)
+    e = build(
+      :edition,
+      public_timestamp: nil,
+      published_major_version: 2,
+      major_change_published_at: 4.days.ago,
+    )
     e.set_public_timestamp
     assert_equal 4.days.ago, e.public_timestamp
   end

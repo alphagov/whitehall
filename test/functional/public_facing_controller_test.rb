@@ -32,11 +32,11 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
 
     def api_bad_gateway
-      raise GdsApi::HTTPBadGateway.new("Bad Gateway")
+      raise GdsApi::HTTPBadGateway, "Bad Gateway"
     end
 
     def api_unprocessable_entity
-      raise GdsApi::HTTPUnprocessableEntity.new("Unprocessable entity")
+      raise GdsApi::HTTPUnprocessableEntity, "Unprocessable entity"
     end
   end
 

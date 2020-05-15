@@ -275,12 +275,13 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   view_test "prevents oversized exports" do
     login_as(create(:gds_editor))
     Admin::EditionFilter.any_instance.stubs(exportable?: false)
-    post :export, params: {
-      include_last_author: true,
-      include_link_check_reports: true,
-      include_unpublishing: true,
-      state: "active",
-    }
+    post :export,
+         params: {
+           include_last_author: true,
+           include_link_check_reports: true,
+           include_unpublishing: true,
+           state: "active",
+         }
     assert_equal "The document list is too large for export", flash[:alert]
   end
 
@@ -299,9 +300,11 @@ private
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
-      page_title: "", edition_state: "", valid?: true,
+      page_title: "",
+      edition_state: "",
+      valid?: true,
       options: {},
-      hide_type: false
+      hide_type: false,
     }
     stub("edition filter", default_attributes.merge(attributes.except(:editions)))
   end

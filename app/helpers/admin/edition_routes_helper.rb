@@ -1,9 +1,15 @@
 module Admin::EditionRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
-  EDITION_TYPES = [Publication, NewsArticle, Consultation, Speech,
-                   DetailedGuide, CaseStudy,
-                   StatisticalDataSet, FatalityNotice, WorldLocationNewsArticle,
+  EDITION_TYPES = [Publication,
+                   NewsArticle,
+                   Consultation,
+                   Speech,
+                   DetailedGuide,
+                   CaseStudy,
+                   StatisticalDataSet,
+                   FatalityNotice,
+                   WorldLocationNewsArticle,
                    CorporateInformationPage].freeze
 
   def self.edition_instance_route(name)

@@ -39,10 +39,14 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, title: "english-title")
 
-    put :update, params: { organisation_id: organisation, contact_id: contact, id: "fr", contact: {
-      title: "Afrolasie Bureau",
-      comments: "Enseigner aux gens comment infuser le thé",
-    } }
+    put :update,
+        params: { organisation_id: organisation,
+                  contact_id: contact,
+                  id: "fr",
+                  contact: {
+                    title: "Afrolasie Bureau",
+                    comments: "Enseigner aux gens comment infuser le thé",
+                  } }
 
     contact.reload
 

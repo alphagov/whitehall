@@ -33,7 +33,7 @@ end
 
 def clean_the_url(url)
   clean_url = url[/(http(s?):\/\/www.gov.uk\/)([^\/]*)/]
-  if !clean_url.nil?
+  unless clean_url.nil?
     clean_url.insert(4, "s") if clean_url.start_with?("http://")
     clean_url = clean_url.chop if clean_url[-1] == "/"
   end
@@ -60,7 +60,7 @@ related_mainstream_content_urls.each do |detailed_guide|
   if content_id.nil?
     chopped_url = clean_the_url(detailed_guide[:related_mainstream_content_url])
     content_id = validate_url_content_id(chopped_url) if chopped_url
-    update_mainstream_url(detailed_guide[:id], chopped_url) if !content_id.nil?
+    update_mainstream_url(detailed_guide[:id], chopped_url) unless content_id.nil?
   end
   puts "Content item not found: #{detailed_guide[:id]}, #{detailed_guide[:related_mainstream_content_url]}" if content_id.nil?
 end
@@ -89,7 +89,7 @@ additional_related_mainstream_content_urls.each do |detailed_guide|
   if content_id.nil?
     chopped_url = clean_the_url(additional_related_mainstream_content_url)
     content_id = validate_url_content_id(chopped_url) if chopped_url
-    update_additional_related_mainstream_url(detailed_guide_id, chopped_url) if !content_id.nil?
+    update_additional_related_mainstream_url(detailed_guide_id, chopped_url) unless content_id.nil?
   end
   puts "Content item not found: #{detailed_guide_id}, #{additional_related_mainstream_content_url}" if content_id.nil?
 end

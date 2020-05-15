@@ -81,9 +81,12 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test "edit presents a form to update an existing translation" do
-    role = create(:role, translated_into: {
-      fr: { name: "nom de rôle", responsibilities: "responsabilités" },
-    })
+    role = create(
+      :role,
+      translated_into: {
+        fr: { name: "nom de rôle", responsibilities: "responsabilités" },
+      },
+    )
 
     get :edit, params: { role_id: role, id: "fr" }
 
@@ -119,9 +122,12 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test "update updates translation and redirects back to the index" do
-    put :update, params: { role_id: @role, id: "fr", role: {
-      name: "nom de rôle", responsibilities: "responsabilités"
-    } }
+    put :update,
+        params: { role_id: @role,
+                  id: "fr",
+                  role: {
+                    name: "nom de rôle", responsibilities: "responsabilités"
+                  } }
 
     @role.reload
     with_locale :fr do
@@ -132,9 +138,12 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test "update re-renders form if translation is invalid" do
-    put :update, params: { role_id: @role, id: "fr", role: {
-      name: "", responsibilities: "responsabilités"
-    } }
+    put :update,
+        params: { role_id: @role,
+                  id: "fr",
+                  role: {
+                    name: "", responsibilities: "responsabilités"
+                  } }
 
     translation_path = admin_role_translation_path(@role, "fr")
     assert_select "form[action=?]", translation_path do

@@ -17,9 +17,11 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if ended_at is before started_at" do
-    role_appointment = build(:role_appointment,
-                             started_at: Time.zone.parse("2000-12-30"),
-                             ended_at: Time.zone.parse("1999-01-01"))
+    role_appointment = build(
+      :role_appointment,
+      started_at: Time.zone.parse("2000-12-30"),
+      ended_at: Time.zone.parse("1999-01-01"),
+    )
     assert_not role_appointment.valid?
   end
 

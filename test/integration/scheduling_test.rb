@@ -6,8 +6,10 @@ class SchedulingTest < ActiveSupport::TestCase
 
   setup do
     disable_publishes_to_publishing_api do
-      @submitted_edition = create(:submitted_publication,
-                                  scheduled_publication: 1.day.from_now)
+      @submitted_edition = create(
+        :submitted_publication,
+        scheduled_publication: 1.day.from_now,
+      )
     end
     stub_legacy_sidekiq_scheduling
     stub_any_publishing_api_call

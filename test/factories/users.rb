@@ -41,7 +41,8 @@ FactoryBot.define do
 
   factory :gds_admin, parent: :user do
     permissions do
-      [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR,
+      [User::Permissions::SIGNIN,
+       User::Permissions::GDS_EDITOR,
        User::Permissions::GDS_ADMIN]
     end
   end

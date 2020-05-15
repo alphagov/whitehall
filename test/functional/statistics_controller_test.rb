@@ -31,13 +31,14 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   test "when locale is english it redirects with params for finder-frontend" do
-    get :index, params: {
-      keywords: "one two",
-      taxons: %w[one],
-      departments: %w[all one two],
-      from_date: "01/01/2014",
-      to_date: "01/01/2014",
-    }
+    get :index,
+        params: {
+          keywords: "one two",
+          taxons: %w[one],
+          departments: %w[all one two],
+          from_date: "01/01/2014",
+          to_date: "01/01/2014",
+        }
 
     redirect_params_query = {
       content_store_document_type: "published_statistics",
@@ -104,10 +105,13 @@ class StatisticsControllerTest < ActionController::TestCase
     Sidekiq::Testing.inline! do
       organisation_1 = create(:organisation, name: "org-name")
       organisation_2 = create(:organisation, name: "other-org")
-      statistics_publication = create(:published_statistics, title: "statistics-title",
-                                                             organisations: [organisation_1, organisation_2],
-                                                             first_published_at: Date.parse("2011-03-14"),
-                                                             translated_into: :fr)
+      statistics_publication = create(
+        :published_statistics,
+        title: "statistics-title",
+        organisations: [organisation_1, organisation_2],
+        first_published_at: Date.parse("2011-03-14"),
+        translated_into: :fr,
+      )
 
       get :index, format: :json, params: { locale: "fr" }
 

@@ -165,12 +165,20 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     policy_paper = create(:publication, publication_type: PublicationType::PolicyPaper)
 
     assert_same_elements [form, policy_paper],
-                         Admin::EditionFilter.new(Edition, @current_user, type: "publication",
-                                                                          subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
+                         Admin::EditionFilter.new(
+                           Edition,
+                           @current_user,
+                           type: "publication",
+                           subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id],
+                         ).editions
 
     assert_equal [guidance],
-                 Admin::EditionFilter.new(Edition, @current_user, type: "publication",
-                                                                  subtypes: [PublicationType::Guidance.id]).editions
+                 Admin::EditionFilter.new(
+                   Edition,
+                   @current_user,
+                   type: "publication",
+                   subtypes: [PublicationType::Guidance.id],
+                 ).editions
   end
 
   test "should filter by title" do
@@ -197,10 +205,14 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should filter by broken links" do
-    edition_with_broken_links = create(:published_publication,
-                                       body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A bad link](https://www.gov.uk/bad-link)")
-    edition = create(:published_publication,
-                     body: "[Good](https://www.gov.uk/good-link)")
+    edition_with_broken_links = create(
+      :published_publication,
+      body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A bad link](https://www.gov.uk/bad-link)",
+    )
+    edition = create(
+      :published_publication,
+      body: "[Good](https://www.gov.uk/good-link)",
+    )
     good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
     bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
     another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")

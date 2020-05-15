@@ -8,12 +8,14 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   test "publication presentation includes the correct values" do
     create(:government)
     statistical_data_set = create(:published_statistical_data_set)
-    publication = create(:published_publication,
-                         title: "Publication title",
-                         summary: "The summary",
-                         body: "Some content",
-                         show_brexit_no_deal_content_notice: true,
-                         statistical_data_sets: [statistical_data_set])
+    publication = create(
+      :published_publication,
+      title: "Publication title",
+      summary: "The summary",
+      body: "Some content",
+      show_brexit_no_deal_content_notice: true,
+      statistical_data_sets: [statistical_data_set],
+    )
 
     public_path = Whitehall.url_maker.public_document_path(publication)
     expected_content = {
@@ -107,9 +109,11 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     lead_org_1 = create(:organisation)
     lead_org_2 = create(:organisation)
     supporting_org = create(:organisation)
-    publication = create(:published_publication,
-                         lead_organisations: [lead_org_1, lead_org_2],
-                         supporting_organisations: [supporting_org])
+    publication = create(
+      :published_publication,
+      lead_organisations: [lead_org_1, lead_org_2],
+      supporting_organisations: [supporting_org],
+    )
     presented_item = present(publication)
 
     expected_links_hash = {
@@ -139,8 +143,10 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "links hash includes world locations" do
     location = create(:world_location)
-    publication = create(:published_publication,
-                         world_locations: [location])
+    publication = create(
+      :published_publication,
+      world_locations: [location],
+    )
     presented_item = present(publication)
     assert_valid_against_links_schema({ links: presented_item.links }, "publication")
     assert_equal [location.content_id], presented_item.links[:world_locations]
@@ -171,10 +177,14 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     current_minister = create(:ministerial_role_appointment, role: role)
     former_minister = create(
       :ministerial_role_appointment,
-      role: role, started_at: 2.years.ago, ended_at: 1.year.ago,
+      role: role,
+      started_at: 2.years.ago,
+      ended_at: 1.year.ago,
     )
-    publication = create(:publication,
-                         role_appointments: [current_minister, former_minister])
+    publication = create(
+      :publication,
+      role_appointments: [current_minister, former_minister],
+    )
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
     presented_links = presented_publication.content[:links]
     assert_equal(2, presented_links[:people].count)
@@ -262,9 +272,13 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "accessibility metadata is included" do
-    publication = create(:published_publication, :with_alternative_format_provider, attachments: [
-      attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en", accessible: false),
-    ])
+    publication = create(
+      :published_publication,
+      :with_alternative_format_provider,
+      attachments: [
+        attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en", accessible: false),
+      ],
+    )
     publication.stubs(:alternative_format_contact_email).returns("email-address")
     attachment.stubs(:attachable).returns(publication)
 
@@ -277,9 +291,13 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "csv attachments get a preview URL" do
-    publication = create(:published_publication, :with_alternative_format_provider, attachments: [
-      attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en"),
-    ])
+    publication = create(
+      :published_publication,
+      :with_alternative_format_provider,
+      attachments: [
+        attachment = build(:file_attachment, id: 1, title: "csv attachment", locale: "en"),
+      ],
+    )
     attachment.stubs(:attachable).returns(publication)
     attachment.stubs(:attachment_data).returns(
       attachment_data = build(:attachment_data, id: 42),

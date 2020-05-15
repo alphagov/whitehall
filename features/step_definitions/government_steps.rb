@@ -27,10 +27,13 @@ Given(/^a government exists called "(.*?)" starting on "(.*?)"$/) do |government
 end
 
 When(/^I edit the government called "(.*?)" to have dates "(.*?)" and "(.*?)"$/) do |government_name, start_date, end_date|
-  edit_government(name: government_name, attributes: {
-    start_date: start_date,
-    end_date: end_date,
-  })
+  edit_government(
+    name: government_name,
+    attributes: {
+      start_date: start_date,
+      end_date: end_date,
+    },
+  )
 end
 
 Given(/^there is a current government$/) do

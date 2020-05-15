@@ -36,8 +36,14 @@ private
 
   def translation_params
     params.require(:contact)
-          .permit(:title, :comments, :recipient, :street_address, :locality,
-                  :region, :email, :contact_form_url,
+          .permit(:title,
+                  :comments,
+                  :recipient,
+                  :street_address,
+                  :locality,
+                  :region,
+                  :email,
+                  :contact_form_url,
                   contact_numbers_attributes: %i[id label number])
   end
 end

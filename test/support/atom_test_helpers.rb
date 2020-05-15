@@ -16,8 +16,10 @@ module AtomTestHelpers
         assert_select entry, "updated", count: 1, text: document.public_timestamp.iso8601
         assert_select(
           entry,
-          "link[rel=?][type=?][href=?]", "alternate", "text/html",
-          routes_helper.public_document_url(document)
+          "link[rel=?][type=?][href=?]",
+          "alternate",
+          "text/html",
+          routes_helper.public_document_url(document),
         )
         assert_select entry, "title", count: 1, text: "#{document.display_type}: #{document.title}"
         assert_select entry, "summary", count: 1, text: document.summary

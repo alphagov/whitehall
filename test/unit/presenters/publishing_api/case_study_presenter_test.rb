@@ -130,9 +130,11 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     lead_org_1 = create(:organisation)
     lead_org_2 = create(:organisation)
     supporting_org = create(:organisation)
-    case_study = create(:published_case_study,
-                        lead_organisations: [lead_org_1, lead_org_2],
-                        supporting_organisations: [supporting_org])
+    case_study = create(
+      :published_case_study,
+      lead_organisations: [lead_org_1, lead_org_2],
+      supporting_organisations: [supporting_org],
+    )
     presented_item = present(case_study)
     expected_links_hash = {
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
@@ -163,8 +165,10 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
   test "links hash includes world locations" do
     location = create(:world_location)
-    case_study = create(:published_case_study,
-                        world_locations: [location])
+    case_study = create(
+      :published_case_study,
+      world_locations: [location],
+    )
     presented_item = present(case_study)
     assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal [location.content_id], presented_item.links[:world_locations]
@@ -172,8 +176,10 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
   test "links hash includes worldwide organisations" do
     wworg = create(:worldwide_organisation)
-    case_study = create(:published_case_study,
-                        worldwide_organisations: [wworg])
+    case_study = create(
+      :published_case_study,
+      worldwide_organisations: [wworg],
+    )
     presented_item = present(case_study)
     assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal [wworg.content_id], presented_item.links[:worldwide_organisations]

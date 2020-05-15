@@ -31,11 +31,14 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
   end
 
   test "#dup should also clone document memberships" do
-    group = create(:document_collection_group, documents: [
-      build(:document),
-      build(:document),
-      build(:document),
-    ])
+    group = create(
+      :document_collection_group,
+      documents: [
+        build(:document),
+        build(:document),
+        build(:document),
+      ],
+    )
 
     group.memberships[0].ordering = 2
     group.memberships[1].ordering = 1
@@ -57,13 +60,18 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
   test "#content_ids contain document and non-whitehall links in order" do
     document = build(:document)
     non_whitehall_link = build(:document_collection_non_whitehall_link)
-    group = create(:document_collection_group, memberships: [
-      build(:document_collection_group_membership, document: document),
-      build(:document_collection_group_membership,
-            document: nil,
-            non_whitehall_link:
-            non_whitehall_link),
-    ])
+    group = create(
+      :document_collection_group,
+      memberships: [
+        build(:document_collection_group_membership, document: document),
+        build(
+          :document_collection_group_membership,
+          document: nil,
+          non_whitehall_link:
+          non_whitehall_link,
+        ),
+      ],
+    )
 
     group.memberships[0].update(ordering: 2)
     group.memberships[1].update(ordering: 1)

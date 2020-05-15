@@ -5,7 +5,7 @@ Consultation.where(first_published_at: nil).each do |consultation|
   public_at = consultation.make_public_at(consultation.opening_at.to_datetime)
   result = consultation.save(touch: false, validate: false)
 
-  puts format("Setting %s first_published_at to %s \n=> %s", consultation.inspect, public_at, result)
+  puts sprintf("Setting %s first_published_at to %s \n=> %s", consultation.inspect, public_at, result)
 end
 
 Consultation.where("date(first_published_at) > date(opening_at)").each do |consultation|
@@ -15,5 +15,5 @@ Consultation.where("date(first_published_at) > date(opening_at)").each do |consu
   public_at = consultation.first_published_at = consultation.opening_at.to_datetime
   result = consultation.save(touch: false, validate: false)
 
-  puts format("Setting %s first_published_at to %s \n=> %s", consultation.inspect, public_at, result)
+  puts sprintf("Setting %s first_published_at to %s \n=> %s", consultation.inspect, public_at, result)
 end

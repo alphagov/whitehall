@@ -57,10 +57,14 @@ private
 
   def role_params
     params.require(:role).permit(
-      :name, :role_type, :whip_organisation_id, :role_payment_type_id,
-      :attends_cabinet_type_id, :responsibilities,
+      :name,
+      :role_type,
+      :whip_organisation_id,
+      :role_payment_type_id,
+      :attends_cabinet_type_id,
+      :responsibilities,
       organisation_ids: [],
-      worldwide_organisation_ids: []
+      worldwide_organisation_ids: [],
     ).merge(type: sti_type)
   end
 

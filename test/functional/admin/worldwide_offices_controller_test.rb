@@ -333,14 +333,15 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.add_office_to_home_page!(office_2)
     worldwide_organisation.add_office_to_home_page!(office_3)
 
-    post :reorder_for_home_page, params: {
-      worldwide_organisation_id: worldwide_organisation,
-      ordering: {
-        office_1.id.to_s => "3",
-        office_2.id.to_s => "1",
-        office_3.id.to_s => "2",
-      },
-    }
+    post :reorder_for_home_page,
+         params: {
+           worldwide_organisation_id: worldwide_organisation,
+           ordering: {
+             office_1.id.to_s => "3",
+             office_2.id.to_s => "1",
+             office_3.id.to_s => "2",
+           },
+         }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %(Offices on home page reordered successfully), flash[:notice]
@@ -351,13 +352,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation, office = create_worldwide_organisation_and_office
     worldwide_organisation.add_office_to_home_page!(office)
 
-    post :reorder_for_home_page, params: {
-      worldwide_organisation_id: worldwide_organisation,
-      ordering: {
-        office.id.to_s => "2",
-        "1000000" => "1",
-      },
-    }
+    post :reorder_for_home_page,
+         params: {
+           worldwide_organisation_id: worldwide_organisation,
+           ordering: {
+             office.id.to_s => "2",
+             "1000000" => "1",
+           },
+         }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
     assert_equal %(Offices on home page reordered successfully), flash[:notice]

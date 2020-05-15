@@ -18,10 +18,12 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
   end
 
   def force_publish(edition, headers = {})
-    post "/government/admin/editions/#{edition.id}/force_publish", params: {
-      reason: "Test",
-      lock_version: 0,
-    }, headers: headers
+    post "/government/admin/editions/#{edition.id}/force_publish",
+         params: {
+           reason: "Test",
+           lock_version: 0,
+         },
+         headers: headers
     follow_redirect!
   end
 

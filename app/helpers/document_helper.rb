@@ -243,10 +243,10 @@ Please tell us:
       from += array_of_links_to_organisations(document.lead_organisations)
     end
 
-    if !(document.respond_to?(:statistics?) && document.statistics?)
+    unless document.respond_to?(:statistics?) && document.statistics?
       if document.respond_to?(:delivered_by_minister?)
         if document.person_override?
-          from << document.person_override if !links_only
+          from << document.person_override unless links_only
         else
           from << link_to_person(document.role_appointment.person)
         end

@@ -15,10 +15,13 @@ module AddressFormatter
   private
 
     def get_address_as_adr_value(type)
-      add_optional_type_key(type, Formatter.property_keys.inject({}) do |adr, key|
-        value = properties[key]
-        adr.update(key.to_s => value.presence || "")
-      end)
+      add_optional_type_key(
+        type,
+        Formatter.property_keys.inject({}) do |adr, key|
+          value = properties[key]
+          adr.update(key.to_s => value.presence || "")
+        end,
+      )
     end
 
     def get_addresss_as_label_value(type)

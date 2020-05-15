@@ -82,11 +82,13 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     feature_2 = create(:classification_featuring, classification: @topic)
     feature_3 = create(:classification_featuring, classification: @topic)
 
-    put :order, params: { topic_id: @topic, ordering: {
-      feature_1.id.to_s => "1",
-      feature_2.id.to_s => "2",
-      feature_3.id.to_s => "0",
-    } }
+    put :order,
+        params: { topic_id: @topic,
+                  ordering: {
+                    feature_1.id.to_s => "1",
+                    feature_2.id.to_s => "2",
+                    feature_3.id.to_s => "0",
+                  } }
 
     assert_response :redirect
     assert_equal [feature_3, feature_1, feature_2], @topic.reload.classification_featurings

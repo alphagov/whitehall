@@ -54,13 +54,19 @@ class EmbassyTest < ActiveSupport::TestCase
     toytown = create(:world_location, :with_worldwide_organisations, name: "Narnia")
     toytown_org = toytown.worldwide_organisations.first
     toytown_org.main_office = nil
-    contact = create(:contact, title: "British Embassy Legoland",
-                               street_address: "1 Brick Lane", country: legoland)
-    toytown_org.offices << create(:worldwide_office,
-                                  title: "British Consular Services Legoland",
-                                  contact: contact,
-                                  worldwide_organisation: toytown_org,
-                                  worldwide_office_type: WorldwideOfficeType::Embassy)
+    contact = create(
+      :contact,
+      title: "British Embassy Legoland",
+      street_address: "1 Brick Lane",
+      country: legoland,
+    )
+    toytown_org.offices << create(
+      :worldwide_office,
+      title: "British Consular Services Legoland",
+      contact: contact,
+      worldwide_organisation: toytown_org,
+      worldwide_office_type: WorldwideOfficeType::Embassy,
+    )
 
     location = Embassy.new(toytown)
 

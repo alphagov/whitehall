@@ -4,8 +4,11 @@ module ServiceListeners
   class EditionDependenciesPopulatorTest < ActiveSupport::TestCase
     test "populates contacts extracted from dependent editions' govspeak" do
       contacts = create_list(:contact, 2)
-      news_article = create(:news_article, body: "For more information, get in touch at:
-      [Contact:#{contacts[0].id}] or [Contact:#{contacts[1].id}]")
+      news_article = create(
+        :news_article,
+        body: "For more information, get in touch at:
+      [Contact:#{contacts[0].id}] or [Contact:#{contacts[1].id}]",
+      )
 
       EditionDependenciesPopulator.new(news_article).populate!
 
@@ -14,9 +17,12 @@ module ServiceListeners
 
     test "populates editions extracted from dependent editions' govspeak" do
       speeches = create_list(:speech, 2)
-      news_article = create(:news_article, body: "The Governor's speeches are available:
+      news_article = create(
+        :news_article,
+        body: "The Governor's speeches are available:
       - [London](/government/admin/speeches/#{speeches[0].id}), and
-      - [Cambridge](/government/admin/speeches/#{speeches[1].id})")
+      - [Cambridge](/government/admin/speeches/#{speeches[1].id})",
+      )
 
       EditionDependenciesPopulator.new(news_article).populate!
 

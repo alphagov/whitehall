@@ -6,8 +6,10 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   end
 
   test "saves generated HTML to the GovspeakContent instance" do
-    govspeak_content =  create(:html_attachment,
-                               body: example_govspeak).govspeak_content
+    govspeak_content =  create(
+      :html_attachment,
+      body: example_govspeak,
+    ).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
@@ -17,9 +19,11 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   end
 
   test "saves generated HTML with manual numbering" do
-    govspeak_content =  create(:html_attachment,
-                               body: example_govspeak,
-                               manually_numbered_headings: true).govspeak_content
+    govspeak_content =  create(
+      :html_attachment,
+      body: example_govspeak,
+      manually_numbered_headings: true,
+    ).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
@@ -31,9 +35,11 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   test "saves generated HTML with image interpolation" do
     image = create(:image, alt_text: "Alt")
     publication = create(:publication, images: [image])
-    govspeak_content = create(:html_attachment,
-                              attachable: publication,
-                              body: example_govspeak_with_image).govspeak_content
+    govspeak_content = create(
+      :html_attachment,
+      attachable: publication,
+      body: example_govspeak_with_image,
+    ).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
@@ -43,8 +49,10 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   end
 
   test "saves generated govspeak headers HTML to the GovspeakContent instance" do
-    govspeak_content =  create(:html_attachment,
-                               body: example_govspeak).govspeak_content
+    govspeak_content =  create(
+      :html_attachment,
+      body: example_govspeak,
+    ).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
@@ -56,8 +64,10 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   test "handles embedded contacts" do
     contact = create(:contact)
 
-    govspeak_content = create(:html_attachment,
-                              body: "[Contact:#{contact.id}]").govspeak_content
+    govspeak_content = create(
+      :html_attachment,
+      body: "[Contact:#{contact.id}]",
+    ).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
@@ -67,9 +77,11 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   end
 
   test "saves generated govspeak headers HTML with manual numbering" do
-    govspeak_content =  create(:html_attachment,
-                               body: example_govspeak,
-                               manually_numbered_headings: true).govspeak_content
+    govspeak_content =  create(
+      :html_attachment,
+      body: example_govspeak,
+      manually_numbered_headings: true,
+    ).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload

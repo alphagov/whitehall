@@ -19,10 +19,15 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
 
   test "converts inline attachments" do
     body = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
-    edition = build(:published_detailed_guide, :with_file_attachment, body: body, attachments: [
-      attachment_1 = build(:file_attachment, id: 1),
-      attachment_2 = build(:file_attachment, id: 2),
-    ])
+    edition = build(
+      :published_detailed_guide,
+      :with_file_attachment,
+      body: body,
+      attachments: [
+        attachment_1 = build(:file_attachment, id: 1),
+        attachment_2 = build(:file_attachment, id: 2),
+      ],
+    )
     html = render_govspeak(edition)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
@@ -30,9 +35,14 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
 
   test "converts block attachments and handles thumbnails for PDFs" do
     body = "#Heading\n\nText. \n\n!@1\n\n Fooble"
-    edition = create(:published_detailed_guide, :with_file_attachment, body: body, attachments: [
-      attachment = build(:file_attachment, id: 1),
-    ])
+    edition = create(
+      :published_detailed_guide,
+      :with_file_attachment,
+      body: body,
+      attachments: [
+        attachment = build(:file_attachment, id: 1),
+      ],
+    )
 
     # The content_type doesn't get set for some reason, so set it manually
     ad = edition.attachments.first.attachment_data

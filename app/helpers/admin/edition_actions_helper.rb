@@ -72,17 +72,21 @@ module Admin::EditionActionsHelper
     button_title = "Publish #{edition.title}"
 
     if options[:force]
-      link_to("Force publish",
-              confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
-              title: button_title,
-              class: "btn btn-default force-publish",
-              "data-module" => "linked-modal",
-              "data-target" => "#forcePublishModal")
+      link_to(
+        "Force publish",
+        confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
+        title: button_title,
+        class: "btn btn-default force-publish",
+        "data-module" => "linked-modal",
+        "data-target" => "#forcePublishModal",
+      )
     else
-      button_to("Publish",
-                publish_admin_edition_path(edition, lock_version: edition.lock_version),
-                title: button_title,
-                class: "btn btn-success publish")
+      button_to(
+        "Publish",
+        publish_admin_edition_path(edition, lock_version: edition.lock_version),
+        title: button_title,
+        class: "btn btn-success publish",
+      )
     end
   end
 
@@ -90,16 +94,20 @@ module Admin::EditionActionsHelper
     button_title = "Schedule #{edition.title} for publication on #{l edition.scheduled_publication, format: :long}"
 
     if options[:force]
-      button_to("Force schedule",
-                force_schedule_admin_edition_path(edition, lock_version: edition.lock_version),
-                data: { confirm: "Are you sure you want to force schedule this document for publication?" },
-                title: button_title,
-                class: "btn btn-warning")
+      button_to(
+        "Force schedule",
+        force_schedule_admin_edition_path(edition, lock_version: edition.lock_version),
+        data: { confirm: "Are you sure you want to force schedule this document for publication?" },
+        title: button_title,
+        class: "btn btn-warning",
+      )
     else
-      button_to("Schedule",
-                schedule_admin_edition_path(edition, lock_version: edition.lock_version),
-                title: button_title,
-                class: "btn btn-success")
+      button_to(
+        "Schedule",
+        schedule_admin_edition_path(edition, lock_version: edition.lock_version),
+        title: button_title,
+        class: "btn btn-success",
+      )
     end
   end
 
@@ -118,11 +126,13 @@ module Admin::EditionActionsHelper
 
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
-    content_tag(:ul,
-                class: "masthead-menu list-unstyled js-hidden",
-                id: "new-document-menu",
-                role: "menu",
-                "aria-labelledby" => "new-document-label") do
+    content_tag(
+      :ul,
+      class: "masthead-menu list-unstyled js-hidden",
+      id: "new-document-menu",
+      role: "menu",
+      "aria-labelledby" => "new-document-label",
+    ) do
       edition_types = [
         Consultation,
         Publication,
@@ -138,10 +148,12 @@ module Admin::EditionActionsHelper
         .select { |edition_type| can?(:create, edition_type) }
         .map { |edition_type|
           content_tag(:li, class: "masthead-menu-item") do
-            link_to(edition_type.model_name.human,
-                    polymorphic_path([:new, :admin, edition_type.name.underscore]),
-                    title: "Create #{edition_type.model_name.human.titleize}",
-                    role: "menuitem")
+            link_to(
+              edition_type.model_name.human,
+              polymorphic_path([:new, :admin, edition_type.name.underscore]),
+              title: "Create #{edition_type.model_name.human.titleize}",
+              role: "menuitem",
+            )
           end
         }
         .join

@@ -46,9 +46,14 @@ private
 
   def historical_account_params
     params.require(:historical_account).permit(
-      :summary, :body, :born, :died, :major_acts, :interesting_facts,
+      :summary,
+      :body,
+      :born,
+      :died,
+      :major_acts,
+      :interesting_facts,
       role_ids: [],
-      political_party_ids: []
+      political_party_ids: [],
     )
   end
 end

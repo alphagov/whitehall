@@ -1,1 +1,1 @@
-PublishingApiDocumentRepublishingWorker.new.perform(253327)
+PublishingApiDocumentRepublishingWorker.new.perform(253_327)

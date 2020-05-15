@@ -24,11 +24,12 @@ module AdminEditionWorldLocationsBehaviour
         world_location_2 = create(:world_location)
         attributes = controller_attributes_for(document_type)
 
-        post :create, params: {
-          edition: attributes.merge(
-            world_location_ids: [world_location_1.id, world_location_2.id],
-          ),
-        }
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 world_location_ids: [world_location_1.id, world_location_2.id],
+               ),
+             }
 
         assert document = edition_class.last
         assert_equal [world_location_1, world_location_2], document.world_locations
@@ -54,9 +55,11 @@ module AdminEditionWorldLocationsBehaviour
         world_location_2 = create(:world_location)
         document = create(document_type, world_locations: [world_location_2])
 
-        put :update, params: { id: document, edition: {
-          world_location_ids: [world_location_1.id],
-        } }
+        put :update,
+            params: { id: document,
+                      edition: {
+                        world_location_ids: [world_location_1.id],
+                      } }
 
         document = document.reload
         assert_equal [world_location_1], document.world_locations

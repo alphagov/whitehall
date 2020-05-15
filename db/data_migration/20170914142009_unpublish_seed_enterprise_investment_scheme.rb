@@ -1,5 +1,5 @@
 # Unpublish guidance/seed-enterprise-investment-scheme-procedures and redirect to guidance/venture-capital-schemes-apply-to-use-the-seed-enterprise-investment-scheme
-document_id = 272247
+document_id = 272_247
 detailed_guide = Document.find(document_id)
 
 if detailed_guide.published_edition

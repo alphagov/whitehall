@@ -20,11 +20,12 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creates a worldwide organisation" do
-    post :create, params: {
-      worldwide_organisation: {
-        name: "Organisation",
-      },
-    }
+    post :create,
+         params: {
+           worldwide_organisation: {
+             name: "Organisation",
+           },
+         }
 
     worldwide_organisation = WorldwideOrganisation.last
     assert_kind_of WorldwideOrganisation, worldwide_organisation
@@ -34,11 +35,12 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "shows validation errors on invalid worldwide organisation" do
-    post :create, params: {
-      worldwide_organisation: {
-        name: "",
-      },
-    }
+    post :create,
+         params: {
+           worldwide_organisation: {
+             name: "",
+           },
+         }
 
     assert_select "form#new_worldwide_organisation .errors"
   end
@@ -50,14 +52,16 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "updates an existing objects with new values" do
     organisation = create(:worldwide_organisation)
-    put :update, params: {
-      id: organisation.id, worldwide_organisation: {
-        name: "New name",
-        default_news_image_attributes: {
-          file: fixture_file_upload("minister-of-funk.960x640.jpg"),
-        },
-      }
-    }
+    put :update,
+        params: {
+          id: organisation.id,
+          worldwide_organisation: {
+            name: "New name",
+            default_news_image_attributes: {
+              file: fixture_file_upload("minister-of-funk.960x640.jpg"),
+            },
+          },
+        }
     worldwide_organisation = WorldwideOrganisation.last
     assert_equal "New name", worldwide_organisation.name
     assert_equal "minister-of-funk.960x640.jpg", worldwide_organisation.default_news_image.file.file.filename
@@ -88,12 +92,16 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   test "destroys an existing object" do
     organisation = create(:worldwide_organisation)
 
-    page = create(:published_worldwide_organisation_corporate_information_page,
-                  worldwide_organisation: organisation)
+    page = create(
+      :published_worldwide_organisation_corporate_information_page,
+      worldwide_organisation: organisation,
+    )
 
-    create(:published_worldwide_organisation_corporate_information_page,
-           worldwide_organisation: organisation,
-           document: page.document)
+    create(
+      :published_worldwide_organisation_corporate_information_page,
+      worldwide_organisation: organisation,
+      document: page.document,
+    )
 
     count = WorldwideOrganisation.count
     delete :destroy, params: { id: organisation.id }
@@ -102,10 +110,13 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   view_test "shows the name summary and description of the worldwide organisation" do
     organisation = create(:worldwide_organisation, name: "Ministry of Silly Walks in Madrid")
-    about_us = create(:about_corporate_information_page,
-                      organisation: nil, worldwide_organisation: organisation,
-                      summary: "We have a nice organisation in madrid",
-                      body: "# Organisation\nOur organisation is on the main road\n")
+    about_us = create(
+      :about_corporate_information_page,
+      organisation: nil,
+      worldwide_organisation: organisation,
+      summary: "We have a nice organisation in madrid",
+      body: "# Organisation\nOur organisation is on the main road\n",
+    )
 
     get :show, params: { id: organisation }
 

@@ -10,7 +10,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Topic A", topic_a.id],
       ["Topic B", topic_b.id],
       ["Topic C", topic_c.id],
-    ], taggable_topics_container
+    ],
+                 taggable_topics_container
   end
 
   test "#taggable_topical_events_container returns an array of name/ID pairs for all TopicalEvents" do
@@ -22,7 +23,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Event A", event_a.id],
       ["Event B", event_b.id],
       ["Event C", event_c.id],
-    ], taggable_topical_events_container
+    ],
+                 taggable_topical_events_container
   end
 
   test "#taggable_organisations_container returns an array of select_name/ID pairs for all Organisations" do
@@ -34,7 +36,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Organisation A (OA)", organisation_a.id],
       ["Organisation B (OB)", organisation_b.id],
       ["Organisation C (OC)", organisation_c.id],
-    ], taggable_organisations_container
+    ],
+                 taggable_organisations_container
   end
 
   test "#taggable_ministerial_role_appointments_container returns an array of label/ID pairs for ministerial role appointments" do
@@ -48,17 +51,20 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
 
     deputy_leader_appointment  = create(:role_appointment, role: deputy, person: joe)
     current_leader_appointment = create(:role_appointment, role: leader, person: fred)
-    old_leader_appointment     = create(:role_appointment,
-                                        role: leader,
-                                        person: slate,
-                                        started_at: Date.new(1960, 5, 12),
-                                        ended_at: Date.new(1972, 5, 14))
+    old_leader_appointment     = create(
+      :role_appointment,
+      role: leader,
+      person: slate,
+      started_at: Date.new(1960, 5, 12),
+      ended_at: Date.new(1972, 5, 14),
+    )
 
     assert_equal [
       ["Fred Flintstone, Leader, Ministry for Rocks and Bones", current_leader_appointment.id],
       ["Joe Rockhead, Deputy Leader, Ministry for Rocks and Bones", deputy_leader_appointment.id],
       ["Mr. Slate, Leader (12 May 1960 to 14 May 1972), Ministry for Rocks and Bones", old_leader_appointment.id],
-    ], taggable_ministerial_role_appointments_container
+    ],
+                 taggable_ministerial_role_appointments_container
   end
 
   test "#taggable_ministerial_role_appointments_container does not include the dates of previous appointments for the same role in the label text" do
@@ -68,17 +74,20 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     joe = create(:person, forename: "Joe", surname: "Rockhead")
     slate = create(:person, forename: "Mr.", surname: "Slate")
 
-    old_leader_appointment = create(:role_appointment,
-                                    role: leader,
-                                    person: joe,
-                                    started_at: Date.new(2006, 5, 12),
-                                    ended_at: Date.new(2011, 5, 11))
+    old_leader_appointment = create(
+      :role_appointment,
+      role: leader,
+      person: joe,
+      started_at: Date.new(2006, 5, 12),
+      ended_at: Date.new(2011, 5, 11),
+    )
     current_leader_appointment = create(:role_appointment, role: leader, person: slate)
 
     assert_equal [
       ["Joe Rockhead, Leader (12 May 2006 to 11 May 2011), Ministry for Rocks and Bones", old_leader_appointment.id],
       ["Mr. Slate, Leader, Ministry for Rocks and Bones", current_leader_appointment.id],
-    ], taggable_ministerial_role_appointments_container
+    ],
+                 taggable_ministerial_role_appointments_container
   end
 
   test "#taggable_role_appointments_container returns an array of label/ID pairs for all role appointments" do
@@ -92,17 +101,20 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
 
     minister_appointment     = create(:role_appointment, role: minister, person: brown)
     board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
-    old_minister_appointment = create(:role_appointment,
-                                      role: minister,
-                                      person: richard,
-                                      started_at: Date.new(1932, 12, 5),
-                                      ended_at: Date.new(1972, 5, 14))
+    old_minister_appointment = create(
+      :role_appointment,
+      role: minister,
+      person: richard,
+      started_at: Date.new(1932, 12, 5),
+      ended_at: Date.new(1972, 5, 14),
+    )
 
     assert_equal [
       ["James Brown, Minister of Funk, Ministry for Funk", minister_appointment.id],
       ["George Clinton, Board Member, Ministry for Funk", board_member_appointment.id],
       ["Little Richard, Minister of Funk (05 December 1932 to 14 May 1972), Ministry for Funk", old_minister_appointment.id],
-    ], taggable_role_appointments_container
+    ],
+                 taggable_role_appointments_container
   end
 
   test "#taggable_ministerial_roles_container returns an array of label/ID pairs for all the ministerial roles" do
@@ -118,7 +130,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Minister B, Jazz Ministry (Minister B)", minister_b.id],
       ["Minister C, Ministry of Outer Space (George Clinton)", minister_c.id],
       ["Minister A, Jazz Ministry (Sun Ra)", minister_a.id],
-    ], taggable_ministerial_roles_container
+    ],
+                 taggable_ministerial_roles_container
   end
 
   test "#taggable_detailed_guides_container returns an array of label/ID pairs for all active detailed guides" do
@@ -131,7 +144,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       [guide_a.title, guide_a.id],
       [guide_b.title, guide_b.id],
       [guide_c.title, guide_c.id],
-    ], taggable_detailed_guides_container
+    ],
+                 taggable_detailed_guides_container
   end
 
   test "#taggable_statistical_data_sets_container returns an array of label/Document ID pairs for all statistical data sets" do
@@ -143,7 +157,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       [data_set_1.title, data_set_1.document_id],
       [data_set_2.title, data_set_2.document_id],
       [data_set_3.title, data_set_3.document_id],
-    ], taggable_statistical_data_sets_container
+    ],
+                 taggable_statistical_data_sets_container
   end
 
   test "#taggable_world_locations_container returns an array of label/ID pairs for all active world locations" do
@@ -156,7 +171,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Andorra", location_a.id],
       ["Brazil", location_b.id],
       ["Croatia", location_c.id],
-    ], taggable_world_locations_container
+    ],
+                 taggable_world_locations_container
   end
 
   test "#taggable_alternative_format_providers_container returns an array of label/ID pairs for organisation alternative format providers" do
@@ -168,7 +184,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Department for Hair and Makeup (-)", organisation_h.id],
       ["Department for the Preseveration of Melodicas (lee.perry@melodica.uk)", organisation_t.id],
       ["Ministry of Strange Fruit (barry@strange-fruit.uk)", organisation_m.id],
-    ], taggable_alternative_format_providers_container
+    ],
+                 taggable_alternative_format_providers_container
   end
 
   test "#taggable_document_collection_groups_container returns an array of label/ID pairs for document collection groups" do
@@ -182,7 +199,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["Collection 1 (Group 1)", group_1.id],
       ["Collection 2 (Group 2)", group_2.id],
       ["Collection 2 (Group 3)", group_3.id],
-    ], taggable_document_collection_groups_container
+    ],
+                 taggable_document_collection_groups_container
   end
 
   test "#taggable_worldwide_organisations_container returns an array of label/ID pairs for worldwide organisations" do
@@ -194,7 +212,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ["World Org 1", world_org_1.id],
       ["World Org 2", world_org_2.id],
       ["World Org 3", world_org_3.id],
-    ], taggable_worldwide_organisations_container
+    ],
+                 taggable_worldwide_organisations_container
   end
 
   test "#taggable_worldwide_organisations_container only returns worldwide organisations once even if they have more than one translation" do
@@ -204,7 +223,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     assert_equal [
       ["World Org 1", world_org_1.id],
       ["World Org 2", world_org_2.id],
-    ], taggable_worldwide_organisations_container
+    ],
+                 taggable_worldwide_organisations_container
   end
 
   test "#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated" do

@@ -174,8 +174,11 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "supersede! on a depended-upon edition destroys links with its dependent editions" do
     stub_any_publishing_api_call
     dependable_speech = create(:submitted_speech)
-    dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-                                                        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+    dependent_article = create(
+      :published_news_article,
+      major_change_published_at: Time.zone.now,
+      body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})",
+    )
     dependent_article.depended_upon_editions << dependable_speech
 
     dependable_speech.major_change_published_at = Time.zone.now

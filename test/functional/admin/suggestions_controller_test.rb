@@ -14,15 +14,18 @@ class Admin::SuggestionsControllerTest < ActionController::TestCase
     contact_1 = create(:contact, contactable: organisation)
     contact_2 = create(:contact_with_country)
 
-    create(:worldwide_office,
-           worldwide_organisation: worldwide_organisation,
-           contact: contact_2)
+    create(
+      :worldwide_office,
+      worldwide_organisation: worldwide_organisation,
+      contact: contact_2,
+    )
 
     get :index, format: :json
 
     assert_equal [
       { id: contact_1.id, title: contact_1.title, summary: "org-name" },
       { id: contact_2.id, title: contact_2.title, summary: "world-name" },
-    ], assigns(:contacts)
+    ],
+                 assigns(:contacts)
   end
 end

@@ -75,9 +75,17 @@ private
 
   def contact_params
     params.require(:contact)
-          .permit(:title, :comments, :recipient, :street_address, :locality,
-                  :region, :postal_code, :country_id, :email,
-                  :contact_form_url, :contact_type_id,
+          .permit(:title,
+                  :comments,
+                  :recipient,
+                  :street_address,
+                  :locality,
+                  :region,
+                  :postal_code,
+                  :country_id,
+                  :email,
+                  :contact_form_url,
+                  :contact_type_id,
                   contact_numbers_attributes: %i[id label number _destroy])
   end
 end

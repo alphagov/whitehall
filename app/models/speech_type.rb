@@ -67,36 +67,53 @@ class SpeechType
   end
 
   Transcript = create(
-    id: 1, singular_name: "Transcript", key: "transcript",
+    id: 1,
+    singular_name: "Transcript",
+    key: "transcript",
     explanation: "Transcript of the speech, exactly as it was delivered",
-    plural_name: "Transcripts"
+    plural_name: "Transcripts",
   )
 
   DraftText = create(
-    id: 2, singular_name: "Draft text", key: "draft_text",
+    id: 2,
+    singular_name: "Draft text",
+    key: "draft_text",
     explanation: "Original script, may differ from delivered version",
-    plural_name: "Draft texts"
+    plural_name: "Draft texts",
   )
 
   SpeakingNotes = create(
-    id: 3, singular_name: "Speaking notes", key: "speaking_notes",
+    id: 3,
+    singular_name: "Speaking notes",
+    key: "speaking_notes",
     explanation: "Speaker's notes, may differ from delivered version",
-    plural_name: "Speaking notes"
+    plural_name: "Speaking notes",
   )
 
   WrittenStatement = create(
-    id: 4, key: "written_statement", singular_name: "Written statement to Parliament",
-    plural_name: "Written statements to Parliament", use_key_as_display_key: true
+    id: 4,
+    key: "written_statement",
+    singular_name: "Written statement to Parliament",
+    plural_name: "Written statements to Parliament",
+    use_key_as_display_key: true,
   )
 
   OralStatement = create(
-    id: 5, key: "oral_statement", singular_name: "Oral statement to Parliament",
-    plural_name: "Oral statements to Parliament", use_key_as_display_key: true
+    id: 5,
+    key: "oral_statement",
+    singular_name: "Oral statement to Parliament",
+    plural_name: "Oral statements to Parliament",
+    use_key_as_display_key: true,
   )
 
   AuthoredArticle = create(
-    id: 6, key: "authored_article", singular_name: "Authored article",
-    owner_key_group: "author_title", published_externally_key: "written_on", location_relevant: false,
-    plural_name: "Authored article", use_key_as_display_key: true
+    id: 6,
+    key: "authored_article",
+    singular_name: "Authored article",
+    owner_key_group: "author_title",
+    published_externally_key: "written_on",
+    location_relevant: false,
+    plural_name: "Authored article",
+    use_key_as_display_key: true,
   )
 end

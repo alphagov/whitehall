@@ -4,10 +4,12 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
   setup do
     @content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/test" => @content_id)
-    stub_publishing_api_has_item(content_id: @content_id,
-                                 title: "Test",
-                                 base_path: "/test",
-                                 publishing_app: "content-publisher")
+    stub_publishing_api_has_item(
+      content_id: @content_id,
+      title: "Test",
+      base_path: "/test",
+      publishing_app: "content-publisher",
+    )
   end
 
   test "should be valid without a GOV.UK url that Publishing API knows" do

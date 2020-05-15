@@ -13,9 +13,11 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "creates a new csv file with the correct headers" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
-    detailed_guide = create(:published_detailed_guide,
-                            lead_organisations: [hmrc],
-                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
+    detailed_guide = create(
+      :published_detailed_guide,
+      lead_organisations: [hmrc],
+      body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
     missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
     bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
@@ -33,12 +35,16 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "populates the CSV with details about the broken links per edition" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
-    detailed_guide = create(:published_detailed_guide,
-                            lead_organisations: [hmrc],
-                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
-    publication = create(:published_publication,
-                         lead_organisations: [hmrc],
-                         body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
+    detailed_guide = create(
+      :published_detailed_guide,
+      lead_organisations: [hmrc],
+      body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
+    publication = create(
+      :published_publication,
+      lead_organisations: [hmrc],
+      body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
+    )
 
     bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
     another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")
@@ -57,28 +63,36 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   detailed_guide.public_timestamp.to_s,
                   "DetailedGuide",
                   "2",
-                  "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
+                  "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"],
+                 hmrc_csv[1]
     assert_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
                   publication.public_timestamp.to_s,
                   "Publication",
                   "1",
-                  "https://www.gov.uk/another-bad-link"], hmrc_csv[2]
+                  "https://www.gov.uk/another-bad-link"],
+                 hmrc_csv[2]
   end
 
   test "populates the csv only with details about broken links on editions associated with the specified organisation" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
     embassy_paris = create(:worldwide_organisation, name: "British Embassy Paris")
-    detailed_guide = create(:published_detailed_guide,
-                            lead_organisations: [hmrc],
-                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
-    publication = create(:published_publication,
-                         lead_organisations: [hmrc],
-                         body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
-    news_article = create(:world_location_news_article,
-                          :withdrawn,
-                          worldwide_organisations: [embassy_paris],
-                          body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)")
+    detailed_guide = create(
+      :published_detailed_guide,
+      lead_organisations: [hmrc],
+      body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
+    publication = create(
+      :published_publication,
+      lead_organisations: [hmrc],
+      body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
+    )
+    news_article = create(
+      :world_location_news_article,
+      :withdrawn,
+      worldwide_organisations: [embassy_paris],
+      body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
 
     bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
     another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")
@@ -98,12 +112,16 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "populates the csv only if there is a link check report for the edition" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
-    detailed_guide = create(:published_detailed_guide,
-                            lead_organisations: [hmrc],
-                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
-    publication = create(:published_publication,
-                         lead_organisations: [hmrc],
-                         body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
+    detailed_guide = create(
+      :published_detailed_guide,
+      lead_organisations: [hmrc],
+      body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
+    publication = create(
+      :published_publication,
+      lead_organisations: [hmrc],
+      body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
+    )
 
     bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
     missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
@@ -119,21 +137,25 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   detailed_guide.public_timestamp.to_s,
                   "DetailedGuide",
                   "2",
-                  "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
+                  "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"],
+                 hmrc_csv[1]
     assert_not_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
                       "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
                       publication.public_timestamp.to_s,
                       "Publication",
                       "0",
-                      ""], hmrc_csv[2]
+                      ""],
+                     hmrc_csv[2]
   end
 
   test "creates a new csv file even if no organisation passed to it" do
-    speech = create(:published_speech,
-                    person_override: "The Queen",
-                    body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
-                    role_appointment: nil,
-                    create_default_organisation: false)
+    speech = create(
+      :published_speech,
+      person_override: "The Queen",
+      body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+      role_appointment: nil,
+      create_default_organisation: false,
+    )
     missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
 
@@ -152,19 +174,24 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   speech.public_timestamp.to_s,
                   "Speech",
                   "1",
-                  "https://www.gov.uk/missing-link"], csv[1]
+                  "https://www.gov.uk/missing-link"],
+                 csv[1]
   end
 
   test "adds editions to the relevant organisation's csv file if no organisation passed to it" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
     not_hmrc = create(:organisation, name: "NOT HM Revenue & Customs")
 
-    detailed_guide = create(:published_detailed_guide,
-                            lead_organisations: [hmrc],
-                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
-    publication = create(:published_publication,
-                         lead_organisations: [not_hmrc],
-                         body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
+    detailed_guide = create(
+      :published_detailed_guide,
+      lead_organisations: [hmrc],
+      body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)",
+    )
+    publication = create(
+      :published_publication,
+      lead_organisations: [not_hmrc],
+      body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
+    )
 
     bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
     another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")

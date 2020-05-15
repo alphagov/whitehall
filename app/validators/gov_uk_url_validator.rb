@@ -33,12 +33,12 @@ class GovUkUrlValidator < ActiveModel::Validator
     content_id = content_id("/#{toplevel_path_segment}")
 
     if content_id.blank?
-      raise GdsApi::HTTPNotFound.new(404)
+      raise GdsApi::HTTPNotFound, 404
     else
       content_item = get_content_item(content_id)
 
-      if !guide?(content_item)
-        raise GdsApi::HTTPNotFound.new(404)
+      unless guide?(content_item)
+        raise GdsApi::HTTPNotFound, 404
       end
     end
   end

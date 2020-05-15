@@ -138,15 +138,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should save modified consultation attributes" do
     consultation = create(:consultation)
 
-    put :update, params: { id: consultation, edition: {
-      summary: "new-summary",
-      opening_at: 1.day.ago,
-      closing_at: 50.days.from_now,
-      consultation_participation_attributes: {
-        link_url: "http://consult.com",
-        email: "tell-us-what-you-think@gov.uk",
-      },
-    } }
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    summary: "new-summary",
+                    opening_at: 1.day.ago,
+                    closing_at: 50.days.from_now,
+                    consultation_participation_attributes: {
+                      link_url: "http://consult.com",
+                      email: "tell-us-what-you-think@gov.uk",
+                    },
+                  } }
 
     consultation.reload
     assert_equal "new-summary", consultation.summary
@@ -159,12 +161,14 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should save consultation without consultation participation if participation fields are all blank" do
     consultation = create(:consultation)
 
-    put :update, params: { id: consultation, edition: {
-      consultation_participation_attributes: {
-        link_url: nil,
-        email: nil,
-      },
-    } }
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    consultation_participation_attributes: {
+                      link_url: nil,
+                      email: nil,
+                    },
+                  } }
 
     consultation.reload
     assert_nil consultation.consultation_participation
@@ -175,15 +179,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, params: { id: consultation, edition: {
-      consultation_participation_attributes: {
-        id: participation.id,
-        consultation_response_form_attributes: {
-          id: response_form.id,
-          _destroy: "1",
-        },
-      },
-    } }
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    consultation_participation_attributes: {
+                      id: participation.id,
+                      consultation_response_form_attributes: {
+                        id: response_form.id,
+                        _destroy: "1",
+                      },
+                    },
+                  } }
 
     refute_select ".errors"
     consultation.reload
@@ -198,20 +204,22 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, params: { id: consultation, edition: {
-      consultation_participation_attributes: {
-        id: participation.id,
-        consultation_response_form_attributes: {
-          id: response_form.id,
-          attachment_action: "keep",
-          _destroy: "1",
-          consultation_response_form_data_attributes: {
-            id: response_form.consultation_response_form_data.id,
-            file: greenpaper_pdf,
-          },
-        },
-      },
-    } }
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    consultation_participation_attributes: {
+                      id: participation.id,
+                      consultation_response_form_attributes: {
+                        id: response_form.id,
+                        attachment_action: "keep",
+                        _destroy: "1",
+                        consultation_response_form_data_attributes: {
+                          id: response_form.consultation_response_form_data.id,
+                          file: greenpaper_pdf,
+                        },
+                      },
+                    },
+                  } }
 
     refute_select ".errors"
     consultation.reload
@@ -226,15 +234,17 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, params: { id: consultation, edition: {
-      consultation_participation_attributes: {
-        id: participation.id,
-        consultation_response_form_attributes: {
-          id: response_form.id,
-          attachment_action: "remove",
-        },
-      },
-    } }
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    consultation_participation_attributes: {
+                      id: participation.id,
+                      consultation_response_form_attributes: {
+                        id: response_form.id,
+                        attachment_action: "remove",
+                      },
+                    },
+                  } }
 
     refute_select ".errors"
     consultation.reload
@@ -258,20 +268,22 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, params: { id: consultation, edition: {
-      consultation_participation_attributes: {
-        id: participation.id,
-        consultation_response_form_attributes: {
-          id: response_form.id,
-          attachment_action: "replace",
-          _destroy: "1",
-          consultation_response_form_data_attributes: {
-            id: response_form.consultation_response_form_data.id,
-            file: greenpaper_pdf,
-          },
-        },
-      },
-    } }
+    put :update,
+        params: { id: consultation,
+                  edition: {
+                    consultation_participation_attributes: {
+                      id: participation.id,
+                      consultation_response_form_attributes: {
+                        id: response_form.id,
+                        attachment_action: "replace",
+                        _destroy: "1",
+                        consultation_response_form_data_attributes: {
+                          id: response_form.consultation_response_form_data.id,
+                          file: greenpaper_pdf,
+                        },
+                      },
+                    },
+                  } }
 
     refute_select ".errors"
     consultation.reload

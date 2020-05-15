@@ -5,14 +5,14 @@
 # Zendesk https://govuk.zendesk.com/agent/tickets/2406623
 
 editions = []
-editions << Publication.find(208031) # https://www.gov.uk/government/publications/mns-news-february-2013
-editions << Publication.find(213038) # https://www.gov.uk/government/publications/mns-news-march-2013
-editions << Publication.find(208034) # https://www.gov.uk/government/publications/mns-news-april-2013
-editions << Publication.find(213041) # https://www.gov.uk/government/publications/mns-news-may-2013
-editions << Publication.find(254050) # https://www.gov.uk/government/publications/mns-news-september-2013
-editions << Publication.find(254051) # https://www.gov.uk/government/publications/mns-news-october-2013
-editions << Publication.find(204728) # https://www.gov.uk/government/publications/newsdvla-issue-4
-editions << Publication.find(245744) # https://www.gov.uk/government/publications/newsdvla-issue-5
+editions << Publication.find(208_031) # https://www.gov.uk/government/publications/mns-news-february-2013
+editions << Publication.find(213_038) # https://www.gov.uk/government/publications/mns-news-march-2013
+editions << Publication.find(208_034) # https://www.gov.uk/government/publications/mns-news-april-2013
+editions << Publication.find(213_041) # https://www.gov.uk/government/publications/mns-news-may-2013
+editions << Publication.find(254_050) # https://www.gov.uk/government/publications/mns-news-september-2013
+editions << Publication.find(254_051) # https://www.gov.uk/government/publications/mns-news-october-2013
+editions << Publication.find(204_728) # https://www.gov.uk/government/publications/newsdvla-issue-4
+editions << Publication.find(245_744) # https://www.gov.uk/government/publications/newsdvla-issue-5
 
 editions.each do |edition|
   if edition

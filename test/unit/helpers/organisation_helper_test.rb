@@ -190,11 +190,14 @@ class OrganisationHelperTest < ActionView::TestCase
   end
 
   test "#superseding_organisations_text should return a paragraph listing superseding organisations with the appropriate links" do
-    organisation = build(:organisation, superseding_organisations: [
-      build(:organisation, name: "Ministry of Makeup", slug: "ministry-of-makeup"),
-      build(:organisation, name: "Bureaucracy of Beards", slug: "bureaucracy-of-beards"),
-      build(:organisation, name: "Department of Dandruff", slug: "department-of-dandruff"),
-    ])
+    organisation = build(
+      :organisation,
+      superseding_organisations: [
+        build(:organisation, name: "Ministry of Makeup", slug: "ministry-of-makeup"),
+        build(:organisation, name: "Bureaucracy of Beards", slug: "bureaucracy-of-beards"),
+        build(:organisation, name: "Department of Dandruff", slug: "department-of-dandruff"),
+      ],
+    )
     text = superseding_organisations_text(organisation)
     assert_equal "<a href=\"/government/organisations/ministry-of-makeup\">Ministry of Makeup</a>, <a href=\"/government/organisations/bureaucracy-of-beards\">Bureaucracy of Beards</a> and <a href=\"/government/organisations/department-of-dandruff\">Department of Dandruff</a>", text
   end
@@ -280,18 +283,26 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test "basic sentence construction" do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    child = create(:organisation, acronym: "BLAH",
-                                  name: "Building Law and Hygiene", parent_organisations: [parent],
-                                  organisation_type: OrganisationType.executive_agency)
+    child = create(
+      :organisation,
+      acronym: "BLAH",
+      name: "Building Law and Hygiene",
+      parent_organisations: [parent],
+      organisation_type: OrganisationType.executive_agency,
+    )
     expected = %(BLAH is an executive agency, sponsored by the Department of Building Regulation.)
     assert_display_name_text child, expected
   end
 
   test "string returned is html safe" do
     parent = create(:ministerial_department, name: "Department of Economy & Trade")
-    child = create(:organisation, acronym: "B&B",
-                                  name: "Banking & Business", parent_organisations: [parent],
-                                  organisation_type: OrganisationType.executive_agency)
+    child = create(
+      :organisation,
+      acronym: "B&B",
+      name: "Banking & Business",
+      parent_organisations: [parent],
+      organisation_type: OrganisationType.executive_agency,
+    )
     expected = %(B&amp;B is an executive agency, sponsored by the Department of Economy &amp; Trade.)
     assert_display_name_text child, expected
     assert organisation_display_name_and_parental_relationship(child).html_safe?

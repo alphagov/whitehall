@@ -64,7 +64,7 @@ module PublicDocumentRoutesHelper
                             when Organisation
                               slug_or_organisation
                             else
-                              raise ArgumentError.new("Must provide a slug or Organisation")
+                              raise ArgumentError, "Must provide a slug or Organisation"
                             end
 
     if organisation_or_court.nil?

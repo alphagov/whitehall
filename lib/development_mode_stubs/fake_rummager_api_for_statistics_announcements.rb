@@ -2,7 +2,7 @@ module DevelopmentModeStubs
   class FakeRummagerApiForStatisticsAnnouncements
     class << self
       def advanced_search(params = {})
-        raise ArgumentError.new(":page and :per_page are required") unless params[:page].present? && params[:per_page].present?
+        raise ArgumentError, ":page and :per_page are required" unless params[:page].present? && params[:per_page].present?
 
         raise_unless_values_are_strings(params)
 
@@ -49,7 +49,7 @@ module DevelopmentModeStubs
           if value.is_a? Hash
             raise_unless_values_are_strings(value)
           elsif !(value.is_a?(String) || value.is_a?(Array))
-            raise ArgumentError.new("Search paramaters must be provided as strings, :#{key} was a #{value.class.name}")
+            raise ArgumentError, "Search paramaters must be provided as strings, :#{key} was a #{value.class.name}"
           end
         end
       end

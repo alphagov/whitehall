@@ -61,12 +61,14 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     new_delivered_on = speech.delivered_on + 1
     new_speech_type = SpeechType::Transcript
 
-    put :update, params: { id: speech.id, edition: {
-      role_appointment_id: new_role_appointment.id,
-      speech_type_id: new_speech_type.id,
-      delivered_on: new_delivered_on,
-      location: "new-location",
-    } }
+    put :update,
+        params: { id: speech.id,
+                  edition: {
+                    role_appointment_id: new_role_appointment.id,
+                    speech_type_id: new_speech_type.id,
+                    delivered_on: new_delivered_on,
+                    location: "new-location",
+                  } }
 
     speech = Speech.last
     assert_equal new_speech_type, speech.speech_type

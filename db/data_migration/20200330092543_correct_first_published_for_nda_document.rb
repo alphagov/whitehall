@@ -1,4 +1,4 @@
-document = Document.find(305774)
+document = Document.find(305_774)
 editions = document.editions.order(:created_at)
 correct_first_published_at = editions.first.first_published_at
 

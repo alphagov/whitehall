@@ -45,6 +45,6 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
 
     # the AttachmentData should exist, so if we didn't find it try
     # again.
-    raise AttachmentDataNotFoundTransient.new(legacy_url_path) unless found
+    raise AttachmentDataNotFoundTransient, legacy_url_path unless found
   end
 end

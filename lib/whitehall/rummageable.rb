@@ -73,7 +73,7 @@ module Whitehall
       end
 
       def log_response(method, call_time, response, url, payload = nil)
-        time = format("%.03f", call_time)
+        time = sprintf("%.03f", call_time)
         result = response.length.positive? ? JSON.parse(response).fetch("result", "UNKNOWN") : "UNKNOWN"
         log("Rummageable response", method, url, payload, time: time, result: result)
       end

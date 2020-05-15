@@ -1,8 +1,8 @@
 require "gds_api/router"
 
 POLICY_TO_PUBLICATION_MAPPINGS = {
-  389393 => 489732, # Scottish Referendum
-  333505 => 489731, # Reducing corruption in international trade
+  389_393 => 489_732, # Scottish Referendum
+  333_505 => 489_731, # Reducing corruption in international trade
 }.freeze
 
 gds_user = User.find_by!(name: "GDS Inside Government Team")

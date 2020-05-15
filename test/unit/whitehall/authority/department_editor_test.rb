@@ -3,8 +3,13 @@ require "ostruct"
 
 class DepartmentEditorTest < ActiveSupport::TestCase
   def department_editor(id = 1)
-    OpenStruct.new(id: id, gds_editor?: false, departmental_editor?: true,
-                   organisation: build(:organisation), can_force_publish_anything?: false)
+    OpenStruct.new(
+      id: id,
+      gds_editor?: false,
+      departmental_editor?: true,
+      organisation: build(:organisation),
+      can_force_publish_anything?: false,
+    )
   end
 
   include AuthorityTestHelper

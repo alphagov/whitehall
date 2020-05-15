@@ -61,8 +61,10 @@ module ServiceListeners
       translations = %i[es fr]
       document = build(:document)
       edition = create(:publication, document: document, translated_into: translations)
-      edition.build_unpublishing(explanation: "Old information",
-                                 unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+      edition.build_unpublishing(
+        explanation: "Old information",
+        unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
+      )
 
       Whitehall::PublishingApi.expects(:publish_withdrawal_async)
         .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.created_at, edition.primary_locale)

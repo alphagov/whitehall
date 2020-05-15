@@ -29,11 +29,11 @@ class EditionService
   end
 
   def failure_reason
-    raise NotImplementedError.new("You must implement failure method.")
+    raise NotImplementedError, "You must implement failure method."
   end
 
   def verb
-    raise NotImplementedError.new("You must implement verb method.")
+    raise NotImplementedError, "You must implement verb method."
   end
 
   def past_participle

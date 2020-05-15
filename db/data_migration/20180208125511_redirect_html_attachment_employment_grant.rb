@@ -15,7 +15,7 @@ begin
   Services.publishing_api.publish(content_id, nil, locale: "en")
 
   # Remove editorial remark
-  edition = Edition.find(805386)
+  edition = Edition.find(805_386)
   remarks = edition.editorial_remarks
   remarks.each { |r| r.destroy if r.body == "HTML attachment published here in error. Removed and added back here https://whitehall-admin.publishing.service.gov.uk/government/admin/publications/805384" }
 rescue StandardError => e

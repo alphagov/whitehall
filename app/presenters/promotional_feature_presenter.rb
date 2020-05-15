@@ -9,9 +9,11 @@ class PromotionalFeaturePresenter < Whitehall::Decorators::Decorator
 
   def promotional_feature_items
     @promotional_feature_items ||=
-      Whitehall::Decorators::CollectionDecorator.new(model.promotional_feature_items,
-                                                     PromotionalFeatureItemPresenter,
-                                                     context)
+      Whitehall::Decorators::CollectionDecorator.new(
+        model.promotional_feature_items,
+        PromotionalFeatureItemPresenter,
+        context,
+      )
   end
 
   def width

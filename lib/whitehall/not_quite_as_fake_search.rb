@@ -168,7 +168,7 @@ module Whitehall
 
         def validate_ordering!
           @ordering.find do |field_name, direction|
-            if !%w[asc desc].include?(direction)
+            unless %w[asc desc].include?(direction)
               raise GdsApi::HTTPErrorResponse, "bad search direction #{direction} for #{field_name} (expected 'asc' or 'desc')"
             end
           end

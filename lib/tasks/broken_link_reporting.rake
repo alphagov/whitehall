@@ -20,7 +20,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
       .generate do |processed, total|
         processed_str = number_with_delimiter(processed)
         total_str = number_with_delimiter(total)
-        puts "Processed #{processed_str} of #{total_str}" if (processed % 10000).zero?
+        puts "Processed #{processed_str} of #{total_str}" if (processed % 10_000).zero?
       end
 
     if Dir.glob("#{reports_dir}/*_links_report.csv").any?

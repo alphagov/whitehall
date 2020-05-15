@@ -32,10 +32,11 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
         },
       ).to_return(status: 409)
 
-    put :update, params: {
-      statistics_announcement_id: @announcement,
-      taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] },
-    }
+    put :update,
+        params: {
+          statistics_announcement_id: @announcement,
+          taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] },
+        }
 
     assert_requested publishing_api_patch_request
     assert_redirected_to edit_admin_statistics_announcement_tags_path(@announcement)
@@ -45,10 +46,11 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   test "should post taxons to publishing-api" do
     stub_publishing_api_links_with_taxons(@announcement.content_id, [])
 
-    put :update, params: {
-      statistics_announcement_id: @announcement,
-      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
-    }
+    put :update,
+        params: {
+          statistics_announcement_id: @announcement,
+          taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
+        }
 
     assert_publishing_api_patch_links(
       @announcement.content_id,
@@ -62,10 +64,11 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   test "should post empty array to publishing api if no taxons are selected" do
     stub_publishing_api_links_with_taxons(@announcement.content_id, [])
 
-    put :update, params: {
-      statistics_announcement_id: @announcement,
-      taxonomy_tag_form: { previous_version: 1 },
-    }
+    put :update,
+        params: {
+          statistics_announcement_id: @announcement,
+          taxonomy_tag_form: { previous_version: 1 },
+        }
 
     assert_publishing_api_patch_links(@announcement.content_id, links: { taxons: [] }, previous_version: "1")
   end

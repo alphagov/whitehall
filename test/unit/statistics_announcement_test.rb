@@ -166,15 +166,19 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'a provisional announcement is in a "provisional" state' do
-    announcement = build(:statistics_announcement,
-                         current_release_date: build(:statistics_announcement_date, confirmed: false))
+    announcement = build(
+      :statistics_announcement,
+      current_release_date: build(:statistics_announcement_date, confirmed: false),
+    )
 
     assert_equal "provisional", announcement.state
   end
 
   test 'a confirmed announcement is in a "confirmed" state' do
-    announcement = build(:statistics_announcement,
-                         current_release_date: build(:statistics_announcement_date, confirmed: true))
+    announcement = build(
+      :statistics_announcement,
+      current_release_date: build(:statistics_announcement_date, confirmed: true),
+    )
 
     assert_equal "confirmed", announcement.state
   end
@@ -288,22 +292,28 @@ private
   def create_announcement_with_changes
     announcement = create(:cancelled_statistics_announcement)
     _first_minor_change = Timecop.travel(1.day) do
-      create(:statistics_announcement_date,
-             statistics_announcement: announcement,
-             release_date: announcement.release_date + 1.week)
+      create(
+        :statistics_announcement_date,
+        statistics_announcement: announcement,
+        release_date: announcement.release_date + 1.week,
+      )
     end
     major_change = Timecop.travel(2.days) do
-      create(:statistics_announcement_date,
-             statistics_announcement: announcement,
-             release_date: announcement.release_date + 1.month,
-             change_note: "Delayed because of census")
+      create(
+        :statistics_announcement_date,
+        statistics_announcement: announcement,
+        release_date: announcement.release_date + 1.month,
+        change_note: "Delayed because of census",
+      )
     end
     _second_minor_change = Timecop.travel(3.days) do
-      create(:statistics_announcement_date,
-             statistics_announcement: announcement,
-             release_date: major_change.release_date,
-             precision: StatisticsAnnouncementDate::PRECISION[:exact],
-             confirmed: true)
+      create(
+        :statistics_announcement_date,
+        statistics_announcement: announcement,
+        release_date: major_change.release_date,
+        precision: StatisticsAnnouncementDate::PRECISION[:exact],
+        confirmed: true,
+      )
     end
 
     announcement

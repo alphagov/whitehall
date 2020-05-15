@@ -26,9 +26,11 @@ FactoryBot.define do
 
       if evaluator.previous_display_date.present?
         announcement.statistics_announcement_dates <<
-          create(:statistics_announcement_date_change,
-                 current_release_date: announcement.current_release_date,
-                 release_date: evaluator.previous_display_date)
+          create(
+            :statistics_announcement_date_change,
+            current_release_date: announcement.current_release_date,
+            release_date: evaluator.previous_display_date,
+          )
       end
     end
   end

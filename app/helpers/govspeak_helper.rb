@@ -77,7 +77,7 @@ module GovspeakHelper
       if header.level == 2
         headers << { header: header, children: [] }
       elsif header.level == 3
-        raise OrphanedHeadingError.new(header.text) if headers.none?
+        raise OrphanedHeadingError, header.text if headers.none?
 
         headers.last[:children] << header
       end

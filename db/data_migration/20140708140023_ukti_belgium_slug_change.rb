@@ -7,6 +7,8 @@ world_org.slug = "uk-trade-investment-belgium"
 world_org.save!
 
 # Redirect old URL to UKTI organisation page.
-router.add_redirect_route("/government/world/organisations/uk-trade-investment",
-                          "exact",
-                          "/government/world/organisations/uk-trade-investment-belgium")
+router.add_redirect_route(
+  "/government/world/organisations/uk-trade-investment",
+  "exact",
+  "/government/world/organisations/uk-trade-investment-belgium",
+)

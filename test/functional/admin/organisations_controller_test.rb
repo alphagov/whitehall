@@ -51,24 +51,25 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     parent_org_2 = create(:organisation)
     topic_ids = [create(:topic), create(:topic)].map(&:id)
 
-    post :create, params: {
-      organisation: attributes
-                      .merge(
-                        organisation_classifications_attributes: [
-                          { classification_id: topic_ids[0], ordering: 1 },
-                          { classification_id: topic_ids[1], ordering: 2 },
-                        ],
-                        parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
-                        organisation_type_key: :executive_agency,
-                        govuk_status: "exempt",
-                        featured_links_attributes: {
-                          "0" => {
-                            url: "http://www.gov.uk/mainstream/something",
-                            title: "Something on mainstream",
-                          },
-                        },
-                      ),
-    }
+    post :create,
+         params: {
+           organisation: attributes
+                           .merge(
+                             organisation_classifications_attributes: [
+                               { classification_id: topic_ids[0], ordering: 1 },
+                               { classification_id: topic_ids[1], ordering: 2 },
+                             ],
+                             parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
+                             organisation_type_key: :executive_agency,
+                             govuk_status: "exempt",
+                             featured_links_attributes: {
+                               "0" => {
+                                 url: "http://www.gov.uk/mainstream/something",
+                                 title: "Something on mainstream",
+                               },
+                             },
+                           ),
+         }
 
     assert_redirected_to admin_organisations_path
     assert organisation = Organisation.last
@@ -84,22 +85,24 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "POST :create can set a custom logo" do
-    post :create, params: {
-      organisation: example_organisation_attributes
-                      .merge(
-                        organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-                        logo: fixture_file_upload("logo.png", "image/png"),
-                      ),
-    }
+    post :create,
+         params: {
+           organisation: example_organisation_attributes
+                           .merge(
+                             organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                             logo: fixture_file_upload("logo.png", "image/png"),
+                           ),
+         }
 
     assert_match %r{logo.png}, Organisation.last.logo.file.filename
   end
 
   test "POST create can set number of important board members" do
-    post :create, params: {
-      organisation: example_organisation_attributes
-                      .merge(important_board_members: 1),
-    }
+    post :create,
+         params: {
+           organisation: example_organisation_attributes
+                           .merge(important_board_members: 1),
+         }
 
     assert_equal 1, Organisation.last.important_board_members
   end
@@ -217,7 +220,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_senior_board_member_role,
       organisation_chief_scientific_advisor_role,
       organisation_junior_board_member_role,
-    ], assigns(:management_organisation_roles)
+    ],
+                 assigns(:management_organisation_roles)
   end
 
   test "GET on :people shows traffic commissioner roles in their currently specified order" do
@@ -287,29 +291,35 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     organisation_role = create(:organisation_role, organisation: organisation, role: ministerial_role, ordering: 1)
 
-    put :update, params: { id: organisation.id, organisation: { organisation_roles_attributes: {
-      "0" => { id: organisation_role.id, ordering: "2" },
-    } } }
+    put :update,
+        params: { id: organisation.id,
+                  organisation: { organisation_roles_attributes: {
+                    "0" => { id: organisation_role.id, ordering: "2" },
+                  } } }
 
     assert_equal 2, organisation_role.reload.ordering
   end
 
   test "PUT :update can set a custom logo" do
     organisation = create(:organisation)
-    put :update, params: { id: organisation, organisation: {
-      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-      logo: fixture_file_upload("logo.png"),
-    } }
+    put :update,
+        params: { id: organisation,
+                  organisation: {
+                    organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                    logo: fixture_file_upload("logo.png"),
+                  } }
     assert_match %r{logo.png}, organisation.reload.logo.file.filename
   end
 
   test "PUT :update can set default news image" do
     organisation = create(:organisation)
-    put :update, params: { id: organisation, organisation: {
-      default_news_image_attributes: {
-        file: fixture_file_upload("minister-of-funk.960x640.jpg"),
-      },
-    } }
+    put :update,
+        params: { id: organisation,
+                  organisation: {
+                    default_news_image_attributes: {
+                      file: fixture_file_upload("minister-of-funk.960x640.jpg"),
+                    },
+                  } }
     assert_equal "minister-of-funk.960x640.jpg", organisation.reload.default_news_image.file.file.filename
   end
 
@@ -341,12 +351,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "PUT on :update handles non-departmental public body information" do
     organisation = create(:organisation)
 
-    put :update, params: { id: organisation, organisation: {
-      ocpa_regulated: "false",
-      public_meetings: "true",
-      public_minutes: "true",
-      regulatory_function: "false",
-    } }
+    put :update,
+        params: { id: organisation,
+                  organisation: {
+                    ocpa_regulated: "false",
+                    public_meetings: "true",
+                    public_minutes: "true",
+                    regulatory_function: "false",
+                  } }
 
     organisation.reload
 
@@ -361,12 +373,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     featured_link = create(:featured_link, linkable: organisation)
 
-    put :update, params: { id: organisation, organisation: { featured_links_attributes: { "0" => {
-      id: featured_link.id,
-      title: "New title",
-      url: featured_link.url,
-      _destroy: "false",
-    } } } }
+    put :update,
+        params: { id: organisation,
+                  organisation: { featured_links_attributes: { "0" => {
+                    id: featured_link.id,
+                    title: "New title",
+                    url: featured_link.url,
+                    _destroy: "false",
+                  } } } }
 
     assert_response :redirect
     assert_equal "New title", featured_link.reload.title
@@ -412,9 +426,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     topical_event = create(:topical_event)
     organisation = create(:organisation)
     feature_list = organisation.load_or_create_feature_list("en")
-    feature_list.features.create!(topical_event: topical_event,
-                                  image: image_fixture_file,
-                                  alt_text: "Image alternative text")
+    feature_list.features.create!(
+      topical_event: topical_event,
+      image: image_fixture_file,
+      alt_text: "Image alternative text",
+    )
 
     get :features, params: { id: organisation, locale: "en" }
     assert_response :success

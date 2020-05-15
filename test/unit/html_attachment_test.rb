@@ -74,9 +74,12 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "slug is copied from previous edition's attachment" do
-    edition = create(:published_publication, attachments: [
-      build(:html_attachment, title: "an-html-attachment"),
-    ])
+    edition = create(
+      :published_publication,
+      attachments: [
+        build(:html_attachment, title: "an-html-attachment"),
+      ],
+    )
     draft = edition.create_draft(create(:writer))
 
     assert_equal "an-html-attachment", draft.attachments.first.slug
@@ -95,9 +98,12 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "slug is not updated when the title is changed if edition is published" do
-    edition = create(:published_publication, attachments: [
-      build(:html_attachment, title: "an-html-attachment"),
-    ])
+    edition = create(
+      :published_publication,
+      attachments: [
+        build(:html_attachment, title: "an-html-attachment"),
+      ],
+    )
     draft = edition.create_draft(create(:writer))
     attachment = draft.attachments.first
 
@@ -109,9 +115,12 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "slug is not updated when the title has been changed in a prior published edition" do
-    edition = create(:published_publication, attachments: [
-      build(:html_attachment, title: "an-html-attachment"),
-    ])
+    edition = create(
+      :published_publication,
+      attachments: [
+        build(:html_attachment, title: "an-html-attachment"),
+      ],
+    )
     draft = edition.create_draft(create(:writer))
     attachment = draft.attachments.first
 

@@ -79,8 +79,12 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   class HMCTSOrganisationTests < ActiveSupport::TestCase
     def setup
       @other_org = create(:organisation)
-      @copyright_tribunal = create(:organisation, organisation_type_key: :tribunal,
-                                                  name: "Copyright Tribunal", parent_organisations: [@other_org])
+      @copyright_tribunal = create(
+        :organisation,
+        organisation_type_key: :tribunal,
+        name: "Copyright Tribunal",
+        parent_organisations: [@other_org],
+      )
       @multiple_parent_child_org = create(:organisation, parent_organisations: [@other_org, @copyright_tribunal])
       @court = create(:court)
       @hmcts_tribunal = create(:hmcts_tribunal)
@@ -147,7 +151,8 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_equal [
       [OrganisationType.executive_agency, [child_org_1]],
       [OrganisationType.advisory_ndpb,    [child_org_2]],
-    ], parent_org.supporting_bodies_grouped_by_type
+    ],
+                 parent_org.supporting_bodies_grouped_by_type
   end
 
   test "can list its sub-organisations" do
@@ -179,8 +184,10 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   test "#hmcts_tribunal? should be true if it's an HMCTS tribunal only" do
     hmcts_tribunal = create(:hmcts_tribunal)
     tribunal = create(:organisation, organisation_type_key: :tribunal)
-    hmcts_child = create(:organisation,
-                         parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
+    hmcts_child = create(
+      :organisation,
+      parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")],
+    )
 
     assert hmcts_tribunal.hmcts_tribunal?
     assert_not tribunal.hmcts_tribunal?

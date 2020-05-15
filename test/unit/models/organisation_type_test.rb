@@ -2,11 +2,13 @@ require "test_helper"
 
 class OrganisationTypeTest < ActiveSupport::TestCase
   test "it should take key, name and analytics_prefix as initialize arguments and expose them as properties" do
-    instance = OrganisationType.new(:some_type_key,
-                                    name: "A Name",
-                                    analytics_prefix: "A prefix",
-                                    agency_or_public_body: true,
-                                    non_departmental_public_body: false)
+    instance = OrganisationType.new(
+      :some_type_key,
+      name: "A Name",
+      analytics_prefix: "A prefix",
+      agency_or_public_body: true,
+      non_departmental_public_body: false,
+    )
 
     assert_equal :some_type_key, instance.key
     assert_equal "A Name",       instance.name

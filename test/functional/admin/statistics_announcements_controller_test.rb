@@ -18,13 +18,17 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "GET :index defaults to future-dated announcements by the current user's organisation" do
-    @future_announcement = create(:statistics_announcement,
-                                  organisation_ids: [@organisation.id],
-                                  current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
-    @past_announcement   = create(:statistics_announcement,
-                                  organisation_ids: [@organisation.id],
-                                  current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
-    @other_announcement  = create(:statistics_announcement)
+    @future_announcement = create(
+      :statistics_announcement,
+      organisation_ids: [@organisation.id],
+      current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now),
+    )
+    @past_announcement = create(
+      :statistics_announcement,
+      organisation_ids: [@organisation.id],
+      current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+    )
+    @other_announcement = create(:statistics_announcement)
 
     get :index
 
@@ -39,20 +43,21 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the announcement to the database and redirects to the dashboard" do
-    post :create, params: {
-      statistics_announcement: {
-        title: "Beard stats 2014",
-        summary: "Summary text",
-        publication_type_id: PublicationType::OfficialStatistics.id,
-        organisation_ids: [@organisation.id],
-        topic_ids: [@topic.id],
-        current_release_date_attributes: {
-          release_date: 1.year.from_now,
-          precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-          confirmed: "0",
-        },
-      },
-    }
+    post :create,
+         params: {
+           statistics_announcement: {
+             title: "Beard stats 2014",
+             summary: "Summary text",
+             publication_type_id: PublicationType::OfficialStatistics.id,
+             organisation_ids: [@organisation.id],
+             topic_ids: [@topic.id],
+             current_release_date_attributes: {
+               release_date: 1.year.from_now,
+               precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+               confirmed: "0",
+             },
+           },
+         }
 
     assert_response :redirect
     assert announcement = StatisticsAnnouncement.last

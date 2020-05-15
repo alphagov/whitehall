@@ -68,13 +68,14 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   test "should also post taxons tagged to the topic and world taxonomies" do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [child_taxon])
 
-    put :update, params: {
-      edition_id: @edition,
-      taxonomy_tag_form: {
-        taxons: [world_child_taxon_content_id],
-        previous_version: 1,
-      },
-    }
+    put :update,
+        params: {
+          edition_id: @edition,
+          taxonomy_tag_form: {
+            taxons: [world_child_taxon_content_id],
+            previous_version: 1,
+          },
+        }
 
     assert_publishing_api_patch_links(
       @edition.content_id,
