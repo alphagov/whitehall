@@ -197,6 +197,7 @@ fieldset.fatality-notice-casualties {
     p {
       margin: $gutter-one-third 0 0 0;
       &.hint {
+        margin-top: 0.2em;
         color: #626a6e;
       }
     }

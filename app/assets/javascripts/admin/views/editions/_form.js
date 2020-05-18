@@ -31,7 +31,7 @@
       function appendHintToFormLabel() {
         var $label = $($change_notes_section).find('label');
         var example_text = "For example, \"Edited chapter 6 - centres in Cardiff and Aberystwyth have closed.\""
-        var info_text = "The text will be published on the page and emailed to users signed up to alerts."
+        var info_text = "A change note will be published on the page and emailed to users signed up to alerts."
         $label.append('<p class="hint"; style="font-weight: normal">' + example_text + '<br>' + info_text + '</p>');
       }
 
