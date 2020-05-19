@@ -485,11 +485,12 @@ EXISTS (
   # @!endgroup
 
   def create_draft(user)
-    unless published?
-      raise "Cannot create new edition based on edition in the #{state} state"
-    end
-
     ActiveRecord::Base.transaction do
+      lock!
+      unless published?
+        raise "Cannot create new edition based on edition in the #{state} state"
+      end
+
       ignorable_attribute_keys = %w[id
                                     type
                                     state
