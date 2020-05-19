@@ -91,7 +91,7 @@ Whitehall::Application.routes.draw do
     # TODO: make these dynamic, they're hard-coded above.
     get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointments"
     get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointment"
-    resources :histories, path: "history", only: %i[index show]
+    resources :histories, path: "history", only: %i[index]
 
     resource :email_signups, path: "email-signup", only: %i[create new]
     get "/email-signup", to: redirect("/")
