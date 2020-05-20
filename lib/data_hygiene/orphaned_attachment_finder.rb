@@ -68,14 +68,14 @@ module DataHygiene
           actual_placeholders = edition.body.scan(/!@[1-9][0-9]*/).sort
           expected_placeholders = 1.upto(num_attachments).map { |n| "!@#{n}" }
           missing = expected_placeholders - actual_placeholders
-          if missing.any?
-            editions_with_orphaned_attachments << {
-              edition: edition,
-              expected: expected_placeholders,
-              actual: actual_placeholders,
-              state: state,
-            }
-          end
+          next unless missing.any?
+
+          editions_with_orphaned_attachments << {
+            edition: edition,
+            expected: expected_placeholders,
+            actual: actual_placeholders,
+            state: state,
+          }
         end
       end
       editions_with_orphaned_attachments
