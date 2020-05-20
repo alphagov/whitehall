@@ -23,16 +23,16 @@ csv.each do |row|
     edition.update_column(:political, row["political"] == "true")
   end
 
-  if row["publication-type"]
-    new_type = PublicationType.find_by_slug(row["publication-type"].parameterize)
-    unless new_type
-      puts "!! publication type not found: #{row['publication-type']}"
-      next
-    end
+  next unless row["publication-type"]
 
-    puts "\tsetting publication type to: #{new_type.singular_name}"
-    editions.each do |edition|
-      edition.update_column(:publication_type_id, new_type.id)
-    end
+  new_type = PublicationType.find_by_slug(row["publication-type"].parameterize)
+  unless new_type
+    puts "!! publication type not found: #{row['publication-type']}"
+    next
+  end
+
+  puts "\tsetting publication type to: #{new_type.singular_name}"
+  editions.each do |edition|
+    edition.update_column(:publication_type_id, new_type.id)
   end
 end

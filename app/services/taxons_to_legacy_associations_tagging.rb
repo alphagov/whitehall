@@ -19,17 +19,17 @@ class TaxonsToLegacyAssociationsTagging
         legacy_association["content_id"]
       end
 
-      if document_type == "topic"
-        # This is inperfect, as the primary specialist sector tag is
-        # being set in an arbitrary manor. But, this mapping function
-        # is only a temporary thing while the specialist sectors still
-        # exist.
+      next unless document_type == "topic"
 
-        primary, *secondary = content_ids
+      # This is inperfect, as the primary specialist sector tag is
+      # being set in an arbitrary manor. But, this mapping function
+      # is only a temporary thing while the specialist sectors still
+      # exist.
 
-        edition.primary_specialist_sector_tag = primary
-        edition.secondary_specialist_sector_tags = secondary
-      end
+      primary, *secondary = content_ids
+
+      edition.primary_specialist_sector_tag = primary
+      edition.secondary_specialist_sector_tags = secondary
     end
 
     updater = Whitehall.edition_services.draft_updater(edition)
