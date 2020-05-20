@@ -71,20 +71,20 @@ class Notifications < ApplicationMailer
     mail from: no_reply_email_address, to: recipient_address, subject: "#{filter_title} from GOV.UK"
   end
 
-  def consultation_deadline_upcoming(consultation, weeks_left:)
+  def consultation_deadline_upcoming(consultation, weeks_left:, recipient_address:)
     @title = consultation.title
     @weeks_left = weeks_left
 
     mail from: no_reply_email_address,
-         to: consultation.authors.uniq.map(&:email),
+         to: recipient_address,
          subject: "Consultation response due in #{pluralize(weeks_left, 'week')}"
   end
 
-  def consultation_deadline_passed(consultation)
+  def consultation_deadline_passed(consultation, recipient_address:)
     @title = consultation.title
 
     mail from: no_reply_email_address,
-         to: consultation.authors.uniq.map(&:email),
+         to: recipient_address,
          subject: "Consultation deadline breached"
   end
 
