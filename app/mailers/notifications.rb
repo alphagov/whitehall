@@ -9,11 +9,12 @@ class Notifications < ApplicationMailer
     @fact_check_request = request
     @url_options = url_options
 
-    from_address = no_reply_email_address
     to_address = request.email_address
     subject = "Fact checking request from #{request.requestor.name}: #{request.edition_title}"
 
-    mail(from: from_address, to: to_address, subject: subject)
+    view_mail template_id,
+              to: to_address,
+              subject: subject
   end
 
   def fact_check_response(request, url_options)
@@ -21,11 +22,12 @@ class Notifications < ApplicationMailer
     @url_options = url_options
     @comment_url = admin_edition_url(request.edition, url_options.merge(anchor: dom_id(request)))
 
-    from_address = no_reply_email_address
     to_address = request.requestor.email
     subject = "Fact check comment added by #{request.email_address}: #{request.edition_title}"
 
-    mail(from: from_address, to: to_address, subject: subject)
+    view_mail template_id,
+              to: to_address,
+              subject: subject
   end
 
   def edition_published(author, edition, admin_url, public_url)
@@ -34,7 +36,9 @@ class Notifications < ApplicationMailer
     @admin_url = admin_url
     @public_url = public_url
     subject = "The #{edition.format_name} '#{edition.title}' has been published"
-    mail from: no_reply_email_address, to: @author.email, subject: subject
+    view_mail template_id,
+              to: @author.email,
+              subject: subject
   end
 
   def edition_rejected(author, edition, admin_url)
@@ -42,20 +46,26 @@ class Notifications < ApplicationMailer
     @edition = edition
     @admin_url = admin_url
     subject = "The #{edition.format_name} '#{edition.title}' was rejected by #{edition.rejected_by.name}"
-    mail from: no_reply_email_address, to: @author.email, subject: subject
+    view_mail template_id,
+              to: @author.email,
+              subject: subject
   end
 
   def edition_published_by_monitored_user(user)
     @user = user
     subject = "Account holder #{@user.name} (#{user.email}) has published to live"
-    mail from: no_reply_email_address, to: content_second_line_email_address, subject: subject
+    view_mail template_id,
+              to: content_second_line_email_address,
+              subject: subject
   end
 
   def broken_link_reports(zip_path, recipient_address)
     filename = File.basename(zip_path)
     attachments[filename] = File.read(zip_path)
 
-    mail from: no_reply_email_address, to: recipient_address, subject: "GOV.UK broken link reports"
+    view_mail template_id,
+              to: recipient_address,
+              subject: "GOV.UK broken link reports"
   end
 
   def document_list(csv, recipient_address, filter_title)
@@ -68,24 +78,26 @@ class Notifications < ApplicationMailer
 
     attachments["document_list.zip"] = stream.sysread
 
-    mail from: no_reply_email_address, to: recipient_address, subject: "#{filter_title} from GOV.UK"
+    view_mail template_id,
+              to: recipient_address,
+              subject: "#{filter_title} from GOV.UK"
   end
 
   def consultation_deadline_upcoming(consultation, weeks_left:, recipient_address:)
     @title = consultation.title
     @weeks_left = weeks_left
 
-    mail from: no_reply_email_address,
-         to: recipient_address,
-         subject: "Consultation response due in #{pluralize(weeks_left, 'week')}"
+    view_mail template_id,
+              to: recipient_address,
+              subject: "Consultation response due in #{pluralize(weeks_left, 'week')}"
   end
 
   def consultation_deadline_passed(consultation, recipient_address:)
     @title = consultation.title
 
-    mail from: no_reply_email_address,
-         to: recipient_address,
-         subject: "Consultation deadline breached"
+    view_mail template_id,
+              to: recipient_address,
+              subject: "Consultation deadline breached"
   end
 
   helper_method :production?
