@@ -19,6 +19,10 @@ module Whitehall
       #{config.root}/lib
     ]
 
+    config.action_mailer.notify_settings = {
+      api_key: Rails.application.secrets.notify_api_key || "fake-test-api-key",
+    }
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = "London"
