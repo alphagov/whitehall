@@ -1059,9 +1059,8 @@ class OrganisationTest < ActiveSupport::TestCase
       .expects(:perform_async)
       .with(about_page.document.id)
 
-    organisation.update_attribute(
-      :organisation_chart_url,
-      "http://www.example.com/path/to/new_chart",
+    organisation.update(
+      organisation_chart_url: "http://www.example.com/path/to/new_chart",
     )
   end
 
@@ -1081,9 +1080,8 @@ class OrganisationTest < ActiveSupport::TestCase
       .expects(:perform_async)
       .never
 
-    organisation.update_attribute(
-      :organisation_chart_url,
-      "http://www.example.com/path/to/new_chart",
+    organisation.update(
+      organisation_chart_url: "http://www.example.com/path/to/new_chart",
     )
   end
 
@@ -1100,9 +1098,8 @@ class OrganisationTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:republish_document_async).with(d)
     end
 
-    organisation.update_attribute(
-      :default_news_image,
-      create(:default_news_organisation_image_data),
+    organisation.update(
+      default_news_image: create(:default_news_organisation_image_data),
     )
   end
 end

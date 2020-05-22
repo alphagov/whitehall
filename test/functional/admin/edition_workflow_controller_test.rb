@@ -147,7 +147,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "POST :force_schedule force schedules the edition" do
-    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    draft_edition.update(scheduled_publication: 1.day.from_now)
     post :force_schedule, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_redirected_to admin_editions_path(state: :scheduled)
@@ -210,7 +210,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "submit redirects back to the edition with an error message on validation error" do
-    draft_edition.update_attribute(:summary, nil)
+    draft_edition.summary = nil
+    draft_edition.save(validate: false)
     post :submit, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_redirected_to admin_publication_path(draft_edition)

@@ -7,7 +7,7 @@ puts "Setting political flag on the following organisations:"
 POLITICAL_ORG_SLUGS.each do |slug|
   organsation = Organisation.find_by(slug: slug)
   puts "\t#{organsation.name}"
-  organsation.update_attribute(:political, true)
+  organsation.update(political: true)
 end
 
 APOLITICAL_ORG_SLUGS = %w[
@@ -19,7 +19,7 @@ puts "Unsetting political flag on the following organisations:"
 APOLITICAL_ORG_SLUGS.each do |slug|
   organsation = Organisation.find_by(slug: slug)
   puts "\t#{organsation.name}"
-  organsation.update_attribute(:political, false)
+  organsation.update(political: false)
 end
 
 index = 0

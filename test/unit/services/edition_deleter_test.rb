@@ -38,7 +38,7 @@ class EditionDeleterTest < ActiveSupport::TestCase
 
   test "#perform! with an invalid edition deletes the edition" do
     edition = create(:draft_edition)
-    edition.update_attribute(:title, "")
+    edition.update(title: "")
 
     assert EditionDeleter.new(edition).perform!
     assert edition.deleted?, "Edition should be deleted"

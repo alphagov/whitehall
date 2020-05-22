@@ -6,7 +6,7 @@ namespace :election do
       puts "updating #{person.name}"
       new_letters = person.letters.gsub(/(^|\s)MP(\s|$)/, "")
       if person.letters != new_letters
-        person.update_attribute(:letters, new_letters)
+        person.update(letters: new_letters)
       end
       puts "changed to #{person.name}"
     end
@@ -53,7 +53,7 @@ namespace :election do
         next if appointment.role_id == prime_ministerial_role_id
 
         print "."
-        appointment.update_attribute(:ended_at, end_date)
+        appointment.update(ended_at: end_date)
       end
     rescue StandardError => e
       puts e.message

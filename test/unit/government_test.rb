@@ -114,7 +114,7 @@ class GovernmentTest < ActiveSupport::TestCase
     assert historic_government.valid?
 
     assert_not new_open_government.valid?
-    current_open_government.update_attribute(:end_date, "2014-01-01")
+    current_open_government.update(end_date: "2014-01-01")
     assert new_open_government.valid?
   end
 end

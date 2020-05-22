@@ -24,7 +24,7 @@ private
 
   def prepare_edition
     # The withdrawn edition needs to be in the published state so as a draft can be created
-    edition.update_attribute(:state, :published)
+    edition.update(state: :published)
     edition.reload
   end
 

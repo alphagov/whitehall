@@ -3,9 +3,7 @@
 # https://github.com/alphagov/publishing-e2e-tests
 return if Rails.env.test?
 
-if User.where(name: "Test user").present?
-  puts "Skipping because user already exists"
-else
+if User.where(name: "Test user").blank?
   gds_organisation_id = "af07d5a5-df63-4ddc-9383-6a666845ebe9"
   User.create!(
     name: "Test user",
@@ -15,9 +13,7 @@ else
   )
 end
 
-if Organisation.where(name: "HM Revenue & Customs").present?
-  puts "Skipping because HMRC organisation already exists"
-else
+if Organisation.where(name: "HM Revenue & Customs").blank?
   Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
   Organisation.create!(
     name: "HM Revenue & Customs",
@@ -29,9 +25,7 @@ else
   )
 end
 
-if Organisation.where(name: "Test Organisation").present?
-  puts "Skipping because Test Organisation already exists"
-else
+if Organisation.where(name: "Test Organisation").blank?
   Organisation.create!(
     name: "Test Organisation",
     slug: "test-organisation",
@@ -41,9 +35,7 @@ else
   )
 end
 
-if Government.where(name: "Test Government").present?
-  puts "Skipping because Test Government already exists"
-else
+if Government.where(name: "Test Government").blank?
   Government.skip_callback(:commit, :after, :publish_to_publishing_api)
   Government.create(
     name: "Test Government",
@@ -51,9 +43,7 @@ else
   )
 end
 
-if Topic.where(name: "Test Policy Area").present?
-  puts "Skipping because Test Policy Area already exists"
-else
+if Topic.where(name: "Test Policy Area").blank?
   Topic.skip_callback(:commit, :after, :publish_to_publishing_api)
   Topic.create(
     name: "Test Policy Area",
@@ -61,9 +51,7 @@ else
   )
 end
 
-if WorldLocation.where(name: "Test World Location").present?
-  puts "Skipping because Test World Location already exists"
-else
+if WorldLocation.where(name: "Test World Location").blank?
   WorldLocation.create(
     name: "Test World Location",
     world_location_type_id: 1,

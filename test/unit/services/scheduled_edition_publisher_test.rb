@@ -33,7 +33,7 @@ class ScheduledEditionPublisherTest < ActiveSupport::TestCase
 
   test "#perform! with an invalid scheduled edition publishes" do
     edition = create(:scheduled_edition, scheduled_publication: 1.hour.ago)
-    edition.update_attribute(:body, nil)
+    edition.update(body: nil)
     publisher = ScheduledEditionPublisher.new(edition)
 
     assert publisher.perform!
