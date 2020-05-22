@@ -1,8 +1,24 @@
 <% if edition.superseded? %>
-  <div class="alert alert-danger">
-    <p>This edition has been superseded.</p>
-    <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
-  </div>
+  <% if edition.latest_edition.id == edition.id %>
+    <div class="alert alert-info">
+      <p>
+        This edition has been superseded, you can still create a
+        new draft for this document.
+      </p>
+
+      <%= button_to(
+        "Create new edition to edit",
+        revise_admin_edition_path(edition),
+        title: "Create new edition to edit",
+        class: "btn btn-primary add-top-margin"
+      ) %>
+    </div>
+  <% else %>
+    <div class="alert alert-danger">
+      <p>This edition has been superseded.</p>
+      <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
+    </div>
+  <% end %>
 <% elsif edition.pre_publication? && edition.latest_published_edition %>
   <div class="alert alert-info">
     <p>This is a new draft of a document that has already been published.</p>

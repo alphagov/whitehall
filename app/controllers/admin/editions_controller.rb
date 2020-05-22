@@ -136,7 +136,32 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def revise
-    new_draft = @edition.create_draft(current_user)
+    if @edition.superseded? && @edition.latest_edition.id == @edition.id
+      # There are a number of documents in Whitehall for which the
+      # latest edition is also superseded, something of a
+      # contradiction.
+      #
+      # To allow for a way out in this circumstance, find the deleted
+      # edition that was probably the one that supersedes this
+      # superseded edition, and use that to create the draft.
+      probably_last_published_edition =
+        Edition
+          .unscoped # because we're looking for a deleted edition
+          .where(document_id: @edition.document_id)
+          .where("id > ?", @edition.id)
+          .where(state: :deleted)
+          .order(id: :asc)
+          .limit(1)
+          .first
+
+      new_draft = probably_last_published_edition.create_draft(
+        current_user,
+        allow_creating_draft_from_deleted_edition: true,
+      )
+    else
+      new_draft = @edition.create_draft(current_user)
+    end
+
     if new_draft.persisted?
       redirect_to edit_admin_edition_path(new_draft)
     else
