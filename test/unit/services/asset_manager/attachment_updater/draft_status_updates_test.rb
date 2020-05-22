@@ -72,7 +72,7 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdatesTest < ActiveSupport::T
         let(:unpublished) { true }
 
         it "marks corresponding assets as not draft even though attachment is draft" do
-          attachment_data.update_attribute(:present_at_unpublish, true)
+          attachment_data.update(present_at_unpublish: true)
           update_worker.expects(:call)
             .with(attachment_data, attachment.file.asset_manager_path, "draft" => false)
           update_worker.expects(:call)

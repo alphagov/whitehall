@@ -10,6 +10,6 @@ category_changes.each do |old_category, new_category|
 
   MainstreamCategory.where(parent_tag: old_category).each do |category|
     puts "\t Category is #{category.title}"
-    category.update_attribute(:parent_tag, new_category)
+    category.update(parent_tag: new_category)
   end
 end

@@ -8,7 +8,7 @@ PUBLISHED_AND_PUBLISHABLE_STATES = %w[published draft archived submitted rejecte
 POLITICAL_ORG_SLUGS.each do |slug|
   organsation = Organisation.find_by(slug: slug)
   puts "Setting political flag for #{organsation.name}"
-  organsation.update_attribute(:political, true)
+  organsation.update(political: true)
 
   puts "Updating editions from \t#{organsation.name}"
   index = 0

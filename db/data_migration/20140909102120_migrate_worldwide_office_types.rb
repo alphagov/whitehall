@@ -3,15 +3,15 @@ WorldwideOffice.all.each do |office|
 
   case office.slug
   when /^british\-embassy/
-    if office.update_attribute(:worldwide_office_type, WorldwideOfficeType::Embassy)
+    if office.update(worldwide_office_type: WorldwideOfficeType::Embassy)
       puts "Updated #{office.slug} to type WorldwideOfficeType::Embassy"
     end
   when /^british\-high\-commission/
-    if office.update_attribute(:worldwide_office_type, WorldwideOfficeType::HighCommission)
+    if office.update(worldwide_office_type: WorldwideOfficeType::HighCommission)
       puts "Updated #{office.slug} to type WorldwideOfficeType::HighCommission"
     end
   when /^british\-consulate/
-    if office.update_attribute(:worldwide_office_type, WorldwideOfficeType::Consulate)
+    if office.update(worldwide_office_type: WorldwideOfficeType::Consulate)
       puts "Updated #{office.slug} to type WorldwideOfficeType::Consulate"
     end
   end

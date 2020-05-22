@@ -338,9 +338,8 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:republish_document_async).with(d)
     end
 
-    world_organisation.update_attribute(
-      :default_news_image,
-      create(:default_news_organisation_image_data),
+    world_organisation.update(
+      default_news_image: create(:default_news_organisation_image_data),
     )
   end
 end

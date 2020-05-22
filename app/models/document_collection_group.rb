@@ -31,7 +31,7 @@ class DocumentCollectionGroup < ApplicationRecord
     self.membership_ids = membership_ids
     save!
     memberships.each do |membership|
-      membership.update_attribute(:ordering, membership_ids.index(membership.id))
+      membership.update(ordering: membership_ids.index(membership.id))
     end
   end
 

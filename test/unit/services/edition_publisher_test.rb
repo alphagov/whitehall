@@ -93,7 +93,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition = published_edition.create_draft(create(:writer))
     edition.minor_change = true
     edition.submit!
-    published_edition.update_attribute(:title, nil)
+    published_edition.update(title: nil)
     publisher = EditionPublisher.new(edition)
 
     assert publisher.perform!
