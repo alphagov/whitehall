@@ -1,6 +1,6 @@
 require "zip"
 
-class Notifications < ApplicationMailer
+class MailNotifications < ApplicationMailer
   include ActionView::RecordIdentifier
   include ActionView::Helpers::TextHelper
   include Admin::EditionRoutesHelper
