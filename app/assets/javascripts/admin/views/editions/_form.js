@@ -25,7 +25,14 @@
       var $change_notes_section      = $('.js-change-notes-section', $fieldset);
 
       $radio_buttons.change(showOrHideChangeNotes);
+      appendHintToFormLabel();
       showOrHideChangeNotes();
+
+      function appendHintToFormLabel() {
+        var $label = $($change_notes_section).find('label');
+        var example_text = "For example, \"Edited chapter 6 - centres in Cardiff and Aberystwyth have closed.\""
+        $label.append('<p class="hint"; style="font-weight: normal">' + example_text + '</p>');
+      }
 
       function showOrHideChangeNotes() {
         if ($minor_change_radio_button.prop('checked')){
