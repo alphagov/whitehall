@@ -14,7 +14,7 @@ class DocumentListExportWorker < WorkerBase
 private
 
   def send_mail(csv_filename, user, filter)
-    Notifications.document_list(csv_filename, user.email, filter.page_title).deliver_now
+    MailNotifications.document_list(csv_filename, user.email, filter.page_title).deliver_now
   end
 
   def upload_file(csv, type)

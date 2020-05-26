@@ -1,9 +1,11 @@
 require "zip"
 
-class Notifications < ApplicationMailer
+class MailNotifications < ApplicationMailer
   include ActionView::RecordIdentifier
   include ActionView::Helpers::TextHelper
   include Admin::EditionRoutesHelper
+
+  default from: "<winston@alphagov.co.uk>"
 
   def fact_check_request(request, url_options)
     @fact_check_request = request
