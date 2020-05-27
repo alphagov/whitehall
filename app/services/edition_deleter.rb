@@ -7,8 +7,17 @@ class EditionDeleter < EditionService
     "deleted"
   end
 
+  def can_transition?
+    edition.public_send("can_#{verb}?") &&
+      edition.unpublishing.nil?
+  end
+
   def failure_reason
-    "An edition that is #{edition.current_state} cannot be deleted" unless can_transition?
+    if !edition.unpublishing.nil?
+      "A draft edition cannot be deleted if it has been unpublished"
+    elsif !edition.public_send("can_#{verb}?")
+      "An edition that is #{edition.current_state} cannot be deleted"
+    end
   end
 
 private
