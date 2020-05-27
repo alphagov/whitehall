@@ -1,7 +1,8 @@
 Given(/^a published document exists with a slug that does not match the title$/) do
   @document = create(:published_publication, title: "Some Publication")
   @original_slug = @document.slug
-  @document.update(title: "Published in error")
+  @document.title = "Published in error"
+  @document.save!(validate: false)
 end
 
 Given(/^there is a published document that is a duplicate of another page$/) do

@@ -25,7 +25,7 @@ class PersonTest < ActiveSupport::TestCase
       image: File.open(Rails.root.join("test/fixtures/horrible-image.64x96.jpg")),
       content_id: SecureRandom.uuid,
     )
-    person.save(validate: false)
+    person.save!(validate: false)
     assert person.reload.valid?
   end
 
@@ -115,7 +115,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     person = create(:person, forename: "John", surname: "Smith")
-    person.update(forename: "Joe", surname: "Bloggs")
+    person.update!(forename: "Joe", surname: "Bloggs")
     assert_equal "john-smith", person.slug
   end
 

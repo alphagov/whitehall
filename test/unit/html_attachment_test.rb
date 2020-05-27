@@ -15,7 +15,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment = create(:html_attachment)
     govspeak_content = attachment.govspeak_content
 
-    attachment.destroy
+    attachment.destroy!
 
     assert_not GovspeakContent.exists?(govspeak_content.id)
   end
@@ -91,7 +91,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     create(:draft_publication, attachments: [attachment])
 
     attachment.title = "a-new-title"
-    attachment.save
+    attachment.save!
     attachment.reload
 
     assert_equal "a-new-title", attachment.slug
@@ -108,7 +108,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment = draft.attachments.first
 
     attachment.title = "a-new-title"
-    attachment.save
+    attachment.save!
     attachment.reload
 
     assert_equal "an-html-attachment", attachment.slug
@@ -125,7 +125,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment = draft.attachments.first
 
     attachment.title = "a-new-title"
-    attachment.save
+    attachment.save!
     attachment.reload
 
     draft.change_note = "Edited HTML attachment title"

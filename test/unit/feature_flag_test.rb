@@ -6,12 +6,12 @@ class FeatureFlagTest < ActiveSupport::TestCase
   end
 
   test "enabled returns true when set" do
-    FeatureFlag.create(key: "new-key", enabled: true)
+    FeatureFlag.create!(key: "new-key", enabled: true)
     assert FeatureFlag.enabled?("new-key")
   end
 
   test "set sets the value of a flag" do
-    FeatureFlag.create(key: "set-key")
+    FeatureFlag.create!(key: "set-key")
     FeatureFlag.set("set-key", true)
     assert FeatureFlag.enabled?("set-key")
     FeatureFlag.set("set-key", false)

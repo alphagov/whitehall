@@ -38,25 +38,25 @@ class NewsArticleType
     "news_article"
   end
 
-  NewsStory = create(
+  NewsStory = create!(
     id: 1,
     key: "news_story",
     singular_name: "News story",
     plural_name: "News stories",
   )
-  PressRelease = create(
+  PressRelease = create!(
     id: 2,
     key: "press_release",
     singular_name: "Press release",
     plural_name: "Press releases",
   )
-  GovernmentResponse = create(
+  GovernmentResponse = create!(
     id: 3,
     key: "government_response",
     singular_name: "Government response",
     plural_name: "Government responses",
   )
-  WorldNewsStory = create(
+  WorldNewsStory = create!(
     id: 4,
     key: "world_news_story",
     singular_name: "World news story",

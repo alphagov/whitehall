@@ -10,7 +10,7 @@ class RelatedMainstreamTest < ActiveSupport::TestCase
 
   test "raises an error if creating a record with an existing content_id for the same edition" do
     detailed_guide = create(:detailed_guide)
-    RelatedMainstream.create(edition_id: detailed_guide.id, content_id: "5a2fea6a-360a-49ba-97b3-46d3612ec198")
+    RelatedMainstream.create!(edition_id: detailed_guide.id, content_id: "5a2fea6a-360a-49ba-97b3-46d3612ec198")
 
     assert_raises "cannot create Related Mainstream record with duplicate content_id" do
       RelatedMainstream.create!(edition_id: detailed_guide.id, content_id: "5a2fea6a-360a-49ba-97b3-46d3612ec198", additional: true)

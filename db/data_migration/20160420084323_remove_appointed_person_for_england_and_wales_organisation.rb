@@ -17,5 +17,5 @@ if organisation.present?
   organisation.promotional_features.destroy_all
 
   Whitehall::SearchIndex.delete(organisation)
-  organisation.destroy
+  organisation.destroy!
 end

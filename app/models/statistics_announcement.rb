@@ -188,7 +188,7 @@ class StatisticsAnnouncement < ApplicationRecord
     self.cancellation_reason = reason
     self.cancelled_at = Time.zone.now
     self.cancelled_by = user
-    save
+    save!(validate: false)
   end
 
   def cancelled?

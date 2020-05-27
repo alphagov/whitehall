@@ -7,13 +7,13 @@ class ContactType
     all.detect { |type| type.name == name }
   end
 
-  General = create(
+  General = create!(
     id: 1, name: "General contact",
   )
-  FOI = create(
+  FOI = create!(
     id: 2, name: "Freedom of Information contact",
   )
-  Media = create(
+  Media = create!(
     id: 3, name: "Media contact",
   )
 end

@@ -52,11 +52,11 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   def destroy
     if featuring_a_document?
       edition = @classification_featuring.edition
-      @classification_featuring.destroy
+      @classification_featuring.destroy!
       flash[:notice] = "#{edition.title} has been unfeatured from #{@classification.name}"
     else
       offsite_link = @classification_featuring.offsite_link
-      @classification_featuring.destroy
+      @classification_featuring.destroy!
       flash[:notice] = "#{offsite_link.title} has been unfeatured from #{@classification.name}"
     end
     redirect_to polymorphic_path([:admin, @classification, :classification_featurings])

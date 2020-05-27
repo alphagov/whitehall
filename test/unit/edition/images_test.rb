@@ -95,7 +95,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         }],
       ),
     )
-    published_edition.save(validate: false)
+    published_edition.save!(validate: false)
 
     new_draft = published_edition.create_draft(build(:user))
     new_draft.reload
@@ -121,7 +121,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     )
 
     draft_edition = published_edition.create_draft(build(:user))
-    draft_edition.images.first.update(caption: "new-caption")
+    draft_edition.images.first.update!(caption: "new-caption")
 
     assert_equal "original-caption", published_edition.images.first.caption
   end
@@ -130,7 +130,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     image = create(:image)
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images: [image]))
-    edition.destroy
+    edition.destroy!
     assert_not Image.find_by(id: image.id)
   end
 

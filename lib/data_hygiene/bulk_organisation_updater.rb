@@ -59,7 +59,7 @@ module DataHygiene
 
       puts "#{document.slug}: #{new_lead_organisations.map(&:slug).join(', ')} (#{new_supporting_organisations.map(&:slug).join(', ')})"
 
-      edition.update(
+      edition.update!(
         lead_organisations: new_lead_organisations,
         supporting_organisations: new_supporting_organisations,
       )

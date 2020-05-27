@@ -40,7 +40,7 @@ class HomePageList < ApplicationRecord
 
   def add_item(item)
     persist_if_required
-    home_page_list_items.create(item: item) unless shown_on_home_page?(item)
+    home_page_list_items.create!(item: item) unless shown_on_home_page?(item)
   end
 
   def remove_item(item)
@@ -123,7 +123,7 @@ protected
           __send__(:"home_page_#{plural_name}_list").reorder_items!(contacts)
         end
         define_method(:"__remove_home_page_#{plural_name}_list") do
-          __send__(:"home_page_#{plural_name}_list").destroy if __send__(:"has_home_page_#{plural_name}_list?")
+          __send__(:"home_page_#{plural_name}_list").destroy! if __send__(:"has_home_page_#{plural_name}_list?")
         end
       end
       after_destroy :"__remove_home_page_#{plural_name}_list"

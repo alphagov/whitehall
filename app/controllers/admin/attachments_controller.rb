@@ -59,7 +59,7 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def destroy
-    attachment.destroy
+    attachment.destroy!
     attachment_updater
     redirect_to attachable_attachments_path(attachable), notice: "Attachment deleted"
   end
@@ -195,11 +195,13 @@ private
   end
 
   def save_attachment
-    attachment.save(context: :user_input).tap do |result|
-      if result && attachment.is_a?(HtmlAttachment)
-        Whitehall::PublishingApi.save_draft(attachment)
-      end
+    result = attachment.save(context: :user_input)
+
+    if result && attachment.is_a?(HtmlAttachment)
+      Whitehall::PublishingApi.save_draft(attachment)
     end
+
+    result
   end
 
   def attachment_updater

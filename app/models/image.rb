@@ -19,7 +19,7 @@ private
 
   def destroy_image_data_if_required
     if image_data && Image.where(image_data_id: image_data.id).empty?
-      image_data.destroy
+      image_data.destroy!
     end
   end
 

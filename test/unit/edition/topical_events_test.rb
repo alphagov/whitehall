@@ -10,7 +10,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     edition = create(:published_news_article, topical_events: [topical_event])
     relation = edition.classification_memberships.first
-    edition.destroy
+    edition.destroy!
     assert_not ClassificationMembership.find_by(id: relation.id)
   end
 
@@ -30,7 +30,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     edition = create(:published_news_article)
     _rel = topical_event.feature(edition_id: edition.id, alt_text: "Woooo", image: create(:classification_featuring_image_data))
     relation = edition.classification_featurings.first
-    edition.destroy
+    edition.destroy!
     assert_not ClassificationFeaturing.find_by(id: relation.id)
   end
 

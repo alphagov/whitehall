@@ -3,6 +3,6 @@ edition = document.editions.published.last
 
 if edition.change_note == "Application round for 2019 to 2020 funding now open."
   edition[:minor_change] = true
-  edition.save(validate: false)
+  edition.save!(validate: false)
   PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 end

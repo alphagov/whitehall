@@ -14,7 +14,7 @@ private
 
   def destroy_consultation_response_form_data_if_required
     unless ConsultationResponseForm.where(consultation_response_form_data_id: consultation_response_form_data.id).any?
-      consultation_response_form_data.destroy
+      consultation_response_form_data.destroy!
     end
   end
 end

@@ -38,7 +38,7 @@ namespace :data_hygiene do
 
     old_role_app.speeches.each do |speech|
       speech.role_appointment = new_role_app
-      speech.save(validate: false)
+      speech.save!(validate: false)
     end
   end
 end

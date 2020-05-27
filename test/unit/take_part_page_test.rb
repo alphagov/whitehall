@@ -27,7 +27,7 @@ class TakePartPageTest < ActiveSupport::TestCase
 
   test "won't change the slug when the name is changed" do
     page = create(:take_part_page, title: "Show me the money")
-    page.update(title: "You had me at hello")
+    page.update!(title: "You had me at hello")
     assert_equal "show-me-the-money", page.slug
   end
 
@@ -147,7 +147,7 @@ class TakePartPageTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(page)
 
-    page.save
+    page.save!
   end
 
   test "adds page to search index on updating" do
@@ -156,7 +156,7 @@ class TakePartPageTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(page)
 
     page.title = "Build a new polling station"
-    page.save
+    page.save!
   end
 
   test "removes page from search index on destroying" do
@@ -165,7 +165,7 @@ class TakePartPageTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:delete).with(page)
 
-    page.destroy
+    page.destroy!
   end
 
   test "returns search index data for all take part pages" do

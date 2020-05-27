@@ -245,7 +245,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   def given_two_groups_with_memberships
     @group_1 = build(:document_collection_group)
     @group_2 = build(:document_collection_group)
-    @collection.update groups: [@group_1, @group_2]
+    @collection.update! groups: [@group_1, @group_2]
 
     @group_1.memberships << @member_1_1 = create(:document_collection_group_membership)
     @group_1.memberships << @member_1_2 = create(:document_collection_group_membership)

@@ -3,7 +3,7 @@ namespace :feature_flag do
   task :create, %i[key] => :environment do |_t, args|
     raise "Please specify a feature flag key." if args[:key].blank?
 
-    FeatureFlag.create(key: args[:key])
+    FeatureFlag.create!(key: args[:key])
 
     puts "Succesfully created feature flag with key: #{args[:key]}."
   end

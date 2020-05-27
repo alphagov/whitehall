@@ -34,7 +34,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   end
 
   def destroy
-    @promotional_feature.destroy
+    @promotional_feature.destroy!
     redirect_to [:admin, @organisation, PromotionalFeature], notice: "Promotional feature deleted."
   end
 

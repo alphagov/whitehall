@@ -238,7 +238,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "put update updates associated phone numbers" do
     worldwide_organisation, office = create_worldwide_organisation_and_office
-    contact_number = office.contact.contact_numbers.create(label: "Main phone", number: "1234")
+    contact_number = office.contact.contact_numbers.create!(label: "Main phone", number: "1234")
 
     put :update,
         params: {
@@ -267,7 +267,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "PUT :update deletes contact numbers that have only blank fields" do
     worldwide_organisation, office = create_worldwide_organisation_and_office
-    contact_number = office.contact.contact_numbers.create(label: "Phone", number: "1234")
+    contact_number = office.contact.contact_numbers.create!(label: "Phone", number: "1234")
 
     put :update,
         params: {
@@ -315,14 +315,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this" do
     worldwide_organisation, office_1 = create_worldwide_organisation_and_office
-    office_2 = worldwide_organisation.offices.create(
+    office_2 = worldwide_organisation.offices.create!(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {
         title: "Body office",
         contact_type_id: ContactType::General.id,
       },
     )
-    office_3 = worldwide_organisation.offices.create(
+    office_3 = worldwide_organisation.offices.create!(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {
         title: "Spirit office",
@@ -370,7 +370,7 @@ private
 
   def create_worldwide_organisation_and_office
     worldwide_organisation = create_worldwide_organisation_with_main_office
-    office = worldwide_organisation.offices.create(
+    office = worldwide_organisation.offices.create!(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {
         title: "Main office",

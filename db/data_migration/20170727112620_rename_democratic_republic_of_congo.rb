@@ -3,4 +3,4 @@
 WorldLocation
   .find_by(slug: "democratic-republic-of-the-congo")
   .translation
-  .update(name: "Democratic Republic of the Congo")
+  .update!(name: "Democratic Republic of the Congo")

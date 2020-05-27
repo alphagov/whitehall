@@ -51,6 +51,6 @@ documents.each do |document|
   Whitehall::SearchIndex.delete(edition)
 
   # change the slug of the document and create a redirect from the original
-  doc.update(sluggable_string: document[:new_slug])
+  doc.update!(sluggable_string: document[:new_slug])
   PublishingApiDocumentRepublishingWorker.new.perform(doc.id)
 end

@@ -19,7 +19,7 @@ csv.each do |row|
         old_title = policy.title
         puts %(Updating policy: #{old_title} -> #{new_title})
 
-        policy.update(title: new_title)
+        policy.update!(title: new_title)
         policy.editorial_remarks << EditorialRemark.new(author: gds_user, body: "Automatically updated title: #{old_title} -> #{new_title}")
       end
     else

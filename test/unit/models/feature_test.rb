@@ -24,7 +24,7 @@ class FeatureTest < ActiveSupport::TestCase
     feature_list = create(:feature_list, featurable: test_object)
     feature = create(:feature, feature_list: feature_list)
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
-    feature.destroy
+    feature.destroy!
   end
 
   test "creating a new feature does not republish the linked featurable if it's not an Organisation" do

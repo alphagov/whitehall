@@ -61,7 +61,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: form)
 
-    participation.update(consultation_response_form_attributes: { id: form.id, "_destroy" => "1" })
+    participation.update!(consultation_response_form_attributes: { id: form.id, "_destroy" => "1" })
 
     participation.reload
     assert_not participation.consultation_response_form.present?
@@ -73,7 +73,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     participation = create(:consultation_participation)
     form = create(:consultation_response_form, consultation_participation: participation)
 
-    participation.destroy
+    participation.destroy!
 
     assert_raise(ActiveRecord::RecordNotFound) do
       form.reload
@@ -85,7 +85,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     form = create(:consultation_response_form, consultation_participation: participation)
     _other_participation = create(:consultation_participation, consultation_response_form: form)
 
-    participation.destroy
+    participation.destroy!
 
     assert_nothing_raised do
       form.reload
@@ -94,7 +94,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
 
   test "can be destroyed without an associated form" do
     participation = create(:consultation_participation, consultation_response_form: nil)
-    participation.destroy
+    participation.destroy!
     assert_raise(ActiveRecord::RecordNotFound) do
       participation.reload
     end

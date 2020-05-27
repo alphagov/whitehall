@@ -42,7 +42,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   supported_attachable_types.each do |type, param_name|
     view_test "GET :index handles #{type} as attachable" do
-      attachable = create(type)
+      attachable = create(type) # rubocop:disable Rails/SaveBang
       create(:file_attachment, isbn: "817525766-0", attachable: attachable)
 
       get :index, params: { param_name => attachable.id }
@@ -52,7 +52,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     end
 
     view_test "GET :new handles #{type} as attachable" do
-      attachable = create(type)
+      attachable = create(type) # rubocop:disable Rails/SaveBang
 
       get :new, params: { param_name => attachable.id }
 
@@ -61,7 +61,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     end
 
     test "POST :create handles file attachments for #{type} as attachable" do
-      attachable = create(type)
+      attachable = create(type) # rubocop:disable Rails/SaveBang
 
       post :create, params: { param_name => attachable.id, attachment: valid_file_attachment_params }
 
@@ -72,7 +72,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     end
 
     test "DELETE :destroy handles file attachments for #{type} as attachable" do
-      attachable = create(type)
+      attachable = create(type) # rubocop:disable Rails/SaveBang
       attachment = create(:file_attachment, attachable: attachable)
 
       delete :destroy, params: { param_name => attachable.id, id: attachment.id }

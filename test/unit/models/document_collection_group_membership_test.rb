@@ -18,7 +18,7 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
       build(:document_collection_group_membership),
     ]
 
-    membership.save
+    membership.save!
     assert_equal 2, membership.ordering
   end
 

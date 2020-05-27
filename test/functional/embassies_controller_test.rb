@@ -4,7 +4,7 @@ class EmbassiesControllerTest < ActionController::TestCase
   view_test "embassies index" do
     afghanistan = create(:world_location, :with_worldwide_organisations, name: "Afghanistan")
     afghan_org = afghanistan.worldwide_organisations.first
-    afghan_org.update(name: "The British Embassy Kabul")
+    afghan_org.update!(name: "The British Embassy Kabul")
     afghan_contact = create(:contact, street_address: "...", country: afghanistan)
     afghan_org.main_office = create(
       :worldwide_office,
@@ -19,7 +19,7 @@ class EmbassiesControllerTest < ActionController::TestCase
     netherlands = create(:world_location, name: "Netherlands")
     aruban_org = aruba.worldwide_organisations.first
     aruban_contact = create(:contact, street_address: "...", country: netherlands)
-    aruban_org.update(name: "British Consulate General Amsterdam")
+    aruban_org.update!(name: "British Consulate General Amsterdam")
     aruban_org.main_office = create(
       :worldwide_office,
       contact: aruban_contact,

@@ -309,7 +309,7 @@ old = Organisation.find_by(slug: "natural-england")
   lead_organisations.delete old
   supporting_organisations.delete old
 
-  edition.update(
+  edition.update!(
     lead_organisations: lead_organisations,
     supporting_organisations: supporting_organisations,
   )

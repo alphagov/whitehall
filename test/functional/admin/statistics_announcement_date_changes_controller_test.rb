@@ -46,7 +46,7 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     refute_select("textarea#statistics_announcement_date_change_change_note")
 
     @announcement.current_release_date.confirmed = true
-    @announcement.current_release_date.save(validate: false)
+    @announcement.current_release_date.save!(validate: false)
     get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success

@@ -44,7 +44,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
         },
       )
 
-      @topical_event_about_page.destroy
+      @topical_event_about_page.destroy!
       assert_requested gone_request
     end
   end

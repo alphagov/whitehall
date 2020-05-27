@@ -157,7 +157,7 @@ private
     other_appointments = other_appointments_for_same_role.current
     other_appointments.each do |oa|
       oa.ended_at = started_at
-      oa.save
+      oa.save!
     end
   end
 

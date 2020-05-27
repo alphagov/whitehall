@@ -24,7 +24,7 @@ private
 
   def fire_transition!
     edition.public_send(verb)
-    edition.save(validate: false)
+    edition.save!(validate: false)
     edition.document.features.each(&:end!)
     mark_attachments_as_present_at_unpublish
   end
@@ -38,7 +38,7 @@ private
     Attachment.where(attachable: edition.attachables).find_each do |attachment|
       next unless attachment.attachment_data
 
-      attachment.attachment_data.update(present_at_unpublish: true)
+      attachment.attachment_data.update!(present_at_unpublish: true)
     end
   end
 end

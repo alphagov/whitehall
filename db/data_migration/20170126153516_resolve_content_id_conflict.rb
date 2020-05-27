@@ -8,5 +8,5 @@
   blocking_document = Document.find(blocking_document_id)
   blocked_document.content_id = blocking_document.content_id
   blocked_document.save!
-  blocking_document.destroy
+  blocking_document.destroy!
 end

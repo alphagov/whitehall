@@ -80,7 +80,7 @@ class DocumentTest < ActiveSupport::TestCase
     original_edition = create(:published_edition, document: document)
     deleted_edition = create(:deleted_edition, document: document)
 
-    document.destroy
+    document.destroy!
     assert_not Edition.unscoped.exists?(original_edition.id)
     assert_not Edition.unscoped.exists?(deleted_edition.id)
   end
@@ -88,14 +88,14 @@ class DocumentTest < ActiveSupport::TestCase
   test "#destroy also destroys relations to other editions" do
     document = create(:document)
     relationship = create(:edition_relation, document: document)
-    document.destroy
+    document.destroy!
     assert_nil EditionRelation.find_by(id: relationship.id)
   end
 
   test "#destroy also destroys document sources" do
     document = create(:document)
     document_source = create(:document_source, document: document)
-    document.destroy
+    document.destroy!
     assert_nil DocumentSource.find_by(id: document_source.id)
   end
 
@@ -106,7 +106,7 @@ class DocumentTest < ActiveSupport::TestCase
       groups: [build(:document_collection_group, documents: [published_edition.document])],
     )
 
-    published_edition.document.destroy
+    published_edition.document.destroy!
     assert_empty DocumentCollectionGroupMembership.where(document_id: published_edition.document.id)
   end
 
@@ -118,7 +118,7 @@ class DocumentTest < ActiveSupport::TestCase
     feature_list.reload
     assert_equal 1, feature_list.features.size
 
-    document.destroy
+    document.destroy!
 
     feature_list.reload
     assert_equal 0, feature_list.features.size

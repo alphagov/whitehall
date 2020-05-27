@@ -34,7 +34,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   def destroy
     policy_group = PolicyGroup.friendly.find(params[:id])
     name = policy_group.name
-    policy_group.destroy
+    policy_group.destroy!
     redirect_to admin_policy_groups_path, notice: %("#{name}" deleted.)
   end
 

@@ -48,7 +48,7 @@ class ClassificationRelation < ApplicationRecord
 
   def destroy_inverse_relation
     if inverse_relation.present?
-      inverse_relation.destroy
+      inverse_relation.destroy!
     end
   end
 end

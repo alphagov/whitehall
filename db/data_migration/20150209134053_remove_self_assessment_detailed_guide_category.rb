@@ -17,7 +17,7 @@ categories.each do |category|
   guides.each { |guide| guide.remove_mainstream_category!(category) }
 
   puts "\t destroying category: \t #{old_path}"
-  category.destroy
+  category.destroy!
 end
 
 puts "committing redirects"

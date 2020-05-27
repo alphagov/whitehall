@@ -3,4 +3,4 @@
 # delete the draft edition to allow the sync check to compare live to live versions.
 edition = Edition.find(483_007)
 edition.delete_all_attachments
-edition.destroy
+edition.destroy!

@@ -23,12 +23,12 @@ end
 
 def update_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
-  detailed_guide.update(related_mainstream_content_url: clean_url)
+  detailed_guide.update!(related_mainstream_content_url: clean_url)
 end
 
 def update_additional_related_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
-  detailed_guide.update(additional_related_mainstream_content_url: clean_url)
+  detailed_guide.update!(additional_related_mainstream_content_url: clean_url)
 end
 
 def clean_the_url(url)
