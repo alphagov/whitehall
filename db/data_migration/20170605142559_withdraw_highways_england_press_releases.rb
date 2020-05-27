@@ -3,7 +3,7 @@ require "ruby-progressbar"
 class WithdrawHighwaysEnglandPressReleases
   def run!
     withdrawing_user = ::User.find_by!(name: "GDS Inside Government Team")
-    progress_bar = ProgressBar.create(autostart: false, format: "%e [%b>%i] [%c/%C]")
+    progress_bar = ProgressBar.create!(autostart: false, format: "%e [%b>%i] [%c/%C]")
 
     progress_bar.total = edition_ids.size
     progress_bar.start

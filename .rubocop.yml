@@ -81,3 +81,11 @@ Rails/FilePath:
 # it should be removed when we upgrade.
 Style/HashEachMethods:
   Enabled: false
+
+# We seldom check the return value of 'update' to see if
+# the operation was successful. Since we assume success, we
+# should raise an exception if this is not the case.
+#
+# We intend to add this to rubocop-govuk.
+Rails/SaveBang:
+  Enabled: true

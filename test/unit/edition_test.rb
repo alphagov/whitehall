@@ -12,7 +12,10 @@ class EditionTest < ActiveSupport::TestCase
       ],
     )
 
-    edition.save
+    # We cannot use save! here, because Edition::Identifiable
+    # has a 'before_validation' callback that creates a document,
+    # which other callbacks then rely upon.
+    edition.save # rubocop:disable Rails/SaveBang
 
     edition.build_no_deal_notice_links
 
@@ -515,14 +518,14 @@ class EditionTest < ActiveSupport::TestCase
   test "#destroy should also remove the relationship to any authors" do
     edition = create(:draft_edition, creator: create(:writer))
     relation = edition.edition_authors.first
-    edition.destroy
+    edition.destroy!
     assert_not EditionAuthor.find_by(id: relation.id)
   end
 
   test "#destroy should also remove the relationship to any editorial remarks" do
     edition = create(:draft_edition, editorial_remarks: [create(:editorial_remark)])
     relation = edition.editorial_remarks.first
-    edition.destroy
+    edition.destroy!
     assert_not EditorialRemark.find_by(id: relation.id)
   end
 

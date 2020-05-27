@@ -12,14 +12,14 @@ class ConsultationResponseFormTest < ActiveSupport::TestCase
     _other_consultation_response_form = create(:consultation_response_form, consultation_response_form_data: consultation_response_form_data)
 
     consultation_response_form_data.expects(:destroy).never
-    consultation_response_form.destroy
+    consultation_response_form.destroy!
   end
 
   test "destroys response form data when no other response forms are associated with it" do
     consultation_response_form = create(:consultation_response_form)
     consultation_response_form_data = consultation_response_form.consultation_response_form_data
 
-    consultation_response_form_data.expects(:destroy)
-    consultation_response_form.destroy
+    consultation_response_form_data.expects(:destroy!)
+    consultation_response_form.destroy!
   end
 end

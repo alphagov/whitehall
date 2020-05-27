@@ -19,7 +19,13 @@ class FeatureTest < ActiveSupport::TestCase
   end
 
   test "started_at set by default on creation" do
-    feature = Feature.create(image: image_fixture_file, feature_list: create(:feature_list), document: create(:document))
+    feature = Feature.create!(
+      image: image_fixture_file,
+      feature_list: create(:feature_list),
+      document: create(:document),
+      alt_text: "foo",
+    )
+
     assert_equal Time.zone.now, feature.started_at
   end
 

@@ -21,7 +21,7 @@ class FeaturedLinkTest < ActiveSupport::TestCase
     test_object = create(:organisation)
     featured_link = create(:featured_link, linkable: test_object)
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
-    featured_link.destroy
+    featured_link.destroy!
   end
 
   test "creating a new featured link does not republish the linked linkable if it's not an Organisation" do

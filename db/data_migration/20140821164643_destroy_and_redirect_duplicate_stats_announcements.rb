@@ -16,7 +16,7 @@ duplicate_statistics_announcements.each do |dupe_slug, canonical_slug|
   puts "registering redirect:\t #{duplicate_path} => #{canonical_path}"
   router_api.add_redirect_route(duplicate_path, "exact", canonical_path)
   puts "destroying duplicate:\t #{duplicate_path} 💥🔫"
-  duplicate.destroy
+  duplicate.destroy!
 end
 
 puts "\nDon't forget to add the above redirects to router-data!"

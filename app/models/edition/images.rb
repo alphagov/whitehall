@@ -8,7 +8,7 @@ module Edition::Images
         if image.invalid?
           Rails.logger.warn "Ignoring errors on saving image for edition with id #{edition.id}: #{image.errors.full_messages.join(', ')}"
         end
-        image.save(validate: false)
+        image.save!(validate: false)
       end
     end
   end

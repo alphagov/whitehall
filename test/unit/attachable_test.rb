@@ -271,7 +271,7 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "re-editioned editions persists invalid attachments" do
     file_attachment = build(:file_attachment, command_paper_number: "invalid")
-    file_attachment.save(validate: false)
+    file_attachment.save!(validate: false)
     publication = create(
       :published_publication,
       :with_alternative_format_provider,
@@ -305,8 +305,8 @@ class AttachableTest < ActiveSupport::TestCase
       ],
     )
 
-    attachment_1.destroy
-    attachment_2.destroy
+    attachment_1.destroy!
+    attachment_2.destroy!
 
     assert_equal [attachment_1, attachment_2], publication.deleted_html_attachments
   end

@@ -13,7 +13,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     topic = create(:topic, name: "Love all the people")
-    topic.update(name: "Hold hands")
+    topic.update!(name: "Hold hands")
     assert_equal "love-all-the-people", topic.slug
   end
 
@@ -78,7 +78,7 @@ class TopicTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(topic)
 
-    topic.save
+    topic.save!
   end
 
   test "should add topic to search index on updating" do
@@ -87,13 +87,13 @@ class TopicTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(topic)
 
     topic.name = "different topic name"
-    topic.save
+    topic.save!
   end
 
   test "should remove topic from search index on destroying" do
     topic = create(:topic)
     Whitehall::SearchIndex.expects(:delete).with(topic)
-    topic.destroy
+    topic.destroy!
   end
 
   test "should return search index data for all topics" do

@@ -7,7 +7,7 @@ role.role_appointments = []
 role.organisations = []
 role.worldwide_organisations = []
 role.save!
-role.destroy
+role.destroy!
 
 raise "Failed to delete role" if Role.find_by(slug: role_to_delete)
 

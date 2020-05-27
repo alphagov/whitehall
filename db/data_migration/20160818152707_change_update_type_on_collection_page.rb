@@ -5,7 +5,7 @@ if document_collection.present?
 
   # Skip validation here, because normally document collections (editions) in a
   # superseded state cannot have their minor_change field modified.
-  document_collection.save(validate: false)
+  document_collection.save!(validate: false)
 else
   "Document Collection#640432 not found."
 end

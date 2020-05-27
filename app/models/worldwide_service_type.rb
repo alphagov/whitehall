@@ -13,8 +13,8 @@ class WorldwideServiceType
     all.detect { |pt| pt.slug == slug }
   end
 
-  AssistanceServices  = create(id: 1, name: "Assistance Services")
-  DocumentaryServices = create(id: 2, name: "Documentary Services")
+  AssistanceServices  = create!(id: 1, name: "Assistance Services")
+  DocumentaryServices = create!(id: 2, name: "Documentary Services")
 
-  OtherServices       = create(id: 99, name: "Other Services")
+  OtherServices       = create!(id: 99, name: "Other Services")
 end

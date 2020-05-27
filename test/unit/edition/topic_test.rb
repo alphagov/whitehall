@@ -16,7 +16,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
   test "#destroy should also remove the classification membership relationship" do
     edition = create(:draft_publication, topics: [@topic])
     relation = edition.classification_memberships.first
-    edition.destroy
+    edition.destroy!
     assert_not ClassificationMembership.exists?(relation.id)
   end
 

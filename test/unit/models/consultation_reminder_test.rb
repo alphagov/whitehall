@@ -163,7 +163,7 @@ class ConsultationReminderTest < ActiveSupport::TestCase
       opening_at: 10.months.ago,
       closing_at: Time.zone.local(2018, 3, 6, 23, 45, 0),
     )
-    consultation.update(authors: [author, author])
+    consultation.update!(authors: [author, author])
 
     ConsultationReminder.send_all
 

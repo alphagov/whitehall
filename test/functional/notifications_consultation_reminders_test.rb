@@ -4,7 +4,7 @@ class NotificationsConsultationRemindersTest < ActionMailer::TestCase
   setup do
     @consultation = build(:consultation)
     author = build(:author)
-    @consultation.update(authors: [author, author])
+    @consultation.update!(authors: [author, author])
   end
 
   test "reminder emails should contain the title text and weeks remaining" do

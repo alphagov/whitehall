@@ -8,7 +8,7 @@ class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
   test "#destroy removes association with organisations" do
     organisation = create(:worldwide_organisation)
     edition = create(:draft_case_study, worldwide_organisations: [organisation])
-    edition.destroy
+    edition.destroy!
     assert_not edition.edition_worldwide_organisations.any?
     assert WorldwideOrganisation.exists?(organisation.id)
   end

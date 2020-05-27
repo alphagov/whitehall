@@ -96,7 +96,7 @@ class ContactTest < ActiveSupport::TestCase
 
   test "should destroy associated contact numbers on destruction" do
     contact = create(:contact, contact_numbers: [create(:contact_number)])
-    contact.destroy
+    contact.destroy!
     assert contact.contact_numbers.empty?
   end
 
@@ -105,7 +105,7 @@ class ContactTest < ActiveSupport::TestCase
     list = create(:home_page_list)
     list.add_item(contact)
 
-    contact.destroy
+    contact.destroy!
 
     assert_not list.shown_on_home_page?(contact)
   end
@@ -129,7 +129,7 @@ class ContactTest < ActiveSupport::TestCase
       expect_publishing(contact)
       expect_republishing(news_article, corp_info_page)
 
-      contact.update(title: "Changed contact title")
+      contact.update!(title: "Changed contact title")
     end
   end
 
@@ -143,6 +143,6 @@ class ContactTest < ActiveSupport::TestCase
     test_object = create(:organisation)
     contact = create(:contact, contactable: test_object)
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
-    contact.destroy
+    contact.destroy!
   end
 end

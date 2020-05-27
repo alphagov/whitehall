@@ -123,7 +123,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     feature_list.reload
     assert_equal 1, feature_list.features.size
 
-    offsite_link.destroy
+    offsite_link.destroy!
 
     feature_list.reload
     assert_equal 0, feature_list.features.size

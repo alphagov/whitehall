@@ -27,7 +27,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
   test "PUT on :update updates a social media account" do
     worldwide_organisation = create(:worldwide_organisation)
-    social_media_account = worldwide_organisation.social_media_accounts.create(social_media_service_id: @social_media_service.id, url: "http://foo")
+    social_media_account = worldwide_organisation.social_media_accounts.create!(social_media_service_id: @social_media_service.id, url: "http://foo")
 
     put :update,
         params: {

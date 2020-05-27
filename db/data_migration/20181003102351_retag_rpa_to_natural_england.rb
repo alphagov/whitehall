@@ -18,7 +18,7 @@ docs_with_lead.each do |document|
   orgs.delete old
 
   edition.lead_organisations = orgs
-  edition.save(validate: false)
+  edition.save!(validate: false)
   puts document.slug
 rescue StandardError => e
   puts "#{document.slug}: #{e.class}, #{e.message}"
@@ -35,7 +35,7 @@ docs_with_support.each do |document|
   orgs.delete old
 
   edition.supporting_organisations = orgs
-  edition.save(validate: false)
+  edition.save!(validate: false)
   puts document.slug
 rescue StandardError => e
   puts "#{document.slug}: #{e.class}, #{e.message}"

@@ -3,10 +3,10 @@ class Nation
 
   attr_accessor :id, :name
 
-  England = create(id: 1, name: "England")
-  Scotland = create(id: 2, name: "Scotland")
-  Wales = create(id: 3, name: "Wales")
-  NorthernIreland = create(id: 4, name: "Northern Ireland")
+  England = create!(id: 1, name: "England")
+  Scotland = create!(id: 2, name: "Scotland")
+  Wales = create!(id: 3, name: "Wales")
+  NorthernIreland = create!(id: 4, name: "Northern Ireland")
 
   def self.england
     England

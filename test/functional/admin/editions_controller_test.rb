@@ -288,7 +288,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test "revise should redirect to index page if document is locked" do
     edition = create(:published_news_article)
     edition.document.locked = true
-    edition.document.save
+    edition.document.save!
 
     post :revise, params: { id: edition.id }
 

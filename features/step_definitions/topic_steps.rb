@@ -23,7 +23,7 @@ end
 Given(/^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/) do |topic_name, organisation_name|
   topic = Topic.find_by(name: topic_name) || create(:topic, name: topic_name)
   organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
-  OrganisationClassification.create(topic: topic, organisation: organisation, lead: true)
+  OrganisationClassification.create!(topic: topic, organisation: organisation, lead: true)
 end
 
 Given(/^two topics "([^"]*)" and "([^"]*)" exist$/) do |first_topic, second_topic|

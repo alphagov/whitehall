@@ -7,5 +7,5 @@
   1_683_924 => "22443bfa-c8d2-45b0-9827-a3ae42b759b5",
 }.each do |id, new_content_id|
   attachment = HtmlAttachment.find_by(id: id)
-  attachment.update(content_id: new_content_id) if attachment
+  attachment.update!(content_id: new_content_id) if attachment
 end

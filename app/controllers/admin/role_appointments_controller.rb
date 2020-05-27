@@ -29,7 +29,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
 
   def destroy
     if @role_appointment.destroyable?
-      @role_appointment.destroy
+      @role_appointment.destroy!
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been deleted"
     else
       flash.now[:alert] = "Appointment can not be deleted"

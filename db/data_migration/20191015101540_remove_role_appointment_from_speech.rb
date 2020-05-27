@@ -8,4 +8,4 @@
 
 speech = Speech.find(995_407)
 speech.role_appointment_id = 5815
-speech.save(validate: false)
+speech.save!(validate: false)

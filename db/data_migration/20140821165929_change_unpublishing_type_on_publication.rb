@@ -9,4 +9,4 @@ unpublishing.alternative_url = redirect_url
 unpublishing.save!
 
 puts "Resetting the publication back to draft so that it's no longer \"archived\" and is instead \"unpublished\""
-publication.update(state: "draft")
+publication.update!(state: "draft")

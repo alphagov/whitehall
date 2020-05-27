@@ -12,7 +12,7 @@ class SpeechType
 
   attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence, :use_key_as_display_key
 
-  def self.create(attributes)
+  def self.create!(attributes)
     super({
       owner_key_group: "delivery_title",
       published_externally_key: "delivered_on",
@@ -66,7 +66,7 @@ class SpeechType
     use_key_as_display_key ? key : genus_key
   end
 
-  Transcript = create(
+  Transcript = create!(
     id: 1,
     singular_name: "Transcript",
     key: "transcript",
@@ -74,7 +74,7 @@ class SpeechType
     plural_name: "Transcripts",
   )
 
-  DraftText = create(
+  DraftText = create!(
     id: 2,
     singular_name: "Draft text",
     key: "draft_text",
@@ -82,7 +82,7 @@ class SpeechType
     plural_name: "Draft texts",
   )
 
-  SpeakingNotes = create(
+  SpeakingNotes = create!(
     id: 3,
     singular_name: "Speaking notes",
     key: "speaking_notes",
@@ -90,7 +90,7 @@ class SpeechType
     plural_name: "Speaking notes",
   )
 
-  WrittenStatement = create(
+  WrittenStatement = create!(
     id: 4,
     key: "written_statement",
     singular_name: "Written statement to Parliament",
@@ -98,7 +98,7 @@ class SpeechType
     use_key_as_display_key: true,
   )
 
-  OralStatement = create(
+  OralStatement = create!(
     id: 5,
     key: "oral_statement",
     singular_name: "Oral statement to Parliament",
@@ -106,7 +106,7 @@ class SpeechType
     use_key_as_display_key: true,
   )
 
-  AuthoredArticle = create(
+  AuthoredArticle = create!(
     id: 6,
     key: "authored_article",
     singular_name: "Authored article",

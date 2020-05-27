@@ -4,7 +4,7 @@ class LinkCheckerApiReport::CreateFromBatchReport
     @reportable = reportable
   end
 
-  def create
+  def call
     ActiveRecord::Base.transaction do
       report = replace_or_create_report
       create_links(report)

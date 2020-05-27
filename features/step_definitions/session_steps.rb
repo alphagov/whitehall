@@ -35,7 +35,7 @@ end
 
 Given(/^I have the "(.*?)" permission$/) do |perm|
   @user.permissions << perm
-  @user.save
+  @user.save!
 end
 
 Given(/^I am a visitor$/) do

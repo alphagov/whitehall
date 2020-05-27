@@ -44,5 +44,5 @@ Unpublishing.where(unpublishing_reason_id: [2, 3]).each do |unp|
 
   @logger.info "Fixing unpublishing id #{unp.id}: reason #{unp.unpublishing_reason_id}, redirect #{unp.redirect}"
   # Again, need to skip validations because edition can be deleted.
-  unp.save(validate: false)
+  unp.save!(validate: false)
 end

@@ -37,7 +37,7 @@ end
 
 if Government.where(name: "Test Government").blank?
   Government.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Government.create(
+  Government.create!(
     name: "Test Government",
     start_date: Time.zone.local(2001, 1, 1),
   )
@@ -45,14 +45,14 @@ end
 
 if Topic.where(name: "Test Policy Area").blank?
   Topic.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Topic.create(
+  Topic.create!(
     name: "Test Policy Area",
     description: "Test Policy Area Description",
   )
 end
 
 if WorldLocation.where(name: "Test World Location").blank?
-  WorldLocation.create(
+  WorldLocation.create!(
     name: "Test World Location",
     world_location_type_id: 1,
   )

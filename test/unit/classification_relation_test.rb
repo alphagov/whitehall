@@ -49,7 +49,7 @@ class ClassificationRelationTest < ActiveSupport::TestCase
 
   test "should destroy inverse relation on destroy" do
     relation = create(:classification_relation)
-    relation.destroy
+    relation.destroy!
     assert_nil relation.inverse_relation
   end
 

@@ -21,6 +21,8 @@ module ActiveRecordLikeInterface
       new(*args).save
     end
 
+    alias_method :create!, :create
+
     def model_name
       ActiveModel::Name.new self
     end

@@ -10,6 +10,6 @@ HtmlAttachment.find_each do |html_attachment|
                            body: html_attachment.attributes["body"],
                            manually_numbered_headings: html_attachment.manually_numbered_headings,
                          )
-    govspeak_content.save(validate: false)
+    govspeak_content.save!(validate: false)
   end
 end

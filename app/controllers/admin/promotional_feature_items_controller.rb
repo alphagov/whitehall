@@ -9,7 +9,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def create
-    @promotional_feature_item = @promotional_feature.promotional_feature_items.create(promotional_feature_item_params)
+    @promotional_feature_item = @promotional_feature.promotional_feature_items.build(promotional_feature_item_params)
     if @promotional_feature_item.save
       redirect_to_feature "Feature item added."
     else
@@ -30,7 +30,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def destroy
-    @promotional_feature_item.destroy
+    @promotional_feature_item.destroy!
     redirect_to_feature "Feature item deleted."
   end
 

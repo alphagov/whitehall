@@ -17,7 +17,7 @@ NOT EXISTS (
         }
 
   def self.create_noop_report(link_reportable)
-    create(
+    create!(
       batch_id: nil,
       completed_at: Time.zone.now,
       link_reportable: link_reportable,
@@ -26,7 +26,7 @@ NOT EXISTS (
   end
 
   def self.create_from_batch_report(batch_report, link_reportable)
-    CreateFromBatchReport.new(batch_report, link_reportable).create
+    CreateFromBatchReport.new(batch_report, link_reportable).call
   end
 
   def update_from_batch_report(batch_report)

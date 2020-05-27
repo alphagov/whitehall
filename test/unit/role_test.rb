@@ -116,7 +116,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     role = create(:role, name: "Prime Minister")
-    role.update(name: "Chancellor of the Exchequer")
+    role.update!(name: "Chancellor of the Exchequer")
     assert_equal "prime-minister", role.slug
   end
 

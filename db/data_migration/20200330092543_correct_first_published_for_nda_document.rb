@@ -5,7 +5,7 @@ correct_first_published_at = editions.first.first_published_at
 editions.each do |edition|
   if edition.first_published_at != correct_first_published_at
     edition.first_published_at = correct_first_published_at
-    edition.save(validate: false)
+    edition.save!(validate: false)
   end
 end
 

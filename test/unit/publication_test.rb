@@ -141,7 +141,7 @@ class PublicationTest < ActiveSupport::TestCase
   test "can associate publications with topical events" do
     publication = create(:publication)
     assert publication.can_be_associated_with_topical_events?
-    assert topical_event = publication.topical_events.create(name: "Test", description: "Test")
+    assert topical_event = publication.topical_events.create!(name: "Test", description: "Test")
     assert_equal [publication], topical_event.publications
   end
 

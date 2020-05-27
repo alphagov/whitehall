@@ -34,7 +34,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
   def destroy
-    @group.destroy
+    @group.destroy!
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: "'#{@group.heading}' was deleted"
   end

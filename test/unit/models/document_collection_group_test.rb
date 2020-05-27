@@ -73,8 +73,8 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
       ],
     )
 
-    group.memberships[0].update(ordering: 2)
-    group.memberships[1].update(ordering: 1)
+    group.memberships[0].update!(ordering: 2)
+    group.memberships[1].update!(ordering: 1)
     group.reload
 
     assert_equal group.content_ids, [non_whitehall_link.content_id, document.content_id]

@@ -36,7 +36,7 @@ module AdminEditionWorldLocationsBehaviour
       end
 
       view_test "edit displays document form with world locations field" do
-        edition = create(document_type)
+        edition = create(document_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
@@ -66,7 +66,7 @@ module AdminEditionWorldLocationsBehaviour
       end
 
       view_test "updating a stale document should render edit page with conflicting document and its world locations" do
-        document = create(document_type)
+        document = create(document_type) # rubocop:disable Rails/SaveBang
         lock_version = document.lock_version
         document.touch
 

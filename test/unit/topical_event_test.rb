@@ -68,7 +68,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     feature_list.reload
     assert_equal 1, feature_list.features.size
 
-    topical_event.destroy
+    topical_event.destroy!
 
     feature_list.reload
     assert_equal 0, feature_list.features.size
@@ -83,6 +83,6 @@ class TopicalEventTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish).with(topical_event).once
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
-    topical_event.save
+    topical_event.save!
   end
 end

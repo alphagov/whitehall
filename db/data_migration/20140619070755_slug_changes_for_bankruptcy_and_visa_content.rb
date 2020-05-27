@@ -23,7 +23,7 @@ document_publications_urls.each do |old_slug, new_slug|
   changeling = Document.find_by(slug: old_slug)
   if changeling
     puts "Changing document slug #{old_slug} -> #{new_slug}"
-    changeling.update(slug: new_slug)
+    changeling.update!(slug: new_slug)
     router.add_redirect_route(
       "/government/publications/#{old_slug}",
       "exact",
@@ -38,7 +38,7 @@ document_collections_urls.each do |old_slug, new_slug|
   changeling = Document.find_by(slug: old_slug)
   if changeling
     puts "Changing document slug #{old_slug} -> #{new_slug}"
-    changeling.update(slug: new_slug)
+    changeling.update!(slug: new_slug)
     router.add_redirect_route(
       "/government/collections/#{old_slug}",
       "exact",
