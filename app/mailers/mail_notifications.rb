@@ -5,6 +5,8 @@ class MailNotifications < ApplicationMailer
   include ActionView::Helpers::TextHelper
   include Admin::EditionRoutesHelper
 
+  default from: "<ignored@null.invalid>"
+
   def fact_check_request(request, url_options)
     @fact_check_request = request
     @url_options = url_options
