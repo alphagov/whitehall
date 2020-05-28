@@ -487,8 +487,8 @@ EXISTS (
   def create_draft(user, allow_creating_draft_from_deleted_edition: false)
     ActiveRecord::Base.transaction do
       lock!
-      if allow_creating_draft_from_deleted_edition && !deleted?
-        raise "Edition not in the deleted state"
+      if allow_creating_draft_from_deleted_edition
+        raise "Edition not in the deleted state" unless deleted?
       elsif !published?
         raise "Cannot create new edition based on edition in the #{state} state"
       end
