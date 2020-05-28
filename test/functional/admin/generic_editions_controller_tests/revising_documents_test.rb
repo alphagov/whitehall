@@ -27,7 +27,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
   end
 
   view_test "should not be possible to revise an superseded edition" do
-    superseded_edition = create(:superseded_edition)
+    superseded_edition = create(:edition, :superseded_with_published)
     stub_publishing_api_expanded_links_with_taxons(superseded_edition.content_id, [])
 
     get :show, params: { id: superseded_edition }
