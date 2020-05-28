@@ -7,7 +7,7 @@ class NotificationsDocumentListTest < ActionMailer::TestCase
     @csv = "column1,column2\ncolumn3,column4"
     @address = "test@example.com"
     @filter_title = "Test"
-    @mail = Notifications.document_list(@csv, @address, @filter_title)
+    @mail = MailNotifications.document_list(@csv, @address, @filter_title)
   end
 
   test "email should be sent to the correct address" do

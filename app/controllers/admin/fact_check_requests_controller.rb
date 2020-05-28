@@ -14,7 +14,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     if @edition.deleted?
       render "edition_unavailable"
     elsif fact_check_request.save
-      Notifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
+      MailNotifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
       notice = "The document has been sent to #{fact_check_request.email_address}"
       redirect_to admin_edition_path(@edition), notice: notice
     else
@@ -28,7 +28,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   def update
     if @fact_check_request.update(fact_check_request_params)
       if @fact_check_request.requestor_contactable?
-        Notifications.fact_check_response(@fact_check_request, mailer_url_options).deliver_now
+        MailNotifications.fact_check_response(@fact_check_request, mailer_url_options).deliver_now
       end
       notice = "Your feedback has been saved"
       redirect_to admin_fact_check_request_path(@fact_check_request), notice: notice
