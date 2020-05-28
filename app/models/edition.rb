@@ -487,12 +487,10 @@ EXISTS (
   def create_draft(user, allow_creating_draft_from_deleted_edition: false)
     ActiveRecord::Base.transaction do
       lock!
-      unless published?
-        if allow_creating_draft_from_deleted_edition
-          raise "Edition not in the deleted state" unless deleted?
-        else
-          raise "Cannot create new edition based on edition in the #{state} state"
-        end
+      if allow_creating_draft_from_deleted_edition && !deleted?
+        raise "Edition not in the deleted state"
+      elsif !published?
+        raise "Cannot create new edition based on edition in the #{state} state"
       end
 
       ignorable_attribute_keys = %w[id
