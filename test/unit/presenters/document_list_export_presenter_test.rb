@@ -37,7 +37,7 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
 
   test "#format_elements formats arrays, dates and booleans but leaves strings alone" do
     pr = DocumentListExportPresenter.new("")
-    data = [%w[list of elements], Time.new(2014, 10, 5, 10, 15).utc, "normal string", true, false]
+    data = [%w[list of elements], Time.utc(2014, 10, 5, 10, 15), "normal string", true, false]
     assert_equal(["list | of | elements", "2014-10-05 10:15:00", "normal string", "yes", "no"], pr.format_elements(data))
   end
 
