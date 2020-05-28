@@ -17,11 +17,10 @@ class FilterRoutesHelperTest < ActionView::TestCase
       assert_equal send("#{filter}_path", world_locations: [world_location.slug]), send("#{filter}_filter_path", world_location)
     end
 
-    test "uses the organisation and topic and world_location to generate the route to #{filter} filter" do
+    test "uses the organisation and world_location to generate the route to #{filter} filter" do
       organisation = create(:organisation)
-      topic = create(:topic)
       world_location = create(:world_location)
-      assert_equal send("#{filter}_path", departments: [organisation.slug], topics: [topic.slug], world_locations: [world_location.slug]), send("#{filter}_filter_path", organisation, topic, world_location)
+      assert_equal send("#{filter}_path", departments: [organisation.slug], world_locations: [world_location.slug]), send("#{filter}_filter_path", organisation, world_location)
     end
 
     test "uses optional hash to route to #{filter} filter" do

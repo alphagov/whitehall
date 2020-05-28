@@ -11,7 +11,7 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
 
   test "#perform logs a warning if the instance does not exist" do
     Sidekiq.logger.expects(:warn).once
-    SearchIndexAddWorker.new.perform("Topic", 1)
+    SearchIndexAddWorker.new.perform("Publication", 1)
   end
 
   test "#perform indexes searchable instances" do

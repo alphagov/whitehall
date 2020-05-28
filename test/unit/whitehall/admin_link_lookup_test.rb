@@ -50,9 +50,9 @@ module Whitehall
     end
 
     test "does not find editions for pages which are not editions" do
-      topic = create(:topic)
+      topical_event = create(:topical_event)
 
-      assert_nil(AdminLinkLookup.find_edition("/government/admin/topics/#{topic.id}"))
+      assert_nil(AdminLinkLookup.find_edition("/government/admin/topical_event/#{topical_event.id}"))
     end
 
     test "does find editions for non-admin URLs" do

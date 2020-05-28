@@ -67,17 +67,17 @@ class DocumentFilterHelperTest < ActionView::TestCase
   end
 
   test "filter_results_selections gets objects ready for mustache" do
-    topic = build(:topic, slug: "my-slug")
-    stubs(:params).returns(controller: "announcements", action: "index", "topics" => %w[my-slug three])
+    organisation = build(:organisation, slug: "my-slug")
+    stubs(:params).returns(controller: "announcements", action: "index", "organisations" => %w[my-slug three])
 
-    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: %w[three]), joining: "" }], filter_results_selections([topic], "topics")
+    assert_equal [{ name: organisation.name, value: organisation.slug, url: announcements_path(organisations: %w[three]), joining: "" }], filter_results_selections([organisation], "organisations")
   end
 
   test "filter_results_selections handles when params aren't in the expected format" do
-    topic = build(:topic, slug: "my-slug")
-    stubs(:params).returns(controller: "announcements", action: "index", "topics" => "my-slug")
+    organisation = build(:organisation, slug: "my-slug")
+    stubs(:params).returns(controller: "announcements", action: "index", "organisations" => "my-slug")
 
-    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path, joining: "" }], filter_results_selections([topic], "topics")
+    assert_equal [{ name: organisation.name, value: organisation.slug, url: announcements_path(organisations: organisation.slug), joining: "" }], filter_results_selections([organisation], "organisation")
   end
 
   test "filter_results_keywords gets objects ready for mustache" do

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class ClassificationRoutesHelperTest < ActionView::TestCase
-  %i[topic topical_event].each do |type|
+  %i[topical_event].each do |type|
     test "given a #{type} creates a #{type} path" do
       classification = create(type)
       assert_equal send("#{type}_path", classification), classification_path(classification)

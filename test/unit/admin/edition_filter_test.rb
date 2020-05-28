@@ -196,10 +196,10 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "can filter by classifications" do
-    topic       = create(:topic)
-    tagged_news = create(:published_news_article, topics: [topic])
-    _not_tagged = create(:published_news_article)
-    filter      = Admin::EditionFilter.new(Edition, @current_user, classification: topic.to_param)
+    topical_event = create(:topical_event)
+    tagged_news   = create(:published_news_article, topical_events: [topical_event])
+    _not_tagged   = create(:published_news_article)
+    filter        = Admin::EditionFilter.new(Edition, @current_user, classification: topical_event.to_param)
 
     assert_equal [tagged_news], filter.editions
   end

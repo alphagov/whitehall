@@ -235,12 +235,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index atom feed autodiscovery link includes any present filters" do
-    topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, params: { topics: [topic], departments: [organisation], locale: "fr" }
+    get :index, params: { departments: [organisation], locale: "fr" }
 
-    assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_select_autodiscovery_link announcements_url(format: "atom", departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "index generates an atom feed for the current filter" do
@@ -262,10 +261,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index requested as JSON redirects to news and comms finder" do
-    topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, params: { to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
+    get :index, params: { to_date: "2012-01-01", departments: [organisation.slug] }, format: :json
     assert_response :redirect
   end
 

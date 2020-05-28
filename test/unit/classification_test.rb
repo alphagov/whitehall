@@ -4,52 +4,52 @@ class ClassificationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :description
 
   test "should default to the 'current' state" do
-    topic = Classification.new
-    assert topic.current?
+    topical_event = Classification.new
+    assert topical_event.current?
   end
 
   test "should be invalid without a name" do
-    topic = build(:classification, name: nil)
-    assert_not topic.valid?
+    topical_event = build(:classification, name: nil)
+    assert_not topical_event.valid?
   end
 
   test "should be current when created" do
-    topic = build(:classification)
-    assert_equal "current", topic.state
+    topical_event = build(:classification)
+    assert_equal "current", topical_event.state
   end
 
   test "should be invalid with an unsupported state" do
-    topic = build(:classification, state: "foobar")
-    assert_not topic.valid?
+    topical_event = build(:classification, state: "foobar")
+    assert_not topical_event.valid?
   end
 
   test "should be invalid without a unique name" do
-    existing_topic = create(:classification)
-    new_topic = build(:classification, name: existing_topic.name)
-    assert_not new_topic.valid?
+    existing_topical_event = create(:classification)
+    new_topical_event = build(:classification, name: existing_topical_event.name)
+    assert_not new_topical_event.valid?
   end
 
   test "should be invalid without a description" do
-    topic = build(:classification, description: nil)
-    assert_not topic.valid?
+    topical_event = build(:classification, description: nil)
+    assert_not topical_event.valid?
   end
 
   test "#latest should return specified number of associated publised editions except world location news articles in reverse chronological order" do
-    topic = create(:topic)
-    other_topic = create(:topic)
+    topical_event = create(:topical_event)
+    other_topical_event = create(:topical_event)
     expected_order = [
-      create(:published_publication, topics: [topic], first_published_at: 1.day.ago),
-      create(:published_news_article, topics: [topic], first_published_at: 1.week.ago),
-      create(:published_publication, topics: [topic], first_published_at: 2.weeks.ago),
-      create(:published_speech, topics: [topic], first_published_at: 3.weeks.ago),
-      create(:published_publication, topics: [topic], first_published_at: 4.weeks.ago),
+      create(:published_publication, topical_events: [topical_event], first_published_at: 1.day.ago),
+      create(:published_news_article, topical_events: [topical_event], first_published_at: 1.week.ago),
+      create(:published_publication, topical_events: [topical_event], first_published_at: 2.weeks.ago),
+      create(:published_speech, topical_events: [topical_event], first_published_at: 3.weeks.ago),
+      create(:published_publication, topical_events: [topical_event], first_published_at: 4.weeks.ago),
     ]
-    create(:draft_speech, topics: [topic], first_published_at: 2.days.ago)
-    create(:published_speech, topics: [other_topic], first_published_at: 2.days.ago)
-    create(:published_world_location_news_article, topics: [topic], first_published_at: 2.days.ago)
+    create(:draft_speech, topical_events: [topical_event], first_published_at: 2.days.ago)
+    create(:published_speech, topical_events: [other_topical_event], first_published_at: 2.days.ago)
+    create(:published_world_location_news_article, topical_events: [topical_event], first_published_at: 2.days.ago)
 
-    assert_equal expected_order, topic.latest(10)
-    assert_equal expected_order[0..1], topic.latest(2)
+    assert_equal expected_order, topical_event.latest(10)
+    assert_equal expected_order[0..1], topical_event.latest(2)
   end
 
   test "an unfeatured news article is not featured" do
@@ -82,13 +82,13 @@ class ClassificationTest < ActiveSupport::TestCase
   end
 
   test "#featured_editions returns featured editions by ordering" do
-    topic = create(:topic)
-    _alpha = topic.feature(edition_id: create(:edition, title: "Alpha").id, ordering: 1, alt_text: "A thing", image: create(:classification_featuring_image_data))
-    beta = topic.feature(edition_id: create(:published_news_article, title: "Beta").id, ordering: 2, alt_text: "A thing", image: create(:classification_featuring_image_data))
-    gamma = topic.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: "A thing", image: create(:classification_featuring_image_data))
-    delta = topic.feature(edition_id: create(:published_news_article, title: "Delta").id, ordering: 0, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    topical_event = create(:topical_event)
+    _alpha = topical_event.feature(edition_id: create(:edition, title: "Alpha").id, ordering: 1, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    beta = topical_event.feature(edition_id: create(:published_news_article, title: "Beta").id, ordering: 2, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    gamma = topical_event.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    delta = topical_event.feature(edition_id: create(:published_news_article, title: "Delta").id, ordering: 0, alt_text: "A thing", image: create(:classification_featuring_image_data))
 
-    assert_equal [delta.edition, beta.edition, gamma.edition], topic.featured_editions
+    assert_equal [delta.edition, beta.edition, gamma.edition], topical_event.featured_editions
   end
 
   test "#featured_editions includes the newly published version of a featured edition, but not the original" do
@@ -106,14 +106,14 @@ class ClassificationTest < ActiveSupport::TestCase
   end
 
   test "#importance_ordered_organisations" do
-    topic = create(:topic)
+    topical_event = create(:topical_event)
     supporting_org = create(:organisation)
-    supporting_org.organisation_classifications.create(classification_id: topic.id, lead: false)
+    supporting_org.organisation_classifications.create(classification_id: topical_event.id, lead: false)
     second_lead_org = create(:organisation)
-    second_lead_org.organisation_classifications.create(classification_id: topic.id, lead: true, lead_ordering: 2)
+    second_lead_org.organisation_classifications.create(classification_id: topical_event.id, lead: true, lead_ordering: 2)
     first_lead_org = create(:organisation)
-    first_lead_org.organisation_classifications.create(classification_id: topic.id, lead: true, lead_ordering: 1)
-    assert_equal topic.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
+    first_lead_org.organisation_classifications.create(classification_id: topical_event.id, lead: true, lead_ordering: 1)
+    assert_equal topical_event.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
   end
 
   should_not_accept_footnotes_in :description
