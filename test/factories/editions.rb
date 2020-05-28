@@ -107,7 +107,17 @@ FactoryBot.define do
 
     trait(:deleted) { state { "deleted" } }
 
-    trait(:superseded) { state { "superseded" } }
+    trait(:superseded) do
+      state { "superseded" }
+    end
+
+    trait(:superseded_with_published) do
+      state { "superseded" }
+
+      after(:create) do |edition|
+        create(:published_edition, document: edition.document)
+      end
+    end
 
     trait(:featured) { featured { true } }
 
