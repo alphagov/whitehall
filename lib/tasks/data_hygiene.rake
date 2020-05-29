@@ -17,7 +17,7 @@ namespace :data_hygiene do
 
     desc "Remove a change note from a document and represent to the content store (for reals)."
     task :real, %i[content_id locale query] => :environment do |_, args|
-      edition = DataHygiene::ChangeNoteRemover.call(args[:content_id], args[:locale], args[:query])
+      edition = DataHygiene::ChangeNoteRemover.call(args[:content_id], args[:locale], args[:query], dry_run: false)
       puts "Updated change history: #{edition.document.change_history.inspect}"
     end
   end
