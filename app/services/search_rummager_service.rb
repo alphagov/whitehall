@@ -5,7 +5,10 @@ class SearchRummagerService
     Rails.cache.fetch(options, expires_in: 5.minutes) do
       search_response = Whitehall.search_client.search(options)
       search_response["results"].map! { |res| RummagerDocumentPresenter.new(res) }
-      search_response
+      {
+        "results" => search_response["results"],
+        "total" => search_response["total"],
+      }
     end
   end
 

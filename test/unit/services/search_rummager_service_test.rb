@@ -10,6 +10,11 @@ class SearchRummagerServiceTest < ActiveSupport::TestCase
     @world_location = create(:world_location)
   end
 
+  test "returns a hash with two properties: 'results' and 'total" do
+    stub_any_search_to_return_no_results
+    assert_equal %w[results total], SearchRummagerService.new.fetch_related_documents(topical_params).keys
+  end
+
   test "returns empty results array if topical event has no documents" do
     stub_any_search_to_return_no_results
     assert_equal [], SearchRummagerService.new.fetch_related_documents(topical_params)["results"]
