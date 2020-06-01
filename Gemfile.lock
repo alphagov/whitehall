@@ -200,7 +200,7 @@ GEM
     govuk_frontend_toolkit (8.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (21.47.0)
+    govuk_publishing_components (21.54.0)
       gds-api-adapters
       govuk_app_config
       kramdown
@@ -602,7 +602,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.0)
   govuk_frontend_toolkit (= 8.2.0)
-  govuk_publishing_components (~> 21.47.0)
+  govuk_publishing_components (~> 21.54.0)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
