@@ -33,15 +33,6 @@ class PublishStaticPages
         base_path: "/government/get-involved",
       },
       {
-        content_id: "db95a864-874f-4f50-a483-352a5bc7ba18",
-        title: "History of the UK government",
-        document_type: "history",
-        schema_name: "history",
-        description: "In this section you can read short biographies of notable people and explore the history of government buildings. You can also search our online records and read articles and blog posts by historians.",
-        body: TemplateContent.new("histories/index").indexable_content,
-        base_path: "/government/history",
-      },
-      {
         content_id: "b13317e9-3753-47b2-95da-c173071e621d",
         title: "All publications",
         document_type: "finder",
