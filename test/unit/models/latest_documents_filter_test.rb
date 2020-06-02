@@ -110,19 +110,14 @@ class TopicalEventFilterTest < ActiveSupport::TestCase
   include SearchRummagerHelper
 
   test "#documents should return a list of documents for the topical event" do
-    filter = LatestDocumentsFilter::TopicalEventFilter.new(topic)
+    topical_event = create(:topical_event)
+    filter = LatestDocumentsFilter::TopicalEventFilter.new(topical_event)
 
     search_rummager_service_stub(
-      filter_topical_events: topic.slug,
+      filter_topical_events: topical_event.slug,
       reject_any_content_store_document_type: "news_article",
     )
 
     assert_equal attributes(processed_rummager_documents), attributes(filter.documents)
-  end
-
-private
-
-  def topic
-    @topic ||= create(:topic)
   end
 end

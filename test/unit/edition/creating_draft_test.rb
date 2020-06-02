@@ -72,16 +72,14 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal published_edition.first_published_at, draft_edition.first_published_at
   end
 
-  test "should build a draft copy with references to topics, organisations & world locations" do
-    topic = create(:topic)
+  test "should build a draft copy with references to organisations & world locations" do
     organisation = create(:organisation)
     country = create(:world_location)
 
-    published_publication = create(:published_publication, topics: [topic], organisations: [organisation], world_locations: [country])
+    published_publication = create(:published_publication, organisations: [organisation], world_locations: [country])
 
     draft_publication = published_publication.create_draft(create(:writer))
 
-    assert_equal [topic], draft_publication.topics
     assert_equal [organisation], draft_publication.organisations
     assert_equal [country], draft_publication.world_locations
   end

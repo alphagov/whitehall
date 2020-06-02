@@ -54,17 +54,17 @@ module Whitehall
 
       test "advanced search can select documents with a field matching a list of values" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w[Bar], policy_areas: %w[Bar-topic1]
+        assert_search_returns_documents %w[Bar], topical_events: %w[Bar-topical_event1]
       end
 
       test "advanced search can select documents with a field matching any item from a list of values" do
         @index.add_batch(build_documents("Foo", "Bar", "FooBar"))
-        assert_search_returns_documents %w[Foo Bar], policy_areas: %w[Foo-topic2 Bar-topic1]
+        assert_search_returns_documents %w[Foo Bar], topical_events: %w[Foo-topical_event2 Bar-topical_event1]
       end
 
       test "advanced search can select documents with a field matching a single value" do
         @index.add_batch(build_documents("Foo", "Bar"))
-        assert_search_returns_documents %w[Bar], policy_areas: "Bar-topic1"
+        assert_search_returns_documents %w[Bar], topical_events: "Bar-topical_event1"
       end
 
       test "advanced search for a field which is not present in a document does not return the document" do
@@ -176,7 +176,7 @@ module Whitehall
             "title" => title,
             "description" => "#{title}-description",
             "indexable_content" => "#{title}-indexable_content",
-            "policy_areas" => ["#{title}-topic1", "#{title}-topic2"],
+            "topical_events" => ["#{title}-topical_event1", "#{title}-topical_event2"],
             "has_official_document" => false,
             "public_timestamp" => Time.zone.parse("2011-01-01 00:00:00"),
           }

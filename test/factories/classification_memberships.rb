@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :classification_membership do
     publication
-    classification factory: :topic
+    classification factory: :topical_event
   end
 end
