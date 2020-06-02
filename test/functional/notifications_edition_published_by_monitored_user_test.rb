@@ -5,11 +5,11 @@ class NotificationsEditionPublishedByMonitoredUserTest < ActionMailer::TestCase
 
   setup do
     @user = build(:user, name: "Jim Jimson", email: "jim@example.com")
-    @mail = MailNotifications.edition_published_by_monitored_user(@user)
+    @mail = Notifications.edition_published_by_monitored_user(@user)
   end
 
   test "email should be sent to the content second line email address" do
-    assert_equal [MailNotifications.new.send(:content_second_line_email_address)], @mail.to
+    assert_equal [Notifications.new.send(:content_second_line_email_address)], @mail.to
   end
 
   test "email subject should include the name and email address of the user" do

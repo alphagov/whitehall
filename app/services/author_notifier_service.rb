@@ -12,7 +12,7 @@ class AuthorNotifierService
 
   def notify!
     authors_to_notify.each do |author|
-      MailNotifications.edition_published(
+      Notifications.edition_published(
         author,
         edition,
         edition_admin_url,

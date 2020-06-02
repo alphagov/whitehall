@@ -89,7 +89,7 @@ private
 
   def alert!(user)
     if user && should_alert_for?(user)
-      ::MailNotifications.edition_published_by_monitored_user(user).deliver_now
+      Notifications.edition_published_by_monitored_user(user).deliver_now
     end
   end
 

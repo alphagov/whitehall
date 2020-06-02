@@ -27,7 +27,7 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
     title = "Everyone's editions"
     @worker.stubs(:create_filter).returns(stub(page_title: title))
     @worker.stubs(generate_csv: csv)
-    MailNotifications.expects(:document_list).with(csv, @user.email, title).returns(stub(deliver_now: nil))
+    Notifications.expects(:document_list).with(csv, @user.email, title).returns(stub(deliver_now: nil))
     @worker.perform({ "state" => "draft" }, @user.id)
   end
 end

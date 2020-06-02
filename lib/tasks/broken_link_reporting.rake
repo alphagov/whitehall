@@ -28,7 +28,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
       system "zip #{report_zip_path} #{reports_dir}/*_links_report.csv --junk-paths"
 
       puts "Reports zipped. Emailing to #{email_address}"
-      MailNotifications.broken_link_reports(report_zip_path, email_address).deliver_now
+      Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
       puts "Email sent."
     else
       puts "There are no broken link reports so hopefully this means there " \
