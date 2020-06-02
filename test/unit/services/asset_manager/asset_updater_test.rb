@@ -42,6 +42,21 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     end
   end
 
+  test "does not update asset if blank file is provided" do
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns("id" => @asset_id, "draft" => true)
+    id = SecureRandom.random_number(1000)
+    attachment_data_without_file = FactoryBot.build(:attachment_data, id: id, file: nil)
+
+    err = assert_raises(AssetManager::AssetUpdater::AssetFileDataEmpty) do
+      @worker.call(attachment_data_without_file, @legacy_url_path, "draft" => false)
+    end
+    assert_match(
+      /Attempting to update '#{@legacy_url_path}' for Attachment Data #{id} with blank file/,
+      err.message,
+    )
+  end
+
   test "marks draft asset as published" do
     @worker.stubs(:find_asset_by).with(@legacy_url_path)
       .returns("id" => @asset_id, "draft" => true)

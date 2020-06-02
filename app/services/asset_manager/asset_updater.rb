@@ -13,11 +13,21 @@ class AssetManager::AssetUpdater
     end
   end
 
+  class AssetFileDataEmpty < StandardError
+    def initialize(attachment_data_id, legacy_url_path)
+      super("Attempting to update '#{legacy_url_path}' for Attachment Data #{attachment_data_id} with blank file")
+    end
+  end
+
   def self.call(*args)
     new.call(*args)
   end
 
   def call(attachment_data, legacy_url_path, new_attributes = {})
+    if attachment_data.file.blank?
+      raise AssetFileDataEmpty.new(attachment_data.id, legacy_url_path)
+    end
+
     attributes = find_asset_by(legacy_url_path)
     asset_deleted = attributes["deleted"]
 
