@@ -74,8 +74,4 @@ Whitehall::Application.configure do
 
   config.assets.cache_store = :null_store
   config.sass.cache = false
-
-  if ENV["SHOW_PRODUCTION_IMAGES"]
-    config.asset_host = "https://assets.publishing.service.gov.uk"
-  end
 end
