@@ -56,7 +56,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
   view_test "POST :create with a valid email signup redirects to the signup URL" do
     world_location = create(:world_location)
-    email_alert_api_has_subscriber_list(
+    stub_email_alert_api_has_subscriber_list(
       "links" => { "world_locations" => [world_location.content_id] },
       "subscription_url" => "http://email_alert_api_signup_url",
     )
@@ -68,7 +68,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
   view_test "POST :create with a invalid email signup renders the new view" do
     topical_event = create(:topical_event)
-    email_alert_api_has_subscriber_list(
+    stub_email_alert_api_has_subscriber_list(
       "links" => { "topical_event" => [topical_event.content_id] },
       "subscription_url" => "http://email_alert_api_signup_url",
     )
