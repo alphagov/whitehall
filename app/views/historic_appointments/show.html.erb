@@ -4,7 +4,7 @@
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
-              locals: { type: link_to('History', histories_path, class: "govuk-link"),
+              locals: { type: link_to('History', "/government/history", class: "govuk-link"),
                         heading: "Past #{@role.name.pluralize}",
                         big: true } %>
   </div>
