@@ -124,21 +124,6 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal "this-is-my-publication", existing_edition.document.reload.slug
   end
 
-  test "non-English editions get a slug based on the document id rather than the title" do
-    edition = create(:world_location_news_article, title: "Faire la fête", primary_locale: "fr")
-    document = edition.document
-    assert_equal document.id.to_s, document.slug
-  end
-
-  test "non-English editions do not get confused when documents exists with dodgy-nil-based slugs" do
-    edition_1 = create(:world_location_news_article, title: "Faire la fête", primary_locale: "fr")
-    edition_1.document.update_column(:slug, "--1")
-
-    edition_2 = create(:world_location_news_article, title: "Faire la fête", primary_locale: "fr")
-    document = edition_2.document
-    assert_equal document.id.to_s, document.slug
-  end
-
   test "updating an edition updates the parent document timestamp" do
     edition = create(:edition)
 

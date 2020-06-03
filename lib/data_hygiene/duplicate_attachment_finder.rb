@@ -67,11 +67,7 @@ module DataHygiene
   private
 
     def edition_organisation_name(edition)
-      if edition.is_a?(WorldLocationNewsArticle)
-        edition.worldwide_organisations.first.name
-      else
-        edition.lead_organisations.first.name
-      end
+      edition.lead_organisations.first.name
     end
   end
 end

@@ -77,8 +77,6 @@ module PublishingApiPresenters
         PublishingApi::SpeechPresenter
       when StatisticalDataSet
         PublishingApi::StatisticalDataSetPresenter
-      when WorldLocationNewsArticle
-        PublishingApi::WorldLocationNewsArticlePresenter
       else
         # The presenter implementation for all of these models is identical and
         # the structure of the presented payload is the same.

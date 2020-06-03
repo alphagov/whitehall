@@ -136,11 +136,6 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [news_article], Admin::EditionFilter.new(Edition, user, world_location: "user").editions
   end
 
-  test "should filter by world location news article" do
-    world_location_news_article = create(:world_location_news_article)
-    assert_equal [world_location_news_article], Admin::EditionFilter.new(Edition, @current_user, type: "world_location_news_article").editions
-  end
-
   test "should filter by news article sub-type" do
     _news_story   = create(:news_article, news_article_type: NewsArticleType::NewsStory)
     press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)

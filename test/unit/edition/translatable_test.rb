@@ -23,16 +23,16 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_equal "French", Edition.new(primary_locale: :fr).primary_language_name
   end
 
-  test "locale_can_be_changed? returns true for a new WorldLocationNewsArticle" do
-    assert WorldLocationNewsArticle.new.locale_can_be_changed?
+  test "locale_can_be_changed? returns true for a new NewsArticle" do
+    assert NewsArticle.new.locale_can_be_changed?
   end
 
-  test "locale_can_be_changed? returns false for a persisted new WorldLocationNewsArticle" do
-    assert_not create(:world_location_news_article).locale_can_be_changed?
+  test "locale_can_be_changed? returns false for a persisted new NewsArticle" do
+    assert_not create(:news_article).locale_can_be_changed?
   end
 
   test "locale_can_be_changed? returns false for other edition types" do
-    Edition.concrete_descendants.reject { |k| [WorldLocationNewsArticle, NewsArticle].include?(k) }.each do |klass|
+    Edition.concrete_descendants.reject { |k| k == NewsArticle }.each do |klass|
       assert_not klass.new.locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
     end
   end

@@ -124,8 +124,6 @@ Whitehall::Application.routes.draw do
     resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: VALID_LOCALES_REGEX }
     get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/world-location-news(.:locale)", as: "world_location_news_articles", to: "world_location_news_articles#index", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/world-location-news/:id(.:locale)", as: "world_location_news_article", to: "world_location_news_articles#show", constraints: { locale: VALID_LOCALES_REGEX }
 
     resources :consultations, only: %i[index show] do
       collection do
@@ -350,7 +348,6 @@ Whitehall::Application.routes.draw do
         get "/policies/:policy_id/topics" => "policies#topics"
 
         resources :news_articles, path: "news", except: [:index]
-        resources :world_location_news_articles, path: "world-location-news", except: %i[index new create]
         resources :fatality_notices, path: "fatalities", except: [:index]
         resources :consultations, except: [:index] do
           resource :outcome, controller: "responses", type: "ConsultationOutcome", except: %i[new destroy]

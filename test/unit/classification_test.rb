@@ -34,7 +34,7 @@ class ClassificationTest < ActiveSupport::TestCase
     assert_not topical_event.valid?
   end
 
-  test "#latest should return specified number of associated publised editions except world location news articles in reverse chronological order" do
+  test "#latest should return specified number of associated publised editions in reverse chronological order" do
     topical_event = create(:topical_event)
     other_topical_event = create(:topical_event)
     expected_order = [
@@ -46,10 +46,8 @@ class ClassificationTest < ActiveSupport::TestCase
     ]
     create(:draft_speech, topical_events: [topical_event], first_published_at: 2.days.ago)
     create(:published_speech, topical_events: [other_topical_event], first_published_at: 2.days.ago)
-    create(:published_world_location_news_article, topical_events: [topical_event], first_published_at: 2.days.ago)
 
     assert_equal expected_order, topical_event.latest(10)
-    assert_equal expected_order[0..1], topical_event.latest(2)
   end
 
   test "an unfeatured news article is not featured" do

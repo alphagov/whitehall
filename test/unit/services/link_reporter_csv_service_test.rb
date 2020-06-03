@@ -88,7 +88,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
       body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
     )
     news_article = create(
-      :world_location_news_article,
+      :news_article_world_news_story,
       :withdrawn,
       worldwide_organisations: [embassy_paris],
       body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",

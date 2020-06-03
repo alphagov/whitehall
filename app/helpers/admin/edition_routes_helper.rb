@@ -9,7 +9,6 @@ module Admin::EditionRoutesHelper
                    CaseStudy,
                    StatisticalDataSet,
                    FatalityNotice,
-                   WorldLocationNewsArticle,
                    CorporateInformationPage].freeze
 
   def self.edition_instance_route(name)

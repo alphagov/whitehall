@@ -48,8 +48,6 @@ private
       CaseStudyPresenter
     when FatalityNotice
       FatalityNoticePresenter
-    when WorldLocationNewsArticle
-      WorldLocationNewsArticlePresenter
     when Announcement
       AnnouncementPresenter
     end

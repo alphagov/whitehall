@@ -22,7 +22,6 @@ module Whitehall::DocumentFilter
       filter_by_date!
       filter_by_publication_filter_option!
       filter_by_announcement_filter_option!
-      filter_by_include_world_location_news_option!
       filter_by_location!
       apply_sort_direction!
       paginate!
@@ -107,13 +106,6 @@ module Whitehall::DocumentFilter
                              ),
                          )
         end
-      end
-    end
-
-    def filter_by_include_world_location_news_option!
-      # By defaults we don't want to include any WorldLocationNewsArticles
-      unless include_world_location_news
-        @documents = @documents.without_editions_of_type(WorldLocationNewsArticle)
       end
     end
 
