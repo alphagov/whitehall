@@ -87,6 +87,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :revise, params: { id: published_edition }
   end
 
+  test "revising the superseded edition - if it happens to also be the latest edition - should create a new draft edition from the first deleted edition after the superseded one" do
+    document = create(:document)
+    buggy_superseded_edition = create(:superseded_edition, document: document, title: "First")
+    create(:deleted_edition, document: document, title: "Second")
+    create(:deleted_edition, document: document, title: "Third")
+
+    post :revise, params: { id: buggy_superseded_edition }
+
+    assert_equal(
+      %w[superseded deleted deleted draft],
+      Edition.unscoped.where(document_id: document.id).pluck(:state),
+    )
+    assert_equal("Second", document.latest_edition.title)
+  end
+
   test "revising a published edition redirects to edit for the new draft" do
     published_edition = create(:published_publication)
 

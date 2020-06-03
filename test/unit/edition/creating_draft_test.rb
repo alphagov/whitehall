@@ -27,6 +27,15 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal "Cannot create new edition based on edition in the superseded state", e.message
   end
 
+  test "should raise an exception when building a draft from a non-deleted edition and the allow_creating_draft_from_deleted_edition flag is passed" do
+    published_edition = create(:published_edition)
+    new_creator = create(:writer)
+    e = assert_raise(RuntimeError) do
+      published_edition.create_draft(new_creator, allow_creating_draft_from_deleted_edition: true)
+    end
+    assert_equal "Edition not in the deleted state", e.message
+  end
+
   test "should not copy create and update time when creating draft" do
     published_edition = create(:published_edition)
     Timecop.travel 1.minute.from_now
