@@ -302,13 +302,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
-  test "does not prefix embedded attachment urls with asset host so that access to them can be authenticated when previewing draft documents" do
-    Whitehall.stubs(:public_asset_host).returns("https://some.cdn.com")
-    edition = build(:published_publication, :with_file_attachment, body: "!@1")
-    html = govspeak_edition_to_html(edition)
-    assert_select_within_html html, ".govspeak .attachment.embedded a[href^='/'][href$='greenpaper.pdf']"
-  end
-
   test "should remove extra quotes from blockquote text" do
     remover = stub("remover")
     remover.expects(:remove).returns("remover return value")
