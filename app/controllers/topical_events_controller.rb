@@ -1,6 +1,13 @@
 class TopicalEventsController < ClassificationsController
   enable_request_formats show: :atom
 
+  CLOSED_FEEDS = {
+    "coronavirus-covid-19-uk-government-response" => {
+      title: "coronavirus (COVID-19)",
+      link: "/search/all.atom?level_one_taxon=5b7b9532-a775-4bd2-a3aa-6ce380184b6c&order=most-viewed",
+    },
+  }.freeze
+
   def show
     @topical_event = TopicalEvent.friendly.find(params[:id])
     @content_item = Whitehall.content_store.content_item(@topical_event.base_path)
@@ -20,7 +27,7 @@ class TopicalEventsController < ClassificationsController
         @recently_changed_documents = find_documents(count: 3)["results"]
       end
       format.atom do
-        @recently_changed_documents = find_documents(count: 10)["results"]
+        @recently_changed_documents = atom_documents
       end
     end
   end
@@ -34,5 +41,25 @@ private
 
   def announcement_document_types
     Whitehall::AnnouncementFilterOption.all.map(&:document_type).flatten
+  end
+
+  def atom_documents
+    return [closed_feed_document] if closed_feed
+
+    find_documents(count: 10)["results"]
+  end
+
+  def closed_feed
+    @closed_feed ||= CLOSED_FEEDS[params[:id]]
+  end
+
+  def closed_feed_document
+    RummagerDocumentPresenter.new(
+      closed_feed.stringify_keys.merge(
+        "public_timestamp" => Time.zone.now,
+        "display_type" => "Replacement feed",
+        "description" => "This #{closed_feed[:title]} RSS feed is being replaced with a new feed from Search - GOV.UK",
+      ),
+    )
   end
 end
