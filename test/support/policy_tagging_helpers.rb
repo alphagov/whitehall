@@ -1,5 +1,5 @@
 require "gds_api/test_helpers/search"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 module PolicyTaggingHelpers
   include GdsApi::TestHelpers::Search

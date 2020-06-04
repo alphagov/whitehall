@@ -1,5 +1,5 @@
-require "gds_api/publishing_api_v2"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/publishing_api"
+require "gds_api/test_helpers/publishing_api"
 require_relative "../../test/support/policy_tagging_helpers"
 require_relative "mocha"
 

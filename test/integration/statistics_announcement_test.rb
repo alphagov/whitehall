@@ -1,5 +1,5 @@
 require "test_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
   # Similar methods to these exist in `gds_api/test_helpers/publishing_api`.

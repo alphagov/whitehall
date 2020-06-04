@@ -1,4 +1,4 @@
-require "gds_api/publishing_api_v2"
+require "gds_api/publishing_api"
 require "gds_api/asset_manager"
 require "gds_api/email_alert_api"
 
