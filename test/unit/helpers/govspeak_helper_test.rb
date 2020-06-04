@@ -446,7 +446,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "fraction image paths include the public asset host and configured asset prefix" do
     prefix = Rails.application.config.assets.prefix
-    path   = "#{Whitehall.public_asset_host}#{prefix}/fractions/1_2.png"
+    path   = "#{Whitehall.public_root}#{prefix}/fractions/1_2.png"
     html   = govspeak_to_html("I'm [Fraction:1/2] a person")
 
     assert_select_within_html(html, "img[src='#{path}']")
