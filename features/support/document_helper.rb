@@ -30,10 +30,7 @@ module DocumentHelper
       fill_in "edition_summary", with: options.fetch(:summary, "one plus one euals two!")
       fill_in_change_note_if_required
       select_topic_if_required unless options[:skip_topic_selection]
-
-      unless options[:type] == "world_location_news_article"
-        set_lead_organisation_on_document(Organisation.first)
-      end
+      set_lead_organisation_on_document(Organisation.first)
 
       if options[:alternative_format_provider]
         select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
@@ -67,10 +64,6 @@ module DocumentHelper
     begin_drafting_document(options.merge(type: "consultation"))
     select_date 10.days.from_now.to_s, from: "Opening Date"
     select_date 40.days.from_now.to_s, from: "Closing Date"
-  end
-
-  def begin_drafting_world_location_news_article(options)
-    begin_drafting_document(options.merge(type: "world_location_news_article", previously_published: false))
   end
 
   def begin_drafting_publication(title, options = {})

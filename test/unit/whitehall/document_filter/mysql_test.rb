@@ -257,22 +257,6 @@ module Whitehall::DocumentFilter
       assert_equal 2, filter.documents.count
     end
 
-    test "does not include WorldLocationNewsArticles by default" do
-      create(:published_world_location_news_article)
-      unfiltered_announcements = Announcement.published
-      filter = create_filter(unfiltered_announcements, {})
-
-      assert filter.documents.empty?
-    end
-
-    test "will include WorldLocationNewsArticles when explicitly asked to" do
-      world_news = create(:published_world_location_news_article)
-      unfiltered_announcements = Announcement.published
-      filter = create_filter(unfiltered_announcements, include_world_location_news: "1")
-
-      assert filter.documents.include?(world_news)
-    end
-
   private
 
     def create_filter(document_set, args)

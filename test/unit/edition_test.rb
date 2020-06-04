@@ -471,7 +471,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_not concrete_formats.include? Edition.search_format_type
 
     assert concrete_formats.include? NewsArticle.search_format_type
-    assert concrete_formats.include? WorldLocationNewsArticle.search_format_type
     assert concrete_formats.include? Speech.search_format_type
     assert concrete_formats.include? FatalityNotice.search_format_type
     assert concrete_formats.include? Publication.search_format_type

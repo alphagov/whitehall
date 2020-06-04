@@ -23,7 +23,6 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     statistical_data_sets
     statistics
     statistics
-    world_location_news_articles
     world_locations
     worldwide_offices
     worldwide_organisations

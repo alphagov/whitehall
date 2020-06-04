@@ -20,12 +20,6 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert_not political?(statistics_publication)
   end
 
-  test "world location news articles are always political" do
-    world_location_news_article = create(:world_location_news_article)
-
-    assert political?(world_location_news_article)
-  end
-
   test "world-news-story news articles are always political" do
     world_news_story = create(:news_article_world_news_story)
 

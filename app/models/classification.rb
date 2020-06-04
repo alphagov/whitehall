@@ -123,7 +123,7 @@ class Classification < ApplicationRecord
   end
 
   def latest(limit = 3)
-    published_editions.without_editions_of_type(WorldLocationNewsArticle).in_reverse_chronological_order.includes(:translations).limit(limit)
+    published_editions.in_reverse_chronological_order.includes(:translations).limit(limit)
   end
 
   def description_without_markup

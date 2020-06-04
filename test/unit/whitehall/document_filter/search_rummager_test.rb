@@ -18,7 +18,7 @@ module Whitehall::DocumentFilter
       government_response
     ].freeze
 
-    WORLD_ANNOUNCEMENT_TYPES = %w[world_location_news_article world_news_story].freeze
+    WORLD_ANNOUNCEMENT_TYPES = %w[world_news_story].freeze
 
     def format_types(*classes)
       classes.map(&:search_format_type)
@@ -73,7 +73,7 @@ module Whitehall::DocumentFilter
 
     test "announcements_search looks for all Announcements if we need to include world location news" do
       rummager = SearchRummager.new(include_world_location_news: "1")
-      expected_types = WORLD_ANNOUNCEMENT_TYPES + ANNOUNCEMENT_TYPES
+      expected_types = ANNOUNCEMENT_TYPES + WORLD_ANNOUNCEMENT_TYPES
       expect_search_by_content_store_document_type(expected_types)
       rummager.announcements_search
     end

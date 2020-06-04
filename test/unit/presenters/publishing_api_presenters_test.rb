@@ -128,11 +128,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::ConsultationPresenter, presenter.class
   end
 
-  test ".presenter_for returns a WorldLocationNewsArticlePresenter for a WorldLocationNewsArticle" do
-    presenter = PublishingApiPresenters.presenter_for(build(:world_location_news_article))
-    assert_equal PublishingApi::WorldLocationNewsArticlePresenter, presenter.class
-  end
-
   test ".presenter_for returns a NewsArticlePresenter for a NewsArticle" do
     presenter = PublishingApiPresenters.presenter_for(build(:news_article))
     assert_equal PublishingApi::NewsArticlePresenter, presenter.class

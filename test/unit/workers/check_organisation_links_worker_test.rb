@@ -8,19 +8,11 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
 
   setup do
     @hmrc = create(:organisation, name: "HM Revenue & Customs")
-    embassy_paris = create(:worldwide_organisation, name: "British Embassy Paris")
 
     create(
       :published_publication,
       lead_organisations: [@hmrc],
       body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)",
-    )
-
-    create(
-      :world_location_news_article,
-      :withdrawn,
-      worldwide_organisations: [embassy_paris],
-      body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
     )
 
     @link_checker_endpoint = "#{Plek.find('link-checker-api')}/batch"

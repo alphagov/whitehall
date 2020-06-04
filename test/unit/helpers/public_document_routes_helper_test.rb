@@ -113,7 +113,7 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   end
 
   test "With non-english editions, the edition's locale is always used" do
-    non_english_edition = create(:world_location_news_article, primary_locale: "fr")
+    non_english_edition = create(:news_article_world_news_story, primary_locale: "fr")
     with_locale :de do
       assert public_document_url(non_english_edition, locale: "de").include? ".fr"
     end

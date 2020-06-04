@@ -42,8 +42,6 @@ module FeedHelper
   delegate :host, to: :request
 
   def feed_display_type_for(document)
-    return "News story" if document.is_a?(WorldLocationNewsArticle)
-
     document.display_type
   end
 

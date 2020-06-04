@@ -93,17 +93,6 @@ class FeedHelperTest < ActionView::TestCase
     document_as_feed_entry(document, builder)
   end
 
-  test 'document_as_feed_entry converts world location news article to "News story" in title' do
-    document = WorldLocationNewsArticle.new(title: "A thing!", summary: "summary")
-    builder = mock("builder")
-    builder.expects(:title).with "News story: A thing!"
-    builder.stubs(:category)
-    builder.stubs(:summary)
-    builder.stubs(:content)
-    expects(:govspeak_edition_to_html).with(document).returns("govspoken content")
-    document_as_feed_entry(document, builder)
-  end
-
   test "entry_content returns govspoken version of document" do
     document = Edition.new(title: "A thing!", summary: "A thing has happened")
     expects(:govspeak_edition_to_html).with(document).returns("govspoken content")

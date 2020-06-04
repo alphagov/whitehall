@@ -15,4 +15,3 @@ class Newsesque < Announcement
 end
 
 require_relative "news_article"
-require_relative "world_location_news_article"

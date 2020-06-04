@@ -5,10 +5,6 @@ class PoliticalContentIdentifier
     NewsArticle,
   ].freeze
 
-  ALWAYS_POLITICAL_FORMATS = [
-    WorldLocationNewsArticle,
-  ].freeze
-
   POLITICAL_PUBLICATION_TYPES = [
     PublicationType::CorporateReport,
     PublicationType::ImpactAssessment,
@@ -60,8 +56,7 @@ private
   end
 
   def always_political_format?
-    ALWAYS_POLITICAL_FORMATS.include?(edition.class) ||
-      edition_is_a_world_news_story?
+    edition_is_a_world_news_story?
   end
 
   def never_political_format?
