@@ -126,18 +126,10 @@ module PublishingApi
       def call
         return {} unless news_article.has_lead_image?
 
-        image_url = ActionController::Base.helpers.image_url(
-          news_article.lead_image_path, host: Whitehall.public_root
-        )
-
-        high_resolution_url = ActionController::Base.helpers.image_url(
-          news_article.high_resolution_lead_image_path, host: Whitehall.public_root
-        )
-
         {
           image: {
-            high_resolution_url: high_resolution_url,
-            url: image_url,
+            high_resolution_url: news_article.high_resolution_lead_image_url,
+            url: news_article.lead_image_url,
             caption: image_caption,
             alt_text: image_alt_text,
           },
