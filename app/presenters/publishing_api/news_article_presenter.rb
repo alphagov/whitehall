@@ -127,11 +127,11 @@ module PublishingApi
         return {} unless news_article.has_lead_image?
 
         image_url = ActionController::Base.helpers.image_url(
-          news_article.lead_image_path, host: Whitehall.public_asset_host
+          news_article.lead_image_path, host: Whitehall.public_root
         )
 
         high_resolution_url = ActionController::Base.helpers.image_url(
-          news_article.high_resolution_lead_image_path, host: Whitehall.public_asset_host
+          news_article.high_resolution_lead_image_path, host: Whitehall.public_root
         )
 
         {

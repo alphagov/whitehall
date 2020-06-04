@@ -75,7 +75,7 @@ private
 
   def lead_image_url
     ActionController::Base.helpers.image_url(
-      lead_image_path, host: Whitehall.public_asset_host
+      lead_image_path, host: Whitehall.public_root
     )
   end
 end
