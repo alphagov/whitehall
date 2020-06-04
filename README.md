@@ -40,7 +40,6 @@ $ bundle exec rake
 - [How to publish a finder in whitehall](docs/finders.md)
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
-- [Local assets](docs/local_asset_setup_guide.md)
 - [Search setup guide](docs/search_setup_guide.md)
 - [Testing guide](docs/testing_guide.md)
 - [Timestamps](docs/timestamps.md)
