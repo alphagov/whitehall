@@ -139,7 +139,7 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "search_index includes default image_url if it has no image" do
     speech = create(:published_speech)
-    assert_equal "https://static.test.gov.uk/government/assets/placeholder.jpg", speech.search_index["image_url"]
+    assert_equal "https://static.test.gov.uk/assets/whitehall/placeholder.jpg", speech.search_index["image_url"]
   end
 
   test "search_index includes default image_url if it has one" do
