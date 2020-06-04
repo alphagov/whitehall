@@ -5,7 +5,7 @@ class TopicalEventsController < ClassificationsController
     "coronavirus-covid-19-uk-government-response" => {
       title: "coronavirus (COVID-19)",
       link: "/search/all.atom?level_one_taxon=5b7b9532-a775-4bd2-a3aa-6ce380184b6c&order=most-viewed",
-    }
+    },
   }.freeze
 
   def show
@@ -56,10 +56,10 @@ private
   def closed_feed_document
     RummagerDocumentPresenter.new(
       closed_feed.stringify_keys.merge(
-        "public_timestamp" => Time.now,
+        "public_timestamp" => Time.zone.now,
         "display_type" => "Replacement feed",
         "description" => "This #{closed_feed[:title]} RSS feed is being replaced with a new feed from Search - GOV.UK",
-      )
+      ),
     )
   end
 end

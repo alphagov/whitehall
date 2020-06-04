@@ -121,7 +121,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml", topical_event_url(topical_event, format: "atom"), 1
     assert_equal entries.size, 1
-    assert_equal entry.xpath('.//title').first.text, "Replacement feed: coronavirus (COVID-19)"
+    assert_equal entry.xpath(".//title").first.text, "Replacement feed: coronavirus (COVID-19)"
   end
 
   def create_topical_event_and_stub_in_content_store(*args)
@@ -139,7 +139,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   def xml
     @xml ||= begin
-      xml = Nokogiri::XML(response.body) { |config| config.noblanks }
+      xml = Nokogiri::XML(response.body, &:noblanks)
       xml.remove_namespaces!
     end
   end
