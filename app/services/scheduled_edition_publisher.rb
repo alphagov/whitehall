@@ -23,12 +23,12 @@ private
   def fire_transition!
     # The `publish` method is part of `Edition::Workflow`.
     edition.publish
-    edition.save(validate: false)
+    edition.save!(validate: false)
     supersede_previous_editions!
     delete_unpublishing!
   end
 
   def delete_unpublishing!
-    edition.unpublishing.destroy if edition.unpublishing.present?
+    edition.unpublishing.destroy! if edition.unpublishing.present?
   end
 end

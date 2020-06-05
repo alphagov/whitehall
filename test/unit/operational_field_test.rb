@@ -28,7 +28,7 @@ class OperationalFieldTest < ActiveSupport::TestCase
 
   test "does not change the slug when the field name changes" do
     field = create(:operational_field, name: "Field Name")
-    field.update(name: "New Field Name")
+    field.update!(name: "New Field Name")
     assert_equal "field-name", field.slug
   end
 end

@@ -4,7 +4,7 @@ module OrganisationTestHelper
   end
 
   def create_org_and_stub_content_store(*args)
-    organisation = create(*args)
+    organisation = create(*args) # rubocop:disable Rails/SaveBang
     stub_organisation_in_content_store(
       args[1][:name],
       organisation.base_path,

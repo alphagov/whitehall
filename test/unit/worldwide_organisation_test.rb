@@ -48,20 +48,20 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "destroys associated sponsorships" do
     worldwide_organisation = create(:worldwide_organisation, sponsoring_organisations: [create(:organisation)])
-    worldwide_organisation.destroy
+    worldwide_organisation.destroy!
     assert_equal 0, worldwide_organisation.sponsorships.count
   end
 
   test "destroys associated role appointments" do
     worldwide_organisation = create(:worldwide_organisation, worldwide_organisation_roles: [create(:worldwide_organisation_role)])
-    worldwide_organisation.destroy
+    worldwide_organisation.destroy!
     assert_equal 0, worldwide_organisation.worldwide_organisation_roles.count
   end
 
   test "destroys associated office access information" do
     worldwide_organisation = create(:worldwide_organisation)
     office_access_info = create(:access_and_opening_times, accessible: worldwide_organisation)
-    worldwide_organisation.destroy
+    worldwide_organisation.destroy!
     assert_not AccessAndOpeningTimes.exists?(office_access_info.id)
   end
 
@@ -206,7 +206,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(worldwide_organisation)
 
-    worldwide_organisation.save
+    worldwide_organisation.save!
   end
 
   test "adds worldwide organisation to search index on updating" do
@@ -215,13 +215,13 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(worldwide_organisation)
 
     worldwide_organisation.name = "British Embassy to Hat land"
-    worldwide_organisation.save
+    worldwide_organisation.save!
   end
 
   test "removes worldwide organisation role from search index on destroying if it is active" do
     worldwide_organisation = create(:worldwide_organisation)
     Whitehall::SearchIndex.expects(:delete).with(worldwide_organisation)
-    worldwide_organisation.destroy
+    worldwide_organisation.destroy!
   end
 
   test "search index data for a worldwide organisation includes name, summary, the correct link and format" do
@@ -321,7 +321,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test "when destroyed, will remove its home page list for storing offices" do
     world_organisation = create(:worldwide_organisation)
     h = world_organisation.__send__(:home_page_offices_list)
-    world_organisation.destroy
+    world_organisation.destroy!
     assert_not HomePageList.exists?(h.id)
   end
 
@@ -338,9 +338,8 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:republish_document_async).with(d)
     end
 
-    world_organisation.update_attribute(
-      :default_news_image,
-      create(:default_news_organisation_image_data),
+    world_organisation.update!(
+      default_news_image: create(:default_news_organisation_image_data),
     )
   end
 end

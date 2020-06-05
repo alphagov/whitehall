@@ -8,7 +8,7 @@ class WithdrawingTest < ActiveSupport::TestCase
       edition.build_unpublishing(
         explanation: "Old information",
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-      ).save
+      ).save!
 
       request = stub_publishing_api_unpublish(
         edition.content_id,

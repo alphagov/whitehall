@@ -52,7 +52,7 @@ collections.each do |(slug, redirect)|
 
   unpublishing.redirect = true
   unpublishing.alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{redirect}"
-  unpublishing.save(validate: false)
+  unpublishing.save!(validate: false)
 
   puts "#{slug} -> #{redirect}"
 end
@@ -62,7 +62,7 @@ detailed_guides.each do |(slug, redirect)|
 
   unpublishing.redirect = true
   unpublishing.alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{redirect}"
-  unpublishing.save(validate: false)
+  unpublishing.save!(validate: false)
 
   puts "#{slug} -> #{redirect}"
 end
@@ -72,7 +72,7 @@ publications.each do |(slug, redirect)|
 
   unpublishing.redirect = true
   unpublishing.alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{redirect}"
-  unpublishing.save(validate: false)
+  unpublishing.save!(validate: false)
 
   puts "#{slug} -> #{redirect}"
 end

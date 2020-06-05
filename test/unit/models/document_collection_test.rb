@@ -12,9 +12,9 @@ class DocumentCollectionTest < ActiveSupport::TestCase
         build(:document_collection_group),
       ],
     )
-    groups[0].update_attribute(:ordering, 2)
-    groups[1].update_attribute(:ordering, 1)
-    groups[2].update_attribute(:ordering, 3)
+    groups[0].update!(ordering: 2)
+    groups[1].update!(ordering: 1)
+    groups[2].update!(ordering: 3)
 
     assert_equal [groups[1], groups[0], groups[2]], doc_collection.reload.groups
   end

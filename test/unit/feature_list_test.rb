@@ -13,7 +13,7 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list = build(:feature_list, locale: :en)
     feature_list.features = [build(:feature), build(:feature)]
     assert_equal [1, 2], feature_list.features.map(&:ordering)
-    feature_list.save
+    feature_list.save!
   end
 
   test "features returned in order" do
@@ -48,7 +48,7 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_1 = create(:feature)
     feature_list = create(:feature_list, locale: :en, features: [feature_1])
     feature_1.document = nil
-    feature_1.save(validate: false)
+    feature_1.save!(validate: false)
     assert_not feature_list.reorder!([feature_1.id])
     assert_match %r{Can't reorder because '.*'}, feature_list.errors.full_messages.to_sentence
   end

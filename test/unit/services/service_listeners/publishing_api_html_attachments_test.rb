@@ -180,7 +180,7 @@ module ServiceListeners
         edition.publish!
 
         new_edition = publication.create_draft(create(:writer))
-        deleted_attachment.destroy
+        deleted_attachment.destroy!
         new_edition.attachments = [deleted_attachment, new_attachment]
         new_edition.minor_change = true
 
@@ -267,7 +267,7 @@ module ServiceListeners
       test "with a deleted html attachment removes the draft" do
         publication = create(:draft_publication)
         attachment = publication.html_attachments.first
-        attachment.destroy
+        attachment.destroy!
 
         PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
           attachment.content_id,
@@ -370,7 +370,7 @@ module ServiceListeners
         test "for a draft publication with deleted html attachments discards the deleted attachment drafts" do
           publication = create(:draft_publication)
           attachment = publication.html_attachments.first
-          attachment.destroy
+          attachment.destroy!
 
           PublishingApiDiscardDraftWorker.expects(:perform_async).with(
             attachment.content_id,
@@ -408,7 +408,7 @@ module ServiceListeners
       test "for a published publication with a deleted attachment discards the attachment draft" do
         publication = create(:published_publication)
         attachment = publication.html_attachments.first
-        attachment.destroy
+        attachment.destroy!
         PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
           attachment.content_id,
           "en",

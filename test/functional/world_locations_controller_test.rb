@@ -182,7 +182,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
     )
-    LocalisedModel.new(world_location, :fr).update(name: "Territoire antarctique britannique")
+    LocalisedModel.new(world_location, :fr).update!(name: "Territoire antarctique britannique")
 
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)

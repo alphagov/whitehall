@@ -56,5 +56,5 @@ puts "Setting political flag on the following organisations:"
 POLITICAL_ORG_SLUGS.each do |slug|
   organsation = Organisation.find_by(slug: slug)
   puts "\t#{organsation.name}"
-  organsation.update_attribute(:political, true)
+  organsation.update!(political: true)
 end

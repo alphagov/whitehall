@@ -87,7 +87,7 @@ FactoryBot.define do
       end
       state { "submitted" }
       after :create do |edition, evaluator|
-        edition.versions.first.update(event: "create", state: "draft")
+        edition.versions.first.update!(event: "create", state: "draft")
         submitter = evaluator.submitter.presence || edition.creator
         edition.versions.create! event: "update", whodunnit: submitter.id, state: "submitted"
       end

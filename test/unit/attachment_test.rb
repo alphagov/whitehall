@@ -99,7 +99,7 @@ class AttachmentTest < ActiveSupport::TestCase
   test "#content_id is set on save" do
     attachment = build(:html_attachment)
     assert attachment.content_id.nil?
-    attachment.save
+    attachment.save!
     assert attachment.content_id =~ /^[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}$/
   end
 
@@ -111,7 +111,7 @@ class AttachmentTest < ActiveSupport::TestCase
 
   test "destroy sets deleted true" do
     attachment = create(:file_attachment)
-    attachment.destroy
+    attachment.destroy!
     assert attachment.deleted?
   end
 end

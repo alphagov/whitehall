@@ -9,7 +9,7 @@ class OrganisationSearchIndexConcernTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(corp_page)
 
     org.govuk_status = "live"
-    org.save
+    org.save!
   end
 
   test "should remove corp info pages from search index when its organisation becomes no longer live" do
@@ -20,6 +20,6 @@ class OrganisationSearchIndexConcernTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:delete).with(corp_page)
 
     org.govuk_status = "joining"
-    org.save
+    org.save!
   end
 end

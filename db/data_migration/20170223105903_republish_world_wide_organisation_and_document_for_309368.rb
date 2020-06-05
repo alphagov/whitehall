@@ -4,6 +4,6 @@
 # republish the document.
 
 wwo = WorldwideOrganisation.find(373)
-wwo.save if wwo
+wwo.save! if wwo
 
 PublishingApiDocumentRepublishingWorker.new.perform(309_368)

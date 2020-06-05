@@ -24,7 +24,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     world_location = create(:world_location, name: "New Holland")
-    world_location.update(name: "Australia")
+    world_location.update!(name: "Australia")
     assert_equal "new-holland", world_location.slug
   end
 
@@ -91,9 +91,9 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     I18n.with_locale(:fr) do
       world_location_1.name = "Pays imaginaire"
-      world_location_1.save
+      world_location_1.save!
       world_location_2.name = "Terre du Milieu"
-      world_location_2.save
+      world_location_2.save!
 
       assert_equal [world_location_2, world_location_3, world_location_1], WorldLocation.ordered_by_name
     end
@@ -190,7 +190,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(active_location)
 
-    active_location.save
+    active_location.save!
   end
 
   test "does not add world location to search index on creating if it is active and a world location type" do
@@ -198,7 +198,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(inactive_location).never
 
-    inactive_location.save
+    inactive_location.save!
   end
 
   test "does not add world location to search index on creating if it is not active" do
@@ -206,7 +206,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(inactive_location).never
 
-    inactive_location.save
+    inactive_location.save!
   end
 
   test "adds world location to search index on updating if it is active and an international delegation" do
@@ -215,7 +215,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(active_location)
 
     active_location.name = "Hat land"
-    active_location.save
+    active_location.save!
   end
 
   test "does not add world location to search index on updating if it is inactive" do
@@ -224,7 +224,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(inactive_location).never
 
     inactive_location.name = "Hat land"
-    inactive_location.save
+    inactive_location.save!
   end
 
   test "removes world location from search index on updating if it is becoming inactive" do
@@ -233,19 +233,19 @@ class WorldLocationTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:delete).with(inactive_location)
 
     inactive_location.active = false
-    inactive_location.save
+    inactive_location.save!
   end
 
   test "removes world location role from search index on destroying if it is active" do
     active_location = create(:international_delegation, active: true)
     Whitehall::SearchIndex.expects(:delete).with(active_location)
-    active_location.destroy
+    active_location.destroy!
   end
 
   test "removes world location role from search index on destroying if it is inactive" do
     inactive_location = create(:world_location, active: false)
     Whitehall::SearchIndex.expects(:delete).with(inactive_location)
-    inactive_location.destroy
+    inactive_location.destroy!
   end
 
   test "search index data for a world location includes name, description, the correct link and format" do
@@ -298,7 +298,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "should call perform on World Location News Page Worker when saving a World Location" do
     world_location = create(:world_location, slug: "india")
     WorldLocationNewsPageWorker.any_instance.expects(:perform).at_least_once.with(world_location.id)
-    world_location.save
+    world_location.save!
   end
 
   test "only sends en version to the publishing api" do
@@ -306,7 +306,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     I18n.with_locale(:fr) do
       world_location.name = "Pays imaginaire"
-      world_location.save
+      world_location.save!
     end
 
     PublishingApiWorker.expects(:perform_async).with(

@@ -28,7 +28,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
   end
 
   def destroy
-    @offsite_link.destroy
+    @offsite_link.destroy!
     flash[:notice] = "#{@offsite_link.title} has been deleted"
     redirect_to offsite_links_path
   end

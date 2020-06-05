@@ -6,7 +6,7 @@ class AttachmentDependencyPopulatorTest < ActiveSupport::TestCase
     contact = create(:contact)
     attachment = publication.html_attachments.first
     attachment.govspeak_content.body = "Test [Contact:#{contact.id}]"
-    attachment.govspeak_content.save
+    attachment.govspeak_content.save!
     publication.reload
 
     populator = ServiceListeners::AttachmentDependencyPopulator.new(publication)

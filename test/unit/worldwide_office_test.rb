@@ -92,7 +92,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     list = create(:home_page_list)
     list.add_item(office)
 
-    office.destroy
+    office.destroy!
 
     assert_not list.shown_on_home_page?(office)
   end

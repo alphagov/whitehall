@@ -1,10 +1,10 @@
 def policies_to_organisations(policies)
   organisation_content_ids = policies.each_with_object([]) do |policy, memo|
     orgs = policy["links"]["organisations"]
-    if orgs
-      orgs.each do |org|
-        memo << org["content_id"]
-      end
+    next unless orgs
+
+    orgs.each do |org|
+      memo << org["content_id"]
     end
   end
   organisation_content_ids = organisation_content_ids.uniq

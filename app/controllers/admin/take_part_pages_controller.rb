@@ -36,7 +36,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def destroy
     @take_part_page = TakePartPage.friendly.find(params[:id])
-    @take_part_page.destroy
+    @take_part_page.destroy!
     redirect_to [:admin, TakePartPage], notice: %(Take part page "#{@take_part_page.title}" deleted!)
   end
 

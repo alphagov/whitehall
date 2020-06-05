@@ -192,7 +192,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     to_be_replaced = create(:attachment_data)
     replace_with = build(:attachment_data)
     replace_with.to_replace_id = to_be_replaced.id
-    replace_with.save
+    replace_with.save!
     assert_equal replace_with, to_be_replaced.reload.replaced_by
   end
 

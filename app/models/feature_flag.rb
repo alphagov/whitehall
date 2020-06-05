@@ -1,7 +1,7 @@
 class FeatureFlag < ApplicationRecord
   def self.set(key, value)
     flag = find_by!(key: key)
-    flag.update(enabled: value)
+    flag.update!(enabled: value)
   end
 
   def self.enabled?(name)
@@ -14,7 +14,7 @@ class FeatureFlag < ApplicationRecord
 
   def self.destroy(key)
     if (flag = find_by(key: key))
-      flag.destroy
+      flag.destroy!
     end
   end
 end

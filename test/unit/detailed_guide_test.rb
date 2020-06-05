@@ -77,7 +77,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "can be associated with topical events" do
     detailed_guide = create(:detailed_guide)
     assert detailed_guide.can_be_associated_with_topical_events?
-    assert topical_event = detailed_guide.topical_events.create(name: "Test", description: "Test")
+    assert topical_event = detailed_guide.topical_events.create!(name: "Test", description: "Test")
     assert_equal [detailed_guide], topical_event.detailed_guides
   end
 
@@ -145,7 +145,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
-    detailed_guide.save
+    detailed_guide.save!
 
     assert_equal %w[9af50189-de1c-49af-a334-6b1d87b593a6 9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
   end
@@ -196,7 +196,10 @@ class DetailedGuideTest < ActiveSupport::TestCase
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
-    invalid_detailed_guide.save
+    # We cannot use save! here, because Edition::Identifiable
+    # has a 'before_validation' callback that creates a document,
+    # which other callbacks then rely upon.
+    invalid_detailed_guide.save # rubocop:disable Rails/SaveBang
 
     assert_equal 0, RelatedMainstream.count
   end
@@ -235,7 +238,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     # we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
 
     detailed_guide.related_mainstream_content_url = "http://www.gov.uk/new-mainstream-content"
-    detailed_guide.save
+    detailed_guide.save!
 
     assert_equal 1, detailed_guide.related_mainstream_content_ids.count
     assert_equal %w[9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
@@ -256,7 +259,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = DetailedGuide.last
     # we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
     detailed_guide.related_mainstream_content_url = nil
-    detailed_guide.save
+    detailed_guide.save!
 
     assert_equal 0, detailed_guide.related_mainstream_content_ids.count
     assert_equal [], detailed_guide.related_mainstream_content_ids

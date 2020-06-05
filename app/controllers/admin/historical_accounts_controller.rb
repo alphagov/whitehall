@@ -30,7 +30,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   end
 
   def destroy
-    @historical_account.destroy
+    @historical_account.destroy!
     redirect_to admin_person_historical_accounts_url(@person), notice: "Historical account deleted"
   end
 

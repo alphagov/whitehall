@@ -24,7 +24,7 @@ class Admin::FinancialReportsController < Admin::BaseController
   end
 
   def destroy
-    @financial_report.destroy
+    @financial_report.destroy!
     redirect_to admin_organisation_financial_reports_path(@organisation), notice: "Deleted Successfully"
   end
 

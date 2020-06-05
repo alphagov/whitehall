@@ -10,7 +10,7 @@ corrupted_edition.state = "superseded"
 corrupted_edition.unpublishing.destroy!
 
 # The validate: false is necessary to get around the lack of a policy area on this document.
-corrupted_edition.save(validate: false)
+corrupted_edition.save!(validate: false)
 
 PublishingApiDocumentRepublishingWorker.new.perform(d.id)
 

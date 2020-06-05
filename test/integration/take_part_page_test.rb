@@ -42,7 +42,7 @@ class TakePartPageTest < ActiveSupport::TestCase
         },
       )
 
-      @take_part_page.destroy
+      @take_part_page.destroy!
 
       assert_requested gone_request
     end

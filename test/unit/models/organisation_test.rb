@@ -358,7 +358,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     organisation = create(:organisation, name: "Love all the people")
-    organisation.update(name: "Hold hands")
+    organisation.update!(name: "Hold hands")
     assert_equal "love-all-the-people", organisation.slug
   end
 
@@ -446,7 +446,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).with(organisation)
 
-    organisation.save
+    organisation.save!
   end
 
   test "should add courts to index on creating" do
@@ -454,7 +454,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     court = build(:court, parent_organisations: [hmcts])
     Whitehall::SearchIndex.expects(:add).once.with(court)
-    court.save
+    court.save!
   end
 
   test "should add HMCTS tribunals to index on creating" do
@@ -462,7 +462,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     hmcts_tribunal = build(:hmcts_tribunal, parent_organisations: [hmcts])
     Whitehall::SearchIndex.expects(:add).once.with(hmcts_tribunal)
-    hmcts_tribunal.save
+    hmcts_tribunal.save!
   end
 
   test "should add organisation to search index on updating" do
@@ -471,26 +471,26 @@ class OrganisationTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(organisation)
 
     organisation.name = "Ministry of Junk"
-    organisation.save
+    organisation.save!
   end
 
   test "should add courts to index on updating" do
     court = create(:court)
     Whitehall::SearchIndex.expects(:add).with(court)
     court.name = "Junk Appeals Court"
-    court.save
+    court.save!
   end
 
   test "should remove organisation from search index on destroying" do
     organisation = create(:organisation)
     Whitehall::SearchIndex.expects(:delete).with(organisation)
-    organisation.destroy
+    organisation.destroy!
   end
 
   test "should remove courts from index on destroying" do
     court = create(:court)
     Whitehall::SearchIndex.expects(:delete).with(court)
-    court.destroy
+    court.destroy!
   end
 
   test "should return search index data for all organisations" do
@@ -651,7 +651,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "#destroy removes parent relationships" do
     child = create(:organisation)
     parent = create(:organisation, child_organisations: [child])
-    child.destroy
+    child.destroy!
     assert_equal 0, OrganisationalRelationship.count
     assert parent.reload.child_organisations.empty?
   end
@@ -659,7 +659,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "destroy removes edition relationships" do
     organisation = create(:organisation)
     create(:published_publication, organisations: [organisation])
-    organisation.destroy
+    organisation.destroy!
     assert_equal 0, EditionOrganisation.count
   end
 
@@ -667,7 +667,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     topic = create(:topic)
     topic.organisations << organisation
-    organisation.destroy
+    organisation.destroy!
     assert_equal 0, OrganisationClassification.count
   end
 
@@ -675,14 +675,14 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     topical_event = create(:topical_event)
     topical_event.organisations << organisation
-    organisation.destroy
+    organisation.destroy!
     assert_equal 0, OrganisationClassification.count
   end
 
   test "destroy unsets user organisation" do
     organisation = create(:organisation)
     user = create(:writer, organisation: organisation)
-    organisation.destroy
+    organisation.destroy!
     assert_nil user.reload.organisation_slug
   end
 
@@ -712,8 +712,7 @@ class OrganisationTest < ActiveSupport::TestCase
     role = create(:role)
     organisation.roles << role
     assert_not organisation.destroyable?
-    organisation.destroy
-    assert Organisation.find(organisation.id)
+    assert_raises(ActiveRecord::RecordNotDestroyed) { organisation.destroy! }
   end
 
   test "should not be destroyable if there are associated child orgs" do
@@ -721,8 +720,7 @@ class OrganisationTest < ActiveSupport::TestCase
     child_org = create(:organisation)
     organisation.child_organisations << child_org
     assert_not organisation.destroyable?
-    organisation.destroy
-    assert Organisation.find(organisation.id)
+    assert_raises(ActiveRecord::RecordNotDestroyed) { organisation.destroy! }
   end
 
   test "should be able to list unused corporate information types" do
@@ -777,8 +775,8 @@ class OrganisationTest < ActiveSupport::TestCase
   test "topics are explicitly ordered" do
     topics = [create(:topic), create(:topic)]
     organisation = create(:organisation)
-    organisation.organisation_classifications.create(classification_id: topics[0].id, ordering: 2)
-    organisation.organisation_classifications.create(classification_id: topics[1].id, ordering: 1)
+    organisation.organisation_classifications.create!(classification_id: topics[0].id, ordering: 2)
+    organisation.organisation_classifications.create!(classification_id: topics[1].id, ordering: 1)
     assert_match %r{order by}i, organisation.topics.to_sql
     assert_equal [topics[1], topics[0]], organisation.topics
   end
@@ -786,28 +784,28 @@ class OrganisationTest < ActiveSupport::TestCase
   test "topical_events are explicitly ordered" do
     topical_events = [create(:topical_event), create(:topical_event)]
     organisation = create(:organisation)
-    organisation.organisation_classifications.create(classification_id: topical_events[0].id, ordering: 2)
-    organisation.organisation_classifications.create(classification_id: topical_events[1].id, ordering: 1)
+    organisation.organisation_classifications.create!(classification_id: topical_events[0].id, ordering: 2)
+    organisation.organisation_classifications.create!(classification_id: topical_events[1].id, ordering: 1)
     assert_match %r{order by}i, organisation.topical_events.to_sql
     assert_equal [topical_events[1], topical_events[0]], organisation.topical_events
   end
 
   test "can have associated contacts" do
     organisation = create(:organisation)
-    organisation.contacts.create(title: "Main office")
+    organisation.contacts.create!(title: "Main office", contact_type: ContactType::FOI)
   end
 
   test "destroy deletes related contacts" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)
-    organisation.destroy
+    organisation.destroy!
     assert_nil Contact.find_by(id: contact.id)
   end
 
   test "can have associated social media accounts" do
     service = create(:social_media_service)
     organisation = create(:organisation)
-    organisation.social_media_accounts.create(social_media_service_id: service.id, url: "http://example.com")
+    organisation.social_media_accounts.create!(social_media_service_id: service.id, url: "http://example.com")
   end
 
   test "destroy deletes related social media accounts" do
@@ -815,7 +813,7 @@ class OrganisationTest < ActiveSupport::TestCase
     social_media_account = create(:social_media_account, socialable: organisation)
     organisation.social_media_accounts.reload
 
-    organisation.destroy
+    organisation.destroy!
     assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
   end
 
@@ -829,7 +827,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "destroy deletes sponsorships" do
     organisation = create(:organisation, sponsored_worldwide_organisations: [create(:worldwide_organisation)])
-    organisation.destroy
+    organisation.destroy!
 
     assert_equal 0, organisation.sponsorships.count
   end
@@ -929,7 +927,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "when destroyed, will remove its home page list for storing contacts" do
     organisation = create(:organisation)
     h = organisation.__send__(:home_page_contacts_list)
-    organisation.destroy
+    organisation.destroy!
     assert_not HomePageList.exists?(h.id)
   end
 
@@ -1059,9 +1057,8 @@ class OrganisationTest < ActiveSupport::TestCase
       .expects(:perform_async)
       .with(about_page.document.id)
 
-    organisation.update_attribute(
-      :organisation_chart_url,
-      "http://www.example.com/path/to/new_chart",
+    organisation.update!(
+      organisation_chart_url: "http://www.example.com/path/to/new_chart",
     )
   end
 
@@ -1081,9 +1078,8 @@ class OrganisationTest < ActiveSupport::TestCase
       .expects(:perform_async)
       .never
 
-    organisation.update_attribute(
-      :organisation_chart_url,
-      "http://www.example.com/path/to/new_chart",
+    organisation.update!(
+      organisation_chart_url: "http://www.example.com/path/to/new_chart",
     )
   end
 
@@ -1100,9 +1096,8 @@ class OrganisationTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:republish_document_async).with(d)
     end
 
-    organisation.update_attribute(
-      :default_news_image,
-      create(:default_news_organisation_image_data),
+    organisation.update!(
+      default_news_image: create(:default_news_organisation_image_data),
     )
   end
 end

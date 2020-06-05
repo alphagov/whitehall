@@ -5,7 +5,7 @@ end
 And(/^the document is tagged to organisation "([^"]*)"$/) do |organisation_name|
   organisation = Organisation.find_by(name: organisation_name)
   @edition.organisations = [organisation]
-  @edition.save
+  @edition.save!(validate: false)
 end
 
 And(/^I search for a document titled "([^"]*)" in the list of featurable documents$/) do |title|
@@ -23,7 +23,7 @@ end
 And(/^the document is tagged to the world location "([^"]*)"$/) do |world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   @edition.world_locations = [world_location]
-  @edition.save
+  @edition.save!
 end
 
 And(/^I visit the world location admin page for "([^"]*)"$/) do |world_location_name|
@@ -34,7 +34,7 @@ end
 And(/^the document is tagged to the topical event "([^"]*)"$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by(name: topical_event_name)
   @edition.topical_events = [topical_event]
-  @edition.save
+  @edition.save!
 end
 
 And(/^I visit the topical event admin page for "([^"]*)"$/) do |topical_event_name|
@@ -44,5 +44,5 @@ end
 
 And(/^the document is locked/) do
   @edition.document.locked = true
-  @edition.document.save
+  @edition.document.save!
 end

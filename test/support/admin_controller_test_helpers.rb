@@ -65,7 +65,7 @@ module AdminControllerTestHelpers
       end
 
       test "updating should create new social media account" do
-        object = create(type)
+        object = create!(type)
         social_media_service = create(:social_media_service)
 
         put :update,
@@ -101,7 +101,7 @@ module AdminControllerTestHelpers
       end
 
       test "updating with blank social media account fields should not create new account" do
-        object = create(type)
+        object = create!(type)
 
         put :update,
             params: { id: object,
@@ -116,7 +116,7 @@ module AdminControllerTestHelpers
       end
 
       test "updating with invalid data should still display blank social media account fields" do
-        object = create(type)
+        object = create!(type)
 
         put :update, params: { id: object, type => object.attributes.merge(name: "") }
 
@@ -183,7 +183,7 @@ module AdminControllerTestHelpers
       end
 
       test "updating with an empty contact should not create that contact" do
-        object = create(type)
+        object = create!(type)
         attributes = {
           contacts_attributes: [{ description: "", number: "" }],
         }
@@ -194,7 +194,7 @@ module AdminControllerTestHelpers
       end
 
       test "updating with blank numbers destroys those blank numbers" do
-        object = create(type)
+        object = create!(type)
         contact = create(:contact, contactable: object)
         contact_number = create(:contact_number, contact: contact)
 

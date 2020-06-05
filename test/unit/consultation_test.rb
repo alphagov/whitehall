@@ -193,7 +193,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should destroy associated consultation participation when destroyed" do
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
-    consultation.destroy
+    consultation.destroy!
     assert_not ConsultationParticipation.exists?(consultation_participation.id)
   end
 
@@ -201,7 +201,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:consultation)
     outcome = create(:consultation_outcome, consultation: consultation)
 
-    consultation.destroy
+    consultation.destroy!
 
     assert_not ConsultationOutcome.exists?(outcome.id)
   end
@@ -366,7 +366,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "can associate consultations with topical events" do
     consultation = create(:consultation)
     assert consultation.can_be_associated_with_topical_events?
-    assert topical_event = consultation.topical_events.create(name: "Test", description: "Test")
+    assert topical_event = consultation.topical_events.create!(name: "Test", description: "Test")
     assert_equal [consultation], topical_event.consultations
   end
 
@@ -437,7 +437,7 @@ class ConsultationTest < ActiveSupport::TestCase
       .with(closing_at, consultation.document.id)
       .once
 
-    consultation.save
+    consultation.save!
   end
 
   test "#save triggers consultation closing in the future to be republished once" do
@@ -456,7 +456,7 @@ class ConsultationTest < ActiveSupport::TestCase
       .with(closing_at, consultation.document.id)
       .once
 
-    consultation.save
+    consultation.save!
   end
 
   test "#attachables returns array including itself" do

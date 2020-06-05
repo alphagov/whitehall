@@ -33,14 +33,14 @@ class ImageTest < ActiveSupport::TestCase
     _other_image = create(:image, image_data: image_data)
 
     image_data.expects(:destroy).never
-    image.destroy
+    image.destroy!
   end
 
   test "destroys image data when no images are associated" do
     image = create(:image)
     image_data = image.image_data
 
-    image_data.expects(:destroy)
-    image.destroy
+    image_data.expects(:destroy!)
+    image.destroy!
   end
 end

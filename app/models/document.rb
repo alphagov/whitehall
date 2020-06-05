@@ -91,7 +91,7 @@ class Document < ApplicationRecord
 
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug
-      update(sluggable_string: new_title)
+      update!(sluggable_string: new_title)
     end
   end
 

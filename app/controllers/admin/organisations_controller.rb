@@ -76,7 +76,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def destroy
-    @organisation.destroy
+    @organisation.destroy!
     redirect_to admin_organisations_path
   end
 

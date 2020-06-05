@@ -14,7 +14,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def create
-    @worldwide_organisation = WorldwideOrganisation.create(worldwide_organisation_params)
+    @worldwide_organisation = WorldwideOrganisation.create(worldwide_organisation_params) # rubocop:disable Rails/SaveBang
     respond_with :admin, @worldwide_organisation
   end
 
@@ -24,7 +24,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def update
-    @worldwide_organisation.update(worldwide_organisation_params)
+    @worldwide_organisation.update!(worldwide_organisation_params)
     respond_with :admin, @worldwide_organisation
   end
 
@@ -44,7 +44,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def destroy
-    @worldwide_organisation.destroy
+    @worldwide_organisation.destroy!
     respond_with :admin, @worldwide_organisation
   end
 

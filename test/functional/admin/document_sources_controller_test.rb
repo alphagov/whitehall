@@ -20,7 +20,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
 
   test "update should remove a document source" do
     edition = create(:draft_publication)
-    document_source = edition.document.document_sources.create(url: "http://www.example.com/")
+    document_source = edition.document.document_sources.create!(url: "http://www.example.com/")
 
     put :update, params: { edition_id: edition, document_sources: "" }
 
@@ -49,7 +49,7 @@ http://woo.example.com) }
 
   test "update should not duplicate existing document sources" do
     edition = create(:draft_publication)
-    edition.document.document_sources.create(url: "http://www.example.com/")
+    edition.document.document_sources.create!(url: "http://www.example.com/")
 
     put :update,
         params: { edition_id: edition,

@@ -34,7 +34,7 @@ class FactCheckRequestTest < ActiveSupport::TestCase
   test "doesn't allow key to change via updating attributes" do
     request = create(:fact_check_request)
     original_key = request.key
-    request.update(key: "new-key")
+    request.update!(key: "new-key")
     assert_equal original_key, request.key
   end
 

@@ -6,7 +6,7 @@ if edition.present?
 
   # Skip validation here, because normally editions in a superseded state cannot
   # have their minor_change field modified.
-  edition.save(validate: false)
+  edition.save!(validate: false)
 else
   "Edition #{edition_id} not found."
 end

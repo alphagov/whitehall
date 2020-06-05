@@ -17,18 +17,18 @@ module Reports
 
         editions.each do |edition|
           edition.attachments.each do |attachment|
-            if attachment.accessible == false
-              csv << [
-                attachment.title,
-                attachment.url,
-                attachment.content_type,
-                attachment.accessible,
-                edition.type,
-                "/government/publications/#{edition.slug}",
-                edition.first_published_at,
-                attachment.updated_at,
-              ]
-            end
+            next unless attachment.accessible == false
+
+            csv << [
+              attachment.title,
+              attachment.url,
+              attachment.content_type,
+              attachment.accessible,
+              edition.type,
+              "/government/publications/#{edition.slug}",
+              edition.first_published_at,
+              attachment.updated_at,
+            ]
           end
           print(".")
         end

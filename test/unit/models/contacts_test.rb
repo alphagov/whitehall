@@ -7,7 +7,7 @@ class ContactsTest < ActiveSupport::TestCase
   test "destroy deletes related contacts" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)
-    organisation.destroy
+    organisation.destroy!
     assert_nil Contact.find_by(id: contact.id)
   end
 

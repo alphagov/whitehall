@@ -24,7 +24,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should save modified news article summary" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -158,7 +158,7 @@ module AdminEditionControllerTestHelpers
       should_report_editing_conflicts_of(edition_type)
 
       view_test "edit displays edition form" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
@@ -171,7 +171,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit form has previewable body" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
@@ -188,7 +188,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should save modified edition attributes" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -205,7 +205,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should take the writer to the topic tagging page after updating" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         organisation = create(:organisation)
 
@@ -222,7 +222,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update records the user who changed the edition" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -273,7 +273,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "removes blank space from titles for updated editions" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -576,7 +576,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "edit displays edition image fields" do
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         create(
           :image,
           alt_text: "blah",
@@ -599,7 +599,7 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition should attach an image" do
         image = fixture_file_upload("minister-of-funk.960x640.jpg")
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -618,7 +618,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "updating an edition with image alt text but no file attachment should show a validation error" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -642,7 +642,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "updating an edition with an existing image allows image attributes to be changed" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image = create(
           :image,
           edition: edition,
@@ -672,7 +672,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "updating an edition should attach multiple images" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image_file_0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         image_file_1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = { images_attributes: {
@@ -694,7 +694,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "updating an edition with invalid data should still allow image to be selected for upload" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         put :update,
             params: {
               id: edition,
@@ -709,7 +709,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "updating an edition with invalid data should only allow a single image to be selected for upload" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image = fixture_file_upload("minister-of-funk.960x640.jpg")
         attributes = {
           title: "",
@@ -729,7 +729,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "updating an edition with invalid data and valid image data should display the image data" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image = fixture_file_upload("minister-of-funk.960x640.jpg")
         attributes = {
           title: "",
@@ -771,7 +771,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "updating a stale edition should only allow a single image to be selected for upload" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image = fixture_file_upload("minister-of-funk.960x640.jpg")
         lock_version = edition.lock_version
         edition.touch
@@ -795,7 +795,7 @@ module AdminEditionControllerTestHelpers
         Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
 
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image_1 = create(
           :image,
           edition: edition,
@@ -858,7 +858,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display edition statistical data sets field" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
@@ -944,7 +944,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display edition organisations field" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
@@ -1118,7 +1118,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display edition role appointments field" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
@@ -1186,7 +1186,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display first_published_at fields" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
@@ -1209,7 +1209,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should save overridden first_published_at attribute" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         first_published_at = 3.months.ago
 
         put :update,
@@ -1239,21 +1239,21 @@ module AdminEditionControllerTestHelpers
 
     def should_report_editing_conflicts_of(edition_type)
       test "editing an existing #{edition_type} should record a RecentEditionOpening" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         assert_equal [current_user], edition.reload.recent_edition_openings.map(&:editor)
       end
 
       view_test "should not see a warning when editing an edition that nobody has recently edited" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         refute_select ".editing_conflict"
       end
 
       view_test "should see a warning when editing an edition that someone else has recently edited" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         other_user = create(:author, name: "Joe Bloggs", email: "joe@example.com")
         edition.open_for_editing_as(other_user)
         Timecop.travel 1.hour.from_now
@@ -1268,7 +1268,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "saving a #{edition_type} should remove any RecentEditionOpening records for the current user" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         edition.open_for_editing_as(@current_user)
 
         assert_difference "edition.reload.recent_edition_openings.count", -1 do
@@ -1297,7 +1297,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display fields for related mainstream content" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         admin_editions_path = send("admin_#{edition_type}_path", edition)
@@ -1369,7 +1369,7 @@ module AdminEditionControllerTestHelpers
 
       test "update should save modified #{edition_type} alternative format provider" do
         organisation = create(:organisation_with_alternative_format_contact_email)
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
             params: {
@@ -1579,7 +1579,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display worldwide organisations field" do
-        edition = create(edition_type)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do

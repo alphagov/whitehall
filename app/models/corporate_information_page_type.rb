@@ -34,67 +34,67 @@ class CorporateInformationPageType
     slug.tr("-", "_")
   end
 
-  PersonalInformationCharter = create(
+  PersonalInformationCharter = create!(
     id: 1, slug: "personal-information-charter", menu_heading: :other,
   )
-  PublicationScheme = create(
+  PublicationScheme = create!(
     id: 2, slug: "publication-scheme", menu_heading: :other,
   )
-  ComplaintsProcedure = create(
+  ComplaintsProcedure = create!(
     id: 3, slug: "complaints-procedure", menu_heading: :our_information,
   )
-  TermsOfReference = create(
+  TermsOfReference = create!(
     id: 4, slug: "terms-of-reference", menu_heading: :our_information,
   )
-  OurGovernance = create(
+  OurGovernance = create!(
     id: 5, slug: "our-governance", menu_heading: :our_information,
   )
-  Statistics = create(
+  Statistics = create!(
     id: 6, slug: "statistics", menu_heading: :our_information,
   )
-  Procurement = create(
+  Procurement = create!(
     id: 7, slug: "procurement", menu_heading: :jobs_and_contracts,
   )
-  Recruitment = create(
+  Recruitment = create!(
     id: 8, slug: "recruitment", menu_heading: :jobs_and_contracts,
   )
-  OurEnergyUse = create(
+  OurEnergyUse = create!(
     id: 9, slug: "our-energy-use", menu_heading: :our_information,
   )
-  Membership = create(
+  Membership = create!(
     id: 10, slug: "membership", menu_heading: :our_information,
   )
-  WelshLanguageScheme = create(
+  WelshLanguageScheme = create!(
     id: 11, slug: "welsh-language-scheme", menu_heading: :other,
   )
-  EqualityAndDiversity = create(
+  EqualityAndDiversity = create!(
     id: 12, slug: "equality-and-diversity", menu_heading: :our_information,
   )
-  PetitionsAndCampaigns = create(
+  PetitionsAndCampaigns = create!(
     id: 13, slug: "petitions-and-campaigns", menu_heading: :our_information,
   )
-  Research = create(
+  Research = create!(
     id: 14, slug: "research", menu_heading: :our_information,
   )
-  OfficeAccessAndOpeningTimes = create(
+  OfficeAccessAndOpeningTimes = create!(
     id: 15, slug: "access-and-opening", menu_heading: :our_information,
   )
-  StaffNewsAndInformation = create(
+  StaffNewsAndInformation = create!(
     id: 16, slug: "staff-update", menu_heading: :other,
   )
-  MediaEnquiries = create(
+  MediaEnquiries = create!(
     id: 17, slug: "media-enquiries", menu_heading: :our_information,
   )
-  SocialMediaUse = create(
+  SocialMediaUse = create!(
     id: 18, slug: "social-media-use", menu_heading: :other,
   )
-  AboutOurServices = create(
+  AboutOurServices = create!(
     id: 19, slug: "about-our-services", menu_heading: :other,
   )
-  AboutUs = create(
+  AboutUs = create!(
     id: 20, slug: "about", menu_heading: :other,
   )
-  AccessibleDocumentsPolicy = create(
+  AccessibleDocumentsPolicy = create!(
     id: 21, slug: "accessible-documents-policy", menu_heading: :our_information,
   )
 

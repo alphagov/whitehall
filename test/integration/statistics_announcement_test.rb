@@ -66,7 +66,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         },
       )
 
-      statistics_announcement.destroy
+      statistics_announcement.destroy!
       assert_requested gone_request
     end
   end

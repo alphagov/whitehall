@@ -52,12 +52,12 @@ private
   def supersede_previous_editions!
     previous_editions.each do |edition|
       edition.supersede
-      edition.save(validate: false)
+      edition.save!(validate: false)
     end
   end
 
   def delete_unpublishing!
-    edition.unpublishing.destroy if edition.unpublishing.present?
+    edition.unpublishing.destroy! if edition.unpublishing.present?
   end
 
   def scheduled_for_publication?

@@ -38,7 +38,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
 
   test "#close doesn't overwrite an end date if there is one" do
     login_as :gds_admin
-    @government.update(end_date: 10.days.ago.to_date)
+    @government.update!(end_date: 10.days.ago.to_date)
     post :close, params: { id: @government.id }
     @government.reload
     assert_equal 10.days.ago.to_date, @government.end_date
@@ -46,7 +46,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
 
   test "#close ends all the current ministerial role appointments on the same day as the government closes" do
     login_as :gds_admin
-    @government.update(end_date: 1.day.ago.to_date)
+    @government.update!(end_date: 1.day.ago.to_date)
     ministerial = create(:ministerial_role_appointment)
     ambassadorial = create(:ambassador_role_appointment)
 

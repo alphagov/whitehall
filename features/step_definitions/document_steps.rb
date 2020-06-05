@@ -259,5 +259,5 @@ end
 When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|
   edition = Edition.latest_edition.find_by!(title: title)
   edition.read_consultation_principles = true
-  edition.save
+  edition.save!
 end

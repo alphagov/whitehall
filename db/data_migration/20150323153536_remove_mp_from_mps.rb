@@ -3,6 +3,6 @@ Person.where('letters LIKE "%MP%"').each do |person|
   new_letters = person.letters.gsub(/(^|\s)MP(\s|$)/, "")
   if person.letters != new_letters
     puts "\tUpdating '#{person.letters}' to '#{new_letters}' for #{person.slug}"
-    person.update_attribute(:letters, new_letters)
+    person.update!(letters: new_letters)
   end
 end

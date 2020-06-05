@@ -6,4 +6,4 @@ minister_reshuffle = SitewideSetting.new(
   on the [ministers](http://www.gov.uk/government/ministers) page",
   govspeak: "Some ministerial roles and responsibilities are [changing at the moment](http://example.com) so the information here may change",
 )
-minister_reshuffle.save
+minister_reshuffle.save!

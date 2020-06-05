@@ -199,7 +199,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = create(:unpublished_edition, :with_locked_document)
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       edition.title = "hello world"
-      edition.save
+      edition.save!
     end
   end
 

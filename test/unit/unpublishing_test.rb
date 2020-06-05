@@ -140,7 +140,7 @@ class UnpublishingTest < ActiveSupport::TestCase
       edition: edition,
       unpublishing_reason: UnpublishingReason::PublishedInError,
     )
-    unpublishing.update_attribute(:slug, "a-different-slug")
+    unpublishing.update!(slug: "a-different-slug")
 
     assert_equal "/guidance/a-different-slug", unpublishing.document_path
   end
@@ -164,7 +164,7 @@ class UnpublishingTest < ActiveSupport::TestCase
       edition: edition,
       unpublishing_reason: UnpublishingReason::PublishedInError,
     )
-    unpublishing.update_attribute(:slug, "a-different-slug")
+    unpublishing.update!(slug: "a-different-slug")
 
     assert_match "/guidance/a-different-slug", unpublishing.document_url
   end

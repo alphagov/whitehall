@@ -90,7 +90,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
   test "resolves internal Whitehall URLs in withdrawal explanation with a public URL" do
     body = "Some text which contains an [internal link](/government/admin/news/2) to a public document"
     edition = create(:withdrawn_edition)
-    edition.unpublishing.update_attribute(:explanation, body)
+    edition.unpublishing.update!(explanation: body)
 
     linked_document = create(:document, slug: "some-article")
     linked_edition = create(:published_edition, document: linked_document, state: "published")

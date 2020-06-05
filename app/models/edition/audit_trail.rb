@@ -75,7 +75,7 @@ private
 
   def record_create
     user = Edition::AuditTrail.whodunnit
-    versions.create event: "create", user: user, state: state
+    versions.create! event: "create", user: user, state: state
     alert!(user)
   end
 

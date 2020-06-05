@@ -6,7 +6,7 @@ module ContentPublisher
     test "updates feature with offsite url" do
       edition = create(:published_news_article)
       feature = create(:feature, document: edition.document, feature_list: feature_list)
-      edition.document.update(locked: true)
+      edition.document.update!(locked: true)
 
       ContentPublisher::FeaturedDocumentMigrator.new(edition.document).call
       feature.reload
@@ -19,7 +19,7 @@ module ContentPublisher
     test "uses the latest edition if document is not published" do
       edition = create(:news_article)
       feature = create(:feature, document: edition.document, feature_list: feature_list)
-      edition.document.update(locked: true)
+      edition.document.update!(locked: true)
 
       ContentPublisher::FeaturedDocumentMigrator.new(edition.document).call
       feature.reload
@@ -32,7 +32,7 @@ module ContentPublisher
     test "sets the correct link type for press_release" do
       edition = create(:published_news_article)
       feature = create(:feature, document: edition.document, feature_list: feature_list)
-      edition.document.update(locked: true)
+      edition.document.update!(locked: true)
 
       ContentPublisher::FeaturedDocumentMigrator.new(edition.document).call
       feature.reload
@@ -44,7 +44,7 @@ module ContentPublisher
     test "sets the correct link type for news_story" do
       edition = create(:published_news_story)
       feature = create(:feature, document: edition.document, feature_list: feature_list)
-      edition.document.update(locked: true)
+      edition.document.update!(locked: true)
 
       ContentPublisher::FeaturedDocumentMigrator.new(edition.document).call
       feature.reload

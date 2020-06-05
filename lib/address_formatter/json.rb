@@ -19,7 +19,7 @@ module AddressFormatter
         type,
         Formatter.property_keys.inject({}) do |adr, key|
           value = properties[key]
-          adr.update(key.to_s => value.presence || "")
+          adr.merge!(key.to_s => value.presence || "")
         end,
       )
     end
@@ -34,7 +34,7 @@ module AddressFormatter
       if type.blank?
         json
       else
-        json.update("type" => type)
+        json.merge!("type" => type)
       end
     end
   end

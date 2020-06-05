@@ -1,12 +1,12 @@
 Given(/^a draft publication "([^"]*)" with a legacy url "([^"]*)"$/) do |title, old_url|
   publication = create(:draft_publication, title: title)
-  publication.document.document_sources.create(url: old_url)
+  publication.document.document_sources.create!(url: old_url)
 end
 
 Given(/^a draft publication "([^"]*)" with legacy urls "([^"]*)" and "([^"]*)"$/) do |title, old_url_1, old_url_2|
   publication = create(:draft_publication, title: title)
-  publication.document.document_sources.create(url: old_url_1)
-  publication.document.document_sources.create(url: old_url_2)
+  publication.document.document_sources.create!(url: old_url_1)
+  publication.document.document_sources.create!(url: old_url_2)
 end
 
 Then(/^I should see the legacy url "([^"]*)"$/) do |old_url|

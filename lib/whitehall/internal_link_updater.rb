@@ -31,7 +31,7 @@ private
         translation.body.sub!(whitehall_admin_link, edition_public_url(linked_to_edition))
       end
     end
-    translation.save(touch: false)
+    translation.save!(touch: false)
   end
 
   def linked_from_editions(edition)

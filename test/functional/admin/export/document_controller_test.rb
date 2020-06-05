@@ -271,7 +271,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
   test "marks locked document as migrated" do
     edition = create(:edition_with_document)
-    edition.document.update(locked: true)
+    edition.document.update!(locked: true)
     login_as :export_data_user
 
     post :migrated, params: { id: edition.document.id }, format: "json"
@@ -281,7 +281,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
   test "removes migrated document from search index" do
     edition = create(:edition_with_document, body: "Some document being migrated to Content Publisher")
-    edition.document.update(slug: "some-document", locked: true)
+    edition.document.update!(slug: "some-document", locked: true)
     create(:edition_with_document)
     login_as :export_data_user
 
@@ -302,7 +302,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
 
   test "calls InternalLinkUpdater when document is marked as migrated" do
     edition_linked_to = create(:edition_with_document, body: "Some document being migrated to Content Publisher")
-    edition_linked_to.document.update(slug: "some-document", locked: true)
+    edition_linked_to.document.update!(slug: "some-document", locked: true)
     create(:edition_with_document)
     login_as :export_data_user
 
@@ -315,7 +315,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
   test "calls FeaturedDocumentMigrator when document is marked as migrated" do
     edition = create(:published_news_article)
     create(:feature, document: edition.document, feature_list: create(:feature_list, locale: "en"))
-    edition.document.update(slug: "some-document", locked: true)
+    edition.document.update!(slug: "some-document", locked: true)
 
     login_as :export_data_user
 
@@ -330,7 +330,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
   test "calls DocumentCollectionGroupMembershipMigrator when document is marked as migrated" do
     edition = create(:published_news_article)
     create(:document_collection_group_membership, document: edition.document)
-    edition.document.update(slug: "some-document", locked: true)
+    edition.document.update!(slug: "some-document", locked: true)
 
     login_as :export_data_user
 

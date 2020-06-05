@@ -110,7 +110,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     topic = create(:topic)
     published_publication = create(:published_publication, topics: [topic])
     association = topic.classification_memberships.where(edition_id: published_publication.id).first
-    association.update(ordering: 31)
+    association.update!(ordering: 31)
 
     draft_publication = published_publication.create_draft(create(:writer))
 
@@ -120,7 +120,8 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should build a draft copy even if parent is invalid" do
     published_publication = create(:published_publication)
-    published_publication.update(title: nil)
+    published_publication.title = nil
+    published_publication.save!(validate: false)
     assert_not published_publication.valid?
     draft_publication = published_publication.create_draft(create(:writer))
     assert draft_publication.persisted?
