@@ -50,19 +50,6 @@ module Searchable
     :superseding_organisations,
     :title,
 
-    # "Policy area" is the newer name for "topic"
-    # (https://www.gov.uk/government/topics)
-    # "Topic" is the newer name for "specialist sector"
-    # (https://www.gov.uk/topic)
-    #
-    # There are two ways for policy areas to wind up in rummager:
-    # 1. Models directly ask for them in the class method call to `searchable`:
-    #    in this case it is the responsibility of the subclasses to handle
-    #    the naming clash if they are still using the older name
-    # 2. Through the Edition::Topics and Edition::TopicalEvents concerns.
-    #    These override #search_index and add to the policy_areas key.
-    :policy_areas,
-
     # DID YOU MEAN: Topic?
     # See above: this should be renamed once the naming for policy areas is
     # consistent.
