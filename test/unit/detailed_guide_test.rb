@@ -6,11 +6,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :body, :summary, :change_note
 
-  test "should be able to relate to topics" do
-    article = build(:detailed_guide)
-    assert article.can_be_associated_with_topics?
-  end
-
   test "should use detailed guidance as its format name" do
     assert_equal "detailed guidance", DetailedGuide.format_name
   end
