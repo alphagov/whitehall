@@ -54,23 +54,6 @@ module("TrackSelectClick", {
   }
 });
 
-test("the policy areas fieldset should send a tracking event on change", function () {
-  var policyAreasSelectBox = $('#edition_topic_ids');
-  var spy = sinon.spy(GOVUKAdmin, 'trackEvent');
-
-  this.subject.start(policyAreasSelectBox);
-
-  policyAreasSelectBox.val('44').change();
-
-  sinon.assert.calledOnce(spy);
-  deepEqual(
-    spy.args[0],
-    ["taxonSelectionPolicyAreas", "Borders and immigration", {}]
-  );
-
-  spy.restore()
-});
-
 test("the primary specialist sector fieldset should send a tracking event on change", function () {
   var primarySpecialistSectorSelectBox = $('#edition_primary_specialist_sector_tag');
   var spy = sinon.spy(GOVUKAdmin, 'trackEvent');
