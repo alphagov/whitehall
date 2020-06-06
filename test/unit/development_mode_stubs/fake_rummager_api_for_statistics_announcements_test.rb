@@ -49,7 +49,6 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     assert_equal %w[statistics_announcement], returned_announcement_hash["search_format_types"]
     assert_equal "statistics_announcement", returned_announcement_hash["format"]
     assert_equal announcement.organisations_slugs, returned_announcement_hash["organisations"]
-    assert_equal announcement.topic_slugs, returned_announcement_hash["policy_areas"]
     assert_equal "2050-01-01T09:30:00+00:00", returned_announcement_hash["release_timestamp"]
     assert_equal true, returned_announcement_hash["metadata"]["confirmed"]
     assert_equal "confirmed", returned_announcement_hash["statistics_announcement_state"]
@@ -100,14 +99,6 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     _announcement_2 = create :statistics_announcement
 
     assert_equal [announcement_1.title], matched_titles(organisations: announcement_1.organisations_slugs)
-  end
-
-  test "#advanced_search with topics returns results associated with the topics" do
-    topic = create(:topic, name: "A topic")
-    announcement_1 = create :statistics_announcement, topics: [topic]
-    _announcement_2 = create :statistics_announcement
-
-    assert_equal [announcement_1.title], matched_titles(policy_areas: [topic.slug])
   end
 
   test "#advanced_search returns results ordered by current_release_date's release_date" do

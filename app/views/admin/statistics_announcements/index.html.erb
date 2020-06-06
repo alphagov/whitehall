@@ -67,7 +67,6 @@
             <th>Announcement title</th>
             <th>Publication</th>
             <th>Organisations</th>
-            <th>Policy Areas</th>
           </tr>
         </thead>
         <tbody>
@@ -97,7 +96,6 @@
                 <% end %>
               </td>
               <td><%= statistics_announcement.organisations.map(&:name).to_sentence %></td>
-              <td><%= statistics_announcement.topics.map(&:name).to_sentence %></td>
             <% end %>
           <% end %>
         </tbody>

@@ -5,7 +5,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     Timecop.travel(1.day.ago) do
       @user = login_as(:gds_editor)
       @organisation = create(:organisation)
-      @topic = create(:topic)
       @announcement = create(:statistics_announcement)
     end
   end

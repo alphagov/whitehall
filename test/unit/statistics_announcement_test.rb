@@ -58,7 +58,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       "format" => "statistics_announcement",
       "description" => announcement.summary,
       "organisations" => announcement.organisations.map(&:slug),
-      "policy_areas" => announcement.topics.map(&:slug),
       "public_timestamp" => announcement.updated_at,
       "display_date" => announcement.display_date,
       "display_type" => announcement.display_type,
@@ -215,26 +214,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_difference %w[StatisticsAnnouncement.count StatisticsAnnouncementOrganisation.count], -1 do
       statistics_announcement.destroy
     end
-  end
-
-  test "#destroy destroys topic associations" do
-    statistics_announcement = create(:statistics_announcement)
-    assert_difference %w[StatisticsAnnouncement.count StatisticsAnnouncementTopic.count], -1 do
-      statistics_announcement.destroy
-    end
-  end
-
-  test "StatisticsAnnouncement.with_topics scope returns announcements with matching topics" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    announcement_1 = create(:statistics_announcement, topics: [topic_1, topic_2])
-    announcement_2 = create(:statistics_announcement, topics: [topic_2])
-
-    assert_equal [announcement_1], StatisticsAnnouncement.with_topics(topic_1)
-    assert_equal [announcement_1], StatisticsAnnouncement.with_topics(topic_1.id)
-
-    assert_equal [announcement_1, announcement_2],
-                 StatisticsAnnouncement.with_topics([topic_2])
   end
 
   test "requires_redirect? returns true when unpublished?" do
