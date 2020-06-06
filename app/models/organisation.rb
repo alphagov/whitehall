@@ -81,16 +81,6 @@ class Organisation < ApplicationRecord
            dependent: :destroy
   has_many :classifications, through: :organisation_classifications
 
-  # DID YOU MEAN: Policy Area?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  # You can help improve this code by renaming all usages of this field to use
-  # the new terminology.
-  has_many :topics,
-           -> { order("organisation_classifications.ordering") },
-           through: :organisation_classifications
   has_many :topical_events,
            -> { order("organisation_classifications.ordering") },
            through: :organisation_classifications

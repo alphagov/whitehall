@@ -663,14 +663,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 0, EditionOrganisation.count
   end
 
-  test "destroy removes topic relationships" do
-    organisation = create(:organisation)
-    topic = create(:topic)
-    topic.organisations << organisation
-    organisation.destroy!
-    assert_equal 0, OrganisationClassification.count
-  end
-
   test "destroy removes topical_event relationships" do
     organisation = create(:organisation)
     topical_event = create(:topical_event)
@@ -770,15 +762,6 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = build(:organisation, analytics_identifier: "FOO123")
     organisation.save!
     assert_equal "FOO123", organisation.reload.analytics_identifier
-  end
-
-  test "topics are explicitly ordered" do
-    topics = [create(:topic), create(:topic)]
-    organisation = create(:organisation)
-    organisation.organisation_classifications.create!(classification_id: topics[0].id, ordering: 2)
-    organisation.organisation_classifications.create!(classification_id: topics[1].id, ordering: 1)
-    assert_match %r{order by}i, organisation.topics.to_sql
-    assert_equal [topics[1], topics[0]], organisation.topics
   end
 
   test "topical_events are explicitly ordered" do
