@@ -32,14 +32,10 @@ When(/^I publish a news article "([^"]*)" associated with "([^"]*)"$/) do |title
   publish(force: true)
 end
 
-When(/^I publish a news article "([^"]*)" associated with the (topic|topical event) "([^"]*)"$/) do |title, type, topic_name|
-  begin_drafting_news_article title: title, skip_topic_selection: (type == "topic")
+When(/^I publish a news article "([^"]*)" associated with the topical event "([^"]*)"$/) do |title, topic_name|
+  begin_drafting_news_article title: title
 
-  if type == "topic"
-    select topic_name, from: "Policy Areas"
-  else
-    select topic_name, from: "Topical events"
-  end
+  select topic_name, from: "Topical events"
 
   fill_in_news_article_fields(first_published: Time.zone.today.to_s)
   click_button "Save"

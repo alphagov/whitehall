@@ -16,7 +16,6 @@ module DocumentHelper
 
   def begin_drafting_document(options)
     create(:organisation) if Organisation.count.zero?
-    create(:topic) if Topic.count.zero?
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find("li.create-new a", text: "New document").click
@@ -29,7 +28,6 @@ module DocumentHelper
       fill_in "edition_body", with: options.fetch(:body, "Any old iron")
       fill_in "edition_summary", with: options.fetch(:summary, "one plus one euals two!")
       fill_in_change_note_if_required
-      select_topic_if_required unless options[:skip_topic_selection]
       set_lead_organisation_on_document(Organisation.first)
 
       if options[:alternative_format_provider]
@@ -72,7 +70,6 @@ module DocumentHelper
       title: title,
       summary: "Some summary of the content",
       alternative_format_provider: create(:alternative_format_provider),
-      skip_topic_selection: options[:skip_topic_selection],
     )
     fill_in_publication_fields(options.slice(:first_published, :publication_type))
   end
@@ -126,14 +123,6 @@ module DocumentHelper
   def fill_in_change_note_if_required
     if has_selector?("textarea[name='edition[change_note]']", wait: false)
       fill_in "edition_change_note", with: "changes"
-    end
-  end
-
-  def select_topic_if_required
-    if has_selector?(".edition-topic-fields", wait: false)
-      within(".edition-topic-fields") do
-        select Topic.first.name, from: "Policy Areas"
-      end
     end
   end
 
