@@ -344,8 +344,6 @@ Whitehall::Application.routes.draw do
 
         resources :publications, except: [:index]
 
-        get "/policies/:policy_id/topics" => "policies#topics"
-
         resources :news_articles, path: "news", except: [:index]
         resources :fatality_notices, path: "fatalities", except: [:index]
         resources :consultations, except: [:index] do
