@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :publication, class: Publication, parent: :edition, traits: %i[with_organisations with_topics] do
+  factory :publication, class: Publication, parent: :edition, traits: %i[with_organisations] do
     sequence(:title) { |index| "publication-title-#{index}" }
     body { "publication-body" }
     summary { "publication-summary" }
@@ -59,12 +59,6 @@ FactoryBot.define do
     end
   end
 
-  factory :publication_without_policy_areas, parent: :edition, class: Publication, traits: %i[with_organisations] do
-    sequence(:title) { |index| "publication-title-#{index}" }
-    body { "publication-body" }
-    summary { "publication-summary" }
-    publication_type_id { PublicationType::PolicyPaper.id }
-  end
   factory :imported_publication, parent: :publication, traits: [:imported]
   factory :draft_publication, parent: :publication, traits: [:draft]
   factory :submitted_publication, parent: :publication, traits: [:submitted]
