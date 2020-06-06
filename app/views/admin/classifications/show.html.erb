@@ -23,22 +23,6 @@
       </tr>
     <% end %>
 
-    <tr>
-      <th>Related</th>
-      <td class="related">
-        <% if @classification.related_classifications.any? %>
-          <ul>
-            <% @classification.related_classifications.each do |pa| %>
-              <%= content_tag_for(:li, pa) do %>
-                <%= link_to pa.name, [:admin, pa], title: "Edit #{human_friendly_model_name.downcase} #{pa.name}" %>
-              <% end %>
-            <% end %>
-          </ul>
-        <% else %>
-          <em>None</em>
-        <% end %>
-      </td>
-    </tr>
     <% if @classification.respond_to?(:featured_links) %>
       <tr>
         <th>Featured links</th>

@@ -23,11 +23,6 @@ class Classification < ApplicationRecord
   has_many :organisation_classifications
   has_many :organisations, through: :organisation_classifications
   has_many :classification_relations, inverse_of: :classification
-  has_many :related_classifications,
-           through: :classification_relations,
-           before_remove: lambda { |pa, rpa|
-             ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
-           }
 
   has_many :classification_featurings,
            lambda {
