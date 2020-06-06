@@ -1,15 +1,6 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
-  # Returns an Array that represents the current set of taggable topics.
-  # Each element of the array consists of two values: the name and ID of the
-  # topic.
-  def taggable_topics_container
-    Rails.cache.fetch(taggable_topics_cache_digest, expires_in: 1.day) do
-      Topic.order(:name).map { |t| [t.name, t.id] }
-    end
-  end
-
   # Returns an Array that represents the current set of taggable topical
   # events. Each element of the array consists of two values: the name and ID
   # of the topical event.
@@ -131,12 +122,6 @@ module Admin::TaggableContentHelper
     Rails.cache.fetch(taggable_worldwide_organisations_cache_digest, expires_in: 1.day) do
       WorldwideOrganisation.with_translations(:en).map { |wo| [wo.name, wo.id] }
     end
-  end
-
-  # Returns an MD5 digest representing the current set of taggable topics. This
-  # will change if any of the Topics should change or if a new topic is added.
-  def taggable_topics_cache_digest
-    @taggable_topics_cache_digest ||= calculate_digest(Topic.order(:id), "topics")
   end
 
   # Returns an MD5 digest representing the current set of taggable topical

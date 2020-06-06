@@ -157,20 +157,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil Edition.scheduled_for_publication_as("unknown")
   end
 
-  test "should return a list of editions in a topic" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    draft_publication = create(:draft_publication, topics: [topic_1])
-    published_publication = create(:published_publication, topics: [topic_1])
-    scheduled_publication = create(:scheduled_publication, topics: [topic_1])
-    published_in_second_topic = create(:published_publication, topics: [topic_2])
-
-    assert_equal [draft_publication, published_publication, scheduled_publication], Publication.in_topic(topic_1)
-    assert_equal [published_publication], Publication.published_in_topic(topic_1)
-    assert_equal [scheduled_publication], Publication.scheduled_in_topic(topic_1)
-    assert_equal [published_in_second_topic], Publication.published_in_topic(topic_2)
-  end
-
   test "should return a list of editions in an organisation" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
@@ -432,23 +418,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "policy_paper", publication.search_index["content_store_document_type"]
     assert_equal [], publication.search_index["people"]
     assert_equal [], publication.search_index["roles"]
-  end
-
-  test "should present policy_areas to rummageable" do
-    government = create(:current_government)
-    publication = create(:published_policy_paper, title: "publication-title", political: true, first_published_at: government.start_date)
-
-    assert_equal publication.topics.map(&:name), publication.search_index["policy_areas"]
-    assert_not publication.search_index.include?("topics")
-  end
-
-  test "rummager policy_areas include topics" do
-    government = create(:current_government)
-    publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
-
-    expected = publication.topics.map(&:name)
-    assert_equal expected.sort, publication.search_index["policy_areas"].sort
-    assert_not publication.search_index.include?("topics")
   end
 
   test "rummager topical_events include topical_events" do
@@ -785,16 +754,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_not no_editions.include?(edition_1)
   end
 
-  test "Edition.with_classification returns any editions tagged with the given classification" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    news_article = create(:news_article, topics: [topic_1])
-    publication = create(:publication, topics: [topic_1, topic_2])
-
-    assert_equal [news_article, publication], Edition.with_classification(topic_1)
-    assert_equal [publication], Edition.with_classification(topic_2)
-  end
-
   should_not_accept_footnotes_in :body
 
   test "previously_published returns true for edition with first_published_at timestamp" do
@@ -908,25 +867,6 @@ class EditionTest < ActiveSupport::TestCase
     non_attachable_edition = build(:announcement)
     assert_not non_attachable_edition.allows_attachments?
     assert_equal [], non_attachable_edition.attachables
-  end
-
-  test "when policy areas are not supported" do
-    edition = create(:edition)
-    assert_not edition.has_policy_areas?
-    assert_not edition.has_legacy_tags?
-  end
-
-  test "when policy areas supported but no policy areas" do
-    edition = create(:publication_without_policy_areas)
-    assert_not edition.has_policy_areas?
-    assert_not edition.has_legacy_tags?
-  end
-
-  test "when policy areas exist" do
-    topic = create(:topic)
-    edition = create(:publication, topic_ids: [topic.id])
-    assert edition.has_policy_areas?
-    assert edition.has_legacy_tags?
   end
 
   test "when no specialist sectors" do

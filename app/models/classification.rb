@@ -3,13 +3,6 @@ class Classification < ApplicationRecord
   include Searchable
   include SimpleWorkflow
 
-  # DID YOU MEAN: Policy Area?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  # You can help improve this code by renaming all usages of this field to use
-  # the new terminology.
   searchable title: :name,
              link: :search_link,
              content: :description,
@@ -63,7 +56,6 @@ class Classification < ApplicationRecord
   def self.grouped_by_type
     Rails.cache.fetch("filter_options/topics", expires_in: 30.minutes) do
       {
-        "Policy areas" => Topic.alphabetical.map { |o| [o.name, o.slug] },
         "Topical events" => TopicalEvent.active.order_by_start_date.map { |o| [o.name, o.slug] },
       }
     end

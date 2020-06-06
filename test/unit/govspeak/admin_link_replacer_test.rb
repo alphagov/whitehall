@@ -46,16 +46,6 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "world info page"
     end
 
-    test "replaces other types of admin links with plain text" do
-      topic    = create(:topic)
-      fragment = govspeak_to_nokogiri_fragment("Here is an [admin link that should not link](/government/admin/topics/#{topic.id})")
-
-      AdminLinkReplacer.new(fragment).replace!
-
-      refute_select_within_html fragment.to_html, "a"
-      assert_select_within_html fragment.to_html, "p", text: "Here is an admin link that should not link"
-    end
-
   private
 
     def govspeak_to_nokogiri_fragment(govspeak)

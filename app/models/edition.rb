@@ -314,14 +314,6 @@ EXISTS (
     public_timestamp: :public_timestamp,
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
-    # DID YOU MEAN: Policy Area?
-    # "Policy area" is the newer name for "topic"
-    # (https://www.gov.uk/government/topics)
-    # "Topic" is the newer name for "specialist sector"
-    # (https://www.gov.uk/topic)
-    # You can help improve this code by renaming all usages of this field to use
-    # the new terminology.
-    topics: nil,
     only: :search_only,
     index_after: [],
     unindex_after: [],
@@ -382,10 +374,6 @@ EXISTS (
   end
 
   # @group Overwritable permission methods
-  def can_be_associated_with_topics?
-    false
-  end
-
   def can_be_associated_with_topical_events?
     false
   end
@@ -708,11 +696,7 @@ EXISTS (
   end
 
   def has_legacy_tags?
-    has_policy_areas? || has_primary_sector? || has_secondary_sectors?
-  end
-
-  def has_policy_areas?
-    false
+    has_primary_sector? || has_secondary_sectors?
   end
 
   delegate :locked?, to: :document
