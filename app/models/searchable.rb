@@ -50,9 +50,6 @@ module Searchable
     :superseding_organisations,
     :title,
 
-    # DID YOU MEAN: Topic?
-    # See above: this should be renamed once the naming for policy areas is
-    # consistent.
     :specialist_sectors,
 
     :world_locations,
