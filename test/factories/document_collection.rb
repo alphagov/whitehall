@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :document_collection, class: DocumentCollection, parent: :edition, traits: %i[with_organisations with_topics] do
+  factory :document_collection, class: DocumentCollection, parent: :edition, traits: %i[with_organisations] do
     trait(:with_group) do
       groups { FactoryBot.build_list :document_collection_group, 1 }
     end
