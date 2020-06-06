@@ -234,29 +234,6 @@ module Whitehall::DocumentFilter
       assert_equal [topic], filter.selected_topics
     end
 
-    test "avoids loading the wrong document when combining topic and department filter" do
-      organisation = create(:organisation)
-      topic = create(:topic)
-      news_article = create(:published_news_article, topics: [topic], organisations: [organisation])
-
-      document_scope = Announcement.published.includes(:document, :organisations)
-      filter = create_filter(document_scope, departments: [organisation.slug], topics: [topic.slug], page: 1)
-
-      assert_equal news_article.document_id, filter.documents.first.document.id
-    end
-
-    test "can filter announcements by topic" do
-      topic = create(:topic)
-      create(:published_speech, topics: [topic])
-      create(:published_news_article, topics: [topic])
-      create(:published_speech)
-      create(:published_news_article)
-      unfiltered_announcements = Announcement.published
-      filter = create_filter(unfiltered_announcements, topics: [topic.slug])
-
-      assert_equal 2, filter.documents.count
-    end
-
   private
 
     def create_filter(document_set, args)
