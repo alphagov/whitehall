@@ -34,7 +34,6 @@ class ActiveSupport::TestCase
   include HtmlAssertions
   include I18nHelpers
   include PublishingApiTestHelpers
-  include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
   include UrlHelpers
   extend GovspeakValidationTestHelper
