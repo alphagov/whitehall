@@ -12,7 +12,6 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
     links = links_for(document)
 
     assert_equal document.organisations.map(&:content_id), links[:organisations]
-    assert_equal document.topics.map(&:content_id), links[:policy_areas]
   end
 
   test "returns a links hash derived from the edition" do

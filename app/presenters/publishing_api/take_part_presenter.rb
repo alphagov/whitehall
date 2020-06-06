@@ -28,9 +28,7 @@ module PublishingApi
     end
 
     def links
-      LinksPresenter.new(item).extract([
-        :policy_areas,
-      ])
+      {}
     end
 
   private

@@ -54,7 +54,6 @@ module PublishingApi
       links = LinksPresenter.new(item).extract(
         %i[
           organisations
-          policy_areas
           world_locations
           government
         ],

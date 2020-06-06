@@ -43,7 +43,6 @@ module PublishingApi
           parent
           organisations
           world_locations
-          policy_areas
           government
         ],
       ).merge(

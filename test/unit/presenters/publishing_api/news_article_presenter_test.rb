@@ -84,7 +84,6 @@ module PublishingApi::NewsArticlePresenterTest
       expected_link_keys = %i[
         organisations
         parent
-        policy_areas
         topics
         world_locations
         worldwide_organisations

@@ -80,7 +80,6 @@ module PublishingApi::ConsultationPresenterTest
       expected_link_keys = %i[
         organisations
         parent
-        policy_areas
         topics
         government
       ]
@@ -112,7 +111,6 @@ module PublishingApi::ConsultationPresenterTest
       expected_links = {
         organisations: consultation.organisations.map(&:content_id),
         parent: [],
-        policy_areas: consultation.topics.map(&:content_id),
         topics: [],
       }
 
