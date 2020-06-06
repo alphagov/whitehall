@@ -13,7 +13,6 @@ class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
       .returns([@taxon])
 
     @edition = create(:publication)
-    @edition.topics.delete_all
   end
 
   test "handles specialist sectors" do
