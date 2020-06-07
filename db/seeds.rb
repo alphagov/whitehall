@@ -43,14 +43,6 @@ if Government.where(name: "Test Government").blank?
   )
 end
 
-if Topic.where(name: "Test Policy Area").blank?
-  Topic.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Topic.create!(
-    name: "Test Policy Area",
-    description: "Test Policy Area Description",
-  )
-end
-
 if WorldLocation.where(name: "Test World Location").blank?
   WorldLocation.create!(
     name: "Test World Location",
