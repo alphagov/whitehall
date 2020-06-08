@@ -1,16 +1,19 @@
-class NewsArticle < Newsesque
+class NewsArticle < Announcement
   include Edition::RoleAppointments
   include Edition::HasDocumentCollections
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::WorldwideOrganisations
+  include Edition::FactCheckable
+  include Edition::FirstImagePulledOut
 
   validate :ministers_are_not_associated, if: :world_news_story?
   validates :news_article_type_id, presence: true
   validates :worldwide_organisations, absence: true, unless: :world_news_story?
   validate :non_english_primary_locale_only_for_world_news_story
   validate :organisations_are_not_associated, if: :world_news_story?
+  validates :first_published_at, presence: true, if: ->(e) { e.trying_to_convert_to_draft == true }
 
   def self.subtypes
     NewsArticleType.all
@@ -83,6 +86,10 @@ class NewsArticle < Newsesque
 
   def skip_world_location_validation?
     !world_news_story?
+  end
+
+  def translatable?
+    !non_english_edition?
   end
 
 private

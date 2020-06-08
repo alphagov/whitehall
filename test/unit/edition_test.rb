@@ -469,7 +469,6 @@ class EditionTest < ActiveSupport::TestCase
     concrete_formats = Edition.concrete_descendant_search_format_types
 
     assert_not concrete_formats.include? Announcement.search_format_type
-    assert_not concrete_formats.include? Newsesque.search_format_type
     assert_not concrete_formats.include? Publicationesque.search_format_type
     assert_not concrete_formats.include? Edition.search_format_type
 
