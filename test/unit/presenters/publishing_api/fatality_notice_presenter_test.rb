@@ -70,7 +70,6 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
       field_of_operation: [@fatality_notice.operational_field.content_id],
       organisations: [],
       people: [],
-      policy_areas: [],
       primary_publishing_organisation: [],
       original_primary_publishing_organisation: [],
       roles: [],
@@ -179,13 +178,6 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
     assert_equal(
       @fatality_notice.organisations.map(&:content_id),
       @presented_links[:organisations],
-    )
-  end
-
-  test "it presents the topics content_ids as links, policy_areas" do
-    assert_equal(
-      @fatality_notice.topics.map(&:content_id),
-      @presented_links[:policy_areas],
     )
   end
 

@@ -49,16 +49,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
-    topic_ids = [create(:topic), create(:topic)].map(&:id)
 
     post :create,
          params: {
            organisation: attributes
                            .merge(
-                             organisation_classifications_attributes: [
-                               { classification_id: topic_ids[0], ordering: 1 },
-                               { classification_id: topic_ids[1], ordering: 2 },
-                             ],
                              parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
                              organisation_type_key: :executive_agency,
                              govuk_status: "exempt",
@@ -75,7 +70,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation = Organisation.last
     assert organisation.organisation_classifications.map(&:ordering).all?(&:present?), "no ordering"
     assert_equal organisation.organisation_classifications.map(&:ordering).sort, organisation.organisation_classifications.map(&:ordering).uniq.sort
-    assert_equal topic_ids, organisation.organisation_classifications.sort_by(&:ordering).map(&:classification_id)
     assert organisation_top_task = organisation.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url
     assert_equal "Something on mainstream", organisation_top_task.title

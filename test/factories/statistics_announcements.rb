@@ -11,7 +11,6 @@ FactoryBot.define do
     publication_type_id { PublicationType::OfficialStatistics.id }
     organisations { FactoryBot.build_list :organisation, 1 }
 
-    topics { FactoryBot.build_list :topic, 1 }
     association :creator, factory: :writer
     association :current_release_date, factory: :statistics_announcement_date
 

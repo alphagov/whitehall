@@ -43,17 +43,6 @@ FactoryBot.define do
       end
     end
 
-    trait(:with_topics) do
-      after :build do |edition, evaluator|
-        if evaluator.topics.empty?
-          edition.classification_memberships.build(
-            edition: edition,
-            classification: build(:topic),
-          )
-        end
-      end
-    end
-
     trait(:with_topical_events) do
       after :build do |edition, evaluator|
         if evaluator.topical_events.empty?
@@ -189,7 +178,7 @@ FactoryBot.define do
     end
   end
 
-  factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations with_topics]
+  factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations]
 
   factory :edition_with_document, parent: :edition, traits: [:with_document]
   factory :imported_edition, parent: :edition, traits: [:imported]

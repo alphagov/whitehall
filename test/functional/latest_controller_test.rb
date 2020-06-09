@@ -3,6 +3,7 @@ require "gds_api/test_helpers/search"
 require_relative "../support/search_rummager_helper"
 
 class LatestControllerTest < ActionController::TestCase
+  include GdsApi::TestHelpers::Search
   include SearchRummagerHelper
 
   should_be_a_public_facing_controller

@@ -3,7 +3,6 @@ Given(/^a detailed guide with section headings$/) do
     :published_detailed_guide,
     title: "Detailed guide with pages",
     summary: "Here's the summary of the guide",
-    topics: [create(:topic)],
     body: <<~BODY,
       ## Page 1
 

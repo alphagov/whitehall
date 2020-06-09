@@ -1,74 +1,58 @@
 module Searchable
   extend ActiveSupport::Concern
 
-  SEARCH_FIELDS = [
-    :acronym,
-    :analytics_identifier,
-    :attachments,
-    :boost_phrases,
-    :child_organisations,
-    :closed_at,
-    :content,
-    :content_id,
-    :content_store_document_type,
-    :description,
-    :display_date,
-    :display_type,
-    :detailed_format,
-    :end_date,
-    :format,
-    :government_name,
-    :id,
-    :is_historic,
-    :is_withdrawn,
-    :is_political,
-    :latest_change_note,
-    :link,
-    :logo_url,
-    :logo_formatted_title,
-    :metadata,
-    :news_article_type,
-    :operational_field,
-    :organisation_brand,
-    :organisation_closed_state,
-    :organisation_crest,
-    :organisation_state,
-    :organisation_type,
-    :organisations,
-    :parent_organisations,
-    :people,
-    :public_timestamp,
-    :publication_type,
-    :release_timestamp,
-    :roles,
-    :search_format_types,
-    :slug,
-    :speech_type,
-    :statistics_announcement_state,
-    :start_date,
-    :superseded_organisations,
-    :superseding_organisations,
-    :title,
+  SEARCH_FIELDS = %i[
+    acronym
+    analytics_identifier
+    attachments
+    boost_phrases
+    child_organisations
+    closed_at
+    content
+    content_id
+    content_store_document_type
+    description
+    display_date
+    display_type
+    detailed_format
+    end_date
+    format
+    government_name
+    id
+    is_historic
+    is_withdrawn
+    is_political
+    latest_change_note
+    link
+    logo_url
+    logo_formatted_title
+    metadata
+    news_article_type
+    operational_field
+    organisation_brand
+    organisation_closed_state
+    organisation_crest
+    organisation_state
+    organisation_type
+    organisations
+    parent_organisations
+    people
+    public_timestamp
+    publication_type
+    release_timestamp
+    roles
+    search_format_types
+    slug
+    speech_type
+    statistics_announcement_state
+    start_date
+    superseded_organisations
+    superseding_organisations
+    title
 
-    # "Policy area" is the newer name for "topic"
-    # (https://www.gov.uk/government/topics)
-    # "Topic" is the newer name for "specialist sector"
-    # (https://www.gov.uk/topic)
-    #
-    # There are two ways for policy areas to wind up in rummager:
-    # 1. Models directly ask for them in the class method call to `searchable`:
-    #    in this case it is the responsibility of the subclasses to handle
-    #    the naming clash if they are still using the older name
-    # 2. Through the Edition::Topics and Edition::TopicalEvents concerns.
-    #    These override #search_index and add to the policy_areas key.
-    :policy_areas,
+    specialist_sectors
 
-    # DID YOU MEAN: Topic?
-    # See above: this should be renamed once the naming for policy areas is
-    # consistent.
-    :specialist_sectors,
-
-    :world_locations,
+    world_locations
   ].freeze
 
   included do

@@ -1025,65 +1025,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_topics(edition_type)
-      edition_class = class_for(edition_type)
-
-      test "create should associate topics with the edition" do
-        first_topic = create(:topic)
-        second_topic = create(:topic)
-        attributes = controller_attributes_for(edition_type)
-
-        post :create,
-             params: {
-               edition: attributes.merge(
-                 topic_ids: [first_topic.id, second_topic.id],
-               ),
-             }
-
-        edition = edition_class.last!
-        assert_equal [first_topic, second_topic], edition.topics
-      end
-
-      test "update should associate topics with the edition" do
-        first_topic = create(:topic)
-        second_topic = create(:topic)
-
-        edition = create("draft_#{edition_type}", topics: [first_topic])
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                topic_ids: [second_topic.id],
-              },
-            }
-
-        edition.reload
-        assert_equal [second_topic], edition.topics
-      end
-
-      view_test "updating a stale document should render edit page with conflicting document and its related topics" do
-        topic = create(:topic)
-        edition = create(edition_type, topics: [topic])
-        lock_version = edition.lock_version
-        edition.touch
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                lock_version: lock_version,
-                topic_ids: edition.topic_ids,
-              },
-            }
-
-        assert_select ".document.conflict" do
-          assert_select "h1", "Policy Areas"
-          assert_select record_css_selector(topic)
-        end
-      end
-    end
-
     def should_allow_role_appointments_for(edition_type)
       edition_class = class_for(edition_type)
 

@@ -31,27 +31,18 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
       ],
       document_type: "topic",
     )
-    @topic = create(:topic)
     @edition = create(
       :publication,
       title: "the edition",
-      topic_ids: [@topic.id.to_s],
       primary_specialist_sector_tag: "WELLS",
       secondary_specialist_sector_tags: %w[FIELDS OFFSHORE],
     )
     get :edit, params: { edition_id: @edition.id }
-    assert_select "#edition_topic_ids option[value='#{@topic.id}'][selected='selected']", @topic.name
     assert_select "#edition_primary_specialist_sector_tag option[value='WELLS'][selected='selected']", "Oil and Gas: Wells"
     assert_select "#edition_secondary_specialist_sector_tags option[value='FIELDS'][selected='selected']", "Oil and Gas: Fields"
     assert_select "#edition_secondary_specialist_sector_tags option[value='OFFSHORE'][selected='selected']", "Oil and Gas: Offshore"
     assert_select "#edition_secondary_specialist_sector_tags option[value='DISTILL']", "Oil and Gas: Distillation (draft)"
     refute_select "#edition_secondary_specialist_sector_tags option[value='DISTILL'][selected='selected']"
-  end
-
-  view_test "should not render the policy area drop-down if not supported" do
-    @edition = create(:corporate_information_page, title: "corp info")
-    get :edit, params: { edition_id: @edition.id }
-    refute_select "#edition_topic_ids"
   end
 
   view_test "should render the cancel button back to the admin page" do
@@ -73,29 +64,24 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
   end
 
   test "should update the edition with the selected legacy tags" do
-    @topic = create(:topic)
     @edition = create(:publication, title: "the edition")
 
     put :update,
         params: { edition_id: @edition.id,
                   edition: {
-                    topic_ids: ["", @topic.id.to_s],
                     primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
                     secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
                   } }
     @edition.reload
-    assert_equal [@topic.id], @edition.topic_ids
     assert_equal "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa", @edition.primary_specialist_sector_tag
     assert_equal %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
                  @edition.secondary_specialist_sector_tags
   end
 
   test "should clear the legacy tags" do
-    @topic = create(:topic)
     @edition = create(
       :publication,
       title: "the edition",
-      topic_ids: [@topic.id.to_s],
       primary_specialist_sector_tag: "aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa",
       secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
     )
@@ -103,12 +89,10 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     put :update,
         params: { edition_id: @edition.id,
                   edition: {
-                    topic_ids: [""],
                     primary_specialist_sector_tag: "",
                     secondary_specialist_sector_tags: [""],
                   } }
     @edition.reload
-    assert_equal [], @edition.topic_ids
     assert_nil @edition.primary_specialist_sector_tag
     assert_equal [], @edition.secondary_specialist_sector_tags
   end

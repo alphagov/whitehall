@@ -7,11 +7,6 @@ class FilterRoutesHelperTest < ActionView::TestCase
       assert_equal send("#{filter}_path", departments: [organisation.slug]), send("#{filter}_filter_path", organisation)
     end
 
-    test "uses the topic to generate the route to #{filter} filter" do
-      topic = create(:topic)
-      assert_equal send("#{filter}_path", topics: [topic.slug]), send("#{filter}_filter_path", topic)
-    end
-
     test "uses the world location to generate the route to #{filter} filter" do
       world_location = create(:world_location)
       assert_equal send("#{filter}_path", world_locations: [world_location.slug]), send("#{filter}_filter_path", world_location)

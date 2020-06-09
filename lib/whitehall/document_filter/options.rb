@@ -26,7 +26,6 @@ module Whitehall
         document_type: "document_type",
         publication_type: "publication_filter_option",
         organisations: "departments",
-        topics: "topics",
         announcement_type: "announcement_filter_option",
         official_documents: "official_document_status",
         locations: "world_locations",
@@ -75,10 +74,6 @@ module Whitehall
 
       def options_for_organisations
         @options_for_organisations ||= StructuredOptions.new(all_label: "All departments", grouped: Organisation.grouped_by_type(@locale))
-      end
-
-      def options_for_topics
-        @options_for_topics ||= StructuredOptions.new(all_label: "All policy areas", grouped: Classification.grouped_by_type)
       end
 
       def options_for_taxons

@@ -52,7 +52,6 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
         "slug" => "a-slug",
         "release_timestamp" => Time.zone.now,
         "organisations" => %w[cabinet-office],
-        "policy_areas" => %w[home-affairs],
         "part_of_taxonomy_tree" => %w[home-affairs-id],
         "display_type" => "Statistics",
         "search_format_types" => %w[statistics_announcement],

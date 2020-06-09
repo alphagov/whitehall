@@ -68,7 +68,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       organisations: detailed_guide.organisations.map(&:content_id),
       topics: [],
       parent: [],
-      policy_areas: detailed_guide.topics.map(&:content_id),
       related_guides: [],
       related_mainstream_content: [],
       government: [government.content_id],

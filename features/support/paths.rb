@@ -39,10 +39,6 @@ module NavigationHelpers
     visit worldwide_organisation_path(worldwide_organisation)
   end
 
-  def visit_topic(name)
-    visit topic_path(Topic.find_by!(name: name))
-  end
-
   def public_path_for(edition)
     case edition
     when Publication

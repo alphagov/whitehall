@@ -39,7 +39,7 @@ module PublishingApi
 
     def edition_links
       LinksPresenter.new(item).extract(
-        %i[organisations policy_areas],
+        %i[organisations],
       ).merge(
         field_of_operation: [item.operational_field.content_id],
       ).merge(

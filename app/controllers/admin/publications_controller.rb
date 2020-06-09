@@ -16,7 +16,6 @@ private
     @edition.title = statistics_announcement.title
     @edition.summary = statistics_announcement.summary
     @edition.publication_type = statistics_announcement.publication_type
-    @edition.topics = statistics_announcement.topics
     @edition.scheduled_publication = statistics_announcement.release_date
     @edition.previously_published = "false"
   end

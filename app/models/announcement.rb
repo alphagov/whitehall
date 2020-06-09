@@ -6,15 +6,6 @@ class Announcement < Edition
   include Edition::WorldLocations
   include Edition::TopicalEvents
 
-  # DID YOU MEAN: Policy Area?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  # You can help improve this code by renaming all usages of this field to use
-  # the new terminology.
-  include Edition::Topics
-
   def self.sti_names
     ([self] + descendants).map(&:sti_name)
   end

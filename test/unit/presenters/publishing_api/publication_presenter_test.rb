@@ -65,7 +65,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [topical_event.content_id],
-      policy_areas: publication.topics.map(&:content_id),
       roles: publication.role_appointments.map(&:role).collect(&:content_id),
       people: publication.role_appointments.map(&:person).collect(&:content_id),
     }

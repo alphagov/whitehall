@@ -2,11 +2,6 @@ Then(/^I should see the fact checking feedback "([^"]*)"$/) do |comments|
   assert_selector ".fact_check_request .comments", text: comments
 end
 
-Then(/^I should see the pending fact check request to "([^"]*)" for policy "([^"]*)"$/) do |email_address, title|
-  visit admin_policy_path(Policy.find_by!(title: title))
-  assert_selector ".fact_check_request.pending .from", text: email_address
-end
-
 Then(/^I should see that those responsible for the policy are:$/) do |table|
   table.hashes.each do |row|
     person = find_person(row["Person"])

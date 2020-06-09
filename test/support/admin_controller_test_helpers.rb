@@ -134,8 +134,6 @@ module AdminControllerTestHelpers
       test "creates contact information" do
         attributes = attributes_for(type)
 
-        create(:topic)
-
         post :create,
              params: {
                type => attributes.merge(

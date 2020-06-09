@@ -5,7 +5,7 @@ class Admin::ClassificationsController < Admin::BaseController
   before_action :load_object, only: %i[show edit]
 
   def index
-    @classifications = model_class.includes(:related_classifications).order(:name)
+    @classifications = model_class.order(:name)
   end
 
   def new; end

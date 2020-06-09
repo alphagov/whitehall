@@ -1,9 +1,11 @@
 require "test_helper"
+require "gds_api/test_helpers/search"
 require "gds_api/test_helpers/content_store"
 require_relative "../support/search_rummager_helper"
 
 class TopicalEventsControllerTest < ActionController::TestCase
   include FeedHelper
+  include GdsApi::TestHelpers::Search
   include GdsApi::TestHelpers::ContentStore
   include SearchRummagerHelper
 

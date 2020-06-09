@@ -42,7 +42,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal statistics_announcement.title, assigns(:edition).title
     assert_equal statistics_announcement.summary, assigns(:edition).summary
     assert_equal statistics_announcement.publication_type, assigns(:edition).publication_type
-    assert_equal statistics_announcement.topics, assigns(:edition).topics
     assert_equal statistics_announcement.release_date.to_i, assigns(:edition).scheduled_publication.to_i
   end
 
@@ -205,11 +204,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   view_test "shows summary when edition is tagged to all legacy associations" do
     stub_specialist_sectors
     organisation = create(:organisation)
-    policy_area = create(:topic)
     publication = create(
       :publication,
       organisations: [organisation],
-      topic_ids: [policy_area.id],
       primary_specialist_sector_tag: "WELLS",
       secondary_specialist_sector_tags: %w[FIELDS OFFSHORE],
     )
@@ -220,7 +217,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".policy-areas li", policy_area.name
     assert_selected_specialist_sectors_are_displayed
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-edit"
@@ -230,7 +226,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     stub_specialist_sectors
     organisation = create(:organisation)
     publication = create(
-      :publication_without_policy_areas,
+      :publication,
       organisations: [organisation],
     )
 

@@ -200,13 +200,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterLinksTest < ActiveSuppo
     )
   end
 
-  test "it presents the policy area content_ids as links, policy_areas" do
-    assert_equal(
-      @document_collection.topics.map(&:content_id),
-      @presented_links[:policy_areas],
-    )
-  end
-
   test "it presents the topic content_ids as links, topics" do
     assert_equal(
       @document_collection.specialist_sectors.map(&:content_id),
@@ -240,13 +233,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < Acti
     assert_equal(
       @document_collection.organisations.map(&:content_id),
       @presented_links[:organisations],
-    )
-  end
-
-  test "it presents the policy area content_ids as links, policy_areas" do
-    assert_equal(
-      @document_collection.topics.map(&:content_id),
-      @presented_links[:policy_areas],
     )
   end
 

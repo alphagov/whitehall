@@ -3,6 +3,7 @@ require "gds_api/test_helpers/search"
 require_relative "../../support/search_rummager_helper"
 
 class LatestDocumentsFilterTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::Search
   include SearchRummagerHelper
 
   test ".for_subject should return an instance of TopicalEventFilter for a topical event" do

@@ -39,15 +39,6 @@ module Whitehall
         assert_equal "All locations", filter_options.label_for("world_locations", "all")
       end
 
-      test "#label_for downcases topics" do
-        create(:topic, name: "Example Topic", slug: "example-topic")
-        create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
-
-        assert_equal "Example Topic", filter_options.label_for("topics", "example-topic")
-        assert_equal "Example Topical Event", filter_options.label_for("topics", "example-topical-event")
-        assert_equal "All policy areas", filter_options.label_for("topics", "all")
-      end
-
       test "#label_for downcases official docs" do
         assert_equal "Command or act papers", filter_options.label_for("official_document_status", "command_and_act_papers")
         assert_equal "All documents", filter_options.label_for("official_document_status", "all")
@@ -57,7 +48,6 @@ module Whitehall
         valid_option_names = %i[
           publication_type
           organisations
-          topics
           announcement_type
           official_documents
           locations
@@ -75,7 +65,6 @@ module Whitehall
         valid_filter_keys = %w[
           publication_filter_option
           departments
-          topics
           announcement_filter_option
           official_document_status
           world_locations
@@ -91,17 +80,12 @@ module Whitehall
 
       test "#valid_keys? returns true when given valid keys" do
         assert filter_options.valid_keys?(Options::OPTION_NAMES_TO_FILTER_KEYS.values)
-        assert filter_options.valid_keys?(%w[topics departments])
+        assert filter_options.valid_keys?(%w[departments])
         assert filter_options.valid_keys?(%w[publication_filter_option])
       end
 
       test "#valid_keys? returns false when given invalid keys" do
-        assert_not Options.new.valid_keys?(%w[topics frank])
-      end
-
-      test "#valid_resource_filter_options? returns true when filtered resources exist" do
-        topic = create(:topic)
-        assert filter_options.valid_resource_filter_options?(topics: [topic.slug])
+        assert_not Options.new.valid_keys?(%w[frank])
       end
 
       test "valid_resource_filter_options? returns false when filtered resources do not exist" do
@@ -149,21 +133,6 @@ module Whitehall
           "Closed organisations" => [],
         }
         assert_equal ["All departments", "all"], options.all
-        assert_equal expected_grouped_options, options.grouped
-        assert_equal [], options.ungrouped
-      end
-
-      test "can get the list of options for topics" do
-        topic = create(:topic)
-        topical_event = create(:topical_event, :active)
-
-        options = filter_options.for(:topics)
-
-        expected_grouped_options = {
-          "Policy areas" => [[topic.name, topic.slug]],
-          "Topical events" => [[topical_event.name, topical_event.slug]],
-        }
-        assert_equal ["All policy areas", "all"], options.all
         assert_equal expected_grouped_options, options.grouped
         assert_equal [], options.ungrouped
       end

@@ -106,18 +106,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal consultation_participation.link_url, new_consultation_participation.link_url
   end
 
-  test "should build a draft copy preserving ordering with topic" do
-    topic = create(:topic)
-    published_publication = create(:published_publication, topics: [topic])
-    association = topic.classification_memberships.where(edition_id: published_publication.id).first
-    association.update!(ordering: 31)
-
-    draft_publication = published_publication.create_draft(create(:writer))
-
-    new_association = topic.classification_memberships.where(edition_id: draft_publication.id).first
-    assert_equal 31, new_association.ordering
-  end
-
   test "should build a draft copy even if parent is invalid" do
     published_publication = create(:published_publication)
     published_publication.title = nil

@@ -14,10 +14,6 @@ class FeedHelperTest < ActionView::TestCase
   end
 
   test "#atom_feed_url_for generates an atom feed url for a given resource that matches the public protocol and host" do
-    topic = create(:topic)
-    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/topics/#{topic.slug}.atom",
-                 atom_feed_url_for(topic)
-
     org = create(:worldwide_organisation)
     assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/world/organisations/#{org.slug}.atom",
                  atom_feed_url_for(org)

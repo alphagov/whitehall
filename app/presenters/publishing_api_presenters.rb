@@ -22,8 +22,6 @@ module PublishingApiPresenters
         PublishingApi::WorkingGroupPresenter
       when TakePartPage
         PublishingApi::TakePartPresenter
-      when Topic
-        PublishingApi::PolicyAreaPlaceholderPresenter
       when ::Organisation
         PublishingApi::OrganisationPresenter
       when ::TopicalEvent

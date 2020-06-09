@@ -5,7 +5,6 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
   setup do
     @organisation = create(:organisation)
-    @topic = create(:topic)
 
     @user = create(:writer)
     login_as @user
@@ -47,7 +46,6 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
              summary: "collection-summary",
              body: "collection-body",
              lead_organisation_ids: [@organisation.id],
-             topic_ids: [@topic.id],
              previously_published: false,
            },
          }

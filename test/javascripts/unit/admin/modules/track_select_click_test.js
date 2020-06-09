@@ -1,18 +1,6 @@
 var form =
   '<form id="non-english" class="js-supports-non-english"></form>'
 
-var policyAreasTrackedFieldset =
-'  <fieldset class="edition-topic-fields">' +
-'    <label for="edition_topic_ids">Policy Areas</label>' +
-'    <input name="edition[topic_ids][]" type="hidden" value="" />' +
-'    <select multiple="multiple" class="chzn-select form-control" data-placeholder="Choose policy areas..." name="edition[topic_ids][]" id="edition_topic_ids" data-track-label="/government/admin/publication/new" data-track-category="taxonSelectionPolicyAreas" data-module="track-select-click">' +
-'      <option value=""></option>' +
-'      <option value="43">Arts and culture</option>' +
-'      <option value="44">Borders and immigration</option>' +
-'      <option value="46">Business and enterprise</option>' +
-'    </select>' +
-'  </fieldset>'
-
 var primarySpecialistSectorTrackedFieldset =
 '  <fieldset class="edition-specialist-sector-fields">' +
 '    <label for="edition_primary_specialist_sector_tag">Primary specialist sector tag</label>' +
@@ -55,7 +43,6 @@ module("TrackSelectClick", {
     this.subject = new GOVUKAdmin.Modules.TrackSelectClick();
 
     $('#qunit-fixture').append(form)
-    $('#qunit-fixture form').append(policyAreasTrackedFieldset)
     $('#qunit-fixture form').append(primarySpecialistSectorTrackedFieldset)
     $('#qunit-fixture form').append(secondarySpecialistSectorTrackedFieldset)
 
@@ -65,23 +52,6 @@ module("TrackSelectClick", {
     });
     $('.js-hidden').hide();
   }
-});
-
-test("the policy areas fieldset should send a tracking event on change", function () {
-  var policyAreasSelectBox = $('#edition_topic_ids');
-  var spy = sinon.spy(GOVUKAdmin, 'trackEvent');
-
-  this.subject.start(policyAreasSelectBox);
-
-  policyAreasSelectBox.val('44').change();
-
-  sinon.assert.calledOnce(spy);
-  deepEqual(
-    spy.args[0],
-    ["taxonSelectionPolicyAreas", "Borders and immigration", {}]
-  );
-
-  spy.restore()
 });
 
 test("the primary specialist sector fieldset should send a tracking event on change", function () {

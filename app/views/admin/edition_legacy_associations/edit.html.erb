@@ -25,17 +25,7 @@
     <% initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
     <%= form_for @edition, url: admin_edition_legacy_associations_path(@edition), as: :edition, method: :put,
         html: { class: edition_form_classes(@edition) } do |form| %>
-      <fieldset>
-        <legend>Associations</legend>
 
-        <div class="important-associations">
-          <% if @edition.can_be_associated_with_topics? && Topic.exists? %>
-            <%= render 'policy_area_fields', form: form, edition: @edition %>
-          <% else %>
-            <p>There are no Policy Areas to tag to.</p>
-          <% end %>
-        </div>
-      </fieldset>
       <%= render 'specialist_sector_fields', form: form, edition: @edition %>
       <div class="publishing-controls well">
         <%= form.form_actions(buttons: { save: 'Save' }, cancel: @path) %>

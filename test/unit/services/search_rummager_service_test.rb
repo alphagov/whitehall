@@ -3,6 +3,7 @@ require "gds_api/test_helpers/search"
 require_relative "../../support/search_rummager_helper"
 
 class SearchRummagerServiceTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::Search
   include SearchRummagerHelper
 
   setup do

@@ -5,6 +5,7 @@ Feature: Creating and publishing topical events
 
 Background:
   Given I am an editor
+  Given search returns no results
 
 Scenario: Adding a new topical event
   When I create a new topical event "An Event" with description "A topical event"
