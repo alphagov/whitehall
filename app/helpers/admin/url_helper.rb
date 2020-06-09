@@ -9,10 +9,6 @@ module Admin::UrlHelper
     admin_header_link "Statistics announcements", admin_statistics_announcements_path
   end
 
-  def admin_topics_header_menu_link
-    admin_header_menu_link "Policy Areas", admin_topics_path
-  end
-
   def admin_featured_header_link
     if user_signed_in? && (organisation = current_user.organisation)
       admin_header_link "Featured documents", features_admin_organisation_path(organisation, locale: nil)

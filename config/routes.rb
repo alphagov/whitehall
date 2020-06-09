@@ -135,7 +135,6 @@ Whitehall::Application.routes.draw do
     get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
     get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
 
-    resources :topics, path: "topics", only: [:show]
     resources :topical_events, path: "topical-events", only: [:show] do
       # Controller removed. Whitehall frontend no longer serves these
       # pages however the route is needed to generate path and url
