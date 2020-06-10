@@ -30,16 +30,6 @@ class StatisticsAnnouncement < ApplicationRecord
            inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
-  # DID YOU MEAN: Policy Area?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  # You can help improve this code by renaming all usages of this field to use
-  # the new terminology.
-  has_many :statistics_announcement_topics, inverse_of: :statistics_announcement, dependent: :destroy
-  has_many :topics, through: :statistics_announcement_topics
-
   has_many :statistics_announcement_organisations, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
 

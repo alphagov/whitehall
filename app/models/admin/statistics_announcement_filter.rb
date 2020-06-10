@@ -75,20 +75,13 @@ module Admin
       end
     end
 
-    # DID YOU MEAN: Policy Area?
-    # "Policy area" is the newer name for "topic"
-    # (https://www.gov.uk/government/topics)
-    # "Topic" is the newer name for "specialist sector"
-    # (https://www.gov.uk/topic)
-    # You can help improve this code by renaming all usages of this field to use
-    # the new terminology.
     def unfiltered_scope
       # We are doing a "greatest n by group" query here, but on a joined model,
       # i.e. the StatisticsAnnouncementDate, or in this case the
       # :current_release_date, which is the most recent one. The JOINs and the
       # GROUP combine to ensure the correct things are loaded and in the correct
       # order.
-      StatisticsAnnouncement.includes(:current_release_date, statistics_announcement_topics: :topic, publication: :translations, organisations: :translations)
+      StatisticsAnnouncement.includes(:current_release_date, publication: :translations, organisations: :translations)
                             .joins("INNER JOIN statistics_announcement_dates
                               ON (statistics_announcement_dates.statistics_announcement_id = statistics_announcements.id)")
                             .joins("LEFT OUTER JOIN statistics_announcement_dates sd2
