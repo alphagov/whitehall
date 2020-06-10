@@ -1,6 +1,6 @@
 class ClassificationMembership < ApplicationRecord
   belongs_to :edition
-  belongs_to :classification, foreign_key: :classification_id, inverse_of: :classification_memberships
+  belongs_to :classification, inverse_of: :classification_memberships
   belongs_to :topical_event, foreign_key: :classification_id
 
   belongs_to :detailed_guide, foreign_key: :edition_id

@@ -21,7 +21,7 @@ module Admin::EditionsHelper
   end
 
   def link_to_filter(link, options, filter, html_options = {})
-    content_tag(:li, link_to(link, url_for(filter.options.slice("state", "type", "author", "organisation", "title", "world_location").merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
+    tag.li(link_to(link, url_for(filter.options.slice("state", "type", "author", "organisation", "title", "world_location").merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
   end
 
   def active_filter_if_options_match_class(filter, options)
@@ -207,13 +207,13 @@ module Admin::EditionsHelper
   end
 
   def edition_information(information)
-    content_tag(:div, class: "alert alert-info") do
+    tag.div(class: "alert alert-info") do
       information
     end
   end
 
   def standard_edition_publishing_controls(form, edition)
-    content_tag(:div, class: "publishing-controls well") do
+    tag.div(class: "publishing-controls well") do
       if edition.change_note_required?
         concat render(
           partial: "change_notes",
@@ -236,7 +236,7 @@ module Admin::EditionsHelper
   def attachment_uploading_status(attachment)
     return unless attachment.attachment_data
 
-    content_tag(:p, "Uploading", class: "asset-manager-uploading") unless
+    tag.p("Uploading", class: "asset-manager-uploading") unless
       attachment.attachment_data.uploaded_to_asset_manager?
   end
 
@@ -253,7 +253,7 @@ module Admin::EditionsHelper
       value = attachment.send(attribute)
       parts << "#{label}: #{value}" if value.present?
     end
-    content_tag(:p, parts.join(", ")) if parts.any?
+    tag.p(parts.join(", ")) if parts.any?
   end
 
   def translation_preview_links(edition)

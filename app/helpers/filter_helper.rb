@@ -43,14 +43,14 @@ module FilterHelper
 
     def count_fragment
       [
-        content_tag(:span, number_with_delimiter(filter.result_count), class: "count"),
-        content_tag(:strong, filter.filter_type.pluralize(filter.result_count)),
+        tag.span(number_with_delimiter(filter.result_count), class: "count"),
+        tag.strong(filter.filter_type.pluralize(filter.result_count)),
       ].join(" ")
     end
 
     def keywords_fragment
       if filter.respond_to?(:keywords) && filter.keywords.present?
-        "containing #{content_tag :strong, filter.keywords} #{remove_field_link(:keywords, filter.keywords, filter.keywords)}"
+        "containing #{tag.strong filter.keywords} #{remove_field_link(:keywords, filter.keywords, filter.keywords)}"
       end
     end
 

@@ -31,7 +31,7 @@ module DocumentHelper
 
   def national_statistics_logo(edition)
     if edition.national_statistic?
-      content_tag :div, class: "national-statistic" do
+      tag.div class: "national-statistic" do
         image_tag "national-statistics.png", alt: t("national_statistics.heading"), class: "national-statistics-logo"
       end
     end
@@ -39,7 +39,7 @@ module DocumentHelper
 
   def only_applies_to_nations_list(document)
     if document.respond_to?(:nation_inapplicabilities) && document.nation_inapplicabilities.any?
-      content_tag :span, "#{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}".html_safe, class: "inapplicable-nations"
+      tag.span "#{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}".html_safe, class: "inapplicable-nations"
     end
   end
 
@@ -73,7 +73,7 @@ module DocumentHelper
   MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation".freeze
 
   def file_abbr_tag(abbr, title)
-    content_tag(:abbr, abbr, title: title)
+    tag.abbr(abbr, title: title)
   end
 
   def humanized_content_type(file_extension)
@@ -119,14 +119,14 @@ module DocumentHelper
 
   def attachment_reference(attachment)
     ref = []
-    ref << "ISBN " + content_tag(:span, attachment.isbn, class: "isbn") if attachment.isbn.present?
-    ref << content_tag(:span, attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
+    ref << "ISBN " + tag.span(attachment.isbn, class: "isbn") if attachment.isbn.present?
+    ref << tag.span(attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
     if attachment.command_paper_number.present?
-      ref << content_tag(:span, attachment.command_paper_number, class: "command_paper_number")
+      ref << tag.span(attachment.command_paper_number, class: "command_paper_number")
     end
     if attachment.hoc_paper_number.present?
-      ref << content_tag(:span, "HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number") + " " +
-        content_tag(:span, attachment.parliamentary_session, class: "parliamentary_session")
+      ref << tag.span("HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number") + " " +
+        tag.span(attachment.parliamentary_session, class: "parliamentary_session")
     end
 
     ref.join(", ").html_safe
@@ -185,13 +185,13 @@ Please tell us:
   def attachment_attributes(attachment)
     attributes = []
     if attachment.html?
-      attributes << content_tag(:span, "HTML", class: "type")
+      attributes << tag.span("HTML", class: "type")
     elsif attachment.external?
-      attributes << content_tag(:span, attachment.url, class: "url")
+      attributes << tag.span(attachment.url, class: "url")
     else
-      attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: "type")
-      attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: "file-size")
-      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page"), class: "page-length") if attachment.number_of_pages.present?
+      attributes << tag.span(humanized_content_type(attachment.file_extension), class: "type")
+      attributes << tag.span(number_to_human_size(attachment.file_size), class: "file-size")
+      attributes << tag.span(pluralize(attachment.number_of_pages, "page"), class: "page-length") if attachment.number_of_pages.present?
     end
     attributes.join(", ").html_safe
   end

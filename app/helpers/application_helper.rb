@@ -31,7 +31,7 @@ module ApplicationHelper
     safe_join(
       String(string)
         .split(/(?:\r?\n){2}/)
-        .map { |paragraph| content_tag(:p, paragraph) },
+        .map { |paragraph| tag.p(paragraph) },
     )
   end
 
@@ -113,7 +113,7 @@ module ApplicationHelper
   def render_list_of_roles(roles, class_name = "ministerial_roles")
     raise ArgumentError, "please supply the content of the list item" unless block_given?
 
-    content_tag(:ul, class: class_name) do
+    tag.ul(class: class_name) do
       roles.each do |role|
         li = content_tag_for(:li, role) {
           yield(RolePresenter.new(role, self)).html_safe
@@ -128,10 +128,10 @@ module ApplicationHelper
   end
 
   def full_width_tabs(tab_data)
-    content_tag(:nav, class: "activity-navigation") do
-      content_tag(:ul) do
+    tag.nav(class: "activity-navigation") do
+      tag.ul do
         tab_data.map { |tab|
-          content_tag :li do
+          tag.li do
             if tab[:current_when]
               link_to tab[:label], tab[:link_to], class: ("current" if tab[:current_when])
             else
@@ -157,14 +157,13 @@ module ApplicationHelper
   end
 
   def render_datetime_microformat(object, method, &block)
-    content_tag(:time, class: method, datetime: object.send(method).iso8601, &block)
+    tag.time(class: method, datetime: object.send(method).iso8601, &block)
   end
 
   def absolute_time(time, options = {})
     return unless time
 
-    content_tag(
-      :time,
+    tag.time(
       l(time, format: :long_ordinal),
       class: [options[:class], "datetime"].compact.join(" "),
       datetime: time.iso8601,
@@ -174,8 +173,7 @@ module ApplicationHelper
   def absolute_date(time, options = {})
     return unless time
 
-    content_tag(
-      :time,
+    tag.time(
       l(time.to_date, format: :long_ordinal),
       class: [options[:class], "date"].compact.join(" "),
       datetime: time.iso8601,
@@ -310,10 +308,10 @@ module ApplicationHelper
 
   def unsorted_grouped_options_for_select(grouped_options, selected_key = nil, prompt = nil)
     body = ""
-    body << content_tag(:option, prompt, { value: "" }, true) if prompt
+    body << tag.option(prompt, { value: "" }, true) if prompt
 
     grouped_options.each do |group, options|
-      body << content_tag(:optgroup, options_for_select(options, selected_key), label: group)
+      body << tag.optgroup(options_for_select(options, selected_key), label: group)
     end
 
     body.html_safe

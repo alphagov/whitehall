@@ -17,15 +17,15 @@ module Admin::AdminGovspeakHelper
     bare_govspeak_to_html(govspeak, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
-        replacement_html = content_tag(:del, replacement_html)
+        replacement_html = tag.del(replacement_html)
         explanation = state = "deleted"
       else
         state = latest_edition.state
         explanation = link_to(state, admin_edition_path(latest_edition))
       end
 
-      content_tag :span, class: "#{state}_link" do
-        annotation = content_tag(:sup, safe_join(["(", explanation, ")"]), class: "explanation")
+      tag.span class: "#{state}_link" do
+        annotation = tag.sup(safe_join(["(", explanation, ")"]), class: "explanation")
         safe_join [replacement_html, annotation], " "
       end
     end

@@ -11,12 +11,10 @@ module Admin::DefinitionListHelper
             else
               default || default_definition_list_value
             end
-    content_tag(:dd, value)
+    tag.dd(value)
   end
 
-  def dt(label)
-    content_tag(:dt, label)
-  end
+  delegate :dt, to: :tag
 
   def definition(label, value, default = nil, &block)
     dt(label) + dd(value, default, &block)

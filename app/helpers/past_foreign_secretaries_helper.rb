@@ -14,7 +14,7 @@ module PastForeignSecretariesHelper
     }
     people
       .map { |slug, name|
-        content_tag(:li, class: "govuk-!-margin-0 govuk-body-s govuk-!-padding-top-2 govuk-!-padding-bottom-2") do
+        tag.li(class: "govuk-!-margin-0 govuk-body-s govuk-!-padding-top-2 govuk-!-padding-bottom-2") do
           link_to_if(slug != current_person, name.html_safe, past_foreign_secretary_path(id: slug), class: "govuk-link  ")
         end
       }
