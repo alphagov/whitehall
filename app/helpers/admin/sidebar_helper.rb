@@ -44,7 +44,7 @@ module Admin::SidebarHelper
                          text
                        end
                      end
-      link = tag.a(link_content, "href" => "##{id}", "data-toggle" => "tab")
+      link = tag.a(link_content, href: "##{id}", "data-toggle": "tab")
       tag.li(link, class: (index.zero? ? "active" : nil))
     end
     tag.div(class: ["sidebar tabbable", options[:class]].compact.join(" ")) do

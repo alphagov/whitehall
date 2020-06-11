@@ -20,7 +20,7 @@ module Whitehall
       label_opts = {}
       label_opts = label_opts.merge(radio_button_args.shift) if radio_button_args.first.is_a?(Hash)
 
-      @template.tag.div("class" => "radio") do
+      @template.tag.div(class: "radio") do
         @template.label_tag(nil, label_opts) do
           radio_button(*radio_button_args) + label_text
         end
@@ -30,14 +30,14 @@ module Whitehall
     def errors
       return unless object.errors.any?
 
-      @template.tag.div("class" => "alert alert-danger form-errors") do
+      @template.tag.div(class: "alert alert-danger form-errors") do
         @template.concat @template.tag.p("To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:")
         @template.concat error_list
       end
     end
 
     def error_list
-      @template.tag.ul("class" => "errors disc") do
+      @template.tag.ul(class: "errors disc") do
         analytics_action = "#{object.class.name.demodulize.underscore.dasherize}-error"
         object.errors.full_messages.each do |msg|
           @template.concat @template.tag.li(msg, data: track_analytics_data("form-error", analytics_action, msg))
@@ -46,11 +46,11 @@ module Whitehall
     end
 
     def form_actions(options = {})
-      @template.tag.div("class" => "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) do
+      @template.tag.div(class: "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) do
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
-        @template.concat @template.tag.span("class" => "or_cancel") {
+        @template.concat @template.tag.span(class: "or_cancel") {
           @template.concat %( or )
           @template.concat @template.link_to("cancel", cancel_path(options[:cancel]))
         }
@@ -62,7 +62,7 @@ module Whitehall
     end
 
     def save_or_cancel_buttons(options = {})
-      @template.tag.div("class" => "form-actions") do
+      @template.tag.div(class: "form-actions") do
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-lg btn-primary")
         end
