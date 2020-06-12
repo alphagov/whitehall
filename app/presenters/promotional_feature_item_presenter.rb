@@ -34,16 +34,16 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def summary
-    context.content_tag :p, context.format_with_html_line_breaks(model.summary)
+    context.tag.p context.format_with_html_line_breaks(model.summary)
   end
 
   def title
     return if model.title.blank?
 
     if model.title_url.blank?
-      context.content_tag(:h3, model.title)
+      context.tag.h3(model.title)
     else
-      context.content_tag(:h3, title_link)
+      context.tag.h3(title_link)
     end
   end
 

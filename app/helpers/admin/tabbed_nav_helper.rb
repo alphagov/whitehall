@@ -33,9 +33,9 @@ module Admin::TabbedNavHelper
 
   def tab_navigation(tabs, *extra_classes)
     tabs = tab_navigation_header(tabs)
-    content_tag(:div, class: ["tabbable", *extra_classes]) do
+    tag.div(class: ["tabbable", *extra_classes]) do
       if block_given?
-        tabs + content_tag(:div, class: "tab-content") { yield }
+        tabs + tag.div(class: "tab-content") { yield }
       else
         tabs
       end
@@ -43,15 +43,15 @@ module Admin::TabbedNavHelper
   end
 
   def tab_dropdown(label, menu_items)
-    content_tag(:li, class: "dropdown") do
-      toggle = content_tag(:a, class: "dropdown-toggle", 'data-toggle': "dropdown", href: "#") do
-        (label + " " + content_tag(:b, "", class: "caret")).html_safe
+    tag.li(class: "dropdown") do
+      toggle = tag.a(class: "dropdown-toggle", 'data-toggle': "dropdown", href: "#") do
+        (label + " " + tag.b("", class: "caret")).html_safe
       end
 
-      menu = content_tag(:ul, class: "dropdown-menu") do
+      menu = tag.ul(class: "dropdown-menu") do
         menu_items
           .map { |sub_label, sub_content|
-            content_tag(:li, class: class_for_tab(sub_content)) do
+            tag.li(class: class_for_tab(sub_content)) do
               link_to(sub_label, sub_content)
             end
           }
@@ -64,12 +64,12 @@ module Admin::TabbedNavHelper
   end
 
   def tab_navigation_header(tabs)
-    content_tag(:ul, class: %w[nav nav-tabs add-bottom-margin]) do
+    tag.ul(class: %w[nav nav-tabs add-bottom-margin]) do
       tabs.map { |label, content|
         if content.is_a?(Hash)
           tab_dropdown(label, content)
         else
-          content_tag(:li, link_to(label, content), class: class_for_tab(content))
+          tag.li(link_to(label, content), class: class_for_tab(content))
         end
       }.join.html_safe
     end

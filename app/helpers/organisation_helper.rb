@@ -1,7 +1,7 @@
 module OrganisationHelper
   def organisation_display_name(organisation)
     if organisation.acronym.present?
-      content_tag(:abbr, organisation.acronym, title: organisation.name)
+      tag.abbr(organisation.acronym, title: organisation.name)
     else
       organisation.name
     end
@@ -82,9 +82,9 @@ module OrganisationHelper
 
   def govuk_status_meta_data_for(organisation)
     if organisation.exempt?
-      content_tag :span, "separate website", class: "metadata"
+      tag.span "separate website", class: "metadata"
     elsif organisation.joining? || organisation.transitioning?
-      content_tag :span, "moving to GOV.UK", class: "metadata"
+      tag.span "moving to GOV.UK", class: "metadata"
     end
   end
 
@@ -211,8 +211,8 @@ module OrganisationHelper
   end
 
   def organisation_count_paragraph(org_array)
-    contents = content_tag(:span, org_array.length, class: "count js-filter-count")
-    content_tag(:p, contents.html_safe)
+    contents = tag.span(org_array.length, class: "count js-filter-count")
+    tag.p(contents.html_safe)
   end
 
   def show_corporate_information_pages?(organisation)

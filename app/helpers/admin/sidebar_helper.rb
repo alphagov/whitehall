@@ -5,8 +5,8 @@ module Admin::SidebarHelper
         tab_content = []
         tab_content << render("admin/editions/govspeak_help", options)
         tab_content << render("admin/editions/words_to_avoid_guidance")
-        tab_content << content_tag(:h3, "Style", class: "style-title")
-        tab_content << content_tag(:p) do
+        tab_content << tag.h3("Style", class: "style-title")
+        tab_content << tag.p do
           raw %(For style, see the #{link_to('style guide', 'https://www.gov.uk/guidance/style-guide')})
         end
         raw tab_content.join("\n")
@@ -39,17 +39,17 @@ module Admin::SidebarHelper
                        badge_type = tab_content[2]
                        if badge_content
                          badge_class = badge_type ? "badge badge-#{badge_type}" : "badge"
-                         text.html_safe + " " + content_tag(:span, badge_content, class: badge_class)
+                         text.html_safe + " " + tag.span(badge_content, class: badge_class)
                        else
                          text
                        end
                      end
-      link = content_tag(:a, link_content, "href" => "##{id}", "data-toggle" => "tab")
-      content_tag(:li, link, class: (index.zero? ? "active" : nil))
+      link = tag.a(link_content, href: "##{id}", "data-toggle": "tab")
+      tag.li(link, class: (index.zero? ? "active" : nil))
     end
-    content_tag(:div, class: ["sidebar tabbable", options[:class]].compact.join(" ")) do
-      content_tag(:ul, class: "nav nav-tabs add-bottom-margin") { tab_tags.join.html_safe } +
-        content_tag(:div, class: "tab-content") { yield TabPaneState.new(self) }
+    tag.div(class: ["sidebar tabbable", options[:class]].compact.join(" ")) do
+      tag.ul(class: "nav nav-tabs add-bottom-margin") { tab_tags.join.html_safe } +
+        tag.div(class: "tab-content") { yield TabPaneState.new(self) }
     end
   end
 end

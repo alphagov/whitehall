@@ -51,10 +51,10 @@ module GovspeakHelper
   end
 
   def html_attachment_govspeak_headers_html(attachment)
-    content_tag(:ol, class: ("unnumbered" if attachment.manually_numbered_headings?)) do
+    tag.ol(class: ("unnumbered" if attachment.manually_numbered_headings?)) do
       html_attachment_govspeak_headers(attachment).reduce("") { |html, header|
         css_class = header_contains_manual_numbering?(header) ? "numbered" : nil
-        html << content_tag(:li, link_to(header.text, "##{header.id}"), class: css_class)
+        html << tag.li(link_to(header.text, "##{header.id}"), class: css_class)
       }.html_safe
     end
   end
@@ -86,9 +86,9 @@ module GovspeakHelper
   end
 
   def inline_attachment_code_tags(number)
-    content_tag(:code, "!@#{number}") <<
+    tag.code("!@#{number}") <<
       " or ".html_safe <<
-      content_tag(:code, "[InlineAttachment:#{number}]")
+      tag.code("[InlineAttachment:#{number}]")
   end
 
   def fraction_image(numerator, denominator)
@@ -146,7 +146,7 @@ private
   end
 
   def wrapped_in_govspeak_div(html_string)
-    content_tag(:div, html_string.html_safe, class: "govspeak")
+    tag.div(html_string.html_safe, class: "govspeak")
   end
 
   def render_embedded_contacts(govspeak, heading_tag)

@@ -44,7 +44,7 @@ module Admin::UrlHelper
   end
 
   def admin_users_header_link
-    content_tag(:li, link_to("All users", admin_users_path))
+    tag.li(link_to("All users", admin_users_path))
   end
 
   def admin_fields_of_operation_header_menu_link
@@ -74,7 +74,7 @@ module Admin::UrlHelper
   end
 
   def admin_header_menu_link(name, path)
-    content_tag(:li, link_to(name, path, role: "menuitem"), class: "masthead-menu-item")
+    tag.li(link_to(name, path, role: "menuitem"), class: "masthead-menu-item")
   end
 
   def admin_header_link(name, path, path_matcher = nil, options = {})
@@ -84,7 +84,7 @@ module Admin::UrlHelper
       if options[:class]
         li_class = [li_class, options[:class]].join(" ")
       end
-      content_tag(:li, link_to(name, path), class: "masthead-tab-item #{li_class}")
+      tag.li(link_to(name, path), class: "masthead-tab-item #{li_class}")
     end
   end
 

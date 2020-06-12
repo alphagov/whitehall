@@ -41,7 +41,7 @@ module Admin::AttachableHelper
       ]
       if attachment_data_fields.object.file_cache.present?
         text = "#{File.basename(attachment_data_fields.object.file_cache)} already uploaded as replacement"
-        contents << content_tag(:span, text, class: "already_uploaded")
+        contents << tag.span(text, class: "already_uploaded")
       end
       contents << attachment_data_fields.hidden_field(:file_cache)
       contents.join.html_safe
@@ -61,7 +61,7 @@ module Admin::AttachableHelper
       if data_fields.object.file_cache.present?
         text = "#{File.basename(data_fields.object.file_cache)} already uploaded"
         text << " as replacement" if response_form_fields.object.persisted?
-        contents << content_tag(:span, text, class: "already_uploaded")
+        contents << tag.span(text, class: "already_uploaded")
       end
       contents << data_fields.hidden_field(:file_cache)
       contents.join.html_safe

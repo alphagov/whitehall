@@ -2,15 +2,15 @@ module Admin::AuditTrailHelper
   def describe_audit_trail_entry(entry)
     actor = entry.actor
     html = if entry.respond_to?(:message)
-             content_tag(:span, class: "body") do
+             tag.span(class: "body") do
                entry.message
              end
            else
-             content_tag(:span, entry.action.capitalize, class: "action") + " by"
+             tag.span(entry.action.capitalize, class: "action") + " by"
            end
     html << " ".html_safe
     html << if actor
-              content_tag(:span, class: "actor") { linked_author(actor) }
+              tag.span(class: "actor") { linked_author(actor) }
             else
               "User (removed)"
             end
@@ -30,14 +30,14 @@ module Admin::AuditTrailHelper
     this_edition_remarks, other_edition_remarks = remarks.partition { |r| r.edition == edition }
     out = ""
     if this_edition_remarks.any?
-      out << content_tag(:h2, "On this edition")
-      out << content_tag(:ul, class: "list-unstyled") do
+      out << tag.h2("On this edition")
+      out << tag.ul(class: "list-unstyled") do
         render partial: "admin/editions/audit_trail_entry", collection: this_edition_remarks
       end
     end
     if other_edition_remarks.any?
-      out << content_tag(:h2, "On previous editions", class: "add-top-margin")
-      out << content_tag(:ul, class: "list-unstyled") do
+      out << tag.h2("On previous editions", class: "add-top-margin")
+      out << tag.ul(class: "list-unstyled") do
         render partial: "admin/editions/audit_trail_entry", collection: other_edition_remarks
       end
     end

@@ -6,7 +6,7 @@ class TabPaneState
 
   def pane(options = {}, &blk)
     tag_options = options.merge(class: classes(options[:class]))
-    @context.content_tag(:section, tag_options, &blk)
+    @context.tag.section(tag_options, &blk)
   end
 
 private

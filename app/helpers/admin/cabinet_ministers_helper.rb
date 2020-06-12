@@ -13,7 +13,7 @@ module Admin::CabinetMinistersHelper
           text_field_tag(form_element_name, yield(role), class: "ordering"),
         ]
 
-        content_tag(:div, form_elements.join.html_safe, class: "well")
+        tag.div(form_elements.join.html_safe, class: "well")
       }
       .join
       .html_safe
@@ -29,7 +29,7 @@ module Admin::CabinetMinistersHelper
           text_field_tag(form_element_name, organisation.ministerial_ordering, class: "ordering"),
         ]
 
-        content_tag(:div, form_elements.join.html_safe, class: "well")
+        tag.div(form_elements.join.html_safe, class: "well")
       }
       .join
       .html_safe

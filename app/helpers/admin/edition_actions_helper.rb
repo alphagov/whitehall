@@ -44,7 +44,7 @@ module Admin::EditionActionsHelper
 
   def approve_retrospectively_edition_button(edition)
     confirmation_prompt = "Are you sure you want to retrospectively approve this document?"
-    content_tag(:div, class: "approve_retrospectively_button") do
+    tag.div(class: "approve_retrospectively_button") do
       capture do
         form_for [:admin, edition], url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version), method: :post do |form|
           concat(form.submit("Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success"))
@@ -126,8 +126,7 @@ module Admin::EditionActionsHelper
 
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
-    content_tag(
-      :ul,
+    tag.ul(
       class: "masthead-menu list-unstyled js-hidden",
       id: "new-document-menu",
       role: "menu",
@@ -147,7 +146,7 @@ module Admin::EditionActionsHelper
       edition_types
         .select { |edition_type| can?(:create, edition_type) }
         .map { |edition_type|
-          content_tag(:li, class: "masthead-menu-item") do
+          tag.li(class: "masthead-menu-item") do
             link_to(
               edition_type.model_name.human,
               polymorphic_path([:new, :admin, edition_type.name.underscore]),
