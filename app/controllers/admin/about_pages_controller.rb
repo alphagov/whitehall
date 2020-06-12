@@ -34,11 +34,6 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
   def human_friendly_model_name
-    # `PolicyArea` used to be called `Topic` in the frontend part of Whitehall.
-    # This hack can be removed when `Topic` will become `PolicyArea` in the
-    # backend too.
-    return "Policy area" if model_name == "topic"
-
     model_name.humanize
   end
 
