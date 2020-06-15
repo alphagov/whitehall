@@ -38,6 +38,12 @@ Whitehall::Application.configure do
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for nginx
+
+  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
+
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.action_controller.asset_host = Whitehall.asset_root
+
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
@@ -59,6 +65,19 @@ Whitehall::Application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :dalli_store
+
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server
+  # Make sure we always use the public_asest_host for uploads as these are
+  # currently served by the whitehall backend machines so any asset urls need
+  # to use the public asset host because our CORS settings disallow the admin
+  # asset host from serve assets to the public pages
+  config.action_controller.asset_host = proc do |_source, request|
+    if request && request.path =~ %r{system/uploads}
+      Whitehall.public_asset_host
+    else
+      Whitehall.asset_root
+    end
+  end
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque

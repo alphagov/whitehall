@@ -37,3 +37,5 @@ Rails.application.config.assets.precompile += %w[
   frontend/print.css
   admin.js
 ]
+
+Rails.application.config.assets.prefix = Whitehall.router_prefix + Rails.application.config.assets.prefix

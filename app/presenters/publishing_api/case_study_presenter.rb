@@ -71,7 +71,7 @@ module PublishingApi
 
     def image_details
       {
-        url: presented_case_study.lead_image_url,
+        url: presented_case_study.lead_image_path,
         alt_text: presented_case_study.lead_image_alt_text,
         caption: presented_case_study.lead_image_caption,
       }

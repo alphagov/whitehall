@@ -232,8 +232,8 @@ module PublishingApi::NewsArticlePresenterTest
         .returns(
           stub(
             has_lead_image?: true,
-            lead_image_url: "/foo",
-            high_resolution_lead_image_url: "/foo-large",
+            lead_image_path: "/foo",
+            high_resolution_lead_image_path: "/foo-large",
             lead_image_alt_text: "Bar",
             lead_image_caption: "Baz",
           ),
@@ -243,8 +243,8 @@ module PublishingApi::NewsArticlePresenterTest
       expected_image_alt_text = "Bar"
 
       expected_image = {
-        high_resolution_url: "/foo-large",
-        url: "/foo",
+        high_resolution_url: Whitehall.public_asset_host + "/foo-large",
+        url: Whitehall.public_asset_host + "/foo",
         caption: expected_image_caption,
         alt_text: expected_image_alt_text,
       }
