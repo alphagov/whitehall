@@ -10,6 +10,17 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "#{Whitehall.router_prefix}/topics"
   end
 
+  test "assets are served under the #{Whitehall.router_prefix} prefix" do
+    stub_content_store_has_item("/courts-tribunals", {})
+    stub_taxonomy_with_all_taxons
+    rummager = stub
+
+    with_stubbed_rummager(rummager) do
+      get organisations_path
+      assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
+    end
+  end
+
   test "visiting #{Whitehall.router_prefix} when not in frontend redirects to /" do
     get Whitehall.router_prefix
     assert_redirected_to "/"

@@ -3,12 +3,20 @@ module LeadImagePresenterHelper
     !image_data.nil?
   end
 
-  def lead_image_url
-    image_data ? image_url : placeholder_image_url
+  def lead_image_path
+    if image_data
+      image_url
+    else
+      "placeholder.jpg"
+    end
   end
 
-  def high_resolution_lead_image_url
-    image_data ? image_data.file.url(:s960) : placeholder_image_url
+  def high_resolution_lead_image_path
+    if image_data
+      image_data.file.url(:s960)
+    else
+      "placeholder.jpg"
+    end
   end
 
   def lead_image_alt_text
@@ -27,13 +35,6 @@ module LeadImagePresenterHelper
   end
 
 private
-
-  def placeholder_image_url
-    ActionController::Base.helpers.image_url(
-      "placeholder.jpg",
-      host: Whitehall.public_root,
-    )
-  end
 
   def image_url
     content_type = file.content_type

@@ -157,7 +157,9 @@ module PublishingApi
       return unless item.custom_logo_selected?
 
       {
-        url: item.logo.url,
+        url: ActionController::Base.helpers.image_url(
+          item.logo.url, host: Whitehall.public_asset_host
+        ),
         alt_text: item.name,
       }
     end

@@ -94,7 +94,7 @@ module GovspeakHelper
   def fraction_image(numerator, denominator)
     denominator.downcase! if %w[X Y].include? denominator
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
-      asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_root)
+      asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_asset_host)
     end
   end
 

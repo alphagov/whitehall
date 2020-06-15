@@ -40,7 +40,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
           browse_pages: [],
           topics: [],
         },
-        documents: ["<section class=\"attachment embedded\" id=\"attachment_#{publication.attachments.first.id}\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" tabindex=\"-1\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\"><img alt=\"\" src=\"/assets/whitehall/pub-cover-html.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{publication.attachments.first.title}</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"],
+        documents: ["<section class=\"attachment embedded\" id=\"attachment_#{publication.attachments.first.id}\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" tabindex=\"-1\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\"><img alt=\"\" src=\"/government/assets/pub-cover-html.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{publication.attachments.first.title}</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"],
         first_public_at: publication.first_public_at,
         change_history: [
           { public_timestamp: publication.public_timestamp, note: "change-note" }.as_json,
