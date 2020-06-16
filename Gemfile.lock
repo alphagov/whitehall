@@ -158,12 +158,12 @@ GEM
       plek (>= 1.9.0)
       rack-cache
       rest-client (~> 2.0)
-    gds-sso (14.3.0)
+    gds-sso (15.0.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
       omniauth-gds (~> 3.2)
-      rails (>= 4)
+      rails (>= 5)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
     gherkin (5.1.0)
@@ -593,7 +593,7 @@ DEPENDENCIES
   friendly_id (~> 5.3.0)
   fuzzy_match (~> 2.1)
   gds-api-adapters
-  gds-sso (~> 14.2)
+  gds-sso (~> 15)
   globalize (~> 5)
   govspeak (~> 6.5)
   govuk-content-schema-test-helpers
