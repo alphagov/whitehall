@@ -285,13 +285,4 @@ namespace :publishing_api do
       DataHygiene::PublishingApiHtmlAttachmentRedirector.call(args[:content_id], args[:destination], dry_run: false)
     end
   end
-
-  desc "Discard all draft about pages that have the same base_path as their WorldwideOrganisation"
-  task discard_draft_worldwide_organisation_about_pages: :environment do
-    about_pages = YAML.load_file(Rails.root.join("lib/tasks/about_pages.yml"))
-
-    about_pages.each do |content_id, locale|
-      PublishingApiDiscardDraftWorker.perform_async(content_id, locale)
-    end
-  end
 end
