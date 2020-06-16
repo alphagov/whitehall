@@ -24,9 +24,6 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       stub_publishing_api_has_linkables([], document_type: "topic")
       setup_publishing_api_for(edition)
       stub_whitehall_asset(filename, id: asset_id)
-
-      asset_host = URI.parse(Plek.new.public_asset_host).host
-      host! asset_host
     end
 
     context "given a draft document with a file attachment" do

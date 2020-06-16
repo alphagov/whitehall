@@ -72,10 +72,4 @@ private
   def skip_organisation_validation?
     can_have_some_invalid_data? || person_override.present?
   end
-
-  def lead_image_url
-    ActionController::Base.helpers.image_url(
-      lead_image_path, host: Whitehall.public_asset_host
-    )
-  end
 end
