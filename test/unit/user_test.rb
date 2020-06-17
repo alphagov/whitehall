@@ -5,6 +5,10 @@ class GDS::SSO::Lint::UserTest
   def user_class
     ::User
   end
+
+  setup do
+    @lint_user = user_class.new(name: "Test User", uid: "12345")
+  end
 end
 
 class UserTest < ActiveSupport::TestCase
