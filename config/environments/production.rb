@@ -33,7 +33,7 @@ Whitehall::Application.configure do
 
   # Defaults to a file named manifest-<random>.json in the config.assets.prefix
   # directory within the public folder.
-  config.assets.manifest = Rails.root.join("public/government/assets/assets-manifest.json")
+  config.assets.manifest = Rails.root.join("public/assets/whitehall/assets-manifest.json")
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
