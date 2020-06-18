@@ -61,24 +61,24 @@ class DocumentHelperTest < ActionView::TestCase
     assert_nil humanized_content_type(nil)
   end
 
-  test "should return DOC specific thumbnail for DOC files" do
+  test "#attachment_thumbnail returns document thumbnails with public URLs for .doc files" do
     attachment = create(:file_attachment, file: fixture_file_upload("sample.docx", "application/msword"))
-    assert_match %r{pub-cover-doc\.png}, attachment_thumbnail(attachment)
+    assert_match %r{#{Whitehall.public_root}/images/pub-cover-doc\.png}, attachment_thumbnail(attachment)
   end
 
-  test "should return spreadsheet specific thumbnail for spreadsheet files" do
+  test "#attachment_thumbnail returns spreadsheet thumbnails with public URLs for spreadsheet files" do
     attachment = create(:file_attachment, file: fixture_file_upload("sample-from-excel.csv", "text/csv"))
-    assert_match %r{pub-cover-spreadsheet\.png}, attachment_thumbnail(attachment)
+    assert_match %r{#{Whitehall.public_root}/images/pub-cover-spreadsheet\.png}, attachment_thumbnail(attachment)
   end
 
-  test "should return spreadsheet specific thumbnail for spreadsheet files with any case file extension" do
-    attachment = create(:file_attachment, file: fixture_file_upload("sample_case.CSV", "text/csv"))
-    assert_match(/pub-cover-spreadsheet\.png/, attachment_thumbnail(attachment))
-  end
-
-  test "should return HTML specific thumbnail for HTML attachments" do
+  test "#attachment_thumbnail returns HTML thumbnails with public URLs for HTML attachments" do
     publication = create(:published_publication, :with_html_attachment)
-    assert_match %r{pub-cover-html\.png}, attachment_thumbnail(publication.attachments.first)
+    assert_match %r{#{Whitehall.public_root}/images/pub-cover-html\.png}, attachment_thumbnail(publication.attachments.first)
+  end
+
+  test "#attachment_thumbnail returns generic thumbnails with public URLs for other files" do
+    attachment = create(:file_attachment, file: fixture_file_upload("sample_attachment.zip", "application/zip"))
+    assert_match %r{#{Whitehall.public_root}/images/pub-cover\.png}, attachment_thumbnail(attachment)
   end
 
   test "should return PDF Document for humanized content type" do
