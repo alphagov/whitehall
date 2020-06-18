@@ -200,7 +200,7 @@ GEM
     govuk_frontend_toolkit (8.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (21.55.4)
+    govuk_publishing_components (21.56.1)
       gds-api-adapters
       govuk_app_config
       kramdown
@@ -274,7 +274,7 @@ GEM
       activesupport (>= 4.0)
       logstash-event (~> 1.2.0)
       request_store
-    loofah (2.5.0)
+    loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -601,7 +601,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.0)
   govuk_frontend_toolkit (= 8.2.0)
-  govuk_publishing_components (~> 21.55.0)
+  govuk_publishing_components (~> 21.56.1)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
