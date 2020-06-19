@@ -11,7 +11,7 @@
 /.sass-cache/
 /public/system/
 /public/uploads/
-/public/government/
+/public/assets/
 /config/whitehall_secrets.yml
 /coverage
 /test/reports
