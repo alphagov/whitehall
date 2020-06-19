@@ -34,7 +34,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     end
 
     def url
-      URI.join(Plek.new.public_asset_host, Addressable::URI.encode(@legacy_url_path)).to_s
+      URI.join(Plek.new.asset_root, Addressable::URI.encode(@legacy_url_path)).to_s
     end
 
     def filename

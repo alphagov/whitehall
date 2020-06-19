@@ -6,7 +6,7 @@ class CsvFileFromPublicHost
   MAXIMUM_RANGE_BYTES = "300000".freeze
 
   def self.csv_response(path, env: ENV)
-    connection = Faraday.new(url: Plek.new.public_asset_host)
+    connection = Faraday.new(url: Plek.new.asset_root)
 
     if env.key?("BASIC_AUTH_CREDENTIALS")
       basic_auth_credentials = env["BASIC_AUTH_CREDENTIALS"].split(":")
