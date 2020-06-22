@@ -8,7 +8,7 @@ if [ -z "$SHOW_PRODUCTION_IMAGES" ]; then
   echo "$ SHOW_PRODUCTION_IMAGES=1 ./startup.sh"
 else
   echo "Showing production images"
-  export GOVUK_ASSET_HOST=https://assets.publishing.service.gov.uk
+  export GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk
 fi
 
 # Serve static from production

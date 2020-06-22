@@ -113,8 +113,8 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     @file.delete
   end
 
-  test "constructs the url of the file using the public asset host and legacy url path" do
-    Plek.stubs(:new).returns(stub("plek", public_asset_host: "http://assets-host"))
+  test "constructs the url of the file using the assets root and legacy url path" do
+    Plek.stubs(:new).returns(stub("plek", asset_root: "http://assets-host"))
 
     expected_asset_url = URI.join("http://assets-host", @asset_url_path).to_s
 
@@ -137,7 +137,7 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     asset_path = "path/to/ässet.png"
     file = Whitehall::AssetManagerStorage::File.new(asset_path)
 
-    Plek.stubs(:new).returns(stub("plek", public_asset_host: "http://assets-host"))
+    Plek.stubs(:new).returns(stub("plek", asset_root: "http://assets-host"))
 
     assert_equal "http://assets-host/government/uploads/path/to/%C3%A4sset.png", file.url
   end
