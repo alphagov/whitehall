@@ -122,12 +122,11 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     assert_match %r{bad link reports}, mail.parts.first.body.to_s
   end
 
-  test "#document_list uses the supplied file object as an attachment" do
-    file = file_fixture("sample.csv").read
+  test "#document_list includes a link in the body" do
+    public_url = "https://whitehall.test.gov.uk/export/documents/#{SecureRandom.uuid}"
     receiver = "test@gov.co.uk"
-    mail = Notifications.document_list(file, receiver, "Everyone's documents")
-    assert_equal "document_list.zip", mail.attachments.first.filename
-    assert_match %r{list of documents}, mail.parts.first.body.to_s
+    mail = Notifications.document_list(public_url, receiver, "Everyone's documents")
+    assert_match %r{\bhttps://whitehall\.test\.gov\.uk/export/documents/[a-f0-9-]{36}\b}, mail.body.raw_source
   end
 
   test "#document_list uses the supplied title in the mail subject" do

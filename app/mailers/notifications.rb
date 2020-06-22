@@ -58,15 +58,8 @@ class Notifications < ApplicationMailer
     mail from: no_reply_email_address, to: recipient_address, subject: "GOV.UK broken link reports"
   end
 
-  def document_list(csv, recipient_address, filter_title)
-    stream = Zip::OutputStream.write_buffer do |zip|
-      zip.put_next_entry("document_list.csv")
-      zip.write(csv)
-    end
-
-    stream.rewind
-
-    attachments["document_list.zip"] = stream.sysread
+  def document_list(public_url, recipient_address, filter_title)
+    @public_url = public_url
 
     mail from: no_reply_email_address, to: recipient_address, subject: "#{filter_title} from GOV.UK"
   end

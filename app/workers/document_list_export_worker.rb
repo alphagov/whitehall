@@ -6,14 +6,28 @@ class DocumentListExportWorker < WorkerBase
     Tempfile.open("document_list_export_worker") do |file|
       file.unlink
       csv = generate_csv(filter, file)
-      send_mail(csv, user, filter)
+      public_url = upload_file(csv, filter_options[:type])
+      send_mail(public_url, user, filter)
     end
   end
 
 private
 
-  def send_mail(csv, user, filter)
-    Notifications.document_list(csv, user.email, filter.page_title).deliver_now
+  def send_mail(csv_filename, user, filter)
+    Notifications.document_list(csv_filename, user.email, filter.page_title).deliver_now
+  end
+
+  def upload_file(csv, type)
+    export_id = SecureRandom.uuid
+    document_type_slug = if type.present?
+                           type.downcase.gsub(%r{[^a-z0-9]+}, "_")
+                         else
+                           "documents"
+                         end
+
+    filename = "document_list_#{document_type_slug}_#{export_id}.csv"
+    S3FileUploader.save_file_to_s3(filename, csv)
+    Plek.find("whitehall", external: true) + "/export/#{document_type_slug}/#{export_id}"
   end
 
   def create_filter(filter_options, user)
