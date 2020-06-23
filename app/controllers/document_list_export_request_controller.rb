@@ -1,19 +1,17 @@
 class DocumentListExportRequestController < ApplicationController
   def show
-    filename = "document_list_#{document_type_slug}_#{params[:export_id]}.csv"
+    if user_signed_in?
+      filename = "document_list_#{params[:document_type_slug]}_#{params[:export_id]}.csv"
 
-    begin
-      file = get_csv_file_from_s3(filename)
-      send_data(file, filename: filename)
-    rescue Fog::AWS::Storage::NotFound
-      head :not_found
+      begin
+        file = get_csv_file_from_s3(filename)
+        send_data(file, filename: filename)
+      rescue Fog::AWS::Storage::NotFound
+        head :not_found
+      end
+    else
+      head :unauthorized
     end
-  end
-
-  def check_authorisation
-    document_slugs = FinderSchema.schema_names.map { |schema_name| schema_name.singularize.camelize.constantize }
-    current_format = document_slugs.detect { |model| model.slug == document_type_slug }
-    authorize current_format
   end
 
   def get_csv_file_from_s3(filename)
