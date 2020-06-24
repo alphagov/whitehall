@@ -15,6 +15,10 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     @mail = Notifications.fact_check_request(@request, host: "example.com")
   end
 
+  teardown do
+    Fog::Mock.reset
+  end
+
   test "email should be sent to the fact checker email address" do
     assert_equal ["fact-checker@example.com"], @mail.to
   end
