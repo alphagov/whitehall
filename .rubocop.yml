@@ -9,28 +9,12 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - 'bin/**/*'
-    - 'config.ru'
-    - 'tmp/**/*'
-    - 'db/schema.rb'
     - 'lib/tasks/cucumber.rake'
-
-Metrics/BlockLength:
-  Enabled: false
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
-Style/FormatStringToken:
-  Exclude:
-    - 'config/routes.rb'
-    - 'lib/tasks/scheduled_publishing.rake'
-
 Rails/FindBy:
-  Enabled: false
-Rails/DynamicFindBy:
-  Enabled: false
-Rails/HttpPositionalArguments:
   Enabled: false
 
 # This has special infrastructure for one-time data
@@ -40,42 +24,12 @@ Rails/Output:
   Exclude:
     - 'db/data_migration/*.rb'
 
-# While using has_many/through does have some advantages,
-# it also requires a significant amount of boilerplate code:
-#
-# - An additional 'has_many :join_table' statement
-# - An additional class for the join table (model)
-#
-# This Cop/rule appears to have been written with the
-# assumption that all join tables have inherent meaning,
-# we want to represent, which is not the case; sometimes
-# relationships are just # many-to-many, and that's it.
-#
-# This should be disabled in a new release of rubocop-govuk
-Rails/HasAndBelongsToMany:
-  Enabled: false
-
-Rails/OutputSafety:
-  Enabled: false
 Rails/HelperInstanceVariable:
-  Enabled: false
-Rails/InverseOf:
-  Enabled: false
-Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 Rails/BulkChangeTable:
   Enabled: false
-Rails/ReversibleMigration:
-  Enabled: false
-Rails/NotNullColumn:
-  Enabled: false
-Rails/CreateTableWithTimestamps:
-  Enabled: false
-
-Rails/FilePath:
-  EnforcedStyle: slashes
 
 # This alerts on methods that aren't introduced until rails 6.0
 # it should be removed when we upgrade.
