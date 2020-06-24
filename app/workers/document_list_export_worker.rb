@@ -25,7 +25,7 @@ private
                            "documents"
                          end
 
-    filename = "document_list_#{document_type_slug}_#{export_id}.csv"
+    filename = DocumentListExportPresenter.s3_filename(document_type_slug, export_id)
     S3FileUploader.save_file_to_s3(filename, csv)
     Plek.find("whitehall", external: true) + "/export/#{document_type_slug}/#{export_id}"
   end

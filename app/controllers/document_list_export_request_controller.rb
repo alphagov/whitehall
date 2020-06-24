@@ -1,7 +1,7 @@
 class DocumentListExportRequestController < ApplicationController
   def show
     if user_signed_in?
-      filename = "document_list_#{params[:document_type_slug]}_#{params[:export_id]}.csv"
+      filename = DocumentListExportPresenter.s3_filename(params[:document_type_slug], params[:export_id])
 
       begin
         file = get_csv_file_from_s3(filename)

@@ -169,4 +169,8 @@ class DocumentListExportPresenter
       .sort_by(&:to_s)
       .map { |locale_code| Locale.new(locale_code).english_language_name }
   end
+
+  def self.s3_filename(document_type_slug, export_id)
+    "document_list_#{document_type_slug}_#{export_id}.csv"
+  end
 end
