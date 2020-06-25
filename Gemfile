@@ -96,7 +96,7 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem "cucumber", "~> 3"
+  gem "cucumber", "~> 4"
   gem "cucumber-rails", require: false
   gem "govuk_test"
   gem "launchy"
