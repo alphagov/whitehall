@@ -13,7 +13,7 @@ namespace :export do
 
     exporter = Whitehall::Exporters::Mappings.new
 
-    filename = "public/government/mappings.csv"
+    filename = "public/assets/mappings.csv"
     temporary_filename = filename + ".new"
     CSV.open(Rails.root.join(temporary_filename), "wb") do |csv_out|
       exporter.export(csv_out)
