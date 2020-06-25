@@ -359,7 +359,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    plek (3.0.0)
+    plek (4.0.0)
     protobuf-cucumber (3.10.8)
       activesupport (>= 3.2)
       middleware
@@ -643,7 +643,7 @@ DEPENDENCIES
   parallel
   parallel_tests
   pdf-reader (~> 2.2)
-  plek (~> 3.0)
+  plek (~> 4.0)
   pry-byebug
   pry-rails
   ptools
