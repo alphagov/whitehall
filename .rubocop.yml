@@ -28,8 +28,6 @@ Rails/HelperInstanceVariable:
   Enabled: false
 Rails/LexicallyScopedActionFilter:
   Enabled: false
-Rails/BulkChangeTable:
-  Enabled: false
 
 # This alerts on methods that aren't introduced until rails 6.0
 # it should be removed when we upgrade.
