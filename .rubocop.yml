@@ -7,10 +7,6 @@ inherit_mode:
   merge:
     - Exclude
 
-AllCops:
-  Exclude:
-    - 'lib/tasks/cucumber.rake'
-
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
