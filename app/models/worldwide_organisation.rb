@@ -108,11 +108,11 @@ class WorldwideOrganisation < ApplicationRecord
   end
 
   def primary_role
-    roles.occupied.where(type: PRIMARY_ROLES.map(&:name)).first
+    roles.occupied.find_by(type: PRIMARY_ROLES.map(&:name))
   end
 
   def secondary_role
-    roles.occupied.where(type: SECONDARY_ROLES.map(&:name)).first
+    roles.occupied.find_by(type: SECONDARY_ROLES.map(&:name))
   end
 
   def office_staff_roles

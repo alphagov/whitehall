@@ -63,7 +63,7 @@ module Edition::Organisations
   end
 
   def association_with_organisation(organisation)
-    edition_organisations.where(organisation_id: organisation.id).first
+    edition_organisations.find_by(organisation_id: organisation.id)
   end
 
   def importance_ordered_organisations

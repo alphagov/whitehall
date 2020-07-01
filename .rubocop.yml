@@ -10,9 +10,6 @@ inherit_mode:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
-Rails/FindBy:
-  Enabled: false
-
 # This has special infrastructure for one-time data
 # migration tasks, for which it's common to write to
 # STDOUT using 'puts'.
