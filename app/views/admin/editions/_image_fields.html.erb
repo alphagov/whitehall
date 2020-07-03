@@ -14,17 +14,13 @@
       </div>
     <% else %>
       <% i += 1 %>
-      <div class="image">
+      <div class="row image">
         <%= images_fields.hidden_field :id %>
-        <div class="image-container">
-          <%= image_tag(images_fields.object.url) %>
-        </div>
-        <div class="fields-container">
+        <div class="col-md-6 fields-container">
           <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
           <%= images_fields.text_area :caption, rows: 2 %>
           <% checkbox_args = nested_attribute_destroy_checkbox_options(images_fields, label_text: "(uncheck to remove)") %>
           <%= images_fields.check_box :_destroy, *checkbox_args  %>
-        </div>
           <% if edition.image_disallowed_in_body_text?(i) %>
             <p>This image is shown automatically, and is not available for use inline in the body.</p>
           <% else %>
@@ -32,6 +28,12 @@
               <input type="text" readonly="readonly" value="!!<%= i %>" />
             </p>
           <% end %>
+        </div>
+        <div class="col-md-6">
+          <a href="<%= images_fields.object.url %>">
+            <%= image_tag(images_fields.object.url, class: "img-responsive") %>
+          </a>
+        </div>
       </div>
     <% end %>
   <% end %>
