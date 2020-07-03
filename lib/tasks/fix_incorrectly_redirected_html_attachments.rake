@@ -72,7 +72,10 @@ end
 desc "Fix some HTML attachments that were incorrectly redirected"
 task fix_incorrectly_redirected_html_attachments: :environment do
   PATHS.each do |path|
-    raise "invalid path #{path}" unless path_redirects_to_missing_page? path
+    unless path_redirects_to_missing_page?(path)
+      puts "invalid path #{path}"
+      next
+    end
 
     html_attachment_id = path.split("/").last.to_i
     html_attachment = HtmlAttachment.find(html_attachment_id)
