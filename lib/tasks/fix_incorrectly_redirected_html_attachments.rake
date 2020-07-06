@@ -8,10 +8,6 @@ PATHS = %w[
   /government/publications/compliance-checks-construction-industry-scheme-penalties-for-false-registration-ccfs41/2309200
   /government/publications/compliance-checks-information-about-the-general-anti-abuse-rule-ccfs34a/2414690
   /government/publications/developing-estates-registration-services-plot-sales-transfers-and-leases/1609908
-  /government/publications/digital-economy-act-2017-part-5-codes-of-practice/3984213
-  /government/publications/digital-economy-act-2017-part-5-codes-of-practice/3984214
-  /government/publications/digital-economy-act-2017-part-5-codes-of-practice/3984215
-  /government/publications/digital-economy-act-2017-part-5-codes-of-practice/3984216
   /government/publications/discharge-of-charges/1506337
   /government/publications/evidence-of-identity-conveyancers/1409213
   /government/publications/first-registrations/1640442
@@ -76,7 +72,10 @@ end
 desc "Fix some HTML attachments that were incorrectly redirected"
 task fix_incorrectly_redirected_html_attachments: :environment do
   PATHS.each do |path|
-    raise "invalid path #{path}" unless path_redirects_to_missing_page? path
+    unless path_redirects_to_missing_page?(path)
+      puts "invalid path #{path}"
+      next
+    end
 
     html_attachment_id = path.split("/").last.to_i
     html_attachment = HtmlAttachment.find(html_attachment_id)
