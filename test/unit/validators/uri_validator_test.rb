@@ -5,6 +5,11 @@ class UriValidatorTest < ActiveSupport::TestCase
     @validator = UriValidator.new(attributes: [:url])
   end
 
+  test "validates nil urls" do
+    feature_link = validate(PromotionalFeatureLink.new(url: nil))
+    assert feature_link.errors.empty?
+  end
+
   test "validates http urls" do
     feature_link = validate(PromotionalFeatureLink.new(url: "http://example.com"))
     assert feature_link.errors.empty?
@@ -22,8 +27,18 @@ class UriValidatorTest < ActiveSupport::TestCase
     feature_link = validate(PromotionalFeatureLink.new(url: "gopher://example.com"))
     assert_equal ["is not valid. Make sure it starts with http(s)"], feature_link.errors[:url]
 
-    feature_link = validate(PromotionalFeatureLink.new(url: "mailto://example.com"))
+    feature_link = validate(PromotionalFeatureLink.new(url: "mailto:name@example.com"))
     assert_equal ["is not valid. Make sure it starts with http(s)"], feature_link.errors[:url]
+  end
+
+  test "invalid urls get an error if they aren't https/http and are poorly formatted" do
+    feature_link = validate(PromotionalFeatureLink.new(url: "mailto://example.com"))
+    assert_equal ["is not valid."], feature_link.errors[:url]
+  end
+
+  test "invalid urls get an error if they include whitespace" do
+    feature_link = validate(PromotionalFeatureLink.new(url: "https://example.come/guidance/inspire-index-polygons-spatial-data blah blah"))
+    assert_equal ["is not valid."], feature_link.errors[:url]
   end
 
   test "invalid urls get an error, without http" do
