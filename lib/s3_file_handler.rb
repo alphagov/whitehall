@@ -1,5 +1,5 @@
 class S3FileHandler
-  def self.get_csv_file_from_s3(filename)
+  def self.get_file_from_s3(filename)
     directory = connection.directories.get(ENV["AWS_S3_BUCKET_NAME"])
 
     file = directory.files.get(filename)

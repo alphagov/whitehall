@@ -4,7 +4,7 @@ class DocumentListExportRequestController < ApplicationController
       filename = DocumentListExportPresenter.s3_filename(params[:document_type_slug], params[:export_id])
 
       begin
-        file = S3FileHandler.get_csv_file_from_s3(filename)
+        file = S3FileHandler.get_file_from_s3(filename)
         send_data(file, filename: filename)
       rescue Fog::AWS::Storage::NotFound
         head :not_found
