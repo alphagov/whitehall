@@ -154,7 +154,7 @@ GEM
     et-orbi (1.2.4)
       tzinfo
     execjs (2.7.0)
-    factory_bot (6.0.2)
+    factory_bot (6.1.0)
       activesupport (>= 5.0.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
