@@ -12,13 +12,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "GET on :index assigns all organisations in alphabetical order" do
-    organisation_2 = create(:organisation, name: "org 2")
-    organisation_1 = create(:organisation, name: "org 1")
+    organisation2 = create(:organisation, name: "org 2")
+    organisation1 = create(:organisation, name: "org 1")
     get :index
 
     assert_response :success
     assert_template :index
-    assert_equal [organisation_1, organisation_2], assigns(:organisations)
+    assert_equal [organisation1, organisation2], assigns(:organisations)
   end
 
   test "GET on :new denied if not a gds admin" do
@@ -47,14 +47,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "POST on :create saves the organisation and its associations" do
     attributes = example_organisation_attributes
 
-    parent_org_1 = create(:organisation)
-    parent_org_2 = create(:organisation)
+    parent_org1 = create(:organisation)
+    parent_org2 = create(:organisation)
 
     post :create,
          params: {
            organisation: attributes
                            .merge(
-                             parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
+                             parent_organisation_ids: [parent_org1.id, parent_org2.id],
                              organisation_type_key: :executive_agency,
                              govuk_status: "exempt",
                              featured_links_attributes: {
@@ -73,7 +73,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation_top_task = organisation.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url
     assert_equal "Something on mainstream", organisation_top_task.title
-    assert_same_elements [parent_org_1, parent_org_2], organisation.parent_organisations
+    assert_same_elements [parent_org1, parent_org2], organisation.parent_organisations
     assert_equal OrganisationType.executive_agency, organisation.organisation_type
     assert_equal "exempt", organisation.govuk_status
   end
@@ -400,19 +400,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "Non-admins can only edit their own organisations or children" do
-    organisation_1 = create(:organisation)
-    gds_editor = create(:gds_editor, organisation: organisation_1)
+    organisation1 = create(:organisation)
+    gds_editor = create(:gds_editor, organisation: organisation1)
     login_as(gds_editor)
 
-    get :edit, params: { id: organisation_1 }
+    get :edit, params: { id: organisation1 }
     assert_response :success
 
-    organisation_2 = create(:organisation)
-    get :edit, params: { id: organisation_2 }
+    organisation2 = create(:organisation)
+    get :edit, params: { id: organisation2 }
     assert_response 403
 
-    organisation_2.parent_organisations << organisation_1
-    get :edit, params: { id: organisation_2 }
+    organisation2.parent_organisations << organisation1
+    get :edit, params: { id: organisation2 }
     assert_response :success
   end
 

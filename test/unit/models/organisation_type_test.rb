@@ -36,10 +36,10 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "get should return the same instance when called a second time with the same key" do
-    instance_1 = OrganisationType.get(:executive_agency)
-    instance_2 = OrganisationType.get(:executive_agency)
+    instance1 = OrganisationType.get(:executive_agency)
+    instance2 = OrganisationType.get(:executive_agency)
 
-    assert_equal instance_1, instance_2
+    assert_equal instance1, instance2
   end
 
   test "OrganisationType should have getters for each organisation type" do

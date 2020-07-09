@@ -29,8 +29,8 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "organisations= parses slugs into real organisations" do
-    org_1, org_2 = 2.times.map { create(:organisation) }
-    assert_equal [org_1, org_2], build_class_instance(organisations: [org_1.slug, org_2.slug]).organisations
+    org1, org2 = 2.times.map { create(:organisation) }
+    assert_equal [org1, org2], build_class_instance(organisations: [org1.slug, org2.slug]).organisations
   end
 
   test "organisations= handles nil" do
@@ -43,13 +43,13 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "topics= parses content_ids into real topics" do
-    topic_1, topic_2 = 2.times.map { build(:taxon_hash) }
-    redis_cache_has_taxons([topic_1, topic_2])
+    topic1, topic2 = 2.times.map { build(:taxon_hash) }
+    redis_cache_has_taxons([topic1, topic2])
 
-    topics = build_class_instance(topics: [topic_1["content_id"], topic_2["content_id"]]).topics
+    topics = build_class_instance(topics: [topic1["content_id"], topic2["content_id"]]).topics
 
     assert_equal([true, true], (topics.map { |topic| topic.is_a?(Taxonomy::Taxon) }))
-    assert_equal topics.map(&:name), [topic_1["title"], topic_2["title"]]
+    assert_equal topics.map(&:name), [topic1["title"], topic2["title"]]
   end
 
   test "topic_ids returns topic ids" do

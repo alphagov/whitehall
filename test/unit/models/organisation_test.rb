@@ -75,9 +75,9 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if govuk closed status is merged and it has more than one superseding organisation" do
-    organisation_1 = create(:organisation, name: "Superseding 1")
-    organisation_2 = create(:organisation, name: "Superseding 2")
-    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "merged", superseding_organisations: [organisation_1, organisation_2])
+    organisation1 = create(:organisation, name: "Superseding 1")
+    organisation2 = create(:organisation, name: "Superseding 2")
+    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "merged", superseding_organisations: [organisation1, organisation2])
     assert_not new_organisation.valid?
   end
 
@@ -87,9 +87,9 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if govuk closed status is replaced and it has more than one superseding organisation" do
-    organisation_1 = create(:organisation, name: "Superseding 1")
-    organisation_2 = create(:organisation, name: "Superseding 2")
-    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "replaced", superseding_organisations: [organisation_1, organisation_2])
+    organisation1 = create(:organisation, name: "Superseding 1")
+    organisation2 = create(:organisation, name: "Superseding 2")
+    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "replaced", superseding_organisations: [organisation1, organisation2])
     assert_not new_organisation.valid?
   end
 
@@ -99,15 +99,15 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if govuk closed status is name changed and it has more than one superseding organisation" do
-    organisation_1 = create(:organisation)
-    organisation_2 = create(:organisation)
-    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "changed_name", superseding_organisations: [organisation_1, organisation_2])
+    organisation1 = create(:organisation)
+    organisation2 = create(:organisation)
+    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "changed_name", superseding_organisations: [organisation1, organisation2])
     assert_not new_organisation.valid?
   end
 
   test "should be invalid if govuk closed status is split and it has less than two superseding organisations" do
-    organisation_1 = create(:organisation)
-    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "split", superseding_organisations: [organisation_1])
+    organisation1 = create(:organisation)
+    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "split", superseding_organisations: [organisation1])
     assert_not new_organisation.valid?
   end
 
@@ -117,15 +117,15 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if govuk closed status is devolved and it has more than one superseding organisation" do
-    organisation_1 = create(:organisation, name: "Superseding 1")
-    organisation_2 = create(:organisation, name: "Superseding 2")
-    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "devolved", superseding_organisations: [organisation_1, organisation_2])
+    organisation1 = create(:organisation, name: "Superseding 1")
+    organisation2 = create(:organisation, name: "Superseding 2")
+    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "devolved", superseding_organisations: [organisation1, organisation2])
     assert_not new_organisation.valid?
   end
 
   test "should be invalid if govuk closed status is devolved and its superseding organisation is not devolved" do
-    organisation_1 = create(:organisation)
-    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "devolved", superseding_organisations: [organisation_1])
+    organisation1 = create(:organisation)
+    new_organisation = build(:organisation, govuk_status: "closed", govuk_closed_status: "devolved", superseding_organisations: [organisation1])
     assert_not new_organisation.valid?
   end
 
@@ -182,23 +182,23 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "#child_organisations should return the parent's children organisations" do
-    parent_org_1 = create(:organisation)
-    parent_org_2 = create(:organisation)
-    child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
-    child_org_2 = create(:organisation, parent_organisations: [parent_org_1])
-    _child_org_3 = create(:organisation, parent_organisations: [parent_org_2])
+    parent_org1 = create(:organisation)
+    parent_org2 = create(:organisation)
+    child_org1 = create(:organisation, parent_organisations: [parent_org1])
+    child_org2 = create(:organisation, parent_organisations: [parent_org1])
+    _child_org3 = create(:organisation, parent_organisations: [parent_org2])
 
-    assert_equal [child_org_1, child_org_2], parent_org_1.child_organisations
+    assert_equal [child_org1, child_org2], parent_org1.child_organisations
   end
 
   test "#parent_organisations should return the child's parent organisations" do
-    child_org_1 = create(:organisation)
-    child_org_2 = create(:organisation)
-    parent_org_1 = create(:organisation, child_organisations: [child_org_1])
-    parent_org_2 = create(:organisation, child_organisations: [child_org_1])
-    _parent_org_3 = create(:organisation, child_organisations: [child_org_2])
+    child_org1 = create(:organisation)
+    child_org2 = create(:organisation)
+    parent_org1 = create(:organisation, child_organisations: [child_org1])
+    parent_org2 = create(:organisation, child_organisations: [child_org1])
+    _parent_org3 = create(:organisation, child_organisations: [child_org2])
 
-    assert_equal [parent_org_1, parent_org_2], child_org_1.parent_organisations
+    assert_equal [parent_org1, parent_org2], child_org1.parent_organisations
   end
 
   test "can list all parent organisations" do
@@ -306,15 +306,15 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "featured links are returned in order of creation" do
     organisation = create(:organisation)
-    link_1 = create(:featured_link, linkable: organisation, title: "2 days ago", created_at: 2.days.ago)
-    link_2 = create(:featured_link, linkable: organisation, title: "12 days ago", created_at: 12.days.ago)
-    link_3 = create(:featured_link, linkable: organisation, title: "1 hour ago", created_at: 1.hour.ago)
-    link_4 = create(:featured_link, linkable: organisation, title: "2 hours ago", created_at: 2.hours.ago)
-    link_5 = create(:featured_link, linkable: organisation, title: "20 minutes ago", created_at: 20.minutes.ago)
-    link_6 = create(:featured_link, linkable: organisation, title: "2 years ago", created_at: 2.years.ago)
+    link1 = create(:featured_link, linkable: organisation, title: "2 days ago", created_at: 2.days.ago)
+    link2 = create(:featured_link, linkable: organisation, title: "12 days ago", created_at: 12.days.ago)
+    link3 = create(:featured_link, linkable: organisation, title: "1 hour ago", created_at: 1.hour.ago)
+    link4 = create(:featured_link, linkable: organisation, title: "2 hours ago", created_at: 2.hours.ago)
+    link5 = create(:featured_link, linkable: organisation, title: "20 minutes ago", created_at: 20.minutes.ago)
+    link6 = create(:featured_link, linkable: organisation, title: "2 years ago", created_at: 2.years.ago)
 
-    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.featured_links
-    assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.featured_links.only_the_initial_set
+    assert_equal [link6, link2, link1, link4, link3, link5], organisation.featured_links
+    assert_equal [link6, link2, link1, link4, link3], organisation.featured_links.only_the_initial_set
   end
 
   test "should ignore blank featured link attributes" do
@@ -817,16 +817,16 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "can provide a list of all its FOI contacts" do
     organisation = create(:organisation)
-    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
-    contact_2 = create(:contact, contact_type: ContactType::FOI)
-    contact_3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
-    contact_4 = create(:contact, contactable: organisation, contact_type: ContactType::General)
+    contact1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact2 = create(:contact, contact_type: ContactType::FOI)
+    contact3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
+    contact4 = create(:contact, contactable: organisation, contact_type: ContactType::General)
 
     foi_contacts = organisation.foi_contacts
-    assert foi_contacts.include?(contact_1), "expected our foi contact to be in our list of foi contacts"
-    assert_not foi_contacts.include?(contact_2), "expected someone else's foi contact not to be in our list of foi contacts"
-    assert_not foi_contacts.include?(contact_3), "expected our media contact not to be in our list of foi contacts"
-    assert_not foi_contacts.include?(contact_4), "expected our general contact not to be in our list of foi contacts"
+    assert foi_contacts.include?(contact1), "expected our foi contact to be in our list of foi contacts"
+    assert_not foi_contacts.include?(contact2), "expected someone else's foi contact not to be in our list of foi contacts"
+    assert_not foi_contacts.include?(contact3), "expected our media contact not to be in our list of foi contacts"
+    assert_not foi_contacts.include?(contact4), "expected our general contact not to be in our list of foi contacts"
   end
 
   test "knows if a given contact is on its home page" do
@@ -841,11 +841,11 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "knows that its FOI contacts are on the home page, even if it's not explicitly in the list" do
     organisation = create(:organisation)
-    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
-    contact_2 = create(:contact, contact_type: ContactType::FOI)
+    contact1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact2 = create(:contact, contact_type: ContactType::FOI)
 
-    assert organisation.contact_shown_on_home_page?(contact_1), "expected FOI contact that belongs to org to be shown_on_home_page?, but it wasn't"
-    assert_not organisation.contact_shown_on_home_page?(contact_2), "expected FOI contact that doesn't belong to org to not be shown_on_home_page?, but it was"
+    assert organisation.contact_shown_on_home_page?(contact1), "expected FOI contact that belongs to org to be shown_on_home_page?, but it wasn't"
+    assert_not organisation.contact_shown_on_home_page?(contact2), "expected FOI contact that doesn't belong to org to not be shown_on_home_page?, but it was"
   end
 
   test "has a list of contacts that are on its home page" do
@@ -860,14 +860,14 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "the list of contacts that are on its home page excludes any FOI contacts" do
     organisation = create(:organisation)
-    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::General)
-    contact_2 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
-    contact_3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
-    organisation.add_contact_to_home_page!(contact_1)
-    organisation.add_contact_to_home_page!(contact_2)
-    organisation.add_contact_to_home_page!(contact_3)
+    contact1 = create(:contact, contactable: organisation, contact_type: ContactType::General)
+    contact2 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
+    organisation.add_contact_to_home_page!(contact1)
+    organisation.add_contact_to_home_page!(contact2)
+    organisation.add_contact_to_home_page!(contact3)
 
-    assert_equal [contact_1, contact_3], organisation.home_page_contacts
+    assert_equal [contact1, contact3], organisation.home_page_contacts
   end
 
   test "can add a contact to the list of those that are on its home page" do
@@ -892,13 +892,13 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "can reorder the contacts on the list" do
     organisation = build(:organisation)
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
+    contact1 = create(:contact)
+    contact2 = create(:contact)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
-    h.expects(:reorder_items!).with([contact_1, contact_2]).returns :a_result
+    h.expects(:reorder_items!).with([contact1, contact2]).returns :a_result
 
-    assert_equal :a_result, organisation.reorder_contacts_on_home_page!([contact_1, contact_2])
+    assert_equal :a_result, organisation.reorder_contacts_on_home_page!([contact1, contact2])
   end
 
   test "maintains a home page list for storing contacts" do
@@ -915,15 +915,15 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "Organisation.with_published_editions returns organisations with published editions" do
-    organisation_1 = create(:organisation)
-    _organisation_2 = create(:organisation)
-    organisation_3 = create(:organisation)
-    _organisation_4 = create(:organisation)
+    organisation1 = create(:organisation)
+    _organisation2 = create(:organisation)
+    organisation3 = create(:organisation)
+    _organisation4 = create(:organisation)
 
-    create(:published_news_article, organisations: [organisation_1])
-    create(:published_publication, organisations: [organisation_3])
+    create(:published_news_article, organisations: [organisation1])
+    create(:published_publication, organisations: [organisation3])
 
-    assert_same_elements [organisation_1, organisation_3], Organisation.with_published_editions
+    assert_same_elements [organisation1, organisation3], Organisation.with_published_editions
   end
 
   test "#organisation_brand_colour fetches the brand colour" do

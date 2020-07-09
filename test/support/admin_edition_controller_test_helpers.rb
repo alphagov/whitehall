@@ -533,14 +533,14 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with multiple images should attach all files" do
-        image_file_0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
-        image_file_1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                   image_data_attributes: attributes_for(:image_data, file: image_file_0) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file0) },
           "1" => { alt_text: "more-alt-text",
-                   image_data_attributes: attributes_for(:image_data, file: image_file_1) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file1) },
         }
 
         post :create,
@@ -552,10 +552,10 @@ module AdminEditionControllerTestHelpers
 
         edition = edition_class.last!
         assert_equal 2, edition.images.length
-        image_1 = edition.images.first
-        assert_equal "some-alt-text", image_1.alt_text
-        image_2 = edition.images.last
-        assert_equal "more-alt-text", image_2.alt_text
+        image1 = edition.images.first
+        assert_equal "some-alt-text", image1.alt_text
+        image2 = edition.images.last
+        assert_equal "more-alt-text", image2.alt_text
       end
 
       view_test "creating an edition with an invalid image should show an error" do
@@ -673,13 +673,13 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition should attach multiple images" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image_file_0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
-        image_file_1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
-                   image_data_attributes: attributes_for(:image_data, file: image_file_0) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file0) },
           "1" => { alt_text: "more-alt-text",
-                   image_data_attributes: attributes_for(:image_data, file: image_file_1) },
+                   image_data_attributes: attributes_for(:image_data, file: image_file1) },
         } }
 
         put :update, params: { id: edition, edition: attributes }
@@ -687,10 +687,10 @@ module AdminEditionControllerTestHelpers
         assert_response :redirect
 
         assert_equal 2, edition.images.length
-        image_1 = edition.images.first
-        assert_equal "some-alt-text", image_1.alt_text
-        image_2 = edition.images.last
-        assert_equal "more-alt-text", image_2.alt_text
+        image1 = edition.images.first
+        assert_equal "some-alt-text", image1.alt_text
+        image2 = edition.images.last
+        assert_equal "more-alt-text", image2.alt_text
       end
 
       view_test "updating an edition with invalid data should still allow image to be selected for upload" do
@@ -796,13 +796,13 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
 
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image_1 = create(
+        image1 = create(
           :image,
           edition: edition,
           alt_text: "the first image",
           image_data_attributes: attributes_for(:image_data, file: image),
         )
-        image_2 = create(
+        image2 = create(
           :image,
           edition: edition,
           alt_text: "the second image",
@@ -811,8 +811,8 @@ module AdminEditionControllerTestHelpers
 
         attributes = {
           images_attributes: {
-            "0" => { id: image_1.id.to_s, _destroy: "1" },
-            "1" => { id: image_2.id.to_s, _destroy: "0" },
+            "0" => { id: image1.id.to_s, _destroy: "1" },
+            "1" => { id: image2.id.to_s, _destroy: "0" },
             "2" => { image_data_attributes: { file_cache: "" } },
           },
         }
@@ -820,7 +820,7 @@ module AdminEditionControllerTestHelpers
 
         refute_select ".errors"
         edition.reload
-        assert_equal [image_2], edition.images
+        assert_equal [image2], edition.images
       end
     end
 
@@ -985,43 +985,43 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should allow removal of an organisation" do
-        organisation_1 = create(:organisation)
-        organisation_2 = create(:organisation)
+        organisation1 = create(:organisation)
+        organisation2 = create(:organisation)
 
-        edition = create(edition_type, organisations: [organisation_1, organisation_2])
+        edition = create(edition_type, organisations: [organisation1, organisation2])
 
         put :update,
             params: {
               id: edition,
               edition: {
-                lead_organisation_ids: [organisation_2.id],
+                lead_organisation_ids: [organisation2.id],
               },
             }
 
         edition.reload
-        assert_equal [organisation_2], edition.lead_organisations
+        assert_equal [organisation2], edition.lead_organisations
       end
 
       test "update should allow swapping of an organisation from lead to supporting" do
-        organisation_1 = create(:organisation)
-        organisation_2 = create(:organisation)
-        organisation_3 = create(:organisation)
+        organisation1 = create(:organisation)
+        organisation2 = create(:organisation)
+        organisation3 = create(:organisation)
 
-        edition = create(edition_type, organisations: [organisation_1, organisation_2])
-        edition.organisations << organisation_3
+        edition = create(edition_type, organisations: [organisation1, organisation2])
+        edition.organisations << organisation3
 
         put :update,
             params: {
               id: edition,
               edition: {
-                lead_organisation_ids: [organisation_2.id, organisation_3.id],
-                supporting_organisation_ids: [organisation_1.id],
+                lead_organisation_ids: [organisation2.id, organisation3.id],
+                supporting_organisation_ids: [organisation1.id],
               },
             }
 
         edition.reload
-        assert_equal [organisation_2, organisation_3], edition.lead_organisations
-        assert_equal [organisation_1], edition.supporting_organisations
+        assert_equal [organisation2, organisation3], edition.lead_organisations
+        assert_equal [organisation1], edition.supporting_organisations
       end
     end
 

@@ -49,8 +49,8 @@ Given(/^a (.*?) policy "([^"]*)" for the organisation "([^"]*)"$/) do |state, ti
   create("#{state}_policy", title: title, organisations: [org])
 end
 
-Given(/^a (.*?) policy "([^"]*)" for the organisations "([^"]*)" and "([^"]*)"$/) do |state, title, organisation_1, organisation_2|
-  organisation_1 = create(:organisation, name: organisation_1)
-  organisation_2 = create(:organisation, name: organisation_2)
-  create("#{state}_policy", title: title, organisations: [organisation_1, organisation_2])
+Given(/^a (.*?) policy "([^"]*)" for the organisations "([^"]*)" and "([^"]*)"$/) do |state, title, organisation1, organisation2|
+  organisation1 = create(:organisation, name: organisation1)
+  organisation2 = create(:organisation, name: organisation2)
+  create("#{state}_policy", title: title, organisations: [organisation1, organisation2])
 end

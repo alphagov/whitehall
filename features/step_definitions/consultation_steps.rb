@@ -21,9 +21,9 @@ When(/^I draft a new consultation "([^"]*)"$/) do |title|
   click_button "Save"
 end
 
-Then(/^I can see links to the consultations "([^"]*)" and "([^"]*)"$/) do |title_1, title_2|
-  assert has_css?(".consultation a", text: title_1)
-  assert has_css?(".consultation a", text: title_2)
+Then(/^I can see links to the consultations "([^"]*)" and "([^"]*)"$/) do |title1, title2|
+  assert has_css?(".consultation a", text: title1)
+  assert has_css?(".consultation a", text: title2)
 end
 
 When(/^I add an outcome to the consultation$/) do

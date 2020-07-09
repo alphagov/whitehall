@@ -95,18 +95,18 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search with organisations returns results associated with the organisations" do
-    announcement_1 = create :statistics_announcement
-    _announcement_2 = create :statistics_announcement
+    announcement1 = create :statistics_announcement
+    _announcement2 = create :statistics_announcement
 
-    assert_equal [announcement_1.title], matched_titles(organisations: announcement_1.organisations_slugs)
+    assert_equal [announcement1.title], matched_titles(organisations: announcement1.organisations_slugs)
   end
 
   test "#advanced_search returns results ordered by current_release_date's release_date" do
-    announcement_1 = create :statistics_announcement, current_release_date: build(:statistics_announcement_date, release_date: 2.days.from_now)
-    announcement_2 = create :statistics_announcement, current_release_date: build(:statistics_announcement_date, release_date: 1.day.from_now)
-    announcement_3 = create :statistics_announcement, current_release_date: build(:statistics_announcement_date, release_date: 3.days.from_now)
+    announcement1 = create :statistics_announcement, current_release_date: build(:statistics_announcement_date, release_date: 2.days.from_now)
+    announcement2 = create :statistics_announcement, current_release_date: build(:statistics_announcement_date, release_date: 1.day.from_now)
+    announcement3 = create :statistics_announcement, current_release_date: build(:statistics_announcement_date, release_date: 3.days.from_now)
 
-    assert_equal [announcement_2.title, announcement_1.title, announcement_3.title], matched_titles
+    assert_equal [announcement2.title, announcement1.title, announcement3.title], matched_titles
   end
 
   test "#advanced_search supports pagination" do

@@ -26,11 +26,11 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     @group.documents << create(:publication).document
     @group.documents << create(:corporate_information_page).document
     @collection.groups << build(:document_collection_group)
-    group_1, group_2 = @collection.groups
+    group1, group2 = @collection.groups
     get :index, params: { document_collection_id: @collection }
     assert_select "section.group" do
-      assert_select "option[value='#{group_1.id}']", count: 0
-      assert_select "option[value='#{group_2.id}']", group_2.heading
+      assert_select "option[value='#{group1.id}']", count: 0
+      assert_select "option[value='#{group2.id}']", group2.heading
     end
   end
 
@@ -123,17 +123,17 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
            document_collection_id: @collection.id,
            groups: {
              0 => {
-               id: @group_1.id,
+               id: @group1.id,
                membership_ids: [
-                 @member_1_2.id,
-                 @member_1_1.id,
+                 @member_1b.id,
+                 @member_1a.id,
                ],
                order: 0,
              },
            },
          }
 
-    assert_equal [@member_1_2, @member_1_1], @group_1.reload.memberships
+    assert_equal [@member_1b, @member_1a], @group1.reload.memberships
   end
 
   test "POST #update_memberships saves the order of groups" do
@@ -143,18 +143,18 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
            document_collection_id: @collection.id,
            groups: {
              0 => {
-               id: @group_1.id,
+               id: @group1.id,
                membership_ids: [
-                 @member_1_1.id,
-                 @member_1_2.id,
+                 @member_1a.id,
+                 @member_1b.id,
                ],
                order: 1,
              },
              1 => {
-               id: @group_2.id,
+               id: @group2.id,
                membership_ids: [
-                 @member_2_1.id,
-                 @member_2_2.id,
+                 @member_2a.id,
+                 @member_2b.id,
                ],
                order: 0,
              },
@@ -162,7 +162,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
          }
 
     assert_response :success
-    assert_equal [@group_2.id, @group_1.id], @collection.reload.groups.pluck(:id)
+    assert_equal [@group2.id, @group1.id], @collection.reload.groups.pluck(:id)
   end
 
   test "POST #update_memberships should cope with duplicate members in group" do
@@ -172,17 +172,17 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
            document_collection_id: @collection.id,
            groups: {
              0 => {
-               id: @group_1.id,
+               id: @group1.id,
                membership_ids: [
-                 @member_1_1.id,
-                 @member_1_1.id,
+                 @member_1a.id,
+                 @member_1a.id,
                ],
                order: 0,
              },
            },
          }
 
-    assert_equal [@member_1_1], @group_1.reload.memberships
+    assert_equal [@member_1a], @group1.reload.memberships
   end
 
   test "POST #update_memberships should support moving memberships between groups" do
@@ -192,25 +192,25 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
            document_collection_id: @collection.id,
            groups: {
              0 => {
-               id: @group_1.id,
+               id: @group1.id,
                membership_ids: [
-                 @member_1_1.id,
+                 @member_1a.id,
                ],
                order: 0,
              },
              1 => {
-               id: @group_2.id,
+               id: @group2.id,
                membership_ids: [
-                 @member_1_2.id,
-                 @member_2_1.id,
-                 @member_2_2.id,
+                 @member_1b.id,
+                 @member_2a.id,
+                 @member_2b.id,
                ],
                order: 1,
              },
            },
          }
 
-    assert @group_2.reload.memberships.include?(@member_1_2)
+    assert @group2.reload.memberships.include?(@member_1b)
   end
 
   test "POST #update_memberships should handle empty groups" do
@@ -221,35 +221,35 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
            document_collection_id: @collection.id,
            groups: {
              0 => {
-               id: @group_1.id,
+               id: @group1.id,
                membership_ids: [
-                 @member_1_1.id,
-                 @member_1_2.id,
-                 @member_2_1.id,
-                 @member_2_2.id,
+                 @member_1a.id,
+                 @member_1b.id,
+                 @member_2a.id,
+                 @member_2b.id,
                ],
                order: 0,
              },
              1 => {
-               id: @group_2.id,
+               id: @group2.id,
                order: 1,
              },
            },
          }
 
     assert_response :success
-    assert_equal [@member_1_1, @member_1_2, @member_2_1, @member_2_2], @group_1.reload.memberships
-    assert_empty @group_2.reload.memberships
+    assert_equal [@member_1a, @member_1b, @member_2a, @member_2b], @group1.reload.memberships
+    assert_empty @group2.reload.memberships
   end
 
   def given_two_groups_with_memberships
-    @group_1 = build(:document_collection_group)
-    @group_2 = build(:document_collection_group)
-    @collection.update! groups: [@group_1, @group_2]
+    @group1 = build(:document_collection_group)
+    @group2 = build(:document_collection_group)
+    @collection.update! groups: [@group1, @group2]
 
-    @group_1.memberships << @member_1_1 = create(:document_collection_group_membership)
-    @group_1.memberships << @member_1_2 = create(:document_collection_group_membership)
-    @group_2.memberships << @member_2_1 = create(:document_collection_group_membership)
-    @group_2.memberships << @member_2_2 = create(:document_collection_group_membership)
+    @group1.memberships << @member_1a = create(:document_collection_group_membership)
+    @group1.memberships << @member_1b = create(:document_collection_group_membership)
+    @group2.memberships << @member_2a = create(:document_collection_group_membership)
+    @group2.memberships << @member_2b = create(:document_collection_group_membership)
   end
 end

@@ -103,12 +103,12 @@ class StatisticsControllerTest < ActionController::TestCase
 
   view_test "#index requested as JSON includes data for statistics" do
     Sidekiq::Testing.inline! do
-      organisation_1 = create(:organisation, name: "org-name")
-      organisation_2 = create(:organisation, name: "other-org")
+      organisation1 = create(:organisation, name: "org-name")
+      organisation2 = create(:organisation, name: "other-org")
       statistics_publication = create(
         :published_statistics,
         title: "statistics-title",
-        organisations: [organisation_1, organisation_2],
+        organisations: [organisation1, organisation2],
         first_published_at: Date.parse("2011-03-14"),
         translated_into: :fr,
       )

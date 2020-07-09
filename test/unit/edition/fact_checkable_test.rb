@@ -9,15 +9,15 @@ class Edition::FactCheckableTest < ActiveSupport::TestCase
   end
 
   test "should list all completed fact check requests from all editions, newest first" do
-    time_0 = Time.zone.now
+    time0 = Time.zone.now
     user = create(:user)
     old_edition = create(:published_publication)
-    Timecop.freeze time_0
+    Timecop.freeze time0
     old_complete_fcr = create(:fact_check_request, edition: old_edition, comments: "Stuff")
-    Timecop.freeze time_0 + 1
+    Timecop.freeze time0 + 1
     _old_incomplete_fcr = create(:fact_check_request, edition: old_edition)
     new_edition = old_edition.create_draft(user)
-    Timecop.freeze time_0 + 2
+    Timecop.freeze time0 + 2
     new_complete_fcr = create(:fact_check_request, edition: new_edition, comments: "Stuff")
 
     expected = [new_complete_fcr, old_complete_fcr]

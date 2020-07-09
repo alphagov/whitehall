@@ -116,11 +116,11 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
   test "unpublishing is specific to the organisation" do
     organisation = create(:organisation)
-    organisation_2 = create(:organisation, slug: "another_organisation")
+    organisation2 = create(:organisation, slug: "another_organisation")
     cip = create(:corporate_information_page, :unpublished, organisation: organisation)
     alternative_url = Whitehall.url_maker.root_url
     cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
-    draft_cip = create(:corporate_information_page, organisation: organisation_2)
+    draft_cip = create(:corporate_information_page, organisation: organisation2)
 
     # Even though the Unpublishing has the same slug as the draft CIP, we should
     # only find it for the unpublished one.
@@ -129,7 +129,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     get :show, params: { organisation_id: organisation, id: cip.slug }
     assert_response :redirect
 
-    get :show, params: { organisation_id: organisation_2, id: cip.slug }
+    get :show, params: { organisation_id: organisation2, id: cip.slug }
     assert_response 404
   end
 end

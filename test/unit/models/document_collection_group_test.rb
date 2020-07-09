@@ -12,22 +12,22 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
         membership's ordering to the position of the membership id in the passed in array" do
     group = build(:document_collection_group)
 
-    membership_1 = create(:document_collection_group_membership)
-    membership_2 = create(:document_collection_group_membership)
-    membership_3 = create(:document_collection_group_membership)
+    membership1 = create(:document_collection_group_membership)
+    membership2 = create(:document_collection_group_membership)
+    membership3 = create(:document_collection_group_membership)
 
-    group.memberships << membership_1
-    group.memberships << membership_2
-    group.memberships << membership_3
+    group.memberships << membership1
+    group.memberships << membership2
+    group.memberships << membership3
 
-    group.set_membership_ids_in_order! [membership_3.id, membership_1.id]
+    group.set_membership_ids_in_order! [membership3.id, membership1.id]
 
-    assert group.memberships.include? membership_1
-    assert group.memberships.include? membership_3
-    assert_not group.memberships.include? membership_2
+    assert group.memberships.include? membership1
+    assert group.memberships.include? membership3
+    assert_not group.memberships.include? membership2
 
-    assert_equal 0, group.memberships.find(membership_3.id).ordering
-    assert_equal 1, group.memberships.find(membership_1.id).ordering
+    assert_equal 0, group.memberships.find(membership3.id).ordering
+    assert_equal 1, group.memberships.find(membership1.id).ordering
   end
 
   test "#dup should also clone document memberships" do

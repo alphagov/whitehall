@@ -106,18 +106,18 @@ class OrganisationHelperTest < ActionView::TestCase
   end
 
   test "#organisation_govuk_status_description describes an organisation that has been split" do
-    superseding_organisation_1 = create(:organisation, name: "Superseding organisation 1")
-    superseding_organisation_2 = create(:organisation, name: "Superseding organisation 2")
-    organisation = build(:organisation, name: "Beard Ministry", govuk_status: "closed", govuk_closed_status: "split", superseding_organisations: [superseding_organisation_1, superseding_organisation_2])
+    superseding_organisation1 = create(:organisation, name: "Superseding organisation 1")
+    superseding_organisation2 = create(:organisation, name: "Superseding organisation 2")
+    organisation = build(:organisation, name: "Beard Ministry", govuk_status: "closed", govuk_closed_status: "split", superseding_organisations: [superseding_organisation1, superseding_organisation2])
 
     assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a>", organisation_govuk_status_description(organisation)
   end
 
   test "#organisation_govuk_status_description for an organisation that has been split includes the closed date if available" do
-    superseding_organisation_1 = create(:organisation, name: "Superseding organisation 1")
-    superseding_organisation_2 = create(:organisation, name: "Superseding organisation 2")
+    superseding_organisation1 = create(:organisation, name: "Superseding organisation 1")
+    superseding_organisation2 = create(:organisation, name: "Superseding organisation 2")
     closed_time = 1.day.ago
-    organisation = build(:organisation, name: "Beard Ministry", govuk_status: "closed", closed_at: closed_time, govuk_closed_status: "split", superseding_organisations: [superseding_organisation_1, superseding_organisation_2])
+    organisation = build(:organisation, name: "Beard Ministry", govuk_status: "closed", closed_at: closed_time, govuk_closed_status: "split", superseding_organisations: [superseding_organisation1, superseding_organisation2])
 
     assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a> in November 2011",
                  organisation_govuk_status_description(organisation)
@@ -343,12 +343,12 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
   test "multiple parent organisations reflected as in copy" do
-    parent_1 = create(:organisation)
-    parent_2 = create(:organisation)
-    child = create(:organisation, parent_organisations: [parent_1, parent_2])
+    parent1 = create(:organisation)
+    parent2 = create(:organisation)
+    child = create(:organisation, parent_organisations: [parent1, parent2])
     result = organisation_display_name_and_parental_relationship(child)
-    assert_match parent_1.name, result
-    assert_match parent_2.name, result
+    assert_match parent1.name, result
+    assert_match parent2.name, result
   end
 
   test "single child organisation reflected as in copy" do
@@ -359,9 +359,9 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
   test "multiple child organisations reflected as in copy" do
-    child_1 = create(:organisation)
-    child_2 = create(:organisation)
-    parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child_1, child_2])
+    child1 = create(:organisation)
+    child2 = create(:organisation)
+    parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child1, child2])
     description = organisation_display_name_including_parental_and_child_relationships(parent)
     assert description.include? "2 agencies and public bodies"
   end

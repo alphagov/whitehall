@@ -67,7 +67,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   end
 end
 
-When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
+When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title1, doc_title2|
   refute @document_collection.nil?, "No document collection to act on."
 
   visit admin_document_collection_path(@document_collection)
@@ -77,11 +77,11 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   # Simulate drag-droping document.
   execute_script %{
     (function($) {
-      var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
-      if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title_1}' in .document-list.");
+      var doc_1_li = $('.document-list li:contains(#{doc_title1})');
+      if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title1}' in .document-list.");
 
-      var doc_2_li = $('.document-list li:contains(#{doc_title_2})');
-      if(doc_2_li.length == 0) throw("Couldn't find li for document '#{doc_title_2}' in .document-list.");
+      var doc_2_li = $('.document-list li:contains(#{doc_title2})');
+      if(doc_2_li.length == 0) throw("Couldn't find li for document '#{doc_title2}' in .document-list.");
 
       doc_2_li.before(doc_1_li.remove());
 
@@ -152,9 +152,9 @@ Then(/^I can see in the admin that "(.*?)" does not appear$/) do |document_title
   refute_document_is_part_of_document_collection(document_title)
 end
 
-Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
-  assert_text doc_title_1
-  assert body.index(doc_title_1) < body.index(doc_title_2), "Expected #{doc_title_1} to be before #{doc_title_2}"
+Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title1, doc_title2|
+  assert_text doc_title1
+  assert body.index(doc_title1) < body.index(doc_title2), "Expected #{doc_title1} to be before #{doc_title2}"
 end
 
 And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|

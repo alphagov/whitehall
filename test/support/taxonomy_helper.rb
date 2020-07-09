@@ -46,7 +46,7 @@ module TaxonomyHelper
   end
 
   def stub_taxonomy_with_all_taxons
-    redis_cache_has_taxons [root_taxon, draft_taxon_1, draft_taxon_2]
+    redis_cache_has_taxons [root_taxon, draft_taxon1, draft_taxon2]
   end
 
   def stub_taxonomy_with_world_taxons
@@ -197,7 +197,7 @@ private
     )
   end
 
-  def draft_taxon_1
+  def draft_taxon1
     FactoryBot.build(
       :taxon_hash,
       title: "About your organisation",
@@ -206,7 +206,7 @@ private
     )
   end
 
-  def draft_taxon_2
+  def draft_taxon2
     FactoryBot.build(
       :taxon_hash,
       title: "Parenting",

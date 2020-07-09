@@ -20,27 +20,27 @@ class FeedHelperTest < ActionView::TestCase
   end
 
   test "documents_as_feed_entries exposes each document as an entry and calls document_as_feed_entry on it" do
-    document_1 = Publication.new
-    document_1.stubs(:id).returns(12)
-    document_1.stubs(:first_public_at).returns(1.week.ago)
-    document_1.stubs(:public_timestamp).returns(3.days.ago)
-    document_2 = NewsArticle.new
-    document_2.stubs(:id).returns(14)
-    document_2.stubs(:first_public_at).returns(2.weeks.ago)
-    document_2.stubs(:public_timestamp).returns(13.days.ago)
+    document1 = Publication.new
+    document1.stubs(:id).returns(12)
+    document1.stubs(:first_public_at).returns(1.week.ago)
+    document1.stubs(:public_timestamp).returns(3.days.ago)
+    document2 = NewsArticle.new
+    document2.stubs(:id).returns(14)
+    document2.stubs(:first_public_at).returns(2.weeks.ago)
+    document2.stubs(:public_timestamp).returns(13.days.ago)
     builder = mock("builder")
     entries = sequence("entries")
     builder.stubs(:updated)
-    builder.expects(:entry).with(document_2, id: "tag:#{host},2005:NewsArticle/14", url: "/news_article_url", published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
-    builder.expects(:entry).with(document_1, id: "tag:#{host},2005:Publication/12", url: "/publication_url", published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(document2, id: "tag:#{host},2005:NewsArticle/14", url: "/news_article_url", published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(document1, id: "tag:#{host},2005:Publication/12", url: "/publication_url", published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     feed_entry = sequence("feed_entry")
-    expects(:document_as_feed_entry).with(document_2, builder).in_sequence(feed_entry)
-    expects(:document_as_feed_entry).with(document_1, builder).in_sequence(feed_entry)
+    expects(:document_as_feed_entry).with(document2, builder).in_sequence(feed_entry)
+    expects(:document_as_feed_entry).with(document1, builder).in_sequence(feed_entry)
 
-    stubs(:public_document_url).with(document_2).returns "/news_article_url"
-    stubs(:public_document_url).with(document_1).returns "/publication_url"
+    stubs(:public_document_url).with(document2).returns "/news_article_url"
+    stubs(:public_document_url).with(document1).returns "/publication_url"
 
-    documents_as_feed_entries([document_2, document_1], builder)
+    documents_as_feed_entries([document2, document1], builder)
   end
 
   test "documents_as_feed_entries sets the updated of the builder to the supplied feed_updated_timestamp if no documents are present" do

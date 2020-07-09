@@ -205,14 +205,14 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test "order attachments by attachable ID" do
     attachment_data = create(:attachment_data)
-    edition_1 = create(:edition)
-    edition_2 = create(:edition)
-    attachment_1 = build(:file_attachment, attachable: edition_2)
-    attachment_2 = build(:file_attachment, attachable: edition_1)
-    attachment_data.attachments << attachment_1
-    attachment_data.attachments << attachment_2
+    edition1 = create(:edition)
+    edition2 = create(:edition)
+    attachment1 = build(:file_attachment, attachable: edition2)
+    attachment2 = build(:file_attachment, attachable: edition1)
+    attachment_data.attachments << attachment1
+    attachment_data.attachments << attachment2
 
-    assert_equal [attachment_2, attachment_1], attachment_data.attachments.to_a
+    assert_equal [attachment2, attachment1], attachment_data.attachments.to_a
   end
 
   test "#access_limited? is falsey if there is no last attachable" do

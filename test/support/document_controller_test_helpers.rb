@@ -47,19 +47,19 @@ module DocumentControllerTestHelpers
           :with_alternative_format_provider,
           body: "!@1\n\n!@2",
           attachments: [
-            attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf")),
-            attachment_2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
+            attachment1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf")),
+            attachment2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
           ],
         )
 
         get :show, params: { id: edition.document }
 
-        assert_select_object(attachment_1) do
-          assert_select ".title", text: attachment_1.title
+        assert_select_object(attachment1) do
+          assert_select ".title", text: attachment1.title
           assert_select "img[src$=?]", "thumbnail_greenpaper.pdf.png"
         end
-        assert_select_object(attachment_2) do
-          assert_select ".title", text: attachment_2.title
+        assert_select_object(attachment2) do
+          assert_select ".title", text: attachment2.title
           assert_select "img[src$=?]", "pub-cover.png", message: "should use default image for non-PDF attachments"
         end
       end
@@ -80,19 +80,19 @@ module DocumentControllerTestHelpers
           :with_alternative_format_provider,
           body: "!@1\n\n!@2",
           attachments: [
-            attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: true),
-            attachment_2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
+            attachment1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: true),
+            attachment2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
           ],
         )
 
         get :show, params: { id: edition.document }
 
-        assert_select_object(attachment_1) do
+        assert_select_object(attachment1) do
           refute_select ".accessibility-warning"
-          refute_select ".title a[aria-describedby='attachment-#{attachment_1.id}-accessibility-help']"
+          refute_select ".title a[aria-describedby='attachment-#{attachment1.id}-accessibility-help']"
         end
-        assert_select_object(attachment_2) do
-          assert_select ".title a[aria-describedby='attachment-#{attachment_2.id}-accessibility-help']"
+        assert_select_object(attachment2) do
+          assert_select ".title a[aria-describedby='attachment-#{attachment2.id}-accessibility-help']"
           assert_select ".accessibility-warning"
         end
       end
@@ -103,14 +103,14 @@ module DocumentControllerTestHelpers
           "published_#{document_type}",
           body: "!@1",
           attachments: [
-            attachment_1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: false),
+            attachment1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: false),
           ],
           alternative_format_provider: organisation,
         )
 
         get :show, params: { id: edition.document }
 
-        assert_select_object(attachment_1) do
+        assert_select_object(attachment1) do
           assert_select ".accessibility-warning" do
             assert_select 'a[href^="mailto:alternative@example.com"]'
           end

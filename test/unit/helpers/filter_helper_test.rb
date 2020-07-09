@@ -4,19 +4,19 @@ class FilterHelperTest < ActionView::TestCase
   include TaxonomyHelper
 
   test "#organisation_options_for_statistics_announcement_filter renders select options for all organisations with an associated release announcement in alphabetical order selecting passed in organisation" do
-    _org_1 = create(:organisation, name: "B org")
-    org_2 = create(:organisation, name: "C org")
-    org_3 = create(:organisation, name: "A org")
+    _org1 = create(:organisation, name: "B org")
+    org2 = create(:organisation, name: "C org")
+    org3 = create(:organisation, name: "A org")
 
-    create :statistics_announcement, organisation_ids: [org_2.id]
-    create :statistics_announcement, organisation_ids: [org_3.id]
+    create :statistics_announcement, organisation_ids: [org2.id]
+    create :statistics_announcement, organisation_ids: [org3.id]
 
-    rendered = Nokogiri::HTML::DocumentFragment.parse(organisation_options_for_statistics_announcement_filter(org_3.slug))
+    rendered = Nokogiri::HTML::DocumentFragment.parse(organisation_options_for_statistics_announcement_filter(org3.slug))
     options = rendered.css("option")
     option_values = options.map { |option| option[:value] }
 
-    assert_equal ["All departments", org_3.name, org_2.name], options.map(&:text)
-    assert_equal ["", org_3.slug, org_2.slug], option_values
+    assert_equal ["All departments", org3.name, org2.name], options.map(&:text)
+    assert_equal ["", org3.slug, org2.slug], option_values
     assert options[1][:selected]
   end
 

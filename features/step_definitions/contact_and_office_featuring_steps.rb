@@ -1,24 +1,24 @@
 Given(/^there is an organisation with some contacts on its home page$/) do
   @the_organisation = create_org_and_stub_content_store(:organisation, name: "Name of org with contacts")
-  contact_1 = create(:contact, contactable: @the_organisation, title: "Main office")
-  contact_2 = create(:contact, contactable: @the_organisation, title: "Summer office by the lake")
-  contact_3 = create(:contact, contactable: @the_organisation, title: "Emergency bunker office")
-  @the_organisation.add_contact_to_home_page!(contact_1)
-  @the_organisation.add_contact_to_home_page!(contact_2)
-  @the_organisation.add_contact_to_home_page!(contact_3)
-  @the_ordered_contacts = [contact_1, contact_2, contact_3]
+  contact1 = create(:contact, contactable: @the_organisation, title: "Main office")
+  contact2 = create(:contact, contactable: @the_organisation, title: "Summer office by the lake")
+  contact3 = create(:contact, contactable: @the_organisation, title: "Emergency bunker office")
+  @the_organisation.add_contact_to_home_page!(contact1)
+  @the_organisation.add_contact_to_home_page!(contact2)
+  @the_organisation.add_contact_to_home_page!(contact3)
+  @the_ordered_contacts = [contact1, contact2, contact3]
 end
 
 Given(/^there is a worldwide organisation with some offices on its home page$/) do
   @the_organisation = create(:worldwide_organisation)
   @the_main_office = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "HQ1.0")
-  office_1 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Main office")
-  office_2 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Summer office by the lake")
-  office_3 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Emergency bunker office")
-  @the_organisation.add_office_to_home_page!(office_1)
-  @the_organisation.add_office_to_home_page!(office_2)
-  @the_organisation.add_office_to_home_page!(office_3)
-  @the_ordered_offices = [office_1, office_2, office_3]
+  office1 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Main office")
+  office2 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Summer office by the lake")
+  office3 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: "Emergency bunker office")
+  @the_organisation.add_office_to_home_page!(office1)
+  @the_organisation.add_office_to_home_page!(office2)
+  @the_organisation.add_office_to_home_page!(office3)
+  @the_ordered_offices = [office1, office2, office3]
 end
 
 When(/^I add a new contact to be featured on the home page of the organisation$/) do

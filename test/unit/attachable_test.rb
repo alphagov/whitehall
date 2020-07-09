@@ -20,15 +20,15 @@ class AttachableTest < ActiveSupport::TestCase
       :publication,
       :with_file_attachment,
       attachments: [
-        attachment_1 = build(:file_attachment, ordering: 0),
-        attachment_2 = build(:file_attachment, ordering: 1, file: file_fixture("whitepaper.pdf")),
+        attachment1 = build(:file_attachment, ordering: 0),
+        attachment2 = build(:file_attachment, ordering: 1, file: file_fixture("whitepaper.pdf")),
       ],
     )
 
-    attachment_3 = FileAttachment.new(title: "Title", attachment_data: build(:attachment_data, file: file_fixture("sample.rtf")))
-    publication.attachments << attachment_3
+    attachment3 = FileAttachment.new(title: "Title", attachment_data: build(:attachment_data, file: file_fixture("sample.rtf")))
+    publication.attachments << attachment3
 
-    assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments.reload
+    assert_equal [attachment1, attachment2, attachment3], publication.attachments.reload
   end
 
   test "creating a new attachable thing with multiple attachments sets the correct ordering" do
@@ -36,15 +36,15 @@ class AttachableTest < ActiveSupport::TestCase
       :publication,
       :with_file_attachment,
       attachments: [
-        attachment_1 = build(:file_attachment),
-        attachment_2 = build(:file_attachment, file: file_fixture("whitepaper.pdf")),
+        attachment1 = build(:file_attachment),
+        attachment2 = build(:file_attachment, file: file_fixture("whitepaper.pdf")),
       ],
     )
 
     publication.save!
-    assert_equal [attachment_1, attachment_2], publication.attachments
-    assert_equal 0, attachment_1.ordering
-    assert_equal 1, attachment_2.ordering
+    assert_equal [attachment1, attachment2], publication.attachments
+    assert_equal 0, attachment1.ordering
+    assert_equal 1, attachment2.ordering
   end
 
   test "should be invalid if an edition has an attachment but no alternative format provider" do
@@ -175,19 +175,19 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "has html_attachments association to fetch only HtmlAttachments" do
-    attachment_1 = build(:file_attachment, ordering: 0)
-    attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1)
-    attachment_3 = build(:html_attachment, title: "Title", body: "Testing")
+    attachment1 = build(:file_attachment, ordering: 0)
+    attachment2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1)
+    attachment3 = build(:html_attachment, title: "Title", body: "Testing")
 
     publication = create(
       :publication,
       :with_file_attachment,
-      attachments: [attachment_1, attachment_2],
+      attachments: [attachment1, attachment2],
     )
 
-    publication.attachments << attachment_3
+    publication.attachments << attachment3
 
-    assert_equal [attachment_2, attachment_3], publication.html_attachments.reload
+    assert_equal [attachment2, attachment3], publication.html_attachments.reload
   end
 
   test "attachment association excludes soft-deleted Attachments" do
@@ -195,24 +195,24 @@ class AttachableTest < ActiveSupport::TestCase
       :publication,
       :with_file_attachment,
       attachments: [
-        attachment_1 = build(:file_attachment),
+        attachment1 = build(:file_attachment),
         build(:html_attachment, title: "HTML attachment", deleted: true),
       ],
     )
 
-    assert_equal [attachment_1], publication.attachments.reload
+    assert_equal [attachment1], publication.attachments.reload
   end
 
   test "html_attachment association excludes soft-deleted HtmlAttachments" do
     publication = create(
       :publication,
       attachments: [
-        attachment_1 = build(:html_attachment, title: "Test HTML attachment"),
+        attachment1 = build(:html_attachment, title: "Test HTML attachment"),
         build(:html_attachment, title: "Another HTML attachment", deleted: true),
       ],
     )
 
-    assert_equal [attachment_1], publication.html_attachments.reload
+    assert_equal [attachment1], publication.html_attachments.reload
   end
 
   test "#has_command_paper? is true if an attachment is a command paper" do
@@ -256,17 +256,17 @@ class AttachableTest < ActiveSupport::TestCase
 
     assert_equal 2, draft.attachments.size
 
-    attachment_1 = draft.attachments[0]
-    assert attachment_1.persisted?
-    assert file_attachment.id != attachment_1.id
-    assert_equal file_attachment.attachment_data, attachment_1.attachment_data
-    assert_equal file_attachment.title, attachment_1.title
+    attachment1 = draft.attachments[0]
+    assert attachment1.persisted?
+    assert file_attachment.id != attachment1.id
+    assert_equal file_attachment.attachment_data, attachment1.attachment_data
+    assert_equal file_attachment.title, attachment1.title
 
-    attachment_2 = draft.attachments[1]
-    assert attachment_2.persisted?
-    assert html_attachment.id != attachment_2.id
-    assert_equal html_attachment.govspeak_content.body, attachment_2.govspeak_content.body
-    assert_equal html_attachment.title, attachment_2.title
+    attachment2 = draft.attachments[1]
+    assert attachment2.persisted?
+    assert html_attachment.id != attachment2.id
+    assert_equal html_attachment.govspeak_content.body, attachment2.govspeak_content.body
+    assert_equal html_attachment.title, attachment2.title
   end
 
   test "re-editioned editions persists invalid attachments" do
@@ -287,28 +287,28 @@ class AttachableTest < ActiveSupport::TestCase
   test "#delete_all_attachments soft-deletes any attachments that the edition has" do
     publication = create(:draft_publication)
 
-    publication.attachments << attachment_1 = build(:file_attachment)
-    publication.attachments << attachment_2 = build(:html_attachment)
+    publication.attachments << attachment1 = build(:file_attachment)
+    publication.attachments << attachment2 = build(:html_attachment)
 
     publication.delete_all_attachments
 
-    assert Attachment.find(attachment_1.id).deleted?
-    assert Attachment.find(attachment_2.id).deleted?
+    assert Attachment.find(attachment1.id).deleted?
+    assert Attachment.find(attachment2.id).deleted?
   end
 
   test "#deleted_html_attachments returns associated HTML attachments that have been deleted" do
     publication = create(
       :draft_publication,
       attachments: [
-        attachment_1 = build(:html_attachment, title: "First"),
-        attachment_2 = build(:html_attachment, title: "Second"),
+        attachment1 = build(:html_attachment, title: "First"),
+        attachment2 = build(:html_attachment, title: "Second"),
       ],
     )
 
-    attachment_1.destroy!
-    attachment_2.destroy!
+    attachment1.destroy!
+    attachment2.destroy!
 
-    assert_equal [attachment_1, attachment_2], publication.deleted_html_attachments
+    assert_equal [attachment1, attachment2], publication.deleted_html_attachments
   end
 
   test "#deleted_html_attachments doesn't return undeleted attachments" do

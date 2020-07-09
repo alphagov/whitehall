@@ -46,18 +46,18 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "the ordering on organisation roles defaults to the end of the list" do
-    organisation_1 = create(:organisation)
-    organisation_2 = create(:organisation)
-    role_1 = create(:role, organisations: [organisation_1, organisation_2])
-    role_2 = create(:role, organisations: [organisation_2])
-    role_3 = create(:role, organisations: [organisation_1])
-    role_4 = create(:role, organisations: [organisation_1])
+    organisation1 = create(:organisation)
+    organisation2 = create(:organisation)
+    role1 = create(:role, organisations: [organisation1, organisation2])
+    role2 = create(:role, organisations: [organisation2])
+    role3 = create(:role, organisations: [organisation1])
+    role4 = create(:role, organisations: [organisation1])
 
-    assert_equal [role_1, role_3, role_4], organisation_1.roles
-    assert_equal [role_1, role_2], organisation_2.roles
+    assert_equal [role1, role3, role4], organisation1.roles
+    assert_equal [role1, role2], organisation2.roles
 
-    assert_equal [0, 1, 2], organisation_1.organisation_roles.pluck(:ordering)
-    assert_equal [0, 1], organisation_2.organisation_roles.pluck(:ordering)
+    assert_equal [0, 1, 2], organisation1.organisation_roles.pluck(:ordering)
+    assert_equal [0, 1], organisation2.organisation_roles.pluck(:ordering)
   end
 
   test "should be able to get the current person" do
@@ -177,15 +177,15 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should be able to scope roles by whips" do
-    role_1 = create(:role, whip_organisation_id: 1)
-    _role_2 = create(:role)
-    assert_equal [role_1], Role.whip
+    role1 = create(:role, whip_organisation_id: 1)
+    _role2 = create(:role)
+    assert_equal [role1], Role.whip
   end
 
   test "should be able to scope roles by cabinet attendance" do
-    role_1 = create(:role, attends_cabinet_type_id: 1)
-    _role_2 = create(:role)
-    assert_equal [role_1], Role.also_attends_cabinet
+    role1 = create(:role, attends_cabinet_type_id: 1)
+    _role2 = create(:role)
+    assert_equal [role1], Role.also_attends_cabinet
   end
 
   test "should be able to scope roles by whether they are occupied" do

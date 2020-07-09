@@ -105,18 +105,18 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "links hash includes lead and supporting organisations in correct order" do
-    lead_org_1 = create(:organisation)
-    lead_org_2 = create(:organisation)
+    lead_org1 = create(:organisation)
+    lead_org2 = create(:organisation)
     supporting_org = create(:organisation)
     publication = create(
       :published_publication,
-      lead_organisations: [lead_org_1, lead_org_2],
+      lead_organisations: [lead_org1, lead_org2],
       supporting_organisations: [supporting_org],
     )
     presented_item = present(publication)
 
     expected_links_hash = {
-      organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
+      organisations: [lead_org1.content_id, lead_org2.content_id, supporting_org.content_id],
     }
 
     assert_valid_against_links_schema({ links: presented_item.links }, "publication")

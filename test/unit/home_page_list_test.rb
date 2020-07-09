@@ -22,50 +22,50 @@ class HomePageListTest < ActiveSupport::TestCase
 
   test "is invalid if the owner already has a list with that name" do
     o = create(:organisation)
-    _list_1 = create(:home_page_list, owner: o, name: "contacts")
-    list_2 = build(:home_page_list, owner: o, name: "contacts")
-    assert_not list_2.valid?
+    _list1 = create(:home_page_list, owner: o, name: "contacts")
+    list2 = build(:home_page_list, owner: o, name: "contacts")
+    assert_not list2.valid?
   end
 
   test "adding a something to the list ensures it is added to the end of the list" do
     list = build(:home_page_list)
-    item_1 = build(:home_page_list_item, home_page_list: list, ordering: nil)
-    list.home_page_list_items << item_1
-    assert_not item_1.ordering.nil?
-    item_2 = build(:home_page_list_item, home_page_list: list, ordering: nil)
-    list.home_page_list_items << item_2
-    assert_not item_2.ordering.nil?
-    assert item_1.ordering < item_2.ordering
+    item1 = build(:home_page_list_item, home_page_list: list, ordering: nil)
+    list.home_page_list_items << item1
+    assert_not item1.ordering.nil?
+    item2 = build(:home_page_list_item, home_page_list: list, ordering: nil)
+    list.home_page_list_items << item2
+    assert_not item2.ordering.nil?
+    assert item1.ordering < item2.ordering
   end
 
   test "adding something that already has an ordering to the list doesn't change it" do
     list = build(:home_page_list)
-    item_1 = build(:home_page_list_item, home_page_list: list, ordering: 12)
-    list.home_page_list_items << item_1
-    assert_equal 12, item_1.ordering
+    item1 = build(:home_page_list_item, home_page_list: list, ordering: 12)
+    list.home_page_list_items << item1
+    assert_equal 12, item1.ordering
   end
 
   test "exposes all the items in the home_page_list_items in order" do
     o = create(:organisation)
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
-    contact_3 = create(:contact)
+    contact1 = create(:contact)
+    contact2 = create(:contact)
+    contact3 = create(:contact)
     list = create(:home_page_list, owner: o, name: "contacts")
-    list.home_page_list_items << build(:home_page_list_item, item: contact_2)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact2)
+    list.home_page_list_items << build(:home_page_list_item, item: contact3)
+    list.home_page_list_items << build(:home_page_list_item, item: contact1)
 
-    assert_equal [contact_2, contact_3, contact_1], list.items
+    assert_equal [contact2, contact3, contact1], list.items
   end
 
   test "#shown_on_home_page? tells us if a given thing is in the list or not" do
     list = create(:home_page_list)
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
+    contact1 = create(:contact)
+    contact2 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact1)
 
-    assert list.shown_on_home_page?(contact_1)
-    assert_not list.shown_on_home_page?(contact_2)
+    assert list.shown_on_home_page?(contact1)
+    assert_not list.shown_on_home_page?(contact2)
   end
 
   test "#add_item will put the supplied item onto the list" do
@@ -117,15 +117,15 @@ class HomePageListTest < ActiveSupport::TestCase
   end
 
   test ".get will return the list for the supplied owned_by: and called: params" do
-    organisation_1 = create(:organisation)
-    organisation_2 = create(:organisation)
+    organisation1 = create(:organisation)
+    organisation2 = create(:organisation)
 
-    create(:home_page_list, owner: organisation_1, name: "donkeys")
-    create(:home_page_list, owner: organisation_2, name: "cats")
+    create(:home_page_list, owner: organisation1, name: "donkeys")
+    create(:home_page_list, owner: organisation2, name: "cats")
 
-    list = create(:home_page_list, owner: organisation_1, name: "cats")
+    list = create(:home_page_list, owner: organisation1, name: "cats")
 
-    assert_equal list, HomePageList.get(owned_by: organisation_1, called: "cats")
+    assert_equal list, HomePageList.get(owned_by: organisation1, called: "cats")
   end
 
   test ".get will build a new list for the supplied owned_by: and called: params if one does not exist already" do
@@ -152,43 +152,43 @@ class HomePageListTest < ActiveSupport::TestCase
 
   test "#reorder_items! takes a list of items and reorders the existing list" do
     list = create(:home_page_list)
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
-    contact_3 = create(:contact)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_2)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
+    contact1 = create(:contact)
+    contact2 = create(:contact)
+    contact3 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact2)
+    list.home_page_list_items << build(:home_page_list_item, item: contact3)
 
-    list.reorder_items!([contact_2, contact_3, contact_1])
+    list.reorder_items!([contact2, contact3, contact1])
 
-    assert_equal [contact_2, contact_3, contact_1], list.reload.items
+    assert_equal [contact2, contact3, contact1], list.reload.items
   end
 
   test "#reorder_items! puts any existing items not mentioned in the new ordering at the end of the list" do
     list = create(:home_page_list)
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
-    contact_3 = create(:contact)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_2)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
+    contact1 = create(:contact)
+    contact2 = create(:contact)
+    contact3 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact2)
+    list.home_page_list_items << build(:home_page_list_item, item: contact3)
 
-    list.reorder_items!([contact_2, contact_3])
+    list.reorder_items!([contact2, contact3])
 
-    assert_equal [contact_2, contact_3, contact_1], list.reload.items
+    assert_equal [contact2, contact3, contact1], list.reload.items
   end
 
   test "#reorder_items! ignores any items not already in the list" do
     list = create(:home_page_list)
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
-    contact_3 = create(:contact)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
-    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
+    contact1 = create(:contact)
+    contact2 = create(:contact)
+    contact3 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact3)
 
-    list.reorder_items!([contact_2, contact_3, contact_1])
+    list.reorder_items!([contact2, contact3, contact1])
 
-    assert_equal [contact_3, contact_1], list.reload.items
+    assert_equal [contact3, contact1], list.reload.items
   end
 
   test "#reorder_items! will persist the list" do
@@ -200,21 +200,21 @@ class HomePageListTest < ActiveSupport::TestCase
   end
 
   test ".remove_from_all_lists destroys all list items for the supplied content" do
-    list_1 = create(:home_page_list, name: "contacts")
-    list_2 = create(:home_page_list, name: "press_offices")
-    contact_1 = create(:contact)
-    contact_2 = create(:contact)
-    list_1.add_item(contact_1)
-    list_1.add_item(contact_2)
-    list_2.add_item(contact_1)
+    list1 = create(:home_page_list, name: "contacts")
+    list2 = create(:home_page_list, name: "press_offices")
+    contact1 = create(:contact)
+    contact2 = create(:contact)
+    list1.add_item(contact1)
+    list1.add_item(contact2)
+    list2.add_item(contact1)
 
-    HomePageList.remove_from_all_lists(contact_1)
+    HomePageList.remove_from_all_lists(contact1)
 
     # removes from all lists it's on
-    assert_not list_1.shown_on_home_page?(contact_1)
-    assert_not list_2.shown_on_home_page?(contact_1)
+    assert_not list1.shown_on_home_page?(contact1)
+    assert_not list2.shown_on_home_page?(contact1)
 
     # doesn't remove other items
-    assert list_1.shown_on_home_page?(contact_2)
+    assert list1.shown_on_home_page?(contact2)
   end
 end

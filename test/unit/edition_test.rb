@@ -109,17 +109,17 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.most_recent_change_note,
                "Expected nil, found #{edition.most_recent_change_note}"
 
-    version_2 = edition.create_draft(editor)
-    version_2.change_note = "My new version"
-    force_publish(version_2)
+    version2 = edition.create_draft(editor)
+    version2.change_note = "My new version"
+    force_publish(version2)
 
-    assert_equal "My new version", version_2.most_recent_change_note
+    assert_equal "My new version", version2.most_recent_change_note
 
-    version_3 = version_2.create_draft(editor)
-    version_3.minor_change = true
-    force_publish(version_3)
+    version3 = version2.create_draft(editor)
+    version3.minor_change = true
+    force_publish(version3)
 
-    assert_equal "My new version", version_3.most_recent_change_note
+    assert_equal "My new version", version3.most_recent_change_note
   end
 
   test "can find editions due for publication" do
@@ -158,15 +158,15 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should return a list of editions in an organisation" do
-    organisation_1 = create(:organisation)
-    organisation_2 = create(:organisation)
-    draft_edition = create(:draft_publication, organisations: [organisation_1])
-    published_edition = create(:published_publication, organisations: [organisation_1])
-    published_in_second_organisation = create(:published_publication, organisations: [organisation_2])
+    organisation1 = create(:organisation)
+    organisation2 = create(:organisation)
+    draft_edition = create(:draft_publication, organisations: [organisation1])
+    published_edition = create(:published_publication, organisations: [organisation1])
+    published_in_second_organisation = create(:published_publication, organisations: [organisation2])
 
-    assert_equal [draft_edition, published_edition], Publication.in_organisation(organisation_1)
-    assert_equal [published_edition], Publication.published.in_organisation(organisation_1)
-    assert_equal [published_in_second_organisation], Publication.in_organisation(organisation_2)
+    assert_equal [draft_edition, published_edition], Publication.in_organisation(organisation1)
+    assert_equal [published_edition], Publication.published.in_organisation(organisation1)
+    assert_equal [published_in_second_organisation], Publication.in_organisation(organisation2)
   end
 
   test "#first_published_version? is true if published and published_major_version is 1" do
@@ -198,18 +198,18 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "last_author returns user who last edited the edition" do
-    user_1 = create(:departmental_editor)
-    user_2 = create(:user)
+    user1 = create(:departmental_editor)
+    user2 = create(:user)
     edition = nil
-    acting_as(user_2) do
+    acting_as(user2) do
       edition = create(:draft_news_article)
     end
-    assert_equal user_2, edition.last_author, "creating"
+    assert_equal user2, edition.last_author, "creating"
 
-    acting_as(user_1) do
+    acting_as(user1) do
       force_publish(edition)
     end
-    assert_equal user_1, edition.reload.last_author, "publishing"
+    assert_equal user1, edition.reload.last_author, "publishing"
   end
 
   test ".authored_by includes editions created by the given user" do
@@ -539,12 +539,12 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".in_reverse_chronological_order works for editions that share the same document and timestamp" do
-    edition_1 = create(:superseded_edition)
-    document  = edition_1.document
-    edition_2 = create(:superseded_edition, document: document)
-    edition_3 = create(:superseded_edition, document: document)
+    edition1 = create(:superseded_edition)
+    document = edition1.document
+    edition2 = create(:superseded_edition, document: document)
+    edition3 = create(:superseded_edition, document: document)
 
-    assert_equal [edition_3, edition_2, edition_1].collect(&:id), Edition.in_reverse_chronological_order.collect(&:id)
+    assert_equal [edition3, edition2, edition1].collect(&:id), Edition.in_reverse_chronological_order.collect(&:id)
   end
 
   test ".published_before returns editions whose first_published_at is before the given date" do
@@ -725,32 +725,32 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "without_editions_of_type allows us to exclude certain subclasses from a result set" do
-    edition_1 = create(:case_study)
-    edition_2 = create(:fatality_notice)
+    edition1 = create(:case_study)
+    edition2 = create(:fatality_notice)
 
     no_case_studies = Edition.without_editions_of_type(CaseStudy)
-    assert no_case_studies.include?(edition_2)
-    assert_not no_case_studies.include?(edition_1)
+    assert no_case_studies.include?(edition2)
+    assert_not no_case_studies.include?(edition1)
   end
 
   test "without_editions_of_type takes multiple classes to exclude" do
-    edition_1 = create(:case_study)
-    edition_2 = create(:fatality_notice)
-    edition_3 = create(:detailed_guide)
+    edition1 = create(:case_study)
+    edition2 = create(:fatality_notice)
+    edition3 = create(:detailed_guide)
 
     no_fatalities_or_guides = Edition.without_editions_of_type(FatalityNotice, DetailedGuide)
-    assert no_fatalities_or_guides.include?(edition_1)
-    assert_not no_fatalities_or_guides.include?(edition_2)
-    assert_not no_fatalities_or_guides.include?(edition_3)
+    assert no_fatalities_or_guides.include?(edition1)
+    assert_not no_fatalities_or_guides.include?(edition2)
+    assert_not no_fatalities_or_guides.include?(edition3)
   end
 
   test "without_editions_of_type doesn't exclude subclasses of the supplied classes" do
-    edition_1 = create(:edition, type: "Announcement")
-    edition_2 = create(:fatality_notice)
+    edition1 = create(:edition, type: "Announcement")
+    edition2 = create(:fatality_notice)
 
     no_editions = Edition.without_editions_of_type(Announcement)
-    assert no_editions.include?(edition_2)
-    assert_not no_editions.include?(edition_1)
+    assert no_editions.include?(edition2)
+    assert_not no_editions.include?(edition1)
   end
 
   should_not_accept_footnotes_in :body

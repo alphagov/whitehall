@@ -68,10 +68,10 @@ Given(/^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/) do |p
   create(:submitted_corporate_publication, title: publication_title, organisations: [organisation])
 end
 
-Given(/^the organisation "([^"]*)" is associated with consultations "([^"]*)" and "([^"]*)"$/) do |name, consultation_1, consultation_2|
+Given(/^the organisation "([^"]*)" is associated with consultations "([^"]*)" and "([^"]*)"$/) do |name, consultation1, consultation2|
   organisation = create_org_and_stub_content_store(:organisation, name: name)
-  create(:published_consultation, title: consultation_1, organisations: [organisation])
-  create(:published_consultation, title: consultation_2, organisations: [organisation])
+  create(:published_consultation, title: consultation1, organisations: [organisation])
+  create(:published_consultation, title: consultation2, organisations: [organisation])
 end
 
 Given(/^a published publication "([^"]*)" with a PDF attachment and alternative format provider "([^"]*)"$/) do |title, organisation_name|
@@ -265,13 +265,13 @@ end
 
 Given(/^an organisation and some documents exist$/) do
   @organisation = create(:ministerial_department)
-  @organisation_2 = create(:ministerial_department)
-  @author_1 = create(:departmental_editor)
-  @author_2 = create(:departmental_editor)
+  @organisation2 = create(:ministerial_department)
+  @author1 = create(:departmental_editor)
+  @author2 = create(:departmental_editor)
   @documents = [
-    create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author_1),
-    create(:published_news_article, title: "DOC2", organisations: [@organisation_2], creator: @author_1),
-    create(:published_consultation, title: "DOC3", organisations: [@organisation_2], creator: @author_2),
+    create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author1),
+    create(:published_news_article, title: "DOC2", organisations: [@organisation2], creator: @author1),
+    create(:published_consultation, title: "DOC3", organisations: [@organisation2], creator: @author2),
   ]
 end
 
@@ -294,13 +294,13 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
     assert_no_selector record_css_selector(@documents[1])
     assert_no_selector record_css_selector(@documents[2])
   end
-  select @organisation_2.name, from: "organisation"
+  select @organisation2.name, from: "organisation"
   within "#search_results" do
     assert_no_selector record_css_selector(@documents[0])
     assert_selector record_css_selector(@documents[1])
     assert_selector record_css_selector(@documents[2])
   end
-  select @author_2.name, from: "author"
+  select @author2.name, from: "author"
   within "#search_results" do
     assert_no_selector record_css_selector(@documents[0])
     assert_no_selector record_css_selector(@documents[1])

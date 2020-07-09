@@ -21,10 +21,10 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
   test "should not allow the same slug to be used again for the same document type" do
     same_title = "same-title"
-    publication_1 = create(:publication, title: same_title)
-    publication_2 = create(:publication, title: same_title)
+    publication1 = create(:publication, title: same_title)
+    publication2 = create(:publication, title: same_title)
 
-    assert_not_equal publication_1.document.slug, publication_2.document.slug
+    assert_not_equal publication1.document.slug, publication2.document.slug
   end
 
   test "should allow the same slug to be used again for another document type" do

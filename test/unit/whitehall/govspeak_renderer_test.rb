@@ -24,13 +24,13 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
       :with_file_attachment,
       body: body,
       attachments: [
-        attachment_1 = build(:file_attachment, id: 1),
-        attachment_2 = build(:file_attachment, id: 2),
+        attachment1 = build(:file_attachment, id: 1),
+        attachment2 = build(:file_attachment, id: 2),
       ],
     )
     html = render_govspeak(edition)
-    assert_select_within_html html, "#attachment_#{attachment_1.id}"
-    assert_select_within_html html, "#attachment_#{attachment_2.id}"
+    assert_select_within_html html, "#attachment_#{attachment1.id}"
+    assert_select_within_html html, "#attachment_#{attachment2.id}"
   end
 
   test "converts block attachments and handles thumbnails for PDFs" do
