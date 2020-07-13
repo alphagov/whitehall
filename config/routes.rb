@@ -429,6 +429,8 @@ Whitehall::Application.routes.draw do
 
   get "/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 
+  resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
+
   if Rails.env.development?
     class DisableSlimmer
       def initialize(app)
