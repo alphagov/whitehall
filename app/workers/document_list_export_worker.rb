@@ -27,7 +27,7 @@ private
 
     filename = DocumentListExportPresenter.s3_filename(document_type_slug, export_id)
     S3FileHandler.save_file_to_s3(filename, csv)
-    Plek.find("whitehall", external: true) + "/export/#{document_type_slug}/#{export_id}"
+    Plek.find("whitehall-admin", external: true) + "/export/#{document_type_slug}/#{export_id}"
   end
 
   def create_filter(filter_options, user)
