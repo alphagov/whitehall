@@ -15,7 +15,6 @@ class S3FileHandler
     directory.files.create( # rubocop:disable Rails/SaveBang
       key: filename,
       body: csv,
-      public: true,
     )
   end
 
