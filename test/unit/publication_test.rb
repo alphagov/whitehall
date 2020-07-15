@@ -160,4 +160,21 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal "statistics-national-statistics", create(:published_national_statistics).search_index["detailed_format"]
     assert_equal "statistics", create(:published_statistics).search_index["detailed_format"]
   end
+
+  test "#has_changed_publication_type? false if no previous edition" do
+    publication = create(:publication)
+    assert_not publication.has_changed_publication_type?
+  end
+
+  test "#has_changed_publication_type? false if previous edition has the same type" do
+    published_publication = create(:published_policy_paper)
+    publication = create(:draft_policy_paper, document: published_publication.document)
+    assert_not publication.has_changed_publication_type?
+  end
+
+  test "#has_changed_publication_type? true if previous edition has a different type" do
+    published_publication = create(:published_national_statistics)
+    publication = create(:draft_policy_paper, document: published_publication.document)
+    assert publication.has_changed_publication_type?
+  end
 end

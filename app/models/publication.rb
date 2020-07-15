@@ -105,6 +105,10 @@ class Publication < Publicationesque
     self.publication_type_id
   end
 
+  def has_changed_publication_type?
+    previous_edition && previous_edition.publication_type != publication_type
+  end
+
   def national_statistic?
     publication_type == PublicationType::NationalStatistics
   end
