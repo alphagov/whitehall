@@ -8,13 +8,13 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "GET :index fetches all the take part pages in order" do
-    page_3 = create(:take_part_page, ordering: 3)
-    page_1 = create(:take_part_page, ordering: 1)
-    page_2 = create(:take_part_page, ordering: 2)
+    page3 = create(:take_part_page, ordering: 3)
+    page1 = create(:take_part_page, ordering: 1)
+    page2 = create(:take_part_page, ordering: 2)
 
     get :index
 
-    assert_equal [page_1, page_2, page_3], assigns(:take_part_pages)
+    assert_equal [page1, page2, page3], assigns(:take_part_pages)
     assert_response :success
     assert_template "index"
   end

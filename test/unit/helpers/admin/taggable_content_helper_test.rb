@@ -136,14 +136,14 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test "#taggable_statistical_data_sets_container returns an array of label/Document ID pairs for all statistical data sets" do
-    data_set_1 = create(:draft_statistical_data_set)
-    data_set_2 = create(:published_statistical_data_set)
-    data_set_3 = create(:submitted_statistical_data_set)
+    data_set1 = create(:draft_statistical_data_set)
+    data_set2 = create(:published_statistical_data_set)
+    data_set3 = create(:submitted_statistical_data_set)
 
     assert_equal [
-      [data_set_1.title, data_set_1.document_id],
-      [data_set_2.title, data_set_2.document_id],
-      [data_set_3.title, data_set_3.document_id],
+      [data_set1.title, data_set1.document_id],
+      [data_set2.title, data_set2.document_id],
+      [data_set3.title, data_set3.document_id],
     ],
                  taggable_statistical_data_sets_container
   end
@@ -176,40 +176,40 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test "#taggable_document_collection_groups_container returns an array of label/ID pairs for document collection groups" do
-    group_1 = create(:document_collection_group, heading: "Group 1")
-    group_2 = create(:document_collection_group, heading: "Group 2")
-    group_3 = create(:document_collection_group, heading: "Group 3")
-    create(:document_collection, title: "Collection 1", groups: [group_1])
-    create(:document_collection, title: "Collection 2", groups: [group_2, group_3])
+    group1 = create(:document_collection_group, heading: "Group 1")
+    group2 = create(:document_collection_group, heading: "Group 2")
+    group3 = create(:document_collection_group, heading: "Group 3")
+    create(:document_collection, title: "Collection 1", groups: [group1])
+    create(:document_collection, title: "Collection 2", groups: [group2, group3])
 
     assert_equal [
-      ["Collection 1 (Group 1)", group_1.id],
-      ["Collection 2 (Group 2)", group_2.id],
-      ["Collection 2 (Group 3)", group_3.id],
+      ["Collection 1 (Group 1)", group1.id],
+      ["Collection 2 (Group 2)", group2.id],
+      ["Collection 2 (Group 3)", group3.id],
     ],
                  taggable_document_collection_groups_container
   end
 
   test "#taggable_worldwide_organisations_container returns an array of label/ID pairs for worldwide organisations" do
-    world_org_1 = create(:worldwide_organisation, name: "World Org 1")
-    world_org_2 = create(:worldwide_organisation, name: "World Org 2")
-    world_org_3 = create(:worldwide_organisation, name: "World Org 3")
+    world_org1 = create(:worldwide_organisation, name: "World Org 1")
+    world_org2 = create(:worldwide_organisation, name: "World Org 2")
+    world_org3 = create(:worldwide_organisation, name: "World Org 3")
 
     assert_equal [
-      ["World Org 1", world_org_1.id],
-      ["World Org 2", world_org_2.id],
-      ["World Org 3", world_org_3.id],
+      ["World Org 1", world_org1.id],
+      ["World Org 2", world_org2.id],
+      ["World Org 3", world_org3.id],
     ],
                  taggable_worldwide_organisations_container
   end
 
   test "#taggable_worldwide_organisations_container only returns worldwide organisations once even if they have more than one translation" do
-    world_org_1 = create(:worldwide_organisation, name: "World Org 1", translated_into: %i[fr es])
-    world_org_2 = create(:worldwide_organisation, name: "World Org 2")
+    world_org1 = create(:worldwide_organisation, name: "World Org 1", translated_into: %i[fr es])
+    world_org2 = create(:worldwide_organisation, name: "World Org 2")
 
     assert_equal [
-      ["World Org 1", world_org_1.id],
-      ["World Org 2", world_org_2.id],
+      ["World Org 1", world_org1.id],
+      ["World Org 2", world_org2.id],
     ],
                  taggable_worldwide_organisations_container
   end

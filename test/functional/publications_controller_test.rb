@@ -114,16 +114,16 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index highlights selected world filter options" do
-    @world_location_1 = create(:world_location)
-    @world_location_2 = create(:world_location)
-    create(:published_publication, world_locations: [@world_location_1], translated_into: :fr)
-    create(:published_publication, world_locations: [@world_location_2], translated_into: :fr)
+    @world_location1 = create(:world_location)
+    @world_location2 = create(:world_location)
+    create(:published_publication, world_locations: [@world_location1], translated_into: :fr)
+    create(:published_publication, world_locations: [@world_location2], translated_into: :fr)
 
-    get :index, params: { world_locations: [@world_location_1, @world_location_2], locale: :fr }
+    get :index, params: { world_locations: [@world_location1, @world_location2], locale: :fr }
 
     assert_select "select#world_locations[name='world_locations[]']" do
-      assert_select "option[selected='selected']", text: @world_location_1.name
-      assert_select "option[selected='selected']", text: @world_location_2.name
+      assert_select "option[selected='selected']", text: @world_location1.name
+      assert_select "option[selected='selected']", text: @world_location2.name
     end
   end
 
@@ -242,10 +242,10 @@ private
   end
 
   def given_two_documents_in_two_organisations
-    @organisation_1 = create(:organisation, type: OrganisationType.ministerial_department)
-    @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department)
-    create(:published_publication, organisations: [@organisation_1])
-    create(:published_consultation, organisations: [@organisation_2])
+    @organisation1 = create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation2 = create(:organisation, type: OrganisationType.ministerial_department)
+    create(:published_publication, organisations: [@organisation1])
+    create(:published_consultation, organisations: [@organisation2])
   end
 
   view_test "index includes tracking details on all links" do

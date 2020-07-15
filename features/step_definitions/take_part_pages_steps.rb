@@ -1,9 +1,9 @@
 Given(/^there are some take part pages for the get involved section$/) do
-  page_1 = create(:take_part_page, title: "Wearing a monocole", ordering: 2)
-  page_2 = create(:take_part_page, title: "Riding in a hansom cab", ordering: 3)
-  page_3 = create(:take_part_page, title: "Drinking in a gin palace", ordering: 1)
+  page1 = create(:take_part_page, title: "Wearing a monocole", ordering: 2)
+  page2 = create(:take_part_page, title: "Riding in a hansom cab", ordering: 3)
+  page3 = create(:take_part_page, title: "Drinking in a gin palace", ordering: 1)
 
-  @the_take_part_pages_in_order = [page_3, page_1, page_2]
+  @the_take_part_pages_in_order = [page3, page1, page2]
 end
 
 When(/^I create a new take part page called "([^"]*)"$/) do |title|

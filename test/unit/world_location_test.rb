@@ -75,27 +75,27 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "ordered_by_name sorts by the I18n.default_locale translation for name" do
-    world_location_1 = create(:world_location, name: "Neverland")
-    world_location_2 = create(:world_location, name: "Middle Earth")
-    world_location_3 = create(:world_location, name: "Narnia")
+    world_location1 = create(:world_location, name: "Neverland")
+    world_location2 = create(:world_location, name: "Middle Earth")
+    world_location3 = create(:world_location, name: "Narnia")
 
     I18n.with_locale(I18n.default_locale) do
-      assert_equal [world_location_2, world_location_3, world_location_1], WorldLocation.ordered_by_name
+      assert_equal [world_location2, world_location3, world_location1], WorldLocation.ordered_by_name
     end
   end
 
   test "ordered_by_name uses the I18n.default_locale ordering even if the current locale is not I18n.default_locale" do
-    world_location_1 = create(:world_location, name: "Neverland")
-    world_location_2 = create(:world_location, name: "Middle Earth")
-    world_location_3 = create(:world_location, name: "Narnia")
+    world_location1 = create(:world_location, name: "Neverland")
+    world_location2 = create(:world_location, name: "Middle Earth")
+    world_location3 = create(:world_location, name: "Narnia")
 
     I18n.with_locale(:fr) do
-      world_location_1.name = "Pays imaginaire"
-      world_location_1.save!
-      world_location_2.name = "Terre du Milieu"
-      world_location_2.save!
+      world_location1.name = "Pays imaginaire"
+      world_location1.save!
+      world_location2.name = "Terre du Milieu"
+      world_location2.save!
 
-      assert_equal [world_location_2, world_location_3, world_location_1], WorldLocation.ordered_by_name
+      assert_equal [world_location2, world_location3, world_location1], WorldLocation.ordered_by_name
     end
   end
 
@@ -103,11 +103,11 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location_type = WorldLocationType::WorldLocation
     delegation_type = WorldLocationType::InternationalDelegation
 
-    location_1 = create(:world_location, world_location_type: world_location_type, name: "Narnia")
-    location_2 = create(:world_location, world_location_type: delegation_type, name: "Neverland")
-    location_3 = create(:world_location, world_location_type: world_location_type, name: "Middle Earth")
+    location1 = create(:world_location, world_location_type: world_location_type, name: "Narnia")
+    location2 = create(:world_location, world_location_type: delegation_type, name: "Neverland")
+    location3 = create(:world_location, world_location_type: world_location_type, name: "Middle Earth")
 
-    assert_equal [[world_location_type, [location_3, location_1]], [delegation_type, [location_2]]], WorldLocation.all_by_type
+    assert_equal [[world_location_type, [location3, location1]], [delegation_type, [location2]]], WorldLocation.all_by_type
   end
 
   test "#feature_list_for_locale should return the feature list for the given locale, or build one if not" do
@@ -156,15 +156,15 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "featured links are returned in order of creation" do
     world_location = create(:world_location)
-    link_1 = create(:featured_link, linkable: world_location, title: "2 days ago", created_at: 2.days.ago)
-    link_2 = create(:featured_link, linkable: world_location, title: "12 days ago", created_at: 12.days.ago)
-    link_3 = create(:featured_link, linkable: world_location, title: "1 hour ago", created_at: 1.hour.ago)
-    link_4 = create(:featured_link, linkable: world_location, title: "2 hours ago", created_at: 2.hours.ago)
-    link_5 = create(:featured_link, linkable: world_location, title: "20 minutes ago", created_at: 20.minutes.ago)
-    link_6 = create(:featured_link, linkable: world_location, title: "2 years ago", created_at: 2.years.ago)
+    link1 = create(:featured_link, linkable: world_location, title: "2 days ago", created_at: 2.days.ago)
+    link2 = create(:featured_link, linkable: world_location, title: "12 days ago", created_at: 12.days.ago)
+    link3 = create(:featured_link, linkable: world_location, title: "1 hour ago", created_at: 1.hour.ago)
+    link4 = create(:featured_link, linkable: world_location, title: "2 hours ago", created_at: 2.hours.ago)
+    link5 = create(:featured_link, linkable: world_location, title: "20 minutes ago", created_at: 20.minutes.ago)
+    link6 = create(:featured_link, linkable: world_location, title: "2 years ago", created_at: 2.years.ago)
 
-    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], world_location.featured_links
-    assert_equal [link_6, link_2, link_1, link_4, link_3], world_location.featured_links.only_the_initial_set
+    assert_equal [link6, link2, link1, link4, link3, link5], world_location.featured_links
+    assert_equal [link6, link2, link1, link4, link3], world_location.featured_links.only_the_initial_set
   end
 
   test "we can find those that are countries" do
@@ -285,13 +285,13 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "only one feature list per language per world location" do
-    world_location_1 = create(:world_location)
-    world_location_2 = create(:world_location)
-    FeatureList.create!(featurable: world_location_1, locale: :en)
-    FeatureList.create!(featurable: world_location_1, locale: :fr)
-    FeatureList.create!(featurable: world_location_2, locale: :en)
+    world_location1 = create(:world_location)
+    world_location2 = create(:world_location)
+    FeatureList.create!(featurable: world_location1, locale: :en)
+    FeatureList.create!(featurable: world_location1, locale: :fr)
+    FeatureList.create!(featurable: world_location2, locale: :en)
     assert_raise ActiveRecord::RecordInvalid do
-      FeatureList.create!(featurable: world_location_2, locale: :en)
+      FeatureList.create!(featurable: world_location2, locale: :en)
     end
   end
 

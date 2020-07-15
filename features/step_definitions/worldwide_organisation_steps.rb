@@ -91,17 +91,17 @@ Given(/^a worldwide organisation "([^"]*)" exists for the world location "([^"]*
 end
 
 When(/^I add an "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
-  service_1 = create(:worldwide_service, name: "Dance lessons")
-  _service_2 = create(:worldwide_service, name: "Courses in advanced sword fighting")
-  service_3 = create(:worldwide_service, name: "Beard grooming")
+  service1 = create(:worldwide_service, name: "Dance lessons")
+  _service2 = create(:worldwide_service, name: "Courses in advanced sword fighting")
+  service3 = create(:worldwide_service, name: "Beard grooming")
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add"
   fill_in_contact_details(title: description, feature_on_home_page: "yes")
   select WorldwideOfficeType.all.sample.name, from: "Office type"
 
-  check service_1.name
-  check service_3.name
+  check service1.name
+  check service3.name
 
   click_on "Save"
 end

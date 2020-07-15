@@ -64,18 +64,18 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test "#reindex_all will respect the scopes it is prefixed with" do
-    searchable_test_topic_1 = SearchableTestTopic.create!(name: "woo", state: "published")
-    searchable_test_topic_2 = SearchableTestTopic.create!(name: "moo", state: "published")
-    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic_1).never
-    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic_2)
+    searchable_test_topic1 = SearchableTestTopic.create!(name: "woo", state: "published")
+    searchable_test_topic2 = SearchableTestTopic.create!(name: "moo", state: "published")
+    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic1).never
+    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic2)
     SearchableTestTopic.where(name: "moo").reindex_all
   end
 
   test "#reindex_all will request indexing for each searchable instance" do
-    searchable_test_topic_1 = SearchableTestTopic.create!(name: "woo", state: "draft")
-    searchable_test_topic_2 = SearchableTestTopic.create!(name: "woo", state: "published")
-    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic_1).never
-    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic_2)
+    searchable_test_topic1 = SearchableTestTopic.create!(name: "woo", state: "draft")
+    searchable_test_topic2 = SearchableTestTopic.create!(name: "woo", state: "published")
+    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic1).never
+    Whitehall::SearchIndex.expects(:add).with(searchable_test_topic2)
     SearchableTestTopic.reindex_all
   end
 

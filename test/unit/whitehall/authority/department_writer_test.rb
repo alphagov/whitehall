@@ -35,21 +35,21 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   end
 
   test "cannot see an edition that is access limited if it is limited an organisation they don't belong to" do
-    organisation_1 = "organisation_1"
-    organisation_2 = "organisation_2"
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
     user = department_writer
-    user.stubs(:organisation).returns(organisation_1)
-    edition = limited_publication([organisation_2])
+    user.stubs(:organisation).returns(organisation1)
+    edition = limited_publication([organisation2])
 
     assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test "cannot do anything to an edition they are not allowed to see" do
-    organisation_1 = "organisation_1"
-    organisation_2 = "organisation_2"
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
     user = department_writer
-    user.stubs(:organisation).returns(organisation_1)
-    edition = limited_publication([organisation_2])
+    user.stubs(:organisation).returns(organisation1)
+    edition = limited_publication([organisation2])
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
@@ -105,12 +105,12 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   end
 
   test "can force publish a limited access edition outside their org if they can_force_publish_anything?" do
-    organisation_1 = "organisation_1"
-    organisation_2 = "organisation_2"
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
     user = department_writer
-    user.stubs(:organisation).returns(organisation_1)
+    user.stubs(:organisation).returns(organisation1)
     user.stubs(:can_force_publish_anything?).returns(true)
-    edition = limited_publication([organisation_2])
+    edition = limited_publication([organisation2])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end

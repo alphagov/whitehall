@@ -221,15 +221,15 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
-      publication_2 = create(:published_publication, world_locations: [@world_location], first_published_at: 2.days.ago)
-      publication_1 = create(:published_publication, world_locations: [@world_location], first_published_at: 1.day.ago)
+      publication2 = create(:published_publication, world_locations: [@world_location], first_published_at: 2.days.ago)
+      publication1 = create(:published_publication, world_locations: [@world_location], first_published_at: 1.day.ago)
       create(:published_publication, world_locations: [@world_location], first_published_at: 3.days.ago)
 
       create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
 
       get :index, params: { world_location_id: @world_location }
 
-      assert_equal [publication_1, publication_2], assigns[:non_statistics_publications].object
+      assert_equal [publication1, publication2], assigns[:non_statistics_publications].object
     end
   end
 
@@ -237,19 +237,19 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
-      publication_2 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
-      publication_3 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
-      publication_1 = create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
+      publication2 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
+      publication3 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
+      publication1 = create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
 
       get :index, params: { world_location_id: @world_location }
 
       assert_select "#publications" do
-        assert_select_object publication_2 do
+        assert_select_object publication2 do
           assert_select ".publication-date time[datetime=?]", 2.days.ago.to_date.to_datetime.iso8601
           assert_select ".document-type", "Policy paper"
         end
-        assert_select_object publication_3
-        refute_select_object publication_1
+        assert_select_object publication3
+        refute_select_object publication1
         assert_select "a[href='#{publications_filter_path(@world_location)}']"
       end
     end
@@ -259,12 +259,12 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
-      publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago)
-      publication_1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
+      publication2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago)
+      publication1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
       create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago)
 
       get :index, params: { world_location_id: @world_location }
-      assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
+      assert_equal [publication1, publication2], assigns[:statistics_publications].object
     end
   end
 
@@ -272,19 +272,19 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
 
-      publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
-      publication_3 = create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
-      publication_1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
+      publication2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
+      publication3 = create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
+      publication1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
 
       get :index, params: { world_location_id: @world_location }
 
       assert_select "#statistics-publications" do
-        assert_select_object publication_1 do
+        assert_select_object publication1 do
           assert_select ".publication-date time[datetime=?]", 1.day.ago.to_date.to_datetime.iso8601
           assert_select ".document-type", "National Statistics"
         end
-        assert_select_object publication_2
-        refute_select_object publication_3
+        assert_select_object publication2
+        refute_select_object publication3
         assert_select "a[href=?]", publications_filter_path(@world_location, publication_filter_option: "statistics")
       end
     end

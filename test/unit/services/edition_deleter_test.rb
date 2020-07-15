@@ -55,12 +55,12 @@ class EditionDeleterTest < ActiveSupport::TestCase
 
   test "#perform! soft-deletes any attachments that the edition has" do
     publication = create(:draft_publication)
-    publication.attachments << attachment_1 = build(:file_attachment)
-    publication.attachments << attachment_2 = build(:html_attachment)
+    publication.attachments << attachment1 = build(:file_attachment)
+    publication.attachments << attachment2 = build(:html_attachment)
 
     assert EditionDeleter.new(publication).perform!
 
-    assert Attachment.find(attachment_1.id).deleted?
-    assert Attachment.find(attachment_2.id).deleted?
+    assert Attachment.find(attachment1.id).deleted?
+    assert Attachment.find(attachment2.id).deleted?
   end
 end

@@ -9,15 +9,15 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "GET :index assigns tagged_editions with a paginated collection of published editions related to the topical_event ordered by most recently created editions first" do
-    news_article_1 = create(:published_news_article, topical_events: [@topical_event])
-    news_article_2 = Timecop.travel(10.minutes) { create(:published_news_article, topical_events: [@topical_event]) }
+    news_article1 = create(:published_news_article, topical_events: [@topical_event])
+    news_article2 = Timecop.travel(10.minutes) { create(:published_news_article, topical_events: [@topical_event]) }
     _draft_article = create(:news_article, topical_events: [@topical_event])
     _unrelated_article = create(:news_article, :with_topical_events)
 
     get :index, params: { topical_event_id: @topical_event, page: 1 }
 
     tagged_editions = assigns(:tagged_editions)
-    assert_equal [news_article_2, news_article_1], tagged_editions
+    assert_equal [news_article2, news_article1], tagged_editions
     assert_equal 1, tagged_editions.current_page
     assert_equal 1, tagged_editions.total_pages
     assert_equal 25, tagged_editions.limit_value
@@ -77,20 +77,20 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "PUT :order saves the new order of featurings" do
-    feature_1 = create(:classification_featuring, classification: @topical_event)
-    feature_2 = create(:classification_featuring, classification: @topical_event)
-    feature_3 = create(:classification_featuring, classification: @topical_event)
+    feature1 = create(:classification_featuring, classification: @topical_event)
+    feature2 = create(:classification_featuring, classification: @topical_event)
+    feature3 = create(:classification_featuring, classification: @topical_event)
 
     put :order,
         params: { topical_event_id: @topical_event,
                   ordering: {
-                    feature_1.id.to_s => "1",
-                    feature_2.id.to_s => "2",
-                    feature_3.id.to_s => "0",
+                    feature1.id.to_s => "1",
+                    feature2.id.to_s => "2",
+                    feature3.id.to_s => "0",
                   } }
 
     assert_response :redirect
-    assert_equal [feature_3, feature_1, feature_2], @topical_event.reload.classification_featurings
+    assert_equal [feature3, feature1, feature2], @topical_event.reload.classification_featurings
   end
 
   view_test "GET :new renders only image fields if featuring an edition" do

@@ -32,42 +32,42 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list.features << create(:feature)
     feature_list.features << create(:feature)
 
-    feature_1, feature_2 = feature_list.features
+    feature1, feature2 = feature_list.features
 
     feature_list.reload
-    assert_equal [feature_1, feature_2], feature_list.features
+    assert_equal [feature1, feature2], feature_list.features
 
-    assert feature_list.reorder!([feature_2.id, feature_1.id])
+    assert feature_list.reorder!([feature2.id, feature1.id])
     assert_not feature_list.errors.any?
 
     feature_list.reload
-    assert_equal [feature_2, feature_1], feature_list.features
+    assert_equal [feature2, feature1], feature_list.features
   end
 
   test "validation errors when reordering features are propogated" do
-    feature_1 = create(:feature)
-    feature_list = create(:feature_list, locale: :en, features: [feature_1])
-    feature_1.document = nil
-    feature_1.save!(validate: false)
-    assert_not feature_list.reorder!([feature_1.id])
+    feature1 = create(:feature)
+    feature_list = create(:feature_list, locale: :en, features: [feature1])
+    feature1.document = nil
+    feature1.save!(validate: false)
+    assert_not feature_list.reorder!([feature1.id])
     assert_match %r{Can't reorder because '.*'}, feature_list.errors.full_messages.to_sentence
   end
 
   test "reordering fails if features which are not part of the feature list are referenced when re-ordering" do
-    feature_1 = create(:feature)
-    feature_2 = create(:feature)
-    feature_3 = create(:feature)
+    feature1 = create(:feature)
+    feature2 = create(:feature)
+    feature3 = create(:feature)
 
-    feature_list_1 = create(:feature_list, locale: :en, features: [feature_1, feature_2])
-    _feature_list_2 = create(:feature_list, locale: :fr, features: [feature_3])
+    feature_list1 = create(:feature_list, locale: :en, features: [feature1, feature2])
+    _feature_list2 = create(:feature_list, locale: :fr, features: [feature3])
 
-    assert_not_nil f3_original_ordering = feature_3.ordering
+    assert_not_nil f3_original_ordering = feature3.ordering
 
-    assert_not feature_list_1.reorder!([feature_2.id, feature_3.id, feature_1.id])
-    assert_match %r{Can't reorder because '.*'}, feature_list_1.errors[:base].to_sentence
+    assert_not feature_list1.reorder!([feature2.id, feature3.id, feature1.id])
+    assert_match %r{Can't reorder because '.*'}, feature_list1.errors[:base].to_sentence
 
-    assert_equal f3_original_ordering, feature_3.reload.ordering
-    assert_equal [feature_1, feature_2], feature_list_1.reload.features
+    assert_equal f3_original_ordering, feature3.reload.ordering
+    assert_equal [feature1, feature2], feature_list1.reload.features
   end
 
   test "#features should still return featured documents after republication" do

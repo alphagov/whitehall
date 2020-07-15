@@ -12,7 +12,7 @@ module AdminTaxonomyHelper
   end
 
   def stub_taxonomy_data
-    redis_cache_has_taxons [root_taxon, draft_taxon_1, draft_taxon_2]
+    redis_cache_has_taxons [root_taxon, draft_taxon1, draft_taxon2]
   end
 
   def stub_patch_links

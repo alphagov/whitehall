@@ -262,13 +262,13 @@ class GovspeakHelperTest < ActionView::TestCase
       :with_file_attachment,
       body: text,
       attachments: [
-        attachment_1 = build(:file_attachment, id: 1),
-        attachment_2 = build(:file_attachment, id: 2),
+        attachment1 = build(:file_attachment, id: 1),
+        attachment2 = build(:file_attachment, id: 2),
       ],
     )
     html = govspeak_edition_to_html(document)
-    assert_select_within_html html, "#attachment_#{attachment_1.id}"
-    assert_select_within_html html, "#attachment_#{attachment_2.id}"
+    assert_select_within_html html, "#attachment_#{attachment1.id}"
+    assert_select_within_html html, "#attachment_#{attachment2.id}"
   end
 
   test "should convert multiple inline attachments" do
@@ -278,13 +278,13 @@ class GovspeakHelperTest < ActionView::TestCase
       :with_file_attachment,
       body: text,
       attachments: [
-        attachment_1 = build(:file_attachment, id: 1),
-        attachment_2 = build(:file_attachment, id: 2),
+        attachment1 = build(:file_attachment, id: 1),
+        attachment2 = build(:file_attachment, id: 2),
       ],
     )
     html = govspeak_edition_to_html(document)
-    assert_select_within_html html, "#attachment_#{attachment_1.id}"
-    assert_select_within_html html, "#attachment_#{attachment_2.id}"
+    assert_select_within_html html, "#attachment_#{attachment1.id}"
+    assert_select_within_html html, "#attachment_#{attachment2.id}"
   end
 
   test "should not escape embedded attachment when attachment embed code only separated by one newline from a previous paragraph" do
@@ -324,17 +324,17 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "adds sub-numbers to h3 tags" do
     input = "## first\n\n### first point one\n\n### first point two\n\n## second\n\n### second point one"
-    expected_output_1 = '<h2 id="first"> <span class="number">1. </span>first</h2>'
-    expected_output_1_1 = '<h3 id="first-point-one"> <span class="number">1.1 </span>first point one</h3>'
-    expected_output_1_2 = '<h3 id="first-point-two"> <span class="number">1.2 </span>first point two</h3>'
-    expected_output_2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
-    expected_output_2_1 = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
+    expected_output1 = '<h2 id="first"> <span class="number">1. </span>first</h2>'
+    expected_output_1a = '<h3 id="first-point-one"> <span class="number">1.1 </span>first point one</h3>'
+    expected_output_1b = '<h3 id="first-point-two"> <span class="number">1.2 </span>first point two</h3>'
+    expected_output2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
+    expected_output_2a = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
     actual_output = govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, " ")
-    assert_match %r{#{expected_output_1}}, actual_output
-    assert_match %r{#{expected_output_1_1}}, actual_output
-    assert_match %r{#{expected_output_1_2}}, actual_output
-    assert_match %r{#{expected_output_2}}, actual_output
-    assert_match %r{#{expected_output_2_1}}, actual_output
+    assert_match %r{#{expected_output1}}, actual_output
+    assert_match %r{#{expected_output_1a}}, actual_output
+    assert_match %r{#{expected_output_1b}}, actual_output
+    assert_match %r{#{expected_output2}}, actual_output
+    assert_match %r{#{expected_output_2a}}, actual_output
   end
 
   test "adds manual numbering to heading tags" do

@@ -3,8 +3,8 @@ require "test_helper"
 class CsvPreviewControllerTest < ActionController::TestCase
   attr_reader :attachment_data
   attr_reader :params
-  attr_reader :organisation_1
-  attr_reader :organisation_2
+  attr_reader :organisation1
+  attr_reader :organisation2
   attr_reader :edition
   attr_reader :attachment
   attr_reader :file
@@ -19,9 +19,9 @@ class CsvPreviewControllerTest < ActionController::TestCase
       extension: attachment_data.file_extension,
     }
 
-    @organisation_1 = create(:organisation)
-    @organisation_2 = create(:organisation)
-    @edition = create(:publication, organisations: [organisation_1, organisation_2])
+    @organisation1 = create(:organisation)
+    @organisation2 = create(:organisation)
+    @edition = create(:publication, organisations: [organisation1, organisation2])
     @attachment = build(:file_attachment)
 
     controller.stubs(:attachment_data).returns(attachment_data)
@@ -432,8 +432,8 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     get :show, params: params
 
-    assert_select "a[href=?]", organisation_path(organisation_1)
-    assert_select "a[href=?]", organisation_path(organisation_2)
+    assert_select "a[href=?]", organisation_path(organisation1)
+    assert_select "a[href=?]", organisation_path(organisation2)
   end
 
   view_test "renders CSV column headings" do

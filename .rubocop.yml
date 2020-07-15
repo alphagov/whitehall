@@ -7,9 +7,6 @@ inherit_mode:
   merge:
     - Exclude
 
-Naming/VariableNumber:
-  EnforcedStyle: snake_case
-
 # This has special infrastructure for one-time data
 # migration tasks, for which it's common to write to
 # STDOUT using 'puts'.

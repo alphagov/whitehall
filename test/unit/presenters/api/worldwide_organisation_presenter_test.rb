@@ -131,14 +131,14 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes main and other offices in offices with separate keys" do
-    office_1 = stub_record(
+    office1 = stub_record(
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "best-office", contact_numbers: []),
       services: [],
       worldwide_organisation: nil,
       access_and_opening_times: @access_times,
     )
-    office_2 = stub_record(
+    office2 = stub_record(
       :worldwide_office,
       contact: stub_translatable_record(:contact, title: "worst-office", contact_numbers: []),
       services: [],
@@ -146,8 +146,8 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
       access_and_opening_times: @access_times,
     )
 
-    @world_org.stubs(:main_office).returns(office_1)
-    @world_org.stubs(:other_offices).returns([office_2])
+    @world_org.stubs(:main_office).returns(office1)
+    @world_org.stubs(:other_offices).returns([office2])
     main_office_as_json = @presenter.as_json[:offices][:main]
     other_offices_as_json = @presenter.as_json[:offices][:other]
 

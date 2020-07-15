@@ -131,26 +131,26 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   end
 
   test "supporting_bodies should exclude closed orgs, sub orgs, and courts and tribunals and be in alphabetical order" do
-    parent_org_1 = create(:organisation)
-    _parent_org_2 = create(:organisation)
-    child_org_1 = create(:organisation, parent_organisations: [parent_org_1], name: "b second")
-    _child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
-    child_org_3 = create(:organisation, parent_organisations: [parent_org_1], name: "a first")
-    _child_org_4 = create(:closed_organisation, parent_organisations: [parent_org_1])
-    _child_org_5 = create(:court, parent_organisations: [parent_org_1])
-    child_org_6 = create(:organisation, parent_organisations: [parent_org_1], name: "c third", organisation_type_key: :tribunal)
+    parent_org1 = create(:organisation)
+    _parent_org2 = create(:organisation)
+    child_org1 = create(:organisation, parent_organisations: [parent_org1], name: "b second")
+    _child_org2 = create(:sub_organisation, parent_organisations: [parent_org1])
+    child_org3 = create(:organisation, parent_organisations: [parent_org1], name: "a first")
+    _child_org4 = create(:closed_organisation, parent_organisations: [parent_org1])
+    _child_org5 = create(:court, parent_organisations: [parent_org1])
+    child_org6 = create(:organisation, parent_organisations: [parent_org1], name: "c third", organisation_type_key: :tribunal)
 
-    assert_equal [child_org_3, child_org_1, child_org_6], parent_org_1.supporting_bodies
+    assert_equal [child_org3, child_org1, child_org6], parent_org1.supporting_bodies
   end
 
   test "supporting_bodies_grouped_by_type should return a 2D array with each 1st level member being a OrganisationType and a collection of organisations" do
     parent_org = create(:organisation)
-    child_org_1 = create(:organisation, parent_organisations: [parent_org], organisation_type_key: :executive_agency)
-    child_org_2 = create(:sub_organisation, parent_organisations: [parent_org], organisation_type_key: :advisory_ndpb)
+    child_org1 = create(:organisation, parent_organisations: [parent_org], organisation_type_key: :executive_agency)
+    child_org2 = create(:sub_organisation, parent_organisations: [parent_org], organisation_type_key: :advisory_ndpb)
 
     assert_equal [
-      [OrganisationType.executive_agency, [child_org_1]],
-      [OrganisationType.advisory_ndpb,    [child_org_2]],
+      [OrganisationType.executive_agency, [child_org1]],
+      [OrganisationType.advisory_ndpb,    [child_org2]],
     ],
                  parent_org.supporting_bodies_grouped_by_type
   end

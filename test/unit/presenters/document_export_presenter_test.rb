@@ -285,22 +285,22 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
   end
 
   test "includes history information" do
-    user_1 = create(:user)
-    Edition::AuditTrail.whodunnit = user_1
+    user1 = create(:user)
+    Edition::AuditTrail.whodunnit = user1
     edition = create(:edition)
 
-    user_2 = create(:user)
-    Edition::AuditTrail.whodunnit = user_2
+    user2 = create(:user)
+    Edition::AuditTrail.whodunnit = user2
     edition.update!(change_note: "changed")
 
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = [
       { event: "create",
-        whodunnit: user_1.id,
+        whodunnit: user1.id,
         created_at: Time.zone.now,
         state: "draft" },
       { event: "update",
-        whodunnit: user_2.id,
+        whodunnit: user2.id,
         created_at: Time.zone.now,
         state: "draft" },
     ]

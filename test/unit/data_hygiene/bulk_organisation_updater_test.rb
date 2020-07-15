@@ -62,12 +62,12 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     document = create(:document, slug: "this-is-a-slug")
     edition = create(:publication, document: document)
-    organisation_1 = create(:organisation, slug: "supporting-organisation-1")
-    organisation_2 = create(:organisation, slug: "supporting-organisation-2")
+    organisation1 = create(:organisation, slug: "supporting-organisation-1")
+    organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
     process(csv_file)
 
-    assert_equal edition.supporting_organisations, [organisation_1, organisation_2]
+    assert_equal edition.supporting_organisations, [organisation1, organisation2]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.first["args"].first, document.id
   end
@@ -79,14 +79,14 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     CSV
 
     lead_organisation = create(:organisation, slug: "lead-organisation")
-    supporting_organisation_1 = create(:organisation, slug: "supporting-organisation-1")
-    supporting_organisation_2 = create(:organisation, slug: "supporting-organisation-2")
+    supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
+    supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
     document = create(:document, slug: "this-is-a-slug")
     create(
       :publication,
       document: document,
       lead_organisations: [lead_organisation],
-      supporting_organisations: [supporting_organisation_1, supporting_organisation_2],
+      supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )
 
     process(csv_file)

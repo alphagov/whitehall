@@ -41,109 +41,109 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
   test "shows ministers by organisation with the organisations in the cms-defined order" do
-    organisation_1 = create(:ministerial_department, ministerial_ordering: 1)
-    organisation_2 = create(:ministerial_department, ministerial_ordering: 0)
+    organisation1 = create(:ministerial_department, ministerial_ordering: 1)
+    organisation2 = create(:ministerial_department, ministerial_ordering: 0)
 
     create(
       :ministerial_role_appointment,
       person: create(:person),
-      role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_1], seniority: 0),
+      role: create(:ministerial_role, cabinet_member: true, organisations: [organisation1], seniority: 0),
     )
 
     create(
       :ministerial_role_appointment,
       person: create(:person),
-      role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_2], seniority: 0),
+      role: create(:ministerial_role, cabinet_member: true, organisations: [organisation2], seniority: 0),
     )
 
     get :index
 
-    assert_equal [organisation_2, organisation_1], assigns(:ministers_by_organisation).map(&:first)
+    assert_equal [organisation2, organisation1], assigns(:ministers_by_organisation).map(&:first)
   end
 
   test "shows ministers by organisation with the ministers in the cms-defined order" do
     organisation = create(:ministerial_department)
 
-    person_1 = create(:person, forename: "Nick", surname: "Clegg")
-    person_2 = create(:person, forename: "Jeremy", surname: "Hunt")
-    person_3 = create(:person, forename: "George", surname: "Foreman")
-    person_4 = create(:person, forename: "Brian", surname: "Smith")
+    person1 = create(:person, forename: "Nick", surname: "Clegg")
+    person2 = create(:person, forename: "Jeremy", surname: "Hunt")
+    person3 = create(:person, forename: "George", surname: "Foreman")
+    person4 = create(:person, forename: "Brian", surname: "Smith")
 
-    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
-    role_2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation], seniority: 1)
-    role_3 = create(:board_member_role, name: "Chief Griller", organisations: [organisation], seniority: 3)
-    role_4 = create(:ministerial_role, name: "First Secretary of State", cabinet_member: true, organisations: [organisation], seniority: 2)
+    role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
+    role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation], seniority: 1)
+    role3 = create(:board_member_role, name: "Chief Griller", organisations: [organisation], seniority: 3)
+    role4 = create(:ministerial_role, name: "First Secretary of State", cabinet_member: true, organisations: [organisation], seniority: 2)
 
-    organisation.organisation_roles.find_by(role_id: role_2.id).update_column(:ordering, 3)
-    organisation.organisation_roles.find_by(role_id: role_1.id).update_column(:ordering, 2)
-    organisation.organisation_roles.find_by(role_id: role_4.id).update_column(:ordering, 1)
+    organisation.organisation_roles.find_by(role_id: role2.id).update_column(:ordering, 3)
+    organisation.organisation_roles.find_by(role_id: role1.id).update_column(:ordering, 2)
+    organisation.organisation_roles.find_by(role_id: role4.id).update_column(:ordering, 1)
 
-    create(:board_member_role_appointment, role: role_3, person: person_3)
-    create(:ministerial_role_appointment, role: role_1, person: person_1)
-    create(:ministerial_role_appointment, role: role_2, person: person_2)
-    create(:ministerial_role_appointment, role: role_4, person: person_4)
+    create(:board_member_role_appointment, role: role3, person: person3)
+    create(:ministerial_role_appointment, role: role1, person: person1)
+    create(:ministerial_role_appointment, role: role2, person: person2)
+    create(:ministerial_role_appointment, role: role4, person: person4)
 
     get :index
 
-    expected_results = [[organisation, RolesPresenter.new([role_4, role_1, role_2], @controller.view_context)]]
+    expected_results = [[organisation, RolesPresenter.new([role4, role1, role2], @controller.view_context)]]
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
   test "doesn't list closed organisations in the ministers by organisation list" do
-    organisation_1 = create(:ministerial_department)
-    person_1 = create(:person, forename: "Tony", surname: "Blair")
-    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation_1], seniority: 0)
-    create(:ministerial_role_appointment, role: role_1, person: person_1)
+    organisation1 = create(:ministerial_department)
+    person1 = create(:person, forename: "Tony", surname: "Blair")
+    role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation1], seniority: 0)
+    create(:ministerial_role_appointment, role: role1, person: person1)
 
-    organisation_2 = create(:ministerial_department, :closed)
-    person_2 = create(:person, forename: "Frank", surname: "Underwood")
-    role_2 = create(:ministerial_role, name: "President", cabinet_member: true, organisations: [organisation_2], seniority: 0)
-    create(:ministerial_role_appointment, role: role_2, person: person_2)
+    organisation2 = create(:ministerial_department, :closed)
+    person2 = create(:person, forename: "Frank", surname: "Underwood")
+    role2 = create(:ministerial_role, name: "President", cabinet_member: true, organisations: [organisation2], seniority: 0)
+    create(:ministerial_role_appointment, role: role2, person: person2)
 
     get :index
 
-    expected_results = [[organisation_1, RolesPresenter.new([role_1], @controller.view_context)]]
+    expected_results = [[organisation1, RolesPresenter.new([role1], @controller.view_context)]]
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
   test "shows ministers who also attend cabinet separately" do
     organisation = create(:ministerial_department)
-    person_1 = create(:person, forename: "Nick", surname: "Clegg")
-    person_2 = create(:person, forename: "Jeremy", surname: "Hunt")
-    person_3 = create(:person, forename: "Geroge", surname: "Foreman")
+    person1 = create(:person, forename: "Nick", surname: "Clegg")
+    person2 = create(:person, forename: "Jeremy", surname: "Hunt")
+    person3 = create(:person, forename: "Geroge", surname: "Foreman")
 
-    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
-    role_2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation])
-    role_3 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", organisations: [organisation], whip_organisation_id: 1, attends_cabinet_type_id: 1)
+    role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
+    role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation])
+    role3 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", organisations: [organisation], whip_organisation_id: 1, attends_cabinet_type_id: 1)
 
-    create(:ministerial_role_appointment, role: role_1, person: person_1)
-    create(:ministerial_role_appointment, role: role_2, person: person_2)
-    create(:ministerial_role_appointment, role: role_3, person: person_3)
+    create(:ministerial_role_appointment, role: role1, person: person1)
+    create(:ministerial_role_appointment, role: role2, person: person2)
+    create(:ministerial_role_appointment, role: role3, person: person3)
 
     get :index
 
     actual_roles = assigns(:also_attends_cabinet).map { |_person, role| role.first.model }
 
-    assert_equal [role_3], actual_roles
+    assert_equal [role3], actual_roles
   end
 
   test "shows whips separately" do
     organisation = create(:ministerial_department)
-    person_1 = create(:person, forename: "Nick", surname: "Clegg")
-    person_2 = create(:person, forename: "Jeremy", surname: "Hunt")
-    person_3 = create(:person, forename: "Geroge", surname: "Foreman")
+    person1 = create(:person, forename: "Nick", surname: "Clegg")
+    person2 = create(:person, forename: "Jeremy", surname: "Hunt")
+    person3 = create(:person, forename: "Geroge", surname: "Foreman")
 
-    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
-    role_2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation])
-    role_3 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", organisations: [organisation], whip_organisation_id: 1)
+    role1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
+    role2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation])
+    role3 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", organisations: [organisation], whip_organisation_id: 1)
 
-    create(:ministerial_role_appointment, role: role_1, person: person_1)
-    create(:ministerial_role_appointment, role: role_2, person: person_2)
-    create(:ministerial_role_appointment, role: role_3, person: person_3)
+    create(:ministerial_role_appointment, role: role1, person: person1)
+    create(:ministerial_role_appointment, role: role2, person: person2)
+    create(:ministerial_role_appointment, role: role3, person: person3)
 
     get :index
 
-    whips = [[Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_3], @controller.view_context)]]
+    whips = [[Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role3], @controller.view_context)]]
 
     assert_equal whips, assigns(:whips_by_organisation)
   end
@@ -151,32 +151,32 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   test "orders whips by organisation sort order" do
     organisation = create(:ministerial_department)
 
-    person_1 = create(:person)
-    person_2 = create(:person)
-    person_3 = create(:person)
-    person_4 = create(:person)
-    person_5 = create(:person)
+    person1 = create(:person)
+    person2 = create(:person)
+    person3 = create(:person)
+    person4 = create(:person)
+    person5 = create(:person)
 
-    role_1 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 1)
-    role_2 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 2)
-    role_3 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 3)
-    role_4 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 4)
-    role_5 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 5)
+    role1 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 1)
+    role2 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 2)
+    role3 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 3)
+    role4 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 4)
+    role5 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 5)
 
-    create(:ministerial_role_appointment, role: role_1, person: person_1)
-    create(:ministerial_role_appointment, role: role_2, person: person_2)
-    create(:ministerial_role_appointment, role: role_3, person: person_3)
-    create(:ministerial_role_appointment, role: role_4, person: person_4)
-    create(:ministerial_role_appointment, role: role_5, person: person_5)
+    create(:ministerial_role_appointment, role: role1, person: person1)
+    create(:ministerial_role_appointment, role: role2, person: person2)
+    create(:ministerial_role_appointment, role: role3, person: person3)
+    create(:ministerial_role_appointment, role: role4, person: person4)
+    create(:ministerial_role_appointment, role: role5, person: person5)
 
     get :index
 
     whips = [
-      [Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_1], @controller.view_context)],
-      [Whitehall::WhipOrganisation.find_by_id(3), RolesPresenter.new([role_3], @controller.view_context)],
-      [Whitehall::WhipOrganisation.find_by_id(4), RolesPresenter.new([role_4], @controller.view_context)],
-      [Whitehall::WhipOrganisation.find_by_id(2), RolesPresenter.new([role_2], @controller.view_context)],
-      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role_5], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role1], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(3), RolesPresenter.new([role3], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(4), RolesPresenter.new([role4], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(2), RolesPresenter.new([role2], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role5], @controller.view_context)],
     ]
     assert_equal whips, assigns(:whips_by_organisation)
   end

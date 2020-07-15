@@ -14,7 +14,7 @@ Before do
   GdsApi::PublishingApi.any_instance.stubs(:patch_links)
   GdsApi::PublishingApi.any_instance.stubs(:unpublish)
 
-  need_1 = {
+  need1 = {
     "content_id" => SecureRandom.uuid,
     "format" => "need",
     "title" => "Need #1",
@@ -22,7 +22,7 @@ Before do
     "links" => {},
   }
 
-  need_2 = {
+  need2 = {
     "content_id" => SecureRandom.uuid,
     "format" => "need",
     "title" => "Need #2",
@@ -31,7 +31,7 @@ Before do
   }
 
   stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links})
-    .to_return(body: { links: { meets_user_needs: [need_1, need_2] } }.to_json)
+    .to_return(body: { links: { meets_user_needs: [need1, need2] } }.to_json)
 
   stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/expanded-links})
     .to_return(
@@ -39,8 +39,8 @@ Before do
         expanded_links: {
           meets_user_needs: [
             {
-              title: need_1["title"],
-              content_id: need_1["content_id"],
+              title: need1["title"],
+              content_id: need1["content_id"],
               details: {
                 role: "x",
                 goal: "y",
@@ -48,8 +48,8 @@ Before do
               },
             },
             {
-              title: need_2["title"],
-              content_id: need_2["content_id"],
+              title: need2["title"],
+              content_id: need2["content_id"],
               details: {
                 role: "c",
                 goal: "d",
@@ -61,7 +61,7 @@ Before do
       }.to_json,
     )
 
-  stub_publishing_api_has_linkables([need_1, need_2], document_type: "need")
+  stub_publishing_api_has_linkables([need1, need2], document_type: "need")
 end
 
 World(GdsApi::TestHelpers::PublishingApi)

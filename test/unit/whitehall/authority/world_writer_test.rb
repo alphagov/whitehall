@@ -40,11 +40,11 @@ class WorldWriterTest < ActiveSupport::TestCase
   end
 
   test "cannot see an edition about their locaiton that is access limited if it is limited an organisation they don't belong to" do
-    organisation_1 = "organisation_1"
-    organisation_2 = "organisation_2"
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
     user = world_writer(["hat land", "tie land"])
-    user.stubs(:organisation).returns(organisation_1)
-    edition = with_locations(limited_publication([organisation_2]), ["shirt land", "hat land"])
+    user.stubs(:organisation).returns(organisation1)
+    edition = with_locations(limited_publication([organisation2]), ["shirt land", "hat land"])
 
     assert_not enforcer_for(user, edition).can?(:see)
   end
@@ -140,23 +140,23 @@ class WorldWriterTest < ActiveSupport::TestCase
   end
 
   test "can force publish an edition about their location that is limited to another org if they can_force_publish_anything?" do
-    organisation_1 = "organisation_1"
-    organisation_2 = "organisation_2"
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
     user = world_writer(["hat land", "tie land"])
-    user.stubs(:organisation).returns(organisation_1)
+    user.stubs(:organisation).returns(organisation1)
     user.stubs(:can_force_publish_anything?).returns(true)
-    edition = with_locations(limited_publication([organisation_2]), ["shirt land", "hat land"])
+    edition = with_locations(limited_publication([organisation2]), ["shirt land", "hat land"])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end
 
   test "can force publish a limited access edition outside their location and org if they can_force_publish_anything?" do
-    organisation_1 = "organisation_1"
-    organisation_2 = "organisation_2"
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
     user = world_writer(["hat land", "tie land"])
-    user.stubs(:organisation).returns(organisation_1)
+    user.stubs(:organisation).returns(organisation1)
     user.stubs(:can_force_publish_anything?).returns(true)
-    edition = with_locations(limited_publication([organisation_2]), ["shirt land"])
+    edition = with_locations(limited_publication([organisation2]), ["shirt land"])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end
