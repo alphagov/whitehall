@@ -4,12 +4,16 @@ require "addressable/uri"
 # Accepts options[:message] and options[:allowed_protocols]
 class UriValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    if !(uri = Addressable::URI.parse(value))
+    return if value.nil?
+
+    uri = URI.parse(value)
+
+    if uri.blank?
       record.errors[attribute] << failure_message
-    elsif !allowed_protocols.include?(uri.scheme)
+    elsif allowed_protocols.exclude?(uri.scheme)
       record.errors[attribute] << "is not valid. Make sure it starts with http(s)"
     end
-  rescue Addressable::URI::InvalidURIError
+  rescue URI::Error
     record.errors[attribute] << failure_message
   end
 
