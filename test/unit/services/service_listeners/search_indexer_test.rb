@@ -32,6 +32,15 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(collection).index!
   end
 
+  test "#index! removes the edition first if the publication type has changed" do
+    published_publication = create(:published_policy_paper)
+    edition = create(:published_national_statistics, document: published_publication.document)
+
+    expect_removal_from_index(published_publication)
+    expect_indexing(edition)
+    ServiceListeners::SearchIndexer.new(edition).index!
+  end
+
   test "#remove! removes the edition from the search index" do
     edition = create(:published_news_article)
 
