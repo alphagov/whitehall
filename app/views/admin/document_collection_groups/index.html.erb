@@ -79,10 +79,11 @@
                 <li class="remove">
                   <%= submit_tag 'Remove', class: 'btn btn-sm btn-default' %>
                 </li>
-                <% if other_groups(group).size > 0 %>
+                <% other_groups = @groups - [group] %>
+                <% if other_groups.size > 0 %>
                   <li class="move form-inline">
                     Move selected to
-                    <%= select_tag :new_group_id, options_from_collection_for_select(other_groups(group), :id, :heading), class: 'form-control input-sm' %>
+                    <%= select_tag :new_group_id, options_from_collection_for_select(other_groups, :id, :heading), class: 'form-control input-sm' %>
                     <%= submit_tag 'Move', class: 'btn btn-sm btn-default' %>
                   </li>
                 <% end %>
