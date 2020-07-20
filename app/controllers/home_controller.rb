@@ -11,6 +11,7 @@ class HomeController < PublicFacingController
     @all_ministers_count = @cabinet_minister_count + @other_minister_count + 1 # add one to put the PM back in
     @ministerial_department_count = Organisation.listable.ministerial_departments.count
     @non_ministerial_department_count = Organisation.listable.non_ministerial_departments.count
+    set_meta_description("In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out who runs government and how government is run, as well as learning about the history of government.")
   end
 
   def get_involved
@@ -20,6 +21,7 @@ class HomeController < PublicFacingController
     @recently_opened_consultations = decorate_collection(Consultation.published.open.order("opening_at desc").limit(3), PublicationesquePresenter)
     @recent_consultation_outcomes = decorate_collection(Consultation.published.closed.responded.order("closing_at desc").limit(3), PublicationesquePresenter)
     @take_part_pages = TakePartPage.in_order
+    set_meta_description("Find out how you can engage with government directly, and take part locally, nationally or internationally.")
   end
 
   def history_king_charles_street; end
