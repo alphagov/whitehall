@@ -19,9 +19,13 @@ module ApplicationHelper
   end
 
   def atom_discovery_link_tag(url = nil, title = nil)
+    # This helper is used to get *and* set data for
+    # rendering an atom feed URL.
+    # rubocop:disable Rails/HelperInstanceVariable
     @atom_discovery_link_url = url if url.present?
     @atom_discovery_link_title = title if title.present?
     auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
+    # rubocop:enable Rails/HelperInstanceVariable
   end
 
   def api_link_tag(path)
