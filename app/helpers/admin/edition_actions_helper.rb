@@ -33,11 +33,11 @@ module Admin::EditionActionsHelper
             }
   end
 
-  def custom_track_dimensions(edition)
+  def custom_track_dimensions(edition, edition_taxons)
     {
       1 => public_document_path(edition),
       2 => edition.type.underscore,
-      3 => root_taxon_paths,
+      3 => root_taxon_paths(edition_taxons),
       4 => edition.document.content_id,
     }
   end
@@ -185,8 +185,8 @@ private
     grouped_options_for_select(subtype_options_hash, selected)
   end
 
-  def root_taxon_paths
-    @edition_taxons
+  def root_taxon_paths(edition_taxons)
+    edition_taxons
       .map(&method(:get_root))
       .map(&:base_path)
       .uniq

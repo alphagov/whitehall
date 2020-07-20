@@ -1,5 +1,9 @@
 module ApplicationHelper
   def page_title(*title_parts)
+    # This helper may be called multiple times on the
+    # same page, with or without the necessary arguments
+    # to construct the title (e.g. on a nested form).
+    # rubocop:disable Rails/HelperInstanceVariable
     if title_parts.any?
       title_parts.push("Admin") if params[:controller].match?(/^admin\//)
       title_parts.push("GOV.UK")
@@ -7,10 +11,7 @@ module ApplicationHelper
     else
       @page_title
     end
-  end
-
-  def meta_description_tag
-    tag :meta, name: "description", content: @meta_description
+    # rubocop:enable Rails/HelperInstanceVariable
   end
 
   def page_class(css_class)
@@ -18,9 +19,13 @@ module ApplicationHelper
   end
 
   def atom_discovery_link_tag(url = nil, title = nil)
+    # This helper is used to get *and* set data for
+    # rendering an atom feed URL.
+    # rubocop:disable Rails/HelperInstanceVariable
     @atom_discovery_link_url = url if url.present?
     @atom_discovery_link_title = title if title.present?
     auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
+    # rubocop:enable Rails/HelperInstanceVariable
   end
 
   def api_link_tag(path)
@@ -220,7 +225,7 @@ module ApplicationHelper
         publications_path(publication_filter_option: "consultations")
       elsif parameters[:publication_filter_option] == "statistics" ||
           parameters[:controller] == "statistical_data_sets" ||
-          @document && @document.try(:statistics?)
+          @document && @document.try(:statistics?) # rubocop:disable Rails/HelperInstanceVariable
         publications_path(publication_filter_option: "statistics")
       else
         publications_path

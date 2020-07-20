@@ -63,21 +63,13 @@ module GovspeakHelper
     header.text.include?('<span class="heading-number">')
   end
 
-  class OrphanedHeadingError < StandardError
-    attr_reader :heading
-    def initialize(heading)
-      @heading = heading
-      super("Parent heading missing for: #{heading}")
-    end
-  end
-
   def govspeak_header_hierarchy(govspeak)
     headers = []
     govspeak_headers(govspeak, 2..3).each do |header|
       if header.level == 2
         headers << { header: header, children: [] }
       elsif header.level == 3
-        raise OrphanedHeadingError, header.text if headers.none?
+        raise Govspeak::OrphanedHeadingError, header.text if headers.none?
 
         headers.last[:children] << header
       end

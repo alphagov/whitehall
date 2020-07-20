@@ -13,8 +13,10 @@ module DocumentHelper
   end
 
   def document_block_counter
+    # rubocop:disable Rails/HelperInstanceVariable
     @block_count ||= 0
     @block_count += 1
+    # rubocop:enable Rails/HelperInstanceVariable
   end
 
   def published_or_updated(edition)

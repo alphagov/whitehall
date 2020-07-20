@@ -19,7 +19,7 @@
   <% end %>
 </section>
 <% content_for :before_pageview_js do %>
- <% custom_track_dimensions(@edition).each do |k,v| %>
+ <% custom_track_dimensions(@edition, @edition_taxons).each do |k,v| %>
  GOVUKAdmin.setDimension(<%= k %>, '<%= v %>');
  <% end %>
 <% end %>

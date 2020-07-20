@@ -5,7 +5,7 @@
 </div>
 
 <%= consultation_editing_tabs(edition) do %>
-  <%= standard_edition_form(edition) do |form| %>
+  <%= standard_edition_form(edition, @information) do |form| %>
     <fieldset>
       <legend>Held on another website</legend>
       <%= form.check_box :external, label_text: "This #{edition.class.name.humanize.downcase} is held on another website" %>

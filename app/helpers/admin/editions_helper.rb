@@ -125,11 +125,11 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
-  def standard_edition_form(edition)
+  def standard_edition_form(edition, information)
     initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 
     form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-      concat edition_information(@information) if @information
+      concat edition_information(information) if information
       concat form.errors
       concat render("standard_fields", form: form, edition: edition)
       yield(form)
@@ -156,7 +156,7 @@ module Admin::EditionsHelper
   def tab_url_for_edition(edition)
     if edition.is_a? CorporateInformationPage
       if edition.new_record?
-        url_for([:new, :admin, @organisation, edition.class.model_name.param_key])
+        url_for([:new, :admin, @organisation, edition.class.model_name.param_key]) # rubocop:disable Rails/HelperInstanceVariable
       else
         url_for([:edit, :admin, edition.owning_organisation, edition])
       end
@@ -274,7 +274,7 @@ module Admin::EditionsHelper
   end
 
   def specialist_sector_options_for_select
-    @specialist_sector_options_for_select ||= LinkableTopics.new.topics
+    @specialist_sector_options_for_select ||= LinkableTopics.new.topics # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def specialist_sector_names(sector_content_ids)
@@ -282,7 +282,7 @@ module Admin::EditionsHelper
   end
 
   def raw_specialist_sectors
-    @raw_specialist_sectors ||= LinkableTopics.new.raw_topics
+    @raw_specialist_sectors ||= LinkableTopics.new.raw_topics # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def specialist_sector_name(sector_content_id)

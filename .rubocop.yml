@@ -14,8 +14,6 @@ Rails/Output:
   Exclude:
     - 'db/data_migration/*.rb'
 
-Rails/HelperInstanceVariable:
-  Enabled: false
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 

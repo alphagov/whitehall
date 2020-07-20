@@ -1,6 +1,6 @@
 module CacheControlHelper
   def cache_max_age(cache_max_age = Whitehall.default_cache_max_age)
-    @cache_max_age ||= cache_max_age
+    @cache_max_age ||= cache_max_age # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def expire_on_next_scheduled_publication(scheduled_editions)
