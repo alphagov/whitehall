@@ -26,7 +26,7 @@ class DetailedGuide < Edition
     include GovspeakHelper
     def validate(record)
       govspeak_header_hierarchy(record.body)
-    rescue OrphanedHeadingError => e
+    rescue Govspeak::OrphanedHeadingError => e
       record.errors.add(:body, "must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): '#{e.heading}'")
     end
   end
