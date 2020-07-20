@@ -14,7 +14,7 @@ module Admin::SidebarHelper
     end
   end
 
-  def edition_tabs(_edition, options = {})
+  def edition_tabs(edition, options = {})
     options = { editing: false, history_count: 0, remarks_count: 0 }.merge(options)
     {}.tap do |tabs|
       if options[:editing]
@@ -22,8 +22,8 @@ module Admin::SidebarHelper
       end
       tabs[:notes] = ["Notes", options[:remarks_count]]
       tabs[:history] = ["History", options[:history_count]]
-      if @edition.can_be_fact_checked?
-        tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count]
+      if edition.can_be_fact_checked?
+        tabs[:fact_checking] = ["Fact checking", edition.all_completed_fact_check_requests.count]
       end
     end
   end
