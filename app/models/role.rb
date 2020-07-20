@@ -50,12 +50,19 @@ class Role < ApplicationRecord
 
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
+  after_save :republish_organisation_to_publishing_api
 
   extend FriendlyId
   friendly_id
 
   include TranslatableModel
   translates :name, :responsibilities
+
+  def republish_organisation_to_publishing_api
+    organisations.each do |organisation|
+      Whitehall::PublishingApi.republish_async(organisation)
+    end
+  end
 
   def self.whip
     where(arel_table[:whip_organisation_id].not_eq(nil))
