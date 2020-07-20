@@ -8,7 +8,7 @@
     <meta content="320" name="MobileOptimized">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
-    <%= meta_description_tag %>
+    <%= tag :meta, name: "description", content: @meta_description %>
 
     <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
 
