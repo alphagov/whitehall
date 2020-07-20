@@ -156,7 +156,7 @@ module Admin::EditionsHelper
   def tab_url_for_edition(edition)
     if edition.is_a? CorporateInformationPage
       if edition.new_record?
-        url_for([:new, :admin, @organisation, edition.class.model_name.param_key])
+        url_for([:new, :admin, @organisation, edition.class.model_name.param_key]) # rubocop:disable Rails/HelperInstanceVariable
       else
         url_for([:edit, :admin, edition.owning_organisation, edition])
       end

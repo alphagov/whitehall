@@ -225,7 +225,7 @@ module ApplicationHelper
         publications_path(publication_filter_option: "consultations")
       elsif parameters[:publication_filter_option] == "statistics" ||
           parameters[:controller] == "statistical_data_sets" ||
-          @document && @document.try(:statistics?)
+          @document && @document.try(:statistics?) # rubocop:disable Rails/HelperInstanceVariable
         publications_path(publication_filter_option: "statistics")
       else
         publications_path
