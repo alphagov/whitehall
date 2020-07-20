@@ -181,17 +181,6 @@ module OrganisationHelper
     [organisation.slug, organisation.name, organisation.acronym].join(" ")
   end
 
-  def people_to_show?
-    @ministers.any? ||
-      @special_representatives.any? ||
-      @board_members.any? ||
-      @important_board_members.any? ||
-      @military_personnel.any? ||
-      @chief_professional_officers.any? ||
-      @traffic_commissioners.any? ||
-      @judges.any?
-  end
-
   def organisations_grouped_by_type(organisations)
     organisations.group_by(&:organisation_type).sort_by { |type, _department| type.listing_position }
   end
