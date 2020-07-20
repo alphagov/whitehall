@@ -1,5 +1,9 @@
 module ApplicationHelper
   def page_title(*title_parts)
+    # This helper may be called multiple times on the
+    # same page, with or without the necessary arguments
+    # to construct the title (e.g. on a nested form).
+    # rubocop:disable Rails/HelperInstanceVariable
     if title_parts.any?
       title_parts.push("Admin") if params[:controller].match?(/^admin\//)
       title_parts.push("GOV.UK")
@@ -7,6 +11,7 @@ module ApplicationHelper
     else
       @page_title
     end
+    # rubocop:enable Rails/HelperInstanceVariable
   end
 
   def meta_description_tag
