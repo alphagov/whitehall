@@ -11,7 +11,6 @@
 //
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require vendor/jquery/magna-charta.min
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
