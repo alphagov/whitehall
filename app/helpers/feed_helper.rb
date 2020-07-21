@@ -3,7 +3,7 @@ module FeedHelper
     Whitehall.atom_feed_maker.url_for(resource)
   end
 
-  def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)
+  def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.zone.now)
     feed_updated_timestamp =
       if documents.any?
         documents.first.public_timestamp

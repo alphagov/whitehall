@@ -57,7 +57,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes world org updated_at as updated_at" do
-    now = Time.current
+    now = Time.zone.now
     @world_org.stubs(:updated_at).returns(now)
     assert_equal now, @presenter.as_json[:updated_at]
   end

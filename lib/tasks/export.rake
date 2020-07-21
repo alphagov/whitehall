@@ -24,7 +24,7 @@ namespace :export do
 
   desc "Export list of documents"
   task document_list: :environment do
-    path = "tmp/document_list-#{Time.now.to_i}.csv"
+    path = "tmp/document_list-#{Time.zone.now.to_i}.csv"
     puts "generating csv in #{path}"
     CSV.open(path, "w") do |csv|
       csv << [
@@ -66,7 +66,7 @@ namespace :export do
              Organisation.all
            end
     puts "Processing #{orgs.map(&:display_name)}"
-    path = "tmp/published_editions-#{Time.now.to_i}.csv"
+    path = "tmp/published_editions-#{Time.zone.now.to_i}.csv"
     puts "generating csv in #{path}"
 
     CSV.open(path, "w") do |csv|
