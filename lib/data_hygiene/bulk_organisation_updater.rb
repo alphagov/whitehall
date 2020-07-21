@@ -52,19 +52,58 @@ module DataHygiene
     end
 
     def update_document(document, new_lead_organisations, new_supporting_organisations)
-      edition = document.latest_edition
+      published_edition = document.editions.find_by(state: :published)
+      latest_edition = document.latest_edition
+      pre_publication_edition = latest_edition
 
-      return if edition.lead_organisations == new_lead_organisations \
-        && edition.supporting_organisations == new_supporting_organisations
+      if published_edition && (published_edition.id == latest_edition&.id)
+        # Draft edition
+        pre_publication_edition = nil
+      end
 
-      puts "#{document.slug}: #{new_lead_organisations.map(&:slug).join(', ')} (#{new_supporting_organisations.map(&:slug).join(', ')})"
+      pre_publication_edition_updated = (
+        pre_publication_edition &&
+        update_edition(
+          pre_publication_edition,
+          new_lead_organisations,
+          new_supporting_organisations,
+        )
+      )
+
+      published_edition_updated = (
+        published_edition &&
+        update_edition(
+          published_edition,
+          new_lead_organisations,
+          new_supporting_organisations,
+        )
+      )
+
+      if pre_publication_edition_updated || published_edition_updated
+        puts "#{document.slug}: #{new_lead_organisations.map(&:slug).join(', ')} (#{new_supporting_organisations.map(&:slug).join(', ')})"
+      else
+        if published_edition || pre_publication_edition
+          puts "#{document.slug}: no update required"
+        else
+          puts "#{document.slug}: no edition found to update"
+        end
+        return
+      end
+
+      PublishingApiDocumentRepublishingWorker.perform_async(document.id)
+    end
+
+    def update_edition(edition, new_lead_organisations, new_supporting_organisations)
+      return false if
+        edition.lead_organisations == new_lead_organisations &&
+          edition.supporting_organisations == new_supporting_organisations
 
       edition.update!(
         lead_organisations: new_lead_organisations,
         supporting_organisations: new_supporting_organisations,
       )
 
-      PublishingApiDocumentRepublishingWorker.perform_async(document.id)
+      true
     end
   end
 end
