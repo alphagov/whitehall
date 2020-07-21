@@ -97,7 +97,10 @@ module DataHygiene
           true, # bulk_publishing
         )
       else
-        PublishingApiDocumentRepublishingWorker.perform_async(document.id)
+        PublishingApiDocumentRepublishingWorker.perform_async(
+          document.id,
+          true, # bulk publishing
+        )
       end
     end
 
