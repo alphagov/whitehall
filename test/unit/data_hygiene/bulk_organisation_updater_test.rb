@@ -44,7 +44,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     CSV
 
     document = create(:document, slug: "this-is-a-slug")
-    edition = create(:publication, document: document)
+    edition = create(:published_publication, document: document)
     organisation = create(:organisation, slug: "lead-organisation")
 
     process(csv_file)
@@ -61,7 +61,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     CSV
 
     document = create(:document, slug: "this-is-a-slug")
-    edition = create(:publication, document: document)
+    edition = create(:published_publication, document: document)
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
@@ -70,6 +70,32 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     assert_equal edition.supporting_organisations, [organisation1, organisation2]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.first["args"].first, document.id
+  end
+
+  test "it just updates the draft when there is not a change to the published edition" do
+    csv_file = <<~CSV
+      Slug,New lead organisations,New supporting organisations
+      this-is-a-slug,lead-organisation,
+    CSV
+
+    document = create(:document, slug: "this-is-a-slug")
+    organisation = create(:organisation, slug: "lead-organisation")
+    create(
+      :published_publication,
+      document: document,
+      lead_organisations: [organisation],
+    )
+    draft_edition = create(
+      :draft_publication,
+      document: document,
+    )
+
+    Whitehall::PublishingApi.expects(:save_draft).once
+
+    process(csv_file)
+
+    assert_equal draft_edition.lead_organisations, [organisation]
+    assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
   end
 
   test "it doesn't change a document which has already changed" do

@@ -90,7 +90,15 @@ module DataHygiene
         return
       end
 
-      PublishingApiDocumentRepublishingWorker.perform_async(document.id)
+      if !published_edition_updated
+        Whitehall::PublishingApi.save_draft(
+          pre_publication_edition,
+          "republish",
+          true, # bulk_publishing
+        )
+      else
+        PublishingApiDocumentRepublishingWorker.perform_async(document.id)
+      end
     end
 
     def update_edition(edition, new_lead_organisations, new_supporting_organisations)
