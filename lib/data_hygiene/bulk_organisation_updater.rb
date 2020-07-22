@@ -24,6 +24,9 @@ module DataHygiene
 
     def process_row(row)
       document = find_document(row)
+
+      return unless document
+
       new_lead_organisations = find_new_lead_organisations(row)
       new_supporting_organisations = find_new_supporting_organisations(row)
 
@@ -31,7 +34,14 @@ module DataHygiene
     end
 
     def find_document(row)
-      Document.find_by!(slug: row.fetch("Slug"))
+      slug = row.fetch("Slug")
+      document = Document.find_by(slug: slug)
+
+      if document.nil?
+        puts "#{slug}: could not find document"
+      end
+
+      document
     end
 
     def find_organisations(row, column)

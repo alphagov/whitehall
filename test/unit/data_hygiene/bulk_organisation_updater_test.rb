@@ -26,17 +26,6 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     end
   end
 
-  test "it fails if document doesn't exist" do
-    csv_file = <<~CSV
-      Slug,New lead organisations,New supporting organisations
-      this-is-a-slug,new-organisation,new-supporting-organisation
-    CSV
-
-    assert_raises ActiveRecord::RecordNotFound do
-      process(csv_file)
-    end
-  end
-
   test "it changes the lead organisations" do
     csv_file = <<~CSV
       Slug,New lead organisations,New supporting organisations
