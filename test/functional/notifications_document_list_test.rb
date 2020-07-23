@@ -7,7 +7,7 @@ class NotificationsDocumentListTest < ActionMailer::TestCase
     @public_url = "https://whitehall.test.gov.uk/export/documents/#{SecureRandom.uuid}"
     @address = "test@example.com"
     @filter_title = "Test"
-    @mail = Notifications.document_list(@public_url, @address, @filter_title)
+    @mail = MailNotifications.document_list(@public_url, @address, @filter_title)
   end
 
   test "email should be sent to the correct address" do

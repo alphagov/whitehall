@@ -62,7 +62,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def reject
     @edition.reject!
     users_to_notify(@edition).each do |user|
-      Notifications.edition_rejected(user, @edition, admin_edition_url(@edition)).deliver_now
+      MailNotifications.edition_rejected(user, @edition, admin_edition_url(@edition)).deliver_now
     end
     redirect_to new_admin_edition_editorial_remark_path(@edition),
                 notice: "Document rejected; please explain why in an editorial remark"

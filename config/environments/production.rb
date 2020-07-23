@@ -77,7 +77,7 @@ Whitehall::Application.configure do
       port: ENV["SMTP_PORT"],
     }
   else
-    config.action_mailer.delivery_method = :ses
+    config.action_mailer.delivery_method = :notify
   end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

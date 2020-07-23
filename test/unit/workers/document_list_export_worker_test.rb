@@ -49,7 +49,7 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
     title = "Everyone's editions"
     @worker.stubs(:create_filter).returns(stub(page_title: title))
     @worker.stubs(generate_csv: csv)
-    Notifications.expects(:document_list).with(regexp_matches(%r{^https://whitehall-admin\.test\.gov\.uk/export/documents/[a-f0-9-]{36}$}), @user.email, title).returns(stub(deliver_now: nil))
+    MailNotifications.expects(:document_list).with(regexp_matches(%r{^https://whitehall-admin\.test\.gov\.uk/export/documents/[a-f0-9-]{36}$}), @user.email, title).returns(stub(deliver_now: nil))
     @worker.perform({ "state" => "draft" }, @user.id)
   end
 end

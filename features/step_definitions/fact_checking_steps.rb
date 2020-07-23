@@ -6,7 +6,7 @@ end
 Given(/^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/) do |email, title|
   publication = create(:draft_publication, title: title)
   fact_check_request = create(:fact_check_request, edition: publication, email_address: email)
-  Notifications.fact_check_request(fact_check_request, host: "example.com").deliver_now
+  MailNotifications.fact_check_request(fact_check_request, host: "example.com").deliver_now
 end
 
 Given(/^"([^"]*)" has asked "([^"]*)" for feedback on the draft publication "([^"]*)"$/) do |requestor_email, fact_checker_email, title|
