@@ -266,18 +266,32 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
   end
 
-  view_test "GET on :edit allows entry of important board members only data to gds editors" do
+  view_test "GET on :edit allows entry of important board members only data to Editors and above" do
     organisation = create(:organisation)
     junior_board_member_role = create(:board_member_role)
     senior_board_member_role = create(:board_member_role)
 
-    create(:gds_editor, organisation: organisation)
     create(:organisation_role, organisation: organisation, role: senior_board_member_role)
     create(:organisation_role, organisation: organisation, role: junior_board_member_role)
 
-    get :edit, params: { id: organisation }
+    managing_editor = create(:managing_editor, organisation: organisation)
+    departmental_editor = create(:departmental_editor, organisation: organisation)
+    world_editor = create(:world_editor, organisation: organisation)
 
+    get :edit, params: { id: organisation }
     assert_select "select#organisation_important_board_members option", count: 2
+
+    login_as(departmental_editor)
+    get :edit, params: { id: organisation }
+    assert_select "select#organisation_important_board_members option", count: 2
+
+    login_as(managing_editor)
+    get :edit, params: { id: organisation }
+    assert_select "select#organisation_important_board_members option", count: 2
+
+    login_as(world_editor)
+    get :edit, params: { id: organisation }
+    assert_select "select#organisation_important_board_members option", count: 0
   end
 
   test "PUT on :update allows updating of organisation role ordering" do
