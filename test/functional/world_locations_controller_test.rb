@@ -313,7 +313,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#publications" do
       assert_select_object publication2 do
-        assert_select ".publication-date time[datetime=?]", 2.days.ago.to_date.to_datetime.iso8601
+        assert_select ".publication-date time[datetime=?]", 2.days.ago.midnight.iso8601
         assert_select ".document-type", "Policy paper"
       end
       assert_select_object publication3
@@ -345,7 +345,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "#statistics-publications" do
       assert_select_object publication1 do
-        assert_select ".publication-date time[datetime=?]", 1.day.ago.to_date.to_datetime.iso8601
+        assert_select ".publication-date time[datetime=?]", 1.day.ago.midnight.iso8601
         assert_select ".document-type", "National Statistics"
       end
       assert_select_object publication2
