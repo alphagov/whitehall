@@ -119,7 +119,7 @@ module DataHygiene
         edition.lead_organisations == new_lead_organisations &&
           edition.supporting_organisations == new_supporting_organisations
 
-      edition.update!(
+      edition.update( # rubocop:disable Rails/SaveBang
         lead_organisations: new_lead_organisations,
         supporting_organisations: new_supporting_organisations,
       )
