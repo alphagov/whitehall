@@ -122,7 +122,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index with locale shows the date on which a speech was first published" do
-    first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
+    first_published_at = Date.parse("1999-12-31").midnight.iso8601
     speech = create(:published_speech, first_published_at: first_published_at, translated_into: [:fr])
 
     get :index, params: { locale: "fr" }
@@ -133,7 +133,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index with locale shows the time when a news article was first published" do
-    first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
+    first_published_at = Date.parse("1999-12-31").midnight.iso8601
     news = create(:published_news_article, first_published_at: first_published_at, translated_into: [:fr])
     get :index, params: { locale: "fr" }
 
@@ -160,8 +160,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index with locale shows articles in reverse chronological order" do
-    nineties = Date.parse("1999-12-31").to_datetime.iso8601
-    twenty_first_century = Date.parse("2000-01-01").to_datetime.iso8601
+    nineties = Date.parse("1999-12-31").iso8601
+    twenty_first_century = Date.parse("2000-01-01").iso8601
     second_speech = create(:published_speech, first_published_at: twenty_first_century, translated_into: [:fr])
     first_speech = create(:published_speech, first_published_at: nineties, translated_into: [:fr])
 

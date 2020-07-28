@@ -37,7 +37,7 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   end
 
   test "json includes location updated_at as updated_at" do
-    now = Time.current
+    now = Time.zone.now
     @location.stubs(:updated_at).returns(now)
     assert_equal now, @presenter.as_json[:updated_at]
   end

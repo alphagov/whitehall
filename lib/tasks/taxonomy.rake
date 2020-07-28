@@ -20,7 +20,7 @@ namespace :taxonomy do
       description: "Test taxon description",
       publishing_app: "content-tagger",
       rendering_app: "collections",
-      public_updated_at: Time.new(1985, 7, 24, 1, 2, 3).iso8601,
+      public_updated_at: Time.zone.local(1985, 7, 24, 1, 2, 3).iso8601,
       locale: "en",
       details: {
         internal_name: "Test taxon",

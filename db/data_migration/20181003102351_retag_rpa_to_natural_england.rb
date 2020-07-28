@@ -1,7 +1,7 @@
 old = Organisation.find_by!(slug: "rural-payments-agency")
 new = Organisation.find_by!(slug: "natural-england")
 
-undo_from = DateTime.new(2018, 10, 2, 15, 40, 0)
+undo_from = DateTime.new(2018, 10, 2, 15, 40, 0) # rubocop:disable Style/DateTime
 undo_upto = undo_from + 60.minutes
 
 docs_with_lead = EditionOrganisation.where("updated_at > ?", undo_from).where("updated_at < ?", undo_upto).where(organisation: old, lead: true).map(&:edition).compact.map(&:document).uniq

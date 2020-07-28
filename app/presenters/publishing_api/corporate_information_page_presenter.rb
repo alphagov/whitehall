@@ -87,10 +87,6 @@ module PublishingApi
       public_updated_at = corporate_information_page.public_timestamp ||
         corporate_information_page.updated_at
 
-      public_updated_at = if public_updated_at.respond_to?(:to_datetime)
-                            public_updated_at.to_datetime
-                          end
-
       public_updated_at.rfc3339
     end
 

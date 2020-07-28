@@ -37,8 +37,8 @@ class Api::GovernmentPresenterTest < PresenterTestCase
   end
 
   test "json includes government start_date and end_date in details hash" do
-    end_date = Time.current.to_date
-    start_date = (Time.current - 2.days).to_date
+    end_date = Time.zone.now.to_date
+    start_date = (Time.zone.now - 2.days).to_date
     @government.stubs(:start_date).returns(start_date)
     @government.stubs(:end_date).returns(end_date)
     assert_equal start_date, @presenter.as_json[:details][:start_date]

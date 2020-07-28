@@ -86,10 +86,6 @@ module PublishingApi
 
     def public_updated_at
       public_updated_at = (news_article.public_timestamp || news_article.updated_at)
-      public_updated_at = if public_updated_at.respond_to?(:to_datetime)
-                            public_updated_at.to_datetime
-                          end
-
       public_updated_at.rfc3339
     end
 

@@ -24,8 +24,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       redirects: [],
       public_updated_at: topical_event.updated_at,
       details: {
-        start_date: topical_event.start_date,
-        end_date: topical_event.end_date,
+        start_date: topical_event.start_date.rfc3339,
+        end_date: topical_event.end_date.rfc3339,
       },
     }
 
@@ -71,7 +71,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
-    assert_equal({ start_date: Time.zone.today }, presenter.content[:details])
+    assert_equal({ start_date: Time.zone.today.rfc3339 }, presenter.content[:details])
     assert_valid_against_schema(presenter.content, "placeholder")
   end
 end
