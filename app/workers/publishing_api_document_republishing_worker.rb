@@ -45,10 +45,13 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       elsif the_document_has_been_withdrawn?
         send_published_and_withdraw
       elsif there_is_only_a_draft?
+        patch_links
         send_draft_edition
       elsif there_is_only_a_published_edition?
+        patch_links
         send_published_edition
       elsif there_is_a_newer_draft?
+        patch_links
         send_published_edition
         send_draft_edition
       else
@@ -119,16 +122,19 @@ private
   end
 
   def send_published_edition
-    locales_for(published_edition) do |locale|
-      PublishingApiWorker.new.perform(
-        published_edition.class.name,
-        published_edition.id,
-        "republish",
-        locale,
-        @bulk_publishing,
-      )
-    end
+    Whitehall::PublishingApi.publish(
+      published_edition,
+      "republish",
+      @bulk_publishing,
+    )
     handle_attachments_for(published_edition)
+  end
+
+  def patch_links
+    Whitehall::PublishingApi.patch_links(
+      published_edition || pre_publication_edition,
+      bulk_publishing: @bulk_publishing,
+    )
   end
 
   def send_unpublish(edition)

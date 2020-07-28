@@ -12,7 +12,7 @@ module Whitehall
   class PublishingApi
     extend LockedDocumentConcern
 
-    def self.publish(model_instance)
+    def self.publish(model_instance, update_type_override = nil, bulk_publishing = false)
       assert_public_edition!(model_instance)
 
       # Ideally this wouldn't happen, but aspects of Whitehall still
@@ -24,7 +24,11 @@ module Whitehall
       # needs to be published, then the draft updated in the
       # Publishing API updated to update the change notes (and
       # possibly other things), and only then can it be published.
-      save_draft(model_instance)
+      save_draft(
+        model_instance,
+        update_type_override,
+        bulk_publishing,
+      )
 
       presenter = PublishingApiPresenters.presenter_for(model_instance)
 
