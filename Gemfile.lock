@@ -189,7 +189,7 @@ GEM
       null_logger
       plek (>= 1.9.0)
       rest-client (~> 2.0)
-    gds-sso (15.0.0)
+    gds-sso (15.0.1)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
