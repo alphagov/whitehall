@@ -237,6 +237,18 @@ namespace :publishing_api do
       end
       puts "Finished enqueueing items for Publishing API"
     end
+
+    desc "Republish all documents of a given organisation"
+    task :for_organisation, [:organisation_slug] => :environment do |_, args|
+      org = Organisation.find_by(slug: args[:organisation_slug])
+      editions = Edition.latest_edition.in_organisation(org)
+      puts "Enqueueing #{editions.count} documents"
+      editions.find_each do |edition|
+        document = edition.document
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.id, true)
+      end
+      puts "Finished enqueueing items for Publishing API"
+    end
   end
 
   desc "Manually unpublish content with a redirect"
