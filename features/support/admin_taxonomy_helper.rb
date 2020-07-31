@@ -24,3 +24,11 @@ module AdminTaxonomyHelper
   end
 end
 World(AdminTaxonomyHelper)
+
+Around do |_, block|
+  redis = Redis.current
+  Redis.current = nil
+  block.call
+ensure
+  Redis.current = redis
+end
