@@ -69,8 +69,8 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_not build(:take_part_page, image: nil).valid?
   end
 
-  test "invalid without image alt text on create" do
-    assert_not build(:take_part_page, image_alt_text: nil).valid?
+  test "valid without image alt text on create" do
+    assert build(:take_part_page, image_alt_text: nil).valid?
   end
 
   test "limits image alt text to a maximum of 255 characters" do

@@ -338,9 +338,9 @@ class EditionTest < ActiveSupport::TestCase
     assert_not Edition.submitted.include?(edition)
   end
 
-  test "should be invalid if has image but no alt text" do
+  test "should be valid if it has image but no alt text" do
     article = build(:news_article, images: [build(:image, alt_text: nil)])
-    assert_not article.valid?
+    assert article.valid?
   end
 
   test "should still be valid if has no image and no alt text" do
