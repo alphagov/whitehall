@@ -6,7 +6,8 @@ class ClassificationFeaturing < ApplicationRecord
 
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
-  validates :image, :alt_text, presence: true
+  validates :image, presence: true
+  validates :alt_text, presence: true, allow_blank: true
   validates :alt_text, length: { maximum: 255 }
 
   validates :classification, :ordering, presence: true
