@@ -617,94 +617,94 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel-serializers-xml
-  addressable (>= 2.3.7)
-  babosa (= 1.0.3)
+  addressable
+  babosa
   better_errors
   binding_of_caller
   bootsnap
-  bootstrap-kaminari-views (= 0.0.5)
-  carrierwave (~> 2.1.0)
+  bootstrap-kaminari-views
+  carrierwave
   carrierwave-i18n
   chronic
   ci_reporter_minitest
-  coffee-rails (~> 4.2.2)
-  cucumber (~> 4)
+  coffee-rails
+  cucumber
   cucumber-rails
-  dalli (~> 2.7)
+  dalli
   database_cleaner
-  equivalent-xml (~> 0.6.0)
+  equivalent-xml
   factory_bot
   faraday
-  fog-aws (~> 3.5)
-  friendly_id (~> 5.3.0)
-  fuzzy_match (~> 2.1)
+  fog-aws
+  friendly_id
+  fuzzy_match
   gds-api-adapters
-  gds-sso (~> 16)
-  globalize (~> 5)
-  govspeak (~> 6.5.10)
+  gds-sso
+  globalize
+  govspeak
   govuk-content-schema-test-helpers
-  govuk_ab_testing (~> 2)
-  govuk_admin_template (~> 6.7)
-  govuk_app_config (~> 2.8)
-  govuk_frontend_toolkit (= 9.0.0)
-  govuk_publishing_components (~> 23.10.2)
-  govuk_sidekiq (~> 4)
+  govuk_ab_testing
+  govuk_admin_template
+  govuk_app_config
+  govuk_frontend_toolkit
+  govuk_publishing_components
+  govuk_sidekiq
   govuk_test
   graphviz_transitions
-  invalid_utf8_rejector (~> 0.0.4)
+  invalid_utf8_rejector
   isbn_validation
   jbuilder
-  jquery-ui-rails (~> 4.2.1)
-  kaminari (~> 1.2.1)
+  jquery-ui-rails
+  kaminari
   launchy
   link_header
   mail-notify
   maxitest
   mechanize
-  mime-types (~> 3.3)
-  mini_magick (~> 4.10.1)
+  mime-types
+  mini_magick
   minitest
   minitest-fail-fast
   minitest-stub-const
   mlanett-redis-lock
   mocha
-  mysql2 (~> 0.4.10)
-  nokogiri (~> 1.11.0)
+  mysql2
+  nokogiri
   parallel
   parallel_tests
-  pdf-reader (~> 2.2)
-  plek (~> 4.0)
+  pdf-reader
+  plek
   pry-byebug
   pry-rails
   ptools
-  rack (~> 2.0)
+  rack
   rack-test
-  rack_strip_client_ip (~> 0.0.2)
+  rack_strip_client_ip
   rails (= 5.1.7)
   rails-controller-testing
-  rails-i18n (~> 5.1)
-  rails_translation_manager (~> 0.1.0)
-  rake (= 13.0.1)
-  record_tag_helper (~> 1.0)
-  responders (~> 3.0)
+  rails-i18n
+  rails_translation_manager
+  rake
+  record_tag_helper
+  responders
   rinku
-  rubocop-govuk (~> 3)
+  rubocop-govuk
   ruby-progressbar
-  rubyzip (~> 2.1)
-  sass (~> 3.7)
-  sassc-rails (~> 2.1)
-  shared_mustache (~> 1.0.0)
-  sidekiq-scheduler (~> 3.0)
-  slimmer (~> 15.3)
+  rubyzip
+  sass
+  sassc-rails
+  shared_mustache
+  sidekiq-scheduler
+  slimmer
   sprockets-rails
   teaspoon-qunit
-  test-queue (~> 0.2.13)
+  test-queue
   timecop
   transitions
-  uglifier (~> 4.2)
+  uglifier
   validates_email_format_of
   webmock
-  whenever (~> 1.0.0)
+  whenever
 
 BUNDLED WITH
    1.17.3
