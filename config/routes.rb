@@ -448,4 +448,6 @@ Whitehall::Application.routes.draw do
     require "sidekiq/web"
     mount DisableSlimmer.new(Sidekiq::Web), at: "/sidekiq"
   end
+
+  mount GovukPublishingComponents::Engine, at: "/component-guide" if Rails.env.development?
 end

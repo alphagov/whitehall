@@ -1,11 +1,22 @@
 $govuk-use-legacy-palette: true;
 $govuk-typography-use-rem: false;
 
-@import "govuk_publishing_components/all_components";
+@import 'govuk_publishing_components/govuk_frontend_support';
+@import 'govuk_publishing_components/component_support';
+@import 'govuk_publishing_components/components/button';
+@import 'govuk_publishing_components/components/error-message';
+@import 'govuk_publishing_components/components/feedback';
+@import 'govuk_publishing_components/components/govspeak';
+@import 'govuk_publishing_components/components/heading';
+@import 'govuk_publishing_components/components/hint';
+@import 'govuk_publishing_components/components/input';
+@import 'govuk_publishing_components/components/label';
+@import 'govuk_publishing_components/components/notice';
+@import 'govuk_publishing_components/components/organisation-logo';
+@import 'govuk_publishing_components/components/subscription-links';
+@import 'govuk_publishing_components/components/title';
 
 // BASE STYLESHEET COMPILER
-
-
 
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
@@ -61,6 +72,3 @@ $govuk-typography-use-rem: false;
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 @import "layouts/html-publication";
-
-// Import the components
-@import "govuk_publishing_components/all_components";

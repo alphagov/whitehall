@@ -4,9 +4,13 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require govuk_publishing_components/lib
+//= require govuk_publishing_components/components/button
+//= require govuk_publishing_components/components/feedback
+//= require govuk_publishing_components/components/govspeak
+//
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require vendor/jquery/magna-charta.min
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
@@ -17,5 +21,3 @@
 //= require govuk
 //= require_tree ./common
 //= require_tree ./application
-//
-//= require govuk_publishing_components/all_components
