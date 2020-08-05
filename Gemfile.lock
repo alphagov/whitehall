@@ -216,7 +216,7 @@ GEM
       sanitize (>= 5.2.1, < 6)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk_ab_testing (2.4.1)
+    govuk_ab_testing (2.4.2)
     govuk_admin_template (6.7.0)
       bootstrap-sass (= 3.4.1)
       jquery-rails (~> 4.3.1)
@@ -638,7 +638,7 @@ DEPENDENCIES
   globalize (~> 5)
   govspeak (~> 6.5)
   govuk-content-schema-test-helpers
-  govuk_ab_testing (~> 2.4x)
+  govuk_ab_testing (~> 2)
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.2)
   govuk_frontend_toolkit (= 9.0.0)
