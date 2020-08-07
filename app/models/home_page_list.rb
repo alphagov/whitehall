@@ -4,7 +4,7 @@ class HomePageList < ApplicationRecord
   validates :owner, presence: true
   validates :name,
             presence: true,
-            uniqueness: { scope: %i[owner_id owner_type] },
+            uniqueness: { scope: %i[owner_id owner_type], case_sensitive: false },
             length: { maximum: 255 }
 
   has_many :home_page_list_items,

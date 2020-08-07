@@ -3,7 +3,7 @@ class FeatureList < ApplicationRecord
   belongs_to :featurable, polymorphic: true
 
   validates :locale, presence: true
-  validates :locale, uniqueness: { scope: %i[featurable_id featurable_type] }
+  validates :locale, uniqueness: { scope: %i[featurable_id featurable_type], case_sensitive: false }
 
   accepts_nested_attributes_for :features
 

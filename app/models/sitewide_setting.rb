@@ -1,7 +1,7 @@
 class SitewideSetting < ApplicationRecord
   validates :govspeak, presence: true, if: :on
   validates :key, presence: true
-  validates :key, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :key, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates_with SafeHtmlValidator
 
   after_save :republish_ministers_if_reshuffle
