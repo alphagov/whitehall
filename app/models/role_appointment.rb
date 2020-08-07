@@ -58,7 +58,7 @@ class RoleAppointment < ApplicationRecord
 
   scope :for_role, ->(role) { where(role_id: role.id) }
   scope :for_person, ->(person) { where(person_id: person.id) }
-  scope :excluding, ->(*ids) { where("id NOT IN (?)", ids) }
+  scope :excluding_ids, ->(*ids) { where("id NOT IN (?)", ids) }
   scope :current, -> { where(CURRENT_CONDITION) }
   scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial).references(:roles) }
   scope :alphabetical_by_person, -> { includes(:person).order("people.surname", "people.forename") }
@@ -129,7 +129,7 @@ class RoleAppointment < ApplicationRecord
 
   def other_appointments_for_same_role
     if persisted?
-      self.class.for_role(role).excluding(id)
+      self.class.for_role(role).excluding_ids(id)
     else
       self.class.for_role(role)
     end
