@@ -1,4 +1,8 @@
+require "record_tag_helper/helper"
+
 module ApplicationHelper
+  include ActionView::Helpers::RecordTagHelper
+
   def page_title(*title_parts)
     # This helper may be called multiple times on the
     # same page, with or without the necessary arguments

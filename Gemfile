@@ -46,7 +46,7 @@ gem "rack_strip_client_ip"
 gem "rails-i18n"
 gem "rails_translation_manager"
 gem "rake"
-gem "record_tag_helper"
+gem "record_tag_helper", require: false
 gem "responders"
 gem "rinku", require: "rails_rinku"
 gem "ruby-progressbar", require: false
