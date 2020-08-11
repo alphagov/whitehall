@@ -17,6 +17,10 @@ module Edition::NationalApplicability
     add_trait Trait
   end
 
+  def all_nation_applicability=(attributes)
+    @all_nation_applicability ||= ActiveRecord::Type::Boolean.new.deserialize(attributes)
+  end
+
   def nation_inapplicabilities_attributes=(attributes)
     attributes.each_value do |params|
       existing = nation_inapplicabilities.detect { |ni| ni.nation_id == params[:nation_id].to_i }

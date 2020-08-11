@@ -237,6 +237,7 @@ private
       :political,
       :read_consultation_principles,
       :show_brexit_no_deal_content_notice,
+      :all_nation_applicability,
       brexit_no_deal_content_notice_links_attributes: %i[id title url],
       secondary_specialist_sector_tags: [],
       lead_organisation_ids: [],

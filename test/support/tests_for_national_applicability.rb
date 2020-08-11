@@ -21,6 +21,72 @@ module TestsForNationalApplicability
       assert_equal "http://www.scotland.com/", scotland_inapplicability.alternative_url
     end
 
+    test "create should create a new edition with all_nation_applicability including all nations" do
+      create(:government)
+      attributes = attributes_for_edition
+
+      expected_national_applicability = {
+        england: {
+          label: "England",
+          applicable: true,
+        },
+        northern_ireland: {
+          label: "Northern Ireland",
+          applicable: true,
+        },
+        scotland: {
+          label: "Scotland",
+          applicable: true,
+        },
+        wales: {
+          label: "Wales",
+          applicable: true,
+        },
+      }
+
+      post :create, params: {
+        edition: attributes.merge(
+          all_nation_applicability: "1"
+        )
+      }
+
+      assert edition = Edition.last
+      assert_equal edition.national_applicability, expected_national_applicability
+    end
+
+    test "create should create a new edition with all_nation_applicability overriding individual options" do
+      create(:government)
+      attributes = attributes_for_edition
+
+      expected_national_applicability = {
+        england: {
+          label: "England",
+          applicable: true,
+        },
+        northern_ireland: {
+          label: "Northern Ireland",
+          applicable: true,
+        },
+        scotland: {
+          label: "Scotland",
+          applicable: true,
+        },
+        wales: {
+          label: "Wales",
+          applicable: true,
+        },
+      }
+
+      post :create, params: {
+        edition: attributes.merge(
+          all_nation_applicability: "1"
+        )
+      }
+
+      assert edition = Edition.last
+      assert_equal edition.national_applicability, expected_national_applicability
+    end
+
     test "national_applicability works correctly" do
       scotland_nation_inapplicability = create(
         :nation_inapplicability,
@@ -90,7 +156,7 @@ module TestsForNationalApplicability
     end
 
     view_test "edit displays edition form with nation inapplicability fields and values" do
-      edition = create_edition
+      edition = create_edition(all_nation_applicability: "1")
       edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
       get :edit, params: { id: edition }
@@ -106,9 +172,15 @@ module TestsForNationalApplicability
 
     test "updating should save modified edition with nation inapplicabilities" do
       create(:government)
-      attributes = attributes_for_edition
+      attributes = ({all_nation_applicability: "1"}).merge(attributes_for_edition)
       edition = create_edition(attributes)
+
+      assert_equal 0, edition.inapplicable_nations.size
+
       northern_ireland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
+
+      assert_equal [Nation.northern_ireland], edition.inapplicable_nations
+      assert_equal "http://www.discovernorthernireland.com/", edition.nation_inapplicabilities.for_nation(Nation.northern_ireland).first.alternative_url
 
       put :update, params: { id: edition, edition: nation_inapplicabilities_attributes_for({ Nation.scotland => "http://www.visitscotland.com/" }, northern_ireland_inapplicability) }
 
@@ -190,6 +262,7 @@ private
 
   def assert_nation_inapplicability_fields_exist
     n = Nation.potentially_inapplicable.count
+    assert_select "input[name*='edition[all_nation_applicability]'][type='checkbox']", count: 1
     assert_select "input[name*='edition[nation_inapplicabilities_attributes]'][type='checkbox']", count: n
     assert_select "input[name*='edition[nation_inapplicabilities_attributes]'][type='text']", count: n
   end
