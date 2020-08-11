@@ -99,7 +99,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -230,7 +230,7 @@ GEM
     govuk_frontend_toolkit (9.0.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (21.60.2)
+    govuk_publishing_components (21.60.3)
       govuk_app_config
       kramdown
       plek
@@ -642,7 +642,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.2)
   govuk_frontend_toolkit (= 9.0.0)
-  govuk_publishing_components (~> 21.60.2)
+  govuk_publishing_components (~> 21.60.3)
   govuk_sidekiq (~> 4)
   govuk_test
   graphviz_transitions
