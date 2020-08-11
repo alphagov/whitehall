@@ -12,10 +12,10 @@
     <%= form.fields_for :nation_inapplicabilities, inapplicability do |ni_fields| %>
       <%= content_tag_for(:div, ni_fields.object.nation, class: 'control-group') do %>
         <div class="control">
-          <%= ni_fields.check_box :excluded, label_text: nation.name, checked: ni_fields.object.excluded? %>
+          <%= ni_fields.check_box :excluded, label_text: "Does not apply to #{nation.name}", checked: ni_fields.object.excluded? %>
         </div>
         <div class="control">
-          <%= ni_fields.text_field :alternative_url %>
+          <%= ni_fields.text_field :alternative_url, label_text: "URL of corresponding content" %>
           <%= ni_fields.hidden_field :nation_id %>
         </div>
       <% end %>
