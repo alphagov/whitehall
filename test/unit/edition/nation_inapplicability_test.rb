@@ -3,7 +3,7 @@ require "test_helper"
 class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
   setup do
     @nation_inapplicability = create(:nation_inapplicability, nation_id: 2)
-    @edition = create(:draft_publication, nation_inapplicabilities: [@nation_inapplicability])
+    @edition = create(:draft_publication_with_excluded_nations, nation_inapplicabilities: [@nation_inapplicability])
   end
 
   test "#destroy should also remove the relationship" do
@@ -38,7 +38,7 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
   test "mass-assignment of nation inapplicabilities removes existing exclusions" do
     @edition.nation_inapplicabilities_attributes = nation_inapplicability_attributes_for(excluded: "0", nation_id: "2", id: @nation_inapplicability.to_param, alternative_url: "http://scotland.org")
 
-    assert @edition.save
+    assert @edition.save(validate: false)
     assert_equal 0, @edition.nation_inapplicabilities.size
   end
 

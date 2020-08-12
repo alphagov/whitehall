@@ -5,12 +5,17 @@ FactoryBot.define do
     opening_at { 1.day.ago }
     closing_at { 6.weeks.from_now }
     read_consultation_principles { true }
+    all_nation_applicability { true }
     transient do
       relevant_to_local_government { false }
     end
 
     trait(:with_html_attachment) do
       attachments { [FactoryBot.build(:html_attachment)] }
+    end
+
+    trait(:has_excluded_nations) do
+      all_nation_applicability { false }
     end
   end
 
@@ -53,4 +58,7 @@ FactoryBot.define do
   factory :consultation_with_public_feedback_html_attachment, parent: :closed_consultation do
     public_feedback { create(:consultation_public_feedback, :with_html_attachment) }
   end
+
+  factory :consultation_with_excluded_nations, parent: :consultation, traits: [:has_excluded_nations]
+  factory :published_consultation_with_excluded_nations, parent: :published_consultation, traits: [:has_excluded_nations]
 end
