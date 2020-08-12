@@ -10,11 +10,21 @@ module Edition::NationalApplicability
   end
 
   included do
+    validate :applicability_options
     has_many :nation_inapplicabilities, foreign_key: :edition_id, dependent: :destroy, autosave: true
     validates_associated :nation_inapplicabilities
     validates :nation_inapplicabilities, length: { maximum: Nation.all.count - 1, message: "can not exclude all nations" }
 
     add_trait Trait
+  end
+
+  def applicability_options
+    if !@all_nation_applicability && nation_inapplicabilities.size < 1
+      errors.add(:excluded_nations, "must either allow all nations or exclude at least one nation")
+    end
+    if @all_nation_applicability && nation_inapplicabilities.size > 0
+      errors.add(:excluded_nations, "cannot allow all nations and exclude nations")
+    end
   end
 
   def all_nation_applicability=(attributes)
