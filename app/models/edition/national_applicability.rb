@@ -19,16 +19,12 @@ module Edition::NationalApplicability
   end
 
   def applicability_options
-    if !@all_nation_applicability && nation_inapplicabilities.size < 1
+    if !all_nation_applicability && nation_inapplicabilities.size < 1
       errors.add(:excluded_nations, "must either allow all nations or exclude at least one nation")
     end
-    if @all_nation_applicability && nation_inapplicabilities.size > 0
+    if all_nation_applicability && nation_inapplicabilities.size > 0
       errors.add(:excluded_nations, "cannot allow all nations and exclude nations")
     end
-  end
-
-  def all_nation_applicability=(attributes)
-    @all_nation_applicability ||= ActiveRecord::Type::Boolean.new.deserialize(attributes)
   end
 
   def nation_inapplicabilities_attributes=(attributes)
