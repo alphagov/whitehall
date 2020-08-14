@@ -8,6 +8,7 @@ class CsvPreviewController < ApplicationController
           @edition = visible_edition
           @attachment = attachment_data.visible_attachment_for(current_user)
           @csv_preview = CsvFileFromPublicHost.csv_preview_from(@csv_response)
+          @page_base_href = Plek.new.website_root
           render layout: "html_attachments"
         else
           fail
