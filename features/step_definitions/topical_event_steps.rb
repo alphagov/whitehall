@@ -49,6 +49,7 @@ end
 When(/^I draft a new publication "([^"]*)" relating it to topical event "([^"]*)"$/) do |publication_title, topical_event_name|
   begin_drafting_publication publication_title
   select topical_event_name, from: "Topical events"
+  check "Applies to all UK nations"
   click_button "Save and continue"
   click_button "Save topic changes"
   add_external_attachment

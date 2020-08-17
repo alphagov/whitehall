@@ -54,6 +54,7 @@ module SpecialistSectorHelper
   def assert_specialist_sectors_were_saved
     assert has_css?(".flash.notice")
     click_on "Edit draft"
+    check "Applies to all UK nations"
     click_on "Save and continue"
     click_on "Save and review legacy tagging"
     assert_equal "WELLS", find_field("Primary specialist sector").value

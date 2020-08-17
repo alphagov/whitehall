@@ -40,6 +40,10 @@ module DocumentHelper
       when true
         choose "has previously been published on another website."
       end
+
+      if options[:all_nation_applicability]
+        check "Applies to all UK nations"
+      end
     end
   end
 
@@ -59,7 +63,7 @@ module DocumentHelper
   end
 
   def begin_drafting_consultation(options)
-    begin_drafting_document(options.merge(type: "consultation"))
+    begin_drafting_document(options.merge(type: "consultation", all_nation_applicability: true))
     select_date 10.days.from_now.to_s, from: "Opening Date"
     select_date 40.days.from_now.to_s, from: "Closing Date"
   end
@@ -70,6 +74,7 @@ module DocumentHelper
       title: title,
       summary: "Some summary of the content",
       alternative_format_provider: create(:alternative_format_provider),
+      all_nation_applicability: options.key?(:all_nation_applicability) ? options[:all_nation_applicability] : true
     )
     fill_in_publication_fields(options.slice(:first_published, :publication_type))
   end
@@ -123,6 +128,12 @@ module DocumentHelper
   def fill_in_change_note_if_required
     if has_selector?("textarea[name='edition[change_note]']", wait: false)
       fill_in "edition_change_note", with: "changes"
+    end
+  end
+
+  def apply_to_all_nations_if_required
+    if has_selector?(".excluded_nations", wait: false)
+      check "Applies to all UK nations"
     end
   end
 

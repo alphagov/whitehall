@@ -122,6 +122,7 @@ end
 
 When(/^I save the draft statistics document$/) do
   fill_in "Body", with: "Statistics body text"
+  check "Applies to all UK nations"
   click_on "Save"
 end
 
