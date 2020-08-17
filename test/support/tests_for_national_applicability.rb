@@ -12,7 +12,7 @@ module TestsForNationalApplicability
 
     test "create should create a new edition with nation inapplicabilities" do
       create(:government)
-      attributes = attributes_for_edition
+      attributes = attributes_for_edition(all_nation_applicability: "0")
 
       post :create, params: { edition: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/")) }
 
@@ -23,8 +23,6 @@ module TestsForNationalApplicability
 
     test "create should create a new edition with all_nation_applicability including all nations" do
       create(:government)
-      attributes = attributes_for_edition
-
       expected_national_applicability = {
         england: {
           label: "England",
@@ -44,11 +42,7 @@ module TestsForNationalApplicability
         },
       }
 
-      post :create, params: {
-        edition: attributes.merge(
-          all_nation_applicability: "1"
-        )
-      }
+      post :create, params: { edition: attributes_for_edition }
 
       assert edition = Edition.last
       assert_equal edition.national_applicability, expected_national_applicability
@@ -56,8 +50,6 @@ module TestsForNationalApplicability
 
     test "create should create a new edition with all_nation_applicability overriding individual options" do
       create(:government)
-      attributes = attributes_for_edition
-
       expected_national_applicability = {
         england: {
           label: "England",
@@ -77,11 +69,7 @@ module TestsForNationalApplicability
         },
       }
 
-      post :create, params: {
-        edition: attributes.merge(
-          all_nation_applicability: "1"
-        )
-      }
+      post :create, params: { edition: attributes_for_edition }
 
       assert edition = Edition.last
       assert_equal edition.national_applicability, expected_national_applicability
@@ -94,7 +82,7 @@ module TestsForNationalApplicability
         alternative_url: "http://scotland.com",
       )
       detailed_guide = create(
-        :published_detailed_guide,
+        :published_detailed_guide_with_excluded_nations,
         nation_inapplicabilities: [
           scotland_nation_inapplicability,
         ],
@@ -125,7 +113,7 @@ module TestsForNationalApplicability
 
     view_test "creating with all nations excluded should fail validation" do
       create(:government)
-      attributes = attributes_for_edition
+      attributes = attributes_for_edition(all_nation_applicability: "0")
 
       all_nations = nation_inapplicabilities_attributes_for({
         Nation.england => "http://www.england.com/",
@@ -144,7 +132,7 @@ module TestsForNationalApplicability
     view_test "creating with no applicability options should fail validation" do
       create(:government)
 
-      post :create, params: { edition: attributes_for_edition}
+      post :create, params: { edition: attributes_for_edition(all_nation_applicability: "0")}
 
       assert_nil Edition.last
 
@@ -165,7 +153,7 @@ module TestsForNationalApplicability
     end
 
     view_test "creating with invalid edition data should not lose the nation inapplicability fields or values" do
-      attributes = attributes_for_edition
+      attributes = attributes_for_edition(all_nation_applicability: "0")
       post :create,
            params: {
              edition: attributes.merge(
@@ -181,7 +169,7 @@ module TestsForNationalApplicability
     end
 
     view_test "creating with invalid nation inapplicability data should not lose the nation inapplicability fields or values" do
-      attributes = attributes_for_edition
+      attributes = attributes_for_edition(all_nation_applicability: "0")
       post :create,
            params: {
              edition: attributes.merge(
@@ -212,7 +200,7 @@ module TestsForNationalApplicability
     end
 
     test "updating should save modified edition with nation inapplicabilities" do
-      edition = build_edition(attributes_for_edition)
+      edition = build_edition(all_nation_applicability: "0")
       northern_ireland_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
       edition.save
 
@@ -227,7 +215,7 @@ module TestsForNationalApplicability
     end
 
     view_test "updating with invalid edition data should not lose the nation inapplicability fields or values" do
-      edition = build_edition(attributes_for_edition)
+      edition = build_edition(all_nation_applicability: "0")
       scotland_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.wales, alternative_url: "http://www.wales.com/")
       edition.save
@@ -246,7 +234,7 @@ module TestsForNationalApplicability
     end
 
     view_test "updating with invalid nation inapplicability data should not lose the nation inapplicability fields or values" do
-      edition = build_edition(attributes_for_edition)
+      edition = build_edition(all_nation_applicability: "0")
       scotland_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.wales, alternative_url: "http://www.wales.com/")
       edition.save
@@ -267,7 +255,7 @@ module TestsForNationalApplicability
     end
 
     view_test "updating a stale edition should not lose the nation inapplicability fields or values" do
-      edition = build_edition(attributes_for_edition)
+      edition = build_edition(all_nation_applicability: "0")
       scotland_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.build(nation: Nation.wales, alternative_url: "http://www.wales.com/")
       edition.save

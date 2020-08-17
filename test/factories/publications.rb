@@ -5,6 +5,11 @@ FactoryBot.define do
     summary { "publication-summary" }
     publication_type_id { PublicationType::PolicyPaper.id }
     attachments { FactoryBot.build_list :html_attachment, 1 }
+    all_nation_applicability { true }
+
+    trait(:has_excluded_nations) do
+      all_nation_applicability { false }
+    end
 
     trait(:corporate) do
       publication_type_id { PublicationType::CorporateReport.id }
@@ -78,6 +83,10 @@ FactoryBot.define do
           parent: :publication,
           traits: %i[draft consolidated_redirect]
   factory :withdrawn_publication, parent: :publication, traits: [:withdrawn]
+
+  factory :published_publication_with_excluded_nations, parent: :published_publication, traits: [:has_excluded_nations]
+  factory :draft_publication_with_excluded_nations, parent: :draft_publication, traits: [:has_excluded_nations]
+
 
   factory :draft_corporate_publication, parent: :publication, traits: %i[draft corporate]
   factory :submitted_corporate_publication, parent: :publication, traits: %i[submitted corporate]

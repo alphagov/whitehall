@@ -3,7 +3,7 @@ require "test_helper"
 class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
   setup do
     @nation_inapplicability = create(:nation_inapplicability, nation_id: 2)
-    @edition = create(:draft_publication, nation_inapplicabilities: [@nation_inapplicability])
+    @edition = create(:draft_publication_with_excluded_nations, nation_inapplicabilities: [@nation_inapplicability])
   end
 
   test "#destroy should also remove the relationship" do
