@@ -7,7 +7,7 @@ Given(/^an unopened consultation exists$/) do
 end
 
 When(/^I draft a new consultation "([^"]*)"$/) do |title|
-  begin_drafting_document type: "consultation", title: title, summary: "consultation-summary", alternative_format_provider: create(:alternative_format_provider)
+  begin_drafting_document type: "consultation", title: title, summary: "consultation-summary", alternative_format_provider: create(:alternative_format_provider), all_nation_applicablity: false
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
   select_date 1.day.ago.to_s, from: "Opening Date"
@@ -15,7 +15,7 @@ When(/^I draft a new consultation "([^"]*)"$/) do |title|
 
   within record_css_selector(Nation.find_by_name!("Wales")) do
     check "Wales"
-    fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
+    fill_in "URL of corresponding content", with: "http://www.visitwales.co.uk/"
   end
   check "Scotland"
   click_button "Save"
