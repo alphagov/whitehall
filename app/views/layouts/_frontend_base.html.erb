@@ -25,6 +25,7 @@
     <%= stylesheet_link_tag "frontend/print.css", media: "print", integrity: false %>
     <%= csrf_meta_tags %>
     <%= atom_discovery_link_tag %>
+    <%= tag :base, href: @page_base_href if @page_base_href %>
   </head>
   <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
     <% unless local_assigns[:show_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
