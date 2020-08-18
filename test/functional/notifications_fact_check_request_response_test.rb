@@ -120,8 +120,8 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     mail = MailNotifications.broken_link_reports(public_url, receiver)
 
     assert_equal ["test@gov.co.uk"], mail.to
-    assert_equal "GOV.UK broken link reports", mail.subject
-    assert_match %r{bad link reports}, mail.body.to_s
+    assert_equal "Monthly Whitehall broken links report", mail.subject
+    assert_match %r{fixing broken links}, mail.body.to_s
     assert_match public_url, mail.body.to_s
   end
 

@@ -65,7 +65,7 @@ class MailNotifications < ApplicationMailer
     @public_url = public_url
     view_mail template_id,
               to: recipient_address,
-              subject: "GOV.UK broken link reports"
+              subject: "Monthly Whitehall broken links report"
   end
 
   def document_list(public_url, recipient_address, filter_title)
