@@ -2,6 +2,8 @@ class Admin::FinancialReportsController < Admin::BaseController
   before_action :load_organisation
   before_action :load_financial_report, only: %i[edit update destroy]
 
+  def edit; end
+
   def new
     @financial_report = @organisation.financial_reports.build(year: Time.zone.now.year)
   end

@@ -1,6 +1,10 @@
 class Admin::WorldLocationsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
 
+  def edit; end
+
+  def show; end
+
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition(&:active?)
   end

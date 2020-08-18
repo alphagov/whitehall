@@ -2,6 +2,8 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_action :load_classification
   before_action :load_featuring, only: %i[edit destroy]
 
+  def edit; end
+
   def index
     filter_params = params.slice(:page, :type, :author, :organisation, :title)
                           .permit!
