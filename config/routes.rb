@@ -429,6 +429,7 @@ Whitehall::Application.routes.draw do
 
   get "/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 
+  resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
 
   if Rails.env.development?

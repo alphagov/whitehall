@@ -61,10 +61,8 @@ class MailNotifications < ApplicationMailer
               subject: subject
   end
 
-  def broken_link_reports(zip_path, recipient_address)
-    filename = File.basename(zip_path)
-    attachments[filename] = File.read(zip_path)
-
+  def broken_link_reports(public_url, recipient_address)
+    @public_url = public_url
     view_mail template_id,
               to: recipient_address,
               subject: "GOV.UK broken link reports"
