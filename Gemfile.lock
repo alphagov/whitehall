@@ -277,7 +277,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
-    json (2.3.0)
+    json (2.3.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
     jwt (2.2.1)
@@ -543,7 +543,7 @@ GEM
     sidekiq-statsd (2.1.0)
       activesupport
       sidekiq (>= 3.3.1)
-    slimmer (15.0.0)
+    slimmer (15.1.0)
       activesupport
       json
       nokogiri (~> 1.7)
@@ -690,7 +690,7 @@ DEPENDENCIES
   sassc-rails (~> 2.1)
   shared_mustache (~> 1.0.0)
   sidekiq-scheduler (~> 3.0)
-  slimmer (~> 15.0)
+  slimmer (~> 15.1)
   sprockets-rails
   teaspoon-qunit
   test-queue (~> 0.2.13)

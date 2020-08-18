@@ -54,7 +54,7 @@ gem "sass", "~> 3.7"
 gem "sassc-rails", "~> 2.1"
 gem "shared_mustache", "~> 1.0.0"
 gem "sidekiq-scheduler", "~> 3.0"
-gem "slimmer", "~> 15.0"
+gem "slimmer", "~> 15.1"
 gem "sprockets-rails"
 gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "uglifier", "~> 4.2"
