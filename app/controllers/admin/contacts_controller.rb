@@ -5,6 +5,14 @@ class Admin::ContactsController < Admin::BaseController
 
   def index; end
 
+  def remove_from_home_page
+    super
+  end
+
+  def add_to_home_page
+    super
+  end
+
   def new
     @contact = @contactable.contacts.build
     @contact.contact_numbers.build

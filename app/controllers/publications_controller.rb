@@ -5,6 +5,10 @@ class PublicationsController < DocumentsController
   before_action :redirect_statistics_documents, only: [:show]
   include PublicationsRoutes
 
+  def show
+    super
+  end
+
   def index
     return redirect_formats_to_finder_frontend if Locale.current.english?
 
