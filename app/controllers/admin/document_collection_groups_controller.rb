@@ -2,6 +2,8 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group, only: %i[delete destroy edit update]
 
+  def edit; end
+
   def index
     @groups = @collection.groups.includes(
       memberships: [

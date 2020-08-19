@@ -14,9 +14,6 @@ Rails/Output:
   Exclude:
     - 'db/data_migration/*.rb'
 
-Rails/LexicallyScopedActionFilter:
-  Enabled: false
-
 # This alerts on methods that aren't introduced until rails 6.0
 # it should be removed when we upgrade.
 Style/HashEachMethods:

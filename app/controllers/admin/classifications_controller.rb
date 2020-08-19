@@ -4,6 +4,8 @@ class Admin::ClassificationsController < Admin::BaseController
   before_action :build_object, only: [:new]
   before_action :load_object, only: %i[show edit]
 
+  def show; end
+
   def index
     @classifications = model_class.order(:name)
   end

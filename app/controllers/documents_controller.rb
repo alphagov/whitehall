@@ -7,6 +7,8 @@ class DocumentsController < PublicFacingController
   before_action :find_document, only: [:show]
   before_action :set_slimmer_headers_for_document, only: [:show]
 
+  def show; end
+
 private
 
   def build_document_filter(filter_type = nil)
