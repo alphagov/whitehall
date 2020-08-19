@@ -22,4 +22,9 @@ class S3FileHandlerTest < ActiveSupport::TestCase
     file = S3FileHandler.get_file_from_s3("test_file_name.txt")
     assert_equal "hello, world\n", file
   end
+
+  test "downloading a nonexistent file returns nil" do
+    file = S3FileHandler.get_file_from_s3("not_a_real_file.txt")
+    assert_nil file
+  end
 end

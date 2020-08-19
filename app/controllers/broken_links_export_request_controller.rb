@@ -3,10 +3,9 @@ class BrokenLinksExportRequestController < ApplicationController
     if user_signed_in?
       filename = "broken-link-reports-#{params[:export_id]}.zip"
 
-      begin
-        file = S3FileHandler.get_file_from_s3(filename)
+      if (file = S3FileHandler.get_file_from_s3(filename))
         send_data(file, filename: filename)
-      rescue Fog::AWS::Storage::NotFound
+      else
         head :not_found
       end
     else
