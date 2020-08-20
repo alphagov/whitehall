@@ -14,7 +14,7 @@ class WorldTaggingFlow < ActionDispatch::IntegrationTest
 
     context "given I want to tag to the WorldWide taxonomy" do
       let(:world_organisation) do
-        create(:organisation, content_id: "9adfc4ed-9f6c-4976-a6d8-18d34356367c")
+        create(:organisation, content_id: "f9fcf3fe-2751-4dca-97ca-becaeceb4b26")
       end
       let(:world_edition) do
         create(:publication, :guidance, organisations: [world_organisation])
