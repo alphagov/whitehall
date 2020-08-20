@@ -28,7 +28,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
       system "zip #{report_zip_path} #{reports_dir}/*_links_report.csv --junk-paths"
 
       puts "Reports zipped. Uploading..."
-      S3FileHandler.save_file_to_s3(report_zip_name, report_zip_path)
+      S3FileHandler.save_file_to_s3(report_zip_name, File.open(report_zip_path, "rb").read)
       public_url = Plek.find("whitehall-admin", external: true) + "/export/broken_link_reports/#{Time.zone.today.strftime}"
 
       puts "Reports uploaded. Emailing to #{email_address}"
