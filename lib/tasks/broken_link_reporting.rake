@@ -27,8 +27,12 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
       puts "Reports generated. Zipping..."
       system "zip #{report_zip_path} #{reports_dir}/*_links_report.csv --junk-paths"
 
-      puts "Reports zipped. Emailing to #{email_address}"
-      MailNotifications.broken_link_reports(report_zip_path, email_address).deliver_now
+      puts "Reports zipped. Uploading..."
+      S3FileHandler.save_file_to_s3(report_zip_name, report_zip_path)
+      public_url = Plek.find("whitehall-admin", external: true) + "/export/broken_link_reports/#{Time.zone.today.strftime}"
+
+      puts "Reports uploaded. Emailing to #{email_address}"
+      MailNotifications.broken_link_reports(public_url, email_address).deliver_now
       puts "Email sent."
     else
       puts "There are no broken link reports so hopefully this means there " \

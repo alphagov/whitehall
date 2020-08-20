@@ -1,7 +1,7 @@
-class DocumentListExportRequestController < ApplicationController
+class BrokenLinksExportRequestController < ApplicationController
   def show
     if user_signed_in?
-      filename = DocumentListExportPresenter.s3_filename(params[:document_type_slug], params[:export_id])
+      filename = "broken-link-reports-#{params[:export_id]}.zip"
 
       if (file = S3FileHandler.get_file_from_s3(filename))
         send_data(file, filename: filename)

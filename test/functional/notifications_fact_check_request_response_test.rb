@@ -115,15 +115,14 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "#broken_link_reports mail includes the supplied file as an attachment" do
-    file_path = file_fixture("sample_attachment.zip").path
-    receiver  = "test@gov.co.uk"
-    mail      = MailNotifications.broken_link_reports(file_path, receiver)
+    public_url = Plek.find("whitehall-admin", external: true) + "/export/broken_link_reports/#{Time.zone.today.strftime}"
+    receiver = "test@gov.co.uk"
+    mail = MailNotifications.broken_link_reports(public_url, receiver)
 
     assert_equal ["test@gov.co.uk"], mail.to
-    assert_equal "GOV.UK broken link reports", mail.subject
-    assert attachment = mail.attachments.first
-    assert_equal "sample_attachment.zip", attachment.filename
-    assert_match %r{bad link reports}, mail.parts.first.body.to_s
+    assert_equal "Monthly Whitehall broken links report", mail.subject
+    assert_match %r{fixing broken links}, mail.body.to_s
+    assert_match public_url, mail.body.to_s
   end
 
   test "#document_list includes a link in the body" do

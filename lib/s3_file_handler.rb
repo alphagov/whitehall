@@ -4,9 +4,7 @@ class S3FileHandler
 
     file = directory.files.get(filename)
 
-    raise Fog::AWS::Storage::NotFound, "Object #{filename} does not exist." if file.nil?
-
-    file.body
+    file.body unless file.nil?
   end
 
   def self.save_file_to_s3(filename, csv)
