@@ -203,7 +203,7 @@ GEM
       activemodel (>= 4.2, < 6.1)
       activerecord (>= 4.2, < 6.1)
       request_store (~> 1.0)
-    govspeak (6.5.4)
+    govspeak (6.5.5)
       actionview (>= 5.0, < 7)
       addressable (>= 2.3.8, < 3)
       govuk_publishing_components (~> 21.4)
