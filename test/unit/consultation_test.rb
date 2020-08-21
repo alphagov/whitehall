@@ -486,4 +486,16 @@ class ConsultationTest < ActiveSupport::TestCase
   test "consultations cannot be previously published" do
     assert_not build(:consultation).previously_published
   end
+
+  test "#all_nation_applicability_selected? false if first draft and unsaved" do
+    unsaved_publication = build(:consultation)
+    assert_not unsaved_publication.all_nation_applicability_selected?
+  end
+
+  test "#all_nation_applicability_selected? responds to all_nation_applicability once created" do
+    published_publication = create(:consultation)
+    assert published_publication.all_nation_applicability_selected?
+    published_with_excluded = create(:published_consultation_with_excluded_nations, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
+    assert_not published_with_excluded.all_nation_applicability_selected?
+  end
 end

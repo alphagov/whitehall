@@ -2,10 +2,9 @@
   <legend>Excluded nations</legend>
 
   <%= label_tag('edition[all_nation_applicability]') do %>
-    <%= check_box 'edition', 'all_nation_applicability', {checked: false}, '1', '0' %>
+    <%= check_box 'edition', 'all_nation_applicability', {checked: edition.all_nation_applicability_selected? }, '1', '0' %>
     Applies to all UK nations
   <% end %>
-
   <% Nation.potentially_inapplicable.each do |nation| %>
     <% inapplicability = edition.nation_inapplicabilities.detect {|i| i.nation == nation } || edition.nation_inapplicabilities.build(nation: nation) %>
 

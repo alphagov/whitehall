@@ -175,6 +175,11 @@ class Consultation < Publicationesque
     false
   end
 
+  def all_nation_applicability_selected?
+    newly_created = document.nil?
+    newly_created ? false : all_nation_applicability
+  end
+
 private
 
   def validate_closes_after_opens

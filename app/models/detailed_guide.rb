@@ -124,6 +124,11 @@ class DetailedGuide < Edition
     related_mainstreams.create!(content_id: related_mainstream_content_ids[1], additional: true) if related_mainstream_content_ids[1]
   end
 
+  def all_nation_applicability_selected?
+    newly_created = document.nil?
+    newly_created ? false : all_nation_applicability
+  end
+
 private
 
   def date_for_government

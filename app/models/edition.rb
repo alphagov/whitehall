@@ -567,6 +567,10 @@ EXISTS (
     latest_edition == self
   end
 
+  def all_nation_applicability_selected?
+    true
+  end
+
   def most_recent_change_note
     if minor_change?
       previous_major_version = Edition.unscoped.where("document_id=? and published_major_version=? and published_minor_version=0", document_id, published_major_version)
