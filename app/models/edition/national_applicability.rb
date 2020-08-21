@@ -20,10 +20,10 @@ module Edition::NationalApplicability
 
   def applicability_options
     if !all_nation_applicability && nation_inapplicabilities.none?(&:excluded?)
-      errors.add(:nation_inapplicabilities, "must either allow all nations or exclude at least one nation")
+      errors.add(:nation_inapplicabilities, "- you must select whether this content applies to all UK nations or which ones it excludes")
     end
     if all_nation_applicability && nation_inapplicabilities.any?(&:excluded?)
-      errors.add(:nation_inapplicabilities, "cannot allow all nations and exclude nations")
+      errors.add(:nation_inapplicabilities, "- you cannot select all UK nations and also exclude nations")
     end
   end
 

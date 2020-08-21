@@ -88,7 +88,7 @@ module TestsForNationalApplicability
 
       assert_nil Edition.last
 
-      assert_page_has_error("Excluded nations must either allow all nations or exclude at least one nation")
+      assert_page_has_error("Excluded nations - you must select whether this content applies to all UK nations or which ones it excludes")
     end
 
     view_test "creating with all_nation_applicability and an excluded nation should fail validation" do
@@ -101,7 +101,7 @@ module TestsForNationalApplicability
         )
       }
 
-      assert_page_has_error("Excluded nations cannot allow all nations and exclude nations")
+      assert_page_has_error("Excluded nations - you cannot select all UK nations and also exclude nations")
     end
 
     view_test "creating with invalid edition data should not lose the nation inapplicability fields or values" do
