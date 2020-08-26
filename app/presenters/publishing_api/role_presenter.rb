@@ -58,7 +58,12 @@ module PublishingApi
         attends_cabinet_type: item.attends_cabinet_type&.name,
         role_payment_type: item.role_payment_type&.name,
         supports_historical_accounts: item.supports_historical_accounts,
-      }
+      }.merge(ministerial_role_details)
+    end
+
+    def ministerial_role_details
+      return {} unless item.is_a?(MinisterialRole)
+      { seniority: item.seniority }
     end
 
     def body
