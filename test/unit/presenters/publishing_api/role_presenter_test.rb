@@ -41,6 +41,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
         attends_cabinet_type: role.attends_cabinet_type,
         role_payment_type: role.role_payment_type,
         supports_historical_accounts: role.supports_historical_accounts,
+        seniority: 100,
       },
     }
     expected_links = {
