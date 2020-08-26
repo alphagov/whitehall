@@ -73,6 +73,11 @@ class Publication < Publicationesque
     true
   end
 
+  def all_nation_applicability_selected?
+    newly_created = document.nil?
+    newly_created ? false : all_nation_applicability
+  end
+
   def display_type
     publication_type.try(:singular_name)
   end

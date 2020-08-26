@@ -6,12 +6,12 @@ end
 
 When(/^I draft a new detailed guide "([^"]*)"$/) do |title|
   create(:government)
-  begin_drafting_document type: "detailed_guide", title: title, previously_published: false
+  begin_drafting_document type: "detailed_guide", title: title, previously_published: false, all_nation_applicability: true
   click_button "Save"
 end
 
 Given(/^I start drafting a new detailed guide$/) do
-  begin_drafting_document type: "detailed_guide", title: "Detailed Guide", previously_published: false
+  begin_drafting_document type: "detailed_guide", title: "Detailed Guide", previously_published: false, all_nation_applicability: true
 end
 
 Then(/^I should be able to select another image for the detailed guide$/) do
@@ -24,6 +24,7 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
+  apply_to_all_nations_if_required
   click_button "Save and continue"
   click_button "Save topic changes"
   publish(force: true)

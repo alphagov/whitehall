@@ -543,7 +543,7 @@ module PublishingApi::ConsultationPresenterTest
       )
 
       self.consultation = create(
-        :consultation,
+        :consultation_with_excluded_nations,
         nation_inapplicabilities: [scotland_nation_inapplicability],
       )
     end

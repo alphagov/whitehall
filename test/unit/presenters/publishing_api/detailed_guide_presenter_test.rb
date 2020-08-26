@@ -186,7 +186,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     )
     create(:government)
     detailed_guide = create(
-      :published_detailed_guide,
+      :published_detailed_guide_with_excluded_nations,
       nation_inapplicabilities: [
         scotland_nation_inapplicability,
       ],

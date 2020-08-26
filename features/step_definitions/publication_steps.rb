@@ -76,6 +76,8 @@ When(/^I replace the data file of the attachment in a new draft of the publicati
 
   ensure_path edit_admin_publication_path(@new_edition)
   fill_in_change_note_if_required
+  apply_to_all_nations_if_required
+
   click_button "Save"
 end
 
