@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "rails", "5.1.7"
+
 gem "activemodel-serializers-xml"
 gem "addressable", ">= 2.3.7"
 gem "babosa", "1.0.3"
@@ -41,7 +43,6 @@ gem "plek", "~> 4.0"
 gem "ptools"
 gem "rack", "~> 2.0"
 gem "rack_strip_client_ip", "~> 0.0.2"
-gem "rails", "~> 5.1"
 gem "rails-i18n", "~> 5.1"
 gem "rails_translation_manager", "~> 0.1.0"
 gem "rake", "13.0.1"
