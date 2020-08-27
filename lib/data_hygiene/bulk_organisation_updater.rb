@@ -51,9 +51,13 @@ module DataHygiene
       column_data = row.fetch(column)
       return [] unless column_data
 
-      column_data
-        .split(",")
-        .map { |slug| Organisation.find_by!(slug: slug.strip) }
+      column_data.split(",").map do |slug|
+        Organisation.find_by!(slug: slug.strip)
+      rescue ActiveRecord::RecordNotFound
+        puts "error: couldn't find organisation: #{slug.strip}"
+
+        exit 1
+      end
     end
 
     def find_new_lead_organisations(row)
