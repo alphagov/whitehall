@@ -41,7 +41,7 @@ module DataHygiene
       document = Document.find_by(slug: slug)
 
       if document.nil?
-        puts "#{slug}: could not find document"
+        puts "error: #{slug}: could not find document"
       end
 
       document
