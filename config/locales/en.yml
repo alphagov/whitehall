@@ -431,7 +431,7 @@ en:
       unnumbered_command_paper: Unnumbered command paper
       unnumbered_hoc_paper: Unnumbered act paper
     accessibility:
-      heading: This file may not be suitable for users of assistive technology.
+      intro: This file may not be suitable for users of assistive technology.
       request_a_different_format: Request an accessible format.
       full_help_html: |
         If you use assistive technology (such as a screen reader) and need a
