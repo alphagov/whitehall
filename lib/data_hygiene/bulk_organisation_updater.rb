@@ -34,11 +34,22 @@ module DataHygiene
     end
 
     def find_document(row)
-      slug = row.fetch("Slug")
+      slug = row.fetch("Slug")&.strip
+      document_type = row.fetch("Document type")&.strip
 
       return if slug.blank?
 
-      document = Document.find_by(slug: slug)
+      if document_type.blank?
+        documents = Document.where(slug: slug.strip).to_a
+
+        if documents.length > 1
+          puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+        else
+          document = documents.first
+        end
+      else
+        document = Document.find_by(slug: slug, document_type: document_type)
+      end
 
       if document.nil?
         puts "error: #{slug}: could not find document"
