@@ -63,14 +63,22 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         brexit_no_deal_notice: [],
         attachments: [],
       },
+      links: {
+        organisations: detailed_guide.organisations.map(&:content_id),
+        primary_publishing_organisation: [
+          detailed_guide.lead_organisations.first.content_id,
+        ],
+        original_primary_publishing_organisation: [
+          detailed_guide.document.editions.first.lead_organisations.first.content_id,
+        ],
+        parent: [],
+        related_guides: [],
+        related_mainstream_content: [],
+        government: [government.content_id],
+      }
     }
     expected_links = {
-      organisations: detailed_guide.organisations.map(&:content_id),
       topics: [],
-      parent: [],
-      related_guides: [],
-      related_mainstream_content: [],
-      government: [government.content_id],
     }
     presented_item = present(detailed_guide)
 
@@ -87,9 +95,10 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
 
     links = present(edition).links
+    edition_links = present(edition).edition_links
 
     assert_equal links[:topics], %w[content_id_1 content_id_2]
-    assert_equal links[:parent], %w[content_id_1]
+    assert_equal edition_links[:parent], %w[content_id_1]
   end
 
   test "DetailedGuide presents related mainstream in links and details" do
@@ -110,11 +119,11 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     )
 
     presented_item = present(detailed_guide)
-    links = presented_item.links
+    edition_links = presented_item.edition_links
     details = presented_item.content[:details]
 
     assert_equal %w[9dd9e077-ae45-45f6-ad9d-2a484e5ff312 9af50189-de1c-49af-a334-6b1d87b593a6], details[:related_mainstream_content]
-    assert_equal %w[9dd9e077-ae45-45f6-ad9d-2a484e5ff312 9af50189-de1c-49af-a334-6b1d87b593a6].sort!, links[:related_mainstream_content].sort!
+    assert_equal %w[9dd9e077-ae45-45f6-ad9d-2a484e5ff312 9af50189-de1c-49af-a334-6b1d87b593a6].sort!, edition_links[:related_mainstream_content].sort!
   end
 
   test "DetailedGuide presents related_mainstream with dodgy data" do
@@ -134,10 +143,10 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     )
 
     presented_item = present(detailed_guide)
-    links = presented_item.links
+    edition_links = presented_item.edition_links
     expected_ids = %w[cd7fde45-5f79-4982-8939-cedc4bed161c]
 
-    assert_equal expected_ids.sort, links[:related_mainstream_content].sort
+    assert_equal expected_ids.sort, edition_links[:related_mainstream_content].sort
   end
 
   test "DetailedGuide presents political information correctly" do
@@ -154,7 +163,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     details = presented_item.content[:details]
 
     assert_equal details[:political], true
-    assert_equal presented_item.links[:government][0], government.content_id
+    assert_equal presented_item.edition_links[:government][0], government.content_id
   end
 
   test "DetailedGuide presents related_guides correctly" do
@@ -169,7 +178,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     )
 
     presented_item = present(detailed_guide)
-    related_guides = presented_item.links[:related_guides]
+    related_guides = presented_item.edition_links[:related_guides]
 
     expected_related_guides = [
       some_detailed_guide.content_id,
