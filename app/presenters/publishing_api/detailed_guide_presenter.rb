@@ -26,15 +26,19 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "detailed_guide",
+          links: edition_links,
         )
     end
 
     def links
+      LinksPresenter.new(item).extract([:topics])
+    end
+
+    def edition_links
       LinksPresenter.new(item).extract(
         %i[
           organisations
           parent
-          topics
           government
         ],
       ).merge(
