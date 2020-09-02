@@ -282,7 +282,7 @@ cs:
         v braillově písmu, jako audio nahrávku nebo v jiném formátu, prosím kontaktujte
         %{email}. Nezapomeňte uvést vaši adresu a telefon, společně s názvem publikace
         ("%{title}")%{references}.
-      heading: Tento dokument nemusí být přístupný pro občany používající asistenční
+      intro: Tento dokument nemusí být přístupný pro občany používající asistenční
         technologie
       request_a_different_format: Žádat o jiný formát dokumentu
     headings:

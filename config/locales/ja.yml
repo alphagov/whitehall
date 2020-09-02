@@ -45,7 +45,7 @@ ja:
     accessibility:
       full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
         ("%{title}")%{references}.をお送り下さい。
-      heading: このファイルは支援技術のユーザーには利用できない場合があります
+      intro: このファイルは支援技術のユーザーには利用できない場合があります
       request_a_different_format: 異なるフォーマットを要求
     headings:
       order_a_copy: コピーを注文

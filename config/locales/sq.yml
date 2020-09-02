@@ -232,7 +232,7 @@ sq:
       full_help_html: Per te kerkuar kete dokument ne format alternativ si braille,
         audio ose format tjeter te lutem email %{email} duke cituar adresen tende,
         telefonin dhe titullin e publikimit ("%{title}")%{references}.
-      heading: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
+      intro: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
         ndihmuese.
       request_a_different_format: Kerko nje format ndryshe
     headings:

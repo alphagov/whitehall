@@ -232,7 +232,7 @@ hu:
       full_help_html: 'Ha ezt a dokumentumot más formátumban szeretné igényelni (braille,
         audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg címét, telefonszámát
         és az igényelt dokumentum címét: ("%{title}")%{references}.'
-      heading: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások
+      intro: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások
         számára.
       request_a_different_format: Más formátum igénylése.
     headings:

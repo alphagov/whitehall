@@ -46,7 +46,7 @@ vi:
       full_help_html: |-
         Để yêu cầu tài liệu này dưới định dạng khác như tài liệu chữ nổi, tiếng hay một định dạng file khác, xin mời email đến %{email}
         cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{title}")%{references}.
-      heading: 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
+      intro: 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
       request_a_different_format: Yêu cầu một định dạng khác
     headings:
       order_a_copy: Đặt một bản sao

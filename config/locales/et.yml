@@ -233,7 +233,7 @@ et:
         versiooni mõnes alternatiivses formaadis, palun saatke e-kiri %{email}. Palun
         öelge meile, missugust formaati vajate. On abiks, kui märgite ära, missugust
         abistavat tehnoloogiat kasutate. '
-      heading: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
+      intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
       request_a_different_format: Küsige teistsugust formaati
     headings:
       order_a_copy: Tellige koopia

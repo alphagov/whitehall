@@ -331,7 +331,7 @@ pl:
         Braille'a. w formacie audio lub w innym rodzaju pliku prosimy wysłać email
         na adres %{email}, podając swój adres, numer telefonu oraz tytuł interesującej
         Państwa publikacji ("%{title}")%{references}
-      heading: Ten plik może nie być odpowiedni dla osób korzystających z technologii
+      intro: Ten plik może nie być odpowiedni dla osób korzystających z technologii
         asystujących.
       request_a_different_format: Poproś o inny format
     headings:

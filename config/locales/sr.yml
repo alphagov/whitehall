@@ -331,7 +331,7 @@ sr:
         pismo, zvučni zapis ili druga vrsta datoteke) molimo da uputite elektronsko
         pismo na %{email} uz navođenje svoje adrese i telefonskog broja, te naziva
         publikacije ("%{title}")%{references}.
-      heading: Ovaj dokument nije predviđen za korisnike pomagala.
+      intro: Ovaj dokument nije predviđen za korisnike pomagala.
       request_a_different_format: Zatraži drugi format.
     headings:
       order_a_copy: Naruči primerak

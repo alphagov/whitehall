@@ -233,7 +233,7 @@ so:
         oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl
         nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada,
         lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
-      heading: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
+      intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
         la kaashado
       request_a_different_format: Codsi isaga oo qaab kale ah
     headings:

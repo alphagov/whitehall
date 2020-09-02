@@ -46,7 +46,7 @@ id:
       full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille,
         audio atau format lainnya silahkan kirimkan email %{email} yang berisi alamat
         Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
-      heading: File ini tidak sesuai dengan pengguna teknologi bantu.
+      intro: File ini tidak sesuai dengan pengguna teknologi bantu.
       request_a_different_format: Meminta format lain.
     headings:
       order_a_copy: Memesan salinan

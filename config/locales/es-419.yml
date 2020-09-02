@@ -233,7 +233,7 @@ es-419:
         como braille, audio u otro tipo de archivo, por favor envíe un correo electrónico
         %{email} incluyendo su dirección, número de teléfono junto con el título de
         la publicación ("%{title}")%{references}.
-      heading: Este archivo puede no ser apto para usuarios de tecnología asistida
+      intro: Este archivo puede no ser apto para usuarios de tecnología asistida
       request_a_different_format: Solicitar un formato diferente
     headings:
       order_a_copy: Solicitar una copia
