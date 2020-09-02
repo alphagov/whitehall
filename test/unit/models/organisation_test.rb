@@ -1083,4 +1083,18 @@ class OrganisationTest < ActiveSupport::TestCase
       default_news_image: create(:default_news_organisation_image_data),
     )
   end
+
+  test "#save triggers organisation with a changed alternative format provider to republish documents" do
+    organisation = create(:organisation)
+
+    edition_with_alternative_format_provider = create(:published_news_article, alternative_format_provider: organisation)
+    edition_without_alternative_format_provider = create(:published_news_article)
+
+    Whitehall::PublishingApi.expects(:republish_document_async)
+      .with(edition_with_alternative_format_provider.document)
+    Whitehall::PublishingApi.expects(:republish_document_async)
+      .with(edition_without_alternative_format_provider.document).never
+
+    organisation.update!(alternative_format_contact_email: "test@test.com")
+  end
 end
