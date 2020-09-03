@@ -37,7 +37,19 @@ module PublishingApi
     end
 
     def organisation_ids
-      (item.try(:organisations) || []).map(&:content_id)
+      if item.try(:edition_organisations)
+        item
+          .try(:edition_organisations)
+          .sort_by { |organisation| [organisation.lead_ordering ? 0 : 1, organisation.lead_ordering] }
+          .map(&:organisation)
+          .map(&:content_id)
+      elsif item.try(:organisations)
+        item
+          .organisations
+          .map(&:content_id)
+      else
+        []
+      end
     end
 
     def primary_publishing_organisation_id
