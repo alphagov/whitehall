@@ -101,4 +101,23 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
       links,
     )
   end
+
+  test "respects the user-specified ordering of organisations and not their database order" do
+    second_lead_organisation = create(:organisation)
+    first_lead_organisation = create(:organisation)
+    supporting_organisation = create(:organisation)
+
+    edition = create(:document_collection, lead_organisations: [first_lead_organisation, second_lead_organisation], supporting_organisations: [supporting_organisation])
+
+    links = links_for(edition, [:organisations])
+
+    assert_equal(
+      {
+        organisations: [first_lead_organisation.content_id, second_lead_organisation.content_id, supporting_organisation.content_id],
+        primary_publishing_organisation: [first_lead_organisation.content_id],
+        original_primary_publishing_organisation: [first_lead_organisation.content_id],
+      },
+      links,
+    )
+  end
 end
