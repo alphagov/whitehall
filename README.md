@@ -17,21 +17,6 @@ whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in tw
 - [alphagov/search-api](http://github.com/alphagov/search-api): allows documents to be indexed for searching in both finders and site search
 - [alphagov/link-checker-api](https://github.com/alphagov/link-checker-api): checks all the links in an edition on request from the edition show page.
 
-## Running the application
-
-```
-$ ./startup.sh
-```
-If you are using the [GDS development virtual machine](https://docs.publishing.service.gov.uk/manual/get-started.html#4-boot-your-vm) then the application will be available on the host at http://whitehall-admin.dev.gov.uk/
-
-Further setup instructions are available in the [detailed setup guide](docs/detailed_setup_guide.md).
-
-## Running the test suite
-
-```
-$ bundle exec rake
-```
-
 ## Other documentation
 
 - [Contributing guide](CONTRIBUTING.md)
