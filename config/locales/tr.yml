@@ -46,7 +46,7 @@ tr:
       full_help_html: |-
         Bu dosyaya farklı formatta erişim için lütfen bize adresiniz, telefon numaranız ve yayının adı ("%{title}")%{references}.
          ile birlikte e-posta %{email} yoluyla ulaşın
-      heading: Bu dosya yardımcı teknoloji kullananlar için uygun olmayabilir
+      intro: Bu dosya yardımcı teknoloji kullananlar için uygun olmayabilir
       request_a_different_format: Dosyaya farklı formatta erişim için
     headings:
       order_a_copy: Bir kopyasını sipariş edin

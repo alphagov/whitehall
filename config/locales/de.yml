@@ -232,7 +232,7 @@ de:
       full_help_html: Wenn Sie dieses Dokument in Braille-Schrift, als Audiodatei
         oder in einem anderen Format erhalten möchten, senden Sie uns eine E-Mail
         %{email} mit Ihrer Adresse, Telefonnummer und dem Titel der Publikation ("%{title}")%{references}.
-      heading: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
+      intro: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
         geeignet
       request_a_different_format: Anderes Format
     headings:

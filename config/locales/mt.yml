@@ -328,7 +328,7 @@ mt:
   attachment:
     accessibility:
       full_help_html:
-      heading:
+      intro:
       request_a_different_format:
     headings:
       order_a_copy:

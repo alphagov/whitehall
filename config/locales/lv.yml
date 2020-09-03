@@ -232,7 +232,7 @@ lv:
       full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā,
         kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet
         savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
-      heading: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
+      intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
       request_a_different_format: Pieprasīt citā formātā.
     headings:
       order_a_copy: 'Pasūtīt '

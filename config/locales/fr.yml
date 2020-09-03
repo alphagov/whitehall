@@ -232,7 +232,7 @@ fr:
       full_help_html: |-
         Si vous souhaitez recevoir ce document dans un autre format (braille, audio ou autre), merci d'envoyer un email à %{email}
         en indiquant votre adresse, votre numéro de téléphone, ainsi que le titre du document ("%{title}")%{references}.
-      heading: 'Le format de ce document peut ne pas convenir aux utilisateurs de
+      intro: 'Le format de ce document peut ne pas convenir aux utilisateurs de
         technologies d''assistance '
       request_a_different_format: Demander un format de document différent
     headings:

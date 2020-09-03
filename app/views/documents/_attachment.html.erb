@@ -69,9 +69,9 @@
 
     <% unless attachment.accessible? %>
       <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
-        <h2><%= t('attachment.accessibility.heading') %>
+        <p><%= t('attachment.accessibility.intro') %>
           <a class="toggler" href="#<%= help_block_toggle_id %>" data-controls="<%= help_block_toggle_id %>" data-expanded="false"><%= t('attachment.accessibility.request_a_different_format') %></a>
-        </h2>
+        </p>
         <p id="<%= help_block_toggle_id %>" class="js-hidden">
           <%= t('attachment.accessibility.full_help_html',
                 email: alternative_format_order_link(attachment, alternative_format_contact_email),

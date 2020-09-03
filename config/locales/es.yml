@@ -232,7 +232,7 @@ es:
       full_help_html: Para solicitar este documento en un formato diferente como braille,
         audio o cualquier otro formato por favor envíe un email %{email} indicando
         su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
-      heading: Este archivo puede estar no disponible para usuarios con tecnología
+      intro: Este archivo puede estar no disponible para usuarios con tecnología
         asistida
       request_a_different_format: Solicítelo en un formato diferente
     headings:
