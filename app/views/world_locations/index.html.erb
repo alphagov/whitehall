@@ -3,14 +3,25 @@
 
 <div class="block">
   <div class="inner-block">
-    <header class="page-header js-filter-list">
-      <h1 class="title">Worldwide</h1>
-      <form class="js-filter-form">
-        <label for="help-and-services-in" class="label">
-          Help and services in <div><input name="help-and-services-in" id="help-and-services-in" placeholder="Example: France" class="govuk-input"></div>
-        </label>
-      </form>
-    </header>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <header class="js-filter-list">
+          <%= render "govuk_publishing_components/components/title", {
+            title: sanitize("Help and services around the&nbsp;world")
+          } %>
+
+          <form class="js-filter-form">
+            <%= render "govuk_publishing_components/components/input", {
+              label: {
+                text: "Search by country or territory",
+              },
+              name: "help-and-services-in",
+              id: "help-and-services-in",
+            } %>
+          </form>  
+        </header>
+      </div>
+    </div>
   </div>
 </div>
 
