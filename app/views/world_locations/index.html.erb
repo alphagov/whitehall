@@ -37,7 +37,7 @@
           <% if type === WorldLocationType::WorldLocation %>
             <% group_and_sort(locations).each do |letter, locations| %>
               <div class="js-filter-block">
-                <h2 class="letter"><%= letter %></h2>
+                <h3 class="letter"><%= letter %></h3>
                 <ol class="location-list">
                   <% locations.each do |location| %>
                     <%= render partial: 'world_location',
