@@ -7,7 +7,9 @@
 
 <header class="page-header">
   <div class="logo">
-    <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
+    <%= render "govuk_publishing_components/components/title", {
+      title: organisation_logo(organisation, linked: link_to_organisation, size: logo_size)
+    } %>
 
     <% if organisation.type.sub_organisation? %>
       <p class="parent-organisations">
