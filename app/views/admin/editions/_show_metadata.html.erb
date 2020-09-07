@@ -1,5 +1,7 @@
 <div class="page-header">
-  <h1><%= @edition.title %></h1>
+  <%= render "govuk_publishing_components/components/title", {
+    title: @edition.title
+  } %>
   <p class="lead"><%= @edition.summary %></p>
   <dl class="clearfix dl-horizontal">
     <dt>Type of document:</dt>

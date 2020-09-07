@@ -21,10 +21,6 @@
   }
 
   .world-locations {
-    h1 {
-      @include core-19;
-    }
-
     .world-location-type {
       @extend %contain-floats;
       margin-bottom: $gutter;
@@ -76,7 +72,9 @@
   }
 }
 
-
+.world-locations__heading {
+  @include core-19;
+}
 
 .world-locations-show {
   .block {

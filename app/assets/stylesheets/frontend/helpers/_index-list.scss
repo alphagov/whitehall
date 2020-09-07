@@ -40,30 +40,6 @@
 
   .js-filter-form {
     display: none;
-
-    label {
-      display: inline-block;
-    }
-    input {
-      display: inline-block;
-      margin: 7px $gutter-one-third 3px;
-      width: $half;
-      @include media(tablet) {
-        width: 30%;
-      }
-    }
-    div {
-      display: block;
-      input {
-        margin-left: 0;
-      }
-      @include media(tablet) {
-        display: inline;
-        input {
-          margin-left: $gutter-one-third;
-        }
-      }
-    }
   }
 
 }
