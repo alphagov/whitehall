@@ -1091,9 +1091,9 @@ class OrganisationTest < ActiveSupport::TestCase
     edition_without_alternative_format_provider = create(:published_news_article)
 
     Whitehall::PublishingApi.expects(:republish_document_async)
-      .with(edition_with_alternative_format_provider.document)
+      .with(edition_with_alternative_format_provider.document, bulk: true)
     Whitehall::PublishingApi.expects(:republish_document_async)
-      .with(edition_without_alternative_format_provider.document).never
+      .with(edition_without_alternative_format_provider.document, bulk: true).never
 
     organisation.update!(alternative_format_contact_email: "test@test.com")
   end

@@ -220,7 +220,7 @@ class Organisation < ApplicationRecord
     # all attachments belonging to the organisation
     if saved_change_to_alternative_format_contact_email?
       documents = Document.published.where(editions: { alternative_format_provider_id: self })
-      documents.find_each { |d| Whitehall::PublishingApi.republish_document_async(d) }
+      documents.find_each { |d| Whitehall::PublishingApi.republish_document_async(d, bulk: true) }
     end
   end
 
