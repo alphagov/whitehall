@@ -52,12 +52,24 @@ module PublishingApi
       end
     end
 
+    def whip
+      return {} if item.whip_organisation_id == nil
+
+      whip_organisation = Whitehall::WhipOrganisation.find_by_id(item.whip_organisation_id) 
+
+      {
+        sort_order: whip_organisation.sort_order,
+        label: whip_organisation.label,
+      }
+    end
+
     def details
       {
         body: body,
         attends_cabinet_type: item.attends_cabinet_type&.name,
         role_payment_type: item.role_payment_type&.name,
         supports_historical_accounts: item.supports_historical_accounts,
+        whip_organisation: whip,
       }.merge(ministerial_role_details)
     end
 
