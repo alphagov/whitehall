@@ -25,7 +25,8 @@ class Role < ApplicationRecord
   has_many :current_people, class_name: "Person", through: :current_role_appointments, source: :person
 
   has_many :organisation_roles, inverse_of: :role
-  has_many :organisations, through: :organisation_roles
+  has_many :organisations, through: :organisation_roles,
+            after_remove: :republish_organisation_to_publishing_api
 
   has_many :worldwide_organisation_roles, inverse_of: :role
   has_many :worldwide_organisations, through: :worldwide_organisation_roles
@@ -50,7 +51,7 @@ class Role < ApplicationRecord
 
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
-  after_save :republish_organisation_to_publishing_api
+  after_save :republish_organisations_to_publishing_api
 
   extend FriendlyId
   friendly_id
@@ -58,10 +59,14 @@ class Role < ApplicationRecord
   include TranslatableModel
   translates :name, :responsibilities
 
-  def republish_organisation_to_publishing_api
+  def republish_organisations_to_publishing_api
     organisations.each do |organisation|
-      Whitehall::PublishingApi.republish_async(organisation)
+      republish_organisation_to_publishing_api(organisation)
     end
+  end
+
+  def republish_organisation_to_publishing_api(organisation)
+    Whitehall::PublishingApi.republish_async(organisation)
   end
 
   def self.whip
