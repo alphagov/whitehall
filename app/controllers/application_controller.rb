@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
   layout "frontend"
   after_action :set_slimmer_template
 
+  rescue_from Notifications::Client::BadRequestError, with: :notify_bad_request
+
 private
 
   def set_audit_trail_whodunnit
@@ -86,5 +88,9 @@ private
     if current_user && GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user].nil?
       GdsApi::GovukHeaders.set_header(:x_govuk_authenticated_user, current_user.uid)
     end
+  end
+
+  def notify_bad_request(_exception)
+    render plain: "Error: One or more recipients not in GOV.UK Notify team (code: 400)", status: :bad_request
   end
 end

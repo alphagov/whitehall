@@ -110,6 +110,28 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_equal 1, ActionMailer::Base.deliveries.length
   end
 
+  test "raise an error if an email cannot be sent via notify" do
+    raises_exception = ->(request, params) {
+      response = MiniTest::Mock.new
+      response.expect :code, 400
+      response.expect :body, "Can't send to this recipient using a team-only API key"
+      raise Notifications::Client::BadRequestError, response
+    }
+
+    MailNotifications.stub(:fact_check_response, raises_exception) do
+      requestor = create(:fact_check_requestor, email: "fact-check-requestor@example.com")
+      fact_check_request = create(:fact_check_request, requestor: requestor)
+      attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
+      ActionMailer::Base.deliveries.clear
+
+      put :update, params: { id: fact_check_request, fact_check_request: attributes }
+      assert_equal response.body, "Error: One or more recipients not in GOV.UK Notify team (code: 400)"
+      assert_equal response.code, "400"
+
+      assert_equal 0, ActionMailer::Base.deliveries.length
+    end
+  end
+
   test "do not notify a requestor without an email address that the fact checker has added a comment" do
     requestor = create(:fact_check_requestor, email: nil)
     fact_check_request = create(:fact_check_request, requestor: requestor)
