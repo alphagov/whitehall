@@ -54,7 +54,11 @@ module PublishingApi
         first_public_at: first_public_at,
         format_display_type: item.display_type_key,
       }
-      details_hash[:image] = image_details if image_available?
+      details_hash[:image] = if image_available? && image_required?
+                               image_details
+                             else
+                               { url: "", caption: nil, alt_text: "" }
+                             end
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::BrexitNoDealContent.for(item))
     end
@@ -79,6 +83,10 @@ module PublishingApi
 
     def image_available?
       item.images.any? || emphasised_organisation_default_image_available?
+    end
+
+    def image_required?
+      item.image_display_option != "no_image"
     end
 
     def emphasised_organisation_default_image_available?
