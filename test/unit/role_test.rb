@@ -225,4 +225,15 @@ class RoleTest < ActiveSupport::TestCase
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end
   end
+
+  test "republishes an organisation when a role is linked or unlinked" do
+    stub_any_publishing_api_call
+    organisation = create(:organisation)
+    role = create(:role_without_organisations)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).twice
+
+    role.update(organisations: [organisation])
+    role.update(organisations: [])
+  end
 end
