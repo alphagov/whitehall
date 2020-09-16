@@ -162,7 +162,7 @@ private
     def contains_disallowed_file_types?
       extracted_file_paths.any? do |path|
         extension = File.extname(path).sub(/^\./, "")
-        !AttachmentUploader::EXTENSION_WHITELIST.include?(extension)
+        !AttachmentUploader::EXTENSION_ALLOW_LIST.include?(extension)
       end
     end
   end
