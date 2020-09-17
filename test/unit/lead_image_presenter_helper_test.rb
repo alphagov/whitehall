@@ -7,6 +7,16 @@ class LeadImagePresenterHelperTest < ActiveSupport::TestCase
     assert_equal "", presenter.lead_image_alt_text
   end
 
+  test "should use empty string if no alt_text is provided" do
+    presenter = stub("Target", images: [], lead_organisations: [], organisations: []).extend(LeadImagePresenterHelper)
+    file = stub("File", content_type: "image/jpg")
+    uploader = stub("Uploader", file: file)
+    image_data = stub("ImageData", file: uploader)
+    image = stub("Image", alt_text: nil, image_data: image_data)
+    presenter.stubs(images: [image])
+    assert_equal "", presenter.lead_image_alt_text
+  end
+
   test "should use first image with version :s300 if an image is present" do
     presenter = stub("Target", images: [], lead_organisations: [], organisations: []).extend(LeadImagePresenterHelper)
     file = stub("File", content_type: "image/jpg")
