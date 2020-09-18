@@ -28,6 +28,7 @@ class CorporateInformationPage < Edition
   validate :only_one_organisation_or_worldwide_organisation
 
   scope :with_organisation_govuk_status, ->(status) { joins(:organisation).where(organisations: { govuk_status: status }) }
+  scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
 
   def republish_organisation_to_publishing_api
     Whitehall::PublishingApi.republish_async(owning_organisation) if owning_organisation.is_a?(Organisation)
