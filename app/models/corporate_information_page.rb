@@ -51,8 +51,14 @@ class CorporateInformationPage < Edition
   end
 
   def self.search_only
-    # Ensure only CIPs associated with a live Organisation are indexed in search.
-    super.with_organisation_govuk_status("live")
+    live_govuk_status = super.with_organisation_govuk_status("live")
+
+    accessible_govuk_status = super
+      .accessible_documents_policy
+      .with_organisation_govuk_status(%w[joining exempt transitioning])
+
+    live_govuk_status
+      .or(accessible_govuk_status)
   end
 
   def title_required?

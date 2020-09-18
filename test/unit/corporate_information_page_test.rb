@@ -207,6 +207,33 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page4.update_in_search_index
   end
 
+  test "will index accessible policy document even if the org is joining gov.uk" do
+    organisation = create(:organisation, govuk_status: "joining")
+    corporate_information_page = create(
+      :accessible_documents_policy_corporate_information_page, organisation: organisation
+    )
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
+    corporate_information_page.update_in_search_index
+  end
+
+  test "will index accessible policy document even if the org is exempt on gov.uk" do
+    organisation = create(:organisation, govuk_status: "exempt")
+    corporate_information_page = create(
+      :accessible_documents_policy_corporate_information_page, organisation: organisation
+    )
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
+    corporate_information_page.update_in_search_index
+  end
+
+  test "will index accessible policy document even if the org is transitioning to gov.uk" do
+    organisation = create(:organisation, govuk_status: "transitioning")
+    corporate_information_page = create(
+      :accessible_documents_policy_corporate_information_page, organisation: organisation
+    )
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
+    corporate_information_page.update_in_search_index
+  end
+
   test "until we launch worldwide will not be indexed if the org it belongs to is a worldwide org" do
     world_org = create(:worldwide_organisation)
 
