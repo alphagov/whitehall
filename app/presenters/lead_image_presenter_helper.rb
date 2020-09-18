@@ -12,7 +12,7 @@ module LeadImagePresenterHelper
   end
 
   def lead_image_alt_text
-    if images.first
+    if images.first.try(:alt_text)
       images.first.alt_text.squish
     else
       ""
