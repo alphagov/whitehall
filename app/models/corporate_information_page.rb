@@ -53,12 +53,18 @@ class CorporateInformationPage < Edition
   def self.search_only
     live_govuk_status = super.with_organisation_govuk_status("live")
 
-    accessible_govuk_status = super
+    accessible_other_govuk_status = super
       .accessible_documents_policy
       .with_organisation_govuk_status(%w[joining exempt transitioning])
 
+    accessible_devolved_govuk_status = super
+      .accessible_documents_policy
+      .with_organisation_govuk_status("closed")
+      .where(organisations: { govuk_closed_status: "devolved" })
+
     live_govuk_status
-      .or(accessible_govuk_status)
+      .or(accessible_other_govuk_status)
+      .or(accessible_devolved_govuk_status)
   end
 
   def title_required?

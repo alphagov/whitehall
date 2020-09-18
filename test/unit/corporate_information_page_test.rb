@@ -234,6 +234,17 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page.update_in_search_index
   end
 
+  test "will index accessible policy document even if the org is devolved on gov.uk" do
+    organisation = create(
+      :closed_organisation, govuk_closed_status: "devolved", superseding_organisations: [create(:devolved_administration)]
+    )
+    corporate_information_page = create(
+      :accessible_documents_policy_corporate_information_page, organisation: organisation
+    )
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
+    corporate_information_page.update_in_search_index
+  end
+
   test "until we launch worldwide will not be indexed if the org it belongs to is a worldwide org" do
     world_org = create(:worldwide_organisation)
 
