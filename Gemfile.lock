@@ -545,7 +545,7 @@ GEM
     sidekiq-statsd (2.1.0)
       activesupport
       sidekiq (>= 3.3.1)
-    slimmer (15.1.0)
+    slimmer (15.1.1)
       activesupport
       json
       nokogiri (~> 1.7)
