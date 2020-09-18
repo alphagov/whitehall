@@ -93,4 +93,11 @@ FactoryBot.define do
     organisation { nil }
     association :worldwide_organisation, factory: :worldwide_organisation
   end
+
+  factory :accessible_documents_policy_corporate_information_page,
+          parent: :published_corporate_information_page do
+    corporate_information_page_type_id do
+      CorporateInformationPageType::AccessibleDocumentsPolicy.id
+    end
+  end
 end
