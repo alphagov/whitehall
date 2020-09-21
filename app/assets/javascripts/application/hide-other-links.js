@@ -69,7 +69,7 @@
         showHide.hide();
 
         var otherCount = showHide.children(config.linkElement).length;
-        var toggle = $('<a href="#" class="show-other-content" title="Show additional links"><span class="plus">+&nbsp;</span>'+ otherCount +' other'+ (otherCount > 1 ? 's' : '') +'</a>');
+        var toggle = $('<a href="#" class="show-other-content govuk-link" title="Show additional links"><span class="plus">+&nbsp;</span>'+ otherCount +' other'+ (otherCount > 1 ? 's' : '') +'</a>');
 
         toggle.on('click', function(e) {
           e.preventDefault();
