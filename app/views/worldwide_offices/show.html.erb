@@ -1,34 +1,47 @@
 <% page_title @worldwide_organisation.name %>
-<% page_class "corporate-information-pages-show-worldwide-organisation" %>
+<% page_class "govuk-width-container corporate-information-pages-show-worldwide-organisation" %>
 
-<%= render partial: 'worldwide_organisations/header', locals: { organisation: @worldwide_organisation, link_to_organisation: true, object_for_translation: @worldwide_office } %>
-<article class="block article">
-  <div class="inner-block floated-children">
+<%= render partial: 'worldwide_organisations/header', locals: {
+  organisation: @worldwide_organisation,
+  link_to_organisation: true,
+  object_for_translation: @worldwide_office,
+} %>
+
+<article class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
     <% headers = govspeak_headers(@worldwide_office.access_and_opening_times_body) %>
     <% if headers.any? %>
-      <nav>
-        <div class="content">
-          <h1>Contents</h1>
-          <ol>
-            <% headers.each do |header| %>
-              <li><%= link_to header.text, "##{header.id}" %></li>
-            <% end %>
-          </ol>
-        </div>
+      <nav aria-label="Page navigation">
+        <%= render "govuk_publishing_components/components/contents_list", {
+          contents: headers.map do |header|
+              {
+                text: header.text,
+                href: "##{header.id}"
+              }
+            end,
+            underline_links: true,
+        } %>
       </nav>
     <% end %>
-    <div class="main-body">
-      <div class="content">
-        <h1 class="main"><%= @worldwide_office.title %></h1>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: sanitize("<span class='govuk-visually-hidden'>About </span>#{@worldwide_office.title}"),
+      heading_level: 2,
+      font_size: "xl",
+      margin_bottom: 4,
+    } %>
+    <div class="contact-us govuk-clearfix">
+      <%= render partial: 'contacts/contact', locals: {
+        contact: @worldwide_office.contact,
+        hide_title: true,
+      } %>
+    </div>
 
-        <div class="contact-us">
-          <%= render partial: 'contacts/contact', locals: { contact: @worldwide_office.contact, hide_title: true } %>
-        </div>
-
-        <div class="body">
-          <%= govspeak_to_html(@worldwide_office.access_and_opening_times_body) %>
-        </div>
-      </div>
+    <div class="body">
+      <%= render "govuk_publishing_components/components/govspeak", {} do
+        govspeak_to_html(@worldwide_office.access_and_opening_times_body)
+      end %>
     </div>
   </div>
 </article>

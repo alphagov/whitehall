@@ -1,79 +1,33 @@
 .corporate-information-pages-show-worldwide-organisation {
-  .content {
-    padding: 0 $gutter-half;
-  }
-  nav {
-    @include media(tablet){
-      float: left;
-      width: $one-third;
-    }
-    li {
-      list-style: none;
-      margin-left: 1.2em;
-      word-wrap: break-word;
+  .contact-us {
+    .adr,
+    .email-url-number {
+      margin-bottom: govuk-spacing(2);
 
-      &:before {
-        content: "-";
-        position: relative;
+      @include govuk-media-query($from: tablet) {
         float: left;
-        width: $gutter-half;
-        margin-left: -$gutter-half;
+        width: 50%;
       }
-    }
-  }
-  .main-body {
-    @include media(tablet){
-      float: right;
-      width: $two-thirds;
-    }
-    h1.main {
-      @include heading-48;
-      font-weight: bold;
-    }
-    .description {
-      @include heading-27;
-      margin-bottom: $gutter;
-    }
-    .contact-us {
-      @extend %contain-floats;
-      margin: 0 (-$gutter-half) $gutter;
 
-      .adr,
-      .email-url-number {
-        margin-bottom: $gutter-one-third;
-        @include media(tablet){
+      .email,
+      .tel {
+        span {
+          clear: both;
           float: left;
-          width: $half;
-        }
-        .email,
-        .tel {
-          span {
-            float: left;
-            min-width: 5em;
-            clear: both;
-            padding-right: $gutter-one-sixth;
-          }
-        }
-        p {
-          @include media(tablet){
-            margin: 0 $gutter-half;
-          }
+          min-width: 5em;
+          padding-right: govuk-spacing(1);
         }
       }
-      .comments {
-        clear: both;
-        padding: $gutter-one-third 0;
-        color: $secondary-text-colour;
+      p {
+        @include govuk-media-query($from: tablet) {
+          margin: govuk-spacing(0) govuk-spacing(3);
+        }
       }
     }
-    .govspeak {
-      h2 {
-        border-bottom: 1px solid $border-colour;
-      }
-      table {
-        margin-left: 0;
-        margin-right: 0;
-      }
+    .comments {
+      clear: both;
+      color: $govuk-secondary-text-colour;
+      padding: govuk-spacing(2) govuk-spacing(0);
     }
   }
 }
