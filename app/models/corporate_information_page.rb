@@ -27,6 +27,9 @@ class CorporateInformationPage < Edition
   validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
 
+  scope :with_organisation_govuk_status, ->(status) { joins(:organisation).where(organisations: { govuk_status: status }) }
+  scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
+
   def republish_organisation_to_publishing_api
     Whitehall::PublishingApi.republish_async(owning_organisation) if owning_organisation.is_a?(Organisation)
   end
@@ -48,8 +51,20 @@ class CorporateInformationPage < Edition
   end
 
   def self.search_only
-    # Ensure only CIPs associated with a live Organisation are indexed in search.
-    super.joins(:organisation).where(organisations: { govuk_status: "live" })
+    live_govuk_status = super.with_organisation_govuk_status("live")
+
+    accessible_other_govuk_status = super
+      .accessible_documents_policy
+      .with_organisation_govuk_status(%w[joining exempt transitioning])
+
+    accessible_devolved_govuk_status = super
+      .accessible_documents_policy
+      .with_organisation_govuk_status("closed")
+      .where(organisations: { govuk_closed_status: "devolved" })
+
+    live_govuk_status
+      .or(accessible_other_govuk_status)
+      .or(accessible_devolved_govuk_status)
   end
 
   def title_required?
