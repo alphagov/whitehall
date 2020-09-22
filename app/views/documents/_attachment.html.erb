@@ -69,16 +69,15 @@
 
     <% unless attachment.accessible? %>
       <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
-        <p><%= t('attachment.accessibility.intro') %>
-          <%= render "govuk_publishing_components/components/details", {
-            title: t('attachment.accessibility.request_a_different_format')
-          } do %>
-            <%= t('attachment.accessibility.full_help_html',
-            email: alternative_format_order_link(attachment, alternative_format_contact_email),
-            title: attachment.title,
-            references: attachment_references(attachment)) %>
-          <% end %>
-        </p>
+        <p><%= t('attachment.accessibility.intro') %></p>
+        <%= render "govuk_publishing_components/components/details", {
+          title: t('attachment.accessibility.request_a_different_format')
+        } do %>
+          <%= t('attachment.accessibility.full_help_html',
+          email: alternative_format_order_link(attachment, alternative_format_contact_email),
+          title: attachment.title,
+          references: attachment_references(attachment)) %>
+        <% end %>
       </div>
     <% end %>
   </div>
