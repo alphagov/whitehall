@@ -194,7 +194,7 @@ Please tell us:
     else
       attributes << tag.span(humanized_content_type(attachment.file_extension), class: "type")
       attributes << tag.span(number_to_human_size(attachment.file_size), class: "file-size")
-      attributes << tag.span(pluralize(attachment.number_of_pages, "page"), class: "page-length") if attachment.number_of_pages.present?
+      attributes << tag.span(pluralize(attachment.number_of_pages, "page"), class: "page-length", lang: "en") if attachment.number_of_pages.present?
     end
     attributes.join(", ").html_safe
   end
