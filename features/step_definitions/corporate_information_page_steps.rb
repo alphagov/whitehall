@@ -57,6 +57,6 @@ Then(/^I should be able to read the translated "([^"]*)" corporate information p
   click_link corp_page
   click_link "Français"
 
-  assert_selector ".description", text: "Le summary"
+  assert_selector ".govuk-body-l", text: "Le summary"
   assert_selector ".body", text: "Le body"
 end

@@ -1,32 +1,40 @@
 <% page_title @corporate_information_page.title %>
-<% page_class "corporate-information-pages-show-worldwide-organisation" %>
+<% page_class "govuk-width-container corporate-information-pages-show-worldwide-organisation" %>
 
-<%= render partial: 'worldwide_organisations/header', locals: { organisation: @organisation, link_to_organisation: true, object_for_translation: @corporate_information_page } %>
-<article class="block article">
-  <div class="inner-block floated-children">
+<%= render partial: 'worldwide_organisations/header', locals: {
+  organisation: @organisation,
+  link_to_organisation: true,
+  object_for_translation: @corporate_information_page
+} %>
+<article class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
     <% headers = govspeak_headers(@corporate_information_page.body) %>
     <% if headers.any? %>
-      <nav>
-        <div class="content">
-          <h1><%= t('worldwide_organisation.headings.contents', default: 'Contents') %></h1>
-          <ol>
-            <% headers.each do |header| %>
-              <li><%= link_to header.text, "##{header.id}" %></li>
-            <% end %>
-          </ol>
-        </div>
+      <nav aria-label="Page navigation">
+        <%= render "govuk_publishing_components/components/contents_list", {
+          contents: headers.map do |header|
+              {
+                text: header.text,
+                href: "##{header.id}"
+              }
+            end,
+            underline_links: true,
+        } %>
       </nav>
     <% end %>
-    <div class="main-body">
-      <div class="content">
-        <h1 class="main"><%= @corporate_information_page.title(I18n.locale) %></h1>
-        <p class="description">
-          <%= @corporate_information_page.summary %>
-        </p>
-        <div class="body">
-          <%= govspeak_edition_to_html @corporate_information_page %>
-        </div>
-      </div>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: @corporate_information_page.title(I18n.locale),
+      heading_level: 2,
+      font_size: "xl",
+      margin_bottom: 4,
+    } %>
+    <p class="govuk-body-l"><%= @corporate_information_page.summary %></p>
+    <div class="body">
+      <%= render "govuk_publishing_components/components/govspeak", {} do
+        govspeak_edition_to_html(@corporate_information_page)
+      end %>
     </div>
   </div>
 </article>
