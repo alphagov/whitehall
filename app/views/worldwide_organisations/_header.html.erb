@@ -7,7 +7,7 @@
   <div class="govuk-grid-column-two-thirds logo">
     <%= render "govuk_publishing_components/components/organisation_logo", {
       organisation: {
-        name: organisation_logo_name(organisation),
+        name: translated_organisation_logo_name(organisation),
         url: link_to_organisation ? worldwide_organisation_path(organisation) : nil,
         crest: "single-identity",
       },
