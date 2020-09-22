@@ -182,6 +182,7 @@ module ApplicationHelper
       l(time.to_date, format: :long_ordinal),
       class: [options[:class], "date"].compact.join(" "),
       datetime: time.iso8601,
+      lang: "en",
     )
   end
 
