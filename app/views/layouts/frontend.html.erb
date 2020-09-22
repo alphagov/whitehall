@@ -1,5 +1,5 @@
 <%= render :layout => 'layouts/frontend_base' do %>
-  <nav id="proposition-menu" class="no-proposition-name">
+  <nav id="proposition-menu" class="no-proposition-name" aria-label="Departments and policy navigation">
     <ul id="proposition-links">
       <li><%= main_navigation_link_to "Departments", organisations_path %></li>
       <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
