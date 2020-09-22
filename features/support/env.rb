@@ -4,6 +4,11 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require "simplecov"
+SimpleCov.start "rails"
+SimpleCov.command_name "Cucumber"
+SimpleCov.merge_timeout 3600
+
 require "cucumber/rails"
 
 # frozen_string_literal: true
