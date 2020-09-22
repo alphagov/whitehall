@@ -8,7 +8,9 @@
     <% if headers.any? %>
       <nav>
         <div class="content">
-          <h1><%= t('worldwide_organisation.headings.contents', default: 'Contents') %></h1>
+          <h1 <%= "lang=#{t_fallback('worldwide_organisation.headings.contents')}" if t_fallback('worldwide_organisation.headings.contents') %>>
+            <%= t('worldwide_organisation.headings.contents', default: 'Contents') %>
+          </h1>
           <ol>
             <% headers.each do |header| %>
               <li><%= link_to header.text, "##{header.id}" %></li>
