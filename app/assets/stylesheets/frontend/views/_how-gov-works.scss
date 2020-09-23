@@ -213,13 +213,31 @@
     border-width: 0 0 1px;
   }
 
-  @media (min-width: 640px) and (max-width: 900px) {
-    .prime-minister,
+  .prime-minister,
+  .cabinet {
+    .one-half {
+      &:first-child {
+        float: right;
+      }
+
+    }
+  }
+
+  @include govuk-media-query($from: tablet, $until: desktop) {
     .history {
       .one-half {
         width: $two-thirds;
         &:first-child {
           width: $one-third;
+        }
+      }
+    }
+    .prime-minister {
+      .one-half {
+        width: $one-third;
+
+        &:first-child {
+          width: $two-thirds;
         }
       }
     }
@@ -253,6 +271,16 @@
       .one-third {
         width: $full-width;
       }
+    }
+  }
+
+  @include govuk-media-query($from: mobile, $until: tablet) {
+    .prime-minister,
+    .cabinet {
+      display: flex;
+      display: -ms-flexbox;
+      flex-direction: column-reverse;
+      -ms-flex-direction: column-reverse;
     }
   }
 

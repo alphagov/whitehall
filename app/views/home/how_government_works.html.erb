@@ -23,15 +23,6 @@
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
-            <% if @prime_minister.present? && @prime_minister.image_url(:s465).present? %>
-              <%= image_tag @prime_minister.image_url(:s465), { alt: @prime_minister.name } %>
-            <% else %>
-              <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
-            <% end %>
-          </div>
-        </div>
-        <div class="one-half">
-          <div class="inner-block">
             <%= render "govuk_publishing_components/components/heading", {
               text: "The Prime Minister",
               heading_level: 3,
@@ -57,14 +48,18 @@
             </p>
           </div>
         </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <% if @prime_minister.present? && @prime_minister.image_url(:s465).present? %>
+              <%= image_tag @prime_minister.image_url(:s465), { alt: @prime_minister.name } %>
+            <% else %>
+              <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
+            <% end %>
+          </div>
+        </div>
       </div>
 
       <div class="halves-width-section cabinet">
-        <div class="one-half">
-          <div class="inner-block">
-            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
-          </div>
-        </div>
         <div class="one-half">
           <div class="inner-block">
             <%= render "govuk_publishing_components/components/heading", {
@@ -76,6 +71,11 @@
             <p class="govuk-body">The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
 
             <p class="govuk-body"><%= link_to("See who is in the Cabinet", "/government/ministers", class: "govuk-link") %></p>
+          </div>
+        </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
           </div>
         </div>
       </div>
