@@ -26,7 +26,7 @@
       <% end %>
     <% end %>
     <<%= hlevel %> class="current-appointee govuk-!-margin-bottom-1"><%= person.link %></<%= hlevel %>>
-    <p class="<%= roles_classes.join(" ") %>">
+    <p class="<%= roles_classes.join(" ") %>" lang="en">
       <%= joined_list(roles.map { |role| role.link }).html_safe %>
       <%= roles_footnotes(roles, display_cabinet_attendance) -%>
     </p>
