@@ -30,4 +30,12 @@ module LogoHelper
       tag.span(class: css_classes) { tag.span { linked_logo } }
     end
   end
+
+  def translated_organisation_logo_name(organisation)
+    if I18n.locale == "en"
+      format_with_html_line_breaks(ERB::Util.html_escape(organisation.logo_formatted_name))
+    else
+      organisation.name
+    end
+  end
 end
