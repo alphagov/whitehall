@@ -105,6 +105,7 @@ module Whitehall
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
         queue,
         document.id,
+        bulk,
       )
     end
 
