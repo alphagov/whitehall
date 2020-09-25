@@ -63,7 +63,7 @@ class NewsArticle < Announcement
   end
 
   def locale_can_be_changed?
-    new_record?
+    new_record? || world_news_story?
   end
 
   def world_news_story?

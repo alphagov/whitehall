@@ -20,6 +20,11 @@ module Edition::Translatable
 
     add_trait Trait
 
+    before_validation(
+      :change_translations_locale_if_primary_locale_changed,
+      on: :update,
+    )
+
     scope :in_default_locale, -> { joins(:translations).where("edition_translations.locale" => I18n.default_locale) }
     validate :locale_is_valid
 
@@ -52,6 +57,12 @@ module Edition::Translatable
   end
 
 private
+
+  def change_translations_locale_if_primary_locale_changed
+    if primary_locale_changed? && translations.count == 1
+      translations.first.update(locale: primary_locale)
+    end
+  end
 
   def locale_is_valid
     unless I18n.available_locales.include?(primary_locale.intern)
