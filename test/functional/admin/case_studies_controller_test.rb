@@ -18,4 +18,16 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_allow_association_with_worldwide_organisations :case_study
   should_allow_association_between_world_locations_and :case_study
   should_send_drafts_to_content_preview_environment_for :case_study
+
+  view_test "case studies show image display options radio buttons" do
+    get :new
+    assert_select "form#new_edition" do
+      assert_select "#edition_image_display_option_no_image"
+      assert_select "#edition_image_display_option_organisation_image"
+      assert_select "#edition_image_display_option_custom_image"
+      assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
+      assert_select "textarea[name='edition[images_attributes][0][caption]']"
+      assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
+    end
+  end
 end
