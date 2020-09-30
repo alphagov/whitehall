@@ -322,7 +322,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 28,
+      "line": 29,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l, :class => \"govuk-link\")\n end.to_sentence",
       "render_path": [
@@ -387,7 +387,7 @@
           "type": "controller",
           "class": "Admin::WorldLocationsController",
           "method": "features",
-          "line": 28,
+          "line": 32,
           "file": "app/controllers/admin/world_locations_controller.rb",
           "rendered": {
             "name": "admin/world_locations/features",
@@ -422,26 +422,6 @@
       "user_input": "[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")",
       "confidence": "Medium",
       "note": "No user input is passed directly into this query, they are passed as parameters."
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "bfbe0bba0663223d6bb8d55f1cb09457e3569396c8c2634c7fa2c0e8e5cbc63c",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/histories_controller.rb",
-      "line": 6,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(template => \"histories/#{params[:id].underscore}\", {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "HistoriesController",
-        "method": "show"
-      },
-      "user_input": "params[:id].underscore",
-      "confidence": "Medium",
-      "note": "We check that the params[:id] is valid before rendering the template."
     },
     {
       "warning_type": "Redirect",
@@ -493,6 +473,22 @@
       "user_input": "WorldwideOrganisation.friendly.find(params[:id])",
       "confidence": "Weak",
       "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
+      "warning_type": "Cross-Site Request Forgery",
+      "warning_code": 116,
+      "fingerprint": "c8697fda60549ca065789e2ea74c94effecef88b2b5483bae17ddd62ece47194",
+      "check_name": "CSRFTokenForgeryCVE",
+      "message": "Rails 5.1.7 has a vulnerability that may allow CSRF token forgery. Upgrade to Rails 5.2.4.3 or patch",
+      "file": "Gemfile.lock",
+      "line": 414,
+      "link": "https://groups.google.com/g/rubyonrails-security/c/NOjKiGeXUgw",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -583,7 +579,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/worldwide_organisations/_header.html.erb",
-      "line": 31,
+      "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o, :class => \"sponsoring-organisation govuk-link\")\n end.to_sentence",
       "render_path": [
@@ -618,6 +614,6 @@
       "note": ""
     }
   ],
-  "updated": "2020-05-11 15:47:20 +0000",
-  "brakeman_version": "4.8.1"
+  "updated": "2020-09-30 21:05:42 +0100",
+  "brakeman_version": "4.10.0"
 }
