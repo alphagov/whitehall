@@ -33,7 +33,7 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   @news_article = find_news_article_in_locale!(:fr, "French-only news article")
 end
 
-When(/^I publish the French-only news article$/) do
+And(/^when I publish the article$/) do
   stub_publishing_api_links_with_taxons(@news_article.content_id, %w[a-taxon-content-id])
   visit admin_edition_path(@news_article)
   publish(force: true)
@@ -70,5 +70,20 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
 end
 
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
-  refute NewsArticle.find_by(title: title).nil?
+  @news_article = NewsArticle.find_by(title: title)
+  refute @news_article.nil?
+end
+
+Then('I subsequently change the primary locale') do
+  visit admin_edition_path(@news_article)
+  click_button "Create new edition to edit"
+  select "Deutsch (German)", from: "edition[primary_locale]"
+  choose "edition_minor_change_true"
+  click_button "Save and continue"
+  click_button "Save topic changes"
+end
+
+Then('there should exist only one translation') do
+  assert_equal ["published", "draft"], @news_article.document.editions.pluck(:state)
+  assert_equal 1, @news_article.document.latest_edition.translations.count
 end
