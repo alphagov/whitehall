@@ -90,4 +90,15 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert french_edition.available_in_locale?(:fr)
     assert_not french_edition.available_in_locale?(:en)
   end
+
+  test "changing primary locale of world news story updates the primary locale of the translation" do
+    world_news_story = create(
+      :news_article_world_news_story,
+      primary_locale: "en",
+    )
+    world_news_story.update!(primary_locale: "fr")
+
+    assert world_news_story.available_in_locale?(:fr)
+    assert_not world_news_story.available_in_locale?(:en)
+  end
 end
