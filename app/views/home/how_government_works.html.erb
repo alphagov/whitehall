@@ -88,23 +88,23 @@
         <% if !@is_during_reshuffle %>
           <div class="feature-ministers">
             <a href="/government/ministers/prime-minister" class="feature-ministers__item">
-              <span class="count govuk-!-font-size-48 govuk-!-font-weight-bold">1</span>
+              <strong class="count govuk-!-font-size-48 govuk-!-font-weight-bold">1</strong>
               <span class="caption">Prime Minister</span>
             </a>
             <span class="feature-ministers__symbol">&#43;</span>
             <a href="/government/ministers#cabinet-ministers" class="feature-ministers__item cabinet-ministers">
-              <span class="count govuk-!-font-size-48 govuk-!-font-weight-bold"><%= @cabinet_minister_count %></span>
+              <strong class="count govuk-!-font-size-48 govuk-!-font-weight-bold"><%= @cabinet_minister_count %></strong>
               <span class="caption">Cabinet ministers</span>
             </a>
             <span class="feature-ministers__symbol">&#43;</span>
             <a href="/government/ministers#ministers-by-department" class="feature-ministers__item other-ministers">
-              <span class="count govuk-!-font-size-48 govuk-!-font-weight-bold"><%= @other_minister_count %></span>
+              <strong class="count govuk-!-font-size-48 govuk-!-font-weight-bold"><%= @other_minister_count %></strong>
               <span class="caption">Other ministers</span>
             </a>
             <span class="feature-ministers__equals-wrapper">
               <span class="feature-ministers__symbol">&#61;</span>
               <a href="/government/ministers" class="feature-ministers__item feature-ministers__item--invert all-ministers">
-                <span class="count govuk-!-font-size-48 govuk-!-font-weight-bold"><%= @all_ministers_count %></span>
+                <strong class="count govuk-!-font-size-48 govuk-!-font-weight-bold"><%= @all_ministers_count %></strong>
                 <span class="caption">Total ministers</span>
               </a>
             <span>
