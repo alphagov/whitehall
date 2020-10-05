@@ -27,6 +27,11 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert NewsArticle.new.locale_can_be_changed?
   end
 
+  test "locale_can_be_changed? returns true for an existing NewsArticleType::WorldNewsStory" do
+    world_news_story = create(:news_article_world_news_story)
+    assert world_news_story.locale_can_be_changed?
+  end
+
   test "locale_can_be_changed? returns false for a persisted new NewsArticle" do
     assert_not create(:news_article).locale_can_be_changed?
   end
