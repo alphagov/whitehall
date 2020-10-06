@@ -24,6 +24,10 @@ module Edition::Translatable
       :change_translations_locale_if_primary_locale_changed,
       on: :update,
     )
+    before_validation(
+      :remove_other_translations_if_primary_locale_no_longer_english,
+      on: :update,
+    )
 
     scope :in_default_locale, -> { joins(:translations).where("edition_translations.locale" => I18n.default_locale) }
     validate :locale_is_valid
@@ -61,6 +65,12 @@ private
   def change_translations_locale_if_primary_locale_changed
     if primary_locale_changed? && translations.count == 1
       translations.first.update(locale: primary_locale)
+    end
+  end
+
+  def remove_other_translations_if_primary_locale_no_longer_english
+    if translations.first.locale != :en
+      (translations - [translations.first]).each(&:destroy)
     end
   end
 
