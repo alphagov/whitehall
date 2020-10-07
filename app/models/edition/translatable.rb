@@ -70,7 +70,7 @@ private
 
   def remove_other_translations_if_primary_locale_no_longer_english
     if translations.first.locale != :en
-      (translations - [translations.first]).each(&:destroy)
+      translations[1..].each(&:destroy)
     end
   end
 
