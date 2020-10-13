@@ -26,7 +26,7 @@ class Role < ApplicationRecord
 
   has_many :organisation_roles, inverse_of: :role
   has_many :organisations, through: :organisation_roles,
-            after_remove: :republish_organisation_to_publishing_api
+                           after_remove: :republish_organisation_to_publishing_api
 
   has_many :worldwide_organisation_roles, inverse_of: :role
   has_many :worldwide_organisations, through: :worldwide_organisation_roles

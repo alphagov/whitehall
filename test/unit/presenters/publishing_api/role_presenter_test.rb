@@ -99,8 +99,8 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
         supports_historical_accounts: role.supports_historical_accounts,
         seniority: 100,
         whip_organisation: {
-          :sort_order => 1,
-          :label => "House of Commons",
+          sort_order: 1,
+          label: "House of Commons",
         },
       },
     }

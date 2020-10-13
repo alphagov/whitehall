@@ -74,7 +74,7 @@ module DocumentHelper
       title: title,
       summary: "Some summary of the content",
       alternative_format_provider: create(:alternative_format_provider),
-      all_nation_applicability: options.key?(:all_nation_applicability) ? options[:all_nation_applicability] : true
+      all_nation_applicability: options.key?(:all_nation_applicability) ? options[:all_nation_applicability] : true,
     )
     fill_in_publication_fields(options.slice(:first_published, :publication_type))
   end

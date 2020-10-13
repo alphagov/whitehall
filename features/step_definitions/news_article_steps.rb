@@ -74,7 +74,7 @@ Then(/^the news article "([^"]*)" should have been created$/) do |title|
   refute @news_article.nil?
 end
 
-Then('I subsequently change the primary locale') do
+Then("I subsequently change the primary locale") do
   visit admin_edition_path(@news_article)
   click_button "Create new edition to edit"
   select "Deutsch (German)", from: "edition[primary_locale]"
@@ -83,7 +83,7 @@ Then('I subsequently change the primary locale') do
   click_button "Save topic changes"
 end
 
-Then('there should exist only one translation') do
-  assert_equal ["published", "draft"], @news_article.document.editions.pluck(:state)
+Then("there should exist only one translation") do
+  assert_equal %w[published draft], @news_article.document.editions.pluck(:state)
   assert_equal 1, @news_article.document.latest_edition.translations.count
 end

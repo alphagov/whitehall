@@ -75,7 +75,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         related_guides: [],
         related_mainstream_content: [],
         government: [government.content_id],
-      }
+      },
     }
     expected_links = {
       topics: [],

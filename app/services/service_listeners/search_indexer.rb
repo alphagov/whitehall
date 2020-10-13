@@ -16,7 +16,7 @@ module ServiceListeners
       reindex_collection_documents
     end
 
-  private
+    private
 
     def reindex_collection_documents
       if edition.is_a?(DocumentCollection)

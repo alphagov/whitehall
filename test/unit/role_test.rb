@@ -233,7 +233,7 @@ class RoleTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).twice
 
-    role.update(organisations: [organisation])
-    role.update(organisations: [])
+    role.update!(organisations: [organisation])
+    role.update!(organisations: [])
   end
 end

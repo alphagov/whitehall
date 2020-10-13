@@ -15,7 +15,7 @@ module Whitehall::Authority::Rules
       end
     end
 
-  private
+    private
 
     def managing_editor_for_org?(actor, subject)
       actor.managing_editor? && actor_is_from_organisation_or_parent?(actor, subject)
