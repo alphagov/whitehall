@@ -59,7 +59,7 @@ module Whitehall
       def repeatedly
         @attempts.times do |i|
           return yield
-        rescue RestClient::RequestFailed, RestClient::RequestTimeout, RestClient::ServerBrokeConnection => e
+        rescue RestClient::RequestFailed, RestClient::ServerBrokeConnection => e
           @logger.warn e.message
           raise if @attempts == i + 1
 
