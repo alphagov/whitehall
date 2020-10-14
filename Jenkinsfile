@@ -9,8 +9,6 @@ node {
   govuk.setEnvar("PUBLISHING_E2E_TESTS_COMMAND", "test-whitehall")
   govuk.buildProject(
     sassLint: false,
-    rubyLintDiff: false,
-    rubyLintDirs: "",
     publishingE2ETests: true,
     brakeman: true,
     beforeTest: {
@@ -23,6 +21,10 @@ node {
       }
     },
     overrideTestTask: {
+      stage("Lint") {
+        sh("bundle exec rubocop")
+      }
+
       stage("Run tests") {
         if (params.IS_SCHEMA_TEST) {
           echo "Running a subset of the tests to check the content schema changes"

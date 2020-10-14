@@ -53,9 +53,9 @@ module PublishingApi
     end
 
     def whip
-      return {} if item.whip_organisation_id == nil
+      return {} if item.whip_organisation_id.nil?
 
-      whip_organisation = Whitehall::WhipOrganisation.find_by_id(item.whip_organisation_id) 
+      whip_organisation = Whitehall::WhipOrganisation.find_by_id(item.whip_organisation_id)
 
       {
         sort_order: whip_organisation.sort_order,
@@ -75,6 +75,7 @@ module PublishingApi
 
     def ministerial_role_details
       return {} unless item.is_a?(MinisterialRole)
+
       { seniority: item.seniority }
     end
 

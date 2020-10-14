@@ -274,7 +274,7 @@ module Admin::EditionsHelper
   end
 
   def specialist_sector_options_for_select
-    @specialist_sector_options_for_select ||= LinkableTopics.new.topics # rubocop:disable Rails/HelperInstanceVariable
+    @specialist_sector_options_for_select ||= LinkableTopics.new.topics
   end
 
   def specialist_sector_names(sector_content_ids)
@@ -282,7 +282,7 @@ module Admin::EditionsHelper
   end
 
   def raw_specialist_sectors
-    @raw_specialist_sectors ||= LinkableTopics.new.raw_topics # rubocop:disable Rails/HelperInstanceVariable
+    @raw_specialist_sectors ||= LinkableTopics.new.raw_topics
   end
 
   def specialist_sector_name(sector_content_id)

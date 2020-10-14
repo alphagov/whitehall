@@ -30,7 +30,7 @@ task test_queue: :environment do
     Dir["unit/**/*_test.rb", "functional/**/*_test.rb", "integration/**/*_test.rb"]
   end
   # Ensure the number of workers matches the number of PARALLEL_TEST_PROCESSORS
-  ENV["TEST_QUEUE_WORKERS"] ||= ENV["PARALLEL_TEST_PROCESSORS"]
+  ENV["TEST_QUEUE_WORKERS"] ||= ENV.fetch("PARALLEL_TEST_PROCESSORS", "6")
   puts "Running unit, functional and integration tests from #{files.size} files across #{ENV['TEST_QUEUE_WORKERS']} processors."
   command = "./script/test_queue"
   abort unless system(command, *files)

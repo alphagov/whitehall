@@ -129,7 +129,7 @@ protected
   end
 
   def filter_options
-    @filter_options ||= Whitehall::DocumentFilter::Options.new # rubocop:disable Rails/HelperInstanceVariable
+    @filter_options ||= Whitehall::DocumentFilter::Options.new
   end
 
   def filter_option_html(options, selected_value)

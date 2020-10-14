@@ -64,7 +64,7 @@ private
 
   def change_translations_locale_if_primary_locale_changed
     if primary_locale_changed? && translations.count == 1
-      translations.first.update(locale: primary_locale)
+      translations.first.update!(locale: primary_locale)
     end
   end
 

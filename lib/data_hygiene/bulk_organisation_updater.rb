@@ -67,7 +67,7 @@ module DataHygiene
       rescue ActiveRecord::RecordNotFound
         puts "error: couldn't find organisation: #{slug.strip}"
 
-        exit 1
+        raise
       end
     end
 

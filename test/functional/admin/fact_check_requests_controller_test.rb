@@ -111,7 +111,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   test "raise an error if an email cannot be sent via notify" do
-    raises_exception = ->(request, params) {
+    raises_exception = lambda { |_request, _params|
       response = MiniTest::Mock.new
       response.expect :code, 400
       response.expect :body, "Can't send to this recipient using a team-only API key"

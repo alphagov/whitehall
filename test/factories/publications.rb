@@ -87,7 +87,6 @@ FactoryBot.define do
   factory :published_publication_with_excluded_nations, parent: :published_publication, traits: [:has_excluded_nations]
   factory :draft_publication_with_excluded_nations, parent: :draft_publication, traits: [:has_excluded_nations]
 
-
   factory :draft_corporate_publication, parent: :publication, traits: %i[draft corporate]
   factory :submitted_corporate_publication, parent: :publication, traits: %i[submitted corporate]
   factory :published_corporate_publication, parent: :publication, traits: %i[published corporate]

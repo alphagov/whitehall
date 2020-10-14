@@ -1,5 +1,5 @@
 PUBLISHED_AND_PUBLISHABLE_STATES = %w[published draft archived submitted rejected scheduled].freeze
-EDITIONS_WITH_NATIONAL_APPLICABILITY = ['DetailedGuide', 'Publication', 'Consultation'].freeze
+EDITIONS_WITH_NATIONAL_APPLICABILITY = %w[DetailedGuide Publication Consultation].freeze
 
 edition_scope = Edition.where(type: EDITIONS_WITH_NATIONAL_APPLICABILITY).where(state: PUBLISHED_AND_PUBLISHABLE_STATES)
 
@@ -9,4 +9,4 @@ def update_all_nation_applicability(edition)
   end
 end
 
-edition_scope.find_each {|edition| update_all_nation_applicability(edition)}
+edition_scope.find_each { |edition| update_all_nation_applicability(edition) }
