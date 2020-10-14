@@ -1,3 +1,5 @@
+require "govuk_test"
+
 Teaspoon.configure do |config|
   # Determines where the Teaspoon routes will be mounted. Changing this to "/jasmine" would allow you to browse to
   # `http://localhost:3000/jasmine` to run your tests.
@@ -98,7 +100,7 @@ Teaspoon.configure do |config|
   # Selenium Webdriver: https://github.com/modeset/teaspoon/wiki/Using-Selenium-WebDriver
   # BrowserStack Webdriver: https://github.com/modeset/teaspoon/wiki/Using-BrowserStack-WebDriver
   # Capybara Webkit: https://github.com/modeset/teaspoon/wiki/Using-Capybara-Webkit
-  # config.driver = :phantomjs
+  config.driver = :selenium
 
   # Specify additional options for the driver.
   #
@@ -106,7 +108,16 @@ Teaspoon.configure do |config|
   # Selenium Webdriver: https://github.com/modeset/teaspoon/wiki/Using-Selenium-WebDriver
   # BrowserStack Webdriver: https://github.com/modeset/teaspoon/wiki/Using-BrowserStack-WebDriver
   # Capybara Webkit: https://github.com/modeset/teaspoon/wiki/Using-Capybara-Webkit
-  # config.driver_options = nil
+  chrome_options = GovukTest.headless_chrome_selenium_options
+  # This argument is provided so that the these tests can run when executing in
+  # a docker image, without this the tests fail to load. This seems to be
+  # because teaspoon loads lots of Javascript files simultaneously which
+  # exhausts the memory provided to Chrome. See: https://bugs.chromium.org/p/chromium/issues/detail?id=736452
+  chrome_options.add_argument("--disable-dev-shm-usage")
+  config.driver_options = {
+    client_driver: :chrome,
+    selenium_options: { options: chrome_options },
+  }
 
   # Specify the timeout for the driver. Specs are expected to complete within this time frame or the run will be
   # considered a failure. This is to avoid issues that can arise where tests stall.

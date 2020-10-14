@@ -64,7 +64,6 @@ gem "whenever", "~> 1.0.0", require: false
 
 group :development, :test do
   gem "parallel_tests"
-  gem "phantomjs"
   gem "pry-byebug"
   gem "pry-rails"
   gem "rubocop-govuk", "~> 3"
