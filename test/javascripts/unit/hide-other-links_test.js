@@ -33,7 +33,7 @@ module('hide-other-things: hides all but first element in collection', {
 
 test('should group elements into other-content span', function () {
   $('.js-hide-other-links').hideOtherLinks()
-  ok($('.animals .other-content').length > 0 && $('.animals .other-content').children().length == 3)
+  ok($('.animals .other-content').length > 0 && $('.animals .other-content').children().length === 3)
 })
 
 test('should create a link to show hidden content', function () {
@@ -52,27 +52,27 @@ test('created link should have correct count', function () {
   $('.js-hide-other-links').hideOtherLinks()
   var otherCount = $('.animals .other-content').find('a').length
   var linkCount = $('.animals .show-other-content').text().match(/\d+/).pop()
-  ok(linkCount == otherCount)
+  ok(parseInt(linkCount, 10) === otherCount)
 })
 
 test('check fullstop is preserved', function () {
   $('.js-hide-other-links').hideOtherLinks()
-  ok($('.animals.js-hide-other-links').text().substr(-1) == '.')
+  ok($('.animals.js-hide-other-links').text().substr(-1) === '.')
 })
 
 test('check element has correct aria value', function () {
   $('.js-hide-other-links').hideOtherLinks()
-  ok($('.animals.js-hide-other-links').attr('aria-live') == 'polite')
+  ok($('.animals.js-hide-other-links').attr('aria-live') === 'polite')
 })
 
 test('check different elements can be used as wrapper', function () {
   $('.js-hide-other-links').hideOtherLinks({ linkElement: 'span' })
-  ok($('.colours .other-content').length > 0 && $('.colours .other-content').children().length == 3)
+  ok($('.colours .other-content').length > 0 && $('.colours .other-content').children().length === 3)
 })
 
 test('check class can be used to force elements to be visible', function () {
   $('.js-hide-other-links').hideOtherLinks({ alwaysVisibleClass: '.force' })
-  ok($('.animals .other-content').length > 0 && $('.animals .other-content').children().length == 2)
+  ok($('.animals .other-content').length > 0 && $('.animals .other-content').children().length === 2)
 })
 
 test('when there are only two things, they are not hidden', function () {
@@ -82,17 +82,17 @@ test('when there are only two things, they are not hidden', function () {
 
 test('when there are two really long things, the second is hidden', function () {
   $('.js-hide-other-links').hideOtherLinks()
-  ok($('.long-words .other-content').children().length == 1)
+  ok($('.long-words .other-content').children().length === 1)
 })
 
 test('when showCount is 2, it shows two things', function () {
   $('.js-hide-other-links').hideOtherLinks({ showCount: 2 })
-  ok($('.animals').children('a').length == 3)
-  ok($('.animals .other-content').children().length == 2)
+  ok($('.animals').children('a').length === 3)
+  ok($('.animals .other-content').children().length === 2)
 })
 
 test('when showCount is 0, it hides everything', function () {
   $('.js-hide-other-links').hideOtherLinks({ showCount: 0 })
-  ok($('.animals').children('a').length == 1)
-  ok($('.animals .other-content').children().length == 4)
+  ok($('.animals').children('a').length === 1)
+  ok($('.animals .other-content').children().length === 4)
 })

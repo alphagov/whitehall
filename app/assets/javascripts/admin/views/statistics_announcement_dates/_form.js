@@ -3,14 +3,14 @@
   window.GOVUK = window.GOVUK || {}
 
   var StatisticsAnnouncementDateForm = {
-    init: function (model_name) {
-      this.model_name = model_name
-      this.$precisionInputs = $('input[name="' + model_name + '[precision]"]')
-      this.$confirmedCheckbox = $('input[name="' + model_name + '[confirmed]"]')
+    init: function (modelName) {
+      this.modelName = modelName
+      this.$precisionInputs = $('input[name="' + modelName + '[precision]"]')
+      this.$confirmedCheckbox = $('input[name="' + modelName + '[confirmed]"]')
 
       // Note that the missing ] here is intentional
       // Release date fields look like [release_date2i], [release_date3i], etc.
-      this.$releaseDateInputs = $('select[name*="' + model_name + '[release_date"]')
+      this.$releaseDateInputs = $('select[name*="' + modelName + '[release_date"]')
 
       // Date examples
       this.$exactExample = $('.js-example-exact')
@@ -116,7 +116,7 @@
         var ampm = (hours >= 12) ? 'pm' : 'am'
 
         hours = hours % 12
-        if (hours == 0) {
+        if (hours === 0) {
           hours = 12
         }
 
@@ -130,7 +130,7 @@
 
     fixToExactPrecision: function () {
       var that = StatisticsAnnouncementDateForm
-      $('input[name="' + that.model_name + '[precision]"][value="0"]').prop('checked', true)
+      $('input[name="' + that.modelName + '[precision]"][value="0"]').prop('checked', true)
     },
 
     hidePrecisionChoice: function () {

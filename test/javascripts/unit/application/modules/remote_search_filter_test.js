@@ -123,14 +123,14 @@ test('updateResults displays a loading message when waiting for a response', sin
 }))
 
 test('the submit button should be hidden', function () {
-  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' })
+  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' }) // eslint-disable-line no-new
   equal($('input[type=submit]').css('display'), 'none')
 })
 
 test('changing a select field should trigger an update immediatly', sinon.test(function () {
   var updateResultsStub = this.stub(GOVUK.RemoteSearchFilter.prototype, 'updateResults')
 
-  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' })
+  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' }) // eslint-disable-line no-new
 
   $('form select').val('option_2').change()
   ok(updateResultsStub.calledOnce)
@@ -140,7 +140,7 @@ test('changing a text field should trigger an update after a short delay, withou
   var done = assert.async()
   var updateResultsStub = this.stub(GOVUK.RemoteSearchFilter.prototype, 'updateResults')
 
-  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' })
+  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' }) // eslint-disable-line no-new
 
   var $textField = $('form input[type=text]')
   $textField.val('foo').change()
@@ -156,7 +156,7 @@ test('individual changes are pushed to the browser history as a new object', sin
   this.stub(window.history, 'pushState')
   this.stub(window.history, 'replaceState')
 
-  new GOVUK.RemoteSearchFilter({ search_url: 'http://www.example.com/search', form_element: 'form.filter-form' })
+  new GOVUK.RemoteSearchFilter({ search_url: 'http://www.example.com/search', form_element: 'form.filter-form' }) // eslint-disable-line no-new
 
   $("form select[name='a_select_field[]']").val('option_2').change()
 
@@ -172,7 +172,7 @@ test('multiple changes in quick succession replace the current history state ins
   this.stub(window.history, 'pushState')
   this.stub(window.history, 'replaceState')
 
-  filter = new GOVUK.RemoteSearchFilter({ search_url: 'http://www.example.com/search', form_element: 'form.filter-form' })
+  var filter = new GOVUK.RemoteSearchFilter({ search_url: 'http://www.example.com/search', form_element: 'form.filter-form' })
   filter.HISTORY_REPLACE_NOT_PUSH_FOR = 100
 
   $("form select[name='a_select_field[]']").val('option_2').change()
@@ -212,6 +212,6 @@ test('the search results are reverted on history popstate', sinon.test(function 
 
 test("RemoteSearchFilter ignores browsers which don't support history.pushState", sinon.test(function () {
   this.stub(window.GOVUK.support, 'history', function () { return false })
-  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' })
-  ok($('input[type=submit]').css('display') != 'none')
+  new GOVUK.RemoteSearchFilter({ form_element: 'form.filter-form' }) // eslint-disable-line no-new
+  ok($('input[type=submit]').css('display') !== 'none')
 }))

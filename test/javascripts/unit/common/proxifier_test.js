@@ -14,7 +14,7 @@ test('proxifyMethod should wrap the specified method in a proxy using the object
 
   GOVUK.Proxifier.proxifyMethod(testObject, 'testFunction')
 
-  ok(testObject.testFunction.call({}).calledContext == testObject)
+  ok(testObject.testFunction.call({}).calledContext === testObject)
 })
 
 test('proxifyMethods should call proxify each indicated method', function () {
@@ -25,8 +25,8 @@ test('proxifyMethods should call proxify each indicated method', function () {
 
   GOVUK.Proxifier.proxifyMethods(testObject, ['wibbleMethod', 'wobbleMethod'])
 
-  ok(testObject.wibbleMethod.call({}).calledContext == testObject)
-  ok(testObject.wobbleMethod.call({}).calledContext == testObject)
+  ok(testObject.wibbleMethod.call({}).calledContext === testObject)
+  ok(testObject.wobbleMethod.call({}).calledContext === testObject)
 })
 
 test('proxifyAllMethods should proxoify all attributes referencing functions not beginning with an uppercase letter (non-constructors only)', function () {
@@ -39,6 +39,6 @@ test('proxifyAllMethods should proxoify all attributes referencing functions not
   GOVUK.Proxifier.proxifyAllMethods(testObject)
 
   ok(typeof testObject.nonMethod !== 'function')
-  ok(testObject.methodFunction.call({}).calledContext == testObject)
-  ok(testObject.ConstructorFunction.call({}).calledContext != testObject)
+  ok(testObject.methodFunction.call({}).calledContext === testObject)
+  ok(testObject.ConstructorFunction.call({}).calledContext !== testObject)
 })

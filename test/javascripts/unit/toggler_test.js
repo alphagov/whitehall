@@ -5,18 +5,18 @@ module('Toggler', {
   }
 })
 
-function init_plugin (options) {
+function initPlugin (options) {
   options = $.extend({ header: 'h1', content: '.overlay' }, options)
   $('.changes').toggler(options)
 }
 
 test('Should be hidden on load', function () {
-  init_plugin()
+  initPlugin()
   ok($('.overlay').hasClass('visuallyhidden'))
 })
 
 test('Should make the on click event of the header toggle the overlay element', function () {
-  init_plugin()
+  initPlugin()
   ok($('.overlay').hasClass('visuallyhidden'))
   $('.changes h1').click()
   ok($('.overlay').hasClass('visuallyhidden'))

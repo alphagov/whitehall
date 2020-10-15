@@ -1,3 +1,5 @@
+/* global GOVUKAdmin */
+
 var form =
     '<form id="taxon-form" class="js-supports-non-english" onsubmit="function(){return false;}"></form>'
 

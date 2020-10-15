@@ -48,16 +48,16 @@
       var $button = $(e.target)
       var $set = $button.closest('.js-duplicate-fields-set')
 
-      var $destroy_input = duplicateFields.destroyInputFor($set)
+      var $destroyInput = duplicateFields.destroyInputFor($set)
 
       $set.hide()
       $set.find('input').val('')
-      $set.append($destroy_input)
+      $set.append($destroyInput)
     },
     destroyInputFor: function (set) {
-      var $text_input = set.find('input[type=text], textarea').first()
-      var baseName = $text_input.attr('name')
-      var baseId = $text_input.attr('id')
+      var $textInput = set.find('input[type=text], textarea').first()
+      var baseName = $textInput.attr('name')
+      var baseId = $textInput.attr('id')
       var destroyId = baseId.replace(/_[a-zA-Z]+$/, '__destroy')
       var destroyName = baseName.replace(/\[[_a-zA-Z]+\]$/, '[_destroy]')
 

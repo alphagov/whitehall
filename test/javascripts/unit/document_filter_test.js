@@ -124,7 +124,7 @@ test('should make an ajax request on form submission to obtain filtered results'
 test('should send ajax request using json form of url in form action', sinon.test(function () {
   this.filterForm.enableDocumentFilter()
 
-  var ajax = this.spy(jQuery, 'ajax')
+  this.spy(jQuery, 'ajax')
   var server = this.sandbox.useFakeServer()
 
   $(this.filterForm).attr('action', '/specialist')
@@ -139,7 +139,7 @@ test('should send ajax request using json form of url in form action', sinon.tes
 test('should send filter form parameters in ajax request', sinon.test(function () {
   this.filterForm.enableDocumentFilter()
 
-  var ajax = this.spy(jQuery, 'ajax')
+  this.spy(jQuery, 'ajax')
   var server = this.sandbox.useFakeServer()
 
   $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'))
@@ -183,7 +183,6 @@ test('should fire analytics on successful ajax response', sinon.test(function ()
 }))
 
 test('should apply hide class to feed on ajax call', sinon.test(function () {
-  var removeClass = this.spy(GOVUK.documentFilter, 'updateFeeds')
   this.filterForm.enableDocumentFilter()
 
   var server = this.sandbox.useFakeServer()

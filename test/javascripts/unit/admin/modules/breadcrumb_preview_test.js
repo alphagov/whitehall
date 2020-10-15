@@ -1,3 +1,5 @@
+/* global GOVUKAdmin */
+
 module('BreadcrumbPreview', {
   setup: function () {
     this.subject = new GOVUKAdmin.Modules.BreadcrumbPreview()

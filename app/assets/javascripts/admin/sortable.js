@@ -2,7 +2,7 @@
   var _enableSortable = function () {
     $(this).each(function () {
       var fieldset = $(this)
-      var order_label_finder = fieldset.data('orderingLabelSelector') || 'label'
+      var orderLabelFinder = fieldset.data('orderingLabelSelector') || 'label'
       var list = $('<ul class="list-unstyled"></ul>')
       fieldset.find('input.ordering').hide()
       fieldset.children('div').each(function (i, item) {
@@ -16,8 +16,8 @@
         opacity: 0.5,
         update: function (event, ui) {
           list.children('.sort_item').each(function (index, li) {
-            var input_id = $(li).find(order_label_finder).attr('for')
-            var input = $('#' + input_id)
+            var inputId = $(li).find(orderLabelFinder).attr('for')
+            var input = $('#' + inputId)
             input.val(index)
           })
         },
@@ -33,7 +33,7 @@
       var list = $('<ul class="connectedSortable"></ul>')
       fieldset.find('input.ordering').hide()
       fieldset.find('input.lead').each(function (i, item) {
-        $item = $(item)
+        var $item = $(item)
         $item.hide()
         $item.siblings('[for=' + $item.attr('id') + ']').hide()
       })

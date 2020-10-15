@@ -46,8 +46,8 @@
       enableSupersededOrgFieldIfClosed()
 
       function enableSupersededOrgFieldIfClosed () {
-        var superseded_org_fields = ['replaced', 'split', 'merged', 'changed_name', 'devolved']
-        if (superseded_org_fields.indexOf($govUkClosedStatusField.val()) > -1) {
+        var supersededOrgFields = ['replaced', 'split', 'merged', 'changed_name', 'devolved']
+        if (supersededOrgFields.indexOf($govUkClosedStatusField.val()) > -1) {
           enableSupersededOrgField()
         } else {
           disabledSupersededOrgField()
@@ -68,10 +68,10 @@
     },
 
     toggleCustomLogoField: function toggleCustomLogoField () {
-      var $logo_selector = $('#organisation_organisation_logo_type_id')
-      var value_for_custom_logo = 14
-      $logo_selector.chosen().change(function (event) {
-        if ($(this).val() == value_for_custom_logo) {
+      var $logoSelector = $('#organisation_organisation_logo_type_id')
+      var valueForCustomLogo = '14'
+      $logoSelector.chosen().change(function (event) {
+        if ($(this).val() === valueForCustomLogo) {
           $('.organisation-custom-logo').slideDown()
         } else {
           $('.organisation-custom-logo').slideUp()

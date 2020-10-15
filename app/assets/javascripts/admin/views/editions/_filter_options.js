@@ -17,8 +17,8 @@
       self.updateResults()
     })
 
-    var textFields = $('.btn-enter-wrapper').map(function () {
-      return new self.TextFieldHandler({
+    $('.btn-enter-wrapper').each(function () {
+      new self.TextFieldHandler({ // eslint-disable-line no-new
         form: self.$filterForm,
         el: this,
         filterOptions: self

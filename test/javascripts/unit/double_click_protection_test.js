@@ -9,24 +9,24 @@ module('Double click protection', {
 })
 
 test('clicking submit input disables the button', function () {
-  var $submit_tag = this.$form.find('input[type=submit]')
-  ok(!$submit_tag.prop('disabled'))
+  var $submitTag = this.$form.find('input[type=submit]')
+  ok(!$submitTag.prop('disabled'))
 
   this.$form.on('submit', function (e) {
     e.preventDefault()
-    ok($submit_tag.prop('disabled'))
+    ok($submitTag.prop('disabled'))
   })
 
-  $submit_tag.click()
+  $submitTag.click()
 })
 
 test('clicking submit input creates a hidden input with the same name and value', function () {
-  var $submit_tag = this.$form.find('input[type=submit]')
+  var $submitTag = this.$form.find('input[type=submit]')
 
   this.$form.on('submit', function (e) {
     e.preventDefault()
     ok($('form input[type=hidden][name=input_name][value=Save]').length > 0)
   })
 
-  $submit_tag.click()
+  $submitTag.click()
 })

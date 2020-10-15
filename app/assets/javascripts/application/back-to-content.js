@@ -39,14 +39,15 @@
           var stop = $el.data('backToContent-stop')
           var offset = $el.data('backToContent-offset')
           var windowOffset = $el.data('backToContent-windowOffset')
-          var $nav; var top
+          var $nav
+          var top
 
           if (!start) {
             $nav = $($el.find('a').attr('href'))
             start = $nav.height() + $nav.offset().top + padding
             $el.data('backToContent-start', start)
 
-            top = $el.css('top') == 'auto'
+            top = $el.css('top') === 'auto'
 
             offset = $('#page').offset().top - (top ? -15 : 15) // 15px from the $gutter-half in the css
             $el.data('backToContent-offset', offset)

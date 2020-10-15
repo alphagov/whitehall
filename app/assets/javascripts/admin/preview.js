@@ -1,36 +1,37 @@
+/* global govspeakBarcharts */
 (function ($) {
   var _enablePreview = function () {
     $(this).each(function () {
       var textarea = $(this)
       var preview = $("<div id='" + textarea.attr('id') + "_preview'></div>")
-      var preview_controls = $("<span class='preview-controls'></span>")
-      var preview_link = $("<a href='#' class='show-preview'>preview</a>")
-      var edit_link = $("<a href='#' class='show-editor'>continue editing</a>")
-      var loading_indicator = $("<span class='loading'>please wait...</span>")
+      var previewControls = $("<span class='preview-controls'></span>")
+      var previewLink = $("<a href='#' class='show-preview'>preview</a>")
+      var editLink = $("<a href='#' class='show-editor'>continue editing</a>")
+      var loadingIndicator = $("<span class='loading'>please wait...</span>")
       var label = $('label[for=' + textarea.attr('id') + ']')
 
-      preview_controls.append(preview_link)
-      preview_controls.append(edit_link)
-      preview_controls.append(loading_indicator)
-      label.append(preview_controls)
+      previewControls.append(previewLink)
+      previewControls.append(editLink)
+      previewControls.append(loadingIndicator)
+      label.append(previewControls)
       label.after(preview)
 
       var showEditor = function () {
         preview.empty()
-        edit_link.hide()
+        editLink.hide()
         textarea.show()
-        preview_link.show()
-        loading_indicator.hide()
+        previewLink.show()
+        loadingIndicator.hide()
         $(document).trigger('govuk.WordsToAvoidGuide.enable')
       }
 
       var showPreview = function () {
         $(document).trigger('govuk.WordsToAvoidGuide.disable')
         textarea.hide()
-        preview_link.hide()
+        previewLink.hide()
         preview.enhanceYoutubeVideoLinks()
         preview.show()
-        edit_link.show()
+        editLink.show()
       }
 
       var imageNodes = function () {
@@ -62,7 +63,7 @@
       }
       showEditor()
 
-      preview_link.click(function () {
+      previewLink.click(function () {
         var params = {
           body: textarea.val(),
           authenticity_token: $('meta[name=csrf-token]').attr('content'),
@@ -70,14 +71,14 @@
           attachment_ids: attachmentIds(),
           alternative_format_provider_id: alternativeFormatProviderId()
         }
-        loading_indicator.show()
-        preview_link.hide()
+        loadingIndicator.show()
+        previewLink.hide()
         $.ajax({
           type: 'POST',
           url: '/government/admin/preview',
           data: params,
           success: function (data) {
-            loading_indicator.hide()
+            loadingIndicator.hide()
             preview.html(data)
             showPreview()
             govspeakBarcharts()
@@ -90,7 +91,7 @@
         return false
       })
 
-      edit_link.click(function () {
+      editLink.click(function () {
         showEditor()
         return false
       })

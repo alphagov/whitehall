@@ -1,9 +1,3 @@
-/* global $ */
-/* jslint
- white: true,
- vars: true,
- indent: 2
-*/
 (function ($) {
   'use strict'
   function getOffset (el) {

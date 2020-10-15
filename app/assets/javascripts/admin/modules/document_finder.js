@@ -58,7 +58,7 @@
     },
 
     searchTermChanged: function () {
-      return this.$searchTerm.val() != documentFinder.searchTermContent
+      return this.$searchTerm.val() !== documentFinder.searchTermContent
     },
 
     searchForDocument: function () {
@@ -93,7 +93,7 @@
 
     selectDocFromMenu: function (event, ui) {
       $.each(this.latestResults, function (i, result) {
-        if (result.title == ui.item.label) {
+        if (result.title === ui.item.label) {
           documentFinder.$documentIdInput.val(result.document_id).trigger('change')
           documentFinder.$editionIdInput.val(result.id).trigger('change')
         }

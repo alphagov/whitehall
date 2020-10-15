@@ -82,25 +82,27 @@ jQuery(function ($) {
 (function ($) {
   var $label = $('.check-date-valid')
   var $message = $('.date-warning-info').hide()
+
+  function checkDateValidity () {
+    var year = $year[0].value
+    var month = (parseInt($month[0].value) - 1)
+    var day = $day[0].value
+    var dateSet = new Date(year, month, day)
+    var today = new Date()
+    if (today < dateSet) {
+      $message.addClass('warning')
+      $message.show()
+    } else {
+      $message.removeClass('warning')
+      $message.hide()
+    }
+  }
+
   if ($label.length > 0) {
     var id = $($('.check-date-valid')[0]).attr('for')
     var $year = $('#' + id + '_1i')
     var $month = $('#' + id + '_2i')
     var $day = $('#' + id + '_3i')
-    function checkDateValidity () {
-      var year = $year[0].value
-      var month = (parseInt($month[0].value) - 1)
-      var day = $day[0].value
-      var dateSet = new Date(year, month, day)
-      var today = new Date()
-      if (today < dateSet) {
-        $message.addClass('warning')
-        $message.show()
-      } else {
-        $message.removeClass('warning')
-        $message.hide()
-      }
-    }
     $year.bind('blur', checkDateValidity)
     $month.bind('blur', checkDateValidity)
     $day.bind('blur', checkDateValidity)
@@ -131,31 +133,32 @@ jQuery(function ($) {
   var $message = $('.title-length-info').hide()
   var $count = $message.find('.count')
 
+  function checkLength () {
+    var length = $input.val().split('').length
+
+    $count.text('Current length: ' + length)
+    if (length > 149) {
+      $input.removeClass('warning')
+      $message.removeClass('warning')
+      $input.addClass('error')
+      $message.addClass('error')
+      $message.show()
+    } else if (length > 65) {
+      $input.removeClass('error')
+      $message.removeClass('error')
+      $input.addClass('warning')
+      $message.addClass('warning')
+      $message.show()
+    } else {
+      $input.removeClass('error')
+      $message.removeClass('error')
+      $input.removeClass('warning')
+      $message.removeClass('warning')
+    }
+  }
+
   if ($input.length > 0) {
     $input.addClass('title-length-input')
-    function checkLength () {
-      var length = $input.val().split('').length
-
-      $count.text('Current length: ' + length)
-      if (length > 149) {
-        $input.removeClass('warning')
-        $message.removeClass('warning')
-        $input.addClass('error')
-        $message.addClass('error')
-        $message.show()
-      } else if (length > 65) {
-        $input.removeClass('error')
-        $message.removeClass('error')
-        $input.addClass('warning')
-        $message.addClass('warning')
-        $message.show()
-      } else {
-        $input.removeClass('error')
-        $message.removeClass('error')
-        $input.removeClass('warning')
-        $message.removeClass('warning')
-      }
-    }
     $input.bind('keyup', checkLength)
     checkLength()
   }

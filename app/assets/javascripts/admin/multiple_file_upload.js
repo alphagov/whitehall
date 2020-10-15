@@ -2,7 +2,7 @@
   var _enableMultipleFileUploads = function () {
     $(this).each(function () {
       var elementId = $(this).attr('id')
-      if (elementId == undefined) {
+      if (elementId === undefined) {
         console.log('Element must have an ID; multiple file upload behaviour has not been enabled.')
         return
       }

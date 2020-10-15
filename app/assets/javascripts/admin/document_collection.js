@@ -8,10 +8,10 @@
   var documentCollectionCheckboxSelector = {
     init: function () {
       $('section.group ul.controls input:checkbox').click(function () {
-        var to_toggle = $(this)
+        var toToggle = $(this)
           .parents('section.group')
           .find('ol.document-list input:checkbox')
-        $(to_toggle).prop('checked', $(this).is(':checked'))
+        $(toToggle).prop('checked', $(this).is(':checked'))
       })
     }
   }

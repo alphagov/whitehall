@@ -77,7 +77,7 @@
     this.doPost()
   }
 
-  DocumentGroupOrdering.prototype.DocumentGroup = function DocumentGroup (document_group_ordering, documentList) {
+  DocumentGroupOrdering.prototype.DocumentGroup = function DocumentGroup (documentGroupOrdering, documentList) {
     documentList = $(documentList)
 
     this.groupID = function groupID () {
@@ -95,7 +95,7 @@
       distance: 5,
       axis: 'y',
       connectWith: '.document-list',
-      stop: $.proxy(document_group_ordering.onDrop, document_group_ordering)
+      stop: $.proxy(documentGroupOrdering.onDrop, documentGroupOrdering)
     })
   }
 

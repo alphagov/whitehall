@@ -21,25 +21,25 @@
 
     showChangeNotesIfMajorChange: function showChangeNotesIfMajorChange () {
       var $fieldset = $('.js-change-notes', this.$form)
-      var $radio_buttons = $('input[type=radio]', $fieldset)
-      var $minor_change_radio_button = $('#edition_minor_change_true', $fieldset)
-      var $change_notes_section = $('.js-change-notes-section', $fieldset)
+      var $radioButtons = $('input[type=radio]', $fieldset)
+      var $minorChangeRadioButton = $('#edition_minor_change_true', $fieldset)
+      var $changeNotesSection = $('.js-change-notes-section', $fieldset)
 
-      $radio_buttons.change(showOrHideChangeNotes)
+      $radioButtons.change(showOrHideChangeNotes)
       appendHintToFormLabel()
       showOrHideChangeNotes()
 
       function appendHintToFormLabel () {
-        var $label = $($change_notes_section).find('label')
-        var example_text = 'For example, "Edited chapter 6 - centres in Cardiff and Aberystwyth have closed."'
-        $label.append('<p class="hint"; style="font-weight: normal">' + example_text + '</p>')
+        var $label = $($changeNotesSection).find('label')
+        var exampleText = 'For example, "Edited chapter 6 - centres in Cardiff and Aberystwyth have closed."'
+        $label.append('<p class="hint"; style="font-weight: normal">' + exampleText + '</p>')
       }
 
       function showOrHideChangeNotes () {
-        if ($minor_change_radio_button.prop('checked')) {
-          $change_notes_section.slideUp(200)
+        if ($minorChangeRadioButton.prop('checked')) {
+          $changeNotesSection.slideUp(200)
         } else {
-          $change_notes_section.slideDown(200)
+          $changeNotesSection.slideDown(200)
         }
       }
     },
@@ -100,7 +100,7 @@
 
     toggleWorldNewsStoryVisibility: function toggleWorldNewsStoryVisibility () {
       // only toggle fields when news article type is editable
-      if ($('select#edition_news_article_type_id').length == 0) return
+      if ($('select#edition_news_article_type_id').length === 0) return
 
       var $nonWorldNewsStoryFieldsets = this.findFieldsets(this.nonWorldNewsStoryFieldSelectors())
       var $worldNewsStoryFieldsets = this.findFieldsets(this.worldNewsStoryFieldSelectors())
@@ -144,9 +144,9 @@
     },
 
     isWorldNewsStorySelected: function () {
-      var worldNewsStoryTypeValue = 4
+      var worldNewsStoryTypeValue = '4'
 
-      return this.$newsTypeSelect.val() == worldNewsStoryTypeValue
+      return this.$newsTypeSelect.val() === worldNewsStoryTypeValue
     },
 
     hideFieldsets: function (fieldsets) {
@@ -163,7 +163,7 @@
 
     resetWorldNewsStoryFields: function resetWorldNewsStoryFields () {
       // only toggle fields when news article type is editable
-      if ($('select#edition_news_article_type_id').length == 0) return
+      if ($('select#edition_news_article_type_id').length === 0) return
 
       var $nonWorldNewsStoryMultipleSelectInputs = this.findSelectInputs(this.nonWorldNewsStoryMultipleSelectInputSelectors())
       var $nonWorldNewsStorySelectInputs = this.findSelectInputs(this.nonWorldNewsStorySelectInputSelectors())
@@ -221,7 +221,7 @@
 
     resetSelectInputs: function (selectInputs) {
       $.each(selectInputs, function (index, selectInput) {
-        if (selectInput.val() != '') {
+        if (selectInput.val() !== '') {
           selectInput.val('').trigger('chosen:updated')
         }
       })
@@ -243,16 +243,16 @@
       // datetime_select can't set defaults if include_blank is true, so do it here.
       $('#edition_first_published_at_4i, #edition_first_published_at_5i').each(function (index) {
         var $this = $(this)
-        if ($this.val() == '') {
+        if ($this.val() === '') {
           $this.val('00')
         }
       })
       var $firstPublished = $('.first-published-date .js-show-first-published')
-      var $previouslyPublished_button = $('#edition_previously_published_true')
+      var $previouslyPublishedButton = $('#edition_previously_published_true')
       var $radioButtons = $('.first-published-date input[type=radio]')
 
       function showOrHideDateSelector () {
-        if ($previouslyPublished_button.prop('checked')) {
+        if ($previouslyPublishedButton.prop('checked')) {
           $firstPublished.show()
         } else {
           $firstPublished.hide()

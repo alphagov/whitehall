@@ -275,7 +275,7 @@ test('the foreign language fieldset should initially be hidden', function () {
 })
 
 test("the foreign language fieldset should only be visible when selecting the 'World news story' News Article type", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $select.find('option:contains(News story)').prop('selected', true).change()
   ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden')
@@ -291,7 +291,7 @@ test("the foreign language fieldset should only be visible when selecting the 'W
 })
 
 test("unselecting 'World news story' hides and resets the locale fields", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $select.find('option:contains(World news story)').prop('selected', true).change()
   ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible')
@@ -405,7 +405,7 @@ test('the role-appointments fieldset should initially be visible', function () {
 })
 
 test("selecting the 'World news story' News Article type hides the role-appointments fieldset and resets the role-appointments", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $('#edition_role_appointment_ids').val('3850').change()
 
@@ -416,7 +416,7 @@ test("selecting the 'World news story' News Article type hides the role-appointm
 })
 
 test("unselecting 'World news story' shows the role-appointments fieldset", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $select.find('option:contains(News story)').prop('selected', true).change()
   ok($('fieldset.role-appointments').is(':visible'), 'role-appointments fieldset is hidden')
@@ -442,7 +442,7 @@ test('the worldwide organisation fieldset should initially be hidden', function 
 })
 
 test("the worldwide organisation fieldset should only be visible when selecting the 'World news story' News Article type", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $select.find('option:contains(News story)').prop('selected', true).change()
   ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden')
@@ -458,7 +458,7 @@ test("the worldwide organisation fieldset should only be visible when selecting 
 })
 
 test("unselecting 'World news story' hides and resets the worldwide organisation fields", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $select.find('option:contains(World news story)').prop('selected', true).change()
   ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible')
@@ -492,7 +492,7 @@ test('the organisations fieldset should initially be visible', function () {
 })
 
 test("selecting the 'World news story' News Article type hides the organisation fieldset and resets the organisations", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $('#edition_lead_organisation_ids_1').val('1212').change()
   $('#edition_supporting_organisation_ids_1').val('1025').change()
@@ -505,7 +505,7 @@ test("selecting the 'World news story' News Article type hides the organisation 
 })
 
 test("unselecting 'World news story' shows the organisation fieldset", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
   $select.find('option:contains(News story)').prop('selected', true).change()
   ok($('fieldset.organisations').is(':visible'), 'organisations fieldset is hidden')

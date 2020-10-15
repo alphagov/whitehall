@@ -2,22 +2,22 @@ module('Previewing contents of a textarea', {
   setup: function () {
     var textarea = $('<textarea id="blah"># preview this</textarea>')
     var label = $('<label for="blah"></label>')
-    var image_inputs = $('<fieldset class="images">' +
+    var imageInputs = $('<fieldset class="images">' +
       '<div class="image lead"><input name="edition[images_attributes][0][id]" type="hidden" value="1"></div>' +
       '<div class="image"><input name="edition[images_attributes][1][id]" type="hidden" value="2"></div>' +
       '</fieldset>')
-    var attachment_inputs = $('<fieldset class="attachments">' +
+    var attachmentInputs = $('<fieldset class="attachments">' +
       '<input id="edition_edition_attachments_attributes_0_attachment_attributes_id" name="edition[edition_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
       '</fieldset>')
-    var alternative_format_provider_select = $('<select id="edition_alternative_format_provider_id">' +
+    var alternativeFormatProviderSelect = $('<select id="edition_alternative_format_provider_id">' +
       '<option value="1">Ministry of Song</option>' +
       '<option value="2" selected="selected">Ministry of Silly Walks</option>' +
       '</select>')
     $('#qunit-fixture').append(textarea)
     $('#qunit-fixture').append(label)
-    $('#qunit-fixture').append(image_inputs)
-    $('#qunit-fixture').append(attachment_inputs)
-    $('#qunit-fixture').append(alternative_format_provider_select)
+    $('#qunit-fixture').append(imageInputs)
+    $('#qunit-fixture').append(attachmentInputs)
+    $('#qunit-fixture').append(alternativeFormatProviderSelect)
     textarea.enablePreview()
 
     this.stubbingPreviewAjax = function (callback, preventResponse) {
@@ -150,7 +150,7 @@ test('should show the editor when clicking edit again', sinon.test(function () {
 }))
 
 test('should show an alert if the response was not 200', sinon.test(function () {
-  var ajax = this.spy(jQuery, 'ajax')
+  this.spy(jQuery, 'ajax')
   var server = this.sandbox.useFakeServer()
   server.respondWith('POST', '/government/admin/preview',
     [403, { 'Content-Type': 'text/html' },

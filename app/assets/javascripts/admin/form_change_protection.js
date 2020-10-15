@@ -28,7 +28,7 @@
     alertIfUnsavedChanges: function () {
       var current = formChangeProtection.serialisedFormValues()
 
-      if (current != formChangeProtection.initialState) {
+      if (current !== formChangeProtection.initialState) {
         return formChangeProtection.message
       }
     },

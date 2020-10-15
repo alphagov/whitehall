@@ -8,7 +8,7 @@
         var $link = $(this)
 
         window.GOVUK.smartPoller(2000, function (retry) {
-          if ($('a.js-broken-links-refresh').length != 0) {
+          if ($('a.js-broken-links-refresh').length !== 0) {
             $link.click()
             retry()
           }

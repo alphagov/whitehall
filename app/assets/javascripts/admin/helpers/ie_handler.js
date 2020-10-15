@@ -1,3 +1,4 @@
+/* global ieVersion */
 (function () {
   'use strict'
   window.GOVUK = window.GOVUK || {}

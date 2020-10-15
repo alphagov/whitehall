@@ -1,3 +1,5 @@
+/* global GOVUKAdmin */
+
 (function (Modules) {
   'use strict'
 

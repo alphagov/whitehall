@@ -1,23 +1,23 @@
 module('Uploading multiple files', {
   setup: function () {
-    this.fieldset = $('\
-      <fieldset id="image_fields" class="images multiple_file_uploads">\
-        <div class="file_upload well">\
-          <div class="form-group">\
-            <label for="edition_images_attributes_0_image_data_attributes_file">File</label>\
-            <input id="edition_images_attributes_0_image_data_attributes_file" name="edition[images_attributes][0][image_data_attributes][file]" type="file" class="js-upload-image-input" />\
-            <input id="edition_images_attributes_0_image_data_attributes_file_cache" name="edition[images_attributes][0][image_data_attributes][file_cache]" type="hidden" />\
-          </div>\
-          <div class="form-group">\
-            <label for="edition_images_attributes_0_alt_text">Alt text</label>\
-            <input id="edition_images_attributes_0_alt_text" name="edition[images_attributes][0][alt_text]" type="text" />\
-          </div>\
-          <div class="form-group">\
-            <label for="edition_images_attributes_0_caption">Caption</label>\
-            <textarea id="edition_images_attributes_0_caption" name="edition[images_attributes][0][caption]"></textarea>\
-          </div>\
-        </div>\
-      </fieldset>')
+    this.fieldset = $(
+      '<fieldset id="image_fields" class="images multiple_file_uploads">' +
+      '<div class="file_upload well">' +
+      '<div class="form-group">' +
+      '<label for="edition_images_attributes_0_image_data_attributes_file">File</label>' +
+      '<input id="edition_images_attributes_0_image_data_attributes_file" name="edition[images_attributes][0][image_data_attributes][file]" type="file" class="js-upload-image-input" />' +
+      '<input id="edition_images_attributes_0_image_data_attributes_file_cache" name="edition[images_attributes][0][image_data_attributes][file_cache]" type="hidden" />' +
+      '</div>' +
+      '<div class="form-group">' +
+      '<label for="edition_images_attributes_0_alt_text">Alt text</label>' +
+      '<input id="edition_images_attributes_0_alt_text" name="edition[images_attributes][0][alt_text]" type="text" />' +
+      '</div>' +
+      '<div class="form-group">' +
+      '<label for="edition_images_attributes_0_caption">Caption</label>' +
+      '<textarea id="edition_images_attributes_0_caption" name="edition[images_attributes][0][caption]"></textarea>' +
+      '</div>' +
+      '</div>' +
+      '</fieldset>')
 
     $('#qunit-fixture').append(this.fieldset)
     this.first_file_input = $('#edition_images_attributes_0_image_data_attributes_file')
@@ -41,7 +41,7 @@ test('should not add a new file input when a selected file is clicked', function
 })
 
 test('should continue adding new inputs as new files are selected', function () {
-  for (i = 0; i < 10; i++) {
+  for (var i = 0; i < 10; i++) {
     fireClickEventOnLastFileInputOf(this.fieldset)
   }
   equal(this.fieldset.children('.file_upload').length, 11)
@@ -72,43 +72,43 @@ test('should increment the ID and name of the caption textarea for each set of n
 
 test('should increment the referenced ID of the file label for each set of new inputs added', function () {
   fireClickEventOnLastFileInputOf(this.fieldset)
-  var latest_input = this.fieldset.find("label:contains('File'):last")
-  equal(latest_input.attr('for'), 'edition_images_attributes_1_image_data_attributes_file')
+  var latestInput = this.fieldset.find("label:contains('File'):last")
+  equal(latestInput.attr('for'), 'edition_images_attributes_1_image_data_attributes_file')
 
   fireClickEventOnLastFileInputOf(this.fieldset)
-  latest_input = this.fieldset.find("label:contains('File'):last")
-  equal(latest_input.attr('for'), 'edition_images_attributes_2_image_data_attributes_file')
+  latestInput = this.fieldset.find("label:contains('File'):last")
+  equal(latestInput.attr('for'), 'edition_images_attributes_2_image_data_attributes_file')
 })
 
 test('should increment the ID and name of the file input for each set of new inputs added', function () {
   fireClickEventOnLastFileInputOf(this.fieldset)
-  var latest_input = this.fieldset.find('input[type=file]:last')[0]
-  equal(latest_input.id, 'edition_images_attributes_1_image_data_attributes_file')
-  equal(latest_input.name, 'edition[images_attributes][1][image_data_attributes][file]')
+  var latestInput = this.fieldset.find('input[type=file]:last')[0]
+  equal(latestInput.id, 'edition_images_attributes_1_image_data_attributes_file')
+  equal(latestInput.name, 'edition[images_attributes][1][image_data_attributes][file]')
 
   fireClickEventOnLastFileInputOf(this.fieldset)
-  latest_input = this.fieldset.find('input[type=file]:last')[0]
-  equal(latest_input.id, 'edition_images_attributes_2_image_data_attributes_file')
-  equal(latest_input.name, 'edition[images_attributes][2][image_data_attributes][file]')
+  latestInput = this.fieldset.find('input[type=file]:last')[0]
+  equal(latestInput.id, 'edition_images_attributes_2_image_data_attributes_file')
+  equal(latestInput.name, 'edition[images_attributes][2][image_data_attributes][file]')
 })
 
 test('should increment the ID and name of the hidden cache input for each set of new inputs added', function () {
   fireClickEventOnLastFileInputOf(this.fieldset)
-  var latest_input = this.fieldset.find('input[type=hidden]:last')[0]
-  equal(latest_input.id, 'edition_images_attributes_1_image_data_attributes_file_cache')
-  equal(latest_input.name, 'edition[images_attributes][1][image_data_attributes][file_cache]')
+  var latestInput = this.fieldset.find('input[type=hidden]:last')[0]
+  equal(latestInput.id, 'edition_images_attributes_1_image_data_attributes_file_cache')
+  equal(latestInput.name, 'edition[images_attributes][1][image_data_attributes][file_cache]')
 
   fireClickEventOnLastFileInputOf(this.fieldset)
-  latest_input = this.fieldset.find('input[type=hidden]:last')[0]
-  equal(latest_input.id, 'edition_images_attributes_2_image_data_attributes_file_cache')
-  equal(latest_input.name, 'edition[images_attributes][2][image_data_attributes][file_cache]')
+  latestInput = this.fieldset.find('input[type=hidden]:last')[0]
+  equal(latestInput.id, 'edition_images_attributes_2_image_data_attributes_file_cache')
+  equal(latestInput.name, 'edition[images_attributes][2][image_data_attributes][file_cache]')
 })
 
 test('should make the value of the text input blank for each set of new inputs added', function () {
   this.fieldset.find('input[type=text]:last').val('not-blank')
   fireClickEventOnLastFileInputOf(this.fieldset)
-  var latest_input = this.fieldset.find('input[type=text]:last')
-  equal(latest_input.val(), '')
+  var latestInput = this.fieldset.find('input[type=text]:last')
+  equal(latestInput.val(), '')
 })
 
 test('should make the value of the caption textarea blank for each set of new inputs added', function () {
@@ -120,13 +120,13 @@ test('should make the value of the caption textarea blank for each set of new in
 test('should set the value of the hidden cache input to blank for each new input added', function () {
   $('input[type=hidden]:last').val('not-blank')
   fireClickEventOnLastFileInputOf(this.fieldset)
-  var latest_input = this.fieldset.find('input[type=hidden]:last')
-  equal(latest_input.val(), '')
+  var latestInput = this.fieldset.find('input[type=hidden]:last')
+  equal(latestInput.val(), '')
 })
 
 test('should set the text of the already_uploaded element to blank for each new input added', function () {
-  already_uploaded = $('<span class="already_uploaded">some-file.pdf already uploaded</span>')
-  $('input[type=file]:last').after(already_uploaded)
+  var alreadyUploaded = $('<span class="already_uploaded">some-file.pdf already uploaded</span>')
+  $('input[type=file]:last').after(alreadyUploaded)
   fireClickEventOnLastFileInputOf(this.fieldset)
   equal(this.fieldset.find('.already_uploaded').length, 2)
   equal(this.fieldset.find('.already_uploaded:last').text(), '')
@@ -134,19 +134,18 @@ test('should set the text of the already_uploaded element to blank for each new 
 
 module('Uploading multiple files after file field validation error', {
   setup: function () {
-    this.fieldset = $('\
-      <fieldset id="image_fields" class="images multiple_file_uploads">\
-        <div class="file_upload well">\
-          <div class="field_with_errors">\
-            <label for="edition_images_attributes_0_image_data_attributes_file">File</label>\
-          </div>\
-          <div class="field_with_errors">\
-            <input id="edition_images_attributes_0_image_data_attributes_file"\ name="edition[images_attributes][0][image_data_attributes][file]" type="file" class="js-upload-image-input" />\
-          </div>\
-          <input id="edition_images_attributes_0_image_data_attributes_file_cache"\ name="edition[images_attributes][0][image_data_attributes][file_cache]" type="hidden" />\
-        </div>\
-      </fieldset>\
-    ')
+    this.fieldset = $(
+      '<fieldset id="image_fields" class="images multiple_file_uploads">' +
+      '<div class="file_upload well">' +
+      '<div class="field_with_errors">' +
+      '<label for="edition_images_attributes_0_image_data_attributes_file">File</label>' +
+      '</div>' +
+      '<div class="field_with_errors">' +
+      '<input id="edition_images_attributes_0_image_data_attributes_file" name="edition[images_attributes][0][image_data_attributes][file]" type="file" class="js-upload-image-input" />' +
+      '</div>' +
+      '<input id="edition_images_attributes_0_image_data_attributes_file_cache" name="edition[images_attributes][0][image_data_attributes][file_cache]" type="hidden" />' +
+      '</div>' +
+      '</fieldset>')
     $('#qunit-fixture').append(this.fieldset)
     this.fieldset.enableMultipleFileUploads()
   }

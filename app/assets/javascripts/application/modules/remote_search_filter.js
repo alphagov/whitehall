@@ -57,7 +57,7 @@
   }
 
   RemoteSearchFilter.prototype.urlForParams = function urlForParams (filterParams) {
-    if (filterParams.length == 0) {
+    if (filterParams.length === 0) {
       return this.searchUrl
     } else {
       return this.searchUrl + '?' + $.param(filterParams)

@@ -1,20 +1,20 @@
 jQuery.elemental = function (element, content, options) {
-  attributes = []
+  var attributes = []
 
   if (typeof (options) === 'string') {
     var m
     var o
 
-    if (m = options.match(/(\.)([-\w]+)/)) {
+    if (m = options.match(/(\.)([-\w]+)/)) { // eslint-disable-line
       o = { class: m[2] }
-    } else if (m = options.match(/(\#)([-\w]+)/)) {
+    } else if (m = options.match(/(\#)([-\w]+)/)) { //eslint-disable-line
       o = { id: m[2] }
     };
 
     options = o
   }
 
-  for (key in options) {
+  for (var key in options) {
     attributes.push(key + '="' + options[key] + '"')
   }
 

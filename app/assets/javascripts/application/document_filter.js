@@ -1,11 +1,4 @@
-/* jslint
- browser: true,
- white: true,
- plusplus: true,
- vars: true,
- nomen: true */
-/* global jQuery */
-
+/* global ieVersion */
 if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
 (function ($) {
   'use strict'
@@ -79,7 +72,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
       var newUrl = url + '?' + $form.serialize()
       var publicationType = $form.find('#publication_filter_option option:selected').val()
 
-      if (publicationType == 'statistics') {
+      if (publicationType === 'statistics') {
         $('.feeds').addClass('js-hidden')
         documentFilter.showStatisticsNotice()
         documentFilter.updateHistory(newUrl)
@@ -123,7 +116,6 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
     liveResultSummary: function (data) {
       var $filterSummary = $('.filter-results-summary')
       var $title = $('.headings-block h1')
-      var summary = ''
       var formStatus = documentFilter.currentPageState()
       var context = {}
       var i; var _i; var j; var _j; var field
@@ -142,8 +134,8 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
         for (i = 0, _i = formStatus.selected.length; i < _i; i++) {
           field = formStatus.selected[i]
           if (field.title.length > 0) {
-            if (field.id == 'publication_filter_option' || field.id == 'announcement_filter_option') {
-              if (field.value != 'all') {
+            if (field.id === 'publication_filter_option' || field.id === 'announcement_filter_option') {
+              if (field.value !== 'all') {
                 $title.html($title.text().trim() + '<span>: ' + field.title[0] + '</span>')
               }
             } else if (field.id === 'world_locations') {
@@ -161,7 +153,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
               if (context.world_locations.length > 0) {
                 context['world_locations_any?'] = true
               }
-            } else if (field.id == 'official_document_status') {
+            } else if (field.id === 'official_document_status') {
               switch (field.value[0]) {
                 case 'command_and_act_papers':
                   context['filtering_command_and_act_papers?'] = true
@@ -172,7 +164,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
                 case 'act_papers_only':
                   context['filtering_act_papers_only?'] = true
               }
-            } else if (field.id != 'sub_orgs' && field.id != 'date') {
+            } else if (field.id !== 'sub_orgs' && field.id !== 'date') {
               context[field.id] = []
 
               for (j = 0, _j = field.title.length; j < _j; j++) {
@@ -190,7 +182,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
         }
       }
 
-      if (context.subtaxons && context.subtaxons.length != 0) {
+      if (context.subtaxons && context.subtaxons.length !== 0) {
         // If a subtaxon is present, use it over the parent taxon
         context.taxons = context.subtaxons
         delete context.subtaxons

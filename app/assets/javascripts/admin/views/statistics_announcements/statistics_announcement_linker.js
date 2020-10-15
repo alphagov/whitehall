@@ -20,7 +20,7 @@
 
       // insert the revealLink at the appropriate point with the appropriate
       // text depending on whether it's linking or changing an existing link
-      if ($publicationInput.val() == '') {
+      if ($publicationInput.val() === '') {
         $revealLink.text('connect an existing draft')
         $linker.append(' or ').append($revealLink)
       } else {

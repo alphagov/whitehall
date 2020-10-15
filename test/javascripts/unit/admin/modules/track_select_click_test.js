@@ -1,3 +1,5 @@
+/* global GOVUKAdmin */
+
 var form =
   '<form id="non-english" class="js-supports-non-english"></form>'
 

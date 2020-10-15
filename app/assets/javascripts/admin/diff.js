@@ -1,10 +1,11 @@
+/* global diff_match_patch */
 (function () {
   'use strict'
   var root = this
   var $ = root.jQuery
   if (typeof root.GOVUK === 'undefined') { root.GOVUK = {} }
 
-  var dmp = new diff_match_patch()
+  var dmp = new diff_match_patch() // eslint-disable-line
   dmp.Diff_EditCost = 6
 
   root.GOVUK.diff = function (section) {
