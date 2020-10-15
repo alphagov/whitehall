@@ -1,5 +1,6 @@
 .worldwide-organisations-show {
-  .keyline-header, .description h1 {
+  .keyline-header,
+  .description h1 {
     @include heading-36;
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
@@ -27,6 +28,7 @@
         }
       }
     }
+
     .social-media-links {
       @include media(tablet) {
         float: left;
@@ -41,14 +43,17 @@
         font-weight: bold;
       }
     }
+
     .content {
       margin: 0 $gutter-half;
     }
+
     .summary {
       @include copy-19;
       font-weight: bold;
       margin-bottom: $gutter-half;
     }
+
     .description {
       .govspeak {
         h2 {
@@ -56,6 +61,7 @@
           font-weight: bold;
           padding-bottom: 0;
         }
+
         p {
           margin-top: 0;
           margin-bottom: $gutter-half;
@@ -70,14 +76,17 @@
       @include media(tablet) {
         width: $two-thirds;
       }
+
       .govspeak {
         h2 {
           @include core-19;
           font-weight: bold;
         }
+
         h3 {
           padding-bottom: 0;
         }
+
         p {
           margin-top: 0;
           padding-top: 0;
@@ -91,6 +100,7 @@
       margin-left: $gutter-half;
       margin-right: $gutter-half;
     }
+
     .people-list {
       @include media(tablet) {
         float: left;
@@ -115,6 +125,7 @@
         float: left;
         width: $one-third;
       }
+
       &.clear-contact {
         clear: both;
       }
@@ -140,11 +151,13 @@
         p {
           margin: $gutter-one-third 0;
         }
+
         .type {
           display: block;
         }
       }
     }
+
     .contact.main {
 
       @include media(desktop) {
@@ -164,6 +177,7 @@
             width: $one-third;
           }
         }
+
         .adr,
         .email-url-number {
           @include media(desktop) {
@@ -174,6 +188,7 @@
       }
     }
   }
+
   .contact-us,
   .corporate-information {
     .keyline-header {
@@ -189,6 +204,7 @@
       }
     }
   }
+
   .corporate-information {
     .keyline-header {
       border-bottom: 0;

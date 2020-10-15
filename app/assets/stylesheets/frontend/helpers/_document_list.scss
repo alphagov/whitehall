@@ -11,7 +11,8 @@
     border-bottom: 1px solid $border-colour;
     padding: $gutter-one-sixth 0 $gutter-one-third;
 
-    h2, h3,
+    h2,
+    h3,
     .title {
       display: block;
       @include core-19;

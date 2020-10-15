@@ -72,13 +72,14 @@
             display: block;
             padding-left: $gutter-two-thirds;
           }
+
           input {
             position: absolute;
             width: auto;
             top: $gutter-one-sixth;
             left: 0;
             @include media (tablet) {
-              top: $gutter * 0.25;
+              top: $gutter * .25;
             }
           }
         }
@@ -136,7 +137,7 @@
         }
 
         .disabled {
-          opacity: 0.3;
+          opacity: .3;
           cursor: default;
           @include ie-lte(7) {
             color: $secondary-text-colour;
@@ -145,7 +146,6 @@
       }
     }
   }
-
 
   .filter-results-block {
     @include media(tablet) {
@@ -158,6 +158,7 @@
 
       @include right-to-left {
         float: right;
+
         .inner-block {
           padding: $gutter-one-sixth $gutter-half 0 $gutter;
         }
@@ -203,6 +204,7 @@
 
       @include media (tablet) {
         padding-top: $gutter-one-sixth;
+
         .count {
           // The count is shifted up instead of the rest of the text down because
           // we want the flow after the summary to be determined by the length of the
@@ -215,20 +217,22 @@
     .no-results {
       padding: 0 0 $gutter-half;
       border-bottom: 1px solid $border-colour;
+
       h2 {
         @include core-27;
       }
+
       h3 {
         @include core-19;
         font-weight: bold;
       }
+
       p {
         @include core-19;
         margin: $gutter-half 0;
       }
     }
   }
-
 
   @include ie(6) {
     .filter-form,

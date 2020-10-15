@@ -46,7 +46,6 @@ $govuk-typography-use-rem: false;
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
 
-
 // HELPERS
 // Styles for comment page elements
 #whitehall-wrapper {
@@ -60,14 +59,12 @@ $govuk-typography-use-rem: false;
   @import "../shared/helpers/_magna-charta";
 }
 
-
 // VIEWS
 // Styles scoped to each template in /views
 #whitehall-wrapper {
   @import "views/attachments/_preview";
   @import "views/_html-publications";
 }
-
 
 // LAYOUTS
 // Styles scoped to a layout. Be careful.

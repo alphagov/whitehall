@@ -7,11 +7,13 @@
       width: $two-thirds;
       float: left;
     }
+
     .block-3 {
       width: $one-third;
       float: left;
       clear: right;
     }
+
     .block-4 {
       padding-top: $gutter;
       clear: both;
@@ -20,6 +22,7 @@
 
   .block {
     margin-bottom: $gutter;
+
     &.block-4 {
       @include media(tablet) {
         .see-all {
@@ -34,6 +37,7 @@
       .inner-block {
         padding-left: 0;
       }
+
       .recently-updated {
         width: $full-width;
 
@@ -60,6 +64,7 @@
     p {
       @include ig-core-24;
       margin: 0;
+
       &:first-child {
         padding-top: 0;
       }
@@ -71,6 +76,7 @@
       @include ig-core-27;
       font-weight: bold;
     }
+
     h2 {
       font-weight: bold;
     }

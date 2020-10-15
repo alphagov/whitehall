@@ -1,10 +1,11 @@
 .documents-grid {
   margin-bottom: $gutter*2;
+
   .inner-block {
     @extend %contain-floats;
     padding: 0;
 
-    @include media(tablet){
+    @include media(tablet) {
       padding: 0 $gutter-half 0;
     }
   }
@@ -21,18 +22,21 @@
     .document-block {
       width: $full-width;
 
-      @include media(tablet){
+      @include media(tablet) {
         h1 {
           width: $one-third;
           float: left;
           margin: $gutter-one-sixth 0 0;
           text-indent: $gutter-half;
         }
+
         .content {
           width: $two-thirds;
           float: left;
           margin: 0;
-          ol, p {
+
+          ol,
+          p {
             margin: 0 $gutter-half;
           }
         }
@@ -61,8 +65,10 @@
       font-weight: bold;
       margin: 0 $gutter-half $gutter-one-sixth;
     }
+
     .content {
       margin: 0 $gutter-half;
+
       .document {
         border-bottom: 1px solid $border-colour;
         padding: $gutter-one-third 0;
@@ -71,6 +77,7 @@
         h2 {
           @include core-16;
         }
+
         .metadata {
           @include core-14;
           padding-top: $gutter-one-sixth;
@@ -81,6 +88,7 @@
           }
         }
       }
+
       .see-all {
         padding-top: $gutter-one-third;
         @include core-16;

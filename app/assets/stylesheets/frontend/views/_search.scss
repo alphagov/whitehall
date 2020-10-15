@@ -3,13 +3,15 @@
     list-style: none;
     margin-bottom: $gutter;
   }
+
   .button {
     color: $white;
-    background-color: #4370CD;
-    border-color: #4370CD;
+    background-color: #4370cd;
+    border-color: #4370cd;
     line-height: 1.25em;
-    padding: 0.2em 0.5em;
+    padding: .2em .5em;
   }
+
   input#main_searchbox {
     border: 1px solid $panel-colour;
   }

@@ -20,6 +20,7 @@
       a {
         padding: $gutter-half $gutter+5px $gutter-half 0;
       }
+
       a:before {
         background: transparent image-url("arrow-sprite-2B8CC4.png") no-repeat -102px -11px;
         margin: -4px -32px 0 0;
@@ -30,13 +31,15 @@
         content: " ";
       }
     }
+
     &.previous {
       direction: ltr;
       text-align: left;
 
       a {
-          padding: $gutter-half 0 $gutter-half $gutter+5px;
+        padding: $gutter-half 0 $gutter-half $gutter+5px;
       }
+
       a:before {
         background: transparent image-url("arrow-sprite-2B8CC4.png") no-repeat -20px -11px;
         margin: -4px 0 0 -32px;
@@ -56,13 +59,16 @@
         display: block;
         @include ig-core-14;
       }
+
       &:focus .page-numbers,
       &:hover .page-numbers {
         text-decoration: underline;
       }
+
       &:hover {
         background: $grey-4;
       }
+
       &:active {
         background: $grey-3;
       }
@@ -76,18 +82,22 @@
       }
     }
   }
+
   &.infinite {
     background: transparent;
+
     li {
       text-align: left;
       float: none;
       padding-left: 40px;
       margin: 0 auto;
       width: 240px;
+
       a {
         padding: $gutter-half 0;
       }
     }
+
     &.loading li {
       background: transparent image-url("loading-2b2c2d.gif") no-repeat 0 $half;
     }

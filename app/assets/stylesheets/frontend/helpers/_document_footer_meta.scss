@@ -5,24 +5,27 @@
   .history,
   .links {
     padding-bottom: $gutter;
-    @include media(tablet){
+    @include media(tablet) {
       float: left;
       @include right-to-left {
         float: right;
       }
     }
   }
+
   .history {
-    @include media(tablet){
+    @include media(tablet) {
       width: $one-third;
     }
   }
+
   .links {
-    @include media(tablet){
+    @include media(tablet) {
       width: $two-thirds;
     }
+
     dl {
-      @include media(tablet){
+      @include media(tablet) {
         padding-left: $gutter-half;
         @include right-to-left {
           padding-left: 0;
@@ -31,27 +34,33 @@
       }
     }
   }
+
   .primary-metadata {
     dt {
       @include core-16;
       padding: ($gutter-one-sixth + $gutter-half) 0 $gutter-one-sixth 0;
+
       &:first-child {
         padding-top: $gutter-one-sixth;
       }
     }
+
     dd {
       margin-top: 5px;
       @include bold-24;
       // some bits of metadata are included inside of other tags which have a
       // default style of font-weight: normal
-      p, strong {
+      p,
+      strong {
         font-weight: bold;
       }
+
       .show-other-content {
         @include bold-24;
       }
     }
   }
+
   .footer-change-notes {
     .toggle {
       display: inline-block;
@@ -60,25 +69,32 @@
       cursor: pointer;
       text-decoration: none;
       color: $link-colour;
+
       &:focus {
         outline: none;
       }
+
       &:hover {
         text-decoration: underline;
         color: $link-hover-colour;
       }
+
       &:active {
         color: $govuk-link-active-colour;
       }
     }
+
     .overlay {
       @include core-16;
+
       h4 {
         padding: $gutter-one-sixth 0;
       }
+
       dt {
         font-weight: bold;
       }
+
       dd {
         color: $secondary-text-colour;
         padding-bottom: $gutter-one-third;

@@ -18,10 +18,10 @@
     margin-bottom: $gutter;
   }
 
-  .head-section { 
-    @include media(tablet){
+  .head-section {
+    @include media(tablet) {
       h1 {
-        padding: 0 $gutter-half;        
+        padding: 0 $gutter-half;
       }
       float: left;
       clear: both;
@@ -29,11 +29,11 @@
       @include right-to-left {
         float: right;
       }
-    }     
+    }
   }
 
   .content {
-    @include media(tablet){
+    @include media(tablet) {
       float: right;
       width: $two-thirds;
       @include right-to-left {
@@ -42,7 +42,7 @@
     }
 
     article {
-      @include media(tablet){
+      @include media(tablet) {
         padding-left: $gutter-half;
 
         @include right-to-left {
@@ -53,7 +53,7 @@
     }
 
     .document-list {
-      @include media(tablet){
+      @include media(tablet) {
         padding: 0 $gutter-half;
         margin-top: -$gutter-one-third;
       }
@@ -72,7 +72,7 @@
           padding-right: $gutter-half;
         }
       }
-      
+
       a {
         text-decoration: underline;
       }

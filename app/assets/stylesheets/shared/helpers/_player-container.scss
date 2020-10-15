@@ -39,7 +39,8 @@
       cursor: pointer;
     }
 
-    button, a {
+    button,
+    a {
       &:focus {
         background-color: orange;
         outline: none;
@@ -47,7 +48,8 @@
     }
 
     .player-controls {
-      .play, .pause {
+      .play,
+      .pause {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -67,7 +69,8 @@
         background-image: image-url('player-icon-pause.png');
       }
 
-      .rewind, .forward {
+      .rewind,
+      .forward {
         position: absolute;
         top: 0;
         z-index: 30;
@@ -115,15 +118,16 @@
         color: $light-blue;
       }
 
-      .muted::after {
+      .muted:after {
         content: "d";
       }
 
       .muted ~ * {
-        opacity: 0.333;
+        opacity: .333;
       }
 
-      .vol-down, .vol-up {
+      .vol-down,
+      .vol-up {
         position: absolute;
         bottom: 0;
         height: 40px;
@@ -134,7 +138,8 @@
         text-align: center;
         z-index: 10;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           color: $light-blue;
         }
       }
@@ -221,7 +226,7 @@
         height: $full-width;
         padding-bottom: 1px;
         width: 20px;
-        color: rgba(0,0,0,0.5);
+        color: rgba(0, 0, 0, .5);
         z-index: 10;
       }
     }

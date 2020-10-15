@@ -10,23 +10,23 @@
     display: inline;
   }
 
-  $spacing: 0.5em;
+  $spacing: .5em;
 
   input#title,
   input#url,
   select {
     margin: 0 $spacing;
   }
-  input#url,
 
+  input#url,
   input#title {
     width: 25%;
-    margin-right: 0.1em;
+    margin-right: .1em;
   }
 
   input#url {
     width: 40%;
-    margin-right: 0.5em;
+    margin-right: .5em;
   }
 
   .document-finder-fields {
@@ -43,10 +43,10 @@
 
     p.tip {
       position: absolute;
-      left: 0.7em;
+      left: .7em;
       top: 2.5em;
 
-      color: #999;
+      color: #999999;
       font-size: 10px;
     }
   }
@@ -54,6 +54,7 @@
   input.btn-xs {
     margin-right: $spacing;
   }
+
   input.btn-info {
     margin-left: $spacing;
   }

@@ -1,11 +1,12 @@
 .preview-controls {
-  margin-left: 0.5em;
+  margin-left: .5em;
 
   .loading {
-    color: #999;
+    color: #999999;
   }
 }
 
-.draft_link, .submitted_link {
-  border-bottom: 1px dashed #999;
+.draft_link,
+.submitted_link {
+  border-bottom: 1px dashed #999999;
 }

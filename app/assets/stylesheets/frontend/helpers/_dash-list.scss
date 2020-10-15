@@ -5,9 +5,10 @@
     list-style-position: inside;
     padding: 0 $gutter-half 0 0;
 
-    @media (min-width: 1px ){ // target modern browsers
+    @media (min-width: 1px) { // target modern browsers
       margin-left: $gutter-half;
       list-style: none;
+
       &:before {
         content: "-";
         position: relative;

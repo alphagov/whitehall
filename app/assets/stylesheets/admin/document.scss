@@ -2,10 +2,10 @@
 
 .document_page {
   background: #fcfcfc;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  border-bottom: 3px solid #ccc;
-  padding: 3em 10% 1em 10%;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 3px solid #cccccc;
+  padding: 3em 10% 1em;
   margin-bottom: 2em;
   overflow: auto;
 }
@@ -16,9 +16,9 @@
 
 .document {
   margin-bottom: 2em;
-  overflow:visible;
+  overflow: visible;
 
-  @media only screen and (min-width:1024px) {
+  @media only screen and (min-width: 1024px) {
     margin-right: 2%;
   }
 
@@ -30,20 +30,20 @@
     @include type-18;
     font-style: italic;
     margin-bottom: 1.5em;
-    p{
-      background-image:none;
+
+    p {
+      background-image: none;
     }
   }
 
   .body {
     a[rel="external"]:after {
       content: image-url("preview-external-link.png");
-      margin-right: 0.2em;
-      margin-left: -0.2em;
+      margin-right: .2em;
+      margin-left: -.2em;
     }
     @import "../frontend/helpers/_govspeak";
     @import "../frontend/helpers/_attachment";
-
   }
 
   pre.body {
@@ -70,7 +70,6 @@
     }
   }
 }
-
 
 pre {
   word-break: normal;
@@ -105,13 +104,16 @@ ol.uploaded-attachments {
 ol.existing-attachments {
   margin: 0;
   list-style: none;
+
   .well {
     @extend %contain-floats;
     padding: $gutter-one-third;
+
     img {
       float: left;
       margin-right: 10px;
     }
+
     span.title {
       font-weight: bold;
     }
@@ -135,7 +137,8 @@ ol.existing-attachments {
       background: $alert-background;
     }
 
-    label, input {
+    label,
+    input {
       .js & {
         display: none;
       }
@@ -157,14 +160,15 @@ ol.existing-attachments {
 }
 
 input[name="save_and_continue"] {
-  margin-left: 0.4em;
+  margin-left: .4em;
 }
 
 input[name="next"] {
-  margin-left: 0.4em;
+  margin-left: .4em;
 }
+
 input[name="legacy_tags"] {
-  margin-left: 0.4em;
+  margin-left: .4em;
 }
 
 .asset-manager-uploading-status {

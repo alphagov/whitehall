@@ -148,7 +148,6 @@ $govuk-use-legacy-palette: false;
   @import "layouts/two_column_page";
 }
 
-
 // TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
 // coming from static and the global styles set in `global/_links.scss`. This
 // can be removed when the style from static and Whitehall removed.
@@ -180,5 +179,4 @@ $govuk-use-legacy-palette: false;
       color: $govuk-text-colour;
     }
   }
-
 }

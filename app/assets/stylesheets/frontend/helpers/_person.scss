@@ -29,6 +29,7 @@
       width: $full-width;
       float: none;
     }
+
     .blank-person-inner {
       display: block;
       padding: 0 $gutter-half 0 0;
@@ -38,6 +39,7 @@
       @include media(tablet) {
         padding: 0;
       }
+
       &:after {
         background: $grey-4;
         content: '';
@@ -59,13 +61,13 @@
 
     .role {
       padding-top: govuk-spacing(1);
-      }
     }
+  }
 
   &.privy_counsellor strong {
     padding-top: 0;
-    }
   }
+}
 
 .app-person {
   margin: 0 0 govuk-spacing(5) 0;
@@ -75,8 +77,8 @@
   }
 }
 
-.app-person__image-holder  {
-    float: left;
+.app-person__image-holder {
+  float: left;
   margin: 0 govuk-spacing(3) 0 0;
   width: $one-third;
 
@@ -87,9 +89,9 @@
 
   @include mq($from: tablet) {
     margin: 0 0 govuk-spacing(1) 0;
-      float: none;
-      width: $full-width;
-    }
+    float: none;
+    width: $full-width;
+  }
 }
 
 .app-person__roles {
@@ -113,7 +115,7 @@ a.app-person-link {
   @include govuk-link-common;
   @include govuk-link-style-default;
 
-        display: inline-block;
+  display: inline-block;
   text-decoration: none;
 
   &:visited {
@@ -128,15 +130,15 @@ a.app-person-link {
     }
   }
 
-        &:focus,
+  &:focus,
   &:focus:hover {
     .app-person-link__title,
     .app-person-link__name {
       color: $govuk-focus-text-colour;
-          text-decoration: none;
-        }
-      }
+      text-decoration: none;
     }
+  }
+}
 
 .app-person-link__title {
   @extend %govuk-body-s;
@@ -146,7 +148,7 @@ a.app-person-link {
   line-height: 1;
   margin: 0;
   padding: govuk-spacing(1) 0 0 0;
-        text-decoration: none;
+  text-decoration: none;
 }
 
 .app-person-link__name {
@@ -157,11 +159,11 @@ a.app-person-link {
   line-height: 1.2;
   margin: 0;
   padding: 0;
-          text-decoration: underline;
-        }
+  text-decoration: underline;
+}
 
 .app-person-link__name--not-privy-counsellor {
   @include mq($from: tablet) {
     margin-top: 22px;
-    }
   }
+}

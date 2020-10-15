@@ -27,17 +27,19 @@ $orange: #f47738;
   margin-bottom: 0;
   line-height: 3em;
   text-align: center;
-  color: #444;
+  color: #444444;
 }
 
 .notices {
   .flash {
     @extend .flash-box;
   }
+
   .alert {
     @extend .flash-box;
     @extend .flash-alert;
   }
+
   .notice {
     @extend .flash-box;
     @extend .flash-notice;

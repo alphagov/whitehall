@@ -1,16 +1,19 @@
 a {
   text-decoration: none;
 }
+
 h1 {
   @include heading-27;
   font-weight: bold;
   margin: $gutter 0;
 }
+
 h2 {
   @include heading-24;
   font-weight: bold;
   margin: $gutter 0 0;
 }
+
 h3,
 h4,
 h5 {
@@ -18,12 +21,15 @@ h5 {
   font-weight: bold;
   margin: $gutter 0 0;
 }
+
 h4 {
   margin: $gutter-half 0 0;
 }
+
 h5 {
   margin: 0;
 }
+
 h1,
 h2,
 h3,
@@ -33,10 +39,12 @@ h5 {
     font-weight: normal;
   }
 }
+
 p {
   @include core-14;
   margin: $gutter-half 0;
 }
+
 ol,
 ul {
   list-style: decimal;
@@ -44,41 +52,51 @@ ul {
   margin-left: 0;
   padding-left: 0;
 }
+
 ul {
   list-style: disc;
 }
+
 li {
   @include core-14;
   margin-left: $gutter*1.2;
+
   li {
     margin-left: $gutter;
   }
 }
-em, i {
+
+em,
+i {
   font-style: italic;
 }
+
 blockquote {
   margin-left: $gutter-half $gutter;
+
   &:before {
     content: "\201c";
     float: left;
     margin-right: $gutter-one-third;
   }
+
   p:last-child:after {
     content: "\201d";
   }
 }
+
 hr {
   margin-top: $gutter - 1px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   margin-bottom: $gutter;
 }
+
 figure {
   width: $full-width;
   clear: both;
   overflow: hidden;
   padding: $gutter-one-third 0 0;
-  
+
   img {
     display: inline;
     text-align: center;
@@ -86,6 +104,7 @@ figure {
     height: auto;
     max-width: $full-width;
   }
+
   figcaption {
     @include core-14;
   }

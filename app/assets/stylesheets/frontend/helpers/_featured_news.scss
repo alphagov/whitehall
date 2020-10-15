@@ -1,6 +1,7 @@
 .featured-news {
   article {
     clear: both;
+
     .govuk-link {
       line-height: 1.16;
     }
@@ -25,7 +26,7 @@
         @include right-to-left {
           float: right;
         }
-        @include media(tablet){
+        @include media(tablet) {
           width: $full-width;
           float: none;
         }
@@ -45,6 +46,7 @@
           }
         }
       }
+
       .text {
         float: left;
         width: $two-thirds;
@@ -61,18 +63,22 @@
           color: $secondary-text-colour;
           padding-bottom: 0;
         }
+
         h2 {
           @include ig-core-19;
           padding-top: 0;
+
           a {
             font-weight: bold;
           }
         }
+
         h3 {
           @include core-19;
           font-weight: bold;
-          padding: $gutter-one-sixth 0 $gutter-one-third ;
+          padding: $gutter-one-sixth 0 $gutter-one-third;
         }
+
         .summary {
           @include ig-core-14;
         }

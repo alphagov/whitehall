@@ -9,7 +9,8 @@
     list-style: none;
     @include add-bottom-margin;
 
-    h2, h3 {
+    h2,
+    h3 {
       @include core-16;
       margin-top: $gutter-one-sixth;
       margin-bottom: 0;

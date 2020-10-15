@@ -18,12 +18,14 @@
           padding-right: govuk-spacing(1);
         }
       }
+
       p {
         @include govuk-media-query($from: tablet) {
           margin: govuk-spacing(0) govuk-spacing(3);
         }
       }
     }
+
     .comments {
       clear: both;
       color: $govuk-secondary-text-colour;

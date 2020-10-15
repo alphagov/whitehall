@@ -3,7 +3,8 @@
     font-size: 16px;
     display: inline-block;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       text-decoration: none;
     }
 
@@ -19,11 +20,13 @@
       }
     }
   }
+
   .no-children-icon {
     display: inline-block;
     width: 28px;
     height: 28px;
   }
+
   .taxon-name.collapsed .icon {
     &:before {
       content: '\25B8';
@@ -33,9 +36,11 @@
   label {
     font-size: 16px;
     font-weight: normal;
+
     input[type="checkbox"] {
       margin-right: 10px;
     }
+
     input[type="checkbox"]:checked + span {
       font-weight: bold;
     }
@@ -43,7 +48,7 @@
 
   .topics {
     padding-left: 36px;
-    border-left: 1px solid #aaa;
+    border-left: 1px solid #aaaaaa;
     margin-left: 6px;
   }
 }

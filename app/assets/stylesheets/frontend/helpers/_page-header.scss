@@ -21,9 +21,11 @@
   .extra-icons {
     width: $full-width;
     overflow: hidden;
+
     .organisation {
       float: left;
     }
+
     .show-other-content {
       float: left;
       margin-left: $gutter-half;
@@ -33,9 +35,8 @@
   }
 }
 
-
 .show-other-content {
   @include ig-core-14;
-  margin-left: 0.3em;
+  margin-left: .3em;
   white-space: nowrap;
 }

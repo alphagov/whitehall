@@ -1,8 +1,8 @@
 .index-list-page {
-
   ol,
   ul {
     list-style: none;
+
     li {
       margin-left: 0;
     }
@@ -15,7 +15,7 @@
   }
 
   .js-filter-form {
-    display: none!important; //using !important to override inline display: bold which is added by js
+    display: none !important; //using !important to override inline display: bold which is added by js
   }
 
   #international-delegations {
@@ -28,9 +28,11 @@
     float: left;
     width: 10%;
   }
+
   .location-list {
     width: 90%;
   }
+
   .letter {
     @include core-80;
     clear: both;

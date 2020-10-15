@@ -11,6 +11,7 @@ body {
 .sidebar-nav {
   padding: $gutter-one-third 0;
 }
+
 .sidebar {
   padding-bottom: $gutter+$gutter-one-third;
 }
@@ -25,10 +26,12 @@ body {
       content: " \25BC";
     }
   }
+
   .open {
     .toggler {
       background-color: $light-blue-50;
       color: $black;
+
       &:after {
         content: " \25B2";
       }
@@ -72,7 +75,7 @@ $collapse-tabs-width: 710px;
 }
 
 .masthead-tab-item {
-  margin-right: 0.32%;
+  margin-right: .32%;
   width: 16.4%;
   float: left;
   background: #6d6d6d;
@@ -96,7 +99,7 @@ $collapse-tabs-width: 710px;
     float: none;
     width: auto;
     margin: 0;
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid #222222;
   }
 
   @include ie-lte(8) {

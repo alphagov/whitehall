@@ -1,6 +1,5 @@
 
 .inside_gov_home {
-    
   .block-2,
   .block-3 {
     padding-bottom: $gutter;
@@ -10,13 +9,13 @@
     .block-1 {
       margin: 0 auto;
     }
-    
+
     .block-2 {
       width: 50%;
       float: left;
       display: inline;
     }
-    
+
     .block-3 {
       width: 50%;
       float: left;
@@ -24,15 +23,14 @@
       padding-top: $gutter-one-third;
     }
   }
-  
+
   .block-2 {
     .introduction {
       @include ig-core-24;
     }
-    
+
     .beta-site {
       @include ig-core-16;
     }
   }
-  
 }

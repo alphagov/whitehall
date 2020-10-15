@@ -1,18 +1,20 @@
 .publications-index {
-
-  .block-3, .block-4 {
+  .block-3,
+  .block-4 {
     float: left;
     display: inline;
     width: 20%;
   }
+
   .block-4 {
     width: 80%;
   }
-   @media (max-width: 768px) {
-    .block-3, .block-4 {
+  @media (max-width: 768px) {
+    .block-3,
+    .block-4 {
       float: none;
       display: block;
       width: auto;
     }
-   }
+  }
 }

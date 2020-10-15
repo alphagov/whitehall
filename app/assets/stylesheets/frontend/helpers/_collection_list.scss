@@ -85,7 +85,7 @@
   }
 
   &.three-columns {
-    @include media(tablet){
+    @include media(tablet) {
       margin: 0 ($gutter-half*-1);
 
       .collection-item {

@@ -18,6 +18,7 @@ img {
   h3 {
     padding-bottom: 0;
   }
+
   p {
     margin-top: 0;
     padding-top: 0;
@@ -30,6 +31,7 @@ img {
     padding: 0;
     margin: 0 $gutter*2 $gutter 0;
     width: 25%;
+
     figure {
       display: inline;
       margin: 0;
@@ -41,6 +43,7 @@ img {
   padding: 0;
   margin: 0;
 }
+
 .date:after {
   content: "";
 }
@@ -53,24 +56,30 @@ article {
   h2 {
     clear: both;
   }
+
   figure {
     margin: 0;
   }
+
   .attachment {
     clear: both;
+
     .attachment-thumb {
       display: none;
     }
+
     .attachment-details {
       h3 {
         margin-top: 0;
       }
+
       .accessibility-warning {
         h2 {
           @include core-14;
           padding: 0;
           margin: 0;
         }
+
         .toggler {
           display: none;
         }
@@ -96,17 +105,19 @@ article {
       margin: $gutter-half 0;
     }
   }
-
 }
 
-.call-to-action, .information-block {
+.call-to-action,
+.information-block {
   border: 1pt solid $border-colour;
   padding: $gutter-half;
   margin: $gutter-half 0;
+
   h4 {
     @include core-14;
     margin-top: 0;
   }
+
   p {
     margin: 0;
   }

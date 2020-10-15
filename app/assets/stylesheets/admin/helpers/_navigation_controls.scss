@@ -2,11 +2,11 @@ ul.actions {
   li {
     display: inline;
 
-    margin-right: 0.3em;
+    margin-right: .3em;
 
     &:after {
       content: '|';
-      margin-left: 0.3em;
+      margin-left: .3em;
     }
 
     &:last-child:after {

@@ -6,13 +6,12 @@
 }
 
 nav.actions {
-  margin: 0.5em 0;
+  margin: .5em 0;
   clear: both;
-  padding-top: 0.9em;
+  padding-top: .9em;
 
   a {
-    margin: 0.30em 0;
-
+    margin: .3em 0;
   }
 }
 
@@ -30,7 +29,7 @@ nav.actions {
   .display_heading {
     h1 {
       display: block;
-      margin-bottom: 0.2em;
+      margin-bottom: .2em;
     }
   }
 
@@ -40,11 +39,11 @@ nav.actions {
         @include type-24;
         display: block;
       }
+
       h2 {
         @include type-21;
         display: block;
       }
     }
   }
-
 }

@@ -16,10 +16,12 @@
         width: $one-quarter;
         float: left;
       }
+
       .content {
         margin-bottom: $gutter-half;
       }
     }
+
     .return {
       color: $text-colour;
       @include media(tablet) {
@@ -48,6 +50,7 @@
 
     .headings {
       overflow: hidden;
+
       h1 {
         @include core-48;
         font-weight: bold;
@@ -58,6 +61,7 @@
           margin-bottom: $gutter*2;
         }
       }
+
       .document-type {
         @include core-27;
         display: block;
@@ -66,6 +70,7 @@
           margin: $gutter*2.5 0 $gutter-one-third;
         }
       }
+
       p {
         margin: $gutter-half 0 $gutter-two-thirds;
         color: $white;
@@ -88,6 +93,7 @@
     h2 {
       font-weight: bold;
     }
+
     ol {
       @include left-to-right {
         padding-left: $gutter;
@@ -95,19 +101,24 @@
       @include right-to-left {
         padding-right: $gutter;
       }
+
       li {
         list-style: decimal;
         font-weight: bold;
       }
+
       &.unnumbered {
         padding-left: 0;
+
         li {
           list-style: none;
+
           &.numbered {
             margin-left: $gutter-two-thirds;
             @include media(desktop) {
               margin-left: $gutter;
             }
+
             a {
               .heading-number {
                 @include bold-19($tabular-numbers: true);
@@ -121,11 +132,13 @@
         }
       }
     }
+
     a {
       color: $white;
       text-decoration: none;
       font-weight: normal;
     }
+
     a:hover,
     a:focus,
     a:active {
@@ -141,11 +154,12 @@
       @include media(tablet) {
         width: 75%;
         float: right;
-        @include right-to-left{
+        @include right-to-left {
           float: left;
         }
       }
     }
+
     .govspeak {
       h2 {
         @include core-36;
@@ -154,11 +168,12 @@
         @include media(tablet) {
           margin: $gutter*2 0 $gutter-half;
         }
+
         .number {
           background: $white;
           padding-right: $gutter-one-third;
           font-weight: bold;
-          @include media(tablet){
+          @include media(tablet) {
             @include core-80;
             font-weight: bold;
             position: absolute;
@@ -175,10 +190,12 @@
           }
         }
       }
+
       h3 {
         z-index: 5;
         position: relative;
         @include core-27;
+
         .number {
           background: $white;
           color: $secondary-text-colour;
@@ -191,7 +208,9 @@
           }
         }
       }
-      h2, h3 {
+
+      h2,
+      h3 {
         font-weight: bold;
         color: black;
         margin-top: $gutter;
@@ -199,27 +218,42 @@
           margin-top: ($gutter*2) + $gutter-two-thirds;
         }
       }
-      h4, h5, h6 {
+
+      h4,
+      h5,
+      h6 {
         font-weight: bold;
         color: black;
         margin-top: $gutter;
-        &+p, &+ul, &+ol {
+
+        & + p,
+        & + ul,
+        & + ol {
           margin-top: 0;
         }
       }
-      p, ul, ol {
+
+      p,
+      ul,
+      ol {
         line-height: 1.4736842105;
         margin: $gutter-one-third 0;
         @include media(tablet) {
           margin: $gutter-two-thirds 0;
         }
+
         a {
           text-decoration: underline;
         }
-        b, strong, i, em {
+
+        b,
+        strong,
+        i,
+        em {
           font-style: normal;
         }
       }
+
       figcaption {
         @include core-16;
         font-weight: bold;
@@ -228,63 +262,81 @@
           margin: 0 0 $gutter-two-thirds;
         }
       }
-      ul, ol {
+
+      ul,
+      ol {
         margin-left: 1.3em;
         @include ie(7) {
           margin-left: $gutter;
         }
 
         li {
-          ol, ul {
+          ol,
+          ul {
             margin: 0 $gutter-two-thirds;
           }
         }
       }
+
       ol {
         list-style-type: decimal;
       }
+
       ol.legislative-list {
         list-style: none;
         margin-left: 0;
+
         ol {
           list-style: none;
         }
       }
-      table, img {
+
+      table,
+      img {
         margin: $gutter-half 0;
         width: $full-width;
         height: auto;
       }
+
       table {
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: $gutter*2;
-        th, td {
+
+        th,
+        td {
           @include core-14;
           background-color: transparent;
           vertical-align: top;
           text-align: left;
           padding: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
           border-bottom: 1px solid $grey-2;
-          border-width: 0 0 1px 0;
+          border-width: 0 0 1px;
         }
+
         th {
           font-weight: bold;
         }
+
         td {
-          p, ul, ol {
+          p,
+          ul,
+          ol {
             margin: 0;
           }
-          p+p, p+ul, p+ol,
-          ul+p, ul+ol,
-          ol+p {
+
+          p + p,
+          p + ul,
+          p + ol,
+          ul + p,
+          ul + ol,
+          ol + p {
             margin-top: $gutter-one-third;
           }
         }
       }
 
       table.financial-data {
-
         .numeric {
           text-align: right;
           font-family: $NTA-Light-Tabular;
@@ -297,6 +349,7 @@
         tfoot {
           background-color: $grey-3;
         }
+
         thead th,
         thead td {
           font-weight: bold;
@@ -326,6 +379,7 @@
         tfoot ~ tbody:last-of-type tr:last-child > * {
           padding-bottom: $gutter;
         }
+
         tbody:last-child tr:last-child > * {
           padding-bottom: $gutter-one-third;
         }
@@ -360,22 +414,27 @@
           font-weight: bold;
           margin: $gutter-one-third 0 0;
         }
+
         p {
           @include copy-19;
           margin: 0;
         }
+
         .email-url-number {
           p {
             margin: 0;
           }
+
           span {
             display: block;
           }
         }
+
         .comments {
           @include core-16;
         }
       }
+
       .call-to-action {
         margin: $gutter 0 $gutter;
         background: $panel-colour none no-repeat 98% $gutter-two-thirds;
@@ -385,17 +444,22 @@
         h4 {
           margin-top: 0;
         }
+
         p {
           margin: 0;
           padding: 0;
         }
-        ul, ol {
+
+        ul,
+        ol {
           margin-left: $gutter-two-thirds;
           list-style-position: outside;
         }
+
         h3 {
           padding: $gutter-one-sixth 0;
-          margin-top: 0px;
+          margin-top: 0;
+
           .number {
             background: none;
             @include media(tablet) {
@@ -411,10 +475,11 @@
         sub {
           @include core-14;
         }
+
         img {
           display: inline-block;
           width: auto;
-          margin: 0 0 -5px 0;
+          margin: 0 0 -5px;
         }
       }
 
@@ -446,9 +511,11 @@
       }
     }
   }
+
   .back-to-content {
     position: fixed;
     bottom: $gutter-half;
+
     a {
       display: block;
 
@@ -457,6 +524,7 @@
       }
     }
   }
+
   .js-back-to-content-stop {
     clear: both;
   }

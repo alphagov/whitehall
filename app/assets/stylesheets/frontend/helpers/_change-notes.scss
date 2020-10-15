@@ -15,9 +15,11 @@
       color: $link-hover-colour;
       text-decoration: underline;
     }
+
     &:active {
       color: $govuk-link-active-colour;
     }
+
     &:focus {
       outline: none;
     }
@@ -33,13 +35,15 @@
 
   &.open {
     .toggle {
-      top: 0.2em;
+      top: .2em;
       @include box-shadow(none);
     }
+
     &.toggleable .overlay {
       opacity: 1;
     }
   }
+
   .arrow {
     width: 0;
     height: 0;
@@ -51,27 +55,32 @@
     border-right: 5px solid transparent;
     border-bottom: 5px solid $black;
   }
+
   #change-notes {
     color: $white;
     background: $black;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .8);
     padding: $gutter-one-third 0;
     text-align: left;
 
-    dt, dd {
+    dt,
+    dd {
       width: auto;
       float: none;
       @include ig-core-14;
       padding: 0 $gutter-one-third;
     }
+
     dd {
       margin-bottom: 3px;
       color: darken($white, 40%);
+
       &:before {
         content: '- ';
       }
     }
   }
+
   &.toggleable .overlay {
     position: absolute;
     top: 130%;
@@ -81,27 +90,31 @@
     opacity: 0;
     display: block;
     @include transition(opacity, .5s, ease);
+
     &.visuallyhidden {
-      left: -9999em!important;
+      left: -9999em !important;
       position: absolute;
     }
     @include media(tablet) {
       width: 30em;
     }
-    @include media(desktop){
+    @include media(desktop) {
       left: -$gutter*3;
     }
   }
-  @include ie(6){
+  @include ie(6) {
     display: block;
+
     .overlay {
       display: none;
       position: static;
       width: auto;
+
       .arrow {
         display: none;
       }
     }
+
     &.open {
       .overlay {
         display: block !important;

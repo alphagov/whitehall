@@ -9,12 +9,15 @@
     @include ig-core-14;
     border-bottom: 1px solid $border-colour;
   }
+
   p {
     padding-bottom: $gutter-half;
   }
+
   ol {
     overflow: hidden;
     margin: 0 (-$gutter-one-third) $gutter-one-third;
+
     li {
       @include ig-core-16;
       display: block;
@@ -53,6 +56,7 @@
       outline: none;
       cursor: pointer;
     }
+
     &:after {
       display: inline-block;
       font-size: 8px;
@@ -62,6 +66,7 @@
       content: " \25BC";
     }
   }
+
   &.open {
     .show-other-content:after {
       content: " \25B2";
@@ -119,7 +124,7 @@
   background-repeat: no-repeat;
   font-size: 13px;
   line-height: $gutter-half;
-  padding: 3px 0 2px 0;
+  padding: 3px 0 2px;
   text-decoration: none;
 
   &:link,
@@ -127,7 +132,8 @@
     color: $black;
   }
 
-  a, span {
+  a,
+  span {
     color: $black;
   }
 
@@ -135,6 +141,7 @@
     direction: ltr;
   }
 }
+
 a.organisation-logo {
   &:hover,
   &:focus {
@@ -145,6 +152,7 @@ a.organisation-logo {
 
 .organisation-logo-stacked-no-identity {
 }
+
 .organisation-logo-identity {
   border-left: 2px solid;
 }
@@ -153,7 +161,6 @@ img.organisation-logo-custom {
   max-width: 90%;
   width: auto;
 }
-
 
 // Plain single identity
 .organisation-logo-single-identity {
@@ -164,6 +171,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-single-identity {
   @extend .organisation-logo-identity;
 
@@ -172,6 +180,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-single-identity span {
   display: block;
   position: relative;
@@ -193,6 +202,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-bis {
   @extend .organisation-logo-identity;
 
@@ -201,6 +211,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-bis span {
   display: block;
   position: relative;
@@ -213,7 +224,6 @@ img.organisation-logo-custom {
   }
 }
 
-
 // DIT
 // DIT now has what was formally BIS' crest, but we will keep BIS around
 // so we can render BIS still in older content.
@@ -225,6 +235,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-dit {
   @extend .organisation-logo-identity;
 
@@ -233,6 +244,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-dit span {
   display: block;
   position: relative;
@@ -254,6 +266,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-so {
   @extend .organisation-logo-identity;
 
@@ -262,6 +275,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-so span {
   display: block;
   position: relative;
@@ -283,6 +297,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-ho {
   @extend .organisation-logo-identity;
 
@@ -291,6 +306,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-ho span {
   display: block;
   position: relative;
@@ -312,6 +328,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-mod {
   @extend .organisation-logo-identity;
 
@@ -320,6 +337,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-mod span {
   display: block;
   position: relative;
@@ -341,6 +359,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-wales {
   @extend .organisation-logo-identity;
 
@@ -349,6 +368,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-wales span {
   display: block;
   position: relative;
@@ -370,6 +390,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-coastguard {
   @extend .organisation-logo-identity;
 
@@ -378,6 +399,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-coastguard span {
   display: block;
   position: relative;
@@ -399,6 +421,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-portcullis {
   @extend .organisation-logo-identity;
 
@@ -407,6 +430,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-portcullis span {
   display: block;
   position: relative;
@@ -428,6 +452,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-ukho {
   @extend .organisation-logo-identity;
 
@@ -436,6 +461,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 25px;
 }
+
 .organisation-logo-stacked-ukho span {
   display: block;
   position: relative;
@@ -455,12 +481,14 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-eo {
   padding: 20px 0 0 1px;
   background-image: image-url("crests/org_crest_13px.png");
   background-position: 0 top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-eo span {
   display: block;
   position: relative;
@@ -482,6 +510,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-hmrc {
   @extend .organisation-logo-identity;
 
@@ -490,6 +519,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-hmrc span {
   display: block;
   position: relative;
@@ -511,6 +541,7 @@ img.organisation-logo-custom {
   background-position: 5px center;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-ukaea {
   @extend .organisation-logo-identity;
 
@@ -519,6 +550,7 @@ img.organisation-logo-custom {
   background-position: 5px top;
   background-size: auto 20px;
 }
+
 .organisation-logo-stacked-ukaea span {
   display: block;
   position: relative;
@@ -542,15 +574,16 @@ img.organisation-logo-custom {
   // extendable, as it technically contains no attributes (as the MQ is hoisted)
   z-index: auto;
 
-  @include media(tablet){
+  @include media(tablet) {
     font-size: 18px;
     line-height: 20px;
-    padding: 3px 0 2px 0;
+    padding: 3px 0 2px;
   }
 }
+
 .organisation-logo-identity-medium {
   @extend .organisation-logo-no-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     border-left: 2px solid;
   }
 }
@@ -558,28 +591,29 @@ img.organisation-logo-custom {
 // Single identity Medium
 .organisation-logo-single-identity-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 44px;
     background-image: image-url("crests/org_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-single-identity-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/org_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-single-identity-medium span,
   .organisation-logo-stacked-single-identity-large span {
-      display: block;
-      position: relative;
-      top: 3px;
+    display: block;
+    position: relative;
+    top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-single-identity-medium,
@@ -592,23 +626,24 @@ img.organisation-logo-custom {
 // BIS Medium
 .organisation-logo-bis-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 38px;
     background-image: image-url("crests/bis_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-bis-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/bis_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-bis-medium span,
   .organisation-logo-stacked-bis-large span {
     display: block;
@@ -626,23 +661,24 @@ img.organisation-logo-custom {
 // DIT Medium
 .organisation-logo-dit-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 38px;
     background-image: image-url("crests/dit_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-dit-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/dit_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-dit-medium span,
   .organisation-logo-stacked-dit-large span {
     display: block;
@@ -660,23 +696,24 @@ img.organisation-logo-custom {
 // Scotland Office Medium
 .organisation-logo-so-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 45px;
     background-image: image-url("crests/so_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-so-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/so_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-so-medium span,
   .organisation-logo-stacked-so-large span {
     display: block;
@@ -694,23 +731,24 @@ img.organisation-logo-custom {
 // Home Office Medium
 .organisation-logo-ho-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 8px 0 7px 32px;
     background-image: image-url("crests/ho_crest_18px.png");
     background-position: 6px center;
     background-size: auto 35px;
   }
 }
+
 .organisation-logo-stacked-ho-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 35px 0 0 7px;
     background-image: image-url("crests/ho_crest_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-ho-medium span,
   .organisation-logo-stacked-ho-large span {
     display: block;
@@ -728,23 +766,24 @@ img.organisation-logo-custom {
 // MOD Medium
 .organisation-logo-mod-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 8px 0 7px 36px;
     background-image: image-url("crests/mod_crest_18px.png");
     background-position: 6px center;
     background-size: auto 35px;
   }
 }
+
 .organisation-logo-stacked-mod-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 35px 0 0 7px;
     background-image: image-url("crests/mod_crest_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-mod-medium span,
   .organisation-logo-stacked-mod-large span {
     display: block;
@@ -762,23 +801,24 @@ img.organisation-logo-custom {
 // Wales Medium
 .organisation-logo-wales-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 8px 0 7px 35px;
     background-image: image-url("crests/wales_crest_18px.png");
     background-position: 6px center;
     background-size: auto 35px;
   }
 }
+
 .organisation-logo-stacked-wales-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 35px 0 0 7px;
     background-image: image-url("crests/wales_crest_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-wales-medium span,
   .organisation-logo-stacked-wales-large span {
     display: block;
@@ -796,23 +836,24 @@ img.organisation-logo-custom {
 // HM Coastguard Medium
 .organisation-logo-coastguard-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 8px 0 7px 35px;
     background-image: image-url("crests/coastguard_18px.png");
     background-position: 6px center;
     background-size: auto 35px;
   }
 }
+
 .organisation-logo-stacked-coastguard-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 35px 0 0 7px;
     background-image: image-url("crests/coastguard_18px.png");
     background-position: 6px top;
     background-size: auto 35px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-coastguard-medium span,
   .organisation-logo-stacked-coastguard-large span {
     display: block;
@@ -830,23 +871,24 @@ img.organisation-logo-custom {
 // Parliment Portcullis Medium
 .organisation-logo-portcullis-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 34px;
     background-image: image-url("crests/portcullis_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-portcullis-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/portcullis_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-portcullis-medium span,
   .organisation-logo-stacked-portcullis-large span {
     display: block;
@@ -864,23 +906,24 @@ img.organisation-logo-custom {
 // UK Hydrographic Office Medium
 .organisation-logo-ukho-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 38px;
     background-image: image-url("crests/ukho_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-ukho-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/ukho_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-ukho-medium span,
   .organisation-logo-stacked-ukho-large span {
     display: block;
@@ -898,28 +941,29 @@ img.organisation-logo-custom {
 // Executive Office Medium
 .organisation-logo-eo-medium {
   @extend .organisation-logo-no-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 44px;
     background-image: image-url("crests/org_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-eo-medium {
   @extend .organisation-logo-no-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 1px;
     background-image: image-url("crests/org_crest_18px.png");
     background-position: 0 top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-eo-medium span,
   .organisation-logo-stacked-eo-large span {
-      display: block;
-      position: relative;
-      top: 3px;
+    display: block;
+    position: relative;
+    top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-eo-medium,
@@ -932,23 +976,24 @@ img.organisation-logo-custom {
 // HMRC Medium
 .organisation-logo-hmrc-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 38px;
     background-image: image-url("crests/hmrc_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-hmrc-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/hmrc_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-hmrc-medium span,
   .organisation-logo-stacked-hmrc-large span {
     display: block;
@@ -966,23 +1011,24 @@ img.organisation-logo-custom {
 // UK Atomic Energy Authority Medium
 .organisation-logo-ukaea-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 3px 0 2px 38px;
     background-image: image-url("crests/ukaea_crest_18px.png");
     background-position: 6px center;
     background-size: auto 25px;
   }
 }
+
 .organisation-logo-stacked-ukaea-medium {
   @extend .organisation-logo-identity-medium;
-  @include media(tablet){
+  @include media(tablet) {
     padding: 25px 0 0 7px;
     background-image: image-url("crests/ukaea_crest_18px.png");
     background-position: 6px top;
     background-size: auto 25px;
   }
 }
-@include media(tablet){
+@include media(tablet) {
   .organisation-logo-stacked-ukaea-medium span,
   .organisation-logo-stacked-ukaea-large span {
     display: block;
@@ -1008,16 +1054,17 @@ img.organisation-logo-custom {
 .organisation-logo-no-identity-large,
 .organisation-logo-stacked-no-identity-large {
   @extend .organisation-logo-no-identity-medium;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     font-size: 27px;
     line-height: 30px;
-    padding: 5px 0 5px 0;
+    padding: 5px 0;
   }
 }
+
 .organisation-logo-identity-large {
   @extend .organisation-logo-identity-medium;
   @extend .organisation-logo-no-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     border-left: 3px solid;
   }
 }
@@ -1026,25 +1073,27 @@ img.organisation-logo-custom {
 .organisation-logo-single-identity-large {
   @extend .organisation-logo-single-identity-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 65px;
     background-image: image-url("crests/org_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-single-identity-large {
   @extend .organisation-logo-stacked-single-identity-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/org_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-single-identity-large span {
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     display: block;
     position: relative;
     top: 5px;
@@ -1053,7 +1102,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-single-identity-large,
   .organisation-logo-stacked-single-identity-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/org_crest_27px_x2.png");
     }
   }
@@ -1063,24 +1112,25 @@ img.organisation-logo-custom {
 .organisation-logo-bis-large {
   @extend .organisation-logo-bis-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 56px;
     background-image: image-url("crests/bis_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-bis-large {
   @extend .organisation-logo-stacked-bis-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/bis_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-bis-large span {
     display: block;
     position: relative;
@@ -1090,7 +1140,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-bis-large,
   .organisation-logo-stacked-bis-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/bis_crest_27px_x2.png");
     }
   }
@@ -1100,24 +1150,25 @@ img.organisation-logo-custom {
 .organisation-logo-dit-large {
   @extend .organisation-logo-dit-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 56px;
     background-image: image-url("crests/dit_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-dit-large {
   @extend .organisation-logo-stacked-dit-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/dit_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-dit-large span {
     display: block;
     position: relative;
@@ -1127,7 +1178,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-dit-large,
   .organisation-logo-stacked-dit-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/dit_crest_27px_x2.png");
     }
   }
@@ -1137,24 +1188,25 @@ img.organisation-logo-custom {
 .organisation-logo-so-large {
   @extend .organisation-logo-so-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 67px;
     background-image: image-url("crests/so_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-so-large {
   @extend .organisation-logo-stacked-so-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/so_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-so-large span {
     display: block;
     position: relative;
@@ -1164,7 +1216,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-so-large,
   .organisation-logo-stacked-so-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/so_crest_27px_x2.png");
     }
   }
@@ -1174,24 +1226,25 @@ img.organisation-logo-custom {
 .organisation-logo-ho-large {
   @extend .organisation-logo-ho-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 10px 0 10px 46px;
     background-image: image-url("crests/ho_crest_27px.png");
     background-position: 9px center;
     background-size: auto 50px;
   }
 }
+
 .organisation-logo-stacked-ho-large {
   @extend .organisation-logo-stacked-ho-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 50px 0 0 10px;
     background-image: image-url("crests/ho_crest_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-ho-large span {
     display: block;
     position: relative;
@@ -1201,7 +1254,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-ho-large,
   .organisation-logo-stacked-ho-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/ho_crest_27px_x2.png");
     }
   }
@@ -1211,24 +1264,25 @@ img.organisation-logo-custom {
 .organisation-logo-mod-large {
   @extend .organisation-logo-mod-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 10px 0 10px 53px;
     background-image: image-url("crests/mod_crest_27px.png");
     background-position: 9px center;
     background-size: auto 50px;
   }
 }
+
 .organisation-logo-stacked-mod-large {
   @extend .organisation-logo-stacked-mod-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 50px 0 0 10px;
     background-image: image-url("crests/mod_crest_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-mod-large span {
     display: block;
     position: relative;
@@ -1238,7 +1292,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-mod-large,
   .organisation-logo-stacked-mod-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/mod_crest_27px_x2.png");
     }
   }
@@ -1248,24 +1302,25 @@ img.organisation-logo-custom {
 .organisation-logo-wales-large {
   @extend .organisation-logo-wales-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 10px 0 10px 51px;
     background-image: image-url("crests/wales_crest_27px.png");
     background-position: 9px center;
     background-size: auto 50px;
   }
 }
+
 .organisation-logo-stacked-wales-large {
   @extend .organisation-logo-stacked-wales-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 50px 0 0 10px;
     background-image: image-url("crests/wales_crest_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-wales-large span {
     display: block;
     position: relative;
@@ -1275,7 +1330,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-wales-large,
   .organisation-logo-stacked-wales-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/wales_crest_27px_x2.png");
     }
   }
@@ -1285,24 +1340,25 @@ img.organisation-logo-custom {
 .organisation-logo-coastguard-large {
   @extend .organisation-logo-coastguard-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 10px 0 10px 51px;
     background-image: image-url("crests/coastguard_27px.png");
     background-position: 9px center;
     background-size: auto 50px;
   }
 }
+
 .organisation-logo-stacked-coastguard-large {
   @extend .organisation-logo-stacked-coastguard-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 50px 0 0 10px;
     background-image: image-url("crests/coastguard_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-coastguard-large span {
     display: block;
     position: relative;
@@ -1312,7 +1368,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-coastguard-large,
   .organisation-logo-stacked-coastguard-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/coastguard_27px_x2.png");
     }
   }
@@ -1322,24 +1378,25 @@ img.organisation-logo-custom {
 .organisation-logo-portcullis-large {
   @extend .organisation-logo-portcullis-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 52px;
     background-image: image-url("crests/portcullis_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-portcullis-large {
   @extend .organisation-logo-stacked-portcullis-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/portcullis_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-portcullis-large span {
     display: block;
     position: relative;
@@ -1349,7 +1406,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-portcullis-large,
   .organisation-logo-stacked-portcullis-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/portcullis_27px_x2.png");
     }
   }
@@ -1359,24 +1416,25 @@ img.organisation-logo-custom {
 .organisation-logo-ukho-large {
   @extend .organisation-logo-ukho-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 10px 0 10px 53px;
     background-image: image-url("crests/ukho_27px.png");
     background-position: 9px center;
     background-size: auto 50px;
   }
 }
+
 .organisation-logo-stacked-ukho-large {
   @extend .organisation-logo-stacked-ukho-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 50px 0 0 10px;
     background-image: image-url("crests/ukho_27px.png");
     background-position: 9px top;
     background-size: auto 50px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-ukho-large span {
     display: block;
     position: relative;
@@ -1386,7 +1444,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-ukho-large,
   .organisation-logo-stacked-ukho-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/ukho_27px_x2.png");
     }
   }
@@ -1396,25 +1454,27 @@ img.organisation-logo-custom {
 .organisation-logo-eo-large {
   @extend .organisation-logo-eo-medium;
   @extend .organisation-logo-no-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 65px;
     background-image: image-url("crests/org_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-eo-large {
   @extend .organisation-logo-stacked-eo-medium;
   @extend .organisation-logo-no-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 1px;
     background-image: image-url("crests/org_crest_27px.png");
     background-position: 0 top;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-eo-large span {
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     display: block;
     position: relative;
     top: 5px;
@@ -1423,7 +1483,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-eo-large,
   .organisation-logo-stacked-eo-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/org_crest_27px_x2.png");
     }
   }
@@ -1433,25 +1493,27 @@ img.organisation-logo-custom {
 .organisation-logo-hmrc-large {
   @extend .organisation-logo-hmrc-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 56px;
     background-image: image-url("crests/hmrc_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-hmrc-large {
   @extend .organisation-logo-stacked-hmrc-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/hmrc_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-hmrc-large span {
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     display: block;
     position: relative;
     top: 5px;
@@ -1460,7 +1522,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-hmrc-large,
   .organisation-logo-stacked-hmrc-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/hmrc_crest_27px_x2.png");
     }
   }
@@ -1470,24 +1532,25 @@ img.organisation-logo-custom {
 .organisation-logo-ukaea-large {
   @extend .organisation-logo-ukaea-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 5px 0 5px 56px;
     background-image: image-url("crests/ukaea_crest_27px.png");
     background-position: 9px center;
     background-size: auto 40px;
   }
 }
+
 .organisation-logo-stacked-ukaea-large {
   @extend .organisation-logo-stacked-ukaea-medium;
   @extend .organisation-logo-identity-large;
-  @include media($min-width: 990px){
+  @include media($min-width: 990px) {
     padding: 40px 0 0 10px;
     background-image: image-url("crests/ukaea_crest_27px.png");
     background-position: 9px top;
     background-size: auto 40px;
   }
 }
-@include media($min-width: 990px){
+@include media($min-width: 990px) {
   .organisation-logo-stacked-ukaea-large span {
     display: block;
     position: relative;
@@ -1497,7 +1560,7 @@ img.organisation-logo-custom {
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-ukaea-large,
   .organisation-logo-stacked-ukaea-large {
-    @include media($min-width: 990px){
+    @include media($min-width: 990px) {
       background-image: image-url("crests/ukaea_crest_27px_x2.png");
     }
   }

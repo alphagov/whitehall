@@ -26,11 +26,11 @@ $thumbnail-width: 99px;
       width: $thumbnail-width;
       height: 140px;
       background: white;
-      outline: $gutter-one-sixth solid transparentize($black, 0.9);
+      outline: $gutter-one-sixth solid transparentize($black, .9);
       @include ie-lte(8) {
         border: $gutter-one-sixth solid $grey-3;
       }
-      @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
+      @include box-shadow(0 2px 2px rgba(0,0,0,.4));
     }
   }
 
@@ -39,7 +39,9 @@ $thumbnail-width: 99px;
   }
 
   .attachment-details {
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       @include ig-core-27;
       margin: 0;
     }
@@ -58,10 +60,12 @@ $thumbnail-width: 99px;
     .metadata {
       @include ig-core-14;
       margin: 0;
+
       .changed,
       .references {
         display: block;
       }
+
       .unnumbered-paper {
         display: block;
       }
@@ -84,12 +88,14 @@ $thumbnail-width: 99px;
 
   .accessibility-warning {
     margin-top: $gutter-one-third;
+
     h2 {
       @include ig-core-14;
       margin: 0;
       color: $text-colour;
     }
   }
+
   &:first-child {
     margin-top: 0;
     padding-top: 0;

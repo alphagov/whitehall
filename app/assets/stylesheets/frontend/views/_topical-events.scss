@@ -8,6 +8,7 @@
       color: $grey-1;
       padding-left: 0;
     }
+
     .topical-event-logo {
       img {
         max-width: $full-width;
@@ -22,10 +23,12 @@
 
     .description {
       .govspeak {
-        p, ul {
+        p,
+        ul {
           @include core-24;
         }
       }
+
       .read-more {
         @include core-24;
         margin: $gutter-two-thirds 0;
@@ -71,30 +74,37 @@
           background-image: image-url('topical-events/arts-council-england.png');
           width: 217px;
         }
+
         &.bbc a {
           background-image: image-url('topical-events/bbc.png');
           width: 143px;
         }
+
         &.british-library a {
           background-image: image-url('topical-events/british-library.png');
           width: 30px;
         }
+
         &.commonwealth-war-graves-commission a {
           background-image: image-url('topical-events/cwgc.png');
           width: 209px;
         }
+
         &.heritage-lottery-fund a {
           background-image: image-url('topical-events/hlf.png');
           width: 74px;
         }
+
         &.historic-england a {
           background-image: image-url('topical-events/historic-england.png');
           width: 242px;
         }
+
         &.imperial-war-museums a {
           background-image: image-url('topical-events/iwm.png');
           width: 80px;
         }
+
         &.war-memorials-trust a {
           background-image: image-url('topical-events/wmt.png');
           width: 103px;

@@ -30,7 +30,7 @@
 
         @include media(tablet) {
           width: $one-third;
-          float: left
+          float: left;
         }
 
         p {
@@ -44,7 +44,7 @@
           width: $two-thirds;
           float: left;
           padding-top: $gutter - $gutter-one-sixth;
-        };
+        }
 
         .letter {
           @include core-80;
@@ -63,7 +63,6 @@
               @include core-19;
               padding: $gutter-one-sixth 0;
               display: inline-block;
-
             }
           }
         }
@@ -89,9 +88,11 @@
     @include media(tablet) {
       margin-bottom: 0;
     }
+
     .heading-extra {
       .top-tasks {
         @include core-16;
+
         ul {
           li {
             list-style: none;
@@ -102,6 +103,7 @@
           padding-left: 0;
         }
       }
+
       .available-languages {
         margin-left: 0;
       }
@@ -147,6 +149,7 @@
         }
       }
     }
+
     .item-3 {
       clear: both;
     }
@@ -154,6 +157,7 @@
 
   .our-mission {
     margin-bottom: $gutter*2;
+
     p {
       @include heading-24;
     }
@@ -163,6 +167,7 @@
     h1 {
       margin-bottom: $gutter;
     }
+
     .worldwide-organisation {
       clear: both;
       border-bottom: 1px solid $border-colour;
@@ -176,7 +181,8 @@
         }
       }
 
-      .worldwide-organisation-detail, .contact  {
+      .worldwide-organisation-detail,
+      .contact {
         @include media(tablet) {
           float: left;
           display: inline;
@@ -185,6 +191,7 @@
 
         h2 {
           font-weight: bold;
+
           a {
             @include heading-27;
             display: inline;
@@ -198,6 +205,7 @@
 
         .content {
           padding-right: $gutter-half;
+
           .sponsoring-organisation {
             padding-bottom: $gutter-two-thirds;
           }
@@ -217,6 +225,7 @@
           margin-top: 0;
           min-width: auto;
           width: $one-third;
+
           .content {
             padding-left: $gutter-half;
 
@@ -232,6 +241,7 @@
       }
     }
   }
+
   .heading-extra {
     margin: 0;
     @include media(tablet) {

@@ -5,6 +5,7 @@
 
   .featured-profiles {
     margin-bottom: $gutter;
+
     .profiles {
       @include heading-36;
       border-bottom: $gutter-one-sixth solid govuk-colour("black");
@@ -15,6 +16,7 @@
       @include core-19;
       font-weight: bold;
     }
+
     .term {
       color: $govuk-secondary-text-colour;
       display: block;
@@ -23,9 +25,9 @@
     .person-excerpt {
       .inner {
         .image-holder {
-            @include govuk-media-query($until: tablet) {
-              margin-right: govuk-spacing(2);
-            }
+          @include govuk-media-query($until: tablet) {
+            margin-right: govuk-spacing(2);
+          }
 
           img {
             max-width: $full-width;
@@ -45,6 +47,7 @@
         @include heading-36;
         font-weight: bold;
         padding: 0 $gutter-half;
+
         span {
           @include core-19;
           display: block;
@@ -55,9 +58,7 @@
       }
     }
   }
-
 }
-
 
 .historic-people-show {
   .person-info {
@@ -68,8 +69,9 @@
   }
 
   .person-info {
-
-    .name-title, .person-detail, .person-profile {
+    .name-title,
+    .person-detail,
+    .person-profile {
       .inner {
         padding: 0 $gutter-half;
       }
@@ -82,13 +84,17 @@
       img {
         max-width: $full-width;
       }
+
       .info {
         background-color: $grey-3;
         padding-bottom: $gutter-half;
         margin-bottom: $gutter;
-        h3, p {
+
+        h3,
+        p {
           padding: 0 $gutter-half;
         }
+
         h3 {
           font-weight: bold;
           margin-top: $gutter-half;
@@ -101,6 +107,7 @@
         @include heading-27;
         font-weight: bold;
         margin-bottom: $gutter;
+
         span {
           @include core-19;
           display: block;
@@ -113,25 +120,30 @@
     @include media(tablet) {
       position: relative;
       width: 75%;
+
       .person-profile {
         float: left;
         width: $one-third;
+
         img {
           width: $full-width;
         }
+
         .inner {
           padding: 0 $gutter-half;
         }
       }
-      .name-title, .person-detail {
+
+      .name-title,
+      .person-detail {
         float: right;
         width: $two-thirds;
+
         .inner {
           padding: 0 $gutter 0 $gutter-half;
         }
       }
     }
-
   }
 }
 

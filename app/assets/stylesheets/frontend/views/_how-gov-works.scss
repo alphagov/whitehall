@@ -33,11 +33,13 @@
         margin-bottom: $gutter;
         float: left;
       }
+
       .one-third {
         width: $one-third;
         margin-bottom: $gutter;
         float: left;
       }
+
       .one-half {
         width: $half;
         margin-bottom: $gutter;
@@ -82,9 +84,9 @@
     color: inherit;
     display: inline-block;
     margin: 0;
-    padding: 0 0.2em;
+    padding: 0 .2em;
     position: relative;
-    top: -0.5em;
+    top: -.5em;
   }
 
   .feature-value__link {
@@ -111,7 +113,7 @@
       box-sizing: border-box;
       color: $govuk-text-colour;
       display: inline-block;
-      margin: 0.5em 0;
+      margin: .5em 0;
       padding: 0;
       text-align: center;
       text-decoration: none;
@@ -135,7 +137,7 @@
       }
 
       @include govuk-media-query($from: tablet) {
-        border: 0.2em solid $inside-gov-secondary; // https://webaim.org/resources/contrastchecker/?fcolor=0B0C0C&bcolor=57DA95
+        border: .2em solid $inside-gov-secondary; // https://webaim.org/resources/contrastchecker/?fcolor=0B0C0C&bcolor=57DA95
         border-radius: 4.5em;
         height: 9em;
         width: 9em;
@@ -175,7 +177,7 @@
       .feature-ministers__symbol {
         margin: 0 1em;
         position: relative;
-        top: 0.25em;
+        top: .25em;
       }
 
       .feature-ministers__item--invert {
@@ -198,9 +200,11 @@
   p.small-print {
     @include ig-core-14;
   }
+
   h2.coalition {
     border-color: black;
   }
+
   .coalition h3 {
     border-color: black;
     border-width: $gutter-one-sixth;
@@ -219,7 +223,6 @@
       &:first-child {
         float: right;
       }
-
     }
   }
 
@@ -227,11 +230,13 @@
     .history {
       .one-half {
         width: $two-thirds;
+
         &:first-child {
           width: $one-third;
         }
       }
     }
+
     .prime-minister {
       .one-half {
         width: $one-third;
@@ -254,6 +259,7 @@
       .one-third {
         float: right;
         width: $two-thirds;
+
         &:first-child {
           float: left;
           width: $one-third;
@@ -289,12 +295,14 @@
     .access-information {
       .one-third {
         float: right;
+
         &:first-child {
           float: left;
           width: $one-third;
         }
       }
     }
+
     .legislation {
       .two-thirds {
         margin-bottom: $gutter-one-third;

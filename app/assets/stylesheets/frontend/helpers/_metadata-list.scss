@@ -3,7 +3,7 @@
   display: block;
   margin-bottom: $gutter;
 
-  @include media(tablet){
+  @include media(tablet) {
     float: left;
     width: $two-thirds;
     @include right-to-left {
@@ -12,7 +12,6 @@
   }
 
   dl {
-
     .govuk-body-s {
       margin-bottom: 0;
     }
@@ -39,25 +38,28 @@
         clear: right;
       }
     }
+
     dd {
       float: left;
       width: 60%;
-      @include media(desktop){
+      @include media(desktop) {
         width: 70%;
       }
+
       &.document-worldwide-organisations {
         width: 55%;
       }
       @include right-to-left {
         float: right;
       }
-      &::first-letter {
+
+      &:first-letter {
         text-transform: uppercase;
       }
     }
 
     .change-notes-title {
-      @include media(desktop){
+      @include media(desktop) {
         clear: left;
         @include right-to-left {
           clear: right;

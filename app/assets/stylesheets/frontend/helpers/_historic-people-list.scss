@@ -1,9 +1,11 @@
 .historic-people-list {
   margin-bottom: $gutter;
+
   .inner-block {
     p {
       margin: $gutter 0;
     }
+
     ol {
       li {
         @include core-16;
@@ -25,7 +27,7 @@
     background: transparent image-url("accordion-arrow.png") $full-width -40px no-repeat;
 
     margin-left: 0;
-    padding: 0.5em 2em 0.5em 0;
+    padding: .5em 2em .5em 0;
 
     float: none;
     clear: both;
@@ -47,5 +49,4 @@
       background-position: $full-width 6px;
     }
   }
-
 }

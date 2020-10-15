@@ -8,7 +8,7 @@ fieldset.sortable {
 
 .connectedSortable {
   padding: 5px;
-  background-color: #eee;
+  background-color: #eeeeee;
 }
 
 .ui-sortable {
@@ -23,15 +23,15 @@ fieldset.sortable {
   .sort_item {
     cursor: move;
 
-    label, a {
+    label,
+    a {
       cursor: inherit !important;
     }
 
     .state {
-      color: #bbb;
+      color: #bbbbbb;
     }
   }
-
 
   .well.sortable-drop-target {
     border-style: dashed !important;
@@ -40,11 +40,11 @@ fieldset.sortable {
 }
 
 .js ol.js-sortable {
-
   li {
     cursor: move;
 
-    label, a {
+    label,
+    a {
       cursor: pointer;
     }
   }

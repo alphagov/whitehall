@@ -13,7 +13,6 @@ form {
   }
 
   fieldset {
-
     .role_appointment,
     .speech-type {
       width: 98%;
@@ -29,7 +28,7 @@ form {
 
     legend {
       padding-top: 27px;
-      border-top: 1px solid #EEE;
+      border-top: 1px solid #eeeeee;
       border-bottom: none;
       margin-bottom: 0;
 
@@ -47,27 +46,30 @@ form {
   }
 
   fieldset.named {
-    padding-top: 0.5em;
+    padding-top: .5em;
   }
 
   fieldset.right-to-left {
-    input, textarea {
+    input,
+    textarea {
       direction: rtl;
     }
+
     .chosen-container-multi input {
       direction: ltr;
     }
   }
 
   select {
-    &.chzn-select, &.chzn-select-no-deselect {
+    &.chzn-select,
+    &.chzn-select-no-deselect {
       width: 100%;
     }
 
     &.date {
       width: auto;
     }
-    @include ie-lte(7){
+    @include ie-lte(7) {
       height: 100px;
     }
   }
@@ -79,28 +81,27 @@ form {
   .field_with_errors {
     label,
     input {
-      color: #B94A48;
+      color: #b94a48;
     }
 
     input,
     textarea {
-      background-color: #F2DEDE;
-      border-color: #EED3D7;
+      background-color: #f2dede;
+      border-color: #eed3d7;
     }
   }
 }
 
-
 fieldset.contacts {
   .control-group {
-    margin-bottom: 0.5em;
+    margin-bottom: .5em;
   }
 }
 
 fieldset.contact_number {
   padding-bottom: 1em;
   margin-bottom: 1em;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #eeeeee;
 
   &:last-child {
     padding-bottom: 0;
@@ -125,13 +126,13 @@ fieldset.contact_number {
 
 fieldset.fatality-notice-casualties {
   h3 {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-top: .5em;
+    margin-bottom: .5em;
   }
 }
 
 .featured {
-  color: #fff;
+  color: #ffffff;
   background-color: #2b8cc4;
   *background-color: #2b8cc4;
   background-image: -ms-linear-gradient(top, #96c6e2, #2b8cc4);
@@ -154,36 +155,43 @@ fieldset.fatality-notice-casualties {
 }
 
 .featured:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #2b8cc4;
   *background-color: #2b8cc4;
 }
 
 .make-featured:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #85994b;
   *background-color: #85994b;
 }
 
-.date-warning-info, .title-length-info, .summary-length-info {
+.date-warning-info,
+.title-length-info,
+.summary-length-info {
   text-align: right;
   margin-right: 25px;
+
   &.warning {
-    color: #C09853;
+    color: #c09853;
   }
+
   &.error {
     color: #c06253;
   }
+
   .count {
     font-weight: bold;
   }
 }
-.title-length-input:focus, .summary-length-input.warning:focus {
-  border-color: #A47E3C;
+
+.title-length-input:focus,
+.summary-length-input.warning:focus {
+  border-color: #a47e3c;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(236, 187, 82, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(236, 187, 82, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(236, 187, 82, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(236, 187, 82, .6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(236, 187, 82, .6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(236, 187, 82, .6);
 }
 
 .publishing-controls {
@@ -194,22 +202,27 @@ fieldset.fatality-notice-casualties {
     border-bottom: 1px solid $border-colour;
     margin-top: $gutter-two-thirds;
     padding-bottom: $gutter-two-thirds;
+
     p {
       margin: $gutter-one-third 0 0 0;
+
       &.hint {
-        margin-top: 0.2em;
+        margin-top: .2em;
         color: #626a6e;
       }
     }
+
     label {
       font-size: 16px;
       margin-top: $gutter-two-thirds;
+
       &.checkbox {
         font-size: 13px;
         margin-top: 0;
       }
     }
   }
+
   .form-actions {
     border-top: 0;
     margin: 0;
@@ -217,7 +230,8 @@ fieldset.fatality-notice-casualties {
   }
 }
 
-.control-label.radio-label, .control-label.checkbox-label {
+.control-label.radio-label,
+.control-label.checkbox-label {
   padding-top: 5px;
   margin-bottom: 0;
   display: inline-block;
@@ -230,8 +244,8 @@ fieldset.fatality-notice-casualties {
   margin: 25px 0 0;
 
   li {
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #ffffff;
+    border: 1px solid #dddddd;
     padding: 4px;
     width: 230px;
     margin: -1px 0 0;
@@ -241,14 +255,16 @@ fieldset.fatality-notice-casualties {
     em {
       font-style: normal;
     }
+
     span {
-      color: #999;
+      color: #999999;
     }
   }
 
   &.active {
     display: block;
   }
+
   .active {
     background: #d5e8f3;
   }
@@ -269,6 +285,6 @@ fieldset.fatality-notice-casualties {
   font-weight: normal;
 
   i {
-    opacity:0.1;
+    opacity: .1;
   }
 }

@@ -1,20 +1,24 @@
 .email-signup-show {
   p {
     @include core-19;
-    margin:$gutter/2 0;
+    margin: $gutter/2 0;
   }
+
   strong {
-    font-weight:bold;
+    font-weight: bold;
   }
+
   .email-header {
     h1 {
       @include heading-36;
       font-weight: bold;
       margin: $gutter 0;
     }
+
     h2 {
       @include heading-27;
     }
+
     p {
       @include core-19;
       color: $secondary-text-colour;
@@ -23,11 +27,11 @@
 
   .signup-form {
     margin: $gutter-half 0;
-    
-    input[type=checkbox]  {
+
+    input[type=checkbox] {
       vertical-align: top;
     }
-    
+
     .submit {
       margin: $gutter 0;
 
@@ -35,6 +39,7 @@
         @include button($color: $turquoise);
         @include core-19;
       }
+
       p {
         margin: $gutter-half 0;
         color: $secondary-text-colour;

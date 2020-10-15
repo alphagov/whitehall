@@ -16,11 +16,13 @@
       margin-top: $gutter*1.5;
     }
   }
+
   h3 {
     @include ig-core-19;
     font-weight: bold;
     margin-top: $gutter + $gutter-one-sixth;
   }
+
   h4 {
     @include ig-core-19;
     font-weight: bold;
@@ -40,7 +42,8 @@
   h6 {
     @include ig-core-19;
     font-weight: bold;
-    &+p {
+
+    & + p {
       margin-top: 0;
     }
   }
@@ -50,13 +53,16 @@
       @include core-27;
       font-weight: bold;
       padding-top: 2px;
+
       a {
         text-decoration: none;
+
         &:hover {
           text-decoration: underline;
         }
       }
     }
+
     .url {
       @include core-14;
       word-wrap: break-word;
@@ -76,7 +82,9 @@
     @include media (tablet) {
       margin: $gutter-one-third 0 $gutter-one-third $gutter-two-thirds;
     }
-    ul, ol {
+
+    ul,
+    ol {
       margin: 0 0 0 $gutter-two-thirds;
       padding: 0;
     }
@@ -90,7 +98,9 @@
       @include media (tablet) {
         margin: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
       }
-      ul, ol {
+
+      ul,
+      ol {
         margin: 0 $gutter-two-thirds 0 0;
       }
     }
@@ -99,6 +109,7 @@
   ol.legislative-list {
     list-style: none;
     margin-left: 0;
+
     ol {
       list-style: none;
     }
@@ -112,7 +123,9 @@
     @include media (tablet) {
       margin: $gutter-one-third 0 $gutter-one-third $gutter-two-thirds;
     }
-    ul, ol {
+
+    ul,
+    ol {
       margin: 0 0 0 $gutter-two-thirds;
       padding: 0;
     }
@@ -126,13 +139,16 @@
       @include media (tablet) {
         margin: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
       }
-      ul, ol {
+
+      ul,
+      ol {
         margin: 0 $gutter-two-thirds 0 0;
       }
     }
   }
 
-  em, i {
+  em,
+  i {
     font-style: normal;
     font-weight: inherit;
   }
@@ -142,9 +158,14 @@
       margin: 0;
       padding: 0;
     }
-    p+p, p+ul, p+ol,
-    ul+p, ul+ol,
-    ol+p, ol+ul {
+
+    p + p,
+    p + ul,
+    p + ol,
+    ul + p,
+    ul + ol,
+    ol + p,
+    ol + ul {
       margin-top: $gutter-one-third;
     }
   }
@@ -176,6 +197,7 @@
         }
       }
     }
+
     & p:before {
       content: "\201C";
       float: left;
@@ -188,6 +210,7 @@
         margin-right: (-$gutter-half);
       }
     }
+
     & p.last-child:after {
       content: "\201D";
       @include right-to-left {
@@ -205,7 +228,7 @@
 
   hr {
     margin-top: $gutter - 1px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #cccccc;
     margin-bottom: $gutter;
   }
 
@@ -229,8 +252,8 @@
   }
 
   sup {
-    font-size: 0.8em;
-    line-height: 0.7em;
+    font-size: .8em;
+    line-height: .7em;
     vertical-align: top;
   }
 
@@ -240,10 +263,12 @@
     background: $panel-colour none no-repeat 98% $gutter-two-thirds;
     padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
     position: relative;
+
     p {
       margin: 0;
       padding: 0;
     }
+
     ol {
       @include media(desktop) {
         list-style-position: outside;
@@ -280,39 +305,40 @@
     @include ig-core-19;
 
     caption {
-      text-align:left;
+      text-align: left;
       font-weight: 300;
-      margin-bottom: 0.5em;
-      font-size:1.16em;
-      padding-left:1em;
+      margin-bottom: .5em;
+      font-size: 1.16em;
+      padding-left: 1em;
     }
 
-    th, td {
+    th,
+    td {
       vertical-align: top;
       line-height: 1.3em;
-      padding: 0.7em 0.5em 0.7em 1em;
+      padding: .7em .5em .7em 1em;
     }
 
     tr:nth-child(even) td {
-      background-color: #fff;
+      background-color: #ffffff;
     }
 
     td {
       background: #fafafa;
-      border:dotted 1px #bbb;
+      border: dotted 1px #bbbbbb;
     }
 
     th {
-      line-height:1.25em;
+      line-height: 1.25em;
       text-align: left;
       color: $black;
-      font-weight:normal;
+      font-weight: normal;
       background-color: #e1e8e8;
-      border:solid 1px #bbb;
+      border: solid 1px #bbbbbb;
     }
 
-    td small{
-      font-size:1em;
+    td small {
+      font-size: 1em;
     }
   }
 
@@ -321,10 +347,11 @@
     sub {
       @include core-14;
     }
+
     img {
       display: inline-block;
       width: auto;
-      margin: 0 0 -5px 0;
+      margin: 0 0 -5px;
     }
   }
 
@@ -338,25 +365,31 @@
     @extend %contain-floats;
     margin-bottom: $gutter;
     position: relative;
+
     .content {
       float: none;
       width: $full-width;
+
       h3 {
         @include core-19;
         font-weight: bold;
         margin-bottom: $gutter-one-sixth;
       }
+
       .email-url-number {
         p {
           margin: 0;
+
           .email {
             word-wrap: break-word;
           }
         }
+
         span {
           display: block;
         }
       }
+
       .comments {
         @include core-16;
       }
@@ -369,7 +402,7 @@
     padding-top: $gutter-one-third;
 
     ol {
-      margin-top: 0px !important;
+      margin-top: 0 !important;
       padding-top: 0;
 
       li p {
