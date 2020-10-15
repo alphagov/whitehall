@@ -1,5 +1,5 @@
-(function(Modules) {
-  "use strict";
+(function (Modules) {
+  'use strict'
 
   /*
     If `data-toggle=modal` and `data-target` are used on a link element in
@@ -11,21 +11,19 @@
     is a workaround. Use `data-module=linked-modal` rather than
     `data-toggle=modal`
   */
-  Modules.LinkedModal = function() {
-    this.start = function(element) {
-
+  Modules.LinkedModal = function () {
+    this.start = function (element) {
       // Bootstrap 3 modals don't work well in IE7
       // For IE7 just follow the link
       if (window.ieVersion !== 7) {
-        element.on('click', openModal);
+        element.on('click', openModal)
       }
 
-      function openModal(evt) {
-        var $target = $(element.data('target'));
-        $target.modal('show');
-        evt.preventDefault();
+      function openModal (evt) {
+        var $target = $(element.data('target'))
+        $target.modal('show')
+        evt.preventDefault()
       }
     }
-  };
-
-})(window.GOVUKAdmin.Modules);
+  }
+})(window.GOVUKAdmin.Modules)

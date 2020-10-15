@@ -1,21 +1,21 @@
-(function() {
-  "use strict";
-  window.GOVUK = window.GOVUK || {};
+(function () {
+  'use strict'
+  window.GOVUK = window.GOVUK || {}
 
-  function WordsToAvoidGuide(options) {
-    var $wordsToAvoidEls = $(options.wordsToAvoidList + " span.js-word-to-avoid"),
-        wordsToAvoidRegexps = $.map($wordsToAvoidEls, function(wordEl) {
-          // match whole-words only
-          return "\\b" + $(wordEl).text() + "\\b";
-        });
+  function WordsToAvoidGuide (options) {
+    var $wordsToAvoidEls = $(options.wordsToAvoidList + ' span.js-word-to-avoid')
+    var wordsToAvoidRegexps = $.map($wordsToAvoidEls, function (wordEl) {
+      // match whole-words only
+      return '\\b' + $(wordEl).text() + '\\b'
+    })
 
-    if( window.ieVersion === undefined || window.ieVersion > 8 ){
+    if (window.ieVersion === undefined || window.ieVersion > 8) {
       // in non-IE browsers or IE9+
-      var enableHighlighting = true;
-      GOVUK.WordsToAvoidHighlighter(wordsToAvoidRegexps, options);
+      var enableHighlighting = true
+      GOVUK.WordsToAvoidHighlighter(wordsToAvoidRegexps, options)
     }
-    GOVUK.WordsToAvoidAlerter(wordsToAvoidRegexps, $.extend(options, { highlightingEnabled: enableHighlighting }));
+    GOVUK.WordsToAvoidAlerter(wordsToAvoidRegexps, $.extend(options, { highlightingEnabled: enableHighlighting }))
   }
 
-  GOVUK.WordsToAvoidGuide = WordsToAvoidGuide;
-}());
+  GOVUK.WordsToAvoidGuide = WordsToAvoidGuide
+}())

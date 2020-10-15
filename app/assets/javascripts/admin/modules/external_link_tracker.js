@@ -17,7 +17,7 @@
         options.label = linkText
       }
 
-      GOVUKAdmin.trackEvent('external-link-clicked', href, options);
+      GOVUKAdmin.trackEvent('external-link-clicked', href, options)
     }
 
     function getLinkFromEvent (evt) {

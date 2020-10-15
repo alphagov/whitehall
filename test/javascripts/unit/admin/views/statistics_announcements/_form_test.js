@@ -1,5 +1,5 @@
-module("admin-statistics-announcement-form", {
-  setup: function() {
+module('admin-statistics-announcement-form', {
+  setup: function () {
     $('#qunit-fixture').append('\
       <select name="form_name[release_date(1i)]">\
         <option value="2014"></option>\
@@ -93,72 +93,72 @@ module("admin-statistics-announcement-form", {
       <span class="js-example-two-month"></span>\
       <label class="js-label-one-month"></label>\
       <label class="js-label-exact"></label>'
-    );
+    )
 
-    GOVUK.StatisticsAnnouncementDateForm.init("form_name");
+    GOVUK.StatisticsAnnouncementDateForm.init('form_name')
   }
-});
+})
 
-test("it renders example dates on initialise", function() {
-  equal($('.js-example-exact').text(), "1 January 2014 12:00am (provisional)");
-  equal($('.js-example-one-month').text(), "January 2014 (provisional)");
-  equal($('.js-example-two-month').text(), "January to February 2014 (provisional)");
-});
+test('it renders example dates on initialise', function () {
+  equal($('.js-example-exact').text(), '1 January 2014 12:00am (provisional)')
+  equal($('.js-example-one-month').text(), 'January 2014 (provisional)')
+  equal($('.js-example-two-month').text(), 'January to February 2014 (provisional)')
+})
 
-test("it updates example dates when dates change", function() {
-  $('select[name="form_name[release_date(1i)]"]').val('2015');
-  $('select[name="form_name[release_date(2i)]"]').val('2');
-  $('select[name="form_name[release_date(3i)]"]').val('9');
-  $('select[name="form_name[release_date(4i)]"]').val('16');
-  $('select[name="form_name[release_date(5i)]"]').val('30').trigger('change');
-  equal($('.js-example-exact').text(), "9 February 2015 4:30pm (provisional)");
-  equal($('.js-example-one-month').text(), "February 2015 (provisional)");
-  equal($('.js-example-two-month').text(), "February to March 2015 (provisional)");
-});
+test('it updates example dates when dates change', function () {
+  $('select[name="form_name[release_date(1i)]"]').val('2015')
+  $('select[name="form_name[release_date(2i)]"]').val('2')
+  $('select[name="form_name[release_date(3i)]"]').val('9')
+  $('select[name="form_name[release_date(4i)]"]').val('16')
+  $('select[name="form_name[release_date(5i)]"]').val('30').trigger('change')
+  equal($('.js-example-exact').text(), '9 February 2015 4:30pm (provisional)')
+  equal($('.js-example-one-month').text(), 'February 2015 (provisional)')
+  equal($('.js-example-two-month').text(), 'February to March 2015 (provisional)')
+})
 
-test("it updates example dates when dates are confirmed", function() {
-  $('input[name="form_name[confirmed]"]').val("1").trigger('click');
-  equal($('.js-example-exact').text(), "1 January 2014 12:00am (confirmed)");
-  equal($('.js-example-one-month').text(), "January 2014 (confirmed)");
-  equal($('.js-example-two-month').text(), "January to February 2014 (confirmed)");
-});
+test('it updates example dates when dates are confirmed', function () {
+  $('input[name="form_name[confirmed]"]').val('1').trigger('click')
+  equal($('.js-example-exact').text(), '1 January 2014 12:00am (confirmed)')
+  equal($('.js-example-one-month').text(), 'January 2014 (confirmed)')
+  equal($('.js-example-two-month').text(), 'January to February 2014 (confirmed)')
+})
 
-test("it handles a two month range over the end of a year, and increments the year", function() {
-  $('select[name="form_name[release_date(2i)]"]').val('12').trigger('change');
-  equal($('.js-example-one-month').text(), "December 2014 (provisional)");
-  equal($('.js-example-two-month').text(), "December to January 2015 (provisional)");
-});
+test('it handles a two month range over the end of a year, and increments the year', function () {
+  $('select[name="form_name[release_date(2i)]"]').val('12').trigger('change')
+  equal($('.js-example-one-month').text(), 'December 2014 (provisional)')
+  equal($('.js-example-two-month').text(), 'December to January 2015 (provisional)')
+})
 
-test("its handling of incorrect dates matches rails", function() {
+test('its handling of incorrect dates matches rails', function () {
   // Feb 31
-  $('select[name="form_name[release_date(2i)]"]').val('2');
-  $('select[name="form_name[release_date(3i)]"]').val('31').trigger('change');
-  equal($('.js-example-exact').text(), "3 March 2014 12:00am (provisional)");
-  equal($('.js-example-one-month').text(), "March 2014 (provisional)");
-});
+  $('select[name="form_name[release_date(2i)]"]').val('2')
+  $('select[name="form_name[release_date(3i)]"]').val('31').trigger('change')
+  equal($('.js-example-exact').text(), '3 March 2014 12:00am (provisional)')
+  equal($('.js-example-one-month').text(), 'March 2014 (provisional)')
+})
 
-test("it updates the date precision to exact when confirming a date", function() {
-  $('.qunit-two-month-date').prop('checked', true);
-  ok($('.qunit-two-month-date').prop('checked'));
-  confirmDate();
-  ok($('.qunit-exact-date').prop('checked'));
-  equal($('input[name="form_name[precision]"]').val(), 0);
-});
+test('it updates the date precision to exact when confirming a date', function () {
+  $('.qunit-two-month-date').prop('checked', true)
+  ok($('.qunit-two-month-date').prop('checked'))
+  confirmDate()
+  ok($('.qunit-exact-date').prop('checked'))
+  equal($('input[name="form_name[precision]"]').val(), 0)
+})
 
-test("it hides (and shows) date precision fields when confirming a date", function() {
-  confirmDate();
-  equal($('.js-label-one-month').attr('style').trim(), 'display: none;');
-  ok($('.js-label-exact').hasClass('block-label-read-only'));
+test('it hides (and shows) date precision fields when confirming a date', function () {
+  confirmDate()
+  equal($('.js-label-one-month').attr('style').trim(), 'display: none;')
+  ok($('.js-label-exact').hasClass('block-label-read-only'))
 
-  unconfirmDate();
-  equal($('.js-label-one-month').attr('style').trim(), 'display: inline;');
-  ok(!$('.js-label-exact').hasClass('block-label-read-only'));
-});
+  unconfirmDate()
+  equal($('.js-label-one-month').attr('style').trim(), 'display: inline;')
+  ok(!$('.js-label-exact').hasClass('block-label-read-only'))
+})
 
-function confirmDate() {
-  $('input[name="form_name[confirmed]"]').val("1").trigger('click');
+function confirmDate () {
+  $('input[name="form_name[confirmed]"]').val('1').trigger('click')
 }
 
-function unconfirmDate() {
-  $('input[name="form_name[confirmed]"]').val("0").trigger('click');
+function unconfirmDate () {
+  $('input[name="form_name[confirmed]"]').val('0').trigger('click')
 }

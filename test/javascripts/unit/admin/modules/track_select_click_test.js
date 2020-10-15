@@ -37,10 +37,9 @@ var secondarySpecialistSectorTrackedFieldset =
 '    </select>' +
 '  </fieldset>'
 
-
-module("TrackSelectClick", {
-  setup: function() {
-    this.subject = new GOVUKAdmin.Modules.TrackSelectClick();
+module('TrackSelectClick', {
+  setup: function () {
+    this.subject = new GOVUKAdmin.Modules.TrackSelectClick()
 
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(primarySpecialistSectorTrackedFieldset)
@@ -48,43 +47,42 @@ module("TrackSelectClick", {
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("the primary specialist sector fieldset should send a tracking event on change", function () {
-  var primarySpecialistSectorSelectBox = $('#edition_primary_specialist_sector_tag');
-  var spy = sinon.spy(GOVUKAdmin, 'trackEvent');
+test('the primary specialist sector fieldset should send a tracking event on change', function () {
+  var primarySpecialistSectorSelectBox = $('#edition_primary_specialist_sector_tag')
+  var spy = sinon.spy(GOVUKAdmin, 'trackEvent')
 
-  this.subject.start(primarySpecialistSectorSelectBox);
+  this.subject.start(primarySpecialistSectorSelectBox)
 
-  primarySpecialistSectorSelectBox.val('5285dff5-e786-4b88-b113-1d78b19ac8e1').change();
+  primarySpecialistSectorSelectBox.val('5285dff5-e786-4b88-b113-1d78b19ac8e1').change()
 
-  sinon.assert.calledOnce(spy);
+  sinon.assert.calledOnce(spy)
   deepEqual(
     spy.args[0],
-    ["taxonSelectionPrimarySpecialist", "Benefits: Universal Credit", {}]
-  );
+    ['taxonSelectionPrimarySpecialist', 'Benefits: Universal Credit', {}]
+  )
 
   spy.restore()
-});
+})
 
+test('the additional specialist sector fieldset should send a tracking event on change', function () {
+  var additionalSpecialistSectorSelectBox = $('#edition_secondary_specialist_sector_tags')
+  var spy = sinon.spy(GOVUKAdmin, 'trackEvent')
 
-test("the additional specialist sector fieldset should send a tracking event on change", function () {
-  var additionalSpecialistSectorSelectBox = $('#edition_secondary_specialist_sector_tags');
-  var spy = sinon.spy(GOVUKAdmin, 'trackEvent');
+  this.subject.start(additionalSpecialistSectorSelectBox)
 
-  this.subject.start(additionalSpecialistSectorSelectBox);
+  additionalSpecialistSectorSelectBox.val('3e275a11-0fae-425b-a7a1-fe434594693f').change()
 
-  additionalSpecialistSectorSelectBox.val('3e275a11-0fae-425b-a7a1-fe434594693f').change();
-
-  sinon.assert.calledOnce(spy);
+  sinon.assert.calledOnce(spy)
   deepEqual(
     spy.args[0],
-    ["taxonSelectionAdditionalSpecialist", "Animal welfare: Pets", {}]
-  );
+    ['taxonSelectionAdditionalSpecialist', 'Animal welfare: Pets', {}]
+  )
 
   spy.restore()
-});
+})

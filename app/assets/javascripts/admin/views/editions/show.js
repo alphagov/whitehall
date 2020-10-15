@@ -1,16 +1,16 @@
-(function() {
-  "use strict";
+(function () {
+  'use strict'
   window.GOVUK = window.GOVUK || {}
 
   var adminEditionShow = {
-    init: function init(params) {
-      this.hideExtraInboundLinks();
+    init: function init (params) {
+      this.hideExtraInboundLinks()
     },
 
-    hideExtraInboundLinks: function hideExtraInboundLinks() {
-      $('#inbound-links').hideExtraRows({rows: 10});
+    hideExtraInboundLinks: function hideExtraInboundLinks () {
+      $('#inbound-links').hideExtraRows({ rows: 10 })
     }
-  };
+  }
 
-  window.GOVUK.adminEditionShow = adminEditionShow;
-}());
+  window.GOVUK.adminEditionShow = adminEditionShow
+}())

@@ -1,46 +1,46 @@
 (function () {
-  "use strict";
-  var root = this,
-      $ = root.jQuery;
+  'use strict'
+  var root = this
+  var $ = root.jQuery
 
-  if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
+  if (typeof root.GOVUK === 'undefined') { root.GOVUK = {} }
 
   var formChangeProtection = {
     init: function (form, message) {
-      this.$form = $(form);
-      this.message = message;
-      this.initialState = this.serialisedFormValues();
+      this.$form = $(form)
+      this.message = message
+      this.initialState = this.serialisedFormValues()
 
-      this.preventLossOfUnsavedChanges();
+      this.preventLossOfUnsavedChanges()
     },
 
     serialisedFormValues: function () {
-      var formdata = this.$form.find("*").
-        not('input[name=authenticity_token]').serialize();
+      var formdata = this.$form.find('*')
+        .not('input[name=authenticity_token]').serialize()
 
       this.$form.find('input[type=file]').each(function () {
-        formdata = formdata + $(this).val();
-      });
+        formdata = formdata + $(this).val()
+      })
 
-      return formdata;
+      return formdata
     },
 
     alertIfUnsavedChanges: function () {
-      var current = formChangeProtection.serialisedFormValues();
+      var current = formChangeProtection.serialisedFormValues()
 
       if (current != formChangeProtection.initialState) {
-        return formChangeProtection.message;
+        return formChangeProtection.message
       }
     },
 
     preventLossOfUnsavedChanges: function () {
-      $(window).bind('beforeunload', this.alertIfUnsavedChanges);
+      $(window).bind('beforeunload', this.alertIfUnsavedChanges)
       // unbind when the form is submitted to stop the alert
-      this.$form.bind('submit', function() {
-        $(window).unbind('beforeunload');
-      });
+      this.$form.bind('submit', function () {
+        $(window).unbind('beforeunload')
+      })
     }
   }
 
-  root.GOVUK.formChangeProtection = formChangeProtection;
-}).call(this);
+  root.GOVUK.formChangeProtection = formChangeProtection
+}).call(this)

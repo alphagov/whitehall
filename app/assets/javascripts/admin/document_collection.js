@@ -1,20 +1,19 @@
 (function () {
-  "use strict";
-  var root = this,
-      $ = root.jQuery;
+  'use strict'
+  var root = this
+  var $ = root.jQuery
 
-  if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
+  if (typeof root.GOVUK === 'undefined') { root.GOVUK = {} }
 
   var documentCollectionCheckboxSelector = {
-    init: function() {
-      $('section.group ul.controls input:checkbox').click(function() {
+    init: function () {
+      $('section.group ul.controls input:checkbox').click(function () {
         var to_toggle = $(this)
           .parents('section.group')
-          .find('ol.document-list input:checkbox');
-        $(to_toggle).prop('checked', $(this).is(':checked'));
-      });
+          .find('ol.document-list input:checkbox')
+        $(to_toggle).prop('checked', $(this).is(':checked'))
+      })
     }
-  };
-  root.GOVUK.documentCollectionCheckboxSelector = documentCollectionCheckboxSelector;
-
-}).call(this);
+  }
+  root.GOVUK.documentCollectionCheckboxSelector = documentCollectionCheckboxSelector
+}).call(this)
