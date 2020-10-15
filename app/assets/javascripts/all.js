@@ -8,6 +8,7 @@
 //= require jquery.ui.all
 //= require vendor/jquery/jquery.player.min
 //= require vendor/google-diff-match-patch.js
+//= require vendor/jquery/chosen.jquery.js
 //
 //= require shared_mustache
 //= require templates
