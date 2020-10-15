@@ -1,0 +1,29 @@
+{
+  "name": "whitehall",
+  "description": "Publishing and frontend rendering application for GOV.UK",
+  "private": true,
+  "author": "Government Digital Service",
+  "license": "MIT",
+  "scripts": {
+    "lint:js": "standard 'app/assets/javascripts/**/*.js' 'test/javascripts/**/*.js'"
+  },
+  "standard": {
+    "env": {
+      "browser": true,
+      "jquery": true,
+      "qunit": true
+    },
+    "globals": [
+      "GOVUK",
+      "sinon"
+    ],
+    "ignore": [
+      "app/assets/javascripts/templates.js",
+      "app/assets/javascripts/vendor/",
+      "test/javascripts/support/"
+    ]
+  },
+  "devDependencies": {
+    "standard": "^14.3.4"
+  }
+}
