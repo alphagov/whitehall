@@ -5,7 +5,8 @@
   "author": "Government Digital Service",
   "license": "MIT",
   "scripts": {
-    "lint:js": "standard 'app/assets/javascripts/**/*.js' 'test/javascripts/**/*.js'"
+    "lint:js": "standard 'app/assets/javascripts/**/*.js' 'test/javascripts/**/*.js'",
+    "lint:scss": "stylelint app/assets/stylesheets/"
   },
   "standard": {
     "env": {
@@ -24,6 +25,8 @@
     ]
   },
   "devDependencies": {
-    "standard": "^15.0.0"
+    "standard": "^15.0.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-gds": "^0.1.0"
   }
 }
