@@ -25,26 +25,26 @@ $govuk-use-legacy-palette: false;
 // files can be used in the view files.
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "_colours";
-@import "_conditionals";
-@import "_css3";
-@import "_grid_layout";
-@import "_measurements";
-@import "_typography";
-@import "_shims";
+@import "colours";
+@import "conditionals";
+@import "css3";
+@import "grid_layout";
+@import "measurements";
+@import "typography";
+@import "shims";
 
-@import "styleguide/_dimensions";
-@import "styleguide/_typography";
-@import "styleguide/_colours";
-@import "styleguide/_button";
-@import "styleguide/_float-fix";
-@import "styleguide/_hidpi";
-@import "styleguide/_right-to-left";
+@import "styleguide/dimensions";
+@import "styleguide/typography";
+@import "styleguide/colours";
+@import "styleguide/button";
+@import "styleguide/float-fix";
+@import "styleguide/hidpi";
+@import "styleguide/right-to-left";
 
 // RESET
 // Flatten exising styles
 
-@import "reset/_reset";
+@import "reset/reset";
 // reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
@@ -54,95 +54,95 @@ $govuk-use-legacy-palette: false;
 // Styles that apply to all of whitehall.
 
 #whitehall-wrapper {
-  @import "global/_links";
-  @import "global/_clear";
-  @import "global/_aspect-ratio";
+  @import "global/links";
+  @import "global/clear";
+  @import "global/aspect-ratio";
 }
 
 // HELPERS
 // Styles for comment page elements
 
 #whitehall-wrapper {
-  @import "helpers/_activity-nav";
-  @import "helpers/_announcements";
-  @import "helpers/_withdrawal-notice";
-  @import "helpers/_attachment";
-  @import "helpers/_available_languages";
-  @import "helpers/_browse";
-  @import "helpers/_change-notes";
-  @import "helpers/_collection_list";
-  @import "helpers/_contextual-info";
-  @import "helpers/_corporate-information";
-  @import "helpers/_dash-list";
-  @import "helpers/_document";
-  @import "helpers/_document_footer_meta";
-  @import "helpers/_document_list";
-  @import "helpers/_document-share-links";
-  @import "helpers/_documents-grid";
-  @import "helpers/_headings";
-  @import "helpers/_featured-links";
-  @import "helpers/_featured_news";
-  @import "helpers/_feeds";
-  @import "helpers/_filtered-index";
-  @import "helpers/_govspeak";
-  @import "helpers/_heading-block";
-  @import "helpers/_historic-people-list";
-  @import "helpers/_holding";
-  @import "helpers/_index-list";
-  @import "helpers/_js-list-items";
-  @import "helpers/_lead-image";
-  @import "helpers/_metadata-list";
-  @import "helpers/_organisations";
-  @import "helpers/_organisation-news";
-  @import "helpers/_page-header";
-  @import "helpers/_pagination";
-  @import "helpers/_person";
-  @import "helpers/_recently_updated";
-  @import "helpers/_simple-alphabetical-list";
-  @import "helpers/_social-media-accounts";
-  @import "helpers/_status-block";
-  @import "helpers/_sub-navigation";
-  @import "helpers/_worldwide-organisation-header";
+  @import "helpers/activity-nav";
+  @import "helpers/announcements";
+  @import "helpers/withdrawal-notice";
+  @import "helpers/attachment";
+  @import "helpers/available_languages";
+  @import "helpers/browse";
+  @import "helpers/change-notes";
+  @import "helpers/collection_list";
+  @import "helpers/contextual-info";
+  @import "helpers/corporate-information";
+  @import "helpers/dash-list";
+  @import "helpers/document";
+  @import "helpers/document_footer_meta";
+  @import "helpers/document_list";
+  @import "helpers/document-share-links";
+  @import "helpers/documents-grid";
+  @import "helpers/headings";
+  @import "helpers/featured-links";
+  @import "helpers/featured_news";
+  @import "helpers/feeds";
+  @import "helpers/filtered-index";
+  @import "helpers/govspeak";
+  @import "helpers/heading-block";
+  @import "helpers/historic-people-list";
+  @import "helpers/holding";
+  @import "helpers/index-list";
+  @import "helpers/js-list-items";
+  @import "helpers/lead-image";
+  @import "helpers/metadata-list";
+  @import "helpers/organisations";
+  @import "helpers/organisation-news";
+  @import "helpers/page-header";
+  @import "helpers/pagination";
+  @import "helpers/person";
+  @import "helpers/recently_updated";
+  @import "helpers/simple-alphabetical-list";
+  @import "helpers/social-media-accounts";
+  @import "helpers/status-block";
+  @import "helpers/sub-navigation";
+  @import "helpers/worldwide-organisation-header";
 
   // helpers shared with admin
-  @import "../shared/helpers/_magna-charta";
-  @import "../shared/helpers/_player-container";
+  @import "../shared/helpers/magna-charta";
+  @import "../shared/helpers/player-container";
 }
 
 // VIEWS
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
-  @import "views/_corporate-information-pages-worldwide-organisation";
-  @import "views/_email-signup";
-  @import "views/_email-signup-information";
-  @import "views/_embassies";
-  @import "views/_get-involved";
-  @import "views/_groups";
-  @import "views/_history-people";
-  @import "views/_historic-appointments";
-  @import "views/_how-gov-works";
-  @import "views/_layouts";
-  @import "views/_ministerial-roles";
-  @import "views/_new-document-page";
-  @import "views/_operational-field";
-  @import "views/_organisations";
-  @import "views/_search";
-  @import "views/_site-index";
-  @import "views/_topic";
-  @import "views/_world_locations";
-  @import "views/_worldwide_organisations";
-  @import "views/_topical-events";
+  @import "views/corporate-information-pages-worldwide-organisation";
+  @import "views/email-signup";
+  @import "views/email-signup-information";
+  @import "views/embassies";
+  @import "views/get-involved";
+  @import "views/groups";
+  @import "views/history-people";
+  @import "views/historic-appointments";
+  @import "views/how-gov-works";
+  @import "views/layouts";
+  @import "views/ministerial-roles";
+  @import "views/new-document-page";
+  @import "views/operational-field";
+  @import "views/organisations";
+  @import "views/search";
+  @import "views/site-index";
+  @import "views/topic";
+  @import "views/world_locations";
+  @import "views/worldwide_organisations";
+  @import "views/topical-events";
   @import "views/corporate_information_pages/show";
-  @import "views/publications/_index";
-  @import "views/statistics/_index";
-  @import "views/statistics_announcements/_index";
+  @import "views/publications/index";
+  @import "views/statistics/index";
+  @import "views/statistics_announcements/index";
 }
 
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 
-@import "layouts/_main";
+@import "layouts/main";
 
 #whitehall-wrapper {
   @import "layouts/two_column_page";

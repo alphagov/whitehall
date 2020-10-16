@@ -23,24 +23,24 @@ $govuk-typography-use-rem: false;
 // files can be used in the view files.
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "_colours";
-@import "_conditionals";
-@import "_css3";
-@import "_grid_layout";
-@import "_measurements";
-@import "_typography";
+@import "colours";
+@import "conditionals";
+@import "css3";
+@import "grid_layout";
+@import "measurements";
+@import "typography";
 
-@import "styleguide/_dimensions";
-@import "styleguide/_colours";
-@import "styleguide/_float-fix";
-@import "styleguide/_hidpi";
-@import "styleguide/_typography";
-@import "styleguide/_right-to-left";
+@import "styleguide/dimensions";
+@import "styleguide/colours";
+@import "styleguide/float-fix";
+@import "styleguide/hidpi";
+@import "styleguide/typography";
+@import "styleguide/right-to-left";
 
 // RESET
 // Flatten exising styles
 
-@import "reset/_reset";
+@import "reset/reset";
 // reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
@@ -49,21 +49,21 @@ $govuk-typography-use-rem: false;
 // HELPERS
 // Styles for comment page elements
 #whitehall-wrapper {
-  @import "helpers/_govspeak";
-  @import "helpers/_organisations";
+  @import "helpers/govspeak";
+  @import "helpers/organisations";
 
   // helpers shared with frontend and admin
-  @import "../shared/helpers/_player-container";
+  @import "../shared/helpers/player-container";
 
   // Support for bar charts
-  @import "../shared/helpers/_magna-charta";
+  @import "../shared/helpers/magna-charta";
 }
 
 // VIEWS
 // Styles scoped to each template in /views
 #whitehall-wrapper {
-  @import "views/attachments/_preview";
-  @import "views/_html-publications";
+  @import "views/attachments/preview";
+  @import "views/html-publications";
 }
 
 // LAYOUTS

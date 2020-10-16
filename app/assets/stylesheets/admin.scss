@@ -1,3 +1,5 @@
+// stylelint-disable scss/at-import-partial-extension -- jquery ui naming
+// conventions trip this rule
 @import 'govuk_admin_template';
 
 @import 'jquery.ui.core';
@@ -18,5 +20,5 @@
 
 @import 'vendor/chosen-bootstrap';
 @import 'vendor/jquery.highlighttextarea';
-@import 'shared/helpers/_magna-charta';
+@import 'shared/helpers/magna-charta';
 @import 'admin/base';

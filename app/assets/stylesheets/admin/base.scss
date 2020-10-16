@@ -1,21 +1,21 @@
 
 // STYLEGUIDE
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "_colours";
-@import "_conditionals";
-@import "_measurements";
-@import "_css3";
-@import "_shims";
-@import "_typography";
+@import "colours";
+@import "conditionals";
+@import "measurements";
+@import "css3";
+@import "shims";
+@import "typography";
 
 // Frontend styleguide is used for rendering govspeak and some other things
 // it probably shouldn't be used for (e.g. $gutter).
-@import "frontend/styleguide/_dimensions";
-@import "frontend/styleguide/_typography";
-@import "frontend/styleguide/_colours";
-@import "frontend/styleguide/_right-to-left";
+@import "frontend/styleguide/dimensions";
+@import "frontend/styleguide/typography";
+@import "frontend/styleguide/colours";
+@import "frontend/styleguide/right-to-left";
 
-@import "govuk_admin_template/emulate/_forms";
+@import "govuk_admin_template/emulate/forms";
 
 // COMPONENTS
 @import "alerts";
@@ -38,34 +38,34 @@
 
 // GLOBAL
 // Styles that apply to all of admin.
-@import "global/_boostrap-overrides";
-@import "global/_js-hidden";
+@import "global/boostrap-overrides";
+@import "global/js-hidden";
 
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
-@import "helpers/_broken_links_report";
-@import "helpers/_document_finder";
-@import "helpers/_document_list";
-@import "helpers/_navigation_controls";
-@import "helpers/_jquery_ui_overrides";
-@import "helpers/_statistics_announcements";
-@import "helpers/_words_to_avoid_highlighter";
-@import "helpers/bootstrap/_button_dropdown";
+@import "helpers/broken_links_report";
+@import "helpers/document_finder";
+@import "helpers/document_list";
+@import "helpers/navigation_controls";
+@import "helpers/jquery_ui_overrides";
+@import "helpers/statistics_announcements";
+@import "helpers/words_to_avoid_highlighter";
+@import "helpers/bootstrap/button_dropdown";
 
 // helpers shared with frontend
-@import "../shared/helpers/_player-container";
+@import "../shared/helpers/player-container";
 
 // VIEWS
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
-@import "views/_dashboard";
-@import "views/_edition_form";
-@import "views/_edition_show_locked";
-@import "views/_edition_show";
-@import "views/_editions-index";
-@import "views/_edition_edit_help";
-@import "views/_edition_tags_edit";
-@import "views/_document_collection_groups";
-@import "views/_organisation";
+@import "views/dashboard";
+@import "views/edition_form";
+@import "views/edition_show_locked";
+@import "views/edition_show";
+@import "views/editions-index";
+@import "views/edition_edit_help";
+@import "views/edition_tags_edit";
+@import "views/document_collection_groups";
+@import "views/organisation";
 @import "views/editions/confirm_unpublish";
-@import "views/editions/_filter_options";
+@import "views/editions/filter_options";

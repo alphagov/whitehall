@@ -24,14 +24,14 @@ $is-print: true;
 @import 'govuk_publishing_components/components/print/title';
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "_colours";
-@import "_conditionals";
-@import "_css3";
-@import "_typography";
-@import "_measurements";
+@import "colours";
+@import "conditionals";
+@import "css3";
+@import "typography";
+@import "measurements";
 
-@import "styleguide/_colours";
-@import "styleguide/_right-to-left";
+@import "styleguide/colours";
+@import "styleguide/right-to-left";
 
 html {
   font-size: 62.5%;
