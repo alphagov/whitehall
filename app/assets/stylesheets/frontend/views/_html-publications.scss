@@ -1,9 +1,9 @@
 .html-publications-show {
   @extend %contain-floats;
 
-  padding: $gutter-half $gutter-half $gutter*3;
+  padding: $gutter-half $gutter-half ($gutter * 3);
   @include media(tablet) {
-    padding: $gutter $gutter $gutter*3;
+    padding: $gutter $gutter ($gutter * 3);
   }
 
   .publication-external {
@@ -58,7 +58,7 @@
         color: $white;
 
         @include media(tablet) {
-          margin-bottom: $gutter*2;
+          margin-bottom: $gutter * 2;
         }
       }
 
@@ -67,7 +67,7 @@
         display: block;
         margin: $gutter-two-thirds 0 0;
         @include media(tablet) {
-          margin: $gutter*2.5 0 $gutter-one-third;
+          margin: ($gutter * 2.5) 0 $gutter-one-third;
         }
       }
 
@@ -84,7 +84,7 @@
 
   .in-page-navigation {
     color: $white;
-    margin: 0 0 $gutter+$gutter-one-third;
+    margin: 0 0 ($gutter + $gutter-one-third);
     width: 100%;
     @include media(desktop) {
       width: 70%;
@@ -166,7 +166,7 @@
         margin: $gutter-half 0 $gutter-one-third;
 
         @include media(tablet) {
-          margin: $gutter*2 0 $gutter-half;
+          margin: ($gutter * 2) 0 $gutter-half;
         }
 
         .number {
@@ -179,10 +179,10 @@
             position: absolute;
             margin: (-$gutter) 0 0 (-25%);
             width: 22%;
-            padding: ($gutter+$gutter-one-sixth) 0 $gutter 3%;
+            padding: ($gutter + $gutter-one-sixth) 0 $gutter 3%;
             @include right-to-left {
               margin: (-$gutter) (-25%) 0 0;
-              padding: ($gutter+$gutter-one-sixth) 3% $gutter 0;
+              padding: ($gutter + $gutter-one-sixth) 3% $gutter 0;
             }
             @include ie(7) {
               margin-left: -35%;
@@ -203,8 +203,8 @@
           @include media(tablet) {
             padding-right: 0;
             display: inline-block;
-            width: $gutter*2.5;
-            margin-left: $gutter*-2.5;
+            width: $gutter * 2.5;
+            margin-left: $gutter * -2.5;
           }
         }
       }
@@ -215,7 +215,7 @@
         color: black;
         margin-top: $gutter;
         @include media(tablet) {
-          margin-top: ($gutter*2) + $gutter-two-thirds;
+          margin-top: ($gutter * 2) + $gutter-two-thirds;
         }
       }
 
@@ -301,7 +301,7 @@
       table {
         border-collapse: collapse;
         border-spacing: 0;
-        margin-bottom: $gutter*2;
+        margin-bottom: $gutter * 2;
 
         th,
         td {
@@ -364,7 +364,7 @@
         // is intentionally small and not balanced with other padding
         // as tables can be quite wide
         tr > :first-child {
-          padding-left: $gutter-one-third/2;
+          padding-left: $gutter-one-third / 2;
         }
 
         // add spacing so that groupings are clearer
@@ -405,7 +405,7 @@
       .contact {
         @extend %contain-floats;
         background: $panel-colour;
-        margin: $gutter $gutter-half*-1;
+        margin: $gutter $gutter-half * -1;
         padding: $gutter-one-third $gutter-half;
         position: relative;
 
@@ -438,7 +438,7 @@
       .call-to-action {
         margin: $gutter 0 $gutter;
         background: $panel-colour none no-repeat 98% $gutter-two-thirds;
-        padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
+        padding: $gutter-one-third ($gutter * 2) $gutter-one-third $gutter-half;
         position: relative;
 
         h4 {
@@ -463,8 +463,8 @@
           .number {
             background: none;
             @include media(tablet) {
-              width: $gutter-one-third*9;
-              margin-left: $gutter-one-third*-9;
+              width: $gutter-one-third * 9;
+              margin-left: $gutter-one-third * -9;
             }
           }
         }

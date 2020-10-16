@@ -5,13 +5,13 @@
       width: $one-third;
 
       .inner-block {
-        padding: 0 $gutter*1.5 0 $gutter;
+        padding: 0 ($gutter * 1.5) 0 $gutter;
       }
       @include right-to-left {
         float: right;
 
         .inner-block {
-          padding: 0 $gutter 0 $gutter*1.5;
+          padding: 0 $gutter 0 ($gutter * 1.5);
         }
       }
     }

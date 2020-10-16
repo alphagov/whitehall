@@ -18,7 +18,7 @@ $thumbnail-width: 99px;
     @include right-to-left {
       float: right;
       margin-left: 0;
-      margin-right: ($thumbnail-width*-1 - $gutter-half);
+      margin-right: (($thumbnail-width * -1) - $gutter-half);
     }
 
     img {

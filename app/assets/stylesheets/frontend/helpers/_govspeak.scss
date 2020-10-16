@@ -13,7 +13,7 @@
     font-weight: bold;
     margin-top: $gutter-half;
     @include media(desktop) {
-      margin-top: $gutter*1.5;
+      margin-top: $gutter * 1.5;
     }
   }
 
@@ -261,7 +261,7 @@
   .call-to-action {
     margin: $gutter 0;
     background: $panel-colour none no-repeat 98% $gutter-two-thirds;
-    padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
+    padding: $gutter-one-third ($gutter * 2) $gutter-one-third $gutter-half;
     position: relative;
 
     p {

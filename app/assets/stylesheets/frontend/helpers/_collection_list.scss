@@ -50,7 +50,7 @@
 
   &.two-columns {
     @include media(tablet) {
-      margin: 0 ($gutter-half*-1);
+      margin: 0 ($gutter-half * -1);
 
       .collection-item {
         margin-top: 0;
@@ -86,7 +86,7 @@
 
   &.three-columns {
     @include media(tablet) {
-      margin: 0 ($gutter-half*-1);
+      margin: 0 ($gutter-half * -1);
 
       .collection-item {
         margin-top: 0;

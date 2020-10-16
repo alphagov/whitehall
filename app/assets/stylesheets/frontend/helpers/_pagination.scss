@@ -1,7 +1,7 @@
 #page .previous-next-navigation {
   position: relative;
   overflow: hidden;
-  margin-top: $gutter*2;
+  margin-top: $gutter * 2;
   width: $full-width;
 
   li {
@@ -18,7 +18,7 @@
       text-align: right;
 
       a {
-        padding: $gutter-half $gutter+5px $gutter-half 0;
+        padding: $gutter-half ($gutter + 5px) $gutter-half 0;
       }
 
       a:before {
@@ -37,7 +37,7 @@
       text-align: left;
 
       a {
-        padding: $gutter-half 0 $gutter-half $gutter+5px;
+        padding: $gutter-half 0 $gutter-half ($gutter + 5px);
       }
 
       a:before {

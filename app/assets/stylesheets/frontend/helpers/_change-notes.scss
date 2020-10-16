@@ -99,7 +99,7 @@
       width: 30em;
     }
     @include media(desktop) {
-      left: -$gutter*3;
+      left: -$gutter * 3;
     }
   }
   @include ie(6) {

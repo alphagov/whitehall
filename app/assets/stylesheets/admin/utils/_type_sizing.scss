@@ -5,7 +5,7 @@ $baseline_in_px: 24 !default;
   $vertical_rhythm: ($baseline_in_px / $size_in_px);
 
   margin: 0;
-  font-size: #{($size_in_px/$base_font_size_in_px)}em;
+  font-size: #{($size_in_px / $base_font_size_in_px)}em;
   line-height: #{$vertical_rhythm * ($line_height_in_px / $baseline_in_px)}em;
   @include scaled_margin_bottom($size_in_px, $line_height_in_px);
 }

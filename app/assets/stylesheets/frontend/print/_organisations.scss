@@ -23,7 +23,7 @@
   }
 
   section {
-    padding-top: $gutter*2;
+    padding-top: $gutter * 2;
 
     h1,
     h2 {
@@ -47,7 +47,7 @@
 
     a {
       display: block;
-      padding: 0 $gutter*3 $gutter*3 0;
+      padding: 0 ($gutter * 3) ($gutter * 3) 0;
 
       img {
         width: 100%;
@@ -117,7 +117,7 @@
   }
 
   .documents-grid {
-    padding-top: $gutter*2;
+    padding-top: $gutter * 2;
 
     h1 {
       padding-bottom: 0;
@@ -155,7 +155,7 @@
 
   li.person-excerpt {
     float: left;
-    margin: 0 3% $gutter*2 0;
+    margin: 0 3% ($gutter * 2) 0;
     width: 30%;
 
     .image-holder {

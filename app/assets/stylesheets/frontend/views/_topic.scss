@@ -89,7 +89,7 @@
   .heading-extra {
     margin: 0 $gutter-half $gutter;
     @include media(tablet) {
-      margin: $gutter+$gutter-half 0 $gutter;
+      margin: ($gutter + $gutter-half) 0 $gutter;
     }
   }
 }

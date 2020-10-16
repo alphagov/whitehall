@@ -1,7 +1,7 @@
 .world-locations-index {
   .page-title {
     @include media(desktop) {
-      padding: $gutter*2 0 $gutter;
+      padding: ($gutter * 2) 0 $gutter;
     }
 
     hgroup {
@@ -79,7 +79,7 @@
   .block {
     display: block;
     clear: both;
-    margin-bottom: $gutter*2;
+    margin-bottom: $gutter * 2;
     overflow: hidden;
   }
 
@@ -156,7 +156,7 @@
   }
 
   .our-mission {
-    margin-bottom: $gutter*2;
+    margin-bottom: $gutter * 2;
 
     p {
       @include heading-24;
@@ -245,7 +245,7 @@
   .heading-extra {
     margin: 0;
     @include media(tablet) {
-      margin: $gutter+$gutter-half 0 $gutter 0;
+      margin: ($gutter + $gutter-half) 0 $gutter 0;
     }
   }
 }

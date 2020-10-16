@@ -11,7 +11,7 @@
     position: relative;
     margin: 0 auto;
     width: auto;
-    max-width: $max-site-width + $gutter*2;
+    max-width: $max-site-width + ($gutter * 2);
 
     @extend %contain-floats;
   }

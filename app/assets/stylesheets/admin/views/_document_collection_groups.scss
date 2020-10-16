@@ -1,11 +1,11 @@
 .document-collection-groups {
   &.index {
     .non-whitehall-disclosure {
-      margin-bottom: $gutter/2;
+      margin-bottom: $gutter / 2;
 
       summary {
         font-weight: bold;
-        margin-bottom: $gutter/2;
+        margin-bottom: $gutter / 2;
         @include border-radius(3px);
         border: 1px solid transparent;
       }

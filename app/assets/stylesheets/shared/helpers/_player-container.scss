@@ -171,8 +171,8 @@
         background-position: center left;
         background-image: image-url('player-icon-volume.png');
         @include right-to-left {
-          left: $gutter*2;
-          padding: 0 $gutter+5 0 0;
+          left: $gutter * 2;
+          padding: 0 ($gutter + 5) 0 0;
         }
       }
 

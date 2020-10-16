@@ -94,8 +94,8 @@ $bar-colours: $light-blue,
       }
       // Key colours
       @for $i from 0 to length($bar-colours) {
-        .mc-key-#{$i+1} {
-          border-left-color: nth($bar-colours, $i+1);
+        .mc-key-#{$i + 1} {
+          border-left-color: nth($bar-colours, $i + 1);
         }
       }
     }
@@ -147,7 +147,7 @@ $bar-colours: $light-blue,
         }
         // Bar colours
         @for $i from 0 to length($bar-colours) {
-          .mc-bar-#{$i+1} {
+          .mc-bar-#{$i + 1} {
             background-color: nth($bar-colours, $i + 1);
           }
         }
@@ -206,11 +206,11 @@ $bar-colours: $light-blue,
     // Charts with multiple columns get different coloured bars
     $len: length($bar-colours);
     @for $i from 0 to $len {
-      .mc-tr .mc-td.mc-bar-cell.mc-bar-#{$i+1} {
+      .mc-tr .mc-td.mc-bar-cell.mc-bar-#{$i + 1} {
         background-color: nth($bar-colours, $i + 1);
       }
-      .mc-tr .mc-th.mc-key-#{$i+1} {
-        border-left-color: nth($bar-colours, $i+1);
+      .mc-tr .mc-th.mc-key-#{$i + 1} {
+        border-left-color: nth($bar-colours, $i + 1);
       }
     }
 

@@ -82,7 +82,7 @@
   .organisations-box {
     @include media(tablet) {
       position: absolute;
-      width: $full-width*2;
+      width: $full-width * 2;
       right: 0;
       z-index: 10;
       @include right-to-left {

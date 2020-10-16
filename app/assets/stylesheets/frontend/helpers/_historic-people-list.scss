@@ -35,10 +35,10 @@
     border: solid 1px $border-colour;
     border-width: 1px 0;
 
-    line-height: (45/16);
+    line-height: (45 / 16);
 
     @include media(tablet) {
-      line-height: (45/19);
+      line-height: (45 / 19);
     }
 
     @include media(tablet) {

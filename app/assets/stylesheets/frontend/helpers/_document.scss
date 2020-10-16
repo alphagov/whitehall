@@ -1,7 +1,7 @@
 .document {
   .summary {
     p {
-      margin-top: $gutter-one-third*-1;
+      margin-top: $gutter-one-third * -1;
       margin-bottom: $gutter-half;
       @include ig-core-19;
     }

@@ -59,7 +59,7 @@ ul {
 
 li {
   @include core-14;
-  margin-left: $gutter*1.2;
+  margin-left: $gutter * 1.2;
 
   li {
     margin-left: $gutter;

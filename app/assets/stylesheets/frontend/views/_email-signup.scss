@@ -1,7 +1,7 @@
 .email-signup-show {
   p {
     @include core-19;
-    margin: $gutter/2 0;
+    margin: ($gutter / 2) 0;
   }
 
   strong {
