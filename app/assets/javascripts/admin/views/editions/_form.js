@@ -14,6 +14,7 @@
       this.toggleWorldNewsStoryVisibility();
       this.resetWorldNewsStoryFields();
       this.toggleFirstPublishedDate();
+      this.showImageUploaderIfCustomImage();
 
       GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
     },
@@ -265,6 +266,22 @@
         $(this).parent().hide().next().removeClass('if-js-hide');
         e.preventDefault();
       });
+    },
+
+    showImageUploaderIfCustomImage: function showImageUploaderIfCustomImage() {
+      var $imageUploader = $('.image_section .js-show-image-uploader');
+      var $customImageRadioButton = $('#edition_image_display_option_custom_image');
+      var $radioButtons = $('.image_section input[type=radio]');
+
+      function showOrHideImageUploader() {
+        if ($customImageRadioButton.prop('checked')){
+          $imageUploader.show();
+        } else {
+          $imageUploader.hide();
+        }
+      }
+      $radioButtons.on('change', showOrHideImageUploader);
+      showOrHideImageUploader();
     }
   }
 

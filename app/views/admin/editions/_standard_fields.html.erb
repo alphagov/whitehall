@@ -25,5 +25,9 @@
 <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
 
 <% if form.object.allows_image_attachments? %>
-  <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+  <% if edition.type == "CaseStudy" %>
+    <%= render partial: "image_fields_case_studies", locals: {form: form, edition: form.object} %>
+  <% else %>
+    <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+  <% end %>
 <% end %>

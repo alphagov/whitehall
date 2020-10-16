@@ -32,6 +32,11 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         format_display_type: "case_study",
+        image: {
+          url: "",
+          caption: nil,
+          alt_text: "",
+        },
         first_public_at: case_study.first_public_at,
         change_history: [
           { public_timestamp: case_study.public_timestamp, note: "change-note" }.as_json,
@@ -106,6 +111,22 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       url: organisation_image.file.url(:s300),
+      alt_text: "",
+      caption: nil,
+    }
+    presented_item = present(case_study)
+
+    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_equal expected_hash, presented_item.content[:details][:image]
+  end
+
+  test "Adds an empty image field if the image display option is no_image" do
+    organisation = create(:organisation)
+
+    case_study = create(:published_case_study, lead_organisations: [organisation])
+
+    expected_hash = {
+      url: "",
       alt_text: "",
       caption: nil,
     }

@@ -97,6 +97,43 @@ var firstPublishedAtFieldset =
     '</div>' +
   '</fieldset>'
 
+var imageFieldsFieldSet =
+'<fieldset class="image_section">' +
+'<div class="radio">' +
+'  <label for="edition_image_display_option">' +
+'    <input type="radio" value="no_image" name="edition[image_display_option]" id="edition_image_display_option_no_image">' +
+'    <strong>Dont use an image</strong>' +
+'    <p class="hint">No image will be shown on page</p>' +
+'  </label>' +
+'  </div>' +
+'  <div class="radio">' +
+'  <label class="radio" for="edition_image_display_option">' +
+'    <input type="radio" value="custom_image" name="edition[image_display_option]" id="edition_image_display_option_custom_image">' +
+'    <strong>Use the default organisation image</strong>' +
+'    <p class="hint">The image set in the organisation page will be shown</p>' +
+'  </label>' +
+'  </div>' +
+'  <div class="radio">' +
+'  <label class="radio" for="edition_image_display_option">' +
+'    <input type="radio" value="organisation_image" name="edition[image_display_option]" id="edition_image_display_option_organisation_image">' +
+'    <strong>Use a custom image</strong>' +
+'    <p class="hint">Upload a custom image</p>' +
+'  </label>' +
+'  </div>' +
+'<div class="js-show-image-uploader show-image-uploader">' +
+'  <fieldset id="image_fields" class="images multiple_file_uploads">' +
+'        <div class="file_upload well">' +
+'          <h3 class="remove-top-margin">New image</h3>' +
+'          <p>Images must be 960px wide and 640px tall.</p>' +
+'            <div class="form-group"><label for="edition_images_attributes_0_image_data_attributes_file">File</label><input class="js-upload-image-input" type="file" name="edition[images_attributes][0][image_data_attributes][file]" id="edition_images_attributes_0_image_data_attributes_file"><input type="hidden" name="edition[images_attributes][0][image_data_attributes][file_cache]" id="edition_images_attributes_0_image_data_attributes_file_cache"></div>' +
+'          <div class="form-group"><label for="edition_images_attributes_0_alt_text">Alt text</label><input class="form-control" type="text" name="edition[images_attributes][0][alt_text]" id="edition_images_attributes_0_alt_text"></div>' +
+'          <div class="form-group"><label for="edition_images_attributes_0_caption">Caption</label><div class="highlightTextarea"><div class="highlighterContainer"><div class="highlighter"></div></div>' +
+'          <textarea rows="2" class="form-control" name="edition[images_attributes][0][caption]" id="edition_images_attributes_0_caption"></textarea></div></div>' +
+'        </div>' +
+'    </fieldset>' +
+'  </div>' +
+'</fieldset> '
+
 var roleAppointmentFieldset =
 '  <fieldset class="role-appointments">' +
 '    <label for="edition_role_appointment_ids">Ministers</label>' +
@@ -269,6 +306,32 @@ test("unselecting 'World news story' hides and resets the locale fields", functi
 
   equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English');
   ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+});
+
+module("admin-edition-image-fields: ", {
+  setup: function() {
+    $('#qunit-fixture').append(form)
+    $('#qunit-fixture form').append(imageFieldsFieldSet)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
+    $('.js-hidden').hide();
+  }
+});
+
+test("use_no_image radio buttons toggle visibility of image_uploader selector", function() {
+  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader hidden by default');
+
+  $('#edition_image_display_option_no_image').click();
+  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader shown when "image_display_option_no_image" selected');
+
+  $('#edition_image_display_option_custom_image').click();
+  ok($('.js-show-image-uploader').is(':visible'), 'image uploader hidden when "image_display_option_custom_image" selected');
+
+  $('#edition_image_display_option_organisation_image').click();
+  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader shown when "image_display_option_organisation_image" selected');
 });
 
 module("admin-edition-form-first-published-at: ", {
