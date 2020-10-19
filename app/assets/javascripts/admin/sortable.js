@@ -30,7 +30,7 @@
   var _enableConnectedSortable = function (extraUpdateFunction) {
     $(this).each(function () {
       var fieldset = $(this)
-      var list = $('<ul class="connectedSortable"></ul>')
+      var list = $('<ul class="connected-sortable"></ul>')
       fieldset.find('input.ordering').hide()
       fieldset.find('input.lead').each(function (i, item) {
         var $item = $(item)
@@ -48,7 +48,7 @@
         opacity: 0.5,
         update: extraUpdateFunction,
         placeholder: 'well sortable-drop-target',
-        connectWith: '.connectedSortable',
+        connectWith: '.connected-sortable',
         dropOnEmpty: true,
         forcePlaceholderSize: true
       }).disableSelection()
@@ -64,16 +64,16 @@
 jQuery(function ($) {
   $('.sortable').enableSortable()
   $('#lead_organisation_sortable').enableConnectedSortable(function (event, ui) {
-    $('#lead_organisation_sortable').siblings('.connectedSortable').children('.sort_item').each(function (index, li) {
+    $('#lead_organisation_sortable').siblings('.connected-sortable').children('.sort_item').each(function (index, li) {
       $(li).find('input.ordering').val(index)
     })
     ui.item.find('input.lead').val(1)
   })
   $('#organisation_sortable').enableConnectedSortable(function (event, ui) {
-    $('#organisation_sortable').siblings('.connectedSortable').children('.sort_item').each(function (index, li) {
+    $('#organisation_sortable').siblings('.connected-sortable').children('.sort_item').each(function (index, li) {
       $(li).find('input.ordering').val('')
     })
-    $('#lead_organisation_sortable').siblings('.connectedSortable').children('.sort_item').each(function (index, li) {
+    $('#lead_organisation_sortable').siblings('.connected-sortable').children('.sort_item').each(function (index, li) {
       $(li).find('input.ordering').val(index)
     })
     ui.item.find('input.lead').val(0)
