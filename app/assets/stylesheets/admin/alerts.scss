@@ -10,19 +10,19 @@ $notice-border-color: #39b54a;
 
 $orange: #f47738;
 
-.flash-alert {
+%flash-alert {
   color: $alert-color;
   background: $alert-background;
   border-bottom: 1px solid $alert-border-color;
 }
 
-.flash-notice {
+%flash-notice {
   color: $notice-color;
   background: $notice-background;
   border-bottom: 1px solid $notice-border-color;
 }
 
-.flash-box {
+%flash-box {
   @include type-16;
   margin-bottom: 0;
   line-height: 3em;
@@ -32,17 +32,17 @@ $orange: #f47738;
 
 .notices {
   .flash {
-    @extend .flash-box;
+    @extend %flash-box;
   }
 
   .alert {
-    @extend .flash-box;
-    @extend .flash-alert;
+    @extend %flash-box;
+    @extend %flash-alert;
   }
 
   .notice {
-    @extend .flash-box;
-    @extend .flash-notice;
+    @extend %flash-box;
+    @extend %flash-notice;
   }
 }
 
