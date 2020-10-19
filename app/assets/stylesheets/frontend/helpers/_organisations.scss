@@ -1,3 +1,6 @@
+// stylelint-disable scss/at-extend-no-missing-placeholder -- this rule is
+// disabled as this CSS is very intertwined and it's unclear what can be made
+// a placeholder without breaking things.
 .organisations-box {
   background: $panel-colour;
 
