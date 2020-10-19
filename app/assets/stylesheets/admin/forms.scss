@@ -131,41 +131,6 @@ fieldset.fatality-notice-casualties {
   }
 }
 
-.featured {
-  color: #ffffff;
-  background-color: #2b8cc4;
-  *background-color: #2b8cc4;
-  background-image: -ms-linear-gradient(top, #96c6e2, #2b8cc4);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#96c6e2), to(#2b8cc4));
-  background-image: -webkit-linear-gradient(top, #96c6e2, #2b8cc4);
-  background-image: -o-linear-gradient(top, #96c6e2, #2b8cc4);
-  background-image: linear-gradient(top, #96c6e2, #2b8cc4);
-  background-image: -moz-linear-gradient(top, #96c6e2, #2b8cc4);
-}
-
-.make-featured {
-  background-color: #85994b;
-  *background-color: #85994b;
-  background-image: -ms-linear-gradient(top, #c2cca3, #85994b);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c2cca3), to(#85994b));
-  background-image: -webkit-linear-gradient(top, #c2cca3, #85994b);
-  background-image: -o-linear-gradient(top, #c2cca3, #85994b);
-  background-image: linear-gradient(top, #c2cca3, #85994b);
-  background-image: -moz-linear-gradient(top, #c2cca3, #85994b);
-}
-
-.featured:hover {
-  color: #ffffff;
-  background-color: #2b8cc4;
-  *background-color: #2b8cc4;
-}
-
-.make-featured:hover {
-  color: #ffffff;
-  background-color: #85994b;
-  *background-color: #85994b;
-}
-
 .date-warning-info,
 .title-length-info,
 .summary-length-info {
