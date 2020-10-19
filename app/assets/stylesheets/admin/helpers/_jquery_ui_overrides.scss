@@ -10,10 +10,8 @@ ul.ui-autocomplete li.ui-menu-item {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-  /*
-   * The background images might look nifty, but we haven't installed
-   * them and don't need them yet as we're only using the autocomplete
-   * widget, without any fancy theming.
-   */
+  // The background images might look nifty, but we haven't installed
+  // them and don't need them yet as we're only using the autocomplete
+  // widget, without any fancy theming.
   background-image: none;
 }

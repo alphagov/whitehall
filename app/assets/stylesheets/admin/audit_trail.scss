@@ -44,7 +44,10 @@
     .image {
       float: left;
       padding-right: .75em;
-      img { margin: 0; }
+
+      img {
+        margin: 0;
+      }
     }
   }
 }
@@ -55,19 +58,59 @@
   }
 }
 
-.diff ul { background: #ffffff; font-size: 13px; list-style: none; margin: 0; padding: 0; display: table; }
+.diff ul {
+  background: #ffffff;
+  font-size: 13px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: table;
+}
 
 .diff del,
-.diff ins { display: block; text-decoration: none; }
-.diff li { padding: 0; display: table-row; margin: 0; height: 1em; }
-.diff li.ins { background: #ddffdd; color: #008800; }
-.diff li.del { background: #ffeeee; color: #bb0000; }
+.diff ins {
+  display: block;
+  text-decoration: none;
+}
 
-/* try 'whitespace:pre;' if you don't want lines to wrap */
+.diff li {
+  padding: 0;
+  display: table-row;
+  margin: 0;
+  height: 1em;
+}
+
+.diff li.ins {
+  background: #ddffdd;
+  color: #008800;
+}
+
+.diff li.del {
+  background: #ffeeee;
+  color: #bb0000;
+}
+
 .diff del,
 .diff ins,
-.diff span { white-space: pre-wrap; font-family: courier; }
-.diff del strong { font-weight: normal; background: #ffcccc; }
-.diff ins strong { font-weight: normal; background: #99ff99; }
-.diff li.diff-comment { display: none; }
-.diff li.diff-block-info { background: none repeat scroll 0 0 gray; }
+.diff span {
+  white-space: pre-wrap;
+  font-family: courier, monospace;
+}
+
+.diff del strong {
+  font-weight: normal;
+  background: #ffcccc;
+}
+
+.diff ins strong {
+  font-weight: normal;
+  background: #99ff99;
+}
+
+.diff li.diff-comment {
+  display: none;
+}
+
+.diff li.diff-block-info {
+  background: none repeat scroll 0 0 #808080;
+}

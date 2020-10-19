@@ -25,7 +25,7 @@ $thumbnail-width: 99px;
       display: block;
       width: $thumbnail-width;
       height: 140px;
-      background: white;
+      background: #ffffff;
       outline: $gutter-one-sixth solid transparentize($black, .9);
       @include ie-lte(8) {
         border: $gutter-one-sixth solid $grey-3;

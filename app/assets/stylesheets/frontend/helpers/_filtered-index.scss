@@ -118,9 +118,7 @@
         }
 
         .button {
-          margin-top: $gutter;
           display: block;
-          margin: 0 auto;
           color: $white;
           @include button($mellow-red);
           @include ig-core-19;

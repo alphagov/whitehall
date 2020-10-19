@@ -1,10 +1,6 @@
-/*
- * magna-charta example stylesheet
- * https://github.com/alphagov/magna-charta
- *
- * Author: Tim Paul
- * Licensed under the MIT license.
- */
+// magna-charta example stylesheet
+// https://github.com/alphagov/magna-charta
+//
 
 // DEFAULT CHART STYLES
 
@@ -233,7 +229,9 @@ $bar-colours: $light-blue,
     }
 
     .mc-bar-outdented {
-      span { color: #111111; }
+      span {
+        color: #111111;
+      }
     }
 
     caption {

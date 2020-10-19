@@ -117,7 +117,7 @@
 }
 
 .organisation-logo {
-  font-family: Helvetica, Arial;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
   display: block;
   position: relative;
@@ -149,9 +149,6 @@ a.organisation-logo {
   }
 }
 @include organisation-brand-colour(".organisation-logo", border-color);
-
-.organisation-logo-stacked-no-identity {
-}
 
 .organisation-logo-identity {
   border-left: 2px solid;
