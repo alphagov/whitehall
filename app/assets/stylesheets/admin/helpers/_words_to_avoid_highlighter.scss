@@ -16,7 +16,7 @@
   position: relative;
 
   .highlighterContainer {
-    width: auto !important;
-    height: auto !important;
+    width: auto !important; // stylelint-disable-line declaration-no-important
+    height: auto !important; // stylelint-disable-line declaration-no-important
   }
 }

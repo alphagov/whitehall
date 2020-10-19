@@ -15,7 +15,8 @@
   }
 
   .js-filter-form {
-    display: none !important; //using !important to override inline display: bold which is added by js
+    //using !important to override inline display: bold which is added by js
+    display: none !important; // stylelint-disable-line declaration-no-important
   }
 
   #international-delegations {

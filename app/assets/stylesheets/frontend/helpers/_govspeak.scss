@@ -402,11 +402,11 @@
     padding-top: $gutter-one-third;
 
     ol {
-      margin-top: 0 !important;
+      margin-top: 0 !important; // stylelint-disable-line declaration-no-important
       padding-top: 0;
 
       li p {
-        margin: 10px 0 !important;
+        margin: 10px 0 !important; // stylelint-disable-line declaration-no-important
       }
     }
   }

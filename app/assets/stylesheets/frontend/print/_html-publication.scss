@@ -14,7 +14,7 @@
   }
 
   nav.in-page-navigation {
-    display: block !important;
+    display: block !important; // stylelint-disable-line declaration-no-important
 
     h2 {
       margin-top: $gutter-one-third;

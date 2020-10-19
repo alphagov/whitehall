@@ -25,7 +25,7 @@ fieldset.sortable {
 
     label,
     a {
-      cursor: inherit !important;
+      cursor: inherit !important; // stylelint-disable-line declaration-no-important
     }
 
     .state {
@@ -34,8 +34,8 @@ fieldset.sortable {
   }
 
   .well.sortable-drop-target {
-    border-style: dashed !important;
-    background-color: #ffffff !important;
+    border-style: dashed !important; // stylelint-disable-line declaration-no-important
+    background-color: #ffffff !important; // stylelint-disable-line declaration-no-important
   }
 }
 

@@ -160,8 +160,8 @@ $govuk-use-legacy-palette: false;
 
     &:focus,
     &:focus * {
-      color: $govuk-focus-text-colour !important;
-      text-decoration: none !important;
+      color: $govuk-focus-text-colour !important; // stylelint-disable-line declaration-no-important
+      text-decoration: none !important; // stylelint-disable-line declaration-no-important
     }
   }
 

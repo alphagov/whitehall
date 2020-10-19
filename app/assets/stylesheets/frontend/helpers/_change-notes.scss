@@ -92,7 +92,7 @@
     @include transition(opacity, .5s, ease);
 
     &.visuallyhidden {
-      left: -9999em !important;
+      left: -9999em !important; // stylelint-disable-line declaration-no-important
       position: absolute;
     }
     @include media(tablet) {
@@ -117,7 +117,7 @@
 
     &.open {
       .overlay {
-        display: block !important;
+        display: block !important; // stylelint-disable-line declaration-no-important
       }
     }
   }
