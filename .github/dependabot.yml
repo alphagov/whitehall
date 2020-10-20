@@ -34,6 +34,15 @@ updates:
       - dependency-name: sassc-rails
         dependency-type: direct
 
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    allow:
+      # Framework packages
+      - dependency-name: standard
+        dependency-type: direct
+
   # Ruby needs to be upgraded manually in multiple places, so cannot
   # be upgraded by Dependabot. That effectively makes the below
   # config redundant, as ruby is the only updatable thing in the
