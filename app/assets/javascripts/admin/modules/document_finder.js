@@ -13,89 +13,89 @@
     // 'document_id') or edition's id (with a name attribute of 'edition_id').
 
     init: function (params) {
-      this.no_results_message = params.no_results_message || 'No results matching search criteria'
+      this.noResultsMessage = params.no_results_message || 'No results matching search criteria'
       delete params.no_results_message
-      this.additional_filter_params = params
-      this.latest_results = null
-      this.search_term_content = ''
-      this.$search_term = $('input#title')
-      this.$search_term.autocomplete({
+      this.additionalFilterParams = params
+      this.latestResults = null
+      this.searchTermContent = ''
+      this.$searchTerm = $('input#title')
+      this.$searchTerm.autocomplete({
         disabled: true,
         minLength: 0,
         select: function (event, ui) {
           documentFinder.selectDocFromMenu(event, ui)
         }
       })
-      this.$document_id_input = this.$search_term.parents('form').find('input[name="document_id"]')
-      this.$edition_id_input = this.$search_term.parents('form').find('input[name="edition_id"]')
-      this.$loader_indicator = this.$search_term.siblings('img.js-loader')
+      this.$documentIdInput = this.$searchTerm.parents('form').find('input[name="document_id"]')
+      this.$editionIdInput = this.$searchTerm.parents('form').find('input[name="edition_id"]')
+      this.$loaderIndicator = this.$searchTerm.siblings('img.js-loader')
       this.setupEventHandlers()
     },
 
     enterKeyPressed: function (event) {
-      return event.which == 13
+      return event.which === 13
     },
 
     setupEventHandlers: function () {
-      var $find_button = $('#find-documents')
-      $find_button.click(function (event) { documentFinder.searchForDocument() })
-      this.$search_term.keypress(function (event) {
+      var $findButton = $('#find-documents')
+      $findButton.click(function (event) { documentFinder.searchForDocument() })
+      this.$searchTerm.keypress(function (event) {
         if (documentFinder.enterKeyPressed(event)) {
           event.preventDefault()
-          $find_button.click()
+          $findButton.click()
         }
       })
-      this.$search_term.keydown(function (event) {
-        documentFinder.search_term_content = $(this).val()
+      this.$searchTerm.keydown(function (event) {
+        documentFinder.searchTermContent = $(this).val()
       })
-      this.$search_term.keyup(function (event) {
+      this.$searchTerm.keyup(function (event) {
         if (documentFinder.searchTermChanged()) {
-          documentFinder.$search_term.autocomplete('disable')
-          documentFinder.$document_id_input.val('')
-          documentFinder.$edition_id_input.val('')
+          documentFinder.$searchTerm.autocomplete('disable')
+          documentFinder.$documentIdInput.val('')
+          documentFinder.$editionIdInput.val('')
         }
       })
     },
 
     searchTermChanged: function () {
-      return this.$search_term.val() != documentFinder.search_term_content
+      return this.$searchTerm.val() != documentFinder.searchTermContent
     },
 
     searchForDocument: function () {
       var url = '/government/admin/document_searches.json'
-      this.$loader_indicator.show()
+      this.$loaderIndicator.show()
       $.ajax(url, {
-        data: $.extend({ title: this.$search_term.val() }, this.additional_filter_params),
+        data: $.extend({ title: this.$searchTerm.val() }, this.additionalFilterParams),
         success: function (data, textStatus, xhr) {
           documentFinder.showSearchResults(data.results)
         },
         error: this.showErrorMessage,
         complete: function () {
-          documentFinder.$loader_indicator.hide()
+          documentFinder.$loaderIndicator.hide()
         }
       })
     },
 
     showSearchResults: function (results) {
-      this.latest_results = results
-      var no_results_message = this.no_results_message
+      this.latestResults = results
+      var noResultsMessage = this.noResultsMessage
 
       var formatResults = function (data) {
         var results = []
         $.each(data, function (i, result) { results.push(result.title) })
-        if (results.length) { return results } else { return [no_results_message] }
+        if (results.length) { return results } else { return [noResultsMessage] }
       }
 
-      this.$search_term.autocomplete('option', 'source', formatResults(results))
-      this.$search_term.autocomplete('enable')
-      this.$search_term.autocomplete('search', '')
+      this.$searchTerm.autocomplete('option', 'source', formatResults(results))
+      this.$searchTerm.autocomplete('enable')
+      this.$searchTerm.autocomplete('search', '')
     },
 
     selectDocFromMenu: function (event, ui) {
-      $.each(this.latest_results, function (i, result) {
+      $.each(this.latestResults, function (i, result) {
         if (result.title == ui.item.label) {
-          documentFinder.$document_id_input.val(result.document_id).trigger('change')
-          documentFinder.$edition_id_input.val(result.id).trigger('change')
+          documentFinder.$documentIdInput.val(result.document_id).trigger('change')
+          documentFinder.$editionIdInput.val(result.id).trigger('change')
         }
       })
     },
