@@ -12,6 +12,24 @@ whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in tw
 
 ## Dependencies
 
+### Local development dependencies
+
+This application uses Ruby dependencies installed via [Bundler][] and [npm
+dependencies][npm] installed via [Yarn][].
+
+These can be installed with:
+
+```
+bundle install
+yarn install
+```
+
+[Bundler]: https://classic.yarnpkg.com/en/docs/install/
+[npm]: https://www.npmjs.com/
+[Yarn]: https://classic.yarnpkg.com/en/docs/install/
+
+### Dependent GOV.UK apps
+
 - [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files
 - [alphagov/publishing-api](http://github.com/alphagov/publishing-api): documents are sent here, persisted and then requested
 - [alphagov/search-api](http://github.com/alphagov/search-api): allows documents to be indexed for searching in both finders and site search
