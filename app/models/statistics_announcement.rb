@@ -46,6 +46,7 @@ class StatisticsAnnouncement < ApplicationRecord
               in: PublicationType.statistical.map(&:id),
               message: "must be a statistical type",
             }
+  validates :publication_id, uniqueness: true, if: -> { publication_id.present? }
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
 
