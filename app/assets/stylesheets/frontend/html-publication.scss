@@ -1,3 +1,5 @@
+// BASE STYLESHEET COMPILER
+
 $govuk-use-legacy-palette: true;
 $govuk-typography-use-rem: false;
 
@@ -15,8 +17,6 @@ $govuk-typography-use-rem: false;
 @import 'govuk_publishing_components/components/organisation-logo';
 @import 'govuk_publishing_components/components/subscription-links';
 @import 'govuk_publishing_components/components/title';
-
-// BASE STYLESHEET COMPILER
 
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
@@ -46,9 +46,10 @@ $govuk-typography-use-rem: false;
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
 
-// HELPERS
-// Styles for comment page elements
 #whitehall-wrapper {
+  // HELPERS
+  // Styles for comment page elements
+
   @import "helpers/govspeak";
   @import "helpers/organisations";
 
@@ -57,11 +58,9 @@ $govuk-typography-use-rem: false;
 
   // Support for bar charts
   @import "../shared/helpers/magna-charta";
-}
 
-// VIEWS
-// Styles scoped to each template in /views
-#whitehall-wrapper {
+  // VIEWS
+  // Styles scoped to each template in /views
   @import "views/attachments/preview";
   @import "views/html-publications";
 }
