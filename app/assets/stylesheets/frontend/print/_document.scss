@@ -13,18 +13,6 @@ img {
   display: none;
 }
 
-.govspeak {
-  h2,
-  h3 {
-    padding-bottom: 0;
-  }
-
-  p {
-    margin-top: 0;
-    padding-top: 0;
-  }
-}
-
 .document-page {
   .block-3 {
     float: left;
@@ -54,7 +42,17 @@ article {
 
 .govspeak {
   h2 {
+    padding-bottom: 0;
     clear: both;
+  }
+
+  h3 {
+    padding-bottom: 0;
+  }
+
+  p {
+    margin-top: 0;
+    padding-top: 0;
   }
 
   figure {

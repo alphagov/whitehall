@@ -300,10 +300,6 @@
     }
   }
 
-  .block-2 {
-    padding-bottom: $gutter;
-  }
-
   .block-10 {
     .inner-block {
       padding: 0 $gutter-half;
@@ -368,6 +364,8 @@
   }
 
   .block-2 {
+    padding-bottom: $gutter;
+
     .inner-block {
       padding: 0;
 
@@ -386,24 +384,6 @@
 
     .what-we-do {
       clear: both;
-    }
-  }
-
-  .what-we-do {
-    .overview {
-      @include media(tablet) {
-        display: inline;
-        float: left;
-        width: $two-thirds;
-
-        p {
-          padding-right: $gutter-half;
-        }
-      }
-    }
-
-    .content {
-      padding: $gutter-half $gutter-half 0;
     }
   }
 
@@ -446,6 +426,22 @@
 
     p {
       @include ig-core-19;
+    }
+
+    .overview {
+      @include media(tablet) {
+        display: inline;
+        float: left;
+        width: $two-thirds;
+
+        p {
+          padding-right: $gutter-half;
+        }
+      }
+    }
+
+    .content {
+      padding: $gutter-half $gutter-half 0;
     }
 
     .body {
