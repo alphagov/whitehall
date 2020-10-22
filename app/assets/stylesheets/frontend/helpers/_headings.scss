@@ -1,3 +1,7 @@
+// stylelint-disable scss/at-extend-no-missing-placeholder -- There is rather
+// liberal usages of @extend in this file, I wasn't sure how to unpick it
+// without risking side-effects.
+
 .headings-block {
   @extend %contain-floats;
   margin-top: 0;

@@ -2,7 +2,7 @@
 // (aka that thing where the page jumps around because the image has loaded and
 // now takes up space). For much more information (and a couple of other
 // techniques) take a look at https://css-tricks.com/aspect-ratio-boxes/.
-.aspect-ratio-3\:2 {
+.aspect-ratio-3\:2 { // stylelint-disable-line selector-class-pattern
   display: block;
   height: 0;
   overflow: hidden;

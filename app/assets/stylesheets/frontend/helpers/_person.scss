@@ -100,7 +100,7 @@
 
 .app-person__roles--with-image {
   @include mq($until: tablet) {
-    padding-left: calc(33% + govuk-spacing(3));
+    padding-left: calc(33% + govuk-spacing(3)); // stylelint-disable-line function-calc-no-unspaced-operator
   }
 }
 
