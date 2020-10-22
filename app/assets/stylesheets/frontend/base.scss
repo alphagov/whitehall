@@ -1,5 +1,8 @@
 // BASE STYLESHEET COMPILER
 
+// stylelint-disable no-duplicate-selectors -- This file is broken up into
+// grouped sections within the same selector.
+
 $govuk-compatibility-govuktemplate: true;
 $govuk-use-legacy-palette: false;
 
