@@ -1,80 +1,80 @@
-(function() {
-  "use strict";
-  window.GOVUK = window.GOVUK || {};
+(function () {
+  'use strict'
+  window.GOVUK = window.GOVUK || {}
 
-  function WordsToAvoidAlerter(wordsToAvoidRegexps, options) {
-    var $el = $(options.el),
-        $wordsToAvoidAlert = $(options.wordsToAvoidAlert),
-        $alertCount = $("<strong />").attr("id", "js-words-to-avoid-count"),
-        wordsToAvoidMatcher = new RegExp("(" + wordsToAvoidRegexps.join("|") + ")", "gi"),
-        wordsToAvoidUsedSpan = $("<span />").attr("id", "js-words-to-avoid-used");
+  function WordsToAvoidAlerter (wordsToAvoidRegexps, options) {
+    var $el = $(options.el)
+    var $wordsToAvoidAlert = $(options.wordsToAvoidAlert)
+    var $alertCount = $('<strong />').attr('id', 'js-words-to-avoid-count')
+    var wordsToAvoidMatcher = new RegExp('(' + wordsToAvoidRegexps.join('|') + ')', 'gi')
+    var wordsToAvoidUsedSpan = $('<span />').attr('id', 'js-words-to-avoid-used')
 
-    var initAlertMessageTemplate = function() {
-      $wordsToAvoidAlert.append($alertCount);
-      if(options.highlightingEnabled) {
-        $wordsToAvoidAlert.append(" highlighted word(s) appear on the words to avoid list:");
+    var initAlertMessageTemplate = function () {
+      $wordsToAvoidAlert.append($alertCount)
+      if (options.highlightingEnabled) {
+        $wordsToAvoidAlert.append(' highlighted word(s) appear on the words to avoid list:')
       } else {
-        $wordsToAvoidAlert.append(" word(s) appear on the words to avoid list:")
+        $wordsToAvoidAlert.append(' word(s) appear on the words to avoid list:')
       }
-      $wordsToAvoidAlert.append(wordsToAvoidUsedSpan);
+      $wordsToAvoidAlert.append(wordsToAvoidUsedSpan)
     }
-    initAlertMessageTemplate();
+    initAlertMessageTemplate()
 
-    var wordsToAvoidUsed = function() {
-      if(options.highlightingEnabled) {
+    var wordsToAvoidUsed = function () {
+      if (options.highlightingEnabled) {
         // use optimised way and look for highlighted words
-        return $.distinct($.map($(".highlighter span.highlight"), function(highlightedEl) {
-          return $(highlightedEl).text();
-        }));
+        return $.distinct($.map($('.highlighter span.highlight'), function (highlightedEl) {
+          return $(highlightedEl).text()
+        }))
       } else {
-        var textToSearchIn = [];
-        $el.each(function() {
-          textToSearchIn.push($(this).val());
-        });
-        return $.distinct(textToSearchIn.join(" ").match(wordsToAvoidMatcher) || []);
+        var textToSearchIn = []
+        $el.each(function () {
+          textToSearchIn.push($(this).val())
+        })
+        return $.distinct(textToSearchIn.join(' ').match(wordsToAvoidMatcher) || [])
       }
     }
 
-    var numberOfWordsToAvoidUsed = function() {
-      if(options.highlightingEnabled) {
-        return $(".highlighter span.highlight").length;
+    var numberOfWordsToAvoidUsed = function () {
+      if (options.highlightingEnabled) {
+        return $('.highlighter span.highlight').length
       } else {
-        return wordsToAvoidUsed().length;
+        return wordsToAvoidUsed().length
       }
     }
 
-    var listOfWordsToAvoidUsed = function() {
-      var _wordsToAvoidUsed = wordsToAvoidUsed();
-      var list = $.map(_wordsToAvoidUsed, function(word) {
-        return $("<li />").html(word);
-      });
-      return $("<ul />").append(list);
+    var listOfWordsToAvoidUsed = function () {
+      var _wordsToAvoidUsed = wordsToAvoidUsed()
+      var list = $.map(_wordsToAvoidUsed, function (word) {
+        return $('<li />').html(word)
+      })
+      return $('<ul />').append(list)
     }
 
-    var $updateAlert = function() {
-      var _numberOfWordsToAvoidUsed = numberOfWordsToAvoidUsed();
+    var $updateAlert = function () {
+      var _numberOfWordsToAvoidUsed = numberOfWordsToAvoidUsed()
 
-      if(_numberOfWordsToAvoidUsed) {
-        $wordsToAvoidAlert.removeClass('hide').show();
-        $(options.wordsToAvoidCounter).html(_numberOfWordsToAvoidUsed);
-        $(wordsToAvoidUsedSpan).html(listOfWordsToAvoidUsed());
+      if (_numberOfWordsToAvoidUsed) {
+        $wordsToAvoidAlert.removeClass('hide').show()
+        $(options.wordsToAvoidCounter).html(_numberOfWordsToAvoidUsed)
+        $(wordsToAvoidUsedSpan).html(listOfWordsToAvoidUsed())
       } else {
-        $wordsToAvoidAlert.hide();
+        $wordsToAvoidAlert.hide()
       }
     }
-    $el.debounce("keyup", $updateAlert, 500);
-    $updateAlert();
+    $el.debounce('keyup', $updateAlert, 500)
+    $updateAlert()
 
-    var disable = function() {
-      $wordsToAvoidAlert.hide();
+    var disable = function () {
+      $wordsToAvoidAlert.hide()
     }
-    $(document).bind("govuk.WordsToAvoidGuide.disable", disable);
+    $(document).bind('govuk.WordsToAvoidGuide.disable', disable)
 
-    var enable = function() {
-      $updateAlert();
+    var enable = function () {
+      $updateAlert()
     }
-    $(document).bind("govuk.WordsToAvoidGuide.enable", enable);
+    $(document).bind('govuk.WordsToAvoidGuide.enable', enable)
   }
 
-  GOVUK.WordsToAvoidAlerter = WordsToAvoidAlerter;
-}());
+  GOVUK.WordsToAvoidAlerter = WordsToAvoidAlerter
+}())

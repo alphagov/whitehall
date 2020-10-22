@@ -200,63 +200,63 @@ var organisationsFieldset =
 '    </div>' +
 '  </fieldset>'
 
-module("admin-edition-form-foreign-language: ", {
-  setup: function() {
+module('admin-edition-form-foreign-language: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(foreignLanguageFieldset)
     $('#qunit-fixture form').append(titleFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("the div containing the locale input fields should initially be hidden", function () {
-  ok($('div.foreign-language-select').is(':hidden'), 'div containing locale inputs is not hidden');
-});
+test('the div containing the locale input fields should initially be hidden', function () {
+  ok($('div.foreign-language-select').is(':hidden'), 'div containing locale inputs is not hidden')
+})
 
 test("checking 'Create a foreign language only news article' reveals the locale input fields", function () {
   $('input#create_foreign_language_only').click()
 
-  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs becomes visible');
-});
+  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs becomes visible')
+})
 
 test("unchecking 'Create a foreign language only news article' hides and resets the locale fields", function () {
   $('input#create_foreign_language_only').click()
-  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs has become visible');
+  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs has become visible')
 
   // choose another language
-  $('#edition_primary_locale').val('cy').change();
-  equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected');
+  $('#edition_primary_locale').val('cy').change()
+  equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected')
 
   // reset the form
   $('input#create_foreign_language_only').click()
 
-  equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English');
-  ok($('div.foreign-language-select').is(':hidden'), 'div containing locale inputs has become hidden');
-});
+  equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English')
+  ok($('div.foreign-language-select').is(':hidden'), 'div containing locale inputs has become hidden')
+})
 
-test("selecting and deselecting right-to-left languages applies the appropriate classes to the fieldsets", function () {
+test('selecting and deselecting right-to-left languages applies the appropriate classes to the fieldsets', function () {
   $('input#create_foreign_language_only').click()
 
-  $('#edition_primary_locale').val('ar').change();
-  ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
+  $('#edition_primary_locale').val('ar').change()
+  ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class')
 
-  $('#edition_primary_locale').val('cy').change();
-  ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
+  $('#edition_primary_locale').val('cy').change()
+  ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class')
 
   // also resets on cancel
-  $('#edition_primary_locale').val('ar').change();
-  ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
+  $('#edition_primary_locale').val('ar').change()
+  ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class')
   $('input#create_foreign_language_only').click()
-  ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
-});
+  ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class')
+})
 
-module("admin-edition-form-foreign-language-for-news-articles: ", {
-  setup: function() {
+module('admin-edition-form-foreign-language-for-news-articles: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(newsArticleTypeSelect)
     $('#qunit-fixture form').append(foreignLanguageFieldset)
@@ -264,129 +264,129 @@ module("admin-edition-form-foreign-language-for-news-articles: ", {
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("the foreign language fieldset should initially be hidden", function () {
-  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
-});
+test('the foreign language fieldset should initially be hidden', function () {
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden')
+})
 
 test("the foreign language fieldset should only be visible when selecting the 'World news story' News Article type", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $select.find("option:contains(News story)").prop('selected', true).change();
-  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+  $select.find('option:contains(News story)').prop('selected', true).change()
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden')
 
-  $select.find("option:contains(Press release)").prop('selected', true).change();
-  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+  $select.find('option:contains(Press release)').prop('selected', true).change()
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden')
 
-  $select.find("option:contains(Government response)").prop('selected', true).change();
-  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+  $select.find('option:contains(Government response)').prop('selected', true).change()
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden')
 
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible');
-});
+  $select.find('option:contains(World news story)').prop('selected', true).change()
+  ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible')
+})
 
 test("unselecting 'World news story' hides and resets the locale fields", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible');
+  $select.find('option:contains(World news story)').prop('selected', true).change()
+  ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible')
 
   $('input#create_foreign_language_only').click()
-  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs has become visible');
+  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs has become visible')
 
-  $('#edition_primary_locale').val('cy').change();
-  equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected');
+  $('#edition_primary_locale').val('cy').change()
+  equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected')
 
-  $select.find("option:contains(News story)").prop('selected', true).change();
+  $select.find('option:contains(News story)').prop('selected', true).change()
 
-  equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English');
-  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
-});
+  equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English')
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden')
+})
 
-module("admin-edition-image-fields: ", {
-  setup: function() {
+module('admin-edition-image-fields: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(imageFieldsFieldSet)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("use_no_image radio buttons toggle visibility of image_uploader selector", function() {
-  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader hidden by default');
+test('use_no_image radio buttons toggle visibility of image_uploader selector', function () {
+  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader hidden by default')
 
-  $('#edition_image_display_option_no_image').click();
-  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader shown when "image_display_option_no_image" selected');
+  $('#edition_image_display_option_no_image').click()
+  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader shown when "image_display_option_no_image" selected')
 
-  $('#edition_image_display_option_custom_image').click();
-  ok($('.js-show-image-uploader').is(':visible'), 'image uploader hidden when "image_display_option_custom_image" selected');
+  $('#edition_image_display_option_custom_image').click()
+  ok($('.js-show-image-uploader').is(':visible'), 'image uploader hidden when "image_display_option_custom_image" selected')
 
-  $('#edition_image_display_option_organisation_image').click();
-  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader shown when "image_display_option_organisation_image" selected');
-});
+  $('#edition_image_display_option_organisation_image').click()
+  ok($('.js-show-image-uploader').is(':hidden'), 'image uploader shown when "image_display_option_organisation_image" selected')
+})
 
-module("admin-edition-form-first-published-at: ", {
-  setup: function() {
+module('admin-edition-form-first-published-at: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(firstPublishedAtFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("first_published time fields default to 00 if not set", function() {
+test('first_published time fields default to 00 if not set', function () {
   // original field values should not be changed
-  equal($('#edition_first_published_at_4i').val(), '02', 'hour field has original value');
-  equal($('#edition_first_published_at_5i').val(), '03', 'minute field has original value');
+  equal($('#edition_first_published_at_4i').val(), '02', 'hour field has original value')
+  equal($('#edition_first_published_at_5i').val(), '03', 'minute field has original value')
 
-  $('#edition_first_published_at_4i').val('');
-  $('#edition_first_published_at_5i').val('');
+  $('#edition_first_published_at_4i').val('')
+  $('#edition_first_published_at_5i').val('')
   // rerun init script now that time fields have blank value
-  GOVUK.adminEditionsForm.toggleFirstPublishedDate();
-  equal($('#edition_first_published_at_4i').val(), '00', 'empty hour field defaulted to 00');
-  equal($('#edition_first_published_at_5i').val(), '00', 'empty minute field defaulted to 00');
+  GOVUK.adminEditionsForm.toggleFirstPublishedDate()
+  equal($('#edition_first_published_at_4i').val(), '00', 'empty hour field defaulted to 00')
+  equal($('#edition_first_published_at_5i').val(), '00', 'empty minute field defaulted to 00')
   // date field should not be changed
-  equal($('#edition_first_published_at_3i').val(), '', 'empty day field not changed');
-});
+  equal($('#edition_first_published_at_3i').val(), '', 'empty day field not changed')
+})
 
-test("previously_published radio buttons toggle visibility of first_published date selector", function() {
-  ok($('.js-show-first-published').is(':hidden'), 'date selector hidden by default');
-  $('#edition_previously_published_true').click();
-  ok($('.js-show-first-published').is(':visible'), 'date selector shown when "previously published" selected');
+test('previously_published radio buttons toggle visibility of first_published date selector', function () {
+  ok($('.js-show-first-published').is(':hidden'), 'date selector hidden by default')
+  $('#edition_previously_published_true').click()
+  ok($('.js-show-first-published').is(':visible'), 'date selector shown when "previously published" selected')
 
-  $('#edition_previously_published_false').click();
-  ok($('.js-show-first-published').is(':hidden'), 'date selector hidden when "document is new" selected');
-});
+  $('#edition_previously_published_false').click()
+  ok($('.js-show-first-published').is(':hidden'), 'date selector hidden when "document is new" selected')
+})
 
-module("admin-edition-form-policies-news-articles: ", {
-  setup: function() {
+module('admin-edition-form-policies-news-articles: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(newsArticleTypeSelect)
     $('#qunit-fixture form').append(titleFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-module("admin-edition-form-role-appointments-news-articles: ", {
-  setup: function() {
+module('admin-edition-form-role-appointments-news-articles: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(newsArticleTypeSelect)
     $('#qunit-fixture form').append(titleFieldset)
@@ -394,36 +394,36 @@ module("admin-edition-form-role-appointments-news-articles: ", {
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("the role-appointments fieldset should initially be visible", function () {
-  ok($('fieldset.role-appointments').is(':visible'), 'fieldset containing role-appointments field is not visible');
-});
+test('the role-appointments fieldset should initially be visible', function () {
+  ok($('fieldset.role-appointments').is(':visible'), 'fieldset containing role-appointments field is not visible')
+})
 
 test("selecting the 'World news story' News Article type hides the role-appointments fieldset and resets the role-appointments", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $('#edition_role_appointment_ids').val('3850').change();
+  $('#edition_role_appointment_ids').val('3850').change()
 
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.role-appointments').is(':hidden'), 'role-appointments fieldset is visible');
+  $select.find('option:contains(World news story)').prop('selected', true).change()
+  ok($('fieldset.role-appointments').is(':hidden'), 'role-appointments fieldset is visible')
 
-  equal($('#edition_role_appointment_ids option:selected').val(), undefined, 'no policy selected');
-});
+  equal($('#edition_role_appointment_ids option:selected').val(), undefined, 'no policy selected')
+})
 
 test("unselecting 'World news story' shows the role-appointments fieldset", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $select.find("option:contains(News story)").prop('selected', true).change();
-  ok($('fieldset.role-appointments').is(':visible'), 'role-appointments fieldset is hidden');
-});
+  $select.find('option:contains(News story)').prop('selected', true).change()
+  ok($('fieldset.role-appointments').is(':visible'), 'role-appointments fieldset is hidden')
+})
 
-module("admin-edition-form-worldwide-organisations-news-articles: ", {
-  setup: function() {
+module('admin-edition-form-worldwide-organisations-news-articles: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(newsArticleTypeSelect)
     $('#qunit-fixture form').append(titleFieldset)
@@ -431,49 +431,49 @@ module("admin-edition-form-worldwide-organisations-news-articles: ", {
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("the worldwide organisation fieldset should initially be hidden", function () {
-  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing worldwide organisation field is not hidden');
-});
+test('the worldwide organisation fieldset should initially be hidden', function () {
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing worldwide organisation field is not hidden')
+})
 
 test("the worldwide organisation fieldset should only be visible when selecting the 'World news story' News Article type", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $select.find("option:contains(News story)").prop('selected', true).change();
-  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+  $select.find('option:contains(News story)').prop('selected', true).change()
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden')
 
-  $select.find("option:contains(Press release)").prop('selected', true).change();
-  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+  $select.find('option:contains(Press release)').prop('selected', true).change()
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden')
 
-  $select.find("option:contains(Government response)").prop('selected', true).change();
-  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+  $select.find('option:contains(Government response)').prop('selected', true).change()
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden')
 
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible');
-});
+  $select.find('option:contains(World news story)').prop('selected', true).change()
+  ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible')
+})
 
 test("unselecting 'World news story' hides and resets the worldwide organisation fields", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible');
+  $select.find('option:contains(World news story)').prop('selected', true).change()
+  ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible')
 
-  $('#edition_worldwide_organisation_ids').val('2').change();
-  equal($('#edition_worldwide_organisation_ids option:selected').val(), '2', 'worldwide organisation selected');
+  $('#edition_worldwide_organisation_ids').val('2').change()
+  equal($('#edition_worldwide_organisation_ids option:selected').val(), '2', 'worldwide organisation selected')
 
-  $select.find("option:contains(News story)").prop('selected', true).change();
+  $select.find('option:contains(News story)').prop('selected', true).change()
 
-  equal($('#edition_worldwide_organisation_ids option:selected').val(), undefined, 'no worldwide organisation selected');
-  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not visible');
-});
+  equal($('#edition_worldwide_organisation_ids option:selected').val(), undefined, 'no worldwide organisation selected')
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not visible')
+})
 
-module("admin-edition-form-organisations-news-articles: ", {
-  setup: function() {
+module('admin-edition-form-organisations-news-articles: ', {
+  setup: function () {
     $('#qunit-fixture').append(form)
     $('#qunit-fixture form').append(newsArticleTypeSelect)
     $('#qunit-fixture form').append(titleFieldset)
@@ -481,32 +481,32 @@ module("admin-edition-form-organisations-news-articles: ", {
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
-      right_to_left_locales:["ar"]
-    });
-    $('.js-hidden').hide();
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
   }
-});
+})
 
-test("the organisations fieldset should initially be visible", function () {
-  ok($('fieldset.organisations').is(':visible'), 'fieldset containing organisation field is not visible');
-});
+test('the organisations fieldset should initially be visible', function () {
+  ok($('fieldset.organisations').is(':visible'), 'fieldset containing organisation field is not visible')
+})
 
 test("selecting the 'World news story' News Article type hides the organisation fieldset and resets the organisations", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $('#edition_lead_organisation_ids_1').val('1212').change();
-  $('#edition_supporting_organisation_ids_1').val('1025').change();
+  $('#edition_lead_organisation_ids_1').val('1212').change()
+  $('#edition_supporting_organisation_ids_1').val('1025').change()
 
-  $select.find("option:contains(World news story)").prop('selected', true).change();
-  ok($('fieldset.organisations').is(':hidden'), 'organisations fieldset is visible');
+  $select.find('option:contains(World news story)').prop('selected', true).change()
+  ok($('fieldset.organisations').is(':hidden'), 'organisations fieldset is visible')
 
-  equal($('#edition_lead_organisation_ids_1 option:selected').val(), '', 'no organisation selected');
-  equal($('#edition_supporting_organisation_ids_1 option:selected').val(), '', 'no organisation selected');
-});
+  equal($('#edition_lead_organisation_ids_1 option:selected').val(), '', 'no organisation selected')
+  equal($('#edition_supporting_organisation_ids_1 option:selected').val(), '', 'no organisation selected')
+})
 
 test("unselecting 'World news story' shows the organisation fieldset", function () {
-  $select = $('select#edition_news_article_type_id')
+  var $select = $('select#edition_news_article_type_id')
 
-  $select.find("option:contains(News story)").prop('selected', true).change();
-  ok($('fieldset.organisations').is(':visible'), 'organisations fieldset is hidden');
-});
+  $select.find('option:contains(News story)').prop('selected', true).change()
+  ok($('fieldset.organisations').is(':visible'), 'organisations fieldset is hidden')
+})

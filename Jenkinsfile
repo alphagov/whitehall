@@ -12,6 +12,10 @@ node {
     publishingE2ETests: true,
     brakeman: true,
     beforeTest: {
+      stage("Install node dependencies") {
+        sh("yarn")
+      }
+
       stage("Generate directories for upload tests") {
         sh ("mkdir -p ./incoming-uploads")
         sh ("mkdir -p ./clean-uploads")
@@ -22,7 +26,7 @@ node {
     },
     overrideTestTask: {
       stage("Lint") {
-        sh("bundle exec rubocop")
+        sh("bundle exec rake lint")
       }
 
       stage("Run tests") {

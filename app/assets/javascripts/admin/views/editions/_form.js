@@ -1,115 +1,114 @@
-(function() {
-  "use strict";
+(function () {
+  'use strict'
   window.GOVUK = window.GOVUK || {}
 
   var adminEditionsForm = {
-    init: function init(params) {
-      this.$form = $(params.selector);
-      this.rightToLeftLocales = params.right_to_left_locales;
+    init: function init (params) {
+      this.$form = $(params.selector)
+      this.rightToLeftLocales = params.right_to_left_locales
       this.$newsTypeSelect = $('select#edition_news_article_type_id')
 
-      this.showChangeNotesIfMajorChange();
-      this.showFormatAdviceForSelectedSubtype();
-      this.toggleLanguageSelect();
-      this.toggleWorldNewsStoryVisibility();
-      this.resetWorldNewsStoryFields();
-      this.toggleFirstPublishedDate();
-      this.showImageUploaderIfCustomImage();
+      this.showChangeNotesIfMajorChange()
+      this.showFormatAdviceForSelectedSubtype()
+      this.toggleLanguageSelect()
+      this.toggleWorldNewsStoryVisibility()
+      this.resetWorldNewsStoryFields()
+      this.toggleFirstPublishedDate()
+      this.showImageUploaderIfCustomImage()
 
-      GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
+      GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.')
     },
 
-    showChangeNotesIfMajorChange: function showChangeNotesIfMajorChange() {
-      var $fieldset                  = $('.js-change-notes', this.$form);
-      var $radio_buttons             = $('input[type=radio]', $fieldset);
-      var $minor_change_radio_button = $('#edition_minor_change_true', $fieldset);
-      var $change_notes_section      = $('.js-change-notes-section', $fieldset);
+    showChangeNotesIfMajorChange: function showChangeNotesIfMajorChange () {
+      var $fieldset = $('.js-change-notes', this.$form)
+      var $radioButtons = $('input[type=radio]', $fieldset)
+      var $minorChangeRadioButton = $('#edition_minor_change_true', $fieldset)
+      var $changeNotesSection = $('.js-change-notes-section', $fieldset)
 
-      $radio_buttons.change(showOrHideChangeNotes);
-      appendHintToFormLabel();
-      showOrHideChangeNotes();
+      $radioButtons.change(showOrHideChangeNotes)
+      appendHintToFormLabel()
+      showOrHideChangeNotes()
 
-      function appendHintToFormLabel() {
-        var $label = $($change_notes_section).find('label');
-        var example_text = "For example, \"Edited chapter 6 - centres in Cardiff and Aberystwyth have closed.\""
-        $label.append('<p class="hint"; style="font-weight: normal">' + example_text + '</p>');
+      function appendHintToFormLabel () {
+        var $label = $($changeNotesSection).find('label')
+        var exampleText = 'For example, "Edited chapter 6 - centres in Cardiff and Aberystwyth have closed."'
+        $label.append('<p class="hint"; style="font-weight: normal">' + exampleText + '</p>')
       }
 
-      function showOrHideChangeNotes() {
-        if ($minor_change_radio_button.prop('checked')){
-          $change_notes_section.slideUp(200);
-        }
-        else {
-          $change_notes_section.slideDown(200);
+      function showOrHideChangeNotes () {
+        if ($minorChangeRadioButton.prop('checked')) {
+          $changeNotesSection.slideUp(200)
+        } else {
+          $changeNotesSection.slideDown(200)
         }
       }
     },
 
-    showFormatAdviceForSelectedSubtype: function showFormatAdviceForSelectedSubtype() {
-      var $subtypeFields = $('.subtype', this.$form).filter('select');
+    showFormatAdviceForSelectedSubtype: function showFormatAdviceForSelectedSubtype () {
+      var $subtypeFields = $('.subtype', this.$form).filter('select')
 
-      if ($subtypeFields.length < 1) { return; }
+      if ($subtypeFields.length < 1) { return }
 
-      $subtypeFields.change(function() {
-        var $field = $(this);
-        var $container = $field.parent();
-        var formatAdviceMap = $field.data('format-advice');
+      $subtypeFields.change(function () {
+        var $field = $(this)
+        var $container = $field.parent()
+        var formatAdviceMap = $field.data('format-advice')
 
-        $container.find('.subtype-format-advice').remove();
+        $container.find('.subtype-format-advice').remove()
 
-        var adviceText = formatAdviceMap[$field.val()];
+        var adviceText = formatAdviceMap[$field.val()]
         if (adviceText) {
-          var adviceHTML = '<div class="subtype-format-advice add-label-margin"><strong>Use this subformat for…</strong> '+adviceText+'</div>';
-          $container.append(adviceHTML);
+          var adviceHTML = '<div class="subtype-format-advice add-label-margin"><strong>Use this subformat for…</strong> ' + adviceText + '</div>'
+          $container.append(adviceHTML)
         }
-      }).change();
+      }).change()
     },
 
-    toggleLanguageSelect: function toggleLanguageSelect() {
-      if ( !this.$form.hasClass('js-supports-non-english') ) return;
+    toggleLanguageSelect: function toggleLanguageSelect () {
+      if (!this.$form.hasClass('js-supports-non-english')) return
 
-      var $form = this.$form;
+      var $form = this.$form
 
-      $().ready(function() {
-        var $localeInput = $(this).find('#edition_primary_locale');
+      $().ready(function () {
+        var $localeInput = $(this).find('#edition_primary_locale')
 
-        var toggleVisibility = function() {
+        var toggleVisibility = function () {
           if ($('input#create_foreign_language_only').prop('checked')) {
-            $('.foreign-language-select').show();
+            $('.foreign-language-select').show()
           } else {
-            $('.foreign-language-select').hide();
+            $('.foreign-language-select').hide()
 
             // reset back to the default locale
-            $localeInput.val('');
-            $form.find('fieldset').removeClass('right-to-left');
+            $localeInput.val('')
+            $form.find('fieldset').removeClass('right-to-left')
           }
         }
 
         $('input#create_foreign_language_only').change(toggleVisibility)
-        toggleVisibility();
+        toggleVisibility()
 
         // setup observer to apply right-to-left classes to all form fieldsets
         $('#edition_primary_locale').change(function () {
-          if ( $.inArray($(this).val(), GOVUK.adminEditionsForm.rightToLeftLocales) > -1) {
-            $form.find('fieldset').addClass('right-to-left');
+          if ($.inArray($(this).val(), GOVUK.adminEditionsForm.rightToLeftLocales) > -1) {
+            $form.find('fieldset').addClass('right-to-left')
           } else {
-            $form.find('fieldset').removeClass('right-to-left');
+            $form.find('fieldset').removeClass('right-to-left')
           }
-        });
+        })
       })
     },
 
-    toggleWorldNewsStoryVisibility: function toggleWorldNewsStoryVisibility() {
+    toggleWorldNewsStoryVisibility: function toggleWorldNewsStoryVisibility () {
       // only toggle fields when news article type is editable
-      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
+      if ($('select#edition_news_article_type_id').length === 0) return
 
       var $nonWorldNewsStoryFieldsets = this.findFieldsets(this.nonWorldNewsStoryFieldSelectors())
       var $worldNewsStoryFieldsets = this.findFieldsets(this.worldNewsStoryFieldSelectors())
 
       var _this = this
-      $().ready(function() {
-        var toggleFields = function() {
-          if (_this.isWorldNewsStorySelected()){
+      $().ready(function () {
+        var toggleFields = function () {
+          if (_this.isWorldNewsStorySelected()) {
             _this.hideFieldsets($nonWorldNewsStoryFieldsets)
             _this.showFieldsets($worldNewsStoryFieldsets)
           } else {
@@ -124,55 +123,55 @@
     },
 
     findFieldsets: function (fieldSelectors) {
-      return $.map(fieldSelectors, function(fieldSelector) {
-        return $("fieldset." + fieldSelector)
+      return $.map(fieldSelectors, function (fieldSelector) {
+        return $('fieldset.' + fieldSelector)
       })
     },
 
-    nonWorldNewsStoryFieldSelectors: function() {
+    nonWorldNewsStoryFieldSelectors: function () {
       return [
         'policies',
         'role-appointments',
-        'organisations',
+        'organisations'
       ]
     },
 
-    worldNewsStoryFieldSelectors: function() {
+    worldNewsStoryFieldSelectors: function () {
       return [
         'foreign-language',
-        'worldwide-organisations',
+        'worldwide-organisations'
       ]
     },
 
-    isWorldNewsStorySelected: function() {
-      var worldNewsStoryTypeValue = 4
+    isWorldNewsStorySelected: function () {
+      var worldNewsStoryTypeValue = '4'
 
-      return this.$newsTypeSelect.val() == worldNewsStoryTypeValue
+      return this.$newsTypeSelect.val() === worldNewsStoryTypeValue
     },
 
     hideFieldsets: function (fieldsets) {
-      $.each(fieldsets, function(index, fieldset) {
+      $.each(fieldsets, function (index, fieldset) {
         fieldset.hide()
       })
     },
 
     showFieldsets: function (fieldsets) {
-      $.each(fieldsets, function(index, fieldset) {
+      $.each(fieldsets, function (index, fieldset) {
         fieldset.show()
       })
     },
 
-    resetWorldNewsStoryFields: function resetWorldNewsStoryFields() {
+    resetWorldNewsStoryFields: function resetWorldNewsStoryFields () {
       // only toggle fields when news article type is editable
-      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
+      if ($('select#edition_news_article_type_id').length === 0) return
 
       var $nonWorldNewsStoryMultipleSelectInputs = this.findSelectInputs(this.nonWorldNewsStoryMultipleSelectInputSelectors())
       var $nonWorldNewsStorySelectInputs = this.findSelectInputs(this.nonWorldNewsStorySelectInputSelectors())
       var $worldNewsStoryMultipleSelectInputs = this.findSelectInputs(this.worldNewsStorySelectInputSelectors())
 
       var _this = this
-      var resetFields = function() {
-        if (_this.isWorldNewsStorySelected()){
+      var resetFields = function () {
+        if (_this.isWorldNewsStorySelected()) {
           _this.resetMultipleSelectInputs($nonWorldNewsStoryMultipleSelectInputs)
           _this.resetSelectInputs($nonWorldNewsStorySelectInputs)
         } else {
@@ -185,105 +184,105 @@
       resetFields()
     },
 
-    findSelectInputs: function(fieldSelectors) {
+    findSelectInputs: function (fieldSelectors) {
       var $fieldSets = this.findFieldsets(fieldSelectors)
 
-      return $.map($fieldSets, function(fieldSet) {
+      return $.map($fieldSets, function (fieldSet) {
         return fieldSet.find('select')
       })
     },
 
-    nonWorldNewsStoryMultipleSelectInputSelectors: function() {
+    nonWorldNewsStoryMultipleSelectInputSelectors: function () {
       return [
         'policies',
-        'role-appointments',
+        'role-appointments'
       ]
     },
 
-    nonWorldNewsStorySelectInputSelectors: function() {
+    nonWorldNewsStorySelectInputSelectors: function () {
       return [
-        'organisations',
+        'organisations'
       ]
     },
 
-    worldNewsStorySelectInputSelectors: function() {
+    worldNewsStorySelectInputSelectors: function () {
       return [
-        'worldwide-organisations',
+        'worldwide-organisations'
       ]
     },
 
-    resetMultipleSelectInputs: function(selectInputs) {
-      $.each(selectInputs, function(index, selectInput) {
+    resetMultipleSelectInputs: function (selectInputs) {
+      $.each(selectInputs, function (index, selectInput) {
         if (selectInput.val()) {
           selectInput.val([]).trigger('chosen:updated')
         }
       })
     },
 
-    resetSelectInputs: function(selectInputs) {
-      $.each(selectInputs, function(index, selectInput) {
-        if (selectInput.val() != "") {
+    resetSelectInputs: function (selectInputs) {
+      $.each(selectInputs, function (index, selectInput) {
+        if (selectInput.val() !== '') {
           selectInput.val('').trigger('chosen:updated')
         }
       })
     },
 
-    resetForeignLanguageFields: function() {
-      var $form = this.$form;
+    resetForeignLanguageFields: function () {
+      var $form = this.$form
       var $foreignLanguageFieldset = $form.find('fieldset.foreign-language')
       var $foreignLanguageToggle = $form.find('input#create_foreign_language_only')
-      var $localeInput = $foreignLanguageFieldset.find('#edition_primary_locale');
+      var $localeInput = $foreignLanguageFieldset.find('#edition_primary_locale')
       var $allFormFieldsets = $form.find('fieldset')
 
-      $foreignLanguageToggle.prop("checked", false)
-      $localeInput.val('');
-      $allFormFieldsets.removeClass('right-to-left');
+      $foreignLanguageToggle.prop('checked', false)
+      $localeInput.val('')
+      $allFormFieldsets.removeClass('right-to-left')
     },
 
-    toggleFirstPublishedDate: function toggleFirstPublishedDate() {
+    toggleFirstPublishedDate: function toggleFirstPublishedDate () {
       // datetime_select can't set defaults if include_blank is true, so do it here.
-      $('#edition_first_published_at_4i, #edition_first_published_at_5i').each(function(index) {
-        var $this = $(this);
-        if ($this.val() == '') {
-          $this.val('00');
+      $('#edition_first_published_at_4i, #edition_first_published_at_5i').each(function (index) {
+        var $this = $(this)
+        if ($this.val() === '') {
+          $this.val('00')
         }
-      });
-      var $firstPublished = $('.first-published-date .js-show-first-published');
-      var $previouslyPublished_button = $('#edition_previously_published_true');
-      var $radioButtons = $('.first-published-date input[type=radio]');
+      })
+      var $firstPublished = $('.first-published-date .js-show-first-published')
+      var $previouslyPublishedButton = $('#edition_previously_published_true')
+      var $radioButtons = $('.first-published-date input[type=radio]')
 
-      function showOrHideDateSelector() {
-        if ($previouslyPublished_button.prop('checked')){
-          $firstPublished.show();
+      function showOrHideDateSelector () {
+        if ($previouslyPublishedButton.prop('checked')) {
+          $firstPublished.show()
         } else {
-          $firstPublished.hide();
+          $firstPublished.hide()
         }
       }
-      $radioButtons.on('change', showOrHideDateSelector);
-      showOrHideDateSelector();
+      $radioButtons.on('change', showOrHideDateSelector)
+      showOrHideDateSelector()
 
-      $('.js-existing-first-published a').on('click', function(e) {
-        $(this).parent().hide().next().removeClass('if-js-hide');
-        e.preventDefault();
-      });
+      $('.js-existing-first-published a').on('click', function (e) {
+        $(this).parent().hide().next().removeClass('if-js-hide')
+        e.preventDefault()
+      })
     },
 
-    showImageUploaderIfCustomImage: function showImageUploaderIfCustomImage() {
-      var $imageUploader = $('.image_section .js-show-image-uploader');
-      var $customImageRadioButton = $('#edition_image_display_option_custom_image');
-      var $radioButtons = $('.image_section input[type=radio]');
+    showImageUploaderIfCustomImage: function showImageUploaderIfCustomImage () {
+      var $imageUploader = $('.image_section .js-show-image-uploader')
+      var $customImageRadioButton = $('#edition_image_display_option_custom_image')
+      var $radioButtons = $('.image_section input[type=radio]')
 
-      function showOrHideImageUploader() {
-        if ($customImageRadioButton.prop('checked')){
-          $imageUploader.show();
+      function showOrHideImageUploader () {
+        if ($customImageRadioButton.prop('checked')) {
+          $imageUploader.show()
         } else {
-          $imageUploader.hide();
+          $imageUploader.hide()
         }
       }
-      $radioButtons.on('change', showOrHideImageUploader);
-      showOrHideImageUploader();
+      $radioButtons.on('change', showOrHideImageUploader)
+      showOrHideImageUploader()
     }
   }
 
-  window.GOVUK.adminEditionsForm = adminEditionsForm;
-}());
+  window.GOVUK.adminEditionsForm = adminEditionsForm
+}())

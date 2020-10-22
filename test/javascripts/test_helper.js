@@ -24,4 +24,4 @@
 //
 // For more information: http://github.com/modeset/teaspoon
 
-sinon.config.useFakeTimers = false;
+sinon.config.useFakeTimers = false

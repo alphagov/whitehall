@@ -1,3 +1,5 @@
+/* global GOVUKAdmin */
+
 // based on https://github.com/alphagov/govuk_frontend_toolkit/blob/master/javascripts/govuk/analytics/external-link-tracker.js
 ;(function (global) {
   'use strict'
@@ -17,7 +19,7 @@
         options.label = linkText
       }
 
-      GOVUKAdmin.trackEvent('external-link-clicked', href, options);
+      GOVUKAdmin.trackEvent('external-link-clicked', href, options)
     }
 
     function getLinkFromEvent (evt) {

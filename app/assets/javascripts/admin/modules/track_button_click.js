@@ -1,18 +1,19 @@
-(function(Modules) {
-  "use strict";
+/* global GOVUKAdmin */
 
-  Modules.TrackButtonClick = function() {
-    this.start = function(container) {
-      var trackClick = function() {
-        var category = container.data("track-category"),
-            action = container.data("track-action") || "button-pressed",
-            label = $(this).is(":input") ? $(this).val() : $(this).text();
+(function (Modules) {
+  'use strict'
 
-        GOVUKAdmin.trackEvent(category, action, { label: label });
-      };
+  Modules.TrackButtonClick = function () {
+    this.start = function (container) {
+      var trackClick = function () {
+        var category = container.data('track-category')
+        var action = container.data('track-action') || 'button-pressed'
+        var label = $(this).is(':input') ? $(this).val() : $(this).text()
 
-      container.on("click", ".btn", trackClick);
+        GOVUKAdmin.trackEvent(category, action, { label: label })
+      }
+
+      container.on('click', '.btn', trackClick)
     }
-  };
-
-})(window.GOVUKAdmin.Modules);
+  }
+})(window.GOVUKAdmin.Modules)
