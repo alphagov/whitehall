@@ -1,3 +1,6 @@
+// stylelint-disable declaration-no-important, selector-class-pattern -- These
+// are overrides of classes we don't define.
+
 // Override govuk_admin_template .highlight styles
 // The highlight class used by the words to avoid
 // highlighter cannot be customised.
@@ -16,7 +19,7 @@
   position: relative;
 
   .highlighterContainer {
-    width: auto !important; // stylelint-disable-line declaration-no-important
-    height: auto !important; // stylelint-disable-line declaration-no-important
+    width: auto !important;
+    height: auto !important;
   }
 }
