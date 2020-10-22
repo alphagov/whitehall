@@ -1,49 +1,49 @@
-$base_font_size_in_px: 16 !default;
-$baseline_in_px: 24 !default;
+$base-font-size-in-px: 16 !default;
+$baseline-in-px: 24 !default;
 
-@mixin scaled_type($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($baseline_in_px / $size_in_px);
+@mixin scaled-type($size-in-px, $line-height-in-px: 24) {
+  $vertical-rhythm: ($baseline-in-px / $size-in-px);
 
   margin: 0;
-  font-size: #{($size_in_px / $base_font_size_in_px)}em;
-  line-height: #{$vertical_rhythm * ($line_height_in_px / $baseline_in_px)}em;
-  @include scaled_margin_bottom($size_in_px, $line_height_in_px);
+  font-size: #{($size-in-px / $base-font-size-in-px)}em;
+  line-height: #{$vertical-rhythm * ($line-height-in-px / $baseline-in-px)}em;
+  @include scaled-margin-bottom($size-in-px, $line-height-in-px);
 }
 
-@mixin scaled_margin_top($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($line_height_in_px / $size_in_px);
-  margin-top: #{$vertical_rhythm}em;
+@mixin scaled-margin-top($size-in-px, $line-height-in-px: 24) {
+  $vertical-rhythm: ($line-height-in-px / $size-in-px);
+  margin-top: #{$vertical-rhythm}em;
 }
 
-@mixin scaled_margin_bottom($size_in_px, $line_height_in_px: 24) {
-  $vertical_rhythm: ($line_height_in_px / $size_in_px);
-  margin-bottom: #{$vertical_rhythm}em;
+@mixin scaled-margin-bottom($size-in-px, $line-height-in-px: 24) {
+  $vertical-rhythm: ($line-height-in-px / $size-in-px);
+  margin-bottom: #{$vertical-rhythm}em;
 }
 
 @mixin type-32 {
-  @include scaled_type(32, 48);
+  @include scaled-type(32, 48);
 }
 
 @mixin type-24 {
-  @include scaled_type(24);
+  @include scaled-type(24);
 }
 
 @mixin type-21 {
-  @include scaled_type(21);
+  @include scaled-type(21);
 }
 
 @mixin type-18 {
-  @include scaled_type(18);
+  @include scaled-type(18);
 }
 
 @mixin type-16 {
-  @include scaled_type(16);
+  @include scaled-type(16);
 }
 
 @mixin type-13 {
-  @include scaled_type(13, 18);
+  @include scaled-type(13, 18);
 }
 
 @mixin type-12 {
-  @include scaled_type(12);
+  @include scaled-type(12);
 }
