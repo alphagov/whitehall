@@ -25,16 +25,16 @@
 @import "layout";
 @import "preview";
 @import "sortable";
-@import "audit_trail";
-@import "fact_check_requests";
-@import "govspeak_help";
+@import "audit-trail";
+@import "fact-check-requests";
+@import "govspeak-help";
 @import "organisation";
 @import "classifications";
 @import "person";
 @import "sidebar";
 @import "lists";
-@import "get_involved";
-@import "topics_section";
+@import "get-involved";
+@import "topics-section";
 
 // GLOBAL
 // Styles that apply to all of admin.
@@ -43,14 +43,14 @@
 
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
-@import "helpers/broken_links_report";
-@import "helpers/document_finder";
-@import "helpers/document_list";
-@import "helpers/navigation_controls";
-@import "helpers/jquery_ui_overrides";
-@import "helpers/statistics_announcements";
-@import "helpers/words_to_avoid_highlighter";
-@import "helpers/bootstrap/button_dropdown";
+@import "helpers/broken-links-report";
+@import "helpers/document-finder";
+@import "helpers/document-list";
+@import "helpers/navigation-controls";
+@import "helpers/jquery-ui-overrides";
+@import "helpers/statistics-announcements";
+@import "helpers/words-to-avoid-highlighter";
+@import "helpers/bootstrap/button-dropdown";
 
 // helpers shared with frontend
 @import "../shared/helpers/player-container";
@@ -59,13 +59,13 @@
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
 @import "views/dashboard";
-@import "views/edition_form";
-@import "views/edition_show_locked";
-@import "views/edition_show";
+@import "views/edition-form";
+@import "views/edition-show-locked";
+@import "views/edition-show";
 @import "views/editions-index";
-@import "views/edition_edit_help";
-@import "views/edition_tags_edit";
-@import "views/document_collection_groups";
+@import "views/edition-edit-help";
+@import "views/edition-tags-edit";
+@import "views/document-collection-groups";
 @import "views/organisation";
-@import "views/editions/confirm_unpublish";
-@import "views/editions/filter_options";
+@import "views/editions/confirm-unpublish";
+@import "views/editions/filter-options";

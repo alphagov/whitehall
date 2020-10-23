@@ -70,21 +70,21 @@ $govuk-use-legacy-palette: false;
   @import "helpers/announcements";
   @import "helpers/withdrawal-notice";
   @import "helpers/attachment";
-  @import "helpers/available_languages";
+  @import "helpers/available-languages";
   @import "helpers/browse";
   @import "helpers/change-notes";
-  @import "helpers/collection_list";
+  @import "helpers/collection-list";
   @import "helpers/contextual-info";
   @import "helpers/corporate-information";
   @import "helpers/dash-list";
   @import "helpers/document";
-  @import "helpers/document_footer_meta";
-  @import "helpers/document_list";
+  @import "helpers/document-footer-meta";
+  @import "helpers/document-list";
   @import "helpers/document-share-links";
   @import "helpers/documents-grid";
   @import "helpers/headings";
   @import "helpers/featured-links";
-  @import "helpers/featured_news";
+  @import "helpers/featured-news";
   @import "helpers/feeds";
   @import "helpers/filtered-index";
   @import "helpers/govspeak";
@@ -100,7 +100,7 @@ $govuk-use-legacy-palette: false;
   @import "helpers/page-header";
   @import "helpers/pagination";
   @import "helpers/person";
-  @import "helpers/recently_updated";
+  @import "helpers/recently-updated";
   @import "helpers/simple-alphabetical-list";
   @import "helpers/social-media-accounts";
   @import "helpers/status-block";
@@ -133,13 +133,13 @@ $govuk-use-legacy-palette: false;
   @import "views/search";
   @import "views/site-index";
   @import "views/topic";
-  @import "views/world_locations";
-  @import "views/worldwide_organisations";
+  @import "views/world-locations";
+  @import "views/worldwide-organisations";
   @import "views/topical-events";
-  @import "views/corporate_information_pages/show";
+  @import "views/corporate-information-pages/show";
   @import "views/publications/index";
   @import "views/statistics/index";
-  @import "views/statistics_announcements/index";
+  @import "views/statistics-announcements/index";
 }
 
 // LAYOUTS
@@ -148,7 +148,7 @@ $govuk-use-legacy-palette: false;
 @import "layouts/main";
 
 #whitehall-wrapper {
-  @import "layouts/two_column_page";
+  @import "layouts/two-column-page";
 }
 
 // TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
