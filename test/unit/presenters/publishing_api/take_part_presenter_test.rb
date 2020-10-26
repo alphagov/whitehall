@@ -30,6 +30,7 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
           url: image_url,
           alt_text: "Image alt text",
         },
+        ordering: 1,
       },
       update_type: "major",
     }
