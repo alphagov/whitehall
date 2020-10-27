@@ -644,7 +644,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.5)
   govuk_frontend_toolkit (= 9.0.0)
-  govuk_publishing_components (~> 21.68.0)
+  govuk_publishing_components (~> 23.0.0)
   govuk_sidekiq (~> 4)
   govuk_test
   graphviz_transitions
