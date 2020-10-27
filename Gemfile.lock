@@ -189,11 +189,12 @@ GEM
       null_logger
       plek (>= 1.9.0)
       rest-client (~> 2.0)
-    gds-sso (15.0.1)
+    gds-sso (15.1.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
       omniauth-gds (~> 3.2)
+      plek (~> 4.0)
       rails (>= 5)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
@@ -280,7 +281,7 @@ GEM
     json (2.3.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
-    jwt (2.2.1)
+    jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -588,8 +589,8 @@ GEM
       raindrops (~> 0.7)
     validates_email_format_of (1.6.3)
       i18n
-    warden (1.2.8)
-      rack (>= 2.0.6)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     warden-oauth2 (0.0.1)
       warden
     webdrivers (4.4.1)
