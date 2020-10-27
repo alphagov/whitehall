@@ -57,7 +57,7 @@ namespace :data_hygiene do
   task ensure_statistics_announcement_unique: :environment do
     announcements_by_id = StatisticsAnnouncement.where.not(publication_id: nil).group_by(&:publication_id).filter { |_s, p| p.count > 1 }
     announcements_by_id.each_value do |announcements|
-      announcements.sort_by(&:created_at)[1,].each do |announcement|
+      announcements.sort_by(&:created_at)[1..-1].each do |announcement|
         announcement.publication = nil
       end
     end
