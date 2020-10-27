@@ -22,7 +22,7 @@ class StatisticsAnnouncement < ApplicationRecord
 
   belongs_to :creator, class_name: "User"
   belongs_to :cancelled_by, class_name: "User"
-  belongs_to :publication
+  belongs_to :publication, optional: true
 
   has_one  :current_release_date,
            -> { order("created_at DESC") },
