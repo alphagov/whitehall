@@ -44,6 +44,7 @@ module PublishingApi
           url: item.image_url(:s300),
           alt_text: item.image_alt_text,
         },
+        ordering: item.ordering,
       }
     end
 
