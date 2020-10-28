@@ -15,6 +15,8 @@ private
 
   def send_mail(csv_filename, user, filter)
     MailNotifications.document_list(csv_filename, user.email, filter.page_title).deliver_now
+  rescue Notifications::Client::BadRequestError
+    render plain: "Error: One or more recipients not in GOV.UK Notify team (code: 400)", status: :bad_request
   end
 
   def upload_file(csv, type)
