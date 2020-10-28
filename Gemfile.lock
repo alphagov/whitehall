@@ -546,7 +546,7 @@ GEM
     sidekiq-statsd (2.1.0)
       activesupport
       sidekiq (>= 3.3.1)
-    slimmer (15.1.1)
+    slimmer (15.2.0)
       activesupport
       json
       nokogiri (~> 1.7)
@@ -693,7 +693,7 @@ DEPENDENCIES
   sassc-rails (~> 2.1)
   shared_mustache (~> 1.0.0)
   sidekiq-scheduler (~> 3.0)
-  slimmer (~> 15.1)
+  slimmer (~> 15.2)
   sprockets-rails
   teaspoon-qunit
   test-queue (~> 0.2.13)
