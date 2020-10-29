@@ -40,15 +40,19 @@
     margin: $gutter 0 $gutter * 2;
   }
 
-  .other-organisations {
-    @include core-16;
-    margin: $gutter-half 0;
-    @include media(tablet) {
-      margin-bottom: 0;
-      width: $half;
-    }
-    .show-other-content {
-      text-decoration: none;
-    }
+  .organisation-logos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style-type: none;
+    margin-top: govuk-spacing(2);
+  }
+
+  .organisation-logos__logo {
+    padding-bottom: govuk-spacing(3);
+    margin-right: govuk-spacing(3);
+    flex-basis: 25%;
+    min-width: 130px;
   }
 }
