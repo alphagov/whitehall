@@ -49,7 +49,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: event }
 
-    assert_select "a.gem-c-subscription-links__link[href*=\"email-signup\"]"
+    assert_select "a.gem-c-subscription-links__item--link[href*=\"email-signup\"]"
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do
