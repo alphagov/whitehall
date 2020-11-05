@@ -306,7 +306,7 @@ pa:
     subscribe_to_feed:
     view_feed:
   i18n:
-    direction:
+    direction: ltr
   language_names:
     pa: ਪੰਜਾਬੀ
   latest_feed:
