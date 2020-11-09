@@ -204,7 +204,7 @@ GEM
       activemodel (>= 4.2, < 6.1)
       activerecord (>= 4.2, < 6.1)
       request_store (~> 1.0)
-    govspeak (6.5.8)
+    govspeak (6.5.9)
       actionview (>= 5.0, < 7)
       addressable (>= 2.3.8, < 3)
       govuk_publishing_components (>= 23.0, < 23.4)
@@ -576,7 +576,7 @@ GEM
     timecop (0.9.1)
     transitions (1.2.1)
     ttfunk (1.6.2.1)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
@@ -639,7 +639,7 @@ DEPENDENCIES
   gds-api-adapters
   gds-sso (~> 15)
   globalize (~> 5)
-  govspeak (~> 6.5.8)
+  govspeak (~> 6.5.9)
   govuk-content-schema-test-helpers
   govuk_ab_testing (~> 2)
   govuk_admin_template (~> 6.7)
