@@ -147,7 +147,7 @@ module Admin::TaggableContentHelper
         RoleAppointment
                                 .joins(:role)
                                 .where(roles: { type: "MinisterialRole" })
-                                .order("role_appointments.id"),
+                                .order("role_appointments.started_at"),
         "ministerial-role-appointments",
       )
     end
@@ -217,7 +217,7 @@ private
       .includes(:person)
       .with_translations_for(:organisations)
       .with_translations_for(:role)
-      .alphabetical_by_person.map { |appointment| [role_appointment_label(appointment), appointment.id] }
+      .ascending_start_date.map { |appointment| [role_appointment_label(appointment), appointment.id] }
   end
 
   def role_appointment_label(appointment)

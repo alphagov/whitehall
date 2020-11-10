@@ -60,6 +60,7 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
 
     joe = create(:person, forename: "Joe", surname: "Rockhead")
     slate = create(:person, forename: "Mr.", surname: "Slate")
+    granite = create(:person, forename: "Karen", surname: "Granite")
 
     old_leader_appointment = create(
       :role_appointment,
@@ -68,11 +69,20 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       started_at: Date.new(2006, 5, 12),
       ended_at: Date.new(2011, 5, 11),
     )
+
+    older_leader_appointment = create(
+      :role_appointment,
+      role: leader,
+      person: granite,
+      started_at: Date.new(2003, 5, 12),
+      ended_at: Date.new(2006, 5, 11),
+    )
     current_leader_appointment = create(:role_appointment, role: leader, person: slate)
 
     assert_equal [
-      ["Joe Rockhead, Leader (12 May 2006 to 11 May 2011), Ministry for Rocks and Bones", old_leader_appointment.id],
       ["Mr. Slate, Leader, Ministry for Rocks and Bones", current_leader_appointment.id],
+      ["Joe Rockhead, Leader (12 May 2006 to 11 May 2011), Ministry for Rocks and Bones", old_leader_appointment.id],
+      ["Karen Granite, Leader (12 May 2003 to 11 May 2006), Ministry for Rocks and Bones", older_leader_appointment.id],
     ],
                  taggable_ministerial_role_appointments_container
   end
