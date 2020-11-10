@@ -14,7 +14,7 @@ module ServiceListeners
     end
 
     def self.update_attachment_data(attachment_data)
-      AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
+      AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id) unless FileAttachment.find_by(attachment_data_id: attachment_data.id).deleted?
     end
   end
 end
