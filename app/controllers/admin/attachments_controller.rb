@@ -205,6 +205,6 @@ private
   end
 
   def attachment_updater
-    ServiceListeners::AttachmentUpdater.call(attachable: attachable.reload)
+    ServiceListeners::AttachmentUpdater.update_all_attachment_data_for(attachable.reload)
   end
 end
