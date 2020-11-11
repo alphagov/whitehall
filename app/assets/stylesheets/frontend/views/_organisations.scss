@@ -1,5 +1,4 @@
 .organisations-index {
-
   .other-departments .type-heading {
     @include media(tablet) {
       margin-top: 0;
@@ -8,15 +7,14 @@
   }
 
   .omissions {
-    padding: $gutter*2 $gutter-half 0;
+    padding: ($gutter * 2) $gutter-half 0;
     clear: both;
     @include media(tablet) {
-      padding: $gutter*2 $gutter 0;
+      padding: ($gutter * 2) $gutter 0;
     }
   }
 
   .page-header {
-
     h1.title {
       @include heading-27;
     }
@@ -26,13 +24,13 @@
 
     @include media(tablet) {
       width: 75%;
-      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
+      padding: ($gutter * 1.5) 0 ($gutter + $gutter-one-third);
     }
-
   }
 
-  .ministerial-departments, .executive-offices {
-    margin-bottom: $gutter*2;
+  .ministerial-departments,
+  .executive-offices {
+    margin-bottom: ($gutter * 2);
 
     .type-heading {
       padding-top: 17px;
@@ -40,13 +38,14 @@
   }
 
   .other-departments {
-    margin-bottom: $gutter*2;
+    margin-bottom: ($gutter * 2);
 
     .department {
       .department-link {
         display: block;
         float: left;
       }
+
       .view-all {
         margin-bottom: 0;
       }
@@ -63,18 +62,21 @@
       padding: $gutter-one-third 0;
       overflow: hidden;
     }
+
     .works-with,
     .view-all {
       display: block;
       float: left;
       @include ig-core-16;
     }
+
     .works-with {
-      @include media(desktop){
+      @include media(desktop) {
         clear: both;
         min-width: 18em;
       }
     }
+
     .view-all {
       @include border-radius(3px);
       background: $panel-colour;
@@ -126,6 +128,7 @@
       }
     }
   }
+
   .organisations-box {
     clear: both;
     margin: 0 (-15px);
@@ -162,12 +165,14 @@
     @include media(tablet) {
       p {
         clear: both;
+
         .count {
           @include core-80;
           display: block;
           font-weight: bold;
           width: $full-width;
         }
+
         .on-govuk {
           @include core-24;
           display: block;
@@ -178,9 +183,7 @@
   }
 }
 
-
 .organisations-show {
-
   .block-1,
   .block-2,
   .block-3,
@@ -195,10 +198,10 @@
     padding-bottom: $gutter-half;
 
     @include media(tablet) {
-      padding-bottom: $gutter*2;
+      padding-bottom: $gutter * 2;
     }
-
   }
+
   .block-2 img {
     width: $full-width;
     height: auto;
@@ -231,6 +234,7 @@
         float: left;
         width: $two-thirds;
       }
+
       h1 {
         padding: 0;
       }
@@ -246,6 +250,7 @@
       @include media(tablet) {
         margin-bottom: $gutter;
       }
+
       .see-all {
         @include bold-16;
         margin-top: $gutter-one-sixth;
@@ -258,21 +263,23 @@
 
     &.service-priority {
       .logo {
-        @include grid-column( 1/3 );
+        @include grid-column(1 / 3);
 
         img.organisation-logo-custom {
           max-width: 100%;
         }
       }
+
       .heading-extra {
-        @include grid-column( 2/3 );
+        @include grid-column(2 / 3);
+
         .featured-links {
           margin: 0;
           padding: 0;
         }
 
         .featured-links li a,
-        .see-all{
+        .see-all {
           @include bold-24;
         }
 
@@ -293,10 +300,6 @@
     }
   }
 
-  .block-2 {
-    padding-bottom: $gutter;
-  }
-
   .block-10 {
     .inner-block {
       padding: 0 $gutter-half;
@@ -311,13 +314,14 @@
       @include media(tablet) {
         margin-bottom: $gutter-one-third;
       }
+
       &:last-child {
         margin-bottom: 0;
       }
     }
 
     @include media(tablet) {
-      margin-bottom: $gutter*2;
+      margin-bottom: $gutter * 2;
     }
   }
 
@@ -360,6 +364,8 @@
   }
 
   .block-2 {
+    padding-bottom: $gutter;
+
     .inner-block {
       padding: 0;
 
@@ -375,12 +381,53 @@
         width: $two-thirds;
       }
     }
+
     .what-we-do {
       clear: both;
     }
   }
 
+  .social-media {
+    @include media(tablet) {
+      float: left;
+      display: inline;
+      width: $one-third;
+    }
+
+    .content {
+      padding: 0 $gutter-half;
+      @include media(tablet) {
+        padding: 0 $gutter-half $gutter-half;
+      }
+    }
+  }
+
+  .executive-office .social-media {
+    h2 {
+      @include core-27;
+      font-weight: bold;
+      border-top-width: $gutter-one-sixth;
+      border-top-style: solid;
+      padding-top: $gutter-two-thirds;
+      padding-bottom: 1px;
+      margin-bottom: $gutter-two-thirds;
+    }
+
+    .content {
+      padding: $gutter-half $gutter-half 0;
+      @include media(tablet) {
+        padding-top: $gutter * 1.5;
+      }
+    }
+  }
+
   .what-we-do {
+    clear: both;
+
+    p {
+      @include ig-core-19;
+    }
+
     .overview {
       @include media(tablet) {
         display: inline;
@@ -392,48 +439,9 @@
         }
       }
     }
+
     .content {
       padding: $gutter-half $gutter-half 0;
-    }
-  }
-
-  .social-media {
-    @include media(tablet) {
-      float: left;
-      display: inline;
-      width: $one-third;
-    }
-    .content {
-      padding: 0 $gutter-half;
-      @include media(tablet) {
-        padding: 0 $gutter-half $gutter-half;
-      }
-    }
-  }
-  .executive-office .social-media {
-    h2 {
-      @include core-27;
-      font-weight: bold;
-      border-top-width: $gutter-one-sixth;
-      border-top-style: solid;
-      padding-top: $gutter-two-thirds;
-      padding-bottom: 1px;
-      margin-bottom: $gutter-two-thirds;
-    }
-    .content {
-      padding: $gutter-half $gutter-half 0;
-      @include media(tablet) {
-        padding-top: $gutter*1.5;
-      }
-    }
-  }
-
-
-  .what-we-do {
-    clear: both;
-
-    p {
-      @include ig-core-19;
     }
 
     .body {
@@ -445,6 +453,7 @@
         }
       }
     }
+
     .uk-aid {
       @extend %contain-floats;
       border: 1px solid $border-colour;
@@ -458,6 +467,7 @@
       h2 {
         float: left;
         padding-right: $gutter-half;
+
         a {
           display: block;
           overflow: hidden;
@@ -467,12 +477,13 @@
           background: transparent image-url("uk-aid-logo.png") no-repeat 0 0;
           background-size: $full-width $full-width;
 
-          @include media(tablet){
+          @include media(tablet) {
             width: 108px;
             height: 115px;
           }
         }
       }
+
       p {
         @include core-19;
       }
@@ -513,13 +524,13 @@
     ul {
       position: relative;
       overflow: hidden;
-      margin: 0 ($gutter-half*-1);
+      margin: 0 ($gutter-half * -1);
     }
 
     #management.important-board-members-1 {
       @include media(tablet) {
         // some minus margin juggling here to align the columns
-        margin: 0 ($gutter-half*-1);
+        margin: 0 ($gutter-half * -1);
 
         h1,
         .show-other-content {
@@ -531,14 +542,17 @@
           float: left;
           width: $one-quarter;
           margin: 0;
+
           li {
             width: $full-width;
           }
         }
+
         ul.management-secondary {
           position: relative;
           float: left;
           width: 75%;
+
           li {
             width: $one-third;
             @include ie(7) {
@@ -555,13 +569,14 @@
       margin-right: -$full-width;
       margin-left: 0;
     }
-
   } // end #who
 
-  .contact-wrapper, .corporate-information {
+  .contact-wrapper,
+  .corporate-information {
     float: left;
     display: inline;
     width: $full-width;
+
     nav {
       @include media(tablet) {
         padding: 0 $gutter-half;
@@ -598,11 +613,15 @@
 
   .corporate-information {
     width: $full-width;
-    h2, nav, p {
+
+    h2,
+    nav,
+    p {
       @include media(tablet) {
         padding: 0 $gutter-half;
       }
     }
+
     nav {
       margin-bottom: $gutter;
     }
@@ -626,6 +645,7 @@
       @include media(tablet) {
         margin-bottom: $gutter-two-thirds;
       }
+
       h2 {
         @include core-19;
         font-weight: bold;
@@ -634,6 +654,7 @@
         border-top: 1px solid $border-colour;
         border-bottom: none;
       }
+
       p {
         margin: 0 0 $gutter-one-third;
 
@@ -641,27 +662,33 @@
           display: block;
         }
       }
+
       .comment {
         margin-bottom: $gutter-half;
       }
+
       .adr {
         margin: 0 0 $gutter-one-third;
         @include media(tablet) {
           float: left;
           width: 40%;
         }
+
         span {
           display: block;
           padding-right: $gutter-half;
-          margin-bottom: -($gutter-half+$gutter-one-third);
+          margin-bottom: -($gutter-half + $gutter-one-third);
+
           &:last-child {
             margin-bottom: 0;
           }
         }
+
         p {
           margin: 0;
         }
       }
+
       .email {
         word-break: break-word;
 
@@ -669,15 +696,17 @@
           word-break: break-all;
         }
       }
+
       &.postal-address {
         .email-url-number {
-          @include media(tablet){
+          @include media(tablet) {
             float: left;
             width: 60%;
           }
         }
       }
     }
+
     .show-other-content {
       @include core-19;
       font-weight: bold;
@@ -688,7 +717,8 @@
     p {
       padding: 0 $gutter-half;
 
-      &.contact_form_url, &.tel {
+      &.contact_form_url,
+      &.tel {
         padding: 0;
       }
     }
@@ -703,17 +733,17 @@
       margin-left: 0;
 
       > li {
-        background-position: 0 0.87em;
+        background-position: 0 .87em;
         background-repeat: no-repeat;
         list-style-type: none;
         margin-left: 0;
-        padding: 0.75em 0 0.75em 2.2em;
+        padding: .75em 0 .75em 2.2em;
 
         @for $i from 1 through 14 {
           &:nth-child(#{$i}) {
             background-image: image-url("icon-steps/icon-step-#{$i}.png");
 
-            @include device-pixel-ratio() {
+            @include device-pixel-ratio {
               background-image: image-url("icon-steps/icon-step-#{$i}-2x.png");
               background-size: 24px 24px;
             }
@@ -727,15 +757,18 @@
         }
       }
     }
+
     .org-contacts {
       .adr,
       .email {
         padding: 0;
       }
+
       .comments {
         clear: both;
         padding: $gutter 0 $gutter-half 0;
       }
+
       .contact {
         h2 {
           border-top: none;
@@ -751,7 +784,7 @@
   .organisation-news {
     @extend %contain-floats;
     @include media(tablet) {
-      padding-bottom: $gutter+$gutter-half;
+      padding-bottom: $gutter + $gutter-half;
     }
   }
 
@@ -765,12 +798,14 @@
   #special_representatives h1,
   #judges h1,
   #org-contacts h2,
-  #what-we-do-article h1, #who-we-are h1 {
+  #what-we-do-article h1,
+  #who-we-are h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
   }
+
   #who-we-are .overview h1 {
-    border-bottom: 0px;
+    border-bottom: 0;
   }
   @include organisation-brand-colour("h1", border-color);
   @include organisation-brand-colour("h2", border-color);
@@ -778,24 +813,26 @@
   @include organisation-brand-colour("a", color, $websafe: true);
 
   .govuk-beta-label {
-    margin: 0px 30px;
+    margin: 0 30px;
   }
 }
+
 .organisations-external {
   @include media(desktop) {
     .block-2 {
       width: $two-thirds;
     }
+
     .block-4 {
       width: $full-width;
       clear: both;
     }
+
     .block-5 {
       width: $full-width;
       clear: both;
     }
   }
-
 
   p .url-link {
     display: block;
@@ -818,7 +855,7 @@
     }
 
     @include media(desktop) {
-      padding-bottom: $gutter*2;
+      padding-bottom: $gutter * 2;
     }
   }
 
@@ -830,23 +867,26 @@
     margin-bottom: $gutter;
 
     @include media(desktop) {
-      margin-bottom: $gutter*2;
+      margin-bottom: $gutter * 2;
     }
   }
+
   .thumbnail {
-    margin-bottom: $gutter*2;
+    margin-bottom: $gutter * 2;
 
     img {
-      @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
+      @include box-shadow(0 2px 2px rgba(0, 0, 0, .4));
       width: $full-width;
       max-width: 287px;
     }
   }
+
   .status-block {
     @include media(desktop) {
-      margin: 0 0 $gutter*2 0;
+      margin: 0 0 ($gutter * 2) 0;
     }
   }
+
   .documents-grid {
     clear: both;
   }
@@ -861,6 +901,7 @@
     a {
       color: $fuschia;
     }
+
     .social-media-accounts .connect {
       background-color: $fuschia;
     }
@@ -874,9 +915,11 @@
       text-align: center;
     }
   }
+
   .prime-ministers-office-10-downing-street .executive-office-header h1 {
     background-image: image_url("executive-office-bars/prime-ministers-office.jpg");
   }
+
   .deputy-prime-ministers-office .executive-office-header h1 {
     padding-top: 110px;
     padding-bottom: $gutter-half;
@@ -884,8 +927,10 @@
     background-image: image_url("executive-office-bars/deputy-prime-ministers-office.png");
     font-family: 'Times New Roman', serif;
   }
+
   .organisation-header {
     padding: $gutter 0 0;
+
     h1 {
       padding: 0;
 
@@ -909,6 +954,7 @@
       font-weight: bold;
       padding: $gutter-two-thirds 0;
     }
+
     .features h2 {
       margin: 0 $gutter-half;
     }
@@ -951,6 +997,7 @@
           padding: $gutter-one-sixth 0;
         }
       }
+
       .see-all {
         margin-top: $gutter-one-third;
       }
@@ -966,56 +1013,68 @@
       .features-1 {
         @include media(tablet) {
           width: $one-third;
+
           .large {
             width: $two-thirds;
           }
         }
       }
+
       .features-2 {
         @include media(tablet) {
           width: $two-thirds;
 
           .promotional_feature_item {
             width: $half;
+
             &.large {
               width: $full-width;
             }
           }
         }
       }
+
       .features-3 {
         @include media(tablet) {
           width: $full-width;
 
           .promotional_feature_item {
             width: $one-third;
+
             &.large {
               width: $two-thirds;
             }
           }
         }
       }
+
       .content {
         @include core-16;
+
         img {
           width: $full-width;
           margin-bottom: $gutter-one-third;
         }
+
         h3 {
           @include copy-19;
           font-weight: bold;
         }
+
         ul {
           margin-top: $gutter-one-third;
         }
       }
+
       .large {
         ul {
           margin: $gutter-one-third (-$gutter-half);
+
           li {
             list-style: none;
             float: left;
             width: $half;
+
             a {
               border-bottom: 1px solid $border-colour;
               display: block;
@@ -1025,7 +1084,6 @@
           }
         }
       }
-
     }
   }
 
@@ -1036,6 +1094,7 @@
       float: left;
       padding: 0;
     }
+
     h1 {
       border-top: $gutter-one-sixth solid;
       @include core-24;
@@ -1045,17 +1104,20 @@
         margin: 0 $gutter-half;
       }
     }
+
     .org-contacts {
       @include media(tablet) {
         margin: 0 $gutter-half;
       }
     }
+
     .contact {
       clear: both;
       margin-top: $gutter-one-third;
       @include media(tablet) {
         margin-bottom: $gutter-two-thirds;
       }
+
       h2 {
         @include core-19;
         font-weight: bold;
@@ -1064,6 +1126,7 @@
         border-top: 1px solid $border-colour;
         border-bottom: none;
       }
+
       p {
         margin: 0 0 $gutter-one-third;
 
@@ -1071,9 +1134,11 @@
           display: block;
         }
       }
+
       .comment {
         margin-bottom: $gutter-half;
       }
+
       .adr {
         margin: 0 0 $gutter-one-third;
 
@@ -1081,6 +1146,7 @@
           margin: 0;
         }
       }
+
       .email {
         word-break: break-word;
 
@@ -1089,6 +1155,7 @@
         }
       }
     }
+
     .show-other-content {
       @include core-19;
       font-weight: bold;
@@ -1100,6 +1167,7 @@
       width: $one-third;
       float: left;
     }
+
     .dash-list {
       @include core-19;
       margin: 0 $gutter-half;
@@ -1107,9 +1175,7 @@
       border-top: $gutter-one-sixth solid;
     }
   }
-
 }
-
 
 // Used on:
 // organisations#about, corporate_information_page#show
@@ -1123,6 +1189,7 @@
       width: $one-third;
       float: left;
     }
+
     .block-2 {
       width: $two-thirds;
       float: right;
@@ -1146,37 +1213,42 @@
         padding-top: $gutter-one-sixth;
         list-style: disc;
         margin-left: 1.2em;
-        @media (min-width: 1px ){ // target modern browsers
+        @media (min-width: 1px) { // target modern browsers
           list-style: none;
+
           &:before {
             content: "-";
             position: relative;
             float: left;
             width: $gutter-half;
-            margin-left: $gutter-half*-1;
+            margin-left: $gutter-half * -1;
           }
         }
       }
     }
   }
+
   .homepage-link {
     margin-top: $gutter-two-thirds;
     @include media(desktop) {
       margin-top: $gutter;
     }
   }
+
   .main {
     clear: both;
     @include ig-core-48;
     font-weight: bold;
 
     @include media(tablet) {
-      padding: $gutter*3 0 $gutter-half;
+      padding: ($gutter * 3) 0 $gutter-half;
     }
   }
+
   .description {
     @include ig-core-27;
   }
+
   .body {
     h2 {
       border-bottom: 1px solid $border-colour;
@@ -1186,11 +1258,13 @@
       }
     }
   }
+
   .corporate-publications {
     h1 {
       @include ig-core-27;
       margin: $gutter 0 $gutter-half 0;
     }
+
     ul {
       li {
         list-style: none;
@@ -1201,12 +1275,14 @@
           @include ig-core-19;
           padding: 0;
         }
+
         .metadata {
           @include ig-core-14;
           padding: 0;
         }
       }
     }
+
     .transparency {
       a {
         @include ig-core-19;
@@ -1215,7 +1291,6 @@
   }
   @include organisation-brand-colour('.corporate-info h1', border-color);
 }
-
 
 .organisations-about {
   .corporate-information-block {
@@ -1229,6 +1304,7 @@
       padding: 0 0 $gutter-half;
       width: $full-width;
     }
+
     h2 {
       @include ig-core-19;
     }
@@ -1242,6 +1318,7 @@
       width: $half;
     }
   }
+
   .organisation-top-tasks {
     @include media(tablet) {
       float: right;
@@ -1249,8 +1326,10 @@
       padding-top: 0;
       margin-top: ($gutter-one-third * -1);
     }
+
     .available-languages {
       margin: $gutter-one-third 0 0 0;
+
       ul {
         @extend %contain-floats;
         list-style: none;
@@ -1264,11 +1343,13 @@
           padding: 0 $gutter-one-third 0 0;
           height: 16px;
           margin: 3px $gutter-one-third 2px 0;
+
           &.last {
             border-right: 0;
           }
 
-          a, span {
+          a,
+          span {
             display: block;
             margin-top: -1px;
             @include core-16;

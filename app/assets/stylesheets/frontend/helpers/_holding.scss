@@ -7,6 +7,7 @@
   h1 {
     @include ig-core-48;
   }
+
   p {
     @include ig-core-24;
     margin-bottom: $gutter-half;

@@ -6,6 +6,7 @@
   border: $gutter-one-sixth solid $govuk-blue;
   padding: $gutter-half;
   position: relative;
+
   h2 {
     @include core-36;
     font-weight: bold;
@@ -18,7 +19,7 @@
   }
 
   @include media(desktop) {
-    margin: 0 $gutter-half $gutter*2 $gutter-half;
+    margin: 0 $gutter-half ($gutter * 2) $gutter-half;
     padding: $gutter-two-thirds;
   }
 }

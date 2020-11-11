@@ -13,19 +13,20 @@
       padding-right: $gutter-half;
       padding-top: $gutter-one-sixth;
 
-      @media (min-width: 1px ){ // target modern browsers
+      @media (min-width: 1px) { // target modern browsers
         list-style-type: none;
+
         &:before {
           content: "-";
           position: relative;
           float: left;
           width: $gutter-half;
-          margin-left: $gutter-half*-1;
+          margin-left: $gutter-half * -1;
         }
       }
     }
 
-    @include media(tablet){
+    @include media(tablet) {
       overflow: visible;
 
       li {
@@ -34,9 +35,11 @@
       }
     }
   }
+
   a {
     vertical-align: top;
   }
+
   p {
     @include ig-core-16;
   }

@@ -1,8 +1,8 @@
 .group-show {
-
   .block-3 {
     clear: both;
     padding-top: $gutter;
+
     .label {
       @include heading-27;
       border-bottom-width: 5px;
@@ -12,9 +12,11 @@
         margin: 0 $gutter-half $gutter;
       }
     }
+
     .inner-block {
       padding: 0 $gutter-half;
     }
+
     .person-excerpt .inner {
       padding: 0 0 $gutter-half 0;
       @include media(tablet) {
@@ -22,5 +24,4 @@
       }
     }
   }
-
 }

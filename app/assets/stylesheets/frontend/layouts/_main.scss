@@ -8,7 +8,7 @@
   color: $text-colour;
 
   @include media(desktop) {
-    padding-bottom: $gutter*2;
+    padding-bottom: $gutter * 2;
   }
 
   .whitehall-content {
@@ -16,7 +16,7 @@
     position: relative;
     margin: 0 auto;
     width: auto;
-    max-width: $max-site-width + $gutter*2;
+    max-width: $max-site-width + ($gutter * 2);
 
     @extend %contain-floats;
   }

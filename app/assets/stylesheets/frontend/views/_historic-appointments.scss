@@ -10,12 +10,14 @@
     }
   }
 }
+
 .historic-appointments {
   .historic-people-list {
     @include media(tablet) {
       float: left;
       width: $one-quarter;
     }
+
     h3 {
       @include govuk-font(19);
       margin: govuk-spacing(6) 0;
@@ -28,6 +30,7 @@
     }
   }
 }
+
 .historic-appointments-index {
   .featured-profiles {
     @include media(tablet) {
@@ -59,9 +62,11 @@
           @include core-19;
           font-weight: bold;
         }
+
         p {
           color: $secondary-text-colour;
         }
+
         img {
           width: $full-width;
         }
@@ -79,6 +84,7 @@
     @include media(tablet) {
       width: $full-width;
     }
+
     .year-block {
       @include media(tablet) {
         width: $one-quarter;

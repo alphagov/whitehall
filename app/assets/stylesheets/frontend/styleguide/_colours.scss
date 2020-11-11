@@ -8,10 +8,10 @@
 $link-active-colour: $orange;
 $link-hover-colour: $link-colour;
 
-$inside-gov-brand: #2E3191;
+$inside-gov-brand: #2e3191;
 $inside-gov-secondary: #57da95;
-$inside-gov-nav: #0B0C0C;
-$inside-gov-nav-dropdown: #888;
+$inside-gov-nav: #0b0c0c;
+$inside-gov-nav-dropdown: #888888;
 
 $coalition-green: #85994b;
 $g8-brand: #c10019;
@@ -52,8 +52,7 @@ $g8-brand: #c10019;
     .#{nth($organisation, 1)}-brand-colour #{$selector} {
       @if $websafe {
         #{$property}: nth($organisation, 3);
-      }
-      @else {
+      } @else {
         #{$property}: nth($organisation, 2);
       }
     }

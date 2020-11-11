@@ -1,0 +1,34 @@
+.html-publication {
+  @include core-19;
+}
+
+#whitehall-wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding-top: 0;
+
+  .whitehall-content {
+    position: relative;
+    margin: 0 auto;
+    width: auto;
+    max-width: $max-site-width + ($gutter * 2);
+
+    @extend %contain-floats;
+  }
+}
+
+#footer {
+  @include core-16;
+
+  .footer-meta {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+#print-meta-data {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}

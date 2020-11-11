@@ -21,6 +21,7 @@
       article {
         @include media(tablet) {
           width: $one-third;
+
           &.item-0,
           &.item-1 {
             width: $half;
@@ -28,6 +29,7 @@
           }
         }
       }
+
       .item-2 {
         clear: left;
       }
@@ -41,6 +43,7 @@
           float: left;
         }
       }
+
       .item-3 {
         clear: left;
       }

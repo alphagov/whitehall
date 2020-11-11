@@ -1,22 +1,24 @@
-@mixin button($color){
-  background: $color ;
-  border: 0.063em solid $color;
-  @include border-radius(0.250em);
-  @include box-shadow(0 0.2em 0 darken($color, 15%));
-  color: #fff;
+@mixin button($color) {
+  background: $color;
+  border: .063em solid $color;
+  @include border-radius(.25em);
+  @include box-shadow(0 .2em 0 darken($color, 15%));
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  padding: 0.438em 0.625em 0.25em;
+  padding: .438em .625em .25em;
   position: relative;
   text-decoration: none;
-  text-shadow: 0 -0.063em 0.063em $color;
+  text-shadow: 0 -.063em .063em $color;
+
   &:hover,
   &:focus {
     background: darken($color, 5%);
-    @include transition(background, 0.3s, ease)
+    @include transition(background, .3s, ease);
   }
+
   &:active {
-    top: 0.2em;
+    top: .2em;
     @include box-shadow(0 0 0 $color);
   }
 }

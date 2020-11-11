@@ -1,0 +1,51 @@
+fieldset.sortable {
+  margin-top: 0;
+
+  legend {
+    margin-bottom: 10px;
+  }
+}
+
+.connected-sortable {
+  padding: 5px;
+  background-color: #eeeeee;
+}
+
+.ui-sortable {
+  margin-top: 0;
+
+  margin-left: 0;
+
+  li {
+    list-style: none;
+  }
+
+  .sort_item {
+    cursor: move;
+
+    label,
+    a {
+      cursor: inherit !important; // stylelint-disable-line declaration-no-important
+    }
+
+    .state {
+      color: #bbbbbb;
+    }
+  }
+
+  .well.sortable-drop-target {
+    border-style: dashed !important; // stylelint-disable-line declaration-no-important
+    background-color: #ffffff !important; // stylelint-disable-line declaration-no-important
+  }
+}
+
+.js ol.js-sortable {
+  li {
+    cursor: move;
+
+    label,
+    a {
+      cursor: pointer;
+    }
+  }
+}

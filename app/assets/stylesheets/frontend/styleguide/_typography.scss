@@ -1,6 +1,5 @@
 //  GOV.UK typography palettes
 
-
 //  ANATOMY OF A TYPE STYLE
 //  -----------------------
 //  These are a collection of graphic styles. They are deliberately
@@ -30,16 +29,6 @@
 //        vertical measure before & after the text, ideally sitting it
 //        on the 10px baseline grid.
 //  }
-
-
-
-
-
-
-
-
-
-
 
 // CORE FONTS - NEW TRANSPORT
 
@@ -128,6 +117,7 @@
     color: $white;
     text-decoration: underline;
   }
+
   a:active {
     color: $govuk-link-active-colour;
   }

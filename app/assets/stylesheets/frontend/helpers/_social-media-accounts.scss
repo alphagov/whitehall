@@ -5,14 +5,14 @@
     margin: $gutter-one-third 0;
     @include core-16;
     padding: 0;
-    line-height: (5*$gutter-one-sixth);
+    line-height: 5 * $gutter-one-sixth;
   }
 
   .connect {
     float: left;
     display: inline;
-    width: (5*$gutter-one-sixth);
-    height: (5*$gutter-one-sixth);
+    width: 5 * $gutter-one-sixth;
+    height: 5 * $gutter-one-sixth;
     text-indent: -999em;
     overflow: hidden;
     margin-right: $gutter-one-third;

@@ -2,6 +2,7 @@
   article {
     &.first {
       width: $full-width;
+
       .content {
         padding: $gutter-half 0 $gutter-one-third 0;
         @extend %contain-floats;
@@ -31,7 +32,9 @@
             width: $one-third;
             float: left;
 
-            .meta, h2, .summary {
+            .meta,
+            h2,
+            .summary {
               padding-left: $gutter-half;
             }
 

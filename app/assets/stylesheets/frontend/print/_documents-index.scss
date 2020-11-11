@@ -2,19 +2,24 @@
   .filter-form-block {
     display: none;
   }
+
   .filter-results-block {
     .inner-block {
       .feeds {
         display: none;
       }
-      ol, ul {
+
+      ol,
+      ul {
         padding: 0;
         margin: 0;
+
         li {
           list-style: none;
           float: left;
           padding: 0;
           margin: 0 30px 0 0;
+
           h3 {
             font-weight: bold;
             padding-bottom: 0;

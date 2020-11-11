@@ -1,10 +1,12 @@
 .operational-field-show {
   @include media(desktop) {
-    .block-2, .block-3 {
+    .block-2,
+    .block-3 {
       float: left;
       display: inline;
       width: $one-third;
     }
+
     .block-3 {
       width: $two-thirds;
     }

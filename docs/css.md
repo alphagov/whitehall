@@ -1,6 +1,6 @@
 # Whitehall CSS Styleguide
 
-To be read in conjunction with the [GOV.UK CSS Styleguide](https://github.com/alphagov/styleguides/blob/master/css.md)
+To be read in conjunction with the [GDS Way CSS styleguide](https://gds-way.cloudapps.digital/manuals/programming-languages/css.html)
 
 ## File structure and scope
 
@@ -37,9 +37,9 @@ When introducing a new helper, take care to consider exactly what it is for, how
 
 Views are where styling for individual layouts or partials live. In general, the css for a template should live in a scss file named after that template, but scss for partials used in multiple templates should be extracted to a separate file named after that partial. SCSS rules within these view files should never affect anything other than the coupled view file.
 
-Files should be placed and named to exactly match the partial they are styling:
+Files should be placed and named to match the partial they are styling:
 
-styling for `/app/views/editions/index.html.erb` should live at `app/assets/stylesheets/frontend/editions/index.scss`
+styling for `/app/views/corporate_information_pages/index.html.erb` should live at `app/assets/stylesheets/frontend/corporate-information-pages/_index.scss`
 styling for `/app/views/shared/_featured.html.erb` should live at `app/assets/stylesheets/frontend/editions/_featured.scss`
 
 By storing CSS in this way, we are being clear about it's scope. When a segment of the view is removed, the relevant CSS is easy to clean up.

@@ -1,9 +1,9 @@
 .editions-index {
-
   .publishing-stats {
     font-size: 16px;
     text-align: right;
-    .stat{
+
+    .stat {
       float: right;
       clear: right;
     }
@@ -31,12 +31,12 @@
   }
 
   .additional_information {
-    padding: 0.4em 1em 0.2em 1em;
-    margin: 0.3em 0 0 0;
+    padding: .4em 1em .2em;
+    margin: .3em 0 0;
 
     h4 {
-      margin: 0.2em 0 0.6em 0;
-      color: #777;
+      margin: .2em 0 .6em;
+      color: #777777;
     }
 
     ul {
@@ -45,25 +45,26 @@
       li {
         margin: 0;
         display: block;
-        background: #fff;
-        margin-bottom: 0.5em;
-        border: 1px solid #eee;
-        border-bottom: 1px solid #ddd;
+        background: #ffffff;
+        margin-bottom: .5em;
+        border: 1px solid #eeeeee;
+        border-bottom: 1px solid #dddddd;
 
         a {
           display: block;
-          padding: 0.5em 0.75em;
+          padding: .5em .75em;
         }
       }
     }
   }
 
-// Edition filter page styling to overide bootstrap
+  // Edition filter page styling to overide bootstrap
   .well {
     @include border-radius(0);
     border: 0;
     margin-top: 0;
   }
+
   .table th,
   .table td {
     padding: $gutter-one-sixth;
@@ -74,8 +75,9 @@
       li {
         a {
           padding: $gutter-one-third;
-          line-height: 0.5;
+          line-height: .5;
         }
+
         &:first-child a,
         &:last-child a {
           @include border-radius(0);
@@ -88,12 +90,15 @@
     .type {
       width: 110px;
     }
+
     .updated-by {
       width: 100px;
     }
+
     .updated {
-      width: 75px
+      width: 75px;
     }
+
     .state {
       width: 70px;
     }

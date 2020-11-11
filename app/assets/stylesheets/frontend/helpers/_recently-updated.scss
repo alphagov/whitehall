@@ -1,0 +1,83 @@
+.recently-updated {
+  clear: both;
+  padding-top: $gutter-half;
+
+  @include media(tablet) {
+    clear: none;
+    float: left;
+    width: $one-third;
+    padding: 0;
+  }
+
+  &.panel {
+    .content {
+      margin: $gutter-half;
+      padding-top: $gutter-half;
+      border-top: 1px solid $border-colour;
+    }
+  }
+
+  .content {
+    h1 {
+      @include core-19;
+      font-weight: bold;
+    }
+
+    .document-list {
+      margin-top: 0;
+      clear: both;
+
+      a {
+        font-weight: bold;
+      }
+
+      .document-row {
+        @include core-14;
+        border-bottom: 0;
+        padding-top: 0;
+        padding-bottom: $gutter-one-sixth;
+
+        h3 {
+          @include core-14;
+        }
+
+        li {
+          padding: 0 $gutter-one-third 0 0;
+        }
+      }
+    }
+
+    .feeds {
+      margin-top: $gutter-one-sixth;
+      padding-top: $gutter-one-third;
+      border-top: 1px solid $grey-2;
+
+      .subscribe {
+        float: none;
+      }
+
+      a {
+        font-weight: bold;
+        margin-right: $gutter-one-third;
+      }
+    }
+  }
+
+  .no-updates {
+    clear: both;
+    @include copy-19;
+  }
+
+  .see-all {
+    @include core-16;
+    margin-top: $gutter-one-sixth;
+    padding-top: $gutter-one-third;
+    border-top: 1px solid $grey-2;
+
+    a {
+      font-weight: bold;
+      margin-right: $gutter-one-third;
+      text-decoration: underline;
+    }
+  }
+}

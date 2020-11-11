@@ -27,8 +27,10 @@
     h2 {
       margin-bottom: 0;
     }
+
     section {
       margin-bottom: 0;
+
       .heading {
         h3 {
           @include heading-24;
@@ -39,6 +41,7 @@
           }
         }
       }
+
       .minister-list {
         margin-top: 0;
         @include media(tablet) {
@@ -46,11 +49,13 @@
         }
       }
     }
+
     .keyline {
       margin-bottom: $gutter-two-thirds;
     }
+
     .person-excerpt .inner {
-      padding: $gutter-one-third $gutter-half ;
+      padding: $gutter-one-third $gutter-half;
       @include media(tablet) {
         padding: $gutter-half;
       }

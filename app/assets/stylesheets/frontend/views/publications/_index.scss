@@ -2,6 +2,7 @@
   .statistics-notice {
     padding: $gutter-half 0 $gutter-half;
     border-bottom: 1px solid $border-colour;
+
     h2 {
       @include bold-24;
     }

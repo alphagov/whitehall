@@ -1,0 +1,16 @@
+extends: stylelint-config-gds/scss
+ignoreFiles:
+  - app/assets/stylesheets/vendor/**/*
+rules:
+  # The styles here make rather liberal use of SASS nesting so this has been
+  # disabled as it would be difficult to unpick.
+  max-nesting-depth: ~
+  # Typically we don't want ID's used as selectors - however this application
+  # pre-dates this convention so this has rule has been disabled.
+  selector-max-id: ~
+  # This rule expects selectors to not include element type, it has been
+  # disabled as many CSS rules are directly for element type
+  selector-no-qualifying-type: ~
+  # There seems to be an abundance of different ways defining ids across this
+  # app with many using snake_case and camelCase outside of the usual kebab-case.
+  selector-id-pattern: ~

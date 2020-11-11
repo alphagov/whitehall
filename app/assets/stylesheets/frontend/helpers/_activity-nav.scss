@@ -28,6 +28,7 @@
       &:focus {
         background: $panel-colour;
       }
+
       &.current {
         position: relative;
         margin-bottom: -1px;
@@ -38,12 +39,12 @@
         background: $white;
         text-decoration: none;
       }
-
     }
 
     &:first-child a {
       margin-left: 0;
     }
+
     &:last-child a {
       margin-right: 0;
     }

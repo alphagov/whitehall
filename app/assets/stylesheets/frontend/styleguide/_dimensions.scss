@@ -5,7 +5,7 @@
 $max-site-width: 960px;
 
 $gutter:            30px;
-$gutter-one-sixth:  $gutter*(1/6); // equivalent to 5px
-$gutter-one-third:  $gutter*(1/3); // equivalent to 10px
-$gutter-half:       $gutter*(1/2); // equivalent to 15px
-$gutter-two-thirds: $gutter*(2/3); // equivalent to 20px
+$gutter-one-sixth:  $gutter * (1 / 6); // equivalent to 5px
+$gutter-one-third:  $gutter * (1 / 3); // equivalent to 10px
+$gutter-half:       $gutter * (1 / 2); // equivalent to 15px
+$gutter-two-thirds: $gutter * (2 / 3); // equivalent to 20px
