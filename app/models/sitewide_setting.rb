@@ -14,7 +14,7 @@ class SitewideSetting < ApplicationRecord
     key.humanize
   end
 
-  def republish_ministers_if_reshuffle 
+  def republish_ministers_if_reshuffle
     return unless key == "minister_reshuffle_mode"
 
     payload = PublishingApi::MinistersIndexPresenter.new
