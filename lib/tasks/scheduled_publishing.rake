@@ -70,23 +70,6 @@ namespace :publishing do
       end
     end
 
-    desc "Clears all jobs then requeues all scheduled editions (intended for use after a db restore)"
-    task requeue_all_jobs: :environment do
-      ScheduledPublishingWorker.dequeue_all
-
-      puts "Queueing #{Edition.scheduled.count} jobs"
-      Edition.scheduled.each do |edition|
-        ScheduledPublishingWorker.queue(edition)
-        print "."
-      end
-      puts ""
-
-      # Consultations work slightly different to scheduled editions
-      puts "Queuing consultation jobs"
-      Consultation.open.or(Consultation.upcoming)
-        .find_each(&:schedule_republishing_workers)
-    end
-
     desc "Finds editions that were meant to be published between 23:00 yesterday and 01:00 today - helps debug failed publications owing to British Summer Time"
     task around_midnight: :environment do
       yesterday = Date.yesterday

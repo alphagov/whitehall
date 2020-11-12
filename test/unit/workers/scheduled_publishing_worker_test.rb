@@ -63,22 +63,6 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  test ".dequeue_all removes all scheduled publishing jobs" do
-    edition1 = create(:scheduled_edition)
-    edition2 = create(:scheduled_edition)
-
-    with_real_sidekiq do
-      ScheduledPublishingWorker.queue(edition1)
-      ScheduledPublishingWorker.queue(edition2)
-
-      assert_equal 2, Sidekiq::ScheduledSet.new.size
-
-      ScheduledPublishingWorker.dequeue_all
-
-      assert_equal 0, Sidekiq::ScheduledSet.new.size
-    end
-  end
-
   test ".queue_size returns the number of queued ScheduledPublishingWorker jobs" do
     with_real_sidekiq do
       ScheduledPublishingWorker.perform_at(1.day.from_now, "null")
