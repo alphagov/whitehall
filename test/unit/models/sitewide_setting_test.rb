@@ -1,7 +1,6 @@
 require "test_helper"
 
 class SitewideSettingTest < ActiveSupport::TestCase
- 
   test "toggling reshuffle mode republished the ministers index page" do
     payload = PublishingApi::MinistersIndexPresenter.new
 
@@ -13,6 +12,5 @@ class SitewideSettingTest < ActiveSupport::TestCase
     ]
 
     assert_all_requested(requests)
-
   end
 end
