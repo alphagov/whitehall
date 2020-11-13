@@ -189,7 +189,7 @@ GEM
       null_logger
       plek (>= 1.9.0)
       rest-client (~> 2.0)
-    gds-sso (15.1.0)
+    gds-sso (16.0.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -637,7 +637,7 @@ DEPENDENCIES
   friendly_id (~> 5.3.0)
   fuzzy_match (~> 2.1)
   gds-api-adapters
-  gds-sso (~> 15)
+  gds-sso (~> 16)
   globalize (~> 5)
   govspeak (~> 6.5.9)
   govuk-content-schema-test-helpers
