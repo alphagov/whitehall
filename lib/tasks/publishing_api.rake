@@ -149,6 +149,12 @@ namespace :publishing_api do
     puts "Finished queuing items for Publishing API"
   end
 
+  desc "Republish all Take Part pages"
+  task republish_all_take_part_pages: :environment do
+    TakePartPage.find_each(&:publish_to_publishing_api)
+    puts "Finished republishing Take Part pages"
+  end
+
   desc "Republish a person to the Publishing API"
   task :republish_person, [:slug] => :environment do |_, args|
     Person.find_by!(slug: args[:slug]).publish_to_publishing_api
