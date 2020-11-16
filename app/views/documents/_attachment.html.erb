@@ -21,7 +21,7 @@
     <% end %>
   </div>
   <div class="attachment-details">
-    <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: preview), title_link_options %></h2>
+    <h3 class="title govuk-!-font-size-27 govuk-!-font-weight-regular"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: preview), title_link_options %></h3>
     <p class="metadata">
       <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
         <span class="references">
