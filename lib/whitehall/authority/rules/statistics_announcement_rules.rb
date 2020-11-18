@@ -3,7 +3,7 @@ module Whitehall::Authority::Rules
     def can?(action)
       case action
       when :unpublish
-        actor.gds_editor?
+        actor.gds_editor? || actor.managing_editor?
       else
         true
       end
