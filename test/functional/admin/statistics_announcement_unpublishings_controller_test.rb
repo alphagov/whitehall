@@ -16,6 +16,12 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
     assert_response 403
   end
 
+  test "Managing Editor permission allowed to unpublish" do
+    login_as :managing_editor
+    get :new, params: { statistics_announcement_id: @announcement.id }
+    assert_response 200
+  end
+
   view_test "GET :new renders a form" do
     get :new, params: { statistics_announcement_id: @announcement }
 
