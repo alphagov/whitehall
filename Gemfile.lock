@@ -328,7 +328,7 @@ GEM
     middleware (0.1.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mime-types-data (3.2020.1104)
     mimemagic (0.3.5)
     mini_magick (4.10.1)
     mini_mime (1.0.2)
@@ -546,7 +546,7 @@ GEM
     sidekiq-statsd (2.1.0)
       activesupport
       sidekiq (>= 3.3.1)
-    slimmer (15.2.0)
+    slimmer (15.3.0)
       activesupport
       json
       nokogiri (~> 1.7)
@@ -693,7 +693,7 @@ DEPENDENCIES
   sassc-rails (~> 2.1)
   shared_mustache (~> 1.0.0)
   sidekiq-scheduler (~> 3.0)
-  slimmer (~> 15.2)
+  slimmer (~> 15.3)
   sprockets-rails
   teaspoon-qunit
   test-queue (~> 0.2.13)
