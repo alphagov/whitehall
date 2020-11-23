@@ -2336,7 +2336,7 @@ standard-engine@^14.0.1:
     pkg-conf "^3.1.0"
     xdg-basedir "^4.0.0"
 
-standard@^16.0.3:
+standard@^16.0.1:
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/standard/-/standard-16.0.3.tgz#a854c0dd2dea6b9f0b8d20c65260210bd0cee619"
   integrity sha512-70F7NH0hSkNXosXRltjSv6KpTAOkUkSfyu3ynyM5dtRUiLtR+yX9EGZ7RKwuGUqCJiX/cnkceVM6HTZ4JpaqDg==
@@ -2348,6 +2348,14 @@ standard@^16.0.3:
     eslint-plugin-node "~11.1.0"
     eslint-plugin-promise "~4.2.1"
     eslint-plugin-react "~7.21.5"
+    standard-engine "^14.0.1"
+
+standardx@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/standardx/-/standardx-7.0.0.tgz#d00a6a7ed4589abb814bff8ec161c6e94cf5cd64"
+  integrity sha512-Uh2LIWyMD0pMFn+zoAS52dforkE8MUWP6hK48iQhiohTC5DRqBgTdXdJbhSGyjamRxCfETBdfvJ7hvtme2M3jg==
+  dependencies:
+    standard "^16.0.1"
     standard-engine "^14.0.1"
 
 state-toggle@^1.0.0:

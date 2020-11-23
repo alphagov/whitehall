@@ -40,7 +40,7 @@ updates:
       interval: daily
     allow:
       # Framework packages
-      - dependency-name: standard
+      - dependency-name: standardx
         dependency-type: direct
 
   # Ruby needs to be upgraded manually in multiple places, so cannot
