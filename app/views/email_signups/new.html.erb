@@ -9,10 +9,6 @@
 
 <div class="block">
   <div class="inner-block">
-    <% if @email_signup.valid? %>
-      <%= render 'form', email_signup: @email_signup %>
-    <% else %>
-      <p>Sorry, we could not find a valid email alerts feed for that.</p>
-    <% end %>
+    <%= render 'form', email_signup: @email_signup %>
   </div>
 </div>

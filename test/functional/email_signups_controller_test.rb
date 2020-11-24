@@ -66,7 +66,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
     assert_redirected_to "http://email_alert_api_signup_url"
   end
 
-  view_test "POST :create with a invalid email signup renders the new view" do
+  view_test "POST :create with a invalid email signup returns a 404 response" do
     topical_event = create(:topical_event)
     stub_email_alert_api_has_subscriber_list(
       "links" => { "topical_event" => [topical_event.content_id] },
@@ -74,6 +74,6 @@ class EmailSignupsControllerTest < ActionController::TestCase
     )
 
     post :create, params: { email_signup: { feed: atom_feed_url_for(topical_event) } }
-    assert_select "p", "Sorry, we could not find a valid email alerts feed for that."
+    assert_response :missing
   end
 end
