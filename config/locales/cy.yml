@@ -496,6 +496,10 @@ cy:
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

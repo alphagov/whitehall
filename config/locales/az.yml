@@ -279,6 +279,10 @@ az:
     world_locations:
       all: bütün yerlər
       label: dünya üzrə məkanlar
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

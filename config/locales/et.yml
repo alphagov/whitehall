@@ -305,6 +305,10 @@ et:
     world_locations:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email: e-post
     feed: uudisvoog

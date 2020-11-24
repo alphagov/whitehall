@@ -280,6 +280,10 @@ ja:
     world_locations:
       all: 全ての地域
       label: 地域
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

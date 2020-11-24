@@ -297,6 +297,10 @@ tk:
     world_locations:
       all:
       label:
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

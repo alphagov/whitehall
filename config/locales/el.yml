@@ -301,6 +301,10 @@ el:
     world_locations:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

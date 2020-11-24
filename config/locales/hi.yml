@@ -301,6 +301,10 @@ hi:
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:
