@@ -33,6 +33,12 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_valid build(:document_collection, body: nil)
   end
 
+  test "it should be valid with a non-English primary locale" do
+    doc_collection = build(:document_collection, groups: [])
+    doc_collection.primary_locale = "cy"
+    assert doc_collection.valid?
+  end
+
   test "it should create a group called 'Documents' when created if groups are empty" do
     doc_collection = create(:document_collection, groups: [])
     assert_equal 1, doc_collection.groups.length
