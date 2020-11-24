@@ -23,8 +23,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
     get :new, params: { email_signup: { feed: atom_feed_url_for(world_location) } }
 
-    assert_select "h1", "Email alert subscription"
-    assert_select "p", "You're signing up to all alerts for #{world_location.name}"
+    assert_select "h1", "Get emails from GOV.UK"
   end
 
   view_test "GET :new redirects to publications controller if signup is for a publication finder" do
