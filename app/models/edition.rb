@@ -46,6 +46,7 @@ class Edition < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
   validates_with TaxonValidator, on: :publish
+  validates_with BrexitContentNoticeValidator
 
   validates :creator, presence: true
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
