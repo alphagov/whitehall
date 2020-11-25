@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201203144940) do
+ActiveRecord::Schema.define(version: 20201203145525) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -77,6 +77,14 @@ ActiveRecord::Schema.define(version: 20201203144940) do
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
     t.index ["ordering"], name: "index_attachments_on_ordering"
+  end
+
+  create_table "brexit_current_state_content_notice_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.string "url"
+    t.integer "edition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "brexit_no_deal_content_notice_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
