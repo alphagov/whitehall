@@ -352,6 +352,10 @@ ro:
     world_locations:
       all: Toate locațiile
       label: Locații
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

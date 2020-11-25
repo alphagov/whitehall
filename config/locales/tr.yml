@@ -281,6 +281,10 @@ tr:
     world_locations:
       all: Tüm yerler
       label: Ülkeler
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

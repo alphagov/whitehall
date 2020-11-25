@@ -299,6 +299,10 @@ lv:
     world_locations:
       all: Visas vietas
       label: Pasaules vietas
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

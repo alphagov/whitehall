@@ -300,6 +300,10 @@ pt:
     world_locations:
       all: Todos os locais
       label: Locais no Mundo
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

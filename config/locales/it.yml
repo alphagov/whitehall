@@ -300,6 +300,10 @@ it:
     world_locations:
       all: Tutte le sedi
       label: Sedi internazionali
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

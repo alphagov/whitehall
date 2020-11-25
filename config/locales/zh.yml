@@ -279,6 +279,10 @@ zh:
     world_locations:
       all: 所有地区位置
       label: 世界地区位置
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

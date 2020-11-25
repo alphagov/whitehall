@@ -301,6 +301,10 @@ sq:
     world_locations:
       all: Te gjitha vendndodhjet
       label: Vendndodhje boterore
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

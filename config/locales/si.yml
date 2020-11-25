@@ -299,6 +299,10 @@ si:
     world_locations:
       all: සියලු ස්ථාන
       label: ලෝක ස්ථාන
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:

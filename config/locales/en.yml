@@ -281,6 +281,10 @@ en:
     get_email_alerts: Get email alerts
     subscribe_to_feed: Subscribe to feed
     view_feed: View feed
+  email_signups:
+    new:
+      title: Get emails from GOV.UK
+      description: "You’ll get emails when we add or update pages about:"
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest

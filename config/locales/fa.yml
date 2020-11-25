@@ -282,6 +282,10 @@ fa:
     world_locations:
       all: تمام نقاط
       label: موقعیت های جهانی
+  email_signups:
+    new:
+      description:
+      title:
   feeds:
     email:
     feed:
