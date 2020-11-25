@@ -1,4 +1,4 @@
-class BrexitNoDealContentNoticeLink < ApplicationRecord
+class BrexitCurrentStateContentNoticeLink < ApplicationRecord
   belongs_to :edition
 
   validates :title,
