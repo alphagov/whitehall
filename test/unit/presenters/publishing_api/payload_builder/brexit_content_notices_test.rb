@@ -87,6 +87,18 @@ module PublishingApi
 
         assert_equal expected_hash, BrexitContentNotices.for(stubbed_item)
       end
+
+      test "returns {} if there are no brexit content notices" do
+        edition = create(:edition)
+        assert_equal({}, BrexitContentNotices.for(edition))
+      end
+
+      test "builds Brexit current state notice content banner payload" do
+        edition_with_current_state_notice = create(:edition, show_brexit_current_state_content_notice: true)
+        expected_payload = { brexit_current_state_notice: [] }
+
+        assert_equal expected_payload, BrexitContentNotices.for(edition_with_current_state_notice)
+      end
     end
   end
 end
