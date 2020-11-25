@@ -1,6 +1,6 @@
 module PublishingApi
   module PayloadBuilder
-    class BrexitNoDealContent
+    class BrexitContentNotices
       attr_reader :item
 
       def self.for(item)
