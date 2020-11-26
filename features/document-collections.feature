@@ -14,6 +14,14 @@ Feature: Grouping documents into a collection
     Then I can see in the admin that "Wombats of Wimbledon" is part of the document collection
 
   @javascript
+  Scenario: Admin creates a document collection in another language
+    Given a published publication "Wombats of Wimbledon" with locale "cy" exists
+    When I draft a new "Cymraeg" language document collection called "Wildlife of Wimbledon Common"
+    And I add the document "Wombats of Wimbledon" to the document collection
+    Then I can see in the admin that "Wombats of Wimbledon" is part of the document collection
+    And I can see the primary locale for document collection "Wildlife of Wimbledon Common" is "cy"
+
+  @javascript
   Scenario: Admin creates a document collection with non whitehall links.
     Given a document collection "Some super collection" exists
     And I add the non whitehall url "https://www.gov.uk/king-content-publisher" for "King Content Publisher" to the document collection

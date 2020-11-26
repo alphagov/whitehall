@@ -22,6 +22,23 @@ When(/^I draft a new document collection called "(.*?)"$/) do |title|
   @document_collection = DocumentCollection.find_by!(title: title)
 end
 
+When(/^I draft a new "(.*?)" language document collection called "(.*?)"$/) do |locale, title|
+  begin_drafting_document_collection(title: title, locale: locale)
+  click_on "Save"
+
+  locale_code = Locale.find_by_language_name(locale).code
+  I18n.with_locale locale_code do
+    @document_collection = DocumentCollection.find_by!(title: title)
+  end
+end
+
+And(/^I can see the primary locale for document collection "(.*?)" is "(.*?)"$/) do |title, locale_code|
+  I18n.with_locale locale_code do
+    @dc = DocumentCollection.find_by!(title: title)
+  end
+  assert_equal locale_code, @dc.primary_locale
+end
+
 When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collection$/) do |url, title|
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
