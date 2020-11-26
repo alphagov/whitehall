@@ -7,6 +7,9 @@
     <ul>
       <li><%= @filter.page_title %></li>
     </ul>
+    <% if Whitehall.integration_or_staging? %>
+      <p class="warning">Warning: in staging and integration environments, if you are not on the permitted recipients list for GOV.UK Notify, this email will not be exported.</p>
+    <% end %>
     <%= form_tag "#{export_admin_editions_path}?#{@filter.options_for_export.to_param}" %>
       <%= submit_tag "Export as CSV", class: 'btn btn-primary' %>
 
