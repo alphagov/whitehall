@@ -20,6 +20,6 @@
       <%= render 'nation_fields', form: form, edition: edition %>
     </fieldset>
 
-    <%= render "brexit_no_deal_content_notice_fields", form: form, edition: edition if FeatureFlag.enabled?("no-deal-notice") %>
+    <%= render "brexit_content_notice_fields", form: form, edition: edition if FeatureFlag.enabled?("no-deal-notice") %>
   <% end %>
 <% end %>

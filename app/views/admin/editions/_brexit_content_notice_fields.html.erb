@@ -11,20 +11,27 @@
   <p>Read the <a href="https://www.gov.uk/guidance/content-design/helping-users-prepare-for-change#preparing-users-for-changes-related-to-the-end-of-the-transition-period-with-the-eu" target="_blank" rel="noopener noreferrer">guidance on post-transition content</a> (opens in a new tab).</p>
   <p>Use full URLs for external websites, for example https://www.example.com.</p>
 
-  <div class="add-bottom-margin">
+  <div class="add-bottom-margin <%= error_class if error_keys.include?(:transition_content_notice) %>">
+    <%= radio_button_tag :transition_content_notice, :no_notice, !edition.show_brexit_no_deal_content_notice && !edition.show_brexit_current_state_content_notice %>
+    <%= label :no_notice, 'No notice required for this page' %>
+  </div>
+
+  <div class="add-bottom-margin <%= error_class if error_keys.include?(:transition_content_notice) %>">
     <%= radio_button_tag :transition_content_notice, :current_state, edition.show_brexit_current_state_content_notice %>
     <%= label :current_state, 'Show 2020 current state content notice' %>
   </div>
 
-  <div class="add-bottom-margin">
+  <div class="add-bottom-margin <%= error_class if error_keys.include?(:transition_content_notice) %>">
     <%= radio_button_tag :transition_content_notice, :no_deal, edition.show_brexit_no_deal_content_notice %>
     <%= label :no_deal, 'Show 2021 post-transition content notice' %>
   </div>
-
-  <div class="add-bottom-margin">
-    <%= radio_button_tag :transition_content_notice, :no_notice, !edition.show_brexit_no_deal_content_notice && !edition.show_brexit_current_state_content_notice %>
-    <%= label :no_notice, 'No notice required for this page' %>
-  </div>
+  
+  <%= form.fields_for :brexit_current_state_content_notice_links do |links_fields| %>
+    <div class="well">
+      <%= links_fields.text_field :title, label_text: 'Link text' %>
+      <%= links_fields.text_field :url,  label_text: 'URL' %>
+    </div>
+  <% end %>
 
   <%= form.fields_for :brexit_no_deal_content_notice_links do |links_fields| %>
     <div class="well">
