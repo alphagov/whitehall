@@ -423,6 +423,10 @@ EXISTS (
     false
   end
 
+  def allows_brexit_current_state_content_notice?
+    false
+  end
+
   def can_be_grouped_in_collections?
     false
   end

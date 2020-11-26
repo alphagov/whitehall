@@ -4,6 +4,7 @@ class DocumentCollection < Edition
 
   include Edition::TopicalEvents
   include Edition::BrexitNoDealContentNoticeLinks
+  include Edition::BrexitCurrentStateContentNoticeLinks
 
   has_many :groups,
            -> { order("document_collection_groups.ordering") },
