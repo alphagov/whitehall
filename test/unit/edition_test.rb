@@ -17,9 +17,10 @@ class EditionTest < ActiveSupport::TestCase
     # which other callbacks then rely upon.
     edition.save # rubocop:disable Rails/SaveBang
 
-    edition.build_no_deal_notice_links
+    edition.build_brexit_notice_links
 
-    assert_equal 3, edition.brexit_no_deal_content_notice_links_count
+    assert_equal 3, edition.link_counter(edition.brexit_no_deal_content_notice_links)
+    assert_equal 3, edition.link_counter(edition.brexit_current_state_content_notice_links)
   end
 
   test "returns downcased humanized class name as format name" do

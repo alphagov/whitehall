@@ -419,7 +419,7 @@ EXISTS (
     false
   end
 
-  def allows_brexit_no_deal_content_notice?
+  def allows_brexit_content_notice?
     false
   end
 
