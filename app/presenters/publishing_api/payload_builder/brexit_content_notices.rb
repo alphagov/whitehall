@@ -14,16 +14,16 @@ module PublishingApi
       def call
         return {} if no_brexit_content_notices?
 
-        show_no_deal_notice? ? brexit_no_deal_notice_payload : brexit_current_state_notice_payload
+        show_no_deal_notice? ? no_deal_notice_payload : current_state_notice_payload
       end
 
     private
 
-      def brexit_no_deal_notice_payload
-        { brexit_no_deal_notice: links }
+      def no_deal_notice_payload
+        { brexit_no_deal_notice: no_deal_links }
       end
 
-      def brexit_current_state_notice_payload
+      def current_state_notice_payload
         { brexit_current_state_notice: current_state_links }
       end
 
@@ -31,32 +31,29 @@ module PublishingApi
         hide_no_deal_notice? && hide_current_state_notice?
       end
 
-      def links
-        non_blank_links.map do |link|
-          {
-            title: link.title,
-            href: href(link),
-          }
-        end
+      def no_deal_links
+        links_for_payload(item.brexit_no_deal_content_notice_links)
       end
 
       def current_state_links
-        non_blank_current_state_links.map do |link|
-          {
-            title: link.title,
-            href: href(link),
-          }
+        links_for_payload(item.brexit_current_state_content_notice_links)
+      end
+
+      def links_for_payload(links)
+        non_blank_links(links).map do |link|
+          to_hash(link)
         end
       end
 
-      def non_blank_links
-        item.brexit_no_deal_content_notice_links.reject do |link|
-          link.title.blank? && link.url.blank?
-        end
+      def to_hash(link)
+        {
+          title: link.title,
+          href: href(link),
+        }
       end
 
-      def non_blank_current_state_links
-        item.brexit_current_state_content_notice_links.reject do |link|
+      def non_blank_links(links)
+        links.reject do |link|
           link.title.blank? && link.url.blank?
         end
       end
