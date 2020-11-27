@@ -24,7 +24,7 @@ module PublishingApi
       end
 
       def brexit_current_state_notice_payload
-        { brexit_current_state_notice: [] }
+        { brexit_current_state_notice: current_state_links }
       end
 
       def no_brexit_content_notices?
@@ -40,8 +40,23 @@ module PublishingApi
         end
       end
 
+      def current_state_links
+        non_blank_current_state_links.map do |link|
+          {
+            title: link.title,
+            href: href(link),
+          }
+        end
+      end
+
       def non_blank_links
         item.brexit_no_deal_content_notice_links.reject do |link|
+          link.title.blank? && link.url.blank?
+        end
+      end
+
+      def non_blank_current_state_links
+        item.brexit_current_state_content_notice_links.reject do |link|
           link.title.blank? && link.url.blank?
         end
       end
