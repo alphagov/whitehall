@@ -16,6 +16,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
+  before_action :set_transition_notices, only: %i[create update]
   before_action :forbid_editing_of_locked_documents, only: %i[edit update revise destroy]
 
   def enforce_permissions!
@@ -237,6 +238,8 @@ private
       :political,
       :read_consultation_principles,
       :show_brexit_no_deal_content_notice,
+      :show_brexit_current_state_content_notice,
+      :transition_content_notice,
       :all_nation_applicability,
       :image_display_option,
       brexit_no_deal_content_notice_links_attributes: %i[id title url],
@@ -450,6 +453,22 @@ private
 
     if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
       edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
+    end
+  end
+
+  def set_transition_notices
+    return if params.empty?
+
+    case params[:transition_content_notice]
+    when "no_notice"
+      edition_params[:show_brexit_no_deal_content_notice] = false
+      edition_params[:show_brexit_current_state_content_notice] = false
+    when "current_state"
+      edition_params[:show_brexit_no_deal_content_notice] = false
+      edition_params[:show_brexit_current_state_content_notice] = true
+    when "no_deal"
+      edition_params[:show_brexit_no_deal_content_notice] = true
+      edition_params[:show_brexit_current_state_content_notice] = false
     end
   end
 end

@@ -100,6 +100,25 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     end
   end
 
+  test "PUT #update when :transition_content_notice paramater is no_deal" do
+    document_collection = create(:document_collection)
+    put :update, params: { id: document_collection, transition_content_notice: "no_deal" }
+    assert_equal true, document_collection.reload.show_brexit_no_deal_content_notice
+  end
+
+  test "PUT #update when :transition_content_notice paramater is current_state " do
+    document_collection = create(:document_collection)
+    put :update, params: { id: document_collection, transition_content_notice: "current_state" }
+    assert_equal true, document_collection.reload.show_brexit_current_state_content_notice
+  end
+
+  test "PUT #update when :transition_content_notice paramater is no_notice" do
+    document_collection = create(:document_collection)
+    put :update, params: { id: document_collection, transition_content_notice: "no_notice" }
+    assert_equal false, document_collection.reload.show_brexit_no_deal_content_notice
+    assert_equal false, document_collection.show_brexit_current_state_content_notice
+  end
+
   test "DELETE #destroy deletes the document collection" do
     document_collection = create(:document_collection)
     delete :destroy, params: { id: document_collection }
