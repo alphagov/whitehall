@@ -232,6 +232,21 @@ namespace :publishing_api do
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
+  desc "Republish all editions which have attachments to the Publishing API"
+  task republish_editions_with_attachments: :environment do
+    editions = Edition.publicly_visible.where(id: Attachment.where(accessible: false, attachable_type: "Edition").select("attachable_id"))
+    editions.joins(:document).distinct.pluck("documents.id").each do |document_id|
+      PublishingApiDocumentRepublishingWorker.perform_async(document_id, true)
+    end
+  end
+
+  desc "Republish all HTML attachments to the Publishing API"
+  task republish_html_attachments: :environment do
+    HtmlAttachment.where(attachable_type: "Edition", attachable_id: Edition.publicly_visible.select("id")).each do |a|
+      Whitehall::PublishingApi.bulk_republish_async(a)
+    end
+  end
+
   desc "Bulk republishing"
   namespace :bulk_republish do
     desc "Republish all documents of a given type, eg 'NewsArticle'"
