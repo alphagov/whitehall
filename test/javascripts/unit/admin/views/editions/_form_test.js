@@ -97,6 +97,15 @@ var firstPublishedAtFieldset =
     '</div>' +
   '</fieldset>'
 
+var noticeFieldset =
+  '<fieldset class="js-toggle-notice">' +
+    '<input type="radio" name="transition_content_notice" id="transition_content_notice_no_notice" value="no_notice">' +
+    '<input type="radio" name="transition_content_notice" id="transition_content_notice_current_state" value="current_state" data-controls="current-state-notice" checked="checked">' +
+    '<div class="js-toggle-notice-controlled js-hidden" id="current-state-notice"></div>' +
+    '<input type="radio" name="transition_content_notice" id="transition_content_notice_no_deal" value="no_deal" data-controls="no-deal-notice">' +
+    '<div class="js-toggle-notice-controlled js-hidden" id="no-deal-notice"></div>' +
+  '</fieldset>'
+
 var imageFieldsFieldSet =
 '<fieldset class="image_section">' +
 '<div class="radio">' +
@@ -369,6 +378,31 @@ test('previously_published radio buttons toggle visibility of first_published da
 
   $('#edition_previously_published_false').click()
   ok($('.js-show-first-published').is(':hidden'), 'date selector hidden when "document is new" selected')
+})
+
+module('admin-edition-form-notice: ', {
+  setup: function () {
+    $('#qunit-fixture').append(form)
+    $('#qunit-fixture form').append(noticeFieldset)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales: ['ar']
+    })
+    $('.js-hidden').hide()
+  }
+})
+
+test('on page load with selected notice', function () {
+  GOVUK.adminEditionsForm.toggleNotice()
+  ok($('#current-state-notice').is(':visible'), 'the controlled element is visible')
+})
+
+test('radio buttons toggle visibility of controlled element', function () {
+  ok($('#current-state-notice').is(':hidden'), 'element associated with non-selected radio is hidden')
+
+  $('#transition_content_notice_no_deal').click()
+  ok($('#no-deal-notice').is(':visible'), 'element associated with selected radio is visible')
 })
 
 module('admin-edition-form-policies-news-articles: ', {

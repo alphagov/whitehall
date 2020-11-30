@@ -14,6 +14,7 @@
       this.toggleWorldNewsStoryVisibility()
       this.resetWorldNewsStoryFields()
       this.toggleFirstPublishedDate()
+      this.toggleNotice()
       this.showImageUploaderIfCustomImage()
 
       GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.')
@@ -265,6 +266,22 @@
         $(this).parent().hide().next().removeClass('if-js-hide')
         e.preventDefault()
       })
+    },
+
+    toggleNotice: function toggleNotice () {
+      var $radioButtons = $('.js-toggle-notice input[type=radio]')
+      var $controlledElements = $('.js-toggle-notice-controlled')
+
+      function updateControlledElements (elements) {
+        $controlledElements.hide()
+        var $activeRadioButton = $('.js-toggle-notice input[type=radio]:checked')
+        var $controlledElementId = $activeRadioButton.data('controls')
+        if ($controlledElementId) {
+          $('#' + $controlledElementId).show()
+        }
+      }
+      $radioButtons.on('change', updateControlledElements)
+      updateControlledElements()
     },
 
     showImageUploaderIfCustomImage: function showImageUploaderIfCustomImage () {
