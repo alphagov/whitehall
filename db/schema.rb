@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200909141147) do
+ActiveRecord::Schema.define(version: 20201130161652) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -942,6 +942,7 @@ ActiveRecord::Schema.define(version: 20200909141147) do
     t.datetime "updated_at"
     t.string "socialable_type"
     t.string "title"
+    t.string "locale", default: "en"
     t.index ["social_media_service_id"], name: "index_social_media_accounts_on_social_media_service_id"
     t.index ["socialable_id"], name: "index_social_media_accounts_on_organisation_id"
   end
