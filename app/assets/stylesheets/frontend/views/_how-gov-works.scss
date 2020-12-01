@@ -73,6 +73,10 @@
       line-height: 1;
     }
 
+    @media (max-width: 65em) {
+      font-size: .75em;
+    }
+
     @include govuk-media-query($from: tablet, $until: 815px) {
       &--small .feature-value__count {
         font-size: 3.85em;
