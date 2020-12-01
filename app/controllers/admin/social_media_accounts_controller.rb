@@ -66,7 +66,7 @@ private
 
   def social_media_account_params
     params.require(:social_media_account).permit(
-      :social_media_service_id, :url, :title
+      :social_media_service_id, :url, :title, :locale
     )
   end
 end

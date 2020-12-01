@@ -42,9 +42,10 @@
               <%= link_to @topical_event.about_page.read_more_link_text, topical_event_about_pages_path(@topical_event), class: "govuk-link" %>
             </p>
           <% end %>
-          <% if @topical_event.social_media_accounts.any? %>
+          <% social = t_social_media_accounts(@topical_event.social_media_accounts, @_request) %>
+          <% if social.any? %>
             <%= render partial: 'shared/social_media_accounts',
-                       locals: { socialable: @topical_event, followus: true } %>
+                       locals: { socialable: social, followus: true } %>
           <% end %>
         </section>
       </div>

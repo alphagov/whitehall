@@ -1,18 +1,18 @@
 <% followus ||= false %>
-<% if socialable.social_media_accounts.any? %>
-  <section lang="en">
-    <% unless followus %>
-      <h2 class="label">Follow on social media</h2>
-    <% end %>
-    <ul class="social-media-accounts js-hide-extra-social-media">
-      <% socialable.social_media_accounts.each do |account| %>
-        <%= content_tag_for(:li, account) do %>
-          <%= link_to account.url,
-                      class: "social-media-link #{account.service_name.parameterize} govuk-link" do %>
-            <span class="connect"></span><%= account.display_name %>
-          <% end %>
+
+<section>
+  <% unless followus %>
+    <h2 class="label"><%= t('social_media.follow_us') %></h2>
+  <% end %>
+  <ul class="social-media-accounts js-hide-extra-social-media">
+    <% socialable.each do |account| %>
+      <%= content_tag_for(:li, account) do %>
+        <%= link_to account.url,
+                    class: "social-media-link #{account.service_name.parameterize} govuk-link",
+                    lang: account.locale do %>
+          <span class="connect"></span><%= account.display_name %>
         <% end %>
       <% end %>
-    </ul>
-  </section>
-<% end %>
+    <% end %>
+  </ul>
+</section>

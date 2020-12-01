@@ -72,7 +72,7 @@ private
       :end_date,
       related_classification_ids: [],
       classification_memberships_attributes: %i[id ordering],
-      social_media_accounts_attributes: %i[social_media_service_id url _destroy id],
+      social_media_accounts_attributes: %i[social_media_service_id url _destroy id locale],
       featured_links_attributes: %i[title url _destroy id],
       organisation_classifications_attributes: %i[id lead lead_ordering],
     )

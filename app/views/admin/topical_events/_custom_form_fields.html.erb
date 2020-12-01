@@ -31,5 +31,9 @@
       <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media service…" } %>
     </div>
     <%= account_form.text_field :url %>
+    <div class="form-group">
+          <%= account_form.label :locale, 'Display language', class: "control-label" %>
+          <%= account_form.select :locale, options_for_locales(I18n.available_locales), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media locale…" } %>
+        </div>
   <% end %>
 </fieldset>

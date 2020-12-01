@@ -8,6 +8,7 @@ class SocialMediaAccount < ApplicationRecord
   validates :social_media_service_id, presence: true
   validates :url, presence: true, uri: true
   validates :title, length: { maximum: 255 }
+  validates :locale, presence: true
 
   def republish_organisation_to_publishing_api
     if socialable_type == "Organisation" && socialable.persisted?

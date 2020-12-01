@@ -410,7 +410,7 @@ module PublishingApi
     end
 
     def social_media_links
-      item.social_media_accounts.map do |account|
+      item.social_media_accounts.where(locale: I18n.locale).map do |account|
         {
           service_type: account.service_name.parameterize,
           title: account.display_name,

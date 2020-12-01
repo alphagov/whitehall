@@ -36,5 +36,15 @@ module PublishingApi
     def description
       item.summary
     end
+
+    def social_media_links
+      item.social_media_accounts.where(locale: I18n.locale).map do |account|
+        {
+          service_type: account.service_name.parameterize,
+          title: account.display_name,
+          href: account.url,
+        }
+      end
+    end
   end
 end

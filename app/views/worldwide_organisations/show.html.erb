@@ -17,11 +17,12 @@
       <% end %>
     </div>
   </div>
-  <% if @worldwide_organisation.social_media_accounts.any? %>
+  <% social = t_social_media_accounts(@worldwide_organisation.social_media_accounts, @_request) %>
+  <% if social.any? %>
     <aside class="social-media-links govuk-grid-column-one-third">
       <div class="content">
         <h2><%= t("worldwide_organisation.headings.follow_us") %></h2>
-        <%= render "shared/social_media_accounts", socialable: @worldwide_organisation, followus: true %>
+        <%= render "shared/social_media_accounts", socialable: social, followus: true %>
       </div>
     </aside>
   <% end %>

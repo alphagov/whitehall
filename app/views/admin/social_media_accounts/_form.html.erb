@@ -9,6 +9,10 @@
         </div>
         <%= form.text_field :url %>
         <%= form.text_field :title %>
+        <div class="form-group">
+          <%= form.label :locale, 'Display language', class: "control-label" %>
+          <%= form.select :locale, options_for_locales(I18n.available_locales), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media locale…" } %>
+        </div>
       </fieldset>
 
       <%= form.save_or_cancel(cancel: [:admin, socialable, SocialMediaAccount]) %>

@@ -69,4 +69,11 @@ module TranslationHelper
     page.extend(UseSlugAsParam)
     link_to(t_corporate_information_page_type_link_text(page), [organisation, page])
   end
+
+  def t_social_media_accounts(social, req)
+    return unless social && req
+
+    request_locale = req.filtered_parameters["locale"] || "en"
+    social.select { |k, _| k["locale"] == request_locale }
+  end
 end
