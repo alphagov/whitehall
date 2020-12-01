@@ -55,6 +55,20 @@ namespace :reslug do
     Whitehall::SearchIndex.add(edition)
   end
 
+  desc "Change a topical_event's slug in whitehall (DANGER!).\n
+  It performs the following steps:
+  - changes the topical_events slug
+  - reindexes the topical_event with its new slug
+  - republishes the topical_event to Publishing API (automatically handles the redirect)"
+  task :topical_event, %i[old_slug new_slug] => :environment do |_task, args|
+    topical_events = TopicalEvent.where(slug: args.old_slug)
+    raise "Multiple topical_events with slug '#{args.old_slug}'. Use content_id to uniquely identify it." if topical_events.count > 1
+    raise "No topical_event with slug '#{args.old_slug}'. Use content_id to uniquely identify it." if topical_events.count < 1
+
+    topical_event = topical_events.first
+    DataHygiene::TopicalEventReslugger.new(topical_event, args.new_slug).run!
+  end
+
   desc "Change a html attachment's slug in whitehall and redirect old slug\n
   It performs the following steps:
   - changes a html attachment slug
