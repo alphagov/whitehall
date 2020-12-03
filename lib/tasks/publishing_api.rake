@@ -240,10 +240,14 @@ namespace :publishing_api do
     end
   end
 
-  desc "Republish all HTML attachments to the Publishing API"
+  desc "Republish all documents with HTML attachments to the Publishing API"
   task republish_html_attachments: :environment do
-    HtmlAttachment.where(attachable_type: "Edition", attachable_id: Edition.publicly_visible.select("id")).each do |a|
-      Whitehall::PublishingApi.bulk_republish_async(a)
+    document_ids = Edition
+      .publicly_visible
+      .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
+      .pluck(:document_id)
+    document_ids.each do |document_id|
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
     end
   end
 
