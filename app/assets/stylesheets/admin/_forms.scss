@@ -253,3 +253,17 @@ fieldset.fatality-notice-casualties {
     opacity: .1;
   }
 }
+
+.notice-radio {
+  margin: 5px 0;
+
+  label {
+    font-weight: normal;
+  }
+}
+
+.toggle-notice-controlled {
+  border-left: 1px solid #999999;
+  padding: 10px 0 0 20px;
+  margin-left: 5px;
+}
