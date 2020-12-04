@@ -20,6 +20,10 @@
   "routes": [
     {
       "type": "exact",
+      "path": "/government/groups.atom"
+    },
+    {
+      "type": "exact",
       "path": "/government/groups"
     },
     {
