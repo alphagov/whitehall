@@ -97,6 +97,15 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal collection.slug, collection.search_index["slug"]
   end
 
+  test "returns the title for slug string regardless of locale" do
+    en_collection = create(:document_collection, groups: [])
+    cy_collection = create(:document_collection, groups: [], primary_locale: "cy")
+
+    [en_collection, cy_collection].each do |collection|
+      assert_equal collection.document.slug, collection.title
+    end
+  end
+
   test "indexes the body without markup as indexable_content" do
     collection = create(
       :document_collection,

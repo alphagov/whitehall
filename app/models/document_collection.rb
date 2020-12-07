@@ -56,6 +56,10 @@ class DocumentCollection < Edition
 
 private
 
+  def string_for_slug
+    title
+  end
+
   def create_default_group
     if groups.empty?
       groups << DocumentCollectionGroup.new(DocumentCollectionGroup.default_attributes)
