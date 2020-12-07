@@ -144,7 +144,7 @@ Whitehall::Application.routes.draw do
     end
 
     # TODO: Remove when paths can be generated without a routes entry
-    resources :document_collections, only: [:show], path: "collections"
+    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: VALID_LOCALES_REGEX }
     get "/collections" => redirect("/publications")
 
     get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: VALID_LOCALES_REGEX }
