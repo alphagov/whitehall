@@ -52,4 +52,49 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
     MailNotifications.expects(:document_list).with(regexp_matches(%r{^https://whitehall-admin\.test\.gov\.uk/export/documents/[a-f0-9-]{36}$}), @user.email, title).returns(stub(deliver_now: nil))
     @worker.perform({ "state" => "draft" }, @user.id)
   end
+
+  test "does not raise an error if an email cannot be sent via notify" do
+    raises_exception = lambda { |_url, _address, _title|
+      response = MiniTest::Mock.new
+      ENV["SENTRY_CURRENT_ENV"] = "integration"
+      response.expect :code, 400
+      response.expect :body, "Can't send to this recipient using a team-only API key"
+      raise Notifications::Client::BadRequestError, response
+    }
+
+    MailNotifications.stub(:document_list, raises_exception) do
+      ActionMailer::Base.deliveries.clear
+
+      csv = "this|is|my|csv"
+      title = "Everyone's editions"
+      @worker.stubs(:create_filter).returns(stub(page_title: title))
+      @worker.stubs(generate_csv: csv)
+      assert_nothing_raised do
+        @worker.perform({ "state" => "draft" }, @user.id)
+      end
+    end
+  end
+
+  test "raises an error if an email cannot be sent via notify in production" do
+    raises_exception = lambda { |_url, _address, _title|
+      response = MiniTest::Mock.new
+      ENV["SENTRY_CURRENT_ENV"] = "production"
+      response.expect :code, 400
+      response.expect :body, "Can't send to this recipient using a team-only API key"
+      raise Notifications::Client::BadRequestError, response
+    }
+
+    MailNotifications.stub(:document_list, raises_exception) do
+      ActionMailer::Base.deliveries.clear
+
+      csv = "this|is|my|csv"
+      title = "Everyone's editions"
+      @worker.stubs(:create_filter).returns(stub(page_title: title))
+      @worker.stubs(generate_csv: csv)
+
+      assert_raises Notifications::Client::BadRequestError do
+        @worker.perform({ "state" => "draft" }, @user.id)
+      end
+    end
+  end
 end

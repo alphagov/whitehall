@@ -210,4 +210,8 @@ module Whitehall
     Rails.root + "config" + "whitehall_secrets.yml"
   end
   private_class_method :secrets_path
+
+  def self.integration_or_staging?
+    (ENV.fetch("GOVUK_WEBSITE_ROOT", "") =~ /integration|staging/).present?
+  end
 end
