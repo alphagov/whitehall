@@ -212,6 +212,7 @@ module Whitehall
   private_class_method :secrets_path
 
   def self.integration_or_staging?
-    (ENV.fetch("GOVUK_WEBSITE_ROOT", "") =~ /integration|staging/).present?
+    website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
+    %w[integration staging].any? { |environment| website_root.include?(environment) }
   end
 end

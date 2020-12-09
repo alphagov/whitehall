@@ -1,5 +1,5 @@
 $LOAD_PATH << "."
-require "active_support"
+require "active_support/all"
 require "lib/whitehall"
 
 # default cron env is "/usr/bin:/bin" which is not sufficient as govuk_env is in /usr/local/bin

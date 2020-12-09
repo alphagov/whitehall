@@ -23,4 +23,19 @@ class WhitehallTest < ActiveSupport::TestCase
   ensure
     ENV["TEST_ENV_NUMBER"] = before
   end
+
+  test "Whitehall.integration_or_staging? tells us if we are in the right env" do
+    before = ENV["GOVUK_WEBSITE_ROOT"]
+
+    ENV["GOVUK_WEBSITE_ROOT"] = "https://www.integration.publishing.service.gov.uk"
+    assert Whitehall.integration_or_staging?
+
+    ENV["GOVUK_WEBSITE_ROOT"] = "https://www.staging.publishing.service.gov.uk"
+    assert Whitehall.integration_or_staging?
+
+    ENV["GOVUK_WEBSITE_ROOT"] = "https://www.publishing.service.gov.uk"
+    assert_equal false, Whitehall.integration_or_staging?
+  ensure
+    ENV["GOVUK_WEBSITE_ROOT"] = before
+  end
 end
