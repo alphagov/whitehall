@@ -510,6 +510,7 @@ ar:
     view_feed:
   i18n:
     direction: rtl
+    latin_script?: false
   language_names:
     ar: العربية
   latest_feed:

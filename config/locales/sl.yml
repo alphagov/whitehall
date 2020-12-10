@@ -409,6 +409,7 @@ sl:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     sl: Slovenščina
   latest_feed:

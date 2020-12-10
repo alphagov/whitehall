@@ -314,6 +314,7 @@ he:
     view_feed:
   i18n:
     direction: rtl
+    latin_script?: false
   language_names:
     he: עברית
   latest_feed:

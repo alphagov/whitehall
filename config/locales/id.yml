@@ -296,6 +296,7 @@ id:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     id: Bahasa Indonesia
   latest_feed:

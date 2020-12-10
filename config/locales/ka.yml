@@ -293,6 +293,7 @@ ka:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     ka: ქართული
   latest_feed:

@@ -294,6 +294,7 @@ ko:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     ko: 한국어
   latest_feed:

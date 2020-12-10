@@ -314,6 +314,7 @@ ps:
     view_feed:
   i18n:
     direction: rtl
+    latin_script?: false
   language_names:
     ps: پښتو
   latest_feed:

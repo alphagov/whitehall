@@ -314,6 +314,7 @@ dr:
     view_feed:
   i18n:
     direction: rtl
+    latin_script?: false
   language_names:
     dr: دری
   latest_feed:

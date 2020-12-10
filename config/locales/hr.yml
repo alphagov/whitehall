@@ -409,6 +409,7 @@ hr:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     hr: Hrvatski
   latest_feed:

@@ -364,6 +364,7 @@ cs:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     cs: Česky
   latest_feed:

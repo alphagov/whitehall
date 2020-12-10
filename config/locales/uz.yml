@@ -314,6 +314,7 @@ uz:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     uz: O'zbekcha
   latest_feed:

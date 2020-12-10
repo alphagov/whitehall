@@ -315,6 +315,7 @@ sq:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     sq: Shqip
   latest_feed:

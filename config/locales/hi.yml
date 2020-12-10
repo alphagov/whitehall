@@ -315,6 +315,7 @@ hi:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     hi: हिंदी
   latest_feed:

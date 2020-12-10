@@ -413,6 +413,7 @@ be:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     be: Беларуская
   latest_feed:

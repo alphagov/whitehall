@@ -313,6 +313,7 @@ lv:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     lv: Latviešu
   latest_feed:

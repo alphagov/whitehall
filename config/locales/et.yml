@@ -319,6 +319,7 @@ et:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     et: Eesti
   latest_feed:

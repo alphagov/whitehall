@@ -1,6 +1,7 @@
 en:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     ar: Arabic
     az: Azeri
