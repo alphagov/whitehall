@@ -71,6 +71,10 @@ Locale = Struct.new(:code) do
     I18n.t("i18n.direction", locale: code, default: "ltr") == "rtl"
   end
 
+  def latin_script?
+    I18n.t("i18n.latin_script?", locale: code)
+  end
+
   def to_param
     code.to_s
   end

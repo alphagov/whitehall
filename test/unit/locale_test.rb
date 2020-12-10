@@ -63,4 +63,13 @@ class LocaleTest < ActiveSupport::TestCase
     english = Locale.new(:en)
     assert_equal english, Locale.coerce(english)
   end
+
+  test "knows if languages use a Latin-script writing system" do
+    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa ps ru si ta th uk ur zh zh-hk zh-tw]
+    non_latin_script_locales = non_latin_script_locale_codes.map { |code| Locale.new(code) }
+    latin_script_locales = Locale.all - non_latin_script_locales
+
+    assert non_latin_script_locales.none?(&:latin_script?)
+    assert latin_script_locales.all?(&:latin_script?)
+  end
 end
