@@ -184,6 +184,10 @@ class Consultation < Publicationesque
     true
   end
 
+  def string_for_slug
+    title
+  end
+
 private
 
   def validate_closes_after_opens

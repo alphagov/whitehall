@@ -504,4 +504,13 @@ class ConsultationTest < ActiveSupport::TestCase
     published_with_excluded = create(:published_consultation_with_excluded_nations, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
     assert_not published_with_excluded.all_nation_applicability_selected?
   end
+
+  test "#string_for_slug returns title for slug string regardless of locale" do
+    en_consultation = create(:consultation, title: "title-en")
+    cy_consultation = create(:consultation, primary_locale: "cy", title: "title-cy")
+
+    [en_consultation, cy_consultation].each do |consultation|
+      assert_equal consultation.document.slug, consultation.title
+    end
+  end
 end
