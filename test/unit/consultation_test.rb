@@ -19,6 +19,12 @@ class ConsultationTest < ActiveSupport::TestCase
       assert edition.valid?
     end
 
+    test "#{state} editions are valid with a non-English primary locale" do
+      edition = build(:consultation, state: state)
+      edition.primary_locale = "cy"
+      assert edition.valid?
+    end
+
     test "#{state} consultations with a blank opening at time have no first_public_at" do
       edition = build(:consultation, state: state, opening_at: nil)
       assert_nil edition.first_public_at
