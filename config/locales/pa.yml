@@ -311,6 +311,7 @@ pa:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     pa: ਪੰਜਾਬੀ
   latest_feed:

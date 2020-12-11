@@ -315,6 +315,7 @@ hu:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     hu: Magyar
   latest_feed:

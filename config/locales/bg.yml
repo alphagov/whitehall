@@ -320,6 +320,7 @@ bg:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     bg: български
   latest_feed:

@@ -315,6 +315,7 @@ es-419:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     es-419: Español
   latest_feed:

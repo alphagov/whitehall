@@ -295,6 +295,7 @@ tr:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     tr: Türkçe
   latest_feed:

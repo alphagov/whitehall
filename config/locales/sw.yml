@@ -311,6 +311,7 @@ sw:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     sw: Kiswahili
   latest_feed:

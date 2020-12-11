@@ -293,6 +293,7 @@ ms:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     ms: Bahasa Melayu
   latest_feed:

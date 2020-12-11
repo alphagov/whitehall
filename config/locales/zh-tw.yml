@@ -293,6 +293,7 @@ zh-tw:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     zh-tw: 中文
   latest_feed:

@@ -294,6 +294,7 @@ ja:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     ja: 日本語
   latest_feed:

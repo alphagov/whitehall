@@ -315,6 +315,7 @@ ur:
     view_feed:
   i18n:
     direction: rtl
+    latin_script?: false
   language_names:
     ur: اردو
   latest_feed:

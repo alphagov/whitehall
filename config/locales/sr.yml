@@ -413,6 +413,7 @@ sr:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     sr: Srpski
   latest_feed:

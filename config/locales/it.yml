@@ -314,6 +314,7 @@ it:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     it: Italiano
   latest_feed:

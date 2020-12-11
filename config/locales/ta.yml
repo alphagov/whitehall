@@ -316,6 +316,7 @@ ta:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     ta: தமிழ்
   latest_feed:

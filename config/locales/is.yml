@@ -311,6 +311,7 @@ is:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     is: Íslensk
   latest_feed:

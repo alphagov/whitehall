@@ -412,6 +412,7 @@ uk:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: false
   language_names:
     uk: Українська
   latest_feed:

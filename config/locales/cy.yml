@@ -510,6 +510,7 @@ cy:
     view_feed:
   i18n:
     direction: ltr
+    latin_script?: true
   language_names:
     cy: Cymraeg
   latest_feed:
