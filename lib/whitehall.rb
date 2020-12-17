@@ -72,6 +72,7 @@ module Whitehall
       nl
       no
       pa
+      pa-ur
       pl
       ps
       pt

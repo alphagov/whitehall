@@ -30,10 +30,21 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "knows if languages are left-to-right or right-to-left" do
-    right_to_left = [Locale.new(:ar), Locale.new(:ur), Locale.new(:fa), Locale.new(:dr), Locale.new(:he), Locale.new(:ps)]
-    assert right_to_left.all?(&:rtl?)
-    left_to_right = (Locale.all - right_to_left)
-    assert left_to_right.none?(&:rtl?)
+    right_to_left_locale_codes = %i[ar dr fa he pa-ur ps ur]
+    right_to_left_locales = right_to_left_locale_codes.map { |code| Locale.new(code) }
+    left_to_right_locales = (Locale.all - right_to_left_locales)
+
+    assert right_to_left_locales.all?(&:rtl?)
+    assert left_to_right_locales.none?(&:rtl?)
+  end
+
+  test "knows if languages use a Latin-script writing system" do
+    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa pa-ur ps ru si ta th uk ur zh zh-hk zh-tw]
+    non_latin_script_locales = non_latin_script_locale_codes.map { |code| Locale.new(code) }
+    latin_script_locales = Locale.all - non_latin_script_locales
+
+    assert non_latin_script_locales.none?(&:latin_script?)
+    assert latin_script_locales.all?(&:latin_script?)
   end
 
   test "knows which locale is english" do
@@ -62,14 +73,5 @@ class LocaleTest < ActiveSupport::TestCase
   test ".coerce returns a Locale object without modification" do
     english = Locale.new(:en)
     assert_equal english, Locale.coerce(english)
-  end
-
-  test "knows if languages use a Latin-script writing system" do
-    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa ps ru si ta th uk ur zh zh-hk zh-tw]
-    non_latin_script_locales = non_latin_script_locale_codes.map { |code| Locale.new(code) }
-    latin_script_locales = Locale.all - non_latin_script_locales
-
-    assert non_latin_script_locales.none?(&:latin_script?)
-    assert latin_script_locales.all?(&:latin_script?)
   end
 end
