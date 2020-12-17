@@ -87,6 +87,31 @@ module PublishingApi
 
         assert_equal expected_hash, BrexitNoDealContent.for(stubbed_item)
       end
+
+      test "links with leading/trailing whitespace are trimmed" do
+        stubbed_item = stub(
+          show_brexit_no_deal_content_notice: true,
+          brexit_no_deal_content_notice_links: [
+            BrexitNoDealContentNoticeLink.new(title: "FrontSpaceLink", url: "   https://www.example.com"),
+            BrexitNoDealContentNoticeLink.new(title: "RearSpaceLink", url: "https://www.example.com   "),
+          ],
+        )
+
+        expected_hash = {
+          brexit_no_deal_notice: [
+            {
+              title: "FrontSpaceLink",
+              href: "https://www.example.com",
+            },
+            {
+              title: "RearSpaceLink",
+              href: "https://www.example.com",
+            },
+          ],
+        }
+
+        assert_equal expected_hash, BrexitNoDealContent.for(stubbed_item)
+      end
     end
   end
 end
