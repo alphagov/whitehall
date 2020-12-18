@@ -47,6 +47,8 @@ private
   end
 
   def host
+    url.strip!
+
     return URI.parse("https://#{url}").host if url.start_with?("www.")
 
     URI.parse(url).host
