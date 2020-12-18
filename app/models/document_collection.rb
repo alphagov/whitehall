@@ -50,7 +50,15 @@ class DocumentCollection < Edition
     groups.flat_map(&:content_ids)
   end
 
+  def locale_can_be_changed?
+    true
+  end
+
 private
+
+  def string_for_slug
+    title
+  end
 
   def create_default_group
     if groups.empty?

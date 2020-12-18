@@ -12,6 +12,7 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     )
 
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
+    @presented_en_content = @presented_document_collection.content
     @presented_content = I18n.with_locale("de") { @presented_document_collection.content }
   end
 
@@ -31,8 +32,12 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     assert_equal "Document Collection summary", @presented_content[:description]
   end
 
-  test "it presents the base_path" do
-    assert_equal "/government/collections/document-collection-title", @presented_content[:base_path]
+  test "it presents the base_path if locale is :en" do
+    assert_equal "/government/collections/document-collection-title", @presented_en_content[:base_path]
+  end
+
+  test "it presents the base_path with locale if non-english" do
+    assert_equal "/government/collections/document-collection-title.de", @presented_content[:base_path]
   end
 
   test "it presents updated_at if public_timestamp is nil" do
@@ -55,7 +60,11 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     assert_equal "document_collection", @presented_content[:document_type]
   end
 
-  test "it presents the global process wide locale as the locale of the document_collection" do
+  test "it presents the default global process wide locale as the locale of the document_collection" do
+    assert_equal "en", @presented_en_content[:locale]
+  end
+
+  test "it presents the selected global process wide locale as the locale of the document_collection" do
     assert_equal "de", @presented_content[:locale]
   end
 

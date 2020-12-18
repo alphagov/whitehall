@@ -23,6 +23,11 @@ module DocumentHelper
       click_link options[:type].humanize
     end
 
+    if options[:locale]
+      check "Create a foreign language only"
+      select options[:locale], from: "Document language"
+    end
+
     within "form" do
       fill_in "edition_title", with: options[:title]
       fill_in "edition_body", with: options.fetch(:body, "Any old iron")
