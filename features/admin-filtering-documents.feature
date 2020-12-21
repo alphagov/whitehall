@@ -14,7 +14,7 @@ Scenario: Viewing only publications written by me
   Given I am a writer
   And there is a user called "Janice"
   And "Janice" drafts a new publication "Janice's Publication"
-  And I draft a new consultation "My Consultation"
+  And I draft a new "English" language consultation "My Consultation"
   And I visit the list of draft documents
 
   When I filter by author "Janice"
