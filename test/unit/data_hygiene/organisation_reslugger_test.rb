@@ -39,8 +39,10 @@ module OrganisationResluggerTest
         stub_publishing_api_publish(content_item.content_id, locale: "en", update_type: nil),
       ]
 
-      Sidekiq::Testing.inline! do
-        @reslugger.run!
+      ActiveRecord::Base.transaction do
+        Sidekiq::Testing.inline! do
+          @reslugger.run!
+        end
       end
 
       assert_all_requested expected_publish_requests
