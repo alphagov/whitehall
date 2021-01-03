@@ -40,7 +40,7 @@ module ViewRendering
           EmptyTemplateHandler,
           virtual_path: template.virtual_path,
           format: template.format,
-          locals: []
+          locals: [],
         )
       end
     end

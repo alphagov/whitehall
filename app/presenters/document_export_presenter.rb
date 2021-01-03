@@ -45,8 +45,8 @@ private
   end
 
   def sub_document_type(edition)
-    DOCUMENT_SUB_TYPES.each_with_object({}) do |type, memo|
-      memo[type] = edition.try(type)&.key
+    DOCUMENT_SUB_TYPES.index_with do |type|
+      edition.try(type)&.key
     end
   end
 
