@@ -57,7 +57,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     translation = edition[:translations].first
 
     assert_equal "en", edition[:primary_locale]
-    assert_equal :en, translation[:locale]
+    assert_equal "en", translation[:locale]
     assert_nil edition[:title]
     assert_nil edition[:summary]
     assert_nil edition[:body]
@@ -376,20 +376,20 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = [
       { id: english_translation.id,
-        locale: :en,
+        locale: "en",
         title: "Hello",
         summary: "Are you well?",
         body: "I am well, thank you",
-        created_at: english_translation.created_at,
-        updated_at: english_translation.updated_at,
+        created_at: "2011-11-11T11:11:11.000+00:00",
+        updated_at: "2011-11-11T11:11:11.000+00:00",
         base_path: "/government/news/hello" },
       { id: french_translation.id,
-        locale: :fr,
+        locale: "fr",
         title: "Bonjour",
         summary: "Ça va",
         body: "ça va bien merci",
-        created_at: french_translation.created_at,
-        updated_at: french_translation.updated_at,
+        created_at: "2011-11-11T11:11:11.000+00:00",
+        updated_at: "2011-11-11T11:11:11.000+00:00",
         base_path: "/government/news/hello.fr" },
     ]
     assert_equal expected, result.dig(:editions, 0, :translations)
