@@ -33,15 +33,8 @@ module Whitehall
       )
     end
 
-    # Because the govspeak helpers in whitehall rely on rendering partials, we
-    # need to make sure the view paths are set, otherwise the helpers can't find
-    # the partials.
     def helpers
-      @helpers ||= begin
-        helpers = ApplicationController.helpers
-        helpers.view_paths = ApplicationController.view_paths
-        helpers
-      end
+      @helpers ||= ApplicationController.new.helpers
     end
   end
 end
