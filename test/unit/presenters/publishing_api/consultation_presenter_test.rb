@@ -180,6 +180,26 @@ module PublishingApi::ConsultationPresenterTest
     test "validity" do
       assert_valid_against_schema presented_content, "consultation"
     end
+
+    test "it presents the base_path if locale is :en" do
+      assert_equal "/government/consultations/consultation-title", presented_content[:base_path]
+    end
+
+    test "it presents the base_path with locale if non-english" do
+      with_locale("it") do
+        assert_equal "/government/consultations/consultation-title.it", presented_content[:base_path]
+      end
+    end
+
+    test "it presents the default global process wide locale as the locale of the consultation" do
+      assert_equal "en", presented_content[:locale]
+    end
+
+    test "it presents the selected global process wide locale as the locale of the consultation" do
+      with_locale("it") do
+        assert_equal "it", presented_content[:locale]
+      end
+    end
   end
 
   class UnopenedConsultationTest < TestCase
