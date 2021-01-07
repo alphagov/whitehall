@@ -8,9 +8,9 @@ class WorldLocationEmailSignupTest < ActiveSupport::TestCase
     @international_delegation = create(:international_delegation, name: "UK Joint Delegation to NATO")
   end
 
-  test "#signup_url returns the subscription url from email-alert-api" do
+  test "#slug returns the slug from email-alert-api" do
     email_signup = WorldLocationEmailSignup.new(feed_url)
-    response = { "subscription_url" => "http://example.com" }
+    response = { "slug" => "some-slug" }
 
     stub_email_alert_api_does_not_have_subscriber_list(
       "links" => { "world_locations" => [@international_delegation.content_id] },
@@ -21,7 +21,7 @@ class WorldLocationEmailSignupTest < ActiveSupport::TestCase
       assert_equal({ "world_locations" => [@international_delegation.content_id] }, JSON.parse(request.body)["links"])
     end
 
-    assert_equal "http://example.com", email_signup.signup_url
+    assert_equal "some-slug", email_signup.slug
   end
 
   test "#name returns the world locations name" do

@@ -5,20 +5,11 @@ class EmailSignupsController < PublicFacingController
     elsif feed_url.match?(%r{/government/(publications|announcements|statistics)\.atom})
       redirect_to feed_url.sub(".atom", "")
     elsif feed_url.match?(%r{/world/.*\.atom$})
-      @email_signup = WorldLocationEmailSignup.new(feed_url)
-      head :not_found unless @email_signup.valid?
+      email_signup = WorldLocationEmailSignup.new(feed_url)
+      head :not_found unless email_signup.valid?
+      redirect_to email_alert_frontend_signup_with_slug(email_signup.slug)
     else
       redirect_to "/"
-    end
-  end
-
-  def create
-    @email_signup = WorldLocationEmailSignup.new(feed_url)
-
-    if @email_signup.valid?
-      redirect_to @email_signup.signup_url
-    else
-      head :not_found
     end
   end
 
@@ -35,5 +26,13 @@ private
   def email_alert_frontend_signup
     base_path = URI.parse(feed_url).path.chomp(".atom")
     "/email-signup?link=#{base_path}"
+  end
+
+  def email_alert_frontend_signup_with_slug(slug)
+    base_path = Plek.new.website_root
+    path = "/email/subscriptions/new?"
+    params = { topic_id: slug }
+
+    base_path + path + params.to_query
   end
 end
