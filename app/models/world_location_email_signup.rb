@@ -5,9 +5,9 @@ class WorldLocationEmailSignup
     @feed = feed
   end
 
-  def signup_url
+  def slug
     subscriber_list = Services.email_alert_api.find_or_create_subscriber_list(criteria)
-    subscriber_list["subscriber_list"]["subscription_url"]
+    subscriber_list["subscriber_list"]["slug"]
   end
 
   delegate :name, to: :world_location
