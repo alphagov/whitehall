@@ -30,7 +30,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
 
   test "organisations= parses slugs into real organisations" do
     org1, org2 = 2.times.map { create(:organisation) }
-    assert_equal [org1, org2], build_class_instance(organisations: [org1.slug, org2.slug]).organisations
+    assert_same_elements [org1, org2], build_class_instance(organisations: [org1.slug, org2.slug]).organisations
   end
 
   test "organisations= handles nil" do
