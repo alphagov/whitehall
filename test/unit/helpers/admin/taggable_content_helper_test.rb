@@ -36,8 +36,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     joe      = create(:person, forename: "Joe", surname: "Rockhead")
     slate    = create(:person, forename: "Mr.", surname: "Slate")
 
-    deputy_leader_appointment  = create(:role_appointment, role: deputy, person: joe)
-    current_leader_appointment = create(:role_appointment, role: leader, person: fred)
+    deputy_leader_appointment  = create(:role_appointment, role: deputy, person: joe, started_at: Date.new(2009, 5, 3))
+    current_leader_appointment = create(:role_appointment, role: leader, person: fred, started_at: Date.new(2009, 5, 4))
     old_leader_appointment     = create(
       :role_appointment,
       role: leader,
