@@ -85,7 +85,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "an-html-attachment", draft.attachments.first.slug
   end
 
-  test "slug is updated when the title is changed if edition is unpublished" do
+  test "slug is updated when the title is changed if document has never been published" do
     attachment = build(:html_attachment, title: "an-html-attachment")
 
     create(:draft_publication, attachments: [attachment])
@@ -97,7 +97,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "a-new-title", attachment.slug
   end
 
-  test "slug is not updated when the title is changed if edition is published" do
+  test "slug on old attachment is not updated when the title is changed if document is published" do
     edition = create(
       :published_publication,
       attachments: [
@@ -112,6 +112,21 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment.reload
 
     assert_equal "an-html-attachment", attachment.slug
+  end
+
+  test "slug on new attachment is updated when the title is changed if document is published" do
+    edition = create(
+      :published_publication,
+    )
+    draft = edition.create_draft(create(:writer))
+    attachment = build(:html_attachment, title: "an-html-attachment")
+    draft.attachments = [attachment]
+
+    attachment.title = "a-new-title"
+    attachment.save!
+    attachment.reload
+
+    assert_equal "a-new-title", attachment.slug
   end
 
   test "slug is not updated when the title has been changed in a prior published edition" do
