@@ -108,7 +108,9 @@ class Attachment < ApplicationRecord
   end
 
   def deep_clone
-    dup
+    dup.tap do |clone|
+      clone.safely_resluggable = false
+    end
   end
 
   def external?
