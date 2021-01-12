@@ -18,7 +18,7 @@ if Organisation.where(name: "HM Revenue & Customs").blank?
   Organisation.create!(
     name: "HM Revenue & Customs",
     slug: "hm-revenue-customs",
-    acronym: "HRMC",
+    acronym: "HMRC",
     organisation_type_key: :other,
     logo_formatted_name: "Test",
     content_id: "6667cce2-e809-4e21-ae09-cb0bdc1ddda3",
