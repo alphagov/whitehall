@@ -1,9 +1,9 @@
 class Government < ApplicationRecord
   include PublishesToPublishingApi
 
-  validates :name, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true
-  validates :content_id, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :slug, presence: true, uniqueness: { case_sensitive: false }
+  validates :content_id, presence: true, uniqueness: { case_sensitive: false }
   validates :start_date, presence: true
 
   validate :not_overlapping?

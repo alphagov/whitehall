@@ -192,11 +192,11 @@ class Edition < ApplicationRecord
   end
 
   def self.by_subtype(type, subtype)
-    type.by_subtype(subtype)
+    merge(type.by_subtype(subtype))
   end
 
   def self.by_subtypes(type, subtype_ids)
-    type.by_subtypes(subtype_ids)
+    merge(type.by_subtypes(subtype_ids))
   end
 
   def self.in_world_location(world_location)

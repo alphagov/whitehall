@@ -39,14 +39,15 @@ module ViewRendering
           template.identifier,
           EmptyTemplateHandler,
           virtual_path: template.virtual_path,
-          format: template.formats,
+          format: template.format,
+          locals: [],
         )
       end
     end
   end
 
   class EmptyTemplateHandler
-    def self.call(_template)
+    def self.call(_template, _source = nil)
       %("")
     end
   end

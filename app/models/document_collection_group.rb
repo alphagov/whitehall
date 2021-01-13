@@ -22,7 +22,7 @@ class DocumentCollectionGroup < ApplicationRecord
             .where("editions.state = 'published' OR document_collection_non_whitehall_links.id IS NOT NULL")
         }
 
-  validates :heading, presence: true, uniqueness: { scope: :document_collection_id } # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :heading, presence: true, uniqueness: { scope: :document_collection_id, case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates_associated :memberships
 
   before_create :assign_ordering

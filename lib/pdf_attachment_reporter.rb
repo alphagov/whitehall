@@ -33,9 +33,9 @@ class PDFAttachmentReporter
 
     live_organisation_names = Organisation.where(govuk_status: "live").includes(:translations).map(&:name) << POLICY_GROUPS
 
-    live_organisation_published_pdfs_total_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
-    live_organisation_published_pdfs_since_first_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
-    live_organisation_published_pdfs_since_second_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
+    live_organisation_published_pdfs_total_counts_hash = live_organisation_names.index_with { |_| 0 }
+    live_organisation_published_pdfs_since_first_period_counts_hash = live_organisation_names.index_with { |_| 0 }
+    live_organisation_published_pdfs_since_second_period_counts_hash = live_organisation_names.index_with { |_| 0 }
 
     attachment_ids = unique_published_pdf_attachments.pluck(:id)
 

@@ -14,6 +14,14 @@ class Edition::FeaturableTest < ActiveSupport::TestCase
     assert_not arabic.persisted?
   end
 
+  test "#feature_list_for_locale should only build one feature list for a given locale when called multiple times" do
+    location = create(:world_location)
+    location.feature_list_for_locale(:en)
+    location.feature_list_for_locale(:en)
+
+    assert_equal 1, location.feature_lists.size
+  end
+
   test "get features with locale should find feature list if present" do
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :fr)

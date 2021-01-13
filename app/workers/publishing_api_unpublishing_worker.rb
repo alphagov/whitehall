@@ -9,7 +9,7 @@ class PublishingApiUnpublishingWorker
     edition = unpublishing.edition
     check_if_locked_document(edition: edition)
 
-    content_id = Document.where(id: edition.document_id).pluck(:content_id).first
+    content_id = Document.where(id: edition.document_id).pick(:content_id)
 
     edition.available_locales.each do |locale|
       case unpublishing.unpublishing_reason_id

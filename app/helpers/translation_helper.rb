@@ -45,7 +45,7 @@ module TranslationHelper
   end
 
   def t_fallback(key, options = {})
-    translation = I18n.t(key, options, locale: I18n.locale, fallback: false, default: "fallback")
+    translation = I18n.t(key, **options, locale: I18n.locale, fallback: false, default: "fallback")
 
     if !translation || translation.eql?("fallback")
       I18n.default_locale

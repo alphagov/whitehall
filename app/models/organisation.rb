@@ -134,9 +134,9 @@ class Organisation < ApplicationRecord
   accepts_nested_attributes_for :organisation_classifications, reject_if: ->(attributes) { attributes["classification_id"].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
 
-  validates :slug, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validates_with SafeHtmlValidator
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :logo_formatted_name, presence: true
   validates :url, :organisation_chart_url, :custom_jobs_url, uri: true, allow_blank: true
   validates :alternative_format_contact_email, email_format: { allow_blank: true }

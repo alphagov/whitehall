@@ -33,8 +33,7 @@ private
         .joins(:document)
         .where(documents: { content_id: content_id })
         .where(state: "withdrawn")
-        .pluck(:updated_at)
-        .first
+        .pick(:updated_at)
     end
   end
 end
