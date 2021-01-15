@@ -25,8 +25,9 @@ module GovspeakHelper
 
   def bare_govspeak_edition_to_html(edition)
     images = edition.respond_to?(:images) ? edition.images : []
+    allowed_elements = edition.allows_inline_attachments? ? %w[details] : []
     partially_processed_govspeak = edition_body_with_attachments_and_alt_format_information(edition)
-    bare_govspeak_to_html(partially_processed_govspeak, images)
+    bare_govspeak_to_html(partially_processed_govspeak, images, allowed_elements: allowed_elements)
   end
 
   def bare_govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
@@ -109,7 +110,7 @@ module GovspeakHelper
     govspeak = set_classes_for_charts(govspeak)
     govspeak = set_classes_for_sortable_tables(govspeak)
 
-    markup_to_nokogiri_doc(govspeak, images)
+    markup_to_nokogiri_doc(govspeak, images, options[:allowed_elements])
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
@@ -235,8 +236,8 @@ private
     nokogiri_el.inner_text[/^\d+.?[^\s]*/]
   end
 
-  def markup_to_nokogiri_doc(govspeak, images = [])
-    govspeak = build_govspeak_document(govspeak, images)
+  def markup_to_nokogiri_doc(govspeak, images = [], allowed_elements = [])
+    govspeak = build_govspeak_document(govspeak, images, allowed_elements)
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(govspeak.to_html)
@@ -264,9 +265,9 @@ private
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
-  def build_govspeak_document(govspeak, images = [])
+  def build_govspeak_document(govspeak, images = [], allowed_elements = [])
     hosts = [Whitehall.admin_host, Whitehall.public_host]
-    Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
+    Govspeak::Document.new(govspeak, { document_domains: hosts, allowed_elements: allowed_elements }).tap do |document|
       document.images = images
     end
   end

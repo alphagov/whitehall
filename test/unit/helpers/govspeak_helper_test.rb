@@ -479,4 +479,26 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_with_attachments_to_html(body, attachments, "batman@wayne.technology")
     assert html.include? ">batman@wayne.technology</a>"
   end
+
+  test "should not sanitise Details element for Editions that allow inline attachments" do
+    text = "#Heading\n\n!@1\n\n##Subheading."
+    document = build(
+      :published_detailed_guide,
+      :with_file_attachment,
+      body: text,
+      attachments: [build(:file_attachment, id: 1)],
+    )
+    html = govspeak_edition_to_html(document)
+    assert html.include?("<details class=\"gem-c-details")
+  end
+
+  test "should sanitise Details for Editions that do not allow inline attachments " do
+    text = "#Heading\n\n!@1\n\n##Subheading"
+    document = build(
+      :consultation_with_outcome_file_attachment,
+      body: text,
+    )
+    html = govspeak_edition_to_html(document)
+    assert_not html.include?("<details class=\"gem-c-details")
+  end
 end
