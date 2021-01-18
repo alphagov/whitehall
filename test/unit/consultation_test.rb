@@ -19,6 +19,12 @@ class ConsultationTest < ActiveSupport::TestCase
       assert edition.valid?
     end
 
+    test "#{state} editions are valid with a non-English primary locale" do
+      edition = build(:consultation, state: state)
+      edition.primary_locale = "cy"
+      assert edition.valid?
+    end
+
     test "#{state} consultations with a blank opening at time have no first_public_at" do
       edition = build(:consultation, state: state, opening_at: nil)
       assert_nil edition.first_public_at
@@ -497,5 +503,14 @@ class ConsultationTest < ActiveSupport::TestCase
     assert published_publication.all_nation_applicability_selected?
     published_with_excluded = create(:published_consultation_with_excluded_nations, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
     assert_not published_with_excluded.all_nation_applicability_selected?
+  end
+
+  test "#string_for_slug returns title for slug string regardless of locale" do
+    en_consultation = create(:consultation, title: "title-en")
+    cy_consultation = create(:consultation, primary_locale: "cy", title: "title-cy")
+
+    [en_consultation, cy_consultation].each do |consultation|
+      assert_equal consultation.document.slug, consultation.title
+    end
   end
 end

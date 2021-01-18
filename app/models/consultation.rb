@@ -180,6 +180,14 @@ class Consultation < Publicationesque
     newly_created ? false : all_nation_applicability
   end
 
+  def locale_can_be_changed?
+    true
+  end
+
+  def string_for_slug
+    title
+  end
+
 private
 
   def validate_closes_after_opens

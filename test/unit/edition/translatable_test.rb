@@ -42,8 +42,14 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert [new_doc_collection, existing_doc_collection].all?(&:locale_can_be_changed?)
   end
 
+  test "locale_can_be_changed? returns true for new and existing Consultations" do
+    new_consulation = build(:consultation)
+    existing_consulation = create(:consultation)
+    assert [new_consulation, existing_consulation].all?(&:locale_can_be_changed?)
+  end
+
   test "locale_can_be_changed? returns false for other edition types" do
-    Edition.concrete_descendants.reject { |k| [NewsArticle, DocumentCollection].include?(k) }.each do |klass|
+    Edition.concrete_descendants.reject { |k| [NewsArticle, DocumentCollection, Consultation].include?(k) }.each do |klass|
       assert_not klass.new.locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
     end
   end
