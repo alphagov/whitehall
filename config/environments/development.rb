@@ -74,4 +74,6 @@ Whitehall::Application.configure do
 
   config.assets.cache_store = :null_store
   config.sass.cache = false
+
+  config.hosts.clear
 end
