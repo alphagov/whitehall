@@ -8,14 +8,9 @@ DEFAULT_SCHEMA_BRANCH = 'deployed-to-production'
 node {
   govuk.setEnvar("PUBLISHING_E2E_TESTS_COMMAND", "test-whitehall")
   govuk.buildProject(
-    sassLint: false,
     publishingE2ETests: true,
     brakeman: true,
     beforeTest: {
-      stage("Install node dependencies") {
-        sh("yarn")
-      }
-
       stage("Generate directories for upload tests") {
         sh ("mkdir -p ./incoming-uploads")
         sh ("mkdir -p ./clean-uploads")
