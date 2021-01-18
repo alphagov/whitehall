@@ -21,7 +21,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
   view_test "GET :new redirects to email-alert-frontend if signup is for a world location" do
     world_location = create(:world_location)
-    stub_email_alert_api_has_subscriber_list(
+    stub_email_alert_api_creates_subscriber_list(
       "links" => { "world_locations" => [world_location.content_id] },
       "slug" => "some-slug",
     )
