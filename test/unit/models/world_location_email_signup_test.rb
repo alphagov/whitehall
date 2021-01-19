@@ -12,10 +12,6 @@ class WorldLocationEmailSignupTest < ActiveSupport::TestCase
     email_signup = WorldLocationEmailSignup.new(feed_url)
     response = { "slug" => "some-slug" }
 
-    stub_email_alert_api_does_not_have_subscriber_list(
-      "links" => { "world_locations" => [@international_delegation.content_id] },
-      "title" => @international_delegation.name,
-    )
     stub_email_alert_api_creates_subscriber_list(response).with do |request|
       assert_equal("UK Joint Delegation to NATO", JSON.parse(request.body)["title"])
       assert_equal({ "world_locations" => [@international_delegation.content_id] }, JSON.parse(request.body)["links"])
