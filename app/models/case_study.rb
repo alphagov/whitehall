@@ -24,6 +24,6 @@ class CaseStudy < Edition
   end
 
   def translatable?
-    !non_english_edition?
+    !non_english?
   end
 end

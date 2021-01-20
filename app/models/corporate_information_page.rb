@@ -82,7 +82,7 @@ class CorporateInformationPage < Edition
   end
 
   def translatable?
-    !non_english_edition?
+    !non_english?
   end
 
   def owning_organisation

@@ -44,7 +44,7 @@ module Edition::Translatable
     false
   end
 
-  def non_english_edition?
+  def non_english?
     primary_locale.to_sym != :en
   end
 

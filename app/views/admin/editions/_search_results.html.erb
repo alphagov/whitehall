@@ -53,7 +53,7 @@
           <% end %>
           <td class="title">
             <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
-            <% if edition.non_english_edition? %>
+            <% if edition.non_english? %>
               (<%= edition.primary_locale %>)
             <% end %>
             <% # TODO: remove unpublishing information once we have a separate state for unpublished editions
