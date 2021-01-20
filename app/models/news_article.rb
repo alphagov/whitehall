@@ -85,7 +85,7 @@ class NewsArticle < Announcement
   end
 
   def translatable?
-    !non_english?
+    english?
   end
 
 private
