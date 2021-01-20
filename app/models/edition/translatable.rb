@@ -44,6 +44,10 @@ module Edition::Translatable
     false
   end
 
+  def english?
+    primary_locale == "en"
+  end
+
   def non_english?
     primary_locale.to_sym != :en
   end
