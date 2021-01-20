@@ -48,6 +48,6 @@ module Edition::Identifiable
 private
 
   def string_for_slug
-    non_english? ? nil : title(:en)
+    title(:en) if english?
   end
 end
