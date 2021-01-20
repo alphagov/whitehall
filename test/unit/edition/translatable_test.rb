@@ -12,6 +12,11 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_not build(:edition, primary_locale: "cy").english?
   end
 
+  test "#non_english? is only true when primary_locale is not 'en'" do
+    assert build(:edition, primary_locale: "cy").non_english?
+    assert_not build(:edition, primary_locale: "en").non_english?
+  end
+
   test "locale is validated as a locale" do
     edition = build(:edition, primary_locale: "123")
     assert_not edition.valid?

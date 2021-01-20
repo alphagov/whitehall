@@ -49,7 +49,7 @@ module Edition::Translatable
   end
 
   def non_english?
-    primary_locale.to_sym != :en
+    !english?
   end
 
   def rtl?
