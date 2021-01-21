@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :consultation, class: Consultation, parent: :edition, traits: %i[with_organisations] do
-    title { "consultation-title" }
+    sequence(:title) { |index| "Consultation's title (##{index}): colon, comma and £ sign" }
     body { "consultation-body" }
     opening_at { 1.day.ago }
     closing_at { 6.weeks.from_now }

@@ -3,7 +3,7 @@ require_relative "../support/generic_edition"
 FactoryBot.define do
   factory :edition, class: GenericEdition, traits: [:translated] do
     creator
-    sequence(:title) { |index| "edition-title-#{index}" }
+    sequence(:title) { |index| "Edition's title (##{index}): colon, comma and £ sign" }
     body { "edition-body" }
     change_note { "change-note" }
     summary { "edition-summary" }
