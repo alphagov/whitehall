@@ -97,13 +97,19 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal collection.slug, collection.search_index["slug"]
   end
 
-  test "returns the title for slug string regardless of locale" do
-    en_collection = create(:document_collection, groups: [])
-    cy_collection = create(:document_collection, groups: [], primary_locale: "cy")
-
-    [en_collection, cy_collection].each do |collection|
+  test "uses the title as slug string if the locale uses a latin script alphabet" do
+    Locale.all.select(&:latin_script?).map(&:to_param).each do |locale|
+      collection = create(:document_collection, primary_locale: locale)
       document = collection.document
       assert_equal document.slug, document.normalize_friendly_id(collection.title)
+    end
+  end
+
+  test "uses the id as slug string if the locale uses a non latin script alphabet" do
+    Locale.all.reject(&:latin_script?).map(&:to_param).each do |locale|
+      collection = create(:document_collection, primary_locale: locale)
+      document = collection.document
+      assert_equal document.slug, document.id.to_s
     end
   end
 

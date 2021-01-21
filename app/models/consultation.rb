@@ -173,7 +173,7 @@ class Consultation < Publicationesque
   end
 
   def string_for_slug
-    title
+    title if Locale.new(primary_locale).latin_script?
   end
 
 private

@@ -505,13 +505,19 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_not published_with_excluded.all_nation_applicability_selected?
   end
 
-  test "#string_for_slug returns title for slug string regardless of locale" do
-    en_consultation = create(:consultation)
-    cy_consultation = create(:consultation, primary_locale: "cy")
-
-    [en_consultation, cy_consultation].each do |consultation|
+  test "uses the title as slug string if the locale uses a latin script alphabet" do
+    Locale.all.select(&:latin_script?).map(&:to_param).each do |locale|
+      consultation = create(:consultation, primary_locale: locale)
       document = consultation.document
       assert_equal document.slug, document.normalize_friendly_id(consultation.title)
+    end
+  end
+
+  test "uses the id as slug string if the locale uses a non latin script alphabet" do
+    Locale.all.reject(&:latin_script?).map(&:to_param).each do |locale|
+      consultation = create(:consultation, primary_locale: locale)
+      document = consultation.document
+      assert_equal document.slug, document.id.to_s
     end
   end
 end
