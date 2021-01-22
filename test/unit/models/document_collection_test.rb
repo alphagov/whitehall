@@ -102,7 +102,8 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     cy_collection = create(:document_collection, groups: [], primary_locale: "cy")
 
     [en_collection, cy_collection].each do |collection|
-      assert_equal collection.document.slug, collection.title
+      document = collection.document
+      assert_equal document.slug, document.normalize_friendly_id(collection.title)
     end
   end
 

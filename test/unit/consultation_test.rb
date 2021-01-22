@@ -506,11 +506,12 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "#string_for_slug returns title for slug string regardless of locale" do
-    en_consultation = create(:consultation, title: "title-en")
-    cy_consultation = create(:consultation, primary_locale: "cy", title: "title-cy")
+    en_consultation = create(:consultation)
+    cy_consultation = create(:consultation, primary_locale: "cy")
 
     [en_consultation, cy_consultation].each do |consultation|
-      assert_equal consultation.document.slug, consultation.title
+      document = consultation.document
+      assert_equal document.slug, document.normalize_friendly_id(consultation.title)
     end
   end
 end
