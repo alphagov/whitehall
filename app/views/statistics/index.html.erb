@@ -16,7 +16,12 @@
 
 <%= render 'impartiality' %>
 
-<%= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
+<% if params[:publication_filter_option] == "statistics"  %>
+  <%= full_width_tabs [
+    { label: "Published", link_to: statistics_path },
+    { label: "Upcoming",  link_to: statistics_announcements_path }
+  ] %>
+<% end %>
 
 <div class="filtered-index">
   <%= render partial: "documents/filter_form",
