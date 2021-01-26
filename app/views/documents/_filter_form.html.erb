@@ -7,82 +7,10 @@
       <fieldset>
         <legend class="visuallyhidden">Filter <%= document_type_plural %></legend>
 
-        <% if filters.include? :keyword %>
-          <div id="keyword-filter" class="filter">
-            <%= label_tag "keywords", "Contains", class: 'title' %>
-            <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :taxon %>
-          <div class="filter">
-            <%= label_tag "taxons", "Topic" %>
-            <%= select_tag "taxons[]", taxon_filter_options(@filter.selected_taxons), class: "single-row-select", id: "taxons" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :subtaxon %>
-          <div class="filter" <% if @filter.selected_taxons.empty? %>style="display: none;"<% end %>>
-            <%= label_tag "subtaxons", "Subtopic" %>
-            <%= select_tag "subtaxons[]", subtaxon_filter_options(@filter.selected_taxons, @filter.selected_subtaxons), class: "single-row-select", id: "subtaxons" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :publication_type %>
-          <div class="filter">
-            <%= label_tag "publication_filter_option", "Publication type", class: "title" %>
-            <%= select_tag :publication_filter_option, publication_type_filter_options(@filter.selected_publication_filter_option), class: "single-row-select" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :announcement_type %>
-          <div class="filter">
-            <%= label_tag "announcement_filter_option", "Announcement type", class: "title" %>
-            <%= select_tag :announcement_filter_option, announcement_type_filter_options(@filter.selected_announcement_filter_option), class: "single-row-select" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :department %>
-          <div class="filter">
-            <%= label_tag "departments", "Department" %>
-            <%= select_tag "departments[]", organisation_filter_options(@filter.selected_organisations), class: "single-row-select", id: "departments" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :people %>
-          <div class="filter">
-            <%= label_tag "people", "Person" %>
-            <%= select_tag "people[]", people_filter_options(@filter.selected_people_option), class: "single-row-select", id: "people" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :official_document_status %>
-          <div class="filter">
-            <%= label_tag :official_document_status, "Official document status" %>
-            <%= select_tag :official_document_status, official_document_status_filter_options(@filter.selected_official_document_status), class: "single-row-select" %>
-          </div>
-        <% end %>
-
         <% if filters.include? :locations %>
           <div class="filter">
             <%= label_tag "world_locations", t('document_filters.world_locations.label'), class: "title" %>
-            <%= select_tag "world_locations[]", locations_options(document_type, @filter.selected_locations), class: "govuk-select", id: "world_locations" %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :include_world_location_news %>
-          <div class="filter checkbox-filter">
-            <%= label_tag "include_world_location_news", "Include local news from UK embassies and other world organisations" %>
-            <%= check_box_tag :include_world_location_news, '1', @filter.include_world_location_news %>
-          </div>
-        <% end %>
-
-        <% if filters.include? :date %>
-          <div class="filter date-range-filter">
-            <%= label_tag "from_date", "Published after" %>
-            <%= text_field_tag :from_date, @filter.date_from, placeholder: "e.g. 01/01/2013" %>
-            <%= label_tag "to_date", "Published before" %>
-            <%= text_field_tag :to_date, @filter.date_to, placeholder: "e.g. 28/02/2013" %>
+            <%= select_tag "world_locations[]", locations_options(@filter.selected_locations), class: "govuk-select", id: "world_locations" %>
           </div>
         <% end %>
 
