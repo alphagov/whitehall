@@ -1,4 +1,3 @@
-# Note that announcement pages are rendered by the `government-frontend` application.
 class StatisticsAnnouncementsController < PublicFacingController
   enable_request_formats(index: [:js])
 
