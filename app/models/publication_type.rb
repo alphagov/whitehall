@@ -25,6 +25,7 @@ class PublicationType
     20 => "<p>Permit and licence applications published temporarily for public awareness.</p>",
     21 => "<p>Formal decisions by tribunals, regulators or adjudicators (including courts and Secretaries of State).</p>",
     22 => "<p>Regulations imposed by an independent regulatory authority only.</p><p>Do <em>not</em> use for: statutory guidance.</p>",
+    23 => "<p>Publishing a formally agreed standard that sets out requirements, specifications, guidelines or patterns that can be consistently applied to products, processes and services within government.</p>",
     999 => "<p>DO NOT USE. This is a legacy category for content created before sub-types existed.</p>",
     1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
@@ -110,6 +111,7 @@ class PublicationType
   InternationalTreaty    = create!(id: 18, key: "international_treaty", singular_name: "International treaty", plural_name: "International treaties", prevalence: :less_common)
   Notice                 = create!(id: 20, key: "notice", singular_name: "Notice", plural_name: "Notices", prevalence: :less_common)
   Decision               = create!(id: 21, key: "decision", singular_name: "Decision", plural_name: "Decisions", prevalence: :less_common)
+  Standard               = create!(id: 23, key: "standard", singular_name: "Standard", plural_name: "Standards", prevalence: :less_common)
 
   # Use is discouraged
   Correspondence         = create!(id: 8, key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
