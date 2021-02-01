@@ -16,12 +16,10 @@ private
   def send_mail(csv_filename, user, filter)
     MailNotifications.document_list(csv_filename, user.email, filter.page_title).deliver_now
   rescue Notifications::Client::BadRequestError => e
-    if !%w[integration staging].include?(ENV["SENTRY_CURRENT_ENV"]) || e.message !~ /team-only API key/
-      # in production we care about all errors
-      # in staging and integration the team-only error is unrecoverable when running asynchronously
-      # (team-only error is unrecoverable in production too, but almost certainly impossible)
-      raise
-    end
+    # in production we care about all errors
+    # in staging and integration the team-only error is unrecoverable when running asynchronously
+    # (team-only error is unrecoverable in production too, but almost certainly impossible)
+    raise if ENV["SENTRY_CURRENT_ENV"] !~ /integration|staging/ || e.message !~ /team-only API key/
   end
 
   def upload_file(csv, type)

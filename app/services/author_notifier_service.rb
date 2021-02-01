@@ -18,6 +18,11 @@ class AuthorNotifierService
         edition_admin_url,
         public_document_url,
       ).deliver_now
+    rescue Notifications::Client::BadRequestError => e
+      # in production we care about all errors
+      # in staging and integration the team-only error is unrecoverable when running asynchronously
+      # (team-only error is unrecoverable in production too, but almost certainly impossible)
+      raise if ENV["SENTRY_CURRENT_ENV"] !~ /integration|staging/ || e.message !~ /team-only API key/
     end
   end
 
