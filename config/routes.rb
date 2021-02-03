@@ -123,6 +123,7 @@ Whitehall::Application.routes.draw do
     resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: VALID_LOCALES_REGEX }
     get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/statistics/:statistics_id/:id" => "_#_", as: "statistics_html_attachment"
 
     get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: VALID_LOCALES_REGEX }
     resources :consultations, only: %i[index] do

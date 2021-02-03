@@ -148,6 +148,10 @@ class Publication < Publicationesque
     )
   end
 
+  def html_attachment_type
+    statistics? ? "statistics" : "publication"
+  end
+
   def allows_html_attachments?
     true
   end

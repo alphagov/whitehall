@@ -66,7 +66,7 @@ class HtmlAttachment < Attachment
       options[:host] = URI(Plek.new.external_url_for("www-origin")).host
     end
 
-    type = attachable.class.name.underscore
+    type = attachable.try(:html_attachment_type) || attachable.class.name.underscore
     path_or_url = full_url ? "url" : "path"
     path_helper = "#{type}_html_attachment_#{path_or_url}"
 

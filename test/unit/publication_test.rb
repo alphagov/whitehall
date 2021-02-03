@@ -178,6 +178,16 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.has_changed_publication_type?
   end
 
+  test "#html_attachment_type returns 'publication' by default" do
+    publication = create(:publication)
+    assert_equal publication.html_attachment_type, "publication"
+  end
+
+  test "#html_attachment_type returns 'statistics' for statistical types" do
+    statistics = create(:published_national_statistics)
+    assert_equal statistics.html_attachment_type, "statistics"
+  end
+
   test "#all_nation_applicability_selected? false if first draft and unsaved" do
     unsaved_publication = build(:publication)
     assert_not unsaved_publication.all_nation_applicability_selected?
