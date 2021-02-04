@@ -53,6 +53,12 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.judiciary.uk/about-the-judiciary/")
+    assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://etl.beis.gov.uk/manufacturers")
+    assert unpublishing.valid?
   end
 
   test "alternative_url is stripped before validate" do
