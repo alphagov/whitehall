@@ -178,14 +178,14 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.has_changed_publication_type?
   end
 
-  test "#html_attachment_type returns 'publication' by default" do
+  test "#path_name returns 'publication' by default" do
     publication = create(:publication)
-    assert_equal publication.html_attachment_type, "publication"
+    assert_equal publication.path_name, "publication"
   end
 
-  test "#html_attachment_type returns 'statistics' for statistical types" do
+  test "#path_name returns 'statistic' for statistical types" do
     statistics = create(:published_national_statistics)
-    assert_equal statistics.html_attachment_type, "statistics"
+    assert_equal statistics.path_name, "statistic"
   end
 
   test "#all_nation_applicability_selected? false if first draft and unsaved" do

@@ -29,12 +29,7 @@ module PublicDocumentRoutesHelper
     when CorporateInformationPage
       build_url_for_corporate_information_page(edition, options)
     else
-      path_name = if edition.statistics?
-                    "statistic"
-                  else
-                    edition.to_model.class.name.underscore
-                  end
-      polymorphic_url(path_name, options.reverse_merge(id: edition.document))
+      polymorphic_url(edition.path_name, options.reverse_merge(id: edition.document))
     end
   end
 

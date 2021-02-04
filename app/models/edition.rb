@@ -458,6 +458,10 @@ EXISTS (
     false
   end
 
+  def path_name
+    to_model.class.name.underscore
+  end
+
   def has_been_tagged?
     api_response = Services.publishing_api.get_links(content_id)
 

@@ -148,8 +148,8 @@ class Publication < Publicationesque
     )
   end
 
-  def html_attachment_type
-    statistics? ? "statistics" : "publication"
+  def path_name
+    statistics? ? "statistic" : "publication"
   end
 
   def allows_html_attachments?
