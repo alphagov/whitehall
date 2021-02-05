@@ -61,6 +61,12 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
   end
 
+  test "#url works with statistics" do
+    statistics = create(:published_national_statistics)
+    attachment = statistics.attachments.last
+    assert_equal "/government/statistics/#{statistics.slug}/#{attachment.slug}", attachment.url
+  end
+
   test "#url works with consultation outcomes" do
     consultation = create(:consultation_with_outcome_html_attachment)
     attachment = consultation.outcome.attachments.first

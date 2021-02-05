@@ -156,4 +156,12 @@ class ResponseTest < ActiveSupport::TestCase
     public_feedback = build(:consultation_public_feedback)
     assert public_feedback.allows_html_attachments?
   end
+
+  test "sets path_name based on model name" do
+    outcome = build(:consultation_outcome)
+    assert_equal outcome.path_name, "consultation_outcome"
+
+    public_feedback = build(:consultation_public_feedback)
+    assert_equal public_feedback.path_name, "consultation_public_feedback"
+  end
 end

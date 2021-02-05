@@ -178,6 +178,16 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.has_changed_publication_type?
   end
 
+  test "#path_name returns 'publication' by default" do
+    publication = create(:publication)
+    assert_equal publication.path_name, "publication"
+  end
+
+  test "#path_name returns 'statistic' for statistical types" do
+    statistics = create(:published_national_statistics)
+    assert_equal statistics.path_name, "statistic"
+  end
+
   test "#all_nation_applicability_selected? false if first draft and unsaved" do
     unsaved_publication = build(:publication)
     assert_not unsaved_publication.all_nation_applicability_selected?

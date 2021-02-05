@@ -34,6 +34,10 @@ class Response < ApplicationRecord
     true
   end
 
+  def path_name
+    to_model.class.name.underscore
+  end
+
   delegate :public_timestamp, :first_published_version?, :slug, :document, :images, to: :consultation
 
 private
