@@ -61,6 +61,8 @@ class Unpublishing < ApplicationRecord
   def alternative_path
     return if alternative_uri.nil?
 
+    return alternative_uri.to_s unless GovUkUrlFormatValidator.matches_gov_uk?(alternative_uri)
+
     path = alternative_uri.path
     path << "##{alternative_uri.fragment}" if alternative_uri.fragment.present?
     path

@@ -53,6 +53,12 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.judiciary.uk/about-the-judiciary/")
+    assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://etl.beis.gov.uk/manufacturers")
+    assert unpublishing.valid?
   end
 
   test "alternative_url is stripped before validate" do
@@ -62,9 +68,14 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal "https://gov.uk/guidance", unpublishing.alternative_url
   end
 
-  test "alternative_path returns the path of alternative_url" do
+  test "alternative_path returns the path of alternative_url when on GOV.UK" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path")
     assert_equal "/guidance/document-path", unpublishing.alternative_path
+  end
+
+  test "alternative_path returns the full URL of alternative_url when not on GOV.UK" do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.judiciary.uk/about")
+    assert_equal "https://www.judiciary.uk/about", unpublishing.alternative_path
   end
 
   test "alternative_path returns nil if alternative_url is nil" do
