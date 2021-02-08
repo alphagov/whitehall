@@ -39,7 +39,7 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "knows if languages use a Latin-script writing system" do
-    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa pa-pnb pa-ur ps ru si ta th uk ur zh zh-hk zh-tw]
+    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa pa-pan pa-pnb pa-ur ps ru si ta th uk ur zh zh-hk zh-tw]
     non_latin_script_locales = non_latin_script_locale_codes.map { |code| Locale.new(code) }
     latin_script_locales = Locale.all - non_latin_script_locales
 
