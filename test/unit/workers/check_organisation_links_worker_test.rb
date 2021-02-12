@@ -61,6 +61,19 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
     assert_not_requested existing_edition
   end
 
+  test "when an edition contains no links, it is given a passing link check report" do
+    org = create(:organisation)
+    publication = create(
+      :published_publication,
+      lead_organisations: [org],
+      body: "no links here",
+    )
+
+    CheckOrganisationLinksWorker.new.perform(org.id)
+    assert_equal(1, publication.link_check_reports.count)
+    assert_equal(false, publication.link_check_reports.last.has_problems?)
+  end
+
 private
 
   def assert_report_count_increased

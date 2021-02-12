@@ -23,6 +23,7 @@ class CheckOrganisationLinksWorker
         if LinkCheckerApiService.has_links?(edition)
           LinkCheckerApiService.check_links(edition, callback)
         else
+          LinkCheckerApiReport.create_noop_report(edition)
           ignored += 1
         end
       end
