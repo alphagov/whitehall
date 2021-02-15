@@ -53,16 +53,6 @@ namespace :search do
       index.commit
     end
 
-    desc "index all statistics with html attachments"
-    task stats_with_html_attachments: :environment do
-      stats = Publication.statistical_publications.where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
-      stats.each do |stat|
-        puts "indexing #{stat.content_id}"
-        Whitehall::SearchIndex.add(stat)
-      end
-      puts "completed #{stats.count} reindexing"
-    end
-
     # useful if a topical event changes and we want to change related docs
     desc "indexes all topical events and related documents"
     task topical_event_editions: :environment do
