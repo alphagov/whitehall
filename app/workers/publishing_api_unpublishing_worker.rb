@@ -1,5 +1,4 @@
-class PublishingApiUnpublishingWorker
-  include Sidekiq::Worker
+class PublishingApiUnpublishingWorker < WorkerBase
   include LockedDocumentConcern
 
   sidekiq_options queue: "publishing_api"

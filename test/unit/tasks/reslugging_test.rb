@@ -3,8 +3,6 @@ require "rake"
 
 class ResluggingTest < ActiveSupport::TestCase
   setup do
-    Rake.application.rake_require "tasks/reslugging"
-    Rake::Task.define_task(:environment)
     Rake::Task["reslug:document"].reenable
   end
 
