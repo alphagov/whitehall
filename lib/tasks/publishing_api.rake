@@ -292,6 +292,9 @@ namespace :publishing_api do
         edition.translations.pluck(:locale).each do |locale|
           puts "Fixing edition #{edition.content_id}, locale #{locale}"
           Services.publishing_api.discard_draft(edition.content_id, locale: locale)
+        rescue GdsApi::HTTPNotFound, GdsApi::HTTPUnprocessableEntity
+          puts "No draft exists for #{edition.content_id}, locale #{locale}. Skipping..."
+        ensure
           PublishingApiUnpublishingWorker.perform_async_in_queue("bulk_republishing", edition.unpublishing.id, false)
         end
       end

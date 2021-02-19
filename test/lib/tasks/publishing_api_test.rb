@@ -22,6 +22,26 @@ class PublishingApiRake < ActiveSupport::TestCase
       task.invoke
     end
 
+    test "Fails gracefully if no draft exists (404 response)" do
+      create(:withdrawn_edition)
+
+      Services.publishing_api.expects(:discard_draft).raises(GdsApi::HTTPNotFound.new("No draft"))
+
+      assert_nothing_raised do
+        task.invoke
+      end
+    end
+
+    test "Fails gracefully if no draft exists (422 response)" do
+      create(:withdrawn_edition)
+
+      Services.publishing_api.expects(:discard_draft).raises(GdsApi::HTTPUnprocessableEntity.new("No draft"))
+
+      assert_nothing_raised do
+        task.invoke
+      end
+    end
+
     test "Triggers PublishingApiUnpublishingWorker after removing draft" do
       unpublished_edition = create(:withdrawn_edition)
       operations = sequence("operations")
