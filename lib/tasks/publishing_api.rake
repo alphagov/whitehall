@@ -274,31 +274,6 @@ namespace :publishing_api do
       end
       puts "Finished enqueueing items for Publishing API"
     end
-
-    desc "Remove any draft edition associated with Withdrawn editions and republish"
-    task fix_withdrawn_documents: :environment do
-      puts "Finding withdrawn editions that need fixing..."
-      unpublishings = Unpublishing.unscoped.
-        # we only want documents that were withdrawn
-        where(unpublishing_reason_id: UnpublishingReason::Withdrawn.id).filter do |unpublishing|
-          # the associated edition should be in a `withdrawn` state
-          unpublishing.edition.state == "withdrawn" &&
-            # the associated edition should be the latest edition
-            unpublishing.edition.id == unpublishing.edition.document.latest_edition.id
-        end
-      editions = unpublishings.map(&:edition)
-
-      editions.each do |edition|
-        edition.translations.pluck(:locale).each do |locale|
-          puts "Fixing edition #{edition.content_id}, locale #{locale}"
-          Services.publishing_api.discard_draft(edition.content_id, locale: locale)
-        rescue GdsApi::HTTPNotFound, GdsApi::HTTPUnprocessableEntity
-          puts "No draft exists for #{edition.content_id}, locale #{locale}. Skipping..."
-        ensure
-          PublishingApiUnpublishingWorker.perform_async_in_queue("bulk_republishing", edition.unpublishing.id, false)
-        end
-      end
-    end
   end
 
   desc "Manually unpublish content with a redirect"
