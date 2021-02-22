@@ -7,62 +7,33 @@ class PublishingApiRake < ActiveSupport::TestCase
     task.reenable # without this, calling `invoke` does nothing after first test
   end
 
-  describe "when fixing up a withdrawn document" do
-    let(:task) { Rake::Task["publishing_api:bulk_republish:fix_withdrawn_documents"] }
+  describe "republishing all documents of a given organisation" do
+    let(:org) { create(:organisation) }
+    let(:task) { Rake::Task["publishing_api:bulk_republish:for_organisation"] }
 
-    test "Tells Publishing API to remove draft edition for all locales" do
-      unpublished_edition = create(
-        :withdrawn_edition,
-        translated_into: "fr",
-      )
+    test "Republishes the latest edition for each document owned by the organisation" do
+      edition = create(:published_news_article, organisations: [org])
 
-      Services.publishing_api.expects(:discard_draft).with(unpublished_edition.content_id, locale: "en").once
-      Services.publishing_api.expects(:discard_draft).with(unpublished_edition.content_id, locale: "fr").once
+      PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+        "bulk_republishing",
+        edition.document.id,
+        true,
+      ).once
 
-      task.invoke
+      task.invoke(org.slug)
     end
 
-    test "Fails gracefully if no draft exists (404 response)" do
-      create(:withdrawn_edition)
+    test "Ignores documents owned by other organisation" do
+      some_other_org = create(:organisation)
+      edition = create(:published_news_article, organisations: [some_other_org])
 
-      Services.publishing_api.expects(:discard_draft).raises(GdsApi::HTTPNotFound.new("No draft"))
+      PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+        "bulk_republishing",
+        edition.document.id,
+        true,
+      ).never
 
-      assert_nothing_raised do
-        task.invoke
-      end
-    end
-
-    test "Fails gracefully if no draft exists (422 response)" do
-      create(:withdrawn_edition)
-
-      Services.publishing_api.expects(:discard_draft).raises(GdsApi::HTTPUnprocessableEntity.new("No draft"))
-
-      assert_nothing_raised do
-        task.invoke
-      end
-    end
-
-    test "Triggers PublishingApiUnpublishingWorker after removing draft" do
-      unpublished_edition = create(:withdrawn_edition)
-      operations = sequence("operations")
-
-      Services.publishing_api.expects(:discard_draft).with(unpublished_edition.content_id, locale: "en")
-        .once.in_sequence(operations)
-      PublishingApiUnpublishingWorker.expects(:perform_async_in_queue)
-        .with("bulk_republishing", unpublished_edition.unpublishing.id, false)
-        .once.in_sequence(operations)
-
-      task.invoke
-    end
-
-    test "Skips over withdrawn documents if they actually have a draft edition" do
-      unpublished_edition = create(:withdrawn_edition)
-      create(:draft_edition, document_id: unpublished_edition.document.id)
-
-      Services.publishing_api.expects(:discard_draft).never
-      PublishingApiUnpublishingWorker.expects(:perform_async_in_queue).never
-
-      task.invoke
+      task.invoke(org.slug)
     end
   end
 end
