@@ -8,7 +8,7 @@ class HealthcheckController < ActionController::API
 
   def unenqueued_scheduled_editions
     render json: {
-      unenqueued_scheduled_editions: Healthcheck::ScheduledPublishing.new.unenqueued_editions,
+      unenqueued_scheduled_editions: Edition.future_scheduled_editions.count - ScheduledPublishingWorker.queue_size,
     }
   rescue ActiveRecord::StatementInvalid => e
     logger.error "HealthcheckController#unenqueued_scheduled_editions: #{e.message}"

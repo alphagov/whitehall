@@ -93,6 +93,8 @@ class Edition < ApplicationRecord
   scope :corporate_information_pages,   -> { where(type: "CorporateInformationPage") }
   scope :publicly_visible,              -> { where(state: PUBLICLY_VISIBLE_STATES) }
 
+  scope :future_scheduled_editions,     -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
+
   # @!group Callbacks
   before_save :set_public_timestamp
   before_save { check_if_locked_document(edition: self) }
