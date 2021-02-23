@@ -41,4 +41,13 @@ class HealthcheckTest < ActionDispatch::IntegrationTest
       assert_equal 1, json_response["overdue"]
     end
   end
+
+  test "GET /healthcheck/unenqueued_scheduled_editions shows number of scheduled editions without a scheduled job" do
+    with_real_sidekiq do
+      create(:scheduled_edition)
+
+      get "/healthcheck/unenqueued_scheduled_editions"
+      assert_equal 1, json_response["unenqueued_scheduled_editions"]
+    end
+  end
 end
