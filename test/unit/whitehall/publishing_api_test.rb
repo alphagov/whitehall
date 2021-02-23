@@ -346,4 +346,30 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.expects(:perform_async).with(1)
     Whitehall::PublishingApi.unpublish_async(unpublishing)
   end
+
+  test ".publish handles specific exceptions" do
+    raises_exception = lambda { |_, _, _|
+      body = {
+        "error" => {
+          "code" => 422,
+          "message" => "base path=/world/organisations/uk-science-innovation-network-in-belgium conflicts with content_id=9bb528b1-743c-4ea2-a323-5b1aaf41818b and locale=en",
+          "fields" => {
+            "base" => [
+              "base path=/world/organisations/uk-science-innovation-network-in-belgium conflicts with content_id=9bb528b1-743c-4ea2-a323-5b1aaf41818b and locale=en",
+            ],
+          },
+        },
+      }.to_json
+      raise GdsApi::HTTPUnprocessableEntity.new(422, body)
+    }
+
+    document = create(:published_publication)
+    destination = "/government/people/milli-vanilli"
+
+    Services.publishing_api.stub(:publish, raises_exception) do
+      assert_raises Whitehall::UnpublishableInstanceError do
+        Whitehall::PublishingApi.publish(document, destination)
+      end
+    end
+  end
 end

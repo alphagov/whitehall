@@ -41,6 +41,12 @@ module Whitehall
           )
         end
       end
+    rescue GdsApi::HTTPUnprocessableEntity => e
+      if e.message =~ /conflicts with content_id/
+        raise UnpublishableInstanceError, e.message
+      else
+        raise
+      end
     end
 
     def self.save_draft(model_instance, update_type_override = nil, bulk_publishing = false)
@@ -66,6 +72,12 @@ module Whitehall
         content.merge!(bulk_publishing: true) if bulk_publishing
 
         Services.publishing_api.put_content(presenter.content_id, content)
+      end
+    rescue GdsApi::HTTPUnprocessableEntity => e
+      if e.message =~ /already reserved/
+        raise UnpublishableInstanceError, e.message
+      else
+        raise
       end
     end
 
