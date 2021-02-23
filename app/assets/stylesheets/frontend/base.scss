@@ -159,8 +159,8 @@ $govuk-use-legacy-palette: false;
 // When removing ensure all cases are captured - some rules in helpers/_headings.scss
 // are very specific, requiring the !important here
 #whitehall-wrapper {
-  a.govuk-link,
-  a[class^="gem-c-"] {
+  a.govuk-link:not(.gem-c-title__context-link),
+  a[class^="gem-c-"]:not(.gem-c-title__context-link) {
     text-decoration: underline;
 
     &:focus,

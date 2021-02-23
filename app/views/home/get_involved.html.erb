@@ -2,11 +2,17 @@
 <% page_class "get-involved" %>
 
 <header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { big: true,
-                        heading: "Get involved" } %>
-    <p class="intro-paragraph">Find out how you can <a class="govuk-link" href="#engage-with-government">engage with government</a> directly, and <a class="govuk-link" href="#take-part">take&nbsp;part</a> locally, nationally or internationally.</p>
+  <div class="govuk-width-container">
+    <%= render "govuk_publishing_components/components/title", {
+      title: "Get involved",
+      margin_bottom: 4
+    } %>
+
+    <%= render "govuk_publishing_components/components/lead_paragraph", {
+      text: raw("Find out how you can <a class=\"govuk-link\" href=\"#engage-with-government\">engage with government</a> directly, and <a class=\"govuk-link\" href=\"#take-part\">take&nbsp;part</a> locally, nationally or internationally."),
+      margin_bottom: 6,
+    } %>
+    <p class="intro-paragraph"></p>
   </div>
 </header>
 

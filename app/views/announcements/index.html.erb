@@ -9,8 +9,9 @@
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { big: true, heading: heading } %>
+    <%= render "govuk_publishing_components/components/title", {
+      title: heading,
+    } %>
   </div>
 </header>
 

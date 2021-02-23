@@ -2,11 +2,11 @@
 <% page_class "fields-of-operation-index" %>
 
 <header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { type: 'British fatalities',
-                        heading: "Fields of operation",
-                        big: true } %>
+  <div class="govuk-width-container">
+    <%= render "govuk_publishing_components/components/title", {
+      context: "British fatalities",
+      title: "Fields of operation",
+    } %>
   </div>
 </header>
 
