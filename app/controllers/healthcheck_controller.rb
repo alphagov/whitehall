@@ -5,4 +5,13 @@ class HealthcheckController < ActionController::API
     logger.error "HealthcheckController#overdue: #{e.message}"
     render json: { overdue: nil }, status: :service_unavailable
   end
+
+  def unenqueued_scheduled_editions
+    render json: {
+      unenqueued_scheduled_editions: Healthcheck::ScheduledPublishing.new.unenqueued_editions,
+    }
+  rescue ActiveRecord::StatementInvalid => e
+    logger.error "HealthcheckController#unenqueued_scheduled_editions: #{e.message}"
+    render json: { unenqueued_scheduled_editions: nil }, status: :service_unavailable
+  end
 end

@@ -425,6 +425,7 @@ Whitehall::Application.routes.draw do
       )
 
   get "healthcheck/overdue" => "healthcheck#overdue"
+  get "healthcheck/unenqueued_scheduled_editions" => "healthcheck#unenqueued_scheduled_editions"
 
   # TODO: Remove when paths for new content can be generated without a route helper
   get "/guidance/:id(.:locale)", as: "detailed_guide", to: "detailed_guides#show", constraints: { id: /[A-z0-9\-]+/, locale: VALID_LOCALES_REGEX }

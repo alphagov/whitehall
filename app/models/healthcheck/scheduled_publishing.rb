@@ -19,6 +19,10 @@ module Healthcheck
       "#{edition_count} scheduled edition(s); #{queue_size} job(s) queued"
     end
 
+    def unenqueued_editions
+      edition_count - queue_size
+    end
+
   private
 
     def queue_size_matches_edition_count?
