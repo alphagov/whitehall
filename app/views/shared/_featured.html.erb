@@ -8,37 +8,19 @@
       extra_class
     end
   image_size ||= :s300
-  show_meta ||= false
 %>
 <%= content_tag_for(:article, feature, nil, class: extra_classes.strip) do %>
   <div class="content">
-    <span class="image-holder">
-      <% if feature.offsite_link %>
-        <% feature_title = feature.title %>
-      <% else %>
-        <% feature_title = I18n.t("document.read", title: feature.title) %>
-      <% end %>
-      <%= link_to image_tag(feature.image(image_size), {class: 'featured-image', alt: feature.alt_text}), feature.public_path, class: 'img', tabindex: '-1', aria: {hidden:true} %>
-    </span>
-    <div class="text">
-      <% if show_meta %>
-        <p class="meta">
-          <% if feature.topical_event %>
-            <%= absolute_date(feature.time_stamp) %>
-          <% else %>
-            <% if feature.time_stamp %>
-              <%= absolute_date(feature.time_stamp) %><span <%= t_lang('document.type.' + feature.display_type_key, {count: 1}) %> > &mdash; <%= t_display_type feature %></span>
-            <% else %>
-              <span <%= t_lang('document.type.' + feature.display_type_key, {count: 1}) %> ><%= t_display_type feature %></span>
-            <% end %>
-          <% end %>
-        </p>
-      <% end %>
-      <% rel = is_external?(feature.public_path) ? "external" : "internal" %>
-      <h2><%= link_to feature.title, feature.public_path, rel: "#{rel}", class: "govuk-link" %></h2>
-      <% unless feature.summary.blank? %>
-        <p class="summary"><%= truncate(feature.summary, length: 160, separator: ' ') %></p>
-      <% end %>
-    </div>
+    <%= render "govuk_publishing_components/components/image_card", {
+      href: feature.public_path,
+      image_src: feature.image(image_size),
+      image_alt: feature.alt_text,
+      context: {
+        date: feature.time_stamp,
+        text: t_display_type(feature),
+      },
+      heading_text: feature.title,
+      description: truncate(feature.summary, length: 160, separator: ' '),
+    } %>
   </div>
 <% end %>
