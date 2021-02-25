@@ -258,9 +258,9 @@ private
         results_list = css_select("ol.document-list").first
 
         assert_equal(
-          "track-click",
+          "gem-track-click",
           results_list.attributes["data-module"].value,
-          "Expected the document list to have the 'track-click' module",
+          "Expected the document list to have the 'gem-track-click' module",
         )
 
         publication_link = css_select("li.document-row a").first
