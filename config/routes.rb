@@ -421,7 +421,6 @@ Whitehall::Application.routes.draw do
       to: GovukHealthcheck.rack_response(
         GovukHealthcheck::SidekiqRedis,
         GovukHealthcheck::ActiveRecord,
-        Healthcheck::ScheduledPublishing,
       )
 
   get "healthcheck/overdue" => "healthcheck#overdue"
