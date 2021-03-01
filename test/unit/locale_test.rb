@@ -30,7 +30,7 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "knows if languages are left-to-right or right-to-left" do
-    right_to_left_locale_codes = %i[ar dr fa he pa-pk ps ur]
+    right_to_left_locale_codes = %i[ar dr fa he pa-pk pa-ur ps ur]
     right_to_left_locales = right_to_left_locale_codes.map { |code| Locale.new(code) }
     left_to_right_locales = (Locale.all - right_to_left_locales)
 
@@ -39,7 +39,7 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "knows if languages use a Latin-script writing system" do
-    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa pa-pk ps ru si ta th uk ur zh zh-hk zh-tw]
+    non_latin_script_locale_codes = %i[ar be bg bn dr el fa gu he hi hy ja ka ko pa pa-pk pa-ur ps ru si ta th uk ur zh zh-hk zh-tw]
     non_latin_script_locales = non_latin_script_locale_codes.map { |code| Locale.new(code) }
     latin_script_locales = Locale.all - non_latin_script_locales
 
