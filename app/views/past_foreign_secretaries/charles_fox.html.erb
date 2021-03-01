@@ -33,13 +33,16 @@
 
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>William Pitt the Younger by W Hague (London, 2005)</li>
-        <li>Charles James Fox by L G Mitchell (Oxford, 1997)</li>
-        <li>Entry for Charles James Fox in Oxford Dictionary of National Biography by L G Mitchell</li>
-        <li>The Foreign Office by Sir J Tilley and S. Gaselee (London, 1933)</li>
-        <li>The Cambridge History of British Foreign Policy: 1783–1919 by Sir A W Ward and G P Gooch (eds), (Cambridge, 1922)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "William Pitt the Younger by W Hague (London, 2005)",
+          "Charles James Fox by L G Mitchell (Oxford, 1997)",
+          "Entry for Charles James Fox in Oxford Dictionary of National Biography by L G Mitchell",
+          "The Foreign Office by Sir J Tilley and S. Gaselee (London, 1933)",
+          "The Cambridge History of British Foreign Policy: 1783–1919 by Sir A W Ward and G P Gooch (eds), (Cambridge, 1922)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

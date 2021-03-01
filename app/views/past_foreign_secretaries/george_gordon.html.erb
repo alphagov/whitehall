@@ -35,10 +35,13 @@
       <p class="govuk-link">The treaties negotiated during his terms as Foreign Secretary, were seen as flawed, especially those with America because they give away too much Canadian territory. His speeches were not memorable or highly regarded. In fact he was a particularly bad public speaker, often inaudible, even when he held strong opinions on the policy in question. What he achieved was an improvement in foreign relations with America and France (at least initially).</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Lord Aberdeen, a political biography by Muriel Chamberlain (Longman Group Limited, 1983)</li>
-        <li>Choose Your Weapons by Douglas Hurd (Orion Books, 2010)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "Lord Aberdeen, a political biography by Muriel Chamberlain (Longman Group Limited, 1983)",
+          "Choose Your Weapons by Douglas Hurd (Orion Books, 2010)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

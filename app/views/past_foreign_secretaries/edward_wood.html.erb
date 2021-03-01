@@ -41,12 +41,15 @@
       <p class="govuk-body">Halifax remained as Foreign Secretary and has been identified with various peacemaking initiatives in the summer of 1940. Churchill then decided he wanted Eden back as Foreign Secretary and in January 1941 Halifax was persuaded to take up the ambassadorship to Washington. There, after an initially hesitant start, he formed a strong working relationship with President Roosevelt and remained until May 1946.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Halifax: The Life of Lord Halifax, by The Earl of Birkenhead (London, 1965)</li>
-        <li>Chamberlain and the Lost Peace by John Charmley (London, 1989)</li>
-        <li>The Holy Fox: A biography of Lord Halifax by Andrew Roberts (Bath, 1991)</li>
-        <li>An entry in the Oxford Dictionary of National Biography by DJ Dutton (2008)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "Halifax: The Life of Lord Halifax, by The Earl of Birkenhead (London, 1965)",
+          "Chamberlain and the Lost Peace by John Charmley (London, 1989)",
+          "The Holy Fox: A biography of Lord Halifax by Andrew Roberts (Bath, 1991)",
+          "An entry in the Oxford Dictionary of National Biography by DJ Dutton (2008)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

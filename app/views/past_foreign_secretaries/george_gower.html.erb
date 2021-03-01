@@ -36,10 +36,13 @@
       <p class="govuk-body">Granville&rsquo;s career faded disappointingly in 1885 as the public laid the blame for both the loss of the Sudan and the death of the hugely popular General Gordon at his feet. When Gladstone&rsquo;s government returned briefly to power in 1886 he was only offered the Colonial Office.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>entry for Granville George Leveson Gower in Oxford Dictionary of National Biography  by ME Chamberlain (Oxford University Press, 2004–10)</li>
-        <li>The Life of Granville George Leveson Gower, Second Earl Granville, 2 vols by Lord Edmund Fitzmaurice (Longmans, Green, &amp; Co., 1905)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "entry for Granville George Leveson Gower in Oxford Dictionary of National Biography  by ME Chamberlain (Oxford University Press, 2004–10)",
+          "The Life of Granville George Leveson Gower, Second Earl Granville, 2 vols by Lord Edmund Fitzmaurice (Longmans, Green, &amp; Co., 1905)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>
