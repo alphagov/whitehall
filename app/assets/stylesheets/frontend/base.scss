@@ -11,6 +11,7 @@ $govuk-use-legacy-palette: false;
 
 @import 'govuk_publishing_components/components/button';
 @import 'govuk_publishing_components/components/contents-list';
+@import 'govuk_publishing_components/components/document-list';
 @import 'govuk_publishing_components/components/error-message';
 @import 'govuk_publishing_components/components/feedback';
 @import 'govuk_publishing_components/components/govspeak';
@@ -23,6 +24,7 @@ $govuk-use-legacy-palette: false;
 @import 'govuk_publishing_components/components/notice';
 @import 'govuk_publishing_components/components/organisation-logo';
 @import 'govuk_publishing_components/components/share-links';
+@import 'govuk_publishing_components/components/previous-and-next-navigation';
 @import 'govuk_publishing_components/components/subscription-links';
 @import 'govuk_publishing_components/components/title';
 
@@ -160,8 +162,8 @@ $govuk-use-legacy-palette: false;
 // When removing ensure all cases are captured - some rules in helpers/_headings.scss
 // are very specific, requiring the !important here
 #whitehall-wrapper {
-  a.govuk-link:not(.gem-c-title__context-link),
-  a[class^="gem-c-"]:not(.gem-c-title__context-link) {
+  a.govuk-link:not(.gem-c-title__context-link):not(.gem-c-pagination__link),
+  a[class^="gem-c-"]:not(.gem-c-title__context-link):not(.gem-c-pagination__link) {
     text-decoration: underline;
 
     &:focus,

@@ -19,10 +19,10 @@ end
 Then(/^I see all documents for that topical event with the most recent first$/) do
   docs = sample_document_types_and_titles
 
-  within(".document-list") do
-    assert_equal(body.scan("document-row").length, docs.length, "Can't see all the documents for the topical event")
+  within(".gem-c-document-list") do
+    assert_equal(all(".gem-c-document-list__item").length, docs.length, "Can't see all the documents for the topical event")
     docs.each_value do |title|
-      assert_selector ".document-row", text: title
+      assert_selector ".gem-c-document-list__item", text: title
     end
   end
 end

@@ -1,4 +1,4 @@
-a {
+a:not(a[class^="gem-c-"]) {
   color: $govuk-link-colour;
   text-decoration: none;
 
