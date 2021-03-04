@@ -8,7 +8,9 @@
     } %>
 
     <% unless @is_during_reshuffle %>
-      <p class="govuk-body-l">Read biographies and responsibilities of <a href="#cabinet-ministers" class="govuk-link">Cabinet ministers</a> and all <a href="#ministers-by-department" class="govuk-link">ministers by department</a>, as well as the <a href="#whips" class="govuk-link">whips</a> who help co-ordinate parliamentary business.</p>
+      <%= render "govuk_publishing_components/components/lead_paragraph", {
+        text: sanitize("Read biographies and responsibilities of <a href=\"#cabinet-ministers\" class=\"govuk-link\">Cabinet ministers</a> and all <a href=\"#ministers-by-department\" class=\"govuk-link\">ministers by department</a>, as well as the <a href=\"#whips\" class=\"govuk-link\">whips</a> who help co-ordinate parliamentary business.")
+      } %>
     <% end %>
   </div>
 </header>
