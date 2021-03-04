@@ -118,7 +118,7 @@ Then(/^I should see the featured (documents|offsite links) in the "([^"]*)" topi
   table = rows.collect do |row|
     [
       row.find("h2").text.strip,
-      File.basename(row.find(".featured-image")["src"]),
+      File.basename(row.find(".gem-c-image-card__image")["src"]),
     ]
   end
   expected_table.diff!(table)

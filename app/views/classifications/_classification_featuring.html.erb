@@ -5,14 +5,12 @@
     link_attributes[:rel] = "external" if is_external?(classification_featuring.url)
   %>
   <div class="content">
-    <span class="image-holder">
-      <%= link_to classification_featuring.image_tag(:s465), classification_featuring.url, title: t("document.read", title: classification_featuring.title), class: "img", aria: { hidden: true }, tabindex: "-1" %>
-    </span>
-    <div class="text">
-      <h2><%= link_to classification_featuring.title, classification_featuring.url, link_attributes %></h2>
-      <% unless classification_featuring.summary.blank? %>
-        <p class="summary"><%= truncate(classification_featuring.summary, length: 160, separator: ' ') %></p>
-      <% end %>
-    </div>
+    <%= render "govuk_publishing_components/components/image_card", {
+      href: classification_featuring.url,
+      image_src: classification_featuring.image_tag(:s465),
+      image_alt: classification_featuring.alt_text,
+      heading_text: classification_featuring.title,
+      description: truncate(classification_featuring.summary, length: 160, separator: ' '),
+    } %>
   </div>
 <% end %>
