@@ -39,13 +39,16 @@
       <p class="govuk-body">However this success brought its own problems. Although intended as a colonial settlement the entente pulled Britain further into European affairs. Lansdowne&rsquo;s success in bringing Britain out of isolation was achieved at the unintended cost of increasing Germany&rsquo;s own sense of isolation within Europe. Germany now replaced Russia as Britain&rsquo;s main cause for concern in foreign affairs.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Lord Lansdowne: A Biography by Lord Newton (London, 1929)</li>
-        <li>The End of Isolation: British Foreign Policy 1900-1907 by George Monger (London, 1963)</li>
-        <li>The Foreign Office and Foreign Policy, 1898-1914 by Zara Steiner (London, 1969)</li>
-        <li>An entry in the Oxford Dictionary of National Biography by Andrew Adonis  (2004)</li>
-        <li>British Documents on the Origins of the War, 1898–1914, by GP Gooch and H Temperley</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "Lord Lansdowne: A Biography by Lord Newton (London, 1929)",
+          "The End of Isolation: British Foreign Policy 1900-1907 by George Monger (London, 1963)",
+          "The Foreign Office and Foreign Policy, 1898-1914 by Zara Steiner (London, 1969)",
+          "An entry in the Oxford Dictionary of National Biography by Andrew Adonis (2004)",
+          "British Documents on the Origins of the War, 1898–1914, by GP Gooch and H Temperley",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

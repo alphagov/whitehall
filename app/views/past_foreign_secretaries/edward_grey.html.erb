@@ -44,12 +44,15 @@
 
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>The End of Isolation: British Foreign Policy 1900-1907 by George Monger (London, 1963)</li>
-        <li>Sir Edward Grey by Keith Robbins (1971)</li>
-        <li>The Foreign Office and Foreign Policy, 1898-1914 by Zara Steiner (London, 1969)</li>
-        <li>Grey of Fallodon by GM Trevelyan (1937)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "The End of Isolation: British Foreign Policy 1900-1907 by George Monger (London, 1963)",
+          "Sir Edward Grey by Keith Robbins (1971)",
+          "The Foreign Office and Foreign Policy, 1898-1914 by Zara Steiner (London, 1969)",
+          "Grey of Fallodon by GM Trevelyan (1937)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

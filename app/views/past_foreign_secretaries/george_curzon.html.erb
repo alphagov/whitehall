@@ -38,14 +38,17 @@
       <p class="govuk-body">The relationship between Curzon and the Prime Minister was beyond repair, but by now others shared his frustration with Lloyd George. Conservative backbenchers voted to end the coalition, forcing Lloyd George to stand down. Andrew Bonar Law formed a new Conservative administration, retaining Curzon as Foreign Secretary, who operated much more independently. After Bonar Law&rsquo;s resignation in May 1923, Curzon was passed over for the job of Prime Minister in favour of Stanley Baldwin. Curzon remained as Foreign Secretary until January 1924, when the Conservative administration left office.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Curzon and British Imperialism in the Middle East, 1916-19 by John Fisher, (London, 1999)</li>
-        <li>Curzon by David Gilmour (London, 1994)</li>
-        <li>Lord Curzon: The Last of the British Moguls by Nayana Goradia (Oxford, 1993)</li>
-        <li>The Foreign Office and Foreign Policy, 1919-1926 by Ephraim Maisel (Brighton, 1994)</li>
-        <li>Curzon: The End of an Epoch by Leonard Mosley (London, 1960)</li>
-        <li>Curzon: The Last Phase, 1919-25 by Harold Nicholson (London, 1934)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "Curzon and British Imperialism in the Middle East, 1916-19 by John Fisher, (London, 1999)",
+          "Curzon by David Gilmour (London, 1994)",
+          "Lord Curzon: The Last of the British Moguls by Nayana Goradia (Oxford, 1993)",
+          "The Foreign Office and Foreign Policy, 1919-1926 by Ephraim Maisel (Brighton, 1994)",
+          "Curzon: The End of an Epoch by Leonard Mosley (London, 1960)",
+          "Curzon: The Last Phase, 1919-25 by Harold Nicholson (London, 1934)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

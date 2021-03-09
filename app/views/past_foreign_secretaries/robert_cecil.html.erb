@@ -35,14 +35,17 @@
       <p class="govuk-body">Nevertheless, his tenure saw a huge expansion of imperial territory, including Nigeria, New Guinea, Rhodesia, Upper Burma, Zanzibar and the Transvaal. He fended off German and French endeavours in East and West Africa respectively in the face of the Franco-Russian Alliance without war, and having only to lean to the triple Alliance. His was a policy of engagement with room to manoeuvre. In 1864, Salisbury lamented Britain's position &ldquo;without a single ally and without a shred of influence&rdquo;. By 1900, Britain was still without an ally, singularly thanks to Salisbury, but without influence she was not.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Choose Your Weapons: The British Foreign Secretary, 200 Years of Argument Success and Failure by D Hurd (London, 2010)</li>
-        <li>Salisbury 1830–1903: Portrait of a Statesman by AL Kennedy (London, 1953)</li>
-        <li>‘The Principles and Methods of Lord Salisbury's Foreign Policy’ in the Cambridge Historical Journal Vol. 5 No. 1 (1935), p.87-106, LM Penson ‘The Principles and Methods of Lord Salisbury’s Foreign Policy’ in Cambridge Historical Journal Vol. 5 No. 1 (1935), p.87-106</li>
-        <li>Salisbury: Victorian Titan, A Roberts (London, 1999)</li>
-        <li>‘Cecil, Robert Arthur Talbot Gascoyne’ in Oxford Dictionary of National Biography by P. Smith, (Oxford, 2004)</li>
-        <li>Lord Salisbury: A Political Biography by D Steele (UCL, 1999)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "Choose Your Weapons: The British Foreign Secretary, 200 Years of Argument Success and Failure by D Hurd (London, 2010)",
+          "Salisbury 1830–1903: Portrait of a Statesman by AL Kennedy (London, 1953)",
+          "‘The Principles and Methods of Lord Salisbury's Foreign Policy’ in the Cambridge Historical Journal Vol. 5 No. 1 (1935), p.87-106, LM Penson ‘The Principles and Methods of Lord Salisbury’s Foreign Policy’ in Cambridge Historical Journal Vol. 5 No. 1 (1935), p.87-106",
+          "Salisbury: Victorian Titan, A Roberts (London, 1999)",
+          "‘Cecil, Robert Arthur Talbot Gascoyne’ in Oxford Dictionary of National Biography by P. Smith, (Oxford, 2004)",
+          "Lord Salisbury: A Political Biography by D Steele (UCL, 1999)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

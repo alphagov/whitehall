@@ -33,12 +33,15 @@
       <p class="govuk-body">In 1802 Grenville broke with Pitt, following the Treaty of Amiens with France, and formed his own opposition group. Grenville allied himself with Charles James Fox and briefly led the &lsquo;Ministry of all the Talents&rsquo; in 1806 to 1807 which secured the abolition of the slave trade.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>The Influence of Grenville on Pitt’s Foreign Policy: 1787–1798, by E Douglass Adams (Carnegie Institute of Washington, 1904)</li>
-        <li>William Pitt the Younger by W Hague (Harper Perennial, 2005)</li>
-        <li>Lord Grenville: 1758–1834 by P Jupp (OUP, 1985)</li>
-        <li>Entry in Oxford Dictionary of National Biography by P Jupp (OUP, 2004–10)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "The Influence of Grenville on Pitt’s Foreign Policy: 1787–1798, by E Douglass Adams (Carnegie Institute of Washington, 1904)",
+          "William Pitt the Younger by W Hague (Harper Perennial, 2005)",
+          "Lord Grenville: 1758–1834 by P Jupp (OUP, 1985)",
+          "Entry in Oxford Dictionary of National Biography by P Jupp (OUP, 2004–10)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

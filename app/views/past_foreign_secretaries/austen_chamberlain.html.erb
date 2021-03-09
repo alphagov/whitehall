@@ -40,10 +40,13 @@
       <p class="govuk-body">Austen Chamberlain had a number of strengths, but some of these had unfortunate consequences. He behaved with integrity, but was taken by surprise when others failed to do so. He was intrinsically loyal, but would often back particularly unpopular people, or give too much leeway to people he liked, such as French Foreign Minister Briand. He fostered good relations with the French, who trusted him, but was dismissive of the Americans. His attention to detail included a desire for control that meant that he undermined others, such as his colleague Robert Cecil. In effect, he was very supportive and helpful to friends, but effectively blind to everything and everyone else.</p>
 
       <h3 class="govuk-heading-s govuk-!-margin-0">Further reading</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Austen Chamberlain: Gentleman in politics by David Dutton (Ross Anderson Publications, 1985)</li>
-        <li>Choose Your Weapons by Douglas Hurd (Orion Books, 2010)</li>
-      </ul>
+      <%= render "govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items: [
+          "Austen Chamberlain: Gentleman in politics by David Dutton (Ross Anderson Publications, 1985)",
+          "Choose Your Weapons by Douglas Hurd (Orion Books, 2010)",
+        ]
+      } %>
     </div>
   </div>
 <% end %>

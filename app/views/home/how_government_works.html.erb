@@ -33,11 +33,14 @@
 
             <p class="govuk-body">The Prime Minister also:</p>
 
-            <ul class="govuk-list govuk-list--bullet">
-              <li>oversees the operation of the Civil Service and government agencies</li>
-              <li>appoints members of the government</li>
-              <li>is the principal government figure in the House of Commons</li>
-            </ul>
+            <%= render "govuk_publishing_components/components/list", {
+              visible_counters: true,
+              items: [
+                "oversees the operation of the Civil Service and government agencies",
+                "appoints members of the government",
+                "is the principal government figure in the House of Commons",
+              ]
+            } %>
 
             <% if @prime_minister.present? %>
               <p class="govuk-body">The Prime Minister is <%= link_to @prime_minister.name, url_for(@prime_minister), class: "govuk-link" %>.</p>
@@ -230,12 +233,15 @@
 
             <p class="govuk-body">Around half of all civil servants provide services direct to the public, including:</p>
 
-            <ul class="govuk-list govuk-list--bullet">
-              <li>paying benefits and pensions</li>
-              <li>running employment services</li>
-              <li>staffing prisons</li>
-              <li>issuing driving licences</li>
-            </ul>
+            <%= render "govuk_publishing_components/components/list", {
+              visible_counters: true,
+              items: [
+                "paying benefits and pensions",
+                "running employment services",
+                "staffing prisons",
+                "issuing driving licences",
+              ]
+            } %>
 
             <p class="govuk-body">The <%= link_to "Civil Service", "/government/organisations/civil-service", class: "govuk-link" %> is on GOV.UK.</p>
           </div>
