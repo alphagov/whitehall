@@ -112,7 +112,7 @@ Then(/^the "([^"]*)" office details should be shown on the public website$/) do 
   worldwide_office = worldwide_org.offices.joins(contact: :translations).where(contact_translations: { title: description }).first
 
   within "#{record_css_selector(worldwide_office)}.contact" do
-    assert_selector "h2", text: worldwide_office.contact.title
+    assert_selector "p:first-of-type", text: worldwide_office.contact.title
     within find(".vcard") do
       # new lines cause challenges in matching to the rendering
       address = worldwide_office.contact.street_address.gsub(/\s+/, " ")

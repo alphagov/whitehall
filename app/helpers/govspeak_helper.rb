@@ -145,7 +145,6 @@ private
   def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
 
-    heading_tag ||= "h3"
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
         render(partial: "contacts/contact", locals: { contact: contact, heading_tag: heading_tag }, formats: %w[html])
