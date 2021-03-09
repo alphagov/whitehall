@@ -24,10 +24,9 @@
       <section class="featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
         <% if @feature_list.any_current_features? %>
           <%= render partial: 'shared/featured',
-                     collection: @feature_list.current_featured,
-                     as: :feature,
-                     locals: { show_meta: true,
-                               extra_class: "secondary" } %>
+            collection: @feature_list.current_featured,
+            as: :feature
+          %>
         <% end %>
 
         <%= render partial: 'shared/recently_updated',
