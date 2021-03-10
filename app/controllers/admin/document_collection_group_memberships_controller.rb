@@ -10,7 +10,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
                   notice: "'#{params[:title]}' added to '#{@group.heading}'"
     else
       redirect_to admin_document_collection_groups_path(@collection),
-                  alert: membership.errors.full_messages.join(". ") + "."
+                  alert: "#{membership.errors.full_messages.join('. ')}."
     end
   end
 
@@ -26,7 +26,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
       flash[:url] = params[:url]
       flash[:open_non_whitehall] = true
       redirect_to admin_document_collection_groups_path(@collection),
-                  alert: govuk_link.errors.full_messages.join(". ") + "."
+                  alert: "#{govuk_link.errors.full_messages.join('. ')}."
     end
   end
 

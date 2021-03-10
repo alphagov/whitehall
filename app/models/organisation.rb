@@ -582,10 +582,8 @@ private
   end
 
   def sub_organisations_must_have_a_parent
-    if organisation_type && organisation_type.sub_organisation?
-      if parent_organisations.empty?
-        errors[:parent_organisations] << "must not be empty for sub-organisations"
-      end
+    if organisation_type && organisation_type.sub_organisation? && parent_organisations.empty?
+      errors[:parent_organisations] << "must not be empty for sub-organisations"
     end
   end
 end

@@ -69,7 +69,7 @@ class Document < ApplicationRecord
     scope.where(
       "slug IN (?) OR slug LIKE ?",
       [slug, slug_without_sequence].uniq,
-      slug_without_sequence + sequence_separator + "%",
+      "#{slug_without_sequence}#{sequence_separator}%",
     ).count > 1
   end
 

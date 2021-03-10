@@ -23,6 +23,7 @@ module ViewRendering
       view_tests << test_name
     end
   end
+
   # Delegates find_all to the submitted path set and then returns templates
   # with modified source
   class EmptyTemplatePathSetDecorator < ::ActionView::Resolver

@@ -4,7 +4,7 @@ module Whitehall
   class DataMigratorTest < ActiveSupport::TestCase
     setup do
       DataMigrationRecord.destroy_all
-      @migrator = DataMigrator.new(path: File.dirname(__FILE__) + "/../../fixtures/whitehall_data_migrator", logger: stub_everything("Logger"))
+      @migrator = DataMigrator.new(path: "#{File.dirname(__FILE__)}/../../fixtures/whitehall_data_migrator", logger: stub_everything("Logger"))
     end
 
     test "finds all migrations in the specified directory" do

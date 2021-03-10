@@ -25,6 +25,7 @@ module Whitehall::Authority::Rules
     end
 
     attr_reader :actor, :subject
+
     def initialize(actor, subject)
       @actor = actor
       @subject = subject

@@ -2,7 +2,7 @@ When(/^I visit the attachments page$/) do
   first(:link, "Attachments").click
 end
 
-When(/^the attachment has been uploaded to the asset\-manager$/) do
+When(/^the attachment has been uploaded to the asset-manager$/) do
   Attachment.last.attachment_data.uploaded_to_asset_manager!
 end
 
@@ -33,11 +33,11 @@ When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
   click_on "Modify attachments"
   click_on "Upload new file attachment"
-  attach_file "File", Rails.root + "test/fixtures/greenpaper.pdf"
+  attach_file "File", "#{Rails.root}test/fixtures/greenpaper.pdf"
   click_on "Save"
 end
 
-Then(/^I should be able to submit the attachment without re\-uploading the file$/) do
+Then(/^I should be able to submit the attachment without re-uploading the file$/) do
   fill_in "Title", with: "Title that was missing before"
   click_on "Save"
 

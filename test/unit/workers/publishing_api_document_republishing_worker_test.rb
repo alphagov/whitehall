@@ -43,6 +43,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   end
 
   class PublishException < StandardError; end
+
   class DraftException < StandardError; end
   test "it pushes the published version first if there is a more recent draft" do
     document = stub(

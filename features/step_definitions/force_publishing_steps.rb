@@ -6,11 +6,11 @@ When(/^another editor retrospectively approves the "([^"]*)" publication$/) do |
   click_button "Looks good"
 end
 
-Then(/^the "([^"]*)" publication should not be flagged as force\-published any more$/) do |publication_title|
+Then(/^the "([^"]*)" publication should not be flagged as force-published any more$/) do |publication_title|
   visit admin_editions_path(state: :published)
   publication = Publication.find_by(title: publication_title)
   assert_selector record_css_selector(publication)
-  assert_no_selector record_css_selector(publication) + ".force_published"
+  assert_no_selector "#{record_css_selector(publication)}.force_published"
 end
 
 Then(/^the publication "([^"]*)" should have a force publish reason$/) do |publication_title|

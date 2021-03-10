@@ -135,7 +135,7 @@ private
     # Corporate information pages are unusual in that their organisations array
     # can contain a worldwide organisation. If this is the case, then we want to
     # use that organisation's sponsor.
-    if edition.organisations.first.class == WorldwideOrganisation
+    if edition.organisations.first.instance_of?(WorldwideOrganisation)
       edition.organisations.first.sponsoring_organisation
     else
       organisation_ids = edition.organisations.map(&:id)
@@ -143,9 +143,9 @@ private
       if any_organisations_unrelated?(edition, organisation_ids)
         # If there is at least one unrelated organisation, assume the first organisation in the list is the owner
         if edition.respond_to?(:lead_organisations)
-          edition.lead_organisations.detect { |org| org.class == Organisation }
+          edition.lead_organisations.detect { |org| org.instance_of?(Organisation) }
         else
-          edition.organisations.detect { |org| org.class == Organisation }
+          edition.organisations.detect { |org| org.instance_of?(Organisation) }
         end
       else
         # If all organisations are related, use the parent organisation as the owner

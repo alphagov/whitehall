@@ -67,6 +67,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
 
   class FakeController
     attr_reader :params
+
     def initialize(params = {})
       @params = params
     end

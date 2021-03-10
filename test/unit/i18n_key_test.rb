@@ -134,7 +134,7 @@ private
       elsif value.is_a?(Hash)
         flatten_keys(value, context + [key])
       else
-        context[1..-1].join(".") << "." << key
+        context[1..].join(".") << "." << key
       end
     end
   end

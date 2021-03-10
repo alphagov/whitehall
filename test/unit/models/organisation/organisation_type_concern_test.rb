@@ -47,9 +47,10 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   ### Describing Scopes ###
   test "It should have a scope for each valid OrganisationType" do
     OrganisationType.valid_keys.each do |key|
-      org = if key == :sub_organisation
+      org = case key
+            when :sub_organisation
               create(:sub_organisation)
-            elsif key == :devolved_administration
+            when :devolved_administration
               create(:organisation, organisation_type_key: key, govuk_status: "exempt")
             else
               create(:organisation, organisation_type_key: key)

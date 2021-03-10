@@ -1,7 +1,6 @@
 module PublishingApi
   class StatisticsAnnouncementPresenter
-    attr_accessor :item
-    attr_accessor :update_type
+    attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil) # rubocop:disable Lint/UnusedMethodArgument
       self.item = item

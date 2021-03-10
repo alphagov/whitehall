@@ -1,7 +1,6 @@
 module PublishingApi
   class WorldLocationNewsPagePresenter
-    attr_accessor :world_location
-    attr_accessor :update_type
+    attr_accessor :world_location, :update_type
 
     def initialize(world_location, update_type: nil)
       self.world_location = world_location

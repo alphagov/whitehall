@@ -1,10 +1,6 @@
 class Admin::ConsultationsController < Admin::EditionsController
   before_action :cope_with_consultation_response_form_data_action_params, only: [:update]
 
-  def update
-    super
-  end
-
 private
 
   def edition_class

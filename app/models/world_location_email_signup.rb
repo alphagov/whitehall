@@ -34,10 +34,10 @@ private
 
   def uri
     @uri ||= begin
-               URI.parse(feed)
-             rescue URI::InvalidURIError
-               nil
-             end
+      URI.parse(feed)
+    rescue URI::InvalidURIError
+      nil
+    end
   end
 
   def world_location_slug

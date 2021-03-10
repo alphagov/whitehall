@@ -6,9 +6,9 @@ class String
     return self if empty?
 
     if ends_with?("s")
-      self + "’"
+      "#{self}’"
     else
-      self + "’s"
+      "#{self}’s"
     end
   end
 end

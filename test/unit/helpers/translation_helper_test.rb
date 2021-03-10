@@ -23,7 +23,7 @@ class TranslationHelperTest < ActionView::TestCase
   end
 
   test "sorted_locales returns other locals in alphabetically locale code order" do
-    assert_equal %i[de es fr], sorted_locales([:fr, :es, I18n.default_locale, :de])[1..-1]
+    assert_equal %i[de es fr], sorted_locales([:fr, :es, I18n.default_locale, :de])[1..]
   end
 
   test "sorted_locales copes with the default locale not being present" do

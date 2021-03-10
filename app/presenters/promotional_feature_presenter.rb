@@ -2,6 +2,7 @@ class PromotionalFeaturePresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of PromotionalFeature
 
   attr_reader :position
+
   def initialize(model, position, context)
     super(model, context)
     @position = position

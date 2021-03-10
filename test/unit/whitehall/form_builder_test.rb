@@ -11,11 +11,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   def removal_check_box(label_text = "Check to remove image")
-    %(<div class="checkbox"><label for="promotional_feature_item_remove_image">) +
-      %(<input name="promotional_feature_item[remove_image]" type="hidden" value="0" />) +
-      %(<input id="promotional_feature_item_remove_image" name="promotional_feature_item[remove_image]" type="checkbox" value="1" />) +
-      label_text +
-      %(</label></div>)
+    "<div class=\"checkbox\"><label for=\"promotional_feature_item_remove_image\"><input name=\"promotional_feature_item[remove_image]\" type=\"hidden\" value=\"0\" /><input id=\"promotional_feature_item_remove_image\" name=\"promotional_feature_item[remove_image]\" type=\"checkbox\" value=\"1\" />#{label_text}</label></div>"
   end
 
   test "Whitehall::FormBuilder#upload returns a label and file upload input field, and a hidden cache field by default" do

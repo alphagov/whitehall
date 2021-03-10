@@ -35,7 +35,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "should set an analytics identifier on create" do
     world_location = create(:world_location, name: "Costa Rica")
-    assert_equal "WL" + world_location.id.to_s, world_location.analytics_identifier
+    assert_equal "WL#{world_location.id}", world_location.analytics_identifier
   end
 
   test "has name of its world location type as display type" do

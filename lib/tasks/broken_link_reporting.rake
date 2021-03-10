@@ -10,7 +10,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
 
     puts "Cleaning up any existing reports."
     FileUtils.mkpath reports_dir
-    FileUtils.rm Dir.glob(reports_dir + "/*_links_report.csv")
+    FileUtils.rm Dir.glob("#{reports_dir}/*_links_report.csv")
     FileUtils.rm(report_zip_path) if File.exist?(report_zip_path)
 
     puts "Generating broken link reports..."

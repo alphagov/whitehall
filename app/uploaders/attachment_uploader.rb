@@ -25,11 +25,11 @@ class AttachmentUploader < WhitehallUploader
 
   version :thumbnail, if: :pdf? do
     def full_filename(for_file)
-      super + ".png"
+      "#{super}.png"
     end
 
     def full_original_filename
-      super + ".png"
+      "#{super}.png"
     end
 
     process :generate_thumbnail
@@ -103,7 +103,7 @@ class AttachmentUploader < WhitehallUploader
     def extensions
       filenames
         .map { |f|
-          if (match = f.match(/\.([^\.]+)\Z/))
+          if (match = f.match(/\.([^.]+)\Z/))
             match[1].downcase
           end
         }

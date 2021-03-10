@@ -6,7 +6,7 @@ When(/^I go to speed tag a newly imported (publication|speech|news article|consu
   visit admin_edition_path(@edition)
 end
 
-Then(/^I should have to select the publication sub\-type$/) do
+Then(/^I should have to select the publication sub-type$/) do
   assert_selector "select[id*=edition_publication_type_id]"
 end
 

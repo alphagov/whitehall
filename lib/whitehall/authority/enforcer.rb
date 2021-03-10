@@ -9,6 +9,7 @@ require "whitehall/authority/rules/miscellaneous_rules"
 module Whitehall::Authority
   class Enforcer
     attr_reader :actor, :subject
+
     def initialize(actor, subject)
       @actor = actor
       @subject = subject

@@ -10,7 +10,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "should set an analytics identifier on create" do
     worldwide_organisation = create(:worldwide_organisation, name: "Office name")
-    assert_equal "WO" + worldwide_organisation.id.to_s, worldwide_organisation.analytics_identifier
+    assert_equal "WO#{worldwide_organisation.id}", worldwide_organisation.analytics_identifier
   end
 
   test "can be associated with multiple world locations" do

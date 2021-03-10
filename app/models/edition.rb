@@ -501,10 +501,8 @@ EXISTS (
 
       self.class.new(draft_attributes).tap do |draft|
         traits.each { |t| t.process_associations_before_save(draft) }
-        if draft.valid? || !draft.errors.key?(:base)
-          if draft.save(validate: false)
-            traits.each { |t| t.process_associations_after_save(draft) }
-          end
+        if (draft.valid? || !draft.errors.key?(:base)) && draft.save(validate: false)
+          traits.each { |t| t.process_associations_after_save(draft) }
         end
       end
     end
@@ -626,7 +624,7 @@ EXISTS (
     imported? || deleted? || superseded?
   end
 
-  attr_accessor :trying_to_convert_to_draft
+  attr_accessor :trying_to_convert_to_draft, :has_previously_published_error
 
   def errors_as_draft
     if imported?
@@ -660,8 +658,6 @@ EXISTS (
   def body_required?
     true
   end
-
-  attr_accessor :has_previously_published_error
 
   # 'previously_published' is a transient attribute populated
   # by request parameters, and because it's not persisted it's

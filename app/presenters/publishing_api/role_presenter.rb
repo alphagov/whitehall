@@ -1,7 +1,6 @@
 module PublishingApi
   class RolePresenter
-    attr_accessor :item
-    attr_accessor :update_type
+    attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
       self.item = item

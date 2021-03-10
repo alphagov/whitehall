@@ -72,19 +72,17 @@ private
 
   def alternative_uri
     @alternative_uri ||= begin
-                           return if alternative_url.nil?
+      return if alternative_url.nil?
 
-                           Addressable::URI.parse(alternative_url)
-                         rescue URI::InvalidURIError
-                           nil
-                         end
+      Addressable::URI.parse(alternative_url)
+    rescue URI::InvalidURIError
+      nil
+    end
   end
 
   def redirect_not_circular
-    if alternative_uri.present?
-      if document_path == alternative_uri.path
-        errors.add(:alternative_url, "cannot redirect to itself")
-      end
+    if alternative_uri.present? && (document_path == alternative_uri.path)
+      errors.add(:alternative_url, "cannot redirect to itself")
     end
   end
 

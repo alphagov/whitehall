@@ -7,8 +7,8 @@ module DataHygiene
     end
 
     def call
-      if document
-        raise DataHygiene::EditionNotUnpublished unless unpublished_or_withdrawn
+      if document && !unpublished_or_withdrawn
+        raise DataHygiene::EditionNotUnpublished
       end
       raise DataHygiene::HTMLAttachmentsNotFound unless html_attachments.any?
       return dry_run_results if dry_run

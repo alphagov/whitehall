@@ -1,13 +1,7 @@
 require "test_helper"
 
 class CsvPreviewControllerTest < ActionController::TestCase
-  attr_reader :attachment_data
-  attr_reader :params
-  attr_reader :organisation1
-  attr_reader :organisation2
-  attr_reader :edition
-  attr_reader :attachment
-  attr_reader :file
+  attr_reader :attachment_data, :params, :organisation1, :organisation2, :edition, :attachment, :file
 
   setup do
     @file = File.open(fixture_path.join("sample.csv"))

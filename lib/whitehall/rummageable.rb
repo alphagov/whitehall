@@ -44,7 +44,7 @@ module Whitehall
 
       def delete_all
         repeatedly do
-          make_request(:delete, documents_url + "?delete_all=1")
+          make_request(:delete, "#{documents_url}?delete_all=1")
         end
       end
 

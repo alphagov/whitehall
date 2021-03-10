@@ -13,9 +13,9 @@ class WorldLocationNewsPageWorker < WorkerBase
 
 private
 
-  def each_locale
+  def each_locale(&block)
     world_location.available_locales.each do |locale|
-      I18n.with_locale(locale) { yield }
+      I18n.with_locale(locale, &block)
     end
   end
 

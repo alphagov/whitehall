@@ -42,8 +42,8 @@ private
   def permitted_edition_attributes
     [
       :primary_specialist_sector_tag,
-      secondary_specialist_sector_tags: [],
-      topic_ids: [],
+      { secondary_specialist_sector_tags: [],
+        topic_ids: [] },
     ]
   end
 

@@ -13,7 +13,7 @@ module CorporateInformationPageHelper
     click_link page.title
     click_link "Edit draft"
     markdown = find_markdown_snippet_to_insert_attachment(attachment)
-    fill_in "Body", with: page.body.to_s + "\n\n" + markdown
+    fill_in "Body", with: "#{page.body}\n\n#{markdown}"
     click_button "Save and continue"
     click_button "Save topic changes"
   end

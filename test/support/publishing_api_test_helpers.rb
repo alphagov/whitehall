@@ -5,7 +5,7 @@ module PublishingApiTestHelpers
   include GdsApi::TestHelpers::PublishingApi
 
   def stub_publishing_api_publish_intent
-    stub_request(:any, %r{\A#{Plek.current.find('publishing-api')}/publish-intent\/.+})
+    stub_request(:any, %r{\A#{Plek.current.find('publishing-api')}/publish-intent/.+})
   end
 
   def stub_publishing_api_registration_for(editions)

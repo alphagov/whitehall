@@ -20,7 +20,7 @@ When(/^I draft a new news article "([^"]*)"$/) do |title|
   click_button "Save"
 end
 
-When(/^I draft a French\-only "World news story" news article associated with "([^"]*)"$/) do |location_name|
+When(/^I draft a French-only "World news story" news article associated with "([^"]*)"$/) do |location_name|
   create(:worldwide_organisation, name: "French embassy")
 
   begin_drafting_news_article title: "French-only news article", body: "test-body", summary: "test-summary", announcement_type: "World news story"

@@ -23,7 +23,7 @@ class Admin::DocumentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET by-content-id redirects to a search if content_id is not found" do
-    get :by_content_id, params: { content_id: @document.content_id + "wrong-id" }
+    get :by_content_id, params: { content_id: "#{@document.content_id}wrong-id" }
     assert_redirected_to @url_maker.admin_editions_path
   end
 end

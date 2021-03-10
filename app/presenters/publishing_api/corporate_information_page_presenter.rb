@@ -220,6 +220,7 @@ module PublishingApi
     private
 
       attr_accessor :corporate_information_page
+
       delegate :owning_organisation, to: :corporate_information_page
       alias_method :organisation, :owning_organisation
 
@@ -272,6 +273,7 @@ module PublishingApi
     private
 
       attr_accessor :corporate_information_page
+
       delegate :owning_organisation, to: :corporate_information_page
       alias_method :organisation, :owning_organisation
     end

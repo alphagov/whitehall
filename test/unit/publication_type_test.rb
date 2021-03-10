@@ -39,7 +39,7 @@ class PublicationTypeTest < ActiveSupport::TestCase
 
   test "search_format_types tags the type with the singular name, prefixed with publication-" do
     PublicationType.all.each do |publication_type|
-      assert publication_type.search_format_types.include?("publication-" + publication_type.singular_name.parameterize)
+      assert publication_type.search_format_types.include?("publication-#{publication_type.singular_name.parameterize}")
     end
   end
 

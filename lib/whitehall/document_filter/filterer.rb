@@ -1,6 +1,7 @@
 module Whitehall::DocumentFilter
   class Filterer
     attr_reader :page, :per_page, :from_date, :to_date, :people, :locale
+
     class << self
       attr_accessor :number_of_documents_per_page
     end

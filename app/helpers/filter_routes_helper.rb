@@ -29,11 +29,12 @@ protected
 
   def path_arguments(objects)
     objects.reduce({}) do |out, obj|
-      if obj.is_a? Organisation
+      case obj
+      when Organisation
         out[:departments] = [obj.slug]
-      elsif obj.is_a? TopicalEvent
+      when TopicalEvent
         out[:topical_events] = [obj.slug]
-      elsif obj.is_a? WorldLocation
+      when WorldLocation
         out[:world_locations] = [obj.slug]
       else
         out = out.merge(obj)

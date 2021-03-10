@@ -173,7 +173,7 @@ Then(/^I should see that the statistics announcement has been cancelled$/) do
   assert_text "Cancelled because: reason"
 end
 
-Then(/^the document fields are pre\-filled based on the announcement$/) do
+Then(/^the document fields are pre-filled based on the announcement$/) do
   assert_selector "input[id=edition_title][value='#{@statistics_announcement.title}']"
   assert_selector "textarea[id=edition_summary]", text: @statistics_announcement.summary
 end

@@ -8,7 +8,7 @@ class RetrospectiveStub
     @calls = []
   end
 
-  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method, *args)
     calls << { method: method, args: args }
 
@@ -22,7 +22,7 @@ class RetrospectiveStub
       stub[:returns]
     end
   end
-  # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+  # rubocop:enable Style/MissingRespondToMissing
 
   def stub(method, opts = {})
     stubs << {
@@ -37,12 +37,12 @@ class RetrospectiveStub
       call[:method] == method
     end
 
-    if opts[:with].present?
-      raise UnsatisfiedAssertion, "Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}" unless @calls.any? do |call|
-        call[:method] == method && (
-          opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
-        )
-      end
+    if opts[:with].present? && @calls.none? do |call|
+         call[:method] == method && (
+           opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
+         )
+       end
+      raise UnsatisfiedAssertion, "Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}"
     end
   end
 

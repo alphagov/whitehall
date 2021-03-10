@@ -3,7 +3,7 @@ require "test_helper"
 class Taxonomy::TreeTest < ActiveSupport::TestCase
   test ".new sets the root_taxon property" do
     subject = Taxonomy::Tree.new(root_taxon_hash)
-    assert subject.root_taxon.class == Taxonomy::Taxon
+    assert subject.root_taxon.instance_of?(Taxonomy::Taxon)
   end
 
   # Example of expanded links hash:

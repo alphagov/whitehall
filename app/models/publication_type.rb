@@ -1,6 +1,6 @@
 require "active_record_like_interface"
-require "active_support/core_ext/object/blank.rb"
-require "active_support/core_ext/string/inflections.rb"
+require "active_support/core_ext/object/blank"
+require "active_support/core_ext/string/inflections"
 
 class PublicationType
   include ActiveRecordLikeInterface
@@ -81,7 +81,7 @@ class PublicationType
   end
 
   def primary_search_format_type
-    "publication-" + singular_name.parameterize
+    "publication-#{singular_name.parameterize}"
   end
 
   def additional_search_format_types

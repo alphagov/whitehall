@@ -230,10 +230,8 @@ private
   end
 
   def redirect_not_circular
-    if redirect_url.present?
-      if public_path == redirect_url
-        errors.add(:redirect_url, "cannot redirect to itself")
-      end
+    if redirect_url.present? && (public_path == redirect_url)
+      errors.add(:redirect_url, "cannot redirect to itself")
     end
   end
 
@@ -247,12 +245,12 @@ private
 
   def redirect_uri
     @redirect_uri ||= begin
-                        return if redirect_url.nil?
+      return if redirect_url.nil?
 
-                        Addressable::URI.parse(redirect_url)
-                      rescue URI::InvalidURIError
-                        nil
-                      end
+      Addressable::URI.parse(redirect_url)
+    rescue URI::InvalidURIError
+      nil
+    end
   end
 
   def redirect_path

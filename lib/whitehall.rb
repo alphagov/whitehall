@@ -195,7 +195,7 @@ module Whitehall
 
   def self.worldwide_tagging_organisations
     @worldwide_tagging_organisations ||=
-      YAML.load_file(Rails.root + "config/worldwide_tagging_organisations.yml")
+      YAML.load_file("#{Rails.root}config/worldwide_tagging_organisations.yml")
   end
 
   def self.load_secrets
@@ -208,7 +208,7 @@ module Whitehall
   private_class_method :load_secrets
 
   def self.secrets_path
-    Rails.root + "config" + "whitehall_secrets.yml"
+    "#{Rails.root}configwhitehall_secrets.yml"
   end
   private_class_method :secrets_path
 

@@ -39,7 +39,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
 private
 
   def tested_controllers
-    Dir[Rails.root + "app/controllers/*_controller.rb"].reject do |controller|
+    Dir["#{Rails.root}app/controllers/*_controller.rb"].reject do |controller|
       is_excluded?(controller)
     end
   end

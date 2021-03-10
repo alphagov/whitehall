@@ -3,12 +3,10 @@ module Whitehall
     include Admin::AnalyticsHelper
 
     def label(method, text = nil, options = {})
-      if calculate_required(method, options)
-        unless !options[:required].nil? && options[:required] == false
-          add_class_to_options(options, "required")
-          text_override = text || method.to_s.humanize
-          text = "#{text_override}<span>*</span>".html_safe
-        end
+      if calculate_required(method, options) && !(!options[:required].nil? && options[:required] == false)
+        add_class_to_options(options, "required")
+        text_override = text || method.to_s.humanize
+        text = "#{text_override}<span>*</span>".html_safe
       end
       options.delete(:required)
       super(method, text, options)

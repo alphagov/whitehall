@@ -121,14 +121,13 @@ module DocumentHelper
 
   def attachment_reference(attachment)
     ref = []
-    ref << "ISBN " + tag.span(attachment.isbn, class: "isbn") if attachment.isbn.present?
+    ref << "ISBN #{tag.span(attachment.isbn, class: 'isbn')}" if attachment.isbn.present?
     ref << tag.span(attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
     if attachment.command_paper_number.present?
       ref << tag.span(attachment.command_paper_number, class: "command_paper_number")
     end
     if attachment.hoc_paper_number.present?
-      ref << tag.span("HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number") + " " +
-        tag.span(attachment.parliamentary_session, class: "parliamentary_session")
+      ref << "#{tag.span("HC #{attachment.hoc_paper_number}", class: 'house_of_commons_paper_number')} #{tag.span(attachment.parliamentary_session, class: 'parliamentary_session')}"
     end
 
     ref.join(", ").html_safe
@@ -246,13 +245,11 @@ Please tell us:
       from += array_of_links_to_organisations(document.lead_organisations)
     end
 
-    unless document.respond_to?(:statistics?) && document.statistics?
-      if document.respond_to?(:delivered_by_minister?)
-        if document.person_override?
-          from << document.person_override unless links_only
-        else
-          from << link_to_person(document.role_appointment.person)
-        end
+    if !document.respond_to?(:statistics?) && document.statistics? && document.respond_to?(:delivered_by_minister?)
+      if document.person_override?
+        from << document.person_override unless links_only
+      else
+        from << link_to_person(document.role_appointment.person)
       end
     end
 

@@ -1,5 +1,6 @@
 class CsvFileFromPublicHost
   class ConnectionError < StandardError; end
+
   class FileEncodingError < ::EncodingError
   end
 

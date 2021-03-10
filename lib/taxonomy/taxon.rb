@@ -4,9 +4,10 @@ module Taxonomy
   class Taxon
     attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors, :legacy_mapping
     attr_accessor :parent_node, :children
+
     delegate :map, :each, :count, to: :taxon_list
 
-    def initialize(title:, base_path:, content_id:, phase: "live", visible_to_departmental_editors: true, legacy_mapping:)
+    def initialize(title:, base_path:, content_id:, legacy_mapping:, phase: "live", visible_to_departmental_editors: true)
       @name = title
       @content_id = content_id
       @base_path = base_path

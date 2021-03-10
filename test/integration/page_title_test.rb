@@ -12,7 +12,7 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/home.html.erb
     layouts/html_attachments.html.erb
   ].map do |f|
-    File.expand_path(Rails.root + "app/views/" + f)
+    File.expand_path("#{Rails.root}app/views/#{f}")
   end
 
   def test_every_page_sets_a_title
@@ -22,7 +22,7 @@ class PageTitleTest < ActiveSupport::TestCase
   end
 
   def test_every_page_title_partial_sets_a_title
-    Dir[Rails.root + "app/views/**/_page_title.html.erb"].each do |template|
+    Dir["#{Rails.root}app/views/**/_page_title.html.erb"].each do |template|
       assert_template_sets_page_title(template)
     end
   end
@@ -30,7 +30,7 @@ class PageTitleTest < ActiveSupport::TestCase
 private
 
   def tested_templates
-    Dir[Rails.root + "app/views/**/*.html.erb"].reject do |template|
+    Dir["#{Rails.root}app/views/**/*.html.erb"].reject do |template|
       is_partial?(template) || is_excluded?(template)
     end
   end

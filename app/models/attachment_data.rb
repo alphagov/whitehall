@@ -13,14 +13,13 @@ class AttachmentData < ApplicationRecord
   validates :file, presence: true
   validate :file_is_not_empty
 
-  attr_accessor :to_replace_id
+  attr_accessor :to_replace_id, :attachable
+
   belongs_to :replaced_by, class_name: "AttachmentData"
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
 
   OPENDOCUMENT_EXTENSIONS = %w[ODT ODP ODS].freeze
-
-  attr_accessor :attachable
 
   attribute :present_at_unpublish, :boolean, default: false
 
@@ -29,7 +28,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def filename_without_extension
-    url && filename.sub(/.[^\.]*$/, "")
+    url && filename.sub(/.[^.]*$/, "")
   end
 
   def file_extension

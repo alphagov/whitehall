@@ -1,6 +1,6 @@
 require "active_record_like_interface"
-require "active_support/core_ext/object/blank.rb"
-require "active_support/core_ext/string/inflections.rb"
+require "active_support/core_ext/object/blank"
+require "active_support/core_ext/string/inflections"
 
 class NewsArticleType
   include ActiveRecordLikeInterface
@@ -31,7 +31,7 @@ class NewsArticleType
   end
 
   def search_format_types
-    ["news-article-" + key.tr("_", " ").parameterize]
+    ["news-article-#{key.tr('_', ' ').parameterize}"]
   end
 
   def genus_key

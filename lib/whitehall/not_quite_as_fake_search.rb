@@ -184,9 +184,10 @@ module Whitehall
 
       def filter_by_boolean_field(field, desired_field_value, document_hashes)
         desired_boolean =
-          if desired_field_value.match?(/\A(true|1)\Z/)
+          case desired_field_value
+          when /\A(true|1)\Z/
             true
-          elsif desired_field_value.match?(/\A(false|0)\Z/)
+          when /\A(false|0)\Z/
             false
           else
             raise GdsApi::HTTPErrorResponse, "bad boolean value #{desired_field_value}"
@@ -223,9 +224,10 @@ module Whitehall
         end
         date_filter_hash.each do |date_type, date|
           document_hashes.select! do |document_hash|
-            if date_type == "from"
+            case date_type
+            when "from"
               document_hash[field] && Time.zone.parse(document_hash[field]) >= date
-            elsif date_type == "to"
+            when "to"
               document_hash[field] && Time.zone.parse(document_hash[field]) <= date
             else
               true

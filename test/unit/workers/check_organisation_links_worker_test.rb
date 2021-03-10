@@ -138,10 +138,8 @@ private
     stub_post_request(links, body)
   end
 
-  def stub_organisation_edition_limit(limit)
-    CheckOrganisationLinksWorker.stub_const(:ORGANISATION_EDITION_LIMIT, limit) do
-      yield
-    end
+  def stub_organisation_edition_limit(limit, &block)
+    CheckOrganisationLinksWorker.stub_const(:ORGANISATION_EDITION_LIMIT, limit, &block)
   end
 
   def stub_post_request(links, body)
