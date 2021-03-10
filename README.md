@@ -2,6 +2,24 @@
 
 whitehall is a Ruby on Rails content management application for content published by government departments and agencies.
 
+## Running the Application
+
+Startup [using govuk-docker](https://github.com/alphagov/govuk-docker). 
+
+There are two different views within this App, a *Publishing view* and a *Site view*. Once running, whitehall does not have an index, some suggested starting pages are below:
+
+Publishing view:
+- <http://whitehall-admin.dev.gov.uk/government/admin/news/new>
+
+Site view:
+- <http://whitehall-frontend.dev.gov.uk/government/get-involved>
+
+Some pages will need data locally to display, whitehall uses mySQL. You'll need to gain relevant permissions to access data from AWS
+
+- [Get setup with AWS access](https://docs.publishing.service.gov.uk/manual/get-started.html)
+
+- Once completed [a guide to install local data on whitehall can be found here](https://github.com/alphagov/govuk-docker/blob/master/docs/how-tos.md#how-to-replicate-data-locally)
+
 ## Nomenclature
 
 - *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) used throughout whitehall as the general publishing format
