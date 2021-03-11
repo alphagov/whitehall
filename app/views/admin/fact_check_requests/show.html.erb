@@ -5,6 +5,9 @@
     <section class="document_page" id="<%= dom_id(@edition) %>">
       <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
     </section>
+    <% if @edition.attachments.any? %>
+      <%= render partial: 'admin/editions/show_attachments', locals: { edition: @edition } %>
+    <% end %>
   </div>
 
   <div class="col-md-4">
