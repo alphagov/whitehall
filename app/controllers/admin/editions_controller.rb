@@ -239,7 +239,8 @@ private
       :show_brexit_no_deal_content_notice,
       :all_nation_applicability,
       :image_display_option,
-      { brexit_no_deal_content_notice_links_attributes: %i[id title url],
+      {
+        brexit_no_deal_content_notice_links_attributes: %i[id title url],
         secondary_specialist_sector_tags: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
@@ -266,16 +267,19 @@ private
           :link_url,
           :email,
           :postal_address,
-          { consultation_response_form_attributes: [
-            :id,
-            :title,
-            :_destroy,
-            :attachment_action,
-            { consultation_response_form_data_attributes: %i[id file file_cache] },
-          ] },
+          {
+            consultation_response_form_attributes: [
+              :id,
+              :title,
+              :_destroy,
+              :attachment_action,
+              { consultation_response_form_data_attributes: %i[id file file_cache] },
+            ],
+          },
         ],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
-        fatality_notice_casualties_attributes: %i[id personal_details _destroy] },
+        fatality_notice_casualties_attributes: %i[id personal_details _destroy],
+      },
     ]
   end
 

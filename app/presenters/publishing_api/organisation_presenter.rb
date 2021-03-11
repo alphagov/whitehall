@@ -125,11 +125,10 @@ module PublishingApi
     end
 
     def parent_child_relationships_text
-      if !(item.organisation_type.executive_office? ||
-          item.organisation_type.civil_service? ||
-          item.closed?) && (item.parent_organisations.any? || item.supporting_bodies.any?)
-        "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
-      end
+      return if item.organisation_type.executive_office? || item.organisation_type.civil_service? || item.closed?
+      return if item.parent_organisations.empty? && item.supporting_bodies.empty?
+
+      "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
     end
 
     def brand

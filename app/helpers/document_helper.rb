@@ -127,7 +127,9 @@ module DocumentHelper
       ref << tag.span(attachment.command_paper_number, class: "command_paper_number")
     end
     if attachment.hoc_paper_number.present?
-      ref << "#{tag.span("HC #{attachment.hoc_paper_number}", class: 'house_of_commons_paper_number')} #{tag.span(attachment.parliamentary_session, class: 'parliamentary_session')}"
+      paper_number = tag.span("HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number")
+      parliamentary_session = tag.span(attachment.parliamentary_session, class: "parliamentary_session")
+      ref << "#{paper_number} #{parliamentary_session}"
     end
 
     ref.join(", ").html_safe
@@ -245,7 +247,8 @@ Please tell us:
       from += array_of_links_to_organisations(document.lead_organisations)
     end
 
-    if !document.respond_to?(:statistics?) && document.statistics? && document.respond_to?(:delivered_by_minister?)
+    statistics = document.respond_to?(:statistics) && document.statistics?
+    if !statistics && document.respond_to?(:delivered_by_minister?)
       if document.person_override?
         from << document.person_override unless links_only
       else
