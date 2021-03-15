@@ -6,11 +6,19 @@
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
+        <% if @edition.attachments.any? %>
+          <li><a href="#attachments" data-toggle="tab">Attachments</a></li>
+        <% end %>
       </ul>
       <div class="tab-content">
         <section class="document_page tab-pane active" id="document">
           <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
         </section>
+        <% if @edition.attachments.any? %>
+          <section class="attachments_page tab-pane" id="attachments">
+            <%= render partial: 'admin/editions/show_attachments', locals: { edition: @edition } %>
+          </section>
+        <% end %>
       </div>
     </div>
   </div>
