@@ -43,8 +43,15 @@
             </p>
           <% end %>
           <% if @topical_event.social_media_accounts.any? %>
-            <%= render partial: 'shared/social_media_accounts',
-                       locals: { socialable: @topical_event, followus: true } %>
+            <%= render "govuk_publishing_components/components/share_links", {
+              links: @topical_event.social_media_accounts.map do |account|
+                {
+                  href: account.url,
+                  text: account.display_name,
+                  icon: account.service_name.parameterize,
+                }
+              end
+            } %>
           <% end %>
         </section>
       </div>
