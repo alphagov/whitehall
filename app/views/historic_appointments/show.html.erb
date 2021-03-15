@@ -2,11 +2,14 @@
 <% page_class "historic-appointments historic-people-show" %>
 
 <header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { type: link_to('History', "/government/history", class: "govuk-link"),
-                        heading: "Past #{@role.name.pluralize}",
-                        big: true } %>
+  <div class="govuk-width-container">
+    <%= render "govuk_publishing_components/components/title", {
+      context: {
+        text: "History",
+        href: "/government/history",
+      },
+      title: "Past #{@role.name.pluralize}",
+    } %>
   </div>
 </header>
 

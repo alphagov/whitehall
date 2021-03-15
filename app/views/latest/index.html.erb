@@ -3,11 +3,14 @@
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent documents" %>
 
 <header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render 'shared/heading',
-               type: link_to(subject, subject),
-               heading: 'Latest documents',
-               big: true %>
+  <div class="govuk-width-container">
+    <%= render "govuk_publishing_components/components/title", {
+      context: {
+        text: subject,
+        href: subject,
+      },
+      title: "Latest documents",
+    } %>
   </div>
 </header>
 

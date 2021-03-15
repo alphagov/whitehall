@@ -2,10 +2,11 @@
 <% page_class "worldwide-organisations embassies-index" %>
 
 <header class="block headings-block">
- <div class="inner-block floated-children">
-   <%= render partial: 'shared/heading',
-             locals: { heading: "Find a British embassy, high commission or consulate",
-                       type: "Worldwide" } %>
+  <div class="inner-block floated-children">
+    <%= render "govuk_publishing_components/components/title", {
+      context: "Worldwide",
+      title: "Find a British embassy, high commission or consulate",
+    } %>
   </div>
 </header>
 
