@@ -183,7 +183,7 @@ Please tell us:
     references << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
     references << "HC: #{attachment.hoc_paper_number} #{attachment.parliamentary_session}" if attachment.hoc_paper_number.present?
     prefix = references.size == 1 ? "and its reference" : "and its references"
-    references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
+    references.any? ? ", #{prefix} (#{references.join(', ')})" : ""
   end
 
   def attachment_attributes(attachment)
