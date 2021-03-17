@@ -138,7 +138,6 @@ vi:
         one: bài viết do tác giả
         other: Các bài viết do tác giả
       blog_post:
-        one:
         other:
       case_study:
         one: Trường hợp cụ thể
@@ -159,7 +158,6 @@ vi:
         one: Liên hệ
         other: Liên hệ
       decision:
-        one:
         other:
       detailed_guidance:
         one: Hướng dẫn chi tiết
@@ -192,10 +190,8 @@ vi:
         one: Báo cáo độc lập
         other: Các báo cáo độc lập
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: Bản đồ
@@ -210,10 +206,8 @@ vi:
         one: Câu chuyện tin tức
         other: Câu chuyện tin tức
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: Thống kê
@@ -237,7 +231,6 @@ vi:
         one: Tài liệu truyền thông
         other: Tài liệu truyền thông
       regulation:
-        one:
         other:
       research:
         one: Nghiên cứu và phân tích
@@ -255,7 +248,6 @@ vi:
         one: Bộ dữ liệu thống kê
         other: Bộ dữ liệu thống kê
       statutory_guidance:
-        one:
         other:
       transcript:
         one: Kịch bản
@@ -264,7 +256,6 @@ vi:
         one: Dữ liệu kịch bản
         other: Dữ liệu kịch bản
       world_news_story:
-        one:
         other:
       written_statement:
         one: Tuyên bố bằng văn bản tới quốc hội

@@ -111,7 +111,6 @@ az:
     headings:
       applies_to_nations: tətbiq olunur
       attachments:
-        one:
         other:
       from:
       location:
@@ -133,10 +132,8 @@ az:
         one: Elan
         other: Elanlar
       authored_article:
-        one:
         other:
       blog_post:
-        one:
         other:
       case_study:
         one: Öyrənilib
@@ -157,7 +154,6 @@ az:
         one: Yazışmalar
         other: Yazışmalar
       decision:
-        one:
         other:
       detailed_guidance:
         one: ətraflı məlumat
@@ -175,7 +171,6 @@ az:
         one: Forma
         other: Formalar
       government_response:
-        one:
         other:
       guidance:
         one: İnstruksiya
@@ -184,16 +179,13 @@ az:
         one: Dəyərləndirmə
         other: Dəyərləndirmə
       imported:
-        one:
         other:
       independent_report:
         one: Müstəqil məruzə
         other: Müstəqil məruzələr
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: Xəritə
@@ -208,10 +200,8 @@ az:
         one: Xəbərlər
         other: Xəbərlər
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: statistika
@@ -235,7 +225,6 @@ az:
         one: Nəşrlər
         other: Nəşrlər
       regulation:
-        one:
         other:
       research:
         one: Tətqiqat və analiz
@@ -253,7 +242,6 @@ az:
         one: statistik məlumatlar bazası
         other: statistik məlumatlar bazaları
       statutory_guidance:
-        one:
         other:
       transcript:
         one: Transkripsiya
@@ -262,7 +250,6 @@ az:
         one: Şəffaf məlumat
         other: Şəffaf məlumat
       world_news_story:
-        one:
         other:
       written_statement:
         one: Parlamentə yazılı müraciət
@@ -420,7 +407,6 @@ az:
         one: Beynəlxalq nümayəndəlik
         other: Beynəlxalq nümayəndəliklər
       world_location:
-        one:
         other:
   worldwide_organisation:
     corporate_information:

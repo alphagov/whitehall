@@ -137,7 +137,6 @@ ko:
         one: 기사
         other: 기사
       blog_post:
-        one:
         other:
       case_study:
         one: 케이스 스터디
@@ -158,7 +157,6 @@ ko:
         one: 서신
         other: 서신
       decision:
-        one:
         other:
       detailed_guidance:
         one: 상세 안내
@@ -191,10 +189,8 @@ ko:
         one: 독립 레포트
         other: 독립 레포트
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: 지도
@@ -209,10 +205,8 @@ ko:
         one: 뉴스 스토리
         other: 뉴스 스토리
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: 통계
@@ -236,7 +230,6 @@ ko:
         one: 간행물
         other: 간행물
       regulation:
-        one:
         other:
       research:
         one: 리써치 및 분석
@@ -254,7 +247,6 @@ ko:
         one: 통계 데이터 세트
         other: 통계 데이터 세트
       statutory_guidance:
-        one:
         other:
       transcript:
         one: 트랜스크립트
@@ -263,7 +255,6 @@ ko:
         one: 투명성 데이타
         other: 투명성 데이타
       world_news_story:
-        one:
         other:
       written_statement:
         one: 의회로 서면 성명

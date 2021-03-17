@@ -138,7 +138,6 @@ id:
         one: Artikel yang ditulis
         other: Artikel-artikel yang ditulis
       blog_post:
-        one:
         other:
       case_study:
         one: Studi kasus
@@ -159,7 +158,6 @@ id:
         one: Koresponden
         other: Koresponden-koresponden
       decision:
-        one:
         other:
       detailed_guidance:
         one: Panduan lebih lanjut
@@ -192,10 +190,8 @@ id:
         one: Laporan independen
         other: Laporan-laporan independen
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: Peta
@@ -210,10 +206,8 @@ id:
         one: Berita
         other: Berita-berita
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: Statistik
@@ -237,7 +231,6 @@ id:
         one: Publikasi
         other: Publikasi-publikasi
       regulation:
-        one:
         other:
       research:
         one: Riset dan analisis
@@ -255,7 +248,6 @@ id:
         one: Set data statistik
         other: Set data statistik
       statutory_guidance:
-        one:
         other:
       transcript:
         one: Transkrip
@@ -264,7 +256,6 @@ id:
         one: Transparansi data
         other: Transparansi data
       world_news_story:
-        one:
         other:
       written_statement:
         one: Pernyataan tertulis kepada parlemen

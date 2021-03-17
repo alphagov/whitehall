@@ -138,7 +138,6 @@ fa:
         one: مقاله
         other: مقالات
       blog_post:
-        one:
         other:
       case_study:
         one: مطالعه ی موردی
@@ -159,7 +158,6 @@ fa:
         one: مکاتبه
         other: مکاتبات
       decision:
-        one:
         other:
       detailed_guidance:
         one: راهنمای تفصیلی
@@ -192,10 +190,8 @@ fa:
         one: گزارش مستقل
         other: گزارش های مستقل
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: نقشه
@@ -210,10 +206,8 @@ fa:
         one: خبر
         other: اخبار
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: آمار
@@ -237,7 +231,6 @@ fa:
         one: نشریه
         other: نشریات
       regulation:
-        one:
         other:
       research:
         one: پژوهش و تحلیل
@@ -255,7 +248,6 @@ fa:
         one: بسته ی داده های آماری
         other: بسته های داده های آماری
       statutory_guidance:
-        one:
         other:
       transcript:
         one: رونوشت
@@ -264,7 +256,6 @@ fa:
         one: داده های شفاف سازی
         other: داده های شفاف سازی
       world_news_story:
-        one:
         other:
       written_statement:
         one: گزارش کتبی به پارلمان

@@ -137,7 +137,6 @@ ja:
         one: Authored article
         other: Authored articles
       blog_post:
-        one:
         other:
       case_study:
         one: ケーススタディ
@@ -158,7 +157,6 @@ ja:
         one: 通信文書
         other: 通信文書
       decision:
-        one:
         other:
       detailed_guidance:
         one: 詳細説明
@@ -191,10 +189,8 @@ ja:
         one: 第三者機関によるレポート
         other: 第三者機関によるレポート
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: 地図
@@ -209,10 +205,8 @@ ja:
         one: ニュース
         other: ニュース
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: 統計
@@ -236,7 +230,6 @@ ja:
         one: 出版物
         other: 出版物
       regulation:
-        one:
         other:
       research:
         one: 調査と分析
@@ -254,7 +247,6 @@ ja:
         one: 統計データセット
         other: 統計データセット
       statutory_guidance:
-        one:
         other:
       transcript:
         one: スピーチ全文
@@ -263,7 +255,6 @@ ja:
         one: 透明性データ
         other: 透明性データ
       world_news_story:
-        one:
         other:
       written_statement:
         one: 閣僚声明文

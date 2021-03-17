@@ -136,7 +136,6 @@ zh:
         one: 撰写的文章
         other: 撰写的文章
       blog_post:
-        one:
         other:
       case_study:
         one: 实例研究
@@ -157,7 +156,6 @@ zh:
         one: 交流
         other: 交流
       decision:
-        one:
         other:
       detailed_guidance:
         one: 详细指导
@@ -190,10 +188,8 @@ zh:
         one: 独立报告
         other: 独立报告
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: 地图
@@ -208,10 +204,8 @@ zh:
         one: 新闻报道
         other: 新闻报道
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: 统计数据
@@ -235,7 +229,6 @@ zh:
         one: 发布的报告
         other: 发布的报告
       regulation:
-        one:
         other:
       research:
         one: 研究及分析
@@ -253,7 +246,6 @@ zh:
         one: 统计数据集
         other: 统计数据集
       statutory_guidance:
-        one:
         other:
       transcript:
         one: 副本
@@ -262,7 +254,6 @@ zh:
         one: 透明化数据
         other: 透明化数据
       world_news_story:
-        one:
         other:
       written_statement:
         one: 对议会的书面声明

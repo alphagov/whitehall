@@ -137,7 +137,6 @@ th:
         one: บทความที่เขียน
         other: บทความที่เขียน
       blog_post:
-        one:
         other:
       case_study:
         one: กรณีศึกษา
@@ -158,7 +157,6 @@ th:
         one: จดหมาย
         other: จดหมาย
       decision:
-        one:
         other:
       detailed_guidance:
         one: คู่มือโดยละเอียด
@@ -191,10 +189,8 @@ th:
         one: รายงานอิสระ
         other: รายงานอิสระ
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
         one: แผนที่
@@ -209,10 +205,8 @@ th:
         one: ข่าว
         other: ข่าว
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
         one: สถิติ
@@ -236,7 +230,6 @@ th:
         one: สิ่งพิมพ์
         other: สิ่งพิมพ์
       regulation:
-        one:
         other:
       research:
         one: บทวิจัยและบทวิเคราะห์
@@ -254,7 +247,6 @@ th:
         one: ชุดข้อมูลสถิติ
         other: ชุดข้อมูลสถิติ
       statutory_guidance:
-        one:
         other:
       transcript:
         one: สำเนา
@@ -263,7 +255,6 @@ th:
         one: ข้อมูลโปร่งใส
         other: ข้อมูลโปร่งใส
       world_news_story:
-        one:
         other:
       written_statement:
         one: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
