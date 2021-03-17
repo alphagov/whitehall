@@ -6,11 +6,25 @@
     remote:        data-remote
     paginator:     the paginator that renders the pagination tags inside
 -%>
-<%= paginator.render do -%>
-  <nav id="show-more-documents" role="navigation">
-    <ul class="previous-next-navigation">
-      <%= prev_page_tag unless current_page.first? %>
-      <%= next_page_tag unless current_page.last? %>
-    </ul>
-  </nav>
-<% end -%>
+
+<%
+  nav = {}
+
+  unless current_page.last?
+    nav[:next_page] = {
+      url: paginator.next_page_tag.url,
+      title: "Next page",
+      label: "#{current_page + 1} of #{total_pages}"
+    }
+  end
+
+  unless current_page.first?
+    nav[:previous_page] = {
+      url: paginator.prev_page_tag.url,
+      title: "Previous page",
+      label: "#{current_page - 1} of #{total_pages}"
+    }
+  end
+%>
+
+<%= render "govuk_publishing_components/components/previous_and_next_navigation", nav %>
