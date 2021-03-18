@@ -113,7 +113,6 @@ id:
     headings:
       applies_to_nations: Diterapkan pada
       attachments:
-        one: Dokumen
         other: Dokumen-dokumen
       from:
       location:
@@ -132,142 +131,96 @@ id:
       written_on: 'Dituliskan pada:'
     type:
       announcement:
-        one: Pengumuman
         other: Pengumuman-pengumuman
       authored_article:
-        one: Artikel yang ditulis
         other: Artikel-artikel yang ditulis
       blog_post:
-        one:
         other:
       case_study:
-        one: Studi kasus
         other: Studi-studi kasus
       closed_consultation:
-        one: Konsultasi tertutup
         other: Konsultasi-konsultasi tertutup
       consultation:
-        one: Konsultasi
         other: Konsultasi-konsultasi
       consultation_outcome:
-        one: Hasil konsultasi
         other: Hasil-hasil konsultasi
       corporate_report:
-        one: Laporan korporat
         other: Laporan-laporan korporat
       correspondence:
-        one: Koresponden
         other: Koresponden-koresponden
       decision:
-        one:
         other:
       detailed_guidance:
-        one: Panduan lebih lanjut
         other: Panduan lebih lanjut
       document_collection:
-        one: Serial
         other:
       draft_text:
-        one: Rancangan teks
         other: Rancangan tulisan
       foi_release:
-        one: Rilis FOI
         other: Rilis FOI
       form:
-        one: Formulir
         other: Formulir-formulir
       government_response:
-        one: Respon Pemerintah
         other: Respon-respon Pemerintah
       guidance:
-        one: Panduan
         other: Panduan
       impact_assessment:
-        one: Penilaian dampak
         other: Penilaian-penilaian dampak
       imported:
-        one: Diimpor-menunggu tipe
         other: Diimpor-menunggu tipe
       independent_report:
-        one: Laporan independen
         other: Laporan-laporan independen
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one: Peta
         other: Peta-peta
       national_statistics:
-        one: Statistik-statistik nasional
         other: Statistik-statistik nasional
       news_article:
-        one: Artikel berita
         other: Artikel-artikel berita
       news_story:
-        one: Berita
         other: Berita-berita
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one: Statistik
         other: Statistik-statistik
       open_consultation:
-        one: Konsultasi terbuka
         other: Konsultasi-konsultasi terbuka
       oral_statement:
-        one: Pernyataan langsung kepada parlemen
         other: Pernyataan-pernyataan langsung kepada parlemen
       policy_paper:
-        one: Laporan kebijakan
         other: Laporan-laporan kebijakan
       press_release:
-        one: Rilis pers
         other: Rilis pers
       promotional:
-        one: Materi promosi
         other: Materi promosi
       publication:
-        one: Publikasi
         other: Publikasi-publikasi
       regulation:
-        one:
         other:
       research:
-        one: Riset dan analisis
         other: Riset dan analisis
       speaking_notes:
-        one: Naskah Pembicara
         other: Naskah Pembicara
       speech:
-        one: Pidato
         other: Pidato-pidato
       statement_to_parliament:
-        one: Pernyatan kepada Parlemen
         other: Pernyataan-pernyaatan kepada Parlemen
       statistical_data_set:
-        one: Set data statistik
         other: Set data statistik
       statutory_guidance:
-        one:
         other:
       transcript:
-        one: Transkrip
         other: Transkrip-transkrip
       transparency:
-        one: Transparansi data
         other: Transparansi data
       world_news_story:
-        one:
         other:
       written_statement:
-        one: Pernyataan tertulis kepada parlemen
         other: Pernyataan-pernyatan tertulis kepada parlemen
     updated: Terkini
     view: Lihat '%{title}'
@@ -420,10 +373,8 @@ id:
       statistics: Statistik-statistik kami
     type:
       international_delegation:
-        one: Delegasi internasional
         other: Delegasi-delegasi internasional
       world_location:
-        one: Lokasi dunia
         other: Lokasi-lokasi dunia
   worldwide_organisation:
     corporate_information:

@@ -113,7 +113,6 @@ vi:
     headings:
       applies_to_nations: Áp dụngng cho
       attachments:
-        one: Tài liệu
         other: Tài liệu
       from:
       location:
@@ -132,142 +131,96 @@ vi:
       written_on: 'Viết vào:'
     type:
       announcement:
-        one: Thông báo
         other: Các thông báo
       authored_article:
-        one: bài viết do tác giả
         other: Các bài viết do tác giả
       blog_post:
-        one:
         other:
       case_study:
-        one: Trường hợp cụ thể
         other: Các Trường hợp cụ thể
       closed_consultation:
-        one: Kết thúc tham vấn
         other: Kết thúc các cuộc tham vấn
       consultation:
-        one: Tham vấn
         other: Các cuộc tham vấn
       consultation_outcome:
-        one: Kết quả tham vấn
         other: Các Kết quả tham vấn
       corporate_report:
-        one: báo cáo tổng hợp
         other: Các báo cáo tổng hợp
       correspondence:
-        one: Liên hệ
         other: Liên hệ
       decision:
-        one:
         other:
       detailed_guidance:
-        one: Hướng dẫn chi tiết
         other: Hướng dẫn chi tiết
       document_collection:
-        one: Chuỗi
         other:
       draft_text:
-        one: Nội dung dự thảo
         other: Các nội dung dự thảo
       foi_release:
-        one: Thông cáo FOI
         other: Thông cáo FOI
       form:
-        one: Mẫu đơn
         other: Các mẫu đơn
       government_response:
-        one: Phản ứng của Chính phủ
         other: các phản hồi của Chính phủ
       guidance:
-        one: hướng dẫn
         other: hướng dẫn
       impact_assessment:
-        one: Đánh giá tác động
         other: Đánh giá tác động
       imported:
-        one: Loại tài liệu đính kèm
         other: Loại tài liệu đính kèm
       independent_report:
-        one: Báo cáo độc lập
         other: Các báo cáo độc lập
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one: Bản đồ
         other: Các bản đồ
       national_statistics:
-        one: Thống kê - Thống kê quốc gia
         other: Thống kê - Thống kê quốc gia
       news_article:
-        one: Tin tức
         other: Tin tức
       news_story:
-        one: Câu chuyện tin tức
         other: Câu chuyện tin tức
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one: Thống kê
         other: Thống kê
       open_consultation:
-        one: Tham vấn mở rộng
         other: Tham vấn mở rộng
       oral_statement:
-        one: Tuyên bố bằng lời nói tới quốc hội
         other: Tuyên bố bằng lời nói tới quốc hội
       policy_paper:
-        one: Tài liệu chính sách
         other: Tài liệu chính sách
       press_release:
-        one: Thông cáo báo chí
         other: Thông cáo báo chí
       promotional:
-        one: Tài liệu truyền thông
         other: Tài liệu truyền thông
       publication:
-        one: Tài liệu truyền thông
         other: Tài liệu truyền thông
       regulation:
-        one:
         other:
       research:
-        one: Nghiên cứu và phân tích
         other: Nghiên cứu và phân tích
       speaking_notes:
-        one: Bài phát biểu
         other: Bài phát biểu
       speech:
-        one: Bài phát biểu
         other: Các bài phát biểu
       statement_to_parliament:
-        one: Tuyên bố tới Quốc hội
         other: Tuyên bố tới Quốc hội
       statistical_data_set:
-        one: Bộ dữ liệu thống kê
         other: Bộ dữ liệu thống kê
       statutory_guidance:
-        one:
         other:
       transcript:
-        one: Kịch bản
         other: Kịch bản
       transparency:
-        one: Dữ liệu kịch bản
         other: Dữ liệu kịch bản
       world_news_story:
-        one:
         other:
       written_statement:
-        one: Tuyên bố bằng văn bản tới quốc hội
         other: Các Tuyên bố bằng văn bản tới quốc hội
     updated: Cập nhật
     view: Xem '%{title}'
@@ -421,10 +374,8 @@ vi:
       statistics: Thống kê của chúng tôi
     type:
       international_delegation:
-        one: Phái đoàn quốc tế
         other: Các phái đoàn quốc tế
       world_location:
-        one: Địa điểm trên thế giới
         other: Các địa điểm trên thế giới
   worldwide_organisation:
     corporate_information:

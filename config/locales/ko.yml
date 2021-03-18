@@ -112,7 +112,6 @@ ko:
     headings:
       applies_to_nations: 적용
       attachments:
-        one: 문서
         other: 문서
       from:
       location:
@@ -131,142 +130,96 @@ ko:
       written_on: '작성일시:'
     type:
       announcement:
-        one: 공지
         other: 공지
       authored_article:
-        one: 기사
         other: 기사
       blog_post:
-        one:
         other:
       case_study:
-        one: 케이스 스터디
         other: 케이스 스터디
       closed_consultation:
-        one: 비공개 협의
         other: 비공개 협의
       consultation:
-        one: 협의
         other: 협의
       consultation_outcome:
-        one: 협의 결과
         other: 협의 결과
       corporate_report:
-        one: 기업 레포트
         other: 기업 레포트
       correspondence:
-        one: 서신
         other: 서신
       decision:
-        one:
         other:
       detailed_guidance:
-        one: 상세 안내
         other: 상세 안내
       document_collection:
-        one: 시리즈
         other:
       draft_text:
-        one: 드래프트 택스트
         other: 드래프트 택스트
       foi_release:
-        one: FOI 보도자료
         other: FOI 보도자료
       form:
-        one: 문서
         other: 문서
       government_response:
-        one: 정부 대책
         other: 정부 대책
       guidance:
-        one: 안내
         other: 안내
       impact_assessment:
-        one: 임팩트 평가
         other: 임팩트 평가
       imported:
-        one: 수입 - 대기
         other: 수입 - 대기
       independent_report:
-        one: 독립 레포트
         other: 독립 레포트
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one: 지도
         other: 지도
       national_statistics:
-        one: 통계 - 국가 통계
         other: 통계 - 국가 통계
       news_article:
-        one: 뉴스
         other: 뉴스
       news_story:
-        one: 뉴스 스토리
         other: 뉴스 스토리
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one: 통계
         other: 통계
       open_consultation:
-        one: 오픈 컨설테이션
         other: 오픈 컨설테이션
       oral_statement:
-        one: 의회로 구두 성명
         other: 의회로 구두 성명
       policy_paper:
-        one: 정책 논문
         other: 정책 논문
       press_release:
-        one: 보도자료
         other: 보도자료
       promotional:
-        one: 홍보물
         other: 홍보물
       publication:
-        one: 간행물
         other: 간행물
       regulation:
-        one:
         other:
       research:
-        one: 리써치 및 분석
         other: 리써치 및 분석
       speaking_notes:
-        one: 요점사항
         other: 요점사항
       speech:
-        one: 연설문
         other: 연설문
       statement_to_parliament:
-        one: 의회로 성명
         other: 의회로 성명
       statistical_data_set:
-        one: 통계 데이터 세트
         other: 통계 데이터 세트
       statutory_guidance:
-        one:
         other:
       transcript:
-        one: 트랜스크립트
         other: 트랜스크립트
       transparency:
-        one: 투명성 데이타
         other: 투명성 데이타
       world_news_story:
-        one:
         other:
       written_statement:
-        one: 의회로 서면 성명
         other: 의회로 서면 성명
     updated: 업데이트
     view: "'%{title}' 을 확인하세요."
@@ -418,10 +371,8 @@ ko:
       statistics: 통계
     type:
       international_delegation:
-        one: 국제 사절단
         other: 국제 사절단
       world_location:
-        one: 월드 로케이션
         other: 월드 로케이션
   worldwide_organisation:
     corporate_information:
