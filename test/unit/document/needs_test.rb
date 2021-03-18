@@ -52,7 +52,6 @@ class Document::NeedsTest < ActiveSupport::TestCase
     need_content_ids = [SecureRandom.uuid, SecureRandom.uuid]
     document.stubs(:need_ids).returns(need_content_ids)
 
-    need_content_ids = need_content_ids
     Services.publishing_api.stubs(:patch_links)
         .with(document.content_id, links: { meets_user_needs: need_content_ids })
         .returns("Links updated")
