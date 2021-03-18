@@ -75,14 +75,12 @@ private
   end
 
   def content_type(file_name)
-    extension = File.extname(file_name)
-    case extension
-    when ".jpg"
-      "image/jpg"
-    when ".svg"
-      "image/svg+xml"
-    when ".gif"
-      "image/gif"
-    end
+    types = {
+      ".jpg" => "image/jpg",
+      ".svg" => "image/svg+xml",
+      ".gif" => "image/gif",
+    }
+
+    types[File.extname(file_name)]
   end
 end
