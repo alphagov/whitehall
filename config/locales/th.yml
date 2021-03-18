@@ -112,7 +112,6 @@ th:
     headings:
       applies_to_nations: นำไปใช้กับ
       attachments:
-        one: เอกสาร
         other: เอกสารต่างๆ
       from:
       location:
@@ -131,133 +130,96 @@ th:
       written_on: เขียนเมือ
     type:
       announcement:
-        one: ข่าวสาร
         other: ข่าวสาร
       authored_article:
-        one: บทความที่เขียน
         other: บทความที่เขียน
       blog_post:
         other:
       case_study:
-        one: กรณีศึกษา
         other: กรณีศึกษา
       closed_consultation:
-        one: การศึกษาแบบปิด
         other: การศึกษาแบบปิด
       consultation:
-        one: การปรึกษา
         other: การปรึกษา
       consultation_outcome:
-        one: ผลการปรึกษา
         other: ผลการปรึกษา
       corporate_report:
-        one: รายงานบริษัท
         other: รายงานบริษัท
       correspondence:
-        one: จดหมาย
         other: จดหมาย
       decision:
         other:
       detailed_guidance:
-        one: คู่มือโดยละเอียด
         other: คู่มือโดยละเอียด
       document_collection:
-        one: ตอน
         other:
       draft_text:
-        one: ร่างข้อความ
         other: ร่างข้อความ
       foi_release:
-        one: ข้อมูลที่เปิดเผยได้
         other: ข้อมูลที่เปิดเผยได้
       form:
-        one: แบบฟอร์ม
         other: แบบฟอร์ม
       government_response:
-        one: การตอบสนองของรัฐบาล
         other: การตอบสนองของรัฐบาล
       guidance:
-        one: คู่มือ
         other: คู่มือ
       impact_assessment:
-        one: การประเมินผลกระทบ
         other: การประเมินผลกระทบ
       imported:
-        one: ประเภทรอนำเข้า
         other: ประเภทรอนำเข้า
       independent_report:
-        one: รายงานอิสระ
         other: รายงานอิสระ
       international_treaty:
         other:
       manual:
         other:
       map:
-        one: แผนที่
         other: แผนที่
       national_statistics:
-        one: สถิติ-สถิติแห่งชาน
         other: สถิติ-สถิติแห่งชาติ
       news_article:
-        one: บทความข่าว
         other: บทความข่าว
       news_story:
-        one: ข่าว
         other: ข่าว
       nhs_content:
         other:
       notice:
         other:
       official_statistics:
-        one: สถิติ
         other: สถิติ
       open_consultation:
-        one: การให้คำปรึกษาเปิด
         other: การให้คำปรึกษาเปิด
       oral_statement:
-        one: แถลงการณ์ด้วยวาจาต่อรัฐสภา
         other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
       policy_paper:
-        one: เอกสารนโยบาย
         other: เอกสารนโยบาย
       press_release:
-        one: ข่าวประชาสัมพันธ์
         other: ข่าวประชาสัมพันธ์
       promotional:
-        one: เอกสารเพี่อการประชาสัมพันธ์
         other: เอกสารเพือการประชาสัมพันธ์
       publication:
-        one: สิ่งพิมพ์
         other: สิ่งพิมพ์
       regulation:
         other:
       research:
-        one: บทวิจัยและบทวิเคราะห์
         other: บทวิจัยและบทวิเคราะห์
       speaking_notes:
-        one: ประเด็นการพูด
         other: ประเด็นการพูด
       speech:
-        one: สุนทรพจน์
         other: สุนทรพจน์
       statement_to_parliament:
-        one: แถลงการณ์ต่อรัฐสภา
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
-        one: ชุดข้อมูลสถิติ
         other: ชุดข้อมูลสถิติ
       statutory_guidance:
         other:
       transcript:
-        one: สำเนา
         other: สำเนา
       transparency:
-        one: ข้อมูลโปร่งใส
         other: ข้อมูลโปร่งใส
       world_news_story:
         other:
       written_statement:
-        one: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
         other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
     view: ดู '%{title}'
@@ -409,10 +371,8 @@ th:
       statistics: สถิติของเรา
     type:
       international_delegation:
-        one: ผู้แทนนานาประเทศ
         other: คณะผู้แทนนานาประเทศ
       world_location:
-        one: ที่ตั้ง
         other: ทีตั้ง
   worldwide_organisation:
     corporate_information:

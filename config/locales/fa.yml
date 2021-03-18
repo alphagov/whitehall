@@ -113,7 +113,6 @@ fa:
     headings:
       applies_to_nations: در ارتباط با
       attachments:
-        one: مدرک
         other: مدارک
       from:
       location:
@@ -132,133 +131,96 @@ fa:
       written_on: 'نوشته شده در:'
     type:
       announcement:
-        one: اعلامیه
         other: اعلامیه ها
       authored_article:
-        one: مقاله
         other: مقالات
       blog_post:
         other:
       case_study:
-        one: مطالعه ی موردی
         other: مطالعه های موردی
       closed_consultation:
-        one: رایزنی بسته
         other: رایزنی های بسته
       consultation:
-        one: رایزنی
         other: رایزنی ها
       consultation_outcome:
-        one: نتیجه رایزنی
         other: نتایج رایزنی
       corporate_report:
-        one: گزارش سازمانی
         other: گزارش های سازمانی
       correspondence:
-        one: مکاتبه
         other: مکاتبات
       decision:
         other:
       detailed_guidance:
-        one: راهنمای تفصیلی
         other: راهنمای تفصیلی
       document_collection:
-        one: ردیف
         other:
       draft_text:
-        one: متن پیش نویس
         other: متون پیش نویس
       foi_release:
-        one: انتشار آزاد اطلاعات
         other: انتشار آزاد اطلاعات
       form:
-        one: فرم
         other: فرم ها
       government_response:
-        one: جوابیه دولت
         other: جوابیه های دولت
       guidance:
-        one: راهنمایی
         other: راهنمایی
       impact_assessment:
-        one: ارزیابی تاثیرات
         other: ارزیابی های تاثیرات
       imported:
-        one: منتقل شده - در انتظار دسته بندی
         other: منتقل شده - در انتظار دسته بندی
       independent_report:
-        one: گزارش مستقل
         other: گزارش های مستقل
       international_treaty:
         other:
       manual:
         other:
       map:
-        one: نقشه
         other: نقشه ها
       national_statistics:
-        one: آمار - آمار ملی
         other: آمار - آمار ملی
       news_article:
-        one: مقاله ی خبری
         other: مقالات خبری
       news_story:
-        one: خبر
         other: اخبار
       nhs_content:
         other:
       notice:
         other:
       official_statistics:
-        one: آمار
         other: آمار
       open_consultation:
-        one: رایزنی باز
         other: رایزنی های باز
       oral_statement:
-        one: گزارش شفاهی به پارلمان
         other: گزارش های شفاهی به پارلمان
       policy_paper:
-        one: مقاله ی سیاسی
         other: مقاله های سیاسی
       press_release:
-        one: بیانیه
         other: بیانیه ها
       promotional:
-        one: مطالب تبلیغاتی
         other: مطالب تبلیغاتی
       publication:
-        one: نشریه
         other: نشریات
       regulation:
         other:
       research:
-        one: پژوهش و تحلیل
         other: پژوهش و تحلیل
       speaking_notes:
-        one: موضوعات سخنرانی
         other: موضوعات سخنرانی
       speech:
-        one: سخنرانی
         other: سخنرانی ها
       statement_to_parliament:
-        one: گزارش به پارلمان
         other: گزارش ها به پارلمان
       statistical_data_set:
-        one: بسته ی داده های آماری
         other: بسته های داده های آماری
       statutory_guidance:
         other:
       transcript:
-        one: رونوشت
         other: رونوشت ها
       transparency:
-        one: داده های شفاف سازی
         other: داده های شفاف سازی
       world_news_story:
         other:
       written_statement:
-        one: گزارش کتبی به پارلمان
         other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
     view: مشاهده '%{title}'
@@ -411,10 +373,8 @@ fa:
       statistics: آمار ما
     type:
       international_delegation:
-        one: هیأت بین المللی
         other: هیأت های بین المللی
       world_location:
-        one: موقعیت جهانی
         other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:

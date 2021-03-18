@@ -129,130 +129,96 @@ az:
       written_on:
     type:
       announcement:
-        one: Elan
         other: Elanlar
       authored_article:
         other:
       blog_post:
         other:
       case_study:
-        one: Öyrənilib
         other: Öyrənilib
       closed_consultation:
-        one: Bağlı məslətləşmə
         other: Bağlı məslətləşmələr
       consultation:
-        one: Məsləhət
         other: məsləhətləşmələr
       consultation_outcome:
-        one: məsləhətləşmənin nəticəsi
         other: məsləhətləşmənin nəticələri
       corporate_report:
-        one: birgə məruzə
         other: birgə məruzələr
       correspondence:
-        one: Yazışmalar
         other: Yazışmalar
       decision:
         other:
       detailed_guidance:
-        one: ətraflı məlumat
         other: ətraflı məlumat
       document_collection:
-        one: növlər
         other:
       draft_text:
-        one: hazırlanmış mətn
         other: hazırlanmış mətn
       foi_release:
-        one: Məlumat azadlığı ilə bağlı açıqlama
         other: Məlumat azadlığı ilə bağlı açıqlamalar
       form:
-        one: Forma
         other: Formalar
       government_response:
         other:
       guidance:
-        one: İnstruksiya
         other: İnstruksiya
       impact_assessment:
-        one: Dəyərləndirmə
         other: Dəyərləndirmə
       imported:
         other:
       independent_report:
-        one: Müstəqil məruzə
         other: Müstəqil məruzələr
       international_treaty:
         other:
       manual:
         other:
       map:
-        one: Xəritə
         other: xəritələr
       national_statistics:
-        one: Statistika - milli statistika
         other: Statistika - milli statistika
       news_article:
-        one: məqalə
         other: məqalələr
       news_story:
-        one: Xəbərlər
         other: Xəbərlər
       nhs_content:
         other:
       notice:
         other:
       official_statistics:
-        one: statistika
         other: statistika
       open_consultation:
-        one: açıq məsləhətləşmələr
         other: açıq məsləhətləşmələr
       oral_statement:
-        one: Parliamentə açıq bəyanat
         other: Parlamentə açıq bəyanatlar
       policy_paper:
-        one: Siyasi sənədlər
         other: Siyasi sənədlər
       press_release:
-        one: mətbuat üçün açıqlama
         other: mətbuat üçün açıqlama
       promotional:
-        one: Təşviqedici materiallar
         other: Təşviqedici materiallar
       publication:
-        one: Nəşrlər
         other: Nəşrlər
       regulation:
         other:
       research:
-        one: Tətqiqat və analiz
         other: Tətqiqat və analiz
       speaking_notes:
-        one: Çıxış üçün  qeydləri
         other: Çıxış üçün  qeydləri
       speech:
-        one: çıxış
         other: Çıxışlar
       statement_to_parliament:
-        one: Parlamentə bəyanat
         other: Parlamentə bəyanatlar
       statistical_data_set:
-        one: statistik məlumatlar bazası
         other: statistik məlumatlar bazaları
       statutory_guidance:
         other:
       transcript:
-        one: Transkripsiya
         other: Transkripsiyalar
       transparency:
-        one: Şəffaf məlumat
         other: Şəffaf məlumat
       world_news_story:
         other:
       written_statement:
-        one: Parlamentə yazılı müraciət
         other: Parlamentə yazılı müraciət
     updated: yenilənib
     view:
@@ -404,7 +370,6 @@ az:
       statistics: Bizim statistika
     type:
       international_delegation:
-        one: Beynəlxalq nümayəndəlik
         other: Beynəlxalq nümayəndəliklər
       world_location:
         other:
