@@ -2,11 +2,11 @@ require "test_helper"
 
 class SearchIndexAddWorkerTest < ActiveSupport::TestCase
   test "#perform raises an exception if the class is not searchable" do
-    class NonSearchableClass; end
-
-    worker = SearchIndexAddWorker.new
-    e = assert_raise(ArgumentError) { worker.perform("NonSearchableClass", 1) }
-    assert_match %r{is not a searchable class}, e.message
+    Object.stub_const("NonSearchableClass", Class.new) do
+      worker = SearchIndexAddWorker.new
+      e = assert_raise(ArgumentError) { worker.perform("NonSearchableClass", 1) }
+      assert_match %r{is not a searchable class}, e.message
+    end
   end
 
   test "#perform logs a warning if the instance does not exist" do
