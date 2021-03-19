@@ -9,8 +9,7 @@ class RummagerDocumentPresenter < ActionView::Base
 
   attr_reader :title, :link, :summary, :content_id
 
-  def initialize(document_hash)
-    super()
+  def initialize(document_hash) # rubocop:disable Lint/MissingSuper
     @document = document_hash
     @link = @document.fetch("link", "")
     @title = @document.fetch("title", "")
