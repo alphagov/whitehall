@@ -18,3 +18,8 @@ Rails/Output:
 # it should be removed when we upgrade.
 Style/HashEachMethods:
   Enabled: false
+
+# This application uses inheritance as a means to set before_actions for
+# permissions, this approach conflicts with this cop.
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
