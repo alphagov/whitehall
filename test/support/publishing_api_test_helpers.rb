@@ -1,5 +1,4 @@
 require "gds_api/test_helpers/publishing_api"
-require "gds_api/test_helpers/publishing_api"
 
 module PublishingApiTestHelpers
   include GdsApi::TestHelpers::PublishingApi
