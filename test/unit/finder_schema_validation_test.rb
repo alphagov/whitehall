@@ -1,7 +1,7 @@
 require "test_helper"
 
 class FinderSchemaValidationTest < ActiveSupport::TestCase
-  FINDER_FILES = Dir["#{Rails.root}lib/finders/*.json"]
+  FINDER_FILES = Dir[Rails.root.join("lib/finders/*.json")]
 
   FINDER_FILES.each do |file_path|
     name = File.basename(file_path, ".json")
