@@ -10,6 +10,7 @@ class RummagerDocumentPresenter < ActionView::Base
   attr_reader :title, :link, :summary, :content_id
 
   def initialize(document_hash)
+    super()
     @document = document_hash
     @link = @document.fetch("link", "")
     @title = @document.fetch("title", "")

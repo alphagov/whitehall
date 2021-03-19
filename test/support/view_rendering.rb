@@ -30,6 +30,7 @@ module ViewRendering
     attr_reader :original_path_set
 
     def initialize(original_path_set)
+      super()
       @original_path_set = original_path_set
     end
 
