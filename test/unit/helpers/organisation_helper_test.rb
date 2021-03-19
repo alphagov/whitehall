@@ -26,7 +26,7 @@ class OrganisationHelperTest < ActionView::TestCase
   test "returns name formatted for logos" do
     organisation = build(:organisation, name: "Building Law and Hygiene", logo_formatted_name: "Building Law\nand Hygiene")
     assert_equal "Building Law<br/>and Hygiene", organisation_logo_name(organisation)
-    assert_equal "Building Law and Hygiene", organisation_logo_name(organisation, false)
+    assert_equal "Building Law and Hygiene", organisation_logo_name(organisation, stacked: false)
   end
 
   test "organisation_wrapper should place org specific class onto the div" do

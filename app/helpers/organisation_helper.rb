@@ -7,7 +7,7 @@ module OrganisationHelper
     end
   end
 
-  def organisation_logo_name(organisation, stacked = true)
+  def organisation_logo_name(organisation, stacked: true)
     if stacked
       format_with_html_line_breaks(ERB::Util.html_escape(organisation.logo_formatted_name))
     else

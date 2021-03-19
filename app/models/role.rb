@@ -85,7 +85,7 @@ class Role < ApplicationRecord
     where(arel_table[:attends_cabinet_type_id].not_eq(nil))
   end
 
-  def footnotes(including_cabinet = false)
+  def footnotes(including_cabinet: false)
     if including_cabinet
       note = []
       note << attends_cabinet_type.name if attends_cabinet_type_id == 2

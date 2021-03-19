@@ -110,7 +110,7 @@ private
     Whitehall::PublishingApi.save_draft(
       pre_publication_edition,
       "republish",
-      @bulk_publishing,
+      bulk_publishing: @bulk_publishing,
     )
     handle_attachments_for(pre_publication_edition)
   end
@@ -125,7 +125,7 @@ private
     Whitehall::PublishingApi.publish(
       published_edition,
       "republish",
-      @bulk_publishing,
+      bulk_publishing: @bulk_publishing,
     )
     handle_attachments_for(published_edition)
   end

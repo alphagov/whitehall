@@ -12,7 +12,7 @@ module Whitehall
   class PublishingApi
     extend LockedDocumentConcern
 
-    def self.publish(model_instance, update_type_override = nil, bulk_publishing = false)
+    def self.publish(model_instance, update_type_override = nil, bulk_publishing: false)
       assert_public_edition!(model_instance)
 
       # Ideally this wouldn't happen, but aspects of Whitehall still
@@ -27,7 +27,7 @@ module Whitehall
       save_draft(
         model_instance,
         update_type_override,
-        bulk_publishing,
+        bulk_publishing: bulk_publishing,
       )
 
       presenter = PublishingApiPresenters.presenter_for(model_instance)
@@ -49,9 +49,9 @@ module Whitehall
       end
     end
 
-    def self.save_draft(model_instance, update_type_override = nil, bulk_publishing = false)
+    def self.save_draft(model_instance, update_type_override = nil, bulk_publishing: false)
       locales_for(model_instance).each do |locale|
-        save_draft_translation(model_instance, locale, update_type_override, bulk_publishing)
+        save_draft_translation(model_instance, locale, update_type_override, bulk_publishing: bulk_publishing)
       end
     end
 
@@ -59,7 +59,7 @@ module Whitehall
       model_instance,
       locale,
       update_type_override = nil,
-      bulk_publishing = false
+      bulk_publishing: false
     )
       presenter = PublishingApiPresenters.presenter_for(
         model_instance,

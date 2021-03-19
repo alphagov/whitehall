@@ -31,7 +31,7 @@
   </div>
   <div class="links">
     <dl class="primary-metadata">
-      <% if (from = from_metadata(document, true)).any? %>
+      <% if (from = from_metadata(document, links_only: true)).any? %>
         <dt><%= t('document.headings.from') %>:</dt>
         <% from.each do |link| %>
           <dd class="from"><%= link %></dd>

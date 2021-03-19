@@ -240,7 +240,7 @@ Please tell us:
     part_of
   end
 
-  def from_metadata(document, links_only = false)
+  def from_metadata(document, links_only: false)
     from = []
 
     if document.lead_organisations.any?
