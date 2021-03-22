@@ -249,7 +249,7 @@ GEM
     govuk_frontend_toolkit (9.0.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (24.6.1)
+    govuk_publishing_components (24.7.0)
       govuk_app_config
       kramdown
       plek
@@ -313,7 +313,7 @@ GEM
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
     kgio (2.11.3)
-    kramdown (2.3.0)
+    kramdown (2.3.1)
       rexml
     launchy (2.5.0)
       addressable (~> 2.7)
