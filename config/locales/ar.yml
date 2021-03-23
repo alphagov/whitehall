@@ -286,6 +286,13 @@ ar:
         few:
         many:
         other: كلمات
+      standard:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       statement_to_parliament:
         zero:
         one: تصريح للبرلمان

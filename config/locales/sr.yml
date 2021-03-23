@@ -206,6 +206,11 @@ sr:
         few:
         many:
         other: Govori
+      standard:
+        one:
+        few:
+        many:
+        other:
       statement_to_parliament:
         one: obraćanje Parlamentu
         few:

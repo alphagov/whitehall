@@ -126,6 +126,9 @@ el:
       speech:
         one: Ομιλία
         other: Ομιλίες
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Δήλωση στη Βουλή
         other: 'Δηλώσεις στη Βουλή '

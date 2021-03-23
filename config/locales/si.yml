@@ -126,6 +126,9 @@ si:
       speech:
         one: කථාව
         other: කථා
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: පාර්ලිමේන්තුවට කල ප්‍රකාශය
         other: පාර්ලිමේන්තුවට කල ප්‍රකාශ

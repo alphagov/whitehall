@@ -126,6 +126,9 @@ sq:
       speech:
         one: Fjalim
         other: Fjalime
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Deklarate per Parliamentin
         other: Deklarata per Parlamentin

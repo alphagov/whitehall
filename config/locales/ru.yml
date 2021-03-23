@@ -206,6 +206,11 @@ ru:
         few:
         many:
         other: Тексты выступлений
+      standard:
+        one:
+        few:
+        many:
+        other:
       statement_to_parliament:
         one: Заявление парламенту
         few:

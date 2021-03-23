@@ -126,6 +126,9 @@ uz:
       speech:
         one: Nutq
         other: Nutqlar
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Parlament uchun hisobot
         other: Parlament uchun hisobotlar

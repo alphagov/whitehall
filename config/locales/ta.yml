@@ -126,6 +126,9 @@ ta:
       speech:
         one: உரை
         other: உரைகள்
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: பாராளுமன்றத்துக்கான அறிக்கை
         other: பாராளுமன்றத்துக்கான அறிக்கைகள்

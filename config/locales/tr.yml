@@ -248,6 +248,8 @@ tr:
       speech:
         one: Konuşma
         other: Konuşmalar
+      standard:
+        other:
       statement_to_parliament:
         one: Parlamento'ya yapılan açıklama
         other: Parlamento'ya yapılan açıklamalar

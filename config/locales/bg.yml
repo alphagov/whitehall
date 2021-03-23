@@ -126,6 +126,9 @@ bg:
       speech:
         one: Реч
         other: Речи
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Изявление в парламента
         other: Изявления в парламента

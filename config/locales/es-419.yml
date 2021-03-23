@@ -126,6 +126,9 @@ es-419:
       speech:
         one: Discurso
         other: Discursos
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Declaración al Parlamento
         other: Declaraciones al Parlamento
