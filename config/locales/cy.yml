@@ -286,6 +286,13 @@ cy:
         few:
         many:
         other: Areithiau
+      standard:
+        zero:
+        one: Safon
+        two:
+        few:
+        many:
+        other: Safonau
       statement_to_parliament:
         zero:
         one: Datganiad i'r senedd
