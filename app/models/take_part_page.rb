@@ -23,7 +23,8 @@ class TakePartPage < ApplicationRecord
              link: :search_link,
              content: :body_without_markup,
              description: :summary,
-             format: "take_part"
+             format: "take_part",
+             ordering: :ordering
 
   def search_link
     Whitehall.url_maker.take_part_page_path(slug)
