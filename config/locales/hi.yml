@@ -126,6 +126,9 @@ hi:
       speech:
         one: भाषण
         other: भाषण
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: संसद में बयान
         other: संसद में बयान

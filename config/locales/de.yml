@@ -126,6 +126,9 @@ de:
       speech:
         one: Rede
         other: Reden
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Erklärung vor dem Parlament
         other: Erklärungen vor dem Parlament

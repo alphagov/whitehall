@@ -206,6 +206,11 @@ uk:
         few:
         many:
         other: Промови
+      standard:
+        one:
+        few:
+        many:
+        other:
       statement_to_parliament:
         one: Заява у парламенті
         few:

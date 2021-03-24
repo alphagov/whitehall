@@ -126,6 +126,9 @@ ur:
       speech:
         one: تقریر
         other: تقاریر
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: پارلیمنٹ میں بیان
         other: پارلیمنٹ میں بیانات

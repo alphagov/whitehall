@@ -126,6 +126,9 @@ fr:
       speech:
         one: Discours
         other: Discours
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Déclaration au Parlement
         other: Déclarations au Parlement

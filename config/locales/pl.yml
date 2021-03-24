@@ -206,6 +206,11 @@ pl:
         few:
         many:
         other: Przemówienia
+      standard:
+        one:
+        few:
+        many:
+        other:
       statement_to_parliament:
         one: Wystapienie przed parlamentem
         few:

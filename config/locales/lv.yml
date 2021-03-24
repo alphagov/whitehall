@@ -126,6 +126,9 @@ lv:
       speech:
         one: Runa
         other: Runas
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Ziņojums parlamentam
         other: Ziņojumi parlamentam

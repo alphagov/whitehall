@@ -246,6 +246,9 @@ zh-tw:
       speech:
         one: 演講
         other: 其他演講
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: 議會聲明
         other: 議會聲明

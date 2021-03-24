@@ -126,6 +126,9 @@ so:
       speech:
         one: Hadal
         other: Hadallo
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Hadal loo jeediyo baarlamaanka
         other: hadallo loo jeediyo baarlamaanka

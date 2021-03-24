@@ -126,6 +126,9 @@ et:
       speech:
         one: 'Kõne  '
         other: Kõned
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Avaldus parlamendis
         other: Avaldused parlamendis

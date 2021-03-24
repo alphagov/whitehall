@@ -166,6 +166,10 @@ cs:
         one: Proslov
         few:
         other: Proslovy
+      standard:
+        one:
+        few:
+        other:
       statement_to_parliament:
         one: Prohlášení v parlamentu
         few:

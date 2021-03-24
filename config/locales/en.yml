@@ -234,6 +234,9 @@ en:
       speech:
         one: Speech
         other: Speeches
+      standard:
+        one: Standard
+        other: Standards
       statement_to_parliament:
         one: Statement to Parliament
         other: Statements to Parliament

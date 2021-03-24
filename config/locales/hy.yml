@@ -126,6 +126,9 @@ hy:
       speech:
         one: Ելույթ
         other: Ելույթներ
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Դիմում խորհրդարան
         other: Դիմումներ խորհրդարան

@@ -126,6 +126,9 @@ dr:
       speech:
         one: سخنرانی
         other: سخنرانی ها
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: بیانیه به پارلمان
         other: بیانیه ها به پارلمان

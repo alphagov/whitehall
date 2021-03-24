@@ -246,6 +246,9 @@ zh-hk:
       speech:
         one: 演講
         other: 其他演講
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: 提交國會的聲明
         other: 提交國會的其他聲明

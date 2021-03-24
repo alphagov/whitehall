@@ -126,6 +126,9 @@ ps:
       speech:
         one: وینا
         other: ویناوې
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: پارلمان ته اعلامیه
         other: پارلمان ته اعلامیې

@@ -126,6 +126,9 @@ hu:
       speech:
         one: Beszéd
         other: Beszédek
+      standard:
+        one:
+        other:
       statement_to_parliament:
         one: Parlamenti nyilatkozat
         other: Parlamenti nyilatkozatok
