@@ -32,7 +32,6 @@ gem "jquery-ui-rails"
 gem "kaminari"
 gem "link_header"
 gem "mail-notify"
-gem "mimemagic", git: "https://github.com/barrucadu/mimemagic.git", ref: "e571894" # Use a GDS employee's fork until an upstream bug is fixed
 gem "mime-types"
 gem "mini_magick"
 gem "mlanett-redis-lock"
