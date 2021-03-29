@@ -11,7 +11,7 @@ class AdminRequest
 end
 
 Whitehall::Application.routes.draw do
-  VALID_LOCALES_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
+  valid_locales_regex = Regexp.compile(Locale.non_english.map(&:code).join("|"))
 
   def redirect(path, options = { prefix: Whitehall.router_prefix })
     super(options[:prefix] + path)
@@ -40,21 +40,21 @@ Whitehall::Application.routes.draw do
   # World locations and Worldwide organisations
   get "/world/organisations/:organisation_id/office" => redirect("/world/organisations/%{organisation_id}", prefix: "")
   get "/world/organisations/:organisation_id/about" => redirect("/world/organisations/%{organisation_id}", prefix: "")
-  get "/world/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: VALID_LOCALES_REGEX }
+  get "/world/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: valid_locales_regex }
 
   resources :worldwide_organisations, path: "world/organisations", only: [] do
-    get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
     # Dummy path for the sake of polymorphic_path: will always be directed above.
-    get "/about(.:locale)", as: "about", to: "_#_", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/about(.:locale)", as: "about", to: "_#_", constraints: { locale: valid_locales_regex }
 
-    get "/office/:id(.:locale)", to: "worldwide_offices#show", as: :worldwide_office, constraints: { locale: VALID_LOCALES_REGEX }
+    get "/office/:id(.:locale)", to: "worldwide_offices#show", as: :worldwide_office, constraints: { locale: valid_locales_regex }
   end
 
   resources :embassies, path: "world/embassies", only: [:index]
 
-  get "/world(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: VALID_LOCALES_REGEX }
-  get "/world/:id(.:locale)", as: "world_location", to: "world_locations#show", constraints: { locale: VALID_LOCALES_REGEX }
-  get "/world/:world_location_id/news(.:locale)", as: "world_location_news_index", to: "world_location_news#index", constraints: { locale: VALID_LOCALES_REGEX }
+  get "/world(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
+  get "/world/:id(.:locale)", as: "world_location", to: "world_locations#show", constraints: { locale: valid_locales_regex }
+  get "/world/:world_location_id/news(.:locale)", as: "world_location_news_index", to: "world_location_news#index", constraints: { locale: valid_locales_regex }
 
   # Override the /auth/failure route in gds-sso, as Slimmer gets
   # involved and causes the page to fail to render
@@ -97,21 +97,21 @@ Whitehall::Application.routes.draw do
 
     get "/tour" => redirect("/tour", prefix: "")
 
-    get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
+    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
     resources :fatality_notices, path: "fatalities", only: [:show]
     get "/news" => redirect("/announcements"), as: "news_articles"
     get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
 
     get "/latest" => "latest#index", as: "latest"
 
-    get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/publications/:id(.:locale)", as: "publication", to: "_#_", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
+    get "/publications/:id(.:locale)", as: "publication", to: "_#_", constraints: { locale: valid_locales_regex }
     get "/publications/:publication_id/:id" => "_#_", as: "publication_html_attachment"
 
     # TODO: Remove when paths can be generated without a routes entry
-    get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/speeches/:id(.:locale)", as: "speech", to: "speeches#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
+    get "/speeches/:id(.:locale)", as: "speech", to: "speeches#show", constraints: { locale: valid_locales_regex }
     resources :statistical_data_sets, path: "statistical-data-sets", only: [:show]
 
     get "/speeches" => redirect("/announcements")
@@ -121,11 +121,11 @@ Whitehall::Application.routes.draw do
     # helper methods.
     # TODO: Remove `:show` when stats announcement paths can be otherwise generated
     resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
-    get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
+    get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
     get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
 
-    get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: valid_locales_regex }
     resources :consultations, only: %i[index] do
       collection do
         get :open
@@ -146,18 +146,18 @@ Whitehall::Application.routes.draw do
     end
 
     # TODO: Remove when paths can be generated without a routes entry
-    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
     get "/collections" => redirect("/publications")
 
-    get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: valid_locales_regex }
     resources :organisations, only: [:index]
 
     resources :organisations, only: [] do
       # No need to forward the locale as collections aren't localised.
-      get "/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: VALID_LOCALES_REGEX }
-      get "/series(.:locale)" => redirect("/publications"), constraints: { locale: VALID_LOCALES_REGEX }
-      get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: VALID_LOCALES_REGEX }
-      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: VALID_LOCALES_REGEX }
+      get "/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
+      get "/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
+      get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
+      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
@@ -166,9 +166,9 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_slug/email-signup" => "email_signup_information#show",
         as: :organisation_email_signup_information
 
-    get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: VALID_LOCALES_REGEX }
-    get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: VALID_LOCALES_REGEX }
+    get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
+    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
+    get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: valid_locales_regex }
 
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: "groups", only: [:show]
@@ -229,7 +229,7 @@ Whitehall::Application.routes.draw do
             resources :promotional_feature_items, as: :items, path: "items", except: [:index]
           end
           member do
-            get "/features(.:locale)", as: "features", to: "organisations#features", constraints: { locale: VALID_LOCALES_REGEX }
+            get "/features(.:locale)", as: "features", to: "organisations#features", constraints: { locale: valid_locales_regex }
             get :people
           end
           resources :financial_reports, except: [:show]
@@ -371,7 +371,7 @@ Whitehall::Application.routes.draw do
         end
         resources :world_locations, only: %i[index edit update show] do
           member do
-            get "/features(.:locale)", as: "features", to: "world_locations#features", constraints: { locale: VALID_LOCALES_REGEX }
+            get "/features(.:locale)", as: "features", to: "world_locations#features", constraints: { locale: valid_locales_regex }
           end
           resources :translations, controller: "world_location_translations"
           resources :offsite_links
@@ -414,8 +414,8 @@ Whitehall::Application.routes.draw do
     get "/placeholder" => "placeholder#show", as: :placeholder
   end
 
-  get "/courts-tribunals(.:locale)", as: "courts", to: "organisations#index", courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
-  get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
+  get "/courts-tribunals(.:locale)", as: "courts", to: "organisations#index", courts_only: true, constraints: { locale: valid_locales_regex }
+  get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: valid_locales_regex }
 
   get "/healthcheck",
       to: GovukHealthcheck.rack_response(
@@ -427,7 +427,7 @@ Whitehall::Application.routes.draw do
   get "healthcheck/unenqueued_scheduled_editions" => "healthcheck#unenqueued_scheduled_editions"
 
   # TODO: Remove when paths for new content can be generated without a route helper
-  get "/guidance/:id(.:locale)", as: "detailed_guide", to: "detailed_guides#show", constraints: { id: /[A-z0-9\-]+/, locale: VALID_LOCALES_REGEX }
+  get "/guidance/:id(.:locale)", as: "detailed_guide", to: "detailed_guides#show", constraints: { id: /[A-z0-9\-]+/, locale: valid_locales_regex }
 
   get "/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 

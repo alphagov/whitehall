@@ -4,14 +4,6 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   def index; end
 
-  def add_to_home_page
-    super
-  end
-
-  def remove_from_home_page
-    super
-  end
-
   def new
     @worldwide_office = @worldwide_organisation.offices.build
     @worldwide_office.build_contact
@@ -88,7 +80,7 @@ private
                     :country_id,
                     :email,
                     :contact_form_url,
-                    contact_numbers_attributes: %i[id label number _destroy],
+                    { contact_numbers_attributes: %i[id label number _destroy] },
                   ])
   end
 end

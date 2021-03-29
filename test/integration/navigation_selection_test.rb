@@ -27,7 +27,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     worldwide_offices
     worldwide_organisations
   ].map do |f|
-    File.expand_path(Rails.root + "app/controllers/#{f}_controller.rb")
+    File.expand_path(Rails.root.join("app/controllers/#{f}_controller.rb"))
   end
 
   def test_every_controller_selects_navigation_item
@@ -39,7 +39,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
 private
 
   def tested_controllers
-    Dir[Rails.root + "app/controllers/*_controller.rb"].reject do |controller|
+    Dir[Rails.root.join("app/controllers/*_controller.rb")].reject do |controller|
       is_excluded?(controller)
     end
   end

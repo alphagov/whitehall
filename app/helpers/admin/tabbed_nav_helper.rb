@@ -31,11 +31,11 @@ module Admin::TabbedNavHelper
     }
   end
 
-  def tab_navigation(tabs, *extra_classes)
+  def tab_navigation(tabs, *extra_classes, &block)
     tabs = tab_navigation_header(tabs)
     tag.div(class: ["tabbable", *extra_classes]) do
       if block_given?
-        tabs + tag.div(class: "tab-content") { yield }
+        tabs + tag.div(class: "tab-content", &block)
       else
         tabs
       end
@@ -45,7 +45,7 @@ module Admin::TabbedNavHelper
   def tab_dropdown(label, menu_items)
     tag.li(class: "dropdown") do
       toggle = tag.a(class: "dropdown-toggle", 'data-toggle': "dropdown", href: "#") do
-        (label + " " + tag.b("", class: "caret")).html_safe
+        "#{label} #{tag.b('', class: 'caret')}".html_safe
       end
 
       menu = tag.ul(class: "dropdown-menu") do

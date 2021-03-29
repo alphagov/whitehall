@@ -23,12 +23,14 @@ module ViewRendering
       view_tests << test_name
     end
   end
+
   # Delegates find_all to the submitted path set and then returns templates
   # with modified source
   class EmptyTemplatePathSetDecorator < ::ActionView::Resolver
     attr_reader :original_path_set
 
     def initialize(original_path_set)
+      super()
       @original_path_set = original_path_set
     end
 

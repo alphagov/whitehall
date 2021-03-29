@@ -6,7 +6,7 @@ module Admin::AuditTrailHelper
                entry.message
              end
            else
-             tag.span(entry.action.capitalize, class: "action") + " by"
+             tag.span(entry.action.capitalize, class: "action") + " by" # rubocop:disable Style/StringConcatenation
            end
     html << " ".html_safe
     html << if actor

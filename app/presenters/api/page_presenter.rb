@@ -37,7 +37,7 @@ Api::PagePresenter = Struct.new(:page, :context) do
     (page.current_page - 1) * page.limit_value + 1
   end
 
-  private
+private
 
   def url(override_params)
     context.url_for(context.params.permit(

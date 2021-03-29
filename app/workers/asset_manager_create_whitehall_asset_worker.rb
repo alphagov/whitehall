@@ -12,11 +12,9 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
 
     if model_class && model_id
       model = model_class.constantize.find(model_id)
-      if model.respond_to?(:access_limited?)
-        if model.access_limited?
-          authorised_user_uids = AssetManagerAccessLimitation.for(model)
-          asset_options[:access_limited] = authorised_user_uids
-        end
+      if model.respond_to?(:access_limited?) && model.access_limited?
+        authorised_user_uids = AssetManagerAccessLimitation.for(model)
+        asset_options[:access_limited] = authorised_user_uids
       end
     end
 

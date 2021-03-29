@@ -2,6 +2,7 @@ module Whitehall::Authority
   module Errors
     class PermissionDenied < StandardError
       attr_reader :action, :subject
+
       def initialize(action, subject)
         super("Disallowed attempt to perform '#{action}' on '#{subject.inspect}'")
         @action = action
@@ -11,6 +12,7 @@ module Whitehall::Authority
 
     class InvalidAction < StandardError
       attr_reader :action
+
       def initialize(action)
         super("Disallowed attempt to perform unknown action '#{action}'")
         @action = action

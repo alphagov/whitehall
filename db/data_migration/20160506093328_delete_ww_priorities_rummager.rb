@@ -726,5 +726,5 @@ BASE_PATHS = [
 BASE_PATHS.each do |base_path|
   Whitehall.search_client.delete_content! base_path
 rescue GdsApi::HTTPNotFound => e
-  puts "\n" + "=" * 25 + "\nURL not found error:\n#{e}"
+  puts "\n" + "=" * 25 + "\nURL not found error:\n#{e}" # rubocop:disable Style/StringConcatenation
 end

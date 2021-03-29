@@ -39,7 +39,7 @@ module Admin::SidebarHelper
                        badge_type = tab_content[2]
                        if badge_content
                          badge_class = badge_type ? "badge badge-#{badge_type}" : "badge"
-                         text.html_safe + " " + tag.span(badge_content, class: badge_class)
+                         "#{text} #{tag.span(badge_content, class: badge_class)}".html_safe
                        else
                          text
                        end

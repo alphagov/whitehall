@@ -176,7 +176,7 @@ module ServiceListeners
 
       Whitehall::PublishingApi
         .expects(:save_draft_translation)
-        .with(edition, :en, nil, false)
+        .with(edition, :en, nil, bulk_publishing: false)
 
       PublishingApiPusher.new(edition).push(event: "update_draft")
     end
@@ -186,7 +186,7 @@ module ServiceListeners
 
       Whitehall::PublishingApi
         .expects(:save_draft_translation)
-        .with(edition, :en, nil, false)
+        .with(edition, :en, nil, bulk_publishing: false)
 
       PublishingApiPusher.new(edition).push(event: "update_draft")
     end

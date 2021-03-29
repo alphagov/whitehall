@@ -7,6 +7,7 @@ module ServiceListeners
   class AttachmentDependencyPopulatorTest < MiniTest::Test
     class TestAssociation
       attr_reader :collection
+
       def initialize
         @collection = []
       end

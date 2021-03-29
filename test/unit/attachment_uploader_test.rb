@@ -183,7 +183,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   def broken_arcgis_file_list
-    required_arcgis_file_list.shuffle[1..-1]
+    required_arcgis_file_list.sample(2)
   end
 
   def multiple_shape_arcgis_file_list

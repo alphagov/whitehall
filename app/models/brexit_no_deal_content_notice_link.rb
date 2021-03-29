@@ -43,7 +43,7 @@ private
   end
 
   def url_regex
-    /https?:\/\/[\S]+/
+    /https?:\/\/\S+/
   end
 
   def host

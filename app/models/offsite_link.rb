@@ -15,11 +15,12 @@ class OffsiteLink < ApplicationRecord
     end
 
     def self.humanize(link_type)
-      if link_type == "nhs_content"
+      case link_type
+      when "nhs_content"
         "NHS content"
-      elsif link_type == "content_publisher_news_story"
+      when "content_publisher_news_story"
         "News story (Content Publisher)"
-      elsif link_type == "content_publisher_press_release"
+      when "content_publisher_press_release"
         "Press release (Content Publisher)"
       else
         link_type.humanize
@@ -31,9 +32,10 @@ class OffsiteLink < ApplicationRecord
     end
 
     def self.display_type(link_type)
-      if link_type == "content_publisher_news_story"
+      case link_type
+      when "content_publisher_news_story"
         "News story"
-      elsif link_type == "content_publisher_press_release"
+      when "content_publisher_press_release"
         "Press release"
       else
         humanize(link_type)

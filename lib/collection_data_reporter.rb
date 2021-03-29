@@ -68,10 +68,10 @@ private
   end
 
   def public_link(path)
-    "https://www.gov.uk" + path
+    "https://www.gov.uk#{path}"
   end
 
   def admin_link(path)
-    "https://whitehall-admin.publishing.service.gov.uk" + path
+    "https://whitehall-admin.publishing.service.gov.uk#{path}"
   end
 end

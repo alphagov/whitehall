@@ -3,10 +3,8 @@ require "csv"
 namespace :report do
   desc "Find all references to GSI/GSE/GCSX/GSX domains"
   task find_gsi_domain_references: :environment do
-    CSV_HEADERS = ["Title", "URL", "Publishing application", "Publishing organisation", "Format", "Domain", "Content ID"].freeze
-
     CSV.open(Rails.root.join("tmp/gsi_domain_contact_items.csv"), "wb") do |csv|
-      csv << CSV_HEADERS
+      csv << ["Title", "URL", "Publishing application", "Publishing organisation", "Format", "Domain", "Content ID"]
 
       domains = %w[gsi gse gcsx gsx]
 

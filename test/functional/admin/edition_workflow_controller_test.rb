@@ -244,7 +244,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     submitted_publication = create(:submitted_publication)
     post :reject, params: { id: submitted_publication, lock_version: submitted_publication.lock_version }
 
-    assert_match %r{\'#{submitted_publication.title}\' was rejected by}, ActionMailer::Base.deliveries.last.body.to_s
+    assert_match %r{'#{submitted_publication.title}' was rejected by}, ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test "reject responds with 422 if missing a lock version" do

@@ -72,7 +72,7 @@ class UnpublishingTest < ActiveSupport::TestCase
       @published_edition.save!(validate: false)
     end
 
-    alternative_url = Whitehall.public_root + "/government/page"
+    alternative_url = "#{Whitehall.public_root}/government/page"
 
     unpublishing_redirect_params = unpublishing_params
                                      .merge(

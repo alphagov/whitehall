@@ -47,7 +47,7 @@ Given(/^there is a document tagged to specialist sectors$/) do
   stub_content_store_has_item(document_base_path, document_content_item)
 end
 
-Then(/^I should see the specialist sub\-sector and its parent sector$/) do
+Then(/^I should see the specialist sub-sector and its parent sector$/) do
   within "article header" do
     assert_text "Top Level Topic"
     assert_selector "dd", text: "Topic 1 and Topic 2"

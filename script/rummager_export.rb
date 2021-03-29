@@ -11,7 +11,7 @@ $LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
 
 require "pathname"
 require "logger"
-logger = Logger.new(STDERR)
+logger = Logger.new($stderr)
 logger.info "Booting rails..."
 require "config/environment"
 logger.info "Booted"
@@ -51,7 +51,7 @@ def export_classes(classes_to_index, id_groups)
     end
   else
     classes_to_index.each do |klass|
-      yield(klass, STDOUT)
+      yield(klass, $stdout)
     end
   end
 end

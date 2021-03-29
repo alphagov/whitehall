@@ -24,12 +24,13 @@ class Publication < Publicationesque
 
   has_one :statistics_announcement
   attr_accessor :statistics_announcement_id
+
   after_create :assign_statistics_announcement
 
   after_save :touch_statistics_announcement
   def touch_statistics_announcement
-    if published?
-      statistics_announcement.touch unless statistics_announcement.nil?
+    if published? && !statistics_announcement.nil?
+      statistics_announcement.touch
     end
   end
 
@@ -171,8 +172,8 @@ private
   end
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type
-    unless can_have_some_invalid_data?
-      errors.add(:publication_type, "must be changed") if PublicationType.migration.include?(publication_type)
+    if !can_have_some_invalid_data? && PublicationType.migration.include?(publication_type)
+      errors.add(:publication_type, "must be changed")
     end
   end
 end

@@ -132,10 +132,6 @@ module Whitehall
     @admin_root ||= Plek.new.external_url_for("whitehall-admin")
   end
 
-  def self.secrets
-    @secrets ||= load_secrets
-  end
-
   # The base folder where uploads live.
   def self.uploads_root
     (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
@@ -195,22 +191,8 @@ module Whitehall
 
   def self.worldwide_tagging_organisations
     @worldwide_tagging_organisations ||=
-      YAML.load_file(Rails.root + "config/worldwide_tagging_organisations.yml")
+      YAML.load_file(Rails.root.join("config/worldwide_tagging_organisations.yml"))
   end
-
-  def self.load_secrets
-    if File.exist?(secrets_path)
-      YAML.load_file(secrets_path)
-    else
-      {}
-    end
-  end
-  private_class_method :load_secrets
-
-  def self.secrets_path
-    Rails.root + "config" + "whitehall_secrets.yml"
-  end
-  private_class_method :secrets_path
 
   def self.integration_or_staging?
     website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")

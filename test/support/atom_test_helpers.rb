@@ -9,7 +9,7 @@ module AtomTestHelpers
     assert_select "head > link[rel=?][type=?][href=?]", "alternate", "application/atom+xml", url
   end
 
-  def assert_select_atom_entries(documents, renders_content = true)
+  def assert_select_atom_entries(documents, renders_content: true)
     assert_select "feed > entry", count: documents.length do |entries|
       entries.zip(documents).each do |entry, document|
         assert_select entry, "id", 1

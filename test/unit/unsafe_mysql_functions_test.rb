@@ -25,9 +25,7 @@ class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
   def unsafe_function_regex
     escaped_functions = unsafe_functions.map { |function| Regexp.escape(function) }
     Regexp.new(
-      "(" +
-        escaped_functions.join("|") +
-      ")",
+      "(#{escaped_functions.join('|')})",
       Regexp::IGNORECASE,
     )
   end

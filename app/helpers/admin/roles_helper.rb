@@ -8,7 +8,8 @@ module Admin::RolesHelper
   end
 
   def roles_footnotes(roles, including_cabinet)
-    tag.span(roles.map { |role| role.footnotes(including_cabinet) }.join(" ").html_safe, class: "app-person__footnotes")
+    text = roles.map { |role| role.footnotes(including_cabinet: including_cabinet) }.join(" ").html_safe
+    tag.span(text, class: "app-person__footnotes")
   end
 
   def role_url_for(role)

@@ -2,7 +2,7 @@ require "test_helper"
 
 class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
   ["publish", "force publish"].each do |transition|
-    service_name = transition.parameterize.underscore + "er"
+    service_name = "#{transition.parameterize.underscore}er"
 
     setup do
       stub_any_publishing_api_call

@@ -8,7 +8,7 @@ module DataHygiene
   class PublishingApiDocumentRepublisher
     attr_reader :edition_class, :logger, :queued
 
-    def initialize(edition_class, logger = Logger.new(STDOUT))
+    def initialize(edition_class, logger = Logger.new($stdout))
       unless edition_class.is_a?(Class) && edition_class < Edition # http://ruby-doc.org/core-2.3.0/Module.html#method-i-3C
         raise ArgumentError, "The argument to PublishingApiDocumentRepublisher must be a subclass of Edition"
       end

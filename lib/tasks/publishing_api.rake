@@ -4,7 +4,7 @@ namespace :publishing_api do
   desc "Publish special routes (eg /government)"
   task publish_special_routes: :environment do
     publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
-      logger: Logger.new(STDOUT),
+      logger: Logger.new($stdout),
       publishing_api: Services.publishing_api,
     )
 

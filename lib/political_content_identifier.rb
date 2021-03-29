@@ -12,6 +12,7 @@ class PoliticalContentIdentifier
   ].freeze
 
   attr_reader :edition
+
   def initialize(edition)
     @edition = edition
   end

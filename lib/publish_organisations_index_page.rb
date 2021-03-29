@@ -74,11 +74,12 @@ private
   end
 
   def organisation_logo(organisation)
-    if organisation.organisation_crest == "no-identity"
+    case organisation.organisation_crest
+    when "no-identity"
       {
         formatted_title: organisation.logo_formatted_name,
       }
-    elsif organisation.organisation_crest == "custom"
+    when "custom"
       {
         formatted_title: organisation.logo_formatted_name,
         image: {

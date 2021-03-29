@@ -7,7 +7,7 @@ module OrganisationHelper
     end
   end
 
-  def organisation_logo_name(organisation, stacked = true)
+  def organisation_logo_name(organisation, stacked: true)
     if stacked
       format_with_html_line_breaks(ERB::Util.html_escape(organisation.logo_formatted_name))
     else
@@ -155,12 +155,10 @@ module OrganisationHelper
     "aeiou".include?(word_or_phrase.downcase[0])
   end
 
-  def organisation_wrapper(organisation, _options = {})
+  def organisation_wrapper(organisation, _options = {}, &block)
     classes = [organisation.slug, organisation_brand_colour_class(organisation)]
     classes << organisation.organisation_type.name.parameterize if organisation.respond_to?(:organisation_type)
-    content_tag_for :div, organisation, class: classes.join(" ") do
-      yield
-    end
+    content_tag_for :div, organisation, class: classes.join(" "), &block
   end
 
   def organisation_brand_colour_class(organisation)

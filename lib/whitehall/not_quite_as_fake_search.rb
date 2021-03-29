@@ -42,7 +42,7 @@ module Whitehall
         page = params.delete("start").to_i + 1
         params.delete("fields")
         params.delete("order")
-        apply_filters(keywords, params, order, per_page, page, true)
+        apply_filters(keywords, params, order, per_page, page, announcements_search: true)
       end
 
       def autocomplete(*_args)
@@ -97,7 +97,7 @@ module Whitehall
         end
       end
 
-      def apply_filters(keywords, params, order, per_page, page, announcements_search = false)
+      def apply_filters(keywords, params, order, per_page, page, announcements_search: false)
         results = @store.index(@index_name).values
         results = filter_by_keywords(keywords, results) if keywords.present?
 
@@ -109,7 +109,7 @@ module Whitehall
           when :boolean
             filter_by_boolean_field(field_name, value, new_results)
           when :simple
-            filter_by_simple_field(field_name, value, new_results, announcements_search)
+            filter_by_simple_field(field_name, value, new_results, announcements_search: announcements_search)
           else
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
@@ -184,9 +184,10 @@ module Whitehall
 
       def filter_by_boolean_field(field, desired_field_value, document_hashes)
         desired_boolean =
-          if desired_field_value.match?(/\A(true|1)\Z/)
+          case desired_field_value
+          when /\A(true|1)\Z/
             true
-          elsif desired_field_value.match?(/\A(false|0)\Z/)
+          when /\A(false|0)\Z/
             false
           else
             raise GdsApi::HTTPErrorResponse, "bad boolean value #{desired_field_value}"
@@ -195,7 +196,7 @@ module Whitehall
         document_hashes.select { |document_hash| document_hash[field] == desired_boolean }
       end
 
-      def filter_by_simple_field(field, desired_field_values, document_hashes, announcements_search = false)
+      def filter_by_simple_field(field, desired_field_values, document_hashes, announcements_search: false)
         document_hashes.select do |document_hash|
           value =
             if field == "organisations" && announcements_search
@@ -223,9 +224,10 @@ module Whitehall
         end
         date_filter_hash.each do |date_type, date|
           document_hashes.select! do |document_hash|
-            if date_type == "from"
+            case date_type
+            when "from"
               document_hash[field] && Time.zone.parse(document_hash[field]) >= date
-            elsif date_type == "to"
+            when "to"
               document_hash[field] && Time.zone.parse(document_hash[field]) <= date
             else
               true

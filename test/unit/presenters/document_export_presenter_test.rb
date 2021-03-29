@@ -48,7 +48,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
         organisation_slug: requestor.organisation_slug,
         organisation_content_id: requestor.organisation_content_id },
     ]
-    assert_equal expected, result.dig(:users)
+    assert_equal expected, result[:users]
   end
 
   test "removes edition fields that are duplicated by the primary translation" do
@@ -164,7 +164,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     attachment = result.dig(:editions, 0, :attachments, 0)
 
     assert_equal publication_file.attachments.first.url, attachment[:url]
-    assert_match(/^file\-attachment\-title\-[0-9]+$/, attachment[:title])
+    assert_match(/^file-attachment-title-[0-9]+$/, attachment[:title])
     assert_equal "FileAttachment", attachment[:type]
     assert_equal publication_file.attachments.first.attachment_data.as_json.symbolize_keys,
                  attachment[:attachment_data]

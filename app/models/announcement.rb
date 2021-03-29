@@ -11,7 +11,7 @@ class Announcement < Edition
   end
 
   def self.published_with_eager_loading(ids)
-    published.with_translations.includes([:document, organisations: :translations]).where(id: ids)
+    published.with_translations.includes([:document, { organisations: :translations }]).where(id: ids)
   end
 
   def search_format_types

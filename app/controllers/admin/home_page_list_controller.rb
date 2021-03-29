@@ -44,9 +44,10 @@ module Admin::HomePageListController
 
       define_method(:handle_show_on_home_page_param) do
         if @show_on_home_page.present?
-          if @show_on_home_page == "1"
+          case @show_on_home_page
+          when "1"
             home_page_list_container.__send__(:"add_#{single_name}_to_home_page!", home_page_list_item)
-          elsif @show_on_home_page == "0"
+          when "0"
             home_page_list_container.__send__(:"remove_#{single_name}_from_home_page!", home_page_list_item)
           end
         end

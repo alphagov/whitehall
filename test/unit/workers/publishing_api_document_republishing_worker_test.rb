@@ -18,7 +18,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish).with(
       published_edition,
       "republish",
-      false,
+      bulk_publishing: false,
     )
 
     Whitehall::PublishingApi
@@ -27,7 +27,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi
       .expects(:save_draft)
-      .with(draft_edition, "republish", false)
+      .with(draft_edition, "republish", bulk_publishing: false)
 
     invocation_order = sequence("invocation_order")
     ServiceListeners::PublishingApiHtmlAttachments
@@ -43,6 +43,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   end
 
   class PublishException < StandardError; end
+
   class DraftException < StandardError; end
   test "it pushes the published version first if there is a more recent draft" do
     document = stub(
@@ -114,7 +115,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish).with(
       published_edition,
       "republish",
-      false,
+      bulk_publishing: false,
     )
 
     PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)

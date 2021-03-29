@@ -130,6 +130,7 @@ protected
       include home_page_list_methods
     end
   end
+
   module ContentItem
     def is_stored_on_home_page_lists
       home_page_list_methods = Module.new do

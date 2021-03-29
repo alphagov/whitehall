@@ -14,8 +14,7 @@ module Admin
       scope = scope.with_title_containing(options[:title]) if options[:title].present?
       scope = scope.in_organisations([options[:organisation_id]]) if options[:organisation_id].present?
       scope = scope.merge(unlinked_scope) if unlinked_only?
-      scope = scope.merge(date_and_order_scope)
-      scope
+      scope.merge(date_and_order_scope)
     end
 
     def title
@@ -61,9 +60,9 @@ module Admin
       when "future"
         pluralized_count("upcoming statistics release")
       when "past"
-        pluralized_count("statistics announcement") + " in the past"
+        "#{pluralized_count('statistics announcement')} in the past"
       when "imminent"
-        pluralized_count("statistics release") + " due in two weeks"
+        "#{pluralized_count('statistics release')} due in two weeks"
       else
         pluralized_count("statistics announcement")
       end

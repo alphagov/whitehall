@@ -107,6 +107,7 @@ module PublishingApi
     private
 
       attr_accessor :news_article
+
       delegate :change_history, to: :news_article
     end
 
@@ -135,6 +136,7 @@ module PublishingApi
     private
 
       attr_accessor :news_article
+
       delegate :lead_image_caption, to: :news_article
       alias_method :image_caption, :lead_image_caption
 

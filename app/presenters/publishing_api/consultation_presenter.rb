@@ -5,6 +5,7 @@ module PublishingApi
     SCHEMA_NAME = "consultation".freeze
 
     attr_reader :update_type
+
     delegate :content_id, to: :consultation
 
     def initialize(consultation, update_type: nil)
@@ -50,6 +51,7 @@ module PublishingApi
 
     attr_accessor :consultation
     attr_writer :update_type
+
     delegate :display_type_key, to: :consultation
     alias_method :document_type, :display_type_key
 
@@ -184,6 +186,7 @@ module PublishingApi
     private
 
       attr_accessor :consultation, :renderer
+
       delegate :outcome, to: :consultation
 
       def final_outcome_detail
@@ -249,6 +252,7 @@ module PublishingApi
     private
 
       attr_accessor :consultation, :renderer
+
       delegate :public_feedback, to: :consultation
 
       def detail
@@ -306,6 +310,7 @@ module PublishingApi
     private
 
       attr_accessor :consultation, :url_helpers
+
       delegate :consultation_participation, to: :consultation
       delegate :consultation_response_form, to: :participation
       alias_method :participation, :consultation_participation

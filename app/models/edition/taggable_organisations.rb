@@ -16,7 +16,7 @@ private
 
   def world_taggable?
     return unless edition_in_world_taggable_document_types?
-    return if self.class == Publication && !publication_is_world_taggable_publication_type?
+    return if instance_of?(Publication) && !publication_is_world_taggable_publication_type?
 
     organisations_in_world_tagging?
   end

@@ -210,9 +210,10 @@ module ApplicationHelper
   def current_main_navigation_path(parameters)
     case parameters[:controller]
     when "home"
-      if parameters[:action] == "home"
+      case parameters[:action]
+      when "home"
         root_path
-      elsif parameters[:action] == "get_involved"
+      when "get_involved"
         get_involved_path
       else
         how_government_works_path
@@ -305,10 +306,8 @@ module ApplicationHelper
     Locale.new(I18n.locale).rtl?
   end
 
-  def content_tag_if_not_empty(name, options = nil)
-    content = capture do
-      yield
-    end
+  def content_tag_if_not_empty(name, options = nil, &block)
+    content = capture(&block)
     if content.present? && content.strip
       content_tag(name, content, options)
     else

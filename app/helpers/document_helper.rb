@@ -121,14 +121,15 @@ module DocumentHelper
 
   def attachment_reference(attachment)
     ref = []
-    ref << "ISBN " + tag.span(attachment.isbn, class: "isbn") if attachment.isbn.present?
+    ref << "ISBN #{tag.span(attachment.isbn, class: 'isbn')}" if attachment.isbn.present?
     ref << tag.span(attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
     if attachment.command_paper_number.present?
       ref << tag.span(attachment.command_paper_number, class: "command_paper_number")
     end
     if attachment.hoc_paper_number.present?
-      ref << tag.span("HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number") + " " +
-        tag.span(attachment.parliamentary_session, class: "parliamentary_session")
+      paper_number = tag.span("HC #{attachment.hoc_paper_number}", class: "house_of_commons_paper_number")
+      parliamentary_session = tag.span(attachment.parliamentary_session, class: "parliamentary_session")
+      ref << "#{paper_number} #{parliamentary_session}"
     end
 
     ref.join(", ").html_safe
@@ -182,7 +183,7 @@ Please tell us:
     references << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
     references << "HC: #{attachment.hoc_paper_number} #{attachment.parliamentary_session}" if attachment.hoc_paper_number.present?
     prefix = references.size == 1 ? "and its reference" : "and its references"
-    references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
+    references.any? ? ", #{prefix} (#{references.join(', ')})" : ""
   end
 
   def attachment_attributes(attachment)
@@ -239,20 +240,19 @@ Please tell us:
     part_of
   end
 
-  def from_metadata(document, links_only = false)
+  def from_metadata(document, links_only: false)
     from = []
 
     if document.lead_organisations.any?
       from += array_of_links_to_organisations(document.lead_organisations)
     end
 
-    unless document.respond_to?(:statistics?) && document.statistics?
-      if document.respond_to?(:delivered_by_minister?)
-        if document.person_override?
-          from << document.person_override unless links_only
-        else
-          from << link_to_person(document.role_appointment.person)
-        end
+    statistics = document.respond_to?(:statistics) && document.statistics?
+    if !statistics && document.respond_to?(:delivered_by_minister?)
+      if document.person_override?
+        from << document.person_override unless links_only
+      else
+        from << link_to_person(document.role_appointment.person)
       end
     end
 

@@ -36,19 +36,23 @@ private
   end
 
   def topics_fragment
-    if filter.respond_to?(:topics) && filter.topics.any?
-      "about " + filter.topics.map { |topic|
-        "<strong>#{CGI.escapeHTML(topic.name)}</strong> #{remove_field_link(:topics, topic.base_path, topic.name)}"
-      }.to_sentence
+    return if !filter.respond_to?(:topics) || filter.topics.empty?
+
+    topics = filter.topics.map do |topic|
+      "<strong>#{CGI.escapeHTML(topic.name)}</strong> #{remove_field_link(:topics, topic.base_path, topic.name)}"
     end
+
+    "about #{topics.to_sentence}"
   end
 
   def organisations_fragment
-    if filter.respond_to?(:organisations) && filter.organisations.any?
-      "by " + filter.organisations.map { |organisation|
-        "<strong>#{CGI.escapeHTML(organisation.name)}</strong> #{remove_field_link(:organisations, organisation.slug, organisation.name)}"
-      }.to_sentence
+    return if !filter.respond_to?(:organisations) || filter.organisations.empty?
+
+    organisations = filter.organisations.map do |organisation|
+      "<strong>#{CGI.escapeHTML(organisation.name)}</strong> #{remove_field_link(:organisations, organisation.slug, organisation.name)}"
     end
+
+    "by #{organisations.to_sentence}"
   end
 
   def date_fragment
@@ -70,7 +74,7 @@ private
   end
 
   def remove_field_link(field, value, text)
-    url = (base_url + "?" + filter.valid_filter_params.except(field).to_query).chomp("?")
+    url = ("#{base_url}?#{filter.valid_filter_params.except(field).to_query}").chomp("?")
     link_to "×", url, "data-field" => field, "data-value" => value, "title" => "Remove #{text}"
   end
 end

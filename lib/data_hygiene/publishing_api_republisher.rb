@@ -9,7 +9,7 @@ module DataHygiene
   class PublishingApiRepublisher
     attr_reader :logger, :scope, :queued
 
-    def initialize(scope, logger = Logger.new(STDOUT))
+    def initialize(scope, logger = Logger.new($stdout))
       @scope = scope
       @logger = logger
       @queued = 0

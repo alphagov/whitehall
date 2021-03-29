@@ -14,7 +14,6 @@ class LocalisedModel < BasicObject
     end
   end
 
-  # rubocop:disable Style/MethodMissingSuper
   # rubocop:disable Style/MissingRespondToMissing
 
   def method_missing(method, *args, &block)
@@ -30,7 +29,6 @@ class LocalisedModel < BasicObject
     end
   end
 
-  # rubocop:enable Style/MethodMissingSuper
   # rubocop:enable Style/MissingRespondToMissing
 
   # Rails calls this a lot in form builder code. By default #to_model will

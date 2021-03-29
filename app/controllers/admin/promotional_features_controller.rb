@@ -59,7 +59,7 @@ private
         :title_url,
         :double_width,
         :image_cache,
-        links_attributes: %i[url text _destroy],
+        { links_attributes: %i[url text _destroy] },
       ],
     )
   end

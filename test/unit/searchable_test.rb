@@ -48,16 +48,16 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test "will only request indexing of things that are included in the RummagerPresenters.searchable_classes property" do
-    class NonExistentClass; end
-    RummagerPresenters.stubs(:searchable_classes).returns([NonExistentClass])
+    non_existent_class = Class.new
+    RummagerPresenters.stubs(:searchable_classes).returns([non_existent_class])
     searchable_test_topic = SearchableTestTopic.new(name: "woo", state: "published")
     Whitehall::SearchIndex.expects(:add).never
     searchable_test_topic.save!
   end
 
   test "#reindex_all will not request indexing for an instance whose class is not in RummagerPresenters.searchable_classes" do
-    class NonExistentClass; end
-    RummagerPresenters.stubs(:searchable_classes).returns([NonExistentClass])
+    non_existent_class = Class.new
+    RummagerPresenters.stubs(:searchable_classes).returns([non_existent_class])
     SearchableTestTopic.create!(name: "woo", state: "published")
     Whitehall::SearchIndex.expects(:add).never
     SearchableTestTopic.reindex_all

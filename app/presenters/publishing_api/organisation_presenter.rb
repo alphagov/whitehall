@@ -8,8 +8,7 @@ module PublishingApi
     # This is a hack to get the OrganisationHelper to work in this context
     include ActionView::Helpers::UrlHelper
 
-    attr_accessor :item
-    attr_accessor :update_type
+    attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
       self.item = item
@@ -126,13 +125,10 @@ module PublishingApi
     end
 
     def parent_child_relationships_text
-      unless item.organisation_type.executive_office? ||
-          item.organisation_type.civil_service? ||
-          item.closed?
-        if item.parent_organisations.any? || item.supporting_bodies.any?
-          "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
-        end
-      end
+      return if item.organisation_type.executive_office? || item.organisation_type.civil_service? || item.closed?
+      return if item.parent_organisations.empty? && item.supporting_bodies.empty?
+
+      "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
     end
 
     def brand

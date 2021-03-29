@@ -25,7 +25,7 @@ module DataHygiene
     attr_reader :person, :new_slug, :old_slug
 
     def update_slug
-      # Note: This will trigger calls to the Publishing API.
+      # NOTE: This will trigger calls to the Publishing API.
       person.update!(slug: new_slug)
     end
 

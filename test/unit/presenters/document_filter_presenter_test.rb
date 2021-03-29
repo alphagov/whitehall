@@ -93,14 +93,14 @@ class DocumentFilterPresenterTest < PresenterTestCase
   end
 
   test "decorates each documents with the given decorator class" do
-    MyDecorator = Struct.new(:model, :context)
+    my_decorator = Struct.new(:model, :context)
 
     stub_document = stub(:document)
     @filter.stubs(:documents).returns(Kaminari.paginate_array([stub_document]).page(1))
 
-    presenter = DocumentFilterPresenter.new(@filter, @view_context, MyDecorator)
+    presenter = DocumentFilterPresenter.new(@filter, @view_context, my_decorator)
     assert_instance_of Whitehall::Decorators::CollectionDecorator, presenter.documents
-    assert_instance_of MyDecorator, presenter.documents.first
+    assert_instance_of my_decorator, presenter.documents.first
     assert_equal stub_document, presenter.documents.first.model
     assert_equal @view_context, presenter.documents.first.context
   end

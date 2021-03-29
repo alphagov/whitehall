@@ -106,7 +106,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
       assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml", topical_event_url(topical_event, format: "atom"), 1
       assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", topical_event_url(topical_event), 1
 
-      assert_select_atom_entries(processed_rummager_documents, false)
+      assert_select_atom_entries(processed_rummager_documents, renders_content: false)
     end
   end
 

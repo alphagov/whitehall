@@ -8,7 +8,7 @@ class RetrospectiveStub
     @calls = []
   end
 
-  # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method, *args)
     calls << { method: method, args: args }
 
@@ -22,7 +22,7 @@ class RetrospectiveStub
       stub[:returns]
     end
   end
-  # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+  # rubocop:enable Style/MissingRespondToMissing
 
   def stub(method, opts = {})
     stubs << {
@@ -33,28 +33,37 @@ class RetrospectiveStub
   end
 
   def assert_method_called(method, opts = {})
-    raise UnsatisfiedAssertion, "Expected :#{method} to have been called, but wasn't\n\nCalls: \n#{inspect_calls}" unless @calls.any? do |call|
-      call[:method] == method
+    if @calls.none? { |call| call[:method] == method }
+      raise UnsatisfiedAssertion,
+            "Expected :#{method} to have been called, but wasn't\n\nCalls: \n#{inspect_calls}"
     end
 
-    if opts[:with].present?
-      raise UnsatisfiedAssertion, "Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}" unless @calls.any? do |call|
-        call[:method] == method && (
-          opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
-        )
-      end
+    return unless opts[:with]
+
+    with_called = @calls.any? do |call|
+      opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
+    end
+
+    unless with_called
+      raise UnsatisfiedAssertion,
+            "Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}"
     end
   end
 
   def refute_method_called(method, opts = {})
-    if opts[:with].present?
-      raise UnsatisfiedAssertion, "Expected :#{method} not to have been called #{inspect_args opts[:with]}\n\nCalls: \n#{inspect_calls}" if @calls.any? do |call|
-        call[:method] == method && (
-          opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
-        )
-      end
-    elsif @calls.any? { |call| call[:method] == method }
+    if @calls.any? { |call| call[:method] == method }
       raise UnsatisfiedAssertion, "Expected :#{method} not to have been called\n\nCalls: \n#{inspect_calls}"
+    end
+
+    return unless opts[:with]
+
+    with_called = @calls.any? do |call|
+      opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
+    end
+
+    if with_called
+      raise UnsatisfiedAssertion,
+            "Expected :#{method} not to have been called #{inspect_args opts[:with]}\n\nCalls: \n#{inspect_calls}"
     end
   end
 

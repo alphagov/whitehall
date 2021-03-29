@@ -11,7 +11,7 @@ class EmailSignupPagesFinder
   end
 
   def self.exists_for_atom_feed?(atom_feed_url)
-    atom_feed_url.ends_with?(mhra_slug + ".atom")
+    atom_feed_url.ends_with?("#{mhra_slug}.atom")
   end
 
   def self.mhra_slug

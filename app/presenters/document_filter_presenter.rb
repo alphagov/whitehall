@@ -1,4 +1,4 @@
-DocumentFilterPresenter = Struct.new(:filter, :context, :document_decorator) do
+DocumentFilterPresenter = Struct.new(:filter, :context, :document_decorator) do # rubocop:disable Lint/StructNewOverride
   extend Whitehall::Decorators::DelegateInstanceMethodsOf
   delegate_instance_methods_of Whitehall::DocumentFilter::Filterer, to: :filter
 

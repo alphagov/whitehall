@@ -18,10 +18,8 @@ class DocumentHistory
                end
   end
 
-  def each
-    changes.each do |change|
-      yield(change)
-    end
+  def each(&block)
+    changes.each(&block)
   end
 
   def newly_published?
