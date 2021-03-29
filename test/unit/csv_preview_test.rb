@@ -64,20 +64,20 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "#truncated? returns true if the preview does not include all the rows" do
-    csv_preview.each_row {}
+    csv_preview.format_rows {}
     assert_not csv_preview.truncated?
 
     truncated_preview = CsvPreview.new(Rails.root.join("test/fixtures/csv_encodings/utf-8.csv"), 1)
-    truncated_preview.each_row {}
+    truncated_preview.format_rows {}
     assert truncated_preview.truncated?
   end
 
   test "#truncated? returns true if the preview does not include all the columns" do
-    csv_preview.each_row {}
+    csv_preview.format_rows {}
     assert_not csv_preview.truncated?
 
     truncated_preview = CsvPreview.new(Rails.root.join("test/fixtures/csv_encodings/utf-8.csv"), 10, 1)
-    truncated_preview.each_row {}
+    truncated_preview.format_rows {}
 
     assert truncated_preview.truncated?
   end
@@ -104,7 +104,7 @@ private
   def assert_csv_data(expected_data, preview)
     index = 0
 
-    preview.each_row do |row|
+    preview.format_rows do |row|
       assert_equal expected_data[index], row
       index += 1
     end

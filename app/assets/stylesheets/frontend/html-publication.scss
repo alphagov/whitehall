@@ -1,10 +1,11 @@
 // BASE STYLESHEET COMPILER
 
-$govuk-use-legacy-palette: true;
-$govuk-typography-use-rem: false;
+$govuk-compatibility-govuktemplate: true;
+$govuk-use-legacy-palette: false;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
 @import 'govuk_publishing_components/component_support';
+
 @import 'govuk_publishing_components/components/button';
 @import 'govuk_publishing_components/components/error-message';
 @import 'govuk_publishing_components/components/feedback';
@@ -12,10 +13,12 @@ $govuk-typography-use-rem: false;
 @import 'govuk_publishing_components/components/heading';
 @import 'govuk_publishing_components/components/hint';
 @import 'govuk_publishing_components/components/input';
+@import 'govuk_publishing_components/components/inverse-header';
 @import 'govuk_publishing_components/components/label';
 @import 'govuk_publishing_components/components/notice';
 @import 'govuk_publishing_components/components/organisation-logo';
 @import 'govuk_publishing_components/components/subscription-links';
+@import 'govuk_publishing_components/components/table';
 @import 'govuk_publishing_components/components/title';
 
 // STYLEGUIDE
@@ -61,8 +64,9 @@ $govuk-typography-use-rem: false;
 
   // VIEWS
   // Styles scoped to each template in /views
-  @import "views/attachments/preview";
+  @import "views/attachments/csv-preview";
   @import "views/html-publications";
+  @import "views/publication-header";
 }
 
 // LAYOUTS

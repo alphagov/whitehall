@@ -1,7 +1,5 @@
 <%= render :layout => 'layouts/frontend_base', locals: {extra_body_class: 'html-publication', stylesheet: 'html-publication'} do %>
-  <main id="content" role="main" class="whitehall-content">
-    <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
-      <%= yield %>
-    </div>
-  </main>
+  <div class="govuk-width-container html-publications-show">
+    <%= yield %>
+  </div>
 <% end %>

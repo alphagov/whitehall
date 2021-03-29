@@ -27,7 +27,7 @@ class CsvPreview
     raise_encoding_error
   end
 
-  def each_row
+  def format_rows
     (0...maximum_rows).each do
       if (row = @csv.shift)
         if row.size > maximum_columns
@@ -43,6 +43,20 @@ class CsvPreview
     @truncated_rows = true
   ensure
     reset
+  end
+
+  def rows
+    row_list = []
+
+    format_rows do |row|
+      row_list << row.map do |data|
+        {
+          text: data,
+        }
+      end
+    end
+
+    row_list
   end
 
   def truncated?
@@ -104,7 +118,7 @@ private
   def ensure_csv_data_is_well_formed
     # We iterate over the CSV data to ensure all the data is sound and won't
     # cause errors later when it's iterated over.
-    each_row {}
+    format_rows {}
   end
 
   def raise_encoding_error
