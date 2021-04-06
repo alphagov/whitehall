@@ -9,7 +9,7 @@ if User.where(name: "Test user").blank?
     name: "Test user",
     permissions: ["signin", "GDS Admin", "GDS Editor", "Managing Editor", "Export data"],
     organisation_content_id: gds_organisation_id,
-    organisation_slug: "test-organisation",
+    organisation_slug: "government-digital-service",
   )
 end
 
@@ -28,7 +28,7 @@ end
 if Organisation.where(name: "Test Organisation").blank?
   Organisation.create!(
     name: "Test Organisation",
-    slug: "test-organisation",
+    slug: "government-digital-service",
     acronym: "TO",
     organisation_type_key: :other,
     logo_formatted_name: "Test",
