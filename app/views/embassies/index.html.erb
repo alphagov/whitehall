@@ -1,6 +1,5 @@
 <% page_title "Find a British embassy, High Commission or Consulate" %>
 <% page_class "worldwide-organisations embassies-index" %>
-
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render "govuk_publishing_components/components/title", {
@@ -9,32 +8,35 @@
     } %>
   </div>
 </header>
-
 <div class="block-2">
   <div class="inner-block embassy-listing">
-
-    <span class="a-z-heading"><span class="visuallyhidden">Countries ordered from </span><h1>A&ndash;Z</h1></span>
-
+    <span class="a-z-heading"><span class="visuallyhidden">Countries ordered from </span>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "A–Z",
+        font_size: "l"
+      } %>
+    </span>
     <ol class="locations">
       <% @embassies_by_location.each do |embassy| -%>
-      <li>
-        <h2><%= embassy.name %></h2>
-
-        <% if embassy.has_consular_service_in_location? && embassy.offices.empty? -%>
-          <p><%= embassy.text %></p>
-        <% else -%>
-          <ul>
-            <% if !embassy.has_consular_service_in_location? || embassy.has_remote_service? -%>
-            <li>
-              <p><%= embassy.text %></p>
-              <%= embassy.embassy_path %>
-            </li>
-            <% else %>
-              <%= render partial: "organisation", collection: embassy.consular_services_organisations -%>
-            <% end %>
-          </ul>
-        <% end -%>
-      </li>
+        <li>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: embassy.name
+          } %>
+          <% if embassy.has_consular_service_in_location? && embassy.offices.empty? -%>
+            <p><%= embassy.text %></p>
+          <% else -%>
+            <ul>
+              <% if !embassy.has_consular_service_in_location? || embassy.has_remote_service? -%>
+                <li>
+                  <p><%= embassy.text %></p>
+                  <%= embassy.embassy_path %>
+                </li>
+              <% else %>
+                <%= render partial: "organisation", collection: embassy.consular_services_organisations -%>
+              <% end %>
+            </ul>
+          <% end -%>
+        </li>
       <% end -%>
     </ol>
   </div>

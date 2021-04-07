@@ -1,7 +1,10 @@
 <% offices = Embassy.filter_offices(organisation) -%>
 <% if offices.any? -%>
   <li>
-    <h3><%= offices.first.contact.locality %></h3>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: offices.first.contact.locality,
+      heading_level: 3
+    } %>
     <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug), class: "govuk-link") %>
   </li>
 <% end -%>
