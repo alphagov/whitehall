@@ -34,11 +34,11 @@ class OffsiteLink < ApplicationRecord
     def self.display_type(link_type)
       case link_type
       when "content_publisher_news_story"
-        "News story"
+        I18n.t("document.type.news_story.one")
       when "content_publisher_press_release"
-        "Press release"
+        I18n.t("document.type.press_release.one")
       else
-        humanize(link_type)
+        I18n.t("document.type.#{link_type}.one")
       end
     end
   end

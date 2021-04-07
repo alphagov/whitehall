@@ -118,18 +118,6 @@ class Consultation < Publicationesque
     consultation_participation.present?
   end
 
-  def display_type
-    if outcome_published?
-      "Consultation outcome"
-    elsif closed?
-      "Closed consultation"
-    elsif open?
-      "Open consultation"
-    else
-      "Consultation"
-    end
-  end
-
   def display_type_key
     if outcome_published?
       "consultation_outcome"

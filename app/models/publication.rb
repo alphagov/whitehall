@@ -79,10 +79,6 @@ class Publication < Publicationesque
     newly_created ? false : all_nation_applicability
   end
 
-  def display_type
-    publication_type.try(:singular_name)
-  end
-
   def display_type_key
     publication_type.key
   end

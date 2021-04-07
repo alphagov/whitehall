@@ -35,10 +35,6 @@ class NewsArticle < Announcement
     self.news_article_type_id = news_article_type && news_article_type.id
   end
 
-  def display_type
-    news_article_type.singular_name
-  end
-
   def display_type_key
     news_article_type.key
   end

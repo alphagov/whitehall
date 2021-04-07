@@ -131,7 +131,11 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def display_type
-    publication_type.singular_name
+    I18n.t("document.type.#{display_type_key}.one")
+  end
+
+  def display_type_key
+    publication_type.key
   end
 
   def publication_type

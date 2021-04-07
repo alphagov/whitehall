@@ -38,10 +38,6 @@ class DocumentCollection < Edition
     ].flatten.join("\n")
   end
 
-  def display_type
-    "Collection"
-  end
-
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end

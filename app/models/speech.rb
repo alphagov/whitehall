@@ -41,9 +41,9 @@ class Speech < Announcement
 
   def display_type
     if speech_type.statement_to_parliament?
-      "Statement to Parliament"
+      I18n.t("document.type.statement_to_parliament.one")
     else
-      super
+      I18n.t("document.type.speech.one")
     end
   end
 

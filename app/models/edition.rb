@@ -593,7 +593,7 @@ EXISTS (
   end
 
   def display_type
-    format_name.capitalize
+    I18n.t("document.type.#{display_type_key}.one")
   end
 
   def display_type_key
