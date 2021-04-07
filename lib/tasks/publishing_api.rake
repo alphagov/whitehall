@@ -274,6 +274,31 @@ namespace :publishing_api do
       end
       puts "Finished enqueueing items for Publishing API"
     end
+
+    desc "Republish documents by content id"
+    task :republish_documents_by_content_ids, %w[content_ids] => :environment do |_, args|
+      content_ids =  args[:content_ids].split
+      document_ids = Document.where(content_id: content_ids).pluck(:id)
+
+      puts "Bulk republishing #{document_ids.count} documents"
+
+      document_ids.each do |id|
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", id, true)
+      end
+    end
+
+    desc "Republish documents by content ids from CSV"
+    task :republish_documents_by_content_ids_from_csv, [:csv_file_name] => :environment do |_, args|
+      csv = CSV.read(Rails.root.join("lib/tasks/#{args[:csv_file_name]}.csv"), headers: true)
+      content_ids = csv["content_id"].uniq
+      document_ids = Document.where(content_id: content_ids).pluck(:id)
+
+      puts "Bulk republishing #{document_ids.count} documents"
+
+      document_ids.each do |id|
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", id, true)
+      end
+    end
   end
 
   desc "Manually unpublish content with a redirect"
