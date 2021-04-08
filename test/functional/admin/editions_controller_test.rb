@@ -39,7 +39,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     get :index, params: { state: :draft }
 
-    assert_select_object(guide) { assert_select ".type", text: "Detailed guide" }
+    assert_select_object(guide) { assert_select ".type", text: "Detailed guide: Guidance" }
     assert_select_object(publication) { assert_select ".type", text: "Publication: Policy paper" }
   end
 
