@@ -111,7 +111,7 @@ end
 Then(/^I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation$/) do
   visit worldwide_organisation_path(@the_organisation)
 
-  contact_headings = all(".contact-us div.contact div.vcard.contact-inner p:first-of-type:not(.email)").map(&:text)
+  contact_headings = all(".contact-section .gem-c-heading").map(&:text)
 
   assert_equal @the_main_office.title, contact_headings[0]
   @the_ordered_offices.each.with_index do |contact, idx|
@@ -134,8 +134,8 @@ end
 Then(/^that office is no longer visible on the home page of the worldwide organisation$/) do
   visit worldwide_organisation_path(@the_organisation)
 
-  within ".contact-us" do
-    assert_no_selector "div.contact h2", text: @the_removed_office.title
+  within ".contact-section:first-of-type" do
+    assert_no_selector "h2", text: @the_removed_office.title
   end
 end
 

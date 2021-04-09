@@ -5,7 +5,7 @@ require "address_formatter/formatter"
 module AddressFormatter
   class HCard < Formatter
     def render
-      "<p class=\"adr\">\n#{interpolate_address_template}\n</p>\n".html_safe
+      interpolate_address_template.html_safe
     end
 
     def interpolate_address_template
@@ -14,7 +14,7 @@ module AddressFormatter
 
     def interpolate_address_property(property_name)
       value = super
-      value.present? ? "<span class=\"#{property_name}\">#{ERB::Util.html_escape(value)}</span>" : ""
+      value.present? ? ERB::Util.html_escape(value).html_safe : ""
     end
 
   private
@@ -23,7 +23,7 @@ module AddressFormatter
       string
         .gsub(/^\n/, "")        # get rid of blank lines
         .strip                  # get rid of any trailing whitespace
-        .gsub(/\n/, "<br />\n") # add break tags where appropriate
+        .gsub(/\n/, "<br />") # add break tags where appropriate
     end
   end
 end

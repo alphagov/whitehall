@@ -68,10 +68,12 @@
 <% end %>
 
 <% if @main_office %>
-  <section class="govuk-grid-row contact-us" id="contact-us">
-    <h2 class="keyline-header">
-      <%= t("worldwide_organisation.headings.contact_us" ) %>
-    </h2>
+  <section id="contact-us">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: t("worldwide_organisation.headings.contact_us"),
+      border_top: 5,
+      padding: true,
+    } %>
     <%= render partial: "contacts/contact", locals: {
       contact: @main_office,
       is_main: true,

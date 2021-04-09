@@ -111,14 +111,13 @@ Then(/^the "([^"]*)" office details should be shown on the public website$/) do 
   visit worldwide_organisation_path(worldwide_org)
   worldwide_office = worldwide_org.offices.joins(contact: :translations).where(contact_translations: { title: description }).first
 
-  within "#{record_css_selector(worldwide_office)}.contact" do
-    assert_selector "p:first-of-type", text: worldwide_office.contact.title
-    within find(".vcard") do
-      # new lines cause challenges in matching to the rendering
-      address = worldwide_office.contact.street_address.gsub(/\s+/, " ")
-      assert_text address, normalize_ws: true
-    end
-    assert_selector ".tel", text: worldwide_office.contact.contact_numbers.first.number
+  within record_css_selector(worldwide_office) do
+    assert_selector ".gem-c-heading", text: worldwide_office.contact.title
+    # new lines cause challenges in matching to the rendering
+    address = worldwide_office.contact.street_address.gsub(/\s+/, " ")
+    assert_text address, normalize_ws: true
+
+    assert_selector "p:nth-of-type(2)", text: worldwide_office.contact.contact_numbers.first.number
   end
 end
 
@@ -159,7 +158,7 @@ Then(/^the "([^"]*)" should be shown as the main office on the public website$/)
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
   visit worldwide_organisation_path(worldwide_organisation)
-  within "#{record_css_selector(worldwide_office)}.main" do
+  within record_css_selector(worldwide_office) do
     assert_text contact_title
   end
 end

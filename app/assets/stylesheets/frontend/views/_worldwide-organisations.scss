@@ -115,80 +115,6 @@
     }
   }
 
-  .contact-us {
-    .contact {
-      min-width: 0; // to overide something from static
-      @include core-16;
-      margin-bottom: $gutter;
-
-      @include media(desktop) {
-        float: left;
-        width: $one-third;
-      }
-
-      &.clear-contact {
-        clear: both;
-      }
-
-      .content {
-        padding: 0 $gutter-half;
-      }
-
-      h2 {
-        @include core-19;
-        font-weight: bold;
-      }
-
-      .comments {
-        margin: $gutter-one-third 0;
-      }
-
-      .adr {
-        margin: $gutter-one-third 0;
-      }
-
-      .email-url-number {
-        p {
-          margin: $gutter-one-third 0;
-        }
-
-        .type {
-          display: block;
-        }
-      }
-    }
-
-    .contact.main {
-
-      @include media(desktop) {
-        width: $full-width;
-        margin: 0 0 $gutter;
-      }
-
-      .content {
-        margin: 0 $gutter-half;
-        @extend %contain-floats;
-        padding: $gutter 0;
-        border-bottom: 1px solid $border-colour;
-
-        .comments {
-          @include media(desktop) {
-            float: right;
-            width: $one-third;
-          }
-        }
-
-        .adr,
-        .email-url-number {
-          @include media(desktop) {
-            float: left;
-            width: $one-third;
-          }
-        }
-      }
-    }
-  }
-
   .contact-us,
   .corporate-information {
     .keyline-header {
@@ -214,4 +140,13 @@
       }
     }
   }
+}
+
+.contact-section {
+  border-top: 1px solid $govuk-border-colour;
+  padding: govuk-spacing(6) 0;
+}
+
+.contact-section__address {
+  font-style: normal;
 }
