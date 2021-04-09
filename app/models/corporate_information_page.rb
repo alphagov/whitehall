@@ -81,10 +81,6 @@ class CorporateInformationPage < Edition
     true
   end
 
-  def display_type
-    "Corporate information"
-  end
-
   def translatable?
     !non_english_edition?
   end

@@ -123,7 +123,7 @@ class StatisticsControllerTest < ActionController::TestCase
       assert_equal statistic_path(statistics_publication.document), json["url"]
       assert_equal "org-name et other-org", json["organisations"]
       assert_equal %(<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">mars 14, 2011</time>), json["display_date_microformat"]
-      assert_equal "Official Statistics", json["display_type"]
+      assert_equal "Statistiques", json["display_type"]
     end
   end
 

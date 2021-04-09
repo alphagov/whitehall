@@ -153,12 +153,24 @@ en:
       draft_text:
         one: Draft text
         other: Draft texts
+      edition:
+        one: Edition
+        other: Editions
+      edition_with_appointment:
+        one: Edition with appointment
+        other: Editions with appointment
+      fatality_notice:
+        one: Fatality notice
+        other: Fatality notices
       foi_release:
         one: FOI release
         other: FOI releases
       form:
         one: Form
         other: Forms
+      generic_edition:
+        one: Generic edition
+        other: Generic editions
       guidance:
         one: Guidance
         other: Guidance
@@ -219,6 +231,9 @@ en:
       publication:
         one: Publication
         other: Publications
+      publication_scheme:
+        one: Publication scheme
+        other: Publication schemes
       government_response:
         one: Government response
         other: Government responses
@@ -246,6 +261,9 @@ en:
       official_statistics:
         one: Official Statistics
         other: Official Statistics
+      terms_of_reference:
+        one: Terms of reference
+        other: Terms of reference
       transcript:
         one: Transcript
         other: Transcripts

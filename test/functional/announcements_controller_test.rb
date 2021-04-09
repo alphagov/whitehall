@@ -111,13 +111,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index, params: { locale: "fr" }
 
     assert_select "#news_article_#{news.id}" do
-      assert_select ".display-type", text: "News story"
+      assert_select ".display-type", text: "Actualités"
     end
     assert_select "#speech_#{speech.id}" do
-      assert_select ".display-type", text: "Speech"
+      assert_select ".display-type", text: "Discours"
     end
     assert_select "#speech_#{written_statement.id}" do
-      assert_select ".display-type", text: "Statement to Parliament"
+      assert_select ".display-type", text: "Déclaration au Parlement"
     end
   end
 
