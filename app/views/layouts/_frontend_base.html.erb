@@ -30,6 +30,13 @@
   <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
     <% unless local_assigns[:show_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
     <div id="whitehall-wrapper-slimmer">
+      <% if request.path == "/government/topical-events/hrh-the-duke-of-edinburgh" %>
+        <style>
+          .emergency-banner--notable-death {
+            display: none;
+          }
+        </style>
+      <% end %>
       <div id="whitehall-wrapper">
         <%= yield %>
       </div>
