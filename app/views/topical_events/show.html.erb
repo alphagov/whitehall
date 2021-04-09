@@ -17,17 +17,11 @@
         </div>
       <% end %>
       <% if @topical_event.organisations.any? %>
-        <aside class="meta metadata-list">
-          <div class="inner-heading">
-            <dl>
-              <dt><%= t('document.headings.organisations', count: @topical_event.organisations.length) %>:</dt>
-              <dd>
-                <%= render  partial: 'organisations/organisations_name_list',
-                            locals: { organisations: @topical_event.organisations } %>
-              </dd>
-            </dl>
-          </div>
-        </aside>
+        <%= render "govuk_publishing_components/components/metadata", {
+          other: {
+            "Organisations": sanitize(array_of_links_to_organisations(@topical_event.organisations).to_sentence)
+          }
+        } %>
       <% end %>
     </div>
   </header>
