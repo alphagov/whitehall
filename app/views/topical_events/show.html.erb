@@ -4,31 +4,29 @@
 
 <%= content_tag_for(:div, @topical_event, class: "classification #{@topical_event.class.name.underscore}") do %>
 
-  <header class="block headings-block">
-    <div class="inner-block floated-children">
-      <%= render partial: 'shared/heading',
-                locals: { heading: "#{h(@topical_event.name)}#{' <span class="archived">(Archived)</span>' if @topical_event.archived?}".html_safe,
-                          big: true, extra: true } %>
-      <% if @topical_event.logo_url.present? %>
-        <div class="heading-extra topical-event-logo">
-          <div class="heading-inner">
-            <%= image_tag(@topical_event.logo_url(:s300), alt: @topical_event.logo_alt_text) if @topical_event.logo_url %>
-          </div>
+  <header class="headings-block">
+    <div class="inner-block">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <%= render "govuk_publishing_components/components/title", {
+            title: "#{h(@topical_event.name)}#{' <span class="archived">(Archived)</span>' if @topical_event.archived?}".html_safe
+          } %>
+          <% if @topical_event.organisations.any? %>
+            <%= render "govuk_publishing_components/components/metadata", {
+              other: {
+                "Organisations": sanitize(array_of_links_to_organisations(@topical_event.organisations).to_sentence)
+              }
+            } %>
+          <% end %>
         </div>
-      <% end %>
-      <% if @topical_event.organisations.any? %>
-        <aside class="meta metadata-list">
-          <div class="inner-heading">
-            <dl>
-              <dt><%= t('document.headings.organisations', count: @topical_event.organisations.length) %>:</dt>
-              <dd>
-                <%= render  partial: 'organisations/organisations_name_list',
-                            locals: { organisations: @topical_event.organisations } %>
-              </dd>
-            </dl>
-          </div>
-        </aside>
-      <% end %>
+        <div class="govuk-grid-column-one-third">
+          <% if @topical_event.logo_url.present? %>
+            <div class="topical-event-logo">
+              <%= image_tag(@topical_event.logo_url(:s300), alt: @topical_event.logo_alt_text) if @topical_event.logo_url %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </header>
 
