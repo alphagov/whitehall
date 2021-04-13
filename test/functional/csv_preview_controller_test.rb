@@ -418,7 +418,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     get :show, params: params
 
-    assert_select ".headings h1", attachment.title
+    assert_select ".gem-c-title__text", attachment.title
   end
 
   view_test "renders links to edition organisations" do
@@ -455,7 +455,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     get :show, params: params
 
-    assert_select "p.preview-error", text: /This file could not be previewed/
+    assert_select ".govuk-body:last-child", text: /This file could not be previewed/
   end
 
 private

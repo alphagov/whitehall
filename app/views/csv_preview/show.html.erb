@@ -1,70 +1,68 @@
 <% page_title @attachment.title %>
 <% page_class "html-publications-show attachments-preview" %>
 <% initialise_script "GOVUK.AttachmentsPreview", el: '.attachments-preview' %>
-<%
-  first_organisation = @edition.sorted_organisations.first
-  other_organisations = @edition.sorted_organisations - [first_organisation]
-%>
 
-<div class="block publication-external">
-  <div class="organisation-logos">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-bottom-3 govuk-!-margin-top-6">
     <%- @edition.organisations.each do |organisation| %>
-      <div class="organisation-logos__logo <%= organisation_brand_colour_class(organisation) %>">
-        <%= link_to organisation_path(organisation),
-                    class: logo_classes(organisation: organisation, size: 'medium', stacked: true) do %>
-          <span><%= organisation_logo_name(organisation) %></span>
-        <%- end -%>
-      </div>
+      <%= render "govuk_publishing_components/components/organisation_logo", {
+        organisation: {
+          name: organisation_logo_name(organisation),
+          url: organisation_path(organisation),
+          brand: organisation.organisation_brand_colour ? organisation.organisation_brand_colour.class_name : nil,
+          crest: organisation.organisation_logo_type.class_name,
+        }
+      } %>
     <%- end -%>
   </div>
-  <div>
-    <p><%= link_to "See more information about #{with_this_determiner(@edition.display_type.downcase)}", public_document_url(@edition) %></p>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <p class="govuk-body"><%= link_to "See more information about #{with_this_determiner(@edition.display_type.downcase)}", public_document_url(@edition), class: "govuk-link" %></p>
   </div>
 </div>
-<header class="publication-header" id="contents">
-  <div class="inner-block floated-children">
-    <div class="headings">
-      <%= content_tag(:p, @edition.display_type, class: 'document-type') %>
-      <h1><%= @attachment.title %></h1>
-      <p>
-        <%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %><br />
-        <%= link_to @attachment.url(preview: params[:preview]) do %>
-          <strong>Download <%= @attachment.file_extension.upcase %></strong>
-          <%= number_to_human_size(@attachment.file_size) %>
-        <% end %>
-      </p>
-    </div>
-  </div>
-</header>
-<% if @csv_preview %>
-  <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
-  <div class="csv-preview">
-    <div class="csv-preview-inner">
-      <table>
-        <thead>
-          <tr>
-            <% @csv_preview.headings.each do |heading| %>
-              <th><%= heading %></th>
-            <% end %>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @csv_preview.each_row do |row| %>
-            <tr>
-              <% row.each do |data| %>
-                <td><%= data %></td>
-              <% end %>
-            </tr>
+<main role="main" id="content">
+  <%= render "govuk_publishing_components/components/inverse_header", {} do %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <%= render "govuk_publishing_components/components/title", {
+          context: @edition.display_type,
+          title: @attachment.title,
+          inverse: true,
+        } %>
+
+        <p class="govuk-body publication-header__updated">
+          <%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %><br />
+          <%= link_to @attachment.url(preview: params[:preview]), class: "govuk-link publication-header__download-link" do %>
+            <strong>Download <%= @attachment.file_extension.upcase %></strong> <%= number_to_human_size(@attachment.file_size) %>
           <% end %>
-        </tbody>
-      </table>
+        </p>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <% if @csv_preview %>
+        <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
+        <div class="csv-preview">
+          <div class="csv-preview__inner" tabindex="0">
+            <%= render "govuk_publishing_components/components/table", {
+              head: @csv_preview.headings.map do |heading|
+                {
+                  text: heading
+                }
+              end,
+              rows: @csv_preview.rows,
+            } %>
+          </div>
+        </div>
+        <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
+      <% else %>
+        <p class="govuk-body">This file could not be previewed. <%= link_to "Download it to view its full contents.", @attachment.url(preview: params[:preview]), class: "govuk-link" %></p>
+      <% end %>
     </div>
   </div>
-  <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
-<% else %>
-  <p class="preview-error">
-    This file could not be previewed.
-    <%= link_to "Download it to view its full contents.", @attachment.url(preview: params[:preview]) %>
-  </p>
-<% end %>
+</main>
