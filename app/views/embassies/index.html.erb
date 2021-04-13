@@ -1,43 +1,53 @@
 <% page_title "Find a British embassy, High Commission or Consulate" %>
-<% page_class "worldwide-organisations embassies-index" %>
+<% page_class "worldwide-organisations embassies-index govuk-width-container" %>
 <header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render "govuk_publishing_components/components/title", {
-      context: "Worldwide",
-      title: "Find a British embassy, high commission or consulate",
-    } %>
-  </div>
+  <%= render "govuk_publishing_components/components/title", {
+    context: "Worldwide",
+    title: "Find a British embassy, high commission or consulate",
+  } %>
 </header>
-<div class="block-2">
-  <div class="inner-block embassy-listing">
-    <span class="a-z-heading"><span class="visuallyhidden">Countries ordered from </span>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "A–Z",
-        font_size: "l"
-      } %>
-    </span>
-    <ol class="locations">
-      <% @embassies_by_location.each do |embassy| -%>
-        <li>
-          <%= render "govuk_publishing_components/components/heading", {
-            text: embassy.name
-          } %>
-          <% if embassy.has_consular_service_in_location? && embassy.offices.empty? -%>
-            <p><%= embassy.text %></p>
-          <% else -%>
-            <ul>
-              <% if !embassy.has_consular_service_in_location? || embassy.has_remote_service? -%>
-                <li>
-                  <p><%= embassy.text %></p>
+<div class="govuk-main-wrapper">
+  <div class="govuk-grid-row">
+      <aside class="govuk-grid-column-one-quarter">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: raw("<span class=\" govuk-visually-hidden\">Countries ordered from </span> A–Z"),
+          font_size: "l",
+          margin_bottom: 6,
+        } %>
+      </aside>
+      <section class="govuk-grid-column-three-quarters">
+        <ol class="locations">
+          <% @embassies_by_location.each do |embassy| -%>
+          <li class="govuk-grid-row govuk-!-margin-bottom-4">
+            <div class="govuk-grid-column-one-third">
+              <%= render "govuk_publishing_components/components/heading", {
+                text: embassy.name, margin_bottom: 1
+              } %>
+            </div>
+            <div class="govuk-grid-column-two-thirds">
+              <% if embassy.has_consular_service_in_location? && embassy.offices.empty? -%>
+              <p>
+                <%= embassy.text %>
+              </p>
+              <% else -%>
+              <ul>
+                <% if !embassy.has_consular_service_in_location? || embassy.has_remote_service? -%>
+                <li class="govuk-!-margin-bottom-4">
+                  <p class="govuk-!-padding-bottom-4">
+                    <%= embassy.text %>
+                  </p>
                   <%= embassy.embassy_path %>
                 </li>
-              <% else %>
-                <%= render partial: "organisation", collection: embassy.consular_services_organisations -%>
-              <% end %>
-            </ul>
+                <% else %>
+                <%= render partial:"organisation", collection: embassy.consular_services_organisations -%>
+                <% end %>
+              </ul>
+              <% end -%>
+            </div>
+          </li>
+          <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
           <% end -%>
-        </li>
-      <% end -%>
-    </ol>
+        </ol>
+      </section>
   </div>
 </div>
