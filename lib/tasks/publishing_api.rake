@@ -299,6 +299,15 @@ namespace :publishing_api do
         PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", id, true)
       end
     end
+
+    desc "Republish all documents"
+    task :all, [] => :environment do |_|
+      puts "Enqueueing #{Document.count} documents"
+      Document.find_each do |document|
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.id, true)
+      end
+      puts "Finished enqueueing items for Publishing API"
+    end
   end
 
   desc "Manually unpublish content with a redirect"
