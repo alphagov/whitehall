@@ -342,6 +342,9 @@ en:
       accessible_documents_policy:
         one: Accessible documents policy
         other: Accessible documents policies
+      service:
+        one: Service
+        other: Services
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article
