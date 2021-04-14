@@ -279,6 +279,69 @@ en:
       authored_article:
         one: Authored article
         other: Authored articles
+      about:
+        one: About
+        other: About
+      recruitment:
+        one: Recruitment
+        other: Recruitment
+      complaints_procedure:
+        one: Complaints procedure
+        other: Complaints procedures
+      about_our_services:
+        one: About our services
+        other: About our services
+      social_media_use:
+        one: Social media use
+        other: Social media use
+      publication_scheme:
+        one: Publication scheme
+        other: Publication schemes
+      our_governance:
+        one: Our governance
+        other: Our governance
+      procurement:
+        one: Procurement
+        other: Procurement
+      statistics:
+        one: Statistics
+        other: Statistics
+      membership:
+        one: Membership
+        other: Membership
+      research:
+        one: Research
+        other: Research
+      welsh_language_scheme:
+        one: Welsh language scheme
+        other: Welsh language schemes
+      media_enquiries:
+        one: Media enquiry
+        other: Media enquiries
+      access_and_opening:
+        one: Access and opening
+        other: Access and opening
+      our_energy_use:
+        one: Our energy use
+        other: Our energy use
+      personal_information_charter:
+        one: Personal information charter
+        other: Personal information charters
+      equality_and_diversity:
+        one: Equality and diversity
+        other: Equality and diversity
+      staff_update:
+        one: Staff update
+        other: Staff updates
+      terms_of_reference:
+        one: Terms of reference
+        other: Terms of reference
+      petitions_and_campaigns:
+        one: Petitions and campaigns
+        other: Petitions and campaigns
+      accessible_documents_policy:
+        one: Accessible documents policy
+        other: Accessible documents policies
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article
