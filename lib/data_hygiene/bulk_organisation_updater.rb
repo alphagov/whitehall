@@ -122,7 +122,7 @@ module DataHygiene
         Whitehall::PublishingApi.save_draft(
           pre_publication_edition,
           "republish",
-          true, # bulk_publishing
+          bulk_publishing: true,
         )
       else
         PublishingApiDocumentRepublishingWorker.perform_async(
