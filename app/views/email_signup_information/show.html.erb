@@ -13,7 +13,9 @@
   <p><%= @email_signup_information.summary %></p>
   <div class='choices'>
     <% @email_signup_information.email_signup_pages.each do |page| %>
-    <h2><%= page.text %></h2>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: page.text
+      } %>
     <p><%= page.description %></p>
     <% end %>
   </div>

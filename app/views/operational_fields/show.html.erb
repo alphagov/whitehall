@@ -4,19 +4,21 @@
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
-              locals: { type: 'British fatalities',
-                        heading: "Operations in #{@operational_field.name}",
-                        big: true, extra: true } %>
+      locals: { type: 'British fatalities',
+      heading: "Operations in #{@operational_field.name}",
+      big: true, extra: true
+    } %>
     <div class="heading-extra">
       <div class="inner-heading">
         <div class="organisations-icon-list">
-          <%= content_tag_for(:div, @organisation, class: organisation_brand_colour_class(@organisation)) do %>
+          <%= content_tag_for(:div, @organisation,
+            class: organisation_brand_colour_class(@organisation)) do %>
             <%= link_to @organisation,
-                        class: logo_classes(organisation: @organisation, stacked: true, use_identity: true) do %>
+            class: logo_classes(organisation: @organisation, stacked: true, use_identity: true) do %>
               <span><%= organisation_logo_name(@organisation) %></span>
             <% end %>
           <% end %>
-       </div>
+        </div>
       </div>
     </div>
   </div>
@@ -29,13 +31,19 @@
         <h1>Contents</h1>
         <ol>
           <% unless @operational_field.description.blank? %>
-            <li><a href="#field-of-operation">Field of operation</a></li>
+            <li>
+              <a href="#field-of-operation">Field of operation</a>
+            </li>
           <% end %>
           <% govspeak_headers(@operational_field.description).each do |header| %>
-            <li><%= link_to header.text, "##{header.id}" %></li>
+            <li>
+              <%= link_to header.text, "##{header.id}" %>
+            </li>
           <% end %>
           <% if @fatality_notices.any? %>
-            <li><a href="#fatalities">Fatalities</a></li>
+            <li>
+              <a href="#fatalities">Fatalities</a>
+            </li>
           <% end %>
         </ol>
       </nav>
@@ -46,17 +54,21 @@
 <div class="block-3">
   <div class="inner-block">
     <section id="field-of-operation" class="group">
-
       <% unless @operational_field.description.blank? %>
-        <h2>Field of operation</h2>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Field of operation",
+          margin_bottom: 2
+        } %>
         <div class="description">
           <%= govspeak_to_html @operational_field.description %>
         </div>
       <% end %>
-
       <div class="fatalities">
         <% if @fatality_notices.any? %>
-          <h2 id="fatalities">Fatalities</h2>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Fatalities",
+            id: "fatalities"
+          } %>
           <ul>
             <% @fatality_notices.each do |fatality_notice| %>
               <%= content_tag_for :li, fatality_notice, class: 'fatality-notice' do %>
@@ -66,15 +78,15 @@
                   </h3>
                 <% end %>
                 <ul class="casualties">
-                <% if fatality_notice.fatality_notice_casualties.any? %>
+                  <% if fatality_notice.fatality_notice_casualties.any? %>
                     <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
                       <%= content_tag_for :li, casualty, class: 'casualty' do %>
                         <%= link_to casualty.personal_details, public_document_url(fatality_notice) %>
                       <% end %>
                     <% end %>
-                <% else %>
-                  <li class="casualty"><%= link_to fatality_notice.title, public_document_url(fatality_notice) %></li>
-                <% end %>
+                  <% else %>
+                    <li class="casualty"><%= link_to fatality_notice.title, public_document_url(fatality_notice) %></li>
+                  <% end %>
                 </ul>
               <% end %>
             <% end %>
@@ -83,7 +95,6 @@
           <p>There have been no fatality notices added for this field of operation yet.</p>
         <% end %>
       </div>
-
     </section>
   </div>
 </div>

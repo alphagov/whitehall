@@ -12,10 +12,6 @@
     }
   }
 
-  h2 {
-    @include ig-core-27;
-  }
-
   .meta {
     @include media(desktop) {
       margin-top: $gutter;
