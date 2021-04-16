@@ -119,61 +119,32 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
   end
 
   def gb_addr
-    <<-GB_ADDR.strip_heredoc
-    <p class="adr">
-    <span class="fn">Recipient</span><br />
-    <span class="street-address">Street</span><br />
-    <span class="locality">Locality</span><br />
-    <span class="region">Region</span><br />
-    <span class="postal-code">Postcode</span><br />
-    <span class="country-name">Country</span>
-    </p>
+    <<-GB_ADDR.strip_heredoc.gsub(/\n/, "")
+      Recipient<br />Street<br />Locality<br />Region<br />Postcode<br />Country
     GB_ADDR
   end
 
   def es_addr
-    <<-ES_ADDR.strip_heredoc
-    <p class="adr">
-    <span class="fn">Recipient</span><br />
-    <span class="street-address">Street</span><br />
-    <span class="postal-code">Postcode</span> <span class="locality">Locality</span> <span class="region">Region</span><br />
-    <span class="country-name">Country</span>
-    </p>
+    <<-ES_ADDR.strip_heredoc.gsub(/\n/, "")
+      Recipient<br />Street<br />Postcode Locality Region<br />Country
     ES_ADDR
   end
 
   def jp_addr
-    <<-JP_ADDR.strip_heredoc
-    <p class="adr">
-    〒<span class="postal-code">Postcode</span><br />
-    <span class="region">Region</span><span class="locality">Locality</span><span class="street-address">Street</span><br />
-    <span class="fn">Recipient</span><br />
-    <span class="country-name">Country</span>
-    </p>
+    <<-JP_ADDR.strip_heredoc.gsub(/\n/, "")
+      〒Postcode<br />RegionLocalityStreet<br />Recipient<br />Country
     JP_ADDR
   end
 
   def addr_without_region
-    <<-ADDR_WITHOUT_REGION.strip_heredoc
-    <p class="adr">
-    <span class="fn">Recipient</span><br />
-    <span class="street-address">Street</span><br />
-    <span class="locality">Locality</span><br />
-    <span class="postal-code">Postcode</span><br />
-    <span class="country-name">Country</span>
-    </p>
+    <<-ADDR_WITHOUT_REGION.strip_heredoc.gsub(/\n/, "")
+      Recipient<br />Street<br />Locality<br />Postcode<br />Country
     ADDR_WITHOUT_REGION
   end
 
   def addr_without_country
-    <<-ADDR_WITHOUT_COUNTRY.strip_heredoc
-    <p class="adr">
-    <span class="fn">Recipient</span><br />
-    <span class="street-address">Street</span><br />
-    <span class="locality">Locality</span><br />
-    <span class="region">Region</span><br />
-    <span class="postal-code">Postcode</span>
-    </p>
+    <<-ADDR_WITHOUT_COUNTRY.strip_heredoc.gsub(/\n/, "")
+      Recipient<br />Street<br />Locality<br />Region<br />Postcode
     ADDR_WITHOUT_COUNTRY
   end
 end

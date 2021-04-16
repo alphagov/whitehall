@@ -259,7 +259,7 @@ end
 Then(/^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/) do |contact_description, address|
   within ".contact" do
     assert_selector "h3", text: contact_description
-    assert_selector ".adr .street-address", text: address
+    assert_selector ".vcard", text: address
   end
 end
 
