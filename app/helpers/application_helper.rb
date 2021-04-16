@@ -340,4 +340,10 @@ module ApplicationHelper
                 end
     elements.join(separator)
   end
+
+  def render_govspeak(content)
+    render "govuk_publishing_components/components/govspeak" do
+      raw(Govspeak::Document.new(content, sanitize: true).to_html)
+    end
+  end
 end
