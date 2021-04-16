@@ -1,21 +1,20 @@
-<% page_title "No longer available" %>
+<% page_title "The page you're looking for is no longer available" %>
 <% page_class "documents-unpublished" %>
-
-<div class="block">
-  <div class="inner-block holding-block">
-    <h1>The page you're looking for is no longer available</h1>
-
-    <p class="summary">
-      The information on this page has been removed because <%= @unpublishing.reason_as_sentence %>.
-    </p>
-
-    <div class="document body">
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/title", {
+        title: "The page you're looking for is no longer available",
+        margin_bottom: 4
+      } %>
+      <p class="govuk-body">
+        The information on this page has been removed because <%= @unpublishing.reason_as_sentence %>.
+      </p>
       <% if @unpublishing.explanation.present? %>
-        <%= govspeak_to_html @unpublishing.explanation %>
+        <%= render_govspeak(@unpublishing.explanation) %>
       <% end %>
-
       <% if @unpublishing.alternative_url.present? %>
-        <p>Visit: <%= link_to @unpublishing.alternative_url, @unpublishing.alternative_url %></p>
+        <p class="govuk-body">Visit: <%= link_to @unpublishing.alternative_url, @unpublishing.alternative_url %></p>
       <% end %>
     </div>
   </div>
