@@ -74,13 +74,13 @@
       border_top: 5,
       padding: true,
     } %>
-    <%= render partial: "contacts/contact", locals: {
+    <%= render partial: "contacts/organisation_contact", locals: {
       contact: @main_office,
       is_main: true,
       lang: t_lang_translated_locales(@main_office.contact)
     } %>
     <% @home_page_offices.each do |home_page_office| %>
-      <%= render partial: "contacts/contact", locals: {
+      <%= render partial: "contacts/organisation_contact", locals: {
         contact: home_page_office,
         lang: t_lang_translated_locales(home_page_office.contact)
       } %>
