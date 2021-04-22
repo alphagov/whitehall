@@ -14,5 +14,5 @@
     </div>
   </div>
 
-  <%= render('contacts/contact', contact: worldwide_organisation.main_office) if worldwide_organisation.main_office.present? %>
+  <%= render('contacts/organisation_contact', contact: worldwide_organisation.main_office) if worldwide_organisation.main_office.present? %>
 <% end %>
