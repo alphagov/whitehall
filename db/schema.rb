@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_10_19_095600) do
+=======
+ActiveRecord::Schema.define(version: 2021_04_22_173703) do
+>>>>>>> 84a1ed57e (Spike - exploring Coronavirus Travel data on world locations)
 
   create_table "about_pages", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -1131,6 +1135,10 @@ ActiveRecord::Schema.define(version: 2021_10_19_095600) do
     t.string "analytics_identifier"
     t.string "content_id"
     t.string "news_page_content_id"
+    t.string "coronavirus_rag_status"
+    t.string "coronavirus_watchlist_rag_status"
+    t.string "coronavirus_next_rag_status"
+    t.datetime "coronavirus_next_rag_applies_at"
     t.index ["iso2"], name: "index_world_locations_on_iso2", unique: true
     t.index ["slug"], name: "index_world_locations_on_slug"
     t.index ["world_location_type_id"], name: "index_world_locations_on_world_location_type_id"
