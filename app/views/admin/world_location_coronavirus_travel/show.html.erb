@@ -1,0 +1,50 @@
+<% page_title "#{@world_location.name} Coronavirus Travel" %>
+
+<%= content_tag_for(:div, @world_location) do %>
+  <div class="world-location-header">
+    <h1>
+      <span class="name"><%= @world_location.name %></span>
+    </h1>
+    <p>
+    <%= link_to "View on website", world_location_news_index_path(@world_location, cachebust_url_options) %>
+  </div>
+
+  <section class="world-location-details">
+    <%= tab_navigation_for(@world_location) %>
+
+    <% if @world_location.coronavirus_next_rag_applies? %>
+      <p>
+        The current RAG status for <%= @world_location.name %> is
+        <%= @world_location.coronavirus_next_rag_status %>. This took affect at
+        <%= @world_location.coronavirus_next_rag_applies_at %>.
+      </p>
+    <% else %>
+      <p>
+        <% if @world_location.coronavirus_rag_status %>
+          The current RAG status for <%= @world_location.name %> is
+          <%= @world_location.coronavirus_rag_status %>.
+        <% else %>
+          <%= @world_location.name %> does not have a RAG status so will be treated
+          as amber.
+        <% end %>
+      </p>
+
+      <% if @world_location.coronavirus_watchlist_rag_status %>
+        <p>
+          It is on the <%= @world_location.coronavirus_watchlist_rag_status %> watchlist.
+        </p>
+      <% end %>
+
+      <% if @world_location.coronavirus_next_rag_status %>
+        <p>
+          It will be changing to <%= @world_location.coronavirus_next_rag_status %> at
+          <%= @world_location.coronavirus_next_rag_applies_at %>.
+        </p>
+      <% end %>
+    <% end %>
+
+    <div class="form-actions">
+      <%= link_to "Edit", edit_admin_coronavirus_travel_path(@world_location), class: "btn btn-lg btn-primary"%>
+    </div>
+  </section>
+<% end %>

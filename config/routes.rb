@@ -370,6 +370,8 @@ Whitehall::Application.routes.draw do
         resources :world_locations, only: %i[index edit update show] do
           member do
             get "/features(.:locale)", as: "features", to: "world_locations#features", constraints: { locale: valid_locales_regex }
+
+            resource :coronavirus_travel, only: %i[show edit update], controller: "world_location_coronavirus_travel"
           end
           resources :translations, controller: "world_location_translations"
           resources :offsite_links
