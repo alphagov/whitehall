@@ -16,6 +16,7 @@ class Api::WorldLocationPresenter < Api::BasePresenter
         web_url: Whitehall.url_maker.world_location_url(model, anchor: "organisations"),
       },
       content_id: model.content_id,
+      england_coronavirus_travel: england_coronavirus_travel,
     }
   end
 
@@ -23,5 +24,22 @@ class Api::WorldLocationPresenter < Api::BasePresenter
     [
       [context.api_world_location_url(model), { "rel" => "self" }],
     ]
+  end
+
+  def england_coronavirus_travel
+    if model.coronavirus_next_rag_applies_at && model.coronavirus_next_rag_applies_at < Time.zone.now
+      {
+        rag_status: model.coronavirus_next_rag_status
+      }
+    elsif model.coronavirus_rag_status
+      {
+        rag_status: model.coronavirus_rag_status,
+        watchlist_rag_status: model.coronavirus_watchlist_rag_status,
+        next_rag_status: model.coronavirus_next_rag_status,
+        next_rag_applies_at: model.coronavirus_next_rag_applies_at,
+      }
+    else
+      {}
+    end
   end
 end

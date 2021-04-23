@@ -1,4 +1,10 @@
 class WorldLocation < ApplicationRecord
+  CORONAVIRUS_RAG_STATUSES = {
+    red: "red",
+    amber: "amber",
+    green: "green",
+  }
+
   has_many :edition_world_locations, inverse_of: :world_location
   has_many :editions,
            through: :edition_world_locations
@@ -39,6 +45,10 @@ class WorldLocation < ApplicationRecord
              format: "world_location",
              slug: :slug
   include PublishesToPublishingApi
+
+  enum coronavirus_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
+  enum coronavirus_watchlist_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
+  enum coronavirus_next_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
 
   def publish_to_publishing_api
     # WorldLocations no longer support translations
@@ -150,5 +160,17 @@ class WorldLocation < ApplicationRecord
 
   def send_news_page_to_publishing_api_and_rummager
     WorldLocationNewsPageWorker.new.perform(id)
+  end
+
+  def coronavirus_next_rag_applies?
+    coronavirus_next_rag_applies_at && coronavirus_next_rag_applies_at < Time.zone.now
+  end
+
+  def current_coronavirus_rag_status
+    if coronavirus_next_rag_applies?
+      coronavirus_next_rag_status
+    else
+      coronavirus_rag_status
+    end
   end
 end
