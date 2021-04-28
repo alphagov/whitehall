@@ -4,34 +4,7 @@ class StatisticsController < DocumentsController
   before_action :expire_cache_when_next_publication_published
 
   def index
-    return redirect_formats_to_finder_frontend if Locale.current.english?
-
-    @filter = build_document_filter
-    @filter.publications_search
-
-    respond_to do |format|
-      format.html do
-        @content_item = Whitehall
-          .content_store
-          .content_item("/government/statistics")
-          .to_hash
-
-        @filter = StatisticsFilterJsonPresenter.new(
-          @filter, view_context, PublicationesquePresenter
-        )
-      end
-      format.json do
-        render json: StatisticsFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
-      end
-      format.atom do
-        documents = Publicationesque.published_with_eager_loading(@filter.documents.map(&:id))
-        @statistics = Whitehall::Decorators::CollectionDecorator.new(
-          documents.sort_by(&:public_timestamp).reverse,
-          PublicationesquePresenter,
-          view_context,
-        )
-      end
-    end
+    redirect_formats_to_finder_frontend
   end
 
 private
