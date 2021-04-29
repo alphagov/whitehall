@@ -293,11 +293,8 @@ pa:
   feeds:
     email: ਈਮੇਲ
     feed: ਫੀਡ
-    get_email_alerts: ਈਮੇਲ ਸਚੇਤ ਪ੍ਰਾਪਤ ਕਰੋ
     get_updates_to_this_list: ਇਸ ਸੂਚੀ ਵਿੱਚ ਅੱਪਡੇਟ ਪ੍ਰਾਪਤ ਕਰੋ
     latest_activity: ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ
-    subscribe_to_feed: ਫੀਡ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕਰੋ
-    view_feed: ਫੀਡ ਦੇਖੋ
   i18n:
     direction: ltr
     latin_script?: false

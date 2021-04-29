@@ -293,11 +293,8 @@ pa-pk:
   feeds:
     email: ایمیل
     feed: فیڈ
-    get_email_alerts: ایمیل الرٹس حاصل کرو
     get_updates_to_this_list: ایس لسٹ وچ اپڈیٹ حاصل کرو
     latest_activity: تازہ ترین سرگرمی
-    subscribe_to_feed: فیڈ نوں سبسکرائیب کرو
-    view_feed: فیڈ ویکھو
   i18n:
     direction: rtl
     latin_script?: false

@@ -294,11 +294,8 @@ bn:
   feeds:
     email: ইমেইল
     feed: ফীড
-    get_email_alerts: ইমেইল সতর্কতা পান
     get_updates_to_this_list: এই তালিকার আপডেটসমূহ পান
     latest_activity: সর্বশেষ কর্মকাণ্ড
-    subscribe_to_feed: ফীডের জন্য সাবস্ক্রাইব করুন
-    view_feed: ফীড দেখুন
   i18n:
     direction: ltr
     latin_script?: false

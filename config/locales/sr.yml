@@ -383,11 +383,8 @@ sr:
   feeds:
     email: 
     feed: 
-    get_email_alerts: 
     get_updates_to_this_list: 
     latest_activity: najnovije aktivnosti
-    subscribe_to_feed: 
-    view_feed: 
   i18n:
     direction: ltr
     latin_script?: true
