@@ -475,13 +475,11 @@ ru:
   world_location:
     headings:
       announcements: Наши объявления
-      country: Страна
       documents: Документы
       mission: Наша цель
       organisations: Организации
       publications: Наши публикации
       quick_links: Быстрые ссылки
-      related_policies: Публикации на схожие темы
       statistics: Наша статистика
     type:
       international_delegation:

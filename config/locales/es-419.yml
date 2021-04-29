@@ -383,13 +383,11 @@ es-419:
   world_location:
     headings:
       announcements: Nuestras novedades
-      country: País
       documents: Documentos
       mission: Nuestra misión
       organisations: Organizaciones
       publications: Nuestras publicaciones
       quick_links: Vínculos rápidos
-      related_policies: Políticas relacionadas
       statistics: Nuestras estadísticas
     type:
       international_delegation:

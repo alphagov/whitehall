@@ -388,13 +388,11 @@ pa:
   world_location:
     headings:
       announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
-      country: ਦੇਸ਼
       documents: ਦਸਤਾਵੇਜ਼
       mission: ਸਾਡਾ ਮਿਸ਼ਨ
       organisations: ਸੰਗਠਨ
       publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
       quick_links: ਤੇਜ਼ ਲਿੰਕ
-      related_policies: ਸੰਬੰਧਿਤ ਨੀਤੀਆਂ
       statistics: ਸਾਡੇ ਅੰਕੜੇ
     type:
       international_delegation:

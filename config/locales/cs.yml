@@ -430,13 +430,11 @@ cs:
   world_location:
     headings:
       announcements: Naše oznámení
-      country: Země
       documents: Dokumenty
       mission: Naše poslání
       organisations: Organizace
       publications: Naše publikace
       quick_links: Odkazy
-      related_policies: Související témata
       statistics: Naše statistiky
     type:
       international_delegation:

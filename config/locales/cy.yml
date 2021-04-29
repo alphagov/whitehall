@@ -572,13 +572,11 @@ cy:
   world_location:
     headings:
       announcements: Ein cyhoeddiadau
-      country: Gwlad
       documents: Dogfennau
       mission: Ein cenhadaeth
       organisations: Sefydliadau
       publications: Ein cyhoeddiadau
       quick_links: Dolenni cyflym
-      related_policies: Polisïau perthnasol
       statistics: Ein hystadegau
     type:
       international_delegation:

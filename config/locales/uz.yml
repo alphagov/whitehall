@@ -382,13 +382,11 @@ uz:
   world_location:
     headings:
       announcements: Bizning e'lonlar
-      country: Mamlakat
       documents: Hujjatlar
       mission: Bizning vazifalar
       organisations: Tashkilotlar
       publications: Bizning nashrlar
       quick_links: Tez bog'lanish linklari
-      related_policies: Oid dasturlar
       statistics: Bizning statistika
     type:
       international_delegation:

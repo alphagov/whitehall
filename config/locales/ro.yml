@@ -432,13 +432,11 @@ ro:
   world_location:
     headings:
       announcements: Știri
-      country: Țară
       documents: Documente
       mission: Obiectiv
       organisations: Organizații
       publications: Documente
       quick_links: 'Link-uri rapide '
-      related_policies: 'Priorități conexe '
       statistics: Statistici
     type:
       international_delegation:

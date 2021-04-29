@@ -388,13 +388,11 @@ bg:
   world_location:
     headings:
       announcements: Нашите съобщения
-      country: Държава
       documents: Документи
       mission: Нашата мисия
       organisations: Организации
       publications: Нашите публикации
       quick_links: Бързи връзки
-      related_policies: Свързани политики
       statistics: Нашите статистики
     type:
       international_delegation:

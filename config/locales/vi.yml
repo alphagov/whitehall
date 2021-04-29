@@ -336,13 +336,11 @@ vi:
   world_location:
     headings:
       announcements: Các thông báo của chúng tôi
-      country: Đất nước
       documents: Tài liệu
       mission: Nhiệm vụ của chúng tôi
       organisations: Các tổ chức
       publications: Tài liệu truyền thông của chúng tôi
       quick_links: Links nhanh
-      related_policies: Các chính sách liên quan
       statistics: Thống kê của chúng tôi
     type:
       international_delegation:

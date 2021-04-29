@@ -382,13 +382,11 @@ el:
   world_location:
     headings:
       announcements: Οι ανακοινώσεις μας
-      country: Χώρα
       documents: Έγγραφα
       mission: Η αποστολή μας
       organisations: Οργανισμοί
       publications: Οι εκδόσεις μας
       quick_links: Σύντομοι σύνδεσμοι
-      related_policies: Σχετικές πολιτικές
       statistics: Τα στατιστικά στοιχεία μας
     type:
       international_delegation:

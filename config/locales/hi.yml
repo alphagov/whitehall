@@ -383,13 +383,11 @@ hi:
   world_location:
     headings:
       announcements: हमारी घोषणाएं
-      country: देश
       documents: दस्तावेज़
       mission: हमारा लक्ष्य
       organisations: संगठन
       publications: हमारे प्रकाशन
       quick_links: क्विक लिंक्स
-      related_policies: सम्बंधित नीतियां
       statistics: हमारे आंकड़े
     type:
       international_delegation:

@@ -381,13 +381,11 @@ si:
   world_location:
     headings:
       announcements: අපේ නිවේදන
-      country: රට
       documents: ලේඛන
       mission: අපේ මෙහෙවර ප්‍රකාශය
       organisations: සංවිධාන
       publications: අපේ ප්‍රකාශන
       quick_links: ක්ෂණික සන්ධිය
-      related_policies: අදාල ප්‍රතිපත්තීන්
       statistics: අපේ සංඛ්‍යා දත්ත
     type:
       international_delegation:

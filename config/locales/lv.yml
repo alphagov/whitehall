@@ -381,13 +381,11 @@ lv:
   world_location:
     headings:
       announcements: Paziņojumi
-      country: Valsts
       documents: Dokumenti
       mission: Misija
       organisations: Organizācijas
       publications: Publikācijas
       quick_links: Ātrās saites
-      related_policies: Saistītās politikas jomas
       statistics: Statistikas dati
     type:
       international_delegation:

@@ -335,13 +335,11 @@ id:
   world_location:
     headings:
       announcements: Pengumuman kami
-      country: Negara
       documents: Dokumen-dokumen
       mission: Misi kami
       organisations: Organisasi-organisasi
       publications: Publikasi-publikasi kami
       quick_links: Tautan cepat
-      related_policies: Kebijakan terkait
       statistics: Statistik-statistik kami
     type:
       international_delegation:

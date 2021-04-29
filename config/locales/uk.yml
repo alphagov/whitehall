@@ -476,13 +476,11 @@ uk:
   world_location:
     headings:
       announcements: Наші оголошення
-      country: Країна
       documents: Документи
       mission: Наша місія
       organisations: Організації
       publications: Наші публікації
       quick_links: Короткі посилання
-      related_policies: Подібні документи
       statistics: Наша статистика
     type:
       international_delegation:

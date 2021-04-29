@@ -382,13 +382,11 @@ he:
   world_location:
     headings:
       announcements: ההודעות שלנו
-      country: מדינה
       documents: מסמכים
       mission: החזון שלנו
       organisations: ארגונים
       publications: הפרסומים שלנו
       quick_links: קישורים מהירים
-      related_policies: מדיניות רלוונטית
       statistics: הנתונים שלנו
     type:
       international_delegation:

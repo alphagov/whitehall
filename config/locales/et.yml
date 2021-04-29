@@ -387,13 +387,11 @@ et:
   world_location:
     headings:
       announcements: Meie teadaanded
-      country: Riik
       documents: Dokumendid
       mission: Meie missioon
       organisations: Organisatsioonid
       publications: Meie publikatsioonid
       quick_links: Otselingid
-      related_policies: Seotud poliitikad
       statistics: Meie statistika
     type:
       international_delegation:

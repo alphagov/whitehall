@@ -386,13 +386,11 @@ ta:
   world_location:
     headings:
       announcements: எங்களது அறிவிப்புகள்
-      country: நாடு
       documents: ஆவணங்கள்
       mission: எங்களது இலட்சியம்
       organisations: ஸ்தாபனங்கள்
       publications: எங்களது வெளியீடுகள்
       quick_links: விரைவான இணைப்புகள்
-      related_policies: சம்பந்தப்பட்ட கொள்கைகள்
       statistics: எங்களது புள்ளிவிபரம்
     type:
       international_delegation:

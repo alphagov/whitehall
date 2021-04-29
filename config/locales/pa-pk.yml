@@ -388,13 +388,11 @@ pa-pk:
   world_location:
     headings:
       announcements: ساڈے اعلانات
-      country: ملک
       documents: دستاویزات
       mission: ساڈا مشن
       organisations: تنظیمیں
       publications: ساڈی اشاعتاں
       quick_links: کوئیک لنکس
-      related_policies: متعلقہ پالیسیاں
       statistics: ساڈی شماریات
     type:
       international_delegation:

@@ -381,13 +381,11 @@ ps:
   world_location:
     headings:
       announcements: زموږ اعلانات
-      country: هیواد
       documents: سندونه
       mission: زموږ ماموریت
       organisations: دفترونه
       publications: زموږ نشریات
       quick_links: چټکی اړیکی
-      related_policies: ارتباط لرونکی پالیسی ګانی
       statistics: زموږه احصایی
     type:
       international_delegation:

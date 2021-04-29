@@ -333,13 +333,11 @@ ja:
   world_location:
     headings:
       announcements: 発表
-      country: 国名
       documents: お知らせ
       mission: 役割
       organisations: 組織
       publications: 出版物
       quick_links: Quick links
-      related_policies: 関連政策
       statistics: 統計
     type:
       international_delegation:

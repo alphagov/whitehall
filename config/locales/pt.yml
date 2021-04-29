@@ -382,13 +382,11 @@ pt:
   world_location:
     headings:
       announcements: Nossos anúncios
-      country: País
       documents: Documentos
       mission: Nossa missão
       organisations: Organizações
       publications: Nossas publicações
       quick_links: Links
-      related_policies: Políticas relacionadas
       statistics: Nossas estatísticas
     type:
       international_delegation:

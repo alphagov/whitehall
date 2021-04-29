@@ -426,13 +426,11 @@ sk:
   world_location:
     headings:
       announcements: 
-      country: 
       documents: 
       mission: 
       organisations: 
       publications: 
       quick_links: 
-      related_policies: 
       statistics: 
     type:
       international_delegation:

@@ -384,13 +384,11 @@ hy:
   world_location:
     headings:
       announcements: Մեր հայտարարությունները
-      country: Երկիր
       documents: Փաստաթղթեր
       mission: Մեր գործունեությունը
       organisations: Կազմակերպություններ
       publications: Մեր հրատարակությունները
       quick_links: Հղումներ
-      related_policies: Համանման նյութեր
       statistics: Մեր վիճակագրությունը
     type:
       international_delegation:

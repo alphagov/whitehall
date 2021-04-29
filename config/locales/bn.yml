@@ -389,13 +389,11 @@ bn:
   world_location:
     headings:
       announcements: আমাদের ঘোষণাসমূহ
-      country: দেশ
       documents: নথিপত্র
       mission: আমাদের লক্ষ্য
       organisations: সংস্থাসমূহ
       publications: আমাদের প্রকাশনাসমূহ
       quick_links: তাৎক্ষণিক লিঙ্কসমূহ
-      related_policies: সংশ্লিষ্ট নীতিমালা
       statistics: আমাদের পরিসংখ্যান
     type:
       international_delegation:

@@ -383,13 +383,11 @@ de:
   world_location:
     headings:
       announcements: Unsere Meldungen
-      country: Land
       documents: Dokumente
       mission: Unser Auftrag
       organisations: Organisationen
       publications: Unsere Veröffentlichungen
       quick_links: Quicklinks
-      related_policies: Ähnliche Sachgebiete
       statistics: Unsere Statistiken
     type:
       international_delegation:

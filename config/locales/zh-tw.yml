@@ -379,13 +379,11 @@ zh-tw:
   world_location:
     headings:
       announcements: 我們的公告
-      country: 國家
       documents: 文件
       mission: 我們的使命
       organisations: 組織
       publications: 我們的出版物
       quick_links: 快速連結
-      related_policies: 相關政策
       statistics: 我們的統計資料
     type:
       international_delegation:

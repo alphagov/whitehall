@@ -382,13 +382,11 @@ hu:
   world_location:
     headings:
       announcements: Híreink
-      country: Ország
       documents: Dokumentumok
       mission: Küldetésünk
       organisations: Szervezetek
       publications: Kiadványaink
       quick_links: Gyorslinkek
-      related_policies: Kapcsolódó szakpolitikák
       statistics: Statisztikák
     type:
       international_delegation:

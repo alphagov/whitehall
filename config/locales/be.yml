@@ -477,13 +477,11 @@ be:
   world_location:
     headings:
       announcements: Нашы аб'явы
-      country: Краіна
       documents: Дакументы
       mission: Наша місія
       organisations: Арганізацыі
       publications: Нашы публікацыі
       quick_links: Хуткія спасылкі
-      related_policies: 'Падобныя напрамкі дзейнасці '
       statistics: Наша статыстыка
     type:
       international_delegation:

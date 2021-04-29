@@ -524,13 +524,11 @@ en:
   world_location:
     headings:
       announcements: Our announcements
-      country: Country
       documents: Documents
       mission: Our mission
       organisations: Organisations
       publications: Our publications
       quick_links: Quick links
-      related_policies: Related policies
       statistics: Our statistics
     type:
       international_delegation:

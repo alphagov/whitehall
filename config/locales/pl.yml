@@ -478,13 +478,11 @@ pl:
   world_location:
     headings:
       announcements: Nasze ogłoszenia
-      country: Kraj
       documents: Dokumenty
       mission: Nasza misja
       organisations: Organizacje
       publications: Nasze publikacje
       quick_links: Szybkie linki
-      related_policies: Powiązane polityki
       statistics: Nasze statystyki
     type:
       international_delegation:

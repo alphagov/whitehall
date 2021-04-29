@@ -380,13 +380,11 @@ tr:
   world_location:
     headings:
       announcements: Duyurularımız
-      country: Ülke
       documents: Belgeler
       mission: Misyonumuz
       organisations: Organizasyon
       publications: Yayınlarımız
       quick_links: Kısa Yollar
-      related_policies: İlgili politikalar
       statistics: İstatistiklerimiz
     type:
       international_delegation:

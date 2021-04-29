@@ -478,13 +478,11 @@ sr:
   world_location:
     headings:
       announcements: naše objave
-      country: Država
       documents: Dokumenti
       mission: Naša misija
       organisations: Organizacije
       publications: Naše publikacije
       quick_links: Linkovi
-      related_policies: Povezane politike
       statistics: Naša statistika
     type:
       international_delegation:

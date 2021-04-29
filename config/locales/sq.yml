@@ -383,13 +383,11 @@ sq:
   world_location:
     headings:
       announcements: Njoftimet tona
-      country: Vendi
       documents: Dokumenta
       mission: Misioni yne
       organisations: Organizatat
       publications: Publikimet tona
       quick_links: Lidhje te shpejta
-      related_policies: Politika me lidhje
       statistics: Statistikat tona
     type:
       international_delegation:

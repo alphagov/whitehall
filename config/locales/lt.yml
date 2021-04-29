@@ -429,13 +429,11 @@ lt:
   world_location:
     headings:
       announcements: Mūsų skelbimai
-      country: Šalis
       documents: Dokumentai
       mission: Mūsų misija
       organisations: Organizacijos
       publications: Mūsų publikacijos
       quick_links: Greitos nuorodos
-      related_policies: Susijusios strategijos
       statistics: Mūsų statistika
     type:
       international_delegation:

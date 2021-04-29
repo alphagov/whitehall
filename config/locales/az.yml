@@ -332,13 +332,11 @@ az:
   world_location:
     headings:
       announcements: Bizim elanlar
-      country: Ölkə
       documents: Sənədlər
       mission: Bizim missiyamız
       organisations: Təşkilatlar
       publications: Bizim nəşrlər
       quick_links: Linklər
-      related_policies: Uygün mövzular
       statistics: Bizim statistika
     type:
       international_delegation:

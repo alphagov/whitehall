@@ -383,13 +383,11 @@ fr:
   world_location:
     headings:
       announcements: Nos actualités
-      country: Pays
       documents: Documents
       mission: Notre mission
       organisations: Organisations
       publications: Nos publications
       quick_links: Liens directs
-      related_policies: Priorités politiques connexes
       statistics: Nos statistiques
     type:
       international_delegation:

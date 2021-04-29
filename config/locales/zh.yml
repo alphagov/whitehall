@@ -369,13 +369,11 @@ zh:
   world_location:
     headings:
       announcements: 我们的公告
-      country: 国家
       documents: 文件
       mission: 我们的任务
       organisations: 机构
       publications: 我们的报告
       quick_links: 快速链接
-      related_policies: 相关政策
       statistics: 我们的数据
     type:
       international_delegation:

@@ -333,13 +333,11 @@ th:
   world_location:
     headings:
       announcements: ข่าวสารของเรา
-      country: ประเทศ
       documents: เอกสาร
       mission: ภาระกิจของเรา
       organisations: องค์กร
       publications: สิ่งพิมพ์ของเรา
       quick_links: ลิงค์ด่วน
-      related_policies: นโยบายที่เกี่ยวข้อง
       statistics: สถิติของเรา
     type:
       international_delegation:

@@ -381,13 +381,11 @@ es:
   world_location:
     headings:
       announcements: Anuncios
-      country: País
       documents: Documentos
       mission: Nuestra Misión
       organisations: Organizaciones
       publications: Publicaciones
       quick_links: Enlaces directos
-      related_policies: Políticas relacionadas
       statistics: Nuestras estadísticas
     type:
       international_delegation:

@@ -570,13 +570,11 @@ ar:
   world_location:
     headings:
       announcements: إعلاناتنا
-      country: البلد
       documents: وثائق
       mission: مهمتنا
       organisations: مؤسسات
       publications: مطبوعاتنا
       quick_links: وصلات سريعة
-      related_policies: سياسات ذات صلة
       statistics: إحصائياتنا
     type:
       international_delegation:
