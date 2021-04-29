@@ -603,12 +603,9 @@ cy:
       welsh_language_scheme_html: Dysgwch am ein hymrwymiad i %{link}.
     find_out_more: Gweld proffil llawn a'r holl fanylion cyswllt
     headings:
-      about_us: Gwybodaeth amdanom ni
       contact_us: Cysylltu â ni
-      contents: 
       corporate_information: Gwybodaeth gorfforaethol
       follow_us: Dilynwch ni
       our_people: Ein pobl
-      our_services: Ein gwasanaethau
     location: Lleoliad
     part_of: Rhan o

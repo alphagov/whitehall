@@ -506,12 +506,9 @@ pl:
         w %{link}
     find_out_more: Zobacz pełen profil i wszystkie dane kontaktowe
     headings:
-      about_us: O nas
       contact_us: Skontaktuj się z nami
-      contents: 
       corporate_information: Informacje korporacyjne
       follow_us: Obserwuj nasz profil
       our_people: Nasi ludzie
-      our_services: Nasze usługi
     location: Lokalizacja
     part_of: Część

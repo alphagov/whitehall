@@ -403,12 +403,9 @@ si:
       welsh_language_scheme_html: " %{link} හි පල කිරීමට අපේ ඇති කැපවීම ගැන කියවන්න"
     find_out_more: අපේ සම්පුර්ණ විස්තර සහ සම්බන්ධ වීමට අවශ්‍ය තොරතරු බලන්න
     headings:
-      about_us: අප ගැන
       contact_us: අප හා සම්බන්ධවීමට
-      contents: 
       corporate_information: සංවිධානයේ තොරතුරු
       follow_us: අප හා එක්වන්න
       our_people: අපේ පිරිස
-      our_services: අපේ සේවාවන්
     location: ස්ථානය
     part_of: " කොටසක්"

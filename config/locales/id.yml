@@ -357,12 +357,9 @@ id:
         memuat informasi di %{link}
     find_out_more: Baca profil keseluruhan dan semua rincian kontak
     headings:
-      about_us: Tentang kami
       contact_us: Hubungi kami
-      contents: 
       corporate_information: Informasi korporat
       follow_us: Ikuti kami
       our_people: Staf kami
-      our_services: Pelayanan kami
     location: Lokasi
     part_of: Bagian dari

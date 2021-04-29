@@ -405,12 +405,9 @@ ps:
         %{link}.
     find_out_more: بشپړ معلومات او د اړیکو په اړه ټول تفصیلات وګورۍ
     headings:
-      about_us: زموږ په هکله
       contact_us: تماس ونیسی
-      contents: 
       corporate_information: متحد معلومات
       follow_us: مونږ تعقیب کړی
       our_people: زموږ خلک
-      our_services: زموږ خدمتونه
     location: موقعیت
     part_of: یوه برخه د

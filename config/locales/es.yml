@@ -405,12 +405,9 @@ es:
         en %{link} '
     find_out_more: Vea el perfil completo y los detalles de contacto
     headings:
-      about_us: Nosotros
       contact_us: Contáctenos
-      contents: 
       corporate_information: Información corporativa
       follow_us: Síguenos
       our_people: Nuestro equipo
-      our_services: Servicios
     location: Estamos
     part_of: Parte de

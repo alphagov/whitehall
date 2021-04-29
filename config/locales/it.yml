@@ -407,12 +407,9 @@ it:
         quante più informazioni possibili, consulta la pagina %{link}.
     find_out_more: Consulta il profilo completo e tutti i contatti
     headings:
-      about_us: Chi siamo
       contact_us: Contatti
-      contents: 
       corporate_information: Informazioni aziendali
       follow_us: Seguici
       our_people: Il nostro personale
-      our_services: I nostri servizi
     location: Dove siamo
     part_of: Parte di

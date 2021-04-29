@@ -353,12 +353,9 @@ th:
         %{link}.
     find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
     headings:
-      about_us: เกี่ยวกับเรา
       contact_us: ติดต่อเรา
-      contents: 
       corporate_information: ข้อมูลองค์กร
       follow_us: ติดตามเรา
       our_people: เจ้าหน้าที่ของเรา
-      our_services: บริการของเรา
     location: ที่ตั้ง
     part_of: ส่วนของ

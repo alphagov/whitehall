@@ -406,12 +406,9 @@ el:
         στο %{link}.
     find_out_more: Πλήρες προφίλ και στοιχεία επικοινωνίας
     headings:
-      about_us: Σχετικά με εμάς
       contact_us: Επικοινωνήστε μαζί μας
-      contents: 
       corporate_information: Πληροφορίες για τον οργανισμό
       follow_us: Ακολουθείστε μας
       our_people: Τα στελέχη μας
-      our_services: Οι υπηρεσίες μας
     location: Χώρα
     part_of: Μέρος του

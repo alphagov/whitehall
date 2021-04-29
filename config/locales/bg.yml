@@ -412,12 +412,9 @@ bg:
         в %{link}.
     find_out_more: Вижте пълния профил и всички контакти
     headings:
-      about_us: За нас
       contact_us: Свържете се с нас
-      contents: 
       corporate_information: Корпоративна информация
       follow_us: Следвайте ни
       our_people: Нашите служители
-      our_services: Нашите услуги
     location: Местоположение
     part_of: Част от

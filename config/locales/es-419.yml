@@ -407,12 +407,9 @@ es-419:
         el %{link}
     find_out_more: Vea el perfil completo y todos los datos de contacto
     headings:
-      about_us: Sobre nosotros
       contact_us: Comuníquese con nosotros
-      contents: 
       corporate_information: Información institucional
       follow_us: Síganos en
       our_people: Nuestra gente
-      our_services: Nuestros servicios
     location: Ubicación
     part_of: Parte de

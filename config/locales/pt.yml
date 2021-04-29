@@ -406,12 +406,9 @@ pt:
         em %{link}
     find_out_more: 'Veja o perfil completo e todos os contatos '
     headings:
-      about_us: Sobre
       contact_us: Contactos
-      contents: 
       corporate_information: Informação corporativa
       follow_us: Siga-nos
       our_people: A nossa equipa
-      our_services: Nossos serviços
     location: Localização
     part_of: Parte de

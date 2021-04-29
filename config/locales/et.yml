@@ -411,12 +411,9 @@ et:
         %{link}'
     find_out_more: Täielik profiil ja kõik kontaktid
     headings:
-      about_us: Meist
       contact_us: Võtke ühendust
-      contents: 
       corporate_information: Korporatiivne teave
       follow_us: Jälgige meid
       our_people: Meie inimesed
-      our_services: Meie teenused
     location: Asukoht
     part_of: Kuulub

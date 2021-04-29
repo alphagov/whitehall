@@ -505,12 +505,9 @@ sr:
       welsh_language_scheme_html: Saznajte naš stav o objavljivanju u %{link}.
     find_out_more: 'Pogledajte pun profil i sve kontakt detalje '
     headings:
-      about_us: O nama
       contact_us: Kontakt
-      contents: 
       corporate_information: Informacije o organizaciji
       follow_us: Pratite nas
       our_people: Naše osoblje
-      our_services: Naše usluge
     location: Lokacija
     part_of: Deo
