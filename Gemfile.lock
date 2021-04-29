@@ -281,6 +281,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    i18n-coverage (0.2.0)
     image_processing (1.12.1)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
@@ -678,6 +679,7 @@ DEPENDENCIES
   govuk_sidekiq
   govuk_test
   graphviz_transitions
+  i18n-coverage
   invalid_utf8_rejector
   isbn_validation
   jbuilder
