@@ -41,7 +41,6 @@ et:
       unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
   announcements:
     heading: Teated
-    view_all: Vaadake kõiki teateid
   attachment:
     accessibility:
       full_help_html: 'Kui olete abistava tehnoloogia kasutaja ja vajate selle dokumendi

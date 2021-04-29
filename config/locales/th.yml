@@ -41,7 +41,6 @@ th:
       unnumbered_hoc_paper: 
   announcements:
     heading: ข่าวสาร
-    view_all: 
   attachment:
     accessibility:
       full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น

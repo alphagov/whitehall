@@ -41,7 +41,6 @@ bn:
       unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
   announcements:
     heading: ঘোষণাসমূহ
-    view_all: সকল ঘোষণাসমূহ দেখুন
   attachment:
     accessibility:
       full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার

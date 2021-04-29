@@ -41,7 +41,6 @@ pa-pk:
       unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
   announcements:
     heading: اعلان
-    view_all: سارے اعلان ویکھو
   attachment:
     accessibility:
       full_help_html: |

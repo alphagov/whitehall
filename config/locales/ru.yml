@@ -41,7 +41,6 @@ ru:
       unnumbered_hoc_paper: 
   announcements:
     heading: Объявления
-    view_all: 
   attachment:
     accessibility:
       full_help_html: Получить данный документ в ином формате (шрифт Брайля, аудиоформат)

@@ -41,7 +41,6 @@ ja:
       unnumbered_hoc_paper: 
   announcements:
     heading: ニュース
-    view_all: 
   attachment:
     accessibility:
       full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル

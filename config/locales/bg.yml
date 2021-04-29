@@ -41,7 +41,6 @@ bg:
       unnumbered_hoc_paper: 
   announcements:
     heading: Съобщения
-    view_all: 
   attachment:
     accessibility:
       full_help_html: |

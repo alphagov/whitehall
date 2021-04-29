@@ -41,7 +41,6 @@ lv:
       unnumbered_hoc_paper: 
   announcements:
     heading: Paziņojumi
-    view_all: 
   attachment:
     accessibility:
       full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā,

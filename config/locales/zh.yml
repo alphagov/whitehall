@@ -41,7 +41,6 @@ zh:
       unnumbered_hoc_paper: 
   announcements:
     heading: 公告
-    view_all: 
   attachment:
     accessibility:
       full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。

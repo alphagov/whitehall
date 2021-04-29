@@ -41,7 +41,6 @@ cy:
       unnumbered_hoc_paper: 
   announcements:
     heading: Cyhoeddiadau
-    view_all: Gwelir holl datganiadau
   attachment:
     accessibility:
       full_help_html: Os ydych yn defnyddio technoleg gynorthwyol (megis darllenydd

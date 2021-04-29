@@ -41,7 +41,6 @@ ko:
       unnumbered_hoc_paper: 
   announcements:
     heading: 공지사항
-    view_all: 
   attachment:
     accessibility:
       full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,

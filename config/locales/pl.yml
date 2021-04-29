@@ -41,7 +41,6 @@ pl:
       unnumbered_hoc_paper: 
   announcements:
     heading: Ogłoszenia
-    view_all: 
   attachment:
     accessibility:
       full_help_html: Aby otrzymać ten dokument w innym formacie, np. w alfabecie
