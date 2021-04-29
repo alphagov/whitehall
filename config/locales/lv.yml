@@ -1,13 +1,136 @@
+---
 lv:
-  document:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
+      attachment_data:
+        file: 
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: 
+      edition:
+        nation_inapplicabilities: 
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: 
+      response/consultation_response_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: 
+    nested_attachment_data_field_names:
+      file: 
+    nested_attachment_field_names:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
+  announcements:
+    heading: Paziņojumi
+    view_all: 
+  attachment:
+    accessibility:
+      full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā,
+        kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet
+        savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
+      intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
+      request_a_different_format: Pieprasīt citā formātā.
     headings:
+      order_a_copy: 'Pasūtīt '
+      order_a_copy_full: 'Pasūtīt publikāciju '
+      published: Publicēts
+      reference: Ref.
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 
+  broken_links:
+    broken:
+      subheading: 
+    caution:
+      subheading: 
+    title: 
+  change_notes:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
+  contact:
+    access_and_opening_times: 
+    contact_form: Saziņas forma
+    email: E-pasts
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 
+      title:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
+        personal_information_charter: Personas datu harta
+        petitions_and_campaigns: 
+        procurement: 
+        publication_scheme: Publikāciju shēma
+        recruitment: 
+        research: 
+        social_media_use: Sociālie mēdiji
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
+        welsh_language_scheme: Velsiešu valodas shēma
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: Attiecas uz
       attachments:
         one: Dokuments
         other: Dokumenti
-      applies_to_nations: Attiecas uz
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
+    published: publicēts
+    read: Lasīt %{title} rakstu
+    see_all: 
+    speech:
+      author_title:
+        minister: Ministrs
+        speaker: Autors
+      delivered_on: 'Datums:'
+      delivery_title:
+        minister: Ministrs
+        speaker: Runas autors
+      written_on: 'Sarakstīts:'
     type:
       announcement:
         one: Paziņojums
@@ -16,8 +139,8 @@ lv:
         one: Autora raksts
         other: Autora raksti
       blog_post:
-        one:
-        other:
+        one: 
+        other: 
       case_study:
         one: Piemērs
         other: Piemēri
@@ -37,14 +160,14 @@ lv:
         one: Sarakste
         other: Sarakstes
       decision:
-        one:
-        other:
+        one: 
+        other: 
       detailed_guidance:
         one: Detalizētas norādes
         other: Detalizētas norādes
       document_collection:
         one: Sērija
-        other:
+        other: 
       draft_text:
         one: Teksta uzmetums
         other: Teksta uzmetumi
@@ -70,11 +193,11 @@ lv:
         one: Neatkarīgs ziņojums
         other: Neatkarīgi ziņojumi
       international_treaty:
-        one:
-        other:
+        one: 
+        other: 
       manual:
-        one:
-        other:
+        one: 
+        other: 
       map:
         one: Karte
         other: Kartes
@@ -88,11 +211,11 @@ lv:
         one: Ziņa
         other: Ziņas
       nhs_content:
-        one:
-        other:
+        one: 
+        other: 
       notice:
-        one:
-        other:
+        one: 
+        other: 
       official_statistics:
         one: Statistika
         other: Statistika
@@ -115,8 +238,8 @@ lv:
         one: Publikācija
         other: Publikācijas
       regulation:
-        one:
-        other:
+        one: 
+        other: 
       research:
         one: Izpēte un analīze
         other: Izpēte un analīze
@@ -127,8 +250,8 @@ lv:
         one: Runa
         other: Runas
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: Ziņojums parlamentam
         other: Ziņojumi parlamentam
@@ -136,8 +259,8 @@ lv:
         one: Statistiskas datu kopums
         other: Statistikas datu kopumi
       statutory_guidance:
-        one:
-        other:
+        one: 
+        other: 
       transcript:
         one: Noraksts
         other: Noraksti
@@ -145,175 +268,35 @@ lv:
         one: Atklātības dati
         other: Atklātības dati
       world_news_story:
-        one:
-        other:
+        one: 
+        other: 
       written_statement:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: publicēts
-    read: Lasīt %{title} rakstu
-    see_all:
-    speech:
-      author_title:
-        minister: Ministrs
-        speaker: Autors
-      delivered_on: 'Datums:'
-      delivery_title:
-        minister: Ministrs
-        speaker: Runas autors
-      written_on: 'Sarakstīts:'
     updated: atjaunināts
     view: Skatīt '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: Starptautiskā delegācija
-        other: Starptautiskās delegācijas
-      world_location:
-        one: Vieta pasaulē
-        other: Vietas pasaulē
-    headings:
-      announcements: Paziņojumi
-      country: Valsts
-      documents: Dokumenti
-      mission: Misija
-      organisations: Organizācijas
-      publications: Publikācijas
-      quick_links: Ātrās saites
-      related_policies: Saistītās politikas jomas
-      statistics: Statistikas dati
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Paziņojumi
-    view_all:
-  attachment:
-    accessibility:
-      full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā,
-        kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet
-        savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
-      intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
-      request_a_different_format: Pieprasīt citā formātā.
-    headings:
-      order_a_copy: 'Pasūtīt '
-      order_a_copy_full: 'Pasūtīt publikāciju '
-      published: Publicēts
-      reference: Ref.
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    see_more:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
-  contact:
-    access_and_opening_times:
-    contact_form: Saziņas forma
-    email: E-pasts
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Personas datu harta
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Publikāciju shēma
-        recruitment:
-        research:
-        social_media_use: Sociālie mēdiji
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Velsiešu valodas shēma
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp;
     no_results:
       description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
       title: Neviens dokuments neatbilst pieprasījumam.
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Visas vietas
       label: Pasaules vietas
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: Jaunumi
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: true
@@ -323,7 +306,7 @@ lv:
     no_updates: Pagaidām jaunumu nav
     title: Jaunākais
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -335,22 +318,22 @@ lv:
       access_our_info: Piekļūt informācijai
       foi_how_to: Kā iesniegt informācijas pieprasījumu (FOI)
       foi_releases: Informācijas atklātības (FOI) paziņojumi
-      jobs:
+      jobs: 
       jobs_and_contacts: Darbs un līgumi
-      organisation_chart:
+      organisation_chart: 
       transparency: Atklātība
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: Mūsu atbildīgie speciālisti
       contact: Sazināties %{name}
       corporate_information: Korporatīva informācija
       corporate_reports: Korporatīvi ziņojumi
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: Mūsu paziņojumi
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: Mūsu vadība
       our_ministers: Mūsu ministri
       our_policies: Mūsu darbības jomas
@@ -362,14 +345,14 @@ lv:
       special_representatives: Īpašie pārstāvji
       traffic_commissioners: Satiksmes komisāri
       what_we_do: Par mums
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: Politika
-    view_all:
+    view_all: 
   publications:
     heading: Publikācijas
     headings:
@@ -384,9 +367,9 @@ lv:
     consultation_outcome: Skatīt visas konsultāciju rezultāti
     corporate_report: Skatīt visas korporatīvie ziņojumi
     correspondence: Skatīt visas sarakstes
-    decision:
+    decision: 
     detailed_guidance: Skatīt visas detalizētas norādes
-    document_collection:
+    document_collection: 
     draft_text: Skatīt visas teksta uzmetumi
     fatality_notice: Skatīt visas nāves paziņojumi
     foi_release: Skatīt visas informācijas atklātības datu publicēšana
@@ -395,12 +378,12 @@ lv:
     guidance: Skatīt visas norādes
     impact_assessment: Skatīt visas ietekmes novērtējumi
     imported: Skatīt visas importēts-gaidīšanas režīmā
-    international_treaty:
+    international_treaty: 
     map: Skatīt visas kartes
     national_statistics: Skatīt visas statistika - valsts dati
     news_article: Skatīt visas raksti
     news_story: Skatīt visas ziņas
-    notice:
+    notice: 
     open_consultation: Skatīt visas atklātas konsultācijas
     oral_statement: Skatīt visas mutiski paziņojumi parlamentam
     policy: Skatīt visas darbības jomas
@@ -408,28 +391,46 @@ lv:
     press_release: Skatīt visas paziņojumi presei
     promotional: Skatīt visas reklāmas materiāli
     publication: Skatīt visas publikācijas
-    regulation:
+    regulation: 
     research: Skatīt visas izpēte un analīze
     speaking_notes: Skatīt visas runas piezīmes
     speech: Skatīt visas runas
     statement_to_parliament: Skatīt visas ziņojumi parlamentam
     statistical_data_set: Skatīt visas statistikas datu kopumi
     statistics: Skatīt visas statistika
-    statutory_guidance:
+    statutory_guidance: 
     transcript: Skatīt visas noraksti
     transparency: Skatīt visas atklātības dati
     written_statement: Skatīt visas rakstiski ziņojumi parlamentam
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: un
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: Paziņojumi
+      country: Valsts
+      documents: Dokumenti
+      mission: Misija
+      organisations: Organizācijas
+      publications: Publikācijas
+      quick_links: Ātrās saites
+      related_policies: Saistītās politikas jomas
+      statistics: Statistikas dati
+    type:
+      international_delegation:
+        one: Starptautiskā delegācija
+        other: Starptautiskās delegācijas
+      world_location:
+        one: Vieta pasaulē
+        other: Vietas pasaulē
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
         Jūsu sniegtā personīgā informācija
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
@@ -441,7 +442,7 @@ lv:
     headings:
       about_us: Par mums
       contact_us: Sazinies ar mums
-      contents:
+      contents: 
       corporate_information: Korporatīvā informācija
       follow_us: Seko mums
       our_people: Darbinieki

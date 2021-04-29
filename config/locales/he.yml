@@ -1,235 +1,47 @@
+---
 he:
-  document:
-    headings:
-      attachments:
-        one:
-        other:
-      applies_to_nations: מתייחס ל
-      from:
-      location:
-      part_of:
-    type:
-      announcement:
-        one:
-        other:
-      authored_article:
-        one:
-        other:
-      blog_post:
-        one:
-        other:
-      case_study:
-        one:
-        other:
-      closed_consultation:
-        one:
-        other:
-      consultation:
-        one:
-        other:
-      consultation_outcome:
-        one:
-        other:
-      corporate_report:
-        one:
-        other:
-      correspondence:
-        one:
-        other:
-      decision:
-        one:
-        other:
-      detailed_guidance:
-        one:
-        other:
-      document_collection:
-        one:
-        other:
-      draft_text:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one:
-        other:
-      government_response:
-        one:
-        other:
-      guidance:
-        one:
-        other:
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one:
-        other:
-      international_treaty:
-        one:
-        other:
-      manual:
-        one:
-        other:
-      map:
-        one:
-        other:
-      national_statistics:
-        one:
-        other:
-      news_article:
-        one:
-        other:
-      news_story:
-        one:
-        other:
-      nhs_content:
-        one:
-        other:
-      notice:
-        one:
-        other:
-      official_statistics:
-        one:
-        other:
-      open_consultation:
-        one:
-        other:
-      oral_statement:
-        one:
-        other:
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one:
-        other:
-      promotional:
-        one:
-        other:
-      publication:
-        one:
-        other:
-      regulation:
-        one:
-        other:
-      research:
-        one:
-        other:
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one:
-        other:
-      standard:
-        one:
-        other:
-      statement_to_parliament:
-        one:
-        other:
-      statistical_data_set:
-        one:
-        other:
-      statutory_guidance:
-        one:
-        other:
-      transcript:
-        one:
-        other:
-      transparency:
-        one:
-        other:
-      world_news_story:
-        one:
-        other:
-      written_statement:
-        one:
-        other:
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: פורסם
-    read: קראו את מאמר %{title}
-    see_all:
-    speech:
-      author_title:
-        minister: שר
-        speaker: מחבר
-      delivered_on: 'נשלח ב:'
-      delivery_title:
-        minister: שר
-        speaker: דובר
-      written_on: 'נכתב על:'
-    updated: מעודכן
-    view: ראה '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements: ההודעות שלנו
-      country: מדינה
-      documents: מסמכים
-      mission: החזון שלנו
-      organisations: ארגונים
-      publications: הפרסומים שלנו
-      quick_links: קישורים מהירים
-      related_policies: מדיניות רלוונטית
-      statistics: הנתונים שלנו
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: הודעות
-    view_all:
+    view_all: 
   attachment:
     accessibility:
       full_help_html: |
@@ -243,78 +55,249 @@ he:
       order_a_copy_full: הזמן עותק של הפרסום
       published: פורסם
       reference: הפניה
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
+    see_more: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: טופס יצירת קשר
     email: דואר אלקטרוני
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: טבלת מידע אישי
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: תכנית פרסומים
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: מדיה חברתית
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: מתייחס ל
+      attachments:
+        one: 
+        other: 
+      from: 
+      location: 
+      part_of: 
+    published: פורסם
+    read: קראו את מאמר %{title}
+    see_all: 
+    speech:
+      author_title:
+        minister: שר
+        speaker: מחבר
+      delivered_on: 'נשלח ב:'
+      delivery_title:
+        minister: שר
+        speaker: דובר
+      written_on: 'נכתב על:'
+    type:
+      announcement:
+        one: 
+        other: 
+      authored_article:
+        one: 
+        other: 
+      blog_post:
+        one: 
+        other: 
+      case_study:
+        one: 
+        other: 
+      closed_consultation:
+        one: 
+        other: 
+      consultation:
+        one: 
+        other: 
+      consultation_outcome:
+        one: 
+        other: 
+      corporate_report:
+        one: 
+        other: 
+      correspondence:
+        one: 
+        other: 
+      decision:
+        one: 
+        other: 
+      detailed_guidance:
+        one: 
+        other: 
+      document_collection:
+        one: 
+        other: 
+      draft_text:
+        one: 
+        other: 
+      foi_release:
+        one: 
+        other: 
+      form:
+        one: 
+        other: 
+      government_response:
+        one: 
+        other: 
+      guidance:
+        one: 
+        other: 
+      impact_assessment:
+        one: 
+        other: 
+      imported:
+        one: 
+        other: 
+      independent_report:
+        one: 
+        other: 
+      international_treaty:
+        one: 
+        other: 
+      manual:
+        one: 
+        other: 
+      map:
+        one: 
+        other: 
+      national_statistics:
+        one: 
+        other: 
+      news_article:
+        one: 
+        other: 
+      news_story:
+        one: 
+        other: 
+      nhs_content:
+        one: 
+        other: 
+      notice:
+        one: 
+        other: 
+      official_statistics:
+        one: 
+        other: 
+      open_consultation:
+        one: 
+        other: 
+      oral_statement:
+        one: 
+        other: 
+      policy_paper:
+        one: 
+        other: 
+      press_release:
+        one: 
+        other: 
+      promotional:
+        one: 
+        other: 
+      publication:
+        one: 
+        other: 
+      regulation:
+        one: 
+        other: 
+      research:
+        one: 
+        other: 
+      speaking_notes:
+        one: 
+        other: 
+      speech:
+        one: 
+        other: 
+      standard:
+        one: 
+        other: 
+      statement_to_parliament:
+        one: 
+        other: 
+      statistical_data_set:
+        one: 
+        other: 
+      statutory_guidance:
+        one: 
+        other: 
+      transcript:
+        one: 
+        other: 
+      transparency:
+        one: 
+        other: 
+      world_news_story:
+        one: 
+        other: 
+      written_statement:
+        one: 
+        other: 
+    updated: מעודכן
+    view: ראה '%{title}'
   document_filters:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
       description: נסי/ה להרחיב את החיפוש וחפש/י שוב
       title: אין מסמכים תואמים
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: פעילות אחרונה
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: rtl
     latin_script?: false
@@ -324,7 +307,7 @@ he:
     no_updates: אין עדכונים נוספים
     title: אחרון
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -336,22 +319,22 @@ he:
       access_our_info: גישה למידע
       foi_how_to: כיצד להגיש בקשה לחופש המידע
       foi_releases: שוחרר תחת חופש המידע
-      jobs:
+      jobs: 
       jobs_and_contacts: עבודות וחוזים
-      organisation_chart:
+      organisation_chart: 
       transparency: מידע נגיש
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: אנשי המקצוע הבכירים שלנו
       contact: חוזה %{name}
       corporate_information: מידע מסחרי
       corporate_reports: דו"חות מסחריים
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: ההודעות שלנו
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: ההנהלה שלנו
       our_ministers: השרים שלנו
       our_policies: המדיניות שלנו
@@ -363,14 +346,14 @@ he:
       special_representatives: נציגים מיוחדים
       traffic_commissioners: ממונים על תעבורה
       what_we_do: מה אנחנו עושים
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: מדיניות
-    view_all:
+    view_all: 
   publications:
     heading: פרסומים
     headings:
@@ -385,9 +368,9 @@ he:
     consultation_outcome: ראה כל תוצאות דיונים
     corporate_report: ראה כל דו"חות משותפים
     correspondence: ראה כל תכתובות
-    decision:
+    decision: 
     detailed_guidance: ראה כל מדריך מפורט
-    document_collection:
+    document_collection: 
     draft_text: ראה כל טיוטות
     fatality_notice: ראה כל הודעות פטירה
     foi_release: ראה כל פרסומי חופש מידע
@@ -396,12 +379,12 @@ he:
     guidance: ראה כל הדרכה
     impact_assessment: ראה כל הערכת השפעות
     imported: ראה כל יבוא- המתנה לסוג
-    international_treaty:
+    international_treaty: 
     map: ראה כל מפות
     national_statistics: ראה כל סטטיסטיקות- סטטסטיקה לאומית
     news_article: ראה כל מאמרי חדשות
     news_story: ראה כל חדשות
-    notice:
+    notice: 
     open_consultation: ראה כל דיון פתוח
     oral_statement: ראה כל הצהרות בעל פה לפרלמנט
     policy: ראה כל מדיניות
@@ -409,28 +392,46 @@ he:
     press_release: ראה כל הודעות לעיתונות
     promotional: ראה כל חומר פרסומי
     publication: ראה כל פרסומים
-    regulation:
+    regulation: 
     research: ראה כל מחקר וניתוח
     speaking_notes: ראה כל נאומים
     speech: ראה כל נאומים
     statement_to_parliament: ראה כל הצהרות לפרלמנט
     statistical_data_set: ראה כל מידע סטטיסטי
     statistics: ראה כל נתונים
-    statutory_guidance:
+    statutory_guidance: 
     transcript: ראה כל תמלולים
     transparency: ראה כל שקיפות מידע
     written_statement: ראה כל הצהרות בכתב לפרלמנט
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: בנוסף
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: ההודעות שלנו
+      country: מדינה
+      documents: מסמכים
+      mission: החזון שלנו
+      organisations: ארגונים
+      publications: הפרסומים שלנו
+      quick_links: קישורים מהירים
+      related_policies: מדיניות רלוונטית
+      statistics: הנתונים שלנו
+    type:
+      international_delegation:
+        one: 
+        other: 
+      world_location:
+        one: 
+        other: 
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
         פרטי
       publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}
@@ -440,7 +441,7 @@ he:
     headings:
       about_us: אודותינו
       contact_us: צור קשר
-      contents:
+      contents: 
       corporate_information: מידע תאגידי
       follow_us: עקבו אחרינו
       our_people: הצוות שלנו

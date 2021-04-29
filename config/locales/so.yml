@@ -1,13 +1,138 @@
+---
 so:
-  document:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
+      attachment_data:
+        file: 
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: 
+      edition:
+        nation_inapplicabilities: 
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: 
+      response/consultation_response_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: 
+    nested_attachment_data_field_names:
+      file: 
+    nested_attachment_field_names:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
+  announcements:
+    heading: Ogeysiisyo
+    view_all: 
+  attachment:
+    accessibility:
+      full_help_html: Sida aad u codsato qoraalka oo qaab kale u qoran sida isaga
+        oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl
+        nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada,
+        lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
+      intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
+        la kaashado
+      request_a_different_format: Codsi isaga oo qaab kale ah
     headings:
+      order_a_copy: Dalbo nuqul
+      order_a_copy_full: Dalbo nuqulka daabacaadda
+      published: La-daabacay
+      reference: Xigasho
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 
+  broken_links:
+    broken:
+      subheading: 
+    caution:
+      subheading: 
+    title: 
+  change_notes:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
+  contact:
+    access_and_opening_times: 
+    contact_form: Foom cinwaan
+    email: E-mail
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 
+      title:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
+        personal_information_charter: Axdiga macluumaadka shakhsiga ah
+        petitions_and_campaigns: 
+        procurement: 
+        publication_scheme: Nidaam daabacaad
+        recruitment: 
+        research: 
+        social_media_use: Adeegsi war-baahinta bulshada
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
+        welsh_language_scheme: Nidaamka luqadda Welsh-ka
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: Waxa lagu saleeyaa
       attachments:
         one: Dokumenti
         other: Dokumentiyo
-      applies_to_nations: Waxa lagu saleeyaa
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
+    published: La-daabacay/nashriyey
+    read: Akhri maqaalka %{title}
+    see_all: 
+    speech:
+      author_title:
+        minister: Wasiir
+        speaker: Qoraa
+      delivered_on: La-jeediyey
+      delivery_title:
+        minister: Wasiir
+        speaker: Af-hayeen
+      written_on: 'Waxaa la qorey:'
     type:
       announcement:
         one: Ogeysiis
@@ -16,8 +141,8 @@ so:
         one: Maqaal la qorey
         other: Maqaallo la qorey
       blog_post:
-        one:
-        other:
+        one: 
+        other: 
       case_study:
         one: Daraasad xaalad gaar ah
         other: Daraasado xaalado gaar ah
@@ -37,14 +162,14 @@ so:
         one: Waraaq is-dhaafsi
         other: Waraaqo is-dhaafsi
       decision:
-        one:
-        other:
+        one: 
+        other: 
       detailed_guidance:
         one: Hagid faahfaahsan
         other: Hagid faahfaahsan
       document_collection:
         one: Taxane
-        other:
+        other: 
       draft_text:
         one: Qoraal qabyo ah
         other: Qoraallo qabyo ah
@@ -70,11 +195,11 @@ so:
         one: Warbixin madax bannaan
         other: Warbixinno madax bannaan
       international_treaty:
-        one:
-        other:
+        one: 
+        other: 
       manual:
-        one:
-        other:
+        one: 
+        other: 
       map:
         one: Khariidad
         other: Khariidado
@@ -88,11 +213,11 @@ so:
         one: Sheeko wareed
         other: Sheekooyin wareed
       nhs_content:
-        one:
-        other:
+        one: 
+        other: 
       notice:
-        one:
-        other:
+        one: 
+        other: 
       official_statistics:
         one: Istaatistik
         other: Istaatistik
@@ -115,8 +240,8 @@ so:
         one: Daabacaad
         other: Daabacaado
       regulation:
-        one:
-        other:
+        one: 
+        other: 
       research:
         one: Cilmi-baaris iyo lafaguris
         other: Cilmi-baaris iyo lafaguris
@@ -127,8 +252,8 @@ so:
         one: Hadal
         other: Hadallo
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: Hadal loo jeediyo baarlamaanka
         other: hadallo loo jeediyo baarlamaanka
@@ -136,8 +261,8 @@ so:
         one: Xirmo xog istaatistik ah
         other: Xirmooyin xog istaatistik ah
       statutory_guidance:
-        one:
-        other:
+        one: 
+        other: 
       transcript:
         one: Qoraal la soo guuriyey
         other: Qoraallo la soo guuriyey
@@ -145,178 +270,36 @@ so:
         one: Xog daahfurnaan
         other: Xog daahfurnaan
       world_news_story:
-        one:
-        other:
+        one: 
+        other: 
       written_statement:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: La-daabacay/nashriyey
-    read: Akhri maqaalka %{title}
-    see_all:
-    speech:
-      author_title:
-        minister: Wasiir
-        speaker: Qoraa
-      delivered_on: La-jeediyey
-      delivery_title:
-        minister: Wasiir
-        speaker: Af-hayeen
-      written_on: 'Waxaa la qorey:'
     updated: Wax lagu kordhiyey
     view: Eeg '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: Ergo caalami ah
-        other: Ergooyin caalami ah
-      world_location:
-        one: Goobo dunida ka mid ah
-        other: Goobo dunida ka mid ah
-    headings:
-      announcements: Ogeysiisyadeeenna
-      country: Dal
-      documents: Dokumentiyo
-      mission: Hawsheenna
-      organisations: Ururro
-      publications: Daabacaadaheenna
-      quick_links: Waddooyin xiriir degdeg ah
-      related_policies: Siyaasado xiriir la leh
-      statistics: Istaatistikadeenna
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Ogeysiisyo
-    view_all:
-  attachment:
-    accessibility:
-      full_help_html: Sida aad u codsato qoraalka oo qaab kale u qoran sida isaga
-        oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl
-        nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada,
-        lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
-      intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
-        la kaashado
-      request_a_different_format: Codsi isaga oo qaab kale ah
-    headings:
-      order_a_copy: Dalbo nuqul
-      order_a_copy_full: Dalbo nuqulka daabacaadda
-      published: La-daabacay
-      reference: Xigasho
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    see_more:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
-  contact:
-    access_and_opening_times:
-    contact_form: Foom cinwaan
-    email: E-mail
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Axdiga macluumaadka shakhsiga ah
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Nidaam daabacaad
-        recruitment:
-        research:
-        social_media_use: Adeegsi war-baahinta bulshada
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Nidaamka luqadda Welsh-ka
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
       natiijooyinka waafaqsan waxa aad daneyneyso
     no_results:
       description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
       title: Ma jiraan qoraallo waafaqsan baaritaankaaga
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: Waxqabadkii ugu dambeeyey
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: true
@@ -326,7 +309,7 @@ so:
     no_updates: Weli wax laguma kordhin.
     title: Ugu dambeeyey
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -338,22 +321,22 @@ so:
       access_our_info: Halkaan ka gal macluumaadkeenna
       foi_how_to: Sida loo sameeyo codsiga FOI
       foi_releases: FOI la sii daayey
-      jobs:
+      jobs: 
       jobs_and_contacts: Shaqaayin iyo qandaraasyo
-      organisation_chart:
+      organisation_chart: 
       transparency: Xog daahfurnaan
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: Saraakiisheena xirfadlayaasha ah ee ugu waaweyn
       contact: La soo xiriir %{name}
       corporate_information: Macluumaad ku saabsan hay'ad
       corporate_reports: Warbixinno ku saabsan hay'ad
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: Ogeysiisyadeenna
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: Maareeyeyaasheenna
       our_ministers: Wasiirradeenna
       our_policies: Siyaasadaheenna
@@ -365,14 +348,14 @@ so:
       special_representatives: Wakiil gaar ah
       traffic_commissioners: Madaxa Taraafikada
       what_we_do: Waxa aan qabanno
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: Siyaasado
-    view_all:
+    view_all: 
   publications:
     heading: Daabacaado/Nashrin
     headings:
@@ -387,9 +370,9 @@ so:
     consultation_outcome: Fiiri dhammaan natiijooyin ka dhashey wadatashiyo yadeenna
     corporate_report: Fiiri dhammaan warbixinno sharikaad yadeenna
     correspondence: Fiiri dhammaan waraaqo is-dhaafsi yadeenna
-    decision:
+    decision: 
     detailed_guidance: Fiiri dhammaan hagid faahfaahsan yadeenna
-    document_collection:
+    document_collection: 
     draft_text: Fiiri dhammaan qoraallo qabyo ah yadeenna
     fatality_notice: Fiiri dhammaan ogeysiisyo geeri yadeenna
     foi_release: Fiiri dhammaan soo saarista foi-yo yadeenna
@@ -398,12 +381,12 @@ so:
     guidance: Fiiri dhammaan hagid yadeenna
     impact_assessment: Fiiri dhammaan daraasado saameyn ku saabsan yadeenna
     imported: Fiiri dhammaan la soo waaridey - nooca sugitaanka yadeenna
-    international_treaty:
+    international_treaty: 
     map: Fiiri dhammaan khariidado yadeenna
     national_statistics: Fiiri dhammaan istaatistik - istaatistik qaran yadeenna
     news_article: Fiiri dhammaan maqaallo wareed yadeenna
     news_story: Fiiri dhammaan sheekooyin wareed yadeenna
-    notice:
+    notice: 
     open_consultation: Fiiri dhammaan wada-tashiyo furan yadeenna
     oral_statement: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
     policy: Fiiri dhammaan siyaasado yadeenna
@@ -411,28 +394,46 @@ so:
     press_release: Fiiri dhammaan war-saxaafadeedyo yadeenna
     promotional: Fiiri dhammaan agab xayeysiin ah yadeenna
     publication: Fiiri dhammaan daabacaado yadeenna
-    regulation:
+    regulation: 
     research: Fiiri dhammaan cilmi-baaris iyo lafaguris yadeenna
     speaking_notes: Fiiri dhammaan qoraallo hadal jeedin yadeenna
     speech: Fiiri dhammaan hadallo yadeenna
     statement_to_parliament: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
     statistical_data_set: Fiiri dhammaan xirmooyin xog istaatistik ah yadeenna
     statistics: Fiiri dhammaan istaatistik yadeenna
-    statutory_guidance:
+    statutory_guidance: 
     transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
     transparency: Fiiri dhammaan xog daahfurnaan yadeenna
     written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: iyo
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: Ogeysiisyadeeenna
+      country: Dal
+      documents: Dokumentiyo
+      mission: Hawsheenna
+      organisations: Ururro
+      publications: Daabacaadaheenna
+      quick_links: Waddooyin xiriir degdeg ah
+      related_policies: Siyaasado xiriir la leh
+      statistics: Istaatistikadeenna
+    type:
+      international_delegation:
+        one: Ergo caalami ah
+        other: Ergooyin caalami ah
+      world_location:
+        one: Goobo dunida ka mid ah
+        other: Goobo dunida ka mid ah
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: "%{link} ayaa sharxaya sida aan ula tacaamulno
         macluumaadkaaga shakhsiga ah"
       publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
@@ -445,7 +446,7 @@ so:
     headings:
       about_us: Nagu saabsan
       contact_us: Nala soo xiriir
-      contents:
+      contents: 
       corporate_information: Macluumaad hay'adeed
       follow_us: Nala jaanqaad
       our_people: Dadkeenna

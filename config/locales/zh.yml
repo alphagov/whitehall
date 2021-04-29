@@ -1,46 +1,47 @@
+---
 zh:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: 公告
-    view_all:
+    view_all: 
   attachment:
     accessibility:
       full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。
@@ -51,74 +52,74 @@ zh:
       order_a_copy_full: 订阅报告副本
       published: 已发布
       reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
+    see_more: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: 联系表格
     email: 邮件
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: 个人信息资料
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: 报告发布计划
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: 社交媒体使用
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: 威尔士语言计划
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: 
     footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
     headings:
       applies_to_nations: 适用于
       attachments:
         one: 文件
         other: 文件
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
     published: 已发布
     read: 阅读%{title}文章
-    see_all:
+    see_all: 
     speech:
       author_title:
         minister: 首相/大臣/秘书
@@ -136,7 +137,7 @@ zh:
         one: 撰写的文章
         other: 撰写的文章
       blog_post:
-        other:
+        other: 
       case_study:
         one: 实例研究
         other: 实例研究
@@ -156,13 +157,13 @@ zh:
         one: 交流
         other: 交流
       decision:
-        other:
+        other: 
       detailed_guidance:
         one: 详细指导
         other: 详细指导
       document_collection:
         one: 系列
-        other:
+        other: 
       draft_text:
         one: 草拟稿件
         other: 草拟稿件
@@ -188,9 +189,9 @@ zh:
         one: 独立报告
         other: 独立报告
       international_treaty:
-        other:
+        other: 
       manual:
-        other:
+        other: 
       map:
         one: 地图
         other: 地图
@@ -204,9 +205,9 @@ zh:
         one: 新闻报道
         other: 新闻报道
       nhs_content:
-        other:
+        other: 
       notice:
-        other:
+        other: 
       official_statistics:
         one: 统计数据
         other: 统计数据
@@ -229,7 +230,7 @@ zh:
         one: 发布的报告
         other: 发布的报告
       regulation:
-        other:
+        other: 
       research:
         one: 研究及分析
         other: 研究及分析
@@ -240,7 +241,7 @@ zh:
         one: 演讲
         other: 演讲
       standard:
-        other:
+        other: 
       statement_to_parliament:
         one: 对议会的声明
         other: 对议会的声明
@@ -248,7 +249,7 @@ zh:
         one: 统计数据集
         other: 统计数据集
       statutory_guidance:
-        other:
+        other: 
       transcript:
         one: 副本
         other: 副本
@@ -256,7 +257,7 @@ zh:
         one: 透明化数据
         other: 透明化数据
       world_news_story:
-        other:
+        other: 
       written_statement:
         one: 对议会的书面声明
         other: 对议会的书面声明
@@ -267,23 +268,23 @@ zh:
     no_results:
       description: 尝试扩大您的搜索范围并再次搜索。
       title: 没有符合的文件。
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: 所有地区位置
       label: 世界地区位置
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: 最新活动
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: false
@@ -293,7 +294,7 @@ zh:
     no_updates: 目前暂无更新。
     title: 最新消息
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -305,22 +306,22 @@ zh:
       access_our_info: 阅读我们的信息
       foi_how_to: 如何进行资讯自由（FOI）申请
       foi_releases: 资讯自由(FOI)信息发布
-      jobs:
+      jobs: 
       jobs_and_contacts: 职位及联系方式
-      organisation_chart:
+      organisation_chart: 
       transparency: 透明化数据
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: 我们的首席专业官员
       contact: 联系%{name}
       corporate_information: 政府信息
       corporate_reports: 政府报告
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: 我们的公告
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: 我们的管理层
       our_ministers: 我们的首相/大臣/秘书
       our_policies: 我们的政策
@@ -332,14 +333,14 @@ zh:
       special_representatives: 特别代表
       traffic_commissioners: 交通事务专员
       what_we_do: 我们的工作
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: 政策
-    view_all:
+    view_all: 
   publications:
     heading: 发布的报告
     headings:
@@ -354,9 +355,9 @@ zh:
     consultation_outcome: 查阅我们所有的咨询结果
     corporate_report: 查阅我们所有的政府报告
     correspondence: 查阅我们所有的交流
-    decision:
+    decision: 
     detailed_guidance: 查阅我们所有的详细指导
-    document_collection:
+    document_collection: 
     draft_text: 查阅我们所有的草拟稿件
     fatality_notice: 查阅我们所有的死亡通告
     foi_release: 查阅我们所有的资讯自由(foi)信息发布
@@ -365,12 +366,12 @@ zh:
     guidance: 查阅我们所有的指导
     impact_assessment: 查阅我们所有的影响评估
     imported: 查阅我们所有的导入 - 正在等待的类型
-    international_treaty:
+    international_treaty: 
     map: 查阅我们所有的地图
     national_statistics: 查阅我们所有的统计数据 - 国家数据
     news_article: 查阅我们所有的新闻文章
     news_story: 查阅我们所有的新闻报道
-    notice:
+    notice: 
     open_consultation: 查阅我们所有的公开咨询
     oral_statement: 查阅我们所有的对议会的口头声明
     policy: 查阅我们所有的政策
@@ -378,19 +379,19 @@ zh:
     press_release: 查阅我们所有的新闻稿
     promotional: 查阅我们所有的宣传材料
     publication: 查阅我们所有的发布的报告
-    regulation:
+    regulation: 
     research: 查阅我们所有的研究及分析
     speaking_notes: 查阅我们所有的演讲稿
     speech: 查阅我们所有的演讲
     statement_to_parliament: 查阅我们所有的对议会的声明
     statistical_data_set: 查阅我们所有的统计数据集
     statistics: 查阅我们所有的统计数据
-    statutory_guidance:
+    statutory_guidance: 
     transcript: 查阅我们所有的副本
     transparency: 查阅我们所有的透明化数据
     written_statement: 查阅我们所有的对议会的书面声明
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: 和
@@ -417,7 +418,7 @@ zh:
         other: 世界地区位置
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: 我们的%{link}解释了我们如何对待您的个人信息。
       publication_scheme_html: 阅读我们在%{link}定期发布的信息。
       social_media_use_html: 阅读我们在%{link}的政策
@@ -426,7 +427,7 @@ zh:
     headings:
       about_us: 关于我们
       contact_us: 联系我们
-      contents:
+      contents: 
       corporate_information: 政府信息
       follow_us: 关注我们
       our_people: 我们的人员

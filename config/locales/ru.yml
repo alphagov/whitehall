@@ -1,335 +1,47 @@
+---
 ru:
-  document:
-    headings:
-      attachments:
-        one: Документ
-        few:
-        many:
-        other: Документы
-      applies_to_nations: Применимо к
-      from:
-      location:
-      part_of:
-    type:
-      announcement:
-        one: Объявление
-        few:
-        many:
-        other: Объявления
-      authored_article:
-        one: Авторская статья
-        few:
-        many:
-        other: Авторские статьи
-      blog_post:
-        one:
-        few:
-        many:
-        other:
-      case_study:
-        one: Ситуационный анализ
-        few:
-        many:
-        other: Ситуационные анализы
-      closed_consultation:
-        one: Закрытая консультация
-        few:
-        many:
-        other: Закрытые консультации
-      consultation:
-        one: Консультация
-        few:
-        many:
-        other: Консультации
-      consultation_outcome:
-        one: Результат консультации
-        few:
-        many:
-        other: Результаты консультаций
-      corporate_report:
-        one: Корпоративный отчет
-        few:
-        many:
-        other: Корпоративные отчеты
-      correspondence:
-        one: Корреспонденция
-        few:
-        many:
-        other: Корреспонденция
-      decision:
-        one:
-        few:
-        many:
-        other:
-      detailed_guidance:
-        one: Подробное руководство
-        few:
-        many:
-        other: Подробное руководство
-      document_collection:
-        one: Серии
-        few:
-        many:
-        other:
-      draft_text:
-        one: Проект текста
-        few:
-        many:
-        other: Проект текстов
-      foi_release:
-        one: 'Свобода распространения информации '
-        few:
-        many:
-        other: 'Свобода распространения информации '
-      form:
-        one: Форма
-        few:
-        many:
-        other: Формы
-      government_response:
-        one: Ответ правительства
-        few:
-        many:
-        other: Ответы правительства
-      guidance:
-        one: Руководство
-        few:
-        many:
-        other: Руководство
-      impact_assessment:
-        one: Оценка воздействия
-        few:
-        many:
-        other: Оценки воздействия
-      imported:
-        one: импортировано - тип ожидания
-        few:
-        many:
-        other: импортировано - тип ожидания
-      independent_report:
-        one: Независимый отчет
-        few:
-        many:
-        other: Независимые отчеты
-      international_treaty:
-        one:
-        few:
-        many:
-        other:
-      manual:
-        one:
-        few:
-        many:
-        other:
-      map:
-        one: Карта
-        few:
-        many:
-        other: Карты
-      national_statistics:
-        one: Статистика - национальная статистика
-        few:
-        many:
-        other: Статистика - национальная статистика
-      news_article:
-        one: Новостная статья
-        few:
-        many:
-        other: Новостные статьи
-      news_story:
-        one: Новостная заметка
-        few:
-        many:
-        other: Новостные заметки
-      nhs_content:
-        one:
-        few:
-        many:
-        other:
-      notice:
-        one:
-        few:
-        many:
-        other:
-      official_statistics:
-        one: Статистика
-        few:
-        many:
-        other: Статистика
-      open_consultation:
-        one: Открытая консультация
-        few:
-        many:
-        other: Открытые консультации
-      oral_statement:
-        one: Устное заявление парламенту
-        few:
-        many:
-        other: Устные заявления парламенту
-      policy_paper:
-        one: Директивный документ
-        few:
-        many:
-        other: Директивные документы
-      press_release:
-        one: Пресс-релиз
-        few:
-        many:
-        other: Пресс-релизы
-      promotional:
-        one: Рекламный материал
-        few:
-        many:
-        other: Рекламные материалы
-      publication:
-        one: Публикация
-        few:
-        many:
-        other: Публикации
-      regulation:
-        one:
-        few:
-        many:
-        other:
-      research:
-        one: Исследования и аналитика
-        few:
-        many:
-        other: Исследования и аналитика
-      speaking_notes:
-        one: Тезисы выступления
-        few:
-        many:
-        other: Тезисы выступления
-      speech:
-        one: Текст выступления
-        few:
-        many:
-        other: Тексты выступлений
-      standard:
-        one:
-        few:
-        many:
-        other:
-      statement_to_parliament:
-        one: Заявление парламенту
-        few:
-        many:
-        other: Заявления парламенту
-      statistical_data_set:
-        one: Статистика
-        few:
-        many:
-        other: Статистические данные
-      statutory_guidance:
-        one:
-        few:
-        many:
-        other:
-      transcript:
-        one: Текст
-        few:
-        many:
-        other: Тексты
-      transparency:
-        one: Прозрачность данных
-        few:
-        many:
-        other: Прозрачность данных
-      world_news_story:
-        one:
-        few:
-        many:
-        other:
-      written_statement:
-        one: Письменное заявление парламенту
-        few:
-        many:
-        other: Письменные заявления парламенту
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: Опубликовано
-    read: Прочитать статью %{title}
-    see_all:
-    speech:
-      author_title:
-        minister: Министр
-        speaker: Автор
-      delivered_on: Представлено в
-      delivery_title:
-        minister: Министр
-        speaker: Докладчик
-      written_on: 'Написано: '
-    updated: обновлено
-    view: Просмотреть '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: Международное представительство
-        few:
-        many:
-        other: Международные представительства
-      world_location:
-        one: Место нахождения
-        few:
-        many:
-        other: Места нахождения
-    headings:
-      announcements: Наши объявления
-      country: Страна
-      documents: Документы
-      mission: Наша цель
-      organisations: Организации
-      publications: Наши публикации
-      quick_links: Быстрые ссылки
-      related_policies: Публикации на схожие темы
-      statistics: Наша статистика
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: Объявления
-    view_all:
+    view_all: 
   attachment:
     accessibility:
       full_help_html: Получить данный документ в ином формате (шрифт Брайля, аудиоформат)
@@ -341,79 +53,346 @@ ru:
       order_a_copy_full: Заказать копию публикации
       published: Опубликовано
       reference: Ссылка
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
+    see_more: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: Контактная форма
     email: Электронный адрес
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: Раздел личной информации
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: Схема публикации
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: Использование социальных сетей
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: Выбор Уэльского языка
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: Применимо к
+      attachments:
+        few: 
+        many: 
+        one: Документ
+        other: Документы
+      from: 
+      location: 
+      part_of: 
+    published: Опубликовано
+    read: Прочитать статью %{title}
+    see_all: 
+    speech:
+      author_title:
+        minister: Министр
+        speaker: Автор
+      delivered_on: Представлено в
+      delivery_title:
+        minister: Министр
+        speaker: Докладчик
+      written_on: 'Написано: '
+    type:
+      announcement:
+        few: 
+        many: 
+        one: Объявление
+        other: Объявления
+      authored_article:
+        few: 
+        many: 
+        one: Авторская статья
+        other: Авторские статьи
+      blog_post:
+        few: 
+        many: 
+        one: 
+        other: 
+      case_study:
+        few: 
+        many: 
+        one: Ситуационный анализ
+        other: Ситуационные анализы
+      closed_consultation:
+        few: 
+        many: 
+        one: Закрытая консультация
+        other: Закрытые консультации
+      consultation:
+        few: 
+        many: 
+        one: Консультация
+        other: Консультации
+      consultation_outcome:
+        few: 
+        many: 
+        one: Результат консультации
+        other: Результаты консультаций
+      corporate_report:
+        few: 
+        many: 
+        one: Корпоративный отчет
+        other: Корпоративные отчеты
+      correspondence:
+        few: 
+        many: 
+        one: Корреспонденция
+        other: Корреспонденция
+      decision:
+        few: 
+        many: 
+        one: 
+        other: 
+      detailed_guidance:
+        few: 
+        many: 
+        one: Подробное руководство
+        other: Подробное руководство
+      document_collection:
+        few: 
+        many: 
+        one: Серии
+        other: 
+      draft_text:
+        few: 
+        many: 
+        one: Проект текста
+        other: Проект текстов
+      foi_release:
+        few: 
+        many: 
+        one: 'Свобода распространения информации '
+        other: 'Свобода распространения информации '
+      form:
+        few: 
+        many: 
+        one: Форма
+        other: Формы
+      government_response:
+        few: 
+        many: 
+        one: Ответ правительства
+        other: Ответы правительства
+      guidance:
+        few: 
+        many: 
+        one: Руководство
+        other: Руководство
+      impact_assessment:
+        few: 
+        many: 
+        one: Оценка воздействия
+        other: Оценки воздействия
+      imported:
+        few: 
+        many: 
+        one: импортировано - тип ожидания
+        other: импортировано - тип ожидания
+      independent_report:
+        few: 
+        many: 
+        one: Независимый отчет
+        other: Независимые отчеты
+      international_treaty:
+        few: 
+        many: 
+        one: 
+        other: 
+      manual:
+        few: 
+        many: 
+        one: 
+        other: 
+      map:
+        few: 
+        many: 
+        one: Карта
+        other: Карты
+      national_statistics:
+        few: 
+        many: 
+        one: Статистика - национальная статистика
+        other: Статистика - национальная статистика
+      news_article:
+        few: 
+        many: 
+        one: Новостная статья
+        other: Новостные статьи
+      news_story:
+        few: 
+        many: 
+        one: Новостная заметка
+        other: Новостные заметки
+      nhs_content:
+        few: 
+        many: 
+        one: 
+        other: 
+      notice:
+        few: 
+        many: 
+        one: 
+        other: 
+      official_statistics:
+        few: 
+        many: 
+        one: Статистика
+        other: Статистика
+      open_consultation:
+        few: 
+        many: 
+        one: Открытая консультация
+        other: Открытые консультации
+      oral_statement:
+        few: 
+        many: 
+        one: Устное заявление парламенту
+        other: Устные заявления парламенту
+      policy_paper:
+        few: 
+        many: 
+        one: Директивный документ
+        other: Директивные документы
+      press_release:
+        few: 
+        many: 
+        one: Пресс-релиз
+        other: Пресс-релизы
+      promotional:
+        few: 
+        many: 
+        one: Рекламный материал
+        other: Рекламные материалы
+      publication:
+        few: 
+        many: 
+        one: Публикация
+        other: Публикации
+      regulation:
+        few: 
+        many: 
+        one: 
+        other: 
+      research:
+        few: 
+        many: 
+        one: Исследования и аналитика
+        other: Исследования и аналитика
+      speaking_notes:
+        few: 
+        many: 
+        one: Тезисы выступления
+        other: Тезисы выступления
+      speech:
+        few: 
+        many: 
+        one: Текст выступления
+        other: Тексты выступлений
+      standard:
+        few: 
+        many: 
+        one: 
+        other: 
+      statement_to_parliament:
+        few: 
+        many: 
+        one: Заявление парламенту
+        other: Заявления парламенту
+      statistical_data_set:
+        few: 
+        many: 
+        one: Статистика
+        other: Статистические данные
+      statutory_guidance:
+        few: 
+        many: 
+        one: 
+        other: 
+      transcript:
+        few: 
+        many: 
+        one: Текст
+        other: Тексты
+      transparency:
+        few: 
+        many: 
+        one: Прозрачность данных
+        other: Прозрачность данных
+      world_news_story:
+        few: 
+        many: 
+        one: 
+        other: 
+      written_statement:
+        few: 
+        many: 
+        one: Письменное заявление парламенту
+        other: Письменные заявления парламенту
+    updated: обновлено
+    view: Просмотреть '%{title}'
   document_filters:
     description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры
     no_results:
       description: Расширьте параметры поиска и попытайтесь еще раз
       title: Соответствующих документов не найдено
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Все места нахождения
       label: Места нахождения
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: Реестр активности
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: false
@@ -423,7 +402,7 @@ ru:
     no_updates: Обновлений нет
     title: Последние новости
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -435,22 +414,22 @@ ru:
       access_our_info: Доступ к нашей информации
       foi_how_to: запрос  Свобода распространения информации
       foi_releases: 'Свобода распространения информации '
-      jobs:
+      jobs: 
       jobs_and_contacts: Рабочие места и контракты
-      organisation_chart:
+      organisation_chart: 
       transparency: Данные о прозрачности
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: Наши главные профессиональные служащие
       contact: Обратиться к %{name}
       corporate_information: Корпоративная информация
       corporate_reports: Корпоративные отчеты
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: Наши объявления
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: Наше руководство
       our_ministers: Наши министры
       our_policies: Наша политика
@@ -462,14 +441,14 @@ ru:
       special_representatives: Специальные преставители
       traffic_commissioners: Сотрудники, Ответственные за транспортные перевозки
       what_we_do: Чем мы занимаемся
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: Политика
-    view_all:
+    view_all: 
   publications:
     heading: Публикации
     headings:
@@ -484,9 +463,9 @@ ru:
     consultation_outcome: Посмотреть все наши Результаты консультаций
     corporate_report: Посмотреть все наши Корпоративные отчеты
     correspondence: Посмотреть все наши Корреспонденция
-    decision:
+    decision: 
     detailed_guidance: Посмотреть все наши Подробное руководство
-    document_collection:
+    document_collection: 
     draft_text: Посмотреть все наши Проект текстов
     fatality_notice: Посмотреть все наши Уведомления о несчастных случаях
     foi_release: 'Посмотреть все наши Свобода распространения информации '
@@ -495,12 +474,12 @@ ru:
     guidance: Посмотреть все наши Руководство
     impact_assessment: Посмотреть все наши Оценки воздействия
     imported: Посмотреть все наши импортировано - тип ожидания
-    international_treaty:
+    international_treaty: 
     map: Посмотреть все наши Карты
     national_statistics: Посмотреть все наши Статистика - национальная статистика
     news_article: Посмотреть все наши Новостные статьи
     news_story: Посмотреть все наши Новостные заметки
-    notice:
+    notice: 
     open_consultation: Посмотреть все наши Открытые консультации
     oral_statement: Посмотреть все наши Устные заявления парламенту
     policy: Посмотреть все наши Политика
@@ -508,28 +487,50 @@ ru:
     press_release: Посмотреть все наши Пресс-релизы
     promotional: Посмотреть все наши Рекламные материалы
     publication: Посмотреть все наши Публикации
-    regulation:
+    regulation: 
     research: Посмотреть все наши Исследования и аналитика
     speaking_notes: Посмотреть все наши Тезисы выступления
     speech: Посмотреть все наши Тексты выступлений
     statement_to_parliament: Посмотреть все наши Заявления парламенту
     statistical_data_set: Посмотреть все наши Статистические данные
     statistics: Посмотреть все наши Статистика
-    statutory_guidance:
+    statutory_guidance: 
     transcript: Посмотреть все наши Тексты
     transparency: Посмотреть все наши Прозрачность данных
     written_statement: Посмотреть все наши Письменные заявления парламенту
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: и
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: Наши объявления
+      country: Страна
+      documents: Документы
+      mission: Наша цель
+      organisations: Организации
+      publications: Наши публикации
+      quick_links: Быстрые ссылки
+      related_policies: Публикации на схожие темы
+      statistics: Наша статистика
+    type:
+      international_delegation:
+        few: 
+        many: 
+        one: Международное представительство
+        other: Международные представительства
+      world_location:
+        few: 
+        many: 
+        one: Место нахождения
+        other: Места нахождения
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся
         с вашей личной информацией
       publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по
@@ -541,7 +542,7 @@ ru:
     headings:
       about_us: О нас
       contact_us: Связь с нами
-      contents:
+      contents: 
       corporate_information: Корпоративная информация
       follow_us: Следите за нами
       our_people: Наши сотрудники

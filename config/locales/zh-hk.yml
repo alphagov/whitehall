@@ -1,46 +1,47 @@
+---
 zh-hk:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: 公告
-    view_all:
+    view_all: 
   attachment:
     accessibility:
       full_help_html: 尋求另一種檔案格式：點字或音檔
@@ -51,74 +52,74 @@ zh-hk:
       order_a_copy_full: 訂閱報告副本
       published: 已發布
       reference: 參考
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
+    see_more: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: 聯絡資料表
     email: 電子郵件
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: 個人資訊表
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: 出版計畫
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: 社交媒體應用
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: 威爾士語言計畫
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: 
     footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
     headings:
       applies_to_nations: 適用於
       attachments:
         one: 文件
         other: 其他文件
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
     published: 已發布
     read: 閱讀%{title}文章
-    see_all:
+    see_all: 
     speech:
       author_title:
         minister: 大臣
@@ -136,8 +137,8 @@ zh-hk:
         one: 撰寫文章
         other: 其他撰寫文章
       blog_post:
-        one:
-        other:
+        one: 
+        other: 
       case_study:
         one: 案例研究
         other: 其他案例研究
@@ -157,14 +158,14 @@ zh-hk:
         one: 通信
         other: 其他通信
       decision:
-        one:
-        other:
+        one: 
+        other: 
       detailed_guidance:
         one: 詳細指引
         other: 其他詳細指引
       document_collection:
         one: 系列
-        other:
+        other: 
       draft_text:
         one: 內容
         other: 其他內容
@@ -190,11 +191,11 @@ zh-hk:
         one: 獨立報告
         other: 其他獨立報告
       international_treaty:
-        one:
-        other:
+        one: 
+        other: 
       manual:
-        one:
-        other:
+        one: 
+        other: 
       map:
         one: 地圖
         other: 其他地圖
@@ -208,11 +209,11 @@ zh-hk:
         one: 新聞
         other: 其他新聞
       nhs_content:
-        one:
-        other:
+        one: 
+        other: 
       notice:
-        one:
-        other:
+        one: 
+        other: 
       official_statistics:
         one: 統計資料
         other: 其他統計資料
@@ -235,8 +236,8 @@ zh-hk:
         one: 出版物
         other: 其他出版物
       regulation:
-        one:
-        other:
+        one: 
+        other: 
       research:
         one: 研究與分析
         other: 其他研究與分析
@@ -247,8 +248,8 @@ zh-hk:
         one: 演講
         other: 其他演講
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: 提交國會的聲明
         other: 提交國會的其他聲明
@@ -256,8 +257,8 @@ zh-hk:
         one: 統計數據資料
         other: 其他統計數據資料
       statutory_guidance:
-        one:
-        other:
+        one: 
+        other: 
       transcript:
         one: 談話副本
         other: 其他談話副本
@@ -265,8 +266,8 @@ zh-hk:
         one: 透明化數據
         other: 其他透明化數據
       world_news_story:
-        one:
-        other:
+        one: 
+        other: 
       written_statement:
         one: 提交國會的書面聲明
         other: 提交國會的其他書面聲明
@@ -277,23 +278,23 @@ zh-hk:
     no_results:
       description: 嘗試擴大你的搜尋範圍並且再次搜索。
       title: 沒有符合的文件。
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: 所有駐點
       label: 全球駐點
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: 最新的活動
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: false
@@ -303,7 +304,7 @@ zh-hk:
     no_updates: 目前暫無更新。
     title: 最新消息
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -315,22 +316,22 @@ zh-hk:
       access_our_info: 閱讀我們的資訊
       foi_how_to: 如何進行資訊自由(FOI)申請
       foi_releases: 資訊自由(FOI)資訊發布
-      jobs:
+      jobs: 
       jobs_and_contacts: 職位及聯絡方法
-      organisation_chart:
+      organisation_chart: 
       transparency: 透明化數據
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: 我們的首席專業官員
       contact: 聯繫%{name}
       corporate_information: 政府資訊
       corporate_reports: 政府報告
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: 我們的公告
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: 我們的管理層
       our_ministers: 我們的大臣
       our_policies: 我們的政策
@@ -342,14 +343,14 @@ zh-hk:
       special_representatives: 特別代表
       traffic_commissioners: 交通事務專員
       what_we_do: 我們的工作
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: 政策
-    view_all:
+    view_all: 
   publications:
     heading: 出版物
     headings:
@@ -364,9 +365,9 @@ zh-hk:
     consultation_outcome: 查閱我們所有的其他諮詢結果
     corporate_report: 查閱我們所有的其他政府報告
     correspondence: 查閱我們所有的其他通信
-    decision:
+    decision: 
     detailed_guidance: 查閱我們所有的其他詳細指引
-    document_collection:
+    document_collection: 
     draft_text: 查閱我們所有的其他內容
     fatality_notice: 查閱我們所有的其他安全事故通知
     foi_release: 查閱我們所有的其他資訊自由(foi)資訊發布
@@ -375,12 +376,12 @@ zh-hk:
     guidance: 查閱我們所有的其他指引
     impact_assessment: 查閱我們所有的其他影響評估
     imported: 查閱我們所有的輸入-等待類型中
-    international_treaty:
+    international_treaty: 
     map: 查閱我們所有的其他地圖
     national_statistics: 查閱我們所有的其他國家統計數據
     news_article: 查閱我們所有的其他新聞
     news_story: 查閱我們所有的其他新聞
-    notice:
+    notice: 
     open_consultation: 查閱我們所有的其他公開諮詢
     oral_statement: 查閱我們所有的提交國會的其他口頭聲明
     policy: 查閱我們所有的其他政策
@@ -388,19 +389,19 @@ zh-hk:
     press_release: 查閱我們所有的其他新聞稿
     promotional: 查閱我們所有的其他宣傳資料
     publication: 查閱我們所有的其他出版物
-    regulation:
+    regulation: 
     research: 查閱我們所有的其他研究與分析
     speaking_notes: 查閱我們所有的其他演講稿
     speech: 查閱我們所有的其他演講
     statement_to_parliament: 查閱我們所有的提交國會的其他聲明
     statistical_data_set: 查閱我們所有的其他統計數據資料
     statistics: 查閱我們所有的其他統計資料
-    statutory_guidance:
+    statutory_guidance: 
     transcript: 查閱我們所有的其他談話副本
     transparency: 查閱我們所有的其他透明化數據
     written_statement: 查閱我們所有的提交國會的其他書面聲明
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: 和
@@ -427,7 +428,7 @@ zh-hk:
         other: 其他全球駐點
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: 我們的%{link}解釋我們如何處理你的個人資料。
       publication_scheme_html: 查閱我們在%{link}定期發布的資訊。
       social_media_use_html: 查閱我們在%{link}的政策。
@@ -436,7 +437,7 @@ zh-hk:
     headings:
       about_us: 關於我們
       contact_us: 聯絡我們
-      contents:
+      contents: 
       corporate_information: 詳細的資訊
       follow_us: 關注我們
       our_people: 主要館員

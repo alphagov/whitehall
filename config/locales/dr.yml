@@ -1,13 +1,136 @@
+---
 dr:
-  document:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
+      attachment_data:
+        file: 
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: 
+      edition:
+        nation_inapplicabilities: 
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: 
+      response/consultation_response_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: 
+    nested_attachment_data_field_names:
+      file: 
+    nested_attachment_field_names:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
+  announcements:
+    heading: اعلانات
+    view_all: 
+  attachment:
+    accessibility:
+      full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
+        متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل
+        %{email} کنید
+      intro: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
+      request_a_different_format: فارمت متفاوت را درخواست نمائید
     headings:
+      order_a_copy: نقل را درخواست نمائید
+      order_a_copy_full: نقل نشریه را درخواست نمائید
+      published: نشر شده
+      reference: ماخذ
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 
+  broken_links:
+    broken:
+      subheading: 
+    caution:
+      subheading: 
+    title: 
+  change_notes:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
+  contact:
+    access_and_opening_times: 
+    contact_form: فارم تماس
+    email: ایمیل
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 
+      title:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
+        personal_information_charter: موافقه معلومات شخصی
+        petitions_and_campaigns: 
+        procurement: 
+        publication_scheme: طرح انتشار
+        recruitment: 
+        research: 
+        social_media_use: استفاده از رسانه اجتماعی
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
+        welsh_language_scheme: طرح زبان ویلش
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: اطلاق میشود به
       attachments:
         one: سند
         other: اسناد
-      applies_to_nations: اطلاق میشود به
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
+    published: نشر شده
+    read: مقاله %{title} را بخوانید
+    see_all: 
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: نویسنده
+      delivered_on: تحویل شده به
+      delivery_title:
+        minister: وزیر
+        speaker: سخنگوی
+      written_on: نوشته شد به
     type:
       announcement:
         one: اعلان
@@ -16,8 +139,8 @@ dr:
         one: مقاله نوشته شده
         other: مقاله های نوشته شده
       blog_post:
-        one:
-        other:
+        one: 
+        other: 
       case_study:
         one: بررسی  موردی
         other: بررسی های موردی
@@ -37,14 +160,14 @@ dr:
         one: مطابقت
         other: مطابقت ها
       decision:
-        one:
-        other:
+        one: 
+        other: 
       detailed_guidance:
         one: " رهنمود مفصل"
         other: رهنمود های مفصل
       document_collection:
         one: سلسله
-        other:
+        other: 
       draft_text:
         one: متن مسوده
         other: متون مسوده
@@ -70,11 +193,11 @@ dr:
         one: گزارش آزاد
         other: گزارش های آزاد
       international_treaty:
-        one:
-        other:
+        one: 
+        other: 
       manual:
-        one:
-        other:
+        one: 
+        other: 
       map:
         one: نقشه
         other: نقشه ها
@@ -88,11 +211,11 @@ dr:
         one: گزارش خبری
         other: گزارش های خبری
       nhs_content:
-        one:
-        other:
+        one: 
+        other: 
       notice:
-        one:
-        other:
+        one: 
+        other: 
       official_statistics:
         one: احصائیه ها
         other: احصائیه ها
@@ -115,8 +238,8 @@ dr:
         one: نشر
         other: نشریات
       regulation:
-        one:
-        other:
+        one: 
+        other: 
       research:
         one: تحقیق و تجزیه
         other: تحقیق و تجزیه
@@ -127,8 +250,8 @@ dr:
         one: سخنرانی
         other: سخنرانی ها
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: بیانیه به پارلمان
         other: بیانیه ها به پارلمان
@@ -136,8 +259,8 @@ dr:
         one: ارقام احصائیوی
         other: ارقام احصائیوی
       statutory_guidance:
-        one:
-        other:
+        one: 
+        other: 
       transcript:
         one: نسخه
         other: نسخه ها
@@ -145,176 +268,36 @@ dr:
         one: ارقام شفافیت
         other: ارقام شفافیت
       world_news_story:
-        one:
-        other:
+        one: 
+        other: 
       written_statement:
         one: بیانیه تحریری به پارلمان
         other: بیانیه های تحریری به پارلمان
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: نشر شده
-    read: مقاله %{title} را بخوانید
-    see_all:
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: نویسنده
-      delivered_on: تحویل شده به
-      delivery_title:
-        minister: وزیر
-        speaker: سخنگوی
-      written_on: نوشته شد به
     updated: به روز شده
     view: ببینید'%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: هیئت بین المللی
-        other: هیئات بین المللی
-      world_location:
-        one: موقعیت جهانی
-        other: موقعیت های جهانی
-    headings:
-      announcements: اعلانات ما
-      country: کشور
-      documents: اسناد
-      mission: ماموریت ما
-      organisations: سازمان ها
-      publications: نشریات ما
-      quick_links: لینک های عاجل
-      related_policies: پالیسی های مرتبط
-      statistics: احصائیه های ما
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: اعلانات
-    view_all:
-  attachment:
-    accessibility:
-      full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
-        متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل
-        %{email} کنید
-      intro: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
-      request_a_different_format: فارمت متفاوت را درخواست نمائید
-    headings:
-      order_a_copy: نقل را درخواست نمائید
-      order_a_copy_full: نقل نشریه را درخواست نمائید
-      published: نشر شده
-      reference: ماخذ
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    see_more:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
-  contact:
-    access_and_opening_times:
-    contact_form: فارم تماس
-    email: ایمیل
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: موافقه معلومات شخصی
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: طرح انتشار
-        recruitment:
-        research:
-        social_media_use: استفاده از رسانه اجتماعی
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: طرح زبان ویلش
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
       نتایجی که با منفعت های شما و nbsp تطابق دارند
     no_results:
       description: کوشش کنید بیشتر جستجو کنید و دوباره امتحان نمایید
       title: اسنادی که در مطابقت باشند وجود ندارد
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: تمام موقعیت ها
       label: موقعیت های جهانی
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: فعالیت اخیر
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: rtl
     latin_script?: false
@@ -324,7 +307,7 @@ dr:
     no_updates: معلومات به روز شده هنوز وجود ندارد
     title: اخیر
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -336,22 +319,22 @@ dr:
       access_our_info: دسترسی به معلومات
       foi_how_to: شیوه درخواست کردن آزادی بیان
       foi_releases: نشریه های آزادی بیان
-      jobs:
+      jobs: 
       jobs_and_contacts: وظایف و قرارداد ها
-      organisation_chart:
+      organisation_chart: 
       transparency: معلومات شفافیت
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: مدیران مسلکی ارشد ما
       contact: تماس %{name}
       corporate_information: معلومات یکی شده
       corporate_reports: گزارش های یکی شده
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: اعلانات ما
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: اداره ما
       our_ministers: وزرای ما
       our_policies: پالیسی های ما
@@ -363,14 +346,14 @@ dr:
       special_representatives: نماینده های خاص
       traffic_commissioners: کمشنران ترافیک
       what_we_do: ما روی چه کار میکنیم
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: پالیسی ها
-    view_all:
+    view_all: 
   publications:
     heading: نشریات
     headings:
@@ -385,9 +368,9 @@ dr:
     consultation_outcome: همه را ببینید نتایج مشوره
     corporate_report: همه را ببینید گزارشات توحیدی
     correspondence: همه را ببینید مطابقت ها
-    decision:
+    decision: 
     detailed_guidance: همه را ببینید رهنمود های مفصل
-    document_collection:
+    document_collection: 
     draft_text: همه را ببینید متون مسوده
     fatality_notice: همه را ببینید اخبار مرگ و میر
     foi_release: همه را ببینید نشریه های آزادی بیان
@@ -396,12 +379,12 @@ dr:
     guidance: همه را ببینید رهنمود
     impact_assessment: همه را ببینید بررسی های تاثیرات
     imported: همه را ببینید وارد شده - نوع انتظار
-    international_treaty:
+    international_treaty: 
     map: همه را ببینید نقشه ها
     national_statistics: همه را ببینید احصایه ها - احصایه های ملی
     news_article: همه را ببینید مقاله خبری
     news_story: همه را ببینید گزارش های خبری
-    notice:
+    notice: 
     open_consultation: همه را ببینید مشاورت های باز
     oral_statement: همه را ببینید بیانیه های شفایی به پارلمان
     policy: همه را ببینید پالیسی ها
@@ -409,28 +392,46 @@ dr:
     press_release: همه را ببینید اعلامیه های مصبوعاتی
     promotional: همه را ببینید مواد تعلیمی
     publication: همه را ببینید نشریات
-    regulation:
+    regulation: 
     research: همه را ببینید تحقیق و تجزیه
     speaking_notes: همه را ببینید یادداشت سخنرانی
     speech: همه را ببینید سخنرانی ها
     statement_to_parliament: همه را ببینید بیانیه ها به پارلمان
     statistical_data_set: همه را ببینید ارقام احصائیوی
     statistics: همه را ببینید احصائیه ها
-    statutory_guidance:
+    statutory_guidance: 
     transcript: همه را ببینید نسخه ها
     transparency: همه را ببینید ارقام شفافیت
     written_statement: همه را ببینید بیانیه های تحریری به پارلمان
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: و
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: اعلانات ما
+      country: کشور
+      documents: اسناد
+      mission: ماموریت ما
+      organisations: سازمان ها
+      publications: نشریات ما
+      quick_links: لینک های عاجل
+      related_policies: پالیسی های مرتبط
+      statistics: احصائیه های ما
+    type:
+      international_delegation:
+        one: هیئت بین المللی
+        other: هیئات بین المللی
+      world_location:
+        one: موقعیت جهانی
+        other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: "  %{link} ما شیوه برخود با معلومات شخصی
         را تشریح مینماید"
       publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر
@@ -441,7 +442,7 @@ dr:
     headings:
       about_us: در مورد ما
       contact_us: با ما تماس بگیرید
-      contents:
+      contents: 
       corporate_information: معلومات توحید شده
       follow_us: ما را تعقیب نمایید
       our_people: مردم ما

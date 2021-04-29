@@ -1,285 +1,47 @@
+---
 ro:
-  document:
-    headings:
-      attachments:
-        one: Document
-        few:
-        other: Documente
-      applies_to_nations: Se adresează
-      from:
-      location:
-      part_of:
-    type:
-      announcement:
-        one: Știre
-        few:
-        other: Știri
-      authored_article:
-        one: 'Articol '
-        few:
-        other: 'Articol '
-      blog_post:
-        one:
-        few:
-        other:
-      case_study:
-        one: Studiu de caz
-        few:
-        other: Studii de caz
-      closed_consultation:
-        one: Dezbatere
-        few:
-        other: Dezbateri
-      consultation:
-        one: Dezbatere
-        few:
-        other: Dezbateri
-      consultation_outcome:
-        one: Concluzia dezbaterii
-        few:
-        other: Concluziile dezbaterii
-      corporate_report:
-        one: Raport
-        few:
-        other: Rapoarte
-      correspondence:
-        one: Similaritate
-        few:
-        other: Similarităţi
-      decision:
-        one:
-        few:
-        other:
-      detailed_guidance:
-        one: Mai multe detalii
-        few:
-        other: Mai multe detalii
-      document_collection:
-        one: Seria
-        few:
-        other:
-      draft_text:
-        one: Versiune preliminară
-        few:
-        other: Versiuni preliminare
-      foi_release:
-        one: 'Acces la informații publice '
-        few:
-        other: 'Acces la informații publice '
-      form:
-        one: Formular
-        few:
-        other: Formulare
-      government_response:
-        one: 'Document de poziție '
-        few:
-        other: 'Documente de poziție '
-      guidance:
-        one: Mai multe detalii
-        few:
-        other: Mai multe detalii
-      impact_assessment:
-        one: 'Evaluarea impactului '
-        few:
-        other: 'Evaluarea impactului '
-      imported:
-        one:
-        few:
-        other:
-      independent_report:
-        one: Raport independent
-        few:
-        other: Rapoarte independente
-      international_treaty:
-        one:
-        few:
-        other:
-      manual:
-        one:
-        few:
-        other:
-      map:
-        one: Hartă
-        few:
-        other: Hărţi
-      national_statistics:
-        one: Statistici - statistici naționale
-        few:
-        other: Statistici - statistici naționale
-      news_article:
-        one: Știre
-        few:
-        other: Știri
-      news_story:
-        one: Știre
-        few:
-        other: Știri
-      nhs_content:
-        one:
-        few:
-        other:
-      notice:
-        one:
-        few:
-        other:
-      official_statistics:
-        one: Statistici
-        few:
-        other: Statistici
-      open_consultation:
-        one: Dezbatere
-        few:
-        other: Dezbateri
-      oral_statement:
-        one: 'Declarație verbală în fața Parlamentului '
-        few:
-        other: 'Declarații verbale în fața Parlamentului '
-      policy_paper:
-        one:
-        few:
-        other:
-      press_release:
-        one: Știre
-        few:
-        other: Știri
-      promotional:
-        one: Material promoțional
-        few:
-        other: Materiale promoționale
-      publication:
-        one: Publicație
-        few:
-        other: Publicații
-      regulation:
-        one:
-        few:
-        other:
-      research:
-        one: Analiză și cercetare
-        few:
-        other: Analiză și cercetare
-      speaking_notes:
-        one: 'Note '
-        few:
-        other: 'Note '
-      speech:
-        one: Discurs
-        few:
-        other: Discursuri
-      standard:
-        one:
-        few:
-        other:
-      statement_to_parliament:
-        one: Declarație în Parlament
-        few:
-        other: Declarații în Parlament
-      statistical_data_set:
-        one: Date statistice
-        few:
-        other: Date statistice
-      statutory_guidance:
-        one:
-        few:
-        other:
-      transcript:
-        one: Transcriere
-        few:
-        other: Transcrieri
-      transparency:
-        one:
-        few:
-        other:
-      world_news_story:
-        one:
-        few:
-        other:
-      written_statement:
-        one: 'Declarație scrisă către Parlament '
-        few:
-        other: 'Declarații scrise către Parlament '
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: Data publicării
-    read: 'Citește articolul %{title} '
-    see_all:
-    speech:
-      author_title:
-        minister: 'Ministru '
-        speaker: 'Autor '
-      delivered_on: Data prezentării
-      delivery_title:
-        minister: Ministru
-        speaker: Vorbitor
-      written_on: 'Publicat pe: '
-    updated: Actualizat
-    view: Vizualizare '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: Delegaţie internaţională
-        few:
-        other: Delegaţii internaţionale
-      world_location:
-        one: Localizare
-        few:
-        other: Localizare
-    headings:
-      announcements: Știri
-      country: Țară
-      documents: Documente
-      mission: Obiectiv
-      organisations: Organizații
-      publications: Documente
-      quick_links: 'Link-uri rapide '
-      related_policies: 'Priorități conexe '
-      statistics: Statistici
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: Știri
-    view_all:
+    view_all: 
   attachment:
     accessibility:
       full_help_html: 'Pentru a solicita acest document într-un format alternativ
@@ -296,78 +58,297 @@ ro:
       order_a_copy_full: 'Comandă o copie a publicației '
       published: 'Data publicării '
       reference: 'Referință '
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
+    see_more: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: Formular de contact
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: Organigramă
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
+        petitions_and_campaigns: 
+        procurement: 
+        publication_scheme: 
+        recruitment: 
+        research: 
         social_media_use: 'Utilizarea rețelelor sociale online '
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
+        welsh_language_scheme: 
   date:
     formats:
-      default:
-      long_ordinal:
+      default: 
+      long_ordinal: 
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: Se adresează
+      attachments:
+        few: 
+        one: Document
+        other: Documente
+      from: 
+      location: 
+      part_of: 
+    published: Data publicării
+    read: 'Citește articolul %{title} '
+    see_all: 
+    speech:
+      author_title:
+        minister: 'Ministru '
+        speaker: 'Autor '
+      delivered_on: Data prezentării
+      delivery_title:
+        minister: Ministru
+        speaker: Vorbitor
+      written_on: 'Publicat pe: '
+    type:
+      announcement:
+        few: 
+        one: Știre
+        other: Știri
+      authored_article:
+        few: 
+        one: 'Articol '
+        other: 'Articol '
+      blog_post:
+        few: 
+        one: 
+        other: 
+      case_study:
+        few: 
+        one: Studiu de caz
+        other: Studii de caz
+      closed_consultation:
+        few: 
+        one: Dezbatere
+        other: Dezbateri
+      consultation:
+        few: 
+        one: Dezbatere
+        other: Dezbateri
+      consultation_outcome:
+        few: 
+        one: Concluzia dezbaterii
+        other: Concluziile dezbaterii
+      corporate_report:
+        few: 
+        one: Raport
+        other: Rapoarte
+      correspondence:
+        few: 
+        one: Similaritate
+        other: Similarităţi
+      decision:
+        few: 
+        one: 
+        other: 
+      detailed_guidance:
+        few: 
+        one: Mai multe detalii
+        other: Mai multe detalii
+      document_collection:
+        few: 
+        one: Seria
+        other: 
+      draft_text:
+        few: 
+        one: Versiune preliminară
+        other: Versiuni preliminare
+      foi_release:
+        few: 
+        one: 'Acces la informații publice '
+        other: 'Acces la informații publice '
+      form:
+        few: 
+        one: Formular
+        other: Formulare
+      government_response:
+        few: 
+        one: 'Document de poziție '
+        other: 'Documente de poziție '
+      guidance:
+        few: 
+        one: Mai multe detalii
+        other: Mai multe detalii
+      impact_assessment:
+        few: 
+        one: 'Evaluarea impactului '
+        other: 'Evaluarea impactului '
+      imported:
+        few: 
+        one: 
+        other: 
+      independent_report:
+        few: 
+        one: Raport independent
+        other: Rapoarte independente
+      international_treaty:
+        few: 
+        one: 
+        other: 
+      manual:
+        few: 
+        one: 
+        other: 
+      map:
+        few: 
+        one: Hartă
+        other: Hărţi
+      national_statistics:
+        few: 
+        one: Statistici - statistici naționale
+        other: Statistici - statistici naționale
+      news_article:
+        few: 
+        one: Știre
+        other: Știri
+      news_story:
+        few: 
+        one: Știre
+        other: Știri
+      nhs_content:
+        few: 
+        one: 
+        other: 
+      notice:
+        few: 
+        one: 
+        other: 
+      official_statistics:
+        few: 
+        one: Statistici
+        other: Statistici
+      open_consultation:
+        few: 
+        one: Dezbatere
+        other: Dezbateri
+      oral_statement:
+        few: 
+        one: 'Declarație verbală în fața Parlamentului '
+        other: 'Declarații verbale în fața Parlamentului '
+      policy_paper:
+        few: 
+        one: 
+        other: 
+      press_release:
+        few: 
+        one: Știre
+        other: Știri
+      promotional:
+        few: 
+        one: Material promoțional
+        other: Materiale promoționale
+      publication:
+        few: 
+        one: Publicație
+        other: Publicații
+      regulation:
+        few: 
+        one: 
+        other: 
+      research:
+        few: 
+        one: Analiză și cercetare
+        other: Analiză și cercetare
+      speaking_notes:
+        few: 
+        one: 'Note '
+        other: 'Note '
+      speech:
+        few: 
+        one: Discurs
+        other: Discursuri
+      standard:
+        few: 
+        one: 
+        other: 
+      statement_to_parliament:
+        few: 
+        one: Declarație în Parlament
+        other: Declarații în Parlament
+      statistical_data_set:
+        few: 
+        one: Date statistice
+        other: Date statistice
+      statutory_guidance:
+        few: 
+        one: 
+        other: 
+      transcript:
+        few: 
+        one: Transcriere
+        other: Transcrieri
+      transparency:
+        few: 
+        one: 
+        other: 
+      world_news_story:
+        few: 
+        one: 
+        other: 
+      written_statement:
+        few: 
+        one: 'Declarație scrisă către Parlament '
+        other: 'Declarații scrise către Parlament '
+    updated: Actualizat
+    view: Vizualizare '%{title}'
   document_filters:
     description: Personalizează căutarea
     no_results:
       description: Lărgește aria de căutare şi încearcă din nou
       title: Nu există informații despre acest subiect
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Toate locațiile
       label: Locații
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: Activiţăti recente
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: true
@@ -377,11 +358,11 @@ ro:
     no_updates: Nu sunt actualizări
     title: Cele mai recente
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
-        format:
+        format: 
   organisation:
     about:
       read_more: 'Mai multe despre activitatea noastră '
@@ -390,22 +371,22 @@ ro:
       foi_how_to: 'Cum  se face o cerere pentru accesul la informațiile cu caracter
         public '
       foi_releases: 'Informații cu caracter public '
-      jobs:
+      jobs: 
       jobs_and_contacts: 'Oportunități de angajare '
-      organisation_chart:
-      transparency:
-    foi_exemption_html:
+      organisation_chart: 
+      transparency: 
+    foi_exemption_html: 
     headings:
-      chief_professional_officers:
+      chief_professional_officers: 
       contact: Contactează-ne  %{name}
       corporate_information: Informaţii despre ambasadă
       corporate_reports: 'Rapoarte de management '
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: 'Știri '
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: 'Echipa ambasadei '
       our_ministers: 'Miniștrii '
       our_policies: 'Obiective strategice '
@@ -417,14 +398,14 @@ ro:
       special_representatives: 'Reprezentanți speciali '
       traffic_commissioners: 'Monitorizarea traficului '
       what_we_do: Activitatea noastră
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: Obiectiv strategic
-    view_all:
+    view_all: 
   publications:
     heading: Obiective strategic
     headings:
@@ -439,9 +420,9 @@ ro:
     consultation_outcome: Toate concluziile dezbaterii
     corporate_report: Toate rapoarte
     correspondence: Toate similarităţi
-    decision:
+    decision: 
     detailed_guidance: Toate mai multe detalii
-    document_collection:
+    document_collection: 
     draft_text: Toate versiuni preliminare
     fatality_notice: Toate anunțuri privind decese
     foi_release: 'Toate acces la informații publice '
@@ -449,42 +430,62 @@ ro:
     government_response: 'Toate documente de poziție '
     guidance: Toate mai multe detalii
     impact_assessment: 'Toate evaluarea impactului '
-    imported:
-    international_treaty:
+    imported: 
+    international_treaty: 
     map: Toate hărţi
     national_statistics: Toate statistici - statistici naționale
     news_article: Toate Știri
     news_story: Toate Știri
-    notice:
+    notice: 
     open_consultation: Toate dezbateri
     oral_statement: 'Toate declarații verbale în fața parlamentului '
     policy: Toate obiective strategic
-    policy_paper:
+    policy_paper: 
     press_release: Toate Știri
     promotional: Toate materiale promoționale
     publication: Toate publicații
-    regulation:
+    regulation: 
     research: Toate analiză și cercetare
     speaking_notes: 'Toate note '
     speech: Toate discursuri
     statement_to_parliament: Toate declarații în parlament
     statistical_data_set: Toate date statistice
     statistics: Toate statistici
-    statutory_guidance:
+    statutory_guidance: 
     transcript: Toate transcrieri
-    transparency:
+    transparency: 
     written_statement: 'Toate declarații scrise către parlament '
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: și
   time:
     formats:
-      long_ordinal:
+      long_ordinal: 
+  world_location:
+    headings:
+      announcements: Știri
+      country: Țară
+      documents: Documente
+      mission: Obiectiv
+      organisations: Organizații
+      publications: Documente
+      quick_links: 'Link-uri rapide '
+      related_policies: 'Priorități conexe '
+      statistics: Statistici
+    type:
+      international_delegation:
+        few: 
+        one: Delegaţie internaţională
+        other: Delegaţii internaţionale
+      world_location:
+        few: 
+        one: Localizare
+        other: Localizare
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: Mai multe despre cum folosim informațiile
         cu caracter personal pe %{link}
       publication_scheme_html: Citește mai multe despre informațiile pe care le publigăm
@@ -496,7 +497,7 @@ ro:
     headings:
       about_us: Despre noi
       contact_us: Contactează-ne
-      contents:
+      contents: 
       corporate_information: Informaţii despre ambasadă
       follow_us: Ne găsești și pe
       our_people: Echipa noastră

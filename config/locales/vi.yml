@@ -1,46 +1,47 @@
+---
 vi:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: Thông báo
-    view_all:
+    view_all: 
   attachment:
     accessibility:
       full_help_html: |-
@@ -53,73 +54,73 @@ vi:
       order_a_copy_full: Đặt một bản sao của ấn phẩm truyền thông
       published: Đã đăng
       reference: đối với
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
+    see_more: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: Mẫu liên hệ
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: Bảng thông tin cá nhân
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: Cơ chế Xuất bản
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: Sử dụng mạng xã hội
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: cơ chế ngôn ngữ của xứ Wales
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%d %B %Y"
   document:
-    contents:
+    contents: 
     footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
     headings:
       applies_to_nations: Áp dụngng cho
       attachments:
         other: Tài liệu
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
     published: Đã xuất bản
     read: Đọc bài có  %{title}
-    see_all:
+    see_all: 
     speech:
       author_title:
         minister: Thứ trưởng
@@ -135,7 +136,7 @@ vi:
       authored_article:
         other: Các bài viết do tác giả
       blog_post:
-        other:
+        other: 
       case_study:
         other: Các Trường hợp cụ thể
       closed_consultation:
@@ -149,11 +150,11 @@ vi:
       correspondence:
         other: Liên hệ
       decision:
-        other:
+        other: 
       detailed_guidance:
         other: Hướng dẫn chi tiết
       document_collection:
-        other:
+        other: 
       draft_text:
         other: Các nội dung dự thảo
       foi_release:
@@ -171,9 +172,9 @@ vi:
       independent_report:
         other: Các báo cáo độc lập
       international_treaty:
-        other:
+        other: 
       manual:
-        other:
+        other: 
       map:
         other: Các bản đồ
       national_statistics:
@@ -183,9 +184,9 @@ vi:
       news_story:
         other: Câu chuyện tin tức
       nhs_content:
-        other:
+        other: 
       notice:
-        other:
+        other: 
       official_statistics:
         other: Thống kê
       open_consultation:
@@ -201,7 +202,7 @@ vi:
       publication:
         other: Tài liệu truyền thông
       regulation:
-        other:
+        other: 
       research:
         other: Nghiên cứu và phân tích
       speaking_notes:
@@ -209,19 +210,19 @@ vi:
       speech:
         other: Các bài phát biểu
       standard:
-        other:
+        other: 
       statement_to_parliament:
         other: Tuyên bố tới Quốc hội
       statistical_data_set:
         other: Bộ dữ liệu thống kê
       statutory_guidance:
-        other:
+        other: 
       transcript:
         other: Kịch bản
       transparency:
         other: Dữ liệu kịch bản
       world_news_story:
-        other:
+        other: 
       written_statement:
         other: Các Tuyên bố bằng văn bản tới quốc hội
     updated: Cập nhật
@@ -232,23 +233,23 @@ vi:
     no_results:
       description: thử làm cho tìm kiếm của bạn rộng hơn và thử lại
       title: Không có tài liệu phù hợp
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: Hoạt động mới nhất
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: true
@@ -258,7 +259,7 @@ vi:
     no_updates: Chưa có cập nhật
     title: Mới nhất
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -270,22 +271,22 @@ vi:
       access_our_info: Truy cập thông tin của chúng tôi
       foi_how_to: Cách tạo một yêu cầu FOI
       foi_releases: Tuyên bố FOI
-      jobs:
+      jobs: 
       jobs_and_contacts: Việc làm và hợp đồng
-      organisation_chart:
+      organisation_chart: 
       transparency: Minh bạch dữ liệu
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: Các cán bộ phụ trách chuyên môn của chúng tôi
       contact: Liên lạc %{name}
       corporate_information: Thông tin về phòng tổng hợp
       corporate_reports: Các báo cáo của phòng tổng hợp
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: Các thông báo của chúng tôi
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: Ban quản lý
       our_ministers: Các Thứ trưởng
       our_policies: Các chính sách của chúng tôi
@@ -297,14 +298,14 @@ vi:
       special_representatives: Đại diện đặc biệt
       traffic_commissioners: Các ủy viên giao thông
       what_we_do: Điều chúng tôi làm
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: Các chính sách
-    view_all:
+    view_all: 
   publications:
     heading: Tài liệu truyền thông
     headings:
@@ -319,9 +320,9 @@ vi:
     consultation_outcome: Xem tất cả các kết quả tham vấn của chúng tôi
     corporate_report: Xem tất cả các báo cáo tổng hợp của chúng tôi
     correspondence: Xem tất cả liên hệ của chúng tôi
-    decision:
+    decision: 
     detailed_guidance: Xem tất cả hướng dẫn chi tiết của chúng tôi
-    document_collection:
+    document_collection: 
     draft_text: Xem tất cả các nội dung dự thảo của chúng tôi
     fatality_notice: Xem tất cả tin buồn của chúng tôi
     foi_release: Xem tất cả thông cáo foi của chúng tôi
@@ -330,12 +331,12 @@ vi:
     guidance: Xem tất cả hướng dẫn của chúng tôi
     impact_assessment: Xem tất cả Đánh giá tác động của chúng tôi
     imported: Xem tất cả loại tài liệu đính kèm của chúng tôi
-    international_treaty:
+    international_treaty: 
     map: Xem tất cả các bản đồ của chúng tôi
     national_statistics: Xem tất cả thống kê - thống kê quốc gia của chúng tôi
     news_article: Xem tất cả tin tức của chúng tôi
     news_story: Xem tất cả câu chuyện tin tức của chúng tôi
-    notice:
+    notice: 
     open_consultation: Xem tất cả tham vấn mở rộng của chúng tôi
     oral_statement: Xem tất cả tuyên bố bằng lời nói tới quốc hội của chúng tôi
     policy: Xem tất cả các chính sách của chúng tôi
@@ -343,20 +344,20 @@ vi:
     press_release: Xem tất cả thông cáo báo chí của chúng tôi
     promotional: Xem tất cả tài liệu truyền thông của chúng tôi
     publication: Xem tất cả tài liệu truyền thông của chúng tôi
-    regulation:
+    regulation: 
     research: Xem tất cả nghiên cứu và phân tích của chúng tôi
     speaking_notes: Xem tất cả bài phát biểu của chúng tôi
     speech: Xem tất cả các bài phát biểu của chúng tôi
     statement_to_parliament: Xem tất cả tuyên bố tới quốc hội của chúng tôi
     statistical_data_set: Xem tất cả bộ dữ liệu thống kê của chúng tôi
     statistics: Xem tất cả thống kê của chúng tôi
-    statutory_guidance:
+    statutory_guidance: 
     transcript: Xem tất cả kịch bản của chúng tôi
     transparency: Xem tất cả dữ liệu kịch bản của chúng tôi
     written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng
       tôi
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: và
@@ -381,7 +382,7 @@ vi:
         other: Các địa điểm trên thế giới
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng
         tôi xử lý thông tin cá nhân của bạn"
       publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
@@ -393,7 +394,7 @@ vi:
     headings:
       about_us: Về chúng tôi
       contact_us: Liên hệ với chúng tôi
-      contents:
+      contents: 
       corporate_information: Thông tin tổng hợp
       follow_us: Kết nối với chúng tôi
       our_people: Nhân viên Bộ Ngoại giao Anh

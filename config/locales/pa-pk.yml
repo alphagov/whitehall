@@ -1,14 +1,139 @@
 ---
 pa-pk:
-  document:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: دار العوام پرچہ نمبر
+        isbn: ISBN
+        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      attachment_data:
+        file: فائل
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
+        hoc_paper_number: دار العوام پرچہ نمبر
+        isbn: نتھی شدہ ISBN
+        title: نتھی شدہ عنوان
+        unique_reference: نتھی شدہ وکھرا حوالہ
+        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: نتھی شدہ فائل
+      edition:
+        nation_inapplicabilities: خارج ہوئی قوماں
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: نتھی شدہ فائل
+      response/consultation_response_attachments/attachment:
+        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
+        hoc_paper_number: دار العوام پرچہ نمبر
+        isbn: نتھی شدہ ISBN
+        title: نتھی شدہ عنوان
+        unique_reference: نتھی شدہ وکھرا حوالہ
+        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: نتھی شدہ فائل
+    nested_attachment_data_field_names:
+      file: نتھی شدہ فائل
+    nested_attachment_field_names:
+      command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
+      hoc_paper_number: دار العوام پرچہ نمبر
+      isbn: نتھی شدہ ISBN
+      title: نتھی شدہ عنوان
+      unique_reference: نتھی شدہ وکھرا حوالہ
+      unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+  announcements:
+    heading: اعلان
+    view_all: سارے اعلان ویکھو
+  attachment:
+    accessibility:
+      full_help_html: |
+        اگر تسی مدد گار ٹیکنالوجی (مثلا سکرین ریڈر) استعمال کردے او تے ضرورت ہے اک
+        ایس دستاویز دا ورژن مزید آسان شکل وچ، مہربانی نال ایمیل کرو%{email}.۔
+        مہربانی نال سانوں دسو تہانوں کیہڑی شکل وچ ضرورت ہے۔ اے ساڈٰ مدد کرے گا اگر تسی دسو کہ تسی کیہڑی مدد گار ٹیکنالوجی استعمال کردے ہو۔
+      intro: اے فائل مدد گار ٹیکنالوجی استعمال کرن آلیاں واسطے شاید مناسب نہ ہووے۔
+      request_a_different_format: آسان شکل واسطے درخواست کرو۔
     headings:
+      order_a_copy: اک نقل منگواؤ۔
+      order_a_copy_full: اشاعت دی اک نقل منگواؤ۔
+      published: شائع ہو گیا
+      reference: Ref
+      unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
+      unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
+    opendocument:
+      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
+        اوپن ڈاکیومنٹ شکل وچ ہے۔
+    see_more: "%{document_type} بارے ہور معلومات ویکھو۔"
+  broken_links:
+    broken:
+      subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
+    caution:
+      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے
+        نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
+    title: خراب لنک
+  change_notes:
+    page_history: تاریخ
+    published_at: پہلی دفعہ شائع ہویا
+    see_all_updates: ساری اپڈیٹس ویکھو
+    updated_at: آخری اپڈیٹ
+  contact:
+    access_and_opening_times: رسائی تے کھلن دے اوقات
+    contact_form: رابطے دا فارم
+    email: ایمیل
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: ویلش وچ شائع ہو ریا
+      title:
+        about: ساڈے بارے
+        about_our_services: ساڈی خدمات بارے
+        access_and_opening: دفت دی رسائی تے کھلن دے اوقات
+        accessible_documents_policy: دستاویزات دی رسائی دی پالیسی
+        complaints_procedure: شکایت دا طریقہ کار
+        equality_and_diversity: برابری تے تنوع
+        media_enquiries: میڈیا دی پچھ دس
+        membership: ممبرشپ
+        our_energy_use: ساڈا توانائی دا استعمال
+        our_governance: ساڈی گورننس
+        personal_information_charter: ذاتی معلومات دا چارٹر
+        petitions_and_campaigns: درخواستاں تے مہماں
+        procurement: "%{organisation_name} تے پروکیورمنٹ"
+        publication_scheme: اشاےتی سکیم
+        recruitment: "%{organisation_name} واسطے کم کر رہے"
+        research: "%{organisation_name} تے تحقیق"
+        social_media_use: سوشل میڈیا دا استعمال
+        staff_update: اسٹاف دی خبراں تے معلومات
+        statistics: "%{organisation_name} تے شماریات"
+        terms_of_reference: حوالہ دی شرائط
+        welsh_language_scheme: ویلش زبان دی اسکیم
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: مندرجات
+    footer_meta:
+      full_page_history: پورے صفحہ دی تاریخ
+      page_history: تاریخ
+      published: شائع ہو گیا
+      updated: اپڈیٹ ہو گیا
+    headings:
+      applies_to_nations: تے لاگو ہوندا اے
       attachments:
         one: دستاویز
         other: دستاویزات
-      applies_to_nations: تے لاگو ہوندا اے
       from: دی طرفوں
       location: مقام
       part_of: دا حصہ
+    published: شائع ہو گیا
+    read: "%{title} مضمون پڑھو"
+    see_all: سارے ویکھو
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: لکھاری
+      delivered_on: 'نوں فراہم ہویا:'
+      delivery_title:
+        minister: وزیر
+        speaker: سپیکر
+      written_on: 'نوں لکھیا گیا:'
     type:
       announcement:
         one: اعلان
@@ -128,8 +253,8 @@ pa-pk:
         one: تقریر
         other: تقریراں
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: پارلیمنٹ نوں بیان
         other: پارلیمنٹ نوں بیانات
@@ -151,151 +276,8 @@ pa-pk:
       written_statement:
         one: پارلیمنٹ نوں لکھیا ہویا بیان
         other: پارلیمنٹ نوں لکھے ہوئے بیان
-    contents: مندرجات
-    footer_meta:
-      full_page_history: پورے صفحہ دی تاریخ
-      page_history: تاریخ
-      published: شائع ہو گیا
-      updated: اپڈیٹ ہو گیا
-    published: شائع ہو گیا
-    read: "%{title} مضمون پڑھو"
-    see_all: سارے ویکھو
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: لکھاری
-      delivered_on: 'نوں فراہم ہویا:'
-      delivery_title:
-        minister: وزیر
-        speaker: سپیکر
-      written_on: 'نوں لکھیا گیا:'
     updated: اپڈیٹ ہویا
     view: ویکھو '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: عالمی وفد
-        other: عالمی وفود
-      world_location:
-        one: دنیا دا مقام
-        other: دنیا دے مقام
-    headings:
-      announcements: ساڈے اعلانات
-      country: ملک
-      documents: دستاویزات
-      mission: ساڈا مشن
-      organisations: تنظیمیں
-      publications: ساڈی اشاعتاں
-      quick_links: کوئیک لنکس
-      related_policies: متعلقہ پالیسیاں
-      statistics: ساڈی شماریات
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: ISBN
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-      attachment_data:
-        file: فائل
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: نتھی شدہ ISBN
-        title: نتھی شدہ عنوان
-        unique_reference: نتھی شدہ وکھرا حوالہ
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
-      edition:
-        nation_inapplicabilities: خارج ہوئی قوماں
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
-      response/consultation_response_attachments/attachment:
-        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: نتھی شدہ ISBN
-        title: نتھی شدہ عنوان
-        unique_reference: نتھی شدہ وکھرا حوالہ
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
-    nested_attachment_data_field_names:
-      file: نتھی شدہ فائل
-    nested_attachment_field_names:
-      command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-      hoc_paper_number: دار العوام پرچہ نمبر
-      isbn: نتھی شدہ ISBN
-      title: نتھی شدہ عنوان
-      unique_reference: نتھی شدہ وکھرا حوالہ
-      unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-  announcements:
-    heading: اعلان
-    view_all: سارے اعلان ویکھو
-  attachment:
-    accessibility:
-      full_help_html: |
-        اگر تسی مدد گار ٹیکنالوجی (مثلا سکرین ریڈر) استعمال کردے او تے ضرورت ہے اک
-        ایس دستاویز دا ورژن مزید آسان شکل وچ، مہربانی نال ایمیل کرو%{email}.۔
-        مہربانی نال سانوں دسو تہانوں کیہڑی شکل وچ ضرورت ہے۔ اے ساڈٰ مدد کرے گا اگر تسی دسو کہ تسی کیہڑی مدد گار ٹیکنالوجی استعمال کردے ہو۔
-      intro: اے فائل مدد گار ٹیکنالوجی استعمال کرن آلیاں واسطے شاید مناسب نہ ہووے۔
-      request_a_different_format: آسان شکل واسطے درخواست کرو۔
-    headings:
-      order_a_copy: اک نقل منگواؤ۔
-      order_a_copy_full: اشاعت دی اک نقل منگواؤ۔
-      published: شائع ہو گیا
-      reference: Ref
-      unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
-      unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
-    opendocument:
-      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
-        اوپن ڈاکیومنٹ شکل وچ ہے۔
-    see_more: "%{document_type} بارے ہور معلومات ویکھو۔"
-  broken_links:
-    broken:
-      subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
-    caution:
-      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے
-        نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
-    title: خراب لنک
-  change_notes:
-    page_history: تاریخ
-    published_at: پہلی دفعہ شائع ہویا
-    see_all_updates: ساری اپڈیٹس ویکھو
-    updated_at: آخری اپڈیٹ
-  contact:
-    access_and_opening_times: رسائی تے کھلن دے اوقات
-    contact_form: رابطے دا فارم
-    email: ایمیل
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: ویلش وچ شائع ہو ریا
-      title:
-        about: ساڈے بارے
-        about_our_services: ساڈی خدمات بارے
-        access_and_opening: دفت دی رسائی تے کھلن دے اوقات
-        accessible_documents_policy: دستاویزات دی رسائی دی پالیسی
-        complaints_procedure: شکایت دا طریقہ کار
-        equality_and_diversity: برابری تے تنوع
-        media_enquiries: میڈیا دی پچھ دس
-        membership: ممبرشپ
-        our_energy_use: ساڈا توانائی دا استعمال
-        our_governance: ساڈی گورننس
-        personal_information_charter: ذاتی معلومات دا چارٹر
-        petitions_and_campaigns: درخواستاں تے مہماں
-        procurement: "%{organisation_name} تے پروکیورمنٹ"
-        publication_scheme: اشاےتی سکیم
-        recruitment: "%{organisation_name} واسطے کم کر رہے"
-        research: "%{organisation_name} تے تحقیق"
-        social_media_use: سوشل میڈیا دا استعمال
-        staff_update: اسٹاف دی خبراں تے معلومات
-        statistics: "%{organisation_name} تے شماریات"
-        terms_of_reference: حوالہ دی شرائط
-        welsh_language_scheme: ویلش زبان دی اسکیم
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
       ہو
@@ -311,8 +293,8 @@ pa-pk:
       label: دنیا دے مقام
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
     email: ایمیل
     feed: فیڈ
@@ -325,8 +307,8 @@ pa-pk:
     direction: rtl
     latin_script?: false
   language_names:
-    pa-pk: پن٘جابی
     fr: فرانسیسی
+    pa-pk: پن٘جابی
   latest_feed:
     no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
     title: تازہ ترین
@@ -439,6 +421,24 @@ pa-pk:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
+  world_location:
+    headings:
+      announcements: ساڈے اعلانات
+      country: ملک
+      documents: دستاویزات
+      mission: ساڈا مشن
+      organisations: تنظیمیں
+      publications: ساڈی اشاعتاں
+      quick_links: کوئیک لنکس
+      related_policies: متعلقہ پالیسیاں
+      statistics: ساڈی شماریات
+    type:
+      international_delegation:
+        one: عالمی وفد
+        other: عالمی وفود
+      world_location:
+        one: دنیا دا مقام
+        other: دنیا دے مقام
   worldwide_organisation:
     corporate_information:
       about_our_services_html: ڈھونڈو %{link}۔

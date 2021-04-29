@@ -1,13 +1,136 @@
+---
 hu:
-  document:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
+      attachment_data:
+        file: 
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: 
+      edition:
+        nation_inapplicabilities: 
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: 
+      response/consultation_response_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: 
+    nested_attachment_data_field_names:
+      file: 
+    nested_attachment_field_names:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
+  announcements:
+    heading: Közlemények
+    view_all: 
+  attachment:
+    accessibility:
+      full_help_html: 'Ha ezt a dokumentumot más formátumban szeretné igényelni (braille,
+        audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg címét, telefonszámát
+        és az igényelt dokumentum címét: ("%{title}")%{references}.'
+      intro: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások számára.
+      request_a_different_format: Más formátum igénylése.
     headings:
+      order_a_copy: Másolat kérése
+      order_a_copy_full: A publikáció másolatának megrendelése
+      published: Közzététel időpontja
+      reference: Ref
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 
+  broken_links:
+    broken:
+      subheading: 
+    caution:
+      subheading: 
+    title: 
+  change_notes:
+    page_history: 
+    published_at: 
+    see_all_updates: 
+    updated_at: 
+  contact:
+    access_and_opening_times: 
+    contact_form: Kapcsolati űrlap
+    email: E-mail
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 
+      title:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
+        personal_information_charter: Személyes információk kezelése
+        petitions_and_campaigns: 
+        procurement: 
+        publication_scheme: Az információk publikálására vonatkozó eljárási rend
+        recruitment: 
+        research: 
+        social_media_use: Social media
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
+        welsh_language_scheme: Welsh language scheme
+  date:
+    formats:
+      default: "%Y %B %d"
+      long_ordinal: "%Y %B %e"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: 'A következő nemzetekre vonatkozik:'
       attachments:
         one: Dokumentum
         other: Dokumentumok
-      applies_to_nations: 'A következő nemzetekre vonatkozik:'
-      from:
-      location:
-      part_of:
+      from: 
+      location: 
+      part_of: 
+    published: közzététel dátuma
+    read: 'Olvassa el a következő cikket: %{title}'
+    see_all: 
+    speech:
+      author_title:
+        minister: Miniszter
+        speaker: Szerző
+      delivered_on: 'Elhangzott:'
+      delivery_title:
+        minister: Miniszter
+        speaker: Beszélő
+      written_on: 'A beszéd megírásának időpontja:'
     type:
       announcement:
         one: Bejelentés
@@ -16,8 +139,8 @@ hu:
         one: Publicisztika
         other: Publicisztikák
       blog_post:
-        one:
-        other:
+        one: 
+        other: 
       case_study:
         one: Esettanulmány
         other: Esettanulmányok
@@ -37,14 +160,14 @@ hu:
         one: Levelezés
         other: Levelezések
       decision:
-        one:
-        other:
+        one: 
+        other: 
       detailed_guidance:
         one: Részletes útmutató
         other: Részletes útmutató
       document_collection:
         one: Sorozatok
-        other:
+        other: 
       draft_text:
         one: Szövegtervezet
         other: Szövegtervezetek
@@ -70,11 +193,11 @@ hu:
         one: Független beszámoló
         other: Független beszámolók
       international_treaty:
-        one:
-        other:
+        one: 
+        other: 
       manual:
-        one:
-        other:
+        one: 
+        other: 
       map:
         one: Térkép
         other: Térképek
@@ -88,11 +211,11 @@ hu:
         one: Hír
         other: Hírek
       nhs_content:
-        one:
-        other:
+        one: 
+        other: 
       notice:
-        one:
-        other:
+        one: 
+        other: 
       official_statistics:
         one: Statisztika
         other: Statisztikák
@@ -115,8 +238,8 @@ hu:
         one: Kiadvány
         other: Kiadványok
       regulation:
-        one:
-        other:
+        one: 
+        other: 
       research:
         one: Kutatás és elemzés
         other: Kutatás és elemzés
@@ -127,8 +250,8 @@ hu:
         one: Beszéd
         other: Beszédek
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: Parlamenti nyilatkozat
         other: Parlamenti nyilatkozatok
@@ -136,8 +259,8 @@ hu:
         one: Statisztikai adatcsoport
         other: Statisztikai adatcsoportok
       statutory_guidance:
-        one:
-        other:
+        one: 
+        other: 
       transcript:
         one: Átirat
         other: Átiratok
@@ -145,177 +268,36 @@ hu:
         one: Átláthatósági adatok
         other: Átláthatósági adatok
       world_news_story:
-        one:
-        other:
+        one: 
+        other: 
       written_statement:
         one: Írásbeli parlamenti nyilatkozat
         other: Írásbeli parlamenti nyilatkozatok
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: közzététel dátuma
-    read: 'Olvassa el a következő cikket: %{title}'
-    see_all:
-    speech:
-      author_title:
-        minister: Miniszter
-        speaker: Szerző
-      delivered_on: 'Elhangzott:'
-      delivery_title:
-        minister: Miniszter
-        speaker: Beszélő
-      written_on: 'A beszéd megírásának időpontja:'
     updated: 'Utolsó frissítés:'
     view: Tekintse meg a következő dokumentumot '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: Nemzetközi delegáció
-        other: Nemzetközi delegációk
-      world_location:
-        one: Ország
-        other: Országok
-    headings:
-      announcements: Híreink
-      country: Ország
-      documents: Dokumentumok
-      mission: Küldetésünk
-      organisations: Szervezetek
-      publications: Kiadványaink
-      quick_links: Gyorslinkek
-      related_policies: Kapcsolódó szakpolitikák
-      statistics: Statisztikák
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Közlemények
-    view_all:
-  attachment:
-    accessibility:
-      full_help_html: 'Ha ezt a dokumentumot más formátumban szeretné igényelni (braille,
-        audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg címét, telefonszámát
-        és az igényelt dokumentum címét: ("%{title}")%{references}.'
-      intro: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások
-        számára.
-      request_a_different_format: Más formátum igénylése.
-    headings:
-      order_a_copy: Másolat kérése
-      order_a_copy_full: A publikáció másolatának megrendelése
-      published: Közzététel időpontja
-      reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    see_more:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
-  contact:
-    access_and_opening_times:
-    contact_form: Kapcsolati űrlap
-    email: E-mail
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Személyes információk kezelése
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Az információk publikálására vonatkozó eljárási rend
-        recruitment:
-        research:
-        social_media_use: Social media
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Welsh language scheme
-  date:
-    formats:
-      default: "%Y %B %d"
-      long_ordinal: "%Y %B %e"
   document_filters:
     description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények
       keresésében
     no_results:
       description: Próbálja meg kibővíteni a keresési feltételeket!
       title: Nincs a keresésnek megfelelő dokumentum.
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Minden ország
       label: Országok
   email_signups:
     new:
-      description:
-      title:
+      description: 
+      title: 
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_email_alerts: 
+    get_updates_to_this_list: 
     latest_activity: Legfrissebb aktivitás
-    subscribe_to_feed:
-    view_feed:
+    subscribe_to_feed: 
+    view_feed: 
   i18n:
     direction: ltr
     latin_script?: true
@@ -325,7 +307,7 @@ hu:
     no_updates: Még nincs frissebb változat.
     title: Legfrissebb
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
@@ -337,22 +319,22 @@ hu:
       access_our_info: Hozzáférés információinkhoz
       foi_how_to: Az információigénylés menete
       foi_releases: Információhoz való joggal kapcsolatos közlemények
-      jobs:
+      jobs: 
       jobs_and_contacts: Állások
-      organisation_chart:
+      organisation_chart: 
       transparency: Átláthatósági adatok
-    foi_exemption_html:
+    foi_exemption_html: 
     headings:
       chief_professional_officers: Szakmai vezetőink
       contact: 'Kapcsolat felvétele: %{name}'
       corporate_information: Szervezeti információk
       corporate_reports: Testületi beszámolók
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
+      documents: 
+      freedom_of_information_act: 
+      making_foi_requests: 
       our_announcements: Híreink
-      our_consultations:
-      our_judges:
+      our_consultations: 
+      our_judges: 
       our_management: Vezetőségünk
       our_ministers: Minisztereink
       our_policies: Szakpolitikáink
@@ -364,14 +346,14 @@ hu:
       special_representatives: Különleges képviselők
       traffic_commissioners: Forgalmi biztosok
       what_we_do: Feladatunk
-      who_we_are:
+      who_we_are: 
     making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
+      step1_html: 
+      step2_html: 
+      step3_html: 
   policies:
     heading: Szakpolitikák
-    view_all:
+    view_all: 
   publications:
     heading: Kiadványok
     headings:
@@ -386,9 +368,9 @@ hu:
     consultation_outcome: " konzultációs eredmények - mindegyik megtekintése"
     corporate_report: " testületi beszámolók - mindegyik megtekintése"
     correspondence: " levelezések - mindegyik megtekintése"
-    decision:
+    decision: 
     detailed_guidance: " részletes útmutató - mindegyik megtekintése"
-    document_collection:
+    document_collection: 
     draft_text: " szövegtervezetek - mindegyik megtekintése"
     fatality_notice: " halálesettel kapcsolatos értesítések - mindegyik megtekintése"
     foi_release: " információhoz való joggal kapcsolatos közlemények - mindegyik megtekintése"
@@ -397,12 +379,12 @@ hu:
     guidance: " Útmutató - mindegyik megtekintése"
     impact_assessment: " hatásvizsgálatok - mindegyik megtekintése"
     imported: " importálva - mindegyik megtekintése"
-    international_treaty:
+    international_treaty: 
     map: " térképek - mindegyik megtekintése"
     national_statistics: " statisztikák - nemzeti adatok - mindegyik megtekintése"
     news_article: " cikkek - mindegyik megtekintése"
     news_story: " hírek - mindegyik megtekintése"
-    notice:
+    notice: 
     open_consultation: " nyílt konzultációk - mindegyik megtekintése"
     oral_statement: " parlamenti felszólalások - mindegyik megtekintése"
     policy: " szakpolitikák - mindegyik megtekintése"
@@ -410,28 +392,46 @@ hu:
     press_release: " sajtóközlemények - mindegyik megtekintése"
     promotional: " promóciós anyagok - mindegyik megtekintése"
     publication: " kiadványok - mindegyik megtekintése"
-    regulation:
+    regulation: 
     research: " kutatás és elemzés - mindegyik megtekintése"
     speaking_notes: " feljegyzések - mindegyik megtekintése"
     speech: " beszédek - mindegyik megtekintése"
     statement_to_parliament: " parlamenti nyilatkozatok - mindegyik megtekintése"
     statistical_data_set: " statisztikai adatcsoportok - mindegyik megtekintése"
     statistics: " statisztikák - mindegyik megtekintése"
-    statutory_guidance:
+    statutory_guidance: 
     transcript: " Átiratok - mindegyik megtekintése"
     transparency: " Átláthatósági adatok - mindegyik megtekintése"
     written_statement: " Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése"
   social_media:
-    follow_us:
+    follow_us: 
   support:
     array:
       last_word_connector: és
   time:
     formats:
       long_ordinal: "%Y %B %e %H:%M"
+  world_location:
+    headings:
+      announcements: Híreink
+      country: Ország
+      documents: Dokumentumok
+      mission: Küldetésünk
+      organisations: Szervezetek
+      publications: Kiadványaink
+      quick_links: Gyorslinkek
+      related_policies: Kapcsolódó szakpolitikák
+      statistics: Statisztikák
+    type:
+      international_delegation:
+        one: Nemzetközi delegáció
+        other: Nemzetközi delegációk
+      world_location:
+        one: Ország
+        other: Országok
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: 'A következő oldalon olvashat róla, hogy
         hogyan kezeljük a személyes adatokat: %{link}'
       publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk
@@ -443,7 +443,7 @@ hu:
     headings:
       about_us: Rólunk
       contact_us: Kapcsolat
-      contents:
+      contents: 
       corporate_information: Szervezeti adatok
       follow_us: Kövessen bennünket
       our_people: Munkatársaink
