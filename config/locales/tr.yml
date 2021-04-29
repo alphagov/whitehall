@@ -315,13 +315,8 @@ tr:
       jobs_and_contacts: İş ve sözleşmeler
       organisation_chart: 
       transparency: Veri saydamlığı
-    foi_exemption_html: 
     headings:
       contact: İletişim %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politikalar
     view_all: 

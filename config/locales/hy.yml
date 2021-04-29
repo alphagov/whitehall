@@ -318,13 +318,8 @@ hy:
       jobs_and_contacts: Աշխատանք և պայմանագրեր
       organisation_chart: 
       transparency: Թափանցիկ տեղեկատվությ
-    foi_exemption_html: 
     headings:
       contact: Տվյալ %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Քաղաքականություն
     view_all: 

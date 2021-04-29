@@ -317,13 +317,8 @@ el:
       jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
       organisation_chart: 
       transparency: Στοιχεία διαφάνειας
-    foi_exemption_html: 
     headings:
       contact: Επικοινωνήστε%{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Πολιτικές
     view_all: 

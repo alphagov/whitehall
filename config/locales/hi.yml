@@ -318,13 +318,8 @@ hi:
       jobs_and_contacts: नौकरी एवं अनुबंध
       organisation_chart: 
       transparency: पारदर्शिता आंकड़े
-    foi_exemption_html: 
     headings:
       contact: संपर्क %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: नीतियां
     view_all: 

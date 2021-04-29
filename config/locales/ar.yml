@@ -505,13 +505,8 @@ ar:
       jobs_and_contacts: الوظائف والعقود
       organisation_chart: 
       transparency: بيانات تتعلق بالشفافية
-    foi_exemption_html: 
     headings:
       contact: اتصل بـ%{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: سياسات
     view_all: 

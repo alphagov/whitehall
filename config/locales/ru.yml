@@ -410,13 +410,8 @@ ru:
       jobs_and_contacts: Рабочие места и контракты
       organisation_chart: 
       transparency: Данные о прозрачности
-    foi_exemption_html: 
     headings:
       contact: Обратиться к %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Политика
     view_all: 

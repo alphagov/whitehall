@@ -323,17 +323,8 @@ pa:
       jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਠੇਕੇ
       organisation_chart: ਸਾਡੇ ਸੰਗਠਨ ਦਾ ਚਾਰਟ
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
-    foi_exemption_html: |
-      ਇਹ ਸੰਗਠਨ ਜਾਣਕਾਰੀ ਦੀ ਸੁਤੰਤਰਤਾ ਕਾਨੂੰਨ ਦੇ ਅਧੀਨ ਨਹੀਂ ਆਉਂਦਾ।
-      ਇਹ ਦੇਖਣ ਲਈ ਕਿ ਕਿਹੜੇ ਸੰਗਠਨ ਸ਼ਾਮਲ ਹਨ, <a href="%{foi_url}">ਕਾਨੂੰਨ</a> ਦੇਖੋ।
     headings:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
-    making_foi_requests:
-      step1_html: ਜਾਣਕਾਰੀ ਦੀ ਸੁਤੰਤਰਤਾ (FOI) ਕਾਨੂੰਨ ਅਤੇ <a href="%{how_to_path}">ਬੇਨਤੀ
-        ਕਰਨ ਦੇ ਤਰੀਕੇ</a> ਬਾਰੇ ਪੜ੍ਹੋ
-      step2_html: ਇਹ ਦੇਖਣ ਲਈ ਕਿ ਕੀ ਅਸੀਂ ਤੁਹਾਡੇ ਪ੍ਰਸ਼ਨ ਦਾ ਪਹਿਲਾਂ ਹੀ ਜਵਾਬ ਦੇ ਚੁੱਕੇ ਹਾਂ
-        <a href="%{our_releases_path}">ਸਾਡੀਆਂ ਪਿਛਲੀਆਂ ਰੀਲੀਜ਼ਾਂ</a> ਨੂੰ ਦੇਖੋ
-      step3_html: 'ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰਕੇ ਨਵੀਂ ਬੇਨਤੀ ਕਰੋ:'
   policies:
     heading: ਨੀਤੀਆਂ
     view_all: ਸਾਰੀਆਂ ਨੀਤੀਆਂ ਦੇਖੋ

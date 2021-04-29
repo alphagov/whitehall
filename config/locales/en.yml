@@ -459,17 +459,8 @@ en:
       jobs_and_contacts: Jobs and contracts
       organisation_chart: Our organisation chart
       transparency: Transparency data
-    foi_exemption_html: |
-      This organisation is not covered by the Freedom of Information Act.
-      To see which organisations are included, see <a href="%{foi_url}">the legislation</a>.
     headings:
       contact: Contact %{name}
-    making_foi_requests:
-      step1_html: Read about the Freedom of Information (FOI) Act and <a href="%{how_to_path}">how
-        to make a request</a>
-      step2_html: Check <a href="%{our_releases_path}">our previous releases</a> to
-        see if we’ve already answered your question
-      step3_html: 'Make a new request by contacting us at:'
   policies:
     heading: Policies
     view_all: View all policies

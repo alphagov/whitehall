@@ -316,13 +316,8 @@ si:
       jobs_and_contacts: රැකියා සහ කොන්තරාත්තු
       organisation_chart: 
       transparency: විනිවිධභාවයේ දත්ත
-    foi_exemption_html: 
     headings:
       contact: විස්තර %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: ප්‍රතිපත්ති
     view_all: 

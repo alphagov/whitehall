@@ -270,13 +270,8 @@ id:
       jobs_and_contacts: Pekerjaan dan kontrak
       organisation_chart: 
       transparency: Transparansi data
-    foi_exemption_html: 
     headings:
       contact: Hubungi %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Kebijakan-kebijakan
     view_all: 

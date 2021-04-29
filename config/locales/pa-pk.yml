@@ -323,17 +323,8 @@ pa-pk:
       jobs_and_contacts: نوکریاں تے معاہدے
       organisation_chart: ساڈہ تنظیمی چارٹ
       transparency: شفافیت دا مواد
-    foi_exemption_html: |
-      اس تنظیم تے معلومات دی رسائی دا قانون لاگو نہیں ہوندا۔
-      کیہڑیا تنظیماں شامل نیں، ویکھو a href="%{foi_url}">قانون سازی</a>۔
     headings:
       contact: "%{name} نال رابطہ کرو"
-    making_foi_requests:
-      step1_html: 'معلومات دی آزادی دے (FOI) قانون بارے تے <a href="%{how_to_path}">درخواست
-        دین دا طریقہ</a>  بارے پڑھو '
-      step2_html: ویکھو <a href="%{our_releases_path}">ساڈی پرانی ریلیز</a> کہ اسی
-        پہلے ہی تہاڈے سوال دا جواب دے نہ دتا ہووے۔
-      step3_html: 'تے ساڈے نال رابطہ کر کے نویں درخواست دیو:'
   policies:
     heading: پالیسیاں
     view_all: ساری پالیسیاں ویکھو

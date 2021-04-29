@@ -364,13 +364,8 @@ lt:
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart: 
       transparency: Skaidrumo informacija
-    foi_exemption_html: 
     headings:
       contact: Susisiekite su %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Strategijos
     view_all: 

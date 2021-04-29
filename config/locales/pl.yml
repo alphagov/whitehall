@@ -413,13 +413,8 @@ pl:
       jobs_and_contacts: Stanowiska pracy i kontrakty
       organisation_chart: 
       transparency: Dane o transparentności
-    foi_exemption_html: 
     headings:
       contact: Skontaktuj się z %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Polityki
     view_all: 

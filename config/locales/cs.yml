@@ -365,13 +365,8 @@ cs:
       jobs_and_contacts: Pracovní příležitosti
       organisation_chart: 
       transparency: 'Data '
-    foi_exemption_html: 
     headings:
       contact: Kontakt %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politiky
     view_all: 

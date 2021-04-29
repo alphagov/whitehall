@@ -318,13 +318,8 @@ es-419:
       jobs_and_contacts: Empleos y contratos
       organisation_chart: 
       transparency: Datos de transparencia
-    foi_exemption_html: 
     headings:
       contact: Comuníquese con %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Políticas
     view_all: 

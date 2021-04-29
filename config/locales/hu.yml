@@ -317,13 +317,8 @@ hu:
       jobs_and_contacts: Állások
       organisation_chart: 
       transparency: Átláthatósági adatok
-    foi_exemption_html: 
     headings:
       contact: 'Kapcsolat felvétele: %{name}'
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Szakpolitikák
     view_all: 

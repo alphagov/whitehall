@@ -268,13 +268,8 @@ th:
       jobs_and_contacts: งานและการทำสัญญา
       organisation_chart: 
       transparency: ข้อมูลที่มีความโปร่งใส
-    foi_exemption_html: 
     headings:
       contact: สัญญา %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: นโยบาย
     view_all: 

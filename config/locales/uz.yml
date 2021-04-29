@@ -317,13 +317,8 @@ uz:
       jobs_and_contacts: Ish va shartnomalar
       organisation_chart: 
       transparency: Ochiqlikka oid ma'lumotlar
-    foi_exemption_html: 
     headings:
       contact: "%{name} bog'laning"
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Dasturlar
     view_all: 

@@ -270,13 +270,8 @@ vi:
       jobs_and_contacts: Việc làm và hợp đồng
       organisation_chart: 
       transparency: Minh bạch dữ liệu
-    foi_exemption_html: 
     headings:
       contact: Liên lạc %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Các chính sách
     view_all: 

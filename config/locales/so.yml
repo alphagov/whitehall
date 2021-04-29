@@ -319,13 +319,8 @@ so:
       jobs_and_contacts: Shaqaayin iyo qandaraasyo
       organisation_chart: 
       transparency: Xog daahfurnaan
-    foi_exemption_html: 
     headings:
       contact: La soo xiriir %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Siyaasado
     view_all: 

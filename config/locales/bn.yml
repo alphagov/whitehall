@@ -324,17 +324,8 @@ bn:
       jobs_and_contacts: চাকরি ও চুক্তিসমূহ
       organisation_chart: আমাদের সংস্থার তালিকা
       transparency: স্বচ্ছতামূলক ডেটা
-    foi_exemption_html: |
-      এই সংস্থাটি তথ্য স্বাধীনতা আইনের অধীনস্থ নয়।
-      কোন সংস্থাসমূহ অন্তর্ভুক্ত সেটি দেখার জন্য, <a href="%{foi_url}">the legislation</a> দেখুন।
     headings:
       contact: "%{name} যোগাযোগ করুন"
-    making_foi_requests:
-      step1_html: ' তথ্য স্বাধীনতা(এফওআই) আইন এবং <a href="%{how_to_path}">how to
-        make a request</a> সম্পর্কে পড়ুন'
-      step2_html: আমরা যদি ইতোমধ্যে আপনার প্রশ্নের উত্তর দিয়ে থাকি তবে তা দেখার জন্য
-        <a href="%{our_releases_path}">our previous releases</a> দেখুন
-      step3_html: 'এখানে আমাদের সঙ্গে যোগাযোগ করে একটি নতুন অনুরোধ প্রস্তুত করুন:'
   policies:
     heading: নীতিমালা
     view_all: সকল নীতিমালা দেখুন

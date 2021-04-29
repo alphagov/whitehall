@@ -322,19 +322,8 @@ et:
       jobs_and_contacts: Töötajad ja kontaktid
       organisation_chart: Meie organisatsioon
       transparency: Läbipaistvusteave
-    foi_exemption_html: 'See organisatsioon ei kuulu Teabevabaduse seaduse (FOI) alla.
-      Et vaadata, missugused organisatsioonid kuuluvad, vaadake: <a href="%{foi_url}">the
-      legislation</a>.
-
-'
     headings:
       contact: 'Võtke ühendust: %{name}'
-    making_foi_requests:
-      step1_html: Lugege lähemalt Teabevabaduse seadusest (FOI) ja <a href="%{how_to_path}">kuidas
-        esitada päringut</a>
-      step2_html: Vaadake <a href="%{our_releases_path}">meie eelnevaid teateid</a>
-        et näha, kas Teie küsimusele on juba vastatud
-      step3_html: 'Esitage uus päring, kontakteerudes meiega:'
   policies:
     heading: Poliitikad
     view_all: Vaadake kõiki poliitikaid

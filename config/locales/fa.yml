@@ -270,13 +270,8 @@ fa:
       jobs_and_contacts: مشاغل و قراردادها
       organisation_chart: 
       transparency: داده های شفاف سازی
-    foi_exemption_html: 
     headings:
       contact: تماس با %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: سیاست ها
     view_all: 

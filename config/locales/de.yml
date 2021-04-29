@@ -318,13 +318,8 @@ de:
       jobs_and_contacts: Stellenanzeigen
       organisation_chart: 
       transparency: Transparenzdaten
-    foi_exemption_html: 
     headings:
       contact: "%{name} kontaktieren"
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politik
     view_all: 

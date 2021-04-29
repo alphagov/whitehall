@@ -367,13 +367,8 @@ ro:
       jobs_and_contacts: 'Oportunități de angajare '
       organisation_chart: 
       transparency: 
-    foi_exemption_html: 
     headings:
       contact: Contactează-ne  %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Obiectiv strategic
     view_all: 

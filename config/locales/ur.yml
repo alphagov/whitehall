@@ -317,13 +317,8 @@ ur:
       jobs_and_contacts: ملازمتیں اورکنٹریکٹس
       organisation_chart: 
       transparency: ٹرانسپیرنسی ڈیٹا
-    foi_exemption_html: 
     headings:
       contact: رابطہ %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: پالیسیاں
     view_all: 

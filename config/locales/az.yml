@@ -267,13 +267,8 @@ az:
       jobs_and_contacts: 
       organisation_chart: 
       transparency: 
-    foi_exemption_html: 
     headings:
       contact: 
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Siyasət
     view_all: 

@@ -318,13 +318,8 @@ fr:
       jobs_and_contacts: Emploi et contrats
       organisation_chart: 
       transparency: Données de transparence
-    foi_exemption_html: 
     headings:
       contact: Contacter %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politiques
     view_all: 

@@ -316,13 +316,8 @@ lv:
       jobs_and_contacts: Darbs un līgumi
       organisation_chart: 
       transparency: Atklātība
-    foi_exemption_html: 
     headings:
       contact: Sazināties %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politika
     view_all: 

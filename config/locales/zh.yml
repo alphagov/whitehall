@@ -304,13 +304,8 @@ zh:
       jobs_and_contacts: 职位及联系方式
       organisation_chart: 
       transparency: 透明化数据
-    foi_exemption_html: 
     headings:
       contact: 联系%{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: 政策
     view_all: 

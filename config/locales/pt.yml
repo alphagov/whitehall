@@ -317,13 +317,8 @@ pt:
       jobs_and_contacts: Vagas e contratos
       organisation_chart: 
       transparency: Dados de Transparência
-    foi_exemption_html: 
     headings:
       contact: Contato %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Políticas
     view_all: 

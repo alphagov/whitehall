@@ -317,13 +317,8 @@ it:
       jobs_and_contacts: Posizioni lavorative e contratti
       organisation_chart: 
       transparency: Dati sulla trasparenza
-    foi_exemption_html: 
     headings:
       contact: Contatta %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politiche
     view_all: 

@@ -323,13 +323,8 @@ bg:
       jobs_and_contacts: Работни места и договори
       organisation_chart: 
       transparency: Данни за прозрачността
-    foi_exemption_html: 
     headings:
       contact: Свържете се с %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Политики
     view_all: 

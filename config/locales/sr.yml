@@ -412,13 +412,8 @@ sr:
       jobs_and_contacts: Poslovi i ugovori
       organisation_chart: 
       transparency: podaci o transparentnosti
-    foi_exemption_html: 
     headings:
       contact: Kontaktirajte %{name}
-    making_foi_requests:
-      step1_html: 
-      step2_html: 
-      step3_html: 
   policies:
     heading: Politike
     view_all: 
