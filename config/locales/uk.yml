@@ -415,7 +415,6 @@ uk:
     heading: Публікації
     headings:
       detail: Деталі
-  read_more: Читати далі
   see_all:
     announcement: Дивіться всі наші Оголошення
     authored_article: Дивіться всі наші Статті
@@ -460,8 +459,6 @@ uk:
     transcript: Дивіться всі наші Транскрипти
     transparency: Дивіться всі наші Прозорість інформації
     written_statement: Дивіться всі наші Письмові заяви у парламенті
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: та

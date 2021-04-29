@@ -369,7 +369,6 @@ cs:
     heading: Publikace
     headings:
       detail: Více
-  read_more: Více
   see_all:
     announcement: Podívejte se na
     authored_article: Podívejte se na
@@ -414,8 +413,6 @@ cs:
     transcript: Podívejte se na
     transparency: Podívejte se na
     written_statement: Podívejte se na
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: a

@@ -320,7 +320,6 @@ es:
     heading: Publicaciones
     headings:
       detail: Detalle
-  read_more: Leer más
   see_all:
     announcement: Ver toda nuestra anuncios
     authored_article: Ver toda nuestra artículos de autor
@@ -365,8 +364,6 @@ es:
     transcript: Ver toda nuestra transcripciones
     transparency: Ver toda nuestra datos sobre transparencia
     written_statement: Ver toda nuestra declaraciones escritas
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: y

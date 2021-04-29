@@ -272,7 +272,6 @@ ko:
     heading: 출판물
     headings:
       detail: 디테일
-  read_more: 더 자세한 정보 알아보기
   see_all:
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기
@@ -317,8 +316,6 @@ ko:
     transcript: 트랜스크립트 모두 둘러보기
     transparency: 투명성 데이타 모두 둘러보기
     written_statement: 의회로 서면 성명 모두 둘러보기
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: 그리고

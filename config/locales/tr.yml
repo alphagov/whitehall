@@ -319,7 +319,6 @@ tr:
     heading: Yayınlar
     headings:
       detail: Detay
-  read_more: Daha fazlası için
   see_all:
     announcement: Tamamını görüntüle
     authored_article: Tamamını görüntüle
@@ -364,8 +363,6 @@ tr:
     transcript: Tamamını görüntüle
     transparency: Tamamını görüntüle
     written_statement: Tamamını görüntüle
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: ve

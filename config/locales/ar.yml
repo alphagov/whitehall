@@ -509,7 +509,6 @@ ar:
     heading: مطبوعات
     headings:
       detail: تفاصيل
-  read_more: اقرأ المزيد
   see_all:
     announcement: اطلع على كافة إعلانات
     authored_article: اطلع على كافة مقالات مرخصة
@@ -554,8 +553,6 @@ ar:
     transcript: اطلع على كافة نصوص منسوخة
     transparency: اطلع على كافة بيانات تتعلق بالشفافية
     written_statement: اطلع على كافة تصريحات خطية
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: و

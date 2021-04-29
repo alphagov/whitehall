@@ -318,7 +318,6 @@ zh-tw:
     heading: 出版物
     headings:
       detail: 詳情
-  read_more: 閱讀更多
   see_all:
     announcement: 查閱我們所有的其他公告
     authored_article: 查閱我們所有的撰寫其他文章
@@ -363,8 +362,6 @@ zh-tw:
     transcript: 查閱我們所有的其他談話副本
     transparency: 查閱我們所有的透明化數據
     written_statement: 查閱我們所有的提交國會的其他書面聲明
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: 和

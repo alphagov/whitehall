@@ -321,7 +321,6 @@ dr:
     heading: نشریات
     headings:
       detail: تفصیل
-  read_more: بیشتر بخوانید
   see_all:
     announcement: همه را ببینید اعلانات
     authored_article: همه را ببینید مقاله های نوشته شده
@@ -366,8 +365,6 @@ dr:
     transcript: همه را ببینید نسخه ها
     transparency: همه را ببینید ارقام شفافیت
     written_statement: همه را ببینید بیانیه های تحریری به پارلمان
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: و

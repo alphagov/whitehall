@@ -368,7 +368,6 @@ lt:
     heading: Leidiniai
     headings:
       detail: Detalesnė informacija
-  read_more: Skaitykite daugiau
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai
@@ -413,8 +412,6 @@ lt:
     transcript: Pažiūrėkite  mūsų kalbų tekstai
     transparency: Pažiūrėkite  mūsų skaidrumo informacija
     written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: ir

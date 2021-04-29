@@ -327,7 +327,6 @@ bg:
     heading: Публикации
     headings:
       detail: Подробности
-  read_more: Прочетете повече
   see_all:
     announcement: Вижте всички наши Съобщения
     authored_article: Вижте всички наши Авторски статии
@@ -372,8 +371,6 @@ bg:
     transcript: Вижте всички наши Преписи
     transparency: Вижте всички наши Информация за прозрачността
     written_statement: Вижте всички наши Писмени изявления до парламента
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: и

@@ -327,7 +327,6 @@ pa:
     heading: ਪ੍ਰਕਾਸ਼ਨ
     headings:
       detail: ਵੇਰਵੇ
-  read_more: ਹੋਰ ਪੜ੍ਹੋ
   see_all:
     announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਦੇਖੋ
     authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕਾਂ ਦੇ ਲੇਖ ਦੇਖੋ
@@ -372,8 +371,6 @@ pa:
     transcript: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਪ੍ਰਤਿਲਿਪੀਆਂ ਦੇਖੋ
     transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ ਦੇਖੋ
     written_statement: ਸਾਡੇ ਸਾਰੇ ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦੇਖੋ
-  social_media:
-    follow_us: ਸਾਨੂੰ ਫਾਲੋ ਕਰੋ
   support:
     array:
       last_word_connector: ਅਤੇ

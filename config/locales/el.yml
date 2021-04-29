@@ -321,7 +321,6 @@ el:
     heading: Εκδόσεις
     headings:
       detail: Λεπτομέρεια
-  read_more: Διαβάστε περισσότερα
   see_all:
     announcement: Δείτε τα Ανακοινώσεις
     authored_article: Δείτε τα Κείμενα συντακτών
@@ -366,8 +365,6 @@ el:
     transcript: Δείτε τα Απομαγνητοφωνήσεις
     transparency: Δείτε τα Στοιχεία διαφάνειας
     written_statement: Δείτε τα Γραπτές δηλώσεις στη Βουλή
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: και

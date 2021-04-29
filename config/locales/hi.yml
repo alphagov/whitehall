@@ -322,7 +322,6 @@ hi:
     heading: प्रकाशन
     headings:
       detail: विस्तृत
-  read_more: विस्तार में पढ़ें
   see_all:
     announcement: देखें हमारे सभी घोषणाएं
     authored_article: देखें हमारे सभी मूल आलेख
@@ -367,8 +366,6 @@ hi:
     transcript: देखें हमारे सभी प्रतिलिपियां
     transparency: देखें हमारे सभी पारदर्शिता आंकड़े
     written_statement: देखें हमारे सभी संसद में लिखित बयान
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: और

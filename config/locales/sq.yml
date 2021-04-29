@@ -322,7 +322,6 @@ sq:
     heading: Publikimet
     headings:
       detail: Detaj
-  read_more: Lexo me shume
   see_all:
     announcement: Shiko te gjitha lajmerime
     authored_article: Shiko te gjitha artikuj autoresh
@@ -367,8 +366,6 @@ sq:
     transcript: Shiko te gjitha transkripte
     transparency: Shiko te gjitha te dhena per transparencen
     written_statement: Shiko te gjitha deklarata me shkrim per parlamentin
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: dhe

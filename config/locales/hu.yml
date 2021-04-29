@@ -321,7 +321,6 @@ hu:
     heading: Kiadványok
     headings:
       detail: Részletek
-  read_more: Tovább...
   see_all:
     announcement: " bejelentések - mindegyik megtekintése"
     authored_article: " publicisztikák - mindegyik megtekintése"
@@ -366,8 +365,6 @@ hu:
     transcript: " Átiratok - mindegyik megtekintése"
     transparency: " Átláthatósági adatok - mindegyik megtekintése"
     written_statement: " Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése"
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: és

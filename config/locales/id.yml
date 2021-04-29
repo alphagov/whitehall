@@ -274,7 +274,6 @@ id:
     heading: Publikasi-publikasi
     headings:
       detail: Detail
-  read_more: Baca lebih lanjut
   see_all:
     announcement: Lihat semua pengumuman-pengumuman
     authored_article: Lihat semua artikel-artikel yang ditulis
@@ -319,8 +318,6 @@ id:
     transcript: Lihat semua transkrip-transkrip
     transparency: Lihat semua transparansi data
     written_statement: Lihat semua pernyataan-pernyatan tertulis kepada parlemen
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: dan

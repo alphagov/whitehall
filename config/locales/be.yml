@@ -416,7 +416,6 @@ be:
     heading: Публікацыі
     headings:
       detail: Падрабязней
-  read_more: Чытаць Падрабязней
   see_all:
     announcement: Паглядзець усе Аб'явы
     authored_article: Паглядзець усе Аўтарскія артыкулы
@@ -461,8 +460,6 @@ be:
     transcript: 
     transparency: Паглядзець усе Адкрытыя дадзеныя
     written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: і

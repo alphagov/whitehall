@@ -322,7 +322,6 @@ fr:
     heading: Publications
     headings:
       detail: Détail
-  read_more: En savoir plus
   see_all:
     announcement: Voir toutes nos annonces
     authored_article: Voir toutes nos articles signés
@@ -367,8 +366,6 @@ fr:
     transcript: Voir toutes nos transcriptions
     transparency: Voir toutes nos transparence des données
     written_statement: Voir toutes nos communiqués
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: et

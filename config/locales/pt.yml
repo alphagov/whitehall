@@ -321,7 +321,6 @@ pt:
     heading: Publicações
     headings:
       detail: Detalhes
-  read_more: Leia mais
   see_all:
     announcement: Veja todos os nossos anúncios
     authored_article: Veja todos os nossos artigos
@@ -366,8 +365,6 @@ pt:
     transcript: Veja todos os nossos transcrições
     transparency: Veja todos os nossos dados de transparência
     written_statement: Veja todos os nossos declarações escritas ao parlamento
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: e

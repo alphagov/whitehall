@@ -414,7 +414,6 @@ ru:
     heading: Публикации
     headings:
       detail: Детали
-  read_more: Подробнее
   see_all:
     announcement: Посмотреть все наши Объявления
     authored_article: Посмотреть все наши Авторские статьи
@@ -459,8 +458,6 @@ ru:
     transcript: Посмотреть все наши Тексты
     transparency: Посмотреть все наши Прозрачность данных
     written_statement: Посмотреть все наши Письменные заявления парламенту
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: и

@@ -318,7 +318,6 @@ kk:
     heading: 
     headings:
       detail: 
-  read_more: 
   see_all:
     announcement: 
     authored_article: 
@@ -363,8 +362,6 @@ kk:
     transcript: 
     transparency: 
     written_statement: 
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: 

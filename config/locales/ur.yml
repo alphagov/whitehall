@@ -321,7 +321,6 @@ ur:
     heading: اشاعتیں
     headings:
       detail: تفصیل
-  read_more: آگے پڑھئیے
   see_all:
     announcement: تما م دیکھئیے اعلانات
     authored_article: تما م دیکھئیے تحریر کردہ مضامین
@@ -366,8 +365,6 @@ ur:
     transcript: تما م دیکھئیے ٹرانسکرپٹس
     transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
     written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: اور

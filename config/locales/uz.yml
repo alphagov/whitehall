@@ -321,7 +321,6 @@ uz:
     heading: Nashrlar
     headings:
       detail: Tafsilot
-  read_more: Ko'proq ma'lumotga ega bo'ling
   see_all:
     announcement: Bizning butun e'lonlar ko'ring
     authored_article: Bizning butun muallif maqolalari ko'ring
@@ -366,8 +365,6 @@ uz:
     transcript: Bizning butun matnlar ko'ring
     transparency: Bizning butun ochiqlikka oid ma'lumotlar ko'ring
     written_statement: Bizning butun parlament uchun yozma hisobotlar ko'ring
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: va

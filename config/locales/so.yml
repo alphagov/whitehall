@@ -323,7 +323,6 @@ so:
     heading: Daabacaado/Nashrin
     headings:
       detail: Faahfaahin
-  read_more: Sii akhri
   see_all:
     announcement: Fiiri dhammaan ogeysiisyo yadeenna
     authored_article: Fiiri dhammaan maqaallo la qorey yadeenna
@@ -368,8 +367,6 @@ so:
     transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
     transparency: Fiiri dhammaan xog daahfurnaan yadeenna
     written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
-  social_media:
-    follow_us: 
   support:
     array:
       last_word_connector: iyo
