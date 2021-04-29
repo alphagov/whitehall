@@ -267,9 +267,6 @@ id:
       transparency: Transparansi data
     headings:
       contact: Hubungi %{name}
-  policies:
-    heading: Kebijakan-kebijakan
-    view_all: 
   publications:
     heading: Publikasi-publikasi
     headings:

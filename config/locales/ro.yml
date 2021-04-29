@@ -364,9 +364,6 @@ ro:
       transparency: 
     headings:
       contact: Contactează-ne  %{name}
-  policies:
-    heading: Obiectiv strategic
-    view_all: 
   publications:
     heading: Obiective strategic
     headings:

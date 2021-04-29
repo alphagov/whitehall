@@ -265,9 +265,6 @@ th:
       transparency: ข้อมูลที่มีความโปร่งใส
     headings:
       contact: สัญญา %{name}
-  policies:
-    heading: นโยบาย
-    view_all: 
   publications:
     heading: สิ่งพิมพ์
     headings:

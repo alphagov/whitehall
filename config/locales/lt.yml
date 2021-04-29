@@ -361,9 +361,6 @@ lt:
       transparency: Skaidrumo informacija
     headings:
       contact: Susisiekite su %{name}
-  policies:
-    heading: Strategijos
-    view_all: 
   publications:
     heading: Leidiniai
     headings:

@@ -314,9 +314,6 @@ dr:
       transparency: معلومات شفافیت
     headings:
       contact: تماس %{name}
-  policies:
-    heading: پالیسی ها
-    view_all: 
   publications:
     heading: نشریات
     headings:

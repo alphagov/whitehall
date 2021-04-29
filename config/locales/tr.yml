@@ -312,9 +312,6 @@ tr:
       transparency: Veri saydamlığı
     headings:
       contact: İletişim %{name}
-  policies:
-    heading: Politikalar
-    view_all: 
   publications:
     heading: Yayınlar
     headings:

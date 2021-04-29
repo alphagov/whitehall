@@ -314,9 +314,6 @@ pt:
       transparency: Dados de Transparência
     headings:
       contact: Contato %{name}
-  policies:
-    heading: Políticas
-    view_all: 
   publications:
     heading: Publicações
     headings:

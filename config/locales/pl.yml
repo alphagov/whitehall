@@ -410,9 +410,6 @@ pl:
       transparency: Dane o transparentności
     headings:
       contact: Skontaktuj się z %{name}
-  policies:
-    heading: Polityki
-    view_all: 
   publications:
     heading: Publikacje
     headings:

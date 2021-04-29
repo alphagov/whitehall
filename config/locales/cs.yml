@@ -362,9 +362,6 @@ cs:
       transparency: 'Data '
     headings:
       contact: Kontakt %{name}
-  policies:
-    heading: Politiky
-    view_all: 
   publications:
     heading: Publikace
     headings:

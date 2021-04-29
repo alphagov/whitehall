@@ -313,9 +313,6 @@ ps:
       transparency: د شفافیت معلومات
     headings:
       contact: تماس  %{name}
-  policies:
-    heading: پالیسی ګانی
-    view_all: 
   publications:
     heading: نشریات
     headings:

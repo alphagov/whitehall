@@ -316,9 +316,6 @@ so:
       transparency: Xog daahfurnaan
     headings:
       contact: La soo xiriir %{name}
-  policies:
-    heading: Siyaasado
-    view_all: 
   publications:
     heading: Daabacaado/Nashrin
     headings:

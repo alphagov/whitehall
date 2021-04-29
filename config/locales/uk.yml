@@ -408,9 +408,6 @@ uk:
       transparency: Прозорість інформації
     headings:
       contact: Контактна особа  %{name}
-  policies:
-    heading: Політика
-    view_all: 
   publications:
     heading: Публікації
     headings:

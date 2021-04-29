@@ -314,9 +314,6 @@ hu:
       transparency: Átláthatósági adatok
     headings:
       contact: 'Kapcsolat felvétele: %{name}'
-  policies:
-    heading: Szakpolitikák
-    view_all: 
   publications:
     heading: Kiadványok
     headings:

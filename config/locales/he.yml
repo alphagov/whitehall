@@ -314,9 +314,6 @@ he:
       transparency: מידע נגיש
     headings:
       contact: חוזה %{name}
-  policies:
-    heading: מדיניות
-    view_all: 
   publications:
     heading: פרסומים
     headings:

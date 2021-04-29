@@ -456,9 +456,6 @@ en:
       transparency: Transparency data
     headings:
       contact: Contact %{name}
-  policies:
-    heading: Policies
-    view_all: View all policies
   publications:
     heading: Publications
     headings:

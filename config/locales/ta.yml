@@ -316,9 +316,6 @@ ta:
       transparency: வெளிப்படையான தரவு
     headings:
       contact: தொடர்பு %{name}
-  policies:
-    heading: கொள்கைகள்
-    view_all: 
   publications:
     heading: வெளியீடுகள்
     headings:

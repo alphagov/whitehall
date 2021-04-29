@@ -315,9 +315,6 @@ hi:
       transparency: पारदर्शिता आंकड़े
     headings:
       contact: संपर्क %{name}
-  policies:
-    heading: नीतियां
-    view_all: 
   publications:
     heading: प्रकाशन
     headings:

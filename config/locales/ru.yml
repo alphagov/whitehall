@@ -407,9 +407,6 @@ ru:
       transparency: Данные о прозрачности
     headings:
       contact: Обратиться к %{name}
-  policies:
-    heading: Политика
-    view_all: 
   publications:
     heading: Публикации
     headings:

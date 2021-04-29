@@ -267,9 +267,6 @@ vi:
       transparency: Minh bạch dữ liệu
     headings:
       contact: Liên lạc %{name}
-  policies:
-    heading: Các chính sách
-    view_all: 
   publications:
     heading: Tài liệu truyền thông
     headings:

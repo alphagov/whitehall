@@ -267,9 +267,6 @@ fa:
       transparency: داده های شفاف سازی
     headings:
       contact: تماس با %{name}
-  policies:
-    heading: سیاست ها
-    view_all: 
   publications:
     heading: انتشارات
     headings:

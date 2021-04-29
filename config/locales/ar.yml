@@ -502,9 +502,6 @@ ar:
       transparency: بيانات تتعلق بالشفافية
     headings:
       contact: اتصل بـ%{name}
-  policies:
-    heading: سياسات
-    view_all: 
   publications:
     heading: مطبوعات
     headings:

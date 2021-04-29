@@ -315,9 +315,6 @@ es-419:
       transparency: Datos de transparencia
     headings:
       contact: Comuníquese con %{name}
-  policies:
-    heading: Políticas
-    view_all: 
   publications:
     heading: Publicaciones
     headings:

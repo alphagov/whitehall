@@ -320,9 +320,6 @@ bg:
       transparency: Данни за прозрачността
     headings:
       contact: Свържете се с %{name}
-  policies:
-    heading: Политики
-    view_all: 
   publications:
     heading: Публикации
     headings:

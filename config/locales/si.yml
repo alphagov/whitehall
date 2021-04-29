@@ -313,9 +313,6 @@ si:
       transparency: විනිවිධභාවයේ දත්ත
     headings:
       contact: විස්තර %{name}
-  policies:
-    heading: ප්‍රතිපත්ති
-    view_all: 
   publications:
     heading: ප්‍රකාශන
     headings:

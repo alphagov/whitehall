@@ -315,9 +315,6 @@ de:
       transparency: Transparenzdaten
     headings:
       contact: "%{name} kontaktieren"
-  policies:
-    heading: Politik
-    view_all: 
   publications:
     heading: Veröffentlichungen
     headings:

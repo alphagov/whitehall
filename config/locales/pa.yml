@@ -320,9 +320,6 @@ pa:
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
     headings:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
-  policies:
-    heading: ਨੀਤੀਆਂ
-    view_all: ਸਾਰੀਆਂ ਨੀਤੀਆਂ ਦੇਖੋ
   publications:
     heading: ਪ੍ਰਕਾਸ਼ਨ
     headings:

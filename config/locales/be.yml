@@ -409,9 +409,6 @@ be:
       transparency: Адкрытыя дадзеныя
     headings:
       contact: Звязацца з %{name}
-  policies:
-    heading: Напрамкі дзейнасці
-    view_all: 
   publications:
     heading: Публікацыі
     headings:

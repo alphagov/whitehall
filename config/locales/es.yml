@@ -313,9 +313,6 @@ es:
       transparency: Datos de transparencia
     headings:
       contact: Contacto %{name}
-  policies:
-    heading: Politicas
-    view_all: 
   publications:
     heading: Publicaciones
     headings:

@@ -321,9 +321,6 @@ bn:
       transparency: স্বচ্ছতামূলক ডেটা
     headings:
       contact: "%{name} যোগাযোগ করুন"
-  policies:
-    heading: নীতিমালা
-    view_all: সকল নীতিমালা দেখুন
   publications:
     heading: প্রকাশনাসমূহ
     headings:

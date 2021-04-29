@@ -301,9 +301,6 @@ zh:
       transparency: 透明化数据
     headings:
       contact: 联系%{name}
-  policies:
-    heading: 政策
-    view_all: 
   publications:
     heading: 发布的报告
     headings:

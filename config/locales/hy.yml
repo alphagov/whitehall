@@ -315,9 +315,6 @@ hy:
       transparency: Թափանցիկ տեղեկատվությ
     headings:
       contact: Տվյալ %{name}
-  policies:
-    heading: Քաղաքականություն
-    view_all: 
   publications:
     heading: Հրապարակումներ
     headings:

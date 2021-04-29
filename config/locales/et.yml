@@ -319,9 +319,6 @@ et:
       transparency: Läbipaistvusteave
     headings:
       contact: 'Võtke ühendust: %{name}'
-  policies:
-    heading: Poliitikad
-    view_all: Vaadake kõiki poliitikaid
   publications:
     heading: Publikatsioonid
     headings:

@@ -314,9 +314,6 @@ uz:
       transparency: Ochiqlikka oid ma'lumotlar
     headings:
       contact: "%{name} bog'laning"
-  policies:
-    heading: Dasturlar
-    view_all: 
   publications:
     heading: Nashrlar
     headings:

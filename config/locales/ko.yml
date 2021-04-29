@@ -265,9 +265,6 @@ ko:
       transparency: 투명성 데이터
     headings:
       contact: "%{name} 에게 연락하세요"
-  policies:
-    heading: 정책사안
-    view_all: 
   publications:
     heading: 출판물
     headings:

@@ -320,9 +320,6 @@ pa-pk:
       transparency: شفافیت دا مواد
     headings:
       contact: "%{name} نال رابطہ کرو"
-  policies:
-    heading: پالیسیاں
-    view_all: ساری پالیسیاں ویکھو
   publications:
     heading: اشاعتاں
     headings:

@@ -313,9 +313,6 @@ lv:
       transparency: Atklātība
     headings:
       contact: Sazināties %{name}
-  policies:
-    heading: Politika
-    view_all: 
   publications:
     heading: Publikācijas
     headings:

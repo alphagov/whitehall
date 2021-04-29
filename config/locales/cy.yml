@@ -504,9 +504,6 @@ cy:
       transparency: Data tryloywder
     headings:
       contact: Cyswllt %{name}
-  policies:
-    heading: Polisïau
-    view_all: Gwelir holl polisiau
   publications:
     heading: Cyhoeddiadau
     headings:

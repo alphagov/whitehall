@@ -315,9 +315,6 @@ sq:
       transparency: Te dhena transparence
     headings:
       contact: Kontakt %{name}
-  policies:
-    heading: Politikat
-    view_all: 
   publications:
     heading: Publikimet
     headings:

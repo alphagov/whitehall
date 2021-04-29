@@ -314,9 +314,6 @@ ur:
       transparency: ٹرانسپیرنسی ڈیٹا
     headings:
       contact: رابطہ %{name}
-  policies:
-    heading: پالیسیاں
-    view_all: 
   publications:
     heading: اشاعتیں
     headings:

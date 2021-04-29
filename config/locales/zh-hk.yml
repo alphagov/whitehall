@@ -311,9 +311,6 @@ zh-hk:
       transparency: 透明化數據
     headings:
       contact: 聯繫%{name}
-  policies:
-    heading: 政策
-    view_all: 
   publications:
     heading: 出版物
     headings:

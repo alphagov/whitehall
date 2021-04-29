@@ -409,9 +409,6 @@ sr:
       transparency: podaci o transparentnosti
     headings:
       contact: Kontaktirajte %{name}
-  policies:
-    heading: Politike
-    view_all: 
   publications:
     heading: Publikacije
     headings:

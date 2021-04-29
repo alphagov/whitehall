@@ -314,9 +314,6 @@ el:
       transparency: Στοιχεία διαφάνειας
     headings:
       contact: Επικοινωνήστε%{name}
-  policies:
-    heading: Πολιτικές
-    view_all: 
   publications:
     heading: Εκδόσεις
     headings:

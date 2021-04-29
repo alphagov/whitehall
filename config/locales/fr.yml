@@ -315,9 +315,6 @@ fr:
       transparency: Données de transparence
     headings:
       contact: Contacter %{name}
-  policies:
-    heading: Politiques
-    view_all: 
   publications:
     heading: Publications
     headings:
