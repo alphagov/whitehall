@@ -115,7 +115,6 @@ ja:
       attachments:
         other: お知らせ
       from: 
-      location: 
       part_of: 
     published: 掲載日
     read: "%{title} の記事を読む"

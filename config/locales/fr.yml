@@ -118,7 +118,6 @@ fr:
         one: Document
         other: Documents
       from: 
-      location: 
       part_of: 
     published: publié
     read: Lire l'article intitulé %{title}

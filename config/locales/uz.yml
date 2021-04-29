@@ -117,7 +117,6 @@ uz:
         one: Hujjat
         other: Hujjatlar
       from: 
-      location: 
       part_of: 
     published: nashr qilindi
     read: Maqolani o'qish %{title}

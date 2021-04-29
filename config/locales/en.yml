@@ -120,7 +120,6 @@ en:
         one: Document
         other: Documents
       from: From
-      location: Location
       part_of: Part of
     published: published
     read: Read the %{title} article

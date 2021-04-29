@@ -118,7 +118,6 @@ el:
         one: Έγγραφο
         other: Έγγραφα
       from: 
-      location: 
       part_of: 
     published: Δημοσιευμένο
     read: Διαβάστε το άρθρο  %{title}

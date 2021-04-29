@@ -118,7 +118,6 @@ hi:
         one: दस्तावेज़
         other: दस्तावेजों
       from: 
-      location: 
       part_of: 
     published: प्रकाशित
     read: पढ़ें %{title} लेख

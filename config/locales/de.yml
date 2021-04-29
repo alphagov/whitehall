@@ -118,7 +118,6 @@ de:
         one: Dokument
         other: Dokumente
       from: 
-      location: 
       part_of: 
     published: Veröffentlicht
     read: Artikel lesen %{title}

@@ -118,7 +118,6 @@ ru:
         one: Документ
         other: Документы
       from: 
-      location: 
       part_of: 
     published: Опубликовано
     read: Прочитать статью %{title}

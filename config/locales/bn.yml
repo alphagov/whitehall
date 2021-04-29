@@ -121,7 +121,6 @@ bn:
         one: নথি
         other: নথিপত্র
       from: থেকে
-      location: অবস্থান
       part_of: এর অংশ
     published: প্রকাশিত
     read: "%{title} প্রবন্ধ পড়ুন"

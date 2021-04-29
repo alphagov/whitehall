@@ -121,7 +121,6 @@ bg:
         one: Документ
         other: Документи
       from: 
-      location: 
       part_of: 
     published: Публикувано
     read: 'Прочетете статията %{title} '

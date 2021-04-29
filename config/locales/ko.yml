@@ -115,7 +115,6 @@ ko:
       attachments:
         other: 문서
       from: 
-      location: 
       part_of: 
     published: 발행
     read: "%{title} 기사를 확인하세요"

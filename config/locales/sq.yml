@@ -118,7 +118,6 @@ sq:
         one: Dokument
         other: Dokumente
       from: 
-      location: 
       part_of: 
     published: publikuar
     read: 'Lexo %{title} '

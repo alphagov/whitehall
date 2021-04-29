@@ -119,7 +119,6 @@ et:
         one: Dokument
         other: Dokumendid
       from: Kellelt
-      location: Asukoht
       part_of: Osa
     published: avaldatud
     read: 'Lugege artiklit: %{title} '

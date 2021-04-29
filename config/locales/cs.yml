@@ -120,7 +120,6 @@ cs:
         one: Dokument
         other: Dokumenty
       from: 
-      location: 
       part_of: 
     published: Publikováno
     read: Čtěte %{title}

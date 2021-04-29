@@ -121,7 +121,6 @@ ar:
         two: 
         zero: 
       from: 
-      location: 
       part_of: 
     published: نشر
     read: اقرأ %{title} المقال

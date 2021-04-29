@@ -118,7 +118,6 @@ it:
         one: Documento
         other: Documenti
       from: 
-      location: 
       part_of: 
     published: pubblicato
     read: Leggi l'articolo %{title}

@@ -119,7 +119,6 @@ ta:
         one: " ஆவணம்"
         other: ஆவணங்கள்
       from: 
-      location: 
       part_of: 
     published: பிரசுரிக்கப்பட்டது
     read: கட்டுரையின் %{title} வாசிக்கவும்

@@ -115,7 +115,6 @@ zh-hk:
         one: 文件
         other: 其他文件
       from: 
-      location: 
       part_of: 
     published: 已發布
     read: 閱讀%{title}文章

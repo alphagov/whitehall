@@ -117,7 +117,6 @@ tr:
         one: Belge
         other: Belgeler
       from: 
-      location: 
       part_of: 
     published: Yayında
     read: "%{title} makalesini okuyunuz"

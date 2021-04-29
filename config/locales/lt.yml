@@ -118,7 +118,6 @@ lt:
         one: Dokumentas
         other: Dokumentai
       from: 
-      location: 
       part_of: 
     published: publikuota
     read: 'Skaitykite straipsnį %{title} '

@@ -119,7 +119,6 @@ uk:
         one: Документ
         other: Документи
       from: 
-      location: 
       part_of: 
     published: опубліковано
     read: Читати %{title} статтю

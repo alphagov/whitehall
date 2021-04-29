@@ -119,7 +119,6 @@ be:
         one: Дакумент
         other: Дакументы
       from: 
-      location: 
       part_of: 
     published: Апублікаваны
     read: Чытаць %{title} артыкул

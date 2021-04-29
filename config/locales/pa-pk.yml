@@ -120,7 +120,6 @@ pa-pk:
         one: دستاویز
         other: دستاویزات
       from: دی طرفوں
-      location: مقام
       part_of: دا حصہ
     published: شائع ہو گیا
     read: "%{title} مضمون پڑھو"

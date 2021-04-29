@@ -122,7 +122,6 @@ cy:
         two: 
         zero: 
       from: O
-      location: 
       part_of: Rhan o
     published: Cyhoeddwyd
     read: Darllenwch yr erthygl %{title}

@@ -120,7 +120,6 @@ sr:
         one: Dokument
         other: Dokumenti
       from: 
-      location: 
       part_of: 
     published: objavljeno
     read: Pročitajte %{title}

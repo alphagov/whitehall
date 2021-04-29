@@ -116,7 +116,6 @@ id:
       attachments:
         other: Dokumen-dokumen
       from: 
-      location: 
       part_of: 
     published: Diterbitkan
     read: Baca artikel %{title}

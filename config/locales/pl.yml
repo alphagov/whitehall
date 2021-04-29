@@ -121,7 +121,6 @@ pl:
         one: Dokument
         other: Dokumenty
       from: 
-      location: 
       part_of: 
     published: opublikowano
     read: Przeczytaj %{title} artykuł

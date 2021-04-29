@@ -122,7 +122,6 @@ ro:
         one: Document
         other: Documente
       from: 
-      location: 
       part_of: 
     published: Data publicării
     read: 'Citește articolul %{title} '

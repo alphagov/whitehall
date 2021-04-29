@@ -118,7 +118,6 @@ es-419:
         one: Documento
         other: Documentos
       from: 
-      location: 
       part_of: 
     published: publicado
     read: Lea el artículo %{title}
