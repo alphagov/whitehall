@@ -306,8 +306,6 @@ dr:
       contact: تماس %{name}
   publications:
     heading: نشریات
-    headings:
-      detail: تفصیل
   see_all:
     announcement: همه را ببینید اعلانات
     authored_article: همه را ببینید مقاله های نوشته شده

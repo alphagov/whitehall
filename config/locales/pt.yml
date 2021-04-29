@@ -306,8 +306,6 @@ pt:
       contact: Contato %{name}
   publications:
     heading: Publicações
-    headings:
-      detail: Detalhes
   see_all:
     announcement: Veja todos os nossos anúncios
     authored_article: Veja todos os nossos artigos

@@ -306,8 +306,6 @@ uz:
       contact: "%{name} bog'laning"
   publications:
     heading: Nashrlar
-    headings:
-      detail: Tafsilot
   see_all:
     announcement: Bizning butun e'lonlar ko'ring
     authored_article: Bizning butun muallif maqolalari ko'ring

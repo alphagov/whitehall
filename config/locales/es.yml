@@ -305,8 +305,6 @@ es:
       contact: Contacto %{name}
   publications:
     heading: Publicaciones
-    headings:
-      detail: Detalle
   see_all:
     announcement: Ver toda nuestra anuncios
     authored_article: Ver toda nuestra artículos de autor

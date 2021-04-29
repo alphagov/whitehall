@@ -496,8 +496,6 @@ cy:
       contact: Cyswllt %{name}
   publications:
     heading: Cyhoeddiadau
-    headings:
-      detail: Manylyn
   see_all:
     announcement: Gweld ein holl cyhoeddiadau
     authored_article: 

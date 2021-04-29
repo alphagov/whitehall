@@ -305,8 +305,6 @@ ps:
       contact: تماس  %{name}
   publications:
     heading: نشریات
-    headings:
-      detail: تفصیل
   see_all:
     announcement: ټول وګوری خبرتیاوې
     authored_article: ټول وګوری تالیف شوي مضامین

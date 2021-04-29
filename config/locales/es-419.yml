@@ -307,8 +307,6 @@ es-419:
       contact: Comuníquese con %{name}
   publications:
     heading: Publicaciones
-    headings:
-      detail: Detalle
   see_all:
     announcement: Vea todas nuestras novedades
     authored_article: Vea todos nuestros artículos con autor

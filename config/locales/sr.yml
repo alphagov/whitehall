@@ -401,8 +401,6 @@ sr:
       contact: Kontaktirajte %{name}
   publications:
     heading: Publikacije
-    headings:
-      detail: Detalj
   see_all:
     announcement: Pogledajte sve naše najave
     authored_article: Pogledajte sve naše autorski članci

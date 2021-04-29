@@ -307,8 +307,6 @@ de:
       contact: "%{name} kontaktieren"
   publications:
     heading: Veröffentlichungen
-    headings:
-      detail: Details
   see_all:
     announcement: Alle unsere Meldungen
     authored_article: Alle unsere Namensartikel

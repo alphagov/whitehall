@@ -293,8 +293,6 @@ zh:
       contact: 联系%{name}
   publications:
     heading: 发布的报告
-    headings:
-      detail: 详情
   see_all:
     announcement: 查阅我们所有的公告
     authored_article: 查阅我们所有的撰写的文章

@@ -448,8 +448,6 @@ en:
       contact: Contact %{name}
   publications:
     heading: Publications
-    headings:
-      detail: Detail
   see_all:
     announcement: See all our announcements
     authored_article: See all our authored articles

@@ -259,8 +259,6 @@ vi:
       contact: Liên lạc %{name}
   publications:
     heading: Tài liệu truyền thông
-    headings:
-      detail: Chi tiết
   see_all:
     announcement: Xem tất cả các thông báo của chúng tôi
     authored_article: Xem tất cả các bài viết do tác giả của chúng tôi

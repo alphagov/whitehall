@@ -307,8 +307,6 @@ hy:
       contact: Տվյալ %{name}
   publications:
     heading: Հրապարակումներ
-    headings:
-      detail: Տվյալ
   see_all:
     announcement: Տես՝ մեր բոլոր Հայտարարություններ -ը
     authored_article: Տես՝ մեր բոլոր Հեղինակային հոդվածներ -ը

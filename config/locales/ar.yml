@@ -494,8 +494,6 @@ ar:
       contact: اتصل بـ%{name}
   publications:
     heading: مطبوعات
-    headings:
-      detail: تفاصيل
   see_all:
     announcement: اطلع على كافة إعلانات
     authored_article: اطلع على كافة مقالات مرخصة

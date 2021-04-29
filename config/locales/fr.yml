@@ -307,8 +307,6 @@ fr:
       contact: Contacter %{name}
   publications:
     heading: Publications
-    headings:
-      detail: Détail
   see_all:
     announcement: Voir toutes nos annonces
     authored_article: Voir toutes nos articles signés

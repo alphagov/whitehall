@@ -306,8 +306,6 @@ he:
       contact: חוזה %{name}
   publications:
     heading: פרסומים
-    headings:
-      detail: פרטים
   see_all:
     announcement: ראה כל הודעות
     authored_article: ראה כל מאמרים מאושרים

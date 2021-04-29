@@ -307,8 +307,6 @@ hi:
       contact: संपर्क %{name}
   publications:
     heading: प्रकाशन
-    headings:
-      detail: विस्तृत
   see_all:
     announcement: देखें हमारे सभी घोषणाएं
     authored_article: देखें हमारे सभी मूल आलेख

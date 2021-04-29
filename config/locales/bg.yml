@@ -312,8 +312,6 @@ bg:
       contact: Свържете се с %{name}
   publications:
     heading: Публикации
-    headings:
-      detail: Подробности
   see_all:
     announcement: Вижте всички наши Съобщения
     authored_article: Вижте всички наши Авторски статии

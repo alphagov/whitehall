@@ -400,8 +400,6 @@ uk:
       contact: Контактна особа  %{name}
   publications:
     heading: Публікації
-    headings:
-      detail: Деталі
   see_all:
     announcement: Дивіться всі наші Оголошення
     authored_article: Дивіться всі наші Статті

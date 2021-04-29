@@ -356,8 +356,6 @@ ro:
       contact: Contactează-ne  %{name}
   publications:
     heading: Obiective strategic
-    headings:
-      detail: 'Mai multe '
   see_all:
     announcement: Toate Știri
     authored_article: 'Toate articol '

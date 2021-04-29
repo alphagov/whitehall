@@ -353,8 +353,6 @@ lt:
       contact: Susisiekite su %{name}
   publications:
     heading: Leidiniai
-    headings:
-      detail: Detalesnė informacija
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai

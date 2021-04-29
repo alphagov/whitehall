@@ -304,8 +304,6 @@ tr:
       contact: İletişim %{name}
   publications:
     heading: Yayınlar
-    headings:
-      detail: Detay
   see_all:
     announcement: Tamamını görüntüle
     authored_article: Tamamını görüntüle

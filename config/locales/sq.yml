@@ -307,8 +307,6 @@ sq:
       contact: Kontakt %{name}
   publications:
     heading: Publikimet
-    headings:
-      detail: Detaj
   see_all:
     announcement: Shiko te gjitha lajmerime
     authored_article: Shiko te gjitha artikuj autoresh

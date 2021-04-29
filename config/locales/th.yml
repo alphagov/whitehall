@@ -257,8 +257,6 @@ th:
       contact: สัญญา %{name}
   publications:
     heading: สิ่งพิมพ์
-    headings:
-      detail: รายละเอียด
   see_all:
     announcement: ดูทั้งหมดข่าวสาร
     authored_article: ดูทั้งหมดบทความที่เขียน

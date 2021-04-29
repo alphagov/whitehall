@@ -401,8 +401,6 @@ be:
       contact: Звязацца з %{name}
   publications:
     heading: Публікацыі
-    headings:
-      detail: Падрабязней
   see_all:
     announcement: Паглядзець усе Аб'явы
     authored_article: Паглядзець усе Аўтарскія артыкулы

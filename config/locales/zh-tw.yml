@@ -303,8 +303,6 @@ zh-tw:
       contact: 聯繫%{name}
   publications:
     heading: 出版物
-    headings:
-      detail: 詳情
   see_all:
     announcement: 查閱我們所有的其他公告
     authored_article: 查閱我們所有的撰寫其他文章

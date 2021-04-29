@@ -306,8 +306,6 @@ el:
       contact: Επικοινωνήστε%{name}
   publications:
     heading: Εκδόσεις
-    headings:
-      detail: Λεπτομέρεια
   see_all:
     announcement: Δείτε τα Ανακοινώσεις
     authored_article: Δείτε τα Κείμενα συντακτών

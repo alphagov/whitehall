@@ -305,8 +305,6 @@ si:
       contact: විස්තර %{name}
   publications:
     heading: ප්‍රකාශන
-    headings:
-      detail: විස්තර
   see_all:
     announcement: අපගේ සියලු නිවේදන බලන්න
     authored_article: අපගේ සියලු රචිත ලිපි බලන්න

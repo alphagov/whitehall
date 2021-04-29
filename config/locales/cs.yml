@@ -354,8 +354,6 @@ cs:
       contact: Kontakt %{name}
   publications:
     heading: Publikace
-    headings:
-      detail: Více
   see_all:
     announcement: Podívejte se na
     authored_article: Podívejte se na

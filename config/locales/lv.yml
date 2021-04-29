@@ -305,8 +305,6 @@ lv:
       contact: Sazināties %{name}
   publications:
     heading: Publikācijas
-    headings:
-      detail: Sīkāk
   see_all:
     announcement: Skatīt visas paziņojumi
     authored_article: Skatīt visas autora raksti

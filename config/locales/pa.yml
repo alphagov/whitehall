@@ -312,8 +312,6 @@ pa:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
   publications:
     heading: ਪ੍ਰਕਾਸ਼ਨ
-    headings:
-      detail: ਵੇਰਵੇ
   see_all:
     announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਦੇਖੋ
     authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕਾਂ ਦੇ ਲੇਖ ਦੇਖੋ

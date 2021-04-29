@@ -306,8 +306,6 @@ hu:
       contact: 'Kapcsolat felvétele: %{name}'
   publications:
     heading: Kiadványok
-    headings:
-      detail: Részletek
   see_all:
     announcement: " bejelentések - mindegyik megtekintése"
     authored_article: " publicisztikák - mindegyik megtekintése"

@@ -402,8 +402,6 @@ pl:
       contact: Skontaktuj się z %{name}
   publications:
     heading: Publikacje
-    headings:
-      detail: Szczegóły
   see_all:
     announcement: Zobacz wszystkie nasze ogłoszenia
     authored_article: Zobacz wszystkie nasze dokumenty utworzone przez

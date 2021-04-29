@@ -311,8 +311,6 @@ et:
       contact: 'Võtke ühendust: %{name}'
   publications:
     heading: Publikatsioonid
-    headings:
-      detail: Üksikasjad
   see_all:
     announcement: Vaadake kõiki meie teadaandeid
     authored_article: Vaadake kõiki meie artikleid

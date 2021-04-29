@@ -259,8 +259,6 @@ fa:
       contact: تماس با %{name}
   publications:
     heading: انتشارات
-    headings:
-      detail: جزئیات
   see_all:
     announcement: تمامی اعلامیه ها ما را مشاهده کنید
     authored_article: تمامی مقالات ما را مشاهده کنید

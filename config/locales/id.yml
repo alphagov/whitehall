@@ -259,8 +259,6 @@ id:
       contact: Hubungi %{name}
   publications:
     heading: Publikasi-publikasi
-    headings:
-      detail: Detail
   see_all:
     announcement: Lihat semua pengumuman-pengumuman
     authored_article: Lihat semua artikel-artikel yang ditulis

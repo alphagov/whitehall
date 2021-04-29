@@ -257,8 +257,6 @@ ko:
       contact: "%{name} 에게 연락하세요"
   publications:
     heading: 출판물
-    headings:
-      detail: 디테일
   see_all:
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기

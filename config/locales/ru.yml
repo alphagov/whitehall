@@ -399,8 +399,6 @@ ru:
       contact: Обратиться к %{name}
   publications:
     heading: Публикации
-    headings:
-      detail: Детали
   see_all:
     announcement: Посмотреть все наши Объявления
     authored_article: Посмотреть все наши Авторские статьи

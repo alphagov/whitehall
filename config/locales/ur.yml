@@ -306,8 +306,6 @@ ur:
       contact: رابطہ %{name}
   publications:
     heading: اشاعتیں
-    headings:
-      detail: تفصیل
   see_all:
     announcement: تما م دیکھئیے اعلانات
     authored_article: تما م دیکھئیے تحریر کردہ مضامین

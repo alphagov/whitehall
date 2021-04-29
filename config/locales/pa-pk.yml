@@ -312,8 +312,6 @@ pa-pk:
       contact: "%{name} نال رابطہ کرو"
   publications:
     heading: اشاعتاں
-    headings:
-      detail: تفصیل
   see_all:
     announcement: ساڈے سارے اعلان ویکھو
     authored_article: ساڈے سارے لکھے گئے مضمون ویکھو
