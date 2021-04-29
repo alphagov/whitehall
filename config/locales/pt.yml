@@ -113,9 +113,6 @@ pt:
       updated: 
     headings:
       applies_to_nations: Aplica-se a
-      attachments:
-        one: Documento
-        other: Documentos
       from: 
       part_of: 
     published: publicado

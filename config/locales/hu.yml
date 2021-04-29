@@ -113,9 +113,6 @@ hu:
       updated: 
     headings:
       applies_to_nations: 'A következő nemzetekre vonatkozik:'
-      attachments:
-        one: Dokumentum
-        other: Dokumentumok
       from: 
       part_of: 
     published: közzététel dátuma

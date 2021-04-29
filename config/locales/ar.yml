@@ -113,13 +113,6 @@ ar:
       updated: 
     headings:
       applies_to_nations: ينطبق على
-      attachments:
-        few: 
-        many: 
-        one: وثيقة
-        other: وثائق
-        two: 
-        zero: 
       from: 
       part_of: 
     published: نشر

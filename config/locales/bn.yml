@@ -117,9 +117,6 @@ bn:
       updated: আপডেটকৃত
     headings:
       applies_to_nations: এতে প্রযোজ্য হয়
-      attachments:
-        one: নথি
-        other: নথিপত্র
       from: থেকে
       part_of: এর অংশ
     published: প্রকাশিত

@@ -114,9 +114,6 @@ it:
       updated: 
     headings:
       applies_to_nations: Valido per
-      attachments:
-        one: Documento
-        other: Documenti
       from: 
       part_of: 
     published: pubblicato

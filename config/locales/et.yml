@@ -115,9 +115,6 @@ et:
       updated: Täiendatud
     headings:
       applies_to_nations: Seondub
-      attachments:
-        one: Dokument
-        other: Dokumendid
       from: Kellelt
       part_of: Osa
     published: avaldatud

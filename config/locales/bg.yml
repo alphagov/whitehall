@@ -117,9 +117,6 @@ bg:
       updated: 
     headings:
       applies_to_nations: Отнася се към
-      attachments:
-        one: Документ
-        other: Документи
       from: 
       part_of: 
     published: Публикувано

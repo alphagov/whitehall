@@ -114,9 +114,6 @@ el:
       updated: 
     headings:
       applies_to_nations: Ισχύει
-      attachments:
-        one: Έγγραφο
-        other: Έγγραφα
       from: 
       part_of: 
     published: Δημοσιευμένο

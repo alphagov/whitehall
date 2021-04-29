@@ -115,11 +115,6 @@ pl:
       updated: 
     headings:
       applies_to_nations: Dotyczy
-      attachments:
-        few: 
-        many: 
-        one: Dokument
-        other: Dokumenty
       from: 
       part_of: 
     published: opublikowano

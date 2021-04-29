@@ -114,13 +114,6 @@ cy:
       updated: 
     headings:
       applies_to_nations: Yn berthnasol i
-      attachments:
-        few: 
-        many: 
-        one: Dogfen
-        other: Dogfennau
-        two: 
-        zero: 
       from: O
       part_of: Rhan o
     published: Cyhoeddwyd
