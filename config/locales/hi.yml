@@ -113,7 +113,6 @@ hi:
       from: 
       part_of: 
     published: प्रकाशित
-    read: पढ़ें %{title} लेख
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ hi:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
     updated: अद्यतन
-    view: देखें '%{title}'
   document_filters:
     description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
       जिनमें आप की दिलचस्पी हो।

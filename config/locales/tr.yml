@@ -112,7 +112,6 @@ tr:
       from: 
       part_of: 
     published: Yayında
-    read: "%{title} makalesini okuyunuz"
     see_all: 
     speech:
       author_title:
@@ -265,7 +264,6 @@ tr:
         one: Parlamento'ya yapılan yazılı açıklama
         other: Parlamento'ya yapılan yazılı açıklamalar
     updated: Güncellendi
-    view: Görüntüle '%{title}'
   document_filters:
     description: Filtre seçeneğini kullanarak aradığınız sonuca daha kolay ulaşabilirsiniz
     no_results:

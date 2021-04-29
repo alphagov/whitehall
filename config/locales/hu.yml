@@ -112,7 +112,6 @@ hu:
       from: 
       part_of: 
     published: közzététel dátuma
-    read: 'Olvassa el a következő cikket: %{title}'
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ hu:
         one: Írásbeli parlamenti nyilatkozat
         other: Írásbeli parlamenti nyilatkozatok
     updated: 'Utolsó frissítés:'
-    view: Tekintse meg a következő dokumentumot '%{title}'
   document_filters:
     description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények
       keresésében

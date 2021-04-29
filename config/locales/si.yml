@@ -112,7 +112,6 @@ si:
       from: 
       part_of: 
     published: පල කරන ලදී
-    read: ලිපිය  %{title} කියවන්න
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ si:
         one: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශය
         other: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ
     updated: යාවත්කාලීන කල
-    view: බලන්න  '%{title}'
   document_filters:
     description: ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න
     no_results:

@@ -112,7 +112,6 @@ be:
       from: 
       part_of: 
     published: Апублікаваны
-    read: Чытаць %{title} артыкул
     see_all: 
     speech:
       author_title:
@@ -360,7 +359,6 @@ be:
         one: Пісьмовая заява ў парламенце
         other: Пісьмовыя заявы ў парламенце
     updated: Адноўлена
-    view: Паглядзець '%{title}'
   document_filters:
     description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
       якія вас цікавяць.

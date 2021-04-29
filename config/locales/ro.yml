@@ -116,7 +116,6 @@ ro:
       from: 
       part_of: 
     published: Data publicării
-    read: 'Citește articolul %{title} '
     see_all: 
     speech:
       author_title:
@@ -317,7 +316,6 @@ ro:
         one: 'Declarație scrisă către Parlament '
         other: 'Declarații scrise către Parlament '
     updated: Actualizat
-    view: Vizualizare '%{title}'
   document_filters:
     description: Personalizează căutarea
     no_results:

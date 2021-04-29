@@ -110,7 +110,6 @@ da:
       from: 
       part_of: 
     published: 
-    read: 
     see_all: 
     speech:
       author_title:
@@ -264,7 +263,6 @@ da:
         one: 
         other: 
     updated: 
-    view: 
   document_filters:
     description: 
     no_results:

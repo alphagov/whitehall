@@ -113,7 +113,6 @@ he:
       from: 
       part_of: 
     published: פורסם
-    read: קראו את מאמר %{title}
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ he:
         one: 
         other: 
     updated: מעודכן
-    view: ראה '%{title}'
   document_filters:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:

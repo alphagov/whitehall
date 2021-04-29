@@ -113,7 +113,6 @@ hy:
       from: 
       part_of: 
     published: հրապարակված
-    read: Կարդացեք  %{title} հոդվածը
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ hy:
         one: Գրավոր դիմում խորհրդարան
         other: Գրավոր դիմումներ խորհրդարան
     updated: Թարմացված
-    view: Տես '%{title}'-ը
   document_filters:
     description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
       արդյունքները

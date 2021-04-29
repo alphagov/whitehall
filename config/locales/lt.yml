@@ -112,7 +112,6 @@ lt:
       from: 
       part_of: 
     published: publikuota
-    read: 'Skaitykite straipsnį %{title} '
     see_all: 
     speech:
       author_title:
@@ -313,7 +312,6 @@ lt:
         one: Rašytinis kreipimasis į parlamentą
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
-    view: Žiūrėkite '%{title}'
   document_filters:
     description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
       rezultatai

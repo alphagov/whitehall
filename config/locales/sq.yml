@@ -113,7 +113,6 @@ sq:
       from: 
       part_of: 
     published: publikuar
-    read: 'Lexo %{title} '
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ sq:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
     updated: rifreskuar
-    view: Shiko '%{title}'
   document_filters:
     description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
       qe perputhen me interesin tuaj&nbsp;

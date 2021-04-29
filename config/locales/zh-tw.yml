@@ -110,7 +110,6 @@ zh-tw:
       from: 
       part_of: 
     published: 發行
-    read: 閱讀%{title}文章
     see_all: 
     speech:
       author_title:
@@ -264,7 +263,6 @@ zh-tw:
         one: 提交國會的書面聲明
         other: 提交國會的其他書面聲明
     updated: 更新
-    view: 查看'%{title}'
   document_filters:
     description: 你可以使用過濾功能顯示&nbsp;只符合你需要的&nbsp;結果。
     no_results:

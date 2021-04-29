@@ -116,7 +116,6 @@ bg:
       from: 
       part_of: 
     published: Публикувано
-    read: 'Прочетете статията %{title} '
     see_all: 
     speech:
       author_title:
@@ -272,7 +271,6 @@ bg:
         one: Писмено изявление до парламента
         other: Писмени изявления до парламента
     updated: обновено
-    view: Вижте '%{title}'
   document_filters:
     description: Можете да използвате филтрите, за да видите резултатите, които пасват
       на вашето търсене

@@ -115,7 +115,6 @@ pa-pk:
       from: دی طرفوں
       part_of: دا حصہ
     published: شائع ہو گیا
-    read: "%{title} مضمون پڑھو"
     see_all: سارے ویکھو
     speech:
       author_title:
@@ -269,7 +268,6 @@ pa-pk:
         one: پارلیمنٹ نوں لکھیا ہویا بیان
         other: پارلیمنٹ نوں لکھے ہوئے بیان
     updated: اپڈیٹ ہویا
-    view: ویکھو '%{title}'
   document_filters:
     description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
       ہو

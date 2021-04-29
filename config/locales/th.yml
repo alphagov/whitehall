@@ -111,7 +111,6 @@ th:
       from: 
       part_of: 
     published: ตีพิมพ์
-    read: อ่าน%{title}บทความ
     see_all: 
     speech:
       author_title:
@@ -218,7 +217,6 @@ th:
       written_statement:
         other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
-    view: ดู '%{title}'
   document_filters:
     description: คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ
     no_results:

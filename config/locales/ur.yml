@@ -112,7 +112,6 @@ ur:
       from: 
       part_of: 
     published: شائع شدہ
-    read: پڑھئیے {title}% مضمون
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ ur:
         one: پارلیمنٹ میں تحریری بیان
         other: پارلیمنٹ میں تحریری بیانات
     updated: تجدید شدہ
-    view: "'%{title}' دیکھئیے"
   document_filters:
     description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں

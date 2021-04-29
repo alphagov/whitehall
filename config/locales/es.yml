@@ -112,7 +112,6 @@ es:
       from: 
       part_of: 
     published: Publicado
-    read: Leer el artículo
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ es:
         one: Declaración escrita
         other: Declaraciones escritas
     updated: Actualizado
-    view: Mirar '%{title}'
   document_filters:
     description: Puedes utilizar los filtros para ver sólo los resultados que te interesen
     no_results:

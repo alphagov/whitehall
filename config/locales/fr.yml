@@ -113,7 +113,6 @@ fr:
       from: 
       part_of: 
     published: publié
-    read: Lire l'article intitulé %{title}
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ fr:
         one: Communiqué
         other: Communiqués
     updated: mise à  jour
-    view: Voir '%{title}'
   document_filters:
     description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
       qui correspondent à vos intérêts

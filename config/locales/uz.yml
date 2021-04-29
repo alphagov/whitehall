@@ -112,7 +112,6 @@ uz:
       from: 
       part_of: 
     published: nashr qilindi
-    read: Maqolani o'qish %{title}
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ uz:
         one: Parlament uchun yozma hisobot
         other: Parlament uchun yozma hisobotlar
     updated: yangilandi
-    view: Nazorat '%{title}'
   document_filters:
     description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
       qullaning

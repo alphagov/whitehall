@@ -114,7 +114,6 @@ so:
       from: 
       part_of: 
     published: La-daabacay/nashriyey
-    read: Akhri maqaalka %{title}
     see_all: 
     speech:
       author_title:
@@ -268,7 +267,6 @@ so:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
     updated: Wax lagu kordhiyey
-    view: Eeg '%{title}'
   document_filters:
     description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
       natiijooyinka waafaqsan waxa aad daneyneyso

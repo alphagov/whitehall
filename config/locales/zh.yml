@@ -110,7 +110,6 @@ zh:
       from: 
       part_of: 
     published: 已发布
-    read: 阅读%{title}文章
     see_all: 
     speech:
       author_title:
@@ -254,7 +253,6 @@ zh:
         one: 对议会的书面声明
         other: 对议会的书面声明
     updated: 已更新
-    view: 阅读'%{title}'
   document_filters:
     description: 您可以使用过滤功能显示只符合您需要的结果。
     no_results:

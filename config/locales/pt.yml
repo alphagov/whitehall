@@ -112,7 +112,6 @@ pt:
       from: 
       part_of: 
     published: publicado
-    read: Leia o %{title} artigo
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ pt:
         one: Declaração escrita ao Parlamento
         other: Declarações escritas ao Parlamento
     updated: Atualizado
-    view: Veja '%{title}'
   document_filters:
     description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
       &nbsp; interessam

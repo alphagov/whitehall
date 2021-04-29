@@ -112,7 +112,6 @@ lv:
       from: 
       part_of: 
     published: publicēts
-    read: Lasīt %{title} rakstu
     see_all: 
     speech:
       author_title:
@@ -266,7 +265,6 @@ lv:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
     updated: atjaunināts
-    view: Skatīt '%{title}'
   document_filters:
     description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp;
     no_results:

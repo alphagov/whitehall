@@ -114,7 +114,6 @@ cs:
       from: 
       part_of: 
     published: Publikováno
-    read: Čtěte %{title}
     see_all: 
     speech:
       author_title:
@@ -315,7 +314,6 @@ cs:
         one: Písemná prohlášení do parlamentu
         other: Písemná prohlášení do parlamentu
     updated: Aktualizováno
-    view: Náhled '%{title}'
   document_filters:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:

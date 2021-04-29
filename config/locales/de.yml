@@ -113,7 +113,6 @@ de:
       from: 
       part_of: 
     published: Veröffentlicht
-    read: Artikel lesen %{title}
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ de:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
     updated: Aktualisiert
-    view: Schauen Sie sich '%{title}' an
   document_filters:
     description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
       entsprechen.

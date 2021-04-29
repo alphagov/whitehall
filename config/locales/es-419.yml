@@ -113,7 +113,6 @@ es-419:
       from: 
       part_of: 
     published: publicado
-    read: Lea el artículo %{title}
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ es-419:
         one: Declaración escrita al Parlamento
         other: Declaraciones escritas al Parlamento
     updated: actualizado
-    view: Ver '%{title}'
   document_filters:
     description: Puede utilizar los filtros para mostrar&nbsp;sólo resultados que
       coincidan con sus&nbsp;intereses

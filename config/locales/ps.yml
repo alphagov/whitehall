@@ -111,7 +111,6 @@ ps:
       from: 
       part_of: 
     published: خپور شوی
-    read: دا مضمون ووایاست %{title}
     see_all: 
     speech:
       author_title:
@@ -265,7 +264,6 @@ ps:
         one: پارلمان ته لیکلې اعلامیه
         other: پارلمان ته لیکلې اعلامیې
     updated: تازه شوي
-    view: لید '%{title}'
   document_filters:
     description: تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر کار
       واخلۍ چې ستاسې لپاره په زړه پوری وی

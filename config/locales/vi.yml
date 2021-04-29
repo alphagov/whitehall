@@ -112,7 +112,6 @@ vi:
       from: 
       part_of: 
     published: Đã xuất bản
-    read: Đọc bài có  %{title}
     see_all: 
     speech:
       author_title:
@@ -219,7 +218,6 @@ vi:
       written_statement:
         other: Các Tuyên bố bằng văn bản tới quốc hội
     updated: Cập nhật
-    view: Xem '%{title}'
   document_filters:
     description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn
       quan tâm

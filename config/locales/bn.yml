@@ -116,7 +116,6 @@ bn:
       from: থেকে
       part_of: এর অংশ
     published: প্রকাশিত
-    read: "%{title} প্রবন্ধ পড়ুন"
     see_all: সব দেখুন
     speech:
       author_title:
@@ -270,7 +269,6 @@ bn:
         one: সংসদে লিখিত বিবৃতি
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: আপডেটকৃত
-    view: "'%{title}'  দেখুন"
   document_filters:
     description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
       আপনি ফিল্টার ব্যবহার করতে পারেন

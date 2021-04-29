@@ -112,7 +112,6 @@ fa:
       from: 
       part_of: 
     published: منتشر شده
-    read: مقاله  %{title} را بخوانید
     see_all: 
     speech:
       author_title:
@@ -219,7 +218,6 @@ fa:
       written_statement:
         other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
-    view: مشاهده '%{title}'
   document_filters:
     description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
       محدود کنید

@@ -114,7 +114,6 @@ pl:
       from: 
       part_of: 
     published: opublikowano
-    read: Przeczytaj %{title} artykuł
     see_all: 
     speech:
       author_title:
@@ -362,7 +361,6 @@ pl:
         one: Pisemne oświadczenie przed parlamentem
         other: Pisemne oświadczenia przed parlamentem
     updated: Zaktualizowany
-    view: Zobacz '%{title}'
   document_filters:
     description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi
       są Państwo&nbsp;zainteresowani

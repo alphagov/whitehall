@@ -110,7 +110,6 @@ ka:
       from: 
       part_of: 
     published: 
-    read: 
     see_all: 
     speech:
       author_title:
@@ -217,7 +216,6 @@ ka:
       written_statement:
         other: 
     updated: 
-    view: 
   document_filters:
     description: 
     no_results:

@@ -115,7 +115,6 @@ en:
       from: From
       part_of: Part of
     published: published
-    read: Read the %{title} article
     see_all: See all
     speech:
       author_title:
@@ -344,7 +343,6 @@ en:
         one: Written statement to Parliament
         other: Written statements to Parliament
     updated: updated
-    view: View '%{title}'
   document_filters:
     description: You can use the filters to show only results that match your interests
     no_results:

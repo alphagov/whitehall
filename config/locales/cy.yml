@@ -113,7 +113,6 @@ cy:
       from: O
       part_of: Rhan o
     published: Cyhoeddwyd
-    read: Darllenwch yr erthygl %{title}
     see_all: 
     speech:
       author_title:
@@ -455,7 +454,6 @@ cy:
         two: 
         zero: 
     updated: diweddarwyd
-    view: Gweld '%{title}'
   document_filters:
     description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb
       i chi

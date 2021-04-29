@@ -110,7 +110,6 @@ az:
       from: 
       part_of: 
     published: dərc olunub
-    read: 
     see_all: 
     speech:
       author_title:
@@ -217,7 +216,6 @@ az:
       written_statement:
         other: Parlamentə yazılı müraciət
     updated: yenilənib
-    view: 
   document_filters:
     description: filterdən istifadə edərək nəticəni görmək mümkündür
     no_results:

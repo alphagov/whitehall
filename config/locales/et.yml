@@ -114,7 +114,6 @@ et:
       from: Kellelt
       part_of: Osa
     published: avaldatud
-    read: 'Lugege artiklit: %{title} '
     see_all: 
     speech:
       author_title:
@@ -268,7 +267,6 @@ et:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
     updated: Täiendatud
-    view: 'Vaadake: ''%{title}'''
   document_filters:
     description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
       Teie huvile vastavad

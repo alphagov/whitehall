@@ -111,7 +111,6 @@ ja:
       from: 
       part_of: 
     published: 掲載日
-    read: "%{title} の記事を読む"
     see_all: 
     speech:
       author_title:
@@ -218,7 +217,6 @@ ja:
       written_statement:
         other: 閣僚声明文
     updated: 更新
-    view: "%{title}' を見る"
   document_filters:
     description: 検索精度を上げるために、各種フィルターをご利用下さい
     no_results:

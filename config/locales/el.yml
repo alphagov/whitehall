@@ -113,7 +113,6 @@ el:
       from: 
       part_of: 
     published: Δημοσιευμένο
-    read: Διαβάστε το άρθρο  %{title}
     see_all: 
     speech:
       author_title:
@@ -267,7 +266,6 @@ el:
         one: Γραπτή  δήλωση στη Βουλή
         other: Γραπτές δηλώσεις στη Βουλή
     updated: 'ανανεωμένο '
-    view: Δείτε '%{title}'
   document_filters:
     description: Χρησιμοποιήστε τα φίλτρα για εξειδίκευση αποτελεσμάτων
     no_results:

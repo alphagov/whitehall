@@ -115,7 +115,6 @@ pa:
       from: ਤੋਂ
       part_of: ਦਾ ਭਾਗ
     published: ਪ੍ਰਕਾਸ਼ਿਤ
-    read: "%{title} ਲੇਖ ਪੜ੍ਹੋ"
     see_all: ਸਾਰੇ ਦੇਖੋ
     speech:
       author_title:
@@ -269,7 +268,6 @@ pa:
         one: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
-    view: "'%{title}' ਦੇਖੋ"
   document_filters:
     description: ਤੁਸੀਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਫਿਲਟਰਾਂ ਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀਆਂ
       ਦਿਲਚਸਪੀਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ

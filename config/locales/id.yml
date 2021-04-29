@@ -112,7 +112,6 @@ id:
       from: 
       part_of: 
     published: Diterbitkan
-    read: Baca artikel %{title}
     see_all: 
     speech:
       author_title:
@@ -219,7 +218,6 @@ id:
       written_statement:
         other: Pernyataan-pernyatan tertulis kepada parlemen
     updated: Terkini
-    view: Lihat '%{title}'
   document_filters:
     description: Silahkan gunakan bantuan filter untuk menunjukkan hasil yang hanya
       sesuai dengan keinginan Anda
