@@ -310,8 +310,6 @@ bn:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: আমরা কি করি সেই সম্পর্কে আরো পড়ুন
     corporate_information:
       access_our_info: আমাদের তথ্যের নাগাল পান
       jobs: চাকরিসমূহ

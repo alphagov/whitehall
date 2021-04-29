@@ -304,8 +304,6 @@ hy:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Կարդալ ավելին մեր գործունեության մասին
     corporate_information:
       access_our_info: Տեղեկատվություն մեր մասին
       jobs: 

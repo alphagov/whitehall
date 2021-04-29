@@ -304,8 +304,6 @@ fr:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: En savoir plus
     corporate_information:
       access_our_info: Accéder à nos informations
       jobs: 

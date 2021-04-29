@@ -303,8 +303,6 @@ dr:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: جهت معلومات بیشتر در مورد فعالیت های ما بخوانید
     corporate_information:
       access_our_info: دسترسی به معلومات
       jobs: 

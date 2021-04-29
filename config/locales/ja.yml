@@ -254,8 +254,6 @@ ja:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: 続き
     corporate_information:
       access_our_info: 情報開示
       jobs: 

@@ -254,8 +254,6 @@ ko:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: 우리 업무에 대한 자세한 내용을 확인하세요.
     corporate_information:
       access_our_info: 정보 접근
       jobs: 

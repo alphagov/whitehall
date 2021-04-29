@@ -399,8 +399,6 @@ pl:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Przeczytaj więcej o tym, czym się zajmujemy
     corporate_information:
       access_our_info: Uzyskaj dostęp do naszych informacji
       jobs: 

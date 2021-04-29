@@ -445,8 +445,6 @@ en:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Read more about what we do
     corporate_information:
       access_our_info: Access our information
       jobs: Jobs

@@ -302,8 +302,6 @@ ps:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: زمونږ د فعالیتونو په اړه نور معلومات ووایاست
     corporate_information:
       access_our_info: زمونږمعلوماتو ته لاس رسی پیدا کړی
       jobs: 

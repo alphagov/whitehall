@@ -256,8 +256,6 @@ id:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Baca lebih lanjut mengenai kerja kami
     corporate_information:
       access_our_info: Akses informasi kami
       jobs: 

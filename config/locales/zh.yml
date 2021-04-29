@@ -290,8 +290,6 @@ zh:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: 阅读更多关于我们的工作
     corporate_information:
       access_our_info: 阅读我们的信息
       jobs: 

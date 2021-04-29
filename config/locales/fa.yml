@@ -256,8 +256,6 @@ fa:
       storage_units:
         format: 
   organisation:
-    about:
-      read_more: درباره ی فعالیت های ما بیشتر بخوانید
     corporate_information:
       access_our_info: دسترسی به اطلاعات ما
       jobs: 

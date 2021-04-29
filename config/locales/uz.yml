@@ -303,8 +303,6 @@ uz:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Bizning faoliyatimiz haqida ko'proq ma'lumot oling
     corporate_information:
       access_our_info: Biz haqimizda ma'lumotga ega bo'ling
       jobs: 

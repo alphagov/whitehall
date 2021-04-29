@@ -300,8 +300,6 @@ zh-hk:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: 查閱更多關於我們的工作
     corporate_information:
       access_our_info: 閱讀我們的資訊
       jobs: 

@@ -353,8 +353,6 @@ ro:
       storage_units:
         format: 
   organisation:
-    about:
-      read_more: 'Mai multe despre activitatea noastră '
     corporate_information:
       access_our_info: 'Accesul la informații publice '
       jobs: 

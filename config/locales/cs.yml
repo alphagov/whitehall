@@ -351,8 +351,6 @@ cs:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Více o tom, co děláme
     corporate_information:
       access_our_info: Přístup k našim informacím
       jobs: 

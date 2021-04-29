@@ -491,8 +491,6 @@ ar:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: اقرأ المزيد عن عملنا
     corporate_information:
       access_our_info: اطلع على معلوماتنا
       jobs: 

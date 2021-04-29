@@ -305,8 +305,6 @@ ta:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: நாங்கள் என்ன  செய்கிறோம் என்பது பற்றி கூடுதலாக வாசிக்கவும்
     corporate_information:
       access_our_info: எங்களது தகவல்களை மதிப்பிடவும்
       jobs: 

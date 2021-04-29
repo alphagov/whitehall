@@ -303,8 +303,6 @@ pt:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Leia mais sobre o que fazemos
     corporate_information:
       access_our_info: Veja as nossas informações
       jobs: 

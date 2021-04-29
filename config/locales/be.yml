@@ -398,8 +398,6 @@ be:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Прачытайце больш пра нашу працу
     corporate_information:
       access_our_info: Доступ да нашай інфармацыі
       jobs: 

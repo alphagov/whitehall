@@ -305,8 +305,6 @@ so:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Sii akhri qoraal ku saabsan waxa aan qabanno
     corporate_information:
       access_our_info: Halkaan ka gal macluumaadkeenna
       jobs: 

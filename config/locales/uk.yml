@@ -397,8 +397,6 @@ uk:
       storage_units:
         format: 
   organisation:
-    about:
-      read_more: Читати далі про нашу діяльність
     corporate_information:
       access_our_info: Доступ до нашої інформації
       jobs: 

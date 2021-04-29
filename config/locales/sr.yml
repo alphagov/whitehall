@@ -398,8 +398,6 @@ sr:
       storage_units:
         format: 
   organisation:
-    about:
-      read_more: Pročitajte više o našem radu
     corporate_information:
       access_our_info: Pritupite našim informacijama
       jobs: 

@@ -396,8 +396,6 @@ ru:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Читать далее о нашей деятельности
     corporate_information:
       access_our_info: Доступ к нашей информации
       jobs: 

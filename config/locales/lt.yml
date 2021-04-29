@@ -350,8 +350,6 @@ lt:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Skaitykite daugiau apie mūsų veiklą
     corporate_information:
       access_our_info: Prieiga prie mūsų informacijos
       jobs: 

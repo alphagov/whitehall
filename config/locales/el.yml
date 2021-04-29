@@ -303,8 +303,6 @@ el:
       storage_units:
         format: 
   organisation:
-    about:
-      read_more: Περισσότερα για τις δράσεις μας
     corporate_information:
       access_our_info: Πρόσβαση στις πληροφορίες μας
       jobs: 

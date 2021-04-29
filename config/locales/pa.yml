@@ -309,8 +309,6 @@ pa:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: ਇਸ ਬਾਰੇ ਹੋਰ ਪੜ੍ਹੋ ਕਿ ਅਸੀਂ ਕੀ ਕਰਦੇ ਹਾਂ
     corporate_information:
       access_our_info: ਸਾਡੀ ਜਾਣਕਾਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ
       jobs: ਨੌਕਰੀਆਂ

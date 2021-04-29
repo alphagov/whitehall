@@ -302,8 +302,6 @@ si:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: අපට කළහැකි දේ ගැන තව දුරටත් කියවන්න
     corporate_information:
       access_our_info: අපේ තොරතුරු වලට පිවිසෙන්න
       jobs: 

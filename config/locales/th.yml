@@ -254,8 +254,6 @@ th:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: อ่านเพิ่มเติมเกี่ยวกับสิ่งที่เราทำ
     corporate_information:
       access_our_info: เข้าถึงข้อมูลของเรา
       jobs: 

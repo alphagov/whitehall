@@ -302,8 +302,6 @@ lv:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Uzzināt vairāk
     corporate_information:
       access_our_info: Piekļūt informācijai
       jobs: 

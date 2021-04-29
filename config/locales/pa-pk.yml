@@ -309,8 +309,6 @@ pa-pk:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: مزید پڑھو کہ اسی کی کردے آں
     corporate_information:
       access_our_info: ساڈی معلومات تک رسائی لو
       jobs: نوکریاں

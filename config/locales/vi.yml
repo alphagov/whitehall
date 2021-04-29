@@ -256,8 +256,6 @@ vi:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Xem thêm về những việc chúng tôi làm
     corporate_information:
       access_our_info: Truy cập thông tin của chúng tôi
       jobs: 
