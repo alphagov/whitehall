@@ -281,10 +281,6 @@ ta:
     world_locations:
       all: அனைத்து அமைவிடங்களும்
       label: உலக அமைவிடங்கள்
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

@@ -279,10 +279,6 @@ dr:
     world_locations:
       all: تمام موقعیت ها
       label: موقعیت های جهانی
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

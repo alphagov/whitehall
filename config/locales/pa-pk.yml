@@ -284,10 +284,6 @@ pa-pk:
     world_locations:
       all: ساریے مقام
       label: دنیا دے مقام
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: ایمیل
     feed: فیڈ

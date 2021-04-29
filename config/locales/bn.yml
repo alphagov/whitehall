@@ -285,10 +285,6 @@ bn:
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: ইমেইল
     feed: ফীড

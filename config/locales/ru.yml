@@ -372,10 +372,6 @@ ru:
     world_locations:
       all: Все места нахождения
       label: Места нахождения
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

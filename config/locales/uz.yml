@@ -279,10 +279,6 @@ uz:
     world_locations:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

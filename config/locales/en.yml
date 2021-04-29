@@ -358,10 +358,6 @@ en:
     world_locations:
       all: All locations
       label: World locations
-  email_signups:
-    new:
-      description: 'You’ll get emails when we add or update pages about:'
-      title: Get emails from GOV.UK
   feeds:
     email: email
     feed: feed

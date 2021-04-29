@@ -279,10 +279,6 @@ he:
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

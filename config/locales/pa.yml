@@ -284,10 +284,6 @@ pa:
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: ਈਮੇਲ
     feed: ਫੀਡ

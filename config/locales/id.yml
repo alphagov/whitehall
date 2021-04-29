@@ -232,10 +232,6 @@ id:
     world_locations:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

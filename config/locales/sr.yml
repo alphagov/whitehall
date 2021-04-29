@@ -374,10 +374,6 @@ sr:
     world_locations:
       all: Sve lokacije
       label: lokacije u svetu
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

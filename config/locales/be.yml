@@ -374,10 +374,6 @@ be:
     world_locations:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

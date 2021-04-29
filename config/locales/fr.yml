@@ -280,10 +280,6 @@ fr:
     world_locations:
       all: Tous les endroits
       label: Pays
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

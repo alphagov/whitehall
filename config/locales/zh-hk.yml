@@ -276,10 +276,6 @@ zh-hk:
     world_locations:
       all: 所有駐點
       label: 全球駐點
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

@@ -375,10 +375,6 @@ pl:
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

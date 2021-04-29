@@ -326,10 +326,6 @@ lt:
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

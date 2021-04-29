@@ -373,10 +373,6 @@ uk:
     world_locations:
       all: Будь-яке місце
       label: Країна
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

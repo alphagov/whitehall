@@ -281,10 +281,6 @@ so:
     world_locations:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

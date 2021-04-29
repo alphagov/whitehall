@@ -280,10 +280,6 @@ es-419:
     world_locations:
       all: Todas las ubicaciones
       label: Ubicaciones globales
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

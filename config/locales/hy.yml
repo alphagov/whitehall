@@ -280,10 +280,6 @@ hy:
     world_locations:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

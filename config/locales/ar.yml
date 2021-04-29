@@ -467,10 +467,6 @@ ar:
     world_locations:
       all: كافة المواقع
       label: مواقع في العالم
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

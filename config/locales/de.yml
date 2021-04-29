@@ -280,10 +280,6 @@ de:
     world_locations:
       all: Alle Standorte
       label: Standorte weltweit
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

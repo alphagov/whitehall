@@ -278,10 +278,6 @@ es:
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

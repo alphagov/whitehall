@@ -278,10 +278,6 @@ ps:
     world_locations:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

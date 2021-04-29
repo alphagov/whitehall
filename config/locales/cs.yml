@@ -327,10 +327,6 @@ cs:
     world_locations:
       all: Všude
       label: Světové lokace
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 

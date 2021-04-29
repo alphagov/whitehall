@@ -230,10 +230,6 @@ th:
     world_locations:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
-  email_signups:
-    new:
-      description: 
-      title: 
   feeds:
     email: 
     feed: 
