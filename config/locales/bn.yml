@@ -60,7 +60,6 @@ bn:
     opendocument:
       help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
         প্রকরণে আছে।
-    see_more: এই %{document_type} সম্পর্কে আরো তথ্য দেখুন
   broken_links:
     broken:
       subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
