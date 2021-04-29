@@ -323,28 +323,7 @@ tr:
       transparency: Veri saydamlığı
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 'Üst düzey uzman '
       contact: İletişim %{name}
-      corporate_information: Kurumsal bilgi
-      corporate_reports: Kurumsal raporlar
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: 'Duyurular '
-      our_consultations: 
-      our_judges: 
-      our_management: Yönetim
-      our_ministers: Bakanlarımız
-      our_policies: Politikalarımız
-      our_publications: Yayınlarımız
-      our_senior_military_officials: Kıdemli askeri görevli
-      our_services: Hizmetlerimiz
-      our_statistics: İstatistikler
-      our_topics: Bu konular üzerine çalışıyoruz
-      special_representatives: Özel temsilciler
-      traffic_commissioners: Trafik Şube Müdürü
-      what_we_do: 'Hakkımızda '
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

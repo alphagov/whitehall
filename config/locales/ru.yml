@@ -420,28 +420,7 @@ ru:
       transparency: Данные о прозрачности
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Наши главные профессиональные служащие
       contact: Обратиться к %{name}
-      corporate_information: Корпоративная информация
-      corporate_reports: Корпоративные отчеты
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Наши объявления
-      our_consultations: 
-      our_judges: 
-      our_management: Наше руководство
-      our_ministers: Наши министры
-      our_policies: Наша политика
-      our_publications: Наши публикации
-      our_senior_military_officials: Наши старшие военные чиновники
-      our_services: Наши службы
-      our_statistics: Наша статистика
-      our_topics: Мы работаем над данными вопросами
-      special_representatives: Специальные преставители
-      traffic_commissioners: Сотрудники, Ответственные за транспортные перевозки
-      what_we_do: Чем мы занимаемся
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

@@ -322,28 +322,7 @@ zh-tw:
       transparency: 透明化數據
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 我們的首席專業官員
       contact: 聯繫%{name}
-      corporate_information: 政府資訊
-      corporate_reports: 政府報告
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: 我們的公告
-      our_consultations: 
-      our_judges: 
-      our_management: 我們的管理層
-      our_ministers: 我們的首相/大臣
-      our_policies: 我們的政策
-      our_publications: 我們的出版物
-      our_senior_military_officials: 我們的高級軍事官員
-      our_services: 我們的服務
-      our_statistics: 我們的統計資料
-      our_topics: 我們工作的領域
-      special_representatives: 特別代表
-      traffic_commissioners: 交通事務專員
-      what_we_do: 我們的工作
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

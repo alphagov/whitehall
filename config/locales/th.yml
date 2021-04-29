@@ -275,28 +275,7 @@ th:
       transparency: ข้อมูลที่มีความโปร่งใส
     foi_exemption_html: 
     headings:
-      chief_professional_officers: หัวหน้าผู้ชำนาญการ
       contact: สัญญา %{name}
-      corporate_information: ข้อมูลบริษัท
-      corporate_reports: รายงานบริษัท
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: ข่าวสารของเรา
-      our_consultations: 
-      our_judges: 
-      our_management: การบริหารจัดการของเรา
-      our_ministers: รัฐมนตรีของเรา
-      our_policies: นโยบายของเรา
-      our_publications: สิ่งพิมพ์ของเรา
-      our_senior_military_officials: เจ้าหน้าที่ทหารอาวุโสของเรา
-      our_services: บริการของเรา
-      our_statistics: สถิติของเรา
-      our_topics: เราทำงานในห้วข้อเหล่านี้
-      special_representatives: ผู้แทนพิเศษ
-      traffic_commissioners: ผู้บัญชาการจราจร
-      what_we_do: สิ่งที่เราทำ
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

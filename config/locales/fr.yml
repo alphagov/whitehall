@@ -326,28 +326,7 @@ fr:
       transparency: Données de transparence
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Nos responsables administratifs
       contact: Contacter %{name}
-      corporate_information: Informations générales
-      corporate_reports: Rapports d'activité
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Nos actualités
-      our_consultations: 
-      our_judges: 
-      our_management: Notre direction
-      our_ministers: Nos ministres
-      our_policies: Nos politiques
-      our_publications: Nos publications
-      our_senior_military_officials: Nos hauts responsables militaires
-      our_services: 'Nos services '
-      our_statistics: Nos statistiques
-      our_topics: Nos axes de travail
-      special_representatives: Représentants spéciaux
-      traffic_commissioners: Commissaires du trafic
-      what_we_do: Nos activités
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

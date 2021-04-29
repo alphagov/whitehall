@@ -277,28 +277,7 @@ fa:
       transparency: داده های شفاف سازی
     foi_exemption_html: 
     headings:
-      chief_professional_officers: افسران ارشد حرفه ای ما
       contact: تماس با %{name}
-      corporate_information: اطلاعات سازمانی
-      corporate_reports: گزارش های سازمانی
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: اطلاعیه های ما
-      our_consultations: 
-      our_judges: 
-      our_management: مدیریت ما
-      our_ministers: معاونین وزیر ما
-      our_policies: سیاست های ما
-      our_publications: انتشارات ما
-      our_senior_military_officials: مقامات ارشد نظامی ما
-      our_services: خدمات ما
-      our_statistics: آمار ما
-      our_topics: ما در خصوص این موضوعات فعالیت می کنیم
-      special_representatives: نمایندگان ویژه
-      traffic_commissioners: ماموران ترافیک
-      what_we_do: فعالیت ما
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

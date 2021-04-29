@@ -326,28 +326,7 @@ hi:
       transparency: पारदर्शिता आंकड़े
     foi_exemption_html: 
     headings:
-      chief_professional_officers: हमारे मुख्य पेशेवर अधिकारी
       contact: संपर्क %{name}
-      corporate_information: निकाय सूचना
-      corporate_reports: कम्पनी रपट
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: हमारी घोषणाएं
-      our_consultations: 
-      our_judges: 
-      our_management: हमारा प्रबंधन
-      our_ministers: हमारे मंत्री
-      our_policies: हमारी नीतियां
-      our_publications: हमारे प्रकाशन
-      our_senior_military_officials: हमारे वरिष्ठ सैन्य अधिकारी
-      our_services: हमारी सेवाएं
-      our_statistics: हमारे आंकड़े
-      our_topics: हम इन विषयों पर काम करतें हैं
-      special_representatives: विशेष प्रतिनिधि
-      traffic_commissioners: यातायात आयुक्त
-      what_we_do: हम क्या करते हैं
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

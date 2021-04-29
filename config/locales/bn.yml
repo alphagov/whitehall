@@ -334,28 +334,7 @@ bn:
       এই সংস্থাটি তথ্য স্বাধীনতা আইনের অধীনস্থ নয়।
       কোন সংস্থাসমূহ অন্তর্ভুক্ত সেটি দেখার জন্য, <a href="%{foi_url}">the legislation</a> দেখুন।
     headings:
-      chief_professional_officers: আমাদের প্রধান পেশাদার কর্মকর্তাগণ
       contact: "%{name} যোগাযোগ করুন"
-      corporate_information: কর্পোরেট তথ্যাদি
-      corporate_reports: কর্পোরেট রিপোর্টসমূহ
-      documents: নথিপত্র
-      freedom_of_information_act: তথ্য স্বাধীনতা (এফওআই) আইন
-      making_foi_requests: একটি এফওআই অনুরোধ প্রস্তুত করুন
-      our_announcements: আমাদের ঘোষণাসমূহ
-      our_consultations: আমাদের শলাপরামর্শসমূহ
-      our_judges: আমাদের বিচারকগণ
-      our_management: আমাদের পরিচালনা
-      our_ministers: আমাদের মন্ত্রীগণ
-      our_policies: আমাদের নীতিমালা
-      our_publications: আমাদের প্রকাশনাসমূহ
-      our_senior_military_officials: আমাদের উর্ধ্বতন সামরিক কর্মকর্তাগণ
-      our_services: আমাদের পরিষেবা
-      our_statistics: আমাদের পরিসংখ্যান
-      our_topics: আমরা এই বিষয়াবলীর উপরে কাজ করে থাকি
-      special_representatives: সামাজিক প্রতিনিধিগণ
-      traffic_commissioners: ট্রাফিক কমিশনারগণ
-      what_we_do: আমরা কি করি
-      who_we_are: আমরা কারা
     making_foi_requests:
       step1_html: ' তথ্য স্বাধীনতা(এফওআই) আইন এবং <a href="%{how_to_path}">how to
         make a request</a> সম্পর্কে পড়ুন'

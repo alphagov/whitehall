@@ -324,28 +324,7 @@ ps:
       transparency: د شفافیت معلومات
     foi_exemption_html: 
     headings:
-      chief_professional_officers: زمونږه لوړپوړي مسلکی مدیران
       contact: تماس  %{name}
-      corporate_information: متحد معلومات
-      corporate_reports: متحد راپورونه
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: زمونږه اعلانات
-      our_consultations: 
-      our_judges: 
-      our_management: زمونږه اداره
-      our_ministers: زموږه وزیران
-      our_policies: زموږه پالیسی ګانی
-      our_publications: زموږه نشریات
-      our_senior_military_officials: زموږه لوړپوړي نظامی اراکین
-      our_services: زموږه خدمتونه
-      our_statistics: زموږه احصائی
-      our_topics: موږ په دغه موضوعاتو کار کوو
-      special_representatives: خصوصی نمایندګان
-      traffic_commissioners: د ترافیکو کمشنران
-      what_we_do: موږڅه کوو
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

@@ -422,28 +422,7 @@ be:
       transparency: Адкрытыя дадзеныя
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Нашы галоўныя прафесійныя афіцэры
       contact: Звязацца з %{name}
-      corporate_information: Карпаратыўная інфармацыя
-      corporate_reports: Карпаратыўныя справаздачы
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Нашы абвесткі
-      our_consultations: 
-      our_judges: 
-      our_management: Наша кіраўніцтва
-      our_ministers: Нашы міністры
-      our_policies: Наша палітыка
-      our_publications: Нашы публікацыі
-      our_senior_military_officials: Нашы вышэйшыя ваенныя службоўцы
-      our_services: Нашы паслугі
-      our_statistics: Наша статыстыка
-      our_topics: Мы працуем па гэтым тэмам
-      special_representatives: Спецыяльныя прадстаўнікі
-      traffic_commissioners: Транспартны суд
-      what_we_do: Што мы робім
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

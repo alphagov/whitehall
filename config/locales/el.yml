@@ -326,28 +326,7 @@ el:
       transparency: Στοιχεία διαφάνειας
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Τα ανώτερα στελέχη της υπηρεσίας μας
       contact: Επικοινωνήστε%{name}
-      corporate_information: Πληροφορίες για τον Οργανισμό
-      corporate_reports: Εκθέσεις Οργανισμού
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Οι ανακοινώσεις μας
-      our_consultations: 
-      our_judges: 
-      our_management: Η ηγεσία μας
-      our_ministers: Οι υπουργοί μας
-      our_policies: Οι πολιτικές μας
-      our_publications: Οι εκδόσεις μας
-      our_senior_military_officials: Η στρατιωτική ηγεσία
-      our_services: Οι υπηρεσίες μας
-      our_statistics: Τα στατιστικά μας
-      our_topics: Εργαζόμαστε στους παρακάτω τομείς
-      special_representatives: Ειδικοί αντιπρόσωποι
-      traffic_commissioners: 'Ομάδα ρύθμισης μεταφορών '
-      what_we_do: Οι δράσεις μας
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

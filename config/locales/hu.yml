@@ -325,28 +325,7 @@ hu:
       transparency: Átláthatósági adatok
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Szakmai vezetőink
       contact: 'Kapcsolat felvétele: %{name}'
-      corporate_information: Szervezeti információk
-      corporate_reports: Testületi beszámolók
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Híreink
-      our_consultations: 
-      our_judges: 
-      our_management: Vezetőségünk
-      our_ministers: Minisztereink
-      our_policies: Szakpolitikáink
-      our_publications: Kiadványaink
-      our_senior_military_officials: Katonai vezetőink
-      our_services: Szolgáltatásaink
-      our_statistics: Statisztikák
-      our_topics: Ezeken a témákon dolgozunk
-      special_representatives: Különleges képviselők
-      traffic_commissioners: Forgalmi biztosok
-      what_we_do: Feladatunk
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

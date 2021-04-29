@@ -423,28 +423,7 @@ pl:
       transparency: Dane o transparentności
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 'Nasi naczelni specjaliści '
       contact: Skontaktuj się z %{name}
-      corporate_information: Informacje korporacyjne
-      corporate_reports: Raporty korporacyjne
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Nasze ogłoszenia
-      our_consultations: 
-      our_judges: 
-      our_management: Nasze kierownictwo
-      our_ministers: Nasi ministrowie
-      our_policies: Nasza polityka
-      our_publications: Nasze publikacje
-      our_senior_military_officials: Nasi wysocy rangą oficerowie
-      our_services: Nasze usługi
-      our_statistics: Nasze statystyki
-      our_topics: Zajmujemy się tymi tematami
-      special_representatives: Specjalni wysłannicy
-      traffic_commissioners: Komisarze z wydziałów ruchu drogowego
-      what_we_do: Czym się zajmujemy
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

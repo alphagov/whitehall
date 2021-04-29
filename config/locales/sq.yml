@@ -326,28 +326,7 @@ sq:
       transparency: Te dhena transparence
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 'Zyrtaret tane kryesore profesioniste '
       contact: Kontakt %{name}
-      corporate_information: Informacion korporate
-      corporate_reports: Raporte korporate
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Njoftimet tona
-      our_consultations: 
-      our_judges: 
-      our_management: Manaxhimi yne
-      our_ministers: Ministrat tane
-      our_policies: Politikat tona
-      our_publications: Publikimet tona
-      our_senior_military_officials: Zyrtaret kryesore ushtarake
-      our_services: Sherbimet tona
-      our_statistics: Statistikat tona
-      our_topics: Ne punojme ne keto tema
-      special_representatives: Perfaqesues speciale
-      traffic_commissioners: Komisionere te trafikut
-      what_we_do: Cfare bejme ne
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

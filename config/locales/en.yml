@@ -469,28 +469,7 @@ en:
       This organisation is not covered by the Freedom of Information Act.
       To see which organisations are included, see <a href="%{foi_url}">the legislation</a>.
     headings:
-      chief_professional_officers: Our chief professional officers
       contact: Contact %{name}
-      corporate_information: Corporate information
-      corporate_reports: Corporate reports
-      documents: Documents
-      freedom_of_information_act: Freedom of Information (FOI) Act
-      making_foi_requests: Make an FOI request
-      our_announcements: Our announcements
-      our_consultations: Our consultations
-      our_judges: Our judges
-      our_management: Our management
-      our_ministers: Our ministers
-      our_policies: Our policies
-      our_publications: Our publications
-      our_senior_military_officials: Our senior military officials
-      our_services: Our services
-      our_statistics: Our statistics
-      our_topics: We work on these topics
-      special_representatives: Special representatives
-      traffic_commissioners: Traffic commissioners
-      what_we_do: What we do
-      who_we_are: Who we are
     making_foi_requests:
       step1_html: Read about the Freedom of Information (FOI) Act and <a href="%{how_to_path}">how
         to make a request</a>

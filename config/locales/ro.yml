@@ -377,28 +377,7 @@ ro:
       transparency: 
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 
       contact: Contactează-ne  %{name}
-      corporate_information: Informaţii despre ambasadă
-      corporate_reports: 'Rapoarte de management '
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: 'Știri '
-      our_consultations: 
-      our_judges: 
-      our_management: 'Echipa ambasadei '
-      our_ministers: 'Miniștrii '
-      our_policies: 'Obiective strategice '
-      our_publications: 'Publicații '
-      our_senior_military_officials: 'Oficiali militari de rang înalt '
-      our_services: 'Servicii '
-      our_statistics: Statistici
-      our_topics: 'Ce domenii acoperim '
-      special_representatives: 'Reprezentanți speciali '
-      traffic_commissioners: 'Monitorizarea traficului '
-      what_we_do: Activitatea noastră
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

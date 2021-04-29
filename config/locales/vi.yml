@@ -277,28 +277,7 @@ vi:
       transparency: Minh bạch dữ liệu
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Các cán bộ phụ trách chuyên môn của chúng tôi
       contact: Liên lạc %{name}
-      corporate_information: Thông tin về phòng tổng hợp
-      corporate_reports: Các báo cáo của phòng tổng hợp
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Các thông báo của chúng tôi
-      our_consultations: 
-      our_judges: 
-      our_management: Ban quản lý
-      our_ministers: Các Thứ trưởng
-      our_policies: Các chính sách của chúng tôi
-      our_publications: Các tài liệu truyền thông của chúng tôi
-      our_senior_military_officials: Các quan chức quân đội cao cấp
-      our_services: Các dịch vụ của chúng tôi
-      our_statistics: Thống kê
-      our_topics: Những lĩnh vực chúng tôi hoạt động
-      special_representatives: Đại diện đặc biệt
-      traffic_commissioners: Các ủy viên giao thông
-      what_we_do: Điều chúng tôi làm
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

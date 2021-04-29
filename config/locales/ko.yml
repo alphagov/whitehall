@@ -275,28 +275,7 @@ ko:
       transparency: 투명성 데이터
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 최고책임자
       contact: "%{name} 에게 연락하세요"
-      corporate_information: 대사관 정보
-      corporate_reports: 대사관 보고서
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: 뉴스
-      our_consultations: 
-      our_judges: 
-      our_management: 조직
-      our_ministers: 장관급
-      our_policies: 정책
-      our_publications: 자료
-      our_senior_military_officials: 고위 군관계자
-      our_services: 서비스
-      our_statistics: 통계자료
-      our_topics: 업무 토픽
-      special_representatives: 특별 대사
-      traffic_commissioners: 트래픽 커미셔너
-      what_we_do: 업무 내용
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

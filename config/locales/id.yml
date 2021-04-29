@@ -277,28 +277,7 @@ id:
       transparency: Transparansi data
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Para kepala pejabat profesional kami
       contact: Hubungi %{name}
-      corporate_information: Informasi korporat
-      corporate_reports: Laporan korporat
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Pengumuman-pengumuman kami
-      our_consultations: 
-      our_judges: 
-      our_management: Manajemen kami
-      our_ministers: Menteri-menteri kami
-      our_policies: Kebijakan-kebijakan kami
-      our_publications: Publikasi-publikasi kami
-      our_senior_military_officials: Para pejabat militer senior kami
-      our_services: Pelayanan-pelayanan kami
-      our_statistics: Statistik-statistik kami
-      our_topics: Kami bekerja pada bidang-bidang ini
-      special_representatives: Perwakilan khusus
-      traffic_commissioners: Komisioner lalu lintas
-      what_we_do: Kerja kami
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

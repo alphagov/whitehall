@@ -331,28 +331,7 @@ bg:
       transparency: Данни за прозрачността
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Нашите служители
       contact: Свържете се с %{name}
-      corporate_information: Корпоративна информация
-      corporate_reports: Корпоративни доклади
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Съобщенията ни
-      our_consultations: 
-      our_judges: 
-      our_management: Нашето ръководство
-      our_ministers: Нашите министи
-      our_policies: Нашите политики
-      our_publications: Нашите публикации
-      our_senior_military_officials: Нашите висши военни служители
-      our_services: Услуги, които извършваме
-      our_statistics: Нашата статистика
-      our_topics: Работим по тези теми
-      special_representatives: Специални представители
-      traffic_commissioners: Комисари по трафика
-      what_we_do: Нашата дейност
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

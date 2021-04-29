@@ -327,28 +327,7 @@ ta:
       transparency: வெளிப்படையான தரவு
     foi_exemption_html: 
     headings:
-      chief_professional_officers: எங்களது பிரதம தொழில்சார் தகைமை அதிகாரிகள்
       contact: தொடர்பு %{name}
-      corporate_information: கூட்டாண்மைத் தகவல்
-      corporate_reports: கூட்டாண்மை அறிக்கைகள்
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: எங்களது அறிவிப்புகள்
-      our_consultations: 
-      our_judges: 
-      our_management: எங்களது முகாமைத்துவம்
-      our_ministers: எங்களது அமைச்சர்கள்
-      our_policies: எங்களது கொள்கைகள்
-      our_publications: எங்களது  வெளியீடுகள்
-      our_senior_military_officials: எங்களது சிரேஷ்ட இராணுவ அதிகாரிகள்
-      our_services: எங்களது  சேவைகள்
-      our_statistics: எங்களது புள்ளிவிபரம்
-      our_topics: இந்த விடயங்கள் மீது நாங்கள் செயலாற்றுகிறோம்
-      special_representatives: விசேட பிரதிநிதிகள்
-      traffic_commissioners: போக்குவரத்து ஆணையாளர்கள்
-      what_we_do: நாங்கள் செய்வது என்ன
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

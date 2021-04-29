@@ -326,28 +326,7 @@ es-419:
       transparency: Datos de transparencia
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Nuestros oficiales profesionales en jefe
       contact: Comuníquese con %{name}
-      corporate_information: Información institucional
-      corporate_reports: Reportes institucionales
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Nuestras novedades
-      our_consultations: 
-      our_judges: 
-      our_management: Nuestra administración
-      our_ministers: Nuestros ministros
-      our_policies: Nuestras políticas
-      our_publications: Nuestras publicaciones
-      our_senior_military_officials: Nuestros oficiales militares senior
-      our_services: Nuestros servicios
-      our_statistics: Nuestras estadísticas
-      our_topics: Trabajamos sobre estos temas
-      special_representatives: Representantes especiales
-      traffic_commissioners: Comisionados de tráfico
-      what_we_do: Qué hacemos
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

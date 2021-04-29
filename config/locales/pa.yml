@@ -333,28 +333,7 @@ pa:
       ਇਹ ਸੰਗਠਨ ਜਾਣਕਾਰੀ ਦੀ ਸੁਤੰਤਰਤਾ ਕਾਨੂੰਨ ਦੇ ਅਧੀਨ ਨਹੀਂ ਆਉਂਦਾ।
       ਇਹ ਦੇਖਣ ਲਈ ਕਿ ਕਿਹੜੇ ਸੰਗਠਨ ਸ਼ਾਮਲ ਹਨ, <a href="%{foi_url}">ਕਾਨੂੰਨ</a> ਦੇਖੋ।
     headings:
-      chief_professional_officers: ਸਾਡੇ ਮੁੱਖ ਪੇਸ਼ੇਵਰ ਅਧਿਕਾਰੀ
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
-      corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
-      corporate_reports: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ
-      documents: ਦਸਤਾਵੇਜ਼
-      freedom_of_information_act: ਜਾਣਕਾਰੀ ਦੀ ਸੁਤੰਤਰਤਾ (FOI) ਕਾਨੂੰਨ
-      making_foi_requests: FOI ਬੇਨਤੀ ਕਰੋ
-      our_announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
-      our_consultations: ਸਾਡੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ
-      our_judges: ਸਾਡੇ ਜੱਜ
-      our_management: ਸਾਡਾ ਪ੍ਰਬੰਧਨ
-      our_ministers: ਸਾਡੇ ਮੰਤਰੀ
-      our_policies: ਸਾਡੀਆਂ ਨੀਤੀਆਂ
-      our_publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
-      our_senior_military_officials: ਸਾਡੇ ਸੀਨੀਅਰ ਸੈਨਿਕ ਅਧਿਕਾਰੀ
-      our_services: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ
-      our_statistics: ਸਾਡੇ ਅੰਕੜੇ
-      our_topics: ਅਸੀਂ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ 'ਤੇ ਕੰਮ ਕਰਦੇ
-      special_representatives: ਵਿਸ਼ੇਸ਼ ਨੁਮਾਇੰਦੇ
-      traffic_commissioners: ਟ੍ਰੈਫ਼ਿਕ ਕਮਿਸ਼ਨਰ
-      what_we_do: ਅਸੀਂ ਕੀ ਕਰਦੇ ਹਾਂ
-      who_we_are: ਅਸੀਂ ਕੌਣ ਹਾਂ
     making_foi_requests:
       step1_html: ਜਾਣਕਾਰੀ ਦੀ ਸੁਤੰਤਰਤਾ (FOI) ਕਾਨੂੰਨ ਅਤੇ <a href="%{how_to_path}">ਬੇਨਤੀ
         ਕਰਨ ਦੇ ਤਰੀਕੇ</a> ਬਾਰੇ ਪੜ੍ਹੋ

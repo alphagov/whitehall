@@ -422,28 +422,7 @@ sr:
       transparency: podaci o transparentnosti
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Naši nadležni službenici
       contact: Kontaktirajte %{name}
-      corporate_information: Informacije o organizaciji
-      corporate_reports: Izveštaji
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Naše objave
-      our_consultations: 
-      our_judges: 
-      our_management: Naše rukovodstvo
-      our_ministers: Naši ministri
-      our_policies: Naše politike
-      our_publications: Naše publikacije
-      our_senior_military_officials: Naši visoki vojni zvaničnici
-      our_services: Naše usluge
-      our_statistics: Naša statistika
-      our_topics: Radimo na ovim temama
-      special_representatives: specijalni predstavnici
-      traffic_commissioners: poverenik za saobraćaj
-      what_we_do: Radimo na
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

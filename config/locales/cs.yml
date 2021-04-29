@@ -374,28 +374,7 @@ cs:
       transparency: 'Data '
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Naše vedení
       contact: Kontakt %{name}
-      corporate_information: Korporátní informace
-      corporate_reports: Korporátní zprávy
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Naše prohlášení
-      our_consultations: 
-      our_judges: 
-      our_management: Naše vedení
-      our_ministers: Naši ministři
-      our_policies: Naše politiky
-      our_publications: Naše publikace
-      our_senior_military_officials: Naši vojenští velitelé
-      our_services: Neše služby
-      our_statistics: Naše statistiky
-      our_topics: Pracujeme na těchto tématech
-      special_representatives: Zvláštní reprezentanti
-      traffic_commissioners: Dopravní komisaři
-      what_we_do: Co děláme
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

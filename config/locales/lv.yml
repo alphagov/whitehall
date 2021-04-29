@@ -324,28 +324,7 @@ lv:
       transparency: Atklātība
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Mūsu atbildīgie speciālisti
       contact: Sazināties %{name}
-      corporate_information: Korporatīva informācija
-      corporate_reports: Korporatīvi ziņojumi
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Mūsu paziņojumi
-      our_consultations: 
-      our_judges: 
-      our_management: Mūsu vadība
-      our_ministers: Mūsu ministri
-      our_policies: Mūsu darbības jomas
-      our_publications: Mūsu publikācijas
-      our_senior_military_officials: Augstākās militārās amatpersonas
-      our_services: Mūsu pakalpojumi
-      our_statistics: Statistika
-      our_topics: Mēs strādājam ar šiem jautājumiem
-      special_representatives: Īpašie pārstāvji
-      traffic_commissioners: Satiksmes komisāri
-      what_we_do: Par mums
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

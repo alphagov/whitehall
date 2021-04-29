@@ -421,28 +421,7 @@ uk:
       transparency: Прозорість інформації
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Наші головні спеціалісти
       contact: Контактна особа  %{name}
-      corporate_information: Корпоративна інформація
-      corporate_reports: Корпоративні звіти
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Наші оголошення
-      our_consultations: 
-      our_judges: 
-      our_management: Наше керівництво
-      our_ministers: Наші міністри
-      our_policies: Наша політика
-      our_publications: Наші публікації
-      our_senior_military_officials: Наші старші військові керівники
-      our_services: Наші послуги
-      our_statistics: Наша статистика
-      our_topics: Ми працюємо над цими темами
-      special_representatives: Спеціальні представники
-      traffic_commissioners: Уповноважені з питань транспорту
-      what_we_do: Що ми робимо
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

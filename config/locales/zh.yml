@@ -312,28 +312,7 @@ zh:
       transparency: 透明化数据
     foi_exemption_html: 
     headings:
-      chief_professional_officers: 我们的首席专业官员
       contact: 联系%{name}
-      corporate_information: 政府信息
-      corporate_reports: 政府报告
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: 我们的公告
-      our_consultations: 
-      our_judges: 
-      our_management: 我们的管理层
-      our_ministers: 我们的首相/大臣/秘书
-      our_policies: 我们的政策
-      our_publications: 我们的报告
-      our_senior_military_officials: 我们的高级军事官员
-      our_services: 我们的服务
-      our_statistics: 我们的数据
-      our_topics: 我们围绕这些主题进行工作
-      special_representatives: 特别代表
-      traffic_commissioners: 交通事务专员
-      what_we_do: 我们的工作
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

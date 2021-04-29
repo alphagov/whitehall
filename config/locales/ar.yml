@@ -517,28 +517,7 @@ ar:
       transparency: بيانات تتعلق بالشفافية
     foi_exemption_html: 
     headings:
-      chief_professional_officers: كبار المسؤولين المحترفين لدينا
       contact: اتصل بـ%{name}
-      corporate_information: معلومات عن الوزارة
-      corporate_reports: تقارير الوزارة
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: إعلاناتنا
-      our_consultations: 
-      our_judges: 
-      our_management: إدارتنا
-      our_ministers: وزراؤنا
-      our_policies: سياساتنا
-      our_publications: مطبوعاتنا
-      our_senior_military_officials: كبار المسؤولين العسكريين
-      our_services: خدماتنا
-      our_statistics: إحصائياتنا
-      our_topics: عملينا بشأن هذه المواضيع
-      special_representatives: الممثلون الخاصون
-      traffic_commissioners: مفوضو المرور
-      what_we_do: عملنا
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

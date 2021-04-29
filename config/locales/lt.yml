@@ -373,28 +373,7 @@ lt:
       transparency: Skaidrumo informacija
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Mūsų vyriausieji pareigūnai
       contact: Susisiekite su %{name}
-      corporate_information: Korporatyvinė informacija
-      corporate_reports: Korporatyvinės ataskaitos
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Mūsų skelbimai
-      our_consultations: 
-      our_judges: 
-      our_management: Mūsų vadovybė
-      our_ministers: Mūsų ministrai
-      our_policies: Mūsų strategijos
-      our_publications: Mūsų leidiniai
-      our_senior_military_officials: Mūsų vyriausieji kariuomenės pareigūnai
-      our_services: Mūsų paslaugos
-      our_statistics: Mūsų statistika
-      our_topics: Mes dirbame šiose srityse
-      special_representatives: Specialieji atstovai
-      traffic_commissioners: Eismo komisarai
-      what_we_do: Ką mes darome
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

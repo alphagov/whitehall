@@ -325,28 +325,7 @@ it:
       transparency: Dati sulla trasparenza
     foi_exemption_html: 
     headings:
-      chief_professional_officers: I nostri dirigenti
       contact: Contatta %{name}
-      corporate_information: Informazioni aziendali
-      corporate_reports: Relazioni aziendali
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: I nostri annunci
-      our_consultations: 
-      our_judges: 
-      our_management: Il nostro corpo direttivo
-      our_ministers: I nostri ministri
-      our_policies: Le nostre politiche
-      our_publications: Le nostre pubblicazioni
-      our_senior_military_officials: I nostri alti ufficiali militari
-      our_services: I nostri servizi
-      our_statistics: Le nostre statistiche
-      our_topics: Di cosa ci occupiamo
-      special_representatives: Rappresentanti speciali
-      traffic_commissioners: Commissari per le attività commerciali
-      what_we_do: Cosa facciamo
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

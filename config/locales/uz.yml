@@ -325,28 +325,7 @@ uz:
       transparency: Ochiqlikka oid ma'lumotlar
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Bizning asosiy mutaxassislar
       contact: "%{name} bog'laning"
-      corporate_information: Korporativ ma'lumot
-      corporate_reports: Korporativ hisobotlar
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Bizning e'lonlar
-      our_consultations: 
-      our_judges: 
-      our_management: Bizning rahbariyat
-      our_ministers: Bizning vazirlar
-      our_policies: Bizning dasturlar
-      our_publications: Bizning nashrlar
-      our_senior_military_officials: Bizning yuqori darajadagi harbiy vakillarimiz
-      our_services: Bizning xizmatlat
-      our_statistics: Bizning statistika
-      our_topics: Bu yonalishlar bo'yicha ishlaymiz
-      special_representatives: Maxsus vakil
-      traffic_commissioners: Traffik va transport savollari bo'yicha komissar 
-      what_we_do: Bizning faoliyatimiz
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

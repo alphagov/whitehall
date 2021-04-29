@@ -326,28 +326,7 @@ hy:
       transparency: Թափանցիկ տեղեկատվությ
     foi_exemption_html: 
     headings:
-      chief_professional_officers: Մեր գլխավոր մասնագետները
       contact: Տվյալ %{name}
-      corporate_information: Կորպորատիվ տեղեկատվություն
-      corporate_reports: Կորպորատիվ հաշվետվություններ
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: Մեր հայտարարությունները
-      our_consultations: 
-      our_judges: 
-      our_management: Մեր ղեկավարումը
-      our_ministers: Մեր նաքարարներ
-      our_policies: Մեր քաղաքականությույնը
-      our_publications: Մեր հրատարակումները
-      our_senior_military_officials: Մեր ավագ զինվորական գծով ղեկավարները
-      our_services: Մեր ծառայությունները
-      our_statistics: Մեր ցուցանիշները
-      our_topics: Մենք աշքատում ենք տյալ թեմայի շուրջ
-      special_representatives: Հատուկ ներկայացուցիչներ
-      traffic_commissioners: Երթևեկության հանձնաժողով
-      what_we_do: Ինչ ենք մենք անում
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

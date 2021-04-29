@@ -333,28 +333,7 @@ pa-pk:
       اس تنظیم تے معلومات دی رسائی دا قانون لاگو نہیں ہوندا۔
       کیہڑیا تنظیماں شامل نیں، ویکھو a href="%{foi_url}">قانون سازی</a>۔
     headings:
-      chief_professional_officers: ساڈے چیف پروفیشنل آفیسر۔
       contact: "%{name} نال رابطہ کرو"
-      corporate_information: کاروباری معلومات
-      corporate_reports: کاروباری رپورٹاں
-      documents: دستاویزات
-      freedom_of_information_act: معلومات دی آزادی دا (FOI) قانون
-      making_foi_requests: FOI دی درخواست دیو
-      our_announcements: ساڈے اعلانات
-      our_consultations: ساڈے مشورے
-      our_judges: ساڈے جج
-      our_management: ساڈی مینیجمنٹ
-      our_ministers: ساڈے وزیر
-      our_policies: ساٖڈی پالیسیاں
-      our_publications: ساڈی اشاعتاں
-      our_senior_military_officials: ساڈے سینیئر فوجی افسر
-      our_services: ساڈی خدمات
-      our_statistics: ساڈی شماریات
-      our_topics: اسی اینہاں موضوعاں تے کم کردے آں
-      special_representatives: خاص نمائندے
-      traffic_commissioners: ٹریفک کمشنر
-      what_we_do: اسی کی کردے آں
-      who_we_are: اسے کون آں
     making_foi_requests:
       step1_html: 'معلومات دی آزادی دے (FOI) قانون بارے تے <a href="%{how_to_path}">درخواست
         دین دا طریقہ</a>  بارے پڑھو '

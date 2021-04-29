@@ -325,28 +325,7 @@ ur:
       transparency: ٹرانسپیرنسی ڈیٹا
     foi_exemption_html: 
     headings:
-      chief_professional_officers: ہمارے چیف پروفیشنل افسران
       contact: رابطہ %{name}
-      corporate_information: کارپوریٹ معلومات
-      corporate_reports: کارپوریٹ رپورٹس
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: ہمارے اعلانات
-      our_consultations: 
-      our_judges: 
-      our_management: ہماری انتظامیہ
-      our_ministers: ہمارے وزرا
-      our_policies: ہماری پالیسیاں
-      our_publications: ہماری اشاعتیں
-      our_senior_military_officials: ہمارے سینئیر فوجی اہلکار
-      our_services: ہماری خدمات
-      our_statistics: ہمارے اعدادو شمار
-      our_topics: ہم ان موضوعات پر کام کرتے ہیں
-      special_representatives: خصوصی نمائندے
-      traffic_commissioners: ٹریفک کمشنرز
-      what_we_do: ہمارے فرائض
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 

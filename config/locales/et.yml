@@ -334,28 +334,7 @@ et:
 
 '
     headings:
-      chief_professional_officers: Meie juhtivad ametnikud
       contact: 'Võtke ühendust: %{name}'
-      corporate_information: Korporatiivne info
-      corporate_reports: Korporatiivsed raportid
-      documents: Dokumendid
-      freedom_of_information_act: Teabevabaduse seadus (FOI)
-      making_foi_requests: Esita FOI päring
-      our_announcements: Meie teadaanded
-      our_consultations: Meie konsultatsioonid
-      our_judges: 
-      our_management: Meie juhtkond
-      our_ministers: Meie ministrid
-      our_policies: Meie poliitikad
-      our_publications: Meie publikatsioonid
-      our_senior_military_officials: Meie kaitseväe juhtkond
-      our_services: Meie teenused
-      our_statistics: Meie statistika
-      our_topics: Me töötame järgmiste teemadega
-      special_representatives: Eriesindajad
-      traffic_commissioners: Liiklusvolinikud
-      what_we_do: Millega me tegeleme
-      who_we_are: 
     making_foi_requests:
       step1_html: Lugege lähemalt Teabevabaduse seadusest (FOI) ja <a href="%{how_to_path}">kuidas
         esitada päringut</a>

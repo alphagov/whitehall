@@ -324,28 +324,7 @@ si:
       transparency: විනිවිධභාවයේ දත්ත
     foi_exemption_html: 
     headings:
-      chief_professional_officers: අපේ ප්‍රධාන වෘත්තීය නිලධාරීන්
       contact: විස්තර %{name}
-      corporate_information: සංවිධානයේ තොරතුරු
-      corporate_reports: සංවිධානයේ වාර්තා
-      documents: 
-      freedom_of_information_act: 
-      making_foi_requests: 
-      our_announcements: අපේ නිවේදන
-      our_consultations: 
-      our_judges: 
-      our_management: අපේ කළමනාකරණය
-      our_ministers: අපේ ඇමතිවරුන්
-      our_policies: අපේ ප්‍රතිපත්ති
-      our_publications: අපේ ප්‍රකාශන
-      our_senior_military_officials: අපේ ජේෂ්ඨ හමුදා නිලධාරීන්
-      our_services: අපේ සේවාවන්
-      our_statistics: අපේ සංඛ්‍යා දත්ත
-      our_topics: අපි මෙම මාතෘකා ගැන වැඩ කරනවා
-      special_representatives: විශේෂ නියෝජිතයන්
-      traffic_commissioners: රථ වාහන කොමසාරිස්වරු
-      what_we_do: අපි කරන්නේ මොනවද
-      who_we_are: 
     making_foi_requests:
       step1_html: 
       step2_html: 
