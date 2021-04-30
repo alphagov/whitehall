@@ -7,11 +7,6 @@ class HealthcheckTest < ActionDispatch::IntegrationTest
     JSON.parse(response.body)
   end
 
-  test "GET /healthcheck returns success on request" do
-    get "/healthcheck"
-    assert_response :success
-  end
-
   test "GET /healthcheck/overdue shows number of overdue scheduled publications" do
     with_real_sidekiq do
       create(:scheduled_edition, scheduled_publication: 1.day.ago)

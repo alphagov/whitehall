@@ -417,12 +417,6 @@ Whitehall::Application.routes.draw do
   get "/courts-tribunals(.:locale)", as: "courts", to: "organisations#index", courts_only: true, constraints: { locale: valid_locales_regex }
   get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: valid_locales_regex }
 
-  get "/healthcheck",
-      to: GovukHealthcheck.rack_response(
-        GovukHealthcheck::SidekiqRedis,
-        GovukHealthcheck::ActiveRecord,
-      )
-
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
     GovukHealthcheck::ActiveRecord,

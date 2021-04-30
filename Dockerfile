@@ -29,6 +29,6 @@ RUN GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
   GOVUK_APP_DOMAIN_EXTERNAL=www.gov.uk \
   bundle exec rake shared_mustache:compile assets:precompile
 
-HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
+HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck/ready || exit 1
 
 CMD foreman run web
