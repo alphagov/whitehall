@@ -28,6 +28,7 @@ module Searchable
     logo_formatted_title
     metadata
     news_article_type
+    ordering
     operational_field
     organisation_brand
     organisation_closed_state
