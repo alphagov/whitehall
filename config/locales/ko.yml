@@ -1,46 +1,46 @@
+---
 ko:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: 공지사항
-    view_all:
   attachment:
     accessibility:
       full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,
@@ -52,73 +52,66 @@ ko:
       order_a_copy_full: 본 문서의 카피 주문하기
       published: 퍼블리시
       reference: 레퍼런스
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: 콘택트 폼
     email: 이메일
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: 개인정보 규정
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: 발행 계획
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: 소셜미디어 사용
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: 웨일스어 계획
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: 
     footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
+      full_page_history: 
+      published: 
+      updated: 
     headings:
       applies_to_nations: 적용
-      attachments:
-        other: 문서
-      from:
-      location:
-      part_of:
+      from: 
+      part_of: 
     published: 발행
-    read: "%{title} 기사를 확인하세요"
-    see_all:
+    see_all: 
     speech:
       author_title:
         minister: 장관
@@ -134,7 +127,7 @@ ko:
       authored_article:
         other: 기사
       blog_post:
-        other:
+        other: 
       case_study:
         other: 케이스 스터디
       closed_consultation:
@@ -148,11 +141,11 @@ ko:
       correspondence:
         other: 서신
       decision:
-        other:
+        other: 
       detailed_guidance:
         other: 상세 안내
       document_collection:
-        other:
+        other: 
       draft_text:
         other: 드래프트 택스트
       foi_release:
@@ -170,9 +163,9 @@ ko:
       independent_report:
         other: 독립 레포트
       international_treaty:
-        other:
+        other: 
       manual:
-        other:
+        other: 
       map:
         other: 지도
       national_statistics:
@@ -182,9 +175,9 @@ ko:
       news_story:
         other: 뉴스 스토리
       nhs_content:
-        other:
+        other: 
       notice:
-        other:
+        other: 
       official_statistics:
         other: 통계
       open_consultation:
@@ -200,7 +193,7 @@ ko:
       publication:
         other: 간행물
       regulation:
-        other:
+        other: 
       research:
         other: 리써치 및 분석
       speaking_notes:
@@ -208,45 +201,37 @@ ko:
       speech:
         other: 연설문
       standard:
-        other:
+        other: 
       statement_to_parliament:
         other: 의회로 성명
       statistical_data_set:
         other: 통계 데이터 세트
       statutory_guidance:
-        other:
+        other: 
       transcript:
         other: 트랜스크립트
       transparency:
         other: 투명성 데이타
       world_news_story:
-        other:
+        other: 
       written_statement:
         other: 의회로 서면 성명
     updated: 업데이트
-    view: "'%{title}' 을 확인하세요."
   document_filters:
     description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션
-  email_signups:
-    new:
-      description:
-      title:
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_updates_to_this_list: 
     latest_activity: 최근 활동
-    subscribe_to_feed:
-    view_feed:
   i18n:
     direction: ltr
     latin_script?: false
@@ -256,58 +241,22 @@ ko:
     no_updates: 관련 내용이 아직 없습니다.
     title: 최신
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: 우리 업무에 대한 자세한 내용을 확인하세요.
     corporate_information:
       access_our_info: 정보 접근
-      foi_how_to: FOI 요청하기
-      foi_releases: FOI 자료
-      jobs:
+      jobs: 
       jobs_and_contacts: 채용 및 연락처
-      organisation_chart:
+      organisation_chart: 
       transparency: 투명성 데이터
-    foi_exemption_html:
     headings:
-      chief_professional_officers: 최고책임자
       contact: "%{name} 에게 연락하세요"
-      corporate_information: 대사관 정보
-      corporate_reports: 대사관 보고서
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: 뉴스
-      our_consultations:
-      our_judges:
-      our_management: 조직
-      our_ministers: 장관급
-      our_policies: 정책
-      our_publications: 자료
-      our_senior_military_officials: 고위 군관계자
-      our_services: 서비스
-      our_statistics: 통계자료
-      our_topics: 업무 토픽
-      special_representatives: 특별 대사
-      traffic_commissioners: 트래픽 커미셔너
-      what_we_do: 업무 내용
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
-  policies:
-    heading: 정책사안
-    view_all:
   publications:
     heading: 출판물
-    headings:
-      detail: 디테일
-  read_more: 더 자세한 정보 알아보기
   see_all:
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기
@@ -317,9 +266,9 @@ ko:
     consultation_outcome: 협의 결과 모두 둘러보기
     corporate_report: 기업 레포트 모두 둘러보기
     correspondence: 서신 모두 둘러보기
-    decision:
+    decision: 
     detailed_guidance: 상세 안내 모두 둘러보기
-    document_collection:
+    document_collection: 
     draft_text: 드래프트 택스트 모두 둘러보기
     fatality_notice: 사상자 공지 모두 둘러보기
     foi_release: foi 보도자료 모두 둘러보기
@@ -328,12 +277,12 @@ ko:
     guidance: 안내 모두 둘러보기
     impact_assessment: 임팩트 평가 모두 둘러보기
     imported: 수입 - 대기 모두 둘러보기
-    international_treaty:
+    international_treaty: 
     map: 지도 모두 둘러보기
     national_statistics: 통계 - 국가 통계 모두 둘러보기
     news_article: 뉴스 모두 둘러보기
     news_story: 뉴스 스토리 모두 둘러보기
-    notice:
+    notice: 
     open_consultation: 오픈 컨설테이션 모두 둘러보기
     oral_statement: 의회로 구두 성명 모두 둘러보기
     policy: 정책 모두 둘러보기
@@ -341,19 +290,17 @@ ko:
     press_release: 보도자료 모두 둘러보기
     promotional: 홍보물 모두 둘러보기
     publication: 간행물 모두 둘러보기
-    regulation:
+    regulation: 
     research: 리써치 및 분석 모두 둘러보기
     speaking_notes: 요점사항 모두 둘러보기
     speech: 연설문 모두 둘러보기
     statement_to_parliament: 의회로 성명 모두 둘러보기
     statistical_data_set: 통계 데이터 세트 모두 둘러보기
     statistics: 통계 모두 둘러보기
-    statutory_guidance:
+    statutory_guidance: 
     transcript: 트랜스크립트 모두 둘러보기
     transparency: 투명성 데이타 모두 둘러보기
     written_statement: 의회로 서면 성명 모두 둘러보기
-  social_media:
-    follow_us:
   support:
     array:
       last_word_connector: 그리고
@@ -363,13 +310,10 @@ ko:
   world_location:
     headings:
       announcements: 공지사항
-      country: 국가
       documents: 자료
       mission: 대사관 안내
       organisations: 조직 안내
       publications: 출판물
-      quick_links: 퀵 링크
-      related_policies: 관련 정책
       statistics: 통계
     type:
       international_delegation:
@@ -378,19 +322,16 @@ ko:
         other: 월드 로케이션
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: "%{link} 에서 개인정보 처리에 대한 안내"
       publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내
       social_media_use_html: "%{link} 에서 정책 정보 확인"
       welsh_language_scheme_html: "%{link} 에서 정보 공개에 대한 내용"
     find_out_more: 프로필과 연락처 보기
     headings:
-      about_us: 대사관 안내
       contact_us: 연락처
-      contents:
       corporate_information: 대사관 정보
       follow_us: 소셜네트워크
       our_people: 직원
-      our_services: 서비스
     location: 로케이션
     part_of: 파트

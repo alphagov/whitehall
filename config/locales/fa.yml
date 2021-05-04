@@ -1,46 +1,46 @@
+---
 fa:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: اطلاعیه ها
-    view_all:
   attachment:
     accessibility:
       full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
@@ -53,73 +53,66 @@ fa:
       order_a_copy_full: کپی سفارش دهید
       published: منتشر شده
       reference: مرجع
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: فرم ارتباط
     email: ایمیل
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: منشور اطلاعات شخصی
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: برنامه انتشار
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: استفاده از رسانه اجتماعی
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: برنامه زبان ولز
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: 
     footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
+      full_page_history: 
+      published: 
+      updated: 
     headings:
       applies_to_nations: در ارتباط با
-      attachments:
-        other: مدارک
-      from:
-      location:
-      part_of:
+      from: 
+      part_of: 
     published: منتشر شده
-    read: مقاله  %{title} را بخوانید
-    see_all:
+    see_all: 
     speech:
       author_title:
         minister: معاون وزیر
@@ -135,7 +128,7 @@ fa:
       authored_article:
         other: مقالات
       blog_post:
-        other:
+        other: 
       case_study:
         other: مطالعه های موردی
       closed_consultation:
@@ -149,11 +142,11 @@ fa:
       correspondence:
         other: مکاتبات
       decision:
-        other:
+        other: 
       detailed_guidance:
         other: راهنمای تفصیلی
       document_collection:
-        other:
+        other: 
       draft_text:
         other: متون پیش نویس
       foi_release:
@@ -171,9 +164,9 @@ fa:
       independent_report:
         other: گزارش های مستقل
       international_treaty:
-        other:
+        other: 
       manual:
-        other:
+        other: 
       map:
         other: نقشه ها
       national_statistics:
@@ -183,9 +176,9 @@ fa:
       news_story:
         other: اخبار
       nhs_content:
-        other:
+        other: 
       notice:
-        other:
+        other: 
       official_statistics:
         other: آمار
       open_consultation:
@@ -201,7 +194,7 @@ fa:
       publication:
         other: نشریات
       regulation:
-        other:
+        other: 
       research:
         other: پژوهش و تحلیل
       speaking_notes:
@@ -209,46 +202,38 @@ fa:
       speech:
         other: سخنرانی ها
       standard:
-        other:
+        other: 
       statement_to_parliament:
         other: گزارش ها به پارلمان
       statistical_data_set:
         other: بسته های داده های آماری
       statutory_guidance:
-        other:
+        other: 
       transcript:
         other: رونوشت ها
       transparency:
         other: داده های شفاف سازی
       world_news_story:
-        other:
+        other: 
       written_statement:
         other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
-    view: مشاهده '%{title}'
   document_filters:
     description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
       محدود کنید
     no_results:
       description: جستجوی خود را گسترده تر و مجددا تلاش کنید
       title: اسناد منطبق وجود ندارد
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: تمام نقاط
       label: موقعیت های جهانی
-  email_signups:
-    new:
-      description:
-      title:
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_updates_to_this_list: 
     latest_activity: آخرین تحولات
-    subscribe_to_feed:
-    view_feed:
   i18n:
     direction: rtl
     latin_script?: false
@@ -258,58 +243,22 @@ fa:
     no_updates: اطلاعات جدیدی در دست نیست
     title: آخرین
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
-        format:
+        format: 
   organisation:
-    about:
-      read_more: درباره ی فعالیت های ما بیشتر بخوانید
     corporate_information:
       access_our_info: دسترسی به اطلاعات ما
-      foi_how_to: چگونه درخواست برای انتشار آزاد اطلاعات ارائه دهید
-      foi_releases: انتشار آزاد اطلاعات
-      jobs:
+      jobs: 
       jobs_and_contacts: مشاغل و قراردادها
-      organisation_chart:
+      organisation_chart: 
       transparency: داده های شفاف سازی
-    foi_exemption_html:
     headings:
-      chief_professional_officers: افسران ارشد حرفه ای ما
       contact: تماس با %{name}
-      corporate_information: اطلاعات سازمانی
-      corporate_reports: گزارش های سازمانی
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: اطلاعیه های ما
-      our_consultations:
-      our_judges:
-      our_management: مدیریت ما
-      our_ministers: معاونین وزیر ما
-      our_policies: سیاست های ما
-      our_publications: انتشارات ما
-      our_senior_military_officials: مقامات ارشد نظامی ما
-      our_services: خدمات ما
-      our_statistics: آمار ما
-      our_topics: ما در خصوص این موضوعات فعالیت می کنیم
-      special_representatives: نمایندگان ویژه
-      traffic_commissioners: ماموران ترافیک
-      what_we_do: فعالیت ما
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
-  policies:
-    heading: سیاست ها
-    view_all:
   publications:
     heading: انتشارات
-    headings:
-      detail: جزئیات
-  read_more: اطلاعات بیشتر
   see_all:
     announcement: تمامی اعلامیه ها ما را مشاهده کنید
     authored_article: تمامی مقالات ما را مشاهده کنید
@@ -319,9 +268,9 @@ fa:
     consultation_outcome: تمامی نتایج رایزنی ما را مشاهده کنید
     corporate_report: تمامی گزارش های سازمانی ما را مشاهده کنید
     correspondence: تمامی مکاتبات ما را مشاهده کنید
-    decision:
+    decision: 
     detailed_guidance: تمامی راهنمای تفصیلی ما را مشاهده کنید
-    document_collection:
+    document_collection: 
     draft_text: تمامی متون پیش نویس ما را مشاهده کنید
     fatality_notice: تمامی اطلاعیه تلفات ما را مشاهده کنید
     foi_release: تمامی انتشار آزاد اطلاعات ما را مشاهده کنید
@@ -330,12 +279,12 @@ fa:
     guidance: تمامی راهنمایی ما را مشاهده کنید
     impact_assessment: تمامی ارزیابی های تاثیرات ما را مشاهده کنید
     imported: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
-    international_treaty:
+    international_treaty: 
     map: تمامی نقشه ها ما را مشاهده کنید
     national_statistics: تمامی آمار - آمار ملی ما را مشاهده کنید
     news_article: تمامی مقالات خبری ما را مشاهده کنید
     news_story: تمامی اخبار ما را مشاهده کنید
-    notice:
+    notice: 
     open_consultation: تمامی رایزنی های باز ما را مشاهده کنید
     oral_statement: تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید
     policy: تمامی سیاست ها ما را مشاهده کنید
@@ -343,19 +292,17 @@ fa:
     press_release: تمامی بیانیه ها ما را مشاهده کنید
     promotional: تمامی مطالب تبلیغاتی ما را مشاهده کنید
     publication: تمامی نشریات ما را مشاهده کنید
-    regulation:
+    regulation: 
     research: تمامی پژوهش و تحلیل ما را مشاهده کنید
     speaking_notes: تمامی موضوعات سخنرانی ما را مشاهده کنید
     speech: تمامی سخنرانی ها ما را مشاهده کنید
     statement_to_parliament: تمامی گزارش ها به پارلمان ما را مشاهده کنید
     statistical_data_set: تمامی بسته های داده های آماری ما را مشاهده کنید
     statistics: تمامی آمار ما را مشاهده کنید
-    statutory_guidance:
+    statutory_guidance: 
     transcript: تمامی رونوشت ها ما را مشاهده کنید
     transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
     written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
-  social_media:
-    follow_us:
   support:
     array:
       last_word_connector: و
@@ -365,13 +312,10 @@ fa:
   world_location:
     headings:
       announcements: اطلاعیه های ما
-      country: کشور
       documents: مدارک
       mission: هدف ما
       organisations: سازمان ها
       publications: انتشارات ما
-      quick_links: دسترسی سریع
-      related_policies: سیاست های مربوط
       statistics: آمار ما
     type:
       international_delegation:
@@ -380,7 +324,7 @@ fa:
         other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما
         را توضیح می دهد"
       publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
@@ -389,12 +333,9 @@ fa:
       welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
     find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس
     headings:
-      about_us: درباره ما
       contact_us: تماس با ما
-      contents:
       corporate_information: اطلاعات سازمانی
       follow_us: به صفحه های ما بپیوندید
       our_people: کارمندان ما
-      our_services: خدمات ما
     location: مکان
     part_of: بخشی از

@@ -1,13 +1,127 @@
+---
 ur:
-  document:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
+      attachment_data:
+        file: 
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: 
+      edition:
+        nation_inapplicabilities: 
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: 
+      response/consultation_response_attachments/attachment:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: 
+    nested_attachment_data_field_names:
+      file: 
+    nested_attachment_field_names:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
+  announcements:
+    heading: اعلانات
+  attachment:
+    accessibility:
+      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
+        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
+        نمبراور  %{title}"(%{references}") لکھئیے
+      intro: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ ہو
+      request_a_different_format: مختلف فارمیٹ طلب کیجئیے
     headings:
-      attachments:
-        one: دستاویز
-        other: دستاویزات
+      order_a_copy: کاپی منگائیے
+      order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
+      published: شائع شدہ
+      reference: حوالہ
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+  broken_links:
+    broken:
+      subheading: 
+    caution:
+      subheading: 
+    title: 
+  change_notes:
+    published_at: 
+    see_all_updates: 
+    updated_at: 
+  contact:
+    access_and_opening_times: 
+    contact_form: کانٹیکٹ فارم
+    email: ای میل
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 
+      title:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
+        personal_information_charter: ذاتی معلومات کاچارٹر
+        petitions_and_campaigns: 
+        procurement: 
+        publication_scheme: اشاعتی اسکیم
+        recruitment: 
+        research: 
+        social_media_use: سوشل میڈیاکااستعمال
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
+        welsh_language_scheme: " ویلش زبان اسکیم"
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      published: 
+      updated: 
+    headings:
       applies_to_nations: اطلاق ہوتا ہے
-      from:
-      location:
-      part_of:
+      from: 
+      part_of: 
+    published: شائع شدہ
+    see_all: 
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: مصنف
+      delivered_on: 'تقریرکی تاریخ:'
+      delivery_title:
+        minister: وزیر
+        speaker: مقرر
+      written_on: 'تحریر کی  تاریخ:'
     type:
       announcement:
         one: اعلان
@@ -16,8 +130,8 @@ ur:
         one: تحریر کردہ مضمون
         other: تحریر کردہ مضامین
       blog_post:
-        one:
-        other:
+        one: 
+        other: 
       case_study:
         one: کیس اسٹڈی
         other: کیس اسٹڈیز
@@ -37,14 +151,14 @@ ur:
         one: مراسلت
         other: مراسلات
       decision:
-        one:
-        other:
+        one: 
+        other: 
       detailed_guidance:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
       document_collection:
         one: سلسلہ
-        other:
+        other: 
       draft_text:
         one: ڈرافٹ متن
         other: ڈرافٹ متن
@@ -70,11 +184,11 @@ ur:
         one: غیر جانبدار رپورٹ
         other: غیر جانبداررپورٹس
       international_treaty:
-        one:
-        other:
+        one: 
+        other: 
       manual:
-        one:
-        other:
+        one: 
+        other: 
       map:
         one: نقشہ
         other: نقشے
@@ -88,11 +202,11 @@ ur:
         one: نیوز اسٹوری
         other: نیوزاسٹوریز
       nhs_content:
-        one:
-        other:
+        one: 
+        other: 
       notice:
-        one:
-        other:
+        one: 
+        other: 
       official_statistics:
         one: اعدادوشمار
         other: اعدادو شمار
@@ -115,8 +229,8 @@ ur:
         one: مطبوعہ
         other: مطبوعات
       regulation:
-        one:
-        other:
+        one: 
+        other: 
       research:
         one: تحقیق وتجزیہ
         other: تحقیق وتجزیہ
@@ -127,8 +241,8 @@ ur:
         one: تقریر
         other: تقاریر
       standard:
-        one:
-        other:
+        one: 
+        other: 
       statement_to_parliament:
         one: پارلیمنٹ میں بیان
         other: پارلیمنٹ میں بیانات
@@ -136,8 +250,8 @@ ur:
         one: شماریاتی ڈیٹا سیٹ
         other: " شماریاتی ڈیٹا سیٹس"
       statutory_guidance:
-        one:
-        other:
+        one: 
+        other: 
       transcript:
         one: ٹرانسکرپٹ
         other: ٹرانسکرپٹس
@@ -145,177 +259,28 @@ ur:
         one: ٹرانسپیرنسی ڈیٹا
         other: ٹرانسپیرنسی ڈیٹا
       world_news_story:
-        one:
-        other:
+        one: 
+        other: 
       written_statement:
         one: پارلیمنٹ میں تحریری بیان
         other: پارلیمنٹ میں تحریری بیانات
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: شائع شدہ
-    read: پڑھئیے {title}% مضمون
-    see_all:
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: مصنف
-      delivered_on: 'تقریرکی تاریخ:'
-      delivery_title:
-        minister: وزیر
-        speaker: مقرر
-      written_on: 'تحریر کی  تاریخ:'
     updated: تجدید شدہ
-    view: "'%{title}' دیکھئیے"
-  world_location:
-    type:
-      international_delegation:
-        one: عالمی وفد
-        other: عالمی وفود
-      world_location:
-        one: " عالمی محل وقوع"
-        other: عالمی محل ہائے وقوع
-    headings:
-      announcements: ہمارے اعلانات
-      country: ملک
-      documents: دستاویزات
-      mission: ہمارا مشن
-      organisations: ادارے
-      publications: ہماری مطبوعات
-      quick_links: فوری لنکس
-      related_policies: متعلقہ پالیسیاں
-      statistics: ہمارے اعدادو شمار
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: اعلانات
-    view_all:
-  attachment:
-    accessibility:
-      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
-        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
-        نمبراور  %{title}"(%{references}") لکھئیے
-      intro: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ
-        ہو
-      request_a_different_format: مختلف فارمیٹ طلب کیجئیے
-    headings:
-      order_a_copy: کاپی منگائیے
-      order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
-      published: شائع شدہ
-      reference: حوالہ
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    see_more:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
-  contact:
-    access_and_opening_times:
-    contact_form: کانٹیکٹ فارم
-    email: ای میل
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: ذاتی معلومات کاچارٹر
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: اشاعتی اسکیم
-        recruitment:
-        research:
-        social_media_use: سوشل میڈیاکااستعمال
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: " ویلش زبان اسکیم"
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں
     no_results:
       description: 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
       title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات
-  email_signups:
-    new:
-      description:
-      title:
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_updates_to_this_list: 
     latest_activity: تازہ ترین سرگرمیاں
-    subscribe_to_feed:
-    view_feed:
   i18n:
     direction: rtl
     latin_script?: false
@@ -325,58 +290,22 @@ ur:
     no_updates: فی الحال کوئی تجدید نہیں
     title: آخری فیڈ
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: ہمارے کام کے بارے میں مزید پڑھئیے
     corporate_information:
       access_our_info: ہماری معلومات تک رسائی حاصل کیجئیے
-      foi_how_to: آزادئی معلومات کی درخواست کیسے کی جائے
-      foi_releases: آزادئی معلومات کی اشاعتیں
-      jobs:
+      jobs: 
       jobs_and_contacts: ملازمتیں اورکنٹریکٹس
-      organisation_chart:
+      organisation_chart: 
       transparency: ٹرانسپیرنسی ڈیٹا
-    foi_exemption_html:
     headings:
-      chief_professional_officers: ہمارے چیف پروفیشنل افسران
       contact: رابطہ %{name}
-      corporate_information: کارپوریٹ معلومات
-      corporate_reports: کارپوریٹ رپورٹس
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: ہمارے اعلانات
-      our_consultations:
-      our_judges:
-      our_management: ہماری انتظامیہ
-      our_ministers: ہمارے وزرا
-      our_policies: ہماری پالیسیاں
-      our_publications: ہماری اشاعتیں
-      our_senior_military_officials: ہمارے سینئیر فوجی اہلکار
-      our_services: ہماری خدمات
-      our_statistics: ہمارے اعدادو شمار
-      our_topics: ہم ان موضوعات پر کام کرتے ہیں
-      special_representatives: خصوصی نمائندے
-      traffic_commissioners: ٹریفک کمشنرز
-      what_we_do: ہمارے فرائض
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
-  policies:
-    heading: پالیسیاں
-    view_all:
   publications:
     heading: اشاعتیں
-    headings:
-      detail: تفصیل
-  read_more: آگے پڑھئیے
   see_all:
     announcement: تما م دیکھئیے اعلانات
     authored_article: تما م دیکھئیے تحریر کردہ مضامین
@@ -386,9 +315,9 @@ ur:
     consultation_outcome: تما م دیکھئیے مشاورت کے نتائج
     corporate_report: تما م دیکھئیے کارپوریٹ رپورٹس
     correspondence: تما م دیکھئیے مراسلات
-    decision:
+    decision: 
     detailed_guidance: تما م دیکھئیے مفصل رہنمائی
-    document_collection:
+    document_collection: 
     draft_text: تما م دیکھئیے ڈرافٹ متن
     fatality_notice: تما م دیکھئیے وفات کی اطلاعات
     foi_release: تما م دیکھئیے آزادئی معلومات کی اشاعت
@@ -397,12 +326,12 @@ ur:
     guidance: تما م دیکھئیے رہنمائی
     impact_assessment: تما م دیکھئیے اثرات کے تجزیے
     imported: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
-    international_treaty:
+    international_treaty: 
     map: تما م دیکھئیے نقشے
     national_statistics: تما م دیکھئیے شماریات- قومی اعدادوشمار
     news_article: تما م دیکھئیے نیوزآرٹیکلز
     news_story: تما م دیکھئیے نیوزاسٹوریز
-    notice:
+    notice: 
     open_consultation: تما م دیکھئیے جاری مشاورت
     oral_statement: تما م دیکھئیے پارلیمنٹ میں زبانی بیانات
     policy: تما م دیکھئیے پالیسیاں
@@ -410,28 +339,41 @@ ur:
     press_release: تما م دیکھئیے پریس ریلیزز
     promotional: تما م دیکھئیے تشہیری مواد
     publication: تما م دیکھئیے مطبوعات
-    regulation:
+    regulation: 
     research: تما م دیکھئیے تحقیق وتجزیہ
     speaking_notes: تما م دیکھئیے تقریری نوٹ
     speech: تما م دیکھئیے تقاریر
     statement_to_parliament: تما م دیکھئیے پارلیمنٹ میں بیانات
     statistical_data_set: تما م دیکھئیے  شماریاتی ڈیٹا سیٹس
     statistics: تما م دیکھئیے اعدادو شمار
-    statutory_guidance:
+    statutory_guidance: 
     transcript: تما م دیکھئیے ٹرانسکرپٹس
     transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
     written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
-  social_media:
-    follow_us:
   support:
     array:
       last_word_connector: اور
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: ہمارے اعلانات
+      documents: دستاویزات
+      mission: ہمارا مشن
+      organisations: ادارے
+      publications: ہماری مطبوعات
+      statistics: ہمارے اعدادو شمار
+    type:
+      international_delegation:
+        one: عالمی وفد
+        other: عالمی وفود
+      world_location:
+        one: " عالمی محل وقوع"
+        other: عالمی محل ہائے وقوع
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
         معلومات کو کیسے استعمال کرتے ہیں
       publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
@@ -441,12 +383,9 @@ ur:
         کیجئیے
     find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے
     headings:
-      about_us: ہمارے بارے میں
       contact_us: ہم سے رابطہ
-      contents:
       corporate_information: کارپوریٹ معلومات
       follow_us: ہمیں فالوکیجئیے
       our_people: ہمارا عملہ
-      our_services: ہماری خدمات
     location: مقام
     part_of: حصہ

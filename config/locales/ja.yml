@@ -1,46 +1,46 @@
+---
 ja:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: ニュース
-    view_all:
   attachment:
     accessibility:
       full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
@@ -52,73 +52,66 @@ ja:
       order_a_copy_full: コピーを注文
       published: 掲載日
       reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: 連絡フォーム
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: 個人情報保護法
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: 情報公開法
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: ソーシャルメディア
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: ウェールズ語スキーム
   date:
     formats:
       default: "%Y %B %d"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: 
     footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
+      full_page_history: 
+      published: 
+      updated: 
     headings:
       applies_to_nations: 対象国
-      attachments:
-        other: お知らせ
-      from:
-      location:
-      part_of:
+      from: 
+      part_of: 
     published: 掲載日
-    read: "%{title} の記事を読む"
-    see_all:
+    see_all: 
     speech:
       author_title:
         minister: 大臣
@@ -127,14 +120,14 @@ ja:
       delivery_title:
         minister: 大臣
         speaker: スピーカー
-      written_on:
+      written_on: 
     type:
       announcement:
         other: ニュース
       authored_article:
         other: Authored articles
       blog_post:
-        other:
+        other: 
       case_study:
         other: ケーススタディ
       closed_consultation:
@@ -148,11 +141,11 @@ ja:
       correspondence:
         other: 通信文書
       decision:
-        other:
+        other: 
       detailed_guidance:
         other: 詳細説明
       document_collection:
-        other:
+        other: 
       draft_text:
         other: 草稿
       foi_release:
@@ -170,9 +163,9 @@ ja:
       independent_report:
         other: 第三者機関によるレポート
       international_treaty:
-        other:
+        other: 
       manual:
-        other:
+        other: 
       map:
         other: 地図
       national_statistics:
@@ -182,9 +175,9 @@ ja:
       news_story:
         other: ニュース
       nhs_content:
-        other:
+        other: 
       notice:
-        other:
+        other: 
       official_statistics:
         other: 統計
       open_consultation:
@@ -200,7 +193,7 @@ ja:
       publication:
         other: 出版物
       regulation:
-        other:
+        other: 
       research:
         other: 調査と分析
       speaking_notes:
@@ -208,45 +201,37 @@ ja:
       speech:
         other: スピーチ
       standard:
-        other:
+        other: 
       statement_to_parliament:
         other: 閣僚声明
       statistical_data_set:
         other: 統計データセット
       statutory_guidance:
-        other:
+        other: 
       transcript:
         other: スピーチ全文
       transparency:
         other: 透明性データ
       world_news_story:
-        other:
+        other: 
       written_statement:
         other: 閣僚声明文
     updated: 更新
-    view: "%{title}' を見る"
   document_filters:
     description: 検索精度を上げるために、各種フィルターをご利用下さい
     no_results:
       description: 検索内容を変更して再度検索下さい
       title: 該当するページはありません
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: 全ての地域
       label: 地域
-  email_signups:
-    new:
-      description:
-      title:
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_updates_to_this_list: 
     latest_activity: 最新情報
-    subscribe_to_feed:
-    view_feed:
   i18n:
     direction: ltr
     latin_script?: false
@@ -256,58 +241,22 @@ ja:
     no_updates: 更新情報はありません
     title: Latest
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: 続き
     corporate_information:
       access_our_info: 情報開示
-      foi_how_to: 情報開示請求
-      foi_releases: 情報公開関連
-      jobs:
+      jobs: 
       jobs_and_contacts: 求人と調達
-      organisation_chart:
+      organisation_chart: 
       transparency: データ開示
-    foi_exemption_html:
     headings:
-      chief_professional_officers: チーフ・プロフェッショナル・オフィサー
       contact: 連絡先
-      corporate_information: 各種情報
-      corporate_reports: 各種レポート
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: ニュース
-      our_consultations:
-      our_judges:
-      our_management: 幹部職員
-      our_ministers: 大臣
-      our_policies: 政策
-      our_publications: 出版物
-      our_senior_military_officials: 武官
-      our_services: 業務案内
-      our_statistics: 統計
-      our_topics: トピックス
-      special_representatives: 特別代表
-      traffic_commissioners: 交通担当コミッショナー
-      what_we_do: 業務案内
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
-  policies:
-    heading: 政策
-    view_all:
   publications:
     heading: 出版物
-    headings:
-      detail: 詳細
-  read_more: 続き
   see_all:
     announcement: ニュース を全て見る
     authored_article: authored articles を全て見る
@@ -317,9 +266,9 @@ ja:
     consultation_outcome: 協議結果 を全て見る
     corporate_report: 事業報告 を全て見る
     correspondence: 通信文書 を全て見る
-    decision:
+    decision: 
     detailed_guidance: 詳細説明 を全て見る
-    document_collection:
+    document_collection: 
     draft_text: 草稿 を全て見る
     fatality_notice: 死亡告示 を全て見る
     foi_release: 情報公開に関するニュース を全て見る
@@ -328,12 +277,12 @@ ja:
     guidance: ガイダンス を全て見る
     impact_assessment: 影響評価 を全て見る
     imported: 確認中 を全て見る
-    international_treaty:
+    international_treaty: 
     map: 地図 を全て見る
     national_statistics: 国家統計 を全て見る
     news_article: ニュース を全て見る
     news_story: ニュース を全て見る
-    notice:
+    notice: 
     open_consultation: 公開協議 を全て見る
     oral_statement: 議会に対する口頭陳述 を全て見る
     policy: 政策 を全て見る
@@ -341,19 +290,17 @@ ja:
     press_release: 新聞発表 を全て見る
     promotional: 宣伝資料 を全て見る
     publication: 出版物 を全て見る
-    regulation:
+    regulation: 
     research: 調査と分析 を全て見る
     speaking_notes: キーポイント を全て見る
     speech: スピーチ を全て見る
     statement_to_parliament: 閣僚声明 を全て見る
     statistical_data_set: 統計データセット を全て見る
     statistics: 統計 を全て見る
-    statutory_guidance:
+    statutory_guidance: 
     transcript: スピーチ全文 を全て見る
     transparency: 透明性データ を全て見る
     written_statement: 閣僚声明文 を全て見る
-  social_media:
-    follow_us:
   support:
     array:
       last_word_connector: and
@@ -363,13 +310,10 @@ ja:
   world_location:
     headings:
       announcements: 発表
-      country: 国名
       documents: お知らせ
       mission: 役割
       organisations: 組織
       publications: 出版物
-      quick_links: Quick links
-      related_policies: 関連政策
       statistics: 統計
     type:
       international_delegation:
@@ -378,19 +322,16 @@ ja:
         other: 地域
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい
       publication_scheme_html: 情報公開の種類については %{link} をご覧下さい
       social_media_use_html: "%{link}に関する政策を読む"
       welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい
     find_out_more: 業務案内と連絡先を見る
     headings:
-      about_us: 大使館について
       contact_us: 連絡先
-      contents:
       corporate_information: 組織情報
       follow_us: Follow us
       our_people: 主な職員
-      our_services: 業務内容
     location: アクセス
     part_of: 所属

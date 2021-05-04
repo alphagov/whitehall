@@ -1,285 +1,46 @@
+---
 cs:
-  document:
-    headings:
-      attachments:
-        one: Dokument
-        few:
-        other: Dokumenty
-      applies_to_nations: Týká se
-      from:
-      location:
-      part_of:
-    type:
-      announcement:
-        one: Oznámení
-        few:
-        other: Oznámení
-      authored_article:
-        one: Autorský článek
-        few:
-        other: Autorské články
-      blog_post:
-        one:
-        few:
-        other:
-      case_study:
-        one: Případová studie
-        few:
-        other: Případové studie
-      closed_consultation:
-        one: Uzavřená konzultace
-        few:
-        other: Uzavřené konzultace
-      consultation:
-        one: Konzultace
-        few:
-        other: Konzultace
-      consultation_outcome:
-        one: Výsledek konzultací
-        few:
-        other: Výsledky konzultací
-      corporate_report:
-        one: Korporátní zpráva
-        few:
-        other: Korporátní zprávy
-      correspondence:
-        one: Korespondence
-        few:
-        other: Korespondence
-      decision:
-        one:
-        few:
-        other:
-      detailed_guidance:
-        one: Podrobný návod
-        few:
-        other: Podrobný návod
-      document_collection:
-        one: Edice
-        few:
-        other:
-      draft_text:
-        one: Koncept
-        few:
-        other: Koncepty
-      foi_release:
-        one: Zpráva vydaná na základě Zákona o svobodném přístupu k informacím
-        few:
-        other: Zprávy vydané za základě Zákona o svobodném přístupu k informacím
-      form:
-        one: Formulář
-        few:
-        other: Formuláře
-      government_response:
-        one: Odpověď vlády
-        few:
-        other: Odpovědi vlády
-      guidance:
-        one: Návod
-        few:
-        other: Návody
-      impact_assessment:
-        one: Vyhodnocení dopadu
-        few:
-        other: Vyhodnocení dopadů
-      imported:
-        one: importováno - očekává vyřízení
-        few:
-        other: importováno - očekává vyřízení
-      independent_report:
-        one: Nezávislá zpráva
-        few:
-        other: Nezávislé zprávy
-      international_treaty:
-        one:
-        few:
-        other:
-      manual:
-        one:
-        few:
-        other:
-      map:
-        one: Mapa
-        few:
-        other: Mapy
-      national_statistics:
-        one: Statistiky - národní statistiky
-        few:
-        other: Statistiky - národní statistiky
-      news_article:
-        one: Nový článek
-        few:
-        other: Nové články
-      news_story:
-        one: Zpráva
-        few:
-        other: Zprávy
-      nhs_content:
-        one:
-        few:
-        other:
-      notice:
-        one:
-        few:
-        other:
-      official_statistics:
-        one: Statistika
-        few:
-        other: Statistiky
-      open_consultation:
-        one: Otevřená konzultace
-        few:
-        other: Otevřené konzultace
-      oral_statement:
-        one: Vystoupení v  parlamentu
-        few:
-        other: Vystoupení v parlamentu
-      policy_paper:
-        one: Dokument
-        few:
-        other: Dokumenty
-      press_release:
-        one: Tisková zpráva
-        few:
-        other: Tiskové zprávy
-      promotional:
-        one: Propagační materiál
-        few:
-        other: Propagační materiály
-      publication:
-        one: Publikace
-        few:
-        other: Publikace
-      regulation:
-        one:
-        few:
-        other:
-      research:
-        one: Výzkum a analýza
-        few:
-        other: Výzkumy a analýzy
-      speaking_notes:
-        one: Poznámky
-        few:
-        other: Poznámky
-      speech:
-        one: Proslov
-        few:
-        other: Proslovy
-      standard:
-        one:
-        few:
-        other:
-      statement_to_parliament:
-        one: Prohlášení v parlamentu
-        few:
-        other: Prohlášení v parlamentu
-      statistical_data_set:
-        one: Statistická data
-        few:
-        other: Statistická data
-      statutory_guidance:
-        one:
-        few:
-        other:
-      transcript:
-        one: Přepis
-        few:
-        other: Přepisy
-      transparency:
-        one: Transparenost
-        few:
-        other: Transparentnost
-      world_news_story:
-        one:
-        few:
-        other:
-      written_statement:
-        one: Písemná prohlášení do parlamentu
-        few:
-        other: Písemná prohlášení do parlamentu
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: Publikováno
-    read: Čtěte %{title}
-    see_all:
-    speech:
-      author_title:
-        minister: Minister
-        speaker: Autor
-      delivered_on: Doručeno
-      delivery_title:
-        minister: Ministr
-        speaker: Řečník
-      written_on: Napsáno
-    updated: Aktualizováno
-    view: Náhled '%{title}'
-  world_location:
-    type:
-      international_delegation:
-        one: Mezinárodní delegace
-        few:
-        other: Mezinárodní delegace
-      world_location:
-        one: Světová lokace
-        few:
-        other: Světové lokace
-    headings:
-      announcements: Naše oznámení
-      country: Země
-      documents: Dokumenty
-      mission: Naše poslání
-      organisations: Organizace
-      publications: Naše publikace
-      quick_links: Odkazy
-      related_policies: Související témata
-      statistics: Naše statistiky
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: Oznámení
-    view_all:
   attachment:
     accessibility:
       full_help_html: Pokud potřebujete tento dokument v jiném formátu, například
@@ -294,78 +55,280 @@ cs:
       order_a_copy_full: Objednat kopii této publikace
       published: Uveřejněno
       reference: Reference
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: Kontaktní formulář
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: Registr osobních informací
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: Publikační plán
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: Použití sociálních sítí
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: Welština
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: Týká se
+      from: 
+      part_of: 
+    published: Publikováno
+    see_all: 
+    speech:
+      author_title:
+        minister: Minister
+        speaker: Autor
+      delivered_on: Doručeno
+      delivery_title:
+        minister: Ministr
+        speaker: Řečník
+      written_on: Napsáno
+    type:
+      announcement:
+        few: 
+        one: Oznámení
+        other: Oznámení
+      authored_article:
+        few: 
+        one: Autorský článek
+        other: Autorské články
+      blog_post:
+        few: 
+        one: 
+        other: 
+      case_study:
+        few: 
+        one: Případová studie
+        other: Případové studie
+      closed_consultation:
+        few: 
+        one: Uzavřená konzultace
+        other: Uzavřené konzultace
+      consultation:
+        few: 
+        one: Konzultace
+        other: Konzultace
+      consultation_outcome:
+        few: 
+        one: Výsledek konzultací
+        other: Výsledky konzultací
+      corporate_report:
+        few: 
+        one: Korporátní zpráva
+        other: Korporátní zprávy
+      correspondence:
+        few: 
+        one: Korespondence
+        other: Korespondence
+      decision:
+        few: 
+        one: 
+        other: 
+      detailed_guidance:
+        few: 
+        one: Podrobný návod
+        other: Podrobný návod
+      document_collection:
+        few: 
+        one: Edice
+        other: 
+      draft_text:
+        few: 
+        one: Koncept
+        other: Koncepty
+      foi_release:
+        few: 
+        one: Zpráva vydaná na základě Zákona o svobodném přístupu k informacím
+        other: Zprávy vydané za základě Zákona o svobodném přístupu k informacím
+      form:
+        few: 
+        one: Formulář
+        other: Formuláře
+      government_response:
+        few: 
+        one: Odpověď vlády
+        other: Odpovědi vlády
+      guidance:
+        few: 
+        one: Návod
+        other: Návody
+      impact_assessment:
+        few: 
+        one: Vyhodnocení dopadu
+        other: Vyhodnocení dopadů
+      imported:
+        few: 
+        one: importováno - očekává vyřízení
+        other: importováno - očekává vyřízení
+      independent_report:
+        few: 
+        one: Nezávislá zpráva
+        other: Nezávislé zprávy
+      international_treaty:
+        few: 
+        one: 
+        other: 
+      manual:
+        few: 
+        one: 
+        other: 
+      map:
+        few: 
+        one: Mapa
+        other: Mapy
+      national_statistics:
+        few: 
+        one: Statistiky - národní statistiky
+        other: Statistiky - národní statistiky
+      news_article:
+        few: 
+        one: Nový článek
+        other: Nové články
+      news_story:
+        few: 
+        one: Zpráva
+        other: Zprávy
+      nhs_content:
+        few: 
+        one: 
+        other: 
+      notice:
+        few: 
+        one: 
+        other: 
+      official_statistics:
+        few: 
+        one: Statistika
+        other: Statistiky
+      open_consultation:
+        few: 
+        one: Otevřená konzultace
+        other: Otevřené konzultace
+      oral_statement:
+        few: 
+        one: Vystoupení v  parlamentu
+        other: Vystoupení v parlamentu
+      policy_paper:
+        few: 
+        one: Dokument
+        other: Dokumenty
+      press_release:
+        few: 
+        one: Tisková zpráva
+        other: Tiskové zprávy
+      promotional:
+        few: 
+        one: Propagační materiál
+        other: Propagační materiály
+      publication:
+        few: 
+        one: Publikace
+        other: Publikace
+      regulation:
+        few: 
+        one: 
+        other: 
+      research:
+        few: 
+        one: Výzkum a analýza
+        other: Výzkumy a analýzy
+      speaking_notes:
+        few: 
+        one: Poznámky
+        other: Poznámky
+      speech:
+        few: 
+        one: Proslov
+        other: Proslovy
+      standard:
+        few: 
+        one: 
+        other: 
+      statement_to_parliament:
+        few: 
+        one: Prohlášení v parlamentu
+        other: Prohlášení v parlamentu
+      statistical_data_set:
+        few: 
+        one: Statistická data
+        other: Statistická data
+      statutory_guidance:
+        few: 
+        one: 
+        other: 
+      transcript:
+        few: 
+        one: Přepis
+        other: Přepisy
+      transparency:
+        few: 
+        one: Transparenost
+        other: Transparentnost
+      world_news_story:
+        few: 
+        one: 
+        other: 
+      written_statement:
+        few: 
+        one: Písemná prohlášení do parlamentu
+        other: Písemná prohlášení do parlamentu
+    updated: Aktualizováno
   document_filters:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
       description: Prosím upravte vámi hledaný pojem a zkuste to znovu.
       title: Systém nemůže nalézt Vámi požadované heslo.
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: Všude
       label: Světové lokace
-  email_signups:
-    new:
-      description:
-      title:
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_updates_to_this_list: 
     latest_activity: Poslední aktivita
-    subscribe_to_feed:
-    view_feed:
   i18n:
     direction: ltr
     latin_script?: true
@@ -375,58 +338,22 @@ cs:
     no_updates: Aktualizace nejsou k dispozici
     title: Nejnovější
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: Více o tom, co děláme
     corporate_information:
       access_our_info: Přístup k našim informacím
-      foi_how_to: Jak zažádat o informace
-      foi_releases: Svoboda přístupu k informacím
-      jobs:
+      jobs: 
       jobs_and_contacts: Pracovní příležitosti
-      organisation_chart:
+      organisation_chart: 
       transparency: 'Data '
-    foi_exemption_html:
     headings:
-      chief_professional_officers: Naše vedení
       contact: Kontakt %{name}
-      corporate_information: Korporátní informace
-      corporate_reports: Korporátní zprávy
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Naše prohlášení
-      our_consultations:
-      our_judges:
-      our_management: Naše vedení
-      our_ministers: Naši ministři
-      our_policies: Naše politiky
-      our_publications: Naše publikace
-      our_senior_military_officials: Naši vojenští velitelé
-      our_services: Neše služby
-      our_statistics: Naše statistiky
-      our_topics: Pracujeme na těchto tématech
-      special_representatives: Zvláštní reprezentanti
-      traffic_commissioners: Dopravní komisaři
-      what_we_do: Co děláme
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
-  policies:
-    heading: Politiky
-    view_all:
   publications:
     heading: Publikace
-    headings:
-      detail: Více
-  read_more: Více
   see_all:
     announcement: Podívejte se na
     authored_article: Podívejte se na
@@ -436,9 +363,9 @@ cs:
     consultation_outcome: Podívejte se na
     corporate_report: Podívejte se na
     correspondence: Podívejte se na
-    decision:
+    decision: 
     detailed_guidance: Podívejte se na
-    document_collection:
+    document_collection: 
     draft_text: Podívejte se na
     fatality_notice: Podívejte se na
     foi_release: Podívejte se na
@@ -447,12 +374,12 @@ cs:
     guidance: Podívejte se na
     impact_assessment: Podívejte se na
     imported: Podívejte se na
-    international_treaty:
+    international_treaty: 
     map: Podívejte se na
     national_statistics: Podívejte se na
     news_article: Podívejte se na
     news_story: Podívejte se na
-    notice:
+    notice: 
     open_consultation: Podívejte se na
     oral_statement: Podívejte se na
     policy: Podívejte se na
@@ -460,28 +387,43 @@ cs:
     press_release: Podívejte se na
     promotional: Podívejte se na
     publication: Podívejte se na
-    regulation:
+    regulation: 
     research: Podívejte se na
     speaking_notes: Podívejte se na
     speech: Podívejte se na
     statement_to_parliament: Podívejte se na
     statistical_data_set: Podívejte se na
     statistics: Podívejte se na
-    statutory_guidance:
+    statutory_guidance: 
     transcript: Podívejte se na
     transparency: Podívejte se na
     written_statement: Podívejte se na
-  social_media:
-    follow_us:
   support:
     array:
       last_word_connector: a
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: Naše oznámení
+      documents: Dokumenty
+      mission: Naše poslání
+      organisations: Organizace
+      publications: Naše publikace
+      statistics: Naše statistiky
+    type:
+      international_delegation:
+        few: 
+        one: Mezinárodní delegace
+        other: Mezinárodní delegace
+      world_location:
+        few: 
+        one: Světová lokace
+        other: Světové lokace
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi
         %{link}
       publication_scheme_html: Více o typech informací, které pravidelně zveřejňujeme
@@ -490,12 +432,9 @@ cs:
       welsh_language_scheme_html: Více o našem závazku zvěřejňovat informace na %{link}.
     find_out_more: Celý profil a kontakty zde.
     headings:
-      about_us: O nás
       contact_us: Kontaktujte nás
-      contents:
       corporate_information: Korporátní informace
       follow_us: Buďte s námi
       our_people: Naši lidé
-      our_services: Naše služby
     location: Kde nás najdete
     part_of: Jsme součást

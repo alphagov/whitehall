@@ -87,6 +87,7 @@ group :test do
   gem "equivalent-xml"
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers"
+  gem "i18n-coverage"
   gem "maxitest"
   gem "minitest"
   gem "minitest-fail-fast"

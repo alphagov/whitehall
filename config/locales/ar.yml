@@ -1,435 +1,46 @@
+---
 ar:
-  document:
-    headings:
-      attachments:
-        zero:
-        one: وثيقة
-        two:
-        few:
-        many:
-        other: وثائق
-      applies_to_nations: ينطبق على
-      from:
-      location:
-      part_of:
-    type:
-      announcement:
-        zero:
-        one: إعلان
-        two:
-        few:
-        many:
-        other: إعلانات
-      authored_article:
-        zero:
-        one: مقال مرخص
-        two:
-        few:
-        many:
-        other: مقالات مرخصة
-      blog_post:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      case_study:
-        zero:
-        one: دراسة حالة
-        two:
-        few:
-        many:
-        other: دراسات حالة
-      closed_consultation:
-        zero:
-        one: مشاورة منتهية
-        two:
-        few:
-        many:
-        other: مشاورات منتهية
-      consultation:
-        zero:
-        one: مشاورة
-        two:
-        few:
-        many:
-        other: مشاورات
-      consultation_outcome:
-        zero:
-        one: نتيجة المشاورة
-        two:
-        few:
-        many:
-        other: نتائج المشاورات
-      corporate_report:
-        zero:
-        one: تقرير الوزارة
-        two:
-        few:
-        many:
-        other: تقارير الوزارة
-      correspondence:
-        zero:
-        one: مراسلة
-        two:
-        few:
-        many:
-        other: مراسلات
-      decision:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      detailed_guidance:
-        zero:
-        one: توجيه مفصل
-        two:
-        few:
-        many:
-        other: توجيهات مفصل
-      document_collection:
-        zero:
-        one: سلسة
-        two:
-        few:
-        many:
-        other:
-      draft_text:
-        zero:
-        one: مسودة النص
-        two:
-        few:
-        many:
-        other: مسودة النصوص
-      foi_release:
-        zero:
-        one: نشرة وفق حرية الحصول على المعلومات
-        two:
-        few:
-        many:
-        other: نشرات وفق حرية الحصول على المعلومات
-      form:
-        zero:
-        one: نموذج
-        two:
-        few:
-        many:
-        other: نماذج
-      government_response:
-        zero:
-        one: رد من الحكومة
-        two:
-        few:
-        many:
-        other: ردود من الحكومة
-      guidance:
-        zero:
-        one: توجيه
-        two:
-        few:
-        many:
-        other: توجيهات
-      impact_assessment:
-        zero:
-        one: تقييم التأثير
-        two:
-        few:
-        many:
-        other: تقييمات التأثير
-      imported:
-        zero:
-        one: استلم - بانتظار الطباعة
-        two:
-        few:
-        many:
-        other: استلم - بانتظار الطباعة
-      independent_report:
-        zero:
-        one: تقرير مستقل
-        two:
-        few:
-        many:
-        other: تقارير مستقلة
-      international_treaty:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      manual:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      map:
-        zero:
-        one: خريطة
-        two:
-        few:
-        many:
-        other: خرائط
-      national_statistics:
-        zero:
-        one: إحصائية - إحصائية محلية
-        two:
-        few:
-        many:
-        other: إحصائيات - إحصائيات محلية
-      news_article:
-        zero:
-        one: مقال إخباري
-        two:
-        few:
-        many:
-        other: مقالات إخبارية
-      news_story:
-        zero:
-        one: قصة إخبارية
-        two:
-        few:
-        many:
-        other: قصص إخبارية
-      nhs_content:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      notice:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      official_statistics:
-        zero:
-        one: إحصائية
-        two:
-        few:
-        many:
-        other: إحصائيات
-      open_consultation:
-        zero:
-        one: مشاورة جارية
-        two:
-        few:
-        many:
-        other: مشاورات جارية
-      oral_statement:
-        zero:
-        one: تصريح شفهي للبرلمان
-        two:
-        few:
-        many:
-        other: تصريحات شفهية للبرلمان
-      policy_paper:
-        zero:
-        one: ورقة عن السياسة
-        two:
-        few:
-        many:
-        other: ورقة عن السياسات
-      press_release:
-        zero:
-        one: بيان صحفي
-        two:
-        few:
-        many:
-        other: بيانات صحفية
-      promotional:
-        zero:
-        one: مادة ترويجية
-        two:
-        few:
-        many:
-        other: مواد ترويجية
-      publication:
-        zero:
-        one: مطبوعة
-        two:
-        few:
-        many:
-        other: مطبوعات
-      regulation:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      research:
-        zero:
-        one: بحث وتحليل
-        two:
-        few:
-        many:
-        other: بحوث وتحليلات
-      speaking_notes:
-        zero:
-        one: مذكرات كلامية
-        two:
-        few:
-        many:
-        other: مذكرات كلامية
-      speech:
-        zero:
-        one: كلمة
-        two:
-        few:
-        many:
-        other: كلمات
-      standard:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      statement_to_parliament:
-        zero:
-        one: تصريح للبرلمان
-        two:
-        few:
-        many:
-        other: تصريحات للبرلمان
-      statistical_data_set:
-        zero:
-        one: مجموعة بيانات إحصائية
-        two:
-        few:
-        many:
-        other: مجموعات بيانات إحصائية
-      statutory_guidance:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      transcript:
-        zero:
-        one: نص منسوخ
-        two:
-        few:
-        many:
-        other: نصوص منسوخة
-      transparency:
-        zero:
-        one: بيانات تتعلق بالشفافية
-        two:
-        few:
-        many:
-        other: بيانات تتعلق بالشفافية
-      world_news_story:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      written_statement:
-        zero:
-        one: تصريح خطي
-        two:
-        few:
-        many:
-        other: تصريحات خطية
-    contents:
-    footer_meta:
-      full_page_history:
-      page_history:
-      published:
-      updated:
-    published: نشر
-    read: اقرأ %{title} المقال
-    see_all:
-    speech:
-      author_title:
-        minister: وزير
-        speaker: كاتب
-      delivered_on: تاريخ التسليم
-      delivery_title:
-        minister: وزير
-        speaker: متحدث
-      written_on: 'كتبت في:'
-    updated: تحديث
-    view: اطلع على ’%{title}‘
-  world_location:
-    type:
-      international_delegation:
-        zero:
-        one: وفد دولي
-        two:
-        few:
-        many:
-        other: وفود دولية
-      world_location:
-        zero:
-        one: بعثة في الخارج
-        two:
-        few:
-        many:
-        other: بعثات في الخارج
-    headings:
-      announcements: إعلاناتنا
-      country: البلد
-      documents: وثائق
-      mission: مهمتنا
-      organisations: مؤسسات
-      publications: مطبوعاتنا
-      quick_links: وصلات سريعة
-      related_policies: سياسات ذات صلة
-      statistics: إحصائياتنا
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 
+        isbn: 
+        unnumbered_hoc_paper: 
       attachment_data:
-        file:
+        file: 
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 
+        hoc_paper_number: 
+        isbn: 
+        title: 
+        unique_reference: 
+        unnumbered_hoc_paper: 
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 
     nested_attachment_data_field_names:
-      file:
+      file: 
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 
+      hoc_paper_number: 
+      isbn: 
+      title: 
+      unique_reference: 
+      unnumbered_hoc_paper: 
   announcements:
     heading: إعلانات
-    view_all:
   attachment:
     accessibility:
       full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي
@@ -442,79 +53,422 @@ ar:
       order_a_copy_full: طلب نسخة عن المطبوعة
       published: تاريخ النشر
       reference: إشارة
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
     opendocument:
-      help_html:
-    see_more:
+      help_html: 
   broken_links:
     broken:
-      subheading:
+      subheading: 
     caution:
-      subheading:
-    title:
+      subheading: 
+    title: 
   change_notes:
-    page_history:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: 
+    see_all_updates: 
+    updated_at: 
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 
     contact_form: نموذج اتصال
     email: بريد إلكتروني
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        our_energy_use:
-        our_governance:
+        about: 
+        about_our_services: 
+        access_and_opening: 
+        accessible_documents_policy: 
+        complaints_procedure: 
+        equality_and_diversity: 
+        media_enquiries: 
+        membership: 
+        our_energy_use: 
+        our_governance: 
         personal_information_charter: ميثاق الاحتفاظ بالمعلومات الشخصية
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 
+        procurement: 
         publication_scheme: نظام المطبوعات
-        recruitment:
-        research:
+        recruitment: 
+        research: 
         social_media_use: استخدام مواقع التواصل الاجتماعي
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 
+        statistics: 
+        terms_of_reference: 
         welsh_language_scheme: برنامج لغة ويلز
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: 
+    footer_meta:
+      full_page_history: 
+      published: 
+      updated: 
+    headings:
+      applies_to_nations: ينطبق على
+      from: 
+      part_of: 
+    published: نشر
+    see_all: 
+    speech:
+      author_title:
+        minister: وزير
+        speaker: كاتب
+      delivered_on: تاريخ التسليم
+      delivery_title:
+        minister: وزير
+        speaker: متحدث
+      written_on: 'كتبت في:'
+    type:
+      announcement:
+        few: 
+        many: 
+        one: إعلان
+        other: إعلانات
+        two: 
+        zero: 
+      authored_article:
+        few: 
+        many: 
+        one: مقال مرخص
+        other: مقالات مرخصة
+        two: 
+        zero: 
+      blog_post:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      case_study:
+        few: 
+        many: 
+        one: دراسة حالة
+        other: دراسات حالة
+        two: 
+        zero: 
+      closed_consultation:
+        few: 
+        many: 
+        one: مشاورة منتهية
+        other: مشاورات منتهية
+        two: 
+        zero: 
+      consultation:
+        few: 
+        many: 
+        one: مشاورة
+        other: مشاورات
+        two: 
+        zero: 
+      consultation_outcome:
+        few: 
+        many: 
+        one: نتيجة المشاورة
+        other: نتائج المشاورات
+        two: 
+        zero: 
+      corporate_report:
+        few: 
+        many: 
+        one: تقرير الوزارة
+        other: تقارير الوزارة
+        two: 
+        zero: 
+      correspondence:
+        few: 
+        many: 
+        one: مراسلة
+        other: مراسلات
+        two: 
+        zero: 
+      decision:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      detailed_guidance:
+        few: 
+        many: 
+        one: توجيه مفصل
+        other: توجيهات مفصل
+        two: 
+        zero: 
+      document_collection:
+        few: 
+        many: 
+        one: سلسة
+        other: 
+        two: 
+        zero: 
+      draft_text:
+        few: 
+        many: 
+        one: مسودة النص
+        other: مسودة النصوص
+        two: 
+        zero: 
+      foi_release:
+        few: 
+        many: 
+        one: نشرة وفق حرية الحصول على المعلومات
+        other: نشرات وفق حرية الحصول على المعلومات
+        two: 
+        zero: 
+      form:
+        few: 
+        many: 
+        one: نموذج
+        other: نماذج
+        two: 
+        zero: 
+      government_response:
+        few: 
+        many: 
+        one: رد من الحكومة
+        other: ردود من الحكومة
+        two: 
+        zero: 
+      guidance:
+        few: 
+        many: 
+        one: توجيه
+        other: توجيهات
+        two: 
+        zero: 
+      impact_assessment:
+        few: 
+        many: 
+        one: تقييم التأثير
+        other: تقييمات التأثير
+        two: 
+        zero: 
+      imported:
+        few: 
+        many: 
+        one: استلم - بانتظار الطباعة
+        other: استلم - بانتظار الطباعة
+        two: 
+        zero: 
+      independent_report:
+        few: 
+        many: 
+        one: تقرير مستقل
+        other: تقارير مستقلة
+        two: 
+        zero: 
+      international_treaty:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      manual:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      map:
+        few: 
+        many: 
+        one: خريطة
+        other: خرائط
+        two: 
+        zero: 
+      national_statistics:
+        few: 
+        many: 
+        one: إحصائية - إحصائية محلية
+        other: إحصائيات - إحصائيات محلية
+        two: 
+        zero: 
+      news_article:
+        few: 
+        many: 
+        one: مقال إخباري
+        other: مقالات إخبارية
+        two: 
+        zero: 
+      news_story:
+        few: 
+        many: 
+        one: قصة إخبارية
+        other: قصص إخبارية
+        two: 
+        zero: 
+      nhs_content:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      notice:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      official_statistics:
+        few: 
+        many: 
+        one: إحصائية
+        other: إحصائيات
+        two: 
+        zero: 
+      open_consultation:
+        few: 
+        many: 
+        one: مشاورة جارية
+        other: مشاورات جارية
+        two: 
+        zero: 
+      oral_statement:
+        few: 
+        many: 
+        one: تصريح شفهي للبرلمان
+        other: تصريحات شفهية للبرلمان
+        two: 
+        zero: 
+      policy_paper:
+        few: 
+        many: 
+        one: ورقة عن السياسة
+        other: ورقة عن السياسات
+        two: 
+        zero: 
+      press_release:
+        few: 
+        many: 
+        one: بيان صحفي
+        other: بيانات صحفية
+        two: 
+        zero: 
+      promotional:
+        few: 
+        many: 
+        one: مادة ترويجية
+        other: مواد ترويجية
+        two: 
+        zero: 
+      publication:
+        few: 
+        many: 
+        one: مطبوعة
+        other: مطبوعات
+        two: 
+        zero: 
+      regulation:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      research:
+        few: 
+        many: 
+        one: بحث وتحليل
+        other: بحوث وتحليلات
+        two: 
+        zero: 
+      speaking_notes:
+        few: 
+        many: 
+        one: مذكرات كلامية
+        other: مذكرات كلامية
+        two: 
+        zero: 
+      speech:
+        few: 
+        many: 
+        one: كلمة
+        other: كلمات
+        two: 
+        zero: 
+      standard:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      statement_to_parliament:
+        few: 
+        many: 
+        one: تصريح للبرلمان
+        other: تصريحات للبرلمان
+        two: 
+        zero: 
+      statistical_data_set:
+        few: 
+        many: 
+        one: مجموعة بيانات إحصائية
+        other: مجموعات بيانات إحصائية
+        two: 
+        zero: 
+      statutory_guidance:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      transcript:
+        few: 
+        many: 
+        one: نص منسوخ
+        other: نصوص منسوخة
+        two: 
+        zero: 
+      transparency:
+        few: 
+        many: 
+        one: بيانات تتعلق بالشفافية
+        other: بيانات تتعلق بالشفافية
+        two: 
+        zero: 
+      world_news_story:
+        few: 
+        many: 
+        one: 
+        other: 
+        two: 
+        zero: 
+      written_statement:
+        few: 
+        many: 
+        one: تصريح خطي
+        other: تصريحات خطية
+        two: 
+        zero: 
+    updated: تحديث
   document_filters:
     description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
       اهتماماتك
     no_results:
       description: حاول توسيع البحث وحاول البحث مجددا
       title: ليس هناك وثائق تطابق البحث
-      tna_heading:
-      tna_link:
+      tna_heading: 
+      tna_link: 
     world_locations:
       all: كافة المواقع
       label: مواقع في العالم
-  email_signups:
-    new:
-      description:
-      title:
   feeds:
-    email:
-    feed:
-    get_email_alerts:
-    get_updates_to_this_list:
+    email: 
+    feed: 
+    get_updates_to_this_list: 
     latest_activity: أحدث المستجدات
-    subscribe_to_feed:
-    view_feed:
   i18n:
     direction: rtl
     latin_script?: false
@@ -524,58 +478,22 @@ ar:
     no_updates: لا يوجد تحديثات بعد
     title: آخر التحديثات
   national_statistics:
-    heading:
+    heading: 
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
-    about:
-      read_more: اقرأ المزيد عن عملنا
     corporate_information:
       access_our_info: اطلع على معلوماتنا
-      foi_how_to: كيفية تقديم طلب حرية الحصول على المعلومات
-      foi_releases: إصدارات حرية الحصول على المعلومات
-      jobs:
+      jobs: 
       jobs_and_contacts: الوظائف والعقود
-      organisation_chart:
+      organisation_chart: 
       transparency: بيانات تتعلق بالشفافية
-    foi_exemption_html:
     headings:
-      chief_professional_officers: كبار المسؤولين المحترفين لدينا
       contact: اتصل بـ%{name}
-      corporate_information: معلومات عن الوزارة
-      corporate_reports: تقارير الوزارة
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: إعلاناتنا
-      our_consultations:
-      our_judges:
-      our_management: إدارتنا
-      our_ministers: وزراؤنا
-      our_policies: سياساتنا
-      our_publications: مطبوعاتنا
-      our_senior_military_officials: كبار المسؤولين العسكريين
-      our_services: خدماتنا
-      our_statistics: إحصائياتنا
-      our_topics: عملينا بشأن هذه المواضيع
-      special_representatives: الممثلون الخاصون
-      traffic_commissioners: مفوضو المرور
-      what_we_do: عملنا
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
-  policies:
-    heading: سياسات
-    view_all:
   publications:
     heading: مطبوعات
-    headings:
-      detail: تفاصيل
-  read_more: اقرأ المزيد
   see_all:
     announcement: اطلع على كافة إعلانات
     authored_article: اطلع على كافة مقالات مرخصة
@@ -585,9 +503,9 @@ ar:
     consultation_outcome: اطلع على كافة نتائج المشاورات
     corporate_report: اطلع على كافة تقارير الوزارة
     correspondence: اطلع على كافة مراسلات
-    decision:
+    decision: 
     detailed_guidance: اطلع على كافة توجيهات مفصل
-    document_collection:
+    document_collection: 
     draft_text: اطلع على كافة مسودة النصوص
     fatality_notice: اطلع على كافة إشعارات وفاة
     foi_release: اطلع على كافة نشرات وفق حرية الحصول على المعلومات
@@ -596,12 +514,12 @@ ar:
     guidance: اطلع على كافة توجيهات
     impact_assessment: اطلع على كافة تقييمات التأثير
     imported: اطلع على كافة استلم - بانتظار الطباعة
-    international_treaty:
+    international_treaty: 
     map: اطلع على كافة خرائط
     national_statistics: اطلع على كافة إحصائيات - إحصائيات محلية
     news_article: اطلع على كافة مقالات إخبارية
     news_story: اطلع على كافة قصص إخبارية
-    notice:
+    notice: 
     open_consultation: اطلع على كافة مشاورات جارية
     oral_statement: اطلع على كافة تصريحات شفهية للبرلمان
     policy: اطلع على كافة سياسات
@@ -609,28 +527,49 @@ ar:
     press_release: اطلع على كافة بيانات صحفية
     promotional: اطلع على كافة مواد ترويجية
     publication: اطلع على كافة مطبوعات
-    regulation:
+    regulation: 
     research: اطلع على كافة بحوث وتحليلات
     speaking_notes: اطلع على كافة مذكرات كلامية
     speech: اطلع على كافة كلمات
     statement_to_parliament: اطلع على كافة تصريحات للبرلمان
     statistical_data_set: اطلع على كافة مجموعات بيانات إحصائية
     statistics: اطلع على كافة إحصائيات
-    statutory_guidance:
+    statutory_guidance: 
     transcript: اطلع على كافة نصوص منسوخة
     transparency: اطلع على كافة بيانات تتعلق بالشفافية
     written_statement: اطلع على كافة تصريحات خطية
-  social_media:
-    follow_us:
   support:
     array:
       last_word_connector: و
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  world_location:
+    headings:
+      announcements: إعلاناتنا
+      documents: وثائق
+      mission: مهمتنا
+      organisations: مؤسسات
+      publications: مطبوعاتنا
+      statistics: إحصائياتنا
+    type:
+      international_delegation:
+        few: 
+        many: 
+        one: وفد دولي
+        other: وفود دولية
+        two: 
+        zero: 
+      world_location:
+        few: 
+        many: 
+        one: بعثة في الخارج
+        other: بعثات في الخارج
+        two: 
+        zero: 
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: 
       personal_information_charter_html: "%{link} يشرح كيفية التعامل مع المعلومات
         الشخصية الخاصة بك"
       publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في
@@ -639,12 +578,9 @@ ar:
       welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
     find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:
-      about_us: معلومات عنا
       contact_us: اتصل بنا
-      contents:
       corporate_information: معلومات عن الشركة
       follow_us: تابعنا
       our_people: مسؤولينا
-      our_services: خدماتنا
     location: موقع
     part_of: جزء من

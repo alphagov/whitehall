@@ -1,4 +1,365 @@
+---
 en:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: House of Commons paper number
+        isbn: ISBN
+        unnumbered_hoc_paper: Unnumbered House of Commons paper
+      attachment_data:
+        file: File
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Attachment command paper number
+        hoc_paper_number: House of Commons paper number
+        isbn: Attachment ISBN
+        title: Attachment title
+        unique_reference: Attachment unique reference
+        unnumbered_hoc_paper: Unnumbered House of Commons paper
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: The attached file
+      edition:
+        nation_inapplicabilities: Excluded nations
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: The attached file
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Attachment command paper number
+        hoc_paper_number: House of Commons paper number
+        isbn: Attachment ISBN
+        title: Attachment title
+        unique_reference: Attachment unique reference
+        unnumbered_hoc_paper: Unnumbered House of Commons paper
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: The attached file
+    nested_attachment_data_field_names:
+      file: The attached file
+    nested_attachment_field_names:
+      command_paper_number: Attachment command paper number
+      hoc_paper_number: House of Commons paper number
+      isbn: Attachment ISBN
+      title: Attachment title
+      unique_reference: Attachment unique reference
+      unnumbered_hoc_paper: Unnumbered House of Commons paper
+  announcements:
+    heading: Announcements
+  attachment:
+    accessibility:
+      full_help_html: |
+        If you use assistive technology (such as a screen reader) and need a
+        version of this document in a more accessible format, please email %{email}.
+        Please tell us what format you need. It will help us if you say what assistive technology you use.
+      intro: This file may not be suitable for users of assistive technology.
+      request_a_different_format: Request an accessible format.
+    headings:
+      order_a_copy: Order a copy
+      order_a_copy_full: Order a copy of the publication
+      published: Published
+      reference: Ref
+      unnumbered_command_paper: Unnumbered command paper
+      unnumbered_hoc_paper: Unnumbered act paper
+    opendocument:
+      help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        format
+  broken_links:
+    broken:
+      subheading: We’ve found links in this document that may be broken
+    caution:
+      subheading: We’ve found some issues with links that may indicate problems, you
+        should apply caution in linking to them
+    title: Broken links
+  change_notes:
+    published_at: First published
+    see_all_updates: see all updates
+    updated_at: Last updated
+  contact:
+    access_and_opening_times: Access and opening times
+    contact_form: Contact form
+    email: Email
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: publishing in Welsh
+      title:
+        about: About us
+        about_our_services: About our services
+        access_and_opening: Office access and opening times
+        accessible_documents_policy: Accessible documents policy
+        complaints_procedure: Complaints procedure
+        equality_and_diversity: Equality and diversity
+        media_enquiries: Media enquiries
+        membership: Membership
+        our_energy_use: Our energy use
+        our_governance: Our governance
+        personal_information_charter: Personal information charter
+        petitions_and_campaigns: Petitions and campaigns
+        procurement: Procurement at %{organisation_name}
+        publication_scheme: Publication scheme
+        recruitment: Working for %{organisation_name}
+        research: Research at %{organisation_name}
+        social_media_use: Social media use
+        staff_update: Staff news and information
+        statistics: Statistics at %{organisation_name}
+        terms_of_reference: Terms of reference
+        welsh_language_scheme: Welsh language scheme
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: Contents
+    footer_meta:
+      full_page_history: full page history
+      published: Published
+      updated: Updated
+    headings:
+      applies_to_nations: Applies to
+      from: From
+      part_of: Part of
+    published: published
+    see_all: See all
+    speech:
+      author_title:
+        minister: Minister
+        speaker: Writer
+      delivered_on: 'Delivered on:'
+      delivery_title:
+        minister: Minister
+        speaker: Speaker
+      written_on: 'Written on:'
+    type:
+      about:
+        one: About
+        other: About
+      about_our_services:
+        one: About our services
+        other: About our services
+      access_and_opening:
+        one: Access and opening
+        other: Access and opening
+      accessible_documents_policy:
+        one: Accessible documents policy
+        other: Accessible documents policies
+      announcement:
+        one: Announcement
+        other: Announcements
+      authored_article:
+        one: Authored article
+        other: Authored articles
+      blog_post:
+        one: Blog post
+        other: Blog posts
+      case_study:
+        one: Case study
+        other: Case studies
+      closed_consultation:
+        one: Closed consultation
+        other: Closed consultations
+      complaints_procedure:
+        one: Complaints procedure
+        other: Complaints procedures
+      consultation:
+        one: Consultation
+        other: Consultations
+      consultation_outcome:
+        one: Consultation outcome
+        other: Consultation outcomes
+      corporate_report:
+        one: Corporate report
+        other: Corporate reports
+      correspondence:
+        one: Correspondence
+        other: Correspondences
+      decision:
+        one: Decision
+        other: Decisions
+      detailed_guidance:
+        one: Guidance
+        other: Guidance
+      document_collection:
+        one: Collection
+        other: Collections
+      draft_text:
+        one: Draft text
+        other: Draft texts
+      edition:
+        one: Edition
+        other: Editions
+      edition_with_appointment:
+        one: Edition with appointment
+        other: Editions with appointment
+      equality_and_diversity:
+        one: Equality and diversity
+        other: Equality and diversity
+      fatality_notice:
+        one: Fatality notice
+        other: Fatality notices
+      foi_release:
+        one: FOI release
+        other: FOI releases
+      form:
+        one: Form
+        other: Forms
+      generic_edition:
+        one: Generic edition
+        other: Generic editions
+      government_response:
+        one: Government response
+        other: Government responses
+      guidance:
+        one: Guidance
+        other: Guidance
+      impact_assessment:
+        one: Impact assessment
+        other: Impact assessments
+      imported:
+        one: imported - awaiting type
+        other: imported - awaiting type
+      independent_report:
+        one: Independent report
+        other: Independent reports
+      international_treaty:
+        one: International treaty
+        other: International treaties
+      manual:
+        one: Manual
+        other: Manuals
+      map:
+        one: Map
+        other: Maps
+      media_enquiries:
+        one: Media enquiry
+        other: Media enquiries
+      membership:
+        one: Membership
+        other: Membership
+      national_statistics:
+        one: National Statistics
+        other: National Statistics
+      news_article:
+        one: News article
+        other: News articles
+      news_story:
+        one: News story
+        other: News stories
+      nhs_content:
+        one: NHS content
+        other: NHS content
+      notice:
+        one: Notice
+        other: Notices
+      official_statistics:
+        one: Official Statistics
+        other: Official Statistics
+      open_consultation:
+        one: Open consultation
+        other: Open consultations
+      oral_statement:
+        one: Oral statement to Parliament
+        other: Oral statements to Parliament
+      our_energy_use:
+        one: Our energy use
+        other: Our energy use
+      our_governance:
+        one: Our governance
+        other: Our governance
+      personal_information_charter:
+        one: Personal information charter
+        other: Personal information charters
+      petitions_and_campaigns:
+        one: Petitions and campaigns
+        other: Petitions and campaigns
+      policy_paper:
+        one: Policy paper
+        other: Policy papers
+      press_release:
+        one: Press release
+        other: Press releases
+      procurement:
+        one: Procurement
+        other: Procurement
+      promotional:
+        one: Promotional material
+        other: Promotional material
+      publication:
+        one: Publication
+        other: Publications
+      publication_scheme:
+        one: Publication scheme
+        other: Publication schemes
+      recruitment:
+        one: Recruitment
+        other: Recruitment
+      regulation:
+        one: Regulation
+        other: Regulations
+      research:
+        one: Research
+        other: Research
+      service:
+        one: Service
+        other: Services
+      social_media_use:
+        one: Social media use
+        other: Social media use
+      speaking_notes:
+        one: Speaking notes
+        other: Speaking notes
+      speech:
+        one: Speech
+        other: Speeches
+      staff_update:
+        one: Staff update
+        other: Staff updates
+      standard:
+        one: Standard
+        other: Standards
+      statement_to_parliament:
+        one: Statement to Parliament
+        other: Statements to Parliament
+      statistical_data_set:
+        one: Statistical data set
+        other: Statistical data sets
+      statistics:
+        one: Statistics
+        other: Statistics
+      statutory_guidance:
+        one: Statutory guidance
+        other: Statutory guidance
+      terms_of_reference:
+        one: Terms of reference
+        other: Terms of reference
+      transcript:
+        one: Transcript
+        other: Transcripts
+      transparency:
+        one: Transparency data
+        other: Transparency data
+      welsh_language_scheme:
+        one: Welsh language scheme
+        other: Welsh language schemes
+      world_news_story:
+        one: Worldwide news story
+        other: Worldwide news stories
+      written_statement:
+        one: Written statement to Parliament
+        other: Written statements to Parliament
+    updated: updated
+  document_filters:
+    description: You can use the filters to show only results that match your interests
+    no_results:
+      description: Try making your search broader and try again.
+      title: There are no matching documents.
+      tna_heading: Older content
+      tna_link: Not all department publications from before May 2010 were migrated
+        to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">The National Archives</a>.
+    world_locations:
+      all: All locations
+      label: World locations
+  feeds:
+    email: email
+    feed: feed
+    get_updates_to_this_list: Get updates to this list
+    latest_activity: Latest activity
   i18n:
     direction: ltr
     latin_script?: true
@@ -40,7 +401,7 @@ en:
     ms: Malay
     mt: Maltese
     nl: Dutch
-    "no": Norwegian
+    'no': Norwegian
     pa: Punjabi Gurmukhi
     pa-pk: Punjabi Shahmukhi
     pl: Polish
@@ -67,331 +428,83 @@ en:
     zh: Chinese
     zh-hk: Cantonese
     zh-tw: Traditional Chinese
-  activerecord:
-    nested_attachment_field_names: &nested_attachment_field_names
-      command_paper_number: Attachment command paper number
-      hoc_paper_number: House of Commons paper number
-      isbn: Attachment ISBN
-      title: Attachment title
-      unique_reference: Attachment unique reference
-      unnumbered_hoc_paper: Unnumbered House of Commons paper
-    nested_attachment_data_field_names: &nested_attachment_data_field_names
-      file: The attached file
-    attributes:
-      attachment:
-        hoc_paper_number: House of Commons paper number
-        isbn: ISBN
-        unnumbered_hoc_paper: Unnumbered House of Commons paper
-      attachment_data:
-        file: File
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        <<: *nested_attachment_field_names
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        <<: *nested_attachment_data_field_names
-      edition:
-        nation_inapplicabilities: 'Excluded nations'
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        <<: *nested_attachment_data_field_names
-      response/consultation_response_attachments/attachment:
-        <<: *nested_attachment_field_names
-      response/consultation_response_attachments/attachment/attachment_data:
-        <<: *nested_attachment_data_field_names
-  date:
-    formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
-  support:
-    array:
-      last_word_connector: ! ' and '
-  number:
-    human:
-      storage_units:
-         format: ! '%n%u'
-  document:
-    see_all: "See all"
-    published: published
-    contents: Contents
-    headings:
-      applies_to_nations: Applies to
-      part_of: Part of
-      from: From
-      location: Location
-      attachments:
-        one: Document
-        other: Documents
-    type:
-      announcement:
-        one: Announcement
-        other: Announcements
-      blog_post:
-        one: Blog post
-        other: Blog posts
-      case_study:
-        one: Case study
-        other: Case studies
-      closed_consultation:
-        one: Closed consultation
-        other: Closed consultations
-      consultation:
-        one: Consultation
-        other: Consultations
-      consultation_outcome:
-        one: Consultation outcome
-        other: Consultation outcomes
-      corporate_report:
-        one: Corporate report
-        other: Corporate reports
-      correspondence:
-        one: Correspondence
-        other: Correspondences
-      detailed_guidance:
-        one: Guidance
-        other: Guidance
-      document_collection:
-        one: Collection
-        other: Collections
-      draft_text:
-        one: Draft text
-        other: Draft texts
-      edition:
-        one: Edition
-        other: Editions
-      edition_with_appointment:
-        one: Edition with appointment
-        other: Editions with appointment
-      fatality_notice:
-        one: Fatality notice
-        other: Fatality notices
-      foi_release:
-        one: FOI release
-        other: FOI releases
-      form:
-        one: Form
-        other: Forms
-      generic_edition:
-        one: Generic edition
-        other: Generic editions
-      guidance:
-        one: Guidance
-        other: Guidance
-      statutory_guidance:
-        one: Statutory guidance
-        other: Statutory guidance
-      impact_assessment:
-        one: Impact assessment
-        other: Impact assessments
-      imported:
-        one: imported - awaiting type
-        other: imported - awaiting type
-      independent_report:
-        one: Independent report
-        other: Independent reports
-      international_treaty:
-        one: International treaty
-        other: International treaties
-      manual:
-        one: Manual
-        other: Manuals
-      map:
-        one: Map
-        other: Maps
-      notice:
-        one: Notice
-        other: Notices
-      decision:
-        one: Decision
-        other: Decisions
-      national_statistics:
-        one: National Statistics
-        other: National Statistics
-      nhs_content:
-        one: NHS content
-        other: NHS content
-      news_article:
-        one: News article
-        other: News articles
-      news_story:
-        one: News story
-        other: News stories
-      open_consultation:
-        one: Open consultation
-        other: Open consultations
-      oral_statement:
-        one: Oral statement to Parliament
-        other: Oral statements to Parliament
-      policy_paper:
-        one: Policy paper
-        other: Policy papers
-      press_release:
-        one: Press release
-        other: Press releases
-      promotional:
-        one: Promotional material
-        other: Promotional material
-      publication:
-        one: Publication
-        other: Publications
-      publication_scheme:
-        one: Publication scheme
-        other: Publication schemes
-      government_response:
-        one: Government response
-        other: Government responses
-      regulation:
-        one: Regulation
-        other: Regulations
-      research:
-        one: Research and analysis
-        other: Research and analysis
-      speaking_notes:
-        one: Speaking notes
-        other: Speaking notes
-      speech:
-        one: Speech
-        other: Speeches
-      standard:
-        one: Standard
-        other: Standards
-      statement_to_parliament:
-        one: Statement to Parliament
-        other: Statements to Parliament
-      statistical_data_set:
-        one: Statistical data set
-        other: Statistical data sets
-      official_statistics:
-        one: Official Statistics
-        other: Official Statistics
-      terms_of_reference:
-        one: Terms of reference
-        other: Terms of reference
-      transcript:
-        one: Transcript
-        other: Transcripts
-      transparency:
-        one: Transparency data
-        other: Transparency data
-      written_statement:
-        one: Written statement to Parliament
-        other: Written statements to Parliament
-      world_news_story:
-        one: Worldwide news story
-        other: Worldwide news stories
-      authored_article:
-        one: Authored article
-        other: Authored articles
-      about:
-        one: About
-        other: About
-      recruitment:
-        one: Recruitment
-        other: Recruitment
-      complaints_procedure:
-        one: Complaints procedure
-        other: Complaints procedures
-      about_our_services:
-        one: About our services
-        other: About our services
-      social_media_use:
-        one: Social media use
-        other: Social media use
-      publication_scheme:
-        one: Publication scheme
-        other: Publication schemes
-      our_governance:
-        one: Our governance
-        other: Our governance
-      procurement:
-        one: Procurement
-        other: Procurement
-      statistics:
-        one: Statistics
-        other: Statistics
-      membership:
-        one: Membership
-        other: Membership
-      research:
-        one: Research
-        other: Research
-      welsh_language_scheme:
-        one: Welsh language scheme
-        other: Welsh language schemes
-      media_enquiries:
-        one: Media enquiry
-        other: Media enquiries
-      access_and_opening:
-        one: Access and opening
-        other: Access and opening
-      our_energy_use:
-        one: Our energy use
-        other: Our energy use
-      personal_information_charter:
-        one: Personal information charter
-        other: Personal information charters
-      equality_and_diversity:
-        one: Equality and diversity
-        other: Equality and diversity
-      staff_update:
-        one: Staff update
-        other: Staff updates
-      terms_of_reference:
-        one: Terms of reference
-        other: Terms of reference
-      petitions_and_campaigns:
-        one: Petitions and campaigns
-        other: Petitions and campaigns
-      accessible_documents_policy:
-        one: Accessible documents policy
-        other: Accessible documents policies
-      service:
-        one: Service
-        other: Services
-    updated: updated
-    view: View '%{title}'
-    read: Read the %{title} article
-    speech:
-      delivered_on: "Delivered on:"
-      written_on: "Written on:"
-      delivery_title:
-        minister: Minister
-        speaker: Speaker
-      author_title:
-        minister: Minister
-        speaker: Writer
-    footer_meta:
-      published: Published
-      updated: Updated
-      full_page_history: full page history
-      page_history: History
-  feeds:
-    get_updates_to_this_list: Get updates to this list
-    feed: feed
-    email: email
-    latest_activity: Latest activity
-    get_email_alerts: Get email alerts
-    subscribe_to_feed: Subscribe to feed
-    view_feed: View feed
-  email_signups:
-    new:
-      title: Get emails from GOV.UK
-      description: "You’ll get emails when we add or update pages about:"
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest
-  social_media:
-    follow_us: Follow us
+  national_statistics:
+    heading: National Statistics
+  number:
+    human:
+      storage_units:
+        format: "%n%u"
+  organisation:
+    corporate_information:
+      access_our_info: Access our information
+      jobs: Jobs
+      jobs_and_contacts: Jobs and contracts
+      organisation_chart: Our organisation chart
+      transparency: Transparency data
+    headings:
+      contact: Contact %{name}
+  publications:
+    heading: Publications
+  see_all:
+    announcement: See all our announcements
+    authored_article: See all our authored articles
+    case_study: See all our case studies
+    closed_consultation: See all our closed consultations
+    consultation: See all our consultations
+    consultation_outcome: See all our consultation outcomes
+    corporate_report: See all our corporate reports
+    correspondence: See all our correspondences
+    decision: See all our decisions
+    detailed_guidance: See all our guidance
+    document_collection: See all our collections
+    draft_text: See all our draft texts
+    fatality_notice: See all our fatality notices
+    foi_release: See all our FOI releases
+    form: See all our forms
+    government_response: See all our government responses
+    guidance: See all our guidance
+    impact_assessment: See all our impact assessments
+    imported: See all our independent reports
+    international_treaty: See all our international treaties
+    map: See all our maps
+    national_statistics: See all our National Statistics
+    news_article: See all our news articles
+    news_story: See all our news stories
+    notice: See all our notices
+    open_consultation: See all our open consultations
+    oral_statement: See all our oral statements to Parliament
+    policy: See all our policies
+    policy_paper: See all our policy papers
+    press_release: See all our press releases
+    promotional: See all our promotional material
+    publication: See all our publications
+    regulation: See all our regulations
+    research: See all our research and analysis
+    speaking_notes: See all our speaking notes
+    speech: See all our speeches
+    statement_to_parliament: See all our statements to Parliament
+    statistical_data_set: See all our statistical data sets
+    statistics: See all our statistics
+    statutory_guidance: See all our statutory guidance
+    transcript: See all our transcripts
+    transparency: See all our transparency data
+    written_statement: See all our written statements to Parliament
+  support:
+    array:
+      last_word_connector: " and "
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %l:%M%P'
+      long_ordinal: "%e %B %Y %l:%M%P"
   world_location:
     headings:
       announcements: Our announcements
-      country: Country
       documents: Documents
       mission: Our mission
       organisations: Organisations
       publications: Our publications
-      quick_links: Quick links
-      related_policies: Related policies
       statistics: Our statistics
     type:
       international_delegation:
@@ -401,187 +514,19 @@ en:
         one: World location
         other: World locations
   worldwide_organisation:
-    find_out_more: See full profile and all contact details
-    part_of: Part of
-    location: Location
-    headings:
-      about_us: About us
-      follow_us: Follow us
-      our_services: Our services
-      our_people: Our people
-      contact_us: Contact us
-      contents: Contents
-      corporate_information: Corporate information
     corporate_information:
-      publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
-      personal_information_charter_html: Our %{link} explains how we treat your personal information.
-      welsh_language_scheme_html: Find out about our commitment to %{link}.
-      social_media_use_html: Read our policy on %{link}.
       about_our_services_html: Find out %{link}.
-  corporate_information_page:
-    type:
-      title:
-        about: About us
-        about_our_services: About our services
-        accessible_documents_policy: Accessible documents policy
-        access_and_opening: Office access and opening times
-        complaints_procedure: Complaints procedure
-        equality_and_diversity: Equality and diversity
-        media_enquiries: Media enquiries
-        membership: Membership
-        our_energy_use: Our energy use
-        our_governance: Our governance
-        personal_information_charter: Personal information charter
-        petitions_and_campaigns: Petitions and campaigns
-        procurement: Procurement at %{organisation_name}
-        publication_scheme: Publication scheme
-        recruitment: Working for %{organisation_name}
-        research: Research at %{organisation_name}
-        social_media_use: Social media use
-        staff_update: Staff news and information
-        statistics: Statistics at %{organisation_name}
-        terms_of_reference: Terms of reference
-        welsh_language_scheme: Welsh language scheme
-      link_text:
-        welsh_language_scheme: publishing in Welsh
-  contact:
-    email: Email
-    contact_form: Contact form
-    access_and_opening_times: Access and opening times
-  read_more: Read more
-  change_notes:
-    page_history: History
-    published_at: First published
-    see_all_updates: see all updates
-    updated_at: Last updated
-  organisation:
+      personal_information_charter_html: Our %{link} explains how we treat your personal
+        information.
+      publication_scheme_html: Read about the types of information we routinely publish
+        in our %{link}.
+      social_media_use_html: Read our policy on %{link}.
+      welsh_language_scheme_html: Find out about our commitment to %{link}.
+    find_out_more: See full profile and all contact details
     headings:
-      what_we_do: What we do
-      who_we_are: Who we are
-      our_topics: We work on these topics
-      our_policies: Our policies
-      our_announcements: Our announcements
-      our_consultations: Our consultations
-      our_services: Our services
-      our_publications: Our publications
-      our_statistics: Our statistics
-      our_ministers: Our ministers
-      our_senior_military_officials: Our senior military officials
-      our_management: Our management
-      our_judges: Our judges
-      traffic_commissioners: Traffic commissioners
-      chief_professional_officers: Our chief professional officers
-      special_representatives: Special representatives
-      contact: Contact %{name}
+      contact_us: Contact us
       corporate_information: Corporate information
-      corporate_reports: Corporate reports
-      making_foi_requests: Make an FOI request
-      freedom_of_information_act: Freedom of Information (FOI) Act
-      documents: Documents
-    corporate_information:
-      organisation_chart: Our organisation chart
-      access_our_info: Access our information
-      jobs_and_contacts: Jobs and contracts
-      transparency: Transparency data
-      jobs: Jobs
-      foi_releases: FOI releases
-      foi_how_to: How to make an FOI request
-    about:
-      read_more: Read more about what we do
-    making_foi_requests:
-      step1_html: Read about the Freedom of Information (FOI) Act and <a href="%{how_to_path}">how to make a request</a>
-      step2_html: Check <a href="%{our_releases_path}">our previous releases</a> to see if we’ve already answered your question
-      step3_html: "Make a new request by contacting us at:"
-    foi_exemption_html: |
-      This organisation is not covered by the Freedom of Information Act.
-      To see which organisations are included, see <a href="%{foi_url}">the legislation</a>.
-  announcements:
-    heading: Announcements
-    view_all: View all announcements
-  national_statistics:
-    heading: National Statistics
-  policies:
-    heading: Policies
-    view_all: View all policies
-  publications:
-    heading: Publications
-    headings:
-      detail: Detail
-  document_filters:
-    description: You can use the filters to show only results that match your interests
-    world_locations:
-      label: World locations
-      all: All locations
-    no_results:
-      title: There are no matching documents.
-      description: Try making your search broader and try again.
-      tna_heading: Older content
-      tna_link: Not all department publications from before May 2010 were migrated to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>.
-  attachment:
-    headings:
-      published: Published
-      reference: Ref
-      order_a_copy: Order a copy
-      order_a_copy_full: Order a copy of the publication
-      unnumbered_command_paper: Unnumbered command paper
-      unnumbered_hoc_paper: Unnumbered act paper
-    accessibility:
-      intro: This file may not be suitable for users of assistive technology.
-      request_a_different_format: Request an accessible format.
-      full_help_html: |
-        If you use assistive technology (such as a screen reader) and need a
-        version of this document in a more accessible format, please email %{email}.
-        Please tell us what format you need. It will help us if you say what assistive technology you use.
-    opendocument:
-      help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
-    see_more: See more information about this %{document_type}
-  see_all:
-    announcement: See all our announcements
-    case_study: See all our case studies
-    closed_consultation: See all our closed consultations
-    consultation: See all our consultations
-    consultation_outcome: See all our consultation outcomes
-    corporate_report: See all our corporate reports
-    correspondence: See all our correspondences
-    detailed_guidance: See all our guidance
-    document_collection: See all our collections
-    draft_text: See all our draft texts
-    fatality_notice: See all our fatality notices
-    foi_release: See all our FOI releases
-    form: See all our forms
-    guidance: See all our guidance
-    statutory_guidance: See all our statutory guidance
-    impact_assessment: See all our impact assessments
-    imported: See all our independent reports
-    international_treaty: See all our international treaties
-    map: See all our maps
-    notice: See all our notices
-    decision: See all our decisions
-    national_statistics: See all our National Statistics
-    news_article: See all our news articles
-    news_story: See all our news stories
-    open_consultation: See all our open consultations
-    oral_statement: See all our oral statements to Parliament
-    policy: See all our policies
-    policy_paper: See all our policy papers
-    press_release: See all our press releases
-    promotional: See all our promotional material
-    publication: See all our publications
-    government_response: See all our government responses
-    research: See all our research and analysis
-    regulation: See all our regulations
-    speaking_notes: See all our speaking notes
-    speech: See all our speeches
-    statement_to_parliament: See all our statements to Parliament
-    statistical_data_set: See all our statistical data sets
-    statistics: See all our statistics
-    transcript: See all our transcripts
-    transparency: See all our transparency data
-    written_statement: See all our written statements to Parliament
-    authored_article: See all our authored articles
-  broken_links:
-    title: Broken links
-    broken:
-      subheading: We’ve found links in this document that may be broken
-    caution:
-      subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
+      follow_us: Follow us
+      our_people: Our people
+    location: Location
+    part_of: Part of
