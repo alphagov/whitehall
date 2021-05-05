@@ -1,4 +1,0 @@
-<div class="status-block withdrawal-notice">
-  <h2>This <%= type.downcase %> was withdrawn on <%= document.updated_at.to_date.to_s(:long_ordinal) %></h2>
-  <%= govspeak_to_html document.unpublishing.explanation unless document.unpublishing.explanation.blank? %>
-</div>
