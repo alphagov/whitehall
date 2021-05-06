@@ -17,7 +17,7 @@
       image_alt: feature.alt_text,
       context: {
         date: feature.time_stamp,
-        text: t_display_type(feature),
+        text: feature.topical_event ? nil : t_display_type(feature),
       },
       heading_text: feature.title,
       description: truncate(feature.summary, length: 160, separator: ' '),
