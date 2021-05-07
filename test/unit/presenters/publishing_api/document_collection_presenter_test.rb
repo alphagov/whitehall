@@ -68,8 +68,8 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     assert_equal "de", @presented_content[:locale]
   end
 
-  test "it presents no deal content notice" do
-    assert_equal [], @presented_content[:details][:brexit_no_deal_notice]
+  test "it does not present no deal content notice" do
+    assert_nil @presented_content[:details][:brexit_no_deal_notice]
   end
 end
 

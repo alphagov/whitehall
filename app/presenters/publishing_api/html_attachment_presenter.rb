@@ -54,12 +54,11 @@ module PublishingApi
     end
 
     def details
-      details_hash = {
+      {
         body: body,
         public_timestamp: public_timestamp,
         first_published_version: first_published_version?,
       }
-      details_hash.merge!(PayloadBuilder::BrexitNoDealContent.for(parent))
     end
 
     def body

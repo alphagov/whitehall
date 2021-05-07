@@ -41,7 +41,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
           .govspeak_to_html(html_attachment.govspeak_content.body),
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
-        brexit_no_deal_notice: [],
       },
     }
     presented_item = present(html_attachment)
@@ -121,7 +120,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
                  present(html_attachment).links[:primary_publishing_organisation]
   end
 
-  test "HtmlAttachment presents Brexit no-deal content notice data" do
+  test "HtmlAttachment does not present Brexit no-deal content notice data" do
     create(
       :publication,
       :with_html_attachment,
@@ -133,13 +132,8 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       ],
     )
 
-    expected = [
-      { title: "Link 1", href: "https://www.example.com/1" },
-      { title: "Link 2", href: "https://www.example.com/2" },
-    ]
-
     html_attachment = HtmlAttachment.last
 
-    assert_equal present(html_attachment).content[:details][:brexit_no_deal_notice], expected
+    assert_nil present(html_attachment).content[:details][:brexit_no_deal_notice]
   end
 end

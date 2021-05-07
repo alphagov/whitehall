@@ -46,7 +46,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
           topics: [],
         },
         emphasised_organisations: case_study.lead_organisations.map(&:content_id),
-        brexit_no_deal_notice: [],
       },
     }
     expected_links = {
