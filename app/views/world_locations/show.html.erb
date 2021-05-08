@@ -7,20 +7,22 @@
 <% end %>
 
 <%= content_tag_for(:article, @world_location) do %>
-  <header class="block headings-block">
-    <div class="inner-block floated-children">
-      <%= render partial: 'shared/heading',
-                locals: { type: t_world_location(@world_location),
-                          heading: @world_location.title,
-                          extra: true, big: true } %>
-      <aside class="heading-extra">
-        <div class="inner-heading">
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/title", {
+          context: t_world_location(@world_location),
+          title: @world_location.title,
+        } %>
+      </div>
+      <div class="govuk-grid-column-one-third govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+        <aside class="heading-extra">
           <%= render 'shared/available_languages', object: @world_location %>
           <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set %>
-        </div>
-      </aside>
+        </aside>
+      </div>
     </div>
-  </header>
+  </div>
 
   <div class="block news-block">
     <div class="inner-block">

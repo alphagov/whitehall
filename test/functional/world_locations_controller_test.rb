@@ -363,7 +363,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     create(:published_news_article, world_locations: [world_location], translated_into: [:fr])
     get :show, params: { id: world_location, locale: "fr" }
-    assert_select ".type", "Délégation internationale"
+    assert_select ".gem-c-title__context", "Délégation internationale"
     assert_select "#publications .see-all a", /Voir toutes nos publications/
   end
 
