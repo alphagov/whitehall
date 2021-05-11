@@ -1,27 +1,21 @@
 <% page_title "Fields of operation" %>
 <% page_class "fields-of-operation-index" %>
 
-<header class="block headings-block">
-  <div class="govuk-width-container">
-    <%= render "govuk_publishing_components/components/title", {
-      context: "British fatalities",
-      title: "Fields of operation",
-    } %>
-  </div>
-</header>
-
-<div class="block-2">
-  <div class="inner-block">
-    <section class="simple-alphabetical-list fields-of-operation">
-      <div class="alphabetical-row">
-        <ul>
-          <% @operational_fields.each do |field| %>
-            <%= content_tag_for :li, field do %>
-              <%= link_to field.name, operational_field_path(field) %>
-            <% end %>
+<div class="govuk-width-container">
+  <%= render "govuk_publishing_components/components/title", {
+    context: "British fatalities",
+    title: "Fields of operation",
+  } %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <ul class="govuk-list">
+        <% @operational_fields.each do |field| %>
+          <%= content_tag_for :li, field do %>
+            <%= link_to field.name, operational_field_path(field), class: "govuk-link" %>
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-2">
           <% end %>
-        </ul>
-      </div>
-    </section>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
