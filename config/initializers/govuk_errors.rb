@@ -3,4 +3,8 @@ GovukError.configure do |config|
     "AssetManagerAttachmentSetUploadedToWorker::AttachmentDataNotFoundTransient",
     "Redis::CannotConnectError",
   ]
+
+  config.data_sync_excluded_exceptions += [
+    "ActiveRecord::Deadlocked",
+  ]
 end
