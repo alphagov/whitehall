@@ -173,7 +173,7 @@ GEM
       tzinfo
     excon (0.75.0)
     execjs (2.7.0)
-    factory_bot (6.1.0)
+    factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
