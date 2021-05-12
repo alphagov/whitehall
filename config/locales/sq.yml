@@ -3,42 +3,42 @@ sq:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Njoftime shtypi
   attachment:
@@ -51,66 +51,66 @@ sq:
       order_a_copy_full: Porosit nje kopje te publikimit
       published: Publikuar
       reference: Ref
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Forme kontakti
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Informacion Personal
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Skeme publikimi
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Perdorim media sociale
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Skeme e gjuhes Uells
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Zbatohet mbi
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: publikuar
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Minister
@@ -128,8 +128,8 @@ sq:
         one: Artikull autori
         other: Artikuj autoresh
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Rast studimi
         other: Raste studimi
@@ -149,14 +149,14 @@ sq:
         one: Korrespondence
         other: Korrespondencat
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Udhezim i detajuar
         other: Udhezim i detajuar
       document_collection:
         one: Seri
-        other: 
+        other:
       draft_text:
         one: Draft tekst
         other: draft tekste
@@ -182,11 +182,11 @@ sq:
         one: Raport i pavarur
         other: Raporte te pavarur
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Harte
         other: Harta
@@ -200,11 +200,11 @@ sq:
         one: Ngjarje
         other: Ngjarje
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Statistika
         other: Statistika
@@ -227,8 +227,8 @@ sq:
         one: Publikim
         other: Publikime
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: kerkime dhe analiza
         other: kerkime dhe analiza
@@ -239,8 +239,8 @@ sq:
         one: Fjalim
         other: Fjalime
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Deklarate per Parliamentin
         other: Deklarata per Parlamentin
@@ -248,8 +248,8 @@ sq:
         one: Grup te dhenash statistikore
         other: Grupe te dhenash stasistikore
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Transkript
         other: Transkripte
@@ -257,8 +257,8 @@ sq:
         one: Te dhena per transparencen
         other: Te dhena per transparencen
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
@@ -268,15 +268,15 @@ sq:
     no_results:
       description: Zgjero kerkimin dhe perpiqu perseri
       title: Nuk gjendet cfare kerkoni
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Te gjitha vendndodhjet
       label: Vendndodhje boterore
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Aktiviteti me i fundit
   i18n:
     direction: ltr
@@ -287,7 +287,7 @@ sq:
     no_updates: Nuk ka rifreskim
     title: Me te fundit
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -295,9 +295,9 @@ sq:
   organisation:
     corporate_information:
       access_our_info: Shiko informacionin tone
-      jobs: 
+      jobs:
       jobs_and_contacts: Vende pune dhe kontrata
-      organisation_chart: 
+      organisation_chart:
       transparency: Te dhena transparence
     headings:
       contact: Kontakt %{name}
@@ -312,9 +312,9 @@ sq:
     consultation_outcome: Shiko te gjitha rezultatet e konsultimit
     corporate_report: Shiko te gjitha raporte te organizates
     correspondence: Shiko te gjitha korrespondencat
-    decision: 
+    decision:
     detailed_guidance: Shiko te gjitha udhezim i detajuar
-    document_collection: 
+    document_collection:
     draft_text: Shiko te gjitha draft tekste
     fatality_notice: Shiko te gjitha njoftime fataliteti
     foi_release: Shiko te gjitha njoftime mbi lirine e informacionit
@@ -323,12 +323,12 @@ sq:
     guidance: Shiko te gjitha udhezime
     impact_assessment: Shiko te gjitha vleresime te ndikimit
     imported: Shiko te gjitha importuar - tipi pritje
-    international_treaty: 
+    international_treaty:
     map: Shiko te gjitha harta
     national_statistics: Shiko te gjitha statistika - statistika kombetare
     news_article: Shiko te gjitha artikuj lajme
     news_story: Shiko te gjitha ngjarje
-    notice: 
+    notice:
     open_consultation: Shiko te gjitha konsultime te hapur
     oral_statement: Shiko te gjitha deklarata per parlamentin
     policy: Shiko te gjitha politika
@@ -336,14 +336,14 @@ sq:
     press_release: Shiko te gjitha njoftime shtypi
     promotional: Shiko te gjitha material promovues
     publication: Shiko te gjitha publikime
-    regulation: 
+    regulation:
     research: Shiko te gjitha kerkime dhe analiza
     speaking_notes: Shiko te gjitha pika fjalimi
     speech: Shiko te gjitha fjalime
     statement_to_parliament: Shiko te gjitha deklarata per parlamentin
     statistical_data_set: Shiko te gjitha grupe te dhenash stasistikore
     statistics: Shiko te gjitha statistika
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Shiko te gjitha transkripte
     transparency: Shiko te gjitha te dhena per transparencen
     written_statement: Shiko te gjitha deklarata me shkrim per parlamentin
@@ -370,7 +370,7 @@ sq:
         other: Vendndodhje
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: "%{link} shpjegon si trajtohet informacioni juaj personal"
       publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht ne %{link}.
       social_media_use_html: Lexo politikat tona ne %{link}

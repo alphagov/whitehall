@@ -3,42 +3,42 @@ el:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Ανακοινώσεις
   attachment:
@@ -51,66 +51,66 @@ el:
       order_a_copy_full: Ζητήστε αντιτυπο της έκδοσης
       published: Δημοσιεύτηκε
       reference: Σχετικά
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Φόρμα επικοινωνίας
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Προστασία προσωπικών δεδομένων
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Σχέδιο έκδοσης
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Χρήση κοινωνικών δικτύων
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Πρόγραμμα Ουαλλικής γλώσσας
   date:
     formats:
-      default: 
-      long_ordinal: 
+      default:
+      long_ordinal:
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Ισχύει
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: Δημοσιευμένο
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Υπουργός
@@ -128,8 +128,8 @@ el:
         one: Κείμενο συντάκτη
         other: Κείμενα συντακτών
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Παράδειγμα
         other: Παραδείγματα
@@ -149,14 +149,14 @@ el:
         one: Αλληλογραφία
         other: Αλληλογραφία
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Οδηγίες
         other: Οδηγίες
       document_collection:
         one: Σειρά
-        other: 
+        other:
       draft_text:
         one: Προσχέδιο
         other: Προσχέδια
@@ -182,11 +182,11 @@ el:
         one: Έκθεση ανεξάρτητης αρχής
         other: Εκθέσεις ανεξάρτητων αρχών
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Χάρτης
         other: Χάρτες
@@ -200,11 +200,11 @@ el:
         one: Νέα
         other: Νέα
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Στατιστικά στοιχεία
         other: Στατιστικά στοιχεία
@@ -227,8 +227,8 @@ el:
         one: Έκδοση
         other: Εκδόσεις
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Έρευνα και ανάλυση
         other: Έρευνα και ανάλυση
@@ -239,8 +239,8 @@ el:
         one: Ομιλία
         other: Ομιλίες
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Δήλωση στη Βουλή
         other: 'Δηλώσεις στη Βουλή '
@@ -248,8 +248,8 @@ el:
         one: Στατιστικά στοιχεία
         other: Στατιστικά στοιχεία
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Απομαγνητοφώνηση
         other: Απομαγνητοφωνήσεις
@@ -257,8 +257,8 @@ el:
         one: Στοιχεία διαφάνειας
         other: Στοιχεία διαφάνειας
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Γραπτή  δήλωση στη Βουλή
         other: Γραπτές δηλώσεις στη Βουλή
@@ -268,15 +268,15 @@ el:
     no_results:
       description: Διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά
       title: Δεν υπάρχουν αποτελέσματα
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Πρόσφατες ενημερώσεις
   i18n:
     direction: ltr
@@ -287,17 +287,17 @@ el:
     no_updates: Δεν υπάρχουν ανανεώσεις ακόμα
     title: Πρόσφατα
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
-        format: 
+        format:
   organisation:
     corporate_information:
       access_our_info: Πρόσβαση στις πληροφορίες μας
-      jobs: 
+      jobs:
       jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
-      organisation_chart: 
+      organisation_chart:
       transparency: Στοιχεία διαφάνειας
     headings:
       contact: Επικοινωνήστε%{name}
@@ -312,9 +312,9 @@ el:
     consultation_outcome: Δείτε τα Αποτελέσματα διαβούλευσης
     corporate_report: Δείτε τα Εκθέσεις Οργανισμού
     correspondence: Δείτε τα Αλληλογραφία
-    decision: 
+    decision:
     detailed_guidance: Δείτε τα Οδηγίες
-    document_collection: 
+    document_collection:
     draft_text: Δείτε τα Προσχέδια
     fatality_notice: Δείτε τα Ανακοινώσεις θανάτων
     foi_release: Δείτε τα Δημοσιοποίηση
@@ -323,12 +323,12 @@ el:
     guidance: Δείτε τα Οδηγίες
     impact_assessment: Δείτε τα Αξιολογήσεις αποτελέσματος
     imported: Δείτε τα εισηγμένα - σε αναμονή
-    international_treaty: 
+    international_treaty:
     map: Δείτε τα Χάρτες
     national_statistics: Δείτε τα Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
     news_article: Δείτε τα Ειδήσεις
     news_story: Δείτε τα Νέα
-    notice: 
+    notice:
     open_consultation: Δείτε τα Ανοιχτές διαβουλεύσεις
     oral_statement: 'Δείτε τα Δηλώσεις στη Βουλή '
     policy: Δείτε τα Πολιτικές
@@ -336,14 +336,14 @@ el:
     press_release: Δείτε τα Δελτία Τύπου
     promotional: Δείτε τα Προωθητικό υλικό
     publication: Δείτε τα Εκδόσεις
-    regulation: 
+    regulation:
     research: Δείτε τα Έρευνα και ανάλυση
     speaking_notes: Δείτε τα Βασικά σημεία ομιλίας
     speech: Δείτε τα Ομιλίες
     statement_to_parliament: 'Δείτε τα Δηλώσεις στη Βουλή '
     statistical_data_set: Δείτε τα Στατιστικά στοιχεία
     statistics: Δείτε τα Στατιστικά στοιχεία
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Δείτε τα Απομαγνητοφωνήσεις
     transparency: Δείτε τα Στοιχεία διαφάνειας
     written_statement: Δείτε τα Γραπτές δηλώσεις στη Βουλή
@@ -352,7 +352,7 @@ el:
       last_word_connector: και
   time:
     formats:
-      long_ordinal: 
+      long_ordinal:
   world_location:
     headings:
       announcements: Οι ανακοινώσεις μας
@@ -370,7 +370,7 @@ el:
         other: Χώρες
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά σας δεδομένα
       publication_scheme_html: Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε συνήθως στο %{link}
       social_media_use_html: Μάθετε περισσότερα για την πολιτική μας στο %{link}.

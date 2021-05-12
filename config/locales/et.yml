@@ -9,7 +9,7 @@ et:
       attachment_data:
         file: Toimik
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
+        command_paper_number:
         hoc_paper_number: 'Parlamendi alamkoja dokumendi nr. '
         isbn: 'Manuse ISBN '
         title: Manuse pealkiri
@@ -18,11 +18,11 @@ et:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file: Manus
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Manus
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
+        command_paper_number:
         hoc_paper_number: Parlamendi alamkoja dokumendi nr.
         isbn: Manuse ISBN
         title: Manuse pealkiri
@@ -33,7 +33,7 @@ et:
     nested_attachment_data_field_names:
       file: Manus
     nested_attachment_field_names:
-      command_paper_number: 
+      command_paper_number:
       hoc_paper_number: Parlamendi alamkoja dokumendi nr.
       isbn: Manuse ISBN
       title: Manuse pealkiri
@@ -51,33 +51,33 @@ et:
       order_a_copy_full: Tellige publikatsiooni koopia
       published: Avaldatud
       reference: Viide
-      unnumbered_command_paper: 
+      unnumbered_command_paper:
       unnumbered_hoc_paper: Nummerdamata eelnõu dokument
     opendocument:
       help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> formaadis
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
     published_at: Esmane publikatsioon
     see_all_updates: Vaadake kõiki täiendusi
     updated_at: Viimane täiendus
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Võtke ühendust
     email: E-post
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
         about: Meist
         about_our_services: Meie teenustest
         access_and_opening: Kontori asukoht ja tööaeg
-        accessible_documents_policy: 
+        accessible_documents_policy:
         complaints_procedure: Kaebuste esitamise kord
         equality_and_diversity: Võrdõiguslikkus ja diversiteet
         media_enquiries: Meediapäringud
@@ -97,8 +97,8 @@ et:
         welsh_language_scheme: Uelsi keele kasutusest
   date:
     formats:
-      default: 
-      long_ordinal: 
+      default:
+      long_ordinal:
   document:
     contents: Sisukord
     footer_meta:
@@ -110,7 +110,7 @@ et:
       from: Kellelt
       part_of: Osa
     published: avaldatud
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Minister
@@ -128,8 +128,8 @@ et:
         one: Avaldatud artikkel
         other: 'Avaldatud artiklid '
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Juhtumiuuring
         other: Juhtumiuuringud
@@ -200,8 +200,8 @@ et:
         one: Uudis
         other: Uudised
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
         one: Teade
         other: Teated
@@ -239,8 +239,8 @@ et:
         one: 'Kõne  '
         other: Kõned
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Avaldus parlamendis
         other: Avaldused parlamendis
@@ -257,8 +257,8 @@ et:
         one: Läbipaistvusteave
         other: Läbipaistvusteave
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
@@ -291,11 +291,11 @@ et:
   number:
     human:
       storage_units:
-        format: 
+        format:
   organisation:
     corporate_information:
       access_our_info: Ligipääs meie teabele
-      jobs: 
+      jobs:
       jobs_and_contacts: Töötajad ja kontaktid
       organisation_chart: Meie organisatsioon
       transparency: Läbipaistvusteave
@@ -352,7 +352,7 @@ et:
       last_word_connector: ja
   time:
     formats:
-      long_ordinal: 
+      long_ordinal:
   world_location:
     headings:
       announcements: Meie teadaanded

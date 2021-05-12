@@ -3,42 +3,42 @@ uz:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: E'lonlar
   attachment:
@@ -51,66 +51,66 @@ uz:
       order_a_copy_full: Nashrning nusxasini buyurtirish
       published: Nashr qilindi
       reference: Ishora
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Aloqa uchun
     email: Elektron manzil
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Shaxsiy ma'lumot nizomi
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Nashr rejasi
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Jamoat media vositalarini qullanilishi
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Uels tili rejasi
   date:
     formats:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: 'Tegishli '
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: nashr qilindi
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Vazir
@@ -128,8 +128,8 @@ uz:
         one: Muallif maqolasi
         other: Muallif maqolalari
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Holat o'rganilishi
         other: Holat o'rganilishlari
@@ -149,14 +149,14 @@ uz:
         one: Muvofiqlik
         other: Muvofiqliklar
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
       document_collection:
         one: Bir talay
-        other: 
+        other:
       draft_text:
         one: Matn loyihasi
         other: Matn loyihalari
@@ -182,11 +182,11 @@ uz:
         one: Mustaqil hisobot
         other: Mustaqil hisobotlar
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Xarita
         other: Xaritalar
@@ -200,11 +200,11 @@ uz:
         one: Yangilik
         other: Yangiliklar
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Statistika
         other: Statistika
@@ -227,8 +227,8 @@ uz:
         one: Nashr
         other: Nashrlar
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Tadqiqot va tahlilllar
         other: Tadqiqot va tahlilllar
@@ -239,8 +239,8 @@ uz:
         one: Nutq
         other: Nutqlar
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Parlament uchun hisobot
         other: Parlament uchun hisobotlar
@@ -248,8 +248,8 @@ uz:
         one: Statistika ma'lumot to'plami
         other: Statistika ma'lumot to'plamlari
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Matn
         other: Matnlar
@@ -257,8 +257,8 @@ uz:
         one: Ochiqlikka oid ma'lumotlar
         other: Ochiqlikka oid ma'lumotlar
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Parlament uchun yozma hisobot
         other: Parlament uchun yozma hisobotlar
@@ -268,15 +268,15 @@ uz:
     no_results:
       description: Qidiruvni kengaytiring va yana bir bora urinib ko'ring.
       title: Mos hujjatlar yoq.
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Eng so'nggi faoliyat
   i18n:
     direction: ltr
@@ -287,7 +287,7 @@ uz:
     no_updates: Yangiliklar yoq.
     title: 'Eng so''nggi '
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -295,9 +295,9 @@ uz:
   organisation:
     corporate_information:
       access_our_info: Biz haqimizda ma'lumotga ega bo'ling
-      jobs: 
+      jobs:
       jobs_and_contacts: Ish va shartnomalar
-      organisation_chart: 
+      organisation_chart:
       transparency: Ochiqlikka oid ma'lumotlar
     headings:
       contact: "%{name} bog'laning"
@@ -312,9 +312,9 @@ uz:
     consultation_outcome: Bizning butun fikr almashish natijalari ko'ring
     corporate_report: Bizning butun korporativ hisobotlar ko'ring
     correspondence: Bizning butun muvofiqliklar ko'ring
-    decision: 
+    decision:
     detailed_guidance: Bizning butun batafsil ko'mak ko'ring
-    document_collection: 
+    document_collection:
     draft_text: Bizning butun matn loyihalari ko'ring
     fatality_notice: Bizning butun falokat haqida e'lonlar ko'ring
     foi_release: Bizning butun so'z erkinligiga bag'ishlangan nashrlar ko'ring
@@ -323,12 +323,12 @@ uz:
     guidance: Bizning butun rahbarlik ko'ring
     impact_assessment: Bizning butun ta'sir etuvchi omillar tahlillari ko'ring
     imported: Bizning butun yuklandi - kutilmoqda  ko'ring
-    international_treaty: 
+    international_treaty:
     map: Bizning butun xaritalar ko'ring
     national_statistics: Bizning butun statistika - milliy statistika ko'ring
     news_article: Bizning butun yangi maqolalar ko'ring
     news_story: Bizning butun yangiliklar ko'ring
-    notice: 
+    notice:
     open_consultation: Bizning butun ochiq fikr almashishlar ko'ring
     oral_statement: Bizning butun parlament uchun og'zaki bayonotlar ko'ring
     policy: Bizning butun dasturlar ko'ring
@@ -336,14 +336,14 @@ uz:
     press_release: Bizning butun press relizlar ko'ring
     promotional: Bizning butun reklama uchun manbalar ko'ring
     publication: Bizning butun nashrlar ko'ring
-    regulation: 
+    regulation:
     research: Bizning butun tadqiqot va tahlilllar ko'ring
     speaking_notes: Bizning butun nutq qaydlari ko'ring
     speech: Bizning butun nutqlar ko'ring
     statement_to_parliament: Bizning butun parlament uchun hisobotlar ko'ring
     statistical_data_set: Bizning butun statistika ma'lumot to'plamlari ko'ring
     statistics: Bizning butun statistika ko'ring
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Bizning butun matnlar ko'ring
     transparency: Bizning butun ochiqlikka oid ma'lumotlar ko'ring
     written_statement: Bizning butun parlament uchun yozma hisobotlar ko'ring
@@ -370,7 +370,7 @@ uz:
         other: Hududiy joylashuvlar
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot bilan ishlashimiz haqida sizga ma'lumot beradi 
       publication_scheme_html: "%{link} Biz doimiy tarzda nashr etayotgan ma'lumot haqida o'qing"
       social_media_use_html: "%{link} Bizning dasturimiz haqida batafsil ma'lumot"

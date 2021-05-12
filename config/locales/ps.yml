@@ -3,42 +3,42 @@ ps:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: اعلانونه
   attachment:
@@ -51,66 +51,66 @@ ps:
       order_a_copy_full: د سند د کاپی غوښتنه وکړی
       published: خپور شوی
       reference: مواخذ
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: د اړیکوپاڼه
     email: برښنالیک
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: د شخصی معلوماتی په اړه سند
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: د خپرولو پلان
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: د ټولنیزو رسنیو استعمال
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: د ویلز د ژبی پلان
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: پورې اړه لری
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: خپور شوی
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: وزیر
@@ -128,8 +128,8 @@ ps:
         one: تالیف شوی مضمون
         other: تالیف شوي مضامین
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: موردی څیړنه
         other: مودری څیړنی
@@ -149,14 +149,14 @@ ps:
         one: ارتباط ساتنه
         other: ارتباطات ساتنه
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
       document_collection:
         one: سلسله
-        other: 
+        other:
       draft_text:
         one: مسوده
         other: مسودی
@@ -182,11 +182,11 @@ ps:
         one: آزاد راپور
         other: آزاد راپورونه
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: نقشه
         other: نقشی
@@ -200,11 +200,11 @@ ps:
         one: خبری راپور
         other: خبری راپورونه
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: شمیرنه
         other: شمیرنه
@@ -227,8 +227,8 @@ ps:
         one: خپرونه
         other: خپرونې
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: څیړنه او تجزیه
         other: ځیړنه او تجزیه
@@ -239,8 +239,8 @@ ps:
         one: وینا
         other: ویناوې
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: پارلمان ته اعلامیه
         other: پارلمان ته اعلامیې
@@ -248,8 +248,8 @@ ps:
         one: د شمیرنې اطلاعات
         other: د شمیرنې اطلاعات
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: لیکنه
         other: لیکنې
@@ -257,8 +257,8 @@ ps:
         one: د روڼوالې اطلاعات
         other: د روڼوالي اطلاعات
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: پارلمان ته لیکلې اعلامیه
         other: پارلمان ته لیکلې اعلامیې
@@ -268,15 +268,15 @@ ps:
     no_results:
       description: کوښښ وکړۍ لا زیات ولتوۍ او بیا کوښښ وکړۍ
       title: سمون لرونکی اسناد شتون نه لری
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: اخیرنی فعالیت
   i18n:
     direction: rtl
@@ -287,7 +287,7 @@ ps:
     no_updates: تر اوسه تازه معلومات په لاس کی نشته
     title: آخرنی
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -295,9 +295,9 @@ ps:
   organisation:
     corporate_information:
       access_our_info: زمونږمعلوماتو ته لاس رسی پیدا کړی
-      jobs: 
+      jobs:
       jobs_and_contacts: دندی او تړونونه
-      organisation_chart: 
+      organisation_chart:
       transparency: د شفافیت معلومات
     headings:
       contact: تماس  %{name}
@@ -312,9 +312,9 @@ ps:
     consultation_outcome: ټول وګوری د مشورو پایله
     corporate_report: ټول وګوری متحد راپورونه
     correspondence: ټول وګوری ارتباطات ساتنه
-    decision: 
+    decision:
     detailed_guidance: ټول وګوری مفصلی لارښوونی
-    document_collection: 
+    document_collection:
     draft_text: ټول وګوری مسودی
     fatality_notice: ټول وګوری دمړینی خبرتیاوی
     foi_release: ټول وګوری د بیان د آزادی خپرونی
@@ -323,12 +323,12 @@ ps:
     guidance: ټول وګوری رهنمایی
     impact_assessment: ټول وګوری د تاثیراتو څیړنی
     imported: ټول وګوری وارد شوی - د انتظار نمونه
-    international_treaty: 
+    international_treaty:
     map: ټول وګوری نقشی
     national_statistics: ټول وګوری شمیرنه - ملی شمیرنې
     news_article: ټول وګوری خبری مقالی
     news_story: ټول وګوری خبری راپورونه
-    notice: 
+    notice:
     open_consultation: ټول وګوری آزادې مشورې
     oral_statement: ټول وګوری پارلمان ته شفاهی اعلامیی
     policy: ټول وګوری پالیسی ګانی
@@ -336,14 +336,14 @@ ps:
     press_release: ټول وګوری مطبوعاتی خبرپاڼې
     promotional: ټول وګوری روزونکی مواد
     publication: ټول وګوری خپرونې
-    regulation: 
+    regulation:
     research: ټول وګوری ځیړنه او تجزیه
     speaking_notes: ټول وګوری د وینا یادښتونه
     speech: ټول وګوری ویناوې
     statement_to_parliament: ټول وګوری پارلمان ته اعلامیې
     statistical_data_set: ټول وګوری د شمیرنې اطلاعات
     statistics: ټول وګوری شمیرنه
-    statutory_guidance: 
+    statutory_guidance:
     transcript: ټول وګوری لیکنې
     transparency: ټول وګوری د روڼوالي اطلاعات
     written_statement: ټول وګوری پارلمان ته لیکلې اعلامیې
@@ -370,7 +370,7 @@ ps:
         other: په نړۍ کې موقعیتونه
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: " زموږ تشریح کوی چې موږ د شخصی معلوماتو سره څرنګه چلند کوو"
       publication_scheme_html: زموږ د هغو معلوماتو په اړه ولولۍ چې هره ورڅ یې موږ خپروو %{link}.
       social_media_use_html: زموږه پالسی ولولی %{link}.

@@ -3,42 +3,42 @@ pt:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Anúncios
   attachment:
@@ -51,66 +51,66 @@ pt:
       order_a_copy_full: Pedir uma cópia da publicação
       published: Publicado
       reference: Ref
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Formulário de contato
     email: E-mail
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
         complaints_procedure: Processo de reclamação
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Guia de Informação Pessoal
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Programa de publicação
         recruitment: Trabalhar para a %{organisation_name}
-        research: 
+        research:
         social_media_use: Uso de mídias sociais
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: 'Programa de língua galesa '
   date:
     formats:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Aplica-se a
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: publicado
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Ministro
@@ -128,8 +128,8 @@ pt:
         one: Artigo
         other: Artigos
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Estudo de caso
         other: Estudos de caso
@@ -149,14 +149,14 @@ pt:
         one: Correspondência
         other: Correspondências
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Guia detalhado
         other: Guias detalhados
       document_collection:
         one: Séries
-        other: 
+        other:
       draft_text:
         one: Texto preliminar
         other: Textos preliminares
@@ -182,11 +182,11 @@ pt:
         one: Relatório independente
         other: Relatórios independentes
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Mapa
         other: Mapas
@@ -200,11 +200,11 @@ pt:
         one: Notícia
         other: Notícias
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Estatística
         other: Estatísticas
@@ -227,8 +227,8 @@ pt:
         one: Publicação
         other: Publicações
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Pesquisa e análise
         other: Pesquisas e análises
@@ -239,8 +239,8 @@ pt:
         one: Discurso
         other: Discursos
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Declaração ao Parlamento
         other: Declarações ao Parlamento
@@ -248,8 +248,8 @@ pt:
         one: Conjunto de dados estastísticos
         other: Conjuntos de dados estatísticos
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Transcrição
         other: Transcrições
@@ -257,8 +257,8 @@ pt:
         one: Dado de Transparência
         other: Dados de Transparência
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Declaração escrita ao Parlamento
         other: Declarações escritas ao Parlamento
@@ -268,15 +268,15 @@ pt:
     no_results:
       description: Tente tornar sua busca mais abrangente e tente novamente
       title: Nenhum documento encontrado
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Todos os locais
       label: Locais no Mundo
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Últimas atividades
   i18n:
     direction: ltr
@@ -287,7 +287,7 @@ pt:
     no_updates: Ainda não há atualizações
     title: Últimas
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -295,9 +295,9 @@ pt:
   organisation:
     corporate_information:
       access_our_info: Veja as nossas informações
-      jobs: 
+      jobs:
       jobs_and_contacts: Vagas e contratos
-      organisation_chart: 
+      organisation_chart:
       transparency: Dados de Transparência
     headings:
       contact: Contato %{name}
@@ -312,9 +312,9 @@ pt:
     consultation_outcome: Veja todos os nossos resultados de consultas
     corporate_report: Veja todos os nossos relatórios corporativos
     correspondence: Veja todos os nossos correspondências
-    decision: 
+    decision:
     detailed_guidance: Veja todos os nossos guias detalhados
-    document_collection: 
+    document_collection:
     draft_text: Veja todos os nossos textos preliminares
     fatality_notice: Veja todos os nossos avisos de falecimento
     foi_release: Veja todos os nossos comunicados sobre pedidos de acesso a informação
@@ -323,12 +323,12 @@ pt:
     guidance: Veja todos os nossos instruções
     impact_assessment: Veja todos os nossos relatórios de impacto
     imported: Veja todos os nossos importados - esperando tipo
-    international_treaty: 
+    international_treaty:
     map: Veja todos os nossos mapas
     national_statistics: Veja todos os nossos estatísticas - estatísticas nacionais
     news_article: Veja todos os nossos notícias - artigos
     news_story: Veja todos os nossos notícias
-    notice: 
+    notice:
     open_consultation: Veja todos os nossos consultas abertas
     oral_statement: Veja todos os nossos declarações verbais ao parlamento
     policy: Veja todos os nossos políticas
@@ -336,14 +336,14 @@ pt:
     press_release: Veja todos os nossos comunicados de imprensa
     promotional: Veja todos os nossos materiais promocionais
     publication: Veja todos os nossos publicações
-    regulation: 
+    regulation:
     research: Veja todos os nossos pesquisas e análises
     speaking_notes: Veja todos os nossos notas de discursos
     speech: Veja todos os nossos discursos
     statement_to_parliament: Veja todos os nossos declarações ao parlamento
     statistical_data_set: Veja todos os nossos conjuntos de dados estatísticos
     statistics: Veja todos os nossos estatísticas
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Veja todos os nossos transcrições
     transparency: Veja todos os nossos dados de transparência
     written_statement: Veja todos os nossos declarações escritas ao parlamento
@@ -370,7 +370,7 @@ pt:
         other: Locais no Mundo
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: Nosso %{link} explica como nós tratamos suas informações pessoais
       publication_scheme_html: Leia sobre os tipos de informações que publicamos rotineiramente em nosso %{link}.
       social_media_use_html: Leia nossa política sobre %{link}

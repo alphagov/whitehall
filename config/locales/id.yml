@@ -3,42 +3,42 @@ id:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Pengumuman
   attachment:
@@ -51,66 +51,66 @@ id:
       order_a_copy_full: Memesan salinan dokumen
       published: Diterbitkan
       reference: Ref
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Formulir kontak
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Piagam informasi pribadi
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Skema publikasi
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Penggunaan media sosial
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Skema bahasa Wales
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Diterapkan pada
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: Diterbitkan
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Menteri
@@ -126,7 +126,7 @@ id:
       authored_article:
         other: Artikel-artikel yang ditulis
       blog_post:
-        other: 
+        other:
       case_study:
         other: Studi-studi kasus
       closed_consultation:
@@ -140,11 +140,11 @@ id:
       correspondence:
         other: Koresponden-koresponden
       decision:
-        other: 
+        other:
       detailed_guidance:
         other: Panduan lebih lanjut
       document_collection:
-        other: 
+        other:
       draft_text:
         other: Rancangan tulisan
       foi_release:
@@ -162,9 +162,9 @@ id:
       independent_report:
         other: Laporan-laporan independen
       international_treaty:
-        other: 
+        other:
       manual:
-        other: 
+        other:
       map:
         other: Peta-peta
       national_statistics:
@@ -174,9 +174,9 @@ id:
       news_story:
         other: Berita-berita
       nhs_content:
-        other: 
+        other:
       notice:
-        other: 
+        other:
       official_statistics:
         other: Statistik-statistik
       open_consultation:
@@ -192,7 +192,7 @@ id:
       publication:
         other: Publikasi-publikasi
       regulation:
-        other: 
+        other:
       research:
         other: Riset dan analisis
       speaking_notes:
@@ -200,19 +200,19 @@ id:
       speech:
         other: Pidato-pidato
       standard:
-        other: 
+        other:
       statement_to_parliament:
         other: Pernyataan-pernyaatan kepada Parlemen
       statistical_data_set:
         other: Set data statistik
       statutory_guidance:
-        other: 
+        other:
       transcript:
         other: Transkrip-transkrip
       transparency:
         other: Transparansi data
       world_news_story:
-        other: 
+        other:
       written_statement:
         other: Pernyataan-pernyatan tertulis kepada parlemen
     updated: Terkini
@@ -221,15 +221,15 @@ id:
     no_results:
       description: Mohon perluas pencarian Anda dan coba kembali
       title: Dokumen tidak ditemukan
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Aktivitas terbaru
   i18n:
     direction: ltr
@@ -240,7 +240,7 @@ id:
     no_updates: Belum ada informasi terkini
     title: Terkini
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -248,9 +248,9 @@ id:
   organisation:
     corporate_information:
       access_our_info: Akses informasi kami
-      jobs: 
+      jobs:
       jobs_and_contacts: Pekerjaan dan kontrak
-      organisation_chart: 
+      organisation_chart:
       transparency: Transparansi data
     headings:
       contact: Hubungi %{name}
@@ -265,9 +265,9 @@ id:
     consultation_outcome: Lihat semua hasil-hasil konsultasi
     corporate_report: Lihat semua laporan-laporan korporat
     correspondence: Lihat semua koresponden-koresponden
-    decision: 
+    decision:
     detailed_guidance: Lihat semua panduan lebih lanjut
-    document_collection: 
+    document_collection:
     draft_text: Lihat semua rancangan tulisan
     fatality_notice: Lihat semua pemberitahuan-pemberitahuan kematian
     foi_release: Lihat semua rilis foi
@@ -276,12 +276,12 @@ id:
     guidance: Lihat semua panduan
     impact_assessment: Lihat semua penilaian-penilaian dampak
     imported: Lihat semua diimpor-menunggu tipe
-    international_treaty: 
+    international_treaty:
     map: Lihat semua peta-peta
     national_statistics: Lihat semua statistik-statistik nasional
     news_article: Lihat semua artikel-artikel berita
     news_story: Lihat semua berita-berita
-    notice: 
+    notice:
     open_consultation: Lihat semua konsultasi-konsultasi terbuka
     oral_statement: Lihat semua pernyataan-pernyataan langsung kepada parlemen
     policy: Lihat semua kebijakan-kebijakan
@@ -289,14 +289,14 @@ id:
     press_release: Lihat semua rilis pers
     promotional: Lihat semua materi promosi
     publication: Lihat semua publikasi-publikasi
-    regulation: 
+    regulation:
     research: Lihat semua riset dan analisis
     speaking_notes: Lihat semua naskah pembicara
     speech: Lihat semua pidato-pidato
     statement_to_parliament: Lihat semua pernyataan-pernyaatan kepada parlemen
     statistical_data_set: Lihat semua set data statistik
     statistics: Lihat semua statistik-statistik
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Lihat semua transkrip-transkrip
     transparency: Lihat semua transparansi data
     written_statement: Lihat semua pernyataan-pernyatan tertulis kepada parlemen
@@ -321,7 +321,7 @@ id:
         other: Lokasi-lokasi dunia
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: "%{link} menjelaskan tentang bagaimana kami memperlakukan informasi pribadi Anda"
       publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat di %{link}
       social_media_use_html: Baca kebijakan kami di %{link}

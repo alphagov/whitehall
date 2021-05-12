@@ -3,42 +3,42 @@ bg:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Съобщения
   attachment:
@@ -57,66 +57,66 @@ bg:
       order_a_copy_full: Поръчайте копия
       published: Публикувано
       reference: Справка
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Контактна форма
     email: И-мейл
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Харта за персонална информация
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Схема за публикации
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Ползване на социални медии
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Уелска езикова схема
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Отнася се към
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: Публикувано
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Министър
@@ -136,8 +136,8 @@ bg:
         one: Авторска статия
         other: Авторски статии
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Казус
         other: Казуси
@@ -157,14 +157,14 @@ bg:
         one: Кореспонденция
         other: Кореспонденции
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Подробна насока
         other: Подробни насоки
       document_collection:
         one: Серии
-        other: 
+        other:
       draft_text:
         one: Чернова
         other: Чернови
@@ -190,11 +190,11 @@ bg:
         one: Независим доклад
         other: Независими доклади
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Карта
         other: Карти
@@ -208,11 +208,11 @@ bg:
         one: Новина
         other: Новини
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Статистики
         other: Статистики
@@ -235,8 +235,8 @@ bg:
         one: Публикация
         other: Публикации
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Проучване и анализ
         other: Проучване и анализи
@@ -247,8 +247,8 @@ bg:
         one: Реч
         other: Речи
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Изявление в парламента
         other: Изявления в парламента
@@ -256,8 +256,8 @@ bg:
         one: Набор от статистически данни
         other: Набори от статистически данни
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Препис
         other: Преписи
@@ -265,8 +265,8 @@ bg:
         one: Информация за прозрачността
         other: Информация за прозрачността
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Писмено изявление до парламента
         other: Писмени изявления до парламента
@@ -276,15 +276,15 @@ bg:
     no_results:
       description: Разширете търсенето си и опитайте отново
       title: Няма намерени документи
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Всички места
       label: Световни места
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Последна дейност
   i18n:
     direction: ltr
@@ -295,7 +295,7 @@ bg:
     no_updates: Няма нови обновления
     title: Последни
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -303,9 +303,9 @@ bg:
   organisation:
     corporate_information:
       access_our_info: Получете достъп до информацията ни
-      jobs: 
+      jobs:
       jobs_and_contacts: Работни места и договори
-      organisation_chart: 
+      organisation_chart:
       transparency: Данни за прозрачността
     headings:
       contact: Свържете се с %{name}
@@ -320,9 +320,9 @@ bg:
     consultation_outcome: Вижте всички наши Резултат от консултациите
     corporate_report: Вижте всички наши Корпоративни доклади
     correspondence: Вижте всички наши Кореспонденции
-    decision: 
+    decision:
     detailed_guidance: Вижте всички наши Подробни насоки
-    document_collection: 
+    document_collection:
     draft_text: Вижте всички наши Чернови
     fatality_notice: Вижте всички наши Уведомления за кончина
     foi_release: Вижте всички наши Съобщения във връзка със свободен достъп до информация
@@ -331,12 +331,12 @@ bg:
     guidance: Вижте всички наши Насоки
     impact_assessment: Вижте всички наши Оценки на влиянието
     imported: Вижте всички наши импортирано-очаква тип
-    international_treaty: 
+    international_treaty:
     map: Вижте всички наши Карти
     national_statistics: Вижте всички наши Статистики- национални статистики
     news_article: Вижте всички наши Новинарски статии
     news_story: Вижте всички наши Новини
-    notice: 
+    notice:
     open_consultation: Вижте всички наши Отворени консултации
     oral_statement: Вижте всички наши Устни изказвания в Парламента
     policy: Вижте всички наши Политики
@@ -344,14 +344,14 @@ bg:
     press_release: Вижте всички наши Съобщения до медиите
     promotional: Вижте всички наши Промоционален материал
     publication: Вижте всички наши Публикации
-    regulation: 
+    regulation:
     research: Вижте всички наши Проучване и анализи
     speaking_notes: Вижте всички наши Устни ноти
     speech: Вижте всички наши Речи
     statement_to_parliament: Вижте всички наши Изявления в парламента
     statistical_data_set: Вижте всички наши Набори от статистически данни
     statistics: Вижте всички наши Статистики
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Вижте всички наши Преписи
     transparency: Вижте всички наши Информация за прозрачността
     written_statement: Вижте всички наши Писмени изявления до парламента
@@ -378,7 +378,7 @@ bg:
         other: Световни места
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: Нашият %{link} дава информация за начина на ползване на личните Ви данни
       publication_scheme_html: Прочетете какви видове информация публикуваме в нашия %{link}.
       social_media_use_html: Вижте политиката ни по %{link}.

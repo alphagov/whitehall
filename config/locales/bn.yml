@@ -239,8 +239,8 @@ bn:
         one: ভাষণ
         other: ভাষণসমূহ
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: সংসদে বিবৃতি
         other: সংসদে বিবৃতিসমূহ

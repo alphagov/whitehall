@@ -3,42 +3,42 @@ fr:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Nos actualités
   attachment:
@@ -53,66 +53,66 @@ fr:
       order_a_copy_full: Commander une copie du document
       published: Publié
       reference: Réf
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Formulaire de contact
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
         complaints_procedure: Procédure de recours
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Charte de données personnelles
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Régime de publication
         recruitment: Travailler pour %{organisation_name}
-        research: 
+        research:
         social_media_use: 'Utilisation réseaux sociaux '
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Système de la langue galloise
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%B %d, %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: s'appliquant à
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: publié
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Ministre
@@ -130,8 +130,8 @@ fr:
         one: Article signé
         other: Articles signés
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Etude de cas
         other: Etudes de cas
@@ -151,14 +151,14 @@ fr:
         one: Correspondance
         other: Correspondances
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Instructions détaillées
         other: Instructions détaillées
       document_collection:
         one: Série
-        other: 
+        other:
       draft_text:
         one: Projet de texte
         other: Projets de textes
@@ -184,11 +184,11 @@ fr:
         one: Rapport indépendant
         other: Rapports indépendants
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Carte
         other: Cartes
@@ -202,11 +202,11 @@ fr:
         one: Actualités
         other: Actualités
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Statistiques
         other: Statistiques
@@ -229,8 +229,8 @@ fr:
         one: Publication
         other: Publications
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Recherche et analyse
         other: Recherche et analyse
@@ -241,8 +241,8 @@ fr:
         one: Discours
         other: Discours
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Déclaration au Parlement
         other: Déclarations au Parlement
@@ -250,8 +250,8 @@ fr:
         one: Ensemble de données statistiques
         other: Ensembles de données statistiques
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Transcription
         other: Transcriptions
@@ -259,8 +259,8 @@ fr:
         one: Transparence des données
         other: Transparence des données
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Communiqué
         other: Communiqués
@@ -270,15 +270,15 @@ fr:
     no_results:
       description: Essayez d'élargir votre recherche et essayez à nouveau.
       title: Il n'existe aucun document correspondant.
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tous les endroits
       label: Pays
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Dernière mise à jour
   i18n:
     direction: ltr
@@ -289,7 +289,7 @@ fr:
     no_updates: Il n'y a pas de mise à jour.
     title: Actualités
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -297,9 +297,9 @@ fr:
   organisation:
     corporate_information:
       access_our_info: Accéder à nos informations
-      jobs: 
+      jobs:
       jobs_and_contacts: Emploi et contrats
-      organisation_chart: 
+      organisation_chart:
       transparency: Données de transparence
     headings:
       contact: Contacter %{name}
@@ -314,9 +314,9 @@ fr:
     consultation_outcome: Voir toutes nos résultats de la consultation
     corporate_report: Voir toutes nos rapports d'activité
     correspondence: Voir toutes nos correspondances
-    decision: 
+    decision:
     detailed_guidance: Voir toutes nos instructions détaillées
-    document_collection: 
+    document_collection:
     draft_text: Voir toutes nos projets de textes
     fatality_notice: Voir toutes nos avis de décès
     foi_release: Voir toutes nos communiqués freedom of information
@@ -325,12 +325,12 @@ fr:
     guidance: Voir toutes nos instructions
     impact_assessment: Voir toutes nos evaluations des impacts
     imported: Voir toutes nos importé
-    international_treaty: 
+    international_treaty:
     map: Voir toutes nos cartes
     national_statistics: Voir toutes nos statistiques - statistiques nationales
     news_article: Voir toutes nos actualités
     news_story: Voir toutes nos actualités
-    notice: 
+    notice:
     open_consultation: Voir toutes nos consultations ouvertes
     oral_statement: Voir toutes nos déclarations orales au parlement
     policy: Voir toutes nos priorités politiques
@@ -338,14 +338,14 @@ fr:
     press_release: Voir toutes nos communiqués de presse
     promotional: Voir toutes nos matériel promotionnel
     publication: Voir toutes nos publications
-    regulation: 
+    regulation:
     research: Voir toutes nos recherche et analyse
     speaking_notes: Voir toutes nos notes d'allocution
     speech: Voir toutes nos discours
     statement_to_parliament: Voir toutes nos déclarations au parlement
     statistical_data_set: Voir toutes nos ensembles de données statistiques
     statistics: Voir toutes nos statistiques
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Voir toutes nos transcriptions
     transparency: Voir toutes nos transparence des données
     written_statement: Voir toutes nos communiqués
@@ -372,7 +372,7 @@ fr:
         other: Localisations
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: Notre %{link} explique comment nous traitons vos renseignements personnels.
       publication_scheme_html: En savoir plus sur les types d'informations régulièrement publiés dans notre %{link}.
       social_media_use_html: Lire notre politique d' %{link}.

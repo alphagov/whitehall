@@ -3,42 +3,42 @@ tr:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Duyurular
   attachment:
@@ -53,66 +53,66 @@ tr:
       order_a_copy_full: Yayının bir kopyasını sipariş edin
       published: Yayında
       reference: Ref
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: İletişim Formu
     email: E-posta
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Kişisel Bilgiler Tüzüğü
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Yayın Programı
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: 'Sosyal Medya Kullanımı '
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Galler dili Programı
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Uygulandığı Alanlar
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: Yayında
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Bakan
@@ -130,8 +130,8 @@ tr:
         one: Yazılan makale
         other: Yazılan makaleler
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Örnek Olay
         other: Örnek Olaylar
@@ -151,14 +151,14 @@ tr:
         one: Yazışma
         other: Yazışmalar
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
       document_collection:
         one: Seriler
-        other: 
+        other:
       draft_text:
         one: Taslak metin
         other: Taslak metinler
@@ -184,11 +184,11 @@ tr:
         one: Bağımsız rapor
         other: Bağımsız raporlar
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Harita
         other: Haritalar
@@ -202,11 +202,11 @@ tr:
         one: Haber
         other: Haberler
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: İstatistikler
         other: İstatistikler
@@ -229,8 +229,8 @@ tr:
         one: Yayın
         other: Yayınlar
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Araştırma ve analiz
         other: Araştırma ve analizler
@@ -241,7 +241,7 @@ tr:
         one: Konuşma
         other: Konuşmalar
       standard:
-        other: 
+        other:
       statement_to_parliament:
         one: Parlamento'ya yapılan açıklama
         other: Parlamento'ya yapılan açıklamalar
@@ -249,8 +249,8 @@ tr:
         one: İstatiksel veri setleri
         other: İstatiksel veri setleri
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
       transcript:
         one: Transkriptler
         other: Transkriptler
@@ -258,8 +258,8 @@ tr:
         one: Veri saydamlığı
         other: Veri saydamlığı
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Parlamento'ya yapılan yazılı açıklama
         other: Parlamento'ya yapılan yazılı açıklamalar
@@ -269,15 +269,15 @@ tr:
     no_results:
       description: Aramanızı genişleterek tekrar deneyiniz
       title: Eşleşen sonuç yok
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tüm yerler
       label: Ülkeler
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Son etkinlik
   i18n:
     direction: ltr
@@ -288,7 +288,7 @@ tr:
     no_updates: Henüz güncelleme yok
     title: En son haberler
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -296,9 +296,9 @@ tr:
   organisation:
     corporate_information:
       access_our_info: Bilgilere erişim
-      jobs: 
+      jobs:
       jobs_and_contacts: İş ve sözleşmeler
-      organisation_chart: 
+      organisation_chart:
       transparency: Veri saydamlığı
     headings:
       contact: İletişim %{name}
@@ -313,9 +313,9 @@ tr:
     consultation_outcome: Tamamını görüntüle
     corporate_report: Tamamını görüntüle
     correspondence: Tamamını görüntüle
-    decision: 
+    decision:
     detailed_guidance: Tamamını görüntüle
-    document_collection: 
+    document_collection:
     draft_text: Tamamını görüntüle
     fatality_notice: Tamamını görüntüle
     foi_release: Tamamını görüntüle
@@ -324,12 +324,12 @@ tr:
     guidance: Tamamını görüntüle
     impact_assessment: Tamamını görüntüle
     imported: Tamamını görüntüle
-    international_treaty: 
+    international_treaty:
     map: Tamamını görüntüle
     national_statistics: Tamamını görüntüle
     news_article: Tamamını görüntüle
     news_story: Tamamını görüntüle
-    notice: 
+    notice:
     open_consultation: Tamamını görüntüle
     oral_statement: Tamamını görüntüle
     policy: Tamamını görüntüle
@@ -337,14 +337,14 @@ tr:
     press_release: Tamamını görüntüle
     promotional: Tamamını görüntüle
     publication: Tamamını görüntüle
-    regulation: 
+    regulation:
     research: Tamamını görüntüle
     speaking_notes: Tamamını görüntüle
     speech: Tamamını görüntüle
     statement_to_parliament: Tamamını görüntüle
     statistical_data_set: Tamamını görüntüle
     statistics: Tamamını görüntüle
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Tamamını görüntüle
     transparency: Tamamını görüntüle
     written_statement: Tamamını görüntüle
@@ -371,7 +371,7 @@ tr:
         other: Ülkeler
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız açıklamaktadır
       publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link} 'e bakınız
       social_media_use_html: Konuyla ilgili politikamız hakkında daha fazla bilgi için %{link}

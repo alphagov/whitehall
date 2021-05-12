@@ -3,42 +3,42 @@ uk:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Оголошення
   attachment:
@@ -51,66 +51,66 @@ uk:
       order_a_copy_full: Замовити примірник публікації
       published: Опубліковано
       reference: Ref
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Форма зворотнього зв'язку
     email: Електронна пошта
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Персональна інформація
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: План публікацій
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Використання соціальних медіа
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Програма збереження валійської мови
   date:
     formats:
-      default: 
-      long_ordinal: 
+      default:
+      long_ordinal:
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Застосовується до
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: опубліковано
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Міністр
@@ -122,238 +122,238 @@ uk:
       written_on: Написано
     type:
       announcement:
-        few: 
-        many: 
+        few:
+        many:
         one: Оголошення
         other: Оголошення
       authored_article:
-        few: 
-        many: 
+        few:
+        many:
         one: Стаття
         other: Статті
       blog_post:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       case_study:
-        few: 
-        many: 
+        few:
+        many:
         one: Тематичне дослідження
         other: Тематичні дослідження
       closed_consultation:
-        few: 
-        many: 
+        few:
+        many:
         one: Закрите обговорення
         other: Закриті обговорення
       consultation:
-        few: 
-        many: 
+        few:
+        many:
         one: Обговорення
         other: Обговорення
       consultation_outcome:
-        few: 
-        many: 
+        few:
+        many:
         one: Результат обговорення
         other: Результати обговорення
       corporate_report:
-        few: 
-        many: 
+        few:
+        many:
         one: Корпоративний звіт
         other: Корпоративні звіти
       correspondence:
-        few: 
-        many: 
+        few:
+        many:
         one: Кореспонденція
         other: Кореспонденція
       decision:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       detailed_guidance:
-        few: 
-        many: 
+        few:
+        many:
         one: Детальні інструкції
         other: Детальні інструкції
       document_collection:
-        few: 
-        many: 
+        few:
+        many:
         one: Серія
-        other: 
+        other:
       draft_text:
-        few: 
-        many: 
+        few:
+        many:
         one: Проект документу
         other: Проекти документів
       foi_release:
-        few: 
-        many: 
+        few:
+        many:
         one: Відповідь на інформаційний запит
         other: 'Відповіді на інформаційні запити '
       form:
-        few: 
-        many: 
+        few:
+        many:
         one: Форма
         other: Форми
       government_response:
-        few: 
-        many: 
+        few:
+        many:
         one: Реакція уряду
         other: Реакція уряду
       guidance:
-        few: 
-        many: 
+        few:
+        many:
         one: Інструкції
         other: Інструкції
       impact_assessment:
-        few: 
-        many: 
+        few:
+        many:
         one: Оцінка впливу
         other: Оцінки впливу
       imported:
-        few: 
-        many: 
+        few:
+        many:
         one: імпортовано - в очікуванні
         other: імпортовано - в очікуванні
       independent_report:
-        few: 
-        many: 
+        few:
+        many:
         one: Незалежний звіт
         other: Незалежні звіти
       international_treaty:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       manual:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       map:
-        few: 
-        many: 
+        few:
+        many:
         one: Мапа
         other: Мапи
       national_statistics:
-        few: 
-        many: 
+        few:
+        many:
         one: Статистика - національна статистика
         other: Статистика - національна статистика
       news_article:
-        few: 
-        many: 
+        few:
+        many:
         one: Стаття
         other: Статті
       news_story:
-        few: 
-        many: 
+        few:
+        many:
         one: Новина
         other: Новини
       nhs_content:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       notice:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       official_statistics:
-        few: 
-        many: 
+        few:
+        many:
         one: Статистика
         other: Статистика
       open_consultation:
-        few: 
-        many: 
+        few:
+        many:
         one: Відкрите обговорення
         other: Відкриті обговорення
       oral_statement:
-        few: 
-        many: 
+        few:
+        many:
         one: Усна заява у парламенті
         other: Усні заяви у парламенті
       policy_paper:
-        few: 
-        many: 
+        few:
+        many:
         one: Програмний документ
         other: Програмні документи
       press_release:
-        few: 
-        many: 
+        few:
+        many:
         one: Прес-реліз
         other: Прес-релізи
       promotional:
-        few: 
-        many: 
+        few:
+        many:
         one: Інформаційний матеріал
         other: Інформаційний матеріал
       publication:
-        few: 
-        many: 
+        few:
+        many:
         one: Публікація
         other: Публікації
       regulation:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       research:
-        few: 
-        many: 
+        few:
+        many:
         one: Дослідження та аналіз
         other: Дослідження та аналіз
       speaking_notes:
-        few: 
-        many: 
+        few:
+        many:
         one: Тези для промови
         other: Тези для промови
       speech:
-        few: 
-        many: 
+        few:
+        many:
         one: Промова
         other: Промови
       standard:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       statement_to_parliament:
-        few: 
-        many: 
+        few:
+        many:
         one: Заява у парламенті
         other: Заяви у парламенті
       statistical_data_set:
-        few: 
-        many: 
+        few:
+        many:
         one: Набір статистичних даних
         other: Набори статистичних даних
       statutory_guidance:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       transcript:
-        few: 
-        many: 
+        few:
+        many:
         one: Транскрипт
         other: Транскрипти
       transparency:
-        few: 
-        many: 
+        few:
+        many:
         one: Прозорість інформації
         other: Прозорість інформації
       world_news_story:
-        few: 
-        many: 
-        one: 
-        other: 
+        few:
+        many:
+        one:
+        other:
       written_statement:
-        few: 
-        many: 
+        few:
+        many:
         one: Письмова заява у парламенті
         other: Письмові заяви у парламенті
     updated: оновлено
@@ -362,15 +362,15 @@ uk:
     no_results:
       description: Спробуйте розширити параметри пошуку та повторіть пошук.
       title: Документів не знайдено.
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Будь-яке місце
       label: Країна
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Останні новини
   i18n:
     direction: ltr
@@ -381,17 +381,17 @@ uk:
     no_updates: Оновлень поки що немає.
     title: Останні новини
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
-        format: 
+        format:
   organisation:
     corporate_information:
       access_our_info: Доступ до нашої інформації
-      jobs: 
+      jobs:
       jobs_and_contacts: Вакансії та контракти
-      organisation_chart: 
+      organisation_chart:
       transparency: Прозорість інформації
     headings:
       contact: Контактна особа  %{name}
@@ -406,9 +406,9 @@ uk:
     consultation_outcome: Дивіться всі наші Результати обговорення
     corporate_report: Дивіться всі наші Корпоративні звіти
     correspondence: Дивіться всі наші Кореспонденція
-    decision: 
+    decision:
     detailed_guidance: Дивіться всі наші Детальні інструкції
-    document_collection: 
+    document_collection:
     draft_text: Дивіться всі наші Проекти документів
     fatality_notice: Дивіться всі наші Повідомлення про смерть
     foi_release: 'Дивіться всі наші Відповіді на інформаційні запити '
@@ -417,12 +417,12 @@ uk:
     guidance: Дивіться всі наші Інструкції
     impact_assessment: Дивіться всі наші Оцінки впливу
     imported: Дивіться всі наші імпортовано - в очікуванні
-    international_treaty: 
+    international_treaty:
     map: Дивіться всі наші Мапи
     national_statistics: Дивіться всі наші Статистика - національна статистика
     news_article: Дивіться всі наші Статті
     news_story: Дивіться всі наші Новини
-    notice: 
+    notice:
     open_consultation: Дивіться всі наші Відкриті обговорення
     oral_statement: Дивіться всі наші Усні заяви у парламенті
     policy: Дивіться всі наші Політики
@@ -430,14 +430,14 @@ uk:
     press_release: Дивіться всі наші Прес-релізи
     promotional: Дивіться всі наші Інформаційний матеріал
     publication: Дивіться всі наші Публікації
-    regulation: 
+    regulation:
     research: Дивіться всі наші Дослідження та аналіз
     speaking_notes: Дивіться всі наші Тези для промови
     speech: Дивіться всі наші Промови
     statement_to_parliament: Дивіться всі наші Заяви у парламенті
     statistical_data_set: Дивіться всі наші Набори статистичних даних
     statistics: Дивіться всі наші Статистика
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Дивіться всі наші Транскрипти
     transparency: Дивіться всі наші Прозорість інформації
     written_statement: Дивіться всі наші Письмові заяви у парламенті
@@ -446,7 +446,7 @@ uk:
       last_word_connector: та
   time:
     formats:
-      long_ordinal: 
+      long_ordinal:
   world_location:
     headings:
       announcements: Наші оголошення
@@ -457,18 +457,18 @@ uk:
       statistics: Наша статистика
     type:
       international_delegation:
-        few: 
-        many: 
+        few:
+        many:
         one: Міжнародна делегація
         other: Міжнародні делегації
       world_location:
-        few: 
-        many: 
+        few:
+        many:
         one: Країна
         other: Країни
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: 'Це %{link} пояснює наші принципи роботи з персональними даними. '
       publication_scheme_html: Прочитайти, яку інформацію ми регулярно публікуємо у %{link}.
       social_media_use_html: Прочитайне про наші принципи роботи щодо %{link}.
