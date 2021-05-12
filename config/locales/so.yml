@@ -43,12 +43,8 @@ so:
     heading: Ogeysiisyo
   attachment:
     accessibility:
-      full_help_html: Sida aad u codsato qoraalka oo qaab kale u qoran sida isaga
-        oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl
-        nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada,
-        lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
-      intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
-        la kaashado
+      full_help_html: Sida aad u codsato qoraalka oo qaab kale u qoran sida isaga oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada, lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
+      intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada la kaashado
       request_a_different_format: Codsi isaga oo qaab kale ah
     headings:
       order_a_copy: Dalbo nuqul
@@ -268,8 +264,7 @@ so:
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
     updated: Wax lagu kordhiyey
   document_filters:
-    description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
-      natiijooyinka waafaqsan waxa aad daneyneyso
+    description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya natiijooyinka waafaqsan waxa aad daneyneyso
     no_results:
       description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
       title: Ma jiraan qoraallo waafaqsan baaritaankaaga
@@ -376,15 +371,11 @@ so:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 
-      personal_information_charter_html: "%{link} ayaa sharxaya sida aan ula tacaamulno
-        macluumaadkaaga shakhsiga ah"
-      publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
-        %{link} aan soo saarno.
+      personal_information_charter_html: "%{link} ayaa sharxaya sida aan ula tacaamulno macluumaadkaaga shakhsiga ah"
+      publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno %{link} aan soo saarno.
       social_media_use_html: Akhri siyaasaddeenna ku saabsan %{link}.
-      welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta
-        %{link}.
-    find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan
-      cinwaannada oo faahfaahsan
+      welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta %{link}.
+    find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan cinwaannada oo faahfaahsan
     headings:
       contact_us: Nala soo xiriir
       corporate_information: Macluumaad hay'adeed

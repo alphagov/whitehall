@@ -43,10 +43,7 @@ et:
     heading: Teated
   attachment:
     accessibility:
-      full_help_html: 'Kui olete abistava tehnoloogia kasutaja ja vajate selle dokumendi
-        versiooni mõnes alternatiivses formaadis, palun saatke e-kiri %{email}. Palun
-        öelge meile, missugust formaati vajate. On abiks, kui märgite ära, missugust
-        abistavat tehnoloogiat kasutate. '
+      full_help_html: 'Kui olete abistava tehnoloogia kasutaja ja vajate selle dokumendi versiooni mõnes alternatiivses formaadis, palun saatke e-kiri %{email}. Palun öelge meile, missugust formaati vajate. On abiks, kui märgite ära, missugust abistavat tehnoloogiat kasutate. '
       intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
       request_a_different_format: Küsige teistsugust formaati
     headings:
@@ -57,8 +54,7 @@ et:
       unnumbered_command_paper: 
       unnumbered_hoc_paper: Nummerdamata eelnõu dokument
     opendocument:
-      help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
-        formaadis
+      help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> formaadis
   broken_links:
     broken:
       subheading: 
@@ -268,16 +264,12 @@ et:
         other: Kirjalikud avaldused parlamendile
     updated: Täiendatud
   document_filters:
-    description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
-      Teie huvile vastavad
+    description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis Teie huvile vastavad
     no_results:
       description: Laiendage otsingut ja proovige uuesti
       title: Vastavaid dokumente ei leitud
       tna_heading: Vanem sisu
-      tna_link: Mitte kõikide ametkondade publikatsioonid, mis avaldati enne maikuud
-        2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne
-        2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The
-        National Archives</a>.
+      tna_link: Mitte kõikide ametkondade publikatsioonid, mis avaldati enne maikuud 2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne 2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The National Archives</a>.
     world_locations:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
@@ -379,13 +371,10 @@ et:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 'Uuri lisaks: %{link}'
-      personal_information_charter_html: 'Meie %{link} selgitab kuidas me kohtleme
-        Teie eraelulist teavet. '
-      publication_scheme_html: 'Lugege lisaks infoliikide kohta, mida me regulaarselt
-        avalikustame: %{link}'
+      personal_information_charter_html: 'Meie %{link} selgitab kuidas me kohtleme Teie eraelulist teavet. '
+      publication_scheme_html: 'Lugege lisaks infoliikide kohta, mida me regulaarselt avalikustame: %{link}'
       social_media_use_html: 'Lugege meie poliitika kohta: %{link}'
-      welsh_language_scheme_html: 'Lugege lisaks meie pühandumusest avaldamise osas:
-        %{link}'
+      welsh_language_scheme_html: 'Lugege lisaks meie pühandumusest avaldamise osas: %{link}'
     find_out_more: Täielik profiil ja kõik kontaktid
     headings:
       contact_us: Võtke ühendust

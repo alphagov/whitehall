@@ -43,10 +43,7 @@ el:
     heading: Ανακοινώσεις
   attachment:
     accessibility:
-      full_help_html: Για να ζητήσετε το παρόν έγγραφο σε εναλακτική μορφή, όπως σε
-        μπρέιλ, ηχητική μορφή ή άλλο τύπο αρχείου παρακαλούμε συμπληρώστε το email
-        σας %{email} τη διευθυνσή σας, το τηλέφωνό σας και τον τίτλο του εγγράφου
-        ("%{title}")%{references}.
+      full_help_html: Για να ζητήσετε το παρόν έγγραφο σε εναλακτική μορφή, όπως σε μπρέιλ, ηχητική μορφή ή άλλο τύπο αρχείου παρακαλούμε συμπληρώστε το email σας %{email} τη διευθυνσή σας, το τηλέφωνό σας και τον τίτλο του εγγράφου ("%{title}")%{references}.
       intro: Το αρχείο μπορεί να μην είναι συμβατό με προγράμματα υποστηρικτικής τεχνολογίας.
       request_a_different_format: Εναλλακτικός τύπος αρχείου
     headings:
@@ -374,13 +371,10 @@ el:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 
-      personal_information_charter_html: Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά
-        σας δεδομένα
-      publication_scheme_html: Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε
-        συνήθως στο %{link}
+      personal_information_charter_html: Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά σας δεδομένα
+      publication_scheme_html: Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε συνήθως στο %{link}
       social_media_use_html: Μάθετε περισσότερα για την πολιτική μας στο %{link}.
-      welsh_language_scheme_html: Μάθετε περισσότερα για την δέσμευση μας στη δημοσίευση
-        στο %{link}.
+      welsh_language_scheme_html: Μάθετε περισσότερα για την δέσμευση μας στη δημοσίευση στο %{link}.
     find_out_more: Πλήρες προφίλ και στοιχεία επικοινωνίας
     headings:
       contact_us: Επικοινωνήστε μαζί μας

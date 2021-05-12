@@ -43,9 +43,7 @@ ar:
     heading: إعلانات
   attachment:
     accessibility:
-      full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي
-        نوع آخر من الوثائق، يرجى إرسال رسالة إلكترونية إلى %{email} مع كتابة عنوانك
-        ورقم هاتفك إلى جانب عنوان الوثيقة المطلوبة ("{title}")%{references}
+      full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي نوع آخر من الوثائق، يرجى إرسال رسالة إلكترونية إلى %{email} مع كتابة عنوانك ورقم هاتفك إلى جانب عنوان الوثيقة المطلوبة ("{title}")%{references}
       intro: هذا المف قد لا يكون مناسبا لمستخدمي التكنولوجيا المساعدة على القراءة
       request_a_different_format: طلب الوثيقة بشكل آخر
     headings:
@@ -454,8 +452,7 @@ ar:
         zero: 
     updated: تحديث
   document_filters:
-    description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
-      اهتماماتك
+    description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp; اهتماماتك
     no_results:
       description: حاول توسيع البحث وحاول البحث مجددا
       title: ليس هناك وثائق تطابق البحث
@@ -570,10 +567,8 @@ ar:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 
-      personal_information_charter_html: "%{link} يشرح كيفية التعامل مع المعلومات
-        الشخصية الخاصة بك"
-      publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في
-        موقعنا %{link} الرابط.
+      personal_information_charter_html: "%{link} يشرح كيفية التعامل مع المعلومات الشخصية الخاصة بك"
+      publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في موقعنا %{link} الرابط.
       social_media_use_html: اقرأ عن سياستنا تجاه %{link}
       welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
     find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال

@@ -43,9 +43,7 @@ pt:
     heading: Anúncios
   attachment:
     accessibility:
-      full_help_html: Para solicitar este documento em um formato alternativo, como
-        braille, audio ou um formato de arquivo diferente, por favor envie um e-mail
-        %{email} com seu endereço, número de telefone e o nome da publicação ("%{title}")%{references}.
+      full_help_html: Para solicitar este documento em um formato alternativo, como braille, audio ou um formato de arquivo diferente, por favor envie um e-mail %{email} com seu endereço, número de telefone e o nome da publicação ("%{title}")%{references}.
       intro: Este arquivo pode não ser apropriado para usuário de tecnologia assistiva
       request_a_different_format: Solicitar formato diferente
     headings:
@@ -266,8 +264,7 @@ pt:
         other: Declarações escritas ao Parlamento
     updated: Atualizado
   document_filters:
-    description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
-      &nbsp; interessam
+    description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe &nbsp; interessam
     no_results:
       description: Tente tornar sua busca mais abrangente e tente novamente
       title: Nenhum documento encontrado
@@ -374,13 +371,10 @@ pt:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 
-      personal_information_charter_html: Nosso %{link} explica como nós tratamos suas
-        informações pessoais
-      publication_scheme_html: Leia sobre os tipos de informações que publicamos rotineiramente
-        em nosso %{link}.
+      personal_information_charter_html: Nosso %{link} explica como nós tratamos suas informações pessoais
+      publication_scheme_html: Leia sobre os tipos de informações que publicamos rotineiramente em nosso %{link}.
       social_media_use_html: Leia nossa política sobre %{link}
-      welsh_language_scheme_html: Saiba mais sobre nosso comprometimento em publicar
-        em %{link}
+      welsh_language_scheme_html: Saiba mais sobre nosso comprometimento em publicar em %{link}
     find_out_more: 'Veja o perfil completo e todos os contatos '
     headings:
       contact_us: Contactos

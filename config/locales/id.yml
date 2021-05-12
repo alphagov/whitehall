@@ -43,9 +43,7 @@ id:
     heading: Pengumuman
   attachment:
     accessibility:
-      full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille,
-        audio atau format lainnya silahkan kirimkan email %{email} yang berisi alamat
-        Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
+      full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille, audio atau format lainnya silahkan kirimkan email %{email} yang berisi alamat Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
       intro: File ini tidak sesuai dengan pengguna teknologi bantu.
       request_a_different_format: Meminta format lain.
     headings:
@@ -219,8 +217,7 @@ id:
         other: Pernyataan-pernyatan tertulis kepada parlemen
     updated: Terkini
   document_filters:
-    description: Silahkan gunakan bantuan filter untuk menunjukkan hasil yang hanya
-      sesuai dengan keinginan Anda
+    description: Silahkan gunakan bantuan filter untuk menunjukkan hasil yang hanya sesuai dengan keinginan Anda
     no_results:
       description: Mohon perluas pencarian Anda dan coba kembali
       title: Dokumen tidak ditemukan
@@ -325,13 +322,10 @@ id:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 
-      personal_information_charter_html: "%{link} menjelaskan tentang bagaimana kami
-        memperlakukan informasi pribadi Anda"
-      publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat
-        di %{link}
+      personal_information_charter_html: "%{link} menjelaskan tentang bagaimana kami memperlakukan informasi pribadi Anda"
+      publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat di %{link}
       social_media_use_html: Baca kebijakan kami di %{link}
-      welsh_language_scheme_html: Informasi lebih lanjut mengenai komitmen kami dalam
-        memuat informasi di %{link}
+      welsh_language_scheme_html: Informasi lebih lanjut mengenai komitmen kami dalam memuat informasi di %{link}
     find_out_more: Baca profil keseluruhan dan semua rincian kontak
     headings:
       contact_us: Hubungi kami

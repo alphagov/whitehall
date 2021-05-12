@@ -43,11 +43,7 @@ bn:
     heading: ঘোষণাসমূহ
   attachment:
     accessibility:
-      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার
-        করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়,
-        তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি
-        সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি
-        আমাদেরকে জানান তবে উপকার হবে।\n"
+      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়, তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি আমাদেরকে জানান তবে উপকার হবে।\n"
       intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
       request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
     headings:
@@ -58,14 +54,12 @@ bn:
       unnumbered_command_paper: অসাংখ্যিক আদেশপত্র
       unnumbered_hoc_paper: অসাংখ্যিক আইনপত্র
     opendocument:
-      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        প্রকরণে আছে।
+      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> প্রকরণে আছে।
   broken_links:
     broken:
       subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
     caution:
-      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে,
-        এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
+      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে, এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
     title: নষ্ট লিঙ্কসমূহ
   change_notes:
     published_at: প্রথম প্রকাশিত
@@ -270,15 +264,12 @@ bn:
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: আপডেটকৃত
   document_filters:
-    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
-      আপনি ফিল্টার ব্যবহার করতে পারেন
+    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য আপনি ফিল্টার ব্যবহার করতে পারেন
     no_results:
       description: আপনার অনুসন্ধানকে আরো প্রশস্ত করে পুনরায় চেষ্টা করুন।
       title: কোন সদৃশ নথি নেই।
       tna_heading: পুরোনো বিষয়বস্তু
-      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর
-        করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
+      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
@@ -381,13 +372,10 @@ bn:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} -এ অনুসন্ধান করুন।"
-      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি
-        আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
-      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ
-        করে থাকি সেই সম্পর্কে পড়ুন।
+      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
+      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ করে থাকি সেই সম্পর্কে পড়ুন।
       social_media_use_html: "%{link}-এ আমাদের নীতিমালা সম্পর্কে পড়ুন।"
-      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে
-        বের করুন।"
+      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে বের করুন।"
     find_out_more: পূর্ণ প্রোফাইল ও সকল যোগাযোগের বিস্তারিত বিবরণ দেখুন।
     headings:
       contact_us: আমাদের সঙ্গে যোগাযোগ করুন

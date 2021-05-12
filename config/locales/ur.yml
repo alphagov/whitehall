@@ -43,9 +43,7 @@ ur:
     heading: اعلانات
   attachment:
     accessibility:
-      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
-        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
-        نمبراور  %{title}"(%{references}") لکھئیے
+      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون نمبراور  %{title}"(%{references}") لکھئیے
       intro: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ ہو
       request_a_different_format: مختلف فارمیٹ طلب کیجئیے
     headings:
@@ -266,8 +264,7 @@ ur:
         other: پارلیمنٹ میں تحریری بیانات
     updated: تجدید شدہ
   document_filters:
-    description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
-      کر سکتے ہیں
+    description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال کر سکتے ہیں
     no_results:
       description: 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
       title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
@@ -374,13 +371,10 @@ ur:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 
-      personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
-        معلومات کو کیسے استعمال کرتے ہیں
-      publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
-        پرملاحظہ کیجئیے '
+      personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی معلومات کو کیسے استعمال کرتے ہیں
+      publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link} پرملاحظہ کیجئیے '
       social_media_use_html: ہماری پالیسی  %{link} پر ملاحظہ کیجئیے
-      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ
-        کیجئیے
+      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ کیجئیے
     find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے
     headings:
       contact_us: ہم سے رابطہ
