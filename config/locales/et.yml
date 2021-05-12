@@ -121,6 +121,18 @@ et:
         speaker: Kõneleja
       written_on: 'Kirjutatud:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: Teadaanne
         other: Teadaanded
@@ -136,6 +148,9 @@ et:
       closed_consultation:
         one: Suletud konsultatsioon
         other: Suletud konsultatsioonid
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: Konsultatsioon
         other: Konsultatsioonid
@@ -160,12 +175,27 @@ et:
       draft_text:
         one: Eelnõu
         other: Eelnõud
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: FOI teavitus
         other: FOI teavitused
       form:
         one: Vorm
         other: Vormid
+      generic_edition:
+        one:
+        other:
       government_response:
         one: Valitsuse vastus
         other: Valitsuse vastused
@@ -190,6 +220,12 @@ et:
       map:
         one: Kaart
         other: Kaardid
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: Statistika - rahvuslikud statistikaandmed
         other: Statistika - rahvuslikud statistikaandmed
@@ -214,30 +250,60 @@ et:
       oral_statement:
         one: Suuline avaldus parlamedis
         other: Suulised avaldused parlamendis
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: Poliitikadokument
         other: Poliitikadokumendid
       press_release:
         one: Pressiteade
         other: Pressiteated
+      procurement:
+        one:
+        other:
       promotional:
         one: Turundusmaterjal
         other: Turundusmaterjal
       publication:
         one: Publikatsioon
         other: Publikatsioonid
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one: Seadusandlus
         other: Seadusandlus
       research:
         one: Uuringud ja analüüs
         other: Uuringud ja analüüs
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: 'Kõne tekst '
         other: 'Kõne tekst '
       speech:
         one: 'Kõne  '
         other: Kõned
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -247,15 +313,24 @@ et:
       statistical_data_set:
         one: Statistiline andmekogu
         other: Statistilised andmekogud
+      statistics:
+        one:
+        other:
       statutory_guidance:
         one: Seadusejärgne juhis
         other: Seadusejärgne juhis
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: Protokoll
         other: Protokollid
       transparency:
         one: Läbipaistvusteave
         other: Läbipaistvusteave
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one:
         other:
@@ -282,7 +357,70 @@ et:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
     et: Eesti
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Uuendused puuduvad
     title: Viimased uudised
@@ -301,6 +439,8 @@ et:
       transparency: Läbipaistvusteave
     headings:
       contact: 'Võtke ühendust: %{name}'
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Publikatsioonid
   see_all:

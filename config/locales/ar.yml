@@ -121,6 +121,18 @@ ar:
         speaker: متحدث
       written_on: 'كتبت في:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -156,6 +168,9 @@ ar:
         other: مشاورات منتهية
         two:
         zero:
+      complaints_procedure:
+        one:
+        other:
       consultation:
         few:
         many:
@@ -212,6 +227,18 @@ ar:
         other: مسودة النصوص
         two:
         zero:
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         few:
         many:
@@ -226,6 +253,9 @@ ar:
         other: نماذج
         two:
         zero:
+      generic_edition:
+        one:
+        other:
       government_response:
         few:
         many:
@@ -282,6 +312,12 @@ ar:
         other: خرائط
         two:
         zero:
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         few:
         many:
@@ -338,6 +374,18 @@ ar:
         other: تصريحات شفهية للبرلمان
         two:
         zero:
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         few:
         many:
@@ -352,6 +400,9 @@ ar:
         other: بيانات صحفية
         two:
         zero:
+      procurement:
+        one:
+        other:
       promotional:
         few:
         many:
@@ -366,6 +417,12 @@ ar:
         other: مطبوعات
         two:
         zero:
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         few:
         many:
@@ -380,6 +437,12 @@ ar:
         other: بحوث وتحليلات
         two:
         zero:
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         few:
         many:
@@ -394,6 +457,9 @@ ar:
         other: كلمات
         two:
         zero:
+      staff_update:
+        one:
+        other:
       standard:
         few:
         many:
@@ -415,6 +481,9 @@ ar:
         other: مجموعات بيانات إحصائية
         two:
         zero:
+      statistics:
+        one:
+        other:
       statutory_guidance:
         few:
         many:
@@ -422,6 +491,9 @@ ar:
         other:
         two:
         zero:
+      terms_of_reference:
+        one:
+        other:
       transcript:
         few:
         many:
@@ -436,6 +508,9 @@ ar:
         other: بيانات تتعلق بالشفافية
         two:
         zero:
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         few:
         many:
@@ -471,6 +546,69 @@ ar:
     latin_script?: false
   language_names:
     ar: العربية
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: لا يوجد تحديثات بعد
     title: آخر التحديثات
@@ -489,6 +627,8 @@ ar:
       transparency: بيانات تتعلق بالشفافية
     headings:
       contact: اتصل بـ%{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: مطبوعات
   see_all:

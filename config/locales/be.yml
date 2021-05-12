@@ -121,6 +121,18 @@ be:
         speaker: Прамоўца
       written_on: Напісана
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -146,6 +158,9 @@ be:
         many:
         one: Закрытая кансультацыя
         other: Закрытыя кансультацыі
+      complaints_procedure:
+        one:
+        other:
       consultation:
         few:
         many:
@@ -186,6 +201,18 @@ be:
         many:
         one: Чарнавік
         other: Чарнавікі
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         few:
         many:
@@ -196,6 +223,9 @@ be:
         many:
         one: Форма
         other: Формы
+      generic_edition:
+        one:
+        other:
       government_response:
         few:
         many:
@@ -236,6 +266,12 @@ be:
         many:
         one: Карта
         other: Карты
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         few:
         many:
@@ -276,6 +312,18 @@ be:
         many:
         one: Вусны даклад у парламенце
         other: Вусныя даклады ў парламенце
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         few:
         many:
@@ -286,6 +334,9 @@ be:
         many:
         one: Прэс-рэліз
         other: Прэс-рэлізы
+      procurement:
+        one:
+        other:
       promotional:
         few:
         many:
@@ -296,6 +347,12 @@ be:
         many:
         one: Публікацыя
         other: Публікацыі
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         few:
         many:
@@ -306,6 +363,12 @@ be:
         many:
         one: Даследаванні і аналіз
         other: Даследаванні і аналіз
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         few:
         many:
@@ -316,6 +379,9 @@ be:
         many:
         one: Выступ
         other: Выступы
+      staff_update:
+        one:
+        other:
       standard:
         few:
         many:
@@ -331,9 +397,15 @@ be:
         many:
         one: Статыстычныя дадзеныя
         other: Статыстычныя дадзеныя
+      statistics:
+        one:
+        other:
       statutory_guidance:
         few:
         many:
+        one:
+        other:
+      terms_of_reference:
         one:
         other:
       transcript:
@@ -346,6 +418,9 @@ be:
         many:
         one: Адкрытыя дадзеныя
         other: Адкрытыя дадзеныя
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         few:
         many:
@@ -376,7 +451,70 @@ be:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
     be: Беларуская
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Ніякіх абнаўленняў пакуль няма.
     title: Апошняе
@@ -395,6 +533,8 @@ be:
       transparency: Адкрытыя дадзеныя
     headings:
       contact: Звязацца з %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Публікацыі
   see_all:

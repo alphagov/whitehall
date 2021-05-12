@@ -121,6 +121,18 @@ ps:
         speaker: ویونکی
       written_on: لیکلی دی په
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: خبرتیا
         other: خبرتیاوې
@@ -136,6 +148,9 @@ ps:
       closed_consultation:
         one: محرمه مشوره
         other: محرمه مشوری
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: مشوره
         other: مشوری
@@ -160,12 +175,27 @@ ps:
       draft_text:
         one: مسوده
         other: مسودی
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: د بیان د آزادی خپرونه
         other: د بیان د آزادی خپرونی
       form:
         one: فارم
         other: فارمونه
+      generic_edition:
+        one:
+        other:
       government_response:
         one: د دولت ځواب
         other: د دولت ځوابونه
@@ -190,6 +220,12 @@ ps:
       map:
         one: نقشه
         other: نقشی
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: شمیرنه - ملی شمیرنې
         other: شمیرنه - ملی شمیرنې
@@ -214,30 +250,60 @@ ps:
       oral_statement:
         one: پارلمان ته شفاهی اعلامیه
         other: پارلمان ته شفاهی اعلامیی
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: د پالیسۍ سند
         other: د پالیسې سندونه
       press_release:
         one: مطبوعاتی خبرپاڼه
         other: مطبوعاتی خبرپاڼې
+      procurement:
+        one:
+        other:
       promotional:
         one: روزونکې مواد
         other: روزونکی مواد
       publication:
         one: خپرونه
         other: خپرونې
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one:
         other:
       research:
         one: څیړنه او تجزیه
         other: ځیړنه او تجزیه
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: د وینا یادښت
         other: د وینا یادښتونه
       speech:
         one: وینا
         other: ویناوې
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -247,7 +313,13 @@ ps:
       statistical_data_set:
         one: د شمیرنې اطلاعات
         other: د شمیرنې اطلاعات
+      statistics:
+        one:
+        other:
       statutory_guidance:
+        one:
+        other:
+      terms_of_reference:
         one:
         other:
       transcript:
@@ -256,6 +328,9 @@ ps:
       transparency:
         one: د روڼوالې اطلاعات
         other: د روڼوالي اطلاعات
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one:
         other:
@@ -282,7 +357,70 @@ ps:
     direction: rtl
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
     ps: پښتو
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: تر اوسه تازه معلومات په لاس کی نشته
     title: آخرنی
@@ -301,6 +439,8 @@ ps:
       transparency: د شفافیت معلومات
     headings:
       contact: تماس  %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: نشریات
   see_all:

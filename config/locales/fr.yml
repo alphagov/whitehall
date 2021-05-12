@@ -123,6 +123,18 @@ fr:
         speaker: Orateur
       written_on: 'Ecrit le : '
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: Annonce
         other: Annonces
@@ -138,6 +150,9 @@ fr:
       closed_consultation:
         one: Consultation close
         other: Consultations closes
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: Consultation
         other: Consultations
@@ -162,12 +177,27 @@ fr:
       draft_text:
         one: Projet de texte
         other: Projets de textes
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: Communiqué Freedom of Information
         other: Communiqués Freedom of Information
       form:
         one: Formulaire
         other: Formulaires
+      generic_edition:
+        one:
+        other:
       government_response:
         one: Réponse du gouvernement
         other: Réponses du gouvernement
@@ -192,6 +222,12 @@ fr:
       map:
         one: Carte
         other: Cartes
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: Statistiques - statistiques nationales
         other: Statistiques - statistiques nationales
@@ -216,30 +252,60 @@ fr:
       oral_statement:
         one: Déclaration orale au Parlement
         other: Déclarations orales au Parlement
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: Document d'orientation
         other: Documents d'orientation
       press_release:
         one: Communiqué de presse
         other: Communiqués de presse
+      procurement:
+        one:
+        other:
       promotional:
         one: Matériel promotionnel
         other: Matériel promotionnel
       publication:
         one: Publication
         other: Publications
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one:
         other:
       research:
         one: Recherche et analyse
         other: Recherche et analyse
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: Notes d'allocution
         other: Notes d'allocution
       speech:
         one: Discours
         other: Discours
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -249,7 +315,13 @@ fr:
       statistical_data_set:
         one: Ensemble de données statistiques
         other: Ensembles de données statistiques
+      statistics:
+        one:
+        other:
       statutory_guidance:
+        one:
+        other:
+      terms_of_reference:
         one:
         other:
       transcript:
@@ -258,6 +330,9 @@ fr:
       transparency:
         one: Transparence des données
         other: Transparence des données
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one:
         other:
@@ -284,7 +359,70 @@ fr:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
     fr: Français
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Il n'y a pas de mise à jour.
     title: Actualités
@@ -303,6 +441,8 @@ fr:
       transparency: Données de transparence
     headings:
       contact: Contacter %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Publications
   see_all:

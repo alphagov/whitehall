@@ -121,6 +121,18 @@ lt:
         speaker: Pranešėjas
       written_on: Parašyta
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         few:
         one: Pranešimas
@@ -141,6 +153,9 @@ lt:
         few:
         one: Pasibaigusi konsultacija
         other: Pasibaigusios konsultacijos
+      complaints_procedure:
+        one:
+        other:
       consultation:
         few:
         one: Konsultacija
@@ -173,6 +188,18 @@ lt:
         few:
         one: Pirminis teksto variantas
         other: Pirminiai teksto variantai
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         few:
         one: 'Informacijos laisvė: pranešimas'
@@ -181,6 +208,9 @@ lt:
         few:
         one: Forma
         other: Formos
+      generic_edition:
+        one:
+        other:
       government_response:
         few:
         one: Vyriausybės atsakas
@@ -213,6 +243,12 @@ lt:
         few:
         one: Žemėlapis
         other: Žemėlapiai
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         few:
         one: 'Statistika - nacionalinė statistika '
@@ -245,6 +281,18 @@ lt:
         few:
         one: Žodinis kreipimasis į parlamentą
         other: Žodiniai kreipimaisi į parlamentą
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         few:
         one: Strategijos dokumentas
@@ -253,6 +301,9 @@ lt:
         few:
         one: Pranešimas spaudai
         other: Pranešimai spaudai
+      procurement:
+        one:
+        other:
       promotional:
         few:
         one: Reklaminė medžiaga
@@ -261,6 +312,12 @@ lt:
         few:
         one: Leidinys
         other: Leidiniai
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         few:
         one:
@@ -269,6 +326,12 @@ lt:
         few:
         one: Tyrimas ir analizė
         other: Tyrimai ir analizės
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         few:
         one: Kalbos santrauka
@@ -277,6 +340,9 @@ lt:
         few:
         one: Kalba
         other: Kalbos
+      staff_update:
+        one:
+        other:
       standard:
         few:
         one:
@@ -289,8 +355,14 @@ lt:
         few:
         one: Statistiniai duomenys
         other: Statistiniai duomenys
+      statistics:
+        one:
+        other:
       statutory_guidance:
         few:
+        one:
+        other:
+      terms_of_reference:
         one:
         other:
       transcript:
@@ -301,6 +373,9 @@ lt:
         few:
         one: Skaidrumo informacija
         other: Skaidrumo informacija
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         few:
         one:
@@ -329,7 +404,70 @@ lt:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
     lt: Lietuvių
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Atnaujinimų nėra
     title: Paskutinės
@@ -348,6 +486,8 @@ lt:
       transparency: Skaidrumo informacija
     headings:
       contact: Susisiekite su %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Leidiniai
   see_all:

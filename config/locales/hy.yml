@@ -121,6 +121,18 @@ hy:
         speaker: Խոսնակ
       written_on: Գրված է՝
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
@@ -136,6 +148,9 @@ hy:
       closed_consultation:
         one: Փակ խորհրդատվություն
         other: Փակ խորհրդատվություններ
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: Խորհրդատվություն
         other: Խորհրդատվություններ
@@ -160,12 +175,27 @@ hy:
       draft_text:
         one: Սևագիր տեքստ
         other: Սևագիր տեքստեր
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: Ազատ տեղեկատվության հաղորդագրություն
         other: Ազատ տեղեկատվության հաղորդագրություններ
       form:
         one: Ձևաթուղթ
         other: Ձևաթղթեր
+      generic_edition:
+        one:
+        other:
       government_response:
         one: Կառավարության արձագանք
         other: Կառավարության արձագանքներ
@@ -190,6 +220,12 @@ hy:
       map:
         one: Քարտեզ
         other: Քարտեզներ
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: Վիճակագրություն-ազգային վիճակագրություն
         other: Վիճակագրություն-ազգային վիճակագրություններ
@@ -214,30 +250,60 @@ hy:
       oral_statement:
         one: Բանավոր դիմում խորհրդարան
         other: Բանավոր դիմումներ խորհրդարան
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: Ծրագրային փաստաթուղթ
         other: Ծրագրային փաստաթղթեր
       press_release:
         one: Մամլո հաղորդագրություն
         other: Մամլո հաղորդագրություններ
+      procurement:
+        one:
+        other:
       promotional:
         one: Քարոզչական նյութ
         other: Քարոզչական նյութներ
       publication:
         one: Հրապարակում
         other: Հրապարակումներ
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one:
         other:
       research:
         one: Հետազոտություն և վերլուծություն
         other: Հետազոտություններ և վերլուծություններ
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: Խոսքի գրառում
         other: Խոսքի գրառումներ
       speech:
         one: Ելույթ
         other: Ելույթներ
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -247,7 +313,13 @@ hy:
       statistical_data_set:
         one: Վիճակագրական տվյալ
         other: Վիճակագրական տվյալներ
+      statistics:
+        one:
+        other:
       statutory_guidance:
+        one:
+        other:
+      terms_of_reference:
         one:
         other:
       transcript:
@@ -256,6 +328,9 @@ hy:
       transparency:
         one: Բաց տեղեկատվություն
         other: Բաց տեղեկատվություններ
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one:
         other:
@@ -282,7 +357,70 @@ hy:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
     hy: Հայերեն
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Դեռևս թարմացումներ չկան
     title: Վերջին գործողություն
@@ -301,6 +439,8 @@ hy:
       transparency: Թափանցիկ տեղեկատվությ
     headings:
       contact: Տվյալ %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Հրապարակումներ
   see_all:

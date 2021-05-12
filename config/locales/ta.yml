@@ -121,6 +121,18 @@ ta:
         speaker: சபாநாயகர்
       written_on: 'அன்று எழுதப்பட்டது:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: அறிவிப்பு
         other: அறிவிப்புகள்
@@ -136,6 +148,9 @@ ta:
       closed_consultation:
         one: வரையறுக்கப்பட்ட நிலையிலான கலந்தாலோசனை
         other: வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள்
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: கலந்தாலோசனை
         other: கலந்தாலோசனைகள்
@@ -160,12 +175,27 @@ ta:
       draft_text:
         one: வரைபு உரை
         other: வரைபு உரைகள்
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: தகவலின் சுதந்திரமான  வெளியிடுதல்
         other: தகவல்களின் சுதந்திரமான  வெளியிடுதல்கள்
       form:
         one: படிவம்
         other: படிவங்கள்
+      generic_edition:
+        one:
+        other:
       government_response:
         one: அரசாங்க பதிலிறுப்பு
         other: அரசாங்க பதிலிறுப்புகள்
@@ -190,6 +220,12 @@ ta:
       map:
         one: வரைபடம்
         other: வரைபடங்கள்
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்
         other: புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்
@@ -214,30 +250,60 @@ ta:
       oral_statement:
         one: பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கை
         other: பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கைகள்
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: கொள்கைப் பத்திரம்
         other: கொள்கைப் பத்திரங்கள்
       press_release:
         one: செய்தி வெளியீடு
         other: செய்தி வெளியீடுகள்
+      procurement:
+        one:
+        other:
       promotional:
         one: விளம்பர ஊக்குவிப்பு பொருள்
         other: விளம்பர ஊக்குவிப்பு பொருள்
       publication:
         one: பிரசுரம்
         other: பிரசுரங்கள்
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one:
         other:
       research:
         one: ஆராய்ச்சி மற்றும் பகுப்பாய்தல்
         other: ஆராய்ச்சி மற்றும் பகுப்பாய்தல்
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: உரைக் குறிப்புகள்
         other: உரைக் குறிப்புகள்
       speech:
         one: உரை
         other: உரைகள்
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -247,7 +313,13 @@ ta:
       statistical_data_set:
         one: புள்ளிவிபர தரவுத் தொகுதி
         other: புள்ளிவிபர தரவுத் தொகுதிகள்
+      statistics:
+        one:
+        other:
       statutory_guidance:
+        one:
+        other:
+      terms_of_reference:
         one:
         other:
       transcript:
@@ -256,6 +328,9 @@ ta:
       transparency:
         one: வெளிப்படையான தரவு
         other: வெளிப்படையான தரவு
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one:
         other:
@@ -282,7 +357,70 @@ ta:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
     ta: தமிழ்
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: இதுவரை இற்றைப்படுத்தல்கள் இல்லை
     title: சமீபத்தையது
@@ -301,6 +439,8 @@ ta:
       transparency: வெளிப்படையான தரவு
     headings:
       contact: தொடர்பு %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: வெளியீடுகள்
   see_all:

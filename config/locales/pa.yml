@@ -124,6 +124,18 @@ pa:
         speaker: ਸਪੀਕਰ
       written_on: 'ਇਸ ਤਾਰੀਖ ਨੂੰ ਲਿਖਿਆ:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: ਘੋਸ਼ਣਾ
         other: ਘੋਸ਼ਣਾਵਾਂ
@@ -139,6 +151,9 @@ pa:
       closed_consultation:
         one: ਬੰਦ ਸਲਾਹ-ਮਸ਼ਵਰਾ
         other: ਬੰਦ ਸਲਾਹ-ਮਸ਼ਵਰੇ
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: ਸਲਾਹ-ਮਸ਼ਵਰਾ
         other: ਸਲਾਹ-ਮਸ਼ਵਰੇ
@@ -163,12 +178,27 @@ pa:
       draft_text:
         one: ਡ੍ਰਾਫਟ ਟੈਕਸਟ
         other: ਡ੍ਰਾਫਟ ਟੈਕਸਟ
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: FOI ਰਿਲੀਜ਼
         other: FOI ਰਿਲੀਜ਼
       form:
         one: ਫਾਰਮ
         other: ਫਾਰਮ
+      generic_edition:
+        one:
+        other:
       government_response:
         one: ਸਰਕਾਰ ਦਾ ਜਵਾਬ
         other: ਸਰਕਾਰ ਦੇ ਜਵਾਬ
@@ -193,6 +223,12 @@ pa:
       map:
         one: ਨਕਸ਼ਾ
         other: ਨਕਸ਼ੇ
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
         other: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
@@ -217,30 +253,60 @@ pa:
       oral_statement:
         one: ਸੰਸਦ ਨੂੰ ਮੌਖਿਕ ਬਿਆਨ
         other: ਸੰਸਦ ਨੂੰ ਮੌਖਿਕ ਬਿਆਨ
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: ਨੀਤੀ ਪੱਤਰ
         other: ਨੀਤੀ ਪੱਤਰ
       press_release:
         one: ਪ੍ਰੈਸ ਰਿਲੀਜ਼
         other: ਪ੍ਰੈਸ ਰਿਲੀਜ਼
+      procurement:
+        one:
+        other:
       promotional:
         one: ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ
         other: ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ
       publication:
         one: ਪ੍ਰਕਾਸ਼ਨ
         other: ਪ੍ਰਕਾਸ਼ਨ
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one: ਨਿਯਮ
         other: ਨਿਯਮ
       research:
         one: ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ
         other: ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: ਬੋਲਣ ਲਈ ਨੋਟ
         other: ਬੋਲਣ ਲਈ ਨੋਟ
       speech:
         one: ਬੋਲਣਾ
         other: ਭਾਸ਼ਣ
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -250,15 +316,24 @@ pa:
       statistical_data_set:
         one: ਅੰਕੜਾ ਡੇਟਾ ਸਮੂਹ
         other: ਅੰਕੜਾ ਡੇਟਾ ਸਮੂਹ
+      statistics:
+        one:
+        other:
       statutory_guidance:
         one: ਵਿਧਾਨਿਕ ਸੇਧ
         other: ਵਿਧਾਨਿਕ ਸੇਧ
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: ਪ੍ਰਤਿਲਿਪੀ
         other: ਪ੍ਰਤਿਲਿਪੀਆਂ
       transparency:
         one: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
         other: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one: ਵਿਸ਼ਵਵਿਆਪੀ ਖ਼ਬਰਾਂ ਦੀ ਕਹਾਣੀ
         other: ਵਿਸ਼ਵਵਿਆਪੀ ਖ਼ਬਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ
@@ -285,8 +360,70 @@ pa:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
     fr: ਫ੍ਰਾਂਸੀਸੀ
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
     pa: ਪੰਜਾਬੀ
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ਹਾਲੇ ਕੋਈ ਅੱਪਡੇਟ ਨਹੀਂ ਹਨ।
     title: ਨਵੀਨਤਮ
@@ -305,6 +442,8 @@ pa:
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
     headings:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
+      corporate_information:
+      corporate_reports:
   publications:
     heading: ਪ੍ਰਕਾਸ਼ਨ
   see_all:

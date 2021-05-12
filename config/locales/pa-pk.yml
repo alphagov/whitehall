@@ -124,6 +124,18 @@ pa-pk:
         speaker: سپیکر
       written_on: 'نوں لکھیا گیا:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: اعلان
         other: اعلانات
@@ -139,6 +151,9 @@ pa-pk:
       closed_consultation:
         one: بند مشورہ
         other: بند مشورے
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: مشورہ
         other: مشورے
@@ -163,12 +178,27 @@ pa-pk:
       draft_text:
         one: متن دا مسودہ
         other: متن دے مسودے
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: FOI اجراء
         other: FOI اجراء
       form:
         one: فارم
         other: فارم
+      generic_edition:
+        one:
+        other:
       government_response:
         one: سرکاری جواب
         other: سرکاری جواب
@@ -193,6 +223,12 @@ pa-pk:
       map:
         one: نقشہ
         other: نقشے
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: قومی شماریات
         other: قومی شماریات
@@ -217,30 +253,60 @@ pa-pk:
       oral_statement:
         one: پارلیمنٹ نوں زبانی بیان
         other: پارلیمنٹ نوں زبانی بیانات
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: پالیسی دا کاغذ
         other: پالیسی دے کاغذات
       press_release:
         one: پریس ریلیز
         other: پریس ریلیزاں
+      procurement:
+        one:
+        other:
       promotional:
         one: تشہیری مواد
         other: تشہیری مواد
       publication:
         one: اشاعت
         other: اشاعتاں
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one: ضابطہ
         other: ضابطے
       research:
         one: تحقیق و تجزیہ
         other: تحقیق و تجزیہ
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: بولن دے نوٹس
         other: بولن دے نوٹس
       speech:
         one: تقریر
         other: تقریراں
+      staff_update:
+        one:
+        other:
       standard:
         one:
         other:
@@ -250,15 +316,24 @@ pa-pk:
       statistical_data_set:
         one: شماریاتی ڈیٹا سیٹ
         other: شماریاتی ڈیٹا سیٹ
+      statistics:
+        one:
+        other:
       statutory_guidance:
         one: قانونی رہنمائی
         other: قانونی رہنمائی
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: نقل
         other: نقلاں
       transparency:
         one: شفافیت دا مواد
         other: شفافیت دا مواد
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one: دنیا بھر دی خبر
         other: دنیا بھر دی خبراں
@@ -285,8 +360,70 @@ pa-pk:
     direction: rtl
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
     fr: فرانسیسی
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
     pa-pk: پن٘جابی
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
     title: تازہ ترین
@@ -305,6 +442,8 @@ pa-pk:
       transparency: شفافیت دا مواد
     headings:
       contact: "%{name} نال رابطہ کرو"
+      corporate_information:
+      corporate_reports:
   publications:
     heading: اشاعتاں
   see_all:
