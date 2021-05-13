@@ -1,48 +1,5 @@
 .operational-field-show {
-  @include media(desktop) {
-    .block-2,
-    .block-3 {
-      float: left;
-      display: inline;
-      width: $one-third;
-    }
-
-    .block-3 {
-      width: $two-thirds;
-    }
-  }
-
-  .meta {
-    @include media(desktop) {
-      margin-top: $gutter;
-      float: left;
-      display: block;
-    }
-  }
-
-  .description {
-    padding-bottom: $gutter;
-  }
-
-  .fatalities {
-    ul {
-      list-style: none;
-      @include ig-core-16;
-
-      .fatality-notice {
-        margin: $gutter 0 $gutter-half;
-        padding-bottom: $gutter-half;
-        border-bottom: 1px solid $border-colour;
-
-        ul {
-          list-style: disc;
-          padding-left: 1.2em;
-
-          .casualty {
-            margin-bottom: $gutter-one-sixth;
-          }
-        }
-      }
-    }
+  .fatality-notice {
+    list-style: none;
   }
 }

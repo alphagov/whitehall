@@ -59,7 +59,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       get :index, params: { world_location_id: @world_location }
 
       assert_select "title", text: "UK and India - GOV.UK"
-      assert_select "p.type", text: "World location news"
+      assert_select ".gem-c-title__context", text: "World location news"
       assert_select "h1", text: "UK and India"
       assert_select ".mission_statement", text: "country-mission-statement"
     end
@@ -296,7 +296,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
     get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
-    assert_select ".type", "World location news"
+    assert_select ".gem-c-title__context", "World location news"
     assert_select "#publications .see-all a", /Voir toutes nos publications/
     assert_select ".see-all a", /Voir toutes nos annonces/
   end

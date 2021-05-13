@@ -3,21 +3,25 @@
 <% atom_discovery_link_tag atom_feed_url_for(@world_location), t("feeds.latest_activity") %>
 
 <%= content_tag_for(:article, @world_location) do %>
-  <header class="block headings-block">
-    <div class="inner-block floated-children">
-      <%= render partial: 'shared/heading',
-                locals: { type: "World location news",
-                          heading: @world_location.title,
-                          extra: true, big: true } %>
-      <aside class="heading-extra">
-        <div class="inner-heading">
-          <%= render 'shared/available_languages', object: @world_location %>
-          <% lang = "lang=en" unless I18n.locale.eql?(:en) %>
-          <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set, lang: lang %>
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/title", {
+          context: "World location news",
+          title: @world_location.title,
+        } %>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+          <aside class="heading-extra">
+              <%= render 'shared/available_languages', object: @world_location %>
+              <% lang = "lang=en" unless I18n.locale.eql?(:en) %>
+              <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set, lang: lang %>
+          </aside>
         </div>
-      </aside>
+      </div>
     </div>
-  </header>
+  </div>
 
   <div class="block news-block">
     <div class="inner-block">

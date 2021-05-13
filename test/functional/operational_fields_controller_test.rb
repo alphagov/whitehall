@@ -20,7 +20,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
 
     get :show, params: { id: operational_field }
 
-    assert_select ".description" do
+    assert_select "#field-of-operation .govspeak" do
       assert_select "a[href='http://example.com']", "with link"
     end
   end
@@ -81,7 +81,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".fields-of-operation" do
+    assert_select "ul.govuk-list" do
       fields.each do |field|
         assert_select_object field do
           assert_select "a[href=?]", operational_field_path(field)
