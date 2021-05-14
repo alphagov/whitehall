@@ -20,7 +20,7 @@
       <dd><%= joined_list(@edition.organisations.map { |o| o.name }) %></dd>
     <% end %>
   </dl>
-  <% if @edition.non_english_edition? %>
+  <% if @edition.non_english? %>
     <p><em>(This document is <%=@edition.primary_language_name %>-only)</em></p>
   <% end %>
 </div>

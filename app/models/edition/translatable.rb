@@ -44,8 +44,12 @@ module Edition::Translatable
     false
   end
 
-  def non_english_edition?
-    primary_locale.intern != :en
+  def english?
+    primary_locale == "en"
+  end
+
+  def non_english?
+    !english?
   end
 
   def rtl?
@@ -75,7 +79,7 @@ private
   end
 
   def locale_is_valid
-    unless I18n.available_locales.include?(primary_locale.intern)
+    unless I18n.available_locales.include?(primary_locale.to_sym)
       errors.add(:primary_locale, "is not valid")
     end
   end
