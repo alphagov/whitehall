@@ -445,6 +445,8 @@ en:
       transparency: Transparency data
     headings:
       contact: Contact %{name}
+      corporate_information: Corporate information
+      corporate_reports: Corporate reports
   publications:
     heading: Publications
   see_all:
