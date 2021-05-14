@@ -136,6 +136,9 @@ en:
       accessible_documents_policy:
         one: Accessible documents policy
         other: Accessible documents policies
+      alert:
+        one: Alert
+        other: Alerts
       announcement:
         one: Announcement
         other: Announcements
