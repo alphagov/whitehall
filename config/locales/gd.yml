@@ -122,17 +122,25 @@ gd:
       written_on:
     type:
       about:
+        few:
         one:
         other:
+        two:
       about_our_services:
+        few:
         one:
         other:
+        two:
       access_and_opening:
+        few:
         one:
         other:
+        two:
       accessible_documents_policy:
+        few:
         one:
         other:
+        two:
       announcement:
         few:
         one:
@@ -159,8 +167,10 @@ gd:
         other:
         two:
       complaints_procedure:
+        few:
         one:
         other:
+        two:
       consultation:
         few:
         one:
@@ -202,17 +212,25 @@ gd:
         other:
         two:
       edition:
+        few:
         one:
         other:
+        two:
       edition_with_appointment:
+        few:
         one:
         other:
+        two:
       equality_and_diversity:
+        few:
         one:
         other:
+        two:
       fatality_notice:
+        few:
         one:
         other:
+        two:
       foi_release:
         few:
         one:
@@ -224,8 +242,10 @@ gd:
         other:
         two:
       generic_edition:
+        few:
         one:
         other:
+        two:
       government_response:
         few:
         one:
@@ -267,11 +287,15 @@ gd:
         other:
         two:
       media_enquiries:
+        few:
         one:
         other:
+        two:
       membership:
+        few:
         one:
         other:
+        two:
       national_statistics:
         few:
         one:
@@ -313,17 +337,25 @@ gd:
         other:
         two:
       our_energy_use:
+        few:
         one:
         other:
+        two:
       our_governance:
+        few:
         one:
         other:
+        two:
       personal_information_charter:
+        few:
         one:
         other:
+        two:
       petitions_and_campaigns:
+        few:
         one:
         other:
+        two:
       policy_paper:
         few:
         one:
@@ -335,8 +367,10 @@ gd:
         other:
         two:
       procurement:
+        few:
         one:
         other:
+        two:
       promotional:
         few:
         one:
@@ -348,11 +382,15 @@ gd:
         other:
         two:
       publication_scheme:
+        few:
         one:
         other:
+        two:
       recruitment:
+        few:
         one:
         other:
+        two:
       regulation:
         few:
         one:
@@ -364,11 +402,15 @@ gd:
         other:
         two:
       service:
+        few:
         one:
         other:
+        two:
       social_media_use:
+        few:
         one:
         other:
+        two:
       speaking_notes:
         few:
         one:
@@ -380,8 +422,10 @@ gd:
         other:
         two:
       staff_update:
+        few:
         one:
         other:
+        two:
       standard:
         few:
         one:
@@ -398,16 +442,20 @@ gd:
         other:
         two:
       statistics:
+        few:
         one:
         other:
+        two:
       statutory_guidance:
         few:
         one:
         other:
         two:
       terms_of_reference:
+        few:
         one:
         other:
+        two:
       transcript:
         few:
         one:
@@ -419,8 +467,10 @@ gd:
         other:
         two:
       welsh_language_scheme:
+        few:
         one:
         other:
+        two:
       world_news_story:
         few:
         one:

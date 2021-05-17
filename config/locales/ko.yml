@@ -122,16 +122,12 @@ ko:
       written_on: '작성일시:'
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       announcement:
         other: 공지
@@ -144,7 +140,6 @@ ko:
       closed_consultation:
         other: 비공개 협의
       complaints_procedure:
-        one:
         other:
       consultation:
         other: 협의
@@ -163,23 +158,18 @@ ko:
       draft_text:
         other: 드래프트 택스트
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
         other: FOI 보도자료
       form:
         other: 문서
       generic_edition:
-        one:
         other:
       government_response:
         other: 정부 대책
@@ -198,17 +188,14 @@ ko:
       map:
         other: 지도
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
         other: 통계 - 국가 통계
       news_article:
         other: 뉴스
       news_story:
-        one:
         other: 뉴스 스토리
       nhs_content:
         other:
@@ -221,74 +208,58 @@ ko:
       oral_statement:
         other: 의회로 구두 성명
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
         other: 정책 논문
       press_release:
-        one:
         other: 보도자료
       procurement:
-        one:
         other:
       promotional:
         other: 홍보물
       publication:
         other: 간행물
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
         other:
       research:
         other: 리써치 및 분석
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
         other: 요점사항
       speech:
-        one:
         other: 연설문
       staff_update:
-        one:
         other:
       standard:
         other:
       statement_to_parliament:
-        one:
         other: 의회로 성명
       statistical_data_set:
         other: 통계 데이터 세트
       statistics:
-        one:
         other:
       statutory_guidance:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
         other: 트랜스크립트
       transparency:
         other: 투명성 데이타
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
         other:

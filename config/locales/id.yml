@@ -122,16 +122,12 @@ id:
       written_on: 'Dituliskan pada:'
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       announcement:
         other: Pengumuman-pengumuman
@@ -144,7 +140,6 @@ id:
       closed_consultation:
         other: Konsultasi-konsultasi tertutup
       complaints_procedure:
-        one:
         other:
       consultation:
         other: Konsultasi-konsultasi
@@ -163,23 +158,18 @@ id:
       draft_text:
         other: Rancangan tulisan
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
         other: Rilis FOI
       form:
         other: Formulir-formulir
       generic_edition:
-        one:
         other:
       government_response:
         other: Respon-respon Pemerintah
@@ -198,17 +188,14 @@ id:
       map:
         other: Peta-peta
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
         other: Statistik-statistik nasional
       news_article:
         other: Artikel-artikel berita
       news_story:
-        one:
         other: Berita-berita
       nhs_content:
         other:
@@ -221,74 +208,58 @@ id:
       oral_statement:
         other: Pernyataan-pernyataan langsung kepada parlemen
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
         other: Laporan-laporan kebijakan
       press_release:
-        one:
         other: Rilis pers
       procurement:
-        one:
         other:
       promotional:
         other: Materi promosi
       publication:
         other: Publikasi-publikasi
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
         other:
       research:
         other: Riset dan analisis
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
         other: Naskah Pembicara
       speech:
-        one:
         other: Pidato-pidato
       staff_update:
-        one:
         other:
       standard:
         other:
       statement_to_parliament:
-        one:
         other: Pernyataan-pernyaatan kepada Parlemen
       statistical_data_set:
         other: Set data statistik
       statistics:
-        one:
         other:
       statutory_guidance:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
         other: Transkrip-transkrip
       transparency:
         other: Transparansi data
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
         other:

@@ -122,15 +122,23 @@ ru:
       written_on: 'Написано: '
     type:
       about:
+        few:
+        many:
         one:
         other:
       about_our_services:
+        few:
+        many:
         one:
         other:
       access_and_opening:
+        few:
+        many:
         one:
         other:
       accessible_documents_policy:
+        few:
+        many:
         one:
         other:
       announcement:
@@ -159,6 +167,8 @@ ru:
         one: Закрытая консультация
         other: Закрытые консультации
       complaints_procedure:
+        few:
+        many:
         one:
         other:
       consultation:
@@ -202,15 +212,23 @@ ru:
         one: Проект текста
         other: Проект текстов
       edition:
+        few:
+        many:
         one:
         other:
       edition_with_appointment:
+        few:
+        many:
         one:
         other:
       equality_and_diversity:
+        few:
+        many:
         one:
         other:
       fatality_notice:
+        few:
+        many:
         one:
         other:
       foi_release:
@@ -224,6 +242,8 @@ ru:
         one: Форма
         other: Формы
       generic_edition:
+        few:
+        many:
         one:
         other:
       government_response:
@@ -267,9 +287,13 @@ ru:
         one: Карта
         other: Карты
       media_enquiries:
+        few:
+        many:
         one:
         other:
       membership:
+        few:
+        many:
         one:
         other:
       national_statistics:
@@ -313,15 +337,23 @@ ru:
         one: Устное заявление парламенту
         other: Устные заявления парламенту
       our_energy_use:
+        few:
+        many:
         one:
         other:
       our_governance:
+        few:
+        many:
         one:
         other:
       personal_information_charter:
+        few:
+        many:
         one:
         other:
       petitions_and_campaigns:
+        few:
+        many:
         one:
         other:
       policy_paper:
@@ -335,6 +367,8 @@ ru:
         one: Пресс-релиз
         other: Пресс-релизы
       procurement:
+        few:
+        many:
         one:
         other:
       promotional:
@@ -348,9 +382,13 @@ ru:
         one: Публикация
         other: Публикации
       publication_scheme:
+        few:
+        many:
         one:
         other:
       recruitment:
+        few:
+        many:
         one:
         other:
       regulation:
@@ -364,9 +402,13 @@ ru:
         one: Исследования и аналитика
         other: Исследования и аналитика
       service:
+        few:
+        many:
         one:
         other:
       social_media_use:
+        few:
+        many:
         one:
         other:
       speaking_notes:
@@ -380,6 +422,8 @@ ru:
         one: Текст выступления
         other: Тексты выступлений
       staff_update:
+        few:
+        many:
         one:
         other:
       standard:
@@ -398,6 +442,8 @@ ru:
         one: Статистика
         other: Статистические данные
       statistics:
+        few:
+        many:
         one:
         other:
       statutory_guidance:
@@ -406,6 +452,8 @@ ru:
         one:
         other:
       terms_of_reference:
+        few:
+        many:
         one:
         other:
       transcript:
@@ -419,6 +467,8 @@ ru:
         one: Прозрачность данных
         other: Прозрачность данных
       welsh_language_scheme:
+        few:
+        many:
         one:
         other:
       world_news_story:

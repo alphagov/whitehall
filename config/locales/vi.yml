@@ -124,16 +124,12 @@ vi:
       written_on: 'Viết vào:'
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       announcement:
         other: Các thông báo
@@ -146,7 +142,6 @@ vi:
       closed_consultation:
         other: Kết thúc các cuộc tham vấn
       complaints_procedure:
-        one:
         other:
       consultation:
         other: Các cuộc tham vấn
@@ -165,23 +160,18 @@ vi:
       draft_text:
         other: Các nội dung dự thảo
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
         other: Thông cáo FOI
       form:
         other: Các mẫu đơn
       generic_edition:
-        one:
         other:
       government_response:
         other: các phản hồi của Chính phủ
@@ -200,17 +190,14 @@ vi:
       map:
         other: Các bản đồ
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
         other: Thống kê - Thống kê quốc gia
       news_article:
         other: Tin tức
       news_story:
-        one:
         other: Câu chuyện tin tức
       nhs_content:
         other:
@@ -223,74 +210,58 @@ vi:
       oral_statement:
         other: Tuyên bố bằng lời nói tới quốc hội
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
         other: Tài liệu chính sách
       press_release:
-        one:
         other: Thông cáo báo chí
       procurement:
-        one:
         other:
       promotional:
         other: Tài liệu truyền thông
       publication:
         other: Tài liệu truyền thông
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
         other:
       research:
         other: Nghiên cứu và phân tích
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
         other: Bài phát biểu
       speech:
-        one:
         other: Các bài phát biểu
       staff_update:
-        one:
         other:
       standard:
         other:
       statement_to_parliament:
-        one:
         other: Tuyên bố tới Quốc hội
       statistical_data_set:
         other: Bộ dữ liệu thống kê
       statistics:
-        one:
         other:
       statutory_guidance:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
         other: Kịch bản
       transparency:
         other: Dữ liệu kịch bản
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
         other:

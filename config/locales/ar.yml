@@ -122,17 +122,33 @@ ar:
       written_on: 'كتبت في:'
     type:
       about:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       about_our_services:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       access_and_opening:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       accessible_documents_policy:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       announcement:
         few:
         many:
@@ -169,8 +185,12 @@ ar:
         two:
         zero:
       complaints_procedure:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       consultation:
         few:
         many:
@@ -228,17 +248,33 @@ ar:
         two:
         zero:
       edition:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       edition_with_appointment:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       equality_and_diversity:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       fatality_notice:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       foi_release:
         few:
         many:
@@ -254,8 +290,12 @@ ar:
         two:
         zero:
       generic_edition:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       government_response:
         few:
         many:
@@ -313,11 +353,19 @@ ar:
         two:
         zero:
       media_enquiries:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       membership:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       national_statistics:
         few:
         many:
@@ -375,17 +423,33 @@ ar:
         two:
         zero:
       our_energy_use:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       our_governance:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       personal_information_charter:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       petitions_and_campaigns:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       policy_paper:
         few:
         many:
@@ -401,8 +465,12 @@ ar:
         two:
         zero:
       procurement:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       promotional:
         few:
         many:
@@ -418,11 +486,19 @@ ar:
         two:
         zero:
       publication_scheme:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       recruitment:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       regulation:
         few:
         many:
@@ -438,11 +514,19 @@ ar:
         two:
         zero:
       service:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       social_media_use:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       speaking_notes:
         few:
         many:
@@ -458,8 +542,12 @@ ar:
         two:
         zero:
       staff_update:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       standard:
         few:
         many:
@@ -482,8 +570,12 @@ ar:
         two:
         zero:
       statistics:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       statutory_guidance:
         few:
         many:
@@ -492,8 +584,12 @@ ar:
         two:
         zero:
       terms_of_reference:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       transcript:
         few:
         many:
@@ -509,8 +605,12 @@ ar:
         two:
         zero:
       welsh_language_scheme:
+        few:
+        many:
         one:
         other:
+        two:
+        zero:
       world_news_story:
         few:
         many:
