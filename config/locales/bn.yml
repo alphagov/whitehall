@@ -43,11 +43,7 @@ bn:
     heading: ঘোষণাসমূহ
   attachment:
     accessibility:
-      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার
-        করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়,
-        তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি
-        সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি
-        আমাদেরকে জানান তবে উপকার হবে।\n"
+      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়, তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি আমাদেরকে জানান তবে উপকার হবে।\n"
       intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
       request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
     headings:
@@ -58,14 +54,12 @@ bn:
       unnumbered_command_paper: অসাংখ্যিক আদেশপত্র
       unnumbered_hoc_paper: অসাংখ্যিক আইনপত্র
     opendocument:
-      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        প্রকরণে আছে।
+      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> প্রকরণে আছে।
   broken_links:
     broken:
       subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
     caution:
-      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে,
-        এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
+      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে, এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
     title: নষ্ট লিঙ্কসমূহ
   change_notes:
     published_at: প্রথম প্রকাশিত
@@ -127,6 +121,18 @@ bn:
         speaker: বক্তা
       written_on: 'লিখিত হয়েছে এতে:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: ঘোষণা
         other: ঘোষণাসমূহ
@@ -142,6 +148,9 @@ bn:
       closed_consultation:
         one: সমাপ্ত শলাপরামর্শ
         other: সমাপ্ত শলাপরামর্শসমূহ
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: শলাপরামর্শ
         other: শলাপরামর্শসমূহ
@@ -166,12 +175,27 @@ bn:
       draft_text:
         one: খসড়া পাঠ্য
         other: খসড়া পাঠ্যসমূহ
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: এফওআই বিজ্ঞপ্তি
         other: এফওআই বিজ্ঞপ্তিসমূহ
       form:
         one: ফরম
         other: ফরমসমূহ
+      generic_edition:
+        one:
+        other:
       government_response:
         one: সরকারী প্রতিক্রিয়া
         other: সরকারী প্রতিক্রিয়াসমূহ
@@ -196,6 +220,12 @@ bn:
       map:
         one: মানচিত্র
         other: মানচিত্রসমূহ
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: জাতীয় পরিসংখ্যান
         other: জাতীয় পরিসংখ্যান
@@ -220,48 +250,87 @@ bn:
       oral_statement:
         one: সংসদে মৌখিক বিবৃতি
         other: সংসদে মৌখিক বিবৃতিসমূহ
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: নীতিমালা সংক্রান্ত পত্র
         other: নীতিমালা সংক্রান্ত পত্রসমূহ
       press_release:
         one: সংবাদ বিজ্ঞপ্তি
         other: সংবাদ বিজ্ঞপ্তিসমূহ
+      procurement:
+        one:
+        other:
       promotional:
         one: প্রচারমূলক উপাদান
         other: প্রচারমূলক উপাদান
       publication:
         one: প্রকাশনা
         other: প্রকাশনাসমূহ
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one: নিয়ম
         other: নিয়মাবলী
       research:
         one: গবেষণা ও বিশ্লেষণ
         other: গবেষণা ও বিশ্লেষণ
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: কথ্য নোটসমূহ
         other: কথ্য নোটসমূহ
       speech:
         one: ভাষণ
         other: ভাষণসমূহ
+      staff_update:
+        one:
+        other:
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: সংসদে বিবৃতি
         other: সংসদে বিবৃতিসমূহ
       statistical_data_set:
         one: পরিসংখ্যানমূলক ডেটা সেট
         other: পরিসংখ্যানমূলক ডেটা সেটসমূহ
+      statistics:
+        one:
+        other:
       statutory_guidance:
         one: সংবিধিবদ্ধ নির্দেশনা
         other: সংবিধিবদ্ধ নির্দেশনা
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: প্রতিলিপি
         other: প্রতিলিপিসমূহ
       transparency:
         one: স্বচ্ছতামূলক ডেটা
         other: স্বচ্ছতামূলক ডেটা
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one: বিশ্বব্যাপী সংবাদ কাহিনী
         other: বিশ্বব্যাপী সংবাদ কাহিনীসমূহ
@@ -270,15 +339,12 @@ bn:
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: আপডেটকৃত
   document_filters:
-    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
-      আপনি ফিল্টার ব্যবহার করতে পারেন
+    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য আপনি ফিল্টার ব্যবহার করতে পারেন
     no_results:
       description: আপনার অনুসন্ধানকে আরো প্রশস্ত করে পুনরায় চেষ্টা করুন।
       title: কোন সদৃশ নথি নেই।
       tna_heading: পুরোনো বিষয়বস্তু
-      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর
-        করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
+      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
@@ -291,8 +357,70 @@ bn:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
     bn: বাংলা
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
     fr: ফরাসি
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: এখনো অব্দি কোন আপডেট নেই।
     title: সর্বশেষ
@@ -311,6 +439,8 @@ bn:
       transparency: স্বচ্ছতামূলক ডেটা
     headings:
       contact: "%{name} যোগাযোগ করুন"
+      corporate_information:
+      corporate_reports:
   publications:
     heading: প্রকাশনাসমূহ
   see_all:
@@ -381,13 +511,10 @@ bn:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} -এ অনুসন্ধান করুন।"
-      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি
-        আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
-      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ
-        করে থাকি সেই সম্পর্কে পড়ুন।
+      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
+      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ করে থাকি সেই সম্পর্কে পড়ুন।
       social_media_use_html: "%{link}-এ আমাদের নীতিমালা সম্পর্কে পড়ুন।"
-      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে
-        বের করুন।"
+      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে বের করুন।"
     find_out_more: পূর্ণ প্রোফাইল ও সকল যোগাযোগের বিস্তারিত বিবরণ দেখুন।
     headings:
       contact_us: আমাদের সঙ্গে যোগাযোগ করুন

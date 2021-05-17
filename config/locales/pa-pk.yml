@@ -57,14 +57,12 @@ pa-pk:
       unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
       unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
     opendocument:
-      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
-        اوپن ڈاکیومنٹ شکل وچ ہے۔
+      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation"> اوپن ڈاکیومنٹ شکل وچ ہے۔
   broken_links:
     broken:
       subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
     caution:
-      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے
-        نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
+      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
     title: خراب لنک
   change_notes:
     published_at: پہلی دفعہ شائع ہویا
@@ -126,6 +124,18 @@ pa-pk:
         speaker: سپیکر
       written_on: 'نوں لکھیا گیا:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: اعلان
         other: اعلانات
@@ -141,6 +151,9 @@ pa-pk:
       closed_consultation:
         one: بند مشورہ
         other: بند مشورے
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: مشورہ
         other: مشورے
@@ -165,12 +178,27 @@ pa-pk:
       draft_text:
         one: متن دا مسودہ
         other: متن دے مسودے
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: FOI اجراء
         other: FOI اجراء
       form:
         one: فارم
         other: فارم
+      generic_edition:
+        one:
+        other:
       government_response:
         one: سرکاری جواب
         other: سرکاری جواب
@@ -195,6 +223,12 @@ pa-pk:
       map:
         one: نقشہ
         other: نقشے
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: قومی شماریات
         other: قومی شماریات
@@ -219,48 +253,87 @@ pa-pk:
       oral_statement:
         one: پارلیمنٹ نوں زبانی بیان
         other: پارلیمنٹ نوں زبانی بیانات
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: پالیسی دا کاغذ
         other: پالیسی دے کاغذات
       press_release:
         one: پریس ریلیز
         other: پریس ریلیزاں
+      procurement:
+        one:
+        other:
       promotional:
         one: تشہیری مواد
         other: تشہیری مواد
       publication:
         one: اشاعت
         other: اشاعتاں
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
         one: ضابطہ
         other: ضابطے
       research:
         one: تحقیق و تجزیہ
         other: تحقیق و تجزیہ
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: بولن دے نوٹس
         other: بولن دے نوٹس
       speech:
         one: تقریر
         other: تقریراں
+      staff_update:
+        one:
+        other:
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: پارلیمنٹ نوں بیان
         other: پارلیمنٹ نوں بیانات
       statistical_data_set:
         one: شماریاتی ڈیٹا سیٹ
         other: شماریاتی ڈیٹا سیٹ
+      statistics:
+        one:
+        other:
       statutory_guidance:
         one: قانونی رہنمائی
         other: قانونی رہنمائی
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: نقل
         other: نقلاں
       transparency:
         one: شفافیت دا مواد
         other: شفافیت دا مواد
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
         one: دنیا بھر دی خبر
         other: دنیا بھر دی خبراں
@@ -269,15 +342,12 @@ pa-pk:
         other: پارلیمنٹ نوں لکھے ہوئے بیان
     updated: اپڈیٹ ہویا
   document_filters:
-    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
-      ہو
+    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے ہو
     no_results:
       description: اپنی تلاش ودھان دی کوشش کرو تے دوبارہ کوشش کرو
       title: ملدی جلدی کوئی دستاویز موجود نہیں
       tna_heading: پرانا مواد
-      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔
-        مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
+      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔ مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
     world_locations:
       all: ساریے مقام
       label: دنیا دے مقام
@@ -290,8 +360,70 @@ pa-pk:
     direction: rtl
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
     fr: فرانسیسی
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
     pa-pk: پن٘جابی
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
     title: تازہ ترین
@@ -310,6 +442,8 @@ pa-pk:
       transparency: شفافیت دا مواد
     headings:
       contact: "%{name} نال رابطہ کرو"
+      corporate_information:
+      corporate_reports:
   publications:
     heading: اشاعتاں
   see_all:
@@ -380,10 +514,8 @@ pa-pk:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: ڈھونڈو %{link}۔
-      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی
-        معلوت نال کی سلوک کردے آں۔
-      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم
-        دی معلومات شائع کردے آں۔
+      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی معلوت نال کی سلوک کردے آں۔
+      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم دی معلومات شائع کردے آں۔
       social_media_use_html: "%{link}. بارے ساڈٰی پالیسی پڑھو۔"
       welsh_language_scheme_html: "%{link} نال ساڈے ارادیاں بارے جانو۔"
     find_out_more: پوری پروفائل تے ساری رابطے دی تفصیلات ویکھو

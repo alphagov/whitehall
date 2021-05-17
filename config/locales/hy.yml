@@ -3,117 +3,114 @@ hy:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Հայտարարություններ
   attachment:
     accessibility:
-      full_help_html: "Այս փաստաթղթի այլ տարբերակ ստանալու համար՝ բռալյան, ձայնային
-        կամ այլ, խնդրում ենք դիմել \n%{email} նշելով ձեր հասցեն, հեռախոսահամարն ու
-        նյութը, որ հայցում եք (\"%{title}\")%{references}."
-      intro: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ ունեցող
-        օգտատերների համար
+      full_help_html: "Այս փաստաթղթի այլ տարբերակ ստանալու համար՝ բռալյան, ձայնային կամ այլ, խնդրում ենք դիմել \n%{email} նշելով ձեր հասցեն, հեռախոսահամարն ու նյութը, որ հայցում եք (\"%{title}\")%{references}."
+      intro: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ ունեցող օգտատերների համար
       request_a_different_format: Պահանջել այլ տարբերակ
     headings:
       order_a_copy: Պատվիրել կրկնօրինակը
       order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը
       published: Հրապարակված
       reference: Հղում
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Կապի միջոց
     email: Էլելտրոնային հասցե
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Անձնական տվյալների կանոնադրություն
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Հրապարակման համակարգ
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Սոցիալական լրատվամիջոցի օգտագործում
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Ուելսերենի կանոնադրություն
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Վերաբերվում է
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: հրապարակված
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Նախարար
@@ -124,6 +121,18 @@ hy:
         speaker: Խոսնակ
       written_on: Գրված է՝
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
@@ -131,14 +140,17 @@ hy:
         one: Հեղինակային հոդված
         other: Հեղինակային հոդվածներ
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Թեմատիկ ուսումնասիրություն
         other: Թեմատիկ ուսումնասիրություններ
       closed_consultation:
         one: Փակ խորհրդատվություն
         other: Փակ խորհրդատվություններ
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: Խորհրդատվություն
         other: Խորհրդատվություններ
@@ -152,23 +164,38 @@ hy:
         one: Նամակագրություն
         other: Նամակագրություններ
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Մանրամասն ուղեցույց
         other: Մանրամասն ուղեցույցեր
       document_collection:
         one: Մի շարք
-        other: 
+        other:
       draft_text:
         one: Սևագիր տեքստ
         other: Սևագիր տեքստեր
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: Ազատ տեղեկատվության հաղորդագրություն
         other: Ազատ տեղեկատվության հաղորդագրություններ
       form:
         one: Ձևաթուղթ
         other: Ձևաթղթեր
+      generic_edition:
+        one:
+        other:
       government_response:
         one: Կառավարության արձագանք
         other: Կառավարության արձագանքներ
@@ -185,14 +212,20 @@ hy:
         one: Անկախ հաշվետվություն
         other: Անկախ հաշվետվություններ
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Քարտեզ
         other: Քարտեզներ
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: Վիճակագրություն-ազգային վիճակագրություն
         other: Վիճակագրություն-ազգային վիճակագրություններ
@@ -203,11 +236,11 @@ hy:
         one: Լուր
         other: Լուրեր
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Վիճակագրություն
         other: Վիճակագրություն
@@ -217,81 +250,182 @@ hy:
       oral_statement:
         one: Բանավոր դիմում խորհրդարան
         other: Բանավոր դիմումներ խորհրդարան
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: Ծրագրային փաստաթուղթ
         other: Ծրագրային փաստաթղթեր
       press_release:
         one: Մամլո հաղորդագրություն
         other: Մամլո հաղորդագրություններ
+      procurement:
+        one:
+        other:
       promotional:
         one: Քարոզչական նյութ
         other: Քարոզչական նյութներ
       publication:
         one: Հրապարակում
         other: Հրապարակումներ
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Հետազոտություն և վերլուծություն
         other: Հետազոտություններ և վերլուծություններ
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: Խոսքի գրառում
         other: Խոսքի գրառումներ
       speech:
         one: Ելույթ
         other: Ելույթներ
+      staff_update:
+        one:
+        other:
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Դիմում խորհրդարան
         other: Դիմումներ խորհրդարան
       statistical_data_set:
         one: Վիճակագրական տվյալ
         other: Վիճակագրական տվյալներ
+      statistics:
+        one:
+        other:
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: Վերծանում
         other: Վերծանումներ
       transparency:
         one: Բաց տեղեկատվություն
         other: Բաց տեղեկատվություններ
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Գրավոր դիմում խորհրդարան
         other: Գրավոր դիմումներ խորհրդարան
     updated: Թարմացված
   document_filters:
-    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
-      արդյունքները
+    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող արդյունքները
     no_results:
       description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
       title: Համապատասխան ինֆորմացի չի գտնվել
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Վերջին գործողություն
   i18n:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
     hy: Հայերեն
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Դեռևս թարմացումներ չկան
     title: Վերջին գործողություն
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -299,12 +433,14 @@ hy:
   organisation:
     corporate_information:
       access_our_info: Տեղեկատվություն մեր մասին
-      jobs: 
+      jobs:
       jobs_and_contacts: Աշխատանք և պայմանագրեր
-      organisation_chart: 
+      organisation_chart:
       transparency: Թափանցիկ տեղեկատվությ
     headings:
       contact: Տվյալ %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Հրապարակումներ
   see_all:
@@ -316,9 +452,9 @@ hy:
     consultation_outcome: Տես՝ մեր բոլոր Խորհրդատվության արդյունքներ -ը
     corporate_report: Տես՝ մեր բոլոր Կորպորատիվ հաշվետվություններ -ը
     correspondence: Տես՝ մեր բոլոր Նամակագրություններ -ը
-    decision: 
+    decision:
     detailed_guidance: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
-    document_collection: 
+    document_collection:
     draft_text: Տես՝ մեր բոլոր Սևագիր տեքստեր -ը
     fatality_notice: Տես՝ մեր բոլոր Մահվան ծանուցումներ -ը
     foi_release: Տես՝ մեր բոլոր Ազատ տեղեկատվության հաղորդագրություններ -ը
@@ -327,13 +463,12 @@ hy:
     guidance: Տես՝ մեր բոլոր Ուղեցույցեր -ը
     impact_assessment: Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը
     imported: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
-    international_treaty: 
+    international_treaty:
     map: Տես՝ մեր բոլոր Քարտեզներ -ը
-    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ
-      -ը
+    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ -ը
     news_article: Տես՝ մեր բոլոր Տեղեկատվական հոդվածներ -ը
     news_story: Տես՝ մեր բոլոր Լուրեր -ը
-    notice: 
+    notice:
     open_consultation: Տես՝ մեր բոլոր Բաց խորհրդատվություններ -ը
     oral_statement: Տես՝ մեր բոլոր Բանավոր դիմումներ խորհրդարան -ը
     policy: Տես՝ մեր բոլոր Քաղաքականություններ -ը
@@ -341,14 +476,14 @@ hy:
     press_release: Տես՝ մեր բոլոր Մամլո հաղորդագրություններ -ը
     promotional: Տես՝ մեր բոլոր Քարոզչական նյութներ -ը
     publication: Տես՝ մեր բոլոր Հրապարակումներ -ը
-    regulation: 
+    regulation:
     research: Տես՝ մեր բոլոր Հետազոտություններ և վերլուծություններ -ը
     speaking_notes: Տես՝ մեր բոլոր Խոսքի գրառումներ -ը
     speech: Տես՝ մեր բոլոր Ելույթներ -ը
     statement_to_parliament: Տես՝ մեր բոլոր Դիմումներ խորհրդարան -ը
     statistical_data_set: Տես՝ մեր բոլոր Վիճակագրական տվյալներ -ը
     statistics: Տես՝ մեր բոլոր Վիճակագրություն -ը
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Տես՝ մեր բոլոր Վերծանումներ -ը
     transparency: Տես՝ մեր բոլոր Բաց տեղեկատվություններ -ը
     written_statement: Տես՝ մեր բոլոր Գրավոր դիմումներ խորհրդարան -ը
@@ -375,14 +510,11 @@ hy:
         other: Համաշխարհային տեղաբաշխումներ
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
-      personal_information_charter_html: 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները
-        անձնական տեղեկատվությանը '
-      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
-        մեր %{link} ում
+      about_our_services_html:
+      personal_information_charter_html: 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները անձնական տեղեկատվությանը '
+      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք մեր %{link} ում
       social_media_use_html: Կարդացեք մեր քաղաքականության մասին
-      welsh_language_scheme_html: Գտեք այստեղ %{link} ում հրապարակելու մեր պարտավորության
-        մասին
+      welsh_language_scheme_html: Գտեք այստեղ %{link} ում հրապարակելու մեր պարտավորության մասին
     find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները
     headings:
       contact_us: Կապ մեզ հետ

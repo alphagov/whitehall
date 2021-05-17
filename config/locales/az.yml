@@ -3,134 +3,144 @@ az:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Elanlar
   attachment:
     accessibility:
-      full_help_html: 
-      intro: 
-      request_a_different_format: 
+      full_help_html:
+      intro:
+      request_a_different_format:
     headings:
-      order_a_copy: 
-      order_a_copy_full: 
-      published: 
-      reference: 
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Əlaqə vasitəsi
     email: elektron poçt
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: şəxsi məlumatlar bölümü
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: çap sxemi
-        recruitment: 
-        research: 
-        social_media_use: 
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        recruitment:
+        research:
+        social_media_use:
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Uels dili cədvəli
   date:
     formats:
-      default: 
-      long_ordinal: 
+      default:
+      long_ordinal:
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: tətbiq olunur
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: dərc olunub
-    see_all: 
+    see_all:
     speech:
       author_title:
-        minister: 
-        speaker: 
+        minister:
+        speaker:
       delivered_on: çatdırılıb
       delivery_title:
         minister: Nazir
         speaker: Spiker
-      written_on: 
+      written_on:
     type:
+      about:
+        other:
+      about_our_services:
+        other:
+      access_and_opening:
+        other:
+      accessible_documents_policy:
+        other:
       announcement:
         other: Elanlar
       authored_article:
-        other: 
+        other:
       blog_post:
-        other: 
+        other:
       case_study:
         other: Öyrənilib
       closed_consultation:
         other: Bağlı məslətləşmələr
+      complaints_procedure:
+        other:
       consultation:
         other: məsləhətləşmələr
       consultation_outcome:
@@ -140,33 +150,47 @@ az:
       correspondence:
         other: Yazışmalar
       decision:
-        other: 
+        other:
       detailed_guidance:
         other: ətraflı məlumat
       document_collection:
-        other: 
+        other:
       draft_text:
         other: hazırlanmış mətn
+      edition:
+        other:
+      edition_with_appointment:
+        other:
+      equality_and_diversity:
+        other:
+      fatality_notice:
+        other:
       foi_release:
         other: Məlumat azadlığı ilə bağlı açıqlamalar
       form:
         other: Formalar
+      generic_edition:
+        other:
       government_response:
-        other: 
+        other:
       guidance:
         other: İnstruksiya
       impact_assessment:
         other: Dəyərləndirmə
       imported:
-        other: 
+        other:
       independent_report:
         other: Müstəqil məruzələr
       international_treaty:
-        other: 
+        other:
       manual:
-        other: 
+        other:
       map:
         other: xəritələr
+      media_enquiries:
+        other:
+      membership:
+        other:
       national_statistics:
         other: Statistika - milli statistika
       news_article:
@@ -174,45 +198,71 @@ az:
       news_story:
         other: Xəbərlər
       nhs_content:
-        other: 
+        other:
       notice:
-        other: 
+        other:
       official_statistics:
         other: statistika
       open_consultation:
         other: açıq məsləhətləşmələr
       oral_statement:
         other: Parlamentə açıq bəyanatlar
+      our_energy_use:
+        other:
+      our_governance:
+        other:
+      personal_information_charter:
+        other:
+      petitions_and_campaigns:
+        other:
       policy_paper:
         other: Siyasi sənədlər
       press_release:
         other: mətbuat üçün açıqlama
+      procurement:
+        other:
       promotional:
         other: Təşviqedici materiallar
       publication:
         other: Nəşrlər
+      publication_scheme:
+        other:
+      recruitment:
+        other:
       regulation:
-        other: 
+        other:
       research:
         other: Tətqiqat və analiz
+      service:
+        other:
+      social_media_use:
+        other:
       speaking_notes:
         other: Çıxış üçün  qeydləri
       speech:
         other: Çıxışlar
+      staff_update:
+        other:
       standard:
-        other: 
+        other:
       statement_to_parliament:
         other: Parlamentə bəyanatlar
       statistical_data_set:
         other: statistik məlumatlar bazaları
+      statistics:
+        other:
       statutory_guidance:
-        other: 
+        other:
+      terms_of_reference:
+        other:
       transcript:
         other: Transkripsiyalar
       transparency:
         other: Şəffaf məlumat
+      welsh_language_scheme:
+        other:
       world_news_story:
-        other: 
+        other:
       written_statement:
         other: Parlamentə yazılı müraciət
     updated: yenilənib
@@ -221,67 +271,132 @@ az:
     no_results:
       description: axtarışınızı daha geniş edin
       title: uygün məlumat tapılmadı
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: bütün yerlər
       label: dünya üzrə məkanlar
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: sonuncu fəaliyyət
   i18n:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
     az: Azərbaycanca
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: yeni məlumat yoxdur
     title: Ən sonuncu
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
-        format: 
+        format:
   organisation:
     corporate_information:
-      access_our_info: 
-      jobs: 
-      jobs_and_contacts: 
-      organisation_chart: 
-      transparency: 
+      access_our_info:
+      jobs:
+      jobs_and_contacts:
+      organisation_chart:
+      transparency:
     headings:
-      contact: 
+      contact:
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Nəşrlər
   see_all:
     announcement: Bax bütün növ
-    authored_article: 
+    authored_article:
     case_study: Bax bütün növ
     closed_consultation: Bax bütün növ
     consultation: Bax bütün növ
     consultation_outcome: Bax bütün növ
     corporate_report: Bax bütün növ
     correspondence: Bax bütün növ
-    decision: 
+    decision:
     detailed_guidance: Bax bütün növ
-    document_collection: 
+    document_collection:
     draft_text: Bax bütün növ
     fatality_notice: Bax bütün növ
     foi_release: Bax bütün növ
     form: Bax bütün növ
-    government_response: 
+    government_response:
     guidance: Bax bütün növ
     impact_assessment: Bax bütün növ
-    imported: 
-    international_treaty: 
+    imported:
+    international_treaty:
     map: Bax bütün növ
     national_statistics: Bax bütün növ
     news_article: Bax bütün növ
     news_story: Bax bütün növ
-    notice: 
+    notice:
     open_consultation: Bax bütün növ
     oral_statement: Bax bütün növ
     policy: Bax bütün növ
@@ -289,14 +404,14 @@ az:
     press_release: Bax bütün növ
     promotional: Bax bütün növ
     publication: Bax bütün növ
-    regulation: 
+    regulation:
     research: Bax bütün növ
     speaking_notes: Bax bütün növ
     speech: Bax bütün növ
     statement_to_parliament: Bax bütün növ
     statistical_data_set: Bax bütün növ
     statistics: Bax bütün növ
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Bax bütün növ
     transparency: Bax bütün növ
     written_statement: Bax bütün növ
@@ -305,7 +420,7 @@ az:
       last_word_connector: və
   time:
     formats:
-      long_ordinal: 
+      long_ordinal:
   world_location:
     headings:
       announcements: Bizim elanlar
@@ -318,14 +433,14 @@ az:
       international_delegation:
         other: Beynəlxalq nümayəndəliklər
       world_location:
-        other: 
+        other:
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
-      personal_information_charter_html: 
-      publication_scheme_html: 
-      social_media_use_html: 
-      welsh_language_scheme_html: 
+      about_our_services_html:
+      personal_information_charter_html:
+      publication_scheme_html:
+      social_media_use_html:
+      welsh_language_scheme_html:
     find_out_more: Bütün profilə və əlaqə nömrələrinə bax
     headings:
       contact_us: Əlaqə vasitəsi

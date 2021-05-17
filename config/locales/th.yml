@@ -3,48 +3,47 @@ th:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: ข่าวสาร
   attachment:
     accessibility:
-      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น
-        กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
+      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
       intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
       request_a_different_format: ขอรูปแบบอื่น
     headings:
@@ -52,66 +51,66 @@ th:
       order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด
       published: ตีพิมพ์
       reference: อ้างอิง
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: แบบฟอร์มการติดต่อ
     email: อีเมล์
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
-        media_enquiries: 
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: กฎบัตรข้อมูลส่วนบุคคล
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: โครงการสิ่งพิม์
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: การใช้สื่อสังคมออนล์
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: โครงการภาษาเวลช์
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: นำไปใช้กับ
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: ตีพิมพ์
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: รัฐมนตรี
@@ -122,16 +121,26 @@ th:
         speaker: ผู้กล่าว
       written_on: เขียนเมือ
     type:
+      about:
+        other:
+      about_our_services:
+        other:
+      access_and_opening:
+        other:
+      accessible_documents_policy:
+        other:
       announcement:
         other: ข่าวสาร
       authored_article:
         other: บทความที่เขียน
       blog_post:
-        other: 
+        other:
       case_study:
         other: กรณีศึกษา
       closed_consultation:
         other: การศึกษาแบบปิด
+      complaints_procedure:
+        other:
       consultation:
         other: การปรึกษา
       consultation_outcome:
@@ -141,17 +150,27 @@ th:
       correspondence:
         other: จดหมาย
       decision:
-        other: 
+        other:
       detailed_guidance:
         other: คู่มือโดยละเอียด
       document_collection:
-        other: 
+        other:
       draft_text:
         other: ร่างข้อความ
+      edition:
+        other:
+      edition_with_appointment:
+        other:
+      equality_and_diversity:
+        other:
+      fatality_notice:
+        other:
       foi_release:
         other: ข้อมูลที่เปิดเผยได้
       form:
         other: แบบฟอร์ม
+      generic_edition:
+        other:
       government_response:
         other: การตอบสนองของรัฐบาล
       guidance:
@@ -163,11 +182,15 @@ th:
       independent_report:
         other: รายงานอิสระ
       international_treaty:
-        other: 
+        other:
       manual:
-        other: 
+        other:
       map:
         other: แผนที่
+      media_enquiries:
+        other:
+      membership:
+        other:
       national_statistics:
         other: สถิติ-สถิติแห่งชาติ
       news_article:
@@ -175,45 +198,71 @@ th:
       news_story:
         other: ข่าว
       nhs_content:
-        other: 
+        other:
       notice:
-        other: 
+        other:
       official_statistics:
         other: สถิติ
       open_consultation:
         other: การให้คำปรึกษาเปิด
       oral_statement:
         other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
+      our_energy_use:
+        other:
+      our_governance:
+        other:
+      personal_information_charter:
+        other:
+      petitions_and_campaigns:
+        other:
       policy_paper:
         other: เอกสารนโยบาย
       press_release:
         other: ข่าวประชาสัมพันธ์
+      procurement:
+        other:
       promotional:
         other: เอกสารเพือการประชาสัมพันธ์
       publication:
         other: สิ่งพิมพ์
+      publication_scheme:
+        other:
+      recruitment:
+        other:
       regulation:
-        other: 
+        other:
       research:
         other: บทวิจัยและบทวิเคราะห์
+      service:
+        other:
+      social_media_use:
+        other:
       speaking_notes:
         other: ประเด็นการพูด
       speech:
         other: สุนทรพจน์
+      staff_update:
+        other:
       standard:
-        other: 
+        other:
       statement_to_parliament:
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
         other: ชุดข้อมูลสถิติ
+      statistics:
+        other:
       statutory_guidance:
-        other: 
+        other:
+      terms_of_reference:
+        other:
       transcript:
         other: สำเนา
       transparency:
         other: ข้อมูลโปร่งใส
+      welsh_language_scheme:
+        other:
       world_news_story:
-        other: 
+        other:
       written_statement:
         other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
@@ -222,26 +271,89 @@ th:
     no_results:
       description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
       title: ไม่มีเอกสารที่ตรงตามต้องการ
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
     th: ไทย
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ยังไม่มีการปรับปรุงข้อมูล
     title: ล่าสุด
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -249,12 +361,14 @@ th:
   organisation:
     corporate_information:
       access_our_info: เข้าถึงข้อมูลของเรา
-      jobs: 
+      jobs:
       jobs_and_contacts: งานและการทำสัญญา
-      organisation_chart: 
+      organisation_chart:
       transparency: ข้อมูลที่มีความโปร่งใส
     headings:
       contact: สัญญา %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: สิ่งพิมพ์
   see_all:
@@ -266,9 +380,9 @@ th:
     consultation_outcome: ดูทั้งหมดผลการปรึกษา
     corporate_report: ดูทั้งหมดรายงานบริษัท
     correspondence: ดูทั้งหมดจดหมาย
-    decision: 
+    decision:
     detailed_guidance: ดูทั้งหมดคู่มือโดยละเอียด
-    document_collection: 
+    document_collection:
     draft_text: ดูทั้งหมดร่างข้อความ
     fatality_notice: ดูทั้งหมดการแจ้งมรณะกรรม
     foi_release: ดูทั้งหมดข้อมูลที่เปิดเผยได้
@@ -277,12 +391,12 @@ th:
     guidance: ดูทั้งหมดคู่มือ
     impact_assessment: ดูทั้งหมดการประเมินผลกระทบ
     imported: ดูทั้งหมดประเภทรอนำเข้า
-    international_treaty: 
+    international_treaty:
     map: ดูทั้งหมดแผนที่
     national_statistics: ดูทั้งหมดสถิติ-สถิติแห่งชาติ
     news_article: ดูทั้งหมดบทความข่าว
     news_story: ดูทั้งหมดข่าว
-    notice: 
+    notice:
     open_consultation: ดูทั้งหมดการให้คำปรึกษาเปิด
     oral_statement: ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา
     policy: ดูทั้งหมดนโยบาย
@@ -290,14 +404,14 @@ th:
     press_release: ดูทั้งหมดข่าวประชาสัมพันธ์
     promotional: ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์
     publication: ดูทั้งหมดสิ่งพิมพ์
-    regulation: 
+    regulation:
     research: ดูทั้งหมดบทวิจัยและบทวิเคราะห์
     speaking_notes: ดูทั้งหมดประเด็นการพูด
     speech: ดูทั้งหมดสุนทรพจน์
     statement_to_parliament: ดูทั้งหมดแถลงการณ์ต่อรัฐสภา
     statistical_data_set: ดูทั้งหมดชุดข้อมูลสถิติ
     statistics: ดูทั้งหมดสถิติ
-    statutory_guidance: 
+    statutory_guidance:
     transcript: ดูทั้งหมดสำเนา
     transparency: ดูทั้งหมดข้อมูลโปร่งใส
     written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
@@ -322,12 +436,11 @@ th:
         other: ทีตั้ง
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
+      about_our_services_html:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
       publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
       social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}
-      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
-        %{link}.
+      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่ %{link}.
     find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
     headings:
       contact_us: ติดต่อเรา

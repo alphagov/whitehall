@@ -5,18 +5,12 @@
   <article id="what-we-do-article">
     <div class="block-1">
       <div class="inner-block">
-        <%= render_corporate_info_header_for(@organisation, @document) %>
+        <%= render_corporate_info_header_for(@organisation) %>
 
         <div class="contextual-info">
           <nav>
             <h1>Contents</h1>
             <ol>
-              <% if @document.present? %>
-                <li><%= link_to t('organisation.headings.what_we_do'), "#what-we-do" %></li>
-                <% govspeak_headers(@document.body).each do |header| %>
-                  <li><%= link_to header.text, "##{header.id}" %></li>
-                <% end %>
-              <% end %>
               <% if has_any_transparency_pages?(@organisation) %>
                 <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info" %></li>
               <% end %>
@@ -36,18 +30,6 @@
           <aside class="organisation-top-tasks">
             <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
           </aside>
-          <% if @document.present? %>
-            <h1 class="main"><%= @document.title %></h1>
-            <div class="body">
-              <div class="govspeak">
-                <h2 id="what-we-do"><%= t('organisation.headings.what_we_do') %></h2>
-                <p class="description">
-                  <%= @document.summary %>
-                </p>
-              </div>
-              <%= govspeak_edition_to_html @document %>
-            </div>
-          <% end %>
           <% if has_any_transparency_pages?(@organisation) %>
             <%= render partial: "#{@organisation.class.table_name}/corporate_information",
                        locals: { organisation: @organisation, show_access_our_information_header: true } %>

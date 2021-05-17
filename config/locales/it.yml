@@ -3,117 +3,114 @@ it:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: 
-        isbn: 
-        unnumbered_hoc_paper: 
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
       attachment_data:
-        file: 
+        file:
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 
+        file:
       edition:
-        nation_inapplicabilities: 
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 
+        file:
       response/consultation_response_attachments/attachment:
-        command_paper_number: 
-        hoc_paper_number: 
-        isbn: 
-        title: 
-        unique_reference: 
-        unnumbered_hoc_paper: 
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file: 
+        file:
     nested_attachment_data_field_names:
-      file: 
+      file:
     nested_attachment_field_names:
-      command_paper_number: 
-      hoc_paper_number: 
-      isbn: 
-      title: 
-      unique_reference: 
-      unnumbered_hoc_paper: 
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading: Annunci
   attachment:
     accessibility:
-      full_help_html: Per richiedere il presente documento in formato diverso, ad
-        es. in formato braille, audio o altro, scrivi a %{email} indicando il tuo
-        indirizzo e numero di telefono nonché il titolo della pubblicazione ("%{title}")%{references}.
-      intro: Il presente file potrebbe non essere adatto agli utenti di tecnologie
-        d'ausilio.
+      full_help_html: Per richiedere il presente documento in formato diverso, ad es. in formato braille, audio o altro, scrivi a %{email} indicando il tuo indirizzo e numero di telefono nonché il titolo della pubblicazione ("%{title}")%{references}.
+      intro: Il presente file potrebbe non essere adatto agli utenti di tecnologie d'ausilio.
       request_a_different_format: Richiedi un formato diverso.
     headings:
       order_a_copy: Ordina una copia
       order_a_copy_full: Ordina una copia della pubblicazione
       published: Pubblicato
       reference: Rif
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
     opendocument:
-      help_html: 
+      help_html:
   broken_links:
     broken:
-      subheading: 
+      subheading:
     caution:
-      subheading: 
-    title: 
+      subheading:
+    title:
   change_notes:
-    published_at: 
-    see_all_updates: 
-    updated_at: 
+    published_at:
+    see_all_updates:
+    updated_at:
   contact:
-    access_and_opening_times: 
+    access_and_opening_times:
     contact_form: Contattaci
     email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: 
+        welsh_language_scheme:
       title:
-        about: 
-        about_our_services: 
-        access_and_opening: 
-        accessible_documents_policy: 
-        complaints_procedure: 
-        equality_and_diversity: 
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
         media_enquiries: Ufficio stampa
-        membership: 
-        our_energy_use: 
-        our_governance: 
+        membership:
+        our_energy_use:
+        our_governance:
         personal_information_charter: Informazioni personali
-        petitions_and_campaigns: 
-        procurement: 
+        petitions_and_campaigns:
+        procurement:
         publication_scheme: Schema di pubblicazione
-        recruitment: 
-        research: 
+        recruitment:
+        research:
         social_media_use: Uso dei social media
-        staff_update: 
-        statistics: 
-        terms_of_reference: 
+        staff_update:
+        statistics:
+        terms_of_reference:
         welsh_language_scheme: Schema gaelico
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents: 
+    contents:
     footer_meta:
-      full_page_history: 
-      published: 
-      updated: 
+      full_page_history:
+      published:
+      updated:
     headings:
       applies_to_nations: Valido per
-      from: 
-      part_of: 
+      from:
+      part_of:
     published: pubblicato
-    see_all: 
+    see_all:
     speech:
       author_title:
         minister: Ministro
@@ -124,6 +121,18 @@ it:
         speaker: Relatore
       written_on: 'Scritto su:'
     type:
+      about:
+        one:
+        other:
+      about_our_services:
+        one:
+        other:
+      access_and_opening:
+        one:
+        other:
+      accessible_documents_policy:
+        one:
+        other:
       announcement:
         one: Annuncio
         other: Annunci
@@ -131,14 +140,17 @@ it:
         one: Articolo autorizzato
         other: Articoli autorizzati
       blog_post:
-        one: 
-        other: 
+        one:
+        other:
       case_study:
         one: Caso studio
         other: Casi studio
       closed_consultation:
         one: Consultazione chiusa
         other: Consultazioni chiuse
+      complaints_procedure:
+        one:
+        other:
       consultation:
         one: Consultazione
         other: Consultazioni
@@ -152,23 +164,38 @@ it:
         one: Corrispondenza
         other: Corrispondenza
       decision:
-        one: 
-        other: 
+        one:
+        other:
       detailed_guidance:
         one: Indicazione dettagliata
         other: Indicazioni dettagliate
       document_collection:
         one: Serie
-        other: 
+        other:
       draft_text:
         one: Bozza
         other: Bozze
+      edition:
+        one:
+        other:
+      edition_with_appointment:
+        one:
+        other:
+      equality_and_diversity:
+        one:
+        other:
+      fatality_notice:
+        one:
+        other:
       foi_release:
         one: Comunicato FOI (accesso agli atti)
         other: Comunicati FOI (accesso agli atti)
       form:
         one: Formulario
         other: Formulari
+      generic_edition:
+        one:
+        other:
       government_response:
         one: Risposta governativa
         other: Risposte governative
@@ -185,14 +212,20 @@ it:
         one: Relazione indipendente
         other: Relazioni indipendenti
       international_treaty:
-        one: 
-        other: 
+        one:
+        other:
       manual:
-        one: 
-        other: 
+        one:
+        other:
       map:
         one: Mappa
         other: Mappe
+      media_enquiries:
+        one:
+        other:
+      membership:
+        one:
+        other:
       national_statistics:
         one: Statistica - statistica nazionale
         other: Statistica - statistica nazionale
@@ -203,11 +236,11 @@ it:
         one: Notizia
         other: Notizie
       nhs_content:
-        one: 
-        other: 
+        one:
+        other:
       notice:
-        one: 
-        other: 
+        one:
+        other:
       official_statistics:
         one: Statistica
         other: Statistiche
@@ -217,51 +250,90 @@ it:
       oral_statement:
         one: Dichiarazione in parlamento
         other: Dichiarazioni in parlamento
+      our_energy_use:
+        one:
+        other:
+      our_governance:
+        one:
+        other:
+      personal_information_charter:
+        one:
+        other:
+      petitions_and_campaigns:
+        one:
+        other:
       policy_paper:
         one: Politica
         other: Politiche
       press_release:
         one: Comunicato stampa
         other: Comunicati stampa
+      procurement:
+        one:
+        other:
       promotional:
         one: Materiale promozionale
         other: Materiale promozionale
       publication:
         one: Pubblicazione
         other: Pubblicazioni
+      publication_scheme:
+        one:
+        other:
+      recruitment:
+        one:
+        other:
       regulation:
-        one: 
-        other: 
+        one:
+        other:
       research:
         one: Ricerca ed analisi
         other: Ricerca ed analisi
+      service:
+        one:
+        other:
+      social_media_use:
+        one:
+        other:
       speaking_notes:
         one: Appunti
         other: Appunti
       speech:
         one: Discorso
         other: Discorsi
+      staff_update:
+        one:
+        other:
       standard:
-        one: 
-        other: 
+        one:
+        other:
       statement_to_parliament:
         one: Dichiarazione in parlamento
         other: Dichiarazioni in parlamento
       statistical_data_set:
         one: Dati statistici
         other: Dati stitistici
+      statistics:
+        one:
+        other:
       statutory_guidance:
-        one: 
-        other: 
+        one:
+        other:
+      terms_of_reference:
+        one:
+        other:
       transcript:
         one: Trascrizione
         other: Trascrizioni
       transparency:
         one: Dati sulla trasparenza
         other: Dati sulla trasparenza
+      welsh_language_scheme:
+        one:
+        other:
       world_news_story:
-        one: 
-        other: 
+        one:
+        other:
       written_statement:
         one: Dichiarazione scritta al parlamento
         other: Dichiarazioni scritte al parlamento
@@ -271,26 +343,89 @@ it:
     no_results:
       description: Amplia la ricerca e riprovare
       title: Non è stato trovato alcun documento corrispondente
-      tna_heading: 
-      tna_link: 
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tutte le sedi
       label: Sedi internazionali
   feeds:
-    email: 
-    feed: 
-    get_updates_to_this_list: 
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Attività recente
   i18n:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
     it: Italiano
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Non sono ancora disponibili aggiornamenti
     title: Recente
   national_statistics:
-    heading: 
+    heading:
   number:
     human:
       storage_units:
@@ -298,12 +433,14 @@ it:
   organisation:
     corporate_information:
       access_our_info: Accedi alle nostre informazioni
-      jobs: 
+      jobs:
       jobs_and_contacts: Posizioni lavorative e contratti
-      organisation_chart: 
+      organisation_chart:
       transparency: Dati sulla trasparenza
     headings:
       contact: Contatta %{name}
+      corporate_information:
+      corporate_reports:
   publications:
     heading: Pubblicazioni
   see_all:
@@ -315,9 +452,9 @@ it:
     consultation_outcome: Vedi tutte le nostre esiti delle consultazioni
     corporate_report: Vedi tutte le nostre relazioni aziendali
     correspondence: Vedi tutte le nostre corrispondenza
-    decision: 
+    decision:
     detailed_guidance: Vedi tutte le nostre indicazioni dettagliate
-    document_collection: 
+    document_collection:
     draft_text: Vedi tutte le nostre bozze
     fatality_notice: Vedi tutte le nostre messaggi di errore
     foi_release: Vedi tutte le nostre comunicati foi (accesso agli atti)
@@ -326,12 +463,12 @@ it:
     guidance: Vedi tutte le nostre indicazione
     impact_assessment: Vedi tutte le nostre valutazioni impatto
     imported: Vedi tutte le nostre importato - in attesa
-    international_treaty: 
+    international_treaty:
     map: Vedi tutte le nostre mappe
     national_statistics: Vedi tutte le nostre statistica - statistica nazionale
     news_article: Vedi tutte le nostre articoli
     news_story: Vedi tutte le nostre notizie
-    notice: 
+    notice:
     open_consultation: Vedi tutte le nostre consultazioni aperte
     oral_statement: Vedi tutte le nostre dichiarazioni in parlamento
     policy: Vedi tutte le nostre politiche
@@ -339,14 +476,14 @@ it:
     press_release: Vedi tutte le nostre comunicati stampa
     promotional: Vedi tutte le nostre materiale promozionale
     publication: Vedi tutte le nostre pubblicazioni
-    regulation: 
+    regulation:
     research: Vedi tutte le nostre ricerca ed analisi
     speaking_notes: Vedi tutte le nostre appunti
     speech: Vedi tutte le nostre discorsi
     statement_to_parliament: Vedi tutte le nostre dichiarazioni in parlamento
     statistical_data_set: Vedi tutte le nostre dati stitistici
     statistics: Vedi tutte le nostre statistiche
-    statutory_guidance: 
+    statutory_guidance:
     transcript: Vedi tutte le nostre trascrizioni
     transparency: Vedi tutte le nostre dati sulla trasparenza
     written_statement: Vedi tutte le nostre dichiarazioni scritte al parlamento
@@ -373,15 +510,11 @@ it:
         other: Posizioni geografiche
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 
-      personal_information_charter_html: Per informazioni sul trattamento dei dati
-        personali, consulta la pagina %{link}.
-      publication_scheme_html: Per maggiori dettagli sul tipo di documenti pubblicati
-        di routine, consulta la pagina %{link}.
-      social_media_use_html: Per saperne di più sulla nostra politica, consulta la
-        pagina %{link}.
-      welsh_language_scheme_html: Per maggiori informazioni sul nostro impegno a pubblicare
-        quante più informazioni possibili, consulta la pagina %{link}.
+      about_our_services_html:
+      personal_information_charter_html: Per informazioni sul trattamento dei dati personali, consulta la pagina %{link}.
+      publication_scheme_html: Per maggiori dettagli sul tipo di documenti pubblicati di routine, consulta la pagina %{link}.
+      social_media_use_html: Per saperne di più sulla nostra politica, consulta la pagina %{link}.
+      welsh_language_scheme_html: Per maggiori informazioni sul nostro impegno a pubblicare quante più informazioni possibili, consulta la pagina %{link}.
     find_out_more: Consulta il profilo completo e tutti i contatti
     headings:
       contact_us: Contatti

@@ -31,13 +31,6 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     assert_select "a[href=?]", world_location_path(world_location)
   end
 
-  view_test "should show description on organisation about subpage" do
-    organisation = create(:organisation)
-    create(:about_corporate_information_page, organisation: organisation, summary: "organisation-description")
-    get :index, params: { organisation_id: organisation }
-    assert_select ".description", text: "organisation-description"
-  end
-
   view_test "should show links to the alternate languages for a translated organisation" do
     organisation = create(:organisation, translated_into: [:fr])
     create(:about_corporate_information_page, organisation: organisation, summary: "organisation-description")

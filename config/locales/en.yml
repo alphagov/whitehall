@@ -57,14 +57,12 @@ en:
       unnumbered_command_paper: Unnumbered command paper
       unnumbered_hoc_paper: Unnumbered act paper
     opendocument:
-      help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        format
+      help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
   broken_links:
     broken:
       subheading: We’ve found links in this document that may be broken
     caution:
-      subheading: We’ve found some issues with links that may indicate problems, you
-        should apply caution in linking to them
+      subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
     title: Broken links
   change_notes:
     published_at: First published
@@ -138,6 +136,9 @@ en:
       accessible_documents_policy:
         one: Accessible documents policy
         other: Accessible documents policies
+      alert:
+        one: Alert
+        other: Alerts
       announcement:
         one: Announcement
         other: Announcements
@@ -349,9 +350,7 @@ en:
       description: Try making your search broader and try again.
       title: There are no matching documents.
       tna_heading: Older content
-      tna_link: Not all department publications from before May 2010 were migrated
-        to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a>.
+      tna_link: Not all department publications from before May 2010 were migrated to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>.
     world_locations:
       all: All locations
       label: World locations
@@ -446,6 +445,8 @@ en:
       transparency: Transparency data
     headings:
       contact: Contact %{name}
+      corporate_information: Corporate information
+      corporate_reports: Corporate reports
   publications:
     heading: Publications
   see_all:
@@ -516,10 +517,8 @@ en:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Find out %{link}.
-      personal_information_charter_html: Our %{link} explains how we treat your personal
-        information.
-      publication_scheme_html: Read about the types of information we routinely publish
-        in our %{link}.
+      personal_information_charter_html: Our %{link} explains how we treat your personal information.
+      publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
       social_media_use_html: Read our policy on %{link}.
       welsh_language_scheme_html: Find out about our commitment to %{link}.
     find_out_more: See full profile and all contact details
