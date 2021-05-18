@@ -149,7 +149,7 @@ module Admin::EditionActionsHelper
           tag.li(class: "masthead-menu-item") do
             link_to(
               edition_type.model_name.human,
-              polymorphic_path([:new, :admin, edition_type.name.underscore]),
+              polymorphic_path([:new, :admin, edition_type.name.underscore.to_sym]),
               title: "Create #{edition_type.model_name.human.titleize}",
               role: "menuitem",
             )

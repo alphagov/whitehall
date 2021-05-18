@@ -5,7 +5,7 @@ class ImageUploader < WhitehallUploader
     config.remove_previously_stored_files_after_update = false
   end
 
-  def extension_whitelist
+  def extension_allowlist
     %w[jpg jpeg gif png svg]
   end
 

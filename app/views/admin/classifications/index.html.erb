@@ -2,7 +2,7 @@
 
 <h1><%= human_friendly_model_name.pluralize %></h1>
 <p class="warning remove-top-margin">Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS.</p>
-<%= link_to "Create #{human_friendly_model_name.downcase}", [:new, :admin, model_name], class: "btn btn-default new_resource", title: "Create a #{human_friendly_model_name.downcase}" %>
+<%= link_to "Create #{human_friendly_model_name.downcase}", [:new, :admin, model_name.to_sym], class: "btn btn-default new_resource", title: "Create a #{human_friendly_model_name.downcase}" %>
 
 <table class="<%= model_name %> table table-striped table-bordered add-top-margin">
   <%= render 'table_header' %>
