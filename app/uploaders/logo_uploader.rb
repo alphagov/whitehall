@@ -1,5 +1,5 @@
 class LogoUploader < WhitehallUploader
-  def extension_whitelist
+  def extension_allowlist
     %w[jpg jpeg gif png]
   end
 end

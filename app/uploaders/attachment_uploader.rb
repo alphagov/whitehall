@@ -79,7 +79,7 @@ class AttachmentUploader < WhitehallUploader
     %(gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1)
   end
 
-  def extension_whitelist
+  def extension_allowlist
     EXTENSION_ALLOW_LIST
   end
 
@@ -234,7 +234,7 @@ class AttachmentUploader < WhitehallUploader
       ZipFile::AnyValidExaminer.new(
         zip_file,
         [
-          ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - %w[zip]),
+          ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_allowlist - %w[zip]),
           ZipFile::ArcGISShapefileExaminer.new(zip_file),
         ],
       ),

@@ -17,7 +17,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should only allow JPG, GIF, PNG or SVG images" do
     uploader = ImageUploader.new
-    assert_equal %w[jpg jpeg gif png svg], uploader.extension_whitelist
+    assert_equal %w[jpg jpeg gif png svg], uploader.extension_allowlist
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
