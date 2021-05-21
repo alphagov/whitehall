@@ -1,6 +1,9 @@
 # whitehall
 
-whitehall is a Ruby on Rails content management application for content published by government departments and agencies.
+Whitehall is deployed in two modes:
+
+- 'admin' for publishers to create and manage content; and
+- 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world.
 
 ## Running the Application
 
@@ -26,7 +29,11 @@ Some pages will need data locally to display, whitehall uses mySQL. You'll need 
 
 ## Technical documentation
 
-whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in two modes: 'admin' for publishers to create and manage content and 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world. whitehall also sends most content to the publishing-api and rummager.
+This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
+
+You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
+
+**Use GOV.UK Docker to run any commands that follow.**
 
 ## Dependencies
 
