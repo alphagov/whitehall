@@ -4,7 +4,7 @@ whitehall is a Ruby on Rails content management application for content publishe
 
 ## Running the Application
 
-Startup [using govuk-docker](https://github.com/alphagov/govuk-docker). 
+Startup [using govuk-docker](https://github.com/alphagov/govuk-docker).
 
 There are two different views within this App, a *Publishing view* and a *Site view*. Once running, whitehall does not have an index, some suggested starting pages are below:
 
@@ -45,13 +45,6 @@ yarn install
 [Bundler]: https://classic.yarnpkg.com/en/docs/install/
 [npm]: https://www.npmjs.com/
 [Yarn]: https://classic.yarnpkg.com/en/docs/install/
-
-### Dependent GOV.UK apps
-
-- [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files
-- [alphagov/publishing-api](http://github.com/alphagov/publishing-api): documents are sent here, persisted and then requested
-- [alphagov/search-api](http://github.com/alphagov/search-api): allows documents to be indexed for searching in both finders and site search
-- [alphagov/link-checker-api](https://github.com/alphagov/link-checker-api): checks all the links in an edition on request from the edition show page.
 
 ## Other documentation
 
