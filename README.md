@@ -27,24 +27,6 @@ Traditionally, the two sides of Whitehall are available on different domains in 
 
 While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L25-L28).
 
-## Dependencies
-
-### Local development dependencies
-
-This application uses Ruby dependencies installed via [Bundler][] and [npm
-dependencies][npm] installed via [Yarn][].
-
-These can be installed with:
-
-```
-bundle install
-yarn install
-```
-
-[Bundler]: https://classic.yarnpkg.com/en/docs/install/
-[npm]: https://www.npmjs.com/
-[Yarn]: https://classic.yarnpkg.com/en/docs/install/
-
 ## Other documentation
 
 - [Contributing guide](CONTRIBUTING.md)
