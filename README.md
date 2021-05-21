@@ -5,24 +5,6 @@ Whitehall is deployed in two modes:
 - 'admin' for publishers to create and manage content; and
 - 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world.
 
-## Running the Application
-
-Startup [using govuk-docker](https://github.com/alphagov/govuk-docker).
-
-There are two different views within this App, a *Publishing view* and a *Site view*. Once running, whitehall does not have an index, some suggested starting pages are below:
-
-Publishing view:
-- <http://whitehall-admin.dev.gov.uk/government/admin/news/new>
-
-Site view:
-- <http://whitehall-frontend.dev.gov.uk/government/get-involved>
-
-Some pages will need data locally to display, whitehall uses mySQL. You'll need to gain relevant permissions to access data from AWS
-
-- [Get setup with AWS access](https://docs.publishing.service.gov.uk/manual/get-started.html)
-
-- Once completed [a guide to install local data on whitehall can be found here](https://github.com/alphagov/govuk-docker/blob/master/docs/how-tos.md#how-to-replicate-data-locally)
-
 ## Nomenclature
 
 - *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) used throughout whitehall as the general publishing format
@@ -34,6 +16,16 @@ This is a Ruby on Rails app, and should follow [our Rails app conventions](https
 You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
 
 **Use GOV.UK Docker to run any commands that follow.**
+
+### Running the Application
+
+Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
+
+- admin side e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>
+
+- frontend side e.g. <http://whitehall-frontend.dev.gov.uk/government/get-involved>
+
+While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L25-L28).
 
 ## Dependencies
 
