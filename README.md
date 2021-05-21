@@ -41,14 +41,6 @@ See the [`docs/`](docs/) directory.
 - [Testing guide](docs/testing_guide.md)
 - [Timestamps](docs/timestamps.md)
 
-## Generating technical documentation
-
-We use [YARD](https://github.com/lsegal/yard) for the technical documentation. You can generate a local copy with:
-
-    yard server --reload
-
-You can also read the docs on [rdoc.info](http://rdoc.info/github/alphagov/whitehall/frames).
-
 ## Licence
 
 [MIT License](LICENCE)
