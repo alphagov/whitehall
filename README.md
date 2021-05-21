@@ -27,6 +27,42 @@ Traditionally, the two sides of Whitehall are available on different domains in 
 
 While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L25-L28).
 
+### Shared mustache templates
+
+The shared mustache templates must be compiled for JavaScript and functional tests to pass.
+
+```
+bundle exec rake shared_mustache:compile
+bundle exec rake shared_mustache:clean
+```
+
+Shared mustache templates are generated and stored in app/assets/javascripts/templates.js.
+
+In absence of this generated template, shared mustache inlines mustache templates in `<script>` blocks on the page, which enables developers to see changes to mustache without compiling. If this generated template is checked-in, shared mustache uses this file instead of inlining templates. Hence, we don't check-in this file.
+
+### Running the test suite
+
+```
+# run all the test suites
+bundle exec rake
+```
+
+Whitehall has [its own parallelisation mechanism to run unit tests in Ruby](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/lib/tasks/test_parallel.rake):
+
+```
+# run Ruby unit tests
+bundle exec rake test:in_parallel
+```
+
+Javascript unit tests can also be run separately:
+
+```
+# run all the JavaScript tests
+bundle exec rake test:javascript
+```
+
+To run or debug individual JavaScript tests, try viewing them in your browser. Start the app as you would normally, and then go to `/teaspoon/default`.
+
 ### Further documentation
 
 See the [`docs/`](docs/) directory.
@@ -38,7 +74,6 @@ See the [`docs/`](docs/) directory.
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
 - [Search setup guide](docs/search_setup_guide.md)
-- [Testing guide](docs/testing_guide.md)
 - [Timestamps](docs/timestamps.md)
 
 ## Licence
