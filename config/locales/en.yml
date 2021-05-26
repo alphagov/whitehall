@@ -504,6 +504,8 @@ en:
     transcript: See all our transcripts
     transparency: See all our transparency data
     written_statement: See all our written statements to Parliament
+  statements:
+    heading: Statements
   support:
     array:
       last_word_connector: " and "
