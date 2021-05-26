@@ -60,7 +60,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         political: false,
         related_mainstream_content: [],
         emphasised_organisations: detailed_guide.lead_organisations.map(&:content_id),
-        brexit_no_deal_notice: [],
         attachments: [],
       },
       links: {

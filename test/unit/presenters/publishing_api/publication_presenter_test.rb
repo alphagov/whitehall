@@ -47,7 +47,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         ],
         emphasised_organisations: publication.lead_organisations.map(&:content_id),
         political: false,
-        brexit_no_deal_notice: [],
         attachments: publication.attachments.map(&:publishing_api_details),
         featured_attachments: (publication.attachments.map { |a| a.publishing_api_details[:id] }),
       },
