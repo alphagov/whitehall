@@ -1,12 +1,22 @@
 <% page_title "History of #{@person.name}" %>
 <% page_class "historic-appointments historic-people-show" %>
-
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Home",
+      url: "/"
+    },    
+    {
+      title: "History of the UK Government",
+      url: "/government/history"
+    }
+  ]
+} %>
 <header class="block headings-block">
   <div class="govuk-width-container">
     <%= render "govuk_publishing_components/components/title", {
       context: {
         text: "History",
-        href: "/government/history",
       },
       title: "Past #{@role.name.pluralize}",
     } %>

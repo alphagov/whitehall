@@ -1,12 +1,22 @@
 <% page_title "Past Chancellors" %>
 <% page_class "historic-appointments historic-appointments-index historical-past-chancellors" %>
-
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: "Home",
+        url: "/"
+      },
+      {
+        title: "History of the UK Government",
+        url: "/government/history"
+      }
+    ]
+  } %>
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render "govuk_publishing_components/components/title", {
       context: {
         text: "History",
-        href: "/government/history",
       },
       title: "Past Chancellors of the Exchequer",
     } %>
