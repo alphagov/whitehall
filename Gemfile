@@ -78,6 +78,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "graphviz_transitions"
+  gem "i18n-tasks"
   gem "mechanize"
 end
 
