@@ -498,6 +498,8 @@ lv:
     transcript: Skatīt visas noraksti
     transparency: Skatīt visas atklātības dati
     written_statement: Skatīt visas rakstiski ziņojumi parlamentam
+  statements:
+    heading:
   support:
     array:
       last_word_connector: un

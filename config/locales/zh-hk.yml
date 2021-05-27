@@ -496,6 +496,8 @@ zh-hk:
     transcript: 查閱我們所有的其他談話副本
     transparency: 查閱我們所有的其他透明化數據
     written_statement: 查閱我們所有的提交國會的其他書面聲明
+  statements:
+    heading:
   support:
     array:
       last_word_connector: 和

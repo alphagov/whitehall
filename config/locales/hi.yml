@@ -500,6 +500,8 @@ hi:
     transcript: देखें हमारे सभी प्रतिलिपियां
     transparency: देखें हमारे सभी पारदर्शिता आंकड़े
     written_statement: देखें हमारे सभी संसद में लिखित बयान
+  statements:
+    heading:
   support:
     array:
       last_word_connector: और

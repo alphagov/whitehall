@@ -499,6 +499,8 @@ el:
     transcript: Δείτε τα Απομαγνητοφωνήσεις
     transparency: Δείτε τα Στοιχεία διαφάνειας
     written_statement: Δείτε τα Γραπτές δηλώσεις στη Βουλή
+  statements:
+    heading:
   support:
     array:
       last_word_connector: και

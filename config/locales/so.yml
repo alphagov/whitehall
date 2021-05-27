@@ -501,6 +501,8 @@ so:
     transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
     transparency: Fiiri dhammaan xog daahfurnaan yadeenna
     written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
+  statements:
+    heading:
   support:
     array:
       last_word_connector: iyo

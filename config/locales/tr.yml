@@ -497,6 +497,8 @@ tr:
     transcript: Tamamını görüntüle
     transparency: Tamamını görüntüle
     written_statement: Tamamını görüntüle
+  statements:
+    heading:
   support:
     array:
       last_word_connector: ve

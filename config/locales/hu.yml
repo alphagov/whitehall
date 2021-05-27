@@ -499,6 +499,8 @@ hu:
     transcript: " Átiratok - mindegyik megtekintése"
     transparency: " Átláthatósági adatok - mindegyik megtekintése"
     written_statement: " Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése"
+  statements:
+    heading:
   support:
     array:
       last_word_connector: és

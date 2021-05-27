@@ -499,6 +499,8 @@ it:
     transcript: Vedi tutte le nostre trascrizioni
     transparency: Vedi tutte le nostre dati sulla trasparenza
     written_statement: Vedi tutte le nostre dichiarazioni scritte al parlamento
+  statements:
+    heading:
   support:
     array:
       last_word_connector: e

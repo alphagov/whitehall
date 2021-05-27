@@ -505,6 +505,8 @@ bg:
     transcript: Вижте всички наши Преписи
     transparency: Вижте всички наши Информация за прозрачността
     written_statement: Вижте всички наши Писмени изявления до парламента
+  statements:
+    heading:
   support:
     array:
       last_word_connector: и

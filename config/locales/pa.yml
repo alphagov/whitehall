@@ -504,6 +504,8 @@ pa:
     transcript: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਪ੍ਰਤਿਲਿਪੀਆਂ ਦੇਖੋ
     transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ ਦੇਖੋ
     written_statement: ਸਾਡੇ ਸਾਰੇ ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦੇਖੋ
+  statements:
+    heading:
   support:
     array:
       last_word_connector: ਅਤੇ

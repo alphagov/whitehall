@@ -500,6 +500,8 @@ sq:
     transcript: Shiko te gjitha transkripte
     transparency: Shiko te gjitha te dhena per transparencen
     written_statement: Shiko te gjitha deklarata me shkrim per parlamentin
+  statements:
+    heading:
   support:
     array:
       last_word_connector: dhe

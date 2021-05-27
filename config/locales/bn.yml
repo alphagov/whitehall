@@ -505,6 +505,8 @@ bn:
     transcript: আমাদের সকল প্রতিলিপিসমূহ দেখুন
     transparency: আমাদের সকল স্বচ্ছতামূলক ডেটা দেখুন
     written_statement: সংসদে আমাদের সকল লিখিত বিবৃতিসমূহ দেখুন
+  statements:
+    heading:
   support:
     array:
       last_word_connector: এবং

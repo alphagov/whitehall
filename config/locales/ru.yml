@@ -642,6 +642,8 @@ ru:
     transcript: Посмотреть все наши Тексты
     transparency: Посмотреть все наши Прозрачность данных
     written_statement: Посмотреть все наши Письменные заявления парламенту
+  statements:
+    heading:
   support:
     array:
       last_word_connector: и

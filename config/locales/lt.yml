@@ -571,6 +571,8 @@ lt:
     transcript: Pažiūrėkite  mūsų kalbų tekstai
     transparency: Pažiūrėkite  mūsų skaidrumo informacija
     written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
+  statements:
+    heading:
   support:
     array:
       last_word_connector: ir

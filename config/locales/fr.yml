@@ -500,6 +500,8 @@ fr:
     transcript: Voir toutes nos transcriptions
     transparency: Voir toutes nos transparence des données
     written_statement: Voir toutes nos communiqués
+  statements:
+    heading:
   support:
     array:
       last_word_connector: et

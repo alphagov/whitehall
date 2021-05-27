@@ -498,6 +498,8 @@ ps:
     transcript: ټول وګوری لیکنې
     transparency: ټول وګوری د روڼوالي اطلاعات
     written_statement: ټول وګوری پارلمان ته لیکلې اعلامیې
+  statements:
+    heading:
   support:
     array:
       last_word_connector: او

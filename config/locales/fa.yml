@@ -431,6 +431,8 @@ fa:
     transcript: تمامی رونوشت ها ما را مشاهده کنید
     transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
     written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
+  statements:
+    heading:
   support:
     array:
       last_word_connector: و

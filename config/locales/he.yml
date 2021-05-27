@@ -499,6 +499,8 @@ he:
     transcript: ראה כל תמלולים
     transparency: ראה כל שקיפות מידע
     written_statement: ראה כל הצהרות בכתב לפרלמנט
+  statements:
+    heading:
   support:
     array:
       last_word_connector: בנוסף

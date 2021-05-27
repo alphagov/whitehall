@@ -499,6 +499,8 @@ uz:
     transcript: Bizning butun matnlar ko'ring
     transparency: Bizning butun ochiqlikka oid ma'lumotlar ko'ring
     written_statement: Bizning butun parlament uchun yozma hisobotlar ko'ring
+  statements:
+    heading:
   support:
     array:
       last_word_connector: va

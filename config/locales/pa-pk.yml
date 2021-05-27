@@ -504,6 +504,8 @@ pa-pk:
     transcript: ساڈے ساریاں نقلاں ویکھو
     transparency: ساڈا سارا شفافیت دا مواد ویکھو
     written_statement: ساڈی ساریاں پارلیمنٹ نوں دتے لکھے بیان ویکھو
+  statements:
+    heading:
   support:
     array:
       last_word_connector: تے

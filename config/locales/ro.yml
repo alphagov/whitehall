@@ -574,6 +574,8 @@ ro:
     transcript: Toate transcrieri
     transparency:
     written_statement: 'Toate declarații scrise către parlament '
+  statements:
+    heading:
   support:
     array:
       last_word_connector: și

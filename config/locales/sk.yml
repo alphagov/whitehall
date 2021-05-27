@@ -568,6 +568,8 @@ sk:
     transcript:
     transparency:
     written_statement:
+  statements:
+    heading:
   support:
     array:
       last_word_connector:

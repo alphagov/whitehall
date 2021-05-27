@@ -643,6 +643,8 @@ uk:
     transcript: Дивіться всі наші Транскрипти
     transparency: Дивіться всі наші Прозорість інформації
     written_statement: Дивіться всі наші Письмові заяви у парламенті
+  statements:
+    heading:
   support:
     array:
       last_word_connector: та
