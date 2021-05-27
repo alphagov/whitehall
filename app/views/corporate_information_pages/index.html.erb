@@ -9,7 +9,7 @@
 
         <div class="contextual-info">
           <nav>
-            <h1>Contents</h1>
+            <h1><%= t("document.contents") %></h1>
             <ol>
               <% if has_any_transparency_pages?(@organisation) %>
                 <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info" %></li>
