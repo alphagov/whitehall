@@ -350,12 +350,25 @@ es:
         other: Declaraciones escritas
     updated: Actualizado
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Puedes utilizar los filtros para ver sólo los resultados que te interesen
     no_results:
       description: Haz una búsqueda más amplio e intentalo de nuevo
       title: No se ha producido ningún resultado
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo

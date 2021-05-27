@@ -350,12 +350,25 @@ lv:
         other: Rakstiski ziņojumi parlamentam
     updated: atjaunināts
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp;
     no_results:
       description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
       title: Neviens dokuments neatbilst pieprasījumam.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Visas vietas
       label: Pasaules vietas

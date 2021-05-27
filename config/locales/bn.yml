@@ -354,6 +354,11 @@ bn:
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: আপডেটকৃত
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
       আপনি ফিল্টার ব্যবহার করতে পারেন
     no_results:
@@ -363,6 +368,14 @@ bn:
       tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর
         করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ

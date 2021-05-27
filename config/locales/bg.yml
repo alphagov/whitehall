@@ -356,6 +356,11 @@ bg:
         other: Писмени изявления до парламента
     updated: обновено
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Можете да използвате филтрите, за да видите резултатите, които пасват
       на вашето търсене
     no_results:
@@ -363,6 +368,14 @@ bg:
       title: Няма намерени документи
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Всички места
       label: Световни места

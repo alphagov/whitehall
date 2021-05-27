@@ -351,12 +351,25 @@ he:
         other:
     updated: מעודכן
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
       description: נסי/ה להרחיב את החיפוש וחפש/י שוב
       title: אין מסמכים תואמים
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים

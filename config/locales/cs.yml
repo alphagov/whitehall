@@ -424,12 +424,25 @@ cs:
         other: Písemná prohlášení do parlamentu
     updated: Aktualizováno
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
       description: Prosím upravte vámi hledaný pojem a zkuste to znovu.
       title: Systém nemůže nalézt Vámi požadované heslo.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Všude
       label: Světové lokace

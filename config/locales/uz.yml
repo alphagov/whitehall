@@ -350,6 +350,11 @@ uz:
         other: Parlament uchun yozma hisobotlar
     updated: yangilandi
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
       qullaning
     no_results:
@@ -357,6 +362,14 @@ uz:
       title: Mos hujjatlar yoq.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar

@@ -348,12 +348,25 @@ fi:
         other:
     updated:
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description:
     no_results:
       description:
       title:
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all:
       label:

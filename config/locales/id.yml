@@ -282,6 +282,11 @@ id:
         other: Pernyataan-pernyatan tertulis kepada parlemen
     updated: Terkini
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Silahkan gunakan bantuan filter untuk menunjukkan hasil yang hanya
       sesuai dengan keinginan Anda
     no_results:
@@ -289,6 +294,14 @@ id:
       title: Dokumen tidak ditemukan
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia

@@ -351,6 +351,11 @@ sq:
         other: Deklarata me shkrim per Parlamentin
     updated: rifreskuar
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
       qe perputhen me interesin tuaj&nbsp;
     no_results:
@@ -358,6 +363,14 @@ sq:
       title: Nuk gjendet cfare kerkoni
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Te gjitha vendndodhjet
       label: Vendndodhje boterore

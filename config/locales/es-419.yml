@@ -351,6 +351,11 @@ es-419:
         other: Declaraciones escritas al Parlamento
     updated: actualizado
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Puede utilizar los filtros para mostrar&nbsp;sólo resultados que
       coincidan con sus&nbsp;intereses
     no_results:
@@ -358,6 +363,14 @@ es-419:
       title: No hay documentos que coincidan con su búsqueda
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Todas las ubicaciones
       label: Ubicaciones globales

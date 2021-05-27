@@ -351,6 +351,11 @@ hi:
         other: संसद में लिखित बयान
     updated: अद्यतन
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
       जिनमें आप की दिलचस्पी हो।
     no_results:
@@ -358,6 +363,14 @@ hi:
       title: मेल खाने वाले दस्तावेज़ नहीं हैं
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान

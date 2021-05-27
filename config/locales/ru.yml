@@ -493,6 +493,11 @@ ru:
         other: Письменные заявления парламенту
     updated: обновлено
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры
     no_results:
@@ -500,6 +505,14 @@ ru:
       title: Соответствующих документов не найдено
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Все места нахождения
       label: Места нахождения

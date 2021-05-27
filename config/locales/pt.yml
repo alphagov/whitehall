@@ -350,6 +350,11 @@ pt:
         other: Declarações escritas ao Parlamento
     updated: Atualizado
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
       &nbsp; interessam
     no_results:
@@ -357,6 +362,14 @@ pt:
       title: Nenhum documento encontrado
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Todos os locais
       label: Locais no Mundo

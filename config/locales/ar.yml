@@ -638,6 +638,11 @@ ar:
         zero:
     updated: تحديث
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
       اهتماماتك
     no_results:
@@ -645,6 +650,14 @@ ar:
       title: ليس هناك وثائق تطابق البحث
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: كافة المواقع
       label: مواقع في العالم

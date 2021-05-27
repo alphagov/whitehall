@@ -282,6 +282,11 @@ vi:
         other: Các Tuyên bố bằng văn bản tới quốc hội
     updated: Cập nhật
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn
       quan tâm
     no_results:
@@ -289,6 +294,14 @@ vi:
       title: Không có tài liệu phù hợp
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới

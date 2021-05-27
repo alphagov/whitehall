@@ -351,12 +351,25 @@ el:
         other: Γραπτές δηλώσεις στη Βουλή
     updated: 'ανανεωμένο '
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Χρησιμοποιήστε τα φίλτρα για εξειδίκευση αποτελεσμάτων
     no_results:
       description: Διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά
       title: Δεν υπάρχουν αποτελέσματα
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες

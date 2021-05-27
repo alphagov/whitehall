@@ -422,6 +422,11 @@ lt:
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
       rezultatai
     no_results:
@@ -429,6 +434,14 @@ lt:
       title: Dokumentų  nerasta
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje

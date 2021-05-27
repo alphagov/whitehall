@@ -350,6 +350,11 @@ hu:
         other: Írásbeli parlamenti nyilatkozatok
     updated: 'Utolsó frissítés:'
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények
       keresésében
     no_results:
@@ -357,6 +362,14 @@ hu:
       title: Nincs a keresésnek megfelelő dokumentum.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Minden ország
       label: Országok
