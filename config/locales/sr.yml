@@ -666,6 +666,16 @@ sr:
   time:
     formats:
       long_ordinal:
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: naše objave

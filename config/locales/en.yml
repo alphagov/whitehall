@@ -528,6 +528,16 @@ en:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
+  topical_event:
+    lead_organisations:
+      arts_council_england: Arts Council England
+      bbc: BBC
+      british_library: British Library
+      commonwealth_war_graves_commission: Commonwealth War Graves Commission
+      heritage_lottery_fund: Heritage Lottery Fund
+      historic_england: Historic England
+      iwm: Imperial War Museum
+      war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: Our announcements
