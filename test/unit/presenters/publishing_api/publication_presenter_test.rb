@@ -13,7 +13,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       title: "Publication title",
       summary: "The summary",
       body: "Some content",
-      show_brexit_no_deal_content_notice: true,
       statistical_data_sets: [statistical_data_set],
     )
 
