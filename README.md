@@ -1,24 +1,9 @@
 # whitehall
 
-whitehall is a Ruby on Rails content management application for content published by government departments and agencies.
+Whitehall is deployed in two modes:
 
-## Running the Application
-
-Startup [using govuk-docker](https://github.com/alphagov/govuk-docker). 
-
-There are two different views within this App, a *Publishing view* and a *Site view*. Once running, whitehall does not have an index, some suggested starting pages are below:
-
-Publishing view:
-- <http://whitehall-admin.dev.gov.uk/government/admin/news/new>
-
-Site view:
-- <http://whitehall-frontend.dev.gov.uk/government/get-involved>
-
-Some pages will need data locally to display, whitehall uses mySQL. You'll need to gain relevant permissions to access data from AWS
-
-- [Get setup with AWS access](https://docs.publishing.service.gov.uk/manual/get-started.html)
-
-- Once completed [a guide to install local data on whitehall can be found here](https://github.com/alphagov/govuk-docker/blob/master/docs/how-tos.md#how-to-replicate-data-locally)
+- 'admin' for publishers to create and manage content; and
+- 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world.
 
 ## Nomenclature
 
@@ -26,34 +11,61 @@ Some pages will need data locally to display, whitehall uses mySQL. You'll need 
 
 ## Technical documentation
 
-whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in two modes: 'admin' for publishers to create and manage content and 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world. whitehall also sends most content to the publishing-api and rummager.
+This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
 
-## Dependencies
+You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
 
-### Local development dependencies
+**Use GOV.UK Docker to run any commands that follow.**
 
-This application uses Ruby dependencies installed via [Bundler][] and [npm
-dependencies][npm] installed via [Yarn][].
+### Running the Application
 
-These can be installed with:
+Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
+
+- admin side e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>
+
+- frontend side e.g. <http://whitehall-frontend.dev.gov.uk/government/get-involved>
+
+While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L25-L28).
+
+### Shared mustache templates
+
+The shared mustache templates must be compiled for JavaScript and functional tests to pass.
 
 ```
-bundle install
-yarn install
+bundle exec rake shared_mustache:compile
+bundle exec rake shared_mustache:clean
 ```
 
-[Bundler]: https://classic.yarnpkg.com/en/docs/install/
-[npm]: https://www.npmjs.com/
-[Yarn]: https://classic.yarnpkg.com/en/docs/install/
+Shared mustache templates are generated and stored in app/assets/javascripts/templates.js.
 
-### Dependent GOV.UK apps
+In absence of this generated template, shared mustache inlines mustache templates in `<script>` blocks on the page, which enables developers to see changes to mustache without compiling. If this generated template is checked-in, shared mustache uses this file instead of inlining templates. Hence, we don't check-in this file.
 
-- [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files
-- [alphagov/publishing-api](http://github.com/alphagov/publishing-api): documents are sent here, persisted and then requested
-- [alphagov/search-api](http://github.com/alphagov/search-api): allows documents to be indexed for searching in both finders and site search
-- [alphagov/link-checker-api](https://github.com/alphagov/link-checker-api): checks all the links in an edition on request from the edition show page.
+### Running the test suite
 
-## Other documentation
+```
+# run all the test suites
+bundle exec rake
+```
+
+Whitehall has [its own parallelisation mechanism to run unit tests in Ruby](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/lib/tasks/test_parallel.rake):
+
+```
+# run Ruby unit tests
+bundle exec rake test:in_parallel
+```
+
+Javascript unit tests can also be run separately:
+
+```
+# run all the JavaScript tests
+bundle exec rake test:javascript
+```
+
+To run or debug individual JavaScript tests, try viewing them in your browser. Start the app as you would normally, and then go to `/teaspoon/default`.
+
+### Further documentation
+
+See the [`docs/`](docs/) directory.
 
 - [Contributing guide](CONTRIBUTING.md)
 - [CSS](docs/css.md)
@@ -62,16 +74,7 @@ yarn install
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
 - [Search setup guide](docs/search_setup_guide.md)
-- [Testing guide](docs/testing_guide.md)
 - [Timestamps](docs/timestamps.md)
-
-## Generating technical documentation
-
-We use [YARD](https://github.com/lsegal/yard) for the technical documentation. You can generate a local copy with:
-
-    yard server --reload
-
-You can also read the docs on [rdoc.info](http://rdoc.info/github/alphagov/whitehall/frames).
 
 ## Licence
 
