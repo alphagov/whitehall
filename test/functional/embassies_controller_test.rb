@@ -31,12 +31,12 @@ class EmbassiesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select "ol[class='locations'] h2", "Afghanistan"
-    assert_select "ol[class='locations'] h2", "Aruba"
-    assert_select "ol[class='locations'] h2", "Sealand"
-    assert_select "ol[class='locations'] ul a", /The British Embassy Kabul/
-    assert_select "ol[class='locations'] li p", /British nationals should contact the British Consulate General Amsterdam in Netherlands/
-    assert_select "ol[class='locations'] li p", /British nationals should contact the local authorities/
+    assert_select "ol.govuk-list h2", "Afghanistan"
+    assert_select "ol.govuk-list h2", "Aruba"
+    assert_select "ol.govuk-list h2", "Sealand"
+    assert_select "ol.govuk-list ul a", /The British Embassy Kabul/
+    assert_select "ol.govuk-list li p", /British nationals should contact the British Consulate General Amsterdam in Netherlands/
+    assert_select "ol.govuk-list li p", /British nationals should contact the local authorities/
   end
 
   view_test "UK doesn't appear in the page" do
@@ -44,7 +44,7 @@ class EmbassiesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select "ol[class='locations'] h2", false, "This page shouldn't contain any embassies."
+    assert_select "ol.govuk-list h2", false, "This page shouldn't contain any embassies."
   end
 
   view_test "some countries have different remote consular services" do
@@ -57,9 +57,9 @@ class EmbassiesControllerTest < ActionController::TestCase
 
       get :index
 
-      assert_select "ol[class='locations'] h2", name
-      assert_select "ol[class='locations'] li p", /British nationals should contact the #{building} in #{building_location}/
-      assert_select "ol[class='locations'] li a", building
+      assert_select "ol.govuk-list h2", name
+      assert_select "ol.govuk-list li p", /British nationals should contact the #{building} in #{building_location}/
+      assert_select "ol.govuk-list li a", building
     end
   end
 end
