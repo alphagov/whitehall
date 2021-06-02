@@ -142,15 +142,13 @@ module Admin::TaggableContentHelper
   # role appointments. This will change if any role appointments are added or
   # changed, and also if an occupied MinisterialRole is updated.
   def taggable_ministerial_role_appointments_cache_digest
-    @taggable_ministerial_role_appointments_cache_digest ||= begin
-      calculate_digest(
-        RoleAppointment
-                                .joins(:role)
-                                .where(roles: { type: "MinisterialRole" })
-                                .order("role_appointments.started_at"),
-        "ministerial-role-appointments",
-      )
-    end
+    @taggable_ministerial_role_appointments_cache_digest ||= calculate_digest(
+      RoleAppointment
+                              .joins(:role)
+                              .where(roles: { type: "MinisterialRole" })
+                              .order("role_appointments.started_at"),
+      "ministerial-role-appointments",
+    )
   end
 
   # Returns an MD5 digest representing the current set of taggable ministerial
