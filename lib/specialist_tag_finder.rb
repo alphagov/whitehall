@@ -44,9 +44,7 @@ class SpecialistTagFinder
 private
 
   def edition_content_item
-    @edition_content_item ||= begin
-      Whitehall.content_store.content_item(@edition_path)
-    end
+    @edition_content_item ||= Whitehall.content_store.content_item(@edition_path)
   rescue GdsApi::HTTPNotFound
     nil
   end

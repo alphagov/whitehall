@@ -129,7 +129,7 @@ class PublicFacingControllerTest < ActionController::TestCase
 
   test "returns an appropriate response for unrecognised/invalid request formats" do
     with_routing_for_test_controller do
-      get :test, format: 'atom\\'
+      get :test, format: "atom\\"
       assert_response :not_acceptable
     end
   end
