@@ -718,7 +718,7 @@ DEPENDENCIES
   record_tag_helper
   responders
   rinku
-  rubocop-govuk (= 4.0.0)
+  rubocop-govuk
   ruby-progressbar
   rubyzip
   sass
