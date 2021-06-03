@@ -47,7 +47,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
   end
 
-  test "alternative_url must not be external (must be in the form of https://www.gov.uk/example)" do
+  test "alternative_url must be internal (www.gov.uk) or present on the allowed list" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
     assert_not unpublishing.valid?
 
@@ -59,6 +59,12 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://etl.beis.gov.uk/manufacturers")
     assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://justice.gov.uk/jelly-justice")
+    assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://some.random.site.uk/jelly-justice")
+    assert_not unpublishing.valid?
   end
 
   test "alternative_url is stripped before validate" do
