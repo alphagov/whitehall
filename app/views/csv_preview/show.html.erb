@@ -61,7 +61,7 @@
         </div>
         <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
       <% else %>
-        <p class="govuk-body">This file could not be previewed. <%= link_to "Download it to view its full contents.", @attachment.url(preview: params[:preview]), class: "govuk-link" %></p>
+        <p class="govuk-body"> <%= t("attachment.csv.cannot_preview")%> <%= link_to t("attachment.csv.download"), @attachment.url(preview: params[:preview]), class: "govuk-link" %></p>
       <% end %>
     </div>
   </div>

@@ -42,6 +42,10 @@ en:
   announcements:
     heading: Announcements
   attachment:
+    csv:
+      truncated_message:  This preview only shows the first %{rows} rows and %{columns} columns.
+      download: Download the file to view its full contents.
+      cannot_preview: This file could not be previewed.
     accessibility:
       full_help_html: |
         If you use assistive technology (such as a screen reader) and need a
