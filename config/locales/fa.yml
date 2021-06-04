@@ -43,7 +43,9 @@ fa:
     heading: اطلاعیه ها
   attachment:
     accessibility:
-      full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
+      full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
+        و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه
+        شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
       intro: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
       request_a_different_format: ساختار متفاوتی درخواست کنید
     headings:
@@ -267,7 +269,8 @@ fa:
         other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
   document_filters:
-    description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود محدود کنید
+    description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
+      محدود کنید
     no_results:
       description: جستجوی خود را گسترده تر و مجددا تلاش کنید
       title: اسناد منطبق وجود ندارد
@@ -437,8 +440,10 @@ fa:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما را توضیح می دهد"
-      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر می کنیم بخوانید '
+      personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما
+        را توضیح می دهد"
+      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
+        می کنیم بخوانید '
       social_media_use_html: سیاست ما را درباره  %{link} بخوانید
       welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
     find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس

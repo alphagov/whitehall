@@ -43,10 +43,14 @@ ro:
     heading: Știri
   attachment:
     accessibility:
-      full_help_html: 'Pentru a solicita acest document într-un format alternativ (braille, audio, etc.) vă rugăm să transmiteți o solicitare pe email către %{email}, specificând adresa de corespondență, numărul dumneavoastră  de telefon, precum și titlul publicației ("%{title}")%{references}.
+      full_help_html: 'Pentru a solicita acest document într-un format alternativ
+        (braille, audio, etc.) vă rugăm să transmiteți o solicitare pe email către
+        %{email}, specificând adresa de corespondență, numărul dumneavoastră  de telefon,
+        precum și titlul publicației ("%{title}")%{references}.
 
-'
-      intro: Este posibil ca acest fișier să nu fie adecvat utilizatorilor de  tehnologii de asistare
+        '
+      intro: Este posibil ca acest fișier să nu fie adecvat utilizatorilor de  tehnologii
+        de asistare
       request_a_different_format: 'Solicită un format diferit '
     headings:
       order_a_copy: Comandă o copie
@@ -587,10 +591,13 @@ ro:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Mai multe despre cum folosim informațiile cu caracter personal pe %{link}
-      publication_scheme_html: Citește mai multe despre informațiile pe care le publigăm în mod regulat pe  %{link}.
+      personal_information_charter_html: Mai multe despre cum folosim informațiile
+        cu caracter personal pe %{link}
+      publication_scheme_html: Citește mai multe despre informațiile pe care le publigăm
+        în mod regulat pe  %{link}.
       social_media_use_html: 'Citește mai multe despre strategia noastră pe '
-      welsh_language_scheme_html: Află mai multe despre angajamentul nostru față de accesul la informații publice pe %{link}.
+      welsh_language_scheme_html: Află mai multe despre angajamentul nostru față de
+        accesul la informații publice pe %{link}.
     find_out_more: Află mai multe
     headings:
       contact_us: Contactează-ne

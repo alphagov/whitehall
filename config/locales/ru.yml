@@ -44,7 +44,8 @@ ru:
   attachment:
     accessibility:
       full_help_html: Получить данный документ в ином формате (шрифт Брайля, аудиоформат)
-      intro: Данный документ может быть не доступен лицам, использующим вспомогательные технологии
+      intro: Данный документ может быть не доступен лицам, использующим вспомогательные
+        технологии
       request_a_different_format: Получить в другом формате
     headings:
       order_a_copy: Заказать копию
@@ -483,7 +484,8 @@ ru:
         other: Письменные заявления парламенту
     updated: обновлено
   document_filters:
-    description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте фильтры
+    description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
+      фильтры
     no_results:
       description: Расширьте параметры поиска и попытайтесь еще раз
       title: Соответствующих документов не найдено
@@ -659,10 +661,13 @@ ru:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся с вашей личной информацией
-      publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по указанной %{link}.
+      personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся
+        с вашей личной информацией
+      publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по
+        указанной %{link}.
       social_media_use_html: Ознакомиться с нашей политикой по %{link}.
-      welsh_language_scheme_html: Выяснить о наших обязательствах по публикации можно по %{link}.
+      welsh_language_scheme_html: Выяснить о наших обязательствах по публикации можно
+        по %{link}.
     find_out_more: Общая информация и контакты
     headings:
       contact_us: Связь с нами

@@ -43,7 +43,9 @@ hu:
     heading: Közlemények
   attachment:
     accessibility:
-      full_help_html: 'Ha ezt a dokumentumot más formátumban szeretné igényelni (braille, audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg címét, telefonszámát és az igényelt dokumentum címét: ("%{title}")%{references}.'
+      full_help_html: 'Ha ezt a dokumentumot más formátumban szeretné igényelni (braille,
+        audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg címét, telefonszámát
+        és az igényelt dokumentum címét: ("%{title}")%{references}.'
       intro: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások számára.
       request_a_different_format: Más formátum igénylése.
     headings:
@@ -339,7 +341,8 @@ hu:
         other: Írásbeli parlamenti nyilatkozatok
     updated: 'Utolsó frissítés:'
   document_filters:
-    description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények keresésében
+    description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények
+      keresésében
     no_results:
       description: Próbálja meg kibővíteni a keresési feltételeket!
       title: Nincs a keresésnek megfelelő dokumentum.
@@ -511,10 +514,13 @@ hu:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: 'A következő oldalon olvashat róla, hogy hogyan kezeljük a személyes adatokat: %{link}'
-      publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk közzé: %{link}'
+      personal_information_charter_html: 'A következő oldalon olvashat róla, hogy
+        hogyan kezeljük a személyes adatokat: %{link}'
+      publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk
+        közzé: %{link}'
       social_media_use_html: 'Bővebb információk az alábbi témával kapcsolatban: %{link}'
-      welsh_language_scheme_html: 'Tájékozódjon az információk közzétételével kapcsolatos elkötelezettségünkről: %{link}'
+      welsh_language_scheme_html: 'Tájékozódjon az információk közzétételével kapcsolatos
+        elkötelezettségünkről: %{link}'
     find_out_more: A teljes profil és elérhetőség megtekintése
     headings:
       contact_us: Kapcsolat

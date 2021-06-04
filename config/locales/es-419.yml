@@ -43,7 +43,10 @@ es-419:
     heading: Novedades
   attachment:
     accessibility:
-      full_help_html: Para solicitar este documento en un formato alternativo tal como braille, audio u otro tipo de archivo, por favor envíe un correo electrónico %{email} incluyendo su dirección, número de teléfono junto con el título de la publicación ("%{title}")%{references}.
+      full_help_html: Para solicitar este documento en un formato alternativo tal
+        como braille, audio u otro tipo de archivo, por favor envíe un correo electrónico
+        %{email} incluyendo su dirección, número de teléfono junto con el título de
+        la publicación ("%{title}")%{references}.
       intro: Este archivo puede no ser apto para usuarios de tecnología asistida
       request_a_different_format: Solicitar un formato diferente
     headings:
@@ -339,7 +342,8 @@ es-419:
         other: Declaraciones escritas al Parlamento
     updated: actualizado
   document_filters:
-    description: Puede utilizar los filtros para mostrar&nbsp;sólo resultados que coincidan con sus&nbsp;intereses
+    description: Puede utilizar los filtros para mostrar&nbsp;sólo resultados que
+      coincidan con sus&nbsp;intereses
     no_results:
       description: Pruebe ampliando su búsqueda y vuelva a intentarlo
       title: No hay documentos que coincidan con su búsqueda
@@ -511,10 +515,13 @@ es-419:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Nuestro %{link} explica cómo manejamos su información personal
-      publication_scheme_html: Lea sobre los tipos de información que usualmente publicamos en nuestro %{link}
+      personal_information_charter_html: Nuestro %{link} explica cómo manejamos su
+        información personal
+      publication_scheme_html: Lea sobre los tipos de información que usualmente publicamos
+        en nuestro %{link}
       social_media_use_html: Lea nuestra política en %{link}
-      welsh_language_scheme_html: Descubra sobre nuestro compromiso de publicar en el %{link}
+      welsh_language_scheme_html: Descubra sobre nuestro compromiso de publicar en
+        el %{link}
     find_out_more: Vea el perfil completo y todos los datos de contacto
     headings:
       contact_us: Comuníquese con nosotros
