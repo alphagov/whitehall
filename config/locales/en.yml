@@ -150,6 +150,12 @@ en:
       blog_post:
         one: Blog post
         other: Blog posts
+      campaign:
+        one: Campaign
+        other: Campaigns
+      careers:
+        one: Careers
+        other: careers
       case_study:
         one: Case study
         other: Case studies
