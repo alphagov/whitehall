@@ -48,6 +48,10 @@ pt:
         %{email} com seu endereço, número de telefone e o nome da publicação ("%{title}")%{references}.
       intro: Este arquivo pode não ser apropriado para usuário de tecnologia assistiva
       request_a_different_format: Solicitar formato diferente
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Pedir uma cópia
       order_a_copy_full: Pedir uma cópia da publicação

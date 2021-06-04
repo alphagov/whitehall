@@ -48,6 +48,10 @@ tr:
          ile birlikte e-posta %{email} yoluyla ulaşın
       intro: Bu dosya yardımcı teknoloji kullananlar için uygun olmayabilir
       request_a_different_format: Dosyaya farklı formatta erişim için
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Bir kopyasını sipariş edin
       order_a_copy_full: Yayının bir kopyasını sipariş edin

@@ -48,6 +48,10 @@ uz:
         sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
       intro: Bu hujjat boshqa formatlarda mavjud emas.
       request_a_different_format: Boshqa formatdagi hujjatni so'rash.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Nusxa buyurtirish
       order_a_copy_full: Nashrning nusxasini buyurtirish

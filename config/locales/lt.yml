@@ -48,6 +48,10 @@ lt:
         bei leidinio pavadinimą ("%{title}")%{references}.
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Užsisakykite leidinį
       order_a_copy_full: Užsisakykite leidinį

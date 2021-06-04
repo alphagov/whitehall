@@ -47,6 +47,10 @@ th:
         กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
       intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
       request_a_different_format: ขอรูปแบบอื่น
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: สั่งสำเนาหนึ่งชุด
       order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด

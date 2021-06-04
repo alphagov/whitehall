@@ -49,6 +49,10 @@ he:
         המבוקש ("%{title}")%{references}.
       intro: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
       request_a_different_format: אנא בקש/י פורמט אחר
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: הזמן עותק
       order_a_copy_full: הזמן עותק של הפרסום

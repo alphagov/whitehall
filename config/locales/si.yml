@@ -48,6 +48,10 @@ si:
         ලේඛනයේ නම සමග  ("%{title}")%{references}.
       intro: විශේෂ තාක්ෂණික සහය භාවිතා කරන්නන්ට මෙම ලේඛනය සුදුසු නොවිය හැක
       request_a_different_format: වෙනත් වර්ගයකින් ඉල්ලීමට
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: පිටපතක් ඇනවුම් කිරීමට
       order_a_copy_full: ප්‍රකාශනයේ පිටපතක් ඇනවුම් කිරීමට

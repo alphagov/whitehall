@@ -48,6 +48,10 @@ es:
         su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
       intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
       request_a_different_format: Solicítelo en un formato diferente
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Pida una copia
       order_a_copy_full: Pida una copa de la publicación

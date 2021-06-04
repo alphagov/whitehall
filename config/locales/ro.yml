@@ -52,6 +52,10 @@ ro:
       intro: Este posibil ca acest fișier să nu fie adecvat utilizatorilor de  tehnologii
         de asistare
       request_a_different_format: 'Solicită un format diferit '
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Comandă o copie
       order_a_copy_full: 'Comandă o copie a publicației '

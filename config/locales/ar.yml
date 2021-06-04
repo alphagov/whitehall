@@ -48,6 +48,10 @@ ar:
         ورقم هاتفك إلى جانب عنوان الوثيقة المطلوبة ("{title}")%{references}
       intro: هذا المف قد لا يكون مناسبا لمستخدمي التكنولوجيا المساعدة على القراءة
       request_a_different_format: طلب الوثيقة بشكل آخر
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: طلب نسخة
       order_a_copy_full: طلب نسخة عن المطبوعة

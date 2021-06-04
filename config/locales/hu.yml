@@ -48,6 +48,10 @@ hu:
         és az igényelt dokumentum címét: ("%{title}")%{references}.'
       intro: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások számára.
       request_a_different_format: Más formátum igénylése.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Másolat kérése
       order_a_copy_full: A publikáció másolatának megrendelése

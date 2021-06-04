@@ -49,6 +49,10 @@ fr:
       intro: 'Le format de ce document peut ne pas convenir aux utilisateurs de technologies
         d''assistance '
       request_a_different_format: Demander un format de document différent
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Commander une copie
       order_a_copy_full: Commander une copie du document

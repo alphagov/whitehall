@@ -49,6 +49,10 @@ el:
         ("%{title}")%{references}.
       intro: Το αρχείο μπορεί να μην είναι συμβατό με προγράμματα υποστηρικτικής τεχνολογίας.
       request_a_different_format: Εναλλακτικός τύπος αρχείου
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Ζητήστε αντίτυπο
       order_a_copy_full: Ζητήστε αντιτυπο της έκδοσης

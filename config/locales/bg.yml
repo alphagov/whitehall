@@ -52,6 +52,10 @@ bg:
       request_a_different_format: 'Направете заявка за друг формат
 
         '
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Поръчайте копие
       order_a_copy_full: Поръчайте копия

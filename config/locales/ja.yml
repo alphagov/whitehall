@@ -47,6 +47,10 @@ ja:
         ("%{title}")%{references}.をお送り下さい。
       intro: このファイルは支援技術のユーザーには利用できない場合があります
       request_a_different_format: 異なるフォーマットを要求
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: コピーを注文
       order_a_copy_full: コピーを注文

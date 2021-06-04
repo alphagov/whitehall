@@ -49,6 +49,10 @@ et:
         abistavat tehnoloogiat kasutate. '
       intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
       request_a_different_format: Küsige teistsugust formaati
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Tellige koopia
       order_a_copy_full: Tellige publikatsiooni koopia

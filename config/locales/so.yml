@@ -50,6 +50,10 @@ so:
       intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
         la kaashado
       request_a_different_format: Codsi isaga oo qaab kale ah
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Dalbo nuqul
       order_a_copy_full: Dalbo nuqulka daabacaadda

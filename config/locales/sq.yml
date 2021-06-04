@@ -49,6 +49,10 @@ sq:
       intro: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
         ndihmuese.
       request_a_different_format: Kerko nje format ndryshe
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Porosit nje kopje
       order_a_copy_full: Porosit nje kopje te publikimit

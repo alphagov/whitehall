@@ -48,6 +48,10 @@ vi:
         cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{title}")%{references}.
       intro: 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
       request_a_different_format: Yêu cầu một định dạng khác
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Đặt một bản sao
       order_a_copy_full: Đặt một bản sao của ấn phẩm truyền thông

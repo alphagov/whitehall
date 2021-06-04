@@ -49,6 +49,10 @@ it:
       intro: Il presente file potrebbe non essere adatto agli utenti di tecnologie
         d'ausilio.
       request_a_different_format: Richiedi un formato diverso.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Ordina una copia
       order_a_copy_full: Ordina una copia della pubblicazione

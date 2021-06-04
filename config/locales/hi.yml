@@ -49,6 +49,10 @@ hi:
       intro: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए
         उपयोगी ना हो
       request_a_different_format: एक  अलग प्रारूप का निवेदन
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: प्रतिलिपि मंगाएँ
       order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ

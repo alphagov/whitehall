@@ -50,6 +50,10 @@ bn:
         আমাদেরকে জানান তবে উপকার হবে।\n"
       intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
       request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: একটি অনুলিপির অর্ডার করুন
       order_a_copy_full: প্রকাশনার একটি অনুলিপির অর্ডার করুন

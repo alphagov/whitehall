@@ -48,6 +48,10 @@ id:
         Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
       intro: File ini tidak sesuai dengan pengguna teknologi bantu.
       request_a_different_format: Meminta format lain.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Memesan salinan
       order_a_copy_full: Memesan salinan dokumen

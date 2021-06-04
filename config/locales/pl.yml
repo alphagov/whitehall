@@ -50,6 +50,10 @@ pl:
       intro: Ten plik może nie być odpowiedni dla osób korzystających z technologii
         asystujących.
       request_a_different_format: Poproś o inny format
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Zamów kopię
       order_a_copy_full: Zamów kopię publikacji

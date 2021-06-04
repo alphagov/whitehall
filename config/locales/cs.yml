@@ -50,6 +50,10 @@ cs:
       intro: Tento dokument nemusí být přístupný pro občany používající asistenční
         technologie
       request_a_different_format: Žádat o jiný formát dokumentu
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Objednat kopii
       order_a_copy_full: Objednat kopii této publikace

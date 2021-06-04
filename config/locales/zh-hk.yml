@@ -46,6 +46,10 @@ zh-hk:
       full_help_html: 尋求另一種檔案格式：點字或音檔
       intro: 此檔案不適合使用科技輔助的使用者
       request_a_different_format: 尋求別種格式
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: 訂閱副本
       order_a_copy_full: 訂閱報告副本

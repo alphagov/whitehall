@@ -49,6 +49,10 @@ es-419:
         la publicación ("%{title}")%{references}.
       intro: Este archivo puede no ser apto para usuarios de tecnología asistida
       request_a_different_format: Solicitar un formato diferente
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Solicitar una copia
       order_a_copy_full: Solicitar una copia de la publicación

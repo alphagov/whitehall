@@ -48,6 +48,10 @@ ur:
         نمبراور  %{title}"(%{references}") لکھئیے
       intro: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ ہو
       request_a_different_format: مختلف فارمیٹ طلب کیجئیے
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: کاپی منگائیے
       order_a_copy_full: اشاعت کی کاپی طلب کیجئیے

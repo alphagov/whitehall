@@ -49,6 +49,10 @@ sr:
         publikacije ("%{title}")%{references}.
       intro: Ovaj dokument nije predviđen za korisnike pomagala.
       request_a_different_format: Zatraži drugi format.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Naruči primerak
       order_a_copy_full: Naruči primerak publikacije

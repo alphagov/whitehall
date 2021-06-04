@@ -49,6 +49,10 @@ hy:
       intro: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ ունեցող
         օգտատերների համար
       request_a_different_format: Պահանջել այլ տարբերակ
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Պատվիրել կրկնօրինակը
       order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը

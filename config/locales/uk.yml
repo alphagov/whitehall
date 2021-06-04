@@ -48,6 +48,10 @@ uk:
         Вашу адресу, номер телефону та назву публікації ("%{title}")%{references}.
       intro: Цей файл може не бути прийнятним для користувачів допоміжних технологій.
       request_a_different_format: Запросити інший формат
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Замовити примірник
       order_a_copy_full: Замовити примірник публікації

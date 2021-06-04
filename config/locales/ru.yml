@@ -47,6 +47,10 @@ ru:
       intro: Данный документ может быть не доступен лицам, использующим вспомогательные
         технологии
       request_a_different_format: Получить в другом формате
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Заказать копию
       order_a_copy_full: Заказать копию публикации

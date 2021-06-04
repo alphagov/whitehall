@@ -47,6 +47,10 @@ ps:
         کړی %{email} لطفاْ خپل ادرس، تیلیفون نمبر او د سند نوم ایمیل کړی ("%{title}")%{references}
       intro: دا فایل کیدای شی جی د کومکی تیکنالوژی د استعمالوونکو لپاره مناسب نه وی
       request_a_different_format: د یو مختلف فارمت غوښتنه وکړی
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: د کاپی غوښتنه وکړی
       order_a_copy_full: د سند د کاپی غوښتنه وکړی

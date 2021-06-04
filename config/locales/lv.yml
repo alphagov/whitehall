@@ -48,6 +48,10 @@ lv:
         savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
       intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
       request_a_different_format: Pieprasīt citā formātā.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: 'Pasūtīt '
       order_a_copy_full: 'Pasūtīt publikāciju '

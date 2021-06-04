@@ -49,6 +49,10 @@ cy:
         Bydd o gymorth i ni os nodwch pa dechnoleg gynorthwyol yr ydych yn ei defnyddio.
       intro: Efallai na fydd y ffeil hon yn addas ar gyfer defnyddwyr technoleg gynorthwyol
       request_a_different_format: Gwneud cais am fformat gwahanol.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Archebu copi
       order_a_copy_full: Archebu copi o'r cyhoeddiad

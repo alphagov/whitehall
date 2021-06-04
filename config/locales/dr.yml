@@ -48,6 +48,10 @@ dr:
         %{email} کنید
       intro: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
       request_a_different_format: فارمت متفاوت را درخواست نمائید
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: نقل را درخواست نمائید
       order_a_copy_full: نقل نشریه را درخواست نمائید

@@ -48,6 +48,10 @@ fa:
         شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
       intro: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
       request_a_different_format: ساختار متفاوتی درخواست کنید
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: کپی سفارش دهید
       order_a_copy_full: کپی سفارش دهید
