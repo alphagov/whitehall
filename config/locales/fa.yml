@@ -305,6 +305,7 @@ fa:
     world_locations:
       all: تمام نقاط
       label: موقعیت های جهانی
+      no_locations_filter:
   feeds:
     email:
     feed:

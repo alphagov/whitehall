@@ -519,6 +519,7 @@ pl:
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
+      no_locations_filter:
   feeds:
     email:
     feed:

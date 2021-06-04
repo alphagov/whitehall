@@ -305,6 +305,7 @@ id:
     world_locations:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia
+      no_locations_filter:
   feeds:
     email:
     feed:

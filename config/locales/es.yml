@@ -372,6 +372,7 @@ es:
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo
+      no_locations_filter:
   feeds:
     email:
     feed:

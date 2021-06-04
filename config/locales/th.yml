@@ -303,6 +303,7 @@ th:
     world_locations:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
+      no_locations_filter:
   feeds:
     email:
     feed:

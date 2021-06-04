@@ -374,6 +374,7 @@ de:
     world_locations:
       all: Alle Standorte
       label: Standorte weltweit
+      no_locations_filter:
   feeds:
     email:
     feed:

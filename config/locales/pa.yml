@@ -378,6 +378,7 @@ pa:
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
+      no_locations_filter:
   feeds:
     email: ਈਮੇਲ
     feed: ਫੀਡ

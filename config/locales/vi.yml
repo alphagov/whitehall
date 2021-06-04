@@ -305,6 +305,7 @@ vi:
     world_locations:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới
+      no_locations_filter:
   feeds:
     email:
     feed:

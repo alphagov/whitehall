@@ -371,6 +371,7 @@ tr:
     world_locations:
       all: Tüm yerler
       label: Ülkeler
+      no_locations_filter:
   feeds:
     email:
     feed:

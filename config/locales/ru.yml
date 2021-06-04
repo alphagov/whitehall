@@ -516,6 +516,7 @@ ru:
     world_locations:
       all: Все места нахождения
       label: Места нахождения
+      no_locations_filter:
   feeds:
     email:
     feed:

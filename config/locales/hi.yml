@@ -374,6 +374,7 @@ hi:
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान
+      no_locations_filter:
   feeds:
     email:
     feed:

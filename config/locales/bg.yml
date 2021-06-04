@@ -379,6 +379,7 @@ bg:
     world_locations:
       all: Всички места
       label: Световни места
+      no_locations_filter:
   feeds:
     email:
     feed:

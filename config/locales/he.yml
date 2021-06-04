@@ -373,6 +373,7 @@ he:
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים
+      no_locations_filter:
   feeds:
     email:
     feed:

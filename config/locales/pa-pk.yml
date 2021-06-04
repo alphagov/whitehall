@@ -378,6 +378,7 @@ pa-pk:
     world_locations:
       all: ساریے مقام
       label: دنیا دے مقام
+      no_locations_filter:
   feeds:
     email: ایمیل
     feed: فیڈ

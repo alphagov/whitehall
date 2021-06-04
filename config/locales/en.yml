@@ -353,6 +353,11 @@ en:
         other: Written statements to Parliament
     updated: updated
   document_filters:
+    consultation:
+      all: All consultations
+      label: Consultations
+    corporate:
+      label: Corporate
     description: You can use the filters to show only results that match your interests
     no_results:
       description: Try making your search broader and try again.
@@ -361,12 +366,8 @@ en:
       tna_link: Not all department publications from before May 2010 were migrated
         to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">The National Archives</a>.
-    world_locations:
-      all: All locations
-      label: World locations
-    consultation:
-      all: All consultations
-      label: Consultations
+    other:
+      label: Other
     policy_and_guidance:
       label: Policy and guidance
     research_and_analysis:
@@ -380,6 +381,7 @@ en:
     world_locations:
       all: All locations
       label: World locations
+      no_locations_filter: No world locations match that filter.
   feeds:
     email: email
     feed: feed

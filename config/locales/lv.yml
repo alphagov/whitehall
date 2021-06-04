@@ -372,6 +372,7 @@ lv:
     world_locations:
       all: Visas vietas
       label: Pasaules vietas
+      no_locations_filter:
   feeds:
     email:
     feed:

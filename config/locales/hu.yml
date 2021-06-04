@@ -373,6 +373,7 @@ hu:
     world_locations:
       all: Minden ország
       label: Országok
+      no_locations_filter:
   feeds:
     email:
     feed:

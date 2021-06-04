@@ -374,6 +374,7 @@ sq:
     world_locations:
       all: Te gjitha vendndodhjet
       label: Vendndodhje boterore
+      no_locations_filter:
   feeds:
     email:
     feed:

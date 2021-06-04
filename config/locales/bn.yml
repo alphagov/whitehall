@@ -379,6 +379,7 @@ bn:
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
+      no_locations_filter:
   feeds:
     email: ইমেইল
     feed: ফীড

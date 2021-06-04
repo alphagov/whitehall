@@ -374,6 +374,7 @@ hy:
     world_locations:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր
+      no_locations_filter:
   feeds:
     email:
     feed:

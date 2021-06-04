@@ -378,6 +378,7 @@ et:
     world_locations:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
+      no_locations_filter:
   feeds:
     email: e-post
     feed: uudisvoog

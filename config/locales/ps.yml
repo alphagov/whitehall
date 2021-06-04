@@ -372,6 +372,7 @@ ps:
     world_locations:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه
+      no_locations_filter:
   feeds:
     email:
     feed:

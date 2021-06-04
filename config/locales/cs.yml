@@ -446,6 +446,7 @@ cs:
     world_locations:
       all: Všude
       label: Světové lokace
+      no_locations_filter:
   feeds:
     email:
     feed:

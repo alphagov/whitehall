@@ -445,6 +445,7 @@ lt:
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
+      no_locations_filter:
   feeds:
     email:
     feed:

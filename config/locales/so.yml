@@ -375,6 +375,7 @@ so:
     world_locations:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
+      no_locations_filter:
   feeds:
     email:
     feed:

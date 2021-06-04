@@ -373,6 +373,7 @@ it:
     world_locations:
       all: Tutte le sedi
       label: Sedi internazionali
+      no_locations_filter:
   feeds:
     email:
     feed:

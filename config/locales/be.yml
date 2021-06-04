@@ -518,6 +518,7 @@ be:
     world_locations:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
+      no_locations_filter:
   feeds:
     email:
     feed:

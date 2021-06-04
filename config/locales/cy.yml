@@ -663,6 +663,7 @@ cy:
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd
+      no_locations_filter:
   feeds:
     email:
     feed:

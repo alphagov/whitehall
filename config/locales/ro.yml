@@ -448,6 +448,7 @@ ro:
     world_locations:
       all: Toate locațiile
       label: Locații
+      no_locations_filter:
   feeds:
     email:
     feed:

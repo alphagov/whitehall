@@ -517,6 +517,7 @@ uk:
     world_locations:
       all: Будь-яке місце
       label: Країна
+      no_locations_filter:
   feeds:
     email:
     feed:

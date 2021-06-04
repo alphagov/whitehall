@@ -302,6 +302,7 @@ az:
     world_locations:
       all: bütün yerlər
       label: dünya üzrə məkanlar
+      no_locations_filter:
   feeds:
     email:
     feed:

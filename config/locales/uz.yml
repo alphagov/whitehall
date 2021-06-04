@@ -373,6 +373,7 @@ uz:
     world_locations:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar
+      no_locations_filter:
   feeds:
     email:
     feed:

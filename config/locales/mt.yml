@@ -514,6 +514,7 @@ mt:
     world_locations:
       all:
       label:
+      no_locations_filter:
   feeds:
     email:
     feed:

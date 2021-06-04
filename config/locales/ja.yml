@@ -303,6 +303,7 @@ ja:
     world_locations:
       all: 全ての地域
       label: 地域
+      no_locations_filter:
   feeds:
     email:
     feed:

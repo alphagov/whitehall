@@ -373,6 +373,7 @@ ur:
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات
+      no_locations_filter:
   feeds:
     email:
     feed:

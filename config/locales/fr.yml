@@ -374,6 +374,7 @@ fr:
     world_locations:
       all: Tous les endroits
       label: Pays
+      no_locations_filter:
   feeds:
     email:
     feed:
