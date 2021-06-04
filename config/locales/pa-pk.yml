@@ -138,6 +138,9 @@ pa-pk:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: اعلان
         other: اعلانات
@@ -147,6 +150,12 @@ pa-pk:
       blog_post:
         one: بلاگ پوسٹ
         other: بلاگ پوسٹاں
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         one: کیس سٹڈی
         other: کیس سٹڈیز

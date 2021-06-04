@@ -134,6 +134,9 @@ ps:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: خبرتیا
         other: خبرتیاوې
@@ -141,6 +144,12 @@ ps:
         one: تالیف شوی مضمون
         other: تالیف شوي مضامین
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

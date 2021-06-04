@@ -152,6 +152,9 @@ cy:
         other:
         two:
         zero:
+      alert:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -173,6 +176,12 @@ cy:
         other:
         two:
         zero:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         few:
         many:

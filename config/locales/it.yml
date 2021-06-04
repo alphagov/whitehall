@@ -136,6 +136,9 @@ it:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Annuncio
         other: Annunci
@@ -143,6 +146,12 @@ it:
         one: Articolo autorizzato
         other: Articoli autorizzati
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

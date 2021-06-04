@@ -142,6 +142,9 @@ ru:
         many:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -155,6 +158,12 @@ ru:
       blog_post:
         few:
         many:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

@@ -136,6 +136,9 @@ hy:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
@@ -143,6 +146,12 @@ hy:
         one: Հեղինակային հոդված
         other: Հեղինակային հոդվածներ
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

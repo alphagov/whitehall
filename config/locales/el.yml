@@ -136,6 +136,9 @@ el:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Ανακοίνωση
         other: Ανακοινώσεις
@@ -143,6 +146,12 @@ el:
         one: Κείμενο συντάκτη
         other: Κείμενα συντακτών
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

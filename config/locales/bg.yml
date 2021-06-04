@@ -141,6 +141,9 @@ bg:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Съобщение
         other: Съобщения
@@ -148,6 +151,12 @@ bg:
         one: Авторска статия
         other: Авторски статии
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

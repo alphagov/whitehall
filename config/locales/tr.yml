@@ -135,6 +135,9 @@ tr:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Duyuru
         other: Duyurular
@@ -142,6 +145,12 @@ tr:
         one: Yazılan makale
         other: Yazılan makaleler
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

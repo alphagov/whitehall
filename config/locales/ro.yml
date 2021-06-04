@@ -143,6 +143,9 @@ ro:
         few:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         one: Știre
@@ -153,6 +156,12 @@ ro:
         other: 'Articol '
       blog_post:
         few:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

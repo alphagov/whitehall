@@ -138,6 +138,9 @@ pa:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: ਘੋਸ਼ਣਾ
         other: ਘੋਸ਼ਣਾਵਾਂ
@@ -147,6 +150,12 @@ pa:
       blog_post:
         one: ਬਲਾਗ ਪੋਸਟ
         other: ਬਲਾਗ ਪੋਸਟਾਂ
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         one: ਕੇਸ ਅਧਿਐਨ
         other: ਕੇਸ ਅਧਿਐਨ

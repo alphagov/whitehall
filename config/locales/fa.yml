@@ -131,11 +131,20 @@ fa:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: اعلامیه ها
       authored_article:
         other: مقالات
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: مطالعه های موردی
@@ -198,6 +207,7 @@ fa:
       news_article:
         other: مقالات خبری
       news_story:
+        one:
         other: اخبار
       nhs_content:
         other:
@@ -220,6 +230,7 @@ fa:
       policy_paper:
         other: مقاله های سیاسی
       press_release:
+        one:
         other: بیانیه ها
       procurement:
         other:
@@ -242,12 +253,14 @@ fa:
       speaking_notes:
         other: موضوعات سخنرانی
       speech:
+        one:
         other: سخنرانی ها
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: گزارش ها به پارلمان
       statistical_data_set:
         other: بسته های داده های آماری

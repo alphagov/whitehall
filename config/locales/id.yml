@@ -131,11 +131,20 @@ id:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: Pengumuman-pengumuman
       authored_article:
         other: Artikel-artikel yang ditulis
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: Studi-studi kasus
@@ -198,6 +207,7 @@ id:
       news_article:
         other: Artikel-artikel berita
       news_story:
+        one:
         other: Berita-berita
       nhs_content:
         other:
@@ -220,6 +230,7 @@ id:
       policy_paper:
         other: Laporan-laporan kebijakan
       press_release:
+        one:
         other: Rilis pers
       procurement:
         other:
@@ -242,12 +253,14 @@ id:
       speaking_notes:
         other: Naskah Pembicara
       speech:
+        one:
         other: Pidato-pidato
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: Pernyataan-pernyaatan kepada Parlemen
       statistical_data_set:
         other: Set data statistik

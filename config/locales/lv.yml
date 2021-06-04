@@ -135,6 +135,9 @@ lv:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Paziņojums
         other: Paziņojumi
@@ -142,6 +145,12 @@ lv:
         one: Autora raksts
         other: Autora raksti
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

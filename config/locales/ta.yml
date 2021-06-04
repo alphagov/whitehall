@@ -137,6 +137,9 @@ ta:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: அறிவிப்பு
         other: அறிவிப்புகள்
@@ -144,6 +147,12 @@ ta:
         one: " எழுதப்பட்ட   கட்டுரை"
         other: எழுதப்பட்ட கட்டுரைகள்
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

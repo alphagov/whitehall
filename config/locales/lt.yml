@@ -139,6 +139,9 @@ lt:
         few:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         one: Pranešimas
@@ -149,6 +152,12 @@ lt:
         other: Autorių straipsniai
       blog_post:
         few:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

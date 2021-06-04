@@ -136,6 +136,9 @@ de:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Meldung
         other: Meldungen
@@ -143,6 +146,12 @@ de:
         one: Namensartikel
         other: Namensartikel
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

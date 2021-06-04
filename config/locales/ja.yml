@@ -130,11 +130,20 @@ ja:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: ニュース
       authored_article:
         other: Authored articles
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: ケーススタディ
@@ -197,6 +206,7 @@ ja:
       news_article:
         other: ニュース
       news_story:
+        one:
         other: ニュース
       nhs_content:
         other:
@@ -219,6 +229,7 @@ ja:
       policy_paper:
         other: 政策文書
       press_release:
+        one:
         other: 新聞発表
       procurement:
         other:
@@ -241,12 +252,14 @@ ja:
       speaking_notes:
         other: キーポイント
       speech:
+        one:
         other: スピーチ
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: 閣僚声明
       statistical_data_set:
         other: 統計データセット

@@ -131,11 +131,20 @@ vi:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: Các thông báo
       authored_article:
         other: Các bài viết do tác giả
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: Các Trường hợp cụ thể
@@ -198,6 +207,7 @@ vi:
       news_article:
         other: Tin tức
       news_story:
+        one:
         other: Câu chuyện tin tức
       nhs_content:
         other:
@@ -220,6 +230,7 @@ vi:
       policy_paper:
         other: Tài liệu chính sách
       press_release:
+        one:
         other: Thông cáo báo chí
       procurement:
         other:
@@ -242,12 +253,14 @@ vi:
       speaking_notes:
         other: Bài phát biểu
       speech:
+        one:
         other: Các bài phát biểu
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: Tuyên bố tới Quốc hội
       statistical_data_set:
         other: Bộ dữ liệu thống kê

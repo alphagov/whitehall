@@ -136,6 +136,9 @@ sq:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Lajmerim
         other: Lajmerime
@@ -143,6 +146,12 @@ sq:
         one: Artikull autori
         other: Artikuj autoresh
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

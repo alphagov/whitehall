@@ -139,6 +139,9 @@ bn:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: ঘোষণা
         other: ঘোষণাসমূহ
@@ -148,6 +151,12 @@ bn:
       blog_post:
         one: ব্লগ পোস্ট
         other: ব্লগ পোস্টসমূহ
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         one: কেস স্টাডি
         other: কেস স্টাডিসমূহ

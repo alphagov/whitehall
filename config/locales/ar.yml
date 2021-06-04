@@ -151,6 +151,9 @@ ar:
         other:
         two:
         zero:
+      alert:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -172,6 +175,12 @@ ar:
         other:
         two:
         zero:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         few:
         many:

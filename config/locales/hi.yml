@@ -136,6 +136,9 @@ hi:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: घोषणा
         other: घोषणाएं
@@ -143,6 +146,12 @@ hi:
         one: मूल आलेख
         other: मूल आलेख
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

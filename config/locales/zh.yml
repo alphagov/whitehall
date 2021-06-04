@@ -133,6 +133,9 @@ zh:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: 公告
         other: 公告
@@ -140,6 +143,12 @@ zh:
         one: 撰写的文章
         other: 撰写的文章
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         one: 实例研究

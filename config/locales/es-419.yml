@@ -136,6 +136,9 @@ es-419:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Novedades
         other: Novedades
@@ -143,6 +146,12 @@ es-419:
         one: Artículo con autor
         other: Artículos con autor
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

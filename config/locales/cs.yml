@@ -141,6 +141,9 @@ cs:
         few:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         one: Oznámení
@@ -151,6 +154,12 @@ cs:
         other: Autorské články
       blog_post:
         few:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

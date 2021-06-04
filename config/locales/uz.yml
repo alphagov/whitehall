@@ -135,6 +135,9 @@ uz:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: E'lon
         other: E'lonlar
@@ -142,6 +145,12 @@ uz:
         one: Muallif maqolasi
         other: Muallif maqolalari
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

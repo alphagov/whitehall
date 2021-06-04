@@ -135,6 +135,9 @@ pt:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Anúncio
         other: Anúncios
@@ -142,6 +145,12 @@ pt:
         one: Artigo
         other: Artigos
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

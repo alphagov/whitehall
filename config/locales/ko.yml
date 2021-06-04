@@ -130,11 +130,20 @@ ko:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: 공지
       authored_article:
         other: 기사
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: 케이스 스터디
@@ -197,6 +206,7 @@ ko:
       news_article:
         other: 뉴스
       news_story:
+        one:
         other: 뉴스 스토리
       nhs_content:
         other:
@@ -219,6 +229,7 @@ ko:
       policy_paper:
         other: 정책 논문
       press_release:
+        one:
         other: 보도자료
       procurement:
         other:
@@ -241,12 +252,14 @@ ko:
       speaking_notes:
         other: 요점사항
       speech:
+        one:
         other: 연설문
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: 의회로 성명
       statistical_data_set:
         other: 통계 데이터 세트

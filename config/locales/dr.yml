@@ -135,6 +135,9 @@ dr:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: اعلان
         other: اعلانات
@@ -142,6 +145,12 @@ dr:
         one: مقاله نوشته شده
         other: مقاله های نوشته شده
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

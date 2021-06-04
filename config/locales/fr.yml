@@ -136,6 +136,9 @@ fr:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Annonce
         other: Annonces
@@ -143,6 +146,12 @@ fr:
         one: Article signé
         other: Articles signés
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

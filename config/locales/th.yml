@@ -130,11 +130,20 @@ th:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: ข่าวสาร
       authored_article:
         other: บทความที่เขียน
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: กรณีศึกษา
@@ -197,6 +206,7 @@ th:
       news_article:
         other: บทความข่าว
       news_story:
+        one:
         other: ข่าว
       nhs_content:
         other:
@@ -219,6 +229,7 @@ th:
       policy_paper:
         other: เอกสารนโยบาย
       press_release:
+        one:
         other: ข่าวประชาสัมพันธ์
       procurement:
         other:
@@ -241,12 +252,14 @@ th:
       speaking_notes:
         other: ประเด็นการพูด
       speech:
+        one:
         other: สุนทรพจน์
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
         other: ชุดข้อมูลสถิติ

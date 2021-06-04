@@ -137,6 +137,9 @@ so:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Ogeysiis
         other: Ogeysiisyo
@@ -144,6 +147,12 @@ so:
         one: Maqaal la qorey
         other: Maqaallo la qorey
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

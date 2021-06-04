@@ -137,6 +137,9 @@ et:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Teadaanne
         other: Teadaanded
@@ -144,6 +147,12 @@ et:
         one: Avaldatud artikkel
         other: 'Avaldatud artiklid '
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

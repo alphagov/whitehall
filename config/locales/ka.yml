@@ -129,11 +129,20 @@ ka:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other:
       authored_article:
         other:
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other:
@@ -196,6 +205,7 @@ ka:
       news_article:
         other:
       news_story:
+        one:
         other:
       nhs_content:
         other:
@@ -218,6 +228,7 @@ ka:
       policy_paper:
         other:
       press_release:
+        one:
         other:
       procurement:
         other:
@@ -240,12 +251,14 @@ ka:
       speaking_notes:
         other:
       speech:
+        one:
         other:
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other:
       statistical_data_set:
         other:

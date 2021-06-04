@@ -135,6 +135,9 @@ si:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: නිවේදනය
         other: නිවේදන
@@ -142,6 +145,12 @@ si:
         one: රචිත ලිපිය  
         other: රචිත ලිපි
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
