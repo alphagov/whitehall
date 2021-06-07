@@ -825,7 +825,9 @@ ar:
     array:
       last_word_connector: و
     download:
+    field_of_operation:
     filter:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"

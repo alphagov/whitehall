@@ -612,7 +612,9 @@ ro:
     array:
       last_word_connector: și
     download:
+    field_of_operation:
     filter:
+    part_of_collection:
   time:
     formats:
       long_ordinal:

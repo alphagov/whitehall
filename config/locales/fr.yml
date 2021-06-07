@@ -538,7 +538,9 @@ fr:
     array:
       last_word_connector: et
     download:
+    field_of_operation:
     filter:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%B %d, %Y %H:%M"

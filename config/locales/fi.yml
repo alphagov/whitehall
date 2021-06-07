@@ -534,7 +534,9 @@ fi:
     array:
       last_word_connector:
     download:
+    field_of_operation:
     filter:
+    part_of_collection:
   time:
     formats:
       long_ordinal:

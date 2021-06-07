@@ -683,7 +683,9 @@ sr:
     array:
       last_word_connector: i
     download:
+    field_of_operation:
     filter:
+    part_of_collection:
   time:
     formats:
       long_ordinal:
