@@ -478,6 +478,12 @@ pa:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: ਪ੍ਰਕਾਸ਼ਨ
   see_all:

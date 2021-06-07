@@ -460,6 +460,12 @@ zh:
       contact: 联系%{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: 发布的报告
   see_all:

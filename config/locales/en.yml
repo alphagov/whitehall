@@ -486,10 +486,10 @@ en:
       corporate_reports: Corporate reports
     support:
       administered_by: Administered by
-      part_of: Part of
-      works_with: Works with
-      public_body: public body
       agencies_and_public_bodies: agencies and public bodies
+      part_of: Part of
+      public_body: public body
+      works_with: Works with
   publications:
     heading: Publications
   see_all:

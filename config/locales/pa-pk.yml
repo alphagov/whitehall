@@ -478,6 +478,12 @@ pa-pk:
       contact: "%{name} نال رابطہ کرو"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: اشاعتاں
   see_all:

@@ -475,6 +475,12 @@ ta:
       contact: தொடர்பு %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: வெளியீடுகள்
   see_all:

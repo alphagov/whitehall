@@ -546,6 +546,12 @@ cs:
       contact: Kontakt %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publikace
   see_all:

@@ -472,6 +472,12 @@ lv:
       contact: Sazināties %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publikācijas
   see_all:

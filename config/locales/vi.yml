@@ -405,6 +405,12 @@ vi:
       contact: Liên lạc %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Tài liệu truyền thông
   see_all:

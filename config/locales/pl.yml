@@ -619,6 +619,12 @@ pl:
       contact: Skontaktuj się z %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publikacje
   see_all:
