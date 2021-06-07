@@ -69,6 +69,7 @@ module Whitehall
       lv
       ms
       mt
+      ne
       nl
       no
       pa
