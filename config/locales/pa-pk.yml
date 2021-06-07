@@ -63,6 +63,9 @@ pa-pk:
     opendocument:
       help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
         اوپن ڈاکیومنٹ شکل وچ ہے۔
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔

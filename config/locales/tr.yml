@@ -61,6 +61,9 @@ tr:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:

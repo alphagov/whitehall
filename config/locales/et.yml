@@ -63,6 +63,9 @@ et:
     opendocument:
       help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
         formaadis
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:

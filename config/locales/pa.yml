@@ -63,6 +63,9 @@ pa:
     opendocument:
       help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
         ਵਿੱਚ ਹੈ
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਅਜਿਹੇ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟੇ ਹੋਏ ਹੋ ਸਕਦੇ ਹਨ
