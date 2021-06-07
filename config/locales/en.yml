@@ -540,6 +540,7 @@ en:
     heading: Statements
   support:
     download: Download
+    filter: Filter
     array:
       last_word_connector: " and "
   time:

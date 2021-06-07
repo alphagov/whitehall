@@ -532,6 +532,7 @@ hi:
     array:
       last_word_connector: और
     download:
+    filter:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"

@@ -532,6 +532,7 @@ fr:
     array:
       last_word_connector: et
     download:
+    filter:
   time:
     formats:
       long_ordinal: "%B %d, %Y %H:%M"

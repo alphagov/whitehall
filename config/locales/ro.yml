@@ -606,6 +606,7 @@ ro:
     array:
       last_word_connector: și
     download:
+    filter:
   time:
     formats:
       long_ordinal:

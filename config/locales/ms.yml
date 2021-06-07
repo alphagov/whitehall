@@ -460,6 +460,7 @@ ms:
     array:
       last_word_connector:
     download:
+    filter:
   time:
     formats:
       long_ordinal:

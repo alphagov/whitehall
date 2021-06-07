@@ -460,6 +460,7 @@ az:
     array:
       last_word_connector: və
     download:
+    filter:
   time:
     formats:
       long_ordinal:

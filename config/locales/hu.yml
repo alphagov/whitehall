@@ -531,6 +531,7 @@ hu:
     array:
       last_word_connector: és
     download:
+    filter:
   time:
     formats:
       long_ordinal: "%Y %B %e %H:%M"

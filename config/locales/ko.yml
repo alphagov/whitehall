@@ -461,6 +461,7 @@ ko:
     array:
       last_word_connector: 그리고
     download:
+    filter:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"

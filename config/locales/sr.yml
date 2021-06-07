@@ -677,6 +677,7 @@ sr:
     array:
       last_word_connector: i
     download:
+    filter:
   time:
     formats:
       long_ordinal:
