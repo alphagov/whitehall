@@ -73,6 +73,11 @@ ru:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Контактная форма
@@ -615,6 +620,9 @@ ru:
       jobs_and_contacts: Рабочие места и контракты
       organisation_chart:
       transparency: Данные о прозрачности
+    email:
+      alerts:
+      summary:
     headings:
       contact: Обратиться к %{name}
       corporate_information:

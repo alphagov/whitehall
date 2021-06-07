@@ -72,6 +72,11 @@ zh:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: 联系表格
@@ -459,6 +464,9 @@ zh:
       jobs_and_contacts: 职位及联系方式
       organisation_chart:
       transparency: 透明化数据
+    email:
+      alerts:
+      summary:
     headings:
       contact: 联系%{name}
       corporate_information:

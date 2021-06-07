@@ -74,6 +74,11 @@ uz:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Aloqa uchun
@@ -472,6 +477,9 @@ uz:
       jobs_and_contacts: Ish va shartnomalar
       organisation_chart:
       transparency: Ochiqlikka oid ma'lumotlar
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} bog'laning"
       corporate_information:

@@ -74,6 +74,11 @@ si:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: තොරතුරු පෝරමය
@@ -471,6 +476,9 @@ si:
       jobs_and_contacts: රැකියා සහ කොන්තරාත්තු
       organisation_chart:
       transparency: විනිවිධභාවයේ දත්ත
+    email:
+      alerts:
+      summary:
     headings:
       contact: විස්තර %{name}
       corporate_information:

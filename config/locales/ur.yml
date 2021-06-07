@@ -74,6 +74,11 @@ ur:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: کانٹیکٹ فارم
@@ -472,6 +477,9 @@ ur:
       jobs_and_contacts: ملازمتیں اورکنٹریکٹس
       organisation_chart:
       transparency: ٹرانسپیرنسی ڈیٹا
+    email:
+      alerts:
+      summary:
     headings:
       contact: رابطہ %{name}
       corporate_information:

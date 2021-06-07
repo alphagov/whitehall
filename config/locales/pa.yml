@@ -77,6 +77,11 @@ pa:
     published_at: ਪਹਿਲੀ ਵਾਰ ਪ੍ਰਕਾਸ਼ਿਤ
     see_all_updates: ਸਾਰੇ ਅੱਪਡੇਟ ਦੇਖੋ
     updated_at: ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦਾ ਸਮਾਂ
     contact_form: ਸੰਪਰਕ ਫਾਰਮ
@@ -477,6 +482,9 @@ pa:
       jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਠੇਕੇ
       organisation_chart: ਸਾਡੇ ਸੰਗਠਨ ਦਾ ਚਾਰਟ
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
       corporate_information:

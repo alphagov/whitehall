@@ -74,6 +74,11 @@ fa:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: فرم ارتباط
@@ -404,6 +409,9 @@ fa:
       jobs_and_contacts: مشاغل و قراردادها
       organisation_chart:
       transparency: داده های شفاف سازی
+    email:
+      alerts:
+      summary:
     headings:
       contact: تماس با %{name}
       corporate_information:

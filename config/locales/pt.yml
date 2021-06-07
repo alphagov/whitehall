@@ -74,6 +74,11 @@ pt:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formulário de contato
@@ -472,6 +477,9 @@ pt:
       jobs_and_contacts: Vagas e contratos
       organisation_chart:
       transparency: Dados de Transparência
+    email:
+      alerts:
+      summary:
     headings:
       contact: Contato %{name}
       corporate_information:

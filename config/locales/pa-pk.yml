@@ -77,6 +77,11 @@ pa-pk:
     published_at: پہلی دفعہ شائع ہویا
     see_all_updates: ساری اپڈیٹس ویکھو
     updated_at: آخری اپڈیٹ
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times: رسائی تے کھلن دے اوقات
     contact_form: رابطے دا فارم
@@ -477,6 +482,9 @@ pa-pk:
       jobs_and_contacts: نوکریاں تے معاہدے
       organisation_chart: ساڈہ تنظیمی چارٹ
       transparency: شفافیت دا مواد
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} نال رابطہ کرو"
       corporate_information:

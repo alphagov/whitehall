@@ -75,6 +75,11 @@ sr:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: formular za kontakt
@@ -617,6 +622,9 @@ sr:
       jobs_and_contacts: Poslovi i ugovori
       organisation_chart:
       transparency: podaci o transparentnosti
+    email:
+      alerts:
+      summary:
     headings:
       contact: Kontaktirajte %{name}
       corporate_information:

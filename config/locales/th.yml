@@ -73,6 +73,11 @@ th:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: แบบฟอร์มการติดต่อ
@@ -402,6 +407,9 @@ th:
       jobs_and_contacts: งานและการทำสัญญา
       organisation_chart:
       transparency: ข้อมูลที่มีความโปร่งใส
+    email:
+      alerts:
+      summary:
     headings:
       contact: สัญญา %{name}
       corporate_information:

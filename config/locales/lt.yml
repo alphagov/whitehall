@@ -74,6 +74,11 @@ lt:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Parašykite mums
@@ -544,6 +549,9 @@ lt:
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart:
       transparency: Skaidrumo informacija
+    email:
+      alerts:
+      summary:
     headings:
       contact: Susisiekite su %{name}
       corporate_information:

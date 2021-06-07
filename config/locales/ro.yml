@@ -78,6 +78,11 @@ ro:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formular de contact
@@ -547,6 +552,9 @@ ro:
       jobs_and_contacts: 'Oportunități de angajare '
       organisation_chart:
       transparency:
+    email:
+      alerts:
+      summary:
     headings:
       contact: Contactează-ne  %{name}
       corporate_information:

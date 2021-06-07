@@ -74,6 +74,11 @@ vi:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Mẫu liên hệ
@@ -404,6 +409,9 @@ vi:
       jobs_and_contacts: Việc làm và hợp đồng
       organisation_chart:
       transparency: Minh bạch dữ liệu
+    email:
+      alerts:
+      summary:
     headings:
       contact: Liên lạc %{name}
       corporate_information:

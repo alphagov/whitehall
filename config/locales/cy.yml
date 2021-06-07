@@ -75,6 +75,11 @@ cy:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Ffurflen cysylltu
@@ -762,6 +767,9 @@ cy:
       jobs_and_contacts: Swyddi a chontractau
       organisation_chart:
       transparency: Data tryloywder
+    email:
+      alerts:
+      summary:
     headings:
       contact: Cyswllt %{name}
       corporate_information:

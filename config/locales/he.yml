@@ -75,6 +75,11 @@ he:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: טופס יצירת קשר
@@ -472,6 +477,9 @@ he:
       jobs_and_contacts: עבודות וחוזים
       organisation_chart:
       transparency: מידע נגיש
+    email:
+      alerts:
+      summary:
     headings:
       contact: חוזה %{name}
       corporate_information:

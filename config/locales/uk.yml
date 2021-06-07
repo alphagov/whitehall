@@ -74,6 +74,11 @@ uk:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Форма зворотнього зв'язку
@@ -616,6 +621,9 @@ uk:
       jobs_and_contacts: Вакансії та контракти
       organisation_chart:
       transparency: Прозорість інформації
+    email:
+      alerts:
+      summary:
     headings:
       contact: Контактна особа  %{name}
       corporate_information:

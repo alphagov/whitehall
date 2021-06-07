@@ -75,6 +75,11 @@ it:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Contattaci
@@ -472,6 +477,9 @@ it:
       jobs_and_contacts: Posizioni lavorative e contratti
       organisation_chart:
       transparency: Dati sulla trasparenza
+    email:
+      alerts:
+      summary:
     headings:
       contact: Contatta %{name}
       corporate_information:

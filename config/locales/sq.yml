@@ -75,6 +75,11 @@ sq:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Forme kontakti
@@ -473,6 +478,9 @@ sq:
       jobs_and_contacts: Vende pune dhe kontrata
       organisation_chart:
       transparency: Te dhena transparence
+    email:
+      alerts:
+      summary:
     headings:
       contact: Kontakt %{name}
       corporate_information:

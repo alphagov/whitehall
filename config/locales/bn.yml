@@ -78,6 +78,11 @@ bn:
     published_at: প্রথম প্রকাশিত
     see_all_updates: সকল আপডেটসমূহ দেখুন
     updated_at: সর্বশেষ আপডেটকৃত
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times: প্রবেশ ও খোলার সময়
     contact_form: যোগাযোগের ফরম
@@ -478,6 +483,9 @@ bn:
       jobs_and_contacts: চাকরি ও চুক্তিসমূহ
       organisation_chart: আমাদের সংস্থার তালিকা
       transparency: স্বচ্ছতামূলক ডেটা
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} যোগাযোগ করুন"
       corporate_information:

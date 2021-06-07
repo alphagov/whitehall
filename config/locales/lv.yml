@@ -74,6 +74,11 @@ lv:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Saziņas forma
@@ -471,6 +476,9 @@ lv:
       jobs_and_contacts: Darbs un līgumi
       organisation_chart:
       transparency: Atklātība
+    email:
+      alerts:
+      summary:
     headings:
       contact: Sazināties %{name}
       corporate_information:

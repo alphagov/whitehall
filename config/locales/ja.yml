@@ -73,6 +73,11 @@ ja:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: 連絡フォーム
@@ -402,6 +407,9 @@ ja:
       jobs_and_contacts: 求人と調達
       organisation_chart:
       transparency: データ開示
+    email:
+      alerts:
+      summary:
     headings:
       contact: 連絡先
       corporate_information:

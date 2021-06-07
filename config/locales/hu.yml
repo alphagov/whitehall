@@ -74,6 +74,11 @@ hu:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Kapcsolati űrlap
@@ -472,6 +477,9 @@ hu:
       jobs_and_contacts: Állások
       organisation_chart:
       transparency: Átláthatósági adatok
+    email:
+      alerts:
+      summary:
     headings:
       contact: 'Kapcsolat felvétele: %{name}'
       corporate_information:

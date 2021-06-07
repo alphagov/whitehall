@@ -74,6 +74,11 @@ id:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formulir kontak
@@ -404,6 +409,9 @@ id:
       jobs_and_contacts: Pekerjaan dan kontrak
       organisation_chart:
       transparency: Transparansi data
+    email:
+      alerts:
+      summary:
     headings:
       contact: Hubungi %{name}
       corporate_information:

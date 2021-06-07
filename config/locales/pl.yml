@@ -76,6 +76,11 @@ pl:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formularz kontaktowy
@@ -618,6 +623,9 @@ pl:
       jobs_and_contacts: Stanowiska pracy i kontrakty
       organisation_chart:
       transparency: Dane o transparentności
+    email:
+      alerts:
+      summary:
     headings:
       contact: Skontaktuj się z %{name}
       corporate_information:

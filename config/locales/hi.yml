@@ -75,6 +75,11 @@ hi:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: संपर्क प्रपत्र
@@ -473,6 +478,9 @@ hi:
       jobs_and_contacts: नौकरी एवं अनुबंध
       organisation_chart:
       transparency: पारदर्शिता आंकड़े
+    email:
+      alerts:
+      summary:
     headings:
       contact: संपर्क %{name}
       corporate_information:

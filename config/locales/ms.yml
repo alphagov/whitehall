@@ -72,6 +72,11 @@ ms:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form:
@@ -401,6 +406,9 @@ ms:
       jobs_and_contacts:
       organisation_chart:
       transparency:
+    email:
+      alerts:
+      summary:
     headings:
       contact:
       corporate_information:

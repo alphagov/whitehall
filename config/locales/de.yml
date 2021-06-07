@@ -75,6 +75,11 @@ de:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Kontaktformular
@@ -473,6 +478,9 @@ de:
       jobs_and_contacts: Stellenanzeigen
       organisation_chart:
       transparency: Transparenzdaten
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} kontaktieren"
       corporate_information:

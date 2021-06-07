@@ -75,6 +75,11 @@ es-419:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formulario de contacto
@@ -473,6 +478,9 @@ es-419:
       jobs_and_contacts: Empleos y contratos
       organisation_chart:
       transparency: Datos de transparencia
+    email:
+      alerts:
+      summary:
     headings:
       contact: Comuníquese con %{name}
       corporate_information:

@@ -73,6 +73,11 @@ ps:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: د اړیکوپاڼه
@@ -471,6 +476,9 @@ ps:
       jobs_and_contacts: دندی او تړونونه
       organisation_chart:
       transparency: د شفافیت معلومات
+    email:
+      alerts:
+      summary:
     headings:
       contact: تماس  %{name}
       corporate_information:

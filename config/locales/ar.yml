@@ -74,6 +74,11 @@ ar:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: نموذج اتصال
@@ -760,6 +765,9 @@ ar:
       jobs_and_contacts: الوظائف والعقود
       organisation_chart:
       transparency: بيانات تتعلق بالشفافية
+    email:
+      alerts:
+      summary:
     headings:
       contact: اتصل بـ%{name}
       corporate_information:

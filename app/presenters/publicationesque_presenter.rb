@@ -20,13 +20,13 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
     days_left = (model.closing_at.to_date - Time.zone.now.to_date).to_i
     case days_left
     when :negative?.to_proc
-      "Closed"
+      I18n.t("consultation.closed")
     when :zero?.to_proc
-      "Closing today"
+      I18n.t("consultation.closing_today")
     when 1
-      "Closes tomorrow"
+      I18n.t("consultation.closing_tomorrow")
     else
-      "#{days_left} days left"
+      I18n.t("consultation.days_left", days_left: days_left)
     end
   end
 end

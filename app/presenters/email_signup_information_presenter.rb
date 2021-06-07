@@ -7,11 +7,11 @@ class EmailSignupInformationPresenter
   attr_reader :email_signup_pages
 
   def title
-    "#{organisation.acronym} email alerts"
+    "#{organisation.acronym} #{I18n.t('organisation.email.alerts')}"
   end
 
   def summary
-    "Email alerts from the #{@organisation.acronym} (#{@organisation.name})."
+    "#{I18n.t('organisation.email.summary')} #{@organisation.acronym} (#{@organisation.name})."
   end
 
 private

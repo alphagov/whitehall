@@ -75,6 +75,11 @@ el:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Φόρμα επικοινωνίας
@@ -472,6 +477,9 @@ el:
       jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
       organisation_chart:
       transparency: Στοιχεία διαφάνειας
+    email:
+      alerts:
+      summary:
     headings:
       contact: Επικοινωνήστε%{name}
       corporate_information:

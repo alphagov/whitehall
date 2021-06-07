@@ -76,6 +76,11 @@ cs:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Kontaktní formulář
@@ -545,6 +550,9 @@ cs:
       jobs_and_contacts: Pracovní příležitosti
       organisation_chart:
       transparency: 'Data '
+    email:
+      alerts:
+      summary:
     headings:
       contact: Kontakt %{name}
       corporate_information:

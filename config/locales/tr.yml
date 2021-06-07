@@ -74,6 +74,11 @@ tr:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: İletişim Formu
@@ -470,6 +475,9 @@ tr:
       jobs_and_contacts: İş ve sözleşmeler
       organisation_chart:
       transparency: Veri saydamlığı
+    email:
+      alerts:
+      summary:
     headings:
       contact: İletişim %{name}
       corporate_information:

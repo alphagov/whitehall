@@ -78,6 +78,11 @@ bg:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Контактна форма
@@ -478,6 +483,9 @@ bg:
       jobs_and_contacts: Работни места и договори
       organisation_chart:
       transparency: Данни за прозрачността
+    email:
+      alerts:
+      summary:
     headings:
       contact: Свържете се с %{name}
       corporate_information:
