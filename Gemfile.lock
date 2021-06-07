@@ -117,7 +117,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     connection_pool (2.2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -175,8 +175,19 @@ GEM
     execjs (2.7.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
-    faraday (1.0.1)
+    faraday (1.4.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
       multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.1.0)
     ffi (1.15.0)
     fog-aws (3.6.6)
       fog-core (~> 2.1)
@@ -241,9 +252,10 @@ GEM
       jquery-rails (~> 4.3.1)
       plek (>= 2.1.0)
       rails (>= 3.2.0)
-    govuk_app_config (3.1.1)
+    govuk_app_config (4.0.0.pre.3)
       logstasher (>= 1.2.2, < 2.2.0)
-      sentry-raven (~> 3.1.1)
+      sentry-rails (~> 4.5.0)
+      sentry-ruby (~> 4.5.0)
       statsd-ruby (~> 1.5.0)
       unicorn (>= 5.4, < 5.9)
     govuk_frontend_toolkit (9.0.0)
@@ -528,6 +540,7 @@ GEM
     ruby-rc4 (0.1.5)
     ruby-vips (2.1.2)
       ffi (~> 1.12)
+    ruby2_keywords (0.0.4)
     rubyzip (2.3.0)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
@@ -552,8 +565,16 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sentry-raven (3.1.2)
+    sentry-rails (4.5.1)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 4.5.0)
+    sentry-ruby (4.5.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (>= 1.0)
+      sentry-ruby-core (= 4.5.1)
+    sentry-ruby-core (4.5.1)
+      concurrent-ruby
+      faraday
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
       mustache (~> 1.0.2)
@@ -674,7 +695,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk_ab_testing
   govuk_admin_template
-  govuk_app_config
+  govuk_app_config (= 4.0.0.pre.3)
   govuk_frontend_toolkit
   govuk_publishing_components
   govuk_sidekiq
