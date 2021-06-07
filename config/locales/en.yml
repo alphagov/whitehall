@@ -539,6 +539,7 @@ en:
   statements:
     heading: Statements
   support:
+    download: Download
     array:
       last_word_connector: " and "
   time:

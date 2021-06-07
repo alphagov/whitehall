@@ -602,6 +602,7 @@ lt:
   support:
     array:
       last_word_connector: ir
+    download:
   time:
     formats:
       long_ordinal: "%Y %B %e %H:%M"

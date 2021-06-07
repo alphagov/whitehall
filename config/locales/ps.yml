@@ -529,6 +529,7 @@ ps:
   support:
     array:
       last_word_connector: او
+    download:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"

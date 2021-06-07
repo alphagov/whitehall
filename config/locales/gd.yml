@@ -671,6 +671,7 @@ gd:
   support:
     array:
       last_word_connector:
+    download:
   time:
     formats:
       long_ordinal:

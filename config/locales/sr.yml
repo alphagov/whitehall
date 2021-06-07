@@ -676,6 +676,7 @@ sr:
   support:
     array:
       last_word_connector: i
+    download:
   time:
     formats:
       long_ordinal:

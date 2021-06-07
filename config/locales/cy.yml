@@ -820,6 +820,7 @@ cy:
   support:
     array:
       last_word_connector: a
+    download:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"

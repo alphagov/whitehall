@@ -459,6 +459,7 @@ az:
   support:
     array:
       last_word_connector: və
+    download:
   time:
     formats:
       long_ordinal:

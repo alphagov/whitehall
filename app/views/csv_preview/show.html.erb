@@ -36,7 +36,7 @@
         <p class="govuk-body publication-header__updated">
           <%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %><br />
           <%= link_to @attachment.url(preview: params[:preview]), class: "govuk-link publication-header__download-link" do %>
-            <strong>Download <%= @attachment.file_extension.upcase %></strong> <%= number_to_human_size(@attachment.file_size) %>
+            <strong><%= t("support.download") %> <%= @attachment.file_extension.upcase %></strong> <%= number_to_human_size(@attachment.file_size) %>
           <% end %>
         </p>
       </div>

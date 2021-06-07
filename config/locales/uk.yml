@@ -674,6 +674,7 @@ uk:
   support:
     array:
       last_word_connector: та
+    download:
   time:
     formats:
       long_ordinal:

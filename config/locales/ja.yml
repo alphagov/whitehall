@@ -460,6 +460,7 @@ ja:
   support:
     array:
       last_word_connector: and
+    download:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"

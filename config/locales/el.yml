@@ -530,6 +530,7 @@ el:
   support:
     array:
       last_word_connector: και
+    download:
   time:
     formats:
       long_ordinal:
