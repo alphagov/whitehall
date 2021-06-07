@@ -481,6 +481,9 @@ zh-tw:
       works_with:
   publications:
     heading: 出版物
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: 查閱我們所有的其他公告
     authored_article: 查閱我們所有的撰寫其他文章

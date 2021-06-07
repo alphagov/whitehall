@@ -490,6 +490,9 @@ bg:
       works_with:
   publications:
     heading: Публикации
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Вижте всички наши Съобщения
     authored_article: Вижте всички наши Авторски статии

@@ -485,6 +485,9 @@ de:
       works_with:
   publications:
     heading: Veröffentlichungen
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Alle unsere Meldungen
     authored_article: Alle unsere Namensartikel

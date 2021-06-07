@@ -416,6 +416,9 @@ fa:
       works_with:
   publications:
     heading: انتشارات
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: تمامی اعلامیه ها ما را مشاهده کنید
     authored_article: تمامی مقالات ما را مشاهده کنید

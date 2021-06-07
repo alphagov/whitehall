@@ -484,6 +484,9 @@ he:
       works_with:
   publications:
     heading: פרסומים
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: ראה כל הודעות
     authored_article: ראה כל מאמרים מאושרים

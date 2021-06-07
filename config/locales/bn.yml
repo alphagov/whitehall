@@ -490,6 +490,9 @@ bn:
       works_with:
   publications:
     heading: প্রকাশনাসমূহ
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: আমাদের সকল ঘোষণাসমূহ দেখুন
     authored_article: আমাদের সকল রচনা প্রবন্ধসমূহ দেখুন

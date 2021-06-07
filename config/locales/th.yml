@@ -414,6 +414,9 @@ th:
       works_with:
   publications:
     heading: สิ่งพิมพ์
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: ดูทั้งหมดข่าวสาร
     authored_article: ดูทั้งหมดบทความที่เขียน

@@ -413,6 +413,9 @@ az:
       works_with:
   publications:
     heading: Nəşrlər
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Bax bütün növ
     authored_article:

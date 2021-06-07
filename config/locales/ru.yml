@@ -627,6 +627,9 @@ ru:
       works_with:
   publications:
     heading: Публикации
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Посмотреть все наши Объявления
     authored_article: Посмотреть все наши Авторские статьи

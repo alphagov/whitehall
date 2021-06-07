@@ -489,6 +489,9 @@ et:
       works_with:
   publications:
     heading: Publikatsioonid
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Vaadake kõiki meie teadaandeid
     authored_article: Vaadake kõiki meie artikleid

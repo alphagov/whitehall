@@ -486,6 +486,9 @@ so:
       works_with:
   publications:
     heading: Daabacaado/Nashrin
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Fiiri dhammaan ogeysiisyo yadeenna
     authored_article: Fiiri dhammaan maqaallo la qorey yadeenna

@@ -471,6 +471,9 @@ zh:
       works_with:
   publications:
     heading: 发布的报告
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: 查阅我们所有的公告
     authored_article: 查阅我们所有的撰写的文章

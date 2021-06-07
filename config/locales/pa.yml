@@ -489,6 +489,9 @@ pa:
       works_with:
   publications:
     heading: ਪ੍ਰਕਾਸ਼ਨ
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਦੇਖੋ
     authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕਾਂ ਦੇ ਲੇਖ ਦੇਖੋ

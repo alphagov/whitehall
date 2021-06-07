@@ -556,6 +556,9 @@ lt:
       works_with:
   publications:
     heading: Leidiniai
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai

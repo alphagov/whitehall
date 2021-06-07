@@ -416,6 +416,9 @@ id:
       works_with:
   publications:
     heading: Publikasi-publikasi
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Lihat semua pengumuman-pengumuman
     authored_article: Lihat semua artikel-artikel yang ditulis

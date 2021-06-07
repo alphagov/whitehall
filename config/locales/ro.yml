@@ -559,6 +559,9 @@ ro:
       works_with:
   publications:
     heading: Obiective strategic
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Toate Știri
     authored_article: 'Toate articol '

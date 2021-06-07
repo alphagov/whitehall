@@ -485,6 +485,9 @@ fr:
       works_with:
   publications:
     heading: Publications
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Voir toutes nos annonces
     authored_article: Voir toutes nos articles signés

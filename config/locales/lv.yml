@@ -483,6 +483,9 @@ lv:
       works_with:
   publications:
     heading: Publikācijas
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Skatīt visas paziņojumi
     authored_article: Skatīt visas autora raksti

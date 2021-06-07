@@ -416,6 +416,9 @@ vi:
       works_with:
   publications:
     heading: Tài liệu truyền thông
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: Xem tất cả các thông báo của chúng tôi
     authored_article: Xem tất cả các bài viết do tác giả của chúng tôi

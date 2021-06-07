@@ -483,6 +483,9 @@ si:
       works_with:
   publications:
     heading: ප්‍රකාශන
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
   see_all:
     announcement: අපගේ සියලු නිවේදන බලන්න
     authored_article: අපගේ සියලු රචිත ලිපි බලන්න
