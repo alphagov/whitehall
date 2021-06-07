@@ -310,6 +310,8 @@ vi:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

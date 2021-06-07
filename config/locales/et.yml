@@ -383,6 +383,8 @@ et:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: e-post
     feed: uudisvoog

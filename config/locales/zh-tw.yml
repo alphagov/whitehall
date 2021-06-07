@@ -375,6 +375,8 @@ zh-tw:
       all: 所有地區位置
       label: 世界地區位置
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

@@ -387,6 +387,9 @@ en:
       all: All locations
       label: World locations
       no_locations_filter: No world locations match that filter.
+  fatality_notice:
+    none_added: There have been no fatality notices added for this field
+      of operation yet.
   feeds:
     email: email
     feed: feed

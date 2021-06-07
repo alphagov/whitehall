@@ -521,6 +521,8 @@ ru:
       all: Все места нахождения
       label: Места нахождения
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

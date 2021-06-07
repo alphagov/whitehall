@@ -383,6 +383,8 @@ pa-pk:
       all: ساریے مقام
       label: دنیا دے مقام
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: ایمیل
     feed: فیڈ

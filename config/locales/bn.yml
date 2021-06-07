@@ -384,6 +384,8 @@ bn:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: ইমেইল
     feed: ফীড

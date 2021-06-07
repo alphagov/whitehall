@@ -378,6 +378,8 @@ hu:
       all: Minden ország
       label: Országok
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

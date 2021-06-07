@@ -308,6 +308,8 @@ ko:
       all: 모든 로케이션
       label: 월드 로케이션
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

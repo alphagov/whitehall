@@ -378,6 +378,8 @@ he:
       all: כל המיקומים
       label: מיקומים גלובאליים
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

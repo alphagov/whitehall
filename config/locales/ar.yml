@@ -666,6 +666,8 @@ ar:
       all: كافة المواقع
       label: مواقع في العالم
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

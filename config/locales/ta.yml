@@ -380,6 +380,8 @@ ta:
       all: அனைத்து அமைவிடங்களும்
       label: உலக அமைவிடங்கள்
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

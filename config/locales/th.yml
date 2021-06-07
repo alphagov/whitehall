@@ -308,6 +308,8 @@ th:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

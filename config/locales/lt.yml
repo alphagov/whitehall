@@ -450,6 +450,8 @@ lt:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

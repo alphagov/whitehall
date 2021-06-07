@@ -310,6 +310,8 @@ fa:
       all: تمام نقاط
       label: موقعیت های جهانی
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

@@ -376,6 +376,8 @@ tr:
       all: Tüm yerler
       label: Ülkeler
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

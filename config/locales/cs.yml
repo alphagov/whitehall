@@ -451,6 +451,8 @@ cs:
       all: Všude
       label: Světové lokace
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

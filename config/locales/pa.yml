@@ -383,6 +383,8 @@ pa:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: ਈਮੇਲ
     feed: ਫੀਡ

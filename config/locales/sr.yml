@@ -523,6 +523,8 @@ sr:
       all: Sve lokacije
       label: lokacije u svetu
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:

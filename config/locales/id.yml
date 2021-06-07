@@ -310,6 +310,8 @@ id:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia
       no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
