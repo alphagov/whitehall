@@ -560,6 +560,11 @@ en:
     download: Download
     field_of_operation: "Field of operation:"
     filter: Filter
+    pagination:
+      next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
+      next_page: Next page
+      previous_html: Previous <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
+      previous_page: Previous page
     part_of_collection: "Part of a collection:"
     array:
       last_word_connector: " and "
