@@ -567,6 +567,8 @@ lt:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai

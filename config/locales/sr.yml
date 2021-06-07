@@ -640,6 +640,8 @@ sr:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Pogledajte sve naše najave
     authored_article: Pogledajte sve naše autorski članci

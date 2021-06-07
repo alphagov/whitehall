@@ -500,6 +500,8 @@ et:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Vaadake kõiki meie teadaandeid
     authored_article: Vaadake kõiki meie artikleid

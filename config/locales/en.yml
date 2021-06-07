@@ -508,6 +508,8 @@ en:
     statistics:
       link_to_published_statistics: Find a list of published and upcoming government statistics in the %{link} statistics section.
       moved_notice: Statistics publications have moved.
+  roles:
+    unassigned: No one is assigned to this role
   see_all:
     announcement: See all our announcements
     authored_article: See all our authored articles

@@ -496,6 +496,8 @@ hi:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: देखें हमारे सभी घोषणाएं
     authored_article: देखें हमारे सभी मूल आलेख

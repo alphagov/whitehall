@@ -425,6 +425,8 @@ ko:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기

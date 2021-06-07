@@ -427,6 +427,8 @@ fa:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: تمامی اعلامیه ها ما را مشاهده کنید
     authored_article: تمامی مقالات ما را مشاهده کنید

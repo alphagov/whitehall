@@ -497,6 +497,8 @@ ta:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: எங்களது அனைத்து அறிவிப்புகள் பார்க்கவும்
     authored_article: எங்களது அனைத்து எழுதப்பட்ட கட்டுரைகள் பார்க்கவும்

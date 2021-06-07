@@ -785,6 +785,8 @@ cy:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Gweld ein holl cyhoeddiadau
     authored_article:

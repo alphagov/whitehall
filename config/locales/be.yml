@@ -640,6 +640,8 @@ be:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Паглядзець усе Аб'явы
     authored_article: Паглядзець усе Аўтарскія артыкулы

@@ -492,6 +492,8 @@ is:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement:
     authored_article:

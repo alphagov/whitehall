@@ -641,6 +641,8 @@ pl:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Zobacz wszystkie nasze ogłoszenia
     authored_article: Zobacz wszystkie nasze dokumenty utworzone przez

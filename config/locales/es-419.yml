@@ -496,6 +496,8 @@ es-419:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Vea todas nuestras novedades
     authored_article: Vea todos nuestros artículos con autor

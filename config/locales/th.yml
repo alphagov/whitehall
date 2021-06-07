@@ -425,6 +425,8 @@ th:
     statistics:
       link_to_published_statistics:
       moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ดูทั้งหมดข่าวสาร
     authored_article: ดูทั้งหมดบทความที่เขียน
