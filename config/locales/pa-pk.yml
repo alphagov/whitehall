@@ -583,6 +583,8 @@ pa-pk:
       world_location:
         one: دنیا دا مقام
         other: دنیا دے مقام
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: ڈھونڈو %{link}۔

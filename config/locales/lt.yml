@@ -652,6 +652,8 @@ lt:
         few:
         one: Geografinė vieta
         other: Geografinės vietos
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

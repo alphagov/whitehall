@@ -575,6 +575,8 @@ zh-tw:
       world_location:
         one: 世界地區位置
         other: 其他世界地區位置
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -723,6 +723,8 @@ hr:
         many:
         one:
         other:
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

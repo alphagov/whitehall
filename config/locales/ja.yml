@@ -506,6 +506,8 @@ ja:
         other: 海外代表団
       world_location:
         other: 地域
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

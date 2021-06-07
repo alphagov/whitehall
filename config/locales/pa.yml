@@ -583,6 +583,8 @@ pa:
       world_location:
         one: ਵਿਸ਼ਵ ਟਿਕਾਣਾ
         other: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} ਪਤਾ ਕਰੋ।"

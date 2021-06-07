@@ -508,6 +508,8 @@ id:
         other: Delegasi-delegasi internasional
       world_location:
         other: Lokasi-lokasi dunia
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

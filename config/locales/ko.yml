@@ -506,6 +506,8 @@ ko:
         other: 국제 사절단
       world_location:
         other: 월드 로케이션
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

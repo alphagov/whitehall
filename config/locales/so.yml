@@ -580,6 +580,8 @@ so:
       world_location:
         one: Goobo dunida ka mid ah
         other: Goobo dunida ka mid ah
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

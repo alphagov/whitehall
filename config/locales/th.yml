@@ -506,6 +506,8 @@ th:
         other: คณะผู้แทนนานาประเทศ
       world_location:
         other: ทีตั้ง
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
