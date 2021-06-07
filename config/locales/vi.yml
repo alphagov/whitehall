@@ -131,11 +131,20 @@ vi:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: Các thông báo
       authored_article:
         other: Các bài viết do tác giả
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: Các Trường hợp cụ thể
@@ -198,6 +207,7 @@ vi:
       news_article:
         other: Tin tức
       news_story:
+        one:
         other: Câu chuyện tin tức
       nhs_content:
         other:
@@ -220,6 +230,7 @@ vi:
       policy_paper:
         other: Tài liệu chính sách
       press_release:
+        one:
         other: Thông cáo báo chí
       procurement:
         other:
@@ -242,12 +253,14 @@ vi:
       speaking_notes:
         other: Bài phát biểu
       speech:
+        one:
         other: Các bài phát biểu
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: Tuyên bố tới Quốc hội
       statistical_data_set:
         other: Bộ dữ liệu thống kê
@@ -269,7 +282,8 @@ vi:
         other: Các Tuyên bố bằng văn bản tới quốc hội
     updated: Cập nhật
   document_filters:
-    description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn quan tâm
+    description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn
+      quan tâm
     no_results:
       description: thử làm cho tìm kiếm của bạn rộng hơn và thử lại
       title: Không có tài liệu phù hợp
@@ -416,7 +430,8 @@ vi:
     statutory_guidance:
     transcript: Xem tất cả kịch bản của chúng tôi
     transparency: Xem tất cả dữ liệu kịch bản của chúng tôi
-    written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng tôi
+    written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng
+      tôi
   support:
     array:
       last_word_connector: và
@@ -439,10 +454,13 @@ vi:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng tôi xử lý thông tin cá nhân của bạn"
-      publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường xuyên tại %{link}
+      personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng
+        tôi xử lý thông tin cá nhân của bạn"
+      publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
+        xuyên tại %{link}
       social_media_use_html: Đọc chính sách của chúng tôi tại %{link}
-      welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công bố thông tin tại %{link}
+      welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
+        bố thông tin tại %{link}
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
     headings:
       contact_us: Liên hệ với chúng tôi

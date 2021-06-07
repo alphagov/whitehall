@@ -51,7 +51,7 @@ bg:
       intro: Този файл може да не е подходящ за хора, ползващи помощни технологии
       request_a_different_format: 'Направете заявка за друг формат
 
-'
+        '
     headings:
       order_a_copy: Поръчайте копие
       order_a_copy_full: Поръчайте копия
@@ -127,7 +127,7 @@ bg:
         speaker: Говорител
       written_on: 'Написана на:
 
-'
+        '
     type:
       about:
         one:
@@ -141,6 +141,9 @@ bg:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Съобщение
         other: Съобщения
@@ -148,6 +151,12 @@ bg:
         one: Авторска статия
         other: Авторски статии
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -347,7 +356,8 @@ bg:
         other: Писмени изявления до парламента
     updated: обновено
   document_filters:
-    description: Можете да използвате филтрите, за да видите резултатите, които пасват на вашето търсене
+    description: Можете да използвате филтрите, за да видите резултатите, които пасват
+      на вашето търсене
     no_results:
       description: Разширете търсенето си и опитайте отново
       title: Няма намерени документи
@@ -519,10 +529,13 @@ bg:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Нашият %{link} дава информация за начина на ползване на личните Ви данни
-      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия %{link}.
+      personal_information_charter_html: Нашият %{link} дава информация за начина
+        на ползване на личните Ви данни
+      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
+        %{link}.
       social_media_use_html: Вижте политиката ни по %{link}.
-      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме в %{link}.
+      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме
+        в %{link}.
     find_out_more: Вижте пълния профил и всички контакти
     headings:
       contact_us: Свържете се с нас

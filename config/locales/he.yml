@@ -136,6 +136,9 @@ he:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one:
         other:
@@ -143,6 +146,12 @@ he:
         one:
         other:
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -514,7 +523,8 @@ he:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע פרטי
+      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
+        פרטי
       publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}
       social_media_use_html: קרא/י אודות המדיניות שלנו %{link}
       welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום %{link}

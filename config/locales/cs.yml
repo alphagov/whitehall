@@ -43,8 +43,12 @@ cs:
     heading: Oznámení
   attachment:
     accessibility:
-      full_help_html: Pokud potřebujete tento dokument v jiném formátu, například v braillově písmu, jako audio nahrávku nebo v jiném formátu, prosím kontaktujte %{email}. Nezapomeňte uvést vaši adresu a telefon, společně s názvem publikace ("%{title}")%{references}.
-      intro: Tento dokument nemusí být přístupný pro občany používající asistenční technologie
+      full_help_html: Pokud potřebujete tento dokument v jiném formátu, například
+        v braillově písmu, jako audio nahrávku nebo v jiném formátu, prosím kontaktujte
+        %{email}. Nezapomeňte uvést vaši adresu a telefon, společně s názvem publikace
+        ("%{title}")%{references}.
+      intro: Tento dokument nemusí být přístupný pro občany používající asistenční
+        technologie
       request_a_different_format: Žádat o jiný formát dokumentu
     headings:
       order_a_copy: Objednat kopii
@@ -137,6 +141,9 @@ cs:
         few:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         one: Oznámení
@@ -147,6 +154,12 @@ cs:
         other: Autorské články
       blog_post:
         few:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -585,8 +598,10 @@ cs:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi %{link}
-      publication_scheme_html: Více o typech informací, které pravidelně zveřejňujeme na %{link}.
+      personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi
+        %{link}
+      publication_scheme_html: Více o typech informací, které pravidelně zveřejňujeme
+        na %{link}.
       social_media_use_html: Více o naší strategii o %{link}.
       welsh_language_scheme_html: Více o našem závazku zvěřejňovat informace na %{link}.
     find_out_more: Celý profil a kontakty zde.

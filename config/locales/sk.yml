@@ -137,6 +137,9 @@ sk:
         few:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         one:
@@ -147,6 +150,12 @@ sk:
         other:
       blog_post:
         few:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

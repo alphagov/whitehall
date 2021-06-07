@@ -43,8 +43,11 @@ de:
     heading: Meldungen
   attachment:
     accessibility:
-      full_help_html: Wenn Sie dieses Dokument in Braille-Schrift, als Audiodatei oder in einem anderen Format erhalten möchten, senden Sie uns eine E-Mail %{email} mit Ihrer Adresse, Telefonnummer und dem Titel der Publikation ("%{title}")%{references}.
-      intro: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht geeignet
+      full_help_html: Wenn Sie dieses Dokument in Braille-Schrift, als Audiodatei
+        oder in einem anderen Format erhalten möchten, senden Sie uns eine E-Mail
+        %{email} mit Ihrer Adresse, Telefonnummer und dem Titel der Publikation ("%{title}")%{references}.
+      intro: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
+        geeignet
       request_a_different_format: Anderes Format
     headings:
       order_a_copy: Exemplar bestellen
@@ -133,6 +136,9 @@ de:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Meldung
         other: Meldungen
@@ -140,6 +146,12 @@ de:
         one: Namensartikel
         other: Namensartikel
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -339,7 +351,8 @@ de:
         other: Schriftliche Erklärungen vor dem Parlament
     updated: Aktualisiert
   document_filters:
-    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse entsprechen.
+    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
+      entsprechen.
     no_results:
       description: Formulieren Sie Ihre Suche allgemeiner.
       title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
@@ -511,10 +524,13 @@ de:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen Daten schützen.
-      publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig publizieren
+      personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen
+        Daten schützen.
+      publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig
+        publizieren
       social_media_use_html: Unsere Politik zu %{link}
-      welsh_language_scheme_html: Mehr zu unserer Verpflichtung zur Veröffentlichung in %{link}
+      welsh_language_scheme_html: Mehr zu unserer Verpflichtung zur Veröffentlichung
+        in %{link}
     find_out_more: Vollständiges Profil und alle Kontaktdaten
     headings:
       contact_us: Schreiben Sie uns

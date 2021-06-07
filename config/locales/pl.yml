@@ -43,8 +43,12 @@ pl:
     heading: Ogłoszenia
   attachment:
     accessibility:
-      full_help_html: Aby otrzymać ten dokument w innym formacie, np. w alfabecie Braille'a. w formacie audio lub w innym rodzaju pliku prosimy wysłać email na adres %{email}, podając swój adres, numer telefonu oraz tytuł interesującej Państwa publikacji ("%{title}")%{references}
-      intro: Ten plik może nie być odpowiedni dla osób korzystających z technologii asystujących.
+      full_help_html: Aby otrzymać ten dokument w innym formacie, np. w alfabecie
+        Braille'a. w formacie audio lub w innym rodzaju pliku prosimy wysłać email
+        na adres %{email}, podając swój adres, numer telefonu oraz tytuł interesującej
+        Państwa publikacji ("%{title}")%{references}
+      intro: Ten plik może nie być odpowiedni dla osób korzystających z technologii
+        asystujących.
       request_a_different_format: Poproś o inny format
     headings:
       order_a_copy: Zamów kopię
@@ -141,6 +145,9 @@ pl:
         many:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -154,6 +161,12 @@ pl:
       blog_post:
         few:
         many:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -483,7 +496,8 @@ pl:
         other: Pisemne oświadczenia przed parlamentem
     updated: Zaktualizowany
   document_filters:
-    description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi są Państwo&nbsp;zainteresowani
+    description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi
+      są Państwo&nbsp;zainteresowani
     no_results:
       description: Spróbuj poszerzyc kryteria wyszukiwania i spróbuj ponownie
       title: Nie ma dokumentów odpowiadających kryteriom
@@ -659,10 +673,13 @@ pl:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Nasz %{link} pokazuje, w jaki sposób traktujemy Państwa informacje osobiste
-      publication_scheme_html: Przeczytaj, jakiego rodzaju wiadomości publikujemy zwykle w naszym %{link}
+      personal_information_charter_html: Nasz %{link} pokazuje, w jaki sposób traktujemy
+        Państwa informacje osobiste
+      publication_scheme_html: Przeczytaj, jakiego rodzaju wiadomości publikujemy
+        zwykle w naszym %{link}
       social_media_use_html: Przeczytaj naszą politykę dotyczącą %{link}
-      welsh_language_scheme_html: Poznaj nasze zobowiązania związane z publikowaniem w %{link}
+      welsh_language_scheme_html: Poznaj nasze zobowiązania związane z publikowaniem
+        w %{link}
     find_out_more: Zobacz pełen profil i wszystkie dane kontaktowe
     headings:
       contact_us: Skontaktuj się z nami

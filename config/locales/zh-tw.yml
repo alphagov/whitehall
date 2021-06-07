@@ -133,6 +133,9 @@ zh-tw:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: 公告
         other: 其他公告
@@ -140,6 +143,12 @@ zh-tw:
         one: 撰寫文章
         other: 撰寫其他文章
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

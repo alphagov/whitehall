@@ -141,6 +141,9 @@ gd:
         one:
         other:
         two:
+      alert:
+        one:
+        other:
       announcement:
         few:
         one:
@@ -156,6 +159,12 @@ gd:
         one:
         other:
         two:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         few:
         one:

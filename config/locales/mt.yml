@@ -141,6 +141,9 @@ mt:
         many:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -154,6 +157,12 @@ mt:
       blog_post:
         few:
         many:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

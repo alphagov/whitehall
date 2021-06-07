@@ -43,7 +43,10 @@ cy:
     heading: Cyhoeddiadau
   attachment:
     accessibility:
-      full_help_html: Os ydych yn defnyddio technoleg gynorthwyol (megis darllenydd sgrin) ac mae angen fersiwn o’r ddogfen hon arnoch mewn fformat mwy hygyrch, anfonwch e-bost i %{email}. Rhowch wybod i ni pa fformat sydd ei angen arnoch. Bydd o gymorth i ni os nodwch pa dechnoleg gynorthwyol yr ydych yn ei defnyddio.
+      full_help_html: Os ydych yn defnyddio technoleg gynorthwyol (megis darllenydd
+        sgrin) ac mae angen fersiwn o’r ddogfen hon arnoch mewn fformat mwy hygyrch,
+        anfonwch e-bost i %{email}. Rhowch wybod i ni pa fformat sydd ei angen arnoch.
+        Bydd o gymorth i ni os nodwch pa dechnoleg gynorthwyol yr ydych yn ei defnyddio.
       intro: Efallai na fydd y ffeil hon yn addas ar gyfer defnyddwyr technoleg gynorthwyol
       request_a_different_format: Gwneud cais am fformat gwahanol.
     headings:
@@ -149,6 +152,9 @@ cy:
         other:
         two:
         zero:
+      alert:
+        one:
+        other:
       announcement:
         few:
         many:
@@ -170,6 +176,12 @@ cy:
         other:
         two:
         zero:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
+        other:
       case_study:
         few:
         many:
@@ -627,9 +639,11 @@ cy:
         zero:
     updated: diweddarwyd
   document_filters:
-    description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb i chi
+    description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb
+      i chi
     no_results:
-      description: Rhowch gynnig ar wneud eich chwiliad yn fwy cyffredinol a rhoi cynnig arall arni.
+      description: Rhowch gynnig ar wneud eich chwiliad yn fwy cyffredinol a rhoi
+        cynnig arall arni.
       title: Nid oes dim dogfennau'n cyfateb.
       tna_heading:
       tna_link:
@@ -807,8 +821,10 @@ cy:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Canfod %{link}
-      personal_information_charter_html: Mae ein %{link} yn egluro sut rydym yn trin eich gwybodaeth bersonol.
-      publication_scheme_html: Darllenwch am y mathau o wybodaeth rydym yn eu cyhoeddi'n rheolaidd yn ein %{link}.
+      personal_information_charter_html: Mae ein %{link} yn egluro sut rydym yn trin
+        eich gwybodaeth bersonol.
+      publication_scheme_html: Darllenwch am y mathau o wybodaeth rydym yn eu cyhoeddi'n
+        rheolaidd yn ein %{link}.
       social_media_use_html: Darllenwch ein polisi ar %{link}
       welsh_language_scheme_html: Dysgwch am ein hymrwymiad i %{link}.
     find_out_more: Gweld proffil llawn a'r holl fanylion cyswllt

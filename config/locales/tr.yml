@@ -135,6 +135,9 @@ tr:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Duyuru
         other: Duyurular
@@ -142,6 +145,12 @@ tr:
         one: Yazılan makale
         other: Yazılan makaleler
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -512,10 +521,14 @@ tr:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız açıklamaktadır
-      publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link} 'e bakınız
-      social_media_use_html: Konuyla ilgili politikamız hakkında daha fazla bilgi için %{link}
-      welsh_language_scheme_html: Yayın hedefimiz ile ilgili bilgilere bu  %{link}ten ulaşabilirsiniz.
+      personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız
+        açıklamaktadır
+      publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link}
+        'e bakınız
+      social_media_use_html: Konuyla ilgili politikamız hakkında daha fazla bilgi
+        için %{link}
+      welsh_language_scheme_html: Yayın hedefimiz ile ilgili bilgilere bu  %{link}ten
+        ulaşabilirsiniz.
     find_out_more: Tüm profil ve iletişim bilgilerini görmek için
     headings:
       contact_us: Bize ulaşın

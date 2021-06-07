@@ -43,8 +43,11 @@ sq:
     heading: Njoftime shtypi
   attachment:
     accessibility:
-      full_help_html: Per te kerkuar kete dokument ne format alternativ si braille, audio ose format tjeter te lutem email %{email} duke cituar adresen tende, telefonin dhe titullin e publikimit ("%{title}")%{references}.
-      intro: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise ndihmuese.
+      full_help_html: Per te kerkuar kete dokument ne format alternativ si braille,
+        audio ose format tjeter te lutem email %{email} duke cituar adresen tende,
+        telefonin dhe titullin e publikimit ("%{title}")%{references}.
+      intro: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
+        ndihmuese.
       request_a_different_format: Kerko nje format ndryshe
     headings:
       order_a_copy: Porosit nje kopje
@@ -133,6 +136,9 @@ sq:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Lajmerim
         other: Lajmerime
@@ -140,6 +146,12 @@ sq:
         one: Artikull autori
         other: Artikuj autoresh
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -339,7 +351,8 @@ sq:
         other: Deklarata me shkrim per Parlamentin
     updated: rifreskuar
   document_filters:
-    description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet qe perputhen me interesin tuaj&nbsp;
+    description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
+      qe perputhen me interesin tuaj&nbsp;
     no_results:
       description: Zgjero kerkimin dhe perpiqu perseri
       title: Nuk gjendet cfare kerkoni
@@ -511,8 +524,10 @@ sq:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "%{link} shpjegon si trajtohet informacioni juaj personal"
-      publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht ne %{link}.
+      personal_information_charter_html: "%{link} shpjegon si trajtohet informacioni
+        juaj personal"
+      publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht
+        ne %{link}.
       social_media_use_html: Lexo politikat tona ne %{link}
       welsh_language_scheme_html: Meso mbi angazhimin tone ndaj publikimit ne %{link}
     find_out_more: Shiko profilin e plote dhe kontaktet

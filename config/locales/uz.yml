@@ -43,7 +43,9 @@ uz:
     heading: E'lonlar
   attachment:
     accessibility:
-      full_help_html: Bu hujjatni brayl,audio yoki boshqa formatda olish uchun quyidagi elektron manzilga %{email} jismoniy manzilingiz, telefon raqamingiz va nashr sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
+      full_help_html: Bu hujjatni brayl,audio yoki boshqa formatda olish uchun quyidagi
+        elektron manzilga %{email} jismoniy manzilingiz, telefon raqamingiz va nashr
+        sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
       intro: Bu hujjat boshqa formatlarda mavjud emas.
       request_a_different_format: Boshqa formatdagi hujjatni so'rash.
     headings:
@@ -133,6 +135,9 @@ uz:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: E'lon
         other: E'lonlar
@@ -140,6 +145,12 @@ uz:
         one: Muallif maqolasi
         other: Muallif maqolalari
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -339,7 +350,8 @@ uz:
         other: Parlament uchun yozma hisobotlar
     updated: yangilandi
   document_filters:
-    description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni qullaning
+    description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
+      qullaning
     no_results:
       description: Qidiruvni kengaytiring va yana bir bora urinib ko'ring.
       title: Mos hujjatlar yoq.
@@ -511,10 +523,13 @@ uz:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot bilan ishlashimiz haqida sizga ma'lumot beradi 
-      publication_scheme_html: "%{link} Biz doimiy tarzda nashr etayotgan ma'lumot haqida o'qing"
+      personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot
+        bilan ishlashimiz haqida sizga ma'lumot beradi 
+      publication_scheme_html: "%{link} Biz doimiy tarzda nashr etayotgan ma'lumot
+        haqida o'qing"
       social_media_use_html: "%{link} Bizning dasturimiz haqida batafsil ma'lumot"
-      welsh_language_scheme_html: "%{link} Nashr etish uchun biz olib borayotgan faoliyatimiz haqida o'qing"
+      welsh_language_scheme_html: "%{link} Nashr etish uchun biz olib borayotgan faoliyatimiz
+        haqida o'qing"
     find_out_more: To'liq profil va bog'lanish uchun ma'lumotni ko'ring
     headings:
       contact_us: Biz bilan bog'laning

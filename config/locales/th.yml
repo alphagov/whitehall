@@ -43,7 +43,8 @@ th:
     heading: ข่าวสาร
   attachment:
     accessibility:
-      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
+      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น
+        กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
       intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
       request_a_different_format: ขอรูปแบบอื่น
     headings:
@@ -129,11 +130,20 @@ th:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: ข่าวสาร
       authored_article:
         other: บทความที่เขียน
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: กรณีศึกษา
@@ -196,6 +206,7 @@ th:
       news_article:
         other: บทความข่าว
       news_story:
+        one:
         other: ข่าว
       nhs_content:
         other:
@@ -218,6 +229,7 @@ th:
       policy_paper:
         other: เอกสารนโยบาย
       press_release:
+        one:
         other: ข่าวประชาสัมพันธ์
       procurement:
         other:
@@ -240,12 +252,14 @@ th:
       speaking_notes:
         other: ประเด็นการพูด
       speech:
+        one:
         other: สุนทรพจน์
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
         other: ชุดข้อมูลสถิติ
@@ -440,7 +454,8 @@ th:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
       publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
       social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}
-      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่ %{link}.
+      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
+        %{link}.
     find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
     headings:
       contact_us: ติดต่อเรา

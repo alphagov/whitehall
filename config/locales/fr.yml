@@ -46,7 +46,8 @@ fr:
       full_help_html: |-
         Si vous souhaitez recevoir ce document dans un autre format (braille, audio ou autre), merci d'envoyer un email à %{email}
         en indiquant votre adresse, votre numéro de téléphone, ainsi que le titre du document ("%{title}")%{references}.
-      intro: 'Le format de ce document peut ne pas convenir aux utilisateurs de technologies d''assistance '
+      intro: 'Le format de ce document peut ne pas convenir aux utilisateurs de technologies
+        d''assistance '
       request_a_different_format: Demander un format de document différent
     headings:
       order_a_copy: Commander une copie
@@ -135,6 +136,9 @@ fr:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: Annonce
         other: Annonces
@@ -142,6 +146,12 @@ fr:
         one: Article signé
         other: Articles signés
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -341,7 +351,8 @@ fr:
         other: Communiqués
     updated: mise à  jour
   document_filters:
-    description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats qui correspondent à vos intérêts
+    description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
+      qui correspondent à vos intérêts
     no_results:
       description: Essayez d'élargir votre recherche et essayez à nouveau.
       title: Il n'existe aucun document correspondant.
@@ -513,10 +524,13 @@ fr:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Notre %{link} explique comment nous traitons vos renseignements personnels.
-      publication_scheme_html: En savoir plus sur les types d'informations régulièrement publiés dans notre %{link}.
+      personal_information_charter_html: Notre %{link} explique comment nous traitons
+        vos renseignements personnels.
+      publication_scheme_html: En savoir plus sur les types d'informations régulièrement
+        publiés dans notre %{link}.
       social_media_use_html: Lire notre politique d' %{link}.
-      welsh_language_scheme_html: En savoir plus sur notre engagement à l'édition en %{link}.
+      welsh_language_scheme_html: En savoir plus sur notre engagement à l'édition
+        en %{link}.
     find_out_more: En savoir plus
     headings:
       contact_us: Contactez-nous

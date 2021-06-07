@@ -43,7 +43,9 @@ si:
     heading: නිවේදන
   attachment:
     accessibility:
-      full_help_html: මෙම ලේඛනය බ්‍රේල්, ශබ්ද හෝ වෙනත් ආකාරයකින් ලබාගැනීමට  කරුණාකර විද්‍යුත් තැපැල් මගින් විමසන්න %{email} ඔබගේ ලිපිනය, දුරකථන අංකය සහ අවශ්‍ය ලේඛනයේ නම සමග  ("%{title}")%{references}.
+      full_help_html: මෙම ලේඛනය බ්‍රේල්, ශබ්ද හෝ වෙනත් ආකාරයකින් ලබාගැනීමට  කරුණාකර
+        විද්‍යුත් තැපැල් මගින් විමසන්න %{email} ඔබගේ ලිපිනය, දුරකථන අංකය සහ අවශ්‍ය
+        ලේඛනයේ නම සමග  ("%{title}")%{references}.
       intro: විශේෂ තාක්ෂණික සහය භාවිතා කරන්නන්ට මෙම ලේඛනය සුදුසු නොවිය හැක
       request_a_different_format: වෙනත් වර්ගයකින් ඉල්ලීමට
     headings:
@@ -133,6 +135,9 @@ si:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: නිවේදනය
         other: නිවේදන
@@ -140,6 +145,12 @@ si:
         one: රචිත ලිපිය  
         other: රචිත ලිපි
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -511,7 +522,8 @@ si:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: ඔබගේ පුද්ගලික තොරතුරු භාවිතා කිරීම ගැන අපේ %{link} පැහැදිලි කිරීම
+      personal_information_charter_html: ඔබගේ පුද්ගලික තොරතුරු භාවිතා කිරීම ගැන අපේ
+        %{link} පැහැදිලි කිරීම
       publication_scheme_html: අප නිතර අපේ %{link} පල කරන තොරතුරු වර්ගයන් ගැන කියවන්න
       social_media_use_html: " %{link}හිදී අපේ ප්‍රතිපත්ති කියවන්න"
       welsh_language_scheme_html: " %{link} හි පල කිරීමට අපේ ඇති කැපවීම ගැන කියවන්න"

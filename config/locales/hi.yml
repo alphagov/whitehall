@@ -46,7 +46,8 @@ hi:
       full_help_html: |-
         इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो में निवेदन करें, %{email}
         अपना पता, टेलीफोन नंबर और प्रकाशन के  शीर्षक के साथ ("%{title}")%{references}.
-      intro: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए उपयोगी ना हो
+      intro: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए
+        उपयोगी ना हो
       request_a_different_format: एक  अलग प्रारूप का निवेदन
     headings:
       order_a_copy: प्रतिलिपि मंगाएँ
@@ -135,6 +136,9 @@ hi:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one: घोषणा
         other: घोषणाएं
@@ -142,6 +146,12 @@ hi:
         one: मूल आलेख
         other: मूल आलेख
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:
@@ -341,7 +351,8 @@ hi:
         other: संसद में लिखित बयान
     updated: अद्यतन
   document_filters:
-    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं, जिनमें आप की दिलचस्पी हो।
+    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
+      जिनमें आप की दिलचस्पी हो।
     no_results:
       description: 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
       title: मेल खाने वाले दस्तावेज़ नहीं हैं
@@ -513,10 +524,13 @@ hi:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत सूचना का उपयोग करते हैं।
-      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
+      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत
+        सूचना का उपयोग करते हैं।
+      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम
+        अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
       social_media_use_html: इस बारे में हमारी नीतियां पढ़ें %{link}
-      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें %(link)।
+      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें
+        %(link)।
     find_out_more: पूरी रूप रेखा और समस्त संपर्क विवरण देखें
     headings:
       contact_us: हमसे संपर्क करें

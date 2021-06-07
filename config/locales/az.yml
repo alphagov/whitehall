@@ -129,11 +129,20 @@ az:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: Elanlar
       authored_article:
         other:
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: Öyrənilib
@@ -196,6 +205,7 @@ az:
       news_article:
         other: məqalələr
       news_story:
+        one:
         other: Xəbərlər
       nhs_content:
         other:
@@ -218,6 +228,7 @@ az:
       policy_paper:
         other: Siyasi sənədlər
       press_release:
+        one:
         other: mətbuat üçün açıqlama
       procurement:
         other:
@@ -240,12 +251,14 @@ az:
       speaking_notes:
         other: Çıxış üçün  qeydləri
       speech:
+        one:
         other: Çıxışlar
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: Parlamentə bəyanatlar
       statistical_data_set:
         other: statistik məlumatlar bazaları

@@ -133,6 +133,9 @@ sw:
       accessible_documents_policy:
         one:
         other:
+      alert:
+        one:
+        other:
       announcement:
         one:
         other:
@@ -140,6 +143,12 @@ sw:
         one:
         other:
       blog_post:
+        one:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
         one:
         other:
       case_study:

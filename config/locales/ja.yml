@@ -43,7 +43,8 @@ ja:
     heading: ニュース
   attachment:
     accessibility:
-      full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル ("%{title}")%{references}.をお送り下さい。
+      full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
+        ("%{title}")%{references}.をお送り下さい。
       intro: このファイルは支援技術のユーザーには利用できない場合があります
       request_a_different_format: 異なるフォーマットを要求
     headings:
@@ -129,11 +130,20 @@ ja:
         other:
       accessible_documents_policy:
         other:
+      alert:
+        one:
+        other:
       announcement:
         other: ニュース
       authored_article:
         other: Authored articles
       blog_post:
+        other:
+      campaign:
+        one:
+        other:
+      careers:
+        one:
         other:
       case_study:
         other: ケーススタディ
@@ -196,6 +206,7 @@ ja:
       news_article:
         other: ニュース
       news_story:
+        one:
         other: ニュース
       nhs_content:
         other:
@@ -218,6 +229,7 @@ ja:
       policy_paper:
         other: 政策文書
       press_release:
+        one:
         other: 新聞発表
       procurement:
         other:
@@ -240,12 +252,14 @@ ja:
       speaking_notes:
         other: キーポイント
       speech:
+        one:
         other: スピーチ
       staff_update:
         other:
       standard:
         other:
       statement_to_parliament:
+        one:
         other: 閣僚声明
       statistical_data_set:
         other: 統計データセット
