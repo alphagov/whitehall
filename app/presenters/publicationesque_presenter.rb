@@ -12,7 +12,7 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
       links = model.published_document_collections.map do |dc|
         context.link_to(dc.title, context.public_document_path(dc))
       end
-      "Part of a collection: #{links.to_sentence}"
+      "#{I18n.t('support.part_of_collection')} #{links.to_sentence}"
     end
   end
 
