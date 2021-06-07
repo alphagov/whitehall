@@ -479,6 +479,11 @@ ja:
     download:
     field_of_operation:
     filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
     part_of_collection:
   time:
     formats:
