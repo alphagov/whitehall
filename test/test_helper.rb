@@ -1,6 +1,11 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV["RAILS_ENV"] = "test"
 
+require "simplecov"
+SimpleCov.start "rails"
+SimpleCov.command_name "Unit Tests"
+SimpleCov.merge_timeout 3600
+
 require File.expand_path("../config/environment", __dir__)
 
 require "maxitest/autorun"
