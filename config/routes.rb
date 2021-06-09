@@ -163,8 +163,7 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_slug/email-signup" => "email_signup_information#show",
-        as: :organisation_email_signup_information
+    get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
 
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
