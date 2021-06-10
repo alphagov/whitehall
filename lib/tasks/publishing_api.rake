@@ -61,6 +61,43 @@ namespace :publishing_api do
     end
   end
 
+  desc "Publish past holders of some of the Great Offices of State"
+  task publish_past_post_holders: :environment do
+    publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
+      logger: Logger.new($stdout),
+      publishing_api: Services.publishing_api,
+    )
+
+    [
+      {
+        base_path: "/government/history/past-chancellors",
+        content_id: "ac47f738-b6c3-4369-8d22-ce143c947442",
+        title: "Past Chancellors of the Exchequer",
+      },
+      {
+        base_path: "/government/history/past-prime-ministers",
+        content_id: "a258e45a-acbe-4d70-ad2c-a2a20761536a",
+        title: "Past Prime Ministers",
+      },
+      {
+        base_path: "/government/history/past-foreign-secretaries",
+        content_id: "e46b25e9-d47f-4b93-8466-682b73627db3",
+        title: "Past Foreign Secretaries",
+      },
+    ].each do |route|
+      publisher.publish(
+        {
+          format: "special_route",
+          publishing_app: "whitehall",
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          update_type: "major",
+          type: "exact",
+          public_updated_at: Time.zone.now.iso8601,
+        }.merge(route),
+      )
+    end
+  end
+
   desc "Publish redirect routes (eg /government/world)"
   task publish_redirect_routes: :environment do
     [
