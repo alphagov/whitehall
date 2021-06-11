@@ -14,4 +14,9 @@ namespace :reporting do
 
     Reports::OrganisationAttachmentsReport.new(args[:organisation_slug]).report
   end
+
+  desc "A CSV report of non-HTML attachments uploads published by all organisations"
+  task published_attachments_report: :environment do
+    Reports::PublishedAttachmentsReport.new.report
+  end
 end
