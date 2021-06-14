@@ -1,14 +1,24 @@
 module Reports
   class OrganisationAttachmentsReport
+    CSV_HEADERS = [
+      "Attachment title",
+      "Attachment path",
+      "File type",
+      "Accessible",
+      "Content type",
+      "Content URL",
+      "Publication date",
+      "Last amended date",
+    ].freeze
+
     def initialize(organisation_slug)
       @organisation_slug = organisation_slug
     end
 
     def report
       path = Rails.root.join("tmp/#{@organisation_slug}-attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
-      csv_headers = ["Attachment title", "Attachment path", "File type", "Accessible", "Content type", "Content URL", "Publication date", "Last amended date"]
 
-      CSV.open(path, "wb", headers: csv_headers, write_headers: true) do |csv|
+      CSV.open(path, "wb", headers: CSV_HEADERS, write_headers: true) do |csv|
         organisation_id = Organisation.where(slug: @organisation_slug, govuk_status: "live").limit(1).pick(:id)
 
         editions = get_editions_by_organisation(organisation_id)
