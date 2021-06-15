@@ -8,6 +8,7 @@ FactoryBot.define do
   end
 
   factory :offsite_classification_featuring, class: ClassificationFeaturing do
+    offsite_link
     classification
     sequence(:ordering) { |index| index }
     association :image, factory: :classification_featuring_image_data
