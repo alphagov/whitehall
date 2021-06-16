@@ -3,11 +3,11 @@
 %>
 <% if organisation.supporting_bodies.any? %>
   <p class="works-with">
-    Works with <%= organisation.supporting_bodies.count %>
+    <%= t("organisation.support.works_with") %> <%= organisation.supporting_bodies.count %>
     <% if organisation.supporting_bodies.count == 1 %>
-      public body
+      <%= t("organisation.support.public_body") %>
     <% else %>
-      agencies and public bodies
+      <%= t("organisation.support.agencies_and_public_bodies") %>
     <% end %>
   </p>
   <div class="organisations-box js-hidden"><div class="organisations-box-inner">

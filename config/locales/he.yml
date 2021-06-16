@@ -49,6 +49,10 @@ he:
         המבוקש ("%{title}")%{references}.
       intro: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
       request_a_different_format: אנא בקש/י פורמט אחר
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: הזמן עותק
       order_a_copy_full: הזמן עותק של הפרסום
@@ -58,6 +62,9 @@ he:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -68,6 +75,11 @@ he:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: טופס יצירת קשר
@@ -351,15 +363,31 @@ he:
         other:
     updated: מעודכן
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
       description: נסי/ה להרחיב את החיפוש וחפש/י שוב
       title: אין מסמכים תואמים
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -405,6 +433,7 @@ he:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -449,12 +478,26 @@ he:
       jobs_and_contacts: עבודות וחוזים
       organisation_chart:
       transparency: מידע נגיש
+    email:
+      alerts:
+      summary:
     headings:
       contact: חוזה %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: פרסומים
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ראה כל הודעות
     authored_article: ראה כל מאמרים מאושרים
@@ -499,12 +542,33 @@ he:
     transcript: ראה כל תמלולים
     transparency: ראה כל שקיפות מידע
     written_statement: ראה כל הצהרות בכתב לפרלמנט
+  statements:
+    heading:
   support:
     array:
       last_word_connector: בנוסף
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: ההודעות שלנו
@@ -520,6 +584,8 @@ he:
       world_location:
         one:
         other:
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

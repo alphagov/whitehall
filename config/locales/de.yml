@@ -49,6 +49,10 @@ de:
       intro: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
         geeignet
       request_a_different_format: Anderes Format
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Exemplar bestellen
       order_a_copy_full: Exemplar der Veröffentlichung bestellen
@@ -58,6 +62,9 @@ de:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -68,6 +75,11 @@ de:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Kontaktformular
@@ -351,6 +363,11 @@ de:
         other: Schriftliche Erklärungen vor dem Parlament
     updated: Aktualisiert
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
       entsprechen.
     no_results:
@@ -358,9 +375,20 @@ de:
       title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Alle Standorte
       label: Standorte weltweit
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -406,6 +434,7 @@ de:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -450,12 +479,26 @@ de:
       jobs_and_contacts: Stellenanzeigen
       organisation_chart:
       transparency: Transparenzdaten
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} kontaktieren"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Veröffentlichungen
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Alle unsere Meldungen
     authored_article: Alle unsere Namensartikel
@@ -500,12 +543,33 @@ de:
     transcript: Alle unsere Mitschriften
     transparency: Alle unsere Transparenz-Daten
     written_statement: Alle unsere Schriftliche Erklärungen vor dem Parlament
+  statements:
+    heading:
   support:
     array:
       last_word_connector: und
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Unsere Meldungen
@@ -521,6 +585,8 @@ de:
       world_location:
         one: Vertretungen im Ausland
         other: Vertretungen im Ausland
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -5,7 +5,7 @@
     <h2><%= t('document_filters.description').html_safe %></h2>
     <form method="get" action="<%= send(:"#{document_type_plural}_path") %>" id="document-filter" class="js-document-filter filter-form">
       <fieldset>
-        <legend class="visuallyhidden">Filter <%= document_type_plural %></legend>
+        <legend class="visuallyhidden"><%= t("support.filter") %> <%= document_type_plural %></legend>
 
         <% if filters.include? :locations %>
           <div class="filter">

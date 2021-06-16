@@ -33,7 +33,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
 
   class UnassignedPersonPresenter < PersonPresenter
     def name
-      "No one is assigned to this role"
+      I18n.t("roles.unassigned")
     end
 
     def link

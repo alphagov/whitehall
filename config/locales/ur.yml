@@ -48,6 +48,10 @@ ur:
         نمبراور  %{title}"(%{references}") لکھئیے
       intro: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ ہو
       request_a_different_format: مختلف فارمیٹ طلب کیجئیے
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: کاپی منگائیے
       order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
@@ -57,6 +61,9 @@ ur:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ ur:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: کانٹیکٹ فارم
@@ -350,6 +362,11 @@ ur:
         other: پارلیمنٹ میں تحریری بیانات
     updated: تجدید شدہ
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں
     no_results:
@@ -357,9 +374,20 @@ ur:
       title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -405,6 +433,7 @@ ur:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -449,12 +478,26 @@ ur:
       jobs_and_contacts: ملازمتیں اورکنٹریکٹس
       organisation_chart:
       transparency: ٹرانسپیرنسی ڈیٹا
+    email:
+      alerts:
+      summary:
     headings:
       contact: رابطہ %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: اشاعتیں
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: تما م دیکھئیے اعلانات
     authored_article: تما م دیکھئیے تحریر کردہ مضامین
@@ -499,12 +542,33 @@ ur:
     transcript: تما م دیکھئیے ٹرانسکرپٹس
     transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
     written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
+  statements:
+    heading:
   support:
     array:
       last_word_connector: اور
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: ہمارے اعلانات
@@ -520,6 +584,8 @@ ur:
       world_location:
         one: " عالمی محل وقوع"
         other: عالمی محل ہائے وقوع
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

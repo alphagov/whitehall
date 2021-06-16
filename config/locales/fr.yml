@@ -49,6 +49,10 @@ fr:
       intro: 'Le format de ce document peut ne pas convenir aux utilisateurs de technologies
         d''assistance '
       request_a_different_format: Demander un format de document différent
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Commander une copie
       order_a_copy_full: Commander une copie du document
@@ -58,6 +62,9 @@ fr:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -68,6 +75,11 @@ fr:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formulaire de contact
@@ -351,6 +363,11 @@ fr:
         other: Communiqués
     updated: mise à  jour
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
       qui correspondent à vos intérêts
     no_results:
@@ -358,9 +375,20 @@ fr:
       title: Il n'existe aucun document correspondant.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Tous les endroits
       label: Pays
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -406,6 +434,7 @@ fr:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -450,12 +479,26 @@ fr:
       jobs_and_contacts: Emploi et contrats
       organisation_chart:
       transparency: Données de transparence
+    email:
+      alerts:
+      summary:
     headings:
       contact: Contacter %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publications
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Voir toutes nos annonces
     authored_article: Voir toutes nos articles signés
@@ -500,12 +543,33 @@ fr:
     transcript: Voir toutes nos transcriptions
     transparency: Voir toutes nos transparence des données
     written_statement: Voir toutes nos communiqués
+  statements:
+    heading:
   support:
     array:
       last_word_connector: et
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%B %d, %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Nos actualités
@@ -521,6 +585,8 @@ fr:
       world_location:
         one: Localisation
         other: Localisations
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

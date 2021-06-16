@@ -12,7 +12,7 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
 
   def field_of_operation
     if model.respond_to?(:operational_field) && model.operational_field.present?
-      "Field of operation: #{context.link_to(model.operational_field.name, model.operational_field)}"
+      "#{I18n.t('support.field_of_operation')} #{context.link_to(model.operational_field.name, model.operational_field)}"
     end
   end
 
@@ -21,7 +21,7 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
       links = model.published_document_collections.map do |dc|
         context.link_to(dc.title, context.public_document_path(dc))
       end
-      "Part of a collection: #{links.to_sentence}"
+      "#{I18n.t('support.part_of_collection')} #{links.to_sentence}"
     end
   end
 end

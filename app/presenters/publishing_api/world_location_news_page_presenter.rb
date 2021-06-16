@@ -51,7 +51,7 @@ module PublishingApi
     end
 
     def description
-      "Updates, news and events from the UK government in #{world_location.name}"
+      I18n.t("world_news.uk_updates_in_country", country: world_location.name)
     end
 
     def title

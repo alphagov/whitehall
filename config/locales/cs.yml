@@ -50,6 +50,10 @@ cs:
       intro: Tento dokument nemusí být přístupný pro občany používající asistenční
         technologie
       request_a_different_format: Žádat o jiný formát dokumentu
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Objednat kopii
       order_a_copy_full: Objednat kopii této publikace
@@ -59,6 +63,9 @@ cs:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -69,6 +76,11 @@ cs:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Kontaktní formulář
@@ -424,15 +436,31 @@ cs:
         other: Písemná prohlášení do parlamentu
     updated: Aktualizováno
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
       description: Prosím upravte vámi hledaný pojem a zkuste to znovu.
       title: Systém nemůže nalézt Vámi požadované heslo.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Všude
       label: Světové lokace
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -478,6 +506,7 @@ cs:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -522,12 +551,26 @@ cs:
       jobs_and_contacts: Pracovní příležitosti
       organisation_chart:
       transparency: 'Data '
+    email:
+      alerts:
+      summary:
     headings:
       contact: Kontakt %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publikace
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Podívejte se na
     authored_article: Podívejte se na
@@ -572,12 +615,33 @@ cs:
     transcript: Podívejte se na
     transparency: Podívejte se na
     written_statement: Podívejte se na
+  statements:
+    heading:
   support:
     array:
       last_word_connector: a
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Naše oznámení
@@ -595,6 +659,8 @@ cs:
         few:
         one: Světová lokace
         other: Světové lokace
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

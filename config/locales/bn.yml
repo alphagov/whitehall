@@ -50,6 +50,10 @@ bn:
         আমাদেরকে জানান তবে উপকার হবে।\n"
       intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
       request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: একটি অনুলিপির অর্ডার করুন
       order_a_copy_full: প্রকাশনার একটি অনুলিপির অর্ডার করুন
@@ -60,6 +64,9 @@ bn:
     opendocument:
       help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
         প্রকরণে আছে।
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
@@ -71,6 +78,11 @@ bn:
     published_at: প্রথম প্রকাশিত
     see_all_updates: সকল আপডেটসমূহ দেখুন
     updated_at: সর্বশেষ আপডেটকৃত
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times: প্রবেশ ও খোলার সময়
     contact_form: যোগাযোগের ফরম
@@ -354,6 +366,11 @@ bn:
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: আপডেটকৃত
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
       আপনি ফিল্টার ব্যবহার করতে পারেন
     no_results:
@@ -363,9 +380,20 @@ bn:
       tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর
         করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: ইমেইল
     feed: ফীড
@@ -411,6 +439,7 @@ bn:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -455,12 +484,26 @@ bn:
       jobs_and_contacts: চাকরি ও চুক্তিসমূহ
       organisation_chart: আমাদের সংস্থার তালিকা
       transparency: স্বচ্ছতামূলক ডেটা
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} যোগাযোগ করুন"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: প্রকাশনাসমূহ
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: আমাদের সকল ঘোষণাসমূহ দেখুন
     authored_article: আমাদের সকল রচনা প্রবন্ধসমূহ দেখুন
@@ -505,12 +548,33 @@ bn:
     transcript: আমাদের সকল প্রতিলিপিসমূহ দেখুন
     transparency: আমাদের সকল স্বচ্ছতামূলক ডেটা দেখুন
     written_statement: সংসদে আমাদের সকল লিখিত বিবৃতিসমূহ দেখুন
+  statements:
+    heading:
   support:
     array:
       last_word_connector: এবং
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: আমাদের ঘোষণাসমূহ
@@ -526,6 +590,8 @@ bn:
       world_location:
         one: বৈশ্বিক অবস্থান
         other: বৈশ্বিক অবস্থানসমূহ
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} -এ অনুসন্ধান করুন।"

@@ -50,6 +50,10 @@ ta:
       intro: விசேட  தேவை  கொண்டவர்களுக்கான உறுதுணை  தொழில்நுட்பத்தை உபயோகிப்பவர்களுக்கு
         இந்தக்  கோவை பொருத்தமானதாக இல்லாதிருக்கலாம்.
       request_a_different_format: ஓர் வேறுபட்ட வடிவத்தை  வேண்டிக்கொள்ளுதல்
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: பிரதியொன்றுக்கு கட்டளையிடுதல்
       order_a_copy_full: வெளியீடு ஒன்றின் பிரதிக்கு கட்டளையிடுதல்
@@ -59,6 +63,9 @@ ta:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -69,6 +76,11 @@ ta:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: தொடர்புகொள்ளல் படிவம்
@@ -352,6 +364,11 @@ ta:
         other: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
     updated: இற்றைப்படுத்தப்பட்டது
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
       வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்.
     no_results:
@@ -359,9 +376,20 @@ ta:
       title: பொருந்தும் வகையிலான ஆவணங்கள் அங்கில்லை
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: அனைத்து அமைவிடங்களும்
       label: உலக அமைவிடங்கள்
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -407,6 +435,7 @@ ta:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -451,12 +480,26 @@ ta:
       jobs_and_contacts: வேலைகள் மற்றும் ஒப்பந்தங்கள்
       organisation_chart:
       transparency: வெளிப்படையான தரவு
+    email:
+      alerts:
+      summary:
     headings:
       contact: தொடர்பு %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: வெளியீடுகள்
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: எங்களது அனைத்து அறிவிப்புகள் பார்க்கவும்
     authored_article: எங்களது அனைத்து எழுதப்பட்ட கட்டுரைகள் பார்க்கவும்
@@ -503,12 +546,33 @@ ta:
     transparency: எங்களது அனைத்து வெளிப்படையான தரவு பார்க்கவும்
     written_statement: எங்களது அனைத்து பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
       பார்க்கவும்
+  statements:
+    heading:
   support:
     array:
       last_word_connector: மற்றும்
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y%H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: எங்களது அறிவிப்புகள்
@@ -524,6 +588,8 @@ ta:
       world_location:
         one: உலக அமைவிடம்
         other: உலக அமைவிடங்கள்
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

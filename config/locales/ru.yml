@@ -47,6 +47,10 @@ ru:
       intro: Данный документ может быть не доступен лицам, использующим вспомогательные
         технологии
       request_a_different_format: Получить в другом формате
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Заказать копию
       order_a_copy_full: Заказать копию публикации
@@ -56,6 +60,9 @@ ru:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -66,6 +73,11 @@ ru:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Контактная форма
@@ -493,6 +505,11 @@ ru:
         other: Письменные заявления парламенту
     updated: обновлено
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры
     no_results:
@@ -500,9 +517,20 @@ ru:
       title: Соответствующих документов не найдено
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Все места нахождения
       label: Места нахождения
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -548,6 +576,7 @@ ru:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -592,12 +621,26 @@ ru:
       jobs_and_contacts: Рабочие места и контракты
       organisation_chart:
       transparency: Данные о прозрачности
+    email:
+      alerts:
+      summary:
     headings:
       contact: Обратиться к %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Публикации
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Посмотреть все наши Объявления
     authored_article: Посмотреть все наши Авторские статьи
@@ -642,12 +685,33 @@ ru:
     transcript: Посмотреть все наши Тексты
     transparency: Посмотреть все наши Прозрачность данных
     written_statement: Посмотреть все наши Письменные заявления парламенту
+  statements:
+    heading:
   support:
     array:
       last_word_connector: и
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Наши объявления
@@ -667,6 +731,8 @@ ru:
         many:
         one: Место нахождения
         other: Места нахождения
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

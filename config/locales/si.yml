@@ -48,6 +48,10 @@ si:
         ලේඛනයේ නම සමග  ("%{title}")%{references}.
       intro: විශේෂ තාක්ෂණික සහය භාවිතා කරන්නන්ට මෙම ලේඛනය සුදුසු නොවිය හැක
       request_a_different_format: වෙනත් වර්ගයකින් ඉල්ලීමට
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: පිටපතක් ඇනවුම් කිරීමට
       order_a_copy_full: ප්‍රකාශනයේ පිටපතක් ඇනවුම් කිරීමට
@@ -57,6 +61,9 @@ si:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ si:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: තොරතුරු පෝරමය
@@ -350,15 +362,31 @@ si:
         other: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ
     updated: යාවත්කාලීන කල
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න
     no_results:
       description: ඔබගේ සෙවුම පුළුල් කර නැවත සොයන්න
       title: ගැලපෙන ලේඛන කිසිවක් නැත
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: සියලු ස්ථාන
       label: ලෝක ස්ථාන
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -404,6 +432,7 @@ si:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -448,12 +477,26 @@ si:
       jobs_and_contacts: රැකියා සහ කොන්තරාත්තු
       organisation_chart:
       transparency: විනිවිධභාවයේ දත්ත
+    email:
+      alerts:
+      summary:
     headings:
       contact: විස්තර %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: ප්‍රකාශන
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: අපගේ සියලු නිවේදන බලන්න
     authored_article: අපගේ සියලු රචිත ලිපි බලන්න
@@ -498,12 +541,33 @@ si:
     transcript: අපගේ සියලු  අනුපත් බලන්න
     transparency: අපගේ සියලු විනිවිධභාවයේ දත්ත බලන්න
     written_statement: අපගේ සියලු පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ බලන්න
+  statements:
+    heading:
   support:
     array:
       last_word_connector: සහ
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: අපේ නිවේදන
@@ -519,6 +583,8 @@ si:
       world_location:
         one: ලෝක ස්ථානය
         other: ලෝක ස්ථාන
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -47,6 +47,10 @@ th:
         กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
       intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
       request_a_different_format: ขอรูปแบบอื่น
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: สั่งสำเนาหนึ่งชุด
       order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด
@@ -56,6 +60,9 @@ th:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -66,6 +73,11 @@ th:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: แบบฟอร์มการติดต่อ
@@ -281,15 +293,31 @@ th:
         other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ
     no_results:
       description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
       title: ไม่มีเอกสารที่ตรงตามต้องการ
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -335,6 +363,7 @@ th:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -379,12 +408,26 @@ th:
       jobs_and_contacts: งานและการทำสัญญา
       organisation_chart:
       transparency: ข้อมูลที่มีความโปร่งใส
+    email:
+      alerts:
+      summary:
     headings:
       contact: สัญญา %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: สิ่งพิมพ์
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ดูทั้งหมดข่าวสาร
     authored_article: ดูทั้งหมดบทความที่เขียน
@@ -429,12 +472,33 @@ th:
     transcript: ดูทั้งหมดสำเนา
     transparency: ดูทั้งหมดข้อมูลโปร่งใส
     written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+  statements:
+    heading:
   support:
     array:
       last_word_connector: และ
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: ข่าวสารของเรา
@@ -448,6 +512,8 @@ th:
         other: คณะผู้แทนนานาประเทศ
       world_location:
         other: ทีตั้ง
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

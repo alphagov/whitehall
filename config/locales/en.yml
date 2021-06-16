@@ -49,6 +49,11 @@ en:
         Please tell us what format you need. It will help us if you say what assistive technology you use.
       intro: This file may not be suitable for users of assistive technology.
       request_a_different_format: Request an accessible format.
+    csv:
+      cannot_preview: This file could not be previewed.
+      download: Download the file to view its full contents.
+      truncated_message: This preview only shows the first %{rows} rows and %{columns}
+        columns.
     headings:
       order_a_copy: Order a copy
       order_a_copy_full: Order a copy of the publication
@@ -59,6 +64,11 @@ en:
     opendocument:
       help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
         format
+    virus_check:
+      intro: This attachment is being virus checked.
+      message: We are currently holding this attachment in quarantine until it has been
+        virus checked. The attachment will be available at the original location
+        shortly.
   broken_links:
     broken:
       subheading: We’ve found links in this document that may be broken
@@ -74,6 +84,11 @@ en:
     access_and_opening_times: Access and opening times
     contact_form: Contact form
     email: Email
+  consultation:
+    closed: Closed
+    closing_today: Closing today
+    closing_tomorrow: Closes tomorrow
+    days_left: "%{days_left} days left"
   corporate_information_page:
     type:
       link_text:
@@ -353,6 +368,11 @@ en:
         other: Written statements to Parliament
     updated: updated
   document_filters:
+    consultation:
+      all: All consultations
+      label: Consultations
+    corporate:
+      label: Corporate
     description: You can use the filters to show only results that match your interests
     no_results:
       description: Try making your search broader and try again.
@@ -361,9 +381,25 @@ en:
       tna_link: Not all department publications from before May 2010 were migrated
         to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">The National Archives</a>.
+    other:
+      label: Other
+    policy_and_guidance:
+      label: Policy and guidance
+    research_and_analysis:
+      label: Research and analysis
+    research_and_statistics:
+      label: Research and statistics
+    corporate:
+      label: Corporate
+    other:
+      label: Other
     world_locations:
       all: All locations
       label: World locations
+      no_locations_filter: No world locations match that filter.
+  fatality_notice:
+    none_added: There have been no fatality notices added for this field
+      of operation yet.
   feeds:
     email: email
     feed: feed
@@ -454,12 +490,26 @@ en:
       jobs_and_contacts: Jobs and contracts
       organisation_chart: Our organisation chart
       transparency: Transparency data
+    email:
+      alerts: email alerts
+      summary: Email alerts from the
     headings:
       contact: Contact %{name}
       corporate_information: Corporate information
       corporate_reports: Corporate reports
+    support:
+      administered_by: Administered by
+      agencies_and_public_bodies: agencies and public bodies
+      part_of: Part of
+      public_body: public body
+      works_with: Works with
   publications:
     heading: Publications
+    statistics:
+      link_to_published_statistics: Find a list of published and upcoming government statistics in the %{link} statistics section.
+      moved_notice: Statistics publications have moved.
+  roles:
+    unassigned: No one is assigned to this role
   see_all:
     announcement: See all our announcements
     authored_article: See all our authored articles
@@ -504,12 +554,35 @@ en:
     transcript: See all our transcripts
     transparency: See all our transparency data
     written_statement: See all our written statements to Parliament
+  statements:
+    heading: Statements
   support:
+    download: Download
+    field_of_operation: "Field of operation:"
+    filter: Filter
+    pagination:
+      next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page}
+        of %{total_pages}</span>
+      next_page: Next page
+      previous_html: Previous <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page}
+        of %{total_pages}</span>
+      previous_page: Previous page
+    part_of_collection: "Part of a collection:"
     array:
       last_word_connector: " and "
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
+  topical_event:
+    lead_organisations:
+      arts_council_england: Arts Council England
+      bbc: BBC
+      british_library: British Library
+      commonwealth_war_graves_commission: Commonwealth War Graves Commission
+      heritage_lottery_fund: Heritage Lottery Fund
+      historic_england: Historic England
+      iwm: Imperial War Museum
+      war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: Our announcements
@@ -525,6 +598,8 @@ en:
       world_location:
         one: World location
         other: World locations
+  world_news:
+    uk_updates_in_country: Updates, news and events from the UK government in %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Find out %{link}.

@@ -48,6 +48,10 @@ lt:
         bei leidinio pavadinimą ("%{title}")%{references}.
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Užsisakykite leidinį
       order_a_copy_full: Užsisakykite leidinį
@@ -57,6 +61,9 @@ lt:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ lt:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Parašykite mums
@@ -422,6 +434,11 @@ lt:
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
       rezultatai
     no_results:
@@ -429,9 +446,20 @@ lt:
       title: Dokumentų  nerasta
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -477,6 +505,7 @@ lt:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -521,12 +550,26 @@ lt:
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart:
       transparency: Skaidrumo informacija
+    email:
+      alerts:
+      summary:
     headings:
       contact: Susisiekite su %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Leidiniai
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai
@@ -571,12 +614,33 @@ lt:
     transcript: Pažiūrėkite  mūsų kalbų tekstai
     transparency: Pažiūrėkite  mūsų skaidrumo informacija
     written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
+  statements:
+    heading:
   support:
     array:
       last_word_connector: ir
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%Y %B %e %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Mūsų skelbimai
@@ -594,6 +658,8 @@ lt:
         few:
         one: Geografinė vieta
         other: Geografinės vietos
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

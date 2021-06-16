@@ -48,6 +48,10 @@ uk:
         Вашу адресу, номер телефону та назву публікації ("%{title}")%{references}.
       intro: Цей файл може не бути прийнятним для користувачів допоміжних технологій.
       request_a_different_format: Запросити інший формат
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Замовити примірник
       order_a_copy_full: Замовити примірник публікації
@@ -57,6 +61,9 @@ uk:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ uk:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Форма зворотнього зв'язку
@@ -494,6 +506,11 @@ uk:
         other: Письмові заяви у парламенті
     updated: оновлено
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Ви можете скористатись фільтрами для отримання тільки тих результатів,
       що відповідають Вашому запиту
     no_results:
@@ -501,9 +518,20 @@ uk:
       title: Документів не знайдено.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Будь-яке місце
       label: Країна
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -549,6 +577,7 @@ uk:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -593,12 +622,26 @@ uk:
       jobs_and_contacts: Вакансії та контракти
       organisation_chart:
       transparency: Прозорість інформації
+    email:
+      alerts:
+      summary:
     headings:
       contact: Контактна особа  %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Публікації
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Дивіться всі наші Оголошення
     authored_article: Дивіться всі наші Статті
@@ -643,12 +686,33 @@ uk:
     transcript: Дивіться всі наші Транскрипти
     transparency: Дивіться всі наші Прозорість інформації
     written_statement: Дивіться всі наші Письмові заяви у парламенті
+  statements:
+    heading:
   support:
     array:
       last_word_connector: та
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal:
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Наші оголошення
@@ -668,6 +732,8 @@ uk:
         many:
         one: Країна
         other: Країни
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -49,6 +49,10 @@ pa-pk:
         مہربانی نال سانوں دسو تہانوں کیہڑی شکل وچ ضرورت ہے۔ اے ساڈٰ مدد کرے گا اگر تسی دسو کہ تسی کیہڑی مدد گار ٹیکنالوجی استعمال کردے ہو۔
       intro: اے فائل مدد گار ٹیکنالوجی استعمال کرن آلیاں واسطے شاید مناسب نہ ہووے۔
       request_a_different_format: آسان شکل واسطے درخواست کرو۔
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: اک نقل منگواؤ۔
       order_a_copy_full: اشاعت دی اک نقل منگواؤ۔
@@ -59,6 +63,9 @@ pa-pk:
     opendocument:
       help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
         اوپن ڈاکیومنٹ شکل وچ ہے۔
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
@@ -70,6 +77,11 @@ pa-pk:
     published_at: پہلی دفعہ شائع ہویا
     see_all_updates: ساری اپڈیٹس ویکھو
     updated_at: آخری اپڈیٹ
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times: رسائی تے کھلن دے اوقات
     contact_form: رابطے دا فارم
@@ -353,6 +365,11 @@ pa-pk:
         other: پارلیمنٹ نوں لکھے ہوئے بیان
     updated: اپڈیٹ ہویا
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
       ہو
     no_results:
@@ -362,9 +379,20 @@ pa-pk:
       tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔
         مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: ساریے مقام
       label: دنیا دے مقام
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: ایمیل
     feed: فیڈ
@@ -410,6 +438,7 @@ pa-pk:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -454,12 +483,26 @@ pa-pk:
       jobs_and_contacts: نوکریاں تے معاہدے
       organisation_chart: ساڈہ تنظیمی چارٹ
       transparency: شفافیت دا مواد
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} نال رابطہ کرو"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: اشاعتاں
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ساڈے سارے اعلان ویکھو
     authored_article: ساڈے سارے لکھے گئے مضمون ویکھو
@@ -504,12 +547,33 @@ pa-pk:
     transcript: ساڈے ساریاں نقلاں ویکھو
     transparency: ساڈا سارا شفافیت دا مواد ویکھو
     written_statement: ساڈی ساریاں پارلیمنٹ نوں دتے لکھے بیان ویکھو
+  statements:
+    heading:
   support:
     array:
       last_word_connector: تے
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: ساڈے اعلانات
@@ -525,6 +589,8 @@ pa-pk:
       world_location:
         one: دنیا دا مقام
         other: دنیا دے مقام
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: ڈھونڈو %{link}۔

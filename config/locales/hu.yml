@@ -48,6 +48,10 @@ hu:
         és az igényelt dokumentum címét: ("%{title}")%{references}.'
       intro: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások számára.
       request_a_different_format: Más formátum igénylése.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Másolat kérése
       order_a_copy_full: A publikáció másolatának megrendelése
@@ -57,6 +61,9 @@ hu:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ hu:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Kapcsolati űrlap
@@ -350,6 +362,11 @@ hu:
         other: Írásbeli parlamenti nyilatkozatok
     updated: 'Utolsó frissítés:'
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények
       keresésében
     no_results:
@@ -357,9 +374,20 @@ hu:
       title: Nincs a keresésnek megfelelő dokumentum.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Minden ország
       label: Országok
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -405,6 +433,7 @@ hu:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -449,12 +478,26 @@ hu:
       jobs_and_contacts: Állások
       organisation_chart:
       transparency: Átláthatósági adatok
+    email:
+      alerts:
+      summary:
     headings:
       contact: 'Kapcsolat felvétele: %{name}'
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Kiadványok
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: " bejelentések - mindegyik megtekintése"
     authored_article: " publicisztikák - mindegyik megtekintése"
@@ -499,12 +542,33 @@ hu:
     transcript: " Átiratok - mindegyik megtekintése"
     transparency: " Átláthatósági adatok - mindegyik megtekintése"
     written_statement: " Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése"
+  statements:
+    heading:
   support:
     array:
       last_word_connector: és
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%Y %B %e %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Híreink
@@ -520,6 +584,8 @@ hu:
       world_location:
         one: Ország
         other: Országok
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

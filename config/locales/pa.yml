@@ -49,6 +49,10 @@ pa:
         ਕਿਰਪਾ ਕਰਕੇ ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਨੂੰ ਕਿਹੜਾ ਫਾਰਮੈਟ ਚਾਹੀਦਾ ਹੈ। ਜੇ ਤੁਸੀਂ ਦੱਸੋਗੇ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਸਹਾਇਕ ਤਕਨੀਕ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ ਤਾਂ ਇਸ ਨਾਲ ਸਾਨੂੰ ਮਦਦ ਮਿਲੇਗੀ।
       intro: ਹੋ ਸਕਦਾ ਹੈ ਇਹ ਫਾਈਲ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੇ ਵਰਤੋਂਕਾਰਾਂ ਲਈ ਢੁਕਵੀਂ ਨਾ ਹੋਵੇ।
       request_a_different_format: ਇੱਕ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਲਈ ਬੇਨਤੀ ਕਰੋ।
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: ਇੱਕ ਕਾਪੀ ਦਾ ਆਰਡਰ ਕਰੋ
       order_a_copy_full: ਪ੍ਰਕਾਸ਼ਨ ਦੀ ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
@@ -59,6 +63,9 @@ pa:
     opendocument:
       help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
         ਵਿੱਚ ਹੈ
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਅਜਿਹੇ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟੇ ਹੋਏ ਹੋ ਸਕਦੇ ਹਨ
@@ -70,6 +77,11 @@ pa:
     published_at: ਪਹਿਲੀ ਵਾਰ ਪ੍ਰਕਾਸ਼ਿਤ
     see_all_updates: ਸਾਰੇ ਅੱਪਡੇਟ ਦੇਖੋ
     updated_at: ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦਾ ਸਮਾਂ
     contact_form: ਸੰਪਰਕ ਫਾਰਮ
@@ -353,6 +365,11 @@ pa:
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: ਤੁਸੀਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਫਿਲਟਰਾਂ ਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀਆਂ
       ਦਿਲਚਸਪੀਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
     no_results:
@@ -362,9 +379,20 @@ pa:
       tna_link: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨਾਂ ਨੂੰ GOV.UK ਵਿੱਚ ਮਾਈਗ੍ਰੇਟ
         ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਸੀ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">ਨੈਸ਼ਨਲ ਆਰਕਾਈਵਜ਼</a> ਵਿੱਚ ਭਾਲ ਕਰਕੇ ਦੇਖੋ।
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: ਈਮੇਲ
     feed: ਫੀਡ
@@ -410,6 +438,7 @@ pa:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa: ਪੰਜਾਬੀ
@@ -454,12 +483,26 @@ pa:
       jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਠੇਕੇ
       organisation_chart: ਸਾਡੇ ਸੰਗਠਨ ਦਾ ਚਾਰਟ
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: ਪ੍ਰਕਾਸ਼ਨ
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਦੇਖੋ
     authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕਾਂ ਦੇ ਲੇਖ ਦੇਖੋ
@@ -504,12 +547,33 @@ pa:
     transcript: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਪ੍ਰਤਿਲਿਪੀਆਂ ਦੇਖੋ
     transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ ਦੇਖੋ
     written_statement: ਸਾਡੇ ਸਾਰੇ ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦੇਖੋ
+  statements:
+    heading:
   support:
     array:
       last_word_connector: ਅਤੇ
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
@@ -525,6 +589,8 @@ pa:
       world_location:
         one: ਵਿਸ਼ਵ ਟਿਕਾਣਾ
         other: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} ਪਤਾ ਕਰੋ।"

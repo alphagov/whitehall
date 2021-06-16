@@ -49,6 +49,10 @@ hi:
       intro: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए
         उपयोगी ना हो
       request_a_different_format: एक  अलग प्रारूप का निवेदन
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: प्रतिलिपि मंगाएँ
       order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
@@ -58,6 +62,9 @@ hi:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -68,6 +75,11 @@ hi:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: संपर्क प्रपत्र
@@ -351,6 +363,11 @@ hi:
         other: संसद में लिखित बयान
     updated: अद्यतन
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
       जिनमें आप की दिलचस्पी हो।
     no_results:
@@ -358,9 +375,20 @@ hi:
       title: मेल खाने वाले दस्तावेज़ नहीं हैं
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -406,6 +434,7 @@ hi:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -450,12 +479,26 @@ hi:
       jobs_and_contacts: नौकरी एवं अनुबंध
       organisation_chart:
       transparency: पारदर्शिता आंकड़े
+    email:
+      alerts:
+      summary:
     headings:
       contact: संपर्क %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: प्रकाशन
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: देखें हमारे सभी घोषणाएं
     authored_article: देखें हमारे सभी मूल आलेख
@@ -500,12 +543,33 @@ hi:
     transcript: देखें हमारे सभी प्रतिलिपियां
     transparency: देखें हमारे सभी पारदर्शिता आंकड़े
     written_statement: देखें हमारे सभी संसद में लिखित बयान
+  statements:
+    heading:
   support:
     array:
       last_word_connector: और
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: हमारी घोषणाएं
@@ -521,6 +585,8 @@ hi:
       world_location:
         one: वैश्विक स्थान
         other: वैश्विक स्थान
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

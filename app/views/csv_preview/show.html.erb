@@ -36,7 +36,7 @@
         <p class="govuk-body publication-header__updated">
           <%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %><br />
           <%= link_to @attachment.url(preview: params[:preview]), class: "govuk-link publication-header__download-link" do %>
-            <strong>Download <%= @attachment.file_extension.upcase %></strong> <%= number_to_human_size(@attachment.file_size) %>
+            <strong><%= t("support.download") %> <%= @attachment.file_extension.upcase %></strong> <%= number_to_human_size(@attachment.file_size) %>
           <% end %>
         </p>
       </div>
@@ -61,7 +61,7 @@
         </div>
         <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
       <% else %>
-        <p class="govuk-body">This file could not be previewed. <%= link_to "Download it to view its full contents.", @attachment.url(preview: params[:preview]), class: "govuk-link" %></p>
+        <p class="govuk-body"> <%= t("attachment.csv.cannot_preview")%> <%= link_to t("attachment.csv.download"), @attachment.url(preview: params[:preview]), class: "govuk-link" %></p>
       <% end %>
     </div>
   </div>

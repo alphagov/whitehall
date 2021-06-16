@@ -48,6 +48,10 @@ fa:
         شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
       intro: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
       request_a_different_format: ساختار متفاوتی درخواست کنید
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: کپی سفارش دهید
       order_a_copy_full: کپی سفارش دهید
@@ -57,6 +61,9 @@ fa:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ fa:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: فرم ارتباط
@@ -282,6 +294,11 @@ fa:
         other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
       محدود کنید
     no_results:
@@ -289,9 +306,20 @@ fa:
       title: اسناد منطبق وجود ندارد
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: تمام نقاط
       label: موقعیت های جهانی
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -337,6 +365,7 @@ fa:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -381,12 +410,26 @@ fa:
       jobs_and_contacts: مشاغل و قراردادها
       organisation_chart:
       transparency: داده های شفاف سازی
+    email:
+      alerts:
+      summary:
     headings:
       contact: تماس با %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: انتشارات
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: تمامی اعلامیه ها ما را مشاهده کنید
     authored_article: تمامی مقالات ما را مشاهده کنید
@@ -431,12 +474,33 @@ fa:
     transcript: تمامی رونوشت ها ما را مشاهده کنید
     transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
     written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
+  statements:
+    heading:
   support:
     array:
       last_word_connector: و
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: اطلاعیه های ما
@@ -450,6 +514,8 @@ fa:
         other: هیأت های بین المللی
       world_location:
         other: موقعیت های جهانی
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -50,6 +50,10 @@ so:
       intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
         la kaashado
       request_a_different_format: Codsi isaga oo qaab kale ah
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Dalbo nuqul
       order_a_copy_full: Dalbo nuqulka daabacaadda
@@ -59,6 +63,9 @@ so:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -69,6 +76,11 @@ so:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Foom cinwaan
@@ -352,6 +364,11 @@ so:
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
     updated: Wax lagu kordhiyey
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
       natiijooyinka waafaqsan waxa aad daneyneyso
     no_results:
@@ -359,9 +376,20 @@ so:
       title: Ma jiraan qoraallo waafaqsan baaritaankaaga
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -407,6 +435,7 @@ so:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -451,12 +480,26 @@ so:
       jobs_and_contacts: Shaqaayin iyo qandaraasyo
       organisation_chart:
       transparency: Xog daahfurnaan
+    email:
+      alerts:
+      summary:
     headings:
       contact: La soo xiriir %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Daabacaado/Nashrin
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Fiiri dhammaan ogeysiisyo yadeenna
     authored_article: Fiiri dhammaan maqaallo la qorey yadeenna
@@ -501,12 +544,33 @@ so:
     transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
     transparency: Fiiri dhammaan xog daahfurnaan yadeenna
     written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
+  statements:
+    heading:
   support:
     array:
       last_word_connector: iyo
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Ogeysiisyadeeenna
@@ -522,6 +586,8 @@ so:
       world_location:
         one: Goobo dunida ka mid ah
         other: Goobo dunida ka mid ah
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

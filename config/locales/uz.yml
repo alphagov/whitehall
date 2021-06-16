@@ -48,6 +48,10 @@ uz:
         sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
       intro: Bu hujjat boshqa formatlarda mavjud emas.
       request_a_different_format: Boshqa formatdagi hujjatni so'rash.
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Nusxa buyurtirish
       order_a_copy_full: Nashrning nusxasini buyurtirish
@@ -57,6 +61,9 @@ uz:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ uz:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Aloqa uchun
@@ -350,6 +362,11 @@ uz:
         other: Parlament uchun yozma hisobotlar
     updated: yangilandi
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
       qullaning
     no_results:
@@ -357,9 +374,20 @@ uz:
       title: Mos hujjatlar yoq.
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -405,6 +433,7 @@ uz:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -449,12 +478,26 @@ uz:
       jobs_and_contacts: Ish va shartnomalar
       organisation_chart:
       transparency: Ochiqlikka oid ma'lumotlar
+    email:
+      alerts:
+      summary:
     headings:
       contact: "%{name} bog'laning"
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Nashrlar
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Bizning butun e'lonlar ko'ring
     authored_article: Bizning butun muallif maqolalari ko'ring
@@ -499,12 +542,33 @@ uz:
     transcript: Bizning butun matnlar ko'ring
     transparency: Bizning butun ochiqlikka oid ma'lumotlar ko'ring
     written_statement: Bizning butun parlament uchun yozma hisobotlar ko'ring
+  statements:
+    heading:
   support:
     array:
       last_word_connector: va
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Bizning e'lonlar
@@ -520,6 +584,8 @@ uz:
       world_location:
         one: Hududiy joylashuv
         other: Hududiy joylashuvlar
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -46,6 +46,10 @@ zh:
       full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。
       intro: 此文件可能对使用辅助技术的用户不适合。
       request_a_different_format: 申请另一种格式。
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: 订阅副本
       order_a_copy_full: 订阅报告副本
@@ -55,6 +59,9 @@ zh:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -65,6 +72,11 @@ zh:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: 联系表格
@@ -338,15 +350,31 @@ zh:
         other: 对议会的书面声明
     updated: 已更新
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: 您可以使用过滤功能显示只符合您需要的结果。
     no_results:
       description: 尝试扩大您的搜索范围并再次搜索。
       title: 没有符合的文件。
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: 所有地区位置
       label: 世界地区位置
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -392,6 +420,7 @@ zh:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -436,12 +465,26 @@ zh:
       jobs_and_contacts: 职位及联系方式
       organisation_chart:
       transparency: 透明化数据
+    email:
+      alerts:
+      summary:
     headings:
       contact: 联系%{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: 发布的报告
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: 查阅我们所有的公告
     authored_article: 查阅我们所有的撰写的文章
@@ -486,12 +529,33 @@ zh:
     transcript: 查阅我们所有的副本
     transparency: 查阅我们所有的透明化数据
     written_statement: 查阅我们所有的对议会的书面声明
+  statements:
+    heading:
   support:
     array:
       last_word_connector: 和
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: 我们的公告
@@ -507,6 +571,8 @@ zh:
       world_location:
         one: 世界地区位置
         other: 世界地区位置
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -47,6 +47,10 @@ ps:
         کړی %{email} لطفاْ خپل ادرس، تیلیفون نمبر او د سند نوم ایمیل کړی ("%{title}")%{references}
       intro: دا فایل کیدای شی جی د کومکی تیکنالوژی د استعمالوونکو لپاره مناسب نه وی
       request_a_different_format: د یو مختلف فارمت غوښتنه وکړی
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: د کاپی غوښتنه وکړی
       order_a_copy_full: د سند د کاپی غوښتنه وکړی
@@ -56,6 +60,9 @@ ps:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -66,6 +73,11 @@ ps:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: د اړیکوپاڼه
@@ -349,6 +361,11 @@ ps:
         other: پارلمان ته لیکلې اعلامیې
     updated: تازه شوي
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر کار
       واخلۍ چې ستاسې لپاره په زړه پوری وی
     no_results:
@@ -356,9 +373,20 @@ ps:
       title: سمون لرونکی اسناد شتون نه لری
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -404,6 +432,7 @@ ps:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -448,12 +477,26 @@ ps:
       jobs_and_contacts: دندی او تړونونه
       organisation_chart:
       transparency: د شفافیت معلومات
+    email:
+      alerts:
+      summary:
     headings:
       contact: تماس  %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: نشریات
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ټول وګوری خبرتیاوې
     authored_article: ټول وګوری تالیف شوي مضامین
@@ -498,12 +541,33 @@ ps:
     transcript: ټول وګوری لیکنې
     transparency: ټول وګوری د روڼوالي اطلاعات
     written_statement: ټول وګوری پارلمان ته لیکلې اعلامیې
+  statements:
+    heading:
   support:
     array:
       last_word_connector: او
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: زموږ اعلانات
@@ -519,6 +583,8 @@ ps:
       world_location:
         one: په نړۍ کې موقعیت
         other: په نړۍ کې موقعیتونه
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

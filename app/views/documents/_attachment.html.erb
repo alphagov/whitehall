@@ -48,7 +48,7 @@
         </span>
         <span class="download">
           <%= link_to attachment.url(preview: preview) do %>
-            <strong>Download <%= attachment.file_extension.upcase %></strong>
+            <strong><%= t("support.download") %> <%= attachment.file_extension.upcase %></strong>
             <%= number_to_human_size(attachment.file_size) %>
           <% end %>
         </span>

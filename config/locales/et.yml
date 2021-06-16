@@ -49,6 +49,10 @@ et:
         abistavat tehnoloogiat kasutate. '
       intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
       request_a_different_format: Küsige teistsugust formaati
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Tellige koopia
       order_a_copy_full: Tellige publikatsiooni koopia
@@ -59,6 +63,9 @@ et:
     opendocument:
       help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
         formaadis
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -69,6 +76,11 @@ et:
     published_at: Esmane publikatsioon
     see_all_updates: Vaadake kõiki täiendusi
     updated_at: Viimane täiendus
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Võtke ühendust
@@ -352,6 +364,11 @@ et:
         other: Kirjalikud avaldused parlamendile
     updated: Täiendatud
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
       Teie huvile vastavad
     no_results:
@@ -362,9 +379,20 @@ et:
         2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne
         2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The
         National Archives</a>.
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email: e-post
     feed: uudisvoog
@@ -410,6 +438,7 @@ et:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -454,12 +483,26 @@ et:
       jobs_and_contacts: Töötajad ja kontaktid
       organisation_chart: Meie organisatsioon
       transparency: Läbipaistvusteave
+    email:
+      alerts:
+      summary:
     headings:
       contact: 'Võtke ühendust: %{name}'
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publikatsioonid
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Vaadake kõiki meie teadaandeid
     authored_article: Vaadake kõiki meie artikleid
@@ -504,12 +547,33 @@ et:
     transcript: Vaadake kõiki meie protokolle
     transparency: Vaadake kõiki meie läbipaistvusteabe andmeid
     written_statement: Vaadake kõiki meie kirjalikke avaldusi Parlamendile
+  statements:
+    heading:
   support:
     array:
       last_word_connector: ja
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal:
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Meie teadaanded
@@ -525,6 +589,8 @@ et:
       world_location:
         one: Riik
         other: Riigid
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 'Uuri lisaks: %{link}'

@@ -13,7 +13,7 @@
 
     <% if organisation.type.sub_organisation? %>
       <p class="parent-organisations">
-        Part of
+        <%= t("organisation.support.part_of") %>
         <%=
           organisation.parent_organisations.map { |parent_org|
             link_to parent_org.name, organisation_path(parent_org)
@@ -22,7 +22,7 @@
       </p>
     <% elsif organisation.court_or_hmcts_tribunal? %>
       <p class="parent-organisations">
-        Administered by
+        <%= t("organisation.support.administered_by") %>
         <%=
           organisation.parent_organisations.map { |parent_org|
             link_to parent_org.name, organisation_path(parent_org)

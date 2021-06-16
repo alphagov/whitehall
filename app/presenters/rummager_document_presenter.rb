@@ -47,7 +47,7 @@ class RummagerDocumentPresenter < ActionView::Base
   def publication_collections
     links = @document.fetch("document_collections", []).map { |collection| format_link(collection["title"], collection["link"]) }.compact
 
-    "Part of a collection: #{links.to_sentence}" if links.any?
+    "#{I18n.t('support.part_of_collection')} #{links.to_sentence}" if links.any?
   end
 
   def type
@@ -72,7 +72,7 @@ class RummagerDocumentPresenter < ActionView::Base
 
   def field_of_operation
     operational_field = @document.fetch("operational_field", "")
-    "Field of operation: #{operational_field_link(operational_field)}" if operational_field.present?
+    "#{I18n.t('support.field_of_operation')} #{operational_field_link(operational_field)}" if operational_field.present?
   end
 
   # Returns a block of html:

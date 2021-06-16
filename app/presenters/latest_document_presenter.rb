@@ -12,7 +12,7 @@ class LatestDocumentPresenter < Whitehall::Decorators::Decorator
         )
       end
 
-      "Part of a collection: #{links.to_sentence}".html_safe
+      "#{I18n.t('support.part_of_collection')} #{links.to_sentence}".html_safe
     end
   end
 

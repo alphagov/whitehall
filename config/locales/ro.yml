@@ -52,6 +52,10 @@ ro:
       intro: Este posibil ca acest fișier să nu fie adecvat utilizatorilor de  tehnologii
         de asistare
       request_a_different_format: 'Solicită un format diferit '
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Comandă o copie
       order_a_copy_full: 'Comandă o copie a publicației '
@@ -61,6 +65,9 @@ ro:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -71,6 +78,11 @@ ro:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formular de contact
@@ -426,15 +438,31 @@ ro:
         other: 'Declarații scrise către Parlament '
     updated: Actualizat
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Personalizează căutarea
     no_results:
       description: Lărgește aria de căutare şi încearcă din nou
       title: Nu există informații despre acest subiect
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Toate locațiile
       label: Locații
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -480,6 +508,7 @@ ro:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -524,12 +553,26 @@ ro:
       jobs_and_contacts: 'Oportunități de angajare '
       organisation_chart:
       transparency:
+    email:
+      alerts:
+      summary:
     headings:
       contact: Contactează-ne  %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Obiective strategic
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Toate Știri
     authored_article: 'Toate articol '
@@ -574,12 +617,33 @@ ro:
     transcript: Toate transcrieri
     transparency:
     written_statement: 'Toate declarații scrise către parlament '
+  statements:
+    heading:
   support:
     array:
       last_word_connector: și
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal:
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Știri
@@ -597,6 +661,8 @@ ro:
         few:
         one: Localizare
         other: Localizare
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

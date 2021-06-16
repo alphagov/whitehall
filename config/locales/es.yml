@@ -48,6 +48,10 @@ es:
         su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
       intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
       request_a_different_format: Solicítelo en un formato diferente
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: Pida una copia
       order_a_copy_full: Pida una copa de la publicación
@@ -57,6 +61,9 @@ es:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -67,6 +74,11 @@ es:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: Formulario de contacto
@@ -350,15 +362,31 @@ es:
         other: Declaraciones escritas
     updated: Actualizado
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: Puedes utilizar los filtros para ver sólo los resultados que te interesen
     no_results:
       description: Haz una búsqueda más amplio e intentalo de nuevo
       title: No se ha producido ningún resultado
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -404,6 +432,7 @@ es:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -448,12 +477,26 @@ es:
       jobs_and_contacts: Trabajos y contratos
       organisation_chart:
       transparency: Datos de transparencia
+    email:
+      alerts:
+      summary:
     headings:
       contact: Contacto %{name}
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: Publicaciones
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: Ver toda nuestra anuncios
     authored_article: Ver toda nuestra artículos de autor
@@ -498,12 +541,33 @@ es:
     transcript: Ver toda nuestra transcripciones
     transparency: Ver toda nuestra datos sobre transparencia
     written_statement: Ver toda nuestra declaraciones escritas
+  statements:
+    heading:
   support:
     array:
       last_word_connector: y
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: Anuncios
@@ -519,6 +583,8 @@ es:
       world_location:
         one: País
         other: Países
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

@@ -47,6 +47,10 @@ ja:
         ("%{title}")%{references}.をお送り下さい。
       intro: このファイルは支援技術のユーザーには利用できない場合があります
       request_a_different_format: 異なるフォーマットを要求
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
     headings:
       order_a_copy: コピーを注文
       order_a_copy_full: コピーを注文
@@ -56,6 +60,9 @@ ja:
       unnumbered_hoc_paper:
     opendocument:
       help_html:
+    virus_check:
+      intro:
+      message:
   broken_links:
     broken:
       subheading:
@@ -66,6 +73,11 @@ ja:
     published_at:
     see_all_updates:
     updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
   contact:
     access_and_opening_times:
     contact_form: 連絡フォーム
@@ -281,15 +293,31 @@ ja:
         other: 閣僚声明文
     updated: 更新
   document_filters:
+    consultation:
+      all:
+      label:
+    corporate:
+      label:
     description: 検索精度を上げるために、各種フィルターをご利用下さい
     no_results:
       description: 検索内容を変更して再度検索下さい
       title: 該当するページはありません
       tna_heading:
       tna_link:
+    other:
+      label:
+    policy_and_guidance:
+      label:
+    research_and_analysis:
+      label:
+    research_and_statistics:
+      label:
     world_locations:
       all: 全ての地域
       label: 地域
+      no_locations_filter:
+  fatality_notice:
+    none_added:
   feeds:
     email:
     feed:
@@ -335,6 +363,7 @@ ja:
     lv:
     ms:
     mt:
+    ne:
     nl:
     'no':
     pa:
@@ -379,12 +408,26 @@ ja:
       jobs_and_contacts: 求人と調達
       organisation_chart:
       transparency: データ開示
+    email:
+      alerts:
+      summary:
     headings:
       contact: 連絡先
       corporate_information:
       corporate_reports:
+    support:
+      administered_by:
+      agencies_and_public_bodies:
+      part_of:
+      public_body:
+      works_with:
   publications:
     heading: 出版物
+    statistics:
+      link_to_published_statistics:
+      moved_notice:
+  roles:
+    unassigned:
   see_all:
     announcement: ニュース を全て見る
     authored_article: authored articles を全て見る
@@ -429,12 +472,33 @@ ja:
     transcript: スピーチ全文 を全て見る
     transparency: 透明性データ を全て見る
     written_statement: 閣僚声明文 を全て見る
+  statements:
+    heading:
   support:
     array:
       last_word_connector: and
+    download:
+    field_of_operation:
+    filter:
+    pagination:
+      next_html:
+      next_page:
+      previous_html:
+      previous_page:
+    part_of_collection:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
+  topical_event:
+    lead_organisations:
+      arts_council_england:
+      bbc:
+      british_library:
+      commonwealth_war_graves_commission:
+      heritage_lottery_fund:
+      historic_england:
+      iwm:
+      war_memorials_trust:
   world_location:
     headings:
       announcements: 発表
@@ -448,6 +512,8 @@ ja:
         other: 海外代表団
       world_location:
         other: 地域
+  world_news:
+    uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
