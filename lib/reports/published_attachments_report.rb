@@ -1,7 +1,7 @@
 module Reports
   class PublishedAttachmentsReport
     def report
-      path = Rails.root.join("tmp/attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
+      path = "/tmp/attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv"
       csv_headers = ["Organisation", "Filename", "Filetype", "Published Date"]
 
       attachments = Attachment.find_by_sql([
