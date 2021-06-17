@@ -505,6 +505,7 @@ az:
       mission: Bizim missiyamız
       organisations: Təşkilatlar
       publications: Bizim nəşrlər
+      search:
       statistics: Bizim statistika
     type:
       international_delegation:

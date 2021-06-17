@@ -722,6 +722,7 @@ pl:
       mission: Nasza misja
       organisations: Organizacje
       publications: Nasze publikacje
+      search:
       statistics: Nasze statystyki
     type:
       international_delegation:

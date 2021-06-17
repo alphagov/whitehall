@@ -575,6 +575,7 @@ lv:
       mission: Misija
       organisations: Organizācijas
       publications: Publikācijas
+      search:
       statistics: Statistikas dati
     type:
       international_delegation:

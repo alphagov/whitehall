@@ -649,6 +649,7 @@ cs:
       mission: Naše poslání
       organisations: Organizace
       publications: Naše publikace
+      search:
       statistics: Naše statistiky
     type:
       international_delegation:

@@ -651,6 +651,7 @@ ro:
       mission: Obiectiv
       organisations: Organizații
       publications: Documente
+      search:
       statistics: Statistici
     type:
       international_delegation:

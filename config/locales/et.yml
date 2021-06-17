@@ -581,6 +581,7 @@ et:
       mission: Meie missioon
       organisations: Organisatsioonid
       publications: Meie publikatsioonid
+      search:
       statistics: Meie statistika
     type:
       international_delegation:
