@@ -490,6 +490,7 @@ fi:
       works_with:
   publications:
     heading:
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

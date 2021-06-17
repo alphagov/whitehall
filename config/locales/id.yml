@@ -425,6 +425,7 @@ id:
       works_with:
   publications:
     heading: Publikasi-publikasi
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

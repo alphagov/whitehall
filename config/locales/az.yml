@@ -422,6 +422,7 @@ az:
       works_with:
   publications:
     heading: Nəşrlər
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

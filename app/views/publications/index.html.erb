@@ -1,6 +1,6 @@
 <% page_title "Publications" %>
 <% page_class "documents-index publications-index" %>
-<% atom_discovery_link_tag filter_atom_feed_url, "Recent publications" %>
+<% atom_discovery_link_tag filter_atom_feed_url, t("publications.recent") %>
 <%
   heading = [t('publications.heading')]
   heading << "<span>: #{@filter.selected_publication_filter_option.label.downcase}</span>" if @filter.selected_publication_filter_option

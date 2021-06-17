@@ -494,6 +494,7 @@ sq:
       works_with:
   publications:
     heading: Publikimet
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

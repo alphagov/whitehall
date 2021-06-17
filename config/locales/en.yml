@@ -505,6 +505,7 @@ en:
       works_with: Works with
   publications:
     heading: Publications
+    recent: Recent publications
     statistics:
       link_to_published_statistics: Find a list of published and upcoming government statistics in the %{link} statistics section.
       moved_notice: Statistics publications have moved.

@@ -493,6 +493,7 @@ dr:
       works_with:
   publications:
     heading: نشریات
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

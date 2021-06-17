@@ -494,6 +494,7 @@ fr:
       works_with:
   publications:
     heading: Publications
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

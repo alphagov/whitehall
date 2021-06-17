@@ -423,6 +423,7 @@ ja:
       works_with:
   publications:
     heading: 出版物
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

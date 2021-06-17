@@ -498,6 +498,7 @@ et:
       works_with:
   publications:
     heading: Publikatsioonid
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

@@ -491,6 +491,7 @@ tr:
       works_with:
   publications:
     heading: Yayınlar
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

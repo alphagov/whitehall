@@ -638,6 +638,7 @@ be:
       works_with:
   publications:
     heading: Публікацыі
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

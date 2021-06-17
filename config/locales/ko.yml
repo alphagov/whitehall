@@ -423,6 +423,7 @@ ko:
       works_with:
   publications:
     heading: 출판물
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

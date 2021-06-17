@@ -493,6 +493,7 @@ hu:
       works_with:
   publications:
     heading: Kiadványok
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

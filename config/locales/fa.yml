@@ -425,6 +425,7 @@ fa:
       works_with:
   publications:
     heading: انتشارات
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

@@ -495,6 +495,7 @@ ta:
       works_with:
   publications:
     heading: வெளியீடுகள்
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

@@ -565,6 +565,7 @@ lt:
       works_with:
   publications:
     heading: Leidiniai
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

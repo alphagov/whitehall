@@ -423,6 +423,7 @@ th:
       works_with:
   publications:
     heading: สิ่งพิมพ์
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

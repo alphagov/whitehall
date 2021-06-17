@@ -425,6 +425,7 @@ vi:
       works_with:
   publications:
     heading: Tài liệu truyền thông
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:

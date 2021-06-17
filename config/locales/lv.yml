@@ -492,6 +492,7 @@ lv:
       works_with:
   publications:
     heading: Publikācijas
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
