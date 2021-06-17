@@ -121,6 +121,8 @@ az:
       applies_to_nations: tətbiq olunur
       from:
       part_of:
+    latest:
+    latest_from:
     published: dərc olunub
     see_all:
     speech:

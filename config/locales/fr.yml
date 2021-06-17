@@ -124,6 +124,8 @@ fr:
       applies_to_nations: s'appliquant à
       from:
       part_of:
+    latest:
+    latest_from:
     published: publié
     see_all:
     speech:

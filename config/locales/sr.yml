@@ -124,6 +124,8 @@ sr:
       applies_to_nations: Odnosi se na
       from:
       part_of:
+    latest:
+    latest_from:
     published: objavljeno
     see_all:
     speech:

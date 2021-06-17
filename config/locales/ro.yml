@@ -127,6 +127,8 @@ ro:
       applies_to_nations: Se adresează
       from:
       part_of:
+    latest:
+    latest_from:
     published: Data publicării
     see_all:
     speech:

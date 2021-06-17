@@ -127,6 +127,8 @@ bg:
       applies_to_nations: Отнася се към
       from:
       part_of:
+    latest:
+    latest_from:
     published: Публикувано
     see_all:
     speech:

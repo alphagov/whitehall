@@ -129,6 +129,8 @@ en:
       applies_to_nations: Applies to
       from: From
       part_of: Part of
+    latest: Latest documents
+    latest_from: Latest from %{subject}
     published: published
     see_all: See all
     speech:

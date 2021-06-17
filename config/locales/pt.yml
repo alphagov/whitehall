@@ -123,6 +123,8 @@ pt:
       applies_to_nations: Aplica-se a
       from:
       part_of:
+    latest:
+    latest_from:
     published: publicado
     see_all:
     speech:

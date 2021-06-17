@@ -122,6 +122,8 @@ th:
       applies_to_nations: นำไปใช้กับ
       from:
       part_of:
+    latest:
+    latest_from:
     published: ตีพิมพ์
     see_all:
     speech:

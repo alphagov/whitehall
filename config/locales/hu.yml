@@ -123,6 +123,8 @@ hu:
       applies_to_nations: 'A következő nemzetekre vonatkozik:'
       from:
       part_of:
+    latest:
+    latest_from:
     published: közzététel dátuma
     see_all:
     speech:

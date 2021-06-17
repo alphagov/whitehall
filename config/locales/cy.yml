@@ -124,6 +124,8 @@ cy:
       applies_to_nations: Yn berthnasol i
       from: O
       part_of: Rhan o
+    latest:
+    latest_from:
     published: Cyhoeddwyd
     see_all:
     speech:

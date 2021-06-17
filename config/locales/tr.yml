@@ -123,6 +123,8 @@ tr:
       applies_to_nations: Uygulandığı Alanlar
       from:
       part_of:
+    latest:
+    latest_from:
     published: Yayında
     see_all:
     speech:

@@ -124,6 +124,8 @@ hy:
       applies_to_nations: Վերաբերվում է
       from:
       part_of:
+    latest:
+    latest_from:
     published: հրապարակված
     see_all:
     speech:

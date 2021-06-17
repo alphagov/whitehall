@@ -125,6 +125,8 @@ cs:
       applies_to_nations: Týká se
       from:
       part_of:
+    latest:
+    latest_from:
     published: Publikováno
     see_all:
     speech:

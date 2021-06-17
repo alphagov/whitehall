@@ -125,6 +125,8 @@ pl:
       applies_to_nations: Dotyczy
       from:
       part_of:
+    latest:
+    latest_from:
     published: opublikowano
     see_all:
     speech:

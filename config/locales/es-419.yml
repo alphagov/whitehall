@@ -124,6 +124,8 @@ es-419:
       applies_to_nations: Se aplica a
       from:
       part_of:
+    latest:
+    latest_from:
     published: publicado
     see_all:
     speech:

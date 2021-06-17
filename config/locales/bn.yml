@@ -127,6 +127,8 @@ bn:
       applies_to_nations: এতে প্রযোজ্য হয়
       from: থেকে
       part_of: এর অংশ
+    latest:
+    latest_from:
     published: প্রকাশিত
     see_all: সব দেখুন
     speech:

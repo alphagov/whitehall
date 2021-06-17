@@ -124,6 +124,8 @@ el:
       applies_to_nations: Ισχύει
       from:
       part_of:
+    latest:
+    latest_from:
     published: Δημοσιευμένο
     see_all:
     speech:
