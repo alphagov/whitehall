@@ -160,6 +160,14 @@ class PersonTest < ActiveSupport::TestCase
     assert person.reload.can_have_historical_accounts?
   end
 
+  test "#name_with_disambiguator returns string with containing a persons name, role and org" do
+    person = create(:person)
+    role_appointment = create(:role_appointment, person: person)
+
+    assert "#{person.name} - #{role_appointment.role.name} - #{person.organisations.first.name}",
+           person.name_with_disambiguator
+  end
+
   test "touches any person appointments after being updated" do
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)
