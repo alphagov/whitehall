@@ -171,9 +171,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index with locale shows selected announcement type filter option in the title" do
-    get :index, params: { announcement_filter_option: "news-stories", locale: "fr" }
+    I18n.with_locale(:fr) do
+      get :index, params: { announcement_filter_option: "news-stories", locale: "fr" }
 
-    assert_select "h1 span", ": actualités"
+      assert_select "h1 span", ": actualités"
+    end
   end
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
