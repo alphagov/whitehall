@@ -122,6 +122,8 @@ ru:
       applies_to_nations: Применимо к
       from:
       part_of:
+    latest:
+    latest_from:
     published: Опубликовано
     see_all:
     speech:
@@ -529,7 +531,10 @@ ru:
       all: Все места нахождения
       label: Места нахождения
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -624,6 +629,9 @@ ru:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Обратиться к %{name}
       corporate_information:
@@ -634,8 +642,11 @@ ru:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Публикации
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -692,6 +703,7 @@ ru:
       last_word_connector: и
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -703,6 +715,7 @@ ru:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -717,8 +730,10 @@ ru:
       announcements: Наши объявления
       documents: Документы
       mission: Наша цель
+      news:
       organisations: Организации
       publications: Наши публикации
+      search:
       statistics: Наша статистика
     type:
       international_delegation:

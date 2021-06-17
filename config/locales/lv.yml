@@ -123,6 +123,8 @@ lv:
       applies_to_nations: Attiecas uz
       from:
       part_of:
+    latest:
+    latest_from:
     published: publicēts
     see_all:
     speech:
@@ -385,7 +387,10 @@ lv:
       all: Visas vietas
       label: Pasaules vietas
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -480,6 +485,9 @@ lv:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Sazināties %{name}
       corporate_information:
@@ -490,8 +498,11 @@ lv:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Publikācijas
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -548,6 +559,7 @@ lv:
       last_word_connector: un
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -559,6 +571,7 @@ lv:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -573,8 +586,10 @@ lv:
       announcements: Paziņojumi
       documents: Dokumenti
       mission: Misija
+      news:
       organisations: Organizācijas
       publications: Publikācijas
+      search:
       statistics: Statistikas dati
     type:
       international_delegation:

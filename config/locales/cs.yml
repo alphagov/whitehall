@@ -125,6 +125,8 @@ cs:
       applies_to_nations: Týká se
       from:
       part_of:
+    latest:
+    latest_from:
     published: Publikováno
     see_all:
     speech:
@@ -459,7 +461,10 @@ cs:
       all: Všude
       label: Světové lokace
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -554,6 +559,9 @@ cs:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Kontakt %{name}
       corporate_information:
@@ -564,8 +572,11 @@ cs:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Publikace
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -622,6 +633,7 @@ cs:
       last_word_connector: a
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -633,6 +645,7 @@ cs:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -647,8 +660,10 @@ cs:
       announcements: Naše oznámení
       documents: Dokumenty
       mission: Naše poslání
+      news:
       organisations: Organizace
       publications: Naše publikace
+      search:
       statistics: Naše statistiky
     type:
       international_delegation:

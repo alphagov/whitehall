@@ -123,6 +123,8 @@ be:
       applies_to_nations: У адносінах да
       from:
       part_of:
+    latest:
+    latest_from:
     published: Апублікаваны
     see_all:
     speech:
@@ -531,7 +533,10 @@ be:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -626,6 +631,9 @@ be:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Звязацца з %{name}
       corporate_information:
@@ -636,8 +644,11 @@ be:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Публікацыі
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -694,6 +705,7 @@ be:
       last_word_connector: і
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -705,6 +717,7 @@ be:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -719,8 +732,10 @@ be:
       announcements: Нашы аб'явы
       documents: Дакументы
       mission: Наша місія
+      news:
       organisations: Арганізацыі
       publications: Нашы публікацыі
+      search:
       statistics: Наша статыстыка
     type:
       international_delegation:

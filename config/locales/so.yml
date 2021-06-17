@@ -125,6 +125,8 @@ so:
       applies_to_nations: Waxa lagu saleeyaa
       from:
       part_of:
+    latest:
+    latest_from:
     published: La-daabacay/nashriyey
     see_all:
     speech:
@@ -388,7 +390,10 @@ so:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -483,6 +488,9 @@ so:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: La soo xiriir %{name}
       corporate_information:
@@ -493,8 +501,11 @@ so:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Daabacaado/Nashrin
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -551,6 +562,7 @@ so:
       last_word_connector: iyo
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -562,6 +574,7 @@ so:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -576,8 +589,10 @@ so:
       announcements: Ogeysiisyadeeenna
       documents: Dokumentiyo
       mission: Hawsheenna
+      news:
       organisations: Ururro
       publications: Daabacaadaheenna
+      search:
       statistics: Istaatistikadeenna
     type:
       international_delegation:

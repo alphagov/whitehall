@@ -1,6 +1,6 @@
 <% page_title @topical_event.name %>
 <% page_class "topical-events-show" %>
-<% atom_discovery_link_tag atom_feed_url_for(@topical_event), "Latest activity on #{@topical_event.name}" %>
+<% atom_discovery_link_tag atom_feed_url_for(@topical_event), t("topical_event.latest_activity", event: @topical_event.name) %>
 
 <%= content_tag_for(:div, @topical_event, class: "classification #{@topical_event.class.name.underscore}") do %>
 

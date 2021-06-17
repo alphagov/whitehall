@@ -122,6 +122,8 @@ ja:
       applies_to_nations: 対象国
       from:
       part_of:
+    latest:
+    latest_from:
     published: 掲載日
     see_all:
     speech:
@@ -316,7 +318,10 @@ ja:
       all: 全ての地域
       label: 地域
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -411,6 +416,9 @@ ja:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: 連絡先
       corporate_information:
@@ -421,8 +429,11 @@ ja:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: 出版物
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -479,6 +490,7 @@ ja:
       last_word_connector: and
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -490,6 +502,7 @@ ja:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -504,8 +517,10 @@ ja:
       announcements: 発表
       documents: お知らせ
       mission: 役割
+      news:
       organisations: 組織
       publications: 出版物
+      search:
       statistics: 統計
     type:
       international_delegation:

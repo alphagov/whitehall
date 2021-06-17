@@ -124,6 +124,8 @@ fr:
       applies_to_nations: s'appliquant à
       from:
       part_of:
+    latest:
+    latest_from:
     published: publié
     see_all:
     speech:
@@ -387,7 +389,10 @@ fr:
       all: Tous les endroits
       label: Pays
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -482,6 +487,9 @@ fr:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Contacter %{name}
       corporate_information:
@@ -492,8 +500,11 @@ fr:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Publications
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -550,6 +561,7 @@ fr:
       last_word_connector: et
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -561,6 +573,7 @@ fr:
     formats:
       long_ordinal: "%B %d, %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -575,8 +588,10 @@ fr:
       announcements: Nos actualités
       documents: Documents
       mission: Notre mission
+      news:
       organisations: Organisations
       publications: Nos publications
+      search:
       statistics: Nos statistiques
     type:
       international_delegation:

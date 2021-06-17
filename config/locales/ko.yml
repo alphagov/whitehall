@@ -122,6 +122,8 @@ ko:
       applies_to_nations: 적용
       from:
       part_of:
+    latest:
+    latest_from:
     published: 발행
     see_all:
     speech:
@@ -316,7 +318,10 @@ ko:
       all: 모든 로케이션
       label: 월드 로케이션
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -411,6 +416,9 @@ ko:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: "%{name} 에게 연락하세요"
       corporate_information:
@@ -421,8 +429,11 @@ ko:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: 출판물
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -479,6 +490,7 @@ ko:
       last_word_connector: 그리고
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -490,6 +502,7 @@ ko:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -504,8 +517,10 @@ ko:
       announcements: 공지사항
       documents: 자료
       mission: 대사관 안내
+      news:
       organisations: 조직 안내
       publications: 출판물
+      search:
       statistics: 통계
     type:
       international_delegation:

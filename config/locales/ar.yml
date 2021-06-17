@@ -123,6 +123,8 @@ ar:
       applies_to_nations: ينطبق على
       from:
       part_of:
+    latest:
+    latest_from:
     published: نشر
     see_all:
     speech:
@@ -674,7 +676,10 @@ ar:
       all: كافة المواقع
       label: مواقع في العالم
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -769,6 +774,9 @@ ar:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: اتصل بـ%{name}
       corporate_information:
@@ -779,8 +787,11 @@ ar:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: مطبوعات
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -837,6 +848,7 @@ ar:
       last_word_connector: و
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -848,6 +860,7 @@ ar:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -862,8 +875,10 @@ ar:
       announcements: إعلاناتنا
       documents: وثائق
       mission: مهمتنا
+      news:
       organisations: مؤسسات
       publications: مطبوعاتنا
+      search:
       statistics: إحصائياتنا
     type:
       international_delegation:

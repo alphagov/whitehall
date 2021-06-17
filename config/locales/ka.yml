@@ -121,6 +121,8 @@ ka:
       applies_to_nations:
       from:
       part_of:
+    latest:
+    latest_from:
     published:
     see_all:
     speech:
@@ -315,7 +317,10 @@ ka:
       all:
       label:
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -410,6 +415,9 @@ ka:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact:
       corporate_information:
@@ -420,8 +428,11 @@ ka:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading:
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -478,6 +489,7 @@ ka:
       last_word_connector:
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -489,6 +501,7 @@ ka:
     formats:
       long_ordinal:
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -503,8 +516,10 @@ ka:
       announcements:
       documents:
       mission:
+      news:
       organisations:
       publications:
+      search:
       statistics:
     type:
       international_delegation:

@@ -1,4 +1,4 @@
-<% page_title "Latest from #{subject}" %>
+<% page_title t("document.latest_from", subject: subject) %>
 <% page_class "documents-index" %>
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent documents" %>
 
@@ -9,7 +9,7 @@
         text: subject,
         href: subject,
       },
-      title: "Latest documents",
+      title: t("document.latest"),
     } %>
   </div>
 </header>

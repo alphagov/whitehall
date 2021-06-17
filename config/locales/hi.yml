@@ -124,6 +124,8 @@ hi:
       applies_to_nations: पर लागू
       from:
       part_of:
+    latest:
+    latest_from:
     published: प्रकाशित
     see_all:
     speech:
@@ -387,7 +389,10 @@ hi:
       all: सभी स्थान
       label: वैश्विक स्थान
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -482,6 +487,9 @@ hi:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: संपर्क %{name}
       corporate_information:
@@ -492,8 +500,11 @@ hi:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: प्रकाशन
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -550,6 +561,7 @@ hi:
       last_word_connector: और
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -561,6 +573,7 @@ hi:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -575,8 +588,10 @@ hi:
       announcements: हमारी घोषणाएं
       documents: दस्तावेज़
       mission: हमारा लक्ष्य
+      news:
       organisations: संगठन
       publications: हमारे प्रकाशन
+      search:
       statistics: हमारे आंकड़े
     type:
       international_delegation:

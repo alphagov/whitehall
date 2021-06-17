@@ -129,6 +129,8 @@ en:
       applies_to_nations: Applies to
       from: From
       part_of: Part of
+    latest: Latest documents
+    latest_from: Latest from %{subject}
     published: published
     see_all: See all
     speech:
@@ -397,7 +399,10 @@ en:
       all: All locations
       label: World locations
       no_locations_filter: No world locations match that filter.
+  email_alert:
+    subscription: Email alert subscription
   fatality_notice:
+    british_fatalities: British fatalities
     none_added: There have been no fatality notices added for this field
       of operation yet.
   feeds:
@@ -484,6 +489,9 @@ en:
       storage_units:
         format: "%n%u"
   organisation:
+    embassies:
+      find_an_embassy_uppercase: Find a British embassy, High Commission or Consulate
+      find_an_embassy_lowercase: Find a British embassy, high commission or consulate
     corporate_information:
       access_our_info: Access our information
       jobs: Jobs
@@ -503,8 +511,11 @@ en:
       part_of: Part of
       public_body: public body
       works_with: Works with
+    type:
+      courts_and_tribunals: Courts and Tribunals
   publications:
     heading: Publications
+    recent: Recent publications
     statistics:
       link_to_published_statistics: Find a list of published and upcoming government statistics in the %{link} statistics section.
       moved_notice: Statistics publications have moved.
@@ -559,6 +570,7 @@ en:
   support:
     download: Download
     field_of_operation: "Field of operation:"
+    fields_of_operation: "Fields of operation"
     filter: Filter
     pagination:
       next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page}
@@ -574,6 +586,7 @@ en:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    latest_activity: Latest activity on %{event}
     lead_organisations:
       arts_council_england: Arts Council England
       bbc: BBC
@@ -588,8 +601,10 @@ en:
       announcements: Our announcements
       documents: Documents
       mission: Our mission
+      news: World location news
       organisations: Organisations
       publications: Our publications
+      search: Search by country or territory
       statistics: Our statistics
     type:
       international_delegation:

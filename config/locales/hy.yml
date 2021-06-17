@@ -124,6 +124,8 @@ hy:
       applies_to_nations: Վերաբերվում է
       from:
       part_of:
+    latest:
+    latest_from:
     published: հրապարակված
     see_all:
     speech:
@@ -387,7 +389,10 @@ hy:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
@@ -482,6 +487,9 @@ hy:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Տվյալ %{name}
       corporate_information:
@@ -492,8 +500,11 @@ hy:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: Հրապարակումներ
+    recent:
     statistics:
       link_to_published_statistics:
       moved_notice:
@@ -551,6 +562,7 @@ hy:
       last_word_connector: և
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
@@ -562,6 +574,7 @@ hy:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
@@ -576,8 +589,10 @@ hy:
       announcements: Մեր հայտարարությունները
       documents: Փաստաթղթեր
       mission: Մեր գործունեությունը
+      news:
       organisations: Կազմակերպություններ
       publications: Մեր հրատարակությունները
+      search:
       statistics: Մեր վիճակագրությունը
     type:
       international_delegation:
