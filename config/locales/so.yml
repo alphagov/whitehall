@@ -484,6 +484,9 @@ so:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: La soo xiriir %{name}
       corporate_information:

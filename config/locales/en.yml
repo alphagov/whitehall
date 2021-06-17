@@ -485,6 +485,9 @@ en:
       storage_units:
         format: "%n%u"
   organisation:
+    embassies:
+      find_an_embassy_uppercase: Find a British embassy, High Commission or Consulate
+      find_an_embassy_lowercase: Find a British embassy, high commission or consulate
     corporate_information:
       access_our_info: Access our information
       jobs: Jobs

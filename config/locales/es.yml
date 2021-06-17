@@ -481,6 +481,9 @@ es:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Contacto %{name}
       corporate_information:

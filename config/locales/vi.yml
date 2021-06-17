@@ -414,6 +414,9 @@ vi:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Liên lạc %{name}
       corporate_information:

@@ -488,6 +488,9 @@ bg:
     email:
       alerts:
       summary:
+    embassies:
+      find_an_embassy_lowercase:
+      find_an_embassy_uppercase:
     headings:
       contact: Свържете се с %{name}
       corporate_information:
