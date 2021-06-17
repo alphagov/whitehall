@@ -317,6 +317,7 @@ ko:
       label: 월드 로케이션
       no_locations_filter:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:

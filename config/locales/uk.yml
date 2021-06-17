@@ -531,6 +531,7 @@ uk:
       label: Країна
       no_locations_filter:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:

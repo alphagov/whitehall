@@ -374,6 +374,7 @@ zh:
       label: 世界地区位置
       no_locations_filter:
   fatality_notice:
+    british_fatalities:
     none_added:
   feeds:
     email:
