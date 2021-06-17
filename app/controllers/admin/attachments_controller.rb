@@ -135,14 +135,6 @@ private
     params[:type].presence || "file"
   end
 
-  def html?
-    type == "html"
-  end
-
-  def external?
-    type == "external"
-  end
-
   def check_attachable_allows_attachment_type
     redirect_to attachable_attachments_path(attachable) unless attachable.allows_attachment_type?(type)
   end
