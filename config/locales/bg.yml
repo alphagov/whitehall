@@ -558,6 +558,7 @@ bg:
       last_word_connector: и
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:

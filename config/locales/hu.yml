@@ -552,6 +552,7 @@ hu:
       last_word_connector: és
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:

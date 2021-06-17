@@ -693,6 +693,7 @@ gd:
       last_word_connector:
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:

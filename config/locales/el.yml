@@ -552,6 +552,7 @@ el:
       last_word_connector: και
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:

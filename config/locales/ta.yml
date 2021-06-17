@@ -556,6 +556,7 @@ ta:
       last_word_connector: மற்றும்
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:

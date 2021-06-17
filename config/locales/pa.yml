@@ -557,6 +557,7 @@ pa:
       last_word_connector: ਅਤੇ
     download:
     field_of_operation:
+    fields_of_operation:
     filter:
     pagination:
       next_html:
