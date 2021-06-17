@@ -566,6 +566,7 @@ bn:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:

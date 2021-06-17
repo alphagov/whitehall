@@ -565,6 +565,7 @@ et:
     formats:
       long_ordinal:
   topical_event:
+    latest_activity:
     lead_organisations:
       arts_council_england:
       bbc:
