@@ -383,6 +383,8 @@ kk:
       all:
       label:
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
     british_fatalities:
     none_added:

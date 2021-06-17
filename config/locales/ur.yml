@@ -386,6 +386,8 @@ ur:
       all: تمام مقامات
       label: عالمی مقامات
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
     british_fatalities:
     none_added:

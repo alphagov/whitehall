@@ -674,6 +674,8 @@ ar:
       all: كافة المواقع
       label: مواقع في العالم
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
     british_fatalities:
     none_added:

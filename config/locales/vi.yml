@@ -318,6 +318,8 @@ vi:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
     british_fatalities:
     none_added:

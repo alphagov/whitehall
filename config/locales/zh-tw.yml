@@ -383,6 +383,8 @@ zh-tw:
       all: 所有地區位置
       label: 世界地區位置
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
     british_fatalities:
     none_added:

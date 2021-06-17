@@ -387,6 +387,8 @@ hi:
       all: सभी स्थान
       label: वैश्विक स्थान
       no_locations_filter:
+  email_alert:
+    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
