@@ -496,6 +496,8 @@ pa-pk:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: اشاعتاں
     recent:

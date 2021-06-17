@@ -421,6 +421,8 @@ ja:
       part_of:
       public_body:
       works_with:
+    type:
+      courts_and_tribunals:
   publications:
     heading: 出版物
     recent:

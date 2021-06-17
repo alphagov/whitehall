@@ -503,6 +503,8 @@ en:
       part_of: Part of
       public_body: public body
       works_with: Works with
+    type:
+      courts_and_tribunals: Courts and Tribunals
   publications:
     heading: Publications
     recent: Recent publications
