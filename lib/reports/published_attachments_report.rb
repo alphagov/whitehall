@@ -28,7 +28,7 @@ module Reports
             attachment.attachable.organisations.map(&:name).join("; "),
             attachment.url,
             attachment.content_type,
-            attachment.attachable.first_published_at,
+            attachment.updated_at,
           ]
           print(".")
         end
