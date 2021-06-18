@@ -368,22 +368,12 @@ si:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න
     no_results:
       description: ඔබගේ සෙවුම පුළුල් කර නැවත සොයන්න
       title: ගැලපෙන ලේඛන කිසිවක් නැත
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: සියලු ස්ථාන
       label: ලෝක ස්ථාන

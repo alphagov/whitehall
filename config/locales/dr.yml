@@ -368,8 +368,6 @@ dr:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
       نتایجی که با منفعت های شما و nbsp تطابق دارند
     no_results:
@@ -377,14 +375,6 @@ dr:
       title: اسنادی که در مطابقت باشند وجود ندارد
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: تمام موقعیت ها
       label: موقعیت های جهانی

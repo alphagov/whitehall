@@ -512,8 +512,6 @@ uk:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Ви можете скористатись фільтрами для отримання тільки тих результатів,
       що відповідають Вашому запиту
     no_results:
@@ -521,14 +519,6 @@ uk:
       title: Документів не знайдено.
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Будь-яке місце
       label: Країна

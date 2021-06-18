@@ -369,8 +369,6 @@ de:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
       entsprechen.
     no_results:
@@ -378,14 +376,6 @@ de:
       title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Alle Standorte
       label: Standorte weltweit

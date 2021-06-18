@@ -369,22 +369,12 @@ it:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: 'Utilizza i filtri per visualizzare&nbsp;solo i risultati di tuo&nbsp;interesse '
     no_results:
       description: Amplia la ricerca e riprovare
       title: Non è stato trovato alcun documento corrispondente
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Tutte le sedi
       label: Sedi internazionali

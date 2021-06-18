@@ -371,8 +371,6 @@ pa:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: ਤੁਸੀਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਫਿਲਟਰਾਂ ਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀਆਂ
       ਦਿਲਚਸਪੀਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
     no_results:
@@ -382,14 +380,6 @@ pa:
       tna_link: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨਾਂ ਨੂੰ GOV.UK ਵਿੱਚ ਮਾਈਗ੍ਰੇਟ
         ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਸੀ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
         class="govuk-link">ਨੈਸ਼ਨਲ ਆਰਕਾਈਵਜ਼</a> ਵਿੱਚ ਭਾਲ ਕਰਕੇ ਦੇਖੋ।
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ

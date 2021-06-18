@@ -514,8 +514,6 @@ pl:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi
       są Państwo&nbsp;zainteresowani
     no_results:
@@ -523,14 +521,6 @@ pl:
       title: Nie ma dokumentów odpowiadających kryteriom
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie

@@ -298,22 +298,12 @@ az:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: filterdən istifadə edərək nəticəni görmək mümkündür
     no_results:
       description: axtarışınızı daha geniş edin
       title: uygün məlumat tapılmadı
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: bütün yerlər
       label: dünya üzrə məkanlar

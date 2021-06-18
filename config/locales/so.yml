@@ -370,8 +370,6 @@ so:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
       natiijooyinka waafaqsan waxa aad daneyneyso
     no_results:
@@ -379,14 +377,6 @@ so:
       title: Ma jiraan qoraallo waafaqsan baaritaankaaga
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah

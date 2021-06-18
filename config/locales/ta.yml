@@ -370,8 +370,6 @@ ta:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
       வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்.
     no_results:
@@ -379,14 +377,6 @@ ta:
       title: பொருந்தும் வகையிலான ஆவணங்கள் அங்கில்லை
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: அனைத்து அமைவிடங்களும்
       label: உலக அமைவிடங்கள்

@@ -356,22 +356,14 @@ zh:
     consultation:
       all:
       label:
-    corporate:
-      label:
+
     description: 您可以使用过滤功能显示只符合您需要的结果。
     no_results:
       description: 尝试扩大您的搜索范围并再次搜索。
       title: 没有符合的文件。
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
+
     world_locations:
       all: 所有地区位置
       label: 世界地区位置

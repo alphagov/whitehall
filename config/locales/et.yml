@@ -370,8 +370,6 @@ et:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
       Teie huvile vastavad
     no_results:
@@ -382,14 +380,6 @@ et:
         2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne
         2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The
         National Archives</a>.
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
