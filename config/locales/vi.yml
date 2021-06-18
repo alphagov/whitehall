@@ -486,8 +486,6 @@ vi:
     transparency: Xem tất cả dữ liệu kịch bản của chúng tôi
     written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng
       tôi
-  statements:
-    heading:
   support:
     array:
       last_word_connector: và

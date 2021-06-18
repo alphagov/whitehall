@@ -553,8 +553,6 @@ dr:
     transcript: همه را ببینید نسخه ها
     transparency: همه را ببینید ارقام شفافیت
     written_statement: همه را ببینید بیانیه های تحریری به پارلمان
-  statements:
-    heading:
   support:
     array:
       last_word_connector: و

@@ -483,8 +483,6 @@ ja:
     transcript: スピーチ全文 を全て見る
     transparency: 透明性データ を全て見る
     written_statement: 閣僚声明文 を全て見る
-  statements:
-    heading:
   support:
     array:
       last_word_connector: and

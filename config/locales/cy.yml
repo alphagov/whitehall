@@ -843,8 +843,6 @@ cy:
     transcript: Gweld ein holl trawsgrifiadau
     transparency: Gweld ein holl data tryloywder
     written_statement: Gweld ein holl datganiadau ysgrifenedig i'r senedd
-  statements:
-    heading:
   support:
     array:
       last_word_connector: a
