@@ -368,8 +368,6 @@ fr:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
       qui correspondent à vos intérêts
     no_results:
@@ -377,14 +375,6 @@ fr:
       title: Il n'existe aucun document correspondant.
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Tous les endroits
       label: Pays

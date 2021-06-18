@@ -366,22 +366,12 @@ tr:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Filtre seçeneğini kullanarak aradığınız sonuca daha kolay ulaşabilirsiniz
     no_results:
       description: Aramanızı genişleterek tekrar deneyiniz
       title: Eşleşen sonuç yok
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Tüm yerler
       label: Ülkeler

@@ -512,8 +512,6 @@ sr:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Možete iskoristiti filter da biste videli rezultate u skladu sa vašim
       interesovanjima
     no_results:
@@ -521,14 +519,6 @@ sr:
       title: 'Nema dokumenata koji odgovaraju vašoj pretrazi '
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Sve lokacije
       label: lokacije u svetu

@@ -366,8 +366,6 @@ ps:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر کار
       واخلۍ چې ستاسې لپاره په زړه پوری وی
     no_results:
@@ -375,14 +373,6 @@ ps:
       title: سمون لرونکی اسناد شتون نه لری
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه

@@ -511,8 +511,6 @@ be:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
       якія вас цікавяць.
     no_results:
@@ -521,14 +519,6 @@ be:
       title: Няма адпаведных дакументаў.
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Усе месцазнаходжанні
       label: Мы ў свеце

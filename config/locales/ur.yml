@@ -367,8 +367,6 @@ ur:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں
     no_results:
@@ -376,14 +374,6 @@ ur:
       title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات

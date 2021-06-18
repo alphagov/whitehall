@@ -298,22 +298,12 @@ th:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ
     no_results:
       description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
       title: ไม่มีเอกสารที่ตรงตามต้องการ
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก

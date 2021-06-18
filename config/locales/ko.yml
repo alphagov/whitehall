@@ -298,22 +298,12 @@ ko:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션

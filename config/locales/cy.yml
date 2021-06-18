@@ -656,8 +656,6 @@ cy:
     consultation:
       all:
       label:
-    corporate:
-      label:
     description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb
       i chi
     no_results:
@@ -666,14 +664,6 @@ cy:
       title: Nid oes dim dogfennau'n cyfateb.
       tna_heading:
       tna_link:
-    other:
-      label:
-    policy_and_guidance:
-      label:
-    research_and_analysis:
-      label:
-    research_and_statistics:
-      label:
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd
