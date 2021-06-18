@@ -374,8 +374,7 @@ bg:
     consultation:
       all:
       label:
-    description: Можете да използвате филтрите, за да видите резултатите, които пасват
-      на вашето търсене
+    description: Можете да използвате филтрите, за да видите резултатите, които пасват на вашето търсене
     no_results:
       description: Разширете търсенето си и опитайте отново
       title: Няма намерени документи
@@ -599,13 +598,10 @@ bg:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Нашият %{link} дава информация за начина
-        на ползване на личните Ви данни
-      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
-        %{link}.
+      personal_information_charter_html: Нашият %{link} дава информация за начина на ползване на личните Ви данни
+      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия %{link}.
       social_media_use_html: Вижте политиката ни по %{link}.
-      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме
-        в %{link}.
+      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме в %{link}.
     find_out_more: Вижте пълния профил и всички контакти
     headings:
       contact_us: Свържете се с нас

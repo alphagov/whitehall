@@ -61,8 +61,7 @@ pa-pk:
       unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
       unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
     opendocument:
-      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
-        اوپن ڈاکیومنٹ شکل وچ ہے۔
+      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation"> اوپن ڈاکیومنٹ شکل وچ ہے۔
     virus_check:
       intro:
       message:
@@ -70,8 +69,7 @@ pa-pk:
     broken:
       subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
     caution:
-      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے
-        نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
+      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
     title: خراب لنک
   change_notes:
     published_at: پہلی دفعہ شائع ہویا
@@ -371,15 +369,12 @@ pa-pk:
     consultation:
       all:
       label:
-    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
-      ہو
+    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے ہو
     no_results:
       description: اپنی تلاش ودھان دی کوشش کرو تے دوبارہ کوشش کرو
       title: ملدی جلدی کوئی دستاویز موجود نہیں
       tna_heading: پرانا مواد
-      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔
-        مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
+      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔ مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
     world_locations:
       all: ساریے مقام
       label: دنیا دے مقام
@@ -598,10 +593,8 @@ pa-pk:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: ڈھونڈو %{link}۔
-      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی
-        معلوت نال کی سلوک کردے آں۔
-      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم
-        دی معلومات شائع کردے آں۔
+      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی معلوت نال کی سلوک کردے آں۔
+      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم دی معلومات شائع کردے آں۔
       social_media_use_html: "%{link}. بارے ساڈٰی پالیسی پڑھو۔"
       welsh_language_scheme_html: "%{link} نال ساڈے ارادیاں بارے جانو۔"
     find_out_more: پوری پروفائل تے ساری رابطے دی تفصیلات ویکھو

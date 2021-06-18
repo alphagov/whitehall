@@ -43,9 +43,7 @@ dr:
     heading: اعلانات
   attachment:
     accessibility:
-      full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
-        متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل
-        %{email} کنید
+      full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل %{email} کنید
       intro: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
       request_a_different_format: فارمت متفاوت را درخواست نمائید
     csv:
@@ -368,8 +366,7 @@ dr:
     consultation:
       all:
       label:
-    description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
-      نتایجی که با منفعت های شما و nbsp تطابق دارند
+    description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها نتایجی که با منفعت های شما و nbsp تطابق دارند
     no_results:
       description: کوشش کنید بیشتر جستجو کنید و دوباره امتحان نمایید
       title: اسنادی که در مطابقت باشند وجود ندارد
@@ -593,10 +590,8 @@ dr:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "  %{link} ما شیوه برخود با معلومات شخصی
-        را تشریح مینماید"
-      publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر
-        می کنیم.
+      personal_information_charter_html: "  %{link} ما شیوه برخود با معلومات شخصی را تشریح مینماید"
+      publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر می کنیم.
       social_media_use_html: پالیسی ما را در %{link} بخوانید
       welsh_language_scheme_html: در مورد تعهد ما به نشر در %{link} معلومات حاصل نمایید
     find_out_more: نمایه مکمل و تفصیلات در مورد تماس ها را ببینید
