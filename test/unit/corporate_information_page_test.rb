@@ -163,6 +163,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
         CorporateInformationPageType::OfficeAccessAndOpeningTimes,
         CorporateInformationPageType::MediaEnquiries,
         CorporateInformationPageType::AccessibleDocumentsPolicy,
+        CorporateInformationPageType::ModernSlaveryStatement,
       ],
       jobs_and_contracts: [
         CorporateInformationPageType::Procurement,
