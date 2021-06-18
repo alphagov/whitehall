@@ -97,6 +97,9 @@ class CorporateInformationPageType
   AccessibleDocumentsPolicy = create!(
     id: 21, slug: "accessible-documents-policy", menu_heading: :our_information,
   )
+  ModernSlaveryStatement = create!(
+    id: 22, slug: "modern-slavery-statement", menu_heading: :our_information,
+  )
 
 private
 
