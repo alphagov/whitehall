@@ -558,8 +558,6 @@ et:
     transcript: Vaadake kõiki meie protokolle
     transparency: Vaadake kõiki meie läbipaistvusteabe andmeid
     written_statement: Vaadake kõiki meie kirjalikke avaldusi Parlamendile
-  statements:
-    heading:
   support:
     array:
       last_word_connector: ja

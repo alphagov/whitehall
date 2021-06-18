@@ -485,8 +485,6 @@ id:
     transcript: Lihat semua transkrip-transkrip
     transparency: Lihat semua transparansi data
     written_statement: Lihat semua pernyataan-pernyatan tertulis kepada parlemen
-  statements:
-    heading:
   support:
     array:
       last_word_connector: dan

@@ -699,8 +699,6 @@ sr:
     transcript: Pogledajte sve naše transkripti
     transparency: Pogledajte sve naše podaci o transparentnosti
     written_statement: Pogledajte sve naše pisane predstavke parlamentu
-  statements:
-    heading:
   support:
     array:
       last_word_connector: i

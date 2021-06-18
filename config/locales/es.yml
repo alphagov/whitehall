@@ -552,8 +552,6 @@ es:
     transcript: Ver toda nuestra transcripciones
     transparency: Ver toda nuestra datos sobre transparencia
     written_statement: Ver toda nuestra declaraciones escritas
-  statements:
-    heading:
   support:
     array:
       last_word_connector: y

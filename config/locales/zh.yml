@@ -540,8 +540,6 @@ zh:
     transcript: 查阅我们所有的副本
     transparency: 查阅我们所有的透明化数据
     written_statement: 查阅我们所有的对议会的书面声明
-  statements:
-    heading:
   support:
     array:
       last_word_connector: 和

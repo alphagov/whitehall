@@ -554,8 +554,6 @@ es-419:
     transcript: Vea todos nuestros transcripciones
     transparency: Vea todos nuestros datos sobre transparencia
     written_statement: Vea todos nuestros declaraciones escritas al parlamento
-  statements:
-    heading:
   support:
     array:
       last_word_connector: y

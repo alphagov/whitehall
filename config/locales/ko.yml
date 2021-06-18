@@ -483,8 +483,6 @@ ko:
     transcript: 트랜스크립트 모두 둘러보기
     transparency: 투명성 데이타 모두 둘러보기
     written_statement: 의회로 서면 성명 모두 둘러보기
-  statements:
-    heading:
   support:
     array:
       last_word_connector: 그리고

@@ -553,8 +553,6 @@ pt:
     transcript: Veja todos os nossos transcrições
     transparency: Veja todos os nossos dados de transparência
     written_statement: Veja todos os nossos declarações escritas ao parlamento
-  statements:
-    heading:
   support:
     array:
       last_word_connector: e

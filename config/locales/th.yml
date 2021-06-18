@@ -483,8 +483,6 @@ th:
     transcript: ดูทั้งหมดสำเนา
     transparency: ดูทั้งหมดข้อมูลโปร่งใส
     written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
-  statements:
-    heading:
   support:
     array:
       last_word_connector: และ
