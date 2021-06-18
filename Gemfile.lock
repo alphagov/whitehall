@@ -218,7 +218,7 @@ GEM
       null_logger
       plek (>= 1.9.0)
       rest-client (~> 2.0)
-    gds-sso (16.0.0)
+    gds-sso (16.0.1)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -406,7 +406,7 @@ GEM
       jwt (>= 1.5, < 3)
     ntlm-http (0.1.1)
     null_logger (0.0.1)
-    oauth2 (1.4.4)
+    oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
       multi_json (~> 1.3)
