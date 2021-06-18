@@ -565,8 +565,6 @@ en:
     transcript: See all our transcripts
     transparency: See all our transparency data
     written_statement: See all our written statements to Parliament
-  statements:
-    heading: Statements
   support:
     download: Download
     field_of_operation: "Field of operation:"
