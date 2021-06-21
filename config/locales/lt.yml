@@ -43,9 +43,7 @@ lt:
     heading: Skelbimai
   attachment:
     accessibility:
-      full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
-        audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną
-        bei leidinio pavadinimą ("%{title}")%{references}.
+      full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą ("%{title}")%{references}.
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato
     csv:
@@ -440,8 +438,7 @@ lt:
     consultation:
       all:
       label:
-    description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
-      rezultatai
+    description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp; rezultatai
     no_results:
       description: Praplėskite paiešką ir bandykite dar kartą
       title: Dokumentų  nerasta
@@ -667,10 +664,8 @@ lt:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma
-        Jūsų asmeninė informacija
-      publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame
-        puslapyje %{link}.
+      personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma Jūsų asmeninė informacija
+      publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame puslapyje %{link}.
       social_media_use_html: Perskaitykite mūsų strategiją %{link}.
       welsh_language_scheme_html: Sužinokite apie mūsų įsipareigojimą skelbti %{link}.
     find_out_more: Visa informacija apie mus ir  kontaktai

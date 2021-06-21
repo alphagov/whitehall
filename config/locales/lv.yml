@@ -43,9 +43,7 @@ lv:
     heading: Paziņojumi
   attachment:
     accessibility:
-      full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā,
-        kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet
-        savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
+      full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā, kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
       intro: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
       request_a_different_format: Pieprasīt citā formātā.
     csv:
@@ -592,13 +590,10 @@ lv:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
-        Jūsu sniegtā personīgā informācija
-      publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
-        mūsu %{link}
+      personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta Jūsu sniegtā personīgā informācija
+      publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta mūsu %{link}
       social_media_use_html: Iepazīsties ar mūsu nostāju par %{link}.
-      welsh_language_scheme_html: Vairāk par mūsu apņemšanos nodrošināt informācijas
-        pieejamību %{link}
+      welsh_language_scheme_html: Vairāk par mūsu apņemšanos nodrošināt informācijas pieejamību %{link}
     find_out_more: Skatīt pilnu profilu un kontaktinformāciju
     headings:
       contact_us: Sazinies ar mums

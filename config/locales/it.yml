@@ -43,11 +43,8 @@ it:
     heading: Annunci
   attachment:
     accessibility:
-      full_help_html: Per richiedere il presente documento in formato diverso, ad
-        es. in formato braille, audio o altro, scrivi a %{email} indicando il tuo
-        indirizzo e numero di telefono nonché il titolo della pubblicazione ("%{title}")%{references}.
-      intro: Il presente file potrebbe non essere adatto agli utenti di tecnologie
-        d'ausilio.
+      full_help_html: Per richiedere il presente documento in formato diverso, ad es. in formato braille, audio o altro, scrivi a %{email} indicando il tuo indirizzo e numero di telefono nonché il titolo della pubblicazione ("%{title}")%{references}.
+      intro: Il presente file potrebbe non essere adatto agli utenti di tecnologie d'ausilio.
       request_a_different_format: Richiedi un formato diverso.
     csv:
       cannot_preview:
@@ -593,14 +590,10 @@ it:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Per informazioni sul trattamento dei dati
-        personali, consulta la pagina %{link}.
-      publication_scheme_html: Per maggiori dettagli sul tipo di documenti pubblicati
-        di routine, consulta la pagina %{link}.
-      social_media_use_html: Per saperne di più sulla nostra politica, consulta la
-        pagina %{link}.
-      welsh_language_scheme_html: Per maggiori informazioni sul nostro impegno a pubblicare
-        quante più informazioni possibili, consulta la pagina %{link}.
+      personal_information_charter_html: Per informazioni sul trattamento dei dati personali, consulta la pagina %{link}.
+      publication_scheme_html: Per maggiori dettagli sul tipo di documenti pubblicati di routine, consulta la pagina %{link}.
+      social_media_use_html: Per saperne di più sulla nostra politica, consulta la pagina %{link}.
+      welsh_language_scheme_html: Per maggiori informazioni sul nostro impegno a pubblicare quante più informazioni possibili, consulta la pagina %{link}.
     find_out_more: Consulta il profilo completo e tutti i contatti
     headings:
       contact_us: Contatti

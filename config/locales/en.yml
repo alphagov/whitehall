@@ -52,8 +52,7 @@ en:
     csv:
       cannot_preview: This file could not be previewed.
       download: Download the file to view its full contents.
-      truncated_message: This preview only shows the first %{rows} rows and %{columns}
-        columns.
+      truncated_message: This preview only shows the first %{rows} rows and %{columns} columns.
     headings:
       order_a_copy: Order a copy
       order_a_copy_full: Order a copy of the publication
@@ -62,33 +61,29 @@ en:
       unnumbered_command_paper: Unnumbered command paper
       unnumbered_hoc_paper: Unnumbered act paper
     opendocument:
-      help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        format
+      help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
     virus_check:
       intro: This attachment is being virus checked.
-      message: We are currently holding this attachment in quarantine until it has been
-        virus checked. The attachment will be available at the original location
-        shortly.
+      message: We are currently holding this attachment in quarantine until it has been virus checked. The attachment will be available at the original location shortly.
   broken_links:
     broken:
       subheading: We’ve found links in this document that may be broken
     caution:
-      subheading: We’ve found some issues with links that may indicate problems, you
-        should apply caution in linking to them
+      subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
     title: Broken links
   change_notes:
     published_at: First published
     see_all_updates: see all updates
     updated_at: Last updated
-  contact:
-    access_and_opening_times: Access and opening times
-    contact_form: Contact form
-    email: Email
   consultation:
     closed: Closed
     closing_today: Closing today
     closing_tomorrow: Closes tomorrow
     days_left: "%{days_left} days left"
+  contact:
+    access_and_opening_times: Access and opening times
+    contact_form: Contact form
+    email: Email
   corporate_information_page:
     type:
       link_text:
@@ -379,9 +374,7 @@ en:
       description: Try making your search broader and try again.
       title: There are no matching documents.
       tna_heading: Older content
-      tna_link: Not all department publications from before May 2010 were migrated
-        to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a>.
+      tna_link: Not all department publications from before May 2010 were migrated to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>.
     world_locations:
       all: All locations
       label: World locations
@@ -390,8 +383,7 @@ en:
     subscription: Email alert subscription
   fatality_notice:
     british_fatalities: British fatalities
-    none_added: There have been no fatality notices added for this field
-      of operation yet.
+    none_added: There have been no fatality notices added for this field of operation yet.
   feeds:
     email: email
     feed: feed
@@ -476,9 +468,6 @@ en:
       storage_units:
         format: "%n%u"
   organisation:
-    embassies:
-      find_an_embassy_uppercase: Find a British embassy, High Commission or Consulate
-      find_an_embassy_lowercase: Find a British embassy, high commission or consulate
     corporate_information:
       access_our_info: Access our information
       jobs: Jobs
@@ -488,6 +477,9 @@ en:
     email:
       alerts: email alerts
       summary: Email alerts from the
+    embassies:
+      find_an_embassy_lowercase: Find a British embassy, high commission or consulate
+      find_an_embassy_uppercase: Find a British embassy, High Commission or Consulate
     headings:
       contact: Contact %{name}
       corporate_information: Corporate information
@@ -553,20 +545,18 @@ en:
     transparency: See all our transparency data
     written_statement: See all our written statements to Parliament
   support:
-    download: Download
-    field_of_operation: "Field of operation:"
-    fields_of_operation: "Fields of operation"
-    filter: Filter
-    pagination:
-      next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page}
-        of %{total_pages}</span>
-      next_page: Next page
-      previous_html: Previous <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page}
-        of %{total_pages}</span>
-      previous_page: Previous page
-    part_of_collection: "Part of a collection:"
     array:
       last_word_connector: " and "
+    download: Download
+    field_of_operation: 'Field of operation:'
+    fields_of_operation: Fields of operation
+    filter: Filter
+    pagination:
+      next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
+      next_page: Next page
+      previous_html: Previous <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
+      previous_page: Previous page
+    part_of_collection: 'Part of a collection:'
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
@@ -603,10 +593,8 @@ en:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Find out %{link}.
-      personal_information_charter_html: Our %{link} explains how we treat your personal
-        information.
-      publication_scheme_html: Read about the types of information we routinely publish
-        in our %{link}.
+      personal_information_charter_html: Our %{link} explains how we treat your personal information.
+      publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
       social_media_use_html: Read our policy on %{link}.
       welsh_language_scheme_html: Find out about our commitment to %{link}.
     find_out_more: See full profile and all contact details
