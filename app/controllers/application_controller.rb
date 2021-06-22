@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include Slimmer::Template
   include LocalisedUrlPathHelper
   include LegacyUrlHelper
+  include AbTests::ExploreMenuAbTestable
 
   protect_from_forgery
 
@@ -13,6 +14,9 @@ class ApplicationController < ActionController::Base
   before_action :set_slimmer_show_organisations_filter
   before_action :set_audit_trail_whodunnit
   before_action :set_authenticated_user_header
+  before_action :set_explore_menu_response
+
+  helper_method :explore_menu_variant, :explore_menu_testable?
 
   layout "frontend"
   after_action :set_slimmer_template
@@ -30,7 +34,11 @@ private
   end
 
   def set_slimmer_template
-    slimmer_template "header_footer_only"
+    if explore_menu_testable?
+      slimmer_template "header_footer_only_explore_header"
+    else
+      slimmer_template "header_footer_only"
+    end
   end
 
   def set_slimmer_application_name

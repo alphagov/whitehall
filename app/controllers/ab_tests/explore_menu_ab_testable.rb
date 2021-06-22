@@ -1,4 +1,4 @@
-module ExploreMenuAbTestable
+module AbTests::ExploreMenuAbTestable
   CUSTOM_DIMENSION = 47
 
   ALLOWED_VARIANTS = %w[A B Z].freeze
@@ -9,7 +9,7 @@ module ExploreMenuAbTestable
       dimension: CUSTOM_DIMENSION,
       allowed_variants: ALLOWED_VARIANTS,
       control_variant: "Z",
-      )
+    )
   end
 
   def explore_menu_variant
