@@ -315,7 +315,6 @@ private
 
   def build_edition_dependencies
     build_blank_image
-    build_blank_brexit_no_deal_content_notice_links
   end
 
   def set_edition_defaults
@@ -351,10 +350,6 @@ private
       image = @edition.images.build
       image.build_image_data
     end
-  end
-
-  def build_blank_brexit_no_deal_content_notice_links
-    @edition.build_no_deal_notice_links if @edition.allows_brexit_no_deal_content_notice?
   end
 
   def default_filters

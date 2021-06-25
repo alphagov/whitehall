@@ -3,7 +3,6 @@ class DocumentCollection < Edition
   include Edition::TaggableOrganisations
 
   include Edition::TopicalEvents
-  include Edition::BrexitNoDealContentNoticeLinks
 
   has_many :groups,
            -> { order("document_collection_groups.ordering") },
