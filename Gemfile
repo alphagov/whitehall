@@ -51,7 +51,6 @@ gem "responders"
 gem "rinku", require: "rails_rinku"
 gem "ruby-progressbar", require: false
 gem "rubyzip"
-gem "sass"
 gem "sassc-rails"
 gem "shared_mustache"
 gem "sidekiq-scheduler"
