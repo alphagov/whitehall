@@ -258,9 +258,8 @@ GEM
       sentry-ruby (~> 4.5.0)
       statsd-ruby (~> 1.5.0)
       unicorn (>= 5.4, < 5.9)
-    govuk_frontend_toolkit (9.0.0)
+    govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-      sass (>= 3.2.0)
     govuk_publishing_components (24.15.3)
       govuk_app_config
       kramdown
@@ -497,9 +496,6 @@ GEM
     rainbow (3.0.0)
     raindrops (0.19.2)
     rake (13.0.3)
-    rb-fsevent (0.10.4)
-    rb-inotify (0.10.1)
-      ffi (~> 1.0)
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redis (4.1.4)
@@ -560,11 +556,6 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.8.0)
       nokogumbo (~> 2.0)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -756,7 +747,6 @@ DEPENDENCIES
   rubocop-govuk
   ruby-progressbar
   rubyzip
-  sass
   sassc-rails
   shared_mustache
   sidekiq-scheduler
