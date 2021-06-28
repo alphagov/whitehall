@@ -402,7 +402,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     mustache (1.0.5)
-    mysql2 (0.4.10)
+    mysql2 (0.5.3)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
