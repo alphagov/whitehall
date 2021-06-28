@@ -118,7 +118,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :revise, params: { id: published_edition }
 
     assert_redirected_to edit_admin_publication_path(existing_draft)
-    assert_equal "There is already an active draft edition for this document", flash[:alert]
+    assert_match "There is already an active draft edition for this document", flash[:alert]
   end
 
   test "failing to revise an edition should redirect to the existing submitted edition" do
@@ -128,7 +128,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :revise, params: { id: published_edition }
 
     assert_redirected_to edit_admin_publication_path(existing_submitted)
-    assert_equal "There is already an active submitted edition for this document", flash[:alert]
+    assert_match "There is already an active submitted edition for this document", flash[:alert]
   end
 
   test "failing to revise an edition should redirect to the existing rejected edition" do
@@ -138,7 +138,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :revise, params: { id: published_edition }
 
     assert_redirected_to edit_admin_publication_path(existing_rejected)
-    assert_equal "There is already an active rejected edition for this document", flash[:alert]
+    assert_match "There is already an active rejected edition for this document", flash[:alert]
   end
 
   test "should remember standard filter options" do
