@@ -7,7 +7,6 @@ class SocialMediaAccount < ApplicationRecord
 
   validates :social_media_service_id, presence: true
   validates :url, presence: true, uri: true
-  validates :title, length: { maximum: 255 }
 
   include TranslatableModel
   translates :url, :title

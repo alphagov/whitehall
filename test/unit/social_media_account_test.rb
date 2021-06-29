@@ -29,15 +29,6 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     assert_includes account.errors.full_messages, "Social media service can't be blank"
   end
 
-  test "is invalid if the title is longer than 255 characters" do
-    account = create(:social_media_account, title: "a" * 254) # just under
-    assert account.valid?
-    account.title = "a" * 255 # exactly maximum
-    assert account.valid?
-    account.title = "a" * 256 # just over
-    assert_not account.valid?
-  end
-
   test "display_name is the title if present" do
     account = build(:social_media_account, title: "My face")
     assert_equal "My face", account.display_name
