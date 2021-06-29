@@ -48,7 +48,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
 
-    expected = "https://www-origin.test.gov.uk/government/publications/"
+    expected = "https://www.test.gov.uk/government/publications/"
     expected += "#{edition.slug}/#{attachment.slug}"
     actual = attachment.url(full_url: true)
 
