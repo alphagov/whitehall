@@ -84,6 +84,12 @@ namespace :publishing_api do
     end
   end
 
+  # TODO: Remove task after https://github.com/alphagov/publishing-e2e-tests/pull/422 has been merged
+  desc "Republish all organisations"
+  task republish_all_organisations: :environment do
+    Organisation.find_each(&:publish_to_publishing_api)
+  end
+
   namespace :republish do
     desc "Republish all organisations"
     task all_organisations: :environment do
