@@ -384,10 +384,6 @@ EXISTS (
     false
   end
 
-  def can_be_associated_with_statistical_data_sets?
-    false
-  end
-
   def can_be_associated_with_worldwide_organisations?
     false
   end

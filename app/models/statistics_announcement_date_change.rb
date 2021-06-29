@@ -13,10 +13,4 @@ private
   def changing_a_confirmed_date?
     current_release_date.confirmed?
   end
-
-  def change_note_only_present_for_major_changes
-    if change_note.present? && !major_date_change?
-      errors[:change_note] << "only required for significant changes to the release date"
-    end
-  end
 end

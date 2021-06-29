@@ -19,8 +19,4 @@ module Edition::StatisticalDataSets
   def statistical_data_sets=(data_sets)
     self.statistical_data_set_documents = data_sets.map(&:document)
   end
-
-  def can_be_associated_with_statistical_data_sets?
-    true
-  end
 end

@@ -60,12 +60,6 @@ module Attachable
     [self]
   end
 
-  def build_empty_file_attachment
-    attachment = FileAttachment.new
-    attachment.build_attachment_data
-    attachments << attachment
-  end
-
   def uploaded_to_asset_manager?
     attachments
       .map(&:attachment_data)

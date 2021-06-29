@@ -107,10 +107,6 @@ class Role < ApplicationRecord
     end
   end
 
-  def occupied?
-    current_role_appointments.any?
-  end
-
   def current_role_appointment
     current_role_appointments.first
   end
@@ -129,20 +125,8 @@ class Role < ApplicationRecord
 
   delegate :surname, to: :current_person, prefix: true, allow_nil: true
 
-  def current_person_image_url
-    current_person && current_person.image_url
-  end
-
   def organisation_names
     organisations.map(&:name).join(" and ")
-  end
-
-  def name_and_organisations
-    if organisations.any?
-      "#{name}, #{organisation_names}"
-    else
-      name
-    end
   end
 
   def ministerial?
