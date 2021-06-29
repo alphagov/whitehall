@@ -3,12 +3,15 @@
     <%= form_for [:admin, socialable, social_media_account], html: {class: "well"} do |form| %>
       <%= form.errors %>
       <fieldset class="social_media_account">
-        <div class="form-group">
-          <%= form.label :social_media_service_id, 'Service', class: "control-label" %>
-          <%= form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media service…" } %>
-        </div>
+        <% if I18n.locale == I18n.default_locale %>
+          <div class="form-group">
+            <%= form.label :social_media_service_id, 'Service', class: "control-label" %>
+            <%= form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media service…" } %>
+          </div>
+        <% end %>
         <%= form.text_field :url %>
         <%= form.text_field :title %>
+        <%= form.hidden_field :locale, value: I18n.locale %>
       </fieldset>
 
       <%= form.save_or_cancel(cancel: [:admin, socialable, SocialMediaAccount]) %>
