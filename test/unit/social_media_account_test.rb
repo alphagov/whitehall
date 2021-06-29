@@ -48,4 +48,25 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     account = build(:social_media_account, title: "", social_media_service: sms)
     assert_equal "Facebark", account.display_name
   end
+
+  test "should accept multiple translations" do
+    account = create(:social_media_account)
+
+    I18n.with_locale(:en) do
+      account.update(url: "https://example.com", title: "Title in English")
+    end
+    I18n.with_locale(:cy) do
+      account.update(url: "https://example.cy", title: "Title in Welsh")
+    end
+
+    I18n.with_locale(:en) do
+      assert_equal "https://example.com", account.url
+      assert_equal "Title in English", account.title
+    end
+
+    I18n.with_locale(:cy) do
+      assert_equal "https://example.cy", account.url
+      assert_equal "Title in Welsh", account.title
+    end
+  end
 end
