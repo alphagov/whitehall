@@ -92,8 +92,7 @@ namespace :publishing_api do
 
     desc "Republish an organisation to the Publishing API"
     task :organisation_by_slug, [:slug] => :environment do |_, args|
-      organisation = Organisation.find_by!(slug: args[:slug])
-      organisation.publish_to_publishing_api
+      Organisation.find_by!(slug: args[:slug]).publish_to_publishing_api
     end
 
     desc "Republish all Take Part pages"
