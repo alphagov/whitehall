@@ -1,1 +1,4 @@
-class SocialMediaAccountTranslation < ApplicationRecord; end
+class SocialMediaAccountTranslation < ApplicationRecord
+  after_save :republish_organisation_to_publishing_api
+  after_destroy :republish_organisation_to_publishing_api
+end
