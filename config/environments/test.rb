@@ -1,10 +1,13 @@
+require "active_support/core_ext/integer/time"
+
+# The test environment is used exclusively to run your application's
+# test suite. You never need to work with it otherwise. Remember that
+# your test database is "scratch space" for the test suite and is wiped
+# and recreated between test runs. Don't rely on the data there!
+
 Whitehall::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # The test environment is used exclusively to run your application's
-  # test suite. You never need to work with it otherwise. Remember that
-  # your test database is "scratch space" for the test suite and is wiped
-  # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
 
   # Disable cache in test
@@ -18,7 +21,7 @@ Whitehall::Application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=3600",
+    "Cache-Control" => "public, max-age=#{1.hour.to_i}",
   }
 
   # Show full error reports and disable caching.
@@ -48,9 +51,13 @@ Whitehall::Application.configure do
 
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
 
   # Don't use digests in assets during tests
   config.assets.digest = false
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
 
   config.slimmer.asset_host = "http://tests-should-not-depend-on-external-host.com"
 
@@ -59,6 +66,8 @@ Whitehall::Application.configure do
   ENV["GOVUK_APP_DOMAIN"] ||= "test.gov.uk"
   ENV["GOVUK_APP_DOMAIN_EXTERNAL"] ||= "test.gov.uk"
   ENV["GOVUK_ASSET_ROOT"] ||= "https://static.test.gov.uk"
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
 end
 
 require Rails.root.join("test/support/skip_slimmer")
