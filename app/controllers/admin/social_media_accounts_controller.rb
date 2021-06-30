@@ -11,7 +11,11 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     @social_media_account = @socialable.social_media_accounts.build
   end
 
-  def edit; end
+  def edit
+    I18n.with_locale(params[:locale] || I18n.default_locale) do
+      render
+    end
+  end
 
   def update
     if @social_media_account.update(social_media_account_params)
@@ -66,7 +70,7 @@ private
 
   def social_media_account_params
     params.require(:social_media_account).permit(
-      :social_media_service_id, :url, :title
+      :social_media_service_id, :url, :title, :locale
     )
   end
 end

@@ -36,6 +36,14 @@ Feature: Administering worldwide organisation
     When I add a "Twooter" social media link "http://twooter.com/beards-in-france" to the worldwide organisation
     Then the "Twooter" social link should be shown on the public website for the worldwide organisation
 
+  Scenario: Managing social media links in multiple locales
+    Given a worldwide organisation "Department of Beards in France" exists with a translation for the locale "Français"
+    Given a social media service "Twooter"
+    When I add a "Twooter" social media link "http://twooter.com/beards-in-france" with the title "Link in English" to the worldwide organisation
+    Then the "Twooter" social link called "Link in English" should be shown on the public website for the worldwide organisation
+    When I edit a "Twooter" social media link "http://twooter.com/beards-in-france-in-french" with the title "Link in French" in "Français (French)" for the worldwide organisation
+    Then the "Twooter" social link called "Link in French" should be shown on the public website with locale "fr" for the worldwide organisation
+
   Scenario: Managing office information
     Given a worldwide organisation "Department of Beards in France"
     When I add an "Hair division" office for the home page with address, phone number, and some services

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_161500) do
+ActiveRecord::Schema.define(version: 2021_06_21_100917) do
 
   create_table "about_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -935,15 +935,23 @@ ActiveRecord::Schema.define(version: 2021_01_11_161500) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "social_media_account_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.text "url"
+    t.text "title"
+    t.string "locale", null: false
+    t.integer "social_media_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_on_locale"
+    t.index ["social_media_account_id"], name: "index_on_social_media_account"
+  end
+
   create_table "social_media_accounts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "socialable_id"
     t.integer "social_media_service_id"
-    t.string "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "socialable_type"
-    t.string "title"
-    t.string "locale", default: "en"
     t.index ["social_media_service_id"], name: "index_social_media_accounts_on_social_media_service_id"
     t.index ["socialable_id"], name: "index_social_media_accounts_on_organisation_id"
   end

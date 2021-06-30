@@ -8,5 +8,8 @@
           class: "btn btn-sm btn-danger",
           data: { confirm: "Delete '#{social_media_account.service_name}' social media account from #{socialable.class.name.underscore.humanize.downcase} '#{socialable.name}'?" } %>
     <%= link_to icon("Edit"), edit_polymorphic_path([:admin, socialable, social_media_account]), class: "btn btn-default add-left-margin" %>
+    <% social_media_account.socialable.non_english_translated_locales.each do |locale| %>
+      <%= link_to icon("Edit #{locale.native_and_english_language_name}"), edit_polymorphic_path([:admin, socialable, social_media_account], locale: locale), class: "btn btn-default add-left-margin" %>
+    <% end %>
   <% end %>
 <% end %>
