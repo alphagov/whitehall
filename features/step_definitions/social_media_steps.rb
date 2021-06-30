@@ -29,6 +29,19 @@ When(/^I add a "([^"]*)" social media link "([^"]*)" with the title "([^"]+)" to
   click_on "Save"
 end
 
+When(/^I edit a "([^"]*)" social media link "([^"]*)" with the title "([^"]+)" in "([^"]*)" for the (worldwide organisation|organisation)$/) do |_social_service, url, title, language, social_container|
+  if social_container == "worldwide organisation"
+    visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  else
+    visit admin_organisation_path(Organisation.last)
+  end
+  click_link "Social media accounts"
+  click_link "Edit #{language}"
+  fill_in "Url", with: url
+  fill_in "Title", with: title
+  click_on "Save"
+end
+
 Then(/^the "([^"]*)" social link should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, social_container|
   if social_container == "worldwide organisation"
     social_container = WorldwideOrganisation.last
@@ -48,5 +61,16 @@ Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public 
     social_container = Organisation.last
     visit organisation_path(social_container)
   end
-  assert_selector ".social-media-accounts .social-media-link.#{social_service.parameterize}", text: title
+  assert_selector ".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title
+end
+
+Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website with locale "([^"]*)" for the (worldwide organisation|organisation)$/) do |social_service, title, locale, social_container|
+  if social_container == "worldwide organisation"
+    social_container = WorldwideOrganisation.last
+    visit worldwide_organisation_path(social_container, locale: locale)
+  else
+    social_container = Organisation.last
+    visit organisation_path(social_container, locale: locale)
+  end
+  assert_selector ".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title
 end
