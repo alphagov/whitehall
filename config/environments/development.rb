@@ -1,8 +1,10 @@
+require "active_support/core_ext/integer/time"
+
 Whitehall::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
+  # In the development environment your application's code is reloaded any time
+  # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
@@ -27,7 +29,6 @@ Whitehall::Application.configure do
     }
   else
     config.action_controller.perform_caching = false
-
     config.cache_store = :null_store
   end
 
@@ -47,17 +48,28 @@ Whitehall::Application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+
   config.active_record.verbose_query_logs = true
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
 
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
 
+  # Raise an error on page load if there are pending migrations.
+  config.active_record.migration_error = :page_load
+
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # Highlight code that triggered database queries in logs.
+  config.active_record.verbose_query_logs = true
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -67,7 +79,6 @@ Whitehall::Application.configure do
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
-  config.assets.quiet = true
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
@@ -77,5 +88,13 @@ Whitehall::Application.configure do
   config.assets.cache_store = :null_store
   config.sass.cache = false
 
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
   config.hosts.clear
+
+  # Uncomment if you wish to allow Action Cable access from any origin.
+  # config.action_cable.disable_request_forgery_protection = true
 end
