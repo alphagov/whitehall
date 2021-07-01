@@ -95,6 +95,7 @@ group :test do
   gem "mocha"
   gem "rack-test"
   gem "rails-controller-testing"
+  gem "simplecov", require: false
   gem "timecop"
   gem "webmock", require: false
 end
