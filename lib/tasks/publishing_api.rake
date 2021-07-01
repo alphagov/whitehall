@@ -277,7 +277,7 @@ namespace :publishing_api do
     end
   end
 
-  desc "Republish all documents with HTML attachments to the Publishing API"
+  desc "⚠️  WARNING: this rake task republishes **all** documents with HTML attachments (this can block publishing for > 1 hour) ⚠️. Republish all documents with HTML attachments to the Publishing API."
   task republish_html_attachments: :environment do
     document_ids = Edition
       .publicly_visible
