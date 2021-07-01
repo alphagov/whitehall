@@ -1,8 +1,5 @@
 class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_action :load_classification
-  before_action :load_featuring, only: %i[edit destroy]
-
-  def edit; end
 
   def index
     filter_params = params.slice(:page, :type, :author, :organisation, :title)
@@ -52,6 +49,8 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def destroy
+    @classification_featuring = @classification.classification_featurings.find(params[:id])
+
     if featuring_a_document?
       edition = @classification_featuring.edition
       @classification_featuring.destroy!
@@ -73,10 +72,6 @@ private
 
   def load_classification
     @classification = Classification.find(params[:topical_event_id] || params[:topic_id])
-  end
-
-  def load_featuring
-    @classification_featuring = @classification.classification_featurings.find(params[:id])
   end
 
   def editions_to_show

@@ -33,6 +33,11 @@ class EditionCollectionPresenterTest < PresenterTestCase
     assert_kind_of FatalityNoticePresenter, collection.first
   end
 
+  test "should wrap announcements in an announcements presenter" do
+    collection = EditionCollectionPresenter.new([Announcement.new], @view_context)
+    assert_kind_of AnnouncementPresenter, collection.first
+  end
+
   test "should wrap instances within methods that return arrays" do
     collection = EditionCollectionPresenter.new([DetailedGuide.new, NewsArticle.new], @view_context)
     assert_kind_of NewsArticlePresenter, collection[1, 1].first

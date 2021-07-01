@@ -33,10 +33,6 @@ class Admin::OffsiteLinksController < Admin::BaseController
     redirect_to offsite_links_path
   end
 
-  def show
-    redirect_to offsite_link_path(@offsite_link)
-  end
-
 private
 
   def load_parent
