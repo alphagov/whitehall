@@ -10,5 +10,11 @@ require "ci/reporter/rake/minitest" if Rails.env.test?
 
 Whitehall::Application.load_tasks
 
+begin
+  require "pact/tasks"
+rescue LoadError
+  # Pact isn't available in all environments
+end
+
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test:in_parallel]
+task default: %i[lint test:in_parallel pact:verify]
