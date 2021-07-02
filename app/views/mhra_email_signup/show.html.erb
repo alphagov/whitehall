@@ -17,7 +17,7 @@
         text: page.title
       } %>
     <p class="govuk-body">
-      <%= page.description %>
+      <%= raw(page.description) %>
     </p>
     <% end %>
   </div>
