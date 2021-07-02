@@ -461,6 +461,19 @@ pa-pk:
   latest_feed:
     no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
     title: تازہ ترین
+  mhra_email_signup:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   national_statistics:
     heading: قومی شماریات
   number:

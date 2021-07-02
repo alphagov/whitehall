@@ -1,0 +1,22 @@
+<% page_title t("mhra_email_signup.title", acronym: @organisation.acronym) %>
+<% page_class "mhra-email-signup" %>
+
+<div class="inner-block">
+  <%= render "govuk_publishing_components/components/title", {
+    context: "Email alert subscription",
+    title: t("mhra_email_signup.title", acronym: @organisation.acronym),
+    margin_bottom: 4,
+  } %>
+</div>
+
+<div class="inner-block">
+  <p><%= t("mhra_email_signup.summary", acronym: @organisation.acronym, name: @organisation.name) %></p>
+  <div class='choices'>
+    <% @mhra_email_signup_pages.each do |page| %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: page.title
+      } %>
+    <p><%= page.description %></p>
+    <% end %>
+  </div>
+</div>
