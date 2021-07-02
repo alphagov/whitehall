@@ -379,8 +379,6 @@ en:
       all: All locations
       label: World locations
       no_locations_filter: No world locations match that filter.
-  email_alert:
-    subscription: Email alert subscription
   fatality_notice:
     british_fatalities: British fatalities
     none_added: There have been no fatality notices added for this field of operation yet.
@@ -462,6 +460,7 @@ en:
     no_updates: There are no updates yet.
     title: Latest
   mhra_email_signup:
+    context: Email alert subscription
     pages:
       drug_alerts:
         description_html: Subscribe to <a href='/drug-device-alerts/email-signup'>MHRA's

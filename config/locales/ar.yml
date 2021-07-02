@@ -664,8 +664,6 @@ ar:
       all: كافة المواقع
       label: مواقع في العالم
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -747,6 +745,7 @@ ar:
     no_updates: لا يوجد تحديثات بعد
     title: آخر التحديثات
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

@@ -376,8 +376,6 @@ so:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -459,6 +457,7 @@ so:
     no_updates: Weli wax laguma kordhin.
     title: Ugu dambeeyey
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

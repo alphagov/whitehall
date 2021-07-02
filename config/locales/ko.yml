@@ -308,8 +308,6 @@ ko:
       all: 모든 로케이션
       label: 월드 로케이션
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -391,6 +389,7 @@ ko:
     no_updates: 관련 내용이 아직 없습니다.
     title: 최신
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

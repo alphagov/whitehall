@@ -378,8 +378,6 @@ fr:
       all: Tous les endroits
       label: Pays
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -461,6 +459,7 @@ fr:
     no_updates: Il n'y a pas de mise à jour.
     title: Actualités
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

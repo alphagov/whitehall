@@ -11,11 +11,9 @@ class MhraEmailSignupControllerTest < ActionController::TestCase
     assert_equal @controller.status, 200
 
     assert_select ".gem-c-title__text", text: I18n.t("mhra_email_signup.title", acronym: mhra.acronym)
-    assert_select ".choices" do
-      assert_select "h2", text: I18n.t("mhra_email_signup.pages.drug_alerts.title")
-      assert_select "h2", text: I18n.t("mhra_email_signup.pages.drug_safety.title")
-      assert_select "h2", text: I18n.t("mhra_email_signup.pages.news_and_publications.title")
-    end
+    assert_select "h2", text: I18n.t("mhra_email_signup.pages.drug_alerts.title")
+    assert_select "h2", text: I18n.t("mhra_email_signup.pages.drug_safety.title")
+    assert_select "h2", text: I18n.t("mhra_email_signup.pages.news_and_publications.title")
   end
 
   test "GET :show renders not found for non-mhra organisation slug" do

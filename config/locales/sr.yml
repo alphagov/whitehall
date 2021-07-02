@@ -520,8 +520,6 @@ sr:
       all: Sve lokacije
       label: lokacije u svetu
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -603,6 +601,7 @@ sr:
     no_updates: Nema novih podataka
     title: najnovije
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

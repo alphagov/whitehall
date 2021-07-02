@@ -308,8 +308,6 @@ th:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -391,6 +389,7 @@ th:
     no_updates: ยังไม่มีการปรับปรุงข้อมูล
     title: ล่าสุด
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

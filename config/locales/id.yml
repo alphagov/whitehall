@@ -308,8 +308,6 @@ id:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -391,6 +389,7 @@ id:
     no_updates: Belum ada informasi terkini
     title: Terkini
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:
