@@ -379,8 +379,6 @@ he:
       all: כל המיקומים
       label: מיקומים גלובאליים
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -462,6 +460,7 @@ he:
     no_updates: אין עדכונים נוספים
     title: אחרון
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

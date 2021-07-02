@@ -379,8 +379,6 @@ pa-pk:
       all: ساریے مقام
       label: دنیا دے مقام
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -462,6 +460,7 @@ pa-pk:
     no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
     title: تازہ ترین
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

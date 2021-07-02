@@ -376,8 +376,6 @@ hy:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -459,6 +457,7 @@ hy:
     no_updates: Դեռևս թարմացումներ չկան
     title: Վերջին գործողություն
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

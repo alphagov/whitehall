@@ -379,8 +379,6 @@ pa:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -462,6 +460,7 @@ pa:
     no_updates: ਹਾਲੇ ਕੋਈ ਅੱਪਡੇਟ ਨਹੀਂ ਹਨ।
     title: ਨਵੀਨਤਮ
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

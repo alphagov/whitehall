@@ -448,8 +448,6 @@ cs:
       all: Všude
       label: Světové lokace
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -531,6 +529,7 @@ cs:
     no_updates: Aktualizace nejsou k dispozici
     title: Nejnovější
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

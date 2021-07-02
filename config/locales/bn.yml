@@ -376,8 +376,6 @@ bn:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -459,6 +457,7 @@ bn:
     no_updates: এখনো অব্দি কোন আপডেট নেই।
     title: সর্বশেষ
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:

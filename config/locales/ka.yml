@@ -308,8 +308,6 @@ ka:
       all:
       label:
       no_locations_filter:
-  email_alert:
-    subscription:
   fatality_notice:
     british_fatalities:
     none_added:
@@ -391,6 +389,7 @@ ka:
     no_updates:
     title:
   mhra_email_signup:
+    context:
     pages:
       drug_alerts:
         description_html:
