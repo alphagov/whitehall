@@ -88,15 +88,5 @@ module Taxonomy
     def full_path
       breadcrumb_trail.map { |t| { title: t.name } }
     end
-
-    def root?
-      parent_node.nil?
-    end
-
-    def node_depth
-      return 0 if root?
-
-      1 + parent_node.node_depth
-    end
   end
 end

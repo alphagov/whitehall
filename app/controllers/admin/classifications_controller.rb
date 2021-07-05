@@ -23,15 +23,6 @@ class Admin::ClassificationsController < Admin::BaseController
 
   def edit; end
 
-  def update
-    @classification = model_class.friendly.find(params[:id])
-    if @classification.update(object_params)
-      redirect_to [:admin, @classification], notice: "#{human_friendly_model_name} updated"
-    else
-      render action: "edit"
-    end
-  end
-
   def destroy
     @classification = model_class.friendly.find(params[:id])
     @classification.delete!

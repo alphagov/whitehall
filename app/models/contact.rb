@@ -71,14 +71,6 @@ class Contact < ApplicationRecord
     contact_type == ContactType::FOI
   end
 
-  def media?
-    contact_type == ContactType::Media
-  end
-
-  def general?
-    contact_type == ContactType::General
-  end
-
   def missing_translations
     super & contactable.non_english_translated_locales
   end

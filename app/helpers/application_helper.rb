@@ -32,10 +32,6 @@ module ApplicationHelper
     # rubocop:enable Rails/HelperInstanceVariable
   end
 
-  def api_link_tag(path)
-    tag :link, href: path, rel: "alternate", type: Mime[:json]
-  end
-
   def format_in_paragraphs(string)
     safe_join(
       String(string)
@@ -113,10 +109,6 @@ module ApplicationHelper
 
   def role_type_options
     RoleTypePresenter.options
-  end
-
-  def link_to_person(person)
-    PersonPresenter.new(person, self).link(class: "person-link")
   end
 
   def render_list_of_roles(roles, class_name = "ministerial_roles")
@@ -198,15 +190,6 @@ module ApplicationHelper
     link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
   end
 
-  def main_navigation_documents_class
-    document_paths = [publications_path, consultations_path, announcements_path, publications_path(publication_filter_option: "consultations"), publications_path(publication_filter_option: "statistics")]
-    if document_paths.include? current_main_navigation_path(params)
-      "current"
-    else
-      ""
-    end
-  end
-
   def current_main_navigation_path(parameters)
     case parameters[:controller]
     when "home"
@@ -275,25 +258,8 @@ module ApplicationHelper
     end
   end
 
-  def month_filter_options(start_date, selected_date)
-    baseline = (Time.zone.today + 1.month).beginning_of_month
-    number_of_months = ((baseline - start_date) / 43_829.1 / 60).round + 1
-    months = (0...number_of_months).map { |i| baseline - i.months }
-    options_for_select(months.map { |m| [m.to_s(:short_ordinal), m.to_s] }, selected_date.to_s)
-  end
-
   def corporate_information_page_types(organisation)
     CorporateInformationPageType.all.map { |c| [c.title(organisation), c.id] }
-  end
-
-  def collection_list_class(items, minimum_columns = 1)
-    if items.length > 8 || minimum_columns == 3
-      "three-columns"
-    elsif items.length > 3 || minimum_columns == 2
-      "two-columns"
-    else
-      "one-column"
-    end
   end
 
   def is_external?(href)
@@ -312,23 +278,6 @@ module ApplicationHelper
       content_tag(name, content, options)
     else
       ""
-    end
-  end
-
-  def unsorted_grouped_options_for_select(grouped_options, selected_key = nil, prompt = nil)
-    body = ""
-    body << tag.option(prompt, { value: "" }, true) if prompt
-
-    grouped_options.each do |group, options|
-      body << tag.optgroup(options_for_select(options, selected_key), label: group)
-    end
-
-    body.html_safe
-  end
-
-  def render_partial_if_exists(partial)
-    if lookup_context.template_exists?(partial, lookup_context.prefixes, true)
-      render partial
     end
   end
 

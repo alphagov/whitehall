@@ -264,21 +264,6 @@ class Organisation < ApplicationRecord
             .group("statistics_announcement_organisations.organisation_id")
         }
 
-  def self.grouped_by_type(locale = I18n.locale)
-    Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do
-      all_orgs = with_published_editions.with_translations(locale).ordered_by_name_ignoring_prefix
-
-      closed_orgs, open_orgs = all_orgs.partition(&:closed?)
-      ministerial_orgs, other_orgs = open_orgs.partition(&:ministerial_department?)
-
-      {
-        "Ministerial departments" => ministerial_orgs.map { |o| [o.name, o.slug] },
-        "Other departments & public bodies" => other_orgs.map { |o| [o.name, o.slug] },
-        "Closed organisations" => closed_orgs.map { |o| [o.name, o.slug] },
-      }
-    end
-  end
-
   def ensure_analytics_identifier
     if analytics_identifier.blank?
       update_column(:analytics_identifier, organisation_type.analytics_prefix + id.to_s)
@@ -470,34 +455,6 @@ class Organisation < ApplicationRecord
     editions.published
   end
 
-  def scheduled_editions
-    editions.scheduled.order("scheduled_publication ASC")
-  end
-
-  def published_non_corporate_information_pages
-    published_editions.without_editions_of_type(CorporateInformationPage)
-  end
-
-  def published_announcements
-    published_editions.announcements
-  end
-
-  def published_consultations
-    published_editions.consultations
-  end
-
-  def published_detailed_guides
-    published_editions.detailed_guides
-  end
-
-  def published_non_statistics_publications
-    published_editions.non_statistical_publications
-  end
-
-  def published_statistics_publications
-    published_editions.statistical_publications
-  end
-
   delegate :corporate_publications, to: :editions
 
   def destroyable?
@@ -579,11 +536,5 @@ private
       land-registry
       legal-aid-agency
     ]
-  end
-
-  def sub_organisations_must_have_a_parent
-    if organisation_type && organisation_type.sub_organisation? && parent_organisations.empty?
-      errors[:parent_organisations] << "must not be empty for sub-organisations"
-    end
   end
 end

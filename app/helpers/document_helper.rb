@@ -1,16 +1,9 @@
 module DocumentHelper
   include ApplicationHelper
-  include CountryHelper
-  include DocumentCollectionHelper
-  include MinisterialRolesHelper
-  include PolicyGroupsHelper
-  include RoleAppointmentsHelper
-  include TopicsHelper
-  include TranslationHelper
 
-  def edition_page_title(edition)
-    edition.withdrawn? ? "[Withdrawn] #{edition.title}" : edition.title
-  end
+  MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document".freeze
+  MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet".freeze
+  MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation".freeze
 
   def document_block_counter
     # rubocop:disable Rails/HelperInstanceVariable
@@ -22,57 +15,6 @@ module DocumentHelper
   def published_or_updated(edition)
     edition.first_published_version? ? t("document.published") : t("document.updated")
   end
-
-  def edition_organisation_class(edition)
-    if (organisation = edition.sorted_organisations.first)
-      organisation.slug
-    else
-      "unknown_organisation"
-    end
-  end
-
-  def national_statistics_logo(edition)
-    if edition.national_statistic?
-      tag.div class: "national-statistic" do
-        image_tag "national-statistics.png", alt: t("national_statistics.heading"), class: "national-statistics-logo"
-      end
-    end
-  end
-
-  def only_applies_to_nations_list(document)
-    if document.respond_to?(:nation_inapplicabilities) && document.nation_inapplicabilities.any?
-      tag.span "#{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}".html_safe, class: "inapplicable-nations"
-    end
-  end
-
-  def see_alternative_urls_for_inapplicable_nations(edition)
-    with_alternative_urls = edition.nation_inapplicabilities.select do |ni|
-      ni.alternative_url.present?
-    end
-    if with_alternative_urls.any?
-      " (see #{edition.format_name} for ".html_safe + list_of_links_to_inapplicable_nations(with_alternative_urls) + ")".html_safe
-    end
-  end
-
-  def list_of_links_to_inapplicable_nations(nation_inapplicabilities)
-    nation_inapplicabilities.map { |i| link_to_inapplicable_nation(i) }.to_sentence.html_safe
-  end
-
-  def link_to_inapplicable_nation(nation_inapplicability)
-    if nation_inapplicability.alternative_url.present?
-      link_to nation_inapplicability.nation.name, nation_inapplicability.alternative_url, class: "country", id: "nation_inapplicability_#{nation_inapplicability.id}", rel: "external"
-    else
-      nation_inapplicability.nation.name
-    end
-  end
-
-  def array_of_links_to_statistical_data_sets(data_sets)
-    data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set), class: "statistical-data-set-link" }
-  end
-
-  MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document".freeze
-  MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet".freeze
-  MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation".freeze
 
   def file_abbr_tag(abbr, title)
     tag.abbr(abbr, title: title)
@@ -211,87 +153,5 @@ Please tell us:
     options[:locale] = nil if locale.to_s == "en"
 
     link_to native_language_name_for(locale), options, lang: locale, class: "govuk-link"
-  end
-
-  def part_of_metadata(document, sector_tag_finder = SpecialistTagFinder::Null.new)
-    part_of = []
-
-    if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
-      part_of += array_of_links_to_document_collections(document)
-    end
-
-    if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any?
-      part_of += array_of_links_to_statistical_data_sets(document.published_statistical_data_sets)
-    end
-
-    if document.respond_to?(:topical_events) && document.topical_events.any?
-      part_of += array_of_links_to_topical_events(document.topical_events)
-    end
-
-    links_to_topics = sector_tag_finder.topics.map do |topic|
-      link_to topic["title"], topic["web_url"], class: "sector-link"
-    end
-    part_of += links_to_topics
-
-    if document.respond_to?(:world_locations) && document.world_locations.any?
-      part_of += array_of_links_to_world_locations(document.world_locations)
-    end
-
-    part_of
-  end
-
-  def from_metadata(document, links_only: false)
-    from = []
-
-    if document.lead_organisations.any?
-      from += array_of_links_to_organisations(document.lead_organisations)
-    end
-
-    statistics = document.respond_to?(:statistics) && document.statistics?
-    if !statistics && document.respond_to?(:delivered_by_minister?)
-      if document.person_override?
-        from << document.person_override unless links_only
-      else
-        from << link_to_person(document.role_appointment.person)
-      end
-    end
-
-    if document.respond_to?(:role_appointments) && document.role_appointments.any?
-      from += array_of_links_to_role_appointments(document.role_appointments)
-    end
-
-    if document.respond_to?(:worldwide_organisations) && document.worldwide_organisations.any?
-      from += array_of_links_to_worldwide_organisations(document.worldwide_organisations)
-    end
-
-    if document.respond_to?(:policy_groups) && document.policy_groups.any?
-      from += array_of_links_to_policy_groups(document.policy_groups)
-    end
-
-    if (other_organisations = document.sorted_organisations - document.lead_organisations).any?
-      from += array_of_links_to_organisations(other_organisations)
-    end
-
-    from
-  end
-
-  def political_state_analytics_tag(edition)
-    tag :meta,
-        name: "govuk:political-status",
-        content: political_state_analytics_value(edition)
-  end
-
-  def political_state_analytics_value(edition)
-    return "non-political" unless edition.political?
-
-    edition.historic? ? "historic" : "political"
-  end
-
-  def publishing_government_analytics_tag(edition)
-    return unless edition.government
-
-    tag :meta,
-        name: "govuk:publishing-government",
-        content: edition.government.slug
   end
 end

@@ -180,6 +180,11 @@ module DocumentHelper
     click_on "Convert to draft"
     assert_no_selector ".speed-tag"
   end
+
+  def preview_document_path(edition, options = {})
+    query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
+    document_path(edition, options.merge(query))
+  end
 end
 
 World(DocumentHelper)
