@@ -33,3 +33,20 @@ Pact.service_provider "Whitehall" do
     end
   end
 end
+
+Pact.provider_states_for "GDS API Adapters" do
+  provider_state "a world location exists" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+      create(:world_location, name: "France", slug: "france")
+    end
+  end
+
+  provider_state "a worldwide organisation exists" do
+    set_up do
+      DatabaseCleaner.clean_with :truncation
+      stub_request(:any, %r{#{Regexp.escape(Plek.find('publishing-api'))}/v2/content})
+      create(:world_location, :with_worldwide_organisations, slug: "france")
+    end
+  end
+end
