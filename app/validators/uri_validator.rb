@@ -9,12 +9,12 @@ class UriValidator < ActiveModel::EachValidator
     uri = URI.parse(value)
 
     if uri.blank?
-      record.errors[attribute] << failure_message
+      record.errors.add(attribute, failure_message)
     elsif allowed_protocols.exclude?(uri.scheme)
-      record.errors[attribute] << "is not valid. Make sure it starts with http(s)"
+      record.errors.add(attribute, "is not valid. Make sure it starts with http(s)")
     end
   rescue URI::Error
-    record.errors[attribute] << failure_message
+    record.errors.add(attribute, failure_message)
   end
 
 private
