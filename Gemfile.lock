@@ -261,7 +261,7 @@ GEM
       unicorn (>= 5.4, < 5.9)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-    govuk_publishing_components (24.18.1)
+    govuk_publishing_components (24.18.3)
       govuk_app_config
       kramdown
       plek
