@@ -72,8 +72,8 @@ end
 Then(/^I should see my organisation's statistics announcements on the statistical announcements page by default$/) do
   visit admin_statistics_announcements_path
 
-  assert_selector "tr.statistics_announcement", text: @organisation_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @other_organisation_announcement.title
+  expect(page).to have_selector("tr.statistics_announcement", text: @organisation_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @other_organisation_announcement.title)
 end
 
 When(/^I filter statistics announcements by the other organisation$/) do
@@ -82,8 +82,8 @@ When(/^I filter statistics announcements by the other organisation$/) do
 end
 
 Then(/^I should only see the statistics announcement of the other organisation$/) do
-  assert_selector "tr.statistics_announcement", text: @other_organisation_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @organisation_announcement.title
+  expect(page).to have_selector("tr.statistics_announcement", text: @other_organisation_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @organisation_announcement.title)
 end
 
 When(/^I link the announcement to the publication$/) do
@@ -96,9 +96,11 @@ When(/^I link the announcement to the publication$/) do
 end
 
 Then(/^I should see that the announcement is linked to the publication$/) do
-  assert_path admin_statistics_announcement_path(@statistics_announcement)
-  assert_text "Announcement connected to draft document #{@statistics_publication.title}",
-              normalize_ws: true
+  expect(page).to have_current_path(admin_statistics_announcement_path(@statistics_announcement))
+  expect(page).to have_content(
+    "Announcement connected to draft document #{@statistics_publication.title}",
+    normalize_ws: true,
+  )
 end
 
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|
@@ -160,30 +162,30 @@ When(/^I change the cancellation reason$/) do
 end
 
 Then(/^I should see the updated cancellation reason$/) do
-  assert_path admin_statistics_announcement_path(@statistics_announcement)
+  expect(page).to have_current_path(admin_statistics_announcement_path(@statistics_announcement))
 
-  assert_text "Statistics release cancelled"
-  assert_text "Updated cancellation reason"
+  expect(page).to have_content("Statistics release cancelled")
+  expect(page).to have_content("Updated cancellation reason")
 end
 
 Then(/^I should see that the statistics announcement has been cancelled$/) do
   ensure_path admin_statistics_announcement_path(@statistics_announcement)
 
-  assert_text "Statistics release cancelled"
-  assert_text "Cancelled because: reason"
+  expect(page).to have_content("Statistics release cancelled")
+  expect(page).to have_content("Cancelled because: reason")
 end
 
 Then(/^the document fields are pre-filled based on the announcement$/) do
-  assert_selector "input[id=edition_title][value='#{@statistics_announcement.title}']"
-  assert_selector "textarea[id=edition_summary]", text: @statistics_announcement.summary
+  expect(page).to have_selector("input[id=edition_title][value='#{@statistics_announcement.title}']")
+  expect(page).to have_selector("textarea[id=edition_summary]", text: @statistics_announcement.summary)
 end
 
 Then(/^the document becomes linked to the announcement$/) do
-  assert publication = Publication.last, "No publication found!"
+  publication = Publication.last
   visit admin_statistics_announcements_path(organisation_id: "")
 
   within record_css_selector(@statistics_announcement) do
-    assert has_link? publication.title, href: admin_publication_path(publication)
+    expect(page).to have_link(publication.title, href: admin_publication_path(publication))
   end
 end
 
@@ -191,16 +193,16 @@ Then(/^I should see the announcement listed on the list of announcements$/) do
   announcement = StatisticsAnnouncement.last
   ensure_path admin_statistics_announcements_path
 
-  assert_text announcement.title
+  expect(page).to have_content(announcement.title)
 end
 
 Then(/^I should (see|only see) a statistics announcement called "(.*?)"$/) do |single_or_multiple, title|
-  assert_selector "tr.statistics_announcement", count: 1 if single_or_multiple == "only see"
-  assert_selector "tr.statistics_announcement", text: title
+  expect(page).to have_selector("tr.statistics_announcement", count: 1) if single_or_multiple == "only see"
+  expect(page).to have_selector("tr.statistics_announcement", text: title)
 end
 
 Then(/^the new date is reflected on the announcement$/) do
-  assert_text "14 December #{Time.zone.today.year.next} 9:30am"
+  expect(page).to have_content("14 December #{Time.zone.today.year.next} 9:30am")
 end
 
 Then(/^I should be able to filter both past and future announcements$/) do
@@ -209,14 +211,14 @@ Then(/^I should be able to filter both past and future announcements$/) do
   select "Future releases", from: "Release date"
   click_on "Search"
 
-  assert_selector "tr.statistics_announcement", text: @future_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @past_announcement.title
+  expect(page).to have_selector("tr.statistics_announcement", text: @future_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
 
   select "Past announcements", from: "Release date"
   click_on "Search"
 
-  assert_selector "tr.statistics_announcement", text: @past_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @future_announcement.title
+  expect(page).to have_selector("tr.statistics_announcement", text: @past_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @future_announcement.title)
 end
 
 Then(/^I should be able to filter only the unlinked announcements$/) do
@@ -226,19 +228,19 @@ Then(/^I should be able to filter only the unlinked announcements$/) do
   check :unlinked_only
   click_on "Search"
 
-  assert_selector "tr.statistics_announcement", text: @future_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @past_announcement.title
+  expect(page).to have_selector("tr.statistics_announcement", text: @future_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
 end
 
 Then(/^I should see a warning that there are upcoming releases without a linked publication$/) do
-  assert_text "2 imminent releases need a publication"
+  expect(page).to have_content("2 imminent releases need a publication")
 end
 
 Then(/^I should be able to view these upcoming releases without a linked publication$/) do
   click_on "2 imminent releases"
 
-  assert_selector "tr.statistics_announcement", text: @tomorrow_announcement.title
-  assert_selector "tr.statistics_announcement", text: @next_week_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @past_announcement.title
-  assert_no_selector "tr.statistics_announcement", text: @next_year_announcement.title
+  expect(page).to have_selector("tr.statistics_announcement", text: @tomorrow_announcement.title)
+  expect(page).to have_selector("tr.statistics_announcement", text: @next_week_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @past_announcement.title)
+  expect(page).to_not have_selector("tr.statistics_announcement", text: @next_year_announcement.title)
 end

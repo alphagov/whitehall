@@ -175,58 +175,60 @@ When(/^I edit the (publication|news article|consultation) changing the title to 
 end
 
 Then("I should see {edition}") do |edition|
-  assert_selector record_css_selector(edition)
+  expect(page).to have_selector(record_css_selector(edition))
 end
 
 Then("I should not see {edition}") do |edition|
-  assert_no_selector record_css_selector(edition)
+  expect(page).to_not have_selector(record_css_selector(edition))
 end
 
 Then("I should see {edition} in the list of announcements") do |edition|
-  assert_selector record_css_selector(edition)
+  expect(page).to have_selector(record_css_selector(edition))
 end
 
 Then("I should see {edition} in the list of draft documents") do |edition|
   visit admin_editions_path
-  assert_selector record_css_selector(edition)
+  expect(page).to have_selector(record_css_selector(edition))
 end
 
 Then("I should see {edition} in the list of submitted documents") do |edition|
   visit admin_editions_path(state: :submitted)
-  assert_selector record_css_selector(edition)
+  expect(page).to have_selector(record_css_selector(edition))
 end
 
 Then("I should see {edition} in the list of published documents") do |edition|
   visit admin_editions_path(state: :published)
-  assert_selector record_css_selector(edition)
+  expect(page).to have_selector(record_css_selector(edition))
 end
 
 Then("{edition} should no longer be listed on the public site") do |edition|
   public_edition_path = public_path_for(edition)
   stub_content_item_from_content_store_for(public_edition_path)
   visit_public_index_for(edition)
-  assert_no_text edition.title
+  expect(page).to_not have_content(edition.title)
 end
 
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
-  assert_equal new_title, find(".conflicting.new #edition_title").value
-  assert_selector ".conflicting.latest .document .title", text: latest_title
+  expect(new_title).to eq(find(".conflicting.new #edition_title").value)
+  expect(page).to have_selector(".conflicting.latest .document .title", text: latest_title)
 end
 
 Then(/^my attempt to publish "([^"]*)" should fail$/) do |title|
   edition = Edition.latest_edition.find_by!(title: title)
-  assert !edition.published?
+  expect(!edition.published?).to be(true)
 end
 
 Then(/^my attempt to publish "([^"]*)" should succeed$/) do |title|
   edition = Edition.latest_edition.find_by!(title: title)
-  assert edition.published?
+  expect(edition.published?).to be(true)
 end
 
 Then(/^my attempt to save it should fail with error "([^"]*)"/) do |error_message|
   click_button "Save"
-  assert_selector ".errors li[data-track-category='form-error'][data-track-action$='-error'][data-track-label=\"#{error_message}\"]",
-                  text: error_message
+  expect(page).to have_selector(
+    ".errors li[data-track-category='form-error'][data-track-action$='-error'][data-track-label=\"#{error_message}\"]",
+    text: error_message,
+  )
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|

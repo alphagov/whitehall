@@ -3,6 +3,6 @@ Then(/^the publication should reference the "([^"]*)" data set$/) do |data_set_n
 
   data_sets = @new_edition.statistical_data_sets
 
-  assert_equal 1, data_sets.count
-  assert_equal data_set_name, data_sets.first.title
+  expect(data_sets.count).to eq(1)
+  expect(data_set_name).to eq(data_sets.first.title)
 end

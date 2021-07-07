@@ -54,7 +54,7 @@ Then(/^I see the contacts in my specified order including the new one on the hom
   contact_headings = all(".addresses div.contact h2").map(&:text)
 
   @the_ordered_contacts.each.with_index do |contact, idx|
-    assert_equal contact.title, contact_headings[idx]
+    expect(contact.title).to eq(contact_headings[idx])
   end
 end
 
@@ -74,7 +74,7 @@ Then(/^that contact is no longer visible on the home page of the organisation$/)
   visit organisation_path(@the_organisation)
 
   within ".addresses" do
-    assert_no_selector "div.contact h2", text: @the_removed_contact.title
+    expect(page).to_not have_selector("div.contact h2", text: @the_removed_contact.title)
   end
 end
 
@@ -113,9 +113,9 @@ Then(/^I see the offices in my specified order including the new one under the m
 
   contact_headings = all(".contact-section .gem-c-heading").map(&:text)
 
-  assert_equal @the_main_office.title, contact_headings[0]
+  expect(@the_main_office.title).to eq(contact_headings[0])
   @the_ordered_offices.each.with_index do |contact, idx|
-    assert_equal contact.title, contact_headings[idx + 1]
+    expect(contact.title).to eq(contact_headings[idx + 1])
   end
 end
 
@@ -135,7 +135,7 @@ Then(/^that office is no longer visible on the home page of the worldwide organi
   visit worldwide_organisation_path(@the_organisation)
 
   within ".contact-section:first-of-type" do
-    assert_no_selector "h2", text: @the_removed_office.title
+    expect(page).to_not have_selector("h2", text: @the_removed_office.title)
   end
 end
 
@@ -160,23 +160,23 @@ Then(/^I cannot add or reorder the new FOI contact in the home page list$/) do
   click_on "All"
 
   within record_css_selector(@the_new_foi_contact) do
-    assert has_no_button?("Add to home page")
-    assert has_no_button?("Remove from home page")
+    expect(page).to_not have_button("Add to home page")
+    expect(page).to_not have_button("Remove from home page")
   end
 
   click_on "Order on home page"
 
-  assert has_no_field?("ordering[#{@the_new_foi_contact.id}]")
+  expect(page).to_not have_field("ordering[#{@the_new_foi_contact.id}]")
 end
 
 Then(/^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/) do
   visit organisation_path(@the_organisation)
 
   within "#org-contacts + .org-contacts" do
-    assert_no_selector "div.contact h2", text: @the_new_foi_contact.title
+    expect(page).to_not have_selector("div.contact h2", text: @the_new_foi_contact.title)
   end
 
   within "#freedom-of-information .org-contacts" do
-    assert_selector "div.contact h2", text: @the_new_foi_contact.title
+    expect(page).to have_selector("div.contact h2", text: @the_new_foi_contact.title)
   end
 end

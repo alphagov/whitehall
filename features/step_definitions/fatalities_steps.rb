@@ -29,14 +29,14 @@ Then(/^I can view the field of operations information from a link in the metadat
   notice = FatalityNotice.last
   first(:link, notice.operational_field.name).click
 
-  assert_text notice.operational_field.description
+  expect(page).to have_content(notice.operational_field.description)
 end
 
 Then(/^I can see the roll call introduction of the fatality notice titled "([^"]*)"$/) do |title|
   notice = FatalityNotice.find_by(title: title)
 
-  assert_text notice.roll_call_introduction
-  assert_no_text notice.summary
+  expect(page).to have_content(notice.roll_call_introduction)
+  expect(page).to_not have_content(notice.summary)
 end
 
 Then(/^I can create a fatality notice$/) do
@@ -54,6 +54,6 @@ Then(/^I should see a casualty listed on the field of operation page for "(.*?)"
   visit operational_field_path(OperationalField.find_by(name: field))
 
   within ".fatality_notice ul.govuk-list" do
-    assert_text FatalityNotice.last.title, count: 1
+    expect(page).to have_content(FatalityNotice.last.title, count: 1)
   end
 end

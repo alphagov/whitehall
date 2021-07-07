@@ -20,7 +20,7 @@ When(/^I visit the world organisation that is translated$/) do
 end
 
 Then(/^I should see the translation of that world organisation$/) do
-  assert_selector ".worldwide-org-summary", text: "fr-summary"
+  expect(page).to have_selector(".worldwide-org-summary", text: "fr-summary")
 end
 
 Given(/^I have drafted a translatable document "([^"]*)"$/) do |title|
@@ -41,7 +41,7 @@ end
 
 Then(/^I should see on the admin edition page that "([^"]*)" has a french translation "([^"]*)"$/) do |english_title, french_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
-  assert_text french_title
+  expect(page).to have_content(french_title)
 end
 
 Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*?)"$/) do |organisation_name, contact_title|
@@ -77,9 +77,9 @@ end
 Then(/^I should see on the admin organisation contacts page that "(.*?)" has a welsh translation "(.*?)"$/) do |english_title, welsh_title|
   contact = Contact.find_by(title: english_title)
   visit admin_organisation_contacts_path(contact.contactable)
-  assert_text "Cymraeg (Welsh) translation"
-  assert_text welsh_title
-  assert_text "9876543210"
+  expect(page).to have_content("Cymraeg (Welsh) translation")
+  expect(page).to have_content(welsh_title)
+  expect(page).to have_content("9876543210")
 end
 
 Given(/^the world organisation "(.*?)" is translated into French and has an office "(.*?)"$/) do |organisation_name, office_name|
@@ -110,7 +110,7 @@ end
 Then(/^I should see on the admin world organisation offices page that "(.*?)" has a french translation "(.*?)"$/) do |english_title, french_title|
   office = Contact.find_by(title: english_title).contactable
   visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
-  assert_text "Français (French) translation"
-  assert_text french_title
-  assert_text "9876543210"
+  expect(page).to have_content("Français (French) translation")
+  expect(page).to have_content(french_title)
+  expect(page).to have_content("9876543210")
 end

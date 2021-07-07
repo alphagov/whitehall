@@ -66,42 +66,42 @@ When(/^I delete the promotional item$/) do
 end
 
 Then(/^I should see the promotional feature on the organisation's page$/) do
-  assert promotional_feature = @executive_office.reload.promotional_features.first
-  assert_current_url admin_organisation_promotional_feature_url(@executive_office, promotional_feature)
+  promotional_feature = @executive_office.reload.promotional_features.first
+  expect(current_url).to eq(admin_organisation_promotional_feature_url(@executive_office, promotional_feature))
 
   within record_css_selector(promotional_feature) do
-    assert_selector "h1", text: promotional_feature.title
+    expect(page).to have_selector("h1", text: promotional_feature.title)
 
     item = promotional_feature.items.first
     within record_css_selector(item) do
-      assert_text item.summary
-      assert has_link?(item.title, href: item.title_url)
-      assert_selector "img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']"
+      expect(page).to have_content(item.summary)
+      expect(page).to have_link(item.title, href: item.title_url)
+      expect(page).to have_selector("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
     end
   end
 end
 
 Then(/^I should no longer see the promotional feature$/) do
-  assert_current_url admin_organisation_promotional_features_url(@executive_office)
-  assert_no_selector record_css_selector(@promotional_feature)
+  expect(current_url).to eq(admin_organisation_promotional_features_url(@executive_office))
+  expect(page).to_not have_selector(record_css_selector(@promotional_feature))
 end
 
 Then(/^I should see the promotional feature item's summary has been updated to "([^"]*)"$/) do |summary_text|
-  assert_current_url admin_organisation_promotional_feature_url(@executive_office, @promotional_feature)
+  expect(current_url).to eq(admin_organisation_promotional_feature_url(@executive_office, @promotional_feature))
 
   within record_css_selector(@promotional_item) do
-    assert_selector "p", text: summary_text
+    expect(page).to have_selector("p", text: summary_text)
   end
 end
 
 Then(/^I should no longer see the promotional item$/) do
   within record_css_selector(@promotional_feature) do
-    assert_no_selector record_css_selector(@promotional_item)
+    expect(page).to_not have_selector(record_css_selector(@promotional_item))
   end
 end
 
 Then(/^I should not be able to add any further feature items$/) do
-  assert has_no_link?("Add feature item")
+  expect(page).to_not have_link("Add feature item")
 end
 
 Then(/^I should see the promotional feature on the executive office page$/) do
@@ -109,12 +109,12 @@ Then(/^I should see the promotional feature on the executive office page$/) do
 
   within record_css_selector(@executive_office) do
     within "section.features" do
-      assert_selector ".promotional_feature h2", text: @promotional_feature.title
+      expect(page).to have_selector(".promotional_feature h2", text: @promotional_feature.title)
 
       within record_css_selector(@promotional_feature) do
         @promotional_feature.items.each do |item|
-          assert_text item.summary
-          assert_selector "img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']"
+          expect(page).to have_content(item.summary)
+          expect(page).to have_selector("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
         end
       end
     end

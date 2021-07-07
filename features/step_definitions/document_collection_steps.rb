@@ -36,7 +36,7 @@ And(/^I can see the primary locale for document collection "(.*?)" is "(.*?)"$/)
   I18n.with_locale locale_code do
     @dc = DocumentCollection.find_by!(title: title)
   end
-  assert_equal locale_code, @dc.primary_locale
+  expect(locale_code).to eq(@dc.primary_locale)
 end
 
 When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collection$/) do |url, title|
@@ -62,7 +62,7 @@ When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collectio
   end
 
   within "section.group" do
-    assert_text title
+    expect(page).to have_content(title)
   end
 end
 
@@ -80,7 +80,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   click_on "Add"
 
   within "section.group" do
-    assert_text doc_edition.title
+    expect(page).to have_content(doc_edition.title)
   end
 end
 
@@ -106,7 +106,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
     })(jQuery);
   }
   # Wait for post to complete
-  assert_no_selector ".loading-spinner"
+  expect(page).to_not have_selector(".loading-spinner")
 end
 
 Then(/^I (?:can )?view the document collection in the admin$/) do
@@ -115,7 +115,7 @@ Then(/^I (?:can )?view the document collection in the admin$/) do
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
   click_on "Collection documents"
-  assert_selector "h1", text: @document_collection.title
+  expect(page).to have_selector("h1", text: @document_collection.title)
 end
 
 Then(/^I see that the document "(.*?)" is not part of the document collection$/) do |document_title|
@@ -123,7 +123,7 @@ Then(/^I see that the document "(.*?)" is not part of the document collection$/)
 end
 
 Then(/^I should see links back to the collection$/) do
-  assert_selector "a[href='#{public_document_path(@document_collection)}']"
+  expect(page).to have_selector("a[href='#{public_document_path(@document_collection)}']")
 end
 
 When(/^I visit the old document series url "(.*?)"$/) do |url|
@@ -133,8 +133,7 @@ rescue ActionController::RoutingError
 end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
-  dc = DocumentCollection.find_by(title: title)
-  assert_equal current_path, public_document_path(dc)
+  expect(page).to have_current_path(public_document_path(DocumentCollection.find_by(title: title)))
 end
 
 Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|
@@ -170,8 +169,8 @@ Then(/^I can see in the admin that "(.*?)" does not appear$/) do |document_title
 end
 
 Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title1, doc_title2|
-  assert_text doc_title1
-  assert body.index(doc_title1) < body.index(doc_title2), "Expected #{doc_title1} to be before #{doc_title2}"
+  expect(page).to have_content(doc_title1)
+  expect(body.index(doc_title1) < body.index(doc_title2)).to be(true)
 end
 
 And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|
@@ -184,5 +183,5 @@ end
 
 Then(/^the document does not appear in the search results$/) do
   result = find("li.ui-menu-item")
-  assert_equal result.text, "No results matching search criteria"
+  expect(result.text).to eq("No results matching search criteria")
 end

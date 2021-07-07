@@ -13,12 +13,12 @@ end
 Then(/^I should see that the news article has attachments$/) do
   assert_current_url admin_edition_attachments_path(@edition)
 
-  assert_equal 2, @edition.attachments.count
+  expect(2).to eq(@edition.attachments.count)
 
-  assert_equal "Two pages title", @edition.attachments[0].title
-  assert_equal "two-pages.pdf", @edition.attachments[0].filename
-  assert_equal "Greenpaper title", @edition.attachments[1].title
-  assert_equal "greenpaper.pdf", @edition.attachments[1].filename
+  expect("Two pages title").to eq(@edition.attachments[0].title)
+  expect("two-pages.pdf").to eq(@edition.attachments[0].filename)
+  expect("Greenpaper title").to eq(@edition.attachments[1].title)
+  expect("greenpaper.pdf").to eq(@edition.attachments[1].filename)
 end
 
 When(/^I upload a zip file that contains a file "(.*?)"$/) do |_file|
@@ -33,13 +33,14 @@ end
 
 Then(/^the greenpaper\.pdf attachment file should be replaced with the new file$/) do
   assert_current_url admin_edition_attachments_path(@edition)
-  assert_equal @attachment, @edition.reload.attachments[0]
-  assert_equal "greenpaper.pdf", @edition.attachments[0].filename
+
+  expect(@attachment).to eq(@edition.reload.attachments[0])
+  expect("greenpaper.pdf").to eq(@edition.attachments[0].filename)
   refute_equal @old_attachment_data, @edition.attachments[0].attachment_data
-  assert_equal @edition.attachments[0].attachment_data, @old_attachment_data.reload.replaced_by
+  expect(@edition.attachments[0].attachment_data).to eq(@old_attachment_data.reload.replaced_by)
 end
 
 Then(/^any other files should be added as new attachments$/) do
-  assert_equal "Two pages title", @edition.attachments[1].title
-  assert_equal "two-pages.pdf", @edition.attachments[1].filename
+  expect("Two pages title").to eq(@edition.attachments[1].title)
+  expect("two-pages.pdf").to eq(@edition.attachments[1].filename)
 end
