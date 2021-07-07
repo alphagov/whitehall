@@ -29,14 +29,14 @@ module GovernmentsHelper
     government = Government.find_by_name(name)
 
     within("#government_#{government.id}") do
-      assert_text name
-      assert_text start_date
-      assert_text end_date if end_date
+      expect(page).to have_content(name)
+      expect(page).to have_content(start_date)
+      expect(page).to have_content(end_date) if end_date
     end
   end
 
   def check_for_current_government(name:)
-    assert Government.find_by_name(name).current?
+    expect(Government.find_by_name(name).current?).to be(true)
   end
 
   def close_government(name:)

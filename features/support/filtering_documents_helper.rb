@@ -2,7 +2,7 @@ module FilteringDocumentsHelper
   def assert_listed_document_count(expected_number)
     selector = "ol.document-list li.document-row"
 
-    assert_selector selector, count: expected_number
+    expect(page).to have_selector(selector, count: expected_number)
   end
 
   def select_filter(label, value, opts = {})

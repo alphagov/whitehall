@@ -143,7 +143,7 @@ module DocumentHelper
   end
 
   def refute_flash_alerts_exist
-    assert has_no_css?(".flash.alert")
+    expect(page).to_not have_selector(".flash.alert")
   end
 
   def publish(options = {})
@@ -165,11 +165,11 @@ module DocumentHelper
     edition = Edition.find_by(title: title)
     visit admin_edition_path(edition)
 
-    assert_selector ".speed-tag"
+    expect(page).to have_selector(".speed-tag")
     within ".speed-tag" do
       select "Research and analysis", from: "Publication type"
       click_on "Save"
-      assert_no_selector ".speed-tag .alert"
+      expect(page).to_not have_selector(".speed-tag .alert")
     end
   end
 
@@ -178,7 +178,7 @@ module DocumentHelper
     visit admin_edition_path(edition)
 
     click_on "Convert to draft"
-    assert_no_selector ".speed-tag"
+    expect(page).to_not have_selector(".speed-tag")
   end
 
   def preview_document_path(edition, options = {})

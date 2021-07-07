@@ -20,7 +20,7 @@ module AdminTaxonomyHelper
   end
 
   def check_links_patched_in_publishing_api
-    assert_respond_to(Services.publishing_api, :patch_links)
+    expect(Services.publishing_api).to respond_to(:patch_links)
   end
 end
 World(AdminTaxonomyHelper)
