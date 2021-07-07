@@ -43,28 +43,6 @@ module SpecialistSectorHelper
       document_type: "topic",
     )
   end
-
-  def select_specialist_sectors_in_form
-    select "Oil and Gas: Wells", from: "Primary specialist sector"
-    select "Oil and Gas: Offshore", from: "Additional specialist sectors"
-    select "Oil and Gas: Fields", from: "Additional specialist sectors"
-    select "Oil and Gas: Distillation (draft)", from: "Additional specialist sectors"
-  end
-
-  def assert_specialist_sectors_were_saved
-    assert has_css?(".flash.notice")
-    click_on "Edit draft"
-    check "Applies to all UK nations"
-    click_on "Save and continue"
-    click_on "Save and review legacy tagging"
-    assert_equal "WELLS", find_field("Primary specialist sector").value
-    assert_equal %w[OFFSHORE FIELDS DISTILL].to_set,
-                 find_field("Additional specialist sectors").value.to_set
-  end
-
-  def save_document
-    click_button "Save"
-  end
 end
 
 World(SpecialistSectorHelper)
