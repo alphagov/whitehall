@@ -105,20 +105,9 @@ When(/^I try to publish the draft edition$/) do
   publish(force: true, ignore_errors: true)
 end
 
-Then(/^the old data file should redirect to the new data file$/) do
-  new_attachment_data = @new_edition.attachments.first.attachment_data
-  old_attachment_data = @old_edition.reload.attachments.first.attachment_data
-
-  assert_final_path(old_attachment_data.url, new_attachment_data.url)
-end
-
 Given(/^a published publication "([^"]*)" with type "([^"]*)"$/) do |publication_title, publication_type|
   type_id = PublicationType.all.select { |pt| pt.singular_name == publication_type }.first.id
   create(:published_publication, title: publication_title, publication_type_id: type_id)
-end
-
-Then(/^I should see "([^"]*)" in the result list$/) do |title|
-  ssert_selector ".filter-results h3", text: %r{#{title}}
 end
 
 When(/^I publish a new publication called "([^"]*)"$/) do |title|
