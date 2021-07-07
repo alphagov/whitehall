@@ -13,6 +13,7 @@ FactoryBot.define do
     after(:build) do |attachment, evaluator|
       attachment.attachment_data ||= build(:attachment_data, file: evaluator.file)
     end
+    accessible { false }
   end
 
   factory :csv_attachment, parent: :file_attachment do

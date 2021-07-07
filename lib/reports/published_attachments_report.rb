@@ -1,8 +1,9 @@
 module Reports
   class PublishedAttachmentsReport
+    CSV_HEADERS = ["Organisation", "Filename", "Filetype", "Published Date"].freeze
+
     def report
-      path = "/tmp/attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv"
-      csv_headers = ["Organisation", "Filename", "Filetype", "Published Date"]
+      path = Rails.root.join("tmp/attachments_#{Time.zone.now.strftime('%d-%m-%Y_%H-%M')}.csv")
 
       attachments = Attachment.find_by_sql([
         "SELECT a.*
@@ -22,7 +23,7 @@ module Reports
           )",
       ])
 
-      CSV.open(path, "wb", headers: csv_headers, write_headers: true) do |csv|
+      CSV.open(path, "wb", headers: CSV_HEADERS, write_headers: true) do |csv|
         attachments.each do |attachment|
           csv << [
             attachment.attachable.organisations.map(&:name).join("; "),
