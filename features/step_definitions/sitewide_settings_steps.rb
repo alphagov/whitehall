@@ -16,20 +16,20 @@ When(/^I visit the How Government Works page$/) do
   visit "/government/how-government-works"
 end
 
-Then(/^I should (not )?see the minister counts$/) do |negate|
-  if negate
-    expect(page).to_not have_selector(".feature-ministers")
-  else
-    expect(page).to_not have_selector(".feature-ministers")
-  end
+Then(/^I should see the minister counts$/) do
+  expect(page).to have_selector(".feature-ministers")
 end
 
-Then(/^I should (not )?see a reshuffle warning message$/) do |negate|
-  if negate
-    expect(page).to_not have_content("Test minister <a rel=\"external\" href=\"http://example.com\">reshuffle</a> message")
-  else
-    expect(page).to have_content("Test minister reshuffle message")
-  end
+Then(/^I should not see the minister counts$/) do
+  expect(page).to_not have_selector(".feature-ministers")
+end
+
+Then(/^I should see a reshuffle warning message$/) do
+  expect(page).to have_content("Test minister reshuffle message")
+end
+
+Then(/^I should not see a reshuffle warning message$/) do
+  expect(page).to_not have_content("Test minister reshuffle message")
 end
 
 Then(/^I should not see the ministers and cabinet$/) do
