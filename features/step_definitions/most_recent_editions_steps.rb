@@ -23,10 +23,10 @@ end
 
 Then(/^I can click through to the most recent version of document "([^"]*)"$/) do |title|
   click_on "Go to draft"
-  assert_path admin_edition_path(Edition.find_by(title: title).latest_edition)
+  expect(page).to have_current_path(admin_edition_path(Edition.find_by(title: title).latest_edition))
 end
 
 Then(/^I cannot click through to the most recent version of document "([^"]*)"$/) do |_title|
-  assert_selector ".alert.access-limited-latest-edition"
-  assert_no_text "Go to draft"
+  expect(page).to have_selector(".alert.access-limited-latest-edition")
+  expect(page).to_not have_content("Go to draft")
 end

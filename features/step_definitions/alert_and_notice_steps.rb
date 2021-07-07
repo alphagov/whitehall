@@ -1,3 +1,3 @@
 Then(/^(?:I|they) should be notified "([^"]*)"$/) do |notice|
-  assert_selector ".flash.notice", text: notice
+  expect(page).to have_selector(".flash.notice", text: notice)
 end

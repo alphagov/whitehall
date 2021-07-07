@@ -34,6 +34,6 @@ end
 
 Then(/^I should see all pages of the detailed guide$/) do
   %w[page-1 page-2 page-3].each do |page_id|
-    assert_selector "h2##{page_id}", visible: true
+    expect(page).to have_selector("h2##{page_id}", visible: true)
   end
 end

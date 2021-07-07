@@ -40,13 +40,13 @@ When(/^I visit the announcments index in French$/) do
 end
 
 Then(/^I should see only announcements which have French translations$/) do
-  assert_text "C'est la vie"
-  assert_no_text "News Article in English only"
+  expect(page).to have_content("C'est la vie")
+  expect(page).to_not have_content("News Article in English only")
 end
 
 Then(/^I should be able to filter them by country \(or 'Pays' in French\)$/) do
   within "#document-filter" do
-    assert_selector "label", count: 1
-    assert_text "Pays"
+    expect(page).to have_selector("label", count: 1)
+    expect(page).to have_content("Pays")
   end
 end

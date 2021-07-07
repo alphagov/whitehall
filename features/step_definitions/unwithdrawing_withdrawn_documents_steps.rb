@@ -7,10 +7,10 @@ When(/^I unwithdraw the publication$/) do
 
   @latest_published_edition = publication.document.published_edition
 
-  assert_equal :superseded, publication.reload.current_state
-  assert_equal :published, @latest_published_edition.current_state
+  expect(:superseded).to eq(publication.reload.current_state)
+  expect(:published).to eq(@latest_published_edition.current_state)
 end
 
 Then(/^I should be redirected to the latest edition of the publication$/) do
-  assert_path admin_edition_path(@latest_published_edition)
+  expect(page).to have_current_path(admin_edition_path(@latest_published_edition))
 end

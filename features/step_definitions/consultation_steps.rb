@@ -24,8 +24,8 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
 end
 
 Then(/^I can see links to the consultations "([^"]*)" and "([^"]*)"$/) do |title1, title2|
-  assert has_css?(".consultation a", text: title1)
-  assert has_css?(".consultation a", text: title2)
+  expect(page).to have_selector(".consultation a", text: title1)
+  expect(page).to have_selector(".consultation a", text: title2)
 end
 
 When(/^I add an outcome to the consultation$/) do
@@ -66,19 +66,19 @@ When(/^I mark the consultation as offsite$/) do
 end
 
 Then(/^the consultation can be associated with topical events$/) do
-  assert_selector "label", text: "Topical events"
+  expect(page).to have_selector("label", text: "Topical events")
 end
 
 Then(/^I can see that the consultation has been published$/) do
   expected_title = Consultation.last.title
   expected_message = "The document #{expected_title} has been published"
 
-  assert_selector ".flash", text: expected_message
+  expect(page).to have_selector(".flash", text: expected_message)
 end
 
 And(/^I can see the primary locale for consultation "(.*?)" is "(.*?)"$/) do |title, locale_code|
   I18n.with_locale(locale_code) do
     consultation = Consultation.find_by!(title: title)
-    assert_equal locale_code, consultation.primary_locale
+    expect(locale_code).to eq(consultation.primary_locale)
   end
 end

@@ -15,7 +15,7 @@ Given(/^I start drafting a new detailed guide$/) do
 end
 
 Then(/^I should be able to select another image for the detailed guide$/) do
-  assert_equal 2, all(".images input[type=file]").length
+  expect(2).to eq(all(".images input[type=file]").length)
 end
 
 When(/^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/) do |guide_title, change_note|
@@ -35,9 +35,9 @@ Then(/^the change notes should appear in the history for the detailed guide "([^
   visit detailed_guide_path(detailed_guide.document)
   document_history = detailed_guide.change_history
   change_notes = find(".change-notes").all(".note")
-  assert_equal document_history.length, change_notes.length
+  expect(document_history.length).to eq(change_notes.length)
   document_history.zip(change_notes).each do |history, note|
-    assert_equal history.note, note.text.strip
+    expect(history.note).to eq(note.text.strip)
   end
 end
 
@@ -49,5 +49,5 @@ When(/^I start drafting a new edition for the detailed guide "([^"]*)"$/) do |gu
 end
 
 Then(/^there should be (\d+) detailed guide editions?$/) do |guide_count|
-  assert_equal guide_count.to_i, DetailedGuide.count
+  expect(guide_count.to_i).to eq(DetailedGuide.count)
 end

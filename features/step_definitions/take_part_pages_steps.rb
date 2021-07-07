@@ -39,7 +39,7 @@ Then(/^I see the take part pages in my specified order including the new page on
 
   take_part_headings = page.all(".take-part-pages article h3").map(&:text)
   @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
-    assert_equal take_part_page.title, take_part_headings[idx]
+    expect(take_part_page.title).to eq(take_part_headings[idx])
   end
 end
 
@@ -62,7 +62,7 @@ Then(/^the removed take part page is no longer displayed on the frontend get inv
 
   within ".take-part-pages" do
     @the_removed_pages.each do |removed_page|
-      assert_no_selector "article h3", text: removed_page.title
+      expect(page).to_not have_selector("article h3", text: removed_page.title)
     end
   end
 end

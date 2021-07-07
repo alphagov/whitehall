@@ -58,18 +58,18 @@ end
 
 Then(/^I should be able to see "([^"]*)" in the list of people$/) do |name|
   visit_people_admin
-  assert_selector ".person .name", text: name
+  expect(page).to have_selector(".person .name", text: name)
 end
 
 Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
-  assert_no_selector ".person .name", text: name
+  expect(page).to_not have_selector(".person .name", text: name)
 end
 
 Then(/^I should see the translation "([^"]*)" and body text "([^"]*)"$/) do |locale, text|
   within "#person-translations" do
-    assert_selector ".locale", text: locale
+    expect(page).to have_selector(".locale", text: locale)
     click_on locale
   end
 
-  assert_text text
+  expect(page).to have_content(text)
 end

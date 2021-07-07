@@ -23,7 +23,7 @@ Then(/^I should see the previous prime ministers listed according the century in
   within "#modern-appointments" do
     @modern_previous_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert has_link?(appointment.person.name)
+        expect(page).to have_link(appointment.person.name)
       end
     end
   end
@@ -31,7 +31,7 @@ Then(/^I should see the previous prime ministers listed according the century in
   within "#nineteenth-century-appointments" do
     @nineteenth_century_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert_text appointment.person.name
+        expect(page).to have_content(appointment.person.name)
       end
     end
   end
@@ -39,7 +39,7 @@ Then(/^I should see the previous prime ministers listed according the century in
   within "#eighteenth-century-appointments" do
     @eighteenth_century_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert_text appointment.person.name
+        expect(page).to have_content(appointment.person.name)
       end
     end
   end
@@ -52,6 +52,6 @@ When(/^I view the most recent past prime minister$/) do
 end
 
 Then(/^I should see the most recent past priminister's historical account on the page$/) do
-  assert has_content?(@most_recent_appointment.historical_account.summary)
-  assert has_content?(@most_recent_appointment.historical_account.body)
+  expect(page).to have_content(@most_recent_appointment.historical_account.summary)
+  expect(page).to have_content(@most_recent_appointment.historical_account.body)
 end

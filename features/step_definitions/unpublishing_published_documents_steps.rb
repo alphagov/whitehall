@@ -29,7 +29,7 @@ When(/^I withdraw the publication with the explanation "([^"]*)"$/) do |explanat
   fill_in "Public explanation (this is shown on the live site) *", with: explanation
   click_button "Withdraw"
 
-  assert_equal :withdrawn, @publication.reload.current_state
+  expect(:withdrawn).to eq(@publication.reload.current_state)
 end
 
 When(/^I edit the public explanation for withdrawal to "([^"]*)"$/) do |explanation|
@@ -43,7 +43,7 @@ end
 Then(/^the unpublishing should redirect to the existing edition$/) do
   unpublishing = @duplicate_edition.unpublishing
   path = publication_path(@existing_edition.document)
-  assert unpublishing.alternative_url.end_with?(path)
+  expect(unpublishing.alternative_url.end_with?(path)).to be(true)
 end
 
 When(/^I unpublish the document because it was published in error$/) do
@@ -52,24 +52,24 @@ end
 
 Then(/^there should be an editorial remark recording the fact that the document was unpublished$/) do
   edition = Edition.last
-  assert_equal "Reset to draft", edition.editorial_remarks.last.body
+  expect("Reset to draft").to eq(edition.editorial_remarks.last.body)
 end
 
 Then(/^there should be an editorial remark recording the fact that the document was withdrawn$/) do
   edition = Edition.last
-  assert_equal "Withdrawn", edition.editorial_remarks.last.body
+  expect("Withdrawn").to eq(edition.editorial_remarks.last.body)
 end
 
 Then(/^there should be an unpublishing explanation of "([^"]*)" and a reason of "([^"]*)"$/) do |explanation, reason_name|
   edition = Edition.last
   unpublishing = edition.unpublishing
 
-  assert unpublishing.present?
+  expect(unpublishing.present?).to be(true)
 
   reason = unpublishing.unpublishing_reason
 
-  assert_equal explanation, unpublishing.explanation
-  assert_equal reason_name, reason.name
+  expect(explanation).to eq(unpublishing.explanation)
+  expect(reason_name).to eq(reason.name)
 end
 
 When(/^I unpublish the document and ask for a redirect to "([^"]*)"$/) do |url|
@@ -84,11 +84,12 @@ Then(/^the unpublishing should redirect to "([^"]*)"$/) do |url|
 
   unpublishing = edition.unpublishing
 
-  assert unpublishing.redirect
-  assert_equal url, unpublishing.alternative_url
+  expect(unpublishing.redirect).to be(true)
+  expect(url).to eq(unpublishing.alternative_url)
 end
 
 Then(/^I should not be able to discard the draft resulting from the unpublishing$/) do
   visit admin_edition_path(Edition.last)
-  assert has_no_button?("Discard draft")
+
+  expect(page).not_to have_button("Discard draft")
 end

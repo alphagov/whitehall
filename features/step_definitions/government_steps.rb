@@ -45,5 +45,5 @@ When(/^I close the current government$/) do
 end
 
 Then(/^there should be no active ministerial role appointments$/) do
-  assert_equal 0, count_active_ministerial_role_appointments
+  expect(0).to eq(count_active_ministerial_role_appointments)
 end

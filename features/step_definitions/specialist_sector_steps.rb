@@ -49,7 +49,7 @@ end
 
 Then(/^I should see the specialist sub-sector and its parent sector$/) do
   within "article header" do
-    assert_text "Top Level Topic"
-    assert_selector "dd", text: "Topic 1 and Topic 2"
+    expect(page).to have_content("Top Level Topic")
+    expect(page).to have_selector("dd", text: "Topic 1 and Topic 2")
   end
 end

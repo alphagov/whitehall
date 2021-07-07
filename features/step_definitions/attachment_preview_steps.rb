@@ -28,10 +28,10 @@ Then(/^I should see the CSV data previewed on the page$/) do
 
   within ".csv-preview table" do
     header_row = all("thead tr th").map(&:text)
-    assert_equal ["Department", "Budget", "Amount spent"], header_row
+    expect(["Department", "Budget", "Amount spent"]).to eq(header_row)
 
     data_rows = all("tbody tr").map { |data_row| data_row.all("td").map(&:text) }
-    assert_equal ["Office for Facial Hair Studies", "£12000000", "£10000000"], data_rows[0]
-    assert_equal ["Department of Grooming", "£15000000", "£15600000"], data_rows[1]
+    expect(["Office for Facial Hair Studies", "£12000000", "£10000000"]).to eq(data_rows[0])
+    expect(["Department of Grooming", "£15000000", "£15600000"]).to eq(data_rows[1])
   end
 end

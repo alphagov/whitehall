@@ -10,5 +10,5 @@ end
 
 Then(/^I should see the first need in the list of associated needs$/) do
   find("h2:contains('Associated user needs')")
-  assert_equal first("td.description").text, "As a x, I need to y, So that z"
+  expect(first("td.description").text).to eq("As a x, I need to y, So that z")
 end

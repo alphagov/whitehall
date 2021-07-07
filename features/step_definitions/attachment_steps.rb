@@ -41,12 +41,12 @@ Then(/^I should be able to submit the attachment without re-uploading the file$/
   fill_in "Title", with: "Title that was missing before"
   click_on "Save"
 
-  assert_equal 2, Publication.last.attachments.count
-  assert_equal "Title that was missing before", Publication.last.attachments.last.title
+  expect(2).to eq(Publication.last.attachments.count)
+  expect("Title that was missing before").to eq(Publication.last.attachments.last.title)
 end
 
 Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_number_of_attachments|
-  assert_equal expected_number_of_attachments.to_i, Edition.find_by(title: title).attachments.count
+  expect(expected_number_of_attachments.to_i).to eq(Edition.find_by(title: title).attachments.count)
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|
@@ -63,7 +63,7 @@ Then(/^the attachments should be in the following order:$/) do |attachment_list|
   attachment_list.hashes.each_with_index do |attachment_info, index|
     attachment = Attachment.find_by(title: attachment_info[:title])
 
-    assert_equal "attachment_#{attachment.id}", attachment_ids[index]
+    expect("attachment_#{attachment.id}").to eq(attachment_ids[index])
   end
 end
 
@@ -77,16 +77,16 @@ When(/^I go to the outcome for the consultation "(.*?)"$/) do |title|
 end
 
 Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do |attachment_title|
-  assert_no_selector ".flash.alert"
-  assert_text attachment_title
+  expect(page).to_not have_selector(".flash.alert")
+  expect(page).to have_content(attachment_title)
 end
 
 Then(/^I can see the attachment title "([^"]*)"$/) do |text|
-  assert_selector "li.attachment", text: text
+  expect(page).to have_selector("li.attachment", text: text)
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
-  assert has_link?("a", href: /draft-origin/, text: attachment_title)
+  expect(page).to have_link("a", href: /draft-origin/, text: attachment_title)
 end
 
 When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)"$/) do |title, isbn|
@@ -106,10 +106,10 @@ end
 Then(/^the html attachment "(.*?)" includes the isbn "(.*?)"$/) do |attachment_title, isbn|
   html_attachment = HtmlAttachment.find_by title: attachment_title
 
-  assert_equal attachment_title, html_attachment.title
-  assert_equal isbn, html_attachment.isbn
+  expect(attachment_title).to eq(html_attachment.title)
+  expect(isbn).to eq(html_attachment.isbn)
 end
 
 Then(/^I see a validation error for uploading attachments$/) do
-  assert_text "must have finished uploading"
+  expect(page).to have_content("must have finished uploading")
 end

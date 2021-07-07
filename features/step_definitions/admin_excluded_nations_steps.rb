@@ -17,5 +17,5 @@ Then(/^the publication should be excluded from these nations:$/) do |nation_name
   expected = nation_names.raw.flatten.sort
   actual = @new_edition.nation_inapplicabilities.map(&:name).sort
 
-  assert_equal expected, actual
+  expect(expected).to eq(actual)
 end

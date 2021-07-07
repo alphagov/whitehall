@@ -5,7 +5,7 @@ def find_corporation_information_page_type_by_title(title)
 end
 
 Then(/^I should see the text "([^"]*)"$/) do |text|
-  assert_text text, normalize_ws: true
+  expect(page).to have_content(text, normalize_ws: true)
 end
 
 When(/^I add a "([^"]*)" corporate information page to the worldwide organisation$/) do |page_type|
@@ -32,9 +32,9 @@ Then(/^I should see the corporate information on the public worldwide organisati
   worldwide_organisation = WorldwideOrganisation.last
   info_page = worldwide_organisation.corporate_information_pages.last
   visit worldwide_organisation_path(worldwide_organisation)
-  assert_text info_page.title
+  expect(page).to have_content(info_page.title)
   click_link info_page.title
-  assert_text info_page.body
+  expect(page).to have_content(info_page.body)
 end
 
 When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|
@@ -57,6 +57,6 @@ Then(/^I should be able to read the translated "([^"]*)" corporate information p
   click_link corp_page
   click_link "Français"
 
-  assert_selector ".govuk-body-l", text: "Le summary"
-  assert_selector ".body", text: "Le body"
+  expect(page).to have_selector(".govuk-body-l", text: "Le summary")
+  expect(page).to have_selector(".body", text: "Le body")
 end

@@ -55,8 +55,8 @@ When(/^I visit the speech "([^"]*)"$/) do |title|
 end
 
 Then(/^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/) do |delivered_on, location|
-  assert_selector ".delivered-on", text: delivered_on
-  assert_selector ".location", text: location
+  expect(page).to have_selector(".delivered-on", text: delivered_on)
+  expect(page).to have_selector(".location", text: location)
 end
 
 When(/^I draft a new authored article "([^"]*)"$/) do |title|
@@ -73,18 +73,18 @@ Then(/^I should be able to choose the date it was written on$/) do
 end
 
 Then(/^I cannot choose a location for the article$/) do
-  assert_no_selector "#edition_location"
+  expect(page).to_not have_content("#edition_location")
 end
 
 Then(/^it should be shown as an authored article in the admin screen$/) do
   click_button "Save"
-  assert_text "Authored article"
+  expect(page).to have_content("Authored article")
 end
 
 Then(/^I should see who wrote it clearly labelled in the metadata$/) do
-  assert_selector "dt", text: "Written on:"
+  expect(page).to have_selector("dt", text: "Written on:")
 end
 
 Then(/^I should see that "(.*?)" is listed on the page$/) do |title|
-  assert_text title
+  expect(page).to have_content(title)
 end
