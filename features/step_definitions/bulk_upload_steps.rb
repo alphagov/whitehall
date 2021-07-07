@@ -11,7 +11,7 @@ When(/^I upload a zip file containing several attachments and give them titles$/
 end
 
 Then(/^I should see that the news article has attachments$/) do
-  assert_current_url admin_edition_attachments_path(@edition)
+  expect(page).to have_current_path(admin_edition_attachments_path(@edition))
 
   expect(2).to eq(@edition.attachments.count)
 
@@ -32,7 +32,7 @@ When(/^I upload a zip file that contains a file "(.*?)"$/) do |_file|
 end
 
 Then(/^the greenpaper\.pdf attachment file should be replaced with the new file$/) do
-  assert_current_url admin_edition_attachments_path(@edition)
+  expect(page).to have_current_path(admin_edition_attachments_path(@edition))
 
   expect(@attachment).to eq(@edition.reload.attachments[0])
   expect("greenpaper.pdf").to eq(@edition.attachments[0].filename)
