@@ -100,9 +100,11 @@
         <% end %>
         <% if @statistics_publications.any? %>
           <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
+          <hr class="govuk-section-break govuk-section-break--visible world-locations__section-break govuk-!-margin-top-9 govuk-!-margin-bottom-3">
             <%= render "govuk_publishing_components/components/heading", {
               text: t('world_location.headings.statistics'),
               heading_level: 3,
+              margin_bottom: 7,
             } %>  
             <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
             <p class="see-all">
