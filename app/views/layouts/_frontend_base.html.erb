@@ -26,6 +26,7 @@
     <%= csrf_meta_tags %>
     <%= atom_discovery_link_tag %>
     <%= tag :base, href: @page_base_href if @page_base_href %>
+    <%= explore_menu_variant.analytics_meta_tag.html_safe if explore_menu_testable? %>
   </head>
   <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
     <% unless local_assigns[:show_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
