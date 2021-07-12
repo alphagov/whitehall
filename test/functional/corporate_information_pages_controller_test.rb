@@ -36,7 +36,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     create(:about_corporate_information_page, organisation: organisation, summary: "organisation-description")
     get :index, params: { organisation_id: organisation }
     expected_url = organisation_corporate_information_pages_path(organisation, locale: :fr)
-    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
+    assert_select ".gem-c-translation-nav__list-item a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
   end
 
   view_test "should display published corporate publications on about-us page" do
