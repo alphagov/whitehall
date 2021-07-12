@@ -4,16 +4,49 @@
 
 <header class="block headings-block">
   <div class="govuk-width-container">
+    <% if  subject.is_a? Organisation %>
+      <%= render "govuk_publishing_components/components/breadcrumbs", {
+        breadcrumbs: [
+          {
+            title: "Home",
+            url: "/",
+          },
+          {
+            title: "Organisations",
+            url: "/government/organisations",
+          },
+          {
+            title: "#{subject}",
+            url: "/government/organisations/#{subject['slug']}",
+          },
+        ]
+      } %>
+    <% elsif subject&.type == "TopicalEvent" %>
+        <%= render "govuk_publishing_components/components/breadcrumbs", {
+          breadcrumbs: [
+            {
+              title: "Home",
+              url: "/",
+            },
+            {
+              title: "Topical events",
+              url: "/government/topical-events",
+            },
+            {
+              title: "#{subject}",
+              url: "/government/topical-events/#{subject['slug']}",
+            },
+          ]
+        } %>
+    <% end %>
     <%= render "govuk_publishing_components/components/title", {
       context: {
         text: subject,
-        href: subject,
       },
       title: t("document.latest"),
     } %>
   </div>
 </header>
-
 <div class="block results">
   <div class="inner-block">
     <%= render "shared/feeds", atom_url: atom_feed_url_for(subject) %>

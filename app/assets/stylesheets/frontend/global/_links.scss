@@ -1,4 +1,4 @@
-a:not(a[class^="gem-c-"]) {
+a:not(a[class^="gem-c-"]):not(a[class^="govuk-breadcrumbs"]) {
   color: $govuk-link-colour;
   text-decoration: none;
 
