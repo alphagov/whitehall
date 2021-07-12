@@ -287,10 +287,6 @@
           padding-top: $gutter-one-third;
           margin-left: 0;
         }
-
-        .available-languages {
-          margin-left: 0;
-        }
       }
     }
 
@@ -1200,10 +1196,6 @@
     padding: $gutter-half 0;
   }
 
-  .available-languages {
-    margin: 0 $gutter;
-  }
-
   nav {
     @include ig-core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;
@@ -1325,37 +1317,6 @@
       width: $half;
       padding-top: 0;
       margin-top: ($gutter-one-third * -1);
-    }
-
-    .available-languages {
-      margin: $gutter-one-third 0 0 0;
-
-      ul {
-        @extend %contain-floats;
-        list-style: none;
-        padding: $gutter 0 $gutter-one-sixth;
-        border-bottom: 1px solid $border-colour;
-
-        li {
-          float: left;
-          display: block;
-          border-right: 1px solid $border-colour;
-          padding: 0 $gutter-one-third 0 0;
-          height: 16px;
-          margin: 3px $gutter-one-third 2px 0;
-
-          &.last {
-            border-right: 0;
-          }
-
-          a,
-          span {
-            display: block;
-            margin-top: -1px;
-            @include core-16;
-          }
-        }
-      }
     }
   }
 }

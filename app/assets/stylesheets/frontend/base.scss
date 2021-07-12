@@ -28,6 +28,7 @@ $govuk-use-legacy-palette: false;
 @import 'govuk_publishing_components/components/previous-and-next-navigation';
 @import 'govuk_publishing_components/components/subscription-links';
 @import 'govuk_publishing_components/components/title';
+@import 'govuk_publishing_components/components/translation-nav';
 
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
@@ -76,7 +77,6 @@ $govuk-use-legacy-palette: false;
   @import "helpers/announcements";
   @import "helpers/withdrawal-notice";
   @import "helpers/attachment";
-  @import "helpers/available-languages";
   @import "helpers/browse";
   @import "helpers/change-notes";
   @import "helpers/collection-list";
@@ -105,7 +105,6 @@ $govuk-use-legacy-palette: false;
   @import "helpers/page-header";
   @import "helpers/pagination";
   @import "helpers/person";
-  @import "helpers/recently-updated";
   @import "helpers/simple-alphabetical-list";
   @import "helpers/social-media-accounts";
   @import "helpers/status-block";
@@ -140,7 +139,6 @@ $govuk-use-legacy-palette: false;
   @import "views/world-locations";
   @import "views/worldwide-organisations";
   @import "views/topical-events";
-  @import "views/corporate-information-pages/show";
   @import "views/publications/index";
   @import "views/statistics/index";
   @import "views/statistics-announcements/index";

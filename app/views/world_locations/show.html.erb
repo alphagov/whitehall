@@ -35,10 +35,10 @@
         <% end %>
 
         <%= render partial: 'shared/recently_updated',
-                  locals: { recently_updated: @recently_updated,
-                            atom_url: atom_feed_url_for(@world_location),
-                            extra_class: 'panel',
-                            see_all_link: latest_path(world_locations: [@world_location])} %>
+          locals: { recently_updated: @recently_updated,
+            atom_url: atom_feed_url_for(@world_location),
+            see_all_link: latest_path(world_locations: [@world_location])
+          } %>
       </section>
     </div>
   </div>
@@ -81,7 +81,7 @@
           </section>
         <% end %>
         <% if @statistics_publications.any? %>
-          <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
+          <section id="statistics-publications" class="document-block documents-<%= document_block_counter %> govuk-!-margin-top-3">
             <h1><%= t('world_location.headings.statistics') %></h1>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>

@@ -84,7 +84,7 @@ class DocumentHelperTest < ActionView::TestCase
       locale: "it",
       id: "a-world-location",
     )
-    assert_dom_equal %(<a lang="de" class="govuk-link" href="/world/a-world-location.de">Deutsch</a>),
+    assert_dom_equal %(<a hreflang="de" lang="de" rel="alternate" class="govuk-link gem-c-translation-nav__link " href="/world/a-world-location.de">Deutsch</a>),
                      link_to_translation(:de)
   end
 
@@ -95,7 +95,7 @@ class DocumentHelperTest < ActionView::TestCase
       locale: "it",
       id: "a-world-location",
     )
-    assert_dom_equal %(<a lang="en"  class="govuk-link" href="/world/a-world-location">English</a>),
+    assert_dom_equal %(<a hreflang="en" lang="en" rel="alternate" class="govuk-link gem-c-translation-nav__link " href="/world/a-world-location">English</a>),
                      link_to_translation(:en)
   end
 end

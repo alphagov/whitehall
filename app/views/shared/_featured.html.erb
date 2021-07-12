@@ -1,5 +1,5 @@
 <%
-  extra_class ||= ""
+  extra_class ||= "govuk-grid-column-one-third"
   offset = defined?(counter_offset) ? counter_offset : 0
   extra_classes =
     if defined?(feature_counter)
@@ -9,18 +9,17 @@
     end
   image_size ||= :s300
 %>
-<%= content_tag_for(:article, feature, nil, class: extra_classes.strip) do %>
-  <div class="content">
-    <%= render "govuk_publishing_components/components/image_card", {
-      href: feature.public_path,
-      image_src: feature.image(image_size),
-      image_alt: feature.alt_text,
-      context: {
-        date: feature.time_stamp,
-        text: feature.topical_event ? nil : t_display_type(feature),
-      },
-      heading_text: feature.title,
-      description: truncate(feature.summary, length: 160, separator: ' '),
-    } %>
-  </div>
+
+<%= content_tag_for(:div, feature, nil, class: extra_classes.strip) do %>
+  <%= render "govuk_publishing_components/components/image_card", {
+    href: feature.public_path,
+    image_src: feature.image(image_size),
+    image_alt: feature.alt_text,
+    context: {
+      date: feature.time_stamp,
+      text: feature.topical_event ? nil : t_display_type(feature),
+    },
+    heading_text: feature.title,
+    description: truncate(feature.summary, length: 160, separator: ' '),
+  } %>
 <% end %>
