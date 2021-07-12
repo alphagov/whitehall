@@ -6,12 +6,17 @@
    filter_type = @classification || @world_location || @topical_event
 %>
 <section id="<%= heading.downcase.parameterize %>" class="document-block">
-  <h1 class="label"><%= heading %></h1>
   <%= render "govuk_publishing_components/components/heading", {
     text: heading
   } %>
-  <%# TODO check removal of div on other pages impact %> 
-  <%= render partial: "shared/list_description_for_rummager_list", locals: { heading: heading, editions: documents, documents_count: documents_count, type: type } %>
+  <%= render partial: "shared/list_description_for_rummager_list", 
+    locals: { 
+      heading: heading, 
+      editions: documents, 
+      documents_count: documents_count, 
+      type: type
+    } 
+  %>
   <p class="see-all">
     <%-
       see_more_url = public_send(

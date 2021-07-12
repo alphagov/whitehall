@@ -11,11 +11,9 @@
 %>
 
 <%= content_tag_for(:div, feature, nil, class: extra_classes.strip) do %>
-  <%# TODO check removal of content tag on other pages %>
-  <%# TODO restore: image_src: feature.image(image_size) %>
   <%= render "govuk_publishing_components/components/image_card", {
     href: feature.public_path,
-    image_src: "https://via.placeholder.com/300x195",
+    image_src: feature.image(image_size),
     image_alt: feature.alt_text,
     context: {
       date: feature.time_stamp,

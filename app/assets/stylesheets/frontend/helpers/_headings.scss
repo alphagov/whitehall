@@ -82,21 +82,6 @@
         padding: 0 $gutter-two-thirds;
       }
     }
-
-    .available-languages {
-      margin: 0 0 $gutter-half 0;
-
-      ul {
-        padding: 0 0 $gutter-one-sixth 0;
-
-        li {
-          padding-right: $gutter-one-third;
-        }
-      }
-      @include media(tablet) {
-        margin: 0 0 $gutter-half $gutter-two-thirds;
-      }
-    }
   }
 
   .organisations-icon-list {
