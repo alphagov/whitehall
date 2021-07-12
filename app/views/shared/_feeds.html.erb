@@ -1,14 +1,11 @@
 <% unless atom_url.blank? %>
-  <div class="feeds">
-    <span class="govuk-body" <%= t_lang("feeds.get_updates_to_this_list") %>><%= t("feeds.get_updates_to_this_list") %></span>
-    <%= render "govuk_publishing_components/components/subscription_links", {
-      hide_heading: true,
-      email_signup_link: email_signup_path(atom_url),
-      email_signup_link_text: t('feeds.email'),
-      email_signup_link_text_locale: t_fallback('feeds.email'),
-      feed_link_box_value: atom_url,
-      feed_link_text: t("feeds.feed"),
-      feed_link_text_locale: t_fallback("feeds.feed"),
-    } %>
-  </div>
+  <%= render "govuk_publishing_components/components/subscription_links", {
+    hide_heading: true,
+    email_signup_link: email_signup_path(atom_url),
+    email_signup_link_text: t('feeds.email'),
+    email_signup_link_text_locale: t_fallback('feeds.email'),
+    feed_link_box_value: atom_url,
+    feed_link_text: t("feeds.feed"),
+    feed_link_text_locale: t_fallback("feeds.feed"),
+  } %>
 <% end %>

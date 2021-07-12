@@ -1,23 +1,24 @@
 <% extra_class ||= '' %>
 
 <section id="recently-updated" class="recently-updated <%= extra_class %>">
-  <div class="content">
-    <header>
-      <h1 class="label"><%= t('latest_feed.title') %></h1>
-    </header>
-    <% if recently_updated.any? %>
-      <%= render partial: defined?(documents_source) && documents_source == 'rummager' ?
-                "shared/recently_updated_documents_from_rummager" :
-                "shared/recently_updated_documents",
-                locals: { recently_updated: recently_updated } %>
-    <% else %>
-      <p><%= t('latest_feed.no_updates') %></p>
-    <% end %>
-    <%= render 'shared/feeds', atom_url: atom_url %>
-    <% if local_assigns[:see_all_link] %>
-      <p class="see-all" <%= t_lang('document.see_all') %> >
-        <%= link_to t('document.see_all'), see_all_link, class: 'govuk-link' %>
-      </p>
-    <% end %>
-  </div>
+  <%#TODO check content removal impact %>
+  <hr class="govuk-section-break govuk-section-break--visible world-locations__section-break">
+  <%= render "govuk_publishing_components/components/heading", {
+    text: t('latest_feed.title'),
+  } %>
+  <% if recently_updated.any? %>
+    <%= render partial: defined?(documents_source) && documents_source == 'rummager' ?
+      "shared/recently_updated_documents_from_rummager" :
+      "shared/recently_updated_documents",
+      locals: { recently_updated: recently_updated } 
+    %>
+  <% else %>
+    <p><%= t('latest_feed.no_updates') %></p>
+  <% end %>
+  <% if local_assigns[:see_all_link] %>
+    <p class="govuk-!-margin-top-3 govuk-!-margin-bottom-6" <%= t_lang('document.see_all') %> >
+      <%= link_to t('document.see_all'), see_all_link, class: 'govuk-link' %>
+    </p>
+  <% end %>
+  <%= render 'shared/feeds', atom_url: atom_url %>
 </section>

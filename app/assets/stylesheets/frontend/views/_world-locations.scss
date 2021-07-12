@@ -103,10 +103,6 @@
           padding-left: 0;
         }
       }
-
-      .available-languages {
-        margin-left: 0;
-      }
     }
   }
 
@@ -248,4 +244,9 @@
       margin: ($gutter + $gutter-half) 0 $gutter 0;
     }
   }
+}
+
+.world-locations__section-break {
+  border-bottom: 2px solid govuk-colour("black");
+  @include govuk-responsive-margin(3, "bottom");
 }

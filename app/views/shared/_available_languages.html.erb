@@ -1,15 +1,34 @@
+
+
 <% if object.available_in_multiple_languages? %>
-  <div class="available-languages">
-    <ul>
-      <% sorted_locales(object.translated_locales).each.with_index do |locale, i| %>
-        <li class="translation<%= ' last' if i == object.translated_locales.length-1 %>">
-          <% if locale == I18n.locale %>
-            <span><%= native_language_name_for(locale) %></span>
-          <% else %>
-            <%= link_to_translation(locale) %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+  <% sorted_locales(object.translated_locales).each.with_index do |locale, i| %>
+    <% if locale == I18n.locale %>
+      <%= render "govuk_publishing_components/components/translation_nav", {
+        translations: [
+          {
+            locale: "en",
+            base_path: "/en",
+            text: native_language_name_for(locale),
+            active: true
+          },
+        ]
+      } %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/translation_nav", {
+        translations: [
+          {
+            locale: "en",
+            base_path: "/en",
+            text: "English",
+            active: true
+          },
+          {
+            locale: locale,
+            base_path: link_to_translation(locale),
+            text: native_language_name_for(locale)
+          },
+        ]
+      } %>
+    <% end %>
+  <% end %>
 <% end %>
