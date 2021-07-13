@@ -22,10 +22,10 @@ class FeatureList < ApplicationRecord
     end
     true
   rescue ActiveRecord::RecordNotFound => e
-    errors[:base] << "Can't reorder because '#{e}'"
+    errors.add(:base, message: "Can't reorder because '#{e}'")
     false
   rescue ActiveRecord::RecordInvalid => e
-    errors[:base] << "Can't reorder because '#{e}' on '#{e.record}'"
+    errors.add(:base, message: "Can't reorder because '#{e}' on '#{e.record}'")
     false
   end
 

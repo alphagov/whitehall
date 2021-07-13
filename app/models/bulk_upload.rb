@@ -66,7 +66,7 @@ class BulkUpload
 
   def attachments_must_be_valid
     unless attachments.all? { |a| a.valid?(context: :user_input) }
-      errors[:base] << "Please enter missing fields for each attachment"
+      errors.add(:base, message: "Please enter missing fields for each attachment")
     end
   end
 

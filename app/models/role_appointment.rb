@@ -37,17 +37,17 @@ class RoleAppointment < ApplicationRecord
     def validate(record)
       if record.make_current
         if record.before_any?
-          record.errors[:started_at] << "should not be before any existing appointment"
+          record.errors.add(:started_at, "should not be before any existing appointment")
         end
       elsif record.role && record.overlaps_any?
-        record.errors[:base] << "should not overlap with any existing appointments"
+        record.errors.add(:base, "should not overlap with any existing appointments")
       end
       if record.ended_at && (record.ended_at < record.started_at)
-        record.errors[:ends_at] << "should not be before appointment starts"
+        record.errors.add(:ends_at, "should not be before appointment starts")
       end
       %i[started_at ended_at].each do |attribute|
         if record.send(attribute) && (record.send(attribute) > Time.zone.now)
-          record.errors[attribute] << "should not be in the future"
+          record.errors.add(attribute, "should not be in the future")
         end
       end
     end
