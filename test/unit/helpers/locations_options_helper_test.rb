@@ -14,7 +14,7 @@ class LocationsOptionsTest < ActionView::TestCase
     end
 
     option_set.css("option")[1].tap do |option|
-      assert_equal nil, option.attributes["selected"]
+      assert_nil option.attributes["selected"]
       assert_equal location.name, option.text
       assert_equal location.slug, option["value"]
     end
@@ -25,7 +25,7 @@ class LocationsOptionsTest < ActionView::TestCase
     option_set = Nokogiri::HTML::DocumentFragment.parse(locations_options([location]))
 
     option_set.css("option")[0].tap do |option|
-      assert_equal nil, option.attributes["selected"]
+      assert_nil option.attributes["selected"]
       assert_equal "All locations", option.text
       assert_equal "all", option["value"]
     end
