@@ -3,7 +3,8 @@ class ParallelTestRunner < TestQueue::Runner::MiniTest
     super
 
     # Use separate mysql database for each fork.
-    ActiveRecord::Base.configurations["test"]["database"] << database_number_for(number)
+    db_config = ActiveRecord::Base.configurations.configs_for(env_name: "test", name: "primary")
+    db_config.configuration_hash.merge(database: database_number_for(number))
     ActiveRecord::Base.establish_connection(:test)
 
     # Allow the app to instrospect the current test environment number
