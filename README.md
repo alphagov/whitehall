@@ -1,9 +1,17 @@
 # whitehall
 
+### Running the Application
+
+**Use GOV.UK Docker to run any commands that follow.**
+
 Whitehall is deployed in two modes:
 
-- 'admin' for publishers to create and manage content; and
-- 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world.
+- 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
+- 'frontend' for rendering content (eg: <http://www.gov.uk/government/get-involved>, <https://www.gov.uk/world>)
+
+Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
+
+While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/main/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/main/config/routes.rb#L25-L28).
 
 ## Nomenclature
 
@@ -14,19 +22,6 @@ Whitehall is deployed in two modes:
 This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
 
 You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
-
-**Use GOV.UK Docker to run any commands that follow.**
-
-### Running the Application
-
-Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
-
-- admin side e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>
-
-- frontend side e.g. <http://whitehall-frontend.dev.gov.uk/government/get-involved>
-
-While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L25-L28).
-
 ### Shared mustache templates
 
 The shared mustache templates must be compiled for JavaScript and functional tests to pass.
@@ -75,6 +70,7 @@ See the [`docs/`](docs/) directory.
 - [JavaScript](docs/javascript.md)
 - [Search setup guide](docs/search_setup_guide.md)
 - [Timestamps](docs/timestamps.md)
+- [Troubleshooting](docs/troubleshooting.md)
 
 ## Licence
 
