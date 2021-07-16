@@ -21,7 +21,7 @@
           },
         ]
       } %>
-    <% elsif subject&.type == "TopicalEvent" %>
+    <% elsif subject.respond_to?("type") && subject.type == "TopicalEvent" %>
         <%= render "govuk_publishing_components/components/breadcrumbs", {
           breadcrumbs: [
             {
