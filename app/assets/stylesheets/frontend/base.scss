@@ -5,6 +5,7 @@
 
 $govuk-compatibility-govuktemplate: true;
 $govuk-use-legacy-palette: false;
+$govuk-new-link-styles: true;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
 @import 'govuk_publishing_components/component_support';
