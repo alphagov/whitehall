@@ -5,6 +5,7 @@
         <li>
           <%= main_navigation_link_to "Departments",
               organisations_path,
+              class: "govuk-link govuk-link--inverse",
               data: {
                 track_category: "headerClicked",
                 track_action: "departmentsLink",
@@ -17,6 +18,7 @@
         <li>
           <%= main_navigation_link_to "Worldwide",
               world_locations_path(locale: :en),
+              class: "govuk-link govuk-link--inverse",
               data: {
                 track_category: "headerClicked",
                 track_action: "worldwideLink",
@@ -29,6 +31,7 @@
         <li>
           <%= main_navigation_link_to "How government works",
               how_government_works_path,
+              class: "govuk-link govuk-link--inverse",
               data: {
                 track_category: "headerClicked",
                 track_action: "governmentactivityLink",
@@ -41,6 +44,7 @@
         <li>
           <%= main_navigation_link_to "Get involved",
               get_involved_path,
+              class: "govuk-link govuk-link--inverse",
               data: {
                 track_category: "headerClicked",
                 track_action: "governmentactivityLink",
@@ -53,6 +57,7 @@
         <% consultations_path = CGI::escapeHTML('/search/policy-papers-and-consultations?content_store_document_type[]=open_consultations&content_store_document_type[]=closed_consultations') %>
         <li class="clear-child">
           <a href="<%= consultations_path %>"
+             class="govuk-link govuk-link--inverse"
              data-track-category="headerClicked"
              data-track-action="governmentactivityLink"
              data-track-label="<%= consultations_path %>"
@@ -63,6 +68,7 @@
         </li>
         <li>
           <a href="/search/research-and-statistics"
+             class="govuk-link govuk-link--inverse"
              data-track-category="headerClicked"
              data-track-action="governmentactivityLink"
              data-track-label="/search/research-and-statistics"
@@ -73,6 +79,7 @@
         </li>
         <li>
           <a href="/search/news-and-communications"
+             class="govuk-link govuk-link--inverse"
              data-track-category="headerClicked"
              data-track-action="governmentactivityLink"
              data-track-label="/search/news-and-communications"
