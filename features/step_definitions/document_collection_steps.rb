@@ -68,7 +68,7 @@ end
 
 When(/^I add the document "(.*?)" to the document collection$/) do |document_title|
   doc_edition = Edition.find_by!(title: document_title)
-  refute @document_collection.nil?, "No document collection to act on."
+  expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
@@ -85,7 +85,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
 end
 
 When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title1, doc_title2|
-  refute @document_collection.nil?, "No document collection to act on."
+  expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
@@ -110,7 +110,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
 end
 
 Then(/^I (?:can )?view the document collection in the admin$/) do
-  refute @document_collection.nil?, "No document collection to act on."
+  expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
   click_on "Edit draft"
@@ -154,7 +154,7 @@ Given(/^a published publication called "(.*?)" in a published document collectio
 end
 
 When(/^I redraft the document collection and remove "(.*?)" from it$/) do |document_title|
-  refute @document_collection.nil?, "No document collection to act on."
+  expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
   click_on "Create new edition to edit"

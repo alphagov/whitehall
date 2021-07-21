@@ -192,7 +192,7 @@ When(/^I delete the organisation "([^"]*)"$/) do |name|
 end
 
 Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
-  refute Organisation.find_by(name: name)
+  expect(Organisation.find_by(name: name)).to_not be_present
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|

@@ -13,12 +13,12 @@ end
 
 Then(/^I can see that I cannot create a new draft$/) do
   new_draft_link = revise_admin_edition_path(@edition)
-  refute has_link?("Create new edition to edit", href: new_draft_link)
+  expect(page).to_not have_link("Create new edition to edit", href: new_draft_link)
 end
 
 Then(/^I can see that the document cannot be edited$/) do
   edit_link = edit_admin_edition_path(@edition)
-  refute has_link?("Edit draft", href: edit_link)
+  expect(page).to_not have_link("Edit draft", href: edit_link)
 end
 
 And(/^I can see that the document can be edited in Content Publisher$/) do

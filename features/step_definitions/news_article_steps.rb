@@ -71,7 +71,7 @@ end
 
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
   @news_article = NewsArticle.find_by(title: title)
-  refute @news_article.nil?
+  expect(@news_article).to be_present
 end
 
 Then("I subsequently change the primary locale") do

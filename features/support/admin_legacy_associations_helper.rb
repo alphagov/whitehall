@@ -30,8 +30,8 @@ private
     expect(page).to have_selector(".secondary-specialist-sectors li", text: "Oil and Gas: Fields")
     expect(page).to have_selector(".secondary-specialist-sectors li", text: "Oil and Gas: Offshore")
 
-    refute has_css? ".primary-specialist-sector li", text: "Oil and Gas: Fields"
-    refute has_css? ".secondary-specialist-sectors li", text: "Oil and Gas: Wells"
+    expect(page).to_not have_selector(".primary-specialist-sector li", text: "Oil and Gas: Fields")
+    expect(page).to_not have_selector(".secondary-specialist-sectors li", text: "Oil and Gas: Wells")
   end
 end
 

@@ -36,7 +36,7 @@ Then(/^the greenpaper\.pdf attachment file should be replaced with the new file$
 
   expect(@attachment).to eq(@edition.reload.attachments[0])
   expect("greenpaper.pdf").to eq(@edition.attachments[0].filename)
-  refute_equal @old_attachment_data, @edition.attachments[0].attachment_data
+  expect(@old_attachment_data).to_not eq(@edition.attachments[0].attachment_data)
   expect(@edition.attachments[0].attachment_data).to eq(@old_attachment_data.reload.replaced_by)
 end
 
