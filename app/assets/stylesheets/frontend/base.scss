@@ -9,7 +9,6 @@ $govuk-new-link-styles: true;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
 @import 'govuk_publishing_components/component_support';
-
 @import 'govuk_publishing_components/components/button';
 @import 'govuk_publishing_components/components/breadcrumbs';
 @import 'govuk_publishing_components/components/contents-list';
@@ -26,6 +25,7 @@ $govuk-new-link-styles: true;
 @import 'govuk_publishing_components/components/metadata';
 @import 'govuk_publishing_components/components/notice';
 @import 'govuk_publishing_components/components/organisation-logo';
+@import 'govuk_publishing_components/components/related-navigation';
 @import 'govuk_publishing_components/components/share-links';
 @import 'govuk_publishing_components/components/previous-and-next-navigation';
 @import 'govuk_publishing_components/components/subscription-links';
@@ -145,6 +145,9 @@ $govuk-new-link-styles: true;
   @import "views/statistics/index";
   @import "views/statistics-announcements/index";
 }
+
+// When building or updating anything, please put it outside #whitehall-wrapper so that we reduce reliance on the id
+@import "views/person-profile";
 
 // LAYOUTS
 // Styles scoped to a layout. Be careful.

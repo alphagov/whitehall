@@ -1,4 +1,4 @@
-<header class="govuk-grid-row">
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= render "govuk_publishing_components/components/breadcrumbs", {
       breadcrumbs: [
@@ -12,26 +12,83 @@
         }
       ]
     } %>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
-      context: "History",
-      title: "Past Foreign Secretaries",
+      context: "Past Foreign Secretaries",
+      title: current_person,
+    } %>
+
+    <%= render "govuk_publishing_components/components/lead_paragraph", {
+      text: time_active,
+    } %>
+    <%= render "govuk_publishing_components/components/lead_paragraph", {
+      text: lead_paragraph,
     } %>
   </div>
-</header>
 
-<div class="govuk-grid-row">
-  <div class="historic-people-list govuk-grid-column-one-quarter govuk-!-padding-left-3 govuk-!-padding-right-3">
-    <a href="#contents" class="js-showhide contents-toggle govuk-!-margin-bottom-3">Show past Foreign Secretaries</a>
-    <div id="contents">
-      <ul class="govuk-list past-foreign-secretaries-menu govuk-!-margin-bottom-6">
-        <%= past_foreign_secretary_nav(current_person) %>
-      </ul>
-      <p class="govuk-body-s">
-        <a href="/government/history/past-foreign-secretaries" class="govuk-link">See all past Foreign Secretaries</a>
-      </p>
+  <div class="govuk-grid-column-two-thirds">
+    <div class="person-profile">
+      <div class="person-profile__image">
+        <%= image_tag image, alt: "", loading: "lazy" %>
+      </div>
+      <div class="person-profile__text">
+        <%= image_alt %>
+      </div>
     </div>
-  </div>
-  <div class="govuk-grid-column-three-quarters govuk-!-padding-0 person-info">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Lived",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
+    <p class="govuk-body"><%= lived %></p>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Dates in office",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
+    <p class="govuk-body"><%= dates_in_office %></p>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Political party",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
+    <p class="govuk-body"><%= political_party %></p>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Interesting facts",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
+    <p class="govuk-body"><%= interesting_facts %></p>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Biography",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
     <%= yield %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Further reading",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: further_reading,
+    } %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/related_navigation", {
+      content_item: past_foreign_secretary_nav
+    } %>
+    
+    <p class="govuk-body">
+      <a class="govuk-link" href="/government/history/past-foreign-secretaries">View all past foreign secretaries</a>
+    </p>
   </div>
 </div>

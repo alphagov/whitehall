@@ -1,0 +1,18 @@
+.person-profile {
+  border-top: 1px solid $govuk-border-colour;
+  padding-top: govuk-spacing(4);
+  margin-bottom: govuk-spacing(6);
+}
+
+.person-profile__image {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: govuk-spacing(4);
+}
+
+.person-profile__text {
+  display: inline-block;
+  @include govuk-font(19);
+  color: govuk-colour("dark-grey");
+  width: 50%;
+}
