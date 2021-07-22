@@ -21,7 +21,7 @@
           },
         ]
       } %>
-    <% elsif subject&.type == "TopicalEvent" %>
+    <% elsif subject.is_a? TopicalEvent %>
         <%= render "govuk_publishing_components/components/breadcrumbs", {
           breadcrumbs: [
             {
@@ -35,6 +35,23 @@
             {
               title: "#{subject}",
               url: "/government/topical-events/#{subject['slug']}",
+            },
+          ]
+        } %>
+    <% else subject.is_a? WorldLocation %>
+      <%= render "govuk_publishing_components/components/breadcrumbs", {
+          breadcrumbs: [
+            {
+              title: "Home",
+              url: "/",
+            },
+            {
+              title: "Help and services around the world",
+              url: "/government/world",
+            },
+            {
+              title: "#{subject}",
+              url: "/government/world/#{subject['slug']}",
             },
           ]
         } %>
