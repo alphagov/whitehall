@@ -12,7 +12,6 @@ module PastForeignSecretariesHelper
       "charles-fox" => "Charles James Fox",
       "william-grenville" => "William Wyndham Grenville",
     }
-    
     {
       "links" => {
         "ordered_related_items" => people.map do |slug, name|
@@ -20,8 +19,8 @@ module PastForeignSecretariesHelper
             "title" => name,
             "base_path" => "/government/history/past-foreign-secretaries/#{slug}",
           }
-        end
-      }
+        end,
+      },
     }
   end
 
