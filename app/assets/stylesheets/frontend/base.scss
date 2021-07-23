@@ -5,6 +5,7 @@
 
 $govuk-compatibility-govuktemplate: true;
 $govuk-use-legacy-palette: false;
+$govuk-new-link-styles: true;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
 @import 'govuk_publishing_components/component_support';
@@ -64,7 +65,6 @@ $govuk-use-legacy-palette: false;
 // Styles that apply to all of whitehall.
 
 #whitehall-wrapper {
-  @import "global/links";
   @import "global/clear";
   @import "global/aspect-ratio";
 }
@@ -154,37 +154,4 @@ $govuk-use-legacy-palette: false;
 
 #whitehall-wrapper {
   @import "layouts/two-column-page";
-}
-
-// TODO: This 👇 `a.govuk-link:focus` overrides the global `a:link:focus` style
-// coming from static and the global styles set in `global/_links.scss`. This
-// can be removed when the style from static and Whitehall removed.
-// When removing ensure all cases are captured - some rules in helpers/_headings.scss
-// are very specific, requiring the !important here
-#whitehall-wrapper {
-  a.govuk-link:not(.gem-c-title__context-link):not(.gem-c-pagination__link),
-  a[class^="gem-c-"]:not(.gem-c-title__context-link):not(.gem-c-pagination__link) {
-    text-decoration: underline;
-
-    &:focus,
-    &:focus * {
-      color: $govuk-focus-text-colour !important; // stylelint-disable-line declaration-no-important
-      text-decoration: none !important; // stylelint-disable-line declaration-no-important
-    }
-  }
-
-  .gem-c-title__context-link,
-  .gem-c-title__context-link:visited {
-    color: #6f777b;
-  }
-
-  .gem-c-organisation-logo__link {
-    &:link,
-    &:visited,
-    &:hover,
-    &:active,
-    &:focus {
-      color: $govuk-text-colour;
-    }
-  }
 }
