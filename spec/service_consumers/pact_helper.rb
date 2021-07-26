@@ -46,6 +46,8 @@ Pact.provider_states_for "GDS API Adapters" do
     set_up do
       DatabaseCleaner.clean_with :truncation
       stub_request(:any, %r{#{Regexp.escape(Plek.find('publishing-api'))}/v2/content})
+      stub_request(:any, %r{#{Regexp.escape(Plek.find('publishing-api'))}/v2/links/})
+
       create(:world_location, :with_worldwide_organisations, slug: "france")
     end
   end
