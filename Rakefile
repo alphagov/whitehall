@@ -8,7 +8,13 @@ ENV["LOG_LEVEL"] = "warn"
 require File.expand_path("config/application", __dir__)
 require "ci/reporter/rake/minitest" if Rails.env.test?
 
+begin
+  require "pact/tasks"
+rescue LoadError
+  # Pact isn't available in all environments
+end
+
 Whitehall::Application.load_tasks
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test:in_parallel]
+task default: %i[lint test:in_parallel pact:verify]
