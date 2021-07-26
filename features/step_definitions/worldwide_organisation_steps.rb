@@ -116,7 +116,7 @@ Then(/^the "([^"]*)" office details should be shown on the public website$/) do 
     address = worldwide_office.contact.street_address.gsub(/\s+/, " ")
     expect(page).to have_content(address, normalize_ws: true)
 
-    expect(page).to have_selector("p:nth-of-type(2)", text: worldwide_office.contact.contact_numbers.first.number)
+    expect(page).to have_selector("span[dir='ltr']", text: worldwide_office.contact.contact_numbers.first.number)
   end
 end
 

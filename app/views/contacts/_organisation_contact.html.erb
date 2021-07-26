@@ -34,7 +34,7 @@
         <% contact.contact_numbers.each do |number| %>
           <p class="govuk-!-margin-bottom-4">
             <%= number.label %> <br />
-            <%= number.number %>
+            <span dir="ltr"><%= number.number %></span>
           </p>
         <% end %>
       </div>
