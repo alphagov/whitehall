@@ -40,18 +40,18 @@ And(/^when I publish the article$/) do
 end
 
 Then(/^I should see the news article listed in admin with an indication that it is in French$/) do
-  assert_path admin_edition_path(@news_article)
-  assert_text "This document is French-only"
+  expect(page).to have_current_path(admin_edition_path(@news_article))
+  expect(page).to have_content("This document is French-only")
 end
 
 Then(/^I should only see the news article on the French version of the public "([^"]*)" location page$/) do |world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   visit world_location_path(world_location, locale: :fr)
   within record_css_selector(@news_article) do
-    assert_text @news_article.title
+    expect(page).to have_content(@news_article.title)
   end
   visit world_location_path(world_location)
-  assert_no_selector record_css_selector(@news_article)
+  expect(page).to_not have_selector(record_css_selector(@news_article))
 end
 
 When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do |news_type, title|
@@ -71,7 +71,7 @@ end
 
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
   @news_article = NewsArticle.find_by(title: title)
-  refute @news_article.nil?
+  expect(@news_article).to be_present
 end
 
 Then("I subsequently change the primary locale") do
@@ -84,6 +84,6 @@ Then("I subsequently change the primary locale") do
 end
 
 Then("there should exist only one translation") do
-  assert_equal %w[published draft], @news_article.document.editions.pluck(:state)
-  assert_equal 1, @news_article.document.latest_edition.translations.count
+  expect(%w[published draft]).to eq(@news_article.document.editions.pluck(:state))
+  expect(1).to eq(@news_article.document.latest_edition.translations.count)
 end

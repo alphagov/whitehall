@@ -31,8 +31,8 @@ When(/^I check the document for broken links$/) do
 end
 
 Then(/^I should see a list of the broken links$/) do
-  assert_text "links in this document that may be broken"
-  assert has_link?(@broken_link, href: @broken_link)
+  expect(page).to have_content("links in this document that may be broken")
+  expect(page).to have_link(@broken_link, href: @broken_link)
 end
 
 When(/^I correct the broken links$/) do
@@ -64,5 +64,5 @@ When(/^I correct the broken links$/) do
 end
 
 Then(/^I should see that the document has no broken links$/) do
-  assert_text "This document contains no broken links"
+  expect(page).to have_content("This document contains no broken links")
 end

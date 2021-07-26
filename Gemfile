@@ -62,6 +62,8 @@ gem "validates_email_format_of"
 gem "whenever", require: false
 
 group :development, :test do
+  gem "pact", require: false
+  gem "pact_broker-client"
   gem "parallel_tests"
   gem "pry-byebug"
   gem "pry-rails"

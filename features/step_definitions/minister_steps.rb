@@ -36,24 +36,24 @@ end
 Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)"$/) do |minister_name, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert_selector ".current-appointee", text: minister_name
+    expect(page).to have_selector(".current-appointee", text: minister_name)
   end
 end
 
 Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^"]*)"$/) do |minister_name, organisation_name, role|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert_selector ".current-appointee", text: minister_name
-    assert_selector ".app-person__roles", text: role
+    expect(page).to have_selector(".current-appointee", text: minister_name)
+    expect(page).to have_selector(".app-person__roles", text: role)
   end
 end
 
 Then(/^I should see that the minister is associated with the "([^"]*)"$/) do |organisation_name|
-  assert_selector ".meta", text: organisation_name
+  expect(page).to have_selector(".meta", text: organisation_name)
 end
 
 Then(/^I should see that the minister has responsibilities "([^"]*)"$/) do |responsibilities|
-  assert_selector ".responsibilities", text: responsibilities
+  expect(page).to have_selector(".responsibilities", text: responsibilities)
 end
 
 When(/^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/) do |person_name, ministerial_role|
@@ -74,14 +74,14 @@ end
 
 Then(/^I should see that "([^"]*)" is a commons whip "([^"]*)"$/) do |minister_name, role_title|
   within record_css_selector(Whitehall::WhipOrganisation::WhipsHouseOfCommons) do
-    assert_selector ".current-appointee", text: minister_name
-    assert_selector ".app-person__roles", text: role_title
+    expect(page).to have_selector(".current-appointee", text: minister_name)
+    expect(page).to have_selector(".app-person__roles", text: role_title)
   end
 end
 
 Then(/^I should see that "([^"]*)" also attends cabinet$/) do |minister_name|
   within "#also-attends-cabinet" do
-    assert_selector ".current-appointee", text: minister_name
+    expect(page).to have_selector(".current-appointee", text: minister_name)
   end
 end
 
@@ -115,13 +115,13 @@ end
 Then(/^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/) do |person1, person2|
   visit ministers_page
   actual = all(".person .current-appointee").map(&:text)
-  assert_equal [person1, person2], actual
+  expect([person1, person2]).to eq(actual)
 end
 
 Then(/^I should see "([^"]*)", "([^"]*)" in that order on the whips section of the ministers page$/) do |person1, person2|
   visit ministers_page
   actual = all(".whips .current-appointee").map(&:text)
-  assert_equal [person1, person2], actual
+  expect([person1, person2]).to eq(actual)
 end
 
 Given(/^there are some ministers for the "([^"]*)"$/) do |organisation_name|
@@ -151,6 +151,6 @@ Then(/^I should see that ordering displayed on the section for the organisation 
   minister_headings = all(headings_css_selector).map(&:text)
 
   @the_ordered_ministers.each.with_index do |role_appointment, idx|
-    assert_equal role_appointment.person.name, minister_headings[idx]
+    expect(role_appointment.person.name).to eq(minister_headings[idx])
   end
 end

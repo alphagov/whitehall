@@ -26,22 +26,22 @@ end
 Then(/^I should see the(?: updated)? worldwide organisation information on the public website$/) do
   worldwide_organisation = WorldwideOrganisation.last
   visit worldwide_organisation_path(worldwide_organisation)
-  assert has_title?(worldwide_organisation.name)
+  expect(page).to have_title(worldwide_organisation.name)
 end
 
 Then(/^the "([^"]*)" logo should show correctly with the HMG crest$/) do |name|
   worldwide_organisation = WorldwideOrganisation.find_by(name: name)
-  assert_selector ".gem-c-organisation-logo", text: worldwide_organisation.logo_formatted_name
+  expect(page).to have_selector(".gem-c-organisation-logo", text: worldwide_organisation.logo_formatted_name)
 end
 
 Then(/^I should see that it is part of the "([^"]*)"$/) do |sponsoring_organisation|
-  assert_selector ".sponsoring-organisation", text: sponsoring_organisation
+  expect(page).to have_selector(".sponsoring-organisation", text: sponsoring_organisation)
 end
 
 Then(/^I should see the worldwide organisation listed on the page$/) do
   worldwide_organisation = WorldwideOrganisation.last
   within ".meta" do
-    assert_text worldwide_organisation.name
+    expect(page).to have_content(worldwide_organisation.name)
   end
 end
 
@@ -49,7 +49,7 @@ Then(/^I should see the worldwide location name "([^"]*)" on the worldwide organ
   location = WorldLocation.find_by(name: location_name)
   worldwide_organisation = WorldwideOrganisation.last
   within record_css_selector(worldwide_organisation) do
-    assert_text location.name
+    expect(page).to have_content(location.name)
   end
 end
 
@@ -58,7 +58,7 @@ Then(/^I should see the worldwide organisation "([^"]*)" on the "([^"]*)" world 
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_organisation_name)
   visit world_location_path(location)
   within record_css_selector(worldwide_organisation) do
-    assert_text worldwide_organisation_name
+    expect(page).to have_content(worldwide_organisation_name)
   end
 end
 
@@ -75,9 +75,8 @@ When(/^I delete the worldwide organisation$/) do
 end
 
 Then(/^the worldwide organisation should not be visible from the public website$/) do
-  assert_raise(ActiveRecord::RecordNotFound) do
-    visit worldwide_organisation_path(@worldwide_organisation)
-  end
+  expect { visit worldwide_organisation_path(@worldwide_organisation) }
+    .to raise_error(ActiveRecord::RecordNotFound)
 end
 
 Given(/^a worldwide organisation "([^"]*)"$/) do |name|
@@ -112,12 +111,12 @@ Then(/^the "([^"]*)" office details should be shown on the public website$/) do 
   worldwide_office = worldwide_org.offices.joins(contact: :translations).where(contact_translations: { title: description }).first
 
   within record_css_selector(worldwide_office) do
-    assert_selector ".gem-c-heading", text: worldwide_office.contact.title
+    expect(page).to have_selector(".gem-c-heading", text: worldwide_office.contact.title)
     # new lines cause challenges in matching to the rendering
     address = worldwide_office.contact.street_address.gsub(/\s+/, " ")
-    assert_text address, normalize_ws: true
+    expect(page).to have_content(address, normalize_ws: true)
 
-    assert_selector "p:nth-of-type(2)", text: worldwide_office.contact.contact_numbers.first.number
+    expect(page).to have_selector("p:nth-of-type(2)", text: worldwide_office.contact.contact_numbers.first.number)
   end
 end
 
@@ -128,7 +127,9 @@ Then(/^I should be able to remove all services from the "(.*?)" office$/) do |de
   click_on "Save"
 
   visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
-  available_services.each { |service| assert has_unchecked_field? "worldwide_office_service_ids_#{service.id}" }
+  available_services.each do |service|
+    expect(page).to have_field("worldwide_office_service_ids_#{service.id}", checked: false)
+  end
 end
 
 Given(/^that the world location "([^"]*)" exists$/) do |country_name|
@@ -159,7 +160,7 @@ Then(/^the "([^"]*)" should be shown as the main office on the public website$/)
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
   visit worldwide_organisation_path(worldwide_organisation)
   within record_css_selector(worldwide_office) do
-    assert_text contact_title
+    expect(page).to have_content(contact_title)
   end
 end
 
@@ -168,7 +169,7 @@ Then(/^I should see his name on the worldwide organisation page$/) do
   person = Person.last
 
   within record_css_selector(person) do
-    assert_text person.name
+    expect(page).to have_content(person.name)
   end
 end
 
@@ -177,7 +178,7 @@ Then(/^I should not see his name on the worldwide organisation page$/) do
   person = Person.last
 
   within record_css_selector(person) do
-    assert_no_text person.name
+    expect(page).to_not have_content(person.name)
   end
 end
 
@@ -198,7 +199,7 @@ Then(/^I should see the default access information on the public "([^"]*)" offic
   end
 
   within ".body" do
-    assert_text "Default body information"
+    expect(page).to have_content("Default body information")
   end
 end
 
@@ -244,12 +245,12 @@ Then(/^I should see the custom access information on the public "([^"]*)" office
   end
 
   within ".body" do
-    assert_text "Custom body information"
+    expect(page).to have_content("Custom body information")
   end
 end
 
 Then(/^I should see the updated default access information$/) do
-  assert_selector ".govspeak p", text: "Edited body information"
+  expect(page).to have_selector(".govspeak p", text: "Edited body information")
 end
 
 When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) do |name, table|
@@ -263,9 +264,9 @@ Then(/^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
 
   visit worldwide_organisation_path(worldwide_organisation, locale: locale)
 
-  assert_selector ".worldwide-org-summary", text: translation["summary"]
-  assert_selector ".worldwide-org-description", text: translation["description"]
-  assert_selector ".worldwide-org-content", text: translation["services"]
+  expect(page).to have_selector(".worldwide-org-summary", text: translation["summary"])
+  expect(page).to have_selector(".worldwide-org-description", text: translation["description"])
+  expect(page).to have_selector(".worldwide-org-content", text: translation["services"])
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|

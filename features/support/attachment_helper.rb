@@ -41,10 +41,6 @@ module AttachmentHelper
   def find_markdown_snippet_to_insert_attachment(attachment)
     find("strong:contains('#{attachment.title}') + code").text
   end
-
-  def page_has_attachment?(attachment)
-    has_selector?(".attachment-details .title", text: attachment.title)
-  end
 end
 
 World(AttachmentHelper)

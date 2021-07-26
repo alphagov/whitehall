@@ -50,7 +50,7 @@ Then(/^the "([^"]*)" social link should be shown on the public website for the (
     social_container = Organisation.last
     visit organisation_path(social_container)
   end
-  assert_selector ".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: social_service
+  expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: social_service)
 end
 
 Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, title, social_container|
@@ -61,7 +61,7 @@ Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public 
     social_container = Organisation.last
     visit organisation_path(social_container)
   end
-  assert_selector ".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title
+  expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title)
 end
 
 Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website with locale "([^"]*)" for the (worldwide organisation|organisation)$/) do |social_service, title, locale, social_container|
@@ -72,5 +72,5 @@ Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public 
     social_container = Organisation.last
     visit organisation_path(social_container, locale: locale)
   end
-  assert_selector ".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title
+  expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title)
 end

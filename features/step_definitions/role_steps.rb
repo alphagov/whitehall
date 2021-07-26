@@ -73,8 +73,8 @@ Then(/^I should be able to create a news article associated with "(.*?)" as the 
 
   click_button "Save"
 
-  assert news = NewsArticle.find_by(title: "New #{role_name}!")
-  assert_equal person_name, news.role_appointments.first.person.name
+  news = NewsArticle.find_by(title: "New #{role_name}!")
+  expect(person_name).to eq(news.role_appointments.first.person.name)
 end
 
 Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
@@ -92,14 +92,14 @@ Then(/^I should see him listed as "([^"]*)" on the worldwide organisation page$/
   role = Role.find_by!(name: role_name)
 
   within record_css_selector(person) do
-    assert_text person.name
-    assert_text role.name
+    expect(page).to have_content(person.name)
+    expect(page).to have_content(role.name)
   end
 end
 
 Then(/^I should see the role translation "([^"]*)" with:$/) do |locale, table|
   fields = table.rows_hash
   click_link locale
-  assert_selector "input[id=role_name][value='#{fields['name']}']"
-  assert_selector "#role_responsibilities", text: fields["responsibility"]
+  expect(page).to have_selector("input[id=role_name][value='#{fields['name']}']")
+  expect(page).to have_selector("#role_responsibilities", text: fields["responsibility"])
 end

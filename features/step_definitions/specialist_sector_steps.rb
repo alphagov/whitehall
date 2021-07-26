@@ -7,9 +7,23 @@ When(/^I start editing a draft document$/) do
 end
 
 Then(/^I can tag it to some specialist sectors$/) do
-  select_specialist_sectors_in_form
-  save_document
-  assert_specialist_sectors_were_saved
+  select "Oil and Gas: Wells", from: "Primary specialist sector"
+  select "Oil and Gas: Offshore", from: "Additional specialist sectors"
+  select "Oil and Gas: Fields", from: "Additional specialist sectors"
+  select "Oil and Gas: Distillation (draft)", from: "Additional specialist sectors"
+
+  click_button "Save"
+
+  expect(page).to have_selector(".flash.notice")
+
+  click_on "Edit draft"
+  check "Applies to all UK nations"
+  click_on "Save and continue"
+  click_on "Save and review legacy tagging"
+
+  expect("WELLS").to eq(find_field("Primary specialist sector").value)
+  expect(%w[OFFSHORE FIELDS DISTILL].to_set)
+    .to eq(find_field("Additional specialist sectors").value.to_set)
 end
 
 Given(/^there is a document tagged to specialist sectors$/) do
@@ -49,7 +63,7 @@ end
 
 Then(/^I should see the specialist sub-sector and its parent sector$/) do
   within "article header" do
-    assert_text "Top Level Topic"
-    assert_selector "dd", text: "Topic 1 and Topic 2"
+    expect(page).to have_content("Top Level Topic")
+    expect(page).to have_selector("dd", text: "Topic 1 and Topic 2")
   end
 end

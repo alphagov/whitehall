@@ -113,7 +113,7 @@ end
 Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
-    assert_text organisation_name
+    expect(page).to have_content(organisation_name)
   end
 end
 
@@ -192,7 +192,7 @@ When(/^I delete the organisation "([^"]*)"$/) do |name|
 end
 
 Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
-  refute Organisation.find_by(name: name)
+  expect(Organisation.find_by(name: name)).to_not be_present
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
@@ -200,7 +200,7 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation pa
   offsite_link = OffsiteLink.find_by!(title: title)
   visit admin_organisation_path(organisation)
   click_link "Features"
-  assert has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.slug, offsite_link.id))
+  expect(page).to have_link(title, href: edit_admin_organisation_offsite_link_path(organisation.slug, offsite_link.id))
 end
 
 def navigate_to_organisation(page_name)
@@ -213,17 +213,17 @@ Then(/^the alternative format contact email is "([^"]*)"$/) do |email|
   publication = Publication.last
   actual = publication.alternative_format_contact_email
 
-  assert_equal email, actual
+  expect(email).to eq(actual)
 end
 
 Then(/^I cannot see links to Transparency data on the "([^"]*)" about page$/) do |name|
   visit_organisation_about_page name
-  assert_no_selector "a", text: "Transparency data"
+  expect(page).to_not have_selector("a", text: "Transparency data")
 end
 
 Then(/^I can see a link to "([^"]*)" on the "([^"]*)" about page$/) do |link_text, name|
   visit_organisation_about_page name
-  assert_selector "a", text: link_text
+  expect(page).to have_selector("a", text: link_text)
 end
 
 When(/^I associate a Transparency data publication to the "([^"]*)"$/) do |name|
@@ -258,8 +258,8 @@ end
 
 Then(/^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/) do |contact_description, address|
   within ".contact" do
-    assert_selector "h3", text: contact_description
-    assert_selector ".vcard", text: address
+    expect(page).to have_selector("h3", text: contact_description)
+    expect(page).to have_selector(".vcard", text: address)
   end
 end
 
@@ -284,33 +284,33 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
   fill_in "title", with: @documents.first.title
   click_on "enter"
   within "#search_results" do
-    assert_selector record_css_selector(@documents[0])
-    assert_no_selector record_css_selector(@documents[1])
-    assert_no_selector record_css_selector(@documents[2])
+    expect(page).to have_selector(record_css_selector(@documents[0]))
+    expect(page).to_not have_selector(record_css_selector(@documents[1]))
+    expect(page).to_not have_selector(record_css_selector(@documents[2]))
   end
   click_link "Reset all fields"
   within "#search_results" do
-    assert_selector record_css_selector(@documents[0])
-    assert_no_selector record_css_selector(@documents[1])
-    assert_no_selector record_css_selector(@documents[2])
+    expect(page).to have_selector(record_css_selector(@documents[0]))
+    expect(page).to_not have_selector(record_css_selector(@documents[1]))
+    expect(page).to_not have_selector(record_css_selector(@documents[2]))
   end
   select @organisation2.name, from: "organisation"
   within "#search_results" do
-    assert_no_selector record_css_selector(@documents[0])
-    assert_selector record_css_selector(@documents[1])
-    assert_selector record_css_selector(@documents[2])
+    expect(page).to_not have_selector(record_css_selector(@documents[0]))
+    expect(page).to have_selector(record_css_selector(@documents[1]))
+    expect(page).to have_selector(record_css_selector(@documents[2]))
   end
   select @author2.name, from: "author"
   within "#search_results" do
-    assert_no_selector record_css_selector(@documents[0])
-    assert_no_selector record_css_selector(@documents[1])
-    assert_selector record_css_selector(@documents[2])
+    expect(page).to_not have_selector(record_css_selector(@documents[0]))
+    expect(page).to_not have_selector(record_css_selector(@documents[1]))
+    expect(page).to have_selector(record_css_selector(@documents[2]))
   end
   select "News articles", from: "type"
   within "#search_results" do
-    assert_no_selector record_css_selector(@documents[0])
-    assert_no_selector record_css_selector(@documents[1])
-    assert_no_selector record_css_selector(@documents[2])
+    expect(page).to_not have_selector(record_css_selector(@documents[0]))
+    expect(page).to_not have_selector(record_css_selector(@documents[1]))
+    expect(page).to_not have_selector(record_css_selector(@documents[2]))
   end
 end
 
@@ -327,7 +327,7 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
   organisation = Organisation.find_by!(name: org_name)
   visit admin_organisation_path(organisation)
 
-  assert has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+  expect(page).to have_xpath("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
 end
 
 Given(/^a closed organisation with documents which has been superseded by another$/) do
@@ -344,17 +344,17 @@ When(/^I view the organisation$/) do
 end
 
 Then(/^I can see that the organisation is closed$/) do
-  assert_text "#{@organisation.name} has closed"
+  expect(page).to have_content("#{@organisation.name} has closed")
 end
 
 Then(/^I can see that the organisation is closed and has been superseded by the other$/) do
-  assert_text "#{@organisation.name} was replaced by"
-  assert_text @superseding_organisation.name
+  expect(page).to have_content("#{@organisation.name} was replaced by")
+  expect(page).to have_content(@superseding_organisation.name)
 end
 
 Then(/^I can see the documents associated with that organisation$/) do
-  assert_text @organisation_speech.title
-  assert_text @organisation_consultation.title
-  assert_text @organisation_publication.title
-  assert_text @organisation_statistics.title
+  expect(page).to have_content(@organisation_speech.title)
+  expect(page).to have_content(@organisation_consultation.title)
+  expect(page).to have_content(@organisation_publication.title)
+  expect(page).to have_content(@organisation_statistics.title)
 end

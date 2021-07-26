@@ -21,16 +21,17 @@ private
   end
 
   def check_specialist_sectors
-    assert_equal "WELLS", Publication.last.primary_specialist_sector_tag
-    assert_equal %w[FIELDS OFFSHORE], Publication.last.secondary_specialist_sector_tags
+    expect("WELLS").to eq(Publication.last.primary_specialist_sector_tag)
+    expect(%w[FIELDS OFFSHORE]).to eq(Publication.last.secondary_specialist_sector_tags)
   end
 
   def assert_selected_specialist_sectors_are_displayed
-    assert has_css? ".primary-specialist-sector li", text: "Oil and Gas: Wells"
-    refute has_css? ".primary-specialist-sector li", text: "Oil and Gas: Fields"
-    assert has_css? ".secondary-specialist-sectors li", text: "Oil and Gas: Fields"
-    assert has_css? ".secondary-specialist-sectors li", text: "Oil and Gas: Offshore"
-    refute has_css? ".secondary-specialist-sectors li", text: "Oil and Gas: Wells"
+    expect(page).to have_selector(".primary-specialist-sector li", text: "Oil and Gas: Wells")
+    expect(page).to have_selector(".secondary-specialist-sectors li", text: "Oil and Gas: Fields")
+    expect(page).to have_selector(".secondary-specialist-sectors li", text: "Oil and Gas: Offshore")
+
+    expect(page).to_not have_selector(".primary-specialist-sector li", text: "Oil and Gas: Fields")
+    expect(page).to_not have_selector(".secondary-specialist-sectors li", text: "Oil and Gas: Wells")
   end
 end
 

@@ -10,13 +10,13 @@ end
 
 Then(/^I should be on the taxonomy tagging page$/) do
   @publication = Publication.last
-  assert_equal current_path, edit_admin_edition_tags_path(@publication)
+  expect(page).to have_current_path(edit_admin_edition_tags_path(@publication))
 end
 
 Then(/^I should be able to update the taxonomy$/) do
   select_taxon_and_save "School Curriculum"
   check_links_patched_in_publishing_api
-  assert_path admin_edition_path(Publication.last)
+  expect(page).to have_current_path(admin_edition_path(Publication.last))
 end
 
 When(/^I start editing a draft document which cannot be tagged to the new taxonomy$/) do
@@ -30,7 +30,10 @@ end
 
 Then(/^I should be on the legacy tagging page$/) do
   @publication = Publication.last
-  assert_equal current_path, edit_admin_edition_legacy_associations_path(@publication)
+
+  expect(page).to have_current_path(
+    edit_admin_edition_legacy_associations_path(@publication, return: "tags"),
+  )
 end
 
 Then(/^I should be able to update the legacy tags$/) do

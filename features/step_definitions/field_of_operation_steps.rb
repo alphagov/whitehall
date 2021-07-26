@@ -13,15 +13,15 @@ end
 
 Then(/^I cannot edit fields of operation$/) do
   visit admin_root_path
-  assert_no_selector "a", text: /Fields of operation/
+  expect(page).to_not have_selector("a", text: /Fields of operation/)
   visit admin_operational_fields_path
-  assert_no_text "Fields of operation"
+  expect(page).to_not have_content("Fields of operation")
 end
 
 Then(/^I cannot create new fatality notices$/) do
   visit admin_editions_path
-  assert_no_selector "a", text: /fatality/i
+  expect(page).to_not have_selector("a", text: /fatality/i)
   visit new_admin_fatality_notice_path
-  assert_no_text "Fatality"
-  assert_no_selector "form"
+  expect(page).to_not have_content("Fatality")
+  expect(page).to_not have_selector("form")
 end

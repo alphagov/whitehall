@@ -17,7 +17,7 @@ end
 Then(/^I should see a historical account for him in that role$/) do
   historical_account = @person.historical_accounts.last
   within record_css_selector(historical_account) do
-    assert_text historical_account.summary
-    assert_text @role.name
+    expect(page).to have_content(historical_account.summary)
+    expect(page).to have_content(@role.name)
   end
 end

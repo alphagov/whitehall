@@ -11,6 +11,6 @@ Then(/^the publication should be about the "([^"]*)" world location$/) do |locat
 
   locations = @new_edition.world_locations
 
-  assert_equal 1, locations.count
-  assert_equal location_name, locations.first.name
+  expect(1).to eq(locations.count)
+  expect(location_name).to eq(locations.first.name)
 end
