@@ -190,7 +190,7 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.1.0)
+    faraday-net_http_persistent (1.2.0)
     ffi (1.15.0)
     filelock (1.1.1)
     find_a_port (1.0.1)
@@ -265,7 +265,7 @@ GEM
       unicorn (>= 5.4, < 5.9)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-    govuk_publishing_components (24.18.4)
+    govuk_publishing_components (24.21.1)
       govuk_app_config
       kramdown
       plek
@@ -600,7 +600,7 @@ GEM
     ruby-rc4 (0.1.5)
     ruby-vips (2.1.2)
       ffi (~> 1.12)
-    ruby2_keywords (0.0.4)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.0)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
