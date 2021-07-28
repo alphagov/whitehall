@@ -61,7 +61,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       assert_select "title", text: "UK and India - GOV.UK"
       assert_select ".gem-c-title__context", text: "World location news"
       assert_select "h1", text: "UK and India"
-      assert_select ".mission_statement", text: "country-mission-statement"
+      assert_select ".world-locations__our-mission .govspeak p:first-child", text: "country-mission-statement"
     end
   end
 
