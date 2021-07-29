@@ -232,8 +232,8 @@ GEM
       rails (>= 5)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (0.5.1)
+      activesupport (>= 5.0)
     globalize (6.0.0)
       activemodel (>= 4.2, < 7.0)
       activerecord (>= 4.2, < 7.0)
@@ -265,7 +265,7 @@ GEM
       unicorn (>= 5.4, < 5.9)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-    govuk_publishing_components (24.21.1)
+    govuk_publishing_components (25.0.0)
       govuk_app_config
       kramdown
       plek
