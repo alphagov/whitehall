@@ -119,7 +119,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       :organisation,
       name: "Organisation of Things",
       organisation_logo_type_id: 14,
-      logo: fixture_file_upload("images/960x640_jpeg.jpg", "image/jpeg"),
+      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
     )
     presented_item = present(organisation)
 
@@ -140,7 +140,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       :organisation,
       name: "Organisation of Things",
       organisation_logo_type_id: 14,
-      logo: fixture_file_upload("images/960x640_jpeg.jpg", "image/jpeg"),
+      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
     )
     presented_item = present(organisation)
 

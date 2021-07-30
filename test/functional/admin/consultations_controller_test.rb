@@ -43,7 +43,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         consultation_response_form_attributes: {
           title: "the title of the response form",
           consultation_response_form_data_attributes: {
-            file: fixture_file_upload("two-pages.pdf"),
+            file: upload_fixture("two-pages.pdf"),
           },
         },
       },
@@ -92,7 +92,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         consultation_response_form_attributes: {
           title: nil,
           consultation_response_form_data_attributes: {
-            file: fixture_file_upload("two-pages.pdf"),
+            file: upload_fixture("two-pages.pdf"),
           },
         },
       },
@@ -197,8 +197,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test "updating should respect the attachment_action for response forms to keep it" do
-    two_pages_pdf = fixture_file_upload("two-pages.pdf")
-    greenpaper_pdf = fixture_file_upload("greenpaper.pdf")
+    two_pages_pdf = upload_fixture("two-pages.pdf")
+    greenpaper_pdf = upload_fixture("greenpaper.pdf")
 
     response_form = create(:consultation_response_form, file: two_pages_pdf)
     participation = create(:consultation_participation, consultation_response_form: response_form)
@@ -261,8 +261,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
     Services.asset_manager.stubs(:delete_asset)
 
-    two_pages_pdf = fixture_file_upload("two-pages.pdf")
-    greenpaper_pdf = fixture_file_upload("greenpaper.pdf")
+    two_pages_pdf = upload_fixture("two-pages.pdf")
+    greenpaper_pdf = upload_fixture("greenpaper.pdf")
 
     response_form = create(:consultation_response_form, file: two_pages_pdf)
     participation = create(:consultation_participation, consultation_response_form: response_form)

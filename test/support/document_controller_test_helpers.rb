@@ -47,8 +47,8 @@ module DocumentControllerTestHelpers
           :with_alternative_format_provider,
           body: "!@1\n\n!@2",
           attachments: [
-            attachment1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf")),
-            attachment2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
+            attachment1 = build(:file_attachment, file: upload_fixture("greenpaper.pdf", "application/pdf")),
+            attachment2 = build(:file_attachment, file: upload_fixture("sample.rtf", "text/rtf")),
           ],
         )
 
@@ -80,8 +80,8 @@ module DocumentControllerTestHelpers
           :with_alternative_format_provider,
           body: "!@1\n\n!@2",
           attachments: [
-            attachment1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: true),
-            attachment2 = build(:file_attachment, file: fixture_file_upload("sample.rtf", "text/rtf")),
+            attachment1 = build(:file_attachment, file: upload_fixture("greenpaper.pdf", "application/pdf"), accessible: true),
+            attachment2 = build(:file_attachment, file: upload_fixture("sample.rtf", "text/rtf")),
           ],
         )
 
@@ -103,7 +103,7 @@ module DocumentControllerTestHelpers
           "published_#{document_type}",
           body: "!@1",
           attachments: [
-            attachment1 = build(:file_attachment, file: fixture_file_upload("greenpaper.pdf", "application/pdf"), accessible: false),
+            attachment1 = build(:file_attachment, file: upload_fixture("greenpaper.pdf", "application/pdf"), accessible: false),
           ],
           alternative_format_provider: organisation,
         )
@@ -118,7 +118,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show displays PDF attachment metadata" do
-        greenpaper_pdf = fixture_file_upload("greenpaper.pdf", "application/pdf")
+        greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
         edition = create(
           "published_#{document_type}",
           :with_alternative_format_provider,
@@ -138,7 +138,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show displays non-PDF attachment metadata" do
-        csv = fixture_file_upload("sample.rtf", "text/rtf")
+        csv = upload_fixture("sample.rtf", "text/rtf")
         edition = create(
           "published_#{document_type}",
           :with_alternative_format_provider,

@@ -31,7 +31,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   test "POST :create saves a new instance with the supplied valid params" do
     take_part_page_attrs = attributes_for(:take_part_page, title: "Wear a monocle!")
                              .merge(
-                               image: fixture_file_upload(
+                               image: upload_fixture(
                                  "minister-of-funk.960x640.jpg",
                                  "image/jpg",
                                ),
