@@ -6,7 +6,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   def valid_file_attachment_params
     {
       title: "Attachment title",
-      attachment_data_attributes: { file: fixture_file_upload("whitepaper.pdf") },
+      attachment_data_attributes: { file: upload_fixture("whitepaper.pdf") },
     }
   end
 
@@ -398,7 +398,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
           id: attachment.id,
           attachment: {
             attachment_data_attributes: {
-              file: fixture_file_upload("whitepaper.pdf"),
+              file: upload_fixture("whitepaper.pdf"),
             },
           },
         }
@@ -445,7 +445,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
           edition_id: @edition,
           id: attachment,
           attachment: {
-            attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload("whitepaper.pdf") },
+            attachment_data_attributes: { to_replace_id: old_data.id, file: upload_fixture("whitepaper.pdf") },
           },
         }
     attachment.reload

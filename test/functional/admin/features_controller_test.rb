@@ -35,7 +35,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     params = {
       document_id: edition.document_id,
-      image: fixture_file_upload("images/960x640_gif.gif"),
+      image: upload_fixture("images/960x640_gif.gif"),
       alt_text: "some text",
     }
 
@@ -53,7 +53,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     params = {
       document_id: document.id,
-      image: fixture_file_upload("images/960x640_gif.gif"),
+      image: upload_fixture("images/960x640_gif.gif"),
       alt_text: "some text",
     }
 

@@ -28,7 +28,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
 
     exception = assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("dodgy.exe"))
+      uploader.store!(file_fixture("dodgy.exe"))
     end
 
     assert_match %r{You are not allowed to upload "exe" files}, exception.message
@@ -43,7 +43,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     AttachmentUploader.enable_processing = true
 
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
-    uploader.store!(fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
+    uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
 
     assert_nil uploader.thumbnail.path
 
@@ -54,7 +54,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     AttachmentUploader.enable_processing = true
 
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
-    uploader.store!(fixture_file_upload("sample.xsd"))
+    uploader.store!(file_fixture("sample.xsd"))
     assert uploader.file.present?
 
     AttachmentUploader.enable_processing = false
@@ -62,14 +62,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   test "should be able to attach a zip file" do
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
-    uploader.store!(fixture_file_upload("sample_attachment.zip"))
+    uploader.store!(file_fixture("sample_attachment.zip"))
     assert uploader.file.present?
   end
 
   test "zip file containing a non-whitelisted format should be rejected" do
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("sample_attachment_containing_exe.zip"))
+      uploader.store!(file_fixture("sample_attachment_containing_exe.zip"))
     end
   end
 
@@ -77,7 +77,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(["README.TXT", "ImportantDocument.PDF", "dIRE-sTRAITS.jPG"])
     assert_nothing_raised do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
     assert uploader.file.present?
   end
@@ -85,7 +85,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "zip file containing a zip file should be rejected" do
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("sample_attachment_containing_zip.zip"))
+      uploader.store!(file_fixture("sample_attachment_containing_zip.zip"))
     end
   end
 
@@ -93,7 +93,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploader::ZipFile::NonUTF8ContentsError)
     assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
   end
 
@@ -101,7 +101,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
     assert_nothing_raised do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
     assert uploader.file.present?
   end
@@ -110,7 +110,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
     assert_nothing_raised do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
     assert uploader.file.present?
   end
@@ -119,7 +119,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
     assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
   end
 
@@ -127,7 +127,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list + ["readme.txt", "london.jpg", "map-printout.pdf"])
     assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
   end
 
@@ -135,7 +135,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
     assert_nothing_raised do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
     assert uploader.file.present?
   end
@@ -144,13 +144,13 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
     assert_raise CarrierWave::IntegrityError do
-      uploader.store!(fixture_file_upload("sample_attachment.zip"))
+      uploader.store!(file_fixture("sample_attachment.zip"))
     end
   end
 
   test "returns Asset Manager version of path" do
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
-    uploader.store!(fixture_file_upload("simple.pdf"))
+    uploader.store!(file_fixture("simple.pdf"))
     expected_path = "/government/uploads/system/uploads/attachment_data/mounted-as/#{uploader.model.id}/simple.pdf"
     assert_equal expected_path, uploader.file.asset_manager_path
   end
@@ -214,26 +214,26 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should store the thumbnail with the PNG extension" do
-    @uploader.store!(fixture_file_upload("two-pages-with-content.pdf"))
+    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
     assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
   end
 
   test "should store an actual PNG" do
     expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
 
-    @uploader.store!(fixture_file_upload("two-pages-with-content.pdf"))
+    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
     AssetManagerCreateWhitehallAssetWorker.drain
   end
 
   test "should ensure the content type of the stored thumbnail is image/png" do
-    @uploader.store!(fixture_file_upload("two-pages-with-content.pdf"))
+    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
     assert_equal "image/png", @uploader.thumbnail.file.content_type
   end
 
   test "should scale the thumbnail down proportionally to A4" do
     expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
 
-    @uploader.store!(fixture_file_upload("two-pages-with-content.pdf"))
+    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
     AssetManagerCreateWhitehallAssetWorker.drain
   end
 
@@ -242,7 +242,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
-    @uploader.store!(fixture_file_upload("two-pages-with-content.pdf"))
+    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
     AssetManagerCreateWhitehallAssetWorker.drain
   end
 
@@ -251,7 +251,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
-    @uploader.store!(fixture_file_upload("two-pages-with-content.pdf"))
+    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
     AssetManagerCreateWhitehallAssetWorker.drain
   end
 

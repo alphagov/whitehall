@@ -15,7 +15,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       surname: "Churchill",
       letters: "PM",
       privy_counsellor: true,
-      image: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+      image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
       biography: "Sir Winston Churchill was a Prime Minister.",
     )
 

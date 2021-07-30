@@ -84,7 +84,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
            organisation: example_organisation_attributes
                            .merge(
                              organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-                             logo: fixture_file_upload("logo.png", "image/png"),
+                             logo: upload_fixture("logo.png", "image/png"),
                            ),
          }
 
@@ -314,7 +314,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
         params: { id: organisation,
                   organisation: {
                     organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-                    logo: fixture_file_upload("logo.png"),
+                    logo: upload_fixture("logo.png"),
                   } }
     assert_match %r{logo.png}, organisation.reload.logo.file.filename
   end
@@ -325,7 +325,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
         params: { id: organisation,
                   organisation: {
                     default_news_image_attributes: {
-                      file: fixture_file_upload("minister-of-funk.960x640.jpg"),
+                      file: upload_fixture("minister-of-funk.960x640.jpg"),
                     },
                   } }
     assert_equal "minister-of-funk.960x640.jpg", organisation.reload.default_news_image.file.file.filename

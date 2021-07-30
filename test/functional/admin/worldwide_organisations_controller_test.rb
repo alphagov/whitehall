@@ -58,7 +58,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
           worldwide_organisation: {
             name: "New name",
             default_news_image_attributes: {
-              file: fixture_file_upload("minister-of-funk.960x640.jpg"),
+              file: upload_fixture("minister-of-funk.960x640.jpg"),
             },
           },
         }

@@ -17,7 +17,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   end
 
   def valid_create_params
-    fixture_file = fixture_file_upload("two-pages-and-greenpaper.zip")
+    fixture_file = upload_fixture("two-pages-and-greenpaper.zip")
     zip_file = BulkUpload::ZipFile.new(fixture_file)
     bulk_upload = BulkUpload.from_files(@edition, zip_file.extracted_file_paths)
     params = { attachments_attributes: {} }
@@ -37,7 +37,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     params = {}
     if filename
       params[:bulk_upload_zip_file] = {
-        zip_file: fixture_file_upload(filename),
+        zip_file: upload_fixture(filename),
       }
     end
     post :upload_zip, params: { edition_id: @edition }.merge(params)

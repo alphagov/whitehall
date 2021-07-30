@@ -48,7 +48,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
   test "creating allows attachment of an image" do
     attributes = attributes_for(:person)
-    attributes[:image] = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+    attributes[:image] = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
     post :create, params: { person: attributes }
 
     assert_not_nil Person.last.image
@@ -64,7 +64,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   view_test "editing shows form for editing a person" do
-    person = create(:person, image: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
+    person = create(:person, image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     get :edit, params: { id: person }
 
     assert_select "form[action='#{admin_person_path}']" do
@@ -78,7 +78,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   view_test "editing shows existing image" do
-    person = create(:person, image: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
+    person = create(:person, image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     get :edit, params: { id: person }
 
     assert_select "img[src='#{person.image_url}']"

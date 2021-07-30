@@ -9,12 +9,12 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "#attachment_thumbnail returns document thumbnails with public URLs for .doc files" do
-    attachment = create(:file_attachment, file: fixture_file_upload("sample.docx", "application/msword"))
+    attachment = create(:file_attachment, file: upload_fixture("sample.docx", "application/msword"))
     assert_match %r{#{Whitehall.public_root}/images/pub-cover-doc\.png}, attachment_thumbnail(attachment)
   end
 
   test "#attachment_thumbnail returns spreadsheet thumbnails with public URLs for spreadsheet files" do
-    attachment = create(:file_attachment, file: fixture_file_upload("sample-from-excel.csv", "text/csv"))
+    attachment = create(:file_attachment, file: upload_fixture("sample-from-excel.csv", "text/csv"))
     assert_match %r{#{Whitehall.public_root}/images/pub-cover-spreadsheet\.png}, attachment_thumbnail(attachment)
   end
 
@@ -24,7 +24,7 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "#attachment_thumbnail returns generic thumbnails with public URLs for other files" do
-    attachment = create(:file_attachment, file: fixture_file_upload("sample_attachment.zip", "application/zip"))
+    attachment = create(:file_attachment, file: upload_fixture("sample_attachment.zip", "application/zip"))
     assert_match %r{#{Whitehall.public_root}/images/pub-cover\.png}, attachment_thumbnail(attachment)
   end
 

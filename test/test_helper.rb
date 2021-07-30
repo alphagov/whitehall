@@ -176,6 +176,10 @@ class ActiveSupport::TestCase
     File.new(Rails.root.join("test/fixtures", filename))
   end
 
+  def upload_fixture(filename, mime_type = nil)
+    Rack::Test::UploadedFile.new(Rails.root.join("test/fixtures", filename), mime_type)
+  end
+
   def assert_file_content_identical(file1, file2)
     FileUtils.compare_file(file1.path, file2.path)
   end

@@ -427,7 +427,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition should attach image" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -450,7 +450,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition should result in a single instance of the uploaded image file being cached" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -479,7 +479,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "creating an edition with invalid data should only allow a single image to be selected for upload" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -497,7 +497,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "creating an edition with invalid data but valid image data should still display the image data" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -517,7 +517,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "creating an edition with invalid data should not show any existing image info" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -533,8 +533,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with multiple images should attach all files" do
-        image_file0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
-        image_file1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file0 = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file1 = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -560,7 +560,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "creating an edition with an invalid image should show an error" do
         attributes = controller_attributes_for(edition_type)
-        invalid_image = fixture_file_upload("horrible-image.64x96.jpg", "image/jpg")
+        invalid_image = upload_fixture("horrible-image.64x96.jpg", "image/jpg")
 
         post :create,
              params: {
@@ -575,7 +575,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit displays edition image fields" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
         create(
           :image,
@@ -598,7 +598,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "updating an edition should attach an image" do
-        image = fixture_file_upload("minister-of-funk.960x640.jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg")
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         put :update,
@@ -648,7 +648,7 @@ module AdminEditionControllerTestHelpers
           edition: edition,
           alt_text: "old-alt-text",
           caption: "old-caption",
-          image_data_attributes: attributes_for(:image_data, file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")),
+          image_data_attributes: attributes_for(:image_data, file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")),
         )
 
         put :update,
@@ -673,8 +673,8 @@ module AdminEditionControllerTestHelpers
 
       test "updating an edition should attach multiple images" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image_file0 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
-        image_file1 = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file0 = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
+        image_file1 = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
                    image_data_attributes: attributes_for(:image_data, file: image_file0) },
@@ -710,7 +710,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "updating an edition with invalid data should only allow a single image to be selected for upload" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image = fixture_file_upload("minister-of-funk.960x640.jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg")
         attributes = {
           title: "",
           images_attributes: {
@@ -730,7 +730,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "updating an edition with invalid data and valid image data should display the image data" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image = fixture_file_upload("minister-of-funk.960x640.jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg")
         attributes = {
           title: "",
           images_attributes: {
@@ -772,7 +772,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "updating a stale edition should only allow a single image to be selected for upload" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        image = fixture_file_upload("minister-of-funk.960x640.jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg")
         lock_version = edition.lock_version
         edition.touch
         attributes = {
@@ -793,7 +793,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "updating should allow removal of images" do
         Services.asset_manager.stubs(:whitehall_asset).returns("id" => "http://asset-manager/assets/asset-id")
-        image = fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg")
+        image = upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")
 
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image1 = create(
