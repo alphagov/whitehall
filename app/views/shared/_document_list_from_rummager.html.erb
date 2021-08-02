@@ -7,7 +7,8 @@
 %>
 <section id="<%= heading.downcase.parameterize %>" class="document-block">
   <%= render "govuk_publishing_components/components/heading", {
-    text: heading
+    text: heading,
+    margin_bottom: 3,
   } %>
   <%= render partial: "shared/list_description_for_rummager_list", 
     locals: { 
@@ -17,7 +18,7 @@
       type: type
     } 
   %>
-  <p class="see-all">
+  <p class="govuk-body">
     <%-
       see_more_url = public_send(
         "#{type}_filter_path",

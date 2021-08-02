@@ -6,7 +6,7 @@
   <h1 class="label"><%= heading %></h1>
   <div class="content">
     <%= render partial: "shared/list_description", locals: { heading: heading, editions: documents } %>
-    <p class="govuk-body govuk-!-margin-top-6">
+    <p class="govuk-body">
     <%-
       see_more_url = public_send(
         "#{type}_filter_path",
