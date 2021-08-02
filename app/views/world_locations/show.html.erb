@@ -35,10 +35,10 @@
         <% end %>
 
         <%= render partial: 'shared/recently_updated',
-                  locals: { recently_updated: @recently_updated,
-                            atom_url: atom_feed_url_for(@world_location),
-                            extra_class: 'panel',
-                            see_all_link: latest_path(world_locations: [@world_location])} %>
+          locals: { recently_updated: @recently_updated,
+            atom_url: atom_feed_url_for(@world_location),
+            see_all_link: latest_path(world_locations: [@world_location])
+          } %>
       </section>
     </div>
   </div>
