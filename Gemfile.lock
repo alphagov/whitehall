@@ -232,8 +232,8 @@ GEM
       rails (>= 5)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (0.5.2)
+      activesupport (>= 5.0)
     globalize (6.0.0)
       activemodel (>= 4.2, < 7.0)
       activerecord (>= 4.2, < 7.0)
@@ -265,7 +265,7 @@ GEM
       unicorn (>= 5.4, < 5.9)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-    govuk_publishing_components (24.21.1)
+    govuk_publishing_components (25.1.0)
       govuk_app_config
       kramdown
       plek
@@ -352,7 +352,7 @@ GEM
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
-    loofah (2.10.0)
+    loofah (2.11.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -403,7 +403,7 @@ GEM
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     netrc (0.11.0)
-    nio4r (2.5.7)
+    nio4r (2.5.8)
     nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
