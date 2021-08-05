@@ -101,6 +101,13 @@ namespace :publishing_api do
       puts "Finished republishing Take Part pages"
     end
 
+    desc "Republish all PolicyGroup pages"
+    task all_policy_group: :environment do
+      republisher = DataHygiene::PublishingApiRepublisher.new(PolicyGroup.all)
+      republisher.perform
+      puts "Finished republishing Policy Groups"
+    end
+
     desc "Republish a person to the Publishing API"
     task :person_by_slug, [:slug] => :environment do |_, args|
       Person.find_by!(slug: args[:slug]).publish_to_publishing_api
