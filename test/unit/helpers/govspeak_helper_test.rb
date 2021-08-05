@@ -501,4 +501,12 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_edition_to_html(document)
     assert_not html.include?("<details class=\"gem-c-details")
   end
+
+  test "should not sanitise Details element for documents with attachments" do
+    body = "#Heading\n\n!@1\n\n##Subheading"
+    document = build(:published_detailed_guide, :with_file_attachment, body: body)
+    attachments = document.attachments
+    html = govspeak_with_attachments_to_html(body, attachments, "email@example.com")
+    assert html.include?("<details class=\"gem-c-details")
+  end
 end

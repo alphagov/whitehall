@@ -32,7 +32,7 @@ module GovspeakHelper
 
   def bare_govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
     partially_processed_govspeak = govspeak_with_attachments_and_alt_format_information(body, attachments, alternative_format_contact_email)
-    bare_govspeak_to_html(partially_processed_govspeak, [])
+    bare_govspeak_to_html(partially_processed_govspeak, [], allowed_elements: %w[details])
   end
 
   def govspeak_headers(govspeak, level = (2..2))
