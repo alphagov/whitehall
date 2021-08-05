@@ -18,6 +18,8 @@ Bundler.require(*Rails.groups)
 module Whitehall
   class Application < Rails::Application
     require "whitehall"
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
