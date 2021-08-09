@@ -18,6 +18,17 @@ Bundler.require(*Rails.groups)
 module Whitehall
   class Application < Rails::Application
     require "whitehall"
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 6.0
+    config.autoloader = :classic
+
+    # Turn off `belongs_to` associations by default. This is turned on by default in Rails 5.0.
+    config.active_record.belongs_to_required_by_default = false
+
+    config.action_controller.per_form_csrf_tokens = false
+
+    # Enable origin-checking CSRF mitigation.
+    config.action_controller.forgery_protection_origin_check = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
