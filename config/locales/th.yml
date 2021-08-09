@@ -101,7 +101,7 @@ th:
         petitions_and_campaigns:
         procurement:
         publication_scheme: โครงการสิ่งพิม์
-        recruitment:
+        recruitment: ทำงานกับ%{organisation_name}
         research:
         social_media_use: การใช้สื่อสังคมออนล์
         staff_update:
