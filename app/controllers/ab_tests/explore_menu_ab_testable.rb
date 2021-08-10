@@ -17,10 +17,10 @@ module AbTests::ExploreMenuAbTestable
   end
 
   def set_explore_menu_response
-    explore_menu_variant.configure_response(response) if explore_menu_testable?
+    explore_menu_variant.configure_response(response)
   end
 
-  def explore_menu_testable?
+  def explore_menu_variant_b?
     explore_menu_variant.variant?("B")
   end
 end
