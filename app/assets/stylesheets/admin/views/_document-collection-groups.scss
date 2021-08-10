@@ -8,6 +8,8 @@
         margin-bottom: $gutter / 2;
         @include border-radius(3px);
         border: 1px solid transparent;
+        cursor: pointer;
+        display: list-item;
       }
 
       summary:focus {
