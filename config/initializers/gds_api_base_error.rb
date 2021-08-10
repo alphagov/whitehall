@@ -1,5 +1,5 @@
 require "gds_api/exceptions"
 
 class GdsApi::BaseError
-  remove_method :raven_context
+  remove_method :sentry_context
 end
