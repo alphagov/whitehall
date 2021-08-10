@@ -4,10 +4,7 @@
 <header class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= render "govuk_publishing_components/components/title", {
-        context: {
-          text: "History",
-          href: "/government/history",
-        },
+        context: "History",
         title: "Past #{@role.name.pluralize}"
       } %>
   </div>
