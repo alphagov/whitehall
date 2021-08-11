@@ -16,11 +16,6 @@ Whitehall is deployed in two modes:
 
 **Use GOV.UK Docker to run any commands that follow.**
 
-Whitehall is deployed in two modes:
-
-- 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
-- 'frontend' for rendering content (eg: <http://www.gov.uk/government/get-involved>, <https://www.gov.uk/world>)
-
 Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
 
 While this usually results in different routing behaviour, in development [all routes can be accessed from either domain](https://github.com/alphagov/whitehall/blob/main/config/routes.rb#L3-L5), although [the redirect behaviour may differ](https://github.com/alphagov/whitehall/blob/main/config/routes.rb#L25-L28).
