@@ -54,15 +54,10 @@ class PublishingApiRake < ActiveSupport::TestCase
             public_updated_at: Time.zone.now.iso8601,
             update_type: "major",
           }
-
-          GdsApi::PublishingApi
-            .any_instance.expects(:put_content).with(route[:content_id], params)
-
-          GdsApi::PublishingApi
-            .any_instance.expects(:publish).with(route[:content_id])
+          task.invoke
+          assert_publishing_api_put_content(route[:content_id], params)
+          assert_publishing_api_publish(route[:content_id])
         end
-
-        task.invoke
       end
     end
   end
