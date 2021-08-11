@@ -14,7 +14,7 @@ Whitehall is deployed in two modes:
 
 ### Running the Application
 
-**Use GOV.UK Docker to run any commands that follow.**
+**Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
 
 Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
 
