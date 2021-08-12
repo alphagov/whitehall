@@ -16,7 +16,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       :publication,
       :with_html_attachment,
       :published,
-      show_brexit_no_deal_content_notice: true,
     )
 
     html_attachment = HtmlAttachment.last
@@ -118,22 +117,5 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
 
     assert_equal [html_attachment.attachable.organisations.first.content_id],
                  present(html_attachment).links[:primary_publishing_organisation]
-  end
-
-  test "HtmlAttachment does not present Brexit no-deal content notice data" do
-    create(
-      :publication,
-      :with_html_attachment,
-      :published,
-      show_brexit_no_deal_content_notice: true,
-      brexit_no_deal_content_notice_links: [
-        BrexitNoDealContentNoticeLink.new(title: "Link 1", url: "https://www.example.com/1"),
-        BrexitNoDealContentNoticeLink.new(title: "Link 2", url: "https://www.example.com/2"),
-      ],
-    )
-
-    html_attachment = HtmlAttachment.last
-
-    assert_nil present(html_attachment).content[:details][:brexit_no_deal_notice]
   end
 end

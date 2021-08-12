@@ -416,10 +416,6 @@ EXISTS (
     false
   end
 
-  def allows_brexit_no_deal_content_notice?
-    false
-  end
-
   def can_be_grouped_in_collections?
     false
   end

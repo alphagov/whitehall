@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_100917) do
+ActiveRecord::Schema.define(version: 2021_08_09_141023) do
 
   create_table "about_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -78,14 +78,6 @@ ActiveRecord::Schema.define(version: 2021_06_21_100917) do
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
     t.index ["ordering"], name: "index_attachments_on_ordering"
-  end
-
-  create_table "brexit_no_deal_content_notice_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
-    t.integer "edition_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "classification_featuring_image_data", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -424,7 +416,6 @@ ActiveRecord::Schema.define(version: 2021_06_21_100917) do
     t.boolean "political", default: false
     t.string "logo_url"
     t.boolean "read_consultation_principles", default: false
-    t.boolean "show_brexit_no_deal_content_notice", default: false
     t.boolean "all_nation_applicability"
     t.string "image_display_option"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"

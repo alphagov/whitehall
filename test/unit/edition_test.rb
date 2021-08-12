@@ -3,25 +3,6 @@ require "test_helper"
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "has three no deal content notice links" do
-    edition = build(
-      :draft_publication,
-      brexit_no_deal_content_notice_links: [
-        BrexitNoDealContentNoticeLink.new(title: "Title", url: "https://www.example.com"),
-        BrexitNoDealContentNoticeLink.new(title: "Invalid link", url: ""),
-      ],
-    )
-
-    # We cannot use save! here, because Edition::Identifiable
-    # has a 'before_validation' callback that creates a document,
-    # which other callbacks then rely upon.
-    edition.save # rubocop:disable Rails/SaveBang
-
-    edition.build_no_deal_notice_links
-
-    assert_equal 3, edition.brexit_no_deal_content_notice_links_count
-  end
-
   test "returns downcased humanized class name as format name" do
     assert_equal "case study", CaseStudy.format_name
     assert_equal "publication", Publication.format_name

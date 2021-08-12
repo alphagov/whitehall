@@ -1,7 +1,6 @@
 class DetailedGuide < Edition
   include Edition::Images
   include Edition::NationalApplicability
-  include Edition::BrexitNoDealContentNoticeLinks
 
   include ::Attachable
   include Edition::AlternativeFormatProvider
