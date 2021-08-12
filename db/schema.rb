@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_141023) do
+ActiveRecord::Schema.define(version: 2021_08_12_102237) do
 
   create_table "about_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -767,7 +767,7 @@ ActiveRecord::Schema.define(version: 2021_08_09_141023) do
     t.boolean "foi_exempt", default: false, null: false
     t.string "organisation_chart_url"
     t.string "govuk_closed_status"
-    t.string "custom_jobs_url"
+    t.text "custom_jobs_url"
     t.string "content_id"
     t.string "homepage_type", default: "news"
     t.boolean "political", default: false
