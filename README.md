@@ -71,6 +71,7 @@ See the [`docs/`](docs/) directory.
 - [Search setup guide](docs/search_setup_guide.md)
 - [Timestamps](docs/timestamps.md)
 - [Troubleshooting](docs/troubleshooting.md)
+- [Adding a data migration](db/data_migration/README.md)
 
 ## Licence
 
