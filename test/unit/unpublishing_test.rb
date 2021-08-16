@@ -63,6 +63,9 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://justice.gov.uk/jelly-justice")
     assert unpublishing.valid?
 
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://ukri.org/raisin-research")
+    assert unpublishing.valid?
+
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://some.random.site.uk/jelly-justice")
     assert_not unpublishing.valid?
   end

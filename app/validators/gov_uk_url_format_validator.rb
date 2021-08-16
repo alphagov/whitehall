@@ -18,7 +18,7 @@ private
 
   def matches_allow_list?(value)
     uri = URI.parse(value)
-    uri.host&.end_with?(".judiciary.uk", "etl.beis.gov.uk", "justice.gov.uk")
+    uri.host&.end_with?(".judiciary.uk", "etl.beis.gov.uk", "justice.gov.uk", "ukri.org")
   rescue URI::InvalidURIError
     false
   end
