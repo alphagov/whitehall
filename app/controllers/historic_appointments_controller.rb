@@ -3,9 +3,9 @@ class HistoricAppointmentsController < PublicFacingController
   helper_method :previous_appointments_with_unique_people
 
   def index
-    @recent_appointments = previous_appointments.where("started_at > ?", Date.civil(1900)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
-    @nineteenth_century_appointments = previous_appointments.between(Date.civil(1800), Date.civil(1900)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
-    @eighteenth_century_appointments = previous_appointments.between(Date.civil(1700), Date.civil(1800)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
+    @recent_appointments = previous_appointments.where("started_at > ?", Date.civil(2001)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
+    @twentieth_century_appointments = previous_appointments.between(Date.civil(1901), Date.civil(2000)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
+    @eighteenth_and_nineteenth_century_appointments = previous_appointments.between(Date.civil(1701), Date.civil(1900)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
   end
 
   def past_chancellors; end
