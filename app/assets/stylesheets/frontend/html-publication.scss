@@ -1,6 +1,6 @@
 // BASE STYLESHEET COMPILER
 
-$govuk-compatibility-govuktemplate: true;
+$govuk-compatibility-govuktemplate: false;
 $govuk-use-legacy-palette: false;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
