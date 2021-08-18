@@ -17,4 +17,4 @@ end
 Whitehall::Application.load_tasks
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test:in_parallel pact:verify]
+task default: %i[lint test pact:verify]
