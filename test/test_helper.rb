@@ -18,7 +18,6 @@ require "whitehall/not_quite_as_fake_search"
 require "whitehall/search_index"
 require "sidekiq/testing"
 require "govuk-content-schema-test-helpers/test_unit"
-require "parallel_tests/test/runtime_logger"
 
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"

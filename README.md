@@ -42,13 +42,6 @@ In absence of this generated template, shared mustache inlines mustache template
 bundle exec rake
 ```
 
-Whitehall has [its own parallelisation mechanism to run unit tests in Ruby](https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/lib/tasks/test_parallel.rake):
-
-```
-# run Ruby unit tests
-bundle exec rake test:in_parallel
-```
-
 Javascript unit tests can also be run separately:
 
 ```
