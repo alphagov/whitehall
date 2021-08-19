@@ -95,6 +95,7 @@ module Whitehall
       ur
       uz
       vi
+      yi
       zh
       zh-hk
       zh-tw
