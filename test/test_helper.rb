@@ -56,7 +56,7 @@ class ActiveSupport::TestCase
   include UrlHelpers
   extend GovspeakValidationTestHelper
 
-  parallelize(workers: 4)
+  parallelize(workers: :number_of_processors)
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
