@@ -78,21 +78,3 @@
     }
   }
 }
-
-.historical-past-chancellors {
-  .featured-profiles {
-    @include media(tablet) {
-      width: $full-width;
-    }
-
-    .year-block {
-      @include media(tablet) {
-        width: $one-quarter;
-      }
-
-      .person-excerpt {
-        min-height: 0;
-      }
-    }
-  }
-}
