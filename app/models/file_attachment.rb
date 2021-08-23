@@ -68,7 +68,7 @@ private
 
   def filename_is_unique
     if attachable && attachable.attachments.any? { |a| a.file? && a != self && a.filename.downcase == filename.try(:downcase) }
-      errors[:base] << "This #{attachable_model_name} already has a file called \"#{filename}\""
+      errors.add(:base, message: "This #{attachable_model_name} already has a file called \"#{filename}\"")
     end
   end
 end

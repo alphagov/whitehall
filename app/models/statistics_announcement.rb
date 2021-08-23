@@ -225,7 +225,7 @@ private
 
   def publication_is_matching_type
     unless publication.publication_type == publication_type
-      errors[:publication] << "type does not match: must be #{type_string}"
+      errors.add(:publication, message: "type does not match: must be #{type_string}")
     end
   end
 

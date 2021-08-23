@@ -19,14 +19,14 @@ class Edition::ImagesTest < ActiveSupport::TestCase
             alt_text: "Something about this image",
             caption: "Text to be visible along with the image",
             image_data_attributes: {
-              file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+              file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
             },
           },
           {
             alt_text: "alt-text-2",
             caption: "caption-2",
             image_data_attributes: {
-              file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+              file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
             },
           },
         ],
@@ -90,7 +90,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
           alt_text: "image smaller than 960x640",
           caption: "some-caption",
           image_data_attributes: {
-            file: fixture_file_upload("horrible-image.64x96.jpg", "image/jpg"),
+            file: upload_fixture("horrible-image.64x96.jpg", "image/jpg"),
           },
         }],
       ),
@@ -114,7 +114,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
           alt_text: "alt-text",
           caption: "original-caption",
           image_data_attributes: {
-            file: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+            file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
           },
         }],
       ),

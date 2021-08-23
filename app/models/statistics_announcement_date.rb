@@ -29,7 +29,7 @@ private
 
   def confirmed_date_must_be_exact
     if confirmed? && precision != PRECISION[:exact]
-      errors[:precision] << "Must be exact if date is confirmed"
+      errors.add(:precision, message: "Must be exact if date is confirmed")
     end
   end
 end

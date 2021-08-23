@@ -29,7 +29,7 @@ node {
           echo "Running a subset of the tests to check the content schema changes"
           govuk.runRakeTask("test:publishing_schemas --trace")
         } else {
-          govuk.runRakeTask("ci:setup:minitest test:in_parallel --trace")
+          govuk.runRakeTask("ci:setup:minitest test --trace")
         }
       }
     }

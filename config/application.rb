@@ -1,9 +1,9 @@
 require_relative "boot"
 
 require "rails"
-
 # Pick the frameworks you want:
 require "active_model/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
@@ -17,22 +17,24 @@ Bundler.require(*Rails.groups)
 
 module Whitehall
   class Application < Rails::Application
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration should go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded.
+
     require "whitehall"
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
     config.autoloader = :classic
 
     # Turn off `belongs_to` associations by default. This is turned on by default in Rails 5.0.
     config.active_record.belongs_to_required_by_default = false
+    # Support for inversing belongs_to -> has_many Active Record associations.
+    config.active_record.has_many_inversing = false
 
     config.action_controller.per_form_csrf_tokens = false
 
     # Enable origin-checking CSRF mitigation.
     config.action_controller.forgery_protection_origin_check = false
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.eager_load_paths += %W[

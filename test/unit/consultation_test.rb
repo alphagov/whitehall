@@ -240,7 +240,7 @@ class ConsultationTest < ActiveSupport::TestCase
       consultation: consultation,
       summary: "",
       attachments: [
-        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
+        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
       ],
     )
 
@@ -256,7 +256,7 @@ class ConsultationTest < ActiveSupport::TestCase
       :consultation_public_feedback,
       consultation: consultation,
       attachments: [
-        attachment = build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
+        attachment = build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
       ],
     )
 
@@ -280,7 +280,7 @@ class ConsultationTest < ActiveSupport::TestCase
       consultation: consultation,
       summary: "",
       attachments: [
-        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: fixture_file_upload("greenpaper.pdf") }),
+        build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
       ],
     )
 

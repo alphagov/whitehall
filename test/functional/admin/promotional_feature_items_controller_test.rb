@@ -28,7 +28,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
            promotional_feature_item: {
              summary: "Summary text",
              image_alt_text: "Alt text",
-             image: fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"),
+             image: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
            },
          }
 

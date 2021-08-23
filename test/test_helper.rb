@@ -18,7 +18,6 @@ require "whitehall/not_quite_as_fake_search"
 require "whitehall/search_index"
 require "sidekiq/testing"
 require "govuk-content-schema-test-helpers/test_unit"
-require "parallel_tests/test/runtime_logger"
 
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"
@@ -56,6 +55,8 @@ class ActiveSupport::TestCase
   include GovukContentSchemaTestHelpers::TestUnit
   include UrlHelpers
   extend GovspeakValidationTestHelper
+
+  parallelize(workers: :number_of_processors)
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
@@ -174,6 +175,10 @@ class ActiveSupport::TestCase
 
   def file_fixture(filename)
     File.new(Rails.root.join("test/fixtures", filename))
+  end
+
+  def upload_fixture(filename, mime_type = nil)
+    Rack::Test::UploadedFile.new(Rails.root.join("test/fixtures", filename), mime_type)
   end
 
   def assert_file_content_identical(file1, file2)

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "6.0.3.7"
+gem "rails", "6.1.4"
 
 gem "activemodel-serializers-xml"
 gem "addressable"
@@ -37,7 +37,6 @@ gem "mini_magick"
 gem "mlanett-redis-lock"
 gem "mysql2"
 gem "nokogiri"
-gem "parallel"
 gem "pdf-reader"
 gem "plek"
 gem "ptools"
@@ -64,12 +63,10 @@ gem "whenever", require: false
 group :development, :test do
   gem "pact", require: false
   gem "pact_broker-client"
-  gem "parallel_tests"
   gem "pry-byebug"
   gem "pry-rails"
   gem "rubocop-govuk", require: false
   gem "teaspoon-qunit"
-  gem "test-queue"
   # teaspoon has coffee assets that mean we need coffee script in order
   # to be able to run things
   gem "coffee-rails"

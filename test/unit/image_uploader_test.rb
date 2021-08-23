@@ -30,7 +30,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     end
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
+      @uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     end
   end
 
@@ -52,7 +52,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s216_minister-of-funk.960x640.jpg/))
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(fixture_file_upload("minister-of-funk.960x640.jpg", "image/jpg"))
+      @uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
     end
   end
 
@@ -63,7 +63,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/test-svg.svg/))
 
     Sidekiq::Testing.inline! do
-      @uploader.store!(fixture_file_upload("images/test-svg.svg", "image/svg+xml"))
+      @uploader.store!(upload_fixture("images/test-svg.svg", "image/svg+xml"))
     end
   end
 
