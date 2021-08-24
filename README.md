@@ -1,13 +1,20 @@
-# whitehall
-
-### Running the Application
-
-**Use GOV.UK Docker to run any commands that follow.**
+# Whitehall
 
 Whitehall is deployed in two modes:
 
 - 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
-- 'frontend' for rendering content (eg: <http://www.gov.uk/government/get-involved>, <https://www.gov.uk/world>)
+- 'frontend' for rendering some legacy content (see live examples that follow)
+
+## Live examples (frontend)
+
+- Get involved page: [https://www.gov.uk/government/get-involved](https://www.gov.uk/government/get-involved)
+- Field of Operation: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
+- World Embassies: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
+- Topical Events: [https://www.gov.uk/government/topical-events/cop26](https://www.gov.uk/government/topical-events/cop26)
+
+### Running the Application
+
+**Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
 
 Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:
 
