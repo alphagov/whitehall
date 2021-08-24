@@ -11,11 +11,8 @@ class PastForeignSecretariesControllerTest < ActionController::TestCase
     get :index
 
     assert_select "h1", text: "Past Foreign Secretaries"
-
-    assert_select "div.featured-profiles" do
-      assert_select "h2.profiles", text: "Selection of profiles"
-      assert_select "li.person", 10
-    end
+    assert_select ".gem-c-heading.govuk-heading-l.gem-c-heading--padding.gem-c-heading--border-top-2", text: "Selection of profiles"
+    assert_select "div.gem-c-image-card", 10
   end
 
   test "GET :show renders 'not found' for invalid foreign secretary name" do
