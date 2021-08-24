@@ -20,7 +20,7 @@ When(/^I view the past prime ministers page$/) do
 end
 
 Then(/^I should see the previous prime ministers listed according the century in which they served$/) do
-  within "#modern-appointments" do
+  within ".historic-appointments-index" do
     @modern_previous_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
         expect(page).to have_link(appointment.person.name)
