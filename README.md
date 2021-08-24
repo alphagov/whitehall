@@ -3,9 +3,9 @@
 Whitehall is deployed in two modes:
 
 - 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
-- 'frontend' for rendering content (eg: <https://www.gov.uk/government/get-involved>, <https://www.gov.uk/world>)
+- 'frontend' for rendering some legacy content (see live examples that follow)
 
-## Live examples
+## Live examples (frontend)
 
 - Get involved page: [https://www.gov.uk/government/get-involved](https://www.gov.uk/government/get-involved)
 - Field of Operation: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
