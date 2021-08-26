@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="documents-grid <%= topic_grid_size_class(@publications, @consultations, @announcements) %>">
+  <div class="documents-grid <%= topic_grid_size_class(@publications, @consultations, @announcements, @travel_advice) %>">
     <div class="inner-block">
       <%= render(partial: 'shared/document_list_from_rummager', locals: { documents: @publications['results'], type: :publications, documents_count: @publications['total'] }) if @publications['results'].any? %>
       <%= render(partial: 'shared/document_list_from_rummager', locals: { documents: @consultations['results'], type: :consultations, documents_count: @consultations['total'] }) if @consultations['results'].any? %>
@@ -89,6 +89,21 @@
                   <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide), class: "govuk-link" %></h2>
                 <% end %>
               <% end %>
+            </ol>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @travel_advice.any? %>
+        <section id="travel-advice" class="document-block documents-<%= document_block_counter %>">
+          <h1 class="label">Travel Advice</h1>
+          <div class="content">
+            <ol class="document-list">
+              <% @travel_advice.each do |travel_advice| %>
+                <%= content_tag :li, class: 'document-row' do %>
+                  <h2><%= link_to travel_advice["title"], travel_advice["base_path"], class: "govuk-link" %></h2>
+                  <% end %>
+                <% end %>
             </ol>
           </div>
         </section>

@@ -15,6 +15,8 @@ class TopicalEventsController < ClassificationsController
     @publications =  find_documents(filter_format: "publication", count: 3)
     @consultations = find_documents(filter_format: "consultation", count: 3)
     @announcements = find_documents(filter_content_store_document_type: announcement_document_types, count: 3)
+    @travel_advice = []
+    afghanistan_travel_advice if @topical_event.slug == "afghanistan-uk-government-response"
     @detailed_guides = @topical_event.published_detailed_guides.includes(:translations, :document).limit(5)
     @featurings = decorate_collection(@topical_event.classification_featurings.includes(:image, edition: :document).limit(5), ClassificationFeaturingPresenter)
 
@@ -34,6 +36,11 @@ class TopicalEventsController < ClassificationsController
   end
 
 private
+
+  def afghanistan_travel_advice
+    afghanistan_travel_advice ||= Whitehall.content_store.content_item("/foreign-travel-advice/afghanistan").to_h
+    @travel_advice << afghanistan_travel_advice
+  end
 
   def find_documents(filter_params)
     filter_params[:filter_topical_events] = @topical_event.slug
