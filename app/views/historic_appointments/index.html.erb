@@ -42,7 +42,7 @@
 </div>
 
 <% @recent_appointments.in_groups_of(4, false) do |people| %>
-  <div class="govuk-grid-row govuk-!-margin-bottom-4" role="list">
+  <div class="govuk-grid-row historic-people-index__section-row-header" role="list">
     <%= render partial: 'role_appointment', collection: people, 
       locals: { 
         role: @role,  
@@ -65,7 +65,7 @@
 
 <div role="list">
   <% @twentieth_century_appointments.in_groups_of(4, false) do |people| %>
-    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row historic-people-index__section-row-header">
       <%= render partial: 'role_appointment', collection: people, 
         locals: { 
           role: @role,  
@@ -90,7 +90,7 @@
 
 <div role="list">
   <% @eighteenth_and_nineteenth_century_appointments.in_groups_of(4, false) do |people| %>
-  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+  <div class="govuk-grid-row historic-people-index__section-row-header">
     <%= render partial: 'role_appointment', collection: people, 
       locals: { 
         role: @role,  

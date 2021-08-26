@@ -1,6 +1,7 @@
-.historic-people-index {
-  .clear-person {
-    clear: both;
+.historic-people-index__section-row-header {
+  @include govuk-media-query($from: "tablet") {
+    margin-top: govuk-spacing(2);
+    margin-bottom: govuk-spacing(4);
   }
 }
 
