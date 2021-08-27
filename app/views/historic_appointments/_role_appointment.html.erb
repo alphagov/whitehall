@@ -6,7 +6,7 @@
     heading_text: role_appointment.person.name,
     extra_links: [
       {
-        text: "#{role_appointment.historical_account.try(:political_membership)} #{role_appointment.date_range}"
+        text: "#{role_appointment.historical_account.try(:political_membership)} #{previous_dates_in_office(role, role_appointment.person)}",
       }
     ],
     extra_links_no_indent: true
