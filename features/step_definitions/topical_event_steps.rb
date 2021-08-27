@@ -190,7 +190,7 @@ And(/^a travel advice called "([^"]*)" with base path "(.*?)"$/) do |title, base
   stub_content_store_has_item(base_path, content_item)
 end
 
-Then(/^I should see a "([^"]*)" section$/) do |arg|
+Then(/^I should see a "([^"]*)" section$/) do
   @topical_event = TopicalEvent.find_by!(name: "Afghanistan UK Government Response")
   visit topical_event_path(@topical_event)
   expect(page).to have_content("Travel Advice")
