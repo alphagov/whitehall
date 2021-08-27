@@ -84,7 +84,7 @@ private
     RummagerDocumentPresenter.new(
       afghan_feed.stringify_keys.merge(
         "display_type" => "Atom feed",
-        "description" => "This RSS feed is for the Afghanistan Topical Event",
+        "description" => "Latest travel advice for Afghanistan",
       ),
     )
   end
