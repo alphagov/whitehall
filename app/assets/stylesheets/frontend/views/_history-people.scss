@@ -1,62 +1,7 @@
-.historic-people-index {
-  .clear-person {
-    clear: both;
-  }
-
-  .featured-profiles {
-    margin-bottom: $gutter;
-
-    .profiles {
-      @include heading-36;
-      border-bottom: $gutter-one-sixth solid govuk-colour("black");
-      margin: 0 $gutter-half $gutter-half;
-    }
-
-    .name {
-      @include core-19;
-      font-weight: bold;
-    }
-
-    .term {
-      color: $govuk-secondary-text-colour;
-      display: block;
-    }
-
-    .person-excerpt {
-      .inner {
-        .image-holder {
-          @include govuk-media-query($until: tablet) {
-            margin-right: govuk-spacing(2);
-          }
-
-          img {
-            max-width: $full-width;
-          }
-        }
-      }
-    }
-
-    @include media(tablet) {
-      margin-bottom: $gutter * 2;
-    }
-  }
-
-  .foreign-secretaries {
-    .heading {
-      h3 {
-        @include heading-36;
-        font-weight: bold;
-        padding: 0 $gutter-half;
-
-        span {
-          @include core-19;
-          display: block;
-        }
-        @include media(tablet) {
-          padding-top: 0;
-        }
-      }
-    }
+.historic-people-index__section-row-header {
+  @include govuk-media-query($from: "tablet") {
+    margin-top: govuk-spacing(2);
+    margin-bottom: govuk-spacing(4);
   }
 }
 

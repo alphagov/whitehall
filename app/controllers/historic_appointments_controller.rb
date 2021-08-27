@@ -3,9 +3,9 @@ class HistoricAppointmentsController < PublicFacingController
   helper_method :previous_appointments_with_unique_people
 
   def index
-    @recent_appointments = previous_appointments.where("started_at > ?", Date.civil(2001)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
-    @twentieth_century_appointments = previous_appointments.between(Date.civil(1901), Date.civil(2000)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
-    @eighteenth_and_nineteenth_century_appointments = previous_appointments.between(Date.civil(1701), Date.civil(1900)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
+    @recent_appointments = individual_role_appointees(all_recent_appointments)
+    @twentieth_century_appointments = individual_role_appointees(all_twentieth_century_appointments)
+    @eighteenth_and_nineteenth_century_appointments = individual_role_appointees(all_historical_appointments)
   end
 
   def past_chancellors
@@ -342,6 +342,22 @@ class HistoricAppointmentsController < PublicFacingController
 
 private
 
+  def all_recent_appointments
+    present_roles(previous_appointments.where("started_at > ?", Date.civil(2001)))
+  end
+
+  def all_twentieth_century_appointments
+    present_roles(previous_appointments.between(Date.civil(1901), Date.civil(2000)))
+  end
+
+  def all_historical_appointments
+    present_roles(previous_appointments.between(Date.civil(1701), Date.civil(1900)))
+  end
+
+  def present_roles(roles)
+    roles.map { |r| RoleAppointmentPresenter.new(r, view_context) }
+  end
+
   def load_role
     @role = Role.friendly.find(role_id)
   end
@@ -356,5 +372,9 @@ private
 
   def previous_appointments_with_unique_people
     previous_appointments.distinct(&:person)
+  end
+
+  def individual_role_appointees(appointments)
+    appointments.uniq { |appointment| appointment.person.id }
   end
 end
