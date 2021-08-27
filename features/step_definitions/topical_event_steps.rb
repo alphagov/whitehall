@@ -179,6 +179,23 @@ Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
   expect { click_button "Delete" }.to change(TopicalEvent, :count).by(-1)
 end
 
+And(/^a travel advice called "([^"]*)" with base path "(.*?)"$/) do |title, base_path|
+  @travel_advice = build(:travel_advice, title: title, base_path: base_path)
+
+  content_item = {
+    format: "travel_advice",
+    title: title,
+  }
+
+  stub_content_store_has_item(base_path, content_item)
+end
+
+Then(/^I should see a "([^"]*)" section$/) do |arg|
+  @topical_event = TopicalEvent.find_by!(name: "Afghanistan UK Government Response")
+  visit topical_event_path(@topical_event)
+  expect(page).to have_content("Travel Advice")
+end
+
 def rummager_response_of_single_edition(edition)
   {
     "results" => [{

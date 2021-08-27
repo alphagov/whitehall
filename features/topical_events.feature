@@ -65,3 +65,8 @@ Scenario: Adding more information about the event
 Scenario: Deleting a topical event
   Given a topical event called "An event" with description "A topical event"
   Then I should be able to delete the topical event "An event"
+
+Scenario: Afghanistan topical event
+  When a topical event called "Afghanistan UK Government Response" with description "Support and resources for British and non-British nationals who have been affected by the situation in Afghanistan from August 2021."
+  And a travel advice called "Afghanistan Travel Advice" with base path "/foreign-travel-advice/afghanistan"
+  Then I should see a "Travel advice" section
