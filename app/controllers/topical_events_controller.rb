@@ -54,10 +54,7 @@ private
   def atom_documents
     return [closed_feed_document] if closed_feed
 
-    docs = find_documents(count: 10)["results"]
-    docs << afghanistan_travel_feed if @travel_advice.any?
-
-    docs
+    find_documents(count: 10)["results"]
   end
 
   def closed_feed
@@ -69,22 +66,6 @@ private
       closed_feed.stringify_keys.merge(
         "display_type" => "Replacement feed",
         "description" => "This #{closed_feed[:title]} RSS feed is being replaced with a new feed from Search - GOV.UK",
-      ),
-    )
-  end
-
-  def afghanistan_travel_feed
-    advice = @travel_advice.first
-    afghan_feed = {
-      public_timestamp: Time.zone.iso8601(advice["public_updated_at"]),
-      title: advice["title"],
-      link: "https://www.gov.uk/#{advice['base_path']}",
-    }
-
-    RummagerDocumentPresenter.new(
-      afghan_feed.stringify_keys.merge(
-        "display_type" => "Atom feed",
-        "description" => "This RSS feed is for the Afghanistan Topical Event",
       ),
     )
   end
