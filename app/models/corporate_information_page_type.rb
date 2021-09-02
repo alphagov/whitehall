@@ -107,7 +107,7 @@ private
     if organisation.respond_to?(:acronym) && organisation.acronym.present?
       organisation.acronym
     else
-      organisation.name
+      organisation.try(:name).to_s
     end
   end
 end
