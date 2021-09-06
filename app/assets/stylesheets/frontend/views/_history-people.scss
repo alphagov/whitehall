@@ -1,95 +1,20 @@
 .historic-people-index__section-row-header {
-  @include govuk-media-query($from: "tablet") {
+  @include govuk-media-query($from: tablet) {
     margin-top: govuk-spacing(2);
     margin-bottom: govuk-spacing(4);
   }
 }
 
-.historic-people-show {
-  .person-info {
-    @include media(tablet) {
-      float: left;
-      width: $one-quarter;
+.historic-people-index__section-row {
+  .govuk-body {
+    color: $govuk-secondary-text-colour;
+
+    // Targets all of the years / periods of service but the last one.
+    &:nth-last-child(n+2) {
+      margin-bottom: 0;
     }
 
-    .name-title,
-    .person-detail,
-    .person-profile {
-      .inner {
-        padding: 0 $gutter-half;
-      }
-    }
-
-    .person-profile {
-      @include core-14;
-      width: 218px;
-
-      img {
-        max-width: $full-width;
-      }
-
-      .info {
-        background-color: $grey-3;
-        padding-bottom: $gutter-half;
-        margin-bottom: $gutter;
-
-        h3,
-        p {
-          padding: 0 $gutter-half;
-        }
-
-        h3 {
-          font-weight: bold;
-          margin-top: $gutter-half;
-        }
-      }
-    }
-
-    .name-title {
-      h2 {
-        @include heading-27;
-        font-weight: bold;
-        margin-bottom: $gutter;
-
-        span {
-          @include core-19;
-          display: block;
-          color: $grey-1;
-          margin-top: $gutter-one-sixth;
-        }
-      }
-    }
-
-    @include media(tablet) {
-      position: relative;
-      width: 75%;
-
-      .person-profile {
-        float: left;
-        width: $one-third;
-
-        img {
-          width: $full-width;
-        }
-
-        .inner {
-          padding: 0 $gutter-half;
-        }
-      }
-
-      .name-title,
-      .person-detail {
-        float: right;
-        width: $two-thirds;
-
-        .inner {
-          padding: 0 $gutter 0 $gutter-half;
-        }
-      }
-    }
+    // Targets the last set of years in the list
+    @include govuk-responsive-margin(7, "bottom");
   }
-}
-
-.past-foreign-secretaries-menu li {
-  border-bottom: 1px solid $govuk-border-colour;
 }
