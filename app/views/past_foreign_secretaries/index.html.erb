@@ -12,736 +12,103 @@
     }
   ]
 } %>
-<header class="govuk-grid-row">
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= render "govuk_publishing_components/components/title", {
       context:"History",
       title: "Past Foreign Secretaries",
     } %>
   </div>
-</header>
+</div>
 
-<div class="govuk-grid-row featured-profiles">
-  <div class="govuk-grid-column-full govuk-!-padding-0">
-    <h2 class="profiles">Selection of profiles</h2>
-    <ol>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/edward-wood",
-            image_src: image_path("history/past-foreign-secretaries/viscount-halifax.jpg"),
-            image_alt: "Edward Frederick Lindley Wood, Viscount Halifax",
-            heading_text: "Edward Frederick Lindley Wood, Viscount Halifax",
-            description: "1938 to 1940",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/austen-chamberlain",
-            image_src: image_path("history/past-foreign-secretaries/austen-chamberlain.jpg"),
-            image_alt: "Sir Austen Chamberlain",
-            heading_text: "Sir Austen Chamberlain",
-            description: "1924 to 1929",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/george-curzon",
-            image_src: image_path("history/past-foreign-secretaries/george-nathaniel-curzon.jpg"),
-            image_alt: "George Nathaniel Curzon, Marquess of Kedleston",
-            heading_text: "George Nathaniel Curzon, Marquess of Kedleston",
-            description: "1919 to 1924",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/edward-grey",
-            image_src: image_path("history/past-foreign-secretaries/sir-edward-grey.jpg"),
-            image_alt: "Sir Edward Grey, Viscount Grey of Fallodon",
-            heading_text: "Sir Edward Grey, Viscount Grey of Fallodon",
-            description: "1905 to 1916",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt clear-person">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/henry-petty-fitzmaurice",
-            image_src: image_path("history/past-foreign-secretaries/lord-landsowne.jpg"),
-            image_alt: "Henry Petty-Fitzmaurice, Marquess of Lansdowne",
-            heading_text: "Henry Petty-Fitzmaurice, Marquess of Lansdowne",
-            description: "1900 to 1905",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/robert-cecil",
-            image_src: image_path("history/past-foreign-secretaries/marquess-of-salisbury.jpg"),
-            image_alt: "Robert Cecil, Marquess of Salisbury",
-            heading_text: "Robert Cecil, Marquess of Salisbury",
-            description: "1878 to 1880, 1885 to 1886, 1887 to 1892 and 1895 to 1900",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/george-gower",
-            image_src: image_path("history/past-foreign-secretaries/earl-granville.jpg"),
-            image_alt: "George Leveson Gower, Earl Granville",
-            heading_text: "George Leveson Gower, Earl Granville",
-            description: "1851 to 1852, 1870 to 1874 and 1880 to 1885",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/george-gordon",
-            image_src: image_path("history/past-foreign-secretaries/lord-aberdeen.jpg"),
-            image_alt: "George Hamilton Gordon, Earl of Aberdeen",
-            heading_text: "George Hamilton Gordon, Earl of Aberdeen",
-            description: "1828 to 1830 and 1841 to 1846",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt clear-person">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/charles-fox",
-            image_src: image_path("history/past-foreign-secretaries/charles-james-fox.jpg"),
-            image_alt: "Charles James Fox",
-            heading_text: "Charles James Fox",
-            description: "1782, 1783 and 1806",
-          } %>
-        </div>
-      </li>
-      <li class="person person-excerpt">
-        <div class="inner">
-          <%= render "govuk_publishing_components/components/image_card", {
-            href: "/government/history/past-foreign-secretaries/william-grenville",
-            image_src: image_path("history/past-foreign-secretaries/lord-grenville.jpg"),
-            image_alt: "William Wyndham Grenville, Lord Grenville",
-            heading_text: "William Wyndham Grenville, Lord Grenville",
-            description: "1791 to 1801",
-          } %>
-        </div>
-      </li>
-    </ol>
+<%# Selection of profiles section %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Selection of profiles",
+      padding: true,
+      border_top: 2,
+      font_size: "l",
+    } %>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   </div>
 </div>
 
-<h3 class="govuk-heading-l govuk-!-margin-bottom-1">Foreign Secretaries</h3>
-<p class="govuk-body-s">1782 to present</p>
+<%= render partial: "past_foreign_secretaries_image", 
+  locals: { 
+    past_foreign_secretaries_image: @selection_of_profiles 
+} %>
 
-<ol class="govuk-list govuk-grid-row featured-profiles">
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a href="/government/people/dominic-raab/" class="govuk-link">Dominic Raab</a>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2019 to present</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Jeremy Hunt
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2018 to 2019</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Boris Johnson
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2016 to 2018</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Philip Hammond
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2014 to 2016</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      William Hague
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2010 to 2014</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      David Miliband
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2007 to 2010</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Margaret Beckett
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2006 to 2007</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Jack Straw
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">2001 to 2006</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Robin Cook
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1997 to 2001</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Malcolm Rifkind
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1995 to 1997</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Douglas Hurd, Lord Hurd of Westwell
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1989 to 1995</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir John Major
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1989</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Geoffrey Howe, Lord Howe of Aberavon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1983 to 1989</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Francis Pym, Lord Pym of Sandy
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1982 to 1983</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Lord Peter Carrington, Baron Carrington
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1979 to 1982</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Dr David Owen, Lord Owen of the City of Plymouth
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1977 to 1979</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Anthony Crosland
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1976 to 1977</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      James Callaghan, Lord Callaghan of Cardiff
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1974 to 1976</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Alec Douglas-Home, Lord Home of the Hirsel
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1970 to 1974</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Michael Stewart, Lord Stewart of Fulham
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1968 to 1970</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Brown, Lord George-Brown of Jevington
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1966 to 1968</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Michael Stewart, Lord Stewart of Fulham
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1965 to 1966</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Patrick Gordon-Walker, Lord Gordon-Walker of Leyton
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1964 to 1965</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Richard Austen Butler, Lord Butler of Saffron Walden
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1963 to 1964</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Alec Douglas-Home, Lord Home of the Hirsel
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1960 to 1963</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      John Selwyn Brooke Lloyd, Lord Selwyn-Lloyd
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1955 to 1960</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Harold Macmillan, Earl of Stockton
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1955</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Anthony Eden, Earl of Avon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1951 to 1955</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Herbert Morrison, Lord Morrison of Lambeth
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1951</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Ernest Bevin
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1945 to 1951</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Anthony Eden, Earl of Avon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1940 to 1945</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/edward-wood">Edward Frederick Lindley Wood, Viscount Halifax</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1938 to 1940</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Anthony Eden, Earl of Avon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1935 to 1938</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir Samuel Hoare, Viscount Templewood
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1935</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Sir John Simon, Viscount Simon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1931 to 1935</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Rufus Isaacs, Marquess of Reading
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1931</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Arthur Henderson
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1929 to 1931</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/austen-chamberlain">Sir Austen Chamberlain</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1924 to 1929</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      James Ramsay MacDonald
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1924</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="past-foreign-secretaries/george-curzon">George Nathaniel Curzon, Marquess of Kedleston</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1919 to 1924</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Arthur James Balfour, Earl of Balfour
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1916 to 1919</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/edward-grey">Sir Edward Grey, Viscount Grey of Fallodon</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1905 to 1916</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/henry-petty-fitzmaurice">Henry Petty-Fitzmaurice, Marquess of Lansdowne</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1900 to 1905</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/robert-cecil">Robert Cecil, Marquess of Salisbury</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1895 to 1900</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      John Wodehouse, Earl of Kimberley
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1894 to 1895</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Archibald Primrose, Earl of Rosebery
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1892 to 1894</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/robert-cecil">Robert Cecil, Marquess of Salisbury</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1897 to 1892</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Stafford Northcote, Earl of Iddesleigh
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1886 to 1887</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Archibald Primrose, Earl of Rosebery
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1886</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/robert-cecil">Robert Cecil, Marquess of Salisbury</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1885 to 1886</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/george-gower">George Leveson Gower, Earl Granville</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1880 to 1885</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/robert-cecil">Robert Cecil, Marquess of Salisbury</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1878 to 1880</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Lord Edward Stanley, Earl of Derby
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1874 to 1878</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/george-gower">George Leveson Gower, Earl Granville</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1870 to 1874</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Villiers, Earl of Clarendon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1868 to 1870</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Lord Edward Stanley, Earl of Derby
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1866 to 1868</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Villiers, Earl of Clarendon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1865 to 1866</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Lord John Russell, Earl Russell
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1859 to 1865</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      James Harris, Earl of Malmesbury
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1858 to 1859</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Villiers, Earl of Clarendon
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1853 to 1858</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Lord John Russell, Earl Russell
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1852 to 1853</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      James Harris, Earl of Malmesbury
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1852</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/george-gower">George Leveson Gower, Earl Granville</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1851 to 1852</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Henry John Temple, Viscount Palmerston
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1846 to 1851</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/george-gordon">George Hamilton Gordon, Earl of Aberdeen</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1841 to 1846</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Henry John Temple, Viscount Palmerston
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1835 to 1841</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Arthur Wellesley, Duke of Wellington
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1834 to 1835</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Henry John Temple, Viscount Palmerston
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1830 to 1834</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/george-gordon">George Hamilton Gordon, Earl of Aberdeen</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1828 to 1830</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      John William Ward, Viscount Dudley and Ward
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1827 to 1828</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Canning
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1822 to 1827</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Robert Stewart, Viscount Castlereagh
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1812 to 1822</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Richard Wellesley, Marquess Wellesley
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1809 to 1812</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Henry Bathurst, Earl Bathurst
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1809</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Canning
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1807 to 1809</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Charles Grey, Lord Howick
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1806 to 1807</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/charles-fox">Charles James Fox</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1806</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Henry Phipps, Lord Mulgrave
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1805 to 1806</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Dudley Ryder, Lord Harrowby
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1804</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Robert Banks Jenkinson, Lord Hawkesbury
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1801 to 1804</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/william-grenville">William Wyndham Grenville, Lord Grenville</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1791 to 1801</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Francis Godolphin Osborne, Marquess of Carmarthen
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1783 to 1791</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      George Nugent Temple Grenville, Earl Temple
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1783</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/charles-fox">Charles James Fox</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1783</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter clear-person">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      Thomas Robinson, Lord Grantham
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1782 to 1783</span>
-    </p>
-  </li>
-  <li class="govuk-grid-column-one-quarter">
-    <p class="govuk-heading-s govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/government/history/past-foreign-secretaries/charles-fox">Charles James Fox</a>
-      <span class="govuk-visually-hidden"> &ndash; </span>
-      <span class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0 term">1782</span>
-    </p>
-  </li>
-</ol>
+<%# 21st century section %>
+<div class="govuk-grid-row historic-people-index__section-row-header">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "21st century",
+      padding: true,
+      border_top: 2,
+      font_size: "l"
+    } %>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  </div>
+</div>
+
+<%= render partial: "past_foreign_secretaries_person", 
+  locals: { 
+    past_foreign_secretary_person: @twenty_first_century 
+} %> 
+
+<%# 20th century section %>
+<div class="govuk-grid-row historic-people-index__section-row-header">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "20th century",
+      padding: true,
+      border_top: 2,
+      font_size: "l"
+    } %>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  </div>
+</div>
+
+<%= render partial: "past_foreign_secretaries_person", 
+  locals: { 
+    past_foreign_secretary_person: @twentieth_century 
+} %> 
+
+<%# 19th century section %>
+<div class="govuk-grid-row historic-people-index__section-row-header">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "19th century",
+      padding: true,
+      border_top: 2,
+      font_size: "l"
+    } %>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  </div>
+</div>
+<%= render partial: "past_foreign_secretaries_person", 
+  locals: { 
+    past_foreign_secretary_person: @nineteenth_century 
+} %> 
+
+<%# 18th century section %>
+<div class="historic-people-index__section-row" role="list">
+  <div class="govuk-grid-row historic-people-index__section-row">
+    <div class="govuk-grid-column-full">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "18th century",
+        padding: true,
+        border_top: 2,
+        font_size: "l"
+      } %>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </div>
+  </div>
+</div>
+
+<%= render partial: "past_foreign_secretaries_person", 
+  locals: { 
+    past_foreign_secretary_person: @eightteenth_century 
+} %> 
+

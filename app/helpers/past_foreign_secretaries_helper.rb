@@ -21,4 +21,14 @@ module PastForeignSecretariesHelper
       .join("")
       .html_safe
   end
+
+  def service_date(service)
+    if service.is_a?(Array)
+      service.map { |date| { text: date } }
+    else
+      [{
+        text: service,
+      }]
+    end
+  end
 end
