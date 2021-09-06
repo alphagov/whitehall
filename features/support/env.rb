@@ -11,6 +11,9 @@ SimpleCov.merge_timeout 3600
 
 require "cucumber/rails"
 
+World DocumentHelper
+World PersonHelper
+
 # frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.
