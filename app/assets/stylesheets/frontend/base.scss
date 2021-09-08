@@ -146,9 +146,6 @@ $govuk-new-link-styles: true;
   @import "views/statistics-announcements/index";
 }
 
-// When building or updating anything, please put it outside #whitehall-wrapper so that we reduce reliance on the id
-@import "views/person-profile";
-
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 

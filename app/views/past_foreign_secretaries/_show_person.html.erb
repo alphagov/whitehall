@@ -13,12 +13,14 @@
       ]
     } %>
   </div>
+</div>
+
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
       context: "Past Foreign Secretaries",
       title: current_person,
     } %>
-
     <%= render "govuk_publishing_components/components/lead_paragraph", {
       text: time_active,
     } %>
@@ -26,16 +28,19 @@
       text: lead_paragraph,
     } %>
   </div>
+</div>
 
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <div class="person-profile">
-      <div class="person-profile__image">
-        <%= image_tag image, alt: "", loading: "lazy" %>
-      </div>
-      <div class="person-profile__text">
-        <%= image_alt %>
+    <div class="/Users/chrisyoong/govuk/whitehall/app/views/past_foreign_secretaries/_show_person.html.erb">
+    <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible govuk-!-margin-bottom-4">  
+    
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <%= image_tag image, class: "govuk-!-margin-bottom-4 govuk-!-width-full", alt: "", loading: "lazy"%>
       </div>
     </div>
+
     <%= render "govuk_publishing_components/components/heading", {
       text: "Lived",
       font_size: "m",
@@ -81,14 +86,13 @@
       items: further_reading,
     } %>
   </div>
+</div>
 
   <div class="govuk-grid-column-one-third">
     <%= render "govuk_publishing_components/components/related_navigation", {
       content_item: past_foreign_secretary_nav
     } %>
-    
     <p class="govuk-body">
       <a class="govuk-link" href="/government/history/past-foreign-secretaries">View all past foreign secretaries</a>
     </p>
   </div>
-</div>

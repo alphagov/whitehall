@@ -16,7 +16,9 @@
       ]
     } %>
   </div>
+</div>
 
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
       context: "Past #{@role.name.pluralize}",
@@ -30,14 +32,14 @@
       text: @historical_account.summary,
     } %>
   </div>
+</div>
 
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <div class="person-profile">
-      <div class="person-profile__image">
-        <%= image_tag @person.image_url, alt: "", loading: "lazy" %>
-      </div>
-      <div class="person-profile__text">
-        Picture of <%= @person.name %>
+    <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+      <%= image_tag @person.image_url, class: "govuk-!-margin-bottom-4 govuk-!-width-full", alt: "", loading: "lazy"%>
       </div>
     </div>
 
