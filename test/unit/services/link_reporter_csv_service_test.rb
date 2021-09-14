@@ -1,13 +1,26 @@
 require "test_helper"
 
 class LinkReporterCsvServiceTest < ActiveSupport::TestCase
+  # Tests are run in parallel. Any shared resources (like files) which the
+  # tests use need to be managed carefully. For example the setup method
+  # creates a directory, and the teardown method removes it - it's important
+  # that this directory is different in each worker, otherwise the first one to
+  # finish will remove the directory the others are still using.
+  parallelize_setup do |worker|
+    # The parallelize_setup block runs in the context of the class, not the
+    # instance. So we have to use a class variable rather than an instance
+    # variable to store the worker number.
+
+    @@worker_number = worker # rubocop:disable Style/ClassVars
+  end
+
   setup do
-    Dir.mkdir(reports_dir) unless File.directory?(reports_dir)
+    FileUtils.mkdir_p(reports_dir) unless File.directory?(reports_dir)
   end
 
   teardown do
     if File.directory?(reports_dir)
-      FileUtils.rm Dir.glob(reports_dir_pathname.join("*_links_report.csv"))
+      FileUtils.rm_rf reports_dir
     end
   end
 
@@ -218,6 +231,6 @@ private
   end
 
   def reports_dir
-    Rails.root.join("tmp/broken_link_reports")
+    Rails.root.join("tmp/broken_link_reports/#{@@worker_number}")
   end
 end
