@@ -22,17 +22,17 @@ class HistoricAppointmentsController < PublicFacingController
       "Alistair Darling" => {
         service: "2007 to 2010",
       },
+      "Gordon Brown" => {
+        service: "1997 to 2007",
+      },
     }
 
     @twentieth_century_chancellors = {
-      "Edward Frederick Lindley Wood, Viscount Halifax" => {
-        service: "1938 to 1940",
-      },
       "Kenneth Clarke" => {
         service: "1993 to 1997",
       },
       "Norman Lamont" => {
-        service: "1938 to 1940",
+        service: "1990 to 1993",
       },
       "John Major" => {
         service: "1989 to 1990",
