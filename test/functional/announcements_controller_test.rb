@@ -170,12 +170,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select "#speech_#{second_speech.id} + #speech_#{first_speech.id}"
   end
 
-  view_test "index with locale shows selected announcement type filter option in the title" do
-    get :index, params: { announcement_filter_option: "news-stories", locale: "fr" }
-
-    assert_select "h1 span", ": news stories"
-  end
-
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} li.document-row"
     expected_document_ids = expected_documents.map { |doc| "#{doc.display_type_key}_#{doc.id}" }
@@ -285,7 +279,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index for non-english locales only allows filtering by world location" do
     get :index, params: { locale: "fr" }
 
-    assert_select ".filter", count: 1
     assert_select "select#world_locations"
   end
 
