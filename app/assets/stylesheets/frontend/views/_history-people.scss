@@ -18,3 +18,90 @@
     @include govuk-responsive-margin(7, "bottom");
   }
 }
+
+.historic-people-show {
+  .person-info {
+    @include media(tablet) {
+      float: left;
+      width: $one-quarter;
+    }
+    .name-title,
+    .person-detail,
+    .person-profile {
+      .inner {
+        padding: 0 $gutter-half;
+      }
+      .person-profile {
+        @include core-14;
+        width: 218px;
+  
+        img {
+          max-width: $full-width;
+        }
+  
+        .info {
+          background-color: $grey-3;
+          padding-bottom: $gutter-half;
+          margin-bottom: $gutter;
+  
+          h3,
+          p {
+            padding: 0 $gutter-half;
+          }
+  
+          h3 {
+            font-weight: bold;
+            margin-top: $gutter-half;
+          }
+        }
+      }
+  
+      .name-title {
+        h2 {
+          @include heading-27;
+          font-weight: bold;
+          margin-bottom: $gutter;
+  
+          span {
+            @include core-19;
+            display: block;
+            color: $grey-1;
+            margin-top: $gutter-one-sixth;
+          }
+        }
+      }
+  
+      @include media(tablet) {
+        position: relative;
+        width: 75%;
+  
+        .person-profile {
+          float: left;
+          width: $one-third;
+  
+          img {
+            width: $full-width;
+          }
+  
+          .inner {
+            padding: 0 $gutter-half;
+          }
+        }
+  
+        .name-title,
+        .person-detail {
+          float: right;
+          width: $two-thirds;
+  
+          .inner {
+            padding: 0 $gutter 0 $gutter-half;
+          }
+        }
+      }
+
+      .past-foreign-secretaries-menu li {
+        border-bottom: 1px solid $govuk-border-colour;
+      }
+    }
+  }
+}
