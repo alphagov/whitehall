@@ -63,6 +63,46 @@
     margin-top: $gutter;
   }
 
+  .feature-value {
+    display: block;
+
+    .feature-value__count {
+      display: block;
+      font-size: 5em;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    @media (max-width: 65em) {
+      font-size: .75em;
+    }
+
+    @include govuk-media-query($from: tablet, $until: 815px) {
+      &--small .feature-value__count {
+        font-size: 3.85em;
+      }
+    }
+  }
+
+  .feature-value__caption {
+    color: inherit;
+    display: inline-block;
+    margin: 0;
+    padding: 0 .2em;
+    position: relative;
+    top: -.5em;
+  }
+
+  .feature-value__link {
+    color: $govuk-link-colour;
+    display: inline-block;
+    text-decoration: none;
+
+    &:focus {
+      @include govuk-focused-text;
+    }
+  }
+
   .feature-ministers {
     text-align: center;
     color: $secondary-text-colour;

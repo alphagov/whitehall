@@ -4,7 +4,7 @@ class PastForeignSecretariesControllerTest < ActionController::TestCase
   view_test "GET :show renders a past foreign secretary" do
     get :show, params: { id: "edward-wood" }
 
-    assert_select "h1.gem-c-title__text", text: "Edward Frederick Lindley Wood, Viscount Halifax"
+    assert_select "h2.govuk-heading-m", text: "Edward Frederick Lindley Wood, Viscount Halifax"
   end
 
   view_test "GET :index renders past foreign secretaries" do

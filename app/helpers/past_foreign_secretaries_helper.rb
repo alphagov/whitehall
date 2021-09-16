@@ -1,5 +1,5 @@
 module PastForeignSecretariesHelper
-  def past_foreign_secretary_nav
+  def past_foreign_secretary_nav(current_person)
     people = {
       "edward-wood" => "Edward Frederick Lindley Wood",
       "austen-chamberlain" => "Sir Austen Chamberlain",
@@ -12,16 +12,14 @@ module PastForeignSecretariesHelper
       "charles-fox" => "Charles James Fox",
       "william-grenville" => "William Wyndham Grenville",
     }
-    {
-      "links" => {
-        "ordered_related_items" => people.map do |slug, name|
-          {
-            "title" => name,
-            "base_path" => "/government/history/past-foreign-secretaries/#{slug}",
-          }
-        end,
-      },
-    }
+    people
+      .map { |slug, name|
+        tag.li(class: "govuk-!-margin-0 govuk-body-s govuk-!-padding-top-2 govuk-!-padding-bottom-2") do
+          link_to_if(slug != current_person, name.html_safe, past_foreign_secretary_path(id: slug), class: "govuk-link  ")
+        end
+      }
+      .join("")
+      .html_safe
   end
 
   def service_date(service)
