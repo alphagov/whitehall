@@ -155,6 +155,15 @@
                   <a href="http://www.warmemorials.org"><%= t("topical_event.lead_organisations.war_memorials_trust") %></a>
                 </li>
               <% end %>
+
+              <% if @topical_event.slug == '2022-events-platinum-jubilee-commonwealth-games-festival-uk' %>
+                <li class="non-govuk birmingham_2022_commonwealth_games">
+                  <a href="https://www.gov.uk/government/organisations/birmingham-organising-committee-for-the-2022-commonwealth-games-ltd"><%= t("topical_event.lead_organisations.birmingham_2022_commonwealth_games") %></a>
+                </li>
+                <li class="non-govuk queens_platinum_jubilee">
+                  <a href="https://www.royal.uk/platinumjubilee"><%= t("topical_event.lead_organisations.queens_platinum_jubilee") %></a>
+                </li>
+              <% end %>
             </ul>
           </div>
         </section>
