@@ -38,6 +38,41 @@ class HistoricalAccount < ApplicationRecord
     roles.first
   end
 
+  def appointment_info_array
+    [
+      {
+        title: "Born",
+        text: born,
+      },
+      {
+        title: "Died",
+        text: died,
+      },
+      {
+        title: "Dates in office",
+        text: previous_dates_in_office,
+      },
+      {
+        title: "Political party",
+        text: political_membership,
+      },
+      {
+        title: "Major acts",
+        text: major_acts,
+      },
+      {
+        title: "Interested facts",
+        text: interesting_facts,
+      },
+    ]
+  end
+
+  def previous_dates_in_office
+    role.previous_appointments.for_person(person)
+         .map { |r| RoleAppointmentPresenter.new(r, self).date_range }
+         .join(", ")
+  end
+
 private
 
   def roles_support_historical_accounts

@@ -1,55 +1,76 @@
 <% page_title "History of #{@person.name}" %>
-<% page_class "historic-appointments historic-people-show" %>
-<%= render "govuk_publishing_components/components/breadcrumbs", {
-  breadcrumbs: [
-    {
-      title: "Home",
-      url: "/"
-    },    
-    {
-      title: "History of the UK Government",
-      url: "/government/history"
-    }
-  ]
-} %>
-<header class="block headings-block">
-  <div class="govuk-width-container">
-    <%= render "govuk_publishing_components/components/title", {
-      context: "History",
-      title: "Past #{@role.name.pluralize}",
+<% page_class "govuk-width-container" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/breadcrumbs", {
+      breadcrumbs: [
+        {
+          title: "Home",
+          url: "/"
+        },    
+        {
+          title: "History of the UK Government",
+          url: "/government/history"
+        }
+      ]
     } %>
   </div>
-</header>
+</div>
 
-<%= render partial: 'role_appointments_list', locals: { role: @role } %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      context: "Past #{@role.name.pluralize}",
+      title: @person.name,
+    } %>
 
-<%= content_tag_for(:div, @historical_account, class: "block person-info") do %>
-  <div class="name-title">
-    <div class="inner">
-      <h2>
-        <%= @person.name %>
-        <span><%= @historical_account.political_membership %> <%= previous_dates_in_office(@role, @person) %></span>
-      </h2>
-    </div>
+    <%= render "govuk_publishing_components/components/lead_paragraph", {
+      text: "#{@historical_account.political_membership} #{@historical_account.previous_dates_in_office}",
+    } %>
+    <%= render "govuk_publishing_components/components/lead_paragraph", {
+      text: @historical_account.summary,
+    } %>
   </div>
-  <div class="person-profile">
-    <div class="inner">
-      <div class="info">
-        <%= @person.image %>
-        <%= historical_fact('Born', @historical_account.born) %>
-        <%= historical_fact('Died', @historical_account.died) %>
-        <%= historical_fact('Dates in office', previous_dates_in_office(@role, @person)) %>
-        <%= historical_fact('Political party', @historical_account.political_membership) %>
-        <%= historical_fact('Major acts', format_with_html_line_breaks(@historical_account.major_acts)) %>
-        <%= historical_fact('Interesting facts', format_with_html_line_breaks(@historical_account.interesting_facts)) %>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+      <%= image_tag @person.image_url, class: "govuk-!-margin-bottom-4 govuk-!-width-full", alt: "", loading: "lazy"%>
       </div>
     </div>
-  </div>
-  <div class="person-detail">
-    <div class="inner">
-      <p class="govuk-body-l"><%= @historical_account.summary %></p>
 
-      <%= govspeak_to_html @historical_account.body %>
-    </div>
+    <% @historical_account.appointment_info_array.each do |info| %>
+      <% unless info[:text].blank? %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: info[:title],
+          font_size: "m",
+          margin_bottom: 1,
+        } %>
+        <p class="govuk-body"><%= info[:text] %></p>
+      <% end %>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Biography",
+      font_size: "m",
+      margin_bottom: 1,
+    } %>
+
+    <%= govspeak_to_html @historical_account.body %>
   </div>
-<% end %>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/related_navigation", {
+      content_item: previous_appointments_list,
+    } %>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="/government/history/<%= @role.historic_param %>">See all Past <%= @role.name.pluralize %></a>
+    </p>
+  </div>
+</div>
+

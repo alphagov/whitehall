@@ -1,6 +1,6 @@
 class HistoricAppointmentsController < PublicFacingController
   before_action :load_role, except: [:past_chancellors]
-  helper_method :previous_appointments_with_unique_people
+  helper_method :previous_appointments_with_unique_people, :previous_appointments_list
 
   def index
     @recent_appointments = individual_role_appointees(all_recent_appointments)
@@ -376,5 +376,18 @@ private
 
   def individual_role_appointees(appointments)
     appointments.uniq { |appointment| appointment.person.id }
+  end
+
+  def previous_appointments_list
+    {
+      "links" => {
+        "ordered_related_items" => previous_appointments_with_unique_people.map do |role_appointment|
+          {
+            "title" => role_appointment.person.name,
+            "base_path" => role_appointment.has_historical_account? ? "/government/history/#{@role.historic_param}/#{role_appointment.person.slug}" : "/government/history/#{@role.historic_param}",
+          }
+        end,
+      },
+    }
   end
 end
