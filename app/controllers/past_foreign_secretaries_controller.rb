@@ -4,8 +4,7 @@ class PastForeignSecretariesController < PublicFacingController
   def index
     @twenty_first_century = {
       "Dominic Raab" => {
-        link: "/government/people/dominic-raab/",
-        service: "2019 to present",
+        service: "2019 to 2021",
       },
       "Jeremy Hunt" => {
         service: "2018 to 2019",
