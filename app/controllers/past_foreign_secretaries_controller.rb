@@ -11,7 +11,7 @@ class PastForeignSecretariesController < PublicFacingController
         service: "2018 to 2019",
       },
       "Boris Johnson" => {
-        service: "2019",
+        service: "2016 to 2018",
       },
       "Philip Hammond" => {
         service: "2014 to 2016",
