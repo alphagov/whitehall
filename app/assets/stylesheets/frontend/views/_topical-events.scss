@@ -109,6 +109,18 @@
           background-image: image-url('topical-events/wmt.png');
           width: 103px;
         }
+
+        &.birmingham_2022_commonwealth_games a {
+          background-image: image-url('topical-events/birmingham_2022.png');
+          width: 120px;
+          height: 120px;
+        }
+
+        &.queens_platinum_jubilee a {
+          background-image: image-url('topical-events/platinum_jubilee.png');
+          width: 120px;
+          height: 117px;
+        }
       }
     }
   }
