@@ -18,14 +18,14 @@ class HomeControllerTest < ActionController::TestCase
   view_test "how government works shows the current prime minister" do
     get :how_government_works
 
-    assert_select ".prime-minister p a", "Firstname Lastname"
+    assert_select ".prime-minister > p:nth-child(5) [href]", "Firstname Lastname"
   end
 
   view_test "how government works does not fail when there is no prime minister" do
     RoleAppointment.delete_all
     get :how_government_works
 
-    assert_select ".prime-minister p a", "Prime Minister"
+    assert_select ".prime-minister > p:nth-child(2) [href]", "Prime Minister"
   end
 
   view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
@@ -43,9 +43,9 @@ class HomeControllerTest < ActionController::TestCase
 
     get :how_government_works
 
-    assert_select ".cabinet-ministers .count", "2"
-    assert_select ".other-ministers .count", "1"
-    assert_select ".all-ministers .count", "4"
+    assert_select ".cabinet-ministers .gem-c-big-number__value", "2"
+    assert_select ".other-ministers .gem-c-big-number__value", "1"
+    assert_select ".all-ministers .gem-c-big-number__value", "4"
   end
 
   test "how_government_works should assign @ministerial_department_count to the count of active ministerial departments" do
