@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_141023) do
+ActiveRecord::Schema.define(version: 2021_09_27_093133) do
 
   create_table "about_pages", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -475,6 +475,17 @@ ActiveRecord::Schema.define(version: 2021_08_09_141023) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["featurable_id", "featurable_type", "locale"], name: "featurable_lists_unique_locale_per_featurable", unique: true
+  end
+
+  create_table "featured_link_translations", charset: "utf8", force: :cascade do |t|
+    t.text "url"
+    t.text "title"
+    t.string "locale", null: false
+    t.integer "featured_link_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["featured_link_id"], name: "index_on_featured_link"
+    t.index ["locale"], name: "index_on_locale"
   end
 
   create_table "featured_links", id: :integer, charset: "utf8", force: :cascade do |t|

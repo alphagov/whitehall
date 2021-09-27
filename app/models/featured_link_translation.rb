@@ -1,0 +1,1 @@
+class FeaturedLinkTranslation < ApplicationRecord; end
