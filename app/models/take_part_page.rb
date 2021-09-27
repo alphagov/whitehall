@@ -5,6 +5,7 @@ class TakePartPage < ApplicationRecord
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
   before_save :ensure_ordering!
+  after_commit :patch_getinvolved_page_links
   scope :in_order, -> { order(:ordering) }
 
   extend FriendlyId
@@ -44,7 +45,7 @@ class TakePartPage < ApplicationRecord
     ids_in_new_ordering = ids_in_new_ordering.map(&:to_s)
     TakePartPage.transaction do
       TakePartPage.where(id: ids_in_new_ordering).find_each do |page|
-        page.update_column(:ordering, ids_in_new_ordering.index(page.id.to_s) + 1)
+        page.update(ordering: ids_in_new_ordering.index(page.id.to_s) + 1)
       end
       TakePartPage.where("id NOT IN (?)", ids_in_new_ordering).update_all(ordering: ids_in_new_ordering.size + 1)
     end
@@ -58,5 +59,17 @@ protected
 
   def ensure_ordering!
     self.ordering = TakePartPage.next_ordering if ordering.nil?
+  end
+
+  def patch_getinvolved_page_links
+    get_involved_content_id = "dbe329f1-359c-43f7-8944-580d4742aa91"
+    pages = TakePartPage.in_order.map(&:content_id)
+
+    Services.publishing_api.patch_links(
+      get_involved_content_id,
+      links: {
+        take_part_pages: pages,
+      },
+    )
   end
 end
