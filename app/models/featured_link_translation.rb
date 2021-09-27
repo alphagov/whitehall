@@ -1,1 +1,3 @@
-class FeaturedLinkTranslation < ApplicationRecord; end
+class FeaturedLinkTranslation < ApplicationRecord
+  belongs_to :featured_link
+end
