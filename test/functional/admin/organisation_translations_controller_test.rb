@@ -4,6 +4,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   setup do
     login_as :gds_editor
     @organisation = create(:organisation, name: "Afrolasia Office")
+    @featured_link = create(:featured_link, linkable: @organisation)
 
     Locale.stubs(:non_english).returns([
       Locale.new(:fr), Locale.new(:es)
@@ -121,15 +122,27 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
             name: "Afrolasie Bureau",
             acronym: "AFRO",
             logo_formatted_name: "Afrolasie Bureau",
+            featured_links_attributes: [
+              { id: @organisation.featured_links.first.id, title: "Cliquez ici", url: "https://somewhere" },
+            ],
           },
         }
 
     @organisation.reload
 
+    with_locale :en do
+      assert_equal "Afrolasia Office", @organisation.name
+      assert_equal "Afrolasia\nOffice", @organisation.logo_formatted_name
+      assert_equal "An example service", @organisation.featured_links.first.title
+      assert_equal "https://www.gov.uk/example/service", @organisation.featured_links.first.url
+    end
+
     with_locale :fr do
       assert_equal "Afrolasie Bureau", @organisation.name
       assert_equal "AFRO", @organisation.acronym
       assert_equal "Afrolasie Bureau", @organisation.logo_formatted_name
+      assert_equal "Cliquez ici", @organisation.featured_links.first.title
+      assert_equal "https://somewhere", @organisation.featured_links.first.url
     end
 
     assert_redirected_to admin_organisation_translations_path(@organisation)
