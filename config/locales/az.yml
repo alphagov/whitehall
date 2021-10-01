@@ -1,4 +1,3 @@
----
 az:
   activerecord:
     attributes:
@@ -137,21 +136,28 @@ az:
       written_on:
     type:
       about:
+        one:
         other:
       about_our_services:
+        one:
         other:
       access_and_opening:
+        one:
         other:
       accessible_documents_policy:
+        one:
         other:
       alert:
         one:
         other:
       announcement:
-        other: Elanlar
+        one:
+        other:
       authored_article:
+        one:
         other:
       blog_post:
+        one:
         other:
       campaign:
         one:
@@ -160,139 +166,200 @@ az:
         one:
         other:
       case_study:
-        other: Öyrənilib
+        one:
+        other:
       closed_consultation:
-        other: Bağlı məslətləşmələr
+        one:
+        other:
       complaints_procedure:
+        one:
         other:
       consultation:
-        other: məsləhətləşmələr
+        one:
+        other:
       consultation_outcome:
-        other: məsləhətləşmənin nəticələri
+        one:
+        other:
       corporate_report:
-        other: birgə məruzələr
+        one:
+        other:
       correspondence:
-        other: Yazışmalar
+        one:
+        other:
       decision:
+        one:
         other:
       detailed_guidance:
-        other: ətraflı məlumat
+        one:
+        other:
       document_collection:
+        one:
         other:
       draft_text:
-        other: hazırlanmış mətn
+        one:
+        other:
       edition:
+        one:
         other:
       edition_with_appointment:
+        one:
         other:
       equality_and_diversity:
+        one:
         other:
       fatality_notice:
+        one:
         other:
       foi_release:
-        other: Məlumat azadlığı ilə bağlı açıqlamalar
+        one:
+        other:
       form:
-        other: Formalar
+        one:
+        other:
       generic_edition:
+        one:
         other:
       government_response:
+        one:
         other:
       guidance:
-        other: İnstruksiya
+        one:
+        other:
       impact_assessment:
-        other: Dəyərləndirmə
+        one:
+        other:
       imported:
+        one:
         other:
       independent_report:
-        other: Müstəqil məruzələr
+        one:
+        other:
       international_treaty:
+        one:
         other:
       manual:
+        one:
         other:
       map:
-        other: xəritələr
+        one:
+        other:
       media_enquiries:
+        one:
         other:
       membership:
+        one:
         other:
       national_statistics:
-        other: Statistika - milli statistika
+        one:
+        other:
       news_article:
-        other: məqalələr
+        one:
+        other:
       news_story:
         one:
         other: Xəbərlər
       nhs_content:
+        one:
         other:
       notice:
+        one:
         other:
       official_statistics:
-        other: statistika
+        one:
+        other:
       open_consultation:
-        other: açıq məsləhətləşmələr
+        one:
+        other:
       oral_statement:
-        other: Parlamentə açıq bəyanatlar
+        one:
+        other:
       our_energy_use:
+        one:
         other:
       our_governance:
+        one:
         other:
       personal_information_charter:
+        one:
         other:
       petitions_and_campaigns:
+        one:
         other:
       policy_paper:
-        other: Siyasi sənədlər
+        one:
+        other:
       press_release:
         one:
         other: mətbuat üçün açıqlama
       procurement:
+        one:
         other:
       promotional:
-        other: Təşviqedici materiallar
+        one:
+        other:
       publication:
-        other: Nəşrlər
+        one:
+        other:
       publication_scheme:
+        one:
         other:
       recruitment:
+        one:
         other:
       regulation:
+        one:
         other:
       research:
-        other: Tətqiqat və analiz
+        one:
+        other:
       service:
+        one:
         other:
       social_media_use:
+        one:
         other:
       speaking_notes:
-        other: Çıxış üçün  qeydləri
+        one:
+        other:
       speech:
         one:
         other: Çıxışlar
       staff_update:
+        one:
         other:
       standard:
+        one:
         other:
       statement_to_parliament:
         one:
         other: Parlamentə bəyanatlar
       statistical_data_set:
-        other: statistik məlumatlar bazaları
+        one:
+        other:
       statistics:
+        one:
         other:
       statutory_guidance:
+        one:
         other:
       terms_of_reference:
+        one:
         other:
       transcript:
-        other: Transkripsiyalar
+        one:
+        other:
       transparency:
-        other: Şəffaf məlumat
+        one:
+        other:
       welsh_language_scheme:
+        one:
         other:
       world_news_story:
+        one:
         other:
       written_statement:
-        other: Parlamentə yazılı müraciət
+        one:
+        other:
     updated: yenilənib
   document_filters:
     consultation:
@@ -320,71 +387,7 @@ az:
     direction: ltr
     latin_script?: true
   language_names:
-    ar:
     az: Azərbaycanca
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    zh:
-    zh-hk:
-    zh-tw:
   latest_feed:
     no_updates: yeni məlumat yoxdur
     title: Ən sonuncu
@@ -502,6 +505,12 @@ az:
     formats:
       long_ordinal:
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -526,8 +535,10 @@ az:
       statistics: Bizim statistika
     type:
       international_delegation:
-        other: Beynəlxalq nümayəndəliklər
+        one:
+        other:
       world_location:
+        one:
         other:
   world_news:
     uk_updates_in_country:

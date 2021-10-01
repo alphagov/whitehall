@@ -11,6 +11,8 @@ class TopicalEventsController < ClassificationsController
 
   def show
     @topical_event = TopicalEvent.friendly.find(params[:id])
+    @topical_event_lead_description = ""
+    @topical_event_secondary_description = ""
     @content_item = Whitehall.content_store.content_item(@topical_event.base_path)
     @publications =  find_documents(filter_format: "publication", count: 3)
     @consultations = find_documents(filter_format: "consultation", count: 3)
@@ -23,6 +25,7 @@ class TopicalEventsController < ClassificationsController
     set_slimmer_organisations_header(@topical_event.organisations)
     set_slimmer_page_owner_header(@topical_event.lead_organisations.first)
     set_meta_description(@topical_event.description)
+    modify_description(@topical_event.description)
 
     set_expiry 5.minutes
     respond_to do |format|
@@ -68,5 +71,12 @@ private
         "description" => "This #{closed_feed[:title]} RSS feed is being replaced with a new feed from Search - GOV.UK",
       ),
     )
+  end
+
+  def modify_description(description)
+    split_description = description.split(/[\r\n]+/)
+
+    @topical_event_lead_description = split_description[0] if split_description&.any?
+    @topical_event_secondary_description = split_description[1..split_description.length].join("\r\n\r\n") if split_description.length > 1
   end
 end

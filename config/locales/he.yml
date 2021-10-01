@@ -1,143 +1,5 @@
----
 he:
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: הודעות
-  attachment:
-    accessibility:
-      full_help_html: |
-        כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
-        סוגי קובץ שונים אנא שלח/י אימייל %{title} עם כתובת וטלפון יחד עם שם המסמך
-        המבוקש ("%{title}")%{references}.
-      intro: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
-      request_a_different_format: אנא בקש/י פורמט אחר
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: הזמן עותק
-      order_a_copy_full: הזמן עותק של הפרסום
-      published: פורסם
-      reference: הפניה
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: טופס יצירת קשר
-    email: דואר אלקטרוני
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: טבלת מידע אישי
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: תכנית פרסומים
-        recruitment:
-        research:
-        social_media_use: מדיה חברתית
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: תכנית שפה וולשית
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: מתייחס ל
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: פורסם
-    see_all:
-    speech:
-      author_title:
-        minister: שר
-        speaker: מחבר
-      delivered_on: 'נשלח ב:'
-      delivery_title:
-        minister: שר
-        speaker: דובר
-      written_on: 'נכתב על:'
     type:
       about:
         one:
@@ -364,7 +226,161 @@ he:
       written_statement:
         one:
         other:
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: מתייחס ל
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: פורסם
+    see_all:
+    speech:
+      author_title:
+        minister: שר
+        speaker: מחבר
+      delivered_on: 'נשלח ב:'
+      delivery_title:
+        minister: שר
+        speaker: דובר
+      written_on: 'נכתב על:'
     updated: מעודכן
+  world_location:
+    type:
+      international_delegation:
+        one:
+        other:
+      world_location:
+        one:
+        other:
+    headings:
+      announcements: ההודעות שלנו
+      documents: מסמכים
+      mission: החזון שלנו
+      news:
+      organisations: ארגונים
+      publications: הפרסומים שלנו
+      search:
+      statistics: הנתונים שלנו
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: הודעות
+  attachment:
+    accessibility:
+      full_help_html: |
+        כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
+        סוגי קובץ שונים אנא שלח/י אימייל %{title} עם כתובת וטלפון יחד עם שם המסמך
+        המבוקש ("%{title}")%{references}.
+      intro: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
+      request_a_different_format: אנא בקש/י פורמט אחר
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: הזמן עותק
+      order_a_copy_full: הזמן עותק של הפרסום
+      published: פורסם
+      reference: הפניה
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: טופס יצירת קשר
+    email: דואר אלקטרוני
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: טבלת מידע אישי
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: תכנית פרסומים
+        recruitment:
+        research:
+        social_media_use: מדיה חברתית
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: תכנית שפה וולשית
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
@@ -391,71 +407,7 @@ he:
     direction: rtl
     latin_script?: false
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
     he: עברית
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    zh:
-    zh-hk:
-    zh-tw:
   latest_feed:
     no_updates: אין עדכונים נוספים
     title: אחרון
@@ -573,6 +525,12 @@ he:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -585,29 +543,13 @@ he:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
-  world_location:
-    headings:
-      announcements: ההודעות שלנו
-      documents: מסמכים
-      mission: החזון שלנו
-      news:
-      organisations: ארגונים
-      publications: הפרסומים שלנו
-      search:
-      statistics: הנתונים שלנו
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע פרטי
+      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
+        פרטי
       publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}
       social_media_use_html: קרא/י אודות המדיניות שלנו %{link}
       welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום %{link}

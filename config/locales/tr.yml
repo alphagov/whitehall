@@ -1,4 +1,3 @@
----
 tr:
   activerecord:
     attributes:
@@ -331,6 +330,7 @@ tr:
         one:
         other:
       standard:
+        one:
         other:
       statement_to_parliament:
         one: Parlamento'ya yapılan açıklama
@@ -389,71 +389,7 @@ tr:
     direction: ltr
     latin_script?: true
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
     tr: Türkçe
-    uk:
-    ur:
-    uz:
-    vi:
-    zh:
-    zh-hk:
-    zh-tw:
   latest_feed:
     no_updates: Henüz güncelleme yok
     title: En son haberler
@@ -571,6 +507,12 @@ tr:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -605,10 +547,14 @@ tr:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız açıklamaktadır
-      publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link} 'e bakınız
-      social_media_use_html: Konuyla ilgili politikamız hakkında daha fazla bilgi için %{link}
-      welsh_language_scheme_html: Yayın hedefimiz ile ilgili bilgilere bu  %{link}ten ulaşabilirsiniz.
+      personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız
+        açıklamaktadır
+      publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link}
+        'e bakınız
+      social_media_use_html: Konuyla ilgili politikamız hakkında daha fazla bilgi
+        için %{link}
+      welsh_language_scheme_html: Yayın hedefimiz ile ilgili bilgilere bu  %{link}ten
+        ulaşabilirsiniz.
     find_out_more: Tüm profil ve iletişim bilgilerini görmek için
     headings:
       contact_us: Bize ulaşın

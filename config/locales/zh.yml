@@ -1,4 +1,3 @@
----
 zh:
   activerecord:
     attributes:
@@ -158,6 +157,7 @@ zh:
         one: 撰写的文章
         other: 撰写的文章
       blog_post:
+        one:
         other:
       campaign:
         one:
@@ -187,6 +187,7 @@ zh:
         one: 交流
         other: 交流
       decision:
+        one:
         other:
       detailed_guidance:
         one: 详细指导
@@ -234,8 +235,10 @@ zh:
         one: 独立报告
         other: 独立报告
       international_treaty:
+        one:
         other:
       manual:
+        one:
         other:
       map:
         one: 地图
@@ -256,8 +259,10 @@ zh:
         one: 新闻报道
         other: 新闻报道
       nhs_content:
+        one:
         other:
       notice:
+        one:
         other:
       official_statistics:
         one: 统计数据
@@ -302,6 +307,7 @@ zh:
         one:
         other:
       regulation:
+        one:
         other:
       research:
         one: 研究及分析
@@ -322,6 +328,7 @@ zh:
         one:
         other:
       standard:
+        one:
         other:
       statement_to_parliament:
         one: 对议会的声明
@@ -333,6 +340,7 @@ zh:
         one:
         other:
       statutory_guidance:
+        one:
         other:
       terms_of_reference:
         one:
@@ -347,6 +355,7 @@ zh:
         one:
         other:
       world_news_story:
+        one:
         other:
       written_statement:
         one: 对议会的书面声明
@@ -378,71 +387,7 @@ zh:
     direction: ltr
     latin_script?: false
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
     zh: 中文
-    zh-hk:
-    zh-tw:
   latest_feed:
     no_updates: 目前暂无更新。
     title: 最新消息
@@ -560,6 +505,12 @@ zh:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
