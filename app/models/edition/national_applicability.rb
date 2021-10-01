@@ -74,7 +74,7 @@ private
   end
 
   def universally_applicable
-    all_nations = %w[England Northern\ Ireland Scotland Wales]
+    all_nations = ["England", "Northern Ireland", "Scotland", "Wales"]
     all_nations.each_with_object({}) do |nation, hash|
       key = nation_to_sym(nation)
       hash[key] = {

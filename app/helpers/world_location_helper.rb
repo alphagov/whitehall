@@ -1,5 +1,4 @@
 module WorldLocationHelper
-  # rubocop:disable Style/AsciiComments
   def group_and_sort(locations)
     locations.
       # transliterate name for sorting once, we're going to use it twice:
@@ -13,7 +12,6 @@ module WorldLocationHelper
       # finally we remove the sorted name from the structure
       map { |(letter, names_and_locations)| [letter, names_and_locations.map { |_transliterated_name, location| location }] }
   end
-  # rubocop:enable Style/AsciiComments
 
   def world_location_survey_url(location)
     case location.slug
