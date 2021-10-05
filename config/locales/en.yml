@@ -383,8 +383,8 @@ en:
     british_fatalities: British fatalities
     none_added: There have been no fatality notices added for this field of operation yet.
   feeds:
-    email: email
-    feed: feed
+    email: Get emails
+    feed: Subscribe to feed
     get_updates_to_this_list: Get updates to this list
     latest_activity: Latest activity
   i18n:
@@ -578,6 +578,12 @@ en:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance: Detailed guidance
+      documents: Documents
+      featured: Featured
+      organisations: Who's involved
+      travel_advice: Travel advice
     latest_activity: Latest activity on %{event}
     lead_organisations:
       arts_council_england: Arts Council England

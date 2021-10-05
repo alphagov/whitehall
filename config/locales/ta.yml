@@ -1,140 +1,5 @@
----
 ta:
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: அறிவிப்பு
-  attachment:
-    accessibility:
-      full_help_html: பிரெய்லி,ஒலி வடிவம் அல்லது ஓர் வேறுபட்ட கோவை வடிவம்  போன்ற ஓர் மாற்று வடிவில் இந்த ஆவணத்தை  வேண்டிக் கொள்வதற்கு  வெளியீட்டின் தலைப்புடன் ("%{title}")%{references} உங்களது முகவரி, தொலைபேசி இலக்கம் என்பவற்றையும்  குறிப்பிட்டு தயவுசெய்து மின்னஞ்சல் %{email} செய்யவும்.
-      intro: விசேட  தேவை  கொண்டவர்களுக்கான உறுதுணை  தொழில்நுட்பத்தை உபயோகிப்பவர்களுக்கு இந்தக்  கோவை பொருத்தமானதாக இல்லாதிருக்கலாம்.
-      request_a_different_format: ஓர் வேறுபட்ட வடிவத்தை  வேண்டிக்கொள்ளுதல்
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: பிரதியொன்றுக்கு கட்டளையிடுதல்
-      order_a_copy_full: வெளியீடு ஒன்றின் பிரதிக்கு கட்டளையிடுதல்
-      published: பிரசுரிக்கப்பட்டது
-      reference: குறிப்புரை
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: தொடர்புகொள்ளல் படிவம்
-    email: மின்னஞ்சல்
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: தனிப்பட்ட தகவல் பட்டயம்
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: பிரசுரித்தல் திட்டம்
-        recruitment:
-        research:
-        social_media_use: சமூக ஊடகப் பயன்பாடு
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: வெல்ஷ் மொழித் திட்டம்
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: பிரயோகமாகிறது
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: பிரசுரிக்கப்பட்டது
-    see_all:
-    speech:
-      author_title:
-        minister: அமைச்சர்
-        speaker: எழுத்தாளர்
-      delivered_on: 'அன்று விநியோகிக்கப்பட்டது:'
-      delivery_title:
-        minister: அமைச்சர்
-        speaker: சபாநாயகர்
-      written_on: 'அன்று எழுதப்பட்டது:'
     type:
       about:
         one:
@@ -361,12 +226,168 @@ ta:
       written_statement:
         one: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கை
         other: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: பிரயோகமாகிறது
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: பிரசுரிக்கப்பட்டது
+    see_all:
+    speech:
+      author_title:
+        minister: அமைச்சர்
+        speaker: எழுத்தாளர்
+      delivered_on: 'அன்று விநியோகிக்கப்பட்டது:'
+      delivery_title:
+        minister: அமைச்சர்
+        speaker: சபாநாயகர்
+      written_on: 'அன்று எழுதப்பட்டது:'
     updated: இற்றைப்படுத்தப்பட்டது
+  world_location:
+    type:
+      international_delegation:
+        one: சர்வதேச தூதுக்குழு
+        other: சர்வதேச தூதுக்குழுக்கள்
+      world_location:
+        one: உலக அமைவிடம்
+        other: உலக அமைவிடங்கள்
+    headings:
+      announcements: எங்களது அறிவிப்புகள்
+      documents: ஆவணங்கள்
+      mission: எங்களது இலட்சியம்
+      news:
+      organisations: ஸ்தாபனங்கள்
+      publications: எங்களது வெளியீடுகள்
+      search:
+      statistics: எங்களது புள்ளிவிபரம்
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: அறிவிப்பு
+  attachment:
+    accessibility:
+      full_help_html: பிரெய்லி,ஒலி வடிவம் அல்லது ஓர் வேறுபட்ட கோவை வடிவம்  போன்ற ஓர்
+        மாற்று வடிவில் இந்த ஆவணத்தை  வேண்டிக் கொள்வதற்கு  வெளியீட்டின் தலைப்புடன்
+        ("%{title}")%{references} உங்களது முகவரி, தொலைபேசி இலக்கம் என்பவற்றையும்  குறிப்பிட்டு
+        தயவுசெய்து மின்னஞ்சல் %{email} செய்யவும்.
+      intro: விசேட  தேவை  கொண்டவர்களுக்கான உறுதுணை  தொழில்நுட்பத்தை உபயோகிப்பவர்களுக்கு
+        இந்தக்  கோவை பொருத்தமானதாக இல்லாதிருக்கலாம்.
+      request_a_different_format: ஓர் வேறுபட்ட வடிவத்தை  வேண்டிக்கொள்ளுதல்
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: பிரதியொன்றுக்கு கட்டளையிடுதல்
+      order_a_copy_full: வெளியீடு ஒன்றின் பிரதிக்கு கட்டளையிடுதல்
+      published: பிரசுரிக்கப்பட்டது
+      reference: குறிப்புரை
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: தொடர்புகொள்ளல் படிவம்
+    email: மின்னஞ்சல்
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: தனிப்பட்ட தகவல் பட்டயம்
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: பிரசுரித்தல் திட்டம்
+        recruitment:
+        research:
+        social_media_use: சமூக ஊடகப் பயன்பாடு
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: வெல்ஷ் மொழித் திட்டம்
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்.
+    description: உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
+      வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்.
     no_results:
       description: உங்களது தேடல் எல்லையை நிர்ணயிப்பதற்கு முயற்சித்து மீண்டும் முயலவும்
       title: பொருந்தும் வகையிலான ஆவணங்கள் அங்கில்லை
@@ -388,71 +409,7 @@ ta:
     direction: ltr
     latin_script?: false
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
-    es:
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
     ta: தமிழ்
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    zh:
-    zh-hk:
-    zh-tw:
   latest_feed:
     no_updates: இதுவரை இற்றைப்படுத்தல்கள் இல்லை
     title: சமீபத்தையது
@@ -513,7 +470,8 @@ ta:
     announcement: எங்களது அனைத்து அறிவிப்புகள் பார்க்கவும்
     authored_article: எங்களது அனைத்து எழுதப்பட்ட கட்டுரைகள் பார்க்கவும்
     case_study: எங்களது அனைத்து சம்பவ ஆய்வுக் கற்கைகள் பார்க்கவும்
-    closed_consultation: எங்களது அனைத்து வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள் பார்க்கவும்
+    closed_consultation: எங்களது அனைத்து வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள்
+      பார்க்கவும்
     consultation: எங்களது அனைத்து கலந்தாலோசனைகள் பார்க்கவும்
     consultation_outcome: எங்களது அனைத்து கலந்தாலோசனைப்முடிவுகள் பார்க்கவும்
     corporate_report: எங்களது அனைத்து கூட்டாண்மை அறிக்கைகள் பார்க்கவும்
@@ -552,7 +510,8 @@ ta:
     statutory_guidance:
     transcript: எங்களது அனைத்து உரை வடிவங்கள் பார்க்கவும்
     transparency: எங்களது அனைத்து வெளிப்படையான தரவு பார்க்கவும்
-    written_statement: எங்களது அனைத்து பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள் பார்க்கவும்
+    written_statement: எங்களது அனைத்து பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
+      பார்க்கவும்
   support:
     array:
       last_word_connector: மற்றும்
@@ -570,6 +529,12 @@ ta:
     formats:
       long_ordinal: "%e %B %Y%H:%M"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -582,32 +547,18 @@ ta:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
-  world_location:
-    headings:
-      announcements: எங்களது அறிவிப்புகள்
-      documents: ஆவணங்கள்
-      mission: எங்களது இலட்சியம்
-      news:
-      organisations: ஸ்தாபனங்கள்
-      publications: எங்களது வெளியீடுகள்
-      search:
-      statistics: எங்களது புள்ளிவிபரம்
-    type:
-      international_delegation:
-        one: சர்வதேச தூதுக்குழு
-        other: சர்வதேச தூதுக்குழுக்கள்
-      world_location:
-        one: உலக அமைவிடம்
-        other: உலக அமைவிடங்கள்
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: உங்களது தனிப்பட்ட தகவல்களை எப்படி நாங்கள் கையாள்கிறோம் என்பதை எங்களது %{link} விளக்கும்
-      publication_scheme_html: எங்களது %{link} நாங்கள் வழமையாக வெளியிடும் தகவல்களின்  வகைகள் பற்றி வாசிக்கவும்
+      personal_information_charter_html: உங்களது தனிப்பட்ட தகவல்களை எப்படி நாங்கள்
+        கையாள்கிறோம் என்பதை எங்களது %{link} விளக்கும்
+      publication_scheme_html: எங்களது %{link} நாங்கள் வழமையாக வெளியிடும் தகவல்களின்  வகைகள்
+        பற்றி வாசிக்கவும்
       social_media_use_html: எங்களது  கொள்கையை %{link} இல் வாசிக்கவும்
-      welsh_language_scheme_html: "%{link} இல் பிரசுரிப்பதற்கான எங்களது பற்றுறுதி பற்றி கண்டறியவும்"
+      welsh_language_scheme_html: "%{link} இல் பிரசுரிப்பதற்கான எங்களது பற்றுறுதி
+        பற்றி கண்டறியவும்"
     find_out_more: முழுமையான விபரம் மற்றும்  அனைத்து தொடர்பு விபரங்களையும் காண்க
     headings:
       contact_us: எங்களைத் தொடர்பு கொள்க

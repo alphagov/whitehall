@@ -1,7 +1,7 @@
-<ol class="document-list">
+<ol class="document-list govuk-!-margin-bottom-6">
   <% editions.each_with_index do |edition, edition_index| %>
     <%= content_tag_for(:li, edition, class: 'document-row') do %>
-      <h2>
+      <h3>
         <%=
           link_to(
             edition.title,
@@ -18,7 +18,7 @@
             }
           )
         %>
-      </h2>
+      </h3>
       <ul class="attributes">
         <li class="publication-date"><%= edition.display_date_microformat %></li>
         <li class="document-type" <%= t_lang('document.type.' + edition.display_type_key, {count: 1}) %>><%= t_display_type(edition) %></li>

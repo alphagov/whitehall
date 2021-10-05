@@ -35,10 +35,10 @@
         <% end %>
 
         <%= render partial: 'shared/recently_updated',
-                  locals: { recently_updated: @recently_updated,
-                            atom_url: atom_feed_url_for(@world_location),
-                            extra_class: 'panel',
-                            see_all_link: latest_path(world_locations: [@world_location])} %>
+          locals: { recently_updated: @recently_updated,
+            atom_url: atom_feed_url_for(@world_location),
+            see_all_link: latest_path(world_locations: [@world_location])
+          } %>
       </section>
     </div>
   </div>
@@ -63,7 +63,7 @@
             <h1><%= t('world_location.headings.announcements') %></h1>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
-              <p class="see-all">
+              <p class="govuk-body">
                 <%= link_to t_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
               </p>
             </div>
@@ -74,7 +74,7 @@
             <h1><%= t('world_location.headings.publications') %></h1>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
-              <p class="see-all">
+              <p class="govuk-body">
                 <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location) %>
               </p>
             </div>
@@ -85,7 +85,7 @@
             <h1><%= t('world_location.headings.statistics') %></h1>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
-              <p class="see-all">
+              <p class="govuk-body">
                 <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
               </p>
             </div>

@@ -1,140 +1,5 @@
----
 es:
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Anuncios
-  attachment:
-    accessibility:
-      full_help_html: Para solicitar este documento en un formato diferente como braille, audio o cualquier otro formato por favor envíe un email %{email} indicando su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
-      intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
-      request_a_different_format: Solicítelo en un formato diferente
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: Pida una copia
-      order_a_copy_full: Pida una copa de la publicación
-      published: Publicado
-      reference: Referencia
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: Formulario de contacto
-    email: Email
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Cédula de información personal
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Esquema de publicación
-        recruitment:
-        research:
-        social_media_use: Uso de medios sociales
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Esquema de gales
-  date:
-    formats:
-      default: "%e %B %Y"
-      long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: Sirve para
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: Publicado
-    see_all:
-    speech:
-      author_title:
-        minister: Ministro
-        speaker: Escritor
-      delivered_on: Emitido el
-      delivery_title:
-        minister: Ministro
-        speaker: Orador
-      written_on: 'Escrito en:'
     type:
       about:
         one:
@@ -361,7 +226,160 @@ es:
       written_statement:
         one: Declaración escrita
         other: Declaraciones escritas
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: Sirve para
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: Publicado
+    see_all:
+    speech:
+      author_title:
+        minister: Ministro
+        speaker: Escritor
+      delivered_on: Emitido el
+      delivery_title:
+        minister: Ministro
+        speaker: Orador
+      written_on: 'Escrito en:'
     updated: Actualizado
+  world_location:
+    type:
+      international_delegation:
+        one: Delegación internacional
+        other: Delegaciones internacionales
+      world_location:
+        one: País
+        other: Países
+    headings:
+      announcements: Anuncios
+      documents: Documentos
+      mission: Nuestra Misión
+      news:
+      organisations: Organizaciones
+      publications: Publicaciones
+      search:
+      statistics: Nuestras estadísticas
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: Anuncios
+  attachment:
+    accessibility:
+      full_help_html: Para solicitar este documento en un formato diferente como braille,
+        audio o cualquier otro formato por favor envíe un email %{email} indicando
+        su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
+      intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
+      request_a_different_format: Solicítelo en un formato diferente
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: Pida una copia
+      order_a_copy_full: Pida una copa de la publicación
+      published: Publicado
+      reference: Referencia
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: Formulario de contacto
+    email: Email
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Cédula de información personal
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Esquema de publicación
+        recruitment:
+        research:
+        social_media_use: Uso de medios sociales
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Esquema de gales
+  date:
+    formats:
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
@@ -388,71 +406,7 @@ es:
     direction: ltr
     latin_script?: true
   language_names:
-    ar:
-    az:
-    be:
-    bg:
-    bn:
-    cs:
-    cy:
-    da:
-    de:
-    dr:
-    el:
-    en:
     es: Español
-    es-419:
-    et:
-    fa:
-    fi:
-    fr:
-    gd:
-    gu:
-    he:
-    hi:
-    hr:
-    hu:
-    hy:
-    id:
-    is:
-    it:
-    ja:
-    ka:
-    kk:
-    ko:
-    lt:
-    lv:
-    ms:
-    mt:
-    ne:
-    nl:
-    'no':
-    pa:
-    pa-pk:
-    pl:
-    ps:
-    pt:
-    ro:
-    ru:
-    si:
-    sk:
-    sl:
-    so:
-    sq:
-    sr:
-    sv:
-    sw:
-    ta:
-    th:
-    tk:
-    tr:
-    uk:
-    ur:
-    uz:
-    vi:
-    zh:
-    zh-hk:
-    zh-tw:
   latest_feed:
     no_updates: No hay actualizaciones
     title: Actualizaciones más recientes
@@ -570,6 +524,12 @@ es:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -582,32 +542,18 @@ es:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
-  world_location:
-    headings:
-      announcements: Anuncios
-      documents: Documentos
-      mission: Nuestra Misión
-      news:
-      organisations: Organizaciones
-      publications: Publicaciones
-      search:
-      statistics: Nuestras estadísticas
-    type:
-      international_delegation:
-        one: Delegación internacional
-        other: Delegaciones internacionales
-      world_location:
-        one: País
-        other: Países
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: El siguiente enlace %{link} explica cómo tratamos tu información personal
-      publication_scheme_html: Lea acerca del tipo de información que publicamos en el siguiente enlace %{link}
+      personal_information_charter_html: El siguiente enlace %{link} explica cómo
+        tratamos tu información personal
+      publication_scheme_html: Lea acerca del tipo de información que publicamos en
+        el siguiente enlace %{link}
       social_media_use_html: Lea nuestra política en %{link}
-      welsh_language_scheme_html: 'Encuentre más sobre nuestro compromiso de publicar en %{link} '
+      welsh_language_scheme_html: 'Encuentre más sobre nuestro compromiso de publicar
+        en %{link} '
     find_out_more: Vea el perfil completo y los detalles de contacto
     headings:
       contact_us: Contáctenos
