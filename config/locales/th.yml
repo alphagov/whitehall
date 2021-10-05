@@ -1,3 +1,4 @@
+---
 th:
   activerecord:
     attributes:
@@ -42,8 +43,7 @@ th:
     heading: ข่าวสาร
   attachment:
     accessibility:
-      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น
-        กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
+      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
       intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
       request_a_different_format: ขอรูปแบบอื่น
     csv:
@@ -137,28 +137,21 @@ th:
       written_on: เขียนเมือ
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       alert:
         one:
         other:
       announcement:
-        one:
-        other:
+        other: ข่าวสาร
       authored_article:
-        one:
-        other:
+        other: บทความที่เขียน
       blog_post:
-        one:
         other:
       campaign:
         one:
@@ -167,200 +160,139 @@ th:
         one:
         other:
       case_study:
-        one:
-        other:
+        other: กรณีศึกษา
       closed_consultation:
-        one:
-        other:
+        other: การศึกษาแบบปิด
       complaints_procedure:
-        one:
         other:
       consultation:
-        one:
-        other:
+        other: การปรึกษา
       consultation_outcome:
-        one:
-        other:
+        other: ผลการปรึกษา
       corporate_report:
-        one:
-        other:
+        other: รายงานบริษัท
       correspondence:
-        one:
-        other:
+        other: จดหมาย
       decision:
-        one:
         other:
       detailed_guidance:
-        one:
-        other:
+        other: คู่มือโดยละเอียด
       document_collection:
-        one:
         other:
       draft_text:
-        one:
-        other:
+        other: ร่างข้อความ
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
-        one:
-        other:
+        other: ข้อมูลที่เปิดเผยได้
       form:
-        one:
-        other:
+        other: แบบฟอร์ม
       generic_edition:
-        one:
         other:
       government_response:
-        one:
-        other:
+        other: การตอบสนองของรัฐบาล
       guidance:
-        one:
-        other:
+        other: คู่มือ
       impact_assessment:
-        one:
-        other:
+        other: การประเมินผลกระทบ
       imported:
-        one:
-        other:
+        other: ประเภทรอนำเข้า
       independent_report:
-        one:
-        other:
+        other: รายงานอิสระ
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one:
-        other:
+        other: แผนที่
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
-        one:
-        other:
+        other: สถิติ-สถิติแห่งชาติ
       news_article:
-        one:
-        other:
+        other: บทความข่าว
       news_story:
         one:
         other: ข่าว
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one:
-        other:
+        other: สถิติ
       open_consultation:
-        one:
-        other:
+        other: การให้คำปรึกษาเปิด
       oral_statement:
-        one:
-        other:
+        other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
-        one:
-        other:
+        other: เอกสารนโยบาย
       press_release:
         one:
         other: ข่าวประชาสัมพันธ์
       procurement:
-        one:
         other:
       promotional:
-        one:
-        other:
+        other: เอกสารเพือการประชาสัมพันธ์
       publication:
-        one:
-        other:
+        other: สิ่งพิมพ์
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
-        one:
         other:
       research:
-        one:
-        other:
+        other: บทวิจัยและบทวิเคราะห์
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
-        one:
-        other:
+        other: ประเด็นการพูด
       speech:
         one:
         other: สุนทรพจน์
       staff_update:
-        one:
         other:
       standard:
-        one:
         other:
       statement_to_parliament:
         one:
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
-        one:
-        other:
+        other: ชุดข้อมูลสถิติ
       statistics:
-        one:
         other:
       statutory_guidance:
-        one:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
-        one:
-        other:
+        other: สำเนา
       transparency:
-        one:
-        other:
+        other: ข้อมูลโปร่งใส
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
-        one:
         other:
       written_statement:
-        one:
-        other:
+        other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
   document_filters:
     consultation:
@@ -388,7 +320,71 @@ th:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
     th: ไทย
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ยังไม่มีการปรับปรุงข้อมูล
     title: ล่าสุด
@@ -506,12 +502,6 @@ th:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -536,11 +526,9 @@ th:
       statistics: สถิติของเรา
     type:
       international_delegation:
-        one:
-        other:
+        other: คณะผู้แทนนานาประเทศ
       world_location:
-        one:
-        other:
+        other: ทีตั้ง
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
@@ -549,8 +537,7 @@ th:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
       publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
       social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}
-      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
-        %{link}.
+      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่ %{link}.
     find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
     headings:
       contact_us: ติดต่อเรา

@@ -81,7 +81,7 @@ class DocumentHelperTest < ActionView::TestCase
     controller.stubs(:url_options).returns(
       action: "show",
       controller: "world_locations",
-      locale: "de",
+      locale: "it",
       id: "a-world-location",
     )
     assert_dom_equal %(<a lang="de" class="govuk-link" href="/world/a-world-location.de">Deutsch</a>),

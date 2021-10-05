@@ -1,5 +1,140 @@
+---
 et:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Parlamendi alamkoja dokumendi nr.
+        isbn: ISBN
+        unnumbered_hoc_paper: Numbrita Parlamendi alamkoja dokument
+      attachment_data:
+        file: Toimik
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number: 'Parlamendi alamkoja dokumendi nr. '
+        isbn: 'Manuse ISBN '
+        title: Manuse pealkiri
+        unique_reference: Manuse unikaalne viide
+        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Manus
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Manus
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number: Parlamendi alamkoja dokumendi nr.
+        isbn: Manuse ISBN
+        title: Manuse pealkiri
+        unique_reference: Manuse unikaalne viide
+        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Manus
+    nested_attachment_data_field_names:
+      file: Manus
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number: Parlamendi alamkoja dokumendi nr.
+      isbn: Manuse ISBN
+      title: Manuse pealkiri
+      unique_reference: Manuse unikaalne viide
+      unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
+  announcements:
+    heading: Teated
+  attachment:
+    accessibility:
+      full_help_html: 'Kui olete abistava tehnoloogia kasutaja ja vajate selle dokumendi versiooni mõnes alternatiivses formaadis, palun saatke e-kiri %{email}. Palun öelge meile, missugust formaati vajate. On abiks, kui märgite ära, missugust abistavat tehnoloogiat kasutate. '
+      intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
+      request_a_different_format: Küsige teistsugust formaati
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: Tellige koopia
+      order_a_copy_full: Tellige publikatsiooni koopia
+      published: Avaldatud
+      reference: Viide
+      unnumbered_command_paper:
+      unnumbered_hoc_paper: Nummerdamata eelnõu dokument
+    opendocument:
+      help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> formaadis
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at: Esmane publikatsioon
+    see_all_updates: Vaadake kõiki täiendusi
+    updated_at: Viimane täiendus
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: Võtke ühendust
+    email: E-post
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about: Meist
+        about_our_services: Meie teenustest
+        access_and_opening: Kontori asukoht ja tööaeg
+        accessible_documents_policy:
+        complaints_procedure: Kaebuste esitamise kord
+        equality_and_diversity: Võrdõiguslikkus ja diversiteet
+        media_enquiries: Meediapäringud
+        membership: Liikmelisus
+        modern_slavery_statement:
+        our_energy_use: Meie energiatarbimus
+        our_governance: Meie juhatus
+        personal_information_charter: Isikuandmete harta
+        petitions_and_campaigns: Petitsioonid ja kampaaniad
+        procurement: Hanked %{organisation_name}
+        publication_scheme: Avaldamise kord
+        recruitment: Töötamine %{organisation_name}
+        research: Uuringud %{organisation_name}
+        social_media_use: Sotsiaalmeedia kasutus
+        staff_update: Meeskonna uudised ja info
+        statistics: Statistika %{organisation_name}
+        terms_of_reference: Ametivolitused
+        welsh_language_scheme: Uelsi keele kasutusest
+  date:
+    formats:
+      default:
+      long_ordinal:
   document:
+    contents: Sisukord
+    footer_meta:
+      full_page_history: Tervikajalugu
+      published: Avaldatud
+      updated: Täiendatud
+    headings:
+      applies_to_nations: Seondub
+      from: Kellelt
+      part_of: Osa
+    latest:
+    latest_from:
+    published: avaldatud
+    see_all:
+    speech:
+      author_title:
+        minister: Minister
+        speaker: Autor
+      delivered_on: 'Ette kantud:'
+      delivery_title:
+        minister: Minister
+        speaker: Kõneleja
+      written_on: 'Kirjutatud:'
     type:
       about:
         one:
@@ -226,176 +361,17 @@ et:
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
-    contents: Sisukord
-    footer_meta:
-      full_page_history: Tervikajalugu
-      published: Avaldatud
-      updated: Täiendatud
-    headings:
-      applies_to_nations: Seondub
-      from: Kellelt
-      part_of: Osa
-    latest:
-    latest_from:
-    published: avaldatud
-    see_all:
-    speech:
-      author_title:
-        minister: Minister
-        speaker: Autor
-      delivered_on: 'Ette kantud:'
-      delivery_title:
-        minister: Minister
-        speaker: Kõneleja
-      written_on: 'Kirjutatud:'
     updated: Täiendatud
-  world_location:
-    type:
-      international_delegation:
-        one: Rahvusvaheline delegatsioon
-        other: Rahvusvahelised delegatsioonid
-      world_location:
-        one: Riik
-        other: Riigid
-    headings:
-      announcements: Meie teadaanded
-      documents: Dokumendid
-      mission: Meie missioon
-      news:
-      organisations: Organisatsioonid
-      publications: Meie publikatsioonid
-      search:
-      statistics: Meie statistika
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Parlamendi alamkoja dokumendi nr.
-        isbn: ISBN
-        unnumbered_hoc_paper: Numbrita Parlamendi alamkoja dokument
-      attachment_data:
-        file: Toimik
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number: 'Parlamendi alamkoja dokumendi nr. '
-        isbn: 'Manuse ISBN '
-        title: Manuse pealkiri
-        unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Manus
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Manus
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number: Parlamendi alamkoja dokumendi nr.
-        isbn: Manuse ISBN
-        title: Manuse pealkiri
-        unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Manus
-    nested_attachment_data_field_names:
-      file: Manus
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number: Parlamendi alamkoja dokumendi nr.
-      isbn: Manuse ISBN
-      title: Manuse pealkiri
-      unique_reference: Manuse unikaalne viide
-      unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
-  announcements:
-    heading: Teated
-  attachment:
-    accessibility:
-      full_help_html: 'Kui olete abistava tehnoloogia kasutaja ja vajate selle dokumendi
-        versiooni mõnes alternatiivses formaadis, palun saatke e-kiri %{email}. Palun
-        öelge meile, missugust formaati vajate. On abiks, kui märgite ära, missugust
-        abistavat tehnoloogiat kasutate. '
-      intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
-      request_a_different_format: Küsige teistsugust formaati
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: Tellige koopia
-      order_a_copy_full: Tellige publikatsiooni koopia
-      published: Avaldatud
-      reference: Viide
-      unnumbered_command_paper:
-      unnumbered_hoc_paper: Nummerdamata eelnõu dokument
-    opendocument:
-      help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
-        formaadis
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at: Esmane publikatsioon
-    see_all_updates: Vaadake kõiki täiendusi
-    updated_at: Viimane täiendus
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: Võtke ühendust
-    email: E-post
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about: Meist
-        about_our_services: Meie teenustest
-        access_and_opening: Kontori asukoht ja tööaeg
-        accessible_documents_policy:
-        complaints_procedure: Kaebuste esitamise kord
-        equality_and_diversity: Võrdõiguslikkus ja diversiteet
-        media_enquiries: Meediapäringud
-        membership: Liikmelisus
-        modern_slavery_statement:
-        our_energy_use: Meie energiatarbimus
-        our_governance: Meie juhatus
-        personal_information_charter: Isikuandmete harta
-        petitions_and_campaigns: Petitsioonid ja kampaaniad
-        procurement: Hanked %{organisation_name}
-        publication_scheme: Avaldamise kord
-        recruitment: Töötamine %{organisation_name}
-        research: Uuringud %{organisation_name}
-        social_media_use: Sotsiaalmeedia kasutus
-        staff_update: Meeskonna uudised ja info
-        statistics: Statistika %{organisation_name}
-        terms_of_reference: Ametivolitused
-        welsh_language_scheme: Uelsi keele kasutusest
-  date:
-    formats:
-      default:
-      long_ordinal:
   document_filters:
     consultation:
       all:
       label:
-    description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
-      Teie huvile vastavad
+    description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis Teie huvile vastavad
     no_results:
       description: Laiendage otsingut ja proovige uuesti
       title: Vastavaid dokumente ei leitud
       tna_heading: Vanem sisu
-      tna_link: Mitte kõikide ametkondade publikatsioonid, mis avaldati enne maikuud
-        2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne
-        2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The
-        National Archives</a>.
+      tna_link: Mitte kõikide ametkondade publikatsioonid, mis avaldati enne maikuud 2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne 2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The National Archives</a>.
     world_locations:
       all: Kõik sihtkohad
       label: Sihtkohad maailmas
@@ -412,7 +388,71 @@ et:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
     et: Eesti
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Uuendused puuduvad
     title: Viimased uudised
@@ -530,12 +570,6 @@ et:
     formats:
       long_ordinal:
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -548,18 +582,32 @@ et:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: Meie teadaanded
+      documents: Dokumendid
+      mission: Meie missioon
+      news:
+      organisations: Organisatsioonid
+      publications: Meie publikatsioonid
+      search:
+      statistics: Meie statistika
+    type:
+      international_delegation:
+        one: Rahvusvaheline delegatsioon
+        other: Rahvusvahelised delegatsioonid
+      world_location:
+        one: Riik
+        other: Riigid
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 'Uuri lisaks: %{link}'
-      personal_information_charter_html: 'Meie %{link} selgitab kuidas me kohtleme
-        Teie eraelulist teavet. '
-      publication_scheme_html: 'Lugege lisaks infoliikide kohta, mida me regulaarselt
-        avalikustame: %{link}'
+      personal_information_charter_html: 'Meie %{link} selgitab kuidas me kohtleme Teie eraelulist teavet. '
+      publication_scheme_html: 'Lugege lisaks infoliikide kohta, mida me regulaarselt avalikustame: %{link}'
       social_media_use_html: 'Lugege meie poliitika kohta: %{link}'
-      welsh_language_scheme_html: 'Lugege lisaks meie pühandumusest avaldamise osas:
-        %{link}'
+      welsh_language_scheme_html: 'Lugege lisaks meie pühandumusest avaldamise osas: %{link}'
     find_out_more: Täielik profiil ja kõik kontaktid
     headings:
       contact_us: Võtke ühendust

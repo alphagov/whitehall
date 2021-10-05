@@ -1,3 +1,4 @@
+---
 vi:
   activerecord:
     attributes:
@@ -138,28 +139,21 @@ vi:
       written_on: 'Viết vào:'
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       alert:
         one:
         other:
       announcement:
-        one:
-        other:
+        other: Các thông báo
       authored_article:
-        one:
-        other:
+        other: Các bài viết do tác giả
       blog_post:
-        one:
         other:
       campaign:
         one:
@@ -168,207 +162,145 @@ vi:
         one:
         other:
       case_study:
-        one:
-        other:
+        other: Các Trường hợp cụ thể
       closed_consultation:
-        one:
-        other:
+        other: Kết thúc các cuộc tham vấn
       complaints_procedure:
-        one:
         other:
       consultation:
-        one:
-        other:
+        other: Các cuộc tham vấn
       consultation_outcome:
-        one:
-        other:
+        other: Các Kết quả tham vấn
       corporate_report:
-        one:
-        other:
+        other: Các báo cáo tổng hợp
       correspondence:
-        one:
-        other:
+        other: Liên hệ
       decision:
-        one:
         other:
       detailed_guidance:
-        one:
-        other:
+        other: Hướng dẫn chi tiết
       document_collection:
-        one:
         other:
       draft_text:
-        one:
-        other:
+        other: Các nội dung dự thảo
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
-        one:
-        other:
+        other: Thông cáo FOI
       form:
-        one:
-        other:
+        other: Các mẫu đơn
       generic_edition:
-        one:
         other:
       government_response:
-        one:
-        other:
+        other: các phản hồi của Chính phủ
       guidance:
-        one:
-        other:
+        other: hướng dẫn
       impact_assessment:
-        one:
-        other:
+        other: Đánh giá tác động
       imported:
-        one:
-        other:
+        other: Loại tài liệu đính kèm
       independent_report:
-        one:
-        other:
+        other: Các báo cáo độc lập
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one:
-        other:
+        other: Các bản đồ
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
-        one:
-        other:
+        other: Thống kê - Thống kê quốc gia
       news_article:
-        one:
-        other:
+        other: Tin tức
       news_story:
         one:
         other: Câu chuyện tin tức
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one:
-        other:
+        other: Thống kê
       open_consultation:
-        one:
-        other:
+        other: Tham vấn mở rộng
       oral_statement:
-        one:
-        other:
+        other: Tuyên bố bằng lời nói tới quốc hội
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
-        one:
-        other:
+        other: Tài liệu chính sách
       press_release:
         one:
         other: Thông cáo báo chí
       procurement:
-        one:
         other:
       promotional:
-        one:
-        other:
+        other: Tài liệu truyền thông
       publication:
-        one:
-        other:
+        other: Tài liệu truyền thông
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
-        one:
         other:
       research:
-        one:
-        other:
+        other: Nghiên cứu và phân tích
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
-        one:
-        other:
+        other: Bài phát biểu
       speech:
         one:
         other: Các bài phát biểu
       staff_update:
-        one:
         other:
       standard:
-        one:
         other:
       statement_to_parliament:
         one:
         other: Tuyên bố tới Quốc hội
       statistical_data_set:
-        one:
-        other:
+        other: Bộ dữ liệu thống kê
       statistics:
-        one:
         other:
       statutory_guidance:
-        one:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
-        one:
-        other:
+        other: Kịch bản
       transparency:
-        one:
-        other:
+        other: Dữ liệu kịch bản
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
-        one:
         other:
       written_statement:
-        one:
-        other:
+        other: Các Tuyên bố bằng văn bản tới quốc hội
     updated: Cập nhật
   document_filters:
     consultation:
       all:
       label:
-    description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn
-      quan tâm
+    description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn quan tâm
     no_results:
       description: thử làm cho tìm kiếm của bạn rộng hơn và thử lại
       title: Không có tài liệu phù hợp
@@ -390,7 +322,71 @@ vi:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
     vi: Tiếng Việt
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Chưa có cập nhật
     title: Mới nhất
@@ -490,8 +486,7 @@ vi:
     statutory_guidance:
     transcript: Xem tất cả kịch bản của chúng tôi
     transparency: Xem tất cả dữ liệu kịch bản của chúng tôi
-    written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng
-      tôi
+    written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng tôi
   support:
     array:
       last_word_connector: và
@@ -509,12 +504,6 @@ vi:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -539,23 +528,18 @@ vi:
       statistics: Thống kê của chúng tôi
     type:
       international_delegation:
-        one:
-        other:
+        other: Các phái đoàn quốc tế
       world_location:
-        one:
-        other:
+        other: Các địa điểm trên thế giới
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng
-        tôi xử lý thông tin cá nhân của bạn"
-      publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
-        xuyên tại %{link}
+      personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng tôi xử lý thông tin cá nhân của bạn"
+      publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường xuyên tại %{link}
       social_media_use_html: Đọc chính sách của chúng tôi tại %{link}
-      welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
-        bố thông tin tại %{link}
+      welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công bố thông tin tại %{link}
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
     headings:
       contact_us: Liên hệ với chúng tôi

@@ -1,5 +1,142 @@
+---
 hi:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: घोषणाएं
+  attachment:
+    accessibility:
+      full_help_html: |-
+        इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो में निवेदन करें, %{email}
+        अपना पता, टेलीफोन नंबर और प्रकाशन के  शीर्षक के साथ ("%{title}")%{references}.
+      intro: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए उपयोगी ना हो
+      request_a_different_format: एक  अलग प्रारूप का निवेदन
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: प्रतिलिपि मंगाएँ
+      order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
+      published: प्रकाशित
+      reference: संदर्भ
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: संपर्क प्रपत्र
+    email: ईमेल
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: व्यक्तिगत जानकारी चार्टर
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: प्रकाशन योजना
+        recruitment:
+        research:
+        social_media_use: सोशल मीडिया का प्रयोग
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: वेल्श भाषा योजना
+  date:
+    formats:
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: पर लागू
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: प्रकाशित
+    see_all:
+    speech:
+      author_title:
+        minister: मंत्री
+        speaker: लेखक 
+      delivered_on: 'को वितरित:'
+      delivery_title:
+        minister: मंत्री
+        speaker: वक्ता
+      written_on: लिखा गया
     type:
       about:
         one:
@@ -226,167 +363,12 @@ hi:
       written_statement:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: पर लागू
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: प्रकाशित
-    see_all:
-    speech:
-      author_title:
-        minister: मंत्री
-        speaker: लेखक 
-      delivered_on: 'को वितरित:'
-      delivery_title:
-        minister: मंत्री
-        speaker: वक्ता
-      written_on: लिखा गया
     updated: अद्यतन
-  world_location:
-    type:
-      international_delegation:
-        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-      world_location:
-        one: वैश्विक स्थान
-        other: वैश्विक स्थान
-    headings:
-      announcements: हमारी घोषणाएं
-      documents: दस्तावेज़
-      mission: हमारा लक्ष्य
-      news:
-      organisations: संगठन
-      publications: हमारे प्रकाशन
-      search:
-      statistics: हमारे आंकड़े
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: घोषणाएं
-  attachment:
-    accessibility:
-      full_help_html: |-
-        इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो में निवेदन करें, %{email}
-        अपना पता, टेलीफोन नंबर और प्रकाशन के  शीर्षक के साथ ("%{title}")%{references}.
-      intro: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए
-        उपयोगी ना हो
-      request_a_different_format: एक  अलग प्रारूप का निवेदन
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: प्रतिलिपि मंगाएँ
-      order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
-      published: प्रकाशित
-      reference: संदर्भ
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: संपर्क प्रपत्र
-    email: ईमेल
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: व्यक्तिगत जानकारी चार्टर
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: प्रकाशन योजना
-        recruitment:
-        research:
-        social_media_use: सोशल मीडिया का प्रयोग
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: वेल्श भाषा योजना
-  date:
-    formats:
-      default: "%e %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
-      जिनमें आप की दिलचस्पी हो।
+    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं, जिनमें आप की दिलचस्पी हो।
     no_results:
       description: 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
       title: मेल खाने वाले दस्तावेज़ नहीं हैं
@@ -408,7 +390,71 @@ hi:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
     hi: हिंदी
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: अभी तक कोई नए समाचार नहीं हैं
     title: नवीनतम
@@ -526,12 +572,6 @@ hi:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -544,18 +584,32 @@ hi:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: हमारी घोषणाएं
+      documents: दस्तावेज़
+      mission: हमारा लक्ष्य
+      news:
+      organisations: संगठन
+      publications: हमारे प्रकाशन
+      search:
+      statistics: हमारे आंकड़े
+    type:
+      international_delegation:
+        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+      world_location:
+        one: वैश्विक स्थान
+        other: वैश्विक स्थान
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत
-        सूचना का उपयोग करते हैं।
-      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम
-        अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
+      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत सूचना का उपयोग करते हैं।
+      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
       social_media_use_html: इस बारे में हमारी नीतियां पढ़ें %{link}
-      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें
-        %(link)।
+      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें %(link)।
     find_out_more: पूरी रूप रेखा और समस्त संपर्क विवरण देखें
     headings:
       contact_us: हमसे संपर्क करें

@@ -19,7 +19,7 @@ end
 Then(/^I should see the topical event "([^"]*)" on the frontend is archived$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topical_event_path(topical_event)
-  expect(page).to have_selector(".govuk-caption-xl.gem-c-title__context", text: "Archived")
+  expect(page).to have_selector(".archived", text: "Archived")
 end
 
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
@@ -114,7 +114,7 @@ end
 
 Then(/^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/) do |_type, name, expected_table|
   visit topical_event_path(TopicalEvent.find_by!(name: name))
-  rows = find(".topical-events-featured-news").all(".feature")
+  rows = find(".featured-news").all(".feature")
   table = rows.collect do |row|
     [
       row.find("h2").text.strip,

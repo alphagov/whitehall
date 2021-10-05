@@ -33,7 +33,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: topical_event }
     parsed_response = Nokogiri::HTML::Document.parse(response.body)
-    assert_equal 5, parsed_response.css(".topical-events-featured-news .feature").length
+    assert_equal 5, parsed_response.css(".featured-news .feature").length
   end
 
   view_test "show has a link to the atom feed" do

@@ -1,5 +1,140 @@
+---
 zh-hk:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: 公告
+  attachment:
+    accessibility:
+      full_help_html: 尋求另一種檔案格式：點字或音檔
+      intro: 此檔案不適合使用科技輔助的使用者
+      request_a_different_format: 尋求別種格式
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: 訂閱副本
+      order_a_copy_full: 訂閱報告副本
+      published: 已發布
+      reference: 參考
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: 聯絡資料表
+    email: 電子郵件
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: 個人資訊表
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: 出版計畫
+        recruitment:
+        research:
+        social_media_use: 社交媒體應用
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: 威爾士語言計畫
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: 適用於
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: 已發布
+    see_all:
+    speech:
+      author_title:
+        minister: 大臣
+        speaker: 作者
+      delivered_on: 發表於：
+      delivery_title:
+        minister: 大臣
+        speaker: 講者
+      written_on: 撰寫於：
     type:
       about:
         one:
@@ -226,158 +361,7 @@ zh-hk:
       written_statement:
         one: 提交國會的書面聲明
         other: 提交國會的其他書面聲明
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: 適用於
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: 已發布
-    see_all:
-    speech:
-      author_title:
-        minister: 大臣
-        speaker: 作者
-      delivered_on: 發表於：
-      delivery_title:
-        minister: 大臣
-        speaker: 講者
-      written_on: 撰寫於：
     updated: 已更新
-  world_location:
-    type:
-      international_delegation:
-        one: 國際代表
-        other: 其他國際代表
-      world_location:
-        one: 全球駐點
-        other: 其他全球駐點
-    headings:
-      announcements: 我們的公告
-      documents: 文件
-      mission: 我們的使命
-      news:
-      organisations: 組織
-      publications: 我們的出版物
-      search:
-      statistics: 我們的統計資料
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: 公告
-  attachment:
-    accessibility:
-      full_help_html: 尋求另一種檔案格式：點字或音檔
-      intro: 此檔案不適合使用科技輔助的使用者
-      request_a_different_format: 尋求別種格式
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: 訂閱副本
-      order_a_copy_full: 訂閱報告副本
-      published: 已發布
-      reference: 參考
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: 聯絡資料表
-    email: 電子郵件
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: 個人資訊表
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: 出版計畫
-        recruitment:
-        research:
-        social_media_use: 社交媒體應用
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: 威爾士語言計畫
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
@@ -404,7 +388,71 @@ zh-hk:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
     zh-hk: 中文
+    zh-tw:
   latest_feed:
     no_updates: 目前暫無更新。
     title: 最新消息
@@ -522,12 +570,6 @@ zh-hk:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -540,6 +582,23 @@ zh-hk:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: 我們的公告
+      documents: 文件
+      mission: 我們的使命
+      news:
+      organisations: 組織
+      publications: 我們的出版物
+      search:
+      statistics: 我們的統計資料
+    type:
+      international_delegation:
+        one: 國際代表
+        other: 其他國際代表
+      world_location:
+        one: 全球駐點
+        other: 其他全球駐點
   world_news:
     uk_updates_in_country:
   worldwide_organisation:

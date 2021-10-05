@@ -61,7 +61,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       assert_select "title", text: "UK and India - GOV.UK"
       assert_select ".gem-c-title__context", text: "World location news"
       assert_select "h1", text: "UK and India"
-      assert_select ".world-locations__our-mission .govspeak p:first-child", text: "country-mission-statement"
+      assert_select ".mission_statement", text: "country-mission-statement"
     end
   end
 
@@ -297,8 +297,8 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     get :index, params: { world_location_id: @translated_world_location, locale: "fr" }
 
     assert_select ".gem-c-title__context", "World location news"
-    assert_select "#publications .govuk-body a", /Voir toutes nos publications/
-    assert_select ".govuk-body a", /Voir toutes nos annonces/
+    assert_select "#publications .see-all a", /Voir toutes nos publications/
+    assert_select ".see-all a", /Voir toutes nos annonces/
   end
 
   test "should only display translated announcements when requested for a locale" do

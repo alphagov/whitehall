@@ -11,15 +11,12 @@
     </div>
   </div>
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <div class="filtered-index govuk-!-margin-bottom-4">
-        <%= render partial: "documents/filter_form",
-          locals: {
-            document_type: :announcement,
-            filters: [ :locations ]
-        } %>
-      </div>
+<div class="filtered-index">
+  <%= render partial: "documents/filter_form",
+             locals: {
+               document_type: :announcement,
+               filters: [ :locations ]
+             } %>
 
       <div class="filter-results-block govuk-!-margin-bottom-4">
         <div class="filter-results js-filter-results" aria-live="polite">

@@ -1,5 +1,140 @@
+---
 pt:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: Anúncios
+  attachment:
+    accessibility:
+      full_help_html: Para solicitar este documento em um formato alternativo, como braille, audio ou um formato de arquivo diferente, por favor envie um e-mail %{email} com seu endereço, número de telefone e o nome da publicação ("%{title}")%{references}.
+      intro: Este arquivo pode não ser apropriado para usuário de tecnologia assistiva
+      request_a_different_format: Solicitar formato diferente
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: Pedir uma cópia
+      order_a_copy_full: Pedir uma cópia da publicação
+      published: Publicado
+      reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: Formulário de contato
+    email: E-mail
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure: Processo de reclamação
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Guia de Informação Pessoal
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Programa de publicação
+        recruitment: Trabalhar para a %{organisation_name}
+        research:
+        social_media_use: Uso de mídias sociais
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: 'Programa de língua galesa '
+  date:
+    formats:
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: Aplica-se a
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: publicado
+    see_all:
+    speech:
+      author_title:
+        minister: Ministro
+        speaker: Autor
+      delivered_on: 'Entregue em:'
+      delivery_title:
+        minister: Ministro
+        speaker: Orador
+      written_on: 'Escrito em:'
     type:
       about:
         one:
@@ -226,166 +361,12 @@ pt:
       written_statement:
         one: Declaração escrita ao Parlamento
         other: Declarações escritas ao Parlamento
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: Aplica-se a
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: publicado
-    see_all:
-    speech:
-      author_title:
-        minister: Ministro
-        speaker: Autor
-      delivered_on: 'Entregue em:'
-      delivery_title:
-        minister: Ministro
-        speaker: Orador
-      written_on: 'Escrito em:'
     updated: Atualizado
-  world_location:
-    type:
-      international_delegation:
-        one: Delegação Internacional
-        other: Delegações Internacionais
-      world_location:
-        one: Local no Mundo
-        other: Locais no Mundo
-    headings:
-      announcements: Nossos anúncios
-      documents: Documentos
-      mission: Nossa missão
-      news:
-      organisations: Organizações
-      publications: Nossas publicações
-      search:
-      statistics: Nossas estatísticas
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Anúncios
-  attachment:
-    accessibility:
-      full_help_html: Para solicitar este documento em um formato alternativo, como
-        braille, audio ou um formato de arquivo diferente, por favor envie um e-mail
-        %{email} com seu endereço, número de telefone e o nome da publicação ("%{title}")%{references}.
-      intro: Este arquivo pode não ser apropriado para usuário de tecnologia assistiva
-      request_a_different_format: Solicitar formato diferente
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: Pedir uma cópia
-      order_a_copy_full: Pedir uma cópia da publicação
-      published: Publicado
-      reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: Formulário de contato
-    email: E-mail
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure: Processo de reclamação
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Guia de Informação Pessoal
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Programa de publicação
-        recruitment: Trabalhar para a %{organisation_name}
-        research:
-        social_media_use: Uso de mídias sociais
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: 'Programa de língua galesa '
-  date:
-    formats:
-      default: "%e %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
-      &nbsp; interessam
+    description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe &nbsp; interessam
     no_results:
       description: Tente tornar sua busca mais abrangente e tente novamente
       title: Nenhum documento encontrado
@@ -407,7 +388,71 @@ pt:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
     pt: Português
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Ainda não há atualizações
     title: Últimas
@@ -525,12 +570,6 @@ pt:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -543,18 +582,32 @@ pt:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: Nossos anúncios
+      documents: Documentos
+      mission: Nossa missão
+      news:
+      organisations: Organizações
+      publications: Nossas publicações
+      search:
+      statistics: Nossas estatísticas
+    type:
+      international_delegation:
+        one: Delegação Internacional
+        other: Delegações Internacionais
+      world_location:
+        one: Local no Mundo
+        other: Locais no Mundo
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Nosso %{link} explica como nós tratamos suas
-        informações pessoais
-      publication_scheme_html: Leia sobre os tipos de informações que publicamos rotineiramente
-        em nosso %{link}.
+      personal_information_charter_html: Nosso %{link} explica como nós tratamos suas informações pessoais
+      publication_scheme_html: Leia sobre os tipos de informações que publicamos rotineiramente em nosso %{link}.
       social_media_use_html: Leia nossa política sobre %{link}
-      welsh_language_scheme_html: Saiba mais sobre nosso comprometimento em publicar
-        em %{link}
+      welsh_language_scheme_html: Saiba mais sobre nosso comprometimento em publicar em %{link}
     find_out_more: 'Veja o perfil completo e todos os contatos '
     headings:
       contact_us: Contactos

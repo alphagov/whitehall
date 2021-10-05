@@ -1,5 +1,143 @@
+---
 pa-pk:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: دار العوام پرچہ نمبر
+        isbn: ISBN
+        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      attachment_data:
+        file: فائل
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
+        hoc_paper_number: دار العوام پرچہ نمبر
+        isbn: نتھی شدہ ISBN
+        title: نتھی شدہ عنوان
+        unique_reference: نتھی شدہ وکھرا حوالہ
+        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: نتھی شدہ فائل
+      edition:
+        nation_inapplicabilities: خارج ہوئی قوماں
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: نتھی شدہ فائل
+      response/consultation_response_attachments/attachment:
+        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
+        hoc_paper_number: دار العوام پرچہ نمبر
+        isbn: نتھی شدہ ISBN
+        title: نتھی شدہ عنوان
+        unique_reference: نتھی شدہ وکھرا حوالہ
+        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: نتھی شدہ فائل
+    nested_attachment_data_field_names:
+      file: نتھی شدہ فائل
+    nested_attachment_field_names:
+      command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
+      hoc_paper_number: دار العوام پرچہ نمبر
+      isbn: نتھی شدہ ISBN
+      title: نتھی شدہ عنوان
+      unique_reference: نتھی شدہ وکھرا حوالہ
+      unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+  announcements:
+    heading: اعلان
+  attachment:
+    accessibility:
+      full_help_html: |
+        اگر تسی مدد گار ٹیکنالوجی (مثلا سکرین ریڈر) استعمال کردے او تے ضرورت ہے اک
+        ایس دستاویز دا ورژن مزید آسان شکل وچ، مہربانی نال ایمیل کرو%{email}.۔
+        مہربانی نال سانوں دسو تہانوں کیہڑی شکل وچ ضرورت ہے۔ اے ساڈٰ مدد کرے گا اگر تسی دسو کہ تسی کیہڑی مدد گار ٹیکنالوجی استعمال کردے ہو۔
+      intro: اے فائل مدد گار ٹیکنالوجی استعمال کرن آلیاں واسطے شاید مناسب نہ ہووے۔
+      request_a_different_format: آسان شکل واسطے درخواست کرو۔
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: اک نقل منگواؤ۔
+      order_a_copy_full: اشاعت دی اک نقل منگواؤ۔
+      published: شائع ہو گیا
+      reference: Ref
+      unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
+      unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
+    opendocument:
+      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation"> اوپن ڈاکیومنٹ شکل وچ ہے۔
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
+    caution:
+      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
+    title: خراب لنک
+  change_notes:
+    published_at: پہلی دفعہ شائع ہویا
+    see_all_updates: ساری اپڈیٹس ویکھو
+    updated_at: آخری اپڈیٹ
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times: رسائی تے کھلن دے اوقات
+    contact_form: رابطے دا فارم
+    email: ایمیل
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: ویلش وچ شائع ہو ریا
+      title:
+        about: ساڈے بارے
+        about_our_services: ساڈی خدمات بارے
+        access_and_opening: دفت دی رسائی تے کھلن دے اوقات
+        accessible_documents_policy: دستاویزات دی رسائی دی پالیسی
+        complaints_procedure: شکایت دا طریقہ کار
+        equality_and_diversity: برابری تے تنوع
+        media_enquiries: میڈیا دی پچھ دس
+        membership: ممبرشپ
+        modern_slavery_statement:
+        our_energy_use: ساڈا توانائی دا استعمال
+        our_governance: ساڈی گورننس
+        personal_information_charter: ذاتی معلومات دا چارٹر
+        petitions_and_campaigns: درخواستاں تے مہماں
+        procurement: "%{organisation_name} تے پروکیورمنٹ"
+        publication_scheme: اشاےتی سکیم
+        recruitment: "%{organisation_name} واسطے کم کر رہے"
+        research: "%{organisation_name} تے تحقیق"
+        social_media_use: سوشل میڈیا دا استعمال
+        staff_update: اسٹاف دی خبراں تے معلومات
+        statistics: "%{organisation_name} تے شماریات"
+        terms_of_reference: حوالہ دی شرائط
+        welsh_language_scheme: ویلش زبان دی اسکیم
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: مندرجات
+    footer_meta:
+      full_page_history: پورے صفحہ دی تاریخ
+      published: شائع ہو گیا
+      updated: اپڈیٹ ہو گیا
+    headings:
+      applies_to_nations: تے لاگو ہوندا اے
+      from: دی طرفوں
+      part_of: دا حصہ
+    latest:
+    latest_from:
+    published: شائع ہو گیا
+    see_all: سارے ویکھو
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: لکھاری
+      delivered_on: 'نوں فراہم ہویا:'
+      delivery_title:
+        minister: وزیر
+        speaker: سپیکر
+      written_on: 'نوں لکھیا گیا:'
     type:
       about:
         one:
@@ -226,176 +364,17 @@ pa-pk:
       written_statement:
         one: پارلیمنٹ نوں لکھیا ہویا بیان
         other: پارلیمنٹ نوں لکھے ہوئے بیان
-    contents: مندرجات
-    footer_meta:
-      full_page_history: پورے صفحہ دی تاریخ
-      published: شائع ہو گیا
-      updated: اپڈیٹ ہو گیا
-    headings:
-      applies_to_nations: تے لاگو ہوندا اے
-      from: دی طرفوں
-      part_of: دا حصہ
-    latest:
-    latest_from:
-    published: شائع ہو گیا
-    see_all: سارے ویکھو
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: لکھاری
-      delivered_on: 'نوں فراہم ہویا:'
-      delivery_title:
-        minister: وزیر
-        speaker: سپیکر
-      written_on: 'نوں لکھیا گیا:'
     updated: اپڈیٹ ہویا
-  world_location:
-    type:
-      international_delegation:
-        one: عالمی وفد
-        other: عالمی وفود
-      world_location:
-        one: دنیا دا مقام
-        other: دنیا دے مقام
-    headings:
-      announcements: ساڈے اعلانات
-      documents: دستاویزات
-      mission: ساڈا مشن
-      news:
-      organisations: تنظیمیں
-      publications: ساڈی اشاعتاں
-      search:
-      statistics: ساڈی شماریات
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: ISBN
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-      attachment_data:
-        file: فائل
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: نتھی شدہ ISBN
-        title: نتھی شدہ عنوان
-        unique_reference: نتھی شدہ وکھرا حوالہ
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
-      edition:
-        nation_inapplicabilities: خارج ہوئی قوماں
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
-      response/consultation_response_attachments/attachment:
-        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: نتھی شدہ ISBN
-        title: نتھی شدہ عنوان
-        unique_reference: نتھی شدہ وکھرا حوالہ
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
-    nested_attachment_data_field_names:
-      file: نتھی شدہ فائل
-    nested_attachment_field_names:
-      command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-      hoc_paper_number: دار العوام پرچہ نمبر
-      isbn: نتھی شدہ ISBN
-      title: نتھی شدہ عنوان
-      unique_reference: نتھی شدہ وکھرا حوالہ
-      unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
-  announcements:
-    heading: اعلان
-  attachment:
-    accessibility:
-      full_help_html: |
-        اگر تسی مدد گار ٹیکنالوجی (مثلا سکرین ریڈر) استعمال کردے او تے ضرورت ہے اک
-        ایس دستاویز دا ورژن مزید آسان شکل وچ، مہربانی نال ایمیل کرو%{email}.۔
-        مہربانی نال سانوں دسو تہانوں کیہڑی شکل وچ ضرورت ہے۔ اے ساڈٰ مدد کرے گا اگر تسی دسو کہ تسی کیہڑی مدد گار ٹیکنالوجی استعمال کردے ہو۔
-      intro: اے فائل مدد گار ٹیکنالوجی استعمال کرن آلیاں واسطے شاید مناسب نہ ہووے۔
-      request_a_different_format: آسان شکل واسطے درخواست کرو۔
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: اک نقل منگواؤ۔
-      order_a_copy_full: اشاعت دی اک نقل منگواؤ۔
-      published: شائع ہو گیا
-      reference: Ref
-      unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
-      unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
-    opendocument:
-      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
-        اوپن ڈاکیومنٹ شکل وچ ہے۔
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
-    caution:
-      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے
-        نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
-    title: خراب لنک
-  change_notes:
-    published_at: پہلی دفعہ شائع ہویا
-    see_all_updates: ساری اپڈیٹس ویکھو
-    updated_at: آخری اپڈیٹ
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times: رسائی تے کھلن دے اوقات
-    contact_form: رابطے دا فارم
-    email: ایمیل
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: ویلش وچ شائع ہو ریا
-      title:
-        about: ساڈے بارے
-        about_our_services: ساڈی خدمات بارے
-        access_and_opening: دفت دی رسائی تے کھلن دے اوقات
-        accessible_documents_policy: دستاویزات دی رسائی دی پالیسی
-        complaints_procedure: شکایت دا طریقہ کار
-        equality_and_diversity: برابری تے تنوع
-        media_enquiries: میڈیا دی پچھ دس
-        membership: ممبرشپ
-        modern_slavery_statement:
-        our_energy_use: ساڈا توانائی دا استعمال
-        our_governance: ساڈی گورننس
-        personal_information_charter: ذاتی معلومات دا چارٹر
-        petitions_and_campaigns: درخواستاں تے مہماں
-        procurement: "%{organisation_name} تے پروکیورمنٹ"
-        publication_scheme: اشاےتی سکیم
-        recruitment: "%{organisation_name} واسطے کم کر رہے"
-        research: "%{organisation_name} تے تحقیق"
-        social_media_use: سوشل میڈیا دا استعمال
-        staff_update: اسٹاف دی خبراں تے معلومات
-        statistics: "%{organisation_name} تے شماریات"
-        terms_of_reference: حوالہ دی شرائط
-        welsh_language_scheme: ویلش زبان دی اسکیم
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
-      ہو
+    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے ہو
     no_results:
       description: اپنی تلاش ودھان دی کوشش کرو تے دوبارہ کوشش کرو
       title: ملدی جلدی کوئی دستاویز موجود نہیں
       tna_heading: پرانا مواد
-      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔
-        مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
+      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔ مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
     world_locations:
       all: ساریے مقام
       label: دنیا دے مقام
@@ -412,7 +391,71 @@ pa-pk:
     direction: rtl
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr: فرانسیسی
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
     pa-pk: پن٘جابی
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
     title: تازہ ترین
@@ -530,12 +573,6 @@ pa-pk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -548,15 +585,30 @@ pa-pk:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: ساڈے اعلانات
+      documents: دستاویزات
+      mission: ساڈا مشن
+      news:
+      organisations: تنظیمیں
+      publications: ساڈی اشاعتاں
+      search:
+      statistics: ساڈی شماریات
+    type:
+      international_delegation:
+        one: عالمی وفد
+        other: عالمی وفود
+      world_location:
+        one: دنیا دا مقام
+        other: دنیا دے مقام
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: ڈھونڈو %{link}۔
-      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی
-        معلوت نال کی سلوک کردے آں۔
-      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم
-        دی معلومات شائع کردے آں۔
+      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی معلوت نال کی سلوک کردے آں۔
+      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم دی معلومات شائع کردے آں۔
       social_media_use_html: "%{link}. بارے ساڈٰی پالیسی پڑھو۔"
       welsh_language_scheme_html: "%{link} نال ساڈے ارادیاں بارے جانو۔"
     find_out_more: پوری پروفائل تے ساری رابطے دی تفصیلات ویکھو

@@ -1,3 +1,4 @@
+---
 fa:
   activerecord:
     attributes:
@@ -42,9 +43,7 @@ fa:
     heading: اطلاعیه ها
   attachment:
     accessibility:
-      full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
-        و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه
-        شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
+      full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
       intro: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
       request_a_different_format: ساختار متفاوتی درخواست کنید
     csv:
@@ -138,28 +137,21 @@ fa:
       written_on: 'نوشته شده در:'
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       alert:
         one:
         other:
       announcement:
-        one:
-        other:
+        other: اعلامیه ها
       authored_article:
-        one:
-        other:
+        other: مقالات
       blog_post:
-        one:
         other:
       campaign:
         one:
@@ -168,207 +160,145 @@ fa:
         one:
         other:
       case_study:
-        one:
-        other:
+        other: مطالعه های موردی
       closed_consultation:
-        one:
-        other:
+        other: رایزنی های بسته
       complaints_procedure:
-        one:
         other:
       consultation:
-        one:
-        other:
+        other: رایزنی ها
       consultation_outcome:
-        one:
-        other:
+        other: نتایج رایزنی
       corporate_report:
-        one:
-        other:
+        other: گزارش های سازمانی
       correspondence:
-        one:
-        other:
+        other: مکاتبات
       decision:
-        one:
         other:
       detailed_guidance:
-        one:
-        other:
+        other: راهنمای تفصیلی
       document_collection:
-        one:
         other:
       draft_text:
-        one:
-        other:
+        other: متون پیش نویس
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
-        one:
-        other:
+        other: انتشار آزاد اطلاعات
       form:
-        one:
-        other:
+        other: فرم ها
       generic_edition:
-        one:
         other:
       government_response:
-        one:
-        other:
+        other: جوابیه های دولت
       guidance:
-        one:
-        other:
+        other: راهنمایی
       impact_assessment:
-        one:
-        other:
+        other: ارزیابی های تاثیرات
       imported:
-        one:
-        other:
+        other: منتقل شده - در انتظار دسته بندی
       independent_report:
-        one:
-        other:
+        other: گزارش های مستقل
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one:
-        other:
+        other: نقشه ها
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
-        one:
-        other:
+        other: آمار - آمار ملی
       news_article:
-        one:
-        other:
+        other: مقالات خبری
       news_story:
         one:
         other: اخبار
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one:
-        other:
+        other: آمار
       open_consultation:
-        one:
-        other:
+        other: رایزنی های باز
       oral_statement:
-        one:
-        other:
+        other: گزارش های شفاهی به پارلمان
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
-        one:
-        other:
+        other: مقاله های سیاسی
       press_release:
         one:
         other: بیانیه ها
       procurement:
-        one:
         other:
       promotional:
-        one:
-        other:
+        other: مطالب تبلیغاتی
       publication:
-        one:
-        other:
+        other: نشریات
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
-        one:
         other:
       research:
-        one:
-        other:
+        other: پژوهش و تحلیل
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
-        one:
-        other:
+        other: موضوعات سخنرانی
       speech:
         one:
         other: سخنرانی ها
       staff_update:
-        one:
         other:
       standard:
-        one:
         other:
       statement_to_parliament:
         one:
         other: گزارش ها به پارلمان
       statistical_data_set:
-        one:
-        other:
+        other: بسته های داده های آماری
       statistics:
-        one:
         other:
       statutory_guidance:
-        one:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
-        one:
-        other:
+        other: رونوشت ها
       transparency:
-        one:
-        other:
+        other: داده های شفاف سازی
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
-        one:
         other:
       written_statement:
-        one:
-        other:
+        other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
   document_filters:
     consultation:
       all:
       label:
-    description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
-      محدود کنید
+    description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود محدود کنید
     no_results:
       description: جستجوی خود را گسترده تر و مجددا تلاش کنید
       title: اسناد منطبق وجود ندارد
@@ -390,7 +320,71 @@ fa:
     direction: rtl
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
     fa: فارسی
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: اطلاعات جدیدی در دست نیست
     title: آخرین
@@ -508,12 +502,6 @@ fa:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -538,20 +526,16 @@ fa:
       statistics: آمار ما
     type:
       international_delegation:
-        one:
-        other:
+        other: هیأت های بین المللی
       world_location:
-        one:
-        other:
+        other: موقعیت های جهانی
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما
-        را توضیح می دهد"
-      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
-        می کنیم بخوانید '
+      personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما را توضیح می دهد"
+      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر می کنیم بخوانید '
       social_media_use_html: سیاست ما را درباره  %{link} بخوانید
       welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
     find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس

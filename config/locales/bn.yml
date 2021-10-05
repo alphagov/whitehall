@@ -1,5 +1,140 @@
+---
 bn:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
+        isbn: আইএসবিএন
+        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+      attachment_data:
+        file: ফাইল
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
+        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
+        isbn: সংযুক্তি আইএসবিএন
+        title: সংযুক্তি শিরোনাম
+        unique_reference: সংযুক্তি বিশেষ রেফারেন্স
+        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: সংযুক্ত ফাইল
+      edition:
+        nation_inapplicabilities: বহির্ভূত দেশসমূহ
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: সংযুক্ত ফাইল
+      response/consultation_response_attachments/attachment:
+        command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
+        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
+        isbn: সংযুক্তি আইএসবিএন
+        title: সংযুক্তি শিরোনাম
+        unique_reference: সংযুক্তি বিশেষ রেফারেন্স
+        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: সংযুক্ত ফাইল
+    nested_attachment_data_field_names:
+      file: সংযুক্ত ফাইল
+    nested_attachment_field_names:
+      command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
+      hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
+      isbn: সংযুক্তি আইএসবিএন
+      title: সংযুক্তি শিরোনাম
+      unique_reference: সংযুক্তি বিশেষ রেফারেন্স
+      unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+  announcements:
+    heading: ঘোষণাসমূহ
+  attachment:
+    accessibility:
+      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়, তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি আমাদেরকে জানান তবে উপকার হবে।\n"
+      intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
+      request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: একটি অনুলিপির অর্ডার করুন
+      order_a_copy_full: প্রকাশনার একটি অনুলিপির অর্ডার করুন
+      published: প্রকাশিত
+      reference: রেফ
+      unnumbered_command_paper: অসাংখ্যিক আদেশপত্র
+      unnumbered_hoc_paper: অসাংখ্যিক আইনপত্র
+    opendocument:
+      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> প্রকরণে আছে।
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
+    caution:
+      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে, এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
+    title: নষ্ট লিঙ্কসমূহ
+  change_notes:
+    published_at: প্রথম প্রকাশিত
+    see_all_updates: সকল আপডেটসমূহ দেখুন
+    updated_at: সর্বশেষ আপডেটকৃত
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times: প্রবেশ ও খোলার সময়
+    contact_form: যোগাযোগের ফরম
+    email: ইমেইল
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: ওয়েলশে প্রকাশিত হচ্ছে
+      title:
+        about: আমাদের সম্পর্কে
+        about_our_services: আমাদের পরিষেবা সম্পর্কে
+        access_and_opening: কার্যালয় প্রবেশ ও খোলার সময়
+        accessible_documents_policy: অধিগম্য নথিসংক্রান্ত নীতিমালা
+        complaints_procedure: অভিযোগ প্রক্রিয়া
+        equality_and_diversity: সমতা ও বৈচিত্র্য
+        media_enquiries: মিডিয়া অনুসন্ধানসমূহ
+        membership: সদস্যপদ
+        modern_slavery_statement:
+        our_energy_use: আমাদের এনার্জিসংক্রান্ত ব্যবহার
+        our_governance: আমাদের প্রশাসন
+        personal_information_charter: ব্যক্তিগত তথ্যসংক্রান্ত চার্টার
+        petitions_and_campaigns: আবেদনপত্র ও প্রচার
+        procurement: "%{organisation_name}  -এ সংগ্রহ"
+        publication_scheme: প্রকাশনা প্রণালী
+        recruitment: "%{organisation_name}  -এর জন্য কর্মরত"
+        research: "%{organisation_name}  -এ গবেষণা"
+        social_media_use: সামাজিক মাধ্যমের ব্যবহার
+        staff_update: কর্মচারী সংক্রান্ত সংবাদ ও তথ্যাদি
+        statistics: "%{organisation_name}  -এ পরিসংখ্যান"
+        terms_of_reference: রেফারেন্সের শর্তাবলী
+        welsh_language_scheme: ওয়েলশ ভাষা প্রণালী
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: বিষয়বস্তু
+    footer_meta:
+      full_page_history: পূর্ণ পৃষ্ঠার ইতিহাস
+      published: প্রকাশিত
+      updated: আপডেটকৃত
+    headings:
+      applies_to_nations: এতে প্রযোজ্য হয়
+      from: থেকে
+      part_of: এর অংশ
+    latest:
+    latest_from:
+    published: প্রকাশিত
+    see_all: সব দেখুন
+    speech:
+      author_title:
+        minister: মন্ত্রী
+        speaker: লেখক
+      delivered_on: 'ডেলিভারি করা হয়েছে এই তারিখে:'
+      delivery_title:
+        minister: মন্ত্রী
+        speaker: বক্তা
+      written_on: 'লিখিত হয়েছে এতে:'
     type:
       about:
         one:
@@ -226,177 +361,17 @@ bn:
       written_statement:
         one: সংসদে লিখিত বিবৃতি
         other: সংসদে লিখিত বিবৃতিসমূহ
-    contents: বিষয়বস্তু
-    footer_meta:
-      full_page_history: পূর্ণ পৃষ্ঠার ইতিহাস
-      published: প্রকাশিত
-      updated: আপডেটকৃত
-    headings:
-      applies_to_nations: এতে প্রযোজ্য হয়
-      from: থেকে
-      part_of: এর অংশ
-    latest:
-    latest_from:
-    published: প্রকাশিত
-    see_all: সব দেখুন
-    speech:
-      author_title:
-        minister: মন্ত্রী
-        speaker: লেখক
-      delivered_on: 'ডেলিভারি করা হয়েছে এই তারিখে:'
-      delivery_title:
-        minister: মন্ত্রী
-        speaker: বক্তা
-      written_on: 'লিখিত হয়েছে এতে:'
     updated: আপডেটকৃত
-  world_location:
-    type:
-      international_delegation:
-        one: আন্তর্জাতিক প্রতিনিধি
-        other: আন্তর্জাতিক প্রতিনিধিগণ
-      world_location:
-        one: বৈশ্বিক অবস্থান
-        other: বৈশ্বিক অবস্থানসমূহ
-    headings:
-      announcements: আমাদের ঘোষণাসমূহ
-      documents: নথিপত্র
-      mission: আমাদের লক্ষ্য
-      news:
-      organisations: সংস্থাসমূহ
-      publications: আমাদের প্রকাশনাসমূহ
-      search:
-      statistics: আমাদের পরিসংখ্যান
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-        isbn: আইএসবিএন
-        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
-      attachment_data:
-        file: ফাইল
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
-        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-        isbn: সংযুক্তি আইএসবিএন
-        title: সংযুক্তি শিরোনাম
-        unique_reference: সংযুক্তি বিশেষ রেফারেন্স
-        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: সংযুক্ত ফাইল
-      edition:
-        nation_inapplicabilities: বহির্ভূত দেশসমূহ
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: সংযুক্ত ফাইল
-      response/consultation_response_attachments/attachment:
-        command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
-        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-        isbn: সংযুক্তি আইএসবিএন
-        title: সংযুক্তি শিরোনাম
-        unique_reference: সংযুক্তি বিশেষ রেফারেন্স
-        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: সংযুক্ত ফাইল
-    nested_attachment_data_field_names:
-      file: সংযুক্ত ফাইল
-    nested_attachment_field_names:
-      command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
-      hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-      isbn: সংযুক্তি আইএসবিএন
-      title: সংযুক্তি শিরোনাম
-      unique_reference: সংযুক্তি বিশেষ রেফারেন্স
-      unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
-  announcements:
-    heading: ঘোষণাসমূহ
-  attachment:
-    accessibility:
-      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার
-        করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়,
-        তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি
-        সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি
-        আমাদেরকে জানান তবে উপকার হবে।\n"
-      intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
-      request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: একটি অনুলিপির অর্ডার করুন
-      order_a_copy_full: প্রকাশনার একটি অনুলিপির অর্ডার করুন
-      published: প্রকাশিত
-      reference: রেফ
-      unnumbered_command_paper: অসাংখ্যিক আদেশপত্র
-      unnumbered_hoc_paper: অসাংখ্যিক আইনপত্র
-    opendocument:
-      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        প্রকরণে আছে।
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
-    caution:
-      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে,
-        এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
-    title: নষ্ট লিঙ্কসমূহ
-  change_notes:
-    published_at: প্রথম প্রকাশিত
-    see_all_updates: সকল আপডেটসমূহ দেখুন
-    updated_at: সর্বশেষ আপডেটকৃত
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times: প্রবেশ ও খোলার সময়
-    contact_form: যোগাযোগের ফরম
-    email: ইমেইল
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: ওয়েলশে প্রকাশিত হচ্ছে
-      title:
-        about: আমাদের সম্পর্কে
-        about_our_services: আমাদের পরিষেবা সম্পর্কে
-        access_and_opening: কার্যালয় প্রবেশ ও খোলার সময়
-        accessible_documents_policy: অধিগম্য নথিসংক্রান্ত নীতিমালা
-        complaints_procedure: অভিযোগ প্রক্রিয়া
-        equality_and_diversity: সমতা ও বৈচিত্র্য
-        media_enquiries: মিডিয়া অনুসন্ধানসমূহ
-        membership: সদস্যপদ
-        modern_slavery_statement:
-        our_energy_use: আমাদের এনার্জিসংক্রান্ত ব্যবহার
-        our_governance: আমাদের প্রশাসন
-        personal_information_charter: ব্যক্তিগত তথ্যসংক্রান্ত চার্টার
-        petitions_and_campaigns: আবেদনপত্র ও প্রচার
-        procurement: "%{organisation_name}  -এ সংগ্রহ"
-        publication_scheme: প্রকাশনা প্রণালী
-        recruitment: "%{organisation_name}  -এর জন্য কর্মরত"
-        research: "%{organisation_name}  -এ গবেষণা"
-        social_media_use: সামাজিক মাধ্যমের ব্যবহার
-        staff_update: কর্মচারী সংক্রান্ত সংবাদ ও তথ্যাদি
-        statistics: "%{organisation_name}  -এ পরিসংখ্যান"
-        terms_of_reference: রেফারেন্সের শর্তাবলী
-        welsh_language_scheme: ওয়েলশ ভাষা প্রণালী
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
-      আপনি ফিল্টার ব্যবহার করতে পারেন
+    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য আপনি ফিল্টার ব্যবহার করতে পারেন
     no_results:
       description: আপনার অনুসন্ধানকে আরো প্রশস্ত করে পুনরায় চেষ্টা করুন।
       title: কোন সদৃশ নথি নেই।
       tna_heading: পুরোনো বিষয়বস্তু
-      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর
-        করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
+      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
     world_locations:
       all: সকল অবস্থানসমূহ
       label: বৈশ্বিক অবস্থানসমূহ
@@ -413,7 +388,71 @@ bn:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
     bn: বাংলা
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr: ফরাসি
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: এখনো অব্দি কোন আপডেট নেই।
     title: সর্বশেষ
@@ -531,12 +570,6 @@ bn:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -549,18 +582,32 @@ bn:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: আমাদের ঘোষণাসমূহ
+      documents: নথিপত্র
+      mission: আমাদের লক্ষ্য
+      news:
+      organisations: সংস্থাসমূহ
+      publications: আমাদের প্রকাশনাসমূহ
+      search:
+      statistics: আমাদের পরিসংখ্যান
+    type:
+      international_delegation:
+        one: আন্তর্জাতিক প্রতিনিধি
+        other: আন্তর্জাতিক প্রতিনিধিগণ
+      world_location:
+        one: বৈশ্বিক অবস্থান
+        other: বৈশ্বিক অবস্থানসমূহ
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} -এ অনুসন্ধান করুন।"
-      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি
-        আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
-      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ
-        করে থাকি সেই সম্পর্কে পড়ুন।
+      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
+      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ করে থাকি সেই সম্পর্কে পড়ুন।
       social_media_use_html: "%{link}-এ আমাদের নীতিমালা সম্পর্কে পড়ুন।"
-      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে
-        বের করুন।"
+      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে বের করুন।"
     find_out_more: পূর্ণ প্রোফাইল ও সকল যোগাযোগের বিস্তারিত বিবরণ দেখুন।
     headings:
       contact_us: আমাদের সঙ্গে যোগাযোগ করুন

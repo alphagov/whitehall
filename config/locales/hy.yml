@@ -1,5 +1,140 @@
+---
 hy:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: Հայտարարություններ
+  attachment:
+    accessibility:
+      full_help_html: "Այս փաստաթղթի այլ տարբերակ ստանալու համար՝ բռալյան, ձայնային կամ այլ, խնդրում ենք դիմել \n%{email} նշելով ձեր հասցեն, հեռախոսահամարն ու նյութը, որ հայցում եք (\"%{title}\")%{references}."
+      intro: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ ունեցող օգտատերների համար
+      request_a_different_format: Պահանջել այլ տարբերակ
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: Պատվիրել կրկնօրինակը
+      order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը
+      published: Հրապարակված
+      reference: Հղում
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: Կապի միջոց
+    email: Էլելտրոնային հասցե
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Անձնական տվյալների կանոնադրություն
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Հրապարակման համակարգ
+        recruitment:
+        research:
+        social_media_use: Սոցիալական լրատվամիջոցի օգտագործում
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Ուելսերենի կանոնադրություն
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: Վերաբերվում է
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: հրապարակված
+    see_all:
+    speech:
+      author_title:
+        minister: Նախարար
+        speaker: Գրող
+      delivered_on: Առաքվել է
+      delivery_title:
+        minister: Նախարար
+        speaker: Խոսնակ
+      written_on: Գրված է՝
     type:
       about:
         one:
@@ -226,167 +361,12 @@ hy:
       written_statement:
         one: Գրավոր դիմում խորհրդարան
         other: Գրավոր դիմումներ խորհրդարան
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: Վերաբերվում է
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: հրապարակված
-    see_all:
-    speech:
-      author_title:
-        minister: Նախարար
-        speaker: Գրող
-      delivered_on: Առաքվել է
-      delivery_title:
-        minister: Նախարար
-        speaker: Խոսնակ
-      written_on: Գրված է՝
     updated: Թարմացված
-  world_location:
-    type:
-      international_delegation:
-        one: Միջազգային պատվիրակություն
-        other: Միջազգային պատվիրակություններ
-      world_location:
-        one: Համաշխարհային տեղաբաշխում
-        other: Համաշխարհային տեղաբաշխումներ
-    headings:
-      announcements: Մեր հայտարարությունները
-      documents: Փաստաթղթեր
-      mission: Մեր գործունեությունը
-      news:
-      organisations: Կազմակերպություններ
-      publications: Մեր հրատարակությունները
-      search:
-      statistics: Մեր վիճակագրությունը
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Հայտարարություններ
-  attachment:
-    accessibility:
-      full_help_html: "Այս փաստաթղթի այլ տարբերակ ստանալու համար՝ բռալյան, ձայնային
-        կամ այլ, խնդրում ենք դիմել \n%{email} նշելով ձեր հասցեն, հեռախոսահամարն ու
-        նյութը, որ հայցում եք (\"%{title}\")%{references}."
-      intro: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ ունեցող
-        օգտատերների համար
-      request_a_different_format: Պահանջել այլ տարբերակ
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: Պատվիրել կրկնօրինակը
-      order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը
-      published: Հրապարակված
-      reference: Հղում
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: Կապի միջոց
-    email: Էլելտրոնային հասցե
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Անձնական տվյալների կանոնադրություն
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Հրապարակման համակարգ
-        recruitment:
-        research:
-        social_media_use: Սոցիալական լրատվամիջոցի օգտագործում
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Ուելսերենի կանոնադրություն
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
-      արդյունքները
+    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող արդյունքները
     no_results:
       description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
       title: Համապատասխան ինֆորմացի չի գտնվել
@@ -408,7 +388,71 @@ hy:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
     hy: Հայերեն
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Դեռևս թարմացումներ չկան
     title: Վերջին գործողություն
@@ -487,8 +531,7 @@ hy:
     imported: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
     international_treaty:
     map: Տես՝ մեր բոլոր Քարտեզներ -ը
-    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ
-      -ը
+    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ -ը
     news_article: Տես՝ մեր բոլոր Տեղեկատվական հոդվածներ -ը
     news_story: Տես՝ մեր բոլոր Լուրեր -ը
     notice:
@@ -527,12 +570,6 @@ hy:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -545,18 +582,32 @@ hy:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: Մեր հայտարարությունները
+      documents: Փաստաթղթեր
+      mission: Մեր գործունեությունը
+      news:
+      organisations: Կազմակերպություններ
+      publications: Մեր հրատարակությունները
+      search:
+      statistics: Մեր վիճակագրությունը
+    type:
+      international_delegation:
+        one: Միջազգային պատվիրակություն
+        other: Միջազգային պատվիրակություններ
+      world_location:
+        one: Համաշխարհային տեղաբաշխում
+        other: Համաշխարհային տեղաբաշխումներ
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները
-        անձնական տեղեկատվությանը '
-      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
-        մեր %{link} ում
+      personal_information_charter_html: 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները անձնական տեղեկատվությանը '
+      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք մեր %{link} ում
       social_media_use_html: Կարդացեք մեր քաղաքականության մասին
-      welsh_language_scheme_html: Գտեք այստեղ %{link} ում հրապարակելու մեր պարտավորության
-        մասին
+      welsh_language_scheme_html: Գտեք այստեղ %{link} ում հրապարակելու մեր պարտավորության մասին
     find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները
     headings:
       contact_us: Կապ մեզ հետ

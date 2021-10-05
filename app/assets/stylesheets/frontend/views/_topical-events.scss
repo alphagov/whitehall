@@ -1,82 +1,126 @@
+@import "../utils/topic-features";
+
 .topical-events-show {
-  .topical-event-logo {
-    img {
-      max-width: 100%;
-      height: auto;
+  @include topic-features;
+
+  .headings-block {
+    .archived {
+      color: $grey-1;
+      padding-left: 0;
+    }
+
+    .topical-event-logo {
+      img {
+        max-width: $full-width;
+        margin-top: $gutter;
+      }
     }
   }
 
-  .organisations-list {
-    list-style: none;
+  .page-description {
+    @extend %contain-floats;
+    padding-bottom: $gutter * 2;
 
-    .organisations-list__item {
-      float: left;
-      padding: 0 govuk-spacing(3) govuk-spacing(3);
-      min-height: 90px;
+    .description {
+      .govspeak {
+        p,
+        ul {
+          @include core-24;
+        }
+      }
 
-      .organisation-logo:focus {
-        padding-bottom: govuk-spacing(1);
+      .read-more {
+        @include core-24;
+        margin: $gutter-two-thirds 0;
+      }
+
+      .social-media-accounts {
+        @extend %contain-floats;
+
+        li {
+          float: left;
+          clear: none;
+          padding-right: $gutter-half;
+        }
       }
     }
+  }
 
-    .non-govuk {
-      a {
-        display: block;
-        height: 80px;
-        text-indent: -999em;
-        background: transparent none no-repeat $half $half;
+  .organisations {
+    padding-top: $gutter;
+
+    ul {
+      list-style: none;
+
+      li {
+        float: left;
+        padding: 0 $gutter-half $gutter-half;
+        min-height: 90px;
+
+        .organisation-logo:focus {
+          padding-bottom: govuk-spacing(1);
+        }
       }
 
-      &.arts-council-england a {
-        background-image: image-url('topical-events/arts-council-england.png');
-        width: 217px;
-      }
+      .non-govuk {
+        a {
+          display: block;
+          height: 80px;
+          text-indent: -999em;
+          background: transparent none no-repeat $half $half;
+        }
 
-      &.bbc a {
-        background-image: image-url('topical-events/bbc.png');
-        width: 143px;
-      }
+        &.arts-council-england a {
+          background-image: image-url('topical-events/arts-council-england.png');
+          width: 217px;
+        }
 
-      &.british-library a {
-        background-image: image-url('topical-events/british-library.png');
-        width: 30px;
-      }
+        &.bbc a {
+          background-image: image-url('topical-events/bbc.png');
+          width: 143px;
+        }
 
-      &.commonwealth-war-graves-commission a {
-        background-image: image-url('topical-events/cwgc.png');
-        width: 209px;
-      }
+        &.british-library a {
+          background-image: image-url('topical-events/british-library.png');
+          width: 30px;
+        }
 
-      &.heritage-lottery-fund a {
-        background-image: image-url('topical-events/hlf.png');
-        width: 74px;
-      }
+        &.commonwealth-war-graves-commission a {
+          background-image: image-url('topical-events/cwgc.png');
+          width: 209px;
+        }
 
-      &.historic-england a {
-        background-image: image-url('topical-events/historic-england.png');
-        width: 242px;
-      }
+        &.heritage-lottery-fund a {
+          background-image: image-url('topical-events/hlf.png');
+          width: 74px;
+        }
 
-      &.imperial-war-museums a {
-        background-image: image-url('topical-events/iwm.png');
-        width: 80px;
-      }
+        &.historic-england a {
+          background-image: image-url('topical-events/historic-england.png');
+          width: 242px;
+        }
 
-      &.war-memorials-trust a {
-        background-image: image-url('topical-events/wmt.png');
-        width: 103px;
-      }
+        &.imperial-war-museums a {
+          background-image: image-url('topical-events/iwm.png');
+          width: 80px;
+        }
 
-      &.birmingham_2022_commonwealth_games a {
-        background-image: image-url('topical-events/birmingham_2022.png');
-        width: 120px;
-        height: 120px;
-      }
+        &.war-memorials-trust a {
+          background-image: image-url('topical-events/wmt.png');
+          width: 103px;
+        }
 
-      &.queens_platinum_jubilee a {
-        background-image: image-url('topical-events/platinum_jubilee.png');
-        width: 120px;
-        height: 117px;
+        &.birmingham_2022_commonwealth_games a {
+          background-image: image-url('topical-events/birmingham_2022.png');
+          width: 120px;
+          height: 120px;
+        }
+
+        &.queens_platinum_jubilee a {
+          background-image: image-url('topical-events/platinum_jubilee.png');
+          width: 120px;
+          height: 117px;
+        }
       }
     }
   }

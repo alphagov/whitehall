@@ -1,5 +1,140 @@
+---
 sq:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading: Njoftime shtypi
+  attachment:
+    accessibility:
+      full_help_html: Per te kerkuar kete dokument ne format alternativ si braille, audio ose format tjeter te lutem email %{email} duke cituar adresen tende, telefonin dhe titullin e publikimit ("%{title}")%{references}.
+      intro: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise ndihmuese.
+      request_a_different_format: Kerko nje format ndryshe
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy: Porosit nje kopje
+      order_a_copy_full: Porosit nje kopje te publikimit
+      published: Publikuar
+      reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  change_notes:
+    published_at:
+    see_all_updates:
+    updated_at:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form: Forme kontakti
+    email: Email
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Informacion Personal
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Skeme publikimi
+        recruitment:
+        research:
+        social_media_use: Perdorim media sociale
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Skeme e gjuhes Uells
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents:
+    footer_meta:
+      full_page_history:
+      published:
+      updated:
+    headings:
+      applies_to_nations: Zbatohet mbi
+      from:
+      part_of:
+    latest:
+    latest_from:
+    published: publikuar
+    see_all:
+    speech:
+      author_title:
+        minister: Minister
+        speaker: Shkrimtar
+      delivered_on: 'Dorezuar ne:'
+      delivery_title:
+        minister: Minister
+        speaker: Foles
+      written_on: 'Shkruar më:'
     type:
       about:
         one:
@@ -226,167 +361,12 @@ sq:
       written_statement:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: Zbatohet mbi
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: publikuar
-    see_all:
-    speech:
-      author_title:
-        minister: Minister
-        speaker: Shkrimtar
-      delivered_on: 'Dorezuar ne:'
-      delivery_title:
-        minister: Minister
-        speaker: Foles
-      written_on: 'Shkruar më:'
     updated: rifreskuar
-  world_location:
-    type:
-      international_delegation:
-        one: Delegacion nderkombetare
-        other: Delegacione nderkombetare
-      world_location:
-        one: Vendndodhje
-        other: Vendndodhje
-    headings:
-      announcements: Njoftimet tona
-      documents: Dokumenta
-      mission: Misioni yne
-      news:
-      organisations: Organizatat
-      publications: Publikimet tona
-      search:
-      statistics: Statistikat tona
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading: Njoftime shtypi
-  attachment:
-    accessibility:
-      full_help_html: Per te kerkuar kete dokument ne format alternativ si braille,
-        audio ose format tjeter te lutem email %{email} duke cituar adresen tende,
-        telefonin dhe titullin e publikimit ("%{title}")%{references}.
-      intro: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
-        ndihmuese.
-      request_a_different_format: Kerko nje format ndryshe
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: Porosit nje kopje
-      order_a_copy_full: Porosit nje kopje te publikimit
-      published: Publikuar
-      reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form: Forme kontakti
-    email: Email
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Informacion Personal
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Skeme publikimi
-        recruitment:
-        research:
-        social_media_use: Perdorim media sociale
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Skeme e gjuhes Uells
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all:
       label:
-    description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
-      qe perputhen me interesin tuaj&nbsp;
+    description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet qe perputhen me interesin tuaj&nbsp;
     no_results:
       description: Zgjero kerkimin dhe perpiqu perseri
       title: Nuk gjendet cfare kerkoni
@@ -408,7 +388,71 @@ sq:
     direction: ltr
     latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
     sq: Shqip
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Nuk ka rifreskim
     title: Me te fundit
@@ -526,12 +570,6 @@ sq:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -544,15 +582,30 @@ sq:
       iwm:
       queens_platinum_jubilee:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements: Njoftimet tona
+      documents: Dokumenta
+      mission: Misioni yne
+      news:
+      organisations: Organizatat
+      publications: Publikimet tona
+      search:
+      statistics: Statistikat tona
+    type:
+      international_delegation:
+        one: Delegacion nderkombetare
+        other: Delegacione nderkombetare
+      world_location:
+        one: Vendndodhje
+        other: Vendndodhje
   world_news:
     uk_updates_in_country:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "%{link} shpjegon si trajtohet informacioni
-        juaj personal"
-      publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht
-        ne %{link}.
+      personal_information_charter_html: "%{link} shpjegon si trajtohet informacioni juaj personal"
+      publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht ne %{link}.
       social_media_use_html: Lexo politikat tona ne %{link}
       welsh_language_scheme_html: Meso mbi angazhimin tone ndaj publikimit ne %{link}
     find_out_more: Shiko profilin e plote dhe kontaktet

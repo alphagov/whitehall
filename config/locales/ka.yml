@@ -1,3 +1,4 @@
+---
 ka:
   activerecord:
     attributes:
@@ -136,28 +137,21 @@ ka:
       written_on:
     type:
       about:
-        one:
         other:
       about_our_services:
-        one:
         other:
       access_and_opening:
-        one:
         other:
       accessible_documents_policy:
-        one:
         other:
       alert:
         one:
         other:
       announcement:
-        one:
         other:
       authored_article:
-        one:
         other:
       blog_post:
-        one:
         other:
       campaign:
         one:
@@ -166,199 +160,138 @@ ka:
         one:
         other:
       case_study:
-        one:
         other:
       closed_consultation:
-        one:
         other:
       complaints_procedure:
-        one:
         other:
       consultation:
-        one:
         other:
       consultation_outcome:
-        one:
         other:
       corporate_report:
-        one:
         other:
       correspondence:
-        one:
         other:
       decision:
-        one:
         other:
       detailed_guidance:
-        one:
         other:
       document_collection:
-        one:
         other:
       draft_text:
-        one:
         other:
       edition:
-        one:
         other:
       edition_with_appointment:
-        one:
         other:
       equality_and_diversity:
-        one:
         other:
       fatality_notice:
-        one:
         other:
       foi_release:
-        one:
         other:
       form:
-        one:
         other:
       generic_edition:
-        one:
         other:
       government_response:
-        one:
         other:
       guidance:
-        one:
         other:
       impact_assessment:
-        one:
         other:
       imported:
-        one:
         other:
       independent_report:
-        one:
         other:
       international_treaty:
-        one:
         other:
       manual:
-        one:
         other:
       map:
-        one:
         other:
       media_enquiries:
-        one:
         other:
       membership:
-        one:
         other:
       national_statistics:
-        one:
         other:
       news_article:
-        one:
         other:
       news_story:
         one:
         other:
       nhs_content:
-        one:
         other:
       notice:
-        one:
         other:
       official_statistics:
-        one:
         other:
       open_consultation:
-        one:
         other:
       oral_statement:
-        one:
         other:
       our_energy_use:
-        one:
         other:
       our_governance:
-        one:
         other:
       personal_information_charter:
-        one:
         other:
       petitions_and_campaigns:
-        one:
         other:
       policy_paper:
-        one:
         other:
       press_release:
         one:
         other:
       procurement:
-        one:
         other:
       promotional:
-        one:
         other:
       publication:
-        one:
         other:
       publication_scheme:
-        one:
         other:
       recruitment:
-        one:
         other:
       regulation:
-        one:
         other:
       research:
-        one:
         other:
       service:
-        one:
         other:
       social_media_use:
-        one:
         other:
       speaking_notes:
-        one:
         other:
       speech:
         one:
         other:
       staff_update:
-        one:
         other:
       standard:
-        one:
         other:
       statement_to_parliament:
         one:
         other:
       statistical_data_set:
-        one:
         other:
       statistics:
-        one:
         other:
       statutory_guidance:
-        one:
         other:
       terms_of_reference:
-        one:
         other:
       transcript:
-        one:
         other:
       transparency:
-        one:
         other:
       welsh_language_scheme:
-        one:
         other:
       world_news_story:
-        one:
         other:
       written_statement:
-        one:
         other:
     updated:
   document_filters:
@@ -387,7 +320,71 @@ ka:
     direction: ltr
     latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
     ka: ქართული
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates:
     title:
@@ -505,12 +502,6 @@ ka:
     formats:
       long_ordinal:
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
     latest_activity:
     lead_organisations:
       arts_council_england:
@@ -535,10 +526,8 @@ ka:
       statistics:
     type:
       international_delegation:
-        one:
         other:
       world_location:
-        one:
         other:
   world_news:
     uk_updates_in_country:
