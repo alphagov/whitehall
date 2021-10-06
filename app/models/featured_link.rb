@@ -10,6 +10,9 @@ class FeaturedLink < ApplicationRecord
   validates :url, :title, presence: true
   validates :url, uri: true
 
+  include TranslatableModel
+  translates :title, :url
+
   def republish_organisation_to_publishing_api
     if linkable_type == "Organisation" && linkable.persisted?
       Whitehall::PublishingApi.republish_async(linkable)

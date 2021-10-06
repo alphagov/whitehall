@@ -17,7 +17,8 @@ private
 
   def translation_params
     params.require(:organisation).permit(
-      :name, :acronym, :logo_formatted_name
+      :name, :acronym, :logo_formatted_name,
+      featured_links_attributes: %i[title url _destroy id]
     )
   end
 
@@ -30,7 +31,7 @@ private
   end
 
   def load_translated_models
-    @translated_organisation = LocalisedModel.new(@organisation, translation_locale.code)
+    @translated_organisation = LocalisedModel.new(@organisation, translation_locale.code, [:featured_links])
     @english_organisation = LocalisedModel.new(@organisation, :en)
   end
 

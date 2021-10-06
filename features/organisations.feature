@@ -10,6 +10,12 @@ Scenario: Adding an Organisation
   When I add a new organisation called "Ministry of Jazz"
   Then I should be able to see "Ministry of Jazz" in the list of organisations
 
+Scenario: Adding a translation to an Organisation
+  Given I have the "GDS Admin" permission
+  When I add a new organisation called "Ministry of Jazz"
+  And I add a translation for an organisation called "Ministry of Jazz"
+  Then I should be able to see the translation for "Ministry of Jazz" in the list of translations
+
 Scenario: Administering organisation contact details
   When I visit the organisation admin page for "Ministry of Pop"
   And I add a new contact "Main office" with address "1 Acacia Avenue"

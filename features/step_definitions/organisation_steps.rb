@@ -104,9 +104,33 @@ When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
   select "Ministerial department", from: "Organisation type"
   select "Jazz Bizniz", from: "organisation_topical_event_ids_0"
   within ".featured-links" do
+    expect(page).to_not have_content("English:")
     fill_in "Title", with: "Top task 1"
     fill_in "URL", with: "http://mainstream.co.uk"
   end
+  click_button "Save"
+end
+
+When(/^I add a translation for an organisation called "([^"]*)"$/) do |organisation_name|
+  organisation = Organisation.find_by!(name: organisation_name)
+  visit admin_organisation_path(organisation)
+
+  click_link "Translations"
+
+  select "Cymraeg (Welsh)", from: "Locale"
+  click_button "Create translation"
+
+  fill_in "Name", with: "Organisation Name in another language"
+  fill_in "Acronym", with: "ABC"
+  fill_in "Logo formatted name", with: "Organisation Name in another language"
+
+  within ".featured-links" do
+    expect(page).to have_content("English: Top task 1")
+    expect(page).to have_content("English: http://mainstream.co.uk")
+    fill_in "Title", with: "Top task 1 in another language"
+    fill_in "URL", with: "http://mainstream.wales"
+  end
+
   click_button "Save"
 end
 
@@ -115,6 +139,13 @@ Then(/^I should be able to see "([^"]*)" in the list of organisations$/) do |org
   within record_css_selector(organisation) do
     expect(page).to have_content(organisation_name)
   end
+end
+
+Then(/^I should be able to see the translation for "([^"]*)" in the list of translations$/) do |organisation_name|
+  organisation = Organisation.find_by!(name: organisation_name)
+  visit admin_organisation_path(organisation)
+  click_link "Translations"
+  expect(page).to have_content("Cymraeg")
 end
 
 When(/^I feature the news article "([^"]*)" for "([^"]*)"$/) do |news_article_title, organisation_name|
