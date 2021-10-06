@@ -1,33 +1,35 @@
-<% page_title "Publications" %>
+<% page_title t('publications.heading') %>
 <% page_class "documents-index publications-index" %>
 <% atom_discovery_link_tag filter_atom_feed_url, t("publications.recent") %>
-<%
-  heading = [t('publications.heading')]
-  heading << "<span>: #{@filter.selected_publication_filter_option.label.downcase}</span>" if @filter.selected_publication_filter_option
-  heading = heading.join('').humanize.html_safe
-%>
 
-<header class="block headings-block">
-  <div class="inner-block floated-children">
-    <%= render "govuk_publishing_components/components/title", {
-      title: heading,
-    } %>
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/title", {
+        title: t('publications.heading')
+      } %>
+    </div>
   </div>
-</header>
 
-<div class="filtered-index">
-  <%= render partial: "documents/filter_form",
-             locals: {
-               document_type: :publication,
-               filters: [ :locations ],
-             } %>
-
-  <div class="filter-results-block">
-    <div class="inner-block">
-      <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
-      <div class="filter-results js-filter-results" aria-live="polite">
-        <%= render_mustache('documents/filter_table', @filter.as_hash) %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="filtered-index govuk-!-margin-bottom-4">
+        <%= render partial: "documents/filter_form", 
+          locals: {
+            document_type: :publication,
+            filters: [ :locations ],
+        } %>
       </div>
+
+      <div class="filter-results-block govuk-!-margin-bottom-4">
+        <div class="filter-results js-filter-results" aria-live="polite">
+          <%= render_mustache('documents/filter_table', @filter.as_hash) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
     </div>
   </div>
 </div>

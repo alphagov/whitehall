@@ -65,7 +65,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
     submitFilters: function (e) {
       e.preventDefault()
       var $form = documentFilter.$form
-      var $submitButton = $form.find('input[type=submit]')
+      var $submitButton = $form.find('button[type=submit]')
       var url = $form.attr('action')
       var jsonUrl = url + '.json'
       var params = $form.serializeArray()
@@ -80,7 +80,9 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
         return
       }
 
-      $submitButton.addClass('disabled')
+      $submitButton.attr('disabled', 'disabled')
+      $submitButton.attr('aria-disabled', 'true')
+
       $('.filter-results-summary').text('Loading results…')
       $('.feeds').addClass('js-hidden')
       documentFilter.loading = true
@@ -104,6 +106,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
         },
         error: function () {
           $submitButton.removeAttr('disabled')
+          $submitButton.attr('aria-disabled', 'false')
         }
       })
     },
@@ -343,7 +346,7 @@ if (typeof window.GOVUK === 'undefined') { window.GOVUK = {} }
           documentFilter.removeFilters($(this).data('field'), $(this).data('val'))
         })
 
-        $form.find('input[type=submit]').addClass('js-hidden')
+        $form.find('button[type=submit]').addClass('govuk-!-display-none')
       }
     })
     return this

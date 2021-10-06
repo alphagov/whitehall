@@ -1,21 +1,30 @@
 <% unless defined?(filters); filters = []; end %>
 <% document_type_plural = document_type.to_s.pluralize %>
+
 <div class="filter-form-block">
-  <div class="inner-block">
-    <h2><%= t('document_filters.description').html_safe %></h2>
-    <form method="get" action="<%= send(:"#{document_type_plural}_path") %>" id="document-filter" class="js-document-filter filter-form">
-      <fieldset>
-        <legend class="visuallyhidden"><%= t("support.filter") %> <%= document_type_plural %></legend>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: t('document_filters.description').html_safe,
+    font_size: "m",
+    heading_level: 2,
+    margin_bottom: 8
+  } %>
 
-        <% if filters.include? :locations %>
-          <div class="filter">
-            <%= label_tag "world_locations", t('document_filters.world_locations.label'), class: "title" %>
-            <%= select_tag "world_locations[]", locations_options(@filter.selected_locations), class: "govuk-select", id: "world_locations" %>
-          </div>
-        <% end %>
+  <form method="get" action="<%= send(:"#{document_type_plural}_path") %>" id="document-filter" class="js-document-filter filter-form">
+    <% if filters.include? :locations %>
+      <div class="govuk-!-margin-bottom-8">
+        <%= render "govuk_publishing_components/components/select", {
+          id: "world_locations",
+          label: t('document_filters.world_locations.label'),
+          full_width: true,
+          options: locations_options(@filter.selected_locations),
+          margin_bottom: 8,
+        } %>
+      </div>
+    <% end %>
 
-        <%= submit_tag "Refresh results", class: "button" %>
-      </fieldset>
-    </form>
-  </div>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Refresh results",
+      destructive: true
+    } %>
+  </form>
 </div>

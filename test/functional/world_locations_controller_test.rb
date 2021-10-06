@@ -102,7 +102,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       world_location_type: WorldLocationType::InternationalDelegation,
     )
     get :show, params: { id: world_location }
-    assert_select "input[name=\"feed-reader-box\"][value=?]", atom_feed_url_for(world_location)
+    assert_select ".gem-c-subscription-links__list > .gem-c-subscription-links__list-item:nth-child(2) > [href=?]", atom_feed_url_for(world_location)
   end
 
   view_test "show world location generates an atom feed with entries for latest activity" do
