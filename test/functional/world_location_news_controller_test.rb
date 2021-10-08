@@ -90,7 +90,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       @rummager.expects(:search).twice.returns("results" => [])
       get :index, params: { world_location_id: @world_location }
 
-      assert_select ".gem-c-subscription-links__list > .gem-c-subscription-links__list-item:nth-child(2) > [href=?]", atom_feed_url_for(@world_location)
+      assert_select "input[name=\"feed-reader-box\"][value=?]", atom_feed_url_for(@world_location)
     end
   end
 

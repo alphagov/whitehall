@@ -41,7 +41,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: event }
 
-    assert_select ".gem-c-subscription-links__list > .gem-c-subscription-links__list-item:nth-child(2) > [href=?]", atom_feed_url_for(event)
+    assert_select "input[name=\"feed-reader-box\"][value=?]", atom_feed_url_for(event)
   end
 
   view_test "show has a link to email signup page" do

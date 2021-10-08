@@ -121,7 +121,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, params: { world_locations: [@world_location1, @world_location2], locale: :fr }
 
-    assert_select "select#world_locations" do
+    assert_select "select#world_locations[name='world_locations[]']" do
       assert_select "option[selected='selected']", text: @world_location1.name
       assert_select "option[selected='selected']", text: @world_location2.name
     end
@@ -179,7 +179,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index for non-english locales only allows filtering by world location" do
     get :index, params: { locale: "fr" }
 
-    assert_select "select#world_locations"
+    assert_select ".filter", count: 1
+    assert_select ".filter #world_locations"
   end
 
   view_test "#index for non-english locales skips results summary" do
@@ -206,7 +207,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, params: { taxons: %w[taxon-1], departments: [organisation], locale: :fr }
 
     feed_url = publications_url(format: "atom", taxons: %w[taxon-1], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-    assert_select ".gem-c-subscription-links__list > .gem-c-subscription-links__list-item:nth-child(2) > [href=?]", feed_url
+    assert_select "input[name=\"feed-reader-box\"][value=?]", feed_url
   end
 
   view_test "#index should show relevant document collection information" do
