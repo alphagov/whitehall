@@ -77,7 +77,7 @@ class HistoricAppointmentsController < PublicFacingController
         service: "1951 to 1955",
       },
       "Hugh Gaitskell" => {
-        service: "1960 to 1962",
+        service: "1950 to 1951",
       },
       "Sir Stafford Cripps" => {
         service: "1947 to 1950",
@@ -103,17 +103,20 @@ class HistoricAppointmentsController < PublicFacingController
       "Winston Churchill" => {
         service: "1924 to 1929",
       },
+      "Stanley Baldwin" => {
+        service: "1922 to 1923",
+      },
       "Sir Robert Horne" => {
         service: "1921 to 1922",
       },
       "Austen Chamberlain" => {
-        service: ["1919 to 1922", "1903 to 1905"],
+        service: ["1919 to 1921", "1903 to 1905"],
       },
       "Bonar Law" => {
         service: ["1916 to 1919"],
       },
       "Reginald McKenna" => {
-        service: "1924",
+        service: "1915 to 1916",
       },
       "David Lloyd George" => {
         service: ["1908 to 1915"],
@@ -131,10 +134,10 @@ class HistoricAppointmentsController < PublicFacingController
         service: ["1895 to 1902", "1885 to 1886"],
       },
       "Sir William Vernon Harcourt" => {
-        service: "1892 to 1895",
+        service: ["1892 to 1895", "1886"],
       },
       "George Goschen" => {
-        service: ["1887 to 1892", "1886"],
+        service: ["1887 to 1892"],
       },
       "Lord Randolph Churchill" => {
         service: "1886",
@@ -175,6 +178,9 @@ class HistoricAppointmentsController < PublicFacingController
       "Sir Robert Peel, Bt" => {
         service: "1834 to 1835",
       },
+      "Thomas Denman, 1st Baron Denman" => {
+        service: "1834",
+      },
       "Viscount Althorp" => {
         service: "1830 to 1834",
       },
@@ -198,6 +204,9 @@ class HistoricAppointmentsController < PublicFacingController
       },
       "Lord Henry Petty" => {
         service: "1806 to 1807",
+      },
+      "Edward Law, 1st Baron Ellenborough" => {
+        service: "1806",
       },
       "William Pitt the Younge" => {
         service: ["1804 to 1806", "1783 to 1801", "1782 to 1783"],
@@ -299,7 +308,7 @@ class HistoricAppointmentsController < PublicFacingController
         service: "1661 to 1672",
       },
       "Sir Edward Hyde" => {
-        service: "1642 to 1646",
+        service: "1643 to 1646",
       },
       "Sir John Colepepper" => {
         service: "1642 to 1643",
@@ -317,7 +326,7 @@ class HistoricAppointmentsController < PublicFacingController
         service: "1614 to 1621",
       },
       "Sir Julius Caesar" => {
-        service: "1604 to 1614",
+        service: "1606 to 1614",
       },
       "Earl of Dunbar" => {
         service: "1603 to 1606",
