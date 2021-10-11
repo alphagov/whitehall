@@ -61,12 +61,15 @@ class PastForeignSecretariesController < PublicFacingController
         service: "1974 to 1976",
       },
       "Sir Alec Douglas-Home, Lord Home of the Hirsel" => {
-        service: ["1970 to 1974", "1970 to 1974"],
+        service: ["1970 to 1974", "1960 to 1963"],
       },
       "Michael Stewart, Lord Stewart of Fulham" => {
         service: ["1968 to 1970", "1965 to 1966"],
       },
       "George Brown, Lord George-Brown of Jevington" => {
+        service: "1966 to 1968",
+      },
+      "Patrick Gordon Walker" => {
         service: "1964 to 1965",
       },
       "Richard Austen Butler, Lord Butler of Saffron Walden" => {
@@ -92,7 +95,7 @@ class PastForeignSecretariesController < PublicFacingController
         service: "1938 to 1940",
       },
       "Sir Samuel Hoare, Viscount Templewood" => {
-        service: "1951",
+        service: "1935",
       },
       "Sir John Simon, Viscount Simon" => {
         service: "1931 to 1935",
@@ -130,7 +133,7 @@ class PastForeignSecretariesController < PublicFacingController
     @nineteenth_century = {
       "Robert Cecil, Marquess of Salisbury" => {
         link: "/government/history/past-foreign-secretaries/robert-cecil",
-        service: ["1895 to 1900", "1897 to 1892", "1885 to 1886", "1878 to 1880"],
+        service: ["1895 to 1900", "1887 to 1892", "1885 to 1886", "1878 to 1880"],
       },
       "John Wodehouse, Earl of Kimberley" => {
         service: "1894 to 1895",
@@ -146,13 +149,13 @@ class PastForeignSecretariesController < PublicFacingController
         service: ["1880 to 1885", "1870 to 1874", "1851 to 1852"],
       },
       "Lord Edward Stanley, Earl of Derby" => {
-        service: ["1866 to 1868", "1866 to 1868"],
+        service: ["1874 to 1878", "1866 to 1868"],
       },
       "George Villiers, Earl of Clarendon" => {
         service: ["1868 to 1870", "1865 to 1866", "1853 to 1858"],
       },
       "Lord John Russell, Earl Russell" => {
-        service: ["1859 to 1865", "1853 to 1858"],
+        service: ["1859 to 1865", "1852 to 1853"],
       },
       "James Harris, Earl of Malmesbury" => {
         service: ["1858 to 1859", "1852"],
@@ -184,16 +187,16 @@ class PastForeignSecretariesController < PublicFacingController
       },
       "Charles James Fox" => {
         link: "/government/history/past-foreign-secretaries/charles-fox",
-        service: ["1806", "1783", "and 1782"],
+        service: ["1806", "1783", "and 1783"],
       },
       "Henry Phipps, Lord Mulgrave" => {
         service: "1805 to 1806",
       },
+      "Robert Banks Jenkinson, Lord Hawkesbury" => {
+        service: "1804 to 1805",
+      },
       "Dudley Ryder, Lord Harrowby" => {
         service: "1804",
-      },
-      "Robert Banks Jenkinson, Lord Hawkesbury" => {
-        service: "1801 to 1804",
       },
     }
 
