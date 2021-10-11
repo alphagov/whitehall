@@ -5,7 +5,7 @@ new_slug = "accessing-government-secured-flu-vaccines-guidance-for-primary-care-
 
 document = Document.find_by(slug: slug)
 edition = document.editions.published.last
-html_attachment = edition.attachments.find_by(slug: slug)
+html_attachment = edition.attachments.last
 
 html_attachment.update!(slug: new_slug)
 Whitehall::PublishingApi.republish_async(html_attachment)
