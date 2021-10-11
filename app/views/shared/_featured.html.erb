@@ -20,6 +20,7 @@
       text: feature.topical_event ? nil : t_display_type(feature),
     },
     heading_text: feature.title,
+    heading_level: 3,
     description: truncate(feature.summary, length: 160, separator: ' '),
   } %>
 <% end %>
