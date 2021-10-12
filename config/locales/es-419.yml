@@ -260,6 +260,7 @@ es-419:
     headings:
       announcements: Nuestras novedades
       documents: Documentos
+      featured:
       mission: Nuestra misión
       news:
       organisations: Organizaciones

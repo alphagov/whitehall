@@ -414,6 +414,7 @@ pl:
     headings:
       announcements: Nasze ogłoszenia
       documents: Dokumenty
+      featured:
       mission: Nasza misja
       news:
       organisations: Organizacje
