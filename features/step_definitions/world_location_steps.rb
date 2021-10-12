@@ -129,7 +129,7 @@ Then(/^I should see the featured items of the (?:world location|international de
   rows = find(featured_documents_selector).all(".feature")
   table = rows.collect do |row|
     [
-      row.find("h2").text.strip,
+      row.find("h3").text.strip,
       File.basename(row.find(".gem-c-image-card__image")["src"]),
     ]
   end

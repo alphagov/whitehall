@@ -1,18 +1,29 @@
-<%= content_tag_for(:div, worldwide_organisation, :class => 'worldwide-organisation') do %>
-  <div class="worldwide-organisation-detail">
-    <div class="content">
-      <% worldwide_organisation.sponsoring_organisations.each do |organisation| %>
-        <div class="organisation sponsoring-organisation">
-          <span class="<%= logo_classes(class_name: 'single-identity', size: 'medium', stacked: false) %>">
-            <%= organisation.name %>
-          </span>
-        </div>
-      <% end %>
-      <h2 class="name"><%= link_to worldwide_organisation.name, worldwide_organisation %></h2>
-      <p><%= worldwide_organisation.summary %></p>
-      <p><%= link_to t('worldwide_organisation.find_out_more'), worldwide_organisation %></p>
-    </div>
-  </div>
+<%= content_tag_for(:div, worldwide_organisation) do %>
+  <% worldwide_organisation.sponsoring_organisations.each do |organisation| %>
+    <%= render "govuk_publishing_components/components/organisation_logo", {
+      organisation: {
+        name: sanitize(organisation.name),
+        url: worldwide_organisation,
+        url: "/government/organisations/foreign-commonwealth-development-office",
+        crest: "org",
+        brand: "foreign-commonwealth-office",
+      }
+    } %>
+  <% end %>
 
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <%= render "govuk_publishing_components/components/heading", {
+    text: worldwide_organisation.name,
+    heading_level: 3,
+    font_size: "s",
+    margin_bottom: 2,
+  } %>
+
+  <p class="govuk-body"><%= worldwide_organisation.summary %></p>
+  <p class="govuk-body govuk-!-margin-bottom-4">
+    <%= link_to t('worldwide_organisation.find_out_more'), worldwide_organisation, class: "govuk-link" %>
+  </p>
   <%= render('contacts/organisation_contact', contact: worldwide_organisation.main_office) if worldwide_organisation.main_office.present? %>
+
 <% end %>

@@ -438,7 +438,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     )
     featured_link = create(:featured_link, linkable: world_location)
     get :show, params: { id: world_location }
-    assert_select ".featured-links" do
+    assert_select "ul.govuk-list" do
       assert_select "a[href='#{featured_link.url}']", text: featured_link.title
     end
   end

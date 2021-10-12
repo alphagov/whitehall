@@ -15,92 +15,128 @@
           title: @world_location.title,
         } %>
       </div>
-      <div class="govuk-grid-column-one-third govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-        <aside class="heading-extra">
+      <aside class="govuk-grid-column-one-third govuk-!-margin-top-8 govuk-!-margin-bottom-8">
           <%= render 'shared/available_languages', object: @world_location %>
           <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set %>
-        </aside>
+      </aside>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('world_location.headings.featured'),
+          font_size: "l",
+          margin_bottom: 4,
+          padding: true,
+          border_top: 2,
+        } %>
+        <div class="featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
+          <% if @feature_list.any_current_features? %>
+          <div class="govuk-grid-row govuk-!-padding-bottom-8">
+            <%= render partial: 'shared/featured',
+              collection: @feature_list.current_featured,
+              as: :feature
+            %>
+          </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="block news-block">
-    <div class="inner-block">
-      <section class="featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
-        <% if @feature_list.any_current_features? %>
-          <%= render partial: 'shared/featured',
-            collection: @feature_list.current_featured,
-            as: :feature
-          %>
-        <% end %>
-
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-7">
         <%= render partial: 'shared/recently_updated',
-          locals: { recently_updated: @recently_updated,
+          locals: { 
+            recently_updated: @recently_updated,
             atom_url: atom_feed_url_for(@world_location),
             see_all_link: latest_path(world_locations: [@world_location])
-          } %>
-      </section>
+          }
+        %>
+      </div>
     </div>
-  </div>
 
-  <div class="block our-mission">
-    <div class="inner-block">
-      <section class="article-section">
-        <h1 class="keyline-header"><%= t('world_location.headings.mission') %></h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-7">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('world_location.headings.mission'),
+          padding: true,
+          border_top: 2,
+          font_size: "l"
+        } %>
         <p>
           <span class="mission_statement"><%= govspeak_to_html(@world_location.mission_statement) %></span>
         </p>
-      </section>
+      </div>
     </div>
-  </div>
 
   <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
-    <div class="block documents-grid">
-      <div class="inner-block">
-        <h1 class="block-title"><%= t('world_location.headings.documents') %></h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: t('world_location.headings.documents'),
+          padding: true,
+          border_top: 2,
+          font_size: "l"
+        } %>
         <% if @announcements.any? %>
-          <section id="announcements" class="document-block documents-<%= document_block_counter %>">
-            <h1><%= t('world_location.headings.announcements') %></h1>
+          <div id="announcements" class="document-block documents-<%= document_block_counter %>">
+            <%= render "govuk_publishing_components/components/heading", {
+              text: t('world_location.headings.announcements'),
+              padding: true,
+            } %>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
               <p class="govuk-body">
                 <%= link_to t_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
               </p>
             </div>
-          </section>
+          </div>
         <% end %>
         <% if @non_statistics_publications.any? %>
-          <section id="publications" class="document-block documents-<%= document_block_counter %>">
-            <h1><%= t('world_location.headings.publications') %></h1>
+          <div id="publications" class="document-block documents-<%= document_block_counter %>">
+            <%= render "govuk_publishing_components/components/heading", {
+              text: t('world_location.headings.publications'),
+              padding: true,
+              border_top: 2,
+              font_size: "m"
+            } %>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
               <p class="govuk-body">
                 <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location) %>
               </p>
             </div>
-          </section>
+          </div>
         <% end %>
         <% if @statistics_publications.any? %>
-          <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
-            <h1><%= t('world_location.headings.statistics') %></h1>
+          <div id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
+            <%= render "govuk_publishing_components/components/heading", {
+              text: t('world_location.headings.statistics'),
+              padding: true,
+              border_top: 2,
+              font_size: "m"
+            } %>
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
               <p class="govuk-body">
                 <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
               </p>
             </div>
-          </section>
+          </div>
         <% end %>
       </div>
     </div>
   <% end %>
-
-  <div class="block world-organisations">
-    <div class="inner-block">
-      <section id="organisations" class="world-organisations-block">
-        <h1 class="keyline-header"><%= t('world_location.headings.organisations') %></h1>
-        <%= render partial: 'worldwide_organisations/worldwide_organisation', collection: @worldwide_organisations %>
-      </section>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+          <%= render "govuk_publishing_components/components/heading", {
+            text: t('world_location.headings.organisations'),
+            padding: true,
+            border_top: 2,
+            font_size: "m"
+          } %>
+          <%= render partial: 'worldwide_organisations/worldwide_organisation', collection: @worldwide_organisations %>
+      </div>
     </div>
-  </div>
 <% end %>
+  </div>
