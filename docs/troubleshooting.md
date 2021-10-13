@@ -2,14 +2,13 @@
 
 You may run into errors while working locally and trying to render pages on the Frontend.
 
-Problem
+Problem:
 
 ```
 Mysql2::Error: Access denied for user 'whitehall'@'localhost' (using password: YES)
 ```
 
 Solution:
-
 Enter `govuk-docker`, Login, create user, give access & quit
 
 ```
@@ -20,17 +19,17 @@ grant all privileges on *.* to whitehall@localhost with grant option;
 \q
 ```
 
-Problem
+Problem:
 
 ```
 ActiveRecord::SubclassNotFound
 /versions/2.6.6/lib/ruby/gems/2.6.0/gems/sassc-2.4.0/lib/sassc/engine.rb:43: [BUG] Segmentation fault at 0x0000000000000000
 ```
 
-Solution: 
+Solution:
 Restart
 
-Problem
+Problem:
 
 ```
 /.rvm/rubies/ruby-2.7.2/lib/ruby/site_ruby/2.7.0/rubygems/core_ext/kernel_gem.rb:67:in `gem'
@@ -68,3 +67,12 @@ Solution:
 Run: `yarn`
 
 [Byebug](https://github.com/deivid-rodriguez/byebug) is helpful for testing troubleshooting
+
+Problem:
+
+```
+ActiveRecord::PendingMigrationError Migrations are pending. To resolve this issue, run: bin/rails db:migrate RAILS_ENV=development You have 2 pending migrations
+```
+
+Solution:
+`govuk-docker-run bundle exec rake db:migrate` / `govuk-docker-run rake db:migrate`
