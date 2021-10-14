@@ -27,7 +27,7 @@ own rake task and database table for tracking which ones have been run.
 Just like a normal migration, there is a Rails command:
 
 ```
-  bundle exec rails g data_migration MyDataMigrationName
+  bundle exec rails g migration MyDataMigrationName
 ```
 
 ## How to run them
