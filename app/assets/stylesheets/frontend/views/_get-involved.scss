@@ -50,39 +50,6 @@
       }
     }
 
-    .count {
-      @include govuk-media-query($from: desktop) {
-        width: $half;
-      }
-
-      display: block;
-      margin: $gutter-half;
-      @include heading-80;
-      font-weight: bold;
-      text-decoration: none;
-
-      .context {
-        display: block;
-        @include core-16;
-        margin-top: 0;
-        color: govuk-colour("black");
-        @include govuk-link-common;
-      }
-
-      &:hover {
-        .context {
-          text-underline-offset: .1em;
-          @include govuk-link-hover-decoration;
-        }
-      }
-
-      &:focus {
-        .context {
-          text-decoration: none;
-        }
-      }
-    }
-
     section {
       @include core-19;
       @extend %contain-floats;

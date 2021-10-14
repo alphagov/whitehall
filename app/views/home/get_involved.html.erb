@@ -31,17 +31,17 @@
     </section>
     <section class="consultations">
       <div class="head-section">
+        <%= render "govuk_publishing_components/components/big_number", {
+          number: @open_consultation_count,
+          label: "Open consultations",
+          href: publications_filter_path(:publication_filter_option => 'open-consultations'),
+        } %>
 
-        <a href="<%= publications_filter_path(:publication_filter_option => 'open-consultations') %>" class="govuk-link count">
-          <%= @open_consultation_count %>
-          <span class="context">Open consultations</span>
-        </a>
-
-        <a href="<%= publications_filter_path(:publication_filter_option => 'open-consultations') %>" class="govuk-link count">
-          <%= @closed_consultation_count %>
-          <span class="context">Closed consultations in the past 12 months</span>
-        </a>
-
+        <%= render "govuk_publishing_components/components/big_number", {
+          number: @closed_consultation_count,
+          label: "Closed consultations in the past 12 months",
+          href: publications_filter_path(:publication_filter_option => 'open-consultations'),
+        } %>
       </div>
       <div class="consultation-lists">
         <div class="consultation-closing-soon">
