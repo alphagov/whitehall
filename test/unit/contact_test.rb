@@ -145,4 +145,16 @@ class ContactTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     contact.destroy!
   end
+
+  test "updating a contact republishes dependent policy groups" do
+    contact = create(:contact)
+    policy_group = create(
+      :policy_group,
+      description: "Some text with a single contact: [Contact:#{contact.id}]",
+    )
+
+    Whitehall::PublishingApi.expects(:republish_async).with(policy_group).once
+
+    contact.update!(title: "A new name")
+  end
 end
