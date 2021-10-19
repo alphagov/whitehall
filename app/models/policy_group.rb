@@ -9,6 +9,9 @@ class PolicyGroup < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
+  has_many :policy_group_dependencies, dependent: :destroy
+  has_many :depended_upon_contacts, through: :policy_group_dependencies, source: :dependable, source_type: "Contact"
+
   def access_limited_object
     nil
   end
