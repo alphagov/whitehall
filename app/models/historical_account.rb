@@ -61,7 +61,7 @@ class HistoricalAccount < ApplicationRecord
         text: major_acts,
       },
       {
-        title: "Interested facts",
+        title: "Interesting facts",
         text: interesting_facts,
       },
     ]
