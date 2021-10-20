@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_095227) do
+ActiveRecord::Schema.define(version: 2021_10_19_095600) do
 
   create_table "about_pages", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -810,6 +810,17 @@ ActiveRecord::Schema.define(version: 2021_09_27_095227) do
     t.datetime "updated_at"
     t.index ["locale"], name: "index_person_translations_on_locale"
     t.index ["person_id"], name: "index_person_translations_on_person_id"
+  end
+
+  create_table "policy_group_dependencies", charset: "utf8", force: :cascade do |t|
+    t.bigint "policy_group_id"
+    t.string "dependable_type"
+    t.bigint "dependable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dependable_id", "dependable_type", "policy_group_id"], name: "index_policy_group_dependencies_on_dependable_and_policy_group", unique: true
+    t.index ["dependable_type", "dependable_id"], name: "index_policy_group_dependencies_on_dependable"
+    t.index ["policy_group_id"], name: "index_policy_group_dependencies_on_policy_group_id"
   end
 
   create_table "policy_groups", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|

@@ -64,4 +64,53 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group = FactoryBot.build(:policy_group)
     assert policy_group.accessible_to?(nil)
   end
+
+  test "populates dependencies when contacts are included in description" do
+    contact_1 = FactoryBot.create(:contact)
+    contact_2 = FactoryBot.create(:contact)
+    policy_group = FactoryBot.create(
+      :policy_group,
+      description: "Some text with two contacts: [Contact:#{contact_1.id}] [Contact:#{contact_2.id}]",
+    )
+
+    assert_equal policy_group.depended_upon_contacts, [contact_1, contact_2]
+  end
+
+  test "updates dependencies when contacts are removed from the description" do
+    contact_1 = FactoryBot.create(:contact)
+    contact_2 = FactoryBot.create(:contact)
+    policy_group = FactoryBot.create(
+      :policy_group,
+      description: "Some text with two contacts: [Contact:#{contact_1.id}] [Contact:#{contact_2.id}]",
+    )
+
+    policy_group.update!(description: "Some text with a single contact: [Contact:#{contact_2.id}]")
+
+    assert_equal policy_group.depended_upon_contacts, [contact_2]
+  end
+
+  test "updates dependencies when contacts are added to the description" do
+    contact_1 = FactoryBot.create(:contact)
+    policy_group = FactoryBot.create(
+      :policy_group,
+      description: "Some text with a single contact: [Contact:#{contact_1.id}]",
+    )
+
+    contact_2 = FactoryBot.create(:contact)
+    policy_group.update!(description: "Some text with two contacts: [Contact:#{contact_1.id}] [Contact:#{contact_2.id}]")
+
+    assert_equal policy_group.depended_upon_contacts, [contact_1, contact_2]
+  end
+
+  test "deletes dependencies when policy group is deleted" do
+    contact = FactoryBot.create(:contact)
+    policy_group = FactoryBot.create(
+      :policy_group,
+      description: "Some text with a single contact: [Contact:#{contact.id}]",
+    )
+
+    policy_group.destroy!
+
+    assert_empty policy_group.depended_upon_contacts
+  end
 end

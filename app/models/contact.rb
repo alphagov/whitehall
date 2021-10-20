@@ -15,6 +15,7 @@ class Contact < ApplicationRecord
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
   after_update :republish_dependent_editions
+  after_update :republish_dependent_policy_groups
 
   after_create :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api

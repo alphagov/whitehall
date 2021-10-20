@@ -9,6 +9,29 @@ class PolicyGroup < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
+  has_many :policy_group_dependencies, dependent: :destroy
+  has_many :depended_upon_contacts, through: :policy_group_dependencies, source: :dependable, source_type: "Contact"
+
+  after_create :extract_dependencies
+  after_update :extract_dependencies
+  after_destroy :remove_all_dependencies
+
+  def extract_dependencies
+    remove_all_dependencies
+
+    Govspeak::ContactsExtractor.new(description).contacts.uniq.each do |contact|
+      PolicyGroupDependency.create(
+        policy_group_id: id,
+        dependable_type: "Contact",
+        dependable_id: contact.id,
+      )
+    end
+  end
+
+  def remove_all_dependencies
+    policy_group_dependencies.delete_all
+  end
+
   def access_limited_object
     nil
   end
