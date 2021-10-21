@@ -1,4 +1,6 @@
 class CsvPreviewController < ApplicationController
+  slimmer_template "chromeless"
+
   def show
     respond_to do |format|
       format.html do
@@ -51,10 +53,6 @@ private
 
   def upload_exists?
     @csv_response.status == 206
-  end
-
-  def set_slimmer_template
-    slimmer_template "chromeless"
   end
 
   def attachment_data

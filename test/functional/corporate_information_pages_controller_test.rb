@@ -1,42 +1,7 @@
 require "test_helper"
 
 class CorporateInformationPagesControllerTest < ActionController::TestCase
-  include GovukAbTesting::MinitestHelpers
-
   should_be_a_public_facing_controller
-
-  view_test "AB testing of Explore menu variant A" do
-    with_variant ExploreMenuAbTestable: "A" do
-      @corporate_information_page = create(:corporate_information_page, :published, body: "## Title\n\npara1\n\n")
-      get :show, params: { organisation_id: @corporate_information_page.organisation, id: @corporate_information_page.slug }
-
-      assert response.successful?
-      assert_equal "header_footer_only", response.headers["X-Slimmer-Template"]
-      assert_page_tracked_in_ab_test("ExploreMenuAbTestable", "A", 47)
-    end
-  end
-
-  view_test "AB testing of Explore menu variant B" do
-    with_variant ExploreMenuAbTestable: "B" do
-      @corporate_information_page = create(:corporate_information_page, :published, body: "## Title\n\npara1\n\n")
-      get :show, params: { organisation_id: @corporate_information_page.organisation, id: @corporate_information_page.slug }
-
-      assert response.successful?
-      assert_equal "header_footer_only_explore_header", response.headers["X-Slimmer-Template"]
-      assert_page_tracked_in_ab_test("ExploreMenuAbTestable", "B", 47)
-    end
-  end
-
-  view_test "AB testing of Explore menu variant Z" do
-    with_variant ExploreMenuAbTestable: "Z" do
-      @corporate_information_page = create(:corporate_information_page, :published, body: "## Title\n\npara1\n\n")
-      get :show, params: { organisation_id: @corporate_information_page.organisation, id: @corporate_information_page.slug }
-
-      assert response.successful?
-      assert_equal "header_footer_only", response.headers["X-Slimmer-Template"]
-      assert_page_tracked_in_ab_test("ExploreMenuAbTestable", "Z", 47)
-    end
-  end
 
   view_test "show renders the summary as plain text" do
     @corporate_information_page = create(:corporate_information_page, :published, summary: "Just plain text")
