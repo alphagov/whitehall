@@ -42,7 +42,9 @@ module PublishingApi
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
         change_history: changes_with_public_timestamps.as_json,
-      }
+        location: item.location,
+        speaker_without_profile: item.person_override,
+      }.compact
       details.merge!(speech_type_explanation)
       details.merge!(image_payload) if has_image?
       details.merge!(PayloadBuilder::PoliticalDetails.for(item))
