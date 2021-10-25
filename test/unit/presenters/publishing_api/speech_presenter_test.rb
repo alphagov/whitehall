@@ -50,6 +50,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           summary: "The description",
           body: "# Woo!\nSome content",
           role_appointment: role_appointment,
+          location: "A location",
         )
       end
 
@@ -72,6 +73,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         assert_not(details[:political])
         assert_equal(expected_body,     details[:body])
         assert_match(iso8601_regex,     details[:delivered_on])
+        assert_match("A location",      details[:location])
         assert_equal("Transcript of the speech, exactly as it was delivered", details[:speech_type_explanation])
 
         assert_equal("Tony",             details[:image][:alt_text])
@@ -134,6 +136,31 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
         it "presents an empty people link" do
           assert_empty(presented.links[:people])
+        end
+      end
+
+      context "speaker without profile" do
+        before do
+          speech.role_appointment = nil
+          speech.person_override = "A custom speaker"
+        end
+
+        it "doesn't present a speaker link" do
+          assert_not(presented.links.key?(:speaker))
+        end
+
+        it "includes the custom speaker as speaker_without_profile" do
+          assert("A custom speaker", presented.content.dig(:details, :speaker_without_profile))
+        end
+      end
+
+      context "speech without location" do
+        before do
+          speech.location = nil
+        end
+
+        it "doesn't present a speech location" do
+          assert_nil presented.content.dig(:details, :location)
         end
       end
     end
