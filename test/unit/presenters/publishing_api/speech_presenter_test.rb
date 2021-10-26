@@ -156,7 +156,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
       context "speech without location" do
         before do
-          speech.location = nil
+          speech.location = ""
         end
 
         it "doesn't present a speech location" do
