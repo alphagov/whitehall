@@ -14,16 +14,6 @@ class HomeController < PublicFacingController
     set_meta_description("In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out who runs government and how government is run, as well as learning about the history of government.")
   end
 
-  def get_involved
-    @open_consultation_count = Consultation.published.open.count
-    @closed_consultation_count = Consultation.published.closed_at_or_after(1.year.ago).count
-    @next_closing_consultations = decorate_collection(Consultation.published.open.order("closing_at asc").limit(1), PublicationesquePresenter)
-    @recently_opened_consultations = decorate_collection(Consultation.published.open.order("opening_at desc").limit(3), PublicationesquePresenter)
-    @recent_consultation_outcomes = decorate_collection(Consultation.published.closed.responded.order("closing_at desc").limit(3), PublicationesquePresenter)
-    @take_part_pages = TakePartPage.in_order
-    set_meta_description("Find out how you can engage with government directly, and take part locally, nationally or internationally.")
-  end
-
   def history_king_charles_street; end
 
   def history_lancaster_house; end
