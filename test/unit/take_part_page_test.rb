@@ -133,13 +133,14 @@ class TakePartPageTest < ActiveSupport::TestCase
   end
 
   test "returns search index data suitable for Rummageable" do
-    page = create(:take_part_page, title: "Build a new polling station", summary: "Help people vote!")
+    page = create(:take_part_page, title: "Build a new polling station", summary: "Help people vote!", ordering: 1)
 
     assert_equal "Build a new polling station", page.search_index["title"]
     assert_equal "/government/get-involved/take-part/build-a-new-polling-station", page.search_index["link"]
     assert_equal page.body, page.search_index["indexable_content"]
     assert_equal "Help people vote!", page.search_index["description"]
     assert_equal "take_part", page.search_index["format"]
+    assert_equal 1, page.search_index["ordering"]
   end
 
   test "adds page to search index on creating" do
