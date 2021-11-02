@@ -69,13 +69,12 @@ Whitehall::Application.routes.draw do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
     scope "/get-involved" do
-      root to: "home#get_involved", as: :get_involved, via: :get
-      get "take-part" => redirect("/get-involved#take-part")
-
       # Controller removed. Whitehall frontend no longer serves these
       # pages however the route is needed to generate path and url
       # helper methods.
-      # TODO: Remove when take part page paths can be otherwise generated
+      root to: "home#get_involved", as: :get_involved, via: :get
+
+      get "take-part" => redirect("/get-involved#take-part")
       get "take-part/:id", to: "take_part_pages#show", as: "take_part_page"
     end
 
