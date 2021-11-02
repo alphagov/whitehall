@@ -153,7 +153,7 @@
               border_top: 2,
             } %>
 
-            <ul class="organisations-list">
+            <ul class="organisations-list govuk-clearfix">
               <% @topical_event.lead_organisations.each do |organisation| %>
                 <%= content_tag_for(:li, organisation, class: "organisations-list__item #{organisation_brand_colour_class(organisation)}") do %>
                   <%= link_to organisation_path(organisation),
@@ -188,16 +188,22 @@
                   <a href="http://www.warmemorials.org"><%= t("topical_event.lead_organisations.war_memorials_trust") %></a>
                 </li>
               <% end %>
-
-              <% if @topical_event.slug == '2022-events-platinum-jubilee-commonwealth-games-festival-uk' %>
-                <li class="organisations-list__item non-govuk birmingham_2022_commonwealth_games">
-                  <a href="https://www.gov.uk/government/organisations/birmingham-organising-committee-for-the-2022-commonwealth-games-ltd"><%= t("topical_event.lead_organisations.birmingham_2022_commonwealth_games") %></a>
-                </li>
-                <li class="organisations-list__item non-govuk queens_platinum_jubilee">
-                  <a href="https://www.royal.uk/platinumjubilee"><%= t("topical_event.lead_organisations.queens_platinum_jubilee") %></a>
-                </li>
-              <% end %>
             </ul>
+
+            <% if @topical_event.slug == '2022-events-platinum-jubilee-commonwealth-games-festival-uk' %>
+            <ul class="organisations-list govuk-clearfix">
+              <li class="organisations-list__item non-govuk birmingham_2022_commonwealth_games">
+                <a href="https://www.gov.uk/government/organisations/birmingham-organising-committee-for-the-2022-commonwealth-games-ltd"><%= t("topical_event.lead_organisations.birmingham_2022_commonwealth_games") %></a>
+              </li>
+              <li class="organisations-list__item non-govuk queens_platinum_jubilee">
+                <a href="https://www.royal.uk/platinumjubilee"><%= t("topical_event.lead_organisations.queens_platinum_jubilee") %><%= t("topical_event.lead_organisations.queens_platinum_jubilee") %></a></a>
+              </li>
+              <li class="organisations-list__item non-govuk unboxed">
+                <a href="https://unboxed2022.uk/"><%= t("topical_event.lead_organisations.unboxed") %><%= t("topical_event.lead_organisations.unboxed") %></a>
+              </li>
+            </ul>
+            <% end %>
+
           </div>
         <% end %>
       </div>
