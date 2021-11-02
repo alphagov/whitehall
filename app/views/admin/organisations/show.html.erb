@@ -19,7 +19,7 @@
           <tr><th>Superseded by</th><td><%= @organisation.superseding_organisations.map {|org| link_to org.name, admin_organisation_path(org) }.join(', ').html_safe %></td></tr>
         <% end %>
       <% end %>
-      <tr><th>Description</th><td><%= govspeak_to_html @organisation.summary %></td></tr>
+      <tr><th>Description<br>To edit this, select the 'Corporate Information pages' tab. Click on 'About us' and edit the 'Summary' field in a new edition.</th><td><%= govspeak_to_html @organisation.summary %></td></tr>
       <tr><th>Email address for ordering attached files in an alternative format</th><td><%= @organisation.alternative_format_contact_email %></td></tr>
       <tr><th>Organisation chart URL</th><td><%= link_to(@organisation.organisation_chart_url) if @organisation.organisation_chart_url.present? %></td></tr>
       <tr><th>Custom jobs URL</th><td><%= link_to(@organisation.custom_jobs_url, @organisation.custom_jobs_url) if @organisation.custom_jobs_url.present? %></td></tr>
