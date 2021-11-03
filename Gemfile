@@ -43,7 +43,6 @@ gem "ptools"
 gem "rack"
 gem "rack_strip_client_ip"
 gem "rails-i18n"
-gem "rails_translation_manager"
 gem "rake"
 gem "record_tag_helper", require: false
 gem "responders"
@@ -65,6 +64,7 @@ group :development, :test do
   gem "pact_broker-client"
   gem "pry-byebug"
   gem "pry-rails"
+  gem "rails_translation_manager"
   gem "rubocop-govuk", require: false
   gem "teaspoon-qunit"
   # teaspoon has coffee assets that mean we need coffee script in order
