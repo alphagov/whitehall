@@ -775,7 +775,6 @@ DEPENDENCIES
   govuk_test
   graphviz_transitions
   i18n-coverage
-  i18n-tasks
   invalid_utf8_rejector
   isbn_validation
   jbuilder
