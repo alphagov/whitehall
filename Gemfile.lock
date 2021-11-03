@@ -271,7 +271,7 @@ GEM
     govuk_personalisation (0.10.0)
       plek (>= 1.9.0)
       rails (~> 6)
-    govuk_publishing_components (27.10.2)
+    govuk_publishing_components (27.10.3)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -306,7 +306,7 @@ GEM
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    i18n (1.8.10)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     i18n-coverage (0.2.0)
     i18n-tasks (0.9.34)
