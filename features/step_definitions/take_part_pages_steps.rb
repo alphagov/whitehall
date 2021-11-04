@@ -1,9 +1,9 @@
 Given(/^there are some take part pages for the get involved section$/) do
-  page1 = create(:take_part_page, title: "Wearing a monocole", ordering: 2)
-  page2 = create(:take_part_page, title: "Riding in a hansom cab", ordering: 3)
-  page3 = create(:take_part_page, title: "Drinking in a gin palace", ordering: 1)
+  @page1 = create(:take_part_page, title: "Wearing a monocole", ordering: 2)
+  @page2 = create(:take_part_page, title: "Riding in a hansom cab", ordering: 3)
+  @page3 = create(:take_part_page, title: "Drinking in a gin palace", ordering: 1)
 
-  @the_take_part_pages_in_order = [page3, page1, page2]
+  @the_take_part_pages_in_order = [@page3, @page1, @page2]
 end
 
 When(/^I create a new take part page called "([^"]*)"$/) do |title|
@@ -34,12 +34,14 @@ When(/^I reorder the take part pages to highlight my new page$/) do
   click_on "Update order"
 end
 
-Then(/^I see the take part pages in my specified order including the new page on the frontend get involved section$/) do
-  visit get_involved_path
+Then(/^I see the take part pages in my specified order including the new page on the admin view$/) do
+  visit admin_get_involved_path
+  click_on "Take part pages"
 
-  take_part_headings = page.all(".take-part-pages article h3").map(&:text)
+  # Note that the selector is for the non-JS version of the page
+  take_part_pages = page.all(".well label a").map(&:text)
   @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
-    expect(take_part_page.title).to eq(take_part_headings[idx])
+    expect(take_part_page.title).to eq(take_part_pages[idx])
   end
 end
 
@@ -47,22 +49,21 @@ When(/^I remove one of the take part pages because it's not something we want to
   visit admin_get_involved_path
   click_on "Take part pages"
 
-  click_on @the_take_part_pages_in_order[0].title
+  click_on @page1.title
   click_on "Delete"
 
-  click_on @the_take_part_pages_in_order[2].title
+  click_on @page2.title
   click_on "Delete"
 
   @the_removed_pages = [@the_take_part_pages_in_order[0], @the_take_part_pages_in_order[2]]
   @the_take_part_pages_in_order = [@the_take_part_pages_in_order[1]]
 end
 
-Then(/^the removed take part page is no longer displayed on the frontend get involved section$/) do
-  visit get_involved_path
+Then(/^the relevant take part pages are removed$/) do
+  visit admin_get_involved_path
+  click_on "Take part pages"
 
-  within ".take-part-pages" do
-    @the_removed_pages.each do |removed_page|
-      expect(page).to_not have_selector("article h3", text: removed_page.title)
-    end
-  end
+  expect(page).to_not have_content(@page1.title)
+  expect(page).to_not have_content(@page2.title)
+  expect(page).to have_content(@page3.title)
 end

@@ -23,10 +23,10 @@ Feature: Administering take part pages
     Given there are some take part pages for the get involved section
     When I create a new take part page called "Fund raising in Novembeard"
     And I reorder the take part pages to highlight my new page
-    Then I see the take part pages in my specified order including the new page on the frontend get involved section
+    Then I see the take part pages in my specified order including the new page on the admin view
 
   @allow-rescue
   Scenario: I can remove a take part page and it no longer displays them on /get-involved
     Given there are some take part pages for the get involved section
     When I remove one of the take part pages because it's not something we want to promote
-    Then the removed take part page is no longer displayed on the frontend get involved section
+    Then the relevant take part pages are removed
