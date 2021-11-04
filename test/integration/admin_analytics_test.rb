@@ -58,7 +58,7 @@ class AdminAnalyticsTest < ActionDispatch::IntegrationTest
       assert_dimension_is_set(8)
 
       # this is a public page that requires no db setup
-      visit get_involved_path
+      visit past_foreign_secretaries_path
       refute_dimension_is_set(8)
     end
   end

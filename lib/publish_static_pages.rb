@@ -31,7 +31,6 @@ class PublishStaticPages
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "get_involved",
         description: "Find out how you can engage with government directly, and take part locally, nationally or internationally.",
-        indexable_content: TemplateContent.new("home/get_involved").indexable_content,
         base_path: "/government/get-involved",
       },
       {

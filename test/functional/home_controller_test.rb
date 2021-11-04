@@ -68,55 +68,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_equal 2, assigns[:non_ministerial_department_count]
   end
 
-  test "get involved has counts of open and closed consultations" do
-    create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.days)
-
-    # open
-    recently_opened_consultations = [
-      next_closing = create(:open_consultation, opening_at: 9.days.ago, closing_at: 2.days.from_now),
-      create(:open_consultation, opening_at: 8.days.ago, closing_at: 3.days.from_now),
-      create(:open_consultation, opening_at: 7.days.ago, closing_at: 4.days.from_now),
-      create(:open_consultation, opening_at: 6.days.ago, closing_at: 5.days.from_now),
-      create(:open_consultation, opening_at: 5.days.ago, closing_at: 6.days.from_now),
-    ]
-
-    # closed
-    create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago + 1.day)
-    create(:closed_consultation, opening_at: 4.days.ago, closing_at: 2.days.ago)
-    create(:closed_consultation, opening_at: 3.days.ago, closing_at: 1.day.ago)
-
-    # responded
-    recent_outcomes = [
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 8.days),
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 7.days),
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 6.days),
-      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 5.days),
-    ]
-
-    # Add a response ahead of the closing date
-    create(:consultation_outcome, consultation: next_closing)
-
-    get :get_involved
-
-    assert_equal recently_opened_consultations.size, assigns[:open_consultation_count]
-    assert_equal 3, assigns[:closed_consultation_count]
-
-    # de-reference from the collection decorator
-    assert_equal [next_closing], assigns[:next_closing_consultations].object
-    assert_equal recently_opened_consultations[-3..].reverse, assigns[:recently_opened_consultations].object
-    assert_equal recent_outcomes[-3..].reverse, assigns[:recent_consultation_outcomes].object
-  end
-
-  test "get involved collects all the take part pages in order" do
-    page3 = create(:take_part_page, ordering: 3)
-    page1 = create(:take_part_page, ordering: 1)
-    page2 = create(:take_part_page, ordering: 2)
-
-    get :get_involved
-
-    assert_equal [page1, page2, page3], assigns(:take_part_pages)
-  end
-
 private
 
   def create_published_documents
