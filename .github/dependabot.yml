@@ -16,6 +16,8 @@ updates:
         dependency-type: direct
       - dependency-name: plek
         dependency-type: direct
+      - dependency-name: rails_translation_manager
+        dependency-type: direct
       - dependency-name: rubocop-govuk
         dependency-type: direct
       - dependency-name: slimmer
