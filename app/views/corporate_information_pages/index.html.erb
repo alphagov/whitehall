@@ -3,53 +3,46 @@
 
 <%= organisation_wrapper(@organisation) do %>
   <article id="what-we-do-article">
-    <div class="block-1">
-      <div class="inner-block">
-        <%= render_corporate_info_header_for(@organisation) %>
+    <%= render_corporate_info_header_for(@organisation) %>
 
-        <div class="contextual-info">
-          <nav>
-            <h1><%= t("document.contents") %></h1>
-            <ol>
-              <% if has_any_transparency_pages?(@organisation) %>
-                <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info" %></li>
-              <% end %>
-              <% if @corporate_publications.any? %>
-                <li><%= link_to t('organisation.headings.corporate_reports'), "#corporate-reports" %></li>
-              <% end %>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </div>
-      <div class="block-2">
-        <div class="inner-block">
-          <%= content_tag :p, class: 'homepage-link' do %>
-            <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
-          <% end %>
-          <aside class="organisation-top-tasks">
-            <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
-          </aside>
+    <div class="contextual-info">
+      <nav>
+        <h1><%= t("document.contents") %></h1>
+        <ol>
           <% if has_any_transparency_pages?(@organisation) %>
-            <%= render partial: "#{@organisation.class.table_name}/corporate_information",
-                       locals: { organisation: @organisation, show_access_our_information_header: true } %>
+            <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info" %></li>
           <% end %>
           <% if @corporate_publications.any? %>
-            <section class="corporate-publications" id="corporate-reports">
-              <h1><%= t('organisation.headings.corporate_reports') %></h1>
-              <ul>
-                <% @corporate_publications.each do |publication| %>
-                  <%= content_tag_for :li, publication, class: 'item' do %>
-                    <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
-                    <span class="metadata">
-                      <%= absolute_date(publication.public_timestamp) %>
-                    </span>
-                  <% end %>
-                <% end %>
-              </ul>
-            </section>
+            <li><%= link_to t('organisation.headings.corporate_reports'), "#corporate-reports" %></li>
           <% end %>
-        </div>
-      </div>
+        </ol>
+      </nav>
+    </div>
+
+    <%= content_tag :p, class: 'homepage-link' do %>
+      <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
+    <% end %>
+    <aside class="organisation-top-tasks">
+      <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
+    </aside>
+    <% if has_any_transparency_pages?(@organisation) %>
+      <%= render partial: "#{@organisation.class.table_name}/corporate_information",
+                 locals: { organisation: @organisation, show_access_our_information_header: true } %>
+    <% end %>
+    <% if @corporate_publications.any? %>
+      <section class="corporate-publications" id="corporate-reports">
+        <h1><%= t('organisation.headings.corporate_reports') %></h1>
+        <ul>
+          <% @corporate_publications.each do |publication| %>
+            <%= content_tag_for :li, publication, class: 'item' do %>
+              <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
+              <span class="metadata">
+                <%= absolute_date(publication.public_timestamp) %>
+              </span>
+            <% end %>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
   </article>
 <% end %>
