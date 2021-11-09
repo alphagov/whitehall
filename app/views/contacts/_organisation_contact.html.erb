@@ -10,7 +10,7 @@
 
   <div class="govuk-grid-row">
     <% if contact.has_postal_address? %>
-      <address class="govuk-grid-column-one-third contact-section__address">
+      <address class="govuk-body govuk-grid-column-one-third contact-section__address">
         <%= render_hcard_address(contact) %>
       </address>
     <% end %>
@@ -18,21 +18,21 @@
     <% if contact.email.present? || contact.contact_form_url.present? || contact.contact_numbers.any? %>
       <div class="govuk-grid-column-one-third">
         <% if contact.email.present? %>
-          <p class="govuk-!-margin-bottom-4">
+          <p class="govuk-body govuk-!-margin-bottom-4">
             <%= t('contact.email') %><br />
             <%= mail_to contact.email, contact.email, class: "govuk-link" %>
           </p>
         <% end %>
 
         <% if contact.contact_form_url.present? %>
-          <p class="govuk-!-margin-bottom-4">
+          <p class="govuk-body govuk-!-margin-bottom-4">
             <%= t('contact.contact_form') %><br />
             <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url, class: "govuk-link" %>
           </p>
         <% end %>
 
         <% contact.contact_numbers.each do |number| %>
-          <p class="govuk-!-margin-bottom-4">
+          <p class="govuk-body govuk-!-margin-bottom-4">
             <%= number.label %> <br />
             <span dir="ltr"><%= number.number %></span>
           </p>
@@ -42,7 +42,7 @@
 
     <% if contact.comments.present? %>
       <div class="govuk-grid-column-one-third">
-        <p><%= auto_link(format_with_html_line_breaks(h(contact.comments)), html: { class: "govuk-link" }) %></p>
+        <p class="govuk-body"><%= auto_link(format_with_html_line_breaks(h(contact.comments)), html: { class: "govuk-link" }) %></p>
       </div>
     <% end %>
   </div>

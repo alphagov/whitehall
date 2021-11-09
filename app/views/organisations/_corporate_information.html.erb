@@ -38,7 +38,7 @@
       </nav>
     </div>
   <% end %>
-  <p class="information">
+  <p class="govuk-body information">
     <% if organisation.corporate_information_pages.published.for_slug("publication-scheme").present? %>
       <%= t('worldwide_organisation.corporate_information.publication_scheme_html',
               link: t_corporate_information_page_link(organisation, "publication-scheme")) %>

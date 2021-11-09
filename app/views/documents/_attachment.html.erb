@@ -22,7 +22,7 @@
   </div>
   <div class="attachment-details">
     <h3 class="title govuk-!-font-size-27 govuk-!-font-weight-regular"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: preview), title_link_options %></h3>
-    <p class="metadata">
+    <p class="govuk-body metadata">
       <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
         <span class="references">
           <%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %>
@@ -62,14 +62,14 @@
     <% end %>
 
     <% if attachment.opendocument? %>
-      <p class="opendocument-help">
+      <p class="govuk-body opendocument-help">
         <%= t('attachment.opendocument.help_html') %>
       </p>
     <% end %>
 
     <% unless attachment.accessible? %>
       <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
-        <p><%= t('attachment.accessibility.intro') %></p>
+        <p class="govuk-body"><%= t('attachment.accessibility.intro') %></p>
         <%= render "govuk_publishing_components/components/details", {
           title: t('attachment.accessibility.request_a_different_format'),
           data_attributes: {

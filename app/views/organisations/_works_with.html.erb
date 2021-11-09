@@ -2,7 +2,7 @@
   link_to_homepage ||= false
 %>
 <% if organisation.supporting_bodies.any? %>
-  <p class="works-with">
+  <p class="govuk-body works-with">
     <%= t("organisation.support.works_with") %> <%= organisation.supporting_bodies.count %>
     <% if organisation.supporting_bodies.count == 1 %>
       <%= t("organisation.support.public_body") %>
@@ -12,7 +12,7 @@
   </p>
   <div class="organisations-box js-hidden"><div class="organisations-box-inner">
     <% if link_to_homepage %>
-      <p><%= link_to "#{organisation.name} homepage", organisation_path(organisation) %></p>
+      <p class="govuk-body"><%= link_to "#{organisation.name} homepage", organisation_path(organisation) %></p>
     <% end %>
     <% organisation.supporting_bodies_grouped_by_type.each do |type, departments| %>
       <% unless type.executive_office? %>

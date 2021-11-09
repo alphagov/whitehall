@@ -12,7 +12,7 @@
     } %>
 
     <% if organisation.type.sub_organisation? %>
-      <p class="parent-organisations">
+      <p class="govuk-body parent-organisations">
         <%= t("organisation.support.part_of") %>
         <%=
           organisation.parent_organisations.map { |parent_org|
@@ -21,7 +21,7 @@
         %>
       </p>
     <% elsif organisation.court_or_hmcts_tribunal? %>
-      <p class="parent-organisations">
+      <p class="govuk-body parent-organisations">
         <%= t("organisation.support.administered_by") %>
         <%=
           organisation.parent_organisations.map { |parent_org|
@@ -39,7 +39,7 @@
     <% if show_featured_links %>
       <%= render 'shared/featured_links', links: organisation.visible_featured_links %>
       <% if organisation.has_services_and_information_link? %>
-        <p class="see-all">
+        <p class="govuk-body see-all">
           <%= link_to "All #{organisation_display_name(organisation)} services and information".html_safe,
                       "/government/organisations/#{@organisation.slug}/services-information" %>
         </p>

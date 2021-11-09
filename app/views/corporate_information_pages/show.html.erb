@@ -18,11 +18,11 @@
     <% end %>
 
     <%= render 'shared/available_languages', object: @corporate_information_page %>
-    <%= content_tag :p, class: 'homepage-link' do %>
+    <%= content_tag :p, class: 'govuk-body homepage-link' do %>
       <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
     <% end %>
     <h1 class="main"><%= @corporate_information_page.title %></h1>
-    <p class="description">
+    <p class="govuk-body description">
       <%= @corporate_information_page.summary %>
     </p>
     <div class="body">

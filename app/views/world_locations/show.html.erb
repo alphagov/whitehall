@@ -46,7 +46,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-7">
         <%= render partial: 'shared/recently_updated',
-          locals: { 
+          locals: {
             recently_updated: @recently_updated,
             atom_url: atom_feed_url_for(@world_location),
             see_all_link: latest_path(world_locations: [@world_location])
@@ -63,7 +63,7 @@
           border_top: 2,
           font_size: "l"
         } %>
-        <p>
+        <p class="govuk-body">
           <span class="mission_statement"><%= govspeak_to_html(@world_location.mission_statement) %></span>
         </p>
       </div>
