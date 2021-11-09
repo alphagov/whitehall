@@ -18,7 +18,7 @@
       <% unless type.executive_office? %>
         <h3><%= type.name %></h3>
       <% end %>
-      <ol>
+      <ol class="govuk-list">
         <% departments.each do |department| %>
           <%= content_tag_for :li, department, "#{dom_id(organisation)}_works_with" do %>
             <%= link_to department.name, organisation_path(department), class: "govuk-link" %>

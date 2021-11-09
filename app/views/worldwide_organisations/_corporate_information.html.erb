@@ -4,7 +4,7 @@
 
     <div class="corporate-information-block">
       <nav class="group sub_navigation" role="navigation">
-        <ul>
+        <ul class="govuk-list">
           <% organisation.corporate_information_pages.published.by_menu_heading(:our_information).each do |corporate_information_page| %>
             <% corporate_information_page.extend(UseSlugAsParam) %>
             <li <%= corporate_information_page.title_lang %> ><%= link_to corporate_information_page.title, [organisation, corporate_information_page], class: "govuk-link" %></li>

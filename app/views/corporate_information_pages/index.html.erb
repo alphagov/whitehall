@@ -8,7 +8,7 @@
     <div class="contextual-info">
       <nav>
         <h1><%= t("document.contents") %></h1>
-        <ol>
+        <ol class="govuk-list">
           <% if has_any_transparency_pages?(@organisation) %>
             <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info", class: "govuk-link" %></li>
           <% end %>
@@ -32,7 +32,7 @@
     <% if @corporate_publications.any? %>
       <section class="corporate-publications" id="corporate-reports">
         <h1><%= t('organisation.headings.corporate_reports') %></h1>
-        <ul>
+        <ul class="govuk-list">
           <% @corporate_publications.each do |publication| %>
             <%= content_tag_for :li, publication, class: 'item' do %>
               <h3 class="title"><%= link_to publication.title, public_document_path(publication), class: "govuk-link" %></h3>

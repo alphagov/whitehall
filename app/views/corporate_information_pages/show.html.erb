@@ -9,7 +9,7 @@
     <% if headers.any? %>
       <nav>
         <h1 <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h1>
-        <ol class="dash-list">
+        <ol class="govuk-list dash-list">
           <% headers.each do |header| %>
             <li><%= link_to header.text, "##{header.id}", class: "govuk-link" %></li>
           <% end %>

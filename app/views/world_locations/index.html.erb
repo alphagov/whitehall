@@ -33,7 +33,7 @@
           <% group_and_sort(locations).each do |letter, locations| %>
             <div class="js-filter-block">
               <h3 class="letter"><%= letter %></h3>
-              <ol class="location-list">
+              <ol class="govuk-list location-list">
                 <% locations.each do |location| %>
                   <%= render partial: 'world_location',
                         locals: { world_location: location,
@@ -44,7 +44,7 @@
             </div>
           <% end %>
         <% else %>
-          <ol class="location-list">
+          <ol class="govuk-list location-list">
             <% locations.each do |location| %>
               <%= render partial: 'world_location',
                         locals: { world_location: location,
