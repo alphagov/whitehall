@@ -18,6 +18,7 @@
       link_to(
         "See all #{heading.downcase}",
         see_more_url,
+        class: "govuk-link",
         data: {
           track_category: 'navPolicyAreaLinkClicked',
           track_action: "#{heading}.#{documents.count + 1}",

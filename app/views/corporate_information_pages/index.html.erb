@@ -10,17 +10,17 @@
         <h1><%= t("document.contents") %></h1>
         <ol>
           <% if has_any_transparency_pages?(@organisation) %>
-            <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info" %></li>
+            <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info", class: "govuk-link" %></li>
           <% end %>
           <% if @corporate_publications.any? %>
-            <li><%= link_to t('organisation.headings.corporate_reports'), "#corporate-reports" %></li>
+            <li><%= link_to t('organisation.headings.corporate_reports'), "#corporate-reports", class: "govuk-link" %></li>
           <% end %>
         </ol>
       </nav>
     </div>
 
     <%= content_tag :p, class: 'govuk-body homepage-link' do %>
-      <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
+      <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
     <% end %>
     <aside class="organisation-top-tasks">
       <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
@@ -35,7 +35,7 @@
         <ul>
           <% @corporate_publications.each do |publication| %>
             <%= content_tag_for :li, publication, class: 'item' do %>
-              <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
+              <h3 class="title"><%= link_to publication.title, public_document_path(publication), class: "govuk-link" %></h3>
               <span class="metadata">
                 <%= absolute_date(publication.public_timestamp) %>
               </span>

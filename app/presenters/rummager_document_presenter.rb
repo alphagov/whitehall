@@ -108,7 +108,7 @@ private
   def format_link(title, link)
     return unless title.present? && link.present?
 
-    link_to(title, Plek.current.website_root + link)
+    link_to(title, Plek.current.website_root + link, class: "govuk-link")
   end
 
   def operational_field_link(operational_field)

@@ -11,7 +11,7 @@
         <h1 <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h1>
         <ol class="dash-list">
           <% headers.each do |header| %>
-            <li><%= link_to header.text, "##{header.id}" %></li>
+            <li><%= link_to header.text, "##{header.id}", class: "govuk-link" %></li>
           <% end %>
         </ol>
       </nav>
@@ -19,7 +19,7 @@
 
     <%= render 'shared/available_languages', object: @corporate_information_page %>
     <%= content_tag :p, class: 'govuk-body homepage-link' do %>
-      <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
+      <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
     <% end %>
     <h1 class="main"><%= @corporate_information_page.title %></h1>
     <p class="govuk-body description">

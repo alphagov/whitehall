@@ -11,16 +11,16 @@
     <nav class="group sub_navigation" role="navigation">
       <ul>
         <% if organisation.organisation_chart_url.present? %>
-          <li><%= link_to t('organisation.corporate_information.organisation_chart'), organisation.organisation_chart_url %></li>
+          <li><%= link_to t('organisation.corporate_information.organisation_chart'), organisation.organisation_chart_url, class: "govuk-link" %></li>
         <% end %>
         <% organisation.corporate_information_pages.published.by_menu_heading(:our_information).each do |corporate_information_page| %>
-          <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug) %></li>
+          <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug), class: "govuk-link" %></li>
         <% end %>
         <% if show_corporate_reports && organisation.has_published_publications_of_type?(PublicationType::CorporateReport) %>
-          <li><%= link_to t('organisation.headings.corporate_reports'), publications_filter_path(organisation, publication_type: 'corporate-reports') %></li>
+          <li><%= link_to t('organisation.headings.corporate_reports'), publications_filter_path(organisation, publication_type: 'corporate-reports'), class: "govuk-link" %></li>
         <% end %>
         <% if organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
-          <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data') %></li>
+          <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data'), class: "govuk-link" %></li>
         <% end %>
       </ul>
     </nav>
@@ -31,9 +31,13 @@
       <nav class="group sub_navigation" role="navigation">
         <ul>
           <% organisation.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |corporate_information_page| %>
-            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug) %></li>
+            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug), class: "govuk-link" %></li>
           <% end %>
-          <li><%= link_to('Jobs', organisation.jobs_url, ({rel: 'external'} if is_external?(organisation.jobs_url))) %></li>
+          <%
+            link_attributes = { class: "govuk-link" }
+            link_attributes[:rel] = 'external' if is_external?(organisation.jobs_url)
+          %>
+          <li><%= link_to('Jobs', organisation.jobs_url, link_attributes) %></li>
         </ul>
       </nav>
     </div>

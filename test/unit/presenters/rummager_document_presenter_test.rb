@@ -54,8 +54,8 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   end
 
   test "will returns associated document collections" do
-    expected_result = "Part of a collection: <a href=\"https://www.test.gov.uk/government/collections/wizarding-sports\">" \
-      "Wizarding sports</a> and <a href=\"https://www.test.gov.uk/government/collections/guidance-for-hosting-wizarding-competitions\">" \
+    expected_result = "Part of a collection: <a class=\"govuk-link\" href=\"https://www.test.gov.uk/government/collections/wizarding-sports\">" \
+      "Wizarding sports</a> and <a class=\"govuk-link\" href=\"https://www.test.gov.uk/government/collections/guidance-for-hosting-wizarding-competitions\">" \
       "Guidance for hosting wizarding competitions</a>"
     assert_equal expected_result, presenter.publication_collections
   end
@@ -83,7 +83,7 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   end
 
   test "will return formatted operational field" do
-    expected_result = "Field of operation: <a href=\"https://www.test.gov.uk/government/fields-of-operation/hogwarts\">Hogwarts</a>"
+    expected_result = "Field of operation: <a class=\"govuk-link\" href=\"https://www.test.gov.uk/government/fields-of-operation/hogwarts\">Hogwarts</a>"
     assert_equal expected_result, presenter.field_of_operation
   end
 
