@@ -5,7 +5,7 @@
   width: $full-width;
 
   li {
-    @include core-27;
+    @include govuk-font(27);
     display: block;
     padding: 0;
     margin: 0;
@@ -76,7 +76,7 @@
 
     @include media(tablet) {
       .visuallyhidden {
-        @include core-27;
+        @include govuk-font(27);
         display: inline-block;
         position: static;
       }

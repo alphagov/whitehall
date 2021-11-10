@@ -5,7 +5,7 @@
     }
 
     hgroup {
-      @include heading-48;
+      @include govuk-font($size: 48, $weight: bold);
       @include media(desktop) {
         width: $two-thirds;
       }
@@ -34,7 +34,7 @@
         }
 
         p {
-          @include core-80;
+          @include govuk-font(80);
           font-weight: bold;
         }
       }
@@ -47,7 +47,7 @@
         }
 
         .letter {
-          @include core-80;
+          @include govuk-font(80);
           font-weight: bold;
           text-indent: -4px;
         }
@@ -60,7 +60,7 @@
             border-bottom: 1px solid $border-colour;
 
             .location-link {
-              @include core-19;
+              @include govuk-font(19);
               padding: $gutter-one-sixth 0;
               display: inline-block;
             }
@@ -72,7 +72,7 @@
 }
 
 .world-locations__heading {
-  @include core-19;
+  @include govuk-font(19);
 }
 
 .world-locations-show {
@@ -91,7 +91,7 @@
 
     .heading-extra {
       .top-tasks {
-        @include core-16;
+        @include govuk-font(16);
 
         ul {
           li {
@@ -117,7 +117,7 @@
   }
 
   .keyline-header {
-    @include heading-36;
+    @include govuk-font($size: 36, $weight: bold);
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
@@ -155,7 +155,7 @@
     margin-bottom: $gutter * 2;
 
     p {
-      @include heading-24;
+      @include govuk-font($size: 24, $weight: bold);
     }
   }
 
@@ -173,7 +173,7 @@
 
       .worldwide-organisation-detail {
         p {
-          @include core-19;
+          @include govuk-font(19);
         }
       }
 
@@ -189,7 +189,7 @@
           font-weight: bold;
 
           a {
-            @include heading-27;
+            @include govuk-font($size: 27, $weight: bold);
             display: inline;
             font-weight: bold;
           }
@@ -209,7 +209,7 @@
       }
 
       .contact {
-        @include core-14;
+        @include govuk-font(14);
         margin-top: $gutter;
 
         h2 {

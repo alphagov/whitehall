@@ -4,7 +4,7 @@
 
     .title {
       display: block;
-      @include core-36;
+      @include govuk-font(36);
       color: $grey-1;
       padding-top: $gutter-one-sixth;
       padding-bottom: 2px;
@@ -13,11 +13,11 @@
 
     .label {
       display: block;
-      @include core-36;
+      @include govuk-font(36);
       font-weight: bold;
 
       input {
-        @include core-16;
+        @include govuk-font(16);
         position: relative;
         padding: $gutter-one-sixth;
         top: -$gutter-one-sixth;
@@ -26,7 +26,7 @@
         }
       }
       @include media(tablet) {
-        @include core-48;
+        @include govuk-font(48);
         font-weight: bold;
       }
     }

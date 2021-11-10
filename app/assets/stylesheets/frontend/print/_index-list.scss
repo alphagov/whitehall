@@ -35,7 +35,7 @@
   }
 
   .letter {
-    @include core-80;
+    @include govuk-font(80);
     clear: both;
   }
 }

@@ -73,7 +73,7 @@ article {
 
       .accessibility-warning {
         h2 {
-          @include core-14;
+          @include govuk-font(14);
           padding: 0;
           margin: 0;
         }
@@ -99,7 +99,7 @@ article {
     }
 
     caption {
-      @include core-19;
+      @include govuk-font(19);
       margin: $gutter-half 0;
     }
   }
@@ -112,7 +112,7 @@ article {
   margin: $gutter-half 0;
 
   h4 {
-    @include core-14;
+    @include govuk-font(14);
     margin-top: 0;
   }
 

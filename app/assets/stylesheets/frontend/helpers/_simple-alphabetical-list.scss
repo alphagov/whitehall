@@ -18,7 +18,7 @@
     }
 
     h2 {
-      @include core-80;
+      @include govuk-font(80);
       font-weight: bold;
       @include media(tablet) {
         text-indent: -4px;
@@ -29,7 +29,7 @@
       padding: 0 0 $gutter;
 
       li {
-        @include core-19;
+        @include govuk-font(19);
         padding: $gutter-one-sixth 0;
         border-bottom: 1px solid $border-colour;
       }

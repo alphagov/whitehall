@@ -16,7 +16,7 @@
 
   .page-header {
     h1.title {
-      @include heading-27;
+      @include govuk-font($size: 27, $weight: bold);
     }
 
     padding: $gutter-half 0;
@@ -105,7 +105,7 @@
     }
 
     .metadata {
-      @include core-16;
+      @include govuk-font(16);
       color: $grey-1;
       clear: both;
       display: block;
@@ -135,7 +135,7 @@
 
     li.organisation {
       border-bottom: 0;
-      @include core-16;
+      @include govuk-font(16);
     }
   }
 
@@ -156,7 +156,7 @@
 
     p {
       .count {
-        @include core-36;
+        @include govuk-font(36);
         font-weight: bold;
         margin-right: $gutter-two-thirds;
       }
@@ -167,14 +167,14 @@
         clear: both;
 
         .count {
-          @include core-80;
+          @include govuk-font(80);
           display: block;
           font-weight: bold;
           width: $full-width;
         }
 
         .on-govuk {
-          @include core-24;
+          @include govuk-font(24);
           display: block;
           color: $secondary-text-colour;
         }
@@ -240,7 +240,7 @@
       }
 
       .parent-organisations {
-        @include core-16;
+        @include govuk-font(16);
         padding-top: $gutter-one-third;
       }
     }
@@ -331,7 +331,7 @@
   }
 
   .what-we-do h1 {
-    @include core-36;
+    @include govuk-font(36);
     padding-bottom: 1px;
     margin-bottom: $gutter-two-thirds;
   }
@@ -351,7 +351,7 @@
   }
 
   .topic h2 {
-    @include core-19;
+    @include govuk-font(19);
     font-weight: bold;
   }
 
@@ -400,7 +400,7 @@
 
   .executive-office .social-media {
     h2 {
-      @include core-27;
+      @include govuk-font(27);
       font-weight: bold;
       border-top-width: $gutter-one-sixth;
       border-top-style: solid;
@@ -481,7 +481,7 @@
       }
 
       p {
-        @include core-19;
+        @include govuk-font(19);
       }
     }
   }
@@ -512,7 +512,7 @@
     }
 
     h1 {
-      @include core-36;
+      @include govuk-font(36);
       padding-bottom: 1px;
       margin-bottom: $gutter-two-thirds;
     }
@@ -586,7 +586,7 @@
     }
 
     h1 {
-      @include core-27;
+      @include govuk-font(27);
       font-weight: bold;
       border-top-width: $gutter-one-sixth;
       border-top-style: solid;
@@ -598,7 +598,7 @@
     }
 
     h2 {
-      @include core-19;
+      @include govuk-font(19);
       font-weight: bold;
     }
 
@@ -643,7 +643,7 @@
       }
 
       h2 {
-        @include core-19;
+        @include govuk-font(19);
         font-weight: bold;
         margin-bottom: $gutter-one-third;
         padding-top: $gutter-half;
@@ -704,7 +704,7 @@
     }
 
     .show-other-content {
-      @include core-19;
+      @include govuk-font(19);
       font-weight: bold;
     }
   }
@@ -907,7 +907,7 @@
     h1 {
       background: transparent none no-repeat $half 0;
       padding-top: 140px;
-      @include core-19;
+      @include govuk-font(19);
       text-align: center;
     }
   }
@@ -946,7 +946,7 @@
 
     h2 {
       border-top: $gutter-one-sixth solid;
-      @include core-24;
+      @include govuk-font(24);
       font-weight: bold;
       padding: $gutter-two-thirds 0;
     }
@@ -966,7 +966,7 @@
 
       .content {
         padding: 0 $gutter-half;
-        @include core-19;
+        @include govuk-font(19);
       }
 
       .feature {
@@ -1045,7 +1045,7 @@
       }
 
       .content {
-        @include core-16;
+        @include govuk-font(16);
 
         img {
           width: $full-width;
@@ -1053,8 +1053,7 @@
         }
 
         h3 {
-          @include copy-19;
-          font-weight: bold;
+          @include govuk-font($size: 19, $weight: bold);
         }
 
         ul {
@@ -1093,7 +1092,7 @@
 
     h1 {
       border-top: $gutter-one-sixth solid;
-      @include core-24;
+      @include govuk-font(24);
       font-weight: bold;
       padding: $gutter-two-thirds 0;
       @include media(tablet) {
@@ -1115,7 +1114,7 @@
       }
 
       h2 {
-        @include core-19;
+        @include govuk-font(19);
         font-weight: bold;
         margin-bottom: $gutter-one-third;
         padding-top: $gutter-half;
@@ -1153,7 +1152,7 @@
     }
 
     .show-other-content {
-      @include core-19;
+      @include govuk-font(19);
       font-weight: bold;
     }
   }
@@ -1165,7 +1164,7 @@
     }
 
     .dash-list {
-      @include core-19;
+      @include govuk-font(19);
       margin: 0 $gutter-half;
       padding-top: $gutter;
       border-top: $gutter-one-sixth solid;

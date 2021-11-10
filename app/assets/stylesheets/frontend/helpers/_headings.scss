@@ -18,13 +18,13 @@
     }
 
     h1 {
-      @include core-36;
+      @include govuk-font(36);
       font-weight: bold;
     }
 
     .type,
     .type a {
-      @include core-27;
+      @include govuk-font(27);
       color: $secondary-text-colour;
       margin-bottom: $gutter-one-sixth;
       text-decoration: none;
@@ -47,7 +47,7 @@
     @extend .heading;
 
     h1 {
-      @include core-48;
+      @include govuk-font(48);
       font-weight: bold;
     }
   }
@@ -91,7 +91,7 @@
   .intro-paragraph {
     padding: 0 $gutter-half;
     margin-bottom: $gutter;
-    @include core-27;
+    @include govuk-font(27);
     max-width: 27em;
 
     a {

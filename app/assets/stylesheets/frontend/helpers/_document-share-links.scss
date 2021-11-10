@@ -9,7 +9,7 @@
   }
 
   h3 {
-    @include core-16;
+    @include govuk-font(16);
   }
 
   .social-media-accounts li {

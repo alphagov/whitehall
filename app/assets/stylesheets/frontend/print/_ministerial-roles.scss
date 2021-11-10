@@ -53,7 +53,7 @@
       h2,
       h3,
       p {
-        @include core-14;
+        @include govuk-font(14);
         margin-bottom: 0;
         padding-bottom: 0;
 
@@ -91,7 +91,7 @@
 
         h4,
         p {
-          @include core-14;
+          @include govuk-font(14);
         }
       }
     }

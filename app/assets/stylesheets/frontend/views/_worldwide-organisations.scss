@@ -1,7 +1,7 @@
 .worldwide-organisations-show {
   .keyline-header,
   .description h1 {
-    @include heading-36;
+    @include govuk-font($size: 36, $weight: bold);
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
@@ -33,8 +33,7 @@
       }
 
       h1 {
-        @include copy-19;
-        font-weight: bold;
+        @include govuk-font($size: 19, $weight: bold);
       }
     }
 
@@ -43,15 +42,14 @@
     }
 
     .summary {
-      @include copy-19;
-      font-weight: bold;
+      @include govuk-font($size: 19, $weight: bold);
       margin-bottom: $gutter-half;
     }
 
     .description {
       .govspeak {
         h2 {
-          @include core-19;
+          @include govuk-font(19);
           font-weight: bold;
           padding-bottom: 0;
         }
@@ -73,7 +71,7 @@
 
       .govspeak {
         h2 {
-          @include core-19;
+          @include govuk-font(19);
           font-weight: bold;
         }
 
@@ -112,10 +110,9 @@
   .contact-us,
   .corporate-information {
     .keyline-header {
-      @include heading-27;
+      @include govuk-font($size: 27, $weight: bold);
       border-top: $gutter-one-sixth solid $black;
       border-bottom: 1px solid $border-colour;
-      font-weight: bold;
       margin: 0 $gutter-half;
       padding: $gutter-two-thirds 0 $gutter-one-third 0;
       @include media(tablet) {

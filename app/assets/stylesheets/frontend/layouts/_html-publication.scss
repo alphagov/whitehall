@@ -1,5 +1,5 @@
 .html-publication {
-  @include core-19;
+  @include govuk-font(19);
 }
 
 #wrapper {
@@ -18,7 +18,7 @@
 }
 
 #footer {
-  @include core-16;
+  @include govuk-font(16);
 
   .footer-meta {
     border-top: 0;

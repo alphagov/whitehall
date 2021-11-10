@@ -8,7 +8,7 @@
 
     ol {
       li {
-        @include core-16;
+        @include govuk-font(16);
         border-bottom: 1px solid $grey-2;
         list-style: none;
         padding: $gutter-one-third 0;

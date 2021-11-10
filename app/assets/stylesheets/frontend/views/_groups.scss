@@ -4,7 +4,7 @@
     padding-top: $gutter;
 
     .label {
-      @include heading-27;
+      @include govuk-font($size: 27, $weight: bold);
       border-bottom-width: 5px;
       border-bottom-style: solid;
       margin-bottom: $gutter-half;
