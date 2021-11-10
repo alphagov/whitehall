@@ -3,7 +3,7 @@
    filter_option = (heading == "Publications") ? "all" : heading.downcase
 %>
 <section id="<%= heading.downcase %>" class="document-block documents-<%= document_block_counter %>">
-  <h1 class="label"><%= heading %></h1>
+  <h2 class="govuk-heading-l"><%= heading %></h2>
   <div class="content">
     <%= render partial: "shared/list_description", locals: { heading: heading, editions: documents } %>
     <p class="govuk-body">

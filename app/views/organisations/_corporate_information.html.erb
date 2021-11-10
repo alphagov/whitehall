@@ -3,10 +3,12 @@
   show_access_our_information_header ||= false
 %>
 <section class="corporate-information" id="corporate-info">
-  <h1><%= t('organisation.headings.corporate_information') %></h1>
+  <%= render "govuk_publishing_components/components/title", {
+    title: t('organisation.headings.corporate_information'),
+  } %>
   <div class="corporate-information-block">
     <% if show_access_our_information_header %>
-      <h2><%= t('organisation.corporate_information.access_our_info') %></h2>
+      <h2 class="govuk-heading-l"><%= t('organisation.corporate_information.access_our_info') %></h2>
     <% end %>
     <nav class="group sub_navigation" role="navigation">
       <ul class="govuk-list">
@@ -27,7 +29,7 @@
   </div>
   <% unless @organisation.court_or_hmcts_tribunal? %>
     <div class="corporate-information-block">
-      <h2><%= t('organisation.corporate_information.jobs_and_contacts') %></h2>
+      <h2 class="govuk-heading-l"><%= t('organisation.corporate_information.jobs_and_contacts') %></h2>
       <nav class="group sub_navigation" role="navigation">
         <ul class="govuk-list">
           <% organisation.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |corporate_information_page| %>

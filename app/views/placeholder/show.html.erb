@@ -2,6 +2,8 @@
 <% page_class "placeholder-show" %>
 
 <div class="holding-block">
-  <h1><%= t("attachment.virus_check.intro") %></h1>
+  <%= render "govuk_publishing_components/components/title", {
+    title: t("attachment.virus_check.intro"),
+  } %>
   <p class="govuk-body introduction"><%= t("attachment.virus_check.message") %></p>
 </div>

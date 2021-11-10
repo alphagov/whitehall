@@ -16,7 +16,7 @@
     <% end %>
     <% organisation.supporting_bodies_grouped_by_type.each do |type, departments| %>
       <% unless type.executive_office? %>
-        <h3><%= type.name %></h3>
+        <h3 class="govuk-heading-m"><%= type.name %></h3>
       <% end %>
       <ol class="govuk-list">
         <% departments.each do |department| %>

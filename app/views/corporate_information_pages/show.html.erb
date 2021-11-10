@@ -8,7 +8,7 @@
     <% headers = govspeak_headers(@corporate_information_page.body) %>
     <% if headers.any? %>
       <nav>
-        <h1 <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h1>
+        <h2 class="govuk-heading-l" <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h2>
         <ol class="govuk-list dash-list">
           <% headers.each do |header| %>
             <li><%= link_to header.text, "##{header.id}", class: "govuk-link" %></li>
@@ -21,7 +21,9 @@
     <%= content_tag :p, class: 'govuk-body homepage-link' do %>
       <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
     <% end %>
-    <h1 class="main"><%= @corporate_information_page.title %></h1>
+    <%= render "govuk_publishing_components/components/title", {
+      title: @corporate_information_page.title,
+    } %>
     <p class="govuk-body description">
       <%= @corporate_information_page.summary %>
     </p>
