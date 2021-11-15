@@ -2,35 +2,35 @@ et:
   document:
     type:
       about:
-        one:
-        other:
+        one: Umbes
+        other: Umbes
       about_our_services:
-        one:
-        other:
+        one: Meie teenuste kohta
+        other: Meie teenuste kohta
       access_and_opening:
-        one:
-        other:
+        one: Juurdepääs ja avamine
+        other: Juurdepääs ja avamine
       accessible_documents_policy:
-        one:
-        other:
+        one: Juurdepääsetavad eeskirjade dokumendid
+        other: Juurdepääsetavate dokumentide poliitikad
       alert:
-        one:
-        other:
+        one: Teade
+        other: Teated
       announcement:
         one: Teadaanne
         other: Teadaanded
       authored_article:
-        one: Avaldatud artikkel
-        other: 'Avaldatud artiklid '
+        one: Kirjutatud artikkel
+        other: Kirjutatud artiklid
       blog_post:
-        one:
-        other:
+        one: Blogi postitus
+        other: Blogi postitused
       campaign:
-        one:
-        other:
+        one: Kampaania
+        other: Kampaaniad
       careers:
-        one:
-        other:
+        one: Karjäärid
+        other: karjäärid
       case_study:
         one: Juhtumiuuring
         other: Juhtumiuuringud
@@ -38,535 +38,516 @@ et:
         one: Suletud konsultatsioon
         other: Suletud konsultatsioonid
       complaints_procedure:
-        one:
-        other:
+        one: Kaebuste menetlus
+        other: Kaebuste menetlused
       consultation:
         one: Konsultatsioon
         other: Konsultatsioonid
       consultation_outcome:
         one: Konsultatsiooni tulemus
-        other: Konsultatsioonide tulemused
+        other: Konsultatsiooni tulemused
       corporate_report:
-        one: Korporatiivne raport
-        other: Korporatiivsed raportid
+        one: Ettevõtte aruanne
+        other: Ettevõtte aruanded
       correspondence:
-        one: Kirjavahetus
-        other: Kirjavahetused
+        one: Korrespondents
+        other: Korrespondentsid
       decision:
         one: Otsus
         other: Otsused
       detailed_guidance:
-        one: Juhend
-        other: Juhendid
+        one: Juhised
+        other: Juhised
       document_collection:
-        one: 'Kogu '
+        one: Kogu
         other: Kogud
       draft_text:
-        one: Eelnõu
-        other: Eelnõud
+        one: Teksti mustand
+        other: Teksti mustandid
       edition:
-        one:
-        other:
+        one: Väljaanne
+        other: Väljaanded
       edition_with_appointment:
-        one:
-        other:
+        one: Väljaanne kokkuleppel
+        other: Väljaanded kokkuleppel
       equality_and_diversity:
-        one:
-        other:
+        one: Võrdsus ja mitmekesisus
+        other: Võrdsus ja mitmekesisus
       fatality_notice:
-        one:
-        other:
+        one: Surmateade
+        other: Surmateated
       foi_release:
-        one: FOI teavitus
-        other: FOI teavitused
+        one: FOI väljaanne
+        other: FOI väljaanded
       form:
         one: Vorm
         other: Vormid
       generic_edition:
-        one:
-        other:
+        one: Üldine väljaanne
+        other: Üldised väljaanded
       government_response:
         one: Valitsuse vastus
         other: Valitsuse vastused
       guidance:
-        one: Juhend
-        other: Juhend
+        one: Juhised
+        other: Juhised
       impact_assessment:
-        one: Mõjuhinnang
-        other: Mõjuhinnangud
+        one: Mõju hindamine
+        other: Mõju hindamised
       imported:
-        one: sisse - liik täpsustamisel
-        other: sisse - liik täpsustamisel
+        one: imporditud - ootel tüüp
+        other: imporditud - ootel tüüp
       independent_report:
-        one: Sõltumatu raport
-        other: Sõltumatud raportid
+        one: Sõltumatu aruanne
+        other: Sõltumatud aruanded
       international_treaty:
         one: Rahvusvaheline leping
         other: Rahvusvahelised lepingud
       manual:
-        one: Rahvusvaheline leping
-        other: Rahvusvahelised lepingud
+        one: Juhend
+        other: Juhendid
       map:
         one: Kaart
         other: Kaardid
       media_enquiries:
-        one:
-        other:
+        one: Meediapäring
+        other: Meediapäringud
       membership:
-        one:
-        other:
+        one: Liikmelisus
+        other: Liikmelisus
       national_statistics:
-        one: Statistika - rahvuslikud statistikaandmed
-        other: Statistika - rahvuslikud statistikaandmed
+        one: Riiklik statistika
+        other: Riiklik statistika
       news_article:
-        one: Artikkel
-        other: Artiklid
+        one: Uudiste artikkel
+        other: Uudiste artiklid
       news_story:
-        one: Uudis
-        other: Uudised
+        one: Uudislugu
+        other: Uudislood
       nhs_content:
-        one:
-        other:
+        one: NHS-i sisu
+        other: NHS-i sisu
       notice:
-        one: Teade
-        other: Teated
+        one: Märkus
+        other: Märkused
       official_statistics:
-        one: 'Statistika '
-        other: Statistika
+        one: Ametlik statistika
+        other: Ametlik statistika
       open_consultation:
         one: Avatud konsultatsioon
         other: Avatud konsultatsioonid
       oral_statement:
-        one: Suuline avaldus parlamedis
-        other: Suulised avaldused parlamendis
+        one: Suuline avaldus parlamendile
+        other: Suulised avaldused parlamendile
       our_energy_use:
-        one:
-        other:
+        one: Meie energiakasutus
+        other: Meie energiakasutus
       our_governance:
-        one:
-        other:
+        one: Meie valitsemistava
+        other: Meie valitsemistava
       personal_information_charter:
-        one:
-        other:
+        one: Isikuandmete õigus
+        other: Isikuandmete õigused
       petitions_and_campaigns:
-        one:
-        other:
+        one: Petitsioonid ja kampaaniad
+        other: Petitsioonid ja kampaaniad
       policy_paper:
-        one: Poliitikadokument
-        other: Poliitikadokumendid
+        one: Eeskirjade dokument
+        other: Eeskirjade dokumendid
       press_release:
         one: Pressiteade
         other: Pressiteated
       procurement:
-        one:
-        other:
+        one: Hanked
+        other: Hanked
       promotional:
-        one: Turundusmaterjal
-        other: Turundusmaterjal
+        one: Reklaammaterjal
+        other: Reklaammaterjal
       publication:
         one: Publikatsioon
         other: Publikatsioonid
       publication_scheme:
-        one:
-        other:
+        one: Avaldamisskeem
+        other: Avaldamisskeemid
       recruitment:
-        one:
-        other:
+        one: Värbamine
+        other: Värbamine
       regulation:
-        one: Seadusandlus
-        other: Seadusandlus
+        one: Määrus
+        other: Määrused
       research:
-        one: Uuringud ja analüüs
-        other: Uuringud ja analüüs
+        one: Uurimine
+        other: Uurimine
       service:
-        one:
-        other:
+        one: Teenus
+        other: Teenused
       social_media_use:
-        one:
-        other:
+        one: Sotsiaalmeedia kasutamine
+        other: Sotsiaalmeedia kasutamine
       speaking_notes:
-        one: 'Kõne tekst '
-        other: 'Kõne tekst '
+        one: Kõnemärkmed
+        other: Kõnemärkmed
       speech:
-        one: 'Kõne  '
+        one: Kõne
         other: Kõned
       staff_update:
-        one:
-        other:
+        one: Personaliuuendus
+        other: Personaliuuendused
       standard:
-        one:
-        other:
+        one: Standard
+        other: Standardid
       statement_to_parliament:
-        one: Avaldus parlamendis
-        other: Avaldused parlamendis
+        one: Avaldus parlamendile
+        other: Avaldused parlamendile
       statistical_data_set:
-        one: Statistiline andmekogu
-        other: Statistilised andmekogud
+        one: Statistiline andmekogum
+        other: Statistilised andmekogumid
       statistics:
-        one:
-        other:
+        one: Statistika
+        other: Statistika
       statutory_guidance:
-        one: Seadusejärgne juhis
-        other: Seadusejärgne juhis
+        one: Seadusjärgsed juhised
+        other: Seadusjärgsed juhised
       terms_of_reference:
-        one:
-        other:
+        one: Pädevus
+        other: Pädevus
       transcript:
-        one: Protokoll
-        other: Protokollid
+        one: Transkriptsioon
+        other: Transkriptsioonid
       transparency:
-        one: Läbipaistvusteave
-        other: Läbipaistvusteave
+        one: Läbipaistvuse andmed
+        other: Läbipaistvuse andmed
       welsh_language_scheme:
-        one:
-        other:
+        one: Walesi keeleskeem
+        other: Walesi keeleskeemid
       world_news_story:
-        one:
-        other:
+        one: Ülemaailmne uudislugu
+        other: Ülemaailmsed uudislood
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
-    contents: Sisukord
+    contents: Sisu
     footer_meta:
-      full_page_history: Tervikajalugu
+      full_page_history: kogu lehe ajalugu
       published: Avaldatud
-      updated: Täiendatud
+      updated: Uuendatud
     headings:
-      applies_to_nations: Seondub
-      from: Kellelt
+      applies_to_nations: Kehtib
+      from: Alates
       part_of: Osa
-    latest:
-    latest_from:
+    latest: Viimased dokumendid
+    latest_from: Viimane teemast %{subject}
     published: avaldatud
-    see_all:
+    see_all: Vaata kõiki
     speech:
       author_title:
         minister: Minister
-        speaker: Autor
-      delivered_on: 'Ette kantud:'
+        speaker: Kirjanik
+      delivered_on: 'Edastati:'
       delivery_title:
         minister: Minister
-        speaker: Kõneleja
-      written_on: 'Kirjutatud:'
-    updated: Täiendatud
+        speaker: Kõlar
+      written_on: 'Kirjutati:'
+    updated: uuendatud
   world_location:
     type:
       international_delegation:
         one: Rahvusvaheline delegatsioon
         other: Rahvusvahelised delegatsioonid
       world_location:
-        one: Riik
-        other: Riigid
+        one: Maailma asukoht
+        other: Maailma asukohad
     headings:
       announcements: Meie teadaanded
       documents: Dokumendid
-      featured:
       mission: Meie missioon
-      news:
+      news: Maailma asukoha uudised
       organisations: Organisatsioonid
       publications: Meie publikatsioonid
-      search:
+      search: Otsige riigi või territooriumi järgi
       statistics: Meie statistika
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: Parlamendi alamkoja dokumendi nr.
+        hoc_paper_number: Alamkoja dokumendinumber
         isbn: ISBN
-        unnumbered_hoc_paper: Numbrita Parlamendi alamkoja dokument
+        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
       attachment_data:
-        file: Toimik
+        file: Fail
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number: 'Parlamendi alamkoja dokumendi nr. '
-        isbn: 'Manuse ISBN '
-        title: Manuse pealkiri
-        unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Manus
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Manus
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number: Parlamendi alamkoja dokumendi nr.
+        command_paper_number: Manuse käsudokumendi number
+        hoc_paper_number: Alamkoja dokumendinumber
         isbn: Manuse ISBN
         title: Manuse pealkiri
         unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
+        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Lisatud fail
+      edition:
+        nation_inapplicabilities: Välistatud rahvad
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Lisatud fail
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Manuse käsudokumendi number
+        hoc_paper_number: Alamkoja dokumendinumber
+        isbn: Manuse ISBN
+        title: Manuse pealkiri
+        unique_reference: Manuse unikaalne viide
+        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
       response/consultation_response_attachments/attachment/attachment_data:
-        file: Manus
+        file: Lisatud fail
     nested_attachment_data_field_names:
-      file: Manus
+      file: Lisatud fail
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number: Parlamendi alamkoja dokumendi nr.
+      command_paper_number: Manuse käsudokumendi number
+      hoc_paper_number: Alamkoja dokumendinumber
       isbn: Manuse ISBN
       title: Manuse pealkiri
       unique_reference: Manuse unikaalne viide
-      unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
+      unnumbered_hoc_paper: Nummerdamata alamkoja dokument
   announcements:
-    heading: Teated
+    heading: Teadaanded
   attachment:
     accessibility:
-      full_help_html: 'Kui olete abistava tehnoloogia kasutaja ja vajate selle dokumendi
-        versiooni mõnes alternatiivses formaadis, palun saatke e-kiri %{email}. Palun
-        öelge meile, missugust formaati vajate. On abiks, kui märgite ära, missugust
-        abistavat tehnoloogiat kasutate. '
-      intro: 'See fail ei pruugi avaneda abistava tehnoloogia kasutajatele. '
-      request_a_different_format: Küsige teistsugust formaati
+      full_help_html: |
+        Kui kasutate abitehnoloogiat (näiteks ekraanilugerit) ja vajate selle dokumendi versiooni juurdepääsetavamas vormingus, saatke e -kiri aadressile %{email}.
+        Palun öelge meile, millist vormingut vajate. See aitab meid, kui ütlete, millist hõlbustustehnoloogiat kasutate.
+      intro: See fail ei pruugi hõlbustustehnoloogia kasutajatele sobida.
+      request_a_different_format: Taotlege juurdepääsetavat vormingut.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Selle faili eelvaadet ei saanud vaadata.
+      download: Laadige fail alla, et näha selle täielikku sisu.
+      truncated_message: See eelvaade näitab ainult %{rows} esimest rida ja %{columns}
+        veergu.
     headings:
-      order_a_copy: Tellige koopia
-      order_a_copy_full: Tellige publikatsiooni koopia
+      order_a_copy: Telli koopia
+      order_a_copy_full: Telli publikatsioonist koopia
       published: Avaldatud
       reference: Viide
-      unnumbered_command_paper:
-      unnumbered_hoc_paper: Nummerdamata eelnõu dokument
+      unnumbered_command_paper: Nummerdamata käsudokument
+      unnumbered_hoc_paper: Nummerdamata akt
     opendocument:
-      help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
-        formaadis
+      help_html: See fail on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        vormingus
     virus_check:
-      intro:
-      message:
+      intro: Manusele on tehtud viirusekontroll.
+      message: Hoiame seda manust praegu karantiinis, kuni sellele on tehtud viirusekontroll.
+        Manus on peagi algses asukohas saadaval.
   broken_links:
     broken:
-      subheading:
+      subheading: Leidsime sellest dokumendist lingid, mis võivad olla katki
     caution:
-      subheading:
-    title:
+      subheading: Leidsime lingidega küsitavusi, mis võivad viidata probleemidele,
+        olge nende kasutamisel ettevaatlik
+    title: Katkised lingid
   change_notes:
-    published_at: Esmane publikatsioon
-    see_all_updates: Vaadake kõiki täiendusi
-    updated_at: Viimane täiendus
+    published_at: Esmakordselt avaldatud
+    see_all_updates: vt kõiki värskendusi
+    updated_at: Viimati värskendatud
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Suletud
+    closing_today: Suletakse täna
+    closing_tomorrow: Suletakse homme
+    days_left: "%{days_left} päeva jäänud"
   contact:
-    access_and_opening_times:
-    contact_form: Võtke ühendust
+    access_and_opening_times: Juurdepääs ja lahtiolekuajad
+    contact_form: Kontaktivorm
     email: E-post
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: avaldamine kõmri keeles
       title:
         about: Meist
-        about_our_services: Meie teenustest
-        access_and_opening: Kontori asukoht ja tööaeg
-        accessible_documents_policy:
-        complaints_procedure: Kaebuste esitamise kord
-        equality_and_diversity: Võrdõiguslikkus ja diversiteet
+        about_our_services: Meie teenuste kohta
+        access_and_opening: Kontorisse sisenemine ja lahtiolekuajad
+        accessible_documents_policy: Juurdepääsetavad eeskirjade dokumendid
+        complaints_procedure: Kaebuste menetlus
+        equality_and_diversity: Võrdsus ja mitmekesisus
         media_enquiries: Meediapäringud
         membership: Liikmelisus
-        modern_slavery_statement:
-        our_energy_use: Meie energiatarbimus
-        our_governance: Meie juhatus
-        personal_information_charter: Isikuandmete harta
+        modern_slavery_statement: Tänapäevane avaldus orjuse kohta
+        our_energy_use: Meie energiakasutus
+        our_governance: Meie valitsemistava
+        personal_information_charter: Isikuandmete õigus
         petitions_and_campaigns: Petitsioonid ja kampaaniad
-        procurement: Hanked %{organisation_name}
-        publication_scheme: Avaldamise kord
-        recruitment: Töötamine %{organisation_name}
-        research: Uuringud %{organisation_name}
-        social_media_use: Sotsiaalmeedia kasutus
-        staff_update: Meeskonna uudised ja info
-        statistics: Statistika %{organisation_name}
-        terms_of_reference: Ametivolitused
-        welsh_language_scheme: Uelsi keele kasutusest
+        procurement: Hange asukohas %{organisation_name}
+        publication_scheme: Avaldamisskeem
+        recruitment: Töötamine ettevõttes %{organisation_name}
+        research: Uurimine ettevõttes %{organisation_name}
+        social_media_use: Sotsiaalmeedia kasutamine
+        staff_update: Personaliuudised ja teave
+        statistics: Statistika ettevõttes %{organisation_name}
+        terms_of_reference: Pädevus
+        welsh_language_scheme: Walesi keeleskeem
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
-      Teie huvile vastavad
+      all: Kõik konsultatsioonid
+      label: Konsultatsioonid
+    description: Filtrite abil saate kuvada ainult teie huvidele vastavaid tulemusi
     no_results:
-      description: Laiendage otsingut ja proovige uuesti
-      title: Vastavaid dokumente ei leitud
+      description: Proovige oma otsingut laiendada ja proovige uuesti.
+      title: Sobivaid dokumente pole.
       tna_heading: Vanem sisu
-      tna_link: Mitte kõikide ametkondade publikatsioonid, mis avaldati enne maikuud
-        2010, viidi üle GOV.UK lehele. Et leida publikatsioone, mis on avaldatud enne
-        2010 a. maikuud, proovige sisestada otsingusse <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The
-        National Archives</a>.
+      tna_link: Mitte kõiki osakondade publikatsioone enne 2010. aasta maid ei viidud
+        saidile GOV.UK. 2010 mai eelsete publikatsioonide leidmiseks proovige otsida
+        saidilt <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">riiklikke
+        arhiive</a>.
     world_locations:
-      all: Kõik sihtkohad
-      label: Sihtkohad maailmas
-      no_locations_filter:
+      all: Kõik asukohad
+      label: Maailma asukohad
+      no_locations_filter: Ükski maailma asukoht ei vasta sellele filtrile.
+  email_alert:
+    subscription: Meilimärguande tellimine
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Briti hukkunuid
+    none_added: Selle tegevusvaldkonna kohta ei ole surmajuhtumeid veel lisatud.
   feeds:
-    email: e-post
-    feed: uudisvoog
-    get_updates_to_this_list: Telli uudiskiri
-    latest_activity: Viimased uudised
+    email: E-post
+    feed: voog
+    get_updates_to_this_list: Hankige selle loendi värskendusi
+    latest_activity: Viimane tegevus
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
     et: Eesti
   latest_feed:
-    no_updates: Uuendused puuduvad
-    title: Viimased uudised
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Uuendusi pole veel.
+    title: Viimased
   national_statistics:
-    heading: Rahvuslik statistika
+    heading: Riiklik statistika
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: Ligipääs meie teabele
-      jobs:
-      jobs_and_contacts: Töötajad ja kontaktid
-      organisation_chart: Meie organisatsioon
-      transparency: Läbipaistvusteave
+      access_our_info: Juurdepääs meie teabele
+      jobs: Tööd
+      jobs_and_contacts: Töökohad ja lepingud
+      organisation_chart: Meie organisatsiooni skeem
+      transparency: Läbipaistvuse andmed
     email:
-      alerts:
-      summary:
+      alerts: meilimärguanded
+      summary: Meiliteated aadressilt
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Leia Briti saatkond, ülemkomisjon või konsulaat
+      find_an_embassy_uppercase: Leia Briti saatkond, Ülemkomisjon või Konsulaat
     headings:
-      contact: 'Võtke ühendust: %{name}'
-      corporate_information:
-      corporate_reports:
+      contact: Kontakt %{name}
+      corporate_information: Ettevõtte teave
+      corporate_reports: Ettevõtte aruanded
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Haldab
+      agencies_and_public_bodies: asutused
+      part_of: Osa
+      public_body: avalik-õiguslik asutus
+      works_with: Töötab koos
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Kohtud
   publications:
     heading: Publikatsioonid
-    recent:
+    recent: Hiljutised publikatsioonid
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Leia avaldatud ja eelseisev valitsuse statistika
+        loend statistika jaotisest %{link}.
+      moved_notice: Statistikapublikatsioonid on kolinud.
   roles:
-    unassigned:
+    unassigned: Sellesse rolli pole kedagi määratud
   see_all:
-    announcement: Vaadake kõiki meie teadaandeid
-    authored_article: Vaadake kõiki meie artikleid
-    case_study: Vaadake kõiki meie juhtumiuuringuid
-    closed_consultation: Vaadake kõiki meie suletud konsultatsioone
-    consultation: Vaadake kõiki meie konsultatsioone
-    consultation_outcome: Vaadake kõiki meie konsultatsioonide tulemusi
-    corporate_report: Vaadake kõiki meie korporatiivseid raporteid
-    correspondence: Vaadake kogu meie korrespondentsi
-    decision: Vaadake kõiki meie otsuseid
-    detailed_guidance: Vaadake kõiki meie juhendeid
-    document_collection: Vaadake kõiki
-    draft_text: Vaadake kõiki meie eelnõusid
-    fatality_notice: Vaadake kõiki meie surmateateid
-    foi_release: Vaadake kõiki meie FOI päringuid
-    form: 'Vaadake kõiki '
-    government_response: Vaadake kõiki valitsuse vastuseid
-    guidance: Vaadake kõiki meie juhendeid
-    impact_assessment: Vaadake kõiki meie mõjuhinnanguid
-    imported: Vaadake kõiki meie sõltumatuid raporteid
-    international_treaty: Vaadake kõiki meie rahvusvahelisi leppeid
-    map: Vaadake kõiki meie kaarte
-    national_statistics: Vaadake kõiki meie rahvuslikke statistikaandmeid
-    news_article: Vaadake kõiki meie artikleid
-    news_story: Vaadake kõiki meie uudiseid
-    notice: Vaadake kõiki meie teateid
-    open_consultation: Vaadake kõiki meie avatud konsultatsioone
-    oral_statement: Vaadake kõiki meie suulisi avaldusi Parlamendis
-    policy: Vaadake kõiki meie poliitikaid
-    policy_paper: Vaadake kõiki meie poliitikadokumente
-    press_release: Vaadake kõiki meie pressiteateid
-    promotional: Vaadake kõiki meie turundusmaterjale
-    publication: Vaadake kõiki meie publikatsioone
-    regulation: Vaadake kõiki meie määruseid
-    research: Vaadake kõiki meie uurimistöid ja analüüsi tulemusi
-    speaking_notes: Vaadake kõiki meie kõnetekste
-    speech: Vaadake kõiki meie kõnesid
-    statement_to_parliament: Vaadake kõiki meie avaldusi Parlamendile
-    statistical_data_set: Vaadake kõiki meie statistikaandmete kogumeid
-    statistics: Vaadake kõiki meie statistikaandmeid
-    statutory_guidance: Vaadake kõiki meie seadusega kehtestatud juhiseid
-    transcript: Vaadake kõiki meie protokolle
-    transparency: Vaadake kõiki meie läbipaistvusteabe andmeid
-    written_statement: Vaadake kõiki meie kirjalikke avaldusi Parlamendile
+    announcement: Vaata kõiki meie teadaandeid
+    authored_article: Vaata kõiki meie kirjutatud artikleid
+    case_study: Vaata kõiki meie juhtumianalüüse
+    closed_consultation: Vaata kõiki meie suletud konsultatsioone
+    consultation: Vaata kõiki meie konsultatsioone
+    consultation_outcome: Vaata kõiki meie konsultatsioonitulemusi
+    corporate_report: Vaata kõiki meie ettevõttearuandeid
+    correspondence: Vaata kõiki meie korrespondentse
+    decision: Vaata kõiki meie otsuseid
+    detailed_guidance: Vaata kõiki meie juhiseid
+    document_collection: Vaata kõiki meie kollektsioone
+    draft_text: Vaata kõiki meie mustandite tekste
+    fatality_notice: Vaata kõiki meie surmateateid
+    foi_release: Vaata kõiki meie FOI väljaandeid
+    form: Vaata kõiki meie vorme
+    government_response: Vaata kõiki meie valitsuse vastuseid
+    guidance: Vaata kõiki meie juhiseid
+    impact_assessment: Vaata kõiki meie mõjuhinnanguid
+    imported: Vaata kõiki meie sõltumatuid aruandeid
+    international_treaty: Vaata kõiki meie rahvusvahelisi lepinguid
+    map: Vaata kõiki meie kaarte
+    national_statistics: Vaata kogu meie riiklikku statistikat
+    news_article: Vaata kõiki meie uudiseartikleid
+    news_story: Vaata kõiki meie uudislugusid
+    notice: Vaata kõiki meie teateid
+    open_consultation: Vaata kõiki meie avatud konsultatsioone
+    oral_statement: Vaata kõiki meie suulisi avaldusi parlamendile
+    policy: Vaata kõiki meie eeskirju
+    policy_paper: Vaata kõiki meie eeskirjade dokumente
+    press_release: Vaata kõiki meie pressiteateid
+    promotional: Vaata kogu meie reklaammaterjali
+    publication: Vaata kõiki meie publikatsioone
+    regulation: Vaata kõiki meie määruseid
+    research: Vaata kõiki meie uurimisi ja analüüse
+    speaking_notes: Vaata kõiki meie kõnemärkmeid
+    speech: Vaata kõiki meie kõnesid
+    statement_to_parliament: Vaata kõiki meie avaldusi parlamendile
+    statistical_data_set: Vaata kõiki meie statistilisi andmekogusid
+    statistics: Vaata kogu meie statistikat
+    statutory_guidance: Vaata kõiki meie seadusjärgseid juhendeid
+    transcript: Vaata kõiki meie transkriptsioone
+    transparency: Vaata kõiki meie läbipaistvusandmeid
+    written_statement: Vaata kõiki meie kirjalikke avaldusi parlamendile
   support:
     array:
-      last_word_connector: ja
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " ja "
+    download: Laadi alla
+    field_of_operation: 'Tegevusvaldkond:'
+    fields_of_operation: Tegevusvaldkonnad
+    filter: Filtreeri
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Järgmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page}
+        / %{total_pages}</span>
+      next_page: Järgmine leht
+      previous_html: Eelmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page}
+        / %{total_pages}</span>
+      previous_page: Eelmine leht
+    part_of_collection: 'Osa kollektsioonist:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Viimane tegevus %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Inglismaa kunstinõukogu
+      bbc: BBC
+      british_library: Briti raamatukogu
+      commonwealth_war_graves_commission: Rahvaste Ühenduse sõjahaudade komisjon
+      heritage_lottery_fund: Pärandi loterii fond
+      historic_england: Ajalooline Inglismaa
+      iwm: Kuninglik sõjamuuseum
+      war_memorials_trust: Sõjamälestiste volikogu
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Ühendkuningriigi valitsuse värskendused, uudised ja sündmused
+      asukohas %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: 'Uuri lisaks: %{link}'
-      personal_information_charter_html: 'Meie %{link} selgitab kuidas me kohtleme
-        Teie eraelulist teavet. '
-      publication_scheme_html: 'Lugege lisaks infoliikide kohta, mida me regulaarselt
-        avalikustame: %{link}'
-      social_media_use_html: 'Lugege meie poliitika kohta: %{link}'
-      welsh_language_scheme_html: 'Lugege lisaks meie pühandumusest avaldamise osas:
-        %{link}'
-    find_out_more: Täielik profiil ja kõik kontaktid
+      about_our_services_html: Uuri välja %{link}.
+      personal_information_charter_html: Meie %{link} selgitab, kuidas me teie isikuandmeid
+        käsitleme.
+      publication_scheme_html: Lisateavet selle kohta, millist teavet me regulaarselt
+        avaldame oma saidil %{link}.
+      social_media_use_html: Lugege meie eeskirju saidil %{link}.
+      welsh_language_scheme_html: Lisateave meie pühendumuse kohta %{link}.
+    find_out_more: Vaata kogu profiili ja kõiki kontaktandmeid
     headings:
-      contact_us: Võtke ühendust
-      corporate_information: Korporatiivne teave
+      contact_us: Võtke meiega ühendust
+      corporate_information: Ettevõtte teave
       follow_us: Jälgige meid
       our_people: Meie inimesed
     location: Asukoht
-    part_of: Kuulub
+    part_of: Osa

@@ -2,25 +2,25 @@ lt:
   document:
     type:
       about:
-        one:
+        one: Apie
         few:
-        other:
+        other: Apie
       about_our_services:
-        one:
+        one: Apie mūsų paslaugas
         few:
-        other:
+        other: Apie mūsų paslaugas
       access_and_opening:
-        one:
+        one: Prieiga ir pradžia
         few:
-        other:
+        other: Prieiga ir pradžia
       accessible_documents_policy:
-        one:
+        one: Prieinama dokumentų strategija
         few:
-        other:
+        other: Prieinamos dokumentų strategijos
       alert:
-        one:
+        one: Įspėjimas
         few:
-        other:
+        other: Šspėjimai
       announcement:
         one: Pranešimas
         few:
@@ -30,17 +30,17 @@ lt:
         few:
         other: Autorių straipsniai
       blog_post:
-        one:
+        one: Tinklaraščio įrašas
         few:
-        other:
+        other: Tinklaraščio įrašai
       campaign:
-        one:
+        one: Kampanija
         few:
-        other:
+        other: Kampanijos
       careers:
-        one:
+        one: Karjera
         few:
-        other:
+        other: karjera
       case_study:
         one: Atvejo analizė
         few:
@@ -50,9 +50,9 @@ lt:
         few:
         other: Pasibaigusios konsultacijos
       complaints_procedure:
-        one:
+        one: Skundų teikimo procedūra
         few:
-        other:
+        other: Skundų teikimo procedūros
       consultation:
         one: Konsultacija
         few:
@@ -70,9 +70,9 @@ lt:
         few:
         other: Korespondencija
       decision:
-        one:
+        one: Sprendimas
         few:
-        other:
+        other: Sprendimai
       detailed_guidance:
         one: Detalesnė informacija
         few:
@@ -80,27 +80,27 @@ lt:
       document_collection:
         one: Serijos
         few:
-        other:
+        other: Serijos
       draft_text:
         one: Pirminis teksto variantas
         few:
         other: Pirminiai teksto variantai
       edition:
-        one:
+        one: Leidimas
         few:
-        other:
+        other: Leidimai
       edition_with_appointment:
-        one:
+        one: Leidimas su paskyrimu
         few:
-        other:
+        other: Leidimai su paskyrimu
       equality_and_diversity:
-        one:
+        one: Lygybė ir įvairovė
         few:
-        other:
+        other: Lygybė ir įvairovė
       fatality_notice:
-        one:
+        one: Pranešimas apie nelaimę
         few:
-        other:
+        other: Pranešimai apie nelaimes
       foi_release:
         one: 'Informacijos laisvė: pranešimas'
         few:
@@ -110,9 +110,9 @@ lt:
         few:
         other: Formos
       generic_edition:
-        one:
+        one: Bendras leidimas
         few:
-        other:
+        other: Bendri leidimai
       government_response:
         one: Vyriausybės atsakas
         few:
@@ -126,37 +126,37 @@ lt:
         few:
         other: Poveikio įvertinimai
       imported:
-        one: Patalpinta - laukiama publikavimo
+        one: patalpinta - laukiama publikavimo
         few:
-        other: Patalpinta - laukiama publikavimo
+        other: patalpinta - laukiama publikavimo
       independent_report:
         one: Nepriklausoma ataskaita
         few:
         other: Nepriklausomos ataskaitos
       international_treaty:
-        one:
+        one: Tarptautinė sutartis
         few:
-        other:
+        other: Tarptautinės sutartys
       manual:
-        one:
+        one: Vadovas
         few:
-        other:
+        other: Vadovai
       map:
         one: Žemėlapis
         few:
         other: Žemėlapiai
       media_enquiries:
-        one:
+        one: Žiniasklaidos užklausa
         few:
-        other:
+        other: Žiniasklaidos užklausos
       membership:
-        one:
+        one: Narystė
         few:
-        other:
+        other: Narystė
       national_statistics:
-        one: 'Statistika - nacionalinė statistika '
+        one: Statistika - nacionalinė statistika
         few:
-        other: 'Statistika - nacionalinė statistika '
+        other: Statistika - nacionalinė statistika
       news_article:
         one: Straipsnis
         few:
@@ -166,13 +166,13 @@ lt:
         few:
         other: Naujienos
       nhs_content:
-        one:
+        one: NHS turinys
         few:
-        other:
+        other: NHS turinys
       notice:
-        one:
+        one: Pranešimas
         few:
-        other:
+        other: Pranešimai
       official_statistics:
         one: Statistika
         few:
@@ -180,27 +180,27 @@ lt:
       open_consultation:
         one: Atvira konsultacija
         few:
-        other: 'Atviros konsultacijos '
+        other: Atviros konsultacijos
       oral_statement:
         one: Žodinis kreipimasis į parlamentą
         few:
         other: Žodiniai kreipimaisi į parlamentą
       our_energy_use:
-        one:
+        one: Mūsų energijos naudojimas
         few:
-        other:
+        other: Mūsų energijos naudojimas
       our_governance:
-        one:
+        one: Mūsų valdymas
         few:
-        other:
+        other: Mūsų valdymas
       personal_information_charter:
-        one:
+        one: Teisė į asmens informaciją
         few:
-        other:
+        other: Teisė į asmens informaciją
       petitions_and_campaigns:
-        one:
+        one: Peticijos ir kampanijos
         few:
-        other:
+        other: Peticijos ir kampanijos
       policy_paper:
         one: Strategijos dokumentas
         few:
@@ -210,9 +210,9 @@ lt:
         few:
         other: Pranešimai spaudai
       procurement:
-        one:
+        one: Pirkimai
         few:
-        other:
+        other: Pirkimai
       promotional:
         one: Reklaminė medžiaga
         few:
@@ -222,29 +222,29 @@ lt:
         few:
         other: Leidiniai
       publication_scheme:
-        one:
+        one: Publikavimo planas
         few:
-        other:
+        other: Publikavimo planai
       recruitment:
-        one:
+        one: Įdarbinimas
         few:
-        other:
+        other: Įdarbinimas
       regulation:
-        one:
+        one: Reglamentas
         few:
-        other:
+        other: Reglamentai
       research:
         one: Tyrimas ir analizė
         few:
         other: Tyrimai ir analizės
       service:
-        one:
+        one: Paslauga
         few:
-        other:
+        other: Paslaugos
       social_media_use:
-        one:
+        one: Socialinės medijos naudojimas
         few:
-        other:
+        other: Socialinės medijos naudojimas
       speaking_notes:
         one: Kalbos santrauka
         few:
@@ -254,13 +254,13 @@ lt:
         few:
         other: Kalbos
       staff_update:
-        one:
+        one: Nauja informacija apie personalą
         few:
-        other:
+        other: Nauja informacija apie personalą
       standard:
-        one:
+        one: Standartas
         few:
-        other:
+        other: Standartai
       statement_to_parliament:
         one: Kreipimasis į parlamentą
         few:
@@ -270,17 +270,17 @@ lt:
         few:
         other: Statistiniai duomenys
       statistics:
-        one:
+        one: Statistika
         few:
-        other:
+        other: Statistika
       statutory_guidance:
-        one:
+        one: Įstatyminė informacija
         few:
-        other:
+        other: Įstatyminė informacija
       terms_of_reference:
-        one:
+        one: Techninės užduotys
         few:
-        other:
+        other: Techninės užduotys
       transcript:
         one: Kalbos tekstas
         few:
@@ -290,30 +290,30 @@ lt:
         few:
         other: Skaidrumo informacija
       welsh_language_scheme:
-        one:
+        one: Valų kalbos schema
         few:
-        other:
+        other: Valų kalbos schemos
       world_news_story:
-        one:
+        one: Pasaulio naujienos
         few:
-        other:
+        other: Pasaulio naujienos
       written_statement:
         one: Rašytinis kreipimasis į parlamentą
         few:
         other: Rašytiniai kreipimaisi į parlamentą
-    contents:
+    contents: Turinys
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: pilna puslapio istorija
+      published: Publikuota
+      updated: Atnaujinta
     headings:
       applies_to_nations: Susiję su
-      from:
-      part_of:
-    latest:
-    latest_from:
+      from: Nuo
+      part_of: Dalis
+    latest: Naujausi dokumentai
+    latest_from: "%{subject} naujienos"
     published: publikuota
-    see_all:
+    see_all: Žiūrėti viską
     speech:
       author_title:
         minister: Ministras
@@ -322,7 +322,7 @@ lt:
       delivery_title:
         minister: Ministras
         speaker: Pranešėjas
-      written_on: Parašyta
+      written_on: 'Parašyta:'
     updated: atnaujinta
   world_location:
     type:
@@ -337,122 +337,127 @@ lt:
     headings:
       announcements: Mūsų skelbimai
       documents: Dokumentai
-      featured:
       mission: Mūsų misija
-      news:
+      news: Pasaulio vietos naujienos
       organisations: Organizacijos
       publications: Mūsų publikacijos
-      search:
+      search: Ieškoti pagal šalį ar teritoriją
       statistics: Mūsų statistika
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Bendruomenių rūmų dokumento numeris
+        isbn: ISBN
+        unnumbered_hoc_paper: Nenumeruotas Bendruomenių rūmų dokumentas
       attachment_data:
-        file:
+        file: Failas
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Pridėto įsakymo dokumento numeris
+        hoc_paper_number: Bendruomenių rūmų dokumento numeris
+        isbn: Priedo ISBN
+        title: Priedo pavadinimas
+        unique_reference: Unikali priedo nuoroda
+        unnumbered_hoc_paper: Nenumeruotas Bendruomenių rūmų dokumentas
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Pridėtas failas
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Neįtrauktos valstybės
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Pridėtas failas
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Pridėto įsakymo dokumento numeris
+        hoc_paper_number: Bendruomenių rūmų dokumento numeris
+        isbn: Priedo ISBN
+        title: Priedo pavadinimas
+        unique_reference: Unikali priedo nuoroda
+        unnumbered_hoc_paper: Nenumeruotas Bendruomenių rūmų dokumentas
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Pridėtas failas
     nested_attachment_data_field_names:
-      file:
+      file: Pridėtas failas
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Pridėto įsakymo dokumento numeris
+      hoc_paper_number: Bendruomenių rūmų dokumento numeris
+      isbn: Priedo ISBN
+      title: Priedo pavadinimas
+      unique_reference: Unikali priedo nuoroda
+      unnumbered_hoc_paper: Nenumeruotas Bendruomenių rūmų dokumentas
   announcements:
     heading: Skelbimai
   attachment:
     accessibility:
-      full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
+      full_help_html: 'Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
         audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną
-        bei leidinio pavadinimą ("%{title}")%{references}.
+        bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums
+        padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
+
+'
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
-      request_a_different_format: Paprašykite kito formato
+      request_a_different_format: Paprašykite kito formato.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Failo negalima peržiūrėti.
+      download: Atsisiųskite failą, kad peržiūrėtumėte jo turinį.
+      truncated_message: Peržiūros režime galite peržiūrėti tik pirmąsias %{rows}
+        eilutes ir pirmuosius %{columns} stulpelius.
     headings:
       order_a_copy: Užsisakykite leidinį
       order_a_copy_full: Užsisakykite leidinį
       published: Publikuota
       reference: Nuorodos
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: Nenumeruotas įsakymo dokumentas
+      unnumbered_hoc_paper: Nenumeruotas akto dokumentas
     opendocument:
-      help_html:
+      help_html: Šis failas pateiktas <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        formatu
     virus_check:
-      intro:
-      message:
+      intro: Tikrinama, ar priede nėra virusų.
+      message: Priedas bus karantinuotas, iki kol patikrinsime, ar jame nėra virusų.
+        Jis netrukus bus prieinamas.
   broken_links:
     broken:
-      subheading:
+      subheading: Šiame dokumente aptikome nuorodų, kurios gali būti pažeistos
     caution:
-      subheading:
-    title:
+      subheading: Aptikome problemų dėl nuorodų, atidarykite jas atsargiai
+    title: Pažeistos nuorodos
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Pirmą kartą publikuota
+    see_all_updates: matyti visą naujausią informaciją
+    updated_at: Paskutinį kartą atnaujinta
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Pasibaigusi
+    closing_today: Baigiasi šiandien
+    closing_tomorrow: Baigiasi rytoj
+    days_left: Liko %{days_left} dienų
   contact:
-    access_and_opening_times:
+    access_and_opening_times: Prieiga ir  pradžios laikas
     contact_form: Parašykite mums
-    email: El.paštas
+    email: El. paštas
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: publikuota valų kalba
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
+        about: Apie mus
+        about_our_services: Apie mūsų paslaugas
+        access_and_opening: Biuro prieiga ir darbo pradžios laikas
+        accessible_documents_policy: Prieinama dokumentų strategija
+        complaints_procedure: Skundų procedūra
+        equality_and_diversity: Lygybė ir įvairovė
+        media_enquiries: Žiniasklaidos užklausos
+        membership: Narystė
+        modern_slavery_statement: Šiuolaikinis vergovės pareiškimas
+        our_energy_use: Mūsų energijos naudojimas
+        our_governance: Mūsų valdymas
         personal_information_charter: Asmeninės informacijos apsauga
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: Peticijos ir kampanijos
+        procurement: Pirkimai %{organisation_name}
         publication_scheme: Publikavimo schema
-        recruitment:
-        research:
+        recruitment: Dirba %{organisation_name}
+        research: Tyrimas  %{organisation_name}
         social_media_use: Socialinės medijos naudojimas
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: Personalo naujienos ir informacija
+        statistics: "%{organisation_name} statistika"
+        terms_of_reference: Techninės užduotys
         welsh_language_scheme: Valų kalbos schema
   date:
     formats:
@@ -460,51 +465,40 @@ lt:
       long_ordinal: "%Y %B %e"
   document_filters:
     consultation:
-      all:
-      label:
-    description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
-      rezultatai
+      all: Visos konsultacijos
+      label: Konsultacijos
+    description: Galite naudoti filtrus, kad būtų pateikiami tik jus dominantys rezultatai
     no_results:
-      description: Praplėskite paiešką ir bandykite dar kartą
-      title: Dokumentų  nerasta
-      tna_heading:
-      tna_link:
+      description: Praplėskite paiešką ir bandykite dar kartą.
+      title: Dokumentų  nerasta.
+      tna_heading: Senesnis turinys
+      tna_link: Ne visi departameno leidiniai, publikuoti prieš 2010 m. gegužę, buvo
+        perkelti į GOV.UK. Leidinių, publikuotų prieš 2010 m. gegužę, galite ieškoti
+        <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalinis
+        archyvas</a>.
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
-      no_locations_filter:
+      no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
+  email_alert:
+    subscription: Įspėjimų el. paštu prenumeravimas
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Nelaimės Didžiojoje Britanijoje
+    none_added: Šioje srityje kol kas neskelbiamas apie nelaimes.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
+    email: el. paštas
+    feed: srautas
+    get_updates_to_this_list: Gaukite šio sąrašo atnaujinimus
     latest_activity: Paskutinės naujienos
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
     lt: Lietuvių
   latest_feed:
-    no_updates: Atnaujinimų nėra
+    no_updates: Atnaujinimų nėra.
     title: Paskutinės
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   national_statistics:
-    heading:
+    heading: Nacionalinė statistika
   number:
     human:
       storage_units:
@@ -512,36 +506,37 @@ lt:
   organisation:
     corporate_information:
       access_our_info: Prieiga prie mūsų informacijos
-      jobs:
+      jobs: Darbai
       jobs_and_contacts: Darbai ir sutartys
-      organisation_chart:
+      organisation_chart: Mūsų organizacijos schema
       transparency: Skaidrumo informacija
     email:
-      alerts:
-      summary:
+      alerts: įspėjimai el. paštu
+      summary: Įspėjimai el. paštu iš
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Raskite Didžiosios Britanijos ambasadą ar konsulatą
+      find_an_embassy_uppercase: Raskite Didžiosios Britanijos ambasadą ar konsulatą
     headings:
       contact: Susisiekite su %{name}
-      corporate_information:
-      corporate_reports:
+      corporate_information: Korporatyvinė informacija
+      corporate_reports: Korporatyvinės ataskaitos
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Administruoja
+      agencies_and_public_bodies: agentūros ir viešosios įstaigos
+      part_of: Dalis
+      public_body: viešoji įstaiga
+      works_with: Dirba su
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Teismai ir tribunolai
   publications:
     heading: Leidiniai
-    recent:
+    recent: Naujausi leidimai
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Raskite paskelbtos ir būsimos vyriausybės statistikos
+        sąrašą %{link} statistikos skiltyje.
+      moved_notice: Informacija apie statistiką buvo perkelta.
   roles:
-    unassigned:
+    unassigned: Niekam nepriskirta įi funkcija
   see_all:
     announcement: Pažiūrėkite  mūsų pranešimai
     authored_article: Pažiūrėkite  mūsų autorių straipsniai
@@ -551,9 +546,9 @@ lt:
     consultation_outcome: Pažiūrėkite  mūsų konsultacijos rezultatai
     corporate_report: Pažiūrėkite  mūsų bendros ataskaitos
     correspondence: Pažiūrėkite  mūsų korespondencija
-    decision:
+    decision: Peržiūrėkite mūsų sprendimai
     detailed_guidance: Pažiūrėkite  mūsų detalesnė informacija
-    document_collection:
+    document_collection: Peržiūrėkite mūsų skelbimai
     draft_text: Pažiūrėkite  mūsų pirminiai teksto variantai
     fatality_notice: Pažiūrėkite  mūsų pranešimas apie nelaimes
     foi_release: 'Pažiūrėkite  mūsų informacijos laisvė: pranešimai'
@@ -562,73 +557,66 @@ lt:
     guidance: Pažiūrėkite  mūsų informacija
     impact_assessment: Pažiūrėkite  mūsų poveikio įvertinimai
     imported: Pažiūrėkite  mūsų patalpinta - laukiama publikavimo
-    international_treaty:
-    map: Pažiūrėkite  mūsų Žemėlapiai
-    national_statistics: 'Pažiūrėkite  mūsų statistika - nacionalinė statistika '
+    international_treaty: Pažiūrėkite  mūsų tarptautines sutartis
+    map: Pažiūrėkite  mūsų žemėlapiai
+    national_statistics: Pažiūrėkite  mūsų statistika - nacionalinė statistika
     news_article: Pažiūrėkite  mūsų straipsniai
     news_story: Pažiūrėkite  mūsų naujienos
-    notice:
-    open_consultation: 'Pažiūrėkite  mūsų atviros konsultacijos '
-    oral_statement: Pažiūrėkite  mūsų Žodiniai kreipimaisi į parlamentą
+    notice: Pažiūrėkite  mūsų pranešimus
+    open_consultation: Pažiūrėkite  mūsų atviros konsultacijos
+    oral_statement: Pažiūrėkite  mūsų žodiniai kreipimaisi į parlamentą
     policy: Pažiūrėkite  mūsų strategija
     policy_paper: Pažiūrėkite  mūsų strategijų dokumentai
     press_release: Pažiūrėkite  mūsų pranešimai spaudai
     promotional: Pažiūrėkite  mūsų reklaminė medžiaga
     publication: Pažiūrėkite  mūsų leidiniai
-    regulation:
+    regulation: Peržiūrėkite mūsų reglamentai
     research: Pažiūrėkite  mūsų tyrimai ir analizės
     speaking_notes: Pažiūrėkite  mūsų kalbos santrauka
     speech: Pažiūrėkite  mūsų kalbos
     statement_to_parliament: Pažiūrėkite  mūsų kreipimaisi į parlamentą
     statistical_data_set: Pažiūrėkite  mūsų statistiniai duomenys
     statistics: Pažiūrėkite  mūsų statistika
-    statutory_guidance:
+    statutory_guidance: Peržiūrėkite mūsų įstatyminė informacija
     transcript: Pažiūrėkite  mūsų kalbų tekstai
     transparency: Pažiūrėkite  mūsų skaidrumo informacija
     written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
   support:
     array:
-      last_word_connector: ir
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " ir "
+    download: Atsisiųsti
+    field_of_operation: 'Veiklos sritis:'
+    fields_of_operation: Veiklos sritys
+    filter: Filtras
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Kitas <span class="visuallyhidden">puslapį</span> <span class="page-numbers">%{current_page}
+        apie %{total_pages}</span>
+      next_page: Kitas puslapis
+      previous_html: Ankstesnis <span class="visuallyhidden">puslapį</span> <span
+        class="page-numbers">%{current_page} apie %{total_pages}</span>
+      previous_page: Ansktesnis puslapis
+    part_of_collection: 'Serijos dalis:'
   time:
     formats:
-      long_ordinal: "%Y %B %e %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Paskutinė veikla %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Anglijos meno taryba
+      bbc: BBC
+      british_library: Britanijos biblioteka
+      commonwealth_war_graves_commission: Sandraugos karo kapų komisija
+      heritage_lottery_fund: Paveldo loterijos fondas
+      historic_england: Istorinė anglija
+      iwm: Imperinis karo muziejus
+      war_memorials_trust: Karo memorialinis patikos fondas
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Naujienos ir įvykiai iš JK vyriausybės %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
+      about_our_services_html: Sužinokite čia %{link}.
       personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma
-        Jūsų asmeninė informacija
+        Jūsų asmeninė informacija.
       publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame
         puslapyje %{link}.
       social_media_use_html: Perskaitykite mūsų strategiją %{link}.

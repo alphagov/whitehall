@@ -2,560 +2,554 @@ ka:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: თემთა პალატის დოკუმენტის ნომერი
+        isbn: ISBN
+        unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
       attachment_data:
-        file:
+        file: ფაილი
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: დანართის ბრძანების დოკუმენტის ნომერი
+        hoc_paper_number: თემთა პალატის დოკუმენტის ნომერი
+        isbn: დანართი ISBN
+        title: დანართის სათაური
+        unique_reference: დანართის უნიკალური მითითება
+        unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: თანდართული ფაილი
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: გამორიცხული ეროვნებები
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: თანდართული ფაილი
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: დანართი ბრძანების დოკუმენტის ნომერი
+        hoc_paper_number: თემთა პალატის დოკუმენტის ნომერი
+        isbn: დანართი ISBN
+        title: დანართის სათაური
+        unique_reference: დანართის უნიკალური მითითება
+        unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: თანდართული ფაილი
     nested_attachment_data_field_names:
-      file:
+      file: თანდართული ფაილი
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: დანართი თემთა პალატის დოკუმენტის ნომერი
+      hoc_paper_number: თემთა პალატის დოკუმენტის ნომერი
+      isbn: დანართი ISBN
+      title: დანართის სათაური
+      unique_reference: დანართის უნიკალური მითითება
+      unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
   announcements:
-    heading:
+    heading: განცხადებები
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        თუ იყენებთ დამხმარე ტექნოლოგიას (მაგალითად, ეკრანის წამკითხველს) და გჭირდებათ
+        ამ დოკუმენტის  უფრო ხელმისაწვდომი ვერსია, გთხოვთ დაგვიკავშირდეთ ელფოსტით %{email}.
+        გთხოვთ, გვითხრათ თუ რა ფორმატი გჭირდებათ.  ასევე დაგვეხმარება, თუ თქვენ შეგვატყობინებთ რომელ დამხმარე ტექნოლოგიას იყენებთ.
+      intro: ეს ფაილი შესაძლოა არ იყოს შესაფერისი დამხმარე ტექნოლოგიის მომხმარებლებისთვოს.
+      request_a_different_format: მოითხოვეთ ხელმისაწვდომი ფორმატი.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: ფაილის წინასწარ ნახვა არ არის შესაძლებელი.
+      download: ჩამოტვირთეთ ფაილი შემადგენლობის სრულად სანახავად.
+      truncated_message: წინასწარი ნახვა აჩვენებს რიგების და სვეტების მხოლოდ პირველ
+        %{rows} და %{columns}.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: გამოიწერეთ ასლი
+      order_a_copy_full: გამოიწერეთ პუბლიკაციის ასლი
+      published: გამოქვეყნებულია
+      reference: მითითება
+      unnumbered_command_paper: ბრძანების დაუნომრავი დოკუმენტი
+      unnumbered_hoc_paper: აქტის დაუნომრავი დოკუმენტი
     opendocument:
-      help_html:
+      help_html: ეს ფაილი არის <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        ფორმატში
     virus_check:
-      intro:
-      message:
+      intro: დანართი შემოწმებულია ვირუსებზე.
+      message: ჩვენ ამჟამად გავაჩერებთ ამ დანართს კარანტინში, სანამ არ შემოწმდება
+        ვირუსებზე. დანართი ხელმისაწვდომი იქნება თავდაპირველ ადგილას უახლოეს მომავალში.
   broken_links:
     broken:
-      subheading:
+      subheading: ამ დოკუმენტში ჩვენ ვიპოვეთ ბმულები, რომლებიც შესაძლოა ხარვეზიანი
+        იყოს
     caution:
-      subheading:
-    title:
+      subheading: ჩვენ აღმოვაჩინეთ ხარვეზები ბმულებში, რაც შესაძლო პრობლემებზე მიანიშნებს,
+        თქვენ ყურადღება უნდა გამოიჩინოთ მათი გამოყენებისას
+    title: ხარვეზიანი ბმულები
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: პირველად გამოქვეყნებული
+    see_all_updates: ყველა ცვლილების ნახვა
+    updated_at: ბოლო ცვლილება
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: დახურულია
+    closing_today: იხურება დღეს
+    closing_tomorrow: იხურება ხვალ
+    days_left: "%{days_left} დარჩა დღეები"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: ხელმისაწვდომობა და გახსნის დროები
+    contact_form: საკონტაქტო ფორმა
+    email: ელ. ფოსტა
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: გამოცემა უელსში
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: ჩვენს შესახებ
+        about_our_services: ჩვენი სერვისების შესახებ
+        access_and_opening: ოფისის ხელმისაწვდომობა და გახსნის დროები
+        accessible_documents_policy: ხელმისაწვდომი დოკუმენტების პოლიტიკა
+        complaints_procedure: საჩივრის პროცედურა
+        equality_and_diversity: თანასწორობა და მრავალფეროვნება
+        media_enquiries: მედიის შეკითხვები
+        membership: წევრობა
+        modern_slavery_statement: თანამედროვე მონობის განცხადება
+        our_energy_use: ჩვენი ენერგიის მოხმარება
+        our_governance: ჩვენი მმართველობა
+        personal_information_charter: პირადი ინფორმაციის ქარტია
+        petitions_and_campaigns: პეტიციები და კამპანიები
+        procurement: შესყიდვები %{organisation_name}-ში
+        publication_scheme: გამოქვეყნების სქემა
+        recruitment: მუშაობა %{organisation_name}-სთვის
+        research: კვლევა %{organisation_name}-ში
+        social_media_use: სოციალური მედიის გამოყენება
+        staff_update: სიახლეები და ინფორმაცია სტაფის შესახებ
+        statistics: სტატისტიკა %{organisation_name}-ში
+        terms_of_reference: ვალდებულების პირობები
+        welsh_language_scheme: უელსური ენის სქემა
   date:
     formats:
-      default:
+      default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: შემადგენლობა
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: გვერდის სრული ისტორია
+      published: გამოქვეყნებულია
+      updated: განახლებულია
     headings:
-      applies_to_nations:
-      from:
-      part_of:
+      applies_to_nations: მიესადაგება
+      from: დან
+      part_of: ბოლო დოკუმენტები
     latest:
-    latest_from:
-    published:
-    see_all:
+    latest_from: ბოლო %{subject}-დან
+    published: გამოქვეყნებულია
+    see_all: ყველას ნახვა
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: მინისტრი
+        speaker: მწერალი
+      delivered_on: 'გაგზავნილია:'
       delivery_title:
-        minister:
-        speaker:
-      written_on:
+        minister: მინისტრი
+        speaker: სპიკერი
+      written_on: 'დაწერილია:'
     type:
       about:
-        one:
-        other:
+        one: შესახებ
+        other: შესახებ
       about_our_services:
-        one:
-        other:
+        one: ჩვენი სერვისების შესახებ
+        other: ჩვენი სერვისების შესახებ
       access_and_opening:
-        one:
-        other:
+        one: ხელმისაწვდომობა და გახსნა
+        other: ხელმისაწვდომობა და გახსნა
       accessible_documents_policy:
-        one:
-        other:
+        one: ხელმისაწვდომი დოკუმენტების პოლიტიკა
+        other: ხელმისაწვდომი დოკუმენტების წესები
       alert:
-        one:
-        other:
+        one: გაფრთხილება
+        other: გაფრთხილებები
       announcement:
-        one:
-        other:
+        one: განცხადება
+        other: განცხადებები
       authored_article:
-        one:
-        other:
+        one: ავტორიზებული სტატია
+        other: ავტორიზებული სტატიები
       blog_post:
-        one:
-        other:
+        one: ბლოგ პოსტი
+        other: ბლოგ პოსტები
       campaign:
-        one:
-        other:
+        one: კამპანია
+        other: კამპანიები
       careers:
-        one:
-        other:
+        one: კარიერა
+        other: კარიერები
       case_study:
-        one:
-        other:
+        one: შემთხვევის კვლევა
+        other: შემთხვევის კვლევები
       closed_consultation:
-        one:
-        other:
+        one: დახურული კონსულტაცია
+        other: დახურული კონსულტაციები
       complaints_procedure:
-        one:
-        other:
+        one: საჩივრის პროცედურა
+        other: საჩივრის პროცედურები
       consultation:
-        one:
-        other:
+        one: კონსულტაცია
+        other: კონსულტაციები
       consultation_outcome:
-        one:
-        other:
+        one: კონსულტაციის შედეგი
+        other: კონსულტაციის შედეგები
       corporate_report:
-        one:
-        other:
+        one: კორპორატიული ანგარიში
+        other: კორპორატიული ანგარიშები
       correspondence:
-        one:
-        other:
+        one: კორესპონდენცია
+        other: კორესპონდენციები
       decision:
-        one:
-        other:
+        one: გადაწყვეტილება
+        other: გადაწყვეტილებები
       detailed_guidance:
-        one:
-        other:
+        one: მმართველობა
+        other: მმართველობები
       document_collection:
-        one:
-        other:
+        one: კოლექცია
+        other: კოლექციები
       draft_text:
-        one:
-        other:
+        one: სამუშაო ტექსტი
+        other: სამუშაო ტექსტები
       edition:
-        one:
-        other:
+        one: გამოცემა
+        other: გამოცემები
       edition_with_appointment:
-        one:
-        other:
+        one: გამოცემა დანიშვნით
+        other: გამოცემა დანიშვნებით
       equality_and_diversity:
-        one:
-        other:
+        one: თანასწორობა და მრავალფეროვნება
+        other: თანასწორობა და მრავალფეროვნება
       fatality_notice:
-        one:
-        other:
+        one: გარდაცვალების ცნობა
+        other: გარდაცვალების ცნობები
       foi_release:
-        one:
-        other:
+        one: ინფორმაციის თავისუფლების გამოშვება
+        other: ინფორმაციის თავისუფლების გამოშვებები
       form:
-        one:
-        other:
+        one: ფორმა
+        other: ფორმები
       generic_edition:
-        one:
-        other:
+        one: ზოგადი გამოცემა
+        other: ზოგადი გამოცემები
       government_response:
-        one:
-        other:
+        one: მთავრობის პასუხი
+        other: მთავრობის პასუხები
       guidance:
-        one:
-        other:
+        one: მმართველობა
+        other: მმართველობები
       impact_assessment:
-        one:
-        other:
+        one: ზეგავლენის შეფასება
+        other: ზეგავლენის შეფასებები
       imported:
-        one:
-        other:
+        one: იმპორტირებული - ლოდინის ტიპი
+        other: იმპორტირებული - ლოდინის ტიპი
       independent_report:
-        one:
-        other:
+        one: დამოუკიდებელი ანგარიში
+        other: დამოუკიდებელი ანგარიშები
       international_treaty:
-        one:
-        other:
+        one: საერთაშორისო ხელშეკრულება
+        other: საერთაშორისო ხელშეკრულებები
       manual:
-        one:
-        other:
+        one: სახელმძღვანელო
+        other: სახელმძღვანელოები
       map:
-        one:
-        other:
+        one: რუკა
+        other: რუკები
       media_enquiries:
-        one:
-        other:
+        one: მედიის მოთხოვნა
+        other: მედიის მოთხოვნები
       membership:
-        one:
-        other:
+        one: წევრობა
+        other: წევრობები
       national_statistics:
-        one:
-        other:
+        one: ეროვნული სტატისტიკა
+        other: ეროვნული სტატისტიკები
       news_article:
-        one:
-        other:
+        one: საინფორმაციო სტატია
+        other: საინფორმაციო სტატიები
       news_story:
-        one:
-        other:
+        one: საინფორმაციო ისტორია
+        other: საინფორმაციო ისტორიები
       nhs_content:
-        one:
-        other:
+        one: ჯანმრთელობის ეროვნული სამსახურის შინაარსი
+        other: ჯანმრთელობის ეროვნული სამსახურის შინაარსი
       notice:
-        one:
-        other:
+        one: შეტყობიენბა
+        other: შეტყობინებები
       official_statistics:
-        one:
-        other:
+        one: ოფიციალური სტატისტიკა
+        other: ოფიციალური სტატისტიკები
       open_consultation:
-        one:
-        other:
+        one: ღია კონსულტაცია
+        other: ღია კონსულტაციები
       oral_statement:
-        one:
-        other:
+        one: ზეპირი განცხადება პარლამენტში
+        other: ზეპირი განცხადებები პარლამენტში
       our_energy_use:
-        one:
-        other:
+        one: ჩვენი ენერგიის მოხმარება
+        other: ჩვენი ენერგიის მოხმარება
       our_governance:
-        one:
-        other:
+        one: ჩვენი მმართველობა
+        other: ჩვენი მმართველობა
       personal_information_charter:
-        one:
-        other:
+        one: პირადი ინფორმაციის ქარტია
+        other: პირადი ინფორმაციის ქარტიები
       petitions_and_campaigns:
-        one:
-        other:
+        one: პეტიციები და კამპანიები
+        other: პეტიციები და კამპანიები
       policy_paper:
-        one:
-        other:
+        one: პოლიტიკის დოკუმენტი
+        other: პოლიტიკის დოკუმენტები
       press_release:
-        one:
-        other:
+        one: პრეს რელიზი
+        other: პრეს რელიზები
       procurement:
-        one:
-        other:
+        one: შესყიდვები
+        other: შესყიდვები
       promotional:
-        one:
-        other:
+        one: პრომო მასალა
+        other: პრომო მასალა
       publication:
-        one:
-        other:
+        one: გამოცემა
+        other: გამოცემები
       publication_scheme:
-        one:
-        other:
+        one: გამოცემის სქემა
+        other: გამოცემის სქემები
       recruitment:
-        one:
-        other:
+        one: რეკრუტინგი
+        other: რეკრუტინგი
       regulation:
-        one:
-        other:
+        one: რეგულაცია
+        other: რეგულაციები
       research:
-        one:
-        other:
+        one: კვლევა
+        other: კვლევა
       service:
-        one:
-        other:
+        one: სერვისი
+        other: სერვისები
       social_media_use:
-        one:
-        other:
+        one: სოციალური მედიის გამოყენება
+        other: სოციალური მედიის გამოყენება
       speaking_notes:
-        one:
-        other:
+        one: საუბრის მითითებები
+        other: საუბრის მითითებები
       speech:
-        one:
-        other:
+        one: სიტყვით გამოსვლა
+        other: სიტყვით გამოსვლები
       staff_update:
-        one:
-        other:
+        one: სტაფის განახლება
+        other: სტაფის განახლებები
       standard:
-        one:
-        other:
+        one: სტანდარტი
+        other: სტანდარტები
       statement_to_parliament:
-        one:
-        other:
+        one: პარლამენტის განცხადება
+        other: პარლამენტის განცხადებები
       statistical_data_set:
-        one:
-        other:
+        one: სტატისტიკური მონაცემების ნაკრები
+        other: სტატისტიკური მონაცემების ნაკრებები
       statistics:
-        one:
-        other:
+        one: სტატისტიკა
+        other: სტატისტიკა
       statutory_guidance:
-        one:
-        other:
+        one: კანონიერი ხელმძღვანელობა
+        other: კანონიერი ხელმძღვანელობა
       terms_of_reference:
-        one:
-        other:
+        one: ვალდებულების პირობები
+        other: ვალდებულების პირობები
       transcript:
-        one:
-        other:
+        one: ტრანსქრიფტი
+        other: ტრანსქრიფტები
       transparency:
-        one:
-        other:
+        one: გამჭირვალობის მონაცემები
+        other: გამჭირვალობის მონაცემები
       welsh_language_scheme:
-        one:
-        other:
+        one: უელსური ენის სქემა
+        other: უელსური ენის სქემები
       world_news_story:
-        one:
-        other:
+        one: მსოფლიო საინფორმაციო ისტორია
+        other: მსოფლიო საინფორმაციო ისტორიები
       written_statement:
-        one:
-        other:
-    updated:
+        one: წერილობითი განცხადება პარლამენტში
+        other: წერილობითი განცხადებები პარლამენტში
+    updated: განახლებულია
   document_filters:
     consultation:
-      all:
-      label:
-    description:
+      all: ყველა კონსულტაცია
+      label: კონსულტაციები
+    description: თქვენ შეგიძლიათ გამოიყენოთ ფილტრები, რათა ნახოთ ის შედეგები, რომელბიც
+      შეესაბამება თქვენს ინტერესებს
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: შეეცადეთ ტქვენი ძიება გააფართოვოთ და ცადეთ ხელახლა.
+      title: არ მოიძებნა შესაბამისი დოკუმენტები.
+      tna_heading: ძველი კონტენტი
+      tna_link: დეპარტამენტის ყველა პუბლიკაცია 2010 წლის მაისამდე არ გადასულა GOV.UK-ზე.
+        2010 წლის მაისამდე პუბლიკაციების საპოვნელად ცადეთ მოძებნოთ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">ეროვნული არქივები</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: ყველა ლოკაცია
+      label: მსოფლიო ლოკაციები
+      no_locations_filter: არც ერთი მსოფლიო ლოკაცია არ ემთხვევა ამ ფილტრს.
+  email_alert:
+    subscription: გაფრთხილების ელ. წერილის გამოწერა
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: ბრიტანული ფატალურობები
+    none_added: ფატალურობის შეტყობინება ჯერ არ დამატებულა ოპერაციის ამ სფეროში.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    email: ელ. ფოსტა
+    feed: ფიდი
+    get_updates_to_this_list: მიიღეთ სიახლეები ამ სიისთვის
+    latest_activity: ბოლო აქტივობა
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
     ka: ქართული
   latest_feed:
-    no_updates:
-    title:
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: სიახლეები ჯერ არ ყოფილა.
+    title: ბოლო
   national_statistics:
-    heading:
+    heading: ეროვნული სტატისტიკა
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
+      access_our_info: მიიღეთ წვდომა ჩვენს ინფორმაციაზე
+      jobs: ვაკანსიები
+      jobs_and_contacts: ვაკანსიები და კონტრაქტები
+      organisation_chart: ჩვენი ორგანიზაციის ქარტია
+      transparency: გამჭირვალობის მონაცემები
     email:
-      alerts:
-      summary:
+      alerts: ელ.ფოსტით გაფრთხილებები
+      summary: ელ.ფოსტით გაფრთხილებები
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
+      find_an_embassy_uppercase: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      contact: დაუკავშირდით %{name}
+      corporate_information: კორპორატიული ინფორმაცია
+      corporate_reports: კორპორატიული ანგარიშები
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: ადმინისტრირებულია
+      agencies_and_public_bodies: სააგენტოები და საჯარო ორგანოები
+      part_of: ნაწილი
+      public_body: საჯარო ორგანო
+      works_with: მუშაობს
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: სასამართლოებთან და ტრიბუნალებთან
   publications:
-    heading:
-    recent:
+    heading: პუბლიკაციები
+    recent: ბოლო პუბლიკაციები
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: იპოვეთ გამოქვეყნებული და მომავალი მთავრობის სტატისტიკის
+        სია %{link} სტატისტიკის განყოფილებაში.
+      moved_notice: სტატისტიკის პუბლიკაციები გადატანილია.
   roles:
-    unassigned:
+    unassigned: არავისთვის არ მიუნიჭებიათ ეს როლი
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: იხილეთ ჩვენი ყველა განცხადება
+    authored_article: იხილეთ ჩვენი ყველა საავტორო სტატია
+    case_study: იხილეთ ჩვენი ყველა შემთხვევის კვლევა
+    closed_consultation: იხილეთ ჩვენი ყველა დახურული კონსულტაცია
+    consultation: იხილეთ ჩვენი ყველა კონსულტაცია
+    consultation_outcome: იხილეთ ჩვენი ყველა კონსულტაციის შედეგი
+    corporate_report: იხილეთ ჩვენი ყველა კორპორატიული ანგარიში
+    correspondence: იხილეთ ჩვენი ყველა მიმოწერა
+    decision: იხილეთ ჩვენი ყველა გადაწყვეტილება
+    detailed_guidance: იხილეთ ყველა ჩვენი მითითება
+    document_collection: იხილეთ ჩვენი ყველა კოლექცია
+    draft_text: იხილეთ ჩვენი ყველა სამუშაო ტექსტი
+    fatality_notice: იხილეთ ყველა ჩვენი ფატალურობის შეტყობინება
+    foi_release: იხილეთ ჩვენი ყველა ინფორმაციის თავისუფლების შესახებ რელიზი
+    form: იხილეთ ჩვენი ყველა ფორმა
+    government_response: იხილეთ ჩვენი ყველა მთავრობის პასუხი
+    guidance: იხილეთ ჩვენი ყველა მითითება
+    impact_assessment: იხილეთ ჩვენი ყველა ზეგავლენის შეფასება
+    imported: იხილეთ ჩვენი ყველა დამოუკიდებელი ანგარიში
+    international_treaty: იხილეთ ჩვენი ყველა საერთაშორისო ხელშეკრულება
+    map: იხილეთ ჩვენი ყველა რუკა
+    national_statistics: იხილეთ ჩვენი ყველა ეროვნული სტატისტიკა
+    news_article: იხილეთ ჩვენი ყველა საინფორმაციო სტატია
+    news_story: იხილეთ ჩვენი ყველა სიახლე
+    notice: იხილეთ ჩვენი ყველა შეტყობინება
+    open_consultation: იხილეთ ყველა ჩვენი ღია კონსულტაცია
+    oral_statement: იხილეთ ჩვენი ყველა ზეპირი განცხადება პარლამენტში
+    policy: იხილეთ ჩვენი ყველა კანონი
+    policy_paper: იხილეთ ჩვენი ყველა საკანონომდებლო დოკუმენტი
+    press_release: იხილეთ ჩვენი ყველა პრეს რელიზი
+    promotional: იხილეთ ჩვენი ყველა პრომო მასალა
+    publication: იხილეთ ჩვენი ყველა პუბლიკაცია
+    regulation: იხილეთ ჩვენი ყველა რეგულაცია
+    research: იხილეთ ჩვენი ყველა კვლევა და ანალიზი
+    speaking_notes: იხილეთ ჩვენი ყველა სასაუბრო შენიშვნა
+    speech: იხილეთ ჩვენი ყველა სიტყვით გამოსვლა
+    statement_to_parliament: იხილეთ ჩვენი ყველა განცხადება პარლამენტში
+    statistical_data_set: იხილეთ ჩვენი ყველა სტატისტიკური მონაცემების ნაკრები
+    statistics: იხილეთ ჩვენი ყველა სტატისტიკა
+    statutory_guidance: იხილეთ ჩვენი ყველა საკანონომდებლო მართვა
+    transcript: იხილეთ ჩვენი ყველა ტრანსქრიფტი
+    transparency: იხილეთ ჩვენი ყველა გამჭვირვალობის მონაცემი
+    written_statement: იხილეთ ყველა ჩვენი წერილობითი განცხადება პარლამენტისთვის
   support:
     array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " და "
+    download: ჩამოტვირთეთ
+    field_of_operation: 'ოპერაციის სფერო:'
+    fields_of_operation: ოპერაციის სფეროები
+    filter: ფილტრი
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: შემდეგ <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page}
+        -ის %{total_pages}</span>
+      next_page: შემდეგი გვერდი
+      previous_html: წინა <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page}
+        -ის %{total_pages}</span>
+      previous_page: წინა გვერდი
+    part_of_collection: 'კოლექციის ნაწილი:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: ბოლო აქტივობა %{event}-ზე
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: ხელოვნების საბჭო ინგლისში
+      bbc: BBC
+      british_library: ბრიტანული ბიბლიოთეკა
+      commonwealth_war_graves_commission: თანამეგობრობის ომის საფლავის კომისია
+      heritage_lottery_fund: მემკვიდრეობის ლატარიის ფონდი
+      historic_england: ისტორიული ინგლისი
+      iwm: საიმპერატორო ომის მუზეუმი
+      war_memorials_trust: ომის მემორიალების ნდობა
   world_location:
     headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
+      announcements: ჩვენი განცხადებები
+      documents: დოკუმენტები
+      mission: ჩვენი მისია
+      news: მსოფლიოს ლოკაციების სიახლეები
+      organisations: ორგანიზაციები
+      publications: ჩვენი პუბლიკაციები
+      search: მოძებნეთ ქვეყნის ან ტერიტორიის მიხედვით
+      statistics: ჩვენი სტატისტიკა
     type:
       international_delegation:
-        one:
-        other:
+        one: საერთაშორისო დელეგაცია
+        other: საერთაშორისო დელეგაციები
       world_location:
-        one:
-        other:
+        one: მსოფლიო მდებარეობა
+        other: მსოფლიო მდებარეობები
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: განახლებები, სიახლეები და მოვლენები გაერთიანებული სამეფოს
+      მთავრობიდან %{country}-ში
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: შეიტყვეთ %{link}.
+      personal_information_charter_html: ჩვენი %{link} განმარტავს, თუ როგორ ვამუშავებთ
+        ჩვენ თქვენს პირად ინფორმაციას.
+      publication_scheme_html: წაიკითხეთ ინფორმაციის ტიპების შესახებ, რომელსაც ჩვენ
+        რეგულარულად ვაქვეყნებთ ჩვენს %{link}-ზე.
+      social_media_use_html: წაიკითხეთ ჩვენი პოლიტიკა %{link}-ზე.
+      welsh_language_scheme_html: გაეცანით ჩვენს ვალდებულებას %{link}.
+    find_out_more: იხილეთ სრული პროფილი და ყველა საკონტაქტო ინფორმაცია
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: დაგვიკავშირდით
+      corporate_information: კორპორატიული ინფორმაცია
+      follow_us: გამოგვყევით
+      our_people: ჩვენი ხალხი
+    location: მდებარეობა
+    part_of: ნაწილი

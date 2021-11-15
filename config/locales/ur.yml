@@ -2,47 +2,47 @@ ur:
   document:
     type:
       about:
-        one:
-        other:
+        one: بارے میں
+        other: بارے میں
       about_our_services:
-        one:
-        other:
+        one: ہماری سروسز کے بارے میں
+        other: ہماری سروس کے بارے میں
       access_and_opening:
-        one:
-        other:
+        one: رسائی اور کھولنا
+        other: رسائی اور کھولنا
       accessible_documents_policy:
-        one:
-        other:
+        one: رسائی پذیری کی دستاویزات کی پالیسی
+        other: رسائی پذیری کی دستاویزات کی پالیسیاں
       alert:
-        one:
-        other:
+        one: انتباہ
+        other: انتباہات
       announcement:
         one: اعلان
         other: اعلانات
       authored_article:
-        one: تحریر کردہ مضمون
-        other: تحریر کردہ مضامین
+        one: مصنف کے نام کے ساتھ لکھا مضمون
+        other: مصنف کے نام کے ساتھ لکھے مضامین
       blog_post:
-        one:
-        other:
+        one: بلاگ پوسٹ
+        other: بلاگ پوسٹس
       campaign:
-        one:
-        other:
+        one: مہم
+        other: مہمات
       careers:
-        one:
-        other:
+        one: کیریئرز
+        other: کیریئر
       case_study:
         one: کیس اسٹڈی
         other: کیس اسٹڈیز
       closed_consultation:
-        one: مشاورت ختم
-        other: " مشاورت ختم"
+        one: محدود مشاورت
+        other: محدود مشاورتیں
       complaints_procedure:
-        one:
-        other:
+        one: شکایات کا طریقہ کار
+        other: شکایات کے طریقہ کار
       consultation:
         one: مشاورت
-        other: مشاورت
+        other: مشاورتیں
       consultation_outcome:
         one: مشاورت کا نتیجہ
         other: مشاورت کے نتائج
@@ -50,518 +50,506 @@ ur:
         one: کارپوریٹ رپورٹ
         other: کارپوریٹ رپورٹس
       correspondence:
-        one: مراسلت
-        other: مراسلات
+        one: خط و کتابت
+        other: خط و کتابت
       decision:
-        one:
-        other:
+        one: فیصلہ
+        other: فیصلے
       detailed_guidance:
-        one: مفصل رہنمائی
-        other: مفصل رہنمائی
+        one: رہنمائی
+        other: رہنمائی
       document_collection:
-        one: سلسلہ
-        other:
+        one: مجموعہ
+        other: مجموعے
       draft_text:
-        one: ڈرافٹ متن
-        other: ڈرافٹ متن
+        one: ڈرافٹ کا متن
+        other: ڈرافٹ کے متن
       edition:
-        one:
-        other:
+        one: ایڈیشن
+        other: ایڈیشنز
       edition_with_appointment:
-        one:
-        other:
+        one: اپائنٹمنٹ کے ساتھ ایڈیشن
+        other: اپائنٹمنٹ کے ساتھ ایڈیشنز
       equality_and_diversity:
-        one:
-        other:
+        one: مساوات اور تنوع
+        other: مساوات اور تنوع
       fatality_notice:
-        one:
-        other:
+        one: موت کا نوٹس
+        other: موت کے نوٹسز
       foi_release:
-        one: آزادئی معلومات کی اشاعت
-        other: آزادئی معلومات کی اشاعت
+        one: رہائی تھی۔
+        other: رہائی تھی۔
       form:
         one: فارم
         other: فارمز
       generic_edition:
-        one:
-        other:
+        one: عمومی ایڈیشن
+        other: عمومی ایڈیشنز
       government_response:
-        one: حکومتی جوابی اقدام
-        other: حکومتی جوابی اقدامات
+        one: حکومت کا جواب
+        other: حکومت کے جوابات
       guidance:
         one: رہنمائی
         other: رہنمائی
       impact_assessment:
-        one: اثرات کا تجزیہ
-        other: اثرات کے تجزیے
+        one: اثر کی جانچ
+        other: اثر کی جانچیں
       imported:
-        one: امپورٹڈ- نوع کا انتظار
-        other: امپورٹڈ- نوع کا انتظار
+        one: درآمد شدہ - قسم کا انتظار
+        other: درآمد شدہ - قسم کا انتظار
       independent_report:
-        one: غیر جانبدار رپورٹ
-        other: غیر جانبداررپورٹس
+        one: خودمختار رپورٹ
+        other: خودمختار رپورٹس
       international_treaty:
-        one:
-        other:
+        one: عالمی معاہدہ
+        other: عالمی معاہدے
       manual:
-        one:
-        other:
+        one: کتابچہ
+        other: کتابچے
       map:
         one: نقشہ
         other: نقشے
       media_enquiries:
-        one:
-        other:
+        one: میڈیا کا سوال
+        other: میڈیا کے سوالات
       membership:
-        one:
-        other:
+        one: ممبرشپ
+        other: ممبرشپ
       national_statistics:
-        one: شماریات- قومی اعدادوشمار
-        other: شماریات- قومی اعدادوشمار
+        one: قومی شماریات
+        other: قومی شماریات
       news_article:
-        one: نیوزآرٹیکل
-        other: نیوزآرٹیکلز
+        one: خبروں کا مضمون
+        other: خبروں کے مضامین
       news_story:
-        one: نیوز اسٹوری
-        other: نیوزاسٹوریز
+        one: خبروں کی کہانی
+        other: خبروں کی کہانیاں
       nhs_content:
-        one:
-        other:
+        one: این ایچ ایس مواد۔
+        other: این ایچ ایس مواد۔
       notice:
-        one:
-        other:
+        one: نوٹس
+        other: نوٹسز
       official_statistics:
-        one: اعدادوشمار
-        other: اعدادو شمار
+        one: سرکاری شماریات
+        other: سرکاری شماریات
       open_consultation:
-        one: جاری مشاورت
-        other: جاری مشاورت
+        one: آزاد مشاورت
+        other: آزاد مشاورت
       oral_statement:
-        one: پارلیمنٹ میں زبانی بیان
-        other: پارلیمنٹ میں زبانی بیانات
+        one: پارلیمان کے لیے زبانی بیان
+        other: پارلیمان کے لیے زبانی بیانات
       our_energy_use:
-        one:
-        other:
+        one: ہمارا طاقت کا استعمال
+        other: ہمارا طاقت کا استعمال
       our_governance:
-        one:
-        other:
+        one: ہماری گورننس
+        other: ہماری گورننس
       personal_information_charter:
-        one:
-        other:
+        one: ذاتی معلومات کا چارٹر
+        other: ذاتی معلومات کے چارٹرز
       petitions_and_campaigns:
-        one:
-        other:
+        one: شقیں اور مہمات
+        other: شقیں اور مہمات
       policy_paper:
-        one: پالیسی پیپر
-        other: پالیسی پیپرز
+        one: پالیسی کا کاغذ
+        other: پالیسی کا کاغذات
       press_release:
         one: پریس ریلیز
         other: پریس ریلیزز
       procurement:
-        one:
-        other:
+        one: حصول
+        other: حصول
       promotional:
         one: تشہیری مواد
         other: تشہیری مواد
       publication:
-        one: مطبوعہ
-        other: مطبوعات
+        one: پبلیکیشن
+        other: پبلیکیشنز
       publication_scheme:
-        one:
-        other:
+        one: پبلیکیشن کی اسکیم
+        other: پبلیکیشن کی اسکیمیں
       recruitment:
-        one:
-        other:
+        one: بھرتی
+        other: بھرتی
       regulation:
-        one:
-        other:
+        one: ضابطہ
+        other: ضابطے
       research:
-        one: تحقیق وتجزیہ
-        other: تحقیق وتجزیہ
+        one: تحقیق
+        other: تحقیق
       service:
-        one:
-        other:
+        one: سروس
+        other: سروسز
       social_media_use:
-        one:
-        other:
+        one: سوشل میڈیا کا استعمال
+        other: سوشل میڈیا کا استعمال
       speaking_notes:
-        one: تقریری نوٹ
-        other: تقریری نوٹ
+        one: صوتی نوٹس
+        other: صوتی نوٹس
       speech:
         one: تقریر
         other: تقاریر
       staff_update:
-        one:
-        other:
+        one: عملے کی اپ ڈیٹ
+        other: عملے کی اپ ڈیٹس
       standard:
-        one:
-        other:
+        one: معیار
+        other: معیارات
       statement_to_parliament:
-        one: پارلیمنٹ میں بیان
-        other: پارلیمنٹ میں بیانات
+        one: پارلیمان میں دیا گیا بیان
+        other: پارلیمان میں دیے گئے بیانات
       statistical_data_set:
         one: شماریاتی ڈیٹا سیٹ
-        other: " شماریاتی ڈیٹا سیٹس"
+        other: شماریاتی ڈیٹا سیٹس
       statistics:
-        one:
-        other:
+        one: شماریات
+        other: شماریات
       statutory_guidance:
-        one:
-        other:
+        one: قانونی رہنمائی
+        other: قانونی رہنمائی
       terms_of_reference:
-        one:
-        other:
+        one: حوالہ جاتی شرائط
+        other: حوالہ جاتی شرائط
       transcript:
         one: ٹرانسکرپٹ
-        other: ٹرانسکرپٹس
+        other: ٹرنسکرپٹ
       transparency:
-        one: ٹرانسپیرنسی ڈیٹا
-        other: ٹرانسپیرنسی ڈیٹا
+        one: شفافیت کا ڈیٹا
+        other: شفافیت کا ڈیٹا
       welsh_language_scheme:
-        one:
-        other:
+        one: ویلش زبان کی اسکیم
+        other: ویلش زبان کی اسکیمز
       world_news_story:
-        one:
-        other:
+        one: دنیا بھر کی خبروں کی کہانی
+        other: دنیا بھر کی خبروں کی کہانیاں
       written_statement:
-        one: پارلیمنٹ میں تحریری بیان
-        other: پارلیمنٹ میں تحریری بیانات
-    contents:
+        one: پالیمان کے لیے تحریری بیان
+        other: پالیمان کے لیے تحریری بیانات
+    contents: مشمولات
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: پورے صفحے کی ہسٹری
+      published: شائع کردہ
+      updated: اپ ڈیٹ کردہ
     headings:
-      applies_to_nations: اطلاق ہوتا ہے
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: شائع شدہ
-    see_all:
+      applies_to_nations: درج ذیل پر اطلاق ہوتا ہے
+      from: از
+      part_of: حصہ از
+    latest: تازہ ترین دستاویزات
+    latest_from: "%{subject} سے تازہ ترین"
+    published: شائع کردہ
+    see_all: تمام کو دیکھیں
     speech:
       author_title:
         minister: وزیر
-        speaker: مصنف
-      delivered_on: 'تقریرکی تاریخ:'
+        speaker: لکھاری
+      delivered_on: 'ترسیل کردہ از:'
       delivery_title:
         minister: وزیر
-        speaker: مقرر
-      written_on: 'تحریر کی  تاریخ:'
-    updated: تجدید شدہ
+        speaker: اسپیکر
+      written_on: 'تحریر کردہ بتاریخ:'
+    updated: اپ ڈیٹ کردہ
   world_location:
     type:
       international_delegation:
         one: عالمی وفد
         other: عالمی وفود
       world_location:
-        one: " عالمی محل وقوع"
-        other: عالمی محل ہائے وقوع
+        one: عالمی مقام
+        other: عالمی مقامات
     headings:
       announcements: ہمارے اعلانات
       documents: دستاویزات
-      featured:
       mission: ہمارا مشن
-      news:
-      organisations: ادارے
-      publications: ہماری مطبوعات
-      search:
-      statistics: ہمارے اعدادو شمار
+      news: عالمی مقام کی خبریں
+      organisations: تنظیمیں
+      publications: ہماری پبلیکیشنز
+      search: ملک یا خطے کے لحاظ سے تلاش کریں
+      statistics: ہمارے شماریات
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+        isbn: ISBN
+        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
       attachment_data:
-        file:
+        file: فائل
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
+        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+        isbn: منسلکہ کا ISBN
+        title: منسلہ کا عنوان
+        unique_reference: منسلکہ کا منفرد حوالہ
+        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: منسلک کردہ فائل
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: خارج کردہ اقوام
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: منسلک کردہ فائل
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
+        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+        isbn: منسلکہ کا ISBN
+        title: منسلہ کا عنوان
+        unique_reference: منسلکہ کا منفرد حوالہ
+        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: منسلک کردہ فائل
     nested_attachment_data_field_names:
-      file:
+      file: منسلک کردہ فائل
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
+      hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+      isbn: منسلکہ کا ISBN
+      title: منسلہ کا عنوان
+      unique_reference: منسلکہ کا منفرد حوالہ
+      unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
   announcements:
     heading: اعلانات
   attachment:
     accessibility:
-      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
-        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
-        نمبراور  %{title}"(%{references}") لکھئیے
-      intro: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ ہو
-      request_a_different_format: مختلف فارمیٹ طلب کیجئیے
+      full_help_html: |
+        اگر آپ معاونتی ٹیکنالوجی استعمال کرتے ہیں (جیسے کہ اسکرین ریڈر) اور آپ کو یہ ورژن مزید قابل رسائی فارمیٹ میں درکار ہے، تو براہ کرم %{email} پر ای میل کریں۔
+        براہ کرم ہمیں آگاہ کریں کہ آپ کو کون سا فارمیٹ درکار ہے۔ اگر آپ بتائیں کہ آپ کون سی معاونتی ٹیکنالوجی استعمال کرتے ہیں تو ہمیں اس سے مدد ملے گی۔
+      intro: ہو سکتا ہے کہ یہ فائل معاونتی ٹیکنالوجی کے صارفین کے لیے موزوں نہ ہو۔
+      request_a_different_format: قابل رسائی فارمیٹ کی درخواست دیں۔
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: یہ فائل دیکھی نئی جا سکتی۔
+      download: اس فائل کے تمام مشمولات دیکھنے کے لیے فائل ڈاؤن لوڈ کریں۔
+      truncated_message: اس پیش منظر سے صرف پہلی %{rows} قطاریں اور %{columns} کالمز
+        دکھائی دیتے ہیں۔
     headings:
-      order_a_copy: کاپی منگائیے
-      order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
-      published: شائع شدہ
+      order_a_copy: نقل آرڈر کریں
+      order_a_copy_full: پبلیکیشن کی نقل آرڈر کریں
+      published: شائع کردہ
       reference: حوالہ
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: غیر نمبر شدہ احکامی صفحہ
+      unnumbered_hoc_paper: غیر نمبر شدہ ایکٹ کا صفحہ
     opendocument:
-      help_html:
+      help_html: یہ فائل <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        فارمیٹ میں ہے
     virus_check:
-      intro:
-      message:
+      intro: اس منسلکہ میں وائرس کی جانچ کی گئی ہے۔
+      message: جب تک اس منسلکہ میں وائرس کی جانچ نہ کی جائے ہم فی الوقت اسے روک رہے
+        ہیں۔ منسلکہ جلد ہی اصل مقام پر دستیاب ہو گی۔
   broken_links:
     broken:
-      subheading:
+      subheading: ہمیں اس دستاویز میں لنکس ملے ہیں جو ٹوٹے ہوئے ہو سکتے ہیں
     caution:
-      subheading:
-    title:
+      subheading: ہمیں لنکس کے ساتھ کچھ درپیش مسائل کے بارے میں معلوم ہوا ہے جو کہ
+        مسائل کی نشاندہی کر سکتے ہیں، آپ کو انہیں مربوط کرنے وقت احتیاط برتنی چاہیئے
+    title: ٹوٹے ہوئے لنکس
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: پہلی بار اشاعت کردہ
+    see_all_updates: تمام اپ ڈیٹس دیکھیں
+    updated_at: آخری بار اپ ڈیٹ کردہ
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: بند
+    closing_today: آج بند ہونا ہے۔
+    closing_tomorrow: کل بند ہونا ہے۔
+    days_left: "%{days_left} دن باقی ہیں"
   contact:
-    access_and_opening_times:
-    contact_form: کانٹیکٹ فارم
+    access_and_opening_times: رسائی اور کھولنے کے اوقات
+    contact_form: رابطے کا فارم
     email: ای میل
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: ویلش میں اشاعت
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: ذاتی معلومات کاچارٹر
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: اشاعتی اسکیم
-        recruitment:
-        research:
-        social_media_use: سوشل میڈیاکااستعمال
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: " ویلش زبان اسکیم"
+        about: ہمارے بارے میں
+        about_our_services: ہماری سروس کے بارے میں
+        access_and_opening: آفیشل رسائی اور کھلنے کے اوقات
+        accessible_documents_policy: رسائی پذیری کی دستاویزات کی پالیسی
+        complaints_procedure: شکایات کا طریقہ کار
+        equality_and_diversity: مساوات اور تنوع
+        media_enquiries: میڈیا کے سوالات
+        membership: ممبرشپ
+        modern_slavery_statement: جدید غلامی کا بیان
+        our_energy_use: ہمارا طاقت کا استعمال
+        our_governance: ہماری گورننس
+        personal_information_charter: ذاتی معلومات کا چارٹر
+        petitions_and_campaigns: شقیں اور مہمات
+        procurement: "%{organisation_name} پر حصول"
+        publication_scheme: پبلیکیشن کی اسکیم
+        recruitment: "%{organisation_name} کے لیے کام کر رہے ہیں"
+        research: "%{organisation_name} پر تحقیق"
+        social_media_use: سوشل میڈیا کا استعمال
+        staff_update: عملے کی خبریں اور معلومات
+        statistics: "%{organisation_name} پر شماریات"
+        terms_of_reference: حوالہ جاتی شرائط
+        welsh_language_scheme: ویلش زبان کی اسکیم
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
-      کر سکتے ہیں
+      all: تمام مشاورتیں
+      label: مشاورتیں
+    description: آپ صرف وہ نتائج دیکھنے کے لیے فلٹرز کا استعمال کر سکتے ہیں جو آپ
+      کی دلچسپیوں سے مماثلت رکھتے ہیں
     no_results:
-      description: 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
-      title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
-      tna_heading:
-      tna_link:
+      description: اپنی تلاش کو وسیع تر بنانے کی کوشش کریں اور دوبارہ کوشش کریں۔
+      title: کوئی میچ کرنے والی دستاویزات نہیں ہیں۔
+      tna_heading: پرانا مواد
+      tna_link: مئی 2010 سے پہلے کی تمام محکماتی پبلیکیشنز کو GOV.UK پر منتقل نہیں
+        کیا گیا تھا۔ مئی 2010 سے پہلے کی پبلیکیشنز کو تلاش کرنے کے لیے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">قومی آرکائیوز (The National Archives)</a> کو تلاش کرنے
+        کو آزمائیں۔
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات
-      no_locations_filter:
+      no_locations_filter: دنیا کا کوئی مقام اس فلٹر سے میچ نہیں کرتا۔
+  email_alert:
+    subscription: ای میل کی انتباہ کی سبسکرپشن
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: برطانیہ کی حادثاتی اموات
+    none_added: اس کارروائی کی فیلڈ کے لیے ابھی تک کوئی موت کے نوٹسز شامل نہیں کیے
+      گئے۔
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: تازہ ترین سرگرمیاں
+    email: ای میل کریں
+    feed: فیڈ
+    get_updates_to_this_list: فہرست پر اپ ڈیٹس شامل کریں
+    latest_activity: تازہ ترین سرگرمی
   i18n:
     direction: rtl
-    latin_script?: false
   language_names:
     ur: اردو
   latest_feed:
-    no_updates: فی الحال کوئی تجدید نہیں
-    title: آخری فیڈ
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: ابھی تک کوئی اپ ڈیٹس نہیں ہیں۔
+    title: تازہ ترین
   national_statistics:
-    heading:
+    heading: قومی شماریات
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: ہماری معلومات تک رسائی حاصل کیجئیے
-      jobs:
-      jobs_and_contacts: ملازمتیں اورکنٹریکٹس
-      organisation_chart:
-      transparency: ٹرانسپیرنسی ڈیٹا
+      access_our_info: ہماری معلومات تک رسائی کریں
+      jobs: نوکریاں
+      jobs_and_contacts: نوکریاں اور معاہدے
+      organisation_chart: ہماری تنظیم کا چارٹ
+      transparency: شفافیت کا ڈیٹا
     email:
-      alerts:
-      summary:
+      alerts: ای میل انتباہات
+      summary: ای میل انتباہات منجانب
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: برطانوی ایمبیسی، ہائی کمیشن یا سفارتخانہ تلاش کریں
+      find_an_embassy_uppercase: برطانوی ایمبیسی، ہائی کمیشن یا سفارتخانہ تلاش کریں
     headings:
-      contact: رابطہ %{name}
-      corporate_information:
-      corporate_reports:
+      contact: "%{name} سے رابطہ کریں"
+      corporate_information: کارپوریٹ معلومات
+      corporate_reports: کارپوریٹ رپورٹس
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: منتظم کردہ از
+      agencies_and_public_bodies: ایجنسیاں اور عوامی دھڑے
+      part_of: حصہ از
+      public_body: عوامی دھڑا
+      works_with: شریک کار
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: عدالتیں اور ٹریبیونلز
   publications:
-    heading: اشاعتیں
-    recent:
+    heading: پبلیکیشنز
+    recent: حالیہ پبلیکیشنز
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} کے شماریات کے سیکشن میں حکومتی شماریات
+        کی شائع شدہ اور آنے والی فہرست تلاش کریں۔"
+      moved_notice: شماریات کی پبلیکیشنز کو منتقل کر دیا گیا ہے۔
   roles:
-    unassigned:
+    unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
   see_all:
-    announcement: تما م دیکھئیے اعلانات
-    authored_article: تما م دیکھئیے تحریر کردہ مضامین
-    case_study: تما م دیکھئیے کیس اسٹڈیز
-    closed_consultation: تما م دیکھئیے  مشاورت ختم
-    consultation: تما م دیکھئیے مشاورت
-    consultation_outcome: تما م دیکھئیے مشاورت کے نتائج
-    corporate_report: تما م دیکھئیے کارپوریٹ رپورٹس
-    correspondence: تما م دیکھئیے مراسلات
-    decision:
-    detailed_guidance: تما م دیکھئیے مفصل رہنمائی
-    document_collection:
-    draft_text: تما م دیکھئیے ڈرافٹ متن
-    fatality_notice: تما م دیکھئیے وفات کی اطلاعات
-    foi_release: تما م دیکھئیے آزادئی معلومات کی اشاعت
-    form: تما م دیکھئیے فارمز
-    government_response: تما م دیکھئیے حکومتی جوابی اقدامات
-    guidance: تما م دیکھئیے رہنمائی
-    impact_assessment: تما م دیکھئیے اثرات کے تجزیے
-    imported: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
-    international_treaty:
-    map: تما م دیکھئیے نقشے
-    national_statistics: تما م دیکھئیے شماریات- قومی اعدادوشمار
-    news_article: تما م دیکھئیے نیوزآرٹیکلز
-    news_story: تما م دیکھئیے نیوزاسٹوریز
-    notice:
-    open_consultation: تما م دیکھئیے جاری مشاورت
-    oral_statement: تما م دیکھئیے پارلیمنٹ میں زبانی بیانات
-    policy: تما م دیکھئیے پالیسیاں
-    policy_paper: تما م دیکھئیے پالیسی پیپرز
-    press_release: تما م دیکھئیے پریس ریلیزز
-    promotional: تما م دیکھئیے تشہیری مواد
-    publication: تما م دیکھئیے مطبوعات
-    regulation:
-    research: تما م دیکھئیے تحقیق وتجزیہ
-    speaking_notes: تما م دیکھئیے تقریری نوٹ
-    speech: تما م دیکھئیے تقاریر
-    statement_to_parliament: تما م دیکھئیے پارلیمنٹ میں بیانات
-    statistical_data_set: تما م دیکھئیے  شماریاتی ڈیٹا سیٹس
-    statistics: تما م دیکھئیے اعدادو شمار
-    statutory_guidance:
-    transcript: تما م دیکھئیے ٹرانسکرپٹس
-    transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
-    written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
+    announcement: ہمارے تمام اعلانات دکھائیں
+    authored_article: ہمارے تمام مصنف کے نام کے ساتھ لکھے مضامین دیکھیں
+    case_study: ہماری تمام کیس اسٹڈیز دیکھیں
+    closed_consultation: ہماری تمام محدود مشاورتیں دیکھیں
+    consultation: ہماری تمام مشاورتیں دیکھیں
+    consultation_outcome: ہماری تمام مشاورتوں کے نتائج دیکھیں
+    corporate_report: ہماری تمام کارپوریٹ رپورٹس دیکھیں
+    correspondence: ہماری تمام خط و کتابت دیکھیں
+    decision: ہمارے تمام فیصلے دیکھیں
+    detailed_guidance: ہماری تمام رہنمائی دیکھیں
+    document_collection: ہماری تمام کلیکشنز دیکھیں
+    draft_text: ہمارے ڈرافٹ کے متن دیکھیں
+    fatality_notice: ہمارے تمام موت کے نوٹسز دیکھیں
+    foi_release: ہماری تمام FOI ریلیزز دیکھیں
+    form: ہمارے تمام فارمز دیکھین
+    government_response: ہمارے تمام حکومتی جوابات دیکھیں
+    guidance: ہماری تمام رہنمائی دیکھیں
+    impact_assessment: ہماری تمام اثر کی جانچیں دیکھیں
+    imported: ہماری تمام خودمختار رپورٹس دیکھیں
+    international_treaty: ہمارے تمام عالمی معاہدے دیکھیں
+    map: ہمارے تمام نقشے دیکھیں
+    national_statistics: ہماری تمام قومی شماریات دیکھیں
+    news_article: ہمارے تمام خبروں کے مضامین دیکھیں
+    news_story: ہماری تمام خبروں کی کہانیاں دیکھیں
+    notice: ہمارے تمام نوٹسز دیکھیں
+    open_consultation: ہماری تمام آزاد مشاورتیں دیکھیں
+    oral_statement: ہمارے تمام پارلیمان کے لیے زبانی بیانات دیکھیں
+    policy: ہماری تمام پالیسیاں دیکھیں
+    policy_paper: ہمارے تمام پالیسی کا کاغذات دیکھیں
+    press_release: ہماری تمام پریس ریلیزز دیکھیں
+    promotional: ہمارا تمام تشہیری مواد دیکھیں
+    publication: ہماری تمام پبلیکیشنز دیکھیں
+    regulation: ہمارے تمام ضابطے دیکھیں
+    research: ہماری تمام تحقیق اور تجزیہ دیکھیں
+    speaking_notes: ہمارے تمام صوتی نوٹس دیکھیں
+    speech: ہماری تمام تقاریر دیکھیں
+    statement_to_parliament: ہمارے تمام پارلیمان میں دیے گئے بیانات دیکھیں
+    statistical_data_set: ہمارے تمام شماریاتی ڈیٹا سیٹس دیکھیں
+    statistics: ہماری تمام شماریات دیکھیں
+    statutory_guidance: ہمارے تمام قانونی رہنمائی دیکھیں
+    transcript: ہماری تمام ٹرانسکرپٹس دیکھیں
+    transparency: ہمارا تمام شفافیت دیکھیں
+    written_statement: ہمارے تمام پارلیمان میں دیے گئے زبانی بیانات دیکھیں
   support:
     array:
-      last_word_connector: اور
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " اور "
+    download: ڈاؤن لوڈ کریں
+    field_of_operation: 'کارروائی کی فیلڈ:'
+    fields_of_operation: کارروائی کی فیلڈ
+    filter: فلٹر
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: اگلے <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page}
+        کی %{total_pages}</span>
+      next_page: اگلا صفحہ
+      previous_html: پچھلا <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page}
+        کی %{total_pages}</span>
+      previous_page: پچھلا صفحہ
+    part_of_collection: 'کلیکشن کا حصہ:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: "%{event} کی تازہ ترین سرگرمی"
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: آرٹس کاؤنسل انگلینڈ
+      bbc: BBC
+      british_library: برٹش لائبریری
+      commonwealth_war_graves_commission: کامن ویلتھ وار گریوز کمیشن
+      heritage_lottery_fund: ہیریٹیج لاٹری فنڈ
+      historic_england: ہسٹورک انگلینڈ
+      iwm: امپیریل وار میوزیم
+      war_memorials_trust: وار میموریلز ٹرسٹ
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: "%{country} میں UK حکومت کی جانب سے اپ ڈیٹس، خبریں اور
+      ایونٹس"
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
-        معلومات کو کیسے استعمال کرتے ہیں
-      publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
-        پرملاحظہ کیجئیے '
-      social_media_use_html: ہماری پالیسی  %{link} پر ملاحظہ کیجئیے
-      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ
-        کیجئیے
-    find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے
+      about_our_services_html: "%{link} کو جانیے۔"
+      personal_information_charter_html: ہماری %{link} بیان کرتی ہے کہ ہم آپ کی ذاتی
+        معلومات سے کیسے نمٹتے ہیں۔
+      publication_scheme_html: ہماری %{link} میں ہماری جانب سے معمول کے حساب سے شائع
+        کی جانے والی معلومات کی اقسام کے بارے میں پڑھیں۔
+      social_media_use_html: "%{link} پر ہماری پالیسی کو پڑھیں۔"
+      welsh_language_scheme_html: "%{link} کے ساتھ ہماری وابستگی کے بارے میں جانیں۔"
+    find_out_more: پوری پروفائل اور رابطے کی تمام تفصیلات دیکھیں
     headings:
-      contact_us: ہم سے رابطہ
+      contact_us: ہمارے ساتھ رابطہ کریں
       corporate_information: کارپوریٹ معلومات
-      follow_us: ہمیں فالوکیجئیے
-      our_people: ہمارا عملہ
+      follow_us: ہمیں فالو کریں
+      our_people: ہمارے لوگ
     location: مقام
-    part_of: حصہ
+    part_of: حصہ از

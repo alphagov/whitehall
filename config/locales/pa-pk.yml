@@ -2,570 +2,558 @@ pa-pk:
   document:
     type:
       about:
-        one:
-        other:
+        one: دے بارے
+        other: دے بارے
       about_our_services:
-        one:
-        other:
+        one: ساڈیاں خدمات بارے
+        other: ساڈیاں خدمات بارے
       access_and_opening:
-        one:
-        other:
+        one: پہنچ تے کھولنا
+        other: پہنچ تے کھولنا
       accessible_documents_policy:
-        one:
-        other:
+        one: دستاویزات تک پہنچ دی حکمت عملی
+        other: دستاویزات تک پہنچ دی حکمت عملی
       alert:
-        one:
-        other:
+        one: چوکنا کرنا
+        other: چوکنا کرنا
       announcement:
         one: اعلان
         other: اعلانات
       authored_article:
-        one: تصنیف شدہ مضمون
-        other: تصنیف شدہ مضامین
+        one: لکھاری دا مضمون
+        other: لکھاری دے مضمون
       blog_post:
         one: بلاگ پوسٹ
-        other: بلاگ پوسٹاں
+        other: بلاگ پوسٹس
       campaign:
-        one:
-        other:
+        one: مہم
+        other: مہمات
       careers:
-        one:
-        other:
+        one: پیشے
+        other: پیشے
       case_study:
-        one: کیس سٹڈی
-        other: کیس سٹڈیز
+        one: کیس دا مطالعہ
+        other: کیس دا مطالعہ
       closed_consultation:
         one: بند مشورہ
         other: بند مشورے
       complaints_procedure:
-        one:
-        other:
+        one: شکایتاں لان دی کاروائی
+        other: شکایتاں لان دی کاروائیاں
       consultation:
         one: مشورہ
         other: مشورے
       consultation_outcome:
         one: مشورے دا نتیجہ
-        other: مشورے دے نتیجے
+        other: مشورے دے نتائج
       corporate_report:
-        one: کاروباری روپوٹ
-        other: کاروباری روپوٹاں
+        one: کاروباری رپورٹ
+        other: کاروباری رپورٹاں
       correspondence:
-        one: خط و کتابت
-        other: خط و کتابت
+        one: خط وکتابت
+        other: خط وکتابت
       decision:
         one: فیصلہ
         other: فیصلے
       detailed_guidance:
-        one: گائڈنس
-        other: گائڈنس
+        one: رہنمائی
+        other: رہنمائی
       document_collection:
         one: مجموعہ
         other: مجموعے
       draft_text:
-        one: متن دا مسودہ
-        other: متن دے مسودے
+        one: لکھیا ہویا مواد
+        other: لکھیا ہویا مواد
       edition:
-        one:
-        other:
+        one: شمارہ
+        other: شمارے
       edition_with_appointment:
-        one:
-        other:
+        one: شمارے دے نال تقرری
+        other: شمارے دے نال تقرری
       equality_and_diversity:
-        one:
-        other:
+        one: برابری تے فرق
+        other: برابری تے فرق
       fatality_notice:
-        one:
-        other:
+        one: موت دی اطلاع
+        other: موت دی اطلاعات
       foi_release:
-        one: FOI اجراء
-        other: FOI اجراء
+        one: فریڈم آف انفارمیشن جاری کرنا
+        other: فریڈم آف انفارمیشن جاری کرنا
       form:
         one: فارم
-        other: فارم
+        other: فارمز
       generic_edition:
-        one:
-        other:
+        one: نَسلی شمارہ
+        other: نَسلی شمارے
       government_response:
-        one: سرکاری جواب
-        other: سرکاری جواب
+        one: حکومت دا جواب
+        other: حکومت دے جوابات
       guidance:
-        one: گائڈنس
-        other: گائڈنس
+        one: رہنمائی
+        other: رہنمائی
       impact_assessment:
-        one: اثر دا اندازہ
-        other: اثر دے اندازے
+        one: اثر دی جانچ
+        other: اثر دی جانچ
       imported:
-        one: درآمد شدہ- منتظر قسم
-        other: درآمد شدہ- منتظر قسم
+        one: درآمد کردہ- انتظار دی قِسم
+        other: درآمد کردہ- انتظار دی قِسم
       independent_report:
-        one: آزاد رپورٹ
-        other: آزاد رپورٹاں
+        one: خود مُختار خبر
+        other: خود مُختار خبراں
       international_treaty:
         one: بین الاقوامی معاہدہ
         other: بین الاقوامی معاہدے
       manual:
-        one: ہدایت نامہ
-        other: ہدایت نامے
+        one: ہتھ والا
+        other: ہتھ والے
       map:
         one: نقشہ
         other: نقشے
       media_enquiries:
-        one:
-        other:
+        one: میڈیا دی تفتیش
+        other: میڈیا دی تفتیش
       membership:
-        one:
-        other:
+        one: ممبری
+        other: ممبری
       national_statistics:
-        one: قومی شماریات
-        other: قومی شماریات
+        one: قومی اعدادوشمار
+        other: قومی اعدادوشمار
       news_article:
-        one: خبر دا مضمون
-        other: خبر دے مضمون
+        one: خبراں دا مضمون
+        other: خبراں دے مضمون
       news_story:
         one: خبر دی کہانی
-        other: خبر دی کہانیاں
+        other: خبر دیاں کہانیاں
       nhs_content:
-        one: NHS مواد
-        other: NHS مواد
+        one: نیشنل ہیلتھ سروسز دا مواد
+        other: نیشنل ہیلتھ سروسز دا مواد
       notice:
-        one: نوٹس
-        other: نوٹس
+        one: اطلاع
+        other: اطلاعات
       official_statistics:
-        one: دفتری شماریات
-        other: دفتری شماریات
+        one: سرکاری اعدادو شمار
+        other: سرکاری اعدادو شمار
       open_consultation:
-        one: آزاد مشورہ
-        other: آزاد مشورے
+        one: کُھلا مشورہ
+        other: کُھلے مشورے
       oral_statement:
-        one: پارلیمنٹ نوں زبانی بیان
-        other: پارلیمنٹ نوں زبانی بیانات
+        one: قومی مجلس دے سامنے زبانی بیان
+        other: قومی مجلس دے سامنے زبانی بیان
       our_energy_use:
-        one:
-        other:
+        one: ساڈی قوت دا استعمال
+        other: ساڈی قوت دا استعمال
       our_governance:
-        one:
-        other:
+        one: ساڈی حکومت
+        other: ساڈی حکومت
       personal_information_charter:
-        one:
-        other:
+        one: ذاتی معلومات دا منشور
+        other: ذاتی معلومات دے منشور
       petitions_and_campaigns:
-        one:
-        other:
+        one: عرضیاں تے جدوجہد
+        other: عرضیاں تے جدوجہد
       policy_paper:
-        one: پالیسی دا کاغذ
-        other: پالیسی دے کاغذات
+        one: حکمتِ عملی دا کاغذ
+        other: حکمتِ عملی داےکاغذات
       press_release:
-        one: پریس ریلیز
-        other: پریس ریلیزاں
+        one: اخباری اطلاع
+        other: اخباری اطلاع
       procurement:
-        one:
-        other:
+        one: مال دی خریداری
+        other: مال دی خریداری
       promotional:
-        one: تشہیری مواد
-        other: تشہیری مواد
+        one: اشتیار بازی دامواد
+        other: اشتیار بازی دامواد
       publication:
-        one: اشاعت
-        other: اشاعتاں
+        one: مطبوعہ
+        other: مطبوعات
       publication_scheme:
-        one:
-        other:
+        one: مطبوعات دا طریقہ
+        other: مطبوعات دے طریقے
       recruitment:
-        one:
-        other:
+        one: بھرتی
+        other: بھرتی
       regulation:
-        one: ضابطہ
-        other: ضابطے
+        one: قاعدہ
+        other: قواعد
       research:
-        one: تحقیق و تجزیہ
-        other: تحقیق و تجزیہ
+        one: کھوج
+        other: کھوج
       service:
-        one:
-        other:
+        one: خدمت
+        other: خدمات
       social_media_use:
-        one:
-        other:
+        one: سوشل میڈیا دا استعمال
+        other: سوشل میڈیا دا استعمال
       speaking_notes:
-        one: بولن دے نوٹس
-        other: بولن دے نوٹس
+        one: گل بات دا پیغام
+        other: گل بات دا پیغام
       speech:
         one: تقریر
         other: تقریراں
       staff_update:
-        one:
-        other:
+        one: نوکراں دیاں تازہ ترین معلومات
+        other: نوکراں دیاں تازہ ترین معلومات
       standard:
-        one:
-        other:
+        one: میعار
+        other: میعار
       statement_to_parliament:
-        one: پارلیمنٹ نوں بیان
-        other: پارلیمنٹ نوں بیانات
+        one: قومی مجلس دے سامنے بیان
+        other: قومی مجلس دے سامنے بیانات
       statistical_data_set:
-        one: شماریاتی ڈیٹا سیٹ
-        other: شماریاتی ڈیٹا سیٹ
+        one: معلومات دے اعدادوشمار دی ترتیب
+        other: معلومات دے اعدادوشمار دی ترتیب
       statistics:
-        one:
-        other:
+        one: اعدادوشمار
+        other: اعدادوشمار
       statutory_guidance:
         one: قانونی رہنمائی
         other: قانونی رہنمائی
       terms_of_reference:
-        one:
-        other:
+        one: حوالے دیاں شرطاں
+        other: حوالے دیاں شرطاں
       transcript:
         one: نقل
-        other: نقلاں
+        other: نقول
       transparency:
-        one: شفافیت دا مواد
-        other: شفافیت دا مواد
+        one: شفافیت دی معلومات
+        other: شفافیت دی معلومات
       welsh_language_scheme:
-        one:
-        other:
+        one: ویلش زبان دا منصوبہ
+        other: ویلش زبان دے منصوبے
       world_news_story:
-        one: دنیا بھر دی خبر
-        other: دنیا بھر دی خبراں
+        one: ساری دُنیا دیاں خبراں دی کہانی
+        other: ساری دُنیا دیاں خبراں دیاں کہانیاں
       written_statement:
-        one: پارلیمنٹ نوں لکھیا ہویا بیان
-        other: پارلیمنٹ نوں لکھے ہوئے بیان
-    contents: مندرجات
+        one: قومی مجلس دے سامنے تحریری بیان
+        other: قومی مجلس دے سامنے تحریری بیانات
+    contents: مواد
     footer_meta:
-      full_page_history: پورے صفحہ دی تاریخ
-      published: شائع ہو گیا
-      updated: اپڈیٹ ہو گیا
+      full_page_history: پورے ورقے دی تاریخ
+      published: اشاعت کیتا ہویا
+      updated: تازہ ترین حال
     headings:
-      applies_to_nations: تے لاگو ہوندا اے
-      from: دی طرفوں
-      part_of: دا حصہ
-    latest:
-    latest_from:
-    published: شائع ہو گیا
-    see_all: سارے ویکھو
+      applies_to_nations: ایندے مطابق
+      from: اویندے توں
+      part_of: ایندا حصہ
+    latest: تازہ ترین دستاویزات
+    latest_from: ایندے توں تازہ ترین {subject}%
+    published: اشاعت کیتا ہویا
+    see_all: سب کُج ویکھو
     speech:
       author_title:
         minister: وزیر
         speaker: لکھاری
-      delivered_on: 'نوں فراہم ہویا:'
+      delivered_on: 'ایتھے دتا گیا:'
       delivery_title:
         minister: وزیر
-        speaker: سپیکر
-      written_on: 'نوں لکھیا گیا:'
-    updated: اپڈیٹ ہویا
+        speaker: گل بات کرن والا
+      written_on: 'ایندے بارے لکھیا گیا:'
+    updated: تازہ ترین حال
   world_location:
     type:
       international_delegation:
-        one: عالمی وفد
-        other: عالمی وفود
+        one: بین الاقوامی وفد
+        other: بین الاقوامی وفود
       world_location:
-        one: دنیا دا مقام
-        other: دنیا دے مقام
+        one: دُنیا دا علاقہ
+        other: دُنیا دے علاقے
     headings:
       announcements: ساڈے اعلانات
-      documents: دستاویزات
-      featured:
-      mission: ساڈا مشن
-      news:
-      organisations: تنظیمیں
-      publications: ساڈی اشاعتاں
-      search:
-      statistics: ساڈی شماریات
+      documents: دستاویزات تک پہنچ دی حکمت عملی
+      mission: ساڈا فرض
+      news: ساری دُنیا دیاں خبراں
+      organisations: ادارے
+      publications: ساڈے شمارے
+      search: مُلک یا علاقے توں لبھو
+      statistics: ساڈے اعدادو شمار
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: دار العوام پرچہ نمبر
+        hoc_paper_number: ہاؤس آف کامننز پیپر نمبر
         isbn: ISBN
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+        unnumbered_hoc_paper: اَن نمبرڈ ہاؤس آف کامننز پیپر
       attachment_data:
         file: فائل
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: نتھی شدہ ISBN
-        title: نتھی شدہ عنوان
-        unique_reference: نتھی شدہ وکھرا حوالہ
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+        command_paper_number: اٹیچمینٹ کمانڈ پیپر نمبر
+        hoc_paper_number: ہاؤس آف کامننز پیپر نمبر
+        isbn: اٹیچمینٹ   ISBN
+        title: اٹیچمینٹ دا عنوان
+        unique_reference: اٹیچمینٹ دا  وکھرا حوالہ
+        unnumbered_hoc_paper: اَن نمبرڈ ہاؤس آف کامننز پیپر
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
+        file: اٹیچمینٹ فائل
       edition:
-        nation_inapplicabilities: خارج ہوئی قوماں
+        nation_inapplicabilities: باہر نکلیا ں ہویاں قوماں
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
+        file: اٹیچمینٹ فائل
       response/consultation_response_attachments/attachment:
-        command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-        hoc_paper_number: دار العوام پرچہ نمبر
-        isbn: نتھی شدہ ISBN
-        title: نتھی شدہ عنوان
-        unique_reference: نتھی شدہ وکھرا حوالہ
-        unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+        command_paper_number: اٹیچمینٹ کمانڈ پیپر نمبر
+        hoc_paper_number: ہاؤس آف کامننز پیپر نمبر
+        isbn: اٹیچمینٹ   ISBN
+        title: اٹیچمینٹ دا عنوان
+        unique_reference: اٹیچمینٹ دا  وکھرا حوالہ
+        unnumbered_hoc_paper: اَن نمبرڈ ہاؤس آف کامننز پیپر
       response/consultation_response_attachments/attachment/attachment_data:
-        file: نتھی شدہ فائل
+        file: اٹیچیڈ فائل
     nested_attachment_data_field_names:
-      file: نتھی شدہ فائل
+      file: اٹیچیڈ فائل
     nested_attachment_field_names:
-      command_paper_number: نتھی شدہ حکماں دا پرچہ نمبر
-      hoc_paper_number: دار العوام پرچہ نمبر
-      isbn: نتھی شدہ ISBN
-      title: نتھی شدہ عنوان
-      unique_reference: نتھی شدہ وکھرا حوالہ
-      unnumbered_hoc_paper: 'بغیر نمبر توں دار العوام پرچہ '
+      command_paper_number: اٹیچمینٹ کمانڈ پیپر نمبر
+      hoc_paper_number: ہاؤس آف کامننز پیپر نمبر
+      isbn: اٹیچمینٹ   ISBN
+      title: اٹیچمینٹ دا عنوان
+      unique_reference: اٹیچمینٹ دا  وکھرا حوالہ
+      unnumbered_hoc_paper: اَن نمبرڈ ہاؤس آف کامننز پیپر
   announcements:
-    heading: اعلان
+    heading: اعلانات
   attachment:
     accessibility:
-      full_help_html: |
-        اگر تسی مدد گار ٹیکنالوجی (مثلا سکرین ریڈر) استعمال کردے او تے ضرورت ہے اک
-        ایس دستاویز دا ورژن مزید آسان شکل وچ، مہربانی نال ایمیل کرو%{email}.۔
-        مہربانی نال سانوں دسو تہانوں کیہڑی شکل وچ ضرورت ہے۔ اے ساڈٰ مدد کرے گا اگر تسی دسو کہ تسی کیہڑی مدد گار ٹیکنالوجی استعمال کردے ہو۔
-      intro: اے فائل مدد گار ٹیکنالوجی استعمال کرن آلیاں واسطے شاید مناسب نہ ہووے۔
-      request_a_different_format: آسان شکل واسطے درخواست کرو۔
+      full_help_html: 'اگر تُسی مدد گارٹیکنالوجی نوں استعمال کردے او ( جیویں کہ اک
+        سکرین ریڈر) تے تہانوں ایس دستاویز دے ترجمے دی لوڑ اے جہیڑا اک بوہت پہنچ والی
+        شکل وچ ہوئے گا، برائے مہربانی ای میل کریں {email}% برائے مہربانی سانوں ایہ
+        دسو کہ تہانوں کس شکل دی لوڑ اے۔ ایس توں سانوں مدد ملے گی کہ تسی کس طراں دی
+        مددگار ٹیکنالوجی استعمال کردے او۔
+
+'
+      intro: ایہ فائل مدد گار ٹیکنالوجی استعمال کرن والایاں لئی مناسب نئیں ہو سکدی۔
+      request_a_different_format: اک قابلِ پُہنچ دی شکل دی درخواست دیوؤ۔
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: ایس فائل دا پری ویو نہیں ہو سکدا۔
+      download: سارا مواد ویکھن لئی ایس فائل نوں ڈاؤن لوڈ کرو۔
+      truncated_message: ایہ پری ویو صرف پہلی {rows} %رو تے {columns} % کالم وکھاندا
+        اے.
     headings:
-      order_a_copy: اک نقل منگواؤ۔
-      order_a_copy_full: اشاعت دی اک نقل منگواؤ۔
-      published: شائع ہو گیا
-      reference: Ref
-      unnumbered_command_paper: بغیر نمبر توں حکماں دا پرچہ
-      unnumbered_hoc_paper: بغیر نمبر توں قانون دا پرچہ
+      order_a_copy: اک نقل دی درخواست دیوؤ
+      order_a_copy_full: اشاعت دی نقل دی دخواست دیوؤ
+      published: اشاعت کیتا ہویا
+      reference: حوالہ
+      unnumbered_command_paper: اَن نمبرڈ کمانڈ پیپر
+      unnumbered_hoc_paper: اَن نمبرڈ کمانڈ پیپر
     opendocument:
-      help_html: اے فائل اک an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
-        اوپن ڈاکیومنٹ شکل وچ ہے۔
+      help_html: فائل <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">دستاویز
+        کھولنا</a>شکل
     virus_check:
-      intro:
-      message:
+      intro: ایس اٹیچمینٹ دا وائرس ویکھ لیا گیا اے۔
+      message: اسی ہون ایہ اٹیچمنٹ کورنٹائن دے وچ روک رئے ہیں کیوں جے ایندا وائرس
+        ویکھ لیا ہے۔ تھوڑی دیر بعد ایہ اٹیچمینٹ اپنی اصل تھاں تے ہوئے گی۔
   broken_links:
     broken:
-      subheading: اسی ایس دستاویز وچ کچھ لنک ویکھے نیں جیہڑے خراب ہو سکدے نیں۔
+      subheading: اسی ایس دستاویز وچ اینج دے لنکس ویکھے جہیڑے ٹُٹ وی سکدے نیں
     caution:
-      subheading: سانوں لنکس وچ کچھ مسئلے نظر آئے نیں جیہڑے کجھ مسئلے ظاہر کر سکدے
-        نیں، تہانوں انہاں نال لنک کردیاں دھیان رکھنا چاہی دا۔
-    title: خراب لنک
+      subheading: سانوں ایناں لنکس دے بارے کجھ مشکلاں دا پتہ لگیا جو کہ مشکلاں دا
+        اشارہ کردا اے، تہانوں ایندے نال جوڑن لئی احتیاط کرن دی لوڑ اے
+    title: ٹُٹے ہوئے لنک
   change_notes:
-    published_at: پہلی دفعہ شائع ہویا
-    see_all_updates: ساری اپڈیٹس ویکھو
-    updated_at: آخری اپڈیٹ
+    published_at: پہلی اشاعت
+    see_all_updates: سارا تازہ ترین ویکھو
+    updated_at: آخری وار تازہ ترین حال
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: بند ہویا
+    closing_today: اج بند ہو ریئا اے
+    closing_tomorrow: کل بند ہوئے گا
+    days_left: جنے دن رہ گئے نیں {days_left}%
   contact:
-    access_and_opening_times: رسائی تے کھلن دے اوقات
+    access_and_opening_times: پہنچ تے کُھلن دا ویلہ
     contact_form: رابطے دا فارم
-    email: ایمیل
+    email: ای میل
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: ویلش وچ شائع ہو ریا
+        welsh_language_scheme: ویلش وچ شائع ہویا
       title:
         about: ساڈے بارے
-        about_our_services: ساڈی خدمات بارے
-        access_and_opening: دفت دی رسائی تے کھلن دے اوقات
-        accessible_documents_policy: دستاویزات دی رسائی دی پالیسی
-        complaints_procedure: شکایت دا طریقہ کار
-        equality_and_diversity: برابری تے تنوع
-        media_enquiries: میڈیا دی پچھ دس
-        membership: ممبرشپ
-        modern_slavery_statement:
-        our_energy_use: ساڈا توانائی دا استعمال
-        our_governance: ساڈی گورننس
-        personal_information_charter: ذاتی معلومات دا چارٹر
-        petitions_and_campaigns: درخواستاں تے مہماں
-        procurement: "%{organisation_name} تے پروکیورمنٹ"
-        publication_scheme: اشاےتی سکیم
-        recruitment: "%{organisation_name} واسطے کم کر رہے"
-        research: "%{organisation_name} تے تحقیق"
+        about_our_services: ساڈیاں خدمات بارے
+        access_and_opening: دفتر تک پہنچ تے کُھلن دا ویلہ
+        accessible_documents_policy: دستاویزات تک پہنچ دی حکمت عملی
+        complaints_procedure: شکایت دین دی حکمتِ عملی
+        equality_and_diversity: برابری تے فرق
+        media_enquiries: میڈیا دی تفتیش
+        membership: رُکنیت
+        modern_slavery_statement: غلامی دا موجودہ بیان
+        our_energy_use: قوت دا ساڈا استعمال
+        our_governance: ساڈی حکومت
+        personal_information_charter: ذاتی معلومات دا منشور
+        petitions_and_campaigns: عرضیاں تے جدوجہد
+        procurement: ایس تے خریداری کرو {organisation_name}%
+        publication_scheme: اشاعت دا طریقہ
+        recruitment: ایس لئی کم کر رہیا اے  {organisation_name}%
+        research: ایس دی کھوج کرو{organisation_name}%
         social_media_use: سوشل میڈیا دا استعمال
-        staff_update: اسٹاف دی خبراں تے معلومات
-        statistics: "%{organisation_name} تے شماریات"
-        terms_of_reference: حوالہ دی شرائط
-        welsh_language_scheme: ویلش زبان دی اسکیم
+        staff_update: نوکراں دیاں خبراں تے معلومات
+        statistics: ایندے اعدادو شمار {organisation_name}%
+        terms_of_reference: حوالے دیاں شرطاں
+        welsh_language_scheme:
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: اپنی مرضی دے مطابق نتیجے ویکھن واسطے تسی فلٹر دا استعمال کر سکدے
-      ہو
+      all: ساری مشاورت
+      label: مشاورت
+    description: اپنی دلچسپی دے مطابق نتائج ویکھن لئی تسی اینوں چھان سکدے او
     no_results:
-      description: اپنی تلاش ودھان دی کوشش کرو تے دوبارہ کوشش کرو
-      title: ملدی جلدی کوئی دستاویز موجود نہیں
-      tna_heading: پرانا مواد
-      tna_link: ادارے دی مئی 2010 تو پہلے دی ساری اشاعتاں GOV.UK تے مائگریٹ نہیں ہویاں۔
-        مئی 2010 توں پہلے دی اشاعتاں لبھن واسطے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">قومی آرکائیو </a> وچوں تلاش دی کوشش کرو۔
+      description: اپنی کھوج نوں ہو ودان لئی دوبارہ کوشش کرو
+      title: کوئی وی ملدی جلدی دستاویز نئیں اے
+      tna_heading: پُرانا مواد
+      tna_link: ساریاں محکمے دیاں اشاعت جہیڑیاں مئی 2010 توں پہلاں ہویاں اوناں ساریاں
+        نیں ہجرت نئیں کیتی۔ ایس اشاعت توں لبھن لئی مئی 2010 توں پہلاں دیاں تاریخ وچ
+        ایندے تے کھوج کرو۔ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">دی نیشنل آرکائیو</a>.
     world_locations:
-      all: ساریے مقام
-      label: دنیا دے مقام
-      no_locations_filter:
+      all: ساریاں تھاواں
+      label: دُنیا دیاں تھاواں
+      no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
+  email_alert:
+    subscription: ای میل الرٹ سبسکرپشن
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: برطانوی اموات
+    none_added: موت دی کوئی وی اطلاع شامل نئیں کیتی گئی ایس تھاں تے کم کرن لئی
   feeds:
-    email: ایمیل
-    feed: فیڈ
-    get_updates_to_this_list: ایس لسٹ وچ اپڈیٹ حاصل کرو
-    latest_activity: تازہ ترین سرگرمی
+    email: ای میل
+    feed: جواب
+    get_updates_to_this_list: ایس فہرست توں تازہ ترین حال دا پتہ لاؤ
+    latest_activity: پچھلی سرگرمی
   i18n:
-    direction: rtl
-    latin_script?: false
+    direction: ltr
   language_names:
-    pa-pk: پن٘جابی
+    pa-pk: پنجابی شاہ مُکھی
   latest_feed:
-    no_updates: ہجے ہور اپڈیٹس نہیں ہیگیاں نے۔
+    no_updates: ہون تک کوئی تازہ ترین حال دا پتہ نئیں لگیا
     title: تازہ ترین
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   national_statistics:
-    heading: قومی شماریات
+    heading: قومی اعدادوشمار
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: ساڈی معلومات تک رسائی لو
+      access_our_info: ساڈی معلومات تک پہنچ
       jobs: نوکریاں
-      jobs_and_contacts: نوکریاں تے معاہدے
-      organisation_chart: ساڈہ تنظیمی چارٹ
-      transparency: شفافیت دا مواد
+      jobs_and_contacts: نوکریاں تے ٹھیکے
+      organisation_chart: ساڈے ادارے دا چارٹ
+      transparency: شفافیت دی معلومات
     email:
-      alerts:
-      summary:
+      alerts: ای میل الرٹ
+      summary: ایندے توں ای میل الرٹ
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: اک برطانوی ایمبیسی، ہائی کمیشن یا کونسلیٹ دی کھوج
+        کرو
+      find_an_embassy_uppercase: اک برطانوی ایمبیسی، ہائی کمیشن یا کونسلیٹ دی کھوج
+        کرو
     headings:
-      contact: "%{name} نال رابطہ کرو"
-      corporate_information:
-      corporate_reports:
+      contact: رابطہ  {name}%
+      corporate_information: کاروبار دی معلومات
+      corporate_reports: کاروبار دیاں خبراں
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: جنے انتظام کیتا
+      agencies_and_public_bodies: ایجنیسز تے عوامی ادارے
+      part_of: ایندا حصہ
+      public_body: عوامی ادارہ
+      works_with: جندے نال کم کر دا اے
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: کورٹ تے عدالتاں
   publications:
-    heading: اشاعتاں
-    recent:
+    heading: اشاعت
+    recent: تازہ اشاعت
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: حکومت دے اون والے تے شائع کردہ اعدادو شمار دی
+        اک فہرست ایتھوں لبھو {link} % اعدادوشمار والے حصے توں
+      moved_notice: اشاعت کردہ اعداوشمار ایتھوں ختم کر دتے گئے نیں۔
   roles:
-    unassigned:
+    unassigned: ایہ کردار کسے نوں نئیں دتا گیا
   see_all:
-    announcement: ساڈے سارے اعلان ویکھو
-    authored_article: ساڈے سارے لکھے گئے مضمون ویکھو
-    case_study: ساڈی ساریاں کیس سٹڈیاں ویکھو
-    closed_consultation: ساڈے سارے بند مشورے ویکھو
-    consultation: ساڈے سارے مشورے ویکھو
-    consultation_outcome: ساڈے سارے مشوریاں دے نتیجے ویکھو
-    corporate_report: ساڈی ساریاں کاروباری رپورٹاں ویکھو
-    correspondence: ساڈی ساری خط و کتابت ویکھو
-    decision: ساڈے سارے نتیجے ویکھو
-    detailed_guidance: ساڈی ساریاں رہنمائیاں ویکھو
+    announcement: ساڈے سارے اعلانات ویکھو
+    authored_article: ساڈے سارے لکھے ہوئے مضمون ویکھو
+    case_study: سادے سارے کیس نوں ویکھو
+    closed_consultation: ساڈی ساری ختم ہوئی مشاورت ویکھو
+    consultation: ساڈی ساری مشاورت ویکھو
+    consultation_outcome: ساڈی ساری مشاور ت دے نتیجے ویکھو
+    corporate_report: ساڈے ادارے دیاں رپورٹاں ویکھو
+    correspondence: ساڈے سارے خظ ویکھو
+    decision: ساڈے سارے فیصلے ویکھو
+    detailed_guidance: ساڈی ساری رہنمائی ویکھو
     document_collection: ساڈے سارے مجموعے ویکھو
-    draft_text: ساڈے سارے متن دے مسودے ویکھو
-    fatality_notice: ساڈے سارے مہلک ہون دے نوٹس ویکھو
-    foi_release: ساڈے سارے FOI ریلیز ویکھو
-    form: ساڈے سارےفارم ویکھو
-    government_response: ساڈے سارےحکومت دےجواب ویکھو
+    draft_text: ساڈا سارا لکھیا ہوا مواد ویکھو
+    fatality_notice: ساڈے سارے موت بارے نوٹس ویکھو
+    foi_release: ساڈے سارے فریڈم آف انفارمیشن ریلزز ویکھو
+    form: ساڈے سارے فارمز ویکھو
+    government_response: ساڈے سارے حکومتی جواب ویکھو
     guidance: ساڈی ساری رہنمائی ویکھو
-    impact_assessment: ساڈےسارے اثر دے اندازے ویکھو
-    imported: ساڈی ساریاں آزاد رپورٹاں ویکھو
-    international_treaty: ساڈے سارے بین الاقوامی معاہدے ویکھو
+    impact_assessment: ساڈی ساری جانچ دا اثر ویکھو
+    imported: ساڈی ساریاں خود مُختار رپورٹاں ویکھو
+    international_treaty: ساڈے ساے بین الاقوامی معاہدے ویکھو
     map: ساڈے سارے نقشے ویکھو
-    national_statistics: ساڈے سارے قومی شماریات نقشے ویکھو
+    national_statistics: ساڈی ساے قومی اعدادوشمار ویکھو
     news_article: ساڈے سارے خبراں دے مضمون ویکھو
-    news_story: ساڈی ساریاں خبراں دی کہانیاں ویکھو
-    notice: ساڈے سارے نوٹس ویکھو
-    open_consultation: ساڈے سارے آزاد مشورے ویکھو
-    oral_statement: ساڈے ساریاں پارلیمنٹ نوں دتے گئے زبانی بیان ویکھو
-    policy: ساڈی ساریاں پالیسیاں ویکھو
-    policy_paper: ساڈے سارے پالیسی کاغذات ویکھو
-    press_release: ساڈے سارے پریس ریلیز ویکھو
-    promotional: ساڈا سارا تشہیری مواد ویکھو
-    publication: ساڈی ساری اشاعتاں ویکھو
-    regulation: ساڈے سارے ضابطے ویکھو
-    research: ساڈی ساری تحقیق تے تجزیے ویکھو
-    speaking_notes: ساڈے سارے تقریری نوٹس ویکھو
-    speech: ساڈی ساریاں تقریراں ویکھو
-    statement_to_parliament: ساڈی پارلیمنٹ نوں دتے سارے بیان ویکھو
-    statistical_data_set: ساڈے سارے شماریاتی مواد دے سیٹ ویکھو
-    statistics: ساڈی ساری شماریات ویکھو
+    news_story: ساڈیاں ساریاں خبراں دیاں کہانیاں ویکھو
+    notice: ساڈے سارے نوٹسز ویکھو
+    open_consultation: ساڈی ساری کُھلی مشاورت ویکھو
+    oral_statement: ساڈے سارے قومی مجلس دے سامنے بیان ویکھو
+    policy: ساڈی ساری حکمت عملی ویکھو
+    policy_paper: ساڈی سارے پالیسی دے کاغذات ویکھو
+    press_release: ساڈیاں ساریاں خبراں ویکھو
+    promotional: ساڈا سارا اشتہاری مواد ویکھو
+    publication: ساڈی ساری اشاعت ویکھو
+    regulation: ساڈے سارے قوانین ویکھو
+    research: ساڈے سارے تجزیے تے کھوج دیکھو
+    speaking_notes: ساڈے سارے گل بات دے نوٹسز
+    speech: ساڈیاں ساریاں تقریراں ویکھو
+    statement_to_parliament: قومی مجلس دے سامنے ساڈے سارے بیان ویکھو
+    statistical_data_set: ساڈے سارے اعداوشمار دے سیٹ ویکھو
+    statistics: ساڈے سارے اعدادوشمار ویکھو
     statutory_guidance: ساڈی ساری قانونی رہنمائی ویکھو
-    transcript: ساڈے ساریاں نقلاں ویکھو
-    transparency: ساڈا سارا شفافیت دا مواد ویکھو
-    written_statement: ساڈی ساریاں پارلیمنٹ نوں دتے لکھے بیان ویکھو
+    transcript: ساڈے سارے بیان ویکھو
+    transparency: ساڈی ساری شفافیت دی معلومات ویکھو
+    written_statement: قومی مجلس دے سامنے ساڈے سارے تحریری بیان ویکھو
   support:
     array:
-      last_word_connector: تے
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " ہور "
+    download: ڈاؤن لوڈ
+    field_of_operation: 'عمل دی تھاں:'
+    fields_of_operation: عملدیاں تھاواں
+    filter: چھاننا
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: اگلا<span class="visuallyhidden">ورقہ</span> <span class="page-numbers">%{current_page}اوندا
+        %{total_pages}</span>
+      next_page: اگلا ورقہ
+      previous_html: پچھلا <span class="visuallyhidden">ورقہ</span> <span class="page-numbers">%{current_page}اوندا
+        %{total_pages}</span>
+      previous_page: پچھلا ورقہ
+    part_of_collection: 'مجموعے دا حصہ:'
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: آخری وار ایندے تے کیہ کم ہویا{event}%
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: آرٹس کونسل انگلینڈ
+      bbc: بی بی سی
+      british_library: برٹش لائبریری
+      commonwealth_war_graves_commission: کامن ویلتھ وار گریوز کمیشن
+      heritage_lottery_fund: ہیریٹیج لاٹری فنڈ
+      historic_england: تاریخی انگلستان
+      iwm: امپریل وار میوزیم
+      war_memorials_trust: وار میموریل ٹرسٹ
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: ایندے وچ تازہ ترین اطلاعات، خبراں تے UK  حکومت دے ولوں
+      وقوعے {country}%
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: ڈھونڈو %{link}۔
-      personal_information_charter_html: ساڈا %{link} وضاحت کردا اے کہ اسی تہاڈی زاتی
-        معلوت نال کی سلوک کردے آں۔
-      publication_scheme_html: اس بارے پڑھو کہ اسی اپنے%{link} وچ روٹین نال کس قسم
-        دی معلومات شائع کردے آں۔
-      social_media_use_html: "%{link}. بارے ساڈٰی پالیسی پڑھو۔"
-      welsh_language_scheme_html: "%{link} نال ساڈے ارادیاں بارے جانو۔"
-    find_out_more: پوری پروفائل تے ساری رابطے دی تفصیلات ویکھو
+      about_our_services_html: ایندے وچوں لبھو {link}%.
+      personal_information_charter_html: ساڈا {link}%  ایہ وضاحت کردا اے کہ تہاڈی
+        ذاتی معلومات نال کس طراں سلوک کردے آں
+      publication_scheme_html: ایہ پڑھو کہ کیس طراں دی معلومات عام طور پر  اسی شائع
+        کرنے آں {link}%.
+      social_media_use_html: ایندے تے ساڈی پالیسی پڑھو {link}%.
+      welsh_language_scheme_html: ساڈی وابستگی دے بارے جانو {link}%.
+    find_out_more: ساری تصویر تے رابطہ دی تفصیلات ویکھو
     headings:
       contact_us: ساڈے نال رابطہ کرو
-      corporate_information: کاروباری معلومات
-      follow_us: سانوں فالو کرو
+      corporate_information: کاروبار دیاں خبراں
+      follow_us: ساڈے پچھے آؤ
       our_people: ساڈے لوک
-    location: مقام
-    part_of: دا حصہ
+    location: تھاں
+    part_of: دا  حصہ

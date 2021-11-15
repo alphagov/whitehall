@@ -2,637 +2,633 @@ sk:
   document:
     type:
       about:
-        one:
+        one: Informácie
         few:
-        other:
+        other: Informácie
       about_our_services:
-        one:
+        one: O našich službách
         few:
-        other:
+        other: O našich službách
       access_and_opening:
-        one:
+        one: Prístup a prevádzka
         few:
-        other:
+        other: Prístup a prevádzka
       accessible_documents_policy:
-        one:
+        one: Politika prístupnosti dokumentov
         few:
-        other:
+        other: Politiky prístupnosti dokumentov
       alert:
-        one:
+        one: Upozornenie
         few:
-        other:
+        other: Upozornenia
       announcement:
-        one:
+        one: Oznámenie
         few:
-        other:
+        other: Oznámenia
       authored_article:
-        one:
+        one: Autor článku
         few:
-        other:
+        other: Autorské články
       blog_post:
-        one:
+        one: Príspevok na blogu
         few:
-        other:
+        other: Príspevky na blogu
       campaign:
-        one:
+        one: Kampaň
         few:
-        other:
+        other: Kampane
       careers:
-        one:
+        one: Kariéra
         few:
-        other:
+        other: kariéra
       case_study:
-        one:
+        one: Prípadová štúdia
         few:
-        other:
+        other: Prípadové štúdie
       closed_consultation:
-        one:
+        one: Uzavretá konzultácia
         few:
-        other:
+        other: Uzavreté konzultácie
       complaints_procedure:
-        one:
+        one: Postup podávania sťažností
         few:
-        other:
+        other: Postupy podávania sťažností
       consultation:
-        one:
+        one: Konzultácia
         few:
-        other:
+        other: Konzultácie
       consultation_outcome:
-        one:
+        one: Výsledok konzultácie
         few:
-        other:
+        other: Výsledky konzultácie
       corporate_report:
-        one:
+        one: Podniková správa
         few:
-        other:
+        other: Podnikové správy
       correspondence:
-        one:
+        one: Korešpondencia
         few:
-        other:
+        other: Korešpondencie
       decision:
-        one:
+        one: Rozhodnutie
         few:
-        other:
+        other: Rozhodnutia
       detailed_guidance:
-        one:
+        one: Poradenstvo
         few:
-        other:
+        other: Poradenstvo
       document_collection:
-        one:
+        one: Zbierka
         few:
-        other:
+        other: Zbierky
       draft_text:
-        one:
+        one: Návrh textu
         few:
-        other:
+        other: Návrhy textov
       edition:
-        one:
+        one: Vydanie
         few:
-        other:
+        other: Vydania
       edition_with_appointment:
-        one:
+        one: Vydanie s dohodnutým termínom
         few:
-        other:
+        other: Vydania s dohodnutým termínom
       equality_and_diversity:
-        one:
+        one: Rovnosť a rozmanitosť
         few:
-        other:
+        other: Rovnosť a rozmanitosť
       fatality_notice:
-        one:
+        one: Oznámenie o úmrtí
         few:
-        other:
+        other: Oznámenia o úmrtí
       foi_release:
-        one:
+        one: Zverejnenie slobody informácií
         few:
-        other:
+        other: Zverejnenia slobody informácií
       form:
-        one:
+        one: Formulár
         few:
-        other:
+        other: Formuláre
       generic_edition:
-        one:
+        one: Všeobecné vydanie
         few:
-        other:
+        other: Všeobecné vydania
       government_response:
-        one:
+        one: Odpoveď vlády
         few:
-        other:
+        other: Odpovede vlády
       guidance:
-        one:
+        one: Poradenstvo
         few:
-        other:
+        other: Poradenstvo
       impact_assessment:
-        one:
+        one: Posúdenie vplyvu
         few:
-        other:
+        other: Posúdenia vplyvu
       imported:
-        one:
+        one: importované - čaká sa na typ
         few:
-        other:
+        other: importované - čaká sa na typ
       independent_report:
-        one:
+        one: Nezávislá správa
         few:
-        other:
+        other: Nezávislé správy
       international_treaty:
-        one:
+        one: Medzinárodná zmluva
         few:
-        other:
+        other: Medzinárodné zmluvy
       manual:
-        one:
+        one: Príručka
         few:
-        other:
+        other: Príručky
       map:
-        one:
+        one: Mapa
         few:
-        other:
+        other: Mapy
       media_enquiries:
-        one:
+        one: Požiadavka na médiá
         few:
-        other:
+        other: Požiadavky na médiá
       membership:
-        one:
+        one: Členstvo
         few:
-        other:
+        other: Členstvo
       national_statistics:
-        one:
+        one: Národné štatistiky
         few:
-        other:
+        other: Národné štatistiky
       news_article:
-        one:
+        one: Spravodajský článok
         few:
-        other:
+        other: Spravodajské články
       news_story:
-        one:
+        one: Spravodajský príbeh
         few:
-        other:
+        other: Spravodajské príbehy
       nhs_content:
-        one:
+        one: Obsah NHS
         few:
-        other:
+        other: Obsah NHS
       notice:
-        one:
+        one: Oznámenie
         few:
-        other:
+        other: Oznámenia
       official_statistics:
-        one:
+        one: Oficiálne štatistiky
         few:
-        other:
+        other: Oficiálne štatistiky
       open_consultation:
-        one:
+        one: Otvorená konzultácia
         few:
-        other:
+        other: Otvorené konzultácie
       oral_statement:
-        one:
+        one: Ústne vyhlásenie pred Parlamentom
         few:
-        other:
+        other: Ústne vyhlásenia pred Parlamentom
       our_energy_use:
-        one:
+        one: Naše využívanie energie
         few:
-        other:
+        other: Naše využívanie energie
       our_governance:
-        one:
+        one: Naše riadenie
         few:
-        other:
+        other: Naše riadenie
       personal_information_charter:
-        one:
+        one: Charta osobných údajov
         few:
-        other:
+        other: Charty osobných údajov
       petitions_and_campaigns:
-        one:
+        one: Petície a kampane
         few:
-        other:
+        other: Petície a kampane
       policy_paper:
-        one:
+        one: Strategický dokument
         few:
-        other:
+        other: Strategické dokumenty
       press_release:
-        one:
+        one: Tlačová správa
         few:
-        other:
+        other: Tlačové správy
       procurement:
-        one:
+        one: Obstarávanie
         few:
-        other:
+        other: Obstarávanie
       promotional:
-        one:
+        one: Propagačné materiály
         few:
-        other:
+        other: Propagačné materiály
       publication:
-        one:
+        one: Publikácia
         few:
-        other:
+        other: Publikácie
       publication_scheme:
-        one:
+        one: Systém zverejňovania
         few:
-        other:
+        other: Publikačné schémy
       recruitment:
-        one:
+        one: Nábor
         few:
-        other:
+        other: Nábor
       regulation:
-        one:
+        one: Nariadenie
         few:
-        other:
+        other: Nariadenia
       research:
-        one:
+        one: Výskum
         few:
-        other:
+        other: Výskum
       service:
-        one:
+        one: Služba
         few:
-        other:
+        other: Služby
       social_media_use:
-        one:
+        one: Používanie sociálnych médií
         few:
-        other:
+        other: Používanie sociálnych médií
       speaking_notes:
-        one:
+        one: Poznámky k prejavu
         few:
-        other:
+        other: Poznámky k prejavu
       speech:
-        one:
+        one: Prejav
         few:
-        other:
+        other: Prejay
       staff_update:
-        one:
+        one: Aktualizácia zamestnancov
         few:
-        other:
+        other: Aktualizácie zamestnancov
       standard:
-        one:
+        one: Štandard
         few:
-        other:
+        other: Štandardy
       statement_to_parliament:
-        one:
+        one: Vyhlásenie pre Parlament
         few:
-        other:
+        other: Vyhlásenia pre Parlament
       statistical_data_set:
-        one:
+        one: Súbor štatistických údajov
         few:
-        other:
+        other: Súbory štatistických údajov
       statistics:
-        one:
+        one: Štatistiky
         few:
-        other:
+        other: Štatistiky
       statutory_guidance:
-        one:
+        one: Zákonné usmernenia
         few:
-        other:
+        other: Zákonné usmernenia
       terms_of_reference:
-        one:
+        one: Referenčné podmienky
         few:
-        other:
+        other: Referenčné podmienky
       transcript:
-        one:
+        one: Prepis
         few:
-        other:
+        other: Prepisy
       transparency:
-        one:
+        one: Údaje o transparentnosti
         few:
-        other:
+        other: Údaje o transparentnosti
       welsh_language_scheme:
-        one:
+        one: Program vo waleskom jazyku
         few:
-        other:
+        other: Programy vo waleskom jazyku
       world_news_story:
-        one:
+        one: Celosvetové spravodajstvo
         few:
-        other:
+        other: Celosvetové spravodajstvo
       written_statement:
-        one:
+        one: Písomné vyhlásenie pre Parlament
         few:
-        other:
-    contents:
+        other: Písomné vyhlásenia pre Parlament
+    contents: Obsah
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: história celej stránky
+      published: Zverejnené na
+      updated: Aktualizované
     headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
+      applies_to_nations: Platí pre
+      from: Z
+      part_of: Časť
+    latest: Najnovšie dokumenty
+    latest_from: Najnovšie od %{subject}
+    published: zverejnené
+    see_all: Zobraziť všetky
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Minister
+        speaker: Autor
+      delivered_on: 'Doručené dňa:'
       delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
+        minister: Minister
+        speaker: Hovorca
+      written_on: 'Napísané dňa:'
+    updated: aktualizované
   world_location:
     type:
       international_delegation:
-        one:
+        one: Medzinárodná delegácia
         few:
-        other:
+        other: Medzinárodné delegácie
       world_location:
-        one:
+        one: Umiestnenie vo svete
         few:
-        other:
+        other: Svetové lokality
     headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
+      announcements: Naše oznámenia
+      documents: Dokumenty
+      mission: Naše poslanie
+      news: Naša misia
+      organisations: Organizácie
+      publications: Naše publikácie
+      search: Vyhľadávanie podľa krajiny alebo územia
+      statistics: Naše štatistiky
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Číslo dokumentu Dolnej snemovne
+        isbn: ISBN
+        unnumbered_hoc_paper: Nečíslovaný dokument Dolnej snemovne
       attachment_data:
-        file:
+        file: Súbor
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Číslo príkazu na pripojenie papiera
+        hoc_paper_number: Číslo dokumentu Dolnej snemovne
+        isbn: Príloha ISBN
+        title: Názov prílohy
+        unique_reference: Jedinečný odkaz na prílohu
+        unnumbered_hoc_paper: Nečíslovaný dokument Dolnej snemovne
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Pripojený súbor
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Vylúčené krajiny
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Pripojený súbor
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Číslo príkazu na pripojenie papiera
+        hoc_paper_number: Číslo dokumentu Dolnej snemovne
+        isbn: Príloha ISBN
+        title: Názov prílohy
+        unique_reference: Jedinečný odkaz na prílohu
+        unnumbered_hoc_paper: Nečíslovaný dokument Dolnej snemovne
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Pripojený súbor
     nested_attachment_data_field_names:
-      file:
+      file: Pripojený súbor
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Číslo príkazu na pripojenie papiera
+      hoc_paper_number: Číslo dokumentu Dolnej snemovne
+      isbn: Príloha ISBN
+      title: Názov prílohy
+      unique_reference: Jedinečný odkaz na prílohu
+      unnumbered_hoc_paper: Nečíslovaný dokument Dolnej snemovne
   announcements:
-    heading:
+    heading: Oznámenia
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Ak používate asistenčnú technológiu (napríklad čítačku obrazovky) a potrebujete
+        verziu tohto dokumentu v prístupnejšom formáte, pošlite prosím e-mail na adresu %{email}.
+        Povedzte nám, aký formát potrebujete. Pomôže nám, ak poviete, akú asistenčnú technológiu používate.
+      intro: Tento súbor nemusí byť vhodný pre používateľov asistenčných technológií.
+      request_a_different_format: Vyžiadajte si prístupný formát.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Tento súbor nebolo možné zobraziť.
+      download: Stiahnite si súbor a pozrite si jeho úplný obsah.
+      truncated_message: Tento náhľad zobrazuje len prvé %{rows} riadkov a %{columns}
+        stĺpcov.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Objednať kópiu
+      order_a_copy_full: Objednajte si kópiu publikácie
+      published: Zverejnené na
+      reference: Odkaz
+      unnumbered_command_paper: Nečíslovaný príkazový papier
+      unnumbered_hoc_paper: Nečíslovaný dokument
     opendocument:
-      help_html:
+      help_html: Tento súbor je vo formáte <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
-      intro:
-      message:
+      intro: Táto príloha sa kontroluje na prítomnosť vírusov.
+      message: V súčasnosti držíme túto prílohu v karanténe, kým nebude skontrolovaná
+        na prítomnosť vírusov. Príloha bude čoskoro k dispozícii na pôvodnom mieste.
   broken_links:
     broken:
-      subheading:
+      subheading: V tomto dokumente sme našli odkazy, ktoré môžu byť nefunkčné
     caution:
-      subheading:
-    title:
+      subheading: Zistili sme niekoľko problémov s odkazmi, ktoré môžu naznačovať
+        problémy, preto by ste mali byť pri odkazovaní na ne opatrní.
+    title: Nefunkčné odkazy
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Prvé vydanie
+    see_all_updates: zobraziť všetky aktualizácie
+    updated_at: Posledná aktualizácia
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Zatvorené
+    closing_today: Uzatvára sa dnes
+    closing_tomorrow: Uzatvára sa zajtra
+    days_left: "%{days_left} zostávajúcich dní"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Prístup a otváracie hodiny
+    contact_form: Kontaktný formulár
+    email: E-mail
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: publikovanie vo waleskom jazyku
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: O nás
+        about_our_services: O našich službách
+        access_and_opening: Prístup do kancelárie a otváracie hodiny
+        accessible_documents_policy: Politika prístupnosti dokumentov
+        complaints_procedure: Postup podávania sťažností
+        equality_and_diversity: Rovnosť a rozmanitosť
+        media_enquiries: Požiadavky na médiá
+        membership: Členstvo
+        modern_slavery_statement: Vyhlásenie o modernom otroctve
+        our_energy_use: Naše využívanie energie
+        our_governance: Naše riadenie
+        personal_information_charter: Charta osobných údajov
+        petitions_and_campaigns: Petície a kampane
+        procurement: Obstarávanie v %{organisation_name}
+        publication_scheme: Systém zverejňovania
+        recruitment: Práca pre %{organisation_name}
+        research: Výskum v %{organisation_name}
+        social_media_use: Používanie sociálnych médií
+        staff_update: Správy a informácie pre zamestnancov
+        statistics: Štatistiky v %{organisation_name}
+        terms_of_reference: Referenčné podmienky
+        welsh_language_scheme: Referenčné podmienky
   date:
     formats:
-      default:
+      default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description:
+      all: Všetky konzultácie
+      label: Konzultácie
+    description: Pomocou filtrov môžete zobraziť len výsledky, ktoré zodpovedajú vašim
+      záujmom
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Skúste rozšíriť vyhľadávanie a skúste to znova.
+      title: Neexistujú žiadne zodpovedajúce dokumenty.
+      tna_heading: Starší obsah
+      tna_link: Nie všetky publikácie ministerstva spred mája 2010 boli prenesené
+        na GOV.UK. Ak chcete nájsť publikácie spred mája 2010, skúste vyhľadávanie
+        <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link"
+        >v Národnom archíve</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Všetky lokality
+      label: Svetové lokality
+      no_locations_filter: Tomuto filtru nezodpovedajú žiadne svetové lokality.
+  email_alert:
+    subscription: Odber upozornení e-mailom
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Úmrtia vo Veľkej Británii
+    none_added: Pre túto oblasť činnosti zatiaľ neboli pridané žiadne oznámenia o
+      úmrtí.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    email: e-mail
+    feed: vlákno
+    get_updates_to_this_list: Získajte aktualizácie tohto zoznamu
+    latest_activity: Posledná aktivita
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    sk: Slovenčina
+    sk: Slovensky
   latest_feed:
-    no_updates:
-    title:
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Zatiaľ nie sú k dispozícii žiadne aktualizácie.
+    title: Najnovšie
   national_statistics:
-    heading:
+    heading: Národné štatistiky
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
+      access_our_info: Prístup k našim informáciám
+      jobs: Pracovné miesta
+      jobs_and_contacts: Pracovné miesta a zmluvy
+      organisation_chart: Naša organizačná schéma
+      transparency: Údaje o transparentnosti
     email:
-      alerts:
-      summary:
+      alerts: e-mailové upozornenia
+      summary: E-mailové upozornenia z
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Vyhľadajte britské veľvyslanectvo, vysokú komisiu
+        alebo konzulát
+      find_an_embassy_uppercase: Vyhľadajte britské veľvyslanectvo, vysokú komisiu
+        alebo konzulát
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      contact: Kontakt %{name}
+      corporate_information: Firemné informácie
+      corporate_reports: Podnikové správy
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Spravuje
+      agencies_and_public_bodies: agentúry a verejné orgány
+      part_of: Časť
+      public_body: verejný orgán
+      works_with: Spolupracuje s
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Súdy a tribunály
   publications:
-    heading:
-    recent:
+    heading: Publikácie
+    recent: Nedávne publikácie
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Zoznam zverejnených a pripravovaných vládnych
+        štatistík nájdete v sekcii %{link} štatistiky.
+      moved_notice: Štatistické publikácie sa presunuli.
   roles:
-    unassigned:
+    unassigned: Táto úloha nie je nikomu pridelená
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Pozrite si všetky naše oznámenia
+    authored_article: Pozrite si všetky naše autorské články
+    case_study: Pozrite si všetky naše prípadové štúdie
+    closed_consultation: Pozrite si všetky naše uzavreté konzultácie
+    consultation: Pozrite si všetky naše konzultácie
+    consultation_outcome: Pozrite si všetky výsledky našich konzultácií
+    corporate_report: Pozrite si všetky naše firemné správy
+    correspondence: Pozrite si všetku našu korešpondenciu
+    decision: Pozrite si všetky naše rozhodnutia
+    detailed_guidance: Pozrite si všetky naše usmernenia
+    document_collection: Pozrite si všetky naše kolekcie
+    draft_text: Pozrite si všetky naše návrhy textov
+    fatality_notice: Pozrite si všetky naše oznámenia o úmrtiach
+    foi_release: Pozrite si všetky naše správy FOI
+    form: Pozrite si všetky naše formuláre
+    government_response: Pozrite si všetky odpovede našej vlády
+    guidance: Pozrite si všetky naše usmernenia
+    impact_assessment: Pozrite si všetky naše hodnotenia vplyvu
+    imported: Pozrite si všetky naše nezávislé správy
+    international_treaty: Pozrite si všetky naše medzinárodné zmluvy
+    map: Pozrite si všetky naše mapy
+    national_statistics: Pozrite si všetky naše národné štatistiky
+    news_article: Pozrite si všetky naše novinové články
+    news_story: Pozrite si všetky naše novinky
+    notice: Pozrite si všetky naše oznámenia
+    open_consultation: Pozrite si všetky naše otvorené konzultácie
+    oral_statement: Pozrite si všetky naše ústne vyhlásenia v Parlamente
+    policy: Pozrite si všetky naše zásady
+    policy_paper: Pozrite si všetky naše strategické dokumenty
+    press_release: Pozrite si všetky naše tlačové správy
+    promotional: Pozrite si všetky naše propagačné materiály
+    publication: Pozrite si všetky naše publikácie
+    regulation: Pozrite si všetky naše predpisy
+    research: Pozrite si všetky naše výskumy a analýzy
+    speaking_notes: Pozrite si všetky naše poznámky k prejavom
+    speech: Pozrite si všetky naše prejavy
+    statement_to_parliament: Pozrite si všetky naše vyhlásenia pre Parlament
+    statistical_data_set: Pozrite si všetky naše súbory štatistických údajov
+    statistics: Pozrite si všetky naše štatistiky
+    statutory_guidance: Pozrite si všetky naše zákonné usmernenia
+    transcript: Pozrite si všetky naše prepisy
+    transparency: Pozrite si všetky naše údaje o transparentnosti
+    written_statement: Pozrite si všetky naše písomné vyhlásenia pre Parlament
   support:
     array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " a "
+    download: Stiahnuť
+    field_of_operation: 'Oblasť činnosti:'
+    fields_of_operation: Oblasti činnosti
+    filter: Filter
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Ďalšia <span class="visuallyhidden">strana</span> <span class="page-numbers">%{current_page}
+        z %{total_pages}</span>
+      next_page: Ďalšia stránka
+      previous_html: Predchádzajúca <span class="visuallyhidden">strana</span> <span
+        class="page-numbers">%{current_page} z %{total_pages}</span>
+      previous_page: Predchádzajúca strana
+    part_of_collection: 'Súčasť zbierky:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Posledná aktivita počas  %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Rada pre umenie v Anglicku
+      bbc: BBC
+      british_library: Britská knižnica
+      commonwealth_war_graves_commission: Komisia pre vojnové hroby Spoločnosti národov
+      heritage_lottery_fund: Heritage Lottery Fund
+      historic_england: Historické Anglicko
+      iwm: Imperiálne vojnové múzeum
+      war_memorials_trust: Vojnové pamätníky Trust
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Aktuálne informácie, správy a podujatia vlády Spojeného
+      kráľovstva v %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Zistite %{link}.
+      personal_information_charter_html: Náš %{link} vysvetľuje, ako zaobchádzame
+        s vašimi osobnými údajmi.
+      publication_scheme_html: Prečítajte si o typoch informácií, ktoré bežne zverejňujeme
+        v našom %{link}.
+      social_media_use_html: Prečítajte si naše zásady na %{link}.
+      welsh_language_scheme_html: Prečítajte si o našom záväzku voči %{link}.
+    find_out_more: Pozrite si celý profil a všetky kontaktné údaje
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Kontaktujte nás
+      corporate_information: Firemné informácie
+      follow_us: Sledujte nás
+      our_people: Naši ľudia
+    location: Umiestnenie
+    part_of: Časť

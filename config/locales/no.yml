@@ -2,560 +2,554 @@
   document:
     type:
       about:
-        one:
-        other:
+        one: Om
+        other: Om
       about_our_services:
-        one:
-        other:
+        one: Om våre tjenester
+        other: Om våre tjenester
       access_and_opening:
-        one:
-        other:
+        one: Tilgang og åpning
+        other: Tilgang og åpning
       accessible_documents_policy:
-        one:
-        other:
+        one: Retningslinjer for tilgjengelige dokumenter
+        other: Retningslinjer for tilgjengelige dokumenter
       alert:
-        one:
-        other:
+        one: Varsling
+        other: Varsler
       announcement:
-        one:
-        other:
+        one: Kunngjøring
+        other: Kunngjøringer
       authored_article:
-        one:
-        other:
+        one: Forfatterartikkel
+        other: Forfatterartikler
       blog_post:
-        one:
-        other:
+        one: Blogginnlegg
+        other: Blogginnlegg
       campaign:
-        one:
-        other:
+        one: Kampanje
+        other: Kampanjer
       careers:
-        one:
-        other:
+        one: Karriere
+        other: karrierer
       case_study:
-        one:
-        other:
+        one: Casestudie
+        other: Casestudier
       closed_consultation:
-        one:
-        other:
+        one: Lukket konsultasjon
+        other: Lukkede konsultasjoner
       complaints_procedure:
-        one:
-        other:
+        one: Klageprosedyre
+        other: Klageprosedyrer
       consultation:
-        one:
-        other:
+        one: Konsultasjon
+        other: Konsultasjoner
       consultation_outcome:
-        one:
-        other:
+        one: Konsultasjonsresultat
+        other: Konsultasjonsresultater
       corporate_report:
-        one:
-        other:
+        one: Bedriftsrapport
+        other: Bedriftsrapporter
       correspondence:
-        one:
-        other:
+        one: Korrespondanse
+        other: Korrespondanser
       decision:
-        one:
-        other:
+        one: Beslutning
+        other: Avgjørelser
       detailed_guidance:
-        one:
-        other:
+        one: Veiledning
+        other: Veiledning
       document_collection:
-        one:
-        other:
+        one: Samling
+        other: Samlinger
       draft_text:
-        one:
-        other:
+        one: Tekstutkast
+        other: Tekstutkast
       edition:
-        one:
-        other:
+        one: Utgave
+        other: Utgaver
       edition_with_appointment:
-        one:
-        other:
+        one: Utgave med avtale
+        other: Utgaver med avtale
       equality_and_diversity:
-        one:
-        other:
+        one: Likestilling og mangfold
+        other: Likestilling og mangfold
       fatality_notice:
-        one:
-        other:
+        one: Melding om dødsfall
+        other: Meldinger om dødsfall
       foi_release:
-        one:
-        other:
+        one: Informasjonsfrihetstillatelse
+        other: Informasjonsfrihetstillatelser
       form:
-        one:
-        other:
+        one: Skjema
+        other: Skjemaer
       generic_edition:
-        one:
-        other:
+        one: Generisk utgave
+        other: Generiske utgaver
       government_response:
-        one:
-        other:
+        one: Myndighetenes svar
+        other: Myndighetenes svar
       guidance:
-        one:
-        other:
+        one: Veiledning
+        other: Veiledning
       impact_assessment:
-        one:
-        other:
+        one: Konsekvensutredning
+        other: Konsekvensanalyser
       imported:
-        one:
-        other:
+        one: importert - venter på type
+        other: importert - venter på type
       independent_report:
-        one:
-        other:
+        one: Uavhengig rapport
+        other: Uavhengige rapporter
       international_treaty:
-        one:
-        other:
+        one: Internasjonal traktat
+        other: Internasjonale traktater
       manual:
-        one:
-        other:
+        one: Håndbok
+        other: Håndbøker
       map:
-        one:
-        other:
+        one: Kart
+        other: Kart
       media_enquiries:
-        one:
-        other:
+        one: Medieforespørsel
+        other: Medieforespørsler
       membership:
-        one:
-        other:
+        one: Medlemskap
+        other: Medlemskap
       national_statistics:
-        one:
-        other:
+        one: Nasjonal statistikk
+        other: Nasjonal statistikk
       news_article:
-        one:
-        other:
+        one: Nyhetsartikkel
+        other: Nyhetsartikler
       news_story:
-        one:
-        other:
+        one: Nyhetssak
+        other: Nyheter
       nhs_content:
-        one:
-        other:
+        one: Innhold fra det nasjonale helsevesenet
+        other: Innhold fra det nasjonale helsevesenet
       notice:
-        one:
-        other:
+        one: Merknad
+        other: Merknader
       official_statistics:
-        one:
-        other:
+        one: Offisiell statistikk
+        other: Offisiell statistikk
       open_consultation:
-        one:
-        other:
+        one: Åpen konsultasjon
+        other: Åpne konsultasjoner
       oral_statement:
-        one:
-        other:
+        one: Muntlig uttalelse til Stortinget
+        other: Muntlige uttalelser til Stortinget
       our_energy_use:
-        one:
-        other:
+        one: Vår energibruk
+        other: Vår energibruk
       our_governance:
-        one:
-        other:
+        one: Vår styring
+        other: Vår styring
       personal_information_charter:
-        one:
-        other:
+        one: Personopplysnings-charter
+        other: Personopplysnings-chartre
       petitions_and_campaigns:
-        one:
-        other:
+        one: Begjæringer og kampanjer
+        other: Begjæringer og kampanjer
       policy_paper:
-        one:
-        other:
+        one: Retningslinjer
+        other: Retningslinjer
       press_release:
-        one:
-        other:
+        one: Pressemelding
+        other: Pressemeldinger
       procurement:
-        one:
-        other:
+        one: Anskaffelse
+        other: Anskaffelse
       promotional:
-        one:
-        other:
+        one: Reklamemateriell
+        other: Reklamemateriell
       publication:
-        one:
-        other:
+        one: Publikasjon
+        other: Publikasjoner
       publication_scheme:
-        one:
-        other:
+        one: Publiseringsskjema
+        other: Publiseringsskjema
       recruitment:
-        one:
-        other:
+        one: Rekruttering
+        other: Rekruttering
       regulation:
-        one:
-        other:
+        one: Forskrift
+        other: Forskrifter
       research:
-        one:
-        other:
+        one: Forskning
+        other: Forskning
       service:
-        one:
-        other:
+        one: Tjeneste
+        other: Tjenester
       social_media_use:
-        one:
-        other:
+        one: Bruk av sosiale medier
+        other: Bruk av sosiale medier
       speaking_notes:
-        one:
-        other:
+        one: Foredragsnotater
+        other: Foredragsnotater
       speech:
-        one:
-        other:
+        one: Tale
+        other: Taler
       staff_update:
-        one:
-        other:
+        one: Personaloppdatering
+        other: Personaloppdateringer
       standard:
-        one:
-        other:
+        one: Standard
+        other: Standarder
       statement_to_parliament:
-        one:
-        other:
+        one: Uttalelse til Stortinget
+        other: Uttalelse til Stortinget
       statistical_data_set:
-        one:
-        other:
+        one: Statistisk datasett
+        other: Statistiske datasett
       statistics:
-        one:
-        other:
+        one: Statistikk
+        other: Statistikk
       statutory_guidance:
-        one:
-        other:
+        one: Lovpålagt veiledning
+        other: Lovpålagt veiledning
       terms_of_reference:
-        one:
-        other:
+        one: Henvisningsbetingelser
+        other: Henvisningsbetingelser
       transcript:
-        one:
-        other:
+        one: Transkripsjon
+        other: Transkripsjoner
       transparency:
-        one:
-        other:
+        one: Gjennomsiktighetsdata
+        other: Gjennomsiktighetsdata
       welsh_language_scheme:
-        one:
-        other:
+        one: Walisisk språkskjema
+        other: Walisiske språkskjema
       world_news_story:
-        one:
-        other:
+        one: Verdensomspennende nyhetshistorie
+        other: Verdensomspennende nyhetshistorier
       written_statement:
-        one:
-        other:
-    contents:
+        one: Skriftlig uttalelse til Stortinget
+        other: Skriftlige uttalelser til Stortinget
+    contents: Innhold
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: hele historien til siden
+      published: Publisert
+      updated: Oppdatert
     headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
+      applies_to_nations: Gjelder
+      from: Fra
+      part_of: Del av
+    latest: Siste dokumenter
+    latest_from: Siste fra %{subject}
+    published: publisert
+    see_all: Se alle
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Minister
+        speaker: Forfatter
+      delivered_on: 'Levert på:'
       delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
+        minister: Minister
+        speaker: Høyttaler
+      written_on: 'Skrevet på:'
+    updated: oppdatert
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Internasjonal delegasjon
+        other: Internasjonale delegasjoner
       world_location:
-        one:
-        other:
+        one: Beliggenhet i verden
+        other: Beliggenheter i verden
     headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
+      announcements: Våre kunngjøringer
+      documents: Dokumenter
+      mission: Vårt oppdrag
+      news: Nyheter fra ulike verdenshjørner
+      organisations: Organisasjoner
+      publications: Våre publikasjoner
+      search: Søk etter land eller territorium
+      statistics: Vår statistikk
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Skrivnummer i Underhuset
+        isbn: ISBN
+        unnumbered_hoc_paper: Unummerert skriv i Underhuset
       attachment_data:
-        file:
+        file: Fil
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Vedleggskommandoskrivnummer
+        hoc_paper_number: Skrivnummer i Underhuset
+        isbn: Vedleggs-ISBN
+        title: Vedleggstittel
+        unique_reference: Unik referanse for vedlegg
+        unnumbered_hoc_paper: Unummerert skriv i Underhuset
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Den vedlagte filen
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Ekskluderte nasjoner
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Den vedlagte filen
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Vedleggskommandopapirnummer
+        hoc_paper_number: Skrivnummer i Underhuset
+        isbn: Vedleggs-ISBN
+        title: Vedleggstittel
+        unique_reference: Unik referanse for vedlegg
+        unnumbered_hoc_paper: Unummerert skriv i Underhuset
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Den vedlagte filen
     nested_attachment_data_field_names:
-      file:
+      file: Den vedlagte filen
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Vedleggskommandoskrivnummer
+      hoc_paper_number: Skrivnummer i Underhuset
+      isbn: Vedleggs-ISBN
+      title: Vedleggstittel
+      unique_reference: Unik referanse for vedlegg
+      unnumbered_hoc_paper: Unummerert skriv i Underhuset
   announcements:
-    heading:
+    heading: Kunngjøringer
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Hvis du bruker hjelpeteknologi (for eksempel en skjermleser) og trenger en
+        versjon av dette dokumentet i et mer tilgjengelig format, send e-post til %{email}.
+        Fortell oss hvilket format du trenger. Det vil hjelpe oss hvis du forteller hvilken hjelpeteknologi du bruker.
+      intro: Denne filen er muligens ikke egnet for brukere av hjelpeteknologi.
+      request_a_different_format: Be om et tilgjengelig format.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Denne filen kunne ikke forhåndsvises.
+      download: Last ned filen for å se hele innholdet.
+      truncated_message: Denne forhåndsvisningen viser bare de første %{rows} radene
+        og %{columns} kolonnene.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Bestill en kopi
+      order_a_copy_full: Bestill en kopi av publikasjonen
+      published: Publisert
+      reference: Ref
+      unnumbered_command_paper: Unummerert kommandoskriv
+      unnumbered_hoc_paper: Unummerert aktskriv
     opendocument:
-      help_html:
+      help_html: Denne filen er i formatet <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>-format
     virus_check:
-      intro:
-      message:
+      intro: Dette vedlegget blir sjekket for virus.
+      message: Vi holder for øyeblikket dette vedlegget i karantene til det er blitt
+        kontrollert for virus. Vedlegget vil være tilgjengelig på den opprinnelige
+        plasseringen innen kort tid.
   broken_links:
     broken:
-      subheading:
+      subheading: Vi har funnet koblinger i dette dokumentet som kan være ødelagte
     caution:
-      subheading:
-    title:
+      subheading: Vi har funnet noen uregelmessigheter med lenker som kan indikere
+        problemer. Du bør være forsiktig når du lenker til dem
+    title: Brutte koblinger
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Først publisert
+    see_all_updates: se alle oppdateringer
+    updated_at: Sist oppdatert
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Lukket
+    closing_today: Stenger i dag
+    closing_tomorrow: Stenger i morgen
+    days_left: "%{days_left} dager igjen"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Tilgang og åpningstider
+    contact_form: Kontaktskjema
+    email: E-post
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: publisering på walisisk
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Om oss
+        about_our_services: Om våre tjenester
+        access_and_opening: Kontortilgang og åpningstider
+        accessible_documents_policy: Retningslinjer for tilgjengelige dokumenter
+        complaints_procedure: Klageprosedyre
+        equality_and_diversity: Likestilling og mangfold
+        media_enquiries: Medieforespørsler
+        membership: Medlemskap
+        modern_slavery_statement: Erklæring om moderne slaveri
+        our_energy_use: Vårt energibruk
+        our_governance: Vår styring
+        personal_information_charter: Personlig informasjon-charter
+        petitions_and_campaigns: Begjæringer og kampanjer
+        procurement: Anskaffelse hos %{organization_name}
+        publication_scheme: Publiseringsskjema
+        recruitment: Arbeider for %{organization_name}
+        research: Forskning ved %{organization_name}
+        social_media_use: Bruk av sosiale medier
+        staff_update: Personalnyheter og informasjon
+        statistics: Statistikk hos %{organization_name}
+        terms_of_reference: Henvisningsbetingelser
+        welsh_language_scheme: Walisisk språkskjema
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description:
+      all: Alle konsultasjoner
+      label: Konsultasjoner
+    description: Du kan bruke filtrene til å vise kun resultater som samsvarer med
+      dine interesser
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Prøv å gjøre søket ditt bredere, og prøv igjen.
+      title: Det finnes ingen samsvarende dokumenter.
+      tna_heading: Eldre innhold
+      tna_link: Ikke alle avdelingspublikasjoner fra før mai 2010 ble migrert til
+        GOV.UK. For å finne publikasjoner fra før mai 2010, prøv å søke på <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">Nasjonalarkivene</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Alle steder
+      label: Steder i verden
+      no_locations_filter: Ingen steder i verden samsvarer med det filteret.
+  email_alert:
+    subscription: Abonnement på e-postvarsel
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Britiske dødsfall
+    none_added: Det har ikke blitt lagt til noen meldinger om dødsfall for dette operasjonsfeltet
+      ennå.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    email: e-post
+    feed: mate
+    get_updates_to_this_list: Få oppdateringer til denne listen
+    latest_activity: Siste aktivitet
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    'no': Norsk
+    'no': norsk
   latest_feed:
-    no_updates:
-    title:
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Det er ingen oppdateringer ennå.
+    title: Siste
   national_statistics:
-    heading:
+    heading: Nasjonal statistikk
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
+      access_our_info: Få tilgang til informasjonen vår
+      jobs: Arbeidsplasser
+      jobs_and_contacts: Jobb og kontrakter
+      organisation_chart: Vårt organisasjonskart
+      transparency: Åpenhetstsdata
     email:
-      alerts:
-      summary:
+      alerts: e-postvarsler
+      summary: E-postvarsler fra
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Finn en britisk ambassade, høykommissær eller konsulat
+      find_an_embassy_uppercase: Finn en britisk ambassade, høykommissær eller konsulat
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      contact: Kontakt %{name}
+      corporate_information: Bedriftsinformasjon
+      corporate_reports: Bedriftsrapporter
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Administreres av
+      agencies_and_public_bodies: byråer og offentlige instanser
+      part_of: Del av
+      public_body: offentlig instans
+      works_with: Arbeider med
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Domstoler og domstoler
   publications:
-    heading:
-    recent:
+    heading: Publikasjoner
+    recent: Nylige publikasjoner
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Finn en liste over publiserte og kommende statlige
+        statistikker i statistikkdelen på %{link}.
+      moved_notice: Statistikkpublikasjonene har flyttet.
   roles:
-    unassigned:
+    unassigned: Ingen er tildelt denne rollen
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Se alle våre kunngjøringer
+    authored_article: Se alle våre forfatterartikler
+    case_study: Se alle våre casestudier
+    closed_consultation: Se alle våre lukkede konsultasjoner
+    consultation: Se alle våre konsultasjoner
+    consultation_outcome: Se alle våre konsultasjonsresultater
+    corporate_report: Se alle våre bedriftsrapporter
+    correspondence: Se alle våre korrespondanser
+    decision: Se alle våre beslutninger
+    detailed_guidance: Se all vår veiledning
+    document_collection: Se alle samlingene våre
+    draft_text: Se alle våre utkast til tekster
+    fatality_notice: Se alle våre meldinger om dødsfall
+    foi_release: Se alle våre Informasjonsfrihet-utgivelser
+    form: Se alle skjemaene våre
+    government_response: Se alle svarene fra regjeringen
+    guidance: Se all vår veiledning
+    impact_assessment: Se alle våre konsekvensanalyser
+    imported: Se alle våre uavhengige rapporter
+    international_treaty: Se alle våre internasjonale traktater
+    map: Se alle kartene våre
+    national_statistics: Se all vår nasjonale statistikk
+    news_article: Se alle våre nyhetsartikler
+    news_story: Se alle våre nyhetshistorier
+    notice: Se alle våre oppslag
+    open_consultation: Se alle våre åpne konsultasjoner
+    oral_statement: Se alle våre muntlige uttalelser til Stortinget
+    policy: Se alle retningslinjene våre
+    policy_paper: Se alle retningslinjeskrivene våre
+    press_release: Se alle våre pressemeldinger
+    promotional: Se alt vårt reklamemateriell
+    publication: Se alle våre publikasjoner
+    regulation: Se alle våre forskrifter
+    research: Se all vår forskning og analyse
+    speaking_notes: Se alle våre talende notater
+    speech: Se alle våre taler
+    statement_to_parliament: Se alle våre uttalelser til Stortinget
+    statistical_data_set: Se alle våre statistikkdatasett
+    statistics: Se all vår statistikk
+    statutory_guidance: Se alle våre lovpålagte retningslinjer
+    transcript: Se alle transkripsjonene våre
+    transparency: Se alle våre åpenhetsdata
+    written_statement: Se alle våre skriftlige uttalelser til Stortinget
   support:
     array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " og "
+    download: Last ned
+    field_of_operation: 'Driftsområde:'
+    fields_of_operation: Driftsområder
+    filter: Filter
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Neste <span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page}
+        av %{total_pages}</span>
+      next_page: Neste side
+      previous_html: Forrige <span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page}
+        av %{total_pages}</span>
+      previous_page: Forrige side
+    part_of_collection: 'Del av en samling:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Siste aktivitet på %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Kunstrådet i England
+      bbc: BBC
+      british_library: Det britiske nasjonalbiblioteket
+      commonwealth_war_graves_commission: Commonwealth War Graves Commission
+      heritage_lottery_fund: Heritage Lottery Fund
+      historic_england: Historiske England
+      iwm: Imperial War Museum
+      war_memorials_trust: War Memorials Trust
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Oppdateringer, nyheter og hendelser fra den britiske regjeringen
+      i %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Finn ut %{link}.
+      personal_information_charter_html: Vår %{link} forklarer hvordan vi behandler
+        dine personopplysninger.
+      publication_scheme_html: Les om informasjonstypene vi rutinemessig publiserer
+        i %{link}.
+      social_media_use_html: Les retningslinjene våre på %{link}.
+      welsh_language_scheme_html: Finn ut mer om vårt engasjement for %{link}.
+    find_out_more: Se hele profilen og alle kontaktdetaljer
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Kontakt oss
+      corporate_information: Bedriftsinformasjon
+      follow_us: Følg oss
+      our_people: Våre folk
+    location: Sted
+    part_of: Del av

@@ -2,30 +2,30 @@ ru:
   document:
     type:
       about:
-        one:
+        one: О нас
         few:
         many:
-        other:
+        other: О нас
       about_our_services:
-        one:
+        one: О наших услугах
         few:
         many:
-        other:
+        other: Он наших услугах
       access_and_opening:
-        one:
+        one: Доступ и открытие
         few:
         many:
-        other:
+        other: Доступ и открытие
       accessible_documents_policy:
-        one:
+        one: Политика доступности документов
         few:
         many:
-        other:
+        other: Политики доступности документов
       alert:
-        one:
+        one: Оповещение
         few:
         many:
-        other:
+        other: Оповещения
       announcement:
         one: Объявление
         few:
@@ -37,35 +37,35 @@ ru:
         many:
         other: Авторские статьи
       blog_post:
-        one:
+        one: Запись в блоге
         few:
         many:
-        other:
+        other: Записи в блоге
       campaign:
-        one:
+        one: Кампания
         few:
         many:
-        other:
+        other: Кампании
       careers:
-        one:
+        one: Карьера
         few:
         many:
-        other:
+        other: карьера
       case_study:
-        one: Ситуационный анализ
+        one: Ситуационное исследование
         few:
         many:
-        other: Ситуационные анализы
+        other: Ситуационные исследования
       closed_consultation:
         one: Закрытая консультация
         few:
         many:
         other: Закрытые консультации
       complaints_procedure:
-        one:
+        one: Процедура подачи жалоб
         few:
         many:
-        other:
+        other: Процедуры подачи жалоб
       consultation:
         one: Консультация
         few:
@@ -87,60 +87,60 @@ ru:
         many:
         other: Корреспонденция
       decision:
-        one:
+        one: Решение
         few:
         many:
-        other:
+        other: Решения
       detailed_guidance:
-        one: Подробное руководство
+        one: Руководство
         few:
         many:
-        other: Подробное руководство
+        other: Руководство
       document_collection:
-        one: Серии
+        one: Коллекция
         few:
         many:
-        other:
+        other: Коллекции
       draft_text:
         one: Проект текста
         few:
         many:
         other: Проект текстов
       edition:
-        one:
+        one: Издание
         few:
         many:
-        other:
+        other: Издания
       edition_with_appointment:
-        one:
+        one: Издание с назначением
         few:
         many:
-        other:
+        other: Издания с назначением
       equality_and_diversity:
-        one:
+        one: Равенство и разнообразие
         few:
         many:
-        other:
+        other: Равенство и разнообразие
       fatality_notice:
-        one:
+        one: Уведомление о смертельном исходе
         few:
         many:
-        other:
+        other: Уведомления о смертельном исходе
       foi_release:
-        one: 'Свобода распространения информации '
+        one: Публикация о свободном распространении информации
         few:
         many:
-        other: 'Свобода распространения информации '
+        other: Публикации о свободном распространении информации
       form:
         one: Форма
         few:
         many:
         other: Формы
       generic_edition:
-        one:
+        one: Типовое издание
         few:
         many:
-        other:
+        other: Типовые издания
       government_response:
         one: Ответ правительства
         few:
@@ -162,95 +162,95 @@ ru:
         many:
         other: импортировано - тип ожидания
       independent_report:
-        one: Независимый отчет
+        one: Независимый доклад
         few:
         many:
-        other: Независимые отчеты
+        other: Независимые доклады
       international_treaty:
-        one:
+        one: Международный договор
         few:
         many:
-        other:
+        other: Международные договоры
       manual:
-        one:
+        one: Руководство
         few:
         many:
-        other:
+        other: Руководства
       map:
         one: Карта
         few:
         many:
         other: Карты
       media_enquiries:
-        one:
+        one: Отдел по связям со СМИ
         few:
         many:
-        other:
+        other: Отделы по связам по СМИ
       membership:
-        one:
+        one: Членство
         few:
         many:
-        other:
+        other: Членство
       national_statistics:
-        one: Статистика - национальная статистика
+        one: Национальная статистика
         few:
         many:
-        other: Статистика - национальная статистика
+        other: Национальная статистика
       news_article:
         one: Новостная статья
         few:
         many:
         other: Новостные статьи
       news_story:
-        one: Новостная заметка
+        one: Новостной сюжет
         few:
         many:
-        other: Новостные заметки
+        other: Новостные сюжеты
       nhs_content:
-        one:
+        one: Контент Национальной службы здравоохранения
         few:
         many:
-        other:
+        other: Контент Национальной службы здравоохранения
       notice:
-        one:
+        one: Уведомление
         few:
         many:
-        other:
+        other: Уведомления
       official_statistics:
-        one: Статистика
+        one: Официальная статистика
         few:
         many:
-        other: Статистика
+        other: Официальная статистика
       open_consultation:
         one: Открытая консультация
         few:
         many:
         other: Открытые консультации
       oral_statement:
-        one: Устное заявление парламенту
+        one: Устное заявление Парламенту
         few:
         many:
-        other: Устные заявления парламенту
+        other: Устные заявления Парламенту
       our_energy_use:
-        one:
+        one: Использование нами энергии
         few:
         many:
-        other:
+        other: Использование нами энергии
       our_governance:
-        one:
+        one: Наше управление
         few:
         many:
-        other:
+        other: Наше управление
       personal_information_charter:
-        one:
+        one: Чартер личной информации
         few:
         many:
-        other:
+        other: Чартеры личной информации
       petitions_and_campaigns:
-        one:
+        one: Петиции и кампании
         few:
         many:
-        other:
+        other: Петиции и кампании
       policy_paper:
         one: Директивный документ
         few:
@@ -262,10 +262,10 @@ ru:
         many:
         other: Пресс-релизы
       procurement:
-        one:
+        one: Материально-техническое снабжение
         few:
         many:
-        other:
+        other: Материально-техническое снабжение
       promotional:
         one: Рекламный материал
         few:
@@ -277,35 +277,35 @@ ru:
         many:
         other: Публикации
       publication_scheme:
-        one:
+        one: Схема публикации
         few:
         many:
-        other:
+        other: Схемы публикации
       recruitment:
-        one:
+        one: Набор персонала
         few:
         many:
-        other:
+        other: Набор персонала
       regulation:
-        one:
+        one: Распорядительный документ
         few:
         many:
-        other:
+        other: Распорядительные документы
       research:
-        one: Исследования и аналитика
+        one: Исследования
         few:
         many:
-        other: Исследования и аналитика
+        other: Исследования
       service:
-        one:
+        one: Услуга
         few:
         many:
-        other:
+        other: Услуги
       social_media_use:
-        one:
+        one: Использование социальных сетей
         few:
         many:
-        other:
+        other: Использование социальных сетей
       speaking_notes:
         one: Тезисы выступления
         few:
@@ -317,40 +317,40 @@ ru:
         many:
         other: Тексты выступлений
       staff_update:
-        one:
+        one: Обновление персонала
         few:
         many:
-        other:
+        other: Обновления персонала
       standard:
-        one:
+        one: Стандарт
         few:
         many:
-        other:
+        other: Стандарты
       statement_to_parliament:
-        one: Заявление парламенту
+        one: Заявление Парламенту
         few:
         many:
-        other: Заявления парламенту
+        other: Заявления Парламенту
       statistical_data_set:
+        one: Набор статистических данных
+        few:
+        many:
+        other: Наборы статистических данных
+      statistics:
         one: Статистика
         few:
         many:
-        other: Статистические данные
-      statistics:
-        one:
-        few:
-        many:
-        other:
+        other: Статистика
       statutory_guidance:
-        one:
+        one: Официальные рекомендации
         few:
         many:
-        other:
+        other: Официальные рекомендации
       terms_of_reference:
-        one:
+        one: Акт о полномочиях
         few:
         many:
-        other:
+        other: Акт о полномочиях
       transcript:
         one: Текст
         few:
@@ -362,225 +362,223 @@ ru:
         many:
         other: Прозрачность данных
       welsh_language_scheme:
-        one:
+        one: Схема уэльского языка
         few:
         many:
-        other:
+        other: Схемы уэльского языка
       world_news_story:
-        one:
+        one: Мировая новость
         few:
         many:
-        other:
+        other: Мировые новости
       written_statement:
-        one: Письменное заявление парламенту
+        one: Письменное заявление Парламенту
         few:
         many:
-        other: Письменные заявления парламенту
-    contents:
+        other: Письменные заявления Парламенту
+    contents: Содержание
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: полная история страницы
+      published: Опубликовано
+      updated: Обновлено
     headings:
-      applies_to_nations: Применимо к
-      from:
-      part_of:
-    latest:
-    latest_from:
+      applies_to_nations: Применяется к
+      from: Из
+      part_of: Является частью
+    latest: Последний документ
+    latest_from: Последнее из %{subject}
     published: Опубликовано
-    see_all:
+    see_all: Посмотреть все
     speech:
       author_title:
         minister: Министр
-        speaker: Автор
-      delivered_on: Представлено в
+        speaker: Писатель
+      delivered_on: 'Представлено:'
       delivery_title:
         minister: Министр
         speaker: Докладчик
-      written_on: 'Написано: '
+      written_on: 'Написано:'
     updated: обновлено
   world_location:
     type:
       international_delegation:
-        one: Международное представительство
+        one: Международная делегация
         few:
         many:
-        other: Международные представительства
+        other: Международные делегации
       world_location:
-        one: Место нахождения
+        one: Место нахождения в мире
         few:
         many:
-        other: Места нахождения
+        other: Места нахождения в мире
     headings:
       announcements: Наши объявления
       documents: Документы
-      featured:
       mission: Наша цель
-      news:
+      news: Новости из мест нахождения в мире
       organisations: Организации
       publications: Наши публикации
-      search:
+      search: Поиск по стране или территории
       statistics: Наша статистика
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Номер документа Палаты общин
+        isbn: ISBN
+        unnumbered_hoc_paper: Документ Палаты общин без номера
       attachment_data:
-        file:
+        file: Файл
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Номер прикрепляемого командного документа
+        hoc_paper_number: Номер документа Палаты общин
+        isbn: Приложение ISBN
+        title: Название приложения
+        unique_reference: Уникальная ссылка приложения
+        unnumbered_hoc_paper: Документ Палаты общин без номера
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Прикрепленный файл
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Исключенные страны
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Прикрепленный файл
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Номер прикрепляемого командного документа
+        hoc_paper_number: Номер документа Палаты общин
+        isbn: Приложение ISBN
+        title: Название приложения
+        unique_reference: Уникальная ссылка приложения
+        unnumbered_hoc_paper: Документ Палаты общин без номера
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Прикрепленный файл
     nested_attachment_data_field_names:
-      file:
+      file: Прикрепленный файл
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Номер прикрепляемого командного документа
+      hoc_paper_number: Номер документа Палаты общин
+      isbn: Приложение ISBN
+      title: Название приложения
+      unique_reference: Уникальная ссылка приложения
+      unnumbered_hoc_paper: Документ Палаты общин без номера
   announcements:
     heading: Объявления
   attachment:
     accessibility:
-      full_help_html: Получить данный документ в ином формате (шрифт Брайля, аудиоформат)
+      full_help_html: "Если вы используете вспомогательные технологии (например, программу
+        чтения с экрана), \nи вам нужна версия этого документа в более доступном формате,
+        отправьте \nписьмо по адресу электронной почты %{email}.\nВ нем укажите, какой
+        формат вам нужен. Хорошо было бы, если бы вы также указали, какие вспомогательные
+        технологии вы используете.\n"
       intro: Данный документ может быть не доступен лицам, использующим вспомогательные
-        технологии
-      request_a_different_format: Получить в другом формате
+        технологии.
+      request_a_different_format: Запросить в доступном формате.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Для этого файла недоступен предварительный просмотр.
+      download: Загрузите файл, чтобы посмотреть все его содержимое.
+      truncated_message: "Данный предварительный просмотр показывает только первые
+        %{rows} ряды и \n%{columns} столбцы."
     headings:
       order_a_copy: Заказать копию
       order_a_copy_full: Заказать копию публикации
       published: Опубликовано
       reference: Ссылка
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: Командный документ без номера
+      unnumbered_hoc_paper: Актовый документ без номера
     opendocument:
-      help_html:
+      help_html: Этот файл находится в формате <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
-      intro:
-      message:
+      intro: Данное приложение проверяется на наличие вирусов.
+      message: В настоящий момент это приложение находится в карантине до тех пор,
+        пока оно не будет проверено на наличие вирусов. Вскоре оно будет доступно
+        в исходном местоположении.
   broken_links:
     broken:
-      subheading:
+      subheading: Мы обнаружили в данном документе ссылки, которые могут быть недействительными
     caution:
-      subheading:
-    title:
+      subheading: Мы обнаружили неполадки, связанные со ссылками, которые могут указывать
+        на наличие проблем. Будьте осторожны при подключении к ним
+    title: Недействительные ссылки
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Первая публикация
+    see_all_updates: просмотреть все обновления
+    updated_at: Последнее обновление
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Закрыто
+    closing_today: День закрытия
+    closing_tomorrow: Закрывается завтра
+    days_left: "%{days_left} дней осталось"
   contact:
-    access_and_opening_times:
-    contact_form: Контактная форма
+    access_and_opening_times: Время доступа и открытия
+    contact_form: Форма обратной связи
     email: Электронный адрес
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: публикация на уэльском языке
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
+        about: О нас
+        about_our_services: О наших услугах
+        access_and_opening: Доступ и время открытия офиса
+        accessible_documents_policy: Политика доступности документов
+        complaints_procedure: Процедура подачи жалоб
+        equality_and_diversity: Равенство и разнообразие
+        media_enquiries: Отделы по связам по СМИ
+        membership: Членство
+        modern_slavery_statement: Положение О современном рабстве
+        our_energy_use: Использование нами энергии
+        our_governance: Наше управление
         personal_information_charter: Раздел личной информации
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: Петиции и кампании
+        procurement: Закупка в %{organisation_name}
         publication_scheme: Схема публикации
-        recruitment:
-        research:
+        recruitment: Работа в %{organisation_name}
+        research: Исследования в %{organisation_name}
         social_media_use: Использование социальных сетей
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Выбор Уэльского языка
+        staff_update: Информация и новости для персонала
+        statistics: Статистика в %{organisation_name}
+        terms_of_reference: Акт о полномочиях
+        welsh_language_scheme: Схема уэльского языка
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
+      all: Все консультации
+      label: Консультации
+    description: Чтобы увидеть результаты, соответствующие Вашим требованиям, используйте
       фильтры
     no_results:
-      description: Расширьте параметры поиска и попытайтесь еще раз
-      title: Соответствующих документов не найдено
-      tna_heading:
-      tna_link:
+      description: Расширьте параметры поиска и попробуйте еще раз.
+      title: Соответствующих документов не найдено.
+      tna_heading: Старое содержимое
+      tna_link: Не все публикации отдела, выпущенные до мая 2010 г., были перенесены
+        на GOV.UK. Чтобы найти публикации, выпущенные до мая 2010 г., попробуйте выполнить
+        поиск в <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Национальном
+        архиве</a>.
     world_locations:
       all: Все места нахождения
-      label: Места нахождения
-      no_locations_filter:
+      label: Место нахождения в мире
+      no_locations_filter: Ни одно место нахождения в мире не соответствует этому
+        фильтру.
+  email_alert:
+    subscription: Подписка на оповещения по электронной почте
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Погибшие британцы
+    none_added: Уведомления о летальных исходах для этой области операций еще не добавлены.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: Реестр активности
+    email: электронный адрес
+    feed: лента
+    get_updates_to_this_list: Получайте обновления к этому списку
+    latest_activity: Последние действия
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
     ru: Русский
   latest_feed:
-    no_updates: Обновлений нет
+    no_updates: Обновлений нет.
     title: Последние новости
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   national_statistics:
-    heading:
+    heading: Национальная статистика
   number:
     human:
       storage_units:
@@ -588,131 +586,127 @@ ru:
   organisation:
     corporate_information:
       access_our_info: Доступ к нашей информации
-      jobs:
+      jobs: Рабочие места
       jobs_and_contacts: Рабочие места и контракты
-      organisation_chart:
+      organisation_chart: Хартия нашей организации
       transparency: Данные о прозрачности
     email:
-      alerts:
-      summary:
+      alerts: оповещения по электронной почте
+      summary: оповещения по электронной почте от
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Найти британское посольство, представительство высокого
+        комиссара или консульство
+      find_an_embassy_uppercase: Найти британское посольство, Представительство высокого
+        комиссара или Консульство
     headings:
       contact: Обратиться к %{name}
-      corporate_information:
-      corporate_reports:
+      corporate_information: Корпоративная информация
+      corporate_reports: Корпоративные отчеты
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Под управлением
+      agencies_and_public_bodies: агентств и государственных органов
+      part_of: Является частью
+      public_body: государственного органа
+      works_with: Работает с
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Судами и Трибуналами
   publications:
     heading: Публикации
-    recent:
+    recent: Недавние публикации
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Ознакомтесь со списком опубликованной и планируемой
+        к публикации государственной статистики в %{link} разделе статистики.
+      moved_notice: Статистические публикации были перемещены.
   roles:
-    unassigned:
+    unassigned: Никто не назначен на эту роль
   see_all:
-    announcement: Посмотреть все наши Объявления
-    authored_article: Посмотреть все наши Авторские статьи
-    case_study: Посмотреть все наши Ситуационные анализы
-    closed_consultation: Посмотреть все наши Закрытые консультации
-    consultation: Посмотреть все наши Консультации
-    consultation_outcome: Посмотреть все наши Результаты консультаций
-    corporate_report: Посмотреть все наши Корпоративные отчеты
-    correspondence: Посмотреть все наши Корреспонденция
-    decision:
-    detailed_guidance: Посмотреть все наши Подробное руководство
-    document_collection:
-    draft_text: Посмотреть все наши Проект текстов
-    fatality_notice: Посмотреть все наши Уведомления о несчастных случаях
-    foi_release: 'Посмотреть все наши Свобода распространения информации '
-    form: Посмотреть все наши Формы
-    government_response: Посмотреть все наши Ответы правительства
-    guidance: Посмотреть все наши Руководство
-    impact_assessment: Посмотреть все наши Оценки воздействия
-    imported: Посмотреть все наши импортировано - тип ожидания
-    international_treaty:
-    map: Посмотреть все наши Карты
-    national_statistics: Посмотреть все наши Статистика - национальная статистика
-    news_article: Посмотреть все наши Новостные статьи
-    news_story: Посмотреть все наши Новостные заметки
-    notice:
-    open_consultation: Посмотреть все наши Открытые консультации
-    oral_statement: Посмотреть все наши Устные заявления парламенту
-    policy: Посмотреть все наши Политика
-    policy_paper: Посмотреть все наши Директивные документы
-    press_release: Посмотреть все наши Пресс-релизы
-    promotional: Посмотреть все наши Рекламные материалы
-    publication: Посмотреть все наши Публикации
-    regulation:
-    research: Посмотреть все наши Исследования и аналитика
-    speaking_notes: Посмотреть все наши Тезисы выступления
-    speech: Посмотреть все наши Тексты выступлений
-    statement_to_parliament: Посмотреть все наши Заявления парламенту
-    statistical_data_set: Посмотреть все наши Статистические данные
-    statistics: Посмотреть все наши Статистика
-    statutory_guidance:
-    transcript: Посмотреть все наши Тексты
-    transparency: Посмотреть все наши Прозрачность данных
-    written_statement: Посмотреть все наши Письменные заявления парламенту
+    announcement: Посмотреть все наши объявления
+    authored_article: Посмотреть все наши авторские статьи
+    case_study: Посмотреть все наши ситуационные исследования
+    closed_consultation: Посмотреть все наши закрытые консультации
+    consultation: Посмотреть все наши консультации
+    consultation_outcome: Посмотреть все наши результаты консультаций
+    corporate_report: Посмотреть все наши корпоративные отчеты
+    correspondence: Посмотреть всю нашу корреспонденцию
+    decision: Посмотреть все наши решения
+    detailed_guidance: Посмотреть все наше руководство
+    document_collection: Посмотреть все наши коллекции
+    draft_text: Посмотреть все наши проекты текстов
+    fatality_notice: Посмотреть все наши уведомления о летальных исходах
+    foi_release: Посмотреть все наши публикации о свободном распространении информации
+    form: Посмотреть все наши формы
+    government_response: Посмотреть все наши ответы правительства
+    guidance: Посмотреть все наше руководство
+    impact_assessment: Посмотреть все наши оценки воздействия
+    imported: Посмотреть все наши независимые отчеты
+    international_treaty: Посмотреть все наши международные соглашения
+    map: Посмотреть все наши карты
+    national_statistics: Посмотреть всю нашу Национальную статистику
+    news_article: Посмотреть все наши новостные статьи
+    news_story: Посмотреть все наши новостные сюжеты
+    notice: Посмотреть все наши уведомления
+    open_consultation: Посмотреть все наши открытые консультации
+    oral_statement: Посмотреть все наши устные заявления Парламенту
+    policy: Посмотреть все наши политики
+    policy_paper: Посмотреть все наши директивные документы
+    press_release: Посмотреть все наши пресс-релизы
+    promotional: Посмотреть все наши рекламные материалы
+    publication: Посмотреть все наши публикации
+    regulation: Посмотреть все наши положения
+    research: Посмотреть все наши исследования и аналитику
+    speaking_notes: Посмотреть все наши тезисы выступления
+    speech: Посмотреть все наши тексты выступлений
+    statement_to_parliament: Посмотреть все наши заявления Парламенту
+    statistical_data_set: Посмотреть все наши наборы статистических данных
+    statistics: Посмотреть всю нашу статистику
+    statutory_guidance: Посмотреть все наши официальные рекомендации
+    transcript: Посмотреть все наши тексты
+    transparency: Посмотреть все наши данные о прозрачности
+    written_statement: Посмотреть все наши письменные заявления Парламенту
   support:
     array:
-      last_word_connector: и
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " и "
+    download: Загрузить
+    field_of_operation: 'Поле деятельности:'
+    fields_of_operation: Поле деятельности
+    filter: Фильтр
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Следующая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page}
+        из %{total_pages}</span>
+      next_page: Следующая страница
+      previous_html: Предыдущая <span class="visuallyhidden">страница</span> <span
+        class="page-numbers">%{current_page} из %{total_pages}</span>
+      previous_page: Предыдущая страница
+    part_of_collection: 'Является частью коллекции:'
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Последние действия на %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Художественный совет Англии
+      bbc: Британская вещательная корпорация
+      british_library: Британская библиотека
+      commonwealth_war_graves_commission: Комиссия по воинским захоронениям Содружества
+      heritage_lottery_fund: Лотерейный фонд наследия
+      historic_england: Комиссия по историческим зданиям и памятникам Англии
+      iwm: Имперский военный музей
+      war_memorials_trust: Трест военных мемориалов
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Обновления, новости и события правительства Великобритании
+      в %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся
-        с вашей личной информацией
-      publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по
-        указанной %{link}.
+      about_our_services_html: Узнайте %{link}.
+      personal_information_charter_html: По %{link} вы можете ознакомиться с пояснением
+        о том, как мы обращаемся с вашей личной информацией.
+      publication_scheme_html: Ознакомьтесь с типами информации, которую мы обычно
+        публикуем, по указанной %{link}.
       social_media_use_html: Ознакомиться с нашей политикой по %{link}.
-      welsh_language_scheme_html: Выяснить о наших обязательствах по публикации можно
-        по %{link}.
+      welsh_language_scheme_html: Ознакомиться с нашими обязательствами можно по %{link}.
     find_out_more: Общая информация и контакты
     headings:
-      contact_us: Связь с нами
+      contact_us: Обратная связь
       corporate_information: Корпоративная информация
       follow_us: Следите за нами
       our_people: Наши сотрудники

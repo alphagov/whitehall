@@ -2,563 +2,554 @@ si:
   document:
     type:
       about:
-        one:
-        other:
+        one: ගැන
+        other: ගැන
       about_our_services:
-        one:
-        other:
+        one: අපගේ සේවාවන් ගැන
+        other: අපගේ සේවාවන් ගැන
       access_and_opening:
-        one:
-        other:
+        one: පිවිසුම සහ විවෘත කිරීම
+        other: පිවිසුම සහ විවෘත කිරීම
       accessible_documents_policy:
-        one:
-        other:
+        one: පිවිසිය හැකි ලේඛන ප්රතිපත්තිය
+        other: පිවිසිය හැකි ලේඛන ප්රතිපත්ති
       alert:
-        one:
-        other:
+        one: ඇඟවීම
+        other: ඇඟවීම්
       announcement:
         one: නිවේදනය
         other: නිවේදන
       authored_article:
-        one: රචිත ලිපිය  
-        other: රචිත ලිපි
+        one: රචනා කළ ලිපිය
+        other: රචනා කළ ලිපි
       blog_post:
-        one:
-        other:
+        one: බ්ලොග් පළ කිරීම
+        other: බ්ලොග් පළ කිරීම්
       campaign:
-        one:
-        other:
+        one: ව්යාපාරය
+        other: ව්යාපාර
       careers:
-        one:
-        other:
+        one: වෘත්තීන්
+        other: වෘත්තීන්
       case_study:
-        one: සිද්ධි අධ්යනයනය
-        other: සිද්ධීන්  අධ්යයයනය
+        one: සිද්ධි අධ්යයනය
+        other: සිද්ධි අධ්යයන
       closed_consultation:
-        one: සංවෘත මත විමසුම
-        other: සංවෘත
+        one: සංවෘත උපදේශනය
+        other: සංවෘත උපදේශන
       complaints_procedure:
-        one:
-        other:
+        one: පැමිණිලි කිරීමේ ක්රියා පටිපාටිය
+        other: පැමිණිලි කිරීමේ ක්රියා පටිපාටි
       consultation:
-        one: " මත විමසුම"
-        other: මත විමසුම්
+        one: උපදේශනය
+        other: උපදේශන
       consultation_outcome:
-        one: මත විමසුමේ ප්‍රතිපල
-        other: මත විමසුමේ ප්‍රතිපලයන්
+        one: උපදේශන ප්රතිඵලය
+        other: උපදේශන ප්රතිඵල
       corporate_report:
-        one: සංවිධාන වාර්තාව
-        other: සංවිධාන වාර්තා
+        one: ආයතනික වාර්තාව
+        other: ආයතනික වාර්තා
       correspondence:
-        one: ලිපි ගනුදෙනුව  
-        other: ලිපි ගනුදෙනු
+        one: ලිපි හුවමාරුව
+        other: ලිපි හුවමාරු
       decision:
-        one:
-        other:
+        one: තීරණය
+        other: තීරණ
       detailed_guidance:
-        one: විස්තරාත්මක උපදෙස්
-        other: විස්තරාත්මක උපදෙස්
+        one: මාර්ගෝපදේශය
+        other: මාර්ගෝපදේශය
       document_collection:
-        one: කාණ්ඩය
-        other:
+        one: එකතුව
+        other: එකතු
       draft_text:
-        one: අශෝදිත වැකිය
-        other: අශෝදිත වැකි
+        one: කෙටුම්පත් පෙළ
+        other: කෙටුම්පත් පෙළ
       edition:
-        one:
-        other:
+        one: සංස්කරණය
+        other: සංස්කරණ
       edition_with_appointment:
-        one:
-        other:
+        one: පත්වීම සමඟ සංස්කරණය
+        other: පත්වීම සමඟ සංස්කරණ
       equality_and_diversity:
-        one:
-        other:
+        one: සමානාත්මතාවය සහ විවිධත්වය
+        other: සමානාත්මතාවය සහ විවිධත්වය
       fatality_notice:
-        one:
-        other:
+        one: මරණ දැන්වීම
+        other: මරණ දැන්වීම්
       foi_release:
-        one: එෆ්. ඉ. ඕ. දැන්වීම
-        other: එෆ්. ඉ. ඕ. දැන්වීම්
+        one: FOI නිකුත් කිරීම
+        other: FOI නිකුත් කිරීම්
       form:
-        one: පෝරමය
-        other: පෝරම
+        one: ආකෘති පත්‍රය
+        other: ආකෘති පත්‍ර
       generic_edition:
-        one:
-        other:
+        one: සාමාන්ය සංස්කරණය
+        other: සාමාන්ය සංස්කරණ
       government_response:
-        one: ආණ්ඩුවේ ප්‍රතිචාරය
-        other: ආණ්ඩුවේ ප්‍රතිචාර
+        one: රජයේ ප්රතිචාරය
+        other: රජයේ ප්රතිචාර
       guidance:
-        one: උපදෙස්
-        other: උපදෙස්
+        one: මාර්ගෝපදේශය
+        other: මාර්ගෝපදේශය
       impact_assessment:
-        one: ප්‍රතිපල ඇගයීම
-        other: ප්‍රතිපල ඇගයීම්
+        one: බලපෑම තක්සේරුව
+        other: බලපෑම තක්සේරු
       imported:
-        one: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
-        other: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
+        one: ආනයනය කරන ලද - අපේක්ෂිත වර්ගය
+        other: ආනයනය කරන ලද - අපේක්ෂිත වර්ගය
       independent_report:
         one: ස්වාධීන වාර්තාව
         other: ස්වාධීන වාර්තා
       international_treaty:
-        one:
-        other:
+        one: ජාත්යන්තර ගිවිසුම
+        other: ජාත්යන්තර ගිවිසුම්
       manual:
-        one:
-        other:
+        one: අත්පොත
+        other: අත්පොති
       map:
         one: සිතියම
         other: සිතියම්
       media_enquiries:
-        one:
-        other:
+        one: මාධ්ය විමසුම
+        other: මාධ්ය විමසුම්
       membership:
-        one:
-        other:
+        one: සාමාජිකත්වය
+        other: සාමාජිකත්වය
       national_statistics:
-        one: සංඛ්යාන - ජාතික සංඛ්යාන
-        other: සංඛ්යාන - ජාතික සංඛ්යාන
+        one: ජාතික සංඛ්යාලේඛන
+        other: ජාතික සංඛ්යාලේඛන
       news_article:
         one: පුවත් ලිපිය
         other: පුවත් ලිපි
       news_story:
-        one: පුවත් වාර්තාව
-        other: පුවත් වාර්තා
+        one: පුවත් කතාව
+        other: පුවත් කතා
       nhs_content:
-        one:
-        other:
+        one: NHS අන්තර්ගතය
+        other: NHS අන්තර්ගතය
       notice:
-        one:
-        other:
+        one: දැන්වීම
+        other: දැන්වීම්
       official_statistics:
-        one: සංඛ්යාන
-        other: සංඛ්යාන
+        one: නිල සංඛ්යාලේඛන
+        other: නිල සංඛ්යාලේඛන
       open_consultation:
-        one: විවෘත මත විමසුම
-        other: විවෘත මත විමසුම්
+        one: විවෘත උපදේශනය
+        other: විවෘත උපදේශන
       oral_statement:
-        one: " පාර්ලිමේන්තුවේ වාචික ප්රුකාශය"
-        other: පාර්ලිමේන්තුවේ වාචික ප්රේකාශ
+        one: පාර්ලිමේන්තුව වෙත වාචික ප්රකාශයක්
+        other: පාර්ලිමේන්තුව වෙත වාචික ප්රකාශ
       our_energy_use:
-        one:
-        other:
+        one: අපේ බලශක්ති භාවිතය
+        other: අපේ බලශක්ති භාවිතය
       our_governance:
-        one:
-        other:
+        one: අපේ පාලනය
+        other: අපේ පාලනය
       personal_information_charter:
-        one:
-        other:
+        one: පෞද්ගලික තොරතුරු ප්රඥප්තිය
+        other: පෞද්ගලික තොරතුරු ප්‍රරඥප්ති
       petitions_and_campaigns:
-        one:
-        other:
+        one: පෙත්සම් සහ ව්යාපාර
+        other: පෙත්සම් සහ ව්යාපාර
       policy_paper:
-        one: ප්‍රතිපත්ති  ලිපිය
-        other: ප්‍රතිපත්ති  ලිපි
+        one: ප්රතිපත්ති පත්‍රිකාව
+        other: ප්රතිපත්ති පත්‍රිකා
       press_release:
-        one: මාධ්යි නිවේදනය
-        other: මාධ්යි නිවේදන
+        one: මාධ්ය නිවේදනය
+        other: මාධ්ය නිවේදන
       procurement:
-        one:
-        other:
+        one: ප්රසම්පාදනය
+        other: ප්රසම්පාදනය
       promotional:
-        one: ප්ර්චාරණ ද්රිච්ය
-        other: ප්ර්චාරණ ද්රිච්ය
+        one: ප්රවර්ධන ද්රව්ය
+        other: ප්රවර්ධන ද්රව්ය
       publication:
-        one: ප්ර්කාශනය
-        other: ප්ර්කාශන
+        one: ප්රකාශනය
+        other: ප්රකාශන
       publication_scheme:
-        one:
-        other:
+        one: ප්රකාශන යෝජනා ක්රමය
+        other: ප්රකාශන යෝජනා ක්රම
       recruitment:
-        one:
-        other:
+        one: බඳවාගැනීම
+        other: බඳවාගැනීම
       regulation:
-        one:
-        other:
+        one: නියාමනය
+        other: නියාමන
       research:
-        one: පර්යේෂණ සහ විශ්ලේෂණ
-        other: පර්යේෂණ සහ විශ්ලේෂණ
+        one: පර්යේෂණය
+        other: පර්යේෂණය
       service:
-        one:
-        other:
+        one: සේවාව
+        other: සේවා
       social_media_use:
-        one:
-        other:
+        one: සමාජ මාධ්ය භාවිතය
+        other: සමාජ මාධ්ය භාවිතය
       speaking_notes:
-        one: දේශනයට අදාළ සටහන්
-        other: දේශනයට අදාළ සටහන්
+        one: කතා සටහන්
+        other: කතා සටහන්
       speech:
         one: කථාව
         other: කථා
       staff_update:
-        one:
-        other:
+        one: කාර්ය මණ්ඩල යාවත්කාලීනය
+        other: කාර්ය මණ්ඩල යාවත්කාලීන
       standard:
-        one:
-        other:
+        one: ප්‍රමිතිය
+        other: ප්‍රමිති
       statement_to_parliament:
-        one: පාර්ලිමේන්තුවට කල ප්‍රකාශය
-        other: පාර්ලිමේන්තුවට කල ප්‍රකාශ
+        one: පාර්ලිමේන්තුව වෙත ප්රකාශය
+        other: පාර්ලිමේන්තුව වෙත ප්රකාශ
       statistical_data_set:
-        one: සංඛ්යාන දත්ත සමූහය  
-        other: සංඛ්යාන දත්ත සමූහ
+        one: සංඛ්යාලේඛන දත්ත කට්ටලය
+        other: සංඛ්යාලේඛන දත්ත කට්ටල
       statistics:
-        one:
-        other:
+        one: සංඛ්‍යාලේඛන
+        other: සංඛ්‍යාලේඛන
       statutory_guidance:
-        one:
-        other:
+        one: ව්යවස්ථාපිත මඟ පෙන්වීම
+        other: ව්යවස්ථාපිත මඟ පෙන්වීම
       terms_of_reference:
-        one:
-        other:
+        one: යොමු නියමයන්
+        other: යොමු නියමයන්
       transcript:
-        one: අනුපත
-        other: " අනුපත්"
+        one: ප්‍රතිලේඛනය
+        other: ප්‍රතිලේඛන
       transparency:
-        one: විනිවිධභාවයේ දත්ත
-        other: විනිවිධභාවයේ දත්ත
+        one: විනිවිදභාව දත්ත
+        other: විනිවිදභාව දත්ත
       welsh_language_scheme:
-        one:
-        other:
+        one: වෙල්ෂ් භාෂා යෝජනා ක්රමය
+        other: වෙල්ෂ් භාෂා යෝජනා ක්රම
       world_news_story:
-        one:
-        other:
+        one: ලෝක ව්‍යාප්ත පුවත් කතාව
+        other: ලෝක ව්‍යාප්ත පුවත් කතා
       written_statement:
-        one: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශය
-        other: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ
-    contents:
+        one: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශය
+        other: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශ
+    contents: අන්තර්ගත
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: සම්පූර්ණ පිටු ඉතිහාසය
+      published: පළ කළේ
+      updated: යාවත්කාලීන කෙරිණි
     headings:
-      applies_to_nations: අදාළ වන්නේ
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: පල කරන ලදී
-    see_all:
+      applies_to_nations: අදාළ වේ
+      from: සිට
+      part_of: කොටසක්
+    latest: නවතම ලේඛන
+    latest_from: "%{subject} වෙතින් නවතම"
+    published: පළ කළේ
+    see_all: සියල්ල බලන්න
     speech:
       author_title:
-        minister: අමාත්‍යවරයා
-        speaker: රචකයා
-      delivered_on: බෙදාහරින ලද දිනය
+        minister: අමාත්ය
+        speaker: ලේඛකයා
+      delivered_on: 'බෙදාහරින ලද දිනය:'
       delivery_title:
-        minister: අමාත්‍යවරයා
-        speaker: කතානායකවරයා
+        minister: අමාත්ය
+        speaker: කථානායක
       written_on: 'ලියන ලද දිනය:'
-    updated: යාවත්කාලීන කල
+    updated: යාවත්කාලීන කෙරිණි
   world_location:
     type:
       international_delegation:
-        one: ජාත්‍යන්තර කණ්ඩායම
-        other: ජාත්‍යන්තර කණ්ඩායම්
+        one: ජාත්යන්තර නියෝජිත පිරිස
+        other: ජාත්යන්තර නියෝජිත පිරිස්
       world_location:
         one: ලෝක ස්ථානය
         other: ලෝක ස්ථාන
     headings:
       announcements: අපේ නිවේදන
       documents: ලේඛන
-      featured:
-      mission: අපේ මෙහෙවර ප්‍රකාශය
-      news:
+      mission: අපේ මෙහෙවර
+      news: ලෝක ස්ථානීය පුවෘත්ති
       organisations: සංවිධාන
-      publications: අපේ ප්‍රකාශන
-      search:
-      statistics: අපේ සංඛ්‍යා දත්ත
+      publications: අපේ ප්රකාශන
+      search: රට හෝ භූමිය අනුව සොයන්න
+      statistics: අපේ සංඛ්යාලේඛන
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+        isbn: ISBN
+        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
       attachment_data:
-        file:
+        file: ගොනුව
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
+        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+        isbn: ඇමුණුම් ISBN
+        title: ඇමුණුමේ මාතෘකාව
+        unique_reference: ඇමුණුමේ අද්විතීය යොමුව
+        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: අමුණා ඇති ගොනුව
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: බැහැර කළ දේශයන්
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: අමුණා ඇති ගොනුව
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
+        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+        isbn: ඇමුණුම් ISBN
+        title: ඇමුණුමේ මාතෘකාව
+        unique_reference: ඇමුණුමේ අද්විතීය යොමුව
+        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: අමුණා ඇති ගොනුව
     nested_attachment_data_field_names:
-      file:
+      file: අමුණා ඇති ගොනුව
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
+      hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+      isbn: ඇමුණුම් ISBN
+      title: ඇමුණුමේ මාතෘකාව
+      unique_reference: ඇමුණුමේ අද්විතීය යොමුව
+      unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
   announcements:
     heading: නිවේදන
   attachment:
     accessibility:
-      full_help_html: මෙම ලේඛනය බ්‍රේල්, ශබ්ද හෝ වෙනත් ආකාරයකින් ලබාගැනීමට  කරුණාකර
-        විද්‍යුත් තැපැල් මගින් විමසන්න %{email} ඔබගේ ලිපිනය, දුරකථන අංකය සහ අවශ්‍ය
-        ලේඛනයේ නම සමග  ("%{title}")%{references}.
-      intro: විශේෂ තාක්ෂණික සහය භාවිතා කරන්නන්ට මෙම ලේඛනය සුදුසු නොවිය හැක
-      request_a_different_format: වෙනත් වර්ගයකින් ඉල්ලීමට
+      full_help_html: |
+        ඔබ ආධාරක තාක්ෂණය (තිර කියවන්නා වැනි) භාවිතා කරන්නේ නම් සහ මෙම ලේඛනයේ වඩාත් පිවිසිය හැකි ආකෘතියක අනුවාදයක් අවශ්‍ය නම්, කරුණාකර %{email} වෙත විද්‍යුත් තැපෑලක් යවන්න.
+        කරුණාකර ඔබට අවශ්ය ආකෘතිය කුමක්දැයි අපට කියන්න. ඔබ භාවිතා කරන ආධාරක තාක්ෂණය කුමක්දැයි ඔබ පැවසුවහොත් එය අපට උපකාරී වනු ඇත.
+      intro: මෙම ගොනුව ආධාරක තාක්ෂණය භාවිතා කරන්නන් සඳහා සුදුසු නොවිය හැක.
+      request_a_different_format: පිවිසිය හැකි ආකෘතියක් ඉල්ලන්න.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: මෙම ගොනුව පෙරදසුන් කළ නොහැක.
+      download: ගොනුවේ සම්පූර්ණ අන්තර්ගතය බැලීමට එය බාගනන.
+      truncated_message: මෙම පෙරදසුන පෙන්වන්නේ පළමු පේළී %{rows} ක් සහ තීරු %{columns}
+        ක් පමණි.
     headings:
-      order_a_copy: පිටපතක් ඇනවුම් කිරීමට
-      order_a_copy_full: ප්‍රකාශනයේ පිටපතක් ඇනවුම් කිරීමට
-      published: පල කරනලද
-      reference: අංකය
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: පිටපතක් ඇණවුම් කරන්න
+      order_a_copy_full: ප්රකාශනයේ පිටපතක් ඇණවුම් කරන්න
+      published: පළ කළේ
+      reference: යොමුව
+      unnumbered_command_paper: අංකනය නොකළ විධාන පත්‍රිකාව
+      unnumbered_hoc_paper: අංකනය නොකළ නීති පත්‍රිකාව
     opendocument:
-      help_html:
+      help_html: මෙම ගොනුව <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">විවෘතලේඛන</a>
+        ආකෘතියේ ඇත
     virus_check:
-      intro:
-      message:
+      intro: මෙම ඇමුණුම වෛරස් සඳහා පරීක්ෂා කෙරෙමින් පවතී.
+      message: වෛරසය පරීක්ෂා කරන තෙක් අපි දැනට මෙම ඇමුණුම නිරෝධායනයේ තබා ගනිමු. ඇමුණුම
+        කෙටි වේලාවකින් මුල් ස්ථානයේ ලබා ගත හැකිය.
   broken_links:
     broken:
-      subheading:
+      subheading: අපි මෙම ලේඛනයේ බිඳිය හැකි සබැඳි අපි සොයාගෙන ඇත්තෙමු
     caution:
-      subheading:
-    title:
+      subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට
+        සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
+    title: කැඩුණු සබැඳි
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: පළමු ප්රකාශයට පත් කළ
+    see_all_updates: සියලුම යාවත්කාලීනයන් බලන්න
+    updated_at: අවසන් වරට යාවත්කාලීන කළේ
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: වසා ඇත
+    closing_today: අද දින වසා දැමේ
+    closing_tomorrow: හෙට වසා දැමේ
+    days_left: දවස් {days_left} ක් ඉතිරිව ඇත
   contact:
-    access_and_opening_times:
-    contact_form: තොරතුරු පෝරමය
-    email: විද්‍යුත් තැපැල්
+    access_and_opening_times: පිවිසුම සහ විවෘත කරන වේලාවන්
+    contact_form: සබඳතා ආකෘතිය
+    email: විද්‍යුත් තැපෑල
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: වෙල්ෂ් ප්රකාශන
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: පුද්ගලික තොරතුරු ප්‍රඥප්තිය
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: මහජය පටිපාටිය
-        recruitment:
-        research:
-        social_media_use: සමාජ මාධ්‍ය භාවිතය
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: වේල්සයේ භාෂා පටිපාටිය
+        about: අප ගැන
+        about_our_services: අපගේ සේවාවන් ගැන
+        access_and_opening: කාර්යාල පිවිසුම සහ විවෘත කරන වේලාවන්
+        accessible_documents_policy: පිවිසිය හැකි ලේඛන ප්රතිපත්තිය
+        complaints_procedure: පැමිණිලි කිරීමේ ක්රියා පටිපාටිය
+        equality_and_diversity: සමානාත්මතාවය සහ විවිධත්වය
+        media_enquiries: මාධ්ය විමසුම්
+        membership: සාමාජිකත්වය
+        modern_slavery_statement: නූතන වහල් ප්රකාශය
+        our_energy_use: අපේ බලශක්ති භාවිතය
+        our_governance: අපේ පාලනය
+        personal_information_charter: පෞද්ගලික තොරතුරු ප්රඥප්තිය
+        petitions_and_campaigns: පෙත්සම් සහ ව්යාපාර
+        procurement: "%{organisation_name} හි ප්රසම්පාදනය"
+        publication_scheme: ප්රකාශන යෝජනා ක්රමය
+        recruitment: "%{organisation_name} සඳහා වැඩ කරමින්"
+        research: "%{organisation_name} හි පර්යේෂණය"
+        social_media_use: සමාජ මාධ්ය භාවිතය
+        staff_update: කාර්ය මණ්ඩල ප්රවෘත්ති සහ තොරතුරු
+        statistics: "%{organisation_name} හි සංඛ්‍යාලේඛන"
+        terms_of_reference: යොමු නියමයන්
+        welsh_language_scheme: වෙල්ෂ් භාෂා යෝජනා ක්රමය
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න
+      all: සියලු උපදේශන
+      label: උපදේශන
+    description: ඔබේ රුචිකත්වයට ගැලපෙන ප්රතිඵල පමණක් පෙන්වීමට ඔබට පෙරහන් භාවිතා කළ
+      හැකිය
     no_results:
-      description: ඔබගේ සෙවුම පුළුල් කර නැවත සොයන්න
-      title: ගැලපෙන ලේඛන කිසිවක් නැත
-      tna_heading:
-      tna_link:
+      description: ඔබගේ සෙවීම පුළුල් කිරීමට උත්සාහ කර නැවත උත්සාහ කරන්න.
+      title: ගැලපෙන ලේඛන නොමැත.
+      tna_heading: පැරණි අන්තර්ගතය
+      tna_link: 2010 මැයි මාසයට පෙර සිට සියලුම දෙපාර්තමේන්තු ප්රකාශන GOV.UK සංක්රමණය
+        කර නොමැත. 2010 මැයි මසට කළින් වූ ප්‍රකාශන සොයා ගැනීමට <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">ජාතික ලේඛනාගාරය</a> තුළ සෙවීමට උත්සාහ කරන්න.
     world_locations:
-      all: සියලු ස්ථාන
+      all: සියලුම ස්ථාන
       label: ලෝක ස්ථාන
-      no_locations_filter:
+      no_locations_filter: කිසිදු ලෝක ස්ථානයක් එම පෙරණයට නොගැලපේ.
+  email_alert:
+    subscription: විද්‍යුත් තැපෑල් ඇඟවීමේ දායකත්වය
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: බ්රිතාන්ය මරණ
+    none_added: මෙම මෙහෙයුම් ක්ෂේත්රයට තවමත් මරණ දැන්වීම් එකතු කර නොමැත.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: අලුත්ම ක්‍රියාකාරකම්
+    email: විද්‍යුත් තැපෑල
+    feed: පෝෂණය
+    get_updates_to_this_list: මෙම ලැයිස්තුවට යාවත්කාලීන ලබා ගන්න
+    latest_activity: නවතම ක්රියාකාරකම
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
     si: සිංහල
   latest_feed:
-    no_updates: අලුත් තොරතුරු නැත
-    title: අලුත්
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: තවම යාවත්කාලීන කිසිවක් නොමැත.
+    title: නවතම
   national_statistics:
-    heading:
+    heading: ජාතික සංඛ්යාලේඛන
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: අපේ තොරතුරු වලට පිවිසෙන්න
-      jobs:
-      jobs_and_contacts: රැකියා සහ කොන්තරාත්තු
-      organisation_chart:
-      transparency: විනිවිධභාවයේ දත්ත
+      access_our_info: අපේ තොරතුරු වෙත පිවිසෙන්න
+      jobs: රැකියා
+      jobs_and_contacts: රැකියා සහ කොන්ත්රාත්තු
+      organisation_chart: අපේ සංවිධාන සටහන
+      transparency: විනිවිදභාව දත්ත
     email:
-      alerts:
-      summary:
+      alerts: විද්‍යුත් තැපෑල් ඇඟවීම්
+      summary: වෙතින් විද්යුත් තැපැල් ඇඟවීම්
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක්
+        හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
+      find_an_embassy_uppercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක්
+        හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
     headings:
-      contact: විස්තර %{name}
-      corporate_information:
-      corporate_reports:
+      contact: "%{name} සම්බන්ධ කරගන්න"
+      corporate_information: ආයතනික තොරතුරු
+      corporate_reports: ආයතනික වාර්තා
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: විසින් පරිපාලනය කරනු ලබන්නේ
+      agencies_and_public_bodies: නියෝජිතායතන සහ පොදු ආයතන
+      part_of: කොටසක්
+      public_body: පොදු ආයතන
+      works_with: සමඟ වැඩ කරයි
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: අධිකරණ හා විනිශ්චය මණ්ඩල
   publications:
-    heading: ප්‍රකාශන
-    recent:
+    heading: ප්රකාශන
+    recent: මෑත කාලීන ප්රකාශන
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} සංඛ්යාලේඛන කොටසේ ඇති ප්රකාශිත සහ ඉදිරියට
+        එ රජයේ සංඛ්යාලේඛන ලැයිස්තුවක් සොයා ගන්න."
+      moved_notice: සංඛ්යාලේඛන ප්රකාශන විතැන් කර ඇත.
   roles:
-    unassigned:
+    unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
   see_all:
-    announcement: අපගේ සියලු නිවේදන බලන්න
-    authored_article: අපගේ සියලු රචිත ලිපි බලන්න
-    case_study: අපගේ සියලු සිද්ධීන්  අධ්යයයනය බලන්න
-    closed_consultation: අපගේ සියලු සංවෘත බලන්න
-    consultation: අපගේ සියලු මත විමසුම් බලන්න
-    consultation_outcome: අපගේ සියලු මත විමසුමේ ප්‍රතිපලයන් බලන්න
-    corporate_report: අපගේ සියලු සංවිධාන වාර්තා බලන්න
-    correspondence: අපගේ සියලු ලිපි ගනුදෙනු බලන්න
-    decision:
-    detailed_guidance: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
-    document_collection:
-    draft_text: අපගේ සියලු අශෝදිත වැකි බලන්න
-    fatality_notice: අපගේ සියලු තීරණාත්මක  දැන්වීම් බලන්න
-    foi_release: අපගේ සියලු එෆ්. ඉ. ඕ. දැන්වීම් බලන්න
-    form: අපගේ සියලු පෝරම බලන්න
-    government_response: අපගේ සියලු ආණ්ඩුවේ ප්‍රතිචාර බලන්න
-    guidance: අපගේ සියලු උපදෙස් බලන්න
-    impact_assessment: අපගේ සියලු ප්‍රතිපල ඇගයීම් බලන්න
-    imported: අපගේ සියලු ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න බලන්න
-    international_treaty:
-    map: අපගේ සියලු සිතියම් බලන්න
-    national_statistics: අපගේ සියලු සංඛ්යාන - ජාතික සංඛ්යාන බලන්න
-    news_article: අපගේ සියලු පුවත් ලිපි බලන්න
-    news_story: අපගේ සියලු පුවත් වාර්තා බලන්න
-    notice:
-    open_consultation: අපගේ සියලු විවෘත මත විමසුම් බලන්න
-    oral_statement: අපගේ සියලු පාර්ලිමේන්තුවේ වාචික ප්රේකාශ බලන්න
-    policy: අපගේ සියලු ප්‍රතිපත්තීන් බලන්න
-    policy_paper: අපගේ සියලු ප්‍රතිපත්ති  ලිපි බලන්න
-    press_release: අපගේ සියලු මාධ්යි නිවේදන බලන්න
-    promotional: අපගේ සියලු ප්ර්චාරණ ද්රිච්ය බලන්න
-    publication: අපගේ සියලු ප්ර්කාශන බලන්න
-    regulation:
-    research: අපගේ සියලු පර්යේෂණ සහ විශ්ලේෂණ බලන්න
-    speaking_notes: අපගේ සියලු දේශනයට අදාළ සටහන් බලන්න
-    speech: අපගේ සියලු කථා බලන්න
-    statement_to_parliament: අපගේ සියලු පාර්ලිමේන්තුවට කල ප්‍රකාශ බලන්න
-    statistical_data_set: අපගේ සියලු සංඛ්යාන දත්ත සමූහ බලන්න
-    statistics: අපගේ සියලු සංඛ්යාන බලන්න
-    statutory_guidance:
-    transcript: අපගේ සියලු  අනුපත් බලන්න
-    transparency: අපගේ සියලු විනිවිධභාවයේ දත්ත බලන්න
-    written_statement: අපගේ සියලු පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ බලන්න
+    announcement: අපේ සියලු නිවේදන බලන්න
+    authored_article: අපේ සියලුම රචනා කළ ලිපි බලන්න
+    case_study: අපේ සියලු සිද්ධි අධ්යයන බලන්න
+    closed_consultation: අපේ සියලු සංවෘත උපදේශන බලන්න
+    consultation: අපේ සියලු උපදේශන බලන්න
+    consultation_outcome: අපේ සියලු උපදේශන ප්‍රතිඵල බලන්න
+    corporate_report: අපේ සියලුම ආයතනික වාර්තා බලන්න
+    correspondence: අපේ සියලු ලිපි හුවමාරු බලන්න
+    decision: අපේ සියලු තීරණ බලන්න
+    detailed_guidance: අපේ සියලු මඟපෙන්වීම් බලන්න
+    document_collection: අපේ සියලු එකතු බලන්න
+    draft_text: අපේ සියලු කෙටුම්පත් පෙළ බලන්න
+    fatality_notice: අපේ සියලු මරණ දැන්වීම් බලන්න
+    foi_release: අපේ සියලුම FOI නිකුත් කිරීම් බලන්න
+    form: අපේ සියලු ආකෘති පත්‍ර බලන්න
+    government_response: අපේ රජයේ සියලු ප්රතිචාර බලන්න
+    guidance: අපේ සියලු මඟපෙන්වීම් බලන්න
+    impact_assessment: අපේ සියලු බලපෑම් ඇගයීම බලන්න
+    imported: අපේ සියලු ස්වාධීන වාර්තා බලන්න
+    international_treaty: අපේ සියලු ජාත්යන්තර ගිවිසුම් බලන්න
+    map: අපේ සියලු සිතියම් බලන්න
+    national_statistics: අපේ සියලු ජාතික සංඛ්යා ලේඛන බලන්න
+    news_article: අපේ සියලු පුවත් ලිපි බලන්න
+    news_story: අපේ සියලු පුවත් කථා බලන්න
+    notice: අපේ සියලු දැන්වීම් බලන්න
+    open_consultation: අපේ සියලු විවෘත උපදේශන බලන්න
+    oral_statement: අපේ පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
+    policy: අපේ සියලු ප්රතිපත්ති බලන්න
+    policy_paper: අපේ සියලු ප්රතිපත්ති පත්රිකා බලන්න
+    press_release: අපේ සියලු මාධ්‍ය නිවේදන බලන්න
+    promotional: අපේ සියලු ප්රවර්ධන ද්රව්ය බලන්න
+    publication: අපේ සියලු ප්රකාශන බලන්න
+    regulation: අපේ සියලු රෙගුලාසි බලන්න
+    research: අපේ සියලු පර්යේෂණ හා විශ්ලේෂණ බලන්න
+    speaking_notes: අපේ සියලු කතා සටහන් බලන්න
+    speech: අපේ සියලු කතා බලන්න
+    statement_to_parliament: පාර්ලිමේන්තුවට කළ ප්‍රකාශන සියල්ල බලන්න
+    statistical_data_set: අපේ සියලු සංඛ්යාලේඛන දත්ත කට්ටල බලන්න
+    statistics: අපේ සියලු සංඛ්යා ලේඛන බලන්න
+    statutory_guidance: අපේ සියලු ව්යවස්ථාපිත මාර්ගෝපදේශ බලන්න
+    transcript: අපේ සියලු අනුපත් බලන්න
+    transparency: අපේ සියලු විනිවිදභාව දත්ත බලන්න
+    written_statement: පාර්ලිමේන්තුවට කළ අපේ ලිඛිත ප්‍රකාශන සියල්ල බලන්න
   support:
     array:
-      last_word_connector: සහ
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " සහ "
+    download: බාගන්න
+    field_of_operation: 'මෙහෙයුම් ක්ෂේත්රය:'
+    fields_of_operation: මෙහෙයුම් ක්ෂේත්ර
+    filter: පෙරහන
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: ඊළඟ <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page}
+        / %{total_pages}</span>
+      next_page: ඊළඟ පිටුව
+      previous_html: කලින් <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page}
+        / %{total_pages}</span>
+      previous_page: කලින් පිටුව
+    part_of_collection: 'එකතුවක කොටසක්:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: "%{event} මත නවතම ක්රියාකාරකම"
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: කලා මණ්ඩලය එංගලන්තය
+      bbc: බීබීසී
+      british_library: බ්රිතාන්ය පුස්තකාලය
+      commonwealth_war_graves_commission: පොදු රාජ්ය මණ්ඩලීය යුද සොහොන් කොමිසම
+      heritage_lottery_fund: උරුම ලොතරැයි අරමුදල
+      historic_england: ඓතිහාසික එංගලන්තය
+      iwm: අධිරාජ්ය යුද කෞතුකාගාරය
+      war_memorials_trust: යුද අනුස්මරණ භාරය
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: "%{country} හි එක්සත් රාජධානී රජය වෙතින් ලැබෙන යාවත්කාලිනයන්,
+      පුවත් සහ සිදුවීම්"
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: ඔබගේ පුද්ගලික තොරතුරු භාවිතා කිරීම ගැන අපේ
-        %{link} පැහැදිලි කිරීම
-      publication_scheme_html: අප නිතර අපේ %{link} පල කරන තොරතුරු වර්ගයන් ගැන කියවන්න
-      social_media_use_html: " %{link}හිදී අපේ ප්‍රතිපත්ති කියවන්න"
-      welsh_language_scheme_html: " %{link} හි පල කිරීමට අපේ ඇති කැපවීම ගැන කියවන්න"
-    find_out_more: අපේ සම්පුර්ණ විස්තර සහ සම්බන්ධ වීමට අවශ්‍ය තොරතරු බලන්න
+      about_our_services_html: "%{link} සොයන්න."
+      personal_information_charter_html: අගේ %{link} අපි ඔබගේ පුද්ගලික තොරතුරු හසුරුවන
+        ආකාරය විස්තර කරයි.
+      publication_scheme_html: අපේ %{link} තුල අපි ආකාරික ලෙස ප්රකාශයට පත් කරන තොරතුරු
+        වර්ග ගැන කියවන්න.
+      social_media_use_html: අපේ ප්රතිපත්තිය කියවන්න %{link}.
+      welsh_language_scheme_html: "%{link} සඳහා අපේ කැපවීම ගැන සොයා බලන්න."
+    find_out_more: සම්පූර්ණ පැතිකඩ සහ සියලු සබඳතා විස්තර බලන්න
     headings:
-      contact_us: අප හා සම්බන්ධවීමට
-      corporate_information: සංවිධානයේ තොරතුරු
-      follow_us: අප හා එක්වන්න
-      our_people: අපේ පිරිස
+      contact_us: අපව සම්බන්ධ කරගන්න
+      corporate_information: ආයතනික තොරතුරු
+      follow_us: අපව අනුගමනය කරන්න
+      our_people: අපේ ජනතාව
     location: ස්ථානය
-    part_of: " කොටසක්"
+    part_of: කොටසක්

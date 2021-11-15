@@ -2,565 +2,552 @@ fa:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: شماره سند مجلس عوام
+        isbn: شابک
+        unnumbered_hoc_paper: سند بدون شماره مجلس عوام
       attachment_data:
-        file:
+        file: فایل
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: شماره سند فرمان پیوست
+        hoc_paper_number: شماره سند مجلس عوام
+        isbn: شابک پیوست
+        title: عنوان پیوست
+        unique_reference: شناسه مرجع یکتای پیوست
+        unnumbered_hoc_paper: سند بدون شماره مجلس عوام
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: فایل پیوست شده
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: کشورهای مستثنی
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: فایل پیوست شده
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: شماره سند فرمان پیوست
+        hoc_paper_number: شماره سند مجلس عوام
+        isbn: شابک پیوست
+        title: عنوان پیوست
+        unique_reference: شناسه مرجع یکتای پیوست
+        unnumbered_hoc_paper: سند بدون شماره مجلس عوام
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: فایل پیوست شده
     nested_attachment_data_field_names:
-      file:
+      file: فایل پیوست شده
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: شماره سند فرمان پیوست
+      hoc_paper_number: شماره سند مجلس عوام
+      isbn: شابک پیوست
+      title: عنوان پیوست
+      unique_reference: شناسه مرجع یکتای پیوست
+      unnumbered_hoc_paper: سند بدون شماره مجلس عوام
   announcements:
-    heading: اطلاعیه ها
+    heading: اطلاعیه‌ها
   attachment:
     accessibility:
-      full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
-        و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه
-        شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
-      intro: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
-      request_a_different_format: ساختار متفاوتی درخواست کنید
+      full_help_html: |
+        اگر از فناوری‌های کمکی (از قبیل صفحه‌خوان) استفاده می‌کنید و به نسخه‌ای از این سند در قالبی با قابلیت دسترسی بیشتر نیاز دارید، لطفاً به آدرس %{email} ایمیل بزنید.
+        لطفاً به ما بگویید که به چه قالبی نیاز دارید. اگر بگویید که از چه فناوری کمکی استفاده می‌کنید، بهتر خواهد بود و به ما کمک خواهد کرد.
+      intro: این فایل ممکن است برای کاربران فناوری‌های کمکی مناسب نباشد.
+      request_a_different_format: درخواست یک قالب با قابلیت دسترسی بهتر.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: امکان پیش‌نمایش این فایل وجود ندارد.
+      download: برای مشاهده محتوای کامل فایل، آن را دانلود کنید.
+      truncated_message: این پیش‌نمایش تنها %{rows} سطر و %{columns} ستون اول را نمایش
+        می‌دهد.
     headings:
-      order_a_copy: کپی سفارش دهید
-      order_a_copy_full: کپی سفارش دهید
+      order_a_copy: سفارش یک نسخه کپی
+      order_a_copy_full: سفارش یک نسخه کپی از سند
       published: منتشر شده
       reference: مرجع
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: سند فرمان بدون شماره
+      unnumbered_hoc_paper: سند قانون بدون شماره
     opendocument:
-      help_html:
+      help_html: این فایل یک قالب <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند
+        باز (OpenDocument)</a> است
     virus_check:
-      intro:
-      message:
+      intro: این پیوست در حال بررسی برای وجود ویروس است.
+      message: ما در حال حاضر این پیوست را در قرنطینه نگه می‌داریم تا زمانی که بررسی
+        وجود ویروس در آن انجام شود. به زودی این پیوست در محل اصلی خود در دسترس خواهد
+        بود.
   broken_links:
     broken:
-      subheading:
+      subheading: ما در این سند لینک‌های پیدا کردیم که ممکن است خراب باشند
     caution:
-      subheading:
-    title:
+      subheading: ما در مورد برخی از لینک‌ها به مسائلی برخوردیم که ممکن است نشان دهنده
+        وجود مشکلاتی باشند، در ارتباط با آنها باید احتیاط کنید
+    title: لینک‌های خراب
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: اولین انتشار
+    see_all_updates: مشاهده تمام بروزرسانی‌ها
+    updated_at: آخرین بروزرسانی
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: بسته شده
+    closing_today: امروز بسته شده
+    closing_tomorrow: فردا بسته می‌شود
+    days_left: "%{days_left} روز باقی‌مانده"
   contact:
-    access_and_opening_times:
-    contact_form: فرم ارتباط
+    access_and_opening_times: دفعات دسترسی و باز شدن
+    contact_form: فرم تماس
     email: ایمیل
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: انتشار به زبان ولزی
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
+        about: درباره ما
+        about_our_services: درباره خدمات ما
+        access_and_opening: دفتر دفعات دسترسی و باز شدن دفتر
+        accessible_documents_policy: سیاست اسناد قابل دسترس
+        complaints_procedure: رویه شکایات
+        equality_and_diversity: برابری و تنوع
+        media_enquiries: سؤالات رسانه‌ها
+        membership: عضویت
+        modern_slavery_statement: بیانیه برده‌داری مدرن
+        our_energy_use: استفاده ما از انرژی
+        our_governance: حاکمیت ما
         personal_information_charter: منشور اطلاعات شخصی
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: برنامه انتشار
-        recruitment:
-        research:
-        social_media_use: استفاده از رسانه اجتماعی
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: برنامه زبان ولز
+        petitions_and_campaigns: دادخواست‌ها و کمپین‌ها
+        procurement: خریداری در %{organisation_name}
+        publication_scheme: طرح انتشار
+        recruitment: کار در %{organisation_name}
+        research: پژوهش در %{organisation_name}
+        social_media_use: استفاده از رسانه‌های اجتماعی
+        staff_update: اخبار و اطلاعات کارکنان
+        statistics: آمار در %{organisation_name}
+        terms_of_reference: ضوابط مرجع
+        welsh_language_scheme: طرح زبان ولزی
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
+    contents: محتوا
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: تمام تاریخچه صفحه
+      published: منتشر شده
+      updated: بروز شده
     headings:
-      applies_to_nations: در ارتباط با
-      from:
-      part_of:
-    latest:
-    latest_from:
+      applies_to_nations: اعمال می‌شود به
+      from: از
+      part_of: بخشی از
+    latest: آخرین اسناد
+    latest_from: آخرین از %{subject}
     published: منتشر شده
-    see_all:
+    see_all: مشاهده همه
     speech:
       author_title:
-        minister: معاون وزیر
+        minister: وزیر
         speaker: نویسنده
-      delivered_on: 'ارائه شده در تاریخ:'
+      delivered_on: 'تخویل شده در:'
       delivery_title:
-        minister: معاون وزیر
+        minister: وزیر
         speaker: سخنگو
       written_on: 'نوشته شده در:'
     type:
       about:
-        one:
-        other:
+        one: درباره
+        other: درباره
       about_our_services:
-        one:
-        other:
+        one: درباره خدمات ما
+        other: درباره خدمات ما
       access_and_opening:
-        one:
-        other:
+        one: دسترسی و باز کردن
+        other: دسترسی و باز کردن
       accessible_documents_policy:
-        one:
-        other:
+        one: سیاست اسناد قابل دسترس
+        other: سیاست‌های اسناد قابل دسترس
       alert:
-        one:
-        other:
+        one: هشدار
+        other: هشدارها
       announcement:
-        one:
-        other:
+        one: اطلاعیه
+        other: اطلاعیه‌ها
       authored_article:
-        one:
-        other:
+        one: مقاله تألیف شده
+        other: مقالات تألیف شده
       blog_post:
-        one:
-        other:
+        one: پست وبلاگ
+        other: پست‌های وبلاگ
       campaign:
-        one:
-        other:
+        one: کمپین
+        other: کمپین‌ها
       careers:
-        one:
-        other:
+        one: مشاغل
+        other: مشاغل
       case_study:
-        one:
-        other:
+        one: مطالعه موردی
+        other: مطالعات موردی
       closed_consultation:
-        one:
-        other:
+        one: مشاوره بسته
+        other: مشاوره‌های بسته
       complaints_procedure:
-        one:
-        other:
+        one: رویه شکایات
+        other: رویه‌های شکایات
       consultation:
-        one:
-        other:
+        one: مشاوره
+        other: مشاوره‌ها
       consultation_outcome:
-        one:
-        other:
+        one: نتیجه مشاوره
+        other: نتایج مشاوره
       corporate_report:
-        one:
-        other:
+        one: گزارش شرکتی
+        other: گزارشات شرکتی
       correspondence:
-        one:
-        other:
+        one: مکاتبه
+        other: مکاتبات
       decision:
-        one:
-        other:
+        one: تصمیم
+        other: تصمیمات
       detailed_guidance:
-        one:
-        other:
+        one: راهنمایی
+        other: راهنمایی
       document_collection:
-        one:
-        other:
+        one: مجموعه
+        other: مجموعه‌ها
       draft_text:
-        one:
-        other:
+        one: متن پیش‌نویس
+        other: متون پیش‌نویس
       edition:
-        one:
-        other:
+        one: ویرایش
+        other: ویرایش‌ها
       edition_with_appointment:
-        one:
-        other:
+        one: ویرایش با وقت
+        other: ویرایش با وقت
       equality_and_diversity:
-        one:
-        other:
+        one: برابری و تنوع
+        other: برابری و تنوع
       fatality_notice:
-        one:
-        other:
+        one: اطلاعیه مرگ‌و‌میر
+        other: اطلاعیه‌های مرگ‌و‌میر
       foi_release:
-        one:
-        other:
+        one: موارد انتشار آزادی اطلاعات
+        other: موارد انتشار آزادی اطلاعات
       form:
-        one:
-        other:
+        one: فرم
+        other: فرم‌ها
       generic_edition:
-        one:
-        other:
+        one: نسخه عمومی
+        other: نسخه‌های عمومی
       government_response:
-        one:
-        other:
+        one: پاسخ دولتی
+        other: پاسخ‌های دولتی
       guidance:
-        one:
-        other:
+        one: راهنمایی
+        other: راهنمایی
       impact_assessment:
-        one:
-        other:
+        one: ارزیابی تأثیر
+        other: ارزیابی‌های تأثیر
       imported:
-        one:
-        other:
+        one: وارد شده - در انتظار نوع
+        other: وارد شده - در انتظار نوع
       independent_report:
-        one:
-        other:
+        one: گزارش مستقل
+        other: گزارشات مستقل
       international_treaty:
-        one:
-        other:
+        one: معاهده بین‌المللی
+        other: معاهدات بین‌المللی
       manual:
-        one:
-        other:
+        one: راهنما
+        other: راهنماها
       map:
-        one:
-        other:
+        one: نقشه
+        other: نقشه‌ها
       media_enquiries:
-        one:
-        other:
+        one: سؤال رسانه‌ها
+        other: سؤالات رسانه‌ها
       membership:
-        one:
-        other:
+        one: عضویت
+        other: عضویت
       national_statistics:
-        one:
-        other:
+        one: آمار ملی
+        other: آمار ملی
       news_article:
-        one:
-        other:
+        one: مقاله خبری
+        other: مقالات خبری
       news_story:
-        one:
-        other: اخبار
+        one: گزارش خبری
+        other: گزارشات خبری
       nhs_content:
-        one:
-        other:
+        one: محتوای خدمات بهداشت ملی
+        other: محتوای خدمات بهداشت ملی
       notice:
-        one:
-        other:
+        one: اطلاعیه
+        other: اطلاعیه‌ها
       official_statistics:
-        one:
-        other:
+        one: آمار رسمی
+        other: آمار رسمی
       open_consultation:
-        one:
-        other:
+        one: مشاوره باز
+        other: مشاوره‌های باز
       oral_statement:
-        one:
-        other:
+        one: بیانیه شفاهی به پارلمان
+        other: بیانیه‌های شفاهی به پارلمان
       our_energy_use:
-        one:
-        other:
+        one: استفاده ما از انرژی
+        other: استفاده ما از انرژی
       our_governance:
-        one:
-        other:
+        one: حاکمیت ما
+        other: حاکمیت ما
       personal_information_charter:
-        one:
-        other:
+        one: منشور اطلاعات شخصی
+        other: منشورهای اطلاعات شخصی
       petitions_and_campaigns:
-        one:
-        other:
+        one: دادخواست‌ها و کمپین‌ها
+        other: دادخواست‌ها و کمپین‌ها
       policy_paper:
-        one:
-        other:
+        one: سند سیاست
+        other: اسناد سیاست
       press_release:
-        one:
-        other: بیانیه ها
+        one: بیانیه مطبوعاتی
+        other: بیانیه‌های مطبوعاتی
       procurement:
-        one:
-        other:
+        one: خرید
+        other: خرید
       promotional:
-        one:
-        other:
+        one: محتوای تبلیغاتی
+        other: محتوای تبلیغاتی
       publication:
-        one:
-        other:
+        one: مورد منتشر شده
+        other: موارد منتشر شده
       publication_scheme:
-        one:
-        other:
+        one: طرح انتشار
+        other: طرح‌های انتشار
       recruitment:
-        one:
-        other:
+        one: استخدام
+        other: استخدام
       regulation:
-        one:
-        other:
+        one: قانون
+        other: قوانین
       research:
-        one:
-        other:
+        one: پژوهش
+        other: پژوهش
       service:
-        one:
-        other:
+        one: خدمت
+        other: خدمات
       social_media_use:
-        one:
-        other:
+        one: استفاده از رسانه‌های اجتماعی
+        other: استفاده از رسانه‌های اجتماعی
       speaking_notes:
-        one:
-        other:
+        one: نکات گفتاری
+        other: نکات گفتاری
       speech:
-        one:
-        other: سخنرانی ها
+        one: سخنرانی
+        other: سخنرانی‌ها
       staff_update:
-        one:
-        other:
+        one: بروزرسانی کارکنان
+        other: بروزرسانی‌های کارکنان
       standard:
-        one:
-        other:
+        one: استاندارد
+        other: استانداردها
       statement_to_parliament:
-        one:
-        other: گزارش ها به پارلمان
+        one: بیانیه به پارلمان
+        other: بیانیه‌ها به پارلمان
       statistical_data_set:
-        one:
-        other:
+        one: مجموعه داده آماری
+        other: مجموعه داده‌های آماری
       statistics:
-        one:
-        other:
+        one: آمار
+        other: آمار
       statutory_guidance:
-        one:
-        other:
+        one: راهنمای قانونی
+        other: راهنمای قانونی
       terms_of_reference:
-        one:
-        other:
+        one: ضوابط مرجع
+        other: ضوابط مرجع
       transcript:
-        one:
-        other:
+        one: متن
+        other: متون
       transparency:
-        one:
-        other:
+        one: داده‌های شفافیت
+        other: داده‌های شفافیت
       welsh_language_scheme:
-        one:
-        other:
+        one: طرح زبان ولزی
+        other: طرح‌های زبان ولزی
       world_news_story:
-        one:
-        other:
+        one: گزارش خبری جهانی
+        other: گزارشات خبری جهانی
       written_statement:
-        one:
-        other:
-    updated: به روز رسانی شده
+        one: بیانیه کتبی به پارلمان
+        other: بیانیه‌های کتبی به پارلمان
+    updated: بروز شده
   document_filters:
     consultation:
-      all:
-      label:
-    description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
-      محدود کنید
+      all: تمام مشاوره‌ها
+      label: مشاوره‌ها
+    description: می‌توانید از فیلترها استفاده کنید تا تنها نتایجی که مطابق با علایق
+      شما هستند، نمایش داده شوند
     no_results:
-      description: جستجوی خود را گسترده تر و مجددا تلاش کنید
-      title: اسناد منطبق وجود ندارد
-      tna_heading:
-      tna_link:
+      description: سعی کنید جستجوی خود را گسترده‌تر کرده و دوباره امتحان کنید.
+      title: هیچ سند مطابقی وجود ندارد.
+      tna_heading: محتوای قدیمی‌تر
+      tna_link: تمام موارد منتشر شده اداری از قبل از می 2010 به GOV.UK منتقل نشده‌اند
+        برای یافتن موارد منتشر شده قبل از می 2010 عبارت <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">The National Archives (آرشیوهای ملی)</a> را جستجو کنید.
     world_locations:
-      all: تمام نقاط
-      label: موقعیت های جهانی
-      no_locations_filter:
+      all: تمام مکان‌ها
+      label: مکان‌های جهانی
+      no_locations_filter: هیچ یک از مکان‌های جهانی با این فلیتر مطابقت ندارند.
+  email_alert:
+    subscription: اشتراک هشدار ایمیل
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: مرگ‌و‌میر بریتانیایی‌ها
+    none_added: هنوز هیچ اعلامیه مرگ‌و‌میری برای این زمینه فعالیت اضافه نشده است.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: آخرین تحولات
+    email: ایمیل
+    feed: فید
+    get_updates_to_this_list: بروزرسانی‌های این لیست را دریافت کنید
+    latest_activity: آخرین فعالیت
   i18n:
-    direction: rtl
-    latin_script?: false
+    direction: ltr
   language_names:
     fa: فارسی
   latest_feed:
-    no_updates: اطلاعات جدیدی در دست نیست
+    no_updates: هنوز هیچ بروزرسانی وجود ندارد.
     title: آخرین
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
   national_statistics:
-    heading:
+    heading: آمار ملی
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: دسترسی به اطلاعات ما
-      jobs:
-      jobs_and_contacts: مشاغل و قراردادها
-      organisation_chart:
-      transparency: داده های شفاف سازی
+      jobs: شغل‌ها
+      jobs_and_contacts: شغل‌ها و قراردادها
+      organisation_chart: نمودار سازمانی ما
+      transparency: داده‌های شفافیت
     email:
-      alerts:
-      summary:
+      alerts: هشدارهای ایمیل
+      summary: هشدارهای ایمیل از
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: یافتن یک سفارت، کمیسیون عالی یا کنسولگری بریتانیا
+      find_an_embassy_uppercase: یافتن یک سفارت، کمیسیون عالی یا کنسولگری بریتانیا
     headings:
-      contact: تماس با %{name}
-      corporate_information:
-      corporate_reports:
+      contact: با %{name} تماس بگیرید
+      corporate_information: اطلاعات شرکت
+      corporate_reports: گزارشات شرکتی
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: با مدیریت
+      agencies_and_public_bodies: آژانس‌ها و نهادهای عمومی
+      part_of: بخشی از
+      public_body: نهاد عمومی
+      works_with: همکاری می‌کند با
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: دادگاه‌ها و محکمه‌ها
   publications:
-    heading: انتشارات
-    recent:
+    heading: موارد منتشر شده
+    recent: موارد اخیراً منتشر شده
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: در بخش آماری %{link} می‌توانید لیستی از آمار دولتی
+        منتشر شده و آتی را بیابید.
+      moved_notice: مطالب منتشر شده آماری جابجا شده است.
   roles:
-    unassigned:
+    unassigned: هیچ فردی به این نقش تخصیص نیافته است
   see_all:
-    announcement: تمامی اعلامیه ها ما را مشاهده کنید
-    authored_article: تمامی مقالات ما را مشاهده کنید
-    case_study: تمامی مطالعه های موردی ما را مشاهده کنید
-    closed_consultation: تمامی رایزنی های بسته ما را مشاهده کنید
-    consultation: تمامی رایزنی ها ما را مشاهده کنید
-    consultation_outcome: تمامی نتایج رایزنی ما را مشاهده کنید
-    corporate_report: تمامی گزارش های سازمانی ما را مشاهده کنید
-    correspondence: تمامی مکاتبات ما را مشاهده کنید
-    decision:
-    detailed_guidance: تمامی راهنمای تفصیلی ما را مشاهده کنید
-    document_collection:
-    draft_text: تمامی متون پیش نویس ما را مشاهده کنید
-    fatality_notice: تمامی اطلاعیه تلفات ما را مشاهده کنید
-    foi_release: تمامی انتشار آزاد اطلاعات ما را مشاهده کنید
-    form: تمامی فرم ها ما را مشاهده کنید
-    government_response: تمامی جوابیه های دولت ما را مشاهده کنید
-    guidance: تمامی راهنمایی ما را مشاهده کنید
-    impact_assessment: تمامی ارزیابی های تاثیرات ما را مشاهده کنید
-    imported: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
-    international_treaty:
-    map: تمامی نقشه ها ما را مشاهده کنید
-    national_statistics: تمامی آمار - آمار ملی ما را مشاهده کنید
-    news_article: تمامی مقالات خبری ما را مشاهده کنید
-    news_story: تمامی اخبار ما را مشاهده کنید
-    notice:
-    open_consultation: تمامی رایزنی های باز ما را مشاهده کنید
-    oral_statement: تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید
-    policy: تمامی سیاست ها ما را مشاهده کنید
-    policy_paper: تمامی مقاله های سیاسی ما را مشاهده کنید
-    press_release: تمامی بیانیه ها ما را مشاهده کنید
-    promotional: تمامی مطالب تبلیغاتی ما را مشاهده کنید
-    publication: تمامی نشریات ما را مشاهده کنید
-    regulation:
-    research: تمامی پژوهش و تحلیل ما را مشاهده کنید
-    speaking_notes: تمامی موضوعات سخنرانی ما را مشاهده کنید
-    speech: تمامی سخنرانی ها ما را مشاهده کنید
-    statement_to_parliament: تمامی گزارش ها به پارلمان ما را مشاهده کنید
-    statistical_data_set: تمامی بسته های داده های آماری ما را مشاهده کنید
-    statistics: تمامی آمار ما را مشاهده کنید
-    statutory_guidance:
-    transcript: تمامی رونوشت ها ما را مشاهده کنید
-    transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
-    written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
+    announcement: مشاهده تمام اعلامیه‌های ما
+    authored_article: مشاهده تمام مقالات تألیف شده ما
+    case_study: مشاهده تمام مطالعات موردی ما
+    closed_consultation: مشاهده تمام مشاوره‌های بسته ما
+    consultation: مشاهده تمام مشاوره‌های ما
+    consultation_outcome: مشاهده تمام نتایج مشاوره‌های ما
+    corporate_report: مشاهده تمام گزارشات شرکتی ما
+    correspondence: مشاهده تمام مکاتبات ما
+    decision: مشاهده تمام تصمیمات ما
+    detailed_guidance: مشاهده تمام راهنمایی‌ها ما
+    document_collection: مشاهده تمام مجموعه‌های ما
+    draft_text: مشاهده تمام متون پیش‌نویس ما
+    fatality_notice: مشاهده تمام اطلاعیه‌های مرگ‌و‌میر ما
+    foi_release: مشاهده تمام بیانیه‌های آزادی اطلاعات ما
+    form: مشاهده تمام فرم‌های ما
+    government_response: مشاهده تمام پاسخ‌های دولتی ما
+    guidance: مشاهده تمام راهنمایی‌ها ما
+    impact_assessment: مشاهده تمام ارزیابی‌های تأثیر ما
+    imported: مشاهده تمام گزارشات مستقل ما
+    international_treaty: مشاهده تمام معاهدات بین‌المللی ما
+    map: مشاهده تمام نقشه‌های ما
+    national_statistics: مشاهده تمام آمار ملی ما
+    news_article: مشاهده تمام مقالات خبری ما
+    news_story: مشاهده تمام گزارشات خبری ما
+    notice: مشاهده تمام اطلاعیه‌های ما
+    open_consultation: مشاهده تمام مشاوره‌های باز ما
+    oral_statement: مشاهده تمام بیانیه‌های شفاهی ما به پارلمان
+    policy: مشاهده تمام سیاست‌های ما
+    policy_paper: مشاهده تمام اسناد سیاست ما
+    press_release: مشاهده تمام بیانیه‌های مطبوعاتی ما
+    promotional: مشاهده تمام محتوای تبلیغاتی ما
+    publication: مشاهده تمام موارد منتشر شده ما
+    regulation: مشاهده تمام مقررات ما
+    research: مشاهده تمام تحقیق و تحلیل‌های ما
+    speaking_notes: مشاهده تمام نکات گفتاری ما
+    speech: مشاهده تمام سخنرانی‌های ما
+    statement_to_parliament: مشاهده تمام بیانیه‌های ما به پارلمان
+    statistical_data_set: مشاهده تمام مجموعه داده‌های آماری ما
+    statistics: مشاهده تمام آمار ما
+    statutory_guidance: مشاهده تمام راهنمایی‌های قانونی ما
+    transcript: مشاهده تمام متون ما
+    transparency: مشاهده تمام داده‌های شفافیت ما
+    written_statement: مشاهده تمام بیانیه‌های کتبی ما به پارلمان
   support:
     array:
-      last_word_connector: و
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " و "
+    download: دانلود
+    field_of_operation: 'زمینه فعالیت:'
+    fields_of_operation: زمینه‌های فعالیت
+    filter: فیلتر
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: بعدی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page}
+        از %{total_pages}</span>
+      next_page: صفحه بعد
+      previous_html: قبلی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page}
+        از %{total_pages}</span>
+      previous_page: صفحه قبلی
+    part_of_collection: 'بخشی از یک مجموعه:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: آخرین فعالیت در %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: شورای هنر انگلستان
+      bbc: BBC
+      british_library: کتابخانه بریتانیا
+      commonwealth_war_graves_commission: کمیسیون آرامستان‌های جنگ کشورهای مشترک المنافع
+      heritage_lottery_fund: صندوق بخت‌ازمایی میراث فرهنگی
+      historic_england: کمیسیون یادمان‌ها و بناهای تاریخی انگلستان
+      iwm: موزه سلطنتی جنگ
+      war_memorials_trust: بنیاد یادبودهای جنگ
   world_location:
     headings:
-      announcements: اطلاعیه های ما
-      documents: مدارک
-      featured: ویژه
-      mission: هدف ما
-      news:
-      organisations: سازمان ها
-      publications: انتشارات ما
-      search:
+      announcements: اطلاعیه‌های ما
+      documents: اسناد
+      mission: مأموریت ما
+      news: اخبار مکان‌های جهانی
+      organisations: سازمان‌ها
+      publications: موارد منتشر شده ما
+      search: جستجو بر اساس کشور یا قلمرو
       statistics: آمار ما
     type:
       international_delegation:
-        one:
-        other:
+        one: هیأت بین‌المللی
+        other: هیأت‌های بین‌المللی
       world_location:
-        one:
-        other:
+        one: مکان جهانی
+        other: مکان‌های جهانی
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: رویدادها، اخبار و مطالب جدید از انگلستان در %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما
-        را توضیح می دهد"
-      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
-        می کنیم بخوانید '
-      social_media_use_html: سیاست ما را درباره  %{link} بخوانید
-      welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
-    find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس
+      about_our_services_html: اطلاعات کسب کنید %{link}.
+      personal_information_charter_html: "%{link} نحوه رفتار ما با اطلاعات شخصی شما
+        را توضیح می‌دهد."
+      publication_scheme_html: درباره انواع اطلاعاتی که معمولاً در %{link} خود منتشر
+        می‌کنیم، اطلاعات بیشتری کسب کنید.
+      social_media_use_html: سیاست ما را درباره %{link} مطالعه کنید.
+      welsh_language_scheme_html: درباره تعهد ما نسبت به %{link} اطلاعات کسب کنید.
+    find_out_more: مشاهده پروفایل کامل و تمام جزئیات تماس
     headings:
       contact_us: تماس با ما
-      corporate_information: اطلاعات سازمانی
-      follow_us: به صفحه های ما بپیوندید
-      our_people: کارمندان ما
-    location: مکان
+      corporate_information: اطلاعات شرکت
+      follow_us: ما را دنبال کنید
+      our_people: افراد ما
+    location: موقعیت مکانی
     part_of: بخشی از

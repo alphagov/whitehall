@@ -2,560 +2,556 @@ nl:
   document:
     type:
       about:
-        one:
-        other:
+        one: Over
+        other: Over
       about_our_services:
-        one:
-        other:
+        one: Over onze diensten
+        other: Over onze diensten
       access_and_opening:
-        one:
-        other:
+        one: Toegang en opening
+        other: Toegang en opening
       accessible_documents_policy:
-        one:
-        other:
+        one: Beleid inzake toegankelijke documenten
+        other: Beleid inzake toegankelijke documenten
       alert:
-        one:
-        other:
+        one: Waarschuwing
+        other: Waarschuwingen
       announcement:
-        one:
-        other:
+        one: Aankondiging
+        other: Aankondigingen
       authored_article:
-        one:
-        other:
+        one: Geschreven artikel
+        other: Geschreven artikelen
       blog_post:
-        one:
-        other:
+        one: Blog bericht
+        other: Blog berichten
       campaign:
-        one:
-        other:
+        one: Campagne
+        other: Campagnes
       careers:
-        one:
-        other:
+        one: Carrières
+        other: Carrières
       case_study:
-        one:
-        other:
+        one: Casestudy
+        other: Casestudies
       closed_consultation:
-        one:
-        other:
+        one: Gesloten consultatie
+        other: Gesloten consultaties
       complaints_procedure:
-        one:
-        other:
+        one: Klachtenprocedure
+        other: Klachtenprocedures
       consultation:
-        one:
-        other:
+        one: Raadpleging
+        other: Raadplegingen
       consultation_outcome:
-        one:
-        other:
+        one: Uitkomst raadpleging
+        other: Uitkomsten raadpleging
       corporate_report:
-        one:
-        other:
+        one: Bedrijfsverslag
+        other: Bedrijfsverslagen
       correspondence:
-        one:
-        other:
+        one: Correspondentie
+        other: Correspondenties
       decision:
-        one:
-        other:
+        one: Besluit
+        other: Besluiten
       detailed_guidance:
-        one:
-        other:
+        one: Richtlijnen
+        other: Richtlijnen
       document_collection:
-        one:
-        other:
+        one: Verzameling
+        other: Verzamelingen
       draft_text:
-        one:
-        other:
+        one: Ontwerptekst
+        other: Ontwerpteksten
       edition:
-        one:
-        other:
+        one: Editie
+        other: Edities
       edition_with_appointment:
-        one:
-        other:
+        one: Editie met afspraak
+        other: Edities met afspraak
       equality_and_diversity:
-        one:
-        other:
+        one: Gelijkheid en diversiteit
+        other: Gelijkheid en diversiteit
       fatality_notice:
-        one:
-        other:
+        one: Dodelijke aankondiging
+        other: Dodelijke aankondigingen
       foi_release:
-        one:
-        other:
+        one: Vrijheid van informatie-vrijgave
+        other: Vrijheid van informatie-berichten
       form:
-        one:
-        other:
+        one: Formulier
+        other: Formulieren
       generic_edition:
-        one:
-        other:
+        one: Algemene uitgave
+        other: Algemene uitgave
       government_response:
-        one:
-        other:
+        one: Antwoord van de regering
+        other: Antwoorden van de regering
       guidance:
-        one:
-        other:
+        one: Richtlijn
+        other: Richtlijn
       impact_assessment:
-        one:
-        other:
+        one: Effectbeoordeling
+        other: Effectbeoordelingen
       imported:
-        one:
-        other:
+        one: ingevoerd - in afwachting van type
+        other: ingevoerd - in afwachting van type
       independent_report:
-        one:
-        other:
+        one: Onafhankelijk rapport
+        other: Onafhankelijke rapporten
       international_treaty:
-        one:
-        other:
+        one: Internationaal verdrag
+        other: Internationale verdragen
       manual:
-        one:
-        other:
+        one: Handleiding
+        other: Handleidingen
       map:
-        one:
-        other:
+        one: Kaart
+        other: Kaarten
       media_enquiries:
-        one:
-        other:
+        one: Media aanvraag
+        other: Media aanvragen
       membership:
-        one:
-        other:
+        one: Lidmaatschap
+        other: Lidmaatschap
       national_statistics:
-        one:
-        other:
+        one: Nationale Statistieken
+        other: Nationale Statistieken
       news_article:
-        one:
-        other:
+        one: Nieuwsartikel
+        other: Nieuwsartikelen
       news_story:
-        one:
-        other:
+        one: Nieuwsbericht
+        other: Nieuwsberichten
       nhs_content:
-        one:
-        other:
+        one: NHS-content
+        other: NHS-content
       notice:
-        one:
-        other:
+        one: Mededeling
+        other: Mededelingen
       official_statistics:
-        one:
-        other:
+        one: Officiële statistieken
+        other: Officiële statistieken
       open_consultation:
-        one:
-        other:
+        one: Openbare raadpleging
+        other: Openbare raadplegingen
       oral_statement:
-        one:
-        other:
+        one: Mondelinge verklaring voor het Parlement
+        other: Mondelinge verklaringen aan het Parlement
       our_energy_use:
-        one:
-        other:
+        one: Ons energieverbruik
+        other: Ons energieverbruik
       our_governance:
-        one:
-        other:
+        one: Ons bestuur
+        other: Ons bestuur
       personal_information_charter:
-        one:
-        other:
+        one: Persoonsgegevens chart
+        other: Persoonsgegevens charts
       petitions_and_campaigns:
-        one:
-        other:
+        one: Petities en campagnes
+        other: Petities en campagnes
       policy_paper:
-        one:
-        other:
+        one: Beleidsnota
+        other: Beleidsnota's
       press_release:
-        one:
-        other:
+        one: Persbericht
+        other: Persberichten
       procurement:
-        one:
-        other:
+        one: Aanbesteding
+        other: Aanbesteding
       promotional:
-        one:
-        other:
+        one: Promotiemateriaal
+        other: Promotiemateriaal
       publication:
-        one:
-        other:
+        one: Publicatie
+        other: Publicaties
       publication_scheme:
-        one:
-        other:
+        one: Publicatieregeling
+        other: Publicatieregelingen
       recruitment:
-        one:
-        other:
+        one: Aanwerving
+        other: Aanwerving
       regulation:
-        one:
-        other:
+        one: Regeling
+        other: Regelingen
       research:
-        one:
-        other:
+        one: Onderzoek
+        other: Onderzoek
       service:
-        one:
-        other:
+        one: Dienst
+        other: Diensten
       social_media_use:
-        one:
-        other:
+        one: Gebruik van sociale media
+        other: Gebruik van sociale media
       speaking_notes:
-        one:
-        other:
+        one: Spreeknotities
+        other: Spreeknotities
       speech:
-        one:
-        other:
+        one: Toespraak
+        other: Toespraken
       staff_update:
-        one:
-        other:
+        one: Personeel update
+        other: Personeel updates
       standard:
-        one:
-        other:
+        one: standaard
+        other: standaarden
       statement_to_parliament:
-        one:
-        other:
+        one: Verklaring aan het Parlement
+        other: Verklaringen aan het Parlement
       statistical_data_set:
-        one:
-        other:
+        one: Statistische gegevensverzameling
+        other: Statistische gegevensverzamelingen
       statistics:
-        one:
-        other:
+        one: Statistieken
+        other: Statistieken
       statutory_guidance:
-        one:
-        other:
+        one: Statutaire richtlijnen
+        other: Statutaire richtlijnen
       terms_of_reference:
-        one:
-        other:
+        one: Referentievoorwaarden
+        other: Referentievoorwaarden
       transcript:
-        one:
-        other:
+        one: Transcriptie
+        other: Transcripties
       transparency:
-        one:
-        other:
+        one: Transparantiegegevens
+        other: Transparantiegegevens
       welsh_language_scheme:
-        one:
-        other:
+        one: Regeling voor de Welshe taal
+        other: Regelingen voor de Welshe taal
       world_news_story:
-        one:
-        other:
+        one: Wereldwijde nieuwsberichten
+        other: Wereldwijde nieuwsberichten
       written_statement:
-        one:
-        other:
-    contents:
+        one: Schriftelijke verklaring aan het Parlement
+        other: Schriftelijke verklaringen aan het Parlement
+    contents: Inhoud
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: volledige pagina geschiedenis
+      published: Gepubliceerd
+      updated: Bijgewerkt
     headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
+      applies_to_nations: Geldt voor
+      from: Van
+      part_of: Deel van
+    latest: Laatste documenten
+    latest_from: Laatst van %{subject}
+    published: gepubliceerd
+    see_all: Zie alle
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Minister
+        speaker: Schrijver
+      delivered_on: 'Afgeleverd op:'
       delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
+        minister: Minister
+        speaker: Spreker
+      written_on: 'Geschreven op:'
+    updated: bijgewerkt
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Internationale delegatie
+        other: Internationale delegaties
       world_location:
-        one:
-        other:
+        one: Wereldlocatie
+        other: Wereldlocaties
     headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
+      announcements: Onze aankondigingen
+      documents: Documenten
+      mission: Onze missie
+      news: Wereld locatie nieuws
+      organisations: Organisaties
+      publications: Onze publicaties
+      search: Zoeken op land of gebied
+      statistics: Onze statistieken
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Nummer Lagerhuisdocument
+        isbn: ISBN
+        unnumbered_hoc_paper: Ongenummerd Lagerhuisdocument
       attachment_data:
-        file:
+        file: Bestand
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Bijlagencommando papiernummer
+        hoc_paper_number: Nummer Lagerhuisdocument
+        isbn: ISBN bijvoegsel
+        title: Titel bijvoegsel
+        unique_reference: Unieke referentie bijvoegsel
+        unnumbered_hoc_paper: Ongenummerde paper van het Lagerhuis
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Het bijgevoegde bestand
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Uitgesloten landen
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Het bijgevoegde bestand
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Nummer van het bijgevoegde document
+        hoc_paper_number: Nummer Lagerhuisdocument
+        isbn: ISBN van de bijlage
+        title: Titel van de bijlage
+        unique_reference: Unieke referentie bijvoegsel
+        unnumbered_hoc_paper: Ongenummerde paper van het Lagerhuis
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Het bijgevoegde bestand
     nested_attachment_data_field_names:
-      file:
+      file: Het bijgevoegde bestand
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Nummer van het bijgevoegde document
+      hoc_paper_number: Nummer van de paper van het Lagerhuis
+      isbn: ISBN van de bijlage
+      title: Titel van de bijlage
+      unique_reference: Unieke referentie bijvoegsel
+      unnumbered_hoc_paper: Ongenummerd Lagerhuisdocument
   announcements:
-    heading:
+    heading: Aankondigingen
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: "Als u ondersteunende technologie gebruikt (zoals een schermlezer)
+        en een\r\nversie van dit document in een meer toegankelijk formaat nodig heeft,
+        stuur dan een e-mail naar %{email}.\r\nVertel ons welk formaat u nodig hebt.
+        Het zal ons helpen als u zegt welke ondersteunende technologie u gebruikt.\r\n"
+      intro: Dit bestand is mogelijk niet geschikt voor gebruikers van ondersteunende
+        technologie.
+      request_a_different_format: Vraag een toegankelijk formaat aan.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Dit bestand kon niet worden voorvertoond.
+      download: Download het bestand om de volledige inhoud te bekijken.
+      truncated_message: Dit voorbeeld toont alleen de eerste %{rows} rijen en %{columns}
+        kolommen.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Een exemplaar bestellen
+      order_a_copy_full: Bestel een exemplaar van de publicatie
+      published: Gepubliceerd
+      reference: Ref
+      unnumbered_command_paper: Ongenummerd opdrachtdocument
+      unnumbered_hoc_paper: Ongenummerde akte
     opendocument:
-      help_html:
+      help_html: Dit bestand is in een <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        formaat
     virus_check:
-      intro:
-      message:
+      intro: Deze bijlage wordt momenteel op virussen gecontroleerd.
+      message: Wij houden deze bijlage momenteel in quarantaine totdat deze is gecontroleerd
+        op virussen. De bijlage zal binnenkort beschikbaar zijn op de oorspronkelijke
+        locatie.
   broken_links:
     broken:
-      subheading:
+      subheading: We hebben links gevonden in dit document die gebroken kunnen zijn
     caution:
-      subheading:
-    title:
+      subheading: We hebben enkele problemen gevonden met links die op problemen kunnen
+        wijzen, wees daarom voorzichtig met het linken naar deze links
+    title: Gebroken links
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Voor het eerst gepubliceerd
+    see_all_updates: zie alle updates
+    updated_at: Laatst bijgewerkt
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Gesloten
+    closing_today: Sluiting vandaag
+    closing_tomorrow: Sluit morgen
+    days_left: "%{days_left} resterende dagen"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Toegang en openingstijden
+    contact_form: Contactformulier
+    email: E-mail
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: publiceren in het Welsh
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Over ons
+        about_our_services: Over onze diensten
+        access_and_opening: Bereikbaarheid en openingstijden van het kantoor
+        accessible_documents_policy: Beleid inzake toegankelijke documenten
+        complaints_procedure: Klachtenprocedure
+        equality_and_diversity: Gelijkheid en diversiteit
+        media_enquiries: Vragen over de media
+        membership: Lidmaatschap
+        modern_slavery_statement: Verklaring inzake moderne slavernij
+        our_energy_use: Ons energiegebruik
+        our_governance: Ons bestuur
+        personal_information_charter: Handvest voor persoonlijke informatie
+        petitions_and_campaigns: Petities en campagnes
+        procurement: Inkoop bij %{organisation_name}
+        publication_scheme: Publicatieregeling
+        recruitment: Werken bij %{organisation_name}
+        research: Onderzoek bij %{organisation_name}
+        social_media_use: Gebruik van sociale media
+        staff_update: Personeelsnieuws en -informatie
+        statistics: Statistieken bij %{organisation_name}
+        terms_of_reference: Taakomschrijving
+        welsh_language_scheme: Regeling voor het gebruik van het Welsh
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description:
+      all: Alle raadplegingen
+      label: Raadplegingen
+    description: U kunt de filters gebruiken om alleen resultaten te tonen die overeenkomen
+      met uw interesses
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Probeer uw zoekopdracht breder te maken en probeer het opnieuw.
+      title: Er zijn geen overeenkomende documenten.
+      tna_heading: Oudere inhoud
+      tna_link: Niet alle afdelingspublicaties van voor mei 2010 zijn gemigreerd naar
+        GOV.UK. Om publicaties te vinden van voor mei 2010 probeer dan te zoeken <a
+        href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">De
+        Nationale Archieven</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Alle locaties
+      label: Wereld locaties
+      no_locations_filter: Geen locaties in de wereld komen overeen met dat filter.
+  email_alert:
+    subscription: Abonnement op e-mail alert
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Britse sterfgevallen
+    none_added: Er zijn nog geen meldingen van sterfgevallen toegevoegd voor dit werkgebied.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    email: e-mail
+    feed: feed
+    get_updates_to_this_list: Ontvang updates voor deze lijst
+    latest_activity: Laatste activiteit
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
     nl: Nederlands
   latest_feed:
-    no_updates:
-    title:
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Er zijn nog geen updates.
+    title: Laatste
   national_statistics:
-    heading:
+    heading: Nationale statistieken
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
+      access_our_info: Toegang tot onze informatie
+      jobs: Banen
+      jobs_and_contacts: Banen en contracten
+      organisation_chart: Ons organigram
+      transparency: Transparantiegegevens
     email:
-      alerts:
-      summary:
+      alerts: e-mail alerts
+      summary: E-mailwaarschuwingen van de
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Zoek een Britse ambassade, hoge commissie of consulaat
+      find_an_embassy_uppercase: Zoek een Britse ambassade, Hoge Commissie of Consulaat
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      contact: Contact %{name}
+      corporate_information: Bedrijfsinformatie
+      corporate_reports: Bedrijfsrapporten
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Beheerd door
+      agencies_and_public_bodies: agentschappen en openbare organen
+      part_of: Onderdeel van
+      public_body: openbaar lichaam
+      works_with: Werkt samen met
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Hoven en rechtbanken
   publications:
-    heading:
-    recent:
+    heading: Publicaties
+    recent: Recente publicaties
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Een lijst van gepubliceerde en binnenkort te verschijnen
+        overheidsstatistieken vindt u in de sectie %{link} statistieken.
+      moved_notice: Publicaties over statistieken zijn verplaatst.
   roles:
-    unassigned:
+    unassigned: Er is niemand toegewezen aan deze functie
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Bekijk al onze aankondigingen
+    authored_article: Bekijk al onze geschreven artikelen
+    case_study: Bekijk al onze case studies
+    closed_consultation: Bekijk al onze gesloten consultaties
+    consultation: Bekijk al onze raadplegingen
+    consultation_outcome: Bekijk alle uitkomsten van onze raadplegingen
+    corporate_report: Bekijk al onze bedrijfsrapporten
+    correspondence: Bekijk al onze correspondentie
+    decision: Bekijk al onze besluiten
+    detailed_guidance: Bekijk al onze adviezen
+    document_collection: Bekijk al onze collecties
+    draft_text: Bekijk al onze ontwerpteksten
+    fatality_notice: Bekijk al onze kennisgevingen van sterfgevallen
+    foi_release: Bekijk al onze Vrijheid van informatie-berichten
+    form: Bekijk al onze formulieren
+    government_response: Bekijk al onze regeringsreacties
+    guidance: Bekijk al onze richtlijnen
+    impact_assessment: Bekijk al onze effectbeoordelingen
+    imported: Bekijk al onze onafhankelijke rapporten
+    international_treaty: Bekijk al onze internationale verdragen
+    map: Bekijk al onze kaarten
+    national_statistics: Bekijk al onze nationale statistieken
+    news_article: Bekijk al onze nieuwsartikelen
+    news_story: Bekijk al onze nieuwsberichten
+    notice: Bekijk al onze aankondigingen
+    open_consultation: Bekijk al onze openbare raadplegingen
+    oral_statement: Bekijk al onze mondelinge verklaringen aan het Parlement
+    policy: Bekijk al ons beleid
+    policy_paper: Bekijk al onze beleidsdocumenten
+    press_release: Bekijk al onze persberichten
+    promotional: Bekijk al ons promotiemateriaal
+    publication: Bekijk al onze publicaties
+    regulation: Bekijk al onze verordeningen
+    research: Bekijk al onze onderzoeken en analyses
+    speaking_notes: Bekijk al onze speeches
+    speech: Bekijk al onze toespraken
+    statement_to_parliament: Bekijk al onze verklaringen aan het Parlement
+    statistical_data_set: Bekijk al onze statistische gegevens
+    statistics: Bekijk al onze statistieken
+    statutory_guidance: Bekijk al onze statutaire richtlijnen
+    transcript: Bekijk al onze transcripties
+    transparency: Bekijk al onze transparantiegegevens
+    written_statement: Bekijk al onze schriftelijke verklaringen aan het Parlement
   support:
     array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " en "
+    download: Downloaden
+    field_of_operation: 'Werkterrein:'
+    fields_of_operation: Werkterreinen
+    filter: Filter
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Volgende <span class="visueel verborgen">pagina</span> <span class="paginanummers">%{current_page}
+        van %{total_pages}</span>
+      next_page: Volgende pagina
+      previous_html: Vorige <span class="visueel verborgen">pagina</span> <span class="paginanummers">%{current_page}
+        van %{total_pages}</span>
+      previous_page: Vorige pagina
+    part_of_collection: 'Onderdeel van een collectie:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Laatste activiteit op %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Kunstraad Engeland
+      bbc: BBC
+      british_library: Britse Bibliotheek
+      commonwealth_war_graves_commission: Oorlogsgravencommissie van het Gemenebest
+      heritage_lottery_fund: Fonds voor de erfgoedloterij
+      historic_england: Historisch Engeland
+      iwm: Keizerlijk Oorlogsmuseum
+      war_memorials_trust: Oorlogsmonumenten Trust
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Actualiteiten, nieuws en evenementen van de Britse regering
+      in %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Ontdek %{link}.
+      personal_information_charter_html: In onze %{link} leggen wij uit hoe wij met
+        uw persoonlijke informatie omgaan.
+      publication_scheme_html: Lees over de soorten informatie die wij routinematig
+        publiceren in onze %{link}.
+      social_media_use_html: Lees ons beleid inzake %{link}.
+      welsh_language_scheme_html: Lees meer over onze inzet voor %{link}.
+    find_out_more: Bekijk het volledige profiel en alle contactgegevens
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Neem contact met ons op
+      corporate_information: Bedrijfsinformatie
+      follow_us: Volg ons op
+      our_people: Onze mensen
+    location: Vestiging
+    part_of: Deel van

@@ -2,569 +2,558 @@ so:
   document:
     type:
       about:
-        one:
-        other:
+        one: Ku sahabsan
+        other: Ku sahabsan
       about_our_services:
-        one:
-        other:
+        one: Ku sahabsan adeegyadeena
+        other: Ku sahabsan adeegyadeena
       access_and_opening:
-        one:
-        other:
+        one: Helida iyo furitaanka
+        other: Helida iyo furitaanka
       accessible_documents_policy:
-        one:
-        other:
+        one: Dukumentiyada siyaasada la heli karo
+        other: Dukumentiyada siyaasadaha la heli karo
       alert:
-        one:
-        other:
+        one: Wargelin
+        other: Wargelino
       announcement:
         one: Ogeysiis
         other: Ogeysiisyo
       authored_article:
-        one: Maqaal la qorey
-        other: Maqaallo la qorey
+        one: Qodob laqoray
+        other: Qodobada laqoray
       blog_post:
-        one:
-        other:
+        one: Qoraalka boga
+        other: Qoraalada boga
       campaign:
-        one:
-        other:
+        one: Xayaysiiska
+        other: Xayaysiisyada
       careers:
-        one:
-        other:
+        one: Xirfadaha
+        other: xirfadaha
       case_study:
-        one: Daraasad xaalad gaar ah
-        other: Daraasado xaalado gaar ah
+        one: Daraasad
+        other: Daraasado
       closed_consultation:
-        one: Wada-tashi albaabadu u xiran yihiin
-        other: Wadatashiyo albaabadu u xiran yihiin
+        one: Latalin Xidhan
+        other: Latalino xidhan
       complaints_procedure:
-        one:
-        other:
+        one: Nidaamka cabashada
+        other: Nidaamyada cabashoyinka
       consultation:
-        one: Wadatashi
-        other: Wadatashiyo
+        one: Latalin
+        other: Latalino
       consultation_outcome:
-        one: Natiijo ka dhalatey wadatashi
-        other: Natiijooyin ka dhashey wadatashiyo
+        one: Natiijada latalinta
+        other: Natiijooyinka latalinta
       corporate_report:
-        one: Warbixin sharikaad
-        other: Warbixinno sharikaad
+        one: Warbixinta shirkada
+        other: Warbixinaha shirkada
       correspondence:
-        one: Waraaq is-dhaafsi
-        other: Waraaqo is-dhaafsi
+        one: Xidhiidhka
+        other: Xidhiidhada
       decision:
-        one:
-        other:
+        one: Go'aan
+        other: Go'aamo
       detailed_guidance:
-        one: Hagid faahfaahsan
-        other: Hagid faahfaahsan
+        one: Tilmaam
+        other: Tilmaam
       document_collection:
-        one: Taxane
-        other:
+        one: Xidhmo
+        other: Xidhmooyin
       draft_text:
-        one: Qoraal qabyo ah
-        other: Qoraallo qabyo ah
+        one: Qabyo qoraal
+        other: Qabyo qoraalo
       edition:
-        one:
-        other:
+        one: Qaybta
+        other: Qaybaha
       edition_with_appointment:
-        one:
-        other:
+        one: Qaybta leh balanta
+        other: Qaybtaha leh balamaha
       equality_and_diversity:
-        one:
-        other:
+        one: Sinaanta iyo kala duwanaanshaha
+        other: Sinaanta iyo kala duwanaanshaha
       fatality_notice:
-        one:
-        other:
+        one: Ogeysiiska masiibooyinka
+        other: Ogeysiisyada masiibooyinka
       foi_release:
-        one: Soo saarista FOI
-        other: Soo saarista FOI-yo
+        one: Baahinta FOI
+        other: Warbixinaha FOI
       form:
-        one: Foom
-        other: Foomam
+        one: Foomka
+        other: Foomamka
       generic_edition:
-        one:
-        other:
+        one: Qaybta aan magaca la isticmaalayn
+        other: Qaybaha aan magaca la isticmaalayn
       government_response:
-        one: Jawaab dowladeed
-        other: Jawaabo dowladeed
+        one: Jawaabta dawlada
+        other: Jawaabaha dawlada
       guidance:
-        one: Hagid
-        other: Hagid
+        one: Tilmaam
+        other: Tilmaam
       impact_assessment:
-        one: Daraasad saameyn ku saabsan
-        other: Daraasado saameyn ku saabsan
+        one: Qiimeynta Saamenta
+        other: Qiimeynta Saamaynaha
       imported:
-        one: La soo waaridey - nooca sugitaanka
-        other: La soo waaridey - nooca sugitaanka
+        one: lasoo-dajiyey - nooca sugitaanka
+        other: lasoo-dajiyey - nooca sugitaanka
       independent_report:
-        one: Warbixin madax bannaan
-        other: Warbixinno madax bannaan
+        one: Warbixin madax banaan
+        other: Warbixino madax banaan
       international_treaty:
-        one:
-        other:
+        one: Heshiis caalamiya
+        other: Heshiisyo caalamiya
       manual:
-        one:
-        other:
+        one: Gacanta laga qabanayo
+        other: Gacanta laga qabanayo
       map:
-        one: Khariidad
-        other: Khariidado
+        one: Maab
+        other: Maabab
       media_enquiries:
-        one:
-        other:
+        one: Su'aasha saxaafada
+        other: Su'aalaha saxaafada
       membership:
-        one:
-        other:
+        one: Xubinimada
+        other: Xubinimada
       national_statistics:
-        one: Istaatistik - istaatistik qaran
-        other: Istaatistik - istaatistik qaran
+        one: Tirokoobka qaranka
+        other: Tirokoobka qaranka
       news_article:
-        one: Maqaal wareed
-        other: Maqaallo wareed
+        one: Maqaal war ah
+        other: Maqaalo war ah
       news_story:
-        one: Sheeko wareed
-        other: Sheekooyin wareed
+        one: War
+        other: Warar
       nhs_content:
-        one:
-        other:
+        one: Qaybta NHS
+        other: Qaybta NHS
       notice:
-        one:
-        other:
+        one: Ogeysiis
+        other: Ogeysiisyo
       official_statistics:
-        one: Istaatistik
-        other: Istaatistik
+        one: Tirokoobka rasmiga ah
+        other: Tirokoobka rasmiga ah
       open_consultation:
-        one: Wada-tashi furan
-        other: Wada-tashiyo furan
+        one: Latalin furan
+        other: Latalino furan
       oral_statement:
-        one: Hadal loo jeediyo baarlamaanka
-        other: hadallo loo jeediyo baarlamaanka
+        one: Bayaanka loogu talogalay Baarlamaanka
+        other: Bayaanada loogu talogalay Baarlamaanka
       our_energy_use:
-        one:
-        other:
+        one: Isticmaalkayaga tamarta
+        other: Isticmaalkayaga tamarta
       our_governance:
-        one:
-        other:
+        one: Maamulkayaga
+        other: Maamulkayaga
       personal_information_charter:
-        one:
-        other:
+        one: Xeerka macluumaadka shaqsiga ah
+        other: Xeerarka macluumaadka shaqsiga ah
       petitions_and_campaigns:
-        one:
-        other:
+        one: Codsiyada dadwaynaha iyo ololaha
+        other: Codsiyada dadwaynaha iyo ololaha
       policy_paper:
-        one: Waraaq qeexaysa siyaasadda
-        other: Waraaqo qeexaya siyaasadda
+        one: Warqada siyaasada
+        other: Waraaqaha siyaasada
       press_release:
         one: War-saxaafadeed
         other: War-saxaafadeedyo
       procurement:
-        one:
-        other:
+        one: Shaqaalaysiinta
+        other: Shaqaalaysiinta
       promotional:
-        one: Agab xayeysiin ah
-        other: Agab xayeysiin ah
+        one: Agab xayeysiis
+        other: Agab xayeysiis
       publication:
         one: Daabacaad
         other: Daabacaado
       publication_scheme:
-        one:
-        other:
+        one: Jaantuska daabacaada
+        other: Jaantusyada daabacaada
       recruitment:
-        one:
-        other:
+        one: Shaqaalaysiinta
+        other: Shaqaalaysiinta
       regulation:
-        one:
-        other:
+        one: Sharci
+        other: Shuruuc
       research:
-        one: Cilmi-baaris iyo lafaguris
-        other: Cilmi-baaris iyo lafaguris
+        one: Cilmi baadhista
+        other: Cilmi baadhista
       service:
-        one:
-        other:
+        one: Adeega
+        other: Adeegyada
       social_media_use:
-        one:
-        other:
+        one: Isticmaalka baraha bulshada
+        other: Isticmaalka baraha bulshada
       speaking_notes:
-        one: Qoraallo hadal jeedin
-        other: Qoraallo hadal jeedin
+        one: Qoraalada Khudbadaha
+        other: Qoraalada Khudbadaha
       speech:
-        one: Hadal
-        other: Hadallo
+        one: Khudbad
+        other: Khudbado
       staff_update:
-        one:
-        other:
+        one: Cusboonaysiinta shaqaalaha
+        other: Cusboonaysiinta Shaqaalaha
       standard:
-        one:
-        other:
+        one: Heerka
+        other: Heerarka
       statement_to_parliament:
-        one: Hadal loo jeediyo baarlamaanka
-        other: hadallo loo jeediyo baarlamaanka
+        one: Bayaanka loogu talogalay Baarlamaanka
+        other: Bayaanada loogu talogalay Baarlamaanka
       statistical_data_set:
-        one: Xirmo xog istaatistik ah
-        other: Xirmooyin xog istaatistik ah
+        one: Xogta tirokoobka
+        other: Xogaha tirokoobka
       statistics:
-        one:
-        other:
+        one: Xisaabaadka
+        other: Xisaabaadka
       statutory_guidance:
-        one:
-        other:
+        one: Tilmaamta sharciga
+        other: Tilmaamta sharciga
       terms_of_reference:
-        one:
-        other:
+        one: Xeerarka Tixraaca
+        other: Xeerarka Tixraaca
       transcript:
-        one: Qoraal la soo guuriyey
-        other: Qoraallo la soo guuriyey
+        one: Qoraal
+        other: Qoraalo
       transparency:
-        one: Xog daahfurnaan
-        other: Xog daahfurnaan
+        one: Xog daah furan
+        other: Xog daah furan
       welsh_language_scheme:
-        one:
-        other:
+        one: Jaantuska luuqada Welsh
+        other: Jaantuska luuqada Welsh
       world_news_story:
-        one:
-        other:
+        one: Sheekada Wararka Dunida
+        other: Sheekooyinka Wararka Dunida
       written_statement:
-        one: Hadal qoran oo loo gudbiyo baarlamaanka
-        other: Hadallo qoran oo loo gudbiyo baarlamaanka
-    contents:
+        one: Bayaan qoran oo loogu talogalay Baarlamaanka
+        other: Bayaanada qoran ee loogu talogalay Baarlamaanka
+    contents: Waxyaabaha uu ka koobanyahay
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: boga taariikhda oo dhamaystiran
+      published: Daabacaada
+      updated: La cusboonaysiiyay
     headings:
-      applies_to_nations: Waxa lagu saleeyaa
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: La-daabacay/nashriyey
-    see_all:
+      applies_to_nations: Lagu codsaday
+      from: Laga bilaabo
+      part_of: Ka qeyba
+    latest: Dukumentiyadii u danbeeyey
+    latest_from: Laga bilaabo kii u dambeeyay %{subject}
+    published: Daabacaada
+    see_all: Eeg dhamaan
     speech:
       author_title:
-        minister: Wasiir
-        speaker: Qoraa
-      delivered_on: La-jeediyey
+        minister: Wasiirka
+        speaker: Qoraaga
+      delivered_on: 'Loo diray:'
       delivery_title:
-        minister: Wasiir
-        speaker: Af-hayeen
-      written_on: 'Waxaa la qorey:'
-    updated: Wax lagu kordhiyey
+        minister: Wasiirka
+        speaker: Gudoomiyaha
+      written_on: 'Lagu qoray:'
+    updated: la cusboonaysiiyay
   world_location:
     type:
       international_delegation:
-        one: Ergo caalami ah
-        other: Ergooyin caalami ah
+        one: Wafti caalami ah
+        other: Wafti caalami ah
       world_location:
-        one: Goobo dunida ka mid ah
-        other: Goobo dunida ka mid ah
+        one: Goobta Dunida
+        other: Goobaha Dunida
     headings:
-      announcements: Ogeysiisyadeeenna
-      documents: Dokumentiyo
-      featured:
-      mission: Hawsheenna
-      news:
-      organisations: Ururro
-      publications: Daabacaadaheenna
-      search:
-      statistics: Istaatistikadeenna
+      announcements: Ku dhawaaqisahayaga
+      documents: Dukumentiyada
+      mission: Hadafkayaga
+      news: Wararka Goobta Dunida
+      organisations: Ururada
+      publications: Daabacadahayaga
+      search: Ku raadi dalka ama dhulka
+      statistics: Xog ururinahayaga
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: lambarka warqada guriga Commons
+        isbn: ISBN
+        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
       attachment_data:
-        file:
+        file: Faylka
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Lifaaqa lambarka warqada amarka
+        hoc_paper_number: lambarka warqada guriga Commons
+        isbn: Lifaaqa ISBN
+        title: Cinwaanka lifaaqa
+        unique_reference: Tixraaca gaarka ah ee lifaaqa
+        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Faylka lifaaqa
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Aanay ku jirin qaramadu
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Faylka lifaaqa
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Lifaaqa lambarka warqada amarka
+        hoc_paper_number: lambarka warqada guriga Commons
+        isbn: Lifaaqa ISBN
+        title: Cinwaanka lifaaqa
+        unique_reference: Tixraaca gaarka ah ee lifaaqa
+        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Faylka lifaaqa
     nested_attachment_data_field_names:
-      file:
+      file: Faylka lifaaqa
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Lifaaqa lambarka warqada amarka
+      hoc_paper_number: lambarka warqada guriga Commons
+      isbn: Lifaaqa ISBN
+      title: Cinwaanka lifaaqa
+      unique_reference: Tixraaca gaarka ah ee lifaaqa
+      unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
   announcements:
     heading: Ogeysiisyo
   attachment:
     accessibility:
-      full_help_html: Sida aad u codsato qoraalka oo qaab kale u qoran sida isaga
-        oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl
-        nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada,
-        lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
-      intro: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
-        la kaashado
-      request_a_different_format: Codsi isaga oo qaab kale ah
+      full_help_html: |
+        Hadii aad isticmaalayso tiknoolajiyad ku caawinaysa (sida akhriyaha shaashada) oo aad u baahantahay qayb dhokumantigan ah oo leh nooc la heli karo oo badan, fadlan iimayl u dir %{email}.
+        Fadlan noo sheeg nooca qaabka aad u baahantahay. Waxay naga caawinaysaa hadii aad dhahdo waa maxay tiknoolajiyada aad isticmaasho.
+      intro: Faylkani waxa laga yaabaa inaanu ku haboonayn isticmaalayaasha tiknoolajiyada
+        caawinta.
+      request_a_different_format: Codso nidaam la gali karo.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Faylka si hordhac ah looma sii eegi karo.
+      download: Dejiso faylka si aad u eegto waxyaabaha uu ka koobanyahay dhamaan.
+      truncated_message: Si aad u eegto kaliya wuxuu ku tusinayaa laynka %{rows} koowaad
+        iyo %{columns} kolomka.
     headings:
       order_a_copy: Dalbo nuqul
-      order_a_copy_full: Dalbo nuqulka daabacaadda
-      published: La-daabacay
-      reference: Xigasho
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy_full: Dalbo nuqul daabacaada ah
+      published: Daabacaada
+      reference: Tixraac
+      unnumbered_command_paper: Warqada amarka aan lambarada lahayn
+      unnumbered_hoc_paper: Warqada xeerka aan lambarada lahayn
     opendocument:
-      help_html:
+      help_html: Faylkani waa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        format
     virus_check:
-      intro:
-      message:
+      intro: Lifaaqan waxa laga hubiyay inuu fayras la socdo.
+      message: Waxaan hada haynaa lifaaqan inta lagu jiro karantiilka ilaa iyo inta
+        fayraska laga hubinayo. Lifaaqa waxa laga heli doonaa meeshiisii asalka ahayd
+        dhawaan.
   broken_links:
     broken:
-      subheading:
+      subheading: Waxaan helnay linkiyada dhokumantigan kaasoo la jabsaday
     caution:
-      subheading:
-    title:
+      subheading: Waxaan helnay arimaha qaar linkiyadooda kaasoo dhib muujinaya, waa
+        inaad ka taxadartaa marka aad ka codsanayso linki iyaga
+    title: Linkiyada la jabsaday
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Marka hore la daabacay
+    see_all_updates: eeg dhamaan cusboonaysiinaha
+    updated_at: Cusboonaysiintii ugu dambaysay
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Xidhan
+    closing_today: Xidhan maanta
+    closing_tomorrow: Beri xidhan
+    days_left: "%{days_left} maalmaha tagay"
   contact:
-    access_and_opening_times:
-    contact_form: Foom cinwaan
-    email: E-mail
+    access_and_opening_times: Wakhtiyada galitaanka iyo furitaanka
+    contact_form: Foomka lagala xidhiidhayo
+    email: Iimaylka
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: daabaacaada Welsh
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Axdiga macluumaadka shakhsiga ah
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Nidaam daabacaad
-        recruitment:
-        research:
-        social_media_use: Adeegsi war-baahinta bulshada
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Nidaamka luqadda Welsh-ka
+        about: Wax nagu saabsan anaga
+        about_our_services: Ku sahabsan adeegyadeena
+        access_and_opening: Wakhtiyada galitaanka iyo furitaanka xafiiska
+        accessible_documents_policy: Dukumentiyada siyaasada la heli karo
+        complaints_procedure: Nidaamka cabashada
+        equality_and_diversity: Sinaanta iyo kala duwanaanshaha
+        media_enquiries: Su'aalaha saxaafada
+        membership: Xubinimada
+        modern_slavery_statement: Bayaanka adoonta casriga ah
+        our_energy_use: Isticmaalkayaga tamarta
+        our_governance: Maamulkayaga
+        personal_information_charter: Xeerka macluumaadka shaqsiga ah
+        petitions_and_campaigns: Codsiyada dadwaynaha iyo ololaha
+        procurement: Shaqaalaysiinta %{organisation_name}
+        publication_scheme: Jaantuska daabacaada
+        recruitment: Ka shaqaynta %{organisation_name}
+        research: Cilmi baadhista %{organisation_name}
+        social_media_use: Isticmaalka baraha bulshada
+        staff_update: Warka shaqaalaha iyo macluumaadka
+        statistics: Xisaabaadka %{organisation_name}
+        terms_of_reference: Xeerarka Tixraaca
+        welsh_language_scheme: Jaantuska luuqada Welsh
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
-      natiijooyinka waafaqsan waxa aad daneyneyso
+      all: Dhamaan la talinta oo dhan
+      label: Latalino
+    description: Waxaad isticmaali kartaa kala saarayaasha si aad u muujiso kaliya
+      maxsuulka waafaqay danahaaga
     no_results:
-      description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
-      title: Ma jiraan qoraallo waafaqsan baaritaankaaga
-      tna_heading:
-      tna_link:
+      description: Isku day inaad baadhistaada balaadhiso oo isku day markale.
+      title: Ma jiraan dhokumantiyo is waafaqsan.
+      tna_heading: Qaybtii hore
+      tna_link: Maaha dhamaan qaybta daabacaadaha laga bilaabo kahor bisha May 2010
+        waxa loo wareejiyay GOV.UK. Si aad u raadiso daabacaadaha laga bilaabo bisha
+        May 2010 isku day baadhista <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">Kaydka Qaranka</a>.
     world_locations:
-      all: Dhammaan goobaha kala duwan
-      label: Goobo dunida ka mid ah
-      no_locations_filter:
+      all: Dhamaan goobaha
+      label: Goobaha Dunida
+      no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
+  email_alert:
+    subscription: Xasuusinta iimaylka ku calaamadsan
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Muhiimada British-ka
+    none_added: Ma jiraan wax ogaysiisyada muhiimka ah oo lagu daray goobtan shaqada
+      wali.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: Waxqabadkii ugu dambeeyey
+    email: iimaylka
+    feed: warka
+    get_updates_to_this_list: Hel wixii ugu dambeeyay ee liiskan
+    latest_activity: Hawsha ugu dambaysay
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    so: Soomaaliga
+    so: Soomaali
   latest_feed:
-    no_updates: Weli wax laguma kordhin.
-    title: Ugu dambeeyey
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Wali wax cusub ma jiraan.
+    title: Ugu dambeeyay
   national_statistics:
-    heading:
+    heading: Tirokoobka qaranka
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: Halkaan ka gal macluumaadkeenna
-      jobs:
-      jobs_and_contacts: Shaqaayin iyo qandaraasyo
-      organisation_chart:
-      transparency: Xog daahfurnaan
+      access_our_info: Helitaankayaga macluumaadka
+      jobs: Shaqooyinka
+      jobs_and_contacts: Shaqooyinka iyo qandaraasyada
+      organisation_chart: Jaantuska ururkayaga
+      transparency: Xog daah furan
     email:
-      alerts:
-      summary:
+      alerts: xasuusinaha iimaylka
+      summary: Xasuusinaha iimaylka ee kaaga imanaya
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
+      find_an_embassy_uppercase: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
     headings:
-      contact: La soo xiriir %{name}
-      corporate_information:
-      corporate_reports:
+      contact: Kala xidhiidh %{name}
+      corporate_information: Macluumaadka shirkada
+      corporate_reports: Warbixinaha shirkada
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Ay maamushay
+      agencies_and_public_bodies: wakaaladaha iyo qaybaha dawlada
+      part_of: Ka qeyba
+      public_body: dawlada
+      works_with: Ee la shaqaysa
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Maxkamadaha iyo Xukunada
   publications:
-    heading: Daabacaado/Nashrin
-    recent:
+    heading: Daabacaado
+    recent: Daabacadihii dhawaa
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Baadh liiska cusboonaysiinta iyo xog ururinta
+        soo socota ee dawlada %{link} qaybta xog ururinta.
+      moved_notice: Daabacaadaha xog ururinaha waa laga saaray.
   roles:
-    unassigned:
+    unassigned: Qofna looma qoondayn doorkan
   see_all:
-    announcement: Fiiri dhammaan ogeysiisyo yadeenna
-    authored_article: Fiiri dhammaan maqaallo la qorey yadeenna
-    case_study: Fiiri dhammaan daraasado xaalado gaar ah yadeenna
-    closed_consultation: Fiiri dhammaan wadatashiyo albaabadu u xiran yihiin yadeenna
-    consultation: Fiiri dhammaan wadatashiyo yadeenna
-    consultation_outcome: Fiiri dhammaan natiijooyin ka dhashey wadatashiyo yadeenna
-    corporate_report: Fiiri dhammaan warbixinno sharikaad yadeenna
-    correspondence: Fiiri dhammaan waraaqo is-dhaafsi yadeenna
-    decision:
-    detailed_guidance: Fiiri dhammaan hagid faahfaahsan yadeenna
-    document_collection:
-    draft_text: Fiiri dhammaan qoraallo qabyo ah yadeenna
-    fatality_notice: Fiiri dhammaan ogeysiisyo geeri yadeenna
-    foi_release: Fiiri dhammaan soo saarista foi-yo yadeenna
-    form: Fiiri dhammaan foomam yadeenna
-    government_response: Fiiri dhammaan jawaabo dowladeed yadeenna
-    guidance: Fiiri dhammaan hagid yadeenna
-    impact_assessment: Fiiri dhammaan daraasado saameyn ku saabsan yadeenna
-    imported: Fiiri dhammaan la soo waaridey - nooca sugitaanka yadeenna
-    international_treaty:
-    map: Fiiri dhammaan khariidado yadeenna
-    national_statistics: Fiiri dhammaan istaatistik - istaatistik qaran yadeenna
-    news_article: Fiiri dhammaan maqaallo wareed yadeenna
-    news_story: Fiiri dhammaan sheekooyin wareed yadeenna
-    notice:
-    open_consultation: Fiiri dhammaan wada-tashiyo furan yadeenna
-    oral_statement: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
-    policy: Fiiri dhammaan siyaasado yadeenna
-    policy_paper: Fiiri dhammaan waraaqo qeexaya siyaasadda yadeenna
-    press_release: Fiiri dhammaan war-saxaafadeedyo yadeenna
-    promotional: Fiiri dhammaan agab xayeysiin ah yadeenna
-    publication: Fiiri dhammaan daabacaado yadeenna
-    regulation:
-    research: Fiiri dhammaan cilmi-baaris iyo lafaguris yadeenna
-    speaking_notes: Fiiri dhammaan qoraallo hadal jeedin yadeenna
-    speech: Fiiri dhammaan hadallo yadeenna
-    statement_to_parliament: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
-    statistical_data_set: Fiiri dhammaan xirmooyin xog istaatistik ah yadeenna
-    statistics: Fiiri dhammaan istaatistik yadeenna
-    statutory_guidance:
-    transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
-    transparency: Fiiri dhammaan xog daahfurnaan yadeenna
-    written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
+    announcement: Eeg dhamaan ku dhawaaqisahayaga
+    authored_article: Eeg dhamaan qoraalaada la ogalyahay
+    case_study: Eeg dhamaan cilmi baadhisahayaga
+    closed_consultation: Eeg dhamaan latilinahayaga dhaw
+    consultation: Eeg dhamaan la talinahayaga oo dhan
+    consultation_outcome: Eeg dhamaan maxsuulada la talinahayaga oo dhan
+    corporate_report: Eeg dhamaan warbixinaha isku dhafan
+    correspondence: Eeg dhamaan xidhiidhadayaga oo dhan
+    decision: Eeg dhamaan go'aanadayada oo dhan
+    detailed_guidance: Eeg dhamaan tilmaamahayga oo dhan
+    document_collection: Eeg dhamaan xidhmooyinkayaga oo dhan
+    draft_text: Eeg dhamaan qoraalaadayada qabyada ah oo dhan
+    fatality_notice: Eeg dhamaan ogaysiisyadayada muhiimka ah
+    foi_release: Eeg dhamaan baahinahayaga FOI
+    form: Eeg dhamaan foomamkayaga oo dhan
+    government_response: Eeg dhamaan jawaabahayaga Dawlada
+    guidance: Eeg dhamaan tilmaamahayga oo dhan
+    impact_assessment: Eeg dhamaan saamayntayada qiimaynaha
+    imported: Eeg dhamaan warbixinahayaga madaxa banaan
+    international_treaty: Eeg dhamaan caqabahayaga caalamiga ah
+    map: Eeg dhamaan khariidadahayaga oo dhan
+    national_statistics: Eeg dhamaan xog ururinaha Heer qaran
+    news_article: Eeg dhamaan qoraalaada wararka
+    news_story: Eeg dhamaan sheekoyinkayaga wararka
+    notice: Eeg dhamaan ogaysiisyadaya
+    open_consultation: Eeg dhamaan latilinahayaga furan
+    oral_statement: Eeg dhammaan hadalada aan afka u sheegnay ee Baarlamaanka
+    policy: Eeg dhamaan siyaasadahayaga
+    policy_paper: Eeg dhamaan waraaqaha siyaasadahayaga
+    press_release: Eeg dhamaan baahinahayaga warsaxaadeed
+    promotional: Eeg dhamaan agabkayaga xayaysiinta
+    publication: Eeg dhamaan daabacadahayaga
+    regulation: Eeg dhamaan xeerarkayaga
+    research: Eeg dhamaan cilmi baadhisyadayada iyo falanqayn
+    speaking_notes: Eeg dhamaan qoraaladayada hadalka
+    speech: Eeg dhamaan hadaladayada
+    statement_to_parliament: Eeg dhammaan bayaanada aan udirnay Baarlamaanka
+    statistical_data_set: Eeg dhamaan dejimahayaga macluumaadaka xog ururinta
+    statistics: Eeg dhamaan xog ururinahayaga
+    statutory_guidance: Eeg dhamaan tilmaamahayga muhiimka ah
+    transcript: Eeg dhamaan qoraaladayada
+    transparency: Eeg dhamaan xogtayada daaha furan
+    written_statement: Eeg dhammaan bayaanadayada qoraalka ah ee loo diray Baarlamaanka
   support:
     array:
-      last_word_connector: iyo
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " iyo "
+    download: Dejiso
+    field_of_operation: 'Hawalaha dibada:'
+    fields_of_operation: Hawalaha dibada
+    filter: Kal shandhaynta
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Kuxiga <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page}
+        ah %{total_pages}</span>
+      next_page: Boga xiga
+      previous_html: Hore s <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page}
+        ah %{total_pages}</span>
+      previous_page: Boga hore
+    part_of_collection: 'Ka qeyba xidhmada:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Hawshii ugu dambaysay %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Qaybta latalinta England
+      bbc: BBC
+      british_library: Maktabada Ingiriiska
+      commonwealth_war_graves_commission: Guddiga Qabuuraha Dagaalka Barwaaqo Sooranka
+      heritage_lottery_fund: Lacagta bakhtiyaanasiibka ee Dhaxalka ah
+      historic_england: Taariikhda England
+      iwm: Madxafka Degaalka ee Imperial
+      war_memorials_trust: Aaminaada Xasuusaha Degaalka
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Cusbonaysiinaha, wararka iyo dhacdooyinka ka yimaada dawlada
+      UK %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: "%{link} ayaa sharxaya sida aan ula tacaamulno
-        macluumaadkaaga shakhsiga ah"
-      publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
-        %{link} aan soo saarno.
-      social_media_use_html: Akhri siyaasaddeenna ku saabsan %{link}.
-      welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta
+      about_our_services_html: Ka raadi %{link}.
+      personal_information_charter_html: Sharaxadahayagu %{link} waxay sheegayaan
+        sida loola dhaqmayo macluumaadkaaga shaqsiyeed.
+      publication_scheme_html: Akhri waxyaabaha ku saabsan nooca macluumaadka aan
+        si joogto ugu daabacno %{link}.
+      social_media_use_html: Ka akhri siyaasadayahaga %{link}.
+      welsh_language_scheme_html: Raadi waxyaabaha ku saabsan ka go'naanshahayaga
         %{link}.
-    find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan
-      cinwaannada oo faahfaahsan
+    find_out_more: Eeg borofaayl dhamaystiran iyo dhamaan faahfaahinta meesha lagala
+      xidhiidhayo
     headings:
-      contact_us: Nala soo xiriir
-      corporate_information: Macluumaad hay'adeed
-      follow_us: Nala jaanqaad
-      our_people: Dadkeenna
-    location: Goob
-    part_of: Qayb ka mid ah
+      contact_us: Nagala soo xidhiidh
+      corporate_information: Macluumaadka shirkada
+      follow_us: Nagala soco
+      our_people: Dadkayaga
+    location: Goobta
+    part_of: Ka qeyba

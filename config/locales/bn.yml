@@ -2,107 +2,107 @@ bn:
   document:
     type:
       about:
-        one:
-        other:
+        one: পরিচিতি
+        other: পরিচিতি
       about_our_services:
-        one:
-        other:
+        one: আমাদের পরিষেবাসমূহ সম্বন্ধে
+        other: আমাদের পরিষেবাসমূহ সম্বন্ধে
       access_and_opening:
-        one:
-        other:
+        one: প্রবেশ ও খোলা
+        other: প্রবেশ ও খোলা
       accessible_documents_policy:
-        one:
-        other:
+        one: প্রবেশযোগ্য নথিপত্র সম্পর্কিত নীতিমালা
+        other: প্রবেশযোগ্য নথিপত্র সম্পর্কিত নীতিমালা
       alert:
-        one:
-        other:
+        one: অ্যালার্ট
+        other: অ্যালার্টসমূহ
       announcement:
         one: ঘোষণা
-        other: ঘোষণাসমূহ
+        other: ঘোষণা
       authored_article:
-        one: রচনা নিবন্ধ
-        other: রচনা নিবন্ধসমূহ
+        one: লেখকের উৎস সহ নিবন্ধ
+        other: লেখকের উৎস সহ নিবন্ধসমূহ
       blog_post:
         one: ব্লগ পোস্ট
         other: ব্লগ পোস্টসমূহ
       campaign:
-        one:
-        other:
+        one: ক্যাম্পেইন
+        other: ক্যাম্পেইনসমূহ
       careers:
-        one:
-        other:
+        one: পেশাজীবন
+        other: পেশাজীবন
       case_study:
         one: কেস স্টাডি
         other: কেস স্টাডিসমূহ
       closed_consultation:
-        one: সমাপ্ত শলাপরামর্শ
-        other: সমাপ্ত শলাপরামর্শসমূহ
+        one: ক্লোজড কনসাল্টেশন
+        other: ক্লোজড কনসাল্টেশন
       complaints_procedure:
-        one:
-        other:
+        one: অভিযোগ দাখিলের প্রক্রিয়া
+        other: অভিযোগ দাখিলের প্রক্রিয়াসমূহ
       consultation:
-        one: শলাপরামর্শ
-        other: শলাপরামর্শসমূহ
+        one: পরামর্শ
+        other: পরামর্শ
       consultation_outcome:
-        one: শলাপরামর্শের ফলাফল
-        other: শলাপরামর্শের ফলাফলসমূহ
+        one: পরামর্শের ফলাফল
+        other: পরামর্শের ফলাফল
       corporate_report:
         one: কর্পোরেট রিপোর্ট
         other: কর্পোরেট রিপোর্টসমূহ
       correspondence:
-        one: চিঠিপত্র
-        other: চিঠিপত্রসমূহ
+        one: যোগাযোগ
+        other: যোগাযোগ
       decision:
         one: সিদ্ধান্ত
         other: সিদ্ধান্তসমূহ
       detailed_guidance:
-        one: নির্দেশনা
-        other: নির্দেশনা
+        one: পরিচালনা
+        other: পরিচালনা
       document_collection:
         one: সংগ্রহ
         other: সংগ্রহসমূহ
       draft_text:
-        one: খসড়া পাঠ্য
-        other: খসড়া পাঠ্যসমূহ
+        one: খসড়া টেক্সট
+        other: খসড়া টেক্সটসমূহ
       edition:
-        one:
-        other:
+        one: সংস্করণ
+        other: সংস্করণসমূহ
       edition_with_appointment:
-        one:
-        other:
+        one: অ্যাপয়েন্টমেন্টের সংস্করণ
+        other: অ্যাপয়েন্টমেন্টের সংস্করণসমূহ
       equality_and_diversity:
-        one:
-        other:
+        one: সমতা এবং বৈচিত্র্য
+        other: সমতা এবং বৈচিত্র্য
       fatality_notice:
-        one:
-        other:
+        one: বিপর্যয় সম্পর্কিত বিজ্ঞপ্তি
+        other: বিপর্যয় সম্পর্কিত বিজ্ঞপ্তিসমূহ
       foi_release:
-        one: এফওআই বিজ্ঞপ্তি
-        other: এফওআই বিজ্ঞপ্তিসমূহ
+        one: ফ্রিডম অব ইনফর্মেশন-এর ছাড়পত্র
+        other: ফ্রিডম অব ইনফর্মেশন-এর ছাড়পত্রসমূহ
       form:
-        one: ফরম
-        other: ফরমসমূহ
+        one: ফর্ম
+        other: ফর্মসমূহ
       generic_edition:
-        one:
-        other:
+        one: সাধারণ সংস্করণ
+        other: সাধারণ সংস্করণসমূহ
       government_response:
-        one: সরকারী প্রতিক্রিয়া
-        other: সরকারী প্রতিক্রিয়াসমূহ
+        one: সরকারের সাড়া
+        other: সরকারের সাড়া
       guidance:
-        one: নির্দেশনা
-        other: নির্দেশনা
+        one: পরিচালনা
+        other: পরিচালনা
       impact_assessment:
         one: প্রভাব মূল্যায়ন
-        other: প্রভাব মূল্যায়নসমূহ
+        other: প্রভাব মূল্যায়ন
       imported:
-        one: আমদানিকৃত- প্রত্যাশিত প্রকার
-        other: আমদানিকৃত- প্রত্যাশিত প্রকার
+        one: ইমপোর্ট করা - প্রকারের জন্য অপেক্ষমাণ
+        other: ইমপোর্ট করা - প্রকারের জন্য অপেক্ষমাণ
       independent_report:
         one: স্বতন্ত্র রিপোর্ট
         other: স্বতন্ত্র রিপোর্টসমূহ
       international_treaty:
-        one: আন্তর্জাতিক চুক্তি
-        other: আন্তর্জাতিক চুক্তিসমূহ
+        one: ইন্টারন্যাশনাল চুক্তি
+        other: ইন্টারন্যাশনাল চুক্তিসমূহ
       manual:
         one: ম্যানুয়াল
         other: ম্যানুয়ালসমূহ
@@ -110,328 +110,314 @@ bn:
         one: মানচিত্র
         other: মানচিত্রসমূহ
       media_enquiries:
-        one:
-        other:
+        one: মিডিয়ার অনুসন্ধান
+        other: মিডিয়ার অনুসন্ধানসমূহ
       membership:
-        one:
-        other:
+        one: সদস্যপদ
+        other: সদস্যপদ
       national_statistics:
         one: জাতীয় পরিসংখ্যান
         other: জাতীয় পরিসংখ্যান
       news_article:
-        one: সংবাদ প্রবন্ধ
-        other: সংবাদ প্রবন্ধসমূহ
+        one: সংবাদের নিবন্ধ
+        other: সংবাদের নিবন্ধসমূহ
       news_story:
-        one: সংবাদের কাহিনী
-        other: সংবাদের কাহিনীসমূহ
+        one: সংবাদের বিষয়
+        other: সংবাদের বিষয়াবলী
       nhs_content:
-        one: এনএইচএস বিষয়বস্তু
-        other: এনএইচএস বিষয়বস্তু
+        one: ন্যাশনাল হেলথ সার্ভিস-এর বিষয়বস্তু
+        other: ন্যাশনাল হেলথ সার্ভিস-এর বিষয়বস্তু
       notice:
-        one: প্রজ্ঞাপন
-        other: প্রজ্ঞাপনসমূহ
+        one: বিজ্ঞপ্তি
+        other: বিজ্ঞপ্তিসমূহ
       official_statistics:
         one: দাপ্তরিক পরিসংখ্যান
         other: দাপ্তরিক পরিসংখ্যান
       open_consultation:
-        one: উন্মুক্ত শলাপরামর্শ
-        other: উন্মুক্ত শলাপরামর্শসমূহ
+        one: উম্মুক্ত পরামর্শ
+        other: উম্মুক্ত পরামর্শসমূহ
       oral_statement:
         one: সংসদে মৌখিক বিবৃতি
         other: সংসদে মৌখিক বিবৃতিসমূহ
       our_energy_use:
-        one:
-        other:
+        one: আমাদের বিদ্যুৎ ব্যবহার
+        other: আমাদের বিদ্যুৎ ব্যবহার
       our_governance:
-        one:
-        other:
+        one: আমাদের শাসন
+        other: আমাদের শাসন
       personal_information_charter:
-        one:
-        other:
+        one: ব্যক্তিগত তথ্যের সনদ
+        other: ব্যক্তিগত তথ্যের সনদসমূহ
       petitions_and_campaigns:
-        one:
-        other:
+        one: পিটিশন ও ক্যাম্পেইন
+        other: পিটিশন ও ক্যাম্পেইন
       policy_paper:
-        one: নীতিমালা সংক্রান্ত পত্র
-        other: নীতিমালা সংক্রান্ত পত্রসমূহ
+        one: পলিসি পেপার
+        other: পলিসি পেপারসমূহ
       press_release:
-        one: সংবাদ বিজ্ঞপ্তি
-        other: সংবাদ বিজ্ঞপ্তিসমূহ
+        one: প্রেস বিজ্ঞপ্তি
+        other: প্রেস বিজ্ঞপ্তিসমূহ
       procurement:
-        one:
-        other:
+        one: ক্রয়
+        other: ক্রয়
       promotional:
-        one: প্রচারমূলক উপাদান
-        other: প্রচারমূলক উপাদান
+        one: প্রোমোশন সম্পর্কিত উপকরণ
+        other: প্রোমোশন সম্পর্কিত উপকরণ
       publication:
         one: প্রকাশনা
         other: প্রকাশনাসমূহ
       publication_scheme:
-        one:
-        other:
+        one: প্রকাশনা স্কিম
+        other: প্রকাশনা স্কিমসমূহ
       recruitment:
-        one:
-        other:
+        one: নিয়োগ
+        other: নিয়োগ
       regulation:
-        one: নিয়ম
-        other: নিয়মাবলী
+        one: বিধিবিধান
+        other: বিধিবিধান
       research:
-        one: গবেষণা ও বিশ্লেষণ
-        other: গবেষণা ও বিশ্লেষণ
+        one: গবেষণা
+        other: গবেষণা
       service:
-        one:
-        other:
+        one: পরিষেবা
+        other: পরিষেবা
       social_media_use:
-        one:
-        other:
+        one: সামাজিক যোগাযোগ মাধ্যম ব্যবহার
+        other: সামাজিক যোগাযোগ মাধ্যম ব্যবহার
       speaking_notes:
-        one: কথ্য নোটসমূহ
-        other: কথ্য নোটসমূহ
+        one: বক্তার টীকা
+        other: বক্তার টীকা
       speech:
-        one: ভাষণ
-        other: ভাষণসমূহ
+        one: বক্তব্য
+        other: বক্তব্যসমূহ
       staff_update:
-        one:
-        other:
+        one: স্টাফের হালনাগাদ
+        other: স্টাফের হালনাগাদসমূহ
       standard:
-        one:
-        other:
+        one: স্ট্যান্ডার্ড
+        other: স্ট্যান্ডার্ডসমূহ
       statement_to_parliament:
         one: সংসদে বিবৃতি
         other: সংসদে বিবৃতিসমূহ
       statistical_data_set:
-        one: পরিসংখ্যানমূলক ডেটা সেট
-        other: পরিসংখ্যানমূলক ডেটা সেটসমূহ
+        one: পরিসংখ্যানগত তথ্য সংকলন
+        other: পরিসংখ্যানগত তথ্য সংকলন
       statistics:
-        one:
-        other:
+        one: পরিসংখ্যান
+        other: পরিসংখ্যান
       statutory_guidance:
-        one: সংবিধিবদ্ধ নির্দেশনা
-        other: সংবিধিবদ্ধ নির্দেশনা
+        one: বিধিবদ্ধ নির্দেশনা
+        other: বিধিবদ্ধ নির্দেশনা
       terms_of_reference:
-        one:
-        other:
+        one: কার্যক্রমের শর্তাবলী
+        other: কার্যক্রমের শর্তাবলী
       transcript:
-        one: প্রতিলিপি
-        other: প্রতিলিপিসমূহ
+        one: ট্রানস্ক্রিপ্ট
+        other: ট্রানস্ক্রিপ্টসমূহ
       transparency:
-        one: স্বচ্ছতামূলক ডেটা
-        other: স্বচ্ছতামূলক ডেটা
+        one: স্বচ্ছতার তথ্য
+        other: স্বচ্ছতার তথ্য
       welsh_language_scheme:
-        one:
-        other:
+        one: ওয়েলশ ভাষার স্কিম
+        other: ওয়েলশ ভাষার স্কিমসমূহ
       world_news_story:
-        one: বিশ্বব্যাপী সংবাদ কাহিনী
-        other: বিশ্বব্যাপী সংবাদ কাহিনীসমূহ
+        one: বিশ্বব্যাপী সংবাদের বিষয়বস্তু
+        other: বিশ্বব্যাপী সংবাদের বিষয়বস্তু
       written_statement:
         one: সংসদে লিখিত বিবৃতি
         other: সংসদে লিখিত বিবৃতিসমূহ
-    contents: বিষয়বস্তু
+    contents: বিষয়সূচী
     footer_meta:
-      full_page_history: পূর্ণ পৃষ্ঠার ইতিহাস
-      published: প্রকাশিত
-      updated: আপডেটকৃত
+      full_page_history: পুরো পৃষ্ঠার ইতিহাস
+      published: প্রকাশিত হয়েছে
+      updated: হালনাগাদ করা হয়েছে
     headings:
-      applies_to_nations: এতে প্রযোজ্য হয়
+      applies_to_nations: যার জন্য প্রযোজ্য
       from: থেকে
       part_of: এর অংশ
-    latest:
-    latest_from:
-    published: প্রকাশিত
-    see_all: সব দেখুন
+    latest: সর্বশেষ নথিসমূহ
+    latest_from: "%{subject} থেকে সর্বশেষ"
+    published: প্রকাশিত হয়েছে
+    see_all: সবগুলো দেখুন
     speech:
       author_title:
         minister: মন্ত্রী
         speaker: লেখক
-      delivered_on: 'ডেলিভারি করা হয়েছে এই তারিখে:'
+      delivered_on: 'পাঠানো হয়েছে:'
       delivery_title:
         minister: মন্ত্রী
         speaker: বক্তা
-      written_on: 'লিখিত হয়েছে এতে:'
-    updated: আপডেটকৃত
+      written_on: 'যখন লেখা হয়েছে:'
+    updated: হালনাগাদ করা হয়েছে
   world_location:
     type:
       international_delegation:
         one: আন্তর্জাতিক প্রতিনিধি
         other: আন্তর্জাতিক প্রতিনিধিগণ
       world_location:
-        one: বৈশ্বিক অবস্থান
-        other: বৈশ্বিক অবস্থানসমূহ
+        one: বিশ্বের অবস্থান
+        other: বিশ্বের অবস্থানসমূহ
     headings:
       announcements: আমাদের ঘোষণাসমূহ
       documents: নথিপত্র
-      featured:
-      mission: আমাদের লক্ষ্য
-      news:
-      organisations: সংস্থাসমূহ
+      mission: আমাদের মিশন
+      news: বিশ্বের অবস্থানসমূহের সংবাদ
+      organisations: প্রতিষ্ঠানসমূহ
       publications: আমাদের প্রকাশনাসমূহ
-      search:
+      search: দেশ বা অঞ্চল হিসেবে অনুসন্ধান করুন
       statistics: আমাদের পরিসংখ্যান
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-        isbn: আইএসবিএন
-        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+        hoc_paper_number: হাউজ অব কমন্সের পেপার নাম্বার
+        isbn: ISBN
+        unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
       attachment_data:
         file: ফাইল
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
-        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-        isbn: সংযুক্তি আইএসবিএন
-        title: সংযুক্তি শিরোনাম
-        unique_reference: সংযুক্তি বিশেষ রেফারেন্স
-        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+        command_paper_number: সংযুক্ত আদেশ পত্র নম্বর
+        hoc_paper_number: হাউজ অব কমন্সের পেপার নাম্বার
+        isbn: সংযুক্তির ISBN
+        title: সংযুক্তির শিরোনাম
+        unique_reference: সংযুক্তির অনন্য সূত্র
+        unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: সংযুক্ত ফাইল
+        file: সংযুক্ত নথি
       edition:
-        nation_inapplicabilities: বহির্ভূত দেশসমূহ
+        nation_inapplicabilities: বাদ দেওয়া জাতিসমূহ
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file: সংযুক্ত ফাইল
+        file: সংযুক্ত নথি
       response/consultation_response_attachments/attachment:
-        command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
-        hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-        isbn: সংযুক্তি আইএসবিএন
-        title: সংযুক্তি শিরোনাম
-        unique_reference: সংযুক্তি বিশেষ রেফারেন্স
-        unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+        command_paper_number: সংযুক্ত আদেশ পত্র নম্বর
+        hoc_paper_number: হাউজ অব কমন্সের পেপার নাম্বার
+        isbn: সংযুক্তির ISBN
+        title: সংযুক্তির শিরোনাম
+        unique_reference: সংযুক্তির অনন্য সূত্র
+        unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
       response/consultation_response_attachments/attachment/attachment_data:
-        file: সংযুক্ত ফাইল
+        file: সংযুক্ত নথি
     nested_attachment_data_field_names:
-      file: সংযুক্ত ফাইল
+      file: সংযুক্ত নথি
     nested_attachment_field_names:
-      command_paper_number: সংযুক্তি আদেশপত্র সংখ্যা
-      hoc_paper_number: হাউজ অব কমন্স পত্র সংখ্যা
-      isbn: সংযুক্তি আইএসবিএন
-      title: সংযুক্তি শিরোনাম
-      unique_reference: সংযুক্তি বিশেষ রেফারেন্স
-      unnumbered_hoc_paper: অসাংখ্যিক হাউজ অব কমন্স পত্র
+      command_paper_number: সংযুক্ত আদেশ পত্র নম্বর
+      hoc_paper_number: হাউজ অব কমন্সের পেপার নাম্বার
+      isbn: সংযুক্তির ISBN
+      title: সংযুক্তির শিরোনাম
+      unique_reference: সংযুক্তির অনন্য সূত্র
+      unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
   announcements:
-    heading: ঘোষণাসমূহ
+    heading: ঘোষণা
   attachment:
     accessibility:
-      full_help_html: "যদি আপনি সহকারী প্রযুক্তি (যেমন একটি স্ক্রিন রিডার) ব্যবহার
-        করেন এবং \nআরো বেশি গ্রাহ্য প্রকরণে যদি এই নথিটির একটি সংস্করণের প্রয়োজন হয়,
-        তবে অনুগ্রহ করে %{email} এ ইমেইল করুন।\nঅনুগ্রহ করে আপনার প্রয়োজনীয় প্রকরণটি
-        সম্পর্কে আমাদেরকে জানান। আপনি কোন সহকারী প্রযুক্তিটি ব্যবহার করছেন সেটি যদি
-        আমাদেরকে জানান তবে উপকার হবে।\n"
-      intro: সহকারী প্রযুক্তি ব্যবহারকারীদের জন্য এই ফাইলটি হয়ত সুবিধাজনক হবে না।
-      request_a_different_format: একটি ব্যবহার উপযোগী প্রকরণের অনুরোধ করুন।
+      full_help_html: |
+        আপনি যদি সহায়তামূলক প্রযুক্তি (যেমন, স্ক্রিন রিডার) ব্যবহার করেন এবং এই নথির আরও সহজে প্রবেশযোগ্য কোনো নথির প্রয়োজন হয়, তবে অনুগ্রহ করে %{email}-এ ইমেইল করুন।
+        আপনার কোন ফরম্যাট প্রয়োজন অনুগ্রহ করে তা আমাদেরকে জানান। আপনি কোন সহায়তামূলক প্রযুক্তি ব্যবহার করেন তা জানালে আমাদের জন্য সহায়ক হবে।
+      intro: এই নথিটি সহায়তামূলক প্রযুক্তি ব্যবহারকারীগণের জন্য উপযুক্ত নাও হতে পারে।
+      request_a_different_format: একটি প্রবেশযোগ্য ফরম্যাটের অনুরোধ করুন।
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: এই ফাইলটি প্রিভিউ করা যায়নি।
+      download: ফাইলটির পুরো বিষয়বস্তু দেখতে এটি ডাউনলোড করুন।
+      truncated_message: এই প্রিভিউটি শুধু প্রথম %{rows}টি সারি ও %{columns}টি কলাম
+        দেখায়।
     headings:
       order_a_copy: একটি অনুলিপির অর্ডার করুন
       order_a_copy_full: প্রকাশনার একটি অনুলিপির অর্ডার করুন
-      published: প্রকাশিত
-      reference: রেফ
-      unnumbered_command_paper: অসাংখ্যিক আদেশপত্র
-      unnumbered_hoc_paper: অসাংখ্যিক আইনপত্র
+      published: প্রকাশিত হয়েছে
+      reference: সূত্র
+      unnumbered_command_paper: নম্বরবিহীন আদেশপত্র
+      unnumbered_hoc_paper: নম্বরবিহীন আইনপত্র
     opendocument:
-      help_html: এই ফাইলটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        প্রকরণে আছে।
+      help_html: এই নথিটি একটি <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+        ফরম্যাটে আছে
     virus_check:
-      intro:
-      message:
+      intro: এই সংযুক্তিটির ভাইরাস পরীক্ষা করা হয়েছে।
+      message: এই সংযুক্তিটির ভাইরাস পরীক্ষা না করা পর্যন্ত আমরা এটি কোয়ারেন্টিন করে
+        রাখছি। শীঘ্রই সংযুক্তিটি মূল অবস্থানে উপলভ্য হবে।
   broken_links:
     broken:
-      subheading: আমরা এই নথিতে এমন লিঙ্কসমূহ পেয়েছি যা হয়ত নষ্ট হতে পারে।
+      subheading: আমরা এই নথিতে এমন কিছু লিংক পেয়েছি যেগুলো অকার্যকর হতে পারে
     caution:
-      subheading: আমরা লিঙ্কসমূহে কিছু ত্রুটি পেয়েছি যা হয়ত সমস্যার নির্দেশ করতে পারে,
-        এগুলিকে সংযুক্ত করার ক্ষেত্রে আপনার সচেতন হওয়া উচিত।
-    title: নষ্ট লিঙ্কসমূহ
+      subheading: লিংকগুলোতে আমরা কিছু বিষয় পেয়েছি, যেগুলো সমস্যা নির্দেশ করতে পারে,
+        এগুলোর সাথে লিংক করতে আপনার সতর্ক হওয়া উচিত
+    title: অকার্যকর লিংকসমূহ
   change_notes:
     published_at: প্রথম প্রকাশিত
-    see_all_updates: সকল আপডেটসমূহ দেখুন
-    updated_at: সর্বশেষ আপডেটকৃত
+    see_all_updates: সকল আপডেট দেখুন
+    updated_at: সর্বশেষ আপডেট করা হয়েছে
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: বন্ধ হয়ে গেছে
+    closing_today: আজকে বন্ধ হচ্ছে
+    closing_tomorrow: আগামীকাল বন্ধ হচ্ছে
+    days_left: "%{days_left} দিন বাকি আছে"
   contact:
     access_and_opening_times: প্রবেশ ও খোলার সময়
-    contact_form: যোগাযোগের ফরম
+    contact_form: যোগাযোগের ফর্ম
     email: ইমেইল
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme: ওয়েলশে প্রকাশিত হচ্ছে
+        welsh_language_scheme: ওয়েলশে প্রকাশিত
       title:
-        about: আমাদের সম্পর্কে
-        about_our_services: আমাদের পরিষেবা সম্পর্কে
-        access_and_opening: কার্যালয় প্রবেশ ও খোলার সময়
-        accessible_documents_policy: অধিগম্য নথিসংক্রান্ত নীতিমালা
-        complaints_procedure: অভিযোগ প্রক্রিয়া
-        equality_and_diversity: সমতা ও বৈচিত্র্য
-        media_enquiries: মিডিয়া অনুসন্ধানসমূহ
+        about: আমাদের সম্পর্কে তথ্য
+        about_our_services: আমাদের পরিষেবাসমূহ সম্বন্ধে
+        access_and_opening: অফিসে প্রবেশ ও খোলার সময়
+        accessible_documents_policy: প্রবেশযোগ্য নথিপত্র সম্পর্কিত নীতিমালা
+        complaints_procedure: অভিযোগ দাখিলের প্রক্রিয়া
+        equality_and_diversity: সমতা এবং বৈচিত্র্য
+        media_enquiries: মিডিয়ার অনুসন্ধানসমূহ
         membership: সদস্যপদ
-        modern_slavery_statement:
-        our_energy_use: আমাদের এনার্জিসংক্রান্ত ব্যবহার
-        our_governance: আমাদের প্রশাসন
-        personal_information_charter: ব্যক্তিগত তথ্যসংক্রান্ত চার্টার
-        petitions_and_campaigns: আবেদনপত্র ও প্রচার
-        procurement: "%{organisation_name}  -এ সংগ্রহ"
-        publication_scheme: প্রকাশনা প্রণালী
-        recruitment: "%{organisation_name}  -এর জন্য কর্মরত"
-        research: "%{organisation_name}  -এ গবেষণা"
-        social_media_use: সামাজিক মাধ্যমের ব্যবহার
-        staff_update: কর্মচারী সংক্রান্ত সংবাদ ও তথ্যাদি
-        statistics: "%{organisation_name}  -এ পরিসংখ্যান"
-        terms_of_reference: রেফারেন্সের শর্তাবলী
-        welsh_language_scheme: ওয়েলশ ভাষা প্রণালী
+        modern_slavery_statement: আধুনিক দাসপ্রথার বিবৃতি
+        our_energy_use: আমাদের বিদ্যুৎ ব্যবহার
+        our_governance: আমাদের শাসন
+        personal_information_charter: ব্যক্তিগত তথ্যের সনদ
+        petitions_and_campaigns: পিটিশন ও ক্যাম্পেইন
+        procurement: "%{organisation_name}-এ ক্রয়"
+        publication_scheme: প্রকাশনা স্কিম
+        recruitment: "%{organisation_name}-এর জন্য কাজ করছে"
+        research: "%{organisation_name}-এ গবেষণা"
+        social_media_use: সামাজিক যোগাযোগ মাধ্যম ব্যবহার
+        staff_update: স্টাফের সংবাদ ও তথ্য
+        statistics: "%{organisation_name}-এ পরিসংখ্যান"
+        terms_of_reference: কার্যক্রমের শর্তাবলী
+        welsh_language_scheme: ওয়েলশ ভাষার স্কিম
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: আপনার আগ্রহসমূহের সঙ্গে মিলে যায় শুধুমাত্র এমন ফলাফল দেখানোর জন্য
-      আপনি ফিল্টার ব্যবহার করতে পারেন
+      all: সকল পরামর্শ
+      label: পরামর্শ
+    description: আপনার আগ্রহের সাথে মিলে যায় শুধুমাত্র সেই ফলাফলগুলো দেখাতে আপনি ফিল্টারগুলো
+      ব্যবহার করতে পারেন
     no_results:
-      description: আপনার অনুসন্ধানকে আরো প্রশস্ত করে পুনরায় চেষ্টা করুন।
-      title: কোন সদৃশ নথি নেই।
-      tna_heading: পুরোনো বিষয়বস্তু
-      tna_link: মে ২০১০ এর পূর্বের থেকে সকল বিভাগের প্রকাশনাসমূহ GOV.UK. -এ স্থানান্তর
-        করা হয়নি।  মে ২০১০ এর পূর্বের থেকে প্রকাশনাসমূহ অনুসন্ধান করতে <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a> অনুসন্ধান করার চেষ্টা করুন।
+      description: অনুসন্ধানের ক্ষেত্র আরও বড় করে আবার চেষ্টা করুন।
+      title: মিলে যায় এমন কোনো নথি নেই।
+      tna_heading: পুরনো বিষয়বস্তু
+      tna_link: মে 2010-এর পূর্বের সকল বিভাগের নথিপত্র GOV.UK-তে মাইগ্রেট করা হয়নি।
+        মে 2010-এর পূর্বের প্রকাশনাগুলো খুঁজে পেতে, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">জাতীয় আর্কাইভ</a>-এ খোঁজার চেষ্টা করুন।
     world_locations:
-      all: সকল অবস্থানসমূহ
-      label: বৈশ্বিক অবস্থানসমূহ
-      no_locations_filter:
+      all: সকল স্থান
+      label: বিশ্বের অবস্থানসমূহ
+      no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
+  email_alert:
+    subscription: ইমেইল অ্যালার্টের সাবস্ক্রিপশন
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: ব্রিটিশ বিপর্যয়সমূহ
+    none_added: এখনও এই পরিচালনার ফিল্ডের জন্য কোনো বিপর্যয়ের বিজ্ঞপ্তি যোগ করা হয়নি।
   feeds:
     email: ইমেইল
-    feed: ফীড
-    get_updates_to_this_list: এই তালিকার আপডেটসমূহ পান
-    latest_activity: সর্বশেষ কর্মকাণ্ড
+    feed: ফিড
+    get_updates_to_this_list: এই তালিকায় আপডেট হয়ে নিন
+    latest_activity: সর্বশেষ কার্যকলাপ
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
     bn: বাংলা
   latest_feed:
-    no_updates: এখনো অব্দি কোন আপডেট নেই।
-    title: সর্বশেষ
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: এখনও কোনো আপডেট নেই।
+    title: সাম্প্রতিক
   national_statistics:
     heading: জাতীয় পরিসংখ্যান
   number:
@@ -440,134 +426,128 @@ bn:
         format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: আমাদের তথ্যের নাগাল পান
-      jobs: চাকরিসমূহ
-      jobs_and_contacts: চাকরি ও চুক্তিসমূহ
-      organisation_chart: আমাদের সংস্থার তালিকা
-      transparency: স্বচ্ছতামূলক ডেটা
+      access_our_info: আমাদের তথ্যে প্রবেশাধিকার
+      jobs: চাকরী
+      jobs_and_contacts: চাকরী ও চুক্তিসমূহ
+      organisation_chart: আমাদের প্রতিষ্ঠানের চার্ট
+      transparency: স্বচ্ছতার তথ্য
     email:
-      alerts:
-      summary:
+      alerts: ইমেইল অ্যালার্ট
+      summary: এর কাছ থেকে ইমেইল অ্যালার্টসমূহ
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: একটি ব্রিটিশ দূতাবাস, হাই কমিশন বা কনসিউলেট খুঁজুন
+      find_an_embassy_uppercase: একটি ব্রিটিশ দূতাবাস, হাই কমিশন বা কনসিউলেট খুঁজুন
     headings:
-      contact: "%{name} যোগাযোগ করুন"
-      corporate_information:
-      corporate_reports:
+      contact: "%{name}-এর সাথে যোগাযোগ করুন"
+      corporate_information: কর্পোরেট তথ্য
+      corporate_reports: কর্পোরেট রিপোর্টসমূহ
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: পরিচালনাকারী
+      agencies_and_public_bodies: সংস্থা ও সরকারি প্রতিষ্ঠান
+      part_of: এর অংশ
+      public_body: সরকারি প্রতিষ্ঠান
+      works_with: যার সাথে কাজ করে
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: আদালত ও ট্রাইব্যুনাল
   publications:
     heading: প্রকাশনাসমূহ
-    recent:
+    recent: সাম্প্রতিক প্রকাশনাসমূহ
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} পরিসংখ্যান অংশে সরকারি পরিসংখ্যানের একটি
+        প্রকাশিত ও আসন্ন তালিকা খুঁজে দেখুন।"
+      moved_notice: পরিসংখ্যান প্রকাশনাগুলো সরিয়ে ফেলা হয়েছে।
   roles:
-    unassigned:
+    unassigned: এই ভূমিকায় কাউকে দায়িত্ব দেওয়া হয়নি
   see_all:
-    announcement: আমাদের সকল ঘোষণাসমূহ দেখুন
-    authored_article: আমাদের সকল রচনা প্রবন্ধসমূহ দেখুন
-    case_study: আমাদের সকল কেস স্টাডিসমূহ দেখুন
-    closed_consultation: আমাদের সকল সমাপ্ত শলাপরামর্শসমূহ দেখুন
-    consultation: আমাদের সকল শলাপরামর্শ দেখুন
-    consultation_outcome: আমাদের সকল শলাপরামর্শের ফলাফল দেখুন
-    corporate_report: আমাদের সকল কর্পোরেট রিপোর্টসমূহ দেখুন
-    correspondence: আমাদের সকল চিঠিপত্রসমূহ দেখুন
-    decision: আমাদের সকল সিদ্ধান্তসমূহ দেখুন
+    announcement: আমাদের সকল ঘোষণা দেখুন
+    authored_article: আমাদের লেখকের উৎস সহ সকল নিবন্ধ দেখুন
+    case_study: আমাদের সকল কেস স্টাডি দেখুন
+    closed_consultation: আমাদের সকল ক্লোজড কনসাল্টেশন দেখুন
+    consultation: আমাদের সকল কনসাল্টেশন দেখুন
+    consultation_outcome: আমাদের সকল কনসাল্টেশনের ফলাফল দেখুন
+    corporate_report: আমাদের সকল কর্পোরেট রিপোর্ট দেখুন
+    correspondence: আমাদের সকল যোগাযোগ দেখুন
+    decision: আমাদের সকল সিদ্ধান্ত দেখুন
     detailed_guidance: আমাদের সকল নির্দেশনা দেখুন
-    document_collection: আমাদের সকল সংগ্রহাবলী দেখুন
-    draft_text: আমাদের সকল খসড়া পাঠ্যসমূহ দেখুন
-    fatality_notice: আমাদের সকল দুর্যোগপূর্ণ প্রজ্ঞাপনসমূহ দেখুন
-    foi_release: আমাদের সকল এফওআই বিজ্ঞপ্তিসমূহ দেখুন
-    form: আমাদের সবকটি ফরম দেখুন
-    government_response: আমাদের সকল সরকারী প্রতিক্রিয়াসমূহ দেখুন
+    document_collection: আমাদের সকল সংগ্রহ দেখুন
+    draft_text: আমাদের সকল খসড়া টেক্সট দেখুন
+    fatality_notice: আমাদের সকল বিপর্যয় সম্পর্কিত বিজ্ঞপ্তি দেখুন
+    foi_release: আমাদের সকল ফ্রিডম অব ইনফর্মেশন-এর প্রকাশনা দেখুন
+    form: আমাদের সকল ফর্ম দেখুন
+    government_response: আমাদের সকল সরকারের সাড়া দেখুন
     guidance: আমাদের সকল নির্দেশনা দেখুন
-    impact_assessment: 'আমাদের সকল প্রভাব মূল্যায়ন দেখুন '
-    imported: আমাদের সকল স্বতন্ত্র রিপোর্টসমূহ দেখুন
-    international_treaty: আমাদের সকল আন্তর্জাতিক চুক্তিসমূহ দেখুন
+    impact_assessment: আমাদের সকল প্রভাব মূল্যায়ন দেখুন
+    imported: আমাদের সকল স্বতন্ত্র রিপোর্ট দেখুন
+    international_treaty: আমাদের সকল আন্তর্জাতিক চুক্তি দেখুন
     map: আমাদের সকল মানচিত্র দেখুন
-    national_statistics: আমাদের সকল জাতীয় পরিসংখ্যানসমূহ দেখুন
-    news_article: আমাদের সকল সংবাদ প্রবন্ধসমূহ দেখুন
-    news_story: আমাদের সকল সংবাদ কাহিনীসমুহ দেখুন
-    notice: আমাদের সকল প্রজ্ঞাপনসমূহ দেখুন
-    open_consultation: আমাদের সকল উন্মুক্ত শলাপরামর্শসমূহ দেখুন
-    oral_statement: সংসদে আমাদের সকল মৌখিক বিবৃতিসমূহ দেখুন
+    national_statistics: আমাদের সকল জাতীয় পরিসংখ্যান দেখুন
+    news_article: আমাদের সকল সংবাদপত্রের নিবন্ধ দেখুন
+    news_story: আমাদের সকল সংবাদের বিষয় দেখুন
+    notice: আমাদের সকল বিজ্ঞপ্তি দেখুন
+    open_consultation: আমাদের সকল উম্মুক্ত পরামর্শ দেখুন
+    oral_statement: সংসদে আমাদের সকল মৌখিক বিবৃতি দেখুন
     policy: আমাদের সকল নীতিমালা দেখুন
-    policy_paper: আমাদের সকল নীতিমালা পত্রাবলী দেখুন
-    press_release: আমাদের সকল সংবাদ বিজ্ঞপ্তিসমূহ দেখুন
-    promotional: আমাদের সকল প্রচারমূলক উপাদান দেখুন
-    publication: আমাদের সকল প্রকাশনাসমূহ দেখুন
-    regulation: আমাদের সকল নিয়মাবলী দেখুন
+    policy_paper: আমাদের সকল পলিসি পেপার দেখুন
+    press_release: আমাদের সকল প্রেস রিলিজ দেখুন
+    promotional: আমাদের সকল প্রোমোশন সম্পর্কিত উপকরণ দেখুন
+    publication: আমাদের সকল প্রকাশনা দেখুন
+    regulation: আমাদের সকল বিধিবিধান দেখুন
     research: আমাদের সকল গবেষণা ও বিশ্লেষণ দেখুন
-    speaking_notes: আমাদের সকল কথ্য নোটসমূহ দেখুন
-    speech: আমাদের সকল ভাষণ দেখুন
-    statement_to_parliament: আমাদের সংসদে সকল বিবৃতিসমূহ দেখুন
-    statistical_data_set: আমাদের সকল পরিসংখ্যানমূলক ডেটা সেটসমূহ দেখুন
+    speaking_notes: আমাদের সকল বক্তব্যের টীকা দেখুন
+    speech: আমাদের সকল বক্তব্য দেখুন
+    statement_to_parliament: সংসদে আমাদের সকল বিবৃতি দেখুন
+    statistical_data_set: আমাদের সকল পরিসংখ্যানগত তথ্য সংকলন দেখুন
     statistics: আমাদের সকল পরিসংখ্যান দেখুন
-    statutory_guidance: আমাদের সকল সংবিধিবদ্ধ নির্দেশনা দেখুন
-    transcript: আমাদের সকল প্রতিলিপিসমূহ দেখুন
-    transparency: আমাদের সকল স্বচ্ছতামূলক ডেটা দেখুন
-    written_statement: সংসদে আমাদের সকল লিখিত বিবৃতিসমূহ দেখুন
+    statutory_guidance: আমাদের সকল বিধিবদ্ধ নির্দেশনা দেখুন
+    transcript: আমাদের সকল ট্রান্সক্রিপ্ট দেখুন
+    transparency: আমাদের সকল স্বচ্ছতার তথ্য দেখুন
+    written_statement: সংসদে আমাদের সকল লিখিত বিবৃতি দেখুন
   support:
     array:
-      last_word_connector: এবং
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " এবং "
+    download: ডাউনলোড করুন
+    field_of_operation: কার্যক্রমের ক্ষেত্র
+    fields_of_operation: কার্যক্রমের ক্ষেত্রসমূহ
+    filter: ফিল্টার
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: পরবর্তী <span class="visuallyhidden">পেজ</span> <span class="page-numbers">%{current_page}
+        / %{total_pages}</span>
+      next_page: পরবর্তী পেজ
+      previous_html: পূর্ববর্তী <span class="visuallyhidden">পেজ</span> <span class="page-numbers">%{current_page}
+        / %{total_pages}</span>
+      previous_page: পূর্ববর্তী পেজ
+    part_of_collection: 'একটি সংগ্রহের অংশ:'
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: "%{event}-এ সর্বশেষ কার্যক্রম"
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: আর্টস কাউন্সিল ইংল্যান্ড
+      bbc: বিবিসি
+      british_library: ব্রিটিশ লাইব্রেরি
+      commonwealth_war_graves_commission: কমনওয়েলথ ওয়ার গ্রেভস কমিশন
+      heritage_lottery_fund: হ্যারিটেজ লটারি ফান্ড
+      historic_england: হিস্টরিক ইংল্যান্ড
+      iwm: ইম্পেরিয়াল ওয়ার মিউজিয়াম
+      war_memorials_trust: ইম্পেরিয়াল ওয়ার মিউজিয়াম
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: "%{country}-এ যুক্তরাজ্যের সরকারের বিভিন্ন আপডেট, সংবাদ
+      ও ইভেন্ট"
   worldwide_organisation:
     corporate_information:
-      about_our_services_html: "%{link} -এ অনুসন্ধান করুন।"
-      personal_information_charter_html: আমাদের %{link}-এ আপনার ব্যক্তিগত তথ্যাদি
-        আমরা কিভাবে পরিচালনা করি তা ব্যাখ্যা করে থাকে।
-      publication_scheme_html: আমাদের %{link} -এ আমরা কোন ধরনের তথ্য নিয়মিত প্রকাশ
-        করে থাকি সেই সম্পর্কে পড়ুন।
-      social_media_use_html: "%{link}-এ আমাদের নীতিমালা সম্পর্কে পড়ুন।"
-      welsh_language_scheme_html: "%{link}-এ আমাদের প্রতিজ্ঞাবদ্ধতা সম্পর্কে খুঁজে
-        বের করুন।"
-    find_out_more: পূর্ণ প্রোফাইল ও সকল যোগাযোগের বিস্তারিত বিবরণ দেখুন।
+      about_our_services_html: "%{link} খুঁজুন।"
+      personal_information_charter_html: আমরা কিভাবে আপনার ব্যক্তিগত তথ্য নিয়ে কাজ
+        করি তা আমাদের %{link}-এ ব্যাখ্যা করা হয়েছে।
+      publication_scheme_html: আমরা নিয়মিতভাবে যে প্রকারের সংবাদ প্রকাশ করি তা আমাদের
+        %{link}-এ পড়ুন।
+      social_media_use_html: "%{link}-এ আমাদের নীতিমালা পড়ুন।"
+      welsh_language_scheme_html: "%{link}-এ আপনার আমাদের অঙ্গীকার সম্পর্কে জানুন।"
+    find_out_more: সম্পূর্ণ প্রোফাইল ও সকল কন্টাক্টের বিস্তারিত তথ্য দেখুন
     headings:
-      contact_us: আমাদের সঙ্গে যোগাযোগ করুন
-      corporate_information: কর্পোরেট তথ্যাদি
-      follow_us: আমাদেরকে অনুসরণ করি
+      contact_us: আমাদের সাথে যোগাযোগ
+      corporate_information: কর্পোরেট তথ্য
+      follow_us: আমাদেরকে অনুসরণ করুন
       our_people: আমাদের লোকজন
     location: অবস্থান
     part_of: এর অংশ

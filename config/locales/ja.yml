@@ -2,561 +2,542 @@ ja:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 庶民院書類番号
+        isbn: ISBN
+        unnumbered_hoc_paper: 番号のない庶民院書類
       attachment_data:
-        file:
+        file: ファイル
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 添付勅令書類番号
+        hoc_paper_number: 庶民院の書類番号
+        isbn: 添付ISBN
+        title: 添付タイトル
+        unique_reference: 添付固有の参照
+        unnumbered_hoc_paper: 番号のない庶民院書類
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 添付ファイル
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 除外された国
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 添付ファイル
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 添付勅令書類番号
+        hoc_paper_number: 庶民院の書類番号
+        isbn: 添付ISBN
+        title: 添付タイトル
+        unique_reference: 添付固有の参照
+        unnumbered_hoc_paper: 番号のない庶民院書類
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 添付ファイル
     nested_attachment_data_field_names:
-      file:
+      file: 添付ファイル
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 添付勅令書類番号
+      hoc_paper_number: 庶民院の書類番号
+      isbn: 添付ISBN
+      title: 添付タイトル
+      unique_reference: 添付固有の参照
+      unnumbered_hoc_paper: 番号のない庶民院書類
   announcements:
-    heading: ニュース
+    heading: お知らせ
   attachment:
     accessibility:
-      full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
-        ("%{title}")%{references}.をお送り下さい。
-      intro: このファイルは支援技術のユーザーには利用できない場合があります
-      request_a_different_format: 異なるフォーマットを要求
+      full_help_html: 'お客様が支援技術（スクリーンリーダーなど）を使用していて、このドキュメントよりアクセスしやすい形式のバージョンが必要な場合は、必要なフォーマットや使用している支援技術を添え％{email}にEメールをお送くりください。
+
+'
+      intro: このファイルは、支援技術のユーザーには適していない可能性があります。
+      request_a_different_format: アクセス可能なフォーマットをリクエストしてください。
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: このファイルはプレビューできませんでした。
+      download: ファイルをダウンロードして、その全内容を表示します。
+      truncated_message: このプレビューには、最初の ％{rows} 行と ％{columns} 列のみが表示されます。
     headings:
-      order_a_copy: コピーを注文
-      order_a_copy_full: コピーを注文
-      published: 掲載日
-      reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: コピーを注文する
+      order_a_copy_full: 出版物のコピーを注文する
+      published: 公開済み
+      reference: 参照
+      unnumbered_command_paper: 番号のない勅令書類
+      unnumbered_hoc_paper: 番号のない決議書類
     opendocument:
-      help_html:
+      help_html: このファイルは、<a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>形式です。
     virus_check:
-      intro:
-      message:
+      intro: この添付ファイルはウイルスチェック中です。
+      message: 現在、この添付ファイルはウイルスチェックが行われるまで隔離されています。添付ファイルはまもなく元の場所で利用できるようになります。
   broken_links:
     broken:
-      subheading:
+      subheading: このドキュメントには、壊れている可能性のあるリンクが見つかりました
     caution:
-      subheading:
-    title:
+      subheading: リンクにいくつかの問題が見つかりました。リンクを表示する際には注意が必要です
+    title: リンク切れ
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: 初版
+    see_all_updates: すべての更新を見る
+    updated_at: 最終更新
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: ご利用いただけません
+    closing_today: 本日は、ご利用いただけません
+    closing_tomorrow: 明日は、ご利用いただけません
+    days_left: 残り ％{days_left} 日
   contact:
-    access_and_opening_times:
-    contact_form: 連絡フォーム
-    email: Email
+    access_and_opening_times: アクセスと利用時間
+    contact_form: お問い合わせフォーム
+    email: Eメール
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: ウェールズ語での出版
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: 個人情報保護法
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: 情報公開法
-        recruitment:
-        research:
-        social_media_use: ソーシャルメディア
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: ウェールズ語スキーム
+        about: 私たちについて
+        about_our_services: 私たちのサービスについて
+        access_and_opening: オフィスへのアクセスと利用時間
+        accessible_documents_policy: 利用可能な文書に関する方針
+        complaints_procedure: 苦情の手続き
+        equality_and_diversity: 平等と多様性
+        media_enquiries: メディアのお問い合わせ
+        membership: メンバーシップ
+        modern_slavery_statement: 現代の奴隷制声明
+        our_energy_use: エネルギーの使用
+        our_governance: ガバナンス
+        personal_information_charter: 個人情報憲章
+        petitions_and_campaigns: 請願とキャンペーン
+        procurement: "％{organisation_name} での入手"
+        publication_scheme: 公開方法
+        recruitment: "％{organisation_name} で働きます"
+        research: "％{organisation_name} で調査する"
+        social_media_use: ソーシャルメディアの使用
+        staff_update: スタッフのニュースと情報
+        statistics: "％{organisation_name} の統計"
+        terms_of_reference: 付託条項
+        welsh_language_scheme: ウェールズ語体系
   date:
     formats:
-      default: "%Y %B %d"
-      long_ordinal: "%e %B %Y"
+      default: "％d％B％Y"
+      long_ordinal: "％e％B％Y"
   document:
-    contents:
+    contents: コンテンツ
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: 全ページ履歴
+      published: 公開済み
+      updated: 更新しました
     headings:
-      applies_to_nations: 対象国
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: 掲載日
-    see_all:
+      applies_to_nations: 次に適用：
+      from: から
+      part_of: 次の一部：
+    latest: 最新のドキュメント
+    latest_from: "％{subject} からの更新"
+    published: 公開
+    see_all: すべてを見る
     speech:
       author_title:
         minister: 大臣
         speaker: ライター
-      delivered_on: 場所
+      delivered_on: 配信先：
       delivery_title:
         minister: 大臣
         speaker: スピーカー
-      written_on:
+      written_on: 日付：
     type:
       about:
-        one:
-        other:
+        one: 概要
+        other: 概要
       about_our_services:
-        one:
-        other:
+        one: 本サービスについて
+        other: 本サービスについて
       access_and_opening:
-        one:
-        other:
+        one: アクセスと利用時間
+        other: アクセスと利用時間
       accessible_documents_policy:
-        one:
-        other:
+        one: 利用可能な文書に関する方針
+        other: 利用可能な文書に関する方針
       alert:
-        one:
-        other:
+        one: 注意
+        other: 注意
       announcement:
-        one:
-        other:
+        one: お知らせ
+        other: お知らせ
       authored_article:
-        one:
-        other:
+        one: 執筆記事
+        other: 執筆記事
       blog_post:
-        one:
-        other:
+        one: ブログ投稿
+        other: ブログ投稿
       campaign:
-        one:
-        other:
+        one: キャンペーン
+        other: キャンペーン
       careers:
-        one:
-        other:
+        one: キャリア
+        other: キャリア
       case_study:
-        one:
-        other:
+        one: ケーススタディ
+        other: ケーススタディ
       closed_consultation:
-        one:
-        other:
+        one: 非公開の審議
+        other: 非公開の審議
       complaints_procedure:
-        one:
-        other:
+        one: 苦情手続き
+        other: 苦情手続き
       consultation:
-        one:
-        other:
+        one: 審議
+        other: 審議
       consultation_outcome:
-        one:
-        other:
+        one: 相談結果
+        other: 相談結果
       corporate_report:
-        one:
-        other:
+        one: 企業報告書
+        other: 企業報告書
       correspondence:
-        one:
-        other:
+        one: 対応
+        other: 対応
       decision:
-        one:
-        other:
+        one: 決定事項
+        other: 決定事項
       detailed_guidance:
-        one:
-        other:
+        one: ガイダンス
+        other: ガイダンス
       document_collection:
-        one:
-        other:
+        one: コレクション
+        other: コレクション
       draft_text:
-        one:
-        other:
+        one: 下書きテキスト
+        other: 下書きテキスト
       edition:
-        one:
-        other:
+        one: 版
+        other: 版
       edition_with_appointment:
-        one:
-        other:
+        one: 予約ありの版
+        other: 予約ありの版
       equality_and_diversity:
-        one:
-        other:
+        one: 平等と多様性
+        other: 平等と多様性
       fatality_notice:
-        one:
-        other:
+        one: 死亡通知
+        other: 死亡通知
       foi_release:
-        one:
-        other:
+        one: FOI（情報公開）発表
+        other: FOI（情報公開）発表
       form:
-        one:
-        other:
+        one: フォーム
+        other: フォーム
       generic_edition:
-        one:
-        other:
+        one: ジェネリック版
+        other: ジェネリック版
       government_response:
-        one:
-        other:
+        one: 政府の対応
+        other: 政府の対応
       guidance:
-        one:
-        other:
+        one: ガイダンス
+        other: ガイダンス
       impact_assessment:
-        one:
-        other:
+        one: 影響評価
+        other: 影響評価
       imported:
-        one:
-        other:
+        one: インポート済み - 待機中の種別
+        other: インポート済み - 待機中の種別
       independent_report:
-        one:
-        other:
+        one: 第三者による報告
+        other: 第三者による報告
       international_treaty:
-        one:
-        other:
+        one: 国際条約
+        other: 国際条約
       manual:
-        one:
-        other:
+        one: 取扱説明
+        other: 取扱説明
       map:
-        one:
-        other:
+        one: 地図
+        other: 地図
       media_enquiries:
-        one:
-        other:
+        one: 報道関係者の問い合わせ
+        other: 報道関係者の問い合わせ
       membership:
-        one:
-        other:
+        one: メンバーシップ
+        other: メンバーシップ
       national_statistics:
-        one:
-        other:
+        one: 国家統計
+        other: 国家統計
       news_article:
-        one:
-        other:
+        one: ニュース記事
+        other: ニュース記事
       news_story:
-        one:
-        other: ニュース
+        one: ニュースストーリー
+        other: ニュースストーリー
       nhs_content:
-        one:
-        other:
+        one: NHSコンテンツ
+        other: NHSコンテンツ
       notice:
-        one:
-        other:
+        one: 知らせ
+        other: 知らせ
       official_statistics:
-        one:
-        other:
+        one: 公式統計
+        other: 公式統計
       open_consultation:
-        one:
-        other:
+        one: 公開審議
+        other: 公開審議
       oral_statement:
-        one:
-        other:
+        one: 議会への口頭声明
+        other: 議会への口頭声明
       our_energy_use:
-        one:
-        other:
+        one: エネルギーの使用
+        other: エネルギーの使用
       our_governance:
-        one:
-        other:
+        one: ガバナンス
+        other: ガバナンス
       personal_information_charter:
-        one:
-        other:
+        one: 個人情報憲章
+        other: 個人情報憲章
       petitions_and_campaigns:
-        one:
-        other:
+        one: 請願とキャンペーン
+        other: 請願とキャンペーン
       policy_paper:
-        one:
-        other:
+        one: 方針書
+        other: 方針書
       press_release:
-        one:
-        other: 新聞発表
+        one: プレスリリース
+        other: プレスリリース
       procurement:
-        one:
-        other:
+        one: 調達
+        other: 調達
       promotional:
-        one:
-        other:
+        one: 販促資料
+        other: 販促資料
       publication:
-        one:
-        other:
+        one: 出版物
+        other: 出版物
       publication_scheme:
-        one:
-        other:
+        one: 出版体系
+        other: 出版体系
       recruitment:
-        one:
-        other:
+        one: 募集
+        other: 募集
       regulation:
-        one:
-        other:
+        one: 規制
+        other: 規則
       research:
-        one:
-        other:
+        one: 研究
+        other: 研究
       service:
-        one:
-        other:
+        one: サービス
+        other: サービス
       social_media_use:
-        one:
-        other:
+        one: ソーシャルメディアの使用
+        other: ソーシャルメディアの使用
       speaking_notes:
-        one:
-        other:
+        one: 発言ノート
+        other: 発言ノート
       speech:
-        one:
+        one: スピーチ
         other: スピーチ
       staff_update:
-        one:
-        other:
+        one: スタッフの最新情報
+        other: スタッフの最新情報
       standard:
-        one:
-        other:
+        one: 標準
+        other: 標準
       statement_to_parliament:
-        one:
-        other: 閣僚声明
+        one: 議会への声明
+        other: 議会への声明
       statistical_data_set:
-        one:
-        other:
+        one: 統計データセット
+        other: 統計データセット
       statistics:
-        one:
-        other:
+        one: 統計
+        other: 統計
       statutory_guidance:
-        one:
-        other:
+        one: 法定ガイダンス
+        other: 法定ガイダンス
       terms_of_reference:
-        one:
-        other:
+        one: 付託条項
+        other: 付託条項
       transcript:
-        one:
-        other:
+        one: 口述記録
+        other: 口述記録
       transparency:
-        one:
-        other:
+        one: 透明度データ
+        other: 透明度データ
       welsh_language_scheme:
-        one:
-        other:
+        one: ウェールズ語体系
+        other: ウェールズ語体系
       world_news_story:
-        one:
-        other:
+        one: 世界的なニュース記事
+        other: 世界的なニュース記事
       written_statement:
-        one:
-        other:
-    updated: 更新
+        one: 議会への書面による声明
+        other: 議会への書面による声明
+    updated: 更新済み
   document_filters:
     consultation:
-      all:
-      label:
-    description: 検索精度を上げるために、各種フィルターをご利用下さい
+      all: すべての審議
+      label: 審議
+    description: フィルタを使用して、興味に一致する結果のみを表示できます
     no_results:
-      description: 検索内容を変更して再度検索下さい
-      title: 該当するページはありません
-      tna_heading:
-      tna_link:
+      description: 検索範囲を広げて、もう一度やり直してください。
+      title: 一致するドキュメントはありません。
+      tna_heading: 古いコンテンツ
+      tna_link: 2010年5月以前のすべての部門の出版物がGOV.UKに移行されたわけではありません。2010年5月より前の出版物を見つけるには、<a
+        href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国立公文書館</a>を検索してみてください。
     world_locations:
-      all: 全ての地域
-      label: 地域
-      no_locations_filter:
+      all: すべての場所
+      label: 世界の場所
+      no_locations_filter: そのフィルターに一致する世界の場所はありません。
+  email_alert:
+    subscription: Eメール通知の購読
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: 英国の死亡者数
+    none_added: この活動分野での死亡通知はまだ追加されていません。
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: 最新情報
+    email: Eメール
+    feed: フィード
+    get_updates_to_this_list: このリストの更新を取得
+    latest_activity: 最新の活動
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
-    ja: 日本語
+    ja: 日本
   latest_feed:
-    no_updates: 更新情報はありません
-    title: Latest
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: まだ更新はありません。
+    title: 最新
   national_statistics:
-    heading:
+    heading: 国家統計
   number:
     human:
       storage_units:
-        format: "%n%u"
+        format: "％n％u"
   organisation:
     corporate_information:
-      access_our_info: 情報開示
-      jobs:
-      jobs_and_contacts: 求人と調達
-      organisation_chart:
-      transparency: データ開示
+      access_our_info: 情報にアクセスする
+      jobs: 仕事
+      jobs_and_contacts: 仕事と契約
+      organisation_chart: 組織図
+      transparency: 透明度データ
     email:
-      alerts:
-      summary:
+      alerts: Eメール通知
+      summary: 以下からのからのEメール通知：
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: 英国大使館、高等弁務官、領事館を探す
+      find_an_embassy_uppercase: 英国大使館、高等弁務官、領事館を探す
     headings:
-      contact: 連絡先
-      corporate_information:
-      corporate_reports:
+      contact: "%{name}に連絡"
+      corporate_information: 企業情報
+      corporate_reports: 企業報告
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: 管理元：
+      agencies_and_public_bodies: 機関および公共団体
+      part_of: 次の一部：
+      public_body: 公共団体
+      works_with: 以下と働：
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: 裁判所および審判
   publications:
     heading: 出版物
-    recent:
+    recent: 最近の出版物
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "％{link} 統計セクションで、公開済みおよび今後の政府統計のリストを検索します。"
+      moved_notice: 統計出版物は移動しました。
   roles:
-    unassigned:
+    unassigned: この役割には誰も割り当てられていません
   see_all:
-    announcement: ニュース を全て見る
-    authored_article: authored articles を全て見る
-    case_study: ケーススタディ を全て見る
-    closed_consultation: 非公開協議 を全て見る
-    consultation: 協議 を全て見る
-    consultation_outcome: 協議結果 を全て見る
-    corporate_report: 事業報告 を全て見る
-    correspondence: 通信文書 を全て見る
-    decision:
-    detailed_guidance: 詳細説明 を全て見る
-    document_collection:
-    draft_text: 草稿 を全て見る
-    fatality_notice: 死亡告示 を全て見る
-    foi_release: 情報公開に関するニュース を全て見る
-    form: フォーム を全て見る
-    government_response: レスポンス を全て見る
-    guidance: ガイダンス を全て見る
-    impact_assessment: 影響評価 を全て見る
-    imported: 確認中 を全て見る
-    international_treaty:
-    map: 地図 を全て見る
-    national_statistics: 国家統計 を全て見る
-    news_article: ニュース を全て見る
-    news_story: ニュース を全て見る
-    notice:
-    open_consultation: 公開協議 を全て見る
-    oral_statement: 議会に対する口頭陳述 を全て見る
-    policy: 政策 を全て見る
-    policy_paper: 政策文書 を全て見る
-    press_release: 新聞発表 を全て見る
-    promotional: 宣伝資料 を全て見る
-    publication: 出版物 を全て見る
-    regulation:
-    research: 調査と分析 を全て見る
-    speaking_notes: キーポイント を全て見る
-    speech: スピーチ を全て見る
-    statement_to_parliament: 閣僚声明 を全て見る
-    statistical_data_set: 統計データセット を全て見る
-    statistics: 統計 を全て見る
-    statutory_guidance:
-    transcript: スピーチ全文 を全て見る
-    transparency: 透明性データ を全て見る
-    written_statement: 閣僚声明文 を全て見る
+    announcement: すべての発表を見る
+    authored_article: すべての執筆記事を見る
+    case_study: すべてのケーススタディを見る
+    closed_consultation: すべてのケーススタディを見る
+    consultation: すべての非公開審議を見る
+    consultation_outcome: すべての非公開協議結果を見る
+    corporate_report: すべての企業報告を見る
+    correspondence: 私たちのすべての対応を見る
+    decision: 私たちのすべての決定を見る
+    detailed_guidance: すべてのガイダンスを見る
+    document_collection: すべてのコレクションを見る
+    draft_text: すべての下書きテキストを見る
+    fatality_notice: すべての死亡通知を見る
+    foi_release: すべての FOI（情報公開）発表
+    form: すべてのフォームを見る
+    government_response: すべての政府の対応を見る
+    guidance: すべてのガイダンスを見る
+    impact_assessment: すべての影響評価を見る
+    imported: すべての第三者による報告を見る
+    international_treaty: すべての国際条約を見る
+    map: すべての地図を見る
+    national_statistics: すべての国家統計を見る
+    news_article: すべてのニュース記事を見る
+    news_story: すべてのニュースストーリーを見る
+    notice: すべての通知を見る
+    open_consultation: すべての公開審議を見る
+    oral_statement: すべての議会への頭声明を見る
+    policy: すべての方針を見る
+    policy_paper: すべての方針書を見る
+    press_release: すべてのプレスリリースを見る
+    promotional: すべての販促資料を見る
+    publication: すべての出版物を見る
+    regulation: すべての規制を見る
+    research: すべての調査と分析を見る
+    speaking_notes: すべての発言ノートを見る
+    speech: すべての発言を見る
+    statement_to_parliament: すべての議会へ声明を見る
+    statistical_data_set: すべての統計データセットを見る
+    statistics: すべての統計を見る
+    statutory_guidance: すべての法定ガイダンスを見る
+    transcript: すべての口述記録を見る
+    transparency: すべての透明性データを見る
+    written_statement: すべての議会への書面による声明を見る
   support:
     array:
-      last_word_connector: and
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " および "
+    download: ダウンロード
+    field_of_operation: 運用分野：
+    fields_of_operation: 運用分野
+    filter: フィルター
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: 次 <span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page}
+        の %{total_pages}</span>
+      next_page: 次のページ
+      previous_html: 前<span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page}
+        の%{total_pages}</span>
+      previous_page: 前のページ
+    part_of_collection: コレクションの一部：
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: "％{event} の最新アクティビティ"
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: イングランド芸術評議会
+      bbc: BBC
+      british_library: 英国図書館
+      commonwealth_war_graves_commission: コモンウェルス戦争墓地委員会
+      heritage_lottery_fund: 文化遺産宝くじ基金
+      historic_england: 歴史的なイングランド
+      iwm: 帝国戦争博物館
+      war_memorials_trust: 戦争記念トラスト
   world_location:
     headings:
-      announcements: 発表
-      documents: お知らせ
-      featured: 特徴
-      mission: 役割
-      news:
+      announcements: お知らせ
+      documents: ドキュメント
+      mission: 使命
+      news: 世界各地からのニュース
       organisations: 組織
       publications: 出版物
-      search:
+      search: 国または地域で検索
       statistics: 統計
     type:
       international_delegation:
-        one:
-        other:
+        one: 国際代表団
+        other: 国際代表団
       world_location:
-        one:
-        other:
+        one: 世界の場所
+        other: 世界の場所
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: "％{country} の英国政府からの更新、ニュース、イベント"
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい
-      publication_scheme_html: 情報公開の種類については %{link} をご覧下さい
-      social_media_use_html: "%{link}に関する政策を読む"
-      welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい
-    find_out_more: 業務案内と連絡先を見る
+      about_our_services_html: "％{link} をご覧ください。"
+      personal_information_charter_html: "％{link} で、お客様の個人情報の取り扱いについて説明しています。"
+      publication_scheme_html: "％{link} で、定期的に公開している情報の種類についてご覧ください。"
+      social_media_use_html: "％{link} に関する方針をご覧ください。"
+      welsh_language_scheme_html: "％{link} への取り組みについてご覧ください。"
+    find_out_more: プロフィール全体とすべての連絡先の詳細を見る
     headings:
-      contact_us: 連絡先
-      corporate_information: 組織情報
-      follow_us: Follow us
-      our_people: 主な職員
-    location: アクセス
-    part_of: 所属
+      contact_us: お問い合わせ
+      corporate_information: 企業情報
+      follow_us: フォローする
+      our_people: 人々
+    location: 場所
+    part_of: 次の一部：

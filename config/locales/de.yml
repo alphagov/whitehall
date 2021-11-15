@@ -2,95 +2,95 @@ de:
   document:
     type:
       about:
-        one:
-        other:
+        one: Über
+        other: Über
       about_our_services:
-        one:
-        other:
+        one: Über unsere Dienstleistungen
+        other: Über unsere Dienstleistungen
       access_and_opening:
-        one:
-        other:
+        one: Zugang und Öffnungszeiten
+        other: Zugang und Öffnungszeiten
       accessible_documents_policy:
-        one:
-        other:
+        one: Richtlinie für zugängliche Dokumente
+        other: Richtlinien für zugängliche Dokumente
       alert:
-        one:
-        other:
+        one: Warnung
+        other: Warnungen
       announcement:
-        one: Meldung
-        other: Meldungen
+        one: Ankündigung
+        other: Ankündigungen
       authored_article:
         one: Namensartikel
         other: Namensartikel
       blog_post:
-        one:
-        other:
+        one: Blogbeitrag
+        other: Blogbeiträge
       campaign:
-        one:
-        other:
+        one: Kampagne
+        other: Kampagnen
       careers:
-        one:
-        other:
+        one: Karrieren
+        other: karrieren
       case_study:
         one: Fallstudie
         other: Fallstudien
       closed_consultation:
-        one: Abgeschlossene Konsultation
-        other: Abgeschlossene Konsultationen
+        one: Abgeschlossene Beratung
+        other: Abgeschlossene Beratungen
       complaints_procedure:
-        one:
-        other:
+        one: Beschwerdeverfahren
+        other: Beschwerdeverfahren
       consultation:
-        one: Konsultation
-        other: Konsultationen
+        one: Beratung
+        other: Beratungen
       consultation_outcome:
-        one: Konsultationsergebnis
-        other: Konsultationsergebnisse
+        one: Beratungsergebnis
+        other: Beratungsergebnisse
       corporate_report:
-        one: Geschäftsbericht
-        other: Geschäftsberichte
+        one: Unternehmensbericht
+        other: Unternehmensberichte
       correspondence:
         one: Korrespondenz
-        other: Korrespondenz
+        other: Korrespondenzen
       decision:
-        one:
-        other:
+        one: Entscheidung
+        other: Entscheidungen
       detailed_guidance:
         one: Detaillierte Hinweise
         other: Detaillierte Hinweise
       document_collection:
         one: Reihe
-        other:
+        other: Reihen
       draft_text:
         one: Entwurf
         other: Entwürfe
       edition:
-        one:
-        other:
+        one: Ausgabe
+        other: Ausgaben
       edition_with_appointment:
-        one:
-        other:
+        one: Ausgabe mit Termin
+        other: Ausgaben mit Termin
       equality_and_diversity:
-        one:
-        other:
+        one: Gleichstellung und Vielfalt
+        other: Gleichstellung und Vielfalt
       fatality_notice:
-        one:
-        other:
+        one: Todesanzeige
+        other: Todesanzeigen
       foi_release:
-        one: Freigabe gemäß Freedom of Information Act
-        other: Freigabe gemäß Freedom of Information Act
+        one: Freigabe gemäß Informationsfreiheitsgesetz
+        other: Freigaben gemäß Informationsfreiheitsgesetz
       form:
         one: Formular
         other: Formulare
       generic_edition:
-        one:
-        other:
+        one: Allgemeine Ausgabe
+        other: Allgemeine Ausgaben
       government_response:
         one: Antwort der Regierung
         other: Antworten der Regierung
       guidance:
-        one: Hinweise
-        other: Hinweise
+        one: Detaillierte Hinweise
+        other: Detaillierte Hinweise
       impact_assessment:
         one: Folgenabschätzung
         other: Folgenabschätzungen
@@ -101,56 +101,56 @@ de:
         one: Unabhängiger Bericht
         other: Unabhängige Berichte
       international_treaty:
-        one:
-        other:
+        one: Internationaler Vertrag
+        other: Internationale Verträge
       manual:
-        one:
-        other:
+        one: Handbuch
+        other: Handbücher
       map:
         one: Karte
         other: Karten
       media_enquiries:
-        one:
-        other:
+        one: Medienanfrage
+        other: Medienanfragen
       membership:
-        one:
-        other:
+        one: Mitgliedschaft
+        other: Mitgliedschaft
       national_statistics:
-        one: Statistik - Nationale Statistik
-        other: Statistik - Nationale Statistik
+        one: Nationale Statistik
+        other: Nationale Statistik
       news_article:
-        one: Artikel
-        other: Artikel
+        one: Nachrichtenartikel
+        other: Nachrichtenartikel
       news_story:
         one: Meldung
         other: Meldungen
       nhs_content:
-        one:
-        other:
+        one: Inhalt des nationalen Gesundheitsdienstes
+        other: Inhalt des nationalen Gesundheitsdienstes
       notice:
-        one:
-        other:
+        one: Hinweis
+        other: Hinweise
       official_statistics:
-        one: Statistik
+        one: Statistiken
         other: Statistiken
       open_consultation:
-        one: Laufende Konsultation
-        other: Laufende Konsultationen
+        one: Laufende Beratung
+        other: Laufende Beratungen
       oral_statement:
         one: Mündliche Erklärung vor dem Parlament
         other: Mündliche Erklärungen vor dem Parlament
       our_energy_use:
-        one:
-        other:
+        one: Unser Energieverbrauch
+        other: Unser Energieverbrauch
       our_governance:
-        one:
-        other:
+        one: Unsere Verwaltung
+        other: Unsere Verwaltung
       personal_information_charter:
-        one:
-        other:
+        one: Charta der personenbezogenen Daten
+        other: Charter der personenbezogenen Daten
       petitions_and_campaigns:
-        one:
-        other:
+        one: Petitionen und Kampagnen
+        other: Petitionen und Kampagnen
       policy_paper:
         one: Grundsatzpapier
         other: Grundsatzpapiere
@@ -158,8 +158,8 @@ de:
         one: Pressemitteilung
         other: Pressemitteilungen
       procurement:
-        one:
-        other:
+        one: Beschaffung
+        other: Beschaffung
       promotional:
         one: Werbematerial
         other: Werbematerial
@@ -167,23 +167,23 @@ de:
         one: Veröffentlichung
         other: Veröffentlichungen
       publication_scheme:
-        one:
-        other:
+        one: Veröffentlichungsschema
+        other: Veröffentlichungsschemata
       recruitment:
-        one:
-        other:
+        one: Personalbeschaffung
+        other: Personalbeschaffung
       regulation:
-        one:
-        other:
+        one: Regulierung
+        other: Regulierungen
       research:
-        one: Forschung und Analyse
-        other: Forschung und Analyse
+        one: Forschung
+        other: Forschung
       service:
-        one:
-        other:
+        one: Dienstleistung
+        other: Dienstleistungen
       social_media_use:
-        one:
-        other:
+        one: Nutzung sozialer Medien
+        other: Nutzung sozialer Medien
       speaking_notes:
         one: Redenotizen
         other: Redenotizen
@@ -191,11 +191,11 @@ de:
         one: Rede
         other: Reden
       staff_update:
-        one:
-        other:
+        one: Personal Update
+        other: Personal Update
       standard:
-        one:
-        other:
+        one: Standard
+        other: Standards
       statement_to_parliament:
         one: Erklärung vor dem Parlament
         other: Erklärungen vor dem Parlament
@@ -203,365 +203,356 @@ de:
         one: Statistischer Datensatz
         other: Statistische Datensätze
       statistics:
-        one:
-        other:
+        one: Statistiken
+        other: Statistiken
       statutory_guidance:
-        one:
-        other:
+        one: Gesetzlicher Leitfaden
+        other: Gesetzlicher Leitfaden
       terms_of_reference:
-        one:
-        other:
+        one: Aufgabenbereich
+        other: Aufgabenbereich
       transcript:
-        one: Mitschrift
-        other: Mitschriften
+        one: Transkript
+        other: Transkripte
       transparency:
-        one: Transparenz-Daten
-        other: Transparenz-Daten
+        one: Transparenzdaten
+        other: Transparenzdaten
       welsh_language_scheme:
-        one:
-        other:
+        one: Walisisches Sprachschema
+        other: Walisische Sprachschemata
       world_news_story:
-        one:
-        other:
+        one: Weltweite Nachrichten Geschichte
+        other: Weltweite Nachrichten Geschichten
       written_statement:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
-    contents:
+    contents: Inhalte
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: vollständige Seitenhistorie
+      published: Veröffentlicht
+      updated: Aktualisiert
     headings:
       applies_to_nations: Gilt für
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: Veröffentlicht
-    see_all:
+      from: Von
+      part_of: Teil von
+    latest: Aktuelle Dokumente
+    latest_from: Neuestes von %{subject}
+    published: veröffentlicht
+    see_all: Alle ansehen
     speech:
       author_title:
         minister: Minister
         speaker: Autor
-      delivered_on: 'Gehalten am:'
+      delivered_on: 'Geliefert am:'
       delivery_title:
         minister: Minister
-        speaker: Redner
-      written_on: Geschrieben am
-    updated: Aktualisiert
+        speaker: Sprecher
+      written_on: 'Geschrieben am:'
+    updated: aktualisiert
   world_location:
     type:
       international_delegation:
         one: Internationale Delegation
         other: Internationale Delegationen
       world_location:
-        one: Vertretungen im Ausland
-        other: Vertretungen im Ausland
+        one: Weltweiter Standort
+        other: Weltweite Standorte
     headings:
-      announcements: Unsere Meldungen
+      announcements: Unsere Ankündigungen
       documents: Dokumente
-      featured:
-      mission: Unser Auftrag
-      news:
+      mission: Unsere Aufgabe
+      news: Weltweite Standortnachrichten
       organisations: Organisationen
       publications: Unsere Veröffentlichungen
-      search:
+      search: Nach Land oder Gebiet suchen
       statistics: Unsere Statistiken
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Unterhauspapier Nummer
+        isbn: ISBN
+        unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
       attachment_data:
-        file:
+        file: Datei
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Anhang Anweisungspapier Nummer
+        hoc_paper_number: Unterhauspapier Nummer
+        isbn: Anhang ISBN
+        title: Anhang Titel
+        unique_reference: Anhang eindeutige Referenz
+        unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Die angehängte Datei
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Ausgeschlossene Nationen
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Die angehängte Datei
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Anhang Anweisungspapier Nummer
+        hoc_paper_number: Unterhauspapier Nummer
+        isbn: Anhang ISBN
+        title: Anhang Titel
+        unique_reference: Anhang eindeutige Referenz
+        unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Die angehängte Datei
     nested_attachment_data_field_names:
-      file:
+      file: Die angehängte Datei
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Anhang Anweisungspapier Nummer
+      hoc_paper_number: Unterhauspapier Nummer
+      isbn: Anhang ISBN
+      title: Anhang Titel
+      unique_reference: Anhang eindeutige Referenz
+      unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
   announcements:
-    heading: Meldungen
+    heading: Ankündigungen
   attachment:
     accessibility:
-      full_help_html: Wenn Sie dieses Dokument in Braille-Schrift, als Audiodatei
-        oder in einem anderen Format erhalten möchten, senden Sie uns eine E-Mail
-        %{email} mit Ihrer Adresse, Telefonnummer und dem Titel der Publikation ("%{title}")%{references}.
-      intro: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
-        geeignet
-      request_a_different_format: Anderes Format
+      full_help_html: |
+        Sollten Sie Hilfsmittel (wie z. B. einen Bildschirmleser) verwenden und eine Version dieses Dokuments in einem leichter zugänglichen Format benötigen, senden Sie bitte eine Email an %{email}.
+        Bitte teilen Sie uns mit, welches Format Sie benötigen. Es erleichtert uns die Arbeit, wenn Sie uns mitteilen, welche Hilfsmittel Sie verwenden.
+      intro: Diese Datei ist möglicherweise nicht für Hilfsmittel-Nutzer geeignet.
+      request_a_different_format: Fordern Sie ein zugängliches Format an.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Diese Datei konnte nicht in der Vorschau angezeigt werden.
+      download: Laden Sie die Datei herunter, um den vollständigen Inhalt zu sehen.
+      truncated_message: Diese Vorschau zeigt nur die ersten %{rows} Zeilen und %{columns}
+        Spalten.
     headings:
-      order_a_copy: Exemplar bestellen
-      order_a_copy_full: Exemplar der Veröffentlichung bestellen
+      order_a_copy: Eine Kopie bestellen
+      order_a_copy_full: Eine Kopie der Publikation bestellen
       published: Veröffentlicht
-      reference: Aktenzeichen
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      reference: Ref
+      unnumbered_command_paper: Nicht nummeriertes Anweisungspapier
+      unnumbered_hoc_paper: Nicht nummeriertes Aktpapier
     opendocument:
-      help_html:
+      help_html: Diese Datei liegt im <a href='https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation'>OpenDocument</a>
+        Format vor
     virus_check:
-      intro:
-      message:
+      intro: Dieser Anhang wird auf Viren geprüft.
+      message: Wir halten diesen Anhang derzeit in Quarantäne, bis er auf Viren geprüft
+        worden ist. Der Anhang wird in Kürze an der ursprünglichen Stelle verfügbar
+        sein.
   broken_links:
     broken:
-      subheading:
+      subheading: Wir haben in diesem Dokument Links gefunden, die möglicherweise
+        nicht mehr funktionieren.
     caution:
-      subheading:
-    title:
+      subheading: Wir haben einige Links gefunden, die auf Probleme hindeuten. Sie
+        sollten bei der Verlinkung auf diese Links vorsichtig sein.
+    title: Kaputte Links
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Erstmals veröffentlicht
+    see_all_updates: alle Aktualisierungen ansehen
+    updated_at: Zuletzt aktualisiert
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Geschlossen
+    closing_today: Schließt heute
+    closing_tomorrow: Schließt morgen
+    days_left: Noch %{days_left} Tage
   contact:
-    access_and_opening_times:
+    access_and_opening_times: Zugang und Öffnungszeiten
     contact_form: Kontaktformular
-    email: E-Mail
+    email: Email
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: Veröffentlichung auf Walisisch
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: Charta zum Schutz personenbezogener Daten
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: Publikationsprogramm
-        recruitment:
-        research:
-        social_media_use: Soziale Medien
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Walisisches Sprachprogramm
+        about: Über uns
+        about_our_services: Über unsere Dienstleistungen
+        access_and_opening: Bürozugang und Öffnungszeiten
+        accessible_documents_policy: Richtlinie für zugängliche Dokumente
+        complaints_procedure: Beschwerdeverfahren
+        equality_and_diversity: Gleichstellung und Vielfalt
+        media_enquiries: Medienanfragen
+        membership: Mitgliedschaft
+        modern_slavery_statement: Stellungnahme zur modernen Sklaverei
+        our_energy_use: Unser Energieverbrauch
+        our_governance: Unsere Verwaltung
+        personal_information_charter: Charta der personenbezogenen Daten
+        petitions_and_campaigns: Petitionen und Kampagnen
+        procurement: Beschaffung bei %{organisation_name}
+        publication_scheme: Veröffentlichungsschema
+        recruitment: Tätigkeit für %{organisation_name}
+        research: Forschung bei %{organisation_name}
+        social_media_use: Nutzung sozialer Medien
+        staff_update: Personalnachrichten und -informationen
+        statistics: Statistik bei %{organisation_name}
+        terms_of_reference: Aufgabenbereich
+        welsh_language_scheme: Walisisches Sprachschema
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
-      entsprechen.
+      all: Alle Beratungen
+      label: Beratungen
+    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihren Interessen
+      entsprechen
     no_results:
       description: Formulieren Sie Ihre Suche allgemeiner.
       title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
-      tna_heading:
-      tna_link:
+      tna_heading: Älterer Inhalt
+      tna_link: Nicht alle Veröffentlichungen der Ministerien aus der Zeit vor Mai
+        2010 wurden auf GOV.UK übernommen. Um Veröffentlichungen vor Mai 2010 zu finden,
+        suchen Sie im <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">Nationalarchiv</a>.
     world_locations:
       all: Alle Standorte
-      label: Standorte weltweit
-      no_locations_filter:
+      label: Weltweite Standorte
+      no_locations_filter: Kein Ort der Welt entspricht diesem Filter.
+  email_alert:
+    subscription: Email-Benachrichtigung abonnieren
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Britische Todesfälle
+    none_added: Für dieses Einsatzgebiet wurden noch keine Meldungen über Todesfälle
+      hinzugefügt.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: Zuletzt aktiv
+    email: Email
+    feed: Feed
+    get_updates_to_this_list: Erhalten Sie Updates zu dieser Liste
+    latest_activity: Letzte Aktivität
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
     de: Deutsch
   latest_feed:
-    no_updates: Es liegen noch keine Updates vor.
-    title: Aktuell
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Es liegen noch keine Aktualisierungen vor.
+    title: Neueste
   national_statistics:
-    heading:
+    heading: Nationale Statistik
   number:
     human:
       storage_units:
         format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: Information ansehen
-      jobs:
-      jobs_and_contacts: Stellenanzeigen
-      organisation_chart:
+      access_our_info: Auf unsere Informationen zugreifen
+      jobs: Stellenangebote
+      jobs_and_contacts: Arbeitsplätze und Verträge
+      organisation_chart: Unser Organisationsplan
       transparency: Transparenzdaten
     email:
-      alerts:
-      summary:
+      alerts: Email-Benachrichtigungen
+      summary: Email-Benachrichtigungen von der
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Finden Sie eine britische Botschaft, ein Hochkommissariat
+        oder Konsulat
+      find_an_embassy_uppercase: Finden Sie eine britische Botschaft, ein Hochkommissariat
+        oder Konsulat
     headings:
       contact: "%{name} kontaktieren"
-      corporate_information:
-      corporate_reports:
+      corporate_information: Unternehmensinformationen
+      corporate_reports: Unternehmensberichte
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Verwaltet durch
+      agencies_and_public_bodies: Agenturen und öffentliche Einrichtungen
+      part_of: Teil von
+      public_body: öffentliche Einrichtung
+      works_with: Arbeitet mit
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Gerichte und Gerichtshöfe
   publications:
     heading: Veröffentlichungen
-    recent:
+    recent: Jüngste Veröffentlichungen
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Eine Liste der veröffentlichten und kommenden
+        Regierungsstatistiken finden Sie in der Rubrik %{link} Statistiken.
+      moved_notice: Die statistischen Veröffentlichungen sind verlagert worden.
   roles:
-    unassigned:
+    unassigned: Diese Funktion wurde niemandem zugewiesen
   see_all:
-    announcement: Alle unsere Meldungen
+    announcement: Alle unsere Ankündigungen
     authored_article: Alle unsere Namensartikel
     case_study: Alle unsere Fallstudien
-    closed_consultation: Alle unsere Abgeschlossene Konsultationen
-    consultation: Alle unsere Konsultationen
-    consultation_outcome: Alle unsere Konsultationsergebnisse
+    closed_consultation: Alle unsere abgeschlossenen Beratungen
+    consultation: Alle unsere Beratungen
+    consultation_outcome: Alle unsere Beratungsergebnisse
     corporate_report: Alle unsere Geschäftsberichte
     correspondence: Alle unsere Korrespondenz
-    decision:
-    detailed_guidance: Alle unsere Detaillierte Hinweise
-    document_collection:
+    decision: Alle unsere Entscheidungen
+    detailed_guidance: Alle unsere Detaillierten Hinweise
+    document_collection: Alle unsere Sammlungen
     draft_text: Alle unsere Entwürfe
-    fatality_notice: Alle unsere Bekanntgabe von Todesfällen
-    foi_release: Alle unsere Freigabe gemäß Freedom of Information Act
+    fatality_notice: Alle unsere Todesfallmeldungen
+    foi_release: Alle unsere Veröffentlichungen zum Informationsfreiheitsgesetz
     form: Alle unsere Formulare
     government_response: Alle unsere Antworten der Regierung
-    guidance: Alle unsere Hinweise
+    guidance: Alle unsere Detaillierten Hinweise
     impact_assessment: Alle unsere Folgenabschätzungen
-    imported: Alle unsere importiert - Warten auf Dokumententyp
-    international_treaty:
+    imported: Alle unsere unabhängigen Berichte
+    international_treaty: Alle unsere internationalen Verträge
     map: Alle unsere Karten
-    national_statistics: Alle unsere Statistik - Nationale Statistik
-    news_article: Alle unsere Artikel
-    news_story: Alle unsere Meldungen
-    notice:
-    open_consultation: Alle unsere Laufende Konsultationen
-    oral_statement: Alle unsere Mündliche Erklärungen vor dem Parlament
-    policy: Alle unsere Politik
+    national_statistics: Alle unsere nationalen Statistiken
+    news_article: Alle unsere Nachrichtenartikel
+    news_story: Alle unsere Nachrichtenberichte
+    notice: Alle unsere Mitteilungen
+    open_consultation: Alle unsere offenen Beratungen
+    oral_statement: Alle unsere mündlichen Erklärungen vor dem Parlament
+    policy: Alle unsere Richtlinien
     policy_paper: Alle unsere Grundsatzpapiere
     press_release: Alle unsere Pressemitteilungen
-    promotional: Alle unsere Werbematerial
+    promotional: Alle unsere Werbematerialien
     publication: Alle unsere Veröffentlichungen
-    regulation:
+    regulation: Alle unsere Regulierungen
     research: Alle unsere Forschung und Analyse
     speaking_notes: Alle unsere Redenotizen
     speech: Alle unsere Reden
     statement_to_parliament: Alle unsere Erklärungen vor dem Parlament
-    statistical_data_set: Alle unsere Statistische Datensätze
+    statistical_data_set: Alle unsere Statistischen Datensätze
     statistics: Alle unsere Statistiken
-    statutory_guidance:
-    transcript: Alle unsere Mitschriften
-    transparency: Alle unsere Transparenz-Daten
-    written_statement: Alle unsere Schriftliche Erklärungen vor dem Parlament
+    statutory_guidance: Alle unsere gesetzlichen Leitlinien
+    transcript: All unsere Transkripte
+    transparency: All unsere Transparenzdaten
+    written_statement: Alle unsere schriftlichen Erklärungen vor dem Parlament
   support:
     array:
-      last_word_connector: und
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " und "
+    download: Herunterladen
+    field_of_operation: 'Tätigkeitsbereich:'
+    fields_of_operation: Tätigkeitsbereiche
+    filter: Filter
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Nächste <span class="visuallyhidden">Seite</span> <span class="page-numbers">%{current_page}
+        von %{total_pages}</span>
+      next_page: Nächste Seite
+      previous_html: Vorherige <span class="visuallyhidden">Seite</span> <span class="page-numbers">%{current_page}
+        von %{total_pages}</span>
+      previous_page: Vorherige Seite
+    part_of_collection: 'Teil von einer Sammlung:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Jüngste Aktivität bei %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Kunstrat England
+      bbc: BBC
+      british_library: Britische Bibliothek
+      commonwealth_war_graves_commission: Commonwealth War Graves Commission
+      heritage_lottery_fund: Lotteriefonds für das Kulturerbe
+      historic_england: Historisches England
+      iwm: Imperiales Kriegsmuseum
+      war_memorials_trust: Treuhandgesellschaft für Kriegsdenkmäler
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Aktuelle Informationen, Nachrichten und Veranstaltungen
+      der britischen Regierung in %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen
-        Daten schützen.
-      publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig
-        publizieren
-      social_media_use_html: Unsere Politik zu %{link}
-      welsh_language_scheme_html: Mehr zu unserer Verpflichtung zur Veröffentlichung
-        in %{link}
-    find_out_more: Vollständiges Profil und alle Kontaktdaten
+      about_our_services_html: Finden Sie es heraus %{link}.
+      personal_information_charter_html: Unsere %{link} erläutert, wie wir mit Ihren
+        persönlichen Daten umgehen.
+      publication_scheme_html: Lesen Sie in unserem %{link}, welche Arten von Informationen
+        wir regelmäßig veröffentlichen.
+      social_media_use_html: Lesen Sie unsere Richtlinie zu %{link}.
+      welsh_language_scheme_html: Informieren Sie sich über unser Engagement für %{link}.
+    find_out_more: Vollständiges Profil und alle Kontaktdaten anzeigen
     headings:
-      contact_us: Schreiben Sie uns
-      corporate_information: Administrative Informationen
+      contact_us: Kontaktieren Sie uns
+      corporate_information: Unternehmensinformationen
       follow_us: Folgen Sie uns
       our_people: Unsere Mitarbeiter
     location: Standort

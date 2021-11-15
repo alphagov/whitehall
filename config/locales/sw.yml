@@ -2,560 +2,553 @@ sw:
   document:
     type:
       about:
-        one:
-        other:
+        one: Kuhusu
+        other: Kuhusu
       about_our_services:
-        one:
-        other:
+        one: Kuhusu huduma zetu
+        other: Kuhusu huduma zetu
       access_and_opening:
-        one:
-        other:
+        one: Upatikanaji na kufunguliwa
+        other: Upatikanaji na kufunguliwa
       accessible_documents_policy:
-        one:
-        other:
+        one: Sera ya hati zinazoweza kupatikana
+        other: Sera za hati zinazoweza kupatikana
       alert:
-        one:
-        other:
+        one: Taarifa
+        other: Taarifa
       announcement:
-        one:
-        other:
+        one: Tangazo
+        other: Matangazo
       authored_article:
-        one:
-        other:
+        one: Makala ya maelezo ya mwandishi
+        other: Makala ya maelezo ya mwandishi
       blog_post:
-        one:
-        other:
+        one: Chapisho kwenye blogu
+        other: Machapisho kwenye blogu
       campaign:
-        one:
-        other:
+        one: Kampeni
+        other: Kampeni
       careers:
-        one:
-        other:
+        one: Taaluma
+        other: taaluma
       case_study:
-        one:
-        other:
+        one: Uchunguzi kifani
+        other: Uchunguzi kifani
       closed_consultation:
-        one:
-        other:
+        one: Mashauriano ya watu wachache
+        other: Mashauriano ya watu wachache
       complaints_procedure:
-        one:
-        other:
+        one: Utaratibu wa kuwasilisha malalamiko
+        other: Taratibu za kuwasilisha malalamiko
       consultation:
-        one:
-        other:
+        one: Mashauriano
+        other: Mashauriano
       consultation_outcome:
-        one:
-        other:
+        one: Matokeo ya mashauriano
+        other: Matokeo ya mashauriano
       corporate_report:
-        one:
-        other:
+        one: Ripoti ya shirika
+        other: Ripoti za shirika
       correspondence:
-        one:
-        other:
+        one: Mawasiliano
+        other: Mawasiliano
       decision:
-        one:
-        other:
+        one: Uamuzi
+        other: Maamuzi
       detailed_guidance:
-        one:
-        other:
+        one: Mwongozo
+        other: Mwongozo
       document_collection:
-        one:
-        other:
+        one: Mkusanyiko
+        other: Mikusanyiko
       draft_text:
-        one:
-        other:
+        one: Maandishi ya rasimu
+        other: Maandishi ya rasimu
       edition:
-        one:
-        other:
+        one: Toleo
+        other: Matoleo
       edition_with_appointment:
-        one:
-        other:
+        one: Toleo lenye miadi
+        other: Matoleo yenya miadi
       equality_and_diversity:
-        one:
-        other:
+        one: Usawa na utofauti
+        other: Usawa na utofauti
       fatality_notice:
-        one:
-        other:
+        one: Notisi ya idadi ya vifo
+        other: Notisi za idadi ya vifo
       foi_release:
-        one:
-        other:
+        one: Taarifa ya FOI
+        other: Taarifa za FOI
       form:
-        one:
-        other:
+        one: Fomu
+        other: Fomu
       generic_edition:
-        one:
-        other:
+        one: Toleo la kawaida
+        other: Matoleo ya kawaida
       government_response:
-        one:
-        other:
+        one: Hatua iliyochukuliwa na serikali
+        other: Hatua zilizochukuliwa na serikali
       guidance:
-        one:
-        other:
+        one: Mwongozo
+        other: Mwongozo
       impact_assessment:
-        one:
-        other:
+        one: Utathmini wa athari
+        other: Tathmini za athari
       imported:
-        one:
-        other:
+        one: zilizoagizwa kutoka nje - aina ya hali ya kusbiri
+        other: zilizoagizwa kutoka nje - aina ya hali ya kusbiri
       independent_report:
-        one:
-        other:
+        one: Ripoti huru
+        other: Ripoti huru
       international_treaty:
-        one:
-        other:
+        one: Mkataba wa kimataifa
+        other: Mikataba ya kimataifa
       manual:
-        one:
-        other:
+        one: Mwongozo
+        other: Miongozo
       map:
-        one:
-        other:
+        one: Ramani
+        other: Ramani
       media_enquiries:
-        one:
-        other:
+        one: Ombi la maudhui
+        other: Maombi ya maudhui
       membership:
-        one:
-        other:
+        one: Uanachama
+        other: Uanachama
       national_statistics:
-        one:
-        other:
+        one: Takwimu za Kitaifa
+        other: Takwimu za Kitaifa
       news_article:
-        one:
-        other:
+        one: Makala ya habari
+        other: Makala ya habari
       news_story:
-        one:
-        other:
+        one: Taarifa ya habari
+        other: Taarifa za habari
       nhs_content:
-        one:
-        other:
+        one: Maudhui ya NHS
+        other: Maudhui ya NHS
       notice:
-        one:
-        other:
+        one: Notisi
+        other: Notisi
       official_statistics:
-        one:
-        other:
+        one: Takwimu Rasmi
+        other: Takwimu Rasmi
       open_consultation:
-        one:
-        other:
+        one: Mashauriano ya watu wengi
+        other: Mashauriano ya watu wengi
       oral_statement:
-        one:
-        other:
+        one: Taarifa ya Matamshi kwa Bunge
+        other: Taarifa za Matamshi kwa Bunge
       our_energy_use:
-        one:
-        other:
+        one: Matumizi yetu ya nishati
+        other: Matumizi yetu ya nishati
       our_governance:
-        one:
-        other:
+        one: Uongozi wetu
+        other: Uongozi wetu
       personal_information_charter:
-        one:
-        other:
+        one: Hati ya maelezo ya kibinafsi
+        other: Hati za maelezo ya kibinafsi
       petitions_and_campaigns:
-        one:
-        other:
+        one: Maombi na kampeni
+        other: Maombi na kampeni
       policy_paper:
-        one:
-        other:
+        one: Hati ya sera
+        other: Hati za sera
       press_release:
-        one:
-        other:
+        one: Taarifa kwa vyombo vya habari
+        other: Taarifa kwa vyombo vya habari
       procurement:
-        one:
-        other:
+        one: Ununuzi
+        other: Ununuzi
       promotional:
-        one:
-        other:
+        one: Nyenzo ya matangazo
+        other: Nyenzo ya matangazo
       publication:
-        one:
-        other:
+        one: Chapisho
+        other: Machapisho
       publication_scheme:
-        one:
-        other:
+        one: Mpango wa uchapishaji
+        other: Mipango ya uchapishaji
       recruitment:
-        one:
-        other:
+        one: Uandikishaji
+        other: Uandikishaji
       regulation:
-        one:
-        other:
+        one: Kanuni
+        other: Kanuni
       research:
-        one:
-        other:
+        one: Utafiti
+        other: Utafiti
       service:
-        one:
-        other:
+        one: Huduma
+        other: Huduma
       social_media_use:
-        one:
-        other:
+        one: Matumizi ya mitandao ya kijamii
+        other: Matumizi ya mitandao ya kijamii
       speaking_notes:
-        one:
-        other:
+        one: Madokezo ya kutamka
+        other: Madokezo ya kutamka
       speech:
-        one:
-        other:
+        one: Hotuba
+        other: Hotuba
       staff_update:
-        one:
-        other:
+        one: Taarifa ya wafanyakazi
+        other: Taarifa za wafanyakazi
       standard:
-        one:
-        other:
+        one: Kiwango
+        other: Viwango
       statement_to_parliament:
-        one:
-        other:
+        one: Taarifa kwa Bunge
+        other: Taarifa kwa Bunge
       statistical_data_set:
-        one:
-        other:
+        one: Kikundi cha data ya takwimu
+        other: Vikundi vya data ya takwimu
       statistics:
-        one:
-        other:
+        one: Takwimu
+        other: Takwimu
       statutory_guidance:
-        one:
-        other:
+        one: Mwongozo wa kisheria
+        other: Mwongozo wa kisheria
       terms_of_reference:
-        one:
-        other:
+        one: Sheria na masharti
+        other: Sheria na masharti
       transcript:
-        one:
-        other:
+        one: Maandishi
+        other: Maandishi
       transparency:
-        one:
-        other:
+        one: Data ya uwazi
+        other: Data ya uwazi
       welsh_language_scheme:
-        one:
-        other:
+        one: Mpango wa lugha ya Kiwelsh
+        other: Mipango ya lugha ya Kiwelsh
       world_news_story:
-        one:
-        other:
+        one: Taarifa ya habari za kimataifa
+        other: Taarifa za habari za kimataifa
       written_statement:
-        one:
-        other:
-    contents:
+        one: Taarifa ya Maandishi kwa Bunge
+        other: Taarifa za Maandishi kwa Bunge
+    contents: Maudhui
     footer_meta:
-      full_page_history:
-      published:
-      updated:
+      full_page_history: kumbukumbu ya ukurasa wote
+      published: Ilichapishwa
+      updated: Ilisasishwa
     headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
+      applies_to_nations: Inatumika kwa
+      from: Kuanzia
+      part_of: Sehemu ya
+    latest: Hati mpya
+    latest_from: Habari kutoka %{subject}
+    published: ilichapishwa
+    see_all: Angalia yote
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Waziri
+        speaker: Mwandishi
+      delivered_on: 'Iliwasilishwa mnamo:'
       delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
+        minister: Waziri
+        speaker: Mnenaji
+      written_on: 'Iliandikwa mnamo:'
+    updated: ilisasishwa
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Ujumbe wa kimataifa
+        other: Ujumbe wa kimataifa
       world_location:
-        one:
-        other:
+        one: Eneo la kimataifa
+        other: Maeneo ya kimataifa
     headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
+      announcements: Matangazo yetu
+      documents: Hati
+      mission: Dhamira yetu
+      news: Habari za kimataifa
+      organisations: Mashirika
+      publications: Machapisho yetu
+      search: Tafuta kulingana na nchi au eneo
+      statistics: Takwimu zetu
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Nambari ya hati ya House of Commons
+        isbn: ISBN
+        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
       attachment_data:
-        file:
+        file: Faili
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Nambari ya hati ya amri ya kiambatisho
+        hoc_paper_number: Nambari ya hati ya House of Commons
+        isbn: Kiambatisho cha ISBN
+        title: Jina la kiambatisho
+        unique_reference: Nambari maalum ya marejeleo ya kiambatisho
+        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Faili iliyoambatishwa
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Mataifa yaliyotengwa
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Faili iliyoambatishwa
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Nambari ya hati ya amri ya kiambatisho
+        hoc_paper_number: Nambari ya hati ya House of Commons
+        isbn: Kiambatisho cha ISBN
+        title: Jina la kiambatisho
+        unique_reference: Nambari maalum ya marejeleo ya kiambatisho
+        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Faili iliyoambatishwa
     nested_attachment_data_field_names:
-      file:
+      file: Faili iliyoambatishwa
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Nambari ya hati ya amri ya kiambatisho
+      hoc_paper_number: Nambari ya hati ya House of Commons
+      isbn: Kiambatisho cha ISBN
+      title: Jina la kiambatisho
+      unique_reference: Nambari maalum ya marejeleo ya kiambatisho
+      unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
   announcements:
-    heading:
+    heading: Matangazo
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Ikiwa unatumia vifaa vya usaidizi (kama vile kisoma skrini) na unahitaji toleo la hati hii katika muundo unaoweza kutumika zaidi, tafadhali tuma barua pepe katika %{email}.
+        Tafadhali tuambie muundo unaohitaji. Itatusaidia ikiwa utatufahamisha kifaa cha usaidizi unachotumia.
+      intro: Faili hii huenda haitumiki kwa watumiaji wanaotumia vifaa vya usaidizi.
+      request_a_different_format: Omba muundo unaoweza kutumika.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Imeshindwa kuonyesha onyesho la kukagua faili hii.
+      download: Pakua faili ili uone maudhui yake yote.
+      truncated_message: Onyesho hili la kukagua linaonyesha tu safu mlalo %{rows}
+        na safu wima %{columns}.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Agiza nakala
+      order_a_copy_full: Agiza nakala ya chapisho
+      published: Lilichapishwa
+      reference: Marejeleo
+      unnumbered_command_paper: Hati ya amri isiyo na nambari
+      unnumbered_hoc_paper: Hati ya sheria isiyo na nambari
     opendocument:
-      help_html:
+      help_html: Faili hii ni ya muundo wa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
-      intro:
-      message:
+      intro: Kiambatisho hiki kinakaguliwa ili kubaini iwapo kina virusi.
+      message: Tumezuia kiambatisho hiki kwa sasa hadi kikaguliwe kubaini iwapo kina
+        virusi. Kiambatisho kitapatikana katika eneo halisi baada ya muda mfupi.
   broken_links:
     broken:
-      subheading:
+      subheading: Tumepata viungo katika hati hii ambavyo huenda havijakamilika
     caution:
-      subheading:
-    title:
+      subheading: Tumepata matatizo kwenye viungo ambayo huenda yanaashiria hatari,
+        unapaswa kutahadhari unapovibofya
+    title: Viungo ambavyo havijakamilika
   change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+    published_at: Ilichapishwa mara ya kwanza
+    see_all_updates: angalia masasisho yote
+    updated_at: Ilisasishwa mara ya mwisho
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Imefungwa
+    closing_today: Inafungwa leo
+    closing_tomorrow: Itafungwa kesho
+    days_left: Zimebaki siku %{days_left}
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Saa za upatikanaji na kufunguliwa
+    contact_form: Fomu ya mawasiliano
+    email: Barua pepe
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: inachapishwa katika lugha ya Kiwelsh
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Kutuhusu
+        about_our_services: Kuhusu huduma zetu
+        access_and_opening: Saa za upatikanaji na kufunguliwa kwa ofisi
+        accessible_documents_policy: Sera ya hati zinazoweza kupatikana
+        complaints_procedure: Utaratibu wa kuwasilisha malalamiko
+        equality_and_diversity: Usawa na utofauti
+        media_enquiries: Maombi ya maudhui
+        membership: Uanachama
+        modern_slavery_statement: Taarifa ya utumwa wa kisasa
+        our_energy_use: Matumizi yetu ya nishati
+        our_governance: Uongozi wetu
+        personal_information_charter: Hati ya maelezo ya kibinafsi
+        petitions_and_campaigns: Maombi na kampeni
+        procurement: Ununuzi katika %{organisation_name}
+        publication_scheme: Mpango wa uchapishaji
+        recruitment: Kufanya kazi katika %{organisation_name}
+        research: Kufanya utafiti katika %{organisation_name}
+        social_media_use: Matumizi ya mitandao ya kijamii
+        staff_update: Maelezo na habari za wafanyakazi
+        statistics: Takwimu katika %{organisation_name}
+        terms_of_reference: Sheria na masharti
+        welsh_language_scheme: Mpango wa lugha ya Kiwelsh
   date:
     formats:
-      default:
+      default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
-      all:
-      label:
-    description:
+      all: Mashauriano yote
+      label: Mashauriano
+    description: Unaweza kutumia vichujio ili kuonyesha matokeo yanayolingana na mambo
+      yanayokuvutia pekee
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Jaribu kupanua utafutaji wako kisha ujaribu tena.
+      title: Hakuna hati zinazolingana.
+      tna_heading: Maudhui ya zamani
+      tna_link: Si machapisho yote ya idara yaliyochapishwa kabla ya mwezi wa Mei
+        2010 yaliyohamishiwa kwenye tovuti GOV.UK. Ili kupata machapisho yaliyochapishwa
+        kabla ya mwezi wa Mei 2010 jaribu kutafuta <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
+        class="govuk-link">The National Archives</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Maeneo yote
+      label: Maeneo ya kimataifa
+      no_locations_filter: Hamna maeneo ya kimataifa yanayolingana na kichujio hicho.
+  email_alert:
+    subscription: Usajili wa kupokea arifa za barua pepe
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Idadi ya vifo nchini Uingereza
+    none_added: Bado hakuna notisi za idadi ya vifo zilizowekwa kwenye sehemu hii
+      ya kazi.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    email: barua pepe
+    feed: mipasho
+    get_updates_to_this_list: Pata masasisho ya orodha hii
+    latest_activity: Shughuli mpya
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
     sw: Kiswahili
   latest_feed:
-    no_updates:
-    title:
-  mhra_email_signup:
-    context:
-    pages:
-      drug_alerts:
-        description_html:
-        title:
-      drug_safety:
-        description_html:
-        title:
-      news_and_publications:
-        description_html:
-        title:
-    summary:
-    title:
+    no_updates: Bado hakuna masasisho.
+    title: Habari mpya
   national_statistics:
-    heading:
+    heading: Takwimu za Kitaifa
   number:
     human:
       storage_units:
-        format:
+        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
+      access_our_info: Pata habari zetu
+      jobs: Kazi
+      jobs_and_contacts: Kazi na mikataba
+      organisation_chart: Chati ya shirika letu
+      transparency: Data ya uwazi
     email:
-      alerts:
-      summary:
+      alerts: arifa za barua pepe
+      summary: Arifa za barua kutoka
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Tafuta ubalozi wa Uingereza, ubalozi au ubalozi mdogo
+      find_an_embassy_uppercase: Tafuta ubalozi wa Uingereza, Ubalozi au Ubalozi Mdogo
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      contact: Anwani %{name}
+      corporate_information: Maelezo ya shirika
+      corporate_reports: Ripoti za shirika
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Imetolewa na
+      agencies_and_public_bodies: mashirika na mashirika ya serikali
+      part_of: Sehemu ya
+      public_body: shirika la serikali
+      works_with: Hushirikiana na
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Mahakama na Mabaraza ya Uamuzi
   publications:
-    heading:
-    recent:
+    heading: Machapisho
+    recent: Machapisho ya hivi karibuni
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Tafuta orodha ya takwimu zilizochapishwa na zijazo
+        za serikali katika sehemu ya takwimu ya %{link}.
+      moved_notice: Machapisho ya takwimu yamehamishwa.
   roles:
-    unassigned:
+    unassigned: Hakuna mtu aliyekabidhiwa nafasi hii
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Angalia matangazo yetu yote
+    authored_article: Angalia makala yetu yote yaliyo na maelezo ya mwandishi
+    case_study: Angalia uchunguzi kifani wetu wote
+    closed_consultation: Angalia mashauriano yetu yote ya watu wachache
+    consultation: Angalia mashauriano yetu yote
+    consultation_outcome: Angalia matokeo ya mashauriano yetu yote
+    corporate_report: Angalia ripoti zetu zote za shirika
+    correspondence: Angalia mawasiliano yetu yote
+    decision: Angalia maamuzi yetu yote
+    detailed_guidance: Angalia mwongozo wetu wote
+    document_collection: Angalia mikusanyiko yetu yote
+    draft_text: Angalia maandishi yetu yote ya rasimu
+    fatality_notice: Angalia notisi zetu zote za idadi ya vifo
+    foi_release: Angalia taarifa zetu zote za FOI
+    form: Angalia fomu zetu zote
+    government_response: Angalia hatua zetu zote zilizochukuliwa na serikali
+    guidance: Angalia mwongozo wetu wote
+    impact_assessment: Angalia utathmini wetu wa athari
+    imported: Angalia ripoti zetu zote huru
+    international_treaty: Angalia mikataba yetu yote ya kimataifa
+    map: Angalia ramani zetu zote
+    national_statistics: Angalia Takwimu zetu zote za Kitaifa
+    news_article: Angalia makala yetu yote ya habari
+    news_story: Angalia taarifa zetu zote za habari
+    notice: Angalia notisi zetu zote
+    open_consultation: Angalia mashauriano yetu yote ya watu wengi
+    oral_statement: Angalia taarifa zetu za matamshi kwa Bunge
+    policy: Angalia sera zetu zote
+    policy_paper: Angalia hati zetu zote za sera
+    press_release: Angalia taarifa zetu zote kwa vyombo vya habari
+    promotional: Angalia nyenzo zetu zote za matangazo
+    publication: Angalia machapisho yetu yote
+    regulation: Angalia kanuni zetu zote
+    research: Angalia tafiti na uchanganuzi wetu wote
+    speaking_notes: Angalia madokezo yetu yote ya kutamka
+    speech: Angalia hotuba zetu zote
+    statement_to_parliament: Angalia taarifa zetu za kwa Bunge
+    statistical_data_set: Angalia vikundi vyetu vyote vya data ya takwimu
+    statistics: Angalia takwimu zetu zote
+    statutory_guidance: Angalia mwongozo wetu wote wa kisheria
+    transcript: Angalia hati zetu zote
+    transparency: Angalia data yetu yote ya uwazi
+    written_statement: Angalia taarifa zetu za maandishi kwa Bunge
   support:
     array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+      last_word_connector: " na "
+    download: Pakua
+    field_of_operation: 'Sehemu ya kazi:'
+    fields_of_operation: Sehemu za kazi
+    filter: Chuja
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Unaofuata <span class="visuallyhidden">ukurasa wa</span> <span class="page-numbers">%{current_page}
+        kati ya %{total_pages}</span>
+      next_page: Ukurasa unaofuata
+      previous_html: Uliotangulia <span class="visuallyhidden">ukurasa wa</span> <span
+        class="page-numbers">%{current_page} kati ya %{total_pages}</span>
+      previous_page: Ukurasa uliotangulia
+    part_of_collection: 'Sehemu ya mkusanyiko:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity:
+    latest_activity: Shughuli mpya kwenye %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
-      birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust:
+      arts_council_england: Arts Council England
+      bbc: BBC
+      british_library: British Library
+      commonwealth_war_graves_commission: Commonwealth War Graves Commission
+      heritage_lottery_fund: Heritage Lottery Fund
+      historic_england: Historic England
+      iwm: Imperial War Museum
+      war_memorials_trust: War Memorials Trust
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Taarifa, habari na matukio kutoka kwa serikali ya Uingereza
+      nchini %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Pata maelezo kuhusu %{link}.
+      personal_information_charter_html: "%{link} yetu inafafanua jinsi tunavyoshughulikia
+        maelezo yako ya kibinafsi."
+      publication_scheme_html: Soma maelezo kuhusu aina za maelezo tunayochapisha
+        kila wakati kwenye %{link} yetu.
+      social_media_use_html: Soma sera yetu kwenye %{link}.
+      welsh_language_scheme_html: Pata maelezo kuhusu wajibu wetu wa %{link}.
+    find_out_more: Angalia wasifu wote na anwani zote za mawasiliano
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Wasiliana nasi
+      corporate_information: Maelezo ya shirika
+      follow_us: Tufuatilie
+      our_people: Watu wetu
+    location: Mahali
+    part_of: Sehemu ya
