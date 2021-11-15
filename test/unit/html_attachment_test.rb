@@ -44,6 +44,18 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test "#url returns absolute path to the draft stack when previewing for non-english locale" do
+    edition = create(:draft_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+    attachment.update!(locale: "fi")
+
+    expected = "https://draft-origin.test.gov.uk/government/publications/"
+    expected += "#{edition.slug}/#{attachment.content_id}?preview=#{attachment.id}"
+    actual = attachment.url(preview: true, full_url: true)
+
+    assert_equal expected, actual
+  end
+
   test "#url returns absolute path to the live site when not previewing" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
@@ -55,10 +67,29 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test "#url returns absolute path to the live site when not previewing for non-english locale" do
+    edition = create(:published_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+    attachment.update!(locale: "fi")
+
+    expected = "https://www.test.gov.uk/government/publications/"
+    expected += "#{edition.slug}/#{attachment.content_id}"
+    actual = attachment.url(full_url: true)
+
+    assert_equal expected, actual
+  end
+
   test "#url returns relative path by default" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
+  end
+
+  test "#url returns relative path by default for non-english locale" do
+    edition = create(:published_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+    attachment.update!(locale: "fi")
+    assert_equal "/government/publications/#{edition.slug}/#{attachment.content_id}", attachment.url
   end
 
   test "#url works with statistics" do
@@ -67,16 +98,37 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "/government/statistics/#{statistics.slug}/#{attachment.slug}", attachment.url
   end
 
+  test "#url works with statistics for non-english locale" do
+    statistics = create(:published_national_statistics)
+    attachment = statistics.attachments.last
+    attachment.update!(locale: "fi")
+    assert_equal "/government/statistics/#{statistics.slug}/#{attachment.content_id}", attachment.url
+  end
+
   test "#url works with consultation outcomes" do
     consultation = create(:consultation_with_outcome_html_attachment)
     attachment = consultation.outcome.attachments.first
     assert_equal "/government/consultations/#{consultation.slug}/outcome/#{attachment.slug}", attachment.url
   end
 
+  test "#url works with consultation outcomes for non-english locale" do
+    consultation = create(:consultation_with_outcome_html_attachment)
+    attachment = consultation.outcome.attachments.first
+    attachment.update!(locale: "fi")
+    assert_equal "/government/consultations/#{consultation.slug}/outcome/#{attachment.content_id}", attachment.url
+  end
+
   test "#url works with consultation public feedback" do
     consultation = create(:consultation_with_public_feedback_html_attachment)
     attachment = consultation.public_feedback.attachments.first
     assert_equal "/government/consultations/#{consultation.slug}/public-feedback/#{attachment.slug}", attachment.url
+  end
+
+  test "#url works with consultation public feedback for non-english locale" do
+    consultation = create(:consultation_with_public_feedback_html_attachment)
+    attachment = consultation.public_feedback.attachments.first
+    attachment.update!(locale: "fi")
+    assert_equal "/government/consultations/#{consultation.slug}/public-feedback/#{attachment.content_id}", attachment.url
   end
 
   test "slug is copied from previous edition's attachment" do
