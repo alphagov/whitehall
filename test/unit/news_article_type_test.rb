@@ -12,7 +12,7 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
   end
 
   test "should list all slugs" do
-    assert_equal "news-stories, press-releases, government-responses and world-news-stories", NewsArticleType.all_slugs
+    assert_equal "news-stories, press-releases, government-responses, and world-news-stories", NewsArticleType.all_slugs
   end
 
   test "search_format_types tags the type with the key, prefixed with news-article-" do
