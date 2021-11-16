@@ -247,7 +247,7 @@ fr:
       delivery_title:
         minister: Ministre
         speaker: Orateur
-      written_on: 'Rédiger le: '
+      written_on: 'Rédiger le :'
     updated: mis à jour
   world_location:
     type:
