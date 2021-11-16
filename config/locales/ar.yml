@@ -721,7 +721,7 @@ ar:
     get_updates_to_this_list: الحصول على تحديثات لهذه القائمة
     latest_activity: أحدث نشاط
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     ar: العربيَّة
   latest_feed:

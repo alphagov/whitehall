@@ -413,7 +413,7 @@ ps:
     get_updates_to_this_list: دې لیست ته تازه معلومات ترلاسه کړئ
     latest_activity: وروستي فعالیت
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     ps: جرمني
   latest_feed:

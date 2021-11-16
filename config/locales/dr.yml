@@ -413,7 +413,7 @@ dr:
     get_updates_to_this_list: آپدیت هایی این لست را دریافت نمایید
     latest_activity: جدیدترین فعالیت ها
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     dr: دری
   latest_feed:

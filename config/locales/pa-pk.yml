@@ -416,7 +416,7 @@ pa-pk:
     get_updates_to_this_list: ایس فہرست توں تازہ ترین حال دا پتہ لاؤ
     latest_activity: پچھلی سرگرمی
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     pa-pk: پنجابی شاہ مُکھی
   latest_feed:

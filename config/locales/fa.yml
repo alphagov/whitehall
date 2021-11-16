@@ -396,7 +396,7 @@ fa:
     get_updates_to_this_list: بروزرسانی‌های این لیست را دریافت کنید
     latest_activity: آخرین فعالیت
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     fa: فارسی
   latest_feed:
