@@ -2,3 +2,13 @@ data:
   yaml:
     write:
       line_width: -1
+ignore_unused:
+  - 'corporate_information_page.type.title.*'
+  - 'document.type.*.{one,other,zero,few,many,two}'
+  - 'document_filters.no_results.*'
+  - 'language_names.*'
+  - 'i18n.direction'
+  - 'time.formats.*'
+  - 'date.formats.*'
+  - 'world_location.type.*'
+  - 'activerecord.*'
