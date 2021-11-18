@@ -1,3 +1,4 @@
+---
 ms:
   activerecord:
     attributes:
@@ -51,8 +52,7 @@ ms:
     csv:
       cannot_preview: Fail ini tidak dapat dipratunjuk.
       download: Muat turun fail untuk melihat kandungannya yang lengkap.
-      truncated_message: Pratunjuk ini hanya menunjukkan baris %{rows} dan lajur %{columns}
-        pertama.
+      truncated_message: Pratunjuk ini hanya menunjukkan baris %{rows} dan lajur %{columns} pertama.
     headings:
       order_a_copy: Pesan satu salinan
       order_a_copy_full: Pesan satu salinan terbitan
@@ -61,18 +61,15 @@ ms:
       unnumbered_command_paper: Kertas perintah tidak bernombor
       unnumbered_hoc_paper: Kertas tindakan tidak bernombor
     opendocument:
-      help_html: Fail ini terdapat dalam <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a>
-        OpenDocument
+      help_html: Fail ini terdapat dalam <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a> OpenDocument
     virus_check:
       intro: Pemeriksaan virus sedang dibuat pada lampiran ini.
-      message: Lampiran ini berada dalam kuarantin hingga pemeriksaan virus selesai.
-        Lampiran akan tersedia di lokasi asal tidak lama lagi.
+      message: Lampiran ini berada dalam kuarantin hingga pemeriksaan virus selesai. Lampiran akan tersedia di lokasi asal tidak lama lagi.
   broken_links:
     broken:
       subheading: Kami menemui pautan dalam dokumen ini yang mungkin terputus
     caution:
-      subheading: Kami menemui beberapa isu dengan pautan yang mungkin menunjukkan
-        adanya masalah, anda harus berhati-hati semasa memaut padanya
+      subheading: Kami menemui beberapa isu dengan pautan yang mungkin menunjukkan adanya masalah, anda harus berhati-hati semasa memaut padanya
     title: Pautan putus
   change_notes:
     published_at: Kali pertama diterbitkan
@@ -372,15 +369,12 @@ ms:
     consultation:
       all: Semua perundingan
       label: Rundingan
-    description: Anda boleh menggunakan penapis untuk menunjukkan hasil yang hanya
-      sepadan dengan minat anda
+    description: Anda boleh menggunakan penapis untuk menunjukkan hasil yang hanya sepadan dengan minat anda
     no_results:
       description: Cuba buat carian anda lebih luas dan cuba lagi.
       title: Tidak ada dokumen yang sepadan.
       tna_heading: Kandungan lebih lama
-      tna_link: Tidak semua penerbitan jabatan dari sebelum Mei 2010 dipindahkan ke
-        GOV.UK. Untuk mencari penerbitan sebelum Mei 2010 cuba cari <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Arkib Negara</a>.
+      tna_link: Tidak semua penerbitan jabatan dari sebelum Mei 2010 dipindahkan ke GOV.UK. Untuk mencari penerbitan sebelum Mei 2010 cuba cari <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arkib Negara</a>.
     world_locations:
       all: Semua lokasi
       label: Lokasi dunia
@@ -437,8 +431,7 @@ ms:
     heading: Penerbitan
     recent: Penerbitan terbaharu
     statistics:
-      link_to_published_statistics: Cari senarai statistik kerajaan yang telah diterbitkan
-        dan akan datang di bahagian statistik %{link}.
+      link_to_published_statistics: Cari senarai statistik kerajaan yang telah diterbitkan dan akan datang di bahagian statistik %{link}.
       moved_notice: Penerbitan statistik telah bergerak.
   roles:
     unassigned: Tiada siapa yang ditugaskan untuk peranan ini
@@ -494,11 +487,9 @@ ms:
     fields_of_operation: Medan operasi
     filter: Tapis
     pagination:
-      next_html: Halaman <span class="visuallyhidden">seterusnya</span> <span class="page-numbers">%{current_page}
-        daripada %{total_pages}</span>
+      next_html: Halaman <span class="visuallyhidden">seterusnya</span> <span class="page-numbers">%{current_page} daripada %{total_pages}</span>
       next_page: Halaman seterusnya
-      previous_html: Halaman <span class="visuallyhidden">sebelumnya</span> <span
-        class="page-numbers">%{current_page} daripada %{total_pages}</span>
+      previous_html: Halaman <span class="visuallyhidden">sebelumnya</span> <span class="page-numbers">%{current_page} daripada %{total_pages}</span>
       previous_page: Halaman sebelumnya
     part_of_collection: 'Sebahagian daripada koleksi:'
   time:
@@ -533,15 +524,12 @@ ms:
         one: Lokasi dunia
         other: Lokasi dunia
   world_news:
-    uk_updates_in_country: Kemas kini, berita dan peristiwa daripada kerajaan UK di
-      %{country}
+    uk_updates_in_country: Kemas kini, berita dan peristiwa daripada kerajaan UK di %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Ketahui %{link}.
-      personal_information_charter_html: "%{link} kami menerangkan bagaimana kami
-        menggunakan maklumat peribadi anda."
-      publication_scheme_html: Baca tentang jenis maklumat yang kami biasa terbitkan
-        dalam %{link} kami.
+      personal_information_charter_html: "%{link} kami menerangkan bagaimana kami menggunakan maklumat peribadi anda."
+      publication_scheme_html: Baca tentang jenis maklumat yang kami biasa terbitkan dalam %{link} kami.
       social_media_use_html: Baca dasar kami di %{link}.
       welsh_language_scheme_html: Ketahui tentang komitmen kami kepada %{link}.
     find_out_more: Lihat profil lengkap dan semua butiran hubungan

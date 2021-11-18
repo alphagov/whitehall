@@ -1,5 +1,142 @@
+---
 so:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: lambarka warqada guriga Commons
+        isbn: ISBN
+        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
+      attachment_data:
+        file: Faylka
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Lifaaqa lambarka warqada amarka
+        hoc_paper_number: lambarka warqada guriga Commons
+        isbn: Lifaaqa ISBN
+        title: Cinwaanka lifaaqa
+        unique_reference: Tixraaca gaarka ah ee lifaaqa
+        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Faylka lifaaqa
+      edition:
+        nation_inapplicabilities: Aanay ku jirin qaramadu
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Faylka lifaaqa
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Lifaaqa lambarka warqada amarka
+        hoc_paper_number: lambarka warqada guriga Commons
+        isbn: Lifaaqa ISBN
+        title: Cinwaanka lifaaqa
+        unique_reference: Tixraaca gaarka ah ee lifaaqa
+        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Faylka lifaaqa
+    nested_attachment_data_field_names:
+      file: Faylka lifaaqa
+    nested_attachment_field_names:
+      command_paper_number: Lifaaqa lambarka warqada amarka
+      hoc_paper_number: lambarka warqada guriga Commons
+      isbn: Lifaaqa ISBN
+      title: Cinwaanka lifaaqa
+      unique_reference: Tixraaca gaarka ah ee lifaaqa
+      unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
+  announcements:
+    heading: Ogeysiisyo
+  attachment:
+    accessibility:
+      full_help_html: |
+        Hadii aad isticmaalayso tiknoolajiyad ku caawinaysa (sida akhriyaha shaashada) oo aad u baahantahay qayb dhokumantigan ah oo leh nooc la heli karo oo badan, fadlan iimayl u dir %{email}.
+        Fadlan noo sheeg nooca qaabka aad u baahantahay. Waxay naga caawinaysaa hadii aad dhahdo waa maxay tiknoolajiyada aad isticmaasho.
+      intro: Faylkani waxa laga yaabaa inaanu ku haboonayn isticmaalayaasha tiknoolajiyada caawinta.
+      request_a_different_format: Codso nidaam la gali karo.
+    csv:
+      cannot_preview: Faylka si hordhac ah looma sii eegi karo.
+      download: Dejiso faylka si aad u eegto waxyaabaha uu ka koobanyahay dhamaan.
+      truncated_message: Si aad u eegto kaliya wuxuu ku tusinayaa laynka %{rows} koowaad iyo %{columns} kolomka.
+    headings:
+      order_a_copy: Dalbo nuqul
+      order_a_copy_full: Dalbo nuqul daabacaada ah
+      published: Daabacaada
+      reference: Tixraac
+      unnumbered_command_paper: Warqada amarka aan lambarada lahayn
+      unnumbered_hoc_paper: Warqada xeerka aan lambarada lahayn
+    opendocument:
+      help_html: Faylkani waa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
+    virus_check:
+      intro: Lifaaqan waxa laga hubiyay inuu fayras la socdo.
+      message: Waxaan hada haynaa lifaaqan inta lagu jiro karantiilka ilaa iyo inta fayraska laga hubinayo. Lifaaqa waxa laga heli doonaa meeshiisii asalka ahayd dhawaan.
+  broken_links:
+    broken:
+      subheading: Waxaan helnay linkiyada dhokumantigan kaasoo la jabsaday
+    caution:
+      subheading: Waxaan helnay arimaha qaar linkiyadooda kaasoo dhib muujinaya, waa inaad ka taxadartaa marka aad ka codsanayso linki iyaga
+    title: Linkiyada la jabsaday
+  change_notes:
+    published_at: Marka hore la daabacay
+    see_all_updates: eeg dhamaan cusboonaysiinaha
+    updated_at: Cusboonaysiintii ugu dambaysay
+  consultation:
+    closed: Xidhan
+    closing_today: Xidhan maanta
+    closing_tomorrow: Beri xidhan
+    days_left: "%{days_left} maalmaha tagay"
+  contact:
+    access_and_opening_times: Wakhtiyada galitaanka iyo furitaanka
+    contact_form: Foomka lagala xidhiidhayo
+    email: Iimaylka
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: daabaacaada Welsh
+      title:
+        about: Wax nagu saabsan anaga
+        about_our_services: Ku sahabsan adeegyadeena
+        access_and_opening: Wakhtiyada galitaanka iyo furitaanka xafiiska
+        accessible_documents_policy: Dukumentiyada siyaasada la heli karo
+        complaints_procedure: Nidaamka cabashada
+        equality_and_diversity: Sinaanta iyo kala duwanaanshaha
+        media_enquiries: Su'aalaha saxaafada
+        membership: Xubinimada
+        modern_slavery_statement: Bayaanka adoonta casriga ah
+        our_energy_use: Isticmaalkayaga tamarta
+        our_governance: Maamulkayaga
+        personal_information_charter: Xeerka macluumaadka shaqsiga ah
+        petitions_and_campaigns: Codsiyada dadwaynaha iyo ololaha
+        procurement: Shaqaalaysiinta %{organisation_name}
+        publication_scheme: Jaantuska daabacaada
+        recruitment: Ka shaqaynta %{organisation_name}
+        research: Cilmi baadhista %{organisation_name}
+        social_media_use: Isticmaalka baraha bulshada
+        staff_update: Warka shaqaalaha iyo macluumaadka
+        statistics: Xisaabaadka %{organisation_name}
+        terms_of_reference: Xeerarka Tixraaca
+        welsh_language_scheme: Jaantuska luuqada Welsh
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Waxyaabaha uu ka koobanyahay
+    footer_meta:
+      full_page_history: boga taariikhda oo dhamaystiran
+      published: Daabacaada
+      updated: La cusboonaysiiyay
+    headings:
+      applies_to_nations: Lagu codsaday
+      from: Laga bilaabo
+      part_of: Ka qeyba
+    latest: Dukumentiyadii u danbeeyey
+    latest_from: Laga bilaabo kii u dambeeyay %{subject}
+    published: Daabacaada
+    see_all: Eeg dhamaan
+    speech:
+      author_title:
+        minister: Wasiirka
+        speaker: Qoraaga
+      delivered_on: 'Loo diray:'
+      delivery_title:
+        minister: Wasiirka
+        speaker: Gudoomiyaha
+      written_on: 'Lagu qoray:'
     type:
       about:
         one: Ku sahabsan
@@ -226,180 +363,17 @@ so:
       written_statement:
         one: Bayaan qoran oo loogu talogalay Baarlamaanka
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
-    contents: Waxyaabaha uu ka koobanyahay
-    footer_meta:
-      full_page_history: boga taariikhda oo dhamaystiran
-      published: Daabacaada
-      updated: La cusboonaysiiyay
-    headings:
-      applies_to_nations: Lagu codsaday
-      from: Laga bilaabo
-      part_of: Ka qeyba
-    latest: Dukumentiyadii u danbeeyey
-    latest_from: Laga bilaabo kii u dambeeyay %{subject}
-    published: Daabacaada
-    see_all: Eeg dhamaan
-    speech:
-      author_title:
-        minister: Wasiirka
-        speaker: Qoraaga
-      delivered_on: 'Loo diray:'
-      delivery_title:
-        minister: Wasiirka
-        speaker: Gudoomiyaha
-      written_on: 'Lagu qoray:'
     updated: la cusboonaysiiyay
-  world_location:
-    type:
-      international_delegation:
-        one: Wafti caalami ah
-        other: Wafti caalami ah
-      world_location:
-        one: Goobta Dunida
-        other: Goobaha Dunida
-    headings:
-      announcements: Ku dhawaaqisahayaga
-      documents: Dukumentiyada
-      mission: Hadafkayaga
-      news: Wararka Goobta Dunida
-      organisations: Ururada
-      publications: Daabacadahayaga
-      search: Ku raadi dalka ama dhulka
-      statistics: Xog ururinahayaga
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: lambarka warqada guriga Commons
-        isbn: ISBN
-        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
-      attachment_data:
-        file: Faylka
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Lifaaqa lambarka warqada amarka
-        hoc_paper_number: lambarka warqada guriga Commons
-        isbn: Lifaaqa ISBN
-        title: Cinwaanka lifaaqa
-        unique_reference: Tixraaca gaarka ah ee lifaaqa
-        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Faylka lifaaqa
-      edition:
-        nation_inapplicabilities: Aanay ku jirin qaramadu
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Faylka lifaaqa
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Lifaaqa lambarka warqada amarka
-        hoc_paper_number: lambarka warqada guriga Commons
-        isbn: Lifaaqa ISBN
-        title: Cinwaanka lifaaqa
-        unique_reference: Tixraaca gaarka ah ee lifaaqa
-        unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Faylka lifaaqa
-    nested_attachment_data_field_names:
-      file: Faylka lifaaqa
-    nested_attachment_field_names:
-      command_paper_number: Lifaaqa lambarka warqada amarka
-      hoc_paper_number: lambarka warqada guriga Commons
-      isbn: Lifaaqa ISBN
-      title: Cinwaanka lifaaqa
-      unique_reference: Tixraaca gaarka ah ee lifaaqa
-      unnumbered_hoc_paper: Warqada aan lambarka lahayn ee guriga Commons
-  announcements:
-    heading: Ogeysiisyo
-  attachment:
-    accessibility:
-      full_help_html: |
-        Hadii aad isticmaalayso tiknoolajiyad ku caawinaysa (sida akhriyaha shaashada) oo aad u baahantahay qayb dhokumantigan ah oo leh nooc la heli karo oo badan, fadlan iimayl u dir %{email}.
-        Fadlan noo sheeg nooca qaabka aad u baahantahay. Waxay naga caawinaysaa hadii aad dhahdo waa maxay tiknoolajiyada aad isticmaasho.
-      intro: Faylkani waxa laga yaabaa inaanu ku haboonayn isticmaalayaasha tiknoolajiyada
-        caawinta.
-      request_a_different_format: Codso nidaam la gali karo.
-    csv:
-      cannot_preview: Faylka si hordhac ah looma sii eegi karo.
-      download: Dejiso faylka si aad u eegto waxyaabaha uu ka koobanyahay dhamaan.
-      truncated_message: Si aad u eegto kaliya wuxuu ku tusinayaa laynka %{rows} koowaad
-        iyo %{columns} kolomka.
-    headings:
-      order_a_copy: Dalbo nuqul
-      order_a_copy_full: Dalbo nuqul daabacaada ah
-      published: Daabacaada
-      reference: Tixraac
-      unnumbered_command_paper: Warqada amarka aan lambarada lahayn
-      unnumbered_hoc_paper: Warqada xeerka aan lambarada lahayn
-    opendocument:
-      help_html: Faylkani waa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        format
-    virus_check:
-      intro: Lifaaqan waxa laga hubiyay inuu fayras la socdo.
-      message: Waxaan hada haynaa lifaaqan inta lagu jiro karantiilka ilaa iyo inta
-        fayraska laga hubinayo. Lifaaqa waxa laga heli doonaa meeshiisii asalka ahayd
-        dhawaan.
-  broken_links:
-    broken:
-      subheading: Waxaan helnay linkiyada dhokumantigan kaasoo la jabsaday
-    caution:
-      subheading: Waxaan helnay arimaha qaar linkiyadooda kaasoo dhib muujinaya, waa
-        inaad ka taxadartaa marka aad ka codsanayso linki iyaga
-    title: Linkiyada la jabsaday
-  change_notes:
-    published_at: Marka hore la daabacay
-    see_all_updates: eeg dhamaan cusboonaysiinaha
-    updated_at: Cusboonaysiintii ugu dambaysay
-  consultation:
-    closed: Xidhan
-    closing_today: Xidhan maanta
-    closing_tomorrow: Beri xidhan
-    days_left: "%{days_left} maalmaha tagay"
-  contact:
-    access_and_opening_times: Wakhtiyada galitaanka iyo furitaanka
-    contact_form: Foomka lagala xidhiidhayo
-    email: Iimaylka
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: daabaacaada Welsh
-      title:
-        about: Wax nagu saabsan anaga
-        about_our_services: Ku sahabsan adeegyadeena
-        access_and_opening: Wakhtiyada galitaanka iyo furitaanka xafiiska
-        accessible_documents_policy: Dukumentiyada siyaasada la heli karo
-        complaints_procedure: Nidaamka cabashada
-        equality_and_diversity: Sinaanta iyo kala duwanaanshaha
-        media_enquiries: Su'aalaha saxaafada
-        membership: Xubinimada
-        modern_slavery_statement: Bayaanka adoonta casriga ah
-        our_energy_use: Isticmaalkayaga tamarta
-        our_governance: Maamulkayaga
-        personal_information_charter: Xeerka macluumaadka shaqsiga ah
-        petitions_and_campaigns: Codsiyada dadwaynaha iyo ololaha
-        procurement: Shaqaalaysiinta %{organisation_name}
-        publication_scheme: Jaantuska daabacaada
-        recruitment: Ka shaqaynta %{organisation_name}
-        research: Cilmi baadhista %{organisation_name}
-        social_media_use: Isticmaalka baraha bulshada
-        staff_update: Warka shaqaalaha iyo macluumaadka
-        statistics: Xisaabaadka %{organisation_name}
-        terms_of_reference: Xeerarka Tixraaca
-        welsh_language_scheme: Jaantuska luuqada Welsh
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Dhamaan la talinta oo dhan
       label: Latalino
-    description: Waxaad isticmaali kartaa kala saarayaasha si aad u muujiso kaliya
-      maxsuulka waafaqay danahaaga
+    description: Waxaad isticmaali kartaa kala saarayaasha si aad u muujiso kaliya maxsuulka waafaqay danahaaga
     no_results:
       description: Isku day inaad baadhistaada balaadhiso oo isku day markale.
       title: Ma jiraan dhokumantiyo is waafaqsan.
       tna_heading: Qaybtii hore
-      tna_link: Maaha dhamaan qaybta daabacaadaha laga bilaabo kahor bisha May 2010
-        waxa loo wareejiyay GOV.UK. Si aad u raadiso daabacaadaha laga bilaabo bisha
-        May 2010 isku day baadhista <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Kaydka Qaranka</a>.
+      tna_link: Maaha dhamaan qaybta daabacaadaha laga bilaabo kahor bisha May 2010 waxa loo wareejiyay GOV.UK. Si aad u raadiso daabacaadaha laga bilaabo bisha May 2010 isku day baadhista <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Kaydka Qaranka</a>.
     world_locations:
       all: Dhamaan goobaha
       label: Goobaha Dunida
@@ -408,8 +382,7 @@ so:
     subscription: Xasuusinta iimaylka ku calaamadsan
   fatality_notice:
     british_fatalities: Muhiimada British-ka
-    none_added: Ma jiraan wax ogaysiisyada muhiimka ah oo lagu daray goobtan shaqada
-      wali.
+    none_added: Ma jiraan wax ogaysiisyada muhiimka ah oo lagu daray goobtan shaqada wali.
   feeds:
     email: iimaylka
     feed: warka
@@ -457,8 +430,7 @@ so:
     heading: Daabacaado
     recent: Daabacadihii dhawaa
     statistics:
-      link_to_published_statistics: Baadh liiska cusboonaysiinta iyo xog ururinta
-        soo socota ee dawlada %{link} qaybta xog ururinta.
+      link_to_published_statistics: Baadh liiska cusboonaysiinta iyo xog ururinta soo socota ee dawlada %{link} qaybta xog ururinta.
       moved_notice: Daabacaadaha xog ururinaha waa laga saaray.
   roles:
     unassigned: Qofna looma qoondayn doorkan
@@ -514,11 +486,9 @@ so:
     fields_of_operation: Hawalaha dibada
     filter: Kal shandhaynta
     pagination:
-      next_html: Kuxiga <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page}
-        ah %{total_pages}</span>
+      next_html: Kuxiga <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page} ah %{total_pages}</span>
       next_page: Boga xiga
-      previous_html: Hore s <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page}
-        ah %{total_pages}</span>
+      previous_html: Hore s <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page} ah %{total_pages}</span>
       previous_page: Boga hore
     part_of_collection: 'Ka qeyba xidhmada:'
   time:
@@ -535,21 +505,33 @@ so:
       historic_england: Taariikhda England
       iwm: Madxafka Degaalka ee Imperial
       war_memorials_trust: Aaminaada Xasuusaha Degaalka
+  world_location:
+    headings:
+      announcements: Ku dhawaaqisahayaga
+      documents: Dukumentiyada
+      mission: Hadafkayaga
+      news: Wararka Goobta Dunida
+      organisations: Ururada
+      publications: Daabacadahayaga
+      search: Ku raadi dalka ama dhulka
+      statistics: Xog ururinahayaga
+    type:
+      international_delegation:
+        one: Wafti caalami ah
+        other: Wafti caalami ah
+      world_location:
+        one: Goobta Dunida
+        other: Goobaha Dunida
   world_news:
-    uk_updates_in_country: Cusbonaysiinaha, wararka iyo dhacdooyinka ka yimaada dawlada
-      UK %{country}
+    uk_updates_in_country: Cusbonaysiinaha, wararka iyo dhacdooyinka ka yimaada dawlada UK %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Ka raadi %{link}.
-      personal_information_charter_html: Sharaxadahayagu %{link} waxay sheegayaan
-        sida loola dhaqmayo macluumaadkaaga shaqsiyeed.
-      publication_scheme_html: Akhri waxyaabaha ku saabsan nooca macluumaadka aan
-        si joogto ugu daabacno %{link}.
+      personal_information_charter_html: Sharaxadahayagu %{link} waxay sheegayaan sida loola dhaqmayo macluumaadkaaga shaqsiyeed.
+      publication_scheme_html: Akhri waxyaabaha ku saabsan nooca macluumaadka aan si joogto ugu daabacno %{link}.
       social_media_use_html: Ka akhri siyaasadayahaga %{link}.
-      welsh_language_scheme_html: Raadi waxyaabaha ku saabsan ka go'naanshahayaga
-        %{link}.
-    find_out_more: Eeg borofaayl dhamaystiran iyo dhamaan faahfaahinta meesha lagala
-      xidhiidhayo
+      welsh_language_scheme_html: Raadi waxyaabaha ku saabsan ka go'naanshahayaga %{link}.
+    find_out_more: Eeg borofaayl dhamaystiran iyo dhamaan faahfaahinta meesha lagala xidhiidhayo
     headings:
       contact_us: Nagala soo xidhiidh
       corporate_information: Macluumaadka shirkada

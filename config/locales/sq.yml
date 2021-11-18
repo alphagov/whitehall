@@ -1,5 +1,143 @@
+---
 sq:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Numri i letrës së Dhomës së Komuneve
+        isbn: ISBN
+        unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
+      attachment_data:
+        file: Skedar
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Numri i letrës së komandës së bashkëngjitjes
+        hoc_paper_number: Numri i letrës së Dhomës së Komuneve
+        isbn: Bashkëngjitja ISBN
+        title: Titulli i bashkëngjitjes
+        unique_reference: Referenca unike e bashkëngjitjes
+        unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Skedari i bashkangjitur
+      edition:
+        nation_inapplicabilities: Shtetet e përjashtuara
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Skedari i bashkangjitur
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Numri i letrës së komandës së bashkëngjitjes
+        hoc_paper_number: Numri i letrës së Dhomës së Komuneve
+        isbn: Bashkëngjitja ISBN
+        title: Titulli i bashkëngjitjes
+        unique_reference: Referenca unike e bashkëngjitjes
+        unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Skedari i bashkangjitur
+    nested_attachment_data_field_names:
+      file: Skedari i bashkangjitur
+    nested_attachment_field_names:
+      command_paper_number: Numri i letrës së komandës së bashkëngjitjes
+      hoc_paper_number: Numri i letrës së Dhomës së Komuneve
+      isbn: Bashkëngjitja ISBN
+      title: Titulli i bashkëngjitjes
+      unique_reference: Referenca unike e bashkëngjitjes
+      unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
+  announcements:
+    heading: Lajmërime
+  attachment:
+    accessibility:
+      full_help_html: |
+        Nëse përdorni teknologji ndihmëse (siç është lexuesi i ekranit) dhe keni nevojë për një
+        versionin e këtij dokumenti në një format më të arritshëm, ju lutemi dërgoni email në %{email}.
+        Ju lutemi na tregoni se çfarë formati ju nevojitet. Do të na ndihmojë nëse thoni çfarë teknologjie ndihmëse përdorni.
+      intro: Ky skedar mund të mos jetë i përshtatshëm për përdoruesit e teknologjisë ndihmëse.
+      request_a_different_format: Kërkoni një format të arritshëm.
+    csv:
+      cannot_preview: Ky skedar nuk mund të shikohej paraprakisht.
+      download: Shkarkoni skedarin për të parë përmbajtjen e tij të plotë.
+      truncated_message: Ky pamje paraqet vetëm rreshtat %{rows} dhe kolonat %{columns} e para.
+    headings:
+      order_a_copy: Porosit një kopje
+      order_a_copy_full: Porositni një kopje të botimit
+      published: Publikuar
+      reference: Ref
+      unnumbered_command_paper: Letër komande e panumëruar
+      unnumbered_hoc_paper: Letër akti pa numër
+    opendocument:
+      help_html: Ky skedar është në një <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a> OpenDocument
+    virus_check:
+      intro: Kjo bashkëngjitje po kontrollohet nga viruset.
+      message: Ne aktualisht po e mbajmë këtë bashkëngjitje në karantinë derisa të jetë kontrolluar nga virusi. Bashkëngjitja do të jetë e disponueshme së shpejti në vendndodhjen origjinale.
+  broken_links:
+    broken:
+      subheading: Ne kemi gjetur lidhje në këtë dokument që mund të prishen
+    caution:
+      subheading: Ne kemi gjetur disa çështje me lidhjet që mund të tregojnë probleme, duhet të jeni të kujdesshëm në lidhjen me to
+    title: Lidhje të prishura
+  change_notes:
+    published_at: Botuar së pari
+    see_all_updates: Shih të gjitha përditësimet
+    updated_at: Përditësuar së fundmi
+  consultation:
+    closed: Mbyllur
+    closing_today: Mbyllet sot
+    closing_tomorrow: Mbyllet nesër
+    days_left: "%{days_left} ditë të mbetura"
+  contact:
+    access_and_opening_times: Orari i hyrjes dhe hapjes
+    contact_form: Formular kontakti
+    email: Email
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: publikuar në Uellsisht
+      title:
+        about: Rreth nesh
+        about_our_services: Rreth shërbimeve tona
+        access_and_opening: Qasja në zyrë dhe koha e hapjes
+        accessible_documents_policy: Politika e dokumenteve të arritshme
+        complaints_procedure: Procedura e ankesave
+        equality_and_diversity: Barazia dhe diversiteti
+        media_enquiries: Kërkesa mediatike
+        membership: Anëtarësi
+        modern_slavery_statement: Deklarata e skllavërisë moderne
+        our_energy_use: Përdorimi ynë i energjisë
+        our_governance: Qeverisja jonë
+        personal_information_charter: Kartë e informacionit personal
+        petitions_and_campaigns: Peticione dhe fushata
+        procurement: Prokurimi në %{organisation_name}
+        publication_scheme: Skemë publikimi
+        recruitment: Duke punuar për %{organisation_name}
+        research: Kërkim në %{organisation_name}
+        social_media_use: Përdorimi i mediave sociale
+        staff_update: Lajmet dhe informacionet e stafit
+        statistics: Statistika në %{organisation_name}
+        terms_of_reference: Termat e referencës
+        welsh_language_scheme: Skema e gjuhës Uellsiane
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Përmbajtje
+    footer_meta:
+      full_page_history: historia e faqeve të plota
+      published: Publikuar
+      updated: Përditësuar
+    headings:
+      applies_to_nations: Zbatohet për
+      from: Nga
+      part_of: Pjesë e
+    latest: Dokumentet më të fundit
+    latest_from: Të fundit nga %{subject}
+    published: publikuar
+    see_all: Shih të gjitha
+    speech:
+      author_title:
+        minister: Ministri
+        speaker: Autori
+      delivered_on: 'Dërguar në:'
+      delivery_title:
+        minister: Ministri
+        speaker: Folësi
+      written_on: 'Shkruar në:'
     type:
       about:
         one: Rreth
@@ -226,180 +364,17 @@ sq:
       written_statement:
         one: Deklaratë me shkrim në Parlament
         other: Deklarata me shkrim në Parlament
-    contents: Përmbajtje
-    footer_meta:
-      full_page_history: historia e faqeve të plota
-      published: Publikuar
-      updated: Përditësuar
-    headings:
-      applies_to_nations: Zbatohet për
-      from: Nga
-      part_of: Pjesë e
-    latest: Dokumentet më të fundit
-    latest_from: Të fundit nga %{subject}
-    published: publikuar
-    see_all: Shih të gjitha
-    speech:
-      author_title:
-        minister: Ministri
-        speaker: Autori
-      delivered_on: 'Dërguar në:'
-      delivery_title:
-        minister: Ministri
-        speaker: Folësi
-      written_on: 'Shkruar në:'
     updated: përditësuar
-  world_location:
-    type:
-      international_delegation:
-        one: Delegacion ndërkombëtar
-        other: Delegacione ndërkombëtare
-      world_location:
-        one: Vendndodhja globale
-        other: Vendndodhjet globale
-    headings:
-      announcements: Njoftimet tona
-      documents: Dokumentet
-      mission: Misioni ynë
-      news: Lajmet për vendndodhjen botërore
-      organisations: Organizatat
-      publications: Publikimet tona
-      search: Kërkoni sipas vendit ose territorit
-      statistics: Statistikat tona
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Numri i letrës së Dhomës së Komuneve
-        isbn: ISBN
-        unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
-      attachment_data:
-        file: Skedar
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Numri i letrës së komandës së bashkëngjitjes
-        hoc_paper_number: Numri i letrës së Dhomës së Komuneve
-        isbn: Bashkëngjitja ISBN
-        title: Titulli i bashkëngjitjes
-        unique_reference: Referenca unike e bashkëngjitjes
-        unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Skedari i bashkangjitur
-      edition:
-        nation_inapplicabilities: Shtetet e përjashtuara
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Skedari i bashkangjitur
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Numri i letrës së komandës së bashkëngjitjes
-        hoc_paper_number: Numri i letrës së Dhomës së Komuneve
-        isbn: Bashkëngjitja ISBN
-        title: Titulli i bashkëngjitjes
-        unique_reference: Referenca unike e bashkëngjitjes
-        unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Skedari i bashkangjitur
-    nested_attachment_data_field_names:
-      file: Skedari i bashkangjitur
-    nested_attachment_field_names:
-      command_paper_number: Numri i letrës së komandës së bashkëngjitjes
-      hoc_paper_number: Numri i letrës së Dhomës së Komuneve
-      isbn: Bashkëngjitja ISBN
-      title: Titulli i bashkëngjitjes
-      unique_reference: Referenca unike e bashkëngjitjes
-      unnumbered_hoc_paper: Letër e panumëruar e Dhomës së Komuneve
-  announcements:
-    heading: Lajmërime
-  attachment:
-    accessibility:
-      full_help_html: |
-        Nëse përdorni teknologji ndihmëse (siç është lexuesi i ekranit) dhe keni nevojë për një
-        versionin e këtij dokumenti në një format më të arritshëm, ju lutemi dërgoni email në %{email}.
-        Ju lutemi na tregoni se çfarë formati ju nevojitet. Do të na ndihmojë nëse thoni çfarë teknologjie ndihmëse përdorni.
-      intro: Ky skedar mund të mos jetë i përshtatshëm për përdoruesit e teknologjisë
-        ndihmëse.
-      request_a_different_format: Kërkoni një format të arritshëm.
-    csv:
-      cannot_preview: Ky skedar nuk mund të shikohej paraprakisht.
-      download: Shkarkoni skedarin për të parë përmbajtjen e tij të plotë.
-      truncated_message: Ky pamje paraqet vetëm rreshtat %{rows} dhe kolonat %{columns}
-        e para.
-    headings:
-      order_a_copy: Porosit një kopje
-      order_a_copy_full: Porositni një kopje të botimit
-      published: Publikuar
-      reference: Ref
-      unnumbered_command_paper: Letër komande e panumëruar
-      unnumbered_hoc_paper: Letër akti pa numër
-    opendocument:
-      help_html: Ky skedar është në një <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a>
-        OpenDocument
-    virus_check:
-      intro: Kjo bashkëngjitje po kontrollohet nga viruset.
-      message: Ne aktualisht po e mbajmë këtë bashkëngjitje në karantinë derisa të
-        jetë kontrolluar nga virusi. Bashkëngjitja do të jetë e disponueshme së shpejti
-        në vendndodhjen origjinale.
-  broken_links:
-    broken:
-      subheading: Ne kemi gjetur lidhje në këtë dokument që mund të prishen
-    caution:
-      subheading: Ne kemi gjetur disa çështje me lidhjet që mund të tregojnë probleme,
-        duhet të jeni të kujdesshëm në lidhjen me to
-    title: Lidhje të prishura
-  change_notes:
-    published_at: Botuar së pari
-    see_all_updates: Shih të gjitha përditësimet
-    updated_at: Përditësuar së fundmi
-  consultation:
-    closed: Mbyllur
-    closing_today: Mbyllet sot
-    closing_tomorrow: Mbyllet nesër
-    days_left: "%{days_left} ditë të mbetura"
-  contact:
-    access_and_opening_times: Orari i hyrjes dhe hapjes
-    contact_form: Formular kontakti
-    email: Email
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: publikuar në Uellsisht
-      title:
-        about: Rreth nesh
-        about_our_services: Rreth shërbimeve tona
-        access_and_opening: Qasja në zyrë dhe koha e hapjes
-        accessible_documents_policy: Politika e dokumenteve të arritshme
-        complaints_procedure: Procedura e ankesave
-        equality_and_diversity: Barazia dhe diversiteti
-        media_enquiries: Kërkesa mediatike
-        membership: Anëtarësi
-        modern_slavery_statement: Deklarata e skllavërisë moderne
-        our_energy_use: Përdorimi ynë i energjisë
-        our_governance: Qeverisja jonë
-        personal_information_charter: Kartë e informacionit personal
-        petitions_and_campaigns: Peticione dhe fushata
-        procurement: Prokurimi në %{organisation_name}
-        publication_scheme: Skemë publikimi
-        recruitment: Duke punuar për %{organisation_name}
-        research: Kërkim në %{organisation_name}
-        social_media_use: Përdorimi i mediave sociale
-        staff_update: Lajmet dhe informacionet e stafit
-        statistics: Statistika në %{organisation_name}
-        terms_of_reference: Termat e referencës
-        welsh_language_scheme: Skema e gjuhës Uellsiane
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Të gjitha konsultimet
       label: Konsultime
-    description: Ju mund t'i përdorni filtrat për të shfaqur vetëm rezultate që përputhen
-      me interesat tuaja
+    description: Ju mund t'i përdorni filtrat për të shfaqur vetëm rezultate që përputhen me interesat tuaja
     no_results:
       description: Provoni ta bëni kërkimin tuaj më të gjerë dhe provoni përsëri.
       title: Nuk ka dokumente që përputhen.
       tna_heading: Përmbajtje më e vjetër
-      tna_link: Jo të gjitha publikimet e departamenteve para majit 2010 u migruan
-        në GOV.UK. Për të gjetur botime para majit 2010 provoni të kërkoni <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Arkivat Kombëtare</a>.
+      tna_link: Jo të gjitha publikimet e departamenteve para majit 2010 u migruan në GOV.UK. Për të gjetur botime para majit 2010 provoni të kërkoni <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arkivat Kombëtare</a>.
     world_locations:
       all: Të gjitha vendndodhjet
       label: Vendndodhjet globale
@@ -408,8 +383,7 @@ sq:
     subscription: Abonim njoftimesh me email
   fatality_notice:
     british_fatalities: Fatalitetet britanike
-    none_added: Ende nuk është shtuar asnjë njoftim për fatalitet për këtë fushë të
-      funksionimit.
+    none_added: Ende nuk është shtuar asnjë njoftim për fatalitet për këtë fushë të funksionimit.
   feeds:
     email: email
     feed: njoftim
@@ -439,10 +413,8 @@ sq:
       alerts: njoftime me email
       summary: njoftime me eamil nga
     embassies:
-      find_an_embassy_lowercase: Gjeni një ambasadë britanike, komision të lartë ose
-        konsullatë
-      find_an_embassy_uppercase: Gjeni një ambasadë britanike, Komision të Lartë ose
-        Konsullatë
+      find_an_embassy_lowercase: Gjeni një ambasadë britanike, komision të lartë ose konsullatë
+      find_an_embassy_uppercase: Gjeni një ambasadë britanike, Komision të Lartë ose Konsullatë
     headings:
       contact: Kontaktoni %{name}
       corporate_information: Informacioni i korporatës
@@ -459,8 +431,7 @@ sq:
     heading: Publikime
     recent: Publikimet e fundit
     statistics:
-      link_to_published_statistics: Gjeni një listë të statistikave të publikuara
-        dhe të ardhshme të qeverisë në seksionin e statistikave %{link}.
+      link_to_published_statistics: Gjeni një listë të statistikave të publikuara dhe të ardhshme të qeverisë në seksionin e statistikave %{link}.
       moved_notice: Publikimet e statistikave kanë lëvizur.
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
@@ -516,11 +487,9 @@ sq:
     fields_of_operation: Fushat e funksionimt
     filter: Filtri
     pagination:
-      next_html: Pastaj <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page}
-        nga %{total_pages}</span>
+      next_html: Pastaj <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page} nga %{total_pages}</span>
       next_page: Faqja tjetër
-      previous_html: E mëparshme <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page}
-        nga %{total_pages}</span>
+      previous_html: E mëparshme <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page} nga %{total_pages}</span>
       previous_page: Faqja e mëparshme
     part_of_collection: 'Pjesë e një koleksioni:'
   time:
@@ -537,15 +506,30 @@ sq:
       historic_england: Anglia Historike
       iwm: Muzeu Imperial i Luftës
       war_memorials_trust: Trusti i Memorialeve të Luftës
+  world_location:
+    headings:
+      announcements: Njoftimet tona
+      documents: Dokumentet
+      mission: Misioni ynë
+      news: Lajmet për vendndodhjen botërore
+      organisations: Organizatat
+      publications: Publikimet tona
+      search: Kërkoni sipas vendit ose territorit
+      statistics: Statistikat tona
+    type:
+      international_delegation:
+        one: Delegacion ndërkombëtar
+        other: Delegacione ndërkombëtare
+      world_location:
+        one: Vendndodhja globale
+        other: Vendndodhjet globale
   world_news:
     uk_updates_in_country: Përditësime, lajme dhe ngjarje nga qeveria e MB në %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Gjeni %{link}.
-      personal_information_charter_html: "%{link} jonë shpjegon se si i trajtojmë
-        informacionet tuaja personale."
-      publication_scheme_html: Lexoni për llojet e informacionit që publikojmë në
-        mënyrë rutinore në %{link} tonë.
+      personal_information_charter_html: "%{link} jonë shpjegon se si i trajtojmë informacionet tuaja personale."
+      publication_scheme_html: Lexoni për llojet e informacionit që publikojmë në mënyrë rutinore në %{link} tonë.
       social_media_use_html: Lexoni politikën tonë në %{link}.
       welsh_language_scheme_html: Mësoni rreth angazhimit tonë ndaj %{link}.
     find_out_more: Shikoni profilin e plotë dhe të gjitha detajet e kontaktit

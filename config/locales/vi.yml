@@ -1,3 +1,4 @@
+---
 vi:
   activerecord:
     attributes:
@@ -50,8 +51,7 @@ vi:
     csv:
       cannot_preview: Không thể xem trước tệp này.
       download: Tải xuống tệp để xem toàn bộ nội dung.
-      truncated_message: Bản xem trước này chỉ hiển thị %{row} hàng và %{column} cột
-        đầu tiên.
+      truncated_message: Bản xem trước này chỉ hiển thị %{row} hàng và %{column} cột đầu tiên.
     headings:
       order_a_copy: Đặt hàng một bản sao
       order_a_copy_full: Đặt hàng một bản sao của ấn phẩm
@@ -63,15 +63,12 @@ vi:
       help_html: Tệp này có định dạng <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
       intro: Đang quét vi-rút cho tệp đính kèm này.
-      message: Chúng tôi hiện đang cách ly tệp đính kèm này cho đến khi hoàn tất quy
-        trình kiểm tra vi-rút. Tệp đính kèm sẽ sớm có sẵn tại vị trí ban đầu.
+      message: Chúng tôi hiện đang cách ly tệp đính kèm này cho đến khi hoàn tất quy trình kiểm tra vi-rút. Tệp đính kèm sẽ sớm có sẵn tại vị trí ban đầu.
   broken_links:
     broken:
-      subheading: Chúng tôi đã tìm thấy các liên kết có thể bị hỏng trong tài liệu
-        này
+      subheading: Chúng tôi đã tìm thấy các liên kết có thể bị hỏng trong tài liệu này
     caution:
-      subheading: Chúng tôi đã tìm thấy một số vấn đề với các liên kết có thể là dấu
-        hiệu cho thấy sự cố, bạn nên thận trọng khi truy cập các liên kết đó
+      subheading: Chúng tôi đã tìm thấy một số vấn đề với các liên kết có thể là dấu hiệu cho thấy sự cố, bạn nên thận trọng khi truy cập các liên kết đó
     title: Liên kết đã hỏng
   change_notes:
     published_at: Xuất bản lần đầu
@@ -371,16 +368,12 @@ vi:
     consultation:
       all: Tất cả các buổi tham vấn
       label: Tham vấn
-    description: Bạn có thể sử dụng các bộ lọc để chỉ hiển thị các kết quả phù hợp
-      với sở thích của mình
+    description: Bạn có thể sử dụng các bộ lọc để chỉ hiển thị các kết quả phù hợp với sở thích của mình
     no_results:
       description: Hãy thử mở rộng phạm vi tìm kiếm và thử lại.
       title: Không có tài liệu phù hợp.
       tna_heading: Nội dung cũ hơn
-      tna_link: Không phải tất cả các ấn phẩm của bộ từ trước tháng 5 năm 2010 đều
-        được chuyển sang GOV.UK. Để tìm các ấn phẩm từ trước tháng 5 năm 2010, hãy
-        thử tìm kiếm trong phần <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Cơ quan Lưu trữ Quốc gia</a>.
+      tna_link: Không phải tất cả các ấn phẩm của bộ từ trước tháng 5 năm 2010 đều được chuyển sang GOV.UK. Để tìm các ấn phẩm từ trước tháng 5 năm 2010, hãy thử tìm kiếm trong phần <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Cơ quan Lưu trữ Quốc gia</a>.
     world_locations:
       all: Tất cả vị trí
       label: Các vị trí trên thế giới
@@ -389,8 +382,7 @@ vi:
     subscription: Đăng ký nhận cảnh báo qua email
   fatality_notice:
     british_fatalities: Số người Anh tử vong
-    none_added: Chưa có thông báo tử vong nào được thêm vào cho lĩnh vực hoạt động
-      này.
+    none_added: Chưa có thông báo tử vong nào được thêm vào cho lĩnh vực hoạt động này.
   feeds:
     email: email
     feed: nguồn cấp dữ liệu
@@ -438,8 +430,7 @@ vi:
     heading: Ấn phẩm
     recent: Các ấn phẩm gần đây
     statistics:
-      link_to_published_statistics: Tìm danh sách thống kê của chính phủ đã xuất bản
-        và sắp xuất bản trong phần thống kê %{link}.
+      link_to_published_statistics: Tìm danh sách thống kê của chính phủ đã xuất bản và sắp xuất bản trong phần thống kê %{link}.
       moved_notice: Các ấn phẩm thống kê đã được di chuyển.
   roles:
     unassigned: Không ai được bổ nhiệm vai trò này
@@ -486,8 +477,7 @@ vi:
     statutory_guidance: Xem tất cả các hướng dẫn theo luật định của chúng tôi
     transcript: Xem tất cả các bản ghi nội dung của chúng tôi
     transparency: Xem tất cả dữ liệu về tính minh bạch của chúng tôi
-    written_statement: Xem tất cả các tuyên bố bằng văn bản của chúng tôi trước Nghị
-      viện
+    written_statement: Xem tất cả các tuyên bố bằng văn bản của chúng tôi trước Nghị viện
   support:
     array:
       last_word_connector: " và "
@@ -496,11 +486,9 @@ vi:
     fields_of_operation: Lĩnh vực hoạt động
     filter: Lọc
     pagination:
-      next_html: Trang <span class="visuallyhidden">tiếp theo</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: Trang <span class="visuallyhidden">tiếp theo</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Trang tiếp theo
-      previous_html: Trang <span class="visuallyhidden">trước</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: Trang <span class="visuallyhidden">trước</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: Trang trước
     part_of_collection: 'Một phần của bộ sưu tập:'
   time:
@@ -535,15 +523,12 @@ vi:
         one: Vị trí trên thế giới
         other: Các vị trí trên thế giới
   world_news:
-    uk_updates_in_country: Cập nhật, tin tức và sự kiện từ chính phủ Vương quốc Anh
-      tại %{country}
+    uk_updates_in_country: Cập nhật, tin tức và sự kiện từ chính phủ Vương quốc Anh tại %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Tìm hiểu %{link}.
-      personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng
-        tôi xử lý thông tin cá nhân của bạn."
-      publication_scheme_html: Tìm hiểu về các loại thông tin chúng tôi thường xuyên
-        xuất bản trong %{link} của chúng tôi.
+      personal_information_charter_html: "%{link} của chúng tôi giải thích cách chúng tôi xử lý thông tin cá nhân của bạn."
+      publication_scheme_html: Tìm hiểu về các loại thông tin chúng tôi thường xuyên xuất bản trong %{link} của chúng tôi.
       social_media_use_html: Đọc chính sách của chúng tôi trên %{link}.
       welsh_language_scheme_html: Tìm hiểu về cam kết của chúng tôi đối với %{link}.
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ

@@ -1,5 +1,143 @@
+---
 he:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: מספר הנייר של בית הנבחרים
+        isbn: ISBN
+        unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
+      attachment_data:
+        file: קובץ
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: מספר נייר הפקודה המצורפת
+        hoc_paper_number: מספר הנייר של בית הנבחרים
+        isbn: קובץ מצורף למספר ספר תקני בינלאומי
+        title: כותרת הקובץ המצורף
+        unique_reference: התייחסות ייחודית לקובץ המצורף
+        unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: הקובץ המצורף
+      edition:
+        nation_inapplicabilities: אומות לא נכללות
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: הקובץ המצורף
+      response/consultation_response_attachments/attachment:
+        command_paper_number: מספר נייר הפקודה המצורפת
+        hoc_paper_number: מספר הנייר של בית הנבחרים
+        isbn: קובץ מצורף ISBN
+        title: כותרת הקובץ המצורף
+        unique_reference: התייחסות ייחודית לקובץ המצורף
+        unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: הקובץ המצורף
+    nested_attachment_data_field_names:
+      file: הקובץ המצורף
+    nested_attachment_field_names:
+      command_paper_number: מספר נייר הפקודה המצורפת
+      hoc_paper_number: מספר הנייר של בית הנבחרים
+      isbn: קובץ מצורף ISBN
+      title: כותרת הקובץ המצורף
+      unique_reference: 'התייחסות ייחודית לקובץ המצורף '
+      unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
+  announcements:
+    heading: הודעות
+  attachment:
+    accessibility:
+      full_help_html: |
+        אם אתה משתמש בטכנולוגיה מסייעת (כגון קורא מסך) וצריך
+        גירסה של מסמך זה בפורמט נגיש יותר, אנא שלח בדוא"ל %{email}.
+        אנא ספר לנו איזה פורמט אתה צריך. זה יעזור לנו אם תגיד באיזו טכנולוגיה מסייעת אתה משתמש.
+      intro: ייתכן שקובץ זה אינו מתאים למשתמשי טכנולוגיה מסייעת.
+      request_a_different_format: בקש פורמט נגיש.
+    csv:
+      cannot_preview: לא ניתן לצפות בתצוגה מקדימה של קובץ זה.
+      download: הורד את הקובץ כדי לצפות בתוכנו המלא.
+      truncated_message: 'תצוגה מקדימה זו מציגה רק את %{rows} השורות ואת %{columns} העמודות הראשונות. '
+    headings:
+      order_a_copy: הזמן עותק
+      order_a_copy_full: הזמן עותק של הפרסום
+      published: פורסם
+      reference: הפניה
+      unnumbered_command_paper: נייר פיקוד לא ממוספר
+      unnumbered_hoc_paper: נייר אקט ללא מספר
+    opendocument:
+      help_html: 'קובץ זה בפורמט <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> '
+    virus_check:
+      intro: קובץ מצורף זה נסרק לאיתור וירוסים.
+      message: כרגע אנו מחזיקים קובץ מצורף זה בהסגר עד לבדיקת וירוסים. הקובץ המצורף יהיה זמין במיקום המקורי בקרוב.
+  broken_links:
+    broken:
+      subheading: מצאנו במסמך קישורים שעלולים להיפגע
+    caution:
+      subheading: 'מצאנו כמה בעיות עם קישורים שעשויים להצביע על בעיות, עליך לנקוט משנה זהירות בקישור אליהם '
+    title: קישורים מנותקים
+  change_notes:
+    published_at: פרסום ראשון
+    see_all_updates: ראה כל העדכונים
+    updated_at: עדכון אחרון
+  consultation:
+    closed: סגור
+    closing_today: נסגר היום
+    closing_tomorrow: נסגר מחר
+    days_left: נותרו %{days_left} ימים
+  contact:
+    access_and_opening_times: זמני גישה ופתיחה
+    contact_form: טופס יצירת קשר
+    email: דואר אלקטרוני
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 'מפרסם בוולשית '
+      title:
+        about: אודותינו
+        about_our_services: על השירותים שלנו
+        access_and_opening: גישה למשרד וזמני פתיחה
+        accessible_documents_policy: מדיניות מסמכים נגישים
+        complaints_procedure: הליך תלונות
+        equality_and_diversity: שוויון וגיוון
+        media_enquiries: בירורים בתקשורת
+        membership: חברות
+        modern_slavery_statement: הצהרת עבדות מודרנית
+        our_energy_use: 'השימוש באנרגיה שלנו '
+        our_governance: הממשל שלנו
+        personal_information_charter: טבלת מידע אישי
+        petitions_and_campaigns: עתירות וקמפיינים
+        procurement: רכש ב- %{organisation_name}
+        publication_scheme: תכנית פרסום
+        recruitment: 'עובד עבור %{organisation_name} '
+        research: מחקר ב- %{organisation_name}
+        social_media_use: שימוש במדיה חברתית
+        staff_update: חדשות ומידע של הצוות
+        statistics: נתונים סטטיסטיים ב- %{organisation_name}
+        terms_of_reference: תנאי יחוס
+        welsh_language_scheme: תוכנית שפה וולשית
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: תוכן
+    footer_meta:
+      full_page_history: ההיסטוריה המלאה של דפים
+      published: פורסם
+      updated: מעודכן
+    headings:
+      applies_to_nations: מתייחס ל
+      from: מ-
+      part_of: חלק של
+    latest: מסמכים אחרונים
+    latest_from: 'עדכון אחרון מאת %{subject} '
+    published: פורסם
+    see_all: ראה הכול
+    speech:
+      author_title:
+        minister: שר
+        speaker: מחבר
+      delivered_on: 'נשלח ב:'
+      delivery_title:
+        minister: שר
+        speaker: דובר
+      written_on: 'נכתב על:'
     type:
       about:
         one: אודות
@@ -226,164 +364,7 @@ he:
       written_statement:
         one: הצהרה בכתב לפרלמנט
         other: הצהרות בכתב לפרלמנט
-    contents: תוכן
-    footer_meta:
-      full_page_history: ההיסטוריה המלאה של דפים
-      published: פורסם
-      updated: מעודכן
-    headings:
-      applies_to_nations: מתייחס ל
-      from: מ-
-      part_of: חלק של
-    latest: מסמכים אחרונים
-    latest_from: 'עדכון אחרון מאת %{subject} '
-    published: פורסם
-    see_all: ראה הכול
-    speech:
-      author_title:
-        minister: שר
-        speaker: מחבר
-      delivered_on: 'נשלח ב:'
-      delivery_title:
-        minister: שר
-        speaker: דובר
-      written_on: 'נכתב על:'
     updated: מעודכן
-  world_location:
-    type:
-      international_delegation:
-        one: משלחת בינלאומית
-        other: משלחות בינלאומיות
-      world_location:
-        one: מיקום גלובאלי
-        other: מיקומים גלובאליים
-    headings:
-      announcements: ההודעות שלנו
-      documents: מסמכים
-      mission: החזון שלנו
-      news: חדשות מיקום בעולם
-      organisations: ארגונים
-      publications: הפרסומים שלנו
-      search: חפש לפי מדינה או שטח
-      statistics: סטטיסטיקה שלנו
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: מספר הנייר של בית הנבחרים
-        isbn: ISBN
-        unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
-      attachment_data:
-        file: קובץ
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: מספר נייר הפקודה המצורפת
-        hoc_paper_number: מספר הנייר של בית הנבחרים
-        isbn: קובץ מצורף למספר ספר תקני בינלאומי
-        title: כותרת הקובץ המצורף
-        unique_reference: התייחסות ייחודית לקובץ המצורף
-        unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: הקובץ המצורף
-      edition:
-        nation_inapplicabilities: אומות לא נכללות
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: הקובץ המצורף
-      response/consultation_response_attachments/attachment:
-        command_paper_number: מספר נייר הפקודה המצורפת
-        hoc_paper_number: מספר הנייר של בית הנבחרים
-        isbn: קובץ מצורף ISBN
-        title: כותרת הקובץ המצורף
-        unique_reference: התייחסות ייחודית לקובץ המצורף
-        unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: הקובץ המצורף
-    nested_attachment_data_field_names:
-      file: הקובץ המצורף
-    nested_attachment_field_names:
-      command_paper_number: מספר נייר הפקודה המצורפת
-      hoc_paper_number: מספר הנייר של בית הנבחרים
-      isbn: קובץ מצורף ISBN
-      title: כותרת הקובץ המצורף
-      unique_reference: 'התייחסות ייחודית לקובץ המצורף '
-      unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
-  announcements:
-    heading: הודעות
-  attachment:
-    accessibility:
-      full_help_html: |
-        אם אתה משתמש בטכנולוגיה מסייעת (כגון קורא מסך) וצריך
-        גירסה של מסמך זה בפורמט נגיש יותר, אנא שלח בדוא"ל %{email}.
-        אנא ספר לנו איזה פורמט אתה צריך. זה יעזור לנו אם תגיד באיזו טכנולוגיה מסייעת אתה משתמש.
-      intro: ייתכן שקובץ זה אינו מתאים למשתמשי טכנולוגיה מסייעת.
-      request_a_different_format: בקש פורמט נגיש.
-    csv:
-      cannot_preview: לא ניתן לצפות בתצוגה מקדימה של קובץ זה.
-      download: הורד את הקובץ כדי לצפות בתוכנו המלא.
-      truncated_message: 'תצוגה מקדימה זו מציגה רק את %{rows} השורות ואת %{columns}
-        העמודות הראשונות. '
-    headings:
-      order_a_copy: הזמן עותק
-      order_a_copy_full: הזמן עותק של הפרסום
-      published: פורסם
-      reference: הפניה
-      unnumbered_command_paper: נייר פיקוד לא ממוספר
-      unnumbered_hoc_paper: נייר אקט ללא מספר
-    opendocument:
-      help_html: 'קובץ זה בפורמט <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> '
-    virus_check:
-      intro: קובץ מצורף זה נסרק לאיתור וירוסים.
-      message: כרגע אנו מחזיקים קובץ מצורף זה בהסגר עד לבדיקת וירוסים. הקובץ המצורף
-        יהיה זמין במיקום המקורי בקרוב.
-  broken_links:
-    broken:
-      subheading: מצאנו במסמך קישורים שעלולים להיפגע
-    caution:
-      subheading: 'מצאנו כמה בעיות עם קישורים שעשויים להצביע על בעיות, עליך לנקוט
-        משנה זהירות בקישור אליהם '
-    title: קישורים מנותקים
-  change_notes:
-    published_at: פרסום ראשון
-    see_all_updates: ראה כל העדכונים
-    updated_at: עדכון אחרון
-  consultation:
-    closed: סגור
-    closing_today: נסגר היום
-    closing_tomorrow: נסגר מחר
-    days_left: נותרו %{days_left} ימים
-  contact:
-    access_and_opening_times: זמני גישה ופתיחה
-    contact_form: טופס יצירת קשר
-    email: דואר אלקטרוני
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: 'מפרסם בוולשית '
-      title:
-        about: אודותינו
-        about_our_services: על השירותים שלנו
-        access_and_opening: גישה למשרד וזמני פתיחה
-        accessible_documents_policy: מדיניות מסמכים נגישים
-        complaints_procedure: הליך תלונות
-        equality_and_diversity: שוויון וגיוון
-        media_enquiries: בירורים בתקשורת
-        membership: חברות
-        modern_slavery_statement: הצהרת עבדות מודרנית
-        our_energy_use: 'השימוש באנרגיה שלנו '
-        our_governance: הממשל שלנו
-        personal_information_charter: טבלת מידע אישי
-        petitions_and_campaigns: עתירות וקמפיינים
-        procurement: רכש ב- %{organisation_name}
-        publication_scheme: תכנית פרסום
-        recruitment: 'עובד עבור %{organisation_name} '
-        research: מחקר ב- %{organisation_name}
-        social_media_use: שימוש במדיה חברתית
-        staff_update: חדשות ומידע של הצוות
-        statistics: נתונים סטטיסטיים ב- %{organisation_name}
-        terms_of_reference: תנאי יחוס
-        welsh_language_scheme: תוכנית שפה וולשית
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: כל דיונים
@@ -393,9 +374,7 @@ he:
       description: נסי/ה להרחיב את החיפוש וחפש/י שוב.
       title: אין מסמכים תואמים.
       tna_heading: תוכן ישן יותר
-      tna_link: לא כל פרסומי המחלקה מלפני מאי 2010 הועברו ל- GOV.UK. כדי למצוא פרסומים
-        מלפני מאי 2010 נסה לחפש <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">הארכיון הלאומי</a>.
+      tna_link: לא כל פרסומי המחלקה מלפני מאי 2010 הועברו ל- GOV.UK. כדי למצוא פרסומים מלפני מאי 2010 נסה לחפש <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">הארכיון הלאומי</a>.
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים
@@ -452,8 +431,7 @@ he:
     heading: פרסומים
     recent: פרסומים אחרונים
     statistics:
-      link_to_published_statistics: מצא רשימה של סטטיסטיקות ממשלתיות שפורסמו ועתידות
-        להתפרסם בקטע %{link} נתונים סטטיסטיים.
+      link_to_published_statistics: מצא רשימה של סטטיסטיקות ממשלתיות שפורסמו ועתידות להתפרסם בקטע %{link} נתונים סטטיסטיים.
       moved_notice: פרסומי הסטטיסטיקה זזו.
   roles:
     unassigned: לאף אחד אין תפקיד זה
@@ -509,11 +487,9 @@ he:
     fields_of_operation: תחומי פעולה
     filter: מסנן
     pagination:
-      next_html: הדף <span class="visuallyhidden">הבא</span> <span class="page-numbers">%{current_page}
-        של %{total_pages}</span>
+      next_html: הדף <span class="visuallyhidden">הבא</span> <span class="page-numbers">%{current_page} של %{total_pages}</span>
       next_page: הדף הבא
-      previous_html: הדף <span class="visuallyhidden">הקודם</span> <span class="page-numbers">%{current_page}
-        של %{total_pages}</span>
+      previous_html: הדף <span class="visuallyhidden">הקודם</span> <span class="page-numbers">%{current_page} של %{total_pages}</span>
       previous_page: הדף הקודם
     part_of_collection: 'חלק מאוסף:'
   time:
@@ -530,15 +506,30 @@ he:
       historic_england: אנגליה ההיסטורית
       iwm: מוזיאון המלחמה הקיסרית
       war_memorials_trust: אמון זיכרון המלחמה
+  world_location:
+    headings:
+      announcements: ההודעות שלנו
+      documents: מסמכים
+      mission: החזון שלנו
+      news: חדשות מיקום בעולם
+      organisations: ארגונים
+      publications: הפרסומים שלנו
+      search: חפש לפי מדינה או שטח
+      statistics: סטטיסטיקה שלנו
+    type:
+      international_delegation:
+        one: משלחת בינלאומית
+        other: משלחות בינלאומיות
+      world_location:
+        one: מיקום גלובאלי
+        other: מיקומים גלובאליים
   world_news:
     uk_updates_in_country: 'עדכונים, חדשות ואירועים מממשלת בריטניה ב- %{country} '
   worldwide_organisation:
     corporate_information:
       about_our_services_html: 'גלה %{link}. '
-      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
-        פרטי
-      publication_scheme_html: קרא על סוגי המידע שאנו מפרסמים באופן שגרתי ב- %{link}
-        שלנו
+      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע פרטי
+      publication_scheme_html: קרא על סוגי המידע שאנו מפרסמים באופן שגרתי ב- %{link} שלנו
       social_media_use_html: קרא/י אודות המדיניות שלנו %{link}
       welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום %{link}.
     find_out_more: ראה/י פרופיל מלא ופרטי התקשרות

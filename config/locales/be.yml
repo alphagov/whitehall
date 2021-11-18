@@ -1,425 +1,5 @@
+---
 be:
-  document:
-    type:
-      about:
-        one: Пра іншых
-        few:
-        many:
-        other: Пра іншых
-      about_our_services:
-        one: Аб нашых паслугах
-        few:
-        many:
-        other: Аб нашых паслугах
-      access_and_opening:
-        one: Доступ і адкрыццё
-        few:
-        many:
-        other: Доступ і адкрыццё
-      accessible_documents_policy:
-        one: Палітыка па даступных дакументаў
-        few:
-        many:
-        other: Палітыкi па даступных дакументаў
-      alert:
-        one: Апавяшчэнне
-        few:
-        many:
-        other: Апавяшчэннi
-      announcement:
-        one: Аб'ява
-        few:
-        many:
-        other: Аб'явы
-      authored_article:
-        one: Аўтарскі артыкул
-        few:
-        many:
-        other: Аўтарскія артыкулы
-      blog_post:
-        one: Публікацыя ў блогу
-        few:
-        many:
-        other: Публікацыі ў блогу
-      campaign:
-        one: Акцыя
-        few:
-        many:
-        other: Акцыі
-      careers:
-        one: Спецыяльнасцi
-        few:
-        many:
-        other: спецыяльнасцi
-      case_study:
-        one: Тэматычнае даследаванне
-        few:
-        many:
-        other: Тэматычныя даследаванні
-      closed_consultation:
-        one: Закрытая кансультацыя
-        few:
-        many:
-        other: Закрытыя кансультацыі
-      complaints_procedure:
-        one: Працэдура разгляду скаргаў
-        few:
-        many:
-        other: Працэдуры разгляду скаргаў
-      consultation:
-        one: Кансультацыя
-        few:
-        many:
-        other: Кансультацыі
-      consultation_outcome:
-        one: Вынік кансультацыі
-        few:
-        many:
-        other: Вынікі кансультацыі
-      corporate_report:
-        one: Карпаратыўная справаздача
-        few:
-        many:
-        other: Карпаратыўныя справаздачы
-      correspondence:
-        one: Перапіска
-        few:
-        many:
-        other: Перапіска
-      decision:
-        one: Пастанова
-        few:
-        many:
-        other: Пастановы
-      detailed_guidance:
-        one: Кіраўніцтва
-        few:
-        many:
-        other: Кіраўніцтва
-      document_collection:
-        one: Серыя
-        few:
-        many:
-        other: Серыi
-      draft_text:
-        one: Чарнавік
-        few:
-        many:
-        other: Чарнавікі
-      edition:
-        one: Выданне
-        few:
-        many:
-        other: Выданнi
-      edition_with_appointment:
-        one: Выданне з прызначэннем
-        few:
-        many:
-        other: Выданні з прызначэннем
-      equality_and_diversity:
-        one: Аднастайнасць і разнастайнасць
-        few:
-        many:
-        other: Аднастайнасць і разнастайнасць
-      fatality_notice:
-        one: Паведамлення аб смерці
-        few:
-        many:
-        other: Паведамлення аб смерці
-      foi_release:
-        one: Рэліз у межах Закона аб свабодзе інфармацыі
-        few:
-        many:
-        other: Рэлізы ў межах Закона аб свабодзе інфармацыі
-      form:
-        one: Форма
-        few:
-        many:
-        other: Формы
-      generic_edition:
-        one: Ўніверсальнае выданне
-        few:
-        many:
-        other: Універсальныя выданні
-      government_response:
-        one: Адказ ўрада
-        few:
-        many:
-        other: Адказы ўрада
-      guidance:
-        one: Кіраўніцтва
-        few:
-        many:
-        other: Кіраўніцтва
-      impact_assessment:
-        one: Ацэнка ўплыву
-        few:
-        many:
-        other: Ацэнкі ўплыву
-      imported:
-        one: імпартавана - чаканне тыпу
-        few:
-        many:
-        other: імпартавана - чаканне тыпу
-      independent_report:
-        one: Незалежная справаздача
-        few:
-        many:
-        other: Незалежныя справаздачы
-      international_treaty:
-        one: Міжнароднае пагадненне
-        few:
-        many:
-        other: Міжнародныя пагадненнi
-      manual:
-        one: Інструкцыя
-        few:
-        many:
-        other: Інструкцыі
-      map:
-        one: Карта
-        few:
-        many:
-        other: Карты
-      media_enquiries:
-        one: Запыт медыя
-        few:
-        many:
-        other: Запыты медыя
-      membership:
-        one: Членства
-        few:
-        many:
-        other: Членства
-      national_statistics:
-        one: Нацыянальная статыстыка
-        few:
-        many:
-        other: Нацыянальная статыстыка
-      news_article:
-        one: Артыкул
-        few:
-        many:
-        other: Артыкулы
-      news_story:
-        one: Навіна
-        few:
-        many:
-        other: Навіны
-      nhs_content:
-        one: Змест NHS
-        few:
-        many:
-        other: Змест NHS
-      notice:
-        one: Паведамленне
-        few:
-        many:
-        other: Паведамленні
-      official_statistics:
-        one: Афіцыйная статыстыка
-        few:
-        many:
-        other: Афіцыйная статыстыка
-      open_consultation:
-        one: Адкрытая кансультацыя
-        few:
-        many:
-        other: Адкрытыя кансультацыі
-      oral_statement:
-        one: Вусная заява ў парламенце
-        few:
-        many:
-        other: Вусныя заявы ў парламенце
-      our_energy_use:
-        one: Наша энергаспажыванне
-        few:
-        many:
-        other: Наша энергаспажыванне
-      our_governance:
-        one: Наша кіраванне
-        few:
-        many:
-        other: Наша кіраванне
-      personal_information_charter:
-        one: Статут аб асабістай інфармацыі
-        few:
-        many:
-        other: Статуты аб асабістай інфармацыі
-      petitions_and_campaigns:
-        one: Петыцыі і акцыі
-        few:
-        many:
-        other: Петыцыі і акцыі
-      policy_paper:
-        one: Праграмны дакумент
-        few:
-        many:
-        other: Праграмныя дакументы
-      press_release:
-        one: Прэс-рэліз
-        few:
-        many:
-        other: Прэс-рэлізы
-      procurement:
-        one: Пастаўка
-        few:
-        many:
-        other: Пастаўка
-      promotional:
-        one: Рэкламны матэрыял
-        few:
-        many:
-        other: Рэкламны матэрыял
-      publication:
-        one: Публікацыя
-        few:
-        many:
-        other: Публікацыі
-      publication_scheme:
-        one: Схема публікацый
-        few:
-        many:
-        other: Схемы публікацый
-      recruitment:
-        one: Набор персаналу
-        few:
-        many:
-        other: Набор персаналу
-      regulation:
-        one: Тэзіс
-        few:
-        many:
-        other: Тэзісы
-      research:
-        one: Даследаванне
-        few:
-        many:
-        other: Даследаванне
-      service:
-        one: Паслуга
-        few:
-        many:
-        other: Паслугi
-      social_media_use:
-        one: Ужыванне сацыяльных медый
-        few:
-        many:
-        other: Ужыванне сацыяльных медый
-      speaking_notes:
-        one: Нататкі да выступу
-        few:
-        many:
-        other: Нататкі да выступу
-      speech:
-        one: Выступ
-        few:
-        many:
-        other: Выступы
-      staff_update:
-        one: Абнаўленне персаналу
-        few:
-        many:
-        other: Абнаўленнi персаналу
-      standard:
-        one: Стандарт
-        few:
-        many:
-        other: Стандарты
-      statement_to_parliament:
-        one: Заява ў парламенце
-        few:
-        many:
-        other: Заявы ў парламенце
-      statistical_data_set:
-        one: Статыстычныя дадзеныя
-        few:
-        many:
-        other: Статыстычныя дадзеныя
-      statistics:
-        one: Статыстыка
-        few:
-        many:
-        other: Статыстыка
-      statutory_guidance:
-        one: Нарматыўныя ўказанні
-        few:
-        many:
-        other: Заканадаўчае кіраўніцтва
-      terms_of_reference:
-        one: Паўнамоцтва
-        few:
-        many:
-        other: Паўнамоцтва
-      transcript:
-        one: Поўны тэкст
-        few:
-        many:
-        other: Поўныя тэксты
-      transparency:
-        one: Адкрытыя дадзеныя
-        few:
-        many:
-        other: Адкрытыя дадзеныя
-      welsh_language_scheme:
-        one: Схема валійскай мовы
-        few:
-        many:
-        other: Схемы валійскай мовы
-      world_news_story:
-        one: Сусветная навіна
-        few:
-        many:
-        other: Сусветныя навіны
-      written_statement:
-        one: Пісьмовая заява ў парламенце
-        few:
-        many:
-        other: Пісьмовыя заявы ў парламенце
-    contents: Змест
-    footer_meta:
-      full_page_history: поўная гісторыя старонак
-      published: Апублікаваны
-      updated: Адноўлена
-    headings:
-      applies_to_nations: У адносінах да
-      from: З
-      part_of: Частка
-    latest: Апошнія дакументы
-    latest_from: Апошняе ад %{subject}
-    published: Апублікаваны
-    see_all: Глядзець усе
-    speech:
-      author_title:
-        minister: Міністр
-        speaker: Аўтар
-      delivered_on: 'Зроблена:'
-      delivery_title:
-        minister: Міністр
-        speaker: Прамоўца
-      written_on: 'Напісана:'
-    updated: Адноўлена
-  world_location:
-    type:
-      international_delegation:
-        one: Міжнародная дэлегацыя
-        few:
-        many:
-        other: Міжнародныя дэлегацыі
-      world_location:
-        one: Месцазнаходжанне ў свеце
-        few:
-        many:
-        other: Мы ў свеце
-    headings:
-      announcements: Нашы аб'явы
-      documents: Дакументы
-      mission: Наша місія
-      news: Навіны пра месцазнаходжанне ў свеце
-      organisations: Арганізацыі
-      publications: Нашы публікацыі
-      search: Пошук па краіне або тэрыторыі
-      statistics: Наша статыстыка
   activerecord:
     attributes:
       attachment:
@@ -463,18 +43,13 @@ be:
     heading: Аб'явы
   attachment:
     accessibility:
-      full_help_html: "Калі вы выкарыстоўваеце дапаможную праграму (напрыклад, праграму
-        для чытання з экрана) і вам патрэбна версія гэтага дакумента ў больш даступным
-        фармаце, то калі ласка напішыце на  электронную пошту %{email}. \nКалі ласка,
-        скажыце нам, які фармат вам патрэбны. Нам таксама дапаможа, калі вы назавеце,
-        якую дапаможную праграму вы выкарыстоўваеце."
+      full_help_html: "Калі вы выкарыстоўваеце дапаможную праграму (напрыклад, праграму для чытання з экрана) і вам патрэбна версія гэтага дакумента ў больш даступным фармаце, то калі ласка напішыце на  электронную пошту %{email}. \nКалі ласка, скажыце нам, які фармат вам патрэбны. Нам таксама дапаможа, калі вы назавеце, якую дапаможную праграму вы выкарыстоўваеце."
       intro: Гэты файл можа быць непрыдатным для карыстальнікаў дапаможных тэхналогій.
       request_a_different_format: Запрасіць файл у іншым фармаце.
     csv:
       cannot_preview: Гэты файл не ўдалося праглядзець загадзя.
       download: Скачаць файл, каб праглядзець яго поўнае змесціва.
-      truncated_message: У гэтым папярэднім праглядзе адлюстроўваюцца толькі першыя
-        % {rows} радкоў і %{columns} слупкоў.
+      truncated_message: У гэтым папярэднім праглядзе адлюстроўваюцца толькі першыя % {rows} радкоў і %{columns} слупкоў.
     headings:
       order_a_copy: Замовіць копію
       order_a_copy_full: Замовіць копію гэтай публікацыі
@@ -483,19 +58,15 @@ be:
       unnumbered_command_paper: Ненумераванная дырэктыва
       unnumbered_hoc_paper: Ненумераваны акт
     opendocument:
-      help_html: Гэты файл у <a href='https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        фармаце
+      help_html: Гэты файл у <a href='https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> фармаце
     virus_check:
       intro: Гэты дадатак правяраецца на вірусы.
-      message: У цяперашні час мы трымаем гэты дадатак у карантыне да таго часу, пакуль
-        яно не будзе праверана на вірусы. Дадатак будзе даступна ў зыходным месцы
-        ў бліжэйшы час.
+      message: У цяперашні час мы трымаем гэты дадатак у карантыне да таго часу, пакуль яно не будзе праверана на вірусы. Дадатак будзе даступна ў зыходным месцы ў бліжэйшы час.
   broken_links:
     broken:
       subheading: Мы знайшлі спасылкі ў гэтым дакуменце, якія могуць быць парушаныя
     caution:
-      subheading: Мы выявілі некаторыя праблемы са спасылкамі, якія могуць паказваць
-        на праблемы, вам варта праяўляць асцярожнасць пры спасылках на іх
+      subheading: Мы выявілі некаторыя праблемы са спасылкамі, якія могуць паказваць на праблемы, вам варта праяўляць асцярожнасць пры спасылках на іх
     title: Непрацуючыя спасылкі
   change_notes:
     published_at: Упершыню апублікавана
@@ -541,21 +112,416 @@ be:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: Змест
+    footer_meta:
+      full_page_history: поўная гісторыя старонак
+      published: Апублікаваны
+      updated: Адноўлена
+    headings:
+      applies_to_nations: У адносінах да
+      from: З
+      part_of: Частка
+    latest: Апошнія дакументы
+    latest_from: Апошняе ад %{subject}
+    published: Апублікаваны
+    see_all: Глядзець усе
+    speech:
+      author_title:
+        minister: Міністр
+        speaker: Аўтар
+      delivered_on: 'Зроблена:'
+      delivery_title:
+        minister: Міністр
+        speaker: Прамоўца
+      written_on: 'Напісана:'
+    type:
+      about:
+        few:
+        many:
+        one: Пра іншых
+        other: Пра іншых
+      about_our_services:
+        few:
+        many:
+        one: Аб нашых паслугах
+        other: Аб нашых паслугах
+      access_and_opening:
+        few:
+        many:
+        one: Доступ і адкрыццё
+        other: Доступ і адкрыццё
+      accessible_documents_policy:
+        few:
+        many:
+        one: Палітыка па даступных дакументаў
+        other: Палітыкi па даступных дакументаў
+      alert:
+        few:
+        many:
+        one: Апавяшчэнне
+        other: Апавяшчэннi
+      announcement:
+        few:
+        many:
+        one: Аб'ява
+        other: Аб'явы
+      authored_article:
+        few:
+        many:
+        one: Аўтарскі артыкул
+        other: Аўтарскія артыкулы
+      blog_post:
+        few:
+        many:
+        one: Публікацыя ў блогу
+        other: Публікацыі ў блогу
+      campaign:
+        few:
+        many:
+        one: Акцыя
+        other: Акцыі
+      careers:
+        few:
+        many:
+        one: Спецыяльнасцi
+        other: спецыяльнасцi
+      case_study:
+        few:
+        many:
+        one: Тэматычнае даследаванне
+        other: Тэматычныя даследаванні
+      closed_consultation:
+        few:
+        many:
+        one: Закрытая кансультацыя
+        other: Закрытыя кансультацыі
+      complaints_procedure:
+        few:
+        many:
+        one: Працэдура разгляду скаргаў
+        other: Працэдуры разгляду скаргаў
+      consultation:
+        few:
+        many:
+        one: Кансультацыя
+        other: Кансультацыі
+      consultation_outcome:
+        few:
+        many:
+        one: Вынік кансультацыі
+        other: Вынікі кансультацыі
+      corporate_report:
+        few:
+        many:
+        one: Карпаратыўная справаздача
+        other: Карпаратыўныя справаздачы
+      correspondence:
+        few:
+        many:
+        one: Перапіска
+        other: Перапіска
+      decision:
+        few:
+        many:
+        one: Пастанова
+        other: Пастановы
+      detailed_guidance:
+        few:
+        many:
+        one: Кіраўніцтва
+        other: Кіраўніцтва
+      document_collection:
+        few:
+        many:
+        one: Серыя
+        other: Серыi
+      draft_text:
+        few:
+        many:
+        one: Чарнавік
+        other: Чарнавікі
+      edition:
+        few:
+        many:
+        one: Выданне
+        other: Выданнi
+      edition_with_appointment:
+        few:
+        many:
+        one: Выданне з прызначэннем
+        other: Выданні з прызначэннем
+      equality_and_diversity:
+        few:
+        many:
+        one: Аднастайнасць і разнастайнасць
+        other: Аднастайнасць і разнастайнасць
+      fatality_notice:
+        few:
+        many:
+        one: Паведамлення аб смерці
+        other: Паведамлення аб смерці
+      foi_release:
+        few:
+        many:
+        one: Рэліз у межах Закона аб свабодзе інфармацыі
+        other: Рэлізы ў межах Закона аб свабодзе інфармацыі
+      form:
+        few:
+        many:
+        one: Форма
+        other: Формы
+      generic_edition:
+        few:
+        many:
+        one: Ўніверсальнае выданне
+        other: Універсальныя выданні
+      government_response:
+        few:
+        many:
+        one: Адказ ўрада
+        other: Адказы ўрада
+      guidance:
+        few:
+        many:
+        one: Кіраўніцтва
+        other: Кіраўніцтва
+      impact_assessment:
+        few:
+        many:
+        one: Ацэнка ўплыву
+        other: Ацэнкі ўплыву
+      imported:
+        few:
+        many:
+        one: імпартавана - чаканне тыпу
+        other: імпартавана - чаканне тыпу
+      independent_report:
+        few:
+        many:
+        one: Незалежная справаздача
+        other: Незалежныя справаздачы
+      international_treaty:
+        few:
+        many:
+        one: Міжнароднае пагадненне
+        other: Міжнародныя пагадненнi
+      manual:
+        few:
+        many:
+        one: Інструкцыя
+        other: Інструкцыі
+      map:
+        few:
+        many:
+        one: Карта
+        other: Карты
+      media_enquiries:
+        few:
+        many:
+        one: Запыт медыя
+        other: Запыты медыя
+      membership:
+        few:
+        many:
+        one: Членства
+        other: Членства
+      national_statistics:
+        few:
+        many:
+        one: Нацыянальная статыстыка
+        other: Нацыянальная статыстыка
+      news_article:
+        few:
+        many:
+        one: Артыкул
+        other: Артыкулы
+      news_story:
+        few:
+        many:
+        one: Навіна
+        other: Навіны
+      nhs_content:
+        few:
+        many:
+        one: Змест NHS
+        other: Змест NHS
+      notice:
+        few:
+        many:
+        one: Паведамленне
+        other: Паведамленні
+      official_statistics:
+        few:
+        many:
+        one: Афіцыйная статыстыка
+        other: Афіцыйная статыстыка
+      open_consultation:
+        few:
+        many:
+        one: Адкрытая кансультацыя
+        other: Адкрытыя кансультацыі
+      oral_statement:
+        few:
+        many:
+        one: Вусная заява ў парламенце
+        other: Вусныя заявы ў парламенце
+      our_energy_use:
+        few:
+        many:
+        one: Наша энергаспажыванне
+        other: Наша энергаспажыванне
+      our_governance:
+        few:
+        many:
+        one: Наша кіраванне
+        other: Наша кіраванне
+      personal_information_charter:
+        few:
+        many:
+        one: Статут аб асабістай інфармацыі
+        other: Статуты аб асабістай інфармацыі
+      petitions_and_campaigns:
+        few:
+        many:
+        one: Петыцыі і акцыі
+        other: Петыцыі і акцыі
+      policy_paper:
+        few:
+        many:
+        one: Праграмны дакумент
+        other: Праграмныя дакументы
+      press_release:
+        few:
+        many:
+        one: Прэс-рэліз
+        other: Прэс-рэлізы
+      procurement:
+        few:
+        many:
+        one: Пастаўка
+        other: Пастаўка
+      promotional:
+        few:
+        many:
+        one: Рэкламны матэрыял
+        other: Рэкламны матэрыял
+      publication:
+        few:
+        many:
+        one: Публікацыя
+        other: Публікацыі
+      publication_scheme:
+        few:
+        many:
+        one: Схема публікацый
+        other: Схемы публікацый
+      recruitment:
+        few:
+        many:
+        one: Набор персаналу
+        other: Набор персаналу
+      regulation:
+        few:
+        many:
+        one: Тэзіс
+        other: Тэзісы
+      research:
+        few:
+        many:
+        one: Даследаванне
+        other: Даследаванне
+      service:
+        few:
+        many:
+        one: Паслуга
+        other: Паслугi
+      social_media_use:
+        few:
+        many:
+        one: Ужыванне сацыяльных медый
+        other: Ужыванне сацыяльных медый
+      speaking_notes:
+        few:
+        many:
+        one: Нататкі да выступу
+        other: Нататкі да выступу
+      speech:
+        few:
+        many:
+        one: Выступ
+        other: Выступы
+      staff_update:
+        few:
+        many:
+        one: Абнаўленне персаналу
+        other: Абнаўленнi персаналу
+      standard:
+        few:
+        many:
+        one: Стандарт
+        other: Стандарты
+      statement_to_parliament:
+        few:
+        many:
+        one: Заява ў парламенце
+        other: Заявы ў парламенце
+      statistical_data_set:
+        few:
+        many:
+        one: Статыстычныя дадзеныя
+        other: Статыстычныя дадзеныя
+      statistics:
+        few:
+        many:
+        one: Статыстыка
+        other: Статыстыка
+      statutory_guidance:
+        few:
+        many:
+        one: Нарматыўныя ўказанні
+        other: Заканадаўчае кіраўніцтва
+      terms_of_reference:
+        few:
+        many:
+        one: Паўнамоцтва
+        other: Паўнамоцтва
+      transcript:
+        few:
+        many:
+        one: Поўны тэкст
+        other: Поўныя тэксты
+      transparency:
+        few:
+        many:
+        one: Адкрытыя дадзеныя
+        other: Адкрытыя дадзеныя
+      welsh_language_scheme:
+        few:
+        many:
+        one: Схема валійскай мовы
+        other: Схемы валійскай мовы
+      world_news_story:
+        few:
+        many:
+        one: Сусветная навіна
+        other: Сусветныя навіны
+      written_statement:
+        few:
+        many:
+        one: Пісьмовая заява ў парламенце
+        other: Пісьмовыя заявы ў парламенце
+    updated: Адноўлена
   document_filters:
     consultation:
       all: Усе кансультацыі
       label: Кансультацыі
-    description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
-      якія вас цікавяць.
+    description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі, якія вас цікавяць.
     no_results:
-      description: Паспрабуйце зрабіць ваш запыт больш шырокім і паспрабуйце яшчэ
-        раз.
+      description: Паспрабуйце зрабіць ваш запыт больш шырокім і паспрабуйце яшчэ раз.
       title: Няма адпаведных дакументаў.
       tna_heading: Старое ўтрыманне
-      tna_link: Не ўсе публікацыі дэпартамента, апублікаваныя да мая 2010 года, былі
-        перанесены ў GOV.UK . Каб знайсці публікацыі да мая 2010 года, паспрабуйце
-        выканаць пошук <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Нацыянальны архіў</a>.
+      tna_link: Не ўсе публікацыі дэпартамента, апублікаваныя да мая 2010 года, былі перанесены ў GOV.UK . Каб знайсці публікацыі да мая 2010 года, паспрабуйце выканаць пошук <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Нацыянальны архіў</a>.
     world_locations:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
@@ -564,8 +530,7 @@ be:
     subscription: Падпіска на апавяшчэнне па электроннай пошце
   fatality_notice:
     british_fatalities: Паведамленні на англійскам
-    none_added: Для гэтага аперацыйнага поля яшчэ не было дададзена ніякіх паведамленняў
-      аб смерцi.
+    none_added: Для гэтага аперацыйнага поля яшчэ не было дададзена ніякіх паведамленняў аб смерцi.
   feeds:
     email: Электронная пошта
     feed: сілкаванне
@@ -595,10 +560,8 @@ be:
       alerts: паведамлення па электроннай пошце
       summary: Паведамлення па электроннай пошце ад
     embassies:
-      find_an_embassy_lowercase: Знайсці брытанскае пасольства, вярхоўную камісію
-        або консульства
-      find_an_embassy_uppercase: Знайсці брытанскае пасольства, вярхоўную камісію
-        або консульства
+      find_an_embassy_lowercase: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
+      find_an_embassy_uppercase: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
     headings:
       contact: Звязацца з %{name}
       corporate_information: Карпаратыўная іфармацыя
@@ -615,8 +578,7 @@ be:
     heading: Публікацыі
     recent: Апошнія публікацыі
     statistics:
-      link_to_published_statistics: Знайсці спіс апублікаваных і маючых адбыцца дзяржаўных
-        статыстычных дадзеных у  % {link} раздзеле Статыстыка.
+      link_to_published_statistics: Знайсці спіс апублікаваных і маючых адбыцца дзяржаўных статыстычных дадзеных у  % {link} раздзеле Статыстыка.
       moved_notice: Публікацыі статыстыкі перамясціліся.
   roles:
     unassigned: Ніхто не прызначаны на гэтую ролю
@@ -672,11 +634,9 @@ be:
     fields_of_operation: Аперацыйныя поля
     filter: Фільтр
     pagination:
-      next_html: Наступная <span class="visuallyhidden">старонка</span> <span class="page-numbers">%{current_page}
-        з %{total_pages}</span>
+      next_html: Наступная <span class="visuallyhidden">старонка</span> <span class="page-numbers">%{current_page} з %{total_pages}</span>
       next_page: Наступная старонка
-      previous_html: Папярэдняя <span class="visuallyhidden">старонка</span> <span
-        class="page-numbers">%{current_page} з %{total_pages}</span>
+      previous_html: Папярэдняя <span class="visuallyhidden">старонка</span> <span class="page-numbers">%{current_page} з %{total_pages}</span>
       previous_page: Папярэдняя старонка
     part_of_collection: 'Частка сістэмы:'
   time:
@@ -693,15 +653,34 @@ be:
       historic_england: Гістарычная Англія
       iwm: Імперскі ваенны музей
       war_memorials_trust: Фонд ваенных мемарыялаў
+  world_location:
+    headings:
+      announcements: Нашы аб'явы
+      documents: Дакументы
+      mission: Наша місія
+      news: Навіны пра месцазнаходжанне ў свеце
+      organisations: Арганізацыі
+      publications: Нашы публікацыі
+      search: Пошук па краіне або тэрыторыі
+      statistics: Наша статыстыка
+    type:
+      international_delegation:
+        few:
+        many:
+        one: Міжнародная дэлегацыя
+        other: Міжнародныя дэлегацыі
+      world_location:
+        few:
+        many:
+        one: Месцазнаходжанне ў свеце
+        other: Мы ў свеце
   world_news:
     uk_updates_in_country: Абнаўлення, навіны і падзеі ад урада Вялікабрытаніі ў %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Даведайцеся %{link}.
-      personal_information_charter_html: Наша %{link} тлумачыць, як мы ставімся да
-        Вашай асабістай інфармацыі.
-      publication_scheme_html: Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем,
-        у нашым %{link}.
+      personal_information_charter_html: Наша %{link} тлумачыць, як мы ставімся да Вашай асабістай інфармацыі.
+      publication_scheme_html: Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем, у нашым %{link}.
       social_media_use_html: Прачытайце пра нашу палітыку датычна %{link}.
       welsh_language_scheme_html: Даведайцеся аб нашых абавязках да публікацыі ў %{link}.
     find_out_more: Паглядзець усю інфармацыю і кантактныя дадзеныя

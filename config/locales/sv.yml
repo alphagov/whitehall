@@ -1,5 +1,143 @@
+---
 sv:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Underhusets dokumentnummer
+        isbn: ISBN
+        unnumbered_hoc_paper: Onumrerad tidning från underhuset
+      attachment_data:
+        file: Fil
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Nummer på dokumentet för bifogade kommandonummer
+        hoc_paper_number: Underhusets dokumentnummer
+        isbn: Bilagan ISBN
+        title: Titel på bilagan
+        unique_reference: Bilagans unika referens
+        unnumbered_hoc_paper: Onumrerad artikel från underhuset
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Den bifogade filen
+      edition:
+        nation_inapplicabilities: Uteslutna nationer
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Den bifogade filen
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Bilagans kommandopappersnummer
+        hoc_paper_number: Underhusets dokumentnummer
+        isbn: Bifogad ISBN
+        title: Titel på bifogad handling
+        unique_reference: Bilagans unika referens
+        unnumbered_hoc_paper: Onumrerad artikel från underhuset
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Den bifogade filen
+    nested_attachment_data_field_names:
+      file: Den bifogade filen
+    nested_attachment_field_names:
+      command_paper_number: Nummer på dokumentet med bifogad kommandobokföring
+      hoc_paper_number: Underhusets dokumentnummer
+      isbn: Bifogat ISBN-nummer
+      title: Titel på bifogade dokument
+      unique_reference: Bilagans unika referens
+      unnumbered_hoc_paper: Onumrerad artikel från underhuset
+  announcements:
+    heading: Meddelanden
+  attachment:
+    accessibility:
+      full_help_html: |
+        Om du använder hjälpmedel (t.ex. en skärmläsare) och behöver en
+        version av detta dokument i ett mer tillgängligt format, vänligen skicka ett e-postmeddelande till %{email}.
+        Vänligen tala om för oss vilket format du behöver. Det underlättar för oss om du anger vilken hjälpmedelsteknik du använder.
+      intro: Den här filen kanske inte är lämplig för användare av hjälpmedel.
+      request_a_different_format: Begär ett tillgängligt format.
+    csv:
+      cannot_preview: Den här filen kunde inte förhandsgranskas.
+      download: Ladda ner filen för att se hela innehållet.
+      truncated_message: Den här förhandsgranskningen visar endast de första %{rows} raderna och %{columns} kolumnerna.
+    headings:
+      order_a_copy: Beställ ett exemplar
+      order_a_copy_full: Beställ ett exemplar av publikationen
+      published: Publicerad
+      reference: Ref
+      unnumbered_command_paper: Onnumrerat kommandopapper
+      unnumbered_hoc_paper: Onnumrerat dokument om handling
+    opendocument:
+      help_html: Denna fil är i ett <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
+    virus_check:
+      intro: Den här bilagan håller på att viruskontrolleras.
+      message: Vi håller för närvarande denna bilaga i karantän tills den har viruskontrollerats. Bilagan kommer att vara tillgänglig på den ursprungliga platsen inom kort.
+  broken_links:
+    broken:
+      subheading: Vi har hittat länkar i det här dokumentet som kan vara trasiga
+    caution:
+      subheading: Vi har hittat några problem med länkar som kan tyda på problem, du bör vara försiktig när du länkar till dem
+    title: Trasiga länkar
+  change_notes:
+    published_at: Först publicerad
+    see_all_updates: Se alla uppdateringar
+    updated_at: Senast uppdaterad
+  consultation:
+    closed: Stängd
+    closing_today: Stänger idag
+    closing_tomorrow: Stänger i morgon
+    days_left: "%{days_left} dagar kvar"
+  contact:
+    access_and_opening_times: Tillgång och öppettider
+    contact_form: Kontaktformulär
+    email: E-post
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: publicering på walesiska
+      title:
+        about: Om oss
+        about_our_services: Om våra tjänster
+        access_and_opening: Tillgång till kontoret och öppettider
+        accessible_documents_policy: Policy för tillgängliga dokument
+        complaints_procedure: Klagomålsförfarandet
+        equality_and_diversity: Jämlikhet och mångfald
+        media_enquiries: Förfrågningar från media
+        membership: Medlemskap
+        modern_slavery_statement: Uttalande om modernt slaveri
+        our_energy_use: Vår energianvändning
+        our_governance: Vår styrning
+        personal_information_charter: Stadga om personlig information
+        petitions_and_campaigns: Framställningar och kampanjer
+        procurement: Upphandling vid %{organisation_name}
+        publication_scheme: Publiceringssystem
+        recruitment: Att arbeta för %{organisation_name}
+        research: Forskning vid %{organisation_name}
+        social_media_use: Användning av sociala medier
+        staff_update: Nyheter och information till personalen
+        statistics: Statistik vid %{organisation_name}
+        terms_of_reference: Arbetsbeskrivning
+        welsh_language_scheme: Ordning för det walesiska språket
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Innehåll
+    footer_meta:
+      full_page_history: Hela sidohistoriken
+      published: Publicerad
+      updated: Uppdaterad
+    headings:
+      applies_to_nations: Gäller för
+      from: Från
+      part_of: Del av
+    latest: Senaste dokumenten
+    latest_from: Senaste från %{subject}
+    published: publicerad
+    see_all: Se alla
+    speech:
+      author_title:
+        minister: Minister
+        speaker: Författare
+      delivered_on: 'Levererat den:'
+      delivery_title:
+        minister: Minister
+        speaker: Talare
+      written_on: 'Skrivet den:'
     type:
       about:
         one: Om
@@ -226,178 +364,17 @@ sv:
       written_statement:
         one: Skriftligt uttalande till parlamentet
         other: Skriftliga uttalanden till parlamentet
-    contents: Innehåll
-    footer_meta:
-      full_page_history: Hela sidohistoriken
-      published: Publicerad
-      updated: Uppdaterad
-    headings:
-      applies_to_nations: Gäller för
-      from: Från
-      part_of: Del av
-    latest: Senaste dokumenten
-    latest_from: Senaste från %{subject}
-    published: publicerad
-    see_all: Se alla
-    speech:
-      author_title:
-        minister: Minister
-        speaker: Författare
-      delivered_on: 'Levererat den:'
-      delivery_title:
-        minister: Minister
-        speaker: Talare
-      written_on: 'Skrivet den:'
     updated: uppdaterad
-  world_location:
-    type:
-      international_delegation:
-        one: Internationell delegation
-        other: Internationella delegationer
-      world_location:
-        one: Plats i världen
-        other: Platser i världen
-    headings:
-      announcements: Våra tillkännagivanden
-      documents: Dokument
-      mission: Vårt uppdrag
-      news: Nyheter om platser i världen
-      organisations: Organisationer
-      publications: Våra publikationer
-      search: Sök efter land eller område
-      statistics: Vår statistik
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Underhusets dokumentnummer
-        isbn: ISBN
-        unnumbered_hoc_paper: Onumrerad tidning från underhuset
-      attachment_data:
-        file: Fil
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Nummer på dokumentet för bifogade kommandonummer
-        hoc_paper_number: Underhusets dokumentnummer
-        isbn: Bilagan ISBN
-        title: Titel på bilagan
-        unique_reference: Bilagans unika referens
-        unnumbered_hoc_paper: Onumrerad artikel från underhuset
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Den bifogade filen
-      edition:
-        nation_inapplicabilities: Uteslutna nationer
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Den bifogade filen
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Bilagans kommandopappersnummer
-        hoc_paper_number: Underhusets dokumentnummer
-        isbn: Bifogad ISBN
-        title: Titel på bifogad handling
-        unique_reference: Bilagans unika referens
-        unnumbered_hoc_paper: Onumrerad artikel från underhuset
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Den bifogade filen
-    nested_attachment_data_field_names:
-      file: Den bifogade filen
-    nested_attachment_field_names:
-      command_paper_number: Nummer på dokumentet med bifogad kommandobokföring
-      hoc_paper_number: Underhusets dokumentnummer
-      isbn: Bifogat ISBN-nummer
-      title: Titel på bifogade dokument
-      unique_reference: Bilagans unika referens
-      unnumbered_hoc_paper: Onumrerad artikel från underhuset
-  announcements:
-    heading: Meddelanden
-  attachment:
-    accessibility:
-      full_help_html: |
-        Om du använder hjälpmedel (t.ex. en skärmläsare) och behöver en
-        version av detta dokument i ett mer tillgängligt format, vänligen skicka ett e-postmeddelande till %{email}.
-        Vänligen tala om för oss vilket format du behöver. Det underlättar för oss om du anger vilken hjälpmedelsteknik du använder.
-      intro: Den här filen kanske inte är lämplig för användare av hjälpmedel.
-      request_a_different_format: Begär ett tillgängligt format.
-    csv:
-      cannot_preview: Den här filen kunde inte förhandsgranskas.
-      download: Ladda ner filen för att se hela innehållet.
-      truncated_message: Den här förhandsgranskningen visar endast de första %{rows}
-        raderna och %{columns} kolumnerna.
-    headings:
-      order_a_copy: Beställ ett exemplar
-      order_a_copy_full: Beställ ett exemplar av publikationen
-      published: Publicerad
-      reference: Ref
-      unnumbered_command_paper: Onnumrerat kommandopapper
-      unnumbered_hoc_paper: Onnumrerat dokument om handling
-    opendocument:
-      help_html: Denna fil är i ett <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        format
-    virus_check:
-      intro: Den här bilagan håller på att viruskontrolleras.
-      message: Vi håller för närvarande denna bilaga i karantän tills den har viruskontrollerats.
-        Bilagan kommer att vara tillgänglig på den ursprungliga platsen inom kort.
-  broken_links:
-    broken:
-      subheading: Vi har hittat länkar i det här dokumentet som kan vara trasiga
-    caution:
-      subheading: Vi har hittat några problem med länkar som kan tyda på problem,
-        du bör vara försiktig när du länkar till dem
-    title: Trasiga länkar
-  change_notes:
-    published_at: Först publicerad
-    see_all_updates: Se alla uppdateringar
-    updated_at: Senast uppdaterad
-  consultation:
-    closed: Stängd
-    closing_today: Stänger idag
-    closing_tomorrow: Stänger i morgon
-    days_left: "%{days_left} dagar kvar"
-  contact:
-    access_and_opening_times: Tillgång och öppettider
-    contact_form: Kontaktformulär
-    email: E-post
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: publicering på walesiska
-      title:
-        about: Om oss
-        about_our_services: Om våra tjänster
-        access_and_opening: Tillgång till kontoret och öppettider
-        accessible_documents_policy: Policy för tillgängliga dokument
-        complaints_procedure: Klagomålsförfarandet
-        equality_and_diversity: Jämlikhet och mångfald
-        media_enquiries: Förfrågningar från media
-        membership: Medlemskap
-        modern_slavery_statement: Uttalande om modernt slaveri
-        our_energy_use: Vår energianvändning
-        our_governance: Vår styrning
-        personal_information_charter: Stadga om personlig information
-        petitions_and_campaigns: Framställningar och kampanjer
-        procurement: Upphandling vid %{organisation_name}
-        publication_scheme: Publiceringssystem
-        recruitment: Att arbeta för %{organisation_name}
-        research: Forskning vid %{organisation_name}
-        social_media_use: Användning av sociala medier
-        staff_update: Nyheter och information till personalen
-        statistics: Statistik vid %{organisation_name}
-        terms_of_reference: Arbetsbeskrivning
-        welsh_language_scheme: Ordning för det walesiska språket
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Alla samråd
       label: Samråd
-    description: Du kan använda filtren för att endast visa resultat som motsvarar
-      dina intressen
+    description: Du kan använda filtren för att endast visa resultat som motsvarar dina intressen
     no_results:
       description: Försök att göra din sökning bredare och försök igen.
       title: Det finns inga matchande dokument.
       tna_heading: Äldre innehåll
-      tna_link: Alla institutionernas publikationer från före maj 2010 har inte migrerats
-        till GOV.UK. Om du vill hitta publikationer från före maj 2010 kan du söka
-        i <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nationalarkivet</a>.
+      tna_link: Alla institutionernas publikationer från före maj 2010 har inte migrerats till GOV.UK. Om du vill hitta publikationer från före maj 2010 kan du söka i <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nationalarkivet</a>.
     world_locations:
       all: Alla platser
       label: Platser i världen
@@ -406,8 +383,7 @@ sv:
     subscription: Prenumeration på e-postvarningar
   fatality_notice:
     british_fatalities: Brittiska dödsfall
-    none_added: Det har ännu inte lagts till några meddelanden om dödsfall för detta
-      verksamhetsområde.
+    none_added: Det har ännu inte lagts till några meddelanden om dödsfall för detta verksamhetsområde.
   feeds:
     email: E-post
     feed: feed
@@ -437,10 +413,8 @@ sv:
       alerts: E-postmeddelanden
       summary: E-postmeddelanden från
     embassies:
-      find_an_embassy_lowercase: Hitta en brittisk ambassad, ett brittiskt högkommissariat
-        eller konsulat
-      find_an_embassy_uppercase: Hitta en brittisk ambassad, högkommissariat eller
-        konsulat
+      find_an_embassy_lowercase: Hitta en brittisk ambassad, ett brittiskt högkommissariat eller konsulat
+      find_an_embassy_uppercase: Hitta en brittisk ambassad, högkommissariat eller konsulat
     headings:
       contact: Kontakta %{name}
       corporate_information: Företagsinformation
@@ -457,8 +431,7 @@ sv:
     heading: Publikationer
     recent: Nya publikationer
     statistics:
-      link_to_published_statistics: Du hittar en lista över publicerad och kommande
-        statlig statistik i %{link} statistiksektionen.
+      link_to_published_statistics: Du hittar en lista över publicerad och kommande statlig statistik i %{link} statistiksektionen.
       moved_notice: Statistikpublikationer har flyttats.
   roles:
     unassigned: Ingen har tilldelats denna roll
@@ -514,11 +487,9 @@ sv:
     fields_of_operation: Verksamhetsområden
     filter: Filtrera
     pagination:
-      next_html: Nästa <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page}
-        av %{total_pages}</span>
+      next_html: Nästa <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Nästa sida
-      previous_html: Föregående <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page}
-        av %{total_pages}</span>
+      previous_html: Föregående <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       previous_page: Föregående sida
     part_of_collection: 'Ingår i en samling:'
   time:
@@ -535,16 +506,30 @@ sv:
       historic_england: Historic England
       iwm: Imperial War Museum
       war_memorials_trust: War Memorials Trust
+  world_location:
+    headings:
+      announcements: Våra tillkännagivanden
+      documents: Dokument
+      mission: Vårt uppdrag
+      news: Nyheter om platser i världen
+      organisations: Organisationer
+      publications: Våra publikationer
+      search: Sök efter land eller område
+      statistics: Vår statistik
+    type:
+      international_delegation:
+        one: Internationell delegation
+        other: Internationella delegationer
+      world_location:
+        one: Plats i världen
+        other: Platser i världen
   world_news:
-    uk_updates_in_country: Uppdateringar, nyheter och evenemang från den brittiska
-      regeringen i %{country}
+    uk_updates_in_country: Uppdateringar, nyheter och evenemang från den brittiska regeringen i %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Ta reda på %{link}.
-      personal_information_charter_html: Vår %{link} förklarar hur vi behandlar dina
-        personuppgifter.
-      publication_scheme_html: Läs om vilka typer av information vi rutinmässigt publicerar
-        i vår %{link}.
+      personal_information_charter_html: Vår %{link} förklarar hur vi behandlar dina personuppgifter.
+      publication_scheme_html: Läs om vilka typer av information vi rutinmässigt publicerar i vår %{link}.
       social_media_use_html: Läs vår policy för %{link}.
       welsh_language_scheme_html: Ta reda på vårt åtagande om %{link}.
     find_out_more: Se hela profilen och alla kontaktuppgifter

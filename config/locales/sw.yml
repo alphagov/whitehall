@@ -1,5 +1,142 @@
+---
 sw:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Nambari ya hati ya House of Commons
+        isbn: ISBN
+        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
+      attachment_data:
+        file: Faili
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Nambari ya hati ya amri ya kiambatisho
+        hoc_paper_number: Nambari ya hati ya House of Commons
+        isbn: Kiambatisho cha ISBN
+        title: Jina la kiambatisho
+        unique_reference: Nambari maalum ya marejeleo ya kiambatisho
+        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Faili iliyoambatishwa
+      edition:
+        nation_inapplicabilities: Mataifa yaliyotengwa
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Faili iliyoambatishwa
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Nambari ya hati ya amri ya kiambatisho
+        hoc_paper_number: Nambari ya hati ya House of Commons
+        isbn: Kiambatisho cha ISBN
+        title: Jina la kiambatisho
+        unique_reference: Nambari maalum ya marejeleo ya kiambatisho
+        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Faili iliyoambatishwa
+    nested_attachment_data_field_names:
+      file: Faili iliyoambatishwa
+    nested_attachment_field_names:
+      command_paper_number: Nambari ya hati ya amri ya kiambatisho
+      hoc_paper_number: Nambari ya hati ya House of Commons
+      isbn: Kiambatisho cha ISBN
+      title: Jina la kiambatisho
+      unique_reference: Nambari maalum ya marejeleo ya kiambatisho
+      unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
+  announcements:
+    heading: Matangazo
+  attachment:
+    accessibility:
+      full_help_html: |
+        Ikiwa unatumia vifaa vya usaidizi (kama vile kisoma skrini) na unahitaji toleo la hati hii katika muundo unaoweza kutumika zaidi, tafadhali tuma barua pepe katika %{email}.
+        Tafadhali tuambie muundo unaohitaji. Itatusaidia ikiwa utatufahamisha kifaa cha usaidizi unachotumia.
+      intro: Faili hii huenda haitumiki kwa watumiaji wanaotumia vifaa vya usaidizi.
+      request_a_different_format: Omba muundo unaoweza kutumika.
+    csv:
+      cannot_preview: Imeshindwa kuonyesha onyesho la kukagua faili hii.
+      download: Pakua faili ili uone maudhui yake yote.
+      truncated_message: Onyesho hili la kukagua linaonyesha tu safu mlalo %{rows} na safu wima %{columns}.
+    headings:
+      order_a_copy: Agiza nakala
+      order_a_copy_full: Agiza nakala ya chapisho
+      published: Lilichapishwa
+      reference: Marejeleo
+      unnumbered_command_paper: Hati ya amri isiyo na nambari
+      unnumbered_hoc_paper: Hati ya sheria isiyo na nambari
+    opendocument:
+      help_html: Faili hii ni ya muundo wa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+    virus_check:
+      intro: Kiambatisho hiki kinakaguliwa ili kubaini iwapo kina virusi.
+      message: Tumezuia kiambatisho hiki kwa sasa hadi kikaguliwe kubaini iwapo kina virusi. Kiambatisho kitapatikana katika eneo halisi baada ya muda mfupi.
+  broken_links:
+    broken:
+      subheading: Tumepata viungo katika hati hii ambavyo huenda havijakamilika
+    caution:
+      subheading: Tumepata matatizo kwenye viungo ambayo huenda yanaashiria hatari, unapaswa kutahadhari unapovibofya
+    title: Viungo ambavyo havijakamilika
+  change_notes:
+    published_at: Ilichapishwa mara ya kwanza
+    see_all_updates: angalia masasisho yote
+    updated_at: Ilisasishwa mara ya mwisho
+  consultation:
+    closed: Imefungwa
+    closing_today: Inafungwa leo
+    closing_tomorrow: Itafungwa kesho
+    days_left: Zimebaki siku %{days_left}
+  contact:
+    access_and_opening_times: Saa za upatikanaji na kufunguliwa
+    contact_form: Fomu ya mawasiliano
+    email: Barua pepe
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: inachapishwa katika lugha ya Kiwelsh
+      title:
+        about: Kutuhusu
+        about_our_services: Kuhusu huduma zetu
+        access_and_opening: Saa za upatikanaji na kufunguliwa kwa ofisi
+        accessible_documents_policy: Sera ya hati zinazoweza kupatikana
+        complaints_procedure: Utaratibu wa kuwasilisha malalamiko
+        equality_and_diversity: Usawa na utofauti
+        media_enquiries: Maombi ya maudhui
+        membership: Uanachama
+        modern_slavery_statement: Taarifa ya utumwa wa kisasa
+        our_energy_use: Matumizi yetu ya nishati
+        our_governance: Uongozi wetu
+        personal_information_charter: Hati ya maelezo ya kibinafsi
+        petitions_and_campaigns: Maombi na kampeni
+        procurement: Ununuzi katika %{organisation_name}
+        publication_scheme: Mpango wa uchapishaji
+        recruitment: Kufanya kazi katika %{organisation_name}
+        research: Kufanya utafiti katika %{organisation_name}
+        social_media_use: Matumizi ya mitandao ya kijamii
+        staff_update: Maelezo na habari za wafanyakazi
+        statistics: Takwimu katika %{organisation_name}
+        terms_of_reference: Sheria na masharti
+        welsh_language_scheme: Mpango wa lugha ya Kiwelsh
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Maudhui
+    footer_meta:
+      full_page_history: kumbukumbu ya ukurasa wote
+      published: Ilichapishwa
+      updated: Ilisasishwa
+    headings:
+      applies_to_nations: Inatumika kwa
+      from: Kuanzia
+      part_of: Sehemu ya
+    latest: Hati mpya
+    latest_from: Habari kutoka %{subject}
+    published: ilichapishwa
+    see_all: Angalia yote
+    speech:
+      author_title:
+        minister: Waziri
+        speaker: Mwandishi
+      delivered_on: 'Iliwasilishwa mnamo:'
+      delivery_title:
+        minister: Waziri
+        speaker: Mnenaji
+      written_on: 'Iliandikwa mnamo:'
     type:
       about:
         one: Kuhusu
@@ -226,177 +363,17 @@ sw:
       written_statement:
         one: Taarifa ya Maandishi kwa Bunge
         other: Taarifa za Maandishi kwa Bunge
-    contents: Maudhui
-    footer_meta:
-      full_page_history: kumbukumbu ya ukurasa wote
-      published: Ilichapishwa
-      updated: Ilisasishwa
-    headings:
-      applies_to_nations: Inatumika kwa
-      from: Kuanzia
-      part_of: Sehemu ya
-    latest: Hati mpya
-    latest_from: Habari kutoka %{subject}
-    published: ilichapishwa
-    see_all: Angalia yote
-    speech:
-      author_title:
-        minister: Waziri
-        speaker: Mwandishi
-      delivered_on: 'Iliwasilishwa mnamo:'
-      delivery_title:
-        minister: Waziri
-        speaker: Mnenaji
-      written_on: 'Iliandikwa mnamo:'
     updated: ilisasishwa
-  world_location:
-    type:
-      international_delegation:
-        one: Ujumbe wa kimataifa
-        other: Ujumbe wa kimataifa
-      world_location:
-        one: Eneo la kimataifa
-        other: Maeneo ya kimataifa
-    headings:
-      announcements: Matangazo yetu
-      documents: Hati
-      mission: Dhamira yetu
-      news: Habari za kimataifa
-      organisations: Mashirika
-      publications: Machapisho yetu
-      search: Tafuta kulingana na nchi au eneo
-      statistics: Takwimu zetu
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Nambari ya hati ya House of Commons
-        isbn: ISBN
-        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
-      attachment_data:
-        file: Faili
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Nambari ya hati ya amri ya kiambatisho
-        hoc_paper_number: Nambari ya hati ya House of Commons
-        isbn: Kiambatisho cha ISBN
-        title: Jina la kiambatisho
-        unique_reference: Nambari maalum ya marejeleo ya kiambatisho
-        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Faili iliyoambatishwa
-      edition:
-        nation_inapplicabilities: Mataifa yaliyotengwa
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Faili iliyoambatishwa
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Nambari ya hati ya amri ya kiambatisho
-        hoc_paper_number: Nambari ya hati ya House of Commons
-        isbn: Kiambatisho cha ISBN
-        title: Jina la kiambatisho
-        unique_reference: Nambari maalum ya marejeleo ya kiambatisho
-        unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Faili iliyoambatishwa
-    nested_attachment_data_field_names:
-      file: Faili iliyoambatishwa
-    nested_attachment_field_names:
-      command_paper_number: Nambari ya hati ya amri ya kiambatisho
-      hoc_paper_number: Nambari ya hati ya House of Commons
-      isbn: Kiambatisho cha ISBN
-      title: Jina la kiambatisho
-      unique_reference: Nambari maalum ya marejeleo ya kiambatisho
-      unnumbered_hoc_paper: Hati ya House of Commons isiyo na nambari
-  announcements:
-    heading: Matangazo
-  attachment:
-    accessibility:
-      full_help_html: |
-        Ikiwa unatumia vifaa vya usaidizi (kama vile kisoma skrini) na unahitaji toleo la hati hii katika muundo unaoweza kutumika zaidi, tafadhali tuma barua pepe katika %{email}.
-        Tafadhali tuambie muundo unaohitaji. Itatusaidia ikiwa utatufahamisha kifaa cha usaidizi unachotumia.
-      intro: Faili hii huenda haitumiki kwa watumiaji wanaotumia vifaa vya usaidizi.
-      request_a_different_format: Omba muundo unaoweza kutumika.
-    csv:
-      cannot_preview: Imeshindwa kuonyesha onyesho la kukagua faili hii.
-      download: Pakua faili ili uone maudhui yake yote.
-      truncated_message: Onyesho hili la kukagua linaonyesha tu safu mlalo %{rows}
-        na safu wima %{columns}.
-    headings:
-      order_a_copy: Agiza nakala
-      order_a_copy_full: Agiza nakala ya chapisho
-      published: Lilichapishwa
-      reference: Marejeleo
-      unnumbered_command_paper: Hati ya amri isiyo na nambari
-      unnumbered_hoc_paper: Hati ya sheria isiyo na nambari
-    opendocument:
-      help_html: Faili hii ni ya muundo wa <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Kiambatisho hiki kinakaguliwa ili kubaini iwapo kina virusi.
-      message: Tumezuia kiambatisho hiki kwa sasa hadi kikaguliwe kubaini iwapo kina
-        virusi. Kiambatisho kitapatikana katika eneo halisi baada ya muda mfupi.
-  broken_links:
-    broken:
-      subheading: Tumepata viungo katika hati hii ambavyo huenda havijakamilika
-    caution:
-      subheading: Tumepata matatizo kwenye viungo ambayo huenda yanaashiria hatari,
-        unapaswa kutahadhari unapovibofya
-    title: Viungo ambavyo havijakamilika
-  change_notes:
-    published_at: Ilichapishwa mara ya kwanza
-    see_all_updates: angalia masasisho yote
-    updated_at: Ilisasishwa mara ya mwisho
-  consultation:
-    closed: Imefungwa
-    closing_today: Inafungwa leo
-    closing_tomorrow: Itafungwa kesho
-    days_left: Zimebaki siku %{days_left}
-  contact:
-    access_and_opening_times: Saa za upatikanaji na kufunguliwa
-    contact_form: Fomu ya mawasiliano
-    email: Barua pepe
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: inachapishwa katika lugha ya Kiwelsh
-      title:
-        about: Kutuhusu
-        about_our_services: Kuhusu huduma zetu
-        access_and_opening: Saa za upatikanaji na kufunguliwa kwa ofisi
-        accessible_documents_policy: Sera ya hati zinazoweza kupatikana
-        complaints_procedure: Utaratibu wa kuwasilisha malalamiko
-        equality_and_diversity: Usawa na utofauti
-        media_enquiries: Maombi ya maudhui
-        membership: Uanachama
-        modern_slavery_statement: Taarifa ya utumwa wa kisasa
-        our_energy_use: Matumizi yetu ya nishati
-        our_governance: Uongozi wetu
-        personal_information_charter: Hati ya maelezo ya kibinafsi
-        petitions_and_campaigns: Maombi na kampeni
-        procurement: Ununuzi katika %{organisation_name}
-        publication_scheme: Mpango wa uchapishaji
-        recruitment: Kufanya kazi katika %{organisation_name}
-        research: Kufanya utafiti katika %{organisation_name}
-        social_media_use: Matumizi ya mitandao ya kijamii
-        staff_update: Maelezo na habari za wafanyakazi
-        statistics: Takwimu katika %{organisation_name}
-        terms_of_reference: Sheria na masharti
-        welsh_language_scheme: Mpango wa lugha ya Kiwelsh
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Mashauriano yote
       label: Mashauriano
-    description: Unaweza kutumia vichujio ili kuonyesha matokeo yanayolingana na mambo
-      yanayokuvutia pekee
+    description: Unaweza kutumia vichujio ili kuonyesha matokeo yanayolingana na mambo yanayokuvutia pekee
     no_results:
       description: Jaribu kupanua utafutaji wako kisha ujaribu tena.
       title: Hakuna hati zinazolingana.
       tna_heading: Maudhui ya zamani
-      tna_link: Si machapisho yote ya idara yaliyochapishwa kabla ya mwezi wa Mei
-        2010 yaliyohamishiwa kwenye tovuti GOV.UK. Ili kupata machapisho yaliyochapishwa
-        kabla ya mwezi wa Mei 2010 jaribu kutafuta <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a>.
+      tna_link: Si machapisho yote ya idara yaliyochapishwa kabla ya mwezi wa Mei 2010 yaliyohamishiwa kwenye tovuti GOV.UK. Ili kupata machapisho yaliyochapishwa kabla ya mwezi wa Mei 2010 jaribu kutafuta <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>.
     world_locations:
       all: Maeneo yote
       label: Maeneo ya kimataifa
@@ -405,8 +382,7 @@ sw:
     subscription: Usajili wa kupokea arifa za barua pepe
   fatality_notice:
     british_fatalities: Idadi ya vifo nchini Uingereza
-    none_added: Bado hakuna notisi za idadi ya vifo zilizowekwa kwenye sehemu hii
-      ya kazi.
+    none_added: Bado hakuna notisi za idadi ya vifo zilizowekwa kwenye sehemu hii ya kazi.
   feeds:
     email: barua pepe
     feed: mipasho
@@ -454,8 +430,7 @@ sw:
     heading: Machapisho
     recent: Machapisho ya hivi karibuni
     statistics:
-      link_to_published_statistics: Tafuta orodha ya takwimu zilizochapishwa na zijazo
-        za serikali katika sehemu ya takwimu ya %{link}.
+      link_to_published_statistics: Tafuta orodha ya takwimu zilizochapishwa na zijazo za serikali katika sehemu ya takwimu ya %{link}.
       moved_notice: Machapisho ya takwimu yamehamishwa.
   roles:
     unassigned: Hakuna mtu aliyekabidhiwa nafasi hii
@@ -511,11 +486,9 @@ sw:
     fields_of_operation: Sehemu za kazi
     filter: Chuja
     pagination:
-      next_html: Unaofuata <span class="visuallyhidden">ukurasa wa</span> <span class="page-numbers">%{current_page}
-        kati ya %{total_pages}</span>
+      next_html: Unaofuata <span class="visuallyhidden">ukurasa wa</span> <span class="page-numbers">%{current_page} kati ya %{total_pages}</span>
       next_page: Ukurasa unaofuata
-      previous_html: Uliotangulia <span class="visuallyhidden">ukurasa wa</span> <span
-        class="page-numbers">%{current_page} kati ya %{total_pages}</span>
+      previous_html: Uliotangulia <span class="visuallyhidden">ukurasa wa</span> <span class="page-numbers">%{current_page} kati ya %{total_pages}</span>
       previous_page: Ukurasa uliotangulia
     part_of_collection: 'Sehemu ya mkusanyiko:'
   time:
@@ -532,16 +505,30 @@ sw:
       historic_england: Historic England
       iwm: Imperial War Museum
       war_memorials_trust: War Memorials Trust
+  world_location:
+    headings:
+      announcements: Matangazo yetu
+      documents: Hati
+      mission: Dhamira yetu
+      news: Habari za kimataifa
+      organisations: Mashirika
+      publications: Machapisho yetu
+      search: Tafuta kulingana na nchi au eneo
+      statistics: Takwimu zetu
+    type:
+      international_delegation:
+        one: Ujumbe wa kimataifa
+        other: Ujumbe wa kimataifa
+      world_location:
+        one: Eneo la kimataifa
+        other: Maeneo ya kimataifa
   world_news:
-    uk_updates_in_country: Taarifa, habari na matukio kutoka kwa serikali ya Uingereza
-      nchini %{country}
+    uk_updates_in_country: Taarifa, habari na matukio kutoka kwa serikali ya Uingereza nchini %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Pata maelezo kuhusu %{link}.
-      personal_information_charter_html: "%{link} yetu inafafanua jinsi tunavyoshughulikia
-        maelezo yako ya kibinafsi."
-      publication_scheme_html: Soma maelezo kuhusu aina za maelezo tunayochapisha
-        kila wakati kwenye %{link} yetu.
+      personal_information_charter_html: "%{link} yetu inafafanua jinsi tunavyoshughulikia maelezo yako ya kibinafsi."
+      publication_scheme_html: Soma maelezo kuhusu aina za maelezo tunayochapisha kila wakati kwenye %{link} yetu.
       social_media_use_html: Soma sera yetu kwenye %{link}.
       welsh_language_scheme_html: Pata maelezo kuhusu wajibu wetu wa %{link}.
     find_out_more: Angalia wasifu wote na anwani zote za mawasiliano

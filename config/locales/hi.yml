@@ -1,5 +1,143 @@
+---
 hi:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
+        isbn: ISBN
+        unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
+      attachment_data:
+        file: फाइल
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: अटैचमेंट कमांड पेपर नंबर
+        hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
+        isbn: अनुलग्नक ISBN
+        title: अनुलग्नक शीर्षक
+        unique_reference: अनुलग्नक अनूठा संदर्भ
+        unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: संलग्न हुई फा़इल
+      edition:
+        nation_inapplicabilities: बहिष्कृत राष्ट्र
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: संलग्न हुई फा़इल
+      response/consultation_response_attachments/attachment:
+        command_paper_number: अटैचमेंट कमांड पेपर नंबर
+        hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
+        isbn: अनुलग्नक ISBN
+        title: अनुलग्नक शीर्षक
+        unique_reference: अनुलग्नक अनूठा संदर्भ
+        unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: संलग्न हुई फा़इल
+    nested_attachment_data_field_names:
+      file: संलग्न हुई फा़इल
+    nested_attachment_field_names:
+      command_paper_number: अटैचमेंट कमांड पेपर नंबर
+      hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
+      isbn: अनुलग्नक ISBN
+      title: अनुलग्नक शीर्षक
+      unique_reference: अनुलग्नक अनूठा संदर्भ
+      unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
+  announcements:
+    heading: घोषणाएं
+  attachment:
+    accessibility:
+      full_help_html: |
+        यदि आप सहायक तकनीक (जैसे स्क्रीन रीडर) का उपयोग करते हैं और आपको एक
+        अधिक वैकल्पिक प्रारूप में इस दस्तावेज़ का संस्करण, कृपया %{email} ईमेल करें।
+        कृपया हमें बताएं कि आपको किस प्रारूप की आवश्यकता है। यदि आप कहते हैं कि आप किस सहायक तकनीक का उपयोग करते हैं तो इससे हमें मदद मिलेगी।
+      intro: यह फाइल शायद सहायक तकनीक के उपयोगकर्ताओं के लिए उपयुक्त न हो।
+      request_a_different_format: एक सुलभ प्रारूप का अनुरोध करें।
+    csv:
+      cannot_preview: इस फाइल का पूर्वावलोकन नहीं किया जा सका।
+      download: फाइल डाउनलोड करके इसकी पूरी सामग्री देखें।
+      truncated_message: इस पूर्वावलोकन में केवल पहली %{rows} पंक्तियां और %{columns} कॉलम दिखाई देते हैं।
+    headings:
+      order_a_copy: एक प्रति ऑर्डर करें
+      order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
+      published: प्रकाशित
+      reference: संदर्भ
+      unnumbered_command_paper: संख्यारहित कमांड पेपर
+      unnumbered_hoc_paper: संख्यारहित अधिनियम पेपर
+    opendocument:
+      help_html: यह फाइल एक <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ओपनडॉक्यूमेंट</a> प्रारूप में है
+    virus_check:
+      intro: इस अटैचमेंट में वायरस की जांच की जा रही है।
+      message: हम फिलहाल इस अटैचमेंट को तब तक क्वारंटाइन में रख रहे हैं जब तक इसमें वायरस की जांच नहीं हो जाती। अटैचमेंट शीघ्र ही मूल स्थान पर उपलब्ध होगा।
+  broken_links:
+    broken:
+      subheading: हमें इस डॉक्यूमेंट में ऐसे लिंक मिले हैं जो ब्रोकन हो सकते हैं
+    caution:
+      subheading: हमें लिंक में कुछ समस्याएं मिली हैं जिनसे दिक्कतों का संकेत मिल सकता है, आपको उन्हें लिंक करते समय सावधानी बरतनी चाहिए
+    title: ब्रोकन लिंक
+  change_notes:
+    published_at: प्रथम प्रकाशित
+    see_all_updates: सभी अपडेट देखें
+    updated_at: पिछला अपडेट
+  consultation:
+    closed: बंद हो गया
+    closing_today: आज बंद हो रहा है
+    closing_tomorrow: कल बंद होगा
+    days_left: "%{days_left} दिन बाकी"
+  contact:
+    access_and_opening_times: एक्सेस और खुलने का समय
+    contact_form: संपर्क प्रपत्र
+    email: ईमेल
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: वेल्श में प्रकाशित हो रहा है
+      title:
+        about: हमारे बारे में
+        about_our_services: हमारी सेवाओं के बारे में
+        access_and_opening: कार्यालय एक्सेस करने और खुलने का समय
+        accessible_documents_policy: सुलभ दस्तावेज नीति
+        complaints_procedure: शिकायतों की प्रक्रिया
+        equality_and_diversity: समानता और विविधता
+        media_enquiries: मीडिया पूछताछ
+        membership: सदस्यता
+        modern_slavery_statement: आधुनिक दासता वर्णन
+        our_energy_use: हमारा ऊर्जा का उपयोग
+        our_governance: हमारा शासन
+        personal_information_charter: व्यक्तिगत जानकारी का चार्टर
+        petitions_and_campaigns: याचिकाएं और अभियान
+        procurement: "%{organisation_name} में इंतजाम"
+        publication_scheme: प्रकाशन योजना
+        recruitment: "%{organisation_name} के लिए काम कर रहा है"
+        research: "%{organisation_name} में अनुसंधान"
+        social_media_use: सोशल मीडिया का प्रयोग
+        staff_update: स्टाफ की खबरें और सूचना
+        statistics: "%{organisation_name} में सांख्यिकी"
+        terms_of_reference: संदर्भ के नियम
+        welsh_language_scheme: वेल्श भाषा योजना
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: विषय-वस्तु
+    footer_meta:
+      full_page_history: पूरे पेज में इतिहास
+      published: 'प्रकाशित '
+      updated: अपडेट किया गया
+    headings:
+      applies_to_nations: पर लागू
+      from: से
+      part_of: का भाग
+    latest: नवीनतम दस्तावेज
+    latest_from: "%{subject} से नवीनतम"
+    published: प्रकाशित
+    see_all: सब देखें
+    speech:
+      author_title:
+        minister: मंत्री
+        speaker: लेखक 
+      delivered_on: 'को वितरित:'
+      delivery_title:
+        minister: मंत्री
+        speaker: वक्ता
+      written_on: 'लिखा गया:'
     type:
       about:
         one: के बारे में
@@ -226,178 +364,17 @@ hi:
       written_statement:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
-    contents: विषय-वस्तु
-    footer_meta:
-      full_page_history: पूरे पेज में इतिहास
-      published: 'प्रकाशित '
-      updated: अपडेट किया गया
-    headings:
-      applies_to_nations: पर लागू
-      from: से
-      part_of: का भाग
-    latest: नवीनतम दस्तावेज
-    latest_from: "%{subject} से नवीनतम"
-    published: प्रकाशित
-    see_all: सब देखें
-    speech:
-      author_title:
-        minister: मंत्री
-        speaker: लेखक 
-      delivered_on: 'को वितरित:'
-      delivery_title:
-        minister: मंत्री
-        speaker: वक्ता
-      written_on: 'लिखा गया:'
     updated: अपडेट किया गया
-  world_location:
-    type:
-      international_delegation:
-        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-      world_location:
-        one: वैश्विक स्थान
-        other: वैश्विक स्थान
-    headings:
-      announcements: हमारी घोषणाएं
-      documents: दस्तावेज़
-      mission: हमारा लक्ष्य
-      news: विश्व स्थानों की खबरें
-      organisations: संस्थाएं
-      publications: हमारे प्रकाशन
-      search: देश या क्षेत्र से खोजें
-      statistics: हमारे आंकड़े
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
-        isbn: ISBN
-        unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
-      attachment_data:
-        file: फाइल
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: अटैचमेंट कमांड पेपर नंबर
-        hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
-        isbn: अनुलग्नक ISBN
-        title: अनुलग्नक शीर्षक
-        unique_reference: अनुलग्नक अनूठा संदर्भ
-        unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: संलग्न हुई फा़इल
-      edition:
-        nation_inapplicabilities: बहिष्कृत राष्ट्र
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: संलग्न हुई फा़इल
-      response/consultation_response_attachments/attachment:
-        command_paper_number: अटैचमेंट कमांड पेपर नंबर
-        hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
-        isbn: अनुलग्नक ISBN
-        title: अनुलग्नक शीर्षक
-        unique_reference: अनुलग्नक अनूठा संदर्भ
-        unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: संलग्न हुई फा़इल
-    nested_attachment_data_field_names:
-      file: संलग्न हुई फा़इल
-    nested_attachment_field_names:
-      command_paper_number: अटैचमेंट कमांड पेपर नंबर
-      hoc_paper_number: हाउस ऑफ कॉमन्स पेपर नंबर
-      isbn: अनुलग्नक ISBN
-      title: अनुलग्नक शीर्षक
-      unique_reference: अनुलग्नक अनूठा संदर्भ
-      unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
-  announcements:
-    heading: घोषणाएं
-  attachment:
-    accessibility:
-      full_help_html: |
-        यदि आप सहायक तकनीक (जैसे स्क्रीन रीडर) का उपयोग करते हैं और आपको एक
-        अधिक वैकल्पिक प्रारूप में इस दस्तावेज़ का संस्करण, कृपया %{email} ईमेल करें।
-        कृपया हमें बताएं कि आपको किस प्रारूप की आवश्यकता है। यदि आप कहते हैं कि आप किस सहायक तकनीक का उपयोग करते हैं तो इससे हमें मदद मिलेगी।
-      intro: यह फाइल शायद सहायक तकनीक के उपयोगकर्ताओं के लिए उपयुक्त न हो।
-      request_a_different_format: एक सुलभ प्रारूप का अनुरोध करें।
-    csv:
-      cannot_preview: इस फाइल का पूर्वावलोकन नहीं किया जा सका।
-      download: फाइल डाउनलोड करके इसकी पूरी सामग्री देखें।
-      truncated_message: इस पूर्वावलोकन में केवल पहली %{rows} पंक्तियां और %{columns}
-        कॉलम दिखाई देते हैं।
-    headings:
-      order_a_copy: एक प्रति ऑर्डर करें
-      order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
-      published: प्रकाशित
-      reference: संदर्भ
-      unnumbered_command_paper: संख्यारहित कमांड पेपर
-      unnumbered_hoc_paper: संख्यारहित अधिनियम पेपर
-    opendocument:
-      help_html: यह फाइल एक <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ओपनडॉक्यूमेंट</a>
-        प्रारूप में है
-    virus_check:
-      intro: इस अटैचमेंट में वायरस की जांच की जा रही है।
-      message: हम फिलहाल इस अटैचमेंट को तब तक क्वारंटाइन में रख रहे हैं जब तक इसमें
-        वायरस की जांच नहीं हो जाती। अटैचमेंट शीघ्र ही मूल स्थान पर उपलब्ध होगा।
-  broken_links:
-    broken:
-      subheading: हमें इस डॉक्यूमेंट में ऐसे लिंक मिले हैं जो ब्रोकन हो सकते हैं
-    caution:
-      subheading: हमें लिंक में कुछ समस्याएं मिली हैं जिनसे दिक्कतों का संकेत मिल
-        सकता है, आपको उन्हें लिंक करते समय सावधानी बरतनी चाहिए
-    title: ब्रोकन लिंक
-  change_notes:
-    published_at: प्रथम प्रकाशित
-    see_all_updates: सभी अपडेट देखें
-    updated_at: पिछला अपडेट
-  consultation:
-    closed: बंद हो गया
-    closing_today: आज बंद हो रहा है
-    closing_tomorrow: कल बंद होगा
-    days_left: "%{days_left} दिन बाकी"
-  contact:
-    access_and_opening_times: एक्सेस और खुलने का समय
-    contact_form: संपर्क प्रपत्र
-    email: ईमेल
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: वेल्श में प्रकाशित हो रहा है
-      title:
-        about: हमारे बारे में
-        about_our_services: हमारी सेवाओं के बारे में
-        access_and_opening: कार्यालय एक्सेस करने और खुलने का समय
-        accessible_documents_policy: सुलभ दस्तावेज नीति
-        complaints_procedure: शिकायतों की प्रक्रिया
-        equality_and_diversity: समानता और विविधता
-        media_enquiries: मीडिया पूछताछ
-        membership: सदस्यता
-        modern_slavery_statement: आधुनिक दासता वर्णन
-        our_energy_use: हमारा ऊर्जा का उपयोग
-        our_governance: हमारा शासन
-        personal_information_charter: व्यक्तिगत जानकारी का चार्टर
-        petitions_and_campaigns: याचिकाएं और अभियान
-        procurement: "%{organisation_name} में इंतजाम"
-        publication_scheme: प्रकाशन योजना
-        recruitment: "%{organisation_name} के लिए काम कर रहा है"
-        research: "%{organisation_name} में अनुसंधान"
-        social_media_use: सोशल मीडिया का प्रयोग
-        staff_update: स्टाफ की खबरें और सूचना
-        statistics: "%{organisation_name} में सांख्यिकी"
-        terms_of_reference: संदर्भ के नियम
-        welsh_language_scheme: वेल्श भाषा योजना
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: सभी परामर्श
       label: परामर्श
-    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
-      जिनमें आप की दिलचस्पी हो
+    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं, जिनमें आप की दिलचस्पी हो
     no_results:
       description: 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें।'
       title: मेल खाने वाले दस्तावेज़ नहीं हैं।
       tna_heading: पुराने विषय
-      tna_link: मई 2010 से पहले के सभी विभागीय प्रकाशन GOV.UK में स्थानांतरित नहीं
-        किए गए थे। मई 2010 से पहले के प्रकाशन खोजने के लिए <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">द नेशनल आर्काइव्स</a> में खोजने की कोशिश करें।
+      tna_link: मई 2010 से पहले के सभी विभागीय प्रकाशन GOV.UK में स्थानांतरित नहीं किए गए थे। मई 2010 से पहले के प्रकाशन खोजने के लिए <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">द नेशनल आर्काइव्स</a> में खोजने की कोशिश करें।
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान
@@ -454,8 +431,7 @@ hi:
     heading: प्रकाशन
     recent: हालिया प्रकाशन
     statistics:
-      link_to_published_statistics: "%{link} सांख्यिकी अनुभाग में प्रकाशित और आगामी
-        सरकारी सांख्यिकियों की सूची प्राप्त करें।"
+      link_to_published_statistics: "%{link} सांख्यिकी अनुभाग में प्रकाशित और आगामी सरकारी सांख्यिकियों की सूची प्राप्त करें।"
       moved_notice: सांख्यिकी प्रकाशन मूव हो गए हैं।
   roles:
     unassigned: यह भूमिका किसी को असाइन नहीं की गई है
@@ -511,11 +487,9 @@ hi:
     fields_of_operation: संचालन के क्षेत्र
     filter: फिल्टर करें
     pagination:
-      next_html: अगला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages}
-        का %{current_page}</span>
+      next_html: अगला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages} का %{current_page}</span>
       next_page: अगला पेज
-      previous_html: पिछला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages}
-        का %{current_page}</span>
+      previous_html: पिछला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages} का %{current_page}</span>
       previous_page: पिछला पेज
     part_of_collection: 'एक श्रृंखला का हिस्सा:'
   time:
@@ -532,19 +506,32 @@ hi:
       historic_england: ऐतिहासिक इंग्लैंड
       iwm: इम्पीरियल वार म्यूज़ियम
       war_memorials_trust: वार मेमोरियल ट्रस्ट
+  world_location:
+    headings:
+      announcements: हमारी घोषणाएं
+      documents: दस्तावेज़
+      mission: हमारा लक्ष्य
+      news: विश्व स्थानों की खबरें
+      organisations: संस्थाएं
+      publications: हमारे प्रकाशन
+      search: देश या क्षेत्र से खोजें
+      statistics: हमारे आंकड़े
+    type:
+      international_delegation:
+        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+      world_location:
+        one: वैश्विक स्थान
+        other: वैश्विक स्थान
   world_news:
-    uk_updates_in_country: "%{country} में यूनाइटेड किंगडम सरकार की ओर से अपडेट, समाचार
-      और कार्यक्रम"
+    uk_updates_in_country: "%{country} में यूनाइटेड किंगडम सरकार की ओर से अपडेट, समाचार और कार्यक्रम"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} खोजें।"
-      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत
-        सूचना का उपयोग करते हैं।
-      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम
-        अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
+      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत सूचना का उपयोग करते हैं।
+      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
       social_media_use_html: इस बारे में हमारी नीतियां पढ़ें %{link}।
-      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें
-        %{link}।
+      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें %{link}।
     find_out_more: पूरी रूप रेखा और समस्त संपर्क विवरण देखें
     headings:
       contact_us: हमसे संपर्क करें

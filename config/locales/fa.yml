@@ -1,3 +1,4 @@
+---
 fa:
   activerecord:
     attributes:
@@ -50,8 +51,7 @@ fa:
     csv:
       cannot_preview: امکان پیش‌نمایش این فایل وجود ندارد.
       download: برای مشاهده محتوای کامل فایل، آن را دانلود کنید.
-      truncated_message: این پیش‌نمایش تنها %{rows} سطر و %{columns} ستون اول را نمایش
-        می‌دهد.
+      truncated_message: این پیش‌نمایش تنها %{rows} سطر و %{columns} ستون اول را نمایش می‌دهد.
     headings:
       order_a_copy: سفارش یک نسخه کپی
       order_a_copy_full: سفارش یک نسخه کپی از سند
@@ -60,19 +60,15 @@ fa:
       unnumbered_command_paper: سند فرمان بدون شماره
       unnumbered_hoc_paper: سند قانون بدون شماره
     opendocument:
-      help_html: این فایل یک قالب <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند
-        باز (OpenDocument)</a> است
+      help_html: این فایل یک قالب <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند باز (OpenDocument)</a> است
     virus_check:
       intro: این پیوست در حال بررسی برای وجود ویروس است.
-      message: ما در حال حاضر این پیوست را در قرنطینه نگه می‌داریم تا زمانی که بررسی
-        وجود ویروس در آن انجام شود. به زودی این پیوست در محل اصلی خود در دسترس خواهد
-        بود.
+      message: ما در حال حاضر این پیوست را در قرنطینه نگه می‌داریم تا زمانی که بررسی وجود ویروس در آن انجام شود. به زودی این پیوست در محل اصلی خود در دسترس خواهد بود.
   broken_links:
     broken:
       subheading: ما در این سند لینک‌های پیدا کردیم که ممکن است خراب باشند
     caution:
-      subheading: ما در مورد برخی از لینک‌ها به مسائلی برخوردیم که ممکن است نشان دهنده
-        وجود مشکلاتی باشند، در ارتباط با آنها باید احتیاط کنید
+      subheading: ما در مورد برخی از لینک‌ها به مسائلی برخوردیم که ممکن است نشان دهنده وجود مشکلاتی باشند، در ارتباط با آنها باید احتیاط کنید
     title: لینک‌های خراب
   change_notes:
     published_at: اولین انتشار
@@ -372,15 +368,12 @@ fa:
     consultation:
       all: تمام مشاوره‌ها
       label: مشاوره‌ها
-    description: می‌توانید از فیلترها استفاده کنید تا تنها نتایجی که مطابق با علایق
-      شما هستند، نمایش داده شوند
+    description: می‌توانید از فیلترها استفاده کنید تا تنها نتایجی که مطابق با علایق شما هستند، نمایش داده شوند
     no_results:
       description: سعی کنید جستجوی خود را گسترده‌تر کرده و دوباره امتحان کنید.
       title: هیچ سند مطابقی وجود ندارد.
       tna_heading: محتوای قدیمی‌تر
-      tna_link: تمام موارد منتشر شده اداری از قبل از می 2010 به GOV.UK منتقل نشده‌اند
-        برای یافتن موارد منتشر شده قبل از می 2010 عبارت <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives (آرشیوهای ملی)</a> را جستجو کنید.
+      tna_link: تمام موارد منتشر شده اداری از قبل از می 2010 به GOV.UK منتقل نشده‌اند برای یافتن موارد منتشر شده قبل از می 2010 عبارت <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives (آرشیوهای ملی)</a> را جستجو کنید.
     world_locations:
       all: تمام مکان‌ها
       label: مکان‌های جهانی
@@ -437,8 +430,7 @@ fa:
     heading: موارد منتشر شده
     recent: موارد اخیراً منتشر شده
     statistics:
-      link_to_published_statistics: در بخش آماری %{link} می‌توانید لیستی از آمار دولتی
-        منتشر شده و آتی را بیابید.
+      link_to_published_statistics: در بخش آماری %{link} می‌توانید لیستی از آمار دولتی منتشر شده و آتی را بیابید.
       moved_notice: مطالب منتشر شده آماری جابجا شده است.
   roles:
     unassigned: هیچ فردی به این نقش تخصیص نیافته است
@@ -494,11 +486,9 @@ fa:
     fields_of_operation: زمینه‌های فعالیت
     filter: فیلتر
     pagination:
-      next_html: بعدی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page}
-        از %{total_pages}</span>
+      next_html: بعدی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page} از %{total_pages}</span>
       next_page: صفحه بعد
-      previous_html: قبلی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page}
-        از %{total_pages}</span>
+      previous_html: قبلی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page} از %{total_pages}</span>
       previous_page: صفحه قبلی
     part_of_collection: 'بخشی از یک مجموعه:'
   time:
@@ -537,10 +527,8 @@ fa:
   worldwide_organisation:
     corporate_information:
       about_our_services_html: اطلاعات کسب کنید %{link}.
-      personal_information_charter_html: "%{link} نحوه رفتار ما با اطلاعات شخصی شما
-        را توضیح می‌دهد."
-      publication_scheme_html: درباره انواع اطلاعاتی که معمولاً در %{link} خود منتشر
-        می‌کنیم، اطلاعات بیشتری کسب کنید.
+      personal_information_charter_html: "%{link} نحوه رفتار ما با اطلاعات شخصی شما را توضیح می‌دهد."
+      publication_scheme_html: درباره انواع اطلاعاتی که معمولاً در %{link} خود منتشر می‌کنیم، اطلاعات بیشتری کسب کنید.
       social_media_use_html: سیاست ما را درباره %{link} مطالعه کنید.
       welsh_language_scheme_html: درباره تعهد ما نسبت به %{link} اطلاعات کسب کنید.
     find_out_more: مشاهده پروفایل کامل و تمام جزئیات تماس

@@ -1,5 +1,142 @@
+---
 et:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Alamkoja dokumendinumber
+        isbn: ISBN
+        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
+      attachment_data:
+        file: Fail
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Manuse käsudokumendi number
+        hoc_paper_number: Alamkoja dokumendinumber
+        isbn: Manuse ISBN
+        title: Manuse pealkiri
+        unique_reference: Manuse unikaalne viide
+        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Lisatud fail
+      edition:
+        nation_inapplicabilities: Välistatud rahvad
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Lisatud fail
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Manuse käsudokumendi number
+        hoc_paper_number: Alamkoja dokumendinumber
+        isbn: Manuse ISBN
+        title: Manuse pealkiri
+        unique_reference: Manuse unikaalne viide
+        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Lisatud fail
+    nested_attachment_data_field_names:
+      file: Lisatud fail
+    nested_attachment_field_names:
+      command_paper_number: Manuse käsudokumendi number
+      hoc_paper_number: Alamkoja dokumendinumber
+      isbn: Manuse ISBN
+      title: Manuse pealkiri
+      unique_reference: Manuse unikaalne viide
+      unnumbered_hoc_paper: Nummerdamata alamkoja dokument
+  announcements:
+    heading: Teadaanded
+  attachment:
+    accessibility:
+      full_help_html: |
+        Kui kasutate abitehnoloogiat (näiteks ekraanilugerit) ja vajate selle dokumendi versiooni juurdepääsetavamas vormingus, saatke e -kiri aadressile %{email}.
+        Palun öelge meile, millist vormingut vajate. See aitab meid, kui ütlete, millist hõlbustustehnoloogiat kasutate.
+      intro: See fail ei pruugi hõlbustustehnoloogia kasutajatele sobida.
+      request_a_different_format: Taotlege juurdepääsetavat vormingut.
+    csv:
+      cannot_preview: Selle faili eelvaadet ei saanud vaadata.
+      download: Laadige fail alla, et näha selle täielikku sisu.
+      truncated_message: See eelvaade näitab ainult %{rows} esimest rida ja %{columns} veergu.
+    headings:
+      order_a_copy: Telli koopia
+      order_a_copy_full: Telli publikatsioonist koopia
+      published: Avaldatud
+      reference: Viide
+      unnumbered_command_paper: Nummerdamata käsudokument
+      unnumbered_hoc_paper: Nummerdamata akt
+    opendocument:
+      help_html: See fail on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> vormingus
+    virus_check:
+      intro: Manusele on tehtud viirusekontroll.
+      message: Hoiame seda manust praegu karantiinis, kuni sellele on tehtud viirusekontroll. Manus on peagi algses asukohas saadaval.
+  broken_links:
+    broken:
+      subheading: Leidsime sellest dokumendist lingid, mis võivad olla katki
+    caution:
+      subheading: Leidsime lingidega küsitavusi, mis võivad viidata probleemidele, olge nende kasutamisel ettevaatlik
+    title: Katkised lingid
+  change_notes:
+    published_at: Esmakordselt avaldatud
+    see_all_updates: vt kõiki värskendusi
+    updated_at: Viimati värskendatud
+  consultation:
+    closed: Suletud
+    closing_today: Suletakse täna
+    closing_tomorrow: Suletakse homme
+    days_left: "%{days_left} päeva jäänud"
+  contact:
+    access_and_opening_times: Juurdepääs ja lahtiolekuajad
+    contact_form: Kontaktivorm
+    email: E-post
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: avaldamine kõmri keeles
+      title:
+        about: Meist
+        about_our_services: Meie teenuste kohta
+        access_and_opening: Kontorisse sisenemine ja lahtiolekuajad
+        accessible_documents_policy: Juurdepääsetavad eeskirjade dokumendid
+        complaints_procedure: Kaebuste menetlus
+        equality_and_diversity: Võrdsus ja mitmekesisus
+        media_enquiries: Meediapäringud
+        membership: Liikmelisus
+        modern_slavery_statement: Tänapäevane avaldus orjuse kohta
+        our_energy_use: Meie energiakasutus
+        our_governance: Meie valitsemistava
+        personal_information_charter: Isikuandmete õigus
+        petitions_and_campaigns: Petitsioonid ja kampaaniad
+        procurement: Hange asukohas %{organisation_name}
+        publication_scheme: Avaldamisskeem
+        recruitment: Töötamine ettevõttes %{organisation_name}
+        research: Uurimine ettevõttes %{organisation_name}
+        social_media_use: Sotsiaalmeedia kasutamine
+        staff_update: Personaliuudised ja teave
+        statistics: Statistika ettevõttes %{organisation_name}
+        terms_of_reference: Pädevus
+        welsh_language_scheme: Walesi keeleskeem
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Sisu
+    footer_meta:
+      full_page_history: kogu lehe ajalugu
+      published: Avaldatud
+      updated: Uuendatud
+    headings:
+      applies_to_nations: Kehtib
+      from: Alates
+      part_of: Osa
+    latest: Viimased dokumendid
+    latest_from: Viimane teemast %{subject}
+    published: avaldatud
+    see_all: Vaata kõiki
+    speech:
+      author_title:
+        minister: Minister
+        speaker: Kirjanik
+      delivered_on: 'Edastati:'
+      delivery_title:
+        minister: Minister
+        speaker: Kõlar
+      written_on: 'Kirjutati:'
     type:
       about:
         one: Umbes
@@ -226,164 +363,7 @@ et:
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
-    contents: Sisu
-    footer_meta:
-      full_page_history: kogu lehe ajalugu
-      published: Avaldatud
-      updated: Uuendatud
-    headings:
-      applies_to_nations: Kehtib
-      from: Alates
-      part_of: Osa
-    latest: Viimased dokumendid
-    latest_from: Viimane teemast %{subject}
-    published: avaldatud
-    see_all: Vaata kõiki
-    speech:
-      author_title:
-        minister: Minister
-        speaker: Kirjanik
-      delivered_on: 'Edastati:'
-      delivery_title:
-        minister: Minister
-        speaker: Kõlar
-      written_on: 'Kirjutati:'
     updated: uuendatud
-  world_location:
-    type:
-      international_delegation:
-        one: Rahvusvaheline delegatsioon
-        other: Rahvusvahelised delegatsioonid
-      world_location:
-        one: Maailma asukoht
-        other: Maailma asukohad
-    headings:
-      announcements: Meie teadaanded
-      documents: Dokumendid
-      mission: Meie missioon
-      news: Maailma asukoha uudised
-      organisations: Organisatsioonid
-      publications: Meie publikatsioonid
-      search: Otsige riigi või territooriumi järgi
-      statistics: Meie statistika
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Alamkoja dokumendinumber
-        isbn: ISBN
-        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
-      attachment_data:
-        file: Fail
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Manuse käsudokumendi number
-        hoc_paper_number: Alamkoja dokumendinumber
-        isbn: Manuse ISBN
-        title: Manuse pealkiri
-        unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Lisatud fail
-      edition:
-        nation_inapplicabilities: Välistatud rahvad
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Lisatud fail
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Manuse käsudokumendi number
-        hoc_paper_number: Alamkoja dokumendinumber
-        isbn: Manuse ISBN
-        title: Manuse pealkiri
-        unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata alamkoja dokument
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Lisatud fail
-    nested_attachment_data_field_names:
-      file: Lisatud fail
-    nested_attachment_field_names:
-      command_paper_number: Manuse käsudokumendi number
-      hoc_paper_number: Alamkoja dokumendinumber
-      isbn: Manuse ISBN
-      title: Manuse pealkiri
-      unique_reference: Manuse unikaalne viide
-      unnumbered_hoc_paper: Nummerdamata alamkoja dokument
-  announcements:
-    heading: Teadaanded
-  attachment:
-    accessibility:
-      full_help_html: |
-        Kui kasutate abitehnoloogiat (näiteks ekraanilugerit) ja vajate selle dokumendi versiooni juurdepääsetavamas vormingus, saatke e -kiri aadressile %{email}.
-        Palun öelge meile, millist vormingut vajate. See aitab meid, kui ütlete, millist hõlbustustehnoloogiat kasutate.
-      intro: See fail ei pruugi hõlbustustehnoloogia kasutajatele sobida.
-      request_a_different_format: Taotlege juurdepääsetavat vormingut.
-    csv:
-      cannot_preview: Selle faili eelvaadet ei saanud vaadata.
-      download: Laadige fail alla, et näha selle täielikku sisu.
-      truncated_message: See eelvaade näitab ainult %{rows} esimest rida ja %{columns}
-        veergu.
-    headings:
-      order_a_copy: Telli koopia
-      order_a_copy_full: Telli publikatsioonist koopia
-      published: Avaldatud
-      reference: Viide
-      unnumbered_command_paper: Nummerdamata käsudokument
-      unnumbered_hoc_paper: Nummerdamata akt
-    opendocument:
-      help_html: See fail on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        vormingus
-    virus_check:
-      intro: Manusele on tehtud viirusekontroll.
-      message: Hoiame seda manust praegu karantiinis, kuni sellele on tehtud viirusekontroll.
-        Manus on peagi algses asukohas saadaval.
-  broken_links:
-    broken:
-      subheading: Leidsime sellest dokumendist lingid, mis võivad olla katki
-    caution:
-      subheading: Leidsime lingidega küsitavusi, mis võivad viidata probleemidele,
-        olge nende kasutamisel ettevaatlik
-    title: Katkised lingid
-  change_notes:
-    published_at: Esmakordselt avaldatud
-    see_all_updates: vt kõiki värskendusi
-    updated_at: Viimati värskendatud
-  consultation:
-    closed: Suletud
-    closing_today: Suletakse täna
-    closing_tomorrow: Suletakse homme
-    days_left: "%{days_left} päeva jäänud"
-  contact:
-    access_and_opening_times: Juurdepääs ja lahtiolekuajad
-    contact_form: Kontaktivorm
-    email: E-post
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: avaldamine kõmri keeles
-      title:
-        about: Meist
-        about_our_services: Meie teenuste kohta
-        access_and_opening: Kontorisse sisenemine ja lahtiolekuajad
-        accessible_documents_policy: Juurdepääsetavad eeskirjade dokumendid
-        complaints_procedure: Kaebuste menetlus
-        equality_and_diversity: Võrdsus ja mitmekesisus
-        media_enquiries: Meediapäringud
-        membership: Liikmelisus
-        modern_slavery_statement: Tänapäevane avaldus orjuse kohta
-        our_energy_use: Meie energiakasutus
-        our_governance: Meie valitsemistava
-        personal_information_charter: Isikuandmete õigus
-        petitions_and_campaigns: Petitsioonid ja kampaaniad
-        procurement: Hange asukohas %{organisation_name}
-        publication_scheme: Avaldamisskeem
-        recruitment: Töötamine ettevõttes %{organisation_name}
-        research: Uurimine ettevõttes %{organisation_name}
-        social_media_use: Sotsiaalmeedia kasutamine
-        staff_update: Personaliuudised ja teave
-        statistics: Statistika ettevõttes %{organisation_name}
-        terms_of_reference: Pädevus
-        welsh_language_scheme: Walesi keeleskeem
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Kõik konsultatsioonid
@@ -393,10 +373,7 @@ et:
       description: Proovige oma otsingut laiendada ja proovige uuesti.
       title: Sobivaid dokumente pole.
       tna_heading: Vanem sisu
-      tna_link: Mitte kõiki osakondade publikatsioone enne 2010. aasta maid ei viidud
-        saidile GOV.UK. 2010 mai eelsete publikatsioonide leidmiseks proovige otsida
-        saidilt <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">riiklikke
-        arhiive</a>.
+      tna_link: Mitte kõiki osakondade publikatsioone enne 2010. aasta maid ei viidud saidile GOV.UK. 2010 mai eelsete publikatsioonide leidmiseks proovige otsida saidilt <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">riiklikke arhiive</a>.
     world_locations:
       all: Kõik asukohad
       label: Maailma asukohad
@@ -453,8 +430,7 @@ et:
     heading: Publikatsioonid
     recent: Hiljutised publikatsioonid
     statistics:
-      link_to_published_statistics: Leia avaldatud ja eelseisev valitsuse statistika
-        loend statistika jaotisest %{link}.
+      link_to_published_statistics: Leia avaldatud ja eelseisev valitsuse statistika loend statistika jaotisest %{link}.
       moved_notice: Statistikapublikatsioonid on kolinud.
   roles:
     unassigned: Sellesse rolli pole kedagi määratud
@@ -510,11 +486,9 @@ et:
     fields_of_operation: Tegevusvaldkonnad
     filter: Filtreeri
     pagination:
-      next_html: Järgmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: Järgmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Järgmine leht
-      previous_html: Eelmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: Eelmine <span class="visuallyhidden">lk</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: Eelmine leht
     part_of_collection: 'Osa kollektsioonist:'
   time:
@@ -531,16 +505,30 @@ et:
       historic_england: Ajalooline Inglismaa
       iwm: Kuninglik sõjamuuseum
       war_memorials_trust: Sõjamälestiste volikogu
+  world_location:
+    headings:
+      announcements: Meie teadaanded
+      documents: Dokumendid
+      mission: Meie missioon
+      news: Maailma asukoha uudised
+      organisations: Organisatsioonid
+      publications: Meie publikatsioonid
+      search: Otsige riigi või territooriumi järgi
+      statistics: Meie statistika
+    type:
+      international_delegation:
+        one: Rahvusvaheline delegatsioon
+        other: Rahvusvahelised delegatsioonid
+      world_location:
+        one: Maailma asukoht
+        other: Maailma asukohad
   world_news:
-    uk_updates_in_country: Ühendkuningriigi valitsuse värskendused, uudised ja sündmused
-      asukohas %{country}
+    uk_updates_in_country: Ühendkuningriigi valitsuse värskendused, uudised ja sündmused asukohas %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Uuri välja %{link}.
-      personal_information_charter_html: Meie %{link} selgitab, kuidas me teie isikuandmeid
-        käsitleme.
-      publication_scheme_html: Lisateavet selle kohta, millist teavet me regulaarselt
-        avaldame oma saidil %{link}.
+      personal_information_charter_html: Meie %{link} selgitab, kuidas me teie isikuandmeid käsitleme.
+      publication_scheme_html: Lisateavet selle kohta, millist teavet me regulaarselt avaldame oma saidil %{link}.
       social_media_use_html: Lugege meie eeskirju saidil %{link}.
       welsh_language_scheme_html: Lisateave meie pühendumuse kohta %{link}.
     find_out_more: Vaata kogu profiili ja kõiki kontaktandmeid

@@ -1,5 +1,143 @@
+---
 ps:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: د ولسي جرګې د کاغذ شمیره
+        isbn: ISBN
+        unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
+      attachment_data:
+        file: دوتنه
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: د ضمیمې قوماندې کاغذ شمیره
+        hoc_paper_number: د ولسي جرګې د کاغذ شمیره
+        isbn: د ISBN ضمیمه
+        title: د ضمیمې سرلیک
+        unique_reference: ضمیمه ځانګړې حواله
+        unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: ضمیمه شوې فایل
+      edition:
+        nation_inapplicabilities: خارج شوي هیوادونه
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: ضمیمه شوې فایل
+      response/consultation_response_attachments/attachment:
+        command_paper_number: د ضمیمې قوماندې کاغذ شمیره
+        hoc_paper_number: د ولسي جرګې د کاغذ شمیره
+        isbn: د ISBN ضمیمه
+        title: د ضمیمې سرلیک
+        unique_reference: ضمیمه ځانګړې حواله
+        unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: ضمیمه شوې فایل
+    nested_attachment_data_field_names:
+      file: ضمیمه شوې فایل
+    nested_attachment_field_names:
+      command_paper_number: د ضمیمې قوماندې کاغذ شمیره
+      hoc_paper_number: د ولسي جرګې د کاغذ شمیره
+      isbn: د ISBN ضمیمه
+      title: د ضمیمې سرلیک
+      unique_reference: ضمیمه ځانګړې حواله
+      unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
+  announcements:
+    heading: اعلانونه
+  attachment:
+    accessibility:
+      full_help_html: |
+        که تاسو مرستندویه ټیکنالوژي کاروئ (such as a screen reader) او اړتیا ورته لرئ
+        د دې لاسوند نسخه په ډیر لاسرسي وړ ب formatه کې ، مهرباني وکړئ بریښنالیک %{email}.
+        مهرباني وکړئ موږ ته ووایاست چې کوم شکل ته اړتیا لرئ. دا به زموږ سره مرسته وکړي که تاسو ووایاست کوم مرستندویه ټیکنالوژي تاسو کاروئ.
+      intro: دا فایل ممکن د مرستندویه ټیکنالوژۍ کاروونکو لپاره مناسب نه وي.
+      request_a_different_format: د لاسرسي وړ فارمټ غوښتنه وکړئ.
+    csv:
+      cannot_preview: دا فایل نشو کتلی.
+      download: د بشپړ مینځپانګو لیدو لپاره فایل ډاونلوډ کړئ.
+      truncated_message: دا له مخکې کته یوازې لومړۍ %{rows} روګانې او %{columns}  کالمونه ښئي.
+    headings:
+      order_a_copy: یوه کاپي امر کړئ
+      order_a_copy_full: د خپرونې یوه کاپي امر کړئ
+      published: خپور شوی
+      reference: ریف
+      unnumbered_command_paper: بې شمیره کمانډ پاڼه
+      unnumbered_hoc_paper: بې شمیره د عمل کاغذ
+    opendocument:
+      help_html: دا فایل په <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ب formatه کې دی
+    virus_check:
+      intro: دا ضمیمه د ویروس معاینه کیږي.
+      message: موږ دا مهال دا ضمیمه په قرنطین کې ساتو تر هغه چې دا ویروس معاینه شوی نه وي. ضمیمه به په لنډ وخت کې اصلي ځای کې شتون ولري.
+  broken_links:
+    broken:
+      subheading: موږ پدې سند کې لینکونه موندلي چې ممکن مات شي
+    caution:
+      subheading: موږ د لینکونو سره ځینې مسلې موندلي چې ممکن ستونزې په ګوته کړي ، تاسو باید د دوی سره وصل کیدو کې احتیاط وکړئ
+    title: مات شوي لینکونه
+  change_notes:
+    published_at: لومړی خپور شو
+    see_all_updates: ټول تازه معلومات وګورئ
+    updated_at: وروستی تازه شوی
+  consultation:
+    closed: تړل شوی
+    closing_today: نن ورځ تړل
+    closing_tomorrow: سبا بندېږي
+    days_left: "%{days_left} ورځې پاتې دي"
+  contact:
+    access_and_opening_times: د لاسرسي او خلاصیدو وختونه
+    contact_form: د اړیکې فورمه
+    email: بریښنالیک
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: په ویلش کې خپرول
+      title:
+        about: زموږ په اړه
+        about_our_services: زموږ د خدماتو په اړه
+        access_and_opening: دفتر ته د لاسرسي او خلاصیدو وختونه
+        accessible_documents_policy: د لاسرسي وړ اسنادو پالیسي
+        complaints_procedure: د شکایتونو کړنلاره
+        equality_and_diversity: مساوات او تنوع
+        media_enquiries: د رسنیو پوښتنې
+        membership: غړیتوب
+        modern_slavery_statement: د عصري غلامۍ بیان
+        our_energy_use: زموږ د انرژۍ کارول
+        our_governance: زموږ حکومتداري
+        personal_information_charter: د شخصي معلوماتو منشور
+        petitions_and_campaigns: غوښتنې او کمپاینونه
+        procurement: په%{organisation_name} کې تدارک
+        publication_scheme: د خپرولو سکیم
+        recruitment: د%{organisation_name} لپاره کار کول
+        research: په %{organisation_name} کې څیړنه
+        social_media_use: د ټولنیزو رسنیو کارول
+        staff_update: د کارکوونکو خبرونه او معلومات
+        statistics: په%{organisation_name} کې احصایې
+        terms_of_reference: د حوالې شرایط
+        welsh_language_scheme: د ویلش ژبې سکیم
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: منځپانګې
+    footer_meta:
+      full_page_history: د پاڼې بشپړ تاریخ
+      published: خپور شوی
+      updated: تازه شوی
+    headings:
+      applies_to_nations: باندې تطبیق کیږي
+      from: له
+      part_of: برخه
+    latest: وروستي اسناد
+    latest_from: له%{subject} څخه وروستی
+    published: خپور شوی
+    see_all: ټول وګوره
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: لیکونکی
+      delivered_on: 'سپارل شوی:'
+      delivery_title:
+        minister: وزیر
+        speaker: سپیکر
+      written_on: 'باندې لیکل شوي:'
     type:
       about:
         one: په اړه
@@ -226,178 +364,17 @@ ps:
       written_statement:
         one: پارلمان ته لیکلې وینا
         other: پارلمان ته لیکلي بیانونه
-    contents: منځپانګې
-    footer_meta:
-      full_page_history: د پاڼې بشپړ تاریخ
-      published: خپور شوی
-      updated: تازه شوی
-    headings:
-      applies_to_nations: باندې تطبیق کیږي
-      from: له
-      part_of: برخه
-    latest: وروستي اسناد
-    latest_from: له%{subject} څخه وروستی
-    published: خپور شوی
-    see_all: ټول وګوره
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: لیکونکی
-      delivered_on: 'سپارل شوی:'
-      delivery_title:
-        minister: وزیر
-        speaker: سپیکر
-      written_on: 'باندې لیکل شوي:'
     updated: تازه شوی
-  world_location:
-    type:
-      international_delegation:
-        one: نړیوال پلاوی
-        other: نړیوال پلاوي
-      world_location:
-        one: د نړۍ موقعیت
-        other: د نړۍ موقعیتونه
-    headings:
-      announcements: زموږ اعلانونه
-      documents: اسناد
-      mission: زموږ ماموریت
-      news: د نړۍ موقعیت خبرونه
-      organisations: سازمانونه
-      publications: زموږ خپرونې
-      search: د هیواد یا سیمې له مخې لټون
-      statistics: زموږ احصایه
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: د ولسي جرګې د کاغذ شمیره
-        isbn: ISBN
-        unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
-      attachment_data:
-        file: دوتنه
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: د ضمیمې قوماندې کاغذ شمیره
-        hoc_paper_number: د ولسي جرګې د کاغذ شمیره
-        isbn: د ISBN ضمیمه
-        title: د ضمیمې سرلیک
-        unique_reference: ضمیمه ځانګړې حواله
-        unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: ضمیمه شوې فایل
-      edition:
-        nation_inapplicabilities: خارج شوي هیوادونه
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: ضمیمه شوې فایل
-      response/consultation_response_attachments/attachment:
-        command_paper_number: د ضمیمې قوماندې کاغذ شمیره
-        hoc_paper_number: د ولسي جرګې د کاغذ شمیره
-        isbn: د ISBN ضمیمه
-        title: د ضمیمې سرلیک
-        unique_reference: ضمیمه ځانګړې حواله
-        unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: ضمیمه شوې فایل
-    nested_attachment_data_field_names:
-      file: ضمیمه شوې فایل
-    nested_attachment_field_names:
-      command_paper_number: د ضمیمې قوماندې کاغذ شمیره
-      hoc_paper_number: د ولسي جرګې د کاغذ شمیره
-      isbn: د ISBN ضمیمه
-      title: د ضمیمې سرلیک
-      unique_reference: ضمیمه ځانګړې حواله
-      unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
-  announcements:
-    heading: اعلانونه
-  attachment:
-    accessibility:
-      full_help_html: |
-        که تاسو مرستندویه ټیکنالوژي کاروئ (such as a screen reader) او اړتیا ورته لرئ
-        د دې لاسوند نسخه په ډیر لاسرسي وړ ب formatه کې ، مهرباني وکړئ بریښنالیک %{email}.
-        مهرباني وکړئ موږ ته ووایاست چې کوم شکل ته اړتیا لرئ. دا به زموږ سره مرسته وکړي که تاسو ووایاست کوم مرستندویه ټیکنالوژي تاسو کاروئ.
-      intro: دا فایل ممکن د مرستندویه ټیکنالوژۍ کاروونکو لپاره مناسب نه وي.
-      request_a_different_format: د لاسرسي وړ فارمټ غوښتنه وکړئ.
-    csv:
-      cannot_preview: دا فایل نشو کتلی.
-      download: د بشپړ مینځپانګو لیدو لپاره فایل ډاونلوډ کړئ.
-      truncated_message: دا له مخکې کته یوازې لومړۍ %{rows} روګانې او %{columns}  کالمونه
-        ښئي.
-    headings:
-      order_a_copy: یوه کاپي امر کړئ
-      order_a_copy_full: د خپرونې یوه کاپي امر کړئ
-      published: خپور شوی
-      reference: ریف
-      unnumbered_command_paper: بې شمیره کمانډ پاڼه
-      unnumbered_hoc_paper: بې شمیره د عمل کاغذ
-    opendocument:
-      help_html: دا فایل په <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        ب formatه کې دی
-    virus_check:
-      intro: دا ضمیمه د ویروس معاینه کیږي.
-      message: موږ دا مهال دا ضمیمه په قرنطین کې ساتو تر هغه چې دا ویروس معاینه شوی
-        نه وي. ضمیمه به په لنډ وخت کې اصلي ځای کې شتون ولري.
-  broken_links:
-    broken:
-      subheading: موږ پدې سند کې لینکونه موندلي چې ممکن مات شي
-    caution:
-      subheading: موږ د لینکونو سره ځینې مسلې موندلي چې ممکن ستونزې په ګوته کړي ،
-        تاسو باید د دوی سره وصل کیدو کې احتیاط وکړئ
-    title: مات شوي لینکونه
-  change_notes:
-    published_at: لومړی خپور شو
-    see_all_updates: ټول تازه معلومات وګورئ
-    updated_at: وروستی تازه شوی
-  consultation:
-    closed: تړل شوی
-    closing_today: نن ورځ تړل
-    closing_tomorrow: سبا بندېږي
-    days_left: "%{days_left} ورځې پاتې دي"
-  contact:
-    access_and_opening_times: د لاسرسي او خلاصیدو وختونه
-    contact_form: د اړیکې فورمه
-    email: بریښنالیک
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: په ویلش کې خپرول
-      title:
-        about: زموږ په اړه
-        about_our_services: زموږ د خدماتو په اړه
-        access_and_opening: دفتر ته د لاسرسي او خلاصیدو وختونه
-        accessible_documents_policy: د لاسرسي وړ اسنادو پالیسي
-        complaints_procedure: د شکایتونو کړنلاره
-        equality_and_diversity: مساوات او تنوع
-        media_enquiries: د رسنیو پوښتنې
-        membership: غړیتوب
-        modern_slavery_statement: د عصري غلامۍ بیان
-        our_energy_use: زموږ د انرژۍ کارول
-        our_governance: زموږ حکومتداري
-        personal_information_charter: د شخصي معلوماتو منشور
-        petitions_and_campaigns: غوښتنې او کمپاینونه
-        procurement: په%{organisation_name} کې تدارک
-        publication_scheme: د خپرولو سکیم
-        recruitment: د%{organisation_name} لپاره کار کول
-        research: په %{organisation_name} کې څیړنه
-        social_media_use: د ټولنیزو رسنیو کارول
-        staff_update: د کارکوونکو خبرونه او معلومات
-        statistics: په%{organisation_name} کې احصایې
-        terms_of_reference: د حوالې شرایط
-        welsh_language_scheme: د ویلش ژبې سکیم
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: ټولې مشورې
       label: مشورې
-    description: تاسو کولی شئ فلټرونه وکاروئ یوازې هغه پایلې وښایاست چې ستاسو ګټو
-      سره سمون خوري
+    description: تاسو کولی شئ فلټرونه وکاروئ یوازې هغه پایلې وښایاست چې ستاسو ګټو سره سمون خوري
     no_results:
       description: هڅه وکړئ خپله لټون پراخه کړئ او بیا هڅه وکړئ.
       title: هیڅ ورته اسناد شتون نلري.
       tna_heading: زوړ مواد
-      tna_link: د می 2010 څخه دمخه ټولې ډیپارټمنټ خپرونې GOV.UK ته مهاجر شوي ندي.
-        د 2010 می څخه دمخه د خپرونو موندلو لپاره د <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">ملي آرشیف</a> د لټون هڅه وکړئ.
+      tna_link: د می 2010 څخه دمخه ټولې ډیپارټمنټ خپرونې GOV.UK ته مهاجر شوي ندي. د 2010 می څخه دمخه د خپرونو موندلو لپاره د <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ملي آرشیف</a> د لټون هڅه وکړئ.
     world_locations:
       all: ټول ځایونه
       label: د نړۍ موقعیتونه
@@ -454,8 +431,7 @@ ps:
     heading: خپرونې
     recent: وروستي خپرونې
     statistics:
-      link_to_published_statistics: د %{link} احصایې برخې کې د خپاره شوي او راتلونکي
-        حکومت احصایو لیست ومومئ.
+      link_to_published_statistics: د %{link} احصایې برخې کې د خپاره شوي او راتلونکي حکومت احصایو لیست ومومئ.
       moved_notice: د احصایوي خپرونو حرکت شوی.
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
@@ -511,11 +487,9 @@ ps:
     fields_of_operation: د عملیاتو ساحې
     filter: فلټر
     pagination:
-      next_html: بل <span class = "visuallyhidden"> پا </ه </span> <span class = "page-numbers">%{current_page}
-        د%{total_pages} </span>
+      next_html: بل <span class = "visuallyhidden"> پا </ه </span> <span class = "page-numbers">%{current_page} د%{total_pages} </span>
       next_page: بل مخ
-      previous_html: مخکینی <span class = "visuallyhidden"> پا </ه </span> <span class
-        = "page-numbers">%{current_page} د%{total_pages} </span>
+      previous_html: مخکینی <span class = "visuallyhidden"> پا </ه </span> <span class = "page-numbers">%{current_page} د%{total_pages} </span>
       previous_page: مخکینی پاه
     part_of_collection: 'د راټولولو یوه برخه:'
   time:
@@ -532,19 +506,32 @@ ps:
       historic_england: تاریخي انګلستان
       iwm: د امپیریل جنګ میوزیم
       war_memorials_trust: د جنګ یادګار باور
+  world_location:
+    headings:
+      announcements: زموږ اعلانونه
+      documents: اسناد
+      mission: زموږ ماموریت
+      news: د نړۍ موقعیت خبرونه
+      organisations: سازمانونه
+      publications: زموږ خپرونې
+      search: د هیواد یا سیمې له مخې لټون
+      statistics: زموږ احصایه
+    type:
+      international_delegation:
+        one: نړیوال پلاوی
+        other: نړیوال پلاوي
+      world_location:
+        one: د نړۍ موقعیت
+        other: د نړۍ موقعیتونه
   world_news:
-    uk_updates_in_country: په %{country} کې د انګلستان حکومت لخوا تازه معلومات ، خبرونه
-      او پیښې
+    uk_updates_in_country: په %{country} کې د انګلستان حکومت لخوا تازه معلومات ، خبرونه او پیښې
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} ومومئ."
-      personal_information_charter_html: زموږ%{link} تشریح کوي چې موږ ستاسو شخصي معلوماتو
-        سره څنګه چلند کوو.
-      publication_scheme_html: د هغه معلوماتو ډولونو په اړه ولولئ چې موږ یې په منظم
-        ډول زموږ په %{link} کې خپروو.
+      personal_information_charter_html: زموږ%{link} تشریح کوي چې موږ ستاسو شخصي معلوماتو سره څنګه چلند کوو.
+      publication_scheme_html: د هغه معلوماتو ډولونو په اړه ولولئ چې موږ یې په منظم ډول زموږ په %{link} کې خپروو.
       social_media_use_html: زموږ پالیسي په %{link} ولولئ.
-      welsh_language_scheme_html: "%{link} ته زموږ د ژمنتیا په اړه معلومات ترلاسه
-        کړئ."
+      welsh_language_scheme_html: "%{link} ته زموږ د ژمنتیا په اړه معلومات ترلاسه کړئ."
     find_out_more: بشپړ پروفایل او د اړیکې ټول توضیحات وګورئ
     headings:
       contact_us: موږ سره اړیکه ونیسئ

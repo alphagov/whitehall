@@ -1,3 +1,4 @@
+---
 th:
   activerecord:
     attributes:
@@ -67,8 +68,7 @@ th:
     broken:
       subheading: เราพบว่าลิงก์ในเอกสารนี้อาจใช้ไม่ได้
     caution:
-      subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา
-        คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
+      subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
     title: ลิงค์ใช้ไม่ได้
   change_notes:
     published_at: เผยแพร่ครั้งแรก
@@ -373,10 +373,7 @@ th:
       description: ลองขยายการค้นหาให้กว้างขึ้นและลองอีกครั้ง
       title: ไม่มีเอกสารที่ตรงกัน
       tna_heading: เนื้อหาเก่า
-      tna_link: สิ่งพิมพ์ของราชการก่อนเดือนพฤษภาคม 2010 บางส่วนไม่ได้รับการย้ายไปยัง
-        GOV.UK หากต้องการค้นหาสิ่งพิมพ์ตั้งแต่ก่อนเดือนพฤษภาคม 2010 ให้ลองค้นหาที่
-        <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The
-        National Archives</a>
+      tna_link: สิ่งพิมพ์ของราชการก่อนเดือนพฤษภาคม 2010 บางส่วนไม่ได้รับการย้ายไปยัง GOV.UK หากต้องการค้นหาสิ่งพิมพ์ตั้งแต่ก่อนเดือนพฤษภาคม 2010 ให้ลองค้นหาที่ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>
     world_locations:
       all: สถานที่ตั้งทุกแห่ง
       label: สถานที่ทั่วโลก
@@ -433,8 +430,7 @@ th:
     heading: สิ่งพิมพ์
     recent: สิ่งพิมพ์ล่าสุด
     statistics:
-      link_to_published_statistics: ดูรายการสถิติของรัฐบาลที่เผยแพร่และที่กำลังจะเผยแพร่ได้ในส่วนสถิติ
-        %{link}
+      link_to_published_statistics: ดูรายการสถิติของรัฐบาลที่เผยแพร่และที่กำลังจะเผยแพร่ได้ในส่วนสถิติ %{link}
       moved_notice: เอกสารทางสถิติถูกย้ายไปแล้ว
   roles:
     unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
@@ -490,11 +486,9 @@ th:
     fields_of_operation: พื้นที่ปฏิบัติการ
     filter: ตัวกรอง
     pagination:
-      next_html: <span class="visuallyhidden">หน้า</span> ถัดไป <span class="page-numbers">%{current_page}
-        จาก %{total_pages} หน้า</span>
+      next_html: <span class="visuallyhidden">หน้า</span> ถัดไป <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
       next_page: หน้าถัดไป
-      previous_html: <span class="visuallyhidden">หน้า</span> ก่อนหน้า <span class="page-numbers">%{current_page}
-        จาก %{total_pages} หน้า</span>
+      previous_html: <span class="visuallyhidden">หน้า</span> ก่อนหน้า <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
       previous_page: หน้าที่แล้ว
     part_of_collection: 'ส่วนของคอลเล็กชัน:'
   time:
@@ -534,8 +528,7 @@ th:
     corporate_information:
       about_our_services_html: ดูข้อมูลเพิ่มเติมที่ %{link}
       personal_information_charter_html: "%{link} ของเราอธิบายว่าเราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณอย่างไร"
-      publication_scheme_html: อ่านเกี่ยวกับประเภทข้อมูลที่เราเผยแพร่เป็นประจำใน %{link}
-        ของเรา
+      publication_scheme_html: อ่านเกี่ยวกับประเภทข้อมูลที่เราเผยแพร่เป็นประจำใน %{link} ของเรา
       social_media_use_html: อ่านนโยบายของเราที่ %{link}
       welsh_language_scheme_html: ดูข้อมูลเพิ่มเติมเกี่ยวกับพันธกิจของเราสำหรับ %{link}
     find_out_more: ดูรายแฟ้มประวัติฉบับเต็มและรายละเอียดการติดต่อทั้งหมด

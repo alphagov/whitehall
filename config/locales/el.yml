@@ -1,5 +1,142 @@
+---
 el:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
+        isbn: ISBN
+        unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
+      attachment_data:
+        file: Αρχείο
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
+        hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
+        isbn: Συνημμένο ISBN
+        title: Τίτλος συνημμένου
+        unique_reference: Μοναδική αναφορά συνημμένου
+        unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Το συνημμένο αρχείο
+      edition:
+        nation_inapplicabilities: Αποκλεισμένα έθνη
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Το συνημμένο αρχείο
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
+        hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
+        isbn: Συνημμένο ISBN
+        title: Τίτλος συνημμένου
+        unique_reference: Μοναδική αναφορά συνημμένου
+        unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Το συνημμένο αρχείο
+    nested_attachment_data_field_names:
+      file: Το συνημμένο αρχείο
+    nested_attachment_field_names:
+      command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
+      hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
+      isbn: Συνημμένο ISBN
+      title: Τίτλος συνημμένου
+      unique_reference: Μοναδική αναφορά συνημμένου
+      unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
+  announcements:
+    heading: Ανακοινώσεις
+  attachment:
+    accessibility:
+      full_help_html: |
+        Εάν χρησιμοποιείτε βοηθητική τεχνολογία (όπως ένα πρόγραμμα ανάγνωσης οθόνης) και χρειάζεστε μια έκδοση αυτού του εγγράφου σε πιο προσιτή μορφή, στείλτε email στην διεύθυνση %{email}.
+        Πείτε μας τι μορφή χρειάζεστε. Θα μας βοηθήσει αν πείτε ποια βοηθητική τεχνολογία χρησιμοποιείτε.
+      intro: Αυτό το αρχείο ενδέχεται να μην είναι κατάλληλο για χρήστες βοηθητικής τεχνολογίας.
+      request_a_different_format: Ζητήστε μια προσβάσιμη μορφή.
+    csv:
+      cannot_preview: Δεν ήταν δυνατή η προεπισκόπηση αυτού του αρχείου.
+      download: Κατεβάστε το αρχείο για να δείτε το πλήρες περιεχόμενό του.
+      truncated_message: Αυτή η προεπισκόπηση εμφανίζει μόνο τις πρώτες %{rows} σειρές και %{columns} στήλες.
+    headings:
+      order_a_copy: Παραγγείλετε ένα αντίγραφο
+      order_a_copy_full: Παραγγείλετε ένα αντίγραφο της δημοσίευσης
+      published: Δημοσιεύθηκε
+      reference: Αναφ.
+      unnumbered_command_paper: Μη αριθμημένο έγγραφο εντολής
+      unnumbered_hoc_paper: Μη αριθμημένο νομοθετικό έγγραφο
+    opendocument:
+      help_html: Αυτό το αρχείο είναι σε μορφή <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+    virus_check:
+      intro: Αυτό το συνημμένο ελέγχεται για ιούς.
+      message: Αυτή τη στιγμή κρατάμε αυτό το συνημμένο σε καραντίνα μέχρι να ελεγχθεί από ιούς. Το συνημμένο θα είναι διαθέσιμο στην αρχική τοποθεσία σύντομα.
+  broken_links:
+    broken:
+      subheading: Βρήκαμε συνδέσμους σε αυτό το έγγραφο που ενδέχεται να είναι κατεστραμμένοι
+    caution:
+      subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
+    title: Σπασμένοι σύνδεσμοι
+  change_notes:
+    published_at: Πρώτη δημοσίευση
+    see_all_updates: δείτε όλες τις ενημερώσεις
+    updated_at: Τελευταία ενημέρωση
+  consultation:
+    closed: Κλειστό
+    closing_today: Κλείνει σήμερα
+    closing_tomorrow: Κλείνει αύριο
+    days_left: Απομένουν %{days_left} ημέρες
+  contact:
+    access_and_opening_times: Πρόσβαση και ώρες λειτουργίας
+    contact_form: Φόρμα επικοινωνίας
+    email: Email
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: εκδόσεις στα Ουαλικά
+      title:
+        about: Σχετικά με εμάς
+        about_our_services: Σχετικά με τις υπηρεσίες μας
+        access_and_opening: Πρόσβαση στην υπηρεσία και ώρες λειτουργίας
+        accessible_documents_policy: Πολιτική προσβάσιμων εγγράφων
+        complaints_procedure: Διαδικασία καταγγελιών
+        equality_and_diversity: Ισότητα και διαφορετικότητα
+        media_enquiries: Ερωτήματα μέσων ενημέρωσης
+        membership: Ιδιότητα μέλους
+        modern_slavery_statement: Δήλωση σύγχρονης δουλείας
+        our_energy_use: Η ενεργειακή μας χρήση
+        our_governance: Η διακυβέρνησή μας
+        personal_information_charter: Πολιτική απορρήτου
+        petitions_and_campaigns: Αιτήσεις και καμπάνιες
+        procurement: Προμήθεια στο %{organisation_name}
+        publication_scheme: Σχέδιο δημοσίευσης
+        recruitment: Εργάζεται για %{organisation_name}
+        research: Έρευνα στο %{organisation_name}
+        social_media_use: Χρήση κοινωνικών μέσων
+        staff_update: Ειδήσεις και πληροφορίες προσωπικού
+        statistics: Στατιστικά στοιχεία στο %{organisation_name}
+        terms_of_reference: Όροι αναφοράς
+        welsh_language_scheme: Πρόγραμμα Ουαλικής γλώσσας
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Περιεχόμενα
+    footer_meta:
+      full_page_history: πλήρες ιστορικό σελίδων
+      published: Δημοσιεύθηκε
+      updated: Ενημερωμένο
+    headings:
+      applies_to_nations: Εφαρμόζεται σε
+      from: Από
+      part_of: Μέρος του
+    latest: Τελευταία έγγραφα
+    latest_from: Τελευταία από %{subject}
+    published: δημοσιεύθηκε
+    see_all: Προβολή όλων
+    speech:
+      author_title:
+        minister: Υπουργός
+        speaker: Συγγραφέας
+      delivered_on: 'Παραδόθηκε στις:'
+      delivery_title:
+        minister: Υπουργός
+        speaker: Ομιλητής
+      written_on: 'Γράφτηκε στις:'
     type:
       about:
         one: Σχετικά
@@ -226,178 +363,17 @@ el:
       written_statement:
         one: Γραπτή δήλωση στη Βουλή
         other: Γραπτές δηλώσεις στη Βουλή
-    contents: Περιεχόμενα
-    footer_meta:
-      full_page_history: πλήρες ιστορικό σελίδων
-      published: Δημοσιεύθηκε
-      updated: Ενημερωμένο
-    headings:
-      applies_to_nations: Εφαρμόζεται σε
-      from: Από
-      part_of: Μέρος του
-    latest: Τελευταία έγγραφα
-    latest_from: Τελευταία από %{subject}
-    published: δημοσιεύθηκε
-    see_all: Προβολή όλων
-    speech:
-      author_title:
-        minister: Υπουργός
-        speaker: Συγγραφέας
-      delivered_on: 'Παραδόθηκε στις:'
-      delivery_title:
-        minister: Υπουργός
-        speaker: Ομιλητής
-      written_on: 'Γράφτηκε στις:'
     updated: ενημερωμένο
-  world_location:
-    type:
-      international_delegation:
-        one: Διεθνής αντιπροσωπεία
-        other: Διεθνείς αντιπροσωπείες
-      world_location:
-        one: Παγκόσμια τοποθεσία
-        other: Παγκόσμιες τοποθεσίες
-    headings:
-      announcements: Οι ανακοινώσεις μας
-      documents: Έγγραφα
-      mission: Η αποστολή μας
-      news: Ειδήσεις παγκόσμιας τοποθεσίας
-      organisations: Οργανισμοί
-      publications: Οι δημοσιεύσεις μας
-      search: Αναζήτηση ανά χώρα ή περιοχή
-      statistics: Τα στατιστικά μας
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
-        isbn: ISBN
-        unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
-      attachment_data:
-        file: Αρχείο
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
-        hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
-        isbn: Συνημμένο ISBN
-        title: Τίτλος συνημμένου
-        unique_reference: Μοναδική αναφορά συνημμένου
-        unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Το συνημμένο αρχείο
-      edition:
-        nation_inapplicabilities: Αποκλεισμένα έθνη
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Το συνημμένο αρχείο
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
-        hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
-        isbn: Συνημμένο ISBN
-        title: Τίτλος συνημμένου
-        unique_reference: Μοναδική αναφορά συνημμένου
-        unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Το συνημμένο αρχείο
-    nested_attachment_data_field_names:
-      file: Το συνημμένο αρχείο
-    nested_attachment_field_names:
-      command_paper_number: Αριθμός συνημμένου εγγράφου εντολής
-      hoc_paper_number: Αριθμός εγγράφου της Βουλής των Κοινοτήτων
-      isbn: Συνημμένο ISBN
-      title: Τίτλος συνημμένου
-      unique_reference: Μοναδική αναφορά συνημμένου
-      unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
-  announcements:
-    heading: Ανακοινώσεις
-  attachment:
-    accessibility:
-      full_help_html: |
-        Εάν χρησιμοποιείτε βοηθητική τεχνολογία (όπως ένα πρόγραμμα ανάγνωσης οθόνης) και χρειάζεστε μια έκδοση αυτού του εγγράφου σε πιο προσιτή μορφή, στείλτε email στην διεύθυνση %{email}.
-        Πείτε μας τι μορφή χρειάζεστε. Θα μας βοηθήσει αν πείτε ποια βοηθητική τεχνολογία χρησιμοποιείτε.
-      intro: Αυτό το αρχείο ενδέχεται να μην είναι κατάλληλο για χρήστες βοηθητικής
-        τεχνολογίας.
-      request_a_different_format: Ζητήστε μια προσβάσιμη μορφή.
-    csv:
-      cannot_preview: Δεν ήταν δυνατή η προεπισκόπηση αυτού του αρχείου.
-      download: Κατεβάστε το αρχείο για να δείτε το πλήρες περιεχόμενό του.
-      truncated_message: Αυτή η προεπισκόπηση εμφανίζει μόνο τις πρώτες %{rows} σειρές
-        και %{columns} στήλες.
-    headings:
-      order_a_copy: Παραγγείλετε ένα αντίγραφο
-      order_a_copy_full: Παραγγείλετε ένα αντίγραφο της δημοσίευσης
-      published: Δημοσιεύθηκε
-      reference: Αναφ.
-      unnumbered_command_paper: Μη αριθμημένο έγγραφο εντολής
-      unnumbered_hoc_paper: Μη αριθμημένο νομοθετικό έγγραφο
-    opendocument:
-      help_html: Αυτό το αρχείο είναι σε μορφή <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Αυτό το συνημμένο ελέγχεται για ιούς.
-      message: Αυτή τη στιγμή κρατάμε αυτό το συνημμένο σε καραντίνα μέχρι να ελεγχθεί
-        από ιούς. Το συνημμένο θα είναι διαθέσιμο στην αρχική τοποθεσία σύντομα.
-  broken_links:
-    broken:
-      subheading: Βρήκαμε συνδέσμους σε αυτό το έγγραφο που ενδέχεται να είναι κατεστραμμένοι
-    caution:
-      subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν
-        κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
-    title: Σπασμένοι σύνδεσμοι
-  change_notes:
-    published_at: Πρώτη δημοσίευση
-    see_all_updates: δείτε όλες τις ενημερώσεις
-    updated_at: Τελευταία ενημέρωση
-  consultation:
-    closed: Κλειστό
-    closing_today: Κλείνει σήμερα
-    closing_tomorrow: Κλείνει αύριο
-    days_left: Απομένουν %{days_left} ημέρες
-  contact:
-    access_and_opening_times: Πρόσβαση και ώρες λειτουργίας
-    contact_form: Φόρμα επικοινωνίας
-    email: Email
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: εκδόσεις στα Ουαλικά
-      title:
-        about: Σχετικά με εμάς
-        about_our_services: Σχετικά με τις υπηρεσίες μας
-        access_and_opening: Πρόσβαση στην υπηρεσία και ώρες λειτουργίας
-        accessible_documents_policy: Πολιτική προσβάσιμων εγγράφων
-        complaints_procedure: Διαδικασία καταγγελιών
-        equality_and_diversity: Ισότητα και διαφορετικότητα
-        media_enquiries: Ερωτήματα μέσων ενημέρωσης
-        membership: Ιδιότητα μέλους
-        modern_slavery_statement: Δήλωση σύγχρονης δουλείας
-        our_energy_use: Η ενεργειακή μας χρήση
-        our_governance: Η διακυβέρνησή μας
-        personal_information_charter: Πολιτική απορρήτου
-        petitions_and_campaigns: Αιτήσεις και καμπάνιες
-        procurement: Προμήθεια στο %{organisation_name}
-        publication_scheme: Σχέδιο δημοσίευσης
-        recruitment: Εργάζεται για %{organisation_name}
-        research: Έρευνα στο %{organisation_name}
-        social_media_use: Χρήση κοινωνικών μέσων
-        staff_update: Ειδήσεις και πληροφορίες προσωπικού
-        statistics: Στατιστικά στοιχεία στο %{organisation_name}
-        terms_of_reference: Όροι αναφοράς
-        welsh_language_scheme: Πρόγραμμα Ουαλικής γλώσσας
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Όλες οι διαβουλεύσεις
       label: Διαβουλεύσεις
-    description: Μπορείτε να χρησιμοποιήσετε τα φίλτρα για να εμφανίσετε μόνο αποτελέσματα
-      που ταιριάζουν με τα ενδιαφέροντά σας
+    description: Μπορείτε να χρησιμοποιήσετε τα φίλτρα για να εμφανίσετε μόνο αποτελέσματα που ταιριάζουν με τα ενδιαφέροντά σας
     no_results:
       description: Δοκιμάστε να διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά.
       title: Δεν βρέθηκαν έγγραφα.
       tna_heading: Παλαιότερο περιεχόμενο
-      tna_link: Δεν μεταφέρθηκαν όλες οι δημοσιεύσεις του τμήματος πριν από τον Μάιο
-        του 2010 στο GOV.UK. Για να βρείτε δημοσιεύσεις πριν από τον Μάιο του 2010,
-        δοκιμάστε να αναζητήσετε στα <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Εθνικά αρχεία</a>.
+      tna_link: Δεν μεταφέρθηκαν όλες οι δημοσιεύσεις του τμήματος πριν από τον Μάιο του 2010 στο GOV.UK. Για να βρείτε δημοσιεύσεις πριν από τον Μάιο του 2010, δοκιμάστε να αναζητήσετε στα <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Εθνικά αρχεία</a>.
     world_locations:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
@@ -436,10 +412,8 @@ el:
       alerts: ειδοποιήσεις μέσω email
       summary: Ειδοποιήσεις μέσω email από το
     embassies:
-      find_an_embassy_lowercase: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας
-        ή προξενείο
-      find_an_embassy_uppercase: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας
-        ή προξενείο
+      find_an_embassy_lowercase: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας ή προξενείο
+      find_an_embassy_uppercase: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας ή προξενείο
     headings:
       contact: Επαφή %{name}
       corporate_information: Εταιρικές πληροφορίες
@@ -456,8 +430,7 @@ el:
     heading: Δημοσιεύσεις
     recent: Πρόσφατες δημοσιεύσεις
     statistics:
-      link_to_published_statistics: Βρείτε μια λίστα δημοσιευμένων και επερχόμενων
-        κρατικών στατιστικών στοιχείων στην ενότητα στατιστικά %{link}.
+      link_to_published_statistics: Βρείτε μια λίστα δημοσιευμένων και επερχόμενων κρατικών στατιστικών στοιχείων στην ενότητα στατιστικά %{link}.
       moved_notice: Οι στατιστικές δημοσιεύσεις έχουν μετακινηθεί.
   roles:
     unassigned: Σε κανέναν δεν έχει ανατεθεί αυτός ο ρόλος
@@ -513,11 +486,9 @@ el:
     fields_of_operation: Πεδία λειτουργίας
     filter: Φίλτρο
     pagination:
-      next_html: Επόμενη <span class="visuallyhidden">σελίδα</span> <span class="page-numbers">%{current_page}
-        από %{total_pages}</span>
+      next_html: Επόμενη <span class="visuallyhidden">σελίδα</span> <span class="page-numbers">%{current_page} από %{total_pages}</span>
       next_page: Επόμενη σελίδα
-      previous_html: Προηγούμενη <span class="visuallyhidden">σελίδα</span> <span
-        class="page-numbers">%{current_page} από %{total_pages}</span>
+      previous_html: Προηγούμενη <span class="visuallyhidden">σελίδα</span> <span class="page-numbers">%{current_page} από %{total_pages}</span>
       previous_page: Προηγούμενη σελίδα
     part_of_collection: 'Μέρος μιας συλλογής:'
   time:
@@ -534,16 +505,30 @@ el:
       historic_england: Ιστορική Αγγλία
       iwm: Αυτοκρατορικό Πολεμικό Μουσείο
       war_memorials_trust: Ταμείο War Trust Memorials Trust
+  world_location:
+    headings:
+      announcements: Οι ανακοινώσεις μας
+      documents: Έγγραφα
+      mission: Η αποστολή μας
+      news: Ειδήσεις παγκόσμιας τοποθεσίας
+      organisations: Οργανισμοί
+      publications: Οι δημοσιεύσεις μας
+      search: Αναζήτηση ανά χώρα ή περιοχή
+      statistics: Τα στατιστικά μας
+    type:
+      international_delegation:
+        one: Διεθνής αντιπροσωπεία
+        other: Διεθνείς αντιπροσωπείες
+      world_location:
+        one: Παγκόσμια τοποθεσία
+        other: Παγκόσμιες τοποθεσίες
   world_news:
-    uk_updates_in_country: Ενημερώσεις, ειδήσεις και εκδηλώσεις από την κυβέρνηση
-      του Ηνωμένου Βασιλείου στην χώρα %{country}
+    uk_updates_in_country: Ενημερώσεις, ειδήσεις και εκδηλώσεις από την κυβέρνηση του Ηνωμένου Βασιλείου στην χώρα %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Μάθετε %{link}.
-      personal_information_charter_html: Το %{link} εξηγεί πώς αντιμετωπίζουμε τα
-        προσωπικά σας στοιχεία.
-      publication_scheme_html: Διαβάστε σχετικά με τους τύπους πληροφοριών που δημοσιεύουμε
-        συνήθως στο %{link}.
+      personal_information_charter_html: Το %{link} εξηγεί πώς αντιμετωπίζουμε τα προσωπικά σας στοιχεία.
+      publication_scheme_html: Διαβάστε σχετικά με τους τύπους πληροφοριών που δημοσιεύουμε συνήθως στο %{link}.
       social_media_use_html: Διαβάστε την πολιτική μας στο %{link}.
       welsh_language_scheme_html: Μάθετε για τη δέσμευσή μας στο %{link}.
     find_out_more: Δείτε το πλήρες προφίλ και όλα τα στοιχεία επικοινωνίας

@@ -1,5 +1,142 @@
+---
 bg:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Номер на документа на Камарата на общините
+        isbn: ISBN
+        unnumbered_hoc_paper: Документ без номер на Камарата на общините
+      attachment_data:
+        file: Файл
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Номер на прикачения нормативен документ
+        hoc_paper_number: Номер на документа на Камарата на общините
+        isbn: Прикачен ISBN
+        title: Заглавие на прикачения файл
+        unique_reference: Уникална референция на прикачения файл
+        unnumbered_hoc_paper: Документ без номер на Камарата на общините
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Прикаченият файл
+      edition:
+        nation_inapplicabilities: Изключени държави
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Прикаченият файл
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Номер на прикачения нормативен документ
+        hoc_paper_number: Номер на документа на Камарата на общините
+        isbn: Прикачен ISBN
+        title: Заглавие на прикачения файл
+        unique_reference: Уникална референция на прикачения файл
+        unnumbered_hoc_paper: Документ без номер на Камарата на общините
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Прикаченият файл
+    nested_attachment_data_field_names:
+      file: Прикаченият файл
+    nested_attachment_field_names:
+      command_paper_number: Номер на прикачения нормативен документ
+      hoc_paper_number: Номер на документа на Камарата на общините
+      isbn: Прикачен ISBN
+      title: Заглавие на прикачения файл
+      unique_reference: Уникална референция на прикачения файл
+      unnumbered_hoc_paper: Документ без номер на Камарата на общините
+  announcements:
+    heading: Съобщения
+  attachment:
+    accessibility:
+      full_help_html: |
+        Ако използвате помощна технология (например екранен четец) и се нуждаете от версия на този документ в по-достъпен формат, моля, изпратете имейл до%{email}.
+        Моля, посочете ни какъв формат ви е необходим. Ще ни улесните, ако посочите какви помощни технологии използвате.
+      intro: Този файл може да не е подходящ за потребители на помощни технологии.
+      request_a_different_format: Поискайте достъпен формат.
+    csv:
+      cannot_preview: Този файл не може да бъде прегледан.
+      download: Изтеглете файла, за да видите пълното му съдържание.
+      truncated_message: На този преглед са показани само първите %{rows} реда и %{columns} колони.
+    headings:
+      order_a_copy: Поръчайте копие
+      order_a_copy_full: Поръчайте копие на публикацията
+      published: Публикуван
+      reference: Реф
+      unnumbered_command_paper: Неномериран нормативен документ
+      unnumbered_hoc_paper: Неномериран законов документ
+    opendocument:
+      help_html: Този файл е във <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">формат OpenDocument</a>
+    virus_check:
+      intro: Прикаченият файл се проверява за вируси.
+      message: В момента сме поставили този прикачен файл под карантина, докато бъде проверен за вируси. След малко прикаченият файл бъде наличен на първоначалното му място.
+  broken_links:
+    broken:
+      subheading: В документа открихме линкове, които може да са повредени
+    caution:
+      subheading: Открихме някои проблеми с линковете, които могат да покажат нередности, и трябва да бъдете внимателни при тяхното използване
+    title: Повредени линкове
+  change_notes:
+    published_at: Публикувано за първи път
+    see_all_updates: вижте всички актуализации
+    updated_at: Последно актуализирани
+  consultation:
+    closed: Закрито
+    closing_today: Закрито днес
+    closing_tomorrow: Закрива се утре
+    days_left: "%{days_left} останали дни"
+  contact:
+    access_and_opening_times: Часове за достъп и отваряне
+    contact_form: Формуляр за контакт
+    email: Имейл
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: публикация на уелски език
+      title:
+        about: За нас
+        about_our_services: Относно нашите услуги
+        access_and_opening: Достъп до офиса и работно време
+        accessible_documents_policy: Политика за достъпни документи
+        complaints_procedure: Процедура за оплаквания
+        equality_and_diversity: Равенство и разнообразие
+        media_enquiries: Запитвания от медиите
+        membership: Членство
+        modern_slavery_statement: Декларация за съвременното робство
+        our_energy_use: Нашата консумация на енергия
+        our_governance: Нашето правителство
+        personal_information_charter: Харта на личната информация
+        petitions_and_campaigns: Петиции и кампании
+        procurement: Обществена поръчка на %{organisation_name}
+        publication_scheme: Схема на публикуване
+        recruitment: Работа за %{organisation_name}
+        research: Проучване на %{organisation_name}
+        social_media_use: Използване на социалните мрежи
+        staff_update: Новини и информация за персонала
+        statistics: Статистика на %{organisation_name}
+        terms_of_reference: Мандатна рамка
+        welsh_language_scheme: Схема на уелски език
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Съдържание
+    footer_meta:
+      full_page_history: история на цяла страница
+      published: Публикуван
+      updated: Актуализиран
+    headings:
+      applies_to_nations: Важи за
+      from: От
+      part_of: Част от
+    latest: Най-нови документи
+    latest_from: Най-нови от %{subject}
+    published: публикуван
+    see_all: Вижте всички
+    speech:
+      author_title:
+        minister: Министър
+        speaker: Писател
+      delivered_on: 'Доставено на:'
+      delivery_title:
+        minister: Министър
+        speaker: Говорител
+      written_on: 'Написано на:'
     type:
       about:
         one: Относно
@@ -226,178 +363,17 @@ bg:
       written_statement:
         one: Писмено изявление в Парламента
         other: Писмени изявления в Парламента
-    contents: Съдържание
-    footer_meta:
-      full_page_history: история на цяла страница
-      published: Публикуван
-      updated: Актуализиран
-    headings:
-      applies_to_nations: Важи за
-      from: От
-      part_of: Част от
-    latest: Най-нови документи
-    latest_from: Най-нови от %{subject}
-    published: публикуван
-    see_all: Вижте всички
-    speech:
-      author_title:
-        minister: Министър
-        speaker: Писател
-      delivered_on: 'Доставено на:'
-      delivery_title:
-        minister: Министър
-        speaker: Говорител
-      written_on: 'Написано на:'
     updated: актуализиран
-  world_location:
-    type:
-      international_delegation:
-        one: Международна делегация
-        other: Международни делегации
-      world_location:
-        one: Местоположение по света
-        other: Местоположения по света
-    headings:
-      announcements: Нашите съобщения
-      documents: Документи
-      mission: Нашата мисия
-      news: Новини за местоположенията в света
-      organisations: Организации
-      publications: Нашите публикации
-      search: Търсене по страна или територия
-      statistics: Нашата статистика
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Номер на документа на Камарата на общините
-        isbn: ISBN
-        unnumbered_hoc_paper: Документ без номер на Камарата на общините
-      attachment_data:
-        file: Файл
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Номер на прикачения нормативен документ
-        hoc_paper_number: Номер на документа на Камарата на общините
-        isbn: Прикачен ISBN
-        title: Заглавие на прикачения файл
-        unique_reference: Уникална референция на прикачения файл
-        unnumbered_hoc_paper: Документ без номер на Камарата на общините
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Прикаченият файл
-      edition:
-        nation_inapplicabilities: Изключени държави
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Прикаченият файл
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Номер на прикачения нормативен документ
-        hoc_paper_number: Номер на документа на Камарата на общините
-        isbn: Прикачен ISBN
-        title: Заглавие на прикачения файл
-        unique_reference: Уникална референция на прикачения файл
-        unnumbered_hoc_paper: Документ без номер на Камарата на общините
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Прикаченият файл
-    nested_attachment_data_field_names:
-      file: Прикаченият файл
-    nested_attachment_field_names:
-      command_paper_number: Номер на прикачения нормативен документ
-      hoc_paper_number: Номер на документа на Камарата на общините
-      isbn: Прикачен ISBN
-      title: Заглавие на прикачения файл
-      unique_reference: Уникална референция на прикачения файл
-      unnumbered_hoc_paper: Документ без номер на Камарата на общините
-  announcements:
-    heading: Съобщения
-  attachment:
-    accessibility:
-      full_help_html: |
-        Ако използвате помощна технология (например екранен четец) и се нуждаете от версия на този документ в по-достъпен формат, моля, изпратете имейл до%{email}.
-        Моля, посочете ни какъв формат ви е необходим. Ще ни улесните, ако посочите какви помощни технологии използвате.
-      intro: Този файл може да не е подходящ за потребители на помощни технологии.
-      request_a_different_format: Поискайте достъпен формат.
-    csv:
-      cannot_preview: Този файл не може да бъде прегледан.
-      download: Изтеглете файла, за да видите пълното му съдържание.
-      truncated_message: На този преглед са показани само първите %{rows} реда и %{columns}
-        колони.
-    headings:
-      order_a_copy: Поръчайте копие
-      order_a_copy_full: Поръчайте копие на публикацията
-      published: Публикуван
-      reference: Реф
-      unnumbered_command_paper: Неномериран нормативен документ
-      unnumbered_hoc_paper: Неномериран законов документ
-    opendocument:
-      help_html: Този файл е във <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">формат
-        OpenDocument</a>
-    virus_check:
-      intro: Прикаченият файл се проверява за вируси.
-      message: В момента сме поставили този прикачен файл под карантина, докато бъде
-        проверен за вируси. След малко прикаченият файл бъде наличен на първоначалното
-        му място.
-  broken_links:
-    broken:
-      subheading: В документа открихме линкове, които може да са повредени
-    caution:
-      subheading: Открихме някои проблеми с линковете, които могат да покажат нередности,
-        и трябва да бъдете внимателни при тяхното използване
-    title: Повредени линкове
-  change_notes:
-    published_at: Публикувано за първи път
-    see_all_updates: вижте всички актуализации
-    updated_at: Последно актуализирани
-  consultation:
-    closed: Закрито
-    closing_today: Закрито днес
-    closing_tomorrow: Закрива се утре
-    days_left: "%{days_left} останали дни"
-  contact:
-    access_and_opening_times: Часове за достъп и отваряне
-    contact_form: Формуляр за контакт
-    email: Имейл
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: публикация на уелски език
-      title:
-        about: За нас
-        about_our_services: Относно нашите услуги
-        access_and_opening: Достъп до офиса и работно време
-        accessible_documents_policy: Политика за достъпни документи
-        complaints_procedure: Процедура за оплаквания
-        equality_and_diversity: Равенство и разнообразие
-        media_enquiries: Запитвания от медиите
-        membership: Членство
-        modern_slavery_statement: Декларация за съвременното робство
-        our_energy_use: Нашата консумация на енергия
-        our_governance: Нашето правителство
-        personal_information_charter: Харта на личната информация
-        petitions_and_campaigns: Петиции и кампании
-        procurement: Обществена поръчка на %{organisation_name}
-        publication_scheme: Схема на публикуване
-        recruitment: Работа за %{organisation_name}
-        research: Проучване на %{organisation_name}
-        social_media_use: Използване на социалните мрежи
-        staff_update: Новини и информация за персонала
-        statistics: Статистика на %{organisation_name}
-        terms_of_reference: Мандатна рамка
-        welsh_language_scheme: Схема на уелски език
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Всички консултации
       label: Консултации
-    description: Можете да използвате филтрите, за да показвате само интересуващите
-      ви резултати
+    description: Можете да използвате филтрите, за да показвате само интересуващите ви резултати
     no_results:
       description: Опитайте да разширите търсенето си и опитайте отново.
       title: Няма съответстващи документи.
       tna_heading: По-старо съдържание
-      tna_link: Не всички публикации на министерствата отпреди май 2010 г. са прехвърлени
-        в GOV.UK. За да намерите публикации отпреди май 2010 г., потърсете в <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Националния архив</a>.
+      tna_link: Не всички публикации на министерствата отпреди май 2010 г. са прехвърлени в GOV.UK. За да намерите публикации отпреди май 2010 г., потърсете в <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Националния архив</a>.
     world_locations:
       all: Всички местоположения
       label: Местоположения по света
@@ -406,8 +382,7 @@ bg:
     subscription: Абонамент за известия по имейл
   fatality_notice:
     british_fatalities: Смъртни случаи във Великобритания
-    none_added: Все още няма добавени съобщения за смъртни случаи в тази област на
-      дейност.
+    none_added: Все още няма добавени съобщения за смъртни случаи в тази област на дейност.
   feeds:
     email: Имейл
     feed: канал
@@ -437,10 +412,8 @@ bg:
       alerts: известия по имейл
       summary: Известия по имейл за
     embassies:
-      find_an_embassy_lowercase: Намиране на британско посолство, върховна комисия
-        или консулство
-      find_an_embassy_uppercase: Намиране на британско посолство, върховна комисия
-        или консулство
+      find_an_embassy_lowercase: Намиране на британско посолство, върховна комисия или консулство
+      find_an_embassy_uppercase: Намиране на британско посолство, върховна комисия или консулство
     headings:
       contact: Контакт %{name}
       corporate_information: Фирмена информация
@@ -457,8 +430,7 @@ bg:
     heading: Публикации
     recent: Скорошни публикации
     statistics:
-      link_to_published_statistics: Намерете списък с публикувани и предстоящи правителствени
-        статистики в раздела за статистика %{link}.
+      link_to_published_statistics: Намерете списък с публикувани и предстоящи правителствени статистики в раздела за статистика %{link}.
       moved_notice: Статистическите публикации са преместени.
   roles:
     unassigned: Няма назначен на тази длъжност
@@ -514,11 +486,9 @@ bg:
     fields_of_operation: Области на действие
     filter: Филтриране
     pagination:
-      next_html: Следваща <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page}
-        от %{total_pages}</span>
+      next_html: Следваща <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} от %{total_pages}</span>
       next_page: Следваща страница
-      previous_html: Предишна <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page}
-        от %{total_pages}</span>
+      previous_html: Предишна <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} от %{total_pages}</span>
       previous_page: Предишна страница
     part_of_collection: 'Част от колекцията:'
   time:
@@ -530,22 +500,35 @@ bg:
       arts_council_england: Съвет по изкуствата в Англия
       bbc: BBC
       british_library: Британска библиотека
-      commonwealth_war_graves_commission: Комисия за военните гробове на Британската
-        общност
+      commonwealth_war_graves_commission: Комисия за военните гробове на Британската общност
       heritage_lottery_fund: Фонд за лотария наследство
       historic_england: Историческа Англия
       iwm: Имперски музей на войната
       war_memorials_trust: Тръст за военните паметници
+  world_location:
+    headings:
+      announcements: Нашите съобщения
+      documents: Документи
+      mission: Нашата мисия
+      news: Новини за местоположенията в света
+      organisations: Организации
+      publications: Нашите публикации
+      search: Търсене по страна или територия
+      statistics: Нашата статистика
+    type:
+      international_delegation:
+        one: Международна делегация
+        other: Международни делегации
+      world_location:
+        one: Местоположение по света
+        other: Местоположения по света
   world_news:
-    uk_updates_in_country: Актуална информация, новини и събития от правителството
-      на Обединеното кралство в %{country}
+    uk_updates_in_country: Актуална информация, новини и събития от правителството на Обединеното кралство в %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Научете повече за %{link}.
-      personal_information_charter_html: В нашия %{link} е обяснено как работим с
-        личната информация.
-      publication_scheme_html: Прочетете за видовете информация, които обичайно публикуваме
-        на нашата %{link}.
+      personal_information_charter_html: В нашия %{link} е обяснено как работим с личната информация.
+      publication_scheme_html: Прочетете за видовете информация, които обичайно публикуваме на нашата %{link}.
       social_media_use_html: Прочетете нашите правила на %{link}.
       welsh_language_scheme_html: Научете повече за нашия ангажимент към %{link}.
     find_out_more: Вижте пълния профил и всички данни за контакт

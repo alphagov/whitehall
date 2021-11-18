@@ -1,5 +1,145 @@
+---
 dr:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: مجلس اوراق عام با شماره
+        isbn: شماره کتاب استندرد بین المللی
+        unnumbered_hoc_paper: مجلس اوراق عام بدون شماره
+      attachment_data:
+        file: فایل
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: شماره اوراق فرمان ضمیمه
+        hoc_paper_number: مجلس اوراق عام با شماره
+        isbn: ضمیمه کتاب استندرد بین المللی
+        title: عنوان ضمیمه
+        unique_reference: رفرنس مخصوص ضمیمه
+        unnumbered_hoc_paper: مجلس اوراق عام بدون شماره
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: فایل ضمیمه
+      edition:
+        nation_inapplicabilities: ملل مستثنی
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: فایل ضمیمه
+      response/consultation_response_attachments/attachment:
+        command_paper_number: شماره اوراق فرمان ضمیمه
+        hoc_paper_number: مجلس اوراق عام با شماره
+        isbn: ضمیمه کتاب استندرد بین المللی
+        title: عنوان ضمیمه
+        unique_reference: رفرنس مخصوص ضمیمه
+        unnumbered_hoc_paper: مجلس اوراق عام بدون شماره
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: فایل ضمیمه
+    nested_attachment_data_field_names:
+      file: فایل ضمیمه
+    nested_attachment_field_names:
+      command_paper_number: شماره اوراق فرمان ضمیمه
+      hoc_paper_number: مجلس اوراق با شماره
+      isbn: ضمیمه کتاب استندرد بین المللی
+      title: عنوان ضمیمه
+      unique_reference: رفرنس مخصوص ضمیمه
+      unnumbered_hoc_paper: مجلس اوراق بدون شماره
+  announcements:
+    heading: اعلامیه ها
+  attachment:
+    accessibility:
+      full_help_html: |-
+        اگز از تکنالوژی کمکی(مانن صفحه خوان) استفاده می نمایید و به نسخهء از این سند دریک فارمتی که بیشتر قابل دسترس باشد ضرورت دارید، لطفاً ایمیل نمایید%{email}.
+        لطفاً بگویید به چه فارمتی نیاز دارید.
+        به ما کمک خواهد کرد اگر بگویید که از چه تکنالوژی کمکی استفاده مینمایید.
+      intro: این فایل ممکن است برای استفاده کننده گان تکنالوژی کمکی مناسب نباشد.
+      request_a_different_format: یک فارمتی قابل دسترس را درخواست نمایید.
+    csv:
+      cannot_preview: پیش نمایش این فایل امکان پذیر نیست.
+      download: جهت مشاهدهء تمام محتوا، فایل را دانلود نمایید.
+      truncated_message: این پیش نمایش فقط%{rows} سطر ها%{columns}وستون هایی اول را نشان میدهد.
+    headings:
+      order_a_copy: یک نسخه سفارش دهید
+      order_a_copy_full: یک نسخه از این نشریه را سفارش دهید
+      published: نشر شد
+      reference: رفرنس
+      unnumbered_command_paper: اوراق فرمان بدون شماره
+      unnumbered_hoc_paper: اوراق قانون بدون شماره
+    opendocument:
+      help_html: این فایل در یک فارمت<a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند باز</a>است
+    virus_check:
+      intro: این فایل ضمیمه در حال بررسی ویروس است.
+      message: |-
+        ما در حال حاضر این ضمیمه را در قرنطینه نگهداری میکنیم تا ویروس آن بررسی شود.
+        فایل ضمیمه به زودی در موقعیت اصلی خود موجود میباشد.
+  broken_links:
+    broken:
+      subheading: ما لنک هایی در این سند پیدا کردیم که ممکن است مخرب باشند.
+    caution:
+      subheading: ما برخی موضوعات را در این لنک ها پیدا نموده ایم که ممکن است نشان دهندهء مشکلاتی باشند، در ضمیمه نمودن آنها باید احتیاط نمایید.
+    title: لنک هایی تخریب شده
+  change_notes:
+    published_at: اولین بار منتشر شد.
+    see_all_updates: تمام آپدیت ها را مشاهده نمایید
+    updated_at: آخرین آپدیت
+  consultation:
+    closed: بسته شد
+    closing_today: امروز بسته میشود
+    closing_tomorrow: فردا بسته میشود
+    days_left: "%{days_left} روز ها باقی مانده"
+  contact:
+    access_and_opening_times: زمان باز کردن و دسترسی
+    contact_form: فورم تماس
+    email: ایمل
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: در ایالت ویلز منتشر میشود
+      title:
+        about: در بارهء ما
+        about_our_services: در بارهء خدمات ما
+        access_and_opening: اوقات باز شدن دفتر
+        accessible_documents_policy: سیاست اسناد قابل دسترس
+        complaints_procedure: طرزالعمل شکایات
+        equality_and_diversity: برابری و تنوع
+        media_enquiries: تحقیق رسانهء
+        membership: عضویت
+        modern_slavery_statement: بیانیهء برده داری مدرن
+        our_energy_use: مصرف انرژی ما
+        our_governance: حکومت داری ما
+        personal_information_charter: منشور اطلاعات خصوصی
+        petitions_and_campaigns: عریضه ها و کمپاین ها
+        procurement: 'خریداری در%{organisation_name} '
+        publication_scheme: طرح انتشار
+        recruitment: کارکردن برای%{organisation_name}
+        research: تحقیق در %{organisation_name}
+        social_media_use: استفاده رسانه هایی اجتماعی
+        staff_update: اخبار و معلومات کارمندان
+        statistics: 'آمار در%{organisation_name} '
+        terms_of_reference: شرایط و ضوابط
+        welsh_language_scheme: طرح زبان ایالت ویلز
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: محتوا
+    footer_meta:
+      full_page_history: تاریخچهء تمام صفحه
+      published: نشر شده
+      updated: آپدیت شده
+    headings:
+      applies_to_nations: اعمال میشود به
+      from: از
+      part_of: بخشی از
+    latest: جدیدترین اسناد
+    latest_from: جدیدترین از%{subject}
+    published: نشر شده
+    see_all: همه را مشاهده نمایید
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: نویسنده
+      delivered_on: 'تحویل داده شد در:'
+      delivery_title:
+        minister: وزیر
+        speaker: سخنران
+      written_on: 'نوشته شد در:'
     type:
       about:
         one: در بارهء ما
@@ -226,166 +366,7 @@ dr:
       written_statement:
         one: بیانیهء کتبی به پارلمان
         other: بیانیه هایی کتبی به پارلمان
-    contents: محتوا
-    footer_meta:
-      full_page_history: تاریخچهء تمام صفحه
-      published: نشر شده
-      updated: آپدیت شده
-    headings:
-      applies_to_nations: اعمال میشود به
-      from: از
-      part_of: بخشی از
-    latest: جدیدترین اسناد
-    latest_from: جدیدترین از%{subject}
-    published: نشر شده
-    see_all: همه را مشاهده نمایید
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: نویسنده
-      delivered_on: 'تحویل داده شد در:'
-      delivery_title:
-        minister: وزیر
-        speaker: سخنران
-      written_on: 'نوشته شد در:'
     updated: آپدیت شد
-  world_location:
-    type:
-      international_delegation:
-        one: هیٔت بین المللی
-        other: هیأت بین المللی
-      world_location:
-        one: موقعیت جهانی
-        other: موقعیت هایی جهانی
-    headings:
-      announcements: اطلاعیه هایی ما
-      documents: اسناد
-      mission: ماموریت ما
-      news: اخبار موقعیت های جهان
-      organisations: سازمان ها
-      publications: انتشارات ما
-      search: جستجو به اساس کشور یا قلمرو
-      statistics: آمار ما
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: مجلس اوراق عام با شماره
-        isbn: شماره کتاب استندرد بین المللی
-        unnumbered_hoc_paper: مجلس اوراق عام بدون شماره
-      attachment_data:
-        file: فایل
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: شماره اوراق فرمان ضمیمه
-        hoc_paper_number: مجلس اوراق عام با شماره
-        isbn: ضمیمه کتاب استندرد بین المللی
-        title: عنوان ضمیمه
-        unique_reference: رفرنس مخصوص ضمیمه
-        unnumbered_hoc_paper: مجلس اوراق عام بدون شماره
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: فایل ضمیمه
-      edition:
-        nation_inapplicabilities: ملل مستثنی
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: فایل ضمیمه
-      response/consultation_response_attachments/attachment:
-        command_paper_number: شماره اوراق فرمان ضمیمه
-        hoc_paper_number: مجلس اوراق عام با شماره
-        isbn: ضمیمه کتاب استندرد بین المللی
-        title: عنوان ضمیمه
-        unique_reference: رفرنس مخصوص ضمیمه
-        unnumbered_hoc_paper: مجلس اوراق عام بدون شماره
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: فایل ضمیمه
-    nested_attachment_data_field_names:
-      file: فایل ضمیمه
-    nested_attachment_field_names:
-      command_paper_number: شماره اوراق فرمان ضمیمه
-      hoc_paper_number: مجلس اوراق با شماره
-      isbn: ضمیمه کتاب استندرد بین المللی
-      title: عنوان ضمیمه
-      unique_reference: رفرنس مخصوص ضمیمه
-      unnumbered_hoc_paper: مجلس اوراق بدون شماره
-  announcements:
-    heading: اعلامیه ها
-  attachment:
-    accessibility:
-      full_help_html: |-
-        اگز از تکنالوژی کمکی(مانن صفحه خوان) استفاده می نمایید و به نسخهء از این سند دریک فارمتی که بیشتر قابل دسترس باشد ضرورت دارید، لطفاً ایمیل نمایید%{email}.
-        لطفاً بگویید به چه فارمتی نیاز دارید.
-        به ما کمک خواهد کرد اگر بگویید که از چه تکنالوژی کمکی استفاده مینمایید.
-      intro: این فایل ممکن است برای استفاده کننده گان تکنالوژی کمکی مناسب نباشد.
-      request_a_different_format: یک فارمتی قابل دسترس را درخواست نمایید.
-    csv:
-      cannot_preview: پیش نمایش این فایل امکان پذیر نیست.
-      download: جهت مشاهدهء تمام محتوا، فایل را دانلود نمایید.
-      truncated_message: این پیش نمایش فقط%{rows} سطر ها%{columns}وستون هایی اول را
-        نشان میدهد.
-    headings:
-      order_a_copy: یک نسخه سفارش دهید
-      order_a_copy_full: یک نسخه از این نشریه را سفارش دهید
-      published: نشر شد
-      reference: رفرنس
-      unnumbered_command_paper: اوراق فرمان بدون شماره
-      unnumbered_hoc_paper: اوراق قانون بدون شماره
-    opendocument:
-      help_html: این فایل در یک فارمت<a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">سند
-        باز</a>است
-    virus_check:
-      intro: این فایل ضمیمه در حال بررسی ویروس است.
-      message: |-
-        ما در حال حاضر این ضمیمه را در قرنطینه نگهداری میکنیم تا ویروس آن بررسی شود.
-        فایل ضمیمه به زودی در موقعیت اصلی خود موجود میباشد.
-  broken_links:
-    broken:
-      subheading: ما لنک هایی در این سند پیدا کردیم که ممکن است مخرب باشند.
-    caution:
-      subheading: ما برخی موضوعات را در این لنک ها پیدا نموده ایم که ممکن است نشان
-        دهندهء مشکلاتی باشند، در ضمیمه نمودن آنها باید احتیاط نمایید.
-    title: لنک هایی تخریب شده
-  change_notes:
-    published_at: اولین بار منتشر شد.
-    see_all_updates: تمام آپدیت ها را مشاهده نمایید
-    updated_at: آخرین آپدیت
-  consultation:
-    closed: بسته شد
-    closing_today: امروز بسته میشود
-    closing_tomorrow: فردا بسته میشود
-    days_left: "%{days_left} روز ها باقی مانده"
-  contact:
-    access_and_opening_times: زمان باز کردن و دسترسی
-    contact_form: فورم تماس
-    email: ایمل
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: در ایالت ویلز منتشر میشود
-      title:
-        about: در بارهء ما
-        about_our_services: در بارهء خدمات ما
-        access_and_opening: اوقات باز شدن دفتر
-        accessible_documents_policy: سیاست اسناد قابل دسترس
-        complaints_procedure: طرزالعمل شکایات
-        equality_and_diversity: برابری و تنوع
-        media_enquiries: تحقیق رسانهء
-        membership: عضویت
-        modern_slavery_statement: بیانیهء برده داری مدرن
-        our_energy_use: مصرف انرژی ما
-        our_governance: حکومت داری ما
-        personal_information_charter: منشور اطلاعات خصوصی
-        petitions_and_campaigns: عریضه ها و کمپاین ها
-        procurement: 'خریداری در%{organisation_name} '
-        publication_scheme: طرح انتشار
-        recruitment: کارکردن برای%{organisation_name}
-        research: تحقیق در %{organisation_name}
-        social_media_use: استفاده رسانه هایی اجتماعی
-        staff_update: اخبار و معلومات کارمندان
-        statistics: 'آمار در%{organisation_name} '
-        terms_of_reference: شرایط و ضوابط
-        welsh_language_scheme: طرح زبان ایالت ویلز
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: تمام مشوره ها
@@ -436,10 +417,8 @@ dr:
       alerts: هشدار هایی ایمل
       summary: هشدار هایی ایمل از
     embassies:
-      find_an_embassy_lowercase: سفارت، کمیسیون عالی و یا قونسلگری بریتانیا را پیدا
-        نمایید
-      find_an_embassy_uppercase: سفارت، کمیسیون عالی و یا قونسلگری بریتانیا را پیدا
-        نمایید
+      find_an_embassy_lowercase: سفارت، کمیسیون عالی و یا قونسلگری بریتانیا را پیدا نمایید
+      find_an_embassy_uppercase: سفارت، کمیسیون عالی و یا قونسلگری بریتانیا را پیدا نمایید
     headings:
       contact: تماس بگیرید%{name}
       corporate_information: اطلاعات شرکت
@@ -456,8 +435,7 @@ dr:
     heading: نشریات
     recent: نشریات جدید
     statistics:
-      link_to_published_statistics: فهرستی از آمار هایی منتشر شده و آمار های آیندهء
-        حکومت را دربخش آمار%{link} پیدا نمایید
+      link_to_published_statistics: فهرستی از آمار هایی منتشر شده و آمار های آیندهء حکومت را دربخش آمار%{link} پیدا نمایید
       moved_notice: انتشارات آمار تغییر کرده است
   roles:
     unassigned: هیچ کسی به این وظیفه گماشته نشده است
@@ -532,15 +510,30 @@ dr:
       historic_england: انگلستان تاریخی
       iwm: موزیم جنگ امپراتوری
       war_memorials_trust: امانت یادبود هایی جنگ
+  world_location:
+    headings:
+      announcements: اطلاعیه هایی ما
+      documents: اسناد
+      mission: ماموریت ما
+      news: اخبار موقعیت های جهان
+      organisations: سازمان ها
+      publications: انتشارات ما
+      search: جستجو به اساس کشور یا قلمرو
+      statistics: آمار ما
+    type:
+      international_delegation:
+        one: هیٔت بین المللی
+        other: هیأت بین المللی
+      world_location:
+        one: موقعیت جهانی
+        other: موقعیت هایی جهانی
   world_news:
     uk_updates_in_country: آپدیت ها، اخبار و رویداد ها از حکومت بریتانیا در%{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: بیابید%{link}.
-      personal_information_charter_html: ما%{link}نحوهء برخورد ما با اطلاعات شخصی
-        شما را بیان مینماید
-      publication_scheme_html: 'دربارهٔ اطلاعاتی که به طور معمول در%{link} نشر مینماییم،
-        بخوانید '
+      personal_information_charter_html: ما%{link}نحوهء برخورد ما با اطلاعات شخصی شما را بیان مینماید
+      publication_scheme_html: 'دربارهٔ اطلاعاتی که به طور معمول در%{link} نشر مینماییم، بخوانید '
       social_media_use_html: سیایت مارا در%{link} بخوانید
       welsh_language_scheme_html: در مورد تعهدات ما به%{link} بدانید
     find_out_more: تمام پروفایل و جزیٔیات تماس با ما را مشاهده نماید

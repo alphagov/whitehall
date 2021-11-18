@@ -1,5 +1,142 @@
+---
 tk:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
+        isbn: ISBN
+        unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
+      attachment_data:
+        file: Faýl
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Goşundy buýruk kagyz belgisi
+        hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
+        isbn: Goşundy ISBN
+        title: Goşundy ady
+        unique_reference: Goşundy ýeketäk salgylanmasy
+        unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Goşulan faýl
+      edition:
+        nation_inapplicabilities: Aýrylan milletler
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Goşulan faýl
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Goşundy buýruk kagyz belgisi
+        hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
+        isbn: Goşundy ISBN
+        title: Goşundy ady
+        unique_reference: Goşundy ýeketäk salgylanmasy
+        unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Goşulan faýl
+    nested_attachment_data_field_names:
+      file: Goşulan faýl
+    nested_attachment_field_names:
+      command_paper_number: Goşundy buýruk kagyz belgisi
+      hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
+      isbn: Goşundy ISBN
+      title: Goşundy ady
+      unique_reference: Goşundy ýeketäk salgylanmasy
+      unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
+  announcements:
+    heading: Bildirişler
+  attachment:
+    accessibility:
+      full_help_html: |
+        Eger siz kömekçi tehnologiýany ulanýan bolsaňyz (meselem, ekran okaýjy ýaly) we bu resminamanyň has elýeterli wersiýasy gerek bolsa, %{email} e-poçta iberiň.
+        Size haýsy format gerekdigini aýdyň. Haýsy kömekçi tehnologiýany ulanýandygyňyzy aýtsaňyz bu bize kömek bolar.
+      intro: Bu faýl kömekçi tehnologiýany ulanyjylar üçin elýeter bolman biler.
+      request_a_different_format: Elýeterli formaty talap etmek.
+    csv:
+      cannot_preview: Bu faýly öňünden görüp bolmaz.
+      download: Doly mazmunyny görmek üçin faýly göçürip alyň.
+      truncated_message: Bu öňünden görüş diňe birinji %{rows} setiri we %{columns} sütüni görkezýär.
+    headings:
+      order_a_copy: Göçürmäni sargyt ediň
+      order_a_copy_full: Neşiriň bir göçürmesini sargyt ediň
+      published: Çap edilen
+      reference: Salgylanma
+      unnumbered_command_paper: Belgisiz buýruk kagyzy
+      unnumbered_hoc_paper: Belgisiz iş kagyzy
+    opendocument:
+      help_html: Bu faýl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Açyk resminama</a> formatda
+    virus_check:
+      intro: Bu goşundy wirus howpy tarapy boýunça barlanyldy.
+      message: Häzirki wagtda bu goşundyny wirus howpy barlagy tamamlanýança karantinde saklaýarys. Goşundy gysga wagtdan asyl ýerleşýän ýerinde elýeterli bolar.
+  broken_links:
+    broken:
+      subheading: Bu resminamada bozuk bolup biläýjek baglanyşyklary tapdyk
+    caution:
+      subheading: Biz baglanyşyklara degişli käbir meseleleri ýüze çykardyk, olardan peýdalanylanda seresap bolmaly
+    title: Döwülen baglanyşyklar
+  change_notes:
+    published_at: Birinji çap edilen
+    see_all_updates: ähli täzelenmelere serediň
+    updated_at: Iň soňky täzelenme
+  consultation:
+    closed: Ýapyk
+    closing_today: Şu gün ýapylýar
+    closing_tomorrow: Ertir ýapylýar
+    days_left: "%{days_left} gün galdy"
+  contact:
+    access_and_opening_times: Giriş we açyk wagtlary
+    contact_form: Habarlaşmak üçin forma
+    email: E-poçta
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: Uels dilinde neşir etmek
+      title:
+        about: Biz barada
+        about_our_services: Hyzmatlarymyz barada
+        access_and_opening: Ofisiň giriş we açylyş wagtlary
+        accessible_documents_policy: Elýeterli resminamalar syýasaty
+        complaints_procedure: Şikaýat prosedurasy
+        equality_and_diversity: Deňlik we dürlülik
+        media_enquiries: Mediýa derňewleri
+        membership: Agzalyk
+        modern_slavery_statement: Häzirki zaman gulçulyk beýannamasy
+        our_energy_use: Biziň energiýa sarp edişimiz
+        our_governance: Dolandyryşymyz
+        personal_information_charter: Şahsy maglumat düzgünnamasy
+        petitions_and_campaigns: Arzalar we kompaniýalar
+        procurement: Satyn alyşlar %{organisation_name}-da
+        publication_scheme: Neşir etmek shemasy
+        recruitment: "%{organisation_name} üçin işlemek"
+        research: "%{organisation_name}-de gözleg"
+        social_media_use: Sosial media ulanylyşy
+        staff_update: Işgärleriň habarlary we maglumatlary
+        statistics: "%{organisation_name} -da statistika"
+        terms_of_reference: Salgylanma adalgalary
+        welsh_language_scheme: Uels dili shemasy
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Mazmuny
+    footer_meta:
+      full_page_history: Doly sahypa taryhy
+      published: Çap edilen
+      updated: Täzelenen
+    headings:
+      applies_to_nations: Degişli
+      from: "-dan"
+      part_of: Bir bölegi
+    latest: Iň täze resminamalar
+    latest_from: "%{subject} iň täze"
+    published: çap edilen
+    see_all: Ählisine serediň
+    speech:
+      author_title:
+        minister: Ministr
+        speaker: Ýazyjy
+      delivered_on: 'Gowşuryldy:'
+      delivery_title:
+        minister: Ministr
+        speaker: Alyp baryjy
+      written_on: 'Ýazylan:'
     type:
       about:
         one: Barada
@@ -226,177 +363,17 @@ tk:
       written_statement:
         one: Mejlise ýazmaça beýan
         other: Mejlise ýazmaça beýanlar
-    contents: Mazmuny
-    footer_meta:
-      full_page_history: Doly sahypa taryhy
-      published: Çap edilen
-      updated: Täzelenen
-    headings:
-      applies_to_nations: Degişli
-      from: "-dan"
-      part_of: Bir bölegi
-    latest: Iň täze resminamalar
-    latest_from: "%{subject} iň täze"
-    published: çap edilen
-    see_all: Ählisine serediň
-    speech:
-      author_title:
-        minister: Ministr
-        speaker: Ýazyjy
-      delivered_on: 'Gowşuryldy:'
-      delivery_title:
-        minister: Ministr
-        speaker: Alyp baryjy
-      written_on: 'Ýazylan:'
     updated: täzelenen
-  world_location:
-    type:
-      international_delegation:
-        one: Halkara delegasiýa
-        other: Halkara delegasiýalar
-      world_location:
-        one: Dünýä ýeri
-        other: Dünýä ýerleri
-    headings:
-      announcements: Biziň bildirişlerimiz
-      documents: Resminamalar
-      mission: Biziň maksadymyz
-      news: Dünýä ýeri habarlary
-      organisations: Guramalar
-      publications: Biziň neşirlerimiz
-      search: Döwlet ýa-da territoriýa boýunça gözlemek
-      statistics: Biziň statistikamyz
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
-        isbn: ISBN
-        unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
-      attachment_data:
-        file: Faýl
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Goşundy buýruk kagyz belgisi
-        hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
-        isbn: Goşundy ISBN
-        title: Goşundy ady
-        unique_reference: Goşundy ýeketäk salgylanmasy
-        unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Goşulan faýl
-      edition:
-        nation_inapplicabilities: Aýrylan milletler
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Goşulan faýl
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Goşundy buýruk kagyz belgisi
-        hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
-        isbn: Goşundy ISBN
-        title: Goşundy ady
-        unique_reference: Goşundy ýeketäk salgylanmasy
-        unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Goşulan faýl
-    nested_attachment_data_field_names:
-      file: Goşulan faýl
-    nested_attachment_field_names:
-      command_paper_number: Goşundy buýruk kagyz belgisi
-      hoc_paper_number: Jemgyýetçilik palatasy kagyz belgisi
-      isbn: Goşundy ISBN
-      title: Goşundy ady
-      unique_reference: Goşundy ýeketäk salgylanmasy
-      unnumbered_hoc_paper: Jemgyýetçilik palatasy belisiz kagyzy
-  announcements:
-    heading: Bildirişler
-  attachment:
-    accessibility:
-      full_help_html: |
-        Eger siz kömekçi tehnologiýany ulanýan bolsaňyz (meselem, ekran okaýjy ýaly) we bu resminamanyň has elýeterli wersiýasy gerek bolsa, %{email} e-poçta iberiň.
-        Size haýsy format gerekdigini aýdyň. Haýsy kömekçi tehnologiýany ulanýandygyňyzy aýtsaňyz bu bize kömek bolar.
-      intro: Bu faýl kömekçi tehnologiýany ulanyjylar üçin elýeter bolman biler.
-      request_a_different_format: Elýeterli formaty talap etmek.
-    csv:
-      cannot_preview: Bu faýly öňünden görüp bolmaz.
-      download: Doly mazmunyny görmek üçin faýly göçürip alyň.
-      truncated_message: Bu öňünden görüş diňe birinji %{rows} setiri we %{columns}
-        sütüni görkezýär.
-    headings:
-      order_a_copy: Göçürmäni sargyt ediň
-      order_a_copy_full: Neşiriň bir göçürmesini sargyt ediň
-      published: Çap edilen
-      reference: Salgylanma
-      unnumbered_command_paper: Belgisiz buýruk kagyzy
-      unnumbered_hoc_paper: Belgisiz iş kagyzy
-    opendocument:
-      help_html: Bu faýl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Açyk
-        resminama</a> formatda
-    virus_check:
-      intro: Bu goşundy wirus howpy tarapy boýunça barlanyldy.
-      message: Häzirki wagtda bu goşundyny wirus howpy barlagy tamamlanýança karantinde
-        saklaýarys. Goşundy gysga wagtdan asyl ýerleşýän ýerinde elýeterli bolar.
-  broken_links:
-    broken:
-      subheading: Bu resminamada bozuk bolup biläýjek baglanyşyklary tapdyk
-    caution:
-      subheading: Biz baglanyşyklara degişli käbir meseleleri ýüze çykardyk, olardan
-        peýdalanylanda seresap bolmaly
-    title: Döwülen baglanyşyklar
-  change_notes:
-    published_at: Birinji çap edilen
-    see_all_updates: ähli täzelenmelere serediň
-    updated_at: Iň soňky täzelenme
-  consultation:
-    closed: Ýapyk
-    closing_today: Şu gün ýapylýar
-    closing_tomorrow: Ertir ýapylýar
-    days_left: "%{days_left} gün galdy"
-  contact:
-    access_and_opening_times: Giriş we açyk wagtlary
-    contact_form: Habarlaşmak üçin forma
-    email: E-poçta
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: Uels dilinde neşir etmek
-      title:
-        about: Biz barada
-        about_our_services: Hyzmatlarymyz barada
-        access_and_opening: Ofisiň giriş we açylyş wagtlary
-        accessible_documents_policy: Elýeterli resminamalar syýasaty
-        complaints_procedure: Şikaýat prosedurasy
-        equality_and_diversity: Deňlik we dürlülik
-        media_enquiries: Mediýa derňewleri
-        membership: Agzalyk
-        modern_slavery_statement: Häzirki zaman gulçulyk beýannamasy
-        our_energy_use: Biziň energiýa sarp edişimiz
-        our_governance: Dolandyryşymyz
-        personal_information_charter: Şahsy maglumat düzgünnamasy
-        petitions_and_campaigns: Arzalar we kompaniýalar
-        procurement: Satyn alyşlar %{organisation_name}-da
-        publication_scheme: Neşir etmek shemasy
-        recruitment: "%{organisation_name} üçin işlemek"
-        research: "%{organisation_name}-de gözleg"
-        social_media_use: Sosial media ulanylyşy
-        staff_update: Işgärleriň habarlary we maglumatlary
-        statistics: "%{organisation_name} -da statistika"
-        terms_of_reference: Salgylanma adalgalary
-        welsh_language_scheme: Uels dili shemasy
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Ähli maslahatlar
       label: Maslahatlar
-    description: Diňe sizi gyzyklandyrýan maglumatlary görmek üçin filtrleri ulanyp
-      bilersiňiz
+    description: Diňe sizi gyzyklandyrýan maglumatlary görmek üçin filtrleri ulanyp bilersiňiz
     no_results:
       description: Gözlegleriňizi has giň göwrümli etmeklige çalşyň we gaýtadan synanşyň.
       title: Gabat gelýän resminamalar ýok.
       tna_heading: Köneräk mazmun
-      tna_link: 2010-njy ýylyň maý aýyndan öňki bölüm neşirleriniň hemmesi GOV.UK-a
-        göçürilmedi. 2010-njy ýylyň maý aýyndan öň neşirleri tapmak üçin <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Milli arhiwi</a> gözläp görüň.
+      tna_link: 2010-njy ýylyň maý aýyndan öňki bölüm neşirleriniň hemmesi GOV.UK-a göçürilmedi. 2010-njy ýylyň maý aýyndan öň neşirleri tapmak üçin <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arhiwi</a> gözläp görüň.
     world_locations:
       all: Ähli ýerler
       label: Dünýä ýerleri
@@ -435,10 +412,8 @@ tk:
       alerts: e-poçta duýduryşlary
       summary: E-poçta duýduryşlary
     embassies:
-      find_an_embassy_lowercase: Iňlis ilçihanasyny, ýokary komissiýany ýa-da konsullygy
-        tapyň
-      find_an_embassy_uppercase: Iňlis ilçihanasyny, Ýokary komissiýany ýa-da Konsullygy
-        tapyň
+      find_an_embassy_lowercase: Iňlis ilçihanasyny, ýokary komissiýany ýa-da konsullygy tapyň
+      find_an_embassy_uppercase: Iňlis ilçihanasyny, Ýokary komissiýany ýa-da Konsullygy tapyň
     headings:
       contact: Habarlaşyň %{name}
       corporate_information: Korporatiw maglumatlar
@@ -455,8 +430,7 @@ tk:
     heading: Neşirler
     recent: Soňky neşirler
     statistics:
-      link_to_published_statistics: Neşirleriň we ýetip gelýän hökümet statistikasynyň
-        sanawyny %{link} statisika bölüminden tapyp bilersiňiz.
+      link_to_published_statistics: Neşirleriň we ýetip gelýän hökümet statistikasynyň sanawyny %{link} statisika bölüminden tapyp bilersiňiz.
       moved_notice: Statistika neşirleri göçürildi.
   roles:
     unassigned: Bu wezipä hiç kim bellenmedi
@@ -512,11 +486,9 @@ tk:
     fields_of_operation: Iş meýdanlary
     filter: Filtr
     pagination:
-      next_html: Indiki <span class="visuallyhidden">sahypa</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: Indiki <span class="visuallyhidden">sahypa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Indiki sahypa
-      previous_html: Geçen <span class="visuallyhidden">sahypa</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: Geçen <span class="visuallyhidden">sahypa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: Geçen sahypa
     part_of_collection: 'Ýygyndynyň bir bölegi:'
   time:
@@ -533,20 +505,33 @@ tk:
       historic_england: Taryhy Angliýa
       iwm: Imperial Uruş muzeýi
       war_memorials_trust: Uruş ýadygärlikleri ynamy
+  world_location:
+    headings:
+      announcements: Biziň bildirişlerimiz
+      documents: Resminamalar
+      mission: Biziň maksadymyz
+      news: Dünýä ýeri habarlary
+      organisations: Guramalar
+      publications: Biziň neşirlerimiz
+      search: Döwlet ýa-da territoriýa boýunça gözlemek
+      statistics: Biziň statistikamyz
+    type:
+      international_delegation:
+        one: Halkara delegasiýa
+        other: Halkara delegasiýalar
+      world_location:
+        one: Dünýä ýeri
+        other: Dünýä ýerleri
   world_news:
-    uk_updates_in_country: Täzelenmeler, habarlar we BK hökümetine degişli %{country}
-      çäreler
+    uk_updates_in_country: Täzelenmeler, habarlar we BK hökümetine degişli %{country} çäreler
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Öwreniň %{link}.
-      personal_information_charter_html: Biziň %{link} baglanyşygymyz siziň şahsy
-        maglumatlaryňyza nähili çemeleşýändigimiz barada habar berýär.
-      publication_scheme_html: Biziň %{link} baglanyşygymyzdan nähili habarlary yzygiderli
-        neşir edýändigimizi okaň.
+      personal_information_charter_html: Biziň %{link} baglanyşygymyz siziň şahsy maglumatlaryňyza nähili çemeleşýändigimiz barada habar berýär.
+      publication_scheme_html: Biziň %{link} baglanyşygymyzdan nähili habarlary yzygiderli neşir edýändigimizi okaň.
       social_media_use_html: Biziň syýasatymyz barada %{link} baglanyşygymyzda okaň.
       welsh_language_scheme_html: Niýetimiz barada %{link}-da okaň.
-    find_out_more: Doly maglumatlarymyzy we ähli habarlaşmak üçin maglumatlarymyzy
-      okaň
+    find_out_more: Doly maglumatlarymyzy we ähli habarlaşmak üçin maglumatlarymyzy okaň
     headings:
       contact_us: Biziň bilen habarlaşyň
       corporate_information: Korporatiw maglumatlar

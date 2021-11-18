@@ -1,3 +1,4 @@
+---
 tr:
   activerecord:
     attributes:
@@ -50,8 +51,7 @@ tr:
     csv:
       cannot_preview: Bu dosya ön izlenemedi.
       download: Dosyanın tüm içeriğini görüntülemek üzere indirin.
-      truncated_message: Bu ön izlemede yalnızca ilk %{rows} sıra ve %{columns} sütun
-        gösterilir.
+      truncated_message: Bu ön izlemede yalnızca ilk %{rows} sıra ve %{columns} sütun gösterilir.
     headings:
       order_a_copy: Bir nüsha sipariş edin
       order_a_copy_full: Yayının bir nüshasını sipariş edin
@@ -60,18 +60,15 @@ tr:
       unnumbered_command_paper: Sayı verilmemiş talimat evrakı
       unnumbered_hoc_paper: Sayı verilmemiş kanun belgesi
     opendocument:
-      help_html: Bu dosya bir <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        formatındadır
+      help_html: Bu dosya bir <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatındadır
     virus_check:
       intro: Bu ekin virüs kontrolü yapılıyor.
-      message: Virüs kontrol edilene kadar şu an da bu eki karantinada tutuyoruz.
-        Eke kısa süre içinde orijinal konumdan ulaşılabilir.
+      message: Virüs kontrol edilene kadar şu an da bu eki karantinada tutuyoruz. Eke kısa süre içinde orijinal konumdan ulaşılabilir.
   broken_links:
     broken:
       subheading: Bu belgede kırık olabilecek linkler bulduk
     caution:
-      subheading: Linklerde problem göstergesi olabilecek bazı sorunlar bulduk, bunlara
-        bağlantı kurarken dikkatli olmalısınız
+      subheading: Linklerde problem göstergesi olabilecek bazı sorunlar bulduk, bunlara bağlantı kurarken dikkatli olmalısınız
     title: Kırık linkler
   change_notes:
     published_at: İlk yayınlanan
@@ -371,15 +368,12 @@ tr:
     consultation:
       all: Tüm danışmalar
       label: Danışmalar
-    description: Yalnızca ilgi alanlarınızla eşleşen sonuçları göstermesi için filtreleri
-      kullanabilirsiniz
+    description: Yalnızca ilgi alanlarınızla eşleşen sonuçları göstermesi için filtreleri kullanabilirsiniz
     no_results:
       description: Aramanızı genişletmeye çalışın ve yeniden deneyin.
       title: Eşleşen belge yok.
       tna_heading: Daha eski içerik
-      tna_link: 2010 Mayıs ayından önceki müdürlük yayınlarının tamamı GOV.UK’ye taşınmamıştır.
-        2010 Mayıs’tan önceki yayınları bulmak için şunu aratmaya çalışın <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Ulusal arşivler</a>.
+      tna_link: 2010 Mayıs ayından önceki müdürlük yayınlarının tamamı GOV.UK’ye taşınmamıştır. 2010 Mayıs’tan önceki yayınları bulmak için şunu aratmaya çalışın <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Ulusal arşivler</a>.
     world_locations:
       all: Tüm konumlar
       label: Dünya geneli konumlar
@@ -418,10 +412,8 @@ tr:
       alerts: eposta uyarıları
       summary: Şuradan eposta uyarıları
     embassies:
-      find_an_embassy_lowercase: Bir İngiliz büyükelçiliği, yüksek komisyonu veya
-        konsolosluğu
-      find_an_embassy_uppercase: Bir İngiliz Büyükelçiliği, Yüksek Komisyonu veya
-        Konsolosluğu
+      find_an_embassy_lowercase: Bir İngiliz büyükelçiliği, yüksek komisyonu veya konsolosluğu
+      find_an_embassy_uppercase: Bir İngiliz Büyükelçiliği, Yüksek Komisyonu veya Konsolosluğu
     headings:
       contact: İrtibat %{name}
       corporate_information: Kurumsal bilgiler
@@ -438,8 +430,7 @@ tr:
     heading: Yayınlar
     recent: Yakın tarihli yayınlar
     statistics:
-      link_to_published_statistics: "%{link} istatistik bölümünde yayınlanan ve gelecek
-        kamu istatistiklerinin bir listesini bulabilirsiniz."
+      link_to_published_statistics: "%{link} istatistik bölümünde yayınlanan ve gelecek kamu istatistiklerinin bir listesini bulabilirsiniz."
       moved_notice: İstatistik yayınları taşındı.
   roles:
     unassigned: Bu göreve kimse atanmamış
@@ -495,11 +486,9 @@ tr:
     fields_of_operation: 'Faaliyet alanları:'
     filter: Filtre
     pagination:
-      next_html: Sonraki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: Sonraki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Sonraki sayfa
-      previous_html: Önceki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: Önceki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: Önceki sayfa
     part_of_collection: 'Koleksiyonun parçası:'
   time:
@@ -511,8 +500,7 @@ tr:
       arts_council_england: İngiltere Sanat Konseyi
       bbc: BBC
       british_library: Britanya Kütüphanesi
-      commonwealth_war_graves_commission: İngiliz Milletler Topluluğu Savaş Mezarları
-        Komisyonu
+      commonwealth_war_graves_commission: İngiliz Milletler Topluluğu Savaş Mezarları Komisyonu
       heritage_lottery_fund: Miras Piyango Fonu
       historic_england: İngiltere Tarihi Binalar Komisyonu
       iwm: İmparatorluk Savaş Müzesi
@@ -535,15 +523,12 @@ tr:
         one: Dünya geneli konum
         other: Dünya geneli konumlar
   world_news:
-    uk_updates_in_country: "%{country} ülkesindeki İngiltere hükûmetinden bilgilendirme,
-      haber ve etkinlikler"
+    uk_updates_in_country: "%{country} ülkesindeki İngiltere hükûmetinden bilgilendirme, haber ve etkinlikler"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} bağlantısını keşfedin."
-      personal_information_charter_html: "%{link} bağlantımız özel bilgilerinizi nasıl
-        işlediğimizi açıklamaktadır."
-      publication_scheme_html: "%{link} bağlantımızda düzenli olarak yayınladığımız
-        bilgi türlerini okuyun."
+      personal_information_charter_html: "%{link} bağlantımız özel bilgilerinizi nasıl işlediğimizi açıklamaktadır."
+      publication_scheme_html: "%{link} bağlantımızda düzenli olarak yayınladığımız bilgi türlerini okuyun."
       social_media_use_html: "%{link} bağlantısındaki politikamızı okuyun."
       welsh_language_scheme_html: "%{link} bağlantısına taahhüdümüzü okuyun."
     find_out_more: Tüm profil ve tüm irtibat bilgilerine bakın

@@ -1,5 +1,143 @@
+---
 hy:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
+        isbn: ISBN
+        unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
+      attachment_data:
+        file: Թղթապանակ
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
+        hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
+        isbn: Կցորդի ISBN
+        title: Կցորդի անվանումը
+        unique_reference: Կցորդի հատուկ հղումը
+        unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Կցված ֆայլը
+      edition:
+        nation_inapplicabilities: Բացառված ազգությունները
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Կցված ֆայլը
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
+        hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
+        isbn: Կցորդի ISBN
+        title: Կցորդի անվանումը
+        unique_reference: Կցորդի հատուկ հղումը
+        unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Կցված ֆայլը
+    nested_attachment_data_field_names:
+      file: Կցված ֆայլը
+    nested_attachment_field_names:
+      command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
+      hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
+      isbn: Կցորդի ISBN
+      title: Կցորդի անվանումը
+      unique_reference: Կցորդի հատուկ հղումը
+      unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
+  announcements:
+    heading: Հայտարարություններ
+  attachment:
+    accessibility:
+      full_help_html: |
+        Եթե օգտվում եք օժանդակ տեխնոլոգիայից (ինչպես օրինակ՝ էկրանի ընթերցիչ), և ձեզ անհրաժեշտ է
+        այս փաստաթղթի ավելի հասանելի ձևաչափով տարբերակը, ուղարկեք էլ․ նամակ %{email} հասցեին։
+        Խնդրում ենք նշել, թե ինչ ձևաչափով եք ցանկանում ստանալ փաստաթուղթը: Մեզ կօգնի նաև, եթե նշեք՝ ինչ օժանդակ տեխնոլոգիայից եք օգտվում:
+      intro: 'Այս ֆայլը կարող է համապատասխան չլինել օժանդակ տեխնոլոգիայից օգտվողների համար:'
+      request_a_different_format: 'Նշեք համապատասխան ձևաչափ:'
+    csv:
+      cannot_preview: 'Այս ֆայլը հնարավոր չէ նախադիտել:'
+      download: 'Ներբեռնեք ֆայլը ամբողջ բովանդակությունը դիտելու համար:'
+      truncated_message: 'Նախադիտման մեջ երևում են միայն առաջին %{rows} տողերը և %{columns} սյունակները:'
+    headings:
+      order_a_copy: Պատվիրել պատճենը
+      order_a_copy_full: Պատվիրել հրապարակման պատճենը
+      published: Հրապարակված
+      reference: Հղում
+      unnumbered_command_paper: Չհամարակալված պաշտոնական փաստաթուղթ
+      unnumbered_hoc_paper: Չհամարակալված օրինական փաստաթուղթ
+    opendocument:
+      help_html: Այս ֆայլը <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ձևաչափով է
+    virus_check:
+      intro: Կցված ֆայլը վիրուսներից ստուգման փուլում է։
+      message: 'Այս պահին կցված այս ֆայլը պահում ենք կարանտինում, քանի դեռ վիրուսների ստուգման փուլը չի ավարտվել։ Քիչ անց կցված ֆայլը հասանելի կլինի սկզբնական տեղադրված վայրում:'
+  broken_links:
+    broken:
+      subheading: Այս փաստաթղթում նկատել ենք հղումներ, որոնք հնարավոր է՝ այլևս չեն գործում
+    caution:
+      subheading: Մենք նկատել ենք խնդրահարույց հղումների հետ կապված որոշ խնդիրներ․ դուք պետք է զգույշ լինեք դրանց կցելու ժամանակ
+    title: Չգործող հղումներ
+  change_notes:
+    published_at: Առաջին անգամ հրապարակվել է
+    see_all_updates: դիտել բոլոր թարմացումները
+    updated_at: Վերջին անգամ թարմացվել է
+  consultation:
+    closed: Ավարտվել է
+    closing_today: Այսօր ավարտվում է
+    closing_tomorrow: Ավարտվում է վաղը
+    days_left: Մնացել է %{days_left} օր
+  contact:
+    access_and_opening_times: Մուտք և հասանելիության ժամեր
+    contact_form: Կոնտակտային ձև
+    email: Էլ․ փոստ
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: տպագրվում է ուելսերեն
+      title:
+        about: Մեր մասին
+        about_our_services: Մեր ծառայությունների մասին
+        access_and_opening: Գրասենյակի մուտք և հասանելիության ժամեր
+        accessible_documents_policy: Հասանելի փաստաթղթերի քաղաքականություն
+        complaints_procedure: Բողոքների ընթացակարգ
+        equality_and_diversity: Հավասարություն և բազմազանություն
+        media_enquiries: Լրատվամիջոցների հարցումներ
+        membership: Անդամակցություն
+        modern_slavery_statement: Ժամանակակից ստրկության վերաբերյալ հայտարարություն
+        our_energy_use: Մեր եռանդի ներդրումը
+        our_governance: Մեր կառավարման գաղափարը
+        personal_information_charter: Անձնական տվյալների կանոնադրություն
+        petitions_and_campaigns: Պետիցիաներ և արշավներ
+        procurement: Գնումներ %{organisation_name} կազմակերպությունում
+        publication_scheme: Հրապարակման պլան
+        recruitment: Աշխատում է %{organisation_name} կազմակերպության համար
+        research: Հետազոտություն %{organisation_name} կազմակերպությունում
+        social_media_use: Սոցիալական մեդիայի կիրառում
+        staff_update: Անձնակազմի նորություններ և տեղեկություն
+        statistics: Վիճակագրություն %{organisation_name} կազմակերպությունում
+        terms_of_reference: Տեխնիկական առաջադրանքներ
+        welsh_language_scheme: Ուելսերենի սխեմա
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Բովանդակություն
+    footer_meta:
+      full_page_history: ամբողջ էջի պատմությունը
+      published: Հրապարակված
+      updated: Թարմացված
+    headings:
+      applies_to_nations: Կիրառվում է
+      from: Ումից՝
+      part_of: Մաս է՝
+    latest: Թարմացված փաստաթղթեր
+    latest_from: Թարմացված փաստաթղթեր %{subject} թեմայի շուրջ
+    published: հրապարակված
+    see_all: Դիտել բոլորը
+    speech:
+      author_title:
+        minister: Նախարար
+        speaker: Գրող հեղինակ
+      delivered_on: Ուղարկվել է՝
+      delivery_title:
+        minister: Նախարար
+        speaker: Խոսնակ
+      written_on: Գրվել է՝
     type:
       about:
         one: Մեր մասին
@@ -226,182 +364,17 @@ hy:
       written_statement:
         one: Խորհրդարանին ուղղված գրավոր հայտարարություն
         other: Խորհրդարանին ուղղված գրավոր հայտարարություններ
-    contents: Բովանդակություն
-    footer_meta:
-      full_page_history: ամբողջ էջի պատմությունը
-      published: Հրապարակված
-      updated: Թարմացված
-    headings:
-      applies_to_nations: Կիրառվում է
-      from: Ումից՝
-      part_of: Մաս է՝
-    latest: Թարմացված փաստաթղթեր
-    latest_from: Թարմացված փաստաթղթեր %{subject} թեմայի շուրջ
-    published: հրապարակված
-    see_all: Դիտել բոլորը
-    speech:
-      author_title:
-        minister: Նախարար
-        speaker: Գրող հեղինակ
-      delivered_on: Ուղարկվել է՝
-      delivery_title:
-        minister: Նախարար
-        speaker: Խոսնակ
-      written_on: Գրվել է՝
     updated: Թարմացված
-  world_location:
-    type:
-      international_delegation:
-        one: Միջազգային պատվիրակություն
-        other: Միջազգային պատվիրակություններ
-      world_location:
-        one: Գտնվելու վայրը
-        other: Գտնվելու վայրերը
-    headings:
-      announcements: Մեր հայտարարությունները
-      documents: Փաստաթղթեր
-      mission: Մեր առաքելությունը
-      news: Նորություններ աշխարհից
-      organisations: Կազմակերպություններ
-      publications: Մեր հրապարակումները
-      search: Որոնել ըստ երկրի կամ տարածաշրջանի
-      statistics: Մեր վիճակագրությունը
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
-        isbn: ISBN
-        unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
-      attachment_data:
-        file: Թղթապանակ
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
-        hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
-        isbn: Կցորդի ISBN
-        title: Կցորդի անվանումը
-        unique_reference: Կցորդի հատուկ հղումը
-        unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Կցված ֆայլը
-      edition:
-        nation_inapplicabilities: Բացառված ազգությունները
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Կցված ֆայլը
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
-        hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
-        isbn: Կցորդի ISBN
-        title: Կցորդի անվանումը
-        unique_reference: Կցորդի հատուկ հղումը
-        unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Կցված ֆայլը
-    nested_attachment_data_field_names:
-      file: Կցված ֆայլը
-    nested_attachment_field_names:
-      command_paper_number: Կցված պաշտոնական փաստաթղթի համարը
-      hoc_paper_number: Համայնքների պալատի փաստաթղթի համարը
-      isbn: Կցորդի ISBN
-      title: Կցորդի անվանումը
-      unique_reference: Կցորդի հատուկ հղումը
-      unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
-  announcements:
-    heading: Հայտարարություններ
-  attachment:
-    accessibility:
-      full_help_html: |
-        Եթե օգտվում եք օժանդակ տեխնոլոգիայից (ինչպես օրինակ՝ էկրանի ընթերցիչ), և ձեզ անհրաժեշտ է
-        այս փաստաթղթի ավելի հասանելի ձևաչափով տարբերակը, ուղարկեք էլ․ նամակ %{email} հասցեին։
-        Խնդրում ենք նշել, թե ինչ ձևաչափով եք ցանկանում ստանալ փաստաթուղթը: Մեզ կօգնի նաև, եթե նշեք՝ ինչ օժանդակ տեխնոլոգիայից եք օգտվում:
-      intro: 'Այս ֆայլը կարող է համապատասխան չլինել օժանդակ տեխնոլոգիայից օգտվողների
-        համար:'
-      request_a_different_format: 'Նշեք համապատասխան ձևաչափ:'
-    csv:
-      cannot_preview: 'Այս ֆայլը հնարավոր չէ նախադիտել:'
-      download: 'Ներբեռնեք ֆայլը ամբողջ բովանդակությունը դիտելու համար:'
-      truncated_message: 'Նախադիտման մեջ երևում են միայն առաջին %{rows} տողերը և %{columns}
-        սյունակները:'
-    headings:
-      order_a_copy: Պատվիրել պատճենը
-      order_a_copy_full: Պատվիրել հրապարակման պատճենը
-      published: Հրապարակված
-      reference: Հղում
-      unnumbered_command_paper: Չհամարակալված պաշտոնական փաստաթուղթ
-      unnumbered_hoc_paper: Չհամարակալված օրինական փաստաթուղթ
-    opendocument:
-      help_html: Այս ֆայլը <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        ձևաչափով է
-    virus_check:
-      intro: Կցված ֆայլը վիրուսներից ստուգման փուլում է։
-      message: 'Այս պահին կցված այս ֆայլը պահում ենք կարանտինում, քանի դեռ վիրուսների
-        ստուգման փուլը չի ավարտվել։ Քիչ անց կցված ֆայլը հասանելի կլինի սկզբնական տեղադրված
-        վայրում:'
-  broken_links:
-    broken:
-      subheading: Այս փաստաթղթում նկատել ենք հղումներ, որոնք հնարավոր է՝ այլևս չեն
-        գործում
-    caution:
-      subheading: Մենք նկատել ենք խնդրահարույց հղումների հետ կապված որոշ խնդիրներ․
-        դուք պետք է զգույշ լինեք դրանց կցելու ժամանակ
-    title: Չգործող հղումներ
-  change_notes:
-    published_at: Առաջին անգամ հրապարակվել է
-    see_all_updates: դիտել բոլոր թարմացումները
-    updated_at: Վերջին անգամ թարմացվել է
-  consultation:
-    closed: Ավարտվել է
-    closing_today: Այսօր ավարտվում է
-    closing_tomorrow: Ավարտվում է վաղը
-    days_left: Մնացել է %{days_left} օր
-  contact:
-    access_and_opening_times: Մուտք և հասանելիության ժամեր
-    contact_form: Կոնտակտային ձև
-    email: Էլ․ փոստ
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: տպագրվում է ուելսերեն
-      title:
-        about: Մեր մասին
-        about_our_services: Մեր ծառայությունների մասին
-        access_and_opening: Գրասենյակի մուտք և հասանելիության ժամեր
-        accessible_documents_policy: Հասանելի փաստաթղթերի քաղաքականություն
-        complaints_procedure: Բողոքների ընթացակարգ
-        equality_and_diversity: Հավասարություն և բազմազանություն
-        media_enquiries: Լրատվամիջոցների հարցումներ
-        membership: Անդամակցություն
-        modern_slavery_statement: Ժամանակակից ստրկության վերաբերյալ հայտարարություն
-        our_energy_use: Մեր եռանդի ներդրումը
-        our_governance: Մեր կառավարման գաղափարը
-        personal_information_charter: Անձնական տվյալների կանոնադրություն
-        petitions_and_campaigns: Պետիցիաներ և արշավներ
-        procurement: Գնումներ %{organisation_name} կազմակերպությունում
-        publication_scheme: Հրապարակման պլան
-        recruitment: Աշխատում է %{organisation_name} կազմակերպության համար
-        research: Հետազոտություն %{organisation_name} կազմակերպությունում
-        social_media_use: Սոցիալական մեդիայի կիրառում
-        staff_update: Անձնակազմի նորություններ և տեղեկություն
-        statistics: Վիճակագրություն %{organisation_name} կազմակերպությունում
-        terms_of_reference: Տեխնիկական առաջադրանքներ
-        welsh_language_scheme: Ուելսերենի սխեմա
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Բոլոր խորհրդակցությունները
       label: Խորհրդակցություններ
-    description: Դուք կարող եք օգտագործել ֆիլտրեր` միայն ձեր հետաքրքրություններին
-      համապատասխանող արդյունքները տեսնելու համար
+    description: Դուք կարող եք օգտագործել ֆիլտրեր` միայն ձեր հետաքրքրություններին համապատասխանող արդյունքները տեսնելու համար
     no_results:
       description: 'Փորձեք ձեր որոնումն ավելի ընդլայնել և կրկին փորձեք:'
       title: 'Համապատասխանող փաստաթղթեր չեն գտնվել:'
       tna_heading: Ավելի հին բովանդակություն
-      tna_link: 'Մինչև 2010թ․ մայիս ամսվա ոչ բոլոր գերատեսչությունների հրապարակումներն
-        են տեղափոխվել GOV.UK կայք: Մինչև 2010թ․ մայիս ամսվա հրապարակումները գտնելու
-        համար փորձեք որոնել այս հղումով՝ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">The National Archives</a>'
+      tna_link: 'Մինչև 2010թ․ մայիս ամսվա ոչ բոլոր գերատեսչությունների հրապարակումներն են տեղափոխվել GOV.UK կայք: Մինչև 2010թ․ մայիս ամսվա հրապարակումները գտնելու համար փորձեք որոնել այս հղումով՝ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>'
     world_locations:
       all: Բոլոր վայրերը
       label: Գտնվելու վայրերը
@@ -410,8 +383,7 @@ hy:
     subscription: Նախազգուշացնող էլ․ նամակների բաժանորդագրություն
   fatality_notice:
     british_fatalities: Բրիտանական դժբախտ պատահարներ
-    none_added: 'Գործունեության այս ոլորտի համար դժբախտ պատահարի ծանուցումներ դեռևս
-      չեն ավելացվել:'
+    none_added: 'Գործունեության այս ոլորտի համար դժբախտ պատահարի ծանուցումներ դեռևս չեն ավելացվել:'
   feeds:
     email: Էլ․ փոստ
     feed: նորություն
@@ -459,8 +431,7 @@ hy:
     heading: Հրապարակումներ
     recent: Վերջին հրապարակումները
     statistics:
-      link_to_published_statistics: 'Գտնել հրապարակված և կառավարական առաջիկա ​​վիճակագրության
-        ցանկը %{link} վիճակագրություն բաժնում:'
+      link_to_published_statistics: 'Գտնել հրապարակված և կառավարական առաջիկա ​​վիճակագրության ցանկը %{link} վիճակագրություն բաժնում:'
       moved_notice: 'Վիճակագրության հրապարակումները տեղափոխվել են:'
   roles:
     unassigned: Այս պաշտոնին նշանակված մարդ չկա
@@ -516,11 +487,9 @@ hy:
     fields_of_operation: Գործունեության ոլորտներ
     filter: Ֆիլտր
     pagination:
-      next_html: Հաջորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page}
-        %{total_pages} էջից</span>
+      next_html: Հաջորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page} %{total_pages} էջից</span>
       next_page: Հաջորդ էջ
-      previous_html: Նախորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page}
-        %{total_pages} էջից</span>
+      previous_html: Նախորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page} %{total_pages} էջից</span>
       previous_page: Նախորդ էջ
     part_of_collection: Հավաքածուի մաս՝
   time:
@@ -532,24 +501,35 @@ hy:
       arts_council_england: Անգլիայի արվեստի խորհուրդ (Arts Council England)
       bbc: BBC
       british_library: Բրիտանական գրադարան (British Library)
-      commonwealth_war_graves_commission: Պատերազմական գերեզմանների հարցերով համահանձնաժողով
-        (Commonwealth War Graves Commission)
+      commonwealth_war_graves_commission: Պատերազմական գերեզմանների հարցերով համահանձնաժողով (Commonwealth War Graves Commission)
       heritage_lottery_fund: Վիճակախաղի ժառանգության հիմնադրամ (Heritage Lottery Fund)
-      historic_england: Անգլիայի պատմական շինությունների և հուշարձանների հանձնաժողով
-        (Historic England)
+      historic_england: Անգլիայի պատմական շինությունների և հուշարձանների հանձնաժողով (Historic England)
       iwm: Կայսերական ռազմական թանգարան (Imperial War Museum)
-      war_memorials_trust: Պատերազմական հուշահամալիրների հավատարմագրում (War Memorials
-        Trust)
+      war_memorials_trust: Պատերազմական հուշահամալիրների հավատարմագրում (War Memorials Trust)
+  world_location:
+    headings:
+      announcements: Մեր հայտարարությունները
+      documents: Փաստաթղթեր
+      mission: Մեր առաքելությունը
+      news: Նորություններ աշխարհից
+      organisations: Կազմակերպություններ
+      publications: Մեր հրապարակումները
+      search: Որոնել ըստ երկրի կամ տարածաշրջանի
+      statistics: Մեր վիճակագրությունը
+    type:
+      international_delegation:
+        one: Միջազգային պատվիրակություն
+        other: Միջազգային պատվիրակություններ
+      world_location:
+        one: Գտնվելու վայրը
+        other: Գտնվելու վայրերը
   world_news:
-    uk_updates_in_country: Թարմացումներ, նորություններ և իրադարձություններ ՄԹ-ի կառավարությունից
-      %{country}-ում
+    uk_updates_in_country: Թարմացումներ, նորություններ և իրադարձություններ ՄԹ-ի կառավարությունից %{country}-ում
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Տեղեկանալ %{link}։
-      personal_information_charter_html: Մեր %{link}-ում ներկայացված է, թե ինչպես
-        ենք մշակում ձեր անձնական տվյալները
-      publication_scheme_html: Կարդալ մեր %{link}-ում պարբերաբար հրապարակվող տեղեկությունների
-        տեսակների մասին։
+      personal_information_charter_html: Մեր %{link}-ում ներկայացված է, թե ինչպես ենք մշակում ձեր անձնական տվյալները
+      publication_scheme_html: Կարդալ մեր %{link}-ում պարբերաբար հրապարակվող տեղեկությունների տեսակների մասին։
       social_media_use_html: 'Կարդալ մեր քաղաքականությունը %{link} հղումով:'
       welsh_language_scheme_html: 'Տեղեկանալ մեր աշխատանքի մասին %{link} հղումով:'
     find_out_more: Դիտել ամբողջական պրոֆիլը և կոնտակտային բոլոր տվյալները

@@ -1,5 +1,143 @@
+---
 pa:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+        isbn: ISBN
+        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+      attachment_data:
+        file: ਫਾਈਲ
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
+        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+        isbn: ਨੱਥੀ ISBN
+        title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
+        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
+        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+      edition:
+        nation_inapplicabilities: ਬਾਹਰ ਕੱੀਆਂ ਗਈਆਂ ਕੌਮਾਂ
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+      response/consultation_response_attachments/attachment:
+        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
+        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+        isbn: ਨੱਥੀ ISBN
+        title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
+        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
+        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+    nested_attachment_data_field_names:
+      file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+    nested_attachment_field_names:
+      command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
+      hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+      isbn: ਨੱਥੀ ISBN
+      title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
+      unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
+      unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+  announcements:
+    heading: ਘੋਸ਼ਣਾਵਾਂ
+  attachment:
+    accessibility:
+      full_help_html: |
+        ਜੇ ਤੁਸੀਂ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ (ਜਿਵੇਂ ਕਿ ਸਕ੍ਰੀਨ ਰੀਡਰ) ਅਤੇ ਇਸ ਦਸਤਾਵੇਜ਼ ਦੇ ਇੱਕ ਵਧੇਰੇ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਵਿੱਚ ਸੰਸਕਰਣ ਦੀ ਜ਼ਰੂਰਤ ਹੈ
+        , ਕਿਰਪਾ ਕਰਕੇ %{email} ਨੂੰ ਈਮੇਲ ਕਰੋ।
+        ਕਿਰਪਾ ਕਰਕੇ ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਨੂੰ ਕਿਸ ਫਾਰਮੈਟ ਦੀ ਜ਼ਰੂਰਤ ਹੈ। ਇਹ ਸਾਡੀ ਸਹਾਇਤਾ ਕਰੇਗਾ ਜੇ ਤੁਸੀਂ ਕਹੋ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ।
+      intro: ਇਹ ਫਾਈਲ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੇ ਉਪਯੋਗਕਰਤਾਵਾਂ ਲਈ ਢੁਕਵੀਂ ਨਹੀਂ ਹੋ ਸਕਦੀ।
+      request_a_different_format: ਇੱਕ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਦੀ ਬੇਨਤੀ ਕਰੋ।
+    csv:
+      cannot_preview: ਇਸ ਫ਼ਾਈਲ ਦਾ ਪੂਰਵਦਰਸ਼ਨ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।
+      download: ਫਾਈਲ ਦੀ ਪੂਰੀ ਸਮਗਰੀ ਨੂੰ ਵੇਖਣ ਲਈ ਡਾਉਨਲੋਡ ਕਰੋ।
+      truncated_message: ਇਹ ਝਲਕ ਸਿਰਫ ਪਹਿਲੀ %{rows} ਕਤਾਰਾਂ ਅਤੇ %{columns} ਕਾਲਮ ਦਿਖਾਉਂਦੀ ਹੈ।
+    headings:
+      order_a_copy: ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
+      order_a_copy_full: ਪ੍ਰਕਾਸ਼ਨ ਦੀ ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
+      published: ਪ੍ਰਕਾਸ਼ਿਤ
+      reference: ਹਵਾਲਾ
+      unnumbered_command_paper: ਅਣਗਿਣਤ ਕਮਾਂਡ ਪੇਪਰ
+      unnumbered_hoc_paper: ਅਣਗਿਣਤ ਐਕਟ ਪੇਪਰ
+    opendocument:
+      help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ਓਪਨਡਾਕੂਮੈਂਟ</a> ਫਾਰਮੈਟ ਵਿੱਚ ਹੈ
+    virus_check:
+      intro: ਇਸ ਅਟੈਚਮੈਂਟ ਦੀ ਵਾਇਰਸ ਜਾਂਚ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ।
+      message: ਅਸੀਂ ਇਸ ਸਮੇਂ ਇਸ ਅਟੈਚਮੈਂਟ ਨੂੰ ਕੁਆਰੰਟੀਨ ਵਿੱਚ ਰੱਖ ਰਹੇ ਹਾਂ ਜਦੋਂ ਤੱਕ ਇਸ ਦੀ ਵਾਇਰਸ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਜਾਂਦੀ। ਅਟੈਚਮੈਂਟ ਛੇਤੀ ਹੀ ਅਸਲ ਸਥਾਨ ਤੇ ਉਪਲਬਧ ਹੋਵੇਗੀ।
+  broken_links:
+    broken:
+      subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟ ਸਕਦੇ ਹਨ
+    caution:
+      subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸਮੱਸਿਆਵਾਂ ਮਿਲੀਆਂ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦੀਆਂ ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਜੋੜਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
+    title: ਟੁੱਟੇ ਲਿੰਕ
+  change_notes:
+    published_at: ਪਹਿਲਾਂ ਪ੍ਰਕਾਸ਼ਤ
+    see_all_updates: ਸਾਰੇ ਅਪਡੇਟਸ ਵੇਖੋ
+    updated_at: ਪਿਛਲੀ ਵਾਰ ਅਪਡੇਟ ਕੀਤਾ ਗਿਆ
+  consultation:
+    closed: ਬੰਦ
+    closing_today: ਅੱਜ ਬੰਦ
+    closing_tomorrow: ਭਲਕੇ ਬੰਦ
+    days_left: "%{days_left} ਦਿਨ ਬਾਕੀ"
+  contact:
+    access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣ ਦੇ ਸਮੇਂ
+    contact_form: ਸੰਪਰਕ ਫਾਰਮ
+    email: ਈ - ਮੇਲ
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: ਵੈਲਸ਼ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ
+      title:
+        about: ਸਾਡੇ ਬਾਰੇ
+        about_our_services: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ ਬਾਰੇ
+        access_and_opening: ਦਫਤਰ ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦੇ ਸਮੇਂ
+        accessible_documents_policy: ਪਹੁੰਚਯੋਗ ਦਸਤਾਵੇਜ਼ਾਂ ਦੀ ਨੀਤੀ
+        complaints_procedure: ਸ਼ਿਕਾਇਤਾਂ ਦੀ ਵਿਧੀ
+        equality_and_diversity: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
+        media_enquiries: ਮੀਡੀਆ ਪੁੱਛਗਿੱਛ
+        membership: ਮੈਂਬਰਸ਼ਿਪ
+        modern_slavery_statement: ਆਧੁਨਿਕ ਗੁਲਾਮੀ ਦਾ ਬਿਆਨ
+        our_energy_use: ਸਾਡੀ ਊਰਜਾ ਦੀ ਵਰਤੋਂ
+        our_governance: ਸਾਡਾ ਸ਼ਾਸਨ
+        personal_information_charter: ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਚਾਰਟਰ
+        petitions_and_campaigns: ਪਟੀਸ਼ਨਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ
+        procurement: "%{organisation_name} 'ਤੇ ਖਰੀਦ"
+        publication_scheme: ਪ੍ਰਕਾਸ਼ਨ ਸਕੀਮ
+        recruitment: "%{organisation_name} ਲਈ ਕੰਮ ਕਰਨਾ"
+        research: "%{organisation_name} 'ਤੇ ਖੋਜ"
+        social_media_use: ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ
+        staff_update: ਸਟਾਫ ਦੀਆਂ ਖਬਰਾਂ ਅਤੇ ਜਾਣਕਾਰੀ
+        statistics: "%{organisation_name} ਦੇ ਅੰਕੜੇ"
+        terms_of_reference: ਸੰਦਰਭ ਦੀਆਂ ਸ਼ਰਤਾਂ
+        welsh_language_scheme: ਵੈਲਸ਼ ਭਾਸ਼ਾ ਸਕੀਮ
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: ਸਮਗਰੀ
+    footer_meta:
+      full_page_history: ਪੂਰੇ ਪੰਨੇ ਦਾ ਇਤਿਹਾਸ
+      published: ਪ੍ਰਕਾਸ਼ਿਤ
+      updated: ਅੱਪਡੇਟ ਕੀਤਾ
+    headings:
+      applies_to_nations: "'ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ"
+      from: ਤੋਂ
+      part_of: ਦਾ ਹਿੱਸਾ
+    latest: ਨਵੀਨਤਮ ਦਸਤਾਵੇਜ਼
+    latest_from: "%{subject} ਤੋਂ ਨਵੀਨਤਮ"
+    published: ਪ੍ਰਕਾਸ਼ਿਤ
+    see_all: ਸਾਰੇ ਵੇਖੋ
+    speech:
+      author_title:
+        minister: ਮੰਤਰੀ
+        speaker: ਲੇਖਕ
+      delivered_on: 'ਇਸ ''ਤੇ ਦਿੱਤਾ ਗਿਆ:'
+      delivery_title:
+        minister: ਮੰਤਰੀ
+        speaker: ਸਪੀਕਰ
+      written_on: "'ਤੇ ਲਿਖਿਆ:"
     type:
       about:
         one: ਬਾਰੇ
@@ -226,178 +364,17 @@ pa:
       written_statement:
         one: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦਿੱਤੇ
-    contents: ਸਮਗਰੀ
-    footer_meta:
-      full_page_history: ਪੂਰੇ ਪੰਨੇ ਦਾ ਇਤਿਹਾਸ
-      published: ਪ੍ਰਕਾਸ਼ਿਤ
-      updated: ਅੱਪਡੇਟ ਕੀਤਾ
-    headings:
-      applies_to_nations: "'ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ"
-      from: ਤੋਂ
-      part_of: ਦਾ ਹਿੱਸਾ
-    latest: ਨਵੀਨਤਮ ਦਸਤਾਵੇਜ਼
-    latest_from: "%{subject} ਤੋਂ ਨਵੀਨਤਮ"
-    published: ਪ੍ਰਕਾਸ਼ਿਤ
-    see_all: ਸਾਰੇ ਵੇਖੋ
-    speech:
-      author_title:
-        minister: ਮੰਤਰੀ
-        speaker: ਲੇਖਕ
-      delivered_on: 'ਇਸ ''ਤੇ ਦਿੱਤਾ ਗਿਆ:'
-      delivery_title:
-        minister: ਮੰਤਰੀ
-        speaker: ਸਪੀਕਰ
-      written_on: "'ਤੇ ਲਿਖਿਆ:"
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
-  world_location:
-    type:
-      international_delegation:
-        one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
-        other: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
-      world_location:
-        one: ਵਿਸ਼ਵ ਸਥਾਨ
-        other: ਵਿਸ਼ਵ ਸਥਾਨ
-    headings:
-      announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
-      documents: ਦਸਤਾਵੇਜ਼
-      mission: ਸਾਡਾ ਮਿਸ਼ਨ
-      news: ਵਿਸ਼ਵ ਸਥਾਨ ਦੀ ਖਬਰ
-      organisations: ਸੰਗਠਨ
-      publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
-      search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
-      statistics: ਸਾਡੇ ਅੰਕੜੇ
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-        isbn: ISBN
-        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
-      attachment_data:
-        file: ਫਾਈਲ
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
-        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-        isbn: ਨੱਥੀ ISBN
-        title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
-        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
-        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
-      edition:
-        nation_inapplicabilities: ਬਾਹਰ ਕੱੀਆਂ ਗਈਆਂ ਕੌਮਾਂ
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
-      response/consultation_response_attachments/attachment:
-        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
-        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-        isbn: ਨੱਥੀ ISBN
-        title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
-        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
-        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
-    nested_attachment_data_field_names:
-      file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
-    nested_attachment_field_names:
-      command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
-      hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-      isbn: ਨੱਥੀ ISBN
-      title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
-      unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
-      unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
-  announcements:
-    heading: ਘੋਸ਼ਣਾਵਾਂ
-  attachment:
-    accessibility:
-      full_help_html: |
-        ਜੇ ਤੁਸੀਂ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ (ਜਿਵੇਂ ਕਿ ਸਕ੍ਰੀਨ ਰੀਡਰ) ਅਤੇ ਇਸ ਦਸਤਾਵੇਜ਼ ਦੇ ਇੱਕ ਵਧੇਰੇ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਵਿੱਚ ਸੰਸਕਰਣ ਦੀ ਜ਼ਰੂਰਤ ਹੈ
-        , ਕਿਰਪਾ ਕਰਕੇ %{email} ਨੂੰ ਈਮੇਲ ਕਰੋ।
-        ਕਿਰਪਾ ਕਰਕੇ ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਨੂੰ ਕਿਸ ਫਾਰਮੈਟ ਦੀ ਜ਼ਰੂਰਤ ਹੈ। ਇਹ ਸਾਡੀ ਸਹਾਇਤਾ ਕਰੇਗਾ ਜੇ ਤੁਸੀਂ ਕਹੋ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ।
-      intro: ਇਹ ਫਾਈਲ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੇ ਉਪਯੋਗਕਰਤਾਵਾਂ ਲਈ ਢੁਕਵੀਂ ਨਹੀਂ ਹੋ ਸਕਦੀ।
-      request_a_different_format: ਇੱਕ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਦੀ ਬੇਨਤੀ ਕਰੋ।
-    csv:
-      cannot_preview: ਇਸ ਫ਼ਾਈਲ ਦਾ ਪੂਰਵਦਰਸ਼ਨ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।
-      download: ਫਾਈਲ ਦੀ ਪੂਰੀ ਸਮਗਰੀ ਨੂੰ ਵੇਖਣ ਲਈ ਡਾਉਨਲੋਡ ਕਰੋ।
-      truncated_message: ਇਹ ਝਲਕ ਸਿਰਫ ਪਹਿਲੀ %{rows} ਕਤਾਰਾਂ ਅਤੇ %{columns} ਕਾਲਮ ਦਿਖਾਉਂਦੀ
-        ਹੈ।
-    headings:
-      order_a_copy: ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
-      order_a_copy_full: ਪ੍ਰਕਾਸ਼ਨ ਦੀ ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
-      published: ਪ੍ਰਕਾਸ਼ਿਤ
-      reference: ਹਵਾਲਾ
-      unnumbered_command_paper: ਅਣਗਿਣਤ ਕਮਾਂਡ ਪੇਪਰ
-      unnumbered_hoc_paper: ਅਣਗਿਣਤ ਐਕਟ ਪੇਪਰ
-    opendocument:
-      help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ਓਪਨਡਾਕੂਮੈਂਟ</a>
-        ਫਾਰਮੈਟ ਵਿੱਚ ਹੈ
-    virus_check:
-      intro: ਇਸ ਅਟੈਚਮੈਂਟ ਦੀ ਵਾਇਰਸ ਜਾਂਚ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ।
-      message: ਅਸੀਂ ਇਸ ਸਮੇਂ ਇਸ ਅਟੈਚਮੈਂਟ ਨੂੰ ਕੁਆਰੰਟੀਨ ਵਿੱਚ ਰੱਖ ਰਹੇ ਹਾਂ ਜਦੋਂ ਤੱਕ ਇਸ
-        ਦੀ ਵਾਇਰਸ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਜਾਂਦੀ। ਅਟੈਚਮੈਂਟ ਛੇਤੀ ਹੀ ਅਸਲ ਸਥਾਨ ਤੇ ਉਪਲਬਧ ਹੋਵੇਗੀ।
-  broken_links:
-    broken:
-      subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟ ਸਕਦੇ ਹਨ
-    caution:
-      subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸਮੱਸਿਆਵਾਂ ਮਿਲੀਆਂ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ
-        ਦੇ ਸਕਦੀਆਂ ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਜੋੜਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
-    title: ਟੁੱਟੇ ਲਿੰਕ
-  change_notes:
-    published_at: ਪਹਿਲਾਂ ਪ੍ਰਕਾਸ਼ਤ
-    see_all_updates: ਸਾਰੇ ਅਪਡੇਟਸ ਵੇਖੋ
-    updated_at: ਪਿਛਲੀ ਵਾਰ ਅਪਡੇਟ ਕੀਤਾ ਗਿਆ
-  consultation:
-    closed: ਬੰਦ
-    closing_today: ਅੱਜ ਬੰਦ
-    closing_tomorrow: ਭਲਕੇ ਬੰਦ
-    days_left: "%{days_left} ਦਿਨ ਬਾਕੀ"
-  contact:
-    access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣ ਦੇ ਸਮੇਂ
-    contact_form: ਸੰਪਰਕ ਫਾਰਮ
-    email: ਈ - ਮੇਲ
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: ਵੈਲਸ਼ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ
-      title:
-        about: ਸਾਡੇ ਬਾਰੇ
-        about_our_services: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ ਬਾਰੇ
-        access_and_opening: ਦਫਤਰ ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦੇ ਸਮੇਂ
-        accessible_documents_policy: ਪਹੁੰਚਯੋਗ ਦਸਤਾਵੇਜ਼ਾਂ ਦੀ ਨੀਤੀ
-        complaints_procedure: ਸ਼ਿਕਾਇਤਾਂ ਦੀ ਵਿਧੀ
-        equality_and_diversity: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
-        media_enquiries: ਮੀਡੀਆ ਪੁੱਛਗਿੱਛ
-        membership: ਮੈਂਬਰਸ਼ਿਪ
-        modern_slavery_statement: ਆਧੁਨਿਕ ਗੁਲਾਮੀ ਦਾ ਬਿਆਨ
-        our_energy_use: ਸਾਡੀ ਊਰਜਾ ਦੀ ਵਰਤੋਂ
-        our_governance: ਸਾਡਾ ਸ਼ਾਸਨ
-        personal_information_charter: ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਚਾਰਟਰ
-        petitions_and_campaigns: ਪਟੀਸ਼ਨਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ
-        procurement: "%{organisation_name} 'ਤੇ ਖਰੀਦ"
-        publication_scheme: ਪ੍ਰਕਾਸ਼ਨ ਸਕੀਮ
-        recruitment: "%{organisation_name} ਲਈ ਕੰਮ ਕਰਨਾ"
-        research: "%{organisation_name} 'ਤੇ ਖੋਜ"
-        social_media_use: ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ
-        staff_update: ਸਟਾਫ ਦੀਆਂ ਖਬਰਾਂ ਅਤੇ ਜਾਣਕਾਰੀ
-        statistics: "%{organisation_name} ਦੇ ਅੰਕੜੇ"
-        terms_of_reference: ਸੰਦਰਭ ਦੀਆਂ ਸ਼ਰਤਾਂ
-        welsh_language_scheme: ਵੈਲਸ਼ ਭਾਸ਼ਾ ਸਕੀਮ
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: ਸਾਰੀਆਂ ਸਲਾਹ ਮਸ਼ਵਰੇ
       label: ਸਲਾਹ ਮਸ਼ਵਰੇ
-    description: ਤੁਸੀਂ ਫਿਲਟਰਸ ਦੀ ਵਰਤੋਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀ
-      ਦਿਲਚਸਪੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
+    description: ਤੁਸੀਂ ਫਿਲਟਰਸ ਦੀ ਵਰਤੋਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀ ਦਿਲਚਸਪੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
     no_results:
       description: ਆਪਣੀ ਖੋਜ ਨੂੰ ਵਿਸ਼ਾਲ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
       title: ਕੋਈ ਮੇਲ ਖਾਂਦੇ ਦਸਤਾਵੇਜ਼ ਨਹੀਂ ਹਨ.
       tna_heading: ਪੁਰਾਣੀ ਸਮਗਰੀ
-      tna_link: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨ GOV.UK ਵਿੱਚ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤੇ
-        ਗਏ ਸਨ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">ਰਾਸ਼ਟਰੀ ਪੁਰਾਲੇਖ</a> ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
+      tna_link: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨ GOV.UK ਵਿੱਚ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤੇ ਗਏ ਸਨ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ਰਾਸ਼ਟਰੀ ਪੁਰਾਲੇਖ</a> ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਸਥਾਨ
@@ -454,8 +431,7 @@ pa:
     heading: ਪ੍ਰਕਾਸ਼ਨ
     recent: ਹਾਲੀਆ ਪ੍ਰਕਾਸ਼ਨ
     statistics:
-      link_to_published_statistics: "%{link} ਅੰਕੜੇ ਭਾਗ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਅਤੇ ਆਉਣ ਵਾਲੇ
-        ਸਰਕਾਰੀ ਅੰਕੜਿਆਂ ਦੀ ਇੱਕ ਸੂਚੀ ਲੱਭੋ।"
+      link_to_published_statistics: "%{link} ਅੰਕੜੇ ਭਾਗ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਅਤੇ ਆਉਣ ਵਾਲੇ ਸਰਕਾਰੀ ਅੰਕੜਿਆਂ ਦੀ ਇੱਕ ਸੂਚੀ ਲੱਭੋ।"
       moved_notice: ਅੰਕੜੇ ਪ੍ਰਕਾਸ਼ਨ ਬਦਲ ਗਏ ਹਨ।
   roles:
     unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
@@ -511,11 +487,9 @@ pa:
     fields_of_operation: ਕਾਰਜ ਦੇ ਖੇਤਰ
     filter: ਫਿਲਟਰ
     pagination:
-      next_html: ਅਗਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page}
-        ਦਾ %{total_pages}</span>
+      next_html: ਅਗਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
       next_page: ਅਗਲਾ ਪੇਜ
-      previous_html: ਪਿਛਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page}
-        ਦਾ %{total_pages}</span>
+      previous_html: ਪਿਛਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
       previous_page: ਪਿਛਲਾ ਪੇਜ
     part_of_collection: 'ਸੰਗ੍ਰਹਿ ਦਾ ਹਿੱਸਾ:'
   time:
@@ -532,15 +506,30 @@ pa:
       historic_england: ਇਤਿਹਾਸਕ ਇੰਗਲੈਂਡ
       iwm: ਇੰਪੀਰੀਅਲ ਵਾਰ ਮਿਊਜ਼ੀਅਮ
       war_memorials_trust: ਵਾਰ ਮੈਮੋਰੀਅਲਜ਼ ਟਰੱਸਟ
+  world_location:
+    headings:
+      announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
+      documents: ਦਸਤਾਵੇਜ਼
+      mission: ਸਾਡਾ ਮਿਸ਼ਨ
+      news: ਵਿਸ਼ਵ ਸਥਾਨ ਦੀ ਖਬਰ
+      organisations: ਸੰਗਠਨ
+      publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
+      search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
+      statistics: ਸਾਡੇ ਅੰਕੜੇ
+    type:
+      international_delegation:
+        one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
+        other: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
+      world_location:
+        one: ਵਿਸ਼ਵ ਸਥਾਨ
+        other: ਵਿਸ਼ਵ ਸਥਾਨ
   world_news:
     uk_updates_in_country: "%{country} ਵਿੱਚ ਯੂਕੇ ਸਰਕਾਰ ਵੱਲੋਂ ਅਪਡੇਟਸ, ਖ਼ਬਰਾਂ ਅਤੇ ਇਵੈਂਟਸ"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} ਪਤਾ ਕਰੋ।"
-      personal_information_charter_html: ਸਾਡਾ %{link} ਦੱਸਦਾ ਹੈ ਕਿ ਅਸੀਂ ਤੁਹਾਡੀ ਨਿੱਜੀ
-        ਜਾਣਕਾਰੀ ਨਾਲ ਕਿਵੇਂ ਵਿਵਹਾਰ ਕਰਦੇ ਹਾਂ।
-      publication_scheme_html: ਉਹਨਾਂ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਿਸਮਾਂ ਬਾਰੇ ਪੜ੍ਹੋ ਜੋ ਅਸੀਂ ਨਿਯਮਿਤ
-        ਤੌਰ ਤੇ ਸਾਡੇ %{link} ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ ਕਰਦੇ ਹਾਂ।
+      personal_information_charter_html: ਸਾਡਾ %{link} ਦੱਸਦਾ ਹੈ ਕਿ ਅਸੀਂ ਤੁਹਾਡੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਾਲ ਕਿਵੇਂ ਵਿਵਹਾਰ ਕਰਦੇ ਹਾਂ।
+      publication_scheme_html: ਉਹਨਾਂ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਿਸਮਾਂ ਬਾਰੇ ਪੜ੍ਹੋ ਜੋ ਅਸੀਂ ਨਿਯਮਿਤ ਤੌਰ ਤੇ ਸਾਡੇ %{link} ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ ਕਰਦੇ ਹਾਂ।
       social_media_use_html: "%{link} 'ਤੇ ਸਾਡੀ ਨੀਤੀ ਪੜ੍ਹੋ।"
       welsh_language_scheme_html: "%{link} ਪ੍ਰਤੀ ਸਾਡੀ ਵਚਨਬੱਧਤਾ ਬਾਰੇ ਜਾਣੋ."
     find_out_more: ਪੂਰਾ ਪ੍ਰੋਫਾਈਲ ਅਤੇ ਸਾਰੇ ਸੰਪਰਕ ਵੇਰਵੇ ਵੇਖੋ

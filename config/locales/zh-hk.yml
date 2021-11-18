@@ -1,5 +1,142 @@
+---
 zh-hk:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: 下議院文書編號
+        isbn: ISBN
+        unnumbered_hoc_paper: 未編號之下議院文書
+      attachment_data:
+        file: 檔案
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: 附件指令文件編號
+        hoc_paper_number: 下議院文書編號
+        isbn: 附件 ISBN
+        title: 附件標題
+        unique_reference: 附件單一參考
+        unnumbered_hoc_paper: 未編號之下議院文書
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: 隨附檔案
+      edition:
+        nation_inapplicabilities: 不適用之國家
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: 隨附檔案
+      response/consultation_response_attachments/attachment:
+        command_paper_number: 附件指令文件編號
+        hoc_paper_number: 下議院文書編號
+        isbn: 附件 ISBN
+        title: 附件標題
+        unique_reference: 附件單一參考
+        unnumbered_hoc_paper: 未編號之下議院文書
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: 隨附檔案
+    nested_attachment_data_field_names:
+      file: 隨附檔案
+    nested_attachment_field_names:
+      command_paper_number: 附件指令文件編號
+      hoc_paper_number: 下議院文書編號
+      isbn: 附件 ISBN
+      title: 附件標題
+      unique_reference: 附件單一參考
+      unnumbered_hoc_paper: 未編號之下議院文書
+  announcements:
+    heading: 公告
+  attachment:
+    accessibility:
+      full_help_html: |
+        如使用無障礙版本（例如螢幕閱讀器）並需要此一文檔版本之可閱讀格式，請寄電子郵件至 %{email}。
+        假如您說明您所使用的輔助技術，將對我們大為有助。
+      intro: 此檔案不適合使用輔助技術的使用者。
+      request_a_different_format: 索取可閱讀之格式。
+    csv:
+      cannot_preview: 此文檔無法預覽。
+      download: 下載文件以查閱全部內容。
+      truncated_message: 此預覽僅顯示首 %{rows} 行及 %{columns} 列。
+    headings:
+      order_a_copy: 訂閱副本
+      order_a_copy_full: 訂閱報告副本
+      published: 已發布
+      reference: 參考
+      unnumbered_command_paper: 未編號之指令文書
+      unnumbered_hoc_paper: 未編號之法案文書
+    opendocument:
+      help_html: 此文件為 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> 格式
+    virus_check:
+      intro: 此附件正在檢查病毒。
+      message: 我們現時正在對這一附件進行隔離，直至完成病毒檢查。附件將會儘快返回原本位置。
+  broken_links:
+    broken:
+      subheading: 我們發現該文檔之連結已被破壞
+    caution:
+      subheading: 我們發現部份可能表明問題的連結，您在使用這些連結瀏覽網站時應加以注意
+    title: 破損之連結
+  change_notes:
+    published_at: 首次發佈
+    see_all_updates: 查閱全部更新內容
+    updated_at: 最近一次更新
+  consultation:
+    closed: 已關閉
+    closing_today: 今日關閉
+    closing_tomorrow: 明日關閉
+    days_left: 還剩 %{days_left} 日
+  contact:
+    access_and_opening_times: 訪問及開放時間
+    contact_form: 聯絡資料表
+    email: 電子郵件
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: 以威爾士語出版
+      title:
+        about: 關於我們
+        about_our_services: 關於我們的服務
+        access_and_opening: 辦事處訪問及開放時間
+        accessible_documents_policy: 無障礙文檔政策
+        complaints_procedure: 投訴程序
+        equality_and_diversity: 平等及多元化
+        media_enquiries: 媒體查詢
+        membership: 會員資格
+        modern_slavery_statement: 現代奴隸制聲明
+        our_energy_use: 我們的能源使用
+        our_governance: 我們的行政管理
+        personal_information_charter: 個人資訊表
+        petitions_and_campaigns: 訴願及活動
+        procurement: "%{organisation_name} 的採購"
+        publication_scheme: 出版計畫
+        recruitment: 與 %{organisation_name} 合作
+        research: 在 %{organisation_name} 研究
+        social_media_use: 社交媒體應用
+        staff_update: 職員新聞及資訊
+        statistics: 在 %{organisation_name} 的統計
+        terms_of_reference: 職權範圍
+        welsh_language_scheme: 威爾士語言計畫
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: 內容
+    footer_meta:
+      full_page_history: 完整頁面過往記錄
+      published: 已發佈
+      updated: 已更新
+    headings:
+      applies_to_nations: 適用於
+      from: 來源
+      part_of: 部份
+    latest: 最新文件
+    latest_from: 來自 %{subject} 的最新消息
+    published: 已發布
+    see_all: 查看全部
+    speech:
+      author_title:
+        minister: 大臣
+        speaker: 作者
+      delivered_on: 發表於：
+      delivery_title:
+        minister: 大臣
+        speaker: 講者
+      written_on: 撰寫於：
     type:
       about:
         one: 關於
@@ -226,161 +363,7 @@ zh-hk:
       written_statement:
         one: 提交國會的書面聲明
         other: 提交國會的其他書面聲明
-    contents: 內容
-    footer_meta:
-      full_page_history: 完整頁面過往記錄
-      published: 已發佈
-      updated: 已更新
-    headings:
-      applies_to_nations: 適用於
-      from: 來源
-      part_of: 部份
-    latest: 最新文件
-    latest_from: 來自 %{subject} 的最新消息
-    published: 已發布
-    see_all: 查看全部
-    speech:
-      author_title:
-        minister: 大臣
-        speaker: 作者
-      delivered_on: 發表於：
-      delivery_title:
-        minister: 大臣
-        speaker: 講者
-      written_on: 撰寫於：
     updated: 已更新
-  world_location:
-    type:
-      international_delegation:
-        one: 國際代表
-        other: 其他國際代表
-      world_location:
-        one: 全球駐點
-        other: 其他全球駐點
-    headings:
-      announcements: 我們的公告
-      documents: 文件
-      mission: 我們的使命
-      news: 世界各地新聞
-      organisations: 組織
-      publications: 我們的出版物
-      search: 按國家或地區搜尋
-      statistics: 我們的統計資料
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: 下議院文書編號
-        isbn: ISBN
-        unnumbered_hoc_paper: 未編號之下議院文書
-      attachment_data:
-        file: 檔案
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: 附件指令文件編號
-        hoc_paper_number: 下議院文書編號
-        isbn: 附件 ISBN
-        title: 附件標題
-        unique_reference: 附件單一參考
-        unnumbered_hoc_paper: 未編號之下議院文書
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: 隨附檔案
-      edition:
-        nation_inapplicabilities: 不適用之國家
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: 隨附檔案
-      response/consultation_response_attachments/attachment:
-        command_paper_number: 附件指令文件編號
-        hoc_paper_number: 下議院文書編號
-        isbn: 附件 ISBN
-        title: 附件標題
-        unique_reference: 附件單一參考
-        unnumbered_hoc_paper: 未編號之下議院文書
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: 隨附檔案
-    nested_attachment_data_field_names:
-      file: 隨附檔案
-    nested_attachment_field_names:
-      command_paper_number: 附件指令文件編號
-      hoc_paper_number: 下議院文書編號
-      isbn: 附件 ISBN
-      title: 附件標題
-      unique_reference: 附件單一參考
-      unnumbered_hoc_paper: 未編號之下議院文書
-  announcements:
-    heading: 公告
-  attachment:
-    accessibility:
-      full_help_html: |
-        如使用無障礙版本（例如螢幕閱讀器）並需要此一文檔版本之可閱讀格式，請寄電子郵件至 %{email}。
-        假如您說明您所使用的輔助技術，將對我們大為有助。
-      intro: 此檔案不適合使用輔助技術的使用者。
-      request_a_different_format: 索取可閱讀之格式。
-    csv:
-      cannot_preview: 此文檔無法預覽。
-      download: 下載文件以查閱全部內容。
-      truncated_message: 此預覽僅顯示首 %{rows} 行及 %{columns} 列。
-    headings:
-      order_a_copy: 訂閱副本
-      order_a_copy_full: 訂閱報告副本
-      published: 已發布
-      reference: 參考
-      unnumbered_command_paper: 未編號之指令文書
-      unnumbered_hoc_paper: 未編號之法案文書
-    opendocument:
-      help_html: 此文件為 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        格式
-    virus_check:
-      intro: 此附件正在檢查病毒。
-      message: 我們現時正在對這一附件進行隔離，直至完成病毒檢查。附件將會儘快返回原本位置。
-  broken_links:
-    broken:
-      subheading: 我們發現該文檔之連結已被破壞
-    caution:
-      subheading: 我們發現部份可能表明問題的連結，您在使用這些連結瀏覽網站時應加以注意
-    title: 破損之連結
-  change_notes:
-    published_at: 首次發佈
-    see_all_updates: 查閱全部更新內容
-    updated_at: 最近一次更新
-  consultation:
-    closed: 已關閉
-    closing_today: 今日關閉
-    closing_tomorrow: 明日關閉
-    days_left: 還剩 %{days_left} 日
-  contact:
-    access_and_opening_times: 訪問及開放時間
-    contact_form: 聯絡資料表
-    email: 電子郵件
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: 以威爾士語出版
-      title:
-        about: 關於我們
-        about_our_services: 關於我們的服務
-        access_and_opening: 辦事處訪問及開放時間
-        accessible_documents_policy: 無障礙文檔政策
-        complaints_procedure: 投訴程序
-        equality_and_diversity: 平等及多元化
-        media_enquiries: 媒體查詢
-        membership: 會員資格
-        modern_slavery_statement: 現代奴隸制聲明
-        our_energy_use: 我們的能源使用
-        our_governance: 我們的行政管理
-        personal_information_charter: 個人資訊表
-        petitions_and_campaigns: 訴願及活動
-        procurement: "%{organisation_name} 的採購"
-        publication_scheme: 出版計畫
-        recruitment: 與 %{organisation_name} 合作
-        research: 在 %{organisation_name} 研究
-        social_media_use: 社交媒體應用
-        staff_update: 職員新聞及資訊
-        statistics: 在 %{organisation_name} 的統計
-        terms_of_reference: 職權範圍
-        welsh_language_scheme: 威爾士語言計畫
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: 所有諮詢項
@@ -390,8 +373,7 @@ zh-hk:
       description: 嘗試擴大你的搜尋範圍並且再次搜索。
       title: 沒有符合的文件。
       tna_heading: 指令內容
-      tna_link: 並非全部 2010 年以前的部門出版物都已轉移至 GOV.UK。如要搜尋 2010 年以前之出版物，請前往 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">國家檔案館</a>。
+      tna_link: 並非全部 2010 年以前的部門出版物都已轉移至 GOV.UK。如要搜尋 2010 年以前之出版物，請前往 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">國家檔案館</a>。
     world_locations:
       all: 所有駐點
       label: 全球駐點
@@ -504,11 +486,9 @@ zh-hk:
     fields_of_operation: 營運領域
     filter: 篩選工具
     pagination:
-      next_html: 下一頁 <span class="visuallyhidden">第</span> <span class="page-numbers">%{current_page}
-        頁，共 %{total_pages}</span> 頁
+      next_html: 下一頁 <span class="visuallyhidden">第</span> <span class="page-numbers">%{current_page} 頁，共 %{total_pages}</span> 頁
       next_page: 下一頁
-      previous_html: 上一頁 <span class="visuallyhidden">第</span> <span class="page-numbers">%{current_page}
-        頁，共 %{total_pages}</span> 頁
+      previous_html: 上一頁 <span class="visuallyhidden">第</span> <span class="page-numbers">%{current_page} 頁，共 %{total_pages}</span> 頁
       previous_page: 上一頁
     part_of_collection: 系列部份：
   time:
@@ -525,6 +505,23 @@ zh-hk:
       historic_england: 英格蘭文化資產組織
       iwm: 帝國戰爭博物館
       war_memorials_trust: 戰爭紀念基金會
+  world_location:
+    headings:
+      announcements: 我們的公告
+      documents: 文件
+      mission: 我們的使命
+      news: 世界各地新聞
+      organisations: 組織
+      publications: 我們的出版物
+      search: 按國家或地區搜尋
+      statistics: 我們的統計資料
+    type:
+      international_delegation:
+        one: 國際代表
+        other: 其他國際代表
+      world_location:
+        one: 全球駐點
+        other: 其他全球駐點
   world_news:
     uk_updates_in_country: 英國政府關於 %{country} 的更新、新聞及活動
   worldwide_organisation:

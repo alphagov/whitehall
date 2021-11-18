@@ -1,5 +1,142 @@
+---
 ta:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: கீழ்ச்சபை ஆவண எண்
+        isbn: ISBN
+        unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
+      attachment_data:
+        file: கோப்பு
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: இணைப்பு கட்டளை ஆவண எண்
+        hoc_paper_number: கீழ்ச்சபை ஆவண எண்
+        isbn: இணைப்பு ISBN
+        title: இணைப்பு தலைப்பு
+        unique_reference: தலைப்பு பிரத்யேகப் பார்வை
+        unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: இணைக்கப்பட்ட கோப்பு
+      edition:
+        nation_inapplicabilities: விலக்கபப்ட்ட தேசங்கள்
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: இணைக்கப்பட்ட கோப்பு
+      response/consultation_response_attachments/attachment:
+        command_paper_number: இணைப்பு கட்டளை ஆவண எண்
+        hoc_paper_number: கீழ்ச்சபை ஆவண எண்
+        isbn: இணைப்பு ISBN
+        title: இணைப்பு தலைப்பு
+        unique_reference: தலைப்பு பிரத்யேகப் பார்வை
+        unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: இணைக்கப்பட்ட கோப்பு
+    nested_attachment_data_field_names:
+      file: இணைக்கப்பட்ட கோப்பு
+    nested_attachment_field_names:
+      command_paper_number: இணைப்பு கட்டளை ஆவண எண்
+      hoc_paper_number: கீழ்ச்சபை ஆவண எண்
+      isbn: இணைப்பு ISBN
+      title: இணைப்பு தலைப்பு
+      unique_reference: தலைப்பு பிரத்யேகப் பார்வை
+      unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
+  announcements:
+    heading: அறிவிப்புகள்
+  attachment:
+    accessibility:
+      full_help_html: |
+        உதவிகரமான தொழில்நுட்பத்தை நீங்கள் பயன்படுத்தினால் (திரை வாசிப்பான் போன்றவை), இந்த ஆவணத்தின் மேலும் அணுகக்கூடிய வடிவம் தேவையெனில், தயவுசெய்து %{email} என்ற முகவரிக்கு மின்னஞ்சல் செய்யவும்.
+        எந்த வடிவம் உங்களுக்குத் தேவை என்று தயவுசெய்து கூறவும். நீங்கள் எந்த உதவக்கூடிய தொழில்நுட்பத்தை நீங்கள் பயன்படுத்துகிறீர்கள் என்று கூறினால் அது எங்களுக்கு உதவியாய் இருக்கும்.
+      intro: உதவக்கூடிய தொழில்நுட்பப் பயனர்களுக்கு இந்தக் கோப்பு பொருந்தாது.
+      request_a_different_format: அணுகக்கூடிய வடிவத்தைக் கோருக.
+    csv:
+      cannot_preview: இந்தக் கோப்புக்கு முன்னோட்டமில்லை.
+      download: கோப்பின் முழு உள்ளடக்கத்தையும் காண பதிவிறக்கவும்.
+      truncated_message: இந்த முன்னோட்டமானது முதல் %{rows} வரிசைகளையும் %{columns} பத்திகளையும் மட்டுமே காட்டும்.
+    headings:
+      order_a_copy: ஒரு பிரதிக்கு தாக்கீது செய்க
+      order_a_copy_full: பிரசுரத்தின் ஒரு பிரதிக்கு தாக்கீது செய்க
+      published: வெளியிடப்பட்டது
+      reference: பார்வை
+      unnumbered_command_paper: எண்ணிடப்படாத கட்டளை ஆவணம்
+      unnumbered_hoc_paper: எண்ணிடப்படாத சட்ட ஆவணம்
+    opendocument:
+      help_html: இந்தக் கோப்பு <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> வடிவில் உள்ளது
+    virus_check:
+      intro: இந்த இணைப்பில் நச்சுநிரல் சோதிக்கப்பட்டது.
+      message: நச்சுநிரல் சரிபார்க்கப்படும்வரை தற்போதைக்கு இந்த இணைப்பை தடுப்பில் வைத்திருக்கிறோம். விரைவில் மூல இடத்தில் இணைப்பு கிடைக்கப்பெறும்.
+  broken_links:
+    broken:
+      subheading: இந்த ஆவணத்தில் உடைந்த இணைப்புகள் இருக்கலாமென்பதைக் கண்டறிந்துள்ளோம்
+    caution:
+      subheading: பிரச்சினைகளைச் சுட்டிக்காட்டக்கூடிய இணைப்புகளுடன் சில பிரச்சினைகளைக் கண்டறிந்துள்ளோம். அவற்றைத் தொடர்வதில் கவனமாய் இருக்கவும்
+    title: முறிந்த இணைப்புகள்
+  change_notes:
+    published_at: முதலில் பிரசுரிக்கப்பட்டது
+    see_all_updates: அனைத்து புதுப்பித்தல்களையும் பார்க்க
+    updated_at: கடைசியாகப் புதுப்பிக்கப்பட்டது
+  consultation:
+    closed: மூடப்பட்டது
+    closing_today: இன்று மூடப்படுகிறது
+    closing_tomorrow: நாளை மூடப்படுகிறது
+    days_left: "%{days_left} நாட்கள் எஞ்சியுள்ளன"
+  contact:
+    access_and_opening_times: அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
+    contact_form: தொடர்பு படிவம்
+    email: மின்னஞ்சல்
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: வெல்ஷ் மொழியில் வெளியிடப்படுகிறது
+      title:
+        about: எங்களைப் பற்றி
+        about_our_services: எங்கள் சேவைகள் குறித்து
+        access_and_opening: அலுவலகத்தை அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
+        accessible_documents_policy: அணுகக்கூடிய ஆவணங்களுக்கான கொள்கை
+        complaints_procedure: புகார்களுக்கான நடைமுறை
+        equality_and_diversity: சமத்துவமும் பன்முகமும்
+        media_enquiries: ஊடக உசாவுகைகள்
+        membership: உறுப்பினர் நிலை
+        modern_slavery_statement: நவீன அடிமைத்தனக் கூற்று
+        our_energy_use: எங்கள் ஆற்றல் பயன்பாடு
+        our_governance: எங்கள் ஆளுகை
+        personal_information_charter: தனிப்பட்ட தகவல் சாசனம்
+        petitions_and_campaigns: மனுக்களும் பிரச்சாரங்களும்
+        procurement: "%{organisation_name}-ல் வாங்குதல்"
+        publication_scheme: பிரசுரத் திட்டம்
+        recruitment: "%{organisation_name}-க்காகப் பணியாற்றுதல்"
+        research: "%{organisation_name}-ல் ஆராய்ச்சி"
+        social_media_use: சமூக ஊடகப் பயன்பாடு
+        staff_update: அலுவலர் செய்திகளும் தகவல்களும்
+        statistics: "%{organisation_name}-ல் புள்ளியியல்"
+        terms_of_reference: உசாத்துணை விதிகள்
+        welsh_language_scheme: வெல்ஷ் மொழித் திட்டம்
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: உள்ளடக்கம்
+    footer_meta:
+      full_page_history: முழுப்பக்க வரலாறு
+      published: வெளியிடப்பட்டது
+      updated: புதுப்பிக்கப்பட்டது
+    headings:
+      applies_to_nations: பொருந்தக்கூடியது
+      from: இதிலிருந்து
+      part_of: பகுதி
+    latest: சமீபத்திய ஆவணங்கள்
+    latest_from: "%{subject}-லிருந்து சமீபத்தியவை"
+    published: வெளியிடப்பட்டது
+    see_all: அனைத்தையும் பார்க்க
+    speech:
+      author_title:
+        minister: அமைச்சர்
+        speaker: எழுத்தாளர்
+      delivered_on: 'ஒப்படைத்த தேதி:'
+      delivery_title:
+        minister: அமைச்சர்
+        speaker: பேச்சாளர்
+      written_on: 'எழுதப்பட்ட தேதி:'
     type:
       about:
         one: குறித்து
@@ -226,177 +363,17 @@ ta:
       written_statement:
         one: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்பு
         other: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்புகள்
-    contents: உள்ளடக்கம்
-    footer_meta:
-      full_page_history: முழுப்பக்க வரலாறு
-      published: வெளியிடப்பட்டது
-      updated: புதுப்பிக்கப்பட்டது
-    headings:
-      applies_to_nations: பொருந்தக்கூடியது
-      from: இதிலிருந்து
-      part_of: பகுதி
-    latest: சமீபத்திய ஆவணங்கள்
-    latest_from: "%{subject}-லிருந்து சமீபத்தியவை"
-    published: வெளியிடப்பட்டது
-    see_all: அனைத்தையும் பார்க்க
-    speech:
-      author_title:
-        minister: அமைச்சர்
-        speaker: எழுத்தாளர்
-      delivered_on: 'ஒப்படைத்த தேதி:'
-      delivery_title:
-        minister: அமைச்சர்
-        speaker: பேச்சாளர்
-      written_on: 'எழுதப்பட்ட தேதி:'
     updated: புதுப்பிக்கப்பட்டது
-  world_location:
-    type:
-      international_delegation:
-        one: சர்வதேச தூதுக்குழு
-        other: சர்வதேச தூதுக்குழுக்கள்
-      world_location:
-        one: உலக இருப்பிடம்
-        other: உலக இருப்பிடங்கள்
-    headings:
-      announcements: எங்கள் அறிவிப்புகள்
-      documents: ஆவணங்கள்
-      mission: எங்கள் செயல் இலக்கு
-      news: உலக இருப்பிடச் செய்தி
-      organisations: நிறுவனங்கள்
-      publications: எங்கள் வெளியீடுகள்
-      search: நாடு அல்லது பிரதேசம் வாரியாகத் தேடு
-      statistics: எங்கள் புள்ளியியல்
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: கீழ்ச்சபை ஆவண எண்
-        isbn: ISBN
-        unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
-      attachment_data:
-        file: கோப்பு
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: இணைப்பு கட்டளை ஆவண எண்
-        hoc_paper_number: கீழ்ச்சபை ஆவண எண்
-        isbn: இணைப்பு ISBN
-        title: இணைப்பு தலைப்பு
-        unique_reference: தலைப்பு பிரத்யேகப் பார்வை
-        unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: இணைக்கப்பட்ட கோப்பு
-      edition:
-        nation_inapplicabilities: விலக்கபப்ட்ட தேசங்கள்
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: இணைக்கப்பட்ட கோப்பு
-      response/consultation_response_attachments/attachment:
-        command_paper_number: இணைப்பு கட்டளை ஆவண எண்
-        hoc_paper_number: கீழ்ச்சபை ஆவண எண்
-        isbn: இணைப்பு ISBN
-        title: இணைப்பு தலைப்பு
-        unique_reference: தலைப்பு பிரத்யேகப் பார்வை
-        unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: இணைக்கப்பட்ட கோப்பு
-    nested_attachment_data_field_names:
-      file: இணைக்கப்பட்ட கோப்பு
-    nested_attachment_field_names:
-      command_paper_number: இணைப்பு கட்டளை ஆவண எண்
-      hoc_paper_number: கீழ்ச்சபை ஆவண எண்
-      isbn: இணைப்பு ISBN
-      title: இணைப்பு தலைப்பு
-      unique_reference: தலைப்பு பிரத்யேகப் பார்வை
-      unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
-  announcements:
-    heading: அறிவிப்புகள்
-  attachment:
-    accessibility:
-      full_help_html: |
-        உதவிகரமான தொழில்நுட்பத்தை நீங்கள் பயன்படுத்தினால் (திரை வாசிப்பான் போன்றவை), இந்த ஆவணத்தின் மேலும் அணுகக்கூடிய வடிவம் தேவையெனில், தயவுசெய்து %{email} என்ற முகவரிக்கு மின்னஞ்சல் செய்யவும்.
-        எந்த வடிவம் உங்களுக்குத் தேவை என்று தயவுசெய்து கூறவும். நீங்கள் எந்த உதவக்கூடிய தொழில்நுட்பத்தை நீங்கள் பயன்படுத்துகிறீர்கள் என்று கூறினால் அது எங்களுக்கு உதவியாய் இருக்கும்.
-      intro: உதவக்கூடிய தொழில்நுட்பப் பயனர்களுக்கு இந்தக் கோப்பு பொருந்தாது.
-      request_a_different_format: அணுகக்கூடிய வடிவத்தைக் கோருக.
-    csv:
-      cannot_preview: இந்தக் கோப்புக்கு முன்னோட்டமில்லை.
-      download: கோப்பின் முழு உள்ளடக்கத்தையும் காண பதிவிறக்கவும்.
-      truncated_message: இந்த முன்னோட்டமானது முதல் %{rows} வரிசைகளையும் %{columns}
-        பத்திகளையும் மட்டுமே காட்டும்.
-    headings:
-      order_a_copy: ஒரு பிரதிக்கு தாக்கீது செய்க
-      order_a_copy_full: பிரசுரத்தின் ஒரு பிரதிக்கு தாக்கீது செய்க
-      published: வெளியிடப்பட்டது
-      reference: பார்வை
-      unnumbered_command_paper: எண்ணிடப்படாத கட்டளை ஆவணம்
-      unnumbered_hoc_paper: எண்ணிடப்படாத சட்ட ஆவணம்
-    opendocument:
-      help_html: இந்தக் கோப்பு <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        வடிவில் உள்ளது
-    virus_check:
-      intro: இந்த இணைப்பில் நச்சுநிரல் சோதிக்கப்பட்டது.
-      message: நச்சுநிரல் சரிபார்க்கப்படும்வரை தற்போதைக்கு இந்த இணைப்பை தடுப்பில்
-        வைத்திருக்கிறோம். விரைவில் மூல இடத்தில் இணைப்பு கிடைக்கப்பெறும்.
-  broken_links:
-    broken:
-      subheading: இந்த ஆவணத்தில் உடைந்த இணைப்புகள் இருக்கலாமென்பதைக் கண்டறிந்துள்ளோம்
-    caution:
-      subheading: பிரச்சினைகளைச் சுட்டிக்காட்டக்கூடிய இணைப்புகளுடன் சில பிரச்சினைகளைக்
-        கண்டறிந்துள்ளோம். அவற்றைத் தொடர்வதில் கவனமாய் இருக்கவும்
-    title: முறிந்த இணைப்புகள்
-  change_notes:
-    published_at: முதலில் பிரசுரிக்கப்பட்டது
-    see_all_updates: அனைத்து புதுப்பித்தல்களையும் பார்க்க
-    updated_at: கடைசியாகப் புதுப்பிக்கப்பட்டது
-  consultation:
-    closed: மூடப்பட்டது
-    closing_today: இன்று மூடப்படுகிறது
-    closing_tomorrow: நாளை மூடப்படுகிறது
-    days_left: "%{days_left} நாட்கள் எஞ்சியுள்ளன"
-  contact:
-    access_and_opening_times: அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
-    contact_form: தொடர்பு படிவம்
-    email: மின்னஞ்சல்
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: வெல்ஷ் மொழியில் வெளியிடப்படுகிறது
-      title:
-        about: எங்களைப் பற்றி
-        about_our_services: எங்கள் சேவைகள் குறித்து
-        access_and_opening: அலுவலகத்தை அணுகுதல் மற்றும் திறக்கும் நேரங்கள்
-        accessible_documents_policy: அணுகக்கூடிய ஆவணங்களுக்கான கொள்கை
-        complaints_procedure: புகார்களுக்கான நடைமுறை
-        equality_and_diversity: சமத்துவமும் பன்முகமும்
-        media_enquiries: ஊடக உசாவுகைகள்
-        membership: உறுப்பினர் நிலை
-        modern_slavery_statement: நவீன அடிமைத்தனக் கூற்று
-        our_energy_use: எங்கள் ஆற்றல் பயன்பாடு
-        our_governance: எங்கள் ஆளுகை
-        personal_information_charter: தனிப்பட்ட தகவல் சாசனம்
-        petitions_and_campaigns: மனுக்களும் பிரச்சாரங்களும்
-        procurement: "%{organisation_name}-ல் வாங்குதல்"
-        publication_scheme: பிரசுரத் திட்டம்
-        recruitment: "%{organisation_name}-க்காகப் பணியாற்றுதல்"
-        research: "%{organisation_name}-ல் ஆராய்ச்சி"
-        social_media_use: சமூக ஊடகப் பயன்பாடு
-        staff_update: அலுவலர் செய்திகளும் தகவல்களும்
-        statistics: "%{organisation_name}-ல் புள்ளியியல்"
-        terms_of_reference: உசாத்துணை விதிகள்
-        welsh_language_scheme: வெல்ஷ் மொழித் திட்டம்
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: அனைத்து கலந்தாலோசனைகள்
       label: கலந்தாய்வுகள்
-    description: உங்கள் ஆர்வங்களுக்குப் பொருத்தமான முடிவுகளை மட்டும் காட்ட வடிகட்டிகளை
-      நீங்கள் பயன்படுத்தலாம்
+    description: உங்கள் ஆர்வங்களுக்குப் பொருத்தமான முடிவுகளை மட்டும் காட்ட வடிகட்டிகளை நீங்கள் பயன்படுத்தலாம்
     no_results:
       description: உங்கள் தேடலை விரிவானதாக்கி மீண்டும் முயற்சிக்கவும்.
       title: பொருந்தக்கூடிய ஆவணங்கள் ஏதுமில்லை.
       tna_heading: பழைய உள்ளடக்கம்
-      tna_link: மே 2010க்கு முந்தைய சில துறை வெளியீடுகள் மட்டுமே GOV.UKவுக்குக் கொண்டுவரப்பட்டுள்ளன.
-        மே 2010க்கு முந்தைய வெளியீடுகளைக் கண்டறிய <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">தேசிய ஆவணக் காப்பகத்தில் தேட முயற்சிக்கவும்</a>.
+      tna_link: மே 2010க்கு முந்தைய சில துறை வெளியீடுகள் மட்டுமே GOV.UKவுக்குக் கொண்டுவரப்பட்டுள்ளன. மே 2010க்கு முந்தைய வெளியீடுகளைக் கண்டறிய <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">தேசிய ஆவணக் காப்பகத்தில் தேட முயற்சிக்கவும்</a>.
     world_locations:
       all: அனைத்து இருப்பிடங்கள்
       label: உலக இருப்பிடங்கள்
@@ -405,8 +382,7 @@ ta:
     subscription: மின்னஞ்சல் விழிப்பூட்டலுக்கு உறுப்பினராதல்
   fatality_notice:
     british_fatalities: பிரிட்டிஷ் உயிரிழப்புகள்
-    none_added: இந்த செயல்பாட்டுத் தளத்தில் எந்த உயிரிழப்பு அறிவிப்புகளும் இன்னும்
-      சேர்க்கப்படவில்லை.
+    none_added: இந்த செயல்பாட்டுத் தளத்தில் எந்த உயிரிழப்பு அறிவிப்புகளும் இன்னும் சேர்க்கப்படவில்லை.
   feeds:
     email: மின்னஞ்சல்
     feed: செய்தியூட்டம்
@@ -436,10 +412,8 @@ ta:
       alerts: மின்னஞ்சல் விழிப்பூட்டல்கள்
       summary: "- வசமிருந்து மின்னஞ்சல் விழிப்பூட்டல்கள்"
     embassies:
-      find_an_embassy_lowercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக்
-        கண்டறியுங்கள்
-      find_an_embassy_uppercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக்
-        கண்டறியுங்கள்
+      find_an_embassy_lowercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
+      find_an_embassy_uppercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
     headings:
       contact: "%{name}-ஐ தொடர்புகொள்க"
       corporate_information: குழுமத் தகவல்கள்
@@ -456,8 +430,7 @@ ta:
     heading: பிரசுரங்கள்
     recent: சமீபத்திய பிரசுரங்கள்
     statistics:
-      link_to_published_statistics: "%{link} புள்ளியியல் பிரிவில் வெளியிடப்பட்ட மற்றும்
-        வரவிருக்கும் அரசு புள்ளியியலின் பட்டியலைக் காணுங்கள்."
+      link_to_published_statistics: "%{link} புள்ளியியல் பிரிவில் வெளியிடப்பட்ட மற்றும் வரவிருக்கும் அரசு புள்ளியியலின் பட்டியலைக் காணுங்கள்."
       moved_notice: புள்ளியியல் வெளியீடுகள் வேறிடத்திற்கு நகர்த்தப்பட்டுள்ளன.
   roles:
     unassigned: இந்தப் பதவிக்கு யாரும் நியமிக்கப்படவில்லை
@@ -504,8 +477,7 @@ ta:
     statutory_guidance: எங்கள் அனைத்து சட்டப்பூர்வ வழிகாட்டுதல்களையும் காண்க
     transcript: எங்கள் அனைத்து எழுத்துப்படிவங்களையும் காண்க
     transparency: எங்கள் அனைத்து வெளிப்படையான தரவுகளையும் காண்க
-    written_statement: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான எழுத்துப்பூர்வ அறிவிப்புகளையும்
-      காண்க
+    written_statement: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான எழுத்துப்பூர்வ அறிவிப்புகளையும் காண்க
   support:
     array:
       last_word_connector: " மற்றும் "
@@ -514,11 +486,9 @@ ta:
     fields_of_operation: இயங்குதளம்
     filter: வடிகட்டி
     pagination:
-      next_html: அடுத்த <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல்
-        %{current_page} of</span>
+      next_html: அடுத்த <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல் %{current_page} of</span>
       next_page: அடுத்த பக்கம்
-      previous_html: முந்தைய <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல்
-        %{current_page} of</span>
+      previous_html: முந்தைய <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல் %{current_page} of</span>
       previous_page: முந்தைய பக்கம்
     part_of_collection: 'ஒரு சேகரிப்பின் பகுதி:'
   time:
@@ -535,16 +505,30 @@ ta:
       historic_england: வரலாற்றுச் சிறப்புமிக்க இங்கிலாந்து
       iwm: இம்பீரியல் போர் அருங்காட்சியகம்
       war_memorials_trust: போர் நினைவுச்சின்ன அறக்கட்டளை
+  world_location:
+    headings:
+      announcements: எங்கள் அறிவிப்புகள்
+      documents: ஆவணங்கள்
+      mission: எங்கள் செயல் இலக்கு
+      news: உலக இருப்பிடச் செய்தி
+      organisations: நிறுவனங்கள்
+      publications: எங்கள் வெளியீடுகள்
+      search: நாடு அல்லது பிரதேசம் வாரியாகத் தேடு
+      statistics: எங்கள் புள்ளியியல்
+    type:
+      international_delegation:
+        one: சர்வதேச தூதுக்குழு
+        other: சர்வதேச தூதுக்குழுக்கள்
+      world_location:
+        one: உலக இருப்பிடம்
+        other: உலக இருப்பிடங்கள்
   world_news:
-    uk_updates_in_country: "%{country} நாட்டில் UK அரசாங்கத்திடமிருந்து புதுப்பித்தல்கள்,
-      செய்திகள் மற்றும் நிகழ்வுகள்"
+    uk_updates_in_country: "%{country} நாட்டில் UK அரசாங்கத்திடமிருந்து புதுப்பித்தல்கள், செய்திகள் மற்றும் நிகழ்வுகள்"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: கண்டறியுங்கள் %{link}.
-      personal_information_charter_html: எங்கள் %{link} உங்கள் தனிப்பட்ட தகவல்களை
-        நாங்கள் எவ்வாறு கையாள்கிறோம் என்பதை விளக்குகிறது.
-      publication_scheme_html: எங்கள் %{link}-ல் நாங்கள் வழக்கமாக வெளியிடும் தகவல்களின்
-        வகைகள் குறித்து வாசியுங்கள்..
+      personal_information_charter_html: எங்கள் %{link} உங்கள் தனிப்பட்ட தகவல்களை நாங்கள் எவ்வாறு கையாள்கிறோம் என்பதை விளக்குகிறது.
+      publication_scheme_html: எங்கள் %{link}-ல் நாங்கள் வழக்கமாக வெளியிடும் தகவல்களின் வகைகள் குறித்து வாசியுங்கள்..
       social_media_use_html: "%{link}-ல் எங்கள் கொள்கை குறித்து வாசியுங்கள்."
       welsh_language_scheme_html: "%{link}-க்கு எங்கள் கடப்பாடு குறித்துக் கண்டறியுங்கள்."
     find_out_more: முழு சுயவிபரத்தையும் அனைத்து தொடர்பு விபரங்களையும் காண்க

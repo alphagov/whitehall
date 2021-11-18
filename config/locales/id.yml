@@ -1,3 +1,4 @@
+---
 id:
   activerecord:
     attributes:
@@ -50,8 +51,7 @@ id:
     csv:
       cannot_preview: File ini tidak dapat dipratinjau.
       download: Unduh file untuk melihat konten lengkapnya.
-      truncated_message: Pratinjau ini hanya menampilkan %{rows} baris dan %{columns}
-        kolom pertama.
+      truncated_message: Pratinjau ini hanya menampilkan %{rows} baris dan %{columns} kolom pertama.
     headings:
       order_a_copy: Pesan salinan
       order_a_copy_full: Pesan salinan publikasi
@@ -63,14 +63,12 @@ id:
       help_html: File ini berformat <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
       intro: Lampiran ini sedang dicek untuk virus.
-      message: Kami saat ini menaruh lampiran ini dalam karantina hingga virus telah
-        dicek. Lampiran ini akan tersedia pada lokasi asal tidak lama lagi.
+      message: Kami saat ini menaruh lampiran ini dalam karantina hingga virus telah dicek. Lampiran ini akan tersedia pada lokasi asal tidak lama lagi.
   broken_links:
     broken:
       subheading: Kami menemukan tautan yang mungkin terputus di dalam dokumen ini
     caution:
-      subheading: Kami menemukan masalah dengan tautan yang mungkin menandakan adanya
-        masalah, Anda harus berhati-hati saat mengklik tautan itu
+      subheading: Kami menemukan masalah dengan tautan yang mungkin menandakan adanya masalah, Anda harus berhati-hati saat mengklik tautan itu
     title: Tautan terputus
   change_notes:
     published_at: Pertama diterbitkan
@@ -370,16 +368,12 @@ id:
     consultation:
       all: Semua konsultasi
       label: Konsultasi
-    description: Anda dapat menggunakan filter untuk hanya menampilkan hasil yang
-      sesuai dengan minat Anda
+    description: Anda dapat menggunakan filter untuk hanya menampilkan hasil yang sesuai dengan minat Anda
     no_results:
       description: Cobalah membuat pencarian Anda lebih lebar dan coba lagi.
       title: Tidak ada dokumen yang cocok.
       tna_heading: Konten lebih tua
-      tna_link: Tidak semua publikasi departemen sebelum Mei 2010 dimigrasikan ke
-        GOV.UK. Untuk menemukan publikasi sebelum Mei 2010, cobalah mencari di <a
-        href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arsip
-        Nasional</a>.
+      tna_link: Tidak semua publikasi departemen sebelum Mei 2010 dimigrasikan ke GOV.UK. Untuk menemukan publikasi sebelum Mei 2010, cobalah mencari di <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arsip Nasional</a>.
     world_locations:
       all: Semua lokasi
       label: Lokasi dunia
@@ -388,8 +382,7 @@ id:
     subscription: Langganan peringatan email
   fatality_notice:
     british_fatalities: Fatalitas Inggris
-    none_added: Belum ada pemberitahuan fatalitas yang ditambahkan untuk bidang operasi
-      ini.
+    none_added: Belum ada pemberitahuan fatalitas yang ditambahkan untuk bidang operasi ini.
   feeds:
     email: email
     feed: feed
@@ -437,8 +430,7 @@ id:
     heading: Publikasi
     recent: Publikasi terbaru
     statistics:
-      link_to_published_statistics: Temukan daftar statistik pemerintah yang sudah
-        atau akan diterbitkan pada bagian statistik %{link}.
+      link_to_published_statistics: Temukan daftar statistik pemerintah yang sudah atau akan diterbitkan pada bagian statistik %{link}.
       moved_notice: Publikasi statistik sudah dipindah.
   roles:
     unassigned: Belum ada yang ditetapkan untuk peran ini
@@ -494,11 +486,9 @@ id:
     fields_of_operation: Bidang operasi
     filter: Filter
     pagination:
-      next_html: <span class="visuallyhidden">Halaman</span> selanjutnya <span class="page-numbers">%{current_page}
-        dari %{total_pages}</span>
+      next_html: <span class="visuallyhidden">Halaman</span> selanjutnya <span class="page-numbers">%{current_page} dari %{total_pages}</span>
       next_page: Halaman selanjutnya
-      previous_html: <span class="visuallyhidden">Halaman</span> sebelumnya <span
-        class="page-numbers">%{current_page} dari %{total_pages}</span>
+      previous_html: <span class="visuallyhidden">Halaman</span> sebelumnya <span class="page-numbers">%{current_page} dari %{total_pages}</span>
       previous_page: Halaman sebelumnya
     part_of_collection: 'Bagian koleksi:'
   time:
@@ -533,15 +523,12 @@ id:
         one: Lokasi dunia
         other: Lokasi dunia
   world_news:
-    uk_updates_in_country: Pembaruan, berita, dan peristiwa dalam pemerintahan Inggris
-      Raya di %{country}
+    uk_updates_in_country: Pembaruan, berita, dan peristiwa dalam pemerintahan Inggris Raya di %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Temukan %{link}.
-      personal_information_charter_html: "%{link} menjelaskan cara kami memperlakukan
-        informasi pribadi Anda."
-      publication_scheme_html: Bacalah jenis-jenis informasi yang kami terbitkan secara
-        rutin di %{link} kami.
+      personal_information_charter_html: "%{link} menjelaskan cara kami memperlakukan informasi pribadi Anda."
+      publication_scheme_html: Bacalah jenis-jenis informasi yang kami terbitkan secara rutin di %{link} kami.
       social_media_use_html: Baca kebijakan kami di %{link}.
       welsh_language_scheme_html: Cari tahu komitmen kami kepada %{link}.
     find_out_more: Lihat profil lengkap dan semua detail kontak

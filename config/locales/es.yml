@@ -1,5 +1,140 @@
+---
 es:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Número de documento de la Cámara de los Comunes
+        isbn: ISBN
+        unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
+      attachment_data:
+        file: Archivo
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Número de papel del comando de archivo adjunto
+        hoc_paper_number: Número de documento de la Cámara de los Comunes
+        isbn: ISBN adjunto
+        title: Título adjunto
+        unique_reference: Referencia única del adjunto
+        unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: El archivo adjunto
+      edition:
+        nation_inapplicabilities: Naciones excluidas
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: El archivo adjunto
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Número de papel del comando de archivo adjunto
+        hoc_paper_number: Número de documento de la Cámara de los Comunes
+        isbn: ISBN adjunto
+        title: Título adjunto
+        unique_reference: Referencia única del adjunto
+        unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: El archivo adjunto
+    nested_attachment_data_field_names:
+      file: El archivo adjunto
+    nested_attachment_field_names:
+      command_paper_number: Número de papel del comando de archivo adjunto
+      hoc_paper_number: Número de documento de la Cámara de los Comunes
+      isbn: ISBN adjunto
+      title: Título adjunto
+      unique_reference: Referencia única del adjunto
+      unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
+  announcements:
+    heading: Anuncios
+  attachment:
+    accessibility:
+      full_help_html: Si utiliza tecnología de asistencia (como un lector de pantalla) y necesita una versión de este documento en una formato más accesible, envíe un correo electrónico a %{email}. Díganos qué formato necesita. Para nosotros es importante saber qué tecnología de asistencia utiliza.
+      intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
+      request_a_different_format: Solicítelo en un formato diferente
+    csv:
+      cannot_preview: No se ha podido previsualizar este archivo.
+      download: Descargue el archivo para ver su contenido completo.
+      truncated_message: Esta vista previa solamente muestra las primeras filas %{rows} y columnas %{columns}.
+    headings:
+      order_a_copy: Pida una copia
+      order_a_copy_full: Pida una copa de la publicación
+      published: Publicado
+      reference: Referencia
+      unnumbered_command_paper: Documento de comandos sin numerar
+      unnumbered_hoc_paper: Documento de acta sin numerar
+    opendocument:
+      help_html: Este archivo tiene el formato <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
+    virus_check:
+      intro: Se está comprobando la presencia de virus en este archivo adjunto.
+      message: Actualmente estamos manteniendo este archivo adjunto en cuarentena hasta que se haya comprobado la presencia de virus. El archivo adjunto estará disponible en la ubicación original en breve.
+  broken_links:
+    broken:
+      subheading: Hemos encontrado enlaces en este documento que pueden estar rotos
+    caution:
+      subheading: Hemos encontrado algunos problemas con enlaces que pueden indicar errores, debe tener cuidado al vincularse a estos
+    title: Vínculos roto
+  change_notes:
+    published_at: Publicado por primera vez
+    see_all_updates: ver todas las actualizaciones
+    updated_at: Última actualización
+  consultation:
+    closed: Cerrado
+    closing_today: Cierre hoy
+    closing_tomorrow: Cierra mañana
+    days_left: quedan %{days_left} días
+  contact:
+    access_and_opening_times: Horarios de acceso y apertura
+    contact_form: Formulario de contacto
+    email: Email
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: publicación en galés
+      title:
+        about: Sobre nosotros
+        about_our_services: Sobre nuestros servicios
+        access_and_opening: Acceso a la oficina y horarios de apertura
+        accessible_documents_policy: Política de documentos accesibles
+        complaints_procedure: Procedimiento de quejas
+        equality_and_diversity: Igualdad y diversidad
+        media_enquiries: Consultas de los medios de comunicación
+        membership: Miembros
+        modern_slavery_statement: Declaración de esclavitud moderna
+        our_energy_use: Nuestro uso de la energía
+        our_governance: Nuestra gobernanza
+        personal_information_charter: Cédula de información personal
+        petitions_and_campaigns: Peticiones y campañas
+        procurement: Adquisición en %{organization_name}
+        publication_scheme: Esquema de publicación
+        recruitment: Trabajando para %{organization_name}
+        research: Investigación en %{organization_name}
+        social_media_use: Uso de medios sociales
+        staff_update: Noticias e información del personal
+        statistics: Estadísticas en %{organization_name}
+        terms_of_reference: Términos de referencia
+        welsh_language_scheme: Esquema de gales
+  date:
+    formats:
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Contenido
+    footer_meta:
+      full_page_history: historial de páginas completo
+      published: Publicado
+      updated: Actualizado
+    headings:
+      applies_to_nations: Sirve para
+      from: Desde
+      part_of: Parte de
+    latest: Documentos más recientes
+    latest_from: Más reciente de %{subject}
+    published: Publicado
+    see_all: Ver todo
+    speech:
+      author_title:
+        minister: Ministro
+        speaker: Escritor
+      delivered_on: Emitido el
+      delivery_title:
+        minister: Ministro
+        speaker: Orador
+      written_on: 'Escrito en:'
     type:
       about:
         one: Acerca de
@@ -226,165 +361,7 @@ es:
       written_statement:
         one: Declaración escrita
         other: Declaraciones escritas
-    contents: Contenido
-    footer_meta:
-      full_page_history: historial de páginas completo
-      published: Publicado
-      updated: Actualizado
-    headings:
-      applies_to_nations: Sirve para
-      from: Desde
-      part_of: Parte de
-    latest: Documentos más recientes
-    latest_from: Más reciente de %{subject}
-    published: Publicado
-    see_all: Ver todo
-    speech:
-      author_title:
-        minister: Ministro
-        speaker: Escritor
-      delivered_on: Emitido el
-      delivery_title:
-        minister: Ministro
-        speaker: Orador
-      written_on: 'Escrito en:'
     updated: Actualizado
-  world_location:
-    type:
-      international_delegation:
-        one: Delegación internacional
-        other: Delegaciones internacionales
-      world_location:
-        one: Ubicación mundial
-        other: Ubicaciones mundiales
-    headings:
-      announcements: Nuestros anuncios
-      documents: Documentos
-      mission: Nuestra Misión
-      news: Noticias de situación mundial
-      organisations: Organizaciones
-      publications: Publicaciones
-      search: Búsqueda por país o territorio
-      statistics: Nuestras estadísticas
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Número de documento de la Cámara de los Comunes
-        isbn: ISBN
-        unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
-      attachment_data:
-        file: Archivo
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Número de papel del comando de archivo adjunto
-        hoc_paper_number: Número de documento de la Cámara de los Comunes
-        isbn: ISBN adjunto
-        title: Título adjunto
-        unique_reference: Referencia única del adjunto
-        unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: El archivo adjunto
-      edition:
-        nation_inapplicabilities: Naciones excluidas
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: El archivo adjunto
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Número de papel del comando de archivo adjunto
-        hoc_paper_number: Número de documento de la Cámara de los Comunes
-        isbn: ISBN adjunto
-        title: Título adjunto
-        unique_reference: Referencia única del adjunto
-        unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: El archivo adjunto
-    nested_attachment_data_field_names:
-      file: El archivo adjunto
-    nested_attachment_field_names:
-      command_paper_number: Número de papel del comando de archivo adjunto
-      hoc_paper_number: Número de documento de la Cámara de los Comunes
-      isbn: ISBN adjunto
-      title: Título adjunto
-      unique_reference: Referencia única del adjunto
-      unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
-  announcements:
-    heading: Anuncios
-  attachment:
-    accessibility:
-      full_help_html: Si utiliza tecnología de asistencia (como un lector de pantalla)
-        y necesita una versión de este documento en una formato más accesible, envíe
-        un correo electrónico a %{email}. Díganos qué formato necesita. Para nosotros
-        es importante saber qué tecnología de asistencia utiliza.
-      intro: Este archivo puede estar no disponible para usuarios con tecnología asistida
-      request_a_different_format: Solicítelo en un formato diferente
-    csv:
-      cannot_preview: No se ha podido previsualizar este archivo.
-      download: Descargue el archivo para ver su contenido completo.
-      truncated_message: Esta vista previa solamente muestra las primeras filas %{rows}
-        y columnas %{columns}.
-    headings:
-      order_a_copy: Pida una copia
-      order_a_copy_full: Pida una copa de la publicación
-      published: Publicado
-      reference: Referencia
-      unnumbered_command_paper: Documento de comandos sin numerar
-      unnumbered_hoc_paper: Documento de acta sin numerar
-    opendocument:
-      help_html: Este archivo tiene el formato <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-    virus_check:
-      intro: Se está comprobando la presencia de virus en este archivo adjunto.
-      message: Actualmente estamos manteniendo este archivo adjunto en cuarentena
-        hasta que se haya comprobado la presencia de virus. El archivo adjunto estará
-        disponible en la ubicación original en breve.
-  broken_links:
-    broken:
-      subheading: Hemos encontrado enlaces en este documento que pueden estar rotos
-    caution:
-      subheading: Hemos encontrado algunos problemas con enlaces que pueden indicar
-        errores, debe tener cuidado al vincularse a estos
-    title: Vínculos roto
-  change_notes:
-    published_at: Publicado por primera vez
-    see_all_updates: ver todas las actualizaciones
-    updated_at: Última actualización
-  consultation:
-    closed: Cerrado
-    closing_today: Cierre hoy
-    closing_tomorrow: Cierra mañana
-    days_left: quedan %{days_left} días
-  contact:
-    access_and_opening_times: Horarios de acceso y apertura
-    contact_form: Formulario de contacto
-    email: Email
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: publicación en galés
-      title:
-        about: Sobre nosotros
-        about_our_services: Sobre nuestros servicios
-        access_and_opening: Acceso a la oficina y horarios de apertura
-        accessible_documents_policy: Política de documentos accesibles
-        complaints_procedure: Procedimiento de quejas
-        equality_and_diversity: Igualdad y diversidad
-        media_enquiries: Consultas de los medios de comunicación
-        membership: Miembros
-        modern_slavery_statement: Declaración de esclavitud moderna
-        our_energy_use: Nuestro uso de la energía
-        our_governance: Nuestra gobernanza
-        personal_information_charter: Cédula de información personal
-        petitions_and_campaigns: Peticiones y campañas
-        procurement: Adquisición en %{organization_name}
-        publication_scheme: Esquema de publicación
-        recruitment: Trabajando para %{organization_name}
-        research: Investigación en %{organization_name}
-        social_media_use: Uso de medios sociales
-        staff_update: Noticias e información del personal
-        statistics: Estadísticas en %{organization_name}
-        terms_of_reference: Términos de referencia
-        welsh_language_scheme: Esquema de gales
-  date:
-    formats:
-      default: "%e %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Todas las consultas
@@ -394,10 +371,7 @@ es:
       description: Haz una búsqueda más amplio e intentalo de nuevo.
       title: No se ha producido ningún resultado
       tna_heading: Contenido antiguo
-      tna_link: No todas las publicaciones del departamento de antes de mayo de 2010
-        se migraron a GOV.UK. Para encontrar publicaciones anteriores a mayo de 2010,
-        intente la búsqueda en <a href='http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class='govuk-link'>los Archivos Nacionales</a>.
+      tna_link: No todas las publicaciones del departamento de antes de mayo de 2010 se migraron a GOV.UK. Para encontrar publicaciones anteriores a mayo de 2010, intente la búsqueda en <a href='http://webarchive.nationalarchives.gov.uk/adv_search/" class='govuk-link'>los Archivos Nacionales</a>.
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo
@@ -406,8 +380,7 @@ es:
     subscription: Suscripción a alertas por correo electrónico
   fatality_notice:
     british_fatalities: Defunciones británicas
-    none_added: Aún no se han agregado los avisos de defunción para este campo de
-      operación.
+    none_added: Aún no se han agregado los avisos de defunción para este campo de operación.
   feeds:
     email: correo electrónico
     feed: feed
@@ -437,10 +410,8 @@ es:
       alerts: alertas por correo electrónico
       summary: Alertas por correo electrónico desde
     embassies:
-      find_an_embassy_lowercase: Busque una embajada británica, alto comisionado o
-        consulado
-      find_an_embassy_uppercase: Busque una embajada británica, Alto Comisionado o
-        Consulado
+      find_an_embassy_lowercase: Busque una embajada británica, alto comisionado o consulado
+      find_an_embassy_uppercase: Busque una embajada británica, Alto Comisionado o Consulado
     headings:
       contact: Contacto %{name}
       corporate_information: Información corporativa
@@ -457,8 +428,7 @@ es:
     heading: Publicaciones
     recent: Publicaciones recientes
     statistics:
-      link_to_published_statistics: Busque una lista de estadísticas gubernamentales
-        publicadas y próximas en la sección de estadísticas %{link}.
+      link_to_published_statistics: Busque una lista de estadísticas gubernamentales publicadas y próximas en la sección de estadísticas %{link}.
       moved_notice: Las publicaciones estadísticas se han movido.
   roles:
     unassigned: No hay nadie asignado a esta función
@@ -514,11 +484,9 @@ es:
     fields_of_operation: Campos de operación
     filter: Filtro
     pagination:
-      next_html: Siguiente <span class='visuallyhidden'>página</span> <span class='page-numbers'>%{current_page}
-        de %{total_pages}</span>
+      next_html: Siguiente <span class='visuallyhidden'>página</span> <span class='page-numbers'>%{current_page} de %{total_pages}</span>
       next_page: Página siguiente
-      previous_html: Anterior <span class="visuallyhidden">página</span> <span class="page-numbers">%{current_page}
-        de %{total_pages}</span>
+      previous_html: Anterior <span class="visuallyhidden">página</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       previous_page: Página anterior
     part_of_collection: 'Parte de una colección:'
   time:
@@ -535,19 +503,32 @@ es:
       historic_england: Inglaterra histórica
       iwm: Museo Imperial de la Guerra
       war_memorials_trust: War Memorials Trust
+  world_location:
+    headings:
+      announcements: Nuestros anuncios
+      documents: Documentos
+      mission: Nuestra Misión
+      news: Noticias de situación mundial
+      organisations: Organizaciones
+      publications: Publicaciones
+      search: Búsqueda por país o territorio
+      statistics: Nuestras estadísticas
+    type:
+      international_delegation:
+        one: Delegación internacional
+        other: Delegaciones internacionales
+      world_location:
+        one: Ubicación mundial
+        other: Ubicaciones mundiales
   world_news:
-    uk_updates_in_country: Actualizaciones, noticias y eventos del gobierno británico
-      en %{country}
+    uk_updates_in_country: Actualizaciones, noticias y eventos del gobierno británico en %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Descubra %{link}.
-      personal_information_charter_html: El siguiente enlace %{link} explica cómo
-        tratamos tu información personal
-      publication_scheme_html: Lea acerca del tipo de información que publicamos en
-        el siguiente enlace %{link}.
+      personal_information_charter_html: El siguiente enlace %{link} explica cómo tratamos tu información personal
+      publication_scheme_html: Lea acerca del tipo de información que publicamos en el siguiente enlace %{link}.
       social_media_use_html: Lea nuestra política en %{link}.
-      welsh_language_scheme_html: Encuentre más sobre nuestro compromiso de publicar
-        en %{link}.
+      welsh_language_scheme_html: Encuentre más sobre nuestro compromiso de publicar en %{link}.
     find_out_more: Vea el perfil completo y los detalles de contacto
     headings:
       contact_us: Contáctenos

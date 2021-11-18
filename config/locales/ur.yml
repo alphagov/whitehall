@@ -1,5 +1,142 @@
+---
 ur:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+        isbn: ISBN
+        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
+      attachment_data:
+        file: فائل
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
+        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+        isbn: منسلکہ کا ISBN
+        title: منسلہ کا عنوان
+        unique_reference: منسلکہ کا منفرد حوالہ
+        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: منسلک کردہ فائل
+      edition:
+        nation_inapplicabilities: خارج کردہ اقوام
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: منسلک کردہ فائل
+      response/consultation_response_attachments/attachment:
+        command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
+        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+        isbn: منسلکہ کا ISBN
+        title: منسلہ کا عنوان
+        unique_reference: منسلکہ کا منفرد حوالہ
+        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: منسلک کردہ فائل
+    nested_attachment_data_field_names:
+      file: منسلک کردہ فائل
+    nested_attachment_field_names:
+      command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
+      hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
+      isbn: منسلکہ کا ISBN
+      title: منسلہ کا عنوان
+      unique_reference: منسلکہ کا منفرد حوالہ
+      unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
+  announcements:
+    heading: اعلانات
+  attachment:
+    accessibility:
+      full_help_html: |
+        اگر آپ معاونتی ٹیکنالوجی استعمال کرتے ہیں (جیسے کہ اسکرین ریڈر) اور آپ کو یہ ورژن مزید قابل رسائی فارمیٹ میں درکار ہے، تو براہ کرم %{email} پر ای میل کریں۔
+        براہ کرم ہمیں آگاہ کریں کہ آپ کو کون سا فارمیٹ درکار ہے۔ اگر آپ بتائیں کہ آپ کون سی معاونتی ٹیکنالوجی استعمال کرتے ہیں تو ہمیں اس سے مدد ملے گی۔
+      intro: ہو سکتا ہے کہ یہ فائل معاونتی ٹیکنالوجی کے صارفین کے لیے موزوں نہ ہو۔
+      request_a_different_format: قابل رسائی فارمیٹ کی درخواست دیں۔
+    csv:
+      cannot_preview: یہ فائل دیکھی نئی جا سکتی۔
+      download: اس فائل کے تمام مشمولات دیکھنے کے لیے فائل ڈاؤن لوڈ کریں۔
+      truncated_message: اس پیش منظر سے صرف پہلی %{rows} قطاریں اور %{columns} کالمز دکھائی دیتے ہیں۔
+    headings:
+      order_a_copy: نقل آرڈر کریں
+      order_a_copy_full: پبلیکیشن کی نقل آرڈر کریں
+      published: شائع کردہ
+      reference: حوالہ
+      unnumbered_command_paper: غیر نمبر شدہ احکامی صفحہ
+      unnumbered_hoc_paper: غیر نمبر شدہ ایکٹ کا صفحہ
+    opendocument:
+      help_html: یہ فائل <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> فارمیٹ میں ہے
+    virus_check:
+      intro: اس منسلکہ میں وائرس کی جانچ کی گئی ہے۔
+      message: جب تک اس منسلکہ میں وائرس کی جانچ نہ کی جائے ہم فی الوقت اسے روک رہے ہیں۔ منسلکہ جلد ہی اصل مقام پر دستیاب ہو گی۔
+  broken_links:
+    broken:
+      subheading: ہمیں اس دستاویز میں لنکس ملے ہیں جو ٹوٹے ہوئے ہو سکتے ہیں
+    caution:
+      subheading: ہمیں لنکس کے ساتھ کچھ درپیش مسائل کے بارے میں معلوم ہوا ہے جو کہ مسائل کی نشاندہی کر سکتے ہیں، آپ کو انہیں مربوط کرنے وقت احتیاط برتنی چاہیئے
+    title: ٹوٹے ہوئے لنکس
+  change_notes:
+    published_at: پہلی بار اشاعت کردہ
+    see_all_updates: تمام اپ ڈیٹس دیکھیں
+    updated_at: آخری بار اپ ڈیٹ کردہ
+  consultation:
+    closed: بند
+    closing_today: آج بند ہونا ہے۔
+    closing_tomorrow: کل بند ہونا ہے۔
+    days_left: "%{days_left} دن باقی ہیں"
+  contact:
+    access_and_opening_times: رسائی اور کھولنے کے اوقات
+    contact_form: رابطے کا فارم
+    email: ای میل
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: ویلش میں اشاعت
+      title:
+        about: ہمارے بارے میں
+        about_our_services: ہماری سروس کے بارے میں
+        access_and_opening: آفیشل رسائی اور کھلنے کے اوقات
+        accessible_documents_policy: رسائی پذیری کی دستاویزات کی پالیسی
+        complaints_procedure: شکایات کا طریقہ کار
+        equality_and_diversity: مساوات اور تنوع
+        media_enquiries: میڈیا کے سوالات
+        membership: ممبرشپ
+        modern_slavery_statement: جدید غلامی کا بیان
+        our_energy_use: ہمارا طاقت کا استعمال
+        our_governance: ہماری گورننس
+        personal_information_charter: ذاتی معلومات کا چارٹر
+        petitions_and_campaigns: شقیں اور مہمات
+        procurement: "%{organisation_name} پر حصول"
+        publication_scheme: پبلیکیشن کی اسکیم
+        recruitment: "%{organisation_name} کے لیے کام کر رہے ہیں"
+        research: "%{organisation_name} پر تحقیق"
+        social_media_use: سوشل میڈیا کا استعمال
+        staff_update: عملے کی خبریں اور معلومات
+        statistics: "%{organisation_name} پر شماریات"
+        terms_of_reference: حوالہ جاتی شرائط
+        welsh_language_scheme: ویلش زبان کی اسکیم
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: مشمولات
+    footer_meta:
+      full_page_history: پورے صفحے کی ہسٹری
+      published: شائع کردہ
+      updated: اپ ڈیٹ کردہ
+    headings:
+      applies_to_nations: درج ذیل پر اطلاق ہوتا ہے
+      from: از
+      part_of: حصہ از
+    latest: تازہ ترین دستاویزات
+    latest_from: "%{subject} سے تازہ ترین"
+    published: شائع کردہ
+    see_all: تمام کو دیکھیں
+    speech:
+      author_title:
+        minister: وزیر
+        speaker: لکھاری
+      delivered_on: 'ترسیل کردہ از:'
+      delivery_title:
+        minister: وزیر
+        speaker: اسپیکر
+      written_on: 'تحریر کردہ بتاریخ:'
     type:
       about:
         one: بارے میں
@@ -226,178 +363,17 @@ ur:
       written_statement:
         one: پالیمان کے لیے تحریری بیان
         other: پالیمان کے لیے تحریری بیانات
-    contents: مشمولات
-    footer_meta:
-      full_page_history: پورے صفحے کی ہسٹری
-      published: شائع کردہ
-      updated: اپ ڈیٹ کردہ
-    headings:
-      applies_to_nations: درج ذیل پر اطلاق ہوتا ہے
-      from: از
-      part_of: حصہ از
-    latest: تازہ ترین دستاویزات
-    latest_from: "%{subject} سے تازہ ترین"
-    published: شائع کردہ
-    see_all: تمام کو دیکھیں
-    speech:
-      author_title:
-        minister: وزیر
-        speaker: لکھاری
-      delivered_on: 'ترسیل کردہ از:'
-      delivery_title:
-        minister: وزیر
-        speaker: اسپیکر
-      written_on: 'تحریر کردہ بتاریخ:'
     updated: اپ ڈیٹ کردہ
-  world_location:
-    type:
-      international_delegation:
-        one: عالمی وفد
-        other: عالمی وفود
-      world_location:
-        one: عالمی مقام
-        other: عالمی مقامات
-    headings:
-      announcements: ہمارے اعلانات
-      documents: دستاویزات
-      mission: ہمارا مشن
-      news: عالمی مقام کی خبریں
-      organisations: تنظیمیں
-      publications: ہماری پبلیکیشنز
-      search: ملک یا خطے کے لحاظ سے تلاش کریں
-      statistics: ہمارے شماریات
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
-        isbn: ISBN
-        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
-      attachment_data:
-        file: فائل
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
-        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
-        isbn: منسلکہ کا ISBN
-        title: منسلہ کا عنوان
-        unique_reference: منسلکہ کا منفرد حوالہ
-        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: منسلک کردہ فائل
-      edition:
-        nation_inapplicabilities: خارج کردہ اقوام
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: منسلک کردہ فائل
-      response/consultation_response_attachments/attachment:
-        command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
-        hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
-        isbn: منسلکہ کا ISBN
-        title: منسلہ کا عنوان
-        unique_reference: منسلکہ کا منفرد حوالہ
-        unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: منسلک کردہ فائل
-    nested_attachment_data_field_names:
-      file: منسلک کردہ فائل
-    nested_attachment_field_names:
-      command_paper_number: منسلکہ کے حکم کا صفحہ نمبر
-      hoc_paper_number: ہاؤس آف کامنز کا صفحہ نمبر
-      isbn: منسلکہ کا ISBN
-      title: منسلہ کا عنوان
-      unique_reference: منسلکہ کا منفرد حوالہ
-      unnumbered_hoc_paper: غیر نمبر شدہ ہاؤس آف کامنز کا صفحہ
-  announcements:
-    heading: اعلانات
-  attachment:
-    accessibility:
-      full_help_html: |
-        اگر آپ معاونتی ٹیکنالوجی استعمال کرتے ہیں (جیسے کہ اسکرین ریڈر) اور آپ کو یہ ورژن مزید قابل رسائی فارمیٹ میں درکار ہے، تو براہ کرم %{email} پر ای میل کریں۔
-        براہ کرم ہمیں آگاہ کریں کہ آپ کو کون سا فارمیٹ درکار ہے۔ اگر آپ بتائیں کہ آپ کون سی معاونتی ٹیکنالوجی استعمال کرتے ہیں تو ہمیں اس سے مدد ملے گی۔
-      intro: ہو سکتا ہے کہ یہ فائل معاونتی ٹیکنالوجی کے صارفین کے لیے موزوں نہ ہو۔
-      request_a_different_format: قابل رسائی فارمیٹ کی درخواست دیں۔
-    csv:
-      cannot_preview: یہ فائل دیکھی نئی جا سکتی۔
-      download: اس فائل کے تمام مشمولات دیکھنے کے لیے فائل ڈاؤن لوڈ کریں۔
-      truncated_message: اس پیش منظر سے صرف پہلی %{rows} قطاریں اور %{columns} کالمز
-        دکھائی دیتے ہیں۔
-    headings:
-      order_a_copy: نقل آرڈر کریں
-      order_a_copy_full: پبلیکیشن کی نقل آرڈر کریں
-      published: شائع کردہ
-      reference: حوالہ
-      unnumbered_command_paper: غیر نمبر شدہ احکامی صفحہ
-      unnumbered_hoc_paper: غیر نمبر شدہ ایکٹ کا صفحہ
-    opendocument:
-      help_html: یہ فائل <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        فارمیٹ میں ہے
-    virus_check:
-      intro: اس منسلکہ میں وائرس کی جانچ کی گئی ہے۔
-      message: جب تک اس منسلکہ میں وائرس کی جانچ نہ کی جائے ہم فی الوقت اسے روک رہے
-        ہیں۔ منسلکہ جلد ہی اصل مقام پر دستیاب ہو گی۔
-  broken_links:
-    broken:
-      subheading: ہمیں اس دستاویز میں لنکس ملے ہیں جو ٹوٹے ہوئے ہو سکتے ہیں
-    caution:
-      subheading: ہمیں لنکس کے ساتھ کچھ درپیش مسائل کے بارے میں معلوم ہوا ہے جو کہ
-        مسائل کی نشاندہی کر سکتے ہیں، آپ کو انہیں مربوط کرنے وقت احتیاط برتنی چاہیئے
-    title: ٹوٹے ہوئے لنکس
-  change_notes:
-    published_at: پہلی بار اشاعت کردہ
-    see_all_updates: تمام اپ ڈیٹس دیکھیں
-    updated_at: آخری بار اپ ڈیٹ کردہ
-  consultation:
-    closed: بند
-    closing_today: آج بند ہونا ہے۔
-    closing_tomorrow: کل بند ہونا ہے۔
-    days_left: "%{days_left} دن باقی ہیں"
-  contact:
-    access_and_opening_times: رسائی اور کھولنے کے اوقات
-    contact_form: رابطے کا فارم
-    email: ای میل
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: ویلش میں اشاعت
-      title:
-        about: ہمارے بارے میں
-        about_our_services: ہماری سروس کے بارے میں
-        access_and_opening: آفیشل رسائی اور کھلنے کے اوقات
-        accessible_documents_policy: رسائی پذیری کی دستاویزات کی پالیسی
-        complaints_procedure: شکایات کا طریقہ کار
-        equality_and_diversity: مساوات اور تنوع
-        media_enquiries: میڈیا کے سوالات
-        membership: ممبرشپ
-        modern_slavery_statement: جدید غلامی کا بیان
-        our_energy_use: ہمارا طاقت کا استعمال
-        our_governance: ہماری گورننس
-        personal_information_charter: ذاتی معلومات کا چارٹر
-        petitions_and_campaigns: شقیں اور مہمات
-        procurement: "%{organisation_name} پر حصول"
-        publication_scheme: پبلیکیشن کی اسکیم
-        recruitment: "%{organisation_name} کے لیے کام کر رہے ہیں"
-        research: "%{organisation_name} پر تحقیق"
-        social_media_use: سوشل میڈیا کا استعمال
-        staff_update: عملے کی خبریں اور معلومات
-        statistics: "%{organisation_name} پر شماریات"
-        terms_of_reference: حوالہ جاتی شرائط
-        welsh_language_scheme: ویلش زبان کی اسکیم
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: تمام مشاورتیں
       label: مشاورتیں
-    description: آپ صرف وہ نتائج دیکھنے کے لیے فلٹرز کا استعمال کر سکتے ہیں جو آپ
-      کی دلچسپیوں سے مماثلت رکھتے ہیں
+    description: آپ صرف وہ نتائج دیکھنے کے لیے فلٹرز کا استعمال کر سکتے ہیں جو آپ کی دلچسپیوں سے مماثلت رکھتے ہیں
     no_results:
       description: اپنی تلاش کو وسیع تر بنانے کی کوشش کریں اور دوبارہ کوشش کریں۔
       title: کوئی میچ کرنے والی دستاویزات نہیں ہیں۔
       tna_heading: پرانا مواد
-      tna_link: مئی 2010 سے پہلے کی تمام محکماتی پبلیکیشنز کو GOV.UK پر منتقل نہیں
-        کیا گیا تھا۔ مئی 2010 سے پہلے کی پبلیکیشنز کو تلاش کرنے کے لیے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">قومی آرکائیوز (The National Archives)</a> کو تلاش کرنے
-        کو آزمائیں۔
+      tna_link: مئی 2010 سے پہلے کی تمام محکماتی پبلیکیشنز کو GOV.UK پر منتقل نہیں کیا گیا تھا۔ مئی 2010 سے پہلے کی پبلیکیشنز کو تلاش کرنے کے لیے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">قومی آرکائیوز (The National Archives)</a> کو تلاش کرنے کو آزمائیں۔
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات
@@ -406,8 +382,7 @@ ur:
     subscription: ای میل کی انتباہ کی سبسکرپشن
   fatality_notice:
     british_fatalities: برطانیہ کی حادثاتی اموات
-    none_added: اس کارروائی کی فیلڈ کے لیے ابھی تک کوئی موت کے نوٹسز شامل نہیں کیے
-      گئے۔
+    none_added: اس کارروائی کی فیلڈ کے لیے ابھی تک کوئی موت کے نوٹسز شامل نہیں کیے گئے۔
   feeds:
     email: ای میل کریں
     feed: فیڈ
@@ -455,8 +430,7 @@ ur:
     heading: پبلیکیشنز
     recent: حالیہ پبلیکیشنز
     statistics:
-      link_to_published_statistics: "%{link} کے شماریات کے سیکشن میں حکومتی شماریات
-        کی شائع شدہ اور آنے والی فہرست تلاش کریں۔"
+      link_to_published_statistics: "%{link} کے شماریات کے سیکشن میں حکومتی شماریات کی شائع شدہ اور آنے والی فہرست تلاش کریں۔"
       moved_notice: شماریات کی پبلیکیشنز کو منتقل کر دیا گیا ہے۔
   roles:
     unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
@@ -512,11 +486,9 @@ ur:
     fields_of_operation: کارروائی کی فیلڈ
     filter: فلٹر
     pagination:
-      next_html: اگلے <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page}
-        کی %{total_pages}</span>
+      next_html: اگلے <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page} کی %{total_pages}</span>
       next_page: اگلا صفحہ
-      previous_html: پچھلا <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page}
-        کی %{total_pages}</span>
+      previous_html: پچھلا <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page} کی %{total_pages}</span>
       previous_page: پچھلا صفحہ
     part_of_collection: 'کلیکشن کا حصہ:'
   time:
@@ -533,16 +505,30 @@ ur:
       historic_england: ہسٹورک انگلینڈ
       iwm: امپیریل وار میوزیم
       war_memorials_trust: وار میموریلز ٹرسٹ
+  world_location:
+    headings:
+      announcements: ہمارے اعلانات
+      documents: دستاویزات
+      mission: ہمارا مشن
+      news: عالمی مقام کی خبریں
+      organisations: تنظیمیں
+      publications: ہماری پبلیکیشنز
+      search: ملک یا خطے کے لحاظ سے تلاش کریں
+      statistics: ہمارے شماریات
+    type:
+      international_delegation:
+        one: عالمی وفد
+        other: عالمی وفود
+      world_location:
+        one: عالمی مقام
+        other: عالمی مقامات
   world_news:
-    uk_updates_in_country: "%{country} میں UK حکومت کی جانب سے اپ ڈیٹس، خبریں اور
-      ایونٹس"
+    uk_updates_in_country: "%{country} میں UK حکومت کی جانب سے اپ ڈیٹس، خبریں اور ایونٹس"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} کو جانیے۔"
-      personal_information_charter_html: ہماری %{link} بیان کرتی ہے کہ ہم آپ کی ذاتی
-        معلومات سے کیسے نمٹتے ہیں۔
-      publication_scheme_html: ہماری %{link} میں ہماری جانب سے معمول کے حساب سے شائع
-        کی جانے والی معلومات کی اقسام کے بارے میں پڑھیں۔
+      personal_information_charter_html: ہماری %{link} بیان کرتی ہے کہ ہم آپ کی ذاتی معلومات سے کیسے نمٹتے ہیں۔
+      publication_scheme_html: ہماری %{link} میں ہماری جانب سے معمول کے حساب سے شائع کی جانے والی معلومات کی اقسام کے بارے میں پڑھیں۔
       social_media_use_html: "%{link} پر ہماری پالیسی کو پڑھیں۔"
       welsh_language_scheme_html: "%{link} کے ساتھ ہماری وابستگی کے بارے میں جانیں۔"
     find_out_more: پوری پروفائل اور رابطے کی تمام تفصیلات دیکھیں

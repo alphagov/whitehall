@@ -1,579 +1,5 @@
+---
 cy:
-  document:
-    type:
-      about:
-        zero:
-        one: Ynghylch
-        two:
-        few:
-        many:
-        other: Ynghylch
-      about_our_services:
-        zero:
-        one: Am ein gwasanaethau
-        two:
-        few:
-        many:
-        other: Am ein gwasanaethau
-      access_and_opening:
-        zero:
-        one: Mynediad ac agor
-        two:
-        few:
-        many:
-        other: Mynediad ac agor
-      accessible_documents_policy:
-        zero:
-        one: Polisi dogfennau hygyrch
-        two:
-        few:
-        many:
-        other: Polisïau dogfennau hygyrch
-      alert:
-        zero:
-        one: Rhybudd
-        two:
-        few:
-        many:
-        other: Rhybuddion
-      announcement:
-        zero:
-        one: Cyhoeddiad
-        two:
-        few:
-        many:
-        other: Cyhoeddiadau
-      authored_article:
-        zero:
-        one: Erthygl ag awdur wedi'i enwi
-        two:
-        few:
-        many:
-        other: Erthyglau ag awdur wedi'i enwi
-      blog_post:
-        zero:
-        one: Postiad blog
-        two:
-        few:
-        many:
-        other: Postiadau blog
-      campaign:
-        zero:
-        one: Ymgyrch
-        two:
-        few:
-        many:
-        other: Ymgyrchoedd
-      careers:
-        zero:
-        one: Gyrfaoedd
-        two:
-        few:
-        many:
-        other: gyrfaoedd
-      case_study:
-        zero:
-        one: Astudiaeth achos
-        two:
-        few:
-        many:
-        other: Astudiaethau achos
-      closed_consultation:
-        zero:
-        one: Ymgynghoriad caeedig
-        two:
-        few:
-        many:
-        other: Ymgynghoriadau caeedig
-      complaints_procedure:
-        zero:
-        one: Gweithdrefn gwyno
-        two:
-        few:
-        many:
-        other: Gweithdrefnau cwyno
-      consultation:
-        zero:
-        one: Ymgynghoriad
-        two:
-        few:
-        many:
-        other: Ymgynghoriadau
-      consultation_outcome:
-        zero:
-        one: Canlyniad yr ymgynghoriad
-        two:
-        few:
-        many:
-        other: Canlyniadau'r ymgynghoriad
-      corporate_report:
-        zero:
-        one: Adroddiad corfforaethol
-        two:
-        few:
-        many:
-        other: Adroddiadau corfforaethol
-      correspondence:
-        zero:
-        one: Gohebiaeth
-        two:
-        few:
-        many:
-        other: Gohebiaethau
-      decision:
-        zero:
-        one: Penderfyniad
-        two:
-        few:
-        many:
-        other: Penderfyniadau
-      detailed_guidance:
-        zero:
-        one: Canllawiau
-        two:
-        few:
-        many:
-        other: Canllawiau
-      document_collection:
-        zero:
-        one: Casgliad
-        two:
-        few:
-        many:
-        other: Casgliadau
-      draft_text:
-        zero:
-        one: Testun drafft
-        two:
-        few:
-        many:
-        other: Testunau drafft
-      edition:
-        zero:
-        one: Argraffiad
-        two:
-        few:
-        many:
-        other: Argraffiadau
-      edition_with_appointment:
-        zero:
-        one: Argraffiad gydag apwyntiad
-        two:
-        few:
-        many:
-        other: Argraffiadau gydag apwyntiad
-      equality_and_diversity:
-        zero:
-        one: Cydraddoldeb ac amrywiaeth
-        two:
-        few:
-        many:
-        other: Cydraddoldeb ac amrywiaeth
-      fatality_notice:
-        zero:
-        one: Hysbysiad o farwolaeth
-        two:
-        few:
-        many:
-        other: Hysbysiadau o farwolaeth
-      foi_release:
-        zero:
-        one: Gwybodaeth a ryddhawyd o dan FOI
-        two:
-        few:
-        many:
-        other: Gwybodaeth a ryddhawyd o dan FOI
-      form:
-        zero:
-        one: Ffurflen
-        two:
-        few:
-        many:
-        other: Ffurflenni
-      generic_edition:
-        zero:
-        one: Argraffiad generig
-        two:
-        few:
-        many:
-        other: Argraffiadau generig
-      government_response:
-        zero:
-        one: Ymateb y llywodraeth
-        two:
-        few:
-        many:
-        other: Ymatebion y llywodraeth
-      guidance:
-        zero:
-        one: Canllawiau
-        two:
-        few:
-        many:
-        other: Canllawiau
-      impact_assessment:
-        zero:
-        one: Asesiad o effaith
-        two:
-        few:
-        many:
-        other: Asesiadau o effaith
-      imported:
-        zero:
-        one: wedi'i fewnforio - yn aros am y math
-        two:
-        few:
-        many:
-        other: wedi'i fewnforio - yn aros am y math
-      independent_report:
-        zero:
-        one: Adroddiad annibynnol
-        two:
-        few:
-        many:
-        other: Adroddiadau annibynnol
-      international_treaty:
-        zero:
-        one: Cytuniad rhyngwladol
-        two:
-        few:
-        many:
-        other: Cytuniadau rhyngwladol
-      manual:
-        zero:
-        one: Llawlyfr
-        two:
-        few:
-        many:
-        other: Llawlyfrau
-      map:
-        zero:
-        one: Map
-        two:
-        few:
-        many:
-        other: Mapiau
-      media_enquiries:
-        zero:
-        one: Ymholiad gan y cyfryngau
-        two:
-        few:
-        many:
-        other: Ymholiadau gan y cyfryngau
-      membership:
-        zero:
-        one: Aelodaeth
-        two:
-        few:
-        many:
-        other: Aelodaeth
-      national_statistics:
-        zero:
-        one: Ystadegau Gwladol
-        two:
-        few:
-        many:
-        other: Ystadegau Gwladol
-      news_article:
-        zero:
-        one: Erthygl newyddion
-        two:
-        few:
-        many:
-        other: Erthyglau newyddion
-      news_story:
-        zero:
-        one: Stori newyddion
-        two:
-        few:
-        many:
-        other: Straeon newyddion
-      nhs_content:
-        zero:
-        one: Cynnwys y GIG
-        two:
-        few:
-        many:
-        other: Cynnwys y GIG
-      notice:
-        zero:
-        one: Hysbysiad
-        two:
-        few:
-        many:
-        other: Hysbysiadau
-      official_statistics:
-        zero:
-        one: Ystadegau Swyddogol
-        two:
-        few:
-        many:
-        other: Ystadegau Swyddogol
-      open_consultation:
-        zero:
-        one: Ymgynghoriad agored
-        two:
-        few:
-        many:
-        other: Ymgynghoriadau agored
-      oral_statement:
-        zero:
-        one: Datganiad llafar i'r Senedd
-        two:
-        few:
-        many:
-        other: Datganiadau llafar i'r Senedd
-      our_energy_use:
-        zero:
-        one: Ein defnydd o ynni
-        two:
-        few:
-        many:
-        other: Ein defnydd o ynni
-      our_governance:
-        zero:
-        one: Ein llywodraethiant
-        two:
-        few:
-        many:
-        other: Ein llywodraethiant
-      personal_information_charter:
-        zero:
-        one: Siarter gwybodaeth bersonol
-        two:
-        few:
-        many:
-        other: Siarteri gwybodaeth bersonol
-      petitions_and_campaigns:
-        zero:
-        one: Deisebau ac ymgyrchoedd
-        two:
-        few:
-        many:
-        other: Deisebau ac ymgyrchoedd
-      policy_paper:
-        zero:
-        one: Papur polisi
-        two:
-        few:
-        many:
-        other: Papurau polisi
-      press_release:
-        zero:
-        one: Datganiad i'r wasg
-        two:
-        few:
-        many:
-        other: Datganiadau i'r wasg
-      procurement:
-        zero:
-        one: Caffael
-        two:
-        few:
-        many:
-        other: Caffael
-      promotional:
-        zero:
-        one: Deunydd hyrwyddo
-        two:
-        few:
-        many:
-        other: Deunyddiau hyrwyddo
-      publication:
-        zero:
-        one: Cyhoeddiad
-        two:
-        few:
-        many:
-        other: Cyhoeddiadau
-      publication_scheme:
-        zero:
-        one: Cynllun cyhoeddi
-        two:
-        few:
-        many:
-        other: Cynlluniau cyhoeddi
-      recruitment:
-        zero:
-        one: Recriwtio
-        two:
-        few:
-        many:
-        other: Recriwtio
-      regulation:
-        zero:
-        one: Rheoliad
-        two:
-        few:
-        many:
-        other: Rheoliadau
-      research:
-        zero:
-        one: Ymchwil
-        two:
-        few:
-        many:
-        other: Ymchwil
-      service:
-        zero:
-        one: Gwasanaeth
-        two:
-        few:
-        many:
-        other: Gwasanaethau
-      social_media_use:
-        zero:
-        one: Defnydd o'r cyfryngau cymdeithasol
-        two:
-        few:
-        many:
-        other: Defnydd o'r cyfryngau cymdeithasol
-      speaking_notes:
-        zero:
-        one: Nodiadau annerch
-        two:
-        few:
-        many:
-        other: Nodiadau annerch
-      speech:
-        zero:
-        one: Anerchiad
-        two:
-        few:
-        many:
-        other: Anerchiadau
-      staff_update:
-        zero:
-        one: Diweddariad staff
-        two:
-        few:
-        many:
-        other: Diweddariadau staff
-      standard:
-        zero:
-        one: Safon
-        two:
-        few:
-        many:
-        other: Safonau
-      statement_to_parliament:
-        zero:
-        one: Datganiad i'r Senedd
-        two:
-        few:
-        many:
-        other: Datganiadau i'r Senedd
-      statistical_data_set:
-        zero:
-        one: Set ddata ystadegol
-        two:
-        few:
-        many:
-        other: Setiau data ystadegol
-      statistics:
-        zero:
-        one: Ystadegau
-        two:
-        few:
-        many:
-        other: Ystadegau
-      statutory_guidance:
-        zero:
-        one: Canllawiau statudol
-        two:
-        few:
-        many:
-        other: Canllawiau statudol
-      terms_of_reference:
-        zero:
-        one: Cylch gorchwyl
-        two:
-        few:
-        many:
-        other: Cylch gorchwyl
-      transcript:
-        zero:
-        one: Trawsgrifiad
-        two:
-        few:
-        many:
-        other: Trawsgrifiadau
-      transparency:
-        zero:
-        one: Data tryloywder
-        two:
-        few:
-        many:
-        other: Data tryloywder
-      welsh_language_scheme:
-        zero:
-        one: Cynllun iaith Gymraeg
-        two:
-        few:
-        many:
-        other: Cynlluniau iaith Gymraeg
-      world_news_story:
-        zero:
-        one: Stori newyddion byd-eang
-        two:
-        few:
-        many:
-        other: Straeon newyddion byd-eang
-      written_statement:
-        zero:
-        one: Datganiad ysgrifenedig i'r Senedd
-        two:
-        few:
-        many:
-        other: Datganiadau ysgrifenedig i'r Senedd
-    contents: Cynnwys
-    footer_meta:
-      full_page_history: hanes llawn y dudalen
-      published: Cyhoeddwyd
-      updated: Diweddarwyd
-    headings:
-      applies_to_nations: Yn berthnasol i
-      from: Gan
-      part_of: Rhan o
-    latest: Dogfennau diweddaraf
-    latest_from: Y diweddaraf gan %{subject}
-    published: cyhoeddwyd
-    see_all: Gweld popeth
-    speech:
-      author_title:
-        minister: Gweinidog
-        speaker: Awdur
-      delivered_on: 'Cyflwynwyd ar:'
-      delivery_title:
-        minister: Gweinidog
-        speaker: Llefarydd
-      written_on: 'Ysgrifennwyd ar:'
-    updated: diweddarwyd
-  world_location:
-    type:
-      international_delegation:
-        zero:
-        one: Dirprwyaeth ryngwladol
-        two:
-        few:
-        many:
-        other: Dirprwyaethau rhyngwladol
-      world_location:
-        zero:
-        one: Lleoliad byd-eang
-        two:
-        few:
-        many:
-        other: Lleoliadau byd-eang
-    headings:
-      announcements: Ein cyhoeddiadau
-      documents: Dogfennau
-      mission: Ein cenhadaeth
-      news: Newyddion am leoliadau byd-eang
-      organisations: Sefydliadau
-      publications: Ein cyhoeddiadau
-      search: Chwilio yn ôl gwlad neu diriogaeth
-      statistics: Ein hystadegau
   activerecord:
     attributes:
       attachment:
@@ -625,8 +51,7 @@ cy:
     csv:
       cannot_preview: Nid oedd modd gweld rhagolwg o'r ffeil hon.
       download: Llwythwch y ffeil i lawr i weld ei chynnwys yn llawn.
-      truncated_message: Dim ond y %{rows} rhes a'r %{columns} colofn gyntaf mae'r
-        rhagolwg hwn yn eu dangos.
+      truncated_message: Dim ond y %{rows} rhes a'r %{columns} colofn gyntaf mae'r rhagolwg hwn yn eu dangos.
     headings:
       order_a_copy: Archebu copi
       order_a_copy_full: Archebwch gopi o'r cyhoeddiad
@@ -635,20 +60,15 @@ cy:
       unnumbered_command_paper: Papur gorchymyn heb rif
       unnumbered_hoc_paper: Papur deddf heb rif
     opendocument:
-      help_html: Mae'r ffeil hon mewn fformat <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Dogfen
-        Agored</a>
+      help_html: Mae'r ffeil hon mewn fformat <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">Dogfen Agored</a>
     virus_check:
       intro: Mae'r atodiad hwn yn cael ei wirio am feirysau.
-      message: Rydyn ni'n dal yr atodiad hwn mewn cwarantîn ar hyn o bryd tan iddo
-        gael ei wirio am feirysau. Bydd yr atodiad ar gael yn y lleoliad gwreiddiol
-        cyn bo hir.
+      message: Rydyn ni'n dal yr atodiad hwn mewn cwarantîn ar hyn o bryd tan iddo gael ei wirio am feirysau. Bydd yr atodiad ar gael yn y lleoliad gwreiddiol cyn bo hir.
   broken_links:
     broken:
-      subheading: Rydyn ni wedi dod o hyd i ddolenni yn y ddogfen hon sydd o bosib
-        wedi torri
+      subheading: Rydyn ni wedi dod o hyd i ddolenni yn y ddogfen hon sydd o bosib wedi torri
     caution:
-      subheading: Rydyn ni wedi canfod rhai materion gyda dolenni a allai ddangos
-        bod problem. Dylech fod yn ofalus wrth gysylltu â nhw
+      subheading: Rydyn ni wedi canfod rhai materion gyda dolenni a allai ddangos bod problem. Dylech fod yn ofalus wrth gysylltu â nhw
     title: Dolenni wedi torri
   change_notes:
     published_at: Cyhoeddwyd yn gyntaf
@@ -694,19 +114,566 @@ cy:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: Cynnwys
+    footer_meta:
+      full_page_history: hanes llawn y dudalen
+      published: Cyhoeddwyd
+      updated: Diweddarwyd
+    headings:
+      applies_to_nations: Yn berthnasol i
+      from: Gan
+      part_of: Rhan o
+    latest: Dogfennau diweddaraf
+    latest_from: Y diweddaraf gan %{subject}
+    published: cyhoeddwyd
+    see_all: Gweld popeth
+    speech:
+      author_title:
+        minister: Gweinidog
+        speaker: Awdur
+      delivered_on: 'Cyflwynwyd ar:'
+      delivery_title:
+        minister: Gweinidog
+        speaker: Llefarydd
+      written_on: 'Ysgrifennwyd ar:'
+    type:
+      about:
+        few:
+        many:
+        one: Ynghylch
+        other: Ynghylch
+        two:
+        zero:
+      about_our_services:
+        few:
+        many:
+        one: Am ein gwasanaethau
+        other: Am ein gwasanaethau
+        two:
+        zero:
+      access_and_opening:
+        few:
+        many:
+        one: Mynediad ac agor
+        other: Mynediad ac agor
+        two:
+        zero:
+      accessible_documents_policy:
+        few:
+        many:
+        one: Polisi dogfennau hygyrch
+        other: Polisïau dogfennau hygyrch
+        two:
+        zero:
+      alert:
+        few:
+        many:
+        one: Rhybudd
+        other: Rhybuddion
+        two:
+        zero:
+      announcement:
+        few:
+        many:
+        one: Cyhoeddiad
+        other: Cyhoeddiadau
+        two:
+        zero:
+      authored_article:
+        few:
+        many:
+        one: Erthygl ag awdur wedi'i enwi
+        other: Erthyglau ag awdur wedi'i enwi
+        two:
+        zero:
+      blog_post:
+        few:
+        many:
+        one: Postiad blog
+        other: Postiadau blog
+        two:
+        zero:
+      campaign:
+        few:
+        many:
+        one: Ymgyrch
+        other: Ymgyrchoedd
+        two:
+        zero:
+      careers:
+        few:
+        many:
+        one: Gyrfaoedd
+        other: gyrfaoedd
+        two:
+        zero:
+      case_study:
+        few:
+        many:
+        one: Astudiaeth achos
+        other: Astudiaethau achos
+        two:
+        zero:
+      closed_consultation:
+        few:
+        many:
+        one: Ymgynghoriad caeedig
+        other: Ymgynghoriadau caeedig
+        two:
+        zero:
+      complaints_procedure:
+        few:
+        many:
+        one: Gweithdrefn gwyno
+        other: Gweithdrefnau cwyno
+        two:
+        zero:
+      consultation:
+        few:
+        many:
+        one: Ymgynghoriad
+        other: Ymgynghoriadau
+        two:
+        zero:
+      consultation_outcome:
+        few:
+        many:
+        one: Canlyniad yr ymgynghoriad
+        other: Canlyniadau'r ymgynghoriad
+        two:
+        zero:
+      corporate_report:
+        few:
+        many:
+        one: Adroddiad corfforaethol
+        other: Adroddiadau corfforaethol
+        two:
+        zero:
+      correspondence:
+        few:
+        many:
+        one: Gohebiaeth
+        other: Gohebiaethau
+        two:
+        zero:
+      decision:
+        few:
+        many:
+        one: Penderfyniad
+        other: Penderfyniadau
+        two:
+        zero:
+      detailed_guidance:
+        few:
+        many:
+        one: Canllawiau
+        other: Canllawiau
+        two:
+        zero:
+      document_collection:
+        few:
+        many:
+        one: Casgliad
+        other: Casgliadau
+        two:
+        zero:
+      draft_text:
+        few:
+        many:
+        one: Testun drafft
+        other: Testunau drafft
+        two:
+        zero:
+      edition:
+        few:
+        many:
+        one: Argraffiad
+        other: Argraffiadau
+        two:
+        zero:
+      edition_with_appointment:
+        few:
+        many:
+        one: Argraffiad gydag apwyntiad
+        other: Argraffiadau gydag apwyntiad
+        two:
+        zero:
+      equality_and_diversity:
+        few:
+        many:
+        one: Cydraddoldeb ac amrywiaeth
+        other: Cydraddoldeb ac amrywiaeth
+        two:
+        zero:
+      fatality_notice:
+        few:
+        many:
+        one: Hysbysiad o farwolaeth
+        other: Hysbysiadau o farwolaeth
+        two:
+        zero:
+      foi_release:
+        few:
+        many:
+        one: Gwybodaeth a ryddhawyd o dan FOI
+        other: Gwybodaeth a ryddhawyd o dan FOI
+        two:
+        zero:
+      form:
+        few:
+        many:
+        one: Ffurflen
+        other: Ffurflenni
+        two:
+        zero:
+      generic_edition:
+        few:
+        many:
+        one: Argraffiad generig
+        other: Argraffiadau generig
+        two:
+        zero:
+      government_response:
+        few:
+        many:
+        one: Ymateb y llywodraeth
+        other: Ymatebion y llywodraeth
+        two:
+        zero:
+      guidance:
+        few:
+        many:
+        one: Canllawiau
+        other: Canllawiau
+        two:
+        zero:
+      impact_assessment:
+        few:
+        many:
+        one: Asesiad o effaith
+        other: Asesiadau o effaith
+        two:
+        zero:
+      imported:
+        few:
+        many:
+        one: wedi'i fewnforio - yn aros am y math
+        other: wedi'i fewnforio - yn aros am y math
+        two:
+        zero:
+      independent_report:
+        few:
+        many:
+        one: Adroddiad annibynnol
+        other: Adroddiadau annibynnol
+        two:
+        zero:
+      international_treaty:
+        few:
+        many:
+        one: Cytuniad rhyngwladol
+        other: Cytuniadau rhyngwladol
+        two:
+        zero:
+      manual:
+        few:
+        many:
+        one: Llawlyfr
+        other: Llawlyfrau
+        two:
+        zero:
+      map:
+        few:
+        many:
+        one: Map
+        other: Mapiau
+        two:
+        zero:
+      media_enquiries:
+        few:
+        many:
+        one: Ymholiad gan y cyfryngau
+        other: Ymholiadau gan y cyfryngau
+        two:
+        zero:
+      membership:
+        few:
+        many:
+        one: Aelodaeth
+        other: Aelodaeth
+        two:
+        zero:
+      national_statistics:
+        few:
+        many:
+        one: Ystadegau Gwladol
+        other: Ystadegau Gwladol
+        two:
+        zero:
+      news_article:
+        few:
+        many:
+        one: Erthygl newyddion
+        other: Erthyglau newyddion
+        two:
+        zero:
+      news_story:
+        few:
+        many:
+        one: Stori newyddion
+        other: Straeon newyddion
+        two:
+        zero:
+      nhs_content:
+        few:
+        many:
+        one: Cynnwys y GIG
+        other: Cynnwys y GIG
+        two:
+        zero:
+      notice:
+        few:
+        many:
+        one: Hysbysiad
+        other: Hysbysiadau
+        two:
+        zero:
+      official_statistics:
+        few:
+        many:
+        one: Ystadegau Swyddogol
+        other: Ystadegau Swyddogol
+        two:
+        zero:
+      open_consultation:
+        few:
+        many:
+        one: Ymgynghoriad agored
+        other: Ymgynghoriadau agored
+        two:
+        zero:
+      oral_statement:
+        few:
+        many:
+        one: Datganiad llafar i'r Senedd
+        other: Datganiadau llafar i'r Senedd
+        two:
+        zero:
+      our_energy_use:
+        few:
+        many:
+        one: Ein defnydd o ynni
+        other: Ein defnydd o ynni
+        two:
+        zero:
+      our_governance:
+        few:
+        many:
+        one: Ein llywodraethiant
+        other: Ein llywodraethiant
+        two:
+        zero:
+      personal_information_charter:
+        few:
+        many:
+        one: Siarter gwybodaeth bersonol
+        other: Siarteri gwybodaeth bersonol
+        two:
+        zero:
+      petitions_and_campaigns:
+        few:
+        many:
+        one: Deisebau ac ymgyrchoedd
+        other: Deisebau ac ymgyrchoedd
+        two:
+        zero:
+      policy_paper:
+        few:
+        many:
+        one: Papur polisi
+        other: Papurau polisi
+        two:
+        zero:
+      press_release:
+        few:
+        many:
+        one: Datganiad i'r wasg
+        other: Datganiadau i'r wasg
+        two:
+        zero:
+      procurement:
+        few:
+        many:
+        one: Caffael
+        other: Caffael
+        two:
+        zero:
+      promotional:
+        few:
+        many:
+        one: Deunydd hyrwyddo
+        other: Deunyddiau hyrwyddo
+        two:
+        zero:
+      publication:
+        few:
+        many:
+        one: Cyhoeddiad
+        other: Cyhoeddiadau
+        two:
+        zero:
+      publication_scheme:
+        few:
+        many:
+        one: Cynllun cyhoeddi
+        other: Cynlluniau cyhoeddi
+        two:
+        zero:
+      recruitment:
+        few:
+        many:
+        one: Recriwtio
+        other: Recriwtio
+        two:
+        zero:
+      regulation:
+        few:
+        many:
+        one: Rheoliad
+        other: Rheoliadau
+        two:
+        zero:
+      research:
+        few:
+        many:
+        one: Ymchwil
+        other: Ymchwil
+        two:
+        zero:
+      service:
+        few:
+        many:
+        one: Gwasanaeth
+        other: Gwasanaethau
+        two:
+        zero:
+      social_media_use:
+        few:
+        many:
+        one: Defnydd o'r cyfryngau cymdeithasol
+        other: Defnydd o'r cyfryngau cymdeithasol
+        two:
+        zero:
+      speaking_notes:
+        few:
+        many:
+        one: Nodiadau annerch
+        other: Nodiadau annerch
+        two:
+        zero:
+      speech:
+        few:
+        many:
+        one: Anerchiad
+        other: Anerchiadau
+        two:
+        zero:
+      staff_update:
+        few:
+        many:
+        one: Diweddariad staff
+        other: Diweddariadau staff
+        two:
+        zero:
+      standard:
+        few:
+        many:
+        one: Safon
+        other: Safonau
+        two:
+        zero:
+      statement_to_parliament:
+        few:
+        many:
+        one: Datganiad i'r Senedd
+        other: Datganiadau i'r Senedd
+        two:
+        zero:
+      statistical_data_set:
+        few:
+        many:
+        one: Set ddata ystadegol
+        other: Setiau data ystadegol
+        two:
+        zero:
+      statistics:
+        few:
+        many:
+        one: Ystadegau
+        other: Ystadegau
+        two:
+        zero:
+      statutory_guidance:
+        few:
+        many:
+        one: Canllawiau statudol
+        other: Canllawiau statudol
+        two:
+        zero:
+      terms_of_reference:
+        few:
+        many:
+        one: Cylch gorchwyl
+        other: Cylch gorchwyl
+        two:
+        zero:
+      transcript:
+        few:
+        many:
+        one: Trawsgrifiad
+        other: Trawsgrifiadau
+        two:
+        zero:
+      transparency:
+        few:
+        many:
+        one: Data tryloywder
+        other: Data tryloywder
+        two:
+        zero:
+      welsh_language_scheme:
+        few:
+        many:
+        one: Cynllun iaith Gymraeg
+        other: Cynlluniau iaith Gymraeg
+        two:
+        zero:
+      world_news_story:
+        few:
+        many:
+        one: Stori newyddion byd-eang
+        other: Straeon newyddion byd-eang
+        two:
+        zero:
+      written_statement:
+        few:
+        many:
+        one: Datganiad ysgrifenedig i'r Senedd
+        other: Datganiadau ysgrifenedig i'r Senedd
+        two:
+        zero:
+    updated: diweddarwyd
   document_filters:
     consultation:
       all: Pob ymgynghoriad
       label: Ymgynghoriadau
-    description: Gallwch ddefnyddio'r hidlyddion i ddangos dim ond y canlyniadau hynny
-      sy'n cyd-fynd â'ch diddordebau chi
+    description: Gallwch ddefnyddio'r hidlyddion i ddangos dim ond y canlyniadau hynny sy'n cyd-fynd â'ch diddordebau chi
     no_results:
       description: Ceisiwch ehangu'ch chwiliad a rhoi cynnig arall arni.
       title: Does dim dogfennau sy'n cyd-fynd.
       tna_heading: Cynnwys hŷn
-      tna_link: Ni chafodd pob cyhoeddiad adrannol cyn mis Mai 2010 eu mudo i GOV.UK.
-        I ddod o hyd i gyhoeddiadau cyn mis Mai 2010 ceisiwch chwilio'r <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Archifau Gwladol</a>.
+      tna_link: Ni chafodd pob cyhoeddiad adrannol cyn mis Mai 2010 eu mudo i GOV.UK. I ddod o hyd i gyhoeddiadau cyn mis Mai 2010 ceisiwch chwilio'r <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Archifau Gwladol</a>.
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd-eang
@@ -715,8 +682,7 @@ cy:
     subscription: Tanysgrifio i hysbysiadau e-bost
   fatality_notice:
     british_fatalities: Marwolaethau Prydeinig
-    none_added: Does dim hysbysiadau o farwolaethau wedi'u hychwanegu ar gyfer y maes
-      gweithredu hwn eto.
+    none_added: Does dim hysbysiadau o farwolaethau wedi'u hychwanegu ar gyfer y maes gweithredu hwn eto.
   feeds:
     email: e-bost
     feed: ffrwd
@@ -746,10 +712,8 @@ cy:
       alerts: hysbysiadau e-bost
       summary: Hysbysiadau e-bost gan y
     embassies:
-      find_an_embassy_lowercase: Dod o hyd i un o lysgenadaethau, uchel gomisiynau
-        neu swyddfeydd conswliaid Prydain
-      find_an_embassy_uppercase: Dod o hyd i un o Lysgenadaethau, Uchel Gomisiynau
-        neu Swyddfeydd Conswliaid Prydain
+      find_an_embassy_lowercase: Dod o hyd i un o lysgenadaethau, uchel gomisiynau neu swyddfeydd conswliaid Prydain
+      find_an_embassy_uppercase: Dod o hyd i un o Lysgenadaethau, Uchel Gomisiynau neu Swyddfeydd Conswliaid Prydain
     headings:
       contact: Cysylltu â %{name}
       corporate_information: Gwybodaeth gorfforaethol
@@ -766,8 +730,7 @@ cy:
     heading: Cyhoeddiadau
     recent: Cyhoeddiadau diweddar
     statistics:
-      link_to_published_statistics: Gallwch ddod o hyd i restr o ystadegau'r llywodraeth
-        sydd wedi'u cyhoeddi ac sydd i ddod yn yr adran ystadegau %{link}.
+      link_to_published_statistics: Gallwch ddod o hyd i restr o ystadegau'r llywodraeth sydd wedi'u cyhoeddi ac sydd i ddod yn yr adran ystadegau %{link}.
       moved_notice: Mae cyhoeddiadau ystadegau wedi symud.
   roles:
     unassigned: Does neb wedi'i bennu ar gyfer y rôl hon.
@@ -823,11 +786,9 @@ cy:
     fields_of_operation: 'Meysydd gweithredu:'
     filter: Hidlydd
     pagination:
-      next_html: Y dudalen <span class="visuallyhidden">nesaf</span> <span class="page-numbers">%{current_page}
-        o %{total_pages}</span>
+      next_html: Y dudalen <span class="visuallyhidden">nesaf</span> <span class="page-numbers">%{current_page} o %{total_pages}</span>
       next_page: Y dudalen nesaf
-      previous_html: Y dudalen <span class="visuallyhidden">flaenorol</span> <span
-        class="page-numbers">%{current_page} o %{total_pages}</span>
+      previous_html: Y dudalen <span class="visuallyhidden">flaenorol</span> <span class="page-numbers">%{current_page} o %{total_pages}</span>
       previous_page: Y dudalen flaenorol
     part_of_collection: 'Rhan o gasgliad:'
   time:
@@ -844,16 +805,38 @@ cy:
       historic_england: Historic England
       iwm: Yr Amgueddfa Ryfel Ymerodrol
       war_memorials_trust: Ymddiriedaeth Cofebion Rhyfel
+  world_location:
+    headings:
+      announcements: Ein cyhoeddiadau
+      documents: Dogfennau
+      mission: Ein cenhadaeth
+      news: Newyddion am leoliadau byd-eang
+      organisations: Sefydliadau
+      publications: Ein cyhoeddiadau
+      search: Chwilio yn ôl gwlad neu diriogaeth
+      statistics: Ein hystadegau
+    type:
+      international_delegation:
+        few:
+        many:
+        one: Dirprwyaeth ryngwladol
+        other: Dirprwyaethau rhyngwladol
+        two:
+        zero:
+      world_location:
+        few:
+        many:
+        one: Lleoliad byd-eang
+        other: Lleoliadau byd-eang
+        two:
+        zero:
   world_news:
-    uk_updates_in_country: Diweddariadau, newyddion a digwyddiadau gan lywodraeth
-      y DU yn %{country}
+    uk_updates_in_country: Diweddariadau, newyddion a digwyddiadau gan lywodraeth y DU yn %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Darganfod %{link}.
-      personal_information_charter_html: Mae ein %{link} yn esbonio sut rydyn ni'n
-        ymdrin â'ch gwybodaeth bersonol.
-      publication_scheme_html: Darllenwch am y mathau o wybodaeth rydyn ni'n eu cyhoeddi'n
-        rheolaidd yn ein %{link}.
+      personal_information_charter_html: Mae ein %{link} yn esbonio sut rydyn ni'n ymdrin â'ch gwybodaeth bersonol.
+      publication_scheme_html: Darllenwch am y mathau o wybodaeth rydyn ni'n eu cyhoeddi'n rheolaidd yn ein %{link}.
       social_media_use_html: Darllenwch ein polisi ar %{link}.
       welsh_language_scheme_html: Dysgwch am ein hymrwymiad i %{link}.
     find_out_more: Gweler y proffil llawn a'r holl fanylion cyswllt

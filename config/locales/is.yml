@@ -1,5 +1,142 @@
+---
 is:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Skjal númer neðri deildar Þingsins
+        isbn: ISBN
+        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
+      attachment_data:
+        file: Skrá
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Skjal númer fyrirskipana í viðhengi
+        hoc_paper_number: Skjal númer neðri deildar Þingsins
+        isbn: ISBN viðhengis
+        title: Titill viðhengis
+        unique_reference: Einkvæmt auðkenni viðhengis
+        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Skráin í viðhengi
+      edition:
+        nation_inapplicabilities: Undanskildar þjóðir
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Skráin í viðhengi
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Skjal númer fyrirskipana í viðhengi
+        hoc_paper_number: Skjal númer neðri deildar Þingsins
+        isbn: ISBN viðhengis
+        title: Titill viðhengis
+        unique_reference: Einkvæmt auðkenni viðhengis
+        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Skráin í viðhengi
+    nested_attachment_data_field_names:
+      file: Skráin í viðhengi
+    nested_attachment_field_names:
+      command_paper_number: Skjal númer fyrirskipana í viðhengi
+      hoc_paper_number: Skjal númer neðri deildar Þingsins
+      isbn: ISBN viðhengis
+      title: Titill viðhengis
+      unique_reference: Einkvæmt auðkenni viðhengis
+      unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
+  announcements:
+    heading: Tilkynningar
+  attachment:
+    accessibility:
+      full_help_html: |
+        Ef þú notast við stoðtækni (eins og skjálesara) og þarft útgáfu af þessu skjali á aðgengilegra sniði, sendu þá vinsamlegast tölvupóst á %{email}.
+        Vinsamlegast segðu okkur hvaða snið þú þarft. Vinsamlegast segðu okkur hvaða snið þú þarft.
+      intro: Það hjálpar okkur ef þú tekur fram hvaða stoðtækni þú notast við.
+      request_a_different_format: Óska eftir aðgengilegu sniði.
+    csv:
+      cannot_preview: Það er ekki hægt að forskoða þessa skrá.
+      download: Sæktu skránna til sjá allt efni hennar
+      truncated_message: Þessi forskoðun sýnir bara fyrstu %{rows} raðirnar og %{columns} dálkana.
+    headings:
+      order_a_copy: Panta eintak
+      order_a_copy_full: Panta eintak af útgáfunni
+      published: Gefið út
+      reference: Tilv
+      unnumbered_command_paper: Ónúmerað fyrirskipana skjal
+      unnumbered_hoc_paper: Ónúmerað laga skjal
+    opendocument:
+      help_html: Þessi skrá er á <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> sniði
+    virus_check:
+      intro: Verið að vírusleita í viðhenginu.
+      message: Við höldum þessu viðhengi í einangrun þar til vírusleitinni er lokið. Viðhengið verður aðgengilegt á upprunalegum stað innan skamms.
+  broken_links:
+    broken:
+      subheading: Við fundum hlekki í þessu skjali sem gætu verið óvirkir
+    caution:
+      subheading: Við fundum vandamál með hlekki sem gætu leitt til vandræða, þú ætti að fara varlega í að tengjast þeim
+    title: Óvirkir hlekkir
+  change_notes:
+    published_at: Fyrst gefið út
+    see_all_updates: sjá allar uppfærslur
+    updated_at: Síðast uppfært
+  consultation:
+    closed: Lokað
+    closing_today: Lokar í dag
+    closing_tomorrow: Lokar á morgun
+    days_left: "%{days_left} daga eftir"
+  contact:
+    access_and_opening_times: Aðgengi og opnunartímar
+    contact_form: Eyðublað til að hafa samband
+    email: Tölvupóstur
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: gefið út á velsku
+      title:
+        about: Um okkur
+        about_our_services: Um okkar þjónustu
+        access_and_opening: Aðgengi að skrifstofu og opnunartímar
+        accessible_documents_policy: Stefna um aðgengileg skjöl
+        complaints_procedure: Kvartanaferli
+        equality_and_diversity: Jafnrétti og fjölbreytni
+        media_enquiries: Fjölmiðlafyrirspurnir
+        membership: Aðild
+        modern_slavery_statement: Yfirlýsing um nútíma þrælahald
+        our_energy_use: Okkar orkunotkun
+        our_governance: Okkar stjórnun
+        personal_information_charter: Útgáfur persónuupplýsingar
+        petitions_and_campaigns: Bænarskjal og herferðir
+        procurement: Öflun hjá %{organisation_name}
+        publication_scheme: Útgáfu ráðagerðir
+        recruitment: Vinna fyrir %{organisation_name}
+        research: Rannsóknir hjá %{organisation_name}
+        social_media_use: Samfélagsmiðlanotkun
+        staff_update: Fréttir og upplýsingar fyrir starfsfólk
+        statistics: Tölfræði hjá %{organisation_name}
+        terms_of_reference: Skilmálar
+        welsh_language_scheme: Ráðagerð um velska tungu
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Efni
+    footer_meta:
+      full_page_history: öll saga síðu
+      published: Gefið út
+      updated: Uppfært
+    headings:
+      applies_to_nations: Gildir um
+      from: Frá
+      part_of: Hluti af
+    latest: Nýjustu skjölin
+    latest_from: Nýjasta frá %{subject}
+    published: gefið út
+    see_all: Sjá allt
+    speech:
+      author_title:
+        minister: Ráðherra
+        speaker: Höfundur
+      delivered_on: 'Sent þann:'
+      delivery_title:
+        minister: Ráðherra
+        speaker: Ræðumaður
+      written_on: 'Skrifað þann:'
     type:
       about:
         one: Um
@@ -226,177 +363,17 @@ is:
       written_statement:
         one: Skrifleg yfirlýsing til Þingsins
         other: Skriflegar yfirlýsingar til Þingsins
-    contents: Efni
-    footer_meta:
-      full_page_history: öll saga síðu
-      published: Gefið út
-      updated: Uppfært
-    headings:
-      applies_to_nations: Gildir um
-      from: Frá
-      part_of: Hluti af
-    latest: Nýjustu skjölin
-    latest_from: Nýjasta frá %{subject}
-    published: gefið út
-    see_all: Sjá allt
-    speech:
-      author_title:
-        minister: Ráðherra
-        speaker: Höfundur
-      delivered_on: 'Sent þann:'
-      delivery_title:
-        minister: Ráðherra
-        speaker: Ræðumaður
-      written_on: 'Skrifað þann:'
     updated: uppfært
-  world_location:
-    type:
-      international_delegation:
-        one: Alþjóðleg sendinefnd
-        other: Alþjóðlegar sendinefndir
-      world_location:
-        one: Staðsetning í heiminum
-        other: Staðsetningar í heiminum
-    headings:
-      announcements: Okkar tilkynningar
-      documents: Skjöl
-      mission: Okkar takmark
-      news: Fréttir af stöðum í heiminum
-      organisations: Samtök
-      publications: Okkar útgáfur
-      search: Leita eftir landi eða landsvæði
-      statistics: Okkar tölfræði
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Skjal númer neðri deildar Þingsins
-        isbn: ISBN
-        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
-      attachment_data:
-        file: Skrá
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Skjal númer fyrirskipana í viðhengi
-        hoc_paper_number: Skjal númer neðri deildar Þingsins
-        isbn: ISBN viðhengis
-        title: Titill viðhengis
-        unique_reference: Einkvæmt auðkenni viðhengis
-        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Skráin í viðhengi
-      edition:
-        nation_inapplicabilities: Undanskildar þjóðir
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Skráin í viðhengi
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Skjal númer fyrirskipana í viðhengi
-        hoc_paper_number: Skjal númer neðri deildar Þingsins
-        isbn: ISBN viðhengis
-        title: Titill viðhengis
-        unique_reference: Einkvæmt auðkenni viðhengis
-        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Skráin í viðhengi
-    nested_attachment_data_field_names:
-      file: Skráin í viðhengi
-    nested_attachment_field_names:
-      command_paper_number: Skjal númer fyrirskipana í viðhengi
-      hoc_paper_number: Skjal númer neðri deildar Þingsins
-      isbn: ISBN viðhengis
-      title: Titill viðhengis
-      unique_reference: Einkvæmt auðkenni viðhengis
-      unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
-  announcements:
-    heading: Tilkynningar
-  attachment:
-    accessibility:
-      full_help_html: |
-        Ef þú notast við stoðtækni (eins og skjálesara) og þarft útgáfu af þessu skjali á aðgengilegra sniði, sendu þá vinsamlegast tölvupóst á %{email}.
-        Vinsamlegast segðu okkur hvaða snið þú þarft. Vinsamlegast segðu okkur hvaða snið þú þarft.
-      intro: Það hjálpar okkur ef þú tekur fram hvaða stoðtækni þú notast við.
-      request_a_different_format: Óska eftir aðgengilegu sniði.
-    csv:
-      cannot_preview: Það er ekki hægt að forskoða þessa skrá.
-      download: Sæktu skránna til sjá allt efni hennar
-      truncated_message: Þessi forskoðun sýnir bara fyrstu %{rows} raðirnar og %{columns}
-        dálkana.
-    headings:
-      order_a_copy: Panta eintak
-      order_a_copy_full: Panta eintak af útgáfunni
-      published: Gefið út
-      reference: Tilv
-      unnumbered_command_paper: Ónúmerað fyrirskipana skjal
-      unnumbered_hoc_paper: Ónúmerað laga skjal
-    opendocument:
-      help_html: Þessi skrá er á <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        sniði
-    virus_check:
-      intro: Verið að vírusleita í viðhenginu.
-      message: Við höldum þessu viðhengi í einangrun þar til vírusleitinni er lokið.
-        Viðhengið verður aðgengilegt á upprunalegum stað innan skamms.
-  broken_links:
-    broken:
-      subheading: Við fundum hlekki í þessu skjali sem gætu verið óvirkir
-    caution:
-      subheading: Við fundum vandamál með hlekki sem gætu leitt til vandræða, þú ætti
-        að fara varlega í að tengjast þeim
-    title: Óvirkir hlekkir
-  change_notes:
-    published_at: Fyrst gefið út
-    see_all_updates: sjá allar uppfærslur
-    updated_at: Síðast uppfært
-  consultation:
-    closed: Lokað
-    closing_today: Lokar í dag
-    closing_tomorrow: Lokar á morgun
-    days_left: "%{days_left} daga eftir"
-  contact:
-    access_and_opening_times: Aðgengi og opnunartímar
-    contact_form: Eyðublað til að hafa samband
-    email: Tölvupóstur
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: gefið út á velsku
-      title:
-        about: Um okkur
-        about_our_services: Um okkar þjónustu
-        access_and_opening: Aðgengi að skrifstofu og opnunartímar
-        accessible_documents_policy: Stefna um aðgengileg skjöl
-        complaints_procedure: Kvartanaferli
-        equality_and_diversity: Jafnrétti og fjölbreytni
-        media_enquiries: Fjölmiðlafyrirspurnir
-        membership: Aðild
-        modern_slavery_statement: Yfirlýsing um nútíma þrælahald
-        our_energy_use: Okkar orkunotkun
-        our_governance: Okkar stjórnun
-        personal_information_charter: Útgáfur persónuupplýsingar
-        petitions_and_campaigns: Bænarskjal og herferðir
-        procurement: Öflun hjá %{organisation_name}
-        publication_scheme: Útgáfu ráðagerðir
-        recruitment: Vinna fyrir %{organisation_name}
-        research: Rannsóknir hjá %{organisation_name}
-        social_media_use: Samfélagsmiðlanotkun
-        staff_update: Fréttir og upplýsingar fyrir starfsfólk
-        statistics: Tölfræði hjá %{organisation_name}
-        terms_of_reference: Skilmálar
-        welsh_language_scheme: Ráðagerð um velska tungu
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Allar ráðgjafir
       label: Ráðgjafir
-    description: Þú getur notað síur til að sýna bara niðurstöður sem henta þínum
-      áhugsviðum
+    description: Þú getur notað síur til að sýna bara niðurstöður sem henta þínum áhugsviðum
     no_results:
       description: Prófaðu að víkka leitina þína og reyna aftur.
       title: Það eru engin skjöl sem passa.
       tna_heading: Eldra efni
-      tna_link: Öll útgáfa ráðuneyta frá því fyrir Maí 2010 hefur verið færð yfir
-        á GOV.UK. Til að finna útgáfu frá því fyrir Maí 2010 prófaðu að leita í <a
-        href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Þjóðskjalasafnið</a>.
+      tna_link: Öll útgáfa ráðuneyta frá því fyrir Maí 2010 hefur verið færð yfir á GOV.UK. Til að finna útgáfu frá því fyrir Maí 2010 prófaðu að leita í <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Þjóðskjalasafnið</a>.
     world_locations:
       all: Allar staðsetningar
       label: Staðsetningar í heiminum
@@ -453,8 +430,7 @@ is:
     heading: Útgáfur
     recent: Nýlegar útgáfur
     statistics:
-      link_to_published_statistics: Þú finnur lista yfir útgefna og væntanlega opinbera
-        tölfræði í %{link} tölfræði hlutanum.
+      link_to_published_statistics: Þú finnur lista yfir útgefna og væntanlega opinbera tölfræði í %{link} tölfræði hlutanum.
       moved_notice: Útgáfa tölfræði hefur verið færð.
   roles:
     unassigned: Enginn er settur í þetta hlutverk
@@ -510,11 +486,9 @@ is:
     fields_of_operation: Starfsvið
     filter: Sía
     pagination:
-      next_html: næsta <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page}
-        af %{total_pages}</span>
+      next_html: næsta <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page} af %{total_pages}</span>
       next_page: Næsta síða
-      previous_html: Fyrri <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page}
-        af %{total_pages}</span>
+      previous_html: Fyrri <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page} af %{total_pages}</span>
       previous_page: Fyrri síða
     part_of_collection: 'Hluti af safni:'
   time:
@@ -531,15 +505,30 @@ is:
       historic_england: Sögulegt England
       iwm: Stríðssafn Heimsveldisins
       war_memorials_trust: Stríðsminnisvarða Ráðstöfun
+  world_location:
+    headings:
+      announcements: Okkar tilkynningar
+      documents: Skjöl
+      mission: Okkar takmark
+      news: Fréttir af stöðum í heiminum
+      organisations: Samtök
+      publications: Okkar útgáfur
+      search: Leita eftir landi eða landsvæði
+      statistics: Okkar tölfræði
+    type:
+      international_delegation:
+        one: Alþjóðleg sendinefnd
+        other: Alþjóðlegar sendinefndir
+      world_location:
+        one: Staðsetning í heiminum
+        other: Staðsetningar í heiminum
   world_news:
     uk_updates_in_country: Uppfærslur, fréttir og atburðir frá breska ríkinu í %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Kynntu þér %{link}.
-      personal_information_charter_html: "%{link} okkar útskýrir hvernig við meðhöndlum
-        þínar persónulegu upplýsingar."
-      publication_scheme_html: Lestu um hvaða upplýsingar við birtum reglulega í %{link}
-        okkar.
+      personal_information_charter_html: "%{link} okkar útskýrir hvernig við meðhöndlum þínar persónulegu upplýsingar."
+      publication_scheme_html: Lestu um hvaða upplýsingar við birtum reglulega í %{link} okkar.
       social_media_use_html: Lestu stefnuna okkar varðandi %{link}.
       welsh_language_scheme_html: Kynntu þér skuldbindingu okkar við %{link}.
     find_out_more: Sjá allan prófílinn og allar upplýsingar til að hafa samband

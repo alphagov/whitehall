@@ -1,3 +1,4 @@
+---
 ja:
   activerecord:
     attributes:
@@ -372,8 +373,7 @@ ja:
       description: 検索範囲を広げて、もう一度やり直してください。
       title: 一致するドキュメントはありません。
       tna_heading: 古いコンテンツ
-      tna_link: 2010年5月以前のすべての部門の出版物がGOV.UKに移行されたわけではありません。2010年5月より前の出版物を見つけるには、<a
-        href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国立公文書館</a>を検索してみてください。
+      tna_link: 2010年5月以前のすべての部門の出版物がGOV.UKに移行されたわけではありません。2010年5月より前の出版物を見つけるには、<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国立公文書館</a>を検索してみてください。
     world_locations:
       all: すべての場所
       label: 世界の場所
@@ -486,11 +486,9 @@ ja:
     fields_of_operation: 運用分野
     filter: フィルター
     pagination:
-      next_html: 次 <span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page}
-        の %{total_pages}</span>
+      next_html: 次 <span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page} の %{total_pages}</span>
       next_page: 次のページ
-      previous_html: 前<span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page}
-        の%{total_pages}</span>
+      previous_html: 前<span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page} の%{total_pages}</span>
       previous_page: 前のページ
     part_of_collection: コレクションの一部：
   time:

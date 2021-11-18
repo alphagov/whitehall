@@ -1,5 +1,143 @@
+---
 fi:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Alahuoneen asiakirjan numero
+        isbn: ISBN
+        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
+      attachment_data:
+        file: Tiedosto
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Liitetiedoston paperin numero
+        hoc_paper_number: Alahuoneen asiakirjan numero
+        isbn: Liite ISBN
+        title: Liitteen otsikko
+        unique_reference: Liitteen yksilöllinen viite
+        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Liitetiedosto
+      edition:
+        nation_inapplicabilities: Poissuljetut kansat
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Liitetiedosto
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Liitetiedoston paperin numero
+        hoc_paper_number: Alahuoneen asiakirjan numero
+        isbn: Liite ISBN
+        title: Liitteen otsikko
+        unique_reference: Liitteen yksilöllinen viite
+        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Liitetiedosto
+    nested_attachment_data_field_names:
+      file: Liitetiedosto
+    nested_attachment_field_names:
+      command_paper_number: Liitetiedoston paperin numero
+      hoc_paper_number: Alahuoneen asiakirjan numero
+      isbn: Liite ISBN
+      title: Liitteen otsikko
+      unique_reference: Liitteen yksilöllinen viite
+      unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
+  announcements:
+    heading: Ilmoitukset
+  attachment:
+    accessibility:
+      full_help_html: |
+        Jos käytät apuvälinetekniikkaa (kuten näytönlukuohjelmaa) ja tarvitset
+        tämän asiakirjan vastenmielisyyttä helppokäyttöisemissä muodoissa, lähetä sähköpostia %{email}.
+        Kerro meille, missä muodossa tarvitset. Se auttaa meitä, jos sanot, mitä apuvälineteknologiaa käytät.
+      intro: Tämä tiedosto ei ehkä sovellu apuvälineen käyttäjille.
+      request_a_different_format: Pyydä helppokäyttöistä muotoa.
+    csv:
+      cannot_preview: Tätä tiedostoa ei voitu esikatsella.
+      download: Lataa tiedosto, niin voit tarkastella sen koko sisältöä.
+      truncated_message: Tässä esikatselussa näkyvät vain ensimmäiset %{rows} riviä ja %{columns} saraketta.
+    headings:
+      order_a_copy: Tilaa kopio
+      order_a_copy_full: Tilaa kopio julkaisusta
+      published: Julkaistu
+      reference: Viite
+      unnumbered_command_paper: Numeroimaton komentopaperi
+      unnumbered_hoc_paper: Numeroimaton toimintapaperi
+    opendocument:
+      help_html: Tämä tiedosto on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation"> OpenDocument</a> muodossa.
+    virus_check:
+      intro: Tämä liitetiedosto on virustarkastuksessa.
+      message: Pidämme tätä liitettä karanteenissa, kunnes virus on tarkistettu. Liite on pian saatavilla alkuperäisessä paikassa.
+  broken_links:
+    broken:
+      subheading: Olemme löytäneet tästä asiakirjasta linkkejä, jotka saattavat olla katkenneet
+    caution:
+      subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
+    title: Katkenneet linkit
+  change_notes:
+    published_at: Ensimmäinen julkaistu
+    see_all_updates: katso kaikki palvelut
+    updated_at: Viimeksi päivitetty
+  consultation:
+    closed: Suljettu
+    closing_today: Suljetaan tänään
+    closing_tomorrow: Sulkeutuu huomenna
+    days_left: "%{days_left} päivää jäljellä"
+  contact:
+    access_and_opening_times: Pääsy ja aukioloajat
+    contact_form: Yhteydenottolomake
+    email: Sähköposti
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: julkaiseminen Walesissa
+      title:
+        about: Tietoa meistä
+        about_our_services: Tietoja palveluistamme
+        access_and_opening: Toimiston saavutettavuus ja aukioloajat
+        accessible_documents_policy: Asiakirjojen esteettömyyspolitiikka
+        complaints_procedure: Valitusmenettely
+        equality_and_diversity: Yhdenvertaisuus ja moninaisuus
+        media_enquiries: Tiedustelut mediasta
+        membership: Jäsenyys
+        modern_slavery_statement: Moderni lause orjuudesta
+        our_energy_use: Energiankulutuksemme
+        our_governance: Hallintomme
+        personal_information_charter: Henkilötietojen peruskirja
+        petitions_and_campaigns: Vetoomukset ja kampanjat
+        procurement: Hankinta paikassa %{organisation_name}
+        publication_scheme: Julkaisujärjestelmä
+        recruitment: Työskentelee yrityksessä %{organisation_name}
+        research: Tutkimus paikassa %{organisation_name}
+        social_media_use: Sosiaalisen median käyttö
+        staff_update: Henkilöstön uutiset ja tiedot
+        statistics: Tilastot osoitteessa %{organisation_name}
+        terms_of_reference: Toimeksianto
+        welsh_language_scheme: Walesin kielen järjestelmä
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Sisällys
+    footer_meta:
+      full_page_history: koko sivun historia
+      published: Julkaistu
+      updated: Päivitetty
+    headings:
+      applies_to_nations: Sovelletaan
+      from: Alkaen
+      part_of: Osa
+    latest: Uusimmat asiakirjat
+    latest_from: Uusimmat käyttäjältä %{subject}
+    published: julkaistu
+    see_all: Näytä kaikki
+    speech:
+      author_title:
+        minister: Ministeri
+        speaker: Kirjailija
+      delivered_on: 'Toimitettu:'
+      delivery_title:
+        minister: Ministeri
+        speaker: Kaiutin
+      written_on: 'Kirjoitettu:'
     type:
       about:
         one: Tietoja
@@ -226,179 +364,17 @@ fi:
       written_statement:
         one: Kirjallinen lausuma parlamentille
         other: Kirjallinen lausumat parlamentille
-    contents: Sisällys
-    footer_meta:
-      full_page_history: koko sivun historia
-      published: Julkaistu
-      updated: Päivitetty
-    headings:
-      applies_to_nations: Sovelletaan
-      from: Alkaen
-      part_of: Osa
-    latest: Uusimmat asiakirjat
-    latest_from: Uusimmat käyttäjältä %{subject}
-    published: julkaistu
-    see_all: Näytä kaikki
-    speech:
-      author_title:
-        minister: Ministeri
-        speaker: Kirjailija
-      delivered_on: 'Toimitettu:'
-      delivery_title:
-        minister: Ministeri
-        speaker: Kaiutin
-      written_on: 'Kirjoitettu:'
     updated: päivitetty
-  world_location:
-    type:
-      international_delegation:
-        one: Kansainvälinen valtuuskunta
-        other: Kansainväliset valtuuskunnat
-      world_location:
-        one: Maailman sijainti
-        other: Maailman sijainnit
-    headings:
-      announcements: Ilmoituksemme
-      documents: Asiakirjat
-      mission: Tehtävämme
-      news: Maailman sijaintiuutisia
-      organisations: Organisaatiot
-      publications: Julkaisumme
-      search: Hae maan tai alueen mukaan
-      statistics: Tilastomme
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Alahuoneen asiakirjan numero
-        isbn: ISBN
-        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
-      attachment_data:
-        file: Tiedosto
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Liitetiedoston paperin numero
-        hoc_paper_number: Alahuoneen asiakirjan numero
-        isbn: Liite ISBN
-        title: Liitteen otsikko
-        unique_reference: Liitteen yksilöllinen viite
-        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Liitetiedosto
-      edition:
-        nation_inapplicabilities: Poissuljetut kansat
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Liitetiedosto
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Liitetiedoston paperin numero
-        hoc_paper_number: Alahuoneen asiakirjan numero
-        isbn: Liite ISBN
-        title: Liitteen otsikko
-        unique_reference: Liitteen yksilöllinen viite
-        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Liitetiedosto
-    nested_attachment_data_field_names:
-      file: Liitetiedosto
-    nested_attachment_field_names:
-      command_paper_number: Liitetiedoston paperin numero
-      hoc_paper_number: Alahuoneen asiakirjan numero
-      isbn: Liite ISBN
-      title: Liitteen otsikko
-      unique_reference: Liitteen yksilöllinen viite
-      unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
-  announcements:
-    heading: Ilmoitukset
-  attachment:
-    accessibility:
-      full_help_html: |
-        Jos käytät apuvälinetekniikkaa (kuten näytönlukuohjelmaa) ja tarvitset
-        tämän asiakirjan vastenmielisyyttä helppokäyttöisemissä muodoissa, lähetä sähköpostia %{email}.
-        Kerro meille, missä muodossa tarvitset. Se auttaa meitä, jos sanot, mitä apuvälineteknologiaa käytät.
-      intro: Tämä tiedosto ei ehkä sovellu apuvälineen käyttäjille.
-      request_a_different_format: Pyydä helppokäyttöistä muotoa.
-    csv:
-      cannot_preview: Tätä tiedostoa ei voitu esikatsella.
-      download: Lataa tiedosto, niin voit tarkastella sen koko sisältöä.
-      truncated_message: Tässä esikatselussa näkyvät vain ensimmäiset %{rows} riviä
-        ja %{columns} saraketta.
-    headings:
-      order_a_copy: Tilaa kopio
-      order_a_copy_full: Tilaa kopio julkaisusta
-      published: Julkaistu
-      reference: Viite
-      unnumbered_command_paper: Numeroimaton komentopaperi
-      unnumbered_hoc_paper: Numeroimaton toimintapaperi
-    opendocument:
-      help_html: Tämä tiedosto on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">
-        OpenDocument</a> muodossa.
-    virus_check:
-      intro: Tämä liitetiedosto on virustarkastuksessa.
-      message: Pidämme tätä liitettä karanteenissa, kunnes virus on tarkistettu. Liite
-        on pian saatavilla alkuperäisessä paikassa.
-  broken_links:
-    broken:
-      subheading: Olemme löytäneet tästä asiakirjasta linkkejä, jotka saattavat olla
-        katkenneet
-    caution:
-      subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata
-        ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
-    title: Katkenneet linkit
-  change_notes:
-    published_at: Ensimmäinen julkaistu
-    see_all_updates: katso kaikki palvelut
-    updated_at: Viimeksi päivitetty
-  consultation:
-    closed: Suljettu
-    closing_today: Suljetaan tänään
-    closing_tomorrow: Sulkeutuu huomenna
-    days_left: "%{days_left} päivää jäljellä"
-  contact:
-    access_and_opening_times: Pääsy ja aukioloajat
-    contact_form: Yhteydenottolomake
-    email: Sähköposti
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: julkaiseminen Walesissa
-      title:
-        about: Tietoa meistä
-        about_our_services: Tietoja palveluistamme
-        access_and_opening: Toimiston saavutettavuus ja aukioloajat
-        accessible_documents_policy: Asiakirjojen esteettömyyspolitiikka
-        complaints_procedure: Valitusmenettely
-        equality_and_diversity: Yhdenvertaisuus ja moninaisuus
-        media_enquiries: Tiedustelut mediasta
-        membership: Jäsenyys
-        modern_slavery_statement: Moderni lause orjuudesta
-        our_energy_use: Energiankulutuksemme
-        our_governance: Hallintomme
-        personal_information_charter: Henkilötietojen peruskirja
-        petitions_and_campaigns: Vetoomukset ja kampanjat
-        procurement: Hankinta paikassa %{organisation_name}
-        publication_scheme: Julkaisujärjestelmä
-        recruitment: Työskentelee yrityksessä %{organisation_name}
-        research: Tutkimus paikassa %{organisation_name}
-        social_media_use: Sosiaalisen median käyttö
-        staff_update: Henkilöstön uutiset ja tiedot
-        statistics: Tilastot osoitteessa %{organisation_name}
-        terms_of_reference: Toimeksianto
-        welsh_language_scheme: Walesin kielen järjestelmä
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Kaikki kuulemiset
       label: Konsultaatiot
-    description: Voit käyttää suodattimia näyttääksesi vain kiinnostuksen kohteitasi
-      vastaavat tulokset
+    description: Voit käyttää suodattimia näyttääksesi vain kiinnostuksen kohteitasi vastaavat tulokset
     no_results:
       description: Yritä laajentaa hakua ja yritä uudelleen.
       title: Vastaavia asiakirjoja ei ole.
       tna_heading: Vanhempi sisältö
-      tna_link: Kaikkia ennen toukokuuta 2010 julkaistuja osastojulkaisuja ei siirretty
-        GOV.UK. Löytääksesi julkaisuja ennen toukokuuta 2010, yritä etsiä <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Kansallisarkisto</a>.
+      tna_link: Kaikkia ennen toukokuuta 2010 julkaistuja osastojulkaisuja ei siirretty GOV.UK. Löytääksesi julkaisuja ennen toukokuuta 2010, yritä etsiä <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Kansallisarkisto</a>.
     world_locations:
       all: Kaikki sijainnit
       label: Maailman sijainnit
@@ -437,10 +413,8 @@ fi:
       alerts: sähköpostihälytyksiä
       summary: Sähköpostihälytykset
     embassies:
-      find_an_embassy_lowercase: Etsi Britannian suurlähetystö, korkea edustusto tai
-        konsulaatti
-      find_an_embassy_uppercase: Etsi Britannian suurlähetystö, korkea edustusto tai
-        konsulaatti
+      find_an_embassy_lowercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
+      find_an_embassy_uppercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
     headings:
       contact: Ota yhteyttä %{name}
       corporate_information: Yritystiedot
@@ -457,8 +431,7 @@ fi:
     heading: Julkaisut
     recent: Viimeaikaiset julkaisut
     statistics:
-      link_to_published_statistics: Löydät luettelon julkistetuista ja tulevista valtion
-        tilastoista %{link} tilastot -osiosta.
+      link_to_published_statistics: Löydät luettelon julkistetuista ja tulevista valtion tilastoista %{link} tilastot -osiosta.
       moved_notice: Tilastojulkaisut ovat muuttaneet.
   roles:
     unassigned: Ketään ei ole määrätty tähän rooliin
@@ -514,11 +487,9 @@ fi:
     fields_of_operation: Toiminta -alueet
     filter: Suodattaa
     pagination:
-      next_html: Seuraava <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: Seuraava <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Seuraava sivu
-      previous_html: Edellinen <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: Edellinen <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: Edellinen sivu
     part_of_collection: 'Osa kokoelmasta:'
   time:
@@ -535,15 +506,30 @@ fi:
       historic_england: Historiallinen Englanti
       iwm: Keisarillinen sotamuseo
       war_memorials_trust: Sotamuistomerkit Trust
+  world_location:
+    headings:
+      announcements: Ilmoituksemme
+      documents: Asiakirjat
+      mission: Tehtävämme
+      news: Maailman sijaintiuutisia
+      organisations: Organisaatiot
+      publications: Julkaisumme
+      search: Hae maan tai alueen mukaan
+      statistics: Tilastomme
+    type:
+      international_delegation:
+        one: Kansainvälinen valtuuskunta
+        other: Kansainväliset valtuuskunnat
+      world_location:
+        one: Maailman sijainti
+        other: Maailman sijainnit
   world_news:
-    uk_updates_in_country: Yhdistyneen kuningaskunnan hallituksen päivitykset, uutiset
-      ja tapahtumat %{country}
+    uk_updates_in_country: Yhdistyneen kuningaskunnan hallituksen päivitykset, uutiset ja tapahtumat %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Ota selvää %{link}.
       personal_information_charter_html: "%{link} selittää, miten käsittelemme henkilötietojasi."
-      publication_scheme_html: Lue, millaisia tietoja julkaisemme rutiininomaisesti
-        %{link}.
+      publication_scheme_html: Lue, millaisia tietoja julkaisemme rutiininomaisesti %{link}.
       social_media_use_html: Lue käytäntömme osoitteesta %{link}.
       welsh_language_scheme_html: Tutustu sitoumukseemme %{link}.
     find_out_more: Katso koko profiili ja kaikki yhteystiedot

@@ -1,3 +1,4 @@
+---
 az:
   activerecord:
     attributes:
@@ -51,8 +52,7 @@ az:
     csv:
       cannot_preview: Bu faylın ilkin nəzərdən keçirilməsi mümkün olmadı.
       download: Bu faylın bütün məzmunlarına baxmaq üçün onu endirin.
-      truncated_message: Bu ilkin baxışda yalnız birinci %{rows} sıra və %{columns}
-        sütun göstərilir.
+      truncated_message: Bu ilkin baxışda yalnız birinci %{rows} sıra və %{columns} sütun göstərilir.
     headings:
       order_a_copy: Surətini sifariş edin
       order_a_copy_full: Nəşrin surətini sifariş edin
@@ -61,18 +61,15 @@ az:
       unnumbered_command_paper: Nömrələnməmiş direktiv sənəd
       unnumbered_hoc_paper: Nömrələnməmiş akt sənədi
     opendocument:
-      help_html: Bu fayl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        formatındadır
+      help_html: Bu fayl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatındadır
     virus_check:
       intro: Bu əlavə viruslara qarşı yoxlanılıb.
-      message: Biz bu əlavə virusa qarşı yoxlanana qədər, onu hal-hazırda karantində
-        saxlayırıq. Əlavə tezliklə ilkin yerində mövcud olacaq.
+      message: Biz bu əlavə virusa qarşı yoxlanana qədər, onu hal-hazırda karantində saxlayırıq. Əlavə tezliklə ilkin yerində mövcud olacaq.
   broken_links:
     broken:
       subheading: Biz bu sənəddə pozulmuş keçid aşkar etmişik
     caution:
-      subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq,
-        onlara qoşulan zaman ehtiyatlı olmalısınız
+      subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq, onlara qoşulan zaman ehtiyatlı olmalısınız
     title: Pozulmuş keçidlər
   change_notes:
     published_at: İlkin dərc edilmiş
@@ -372,16 +369,12 @@ az:
     consultation:
       all: Bütün məsləhətləşmələr
       label: Məsləhətləşmələr
-    description: Yalnız maraqlarınıza uyğun gələn nəticələrin göstərilməsi üçün süzgəclərdən
-      istifadə edə bilərsiniz
+    description: Yalnız maraqlarınıza uyğun gələn nəticələrin göstərilməsi üçün süzgəclərdən istifadə edə bilərsiniz
     no_results:
       description: Axtarış sahənizi genişləndirməyə çalışın və yenidən cəhd edin.
       title: Uyğun gələn sənədlər yoxdur.
       tna_heading: Daha köhnə məzmun
-      tna_link: '2010-cu ilin may ayından əvvəlki departament nəşrlərinin hamısı GOV.UK-a
-        köçürülməyib. 2010-cu ilin may ayından əvvəlki nəşrləri tapmaq üçün aşağıdakı
-        ünvanda axtarış etməyə çalışın: <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">Milli arxivlər</a>.'
+      tna_link: '2010-cu ilin may ayından əvvəlki departament nəşrlərinin hamısı GOV.UK-a köçürülməyib. 2010-cu ilin may ayından əvvəlki nəşrləri tapmaq üçün aşağıdakı ünvanda axtarış etməyə çalışın: <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arxivlər</a>.'
     world_locations:
       all: Bütün yerlər
       label: Dünya üzrə yerləri
@@ -420,10 +413,8 @@ az:
       alerts: e-poçt təhlükə siqnalları
       summary: Alınan e-poçt təhlükə siqnalları
     embassies:
-      find_an_embassy_lowercase: Britaniya səfirliyi, diplomatik nümayəndəliyi və
-        ya konsulluğu tapın
-      find_an_embassy_uppercase: Britaniya səfirliyi, Diplomatik nümayəndəliyi və
-        ya Konsulluğu tapın
+      find_an_embassy_lowercase: Britaniya səfirliyi, diplomatik nümayəndəliyi və ya konsulluğu tapın
+      find_an_embassy_uppercase: Britaniya səfirliyi, Diplomatik nümayəndəliyi və ya Konsulluğu tapın
     headings:
       contact: "%{name} ilə əlaqə saxlayın"
       corporate_information: Korporativ məlumat
@@ -440,8 +431,7 @@ az:
     heading: Nəşrlər
     recent: Sonuncu nəşrlər
     statistics:
-      link_to_published_statistics: "%{link} statistika bölməsində dərc edilmiş və
-        gözlənilən dövlət statistikasını tapın."
+      link_to_published_statistics: "%{link} statistika bölməsində dərc edilmiş və gözlənilən dövlət statistikasını tapın."
       moved_notice: Statistika üzrə nəşrlər köçürülüb.
   roles:
     unassigned: Bu vəzifəyə heç kim təyin edilməyib
@@ -497,11 +487,9 @@ az:
     fields_of_operation: Əməliyyat sahələri
     filter: Süzgəc
     pagination:
-      next_html: '%{total_pages}</span>-ın sonrakı <span class="visuallyhidden">səhifəsi</span>
-        <span class="page-numbers">%{current_page}'
+      next_html: '%{total_pages}</span>-ın sonrakı <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
       next_page: Sonrakı səhifə
-      previous_html: '%{total_pages}</span>-ın əvvəlki <span class="visuallyhidden">səhifəsi</span>
-        <span class="page-numbers">%{current_page}'
+      previous_html: '%{total_pages}</span>-ın əvvəlki <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
       previous_page: Əvvəlki səhifə
     part_of_collection: 'Yığımın bir hissəsi:'
   time:
@@ -536,15 +524,12 @@ az:
         one: Dünya üzrə yeri
         other: Dünya üzrə yerləri
   world_news:
-    uk_updates_in_country: BK hökumətinin %{country}-da (də) yeniləmələri, yenilikləri
-      və tədbirləri
+    uk_updates_in_country: BK hökumətinin %{country}-da (də) yeniləmələri, yenilikləri və tədbirləri
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Öyrənin %{link}.
-      personal_information_charter_html: Bizim %{link} şəxsi məlumatlarınızla necə
-        davrandığımızı izah edir.
-      publication_scheme_html: "%{link}-də adətən istifadə etdiyimiz məlumatların
-        növləri barədə oxuyun."
+      personal_information_charter_html: Bizim %{link} şəxsi məlumatlarınızla necə davrandığımızı izah edir.
+      publication_scheme_html: "%{link}-də adətən istifadə etdiyimiz məlumatların növləri barədə oxuyun."
       social_media_use_html: "%{link}-də siyasətmizi oxuyun."
       welsh_language_scheme_html: "%{link} ilə bağlı öhdəliyimiz barədə öyrənin."
     find_out_more: Tam profil və əlaqə məlumatlarımıza baxın

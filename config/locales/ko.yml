@@ -1,3 +1,4 @@
+---
 ko:
   activerecord:
     attributes:
@@ -59,12 +60,10 @@ ko:
       unnumbered_command_paper: 번호를 매기지 않은 명령 문서
       unnumbered_hoc_paper: 번호를 매기지 않은 법안 문서
     opendocument:
-      help_html: 이 파일은 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        포맷입니다
+      help_html: 이 파일은 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> 포맷입니다
     virus_check:
       intro: 이 첨부 파일은 바이러스 확인을 거쳤습니다.
-      message: '현재 이 첨부 파일을 바이러스가 확인될 때까지 격리 상태로 유지합니다. 첨부 파일은 기존 위치에서 잠시 이용할 수 있을
-        것입니다. '
+      message: '현재 이 첨부 파일을 바이러스가 확인될 때까지 격리 상태로 유지합니다. 첨부 파일은 기존 위치에서 잠시 이용할 수 있을 것입니다. '
   broken_links:
     broken:
       subheading: 이 문서에서 손상된 링크가 발견되었습니다
@@ -374,9 +373,7 @@ ko:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
       tna_heading: 기존 컨텐츠
-      tna_link: 2010년 5월 이전의 모든 부서 발행물이 GOV.UK로 마이그레이션되지는 않습니다. 2010년 5월 이전에 발행물을
-        찾으려면 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The
-        National Archives</a>를 찾아 보십시오.
+      tna_link: 2010년 5월 이전의 모든 부서 발행물이 GOV.UK로 마이그레이션되지는 않습니다. 2010년 5월 이전에 발행물을 찾으려면 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>를 찾아 보십시오.
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션
@@ -489,11 +486,9 @@ ko:
     fields_of_operation: 운영 영역
     filter: 필터링하기
     pagination:
-      next_html: 다음 span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: 다음 span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: 다음 페이지
-      previous_html: 이전 <span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: 이전 <span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: 이전 페이지
     part_of_collection: '컬렉션 일부:'
   time:

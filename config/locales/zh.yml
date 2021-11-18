@@ -1,3 +1,4 @@
+---
 zh:
   activerecord:
     attributes:
@@ -59,8 +60,7 @@ zh:
       unnumbered_command_paper: 未编号的命令书
       unnumbered_hoc_paper: 未编号的法案书
     opendocument:
-      help_html: 本文件是 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">开放式文本</a>
-        格式
+      help_html: 本文件是 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">开放式文本</a> 格式
     virus_check:
       intro: 正在对本附件进行病毒检查。
       message: 我们目前将此附件隔离，直到对其进行病毒检查。附件将很快在原址提供。
@@ -373,8 +373,7 @@ zh:
       description: 试着扩大您的搜索范围，然后再试一次。
       title: 没有匹配的文件。
       tna_heading: 较旧的内容
-      tna_link: 2010年5月之前，并不是所有部门的出版物都迁移到了GOV.UK。要查找2010年5月以前的出版物，请尝试搜索<a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">国家档案馆</a>。
+      tna_link: 2010年5月之前，并不是所有部门的出版物都迁移到了GOV.UK。要查找2010年5月以前的出版物，请尝试搜索<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国家档案馆</a>。
     world_locations:
       all: 全部地点
       label: 世界地点
@@ -487,11 +486,9 @@ zh:
     fields_of_operation: 经营领域
     filter: 过滤器
     pagination:
-      next_html: '%{total_pages}</span>的后<span class="visuallyhidden">页</span> <span
-        class="page-numbers">%{current_page}'
+      next_html: '%{total_pages}</span>的后<span class="visuallyhidden">页</span> <span class="page-numbers">%{current_page}'
       next_page: 下一页
-      previous_html: '%{total_pages}</span>的前<span class="visuallyhidden">页</span>
-        <span class="page-numbers">%{current_page}'
+      previous_html: '%{total_pages}</span>的前<span class="visuallyhidden">页</span> <span class="page-numbers">%{current_page}'
       previous_page: 前一页
     part_of_collection: 收藏夹的一部分：
   time:

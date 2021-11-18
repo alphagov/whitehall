@@ -1,5 +1,142 @@
+---
 si:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+        isbn: ISBN
+        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
+      attachment_data:
+        file: ගොනුව
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
+        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+        isbn: ඇමුණුම් ISBN
+        title: ඇමුණුමේ මාතෘකාව
+        unique_reference: ඇමුණුමේ අද්විතීය යොමුව
+        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: අමුණා ඇති ගොනුව
+      edition:
+        nation_inapplicabilities: බැහැර කළ දේශයන්
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: අමුණා ඇති ගොනුව
+      response/consultation_response_attachments/attachment:
+        command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
+        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+        isbn: ඇමුණුම් ISBN
+        title: ඇමුණුමේ මාතෘකාව
+        unique_reference: ඇමුණුමේ අද්විතීය යොමුව
+        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: අමුණා ඇති ගොනුව
+    nested_attachment_data_field_names:
+      file: අමුණා ඇති ගොනුව
+    nested_attachment_field_names:
+      command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
+      hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
+      isbn: ඇමුණුම් ISBN
+      title: ඇමුණුමේ මාතෘකාව
+      unique_reference: ඇමුණුමේ අද්විතීය යොමුව
+      unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
+  announcements:
+    heading: නිවේදන
+  attachment:
+    accessibility:
+      full_help_html: |
+        ඔබ ආධාරක තාක්ෂණය (තිර කියවන්නා වැනි) භාවිතා කරන්නේ නම් සහ මෙම ලේඛනයේ වඩාත් පිවිසිය හැකි ආකෘතියක අනුවාදයක් අවශ්‍ය නම්, කරුණාකර %{email} වෙත විද්‍යුත් තැපෑලක් යවන්න.
+        කරුණාකර ඔබට අවශ්ය ආකෘතිය කුමක්දැයි අපට කියන්න. ඔබ භාවිතා කරන ආධාරක තාක්ෂණය කුමක්දැයි ඔබ පැවසුවහොත් එය අපට උපකාරී වනු ඇත.
+      intro: මෙම ගොනුව ආධාරක තාක්ෂණය භාවිතා කරන්නන් සඳහා සුදුසු නොවිය හැක.
+      request_a_different_format: පිවිසිය හැකි ආකෘතියක් ඉල්ලන්න.
+    csv:
+      cannot_preview: මෙම ගොනුව පෙරදසුන් කළ නොහැක.
+      download: ගොනුවේ සම්පූර්ණ අන්තර්ගතය බැලීමට එය බාගනන.
+      truncated_message: මෙම පෙරදසුන පෙන්වන්නේ පළමු පේළී %{rows} ක් සහ තීරු %{columns} ක් පමණි.
+    headings:
+      order_a_copy: පිටපතක් ඇණවුම් කරන්න
+      order_a_copy_full: ප්රකාශනයේ පිටපතක් ඇණවුම් කරන්න
+      published: පළ කළේ
+      reference: යොමුව
+      unnumbered_command_paper: අංකනය නොකළ විධාන පත්‍රිකාව
+      unnumbered_hoc_paper: අංකනය නොකළ නීති පත්‍රිකාව
+    opendocument:
+      help_html: මෙම ගොනුව <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">විවෘතලේඛන</a> ආකෘතියේ ඇත
+    virus_check:
+      intro: මෙම ඇමුණුම වෛරස් සඳහා පරීක්ෂා කෙරෙමින් පවතී.
+      message: වෛරසය පරීක්ෂා කරන තෙක් අපි දැනට මෙම ඇමුණුම නිරෝධායනයේ තබා ගනිමු. ඇමුණුම කෙටි වේලාවකින් මුල් ස්ථානයේ ලබා ගත හැකිය.
+  broken_links:
+    broken:
+      subheading: අපි මෙම ලේඛනයේ බිඳිය හැකි සබැඳි අපි සොයාගෙන ඇත්තෙමු
+    caution:
+      subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
+    title: කැඩුණු සබැඳි
+  change_notes:
+    published_at: පළමු ප්රකාශයට පත් කළ
+    see_all_updates: සියලුම යාවත්කාලීනයන් බලන්න
+    updated_at: අවසන් වරට යාවත්කාලීන කළේ
+  consultation:
+    closed: වසා ඇත
+    closing_today: අද දින වසා දැමේ
+    closing_tomorrow: හෙට වසා දැමේ
+    days_left: දවස් {days_left} ක් ඉතිරිව ඇත
+  contact:
+    access_and_opening_times: පිවිසුම සහ විවෘත කරන වේලාවන්
+    contact_form: සබඳතා ආකෘතිය
+    email: විද්‍යුත් තැපෑල
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: වෙල්ෂ් ප්රකාශන
+      title:
+        about: අප ගැන
+        about_our_services: අපගේ සේවාවන් ගැන
+        access_and_opening: කාර්යාල පිවිසුම සහ විවෘත කරන වේලාවන්
+        accessible_documents_policy: පිවිසිය හැකි ලේඛන ප්රතිපත්තිය
+        complaints_procedure: පැමිණිලි කිරීමේ ක්රියා පටිපාටිය
+        equality_and_diversity: සමානාත්මතාවය සහ විවිධත්වය
+        media_enquiries: මාධ්ය විමසුම්
+        membership: සාමාජිකත්වය
+        modern_slavery_statement: නූතන වහල් ප්රකාශය
+        our_energy_use: අපේ බලශක්ති භාවිතය
+        our_governance: අපේ පාලනය
+        personal_information_charter: පෞද්ගලික තොරතුරු ප්රඥප්තිය
+        petitions_and_campaigns: පෙත්සම් සහ ව්යාපාර
+        procurement: "%{organisation_name} හි ප්රසම්පාදනය"
+        publication_scheme: ප්රකාශන යෝජනා ක්රමය
+        recruitment: "%{organisation_name} සඳහා වැඩ කරමින්"
+        research: "%{organisation_name} හි පර්යේෂණය"
+        social_media_use: සමාජ මාධ්ය භාවිතය
+        staff_update: කාර්ය මණ්ඩල ප්රවෘත්ති සහ තොරතුරු
+        statistics: "%{organisation_name} හි සංඛ්‍යාලේඛන"
+        terms_of_reference: යොමු නියමයන්
+        welsh_language_scheme: වෙල්ෂ් භාෂා යෝජනා ක්රමය
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: අන්තර්ගත
+    footer_meta:
+      full_page_history: සම්පූර්ණ පිටු ඉතිහාසය
+      published: පළ කළේ
+      updated: යාවත්කාලීන කෙරිණි
+    headings:
+      applies_to_nations: අදාළ වේ
+      from: සිට
+      part_of: කොටසක්
+    latest: නවතම ලේඛන
+    latest_from: "%{subject} වෙතින් නවතම"
+    published: පළ කළේ
+    see_all: සියල්ල බලන්න
+    speech:
+      author_title:
+        minister: අමාත්ය
+        speaker: ලේඛකයා
+      delivered_on: 'බෙදාහරින ලද දිනය:'
+      delivery_title:
+        minister: අමාත්ය
+        speaker: කථානායක
+      written_on: 'ලියන ලද දිනය:'
     type:
       about:
         one: ගැන
@@ -226,177 +363,17 @@ si:
       written_statement:
         one: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශය
         other: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශ
-    contents: අන්තර්ගත
-    footer_meta:
-      full_page_history: සම්පූර්ණ පිටු ඉතිහාසය
-      published: පළ කළේ
-      updated: යාවත්කාලීන කෙරිණි
-    headings:
-      applies_to_nations: අදාළ වේ
-      from: සිට
-      part_of: කොටසක්
-    latest: නවතම ලේඛන
-    latest_from: "%{subject} වෙතින් නවතම"
-    published: පළ කළේ
-    see_all: සියල්ල බලන්න
-    speech:
-      author_title:
-        minister: අමාත්ය
-        speaker: ලේඛකයා
-      delivered_on: 'බෙදාහරින ලද දිනය:'
-      delivery_title:
-        minister: අමාත්ය
-        speaker: කථානායක
-      written_on: 'ලියන ලද දිනය:'
     updated: යාවත්කාලීන කෙරිණි
-  world_location:
-    type:
-      international_delegation:
-        one: ජාත්යන්තර නියෝජිත පිරිස
-        other: ජාත්යන්තර නියෝජිත පිරිස්
-      world_location:
-        one: ලෝක ස්ථානය
-        other: ලෝක ස්ථාන
-    headings:
-      announcements: අපේ නිවේදන
-      documents: ලේඛන
-      mission: අපේ මෙහෙවර
-      news: ලෝක ස්ථානීය පුවෘත්ති
-      organisations: සංවිධාන
-      publications: අපේ ප්රකාශන
-      search: රට හෝ භූමිය අනුව සොයන්න
-      statistics: අපේ සංඛ්යාලේඛන
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
-        isbn: ISBN
-        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
-      attachment_data:
-        file: ගොනුව
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
-        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
-        isbn: ඇමුණුම් ISBN
-        title: ඇමුණුමේ මාතෘකාව
-        unique_reference: ඇමුණුමේ අද්විතීය යොමුව
-        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: අමුණා ඇති ගොනුව
-      edition:
-        nation_inapplicabilities: බැහැර කළ දේශයන්
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: අමුණා ඇති ගොනුව
-      response/consultation_response_attachments/attachment:
-        command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
-        hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
-        isbn: ඇමුණුම් ISBN
-        title: ඇමුණුමේ මාතෘකාව
-        unique_reference: ඇමුණුමේ අද්විතීය යොමුව
-        unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: අමුණා ඇති ගොනුව
-    nested_attachment_data_field_names:
-      file: අමුණා ඇති ගොනුව
-    nested_attachment_field_names:
-      command_paper_number: ඇමුණුම් විධාන පත්‍රිකා අංකය
-      hoc_paper_number: මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකා අංකය
-      isbn: ඇමුණුම් ISBN
-      title: ඇමුණුමේ මාතෘකාව
-      unique_reference: ඇමුණුමේ අද්විතීය යොමුව
-      unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
-  announcements:
-    heading: නිවේදන
-  attachment:
-    accessibility:
-      full_help_html: |
-        ඔබ ආධාරක තාක්ෂණය (තිර කියවන්නා වැනි) භාවිතා කරන්නේ නම් සහ මෙම ලේඛනයේ වඩාත් පිවිසිය හැකි ආකෘතියක අනුවාදයක් අවශ්‍ය නම්, කරුණාකර %{email} වෙත විද්‍යුත් තැපෑලක් යවන්න.
-        කරුණාකර ඔබට අවශ්ය ආකෘතිය කුමක්දැයි අපට කියන්න. ඔබ භාවිතා කරන ආධාරක තාක්ෂණය කුමක්දැයි ඔබ පැවසුවහොත් එය අපට උපකාරී වනු ඇත.
-      intro: මෙම ගොනුව ආධාරක තාක්ෂණය භාවිතා කරන්නන් සඳහා සුදුසු නොවිය හැක.
-      request_a_different_format: පිවිසිය හැකි ආකෘතියක් ඉල්ලන්න.
-    csv:
-      cannot_preview: මෙම ගොනුව පෙරදසුන් කළ නොහැක.
-      download: ගොනුවේ සම්පූර්ණ අන්තර්ගතය බැලීමට එය බාගනන.
-      truncated_message: මෙම පෙරදසුන පෙන්වන්නේ පළමු පේළී %{rows} ක් සහ තීරු %{columns}
-        ක් පමණි.
-    headings:
-      order_a_copy: පිටපතක් ඇණවුම් කරන්න
-      order_a_copy_full: ප්රකාශනයේ පිටපතක් ඇණවුම් කරන්න
-      published: පළ කළේ
-      reference: යොමුව
-      unnumbered_command_paper: අංකනය නොකළ විධාන පත්‍රිකාව
-      unnumbered_hoc_paper: අංකනය නොකළ නීති පත්‍රිකාව
-    opendocument:
-      help_html: මෙම ගොනුව <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">විවෘතලේඛන</a>
-        ආකෘතියේ ඇත
-    virus_check:
-      intro: මෙම ඇමුණුම වෛරස් සඳහා පරීක්ෂා කෙරෙමින් පවතී.
-      message: වෛරසය පරීක්ෂා කරන තෙක් අපි දැනට මෙම ඇමුණුම නිරෝධායනයේ තබා ගනිමු. ඇමුණුම
-        කෙටි වේලාවකින් මුල් ස්ථානයේ ලබා ගත හැකිය.
-  broken_links:
-    broken:
-      subheading: අපි මෙම ලේඛනයේ බිඳිය හැකි සබැඳි අපි සොයාගෙන ඇත්තෙමු
-    caution:
-      subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට
-        සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
-    title: කැඩුණු සබැඳි
-  change_notes:
-    published_at: පළමු ප්රකාශයට පත් කළ
-    see_all_updates: සියලුම යාවත්කාලීනයන් බලන්න
-    updated_at: අවසන් වරට යාවත්කාලීන කළේ
-  consultation:
-    closed: වසා ඇත
-    closing_today: අද දින වසා දැමේ
-    closing_tomorrow: හෙට වසා දැමේ
-    days_left: දවස් {days_left} ක් ඉතිරිව ඇත
-  contact:
-    access_and_opening_times: පිවිසුම සහ විවෘත කරන වේලාවන්
-    contact_form: සබඳතා ආකෘතිය
-    email: විද්‍යුත් තැපෑල
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: වෙල්ෂ් ප්රකාශන
-      title:
-        about: අප ගැන
-        about_our_services: අපගේ සේවාවන් ගැන
-        access_and_opening: කාර්යාල පිවිසුම සහ විවෘත කරන වේලාවන්
-        accessible_documents_policy: පිවිසිය හැකි ලේඛන ප්රතිපත්තිය
-        complaints_procedure: පැමිණිලි කිරීමේ ක්රියා පටිපාටිය
-        equality_and_diversity: සමානාත්මතාවය සහ විවිධත්වය
-        media_enquiries: මාධ්ය විමසුම්
-        membership: සාමාජිකත්වය
-        modern_slavery_statement: නූතන වහල් ප්රකාශය
-        our_energy_use: අපේ බලශක්ති භාවිතය
-        our_governance: අපේ පාලනය
-        personal_information_charter: පෞද්ගලික තොරතුරු ප්රඥප්තිය
-        petitions_and_campaigns: පෙත්සම් සහ ව්යාපාර
-        procurement: "%{organisation_name} හි ප්රසම්පාදනය"
-        publication_scheme: ප්රකාශන යෝජනා ක්රමය
-        recruitment: "%{organisation_name} සඳහා වැඩ කරමින්"
-        research: "%{organisation_name} හි පර්යේෂණය"
-        social_media_use: සමාජ මාධ්ය භාවිතය
-        staff_update: කාර්ය මණ්ඩල ප්රවෘත්ති සහ තොරතුරු
-        statistics: "%{organisation_name} හි සංඛ්‍යාලේඛන"
-        terms_of_reference: යොමු නියමයන්
-        welsh_language_scheme: වෙල්ෂ් භාෂා යෝජනා ක්රමය
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: සියලු උපදේශන
       label: උපදේශන
-    description: ඔබේ රුචිකත්වයට ගැලපෙන ප්රතිඵල පමණක් පෙන්වීමට ඔබට පෙරහන් භාවිතා කළ
-      හැකිය
+    description: ඔබේ රුචිකත්වයට ගැලපෙන ප්රතිඵල පමණක් පෙන්වීමට ඔබට පෙරහන් භාවිතා කළ හැකිය
     no_results:
       description: ඔබගේ සෙවීම පුළුල් කිරීමට උත්සාහ කර නැවත උත්සාහ කරන්න.
       title: ගැලපෙන ලේඛන නොමැත.
       tna_heading: පැරණි අන්තර්ගතය
-      tna_link: 2010 මැයි මාසයට පෙර සිට සියලුම දෙපාර්තමේන්තු ප්රකාශන GOV.UK සංක්රමණය
-        කර නොමැත. 2010 මැයි මසට කළින් වූ ප්‍රකාශන සොයා ගැනීමට <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">ජාතික ලේඛනාගාරය</a> තුළ සෙවීමට උත්සාහ කරන්න.
+      tna_link: 2010 මැයි මාසයට පෙර සිට සියලුම දෙපාර්තමේන්තු ප්රකාශන GOV.UK සංක්රමණය කර නොමැත. 2010 මැයි මසට කළින් වූ ප්‍රකාශන සොයා ගැනීමට <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ජාතික ලේඛනාගාරය</a> තුළ සෙවීමට උත්සාහ කරන්න.
     world_locations:
       all: සියලුම ස්ථාන
       label: ලෝක ස්ථාන
@@ -435,10 +412,8 @@ si:
       alerts: විද්‍යුත් තැපෑල් ඇඟවීම්
       summary: වෙතින් විද්යුත් තැපැල් ඇඟවීම්
     embassies:
-      find_an_embassy_lowercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක්
-        හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
-      find_an_embassy_uppercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක්
-        හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
+      find_an_embassy_lowercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
+      find_an_embassy_uppercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
     headings:
       contact: "%{name} සම්බන්ධ කරගන්න"
       corporate_information: ආයතනික තොරතුරු
@@ -455,8 +430,7 @@ si:
     heading: ප්රකාශන
     recent: මෑත කාලීන ප්රකාශන
     statistics:
-      link_to_published_statistics: "%{link} සංඛ්යාලේඛන කොටසේ ඇති ප්රකාශිත සහ ඉදිරියට
-        එ රජයේ සංඛ්යාලේඛන ලැයිස්තුවක් සොයා ගන්න."
+      link_to_published_statistics: "%{link} සංඛ්යාලේඛන කොටසේ ඇති ප්රකාශිත සහ ඉදිරියට එ රජයේ සංඛ්යාලේඛන ලැයිස්තුවක් සොයා ගන්න."
       moved_notice: සංඛ්යාලේඛන ප්රකාශන විතැන් කර ඇත.
   roles:
     unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
@@ -512,11 +486,9 @@ si:
     fields_of_operation: මෙහෙයුම් ක්ෂේත්ර
     filter: පෙරහන
     pagination:
-      next_html: ඊළඟ <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: ඊළඟ <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: ඊළඟ පිටුව
-      previous_html: කලින් <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: කලින් <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: කලින් පිටුව
     part_of_collection: 'එකතුවක කොටසක්:'
   time:
@@ -533,16 +505,30 @@ si:
       historic_england: ඓතිහාසික එංගලන්තය
       iwm: අධිරාජ්ය යුද කෞතුකාගාරය
       war_memorials_trust: යුද අනුස්මරණ භාරය
+  world_location:
+    headings:
+      announcements: අපේ නිවේදන
+      documents: ලේඛන
+      mission: අපේ මෙහෙවර
+      news: ලෝක ස්ථානීය පුවෘත්ති
+      organisations: සංවිධාන
+      publications: අපේ ප්රකාශන
+      search: රට හෝ භූමිය අනුව සොයන්න
+      statistics: අපේ සංඛ්යාලේඛන
+    type:
+      international_delegation:
+        one: ජාත්යන්තර නියෝජිත පිරිස
+        other: ජාත්යන්තර නියෝජිත පිරිස්
+      world_location:
+        one: ලෝක ස්ථානය
+        other: ලෝක ස්ථාන
   world_news:
-    uk_updates_in_country: "%{country} හි එක්සත් රාජධානී රජය වෙතින් ලැබෙන යාවත්කාලිනයන්,
-      පුවත් සහ සිදුවීම්"
+    uk_updates_in_country: "%{country} හි එක්සත් රාජධානී රජය වෙතින් ලැබෙන යාවත්කාලිනයන්, පුවත් සහ සිදුවීම්"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} සොයන්න."
-      personal_information_charter_html: අගේ %{link} අපි ඔබගේ පුද්ගලික තොරතුරු හසුරුවන
-        ආකාරය විස්තර කරයි.
-      publication_scheme_html: අපේ %{link} තුල අපි ආකාරික ලෙස ප්රකාශයට පත් කරන තොරතුරු
-        වර්ග ගැන කියවන්න.
+      personal_information_charter_html: අගේ %{link} අපි ඔබගේ පුද්ගලික තොරතුරු හසුරුවන ආකාරය විස්තර කරයි.
+      publication_scheme_html: අපේ %{link} තුල අපි ආකාරික ලෙස ප්රකාශයට පත් කරන තොරතුරු වර්ග ගැන කියවන්න.
       social_media_use_html: අපේ ප්රතිපත්තිය කියවන්න %{link}.
       welsh_language_scheme_html: "%{link} සඳහා අපේ කැපවීම ගැන සොයා බලන්න."
     find_out_more: සම්පූර්ණ පැතිකඩ සහ සියලු සබඳතා විස්තර බලන්න

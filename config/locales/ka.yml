@@ -1,3 +1,4 @@
+---
 ka:
   activerecord:
     attributes:
@@ -51,8 +52,7 @@ ka:
     csv:
       cannot_preview: ფაილის წინასწარ ნახვა არ არის შესაძლებელი.
       download: ჩამოტვირთეთ ფაილი შემადგენლობის სრულად სანახავად.
-      truncated_message: წინასწარი ნახვა აჩვენებს რიგების და სვეტების მხოლოდ პირველ
-        %{rows} და %{columns}.
+      truncated_message: წინასწარი ნახვა აჩვენებს რიგების და სვეტების მხოლოდ პირველ %{rows} და %{columns}.
     headings:
       order_a_copy: გამოიწერეთ ასლი
       order_a_copy_full: გამოიწერეთ პუბლიკაციის ასლი
@@ -61,19 +61,15 @@ ka:
       unnumbered_command_paper: ბრძანების დაუნომრავი დოკუმენტი
       unnumbered_hoc_paper: აქტის დაუნომრავი დოკუმენტი
     opendocument:
-      help_html: ეს ფაილი არის <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        ფორმატში
+      help_html: ეს ფაილი არის <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> ფორმატში
     virus_check:
       intro: დანართი შემოწმებულია ვირუსებზე.
-      message: ჩვენ ამჟამად გავაჩერებთ ამ დანართს კარანტინში, სანამ არ შემოწმდება
-        ვირუსებზე. დანართი ხელმისაწვდომი იქნება თავდაპირველ ადგილას უახლოეს მომავალში.
+      message: ჩვენ ამჟამად გავაჩერებთ ამ დანართს კარანტინში, სანამ არ შემოწმდება ვირუსებზე. დანართი ხელმისაწვდომი იქნება თავდაპირველ ადგილას უახლოეს მომავალში.
   broken_links:
     broken:
-      subheading: ამ დოკუმენტში ჩვენ ვიპოვეთ ბმულები, რომლებიც შესაძლოა ხარვეზიანი
-        იყოს
+      subheading: ამ დოკუმენტში ჩვენ ვიპოვეთ ბმულები, რომლებიც შესაძლოა ხარვეზიანი იყოს
     caution:
-      subheading: ჩვენ აღმოვაჩინეთ ხარვეზები ბმულებში, რაც შესაძლო პრობლემებზე მიანიშნებს,
-        თქვენ ყურადღება უნდა გამოიჩინოთ მათი გამოყენებისას
+      subheading: ჩვენ აღმოვაჩინეთ ხარვეზები ბმულებში, რაც შესაძლო პრობლემებზე მიანიშნებს, თქვენ ყურადღება უნდა გამოიჩინოთ მათი გამოყენებისას
     title: ხარვეზიანი ბმულები
   change_notes:
     published_at: პირველად გამოქვეყნებული
@@ -373,15 +369,12 @@ ka:
     consultation:
       all: ყველა კონსულტაცია
       label: კონსულტაციები
-    description: თქვენ შეგიძლიათ გამოიყენოთ ფილტრები, რათა ნახოთ ის შედეგები, რომელბიც
-      შეესაბამება თქვენს ინტერესებს
+    description: თქვენ შეგიძლიათ გამოიყენოთ ფილტრები, რათა ნახოთ ის შედეგები, რომელბიც შეესაბამება თქვენს ინტერესებს
     no_results:
       description: შეეცადეთ ტქვენი ძიება გააფართოვოთ და ცადეთ ხელახლა.
       title: არ მოიძებნა შესაბამისი დოკუმენტები.
       tna_heading: ძველი კონტენტი
-      tna_link: დეპარტამენტის ყველა პუბლიკაცია 2010 წლის მაისამდე არ გადასულა GOV.UK-ზე.
-        2010 წლის მაისამდე პუბლიკაციების საპოვნელად ცადეთ მოძებნოთ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">ეროვნული არქივები</a>.
+      tna_link: დეპარტამენტის ყველა პუბლიკაცია 2010 წლის მაისამდე არ გადასულა GOV.UK-ზე. 2010 წლის მაისამდე პუბლიკაციების საპოვნელად ცადეთ მოძებნოთ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ეროვნული არქივები</a>.
     world_locations:
       all: ყველა ლოკაცია
       label: მსოფლიო ლოკაციები
@@ -438,8 +431,7 @@ ka:
     heading: პუბლიკაციები
     recent: ბოლო პუბლიკაციები
     statistics:
-      link_to_published_statistics: იპოვეთ გამოქვეყნებული და მომავალი მთავრობის სტატისტიკის
-        სია %{link} სტატისტიკის განყოფილებაში.
+      link_to_published_statistics: იპოვეთ გამოქვეყნებული და მომავალი მთავრობის სტატისტიკის სია %{link} სტატისტიკის განყოფილებაში.
       moved_notice: სტატისტიკის პუბლიკაციები გადატანილია.
   roles:
     unassigned: არავისთვის არ მიუნიჭებიათ ეს როლი
@@ -495,11 +487,9 @@ ka:
     fields_of_operation: ოპერაციის სფეროები
     filter: ფილტრი
     pagination:
-      next_html: შემდეგ <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page}
-        -ის %{total_pages}</span>
+      next_html: შემდეგ <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page} -ის %{total_pages}</span>
       next_page: შემდეგი გვერდი
-      previous_html: წინა <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page}
-        -ის %{total_pages}</span>
+      previous_html: წინა <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page} -ის %{total_pages}</span>
       previous_page: წინა გვერდი
     part_of_collection: 'კოლექციის ნაწილი:'
   time:
@@ -534,15 +524,12 @@ ka:
         one: მსოფლიო მდებარეობა
         other: მსოფლიო მდებარეობები
   world_news:
-    uk_updates_in_country: განახლებები, სიახლეები და მოვლენები გაერთიანებული სამეფოს
-      მთავრობიდან %{country}-ში
+    uk_updates_in_country: განახლებები, სიახლეები და მოვლენები გაერთიანებული სამეფოს მთავრობიდან %{country}-ში
   worldwide_organisation:
     corporate_information:
       about_our_services_html: შეიტყვეთ %{link}.
-      personal_information_charter_html: ჩვენი %{link} განმარტავს, თუ როგორ ვამუშავებთ
-        ჩვენ თქვენს პირად ინფორმაციას.
-      publication_scheme_html: წაიკითხეთ ინფორმაციის ტიპების შესახებ, რომელსაც ჩვენ
-        რეგულარულად ვაქვეყნებთ ჩვენს %{link}-ზე.
+      personal_information_charter_html: ჩვენი %{link} განმარტავს, თუ როგორ ვამუშავებთ ჩვენ თქვენს პირად ინფორმაციას.
+      publication_scheme_html: წაიკითხეთ ინფორმაციის ტიპების შესახებ, რომელსაც ჩვენ რეგულარულად ვაქვეყნებთ ჩვენს %{link}-ზე.
       social_media_use_html: წაიკითხეთ ჩვენი პოლიტიკა %{link}-ზე.
       welsh_language_scheme_html: გაეცანით ჩვენს ვალდებულებას %{link}.
     find_out_more: იხილეთ სრული პროფილი და ყველა საკონტაქტო ინფორმაცია

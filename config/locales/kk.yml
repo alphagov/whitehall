@@ -1,5 +1,142 @@
+---
 kk:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+        isbn: ISBN
+        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
+      attachment_data:
+        file: Файл
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: Тіркеме пәрменінің қағаз нөмірі
+        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+        isbn: ISBN тіркемесі
+        title: Тіркеме тақырыбы
+        unique_reference: Тіркеменің бірегей сілтемесі
+        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Тіркелген файл
+      edition:
+        nation_inapplicabilities: Шеттетілген ұлттар
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Тіркелген файл
+      response/consultation_response_attachments/attachment:
+        command_paper_number: Тіркеме пәрменінің қағаз нөмірі
+        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+        isbn: ISBN тіркемесі
+        title: Тіркеме тақырыбы
+        unique_reference: Тіркеменің бірегей сілтемесі
+        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Тіркелген файл
+    nested_attachment_data_field_names:
+      file: Тіркелген файл
+    nested_attachment_field_names:
+      command_paper_number: Тіркеме пәрменінің қағаз нөмірі
+      hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+      isbn: ISBN тіркемесі
+      title: Тіркеме тақырыбы
+      unique_reference: Тіркеменің бірегей сілтемесі
+      unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
+  announcements:
+    heading: Хабарландырулар
+  attachment:
+    accessibility:
+      full_help_html: |
+        Егер сіз көмекші технологияны қолдансаңыз (мысалы, экран оқу құралы) және сізге бұл құжаттың қолжетімді пішімдегі нұсқасы қажет болса, %{email} мекенжайына электрондық хат жіберіңіз.
+        Сізге қандай пішім қажет екенін айтыңыз. Қандай көмекші технологияларды қолданатыныңызды айтсаңыз, бұл бізге көмектеседі.
+      intro: Бұл файл көмекші технология қолданушыларына сәйкес келмеуі мүмкін.
+      request_a_different_format: Қолжетімді пішімді сұраңыз.
+    csv:
+      cannot_preview: Бұл файлды алдын ала қарау мүмкін болмады.
+      download: Файлды толық мазмұнды көру үшін жүктеп алыңыз.
+      truncated_message: Бұл алдын ала қарау тек бірінші %{rows} жолдар мен %{columns} бағандарын көрсетеді.
+    headings:
+      order_a_copy: Көшірмесіне тапсырыс беру
+      order_a_copy_full: Басылымның көшірмесіне тапсырыс беріңіз
+      published: Жарияланды
+      reference: Сілтеме
+      unnumbered_command_paper: Нөмірсіз пәрмен саяси құжаты
+      unnumbered_hoc_paper: Нөмірсіз қаулы қағазы
+    opendocument:
+      help_html: Бұл файл <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> пішімінде
+    virus_check:
+      intro: Бұл тіркеме вирусқа тексерілуде.
+      message: Біз қазір бұл тіркемені вирус тексерілгенше карантинде ұстаймыз. Тіркеме жақын арада бастапқы орнында қолжетімді болады.
+  broken_links:
+    broken:
+      subheading: Біз бұл құжатта бұзылуы мүмкін сілтемелерді таптық
+    caution:
+      subheading: Біз сілтемелерде мәселелерді көрсетуі мүмкін кейбір ақауларды таптық, оларға сілтеме жасағанда абай болу керек
+    title: Бұзылған сілтемелер
+  change_notes:
+    published_at: Алғаш жарияланды
+    see_all_updates: барлық жаңартуларды қарау
+    updated_at: Соңғы рет жаңартылды
+  consultation:
+    closed: Жабық
+    closing_today: Бүгін жабылады
+    closing_tomorrow: Ертең жабылады
+    days_left: "%{days_left} күн қалды"
+  contact:
+    access_and_opening_times: Кіру және ашу уақыттары
+    contact_form: Байланысу формасы
+    email: Электрондық пошта
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: уэльс тілінде жариялау
+      title:
+        about: Біз туралы
+        about_our_services: Біздің қызметтер туралы
+        access_and_opening: Кеңсеге кіру және ашу уақыттары
+        accessible_documents_policy: Қолжетімді құжаттар саясаты
+        complaints_procedure: Шағымдарды қарау тәртібі
+        equality_and_diversity: Теңдік және әртүрлілік
+        media_enquiries: БАҚ сұраулары
+        membership: Мүшелік
+        modern_slavery_statement: Қазіргі құлдық туралы мәлімдеме
+        our_energy_use: Біздің энергия қолданысымыз
+        our_governance: Біздің басқару
+        personal_information_charter: Жеке бас ақпаратының жарғысы
+        petitions_and_campaigns: Өтініштер мен науқандар
+        procurement: "%{organisation_name} ұйымында сатып алу"
+        publication_scheme: Жарияланым схемасы
+        recruitment: "%{organisation_name} ұйымында жұмыс істеу"
+        research: "%{organisation_name} ұйымында зерттеу жасау"
+        social_media_use: Әлеуметтік желілерді қолдану
+        staff_update: Қызметкерлер туралы жаңалықтар мен ақпарат
+        statistics: "%{organisation_name} ұйымындағы статистика"
+        terms_of_reference: Өкілеттіктер ортасы
+        welsh_language_scheme: Уэльс тілінің схемасы
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: Мазмұны
+    footer_meta:
+      full_page_history: толық бет тарихы
+      published: Жарияланды
+      updated: Жаңартылды
+    headings:
+      applies_to_nations: Мынаған қолданылады
+      from: Кімнен
+      part_of: Бөлігі
+    latest: Ең соңғы құжаттар
+    latest_from: "%{subject} соңғылары"
+    published: жарияланды
+    see_all: Барлығын қарау
+    speech:
+      author_title:
+        minister: Министр
+        speaker: Жазушы
+      delivered_on: 'Жеткізілген күні:'
+      delivery_title:
+        minister: Министр
+        speaker: Спикер
+      written_on: 'Жазылған күні:'
     type:
       about:
         one: Туралы
@@ -226,178 +363,17 @@ kk:
       written_statement:
         one: Парламентке жазбаша мәлімдеме
         other: Парламентке жазбаша мәлімдемелер
-    contents: Мазмұны
-    footer_meta:
-      full_page_history: толық бет тарихы
-      published: Жарияланды
-      updated: Жаңартылды
-    headings:
-      applies_to_nations: Мынаған қолданылады
-      from: Кімнен
-      part_of: Бөлігі
-    latest: Ең соңғы құжаттар
-    latest_from: "%{subject} соңғылары"
-    published: жарияланды
-    see_all: Барлығын қарау
-    speech:
-      author_title:
-        minister: Министр
-        speaker: Жазушы
-      delivered_on: 'Жеткізілген күні:'
-      delivery_title:
-        minister: Министр
-        speaker: Спикер
-      written_on: 'Жазылған күні:'
     updated: жаңартылды
-  world_location:
-    type:
-      international_delegation:
-        one: Халықаралық делегация
-        other: Халықаралық делегациялар
-      world_location:
-        one: Әлемдегі орын
-        other: Әлемдегі орындар
-    headings:
-      announcements: Біздің хабарландыруларымыз
-      documents: Құжаттар
-      mission: Біздің миссиямыз
-      news: Әлемдегі орын бойынша жаңалықтар
-      organisations: Ұйымдар
-      publications: Біздің жарияланымдар
-      search: Елі немесе территориясы бойынша іздеу
-      statistics: Біздің статистика
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
-        isbn: ISBN
-        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
-      attachment_data:
-        file: Файл
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: Тіркеме пәрменінің қағаз нөмірі
-        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
-        isbn: ISBN тіркемесі
-        title: Тіркеме тақырыбы
-        unique_reference: Тіркеменің бірегей сілтемесі
-        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: Тіркелген файл
-      edition:
-        nation_inapplicabilities: Шеттетілген ұлттар
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: Тіркелген файл
-      response/consultation_response_attachments/attachment:
-        command_paper_number: Тіркеме пәрменінің қағаз нөмірі
-        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
-        isbn: ISBN тіркемесі
-        title: Тіркеме тақырыбы
-        unique_reference: Тіркеменің бірегей сілтемесі
-        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: Тіркелген файл
-    nested_attachment_data_field_names:
-      file: Тіркелген файл
-    nested_attachment_field_names:
-      command_paper_number: Тіркеме пәрменінің қағаз нөмірі
-      hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
-      isbn: ISBN тіркемесі
-      title: Тіркеме тақырыбы
-      unique_reference: Тіркеменің бірегей сілтемесі
-      unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
-  announcements:
-    heading: Хабарландырулар
-  attachment:
-    accessibility:
-      full_help_html: |
-        Егер сіз көмекші технологияны қолдансаңыз (мысалы, экран оқу құралы) және сізге бұл құжаттың қолжетімді пішімдегі нұсқасы қажет болса, %{email} мекенжайына электрондық хат жіберіңіз.
-        Сізге қандай пішім қажет екенін айтыңыз. Қандай көмекші технологияларды қолданатыныңызды айтсаңыз, бұл бізге көмектеседі.
-      intro: Бұл файл көмекші технология қолданушыларына сәйкес келмеуі мүмкін.
-      request_a_different_format: Қолжетімді пішімді сұраңыз.
-    csv:
-      cannot_preview: Бұл файлды алдын ала қарау мүмкін болмады.
-      download: Файлды толық мазмұнды көру үшін жүктеп алыңыз.
-      truncated_message: Бұл алдын ала қарау тек бірінші %{rows} жолдар мен %{columns}
-        бағандарын көрсетеді.
-    headings:
-      order_a_copy: Көшірмесіне тапсырыс беру
-      order_a_copy_full: Басылымның көшірмесіне тапсырыс беріңіз
-      published: Жарияланды
-      reference: Сілтеме
-      unnumbered_command_paper: Нөмірсіз пәрмен саяси құжаты
-      unnumbered_hoc_paper: Нөмірсіз қаулы қағазы
-    opendocument:
-      help_html: Бұл файл <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        пішімінде
-    virus_check:
-      intro: Бұл тіркеме вирусқа тексерілуде.
-      message: Біз қазір бұл тіркемені вирус тексерілгенше карантинде ұстаймыз. Тіркеме
-        жақын арада бастапқы орнында қолжетімді болады.
-  broken_links:
-    broken:
-      subheading: Біз бұл құжатта бұзылуы мүмкін сілтемелерді таптық
-    caution:
-      subheading: Біз сілтемелерде мәселелерді көрсетуі мүмкін кейбір ақауларды таптық,
-        оларға сілтеме жасағанда абай болу керек
-    title: Бұзылған сілтемелер
-  change_notes:
-    published_at: Алғаш жарияланды
-    see_all_updates: барлық жаңартуларды қарау
-    updated_at: Соңғы рет жаңартылды
-  consultation:
-    closed: Жабық
-    closing_today: Бүгін жабылады
-    closing_tomorrow: Ертең жабылады
-    days_left: "%{days_left} күн қалды"
-  contact:
-    access_and_opening_times: Кіру және ашу уақыттары
-    contact_form: Байланысу формасы
-    email: Электрондық пошта
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: уэльс тілінде жариялау
-      title:
-        about: Біз туралы
-        about_our_services: Біздің қызметтер туралы
-        access_and_opening: Кеңсеге кіру және ашу уақыттары
-        accessible_documents_policy: Қолжетімді құжаттар саясаты
-        complaints_procedure: Шағымдарды қарау тәртібі
-        equality_and_diversity: Теңдік және әртүрлілік
-        media_enquiries: БАҚ сұраулары
-        membership: Мүшелік
-        modern_slavery_statement: Қазіргі құлдық туралы мәлімдеме
-        our_energy_use: Біздің энергия қолданысымыз
-        our_governance: Біздің басқару
-        personal_information_charter: Жеке бас ақпаратының жарғысы
-        petitions_and_campaigns: Өтініштер мен науқандар
-        procurement: "%{organisation_name} ұйымында сатып алу"
-        publication_scheme: Жарияланым схемасы
-        recruitment: "%{organisation_name} ұйымында жұмыс істеу"
-        research: "%{organisation_name} ұйымында зерттеу жасау"
-        social_media_use: Әлеуметтік желілерді қолдану
-        staff_update: Қызметкерлер туралы жаңалықтар мен ақпарат
-        statistics: "%{organisation_name} ұйымындағы статистика"
-        terms_of_reference: Өкілеттіктер ортасы
-        welsh_language_scheme: Уэльс тілінің схемасы
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
     consultation:
       all: Барлық кеңселер
       label: Кеңестер
-    description: Сіз қызығушылықтарыңызға сәйкес келетін нәтижелерді көрсету үшін
-      сүзгілерді пайдалана аласыз
+    description: Сіз қызығушылықтарыңызға сәйкес келетін нәтижелерді көрсету үшін сүзгілерді пайдалана аласыз
     no_results:
       description: Іздеу шарттарын кеңейтуге тырысыңыз және әрекетті қайталап көріңіз.
       title: Сәйкес құжаттар жоқ.
       tna_heading: Ескірек мазмұн
-      tna_link: 2010 жылдың мамыр айына дейінгі барлық бөлім жарияланымдары GOV.UK
-        сайтына көшірілмеген. 2010 жылдың мамыр айына дейінгі жарияланымдарды табу
-        үшін <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Ұлттық
-        мұрағаттардан</a> іздеп көріңіз.
+      tna_link: 2010 жылдың мамыр айына дейінгі барлық бөлім жарияланымдары GOV.UK сайтына көшірілмеген. 2010 жылдың мамыр айына дейінгі жарияланымдарды табу үшін <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Ұлттық мұрағаттардан</a> іздеп көріңіз.
     world_locations:
       all: Барлық орындар
       label: Әлемдегі орындар
@@ -436,10 +412,8 @@ kk:
       alerts: электрондық пошта ескертпелері
       summary: Электрондық пошта ескертпелері
     embassies:
-      find_an_embassy_lowercase: Ұлыбритания елшілігін, жоғары комиссияны немесе консулдықты
-        табыңыз
-      find_an_embassy_uppercase: Ұлыбритания елшілігін, Жоғарғы Комиссияны немесе
-        Консулдықты табыңыз
+      find_an_embassy_lowercase: Ұлыбритания елшілігін, жоғары комиссияны немесе консулдықты табыңыз
+      find_an_embassy_uppercase: Ұлыбритания елшілігін, Жоғарғы Комиссияны немесе Консулдықты табыңыз
     headings:
       contact: "%{name} байланысыңыз"
       corporate_information: Корпоративтік ақпарат
@@ -456,8 +430,7 @@ kk:
     heading: Жарияланымдар
     recent: Жақын арадағы жарияланымдар
     statistics:
-      link_to_published_statistics: "%{link} статистика бөлімінен жарияланған және
-        алдағы мемлекеттік статистика тізімін табыңыз."
+      link_to_published_statistics: "%{link} статистика бөлімінен жарияланған және алдағы мемлекеттік статистика тізімін табыңыз."
       moved_notice: Статистикалық басылымдар көшті.
   roles:
     unassigned: Бұл рөлге ешкім тағайындалмаған
@@ -513,11 +486,9 @@ kk:
     fields_of_operation: Жұмыс аймақтары
     filter: Сүзгі
     pagination:
-      next_html: Келесі <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      next_html: Келесі <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Келесі бет
-      previous_html: Алдыңғы <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page}
-        / %{total_pages}</span>
+      previous_html: Алдыңғы <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       previous_page: Алдыңғы бет
     part_of_collection: 'Топтама бөлігі:'
   time:
@@ -534,16 +505,30 @@ kk:
       historic_england: Тарихқа толы Англия
       iwm: Империялық соғыс мұражайы
       war_memorials_trust: Соғыс мемориалдарының сенімі
+  world_location:
+    headings:
+      announcements: Біздің хабарландыруларымыз
+      documents: Құжаттар
+      mission: Біздің миссиямыз
+      news: Әлемдегі орын бойынша жаңалықтар
+      organisations: Ұйымдар
+      publications: Біздің жарияланымдар
+      search: Елі немесе территориясы бойынша іздеу
+      statistics: Біздің статистика
+    type:
+      international_delegation:
+        one: Халықаралық делегация
+        other: Халықаралық делегациялар
+      world_location:
+        one: Әлемдегі орын
+        other: Әлемдегі орындар
   world_news:
-    uk_updates_in_country: "%{country} еліндегі Ұлыбритания үкіметінің жаңартулары,
-      жаңалықтары мен оқиғалары"
+    uk_updates_in_country: "%{country} еліндегі Ұлыбритания үкіметінің жаңартулары, жаңалықтары мен оқиғалары"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} туралы мәлімет алу."
-      personal_information_charter_html: Біздің %{link} жеке басқа қатысты ақпаратты
-        қалай пайдалану керектігін түсіндіреді.
-      publication_scheme_html: Біз үнемі %{link} бөлімінде жариялайтын ақпарат түрлері
-        туралы оқыңыз.
+      personal_information_charter_html: Біздің %{link} жеке басқа қатысты ақпаратты қалай пайдалану керектігін түсіндіреді.
+      publication_scheme_html: Біз үнемі %{link} бөлімінде жариялайтын ақпарат түрлері туралы оқыңыз.
       social_media_use_html: "%{link} мекенжайындағы саясатымызды оқыңыз."
       welsh_language_scheme_html: "%{link} қосқан үлесіміз туралы оқыңыз."
     find_out_more: Толық профильді және барлық байланыс мәліметтерін қараңыз

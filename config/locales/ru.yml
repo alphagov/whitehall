@@ -1,425 +1,5 @@
+---
 ru:
-  document:
-    type:
-      about:
-        one: О нас
-        few:
-        many:
-        other: О нас
-      about_our_services:
-        one: О наших услугах
-        few:
-        many:
-        other: Он наших услугах
-      access_and_opening:
-        one: Доступ и открытие
-        few:
-        many:
-        other: Доступ и открытие
-      accessible_documents_policy:
-        one: Политика доступности документов
-        few:
-        many:
-        other: Политики доступности документов
-      alert:
-        one: Оповещение
-        few:
-        many:
-        other: Оповещения
-      announcement:
-        one: Объявление
-        few:
-        many:
-        other: Объявления
-      authored_article:
-        one: Авторская статья
-        few:
-        many:
-        other: Авторские статьи
-      blog_post:
-        one: Запись в блоге
-        few:
-        many:
-        other: Записи в блоге
-      campaign:
-        one: Кампания
-        few:
-        many:
-        other: Кампании
-      careers:
-        one: Карьера
-        few:
-        many:
-        other: карьера
-      case_study:
-        one: Ситуационное исследование
-        few:
-        many:
-        other: Ситуационные исследования
-      closed_consultation:
-        one: Закрытая консультация
-        few:
-        many:
-        other: Закрытые консультации
-      complaints_procedure:
-        one: Процедура подачи жалоб
-        few:
-        many:
-        other: Процедуры подачи жалоб
-      consultation:
-        one: Консультация
-        few:
-        many:
-        other: Консультации
-      consultation_outcome:
-        one: Результат консультации
-        few:
-        many:
-        other: Результаты консультаций
-      corporate_report:
-        one: Корпоративный отчет
-        few:
-        many:
-        other: Корпоративные отчеты
-      correspondence:
-        one: Корреспонденция
-        few:
-        many:
-        other: Корреспонденция
-      decision:
-        one: Решение
-        few:
-        many:
-        other: Решения
-      detailed_guidance:
-        one: Руководство
-        few:
-        many:
-        other: Руководство
-      document_collection:
-        one: Коллекция
-        few:
-        many:
-        other: Коллекции
-      draft_text:
-        one: Проект текста
-        few:
-        many:
-        other: Проект текстов
-      edition:
-        one: Издание
-        few:
-        many:
-        other: Издания
-      edition_with_appointment:
-        one: Издание с назначением
-        few:
-        many:
-        other: Издания с назначением
-      equality_and_diversity:
-        one: Равенство и разнообразие
-        few:
-        many:
-        other: Равенство и разнообразие
-      fatality_notice:
-        one: Уведомление о смертельном исходе
-        few:
-        many:
-        other: Уведомления о смертельном исходе
-      foi_release:
-        one: Публикация о свободном распространении информации
-        few:
-        many:
-        other: Публикации о свободном распространении информации
-      form:
-        one: Форма
-        few:
-        many:
-        other: Формы
-      generic_edition:
-        one: Типовое издание
-        few:
-        many:
-        other: Типовые издания
-      government_response:
-        one: Ответ правительства
-        few:
-        many:
-        other: Ответы правительства
-      guidance:
-        one: Руководство
-        few:
-        many:
-        other: Руководство
-      impact_assessment:
-        one: Оценка воздействия
-        few:
-        many:
-        other: Оценки воздействия
-      imported:
-        one: импортировано - тип ожидания
-        few:
-        many:
-        other: импортировано - тип ожидания
-      independent_report:
-        one: Независимый доклад
-        few:
-        many:
-        other: Независимые доклады
-      international_treaty:
-        one: Международный договор
-        few:
-        many:
-        other: Международные договоры
-      manual:
-        one: Руководство
-        few:
-        many:
-        other: Руководства
-      map:
-        one: Карта
-        few:
-        many:
-        other: Карты
-      media_enquiries:
-        one: Отдел по связям со СМИ
-        few:
-        many:
-        other: Отделы по связам по СМИ
-      membership:
-        one: Членство
-        few:
-        many:
-        other: Членство
-      national_statistics:
-        one: Национальная статистика
-        few:
-        many:
-        other: Национальная статистика
-      news_article:
-        one: Новостная статья
-        few:
-        many:
-        other: Новостные статьи
-      news_story:
-        one: Новостной сюжет
-        few:
-        many:
-        other: Новостные сюжеты
-      nhs_content:
-        one: Контент Национальной службы здравоохранения
-        few:
-        many:
-        other: Контент Национальной службы здравоохранения
-      notice:
-        one: Уведомление
-        few:
-        many:
-        other: Уведомления
-      official_statistics:
-        one: Официальная статистика
-        few:
-        many:
-        other: Официальная статистика
-      open_consultation:
-        one: Открытая консультация
-        few:
-        many:
-        other: Открытые консультации
-      oral_statement:
-        one: Устное заявление Парламенту
-        few:
-        many:
-        other: Устные заявления Парламенту
-      our_energy_use:
-        one: Использование нами энергии
-        few:
-        many:
-        other: Использование нами энергии
-      our_governance:
-        one: Наше управление
-        few:
-        many:
-        other: Наше управление
-      personal_information_charter:
-        one: Чартер личной информации
-        few:
-        many:
-        other: Чартеры личной информации
-      petitions_and_campaigns:
-        one: Петиции и кампании
-        few:
-        many:
-        other: Петиции и кампании
-      policy_paper:
-        one: Директивный документ
-        few:
-        many:
-        other: Директивные документы
-      press_release:
-        one: Пресс-релиз
-        few:
-        many:
-        other: Пресс-релизы
-      procurement:
-        one: Материально-техническое снабжение
-        few:
-        many:
-        other: Материально-техническое снабжение
-      promotional:
-        one: Рекламный материал
-        few:
-        many:
-        other: Рекламные материалы
-      publication:
-        one: Публикация
-        few:
-        many:
-        other: Публикации
-      publication_scheme:
-        one: Схема публикации
-        few:
-        many:
-        other: Схемы публикации
-      recruitment:
-        one: Набор персонала
-        few:
-        many:
-        other: Набор персонала
-      regulation:
-        one: Распорядительный документ
-        few:
-        many:
-        other: Распорядительные документы
-      research:
-        one: Исследования
-        few:
-        many:
-        other: Исследования
-      service:
-        one: Услуга
-        few:
-        many:
-        other: Услуги
-      social_media_use:
-        one: Использование социальных сетей
-        few:
-        many:
-        other: Использование социальных сетей
-      speaking_notes:
-        one: Тезисы выступления
-        few:
-        many:
-        other: Тезисы выступления
-      speech:
-        one: Текст выступления
-        few:
-        many:
-        other: Тексты выступлений
-      staff_update:
-        one: Обновление персонала
-        few:
-        many:
-        other: Обновления персонала
-      standard:
-        one: Стандарт
-        few:
-        many:
-        other: Стандарты
-      statement_to_parliament:
-        one: Заявление Парламенту
-        few:
-        many:
-        other: Заявления Парламенту
-      statistical_data_set:
-        one: Набор статистических данных
-        few:
-        many:
-        other: Наборы статистических данных
-      statistics:
-        one: Статистика
-        few:
-        many:
-        other: Статистика
-      statutory_guidance:
-        one: Официальные рекомендации
-        few:
-        many:
-        other: Официальные рекомендации
-      terms_of_reference:
-        one: Акт о полномочиях
-        few:
-        many:
-        other: Акт о полномочиях
-      transcript:
-        one: Текст
-        few:
-        many:
-        other: Тексты
-      transparency:
-        one: Прозрачность данных
-        few:
-        many:
-        other: Прозрачность данных
-      welsh_language_scheme:
-        one: Схема уэльского языка
-        few:
-        many:
-        other: Схемы уэльского языка
-      world_news_story:
-        one: Мировая новость
-        few:
-        many:
-        other: Мировые новости
-      written_statement:
-        one: Письменное заявление Парламенту
-        few:
-        many:
-        other: Письменные заявления Парламенту
-    contents: Содержание
-    footer_meta:
-      full_page_history: полная история страницы
-      published: Опубликовано
-      updated: Обновлено
-    headings:
-      applies_to_nations: Применяется к
-      from: Из
-      part_of: Является частью
-    latest: Последний документ
-    latest_from: Последнее из %{subject}
-    published: Опубликовано
-    see_all: Посмотреть все
-    speech:
-      author_title:
-        minister: Министр
-        speaker: Писатель
-      delivered_on: 'Представлено:'
-      delivery_title:
-        minister: Министр
-        speaker: Докладчик
-      written_on: 'Написано:'
-    updated: обновлено
-  world_location:
-    type:
-      international_delegation:
-        one: Международная делегация
-        few:
-        many:
-        other: Международные делегации
-      world_location:
-        one: Место нахождения в мире
-        few:
-        many:
-        other: Места нахождения в мире
-    headings:
-      announcements: Наши объявления
-      documents: Документы
-      mission: Наша цель
-      news: Новости из мест нахождения в мире
-      organisations: Организации
-      publications: Наши публикации
-      search: Поиск по стране или территории
-      statistics: Наша статистика
   activerecord:
     attributes:
       attachment:
@@ -463,19 +43,13 @@ ru:
     heading: Объявления
   attachment:
     accessibility:
-      full_help_html: "Если вы используете вспомогательные технологии (например, программу
-        чтения с экрана), \nи вам нужна версия этого документа в более доступном формате,
-        отправьте \nписьмо по адресу электронной почты %{email}.\nВ нем укажите, какой
-        формат вам нужен. Хорошо было бы, если бы вы также указали, какие вспомогательные
-        технологии вы используете.\n"
-      intro: Данный документ может быть не доступен лицам, использующим вспомогательные
-        технологии.
+      full_help_html: "Если вы используете вспомогательные технологии (например, программу чтения с экрана), \nи вам нужна версия этого документа в более доступном формате, отправьте \nписьмо по адресу электронной почты %{email}.\nВ нем укажите, какой формат вам нужен. Хорошо было бы, если бы вы также указали, какие вспомогательные технологии вы используете.\n"
+      intro: Данный документ может быть не доступен лицам, использующим вспомогательные технологии.
       request_a_different_format: Запросить в доступном формате.
     csv:
       cannot_preview: Для этого файла недоступен предварительный просмотр.
       download: Загрузите файл, чтобы посмотреть все его содержимое.
-      truncated_message: "Данный предварительный просмотр показывает только первые
-        %{rows} ряды и \n%{columns} столбцы."
+      truncated_message: "Данный предварительный просмотр показывает только первые %{rows} ряды и \n%{columns} столбцы."
     headings:
       order_a_copy: Заказать копию
       order_a_copy_full: Заказать копию публикации
@@ -487,15 +61,12 @@ ru:
       help_html: Этот файл находится в формате <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
       intro: Данное приложение проверяется на наличие вирусов.
-      message: В настоящий момент это приложение находится в карантине до тех пор,
-        пока оно не будет проверено на наличие вирусов. Вскоре оно будет доступно
-        в исходном местоположении.
+      message: В настоящий момент это приложение находится в карантине до тех пор, пока оно не будет проверено на наличие вирусов. Вскоре оно будет доступно в исходном местоположении.
   broken_links:
     broken:
       subheading: Мы обнаружили в данном документе ссылки, которые могут быть недействительными
     caution:
-      subheading: Мы обнаружили неполадки, связанные со ссылками, которые могут указывать
-        на наличие проблем. Будьте осторожны при подключении к ним
+      subheading: Мы обнаружили неполадки, связанные со ссылками, которые могут указывать на наличие проблем. Будьте осторожны при подключении к ним
     title: Недействительные ссылки
   change_notes:
     published_at: Первая публикация
@@ -541,25 +112,420 @@ ru:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
+  document:
+    contents: Содержание
+    footer_meta:
+      full_page_history: полная история страницы
+      published: Опубликовано
+      updated: Обновлено
+    headings:
+      applies_to_nations: Применяется к
+      from: Из
+      part_of: Является частью
+    latest: Последний документ
+    latest_from: Последнее из %{subject}
+    published: Опубликовано
+    see_all: Посмотреть все
+    speech:
+      author_title:
+        minister: Министр
+        speaker: Писатель
+      delivered_on: 'Представлено:'
+      delivery_title:
+        minister: Министр
+        speaker: Докладчик
+      written_on: 'Написано:'
+    type:
+      about:
+        few:
+        many:
+        one: О нас
+        other: О нас
+      about_our_services:
+        few:
+        many:
+        one: О наших услугах
+        other: Он наших услугах
+      access_and_opening:
+        few:
+        many:
+        one: Доступ и открытие
+        other: Доступ и открытие
+      accessible_documents_policy:
+        few:
+        many:
+        one: Политика доступности документов
+        other: Политики доступности документов
+      alert:
+        few:
+        many:
+        one: Оповещение
+        other: Оповещения
+      announcement:
+        few:
+        many:
+        one: Объявление
+        other: Объявления
+      authored_article:
+        few:
+        many:
+        one: Авторская статья
+        other: Авторские статьи
+      blog_post:
+        few:
+        many:
+        one: Запись в блоге
+        other: Записи в блоге
+      campaign:
+        few:
+        many:
+        one: Кампания
+        other: Кампании
+      careers:
+        few:
+        many:
+        one: Карьера
+        other: карьера
+      case_study:
+        few:
+        many:
+        one: Ситуационное исследование
+        other: Ситуационные исследования
+      closed_consultation:
+        few:
+        many:
+        one: Закрытая консультация
+        other: Закрытые консультации
+      complaints_procedure:
+        few:
+        many:
+        one: Процедура подачи жалоб
+        other: Процедуры подачи жалоб
+      consultation:
+        few:
+        many:
+        one: Консультация
+        other: Консультации
+      consultation_outcome:
+        few:
+        many:
+        one: Результат консультации
+        other: Результаты консультаций
+      corporate_report:
+        few:
+        many:
+        one: Корпоративный отчет
+        other: Корпоративные отчеты
+      correspondence:
+        few:
+        many:
+        one: Корреспонденция
+        other: Корреспонденция
+      decision:
+        few:
+        many:
+        one: Решение
+        other: Решения
+      detailed_guidance:
+        few:
+        many:
+        one: Руководство
+        other: Руководство
+      document_collection:
+        few:
+        many:
+        one: Коллекция
+        other: Коллекции
+      draft_text:
+        few:
+        many:
+        one: Проект текста
+        other: Проект текстов
+      edition:
+        few:
+        many:
+        one: Издание
+        other: Издания
+      edition_with_appointment:
+        few:
+        many:
+        one: Издание с назначением
+        other: Издания с назначением
+      equality_and_diversity:
+        few:
+        many:
+        one: Равенство и разнообразие
+        other: Равенство и разнообразие
+      fatality_notice:
+        few:
+        many:
+        one: Уведомление о смертельном исходе
+        other: Уведомления о смертельном исходе
+      foi_release:
+        few:
+        many:
+        one: Публикация о свободном распространении информации
+        other: Публикации о свободном распространении информации
+      form:
+        few:
+        many:
+        one: Форма
+        other: Формы
+      generic_edition:
+        few:
+        many:
+        one: Типовое издание
+        other: Типовые издания
+      government_response:
+        few:
+        many:
+        one: Ответ правительства
+        other: Ответы правительства
+      guidance:
+        few:
+        many:
+        one: Руководство
+        other: Руководство
+      impact_assessment:
+        few:
+        many:
+        one: Оценка воздействия
+        other: Оценки воздействия
+      imported:
+        few:
+        many:
+        one: импортировано - тип ожидания
+        other: импортировано - тип ожидания
+      independent_report:
+        few:
+        many:
+        one: Независимый доклад
+        other: Независимые доклады
+      international_treaty:
+        few:
+        many:
+        one: Международный договор
+        other: Международные договоры
+      manual:
+        few:
+        many:
+        one: Руководство
+        other: Руководства
+      map:
+        few:
+        many:
+        one: Карта
+        other: Карты
+      media_enquiries:
+        few:
+        many:
+        one: Отдел по связям со СМИ
+        other: Отделы по связам по СМИ
+      membership:
+        few:
+        many:
+        one: Членство
+        other: Членство
+      national_statistics:
+        few:
+        many:
+        one: Национальная статистика
+        other: Национальная статистика
+      news_article:
+        few:
+        many:
+        one: Новостная статья
+        other: Новостные статьи
+      news_story:
+        few:
+        many:
+        one: Новостной сюжет
+        other: Новостные сюжеты
+      nhs_content:
+        few:
+        many:
+        one: Контент Национальной службы здравоохранения
+        other: Контент Национальной службы здравоохранения
+      notice:
+        few:
+        many:
+        one: Уведомление
+        other: Уведомления
+      official_statistics:
+        few:
+        many:
+        one: Официальная статистика
+        other: Официальная статистика
+      open_consultation:
+        few:
+        many:
+        one: Открытая консультация
+        other: Открытые консультации
+      oral_statement:
+        few:
+        many:
+        one: Устное заявление Парламенту
+        other: Устные заявления Парламенту
+      our_energy_use:
+        few:
+        many:
+        one: Использование нами энергии
+        other: Использование нами энергии
+      our_governance:
+        few:
+        many:
+        one: Наше управление
+        other: Наше управление
+      personal_information_charter:
+        few:
+        many:
+        one: Чартер личной информации
+        other: Чартеры личной информации
+      petitions_and_campaigns:
+        few:
+        many:
+        one: Петиции и кампании
+        other: Петиции и кампании
+      policy_paper:
+        few:
+        many:
+        one: Директивный документ
+        other: Директивные документы
+      press_release:
+        few:
+        many:
+        one: Пресс-релиз
+        other: Пресс-релизы
+      procurement:
+        few:
+        many:
+        one: Материально-техническое снабжение
+        other: Материально-техническое снабжение
+      promotional:
+        few:
+        many:
+        one: Рекламный материал
+        other: Рекламные материалы
+      publication:
+        few:
+        many:
+        one: Публикация
+        other: Публикации
+      publication_scheme:
+        few:
+        many:
+        one: Схема публикации
+        other: Схемы публикации
+      recruitment:
+        few:
+        many:
+        one: Набор персонала
+        other: Набор персонала
+      regulation:
+        few:
+        many:
+        one: Распорядительный документ
+        other: Распорядительные документы
+      research:
+        few:
+        many:
+        one: Исследования
+        other: Исследования
+      service:
+        few:
+        many:
+        one: Услуга
+        other: Услуги
+      social_media_use:
+        few:
+        many:
+        one: Использование социальных сетей
+        other: Использование социальных сетей
+      speaking_notes:
+        few:
+        many:
+        one: Тезисы выступления
+        other: Тезисы выступления
+      speech:
+        few:
+        many:
+        one: Текст выступления
+        other: Тексты выступлений
+      staff_update:
+        few:
+        many:
+        one: Обновление персонала
+        other: Обновления персонала
+      standard:
+        few:
+        many:
+        one: Стандарт
+        other: Стандарты
+      statement_to_parliament:
+        few:
+        many:
+        one: Заявление Парламенту
+        other: Заявления Парламенту
+      statistical_data_set:
+        few:
+        many:
+        one: Набор статистических данных
+        other: Наборы статистических данных
+      statistics:
+        few:
+        many:
+        one: Статистика
+        other: Статистика
+      statutory_guidance:
+        few:
+        many:
+        one: Официальные рекомендации
+        other: Официальные рекомендации
+      terms_of_reference:
+        few:
+        many:
+        one: Акт о полномочиях
+        other: Акт о полномочиях
+      transcript:
+        few:
+        many:
+        one: Текст
+        other: Тексты
+      transparency:
+        few:
+        many:
+        one: Прозрачность данных
+        other: Прозрачность данных
+      welsh_language_scheme:
+        few:
+        many:
+        one: Схема уэльского языка
+        other: Схемы уэльского языка
+      world_news_story:
+        few:
+        many:
+        one: Мировая новость
+        other: Мировые новости
+      written_statement:
+        few:
+        many:
+        one: Письменное заявление Парламенту
+        other: Письменные заявления Парламенту
+    updated: обновлено
   document_filters:
     consultation:
       all: Все консультации
       label: Консультации
-    description: Чтобы увидеть результаты, соответствующие Вашим требованиям, используйте
-      фильтры
+    description: Чтобы увидеть результаты, соответствующие Вашим требованиям, используйте фильтры
     no_results:
       description: Расширьте параметры поиска и попробуйте еще раз.
       title: Соответствующих документов не найдено.
       tna_heading: Старое содержимое
-      tna_link: Не все публикации отдела, выпущенные до мая 2010 г., были перенесены
-        на GOV.UK. Чтобы найти публикации, выпущенные до мая 2010 г., попробуйте выполнить
-        поиск в <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Национальном
-        архиве</a>.
+      tna_link: Не все публикации отдела, выпущенные до мая 2010 г., были перенесены на GOV.UK. Чтобы найти публикации, выпущенные до мая 2010 г., попробуйте выполнить поиск в <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Национальном архиве</a>.
     world_locations:
       all: Все места нахождения
       label: Место нахождения в мире
-      no_locations_filter: Ни одно место нахождения в мире не соответствует этому
-        фильтру.
+      no_locations_filter: Ни одно место нахождения в мире не соответствует этому фильтру.
   email_alert:
     subscription: Подписка на оповещения по электронной почте
   fatality_notice:
@@ -594,10 +560,8 @@ ru:
       alerts: оповещения по электронной почте
       summary: оповещения по электронной почте от
     embassies:
-      find_an_embassy_lowercase: Найти британское посольство, представительство высокого
-        комиссара или консульство
-      find_an_embassy_uppercase: Найти британское посольство, Представительство высокого
-        комиссара или Консульство
+      find_an_embassy_lowercase: Найти британское посольство, представительство высокого комиссара или консульство
+      find_an_embassy_uppercase: Найти британское посольство, Представительство высокого комиссара или Консульство
     headings:
       contact: Обратиться к %{name}
       corporate_information: Корпоративная информация
@@ -614,8 +578,7 @@ ru:
     heading: Публикации
     recent: Недавние публикации
     statistics:
-      link_to_published_statistics: Ознакомтесь со списком опубликованной и планируемой
-        к публикации государственной статистики в %{link} разделе статистики.
+      link_to_published_statistics: Ознакомтесь со списком опубликованной и планируемой к публикации государственной статистики в %{link} разделе статистики.
       moved_notice: Статистические публикации были перемещены.
   roles:
     unassigned: Никто не назначен на эту роль
@@ -671,11 +634,9 @@ ru:
     fields_of_operation: Поле деятельности
     filter: Фильтр
     pagination:
-      next_html: Следующая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page}
-        из %{total_pages}</span>
+      next_html: Следующая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Следующая страница
-      previous_html: Предыдущая <span class="visuallyhidden">страница</span> <span
-        class="page-numbers">%{current_page} из %{total_pages}</span>
+      previous_html: Предыдущая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} из %{total_pages}</span>
       previous_page: Предыдущая страница
     part_of_collection: 'Является частью коллекции:'
   time:
@@ -692,16 +653,34 @@ ru:
       historic_england: Комиссия по историческим зданиям и памятникам Англии
       iwm: Имперский военный музей
       war_memorials_trust: Трест военных мемориалов
+  world_location:
+    headings:
+      announcements: Наши объявления
+      documents: Документы
+      mission: Наша цель
+      news: Новости из мест нахождения в мире
+      organisations: Организации
+      publications: Наши публикации
+      search: Поиск по стране или территории
+      statistics: Наша статистика
+    type:
+      international_delegation:
+        few:
+        many:
+        one: Международная делегация
+        other: Международные делегации
+      world_location:
+        few:
+        many:
+        one: Место нахождения в мире
+        other: Места нахождения в мире
   world_news:
-    uk_updates_in_country: Обновления, новости и события правительства Великобритании
-      в %{country}
+    uk_updates_in_country: Обновления, новости и события правительства Великобритании в %{country}
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Узнайте %{link}.
-      personal_information_charter_html: По %{link} вы можете ознакомиться с пояснением
-        о том, как мы обращаемся с вашей личной информацией.
-      publication_scheme_html: Ознакомьтесь с типами информации, которую мы обычно
-        публикуем, по указанной %{link}.
+      personal_information_charter_html: По %{link} вы можете ознакомиться с пояснением о том, как мы обращаемся с вашей личной информацией.
+      publication_scheme_html: Ознакомьтесь с типами информации, которую мы обычно публикуем, по указанной %{link}.
       social_media_use_html: Ознакомиться с нашей политикой по %{link}.
       welsh_language_scheme_html: Ознакомиться с нашими обязательствами можно по %{link}.
     find_out_more: Общая информация и контакты
