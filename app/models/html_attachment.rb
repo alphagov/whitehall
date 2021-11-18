@@ -74,7 +74,11 @@ class HtmlAttachment < Attachment
     # composed of document type, slug for the parent document, and identifier for the attachment;
     # for non-english attachments the identifier is the content_id, for english
     # attachments it is self i.e. the slug
-    identifier = sluggable_locale? ? self : content_id
+    identifier = if attachable.updated_at < Time.zone.local(2021, 11, 29)
+                   self
+                 else
+                   sluggable_locale? ? self : content_id
+                 end
     Whitehall.url_maker.public_send(path_helper, attachable.slug, identifier, options)
   end
 
