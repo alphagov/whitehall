@@ -157,4 +157,9 @@ class OrganisationBrandColour
     title: "Foreign, Commonwealth & Development Office",
     class_name: "foreign-commonwealth-development-office",
   )
+  DepartmentForLevellingUpHousingAndCommunities = create!(
+    id: 31,
+    title: "Department for Levelling Up, Housing & Communities",
+    class_name: "department-for-levelling-up-housing-and-communities",
+  )
 end
