@@ -403,7 +403,6 @@ yi:
     latest_activity:
   i18n:
     direction: rtl
-    latin_script?: false
   language_names:
     yi: יידיש
   latest_feed:
