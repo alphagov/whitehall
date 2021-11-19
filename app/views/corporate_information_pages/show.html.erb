@@ -3,32 +3,38 @@
 
 <%= organisation_wrapper(@organisation) do %>
   <article>
-    <%= render_corporate_info_header_for(@organisation, @corporate_information_page) %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <%= render_corporate_info_header_for(@organisation, @corporate_information_page) %>
 
-    <% headers = govspeak_headers(@corporate_information_page.body) %>
-    <% if headers.any? %>
-      <nav>
-        <h2 class="govuk-heading-l" <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h2>
-        <ol class="govuk-list dash-list">
-          <% headers.each do |header| %>
-            <li><%= link_to header.text, "##{header.id}", class: "govuk-link" %></li>
-          <% end %>
-        </ol>
-      </nav>
-    <% end %>
+        <% headers = govspeak_headers(@corporate_information_page.body) %>
+        <% if headers.any? %>
+          <nav>
+            <h2 class="govuk-heading-l" <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h2>
+            <ol class="govuk-list dash-list">
+              <% headers.each do |header| %>
+                <li><%= link_to header.text, "##{header.id}", class: "govuk-link" %></li>
+              <% end %>
+            </ol>
+          </nav>
+        <% end %>
+      </div>
 
-    <%= render 'shared/available_languages', object: @corporate_information_page %>
-    <%= content_tag :p, class: 'govuk-body homepage-link' do %>
-      <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
-    <% end %>
-    <%= render "govuk_publishing_components/components/title", {
-      title: @corporate_information_page.title,
-    } %>
-    <p class="govuk-body description">
-      <%= @corporate_information_page.summary %>
-    </p>
-    <div class="body">
-      <%= govspeak_edition_to_html @corporate_information_page %>
+      <div class="govuk-grid-column-two-thirds">
+        <%= render 'shared/available_languages', object: @corporate_information_page %>
+        <%= content_tag :p, class: 'govuk-body homepage-link' do %>
+          <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation), class: "govuk-link" %>
+        <% end %>
+        <%= render "govuk_publishing_components/components/title", {
+          title: @corporate_information_page.title,
+        } %>
+        <p class="govuk-body description">
+          <%= @corporate_information_page.summary %>
+        </p>
+        <div class="body">
+          <%= govspeak_edition_to_html @corporate_information_page %>
+        </div>
+      </div>
     </div>
   </article>
 <% end %>
