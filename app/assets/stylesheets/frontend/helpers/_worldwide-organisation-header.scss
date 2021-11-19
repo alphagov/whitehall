@@ -2,10 +2,6 @@
   margin-top: $gutter-half;
   margin-bottom: $gutter-half;
 
-  @include govuk-media-query($from: tablet) {
-    padding-bottom: $gutter;
-  }
-
   .logo {
     @include govuk-media-query($from: tablet) {
       margin-top: $gutter-half;
