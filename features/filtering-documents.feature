@@ -34,4 +34,4 @@ Feature: Filtering Documents
     Given there are some published announcments including a few in French
     When I visit the announcments index in French
     Then I should see only announcements which have French translations
-    And I should be able to filter them by country (or 'Pays' in French)
+    And I should be able to filter them by country (or 'Emplacements dans le monde' in French)

@@ -44,9 +44,9 @@ Then(/^I should see only announcements which have French translations$/) do
   expect(page).to_not have_content("News Article in English only")
 end
 
-Then(/^I should be able to filter them by country \(or 'Pays' in French\)$/) do
+Then(/^I should be able to filter them by country \(or 'Emplacements dans le monde' in French\)$/) do
   within "#document-filter" do
     expect(page).to have_selector("label", count: 1)
-    expect(page).to have_content("Pays")
+    expect(page).to have_content("Emplacements dans le monde")
   end
 end
