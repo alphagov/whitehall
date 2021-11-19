@@ -511,7 +511,7 @@ sl:
       description: Poskusite razširiti iskanje in poskusite znova.
       title: Ni ustreznih dokumentov.
       tna_heading: Starejša vsebina
-      tna_link: Vse publikacije ministrstev pred majem 2010 niso bile premeščene na GOV.UK. Če želite poiskati publikacije pred majem 2010, poskusite iskati ​po <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalnih arhivih</a>.
+      tna_link_html: Vse publikacije ministrstev pred majem 2010 niso bile premeščene na GOV.UK. Če želite poiskati publikacije pred majem 2010, poskusite iskati ​po <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalnih arhivih</a>.
     world_locations:
       all: Vse lokacije
       label: Lokacije po svetu

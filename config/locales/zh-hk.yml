@@ -360,7 +360,7 @@ zh-hk:
       description: 嘗試擴大你的搜尋範圍並且再次搜索。
       title: 沒有符合的文件。
       tna_heading: 指令內容
-      tna_link: 並非全部 2010 年以前的部門出版物都已轉移至 GOV.UK。如要搜尋 2010 年以前之出版物，請前往 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">國家檔案館</a>。
+      tna_link_html: 並非全部 2010 年以前的部門出版物都已轉移至 GOV.UK。如要搜尋 2010 年以前之出版物，請前往 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">國家檔案館</a>。
     world_locations:
       all: 所有駐點
       label: 全球駐點

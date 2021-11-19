@@ -360,7 +360,7 @@ bn:
       description: অনুসন্ধানের ক্ষেত্র আরও বড় করে আবার চেষ্টা করুন।
       title: মিলে যায় এমন কোনো নথি নেই।
       tna_heading: পুরনো বিষয়বস্তু
-      tna_link: মে 2010-এর পূর্বের সকল বিভাগের নথিপত্র GOV.UK-তে মাইগ্রেট করা হয়নি। মে 2010-এর পূর্বের প্রকাশনাগুলো খুঁজে পেতে, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">জাতীয় আর্কাইভ</a>-এ খোঁজার চেষ্টা করুন।
+      tna_link_html: মে 2010-এর পূর্বের সকল বিভাগের নথিপত্র GOV.UK-তে মাইগ্রেট করা হয়নি। মে 2010-এর পূর্বের প্রকাশনাগুলো খুঁজে পেতে, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">জাতীয় আর্কাইভ</a>-এ খোঁজার চেষ্টা করুন।
     world_locations:
       all: সকল স্থান
       label: বিশ্বের অবস্থানসমূহ

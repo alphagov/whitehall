@@ -361,7 +361,7 @@ da:
       description: Prøv at gøre din søgning bredere og prøv igen.
       title: Der er ingen matchende dokumenter.
       tna_heading: Ældre indhold
-      tna_link: Ikke alle afdelingspublikationer fra før maj 2010 blev migreret til GOV.UK.Hvis du vil finde publikationer fra før maj 2010, kan du søge på <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">De Nationale Arkiver</a>.
+      tna_link_html: Ikke alle afdelingspublikationer fra før maj 2010 blev migreret til GOV.UK.Hvis du vil finde publikationer fra før maj 2010, kan du søge på <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">De Nationale Arkiver</a>.
     world_locations:
       all: Alle steder
       label: Verden Placeringer

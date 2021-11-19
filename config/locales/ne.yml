@@ -360,7 +360,7 @@ ne:
       description: 'तपाईंको खोज फराकिलो बनाउने प्रयास गरेर पुन: प्रयास गर्नुहोस्।'
       title: यहाँ कुनै मेल खाने कागजातहरू छैन।
       tna_heading: पुरानो विषयवस्तु
-      tna_link: मई 2010 भन्दा अघिका सबै विभागका प्रकाशनहरु GOV.UK मा सारिएको थिएन। मई 2010 भन्दा अघिका प्रकाशनहरु खोज्नको लागी <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">राष्ट्रिय अभिलेखालय</a>मा खोज्ने प्रयास गर्नुहोस्।
+      tna_link_html: मई 2010 भन्दा अघिका सबै विभागका प्रकाशनहरु GOV.UK मा सारिएको थिएन। मई 2010 भन्दा अघिका प्रकाशनहरु खोज्नको लागी <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">राष्ट्रिय अभिलेखालय</a>मा खोज्ने प्रयास गर्नुहोस्।
     world_locations:
       all: सबै स्थानहरु
       label: विश्व स्थानहरु

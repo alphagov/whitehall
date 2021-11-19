@@ -360,7 +360,7 @@ uz:
       description: Қидирувни кенгайтиринг ва яна бир бора уриниб кўринг.
       title: Мос ҳужжатлар мавжуд эмас.
       tna_heading: Олдинги мундарижа
-      tna_link: 2010 й. май ойигача барча нашрлар GOV.Ukга олиб ўтилмаган. 2010 й. май ойигача чиққан нашрларни топиш учун, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Национальный архив</a>да излашни бажаришга уриниб кўринг.
+      tna_link_html: 2010 й. май ойигача барча нашрлар GOV.Ukга олиб ўтилмаган. 2010 й. май ойигача чиққан нашрларни топиш учун, <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Национальный архив</a>да излашни бажаришга уриниб кўринг.
     world_locations:
       all: Барча жойлашиш жойлари
       label: Дунёдаги жойлашиш жойлари

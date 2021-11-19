@@ -508,7 +508,7 @@ pl:
       description: Spróbuj poszerzyc kryteria wyszukiwania i spróbuj ponownie.
       title: Nie ma dokumentów odpowiadających kryteriom.
       tna_heading: Starsza zawartość
-      tna_link: Nie wszystkie dokumenty departamentów opublikowane przed majem 2010 r. zostały przeniesione do GOV.UK. Aby znaleźć dokumenty opublikowane przed majem 2010 r. spróbuj przeszukać <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Archiwum Narodowe</a>.
+      tna_link_html: Nie wszystkie dokumenty departamentów opublikowane przed majem 2010 r. zostały przeniesione do GOV.UK. Aby znaleźć dokumenty opublikowane przed majem 2010 r. spróbuj przeszukać <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Archiwum Narodowe</a>.
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie

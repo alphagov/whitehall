@@ -361,7 +361,7 @@ ka:
       description: შეეცადეთ ტქვენი ძიება გააფართოვოთ და ცადეთ ხელახლა.
       title: არ მოიძებნა შესაბამისი დოკუმენტები.
       tna_heading: ძველი კონტენტი
-      tna_link: დეპარტამენტის ყველა პუბლიკაცია 2010 წლის მაისამდე არ გადასულა GOV.UK-ზე. 2010 წლის მაისამდე პუბლიკაციების საპოვნელად ცადეთ მოძებნოთ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ეროვნული არქივები</a>.
+      tna_link_html: დეპარტამენტის ყველა პუბლიკაცია 2010 წლის მაისამდე არ გადასულა GOV.UK-ზე. 2010 წლის მაისამდე პუბლიკაციების საპოვნელად ცადეთ მოძებნოთ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ეროვნული არქივები</a>.
     world_locations:
       all: ყველა ლოკაცია
       label: მსოფლიო ლოკაციები

@@ -510,7 +510,7 @@ uk:
       description: Спробуйте розширити пошук та повторіть спробу.
       title: Немає відповідних документів.
       tna_heading: Попередній вміст
-      tna_link: Не всі публікації відділу до травня 2010 р. були перенесені на GOV.UK. Щоб знайти публікації до травня 2010 року, спробуйте здійснити пошук у <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Національному архіві</a>.
+      tna_link_html: Не всі публікації відділу до травня 2010 р. були перенесені на GOV.UK. Щоб знайти публікації до травня 2010 року, спробуйте здійснити пошук у <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Національному архіві</a>.
     world_locations:
       all: Усі локації
       label: Світові локації

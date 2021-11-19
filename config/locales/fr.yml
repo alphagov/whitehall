@@ -361,7 +361,7 @@ fr:
       description: Élargissez votre recherche et recommencez.
       title: Aucun document ne correspond.
       tna_heading: Contenu plus ancien
-      tna_link: Toutes les publications du ministère réalisées avant mai 2010 n'ont pas été migrées vers GOV.UK. Pour trouver des publications antérieures à mai 2010, essayez de rechercher <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Les Archives nationales</a>.
+      tna_link_html: Toutes les publications du ministère réalisées avant mai 2010 n'ont pas été migrées vers GOV.UK. Pour trouver des publications antérieures à mai 2010, essayez de rechercher <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Les Archives nationales</a>.
     world_locations:
       all: Tous les emplacements
       label: Emplacements dans le monde

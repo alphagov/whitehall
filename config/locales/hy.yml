@@ -361,7 +361,7 @@ hy:
       description: 'Փորձեք ձեր որոնումն ավելի ընդլայնել և կրկին փորձեք:'
       title: 'Համապատասխանող փաստաթղթեր չեն գտնվել:'
       tna_heading: Ավելի հին բովանդակություն
-      tna_link: 'Մինչև 2010թ․ մայիս ամսվա ոչ բոլոր գերատեսչությունների հրապարակումներն են տեղափոխվել GOV.UK կայք: Մինչև 2010թ․ մայիս ամսվա հրապարակումները գտնելու համար փորձեք որոնել այս հղումով՝ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>'
+      tna_link_html: 'Մինչև 2010թ․ մայիս ամսվա ոչ բոլոր գերատեսչությունների հրապարակումներն են տեղափոխվել GOV.UK կայք: Մինչև 2010թ․ մայիս ամսվա հրապարակումները գտնելու համար փորձեք որոնել այս հղումով՝ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>'
     world_locations:
       all: Բոլոր վայրերը
       label: Գտնվելու վայրերը

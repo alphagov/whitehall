@@ -360,7 +360,7 @@ zh:
       description: 试着扩大您的搜索范围，然后再试一次。
       title: 没有匹配的文件。
       tna_heading: 较旧的内容
-      tna_link: 2010年5月之前，并不是所有部门的出版物都迁移到了GOV.UK。要查找2010年5月以前的出版物，请尝试搜索<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国家档案馆</a>。
+      tna_link_html: 2010年5月之前，并不是所有部门的出版物都迁移到了GOV.UK。要查找2010年5月以前的出版物，请尝试搜索<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国家档案馆</a>。
     world_locations:
       all: 全部地点
       label: 世界地点

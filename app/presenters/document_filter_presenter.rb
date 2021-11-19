@@ -18,7 +18,7 @@ DocumentFilterPresenter = Struct.new(:filter, :context, :document_decorator) do 
       no_results_title: context.t("document_filters.no_results.title"),
       no_results_description: context.t("document_filters.no_results.description"),
       no_results_tna_heading: context.t("document_filters.no_results.tna_heading"),
-      no_results_tna_link: context.t("document_filters.no_results.tna_link"),
+      no_results_tna_link: context.t("document_filters.no_results.tna_link_html"),
       category: result_type.capitalize,
     }
     if !documents.last_page? || !documents.first_page?

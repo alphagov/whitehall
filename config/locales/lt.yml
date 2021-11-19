@@ -435,7 +435,7 @@ lt:
       description: Praplėskite paiešką ir bandykite dar kartą.
       title: Dokumentų  nerasta.
       tna_heading: Senesnis turinys
-      tna_link: Ne visi departameno leidiniai, publikuoti prieš 2010 m. gegužę, buvo perkelti į GOV.UK. Leidinių, publikuotų prieš 2010 m. gegužę, galite ieškoti <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalinis archyvas</a>.
+      tna_link_html: Ne visi departameno leidiniai, publikuoti prieš 2010 m. gegužę, buvo perkelti į GOV.UK. Leidinių, publikuotų prieš 2010 m. gegužę, galite ieškoti <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalinis archyvas</a>.
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
