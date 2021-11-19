@@ -70,10 +70,6 @@ ja:
     caution:
       subheading: リンクにいくつかの問題が見つかりました。リンクを表示する際には注意が必要です
     title: リンク切れ
-  change_notes:
-    published_at: 初版
-    see_all_updates: すべての更新を見る
-    updated_at: 最終更新
   consultation:
     closed: ご利用いただけません
     closing_today: 本日は、ご利用いただけません
@@ -116,16 +112,7 @@ ja:
       long_ordinal: "％e％B％Y"
   document:
     contents: コンテンツ
-    footer_meta:
-      full_page_history: 全ページ履歴
-      published: 公開済み
-      updated: 更新しました
-    headings:
-      applies_to_nations: 次に適用：
-      from: から
-      part_of: 次の一部：
     latest: 最新のドキュメント
-    latest_from: "％{subject} からの更新"
     published: 公開
     see_all: すべてを見る
     speech:
@@ -365,9 +352,6 @@ ja:
         other: 議会への書面による声明
     updated: 更新済み
   document_filters:
-    consultation:
-      all: すべての審議
-      label: 審議
     description: フィルタを使用して、興味に一致する結果のみを表示できます
     no_results:
       description: 検索範囲を広げて、もう一度やり直してください。
@@ -378,15 +362,10 @@ ja:
       all: すべての場所
       label: 世界の場所
       no_locations_filter: そのフィルターに一致する世界の場所はありません。
-  email_alert:
-    subscription: Eメール通知の購読
   fatality_notice:
     british_fatalities: 英国の死亡者数
     none_added: この活動分野での死亡通知はまだ追加されていません。
   feeds:
-    email: Eメール
-    feed: フィード
-    get_updates_to_this_list: このリストの更新を取得
     latest_activity: 最新の活動
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ ja:
   latest_feed:
     no_updates: まだ更新はありません。
     title: 最新
-  national_statistics:
-    heading: 国家統計
-  number:
-    human:
-      storage_units:
-        format: "％n％u"
   organisation:
     corporate_information:
       access_our_info: 情報にアクセスする
@@ -408,14 +381,10 @@ ja:
       jobs_and_contacts: 仕事と契約
       organisation_chart: 組織図
       transparency: 透明度データ
-    email:
-      alerts: Eメール通知
-      summary: 以下からのからのEメール通知：
     embassies:
       find_an_embassy_lowercase: 英国大使館、高等弁務官、領事館を探す
       find_an_embassy_uppercase: 英国大使館、高等弁務官、領事館を探す
     headings:
-      contact: "%{name}に連絡"
       corporate_information: 企業情報
       corporate_reports: 企業報告
     support:
@@ -479,12 +448,9 @@ ja:
     transparency: すべての透明性データを見る
     written_statement: すべての議会への書面による声明を見る
   support:
-    array:
-      last_word_connector: " および "
     download: ダウンロード
     field_of_operation: 運用分野：
     fields_of_operation: 運用分野
-    filter: フィルター
     pagination:
       next_html: 次 <span class="visuallyhidden">ページ</span> <span class="page-numbers">%{current_page} の %{total_pages}</span>
       next_page: 次のページ

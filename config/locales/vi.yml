@@ -70,10 +70,6 @@ vi:
     caution:
       subheading: Chúng tôi đã tìm thấy một số vấn đề với các liên kết có thể là dấu hiệu cho thấy sự cố, bạn nên thận trọng khi truy cập các liên kết đó
     title: Liên kết đã hỏng
-  change_notes:
-    published_at: Xuất bản lần đầu
-    see_all_updates: xem tất cả nội dung cập nhật
-    updated_at: Lần cập nhật gần đây nhất
   consultation:
     closed: Đã đóng
     closing_today: Đóng hôm nay
@@ -116,16 +112,7 @@ vi:
       long_ordinal: "%e %B %Y"
   document:
     contents: Mục lục
-    footer_meta:
-      full_page_history: lịch sử của toàn bộ trang
-      published: Đã xuất bản
-      updated: Đã cập nhật
-    headings:
-      applies_to_nations: Áp dụng đối với
-      from: Từ
-      part_of: Một phần của
     latest: Tài liệu mới nhất
-    latest_from: Mới nhất từ %{subject}
     published: đã xuất bản
     see_all: Xem tất cả
     speech:
@@ -365,9 +352,6 @@ vi:
         other: Tuyên bố bằng văn bản trước Quốc hội
     updated: đã cập nhật
   document_filters:
-    consultation:
-      all: Tất cả các buổi tham vấn
-      label: Tham vấn
     description: Bạn có thể sử dụng các bộ lọc để chỉ hiển thị các kết quả phù hợp với sở thích của mình
     no_results:
       description: Hãy thử mở rộng phạm vi tìm kiếm và thử lại.
@@ -378,15 +362,10 @@ vi:
       all: Tất cả vị trí
       label: Các vị trí trên thế giới
       no_locations_filter: Không có vị trí nào trên thế giới phù hợp với bộ lọc đó.
-  email_alert:
-    subscription: Đăng ký nhận cảnh báo qua email
   fatality_notice:
     british_fatalities: Số người Anh tử vong
     none_added: Chưa có thông báo tử vong nào được thêm vào cho lĩnh vực hoạt động này.
   feeds:
-    email: email
-    feed: nguồn cấp dữ liệu
-    get_updates_to_this_list: Xem nội dung cập nhật của danh sách này
     latest_activity: Hoạt động mới nhất
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ vi:
   latest_feed:
     no_updates: Chưa có cập nhật.
     title: Mới nhất
-  national_statistics:
-    heading: Thống kê Quốc gia
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Truy cập thông tin của chúng tôi
@@ -408,14 +381,10 @@ vi:
       jobs_and_contacts: Việc làm và hợp đồng
       organisation_chart: Sơ đồ tổ chức của chúng tôi
       transparency: Dữ liệu về tính minh bạch
-    email:
-      alerts: cảnh báo qua email
-      summary: Cảnh báo qua email từ
     embassies:
       find_an_embassy_lowercase: Tìm đại sứ quán, cao ủy hoặc lãnh sự quán Anh
       find_an_embassy_uppercase: Tìm đại sứ quán, cao ủy hoặc lãnh sự quán Anh
     headings:
-      contact: Liên hệ %{name}
       corporate_information: Thông tin doanh nghiệp
       corporate_reports: Báo cáo của doanh nghiệp
     support:
@@ -479,12 +448,9 @@ vi:
     transparency: Xem tất cả dữ liệu về tính minh bạch của chúng tôi
     written_statement: Xem tất cả các tuyên bố bằng văn bản của chúng tôi trước Nghị viện
   support:
-    array:
-      last_word_connector: " và "
     download: Tải xuống
     field_of_operation: 'Lĩnh vực hoạt động:'
     fields_of_operation: Lĩnh vực hoạt động
-    filter: Lọc
     pagination:
       next_html: Trang <span class="visuallyhidden">tiếp theo</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Trang tiếp theo

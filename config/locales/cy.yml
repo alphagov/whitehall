@@ -70,10 +70,6 @@ cy:
     caution:
       subheading: Rydyn ni wedi canfod rhai materion gyda dolenni a allai ddangos bod problem. Dylech fod yn ofalus wrth gysylltu â nhw
     title: Dolenni wedi torri
-  change_notes:
-    published_at: Cyhoeddwyd yn gyntaf
-    see_all_updates: gweld pob diweddariad
-    updated_at: Diweddarwyd ddiwethaf
   consultation:
     closed: Wedi cau
     closing_today: Yn cau heddiw
@@ -116,16 +112,7 @@ cy:
       long_ordinal: "%e %B %Y"
   document:
     contents: Cynnwys
-    footer_meta:
-      full_page_history: hanes llawn y dudalen
-      published: Cyhoeddwyd
-      updated: Diweddarwyd
-    headings:
-      applies_to_nations: Yn berthnasol i
-      from: Gan
-      part_of: Rhan o
     latest: Dogfennau diweddaraf
-    latest_from: Y diweddaraf gan %{subject}
     published: cyhoeddwyd
     see_all: Gweld popeth
     speech:
@@ -665,9 +652,6 @@ cy:
         zero:
     updated: diweddarwyd
   document_filters:
-    consultation:
-      all: Pob ymgynghoriad
-      label: Ymgynghoriadau
     description: Gallwch ddefnyddio'r hidlyddion i ddangos dim ond y canlyniadau hynny sy'n cyd-fynd â'ch diddordebau chi
     no_results:
       description: Ceisiwch ehangu'ch chwiliad a rhoi cynnig arall arni.
@@ -678,15 +662,10 @@ cy:
       all: Pob lleoliad
       label: Lleoliadau byd-eang
       no_locations_filter: Does dim lleoliadau byd-eang yn cyd-fynd â'r hidlydd hwnnw.
-  email_alert:
-    subscription: Tanysgrifio i hysbysiadau e-bost
   fatality_notice:
     british_fatalities: Marwolaethau Prydeinig
     none_added: Does dim hysbysiadau o farwolaethau wedi'u hychwanegu ar gyfer y maes gweithredu hwn eto.
   feeds:
-    email: e-bost
-    feed: ffrwd
-    get_updates_to_this_list: Cael diweddariadau i'r rhestr hon
     latest_activity: Gweithgarwch diweddaraf
   i18n:
     direction: ltr
@@ -695,12 +674,6 @@ cy:
   latest_feed:
     no_updates: Does dim diweddariadau eto.
     title: Y diweddaraf
-  national_statistics:
-    heading: Ystadegau Gwladol
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Cael mynediad at ein gwybodaeth
@@ -708,14 +681,10 @@ cy:
       jobs_and_contacts: Swyddi a chontractau
       organisation_chart: Ein siart sefydliadol
       transparency: Data tryloywder
-    email:
-      alerts: hysbysiadau e-bost
-      summary: Hysbysiadau e-bost gan y
     embassies:
       find_an_embassy_lowercase: Dod o hyd i un o lysgenadaethau, uchel gomisiynau neu swyddfeydd conswliaid Prydain
       find_an_embassy_uppercase: Dod o hyd i un o Lysgenadaethau, Uchel Gomisiynau neu Swyddfeydd Conswliaid Prydain
     headings:
-      contact: Cysylltu â %{name}
       corporate_information: Gwybodaeth gorfforaethol
       corporate_reports: Adroddiadau corfforaethol
     support:
@@ -779,12 +748,9 @@ cy:
     transparency: Gweld ein holl ddata tryloywder
     written_statement: Gweld ein holl ddatganiadau ysgrifenedig i'r Senedd
   support:
-    array:
-      last_word_connector: " a"
     download: Llwytho i lawr
     field_of_operation: 'Maes gweithredu:'
     fields_of_operation: 'Meysydd gweithredu:'
-    filter: Hidlydd
     pagination:
       next_html: Y dudalen <span class="visuallyhidden">nesaf</span> <span class="page-numbers">%{current_page} o %{total_pages}</span>
       next_page: Y dudalen nesaf

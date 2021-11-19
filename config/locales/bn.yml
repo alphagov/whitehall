@@ -70,10 +70,6 @@ bn:
     caution:
       subheading: লিংকগুলোতে আমরা কিছু বিষয় পেয়েছি, যেগুলো সমস্যা নির্দেশ করতে পারে, এগুলোর সাথে লিংক করতে আপনার সতর্ক হওয়া উচিত
     title: অকার্যকর লিংকসমূহ
-  change_notes:
-    published_at: প্রথম প্রকাশিত
-    see_all_updates: সকল আপডেট দেখুন
-    updated_at: সর্বশেষ আপডেট করা হয়েছে
   consultation:
     closed: বন্ধ হয়ে গেছে
     closing_today: আজকে বন্ধ হচ্ছে
@@ -116,16 +112,7 @@ bn:
       long_ordinal: "%e %B %Y"
   document:
     contents: বিষয়সূচী
-    footer_meta:
-      full_page_history: পুরো পৃষ্ঠার ইতিহাস
-      published: প্রকাশিত হয়েছে
-      updated: হালনাগাদ করা হয়েছে
-    headings:
-      applies_to_nations: যার জন্য প্রযোজ্য
-      from: থেকে
-      part_of: এর অংশ
     latest: সর্বশেষ নথিসমূহ
-    latest_from: "%{subject} থেকে সর্বশেষ"
     published: প্রকাশিত হয়েছে
     see_all: সবগুলো দেখুন
     speech:
@@ -365,9 +352,6 @@ bn:
         other: সংসদে লিখিত বিবৃতিসমূহ
     updated: হালনাগাদ করা হয়েছে
   document_filters:
-    consultation:
-      all: সকল পরামর্শ
-      label: পরামর্শ
     description: আপনার আগ্রহের সাথে মিলে যায় শুধুমাত্র সেই ফলাফলগুলো দেখাতে আপনি ফিল্টারগুলো ব্যবহার করতে পারেন
     no_results:
       description: অনুসন্ধানের ক্ষেত্র আরও বড় করে আবার চেষ্টা করুন।
@@ -378,15 +362,10 @@ bn:
       all: সকল স্থান
       label: বিশ্বের অবস্থানসমূহ
       no_locations_filter: ঐ ফিল্টারের সাথে বিশ্বের কোনো অবস্থান মিলছে না।
-  email_alert:
-    subscription: ইমেইল অ্যালার্টের সাবস্ক্রিপশন
   fatality_notice:
     british_fatalities: ব্রিটিশ বিপর্যয়সমূহ
     none_added: এখনও এই পরিচালনার ফিল্ডের জন্য কোনো বিপর্যয়ের বিজ্ঞপ্তি যোগ করা হয়নি।
   feeds:
-    email: ইমেইল
-    feed: ফিড
-    get_updates_to_this_list: এই তালিকায় আপডেট হয়ে নিন
     latest_activity: সর্বশেষ কার্যকলাপ
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ bn:
   latest_feed:
     no_updates: এখনও কোনো আপডেট নেই।
     title: সাম্প্রতিক
-  national_statistics:
-    heading: জাতীয় পরিসংখ্যান
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: আমাদের তথ্যে প্রবেশাধিকার
@@ -408,14 +381,10 @@ bn:
       jobs_and_contacts: চাকরী ও চুক্তিসমূহ
       organisation_chart: আমাদের প্রতিষ্ঠানের চার্ট
       transparency: স্বচ্ছতার তথ্য
-    email:
-      alerts: ইমেইল অ্যালার্ট
-      summary: এর কাছ থেকে ইমেইল অ্যালার্টসমূহ
     embassies:
       find_an_embassy_lowercase: একটি ব্রিটিশ দূতাবাস, হাই কমিশন বা কনসিউলেট খুঁজুন
       find_an_embassy_uppercase: একটি ব্রিটিশ দূতাবাস, হাই কমিশন বা কনসিউলেট খুঁজুন
     headings:
-      contact: "%{name}-এর সাথে যোগাযোগ করুন"
       corporate_information: কর্পোরেট তথ্য
       corporate_reports: কর্পোরেট রিপোর্টসমূহ
     support:
@@ -479,12 +448,9 @@ bn:
     transparency: আমাদের সকল স্বচ্ছতার তথ্য দেখুন
     written_statement: সংসদে আমাদের সকল লিখিত বিবৃতি দেখুন
   support:
-    array:
-      last_word_connector: " এবং "
     download: ডাউনলোড করুন
     field_of_operation: কার্যক্রমের ক্ষেত্র
     fields_of_operation: কার্যক্রমের ক্ষেত্রসমূহ
-    filter: ফিল্টার
     pagination:
       next_html: পরবর্তী <span class="visuallyhidden">পেজ</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: পরবর্তী পেজ

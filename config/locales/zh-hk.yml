@@ -70,10 +70,6 @@ zh-hk:
     caution:
       subheading: 我們發現部份可能表明問題的連結，您在使用這些連結瀏覽網站時應加以注意
     title: 破損之連結
-  change_notes:
-    published_at: 首次發佈
-    see_all_updates: 查閱全部更新內容
-    updated_at: 最近一次更新
   consultation:
     closed: 已關閉
     closing_today: 今日關閉
@@ -116,16 +112,7 @@ zh-hk:
       long_ordinal: "%e %B %Y"
   document:
     contents: 內容
-    footer_meta:
-      full_page_history: 完整頁面過往記錄
-      published: 已發佈
-      updated: 已更新
-    headings:
-      applies_to_nations: 適用於
-      from: 來源
-      part_of: 部份
     latest: 最新文件
-    latest_from: 來自 %{subject} 的最新消息
     published: 已發布
     see_all: 查看全部
     speech:
@@ -365,9 +352,6 @@ zh-hk:
         other: 提交國會的其他書面聲明
     updated: 已更新
   document_filters:
-    consultation:
-      all: 所有諮詢項
-      label: 諮詢項
     description: 你可以使用過濾功能顯示&nbsp;只符合你需要的&nbsp;結果。
     no_results:
       description: 嘗試擴大你的搜尋範圍並且再次搜索。
@@ -378,15 +362,10 @@ zh-hk:
       all: 所有駐點
       label: 全球駐點
       no_locations_filter: 無世界範圍內之地點滿足此一篩選。
-  email_alert:
-    subscription: 電子郵件提示訂閱
   fatality_notice:
     british_fatalities: 英國死亡人數
     none_added: 此運作領域仍未加入任何死亡通知。
   feeds:
-    email: 電子郵件
-    feed: 內容
-    get_updates_to_this_list: 獲取這一列表之更新
     latest_activity: 最新的活動
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ zh-hk:
   latest_feed:
     no_updates: 目前暫無更新。
     title: 最新消息
-  national_statistics:
-    heading: 國家統計資料
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: 閱讀我們的資訊
@@ -408,14 +381,10 @@ zh-hk:
       jobs_and_contacts: 職位及聯絡方法
       organisation_chart: 我們的組織圖
       transparency: 透明化數據
-    email:
-      alerts: 電子郵件提示
-      summary: 電子郵件提示來源
     embassies:
       find_an_embassy_lowercase: 搜尋英國大使館、高級專員公署或領事館
       find_an_embassy_uppercase: 搜尋英國大使館、高級專員公署或領事館
     headings:
-      contact: 聯繫 %{name}
       corporate_information: 公司資訊
       corporate_reports: 公司報告
     support:
@@ -479,12 +448,9 @@ zh-hk:
     transparency: 查閱我們所有的其他透明化數據
     written_statement: 查閱我們所有的提交國會的其他書面聲明
   support:
-    array:
-      last_word_connector: 和
     download: 下載
     field_of_operation: 營運領域：
     fields_of_operation: 營運領域
-    filter: 篩選工具
     pagination:
       next_html: 下一頁 <span class="visuallyhidden">第</span> <span class="page-numbers">%{current_page} 頁，共 %{total_pages}</span> 頁
       next_page: 下一頁

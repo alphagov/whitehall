@@ -70,10 +70,6 @@ th:
     caution:
       subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
     title: ลิงค์ใช้ไม่ได้
-  change_notes:
-    published_at: เผยแพร่ครั้งแรก
-    see_all_updates: ดูอัปเดตทั้งหมด
-    updated_at: อัปเดตล่าสุด
   consultation:
     closed: ปิดแล้ว
     closing_today: กำลังปิดวันนี้
@@ -116,16 +112,7 @@ th:
       long_ordinal: "%e %B %Y"
   document:
     contents: เนื้อหา
-    footer_meta:
-      full_page_history: ประวัติเต็มหน้า
-      published: เผยแพร่แล้ว
-      updated: ปรับปรุงแล้ว
-    headings:
-      applies_to_nations: นำไปใช้กับ
-      from: จาก
-      part_of: ส่วนหนึ่งของ
     latest: เอกสารล่าสุด
-    latest_from: ล่าสุดจาก %{ subject}
     published: เผยแพร่แล้ว
     see_all: ดูทั้งหมด
     speech:
@@ -365,9 +352,6 @@ th:
         other: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
     updated: อัปเดตแล้ว
   document_filters:
-    consultation:
-      all: การปรึกษาทุกเรื่อง
-      label: การให้คำปรึกษา
     description: คุณสามารถใช้ตัวกรองเพื่อแสดงเฉพาะผลลัพธ์ที่ตรงกับความสนใจของคุณ
     no_results:
       description: ลองขยายการค้นหาให้กว้างขึ้นและลองอีกครั้ง
@@ -378,15 +362,10 @@ th:
       all: สถานที่ตั้งทุกแห่ง
       label: สถานที่ทั่วโลก
       no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
-  email_alert:
-    subscription: การสมัครรับการแจ้งเตือนทางอีเมล
   fatality_notice:
     british_fatalities: ผู้เสียชีวิตในอังกฤษ
     none_added: ยังไม่มีการแจ้งการเสียชีวิตเพิ่มเติมสำหรับพื้นที่ปฏิบัติการนี้
   feeds:
-    email: อีเมล
-    feed: ฟีดข่าว
-    get_updates_to_this_list: รับการอัปเดตสำหรับรายการนี้
     latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ th:
   latest_feed:
     no_updates: ยังไม่มีการปรับปรุง
     title: ล่าสุด
-  national_statistics:
-    heading: สถิติแห่งชาติ
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: เข้าถึงข้อมูลของเรา
@@ -408,14 +381,10 @@ th:
       jobs_and_contacts: งานและสัญญา
       organisation_chart: แผนผังองค์กรของเรา
       transparency: ข้อมูลความโปร่งใส
-    email:
-      alerts: อีเมลแจ้งเตือน
-      summary: อีเมลแจ้งเตือนจาก
     embassies:
       find_an_embassy_lowercase: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
       find_an_embassy_uppercase: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
     headings:
-      contact: ติดต่อ %{name}
       corporate_information: ข้อมูลองค์กร
       corporate_reports: รายงานของบริษัท
     support:
@@ -479,12 +448,9 @@ th:
     transparency: ดูข้อมูลความโปร่งใสทั้งหมดของเรา
     written_statement: ดูแถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภาทั้งหมดของเรา
   support:
-    array:
-      last_word_connector: " และ "
     download: ดาวน์โหลด
     field_of_operation: 'พื้นที่ปฏิบัติการ:'
     fields_of_operation: พื้นที่ปฏิบัติการ
-    filter: ตัวกรอง
     pagination:
       next_html: <span class="visuallyhidden">หน้า</span> ถัดไป <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
       next_page: หน้าถัดไป

@@ -70,10 +70,6 @@ id:
     caution:
       subheading: Kami menemukan masalah dengan tautan yang mungkin menandakan adanya masalah, Anda harus berhati-hati saat mengklik tautan itu
     title: Tautan terputus
-  change_notes:
-    published_at: Pertama diterbitkan
-    see_all_updates: lihat semua pembaruan
-    updated_at: Terakhir diperbarui
   consultation:
     closed: Ditutup
     closing_today: Hari ini ditutup
@@ -116,16 +112,7 @@ id:
       long_ordinal: "%e %B %Y"
   document:
     contents: Konten
-    footer_meta:
-      full_page_history: riwayat halaman lengkap
-      published: Diterbitkan
-      updated: Diperbarui
-    headings:
-      applies_to_nations: Berlaku untuk
-      from: Dari
-      part_of: Bagian dari
     latest: Dokumen terbaru
-    latest_from: Terbaru dari %{subject}
     published: diterbitkan
     see_all: Lihat semua
     speech:
@@ -365,9 +352,6 @@ id:
         other: Pernyataan tertulis kepada Parlemen
     updated: diperbarui
   document_filters:
-    consultation:
-      all: Semua konsultasi
-      label: Konsultasi
     description: Anda dapat menggunakan filter untuk hanya menampilkan hasil yang sesuai dengan minat Anda
     no_results:
       description: Cobalah membuat pencarian Anda lebih lebar dan coba lagi.
@@ -378,15 +362,10 @@ id:
       all: Semua lokasi
       label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang cocok dengan filter itu.
-  email_alert:
-    subscription: Langganan peringatan email
   fatality_notice:
     british_fatalities: Fatalitas Inggris
     none_added: Belum ada pemberitahuan fatalitas yang ditambahkan untuk bidang operasi ini.
   feeds:
-    email: email
-    feed: feed
-    get_updates_to_this_list: Dapatkan pemberitahuan untuk daftar ini
     latest_activity: Aktivitas terbaru
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ id:
   latest_feed:
     no_updates: Belum ada pembaruan.
     title: Terbaru
-  national_statistics:
-    heading: Statistik Nasional
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Akses informasi kami
@@ -408,14 +381,10 @@ id:
       jobs_and_contacts: Pekerjaan dan kontrak
       organisation_chart: Diagram organisasi kami
       transparency: Data transparansi
-    email:
-      alerts: peringatan email
-      summary: Peringatan email dari
     embassies:
       find_an_embassy_lowercase: Temukan kedubes, komisi tinggi, atau konsulat Inggris
       find_an_embassy_uppercase: Temukan Kedubes, Komisi Tinggi, atau Konsulat Inggris
     headings:
-      contact: Kontak %{name}
       corporate_information: Informasi korporat
       corporate_reports: Laporan korporat
     support:
@@ -479,12 +448,9 @@ id:
     transparency: Lihat semua data transparansi kami
     written_statement: Lihat semua pernyataan tertulis kami kepada Parlemen
   support:
-    array:
-      last_word_connector: " dan "
     download: Unduh
     field_of_operation: 'Bidang operasi:'
     fields_of_operation: Bidang operasi
-    filter: Filter
     pagination:
       next_html: <span class="visuallyhidden">Halaman</span> selanjutnya <span class="page-numbers">%{current_page} dari %{total_pages}</span>
       next_page: Halaman selanjutnya

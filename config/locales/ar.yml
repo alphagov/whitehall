@@ -68,10 +68,6 @@ ar:
     caution:
       subheading: لقد وجدنا بعض المسائل المتعلقة بالارتباطات التي قد تشير إلى وجود مشكلات، وينبغي لك أن تتوخى الحذر عند إضافة الارتباطات بها
     title: ارتباطات منقطعة
-  change_notes:
-    published_at: تاريخ أول نشر
-    see_all_updates: اطلع على كل التحديثات
-    updated_at: التحديث الأخير
   consultation:
     closed: مغلق
     closing_today: سيغلق اليوم
@@ -114,16 +110,7 @@ ar:
       long_ordinal: "%e %B %Y"
   document:
     contents: المحتويات
-    footer_meta:
-      full_page_history: محفوظات الصفحة الكاملة
-      published: منشورة
-      updated: تاريخ التحديث
-    headings:
-      applies_to_nations: ينطبق على
-      from: من
-      part_of: جزء من
     latest: أحدث المستندات
-    latest_from: أحدث المستجدات من %{subject}
     published: منشورة
     see_all: عرض الكل
     speech:
@@ -663,9 +650,6 @@ ar:
         zero:
     updated: تاريخ التحديث
   document_filters:
-    consultation:
-      all: جميع الاستشارات
-      label: استشارات
     description: يمكنك استخدام عوامل التصفية لعرض النتائج التي تتطابق مع اهتماماتك فقط
     no_results:
       description: حاول توسعة نطاق بحثك ثم حاول مرة أخرى.
@@ -676,15 +660,10 @@ ar:
       all: جميع المواقع
       label: المواقع العالمية
       no_locations_filter: لا توجد مواقع عالمية تطابق عامل التصفية هذا.
-  email_alert:
-    subscription: اشتراك في تنبيهات البريد الإلكتروني
   fatality_notice:
     british_fatalities: الوفيات من البريطانيين
     none_added: لم تتم إضافة أي إشعارات حول الوفيات في ساحة العمليات هذه حتى الآن.
   feeds:
-    email: البريد الإلكتروني
-    feed: الموجز
-    get_updates_to_this_list: الحصول على تحديثات لهذه القائمة
     latest_activity: أحدث نشاط
   i18n:
     direction: rtl
@@ -693,12 +672,6 @@ ar:
   latest_feed:
     no_updates: لا توجد تحديثات بعد.
     title: الأحدث
-  national_statistics:
-    heading: الإحصاءات الوطنية
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: الوصول إلى معلوماتنا
@@ -706,14 +679,10 @@ ar:
       jobs_and_contacts: الوظائف والعقود
       organisation_chart: مخططنا التنظيمي
       transparency: بيانات الشفافية
-    email:
-      alerts: تنبيهات البريد الإلكتروني
-      summary: تنبيهات البريد الإلكتروني من
     embassies:
       find_an_embassy_lowercase: العثور على سفارة أو مفوضية عليا أو قنصلية بريطانية
       find_an_embassy_uppercase: العثور على سفارة أو مفوضية عليا أو قنصلية بريطانية
     headings:
-      contact: تواصل مع %{name}
       corporate_information: معلومات الشركة
       corporate_reports: تقارير الشركة
     support:
@@ -777,12 +746,9 @@ ar:
     transparency: اطلع على جميع بيانات الشفافية لدينا
     written_statement: اطلع على جميع بياناتنا الخطيَّة إلى البرلمان
   support:
-    array:
-      last_word_connector: " و "
     download: تنزيل
     field_of_operation: 'ساحة العمليات:'
     fields_of_operation: ساحات العمليات
-    filter: تصفية
     pagination:
       next_html: الصفحة <span class="visuallyhidden">التالية</span> <span class="page-numbers">%{current_page} من%{total_pages}</span>
       next_page: الصفحة التالية

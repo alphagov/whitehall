@@ -71,10 +71,6 @@ pa:
     caution:
       subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸਮੱਸਿਆਵਾਂ ਮਿਲੀਆਂ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦੀਆਂ ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਜੋੜਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
     title: ਟੁੱਟੇ ਲਿੰਕ
-  change_notes:
-    published_at: ਪਹਿਲਾਂ ਪ੍ਰਕਾਸ਼ਤ
-    see_all_updates: ਸਾਰੇ ਅਪਡੇਟਸ ਵੇਖੋ
-    updated_at: ਪਿਛਲੀ ਵਾਰ ਅਪਡੇਟ ਕੀਤਾ ਗਿਆ
   consultation:
     closed: ਬੰਦ
     closing_today: ਅੱਜ ਬੰਦ
@@ -117,16 +113,7 @@ pa:
       long_ordinal: "%e %B %Y"
   document:
     contents: ਸਮਗਰੀ
-    footer_meta:
-      full_page_history: ਪੂਰੇ ਪੰਨੇ ਦਾ ਇਤਿਹਾਸ
-      published: ਪ੍ਰਕਾਸ਼ਿਤ
-      updated: ਅੱਪਡੇਟ ਕੀਤਾ
-    headings:
-      applies_to_nations: "'ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ"
-      from: ਤੋਂ
-      part_of: ਦਾ ਹਿੱਸਾ
     latest: ਨਵੀਨਤਮ ਦਸਤਾਵੇਜ਼
-    latest_from: "%{subject} ਤੋਂ ਨਵੀਨਤਮ"
     published: ਪ੍ਰਕਾਸ਼ਿਤ
     see_all: ਸਾਰੇ ਵੇਖੋ
     speech:
@@ -366,9 +353,6 @@ pa:
         other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦਿੱਤੇ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
   document_filters:
-    consultation:
-      all: ਸਾਰੀਆਂ ਸਲਾਹ ਮਸ਼ਵਰੇ
-      label: ਸਲਾਹ ਮਸ਼ਵਰੇ
     description: ਤੁਸੀਂ ਫਿਲਟਰਸ ਦੀ ਵਰਤੋਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀ ਦਿਲਚਸਪੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
     no_results:
       description: ਆਪਣੀ ਖੋਜ ਨੂੰ ਵਿਸ਼ਾਲ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
@@ -379,15 +363,10 @@ pa:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
       label: ਵਿਸ਼ਵ ਸਥਾਨ
       no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
-  email_alert:
-    subscription: ਈਮੇਲ ਚੇਤਾਵਨੀ ਗਾਹਕੀ
   fatality_notice:
     british_fatalities: ਬ੍ਰਿਟਿਸ਼ ਦੀ ਮੌਤ
     none_added: ਇਸ ਕਾਰਜ ਦੇ ਖੇਤਰ ਵਿੱਚ ਅਜੇ ਤੱਕ ਕੋਈ ਘਾਤਕ ਸੂਚਨਾ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ ਗਈ ਹੈ।
   feeds:
-    email: ਈ - ਮੇਲ
-    feed: ਫੀਡ
-    get_updates_to_this_list: ਇਸ ਸੂਚੀ ਦੇ ਅਪਡੇਟਸ ਪ੍ਰਾਪਤ ਕਰੋ
     latest_activity: ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ pa:
   latest_feed:
     no_updates: ਅਜੇ ਕੋਈ ਅਪਡੇਟ ਨਹੀਂ ਹਨ।
     title: ਨਵੀਨਤਮ
-  national_statistics:
-    heading: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: ਸਾਡੀ ਜਾਣਕਾਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ
@@ -409,14 +382,10 @@ pa:
       jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਇਕਰਾਰਨਾਮੇ
       organisation_chart: ਸਾਡਾ ਸੰਗਠਨ ਚਾਰਟ
       transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
-    email:
-      alerts: ਈਮੇਲ ਸੁਚੇਤਨਾਵਾਂ
-      summary: ਤੋਂ ਈਮੇਲ ਚਿਤਾਵਨੀਆਂ
     embassies:
       find_an_embassy_lowercase: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
       find_an_embassy_uppercase: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
     headings:
-      contact: ਸੰਪਰਕ %{name}
       corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
       corporate_reports: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ
     support:
@@ -480,12 +449,9 @@ pa:
     transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡੇਟਾ ਵੇਖੋ
     written_statement: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਲਿਖਤੀ ਬਿਆਨ ਵੇਖੋ
   support:
-    array:
-      last_word_connector: " ਅਤੇ "
     download: ਡਾਉਨਲੋਡ ਕਰੋ
     field_of_operation: 'ਕਾਰਜ ਖੇਤਰ:'
     fields_of_operation: ਕਾਰਜ ਦੇ ਖੇਤਰ
-    filter: ਫਿਲਟਰ
     pagination:
       next_html: ਅਗਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
       next_page: ਅਗਲਾ ਪੇਜ

@@ -71,10 +71,6 @@ pt:
     caution:
       subheading: Encontrámos alguns problemas com links que podem indicar dificuldades – deve ter cautela ao estabelecer ligações com elas
     title: Links desfeitos
-  change_notes:
-    published_at: Publicado pela primeira vez em
-    see_all_updates: ver todas as atualizações
-    updated_at: Última atualização
   consultation:
     closed: Fechado
     closing_today: Encerra hoje
@@ -117,16 +113,7 @@ pt:
       long_ordinal: "%e %B %Y"
   document:
     contents: Conteúdos
-    footer_meta:
-      full_page_history: histórico completo da página
-      published: Publicado em
-      updated: Atualizado em
-    headings:
-      applies_to_nations: Aplica-se a
-      from: De
-      part_of: Parte de
     latest: Documentos recentes
-    latest_from: Mais recentes de %{subject}
     published: publicado
     see_all: Ver tudo
     speech:
@@ -366,9 +353,6 @@ pt:
         other: Declarações escritas ao Parlamento
     updated: atualizado em
   document_filters:
-    consultation:
-      all: Todas as consultas
-      label: Consultas
     description: Pode utilizar os filtros para mostrar apenas resultados que correspondam aos seus interesses
     no_results:
       description: Faça para tornar a sua pesquisa mais ampla e tente novamente.
@@ -379,15 +363,10 @@ pt:
       all: Todos os locais
       label: Locais mundiais
       no_locations_filter: Nenhum local mundial corresponde a esse filtro.
-  email_alert:
-    subscription: Subscrição de alertas por e-mail
   fatality_notice:
     british_fatalities: Fatalidades britânicas
     none_added: Ainda não foram adicionados avisos de fatalidade para este campo de operação.
   feeds:
-    email: e-mail
-    feed: feed
-    get_updates_to_this_list: Obter atualizações para esta lista
     latest_activity: Atividade mais recente
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ pt:
   latest_feed:
     no_updates: Ainda não há atualizações.
     title: Mais recentes
-  national_statistics:
-    heading: Estatísticas Nacionais
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Aceda à nossa informação
@@ -409,14 +382,10 @@ pt:
       jobs_and_contacts: Empregos e contratos
       organisation_chart: O nosso organigrama
       transparency: Dados de transparência
-    email:
-      alerts: alertas por e-mail
-      summary: Alertas por e-mail de
     embassies:
       find_an_embassy_lowercase: Encontre uma embaixada, alto comissariado ou consulado britânico
       find_an_embassy_uppercase: Encontre uma embaixada, Alto Comissariado ou Consulado britânico
     headings:
-      contact: Contactar %{name}
       corporate_information: Informações da empresa
       corporate_reports: Relatórios empresariais
     support:
@@ -480,12 +449,9 @@ pt:
     transparency: Ver todos os nossos dados sobre transparência
     written_statement: Ver todas as nossas declarações escritas ao Parlamento
   support:
-    array:
-      last_word_connector: " e "
     download: Transferir
     field_of_operation: 'Campo de operação:'
     fields_of_operation: Campos de operação
-    filter: Filtro
     pagination:
       next_html: Seguinte <span class="visuallyhidden">página</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Página seguinte

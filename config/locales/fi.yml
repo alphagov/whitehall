@@ -71,10 +71,6 @@ fi:
     caution:
       subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
     title: Katkenneet linkit
-  change_notes:
-    published_at: Ensimmäinen julkaistu
-    see_all_updates: katso kaikki palvelut
-    updated_at: Viimeksi päivitetty
   consultation:
     closed: Suljettu
     closing_today: Suljetaan tänään
@@ -117,16 +113,7 @@ fi:
       long_ordinal: "%e %B %Y"
   document:
     contents: Sisällys
-    footer_meta:
-      full_page_history: koko sivun historia
-      published: Julkaistu
-      updated: Päivitetty
-    headings:
-      applies_to_nations: Sovelletaan
-      from: Alkaen
-      part_of: Osa
     latest: Uusimmat asiakirjat
-    latest_from: Uusimmat käyttäjältä %{subject}
     published: julkaistu
     see_all: Näytä kaikki
     speech:
@@ -366,9 +353,6 @@ fi:
         other: Kirjallinen lausumat parlamentille
     updated: päivitetty
   document_filters:
-    consultation:
-      all: Kaikki kuulemiset
-      label: Konsultaatiot
     description: Voit käyttää suodattimia näyttääksesi vain kiinnostuksen kohteitasi vastaavat tulokset
     no_results:
       description: Yritä laajentaa hakua ja yritä uudelleen.
@@ -379,15 +363,10 @@ fi:
       all: Kaikki sijainnit
       label: Maailman sijainnit
       no_locations_filter: Mikään maailman sijainnit eivät vastaa tätä suodatinta.
-  email_alert:
-    subscription: Sähköpostihälytyksen tilaus
   fatality_notice:
     british_fatalities: Britannian kuolemantapauksia
     none_added: Kuolemantapauksia ei ole ilmoitettu lisätty tälle toiminta-alueelle.
   feeds:
-    email: sähköposti
-    feed: syöte
-    get_updates_to_this_list: Hae päivityksiä tähän luetteloon
     latest_activity: Viimeisin toiminta
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ fi:
   latest_feed:
     no_updates: Ei vielä päivityksiä.
     title: Uusin
-  national_statistics:
-    heading: Kansalliset tilastot
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Pääsy tietoihimme
@@ -409,14 +382,10 @@ fi:
       jobs_and_contacts: Työt ja sopimukset
       organisation_chart: Organisaatiomme kaavio
       transparency: Avoimuustiedot
-    email:
-      alerts: sähköpostihälytyksiä
-      summary: Sähköpostihälytykset
     embassies:
       find_an_embassy_lowercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
       find_an_embassy_uppercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
     headings:
-      contact: Ota yhteyttä %{name}
       corporate_information: Yritystiedot
       corporate_reports: Yritysraportit
     support:
@@ -480,12 +449,9 @@ fi:
     transparency: Katso kaikki läpinäkyvyysdatamme
     written_statement: Katso kaikki parlamentille antamamme kirjalliset lausunnot
   support:
-    array:
-      last_word_connector: " ja "
     download: Ladata
     field_of_operation: 'Toiminta -alue:'
     fields_of_operation: Toiminta -alueet
-    filter: Suodattaa
     pagination:
       next_html: Seuraava <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Seuraava sivu

@@ -71,10 +71,6 @@ da:
     caution:
       subheading: Vi har fundet nogle problemer med links, der kan indikere problemer, og du bør være forsigtig med at linke til dem
     title: Brudte links
-  change_notes:
-    published_at: Udgivet første gang
-    see_all_updates: se alle opdateringer
-    updated_at: Sidst opdateret
   consultation:
     closed: Luk
     closing_today: Lukning i dag
@@ -117,16 +113,7 @@ da:
       long_ordinal: "%e %B %Y"
   document:
     contents: Indhold
-    footer_meta:
-      full_page_history: hele siden historie
-      published: offentliggjort
-      updated: Opdateret
-    headings:
-      applies_to_nations: Gælder for
-      from: Fra
-      part_of: del af
     latest: Seneste dokumenter
-    latest_from: Seneste fra %{subject}
     published: offentliggjort
     see_all: emne
     speech:
@@ -366,9 +353,6 @@ da:
         other: Mundtlige erklæring til Parlamentet
     updated: Opdateret
   document_filters:
-    consultation:
-      all: Alle konsultationer
-      label: Konsultationer
     description: Du kan bruge filtrene til kun at vise resultater, der matcher dine interesser
     no_results:
       description: Prøv at gøre din søgning bredere og prøv igen.
@@ -379,15 +363,10 @@ da:
       all: Alle steder
       label: Verden Placeringer
       no_locations_filter: Ingen verdensrangliste matcher det filter.
-  email_alert:
-    subscription: Abonnement på e-mail-advarsel
   fatality_notice:
     british_fatalities: Britiske dødsfald
     none_added: Der er ikke tilføjet nogen dødsfald for dette operationsområde endnu.
   feeds:
-    email: e-mail
-    feed: foder
-    get_updates_to_this_list: Få opdateringer til denne liste
     latest_activity: Seneste aktivitet
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ da:
   latest_feed:
     no_updates: Der er ingen opdateringer endnu.
     title: Senest
-  national_statistics:
-    heading: Nationale statistikker
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Få adgang til vores oplysninger
@@ -409,14 +382,10 @@ da:
       jobs_and_contacts: Job og kontrakter
       organisation_chart: Vores organisationsdiagram
       transparency: Data om gennemsigtighed
-    email:
-      alerts: e-mail-advarsler
-      summary: E-mail-advarsler fra
     embassies:
       find_an_embassy_lowercase: Find en britisk ambassade, en højkommission eller et konsulat
       find_an_embassy_uppercase: Find en britisk ambassade, en højkommission eller et konsulat
     headings:
-      contact: Kontakt %{name}
       corporate_information: Virksomhedsoplysninger
       corporate_reports: Virksomhedsrapporter
     support:
@@ -480,12 +449,9 @@ da:
     transparency: Se alle vores gennemsigtighedsdata
     written_statement: Se alle vores skriftlige erklæringer til Parlamentet
   support:
-    array:
-      last_word_connector: " og "
     download: Downloade
     field_of_operation: 'Operationsområde:'
     fields_of_operation: Operationsområder
-    filter: Filtrer
     pagination:
       next_html: Næste<span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page} på %{total_pages}</span>
       next_page: Næste side

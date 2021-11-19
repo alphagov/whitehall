@@ -71,10 +71,6 @@
     caution:
       subheading: Vi har funnet noen uregelmessigheter med lenker som kan indikere problemer. Du bør være forsiktig når du lenker til dem
     title: Brutte koblinger
-  change_notes:
-    published_at: Først publisert
-    see_all_updates: se alle oppdateringer
-    updated_at: Sist oppdatert
   consultation:
     closed: Lukket
     closing_today: Stenger i dag
@@ -117,16 +113,7 @@
       long_ordinal: "%e %B %Y"
   document:
     contents: Innhold
-    footer_meta:
-      full_page_history: hele historien til siden
-      published: Publisert
-      updated: Oppdatert
-    headings:
-      applies_to_nations: Gjelder
-      from: Fra
-      part_of: Del av
     latest: Siste dokumenter
-    latest_from: Siste fra %{subject}
     published: publisert
     see_all: Se alle
     speech:
@@ -366,9 +353,6 @@
         other: Skriftlige uttalelser til Stortinget
     updated: oppdatert
   document_filters:
-    consultation:
-      all: Alle konsultasjoner
-      label: Konsultasjoner
     description: Du kan bruke filtrene til å vise kun resultater som samsvarer med dine interesser
     no_results:
       description: Prøv å gjøre søket ditt bredere, og prøv igjen.
@@ -379,15 +363,10 @@
       all: Alle steder
       label: Steder i verden
       no_locations_filter: Ingen steder i verden samsvarer med det filteret.
-  email_alert:
-    subscription: Abonnement på e-postvarsel
   fatality_notice:
     british_fatalities: Britiske dødsfall
     none_added: Det har ikke blitt lagt til noen meldinger om dødsfall for dette operasjonsfeltet ennå.
   feeds:
-    email: e-post
-    feed: mate
-    get_updates_to_this_list: Få oppdateringer til denne listen
     latest_activity: Siste aktivitet
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@
   latest_feed:
     no_updates: Det er ingen oppdateringer ennå.
     title: Siste
-  national_statistics:
-    heading: Nasjonal statistikk
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Få tilgang til informasjonen vår
@@ -409,14 +382,10 @@
       jobs_and_contacts: Jobb og kontrakter
       organisation_chart: Vårt organisasjonskart
       transparency: Åpenhetstsdata
-    email:
-      alerts: e-postvarsler
-      summary: E-postvarsler fra
     embassies:
       find_an_embassy_lowercase: Finn en britisk ambassade, høykommissær eller konsulat
       find_an_embassy_uppercase: Finn en britisk ambassade, høykommissær eller konsulat
     headings:
-      contact: Kontakt %{name}
       corporate_information: Bedriftsinformasjon
       corporate_reports: Bedriftsrapporter
     support:
@@ -480,12 +449,9 @@
     transparency: Se alle våre åpenhetsdata
     written_statement: Se alle våre skriftlige uttalelser til Stortinget
   support:
-    array:
-      last_word_connector: " og "
     download: Last ned
     field_of_operation: 'Driftsområde:'
     fields_of_operation: Driftsområder
-    filter: Filter
     pagination:
       next_html: Neste <span class="visuallyhidden">side</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Neste side

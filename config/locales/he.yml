@@ -71,10 +71,6 @@ he:
     caution:
       subheading: 'מצאנו כמה בעיות עם קישורים שעשויים להצביע על בעיות, עליך לנקוט משנה זהירות בקישור אליהם '
     title: קישורים מנותקים
-  change_notes:
-    published_at: פרסום ראשון
-    see_all_updates: ראה כל העדכונים
-    updated_at: עדכון אחרון
   consultation:
     closed: סגור
     closing_today: נסגר היום
@@ -117,16 +113,7 @@ he:
       long_ordinal: "%e %B %Y"
   document:
     contents: תוכן
-    footer_meta:
-      full_page_history: ההיסטוריה המלאה של דפים
-      published: פורסם
-      updated: מעודכן
-    headings:
-      applies_to_nations: מתייחס ל
-      from: מ-
-      part_of: חלק של
     latest: מסמכים אחרונים
-    latest_from: 'עדכון אחרון מאת %{subject} '
     published: פורסם
     see_all: ראה הכול
     speech:
@@ -366,9 +353,6 @@ he:
         other: הצהרות בכתב לפרלמנט
     updated: מעודכן
   document_filters:
-    consultation:
-      all: כל דיונים
-      label: דיונים
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
       description: נסי/ה להרחיב את החיפוש וחפש/י שוב.
@@ -379,15 +363,10 @@ he:
       all: כל המיקומים
       label: מיקומים גלובאליים
       no_locations_filter: אין מיקומים גלובאליים התואמים את המסנן הזה.
-  email_alert:
-    subscription: מנוי להתראה בדואר אלקטרוני
   fatality_notice:
     british_fatalities: הרוגים בריטים
     none_added: עדיין לא נוספו הודעות פטירה על תחום פעולה זה.
   feeds:
-    email: דואר אלקטרוני
-    feed: הזנה
-    get_updates_to_this_list: קבל עדכונים לרשימה זו
     latest_activity: פעילות אחרונה
   i18n:
     direction: rtl
@@ -396,12 +375,6 @@ he:
   latest_feed:
     no_updates: אין עדכונים נוספים.
     title: אחרון
-  national_statistics:
-    heading: 'סטטיסטיקה לאומית '
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: גישה למידע
@@ -409,14 +382,10 @@ he:
       jobs_and_contacts: משרות וחוזים
       organisation_chart: תרשים הארגון שלנו
       transparency: שקיפות מידע
-    email:
-      alerts: התראות דואר אלקטרוני
-      summary: התראות דואר אלקטרוני מ-
     embassies:
       find_an_embassy_lowercase: מצא שגרירות בריטית, נציבות עליונה או קונסוליה
       find_an_embassy_uppercase: מצא שגרירות בריטית, נציבות עליונה או קונסוליה
     headings:
-      contact: חוזה %{name}
       corporate_information: מידע תאגידי
       corporate_reports: דו"חות משותפים
     support:
@@ -480,12 +449,9 @@ he:
     transparency: ראה כל שקיפות מידע
     written_statement: ראה כל הצהרות בכתב לפרלמנט
   support:
-    array:
-      last_word_connector: " ו"
     download: הורדה
     field_of_operation: 'תחום הפעולה:'
     fields_of_operation: תחומי פעולה
-    filter: מסנן
     pagination:
       next_html: הדף <span class="visuallyhidden">הבא</span> <span class="page-numbers">%{current_page} של %{total_pages}</span>
       next_page: הדף הבא

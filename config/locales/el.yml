@@ -70,10 +70,6 @@ el:
     caution:
       subheading: Βρήκαμε ορισμένα προβλήματα με τους συνδέσμους που μπορεί να ενέχουν κίνδυνο. Θα πρέπει να είστε προσεκτικοί κατά τη σύνδεση σε αυτούς
     title: Σπασμένοι σύνδεσμοι
-  change_notes:
-    published_at: Πρώτη δημοσίευση
-    see_all_updates: δείτε όλες τις ενημερώσεις
-    updated_at: Τελευταία ενημέρωση
   consultation:
     closed: Κλειστό
     closing_today: Κλείνει σήμερα
@@ -116,16 +112,7 @@ el:
       long_ordinal: "%e %B %Y"
   document:
     contents: Περιεχόμενα
-    footer_meta:
-      full_page_history: πλήρες ιστορικό σελίδων
-      published: Δημοσιεύθηκε
-      updated: Ενημερωμένο
-    headings:
-      applies_to_nations: Εφαρμόζεται σε
-      from: Από
-      part_of: Μέρος του
     latest: Τελευταία έγγραφα
-    latest_from: Τελευταία από %{subject}
     published: δημοσιεύθηκε
     see_all: Προβολή όλων
     speech:
@@ -365,9 +352,6 @@ el:
         other: Γραπτές δηλώσεις στη Βουλή
     updated: ενημερωμένο
   document_filters:
-    consultation:
-      all: Όλες οι διαβουλεύσεις
-      label: Διαβουλεύσεις
     description: Μπορείτε να χρησιμοποιήσετε τα φίλτρα για να εμφανίσετε μόνο αποτελέσματα που ταιριάζουν με τα ενδιαφέροντά σας
     no_results:
       description: Δοκιμάστε να διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά.
@@ -378,15 +362,10 @@ el:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
       no_locations_filter: Καμία τοποθεσία στον κόσμο δεν ταιριάζει με αυτό το φίλτρο.
-  email_alert:
-    subscription: Εγγραφή σε ειδοποιήσεις μέσω email
   fatality_notice:
     british_fatalities: Θάνατοι στην Βρετανία
     none_added: Δεν έχουν προστεθεί ακόμη ανακοινώσεις θανάτου για αυτό το πεδίο λειτουργίας.
   feeds:
-    email: email
-    feed: ροή
-    get_updates_to_this_list: Λάβετε ενημερώσεις σε αυτήν τη λίστα
     latest_activity: Τελευταία δραστηριότητα
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ el:
   latest_feed:
     no_updates: Δεν υπάρχουν ακόμα ενημερώσεις.
     title: Πιο πρόσφατα
-  national_statistics:
-    heading: Εθνική Στατιστική Υπηρεσία
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Πρόσβαση στις πληροφορίες μας
@@ -408,14 +381,10 @@ el:
       jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
       organisation_chart: Το οργανόγραμμα μας
       transparency: Δεδομένα διαφάνειας
-    email:
-      alerts: ειδοποιήσεις μέσω email
-      summary: Ειδοποιήσεις μέσω email από το
     embassies:
       find_an_embassy_lowercase: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας ή προξενείο
       find_an_embassy_uppercase: Βρείτε βρετανική πρεσβεία, γραφείο κοινοπολιτείας ή προξενείο
     headings:
-      contact: Επαφή %{name}
       corporate_information: Εταιρικές πληροφορίες
       corporate_reports: Εταιρικές εκθέσεις
     support:
@@ -479,12 +448,9 @@ el:
     transparency: Δείτε όλα τα δεδομένα διαφάνειας
     written_statement: Δείτε όλες τις γραπτές δηλώσεις στη Βουλή
   support:
-    array:
-      last_word_connector: " και "
     download: Κατεβάστε
     field_of_operation: 'Πεδίο λειτουργίας:'
     fields_of_operation: Πεδία λειτουργίας
-    filter: Φίλτρο
     pagination:
       next_html: Επόμενη <span class="visuallyhidden">σελίδα</span> <span class="page-numbers">%{current_page} από %{total_pages}</span>
       next_page: Επόμενη σελίδα

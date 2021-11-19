@@ -71,10 +71,6 @@ fr:
     caution:
       subheading: Certains liens que nous avons trouvés peuvent présenter des problèmes. Nous vous recommandons de faire preuve de prudence lorsque vous établissez des liens vers ces derniers
     title: Liens brisés
-  change_notes:
-    published_at: Première publication
-    see_all_updates: consulter toutes les mises à jour
-    updated_at: Dernière mise à jour
   consultation:
     closed: Fermé
     closing_today: Fermeture aujourd'hui
@@ -117,16 +113,7 @@ fr:
       long_ordinal: "%e %B %Y"
   document:
     contents: Contenu
-    footer_meta:
-      full_page_history: Histoire en pleine page
-      published: Publié
-      updated: Mis à jour
-    headings:
-      applies_to_nations: S'applique à
-      from: De
-      part_of: Partie de
     latest: Documents les plus récents
-    latest_from: Les plus récents de %{subject}
     published: publié
     see_all: Tout afficher
     speech:
@@ -366,9 +353,6 @@ fr:
         other: Déclarations écrites au Parlement
     updated: mis à jour
   document_filters:
-    consultation:
-      all: Toutes les consultations
-      label: Consultations
     description: Vous pouvez recourir aux filtres pour n'afficher que les résultats qui répondent à vos intérêts
     no_results:
       description: Élargissez votre recherche et recommencez.
@@ -379,15 +363,10 @@ fr:
       all: Tous les emplacements
       label: Emplacements dans le monde
       no_locations_filter: Aucun emplacement dans le monde ne correspond à ce filtre.
-  email_alert:
-    subscription: Abonnement aux alertes par courriel
   fatality_notice:
     british_fatalities: Décès en Grande-Bretagne
     none_added: Aucun avis de décès n'a encore été ajouté pour ce domaine d'activité.
   feeds:
-    email: courriel
-    feed: flux
-    get_updates_to_this_list: Recevez les mises à jour de cette liste
     latest_activity: Activités récentes
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ fr:
   latest_feed:
     no_updates: Aucune mise à jour n'a encore été effectuée.
     title: Récent
-  national_statistics:
-    heading: Statistiques nationales
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Accéder à nos informations
@@ -409,14 +382,10 @@ fr:
       jobs_and_contacts: Emplois et contrats
       organisation_chart: Notre charte organisationnelle
       transparency: Données de transparence
-    email:
-      alerts: Alertes par courriel
-      summary: Alertes par courriel de
     embassies:
       find_an_embassy_lowercase: Trouver une ambassade, un haut-commissariat ou un consulat britannique
       find_an_embassy_uppercase: Trouver une ambassade, un haut-commissariat ou un consulat britannique
     headings:
-      contact: Contacter %{name}
       corporate_information: Informations sur l'entreprise
       corporate_reports: Rapports d'entreprise
     support:
@@ -480,12 +449,9 @@ fr:
     transparency: Afficher toutes nos données de transparence
     written_statement: Afficher toutes nos déclarations écrites au Parlement
   support:
-    array:
-      last_word_connector: " et"
     download: Télécharger
     field_of_operation: 'Domaine d''intervention :'
     fields_of_operation: Domaines d'intervention
-    filter: Filtre
     pagination:
       next_html: <span class="visuallyhidden">Page</span> suivante <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: Page suivante

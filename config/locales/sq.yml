@@ -71,10 +71,6 @@ sq:
     caution:
       subheading: Ne kemi gjetur disa çështje me lidhjet që mund të tregojnë probleme, duhet të jeni të kujdesshëm në lidhjen me to
     title: Lidhje të prishura
-  change_notes:
-    published_at: Botuar së pari
-    see_all_updates: Shih të gjitha përditësimet
-    updated_at: Përditësuar së fundmi
   consultation:
     closed: Mbyllur
     closing_today: Mbyllet sot
@@ -117,16 +113,7 @@ sq:
       long_ordinal: "%e %B %Y"
   document:
     contents: Përmbajtje
-    footer_meta:
-      full_page_history: historia e faqeve të plota
-      published: Publikuar
-      updated: Përditësuar
-    headings:
-      applies_to_nations: Zbatohet për
-      from: Nga
-      part_of: Pjesë e
     latest: Dokumentet më të fundit
-    latest_from: Të fundit nga %{subject}
     published: publikuar
     see_all: Shih të gjitha
     speech:
@@ -366,9 +353,6 @@ sq:
         other: Deklarata me shkrim në Parlament
     updated: përditësuar
   document_filters:
-    consultation:
-      all: Të gjitha konsultimet
-      label: Konsultime
     description: Ju mund t'i përdorni filtrat për të shfaqur vetëm rezultate që përputhen me interesat tuaja
     no_results:
       description: Provoni ta bëni kërkimin tuaj më të gjerë dhe provoni përsëri.
@@ -379,15 +363,10 @@ sq:
       all: Të gjitha vendndodhjet
       label: Vendndodhjet globale
       no_locations_filter: Asnjë vendndodhje botërore nuk përputhet me atë filtër.
-  email_alert:
-    subscription: Abonim njoftimesh me email
   fatality_notice:
     british_fatalities: Fatalitetet britanike
     none_added: Ende nuk është shtuar asnjë njoftim për fatalitet për këtë fushë të funksionimit.
   feeds:
-    email: email
-    feed: njoftim
-    get_updates_to_this_list: Merrni përditësime në këtë listë
     latest_activity: Akiviteti më i fundit
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ sq:
   latest_feed:
     no_updates: Ende nuk ka përditësime.
     title: Më të fundit
-  national_statistics:
-    heading: Statistika kombëtare
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Qasuni në informacionin tonë
@@ -409,14 +382,10 @@ sq:
       jobs_and_contacts: Vende pune dhe kontrata
       organisation_chart: Tabela e organizimit tonë
       transparency: Të dhënat e transparencës
-    email:
-      alerts: njoftime me email
-      summary: njoftime me eamil nga
     embassies:
       find_an_embassy_lowercase: Gjeni një ambasadë britanike, komision të lartë ose konsullatë
       find_an_embassy_uppercase: Gjeni një ambasadë britanike, Komision të Lartë ose Konsullatë
     headings:
-      contact: Kontaktoni %{name}
       corporate_information: Informacioni i korporatës
       corporate_reports: Raportet e korporatës
     support:
@@ -480,12 +449,9 @@ sq:
     transparency: Shikoni të gjitha të dhënat tona të transparencës
     written_statement: Shihni të gjitha deklaratat tona me shkrim në Parlament
   support:
-    array:
-      last_word_connector: " dhe "
     download: Shkarkoni
     field_of_operation: 'Fusha e funksionimit:'
     fields_of_operation: Fushat e funksionimt
-    filter: Filtri
     pagination:
       next_html: Pastaj <span class="visuallyhidden">faqja</span> <span class="page-numbers">%{current_page} nga %{total_pages}</span>
       next_page: Faqja tjetër

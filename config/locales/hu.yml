@@ -70,10 +70,6 @@ hu:
     caution:
       subheading: Olyan problémákat találtunk a hivatkozásokkal kapcsolatban, amelyek problémákra utalhatnak; legyen óvatos a továbbhivatkozásuk során
     title: Nem működő hivatkozások
-  change_notes:
-    published_at: Első kiadás
-    see_all_updates: minden frissítés megtekintése
-    updated_at: Utolsó frissítés
   consultation:
     closed: Lezárva
     closing_today: Ma zárul
@@ -116,16 +112,7 @@ hu:
       long_ordinal: "%e %B %Y"
   document:
     contents: Tartalomjegyzék
-    footer_meta:
-      full_page_history: teljes oldalelőzmények
-      published: Közzététel időpontja
-      updated: Frissítve
-    headings:
-      applies_to_nations: 'A következő nemzetekre vonatkozik:'
-      from: Feladó
-      part_of: 'Része a következőnek:'
     latest: Legfrissebb dokumentumok
-    latest_from: 'Legfrissebb a következőtől: %{subject}'
     published: közzététel dátuma
     see_all: Mind megtekintése
     speech:
@@ -365,9 +352,6 @@ hu:
         other: Írásbeli parlamenti nyilatkozatok
     updated: frissítve
   document_filters:
-    consultation:
-      all: Minden konzultáció
-      label: Konzultációk
     description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények keresésében
     no_results:
       description: Próbálja meg kibővíteni a keresési feltételeket.
@@ -378,15 +362,10 @@ hu:
       all: Minden ország
       label: Helyszínek a világban
       no_locations_filter: Nincs olyan helyszín a világban, ami megfelelne ennek a szűrőnek.
-  email_alert:
-    subscription: Feliratkozás e-mail értesítésre
   fatality_notice:
     british_fatalities: Brit halálesetek
     none_added: Ehhez a működési területhez még nem lettek hozzáadva halálesetekkel kapcsolatos értesítések.
   feeds:
-    email: e-mail
-    feed: hírcsatorna
-    get_updates_to_this_list: A lista frissítéseinek kérése
     latest_activity: Legfrissebb aktivitás
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ hu:
   latest_feed:
     no_updates: Még nincs frissebb változat.
     title: Legfrissebb
-  national_statistics:
-    heading: Nemzeti statisztikák
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Hozzáférés információinkhoz
@@ -408,14 +381,10 @@ hu:
       jobs_and_contacts: Állások és szerződések
       organisation_chart: Szervezeti térképünk
       transparency: Átláthatósági adatok
-    email:
-      alerts: e-mail értesítések
-      summary: 'E-mail értesítések a következőtől:'
     embassies:
       find_an_embassy_lowercase: A brit nagykövetség, a legfelső biztosság vagy a konzulátus keresése
       find_an_embassy_uppercase: A brit nagykövetség, a Legfelső Biztosság vagy a Konzulátus keresése
     headings:
-      contact: 'Kapcsolat felvétele: %{name}'
       corporate_information: Vállalati adatok
       corporate_reports: Testületi beszámolók
     support:
@@ -479,12 +448,9 @@ hu:
     transparency: Minden átláthatósági adat megtekintése
     written_statement: Minden írásbeli parlamenti nyilatkozat megtekintése
   support:
-    array:
-      last_word_connector: " és"
     download: Letöltés
     field_of_operation: 'Működési terület:'
     fields_of_operation: Működési területek
-    filter: Szűrő
     pagination:
       next_html: Követekző <span class="visuallyhidden">oldal</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Következő oldal

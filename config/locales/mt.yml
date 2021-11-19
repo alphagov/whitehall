@@ -68,10 +68,6 @@ mt:
     caution:
       subheading: Sibna xi affarijiet fil-links li jistgħu jindikaw problemi, oqgħod attent meta tagħmel link magħhom
     title: Links maqsuma
-  change_notes:
-    published_at: Ippubblikat għall-ewwel darba
-    see_all_updates: ara l-aġġornamenti kollha
-    updated_at: L-aħħar aġġornament
   consultation:
     closed: Magħluq
     closing_today: Magħluq illum
@@ -114,16 +110,7 @@ mt:
       long_ordinal: "%e %B %Y"
   document:
     contents: Werrej
-    footer_meta:
-      full_page_history: storja tal-paġna sħiħa
-      published: Ippubblikat
-      updated: Aġġornat
-    headings:
-      applies_to_nations: Jgħodd għal
-      from: Mingħand
-      part_of: Parti minn
     latest: L-aħħar dokumenti
-    latest_from: L-aħħar mingħand %{subject}
     published: ippubblikat
     see_all: Ara kull
     speech:
@@ -513,9 +500,6 @@ mt:
         other: Dikjarazzjonijiet miktuba lill-Parlament
     updated: aġġornat
   document_filters:
-    consultation:
-      all: Konsultazzjonijiet kollha
-      label: Konsultazzjonijiet
     description: Tista' tuża' l-filtri biex tara biss riżultati li jaqblu mal-interessi tiegħek
     no_results:
       description: Ipprova għamel it-tfittxija iktar wiegħsa u erġa' pprova.
@@ -526,15 +510,10 @@ mt:
       all: Postijiet kollha
       label: Postijiet fid-dinja
       no_locations_filter: L-ebda postijiet fid-dinja ma jaqblu mal-filter.
-  email_alert:
-    subscription: Abbonament ta' twissija bl-imejl
   fatality_notice:
     british_fatalities: Fatalitajiet ingliżi
     none_added: Ma kien hemm l-ebda avviżi ta' fatalitajiet miżjuda għal din l-operazzjoni.
   feeds:
-    email: imejl
-    feed: feed
-    get_updates_to_this_list: Ħu aġġornamenti għal din il-lista
     latest_activity: L-aħħar attività
   i18n:
     direction: ltr
@@ -543,12 +522,6 @@ mt:
   latest_feed:
     no_updates: Għad m'hemmx aġġornamenti.
     title: L-iktar riċenti
-  national_statistics:
-    heading: Statistiċi nazzjonali
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Aċċessa l-informazzjoni tagħna
@@ -556,14 +529,10 @@ mt:
       jobs_and_contacts: Impjiegi u kuntratti
       organisation_chart: Iċ-chart organizzatorja tagħna
       transparency: Data għat-trasparenza
-    email:
-      alerts: twissijiet bl-imejl
-      summary: Twissijiet bl-imejl mingħand
     embassies:
       find_an_embassy_lowercase: Sib ambaxxata Ingliża, kummissjoni għolja jew konsulat
       find_an_embassy_uppercase: Sib ambaxxata Ingliża, kummissjoni għolja jew konsulat
     headings:
-      contact: Kuntatt %{name}
       corporate_information: Informazzjoni korporattiva
       corporate_reports: Raporti korporattivi
     support:
@@ -627,12 +596,9 @@ mt:
     transparency: Ara d-dejta dwar it-trasparenza tagħna kollha
     written_statement: Ara d-dikjarazzjonijiet bil-miktub tagħna kollha lill-Parlament
   support:
-    array:
-      last_word_connector: " u "
     download: Niżżel
     field_of_operation: 'Qasam ta'' operazzjoni:'
     fields_of_operation: Oqsma ta' operazzjoni
-    filter: Filtru
     pagination:
       next_html: Li jmiss<span class="visuallyhidden">paġna</span> <span class="page-numbers">%{current_page} ta ' %{total_pages}</span>
       next_page: Paġna li jmiss

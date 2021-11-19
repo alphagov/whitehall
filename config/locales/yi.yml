@@ -68,10 +68,6 @@ yi:
     caution:
       subheading:
     title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
   consultation:
     closed:
     closing_today:
@@ -114,16 +110,7 @@ yi:
       long_ordinal:
   document:
     contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations:
-      from:
-      part_of:
     latest:
-    latest_from:
     published:
     see_all:
     speech:
@@ -363,9 +350,6 @@ yi:
         other:
     updated:
   document_filters:
-    consultation:
-      all:
-      label:
     description:
     no_results:
       description:
@@ -380,9 +364,6 @@ yi:
     british_fatalities:
     none_added:
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
     latest_activity:
   i18n:
     direction: rtl
@@ -405,12 +386,6 @@ yi:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
       access_our_info:
@@ -418,14 +393,10 @@ yi:
       jobs_and_contacts:
       organisation_chart:
       transparency:
-    email:
-      alerts:
-      summary:
     embassies:
       find_an_embassy_lowercase:
       find_an_embassy_uppercase:
     headings:
-      contact:
       corporate_information:
       corporate_reports:
     support:
@@ -489,12 +460,9 @@ yi:
     transparency:
     written_statement:
   support:
-    array:
-      last_word_connector:
     download:
     field_of_operation:
     fields_of_operation:
-    filter:
     pagination:
       next_html:
       next_page:

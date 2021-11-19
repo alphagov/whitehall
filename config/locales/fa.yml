@@ -70,10 +70,6 @@ fa:
     caution:
       subheading: ما در مورد برخی از لینک‌ها به مسائلی برخوردیم که ممکن است نشان دهنده وجود مشکلاتی باشند، در ارتباط با آنها باید احتیاط کنید
     title: لینک‌های خراب
-  change_notes:
-    published_at: اولین انتشار
-    see_all_updates: مشاهده تمام بروزرسانی‌ها
-    updated_at: آخرین بروزرسانی
   consultation:
     closed: بسته شده
     closing_today: امروز بسته شده
@@ -116,16 +112,7 @@ fa:
       long_ordinal: "%e %B %Y"
   document:
     contents: محتوا
-    footer_meta:
-      full_page_history: تمام تاریخچه صفحه
-      published: منتشر شده
-      updated: بروز شده
-    headings:
-      applies_to_nations: اعمال می‌شود به
-      from: از
-      part_of: بخشی از
     latest: آخرین اسناد
-    latest_from: آخرین از %{subject}
     published: منتشر شده
     see_all: مشاهده همه
     speech:
@@ -365,9 +352,6 @@ fa:
         other: بیانیه‌های کتبی به پارلمان
     updated: بروز شده
   document_filters:
-    consultation:
-      all: تمام مشاوره‌ها
-      label: مشاوره‌ها
     description: می‌توانید از فیلترها استفاده کنید تا تنها نتایجی که مطابق با علایق شما هستند، نمایش داده شوند
     no_results:
       description: سعی کنید جستجوی خود را گسترده‌تر کرده و دوباره امتحان کنید.
@@ -378,15 +362,10 @@ fa:
       all: تمام مکان‌ها
       label: مکان‌های جهانی
       no_locations_filter: هیچ یک از مکان‌های جهانی با این فلیتر مطابقت ندارند.
-  email_alert:
-    subscription: اشتراک هشدار ایمیل
   fatality_notice:
     british_fatalities: مرگ‌و‌میر بریتانیایی‌ها
     none_added: هنوز هیچ اعلامیه مرگ‌و‌میری برای این زمینه فعالیت اضافه نشده است.
   feeds:
-    email: ایمیل
-    feed: فید
-    get_updates_to_this_list: بروزرسانی‌های این لیست را دریافت کنید
     latest_activity: آخرین فعالیت
   i18n:
     direction: rtl
@@ -395,12 +374,6 @@ fa:
   latest_feed:
     no_updates: هنوز هیچ بروزرسانی وجود ندارد.
     title: آخرین
-  national_statistics:
-    heading: آمار ملی
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: دسترسی به اطلاعات ما
@@ -408,14 +381,10 @@ fa:
       jobs_and_contacts: شغل‌ها و قراردادها
       organisation_chart: نمودار سازمانی ما
       transparency: داده‌های شفافیت
-    email:
-      alerts: هشدارهای ایمیل
-      summary: هشدارهای ایمیل از
     embassies:
       find_an_embassy_lowercase: یافتن یک سفارت، کمیسیون عالی یا کنسولگری بریتانیا
       find_an_embassy_uppercase: یافتن یک سفارت، کمیسیون عالی یا کنسولگری بریتانیا
     headings:
-      contact: با %{name} تماس بگیرید
       corporate_information: اطلاعات شرکت
       corporate_reports: گزارشات شرکتی
     support:
@@ -479,12 +448,9 @@ fa:
     transparency: مشاهده تمام داده‌های شفافیت ما
     written_statement: مشاهده تمام بیانیه‌های کتبی ما به پارلمان
   support:
-    array:
-      last_word_connector: " و "
     download: دانلود
     field_of_operation: 'زمینه فعالیت:'
     fields_of_operation: زمینه‌های فعالیت
-    filter: فیلتر
     pagination:
       next_html: بعدی <span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page} از %{total_pages}</span>
       next_page: صفحه بعد

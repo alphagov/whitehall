@@ -70,10 +70,6 @@ ta:
     caution:
       subheading: பிரச்சினைகளைச் சுட்டிக்காட்டக்கூடிய இணைப்புகளுடன் சில பிரச்சினைகளைக் கண்டறிந்துள்ளோம். அவற்றைத் தொடர்வதில் கவனமாய் இருக்கவும்
     title: முறிந்த இணைப்புகள்
-  change_notes:
-    published_at: முதலில் பிரசுரிக்கப்பட்டது
-    see_all_updates: அனைத்து புதுப்பித்தல்களையும் பார்க்க
-    updated_at: கடைசியாகப் புதுப்பிக்கப்பட்டது
   consultation:
     closed: மூடப்பட்டது
     closing_today: இன்று மூடப்படுகிறது
@@ -116,16 +112,7 @@ ta:
       long_ordinal: "%e %B %Y"
   document:
     contents: உள்ளடக்கம்
-    footer_meta:
-      full_page_history: முழுப்பக்க வரலாறு
-      published: வெளியிடப்பட்டது
-      updated: புதுப்பிக்கப்பட்டது
-    headings:
-      applies_to_nations: பொருந்தக்கூடியது
-      from: இதிலிருந்து
-      part_of: பகுதி
     latest: சமீபத்திய ஆவணங்கள்
-    latest_from: "%{subject}-லிருந்து சமீபத்தியவை"
     published: வெளியிடப்பட்டது
     see_all: அனைத்தையும் பார்க்க
     speech:
@@ -365,9 +352,6 @@ ta:
         other: பாராளுமன்றத்துக்கு எழுத்துப்பூர்வ அறிவிப்புகள்
     updated: புதுப்பிக்கப்பட்டது
   document_filters:
-    consultation:
-      all: அனைத்து கலந்தாலோசனைகள்
-      label: கலந்தாய்வுகள்
     description: உங்கள் ஆர்வங்களுக்குப் பொருத்தமான முடிவுகளை மட்டும் காட்ட வடிகட்டிகளை நீங்கள் பயன்படுத்தலாம்
     no_results:
       description: உங்கள் தேடலை விரிவானதாக்கி மீண்டும் முயற்சிக்கவும்.
@@ -378,15 +362,10 @@ ta:
       all: அனைத்து இருப்பிடங்கள்
       label: உலக இருப்பிடங்கள்
       no_locations_filter: எந்த உலக இருப்பிடங்களும் தேடலுடன் பொருந்தவில்லை.
-  email_alert:
-    subscription: மின்னஞ்சல் விழிப்பூட்டலுக்கு உறுப்பினராதல்
   fatality_notice:
     british_fatalities: பிரிட்டிஷ் உயிரிழப்புகள்
     none_added: இந்த செயல்பாட்டுத் தளத்தில் எந்த உயிரிழப்பு அறிவிப்புகளும் இன்னும் சேர்க்கப்படவில்லை.
   feeds:
-    email: மின்னஞ்சல்
-    feed: செய்தியூட்டம்
-    get_updates_to_this_list: இந்தப் பட்டியலுக்கு புதுப்பித்தல்களைப் பெறுக
     latest_activity: சமீபத்திய நடவடிக்கை
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ ta:
   latest_feed:
     no_updates: எந்த புதுப்பித்தல்களும் இல்லை.
     title: சமீபத்தியது
-  national_statistics:
-    heading: தேசிய புள்ளியியல்
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: எங்கள் தகவலை அணுகவும்
@@ -408,14 +381,10 @@ ta:
       jobs_and_contacts: வேலைகளும் ஒப்பந்தங்களும்
       organisation_chart: எங்கள் அமைப்பு வரைபடம்
       transparency: வெளிப்படையான தரவு
-    email:
-      alerts: மின்னஞ்சல் விழிப்பூட்டல்கள்
-      summary: "- வசமிருந்து மின்னஞ்சல் விழிப்பூட்டல்கள்"
     embassies:
       find_an_embassy_lowercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
       find_an_embassy_uppercase: ஒரு பிரிட்டிஷ் தூதரகம், உயர் ஆணைக்குழு அல்லது துணைத்தூதரகத்தைக் கண்டறியுங்கள்
     headings:
-      contact: "%{name}-ஐ தொடர்புகொள்க"
       corporate_information: குழுமத் தகவல்கள்
       corporate_reports: குழும அறிக்கைகள்
     support:
@@ -479,12 +448,9 @@ ta:
     transparency: எங்கள் அனைத்து வெளிப்படையான தரவுகளையும் காண்க
     written_statement: எங்கள் அனைத்து நாடாளுமன்றத்துக்கான எழுத்துப்பூர்வ அறிவிப்புகளையும் காண்க
   support:
-    array:
-      last_word_connector: " மற்றும் "
     download: பதிவிறக்கம்
     field_of_operation: 'இயங்குதளம்:'
     fields_of_operation: இயங்குதளம்
-    filter: வடிகட்டி
     pagination:
       next_html: அடுத்த <span class="visuallyhidden">பக்கம்</span> <span class="page-numbers">%{total_pages}-ல் %{current_page} of</span>
       next_page: அடுத்த பக்கம்

@@ -71,10 +71,6 @@ hi:
     caution:
       subheading: हमें लिंक में कुछ समस्याएं मिली हैं जिनसे दिक्कतों का संकेत मिल सकता है, आपको उन्हें लिंक करते समय सावधानी बरतनी चाहिए
     title: ब्रोकन लिंक
-  change_notes:
-    published_at: प्रथम प्रकाशित
-    see_all_updates: सभी अपडेट देखें
-    updated_at: पिछला अपडेट
   consultation:
     closed: बंद हो गया
     closing_today: आज बंद हो रहा है
@@ -117,16 +113,7 @@ hi:
       long_ordinal: "%e %B %Y"
   document:
     contents: विषय-वस्तु
-    footer_meta:
-      full_page_history: पूरे पेज में इतिहास
-      published: 'प्रकाशित '
-      updated: अपडेट किया गया
-    headings:
-      applies_to_nations: पर लागू
-      from: से
-      part_of: का भाग
     latest: नवीनतम दस्तावेज
-    latest_from: "%{subject} से नवीनतम"
     published: प्रकाशित
     see_all: सब देखें
     speech:
@@ -366,9 +353,6 @@ hi:
         other: संसद में लिखित बयान
     updated: अपडेट किया गया
   document_filters:
-    consultation:
-      all: सभी परामर्श
-      label: परामर्श
     description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं, जिनमें आप की दिलचस्पी हो
     no_results:
       description: 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें।'
@@ -379,15 +363,10 @@ hi:
       all: सभी स्थान
       label: वैश्विक स्थान
       no_locations_filter: कोई भी विश्व स्थान उस फिल्टर से मेल नहीं खाता।
-  email_alert:
-    subscription: ईमेल चेतावनी की सदस्यता
   fatality_notice:
     british_fatalities: ब्रिटिश मौतें
     none_added: संचालन के इस क्षेत्र में अभी तक कोई घातक नोटिस नहीं जोड़ा गया है।
   feeds:
-    email: ईमेल
-    feed: फीड
-    get_updates_to_this_list: इस सूची के अपडेट प्राप्त करें
     latest_activity: नवीनतम गतिविधि
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ hi:
   latest_feed:
     no_updates: अभी तक कोई नए समाचार नहीं हैं।
     title: नवीनतम
-  national_statistics:
-    heading: राष्ट्रीय सांख्यिकी
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: हमारी सूचना तक पहुंचें
@@ -409,14 +382,10 @@ hi:
       jobs_and_contacts: नौकरी एवं अनुबंध
       organisation_chart: हमारी संस्था का चार्ट
       transparency: पारदर्शिता आंकड़े
-    email:
-      alerts: ईमेल चेतावनी
-      summary: इससे ईमेल चेतावनियां
     embassies:
       find_an_embassy_lowercase: एक ब्रिटिश दूतावास, उच्चायोग या वाणिज्य दूतावास खोजें
       find_an_embassy_uppercase: एक ब्रिटिश दूतावास, उच्चायोग या वाणिज्य दूतावास खोजें
     headings:
-      contact: संपर्क %{name}
       corporate_information: कारपोरेट सूचना
       corporate_reports: कॉरपोरेट विवरण
     support:
@@ -480,12 +449,9 @@ hi:
     transparency: देखें हमारे सभी पारदर्शिता आंकड़े
     written_statement: देखें हमारे सभी संसद में लिखित बयान
   support:
-    array:
-      last_word_connector: " और"
     download: डाउनलोड करें
     field_of_operation: 'संचालन का क्षेत्र:'
     fields_of_operation: संचालन के क्षेत्र
-    filter: फिल्टर करें
     pagination:
       next_html: अगला <span class="visuallyhidden">पेज</span> <span class="page-numbers">%{total_pages} का %{current_page}</span>
       next_page: अगला पेज

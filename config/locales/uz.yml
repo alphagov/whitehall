@@ -70,10 +70,6 @@ uz:
     caution:
       subheading: Биз томондан бузилишга кўрсатиши мумкин бўлган ҳаволаларга тааллуқли маълум муаммолар аниқланди. Сизга улар орқали ўтишда эҳтиёткорликка риоя қилиш лозим бўлади
     title: шикастланган ҳаволалар
-  change_notes:
-    published_at: Илк бор нашр қилинган
-    see_all_updates: барча янгиланишларни кўриш
-    updated_at: Охирги янгиланиш
   consultation:
     closed: Ёпиқ
     closing_today: Бугун ёпилади
@@ -116,16 +112,7 @@ uz:
       long_ordinal: "%e %B %Y"
   document:
     contents: Мундарижа
-    footer_meta:
-      full_page_history: саҳифанинг тўлиқ тарихи
-      published: Нашр қилинган
-      updated: Янгиланган
-    headings:
-      applies_to_nations: Тегишли
-      from: Дан
-      part_of: Қисми
     latest: Охирги ҳужжатлар
-    latest_from: "%{subject} дан охиргиси"
     published: нашр қилинди
     see_all: Барчасини кўриш
     speech:
@@ -365,9 +352,6 @@ uz:
         other: Парламентга ёзма баёнотлар
     updated: янгиланди
   document_filters:
-    consultation:
-      all: Барча маслаҳатлар
-      label: Маслаҳатлар
     description: Сизни қизиқтирган натижаларни кўриш учун фильтрларни қўлланг
     no_results:
       description: Қидирувни кенгайтиринг ва яна бир бора уриниб кўринг.
@@ -378,15 +362,10 @@ uz:
       all: Барча жойлашиш жойлари
       label: Дунёдаги жойлашиш жойлари
       no_locations_filter: Дунёдаги жойлашиш жойларининг ҳеч бири ушбу фильтр учун мос келмади.
-  email_alert:
-    subscription: Электрон почта орқали хабарномаларни олишга обуна
   fatality_notice:
     british_fatalities: Британияликлар орасида ўлим ҳолатлари
     none_added: Ушбу фаолият соҳасида ўлим ҳолатлари ҳақида хабарномалар ҳали қўшилмаган.
   feeds:
-    email: электрон почта
-    feed: узатиш
-    get_updates_to_this_list: Ушбу рўйхатга янгиланишларни қабул қилиш
     latest_activity: Энг сўнгги фаолият
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ uz:
   latest_feed:
     no_updates: Янгиланишлар мавжуд эмас.
     title: Энг сўнгги
-  national_statistics:
-    heading: Миллий статистика
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Биз ҳақимизда маълумотга эга бўлинг
@@ -408,14 +381,10 @@ uz:
       jobs_and_contacts: Иш ва шартномалар
       organisation_chart: Ташкилий тузилмани бизнинг схемамиз
       transparency: Очиқликка оид маълумотлар
-    email:
-      alerts: электрон почта бўйича хабарномалар
-      summary: дан электрон почта бўйича хабарномалар
     embassies:
       find_an_embassy_lowercase: Британия элчихонасини, олий комиссияни ёки консулликни топиш
       find_an_embassy_uppercase: Британия элчихонасини, Олий комиссияни ёки Консулликни топиш
     headings:
-      contact: "%{name} боғланинг"
       corporate_information: Корпоратив маълумот
       corporate_reports: Корпорация фаолияти тўғрисида ҳисоботлар
     support:
@@ -479,12 +448,9 @@ uz:
     transparency: Бизнинг барча шаффоф маълумотларимизни кўринг
     written_statement: Бизнинг барча парламентга ёзма ҳисоботларимизни кўринг
   support:
-    array:
-      last_word_connector: " ва "
     download: Юклаш
     field_of_operation: 'Фаолият соҳаси:'
     fields_of_operation: Фаолият соҳалари
-    filter: Фильтр
     pagination:
       next_html: Кейинги <span class = "visuallyhidden">саҳифа</span> <span class = "page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Кейинги саҳифа

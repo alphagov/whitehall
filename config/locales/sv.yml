@@ -71,10 +71,6 @@ sv:
     caution:
       subheading: Vi har hittat några problem med länkar som kan tyda på problem, du bör vara försiktig när du länkar till dem
     title: Trasiga länkar
-  change_notes:
-    published_at: Först publicerad
-    see_all_updates: Se alla uppdateringar
-    updated_at: Senast uppdaterad
   consultation:
     closed: Stängd
     closing_today: Stänger idag
@@ -117,16 +113,7 @@ sv:
       long_ordinal: "%e %B %Y"
   document:
     contents: Innehåll
-    footer_meta:
-      full_page_history: Hela sidohistoriken
-      published: Publicerad
-      updated: Uppdaterad
-    headings:
-      applies_to_nations: Gäller för
-      from: Från
-      part_of: Del av
     latest: Senaste dokumenten
-    latest_from: Senaste från %{subject}
     published: publicerad
     see_all: Se alla
     speech:
@@ -366,9 +353,6 @@ sv:
         other: Skriftliga uttalanden till parlamentet
     updated: uppdaterad
   document_filters:
-    consultation:
-      all: Alla samråd
-      label: Samråd
     description: Du kan använda filtren för att endast visa resultat som motsvarar dina intressen
     no_results:
       description: Försök att göra din sökning bredare och försök igen.
@@ -379,15 +363,10 @@ sv:
       all: Alla platser
       label: Platser i världen
       no_locations_filter: Inga platser i världen matchar det filtret.
-  email_alert:
-    subscription: Prenumeration på e-postvarningar
   fatality_notice:
     british_fatalities: Brittiska dödsfall
     none_added: Det har ännu inte lagts till några meddelanden om dödsfall för detta verksamhetsområde.
   feeds:
-    email: E-post
-    feed: feed
-    get_updates_to_this_list: Få uppdateringar till den här listan
     latest_activity: Senaste aktivitet
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ sv:
   latest_feed:
     no_updates: Det finns inga uppdateringar ännu.
     title: Senaste
-  national_statistics:
-    heading: Nationell statistik
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Få tillgång till vår information
@@ -409,14 +382,10 @@ sv:
       jobs_and_contacts: Jobb och kontrakt
       organisation_chart: Vårt organisationsschema
       transparency: Uppgifter om öppenhet
-    email:
-      alerts: E-postmeddelanden
-      summary: E-postmeddelanden från
     embassies:
       find_an_embassy_lowercase: Hitta en brittisk ambassad, ett brittiskt högkommissariat eller konsulat
       find_an_embassy_uppercase: Hitta en brittisk ambassad, högkommissariat eller konsulat
     headings:
-      contact: Kontakta %{name}
       corporate_information: Företagsinformation
       corporate_reports: Företagsrapporter
     support:
@@ -480,12 +449,9 @@ sv:
     transparency: Se alla våra uppgifter om öppenhet
     written_statement: Se alla våra skriftliga uttalanden till parlamentet
   support:
-    array:
-      last_word_connector: " och "
     download: Ladda ner
     field_of_operation: 'Verksamhetsområde:'
     fields_of_operation: Verksamhetsområden
-    filter: Filtrera
     pagination:
       next_html: Nästa <span class="visuallyhidden">sida</span> <span class="page-numbers">%{current_page} av %{total_pages}</span>
       next_page: Nästa sida

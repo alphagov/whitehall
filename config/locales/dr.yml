@@ -73,10 +73,6 @@ dr:
     caution:
       subheading: ما برخی موضوعات را در این لنک ها پیدا نموده ایم که ممکن است نشان دهندهء مشکلاتی باشند، در ضمیمه نمودن آنها باید احتیاط نمایید.
     title: لنک هایی تخریب شده
-  change_notes:
-    published_at: اولین بار منتشر شد.
-    see_all_updates: تمام آپدیت ها را مشاهده نمایید
-    updated_at: آخرین آپدیت
   consultation:
     closed: بسته شد
     closing_today: امروز بسته میشود
@@ -119,16 +115,7 @@ dr:
       long_ordinal: "%e %B %Y"
   document:
     contents: محتوا
-    footer_meta:
-      full_page_history: تاریخچهء تمام صفحه
-      published: نشر شده
-      updated: آپدیت شده
-    headings:
-      applies_to_nations: اعمال میشود به
-      from: از
-      part_of: بخشی از
     latest: جدیدترین اسناد
-    latest_from: جدیدترین از%{subject}
     published: نشر شده
     see_all: همه را مشاهده نمایید
     speech:
@@ -368,9 +355,6 @@ dr:
         other: بیانیه هایی کتبی به پارلمان
     updated: آپدیت شد
   document_filters:
-    consultation:
-      all: تمام مشوره ها
-      label: مشاوره ها
     description: جهت دیدن نتایج مورد علاقهء تان از فلتر ها استفاده نمایید
     no_results:
       description: کوشش نمایید که جستجوی خودرا گسترده تر نمایید و دوباره کوشش نمایید
@@ -383,15 +367,10 @@ dr:
       all: تمام موقعیت ها
       label: موقعیت هایی جهان
       no_locations_filter: هیچ مکان جهان با آن فلتر مطابقت ندارد.
-  email_alert:
-    subscription: سبسکرپشن برای دریافت هشدار ایمل
   fatality_notice:
     british_fatalities: مرگ و میر بریتانیایی ها
     none_added: هنوز هیچ خبر مرگ و میر در این بخش عملیات اضافه نشده است.
   feeds:
-    email: ایمل
-    feed: بدنه
-    get_updates_to_this_list: آپدیت هایی این لست را دریافت نمایید
     latest_activity: جدیدترین فعالیت ها
   i18n:
     direction: rtl
@@ -400,12 +379,6 @@ dr:
   latest_feed:
     no_updates: کدام آپدیتی تا هنوز موجود نیست
     title: جدیدترین ها
-  national_statistics:
-    heading: آمار ملی
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: به اطلاعات ما دسترسی یابید
@@ -413,14 +386,10 @@ dr:
       jobs_and_contacts: وظایف و قرارداد ها
       organisation_chart: چارت سازمانی ما
       transparency: داده هایی شفافیت
-    email:
-      alerts: هشدار هایی ایمل
-      summary: هشدار هایی ایمل از
     embassies:
       find_an_embassy_lowercase: سفارت، کمیسیون عالی و یا قونسلگری بریتانیا را پیدا نمایید
       find_an_embassy_uppercase: سفارت، کمیسیون عالی و یا قونسلگری بریتانیا را پیدا نمایید
     headings:
-      contact: تماس بگیرید%{name}
       corporate_information: اطلاعات شرکت
       corporate_reports: گزارشات شرکت
     support:
@@ -484,12 +453,9 @@ dr:
     transparency: تمام داده هایی شفافیت ما را مشاهده نمایید
     written_statement: تمام بیانیه های کتبی ما به پارلمان را مشاهده نمایید
   support:
-    array:
-      last_word_connector: و
     download: دانلود نمایید
     field_of_operation: ساحهء عملیات
     fields_of_operation: ساحات عملیات
-    filter: فلتر
     pagination:
       next_html: بعدی<span class="visuallyhidden">صفحه</span> <span class="page-numbers">%{current_page}از%{total_pages}</span>
       next_page: صفحه بعدی

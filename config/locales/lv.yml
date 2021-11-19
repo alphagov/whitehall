@@ -68,10 +68,6 @@ lv:
     caution:
       subheading: Tika konstatētas problēmas ar saitēm, tāpēc ieteicams ievērot piesardzību, veidojot savienojumus uz tām
     title: Bojātas saites
-  change_notes:
-    published_at: Pirmoreiz publicēts
-    see_all_updates: skatīt visus atjauninājumus
-    updated_at: Pēdējoreiz atjaunināts
   consultation:
     closed: Aizvērts
     closing_today: Aizveras šodien
@@ -114,16 +110,7 @@ lv:
       long_ordinal: "%e %B %Y"
   document:
     contents: Saturs
-    footer_meta:
-      full_page_history: Visa lapas vēsture
-      published: Publicēts
-      updated: Atjaunināts
-    headings:
-      applies_to_nations: Attiecas uz
-      from: 'No'
-      part_of: Daļa no
     latest: Jaunākie dokumenti
-    latest_from: Jaunākais no %{subject}
     published: publicēts
     see_all: Skatīt visu
     speech:
@@ -363,9 +350,6 @@ lv:
         other: Rakstiski ziņojumi parlamentam
     updated: atjaunināts
   document_filters:
-    consultation:
-      all: Visas konsultācijas
-      label: Konsultācijas
     description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp
     no_results:
       description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
@@ -376,15 +360,10 @@ lv:
       all: Visas vietas
       label: Vietas pasaulē
       no_locations_filter: Neviena vieta pasaulē neatbilst šim filtram.
-  email_alert:
-    subscription: E-pasta brīdinājumu abonements
   fatality_notice:
     british_fatalities: Britu bojāgājušie
     none_added: Šajā darbības jomā vēl nav neviena paziņojuma par bojāgājušajiem.
   feeds:
-    email: e-pasts
-    feed: plūsma
-    get_updates_to_this_list: Saņemt šī saraksta atjauninājumus
     latest_activity: Jaunumi
   i18n:
     direction: ltr
@@ -393,12 +372,6 @@ lv:
   latest_feed:
     no_updates: Pagaidām jaunumu nav
     title: Jaunākais
-  national_statistics:
-    heading: Valsts statistika
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Piekļūt informācijai
@@ -406,14 +379,10 @@ lv:
       jobs_and_contacts: Darbs un līgumi
       organisation_chart: Mūsu organizācijas shēma
       transparency: Atklātība
-    email:
-      alerts: e-pasta brīdinājumi
-      summary: E-pasta brīdinājumi no
     embassies:
       find_an_embassy_lowercase: Atrast britu vēstniecību, augsto komisiju vai konsulātu
       find_an_embassy_uppercase: Atrast britu vēstniecību, Augsto komisiju vai konsulātu
     headings:
-      contact: Sazināties %{name}
       corporate_information: Korporatīvā informācija
       corporate_reports: Korporatīvie ziņojumi
     support:
@@ -477,12 +446,9 @@ lv:
     transparency: Skatīt visas atklātības dati
     written_statement: Skatīt visas rakstiski ziņojumi parlamentam
   support:
-    array:
-      last_word_connector: " un "
     download: Lejupielādēt
     field_of_operation: 'Darbības joma:'
     fields_of_operation: Darbības jomas
-    filter: Filtrs
     pagination:
       next_html: Nākamā <span class="visuallyhidden">lapa</span> <span class="page-numbers">%{current_page} no %{total_pages}</span>
       next_page: Nākamā lapa

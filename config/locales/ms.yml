@@ -71,10 +71,6 @@ ms:
     caution:
       subheading: Kami menemui beberapa isu dengan pautan yang mungkin menunjukkan adanya masalah, anda harus berhati-hati semasa memaut padanya
     title: Pautan putus
-  change_notes:
-    published_at: Kali pertama diterbitkan
-    see_all_updates: lihat semua kemas kini
-    updated_at: Kali terakhir dikemas kini
   consultation:
     closed: Ditutup
     closing_today: Tutup hari ini
@@ -117,16 +113,7 @@ ms:
       long_ordinal: "%e %B %Y"
   document:
     contents: Kandungan
-    footer_meta:
-      full_page_history: sejarah halaman penuh
-      published: Diterbitkan
-      updated: Dikemas kini
-    headings:
-      applies_to_nations: Dikenakan untuk
-      from: Daripada
-      part_of: Sebahagian daripada
     latest: Dokumen terkini
-    latest_from: Terkini daripada %{subject}
     published: diterbitkan
     see_all: Lihat semua
     speech:
@@ -366,9 +353,6 @@ ms:
         other: Kenyataan bertulis kepada Parlimen
     updated: dikemas kini
   document_filters:
-    consultation:
-      all: Semua perundingan
-      label: Rundingan
     description: Anda boleh menggunakan penapis untuk menunjukkan hasil yang hanya sepadan dengan minat anda
     no_results:
       description: Cuba buat carian anda lebih luas dan cuba lagi.
@@ -379,15 +363,10 @@ ms:
       all: Semua lokasi
       label: Lokasi dunia
       no_locations_filter: Tidak ada lokasi dunia yang sepadan dengan penapis itu.
-  email_alert:
-    subscription: Langganan pemberitahuan e-mel
   fatality_notice:
     british_fatalities: Kematian warga British
     none_added: Belum ada notis kematian yang ditambahkan untuk medan operasi ini.
   feeds:
-    email: e-mel
-    feed: siaran maklumat
-    get_updates_to_this_list: Dapatkan kemas kini untuk senarai ini
     latest_activity: Aktiviti terkini
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ ms:
   latest_feed:
     no_updates: Belum ada kemas kini.
     title: Terkini
-  national_statistics:
-    heading: Statistik Nasional
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Akses maklumat kami
@@ -409,14 +382,10 @@ ms:
       jobs_and_contacts: Pekerjaan dan kontrak
       organisation_chart: Carta organisasi kami
       transparency: Data ketelusan
-    email:
-      alerts: pemberitahuan e-mel
-      summary: Pemberitahuan e-mel daripada
     embassies:
       find_an_embassy_lowercase: Cari kedutaan, pesuruhjaya tinggi atau konsulat British
       find_an_embassy_uppercase: Cari kedutaan, Pesuruhjaya Tinggi atau Konsulat British
     headings:
-      contact: Hubungi %{name}
       corporate_information: Maklumat korporat
       corporate_reports: Laporan korporat
     support:
@@ -480,12 +449,9 @@ ms:
     transparency: Lihat semua data ketelusan kami
     written_statement: Lihat semua kenyataan bertulis kami kepada Parlimen
   support:
-    array:
-      last_word_connector: " dan "
     download: Muat turun
     field_of_operation: 'Medan operasi:'
     fields_of_operation: Medan operasi
-    filter: Tapis
     pagination:
       next_html: Halaman <span class="visuallyhidden">seterusnya</span> <span class="page-numbers">%{current_page} daripada %{total_pages}</span>
       next_page: Halaman seterusnya

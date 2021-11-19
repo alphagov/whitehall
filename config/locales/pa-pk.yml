@@ -70,10 +70,6 @@ pa-pk:
     caution:
       subheading: سانوں ایناں لنکس دے بارے کجھ مشکلاں دا پتہ لگیا جو کہ مشکلاں دا اشارہ کردا اے، تہانوں ایندے نال جوڑن لئی احتیاط کرن دی لوڑ اے
     title: ٹُٹے ہوئے لنک
-  change_notes:
-    published_at: پہلی اشاعت
-    see_all_updates: سارا تازہ ترین ویکھو
-    updated_at: آخری وار تازہ ترین حال
   consultation:
     closed: بند ہویا
     closing_today: اج بند ہو ریئا اے
@@ -116,16 +112,7 @@ pa-pk:
       long_ordinal: "%e %B %Y"
   document:
     contents: مواد
-    footer_meta:
-      full_page_history: پورے ورقے دی تاریخ
-      published: اشاعت کیتا ہویا
-      updated: تازہ ترین حال
-    headings:
-      applies_to_nations: ایندے مطابق
-      from: اویندے توں
-      part_of: ایندا حصہ
     latest: تازہ ترین دستاویزات
-    latest_from: ایندے توں تازہ ترین {subject}%
     published: اشاعت کیتا ہویا
     see_all: سب کُج ویکھو
     speech:
@@ -365,9 +352,6 @@ pa-pk:
         other: قومی مجلس دے سامنے تحریری بیانات
     updated: تازہ ترین حال
   document_filters:
-    consultation:
-      all: ساری مشاورت
-      label: مشاورت
     description: اپنی دلچسپی دے مطابق نتائج ویکھن لئی تسی اینوں چھان سکدے او
     no_results:
       description: اپنی کھوج نوں ہو ودان لئی دوبارہ کوشش کرو
@@ -378,15 +362,10 @@ pa-pk:
       all: ساریاں تھاواں
       label: دُنیا دیاں تھاواں
       no_locations_filter: دُنیا دی کوئی وی تھاں چھانن نال نئیں ملدی
-  email_alert:
-    subscription: ای میل الرٹ سبسکرپشن
   fatality_notice:
     british_fatalities: برطانوی اموات
     none_added: موت دی کوئی وی اطلاع شامل نئیں کیتی گئی ایس تھاں تے کم کرن لئی
   feeds:
-    email: ای میل
-    feed: جواب
-    get_updates_to_this_list: ایس فہرست توں تازہ ترین حال دا پتہ لاؤ
     latest_activity: پچھلی سرگرمی
   i18n:
     direction: rtl
@@ -395,12 +374,6 @@ pa-pk:
   latest_feed:
     no_updates: ہون تک کوئی تازہ ترین حال دا پتہ نئیں لگیا
     title: تازہ ترین
-  national_statistics:
-    heading: قومی اعدادوشمار
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: ساڈی معلومات تک پہنچ
@@ -408,14 +381,10 @@ pa-pk:
       jobs_and_contacts: نوکریاں تے ٹھیکے
       organisation_chart: ساڈے ادارے دا چارٹ
       transparency: شفافیت دی معلومات
-    email:
-      alerts: ای میل الرٹ
-      summary: ایندے توں ای میل الرٹ
     embassies:
       find_an_embassy_lowercase: اک برطانوی ایمبیسی، ہائی کمیشن یا کونسلیٹ دی کھوج کرو
       find_an_embassy_uppercase: اک برطانوی ایمبیسی، ہائی کمیشن یا کونسلیٹ دی کھوج کرو
     headings:
-      contact: رابطہ  {name}%
       corporate_information: کاروبار دی معلومات
       corporate_reports: کاروبار دیاں خبراں
     support:
@@ -479,12 +448,9 @@ pa-pk:
     transparency: ساڈی ساری شفافیت دی معلومات ویکھو
     written_statement: قومی مجلس دے سامنے ساڈے سارے تحریری بیان ویکھو
   support:
-    array:
-      last_word_connector: " ہور "
     download: ڈاؤن لوڈ
     field_of_operation: 'عمل دی تھاں:'
     fields_of_operation: عملدیاں تھاواں
-    filter: چھاننا
     pagination:
       next_html: اگلا<span class="visuallyhidden">ورقہ</span> <span class="page-numbers">%{current_page}اوندا %{total_pages}</span>
       next_page: اگلا ورقہ

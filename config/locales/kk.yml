@@ -70,10 +70,6 @@ kk:
     caution:
       subheading: Біз сілтемелерде мәселелерді көрсетуі мүмкін кейбір ақауларды таптық, оларға сілтеме жасағанда абай болу керек
     title: Бұзылған сілтемелер
-  change_notes:
-    published_at: Алғаш жарияланды
-    see_all_updates: барлық жаңартуларды қарау
-    updated_at: Соңғы рет жаңартылды
   consultation:
     closed: Жабық
     closing_today: Бүгін жабылады
@@ -116,16 +112,7 @@ kk:
       long_ordinal: "%e %B %Y"
   document:
     contents: Мазмұны
-    footer_meta:
-      full_page_history: толық бет тарихы
-      published: Жарияланды
-      updated: Жаңартылды
-    headings:
-      applies_to_nations: Мынаған қолданылады
-      from: Кімнен
-      part_of: Бөлігі
     latest: Ең соңғы құжаттар
-    latest_from: "%{subject} соңғылары"
     published: жарияланды
     see_all: Барлығын қарау
     speech:
@@ -365,9 +352,6 @@ kk:
         other: Парламентке жазбаша мәлімдемелер
     updated: жаңартылды
   document_filters:
-    consultation:
-      all: Барлық кеңселер
-      label: Кеңестер
     description: Сіз қызығушылықтарыңызға сәйкес келетін нәтижелерді көрсету үшін сүзгілерді пайдалана аласыз
     no_results:
       description: Іздеу шарттарын кеңейтуге тырысыңыз және әрекетті қайталап көріңіз.
@@ -378,15 +362,10 @@ kk:
       all: Барлық орындар
       label: Әлемдегі орындар
       no_locations_filter: Бұл сүзгіге сәйкес келетін әлем орындары жоқ.
-  email_alert:
-    subscription: Электрондық пошта ескертуіне жазылу
   fatality_notice:
     british_fatalities: Ұлыбританиядағы өлімдер
     none_added: Бұл жұмыс саласы үшін өлім туралы хабарламалар әлі қосылмады.
   feeds:
-    email: электрондық пошта
-    feed: арна
-    get_updates_to_this_list: Осы тізімге жаңартулар алу
     latest_activity: Ең соңғы әрекет
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ kk:
   latest_feed:
     no_updates: Әлі жаңартулар жоқ.
     title: Ең соңғы
-  national_statistics:
-    heading: Ұлттық статистика
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Біздің ақпаратқа қатынасу
@@ -408,14 +381,10 @@ kk:
       jobs_and_contacts: Жұмыстар мен келісімшарттар
       organisation_chart: Біздің ұйым жарғысы
       transparency: Ашықтық деректері
-    email:
-      alerts: электрондық пошта ескертпелері
-      summary: Электрондық пошта ескертпелері
     embassies:
       find_an_embassy_lowercase: Ұлыбритания елшілігін, жоғары комиссияны немесе консулдықты табыңыз
       find_an_embassy_uppercase: Ұлыбритания елшілігін, Жоғарғы Комиссияны немесе Консулдықты табыңыз
     headings:
-      contact: "%{name} байланысыңыз"
       corporate_information: Корпоративтік ақпарат
       corporate_reports: Корпоративтік есептер
     support:
@@ -479,12 +448,9 @@ kk:
     transparency: Біздің ашықтық туралы барлық деректерді қараңыз
     written_statement: Парламентке біздің барлық жазбаша мәлімдемелерімізді қараңыз
   support:
-    array:
-      last_word_connector: " және "
     download: Жүктеп алу
     field_of_operation: 'Жұмыс аймағы:'
     fields_of_operation: Жұмыс аймақтары
-    filter: Сүзгі
     pagination:
       next_html: Келесі <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Келесі бет

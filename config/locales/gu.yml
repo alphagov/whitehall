@@ -70,10 +70,6 @@ gu:
     caution:
       subheading: અમને આ દસ્તાવેજમાં લિંક્સ મળેલ છે, જે તૂટેલી હોય શકે છે આ લિંક્સમાં અમને કેટલીક સમસ્યાઓ મળી આવી છે જે મુશ્કેલી તરફ ઈશારો કરતી હોઈ શકે છે. તેની સાથે જોડાતી વખતે તમારે સાવચેતી રાખવી જોઈએ
     title: તૂટેલી લિંક્સ
-  change_notes:
-    published_at: પ્રથમ વાર પ્રકાશિત થયું
-    see_all_updates: તમામ અપડેટ્સ જુઓ
-    updated_at: છેલ્લે અપડેટ કરવામાં આવ્યું
   consultation:
     closed: બંધ થયું
     closing_today: આજે બંધ થાય છે
@@ -116,16 +112,7 @@ gu:
       long_ordinal: "%e %B %Y"
   document:
     contents: સામગ્રી
-    footer_meta:
-      full_page_history: સંપૂર્ણ પેજ હિસ્ટરી
-      published: પ્રકાશિત થયું
-      updated: અપડેટ કરાયું
-    headings:
-      applies_to_nations: ને લાગુ થાય છે
-      from: થી
-      part_of: નો ભાગ
     latest: નવીનતમ દસ્તાવેજો
-    latest_from: "%{subject} માંથી નવીનતમ"
     published: પ્રકાશિત થયું
     see_all: બધુ જુઓ
     speech:
@@ -365,9 +352,6 @@ gu:
         other: સંસદમાં લેખિત નિવેદનો
     updated: અપડેટ કરેલ
   document_filters:
-    consultation:
-      all: તમામ પરામર્શ
-      label: પરામર્શ
     description: તમે માત્ર વાંછિત પરિણામો જોવા માટે ફિલ્ટર્સનો ઉપયોગ કરી શકો છો
     no_results:
       description: તમારો શોધ વધુ વિસ્તૃત બનાવીને ફરી પ્રયત્ન કરો.
@@ -378,15 +362,10 @@ gu:
       all: તમામ લોકેશન્સ
       label: વૈશ્વિક લોકેશન્સ
       no_locations_filter: આ ફિલ્ટર સાથે કોઈ પણ વૈશ્વિક લોકેશન મેળ ખાતું નથી.
-  email_alert:
-    subscription: ઈમેલ એલર્ટ સબ્સ્ક્રિપ્શન
   fatality_notice:
     british_fatalities: બ્રિટિશ જાનહાનિ
     none_added: આ કામગીરીના ક્ષેત્રમાં હજુ સુધી કોઇ જાનહાનિ સૂચનાઓ ઉમેરાઈ નથી.
   feeds:
-    email: ઈમેલ
-    feed: ફીડ
-    get_updates_to_this_list: આ સૂચિમાં અપડેટ્સ મેળવો
     latest_activity: નવીનતમ પ્રવૃત્તિ
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ gu:
   latest_feed:
     no_updates: હજુ સુધી કોઈ અપડેટ્સ નથી.
     title: નવીનતમ
-  national_statistics:
-    heading: રાષ્ટ્રીય આંકડા
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: અમારી માહિતીને એક્સેસ કરો
@@ -408,14 +381,10 @@ gu:
       jobs_and_contacts: નોકરીઓ અને કરારો
       organisation_chart: અમારી સંસ્થાનો ચાર્ટ
       transparency: પારદર્શિતા ડેટા
-    email:
-      alerts: ઈમેલ એલર્ટ્સ
-      summary: તરફથી ઈમેલ એલર્ટ્સ
     embassies:
       find_an_embassy_lowercase: બ્રિટિશ દૂતાવાસ, હાઇ કમિશન અથવા કોન્સ્યુલેટ શોધો
       find_an_embassy_uppercase: બ્રિટિશ દૂતાવાસ, હાઇ કમિશન અથવા કોન્સ્યુલેટ શોધો
     headings:
-      contact: "%{name}નો સંપર્ક કરો"
       corporate_information: કોર્પોરેટ માહિતી
       corporate_reports: કોર્પોરેટ અહેવાલો
     support:
@@ -479,12 +448,9 @@ gu:
     transparency: અમારો તમામ પારદર્શિતા ડેટા જુઓ
     written_statement: અમારા સંસદમાં કરેલ તમામ લેખિત નિવેદનો જુઓ
   support:
-    array:
-      last_word_connector: " અને "
     download: ડાઉનલોડ કરો
     field_of_operation: 'કામગીરીનું ક્ષેત્ર:'
     fields_of_operation: 'કામગીરીના ક્ષેત્રો:'
-    filter: ફિલ્ટર કરો
     pagination:
       next_html: આગળનું <span class="visuallyhidden">પૃષ્ઠ</span> <span class="page-numbers">%{current_page} નું %{total_pages}</span>
       next_page: આગામી પાનું

@@ -71,10 +71,6 @@ hy:
     caution:
       subheading: Մենք նկատել ենք խնդրահարույց հղումների հետ կապված որոշ խնդիրներ․ դուք պետք է զգույշ լինեք դրանց կցելու ժամանակ
     title: Չգործող հղումներ
-  change_notes:
-    published_at: Առաջին անգամ հրապարակվել է
-    see_all_updates: դիտել բոլոր թարմացումները
-    updated_at: Վերջին անգամ թարմացվել է
   consultation:
     closed: Ավարտվել է
     closing_today: Այսօր ավարտվում է
@@ -117,16 +113,7 @@ hy:
       long_ordinal: "%e %B %Y"
   document:
     contents: Բովանդակություն
-    footer_meta:
-      full_page_history: ամբողջ էջի պատմությունը
-      published: Հրապարակված
-      updated: Թարմացված
-    headings:
-      applies_to_nations: Կիրառվում է
-      from: Ումից՝
-      part_of: Մաս է՝
     latest: Թարմացված փաստաթղթեր
-    latest_from: Թարմացված փաստաթղթեր %{subject} թեմայի շուրջ
     published: հրապարակված
     see_all: Դիտել բոլորը
     speech:
@@ -366,9 +353,6 @@ hy:
         other: Խորհրդարանին ուղղված գրավոր հայտարարություններ
     updated: Թարմացված
   document_filters:
-    consultation:
-      all: Բոլոր խորհրդակցությունները
-      label: Խորհրդակցություններ
     description: Դուք կարող եք օգտագործել ֆիլտրեր` միայն ձեր հետաքրքրություններին համապատասխանող արդյունքները տեսնելու համար
     no_results:
       description: 'Փորձեք ձեր որոնումն ավելի ընդլայնել և կրկին փորձեք:'
@@ -379,15 +363,10 @@ hy:
       all: Բոլոր վայրերը
       label: Գտնվելու վայրերը
       no_locations_filter: 'Ոչ մի վայր չի համապատասխանում այդ ֆիլտրին:'
-  email_alert:
-    subscription: Նախազգուշացնող էլ․ նամակների բաժանորդագրություն
   fatality_notice:
     british_fatalities: Բրիտանական դժբախտ պատահարներ
     none_added: 'Գործունեության այս ոլորտի համար դժբախտ պատահարի ծանուցումներ դեռևս չեն ավելացվել:'
   feeds:
-    email: Էլ․ փոստ
-    feed: նորություն
-    get_updates_to_this_list: Ստանալ թարմացումներ այս ցուցակի վերաբերյալ
     latest_activity: Վերջին գործողությունը
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ hy:
   latest_feed:
     no_updates: 'Դեռևս թարմացումներ չկան:'
     title: Թարմացումներ
-  national_statistics:
-    heading: Ազգային վիճակագրություն
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Հասանելիություն մեր տվյալներին
@@ -409,14 +382,10 @@ hy:
       jobs_and_contacts: Աշխատանք և պայմանագրեր
       organisation_chart: Մեր կազմակերպության կառուցվածքը
       transparency: Թափանցիկության տվյալներ
-    email:
-      alerts: Էլեկտրոնային նախազգուշացումներ
-      summary: Նախազգուշացնող էլ․ նամականեր
     embassies:
       find_an_embassy_lowercase: Գտնել Բրիտանիայի դեսպանատուն կամ հյուպատոսություն
       find_an_embassy_uppercase: Գտնել Բրիտանիայի Դեսպանատուն կամ Հյուպատոսություն
     headings:
-      contact: Կոնտակտ %{name}
       corporate_information: Կորպորատիվ տեղեկություն
       corporate_reports: Կորպորատիվ զեկույցներ
     support:
@@ -480,12 +449,9 @@ hy:
     transparency: Դիտել թափանցիկության մեր բոլոր տվյալներ
     written_statement: Դիտել խորհրդարանին ուղղված մեր բոլոր գրավոր հայտարարությունները
   support:
-    array:
-      last_word_connector: " և "
     download: Ներբեռնել
     field_of_operation: Գործունեության ոլորտ՝
     fields_of_operation: Գործունեության ոլորտներ
-    filter: Ֆիլտր
     pagination:
       next_html: Հաջորդ <span class="visuallyhidden">էջը</span> <span class="page-numbers">%{current_page} %{total_pages} էջից</span>
       next_page: Հաջորդ էջ

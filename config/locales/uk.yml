@@ -70,10 +70,6 @@ uk:
     caution:
       subheading: Ми виявили деякі розбіжності посилань, які можуть вказувати на проблеми, тому слід бути обережними, посилаючись на них
     title: Порушені посилання
-  change_notes:
-    published_at: Вперше опубліковано
-    see_all_updates: переглянути всі оновлення
-    updated_at: Останнє оновлення
   consultation:
     closed: Закрито
     closing_today: Закривається сьогодні
@@ -116,16 +112,7 @@ uk:
       long_ordinal: "%e %B %Y"
   document:
     contents: Зміст
-    footer_meta:
-      full_page_history: історія всієї сторінки
-      published: Опубліковано
-      updated: Оновлено
-    headings:
-      applies_to_nations: Стосується
-      from: Від
-      part_of: Частина
     latest: Останні документи
-    latest_from: Актуально від %{subject}
     published: опубліковано
     see_all: Дивитися всі
     speech:
@@ -515,9 +502,6 @@ uk:
         other: Письмові заяви до Парламенту
     updated: оновлено
   document_filters:
-    consultation:
-      all: Всі консультації
-      label: Консультації
     description: Ви можете використовувати фільтри, щоб показувати лише результати, які відповідають вашим інтересам
     no_results:
       description: Спробуйте розширити пошук та повторіть спробу.
@@ -528,15 +512,10 @@ uk:
       all: Усі локації
       label: Світові локації
       no_locations_filter: Жодна світова локація не відповідає цьому фільтру.
-  email_alert:
-    subscription: Підписка на сповіщення електронною поштою
   fatality_notice:
     british_fatalities: Нещасні випадки зі смертельним наслідком у Великій Британії
     none_added: Поки що не було додано жодних повідомлень про нещасні випадки зі смертельним наслідком в цій сфері діяльності.
   feeds:
-    email: Електронна пошта
-    feed: Стрічка новин
-    get_updates_to_this_list: Отримуйте оновлення цього списку
     latest_activity: Остання активність
   i18n:
     direction: ltr
@@ -545,12 +524,6 @@ uk:
   latest_feed:
     no_updates: Оновлення поки немає.
     title: Останні
-  national_statistics:
-    heading: Національна статистика
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Отримайте доступ до нашої інформації
@@ -558,14 +531,10 @@ uk:
       jobs_and_contacts: Вакансії та контракти
       organisation_chart: Структурна схема нашої організації
       transparency: Дані прозорості
-    email:
-      alerts: сповіщення електронною поштою
-      summary: Сповіщення електронною поштою від
     embassies:
       find_an_embassy_lowercase: Знайдіть посольство Великої Британії, представництво високого комісара або консульство
       find_an_embassy_uppercase: Знайдіть посольство Великої Британії, Представництво високого комісара або Консульство
     headings:
-      contact: Контактна особа %{name}
       corporate_information: Корпоративна інформація
       corporate_reports: Звіти про діяльність корпорації
     support:
@@ -629,12 +598,9 @@ uk:
     transparency: Перегляньте всі наші дані про прозорість
     written_statement: Перегляньте всі наші письмові заяви до парламенту
   support:
-    array:
-      last_word_connector: " та "
     download: Завантажити
     field_of_operation: 'Сфера діяльності:'
     fields_of_operation: Сфера діяльності
-    filter: Фільтр
     pagination:
       next_html: Наступна <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} %{total_pages}</span>
       next_page: Наступна сторінка

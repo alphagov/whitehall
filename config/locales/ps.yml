@@ -71,10 +71,6 @@ ps:
     caution:
       subheading: موږ د لینکونو سره ځینې مسلې موندلي چې ممکن ستونزې په ګوته کړي ، تاسو باید د دوی سره وصل کیدو کې احتیاط وکړئ
     title: مات شوي لینکونه
-  change_notes:
-    published_at: لومړی خپور شو
-    see_all_updates: ټول تازه معلومات وګورئ
-    updated_at: وروستی تازه شوی
   consultation:
     closed: تړل شوی
     closing_today: نن ورځ تړل
@@ -117,16 +113,7 @@ ps:
       long_ordinal: "%e %B %Y"
   document:
     contents: منځپانګې
-    footer_meta:
-      full_page_history: د پاڼې بشپړ تاریخ
-      published: خپور شوی
-      updated: تازه شوی
-    headings:
-      applies_to_nations: باندې تطبیق کیږي
-      from: له
-      part_of: برخه
     latest: وروستي اسناد
-    latest_from: له%{subject} څخه وروستی
     published: خپور شوی
     see_all: ټول وګوره
     speech:
@@ -366,9 +353,6 @@ ps:
         other: پارلمان ته لیکلي بیانونه
     updated: تازه شوی
   document_filters:
-    consultation:
-      all: ټولې مشورې
-      label: مشورې
     description: تاسو کولی شئ فلټرونه وکاروئ یوازې هغه پایلې وښایاست چې ستاسو ګټو سره سمون خوري
     no_results:
       description: هڅه وکړئ خپله لټون پراخه کړئ او بیا هڅه وکړئ.
@@ -379,15 +363,10 @@ ps:
       all: ټول ځایونه
       label: د نړۍ موقعیتونه
       no_locations_filter: د نړۍ هیڅ ځایونه د دې فلټر سره سمون نه خوري.
-  email_alert:
-    subscription: د بریښنالیک خبرتیا ګډون
   fatality_notice:
     british_fatalities: د برتانیا تلفات
     none_added: تر دې دمه د عملیاتو ساحې لپاره د مرګ خبرتیاوې ندي اضافه شوي.
   feeds:
-    email: بریښنالیک
-    feed: خواړه
-    get_updates_to_this_list: دې لیست ته تازه معلومات ترلاسه کړئ
     latest_activity: وروستي فعالیت
   i18n:
     direction: rtl
@@ -396,12 +375,6 @@ ps:
   latest_feed:
     no_updates: تراوسه کوم تازه معلومات نشته.
     title: وروستی
-  national_statistics:
-    heading: ملي احصایې
-  number:
-    human:
-      storage_units:
-        format: "% n% u"
   organisation:
     corporate_information:
       access_our_info: زموږ معلوماتو ته لاسرسی ومومئ
@@ -409,14 +382,10 @@ ps:
       jobs_and_contacts: دندې او قراردادونه
       organisation_chart: زموږ د سازمان چارټ
       transparency: د شفافیت ډاټا
-    email:
-      alerts: د بریښنالیک خبرتیاوې
-      summary: څخه د بریښنالیک خبرتیاوې
     embassies:
       find_an_embassy_lowercase: د برتانیا سفارت ، عالي کمیسیون یا قونسلګري ومومئ
       find_an_embassy_uppercase: د برتانیا سفارت ، عالي کمیسیون یا قونسلګري ومومئ
     headings:
-      contact: اړیکه %{name}
       corporate_information: د شرکت معلومات
       corporate_reports: د شرکت راپورونه
     support:
@@ -480,12 +449,9 @@ ps:
     transparency: زموږ ټول شفافیت ډاټا وګورئ
     written_statement: پارلمان ته زموږ ټول لیکل شوي بیانات وګورئ
   support:
-    array:
-      last_word_connector: " او "
     download: کښته کول
     field_of_operation: 'د عملیاتو ساحه:'
     fields_of_operation: د عملیاتو ساحې
-    filter: فلټر
     pagination:
       next_html: بل <span class = "visuallyhidden"> پا </ه </span> <span class = "page-numbers">%{current_page} د%{total_pages} </span>
       next_page: بل مخ

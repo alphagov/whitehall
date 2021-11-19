@@ -68,10 +68,6 @@ be:
     caution:
       subheading: Мы выявілі некаторыя праблемы са спасылкамі, якія могуць паказваць на праблемы, вам варта праяўляць асцярожнасць пры спасылках на іх
     title: Непрацуючыя спасылкі
-  change_notes:
-    published_at: Упершыню апублікавана
-    see_all_updates: паглядзець усе абнаўленні
-    updated_at: Апошняе абнаўленне
   consultation:
     closed: Закрыты
     closing_today: Зачыняецца сёння
@@ -114,16 +110,7 @@ be:
       long_ordinal: "%e %B %Y"
   document:
     contents: Змест
-    footer_meta:
-      full_page_history: поўная гісторыя старонак
-      published: Апублікаваны
-      updated: Адноўлена
-    headings:
-      applies_to_nations: У адносінах да
-      from: З
-      part_of: Частка
     latest: Апошнія дакументы
-    latest_from: Апошняе ад %{subject}
     published: Апублікаваны
     see_all: Глядзець усе
     speech:
@@ -513,9 +500,6 @@ be:
         other: Пісьмовыя заявы ў парламенце
     updated: Адноўлена
   document_filters:
-    consultation:
-      all: Усе кансультацыі
-      label: Кансультацыі
     description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі, якія вас цікавяць.
     no_results:
       description: Паспрабуйце зрабіць ваш запыт больш шырокім і паспрабуйце яшчэ раз.
@@ -526,15 +510,10 @@ be:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
       no_locations_filter: Ні адно месцазнаходжанне ў свеце не адпавядае гэтаму фільтру.
-  email_alert:
-    subscription: Падпіска на апавяшчэнне па электроннай пошце
   fatality_notice:
     british_fatalities: Паведамленні на англійскам
     none_added: Для гэтага аперацыйнага поля яшчэ не было дададзена ніякіх паведамленняў аб смерцi.
   feeds:
-    email: Электронная пошта
-    feed: сілкаванне
-    get_updates_to_this_list: Атрымаць абнаўлення гэтага спісу
     latest_activity: Апошнія аднаўленні
   i18n:
     direction: ltr
@@ -543,12 +522,6 @@ be:
   latest_feed:
     no_updates: Ніякіх абнаўленняў пакуль няма.
     title: Апошняе
-  national_statistics:
-    heading: Нацыянальная статыстыка
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Доступ да нашай інфармацыі
@@ -556,14 +529,10 @@ be:
       jobs_and_contacts: Праца і кантакты
       organisation_chart: Наша арганізацыйная структура
       transparency: Адкрытыя дадзеныя
-    email:
-      alerts: паведамлення па электроннай пошце
-      summary: Паведамлення па электроннай пошце ад
     embassies:
       find_an_embassy_lowercase: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
       find_an_embassy_uppercase: Знайсці брытанскае пасольства, вярхоўную камісію або консульства
     headings:
-      contact: Звязацца з %{name}
       corporate_information: Карпаратыўная іфармацыя
       corporate_reports: Карпаратыўныя справаздачы
     support:
@@ -627,12 +596,9 @@ be:
     transparency: Паглядзець усе Адкрытыя дадзеныя
     written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце
   support:
-    array:
-      last_word_connector: " і "
     download: Скачаць
     field_of_operation: Аперацыйнае поле
     fields_of_operation: Аперацыйныя поля
-    filter: Фільтр
     pagination:
       next_html: Наступная <span class="visuallyhidden">старонка</span> <span class="page-numbers">%{current_page} з %{total_pages}</span>
       next_page: Наступная старонка

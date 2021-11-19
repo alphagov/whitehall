@@ -70,10 +70,6 @@ si:
     caution:
       subheading: ප්‍රශ්න පෙන්විය හැකි සබැඳි වල ගැටළු ඇති බව අපි සොයා ගෙන ඇත, ඔබ ඒවාට සම්බන්ධ වීමේදී ප්රවේශම් විය යුතුය
     title: කැඩුණු සබැඳි
-  change_notes:
-    published_at: පළමු ප්රකාශයට පත් කළ
-    see_all_updates: සියලුම යාවත්කාලීනයන් බලන්න
-    updated_at: අවසන් වරට යාවත්කාලීන කළේ
   consultation:
     closed: වසා ඇත
     closing_today: අද දින වසා දැමේ
@@ -116,16 +112,7 @@ si:
       long_ordinal: "%e %B %Y"
   document:
     contents: අන්තර්ගත
-    footer_meta:
-      full_page_history: සම්පූර්ණ පිටු ඉතිහාසය
-      published: පළ කළේ
-      updated: යාවත්කාලීන කෙරිණි
-    headings:
-      applies_to_nations: අදාළ වේ
-      from: සිට
-      part_of: කොටසක්
     latest: නවතම ලේඛන
-    latest_from: "%{subject} වෙතින් නවතම"
     published: පළ කළේ
     see_all: සියල්ල බලන්න
     speech:
@@ -365,9 +352,6 @@ si:
         other: පාර්ලිමේන්තුව වෙත ලිඛිත ප්රකාශ
     updated: යාවත්කාලීන කෙරිණි
   document_filters:
-    consultation:
-      all: සියලු උපදේශන
-      label: උපදේශන
     description: ඔබේ රුචිකත්වයට ගැලපෙන ප්රතිඵල පමණක් පෙන්වීමට ඔබට පෙරහන් භාවිතා කළ හැකිය
     no_results:
       description: ඔබගේ සෙවීම පුළුල් කිරීමට උත්සාහ කර නැවත උත්සාහ කරන්න.
@@ -378,15 +362,10 @@ si:
       all: සියලුම ස්ථාන
       label: ලෝක ස්ථාන
       no_locations_filter: කිසිදු ලෝක ස්ථානයක් එම පෙරණයට නොගැලපේ.
-  email_alert:
-    subscription: විද්‍යුත් තැපෑල් ඇඟවීමේ දායකත්වය
   fatality_notice:
     british_fatalities: බ්රිතාන්ය මරණ
     none_added: මෙම මෙහෙයුම් ක්ෂේත්රයට තවමත් මරණ දැන්වීම් එකතු කර නොමැත.
   feeds:
-    email: විද්‍යුත් තැපෑල
-    feed: පෝෂණය
-    get_updates_to_this_list: මෙම ලැයිස්තුවට යාවත්කාලීන ලබා ගන්න
     latest_activity: නවතම ක්රියාකාරකම
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ si:
   latest_feed:
     no_updates: තවම යාවත්කාලීන කිසිවක් නොමැත.
     title: නවතම
-  national_statistics:
-    heading: ජාතික සංඛ්යාලේඛන
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: අපේ තොරතුරු වෙත පිවිසෙන්න
@@ -408,14 +381,10 @@ si:
       jobs_and_contacts: රැකියා සහ කොන්ත්රාත්තු
       organisation_chart: අපේ සංවිධාන සටහන
       transparency: විනිවිදභාව දත්ත
-    email:
-      alerts: විද්‍යුත් තැපෑල් ඇඟවීම්
-      summary: වෙතින් විද්යුත් තැපැල් ඇඟවීම්
     embassies:
       find_an_embassy_lowercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
       find_an_embassy_uppercase: බ්රිතාන්ය තානාපති කාර්යාලයක්, මහ කොමසාරිස් කාර්යාලයක් හෝ කොන්සියුලර් කාර්යාලයක් සොයා ගන්න
     headings:
-      contact: "%{name} සම්බන්ධ කරගන්න"
       corporate_information: ආයතනික තොරතුරු
       corporate_reports: ආයතනික වාර්තා
     support:
@@ -479,12 +448,9 @@ si:
     transparency: අපේ සියලු විනිවිදභාව දත්ත බලන්න
     written_statement: පාර්ලිමේන්තුවට කළ අපේ ලිඛිත ප්‍රකාශන සියල්ල බලන්න
   support:
-    array:
-      last_word_connector: " සහ "
     download: බාගන්න
     field_of_operation: 'මෙහෙයුම් ක්ෂේත්රය:'
     fields_of_operation: මෙහෙයුම් ක්ෂේත්ර
-    filter: පෙරහන
     pagination:
       next_html: ඊළඟ <span class="visuallyhidden">පිටුව</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: ඊළඟ පිටුව

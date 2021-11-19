@@ -68,10 +68,6 @@ ru:
     caution:
       subheading: Мы обнаружили неполадки, связанные со ссылками, которые могут указывать на наличие проблем. Будьте осторожны при подключении к ним
     title: Недействительные ссылки
-  change_notes:
-    published_at: Первая публикация
-    see_all_updates: просмотреть все обновления
-    updated_at: Последнее обновление
   consultation:
     closed: Закрыто
     closing_today: День закрытия
@@ -114,16 +110,7 @@ ru:
       long_ordinal: "%e %B %Y"
   document:
     contents: Содержание
-    footer_meta:
-      full_page_history: полная история страницы
-      published: Опубликовано
-      updated: Обновлено
-    headings:
-      applies_to_nations: Применяется к
-      from: Из
-      part_of: Является частью
     latest: Последний документ
-    latest_from: Последнее из %{subject}
     published: Опубликовано
     see_all: Посмотреть все
     speech:
@@ -513,9 +500,6 @@ ru:
         other: Письменные заявления Парламенту
     updated: обновлено
   document_filters:
-    consultation:
-      all: Все консультации
-      label: Консультации
     description: Чтобы увидеть результаты, соответствующие Вашим требованиям, используйте фильтры
     no_results:
       description: Расширьте параметры поиска и попробуйте еще раз.
@@ -526,15 +510,10 @@ ru:
       all: Все места нахождения
       label: Место нахождения в мире
       no_locations_filter: Ни одно место нахождения в мире не соответствует этому фильтру.
-  email_alert:
-    subscription: Подписка на оповещения по электронной почте
   fatality_notice:
     british_fatalities: Погибшие британцы
     none_added: Уведомления о летальных исходах для этой области операций еще не добавлены.
   feeds:
-    email: электронный адрес
-    feed: лента
-    get_updates_to_this_list: Получайте обновления к этому списку
     latest_activity: Последние действия
   i18n:
     direction: ltr
@@ -543,12 +522,6 @@ ru:
   latest_feed:
     no_updates: Обновлений нет.
     title: Последние новости
-  national_statistics:
-    heading: Национальная статистика
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Доступ к нашей информации
@@ -556,14 +529,10 @@ ru:
       jobs_and_contacts: Рабочие места и контракты
       organisation_chart: Хартия нашей организации
       transparency: Данные о прозрачности
-    email:
-      alerts: оповещения по электронной почте
-      summary: оповещения по электронной почте от
     embassies:
       find_an_embassy_lowercase: Найти британское посольство, представительство высокого комиссара или консульство
       find_an_embassy_uppercase: Найти британское посольство, Представительство высокого комиссара или Консульство
     headings:
-      contact: Обратиться к %{name}
       corporate_information: Корпоративная информация
       corporate_reports: Корпоративные отчеты
     support:
@@ -627,12 +596,9 @@ ru:
     transparency: Посмотреть все наши данные о прозрачности
     written_statement: Посмотреть все наши письменные заявления Парламенту
   support:
-    array:
-      last_word_connector: " и "
     download: Загрузить
     field_of_operation: 'Поле деятельности:'
     fields_of_operation: Поле деятельности
-    filter: Фильтр
     pagination:
       next_html: Следующая <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} из %{total_pages}</span>
       next_page: Следующая страница

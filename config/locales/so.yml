@@ -70,10 +70,6 @@ so:
     caution:
       subheading: Waxaan helnay arimaha qaar linkiyadooda kaasoo dhib muujinaya, waa inaad ka taxadartaa marka aad ka codsanayso linki iyaga
     title: Linkiyada la jabsaday
-  change_notes:
-    published_at: Marka hore la daabacay
-    see_all_updates: eeg dhamaan cusboonaysiinaha
-    updated_at: Cusboonaysiintii ugu dambaysay
   consultation:
     closed: Xidhan
     closing_today: Xidhan maanta
@@ -116,16 +112,7 @@ so:
       long_ordinal: "%e %B %Y"
   document:
     contents: Waxyaabaha uu ka koobanyahay
-    footer_meta:
-      full_page_history: boga taariikhda oo dhamaystiran
-      published: Daabacaada
-      updated: La cusboonaysiiyay
-    headings:
-      applies_to_nations: Lagu codsaday
-      from: Laga bilaabo
-      part_of: Ka qeyba
     latest: Dukumentiyadii u danbeeyey
-    latest_from: Laga bilaabo kii u dambeeyay %{subject}
     published: Daabacaada
     see_all: Eeg dhamaan
     speech:
@@ -365,9 +352,6 @@ so:
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
     updated: la cusboonaysiiyay
   document_filters:
-    consultation:
-      all: Dhamaan la talinta oo dhan
-      label: Latalino
     description: Waxaad isticmaali kartaa kala saarayaasha si aad u muujiso kaliya maxsuulka waafaqay danahaaga
     no_results:
       description: Isku day inaad baadhistaada balaadhiso oo isku day markale.
@@ -378,15 +362,10 @@ so:
       all: Dhamaan goobaha
       label: Goobaha Dunida
       no_locations_filter: Majirto meel dunida ah oo waafqaysa baadhistaa.
-  email_alert:
-    subscription: Xasuusinta iimaylka ku calaamadsan
   fatality_notice:
     british_fatalities: Muhiimada British-ka
     none_added: Ma jiraan wax ogaysiisyada muhiimka ah oo lagu daray goobtan shaqada wali.
   feeds:
-    email: iimaylka
-    feed: warka
-    get_updates_to_this_list: Hel wixii ugu dambeeyay ee liiskan
     latest_activity: Hawsha ugu dambaysay
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ so:
   latest_feed:
     no_updates: Wali wax cusub ma jiraan.
     title: Ugu dambeeyay
-  national_statistics:
-    heading: Tirokoobka qaranka
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Helitaankayaga macluumaadka
@@ -408,14 +381,10 @@ so:
       jobs_and_contacts: Shaqooyinka iyo qandaraasyada
       organisation_chart: Jaantuska ururkayaga
       transparency: Xog daah furan
-    email:
-      alerts: xasuusinaha iimaylka
-      summary: Xasuusinaha iimaylka ee kaaga imanaya
     embassies:
       find_an_embassy_lowercase: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
       find_an_embassy_uppercase: Raadi safaarada Ingiriiska, komishanka sare ama qunsulka
     headings:
-      contact: Kala xidhiidh %{name}
       corporate_information: Macluumaadka shirkada
       corporate_reports: Warbixinaha shirkada
     support:
@@ -479,12 +448,9 @@ so:
     transparency: Eeg dhamaan xogtayada daaha furan
     written_statement: Eeg dhammaan bayaanadayada qoraalka ah ee loo diray Baarlamaanka
   support:
-    array:
-      last_word_connector: " iyo "
     download: Dejiso
     field_of_operation: 'Hawalaha dibada:'
     fields_of_operation: Hawalaha dibada
-    filter: Kal shandhaynta
     pagination:
       next_html: Kuxiga <span class="visuallyhidden">bogga</span> <span class="page-numbers">%{current_page} ah %{total_pages}</span>
       next_page: Boga xiga

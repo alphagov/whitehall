@@ -70,10 +70,6 @@ tk:
     caution:
       subheading: Biz baglanyşyklara degişli käbir meseleleri ýüze çykardyk, olardan peýdalanylanda seresap bolmaly
     title: Döwülen baglanyşyklar
-  change_notes:
-    published_at: Birinji çap edilen
-    see_all_updates: ähli täzelenmelere serediň
-    updated_at: Iň soňky täzelenme
   consultation:
     closed: Ýapyk
     closing_today: Şu gün ýapylýar
@@ -116,16 +112,7 @@ tk:
       long_ordinal: "%e %B %Y"
   document:
     contents: Mazmuny
-    footer_meta:
-      full_page_history: Doly sahypa taryhy
-      published: Çap edilen
-      updated: Täzelenen
-    headings:
-      applies_to_nations: Degişli
-      from: "-dan"
-      part_of: Bir bölegi
     latest: Iň täze resminamalar
-    latest_from: "%{subject} iň täze"
     published: çap edilen
     see_all: Ählisine serediň
     speech:
@@ -365,9 +352,6 @@ tk:
         other: Mejlise ýazmaça beýanlar
     updated: täzelenen
   document_filters:
-    consultation:
-      all: Ähli maslahatlar
-      label: Maslahatlar
     description: Diňe sizi gyzyklandyrýan maglumatlary görmek üçin filtrleri ulanyp bilersiňiz
     no_results:
       description: Gözlegleriňizi has giň göwrümli etmeklige çalşyň we gaýtadan synanşyň.
@@ -378,15 +362,10 @@ tk:
       all: Ähli ýerler
       label: Dünýä ýerleri
       no_locations_filter: Bu gözlege gabat gelýän dünýä ýerleri ýok.
-  email_alert:
-    subscription: E-poçta duýduryşyna ýazylmak
   fatality_notice:
     british_fatalities: Iňlis ölümleri
     none_added: Bu ugurda entek ölüm howpy barada duýduryş habary ýok.
   feeds:
-    email: e-poçta
-    feed: güýçlendirmek
-    get_updates_to_this_list: Bu sanawa täzelenmeler alyň
     latest_activity: Iň täze işjeňlik
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ tk:
   latest_feed:
     no_updates: Heniz täzelenmeler ýok.
     title: Iň täze
-  national_statistics:
-    heading: Milli statistika
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Maglumatlarymyza giriň
@@ -408,14 +381,10 @@ tk:
       jobs_and_contacts: Işler we şertnamalar
       organisation_chart: Guramamyzyň diagrammasy
       transparency: Aç-açanlyk maglumatlar
-    email:
-      alerts: e-poçta duýduryşlary
-      summary: E-poçta duýduryşlary
     embassies:
       find_an_embassy_lowercase: Iňlis ilçihanasyny, ýokary komissiýany ýa-da konsullygy tapyň
       find_an_embassy_uppercase: Iňlis ilçihanasyny, Ýokary komissiýany ýa-da Konsullygy tapyň
     headings:
-      contact: Habarlaşyň %{name}
       corporate_information: Korporatiw maglumatlar
       corporate_reports: Korperatiw hasabatlar
     support:
@@ -479,12 +448,9 @@ tk:
     transparency: Biziň ähli aç-açanlyk maglumatlarymyza serediň
     written_statement: Biziň ähli Mejlise edilen ýazmaça beýanlarymyza serediň
   support:
-    array:
-      last_word_connector: " we "
     download: Göçüriň
     field_of_operation: 'Iş meýdany:'
     fields_of_operation: Iş meýdanlary
-    filter: Filtr
     pagination:
       next_html: Indiki <span class="visuallyhidden">sahypa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Indiki sahypa

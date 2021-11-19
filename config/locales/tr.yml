@@ -70,10 +70,6 @@ tr:
     caution:
       subheading: Linklerde problem göstergesi olabilecek bazı sorunlar bulduk, bunlara bağlantı kurarken dikkatli olmalısınız
     title: Kırık linkler
-  change_notes:
-    published_at: İlk yayınlanan
-    see_all_updates: tüm güncellemeleri görün
-    updated_at: Son güncellenen
   consultation:
     closed: Kapatılan
     closing_today: Bugün kapanıyor
@@ -116,16 +112,7 @@ tr:
       long_ordinal: "%e %B %Y"
   document:
     contents: İçerikler
-    footer_meta:
-      full_page_history: tam sayfa geçmişi
-      published: Yayınlanan
-      updated: Güncellenen
-    headings:
-      applies_to_nations: Şunlarda geçerli
-      from: Şuradan
-      part_of: Şunun kısmı
     latest: En yeni belgeler
-    latest_from: "%{subject} içerisinde en yenisi"
     published: yayınlanan
     see_all: Hepsini gör
     speech:
@@ -365,9 +352,6 @@ tr:
         other: Parlamentoya yazılı açıklamalar
     updated: güncellenen
   document_filters:
-    consultation:
-      all: Tüm danışmalar
-      label: Danışmalar
     description: Yalnızca ilgi alanlarınızla eşleşen sonuçları göstermesi için filtreleri kullanabilirsiniz
     no_results:
       description: Aramanızı genişletmeye çalışın ve yeniden deneyin.
@@ -378,15 +362,10 @@ tr:
       all: Tüm konumlar
       label: Dünya geneli konumlar
       no_locations_filter: Dünya genelinde bu filtreyle eşleşen hiçbir konum yok.
-  email_alert:
-    subscription: E-posta alarm aboneliği
   fatality_notice:
     british_fatalities: İngiltere ölüm oranları
     none_added: Henüz bu faaliyet alanına eklenen hiçbir ölüm oranı bildirimi yok.
   feeds:
-    email: eposta
-    feed: besleme
-    get_updates_to_this_list: Bu listeye güncellemeleri aktar
     latest_activity: En güncel faaliyet
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ tr:
   latest_feed:
     no_updates: Henüz hiç güncelleme yok.
     title: En güncel
-  national_statistics:
-    heading: Ulusal İstatistikler
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Bilgilerimize erişin
@@ -408,14 +381,10 @@ tr:
       jobs_and_contacts: İşler ve sözleşmeler
       organisation_chart: Kuruluş şemamız
       transparency: Şeffaflık verileri
-    email:
-      alerts: eposta uyarıları
-      summary: Şuradan eposta uyarıları
     embassies:
       find_an_embassy_lowercase: Bir İngiliz büyükelçiliği, yüksek komisyonu veya konsolosluğu
       find_an_embassy_uppercase: Bir İngiliz Büyükelçiliği, Yüksek Komisyonu veya Konsolosluğu
     headings:
-      contact: İrtibat %{name}
       corporate_information: Kurumsal bilgiler
       corporate_reports: Kurumsal raporlar
     support:
@@ -479,12 +448,9 @@ tr:
     transparency: Tüm şeffaflık verilerimize bakın
     written_statement: Parlamentoya tüm sözlü açıklamalarımıza bakın
   support:
-    array:
-      last_word_connector: " ve "
     download: İndir
     field_of_operation: 'Faaliyet alanı:'
     fields_of_operation: 'Faaliyet alanları:'
-    filter: Filtre
     pagination:
       next_html: Sonraki <span class="visuallyhidden">sayfa</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: Sonraki sayfa

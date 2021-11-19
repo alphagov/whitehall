@@ -70,10 +70,6 @@ bg:
     caution:
       subheading: Открихме някои проблеми с линковете, които могат да покажат нередности, и трябва да бъдете внимателни при тяхното използване
     title: Повредени линкове
-  change_notes:
-    published_at: Публикувано за първи път
-    see_all_updates: вижте всички актуализации
-    updated_at: Последно актуализирани
   consultation:
     closed: Закрито
     closing_today: Закрито днес
@@ -116,16 +112,7 @@ bg:
       long_ordinal: "%e %B %Y"
   document:
     contents: Съдържание
-    footer_meta:
-      full_page_history: история на цяла страница
-      published: Публикуван
-      updated: Актуализиран
-    headings:
-      applies_to_nations: Важи за
-      from: От
-      part_of: Част от
     latest: Най-нови документи
-    latest_from: Най-нови от %{subject}
     published: публикуван
     see_all: Вижте всички
     speech:
@@ -365,9 +352,6 @@ bg:
         other: Писмени изявления в Парламента
     updated: актуализиран
   document_filters:
-    consultation:
-      all: Всички консултации
-      label: Консултации
     description: Можете да използвате филтрите, за да показвате само интересуващите ви резултати
     no_results:
       description: Опитайте да разширите търсенето си и опитайте отново.
@@ -378,15 +362,10 @@ bg:
       all: Всички местоположения
       label: Местоположения по света
       no_locations_filter: Нито едно местоположение в света не отговаря на това филтриране.
-  email_alert:
-    subscription: Абонамент за известия по имейл
   fatality_notice:
     british_fatalities: Смъртни случаи във Великобритания
     none_added: Все още няма добавени съобщения за смъртни случаи в тази област на дейност.
   feeds:
-    email: Имейл
-    feed: канал
-    get_updates_to_this_list: Получаване актуализации на този списък
     latest_activity: Последна дейност
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ bg:
   latest_feed:
     no_updates: Все още няма актуализация.
     title: Последни
-  national_statistics:
-    heading: Национална статистика
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Достъп до нашата информация
@@ -408,14 +381,10 @@ bg:
       jobs_and_contacts: Работни места и договори
       organisation_chart: Нашата организационна схема
       transparency: Данни за прозрачност
-    email:
-      alerts: известия по имейл
-      summary: Известия по имейл за
     embassies:
       find_an_embassy_lowercase: Намиране на британско посолство, върховна комисия или консулство
       find_an_embassy_uppercase: Намиране на британско посолство, върховна комисия или консулство
     headings:
-      contact: Контакт %{name}
       corporate_information: Фирмена информация
       corporate_reports: Фирмени доклади
     support:
@@ -479,12 +448,9 @@ bg:
     transparency: Вижте всички наши данни за прозрачност
     written_statement: Вижте всички наши писмени изявления в парламента
   support:
-    array:
-      last_word_connector: " и "
     download: Изтегляне
     field_of_operation: 'Област на действие:'
     fields_of_operation: Области на действие
-    filter: Филтриране
     pagination:
       next_html: Следваща <span class="visuallyhidden">страница</span> <span class="page-numbers">%{current_page} от %{total_pages}</span>
       next_page: Следваща страница

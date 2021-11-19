@@ -68,10 +68,6 @@ nl:
     caution:
       subheading: We hebben enkele problemen gevonden met links die op problemen kunnen wijzen, wees daarom voorzichtig met het linken naar deze links
     title: Gebroken links
-  change_notes:
-    published_at: Voor het eerst gepubliceerd
-    see_all_updates: zie alle updates
-    updated_at: Laatst bijgewerkt
   consultation:
     closed: Gesloten
     closing_today: Sluiting vandaag
@@ -114,16 +110,7 @@ nl:
       long_ordinal: "%e %B %Y"
   document:
     contents: Inhoud
-    footer_meta:
-      full_page_history: volledige pagina geschiedenis
-      published: Gepubliceerd
-      updated: Bijgewerkt
-    headings:
-      applies_to_nations: Geldt voor
-      from: Van
-      part_of: Deel van
     latest: Laatste documenten
-    latest_from: Laatst van %{subject}
     published: gepubliceerd
     see_all: Zie alle
     speech:
@@ -363,9 +350,6 @@ nl:
         other: Schriftelijke verklaringen aan het Parlement
     updated: bijgewerkt
   document_filters:
-    consultation:
-      all: Alle raadplegingen
-      label: Raadplegingen
     description: U kunt de filters gebruiken om alleen resultaten te tonen die overeenkomen met uw interesses
     no_results:
       description: Probeer uw zoekopdracht breder te maken en probeer het opnieuw.
@@ -376,15 +360,10 @@ nl:
       all: Alle locaties
       label: Wereld locaties
       no_locations_filter: Geen locaties in de wereld komen overeen met dat filter.
-  email_alert:
-    subscription: Abonnement op e-mail alert
   fatality_notice:
     british_fatalities: Britse sterfgevallen
     none_added: Er zijn nog geen meldingen van sterfgevallen toegevoegd voor dit werkgebied.
   feeds:
-    email: e-mail
-    feed: feed
-    get_updates_to_this_list: Ontvang updates voor deze lijst
     latest_activity: Laatste activiteit
   i18n:
     direction: ltr
@@ -393,12 +372,6 @@ nl:
   latest_feed:
     no_updates: Er zijn nog geen updates.
     title: Laatste
-  national_statistics:
-    heading: Nationale statistieken
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Toegang tot onze informatie
@@ -406,14 +379,10 @@ nl:
       jobs_and_contacts: Banen en contracten
       organisation_chart: Ons organigram
       transparency: Transparantiegegevens
-    email:
-      alerts: e-mail alerts
-      summary: E-mailwaarschuwingen van de
     embassies:
       find_an_embassy_lowercase: Zoek een Britse ambassade, hoge commissie of consulaat
       find_an_embassy_uppercase: Zoek een Britse ambassade, Hoge Commissie of Consulaat
     headings:
-      contact: Contact %{name}
       corporate_information: Bedrijfsinformatie
       corporate_reports: Bedrijfsrapporten
     support:
@@ -477,12 +446,9 @@ nl:
     transparency: Bekijk al onze transparantiegegevens
     written_statement: Bekijk al onze schriftelijke verklaringen aan het Parlement
   support:
-    array:
-      last_word_connector: " en "
     download: Downloaden
     field_of_operation: 'Werkterrein:'
     fields_of_operation: Werkterreinen
-    filter: Filter
     pagination:
       next_html: Volgende <span class="visueel verborgen">pagina</span> <span class="paginanummers">%{current_page} van %{total_pages}</span>
       next_page: Volgende pagina

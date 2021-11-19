@@ -70,10 +70,6 @@ lt:
     caution:
       subheading: Aptikome problemų dėl nuorodų, atidarykite jas atsargiai
     title: Pažeistos nuorodos
-  change_notes:
-    published_at: Pirmą kartą publikuota
-    see_all_updates: matyti visą naujausią informaciją
-    updated_at: Paskutinį kartą atnaujinta
   consultation:
     closed: Pasibaigusi
     closing_today: Baigiasi šiandien
@@ -116,16 +112,7 @@ lt:
       long_ordinal: "%Y %B %e"
   document:
     contents: Turinys
-    footer_meta:
-      full_page_history: pilna puslapio istorija
-      published: Publikuota
-      updated: Atnaujinta
-    headings:
-      applies_to_nations: Susiję su
-      from: Nuo
-      part_of: Dalis
     latest: Naujausi dokumentai
-    latest_from: "%{subject} naujienos"
     published: publikuota
     see_all: Žiūrėti viską
     speech:
@@ -440,9 +427,6 @@ lt:
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
   document_filters:
-    consultation:
-      all: Visos konsultacijos
-      label: Konsultacijos
     description: Galite naudoti filtrus, kad būtų pateikiami tik jus dominantys rezultatai
     no_results:
       description: Praplėskite paiešką ir bandykite dar kartą.
@@ -453,15 +437,10 @@ lt:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
       no_locations_filter: Nė viena geografinė vieta neatitinka filtro.
-  email_alert:
-    subscription: Įspėjimų el. paštu prenumeravimas
   fatality_notice:
     british_fatalities: Nelaimės Didžiojoje Britanijoje
     none_added: Šioje srityje kol kas neskelbiamas apie nelaimes.
   feeds:
-    email: el. paštas
-    feed: srautas
-    get_updates_to_this_list: Gaukite šio sąrašo atnaujinimus
     latest_activity: Paskutinės naujienos
   i18n:
     direction: ltr
@@ -470,12 +449,6 @@ lt:
   latest_feed:
     no_updates: Atnaujinimų nėra.
     title: Paskutinės
-  national_statistics:
-    heading: Nacionalinė statistika
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Prieiga prie mūsų informacijos
@@ -483,14 +456,10 @@ lt:
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart: Mūsų organizacijos schema
       transparency: Skaidrumo informacija
-    email:
-      alerts: įspėjimai el. paštu
-      summary: Įspėjimai el. paštu iš
     embassies:
       find_an_embassy_lowercase: Raskite Didžiosios Britanijos ambasadą ar konsulatą
       find_an_embassy_uppercase: Raskite Didžiosios Britanijos ambasadą ar konsulatą
     headings:
-      contact: Susisiekite su %{name}
       corporate_information: Korporatyvinė informacija
       corporate_reports: Korporatyvinės ataskaitos
     support:
@@ -554,12 +523,9 @@ lt:
     transparency: Pažiūrėkite  mūsų skaidrumo informacija
     written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
   support:
-    array:
-      last_word_connector: " ir "
     download: Atsisiųsti
     field_of_operation: 'Veiklos sritis:'
     fields_of_operation: Veiklos sritys
-    filter: Filtras
     pagination:
       next_html: Kitas <span class="visuallyhidden">puslapį</span> <span class="page-numbers">%{current_page} apie %{total_pages}</span>
       next_page: Kitas puslapis

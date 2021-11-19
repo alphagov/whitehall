@@ -71,10 +71,6 @@ hr:
     caution:
       subheading: Otkrili smo neke probleme s vezama koji mogu ukazivati na probleme. Morate biti oprezni pri povezivanju s njima
     title: Neispravni linkovi
-  change_notes:
-    published_at: Prvi put objavljeno
-    see_all_updates: pogledajte sva ažuriranja
-    updated_at: Posljednji put ažurirano
   consultation:
     closed: Zatvoreno
     closing_today: Zatvara se danas
@@ -117,16 +113,7 @@ hr:
       long_ordinal: "%e %B %Y"
   document:
     contents: Sadržaj
-    footer_meta:
-      full_page_history: povijest cijele stranice
-      published: Objavljeno
-      updated: Ažurirano
-    headings:
-      applies_to_nations: Odnosi se na
-      from: Od
-      part_of: Dio
     latest: Najnoviji dokumenti
-    latest_from: Najnovije od %{subject}
     published: Objavljeno
     see_all: Vidi sve
     speech:
@@ -516,9 +503,6 @@ hr:
         other: Pismene izjave Parlamentu
     updated: ažurirano
   document_filters:
-    consultation:
-      all: Sve konzultacije
-      label: Konzultacije
     description: Pomoću filtara možete prikazati samo rezultate koji odgovaraju vašim interesima
     no_results:
       description: Pokušajte proširiti pretraživanje i pokušajte ponovo.
@@ -529,15 +513,10 @@ hr:
       all: Sve lokacije
       label: Svjetske lokacije
       no_locations_filter: Nijedna svjetska lokacija ne odgovara tom filtru.
-  email_alert:
-    subscription: Pretplata na upozorenja putem e -pošte
   fatality_notice:
     british_fatalities: Britanski smrtni slučajevi
     none_added: Za ovo područje djelovanja još nema dodanih obavijesti o smrtnim slučajevima.
   feeds:
-    email: e-pošta
-    feed: sažetak
-    get_updates_to_this_list: Primajte ažuriranja za ovaj popis
     latest_activity: Najnovija aktivnost
   i18n:
     direction: ltr
@@ -546,12 +525,6 @@ hr:
   latest_feed:
     no_updates: Još nema ažuriranja.
     title: Najnoviji
-  national_statistics:
-    heading: Nacionalna statistika
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Pristupite našim podacima
@@ -559,14 +532,10 @@ hr:
       jobs_and_contacts: Poslovi i ugovori
       organisation_chart: Naša shema organizacije
       transparency: Podaci o transparentnosti
-    email:
-      alerts: upozorenja putem e-pošte
-      summary: Upozorenja e-poštom iz
     embassies:
       find_an_embassy_lowercase: Pronađite britansko veleposlanstvo, visokog poručnika ili konzulata
       find_an_embassy_uppercase: Pronađite britansko veleposlanstvo, Sisokog Poručnika ili Konzulata
     headings:
-      contact: Ime kontakta %{name}
       corporate_information: Korporativne informacije
       corporate_reports: Korporativna izvješća
     support:
@@ -630,12 +599,9 @@ hr:
     transparency: Pogledajte sve naše podatke o transparentnosti
     written_statement: Pogledajte sve naše pisane izjave Parlamentu
   support:
-    array:
-      last_word_connector: " i"
     download: Preuzmite
     field_of_operation: 'Područje djelovanja:'
     fields_of_operation: Područja djelovanja
-    filter: Filter
     pagination:
       next_html: Sljedeći <span class="visuallyhidden">stranica</span> <span class="page-numbers">%{current_page} od %{total_pages}</span>
       next_page: Sljedeća stranica

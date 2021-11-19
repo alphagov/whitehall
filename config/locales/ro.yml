@@ -70,10 +70,6 @@ ro:
     caution:
       subheading: Am găsit niște erori la linkuri ce pot indica probleme, trebuie să le urmați cu atenție
     title: Linkuri rupte
-  change_notes:
-    published_at: Publicat prima oară
-    see_all_updates: vedeți toate actualizările
-    updated_at: Ultima actualizare
   consultation:
     closed: Închis
     closing_today: Se închide astăzi
@@ -116,16 +112,7 @@ ro:
       long_ordinal: "%e %B %Y"
   document:
     contents: Conținut
-    footer_meta:
-      full_page_history: istoricul complet al paginii
-      published: Publicat
-      updated: Actualizat
-    headings:
-      applies_to_nations: Se aplică pentru
-      from: De la
-      part_of: Parte din
     latest: Cele mai recente documente
-    latest_from: Cele mai recente de la %{subject}
     published: publicat
     see_all: Vedeți pe toate
     speech:
@@ -440,9 +427,6 @@ ro:
         other: Declarații scrise către Parlament
     updated: actualizat
   document_filters:
-    consultation:
-      all: Toate consultațiile
-      label: Consultații
     description: Puteți folosi filtrele pentru a afișa doar rezultatele care se potrivesc cu interesele dvs.
     no_results:
       description: Încercați să extindeți căutarea și încercați din nou.
@@ -453,15 +437,10 @@ ro:
       all: Toate locațiile
       label: Locații pe glob
       no_locations_filter: Nicio locație de pe glob nu se potrivește acestui filtru.
-  email_alert:
-    subscription: Abonament la alertele pe e-mail
   fatality_notice:
     british_fatalities: Accidente fatale britanice
     none_added: Încă nu au fost adăugate notificări de accidente mortale în acest domeniu de activitate.
   feeds:
-    email: e-mail
-    feed: flux
-    get_updates_to_this_list: Descărcați actualizări pentru această listă
     latest_activity: Cea mai recentă activitate
   i18n:
     direction: ltr
@@ -470,12 +449,6 @@ ro:
   latest_feed:
     no_updates: Nu există încă actualizări
     title: Cele mai recente
-  national_statistics:
-    heading: Statistică națională
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Accesați informațiile noastre
@@ -483,14 +456,10 @@ ro:
       jobs_and_contacts: Locuri de muncă și contracte
       organisation_chart: Graficul nostru organizațional
       transparency: Date privind transparența
-    email:
-      alerts: alerte pe e-mail
-      summary: Alerte pe e-mail de la
     embassies:
       find_an_embassy_lowercase: Găsiți o ambasadă, comisie sau consulat britanic
       find_an_embassy_uppercase: Găsiți o ambasadă, comisie sau consulat britanic
     headings:
-      contact: Contactați %{name}
       corporate_information: Informații despre corporație
       corporate_reports: Rapoarte de companie
     support:
@@ -554,12 +523,9 @@ ro:
     transparency: Vedeți toate datele noastre privind transparența
     written_statement: Vedeți toate expunerile noastre orale către Parlament
   support:
-    array:
-      last_word_connector: " și "
     download: Descărcați
     field_of_operation: 'Domeniul de activitate:'
     fields_of_operation: Domenii de activitate
-    filter: Filtru
     pagination:
       next_html: Următoarea <span class="visuallyhidden">pagina</span> <span class="page-numbers">%{current_page} din %{total_pages}</span>
       next_page: Următoarea pagină

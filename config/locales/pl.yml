@@ -68,10 +68,6 @@ pl:
     caution:
       subheading: Wykryliśmy kilka problemów z linkami. Zachowaj ostrożność podczas łączenia się z nimi.
     title: Uszkodzone linki
-  change_notes:
-    published_at: Pierwsza publikacja
-    see_all_updates: zobacz wszystkie aktualizacje
-    updated_at: Ostatnia aktualizacja
   consultation:
     closed: Zamknięte
     closing_today: Zamknięcie dziś
@@ -114,16 +110,7 @@ pl:
       long_ordinal: "%e %B %Y"
   document:
     contents: Zawartość
-    footer_meta:
-      full_page_history: historia na całej stronie
-      published: Opublikowano
-      updated: Zaktualizowano
-    headings:
-      applies_to_nations: Dotyczy
-      from: Od
-      part_of: Część
     latest: Ostatnie dokumenty
-    latest_from: Ostatnie od %{subject}
     published: opublikowano
     see_all: Zobacz wszystko
     speech:
@@ -513,9 +500,6 @@ pl:
         other: Pisemne oświadczenia przed parlamentem
     updated: Zaktualizowany
   document_filters:
-    consultation:
-      all: Wszystkie konsultacje
-      label: Konsultacje
     description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi są Państwo&nbsp;zainteresowani
     no_results:
       description: Spróbuj poszerzyc kryteria wyszukiwania i spróbuj ponownie.
@@ -526,15 +510,10 @@ pl:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
       no_locations_filter: Żadne lokalizacje na świecie nie pasują do tego filtra.
-  email_alert:
-    subscription: Subskrybcja powiadomień e-mail
   fatality_notice:
     british_fatalities: Ofiary śmiertelne w Wielkiej Brytanii
     none_added: Dla tego obszaru nie podano jeszcze żadnych informacji o ofiarach śmiertelnych.
   feeds:
-    email: e-mail
-    feed: kanał
-    get_updates_to_this_list: Otrzymuj aktualizacje do tej listy
     latest_activity: Najnowsza czynność
   i18n:
     direction: ltr
@@ -543,12 +522,6 @@ pl:
   latest_feed:
     no_updates: Aktualizacje nie są jeszcze dostępne.
     title: Najnowsze
-  national_statistics:
-    heading: Statystyki krajowe
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Uzyskaj dostęp do naszych informacji
@@ -556,14 +529,10 @@ pl:
       jobs_and_contacts: Stanowiska pracy i kontrakty
       organisation_chart: Nasza struktura organizacyjna
       transparency: Dane o transparentności
-    email:
-      alerts: alerty e-mail
-      summary: Alerty e-mail od
     embassies:
       find_an_embassy_lowercase: Znajdź brytyjską ambasadę, wysokiego komisarza lub konsulat
       find_an_embassy_uppercase: Znajdź brytyjską ambasadę, wysokiego komisarza lub konsulat
     headings:
-      contact: Skontaktuj się z %{name}
       corporate_information: Informacje korporacyjne
       corporate_reports: Sprawozdania korporacyjne
     support:
@@ -627,12 +596,9 @@ pl:
     transparency: Zobacz wszystkie nasze dane o transparentności
     written_statement: Zobacz wszystkie nasze pisemne oświadczenia przed parlamentem
   support:
-    array:
-      last_word_connector: " i "
     download: Pobierz
     field_of_operation: 'Zakres działania:'
     fields_of_operation: Zakres działania
-    filter: Filtr
     pagination:
       next_html: Następna <span class="visuallyhidden">strona</span> <span class="page-numbers">%{current_page} z %{total_pages}</span>
       next_page: Następna strona

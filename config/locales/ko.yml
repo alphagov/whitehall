@@ -70,10 +70,6 @@ ko:
     caution:
       subheading: 링크에서 문제를 나타낼 수 있는 몇 가지 문제가 발견되었으므로, 링크할 때 주의해야 합니다
     title: 손상된 링크
-  change_notes:
-    published_at: 첫 발행
-    see_all_updates: 모든 업데이트 보기
-    updated_at: 최근 업데이트
   consultation:
     closed: 종결됨
     closing_today: 오늘 종결됨
@@ -116,16 +112,7 @@ ko:
       long_ordinal: "%e %B %Y"
   document:
     contents: 콘텐츠
-    footer_meta:
-      full_page_history: 전체 페이지 내역
-      published: 발행
-      updated: 업데이트
-    headings:
-      applies_to_nations: 적용
-      from: 출처
-      part_of: 파트
     latest: 최근 문서
-    latest_from: "%{subject}의 최근 문서"
     published: 발행
     see_all: 모두 보기
     speech:
@@ -138,9 +125,6 @@ ko:
         speaker: 스피커
       written_on: '작성일시:'
     type:
-      foi_release:
-        one: 였다 공개
-        other: 였다 공개
       about:
         one: 소개
         other: 소개
@@ -216,6 +200,9 @@ ko:
       fatality_notice:
         one: 사망통지서
         other: 사망통지서
+      foi_release:
+        one: 였다 공개
+        other: 였다 공개
       form:
         one: 양식
         other: 양식
@@ -365,9 +352,6 @@ ko:
         other: 국회로 서면 성명
     updated: 업데이트
   document_filters:
-    consultation:
-      all: 모든 상담
-      label: 상담
     description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
       description: 다시 써치해주시기 바랍니다.
@@ -378,15 +362,10 @@ ko:
       all: 모든 로케이션
       label: 월드 로케이션
       no_locations_filter: 해당 필터와 일치하는 세계 필터란 없습니다.
-  email_alert:
-    subscription: 이메일 알람 구독
   fatality_notice:
     british_fatalities: 영국 사망자
     none_added: 이 운영 분야의 사망 통지는 아직 추가되지 않았습니다.
   feeds:
-    email: 이메일
-    feed: 피드
-    get_updates_to_this_list: 이 목록 업데이트하기
     latest_activity: 최근 활동
   i18n:
     direction: ltr
@@ -395,12 +374,6 @@ ko:
   latest_feed:
     no_updates: 관련 내용이 아직 없습니다.
     title: 최신
-  national_statistics:
-    heading: 국내 통계
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: 정보 접근
@@ -408,14 +381,10 @@ ko:
       jobs_and_contacts: 채용 및 연락처
       organisation_chart: 조직 차트
       transparency: 투명성 데이터
-    email:
-      alerts: 이메일 알람
-      summary: 이메일 알람 발송자
     embassies:
       find_an_embassy_lowercase: 영국 대사관, 고등판무관 또는 영사관 찾기
       find_an_embassy_uppercase: 영국 대사관, 고등판무관 또는 영사관 찾기
     headings:
-      contact: "%{name} 에게 연락하세요"
       corporate_information: 기업 정보
       corporate_reports: 기업 보고서
     support:
@@ -435,7 +404,6 @@ ko:
   roles:
     unassigned: 이 역할에 아무도 할당되지 않았습니다
   see_all:
-    foi_release: 였다 보도자료 모두 둘러보기
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기
     case_study: 케이스 스터디 모두 둘러보기
@@ -449,6 +417,7 @@ ko:
     document_collection: 컬렉션 모두 보기
     draft_text: 드래프트 택스트 모두 둘러보기
     fatality_notice: 사상자 공지 모두 둘러보기
+    foi_release: 였다 보도자료 모두 둘러보기
     form: 문서 모두 둘러보기
     government_response: 정부 대책 모두 둘러보기
     guidance: 안내 모두 둘러보기
@@ -479,12 +448,9 @@ ko:
     transparency: 투명성 데이타 모두 둘러보기
     written_statement: 의회로 서면 성명 모두 둘러보기
   support:
-    array:
-      last_word_connector: " 그리고 "
     download: 다운로드
     field_of_operation: '운영 영역:'
     fields_of_operation: 운영 영역
-    filter: 필터링하기
     pagination:
       next_html: 다음 span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
       next_page: 다음 페이지

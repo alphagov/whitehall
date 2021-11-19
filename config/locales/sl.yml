@@ -71,10 +71,6 @@ sl:
     caution:
       subheading: Našli smo nekaj težav s povezavami, ki lahko kažejo na težave. Pri povezovanju z njimi bodite previdni
     title: Prekinjene povezave
-  change_notes:
-    published_at: Prvič objavljeno
-    see_all_updates: oglejte si vse posodobitve
-    updated_at: Zadnjič posodobljeno
   consultation:
     closed: Zaprto
     closing_today: Zapira se danes
@@ -117,16 +113,7 @@ sl:
       long_ordinal: "%e %B %Y"
   document:
     contents: Vsebina
-    footer_meta:
-      full_page_history: celotna zgodovina strani
-      published: Objavljeno
-      updated: Posodobljeno
-    headings:
-      applies_to_nations: Velja za
-      from: Od
-      part_of: Del
     latest: Najnovejši dokumenti
-    latest_from: Najnovejše od %{subject}
     published: objavljeni
     see_all: Poglej vse
     speech:
@@ -516,9 +503,6 @@ sl:
         two:
     updated: posodobljeno
   document_filters:
-    consultation:
-      all: Vsa posvetovanja
-      label: Posvetovanja
     description: S filtri lahko prikažete samo rezultate, ki ustrezajo vašim interesom
     no_results:
       description: Poskusite razširiti iskanje in poskusite znova.
@@ -529,15 +513,10 @@ sl:
       all: Vse lokacije
       label: Lokacije po svetu
       no_locations_filter: Nobena lokacija na svetu se ne ujema s tem filtrom.
-  email_alert:
-    subscription: Naročnina na opozorila po e-pošti
   fatality_notice:
     british_fatalities: Britanske smrtne žrtve
     none_added: Za to področje delovanja še ni bilo dodanih obvestil o smrtnih žrtvah.
   feeds:
-    email: e-pošta
-    feed: novice
-    get_updates_to_this_list: Prejemajte posodobitve za ta seznam
     latest_activity: Zadnja dejavnost
   i18n:
     direction: ltr
@@ -546,12 +525,6 @@ sl:
   latest_feed:
     no_updates: Posodobitve še niso na voljo.
     title: Najnovejše
-  national_statistics:
-    heading: Državna statistika
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Dostopajte do naših informacij
@@ -559,14 +532,10 @@ sl:
       jobs_and_contacts: Delovna mesta in pogodbe
       organisation_chart: Naša organizacijska shema
       transparency: Podatki o preglednosti
-    email:
-      alerts: obvestila po e-pošti
-      summary: Obvestila po e-pošti
     embassies:
       find_an_embassy_lowercase: Poiščite britansko veleposlaništvo, visoki komisariat ali konzulat
       find_an_embassy_uppercase: Poiščite britansko veleposlaništvo, visoki komisariat ali konzulat
     headings:
-      contact: Kontakt %{name}
       corporate_information: Informacije o podjetju
       corporate_reports: Poročila podjetja
     support:
@@ -630,12 +599,9 @@ sl:
     transparency: Oglejte si vse naše podatke o preglednosti
     written_statement: Oglejte si vse naše pisne izjave za parlament
   support:
-    array:
-      last_word_connector: " in "
     download: Prenos
     field_of_operation: 'Področje delovanja:'
     fields_of_operation: 'Področja delovanja:'
-    filter: Filter
     pagination:
       next_html: Naslednja <span class="visuallyhidden">stran</span> <span class="page-numbers">%{current_page} od %{total_pages}</span>
       next_page: Naslednja stran

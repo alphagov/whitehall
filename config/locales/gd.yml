@@ -70,10 +70,6 @@ gd:
     caution:
       subheading: Táimid tar éis teacht ar naisc a d'fhéadfadh lochtanna a léiriú agus molaimid duit a bheith cúramach agus tú ag nascadh leis na suíomhanna seo.
     title: Naisc bhriste
-  change_notes:
-    published_at: An chéad fhoilseachán
-    see_all_updates: féach gach nuashonrú
-    updated_at: Nuashonrú deireanach
   consultation:
     closed: Gnólacht
     closing_today: Dúnta inniu
@@ -116,16 +112,7 @@ gd:
       long_ordinal: "%e %B %Y"
   document:
     contents: Clár ábhair
-    footer_meta:
-      full_page_history: Stair iomlán an leathanaigh
-      published: Foilsithe
-      updated: Arna chur suas
-    headings:
-      applies_to_nations: Déan iarratas ar
-      from: De
-      part_of: Chuid
     latest: Doiciméid is déanaí
-    latest_from: Le déanaí ó %{subject}
     published: Fhoilsiú
     see_all: Amharc ar gach
     speech:
@@ -515,9 +502,6 @@ gd:
         two:
     updated: arna chur suas
   document_filters:
-    consultation:
-      all: Gach trácht
-      label: Téigh i gcomhairle
     description: Tá a fhios agat conas scagairí a úsáid chun torthaí amháin a bhaineann le do réimse spéise a thaispeáint
     no_results:
       description: Déan iarracht do chuardach a chur in iúl ar bhonn níos leithne agus bain triail eile as.
@@ -528,15 +512,10 @@ gd:
       all: Gach láthair
       label: Áit ar domhan
       no_locations_filter: Níl aon áit ar domhan comhoiriúnach leis an scagaire seo.
-  email_alert:
-    subscription: Liostáil le meabhrúcháin ríomhphoist
   fatality_notice:
     british_fatalities: Dola báis na Breataine
     none_added: Níor cuireadh aon fhógra báis leis an réimse gníomhaíochta seo.
   feeds:
-    email: r-phost
-    feed: Flux
-    get_updates_to_this_list: Faigh athruithe ar an liosta seo
     latest_activity: Gníomhaíocht dheireanach
   i18n:
     direction: ltr
@@ -545,12 +524,6 @@ gd:
   latest_feed:
     no_updates: Gan nuashonrú fós.
     title: le déanaí
-  national_statistics:
-    heading: Staitisticí náisiúnta
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Rochtain ar ár gcuid faisnéise
@@ -558,14 +531,10 @@ gd:
       jobs_and_contacts: Poist agus conarthaí
       organisation_chart: Ár gcairt eagraíochta
       transparency: Sonraí trédhearcachta
-    email:
-      alerts: Meabhrúchán ríomhphoist
-      summary: Foláireamh ríomhphoist ó
     embassies:
       find_an_embassy_lowercase: Faigh ambasáid, ardchoimisiún nó consalacht na Breataine
       find_an_embassy_uppercase: Faigh ambasáid, ardchoimisiún nó consalacht na Breataine
     headings:
-      contact: Ainm %{name}
       corporate_information: Faisnéis cuideachta
       corporate_reports: Tuarascálacha cuideachta
     support:
@@ -629,12 +598,9 @@ gd:
     transparency: Féach ar ár gcuid sonraí trédhearcachta go léir
     written_statement: Féach ar ár ráitis scríofa uile a cuireadh faoi bhráid na comhairle
   support:
-    array:
-      last_word_connector: " agus"
     download: Téigh íoslódáil
     field_of_operation: 'Réimsí idirghabhála:'
     fields_of_operation: Limistéar idirghabhála
-    filter: Scagaire
     pagination:
       next_html: Ar Aghaidh <span class="visuallyhidden">leathanach</span> <span class="page-numbers">%{current_page} de %{total_pages}</span>
       next_page: An chéad leathanach eile

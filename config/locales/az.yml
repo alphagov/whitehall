@@ -71,10 +71,6 @@ az:
     caution:
       subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq, onlara qoşulan zaman ehtiyatlı olmalısınız
     title: Pozulmuş keçidlər
-  change_notes:
-    published_at: İlkin dərc edilmiş
-    see_all_updates: bütün yeniləmələrə baxın
-    updated_at: Son yenilənmə
   consultation:
     closed: Bağlıdır
     closing_today: Bu gün bağlanır
@@ -117,16 +113,7 @@ az:
       long_ordinal: "%e %B %Y"
   document:
     contents: Məzmunlar
-    footer_meta:
-      full_page_history: bütün səhifədə tarix
-      published: Dərc edilib
-      updated: Yenilənib
-    headings:
-      applies_to_nations: Aiddir
-      from: "...dan (dən)"
-      part_of: Hissə
     latest: Ən son ortaya çıxan sənədlər
-    latest_from: "%{subject} üzrə ən son məlumat"
     published: dərc edilib
     see_all: Hamısına baxın
     speech:
@@ -366,9 +353,6 @@ az:
         other: Parlamentə yazılı müraciətlər
     updated: yenilənib
   document_filters:
-    consultation:
-      all: Bütün məsləhətləşmələr
-      label: Məsləhətləşmələr
     description: Yalnız maraqlarınıza uyğun gələn nəticələrin göstərilməsi üçün süzgəclərdən istifadə edə bilərsiniz
     no_results:
       description: Axtarış sahənizi genişləndirməyə çalışın və yenidən cəhd edin.
@@ -379,15 +363,10 @@ az:
       all: Bütün yerlər
       label: Dünya üzrə yerləri
       no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
-  email_alert:
-    subscription: E-poçtla bildiriş üçün abunəlik
   fatality_notice:
     british_fatalities: Britaniya ölüm hadisələri
     none_added: Bu iş sahəsi üzrə hələ heç bir ölüm hadisəsi bildirişləri əlavə edilməyib.
   feeds:
-    email: e-poçt
-    feed: veb-kanal
-    get_updates_to_this_list: Bu siyahıya yenilmələr əldə edin
     latest_activity: Ən son fəaliyyət
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ az:
   latest_feed:
     no_updates: Hələ yenilənmələr yoxdur.
     title: Ən son
-  national_statistics:
-    heading: Milli statistika
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Məlumatlarımıza daxil olun
@@ -409,14 +382,10 @@ az:
       jobs_and_contacts: İşlər və müqavilələr
       organisation_chart: Təşkilat sxemimiz
       transparency: Məlumatla bağlı şəffaflıq
-    email:
-      alerts: e-poçt təhlükə siqnalları
-      summary: Alınan e-poçt təhlükə siqnalları
     embassies:
       find_an_embassy_lowercase: Britaniya səfirliyi, diplomatik nümayəndəliyi və ya konsulluğu tapın
       find_an_embassy_uppercase: Britaniya səfirliyi, Diplomatik nümayəndəliyi və ya Konsulluğu tapın
     headings:
-      contact: "%{name} ilə əlaqə saxlayın"
       corporate_information: Korporativ məlumat
       corporate_reports: Şirkətin fəaliyyəti üzrə hesabatlar
     support:
@@ -480,12 +449,9 @@ az:
     transparency: Bütün şəffaf malumatlarımıza baxın
     written_statement: Parlamentə edilmiş bütün yazılı müraciətlərimizə baxın
   support:
-    array:
-      last_word_connector: " və "
     download: Endirin
     field_of_operation: 'Əməliyyat sahəsi:'
     fields_of_operation: Əməliyyat sahələri
-    filter: Süzgəc
     pagination:
       next_html: '%{total_pages}</span>-ın sonrakı <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
       next_page: Sonrakı səhifə

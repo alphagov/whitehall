@@ -71,10 +71,6 @@ cs:
     caution:
       subheading: Zjistili jsme několik problémů s odkazy, které mohou naznačovat problémy, a proto byste měli být při odkazování na ně opatrní
     title: Poškozené odkazy
-  change_notes:
-    published_at: Poprvé zveřejněno
-    see_all_updates: vidět všechny aktualizace
-    updated_at: 'Poslední aktualizace:'
   consultation:
     closed: Uzavřeno
     closing_today: Dnešní uzávěrka
@@ -117,16 +113,7 @@ cs:
       long_ordinal: "%e %B %Y"
   document:
     contents: Obsah
-    footer_meta:
-      full_page_history: celostránková historie
-      published: Zveřejněno
-      updated: Aktualizováno
-    headings:
-      applies_to_nations: Vztahuje se na
-      from: 'Komu I:'
-      part_of: Část
     latest: Nejnovější dokumenty
-    latest_from: Nejnovější od %{subject}
     published: zveřejněno
     see_all: Zobrazit všechny
     speech:
@@ -441,9 +428,6 @@ cs:
         other: Písemná prohlášení pro Parlament
     updated: aktualizováno
   document_filters:
-    consultation:
-      all: Všechny konzultace
-      label: Konzultace
     description: Pomocí filtrů můžete zobrazit pouze výsledky, které odpovídají vašim zájmům
     no_results:
       description: Zkuste vyhledávání rozšířit a zkuste to znovu.
@@ -454,15 +438,10 @@ cs:
       all: Všechna místa
       label: Místa ve světě
       no_locations_filter: Žádná světová místa neodpovídají tomuto filtru.
-  email_alert:
-    subscription: Odběr e-mailových upozornění
   fatality_notice:
     british_fatalities: Britské úmrtí
     none_added: Pro tuto oblast činnosti zatím nebyla přidána žádná oznámení o úmrtí.
   feeds:
-    email: e-mail
-    feed: odběr
-    get_updates_to_this_list: Získávání aktualizací tohoto seznamu
     latest_activity: Poslední aktivita
   i18n:
     direction: ltr
@@ -471,12 +450,6 @@ cs:
   latest_feed:
     no_updates: Zatím nejsou k dispozici žádné aktualizace.
     title: Nejnovější
-  national_statistics:
-    heading: Národní statistiky
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Přístup k našim informacím
@@ -484,14 +457,10 @@ cs:
       jobs_and_contacts: Pracovní místa a smlouvy
       organisation_chart: Naše organizační schéma
       transparency: Údaje o transparentnosti
-    email:
-      alerts: e-mailová upozornění
-      summary: E-mailová upozornění z
     embassies:
       find_an_embassy_lowercase: Vyhledání britského velvyslanectví, vysoké komise nebo konzulátu
       find_an_embassy_uppercase: Vyhledání britského velvyslanectví, vysoké komise nebo konzulátu
     headings:
-      contact: Kontakt %{name}
       corporate_information: Firemní informace
       corporate_reports: Podnikové zprávy
     support:
@@ -555,12 +524,9 @@ cs:
     transparency: Podívejte se na všechny naše údaje o transparentnosti
     written_statement: Podívejte se na všechna naše písemná prohlášení pro Parlament
   support:
-    array:
-      last_word_connector: " a "
     download: Stáhnout
     field_of_operation: 'Oblast provozu:'
     fields_of_operation: Oblast provozu
-    filter: Filtr
     pagination:
       next_html: Další <span class="visuallyhidden">stránka</span> <span class="page-numbers">%{current_page} z %{total_pages}</span>
       next_page: Další stránka

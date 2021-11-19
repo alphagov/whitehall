@@ -71,10 +71,6 @@ ka:
     caution:
       subheading: ჩვენ აღმოვაჩინეთ ხარვეზები ბმულებში, რაც შესაძლო პრობლემებზე მიანიშნებს, თქვენ ყურადღება უნდა გამოიჩინოთ მათი გამოყენებისას
     title: ხარვეზიანი ბმულები
-  change_notes:
-    published_at: პირველად გამოქვეყნებული
-    see_all_updates: ყველა ცვლილების ნახვა
-    updated_at: ბოლო ცვლილება
   consultation:
     closed: დახურულია
     closing_today: იხურება დღეს
@@ -117,16 +113,7 @@ ka:
       long_ordinal: "%e %B %Y"
   document:
     contents: შემადგენლობა
-    footer_meta:
-      full_page_history: გვერდის სრული ისტორია
-      published: გამოქვეყნებულია
-      updated: განახლებულია
-    headings:
-      applies_to_nations: მიესადაგება
-      from: დან
-      part_of: ბოლო დოკუმენტები
     latest:
-    latest_from: ბოლო %{subject}-დან
     published: გამოქვეყნებულია
     see_all: ყველას ნახვა
     speech:
@@ -366,9 +353,6 @@ ka:
         other: წერილობითი განცხადებები პარლამენტში
     updated: განახლებულია
   document_filters:
-    consultation:
-      all: ყველა კონსულტაცია
-      label: კონსულტაციები
     description: თქვენ შეგიძლიათ გამოიყენოთ ფილტრები, რათა ნახოთ ის შედეგები, რომელბიც შეესაბამება თქვენს ინტერესებს
     no_results:
       description: შეეცადეთ ტქვენი ძიება გააფართოვოთ და ცადეთ ხელახლა.
@@ -379,15 +363,10 @@ ka:
       all: ყველა ლოკაცია
       label: მსოფლიო ლოკაციები
       no_locations_filter: არც ერთი მსოფლიო ლოკაცია არ ემთხვევა ამ ფილტრს.
-  email_alert:
-    subscription: გაფრთხილების ელ. წერილის გამოწერა
   fatality_notice:
     british_fatalities: ბრიტანული ფატალურობები
     none_added: ფატალურობის შეტყობინება ჯერ არ დამატებულა ოპერაციის ამ სფეროში.
   feeds:
-    email: ელ. ფოსტა
-    feed: ფიდი
-    get_updates_to_this_list: მიიღეთ სიახლეები ამ სიისთვის
     latest_activity: ბოლო აქტივობა
   i18n:
     direction: ltr
@@ -396,12 +375,6 @@ ka:
   latest_feed:
     no_updates: სიახლეები ჯერ არ ყოფილა.
     title: ბოლო
-  national_statistics:
-    heading: ეროვნული სტატისტიკა
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: მიიღეთ წვდომა ჩვენს ინფორმაციაზე
@@ -409,14 +382,10 @@ ka:
       jobs_and_contacts: ვაკანსიები და კონტრაქტები
       organisation_chart: ჩვენი ორგანიზაციის ქარტია
       transparency: გამჭირვალობის მონაცემები
-    email:
-      alerts: ელ.ფოსტით გაფრთხილებები
-      summary: ელ.ფოსტით გაფრთხილებები
     embassies:
       find_an_embassy_lowercase: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
       find_an_embassy_uppercase: იპოვეთ ბრიტანეთის საელჩო, უმაღლესი კომისია ან საკონსულო
     headings:
-      contact: დაუკავშირდით %{name}
       corporate_information: კორპორატიული ინფორმაცია
       corporate_reports: კორპორატიული ანგარიშები
     support:
@@ -480,12 +449,9 @@ ka:
     transparency: იხილეთ ჩვენი ყველა გამჭვირვალობის მონაცემი
     written_statement: იხილეთ ყველა ჩვენი წერილობითი განცხადება პარლამენტისთვის
   support:
-    array:
-      last_word_connector: " და "
     download: ჩამოტვირთეთ
     field_of_operation: 'ოპერაციის სფერო:'
     fields_of_operation: ოპერაციის სფეროები
-    filter: ფილტრი
     pagination:
       next_html: შემდეგ <span class="visuallyhidden">გვერდი</span> <span class="page-numbers">%{current_page} -ის %{total_pages}</span>
       next_page: შემდეგი გვერდი

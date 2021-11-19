@@ -70,10 +70,6 @@ ur:
     caution:
       subheading: ہمیں لنکس کے ساتھ کچھ درپیش مسائل کے بارے میں معلوم ہوا ہے جو کہ مسائل کی نشاندہی کر سکتے ہیں، آپ کو انہیں مربوط کرنے وقت احتیاط برتنی چاہیئے
     title: ٹوٹے ہوئے لنکس
-  change_notes:
-    published_at: پہلی بار اشاعت کردہ
-    see_all_updates: تمام اپ ڈیٹس دیکھیں
-    updated_at: آخری بار اپ ڈیٹ کردہ
   consultation:
     closed: بند
     closing_today: آج بند ہونا ہے۔
@@ -116,16 +112,7 @@ ur:
       long_ordinal: "%e %B %Y"
   document:
     contents: مشمولات
-    footer_meta:
-      full_page_history: پورے صفحے کی ہسٹری
-      published: شائع کردہ
-      updated: اپ ڈیٹ کردہ
-    headings:
-      applies_to_nations: درج ذیل پر اطلاق ہوتا ہے
-      from: از
-      part_of: حصہ از
     latest: تازہ ترین دستاویزات
-    latest_from: "%{subject} سے تازہ ترین"
     published: شائع کردہ
     see_all: تمام کو دیکھیں
     speech:
@@ -365,9 +352,6 @@ ur:
         other: پالیمان کے لیے تحریری بیانات
     updated: اپ ڈیٹ کردہ
   document_filters:
-    consultation:
-      all: تمام مشاورتیں
-      label: مشاورتیں
     description: آپ صرف وہ نتائج دیکھنے کے لیے فلٹرز کا استعمال کر سکتے ہیں جو آپ کی دلچسپیوں سے مماثلت رکھتے ہیں
     no_results:
       description: اپنی تلاش کو وسیع تر بنانے کی کوشش کریں اور دوبارہ کوشش کریں۔
@@ -378,15 +362,10 @@ ur:
       all: تمام مقامات
       label: عالمی مقامات
       no_locations_filter: دنیا کا کوئی مقام اس فلٹر سے میچ نہیں کرتا۔
-  email_alert:
-    subscription: ای میل کی انتباہ کی سبسکرپشن
   fatality_notice:
     british_fatalities: برطانیہ کی حادثاتی اموات
     none_added: اس کارروائی کی فیلڈ کے لیے ابھی تک کوئی موت کے نوٹسز شامل نہیں کیے گئے۔
   feeds:
-    email: ای میل کریں
-    feed: فیڈ
-    get_updates_to_this_list: فہرست پر اپ ڈیٹس شامل کریں
     latest_activity: تازہ ترین سرگرمی
   i18n:
     direction: rtl
@@ -395,12 +374,6 @@ ur:
   latest_feed:
     no_updates: ابھی تک کوئی اپ ڈیٹس نہیں ہیں۔
     title: تازہ ترین
-  national_statistics:
-    heading: قومی شماریات
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: ہماری معلومات تک رسائی کریں
@@ -408,14 +381,10 @@ ur:
       jobs_and_contacts: نوکریاں اور معاہدے
       organisation_chart: ہماری تنظیم کا چارٹ
       transparency: شفافیت کا ڈیٹا
-    email:
-      alerts: ای میل انتباہات
-      summary: ای میل انتباہات منجانب
     embassies:
       find_an_embassy_lowercase: برطانوی ایمبیسی، ہائی کمیشن یا سفارتخانہ تلاش کریں
       find_an_embassy_uppercase: برطانوی ایمبیسی، ہائی کمیشن یا سفارتخانہ تلاش کریں
     headings:
-      contact: "%{name} سے رابطہ کریں"
       corporate_information: کارپوریٹ معلومات
       corporate_reports: کارپوریٹ رپورٹس
     support:
@@ -479,12 +448,9 @@ ur:
     transparency: ہمارا تمام شفافیت دیکھیں
     written_statement: ہمارے تمام پارلیمان میں دیے گئے زبانی بیانات دیکھیں
   support:
-    array:
-      last_word_connector: " اور "
     download: ڈاؤن لوڈ کریں
     field_of_operation: 'کارروائی کی فیلڈ:'
     fields_of_operation: کارروائی کی فیلڈ
-    filter: فلٹر
     pagination:
       next_html: اگلے <span class="visuallyhidden">صفحہ</span> <span class="page-numbers">%{current_page} کی %{total_pages}</span>
       next_page: اگلا صفحہ

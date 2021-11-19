@@ -71,10 +71,6 @@ en:
     caution:
       subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
     title: Broken links
-  change_notes:
-    published_at: First published
-    see_all_updates: see all updates
-    updated_at: Last updated
   consultation:
     closed: Closed
     closing_today: Closing today
@@ -117,16 +113,7 @@ en:
       long_ordinal: "%e %B %Y"
   document:
     contents: Contents
-    footer_meta:
-      full_page_history: full page history
-      published: Published
-      updated: Updated
-    headings:
-      applies_to_nations: Applies to
-      from: From
-      part_of: Part of
     latest: Latest documents
-    latest_from: Latest from %{subject}
     published: published
     see_all: See all
     speech:
@@ -369,9 +356,6 @@ en:
         other: Written statements to Parliament
     updated: updated
   document_filters:
-    consultation:
-      all: All consultations
-      label: Consultations
     description: You can use the filters to show only results that match your interests
     no_results:
       description: Try making your search broader and try again.
@@ -386,9 +370,6 @@ en:
     british_fatalities: British fatalities
     none_added: There have been no fatality notices added for this field of operation yet.
   feeds:
-    email: Get emails
-    feed: Subscribe to feed
-    get_updates_to_this_list: Get updates to this list
     latest_activity: Latest activity
   i18n:
     direction: ltr
@@ -476,12 +457,6 @@ en:
         title: News and publications from the MHRA
     summary: Email alerts from the %{acronym} (%{name}).
     title: "%{acronym} email alerts"
-  national_statistics:
-    heading: National Statistics
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: Access our information
@@ -489,14 +464,10 @@ en:
       jobs_and_contacts: Jobs and contracts
       organisation_chart: Our organisation chart
       transparency: Transparency data
-    email:
-      alerts: email alerts
-      summary: Email alerts from the
     embassies:
       find_an_embassy_lowercase: Find a British embassy, high commission or consulate
       find_an_embassy_uppercase: Find a British embassy, High Commission or Consulate
     headings:
-      contact: Contact %{name}
       corporate_information: Corporate information
       corporate_reports: Corporate reports
     support:
@@ -560,12 +531,9 @@ en:
     transparency: See all our transparency data
     written_statement: See all our written statements to Parliament
   support:
-    array:
-      last_word_connector: " and "
     download: Download
     field_of_operation: 'Field of operation:'
     fields_of_operation: Fields of operation
-    filter: Filter
     pagination:
       next_html: Next <span class="visuallyhidden">page</span> <span class="page-numbers">%{current_page} of %{total_pages}</span>
       next_page: Next page
