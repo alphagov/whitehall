@@ -33,7 +33,8 @@ class User < ApplicationRecord
     elsif managing_editor? then "Managing Editor"
     elsif world_editor? then "World Editor"
     elsif world_writer? then "World Writer"
-    else "Writer"
+    else
+      "Writer"
     end
   end
 
