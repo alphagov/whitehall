@@ -116,12 +116,6 @@
     }
   }
 
-  .keyline-header {
-    @include govuk-font($size: 36, $weight: bold);
-    border-bottom: $gutter-one-sixth solid $inside-gov-nav;
-    margin-bottom: $gutter-two-thirds;
-  }
-
   .news-block {
     .inner-block {
       padding: 0;

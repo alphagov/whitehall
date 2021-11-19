@@ -1,5 +1,4 @@
 .worldwide-organisations-show {
-  .keyline-header,
   .description h1 {
     @include govuk-font($size: 36, $weight: bold);
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
@@ -103,31 +102,6 @@
         @include media(tablet) {
           width: $one-third;
         }
-      }
-    }
-  }
-
-  .contact-us,
-  .corporate-information {
-    .keyline-header {
-      @include govuk-font($size: 27, $weight: bold);
-      border-top: $gutter-one-sixth solid $black;
-      border-bottom: 1px solid $border-colour;
-      margin: 0 $gutter-half;
-      padding: $gutter-two-thirds 0 $gutter-one-third 0;
-      @include media(tablet) {
-        margin: 0 $gutter-half;
-        padding: $gutter-two-thirds 0;
-      }
-    }
-  }
-
-  .corporate-information {
-    .keyline-header {
-      border-bottom: 0;
-      margin: 0;
-      @include media(tablet) {
-        margin: 0;
       }
     }
   }
