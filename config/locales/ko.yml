@@ -139,6 +139,9 @@ ko:
         speaker: 스피커
       written_on: '작성일시:'
     type:
+      foi_release:
+        one: 였다 공개
+        other: 였다 공개
       about:
         one: 소개
         other: 소개
@@ -214,9 +217,6 @@ ko:
       fatality_notice:
         one: 사망통지서
         other: 사망통지서
-      FOI_release:
-        one: 였다 공개
-        other: 였다 공개
       form:
         one: 양식
         other: 양식
@@ -438,6 +438,7 @@ ko:
   roles:
     unassigned: 이 역할에 아무도 할당되지 않았습니다
   see_all:
+    foi_release: 였다 보도자료 모두 둘러보기
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기
     case_study: 케이스 스터디 모두 둘러보기
@@ -451,7 +452,6 @@ ko:
     document_collection: 컬렉션 모두 보기
     draft_text: 드래프트 택스트 모두 둘러보기
     fatality_notice: 사상자 공지 모두 둘러보기
-    FOI_release: 였다 보도자료 모두 둘러보기
     form: 문서 모두 둘러보기
     government_response: 정부 대책 모두 둘러보기
     guidance: 안내 모두 둘러보기
