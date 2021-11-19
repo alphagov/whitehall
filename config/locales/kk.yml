@@ -239,6 +239,9 @@ kk:
       membership:
         one: Мүшелік
         other: Мүшелік
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Ұлттық статистика
         other: Ұлттық статистика
@@ -370,10 +373,89 @@ kk:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
     kk: Қазақ
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Әлі жаңартулар жоқ.
     title: Ең соңғы
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Біздің ақпаратқа қатынасу
@@ -461,20 +543,30 @@ kk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: "%{event} соңғы әрекет"
     lead_organisations:
       arts_council_england: Англия көркемөнер кеңесі
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Британдық кітапхана
       commonwealth_war_graves_commission: Соғыс қабірлері жөніндегі қауымдастық комиссиясы
       heritage_lottery_fund: Мұра лотерея қоры
       historic_england: Тарихқа толы Англия
       iwm: Империялық соғыс мұражайы
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Соғыс мемориалдарының сенімі
   world_location:
     headings:
       announcements: Біздің хабарландыруларымыз
       documents: Құжаттар
+      featured:
       mission: Біздің миссиямыз
       news: Әлемдегі орын бойынша жаңалықтар
       organisations: Ұйымдар

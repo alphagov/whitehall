@@ -239,6 +239,9 @@ el:
       membership:
         one: Ιδιότητα μέλους
         other: Ιδιότητα μέλους
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Εθνική Στατιστική Υπηρεσία
         other: Εθνική Στατιστική Υπηρεσία
@@ -370,10 +373,89 @@ el:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
     el: Ελληνικά
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Δεν υπάρχουν ακόμα ενημερώσεις.
     title: Πιο πρόσφατα
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Πρόσβαση στις πληροφορίες μας
@@ -461,20 +543,30 @@ el:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Τελευταία δραστηριότητα στο %{event}
     lead_organisations:
       arts_council_england: Οργανισμός Arts Council England
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Βρετανική Βιβλιοθήκη
       commonwealth_war_graves_commission: Επιτροπή Κοινοπολιτείας Πολεμικών Τάφων
       heritage_lottery_fund: Ταμείο Heritage Lottery Fund
       historic_england: Ιστορική Αγγλία
       iwm: Αυτοκρατορικό Πολεμικό Μουσείο
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Ταμείο War Trust Memorials Trust
   world_location:
     headings:
       announcements: Οι ανακοινώσεις μας
       documents: Έγγραφα
+      featured:
       mission: Η αποστολή μας
       news: Ειδήσεις παγκόσμιας τοποθεσίας
       organisations: Οργανισμοί

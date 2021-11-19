@@ -237,6 +237,9 @@ lv:
       membership:
         one: Dalība
         other: Dalība
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Statistika - valsts dati
         other: Statistika - valsts dati
@@ -368,10 +371,89 @@ lv:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
     lv: Latviešu
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Pagaidām jaunumu nav
     title: Jaunākais
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Piekļūt informācijai
@@ -459,20 +541,30 @@ lv:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Pēdējā aktivitāte saistībā ar %{event}
     lead_organisations:
       arts_council_england: Anglijas Mākslas padome
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Britu bibliotēka
       commonwealth_war_graves_commission: Sadraudzības valstu Karavīru apbedījumu komisija
       heritage_lottery_fund: Kultūras mantojuma loterijas fonds
       historic_england: Vēsturiskā Anglija
       iwm: Imperiālais Kara muzejs
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Kara memoriālu trasts
   world_location:
     headings:
       announcements: Paziņojumi
       documents: Dokumenti
+      featured:
       mission: Misija
       news: Pasaules ziņas
       organisations: Organizācijas

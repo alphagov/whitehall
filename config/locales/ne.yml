@@ -239,6 +239,9 @@ ne:
       membership:
         one: सदस्यता
         other: सदस्यता
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: राष्ट्रिय तथ्याङ्क
         other: राष्ट्रिय तथ्याङ्क
@@ -370,10 +373,89 @@ ne:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
     ne: नेपाली
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: अहिले सम्म कुनै अद्यावधिक छैन।
     title: पछिल्लो
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: हाम्रो जानकारीको पहुँच पाउनुहोस्
@@ -461,20 +543,30 @@ ne:
     formats:
       long_ordinal: "%e %B %Y %l: %M %P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: "%{event} मा पछिल्लो गतिविधि"
     lead_organisations:
       arts_council_england: कला परिषद इंग्ल्यान्ड
       bbc: बीबीसी
+      birmingham_2022_commonwealth_games:
       british_library: ब्रिटिश पुस्तकालय
       commonwealth_war_graves_commission: राष्ट्रमंडल युद्ध समाधि आयोग
       heritage_lottery_fund: सम्पदा लोटरी कोष
       historic_england: ऐतिहासिक इंग्ल्यान्ड
       iwm: शाही युद्ध संग्रहालय
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: युद्ध स्मारक ट्रस्ट
   world_location:
     headings:
       announcements: हाम्रा घोषणाहरु
       documents: कागजातहरु
+      featured:
       mission: हाम्रो मिशन
       news: विश्व स्थान समाचार
       organisations: सङ्गठनहरू

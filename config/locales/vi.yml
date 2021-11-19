@@ -239,6 +239,9 @@ vi:
       membership:
         one: Tư cách thành viên
         other: Tư cách thành viên
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Thống kê Quốc gia
         other: Thống kê Quốc gia
@@ -370,10 +373,89 @@ vi:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
     vi: Tiếng Việt
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Chưa có cập nhật.
     title: Mới nhất
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Truy cập thông tin của chúng tôi
@@ -461,20 +543,30 @@ vi:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Hoạt động mới nhất trên %{event}
     lead_organisations:
       arts_council_england: Hội đồng Nghệ thuật Anh
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Thư viện Anh
       commonwealth_war_graves_commission: Ủy ban Mộ Chiến tranh Khối thịnh vượng Chung
       heritage_lottery_fund: Quỹ Di sản Xổ số
       historic_england: Historic England
       iwm: Bảo tàng Chiến tranh Hoàng gia
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: Thông báo của chúng tôi
       documents: Tài liệu
+      featured:
       mission: Sứ mệnh của chúng tôi
       news: Tin tức về vị trí trên thế giới
       organisations: Tổ chức

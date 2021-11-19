@@ -239,6 +239,9 @@ et:
       membership:
         one: Liikmelisus
         other: Liikmelisus
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Riiklik statistika
         other: Riiklik statistika
@@ -370,10 +373,89 @@ et:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
     et: Eesti
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Uuendusi pole veel.
     title: Viimased
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Juurdepääs meie teabele
@@ -461,20 +543,30 @@ et:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Viimane tegevus %{event}
     lead_organisations:
       arts_council_england: Inglismaa kunstinõukogu
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Briti raamatukogu
       commonwealth_war_graves_commission: Rahvaste Ühenduse sõjahaudade komisjon
       heritage_lottery_fund: Pärandi loterii fond
       historic_england: Ajalooline Inglismaa
       iwm: Kuninglik sõjamuuseum
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Sõjamälestiste volikogu
   world_location:
     headings:
       announcements: Meie teadaanded
       documents: Dokumendid
+      featured:
       mission: Meie missioon
       news: Maailma asukoha uudised
       organisations: Organisatsioonid

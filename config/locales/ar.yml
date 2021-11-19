@@ -389,6 +389,9 @@ ar:
         other: العضوية
         two:
         zero:
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         few:
         many:
@@ -669,9 +672,88 @@ ar:
     direction: rtl
   language_names:
     ar: العربيَّة
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: لا توجد تحديثات بعد.
     title: الأحدث
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: الوصول إلى معلوماتنا
@@ -759,20 +841,30 @@ ar:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: أحدث نشاط في %{event}
     lead_organisations:
       arts_council_england: مجلس الفنون بإنجلترا
       bbc: هيئة الإذاعة البريطانية
+      birmingham_2022_commonwealth_games:
       british_library: المكتبة البريطانية
       commonwealth_war_graves_commission: لجنة الكومنولث لمدافن شهداء الحروب
       heritage_lottery_fund: صندوق تراث اليانصيب
       historic_england: إنجلترا التاريخية
       iwm: متحف الحرب الإمبراطوري
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: صندوق النصب التذكاري للحرب
   world_location:
     headings:
       announcements: إعلاناتنا
       documents: المستندات
+      featured:
       mission: مهمتنا
       news: أخبار المواقع العالمية
       organisations: المنظمات

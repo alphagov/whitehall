@@ -240,6 +240,9 @@ da:
       membership:
         one: Medlemskab
         other: Medlemskab
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Nationale statistikker
         other: Nationale statistikker
@@ -371,10 +374,89 @@ da:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
     da: Dansk
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Der er ingen opdateringer endnu.
     title: Senest
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Få adgang til vores oplysninger
@@ -462,20 +544,30 @@ da:
     formats:
       long_ordinal: "%e %B %Y%:%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Seneste aktivitet på %{event}
     lead_organisations:
       arts_council_england: Kunstrådet England
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Det britiske bibliotek
       commonwealth_war_graves_commission: Kommissionen for Commonwealth-krigsgrave
       heritage_lottery_fund: fonden for arvslotteriet
       historic_england: Historiske England
       iwm: det Kejserlige Krigsmuseum
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Krigsmindesmærker stoler på
   world_location:
     headings:
       announcements: Vores meddelelser
       documents: Dokumenter
+      featured:
       mission: Vores mission
       news: Verdens placering nyheder
       organisations: Organisationer

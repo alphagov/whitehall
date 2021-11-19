@@ -237,6 +237,9 @@ yi:
       membership:
         one:
         other:
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one:
         other:
@@ -368,7 +371,72 @@ yi:
   i18n:
     direction: rtl
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
     yi: יידיש
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates:
     title:

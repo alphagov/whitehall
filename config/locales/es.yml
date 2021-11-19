@@ -237,6 +237,9 @@ es:
       membership:
         one: Miembros
         other: Miembros
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Estadísticas - cifras nacionales
         other: Estadísticas - cifras nacionales
@@ -368,10 +371,89 @@ es:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
     es: Español
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: No hay actualizaciones
     title: Actualizaciones más recientes
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Acceda a nuestra información
@@ -459,20 +541,30 @@ es:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Última actividad en %{event}
     lead_organisations:
       arts_council_england: Consejo de Artes de Inglaterra
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Biblioteca Británica
       commonwealth_war_graves_commission: Comisión de Lápidas de Guerra de la Commonwealth
       heritage_lottery_fund: Fondo del patrimonio de lotería
       historic_england: Inglaterra histórica
       iwm: Museo Imperial de la Guerra
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: Nuestros anuncios
       documents: Documentos
+      featured:
       mission: Nuestra Misión
       news: Noticias de situación mundial
       organisations: Organizaciones

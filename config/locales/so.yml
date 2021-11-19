@@ -239,6 +239,9 @@ so:
       membership:
         one: Xubinimada
         other: Xubinimada
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Tirokoobka qaranka
         other: Tirokoobka qaranka
@@ -370,10 +373,89 @@ so:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
     so: Soomaali
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Wali wax cusub ma jiraan.
     title: Ugu dambeeyay
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Helitaankayaga macluumaadka
@@ -461,20 +543,30 @@ so:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Hawshii ugu dambaysay %{event}
     lead_organisations:
       arts_council_england: Qaybta latalinta England
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Maktabada Ingiriiska
       commonwealth_war_graves_commission: Guddiga Qabuuraha Dagaalka Barwaaqo Sooranka
       heritage_lottery_fund: Lacagta bakhtiyaanasiibka ee Dhaxalka ah
       historic_england: Taariikhda England
       iwm: Madxafka Degaalka ee Imperial
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Aaminaada Xasuusaha Degaalka
   world_location:
     headings:
       announcements: Ku dhawaaqisahayaga
       documents: Dukumentiyada
+      featured:
       mission: Hadafkayaga
       news: Wararka Goobta Dunida
       organisations: Ururada

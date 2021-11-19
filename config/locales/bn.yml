@@ -239,6 +239,9 @@ bn:
       membership:
         one: সদস্যপদ
         other: সদস্যপদ
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: জাতীয় পরিসংখ্যান
         other: জাতীয় পরিসংখ্যান
@@ -370,10 +373,89 @@ bn:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
     bn: বাংলা
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: এখনও কোনো আপডেট নেই।
     title: সাম্প্রতিক
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: আমাদের তথ্যে প্রবেশাধিকার
@@ -461,20 +543,30 @@ bn:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: "%{event}-এ সর্বশেষ কার্যক্রম"
     lead_organisations:
       arts_council_england: আর্টস কাউন্সিল ইংল্যান্ড
       bbc: বিবিসি
+      birmingham_2022_commonwealth_games:
       british_library: ব্রিটিশ লাইব্রেরি
       commonwealth_war_graves_commission: কমনওয়েলথ ওয়ার গ্রেভস কমিশন
       heritage_lottery_fund: হ্যারিটেজ লটারি ফান্ড
       historic_england: হিস্টরিক ইংল্যান্ড
       iwm: ইম্পেরিয়াল ওয়ার মিউজিয়াম
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: ইম্পেরিয়াল ওয়ার মিউজিয়াম
   world_location:
     headings:
       announcements: আমাদের ঘোষণাসমূহ
       documents: নথিপত্র
+      featured:
       mission: আমাদের মিশন
       news: বিশ্বের অবস্থানসমূহের সংবাদ
       organisations: প্রতিষ্ঠানসমূহ

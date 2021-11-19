@@ -313,6 +313,9 @@ pl:
         many:
         one: Członkostwo
         other: Członkostwo
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         few:
         many:
@@ -518,10 +521,89 @@ pl:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
     pl: Polski
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Aktualizacje nie są jeszcze dostępne.
     title: Najnowsze
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Uzyskaj dostęp do naszych informacji
@@ -609,20 +691,30 @@ pl:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Ostatnia aktywność na %{event}
     lead_organisations:
       arts_council_england: Arts Council England
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Biblioteka Brytyjska
       commonwealth_war_graves_commission: Komisja Grobów Wojennych Wspólnoty Narodów
       heritage_lottery_fund: Heritage Lottery Fund
       historic_england: Historic England
       iwm: Imperialne Muzeum Wojny
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: Nasze ogłoszenia
       documents: Dokumenty
+      featured:
       mission: Nasza misja
       news: Wiadomości ze świata
       organisations: Organizacje

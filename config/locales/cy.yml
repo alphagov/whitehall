@@ -391,6 +391,9 @@ cy:
         other: Aelodaeth
         two:
         zero:
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         few:
         many:
@@ -670,10 +673,89 @@ cy:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
     cy: Cymraeg
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Does dim diweddariadau eto.
     title: Y diweddaraf
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Cael mynediad at ein gwybodaeth
@@ -761,20 +843,30 @@ cy:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Y gweithgarwch diweddaraf ar %{event}
     lead_organisations:
       arts_council_england: Cyngor Celfyddydau Lloegr
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Y Llyfrgell Brydeinig
       commonwealth_war_graves_commission: Comisiwn Beddau Rhyfel y Gymanwlad
       heritage_lottery_fund: Cronfa Dreftadaeth y Loteri
       historic_england: Historic England
       iwm: Yr Amgueddfa Ryfel Ymerodrol
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Ymddiriedaeth Cofebion Rhyfel
   world_location:
     headings:
       announcements: Ein cyhoeddiadau
       documents: Dogfennau
+      featured:
       mission: Ein cenhadaeth
       news: Newyddion am leoliadau byd-eang
       organisations: Sefydliadau

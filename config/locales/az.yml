@@ -240,6 +240,9 @@ az:
       membership:
         one: Üzvlük
         other: Üzvlük
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Milli statistika
         other: Milli statistika
@@ -371,10 +374,89 @@ az:
   i18n:
     direction: ltr
   language_names:
+    ar:
     az: Azeri
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Hələ yenilənmələr yoxdur.
     title: Ən son
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Məlumatlarımıza daxil olun
@@ -462,20 +544,30 @@ az:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: "%{event} üzrə ən son fəaliyyət"
     lead_organisations:
       arts_council_england: İngiltərə incəsənət şurası
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Britaniya kitabxanası
       commonwealth_war_graves_commission: Birliyin müharibə qəbrləri üzrə komissiyası
       heritage_lottery_fund: Mirasçılıq lotereyası fondu
       historic_england: Tarixi İngiltərə
       iwm: İmperiya müharibələri muzeyi
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Müharibədə həlak olanların xatirəsini qoruma tresti
   world_location:
     headings:
       announcements: Elanlarımız
       documents: Sənədlər
+      featured:
       mission: Missiyamız
       news: Dünya üzrə xəbərlər
       organisations: Təşkilatlar

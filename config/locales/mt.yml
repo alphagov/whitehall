@@ -313,6 +313,9 @@ mt:
         many:
         one: Sħubija
         other: Sħubija
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         few:
         many:
@@ -518,10 +521,89 @@ mt:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
     mt: Malti
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Għad m'hemmx aġġornamenti.
     title: L-iktar riċenti
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Aċċessa l-informazzjoni tagħna
@@ -609,20 +691,30 @@ mt:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: 'L-aħħar attività fuq %{event} '
     lead_organisations:
       arts_council_england: Kunsill tal-Arti tal-Ingilterra
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Librerija Brittannika
       commonwealth_war_graves_commission: Kummissjoni tal-Commonwealth għall-Oqbra tal-Gwerra
       heritage_lottery_fund: Fond tal-Lotterija tal-Wirt
       historic_england: Ingilterra Storika
       iwm: Il-Mużew Imperjali tal-Gwerra
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: L-avviżi tagħna
       documents: Dokumenti
+      featured:
       mission: Il-missjoni tagħna
       news: Aħbarijiet dwar postijiet fid-dinja
       organisations: Organizzazzjonijiet

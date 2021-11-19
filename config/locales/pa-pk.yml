@@ -239,6 +239,9 @@ pa-pk:
       membership:
         one: ممبری
         other: ممبری
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: قومی اعدادوشمار
         other: قومی اعدادوشمار
@@ -370,10 +373,89 @@ pa-pk:
   i18n:
     direction: rtl
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
     pa-pk: پنجابی شاہ مُکھی
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: ہون تک کوئی تازہ ترین حال دا پتہ نئیں لگیا
     title: تازہ ترین
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: ساڈی معلومات تک پہنچ
@@ -461,20 +543,30 @@ pa-pk:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: آخری وار ایندے تے کیہ کم ہویا{event}%
     lead_organisations:
       arts_council_england: آرٹس کونسل انگلینڈ
       bbc: بی بی سی
+      birmingham_2022_commonwealth_games:
       british_library: برٹش لائبریری
       commonwealth_war_graves_commission: کامن ویلتھ وار گریوز کمیشن
       heritage_lottery_fund: ہیریٹیج لاٹری فنڈ
       historic_england: تاریخی انگلستان
       iwm: امپریل وار میوزیم
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: وار میموریل ٹرسٹ
   world_location:
     headings:
       announcements: ساڈے اعلانات
       documents: دستاویزات تک پہنچ دی حکمت عملی
+      featured:
       mission: ساڈا فرض
       news: ساری دُنیا دیاں خبراں
       organisations: ادارے

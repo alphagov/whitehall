@@ -239,6 +239,9 @@ ko:
       membership:
         one: 멤버십
         other: 멤버십
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: 국내 통계
         other: 국내 통계
@@ -370,10 +373,89 @@ ko:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
     ko: 한국어
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: 관련 내용이 아직 없습니다.
     title: 최신
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: 정보 접근
@@ -461,20 +543,30 @@ ko:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: " 의 최근 활동%{Event}"
     lead_organisations:
       arts_council_england: 예술위원회 영국
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: 대영 도서관
       commonwealth_war_graves_commission: 영연방 전쟁 묘지 위원회
       heritage_lottery_fund: 유산 복권 기금
       historic_england: 역사적인 영국
       iwm: 제국 전쟁 박물관
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: 전쟁기념관 신탁
   world_location:
     headings:
       announcements: 공지사항
       documents: 자료
+      featured:
       mission: 대사관 안내
       news: 월드 로케이션 뉴스
       organisations: 조직 안내

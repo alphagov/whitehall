@@ -239,6 +239,9 @@ ta:
       membership:
         one: உறுப்பினர் நிலை
         other: உறுப்பினர் நிலை
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: தேசிய புள்ளியியல்
         other: தேசிய புள்ளியியல்
@@ -370,10 +373,89 @@ ta:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
     ta: தமிழ்
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: எந்த புதுப்பித்தல்களும் இல்லை.
     title: சமீபத்தியது
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: எங்கள் தகவலை அணுகவும்
@@ -461,20 +543,30 @@ ta:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: "%{event}-ல் சமீபத்திய நடவடிக்கை"
     lead_organisations:
       arts_council_england: இங்கிலாந்து கலை மன்றம்
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: பிரிட்டிஷ் நூலகம்
       commonwealth_war_graves_commission: காமன்வெல்த் போர்க் கல்லறை வாரியம்
       heritage_lottery_fund: மரபுரிமையுள்ள பரிசுச்சீட்டு நிதி
       historic_england: வரலாற்றுச் சிறப்புமிக்க இங்கிலாந்து
       iwm: இம்பீரியல் போர் அருங்காட்சியகம்
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: போர் நினைவுச்சின்ன அறக்கட்டளை
   world_location:
     headings:
       announcements: எங்கள் அறிவிப்புகள்
       documents: ஆவணங்கள்
+      featured:
       mission: எங்கள் செயல் இலக்கு
       news: உலக இருப்பிடச் செய்தி
       organisations: நிறுவனங்கள்

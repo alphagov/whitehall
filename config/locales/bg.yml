@@ -239,6 +239,9 @@ bg:
       membership:
         one: Членство
         other: Членство
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Национална статистика
         other: Национална статистика
@@ -370,10 +373,89 @@ bg:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
     bg: Bulgarian
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Все още няма актуализация.
     title: Последни
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Достъп до нашата информация
@@ -461,20 +543,30 @@ bg:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Последна дейност на %{event}
     lead_organisations:
       arts_council_england: Съвет по изкуствата в Англия
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Британска библиотека
       commonwealth_war_graves_commission: Комисия за военните гробове на Британската общност
       heritage_lottery_fund: Фонд за лотария наследство
       historic_england: Историческа Англия
       iwm: Имперски музей на войната
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Тръст за военните паметници
   world_location:
     headings:
       announcements: Нашите съобщения
       documents: Документи
+      featured:
       mission: Нашата мисия
       news: Новини за местоположенията в света
       organisations: Организации

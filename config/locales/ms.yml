@@ -240,6 +240,9 @@ ms:
       membership:
         one: Keanggotaan
         other: Keanggotaan
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one: Statistik Nasional
         other: Statistik Nasional
@@ -371,10 +374,89 @@ ms:
   i18n:
     direction: ltr
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
     ms: Bahasa Melayu
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: Belum ada kemas kini.
     title: Terkini
+  mhra_email_signup:
+    context:
+    pages:
+      drug_alerts:
+        description_html:
+        title:
+      drug_safety:
+        description_html:
+        title:
+      news_and_publications:
+        description_html:
+        title:
+    summary:
+    title:
   organisation:
     corporate_information:
       access_our_info: Akses maklumat kami
@@ -462,20 +544,30 @@ ms:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
+    headings:
+      detailed_guidance:
+      documents:
+      featured:
+      organisations:
+      travel_advice:
     latest_activity: Aktiviti terkini di %{event}
     lead_organisations:
       arts_council_england: Majlis Kesenian England
       bbc: BBC
+      birmingham_2022_commonwealth_games:
       british_library: Perpustakaan British
       commonwealth_war_graves_commission: Suruhanjaya Perkuburan Perang Komanwel
       heritage_lottery_fund: Tabung Warisan Loteri
       historic_england: England yang bersejarah
       iwm: Muzium Perang Imperial
+      queens_platinum_jubilee:
+      unboxed:
       war_memorials_trust: Amanah Peringatan Perang
   world_location:
     headings:
       announcements: Pengumuman kami
       documents: Dokumen
+      featured:
       mission: Misi kami
       news: Berita lokasi dunia
       organisations: Organisasi
