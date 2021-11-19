@@ -9,14 +9,10 @@
 
         <% headers = govspeak_headers(@corporate_information_page.body) %>
         <% if headers.any? %>
-          <nav>
-            <h2 class="govuk-heading-l" <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h2>
-            <ol class="govuk-list dash-list">
-              <% headers.each do |header| %>
-                <li><%= link_to header.text, "##{header.id}", class: "govuk-link" %></li>
-              <% end %>
-            </ol>
-          </nav>
+          <%= render "govuk_publishing_components/components/contents_list", {
+            contents: headers.map { |h| {text: h.text, href:"##{h.id}"} },
+            underline_links: true,
+          } %>
         <% end %>
       </div>
 

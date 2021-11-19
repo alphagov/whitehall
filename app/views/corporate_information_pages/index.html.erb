@@ -7,19 +7,16 @@
       <div class="govuk-grid-column-one-third">
         <%= render_corporate_info_header_for(@organisation) %>
 
-        <div class="contextual-info">
-          <nav>
-            <h2 class="govuk-heading-l"><%= t("document.contents") %></h2>
-            <ol class="govuk-list">
-              <% if has_any_transparency_pages?(@organisation) %>
-                <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info", class: "govuk-link" %></li>
-              <% end %>
-              <% if @corporate_publications.any? %>
-                <li><%= link_to t('organisation.headings.corporate_reports'), "#corporate-reports", class: "govuk-link" %></li>
-              <% end %>
-            </ol>
-          </nav>
-        </div>
+        <% contents_list_items = [] %>
+        <% contents_list_items << { href: "#corporate-info", text: t('organisation.headings.corporate_information') } if has_any_transparency_pages?(@organisation) %>
+        <% contents_list_items << { href: "#corporate-reports", text: t('organisation.headings.corporate_reports') } if @corporate_publications.any? %>
+
+        <% if contents_list_items.any? %>
+          <%= render "govuk_publishing_components/components/contents_list", {
+            contents: contents_list_items,
+            underline_links: true,
+          } %>
+        <% end %>
       </div>
 
       <div class="govuk-grid-column-two-thirds">
