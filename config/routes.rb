@@ -106,7 +106,8 @@ Whitehall::Application.routes.draw do
 
     get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
     get "/publications/:id(.:locale)", as: "publication", to: "_#_", constraints: { locale: valid_locales_regex }
-    get "/publications/:publication_id/:content_id" => "_#_", as: "publication_html_attachment"
+    get "/publications/:publication_id/:content_id" => "_#_", as: "publication_html_attachment_by_content_id"
+    get "/publications/:publication_id/:id" => "_#_", as: "publication_html_attachment"
 
     # TODO: Remove when paths can be generated without a routes entry
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
@@ -122,7 +123,8 @@ Whitehall::Application.routes.draw do
     resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
     get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
-    get "/statistics/:statistics_id/:content_id" => "_#_", as: "statistic_html_attachment"
+    get "/statistics/:statistics_id/:content_id" => "_#_", as: "statistic_html_attachment_by_content_id"
+    get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
 
     get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: valid_locales_regex }
     resources :consultations, only: %i[index] do
@@ -133,8 +135,10 @@ Whitehall::Application.routes.draw do
       end
     end
     get "/consultations/:consultation_id/:id" => "_#_", as: "consultation_html_attachment"
+    get "/consultations/:consultation_id/outcome/:content_id" => "_#_", as: "consultation_outcome_html_attachment_by_content_id"
     get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
-    get "/consultations/:consultation_id/public-feedback/:content_id" => "_#_", as: "consultation_public_feedback_html_attachment"
+    get "/consultations/:consultation_id/public-feedback/:content_id" => "_#_", as: "consultation_public_feedback_html_attachment_by_content_id"
+    get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
 
     resources :topical_events, path: "topical-events", only: [:show] do
       # Controller removed. Whitehall frontend no longer serves these

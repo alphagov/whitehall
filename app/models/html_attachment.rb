@@ -68,17 +68,18 @@ class HtmlAttachment < Attachment
 
     type = attachable.path_name
     path_or_url = full_url ? "url" : "path"
-    path_helper = "#{type}_html_attachment_#{path_or_url}"
 
     # This depends on the rails url helpers to construct a url based on config/routes.rb:
     # composed of document type, slug for the parent document, and identifier for the attachment;
     # for non-english attachments the identifier is the content_id, for english
     # attachments it is self i.e. the slug
-    identifier = if attachable.updated_at < Time.zone.local(2021, 11, 29)
-                   self
-                 else
-                   sluggable_locale? ? self : content_id
-                 end
+    if sluggable_locale? || attachable.updated_at < Time.zone.local(2021, 11, 29)
+      identifier = self
+      path_helper = "#{type}_html_attachment_#{path_or_url}"
+    else
+      identifier = content_id
+      path_helper = "#{type}_html_attachment_by_content_id_#{path_or_url}"
+    end
     Whitehall.url_maker.public_send(path_helper, attachable.slug, identifier, options)
   end
 
