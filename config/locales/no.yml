@@ -98,13 +98,13 @@
         our_governance: Vår styring
         personal_information_charter: Personlig informasjon-charter
         petitions_and_campaigns: Begjæringer og kampanjer
-        procurement: Anskaffelse hos %{organization_name}
+        procurement: Anskaffelse hos %{organisation_name}
         publication_scheme: Publiseringsskjema
-        recruitment: Arbeider for %{organization_name}
-        research: Forskning ved %{organization_name}
+        recruitment: Arbeider for %{organisation_name}
+        research: Forskning ved %{organisation_name}
         social_media_use: Bruk av sosiale medier
         staff_update: Personalnyheter og informasjon
-        statistics: Statistikk hos %{organization_name}
+        statistics: Statistikk hos %{organisation_name}
         terms_of_reference: Henvisningsbetingelser
         welsh_language_scheme: Walisisk språkskjema
   date:
