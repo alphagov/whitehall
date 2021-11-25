@@ -95,13 +95,13 @@ es:
         our_governance: Nuestra gobernanza
         personal_information_charter: Cédula de información personal
         petitions_and_campaigns: Peticiones y campañas
-        procurement: Adquisición en %{organization_name}
+        procurement: Adquisición en %{organisation_name}
         publication_scheme: Esquema de publicación
-        recruitment: Trabajando para %{organization_name}
-        research: Investigación en %{organization_name}
+        recruitment: Trabajando para %{organisation_name}
+        research: Investigación en %{organisation_name}
         social_media_use: Uso de medios sociales
         staff_update: Noticias e información del personal
-        statistics: Estadísticas en %{organization_name}
+        statistics: Estadísticas en %{organisation_name}
         terms_of_reference: Términos de referencia
         welsh_language_scheme: Esquema de gales
   date:
