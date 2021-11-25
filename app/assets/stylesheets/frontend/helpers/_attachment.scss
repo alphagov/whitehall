@@ -73,7 +73,7 @@ $thumbnail-width: 99px;
 
     .preview,
     .download {
-      @include core-19;
+      @include govuk-font(19);
     }
 
     .preview {

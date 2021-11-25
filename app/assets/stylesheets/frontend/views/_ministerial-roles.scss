@@ -33,7 +33,7 @@
 
       .heading {
         h3 {
-          @include heading-24;
+          @include govuk-font($size: 24, $weight: bold);
           margin: 0;
           padding-bottom: 0;
           @include media(tablet) {

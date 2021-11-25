@@ -7,6 +7,7 @@
   title_link_options = {}
   title_link_options['rel'] = 'external' if attachment.external?
   title_link_options["aria-describedby"] = help_block_id unless attachment.accessible?
+  title_link_options["class"] = "govuk-link"
 
   # This partial is rendered when sending to the publishing-api, so needs to
   # work outside of a request/controller context. The preview param, which exists
@@ -22,7 +23,7 @@
   </div>
   <div class="attachment-details">
     <h3 class="title govuk-!-font-size-27 govuk-!-font-weight-regular"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: preview), title_link_options %></h3>
-    <p class="metadata">
+    <p class="govuk-body metadata">
       <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
         <span class="references">
           <%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %>
@@ -43,11 +44,11 @@
       <% if previewable?(attachment) %>
         <span class="preview">
           <strong>
-            <%= link_to "View online", preview_path_for_attachment(attachment) %>
+            <%= link_to "View online", preview_path_for_attachment(attachment), class: "govuk-link" %>
           </strong>
         </span>
         <span class="download">
-          <%= link_to attachment.url(preview: preview) do %>
+          <%= link_to attachment.url(preview: preview), class: "govuk-link" do %>
             <strong><%= t("support.download") %> <%= attachment.file_extension.upcase %></strong>
             <%= number_to_human_size(attachment.file_size) %>
           <% end %>
@@ -58,18 +59,18 @@
     </p>
     <% if attachment.is_official_document? %>
       <%= link_to t('attachment.headings.order_a_copy'), "#{Plek.new.website_root}/guidance/how-to-buy-printed-copies-of-official-documents",
-            class: "order_url", title: t('attachment.headings.order_a_copy_full') %>
+            class: "govuk-link order_url", title: t('attachment.headings.order_a_copy_full') %>
     <% end %>
 
     <% if attachment.opendocument? %>
-      <p class="opendocument-help">
+      <p class="govuk-body opendocument-help">
         <%= t('attachment.opendocument.help_html') %>
       </p>
     <% end %>
 
     <% unless attachment.accessible? %>
       <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
-        <p><%= t('attachment.accessibility.intro') %></p>
+        <p class="govuk-body"><%= t('attachment.accessibility.intro') %></p>
         <%= render "govuk_publishing_components/components/details", {
           title: t('attachment.accessibility.request_a_different_format'),
           data_attributes: {

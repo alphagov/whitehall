@@ -13,7 +13,7 @@
   .block-title {
     border-bottom-width: $gutter-one-sixth;
     border-bottom-style: solid;
-    @include core-36;
+    @include govuk-font(36);
     padding-bottom: 1px;
     margin: 0 $gutter-half $gutter-one-sixth;
   }
@@ -61,7 +61,7 @@
     }
 
     h1 {
-      @include core-24;
+      @include govuk-font(24);
       font-weight: bold;
       margin: 0 $gutter-half $gutter-one-sixth;
     }
@@ -75,11 +75,11 @@
         list-style: none;
 
         h2 {
-          @include core-16;
+          @include govuk-font(16);
         }
 
         .metadata {
-          @include core-14;
+          @include govuk-font(14);
           padding-top: $gutter-one-sixth;
 
           li {
@@ -91,7 +91,7 @@
 
       .see-all {
         padding-top: $gutter-one-third;
-        @include core-16;
+        @include govuk-font(16);
         font-weight: bold;
       }
     }

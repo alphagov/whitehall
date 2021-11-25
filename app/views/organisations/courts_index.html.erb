@@ -1,27 +1,19 @@
 <% page_title t("organisation.type.courts_and_tribunals") %>
-<% page_class "index-list-page" %>
+<% page_class "govuk-width-container index-list-page" %>
 
 <div class="organisations-index">
-  <div class="block-1">
-    <div class="inner-block">
-      <header class="page-header">
-        <%= render "govuk_publishing_components/components/title", {
-          title: t("organisation.type.courts_and_tribunals")
-        } %>
-      </header>
-    </div>
-  </div>
+  <header class="page-header">
+    <%= render "govuk_publishing_components/components/title", {
+      title: t("organisation.type.courts_and_tribunals")
+    } %>
+  </header>
 
-  <div class="block-2">
-    <div class="inner-block">
-      <%= render 'organisations/index_section',
-                  organisations: @courts,
-                  header_text: 'Courts',
-                  block_id: 'courts' %>
-      <%= render 'organisations/index_section',
-                  organisations: @hmcts_tribunals,
-                  header_text: 'Tribunals',
-                  block_id: 'tribunals' %>
-    </div>
-  </div>
+  <%= render 'organisations/index_section',
+              organisations: @courts,
+              header_text: 'Courts',
+              block_id: 'courts' %>
+  <%= render 'organisations/index_section',
+              organisations: @hmcts_tribunals,
+              header_text: 'Tribunals',
+              block_id: 'tribunals' %>
 </div>

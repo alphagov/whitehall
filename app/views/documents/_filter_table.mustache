@@ -1,5 +1,5 @@
 {{#results_any?}}
-  <ol class="js-document-list document-list" data-module="gem-track-click">
+  <ol class="govuk-list js-document-list document-list" data-module="gem-track-click">
     {{#results}}
       <li id="{{result.type}}_{{result.id}}" class="document-row">
         <h3>
@@ -28,7 +28,7 @@
         </ul>
         {{#result.historic?}}
           {{#result.government_name}}
-            <p class="historic">
+            <p class="govuk-body historic">
             First published during the {{result.government_name}}
             </p>
           {{/result.government_name}}
@@ -41,12 +41,12 @@
       <ul class="previous-next-navigation">
         {{#prev_page?}}
           <li class="previous">
-            <a href="{{prev_page_web_url}}" rel="prev" class="govuk-link">Previous <span class="visuallyhidden">page</span> <span class="page-numbers">{{prev_page}} of {{total_pages}}</span></a>
+            <a href="{{prev_page_web_url}}" rel="prev" class="govuk-link">Previous <span class="govuk-visually-hidden">page</span> <span class="page-numbers">{{prev_page}} of {{total_pages}}</span></a>
           </li>
         {{/prev_page?}}
         {{#next_page?}}
           <li class="next">
-            <a href="{{next_page_web_url}}" rel="next" class="govuk-link">Next <span class="visuallyhidden">page</span> <span class="page-numbers">{{next_page}} of {{total_pages}}</span></a>
+            <a href="{{next_page_web_url}}" rel="next" class="govuk-link">Next <span class="govuk-visually-hidden">page</span> <span class="page-numbers">{{next_page}} of {{total_pages}}</span></a>
           </li>
         {{/next_page?}}
       </ul>

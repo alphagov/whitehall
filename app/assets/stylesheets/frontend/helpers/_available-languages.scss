@@ -25,7 +25,7 @@
       span {
         display: block;
         margin-top: -1px;
-        @include core-16;
+        @include govuk-font(16);
       }
       @include right-to-left {
         border-left: 1px solid $border-colour;

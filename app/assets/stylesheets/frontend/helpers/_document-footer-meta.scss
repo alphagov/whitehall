@@ -37,7 +37,7 @@
 
   .primary-metadata {
     dt {
-      @include core-16;
+      @include govuk-font(16);
       padding: ($gutter-one-sixth + $gutter-half) 0 $gutter-one-sixth 0;
 
       &:first-child {
@@ -85,7 +85,7 @@
     }
 
     .overlay {
-      @include core-16;
+      @include govuk-font(16);
 
       h4 {
         padding: $gutter-one-sixth 0;

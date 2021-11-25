@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_action :set_authenticated_user_header
 
   layout "frontend"
-  slimmer_template "header_footer_only"
+  slimmer_template "gem_layout"
 
   rescue_from Notifications::Client::BadRequestError, with: :notify_bad_request
 

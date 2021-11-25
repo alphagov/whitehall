@@ -3,42 +3,48 @@
   show_access_our_information_header ||= false
 %>
 <section class="corporate-information" id="corporate-info">
-  <h1><%= t('organisation.headings.corporate_information') %></h1>
+  <%= render "govuk_publishing_components/components/title", {
+    title: t('organisation.headings.corporate_information'),
+  } %>
   <div class="corporate-information-block">
     <% if show_access_our_information_header %>
-      <h2><%= t('organisation.corporate_information.access_our_info') %></h2>
+      <h2 class="govuk-heading-l"><%= t('organisation.corporate_information.access_our_info') %></h2>
     <% end %>
     <nav class="group sub_navigation" role="navigation">
-      <ul>
+      <ul class="govuk-list">
         <% if organisation.organisation_chart_url.present? %>
-          <li><%= link_to t('organisation.corporate_information.organisation_chart'), organisation.organisation_chart_url %></li>
+          <li><%= link_to t('organisation.corporate_information.organisation_chart'), organisation.organisation_chart_url, class: "govuk-link" %></li>
         <% end %>
         <% organisation.corporate_information_pages.published.by_menu_heading(:our_information).each do |corporate_information_page| %>
-          <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug) %></li>
+          <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug), class: "govuk-link" %></li>
         <% end %>
         <% if show_corporate_reports && organisation.has_published_publications_of_type?(PublicationType::CorporateReport) %>
-          <li><%= link_to t('organisation.headings.corporate_reports'), publications_filter_path(organisation, publication_type: 'corporate-reports') %></li>
+          <li><%= link_to t('organisation.headings.corporate_reports'), publications_filter_path(organisation, publication_type: 'corporate-reports'), class: "govuk-link" %></li>
         <% end %>
         <% if organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
-          <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data') %></li>
+          <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data'), class: "govuk-link" %></li>
         <% end %>
       </ul>
     </nav>
   </div>
   <% unless @organisation.court_or_hmcts_tribunal? %>
     <div class="corporate-information-block">
-      <h2><%= t('organisation.corporate_information.jobs_and_contacts') %></h2>
+      <h2 class="govuk-heading-l"><%= t('organisation.corporate_information.jobs_and_contacts') %></h2>
       <nav class="group sub_navigation" role="navigation">
-        <ul>
+        <ul class="govuk-list">
           <% organisation.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |corporate_information_page| %>
-            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug) %></li>
+            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug), class: "govuk-link" %></li>
           <% end %>
-          <li><%= link_to('Jobs', organisation.jobs_url, ({rel: 'external'} if is_external?(organisation.jobs_url))) %></li>
+          <%
+            link_attributes = { class: "govuk-link" }
+            link_attributes[:rel] = 'external' if is_external?(organisation.jobs_url)
+          %>
+          <li><%= link_to('Jobs', organisation.jobs_url, link_attributes) %></li>
         </ul>
       </nav>
     </div>
   <% end %>
-  <p class="information">
+  <p class="govuk-body information">
     <% if organisation.corporate_information_pages.published.for_slug("publication-scheme").present? %>
       <%= t('worldwide_organisation.corporate_information.publication_scheme_html',
               link: t_corporate_information_page_link(organisation, "publication-scheme")) %>

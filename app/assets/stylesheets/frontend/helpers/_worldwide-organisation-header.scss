@@ -2,10 +2,6 @@
   margin-top: $gutter-half;
   margin-bottom: $gutter-half;
 
-  @include govuk-media-query($from: tablet) {
-    padding-bottom: $gutter;
-  }
-
   .logo {
     @include govuk-media-query($from: tablet) {
       margin-top: $gutter-half;
@@ -21,14 +17,17 @@
     margin-top: $gutter-one-third;
 
     dl {
-      @extend %govuk-body-s;
-      margin: 0;
+      @include govuk-text-colour;
+      @include govuk-font($size: 16);
+      @include govuk-responsive-margin(4, "bottom");
 
       @supports (display: grid) {
         display: grid;
         grid-template-columns: auto 1fr;
         grid-gap: govuk-spacing(2);
       }
+
+      margin: 0;
 
       dt,
       dd {

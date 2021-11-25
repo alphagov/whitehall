@@ -43,7 +43,7 @@
               id: "fatalities",
               margin_bottom: 4,
             } %>
-            <ul>
+            <ul class="govuk-list">
               <% @fatality_notices.each do |fatality_notice| %>
                 <%= content_tag_for :li, fatality_notice, class: "fatality-notice govuk-!-padding-top-2 govuk-!-padding-bottom-3" do %>
                   <% unless fatality_notice.roll_call_introduction.blank? %>
@@ -59,7 +59,7 @@
                             <% end %>
                           <% end %>
                         <% else %>
-                          <li class="govuk-list--bullet"><%= link_to fatality_notice.title, public_document_url(fatality_notice) %></li>
+                          <li class="govuk-list--bullet"><%= link_to fatality_notice.title, public_document_url(fatality_notice), class: "govuk-link" %></li>
                         <% end %>
                       </ul>
                       <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-2">

@@ -46,7 +46,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds govuk-!-padding-bottom-7">
         <%= render partial: 'shared/recently_updated',
-          locals: { 
+          locals: {
             recently_updated: @recently_updated,
             atom_url: atom_feed_url_for(@world_location),
             see_all_link: latest_path(world_locations: [@world_location])
@@ -63,7 +63,7 @@
           border_top: 2,
           font_size: "l"
         } %>
-        <p>
+        <p class="govuk-body">
           <span class="mission_statement"><%= govspeak_to_html(@world_location.mission_statement) %></span>
         </p>
       </div>
@@ -87,7 +87,7 @@
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
               <p class="govuk-body">
-                <%= link_to t_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
+                <%= link_to t_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1'), class: "govuk-link" %>
               </p>
             </div>
           </div>
@@ -103,7 +103,7 @@
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
               <p class="govuk-body">
-                <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location) %>
+                <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location), class: "govuk-link" %>
               </p>
             </div>
           </div>
@@ -119,7 +119,7 @@
             <div class="content">
               <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
               <p class="govuk-body">
-                <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
+                <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics'), class: "govuk-link" %>
               </p>
             </div>
           </div>

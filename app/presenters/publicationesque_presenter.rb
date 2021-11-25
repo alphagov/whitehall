@@ -10,7 +10,7 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   def publication_collections
     if model.part_of_published_collection?
       links = model.published_document_collections.map do |dc|
-        context.link_to(dc.title, context.public_document_path(dc))
+        context.link_to(dc.title, context.public_document_path(dc), class: "govuk-link")
       end
       "#{I18n.t('support.part_of_collection')} #{links.to_sentence}"
     end

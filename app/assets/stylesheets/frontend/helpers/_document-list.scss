@@ -15,7 +15,7 @@
     h3,
     .title {
       display: block;
-      @include core-19;
+      @include govuk-font(19);
       font-weight: bold;
       margin-top: $gutter-one-sixth;
     }
@@ -24,7 +24,7 @@
       @extend %contain-floats;
 
       li {
-        @include core-14;
+        @include govuk-font(14);
         float: left;
         display: block;
         list-style: none;
@@ -39,7 +39,7 @@
     }
 
     p.historic {
-      @include core-14;
+      @include govuk-font(14);
       padding: 0 0 3px;
       color: $secondary-text-colour;
     }

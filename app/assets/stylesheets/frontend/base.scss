@@ -3,12 +3,11 @@
 // stylelint-disable no-duplicate-selectors -- This file is broken up into
 // grouped sections within the same selector.
 
-$govuk-compatibility-govuktemplate: true;
+$govuk-compatibility-govuktemplate: false;
 $govuk-use-legacy-palette: false;
 $govuk-new-link-styles: true;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
-@import 'govuk_publishing_components/component_support';
 @import 'govuk_publishing_components/components/big-number';
 @import 'govuk_publishing_components/components/button';
 @import 'govuk_publishing_components/components/breadcrumbs';
@@ -58,7 +57,7 @@ $govuk-new-link-styles: true;
 // Flatten exising styles
 
 @import "reset/reset";
-// reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
+// reset styles applied to #wrapper & #wrapper *
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
@@ -66,7 +65,7 @@ $govuk-new-link-styles: true;
 // GLOBAL
 // Styles that apply to all of whitehall.
 
-#whitehall-wrapper {
+#wrapper {
   @import "global/clear";
   @import "global/aspect-ratio";
 }
@@ -74,7 +73,7 @@ $govuk-new-link-styles: true;
 // HELPERS
 // Styles for comment page elements
 
-#whitehall-wrapper {
+#wrapper {
   @import "helpers/activity-nav";
   @import "helpers/announcements";
   @import "helpers/withdrawal-notice";
@@ -120,7 +119,7 @@ $govuk-new-link-styles: true;
 // VIEWS
 // Styles scoped to each template in /views
 
-#whitehall-wrapper {
+#wrapper {
   @import "views/corporate-information-pages-worldwide-organisation";
   @import "views/email-signup";
   @import "views/embassies";
@@ -148,6 +147,6 @@ $govuk-new-link-styles: true;
 
 @import "layouts/main";
 
-#whitehall-wrapper {
+#wrapper {
   @import "layouts/two-column-page";
 }

@@ -141,7 +141,9 @@ a.app-person-link {
 }
 
 .app-person-link__title {
-  @extend %govuk-body-s;
+  @include govuk-text-colour;
+  @include govuk-font($size: 16);
+  @include govuk-responsive-margin(4, "bottom");
 
   color: $govuk-secondary-text-colour;
   display: block;
@@ -152,7 +154,9 @@ a.app-person-link {
 }
 
 .app-person-link__name {
-  @extend %govuk-heading-s;
+  @include govuk-text-colour;
+  @include govuk-font($size: 19, $weight: bold);
+  @include govuk-responsive-margin(4, "bottom");
 
   color: inherit;
   display: block;

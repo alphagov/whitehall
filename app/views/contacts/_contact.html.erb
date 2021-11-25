@@ -1,10 +1,10 @@
 <%= content_tag_for(:div, contact, class: "contact", lang: local_assigns[:lang] ? lang : nil) do %>
   <% unless local_assigns[:hide_title] %>
-    <p><%= contact.title %></p>
+    <p class="govuk-body"><%= contact.title %></p>
   <% end %>
 
   <% if contact.has_postal_address? %>
-    <p class="govuk-!-margin-bottom-4">
+    <p class="govuk-body govuk-!-margin-bottom-4">
       <%= render_hcard_address(contact) %>
     </p>
   <% end %>
@@ -12,19 +12,19 @@
   <% if contact.email.present? || contact.contact_form_url.present? || contact.contact_numbers.any? %>
     <div>
       <% if contact.email.present? %>
-        <p class="govuk-!-margin-bottom-4">
+        <p class="govuk-body govuk-!-margin-bottom-4">
           <%= t('contact.email') %> <%= mail_to contact.email, contact.email, class: "govuk-link" %>
         </p>
       <% end %>
 
       <% if contact.contact_form_url.present? %>
-        <p class="govuk-!-margin-bottom-4">
+        <p class="govuk-body govuk-!-margin-bottom-4">
           <%= t('contact.contact_form') %> <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url, class: "govuk-link" %>
         </p>
       <% end %>
 
       <% contact.contact_numbers.each do |number| %>
-        <p class="govuk-!-margin-bottom-4">
+        <p class="govuk-body govuk-!-margin-bottom-4">
           <%= number.label %> <%= number.number %>
         </p>
       <% end %>
@@ -32,7 +32,7 @@
   <% end %>
 
   <% if contact.comments.present? %>
-    <p><%= auto_link(format_with_html_line_breaks(h(contact.comments)), html: { class: "govuk-link" }) %></p>
+    <p class="govuk-body"><%= auto_link(format_with_html_line_breaks(h(contact.comments)), html: { class: "govuk-link" }) %></p>
   <% end %>
 
   <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
@@ -40,6 +40,6 @@
       fallback = t_fallback('contact.access_and_opening_times')
       lang = fallback if fallback && fallback != I18n.locale
     %>
-    <p><%= link_to t('contact.access_and_opening_times'), [contact.worldwide_organisation, contact], class: "govuk-link", lang: lang %></p>
+    <p class="govuk-body"><%= link_to t('contact.access_and_opening_times'), [contact.worldwide_organisation, contact], class: "govuk-link", lang: lang %></p>
   <% end %>
 <% end %>

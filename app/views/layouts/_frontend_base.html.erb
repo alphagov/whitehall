@@ -37,11 +37,8 @@
           }
         </style>
       <% end %>
-      <div id="whitehall-wrapper">
+      <div id="wrapper">
         <%= yield %>
-      </div>
-      <div class="govuk-width-container">
-        <%= render 'govuk_publishing_components/components/feedback' %>
       </div>
     </div>
     <%= javascript_include_tag "application", integrity: false %>

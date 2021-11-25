@@ -8,12 +8,12 @@
   position: relative;
 
   h2 {
-    @include core-36;
+    @include govuk-font(36);
     font-weight: bold;
   }
 
   p {
-    @include core-19;
+    @include govuk-font(19);
     font-weight: bold;
     margin-top: $gutter-half;
   }
@@ -38,8 +38,7 @@
   }
 
   h2 {
-    @include heading-36;
-    font-weight: bold;
+    @include govuk-font($size: 36, $weight: bold);
 
     @include media(desktop) {
       .government {

@@ -14,7 +14,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <div class="filtered-index govuk-!-margin-bottom-4">
-        <%= render partial: "documents/filter_form", 
+        <%= render partial: "documents/filter_form",
           locals: {
             document_type: :publication,
             filters: [ :locations ],
@@ -36,7 +36,7 @@
 
 <script id="statistics-moved-notice" type="text/html">
   <div class="statistics-notice">
-    <h2 class=""><%= t("publications.statistics.moved_notice") %></h2>
-    <p><%= t("publications.statistics.link_to_published_statistics", link: "/government/statistics" ) %></p>
+    <h2 class="govuk-heading-l"><%= t("publications.statistics.moved_notice") %></h2>
+    <p class="govuk-body"><%= t("publications.statistics.link_to_published_statistics", link: "/government/statistics" ) %></p>
   </div>
 </script>

@@ -101,7 +101,7 @@
         width: 45%;
 
         h2 {
-          @include core-19;
+          @include govuk-font(19);
           font-weight: bold;
 
           &:after {
@@ -137,7 +137,7 @@
         margin-top: 0;
 
         h2 {
-          @include core-19;
+          @include govuk-font(19);
           font-weight: bold;
           margin-top: 0;
 
@@ -183,7 +183,7 @@
     h2,
     h3,
     p {
-      @include core-14;
+      @include govuk-font(14);
       margin-bottom: 0;
       padding-bottom: 0;
 

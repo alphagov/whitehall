@@ -20,7 +20,7 @@
   <% if @worldwide_organisation.social_media_accounts.any? %>
     <aside class="social-media-links govuk-grid-column-one-third">
       <div class="content">
-        <h2><%= t("worldwide_organisation.headings.follow_us") %></h2>
+        <h2 class="govuk-heading-s"><%= t("worldwide_organisation.headings.follow_us") %></h2>
         <%= render "govuk_publishing_components/components/share_links", {
           links: @worldwide_organisation.social_media_accounts.map do |account|
             {
@@ -38,7 +38,11 @@
 <% if ([@primary_role]+@other_roles).compact.any?(&:has_appointment?) %>
   <section class="govuk-grid-row" id="people">
     <div class="govuk-grid-column-full">
-      <h2 class="keyline-header"><%= t("worldwide_organisation.headings.our_people" ) %></h2>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: t("worldwide_organisation.headings.our_people"),
+        border_top: 5,
+        padding: true,
+      } %>
     </div>
     <%= render( partial: "people/person",
         locals: {

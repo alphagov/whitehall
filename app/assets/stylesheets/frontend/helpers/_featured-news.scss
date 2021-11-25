@@ -74,7 +74,7 @@
         }
 
         h3 {
-          @include core-19;
+          @include govuk-font(19);
           font-weight: bold;
           padding: $gutter-one-sixth 0 $gutter-one-third;
         }

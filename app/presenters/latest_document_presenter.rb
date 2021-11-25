@@ -9,6 +9,7 @@ class LatestDocumentPresenter < Whitehall::Decorators::Decorator
         context.link_to(
           collection.title,
           context.public_document_path(collection),
+          class: "govuk-link",
         )
       end
 

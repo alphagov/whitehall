@@ -1,68 +1,62 @@
 <% page_title "UK and the world" %>
-<% page_class "world-locations-index index-list-page" %>
+<% page_class "govuk-width-container world-locations-index index-list-page" %>
 
-<div class="block">
-  <div class="inner-block">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <header class="js-filter-list">
-          <%= render "govuk_publishing_components/components/title", {
-            title: sanitize("Help and services around the&nbsp;world")
-          } %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <header class="js-filter-list">
+      <%= render "govuk_publishing_components/components/title", {
+        title: sanitize("Help and services around the&nbsp;world")
+      } %>
 
-          <form class="js-filter-form">
-            <%= render "govuk_publishing_components/components/input", {
-              label: {
-                text: t("world_location.headings.search"),
-              },
-              name: "help-and-services-in",
-              id: "help-and-services-in",
-            } %>
-          </form>  
-        </header>
-      </div>
-    </div>
+      <form class="js-filter-form">
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: t("world_location.headings.search"),
+          },
+          name: "help-and-services-in",
+          id: "help-and-services-in",
+        } %>
+      </form>
+    </header>
   </div>
 </div>
 
-<div class="block world-locations">
-  <div class="inner-block">
-    <% @world_locations.each do |type, locations| %>
-      <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
-        <header class="type-heading">
-          <h2 class="world-locations__heading"><%= type.name.pluralize %></h2>
-          <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
-        </header>
-        <div class="content">
-          <% if type === WorldLocationType::WorldLocation %>
-            <% group_and_sort(locations).each do |letter, locations| %>
-              <div class="js-filter-block">
-                <h3 class="letter"><%= letter %></h3>
-                <ol class="location-list">
-                  <% locations.each do |location| %>
-                    <%= render partial: 'world_location',
-                          locals: { world_location: location,
-                                    options: { class: 'js-filter-item',
-                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
-                  <% end %>
-                </ol>
-              </div>
-            <% end %>
-          <% else %>
-            <ol class="location-list">
-              <% locations.each do |location| %>
-                <%= render partial: 'world_location',
-                          locals: { world_location: location,
-                                    options: { class: 'js-filter-item',
-                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
-              <% end %>
-            </ol>
+<div class="world-locations">
+  <% @world_locations.each do |type, locations| %>
+    <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
+      <header class="type-heading">
+        <h2 class="world-locations__heading"><%= type.name.pluralize %></h2>
+        <p class="govuk-body"><span class="js-filter-count"><%= locations.length %></span> <span class="govuk-visually-hidden">locations</span></p>
+      </header>
+      <div class="content">
+        <% if type === WorldLocationType::WorldLocation %>
+          <% group_and_sort(locations).each do |letter, locations| %>
+            <div class="js-filter-block">
+              <h3 class="letter"><%= letter %></h3>
+              <ol class="govuk-list location-list">
+                <% locations.each do |location| %>
+                  <%= render partial: 'world_location',
+                        locals: { world_location: location,
+                                  options: { class: 'js-filter-item',
+                                    "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+                <% end %>
+              </ol>
+            </div>
           <% end %>
-        </div>
-      </section>
-    <% end %>
-    <div class="js-filter-no-results">
-      <p><%= t("document_filters.world_locations.no_locations_filter") %></p>
-    </div>
+        <% else %>
+          <ol class="govuk-list location-list">
+            <% locations.each do |location| %>
+              <%= render partial: 'world_location',
+                        locals: { world_location: location,
+                                  options: { class: 'js-filter-item',
+                                    "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+            <% end %>
+          </ol>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+  <div class="js-filter-no-results">
+    <p class="govuk-body"><%= t("document_filters.world_locations.no_locations_filter") %></p>
   </div>
 </div>

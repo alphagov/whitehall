@@ -1,6 +1,6 @@
 // BASE STYLESHEET COMPILER
 
-$govuk-compatibility-govuktemplate: true;
+$govuk-compatibility-govuktemplate: false;
 $govuk-use-legacy-palette: false;
 
 @import 'govuk_publishing_components/govuk_frontend_support';
@@ -44,12 +44,12 @@ $govuk-use-legacy-palette: false;
 // Flatten exising styles
 
 @import "reset/reset";
-// reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
+// reset styles applied to #wrapper & #wrapper *
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
 
-#whitehall-wrapper {
+#wrapper {
   // HELPERS
   // Styles for comment page elements
 

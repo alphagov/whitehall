@@ -3,22 +3,19 @@ a {
 }
 
 h1 {
-  @include heading-27;
-  font-weight: bold;
+  @include govuk-font($size: 27, $weight: bold);
   margin: $gutter 0;
 }
 
 h2 {
-  @include heading-24;
-  font-weight: bold;
+  @include govuk-font($size: 24, $weight: bold);
   margin: $gutter 0 0;
 }
 
 h3,
 h4,
 h5 {
-  @include copy-19;
-  font-weight: bold;
+  @include govuk-font($size: 19, $weight: bold);
   margin: $gutter 0 0;
 }
 
@@ -41,7 +38,7 @@ h5 {
 }
 
 p {
-  @include core-14;
+  @include govuk-font(14);
   margin: $gutter-half 0;
 }
 
@@ -58,7 +55,7 @@ ul {
 }
 
 li {
-  @include core-14;
+  @include govuk-font(14);
   margin-left: $gutter * 1.2;
 
   li {
@@ -106,7 +103,7 @@ figure {
   }
 
   figcaption {
-    @include core-14;
+    @include govuk-font(14);
   }
 }
 
