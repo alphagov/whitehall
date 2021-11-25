@@ -38,6 +38,10 @@ class CorporateInformationPageTypeTest < ActiveSupport::TestCase
       organisation: @organisation,
     )
 
+    I18n.stubs(:t)
+      .with("corporate_information_page.type.title.#{corporate_information_page.slug}", anything)
+      .returns("fallback")
+
     I18n.with_locale(:de) do
       assert_equal "lang=en", corporate_information_page.title_lang
     end

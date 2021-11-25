@@ -1,414 +1,447 @@
+---
 is:
-  document:
-    type:
-      about:
-        one:
-        other:
-      about_our_services:
-        one:
-        other:
-      access_and_opening:
-        one:
-        other:
-      accessible_documents_policy:
-        one:
-        other:
-      alert:
-        one:
-        other:
-      announcement:
-        one:
-        other:
-      authored_article:
-        one:
-        other:
-      blog_post:
-        one:
-        other:
-      campaign:
-        one:
-        other:
-      careers:
-        one:
-        other:
-      case_study:
-        one:
-        other:
-      closed_consultation:
-        one:
-        other:
-      complaints_procedure:
-        one:
-        other:
-      consultation:
-        one:
-        other:
-      consultation_outcome:
-        one:
-        other:
-      corporate_report:
-        one:
-        other:
-      correspondence:
-        one:
-        other:
-      decision:
-        one:
-        other:
-      detailed_guidance:
-        one:
-        other:
-      document_collection:
-        one:
-        other:
-      draft_text:
-        one:
-        other:
-      edition:
-        one:
-        other:
-      edition_with_appointment:
-        one:
-        other:
-      equality_and_diversity:
-        one:
-        other:
-      fatality_notice:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one:
-        other:
-      generic_edition:
-        one:
-        other:
-      government_response:
-        one:
-        other:
-      guidance:
-        one:
-        other:
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one:
-        other:
-      international_treaty:
-        one:
-        other:
-      manual:
-        one:
-        other:
-      map:
-        one:
-        other:
-      media_enquiries:
-        one:
-        other:
-      membership:
-        one:
-        other:
-      national_statistics:
-        one:
-        other:
-      news_article:
-        one:
-        other:
-      news_story:
-        one:
-        other:
-      nhs_content:
-        one:
-        other:
-      notice:
-        one:
-        other:
-      official_statistics:
-        one:
-        other:
-      open_consultation:
-        one:
-        other:
-      oral_statement:
-        one:
-        other:
-      our_energy_use:
-        one:
-        other:
-      our_governance:
-        one:
-        other:
-      personal_information_charter:
-        one:
-        other:
-      petitions_and_campaigns:
-        one:
-        other:
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one:
-        other:
-      procurement:
-        one:
-        other:
-      promotional:
-        one:
-        other:
-      publication:
-        one:
-        other:
-      publication_scheme:
-        one:
-        other:
-      recruitment:
-        one:
-        other:
-      regulation:
-        one:
-        other:
-      research:
-        one:
-        other:
-      service:
-        one:
-        other:
-      social_media_use:
-        one:
-        other:
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one:
-        other:
-      staff_update:
-        one:
-        other:
-      standard:
-        one:
-        other:
-      statement_to_parliament:
-        one:
-        other:
-      statistical_data_set:
-        one:
-        other:
-      statistics:
-        one:
-        other:
-      statutory_guidance:
-        one:
-        other:
-      terms_of_reference:
-        one:
-        other:
-      transcript:
-        one:
-        other:
-      transparency:
-        one:
-        other:
-      welsh_language_scheme:
-        one:
-        other:
-      world_news_story:
-        one:
-        other:
-      written_statement:
-        one:
-        other:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
-    speech:
-      author_title:
-        minister:
-        speaker:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Skjal númer neðri deildar Þingsins
+        isbn: ISBN
+        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
       attachment_data:
-        file:
+        file: Skrá
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Skjal númer fyrirskipana í viðhengi
+        hoc_paper_number: Skjal númer neðri deildar Þingsins
+        isbn: ISBN viðhengis
+        title: Titill viðhengis
+        unique_reference: Einkvæmt auðkenni viðhengis
+        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Skráin í viðhengi
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Undanskildar þjóðir
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Skráin í viðhengi
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Skjal númer fyrirskipana í viðhengi
+        hoc_paper_number: Skjal númer neðri deildar Þingsins
+        isbn: ISBN viðhengis
+        title: Titill viðhengis
+        unique_reference: Einkvæmt auðkenni viðhengis
+        unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Skráin í viðhengi
     nested_attachment_data_field_names:
-      file:
+      file: Skráin í viðhengi
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Skjal númer fyrirskipana í viðhengi
+      hoc_paper_number: Skjal númer neðri deildar Þingsins
+      isbn: ISBN viðhengis
+      title: Titill viðhengis
+      unique_reference: Einkvæmt auðkenni viðhengis
+      unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
   announcements:
-    heading:
+    heading: Tilkynningar
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Ef þú notast við stoðtækni (eins og skjálesara) og þarft útgáfu af þessu skjali á aðgengilegra sniði, sendu þá vinsamlegast tölvupóst á %{email}.
+        Vinsamlegast segðu okkur hvaða snið þú þarft. Vinsamlegast segðu okkur hvaða snið þú þarft.
+      intro: Það hjálpar okkur ef þú tekur fram hvaða stoðtækni þú notast við.
+      request_a_different_format: Óska eftir aðgengilegu sniði.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Það er ekki hægt að forskoða þessa skrá.
+      download: Sæktu skránna til sjá allt efni hennar
+      truncated_message: Þessi forskoðun sýnir bara fyrstu %{rows} raðirnar og %{columns} dálkana.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Panta eintak
+      order_a_copy_full: Panta eintak af útgáfunni
+      published: Gefið út
+      reference: Tilv
+      unnumbered_command_paper: Ónúmerað fyrirskipana skjal
+      unnumbered_hoc_paper: Ónúmerað laga skjal
     opendocument:
-      help_html:
+      help_html: Þessi skrá er á <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> sniði
     virus_check:
-      intro:
-      message:
+      intro: Verið að vírusleita í viðhenginu.
+      message: Við höldum þessu viðhengi í einangrun þar til vírusleitinni er lokið. Viðhengið verður aðgengilegt á upprunalegum stað innan skamms.
   broken_links:
     broken:
-      subheading:
+      subheading: Við fundum hlekki í þessu skjali sem gætu verið óvirkir
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: Við fundum vandamál með hlekki sem gætu leitt til vandræða, þú ætti að fara varlega í að tengjast þeim
+    title: Óvirkir hlekkir
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Lokað
+    closing_today: Lokar í dag
+    closing_tomorrow: Lokar á morgun
+    days_left: "%{days_left} daga eftir"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Aðgengi og opnunartímar
+    contact_form: Eyðublað til að hafa samband
+    email: Tölvupóstur
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: gefið út á velsku
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Um okkur
+        about_our_services: Um okkar þjónustu
+        access_and_opening: Aðgengi að skrifstofu og opnunartímar
+        accessible_documents_policy: Stefna um aðgengileg skjöl
+        complaints_procedure: Kvartanaferli
+        equality_and_diversity: Jafnrétti og fjölbreytni
+        media_enquiries: Fjölmiðlafyrirspurnir
+        membership: Aðild
+        modern_slavery_statement: Yfirlýsing um nútíma þrælahald
+        our_energy_use: Okkar orkunotkun
+        our_governance: Okkar stjórnun
+        personal_information_charter: Útgáfur persónuupplýsingar
+        petitions_and_campaigns: Bænarskjal og herferðir
+        procurement: Öflun hjá %{organisation_name}
+        publication_scheme: Útgáfu ráðagerðir
+        recruitment: Vinna fyrir %{organisation_name}
+        research: Rannsóknir hjá %{organisation_name}
+        social_media_use: Samfélagsmiðlanotkun
+        staff_update: Fréttir og upplýsingar fyrir starfsfólk
+        statistics: Tölfræði hjá %{organisation_name}
+        terms_of_reference: Skilmálar
+        welsh_language_scheme: Ráðagerð um velska tungu
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: Efni
+    latest: Nýjustu skjölin
+    published: gefið út
+    see_all: Sjá allt
+    speech:
+      author_title:
+        minister: Ráðherra
+        speaker: Höfundur
+      delivered_on: 'Sent þann:'
+      delivery_title:
+        minister: Ráðherra
+        speaker: Ræðumaður
+      written_on: 'Skrifað þann:'
+    type:
+      about:
+        one: Um
+        other: Um
+      about_our_services:
+        one: Um okkar þjónustu
+        other: Um okkar þjónustu
+      access_and_opening:
+        one: Aðgengi og opnun
+        other: Aðgengi og opnun
+      accessible_documents_policy:
+        one: Stefna um aðgengileg skjöl
+        other: Stefnur um aðgengileg skjöl
+      alert:
+        one: Viðvörun
+        other: Viðvaranir
+      announcement:
+        one: Tilkynning
+        other: Tilkynningar
+      authored_article:
+        one: Samin grein
+        other: Samdar greinar
+      blog_post:
+        one: Bloggfærsla
+        other: Bloggfærslur
+      campaign:
+        one: Herferð
+        other: Herferðir
+      careers:
+        one: Starsframi
+        other: Starsframi
+      case_study:
+        one: Ferilsathugun
+        other: Ferilsathuganir
+      closed_consultation:
+        one: Lokuð ráðgjöf
+        other: Lokaðar ráðgjafir
+      complaints_procedure:
+        one: Kvartanaferli
+        other: Kvartanaferlar
+      consultation:
+        one: Ráðgjöf
+        other: Ráðgjafir
+      consultation_outcome:
+        one: Útkoma ráðgjafar
+        other: Útkomur ráðgjafar
+      corporate_report:
+        one: Skýrsla fyrirtækis
+        other: Skýrslur fyrirtækja
+      correspondence:
+        one: Samskipti
+        other: Samskipti
+      decision:
+        one: Ákvörðun
+        other: Ákvarðanir
+      detailed_guidance:
+        one: Leiðsögn
+        other: Leiðsögn
+      document_collection:
+        one: Safn
+        other: Söfn
+      draft_text:
+        one: Textadrög
+        other: Textadrög
+      edition:
+        one: Útgáfa
+        other: Útgáfur
+      edition_with_appointment:
+        one: Útgáfa með úthlutun
+        other: Útgáfur með úthlutun
+      equality_and_diversity:
+        one: Jafnrétti og fjölbreytni
+        other: Jafnrétti og fjölbreytni
+      fatality_notice:
+        one: Tilkynning um dauðsfall
+        other: Tilkynningar um dauðsfall
+      foi_release:
+        one: FOI útgáfa
+        other: FOI útgáfur
+      form:
+        one: Eyðublað
+        other: Eyðublöð
+      generic_edition:
+        one: Almenn útgáfa
+        other: Almennar útgáfur
+      government_response:
+        one: Viðbrögð stjórnvalda
+        other: Viðbrögð stjórnvalda
+      guidance:
+        one: Leiðbeiningar
+        other: Leiðbeiningar
+      impact_assessment:
+        one: Áhrifamat
+        other: Áhrifamöt
+      imported:
+        one: hlaðið inn - bíð eftir gerð
+        other: hlaðið inn - bíð eftir gerð
+      independent_report:
+        one: Óháð skýrsla
+        other: Óháðar skýrslur
+      international_treaty:
+        one: Alþjóðasamningur
+        other: Alþjóðasamningar
+      manual:
+        one: Handbók
+        other: Handbækur
+      map:
+        one: Kort
+        other: Kort
+      media_enquiries:
+        one: Fjölmiðlafyrirspurn
+        other: Fjölmiðlafyrirspurnir
+      membership:
+        one: Aðild
+        other: Aðild
+      modern_slavery_statement:
+        one:
+        other:
+      national_statistics:
+        one: Hagstofa
+        other: Hagstofa
+      news_article:
+        one: Fréttagrein
+        other: Fréttagreinar
+      news_story:
+        one: Frétt
+        other: Fréttir
+      nhs_content:
+        one: NHS efni
+        other: NHS efni
+      notice:
+        one: Tilkynning
+        other: Tilkynningar
+      official_statistics:
+        one: Opinber tölfræði
+        other: Opinber tölfræði
+      open_consultation:
+        one: Opin ráðgjöf
+        other: Opnar ráðgjafir
+      oral_statement:
+        one: Munnleg yfirlýsing til Þingsins
+        other: Munnlegar yfirlýsingar til Þingsins
+      our_energy_use:
+        one: Okkar orkunotkun
+        other: Okkar orkunotkun
+      our_governance:
+        one: Okkar stjórnun
+        other: Okkar stjórnun
+      personal_information_charter:
+        one: Útgáfa persónuupplýsingar
+        other: Útgáfur persónuupplýsingar
+      petitions_and_campaigns:
+        one: Bænaskjöl og herferðir
+        other: Bænaskjöl og herferðir
+      policy_paper:
+        one: Stefnu ritgerð
+        other: Stefnu ritgerðir
+      press_release:
+        one: Fréttatilkynning
+        other: Fréttatilkynningar
+      procurement:
+        one: Öflun
+        other: Öflun
+      promotional:
+        one: Kynningarefni
+        other: Kynningarefni
+      publication:
+        one: Útgáfa
+        other: Útgáfa
+      publication_scheme:
+        one: Útgáfu ráðagerð
+        other: Útgáfu ráðagerðir
+      recruitment:
+        one: Ráðningar
+        other: Ráðningar
+      regulation:
+        one: Reglugerð
+        other: Reglugerðir
+      research:
+        one: Rannsóknir
+        other: Rannsóknir
+      service:
+        one: Þjónusta
+        other: Þjónusta
+      social_media_use:
+        one: Samfélagsmiðlanotkun
+        other: Samfélagsmiðlanotkun
+      speaking_notes:
+        one: Ræðupunktar
+        other: Ræðupunktar
+      speech:
+        one: Ræða
+        other: Ræður
+      staff_update:
+        one: Uppfærsla fyrir starfsfólk
+        other: Uppfærslur fyrir starfsfólk
+      standard:
+        one: Staðall
+        other: Staðalar
+      statement_to_parliament:
+        one: Yfirlýsing til Þingsins
+        other: Yfirlýsingar til Þingsins
+      statistical_data_set:
+        one: Tölfræðilegt gagnasett
+        other: Tölfræðileg gagnasett
+      statistics:
+        one: Tölfræði
+        other: Tölfræði
+      statutory_guidance:
+        one: Lagalegar leiðbeiningar
+        other: Lagalegar leiðbeiningar
+      terms_of_reference:
+        one: Skilmálar
+        other: Skilmálar
+      transcript:
+        one: Handrit
+        other: Handrit
+      transparency:
+        one: Gögn um gagnsæi
+        other: Gögn um gagnsæi
+      welsh_language_scheme:
+        one: Ráðagerð um velska tungu
+        other: Ráðagerðir um velska tungu
+      world_news_story:
+        one: Heimsfrétt
+        other: Heimsfréttir
+      written_statement:
+        one: Skrifleg yfirlýsing til Þingsins
+        other: Skriflegar yfirlýsingar til Þingsins
+    updated: uppfært
   document_filters:
-    consultation:
-      all:
-      label:
-    description:
+    description: Þú getur notað síur til að sýna bara niðurstöður sem henta þínum áhugsviðum
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Prófaðu að víkka leitina þína og reyna aftur.
+      title: Það eru engin skjöl sem passa.
+      tna_heading: Eldra efni
+      tna_link_html: Öll útgáfa ráðuneyta frá því fyrir Maí 2010 hefur verið færð yfir á GOV.UK. Til að finna útgáfu frá því fyrir Maí 2010 prófaðu að leita í <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Þjóðskjalasafnið</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Allar staðsetningar
+      label: Staðsetningar í heiminum
+      no_locations_filter: Engar staðsetningar í heiminum passa við þessa síu.
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Bresk dauðsföll
+    none_added: Engum tilkynningum um dauðsföll hefur verið bætt við fyrir þetta starfsvið.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    latest_activity: Nýjasta virkni
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    is: Íslensk
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is: Íslenska
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Það eru engar uppfærslur.
+    title: Nýjasta
   mhra_email_signup:
     context:
     pages:
@@ -423,105 +456,92 @@ is:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
-    email:
-      alerts:
-      summary:
+      access_our_info: Fáðu aðgang að okkar upplýsingum
+      jobs: Störf
+      jobs_and_contacts: Störf og samningar
+      organisation_chart: Skipurit okkar
+      transparency: Gögn um gagnsæi
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Finna breskt sendiráð, sendinefnd eða ræðismannsskrifstofu
+      find_an_embassy_uppercase: Finna breskt sendiráð, Sendinefnd eða Ræðismannsskrifstofu
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      corporate_information: Upplýsingar um fyrirtæki
+      corporate_reports: Skýrslur fyrirtækis
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Stýrt af
+      agencies_and_public_bodies: umboðum og opinberum stofnunum
+      part_of: Hluti af
+      public_body: opinber stofnun
+      works_with: Starfar með
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Réttir og dómstólar
   publications:
-    heading:
-    recent:
+    heading: Útgáfur
+    recent: Nýlegar útgáfur
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Þú finnur lista yfir útgefna og væntanlega opinbera tölfræði í %{link} tölfræði hlutanum.
+      moved_notice: Útgáfa tölfræði hefur verið færð.
   roles:
-    unassigned:
+    unassigned: Enginn er settur í þetta hlutverk
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Sjá allar okkar tilkynningar
+    authored_article: Sjá allar okkar samdar greinar
+    case_study: Sjá allar okkar ferilsathuganir
+    closed_consultation: Sjá allar okkar lokaðar ráðgjafir
+    consultation: Sjá allar okkar ráðgjafir
+    consultation_outcome: Sjá allar okkar útkomur úr ráðgjöfum
+    corporate_report: Sjá allar okkar skýrslur fyrirtækja
+    correspondence: Sjá öll okkar samskipti
+    decision: Sjá allar okkar ákvarðanir
+    detailed_guidance: Sjá allar okkar leiðbeiningar
+    document_collection: Sjá öll okkar söfn
+    draft_text: Sjá öll okkar textadrög
+    fatality_notice: Sjá allar tilkynningar okkar um dauðsföll
+    foi_release: Sjá allar okkar FOI útgáfur
+    form: Sjá öll okkar eyðublöð
+    government_response: Sjá öll okkar opinber svör
+    guidance: Sjá allar okkar leiðbeiningar
+    impact_assessment: Sjá öll okkar áhrifamöt
+    imported: Sjá allar okkar sjálfstæðu skýrslur
+    international_treaty: Sjá alla alþjóðasamninga okkar
+    map: Sjá öll okkar kort
+    national_statistics: Sjá alla Hagstofu okkar
+    news_article: Sjá allar fréttagreinar okkar
+    news_story: Sjá allar fréttir okkar
+    notice: Sjá allar tilkynningar okkar
+    open_consultation: Sjá allar opnar ráðgjafir okkar
+    oral_statement: Sjá allar munnlegar yfirlýsingar okkar til Þingsins
+    policy: Sjá allar stefnur okkar
+    policy_paper: Sjá allar stefnu ritgerðir okkar
+    press_release: Sjá allar fréttatilkynningar okkar
+    promotional: Sjá allt kynningarefni okkar
+    publication: Sjá allar okkar útgáfur
+    regulation: Sjá allar reglugerðir okkar
+    research: Sjá allar rannsóknir og greiningu okkar
+    speaking_notes: Sjá alla ræðupunkta okkar
+    speech: Sjá allar ræður okkar
+    statement_to_parliament: Sjá allar okkar yfirlýsingar til Þingsins
+    statistical_data_set: Sjá öll tölfræðileg gagnsett okkar
+    statistics: Sjá allar okkar tölfræði
+    statutory_guidance: Sjá allar lagalegar leiðbeiningar okkar
+    transcript: Sjá öll okkar handrit
+    transparency: Sjá öll gögn okkar um gagnsæi
+    written_statement: Sjá allar skriflegar yfirlýsingar okkar til Þingsins
   support:
-    array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: Sækja
+    field_of_operation: 'Starfsvið:'
+    fields_of_operation: Starfsvið
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: næsta <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page} af %{total_pages}</span>
+      next_page: Næsta síða
+      previous_html: Fyrri <span class="visuallyhidden">síða</span> <span class="page-numbers">%{current_page} af %{total_pages}</span>
+      previous_page: Fyrri síða
+    part_of_collection: 'Hluti af safni:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -529,33 +549,51 @@ is:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: Síðasta virkni í %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: Listaráð England
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: Breska bókasafnið
+      commonwealth_war_graves_commission: Stríðsgrafa Umboð Samveldisins
+      heritage_lottery_fund: Heritage Happdrættis Sjóður
+      historic_england: Sögulegt England
+      iwm: Stríðssafn Heimsveldisins
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: Stríðsminnisvarða Ráðstöfun
+  world_location:
+    headings:
+      announcements: Okkar tilkynningar
+      documents: Skjöl
+      featured:
+      mission: Okkar takmark
+      news: Fréttir af stöðum í heiminum
+      organisations: Samtök
+      publications: Okkar útgáfur
+      search: Leita eftir landi eða landsvæði
+      statistics: Okkar tölfræði
+    type:
+      international_delegation:
+        one: Alþjóðleg sendinefnd
+        other: Alþjóðlegar sendinefndir
+      world_location:
+        one: Staðsetning í heiminum
+        other: Staðsetningar í heiminum
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Uppfærslur, fréttir og atburðir frá breska ríkinu í %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Kynntu þér %{link}.
+      personal_information_charter_html: "%{link} okkar útskýrir hvernig við meðhöndlum þínar persónulegu upplýsingar."
+      publication_scheme_html: Lestu um hvaða upplýsingar við birtum reglulega í %{link} okkar.
+      social_media_use_html: Lestu stefnuna okkar varðandi %{link}.
+      welsh_language_scheme_html: Kynntu þér skuldbindingu okkar við %{link}.
+    find_out_more: Sjá allan prófílinn og allar upplýsingar til að hafa samband
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Hafa samband við okkur
+      corporate_information: Upplýsingar um fyrirtæki
+      follow_us: Fylgja okkur
+      our_people: Okkar fólk
+    location: Staðsetning
+    part_of: Hluti af

@@ -1,396 +1,448 @@
+---
 ms:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Nombor kertas Dewan Rakyat
+        isbn: Nombor Buku Standard Antarabangsa (ISBN)
+        unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
       attachment_data:
-        file:
+        file: Fail
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Lampiran nombor kertas perintah
+        hoc_paper_number: Nombor kertas Dewan Rakyat
+        isbn: ISBN Lampiran
+        title: Tajuk lampiran
+        unique_reference: Rujukan unik lampiran
+        unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Fail dilampirkan
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Negara dikecualikan
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Fail dilampirkan
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Lampiran nombor kertas perintah
+        hoc_paper_number: Nombor kertas Dewan Rakyat
+        isbn: ISBN Lampiran
+        title: Tajuk lampiran
+        unique_reference: Rujukan unik lampiran
+        unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Fail dilampirkan
     nested_attachment_data_field_names:
-      file:
+      file: Fail dilampirkan
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Lampiran nombor kertas perintah
+      hoc_paper_number: Nombor kertas Dewan Rakyat
+      isbn: ISBN Lampiran
+      title: Tajuk lampiran
+      unique_reference: Rujukan unik lampiran
+      unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
   announcements:
-    heading:
+    heading: Pengumuman
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Sekiranya anda menggunakan teknologi bantu (seperti pembaca skrin)
+        dan memerlukan versi dokumen ini dalam format yang lebih mudah diakses, sila e-mel %{email}.
+        Sila beritahu kami format yang anda perlukan. Lebih mudah bagi kami jika anda memberitahu teknologi bantu apa yang anda gunakan.
+      intro: Fail ini mungkin tidak sesuai untuk pengguna teknologi bantu.
+      request_a_different_format: Minta format yang boleh diakses.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Fail ini tidak dapat dipratunjuk.
+      download: Muat turun fail untuk melihat kandungannya yang lengkap.
+      truncated_message: Pratunjuk ini hanya menunjukkan baris %{rows} dan lajur %{columns} pertama.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Pesan satu salinan
+      order_a_copy_full: Pesan satu salinan terbitan
+      published: Diterbitkan
+      reference: Ruj
+      unnumbered_command_paper: Kertas perintah tidak bernombor
+      unnumbered_hoc_paper: Kertas tindakan tidak bernombor
     opendocument:
-      help_html:
+      help_html: Fail ini terdapat dalam <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">format</a> OpenDocument
     virus_check:
-      intro:
-      message:
+      intro: Pemeriksaan virus sedang dibuat pada lampiran ini.
+      message: Lampiran ini berada dalam kuarantin hingga pemeriksaan virus selesai. Lampiran akan tersedia di lokasi asal tidak lama lagi.
   broken_links:
     broken:
-      subheading:
+      subheading: Kami menemui pautan dalam dokumen ini yang mungkin terputus
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: Kami menemui beberapa isu dengan pautan yang mungkin menunjukkan adanya masalah, anda harus berhati-hati semasa memaut padanya
+    title: Pautan putus
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Ditutup
+    closing_today: Tutup hari ini
+    closing_tomorrow: Tutup esok
+    days_left: Tinggal %{days_left} hari
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Akses dan waktu pembukaan
+    contact_form: Borang hubungan
+    email: E-mel
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: terbitan dalam bahasa Wales
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Tentang kami
+        about_our_services: Tentang perkhidmatan kami
+        access_and_opening: Akses pejabat dan waktu pembukaan
+        accessible_documents_policy: Dasar dokumen boleh akses
+        complaints_procedure: Prosedur aduan
+        equality_and_diversity: Kesamaan dan kepelbagaian
+        media_enquiries: Pertanyaan media
+        membership: Keanggotaan
+        modern_slavery_statement: Kenyataan perhambaan moden
+        our_energy_use: Penggunaan tenaga kami
+        our_governance: Tadbir urus kami
+        personal_information_charter: Carter maklumat peribadi
+        petitions_and_campaigns: Petisyen dan kempen
+        procurement: Perolehan di %{organisation_name}
+        publication_scheme: Skema penerbitan
+        recruitment: Bekerja untuk %{organisation_name}
+        research: Penyelidikan di %{organisation_name}
+        social_media_use: Penggunaan media sosial
+        staff_update: Berita dan maklumat kakitangan
+        statistics: Statistik di %{organisation_name}
+        terms_of_reference: Terma rujukan
+        welsh_language_scheme: Skema bahasa Wales
   date:
     formats:
-      default:
+      default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
+    contents: Kandungan
+    latest: Dokumen terkini
+    published: diterbitkan
+    see_all: Lihat semua
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Menteri
+        speaker: Penulis
+      delivered_on: 'Dihantar pada:'
       delivery_title:
-        minister:
-        speaker:
-      written_on:
+        minister: Menteri
+        speaker: Pengucap
+      written_on: 'Ditulis pada:'
     type:
       about:
-        one:
-        other:
+        one: Tentang
+        other: Tentang
       about_our_services:
-        one:
-        other:
+        one: Tentang perkhidmatan kami
+        other: Tentang perkhidmatan kami
       access_and_opening:
-        one:
-        other:
+        one: Akses dan pembukaan
+        other: Akses dan pembukaan
       accessible_documents_policy:
-        one:
-        other:
+        one: Dasar dokumen boleh akses
+        other: Dasar dokumen boleh akses
       alert:
-        one:
-        other:
+        one: Pemberitahuan
+        other: Pemberitahuan
       announcement:
-        one:
-        other:
+        one: Pengumuman
+        other: Pengumuman
       authored_article:
-        one:
-        other:
+        one: Artikel ditulis penulis
+        other: Artikel ditulis penulis
       blog_post:
-        one:
-        other:
+        one: Siaran blog
+        other: Siaran blog
       campaign:
-        one:
-        other:
+        one: Kempen
+        other: Kempen
       careers:
-        one:
-        other:
+        one: Kerjaya
+        other: kerjaya
       case_study:
-        one:
-        other:
+        one: Kajian kes
+        other: Kajian kes
       closed_consultation:
-        one:
-        other:
+        one: Rundingan tertutup
+        other: Rundingan tertutup
       complaints_procedure:
-        one:
-        other:
+        one: Prosedur aduan
+        other: Prosedur aduan
       consultation:
-        one:
-        other:
+        one: Rundingan
+        other: Rundingan
       consultation_outcome:
-        one:
-        other:
+        one: Hasil rundingan
+        other: Hasil rundingan
       corporate_report:
-        one:
-        other:
+        one: Laporan korporat
+        other: Laporan korporat
       correspondence:
-        one:
-        other:
+        one: Perwakilan
+        other: Perwakilan
       decision:
-        one:
-        other:
+        one: Keputusan
+        other: Keputusan
       detailed_guidance:
-        one:
-        other:
+        one: Panduan
+        other: Panduan
       document_collection:
-        one:
-        other:
+        one: Koleksi
+        other: Koleksi
       draft_text:
-        one:
-        other:
+        one: Teks draf
+        other: Teks draf
       edition:
-        one:
-        other:
+        one: Suntingan
+        other: Suntingan
       edition_with_appointment:
-        one:
-        other:
+        one: Disunting dengan perlantikan
+        other: Disunting dengan perlantikan
       equality_and_diversity:
-        one:
-        other:
+        one: Kesamaan dan kepelbagaian
+        other: Kesamaan dan kepelbagaian
       fatality_notice:
-        one:
-        other:
+        one: Notis kematian
+        other: Notis kematian
       foi_release:
-        one:
-        other:
+        one: Hebahan Kebebasan Maklumat (FOI)
+        other: Hebahan Kebebasan Maklumat (FOI)
       form:
-        one:
-        other:
+        one: Borang
+        other: Borang
       generic_edition:
-        one:
-        other:
+        one: Suntingan generik
+        other: Suntingan generik
       government_response:
-        one:
-        other:
+        one: Respons kerajaan
+        other: Respons kerajaan
       guidance:
-        one:
-        other:
+        one: Panduan
+        other: Panduan
       impact_assessment:
-        one:
-        other:
+        one: Penilaian Impak
+        other: Penilaian Impak
       imported:
-        one:
-        other:
+        one: diimport - menunggu jenis
+        other: diimport - menunggu jenis
       independent_report:
-        one:
-        other:
+        one: Laporan bebas
+        other: Laporan bebas
       international_treaty:
-        one:
-        other:
+        one: Perjanjian antarabangsa
+        other: Perjanjian antarabangsa
       manual:
-        one:
-        other:
+        one: Manual
+        other: Manual
       map:
-        one:
-        other:
+        one: Peta
+        other: Peta
       media_enquiries:
-        one:
-        other:
+        one: Pertanyaan media
+        other: Pertanyaan media
       membership:
+        one: Keanggotaan
+        other: Keanggotaan
+      modern_slavery_statement:
         one:
         other:
       national_statistics:
-        one:
-        other:
+        one: Statistik Nasional
+        other: Statistik Nasional
       news_article:
-        one:
-        other:
+        one: Artikel berita
+        other: Artikel berita
       news_story:
-        one:
-        other:
+        one: Berita
+        other: Berita
       nhs_content:
-        one:
-        other:
+        one: Kandungan Perkhidmatan Kesihatan Nasional (NHS)
+        other: Kandungan Perkhidmatan Kesihatan Nasional (NHS)
       notice:
-        one:
-        other:
+        one: Notis
+        other: Notis
       official_statistics:
-        one:
-        other:
+        one: Statistik Rasmi
+        other: Statistik Rasmi
       open_consultation:
-        one:
-        other:
+        one: Rundingan terbuka
+        other: Rundingan terbuka
       oral_statement:
-        one:
-        other:
+        one: Kenyataan lisan kepada Parlimen
+        other: Kenyataan lisan kepada Parlimen
       our_energy_use:
-        one:
-        other:
+        one: Penggunaan tenaga kami
+        other: Penggunaan tenaga kami
       our_governance:
-        one:
-        other:
+        one: Tadbir urus kami
+        other: Tadbir urus kami
       personal_information_charter:
-        one:
-        other:
+        one: Carter maklumat peribadi
+        other: Carter maklumat peribadi
       petitions_and_campaigns:
-        one:
-        other:
+        one: Petisyen dan kempen
+        other: Petisyen dan kempen
       policy_paper:
-        one:
-        other:
+        one: Kertas dasar
+        other: Kertas dasar
       press_release:
-        one:
-        other:
+        one: Siaran akhbar
+        other: Siaran akhbar
       procurement:
-        one:
-        other:
+        one: Perolehan
+        other: Perolehan
       promotional:
-        one:
-        other:
+        one: Bahan promosi
+        other: Bahan promosi
       publication:
-        one:
-        other:
+        one: Penerbitan
+        other: Penerbitan
       publication_scheme:
-        one:
-        other:
+        one: Skema penerbitan
+        other: Skema penerbitan
       recruitment:
-        one:
-        other:
+        one: Pengambilan
+        other: Pengambilan
       regulation:
-        one:
-        other:
+        one: Peraturan
+        other: Peraturan
       research:
-        one:
-        other:
+        one: Penyelidikan
+        other: Penyelidikan
       service:
-        one:
-        other:
+        one: Perkhidmatan
+        other: Perkhidmatan
       social_media_use:
-        one:
-        other:
+        one: Penggunaan media sosial
+        other: Penggunaan media sosial
       speaking_notes:
-        one:
-        other:
+        one: Nota perbincangan
+        other: Nota perbincangan
       speech:
-        one:
-        other:
+        one: Ucapan
+        other: Ucapan
       staff_update:
-        one:
-        other:
+        one: Kemas kini kakitangan
+        other: Kemas kini kakitangan
       standard:
-        one:
-        other:
+        one: Standard
+        other: Standard
       statement_to_parliament:
-        one:
-        other:
+        one: Kenyataan kepada Parlimen
+        other: Kenyataan kepada Parlimen
       statistical_data_set:
-        one:
-        other:
+        one: Set data statistik
+        other: Set data statistik
       statistics:
-        one:
-        other:
+        one: Statistik
+        other: Statistik
       statutory_guidance:
-        one:
-        other:
+        one: Panduan berkanun
+        other: Panduan berkanun
       terms_of_reference:
-        one:
-        other:
+        one: Terma rujukan
+        other: Terma rujukan
       transcript:
-        one:
-        other:
+        one: Transkrip
+        other: Transkrip
       transparency:
-        one:
-        other:
+        one: Data ketelusan
+        other: Data ketelusan
       welsh_language_scheme:
-        one:
-        other:
+        one: Skema bahasa Wales
+        other: Skema bahasa Wales
       world_news_story:
-        one:
-        other:
+        one: Berita seluruh dunia
+        other: Berita seluruh dunia
       written_statement:
-        one:
-        other:
-    updated:
+        one: Kenyataan bertulis kepada Parlimen
+        other: Kenyataan bertulis kepada Parlimen
+    updated: dikemas kini
   document_filters:
-    consultation:
-      all:
-      label:
-    description:
+    description: Anda boleh menggunakan penapis untuk menunjukkan hasil yang hanya sepadan dengan minat anda
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Cuba buat carian anda lebih luas dan cuba lagi.
+      title: Tidak ada dokumen yang sepadan.
+      tna_heading: Kandungan lebih lama
+      tna_link_html: Tidak semua penerbitan jabatan dari sebelum Mei 2010 dipindahkan ke GOV.UK. Untuk mencari penerbitan sebelum Mei 2010 cuba cari <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arkib Negara</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Semua lokasi
+      label: Lokasi dunia
+      no_locations_filter: Tidak ada lokasi dunia yang sepadan dengan penapis itu.
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Kematian warga British
+    none_added: Belum ada notis kematian yang ditambahkan untuk medan operasi ini.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    latest_activity: Aktiviti terkini
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
     ms: Bahasa Melayu
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Belum ada kemas kini.
+    title: Terkini
   mhra_email_signup:
     context:
     pages:
@@ -405,105 +457,92 @@ ms:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
-    email:
-      alerts:
-      summary:
+      access_our_info: Akses maklumat kami
+      jobs: Pekerjaan
+      jobs_and_contacts: Pekerjaan dan kontrak
+      organisation_chart: Carta organisasi kami
+      transparency: Data ketelusan
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Cari kedutaan, pesuruhjaya tinggi atau konsulat British
+      find_an_embassy_uppercase: Cari kedutaan, Pesuruhjaya Tinggi atau Konsulat British
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      corporate_information: Maklumat korporat
+      corporate_reports: Laporan korporat
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Ditadbir oleh
+      agencies_and_public_bodies: agensi dan badan awam
+      part_of: Sebahagian daripada
+      public_body: badan awam
+      works_with: Bekerja dengan
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Mahkamah dan Tribunal
   publications:
-    heading:
-    recent:
+    heading: Penerbitan
+    recent: Penerbitan terbaharu
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Cari senarai statistik kerajaan yang telah diterbitkan dan akan datang di bahagian statistik %{link}.
+      moved_notice: Penerbitan statistik telah bergerak.
   roles:
-    unassigned:
+    unassigned: Tiada siapa yang ditugaskan untuk peranan ini
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Lihat semua pengumuman kami
+    authored_article: Lihat semua artikel ditulis penulis kami
+    case_study: Lihat semua kajian kes kami
+    closed_consultation: Lihat semua rundingan tertutup kami
+    consultation: Lihat semua rundingan kami
+    consultation_outcome: Lihat semua hasil perundingan kami
+    corporate_report: Lihat semua laporan korporat kami
+    correspondence: Lihat semua perwakilan kami
+    decision: Lihat semua keputusan kami
+    detailed_guidance: Lihat semua panduan kami
+    document_collection: Lihat semua koleksi kami
+    draft_text: Lihat semua teks draf kami
+    fatality_notice: Lihat semua notis kematian kami
+    foi_release: Lihat semua hebahan Kebebasan Maklumat kami (FOI)
+    form: Lihat semua borang kami
+    government_response: Lihat semua respons kerajaan kami
+    guidance: Lihat semua panduan kami
+    impact_assessment: Lihat semua penilaian impak kami
+    imported: Lihat semua laporan bebas kami
+    international_treaty: Lihat semua perjanjian antarabangsa kami
+    map: Lihat semua peta kami
+    national_statistics: Lihat semua Statistik Nasional kami
+    news_article: Lihat semua artikel berita kami
+    news_story: Lihat semua berita kami
+    notice: Lihat semua notis kami
+    open_consultation: Lihat semua rundingan terbuka kami
+    oral_statement: Lihat semua kenyataan lisan kami kepada Parlimen
+    policy: Lihat semua dasar kami
+    policy_paper: Lihat semua kertas dasar kami
+    press_release: Lihat semua siaran akhbar kami
+    promotional: Lihat semua bahan promosi kami
+    publication: Lihat semua terbitan kami
+    regulation: Lihat semua peraturan kami
+    research: Lihat semua penyelidikan dan analisis kami
+    speaking_notes: Lihat semua nota perbincangan kami
+    speech: Lihat semua ucapan kami
+    statement_to_parliament: Lihat semua kenyataan kami kepada Parlimen
+    statistical_data_set: Lihat semua set data statistik kami
+    statistics: Lihat semua statistik kami
+    statutory_guidance: Lihat semua panduan berkanun kami
+    transcript: Lihat semua transkrip kami
+    transparency: Lihat semua data ketelusan kami
+    written_statement: Lihat semua kenyataan bertulis kami kepada Parlimen
   support:
-    array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: Muat turun
+    field_of_operation: 'Medan operasi:'
+    fields_of_operation: Medan operasi
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Halaman <span class="visuallyhidden">seterusnya</span> <span class="page-numbers">%{current_page} daripada %{total_pages}</span>
+      next_page: Halaman seterusnya
+      previous_html: Halaman <span class="visuallyhidden">sebelumnya</span> <span class="page-numbers">%{current_page} daripada %{total_pages}</span>
+      previous_page: Halaman sebelumnya
+    part_of_collection: 'Sebahagian daripada koleksi:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -511,51 +550,51 @@ ms:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: Aktiviti terkini di %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: Majlis Kesenian England
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: Perpustakaan British
+      commonwealth_war_graves_commission: Suruhanjaya Perkuburan Perang Komanwel
+      heritage_lottery_fund: Tabung Warisan Loteri
+      historic_england: England yang bersejarah
+      iwm: Muzium Perang Imperial
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: Amanah Peringatan Perang
   world_location:
     headings:
-      announcements:
-      documents:
+      announcements: Pengumuman kami
+      documents: Dokumen
       featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
+      mission: Misi kami
+      news: Berita lokasi dunia
+      organisations: Organisasi
+      publications: Terbitan kami
+      search: Cari mengikut negara atau wilayah
+      statistics: Statistik kami
     type:
       international_delegation:
-        one:
-        other:
+        one: Perwakilan antarabangsa
+        other: Perwakilan antarabangsa
       world_location:
-        one:
-        other:
+        one: Lokasi dunia
+        other: Lokasi dunia
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Kemas kini, berita dan peristiwa daripada kerajaan UK di %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Ketahui %{link}.
+      personal_information_charter_html: "%{link} kami menerangkan bagaimana kami menggunakan maklumat peribadi anda."
+      publication_scheme_html: Baca tentang jenis maklumat yang kami biasa terbitkan dalam %{link} kami.
+      social_media_use_html: Baca dasar kami di %{link}.
+      welsh_language_scheme_html: Ketahui tentang komitmen kami kepada %{link}.
+    find_out_more: Lihat profil lengkap dan semua butiran hubungan
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Hubungi kami
+      corporate_information: Maklumat korporat
+      follow_us: Ikuti kami
+      our_people: Rakyat kami
+    location: Lokasi
+    part_of: Sebahagian daripada

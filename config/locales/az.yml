@@ -1,396 +1,448 @@
+---
 az:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: İcmalar palatasının sənəd nömrəsi
+        isbn: ISBN
+        unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
       attachment_data:
-        file:
+        file: Fayl
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Əlavənin sənəd nömrəsi
+        hoc_paper_number: İcmalar palatasının sənəd nömrəsi
+        isbn: Əlavə üçün ISBN
+        title: Əlavənin başlığı
+        unique_reference: Əlavə üçün unikal istinad
+        unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Əlavə edilmiş fayl
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Çıxarılmış millətlər
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Əlavə edilmiş fayl
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Əlavənin sənəd nömrəsi
+        hoc_paper_number: İcmalar palatasının sənəd nömrəsi
+        isbn: Əlavə üçün ISBN
+        title: Əlavənin başlığı
+        unique_reference: Əlavə üçün unikal istinad
+        unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Əlavə edilmiş fayl
     nested_attachment_data_field_names:
-      file:
+      file: Əlavə edilmiş fayl
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Əlavənin sənəd nömrəsi
+      hoc_paper_number: İcmalar palatasının sənəd nömrəsi
+      isbn: Əlavə üçün ISBN
+      title: Əlavənin başlığı
+      unique_reference: Əlavə üçün unikal istinad
+      unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
   announcements:
     heading: Elanlar
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Köməkçi texnologiyalardan (ekran oxuyucusu kimi) istifadə edirsinizsə və sizə bu sənədin daha rahat istifadə edilə bilən formatda olan
+        versiyası lazımdırsa, aşağıdakı ünvana e-məktubla müraciət edin %{email}.
+        Sizə hansı formatın lazım olduğunu bizə söyləyin. Hansı köməkçi texnologiyadan istifadə etdiyinizi bildirməyiniz bizə kömək edəcək.
+      intro: Bu fayl köməkçi texnologiya istifadəçiləri üçün uyğun olmaya bilər.
+      request_a_different_format: İstifadə edilə bilən format tələb edin.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Bu faylın ilkin nəzərdən keçirilməsi mümkün olmadı.
+      download: Bu faylın bütün məzmunlarına baxmaq üçün onu endirin.
+      truncated_message: Bu ilkin baxışda yalnız birinci %{rows} sıra və %{columns} sütun göstərilir.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Surətini sifariş edin
+      order_a_copy_full: Nəşrin surətini sifariş edin
+      published: Dərc edilib
+      reference: İstin.
+      unnumbered_command_paper: Nömrələnməmiş direktiv sənəd
+      unnumbered_hoc_paper: Nömrələnməmiş akt sənədi
     opendocument:
-      help_html:
+      help_html: Bu fayl <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> formatındadır
     virus_check:
-      intro:
-      message:
+      intro: Bu əlavə viruslara qarşı yoxlanılıb.
+      message: Biz bu əlavə virusa qarşı yoxlanana qədər, onu hal-hazırda karantində saxlayırıq. Əlavə tezliklə ilkin yerində mövcud olacaq.
   broken_links:
     broken:
-      subheading:
+      subheading: Biz bu sənəddə pozulmuş keçid aşkar etmişik
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: Biz problemləri göstərə biləcək keçidlərdə bəzi məsələlər tapmışıq, onlara qoşulan zaman ehtiyatlı olmalısınız
+    title: Pozulmuş keçidlər
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Bağlıdır
+    closing_today: Bu gün bağlanır
+    closing_tomorrow: Sabah bağlanır
+    days_left: "%{days_left} gün qalıb"
   contact:
-    access_and_opening_times:
-    contact_form: Əlaqə vasitəsi
-    email: elektron poçt
+    access_and_opening_times: Giriş və iş vaxtı
+    contact_form: Əlaqə saxlamaq üçün forma
+    email: E-poçt
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: Vall dilində dərc edilir
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: şəxsi məlumatlar bölümü
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: çap sxemi
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: Uels dili cədvəli
+        about: Haqqımızda
+        about_our_services: Xidmətlərimiz haqqında
+        access_and_opening: Ofisə giriş və onun iş saatları
+        accessible_documents_policy: Əlçatan sənədlər siyasəti
+        complaints_procedure: Şikayət etmə proseduru
+        equality_and_diversity: Bərabərlik və fərqlilik
+        media_enquiries: Kütləvi informasiya vasitələrilə əlaqələr şöbəsi
+        membership: Üzvlük
+        modern_slavery_statement: Müasir köləlik bəyanatı
+        our_energy_use: Enerjidən istifadə etməyimiz
+        our_governance: İdarəetməmiz
+        personal_information_charter: Məxfilik siyasəti
+        petitions_and_campaigns: Müraciətlər və kampaniyalar
+        procurement: "%{organisation_name} üzrə təchizat"
+        publication_scheme: Dərcetmə sxemi
+        recruitment: "%{organisation_name}-da (də) işləmək"
+        research: "%{organisation_name}-da (də) araşdırma"
+        social_media_use: Sosial imediadan istifadə
+        staff_update: İşçilərlə bağlı yeniliklər və məlumatlar
+        statistics: "%{organisation_name}-da (də) statistika"
+        terms_of_reference: Başlanğıc şərtlər
+        welsh_language_scheme: Vall dil sxemi
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: tətbiq olunur
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: dərc olunub
-    see_all:
+    contents: Məzmunlar
+    latest: Ən son ortaya çıxan sənədlər
+    published: dərc edilib
+    see_all: Hamısına baxın
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on: çatdırılıb
+        minister: Nazir
+        speaker: Yazıçı
+      delivered_on: 'Çatdırılıb:'
       delivery_title:
         minister: Nazir
-        speaker: Spiker
-      written_on:
+        speaker: Natiq
+      written_on: 'Yazılma tarixi:'
     type:
       about:
-        one:
-        other:
+        one: Haqqında
+        other: Haqqında
       about_our_services:
-        one:
-        other:
+        one: Xidmətlərimiz haqqında
+        other: Xidmətlərimiz haqqında
       access_and_opening:
-        one:
-        other:
+        one: Giriş və iş saatları
+        other: Giriş və iş saatları
       accessible_documents_policy:
-        one:
-        other:
+        one: Əlçatan sənədlər siyasəti
+        other: Əlçatan sənədlər siyasətləri
       alert:
-        one:
-        other:
+        one: Təhlükə siqnalı
+        other: Təhlükə siqnalları
       announcement:
-        one:
-        other:
+        one: Elan
+        other: Elanlar
       authored_article:
-        one:
-        other:
+        one: Müəlliflik edilmiş məqalə
+        other: Müəlliflik edilmiş məqalələr
       blog_post:
-        one:
-        other:
+        one: Bloq-post
+        other: Bloq-postlar
       campaign:
-        one:
-        other:
+        one: Kampaniya
+        other: Kampaniyalar
       careers:
-        one:
-        other:
+        one: Karyeralar
+        other: karyeralar
       case_study:
-        one:
-        other:
+        one: Nümunə üzrə araşdırma
+        other: Nümunə üzrə araşdırmalar
       closed_consultation:
-        one:
-        other:
+        one: Qapalı məsləhətləşmə
+        other: Qapalı məsləhətləşmələr
       complaints_procedure:
-        one:
-        other:
+        one: Şikayət etmə proseduru
+        other: Şikayət etmə prosedurları
       consultation:
-        one:
-        other:
+        one: Məsləhətləşmə
+        other: Məsləhətləşmələr
       consultation_outcome:
-        one:
-        other:
+        one: Məsləhətləşmə nəticəsi
+        other: Məsləhətləşmə nəticələri
       corporate_report:
-        one:
-        other:
+        one: Şirkətin fəaliyyəti üzrə hesabat
+        other: Şirkətin fəaliyyəti üzrə hesabatlar
       correspondence:
-        one:
-        other:
+        one: Yazışma
+        other: Yazışmalar
       decision:
-        one:
-        other:
+        one: Qərar
+        other: Qərarlar
       detailed_guidance:
-        one:
-        other:
+        one: Göstəriş
+        other: Göstəriş
       document_collection:
-        one:
-        other:
+        one: Yığım
+        other: Yığımlar
       draft_text:
-        one:
-        other:
+        one: Hazırlanan mətn
+        other: Hazırlanan mətnlər
       edition:
-        one:
-        other:
+        one: Buraxılış
+        other: Buraxılışlar
       edition_with_appointment:
-        one:
-        other:
+        one: Təyinatlı buraxılış
+        other: Təyinatlı buraxılışlar
       equality_and_diversity:
-        one:
-        other:
+        one: Bərabərlik və fərqlilik
+        other: Bərabərlik və fərqlilik
       fatality_notice:
-        one:
-        other:
+        one: Ölüm hadisəsi bildirişi
+        other: Ölüm hadisəsi bildirişləri
       foi_release:
-        one:
-        other:
+        one: Məlumat əldə etmə azadlığı buraxılışı
+        other: Məlumat əldə etmə azadlığı buraxılışları
       form:
-        one:
-        other:
+        one: Forma
+        other: Formalar
       generic_edition:
-        one:
-        other:
+        one: Ümumi buraxılış
+        other: Ümumi buraxılışlar
       government_response:
-        one:
-        other:
+        one: Hökumətin reaksiyası
+        other: Hökumətin reaksiyaları
       guidance:
-        one:
-        other:
+        one: Göstəriş
+        other: Göstəriş
       impact_assessment:
-        one:
-        other:
+        one: Təsirin dəyərləndirilməsi
+        other: Təsirin dəyərləndirilmələri
       imported:
-        one:
-        other:
+        one: idxal edilmiş - gözlənilən növ
+        other: idxal edilmiş - gözlənilən növ
       independent_report:
-        one:
-        other:
+        one: Müstəqil hesabat
+        other: Müstəqil hesabatlar
       international_treaty:
-        one:
-        other:
+        one: Beynəlxalq saziş
+        other: Beynəlxalq sazişlər
       manual:
-        one:
-        other:
+        one: Təlimat
+        other: Təlimatlar
       map:
-        one:
-        other:
+        one: Xəritə
+        other: Xəritələr
       media_enquiries:
-        one:
-        other:
+        one: Kütləvi informasiya vasitələri ilə əlaqələr şöbəsi
+        other: Kütləvi informasiya vasitələrilə əlaqələr şöbəsi
       membership:
+        one: Üzvlük
+        other: Üzvlük
+      modern_slavery_statement:
         one:
         other:
       national_statistics:
-        one:
-        other:
+        one: Milli statistika
+        other: Milli statistika
       news_article:
-        one:
-        other:
+        one: Xəbərləri əks etdirən məqalə
+        other: Xəbərləri əks etdirən məqalələr
       news_story:
-        one:
-        other: Xəbərlər
+        one: Xəbərləri əks etdirən material
+        other: Xəbərləri əks etdirən materiallar
       nhs_content:
-        one:
-        other:
+        one: Milli səhiyyə xidməti məzmunu
+        other: Milli səhiyyə xidməti məzmunu
       notice:
-        one:
-        other:
+        one: Bildiriş
+        other: Bildirişlər
       official_statistics:
-        one:
-        other:
+        one: Rəsmi statistika
+        other: Rəsmi statistika
       open_consultation:
-        one:
-        other:
+        one: Açıq məsləhətləşmə
+        other: Açıq məsləhətləşmələr
       oral_statement:
-        one:
-        other:
+        one: Parlamentə şifahi müraciət
+        other: Parlamentə şifahi müraciətlər
       our_energy_use:
-        one:
-        other:
+        one: Enerjidən istifadə etməyimiz
+        other: Enerjidən istifadə etməyimiz
       our_governance:
-        one:
-        other:
+        one: İdarəetməmiz
+        other: İdarəetməmiz
       personal_information_charter:
-        one:
-        other:
+        one: Məxfilik siyasəti
+        other: Məxfilik siyasətləri
       petitions_and_campaigns:
-        one:
-        other:
+        one: Müraciətlər və kampaniyalar
+        other: Müraciətlər və kampaniyalar
       policy_paper:
-        one:
-        other:
+        one: Siyasət sənədi
+        other: Siyasət sənədləri
       press_release:
-        one:
-        other: mətbuat üçün açıqlama
+        one: Press-reliz
+        other: Press-relizlər
       procurement:
-        one:
-        other:
+        one: Təchizat
+        other: Təchizat
       promotional:
-        one:
-        other:
+        one: Reklam materialı
+        other: Reklam materialı
       publication:
-        one:
-        other:
+        one: Nəşr
+        other: Nəşrlər
       publication_scheme:
-        one:
-        other:
+        one: Dərcetmə sxemi
+        other: Dərcetmə sxemləri
       recruitment:
-        one:
-        other:
+        one: İşəgötürmə
+        other: İşəgötürmə
       regulation:
-        one:
-        other:
+        one: Tənzimləmə
+        other: Tənzimləmələr
       research:
-        one:
-        other:
+        one: Araşdırmalar
+        other: Araşdırmalar
       service:
-        one:
-        other:
+        one: Xidmət
+        other: Xidmətlər
       social_media_use:
-        one:
-        other:
+        one: Sosial imediadan istifadə
+        other: Sosial imediadan istifadə
       speaking_notes:
-        one:
-        other:
+        one: Şifahi qeydlər
+        other: Şifahi qeydlər
       speech:
-        one:
-        other: Çıxışlar
+        one: Nitq
+        other: Nitqlər
       staff_update:
-        one:
-        other:
+        one: İşçilərlə bağlı dəyişiklik
+        other: İşçilərlə bağlı dəyişikliklər
       standard:
-        one:
-        other:
+        one: Standart
+        other: Standartlar
       statement_to_parliament:
-        one:
-        other: Parlamentə bəyanatlar
+        one: Parlamentə müraciət
+        other: Parlamentə müraciətlər
       statistical_data_set:
-        one:
-        other:
+        one: Statistik məlumat paketi
+        other: Statistik məlumat paketləri
       statistics:
-        one:
-        other:
+        one: Statistika
+        other: Statistika
       statutory_guidance:
-        one:
-        other:
+        one: Normativ göstərişlər
+        other: Normativ göstərişlər
       terms_of_reference:
-        one:
-        other:
+        one: Başlanğıc şərtlər
+        other: Başlanğıc şərtlər
       transcript:
-        one:
-        other:
+        one: Çıxarış
+        other: Çıxarışlar
       transparency:
-        one:
-        other:
+        one: Məlumatla bağlı şəffaflıq
+        other: Məlumatla bağlı şəffaflıq
       welsh_language_scheme:
-        one:
-        other:
+        one: Vall dil sxemi
+        other: Vall dil sxemləri
       world_news_story:
-        one:
-        other:
+        one: Dünya üzrə xəbərləri əks etdirən material
+        other: Dünya üzrə xəbərləri əks etdirən materiallar
       written_statement:
-        one:
-        other:
+        one: Parlamentə yazılı müraciət
+        other: Parlamentə yazılı müraciətlər
     updated: yenilənib
   document_filters:
-    consultation:
-      all:
-      label:
-    description: filterdən istifadə edərək nəticəni görmək mümkündür
+    description: Yalnız maraqlarınıza uyğun gələn nəticələrin göstərilməsi üçün süzgəclərdən istifadə edə bilərsiniz
     no_results:
-      description: axtarışınızı daha geniş edin
-      title: uygün məlumat tapılmadı
-      tna_heading:
-      tna_link:
+      description: Axtarış sahənizi genişləndirməyə çalışın və yenidən cəhd edin.
+      title: Uyğun gələn sənədlər yoxdur.
+      tna_heading: Daha köhnə məzmun
+      tna_link_html: '2010-cu ilin may ayından əvvəlki departament nəşrlərinin hamısı GOV.UK-a köçürülməyib. 2010-cu ilin may ayından əvvəlki nəşrləri tapmaq üçün aşağıdakı ünvanda axtarış etməyə çalışın: <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arxivlər</a>.'
     world_locations:
-      all: bütün yerlər
-      label: dünya üzrə məkanlar
-      no_locations_filter:
+      all: Bütün yerlər
+      label: Dünya üzrə yerləri
+      no_locations_filter: Dünya üzrə yerləri həmin süzgəcə uyğun gəlmir.
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Britaniya ölüm hadisələri
+    none_added: Bu iş sahəsi üzrə hələ heç bir ölüm hadisəsi bildirişləri əlavə edilməyib.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity: sonuncu fəaliyyət
+    latest_activity: Ən son fəaliyyət
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    az: Azərbaycanca
+    ar:
+    az: Azeri
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates: yeni məlumat yoxdur
-    title: Ən sonuncu
+    no_updates: Hələ yenilənmələr yoxdur.
+    title: Ən son
   mhra_email_signup:
     context:
     pages:
@@ -405,105 +457,92 @@ az:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
-    email:
-      alerts:
-      summary:
+      access_our_info: Məlumatlarımıza daxil olun
+      jobs: İşlər
+      jobs_and_contacts: İşlər və müqavilələr
+      organisation_chart: Təşkilat sxemimiz
+      transparency: Məlumatla bağlı şəffaflıq
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Britaniya səfirliyi, diplomatik nümayəndəliyi və ya konsulluğu tapın
+      find_an_embassy_uppercase: Britaniya səfirliyi, Diplomatik nümayəndəliyi və ya Konsulluğu tapın
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      corporate_information: Korporativ məlumat
+      corporate_reports: Şirkətin fəaliyyəti üzrə hesabatlar
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Agentliklər
+      agencies_and_public_bodies: və dövlət orqanları tərəfindən idarə edilir
+      part_of: Dövlət orqanının
+      public_body: bir hissəsi
+      works_with: Məhkəmə və məhkəmə kollegiyaları
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: ilə işlər
   publications:
     heading: Nəşrlər
-    recent:
+    recent: Sonuncu nəşrlər
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} statistika bölməsində dərc edilmiş və gözlənilən dövlət statistikasını tapın."
+      moved_notice: Statistika üzrə nəşrlər köçürülüb.
   roles:
-    unassigned:
+    unassigned: Bu vəzifəyə heç kim təyin edilməyib
   see_all:
-    announcement: Bax bütün növ
-    authored_article:
-    case_study: Bax bütün növ
-    closed_consultation: Bax bütün növ
-    consultation: Bax bütün növ
-    consultation_outcome: Bax bütün növ
-    corporate_report: Bax bütün növ
-    correspondence: Bax bütün növ
-    decision:
-    detailed_guidance: Bax bütün növ
-    document_collection:
-    draft_text: Bax bütün növ
-    fatality_notice: Bax bütün növ
-    foi_release: Bax bütün növ
-    form: Bax bütün növ
-    government_response:
-    guidance: Bax bütün növ
-    impact_assessment: Bax bütün növ
-    imported:
-    international_treaty:
-    map: Bax bütün növ
-    national_statistics: Bax bütün növ
-    news_article: Bax bütün növ
-    news_story: Bax bütün növ
-    notice:
-    open_consultation: Bax bütün növ
-    oral_statement: Bax bütün növ
-    policy: Bax bütün növ
-    policy_paper: Bax bütün növ
-    press_release: Bax bütün növ
-    promotional: Bax bütün növ
-    publication: Bax bütün növ
-    regulation:
-    research: Bax bütün növ
-    speaking_notes: Bax bütün növ
-    speech: Bax bütün növ
-    statement_to_parliament: Bax bütün növ
-    statistical_data_set: Bax bütün növ
-    statistics: Bax bütün növ
-    statutory_guidance:
-    transcript: Bax bütün növ
-    transparency: Bax bütün növ
-    written_statement: Bax bütün növ
+    announcement: Bütün elanlarımıza baxın
+    authored_article: Müəlliflik edilmiş bütün məqalələrimizə baxın
+    case_study: Nümunə üzrə bütün araşdırmalarımıza baxın
+    closed_consultation: Bütün qapalı məsləhətləşmələrimizə baxın
+    consultation: Bütün məsləhətləşmələrimizə baxın
+    consultation_outcome: Bütün məsləhətləşmə nəticələrimizə baxın
+    corporate_report: Şirkətin fəaliyyəti üzrə bütün hesabatlarımıza baxın
+    correspondence: Bütün yazışmalarımıza baxın
+    decision: Bütün qərarlarımıza baxın
+    detailed_guidance: Bütün göstərişlərimizə baxın
+    document_collection: Bütün yığımlarımıza baxın
+    draft_text: Bütün hazırlanan mətnlərimizə baxın
+    fatality_notice: Bütün ğlüm hadisəsi bildirişlərimizə baxın
+    foi_release: Bütün məlumat əldə etmə azadlığı buraxılışlarımıza baxın
+    form: Bütün formalarımıza baxın
+    government_response: Hökumətimizin bütün reaksiyalarına baxın
+    guidance: Bütün göstərişlərimizə baxın
+    impact_assessment: Bizim bütün təsir dəyərləndirilmələrimizə baxın
+    imported: Bütün müstəqil hesabatlarımıza baxın
+    international_treaty: Bütün beynəlxalq sazişlərimizə baxın
+    map: Bütün xəritələrimizə baxın
+    national_statistics: Bütün Milli statistikamıza baxın
+    news_article: Xəbərləri əks etdirən bütün məqalələrimizə baxın
+    news_story: Xəbərləri əks etdirən bütün materiallarımıza baxın
+    notice: Bütün bildirişlərimizə baxın
+    open_consultation: Bütün açıq məsləhətləşmələrimizə baxın
+    oral_statement: Parlamentə edilmiş bütün şifahi müraciətlərimizə baxın
+    policy: Bütün siyasətlərimizə baxın
+    policy_paper: Bütün siyasət sənədlərimizə baxın
+    press_release: Bütün press-relizlərimizə baxın
+    promotional: Bütün reklam materialımıza baxın
+    publication: Bütün nəşrlərimizə baxın
+    regulation: Bütün tənzimləmələrimizə baxın
+    research: Bütün araşdırma və təhlillərimizə baxın
+    speaking_notes: Bütün şifahi qeydlərimizə baxın
+    speech: Bütün nitqlərimizə baxın
+    statement_to_parliament: Parlamentə edilmiş bütün müraciətlərimizə baxın
+    statistical_data_set: Bütün statistik məlumat paketlərimizə baxın
+    statistics: Bütün statistikamıza baxın
+    statutory_guidance: Bütün normativ göstərişlərimizə baxın
+    transcript: Bütün çıxarışlarımıza baxın
+    transparency: Bütün şəffaf malumatlarımıza baxın
+    written_statement: Parlamentə edilmiş bütün yazılı müraciətlərimizə baxın
   support:
-    array:
-      last_word_connector: və
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: Endirin
+    field_of_operation: 'Əməliyyat sahəsi:'
+    fields_of_operation: Əməliyyat sahələri
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: '%{total_pages}</span>-ın sonrakı <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
+      next_page: Sonrakı səhifə
+      previous_html: '%{total_pages}</span>-ın əvvəlki <span class="visuallyhidden">səhifəsi</span> <span class="page-numbers">%{current_page}'
+      previous_page: Əvvəlki səhifə
+    part_of_collection: 'Yığımın bir hissəsi:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -511,51 +550,51 @@ az:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: "%{event} üzrə ən son fəaliyyət"
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: İngiltərə incəsənət şurası
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: Britaniya kitabxanası
+      commonwealth_war_graves_commission: Birliyin müharibə qəbrləri üzrə komissiyası
+      heritage_lottery_fund: Mirasçılıq lotereyası fondu
+      historic_england: Tarixi İngiltərə
+      iwm: İmperiya müharibələri muzeyi
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: Müharibədə həlak olanların xatirəsini qoruma tresti
   world_location:
     headings:
-      announcements: Bizim elanlar
+      announcements: Elanlarımız
       documents: Sənədlər
       featured:
-      mission: Bizim missiyamız
-      news:
+      mission: Missiyamız
+      news: Dünya üzrə xəbərlər
       organisations: Təşkilatlar
-      publications: Bizim nəşrlər
-      search:
-      statistics: Bizim statistika
+      publications: Nəşrlərimiz
+      search: Ölkəyə və ya əraziyə əsasən axtarın
+      statistics: Statistikamız
     type:
       international_delegation:
-        one:
-        other:
+        one: Beynəlxalq səlahiyyətin ötürülməsi
+        other: Beynəlxalq səlahiyyətlərin ötürülməsi
       world_location:
-        one:
-        other:
+        one: Dünya üzrə yeri
+        other: Dünya üzrə yerləri
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: BK hökumətinin %{country}-da (də) yeniləmələri, yenilikləri və tədbirləri
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more: Bütün profilə və əlaqə nömrələrinə bax
+      about_our_services_html: Öyrənin %{link}.
+      personal_information_charter_html: Bizim %{link} şəxsi məlumatlarınızla necə davrandığımızı izah edir.
+      publication_scheme_html: "%{link}-də adətən istifadə etdiyimiz məlumatların növləri barədə oxuyun."
+      social_media_use_html: "%{link}-də siyasətmizi oxuyun."
+      welsh_language_scheme_html: "%{link} ilə bağlı öhdəliyimiz barədə öyrənin."
+    find_out_more: Tam profil və əlaqə məlumatlarımıza baxın
     headings:
-      contact_us: Əlaqə vasitəsi
-      corporate_information: Məlumatlar
-      follow_us: Bizi izlə
-      our_people: Bizim adamlar
-    location: Məkan
-    part_of: Hissə
+      contact_us: Bizimlə əlaqə saxlayın
+      corporate_information: Korporativ məlumat
+      follow_us: Bizi təqib edin
+      our_people: İnsanlarımız
+    location: Yer
+    part_of: Dövlət orqanının

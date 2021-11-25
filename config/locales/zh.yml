@@ -1,179 +1,169 @@
+---
 zh:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 下议院文件编号
+        isbn: ISBN
+        unnumbered_hoc_paper: 未编号的下议院文件
       attachment_data:
-        file:
+        file: 文件
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 附件命令文件编号
+        hoc_paper_number: 下议院文件编号
+        isbn: 附件ISBN
+        title: 附件标题
+        unique_reference: 附件唯一参考
+        unnumbered_hoc_paper: 未编号的下议院文件
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 附件文件
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 排除的国家
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 附件文件
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 附件命令文件编号
+        hoc_paper_number: 下议院文件编号
+        isbn: 附件ISBN
+        title: 附件标题
+        unique_reference: 附件唯一参考
+        unnumbered_hoc_paper: 未编号的下议院文件
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 附件文件
     nested_attachment_data_field_names:
-      file:
+      file: 附件文件
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 附件命令文件编号
+      hoc_paper_number: 下议院文件编号
+      isbn: 附件ISBN
+      title: 附件标题
+      unique_reference: 附件唯一参考
+      unnumbered_hoc_paper: 未编号的下议院文件
   announcements:
     heading: 公告
   attachment:
     accessibility:
-      full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。
-      intro: 此文件可能对使用辅助技术的用户不适合。
-      request_a_different_format: 申请另一种格式。
+      full_help_html: |
+        如果您使用辅助技术（如屏幕阅读器），并需要更易于访问的格式，请发送电子邮件 %{email}。
+        请告诉我们您需要什么格式。如果您能说出自己使用的辅助技术，这对我们很有帮助。
+      intro: 此文件可能不适合辅助技术用户使用。
+      request_a_different_format: 申请可访问格式。
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: 无法预览本文件。
+      download: 下载本文件以查看其全部内容。
+      truncated_message: 本预览仅显示前 %{rows} 行和 %{columns} 列。
     headings:
-      order_a_copy: 订阅副本
-      order_a_copy_full: 订阅报告副本
+      order_a_copy: 订购副本
+      order_a_copy_full: 订购本发布的副本
       published: 已发布
-      reference: Ref
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      reference: 参考
+      unnumbered_command_paper: 未编号的命令书
+      unnumbered_hoc_paper: 未编号的法案书
     opendocument:
-      help_html:
+      help_html: 本文件是 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">开放式文本</a> 格式
     virus_check:
-      intro:
-      message:
+      intro: 正在对本附件进行病毒检查。
+      message: 我们目前将此附件隔离，直到对其进行病毒检查。附件将很快在原址提供。
   broken_links:
     broken:
-      subheading:
+      subheading: 我们在这份文件中发现了可能被破坏的链接
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: 我们已经发现一些链接的问题，这可能表明存在问题，您应该在链接到它们时小心
+    title: 被破坏的链接
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 关闭
+    closing_today: 今天关闭
+    closing_tomorrow: 明天关闭
+    days_left: 还剩 %{days_left} 天
   contact:
-    access_and_opening_times:
-    contact_form: 联系表格
-    email: 邮件
+    access_and_opening_times: 访问和打开次数
+    contact_form: 联系表单
+    email: 电子邮箱
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 在威尔士发布
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter: 个人信息资料
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: 报告发布计划
-        recruitment:
-        research:
+        about: 关于我们
+        about_our_services: 关于我们的服务
+        access_and_opening: 办事处访问和打开次数
+        accessible_documents_policy: 可获取的文件政策
+        complaints_procedure: 投诉程序
+        equality_and_diversity: 平等和多样性
+        media_enquiries: 媒体疑问
+        membership: 会员身份
+        modern_slavery_statement: 现代奴隶制声明
+        our_energy_use: 我们的能源使用
+        our_governance: 我们的治理
+        personal_information_charter: 个人信息宪章
+        petitions_and_campaigns: 请愿书和活动
+        procurement: 在 %{organisation_name} 采购
+        publication_scheme: 发布计划
+        recruitment: 为 %{organisation_name} 工作
+        research: 在 %{organisation_name} 研究
         social_media_use: 社交媒体使用
-        staff_update:
-        statistics:
-        terms_of_reference:
+        staff_update: 员工新闻和信息
+        statistics: "%{organisation_name} 的统计信息"
+        terms_of_reference: 职责范围
         welsh_language_scheme: 威尔士语言计划
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: 适用于
-      from:
-      part_of:
-    latest:
-    latest_from:
+    contents: 目录
+    latest: 最新文档
     published: 已发布
-    see_all:
+    see_all: 查看全部
     speech:
       author_title:
-        minister: 首相/大臣/秘书
-        speaker: 作者
-      delivered_on: 发表于：
+        minister: 部长
+        speaker: 编辑
+      delivered_on: 提交日期：
       delivery_title:
-        minister: 首相/大臣/秘书
+        minister: 部长
         speaker: 演讲者
-      written_on: 撰写于：
+      written_on: 书写日期：
     type:
       about:
-        one:
-        other:
+        one: 约
+        other: 约
       about_our_services:
-        one:
-        other:
+        one: 关于我们的服务
+        other: 关于我们的服务
       access_and_opening:
-        one:
-        other:
+        one: 访问和打开
+        other: 访问和打开
       accessible_documents_policy:
-        one:
-        other:
+        one: 可获取的文件政策
+        other: 可获取的文件政策
       alert:
-        one:
-        other:
+        one: 警告
+        other: 警告
       announcement:
         one: 公告
         other: 公告
       authored_article:
-        one: 撰写的文章
-        other: 撰写的文章
+        one: 撰写文章
+        other: 撰写文章
       blog_post:
-        one:
-        other:
+        one: 博客帖子
+        other: 博客帖子
       campaign:
-        one:
-        other:
+        one: 活动
+        other: 活动
       careers:
-        one:
-        other:
+        one: 招聘
+        other: 招聘
       case_study:
-        one: 实例研究
-        other: 实例研究
+        one: 案例研究
+        other: 案例研究
       closed_consultation:
-        one: 已办结的咨询
-        other: 已办结的咨询
+        one: 封闭咨询
+        other: 封闭咨询
       complaints_procedure:
-        one:
-        other:
+        one: 投诉程序
+        other: 投诉程序
       consultation:
         one: 咨询
         other: 咨询
@@ -181,110 +171,113 @@ zh:
         one: 咨询结果
         other: 咨询结果
       corporate_report:
-        one: 政府报告
-        other: 政府报告
+        one: 公司报告
+        other: 公司报告
       correspondence:
-        one: 交流
-        other: 交流
+        one: 通信
+        other: 通信
       decision:
-        one:
-        other:
+        one: 决策
+        other: 决策
       detailed_guidance:
-        one: 详细指导
-        other: 详细指导
+        one: 指南
+        other: 指南
       document_collection:
-        one: 系列
-        other:
+        one: 待整理
+        other: 待整理
       draft_text:
-        one: 草拟稿件
-        other: 草拟稿件
+        one: 草拟文本
+        other: 草拟文本
       edition:
-        one:
-        other:
+        one: 功能版本
+        other: 功能版本
       edition_with_appointment:
-        one:
-        other:
+        one: 版本和任命
+        other: 版本和任命
       equality_and_diversity:
-        one:
-        other:
+        one: 平等和多样性
+        other: 平等和多样性
       fatality_notice:
-        one:
-        other:
+        one: 死亡通知
+        other: 死亡通知
       foi_release:
-        one: 资讯自由(FOI)信息发布
-        other: 资讯自由(FOI)信息发布
+        one: FOI 发布
+        other: FOI 发布
       form:
         one: 表格
         other: 表格
       generic_edition:
-        one:
-        other:
+        one: 通用版本
+        other: 通用版本
       government_response:
-        one: 政府反应
-        other: 政府反应
+        one: 政府回应
+        other: 政府回应
       guidance:
-        one: 指导
-        other: 指导
+        one: 指南
+        other: 指南
       impact_assessment:
         one: 影响评估
         other: 影响评估
       imported:
-        one: 导入 - 正在等待的类型
-        other: 导入 - 正在等待的类型
+        one: 进口-等待型
+        other: 进口-等待型
       independent_report:
         one: 独立报告
         other: 独立报告
       international_treaty:
-        one:
-        other:
+        one: 国际条约
+        other: 国际条约
       manual:
-        one:
-        other:
+        one: 手册
+        other: 手册
       map:
         one: 地图
         other: 地图
       media_enquiries:
-        one:
-        other:
+        one: 媒体疑问
+        other: 媒体疑问
       membership:
+        one: 会员身份
+        other: 会员身份
+      modern_slavery_statement:
         one:
         other:
       national_statistics:
-        one: 统计数据 - 国家数据
-        other: 统计数据 - 国家数据
+        one: 国家统计局
+        other: 国家统计局
       news_article:
-        one: 新闻文章
-        other: 新闻文章
-      news_story:
         one: 新闻报道
         other: 新闻报道
+      news_story:
+        one: 新闻故事
+        other: 新闻故事
       nhs_content:
-        one:
-        other:
+        one: NHS内容
+        other: NHS内容
       notice:
-        one:
-        other:
+        one: 通知
+        other: 通知
       official_statistics:
-        one: 统计数据
-        other: 统计数据
+        one: 官方统计
+        other: 官方统计
       open_consultation:
-        one: 公开咨询
-        other: 公开咨询
+        one: 公开协商
+        other: 公开协商
       oral_statement:
-        one: 对议会的口头声明
-        other: 对议会的口头声明
+        one: 议会口头声明
+        other: 议会口头声明
       our_energy_use:
-        one:
-        other:
+        one: 我们的能源使用
+        other: 我们的能源使用
       our_governance:
-        one:
-        other:
+        one: 我们的治理
+        other: 我们的治理
       personal_information_charter:
-        one:
-        other:
+        one: 个人信息宪章
+        other: 个人信息宪章
       petitions_and_campaigns:
-        one:
-        other:
+        one: 请愿书和活动
+        other: 请愿书和活动
       policy_paper:
         one: 政策文件
         other: 政策文件
@@ -292,105 +285,163 @@ zh:
         one: 新闻稿
         other: 新闻稿
       procurement:
-        one:
-        other:
+        one: 采购
+        other: 采购
       promotional:
-        one: 宣传材料
-        other: 宣传材料
+        one: 宣传资料
+        other: 宣传资料
       publication:
-        one: 发布的报告
-        other: 发布的报告
+        one: 公布
+        other: 公布
       publication_scheme:
-        one:
-        other:
+        one: 发布计划
+        other: 发布计划
       recruitment:
-        one:
-        other:
+        one: 招聘
+        other: 招聘
       regulation:
-        one:
-        other:
+        one: 条例
+        other: 条例
       research:
-        one: 研究及分析
-        other: 研究及分析
+        one: 研究
+        other: 研究
       service:
-        one:
-        other:
+        one: 服务
+        other: 服务
       social_media_use:
-        one:
-        other:
+        one: 社交媒体使用
+        other: 社交媒体使用
       speaking_notes:
-        one: 演讲稿
-        other: 演讲稿
+        one: 发言讲稿
+        other: 发言讲稿
       speech:
         one: 演讲
         other: 演讲
       staff_update:
-        one:
-        other:
+        one: 员工最新消息
+        other: 员工最新消息
       standard:
-        one:
-        other:
+        one: 标准
+        other: 标准
       statement_to_parliament:
-        one: 对议会的声明
-        other: 对议会的声明
+        one: 议会声明
+        other: 议会声明
       statistical_data_set:
         one: 统计数据集
         other: 统计数据集
       statistics:
-        one:
-        other:
+        one: 统计数据
+        other: 统计数据
       statutory_guidance:
-        one:
-        other:
+        one: 法定指南
+        other: 法定指南
       terms_of_reference:
-        one:
-        other:
+        one: 职责范围
+        other: 职责范围
       transcript:
-        one: 副本
-        other: 副本
+        one: 文字记录
+        other: 文字记录
       transparency:
-        one: 透明化数据
-        other: 透明化数据
+        one: 透明度数据
+        other: 透明度数据
       welsh_language_scheme:
-        one:
-        other:
+        one: 威尔士语言计划
+        other: 威尔士语言计划
       world_news_story:
-        one:
-        other:
+        one: 世界新闻故事
+        other: 世界新闻故事
       written_statement:
-        one: 对议会的书面声明
-        other: 对议会的书面声明
+        one: 议会口头声明
+        other: 议会口头声明
     updated: 已更新
   document_filters:
-    consultation:
-      all:
-      label:
-    description: 您可以使用过滤功能显示只符合您需要的结果。
+    description: 您可以使用过滤器，以只显示符合您兴趣的结果
     no_results:
-      description: 尝试扩大您的搜索范围并再次搜索。
-      title: 没有符合的文件。
-      tna_heading:
-      tna_link:
+      description: 试着扩大您的搜索范围，然后再试一次。
+      title: 没有匹配的文件。
+      tna_heading: 较旧的内容
+      tna_link_html: 2010年5月之前，并不是所有部门的出版物都迁移到了GOV.UK。要查找2010年5月以前的出版物，请尝试搜索<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国家档案馆</a>。
     world_locations:
-      all: 所有地区位置
-      label: 世界地区位置
-      no_locations_filter:
+      all: 全部地点
+      label: 世界地点
+      no_locations_filter: 世界上没有任何地点匹配这个过滤器。
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: 英国死亡事故
+    none_added: 目前还没有关于这一经营领域的死亡通知。
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
     latest_activity: 最新活动
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
     zh: 中文
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates: 目前暂无更新。
-    title: 最新消息
+    no_updates: 尚未更新。
+    title: 最新
   mhra_email_signup:
     context:
     pages:
@@ -405,105 +456,92 @@ zh:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
-      access_our_info: 阅读我们的信息
-      jobs:
-      jobs_and_contacts: 职位及联系方式
-      organisation_chart:
-      transparency: 透明化数据
-    email:
-      alerts:
-      summary:
+      access_our_info: 获取我们的信息
+      jobs: 工作
+      jobs_and_contacts: 工作和联系人
+      organisation_chart: 我们的组织机构图
+      transparency: 透明度数据
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: 查找英国大使馆，高级专员或领事馆
+      find_an_embassy_uppercase: 查找英国大使馆，高级专员或领事馆
     headings:
-      contact: 联系%{name}
-      corporate_information:
-      corporate_reports:
+      corporate_information: 公司信息
+      corporate_reports: 公司报告
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: 管理者
+      agencies_and_public_bodies: 机构及公共机构
+      part_of: 一部分
+      public_body: 公共机构
+      works_with: 合作者
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: 法院和法庭
   publications:
-    heading: 发布的报告
-    recent:
+    heading: 公布
+    recent: 最近出版物
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: 在 %{link} 统计数据部分中找到已发布和即将发布的政府统计数据列表。
+      moved_notice: 统计数据发布也发生迁移。
   roles:
-    unassigned:
+    unassigned: 没有人被分配到这个职责
   see_all:
-    announcement: 查阅我们所有的公告
-    authored_article: 查阅我们所有的撰写的文章
-    case_study: 查阅我们所有的实例研究
-    closed_consultation: 查阅我们所有的已办结的咨询
-    consultation: 查阅我们所有的咨询
-    consultation_outcome: 查阅我们所有的咨询结果
-    corporate_report: 查阅我们所有的政府报告
-    correspondence: 查阅我们所有的交流
-    decision:
-    detailed_guidance: 查阅我们所有的详细指导
-    document_collection:
-    draft_text: 查阅我们所有的草拟稿件
-    fatality_notice: 查阅我们所有的死亡通告
-    foi_release: 查阅我们所有的资讯自由(foi)信息发布
-    form: 查阅我们所有的表格
-    government_response: 查阅我们所有的政府反应
-    guidance: 查阅我们所有的指导
-    impact_assessment: 查阅我们所有的影响评估
-    imported: 查阅我们所有的导入 - 正在等待的类型
-    international_treaty:
-    map: 查阅我们所有的地图
-    national_statistics: 查阅我们所有的统计数据 - 国家数据
-    news_article: 查阅我们所有的新闻文章
-    news_story: 查阅我们所有的新闻报道
-    notice:
-    open_consultation: 查阅我们所有的公开咨询
-    oral_statement: 查阅我们所有的对议会的口头声明
-    policy: 查阅我们所有的政策
-    policy_paper: 查阅我们所有的政策文件
-    press_release: 查阅我们所有的新闻稿
-    promotional: 查阅我们所有的宣传材料
-    publication: 查阅我们所有的发布的报告
-    regulation:
-    research: 查阅我们所有的研究及分析
-    speaking_notes: 查阅我们所有的演讲稿
-    speech: 查阅我们所有的演讲
-    statement_to_parliament: 查阅我们所有的对议会的声明
-    statistical_data_set: 查阅我们所有的统计数据集
-    statistics: 查阅我们所有的统计数据
-    statutory_guidance:
-    transcript: 查阅我们所有的副本
-    transparency: 查阅我们所有的透明化数据
-    written_statement: 查阅我们所有的对议会的书面声明
+    announcement: 查看我们的全部公告
+    authored_article: 查看我们的全部撰写文章
+    case_study: 查看我们的全部案例研究
+    closed_consultation: 看看我们的全部封闭咨询
+    consultation: 查看我们的全部咨询
+    consultation_outcome: 查看我们的全部咨询结果
+    corporate_report: 查看我们的全部公司报告
+    correspondence: 查看我们的全部通信
+    decision: 查看我们的全部决策
+    detailed_guidance: 查看我们的全部指南
+    document_collection: 查看我们的全部收藏
+    draft_text: 查看我们的全部草稿
+    fatality_notice: 查看我们的全部死亡通知
+    foi_release: 查看我们的全部 FOI 发布
+    form: 查看我们的全部表格
+    government_response: 查看我们的全部政府回应
+    guidance: 查看我们的全部指南
+    impact_assessment: 查看我们的全部影响评估
+    imported: 查看我们的全部独立报告
+    international_treaty: 看看我们的全部国际条约
+    map: 查看我们的全部地图
+    national_statistics: 查看我们的全部国家统计数据
+    news_article: 查看我们的全部新闻文章
+    news_story: 查看我们的全部新闻故事
+    notice: 查看我们的全部通知
+    open_consultation: 看看我们的全部开放咨询
+    oral_statement: 查看我们的全部议会口头声明
+    policy: 查看我们的全部政策
+    policy_paper: 查看我们的全部政策文件
+    press_release: 查看我们的全部新闻发布
+    promotional: 查看我们的全部宣传材料
+    publication: 查看我们的全部发布
+    regulation: 查看我们的全部法规
+    research: 查看我们的全部研究和分析
+    speaking_notes: 查看我们的全部发演讲稿
+    speech: 查看我们的全部演讲
+    statement_to_parliament: 查看我们的全部议会声明
+    statistical_data_set: 查看我们的全部统计数据集
+    statistics: 查看我们的全部统计数据
+    statutory_guidance: 查看我们的全部法定指南
+    transcript: 查看我们的全部文字记录
+    transparency: 查看我们的全部透明度数据
+    written_statement: 查看我们的全部议会书面声明
   support:
-    array:
-      last_word_connector: 和
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: 下载
+    field_of_operation: 经营领域：
+    fields_of_operation: 经营领域
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: '%{total_pages}</span>的后<span class="visuallyhidden">页</span> <span class="page-numbers">%{current_page}'
+      next_page: 下一页
+      previous_html: '%{total_pages}</span>的前<span class="visuallyhidden">页</span> <span class="page-numbers">%{current_page}'
+      previous_page: 前一页
+    part_of_collection: 收藏夹的一部分：
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -511,51 +549,51 @@ zh:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: "%{event}的最新活动"
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: 英格兰艺术委员会
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: 大英图书馆
+      commonwealth_war_graves_commission: 英国战争公墓委员会
+      heritage_lottery_fund: 遗产彩票基金会
+      historic_england: 历史英格兰
+      iwm: 帝国战争博物馆
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: 战争纪念碑馆
   world_location:
     headings:
       announcements: 我们的公告
       documents: 文件
-      featured: 精选
-      mission: 我们的任务
-      news:
-      organisations: 机构
-      publications: 我们的报告
-      search:
-      statistics: 我们的数据
+      featured:
+      mission: 我们的使命
+      news: 世界地点新闻
+      organisations: 组织机构
+      publications: 我们的出版物
+      search: 按国家或地区搜索
+      statistics: 我们的统计数据
     type:
       international_delegation:
-        one: 国际代表
-        other: 国际代表
+        one: 国际代表处
+        other: 国际代表处
       world_location:
-        one: 世界地区位置
-        other: 世界地区位置
+        one: 世界地点
+        other: 世界地点
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: 英国政府在 %{country} 的更新、新闻和事件
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: 我们的%{link}解释了我们如何对待您的个人信息。
-      publication_scheme_html: 阅读我们在%{link}定期发布的信息。
-      social_media_use_html: 阅读我们在%{link}的政策
-      welsh_language_scheme_html: 查阅我们在%{link}发布的信息。
-    find_out_more: 查阅全部内容和联系方式
+      about_our_services_html: 查找 %{link}。
+      personal_information_charter_html: 我们的 %{link} 解释我们如何处理您的个人信息。
+      publication_scheme_html: 阅读我们在 %{link} 中例行发布的信息类型。
+      social_media_use_html: 阅读我们在 %{link} 的政策。
+      welsh_language_scheme_html: 查看我们对 %{link} 的承诺。
+    find_out_more: 查看完整简介和全部联系方式
     headings:
-      contact_us: 联系我们
-      corporate_information: 政府信息
+      contact_us: 联系方式
+      corporate_information: 公司信息
       follow_us: 关注我们
-      our_people: 我们的人员
+      our_people: 我们的员工
     location: 位置
-    part_of: 隶属于
+    part_of: 一部分

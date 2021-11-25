@@ -1,414 +1,448 @@
+---
 fi:
-  document:
-    type:
-      about:
-        one:
-        other:
-      about_our_services:
-        one:
-        other:
-      access_and_opening:
-        one:
-        other:
-      accessible_documents_policy:
-        one:
-        other:
-      alert:
-        one:
-        other:
-      announcement:
-        one:
-        other:
-      authored_article:
-        one:
-        other:
-      blog_post:
-        one:
-        other:
-      campaign:
-        one:
-        other:
-      careers:
-        one:
-        other:
-      case_study:
-        one:
-        other:
-      closed_consultation:
-        one:
-        other:
-      complaints_procedure:
-        one:
-        other:
-      consultation:
-        one:
-        other:
-      consultation_outcome:
-        one:
-        other:
-      corporate_report:
-        one:
-        other:
-      correspondence:
-        one:
-        other:
-      decision:
-        one:
-        other:
-      detailed_guidance:
-        one:
-        other:
-      document_collection:
-        one:
-        other:
-      draft_text:
-        one:
-        other:
-      edition:
-        one:
-        other:
-      edition_with_appointment:
-        one:
-        other:
-      equality_and_diversity:
-        one:
-        other:
-      fatality_notice:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one:
-        other:
-      generic_edition:
-        one:
-        other:
-      government_response:
-        one:
-        other:
-      guidance:
-        one:
-        other:
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one:
-        other:
-      international_treaty:
-        one:
-        other:
-      manual:
-        one:
-        other:
-      map:
-        one:
-        other:
-      media_enquiries:
-        one:
-        other:
-      membership:
-        one:
-        other:
-      national_statistics:
-        one:
-        other:
-      news_article:
-        one:
-        other:
-      news_story:
-        one:
-        other:
-      nhs_content:
-        one:
-        other:
-      notice:
-        one:
-        other:
-      official_statistics:
-        one:
-        other:
-      open_consultation:
-        one:
-        other:
-      oral_statement:
-        one:
-        other:
-      our_energy_use:
-        one:
-        other:
-      our_governance:
-        one:
-        other:
-      personal_information_charter:
-        one:
-        other:
-      petitions_and_campaigns:
-        one:
-        other:
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one:
-        other:
-      procurement:
-        one:
-        other:
-      promotional:
-        one:
-        other:
-      publication:
-        one:
-        other:
-      publication_scheme:
-        one:
-        other:
-      recruitment:
-        one:
-        other:
-      regulation:
-        one:
-        other:
-      research:
-        one:
-        other:
-      service:
-        one:
-        other:
-      social_media_use:
-        one:
-        other:
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one:
-        other:
-      staff_update:
-        one:
-        other:
-      standard:
-        one:
-        other:
-      statement_to_parliament:
-        one:
-        other:
-      statistical_data_set:
-        one:
-        other:
-      statistics:
-        one:
-        other:
-      statutory_guidance:
-        one:
-        other:
-      terms_of_reference:
-        one:
-        other:
-      transcript:
-        one:
-        other:
-      transparency:
-        one:
-        other:
-      welsh_language_scheme:
-        one:
-        other:
-      world_news_story:
-        one:
-        other:
-      written_statement:
-        one:
-        other:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
-    speech:
-      author_title:
-        minister:
-        speaker:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Alahuoneen asiakirjan numero
+        isbn: ISBN
+        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
       attachment_data:
-        file:
+        file: Tiedosto
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Liitetiedoston paperin numero
+        hoc_paper_number: Alahuoneen asiakirjan numero
+        isbn: Liite ISBN
+        title: Liitteen otsikko
+        unique_reference: Liitteen yksilöllinen viite
+        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Liitetiedosto
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Poissuljetut kansat
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Liitetiedosto
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Liitetiedoston paperin numero
+        hoc_paper_number: Alahuoneen asiakirjan numero
+        isbn: Liite ISBN
+        title: Liitteen otsikko
+        unique_reference: Liitteen yksilöllinen viite
+        unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Liitetiedosto
     nested_attachment_data_field_names:
-      file:
+      file: Liitetiedosto
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Liitetiedoston paperin numero
+      hoc_paper_number: Alahuoneen asiakirjan numero
+      isbn: Liite ISBN
+      title: Liitteen otsikko
+      unique_reference: Liitteen yksilöllinen viite
+      unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
   announcements:
-    heading:
+    heading: Ilmoitukset
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Jos käytät apuvälinetekniikkaa (kuten näytönlukuohjelmaa) ja tarvitset
+        tämän asiakirjan vastenmielisyyttä helppokäyttöisemissä muodoissa, lähetä sähköpostia %{email}.
+        Kerro meille, missä muodossa tarvitset. Se auttaa meitä, jos sanot, mitä apuvälineteknologiaa käytät.
+      intro: Tämä tiedosto ei ehkä sovellu apuvälineen käyttäjille.
+      request_a_different_format: Pyydä helppokäyttöistä muotoa.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Tätä tiedostoa ei voitu esikatsella.
+      download: Lataa tiedosto, niin voit tarkastella sen koko sisältöä.
+      truncated_message: Tässä esikatselussa näkyvät vain ensimmäiset %{rows} riviä ja %{columns} saraketta.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Tilaa kopio
+      order_a_copy_full: Tilaa kopio julkaisusta
+      published: Julkaistu
+      reference: Viite
+      unnumbered_command_paper: Numeroimaton komentopaperi
+      unnumbered_hoc_paper: Numeroimaton toimintapaperi
     opendocument:
-      help_html:
+      help_html: Tämä tiedosto on <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation"> OpenDocument</a> muodossa.
     virus_check:
-      intro:
-      message:
+      intro: Tämä liitetiedosto on virustarkastuksessa.
+      message: Pidämme tätä liitettä karanteenissa, kunnes virus on tarkistettu. Liite on pian saatavilla alkuperäisessä paikassa.
   broken_links:
     broken:
-      subheading:
+      subheading: Olemme löytäneet tästä asiakirjasta linkkejä, jotka saattavat olla katkenneet
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: Olemme löytäneet joitakin ongelmia linkeissä, jotka voivat viitata ongelmiin, sinun on noudatettava varovaisuutta linkittämällä niihin
+    title: Katkenneet linkit
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Suljettu
+    closing_today: Suljetaan tänään
+    closing_tomorrow: Sulkeutuu huomenna
+    days_left: "%{days_left} päivää jäljellä"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Pääsy ja aukioloajat
+    contact_form: Yhteydenottolomake
+    email: Sähköposti
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: julkaiseminen Walesissa
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Tietoa meistä
+        about_our_services: Tietoja palveluistamme
+        access_and_opening: Toimiston saavutettavuus ja aukioloajat
+        accessible_documents_policy: Asiakirjojen esteettömyyspolitiikka
+        complaints_procedure: Valitusmenettely
+        equality_and_diversity: Yhdenvertaisuus ja moninaisuus
+        media_enquiries: Tiedustelut mediasta
+        membership: Jäsenyys
+        modern_slavery_statement: Moderni lause orjuudesta
+        our_energy_use: Energiankulutuksemme
+        our_governance: Hallintomme
+        personal_information_charter: Henkilötietojen peruskirja
+        petitions_and_campaigns: Vetoomukset ja kampanjat
+        procurement: Hankinta paikassa %{organisation_name}
+        publication_scheme: Julkaisujärjestelmä
+        recruitment: Työskentelee yrityksessä %{organisation_name}
+        research: Tutkimus paikassa %{organisation_name}
+        social_media_use: Sosiaalisen median käyttö
+        staff_update: Henkilöstön uutiset ja tiedot
+        statistics: Tilastot osoitteessa %{organisation_name}
+        terms_of_reference: Toimeksianto
+        welsh_language_scheme: Walesin kielen järjestelmä
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: Sisällys
+    latest: Uusimmat asiakirjat
+    published: julkaistu
+    see_all: Näytä kaikki
+    speech:
+      author_title:
+        minister: Ministeri
+        speaker: Kirjailija
+      delivered_on: 'Toimitettu:'
+      delivery_title:
+        minister: Ministeri
+        speaker: Kaiutin
+      written_on: 'Kirjoitettu:'
+    type:
+      about:
+        one: Tietoja
+        other: Tietoja
+      about_our_services:
+        one: Tietoja palveluistamme
+        other: Tietoja palveluistamme
+      access_and_opening:
+        one: Pääsy ja avaaminen
+        other: Pääsy ja avaaminen
+      accessible_documents_policy:
+        one: Asiakirjojen esteettömyyspolitiikka
+        other: Asiakirjojen saavutettavuuspolitiikka
+      alert:
+        one: Hälytys
+        other: Hälytykset
+      announcement:
+        one: Ilmoitus
+        other: Ilmoitukset
+      authored_article:
+        one: Kirjoitettu artikkeli
+        other: Kirjoitettuja artikkeleita
+      blog_post:
+        one: Blogipostaus
+        other: Blogiviestit
+      campaign:
+        one: Kampanja
+        other: Kampanjat
+      careers:
+        one: Urat
+        other: urat
+      case_study:
+        one: Tapaustutkimus
+        other: Tapaustutkimuksia
+      closed_consultation:
+        one: Suljettu kuuleminen
+        other: Suljetut neuvottelut
+      complaints_procedure:
+        one: Valitusmenettely
+        other: Valitusmenettelyt
+      consultation:
+        one: Konsultaatio
+        other: Konsultaatiot
+      consultation_outcome:
+        one: Konsultoinnin tulos
+        other: Konsultoinnin tulokset
+      corporate_report:
+        one: Yrityksen raportti
+        other: Yritysraportit
+      correspondence:
+        one: Kirjeenvaihto
+        other: Kirjeenvaihto
+      decision:
+        one: Päätös
+        other: Päätökset
+      detailed_guidance:
+        one: Ohjaus
+        other: Ohjaus
+      document_collection:
+        one: Kokoelma
+        other: Kokoelmat
+      draft_text:
+        one: Luonnos
+        other: Luonnos tekstejä
+      edition:
+        one: Painos
+        other: Painokset
+      edition_with_appointment:
+        one: Painos ajanvarauksella
+        other: Painokset ajanvarauksella
+      equality_and_diversity:
+        one: Yhdenvertaisuus ja moninaisuus
+        other: Yhdenvertaisuus ja moninaisuus
+      fatality_notice:
+        one: Kuolemantapauksia koskeva ilmoitus
+        other: Kuolemantapauksia koskevat ilmoitukset
+      foi_release:
+        one: Tiedonvälityksen vapaus julkaisu
+        other: Tiedonvälityksen vapaus julkaisut
+      form:
+        one: Lomake
+        other: Lomakkeet
+      generic_edition:
+        one: Yleinen painos
+        other: Yleiset painokset
+      government_response:
+        one: Hallituksen vastaus
+        other: Hallituksen vastaukset
+      guidance:
+        one: Ohjaus
+        other: Ohjaus
+      impact_assessment:
+        one: Vaikutuksen arviointi
+        other: Vaikutustenarvioinnit
+      imported:
+        one: tuotu - odottava tyyppi
+        other: tuotu - odottava tyyppi
+      independent_report:
+        one: Riippumaton raportti
+        other: Riippumattomat raportit
+      international_treaty:
+        one: Kansainvälinen sopimus
+        other: Kansainväliset sopimukset
+      manual:
+        one: Manuaalinen
+        other: Manuaalit
+      map:
+        one: Kartta
+        other: Kartat
+      media_enquiries:
+        one: Media tiedustelu
+        other: Tiedustelut mediasta
+      membership:
+        one: Jäsenyys
+        other: Jäsenyys
+      modern_slavery_statement:
+        one:
+        other:
+      national_statistics:
+        one: Kansalliset tilastot
+        other: Kansalliset tilastot
+      news_article:
+        one: Uutisartikkeli
+        other: Uutisartikkelit
+      news_story:
+        one: Uutistarina
+        other: Uutisia
+      nhs_content:
+        one: NHS -sisältö
+        other: NHS -sisältö
+      notice:
+        one: Ilmoitus
+        other: Ilmoitukset
+      official_statistics:
+        one: Viralliset tilastot
+        other: Viralliset tilastot
+      open_consultation:
+        one: Avoin kuuleminen
+        other: Avoimet kuulemiset
+      oral_statement:
+        one: Suullinen lausuma parlamentille
+        other: Suulliset lausumat parlamentille
+      our_energy_use:
+        one: Energiankulutuksemme
+        other: Energiankulutuksemme
+      our_governance:
+        one: Hallintomme
+        other: Hallintomme
+      personal_information_charter:
+        one: Henkilötietojen peruskirja
+        other: Henkilötietojen peruskirjat
+      petitions_and_campaigns:
+        one: Vetoomukset ja kampanjat
+        other: Vetoomukset ja kampanjat
+      policy_paper:
+        one: Toimintapoliittinen asiakirja
+        other: Toimintapoliittiset asiakirjat
+      press_release:
+        one: Lehdistötiedote
+        other: Lehdistötiedotteet
+      procurement:
+        one: Hankinnat
+        other: Hankinnat
+      promotional:
+        one: Myynninedistämismateriaali
+        other: Myynninedistämismateriaali
+      publication:
+        one: Julkaisu
+        other: Julkaisut
+      publication_scheme:
+        one: Julkaisujärjestelmä
+        other: Julkaisujärjestelmät
+      recruitment:
+        one: Rekrytointi
+        other: Rekrytointi
+      regulation:
+        one: Asetus
+        other: Asetukset
+      research:
+        one: Tutkimus
+        other: Tutkimus
+      service:
+        one: Palvelu
+        other: Palvelut
+      social_media_use:
+        one: Sosiaalisen median käyttö
+        other: Sosiaalisen median käyttö
+      speaking_notes:
+        one: Puhuvat muistiinpanot
+        other: Puhuvat muistiinpanot
+      speech:
+        one: Puhe
+        other: Puheet
+      staff_update:
+        one: Henkilöstön päivitys
+        other: Henkilöstön päivitykset
+      standard:
+        one: Standardi
+        other: Standardit
+      statement_to_parliament:
+        one: Lausuma parlamentille
+        other: Lausumat parlamentille
+      statistical_data_set:
+        one: Tilastollinen tietojoukko
+        other: Tilastolliset tietojoukot
+      statistics:
+        one: Tilastot
+        other: Tilastot
+      statutory_guidance:
+        one: Lakisääteiset ohjeet
+        other: Lakisääteiset ohjeet
+      terms_of_reference:
+        one: Toimeksianto
+        other: Toimeksianto
+      transcript:
+        one: Transkriptio
+        other: Transkriptiot
+      transparency:
+        one: Avoimuustiedot
+        other: Avoimuustiedot
+      welsh_language_scheme:
+        one: Walesin kielen järjestelmä
+        other: Walesin kielen järjestelmät
+      world_news_story:
+        one: Maailmanlaajuinen uutinen
+        other: Maailmanlaajuisia uutisia
+      written_statement:
+        one: Kirjallinen lausuma parlamentille
+        other: Kirjallinen lausumat parlamentille
+    updated: päivitetty
   document_filters:
-    consultation:
-      all:
-      label:
-    description:
+    description: Voit käyttää suodattimia näyttääksesi vain kiinnostuksen kohteitasi vastaavat tulokset
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Yritä laajentaa hakua ja yritä uudelleen.
+      title: Vastaavia asiakirjoja ei ole.
+      tna_heading: Vanhempi sisältö
+      tna_link_html: Kaikkia ennen toukokuuta 2010 julkaistuja osastojulkaisuja ei siirretty GOV.UK. Löytääksesi julkaisuja ennen toukokuuta 2010, yritä etsiä <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Kansallisarkisto</a>.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Kaikki sijainnit
+      label: Maailman sijainnit
+      no_locations_filter: Mikään maailman sijainnit eivät vastaa tätä suodatinta.
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Britannian kuolemantapauksia
+    none_added: Kuolemantapauksia ei ole ilmoitettu lisätty tälle toiminta-alueelle.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    latest_activity: Viimeisin toiminta
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    fi: Suomi
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi: Finnish
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Ei vielä päivityksiä.
+    title: Uusin
   mhra_email_signup:
     context:
     pages:
@@ -423,105 +457,92 @@ fi:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
-    email:
-      alerts:
-      summary:
+      access_our_info: Pääsy tietoihimme
+      jobs: Työpaikat
+      jobs_and_contacts: Työt ja sopimukset
+      organisation_chart: Organisaatiomme kaavio
+      transparency: Avoimuustiedot
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
+      find_an_embassy_uppercase: Etsi Britannian suurlähetystö, korkea edustusto tai konsulaatti
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      corporate_information: Yritystiedot
+      corporate_reports: Yritysraportit
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Hallinnoija
+      agencies_and_public_bodies: virastot ja julkiset elimet
+      part_of: Osa
+      public_body: julkinen elin
+      works_with: Toimii
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Tuomioistuimet
   publications:
-    heading:
-    recent:
+    heading: Julkaisut
+    recent: Viimeaikaiset julkaisut
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: Löydät luettelon julkistetuista ja tulevista valtion tilastoista %{link} tilastot -osiosta.
+      moved_notice: Tilastojulkaisut ovat muuttaneet.
   roles:
-    unassigned:
+    unassigned: Ketään ei ole määrätty tähän rooliin
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Katso kaikki ilmoituksemme
+    authored_article: Katso kaikki kirjoittamamme artikkelit
+    case_study: Katso kaikki tapaustutkimuksemme
+    closed_consultation: Katso kaikki suljetut konsultaatiomme
+    consultation: Katso kaikki konsultaatiomme
+    consultation_outcome: Katso kaikki kuulemistuloksemme
+    corporate_report: Katso kaikki yritysraporttimme
+    correspondence: Katso kaikki kirjeenvaihtomme
+    decision: Katso kaikki päätöksemme
+    detailed_guidance: Katso kaikki oppaamme
+    document_collection: Katso kaikki kokoelmamme
+    draft_text: Katso kaikki luonnosluonnoksemme
+    fatality_notice: Katso kaikki kuolemantapauksemme
+    foi_release: Katso kaikki tiedonvälityksen vapautta tiedotteemme
+    form: Katso kaikki lomakkeemme
+    government_response: Katso kaikki hallituksen vastaukset
+    guidance: Katso kaikki oppaamme
+    impact_assessment: Katso kaikki vaikutustenarviointimme
+    imported: Katso kaikki riippumattomat raporttimme
+    international_treaty: Katso kaikki kansainväliset sopimuksemme
+    map: Katso kaikki karttamme
+    national_statistics: Katso kaikki kansalliset tilastot
+    news_article: Katso kaikki uutiset
+    news_story: Katso kaikki uutisemme
+    notice: Katso kaikki ilmoituksemme
+    open_consultation: Katso kaikki avoimet neuvottelumme
+    oral_statement: Katso kaikki suulliset lausuntomme parlamentille
+    policy: Tutustu kaikkiin käytäntöihimme
+    policy_paper: Katso kaikki käytäntöasiakirjamme
+    press_release: Katso kaikki lehdistötiedotteemme
+    promotional: Katso kaikki mainosmateriaalimme
+    publication: Katso kaikki julkaisumme
+    regulation: Katso kaikki asetuksemme
+    research: Katso kaikki tutkimuksemme ja analyysimme
+    speaking_notes: Katso kaikki puhemuistiinpanomme
+    speech: Katso kaikki puheemme
+    statement_to_parliament: Katso kaikki lausuntomme parlamentille
+    statistical_data_set: Katso kaikki tilastotietoaineistomme
+    statistics: Katso kaikki tilastomme
+    statutory_guidance: Katso kaikki lakisääteiset ohjeemme
+    transcript: Katso kaikki transkriptiomme
+    transparency: Katso kaikki läpinäkyvyysdatamme
+    written_statement: Katso kaikki parlamentille antamamme kirjalliset lausunnot
   support:
-    array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: Ladata
+    field_of_operation: 'Toiminta -alue:'
+    fields_of_operation: Toiminta -alueet
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Seuraava <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
+      next_page: Seuraava sivu
+      previous_html: Edellinen <span class="visuallyhidden">sivu</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
+      previous_page: Edellinen sivu
+    part_of_collection: 'Osa kokoelmasta:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -529,33 +550,51 @@ fi:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: Viimeisin toiminta tapahtumassa %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: Englannin taidetoimikunta
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: Brittiläinen kirjasto
+      commonwealth_war_graves_commission: Kansainyhteisön sotahautakomissio
+      heritage_lottery_fund: Heritage Lottery Fund
+      historic_england: Historiallinen Englanti
+      iwm: Keisarillinen sotamuseo
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: Sotamuistomerkit Trust
+  world_location:
+    headings:
+      announcements: Ilmoituksemme
+      documents: Asiakirjat
+      featured:
+      mission: Tehtävämme
+      news: Maailman sijaintiuutisia
+      organisations: Organisaatiot
+      publications: Julkaisumme
+      search: Hae maan tai alueen mukaan
+      statistics: Tilastomme
+    type:
+      international_delegation:
+        one: Kansainvälinen valtuuskunta
+        other: Kansainväliset valtuuskunnat
+      world_location:
+        one: Maailman sijainti
+        other: Maailman sijainnit
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: Yhdistyneen kuningaskunnan hallituksen päivitykset, uutiset ja tapahtumat %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: Ota selvää %{link}.
+      personal_information_charter_html: "%{link} selittää, miten käsittelemme henkilötietojasi."
+      publication_scheme_html: Lue, millaisia tietoja julkaisemme rutiininomaisesti %{link}.
+      social_media_use_html: Lue käytäntömme osoitteesta %{link}.
+      welsh_language_scheme_html: Tutustu sitoumukseemme %{link}.
+    find_out_more: Katso koko profiili ja kaikki yhteystiedot
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Ota yhteyttä
+      corporate_information: Yritystiedot
+      follow_us: Seuraa meitä
+      our_people: Meidän ihmiset
+    location: Sijainti
+    part_of: Osa

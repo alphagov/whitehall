@@ -1,414 +1,447 @@
+---
 kk:
-  document:
-    type:
-      about:
-        one:
-        other:
-      about_our_services:
-        one:
-        other:
-      access_and_opening:
-        one:
-        other:
-      accessible_documents_policy:
-        one:
-        other:
-      alert:
-        one:
-        other:
-      announcement:
-        one:
-        other:
-      authored_article:
-        one:
-        other:
-      blog_post:
-        one:
-        other:
-      campaign:
-        one:
-        other:
-      careers:
-        one:
-        other:
-      case_study:
-        one:
-        other:
-      closed_consultation:
-        one:
-        other:
-      complaints_procedure:
-        one:
-        other:
-      consultation:
-        one:
-        other:
-      consultation_outcome:
-        one:
-        other:
-      corporate_report:
-        one:
-        other:
-      correspondence:
-        one:
-        other:
-      decision:
-        one:
-        other:
-      detailed_guidance:
-        one:
-        other:
-      document_collection:
-        one:
-        other:
-      draft_text:
-        one:
-        other:
-      edition:
-        one:
-        other:
-      edition_with_appointment:
-        one:
-        other:
-      equality_and_diversity:
-        one:
-        other:
-      fatality_notice:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one:
-        other:
-      generic_edition:
-        one:
-        other:
-      government_response:
-        one:
-        other:
-      guidance:
-        one:
-        other:
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one:
-        other:
-      international_treaty:
-        one:
-        other:
-      manual:
-        one:
-        other:
-      map:
-        one:
-        other:
-      media_enquiries:
-        one:
-        other:
-      membership:
-        one:
-        other:
-      national_statistics:
-        one:
-        other:
-      news_article:
-        one:
-        other:
-      news_story:
-        one:
-        other:
-      nhs_content:
-        one:
-        other:
-      notice:
-        one:
-        other:
-      official_statistics:
-        one:
-        other:
-      open_consultation:
-        one:
-        other:
-      oral_statement:
-        one:
-        other:
-      our_energy_use:
-        one:
-        other:
-      our_governance:
-        one:
-        other:
-      personal_information_charter:
-        one:
-        other:
-      petitions_and_campaigns:
-        one:
-        other:
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one:
-        other:
-      procurement:
-        one:
-        other:
-      promotional:
-        one:
-        other:
-      publication:
-        one:
-        other:
-      publication_scheme:
-        one:
-        other:
-      recruitment:
-        one:
-        other:
-      regulation:
-        one:
-        other:
-      research:
-        one:
-        other:
-      service:
-        one:
-        other:
-      social_media_use:
-        one:
-        other:
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one:
-        other:
-      staff_update:
-        one:
-        other:
-      standard:
-        one:
-        other:
-      statement_to_parliament:
-        one:
-        other:
-      statistical_data_set:
-        one:
-        other:
-      statistics:
-        one:
-        other:
-      statutory_guidance:
-        one:
-        other:
-      terms_of_reference:
-        one:
-        other:
-      transcript:
-        one:
-        other:
-      transparency:
-        one:
-        other:
-      welsh_language_scheme:
-        one:
-        other:
-      world_news_story:
-        one:
-        other:
-      written_statement:
-        one:
-        other:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
-    speech:
-      author_title:
-        minister:
-        speaker:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      written_on:
-    updated:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements:
-      documents:
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+        isbn: ISBN
+        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
       attachment_data:
-        file:
+        file: Файл
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Тіркеме пәрменінің қағаз нөмірі
+        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+        isbn: ISBN тіркемесі
+        title: Тіркеме тақырыбы
+        unique_reference: Тіркеменің бірегей сілтемесі
+        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: Тіркелген файл
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: Шеттетілген ұлттар
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: Тіркелген файл
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: Тіркеме пәрменінің қағаз нөмірі
+        hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+        isbn: ISBN тіркемесі
+        title: Тіркеме тақырыбы
+        unique_reference: Тіркеменің бірегей сілтемесі
+        unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: Тіркелген файл
     nested_attachment_data_field_names:
-      file:
+      file: Тіркелген файл
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: Тіркеме пәрменінің қағаз нөмірі
+      hoc_paper_number: Қауымдар палатасының саяси құжат нөмірі
+      isbn: ISBN тіркемесі
+      title: Тіркеме тақырыбы
+      unique_reference: Тіркеменің бірегей сілтемесі
+      unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
   announcements:
-    heading:
+    heading: Хабарландырулар
   attachment:
     accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
+      full_help_html: |
+        Егер сіз көмекші технологияны қолдансаңыз (мысалы, экран оқу құралы) және сізге бұл құжаттың қолжетімді пішімдегі нұсқасы қажет болса, %{email} мекенжайына электрондық хат жіберіңіз.
+        Сізге қандай пішім қажет екенін айтыңыз. Қандай көмекші технологияларды қолданатыныңызды айтсаңыз, бұл бізге көмектеседі.
+      intro: Бұл файл көмекші технология қолданушыларына сәйкес келмеуі мүмкін.
+      request_a_different_format: Қолжетімді пішімді сұраңыз.
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: Бұл файлды алдын ала қарау мүмкін болмады.
+      download: Файлды толық мазмұнды көру үшін жүктеп алыңыз.
+      truncated_message: Бұл алдын ала қарау тек бірінші %{rows} жолдар мен %{columns} бағандарын көрсетеді.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      order_a_copy: Көшірмесіне тапсырыс беру
+      order_a_copy_full: Басылымның көшірмесіне тапсырыс беріңіз
+      published: Жарияланды
+      reference: Сілтеме
+      unnumbered_command_paper: Нөмірсіз пәрмен саяси құжаты
+      unnumbered_hoc_paper: Нөмірсіз қаулы қағазы
     opendocument:
-      help_html:
+      help_html: Бұл файл <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> пішімінде
     virus_check:
-      intro:
-      message:
+      intro: Бұл тіркеме вирусқа тексерілуде.
+      message: Біз қазір бұл тіркемені вирус тексерілгенше карантинде ұстаймыз. Тіркеме жақын арада бастапқы орнында қолжетімді болады.
   broken_links:
     broken:
-      subheading:
+      subheading: Біз бұл құжатта бұзылуы мүмкін сілтемелерді таптық
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: Біз сілтемелерде мәселелерді көрсетуі мүмкін кейбір ақауларды таптық, оларға сілтеме жасағанда абай болу керек
+    title: Бұзылған сілтемелер
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: Жабық
+    closing_today: Бүгін жабылады
+    closing_tomorrow: Ертең жабылады
+    days_left: "%{days_left} күн қалды"
   contact:
-    access_and_opening_times:
-    contact_form:
-    email:
+    access_and_opening_times: Кіру және ашу уақыттары
+    contact_form: Байланысу формасы
+    email: Электрондық пошта
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: уэльс тілінде жариялау
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
+        about: Біз туралы
+        about_our_services: Біздің қызметтер туралы
+        access_and_opening: Кеңсеге кіру және ашу уақыттары
+        accessible_documents_policy: Қолжетімді құжаттар саясаты
+        complaints_procedure: Шағымдарды қарау тәртібі
+        equality_and_diversity: Теңдік және әртүрлілік
+        media_enquiries: БАҚ сұраулары
+        membership: Мүшелік
+        modern_slavery_statement: Қазіргі құлдық туралы мәлімдеме
+        our_energy_use: Біздің энергия қолданысымыз
+        our_governance: Біздің басқару
+        personal_information_charter: Жеке бас ақпаратының жарғысы
+        petitions_and_campaigns: Өтініштер мен науқандар
+        procurement: "%{organisation_name} ұйымында сатып алу"
+        publication_scheme: Жарияланым схемасы
+        recruitment: "%{organisation_name} ұйымында жұмыс істеу"
+        research: "%{organisation_name} ұйымында зерттеу жасау"
+        social_media_use: Әлеуметтік желілерді қолдану
+        staff_update: Қызметкерлер туралы жаңалықтар мен ақпарат
+        statistics: "%{organisation_name} ұйымындағы статистика"
+        terms_of_reference: Өкілеттіктер ортасы
+        welsh_language_scheme: Уэльс тілінің схемасы
   date:
     formats:
-      default:
-      long_ordinal:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+  document:
+    contents: Мазмұны
+    latest: Ең соңғы құжаттар
+    published: жарияланды
+    see_all: Барлығын қарау
+    speech:
+      author_title:
+        minister: Министр
+        speaker: Жазушы
+      delivered_on: 'Жеткізілген күні:'
+      delivery_title:
+        minister: Министр
+        speaker: Спикер
+      written_on: 'Жазылған күні:'
+    type:
+      about:
+        one: Туралы
+        other: Туралы
+      about_our_services:
+        one: Біздің қызметтер туралы
+        other: Біздің қызметтер туралы
+      access_and_opening:
+        one: Кіру және ашу
+        other: Кіру және ашу
+      accessible_documents_policy:
+        one: Қолжетімді құжаттар саясаты
+        other: Қолжетімді құжаттар саясаттары
+      alert:
+        one: Ескерту
+        other: Ескертпелер
+      announcement:
+        one: Хабарландыру
+        other: Хабарландырулар
+      authored_article:
+        one: Мақала авторы
+        other: Мақала авторлары
+      blog_post:
+        one: Блог жарияланымы
+        other: Блог жарияланымдары
+      campaign:
+        one: Науқан
+        other: Науқандар
+      careers:
+        one: Мансаптар
+        other: мансаптар
+      case_study:
+        one: Тақырыптық зерттеу
+        other: Тақырыптық зерттеулер
+      closed_consultation:
+        one: Жабық кеңес
+        other: Жабық кеңестер
+      complaints_procedure:
+        one: Шағымдарды қарау тәртібі
+        other: Шағымдарды қарау тәртіптері
+      consultation:
+        one: Кеңес
+        other: Кеңестер
+      consultation_outcome:
+        one: Кеңес нәтижесі
+        other: Кеңес нәтижелері
+      corporate_report:
+        one: Корпоративтік есеп
+        other: Корпоративтік есептер
+      correspondence:
+        one: Хат алмасу
+        other: Хат алмасулар
+      decision:
+        one: Шешім
+        other: Шешімдер
+      detailed_guidance:
+        one: Нұсқаулық
+        other: Нұсқаулық
+      document_collection:
+        one: Топтама
+        other: Топтамалар
+      draft_text:
+        one: Жоба мәтіні
+        other: Жоба мәтіндері
+      edition:
+        one: Басылым
+        other: Басылымдар
+      edition_with_appointment:
+        one: Жазбасы бар басылым
+        other: Жазбасы бар басылымдар
+      equality_and_diversity:
+        one: Теңдік және әртүрлілік
+        other: Теңдік және әртүрлілік
+      fatality_notice:
+        one: Өлім туралы хабарлама
+        other: Өлім туралы хабарламалар
+      foi_release:
+        one: FOI шығарылымы
+        other: FOI шығарылымдары
+      form:
+        one: Форма
+        other: Формалар
+      generic_edition:
+        one: Әмбебап басылым
+        other: Әмбебап басылымдар
+      government_response:
+        one: Мемлекет жауабы
+        other: Мемлекет жауаптары
+      guidance:
+        one: Нұсқаулық
+        other: Нұсқаулық
+      impact_assessment:
+        one: Ықпалын бағалау
+        other: Ықпалын бағалаулар
+      imported:
+        one: импортталған - күтілетін түрі
+        other: импортталған - күтілетін түрі
+      independent_report:
+        one: Тәуелсіз есеп
+        other: Тәуелсіз есептер
+      international_treaty:
+        one: Халықаралық келісім
+        other: Халықаралық келісімдер
+      manual:
+        one: Нұсқаулық
+        other: Нұсқаулықтар
+      map:
+        one: Карта
+        other: Карталар
+      media_enquiries:
+        one: БАҚ сұрауы
+        other: БАҚ сұраулары
+      membership:
+        one: Мүшелік
+        other: Мүшелік
+      modern_slavery_statement:
+        one:
+        other:
+      national_statistics:
+        one: Ұлттық статистика
+        other: Ұлттық статистика
+      news_article:
+        one: Жаңалықтар мақаласы
+        other: Жаңалықтар мақалалары
+      news_story:
+        one: Жаңалықтар оқиғасы
+        other: Жаңалықтар оқиғалары
+      nhs_content:
+        one: NHS мазмұны
+        other: NHS мазмұны
+      notice:
+        one: Ескертпе
+        other: Ескертпелер
+      official_statistics:
+        one: Ресми статистика
+        other: Ресми статистика
+      open_consultation:
+        one: Ашық кеңес
+        other: Ашық кеңестер
+      oral_statement:
+        one: Парламентке ауызша мәлімдеме
+        other: Парламентке ауызша мәлімдемелер
+      our_energy_use:
+        one: Біздің энергия қолданысымыз
+        other: Біздің энергия қолданысымыз
+      our_governance:
+        one: Біздің басқару
+        other: Біздің басқару
+      personal_information_charter:
+        one: Жеке бас ақпаратының жарғысы
+        other: Жеке бас ақпаратының жарғылары
+      petitions_and_campaigns:
+        one: Өтініштер мен науқандар
+        other: Өтініштер мен науқандар
+      policy_paper:
+        one: Саяси құжат
+        other: Саяси құжаттар
+      press_release:
+        one: Пресс-релиз
+        other: Пресс-релиздер
+      procurement:
+        one: Сатып алу
+        other: Сатып алу
+      promotional:
+        one: Жарнамалық материал
+        other: Жарнамалық материал
+      publication:
+        one: Жарияланым
+        other: Жарияланымдар
+      publication_scheme:
+        one: Жарияланым схемасы
+        other: Жарияланым схемалары
+      recruitment:
+        one: Жұмысқа қабылдау
+        other: Жұмысқа қабылдау
+      regulation:
+        one: Ереже
+        other: Ережелер
+      research:
+        one: Зерттеу
+        other: Зерттеу
+      service:
+        one: Қызмет
+        other: Қызметтер
+      social_media_use:
+        one: Әлеуметтік желілерді қолдану
+        other: Әлеуметтік желілерді қолдану
+      speaking_notes:
+        one: Сөйлеу жазбалары
+        other: Сөйлеу жазбалары
+      speech:
+        one: Сөйлеу
+        other: Сөйлеулер
+      staff_update:
+        one: Қызметкерлерді жаңарту
+        other: Қызметкерлерді жаңартулар
+      standard:
+        one: Стандарт
+        other: Стандарттар
+      statement_to_parliament:
+        one: Парламент мәлімдемесі
+        other: Парламент мәлімдемелері
+      statistical_data_set:
+        one: Статистикалық деректер жиыны
+        other: Статистикалық деректер жиындары
+      statistics:
+        one: Статистика
+        other: Статистика
+      statutory_guidance:
+        one: Заң нұсқаулығы
+        other: Заң нұсқаулығы
+      terms_of_reference:
+        one: Өкілеттіктер ортасы
+        other: Өкілеттіктер ортасы
+      transcript:
+        one: Стенограмма
+        other: Стенограммалар
+      transparency:
+        one: Ашықтық деректері
+        other: Ашықтық деректері
+      welsh_language_scheme:
+        one: Уэльс тілінің схемасы
+        other: Уэльс тілінің схемалары
+      world_news_story:
+        one: Бүкіләлемдік жаңалықтар оқиғасы
+        other: Бүкіләлемдік жаңалықтар оқиғалары
+      written_statement:
+        one: Парламентке жазбаша мәлімдеме
+        other: Парламентке жазбаша мәлімдемелер
+    updated: жаңартылды
   document_filters:
-    consultation:
-      all:
-      label:
-    description:
+    description: Сіз қызығушылықтарыңызға сәйкес келетін нәтижелерді көрсету үшін сүзгілерді пайдалана аласыз
     no_results:
-      description:
-      title:
-      tna_heading:
-      tna_link:
+      description: Іздеу шарттарын кеңейтуге тырысыңыз және әрекетті қайталап көріңіз.
+      title: Сәйкес құжаттар жоқ.
+      tna_heading: Ескірек мазмұн
+      tna_link_html: 2010 жылдың мамыр айына дейінгі барлық бөлім жарияланымдары GOV.UK сайтына көшірілмеген. 2010 жылдың мамыр айына дейінгі жарияланымдарды табу үшін <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Ұлттық мұрағаттардан</a> іздеп көріңіз.
     world_locations:
-      all:
-      label:
-      no_locations_filter:
+      all: Барлық орындар
+      label: Әлемдегі орындар
+      no_locations_filter: Бұл сүзгіге сәйкес келетін әлем орындары жоқ.
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: Ұлыбританиядағы өлімдер
+    none_added: Бұл жұмыс саласы үшін өлім туралы хабарламалар әлі қосылмады.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
-    latest_activity:
+    latest_activity: Ең соңғы әрекет
   i18n:
     direction: ltr
-    latin_script?: true
   language_names:
-    kk: Qazaq
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk: Қазақ
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Әлі жаңартулар жоқ.
+    title: Ең соңғы
   mhra_email_signup:
     context:
     pages:
@@ -423,105 +456,92 @@ kk:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
-      access_our_info:
-      jobs:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
-    email:
-      alerts:
-      summary:
+      access_our_info: Біздің ақпаратқа қатынасу
+      jobs: Жұмыстар
+      jobs_and_contacts: Жұмыстар мен келісімшарттар
+      organisation_chart: Біздің ұйым жарғысы
+      transparency: Ашықтық деректері
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: Ұлыбритания елшілігін, жоғары комиссияны немесе консулдықты табыңыз
+      find_an_embassy_uppercase: Ұлыбритания елшілігін, Жоғарғы Комиссияны немесе Консулдықты табыңыз
     headings:
-      contact:
-      corporate_information:
-      corporate_reports:
+      corporate_information: Корпоративтік ақпарат
+      corporate_reports: Корпоративтік есептер
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: Басқаратын
+      agencies_and_public_bodies: агенттіктер мен мемлекеттік органдар
+      part_of: Бөлігі
+      public_body: мемлекеттік орган
+      works_with: Мынамен жұмыс істейді
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: Соттар мен сот орындары
   publications:
-    heading:
-    recent:
+    heading: Жарияланымдар
+    recent: Жақын арадағы жарияланымдар
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} статистика бөлімінен жарияланған және алдағы мемлекеттік статистика тізімін табыңыз."
+      moved_notice: Статистикалық басылымдар көшті.
   roles:
-    unassigned:
+    unassigned: Бұл рөлге ешкім тағайындалмаған
   see_all:
-    announcement:
-    authored_article:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    decision:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    government_response:
-    guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    national_statistics:
-    news_article:
-    news_story:
-    notice:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    regulation:
-    research:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    statutory_guidance:
-    transcript:
-    transparency:
-    written_statement:
+    announcement: Біздің барлық хабарландыруларды қараңыз
+    authored_article: Біздің авторлық мақалалардың барлығын қараңыз
+    case_study: Біздің барлық жағдайлық зерттеулерімізді қараңыз
+    closed_consultation: Біздің барлық жабық кеңестерді қараңыз
+    consultation: Біздің барлық кеңестерді қараңыз
+    consultation_outcome: Біздің кеңестің барлық нәтижелерін қараңыз
+    corporate_report: Біздің барлық корпоративтік есептерді қараңыз
+    correspondence: Біздің барлық хат-алмасуларды қараңыз
+    decision: Біздің барлық шешімдерімізді қараңыз
+    detailed_guidance: Біздің барлық нұсқаулықты қараңыз
+    document_collection: Біздің барлық топтамаларымызды қараңыз
+    draft_text: Біздің барлық жобалық мәтіндерді қараңыз
+    fatality_notice: Біздің өлім туралы барлық ескертулерді қараңыз
+    foi_release: Біздің барлық FOI шығарылымдарымызды қараңыз
+    form: Біздің барлық формаларымызды қараңыз
+    government_response: Біздің мемлекеттің барлық жауаптарын қараңыз
+    guidance: Біздің барлық нұсқаулықты қараңыз
+    impact_assessment: Біздің барлық ықпалының бағалауларын қараңыз
+    imported: Біздің барлық тәуелсіз есептерді қараңыз
+    international_treaty: Біздің барлық халықаралық келісімдерді қараңыз
+    map: Біздің барлық карталарды қараңыз
+    national_statistics: Біздің барлық Ұлттық статистиканы қараңыз
+    news_article: Біздің барлық жаңалықтар мақалаларын қараңыз
+    news_story: Біздің барлық жаңалықтар оқиғаларын қараңыз
+    notice: Біздің барлық ескертулерді қараңыз
+    open_consultation: Біздің барлық ашық кеңестерді қараңыз
+    oral_statement: Парламентке біздің барлық ауызша мәлімдемелерімізді қараңыз
+    policy: Біздің барлық саясаттарымызды қараңыз
+    policy_paper: Біздің барлық саяси құжаттарымызды қараңыз
+    press_release: Біздің барлық пресс-релиздерімізді қараңыз
+    promotional: Біздің барлық жарнамалық материалдарды қараңыз
+    publication: Біздің барлық жарияланымдарды қараңыз
+    regulation: Біздің барлық ережелерімізді қараңыз
+    research: Біздің барлық зерттеулер мен талдауларды қараңыз
+    speaking_notes: Біздің барлық жазбаларымызды қараңыз
+    speech: Біздің барлық сөздерімізді қараңыз
+    statement_to_parliament: Парламентке біздің барлық мәлімдемелерімізді қараңыз
+    statistical_data_set: Біздің барлық статистикалық мәліметтер жиынтығын қараңыз
+    statistics: Біздің барлық статистикамызды қараңыз
+    statutory_guidance: Біздің заңды нұсқаулықтардың барлығын қараңыз
+    transcript: Біздің барлық стенограммаларымызды қараңыз
+    transparency: Біздің ашықтық туралы барлық деректерді қараңыз
+    written_statement: Парламентке біздің барлық жазбаша мәлімдемелерімізді қараңыз
   support:
-    array:
-      last_word_connector:
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: Жүктеп алу
+    field_of_operation: 'Жұмыс аймағы:'
+    fields_of_operation: Жұмыс аймақтары
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: Келесі <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
+      next_page: Келесі бет
+      previous_html: Алдыңғы <span class="visuallyhidden">бет</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
+      previous_page: Алдыңғы бет
+    part_of_collection: 'Топтама бөлігі:'
   time:
     formats:
-      long_ordinal:
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -529,33 +549,51 @@ kk:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: "%{event} соңғы әрекет"
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: Англия көркемөнер кеңесі
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: Британдық кітапхана
+      commonwealth_war_graves_commission: Соғыс қабірлері жөніндегі қауымдастық комиссиясы
+      heritage_lottery_fund: Мұра лотерея қоры
+      historic_england: Тарихқа толы Англия
+      iwm: Империялық соғыс мұражайы
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: Соғыс мемориалдарының сенімі
+  world_location:
+    headings:
+      announcements: Біздің хабарландыруларымыз
+      documents: Құжаттар
+      featured:
+      mission: Біздің миссиямыз
+      news: Әлемдегі орын бойынша жаңалықтар
+      organisations: Ұйымдар
+      publications: Біздің жарияланымдар
+      search: Елі немесе территориясы бойынша іздеу
+      statistics: Біздің статистика
+    type:
+      international_delegation:
+        one: Халықаралық делегация
+        other: Халықаралық делегациялар
+      world_location:
+        one: Әлемдегі орын
+        other: Әлемдегі орындар
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: "%{country} еліндегі Ұлыбритания үкіметінің жаңартулары, жаңалықтары мен оқиғалары"
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      about_our_services_html: "%{link} туралы мәлімет алу."
+      personal_information_charter_html: Біздің %{link} жеке басқа қатысты ақпаратты қалай пайдалану керектігін түсіндіреді.
+      publication_scheme_html: Біз үнемі %{link} бөлімінде жариялайтын ақпарат түрлері туралы оқыңыз.
+      social_media_use_html: "%{link} мекенжайындағы саясатымызды оқыңыз."
+      welsh_language_scheme_html: "%{link} қосқан үлесіміз туралы оқыңыз."
+    find_out_more: Толық профильді және барлық байланыс мәліметтерін қараңыз
     headings:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-    location:
-    part_of:
+      contact_us: Бізбен байланысыңыз
+      corporate_information: Корпоративтік ақпарат
+      follow_us: Бізге жазылыңыз
+      our_people: Біздің адамдар
+    location: Орны
+    part_of: Бөлігі

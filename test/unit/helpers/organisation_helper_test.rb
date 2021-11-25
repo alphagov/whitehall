@@ -199,7 +199,7 @@ class OrganisationHelperTest < ActionView::TestCase
       ],
     )
     text = superseding_organisations_text(organisation)
-    assert_equal "<a href=\"/government/organisations/ministry-of-makeup\">Ministry of Makeup</a>, <a href=\"/government/organisations/bureaucracy-of-beards\">Bureaucracy of Beards</a> and <a href=\"/government/organisations/department-of-dandruff\">Department of Dandruff</a>", text
+    assert_equal "<a href=\"/government/organisations/ministry-of-makeup\">Ministry of Makeup</a>, <a href=\"/government/organisations/bureaucracy-of-beards\">Bureaucracy of Beards</a>, and <a href=\"/government/organisations/department-of-dandruff\">Department of Dandruff</a>", text
   end
 
   test '#govuk_status_meta_data_for joining and transitioning orgs should return "moving to GOV.UK"' do

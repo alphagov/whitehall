@@ -164,7 +164,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index should show a helpful message if there are no matching publications" do
     get :index, params: { locale: :fr }
 
-    assert_select "h2", text: "Vous pouvez utiliser les filtres pour afficher uniquement les résultats qui correspondent à vos intérêts"
+    assert_select "h2", text: "Vous pouvez recourir aux filtres pour n'afficher que les résultats qui répondent à vos intérêts"
   end
 
   view_test "#index only lists publications in the given locale" do

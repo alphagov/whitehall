@@ -1,5 +1,127 @@
+---
 yi:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      edition:
+        nation_inapplicabilities:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      intro:
+      request_a_different_format:
+    csv:
+      cannot_preview:
+      download:
+      truncated_message:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    virus_check:
+      intro:
+      message:
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
+  consultation:
+    closed:
+    closing_today:
+    closing_tomorrow:
+    days_left:
+  contact:
+    access_and_opening_times:
+    contact_form:
+    email:
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        accessible_documents_policy:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        modern_slavery_statement:
+        our_energy_use:
+        our_governance:
+        personal_information_charter:
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme:
+        recruitment:
+        research:
+        social_media_use:
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme:
+  date:
+    formats:
+      default:
+      long_ordinal:
   document:
+    contents:
+    latest:
+    published:
+    see_all:
+    speech:
+      author_title:
+        minister:
+        speaker:
+      delivered_on:
+      delivery_title:
+        minister:
+        speaker:
+      written_on:
     type:
       about:
         one:
@@ -115,6 +237,9 @@ yi:
       membership:
         one:
         other:
+      modern_slavery_statement:
+        one:
+        other:
       national_statistics:
         one:
         other:
@@ -226,169 +351,14 @@ yi:
       written_statement:
         one:
         other:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations:
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published:
-    see_all:
-    speech:
-      author_title:
-        minister:
-        speaker:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      written_on:
     updated:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements:
-      documents: דאָקומענטן
-      featured:
-      mission:
-      news:
-      organisations:
-      publications:
-      search:
-      statistics:
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
-      attachment_data:
-        file:
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
-      edition:
-        nation_inapplicabilities:
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
-      response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      response/consultation_response_attachments/attachment/attachment_data:
-        file:
-    nested_attachment_data_field_names:
-      file:
-    nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
-  announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      intro:
-      request_a_different_format:
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
-    opendocument:
-      help_html:
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading:
-    caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times:
-    contact_form:
-    email:
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme:
-      title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
-        personal_information_charter:
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme:
-        recruitment:
-        research:
-        social_media_use:
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal:
   document_filters:
-    consultation:
-      all:
-      label:
     description:
     no_results:
       description:
       title:
       tna_heading:
-      tna_link:
+      tna_link_html:
     world_locations:
       all:
       label:
@@ -397,15 +367,76 @@ yi:
     british_fatalities:
     none_added:
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
     latest_activity:
   i18n:
     direction: rtl
-    latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
     yi: יידיש
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates:
     title:
@@ -423,12 +454,6 @@ yi:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     corporate_information:
       access_our_info:
@@ -436,14 +461,10 @@ yi:
       jobs_and_contacts:
       organisation_chart:
       transparency:
-    email:
-      alerts:
-      summary:
     embassies:
       find_an_embassy_lowercase:
       find_an_embassy_uppercase:
     headings:
-      contact:
       corporate_information:
       corporate_reports:
     support:
@@ -507,12 +528,9 @@ yi:
     transparency:
     written_statement:
   support:
-    array:
-      last_word_connector:
     download:
     field_of_operation:
     fields_of_operation:
-    filter:
     pagination:
       next_html:
       next_page:
@@ -542,6 +560,24 @@ yi:
       queens_platinum_jubilee:
       unboxed:
       war_memorials_trust:
+  world_location:
+    headings:
+      announcements:
+      documents: דאָקומענטן
+      featured:
+      mission:
+      news:
+      organisations:
+      publications:
+      search:
+      statistics:
+    type:
+      international_delegation:
+        one:
+        other:
+      world_location:
+        one:
+        other:
   world_news:
     uk_updates_in_country:
   worldwide_organisation:

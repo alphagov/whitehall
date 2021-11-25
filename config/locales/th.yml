@@ -1,396 +1,446 @@
+---
 th:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: เลขที่เอกสารสภาสามัญ
+        isbn: ISBN
+        unnumbered_hoc_paper: เอกสารสภาสามัญที่ไม่มีเลขที่
       attachment_data:
-        file:
+        file: ไฟล์
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: เลขที่เอกสารคำสั่งแนบ
+        hoc_paper_number: เลขที่เอกสารสภาสามัญ
+        isbn: ISBN เอกสารแนบ
+        title: ชื่อเอกสารแนบ
+        unique_reference: รหัสอ้างอิงเฉพาะของเอกสารแนบ
+        unnumbered_hoc_paper: เอกสารสภาสามัญที่ไม่มีเลขที่
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: เอกสารแนบ
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: ประเทศที่ยกเว้น
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: เอกสารแนบ
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: เลขที่เอกสารคำสั่งแนบ
+        hoc_paper_number: เลขที่เอกสารสภาสามัญ
+        isbn: ISBN เอกสารแนบ
+        title: ชื่อเอกสารแนบ
+        unique_reference: รหัสอ้างอิงเฉพาะของเอกสารแนบ
+        unnumbered_hoc_paper: เอกสารสภาสามัญที่ไม่มีเลขที่
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: เอกสารแนบ
     nested_attachment_data_field_names:
-      file:
+      file: เอกสารแนบ
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: เลขที่เอกสารคำสั่งแนบ
+      hoc_paper_number: เลขที่เอกสารสภาสามัญ
+      isbn: ISBN เอกสารแนบ
+      title: ชื่อเอกสารแนบ
+      unique_reference: รหัสอ้างอิงเฉพาะของเอกสารแนบ
+      unnumbered_hoc_paper: เอกสารสภาสามัญที่ไม่มีเลขที่
   announcements:
-    heading: ข่าวสาร
+    heading: ประกาศ
   attachment:
     accessibility:
-      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น
-        กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
-      intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
-      request_a_different_format: ขอรูปแบบอื่น
+      full_help_html: |
+        หากคุณใช้เทคโนโลยีอำนวยความสะดวก (เช่น โปรแกรมอ่านหน้าจอ) และต้องการเอกสารนี้ในฉบับที่เป็นรูปแบบไฟล์ที่ช่วยให้สามารถเข้าถึงได้ง่ายขึ้น โปรดส่งอีเมลไปที่ %{email}
+        โปรดบอกเราว่าคุณต้องการรูปแบบไฟล์แบบใด จะเป็นการช่วยเราอย่างมาก หากคุณบอกว่าคุณใช้เทคโนโลยีเพื่อการช่วยเหลือแบบใด
+      intro: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยีเพื่อการช่วยเหลือ
+      request_a_different_format: ขอรูปแบบไฟล์ที่สามารถเข้าถึงได้
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: ไม่สามารถดูตัวอย่างไฟล์นี้ได้
+      download: ดาวน์โหลดไฟล์เพื่อดูเนื้อหาทั้งหมด
+      truncated_message: ตัวอย่างนี้แสดงเฉพาะ %{rows} แถวแรกและ %{columns} คอลัมน์แรกเท่านั้น
     headings:
-      order_a_copy: สั่งสำเนาหนึ่งชุด
-      order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด
-      published: ตีพิมพ์
+      order_a_copy: สั่งซื้อสำเนา
+      order_a_copy_full: สั่งซื้อสำเนาสิ่งพิมพ์
+      published: เผยแพร่แล้ว
       reference: อ้างอิง
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: เอกสารคำสั่งที่ไม่มีเลขที่
+      unnumbered_hoc_paper: เอกสารพระราชบัญญัติที่ไม่มีเลขที่
     opendocument:
-      help_html:
+      help_html: ไฟล์นี้อยู่ในรูปแบบ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
     virus_check:
-      intro:
-      message:
+      intro: เอกสารแนบนี้กำลังได้รับการตรวจสอบไวรัส
+      message: เอกสารแนบนี้ถูกกักกันอยู่ในขณะนี้ จนกว่าจะมีการตรวจสอบไวรัส เอกสารแนบจะพร้อมใช้งานได้ในตำแหน่งเดิมในไม่ช้า
   broken_links:
     broken:
-      subheading:
+      subheading: เราพบว่าลิงก์ในเอกสารนี้อาจใช้ไม่ได้
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: เราพบประเด็นบางอย่างเกี่ยวกับลิงก์ที่อาจบ่งชี้ว่าลิงก์นี้มีปัญหา คุณควรใช้ความระมัดระวังในการเปิดลิงก์เหล่านั้น
+    title: ลิงค์ใช้ไม่ได้
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: ปิดแล้ว
+    closing_today: กำลังปิดวันนี้
+    closing_tomorrow: ปิดพรุ่งนี้
+    days_left: เหลืออีก %{days_left} วัน
   contact:
-    access_and_opening_times:
+    access_and_opening_times: การเข้าถึงและเวลาเปิดทำการ
     contact_form: แบบฟอร์มการติดต่อ
-    email: อีเมล์
+    email: อีเมล
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: เผยแพร่ในเวลส์
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
+        about: เกี่ยวกับเรา
+        about_our_services: เกี่ยวกับบริการของเรา
+        access_and_opening: การเข้าถึงและเวลาเปิดทำการของสำนักงาน
+        accessible_documents_policy: นโยบายเอกสารที่เข้าถึงได้
+        complaints_procedure: ขั้นตอนการร้องเรียน
+        equality_and_diversity: ความเสมอภาคและความหลากหลาย
+        media_enquiries: คำถามจากสื่อมวลชน
+        membership: สมาชิก
+        modern_slavery_statement: คำแถลงเรื่องทาสสมัยใหม่
+        our_energy_use: การใช้พลังงานของเรา
+        our_governance: ธรรมาภิบาลของเรา
         personal_information_charter: กฎบัตรข้อมูลส่วนบุคคล
-        petitions_and_campaigns:
-        procurement:
-        publication_scheme: โครงการสิ่งพิม์
-        recruitment: ทำงานกับ%{organisation_name}
-        research:
-        social_media_use: การใช้สื่อสังคมออนล์
-        staff_update:
-        statistics:
-        terms_of_reference:
-        welsh_language_scheme: โครงการภาษาเวลช์
+        petitions_and_campaigns: การเข้าชื่อและการรณรงค์
+        procurement: การจัดซื้อที่ %{organisation_name}
+        publication_scheme: โครงการสิ่งพิมพ์
+        recruitment: ทำงานให้กับ %{organisation_name}
+        research: งานวิจัยที่ %{organisation_name}
+        social_media_use: การใช้โซเชียลมีเดีย
+        staff_update: ข่าวสารและข้อมูลพนักงาน
+        statistics: สถิติที่ %{organisation_name}
+        terms_of_reference: เงื่อนไขการอ้างอิง
+        welsh_language_scheme: โครงการภาษาเวลส์
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: นำไปใช้กับ
-      from:
-      part_of:
-    latest:
-    latest_from:
-    published: ตีพิมพ์
-    see_all:
+    contents: เนื้อหา
+    latest: เอกสารล่าสุด
+    published: เผยแพร่แล้ว
+    see_all: ดูทั้งหมด
     speech:
       author_title:
         minister: รัฐมนตรี
-        speaker: ผู้เขียน
-      delivered_on: กล่าวเมื่อ
+        speaker: นักเขียน
+      delivered_on: 'ส่งมอบเมื่อ:'
       delivery_title:
         minister: รัฐมนตรี
-        speaker: ผู้กล่าว
-      written_on: เขียนเมือ
+        speaker: วิทยากร
+      written_on: 'เขียนเมื่อ:'
     type:
       about:
-        one:
-        other:
+        one: เกี่ยวกับ
+        other: เกี่ยวกับ
       about_our_services:
-        one:
-        other:
+        one: เกี่ยวกับบริการของเรา
+        other: เกี่ยวกับบริการของเรา
       access_and_opening:
-        one:
-        other:
+        one: การเข้าถึงและเวลาเปิด
+        other: การเข้าถึงและเวลาเปิด
       accessible_documents_policy:
-        one:
-        other:
+        one: นโยบายเอกสารที่เข้าถึงได้
+        other: นโยบายเอกสารที่เข้าถึงได้
       alert:
-        one:
-        other:
+        one: การเตือน
+        other: การเตือน
       announcement:
-        one:
-        other:
+        one: ประกาศ
+        other: ประกาศ
       authored_article:
-        one:
-        other:
+        one: บทความที่มีผู้เขียน
+        other: บทความที่มีผู้เขียน
       blog_post:
-        one:
-        other:
+        one: โพสต์บล็อก
+        other: โพสต์บล็อก
       campaign:
-        one:
-        other:
+        one: การรณรงค์
+        other: การรณรงค์
       careers:
-        one:
-        other:
+        one: อาชีพ
+        other: อาชีพ
       case_study:
-        one:
-        other:
+        one: กรณีศึกษา
+        other: กรณีศึกษา
       closed_consultation:
-        one:
-        other:
+        one: การให้คำปรึกษาที่ปิดแล้ว
+        other: การให้คำปรึกษาที่ปิดแล้ว
       complaints_procedure:
-        one:
-        other:
+        one: ขั้นตอนการร้องเรียน
+        other: ขั้นตอนการร้องเรียน
       consultation:
-        one:
-        other:
+        one: การให้คำปรึกษา
+        other: การให้คำปรึกษา
       consultation_outcome:
-        one:
-        other:
+        one: ผลลัพธ์จากการให้คำปรึกษา
+        other: ผลลัพธ์จากการให้คำปรึกษา
       corporate_report:
-        one:
-        other:
+        one: รายงานของบริษัท
+        other: รายงานของบริษัท
       correspondence:
-        one:
-        other:
+        one: จดหมายโต้ตอบ
+        other: จดหมายโต้ตอบ
       decision:
-        one:
-        other:
+        one: การตัดสินใจ
+        other: การตัดสินใจ
       detailed_guidance:
-        one:
-        other:
+        one: คำแนะนำ
+        other: คำแนะนำ
       document_collection:
-        one:
-        other:
+        one: คอลเล็กชั่น
+        other: คอลเล็กชั่น
       draft_text:
-        one:
-        other:
+        one: ข้อความร่าง
+        other: ข้อความร่าง
       edition:
-        one:
-        other:
+        one: ฉบับ
+        other: ฉบับ
       edition_with_appointment:
-        one:
-        other:
+        one: ฉบับที่มีการนัดหมาย
+        other: ฉบับที่มีการนัดหมาย
       equality_and_diversity:
-        one:
-        other:
+        one: ความเสมอภาคและความหลากหลาย
+        other: ความเสมอภาคและความหลากหลาย
       fatality_notice:
-        one:
-        other:
+        one: การแจ้งตาย
+        other: การแจ้งตาย
       foi_release:
-        one:
-        other:
+        one: การออก FOI
+        other: การออก FOI
       form:
-        one:
-        other:
+        one: แบบฟอร์ม
+        other: แบบฟอร์ม
       generic_edition:
-        one:
-        other:
+        one: ฉบับทั่วไป
+        other: ฉบับทั่วไป
       government_response:
-        one:
-        other:
+        one: คำตอบของรัฐบาล
+        other: คำตอบของรัฐบาล
       guidance:
-        one:
-        other:
+        one: คำแนะนำ
+        other: คำแนะนำ
       impact_assessment:
-        one:
-        other:
+        one: การประเมินผลกระทบ
+        other: การประเมินผลกระทบ
       imported:
-        one:
-        other:
+        one: นำเข้าแล้ว - รอการพิมพ์
+        other: นำเข้าแล้ว - รอการพิมพ์
       independent_report:
-        one:
-        other:
+        one: รายงานอิสระ
+        other: รายงานอิสระ
       international_treaty:
-        one:
-        other:
+        one: สนธิสัญญาระหว่างประเทศ
+        other: สนธิสัญญาระหว่างประเทศ
       manual:
-        one:
-        other:
+        one: กำหนดเอง
+        other: คู่มือ
       map:
-        one:
-        other:
+        one: แผนที่
+        other: แผนที่
       media_enquiries:
-        one:
-        other:
+        one: คำถามจากสื่อมวลชน
+        other: คำถามจากสื่อมวลชน
       membership:
+        one: สมาชิก
+        other: สมาชิก
+      modern_slavery_statement:
         one:
         other:
       national_statistics:
-        one:
-        other:
+        one: สถิติแห่งชาติ
+        other: สถิติแห่งชาติ
       news_article:
-        one:
-        other:
+        one: บทความข่าว
+        other: บทความข่าว
       news_story:
-        one:
-        other: ข่าว
+        one: เนื้อหาข่าว
+        other: เนื้อหาข่าว
       nhs_content:
-        one:
-        other:
+        one: เนื้อหาของ NHS
+        other: เนื้อหาของ NHS
       notice:
-        one:
-        other:
+        one: ประกาศ
+        other: ประกาศ
       official_statistics:
-        one:
-        other:
+        one: สถิติของราชการ
+        other: สถิติของราชการ
       open_consultation:
-        one:
-        other:
+        one: การให้คำปรึกษาที่เปิดอยู่
+        other: การให้คำปรึกษาที่เปิดอยู่
       oral_statement:
-        one:
-        other:
+        one: แถลงการณ์ด้วยวาจาต่อรัฐสภา
+        other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
       our_energy_use:
-        one:
-        other:
+        one: การใช้พลังงานของเรา
+        other: การใช้พลังงานของเรา
       our_governance:
-        one:
-        other:
+        one: ธรรมาภิบาลของเรา
+        other: ธรรมาภิบาลของเรา
       personal_information_charter:
-        one:
-        other:
+        one: กฎบัตรข้อมูลส่วนบุคคล
+        other: กฎบัตรข้อมูลส่วนบุคคล
       petitions_and_campaigns:
-        one:
-        other:
+        one: การเข้าชื่อและการรณรงค์
+        other: การเข้าชื่อและการรณรงค์
       policy_paper:
-        one:
-        other:
+        one: เอกสารนโยบาย
+        other: เอกสารนโยบาย
       press_release:
-        one:
+        one: ข่าวประชาสัมพันธ์
         other: ข่าวประชาสัมพันธ์
       procurement:
-        one:
-        other:
+        one: การจัดซื้อจัดจ้าง
+        other: การจัดซื้อจัดจ้าง
       promotional:
-        one:
-        other:
+        one: สื่อวัสดุส่งเสริมการขาย
+        other: สื่อวัสดุส่งเสริมการขาย
       publication:
-        one:
-        other:
+        one: สิ่งพิมพ์
+        other: สิ่งพิมพ์
       publication_scheme:
-        one:
-        other:
+        one: โครงการสิ่งพิมพ์
+        other: โครงการสิ่งพิมพ์
       recruitment:
-        one:
-        other:
+        one: การสรรหา
+        other: การสรรหา
       regulation:
-        one:
-        other:
+        one: ระเบียบข้อบังคับ
+        other: ระเบียบข้อบังคับ
       research:
-        one:
-        other:
+        one: การวิจัย
+        other: การวิจัย
       service:
-        one:
-        other:
+        one: บริการ
+        other: บริการ
       social_media_use:
-        one:
-        other:
+        one: การใช้โซเชียลมีเดีย
+        other: การใช้โซเชียลมีเดีย
       speaking_notes:
-        one:
-        other:
+        one: บันทึกสุนทรพจน์
+        other: บันทึกสุนทรพจน์
       speech:
-        one:
+        one: สุนทรพจน์
         other: สุนทรพจน์
       staff_update:
-        one:
-        other:
+        one: ข่าวสารพนักงาน
+        other: ข่าวสารพนักงาน
       standard:
-        one:
-        other:
+        one: มาตรฐาน
+        other: มาตรฐาน
       statement_to_parliament:
-        one:
+        one: แถลงการณ์ต่อรัฐสภา
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
-        one:
-        other:
+        one: ชุดข้อมูลสถิติ
+        other: ชุดข้อมูลสถิติ
       statistics:
-        one:
-        other:
+        one: สถิติ
+        other: สถิติ
       statutory_guidance:
-        one:
-        other:
+        one: คำแนะนำทางกฎหมาย
+        other: คำแนะนำทางกฎหมาย
       terms_of_reference:
-        one:
-        other:
+        one: เงื่อนไขการอ้างอิง
+        other: เงื่อนไขการอ้างอิง
       transcript:
-        one:
-        other:
+        one: การถอดเสียง
+        other: การถอดเสียง
       transparency:
-        one:
-        other:
+        one: ข้อมูลความโปร่งใส
+        other: ข้อมูลความโปร่งใส
       welsh_language_scheme:
-        one:
-        other:
+        one: โครงการภาษาเวลส์
+        other: โครงการภาษาเวลส์
       world_news_story:
-        one:
-        other:
+        one: ข่าวสารทั่วโลก
+        other: ข่าวสารทั่วโลก
       written_statement:
-        one:
-        other:
-    updated: ปรับปรุง
+        one: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
+        other: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
+    updated: อัปเดตแล้ว
   document_filters:
-    consultation:
-      all:
-      label:
-    description: คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ
+    description: คุณสามารถใช้ตัวกรองเพื่อแสดงเฉพาะผลลัพธ์ที่ตรงกับความสนใจของคุณ
     no_results:
-      description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
-      title: ไม่มีเอกสารที่ตรงตามต้องการ
-      tna_heading:
-      tna_link:
+      description: ลองขยายการค้นหาให้กว้างขึ้นและลองอีกครั้ง
+      title: ไม่มีเอกสารที่ตรงกัน
+      tna_heading: เนื้อหาเก่า
+      tna_link_html: สิ่งพิมพ์ของราชการก่อนเดือนพฤษภาคม 2010 บางส่วนไม่ได้รับการย้ายไปยัง GOV.UK หากต้องการค้นหาสิ่งพิมพ์ตั้งแต่ก่อนเดือนพฤษภาคม 2010 ให้ลองค้นหาที่ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>
     world_locations:
-      all: ที่ตั้งทั้งหมด
-      label: ที่ตั้งทั่วโลก
-      no_locations_filter:
+      all: สถานที่ตั้งทุกแห่ง
+      label: สถานที่ทั่วโลก
+      no_locations_filter: ไม่มีสถานที่ในโลกใดๆ ที่ตรงกับตัวกรอง
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: ผู้เสียชีวิตในอังกฤษ
+    none_added: ยังไม่มีการแจ้งการเสียชีวิตเพิ่มเติมสำหรับพื้นที่ปฏิบัติการนี้
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
     latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
     th: ไทย
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates: ยังไม่มีการปรับปรุงข้อมูล
+    no_updates: ยังไม่มีการปรับปรุง
     title: ล่าสุด
   mhra_email_signup:
     context:
@@ -406,105 +456,92 @@ th:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: เข้าถึงข้อมูลของเรา
-      jobs:
-      jobs_and_contacts: งานและการทำสัญญา
-      organisation_chart:
-      transparency: ข้อมูลที่มีความโปร่งใส
-    email:
-      alerts:
-      summary:
+      jobs: งาน
+      jobs_and_contacts: งานและสัญญา
+      organisation_chart: แผนผังองค์กรของเรา
+      transparency: ข้อมูลความโปร่งใส
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
+      find_an_embassy_uppercase: ค้นหาสถานทูต ข้าหลวงใหญ่ หรือกงสุลอังกฤษ
     headings:
-      contact: สัญญา %{name}
-      corporate_information:
-      corporate_reports:
+      corporate_information: ข้อมูลองค์กร
+      corporate_reports: รายงานของบริษัท
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: บริหารโดย
+      agencies_and_public_bodies: หน่วยงานและหน่วยงานราชการ
+      part_of: ส่วนหนึ่งของ
+      public_body: หน่วยงานราชการ
+      works_with: ทำงานร่วมกับ
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: ศาลและตุลาการ
   publications:
     heading: สิ่งพิมพ์
-    recent:
+    recent: สิ่งพิมพ์ล่าสุด
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: ดูรายการสถิติของรัฐบาลที่เผยแพร่และที่กำลังจะเผยแพร่ได้ในส่วนสถิติ %{link}
+      moved_notice: เอกสารทางสถิติถูกย้ายไปแล้ว
   roles:
-    unassigned:
+    unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
   see_all:
-    announcement: ดูทั้งหมดข่าวสาร
-    authored_article: ดูทั้งหมดบทความที่เขียน
-    case_study: ดูทั้งหมดกรณีศึกษา
-    closed_consultation: ดูทั้งหมดการศึกษาแบบปิด
-    consultation: ดูทั้งหมดการปรึกษา
-    consultation_outcome: ดูทั้งหมดผลการปรึกษา
-    corporate_report: ดูทั้งหมดรายงานบริษัท
-    correspondence: ดูทั้งหมดจดหมาย
-    decision:
-    detailed_guidance: ดูทั้งหมดคู่มือโดยละเอียด
-    document_collection:
-    draft_text: ดูทั้งหมดร่างข้อความ
-    fatality_notice: ดูทั้งหมดการแจ้งมรณะกรรม
-    foi_release: ดูทั้งหมดข้อมูลที่เปิดเผยได้
-    form: ดูทั้งหมดแบบฟอร์ม
-    government_response: ดูทั้งหมดการตอบสนองของรัฐบาล
-    guidance: ดูทั้งหมดคู่มือ
-    impact_assessment: ดูทั้งหมดการประเมินผลกระทบ
-    imported: ดูทั้งหมดประเภทรอนำเข้า
-    international_treaty:
-    map: ดูทั้งหมดแผนที่
-    national_statistics: ดูทั้งหมดสถิติ-สถิติแห่งชาติ
-    news_article: ดูทั้งหมดบทความข่าว
-    news_story: ดูทั้งหมดข่าว
-    notice:
-    open_consultation: ดูทั้งหมดการให้คำปรึกษาเปิด
-    oral_statement: ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา
-    policy: ดูทั้งหมดนโยบาย
-    policy_paper: ดูทั้งหมดเอกสารนโยบาย
-    press_release: ดูทั้งหมดข่าวประชาสัมพันธ์
-    promotional: ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์
-    publication: ดูทั้งหมดสิ่งพิมพ์
-    regulation:
-    research: ดูทั้งหมดบทวิจัยและบทวิเคราะห์
-    speaking_notes: ดูทั้งหมดประเด็นการพูด
-    speech: ดูทั้งหมดสุนทรพจน์
-    statement_to_parliament: ดูทั้งหมดแถลงการณ์ต่อรัฐสภา
-    statistical_data_set: ดูทั้งหมดชุดข้อมูลสถิติ
-    statistics: ดูทั้งหมดสถิติ
-    statutory_guidance:
-    transcript: ดูทั้งหมดสำเนา
-    transparency: ดูทั้งหมดข้อมูลโปร่งใส
-    written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+    announcement: ดูประกาศทั้งหมดของเรา
+    authored_article: ดูบทความโดยผู้เขียนทั้งหมดของเรา
+    case_study: ดูกรณีศึกษาทั้งหมดของเรา
+    closed_consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
+    consultation: ดูการให้คำปรึกษาที่ปิดแล้วทั้งหมดของเรา
+    consultation_outcome: ดูผลลัพธ์จากการให้คำปรึกษาทั้งหมดของเรา
+    corporate_report: ดูรายงานองค์กรทั้งหมดของเรา
+    correspondence: ดูจดหมายโต้ตอบทั้งหมดของเรา
+    decision: ดูการตัดสินใจทั้งหมดของเรา
+    detailed_guidance: ดูคำแนะนำทั้งหมดของเรา
+    document_collection: ดูคอลเล็กชั่นทั้งหมดของเรา
+    draft_text: ดูข้อความฉบับร่างทั้งหมดของเรา
+    fatality_notice: ดูประกาศการเสียชีวิตทั้งหมดของเรา
+    foi_release: ดูข่าวประชาสัมพันธ์เกี่ยวกับ FOI ทั้งหมดของเรา
+    form: ดูแบบฟอร์มทั้งหมดของเรา
+    government_response: ดูคำตอบของรัฐบาลทั้งหมดของเรา
+    guidance: ดูคำแนะนำทั้งหมดของเรา
+    impact_assessment: ดูการประเมินผลกระทบทั้งหมดของเรา
+    imported: ดูรายงานอิสระทั้งหมดของเรา
+    international_treaty: ดูสนธิสัญญาระหว่างประเทศทั้งหมดของเรา
+    map: ดูแผนที่ทั้งหมดของเรา
+    national_statistics: ดูสถิติแห่งชาติทั้งหมดของเรา
+    news_article: ดูบทความข่าวทั้งหมดของเรา
+    news_story: ดูเนื้อหาข่าวทั้งหมดของเรา
+    notice: ดูประกาศทั้งหมดของเรา
+    open_consultation: ดูการให้คำปรึกษาที่เปิดอยู่ทั้งหมดของเรา
+    oral_statement: ดูแถลงการณ์ด้วยวาจาต่อรัฐสภาทั้งหมดของเรา
+    policy: ดูนโยบายทั้งหมดของเรา
+    policy_paper: ดูเอกสารนโยบายทั้งหมดของเรา
+    press_release: ดูข่าวประชาสัมพันธ์ทั้งหมดของเรา
+    promotional: ดูสื่อส่งเสริมการขายทั้งหมดของเรา
+    publication: ดูสิ่งพิมพ์ทั้งหมดของเรา
+    regulation: ดูระเบียบข้อบังคับทั้งหมดของเรา
+    research: ดูงานวิจัยและการวิเคราะห์ทั้งหมดของเรา
+    speaking_notes: ดูบันทึกสุนทรพจน์ทั้งหมดของเรา
+    speech: ดูสุนทรพจน์ทั้งหมดของเรา
+    statement_to_parliament: ดูแถลงการณ์ต่อรัฐสภาทั้งหมดของเรา
+    statistical_data_set: ดูชุดข้อมูลสถิติทั้งหมดของเรา
+    statistics: ดูสถิติทั้งหมดของเรา
+    statutory_guidance: ดูคำแนะนำทางกฎหมายทั้งหมดของเรา
+    transcript: ดูการถอดเสียงทั้งหมดของเรา
+    transparency: ดูข้อมูลความโปร่งใสทั้งหมดของเรา
+    written_statement: ดูแถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภาทั้งหมดของเรา
   support:
-    array:
-      last_word_connector: และ
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: ดาวน์โหลด
+    field_of_operation: 'พื้นที่ปฏิบัติการ:'
+    fields_of_operation: พื้นที่ปฏิบัติการ
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: <span class="visuallyhidden">หน้า</span> ถัดไป <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
+      next_page: หน้าถัดไป
+      previous_html: <span class="visuallyhidden">หน้า</span> ก่อนหน้า <span class="page-numbers">%{current_page} จาก %{total_pages} หน้า</span>
+      previous_page: หน้าที่แล้ว
+    part_of_collection: 'ส่วนของคอลเล็กชัน:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -512,52 +549,51 @@ th:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: กิจกรรมล่าสุดใน %{event}
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: สภาศิลปะอังกฤษ
+      bbc: บีบีซี
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: หอสมุดแห่งชาติของอังกฤษ
+      commonwealth_war_graves_commission: คณะกรรมาธิการสุสานสงครามแห่งเครือจักรภพ
+      heritage_lottery_fund: กองทุนสลากเพื่อการบูรณมรดกของชาติ
+      historic_england: อังกฤษยุคประวัติศาสตร์
+      iwm: พิพิธภัณฑ์สงครามจักรวรรดิ
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: ทรัสต์อนุสรณ์สถานสงคราม
   world_location:
     headings:
-      announcements: ข่าวสารของเรา
+      announcements: ประกาศของเรา
       documents: เอกสาร
-      featured: จุดเด่น
-      mission: ภาระกิจของเรา
-      news:
+      featured:
+      mission: ภารกิจของเรา
+      news: ข่าวสถานที่ทั่วโลก
       organisations: องค์กร
       publications: สิ่งพิมพ์ของเรา
-      search:
+      search: ค้นหาด้วยประเทศหรือดินแดน
       statistics: สถิติของเรา
     type:
       international_delegation:
-        one:
-        other:
+        one: คณะผู้แทนระหว่างประเทศ
+        other: คณะผู้แทนระหว่างประเทศ
       world_location:
-        one:
-        other:
+        one: สถานที่ทั่วโลก
+        other: สถานที่ทั่วโลก
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: อัปเดต ข่าวสาร และกิจกรรมจากรัฐบาลสหราชอาณาจักรใน %{country}
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
-      publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
-      social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}
-      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
-        %{link}.
-    find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
+      about_our_services_html: ดูข้อมูลเพิ่มเติมที่ %{link}
+      personal_information_charter_html: "%{link} ของเราอธิบายว่าเราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณอย่างไร"
+      publication_scheme_html: อ่านเกี่ยวกับประเภทข้อมูลที่เราเผยแพร่เป็นประจำใน %{link} ของเรา
+      social_media_use_html: อ่านนโยบายของเราที่ %{link}
+      welsh_language_scheme_html: ดูข้อมูลเพิ่มเติมเกี่ยวกับพันธกิจของเราสำหรับ %{link}
+    find_out_more: ดูรายแฟ้มประวัติฉบับเต็มและรายละเอียดการติดต่อทั้งหมด
     headings:
       contact_us: ติดต่อเรา
       corporate_information: ข้อมูลองค์กร
       follow_us: ติดตามเรา
-      our_people: เจ้าหน้าที่ของเรา
-    location: ที่ตั้ง
-    part_of: ส่วนของ
+      our_people: บุคลากรของเรา
+    location: ตำแหน่งที่ตั้ง
+    part_of: ส่วนหนึ่งของ

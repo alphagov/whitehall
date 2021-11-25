@@ -1,394 +1,444 @@
+---
 ko:
   activerecord:
     attributes:
       attachment:
-        hoc_paper_number:
-        isbn:
-        unnumbered_hoc_paper:
+        hoc_paper_number: 하원 문서 번호
+        isbn: ISBN
+        unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
       attachment_data:
-        file:
+        file: 파일
       corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 첨부 명령 문서 번호
+        hoc_paper_number: 하원 문서 번호
+        isbn: 첨부 ISBN
+        title: 첨부 제목
+        unique_reference: 첨부 고유 참조
+        unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file:
+        file: 첨부 파일
       edition:
-        nation_inapplicabilities:
+        nation_inapplicabilities: 제외 국가
       policy_group/policy_group_attachments/attachment/attachment_data:
-        file:
+        file: 첨부 파일
       response/consultation_response_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
+        command_paper_number: 첨부 명령 문서 번호
+        hoc_paper_number: 하원 문서 번호
+        isbn: 첨부 ISBN
+        title: 첨부 제목
+        unique_reference: 첨부 고유 참조
+        unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
+        file: 첨부 파일
     nested_attachment_data_field_names:
-      file:
+      file: 첨부 파일
     nested_attachment_field_names:
-      command_paper_number:
-      hoc_paper_number:
-      isbn:
-      title:
-      unique_reference:
-      unnumbered_hoc_paper:
+      command_paper_number: 첨부 명령 문서 번호
+      hoc_paper_number: 하원 문서 번호
+      isbn: 첨부 ISBN
+      title: 첨부 제목
+      unique_reference: 첨부 고유 참조
+      unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
   announcements:
     heading: 공지사항
   attachment:
     accessibility:
-      full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,
-        전화번호, 요청하시는 자료의 제목을 명시하여, %{email} 로 이메일을 주십시오.
+      full_help_html: |
+        지원 기술 (화면 리더기)을 사용하며 이 문서의 보다 접근 가능한 양식이 필요하시면 %{email}로 이메일을 주십시오.
+        필요한 양식을 알려주십시오. 사용하시는 지원 기술에 대해 알려주시면 도움이 됩니다.
       intro: '본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. '
       request_a_different_format: 다른 포맷으로 요청
     csv:
-      cannot_preview:
-      download:
-      truncated_message:
+      cannot_preview: 이 파일은 미리 볼 수 없을 수 있습니다.
+      download: 파일을 다운로드하여 전체 콘텐츠를 확인하십시오.
+      truncated_message: 이 미리보기는 첫 번째 %{rows} 행과 %{columns} 열만을 보여줍니다.
     headings:
       order_a_copy: 카피 주문하기
       order_a_copy_full: 본 문서의 카피 주문하기
       published: 퍼블리시
       reference: 레퍼런스
-      unnumbered_command_paper:
-      unnumbered_hoc_paper:
+      unnumbered_command_paper: 번호를 매기지 않은 명령 문서
+      unnumbered_hoc_paper: 번호를 매기지 않은 법안 문서
     opendocument:
-      help_html:
+      help_html: 이 파일은 <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> 포맷입니다
     virus_check:
-      intro:
-      message:
+      intro: 이 첨부 파일은 바이러스 확인을 거쳤습니다.
+      message: '현재 이 첨부 파일을 바이러스가 확인될 때까지 격리 상태로 유지합니다. 첨부 파일은 기존 위치에서 잠시 이용할 수 있을 것입니다. '
   broken_links:
     broken:
-      subheading:
+      subheading: 이 문서에서 손상된 링크가 발견되었습니다
     caution:
-      subheading:
-    title:
-  change_notes:
-    published_at:
-    see_all_updates:
-    updated_at:
+      subheading: 링크에서 문제를 나타낼 수 있는 몇 가지 문제가 발견되었으므로, 링크할 때 주의해야 합니다
+    title: 손상된 링크
   consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
+    closed: 종결됨
+    closing_today: 오늘 종결됨
+    closing_tomorrow: 내일 종결
+    days_left: "%{days_left} 일 남음"
   contact:
-    access_and_opening_times:
+    access_and_opening_times: 액세스 및 공개 시간
     contact_form: 콘택트 폼
     email: 이메일
   corporate_information_page:
     type:
       link_text:
-        welsh_language_scheme:
+        welsh_language_scheme: 웨일스어 발행
       title:
-        about:
-        about_our_services:
-        access_and_opening:
-        accessible_documents_policy:
-        complaints_procedure:
-        equality_and_diversity:
-        media_enquiries:
-        membership:
-        modern_slavery_statement:
-        our_energy_use:
-        our_governance:
+        about: 소개
+        about_our_services: 저희 서비스 소개
+        access_and_opening: 사무실 액세스 및 운영 시간
+        accessible_documents_policy: 액세스 가능한 문서 정책
+        complaints_procedure: 불만처리절차
+        equality_and_diversity: 평등 및 다양성
+        media_enquiries: 언론 문의
+        membership: 멤버십
+        modern_slavery_statement: 현대노예법
+        our_energy_use: 저희의 에너지 사용
+        our_governance: 저희의 거버넌스
         personal_information_charter: 개인정보 규정
-        petitions_and_campaigns:
-        procurement:
+        petitions_and_campaigns: 청원 및 캠페인
+        procurement: "%{organisation_name} 의 조달"
         publication_scheme: 발행 계획
-        recruitment:
-        research:
-        social_media_use: 소셜미디어 사용
-        staff_update:
-        statistics:
-        terms_of_reference:
+        recruitment: "%{organisation_name} 를 위해 작업함"
+        research: "%{organisation_name} 를 위해 조사함"
+        social_media_use: 소셜 미디어 사용
+        staff_update: 직원 뉴스 및 정보
+        statistics: "%{organisation_name} 의 통계"
+        terms_of_reference: 참조 조건
         welsh_language_scheme: 웨일스어 계획
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document:
-    contents:
-    footer_meta:
-      full_page_history:
-      published:
-      updated:
-    headings:
-      applies_to_nations: 적용
-      from:
-      part_of:
-    latest:
-    latest_from:
+    contents: 콘텐츠
+    latest: 최근 문서
     published: 발행
-    see_all:
+    see_all: 모두 보기
     speech:
       author_title:
         minister: 장관
         speaker: 저자
-      delivered_on: 행사일시
+      delivered_on: '행사 일시:'
       delivery_title:
         minister: 장관
         speaker: 스피커
       written_on: '작성일시:'
     type:
       about:
-        one:
-        other:
+        one: 소개
+        other: 소개
       about_our_services:
-        one:
-        other:
+        one: 저희 서비스 소개
+        other: 저희 서비스 소개
       access_and_opening:
-        one:
-        other:
+        one: 액세스 및 운영
+        other: 액세스 및 운영
       accessible_documents_policy:
-        one:
-        other:
+        one: 액세스 가능한 문서 정책
+        other: 액세스 가능한 문서 정책
       alert:
-        one:
-        other:
+        one: 알림
+        other: 알림
       announcement:
-        one:
-        other:
+        one: 공지사항
+        other: 공지사항
       authored_article:
-        one:
-        other:
+        one: 저작물
+        other: 저작물
       blog_post:
-        one:
-        other:
+        one: 블로그 포스트
+        other: 블로그 포스트
       campaign:
-        one:
-        other:
+        one: 캠페인
+        other: 캠페인
       careers:
-        one:
-        other:
+        one: 커리어
+        other: 커리어
       case_study:
-        one:
-        other:
+        one: 사례 연구
+        other: 사례 연구
       closed_consultation:
-        one:
-        other:
+        one: 종결된 상담
+        other: 종결된 상담
       complaints_procedure:
-        one:
-        other:
+        one: 불만처리절차
+        other: 불만처리절차
       consultation:
-        one:
-        other:
+        one: 상담
+        other: 상담
       consultation_outcome:
-        one:
-        other:
+        one: 상담 결과
+        other: 상담 결과
       corporate_report:
-        one:
-        other:
+        one: 기업 보고서
+        other: 기업 보고서
       correspondence:
-        one:
-        other:
+        one: 통신
+        other: 통신
       decision:
-        one:
-        other:
+        one: 판결
+        other: 판결
       detailed_guidance:
-        one:
-        other:
+        one: 지침
+        other: 지침
       document_collection:
-        one:
-        other:
+        one: 컬렉션
+        other: 컬렉션
       draft_text:
-        one:
-        other:
+        one: 초안 텍스트
+        other: 초안 텍스트
       edition:
-        one:
-        other:
+        one: 에디션
+        other: 에디션
       edition_with_appointment:
-        one:
-        other:
+        one: 예약판
+        other: 예약판
       equality_and_diversity:
-        one:
-        other:
+        one: 평등 및 다양성
+        other: 평등 및 다양성
       fatality_notice:
-        one:
-        other:
+        one: 사망통지서
+        other: 사망통지서
       foi_release:
-        one:
-        other:
+        one: 였다 공개
+        other: 였다 공개
       form:
-        one:
-        other:
+        one: 양식
+        other: 양식
       generic_edition:
-        one:
-        other:
+        one: 일반 에디션
+        other: 일반 에디션
       government_response:
-        one:
-        other:
+        one: 정부 대응
+        other: 정부 대응
       guidance:
-        one:
-        other:
+        one: 지침
+        other: 지침
       impact_assessment:
-        one:
-        other:
+        one: 영향 평가
+        other: 영향 평가
       imported:
-        one:
-        other:
+        one: 수입 - 대기 유형
+        other: 수입 - 대기 유형
       independent_report:
-        one:
-        other:
+        one: 독립적 보고서
+        other: 독립적 보고서
       international_treaty:
-        one:
-        other:
+        one: 국제 조약
+        other: 국제 조약
       manual:
-        one:
-        other:
+        one: 매뉴얼
+        other: 매뉴얼
       map:
-        one:
-        other:
+        one: 지도
+        other: 지도
       media_enquiries:
-        one:
-        other:
+        one: 언론 문의
+        other: 언론 문의
       membership:
+        one: 멤버십
+        other: 멤버십
+      modern_slavery_statement:
         one:
         other:
       national_statistics:
-        one:
-        other:
+        one: 국내 통계
+        other: 국내 통계
       news_article:
-        one:
-        other:
+        one: 뉴스 기사
+        other: 뉴스 기사
       news_story:
-        one:
+        one: 뉴스 스토리
         other: 뉴스 스토리
       nhs_content:
-        one:
-        other:
+        one: NHS 콘텐츠
+        other: NHS 콘텐츠
       notice:
-        one:
-        other:
+        one: 공지
+        other: 공지
       official_statistics:
-        one:
-        other:
+        one: 공식 통계
+        other: 공식 통계
       open_consultation:
-        one:
-        other:
+        one: 공개 상담
+        other: 공개 상담
       oral_statement:
-        one:
-        other:
+        one: 의회로 구두 성명
+        other: 의회로 구두 성명
       our_energy_use:
-        one:
-        other:
+        one: 저희의 에너지 사용
+        other: 저희의 에너지 사용
       our_governance:
-        one:
-        other:
+        one: 저희의 거버넌스
+        other: 저희의 거버넌스
       personal_information_charter:
-        one:
-        other:
+        one: 개인정보 규정
+        other: 개인정보 규정
       petitions_and_campaigns:
-        one:
-        other:
+        one: 청원 및 캠페인
+        other: 청원 및 캠페인
       policy_paper:
-        one:
-        other:
+        one: 정책 문서
+        other: 정책 문서
       press_release:
-        one:
+        one: 보도자료
         other: 보도자료
       procurement:
-        one:
-        other:
+        one: 조달
+        other: 조달
       promotional:
-        one:
-        other:
+        one: 홍보 자료
+        other: 홍보 자료
       publication:
-        one:
-        other:
+        one: 발행
+        other: 발행
       publication_scheme:
-        one:
-        other:
+        one: 발행 계획
+        other: 발행 계획
       recruitment:
-        one:
-        other:
+        one: 채용
+        other: 채용
       regulation:
-        one:
-        other:
+        one: 규제
+        other: 규제
       research:
-        one:
-        other:
+        one: 연구
+        other: 연구
       service:
-        one:
-        other:
+        one: 서비스
+        other: 서비스
       social_media_use:
-        one:
-        other:
+        one: 소셜 미디어 사용
+        other: 소셜 미디어 사용
       speaking_notes:
-        one:
-        other:
+        one: 연설문 메모
+        other: 연설문 메모
       speech:
-        one:
+        one: 연설문
         other: 연설문
       staff_update:
-        one:
-        other:
+        one: 직원 업데이트
+        other: 직원 업데이트
       standard:
-        one:
-        other:
+        one: 표준
+        other: 표준
       statement_to_parliament:
-        one:
+        one: 의회로 성명
         other: 의회로 성명
       statistical_data_set:
-        one:
-        other:
+        one: 통계 데이터 세트
+        other: 통계 데이터 세트
       statistics:
-        one:
-        other:
+        one: 통계
+        other: 통계
       statutory_guidance:
-        one:
-        other:
+        one: 법정 지도
+        other: 법정 지도
       terms_of_reference:
-        one:
-        other:
+        one: 참조 조건
+        other: 참조 조건
       transcript:
-        one:
-        other:
+        one: 녹취록
+        other: 녹취록
       transparency:
-        one:
-        other:
+        one: 투명성 데이터
+        other: 투명성 데이터
       welsh_language_scheme:
-        one:
-        other:
+        one: 웨일스어 계획
+        other: 웨일스어 계획
       world_news_story:
-        one:
-        other:
+        one: 전세계 뉴스 스토리
+        other: 전세계 뉴스 스토리
       written_statement:
-        one:
-        other:
+        one: 국회로 서면 성명
+        other: 국회로 서면 성명
     updated: 업데이트
   document_filters:
-    consultation:
-      all:
-      label:
     description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
-      tna_heading:
-      tna_link:
+      tna_heading: 기존 컨텐츠
+      tna_link_html: 2010년 5월 이전의 모든 부서 발행물이 GOV.UK로 마이그레이션되지는 않습니다. 2010년 5월 이전에 발행물을 찾으려면 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>를 찾아 보십시오.
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션
-      no_locations_filter:
+      no_locations_filter: 해당 필터와 일치하는 세계 필터란 없습니다.
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: 영국 사망자
+    none_added: 이 운영 분야의 사망 통지는 아직 추가되지 않았습니다.
   feeds:
-    email:
-    feed:
-    get_updates_to_this_list:
     latest_activity: 최근 활동
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
     ko: 한국어
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa:
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
     no_updates: 관련 내용이 아직 없습니다.
     title: 최신
@@ -406,45 +456,35 @@ ko:
         title:
     summary:
     title:
-  national_statistics:
-    heading:
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: 정보 접근
-      jobs:
+      jobs: 채용
       jobs_and_contacts: 채용 및 연락처
-      organisation_chart:
+      organisation_chart: 조직 차트
       transparency: 투명성 데이터
-    email:
-      alerts:
-      summary:
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: 영국 대사관, 고등판무관 또는 영사관 찾기
+      find_an_embassy_uppercase: 영국 대사관, 고등판무관 또는 영사관 찾기
     headings:
-      contact: "%{name} 에게 연락하세요"
-      corporate_information:
-      corporate_reports:
+      corporate_information: 기업 정보
+      corporate_reports: 기업 보고서
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: 관리자
+      agencies_and_public_bodies: 에이전시 및 공공 기관
+      part_of: 파트
+      public_body: 공공 기관
+      works_with: 협업 대상
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: 상위 법원 및 법원
   publications:
     heading: 출판물
-    recent:
+    recent: 최근 출판물
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} 통계 섹션에서 발행되거나 다가올 정부 통계의 목록을 찾아 보십시오."
+      moved_notice: 통계 출판물이 이동되었습니다.
   roles:
-    unassigned:
+    unassigned: 이 역할에 아무도 할당되지 않았습니다
   see_all:
     announcement: 공지 모두 둘러보기
     authored_article: 기사 모두 둘러보기
@@ -454,57 +494,54 @@ ko:
     consultation_outcome: 협의 결과 모두 둘러보기
     corporate_report: 기업 레포트 모두 둘러보기
     correspondence: 서신 모두 둘러보기
-    decision:
+    decision: 결정 모두 보기
     detailed_guidance: 상세 안내 모두 둘러보기
-    document_collection:
+    document_collection: 컬렉션 모두 보기
     draft_text: 드래프트 택스트 모두 둘러보기
     fatality_notice: 사상자 공지 모두 둘러보기
-    foi_release: foi 보도자료 모두 둘러보기
+    foi_release: 였다 보도자료 모두 둘러보기
     form: 문서 모두 둘러보기
     government_response: 정부 대책 모두 둘러보기
     guidance: 안내 모두 둘러보기
     impact_assessment: 임팩트 평가 모두 둘러보기
     imported: 수입 - 대기 모두 둘러보기
-    international_treaty:
+    international_treaty: 국제 조약 모두 둘러보기
     map: 지도 모두 둘러보기
     national_statistics: 통계 - 국가 통계 모두 둘러보기
     news_article: 뉴스 모두 둘러보기
     news_story: 뉴스 스토리 모두 둘러보기
-    notice:
+    notice: 공지 모두 둘러보기
     open_consultation: 오픈 컨설테이션 모두 둘러보기
     oral_statement: 의회로 구두 성명 모두 둘러보기
-    policy: 정책 모두 둘러보기
+    policy: 정책 논문 모두 둘러보기
     policy_paper: 정책 논문 모두 둘러보기
     press_release: 보도자료 모두 둘러보기
     promotional: 홍보물 모두 둘러보기
     publication: 간행물 모두 둘러보기
-    regulation:
+    regulation: 규제 모두 둘러보기
     research: 리써치 및 분석 모두 둘러보기
     speaking_notes: 요점사항 모두 둘러보기
     speech: 연설문 모두 둘러보기
     statement_to_parliament: 의회로 성명 모두 둘러보기
     statistical_data_set: 통계 데이터 세트 모두 둘러보기
     statistics: 통계 모두 둘러보기
-    statutory_guidance:
+    statutory_guidance: 법적 지침 모두 둘러보기
     transcript: 트랜스크립트 모두 둘러보기
     transparency: 투명성 데이타 모두 둘러보기
     written_statement: 의회로 서면 성명 모두 둘러보기
   support:
-    array:
-      last_word_connector: 그리고
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: 다운로드
+    field_of_operation: '운영 영역:'
+    fields_of_operation: 운영 영역
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: 다음 span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
+      next_page: 다음 페이지
+      previous_html: 이전 <span class="visuallyhidden">페이지</span> <span class="page-numbers">%{current_page} / %{total_pages}</span>
+      previous_page: 이전 페이지
+    part_of_collection: '컬렉션 일부:'
   time:
     formats:
-      long_ordinal: "%e %B %Y %H:%M"
+      long_ordinal: "%e %B %Y %l:%M%P"
   topical_event:
     headings:
       detailed_guidance:
@@ -512,46 +549,46 @@ ko:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: " 의 최근 활동%{Event}"
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: 예술위원회 영국
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: 대영 도서관
+      commonwealth_war_graves_commission: 영연방 전쟁 묘지 위원회
+      heritage_lottery_fund: 유산 복권 기금
+      historic_england: 역사적인 영국
+      iwm: 제국 전쟁 박물관
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: 전쟁기념관 신탁
   world_location:
     headings:
       announcements: 공지사항
       documents: 자료
       featured:
       mission: 대사관 안내
-      news:
+      news: 월드 로케이션 뉴스
       organisations: 조직 안내
       publications: 출판물
-      search:
+      search: 국가 또는 영토로 검색하기
       statistics: 통계
     type:
       international_delegation:
-        one:
-        other:
+        one: 국제 대표단
+        other: 국제 대표단
       world_location:
-        one:
-        other:
+        one: 월드 로케이션
+        other: 월드 로케이션
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: UK 정부의 %{country} 내 업데이트, 뉴스 및 이벤트
   worldwide_organisation:
     corporate_information:
-      about_our_services_html:
-      personal_information_charter_html: "%{link} 에서 개인정보 처리에 대한 안내"
-      publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내
-      social_media_use_html: "%{link} 에서 정책 정보 확인"
-      welsh_language_scheme_html: "%{link} 에서 정보 공개에 대한 내용"
+      about_our_services_html: "%{link} 를 찾으십시오."
+      personal_information_charter_html: "%{link} 에서 개인정보 처리에 대한 안내."
+      publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내.
+      social_media_use_html: "%{link} 에서 정책 정보 확인."
+      welsh_language_scheme_html: "%{link} 에서 정보 공개에 대한 내용."
     find_out_more: 프로필과 연락처 보기
     headings:
       contact_us: 연락처

@@ -1,57 +1,182 @@
+---
 pa:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+        isbn: ISBN
+        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+      attachment_data:
+        file: ਫਾਈਲ
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
+        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+        isbn: ਨੱਥੀ ISBN
+        title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
+        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
+        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+      edition:
+        nation_inapplicabilities: ਬਾਹਰ ਕੱੀਆਂ ਗਈਆਂ ਕੌਮਾਂ
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+      response/consultation_response_attachments/attachment:
+        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
+        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+        isbn: ਨੱਥੀ ISBN
+        title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
+        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
+        unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+    nested_attachment_data_field_names:
+      file: ਨੱਥੀ ਕੀਤੀ ਫਾਈਲ
+    nested_attachment_field_names:
+      command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
+      hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
+      isbn: ਨੱਥੀ ISBN
+      title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
+      unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
+      unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
+  announcements:
+    heading: ਘੋਸ਼ਣਾਵਾਂ
+  attachment:
+    accessibility:
+      full_help_html: |
+        ਜੇ ਤੁਸੀਂ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ (ਜਿਵੇਂ ਕਿ ਸਕ੍ਰੀਨ ਰੀਡਰ) ਅਤੇ ਇਸ ਦਸਤਾਵੇਜ਼ ਦੇ ਇੱਕ ਵਧੇਰੇ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਵਿੱਚ ਸੰਸਕਰਣ ਦੀ ਜ਼ਰੂਰਤ ਹੈ
+        , ਕਿਰਪਾ ਕਰਕੇ %{email} ਨੂੰ ਈਮੇਲ ਕਰੋ।
+        ਕਿਰਪਾ ਕਰਕੇ ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਨੂੰ ਕਿਸ ਫਾਰਮੈਟ ਦੀ ਜ਼ਰੂਰਤ ਹੈ। ਇਹ ਸਾਡੀ ਸਹਾਇਤਾ ਕਰੇਗਾ ਜੇ ਤੁਸੀਂ ਕਹੋ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ।
+      intro: ਇਹ ਫਾਈਲ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੇ ਉਪਯੋਗਕਰਤਾਵਾਂ ਲਈ ਢੁਕਵੀਂ ਨਹੀਂ ਹੋ ਸਕਦੀ।
+      request_a_different_format: ਇੱਕ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਦੀ ਬੇਨਤੀ ਕਰੋ।
+    csv:
+      cannot_preview: ਇਸ ਫ਼ਾਈਲ ਦਾ ਪੂਰਵਦਰਸ਼ਨ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।
+      download: ਫਾਈਲ ਦੀ ਪੂਰੀ ਸਮਗਰੀ ਨੂੰ ਵੇਖਣ ਲਈ ਡਾਉਨਲੋਡ ਕਰੋ।
+      truncated_message: ਇਹ ਝਲਕ ਸਿਰਫ ਪਹਿਲੀ %{rows} ਕਤਾਰਾਂ ਅਤੇ %{columns} ਕਾਲਮ ਦਿਖਾਉਂਦੀ ਹੈ।
+    headings:
+      order_a_copy: ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
+      order_a_copy_full: ਪ੍ਰਕਾਸ਼ਨ ਦੀ ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
+      published: ਪ੍ਰਕਾਸ਼ਿਤ
+      reference: ਹਵਾਲਾ
+      unnumbered_command_paper: ਅਣਗਿਣਤ ਕਮਾਂਡ ਪੇਪਰ
+      unnumbered_hoc_paper: ਅਣਗਿਣਤ ਐਕਟ ਪੇਪਰ
+    opendocument:
+      help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">ਓਪਨਡਾਕੂਮੈਂਟ</a> ਫਾਰਮੈਟ ਵਿੱਚ ਹੈ
+    virus_check:
+      intro: ਇਸ ਅਟੈਚਮੈਂਟ ਦੀ ਵਾਇਰਸ ਜਾਂਚ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ।
+      message: ਅਸੀਂ ਇਸ ਸਮੇਂ ਇਸ ਅਟੈਚਮੈਂਟ ਨੂੰ ਕੁਆਰੰਟੀਨ ਵਿੱਚ ਰੱਖ ਰਹੇ ਹਾਂ ਜਦੋਂ ਤੱਕ ਇਸ ਦੀ ਵਾਇਰਸ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਜਾਂਦੀ। ਅਟੈਚਮੈਂਟ ਛੇਤੀ ਹੀ ਅਸਲ ਸਥਾਨ ਤੇ ਉਪਲਬਧ ਹੋਵੇਗੀ।
+  broken_links:
+    broken:
+      subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟ ਸਕਦੇ ਹਨ
+    caution:
+      subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸਮੱਸਿਆਵਾਂ ਮਿਲੀਆਂ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦੀਆਂ ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਜੋੜਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
+    title: ਟੁੱਟੇ ਲਿੰਕ
+  consultation:
+    closed: ਬੰਦ
+    closing_today: ਅੱਜ ਬੰਦ
+    closing_tomorrow: ਭਲਕੇ ਬੰਦ
+    days_left: "%{days_left} ਦਿਨ ਬਾਕੀ"
+  contact:
+    access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣ ਦੇ ਸਮੇਂ
+    contact_form: ਸੰਪਰਕ ਫਾਰਮ
+    email: ਈ - ਮੇਲ
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: ਵੈਲਸ਼ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ
+      title:
+        about: ਸਾਡੇ ਬਾਰੇ
+        about_our_services: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ ਬਾਰੇ
+        access_and_opening: ਦਫਤਰ ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦੇ ਸਮੇਂ
+        accessible_documents_policy: ਪਹੁੰਚਯੋਗ ਦਸਤਾਵੇਜ਼ਾਂ ਦੀ ਨੀਤੀ
+        complaints_procedure: ਸ਼ਿਕਾਇਤਾਂ ਦੀ ਵਿਧੀ
+        equality_and_diversity: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
+        media_enquiries: ਮੀਡੀਆ ਪੁੱਛਗਿੱਛ
+        membership: ਮੈਂਬਰਸ਼ਿਪ
+        modern_slavery_statement: ਆਧੁਨਿਕ ਗੁਲਾਮੀ ਦਾ ਬਿਆਨ
+        our_energy_use: ਸਾਡੀ ਊਰਜਾ ਦੀ ਵਰਤੋਂ
+        our_governance: ਸਾਡਾ ਸ਼ਾਸਨ
+        personal_information_charter: ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਚਾਰਟਰ
+        petitions_and_campaigns: ਪਟੀਸ਼ਨਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ
+        procurement: "%{organisation_name} 'ਤੇ ਖਰੀਦ"
+        publication_scheme: ਪ੍ਰਕਾਸ਼ਨ ਸਕੀਮ
+        recruitment: "%{organisation_name} ਲਈ ਕੰਮ ਕਰਨਾ"
+        research: "%{organisation_name} 'ਤੇ ਖੋਜ"
+        social_media_use: ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ
+        staff_update: ਸਟਾਫ ਦੀਆਂ ਖਬਰਾਂ ਅਤੇ ਜਾਣਕਾਰੀ
+        statistics: "%{organisation_name} ਦੇ ਅੰਕੜੇ"
+        terms_of_reference: ਸੰਦਰਭ ਦੀਆਂ ਸ਼ਰਤਾਂ
+        welsh_language_scheme: ਵੈਲਸ਼ ਭਾਸ਼ਾ ਸਕੀਮ
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   document:
+    contents: ਸਮਗਰੀ
+    latest: ਨਵੀਨਤਮ ਦਸਤਾਵੇਜ਼
+    published: ਪ੍ਰਕਾਸ਼ਿਤ
+    see_all: ਸਾਰੇ ਵੇਖੋ
+    speech:
+      author_title:
+        minister: ਮੰਤਰੀ
+        speaker: ਲੇਖਕ
+      delivered_on: 'ਇਸ ''ਤੇ ਦਿੱਤਾ ਗਿਆ:'
+      delivery_title:
+        minister: ਮੰਤਰੀ
+        speaker: ਸਪੀਕਰ
+      written_on: "'ਤੇ ਲਿਖਿਆ:"
     type:
       about:
-        one:
-        other:
+        one: ਬਾਰੇ
+        other: ਬਾਰੇ
       about_our_services:
-        one:
-        other:
+        one: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ ਬਾਰੇ
+        other: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ ਬਾਰੇ
       access_and_opening:
-        one:
-        other:
+        one: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣਾ
+        other: ਪਹੁੰਚ ਅਤੇ ਖੋਲ੍ਹਣਾ
       accessible_documents_policy:
-        one:
-        other:
+        one: ਪਹੁੰਚਯੋਗ ਦਸਤਾਵੇਜ਼ਾਂ ਦੀ ਨੀਤੀ
+        other: ਪਹੁੰਚਯੋਗ ਦਸਤਾਵੇਜ਼ ਨੀਤੀਆਂ
       alert:
-        one:
-        other:
+        one: ਸੁਚੇਤਨਾ
+        other: ਸੁਚੇਤਨਾਵਾਂ
       announcement:
-        one: ਘੋਸ਼ਣਾ
-        other: ਘੋਸ਼ਣਾਵਾਂ
+        one: ਘੋਸ਼ਣਾ
+        other: ਘੋਸ਼ਣਾਵਾਂ
       authored_article:
-        one: ਲੇਖਕ ਦਾ ਲੇਖ
-        other: ਲੇਖਕ ਦੇ ਲੇਖ
+        one: ਲੇਖਕ ਲੇਖ
+        other: ਲੇਖਕ ਲੇਖ
       blog_post:
-        one: ਬਲਾਗ ਪੋਸਟ
-        other: ਬਲਾਗ ਪੋਸਟਾਂ
+        one: ਬਲੌਗ ਪੋਸਟ
+        other: ਬਲੌਗ ਪੋਸਟਾਂ
       campaign:
-        one:
-        other:
+        one: ਮੁਹਿੰਮ
+        other: ਮੁਹਿੰਮਾਂ
       careers:
-        one:
-        other:
+        one: ਕਰੀਅਰ
+        other: ਕਰੀਅਰ
       case_study:
         one: ਕੇਸ ਅਧਿਐਨ
         other: ਕੇਸ ਅਧਿਐਨ
       closed_consultation:
-        one: ਬੰਦ ਸਲਾਹ-ਮਸ਼ਵਰਾ
-        other: ਬੰਦ ਸਲਾਹ-ਮਸ਼ਵਰੇ
+        one: ਬੰਦ ਸਲਾਹ -ਮਸ਼ਵਰਾ
+        other: ਬੰਦ ਸਲਾਹ ਮਸ਼ਵਰੇ
       complaints_procedure:
-        one:
-        other:
+        one: ਸ਼ਿਕਾਇਤਾਂ ਦੀ ਵਿਧੀ
+        other: ਸ਼ਿਕਾਇਤਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ
       consultation:
-        one: ਸਲਾਹ-ਮਸ਼ਵਰਾ
-        other: ਸਲਾਹ-ਮਸ਼ਵਰੇ
+        one: ਸਲਾਹ ਮਸ਼ਵਰਾ
+        other: ਸਲਾਹ ਮਸ਼ਵਰੇ
       consultation_outcome:
-        one: ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦਾ ਨਤੀਜਾ
-        other: ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੇ ਨਤੀਜੇ
+        one: ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦਾ ਨਤੀਜਾ
+        other: ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੇ ਨਤੀਜੇ
       corporate_report:
         one: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟ
         other: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ
       correspondence:
-        one: ਪੱਤਰ-ਵਿਹਾਰ
-        other: ਪੱਤਰ-ਵਿਹਾਰ
+        one: ਪੱਤਰ -ਵਿਹਾਰ
+        other: ਪੱਤਰ -ਵਿਹਾਰ
       decision:
         one: ਫੈਸਲਾ
         other: ਫੈਸਲੇ
@@ -62,29 +187,29 @@ pa:
         one: ਸੰਗ੍ਰਹਿ
         other: ਸੰਗ੍ਰਹਿ
       draft_text:
-        one: ਡ੍ਰਾਫਟ ਟੈਕਸਟ
-        other: ਡ੍ਰਾਫਟ ਟੈਕਸਟ
+        one: ਡਰਾਫਟ ਟੈਕਸਟ
+        other: ਡਰਾਫਟ ਟੈਕਸਟ
       edition:
-        one:
-        other:
+        one: ਐਡੀਸ਼ਨ
+        other: ਸੰਸਕਰਣ
       edition_with_appointment:
-        one:
-        other:
+        one: ਨਿਯੁਕਤੀ ਦੇ ਨਾਲ ਸੰਸਕਰਣ
+        other: ਨਿਯੁਕਤੀ ਦੇ ਨਾਲ ਸੰਸਕਰਣ
       equality_and_diversity:
-        one:
-        other:
+        one: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
+        other: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
       fatality_notice:
-        one:
-        other:
+        one: ਘਾਤਕ ਸੂਚਨਾ
+        other: ਘਾਤਕ ਸੂਚਨਾ
       foi_release:
-        one: FOI ਰਿਲੀਜ਼
-        other: FOI ਰਿਲੀਜ਼
+        one: ਜਾਣਕਾਰੀ ਦੀ ਆਜ਼ਾਦੀ ਰਿਲੀਜ਼
+        other: ਜਾਣਕਾਰੀ ਦੀ ਆਜ਼ਾਦੀ ਰਿਲੀਜ਼
       form:
         one: ਫਾਰਮ
         other: ਫਾਰਮ
       generic_edition:
-        one:
-        other:
+        one: ਆਮ ਐਡੀਸ਼ਨ
+        other: ਆਮ ਐਡੀਸ਼ਨ
       government_response:
         one: ਸਰਕਾਰ ਦਾ ਜਵਾਬ
         other: ਸਰਕਾਰ ਦੇ ਜਵਾਬ
@@ -92,41 +217,44 @@ pa:
         one: ਸੇਧ
         other: ਸੇਧ
       impact_assessment:
-        one: ਪ੍ਰਭਾਵ ਦਾ ਮੁਲਾਂਕਣ
-        other: ਪ੍ਰਭਾਵ ਦੇ ਮੁਲਾਂਕਣ
+        one: ਪ੍ਰਭਾਵ ਮੁਲਾਂਕਣ
+        other: ਪ੍ਰਭਾਵ ਮੁਲਾਂਕਣ
       imported:
-        one: ਆਯਾਤ ਕੀਤਾ - ਕਿਸਮ ਦੀ ਉਡੀਕ ਹੋ ਰਹੀ
-        other: ਆਯਾਤ ਕੀਤਾ - ਕਿਸਮ ਦੀ ਉਡੀਕ ਹੋ ਰਹੀ
+        one: ਆਯਾਤ - ਉਡੀਕ ਕੀਤੀ ਕਿਸਮ
+        other: ਆਯਾਤ - ਉਡੀਕ ਕੀਤੀ ਕਿਸਮ
       independent_report:
         one: ਸੁਤੰਤਰ ਰਿਪੋਰਟ
         other: ਸੁਤੰਤਰ ਰਿਪੋਰਟਾਂ
       international_treaty:
-        one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀ
-        other: ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀਆਂ
+        one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀ
+        other: ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀਆਂ
       manual:
-        one: ਨੇਮਾਵਲੀ
-        other: ਨੇਮਾਵਲੀਆਂ
+        one: ਦਸਤਾਵੇਜ਼
+        other: ਦਸਤਾਵੇਜ਼
       map:
-        one: ਨਕਸ਼ਾ
-        other: ਨਕਸ਼ੇ
+        one: ਨਕਸ਼ਾ
+        other: ਨਕਸ਼ੇ
       media_enquiries:
-        one:
-        other:
+        one: ਮੀਡੀਆ ਜਾਂਚ
+        other: ਮੀਡੀਆ ਪੁੱਛਗਿੱਛ
       membership:
+        one: ਮੈਂਬਰਸ਼ਿਪ
+        other: ਮੈਂਬਰਸ਼ਿਪ
+      modern_slavery_statement:
         one:
         other:
       national_statistics:
-        one: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
-        other: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
+        one: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
+        other: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
       news_article:
-        one: ਖ਼ਬਰਾਂ ਦਾ ਲੇਖ
-        other: ਖ਼ਬਰਾਂ ਦੇ ਲੇਖ
+        one: ਖਬਰ ਲੇਖ
+        other: ਖਬਰ ਲੇਖ
       news_story:
-        one: ਖ਼ਬਰਾਂ ਦੀ ਕਹਾਣੀ
-        other: ਖ਼ਬਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ
+        one: ਖ਼ਬਰਾਂ ਦੀ ਕਹਾਣੀ
+        other: ਖ਼ਬਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ
       nhs_content:
-        one: NHS ਸਮੱਗਰੀ
-        other: NHS ਸਮੱਗਰੀ
+        one: ਨੈਸ਼ਨਲ ਹੈਲਥ ਸਰਵਿਸ ਸਮਗਰੀ
+        other: ਨੈਸ਼ਨਲ ਹੈਲਥ ਸਰਵਿਸ ਸਮਗਰੀ
       notice:
         one: ਨੋਟਿਸ
         other: ਨੋਟਿਸ
@@ -134,288 +262,186 @@ pa:
         one: ਅਧਿਕਾਰਤ ਅੰਕੜੇ
         other: ਅਧਿਕਾਰਤ ਅੰਕੜੇ
       open_consultation:
-        one: ਖੁੱਲ੍ਹਾ ਸਲਾਹ-ਮਸ਼ਵਰਾ
-        other: ਖੁੱਲ੍ਹੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ
+        one: ਖੁੱਲ੍ਹਾ ਸਲਾਹ-ਮਸ਼ਵਰਾ
+        other: ਖੁੱਲ੍ਹੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ
       oral_statement:
-        one: ਸੰਸਦ ਨੂੰ ਮੌਖਿਕ ਬਿਆਨ
-        other: ਸੰਸਦ ਨੂੰ ਮੌਖਿਕ ਬਿਆਨ
+        one: ਸੰਸਦ ਨੂੰ ਜ਼ਬਾਨੀ ਬਿਆਨ
+        other: ਸੰਸਦ ਨੂੰ ਜ਼ਬਾਨੀ ਬਿਆਨ
       our_energy_use:
-        one:
-        other:
+        one: ਸਾਡੀ ਊਰਜਾ ਦੀ ਵਰਤੋਂ
+        other: ਸਾਡੀ ਊਰਜਾ ਦੀ ਵਰਤੋਂ
       our_governance:
-        one:
-        other:
+        one: ਸਾਡਾ ਸ਼ਾਸਨ
+        other: ਸਾਡਾ ਸ਼ਾਸਨ
       personal_information_charter:
-        one:
-        other:
+        one: ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਚਾਰਟਰ
+        other: ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਚਾਰਟਰਸ
       petitions_and_campaigns:
-        one:
-        other:
+        one: ਪਟੀਸ਼ਨਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ
+        other: ਪਟੀਸ਼ਨਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ
       policy_paper:
-        one: ਨੀਤੀ ਪੱਤਰ
-        other: ਨੀਤੀ ਪੱਤਰ
+        one: ਨੀਤੀ ਪੇਪਰ
+        other: ਨੀਤੀ ਦੇ ਕਾਗਜ਼
       press_release:
-        one: ਪ੍ਰੈਸ ਰਿਲੀਜ਼
-        other: ਪ੍ਰੈਸ ਰਿਲੀਜ਼
+        one: ਪੱਤਰਕਾਰਾਂ ਨੂੰ ਦਿੱਤੀ ਗਈ ਅਧਕਾਰਿਤ ਰਿਪੋਰਟ
+        other: ਪ੍ਰੈਸ ਰਿਲੀਜ਼
       procurement:
-        one:
-        other:
+        one: ਖਰੀਦ
+        other: ਖਰੀਦ
       promotional:
         one: ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ
         other: ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ
       publication:
-        one: ਪ੍ਰਕਾਸ਼ਨ
-        other: ਪ੍ਰਕਾਸ਼ਨ
+        one: ਪ੍ਰਕਾਸ਼ਨ
+        other: ਪ੍ਰਕਾਸ਼ਨ
       publication_scheme:
-        one:
-        other:
+        one: ਪ੍ਰਕਾਸ਼ਨ ਸਕੀਮ
+        other: ਪ੍ਰਕਾਸ਼ਨ ਸਕੀਮਾਂ
       recruitment:
-        one:
-        other:
+        one: ਭਰਤੀ
+        other: ਭਰਤੀ
       regulation:
         one: ਨਿਯਮ
         other: ਨਿਯਮ
       research:
-        one: ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ
-        other: ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ
+        one: ਖੋਜ
+        other: ਖੋਜ
       service:
-        one:
-        other:
+        one: ਸੇਵਾ
+        other: ਸੇਵਾਵਾਂ
       social_media_use:
-        one:
-        other:
+        one: ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ
+        other: ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ
       speaking_notes:
-        one: ਬੋਲਣ ਲਈ ਨੋਟ
-        other: ਬੋਲਣ ਲਈ ਨੋਟ
+        one: ਭਾਸ਼ਣ ਨੋਟ
+        other: ਭਾਸ਼ਣ ਨੋਟ
       speech:
-        one: ਬੋਲਣਾ
-        other: ਭਾਸ਼ਣ
+        one: ਭਾਸ਼ਣ
+        other: ਭਾਸ਼ਣ
       staff_update:
-        one:
-        other:
+        one: ਸਟਾਫ ਅਪਡੇਟ
+        other: ਸਟਾਫ ਅਪਡੇਟਸ
       standard:
-        one:
-        other:
+        one: ਮਿਆਰੀ
+        other: ਮਿਆਰ
       statement_to_parliament:
         one: ਸੰਸਦ ਨੂੰ ਬਿਆਨ
         other: ਸੰਸਦ ਨੂੰ ਬਿਆਨ
       statistical_data_set:
-        one: ਅੰਕੜਾ ਡੇਟਾ ਸਮੂਹ
-        other: ਅੰਕੜਾ ਡੇਟਾ ਸਮੂਹ
+        one: ਅੰਕੜਾ ਡਾਟਾ ਸੈੱਟ
+        other: ਅੰਕੜਾ ਡਾਟਾ ਸੈੱਟ
       statistics:
-        one:
-        other:
+        one: ਅੰਕੜੇ
+        other: ਅੰਕੜੇ
       statutory_guidance:
-        one: ਵਿਧਾਨਿਕ ਸੇਧ
-        other: ਵਿਧਾਨਿਕ ਸੇਧ
+        one: ਕਨੂੰਨੀ ਸੇਧ
+        other: ਕਨੂੰਨੀ ਸੇਧ
       terms_of_reference:
-        one:
-        other:
+        one: ਸੰਦਰਭ ਦੀਆਂ ਸ਼ਰਤਾਂ
+        other: ਸੰਦਰਭ ਦੀਆਂ ਸ਼ਰਤਾਂ
       transcript:
-        one: ਪ੍ਰਤਿਲਿਪੀ
-        other: ਪ੍ਰਤਿਲਿਪੀਆਂ
+        one: ਪ੍ਰਤੀਲਿਪੀ
+        other: ਪ੍ਰਤੀਲਿਪੀ
       transparency:
-        one: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
-        other: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
+        one: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
+        other: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
       welsh_language_scheme:
-        one:
-        other:
+        one: ਵੈਲਸ਼ ਭਾਸ਼ਾ ਸਕੀਮ
+        other: ਵੈਲਸ਼ ਭਾਸ਼ਾ ਸਕੀਮਾਂ
       world_news_story:
-        one: ਵਿਸ਼ਵਵਿਆਪੀ ਖ਼ਬਰਾਂ ਦੀ ਕਹਾਣੀ
-        other: ਵਿਸ਼ਵਵਿਆਪੀ ਖ਼ਬਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ
+        one: ਵਿਸ਼ਵਵਿਆਪੀ ਖ਼ਬਰਾਂ ਦੀ ਕਹਾਣੀ
+        other: ਵਿਸ਼ਵਵਿਆਪੀ ਖਬਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ
       written_statement:
         one: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
-        other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ
-    contents: ਸਮੱਗਰੀ
-    footer_meta:
-      full_page_history: ਪੂਰਾ ਪੰਨਾ ਇਤਿਹਾਸ
-      published: ਪ੍ਰਕਾਸ਼ਿਤ
-      updated: ਅੱਪਡੇਟ ਕੀਤਾ
-    headings:
-      applies_to_nations: ਇਸ 'ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ
-      from: ਤੋਂ
-      part_of: ਦਾ ਭਾਗ
-    latest:
-    latest_from:
-    published: ਪ੍ਰਕਾਸ਼ਿਤ
-    see_all: ਸਾਰੇ ਦੇਖੋ
-    speech:
-      author_title:
-        minister: ਮੰਤਰੀ
-        speaker: ਲੇਖਕ
-      delivered_on: 'ਇਸ ਤਾਰੀਖ ਨੂੰ ਸਪੁਰਦ ਕੀਤਾ:'
-      delivery_title:
-        minister: ਮੰਤਰੀ
-        speaker: ਸਪੀਕਰ
-      written_on: 'ਇਸ ਤਾਰੀਖ ਨੂੰ ਲਿਖਿਆ:'
+        other: ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦਿੱਤੇ
     updated: ਅੱਪਡੇਟ ਕੀਤਾ
-  world_location:
-    type:
-      international_delegation:
-        one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫ਼ਦ
-        other: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫ਼ਦ
-      world_location:
-        one: ਵਿਸ਼ਵ ਟਿਕਾਣਾ
-        other: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
-    headings:
-      announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
-      documents: ਦਸਤਾਵੇਜ਼
-      featured:
-      mission: ਸਾਡਾ ਮਿਸ਼ਨ
-      news:
-      organisations: ਸੰਗਠਨ
-      publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
-      search:
-      statistics: ਸਾਡੇ ਅੰਕੜੇ
-  activerecord:
-    attributes:
-      attachment:
-        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-        isbn: ISBN
-        unnumbered_hoc_paper: ਬਿਨਾਂ ਨੰਬਰ ਦਾ ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ
-      attachment_data:
-        file: ਫਾਈਲ
-      corporate_information_page/corporate_information_page_attachments/attachment:
-        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
-        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-        isbn: ਅਟੈਚਮੈਂਟ ISBN
-        title: ਅਟੈਚਮੈਂਟ ਸਿਰਲੇਖ
-        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
-        unnumbered_hoc_paper: ਬਿਨਾਂ ਨੰਬਰ ਦਾ ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ
-      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
-        file: ਅਟੈਚ ਕੀਤੀ ਫਾਈਲ
-      edition:
-        nation_inapplicabilities: ਬਾਹਰ ਕੀਤੇ ਦੇਸ਼
-      policy_group/policy_group_attachments/attachment/attachment_data:
-        file: ਅਟੈਚ ਕੀਤੀ ਫਾਈਲ
-      response/consultation_response_attachments/attachment:
-        command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
-        hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-        isbn: ਅਟੈਚਮੈਂਟ ISBN
-        title: ਅਟੈਚਮੈਂਟ ਸਿਰਲੇਖ
-        unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
-        unnumbered_hoc_paper: ਬਿਨਾਂ ਨੰਬਰ ਦਾ ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ
-      response/consultation_response_attachments/attachment/attachment_data:
-        file: ਅਟੈਚ ਕੀਤੀ ਫਾਈਲ
-    nested_attachment_data_field_names:
-      file: ਅਟੈਚ ਕੀਤੀ ਫਾਈਲ
-    nested_attachment_field_names:
-      command_paper_number: ਅਟੈਚਮੈਂਟ ਕਮਾਂਡ ਪੇਪਰ ਨੰਬਰ
-      hoc_paper_number: ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ ਨੰਬਰ
-      isbn: ਅਟੈਚਮੈਂਟ ISBN
-      title: ਅਟੈਚਮੈਂਟ ਸਿਰਲੇਖ
-      unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
-      unnumbered_hoc_paper: ਬਿਨਾਂ ਨੰਬਰ ਦਾ ਹਾਊਸ ਆਫ ਕਾਮਨਜ਼ ਪੇਪਰ
-  announcements:
-    heading: ਘੋਸ਼ਣਾਵਾਂ
-  attachment:
-    accessibility:
-      full_help_html: |
-        ਜੇ ਤੁਸੀਂ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ (ਜਿਵੇਂ ਕਿ ਸਕ੍ਰੀਨ ਰੀਡਰ) ਅਤੇ
-        ਇਸ ਦਸਤਾਵੇਜ਼ ਦੇ ਵਧੇਰੇ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਵਾਲੇ ਸੰਸਕਰਣ ਦੀ ਲੋੜ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ %{email} 'ਤੇ ਈਮੇਲ ਕਰੋ।
-        ਕਿਰਪਾ ਕਰਕੇ ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਹਾਨੂੰ ਕਿਹੜਾ ਫਾਰਮੈਟ ਚਾਹੀਦਾ ਹੈ। ਜੇ ਤੁਸੀਂ ਦੱਸੋਗੇ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਸਹਾਇਕ ਤਕਨੀਕ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋ ਤਾਂ ਇਸ ਨਾਲ ਸਾਨੂੰ ਮਦਦ ਮਿਲੇਗੀ।
-      intro: ਹੋ ਸਕਦਾ ਹੈ ਇਹ ਫਾਈਲ ਸਹਾਇਕ ਤਕਨਾਲੋਜੀ ਦੇ ਵਰਤੋਂਕਾਰਾਂ ਲਈ ਢੁਕਵੀਂ ਨਾ ਹੋਵੇ।
-      request_a_different_format: ਇੱਕ ਪਹੁੰਚਯੋਗ ਫਾਰਮੈਟ ਲਈ ਬੇਨਤੀ ਕਰੋ।
-    csv:
-      cannot_preview:
-      download:
-      truncated_message:
-    headings:
-      order_a_copy: ਇੱਕ ਕਾਪੀ ਦਾ ਆਰਡਰ ਕਰੋ
-      order_a_copy_full: ਪ੍ਰਕਾਸ਼ਨ ਦੀ ਇੱਕ ਕਾਪੀ ਆਰਡਰ ਕਰੋ
-      published: ਪ੍ਰਕਾਸ਼ਿਤ
-      reference: ਰੈਫਰੈਂਸ
-      unnumbered_command_paper: ਬਿਨਾਂ ਨੰਬਰ ਦਾ ਕਮਾਂਡ ਪੇਪਰ
-      unnumbered_hoc_paper: ਬਿਨਾਂ ਨੰਬਰ ਦਾ ਕਾਨੂੰਨ ਪੇਪਰ
-    opendocument:
-      help_html: ਇਹ ਫਾਈਲ ਇੱਕ <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a>
-        ਵਿੱਚ ਹੈ
-    virus_check:
-      intro:
-      message:
-  broken_links:
-    broken:
-      subheading: ਸਾਨੂੰ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਅਜਿਹੇ ਲਿੰਕ ਮਿਲੇ ਹਨ ਜੋ ਟੁੱਟੇ ਹੋਏ ਹੋ ਸਕਦੇ ਹਨ
-    caution:
-      subheading: ਸਾਨੂੰ ਲਿੰਕਾਂ ਦੇ ਨਾਲ ਕੁਝ ਮੁੱਦੇ ਮਿਲੇ ਹਨ ਜੋ ਸਮੱਸਿਆਵਾਂ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦੇ
-        ਹਨ, ਤੁਹਾਨੂੰ ਉਹਨਾਂ ਨਾਲ ਲਿੰਕ ਕਰਨ ਵਿੱਚ ਸਾਵਧਾਨੀ ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ
-    title: ਟੁੱਟੇ ਹੋਏ ਲਿੰਕ
-  change_notes:
-    published_at: ਪਹਿਲੀ ਵਾਰ ਪ੍ਰਕਾਸ਼ਿਤ
-    see_all_updates: ਸਾਰੇ ਅੱਪਡੇਟ ਦੇਖੋ
-    updated_at: ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ
-  consultation:
-    closed:
-    closing_today:
-    closing_tomorrow:
-    days_left:
-  contact:
-    access_and_opening_times: ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦਾ ਸਮਾਂ
-    contact_form: ਸੰਪਰਕ ਫਾਰਮ
-    email: ਈਮੇਲ
-  corporate_information_page:
-    type:
-      link_text:
-        welsh_language_scheme: ਵੈਲਸ਼ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਨਾ
-      title:
-        about: ਸਾਡੇ ਬਾਰੇ
-        about_our_services: ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ ਬਾਰੇ
-        access_and_opening: ਆਫਿਸ ਪਹੁੰਚ ਅਤੇ ਖੁੱਲਣ ਦੇ ਸਮੇਂ
-        accessible_documents_policy: ਪਹੁੰਚਯੋਗ ਦਸਤਾਵੇਜ਼ ਨੀਤੀ
-        complaints_procedure: ਸ਼ਿਕਾਇਤ ਪ੍ਰਕਿਰਿਆ
-        equality_and_diversity: ਸਮਾਨਤਾ ਅਤੇ ਵਿਭਿੰਨਤਾ
-        media_enquiries: ਮੀਡੀਆ ਵੱਲੋਂ ਪੁੱਛਗਿੱਛ
-        membership: ਮੈਂਬਰਸ਼ਿਪ
-        modern_slavery_statement:
-        our_energy_use: ਸਾਡੀ ਊਰਜਾ ਦੀ ਵਰਤੋਂ
-        our_governance: ਸਾਡਾ ਸ਼ਾਸਨ
-        personal_information_charter: ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਦਾ ਚਾਰਟਰ
-        petitions_and_campaigns: ਪਟੀਸ਼ਨ ਅਤੇ ਮੁਹਿੰਮਾਂ
-        procurement: "%{organisation_name} ਵਿਖੇ ਪ੍ਰਾਪਤੀ"
-        publication_scheme: ਪ੍ਰਕਾਸ਼ਨ ਯੋਜਨਾ
-        recruitment: "%{organisation_name} ਲਈ ਕੰਮ ਕਰਨਾ"
-        research: "%{organisation_name} ਵਿਖੇ ਰਿਸਰਚ"
-        social_media_use: ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ
-        staff_update: ਸਟਾਫ਼ ਦੀਆਂ ਖ਼ਬਰਾਂ ਅਤੇ ਜਾਣਕਾਰੀ
-        statistics: "%{organisation_name} ਵਿਖੇ ਅੰਕੜੇ"
-        terms_of_reference: ਹਵਾਲੇ ਦੀ ਮਿਆਦ
-        welsh_language_scheme: ਵੈਲਸ਼ ਭਾਸ਼ਾ ਸਕੀਮ
-  date:
-    formats:
-      default: "%d %B %Y"
-      long_ordinal: "%e %B %Y"
   document_filters:
-    consultation:
-      all:
-      label:
-    description: ਤੁਸੀਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਫਿਲਟਰਾਂ ਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀਆਂ
-      ਦਿਲਚਸਪੀਆਂ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
+    description: ਤੁਸੀਂ ਫਿਲਟਰਸ ਦੀ ਵਰਤੋਂ ਸਿਰਫ ਉਹ ਨਤੀਜੇ ਦਿਖਾਉਣ ਲਈ ਕਰ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੀ ਦਿਲਚਸਪੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ
     no_results:
-      description: ਆਪਣੀ ਖੋਜ ਨੂੰ ਜ਼ਿਆਦਾ ਵਿਸ਼ਾਲ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
-      title: ਕੋਈ ਮੇਲ ਖਾਂਦਾ ਦਸਤਾਵੇਜ਼ ਨਹੀਂ ਹਨ।
-      tna_heading: ਪੁਰਾਣੀ ਸਮੱਗਰੀ
-      tna_link: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨਾਂ ਨੂੰ GOV.UK ਵਿੱਚ ਮਾਈਗ੍ਰੇਟ
-        ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਸੀ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/"
-        class="govuk-link">ਨੈਸ਼ਨਲ ਆਰਕਾਈਵਜ਼</a> ਵਿੱਚ ਭਾਲ ਕਰਕੇ ਦੇਖੋ।
+      description: ਆਪਣੀ ਖੋਜ ਨੂੰ ਵਿਸ਼ਾਲ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
+      title: ਕੋਈ ਮੇਲ ਖਾਂਦੇ ਦਸਤਾਵੇਜ਼ ਨਹੀਂ ਹਨ.
+      tna_heading: ਪੁਰਾਣੀ ਸਮਗਰੀ
+      tna_link_html: ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਸਾਰੇ ਵਿਭਾਗ ਪ੍ਰਕਾਸ਼ਨ GOV.UK ਵਿੱਚ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤੇ ਗਏ ਸਨ। ਮਈ 2010 ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪ੍ਰਕਾਸ਼ਨ ਲੱਭਣ ਲਈ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ਰਾਸ਼ਟਰੀ ਪੁਰਾਲੇਖ</a> ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
     world_locations:
       all: ਸਾਰੇ ਟਿਕਾਣੇ
-      label: ਵਿਸ਼ਵ ਟਿਕਾਣੇ
-      no_locations_filter:
+      label: ਵਿਸ਼ਵ ਸਥਾਨ
+      no_locations_filter: ਕੋਈ ਵੀ ਵਿਸ਼ਵ ਸਥਾਨ ਉਸ ਫਿਲਟਰ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।
   fatality_notice:
-    british_fatalities:
-    none_added:
+    british_fatalities: ਬ੍ਰਿਟਿਸ਼ ਦੀ ਮੌਤ
+    none_added: ਇਸ ਕਾਰਜ ਦੇ ਖੇਤਰ ਵਿੱਚ ਅਜੇ ਤੱਕ ਕੋਈ ਘਾਤਕ ਸੂਚਨਾ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ ਗਈ ਹੈ।
   feeds:
-    email: ਈਮੇਲ
-    feed: ਫੀਡ
-    get_updates_to_this_list: ਇਸ ਸੂਚੀ ਵਿੱਚ ਅੱਪਡੇਟ ਪ੍ਰਾਪਤ ਕਰੋ
     latest_activity: ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ
   i18n:
     direction: ltr
-    latin_script?: false
   language_names:
-    pa: ਪੰਜਾਬੀ
+    ar:
+    az:
+    be:
+    bg:
+    bn:
+    cs:
+    cy:
+    da:
+    de:
+    dr:
+    el:
+    en:
+    es:
+    es-419:
+    et:
+    fa:
+    fi:
+    fr:
+    gd:
+    gu:
+    he:
+    hi:
+    hr:
+    hu:
+    hy:
+    id:
+    is:
+    it:
+    ja:
+    ka:
+    kk:
+    ko:
+    lt:
+    lv:
+    ms:
+    mt:
+    ne:
+    nl:
+    'no':
+    pa: ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ
+    pa-pk:
+    pl:
+    ps:
+    pt:
+    ro:
+    ru:
+    si:
+    sk:
+    sl:
+    so:
+    sq:
+    sr:
+    sv:
+    sw:
+    ta:
+    th:
+    tk:
+    tr:
+    uk:
+    ur:
+    uz:
+    vi:
+    yi:
+    zh:
+    zh-hk:
+    zh-tw:
   latest_feed:
-    no_updates: ਹਾਲੇ ਕੋਈ ਅੱਪਡੇਟ ਨਹੀਂ ਹਨ।
+    no_updates: ਅਜੇ ਕੋਈ ਅਪਡੇਟ ਨਹੀਂ ਹਨ।
     title: ਨਵੀਨਤਮ
   mhra_email_signup:
     context:
@@ -431,102 +457,89 @@ pa:
         title:
     summary:
     title:
-  national_statistics:
-    heading: ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ
-  number:
-    human:
-      storage_units:
-        format: "%n%u"
   organisation:
     corporate_information:
       access_our_info: ਸਾਡੀ ਜਾਣਕਾਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ
       jobs: ਨੌਕਰੀਆਂ
-      jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਠੇਕੇ
-      organisation_chart: ਸਾਡੇ ਸੰਗਠਨ ਦਾ ਚਾਰਟ
-      transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
-    email:
-      alerts:
-      summary:
+      jobs_and_contacts: ਨੌਕਰੀਆਂ ਅਤੇ ਇਕਰਾਰਨਾਮੇ
+      organisation_chart: ਸਾਡਾ ਸੰਗਠਨ ਚਾਰਟ
+      transparency: ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ
     embassies:
-      find_an_embassy_lowercase:
-      find_an_embassy_uppercase:
+      find_an_embassy_lowercase: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
+      find_an_embassy_uppercase: ਬ੍ਰਿਟਿਸ਼ ਦੂਤਾਵਾਸ, ਹਾਈ ਕਮਿਸ਼ਨ ਜਾਂ ਕੌਂਸਲੇਟ ਲੱਭੋ
     headings:
-      contact: "%{name} ਨਾਲ ਸੰਪਰਕ ਕਰੋ"
-      corporate_information:
-      corporate_reports:
+      corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
+      corporate_reports: ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ
     support:
-      administered_by:
-      agencies_and_public_bodies:
-      part_of:
-      public_body:
-      works_with:
+      administered_by: ਦੁਆਰਾ ਪ੍ਰਬੰਧਿਤ
+      agencies_and_public_bodies: ਏਜੰਸੀਆਂ ਅਤੇ ਜਨਤਕ ਸੰਸਥਾਵਾਂ
+      part_of: ਦਾ ਹਿੱਸਾ
+      public_body: ਜਨਤਕ ਸੰਸਥਾ
+      works_with: ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ
     type:
-      courts_and_tribunals:
+      courts_and_tribunals: ਅਦਾਲਤਾਂ ਅਤੇ ਟ੍ਰਿਬਿਊਨਲ
   publications:
-    heading: ਪ੍ਰਕਾਸ਼ਨ
-    recent:
+    heading: ਪ੍ਰਕਾਸ਼ਨ
+    recent: ਹਾਲੀਆ ਪ੍ਰਕਾਸ਼ਨ
     statistics:
-      link_to_published_statistics:
-      moved_notice:
+      link_to_published_statistics: "%{link} ਅੰਕੜੇ ਭਾਗ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਅਤੇ ਆਉਣ ਵਾਲੇ ਸਰਕਾਰੀ ਅੰਕੜਿਆਂ ਦੀ ਇੱਕ ਸੂਚੀ ਲੱਭੋ।"
+      moved_notice: ਅੰਕੜੇ ਪ੍ਰਕਾਸ਼ਨ ਬਦਲ ਗਏ ਹਨ।
   roles:
-    unassigned:
+    unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
   see_all:
-    announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਦੇਖੋ
-    authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕਾਂ ਦੇ ਲੇਖ ਦੇਖੋ
-    case_study: ਸਾਡੇ ਸਾਰੇ ਕੇਸ ਅਧਿਐਨ ਦੇਖੋ
-    closed_consultation: ਸਾਡੇ ਸਾਰੇ ਬੰਦ ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੇਖੋ
-    consultation: ਸਾਡੇ ਸਾਰੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੇਖੋ
-    consultation_outcome: ਸਾਡੇ ਸਾਰੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੇ ਨਤੀਜੇ ਦੇਖੋ
-    corporate_report: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ ਦੇਖੋ
-    correspondence: ਸਾਡੇ ਸਾਰੇ ਪੱਤਰ-ਵਿਹਾਰ ਦੇਖੋ
-    decision: ਸਾਡੇ ਸਾਰੇ ਫੈਸਲੇ ਦੇਖੋ
-    detailed_guidance: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸੇਧਾਂ ਦੇਖੋ
-    document_collection: ਸਾਡੇ ਸਾਰੇ ਸੰਗ੍ਰਹਿ ਦੇਖੋ
-    draft_text: ਸਾਡੇ ਸਾਰੇ ਡ੍ਰਾਫਟ ਟੈਕਸਟ ਦੇਖੋ
-    fatality_notice: ਸਾਡੇ ਸਾਰੇ ਜਾਨਾਂ ਜਾਣ ਦੇ ਨੋਟਿਸ ਦੇਖੋ
-    foi_release: ਸਾਡੇ ਸਾਰੇ FOI ਰੀਲੀਜ਼ ਦੇਖੋ
-    form: ਸਾਡੇ ਸਾਰੇ ਫਾਰਮ ਦੇਖੋ
-    government_response: ਸਾਡੇ ਸਾਰੇ ਸਰਕਾਰ ਦੇ ਜਵਾਬ ਦੇਖੋ
-    guidance: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸੇਧਾਂ ਦੇਖੋ
-    impact_assessment: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰਭਾਵ ਦੇ ਮੁਲਾਂਕਣ ਦੇਖੋ
-    imported: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸੁਤੰਤਰ ਰਿਪੋਰਟਾਂ ਦੇਖੋ
-    international_treaty: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀਆਂ ਦੇਖੋ
-    map: ਸਾਡੇ ਸਾਰੇ ਨਕਸ਼ੇ ਦੇਖੋ
-    national_statistics: ਸਾਡੇ ਸਾਰੇ ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ ਦੇਖੋ
-    news_article: ਸਾਡੇ ਸਾਰੇ ਖ਼ਬਰਾਂ ਦੇ ਲੇਖ ਦੇਖੋ
-    news_story: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਖ਼ਬਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ ਦੇਖੋ
-    notice: ਸਾਡੇ ਸਾਰੇ ਨੋਟਿਸ ਦੇਖੋ
-    open_consultation: ਸਾਡੇ ਸਾਰੇ ਖੁੱਲ੍ਹੇ ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੇਖੋ
-    oral_statement: ਸਾਡੇ ਸਾਰੇ ਸੰਸਦ ਨੂੰ ਮੌਖਿਕ ਬਿਆਨ ਦੇਖੋ
-    policy: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਨੀਤੀਆਂ ਦੇਖੋ
-    policy_paper: ਸਾਡੇ ਸਾਰੇ ਨੀਤੀ ਪੇਪਰ ਦੇਖੋ
-    press_release: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰੈਸ ਰਿਲੀਜ਼ ਦੇਖੋ
-    promotional: ਸਾਡੀ ਸਾਰੀ ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ ਦੇਖੋ
-    publication: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰਕਾਸ਼ਨ ਦੇਖੋ
-    regulation: ਸਾਡੇ ਸਾਰੇ ਵਿਨਿਯਮ ਦੇਖੋ
-    research: ਸਾਡੇ ਸਾਰੇ ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ ਦੇਖੋ
-    speaking_notes: ਸਾਡੇ ਸਾਰੇ ਬੋਲਣ ਲਈ ਨੋਟ ਦੇਖੋ
-    speech: ਸਾਡੇ ਸਾਰੇ ਭਾਸ਼ਣ ਦੇਖੋ
-    statement_to_parliament: ਸਾਡੇ ਸਾਰੇ ਸੰਸਦ ਨੂੰ ਬਿਆਨ ਦੇਖੋ
-    statistical_data_set: ਸਾਡੇ ਸਾਰੇ ਅੰਕੜਾ ਡੇਟਾ ਸਮੂਹ ਦੇਖੋ
-    statistics: ਸਾਡੇ ਸਾਰੇ ਅੰਕੜੇ ਦੇਖੋ
-    statutory_guidance: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਵਿਧਾਨਕ ਸੇਧਾਂ ਦੇਖੋ
-    transcript: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਪ੍ਰਤਿਲਿਪੀਆਂ ਦੇਖੋ
-    transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡਾਟਾ ਦੇਖੋ
-    written_statement: ਸਾਡੇ ਸਾਰੇ ਸੰਸਦ ਨੂੰ ਲਿਖਤੀ ਬਿਆਨ ਦੇਖੋ
+    announcement: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਵੇਖੋ
+    authored_article: ਸਾਡੇ ਸਾਰੇ ਲੇਖਕ ਲੇਖ ਵੇਖੋ
+    case_study: ਸਾਡੇ ਸਾਰੇ ਕੇਸ ਅਧਿਐਨ ਵੇਖੋ
+    closed_consultation: ਸਾਡੇ ਸਾਰੇ ਬੰਦ ਕੀਤੇ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
+    consultation: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
+    consultation_outcome: ਸਾਡੇ ਸਾਰੇ ਸਲਾਹ -ਮਸ਼ਵਰੇ ਦੇ ਨਤੀਜੇ ਵੇਖੋ
+    corporate_report: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਕਾਰਪੋਰੇਟ ਰਿਪੋਰਟਾਂ ਵੇਖੋ
+    correspondence: ਸਾਡੇ ਸਾਰੇ ਪੱਤਰ ਵਿਹਾਰ ਵੇਖੋ
+    decision: ਸਾਡੇ ਸਾਰੇ ਫੈਸਲੇ ਵੇਖੋ
+    detailed_guidance: ਸਾਡੀ ਸਾਰੀ ਸੇਧ ਵੇਖੋ
+    document_collection: ਸਾਡੇ ਸਾਰੇ ਸੰਗ੍ਰਹਿ ਵੇਖੋ
+    draft_text: ਸਾਡੇ ਸਾਰੇ ਡਰਾਫਟ ਟੈਕਸਟ ਵੇਖੋ
+    fatality_notice: ਸਾਡੇ ਸਾਰੇ ਘਾਤਕ ਨੋਟਿਸ ਵੇਖੋ
+    foi_release: ਸਾਡੇ ਸਾਰੇ FOI (ਜਾਣਕਾਰੀ ਦੀ ਆਜ਼ਾਦੀ) ਰੀਲੀਜ਼ ਵੇਖੋ
+    form: ਸਾਡੇ ਸਾਰੇ ਰੂਪ ਵੇਖੋ
+    government_response: ਸਾਡੇ ਸਾਰੇ ਸਰਕਾਰੀ ਜਵਾਬ ਵੇਖੋ
+    guidance: ਸਾਡੀ ਸਾਰੀ ਸੇਧ ਵੇਖੋ
+    impact_assessment: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰਭਾਵ ਮੁਲਾਂਕਣ ਵੇਖੋ
+    imported: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਸੁਤੰਤਰ ਰਿਪੋਰਟਾਂ ਵੇਖੋ
+    international_treaty: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੰਧੀਆਂ ਵੇਖੋ
+    map: ਸਾਡੇ ਸਾਰੇ ਨਕਸ਼ੇ ਵੇਖੋ
+    national_statistics: ਸਾਡੇ ਸਾਰੇ ਰਾਸ਼ਟਰੀ ਅੰਕੜੇ ਵੇਖੋ
+    news_article: ਸਾਡੇ ਸਾਰੇ ਖਬਰ ਲੇਖ ਵੇਖੋ
+    news_story: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਖ਼ਬਰਾਂ ਵੇਖੋ
+    notice: ਸਾਡੇ ਸਾਰੇ ਨੋਟਿਸ ਵੇਖੋ
+    open_consultation: ਸਾਡੇ ਸਾਰੇ ਖੁੱਲੇ ਸਲਾਹ ਮਸ਼ਵਰੇ ਵੇਖੋ
+    oral_statement: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਜ਼ਬਾਨੀ ਬਿਆਨ ਵੇਖੋ
+    policy: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਨੀਤੀਆਂ ਵੇਖੋ
+    policy_paper: ਸਾਡੇ ਸਾਰੇ ਨੀਤੀ ਪੱਤਰ ਵੇਖੋ
+    press_release: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਪ੍ਰੈਸ ਰਿਲੀਜ਼ਾਂ ਵੇਖੋ
+    promotional: ਸਾਡੀ ਸਾਰੀ ਪ੍ਰਚਾਰ ਸਮੱਗਰੀ ਵੇਖੋ
+    publication: ਸਾਡੇ ਸਾਰੇ ਪ੍ਰਕਾਸ਼ਨ ਵੇਖੋ
+    regulation: ਸਾਡੇ ਸਾਰੇ ਨਿਯਮ ਵੇਖੋ
+    research: ਸਾਡੀ ਸਾਰੀ ਖੋਜ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ ਵੇਖੋ
+    speaking_notes: ਸਾਡੇ ਬੋਲਣ ਵਾਲੇ ਸਾਰੇ ਨੋਟ ਵੇਖੋ
+    speech: ਸਾਡੇ ਸਾਰੇ ਭਾਸ਼ਣ ਵੇਖੋ
+    statement_to_parliament: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਬਿਆਨ ਵੇਖੋ
+    statistical_data_set: ਸਾਡੇ ਸਾਰੇ ਅੰਕੜਾ ਡਾਟਾ ਸੈੱਟ ਵੇਖੋ
+    statistics: ਸਾਡੇ ਸਾਰੇ ਅੰਕੜੇ ਵੇਖੋ
+    statutory_guidance: ਸਾਡੀ ਸਾਰੀ ਕਨੂੰਨੀ ਸੇਧ ਵੇਖੋ
+    transcript: ਸਾਡੀਆਂ ਸਾਰੀਆਂ ਟ੍ਰਾਂਸਕ੍ਰਿਪਟਾਂ ਵੇਖੋ
+    transparency: ਸਾਡਾ ਸਾਰਾ ਪਾਰਦਰਸ਼ਤਾ ਡੇਟਾ ਵੇਖੋ
+    written_statement: ਸੰਸਦ ਨੂੰ ਸਾਡੇ ਸਾਰੇ ਲਿਖਤੀ ਬਿਆਨ ਵੇਖੋ
   support:
-    array:
-      last_word_connector: ਅਤੇ
-    download:
-    field_of_operation:
-    fields_of_operation:
-    filter:
+    download: ਡਾਉਨਲੋਡ ਕਰੋ
+    field_of_operation: 'ਕਾਰਜ ਖੇਤਰ:'
+    fields_of_operation: ਕਾਰਜ ਦੇ ਖੇਤਰ
     pagination:
-      next_html:
-      next_page:
-      previous_html:
-      previous_page:
-    part_of_collection:
+      next_html: ਅਗਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
+      next_page: ਅਗਲਾ ਪੇਜ
+      previous_html: ਪਿਛਲਾ <span class="visuallyhidden">ਪੇਜ</span> <span class="page-numbers">%{current_page} ਦਾ %{total_pages}</span>
+      previous_page: ਪਿਛਲਾ ਪੇਜ
+    part_of_collection: 'ਸੰਗ੍ਰਹਿ ਦਾ ਹਿੱਸਾ:'
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
@@ -537,35 +550,51 @@ pa:
       featured:
       organisations:
       travel_advice:
-    latest_activity:
+    latest_activity: "%{event} 'ਤੇ ਨਵੀਨਤਮ ਗਤੀਵਿਧੀ"
     lead_organisations:
-      arts_council_england:
-      bbc:
+      arts_council_england: ਆਰਟਸ ਕੌਂਸਲ ਇੰਗਲੈਂਡ
+      bbc: BBC
       birmingham_2022_commonwealth_games:
-      british_library:
-      commonwealth_war_graves_commission:
-      heritage_lottery_fund:
-      historic_england:
-      iwm:
+      british_library: ਬ੍ਰਿਟਿਸ਼ ਲਾਇਬ੍ਰੇਰੀ
+      commonwealth_war_graves_commission: ਕਾਮਨਵੈਲਥ ਵਾਰ ਗ੍ਰੇਵਜ਼ ਕਮਿਸ਼ਨ
+      heritage_lottery_fund: ਹੈਰੀਟੇਜ ਲਾਟਰੀ ਫੰਡ
+      historic_england: ਇਤਿਹਾਸਕ ਇੰਗਲੈਂਡ
+      iwm: ਇੰਪੀਰੀਅਲ ਵਾਰ ਮਿਊਜ਼ੀਅਮ
       queens_platinum_jubilee:
       unboxed:
-      war_memorials_trust:
+      war_memorials_trust: ਵਾਰ ਮੈਮੋਰੀਅਲਜ਼ ਟਰੱਸਟ
+  world_location:
+    headings:
+      announcements: ਸਾਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ
+      documents: ਦਸਤਾਵੇਜ਼
+      featured:
+      mission: ਸਾਡਾ ਮਿਸ਼ਨ
+      news: ਵਿਸ਼ਵ ਸਥਾਨ ਦੀ ਖਬਰ
+      organisations: ਸੰਗਠਨ
+      publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
+      search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
+      statistics: ਸਾਡੇ ਅੰਕੜੇ
+    type:
+      international_delegation:
+        one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
+        other: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ
+      world_location:
+        one: ਵਿਸ਼ਵ ਸਥਾਨ
+        other: ਵਿਸ਼ਵ ਸਥਾਨ
   world_news:
-    uk_updates_in_country:
+    uk_updates_in_country: "%{country} ਵਿੱਚ ਯੂਕੇ ਸਰਕਾਰ ਵੱਲੋਂ ਅਪਡੇਟਸ, ਖ਼ਬਰਾਂ ਅਤੇ ਇਵੈਂਟਸ"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: "%{link} ਪਤਾ ਕਰੋ।"
-      personal_information_charter_html: ਸਾਡੀ %{link} ਵਿਆਖਿਆ ਕਰਦੀ ਹੈ ਕਿ ਅਸੀਂ ਤੁਹਾਡੀ
-        ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਾਲ ਕਿਵੇਂ ਵਿਹਾਰ ਕਰਦੇ ਹਾਂ।
-      publication_scheme_html: ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਿਸਮਾਂ ਬਾਰੇ ਪੜ੍ਹੋ ਜੋ ਅਸੀਂ ਨਿਯਮਿਤ ਤੌਰ 'ਤੇ
-        ਸਾਡੇ %{link} ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਦੇ ਹਾਂ।
-      social_media_use_html: "%{link} ਬਾਰੇ ਸਾਡੀ ਨੀਤੀ ਪੜ੍ਹੋ।"
-      welsh_language_scheme_html: "%{link} ਪ੍ਰਤੀ ਸਾਡੀ ਵਚਨਬੱਧਤਾ ਬਾਰੇ ਪਤਾ ਲਗਾਓ।"
-    find_out_more: ਪੂਰੀ ਪ੍ਰੋਫਾਈਲ ਅਤੇ ਸਾਰੇ ਸੰਪਰਕ ਵੇਰਵੇ ਦੇਖੋ
+      personal_information_charter_html: ਸਾਡਾ %{link} ਦੱਸਦਾ ਹੈ ਕਿ ਅਸੀਂ ਤੁਹਾਡੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਾਲ ਕਿਵੇਂ ਵਿਵਹਾਰ ਕਰਦੇ ਹਾਂ।
+      publication_scheme_html: ਉਹਨਾਂ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਿਸਮਾਂ ਬਾਰੇ ਪੜ੍ਹੋ ਜੋ ਅਸੀਂ ਨਿਯਮਿਤ ਤੌਰ ਤੇ ਸਾਡੇ %{link} ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਤ ਕਰਦੇ ਹਾਂ।
+      social_media_use_html: "%{link} 'ਤੇ ਸਾਡੀ ਨੀਤੀ ਪੜ੍ਹੋ।"
+      welsh_language_scheme_html: "%{link} ਪ੍ਰਤੀ ਸਾਡੀ ਵਚਨਬੱਧਤਾ ਬਾਰੇ ਜਾਣੋ."
+    find_out_more: ਪੂਰਾ ਪ੍ਰੋਫਾਈਲ ਅਤੇ ਸਾਰੇ ਸੰਪਰਕ ਵੇਰਵੇ ਵੇਖੋ
     headings:
       contact_us: ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ
       corporate_information: ਕਾਰਪੋਰੇਟ ਜਾਣਕਾਰੀ
       follow_us: ਸਾਨੂੰ ਫਾਲੋ ਕਰੋ
       our_people: ਸਾਡੇ ਲੋਕ
     location: ਟਿਕਾਣਾ
-    part_of: ਦਾ ਭਾਗ
+    part_of: ਦਾ ਹਿੱਸਾ
