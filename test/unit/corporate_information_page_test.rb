@@ -299,4 +299,33 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(worldwide_org).never
     other_page.save!
   end
+
+  test "republishes the 'About Us' CIP if another CIP is saved" do
+    org = create(:organisation, govuk_status: "live")
+    about_us = create(
+      :corporate_information_page,
+      :published,
+      organisation: org,
+      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+    )
+    other_page = create(
+      :corporate_information_page,
+      :published,
+      organisation: org,
+    )
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).once
+    other_page.touch
+  end
+
+  test "does not republish the 'About Us' CIP if it is saved" do
+    org = create(:organisation, govuk_status: "live")
+    about_us = create(
+      :corporate_information_page,
+      :published,
+      organisation: org,
+      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+    )
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
+    about_us.touch
+  end
 end
