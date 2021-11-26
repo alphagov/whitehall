@@ -27,19 +27,9 @@ class Api::WorldLocationPresenter < Api::BasePresenter
   end
 
   def england_coronavirus_travel
-    if model.coronavirus_next_rag_applies_at && model.coronavirus_next_rag_applies_at < Time.zone.now
-      {
-        rag_status: model.coronavirus_next_rag_status
-      }
-    elsif model.coronavirus_rag_status
-      {
-        rag_status: model.coronavirus_rag_status,
-        watchlist_rag_status: model.coronavirus_watchlist_rag_status,
-        next_rag_status: model.coronavirus_next_rag_status,
-        next_rag_applies_at: model.coronavirus_next_rag_applies_at,
-      }
-    else
-      {}
-    end
+    {
+      rag_status: model.coronavirus_rag_status,
+      required_tests: model.coronavirus_required_tests,
+    }
   end
 end

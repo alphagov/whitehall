@@ -1,5 +1,6 @@
 <% page_title "Edit Coronavirus travel for #{@world_location.name}" %>
 <% rag_options = [["Red", "red"], ["Amber", "amber"], ["Green", "green"]] %>
+<% required_test_options = [{label: "2 day", value: "two_day"}, {label: "8 day", value: "eight_day"}] %>
 
 <div class="row">
   <section class="col-md-8">
@@ -7,30 +8,15 @@
     <p class="warning">Warning: changes appear instantly on the live site.</p>
     <%= form_with url: admin_coronavirus_travel_path(@world_location), model: @coronavirus_travel, method: :put do |form| %>
       <div class="form-group">
-        <%= form.label :rag_status, 'Current RAG Status' %>
+        <%= form.label :rag_status, 'RAG Status' %>
         <%= form.select :rag_status, rag_options, { include_blank: true }, { class: "form-control input-md-2" } %>
       </div>
-
       <div class="form-group">
-        <%= form.label :watchlist_rag_status, 'Watchlist RAG Status' %>
-        <%= form.select :watchlist_rag_status, rag_options, { include_blank: true }, { class: "form-control input-md-2" } %>
+        <%= form.label :required_tests, 'Required tests' %>
+        <% required_test_options.each do |test| %>
+            <%= form.check_box test[:value].to_sym, label_text: test[:label] %>
+        <% end %>
       </div>
-
-      <div class="form-group">
-        <%= form.label :next_rag_status, 'Next RAG Status' %>
-        <%= form.select :next_rag_status, rag_options, { include_blank: true }, { class: "form-control input-md-2" } %>
-      </div>
-
-      <%= form.label :next_rag_applies_at, "Time next RAG Status takes affect" %>
-      <div class="form-inline add-label-margin">
-        <%= form.datetime_select :next_rag_applies_at, {
-            start_year: Date.today.year,
-            end_year: Date.today.year + 5,
-            minute_step: 15,
-            include_blank: true,
-          }, { class: 'date form-control' } %>
-      </div>
-
       <p class="warning">Warning: changes appear instantly on the live site.</p>
       <%= form.save_or_cancel cancel: admin_coronavirus_travel_path(@world_location) %>
     <% end %>

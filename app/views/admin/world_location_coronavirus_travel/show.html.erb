@@ -12,36 +12,24 @@
   <section class="world-location-details">
     <%= tab_navigation_for(@world_location) %>
 
-    <% if @world_location.coronavirus_next_rag_applies? %>
-      <p>
-        The current RAG status for <%= @world_location.name %> is
-        <%= @world_location.coronavirus_next_rag_status %>. This took affect at
-        <%= @world_location.coronavirus_next_rag_applies_at %>.
-      </p>
-    <% else %>
       <p>
         <% if @world_location.coronavirus_rag_status %>
           The current RAG status for <%= @world_location.name %> is
           <%= @world_location.coronavirus_rag_status %>.
         <% else %>
           <%= @world_location.name %> does not have a RAG status so will be treated
-          as amber.
+          as green.
         <% end %>
       </p>
 
-      <% if @world_location.coronavirus_watchlist_rag_status %>
+      <% if @world_location.coronavirus_required_tests %>
         <p>
-          It is on the <%= @world_location.coronavirus_watchlist_rag_status %> watchlist.
+          The following tests are required:
+          <% @world_location.coronavirus_required_tests.split(",").each do |test| %>
+            <%= test %>
+          <% end %>
         </p>
       <% end %>
-
-      <% if @world_location.coronavirus_next_rag_status %>
-        <p>
-          It will be changing to <%= @world_location.coronavirus_next_rag_status %> at
-          <%= @world_location.coronavirus_next_rag_applies_at %>.
-        </p>
-      <% end %>
-    <% end %>
 
     <div class="form-actions">
       <%= link_to "Edit", edit_admin_coronavirus_travel_path(@world_location), class: "btn btn-lg btn-primary"%>

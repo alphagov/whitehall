@@ -3,7 +3,12 @@ class WorldLocation < ApplicationRecord
     red: "red",
     amber: "amber",
     green: "green",
-  }
+  }.freeze
+
+  CORONAVIRUS_REQUIRED_TESTS = {
+    two_day: "2 day",
+    eight_day: "8 day",
+  }.freeze
 
   has_many :edition_world_locations, inverse_of: :world_location
   has_many :editions,
@@ -47,8 +52,6 @@ class WorldLocation < ApplicationRecord
   include PublishesToPublishingApi
 
   enum coronavirus_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
-  enum coronavirus_watchlist_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
-  enum coronavirus_next_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
 
   def publish_to_publishing_api
     # WorldLocations no longer support translations
@@ -160,17 +163,5 @@ class WorldLocation < ApplicationRecord
 
   def send_news_page_to_publishing_api_and_rummager
     WorldLocationNewsPageWorker.new.perform(id)
-  end
-
-  def coronavirus_next_rag_applies?
-    coronavirus_next_rag_applies_at && coronavirus_next_rag_applies_at < Time.zone.now
-  end
-
-  def current_coronavirus_rag_status
-    if coronavirus_next_rag_applies?
-      coronavirus_next_rag_status
-    else
-      coronavirus_rag_status
-    end
   end
 end

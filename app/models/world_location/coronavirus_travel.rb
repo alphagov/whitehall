@@ -4,24 +4,17 @@ class WorldLocation::CoronavirusTravel
   include ActiveRecord::AttributeAssignment
 
   attr_reader :world_location
+
   attribute :rag_status, :string
-  attribute :watchlist_rag_status, :string
-  attribute :next_rag_status, :string
-  attribute :next_rag_applies_at, :datetime
+  attribute :required_tests, :string
 
   def initialize(world_location)
     @world_location = world_location
 
-    if world_location.coronavirus_next_rag_applies?
-      super({ rag_status: world_location.coronavirus_next_rag_status })
-    else
-      super({
-        rag_status: world_location.coronavirus_rag_status,
-        watchlist_rag_status: world_location.coronavirus_watchlist_rag_status,
-        next_rag_status: world_location.coronavirus_next_rag_status,
-        next_rag_applies_at: world_location.coronavirus_next_rag_applies_at,
-      })
-    end
+    super({
+      rag_status: world_location.coronavirus_rag_status,
+      required_tests: world_location.coronavirus_required_tests,
+    })
   end
 
   def save
@@ -29,9 +22,7 @@ class WorldLocation::CoronavirusTravel
 
     @world_location.update!(
       coronavirus_rag_status: rag_status,
-      coronavirus_watchlist_rag_status: watchlist_rag_status,
-      coronavirus_next_rag_status: next_rag_status,
-      coronavirus_next_rag_applies_at: next_rag_applies_at,
+      coronavirus_required_tests: required_tests,
     )
   end
 end
