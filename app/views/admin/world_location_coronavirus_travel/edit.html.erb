@@ -31,6 +31,8 @@
           }, { class: 'date form-control' } %>
       </div>
 
+      <%= form.check_box :status_out_of_date, label_text: "Information is out of date" %>
+
       <p class="warning">Warning: changes appear instantly on the live site.</p>
       <%= form.save_or_cancel cancel: admin_coronavirus_travel_path(@world_location) %>
     <% end %>

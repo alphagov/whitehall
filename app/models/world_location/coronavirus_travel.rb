@@ -8,6 +8,7 @@ class WorldLocation::CoronavirusTravel
   attribute :watchlist_rag_status, :string
   attribute :next_rag_status, :string
   attribute :next_rag_applies_at, :datetime
+  attribute :status_out_of_date, :boolean
 
   def initialize(world_location)
     @world_location = world_location
@@ -20,6 +21,7 @@ class WorldLocation::CoronavirusTravel
         watchlist_rag_status: world_location.coronavirus_watchlist_rag_status,
         next_rag_status: world_location.coronavirus_next_rag_status,
         next_rag_applies_at: world_location.coronavirus_next_rag_applies_at,
+        status_out_of_date: world_location.coronavirus_status_out_of_date,
       })
     end
   end
@@ -32,6 +34,7 @@ class WorldLocation::CoronavirusTravel
       coronavirus_watchlist_rag_status: watchlist_rag_status,
       coronavirus_next_rag_status: next_rag_status,
       coronavirus_next_rag_applies_at: next_rag_applies_at,
+      coronavirus_status_out_of_date: status_out_of_date,
     )
   end
 end

@@ -26,6 +26,6 @@ private
   def coronavirus_travel_params
     params
       .require(:world_location_coronavirus_travel)
-      .permit(:rag_status, :watchlist_rag_status, :next_rag_status, :next_rag_applies_at)
+      .permit(:rag_status, :watchlist_rag_status, :next_rag_status, :next_rag_applies_at, :status_out_of_date)
   end
 end
