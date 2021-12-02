@@ -4,6 +4,7 @@ class WorldLocation::CoronavirusTravel
   include ActiveRecord::AttributeAssignment
 
   attr_reader :world_location
+
   attribute :rag_status, :string
   attribute :watchlist_rag_status, :string
   attribute :next_rag_status, :string

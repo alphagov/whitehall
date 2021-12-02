@@ -3,7 +3,7 @@ class WorldLocation < ApplicationRecord
     red: "red",
     amber: "amber",
     green: "green",
-  }
+  }.freeze
 
   has_many :edition_world_locations, inverse_of: :world_location
   has_many :editions,
