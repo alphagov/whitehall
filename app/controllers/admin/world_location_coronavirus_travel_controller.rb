@@ -11,6 +11,7 @@ class Admin::WorldLocationCoronavirusTravelController < Admin::BaseController
     @coronavirus_travel.assign_attributes(coronavirus_travel_params)
 
     if @coronavirus_travel.save
+      WorldLocationCoronavirusTravelWorker.perform_at(@coronavirus_travel.next_rag_applies_at, @world_location.id)
       redirect_to admin_coronavirus_travel_path(@world_location), notice: "Coronavirus travel updated successfully"
     else
       render :edit
