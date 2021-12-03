@@ -78,4 +78,25 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   test "json includes public location url (anchored on organisations) organisations web_url" do
     assert_equal Whitehall.url_maker.world_location_url(@location, anchor: "organisations"), @presenter.as_json[:organisations][:web_url]
   end
+
+  test "json includes Coronavirus RAG status when there is a Coronavirus RAG status" do
+    @location.stubs(:coronavirus_rag_status).returns("red")
+    assert_equal "red", @presenter.as_json[:england_coronavirus_travel][:rag_status]
+  end
+
+  test "json includes Coronavirus next RAG status information when there is a Coronavirus next RAG status" do
+    @location.stubs(:coronavirus_rag_status).returns("green")
+    @location.stubs(:coronavirus_next_rag_status).returns("red")
+    rag_status_date = Time.zone.tomorrow.noon
+    @location.stubs(:coronavirus_next_rag_applies_at).returns(rag_status_date)
+
+    assert_equal "red", @presenter.as_json[:england_coronavirus_travel][:next_rag_status]
+    assert_equal rag_status_date, @presenter.as_json[:england_coronavirus_travel][:next_rag_applies_at]
+  end
+
+  test "json includes Coronavirus RAG status out of date when Coronavirus RAG status is out of date" do
+    @location.stubs(:coronavirus_rag_status).returns("red")
+    @location.stubs(:coronavirus_status_out_of_date).returns(true)
+    assert @presenter.as_json[:england_coronavirus_travel][:status_out_of_date]
+  end
 end
