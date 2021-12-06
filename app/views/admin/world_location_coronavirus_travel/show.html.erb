@@ -14,18 +14,18 @@
 
     <% if @world_location.coronavirus_next_rag_applies? %>
       <p>
-        The current RAG status for <%= @world_location.name %> is
+        The current COVID status for <%= @world_location.name %> is
         <%= @world_location.coronavirus_next_rag_status %>. This took affect at
         <%= @world_location.coronavirus_next_rag_applies_at %>.
       </p>
     <% else %>
       <p>
         <% if @world_location.coronavirus_rag_status %>
-          The current RAG status for <%= @world_location.name %> is
+          The current COVID status for <%= @world_location.name %> is
           <%= @world_location.coronavirus_rag_status %>.
         <% else %>
-          <%= @world_location.name %> does not have a RAG status so will be treated
-          as amber.
+          <%= @world_location.name %> does not have a COVID status so will be treated
+          as non red.
         <% end %>
       </p>
 
