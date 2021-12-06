@@ -31,8 +31,12 @@
           }, { class: 'date form-control' } %>
       </div>
 
-      <%= form.check_box :status_out_of_date, label_text: "Information is out of date" %>
-
+      <div class="form-group">
+        <br>
+        <%= form.label :status_out_of_date, "Guidance availability" %>
+        <p>Checking this box will display a 'Guidance is currently being updated' message</p>
+        <%= form.check_box :status_out_of_date, label_text: "Information is out of date" %>
+      </div>
       <%= form.save_or_cancel cancel: admin_coronavirus_travel_path(@world_location) %>
     <% end %>
   </section>
