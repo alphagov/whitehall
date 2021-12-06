@@ -34,7 +34,6 @@ class Api::WorldLocationPresenter < Api::BasePresenter
     elsif model.coronavirus_rag_status
       {
         rag_status: model.coronavirus_rag_status,
-        watchlist_rag_status: model.coronavirus_watchlist_rag_status,
         next_rag_status: model.coronavirus_next_rag_status,
         next_rag_applies_at: model.coronavirus_next_rag_applies_at,
         status_out_of_date: model.coronavirus_status_out_of_date,

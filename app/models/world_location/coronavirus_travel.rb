@@ -6,7 +6,6 @@ class WorldLocation::CoronavirusTravel
   attr_reader :world_location
 
   attribute :rag_status, :string
-  attribute :watchlist_rag_status, :string
   attribute :next_rag_status, :string
   attribute :next_rag_applies_at, :datetime
   attribute :status_out_of_date, :boolean
@@ -19,7 +18,6 @@ class WorldLocation::CoronavirusTravel
     else
       super({
         rag_status: world_location.coronavirus_rag_status,
-        watchlist_rag_status: world_location.coronavirus_watchlist_rag_status,
         next_rag_status: world_location.coronavirus_next_rag_status,
         next_rag_applies_at: world_location.coronavirus_next_rag_applies_at,
         status_out_of_date: world_location.coronavirus_status_out_of_date,
@@ -32,7 +30,6 @@ class WorldLocation::CoronavirusTravel
 
     @world_location.update!(
       coronavirus_rag_status: rag_status,
-      coronavirus_watchlist_rag_status: watchlist_rag_status,
       coronavirus_next_rag_status: next_rag_status,
       coronavirus_next_rag_applies_at: next_rag_applies_at,
       coronavirus_status_out_of_date: status_out_of_date,

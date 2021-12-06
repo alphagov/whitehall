@@ -47,7 +47,6 @@ class WorldLocation < ApplicationRecord
   include PublishesToPublishingApi
 
   enum coronavirus_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
-  enum coronavirus_watchlist_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
   enum coronavirus_next_rag_status: CORONAVIRUS_RAG_STATUSES, _prefix: true
 
   def publish_to_publishing_api

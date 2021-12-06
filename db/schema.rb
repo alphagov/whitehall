@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_144625) do
+ActiveRecord::Schema.define(version: 2021_12_06_184843) do
 
   create_table "about_pages", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -1132,7 +1132,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_144625) do
     t.string "content_id"
     t.string "news_page_content_id"
     t.string "coronavirus_rag_status"
-    t.string "coronavirus_watchlist_rag_status"
     t.string "coronavirus_next_rag_status"
     t.datetime "coronavirus_next_rag_applies_at"
     t.boolean "coronavirus_status_out_of_date", default: false

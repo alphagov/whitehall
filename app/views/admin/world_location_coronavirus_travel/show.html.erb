@@ -29,12 +29,6 @@
         <% end %>
       </p>
 
-      <% if @world_location.coronavirus_watchlist_rag_status %>
-        <p>
-          It is on the <%= @world_location.coronavirus_watchlist_rag_status %> watchlist.
-        </p>
-      <% end %>
-
       <% if @world_location.coronavirus_next_rag_status %>
         <p>
           It will be changing to <%= @world_location.coronavirus_next_rag_status %> at
