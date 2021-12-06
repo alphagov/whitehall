@@ -1,8 +1,8 @@
 class WorldLocation < ApplicationRecord
   CORONAVIRUS_RAG_STATUSES = {
     red: "red",
-    amber: "amber",
-    green: "green",
+    not_red: "not red",
+    another_status: "another status",
   }.freeze
 
   has_many :edition_world_locations, inverse_of: :world_location

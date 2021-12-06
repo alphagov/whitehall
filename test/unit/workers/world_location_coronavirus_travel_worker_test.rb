@@ -6,8 +6,8 @@ class WorldLocationCoronavirusTravelWorkerTest < ActiveSupport::TestCase
       :world_location,
       name: "France",
       news_page_content_id: "id-123",
-      coronavirus_rag_status: "green",
-      coronavirus_next_rag_status: "red",
+      coronavirus_rag_status: "red",
+      coronavirus_next_rag_status: "not red",
       coronavirus_next_rag_applies_at: Time.zone.tomorrow.noon,
     )
   end
