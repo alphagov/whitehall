@@ -70,7 +70,12 @@ class HtmlAttachment < Attachment
     path_or_url = full_url ? "url" : "path"
     path_helper = "#{type}_html_attachment_#{path_or_url}"
 
-    Whitehall.url_maker.public_send(path_helper, attachable.slug, self, options)
+    # This depends on the rails url helpers to construct a url based on config/routes.rb:
+    # composed of document type, slug for the parent document, and identifier for the attachment;
+    # for non-english attachments the identifier is the content_id, for english
+    # attachments it is self i.e. the slug
+    identifier = sluggable_locale? ? self : content_id
+    Whitehall.url_maker.public_send(path_helper, attachable.slug, identifier, options)
   end
 
   def should_generate_new_friendly_id?
