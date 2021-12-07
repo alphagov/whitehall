@@ -81,7 +81,7 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
 
   test "json includes Coronavirus RAG status when there is a Coronavirus RAG status" do
     @location.stubs(:coronavirus_rag_status).returns("red")
-    assert_equal "red", @presenter.as_json[:england_coronavirus_travel][:rag_status]
+    assert_equal "red", @presenter.as_json[:england_coronavirus_travel][:covid_status]
   end
 
   test "json includes Coronavirus next RAG status information when there is a Coronavirus next RAG status" do
@@ -90,8 +90,8 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
     rag_status_date = Time.zone.tomorrow.noon
     @location.stubs(:coronavirus_next_rag_applies_at).returns(rag_status_date)
 
-    assert_equal "red", @presenter.as_json[:england_coronavirus_travel][:next_rag_status]
-    assert_equal rag_status_date, @presenter.as_json[:england_coronavirus_travel][:next_rag_applies_at]
+    assert_equal "red", @presenter.as_json[:england_coronavirus_travel][:next_covid_status]
+    assert_equal rag_status_date, @presenter.as_json[:england_coronavirus_travel][:next_covid_status_applies_at]
   end
 
   test "json includes Coronavirus RAG status out of date when Coronavirus RAG status is out of date" do
