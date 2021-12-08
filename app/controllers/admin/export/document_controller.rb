@@ -45,7 +45,7 @@ private
       .joins("INNER JOIN edition_organisations eo ON eo.edition_id = editions.id
         AND eo.organisation_id = (
           SELECT organisation_id FROM edition_organisations
-          WHERE lead = true AND
+          WHERE `lead` IS true AND
                 edition_organisations.edition_id = editions.id
           ORDER BY lead_ordering ASC
           LIMIT 1
