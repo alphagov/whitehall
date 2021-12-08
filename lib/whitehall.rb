@@ -18,7 +18,6 @@ module Whitehall
   mattr_accessor :search_backend
   mattr_accessor :search_client
   mattr_accessor :skip_safe_html_validation
-  mattr_accessor :statistics_announcement_search_client
   mattr_accessor :uploads_cache_max_age
 
   class NoConfigurationError < StandardError; end
