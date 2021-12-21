@@ -4,6 +4,10 @@ task republish_non_english_html_attachments: :environment do
   .where.not(locale: "en")
   .where.not(locale: nil) # HtmlAttachment#sluggable_locale? treats nil locales the same as English
   .each do |attachment|
-    PublishingApiDocumentRepublishingWorker.perform_async(attachment.attachable.document.id)
+    PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
+      "bulk_republishing",
+      attachment.attachable.document.id,
+      true,
+    )
   end
 end
