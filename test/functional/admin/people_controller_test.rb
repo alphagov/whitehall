@@ -133,4 +133,58 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     assert_select ".people .person .biography", text: %r{^Hathi is head of the elephant troop}
   end
+
+  test "GET on :edit denied if not a vip-editor" do
+    create(:pm)
+
+    login_as :writer
+    get :edit, params: { id: "boris-johnson" }
+    assert_response :forbidden
+  end
+
+  test "PUT on :update denied if not a vip-editor" do
+    create(:pm)
+
+    login_as :writer
+    put :update, params: { id: "boris-johnson" }
+    assert_response :forbidden
+  end
+
+  test "DELETE on :destroy denied if not a vip-editor" do
+    create(:pm)
+
+    login_as :writer
+    delete :destroy, params: { id: "boris-johnson" }
+    assert_response :forbidden
+  end
+
+  %i[vip_editor gds_admin].each do |permission|
+    test "GET on :edit allowed if a #{permission}" do
+      create(:pm)
+
+      login_as :vip_editor
+      get :edit, params: { id: "boris-johnson" }
+      assert_response :success
+    end
+
+    test "PUT on :update allowed if a #{permission}" do
+      pm = create(:pm)
+
+      login_as :vip_editor
+      put :update, params: { id: "boris-johnson", person: { title: "", forename: "Aronnax", surname: "", letters: "" } }
+
+      assert_redirected_to admin_person_url(pm)
+      assert_equal %("Aronnax" saved.), flash[:notice]
+    end
+
+    test "DELETE on :destroy allowed if a #{permission}" do
+      create(:pm, forename: "Nemo")
+
+      login_as :vip_editor
+      delete :destroy, params: { id: "boris-johnson" }
+      assert_response :redirect
+
+      assert_equal %("Nemo" destroyed.), flash[:notice]
+    end
+  end
 end
