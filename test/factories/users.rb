@@ -25,6 +25,10 @@ FactoryBot.define do
   factory :writer, parent: :user, aliases: %i[author creator fact_check_requestor] do
   end
 
+  factory :vip_editor, parent: :user do
+    permissions { [User::Permissions::SIGNIN, User::Permissions::VIP_EDITOR] }
+  end
+
   factory :departmental_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::DEPARTMENTAL_EDITOR] }
   end

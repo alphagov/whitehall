@@ -3,6 +3,7 @@ require "whitehall/authority/rules/edition_rules"
 require "whitehall/authority/rules/fatality_notice_rules"
 require "whitehall/authority/rules/document_rules"
 require "whitehall/authority/rules/ministerial_role_rules"
+require "whitehall/authority/rules/person_rules"
 require "whitehall/authority/rules/policy_group_rules"
 require "whitehall/authority/rules/miscellaneous_rules"
 
@@ -41,6 +42,7 @@ module Whitehall::Authority
     "Edition" => Rules::EditionRules,
     "FatalityNotice" => Rules::FatalityNoticeRules,
     "MinisterialRole" => Rules::MinisterialRoleRules,
+    "Person" => Rules::PersonRules,
     "PolicyGroup" => Rules::PolicyGroupRules,
     "Organisation" => Rules::OrganisationRules,
     "Government" => Rules::GovernmentRules,

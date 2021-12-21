@@ -1,5 +1,7 @@
 class Admin::PeopleController < Admin::BaseController
   before_action :load_person, only: %i[show edit update destroy]
+  before_action :enforce_permissions!, only: %i[edit update destroy]
+
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
   end
@@ -53,5 +55,9 @@ private
       :biography,
       :privy_counsellor,
     )
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @person)
   end
 end

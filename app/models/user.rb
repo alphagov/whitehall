@@ -18,6 +18,7 @@ class User < ApplicationRecord
     DEPARTMENTAL_EDITOR = "Editor".freeze
     MANAGING_EDITOR = "Managing Editor".freeze
     GDS_EDITOR = "GDS Editor".freeze
+    VIP_EDITOR = "VIP Editor".freeze
     PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
     IMPORT = "Import CSVs".freeze
     WORLD_WRITER = "World Writer".freeze
@@ -48,6 +49,10 @@ class User < ApplicationRecord
 
   def gds_editor?
     has_permission?(Permissions::GDS_EDITOR)
+  end
+
+  def vip_editor?
+    has_permission?(Permissions::VIP_EDITOR)
   end
 
   def world_editor?
