@@ -13,6 +13,7 @@ class OrganisationType
     non_ministerial_department: { name: "Non-ministerial department", analytics_prefix: "D", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     other: { name: "Other", analytics_prefix: "OT", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
     public_corporation: { name: "Public corporation", analytics_prefix: "PC", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    special_health_authority: { name: "Special health authority", analytics_prefix: "SHA", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
     sub_organisation: { name: "Sub-organisation", analytics_prefix: "OT", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     tribunal: { name: "Tribunal", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
   }.freeze
@@ -24,6 +25,7 @@ class OrganisationType
     executive_agency
     executive_ndpb
     advisory_ndpb
+    special_health_authority
     tribunal
     public_corporation
     independent_monitoring_body
@@ -120,6 +122,10 @@ class OrganisationType
     get :court
   end
 
+  def self.special_health_authority
+    get :special_health_authority
+  end
+
   def self.agencies_and_public_bodies
     DATA.select { |_k, v| v[:agency_or_public_body] }
   end
@@ -202,5 +208,9 @@ class OrganisationType
 
   def court?
     key == :court
+  end
+
+  def special_health_authority?
+    key == :special_health_authority
   end
 end

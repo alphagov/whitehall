@@ -15,6 +15,7 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
       adhoc_advisory_group: build(:organisation, organisation_type_key: :adhoc_advisory_group),
       devolved_administration: build(:organisation, organisation_type_key: :devolved_administration),
       other: build(:organisation, organisation_type_key: :other),
+      special_health_authority: build(:organisation, organisation_type_key: :special_health_authority),
     }
   end
 
