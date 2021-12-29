@@ -6,7 +6,8 @@ class EmailSignupsController < PublicFacingController
       redirect_to feed_url.sub(".atom", "")
     elsif feed_url.match?(%r{/world/.*\.atom$})
       email_signup = WorldLocationEmailSignup.new(feed_url)
-      head :not_found unless email_signup.valid?
+      return head :not_found unless email_signup.valid?
+
       redirect_to email_alert_frontend_signup_with_slug(email_signup.slug)
     else
       redirect_to "/"
