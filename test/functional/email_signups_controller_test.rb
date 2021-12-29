@@ -57,4 +57,10 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
     assert_redirected_to "http://test.host/"
   end
+
+  view_test "GET :new with an invalid world location feed returns a not found response" do
+    get :new, params: { email_signup: { feed: "http://www.gov.uk/world/does-not-exist.atom" } }
+
+    assert_response :not_found
+  end
 end
