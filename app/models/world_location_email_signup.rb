@@ -20,12 +20,13 @@ private
 
   def criteria
     {
+      "title" => world_location.name,
       "links" => {
         "world_locations" => [
           world_location.content_id,
         ],
       },
-    }.merge("title" => world_location.name)
+    }
   end
 
   def world_location
