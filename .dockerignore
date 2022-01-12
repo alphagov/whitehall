@@ -1,4 +1,8 @@
 .git
+.gitignore
+Jenkinsfile
+README.md
+CONTRIBUTING.md
 asset-manager-tmp
 attachment-cache
 bulk-upload-zip-file-tmp

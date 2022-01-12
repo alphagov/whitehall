@@ -119,11 +119,6 @@ Whitehall::Application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  # Enable JSON-style logging
-  config.logstasher.enabled = true
-  config.logstasher.logger = Logger.new(Rails.root.join("log/#{Rails.env}.json.log"))
-  config.logstasher.suppress_app_log = false
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
