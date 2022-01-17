@@ -1,12 +1,15 @@
-development:
+default: &default
   encoding: utf8
   adapter: mysql2
+  variables:
+    sql_mode: TRADITIONAL
+
+development:
+  <<: *default
   database: whitehall_development
   username: whitehall
   password: whitehall
   url: <%= ENV["DATABASE_URL"] %>
-  variables:
-    sql_mode: TRADITIONAL
   # Note that there is also a 'whitehall_fe' user, used
   # by the 'whitehall_frontend' machines. It should have
   # only 'SELECT' privileges on the database.
@@ -15,22 +18,16 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-  encoding: utf8
-  adapter: mysql2
+  <<: *default
   database: whitehall_test<%= "_executor_#{ENV['EXECUTOR_NUMBER']}_" if ENV['EXECUTOR_NUMBER']%><%= ENV['TEST_ENV_NUMBER'] %>
   username: whitehall
   password: whitehall
   url: <%= ENV["TEST_DATABASE_URL"] %><%= ENV['TEST_ENV_NUMBER'] if ENV["TEST_DATABASE_URL"] %>
-  variables:
-    sql_mode: TRADITIONAL
 
 production:
-  encoding: utf8
-  adapter: mysql2
+  <<: *default
   database: whitehall_production
   pool: 10
-  variables:
-    sql_mode: TRADITIONAL
 
 cucumber:
   <<: *test
