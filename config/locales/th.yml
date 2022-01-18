@@ -126,232 +126,156 @@ th:
       written_on: 'เขียนเมื่อ:'
     type:
       about:
-        one: เกี่ยวกับ
         other: เกี่ยวกับ
       about_our_services:
-        one: เกี่ยวกับบริการของเรา
         other: เกี่ยวกับบริการของเรา
       access_and_opening:
-        one: การเข้าถึงและเวลาเปิด
         other: การเข้าถึงและเวลาเปิด
       accessible_documents_policy:
-        one: นโยบายเอกสารที่เข้าถึงได้
         other: นโยบายเอกสารที่เข้าถึงได้
       alert:
-        one: การเตือน
         other: การเตือน
       announcement:
-        one: ประกาศ
         other: ประกาศ
       authored_article:
-        one: บทความที่มีผู้เขียน
         other: บทความที่มีผู้เขียน
       blog_post:
-        one: โพสต์บล็อก
         other: โพสต์บล็อก
       campaign:
-        one: การรณรงค์
         other: การรณรงค์
       careers:
-        one: อาชีพ
         other: อาชีพ
       case_study:
-        one: กรณีศึกษา
         other: กรณีศึกษา
       closed_consultation:
-        one: การให้คำปรึกษาที่ปิดแล้ว
         other: การให้คำปรึกษาที่ปิดแล้ว
       complaints_procedure:
-        one: ขั้นตอนการร้องเรียน
         other: ขั้นตอนการร้องเรียน
       consultation:
-        one: การให้คำปรึกษา
         other: การให้คำปรึกษา
       consultation_outcome:
-        one: ผลลัพธ์จากการให้คำปรึกษา
         other: ผลลัพธ์จากการให้คำปรึกษา
       corporate_report:
-        one: รายงานของบริษัท
         other: รายงานของบริษัท
       correspondence:
-        one: จดหมายโต้ตอบ
         other: จดหมายโต้ตอบ
       decision:
-        one: การตัดสินใจ
         other: การตัดสินใจ
       detailed_guidance:
-        one: คำแนะนำ
         other: คำแนะนำ
       document_collection:
-        one: คอลเล็กชั่น
         other: คอลเล็กชั่น
       draft_text:
-        one: ข้อความร่าง
         other: ข้อความร่าง
       edition:
-        one: ฉบับ
         other: ฉบับ
       edition_with_appointment:
-        one: ฉบับที่มีการนัดหมาย
         other: ฉบับที่มีการนัดหมาย
       equality_and_diversity:
-        one: ความเสมอภาคและความหลากหลาย
         other: ความเสมอภาคและความหลากหลาย
       fatality_notice:
-        one: การแจ้งตาย
         other: การแจ้งตาย
       foi_release:
-        one: การออก FOI
         other: การออก FOI
       form:
-        one: แบบฟอร์ม
         other: แบบฟอร์ม
       generic_edition:
-        one: ฉบับทั่วไป
         other: ฉบับทั่วไป
       government_response:
-        one: คำตอบของรัฐบาล
         other: คำตอบของรัฐบาล
       guidance:
-        one: คำแนะนำ
         other: คำแนะนำ
       impact_assessment:
-        one: การประเมินผลกระทบ
         other: การประเมินผลกระทบ
       imported:
-        one: นำเข้าแล้ว - รอการพิมพ์
         other: นำเข้าแล้ว - รอการพิมพ์
       independent_report:
-        one: รายงานอิสระ
         other: รายงานอิสระ
       international_treaty:
-        one: สนธิสัญญาระหว่างประเทศ
         other: สนธิสัญญาระหว่างประเทศ
       manual:
-        one: กำหนดเอง
         other: คู่มือ
       map:
-        one: แผนที่
         other: แผนที่
       media_enquiries:
-        one: คำถามจากสื่อมวลชน
         other: คำถามจากสื่อมวลชน
       membership:
-        one: สมาชิก
         other: สมาชิก
       modern_slavery_statement:
-        one:
         other:
       national_statistics:
-        one: สถิติแห่งชาติ
         other: สถิติแห่งชาติ
       news_article:
-        one: บทความข่าว
         other: บทความข่าว
       news_story:
-        one: เนื้อหาข่าว
         other: เนื้อหาข่าว
       nhs_content:
-        one: เนื้อหาของ NHS
         other: เนื้อหาของ NHS
       notice:
-        one: ประกาศ
         other: ประกาศ
       official_statistics:
-        one: สถิติของราชการ
         other: สถิติของราชการ
       open_consultation:
-        one: การให้คำปรึกษาที่เปิดอยู่
         other: การให้คำปรึกษาที่เปิดอยู่
       oral_statement:
-        one: แถลงการณ์ด้วยวาจาต่อรัฐสภา
         other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
       our_energy_use:
-        one: การใช้พลังงานของเรา
         other: การใช้พลังงานของเรา
       our_governance:
-        one: ธรรมาภิบาลของเรา
         other: ธรรมาภิบาลของเรา
       personal_information_charter:
-        one: กฎบัตรข้อมูลส่วนบุคคล
         other: กฎบัตรข้อมูลส่วนบุคคล
       petitions_and_campaigns:
-        one: การเข้าชื่อและการรณรงค์
         other: การเข้าชื่อและการรณรงค์
       policy_paper:
-        one: เอกสารนโยบาย
         other: เอกสารนโยบาย
       press_release:
-        one: ข่าวประชาสัมพันธ์
         other: ข่าวประชาสัมพันธ์
       procurement:
-        one: การจัดซื้อจัดจ้าง
         other: การจัดซื้อจัดจ้าง
       promotional:
-        one: สื่อวัสดุส่งเสริมการขาย
         other: สื่อวัสดุส่งเสริมการขาย
       publication:
-        one: สิ่งพิมพ์
         other: สิ่งพิมพ์
       publication_scheme:
-        one: โครงการสิ่งพิมพ์
         other: โครงการสิ่งพิมพ์
       recruitment:
-        one: การสรรหา
         other: การสรรหา
       regulation:
-        one: ระเบียบข้อบังคับ
         other: ระเบียบข้อบังคับ
       research:
-        one: การวิจัย
         other: การวิจัย
       service:
-        one: บริการ
         other: บริการ
       social_media_use:
-        one: การใช้โซเชียลมีเดีย
         other: การใช้โซเชียลมีเดีย
       speaking_notes:
-        one: บันทึกสุนทรพจน์
         other: บันทึกสุนทรพจน์
       speech:
-        one: สุนทรพจน์
         other: สุนทรพจน์
       staff_update:
-        one: ข่าวสารพนักงาน
         other: ข่าวสารพนักงาน
       standard:
-        one: มาตรฐาน
         other: มาตรฐาน
       statement_to_parliament:
-        one: แถลงการณ์ต่อรัฐสภา
         other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
-        one: ชุดข้อมูลสถิติ
         other: ชุดข้อมูลสถิติ
       statistics:
-        one: สถิติ
         other: สถิติ
       statutory_guidance:
-        one: คำแนะนำทางกฎหมาย
         other: คำแนะนำทางกฎหมาย
       terms_of_reference:
-        one: เงื่อนไขการอ้างอิง
         other: เงื่อนไขการอ้างอิง
       transcript:
-        one: การถอดเสียง
         other: การถอดเสียง
       transparency:
-        one: ข้อมูลความโปร่งใส
         other: ข้อมูลความโปร่งใส
       welsh_language_scheme:
-        one: โครงการภาษาเวลส์
         other: โครงการภาษาเวลส์
       world_news_story:
-        one: ข่าวสารทั่วโลก
         other: ข่าวสารทั่วโลก
       written_statement:
-        one: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
         other: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
     updated: อัปเดตแล้ว
   document_filters:
@@ -575,10 +499,8 @@ th:
       statistics: สถิติของเรา
     type:
       international_delegation:
-        one: คณะผู้แทนระหว่างประเทศ
         other: คณะผู้แทนระหว่างประเทศ
       world_location:
-        one: สถานที่ทั่วโลก
         other: สถานที่ทั่วโลก
   world_news:
     uk_updates_in_country: อัปเดต ข่าวสาร และกิจกรรมจากรัฐบาลสหราชอาณาจักรใน %{country}

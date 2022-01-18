@@ -314,6 +314,8 @@ be:
         one: Членства
         other: Членства
       modern_slavery_statement:
+        few:
+        many:
         one:
         other:
       national_statistics:

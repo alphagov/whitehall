@@ -278,6 +278,7 @@ lt:
         one: Narystė
         other: Narystė
       modern_slavery_statement:
+        few:
         one:
         other:
       national_statistics:

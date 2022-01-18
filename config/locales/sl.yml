@@ -317,8 +317,10 @@ sl:
         other: Članstvo
         two:
       modern_slavery_statement:
+        few:
         one:
         other:
+        two:
       national_statistics:
         few:
         one: Državna statistika

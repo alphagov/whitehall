@@ -316,6 +316,8 @@ uk:
         one: Членство
         other: Членство
       modern_slavery_statement:
+        few:
+        many:
         one:
         other:
       national_statistics:
