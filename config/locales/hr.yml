@@ -317,6 +317,8 @@ hr:
         one: Članstvo
         other: Članstvo
       modern_slavery_statement:
+        few:
+        many:
         one:
         other:
       national_statistics:

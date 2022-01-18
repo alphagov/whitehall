@@ -314,6 +314,8 @@ pl:
         one: Członkostwo
         other: Członkostwo
       modern_slavery_statement:
+        few:
+        many:
         one:
         other:
       national_statistics:

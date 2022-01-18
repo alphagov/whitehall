@@ -127,232 +127,156 @@ ms:
       written_on: 'Ditulis pada:'
     type:
       about:
-        one: Tentang
         other: Tentang
       about_our_services:
-        one: Tentang perkhidmatan kami
         other: Tentang perkhidmatan kami
       access_and_opening:
-        one: Akses dan pembukaan
         other: Akses dan pembukaan
       accessible_documents_policy:
-        one: Dasar dokumen boleh akses
         other: Dasar dokumen boleh akses
       alert:
-        one: Pemberitahuan
         other: Pemberitahuan
       announcement:
-        one: Pengumuman
         other: Pengumuman
       authored_article:
-        one: Artikel ditulis penulis
         other: Artikel ditulis penulis
       blog_post:
-        one: Siaran blog
         other: Siaran blog
       campaign:
-        one: Kempen
         other: Kempen
       careers:
-        one: Kerjaya
         other: kerjaya
       case_study:
-        one: Kajian kes
         other: Kajian kes
       closed_consultation:
-        one: Rundingan tertutup
         other: Rundingan tertutup
       complaints_procedure:
-        one: Prosedur aduan
         other: Prosedur aduan
       consultation:
-        one: Rundingan
         other: Rundingan
       consultation_outcome:
-        one: Hasil rundingan
         other: Hasil rundingan
       corporate_report:
-        one: Laporan korporat
         other: Laporan korporat
       correspondence:
-        one: Perwakilan
         other: Perwakilan
       decision:
-        one: Keputusan
         other: Keputusan
       detailed_guidance:
-        one: Panduan
         other: Panduan
       document_collection:
-        one: Koleksi
         other: Koleksi
       draft_text:
-        one: Teks draf
         other: Teks draf
       edition:
-        one: Suntingan
         other: Suntingan
       edition_with_appointment:
-        one: Disunting dengan perlantikan
         other: Disunting dengan perlantikan
       equality_and_diversity:
-        one: Kesamaan dan kepelbagaian
         other: Kesamaan dan kepelbagaian
       fatality_notice:
-        one: Notis kematian
         other: Notis kematian
       foi_release:
-        one: Hebahan Kebebasan Maklumat (FOI)
         other: Hebahan Kebebasan Maklumat (FOI)
       form:
-        one: Borang
         other: Borang
       generic_edition:
-        one: Suntingan generik
         other: Suntingan generik
       government_response:
-        one: Respons kerajaan
         other: Respons kerajaan
       guidance:
-        one: Panduan
         other: Panduan
       impact_assessment:
-        one: Penilaian Impak
         other: Penilaian Impak
       imported:
-        one: diimport - menunggu jenis
         other: diimport - menunggu jenis
       independent_report:
-        one: Laporan bebas
         other: Laporan bebas
       international_treaty:
-        one: Perjanjian antarabangsa
         other: Perjanjian antarabangsa
       manual:
-        one: Manual
         other: Manual
       map:
-        one: Peta
         other: Peta
       media_enquiries:
-        one: Pertanyaan media
         other: Pertanyaan media
       membership:
-        one: Keanggotaan
         other: Keanggotaan
       modern_slavery_statement:
-        one:
         other:
       national_statistics:
-        one: Statistik Nasional
         other: Statistik Nasional
       news_article:
-        one: Artikel berita
         other: Artikel berita
       news_story:
-        one: Berita
         other: Berita
       nhs_content:
-        one: Kandungan Perkhidmatan Kesihatan Nasional (NHS)
         other: Kandungan Perkhidmatan Kesihatan Nasional (NHS)
       notice:
-        one: Notis
         other: Notis
       official_statistics:
-        one: Statistik Rasmi
         other: Statistik Rasmi
       open_consultation:
-        one: Rundingan terbuka
         other: Rundingan terbuka
       oral_statement:
-        one: Kenyataan lisan kepada Parlimen
         other: Kenyataan lisan kepada Parlimen
       our_energy_use:
-        one: Penggunaan tenaga kami
         other: Penggunaan tenaga kami
       our_governance:
-        one: Tadbir urus kami
         other: Tadbir urus kami
       personal_information_charter:
-        one: Carter maklumat peribadi
         other: Carter maklumat peribadi
       petitions_and_campaigns:
-        one: Petisyen dan kempen
         other: Petisyen dan kempen
       policy_paper:
-        one: Kertas dasar
         other: Kertas dasar
       press_release:
-        one: Siaran akhbar
         other: Siaran akhbar
       procurement:
-        one: Perolehan
         other: Perolehan
       promotional:
-        one: Bahan promosi
         other: Bahan promosi
       publication:
-        one: Penerbitan
         other: Penerbitan
       publication_scheme:
-        one: Skema penerbitan
         other: Skema penerbitan
       recruitment:
-        one: Pengambilan
         other: Pengambilan
       regulation:
-        one: Peraturan
         other: Peraturan
       research:
-        one: Penyelidikan
         other: Penyelidikan
       service:
-        one: Perkhidmatan
         other: Perkhidmatan
       social_media_use:
-        one: Penggunaan media sosial
         other: Penggunaan media sosial
       speaking_notes:
-        one: Nota perbincangan
         other: Nota perbincangan
       speech:
-        one: Ucapan
         other: Ucapan
       staff_update:
-        one: Kemas kini kakitangan
         other: Kemas kini kakitangan
       standard:
-        one: Standard
         other: Standard
       statement_to_parliament:
-        one: Kenyataan kepada Parlimen
         other: Kenyataan kepada Parlimen
       statistical_data_set:
-        one: Set data statistik
         other: Set data statistik
       statistics:
-        one: Statistik
         other: Statistik
       statutory_guidance:
-        one: Panduan berkanun
         other: Panduan berkanun
       terms_of_reference:
-        one: Terma rujukan
         other: Terma rujukan
       transcript:
-        one: Transkrip
         other: Transkrip
       transparency:
-        one: Data ketelusan
         other: Data ketelusan
       welsh_language_scheme:
-        one: Skema bahasa Wales
         other: Skema bahasa Wales
       world_news_story:
-        one: Berita seluruh dunia
         other: Berita seluruh dunia
       written_statement:
-        one: Kenyataan bertulis kepada Parlimen
         other: Kenyataan bertulis kepada Parlimen
     updated: dikemas kini
   document_filters:
@@ -576,10 +500,8 @@ ms:
       statistics: Statistik kami
     type:
       international_delegation:
-        one: Perwakilan antarabangsa
         other: Perwakilan antarabangsa
       world_location:
-        one: Lokasi dunia
         other: Lokasi dunia
   world_news:
     uk_updates_in_country: Kemas kini, berita dan peristiwa daripada kerajaan UK di %{country}

@@ -126,232 +126,156 @@ zh:
       written_on: 书写日期：
     type:
       about:
-        one: 约
         other: 约
       about_our_services:
-        one: 关于我们的服务
         other: 关于我们的服务
       access_and_opening:
-        one: 访问和打开
         other: 访问和打开
       accessible_documents_policy:
-        one: 可获取的文件政策
         other: 可获取的文件政策
       alert:
-        one: 警告
         other: 警告
       announcement:
-        one: 公告
         other: 公告
       authored_article:
-        one: 撰写文章
         other: 撰写文章
       blog_post:
-        one: 博客帖子
         other: 博客帖子
       campaign:
-        one: 活动
         other: 活动
       careers:
-        one: 招聘
         other: 招聘
       case_study:
-        one: 案例研究
         other: 案例研究
       closed_consultation:
-        one: 封闭咨询
         other: 封闭咨询
       complaints_procedure:
-        one: 投诉程序
         other: 投诉程序
       consultation:
-        one: 咨询
         other: 咨询
       consultation_outcome:
-        one: 咨询结果
         other: 咨询结果
       corporate_report:
-        one: 公司报告
         other: 公司报告
       correspondence:
-        one: 通信
         other: 通信
       decision:
-        one: 决策
         other: 决策
       detailed_guidance:
-        one: 指南
         other: 指南
       document_collection:
-        one: 待整理
         other: 待整理
       draft_text:
-        one: 草拟文本
         other: 草拟文本
       edition:
-        one: 功能版本
         other: 功能版本
       edition_with_appointment:
-        one: 版本和任命
         other: 版本和任命
       equality_and_diversity:
-        one: 平等和多样性
         other: 平等和多样性
       fatality_notice:
-        one: 死亡通知
         other: 死亡通知
       foi_release:
-        one: FOI 发布
         other: FOI 发布
       form:
-        one: 表格
         other: 表格
       generic_edition:
-        one: 通用版本
         other: 通用版本
       government_response:
-        one: 政府回应
         other: 政府回应
       guidance:
-        one: 指南
         other: 指南
       impact_assessment:
-        one: 影响评估
         other: 影响评估
       imported:
-        one: 进口-等待型
         other: 进口-等待型
       independent_report:
-        one: 独立报告
         other: 独立报告
       international_treaty:
-        one: 国际条约
         other: 国际条约
       manual:
-        one: 手册
         other: 手册
       map:
-        one: 地图
         other: 地图
       media_enquiries:
-        one: 媒体疑问
         other: 媒体疑问
       membership:
-        one: 会员身份
         other: 会员身份
       modern_slavery_statement:
-        one:
         other:
       national_statistics:
-        one: 国家统计局
         other: 国家统计局
       news_article:
-        one: 新闻报道
         other: 新闻报道
       news_story:
-        one: 新闻故事
         other: 新闻故事
       nhs_content:
-        one: NHS内容
         other: NHS内容
       notice:
-        one: 通知
         other: 通知
       official_statistics:
-        one: 官方统计
         other: 官方统计
       open_consultation:
-        one: 公开协商
         other: 公开协商
       oral_statement:
-        one: 议会口头声明
         other: 议会口头声明
       our_energy_use:
-        one: 我们的能源使用
         other: 我们的能源使用
       our_governance:
-        one: 我们的治理
         other: 我们的治理
       personal_information_charter:
-        one: 个人信息宪章
         other: 个人信息宪章
       petitions_and_campaigns:
-        one: 请愿书和活动
         other: 请愿书和活动
       policy_paper:
-        one: 政策文件
         other: 政策文件
       press_release:
-        one: 新闻稿
         other: 新闻稿
       procurement:
-        one: 采购
         other: 采购
       promotional:
-        one: 宣传资料
         other: 宣传资料
       publication:
-        one: 公布
         other: 公布
       publication_scheme:
-        one: 发布计划
         other: 发布计划
       recruitment:
-        one: 招聘
         other: 招聘
       regulation:
-        one: 条例
         other: 条例
       research:
-        one: 研究
         other: 研究
       service:
-        one: 服务
         other: 服务
       social_media_use:
-        one: 社交媒体使用
         other: 社交媒体使用
       speaking_notes:
-        one: 发言讲稿
         other: 发言讲稿
       speech:
-        one: 演讲
         other: 演讲
       staff_update:
-        one: 员工最新消息
         other: 员工最新消息
       standard:
-        one: 标准
         other: 标准
       statement_to_parliament:
-        one: 议会声明
         other: 议会声明
       statistical_data_set:
-        one: 统计数据集
         other: 统计数据集
       statistics:
-        one: 统计数据
         other: 统计数据
       statutory_guidance:
-        one: 法定指南
         other: 法定指南
       terms_of_reference:
-        one: 职责范围
         other: 职责范围
       transcript:
-        one: 文字记录
         other: 文字记录
       transparency:
-        one: 透明度数据
         other: 透明度数据
       welsh_language_scheme:
-        one: 威尔士语言计划
         other: 威尔士语言计划
       world_news_story:
-        one: 世界新闻故事
         other: 世界新闻故事
       written_statement:
-        one: 议会口头声明
         other: 议会口头声明
     updated: 已更新
   document_filters:
@@ -575,10 +499,8 @@ zh:
       statistics: 我们的统计数据
     type:
       international_delegation:
-        one: 国际代表处
         other: 国际代表处
       world_location:
-        one: 世界地点
         other: 世界地点
   world_news:
     uk_updates_in_country: 英国政府在 %{country} 的更新、新闻和事件

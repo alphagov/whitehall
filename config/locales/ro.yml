@@ -278,6 +278,7 @@ ro:
         one: Abonament
         other: Abonament
       modern_slavery_statement:
+        few:
         one:
         other:
       national_statistics:

@@ -126,232 +126,156 @@ ja:
       written_on: 日付：
     type:
       about:
-        one: 概要
         other: 概要
       about_our_services:
-        one: 本サービスについて
         other: 本サービスについて
       access_and_opening:
-        one: アクセスと利用時間
         other: アクセスと利用時間
       accessible_documents_policy:
-        one: 利用可能な文書に関する方針
         other: 利用可能な文書に関する方針
       alert:
-        one: 注意
         other: 注意
       announcement:
-        one: お知らせ
         other: お知らせ
       authored_article:
-        one: 執筆記事
         other: 執筆記事
       blog_post:
-        one: ブログ投稿
         other: ブログ投稿
       campaign:
-        one: キャンペーン
         other: キャンペーン
       careers:
-        one: キャリア
         other: キャリア
       case_study:
-        one: ケーススタディ
         other: ケーススタディ
       closed_consultation:
-        one: 非公開の審議
         other: 非公開の審議
       complaints_procedure:
-        one: 苦情手続き
         other: 苦情手続き
       consultation:
-        one: 審議
         other: 審議
       consultation_outcome:
-        one: 相談結果
         other: 相談結果
       corporate_report:
-        one: 企業報告書
         other: 企業報告書
       correspondence:
-        one: 対応
         other: 対応
       decision:
-        one: 決定事項
         other: 決定事項
       detailed_guidance:
-        one: ガイダンス
         other: ガイダンス
       document_collection:
-        one: コレクション
         other: コレクション
       draft_text:
-        one: 下書きテキスト
         other: 下書きテキスト
       edition:
-        one: 版
         other: 版
       edition_with_appointment:
-        one: 予約ありの版
         other: 予約ありの版
       equality_and_diversity:
-        one: 平等と多様性
         other: 平等と多様性
       fatality_notice:
-        one: 死亡通知
         other: 死亡通知
       foi_release:
-        one: FOI（情報公開）発表
         other: FOI（情報公開）発表
       form:
-        one: フォーム
         other: フォーム
       generic_edition:
-        one: ジェネリック版
         other: ジェネリック版
       government_response:
-        one: 政府の対応
         other: 政府の対応
       guidance:
-        one: ガイダンス
         other: ガイダンス
       impact_assessment:
-        one: 影響評価
         other: 影響評価
       imported:
-        one: インポート済み - 待機中の種別
         other: インポート済み - 待機中の種別
       independent_report:
-        one: 第三者による報告
         other: 第三者による報告
       international_treaty:
-        one: 国際条約
         other: 国際条約
       manual:
-        one: 取扱説明
         other: 取扱説明
       map:
-        one: 地図
         other: 地図
       media_enquiries:
-        one: 報道関係者の問い合わせ
         other: 報道関係者の問い合わせ
       membership:
-        one: メンバーシップ
         other: メンバーシップ
       modern_slavery_statement:
-        one:
         other:
       national_statistics:
-        one: 国家統計
         other: 国家統計
       news_article:
-        one: ニュース記事
         other: ニュース記事
       news_story:
-        one: ニュースストーリー
         other: ニュースストーリー
       nhs_content:
-        one: NHSコンテンツ
         other: NHSコンテンツ
       notice:
-        one: 知らせ
         other: 知らせ
       official_statistics:
-        one: 公式統計
         other: 公式統計
       open_consultation:
-        one: 公開審議
         other: 公開審議
       oral_statement:
-        one: 議会への口頭声明
         other: 議会への口頭声明
       our_energy_use:
-        one: エネルギーの使用
         other: エネルギーの使用
       our_governance:
-        one: ガバナンス
         other: ガバナンス
       personal_information_charter:
-        one: 個人情報憲章
         other: 個人情報憲章
       petitions_and_campaigns:
-        one: 請願とキャンペーン
         other: 請願とキャンペーン
       policy_paper:
-        one: 方針書
         other: 方針書
       press_release:
-        one: プレスリリース
         other: プレスリリース
       procurement:
-        one: 調達
         other: 調達
       promotional:
-        one: 販促資料
         other: 販促資料
       publication:
-        one: 出版物
         other: 出版物
       publication_scheme:
-        one: 出版体系
         other: 出版体系
       recruitment:
-        one: 募集
         other: 募集
       regulation:
-        one: 規制
         other: 規則
       research:
-        one: 研究
         other: 研究
       service:
-        one: サービス
         other: サービス
       social_media_use:
-        one: ソーシャルメディアの使用
         other: ソーシャルメディアの使用
       speaking_notes:
-        one: 発言ノート
         other: 発言ノート
       speech:
-        one: スピーチ
         other: スピーチ
       staff_update:
-        one: スタッフの最新情報
         other: スタッフの最新情報
       standard:
-        one: 標準
         other: 標準
       statement_to_parliament:
-        one: 議会への声明
         other: 議会への声明
       statistical_data_set:
-        one: 統計データセット
         other: 統計データセット
       statistics:
-        one: 統計
         other: 統計
       statutory_guidance:
-        one: 法定ガイダンス
         other: 法定ガイダンス
       terms_of_reference:
-        one: 付託条項
         other: 付託条項
       transcript:
-        one: 口述記録
         other: 口述記録
       transparency:
-        one: 透明度データ
         other: 透明度データ
       welsh_language_scheme:
-        one: ウェールズ語体系
         other: ウェールズ語体系
       world_news_story:
-        one: 世界的なニュース記事
         other: 世界的なニュース記事
       written_statement:
-        one: 議会への書面による声明
         other: 議会への書面による声明
     updated: 更新済み
   document_filters:
@@ -575,10 +499,8 @@ ja:
       statistics: 統計
     type:
       international_delegation:
-        one: 国際代表団
         other: 国際代表団
       world_location:
-        one: 世界の場所
         other: 世界の場所
   world_news:
     uk_updates_in_country: "％{country} の英国政府からの更新、ニュース、イベント"

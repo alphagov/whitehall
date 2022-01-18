@@ -314,6 +314,8 @@ mt:
         one: Sħubija
         other: Sħubija
       modern_slavery_statement:
+        few:
+        many:
         one:
         other:
       national_statistics:

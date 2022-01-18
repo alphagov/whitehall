@@ -126,232 +126,156 @@ ko:
       written_on: '작성일시:'
     type:
       about:
-        one: 소개
         other: 소개
       about_our_services:
-        one: 저희 서비스 소개
         other: 저희 서비스 소개
       access_and_opening:
-        one: 액세스 및 운영
         other: 액세스 및 운영
       accessible_documents_policy:
-        one: 액세스 가능한 문서 정책
         other: 액세스 가능한 문서 정책
       alert:
-        one: 알림
         other: 알림
       announcement:
-        one: 공지사항
         other: 공지사항
       authored_article:
-        one: 저작물
         other: 저작물
       blog_post:
-        one: 블로그 포스트
         other: 블로그 포스트
       campaign:
-        one: 캠페인
         other: 캠페인
       careers:
-        one: 커리어
         other: 커리어
       case_study:
-        one: 사례 연구
         other: 사례 연구
       closed_consultation:
-        one: 종결된 상담
         other: 종결된 상담
       complaints_procedure:
-        one: 불만처리절차
         other: 불만처리절차
       consultation:
-        one: 상담
         other: 상담
       consultation_outcome:
-        one: 상담 결과
         other: 상담 결과
       corporate_report:
-        one: 기업 보고서
         other: 기업 보고서
       correspondence:
-        one: 통신
         other: 통신
       decision:
-        one: 판결
         other: 판결
       detailed_guidance:
-        one: 지침
         other: 지침
       document_collection:
-        one: 컬렉션
         other: 컬렉션
       draft_text:
-        one: 초안 텍스트
         other: 초안 텍스트
       edition:
-        one: 에디션
         other: 에디션
       edition_with_appointment:
-        one: 예약판
         other: 예약판
       equality_and_diversity:
-        one: 평등 및 다양성
         other: 평등 및 다양성
       fatality_notice:
-        one: 사망통지서
         other: 사망통지서
       foi_release:
-        one: 였다 공개
         other: 였다 공개
       form:
-        one: 양식
         other: 양식
       generic_edition:
-        one: 일반 에디션
         other: 일반 에디션
       government_response:
-        one: 정부 대응
         other: 정부 대응
       guidance:
-        one: 지침
         other: 지침
       impact_assessment:
-        one: 영향 평가
         other: 영향 평가
       imported:
-        one: 수입 - 대기 유형
         other: 수입 - 대기 유형
       independent_report:
-        one: 독립적 보고서
         other: 독립적 보고서
       international_treaty:
-        one: 국제 조약
         other: 국제 조약
       manual:
-        one: 매뉴얼
         other: 매뉴얼
       map:
-        one: 지도
         other: 지도
       media_enquiries:
-        one: 언론 문의
         other: 언론 문의
       membership:
-        one: 멤버십
         other: 멤버십
       modern_slavery_statement:
-        one:
         other:
       national_statistics:
-        one: 국내 통계
         other: 국내 통계
       news_article:
-        one: 뉴스 기사
         other: 뉴스 기사
       news_story:
-        one: 뉴스 스토리
         other: 뉴스 스토리
       nhs_content:
-        one: NHS 콘텐츠
         other: NHS 콘텐츠
       notice:
-        one: 공지
         other: 공지
       official_statistics:
-        one: 공식 통계
         other: 공식 통계
       open_consultation:
-        one: 공개 상담
         other: 공개 상담
       oral_statement:
-        one: 의회로 구두 성명
         other: 의회로 구두 성명
       our_energy_use:
-        one: 저희의 에너지 사용
         other: 저희의 에너지 사용
       our_governance:
-        one: 저희의 거버넌스
         other: 저희의 거버넌스
       personal_information_charter:
-        one: 개인정보 규정
         other: 개인정보 규정
       petitions_and_campaigns:
-        one: 청원 및 캠페인
         other: 청원 및 캠페인
       policy_paper:
-        one: 정책 문서
         other: 정책 문서
       press_release:
-        one: 보도자료
         other: 보도자료
       procurement:
-        one: 조달
         other: 조달
       promotional:
-        one: 홍보 자료
         other: 홍보 자료
       publication:
-        one: 발행
         other: 발행
       publication_scheme:
-        one: 발행 계획
         other: 발행 계획
       recruitment:
-        one: 채용
         other: 채용
       regulation:
-        one: 규제
         other: 규제
       research:
-        one: 연구
         other: 연구
       service:
-        one: 서비스
         other: 서비스
       social_media_use:
-        one: 소셜 미디어 사용
         other: 소셜 미디어 사용
       speaking_notes:
-        one: 연설문 메모
         other: 연설문 메모
       speech:
-        one: 연설문
         other: 연설문
       staff_update:
-        one: 직원 업데이트
         other: 직원 업데이트
       standard:
-        one: 표준
         other: 표준
       statement_to_parliament:
-        one: 의회로 성명
         other: 의회로 성명
       statistical_data_set:
-        one: 통계 데이터 세트
         other: 통계 데이터 세트
       statistics:
-        one: 통계
         other: 통계
       statutory_guidance:
-        one: 법정 지도
         other: 법정 지도
       terms_of_reference:
-        one: 참조 조건
         other: 참조 조건
       transcript:
-        one: 녹취록
         other: 녹취록
       transparency:
-        one: 투명성 데이터
         other: 투명성 데이터
       welsh_language_scheme:
-        one: 웨일스어 계획
         other: 웨일스어 계획
       world_news_story:
-        one: 전세계 뉴스 스토리
         other: 전세계 뉴스 스토리
       written_statement:
-        one: 국회로 서면 성명
         other: 국회로 서면 성명
     updated: 업데이트
   document_filters:
@@ -575,10 +499,8 @@ ko:
       statistics: 통계
     type:
       international_delegation:
-        one: 국제 대표단
         other: 국제 대표단
       world_location:
-        one: 월드 로케이션
         other: 월드 로케이션
   world_news:
     uk_updates_in_country: UK 정부의 %{country} 내 업데이트, 뉴스 및 이벤트

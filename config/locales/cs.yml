@@ -279,6 +279,7 @@ cs:
         one: Členství
         other: Členství
       modern_slavery_statement:
+        few:
         one:
         other:
       national_statistics:

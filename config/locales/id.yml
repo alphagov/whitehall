@@ -126,232 +126,156 @@ id:
       written_on: 'Ditulis pada:'
     type:
       about:
-        one: Tentang
         other: Tentang
       about_our_services:
-        one: Tentang layanan kami
         other: Tentang layanan kami
       access_and_opening:
-        one: Akses dan buka
         other: Akses dan buka
       accessible_documents_policy:
-        one: Kebijakan dokumen yang dapat diakses
         other: Kebijakan dokumen yang dapat diakses
       alert:
-        one: Peringatan
         other: Peringatan
       announcement:
-        one: Pengumuman
         other: Pengumuman
       authored_article:
-        one: Artikel bersumber
         other: Artikel bersumber
       blog_post:
-        one: Posting blog
         other: Posting blog
       campaign:
-        one: Kampanye
         other: Kampanye
       careers:
-        one: Karier
         other: karier
       case_study:
-        one: Studi kasus
         other: Studi kasus
       closed_consultation:
-        one: Konsultasi tertutup
         other: Konsultasi tertutup
       complaints_procedure:
-        one: Prosedur keluhan
         other: Prosedur keluhan
       consultation:
-        one: Konsultasi
         other: Konsultasi
       consultation_outcome:
-        one: Hasil konsultasi
         other: Hasil konsultasi
       corporate_report:
-        one: Laporan korporat
         other: Laporan korporat
       correspondence:
-        one: Korespondensi
         other: Korespondensi
       decision:
-        one: Keputusan
         other: Keputusan
       detailed_guidance:
-        one: Panduan
         other: Panduan
       document_collection:
-        one: Koleksi
         other: Koleksi
       draft_text:
-        one: Teks rancangan
         other: Teks rancangan
       edition:
-        one: Edisi
         other: Edisi
       edition_with_appointment:
-        one: Edisi dengan penunjukan
         other: Edisi dengan penunjukan
       equality_and_diversity:
-        one: Kesetaraan dan keberagaman
         other: Kesetaraan dan keberagaman
       fatality_notice:
-        one: Pemberitahuan fatalitas
         other: Pemberitahuan fatalitas
       foi_release:
-        one: Rilis FOI
         other: Rilis FOI
       form:
-        one: Formulir
         other: Formulir
       generic_edition:
-        one: Edisi generik
         other: Edisi generik
       government_response:
-        one: Respons pemerintah
         other: Respons pemerintah
       guidance:
-        one: Panduan
         other: Panduan
       impact_assessment:
-        one: Penilaian dampak
         other: Penilaian dampak
       imported:
-        one: diimpor- menunggu jenis
         other: diimpor- menunggu jenis
       independent_report:
-        one: Laporan independen
         other: Laporan independen
       international_treaty:
-        one: Pakta internasional
         other: Pakta internasional
       manual:
-        one: Manual
         other: Manual
       map:
-        one: Peta
         other: Peta
       media_enquiries:
-        one: Pertanyaan media
         other: Pertanyaan media
       membership:
-        one: Keanggotaan
         other: Keanggotaan
       modern_slavery_statement:
-        one:
         other:
       national_statistics:
-        one: Statistik Nasional
         other: Statistik Nasional
       news_article:
-        one: Artikel berita
         other: Artikel berita
       news_story:
-        one: Cerita berita
         other: Cerita berita
       nhs_content:
-        one: Konten Layanan Kesehatan Nasional
         other: Konten Layanan Kesehatan Nasional
       notice:
-        one: Pemberitahuan
         other: Pemberitahuan
       official_statistics:
-        one: Statistik Resmi
         other: Statistik Resmi
       open_consultation:
-        one: Konsultasi terbuka
         other: Konsultasi terbuka
       oral_statement:
-        one: Pernyataan lisan kepada Parlemen
         other: Pernyataan lisan kepada Parlemen
       our_energy_use:
-        one: Penggunaan energi kami
         other: Penggunaan energi kami
       our_governance:
-        one: Tata kelola kami
         other: Tata kelola kami
       personal_information_charter:
-        one: Pakta informasi pribadi
         other: Pakta informasi pribadi
       petitions_and_campaigns:
-        one: Petisi dan kampanye
         other: Petisi dan kampanye
       policy_paper:
-        one: Kertas kebijakan
         other: Kertas kebijakan
       press_release:
-        one: Siaran pers
         other: Siaran pers
       procurement:
-        one: Pengadaan
         other: Pengadaan
       promotional:
-        one: Bahan promosi
         other: Bahan promosi
       publication:
-        one: Publikasi
         other: Publikasi
       publication_scheme:
-        one: Skema publikasi
         other: Skema publikasi
       recruitment:
-        one: Perekrutan
         other: Perekrutan
       regulation:
-        one: Regulasi
         other: Regulasi
       research:
-        one: Riset
         other: Riset
       service:
-        one: Layanan
         other: Layanan
       social_media_use:
-        one: Penggunaan media sosial
         other: Penggunaan media sosial
       speaking_notes:
-        one: Catatan bicara
         other: Catatan bicara
       speech:
-        one: Pidato
         other: Pidato
       staff_update:
-        one: Pembaruan staf
         other: Pembaruan staf
       standard:
-        one: Standar
         other: Standar
       statement_to_parliament:
-        one: Pernyataan kepada Parlemen
         other: Pernyataan kepada Parlemen
       statistical_data_set:
-        one: Set data statistik
         other: Set data statistik
       statistics:
-        one: Statistik
         other: Statistik
       statutory_guidance:
-        one: Panduan perundang-undangan
         other: Panduan perundang-undangan
       terms_of_reference:
-        one: Syarat referensi
         other: Syarat referensi
       transcript:
-        one: Transkrip
         other: Transkrip
       transparency:
-        one: Data transparansi
         other: Data transparansi
       welsh_language_scheme:
-        one: Skema bahasa Wales
         other: Skema bahasa Wales
       world_news_story:
-        one: Cerita berita dunia
         other: Cerita berita dunia
       written_statement:
-        one: Pernyataan tertulis kepada Parlemen
         other: Pernyataan tertulis kepada Parlemen
     updated: diperbarui
   document_filters:
@@ -575,10 +499,8 @@ id:
       statistics: Statistik kami
     type:
       international_delegation:
-        one: Delegasi internasional
         other: Delegasi internasional
       world_location:
-        one: Lokasi dunia
         other: Lokasi dunia
   world_news:
     uk_updates_in_country: Pembaruan, berita, dan peristiwa dalam pemerintahan Inggris Raya di %{country}
