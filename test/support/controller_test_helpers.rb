@@ -24,6 +24,17 @@ module ControllerTestHelpers
         end
       end
     end
+
+    def should_require_coronavirus_travel_permission_to_access(edition_type, *actions)
+      test "requires the ability to edit coronavirus travel to access" do
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        login_as :writer
+        actions.each do |action|
+          get action, params: { id: edition.id }
+          assert_response 403
+        end
+      end
+    end
   end
 
   def govspeak_transformation_fixture(transformation)

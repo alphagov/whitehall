@@ -18,6 +18,10 @@ class Admin::BaseController < ApplicationController
     forbidden! unless current_user.can_handle_fatalities?
   end
 
+  def require_coronavirus_travel_editor_permission!
+    forbidden! unless current_user.coronavirus_travel_editor?
+  end
+
   def require_import_permission!
     authorise_user!(User::Permissions::IMPORT)
   end

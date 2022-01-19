@@ -25,6 +25,7 @@ class User < ApplicationRecord
     FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
     GDS_ADMIN = "GDS Admin".freeze
     EXPORT_DATA = "Export data".freeze
+    CORONAVIRUS_TRAVEL_EDITOR = "Coronavirus Travel Editor".freeze
   end
 
   def role
@@ -100,6 +101,10 @@ class User < ApplicationRecord
 
   def can_handle_fatalities?
     gds_editor? || (organisation && organisation.handles_fatalities?)
+  end
+
+  def coronavirus_travel_editor?
+    has_permission?(Permissions::CORONAVIRUS_TRAVEL_EDITOR)
   end
 
   def fuzzy_last_name

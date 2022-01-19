@@ -1,4 +1,5 @@
 class Admin::WorldLocationCoronavirusTravelController < Admin::BaseController
+  before_action :require_coronavirus_travel_editor_permission!
   before_action :load_world_location
 
   def edit
