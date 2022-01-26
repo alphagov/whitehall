@@ -49,3 +49,10 @@ if WorldLocation.where(name: "Test World Location").blank?
     world_location_type_id: 1,
   )
 end
+
+if WorldLocation.where(name: "Test International Delegation").blank?
+  WorldLocation.create!(
+    name: "Test International Delegation",
+    world_location_type_id: 3,
+  )
+end
