@@ -8,6 +8,8 @@
         title: sanitize("Help and services around the&nbsp;world")
       } %>
 
+      <p class="govuk-body">Find out what is help is available from the UK government if you're abroad.</p>
+
       <form class="js-filter-form">
         <%= render "govuk_publishing_components/components/input", {
           label: {
@@ -56,6 +58,9 @@
       </div>
     </section>
   <% end %>
+
+  <p class="govuk-body">See the complete <a href="/government/publications/list-of-foreign-office-posts">list of overseas Foreign, Commonwealth & Development Office posts</a>. This includes all embassies, high commissions and consulates.</p>
+
   <div class="js-filter-no-results">
     <p class="govuk-body"><%= t("document_filters.world_locations.no_locations_filter") %></p>
   </div>
