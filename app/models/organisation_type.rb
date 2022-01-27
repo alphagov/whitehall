@@ -1,20 +1,21 @@
 class OrganisationType
   DATA = {
-    executive_office: { name: "Executive office", analytics_prefix: "EO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
-    ministerial_department: { name: "Ministerial department", analytics_prefix: "D", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-    non_ministerial_department: { name: "Non-ministerial department", analytics_prefix: "D", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-    executive_agency: { name: "Executive agency",                       analytics_prefix: "EA", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
-    executive_ndpb: { name: "Executive non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
-    advisory_ndpb: { name: "Advisory non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
-    tribunal: { name: "Tribunal", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
-    public_corporation: { name: "Public corporation", analytics_prefix: "PC", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-    independent_monitoring_body: { name: "Independent monitoring body", analytics_prefix: "IM", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
     adhoc_advisory_group: { name: "Ad-hoc advisory group", analytics_prefix: "AG", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
-    devolved_administration: { name: "Devolved administration", analytics_prefix: "DA", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-    sub_organisation: { name: "Sub-organisation", analytics_prefix: "OT", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-    other: { name: "Other", analytics_prefix: "OT", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
+    advisory_ndpb: { name: "Advisory non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
     civil_service: { name: "Civil Service", analytics_prefix: "CS", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
     court: { name: "Court", analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    devolved_administration: { name: "Devolved administration", analytics_prefix: "DA", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    executive_agency: { name: "Executive agency", analytics_prefix: "EA", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
+    executive_ndpb: { name: "Executive non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
+    executive_office: { name: "Executive office", analytics_prefix: "EO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
+    independent_monitoring_body: { name: "Independent monitoring body", analytics_prefix: "IM", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
+    ministerial_department: { name: "Ministerial department", analytics_prefix: "D", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    non_ministerial_department: { name: "Non-ministerial department", analytics_prefix: "D", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    other: { name: "Other", analytics_prefix: "OT", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
+    public_corporation: { name: "Public corporation", analytics_prefix: "PC", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    special_health_authority: { name: "Special health authority", analytics_prefix: "SHA", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
+    sub_organisation: { name: "Sub-organisation", analytics_prefix: "OT", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    tribunal: { name: "Tribunal", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
   }.freeze
 
   LISTING_ORDER = %i[
@@ -24,6 +25,7 @@ class OrganisationType
     executive_agency
     executive_ndpb
     advisory_ndpb
+    special_health_authority
     tribunal
     public_corporation
     independent_monitoring_body
@@ -120,6 +122,10 @@ class OrganisationType
     get :court
   end
 
+  def self.special_health_authority
+    get :special_health_authority
+  end
+
   def self.agencies_and_public_bodies
     DATA.select { |_k, v| v[:agency_or_public_body] }
   end
@@ -202,5 +208,9 @@ class OrganisationType
 
   def court?
     key == :court
+  end
+
+  def special_health_authority?
+    key == :special_health_authority
   end
 end

@@ -102,7 +102,7 @@ module OrganisationHelper
                       "#{name} is #{relationship}."
                     when "sub-organisation"
                       "#{name} is part of #{parents.to_sentence}."
-                    when "executive non-departmental public body", "advisory non-departmental public body", "tribunal non-departmental public body", "executive agency"
+                    when "executive non-departmental public body", "advisory non-departmental public body", "tribunal non-departmental public body", "executive agency", "special health authority"
                       "#{name} is #{relationship}, sponsored by #{parents.to_sentence}."
                     else
                       "#{name} is #{relationship} of #{parents.to_sentence}."
