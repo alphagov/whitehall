@@ -308,7 +308,7 @@ GEM
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    i18n (1.9.0)
+    i18n (1.9.1)
       concurrent-ruby (~> 1.0)
     i18n-coverage (0.2.0)
     i18n-tasks (0.9.37)
