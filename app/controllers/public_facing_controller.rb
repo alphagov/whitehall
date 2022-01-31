@@ -60,6 +60,8 @@ private
   end
 
   def set_cache_control_headers
+    # TODO: Should honour Cache-Control max-age directive provided by
+    # Content Store, as stated in GOV.UK RFC 144.
     expires_in Whitehall.default_cache_max_age, public: true
   end
 
