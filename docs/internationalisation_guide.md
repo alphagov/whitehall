@@ -1,22 +1,19 @@
 # Internationalisation guide
 
-This is mostly standard [Rails i18n](http://guides.rubyonrails.org/i18n.html) - Translations are stored in `config/locales/`, with a `.yml` file per locale.
+This is mostly standard [Rails i18n](http://guides.rubyonrails.org/i18n.html):
 
-If translation value is missing from a locale file then the EN value will be used instead.
+- Translations are stored in `config/locales/`, with a `.yml` file per locale.
+- If translation value is missing from a locale file then the EN value will be used instead.
 
 ## Changing an existing translation key
 
-Edit the value of EN locale, you should then _manually_ edit all other locales to set the altered translated value to be blank.
+1. Edit the value of the EN locale
+1. You then need to set the non-EN locale values to be blank. You can do this manually or follow the [rails_translation_manager documentation](https://github.com/alphagov/rails_translation_manager#i18n-tasks)
 
 ## Adding a new translation key
 
-_Manually_ create the key in `en.yml`, with the english text.
-
-Run a task to add that key to all other language files:
-
-```
-bundle exec rake translation:regenerate
-```
+1. Manually create the key in `en.yml`, with the english text.
+1. Then run `rake translation:add_missing` (see [rails_translation_manager documentation](https://github.com/alphagov/rails_translation_manager#rake-command-reference))
 
 ### Pluralised translations
 
