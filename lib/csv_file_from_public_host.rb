@@ -16,7 +16,7 @@ class CsvFileFromPublicHost
       connection.basic_auth(basic_auth_user, basic_auth_password)
     end
 
-    connection.get(path) do |req|
+    connection.get(Addressable::URI.escape(path)) do |req|
       req.headers["Range"] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
     end
   end
