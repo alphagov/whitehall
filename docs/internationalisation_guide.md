@@ -26,10 +26,7 @@ the correct pluralisation keys for the different locales.
 
 ## Updating the locales files
 
-There are rake tasks to export and import a CSV file of translations and keys
-(provided by the [`rails_translation_manager`](https://github.com/alphagov/rails_translation_manager)
+There are rake tasks to export and import a CSV file of translations and keys (provided by the [`rails_translation_manager`](https://github.com/alphagov/rails_translation_manager)
 gem. These CSV files are exported, edited and then imported back as `.yml` files.
 
-There's no timeline for how frequently this is done, so you can expect many translation values to be missing in non EN locales.
-
-
+Translations were last [updated in bulk in November 2021](https://github.com/alphagov/whitehall/pull/6369). Over time, you can expect more and more translation values to be missing from non-EN locales when performing this update.
