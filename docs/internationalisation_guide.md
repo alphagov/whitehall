@@ -17,12 +17,11 @@ This is mostly standard [Rails i18n](http://guides.rubyonrails.org/i18n.html):
 
 ### Pluralised translations
 
-For terms that are translatable in both singular and plural forms (e.g. document.type.publication), include "one" and "other"
-keys for the singular and plural translation of the term.
+For terms that are translatable in both singular and plural forms (e.g. [`document.type.publication`](https://github.com/alphagov/whitehall/blob/bd1dcd37fbf2c91a10c7927d1d46b3df75cdca2d/config/locales/en.yml#L294-L296)), include "one" and "other" keys for the singular and plural translation of the term.
 
-Note: pluralised translation terms should only ever contain these two plural form keys in en.yml, otherwise the code that
-regenerates the other translation locale files will not recognise them as being plural translations and will not generate
-the correct pluralisation keys for the different locales.
+Note that other languages have different pluralisation rules (such as "few" and "many") but these other plural forms should be [left blank](https://github.com/alphagov/whitehall/blob/02666684c7869cc8b633f6382be0ebe6ee22e3b0/config/locales/pl.yml#L401-L405)).
+
+Note: pluralised translation terms should only ever contain these two plural form keys in `en.yml`, otherwise the code that regenerates the other translation locale files will not recognise them as being plural translations and will not generate the correct pluralisation keys for the different locales.
 
 ## Updating the locales files
 
