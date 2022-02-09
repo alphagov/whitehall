@@ -114,11 +114,21 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     assert_nil CsvFileFromPublicHost.csv_preview_from(response)
   end
 
-  test "#csv_response uses basic authentication if set in the environment" do
+  test ".csv_response uses basic authentication if set in the environment" do
     stub_csv_request.with(basic_auth: %w[user password])
     env = { "BASIC_AUTH_CREDENTIALS" => "user:password" }
 
     response = CsvFileFromPublicHost.csv_response("some-path", env: env)
+    assert_equal 206, response.status
+  end
+
+  test ".csv_response escapes non-ASCII characters in the path" do
+    raw_path = "uploads/path/with-špëçîål-characters.csv"
+    url_encoded_path = "uploads/path/with-%C5%A1p%C3%AB%C3%A7%C3%AE%C3%A5l-characters.csv"
+
+    stub_csv_request(path: url_encoded_path)
+
+    response = CsvFileFromPublicHost.csv_response(raw_path)
     assert_equal 206, response.status
   end
 end
