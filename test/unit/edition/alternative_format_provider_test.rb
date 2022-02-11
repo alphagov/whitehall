@@ -27,4 +27,18 @@ class Edition::AlternativeFormatProviderTest < ActiveSupport::TestCase
     edition.alternative_format_provider = build(:organisation, alternative_format_contact_email: "")
     assert_equal "govuk-feedback@digital.cabinet-office.gov.uk", edition.alternative_format_contact_email
   end
+
+  test "organisation providing publications is taking part in the accessible format request pilot" do
+    organisation_in_pilot = build(:organisation, id: 6)
+    edition = EditionWithAlternativeFormat.new
+    edition.alternative_format_provider = organisation_in_pilot
+    assert_equal true, edition.organisation_in_accessible_format_request_pilot?
+  end
+
+  test "organisation providing publications is not taking part in the accessible format request pilot" do
+    organisation_not_in_pilot = build(:organisation, id: 1)
+    edition = EditionWithAlternativeFormat.new
+    edition.alternative_format_provider = organisation_not_in_pilot
+    assert_equal false, edition.organisation_in_accessible_format_request_pilot?
+  end
 end

@@ -56,6 +56,12 @@ private
     nil
   end
 
+  def organisation_in_accessible_format_request_pilot?
+    attachable.organisation_in_accessible_format_request_pilot?
+  rescue NoMethodError
+    nil
+  end
+
   def preview_url
     if csv? && attachable.is_a?(Edition)
       Whitehall.url_maker.csv_preview_url(

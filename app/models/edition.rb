@@ -604,6 +604,10 @@ EXISTS (
     nil
   end
 
+  def organisation_in_accessible_format_request_pilot?
+    nil
+  end
+
   def valid_as_draft?
     errors_as_draft.empty?
   end

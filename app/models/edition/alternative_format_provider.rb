@@ -1,6 +1,10 @@
 module Edition::AlternativeFormatProvider
   extend ActiveSupport::Concern
 
+  # The following departments are taking place in a pilot scheme to use the accessible format
+  # request form. DFE(6), DWP(10), DHSC(12), HMRC(25), DVSA(570), UKHSA(1328)
+  ACCESSIBLE_FORMAT_REQUEST_PILOT_ORGANISATION_IDS = [6, 10, 12, 25, 570, 1328].freeze
+
   included do
     belongs_to :alternative_format_provider, class_name: Organisation.name # rubocop:disable Rails/ReflectionClassName
 
@@ -22,6 +26,10 @@ module Edition::AlternativeFormatProvider
 
   def default_alternative_format_contact_email
     "govuk-feedback@digital.cabinet-office.gov.uk"
+  end
+
+  def organisation_in_accessible_format_request_pilot?
+    ACCESSIBLE_FORMAT_REQUEST_PILOT_ORGANISATION_IDS.include?(alternative_format_provider&.id)
   end
 
 private

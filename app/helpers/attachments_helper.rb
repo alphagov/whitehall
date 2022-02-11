@@ -14,6 +14,7 @@ module AttachmentsHelper
   end
 
   def block_attachments(attachments = [],
+                        organisation_in_accessible_format_request_pilot = nil,
                         alternative_format_contact_email = nil,
                         published_on = nil)
     attachments.collect do |attachment|
@@ -22,6 +23,7 @@ module AttachmentsHelper
         formats: :html,
         object: attachment,
         locals: {
+          organisation_in_accessible_format_request_pilot?: organisation_in_accessible_format_request_pilot,
           alternative_format_contact_email: alternative_format_contact_email,
           published_on: published_on,
         },

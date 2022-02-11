@@ -91,6 +91,7 @@ module PublishingApi
 
       Whitehall::GovspeakRenderer.new.block_attachments(
         attachments_for_current_locale,
+        organisation_in_accessible_format_request?,
         alternative_format_email,
       )
     end
@@ -114,6 +115,10 @@ module PublishingApi
 
     def alternative_format_email
       item.alternative_format_provider.try(:alternative_format_contact_email)
+    end
+
+    def organisation_in_accessible_format_request?
+      item.alternative_format_provider.try(:organisation_in_accessible_format_request_pilot?)
     end
   end
 end
