@@ -118,7 +118,7 @@ module PublishingApi
     end
 
     def organisation_in_accessible_format_request?
-      item.alternative_format_provider.try(:organisation_in_accessible_format_request_pilot?)
+      item.alternative_format_provider.try(:organisation_in_accessible_format_request_pilot)
     end
   end
 end

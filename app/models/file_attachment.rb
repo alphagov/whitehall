@@ -56,8 +56,8 @@ private
     nil
   end
 
-  def organisation_in_accessible_format_request_pilot?
-    attachable.organisation_in_accessible_format_request_pilot?
+  def organisation_in_accessible_format_request_pilot
+    attachable.organisation_in_accessible_format_request_pilot
   rescue NoMethodError
     nil
   end

@@ -246,7 +246,7 @@ private
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], organisation_in_accessible_format_request_pilot = nil, alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
-        "\n\n#{render(partial: 'documents/attachment', formats: :html, object: attachment, locals: { organisation_in_accessible_format_request_pilot?: organisation_in_accessible_format_request_pilot, alternative_format_contact_email: alternative_format_contact_email })}\n\n"
+        "\n\n#{render(partial: 'documents/attachment', formats: :html, object: attachment, locals: { organisation_in_accessible_format_request_pilot: organisation_in_accessible_format_request_pilot, alternative_format_contact_email: alternative_format_contact_email })}\n\n"
       else
         "\n\n"
       end
@@ -262,7 +262,7 @@ private
 
   def edition_body_with_attachments_and_alt_format_information(edition)
     attachments = edition.allows_attachments? ? edition.attachments : []
-    govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.organisation_in_accessible_format_request_pilot?, edition.alternative_format_contact_email)
+    govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.organisation_in_accessible_format_request_pilot, edition.alternative_format_contact_email)
   end
 
   def build_govspeak_document(govspeak, images = [], allowed_elements = [])

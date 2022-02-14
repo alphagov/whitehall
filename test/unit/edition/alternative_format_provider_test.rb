@@ -32,13 +32,13 @@ class Edition::AlternativeFormatProviderTest < ActiveSupport::TestCase
     organisation_in_pilot = build(:organisation, id: 6)
     edition = EditionWithAlternativeFormat.new
     edition.alternative_format_provider = organisation_in_pilot
-    assert_equal true, edition.organisation_in_accessible_format_request_pilot?
+    assert_equal true, edition.organisation_in_accessible_format_request_pilot
   end
 
   test "organisation providing publications is not taking part in the accessible format request pilot" do
     organisation_not_in_pilot = build(:organisation, id: 1)
     edition = EditionWithAlternativeFormat.new
     edition.alternative_format_provider = organisation_not_in_pilot
-    assert_equal false, edition.organisation_in_accessible_format_request_pilot?
+    assert_equal false, edition.organisation_in_accessible_format_request_pilot
   end
 end

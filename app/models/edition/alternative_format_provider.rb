@@ -28,7 +28,7 @@ module Edition::AlternativeFormatProvider
     "govuk-feedback@digital.cabinet-office.gov.uk"
   end
 
-  def organisation_in_accessible_format_request_pilot?
+  def organisation_in_accessible_format_request_pilot
     ACCESSIBLE_FORMAT_REQUEST_PILOT_ORGANISATION_IDS.include?(alternative_format_provider&.id)
   end
 

@@ -360,7 +360,7 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.public_feedback.attachments,
-          consultation.public_feedback.organisation_in_accessible_format_request_pilot?,
+          consultation.public_feedback.organisation_in_accessible_format_request_pilot,
           consultation.public_feedback.alternative_format_contact_email,
           consultation.public_feedback.published_on,
         )
@@ -430,7 +430,7 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.outcome.attachments,
-          consultation.outcome.organisation_in_accessible_format_request_pilot?,
+          consultation.outcome.organisation_in_accessible_format_request_pilot,
           consultation.outcome.alternative_format_contact_email,
         )
         .returns([attachments_double])
@@ -476,7 +476,7 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.attachments,
-          consultation.organisation_in_accessible_format_request_pilot?,
+          consultation.organisation_in_accessible_format_request_pilot,
           consultation.alternative_format_contact_email,
         )
         .returns([attachments_double])

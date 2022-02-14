@@ -23,7 +23,7 @@ module AttachmentsHelper
         formats: :html,
         object: attachment,
         locals: {
-          organisation_in_accessible_format_request_pilot?: organisation_in_accessible_format_request_pilot,
+          organisation_in_accessible_format_request_pilot: organisation_in_accessible_format_request_pilot,
           alternative_format_contact_email: alternative_format_contact_email,
           published_on: published_on,
         },
