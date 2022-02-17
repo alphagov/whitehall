@@ -639,6 +639,10 @@ lt:
       unboxed:
       war_memorials_trust: Karo memorialinis patikos fondas
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Mūsų skelbimai
       documents: Dokumentai

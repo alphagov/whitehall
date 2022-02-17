@@ -639,6 +639,10 @@ ro:
       unboxed:
       war_memorials_trust: Trustul Memorialelor de Război
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Anunțurile noastre
       documents: Documente

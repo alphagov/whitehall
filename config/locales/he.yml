@@ -564,6 +564,10 @@ he:
       unboxed:
       war_memorials_trust: אמון זיכרון המלחמה
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: ההודעות שלנו
       documents: מסמכים

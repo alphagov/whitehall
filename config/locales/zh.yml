@@ -487,6 +487,10 @@ zh:
       unboxed:
       war_memorials_trust: 战争纪念碑馆
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: 我们的公告
       documents: 文件

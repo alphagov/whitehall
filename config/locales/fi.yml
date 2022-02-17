@@ -564,6 +564,10 @@ fi:
       unboxed:
       war_memorials_trust: Sotamuistomerkit Trust
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Ilmoituksemme
       documents: Asiakirjat

@@ -563,6 +563,10 @@ uz:
       unboxed:
       war_memorials_trust: Ҳарбий мемориаллар трести
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Бизнинг эълонлар
       documents: Ҳужжатлар

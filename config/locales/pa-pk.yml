@@ -563,6 +563,10 @@ pa-pk:
       unboxed:
       war_memorials_trust: وار میموریل ٹرسٹ
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: ساڈے اعلانات
       documents: دستاویزات تک پہنچ دی حکمت عملی

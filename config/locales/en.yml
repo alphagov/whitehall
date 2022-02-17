@@ -574,6 +574,10 @@ en:
       publications: Our publications
       search: Search by country or territory
       statistics: Our statistics
+    content:
+      find_out: Find out what is help is available from the UK government if you're abroad.
+      complete_list: See the complete %{href}. This includes all embassies, high commissions and consulates.
+      list_link: list of overseas Foreign, Commonwealth & Development Office posts
     type:
       international_delegation:
         one: International delegation

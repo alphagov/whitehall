@@ -563,6 +563,10 @@ tk:
       unboxed:
       war_memorials_trust: Uruş ýadygärlikleri ynamy
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Biziň bildirişlerimiz
       documents: Resminamalar

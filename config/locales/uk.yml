@@ -715,6 +715,10 @@ uk:
       unboxed:
       war_memorials_trust: Траст пам'ятників жертвам війни
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Наші оголошення
       documents: Документи

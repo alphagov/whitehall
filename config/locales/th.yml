@@ -487,6 +487,10 @@ th:
       unboxed:
       war_memorials_trust: ทรัสต์อนุสรณ์สถานสงคราม
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: ประกาศของเรา
       documents: เอกสาร

@@ -563,6 +563,10 @@ ne:
       unboxed:
       war_memorials_trust: युद्ध स्मारक ट्रस्ट
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: हाम्रा घोषणाहरु
       documents: कागजातहरु

@@ -564,6 +564,10 @@ es-419:
       unboxed:
       war_memorials_trust: Fondo de Monumentos de Guerra
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Nuestros comunicados
       documents: Documentos

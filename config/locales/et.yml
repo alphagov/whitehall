@@ -563,6 +563,10 @@ et:
       unboxed:
       war_memorials_trust: Sõjamälestiste volikogu
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Meie teadaanded
       documents: Dokumendid
