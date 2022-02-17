@@ -563,6 +563,10 @@ si:
       unboxed:
       war_memorials_trust: යුද අනුස්මරණ භාරය
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: අපේ නිවේදන
       documents: ලේඛන

@@ -564,6 +564,10 @@ az:
       unboxed:
       war_memorials_trust: Müharibədə həlak olanların xatirəsini qoruma tresti
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Elanlarımız
       documents: Sənədlər

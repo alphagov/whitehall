@@ -564,6 +564,10 @@ fr:
       unboxed:
       war_memorials_trust: Fiducie des monuments commémoratifs de guerre
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Nos annonces
       documents: Documents

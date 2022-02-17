@@ -564,6 +564,10 @@ it:
       unboxed:
       war_memorials_trust: Fiducia dei memoriali di guerra
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: I nostri annunci
       documents: Documenti

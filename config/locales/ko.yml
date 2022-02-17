@@ -487,6 +487,10 @@ ko:
       unboxed:
       war_memorials_trust: 전쟁기념관 신탁
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: 공지사항
       documents: 자료

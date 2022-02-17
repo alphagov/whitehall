@@ -563,6 +563,10 @@ ta:
       unboxed:
       war_memorials_trust: போர் நினைவுச்சின்ன அறக்கட்டளை
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: எங்கள் அறிவிப்புகள்
       documents: ஆவணங்கள்

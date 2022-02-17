@@ -716,6 +716,10 @@ hr:
       unboxed:
       war_memorials_trust: Zaklada za ratne spomenice
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Naše obavijesti
       documents: Dokumenti

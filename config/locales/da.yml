@@ -564,6 +564,10 @@ da:
       unboxed:
       war_memorials_trust: Krigsmindesmærker stoler på
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Vores meddelelser
       documents: Dokumenter

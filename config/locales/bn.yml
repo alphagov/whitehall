@@ -563,6 +563,10 @@ bn:
       unboxed:
       war_memorials_trust: ইম্পেরিয়াল ওয়ার মিউজিয়াম
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: আমাদের ঘোষণাসমূহ
       documents: নথিপত্র

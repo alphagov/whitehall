@@ -865,6 +865,10 @@ ar:
       unboxed:
       war_memorials_trust: صندوق النصب التذكاري للحرب
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: إعلاناتنا
       documents: المستندات

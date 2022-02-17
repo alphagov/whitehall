@@ -561,6 +561,10 @@ es:
       unboxed:
       war_memorials_trust: War Memorials Trust
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Nuestros anuncios
       documents: Documentos

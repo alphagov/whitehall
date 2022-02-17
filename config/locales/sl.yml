@@ -716,6 +716,10 @@ sl:
       unboxed:
       war_memorials_trust: War Memorials Trust (Sklad vojnega spomina)
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Naši razglasi
       documents: Dokumenti

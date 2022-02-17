@@ -563,6 +563,10 @@ fa:
       unboxed:
       war_memorials_trust: بنیاد یادبودهای جنگ
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: اطلاعیه‌های ما
       documents: اسناد

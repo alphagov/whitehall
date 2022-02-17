@@ -716,6 +716,10 @@ sr:
       unboxed:
       war_memorials_trust: Ratni memorijalni fond
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Naša saopštenja
       documents: Dokumenti

@@ -563,6 +563,10 @@ el:
       unboxed:
       war_memorials_trust: Ταμείο War Trust Memorials Trust
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: Οι ανακοινώσεις μας
       documents: Έγγραφα

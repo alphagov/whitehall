@@ -487,6 +487,10 @@ ja:
       unboxed:
       war_memorials_trust: 戦争記念トラスト
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: お知らせ
       documents: ドキュメント

@@ -564,6 +564,10 @@ hi:
       unboxed:
       war_memorials_trust: वार मेमोरियल ट्रस्ट
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: हमारी घोषणाएं
       documents: दस्तावेज़

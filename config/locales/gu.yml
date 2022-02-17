@@ -563,6 +563,10 @@ gu:
       unboxed:
       war_memorials_trust: વોર મેમોરિયલ્સ ટ્રસ્ટ
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: અમારી જાહેરાતો
       documents: દસ્તાવેજો

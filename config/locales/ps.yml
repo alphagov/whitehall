@@ -564,6 +564,10 @@ ps:
       unboxed:
       war_memorials_trust: د جنګ یادګار باور
   world_location:
+    content:
+      complete_list:
+      find_out:
+      list_link:
     headings:
       announcements: زموږ اعلانونه
       documents: اسناد
