@@ -24,7 +24,6 @@ module Whitehall
     require "whitehall"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.autoloader = :classic
 
     # Turn off `belongs_to` associations by default. This is turned on by default in Rails 5.0.
     config.active_record.belongs_to_required_by_default = false
