@@ -26,9 +26,9 @@
       <dt>Release date:</dt>
       <dd>
         <% if @statistics_announcement.cancelled? %>
-          <del><%= @statistics_announcement.release_date.to_s(:date_with_time) %></del> (Cancelled)
+          <del><%= @statistics_announcement.release_date.to_fs(:date_with_time) %></del> (Cancelled)
         <% else %>
-          <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
+          <%= @statistics_announcement.release_date.to_fs(:date_with_time) %>
         <% end %>
         –
         <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement) %>

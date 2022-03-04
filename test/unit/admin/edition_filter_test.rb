@@ -187,7 +187,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     _older_news_article = create(:draft_news_article, updated_at: 3.days.ago)
     newer_news_article = create(:draft_news_article, updated_at: 1.minute.ago)
 
-    assert_equal [newer_news_article], Admin::EditionFilter.new(Edition, @current_user, from_date: 2.days.ago.to_date.to_s(:short)).editions
+    assert_equal [newer_news_article], Admin::EditionFilter.new(Edition, @current_user, from_date: 2.days.ago.to_date.to_fs(:short)).editions
   end
 
   test "can filter by classifications" do
