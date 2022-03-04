@@ -11,7 +11,7 @@
         <div class="summary">
           <h3><%= @response.friendly_name.capitalize %> summary</h3>
           <%= govspeak_to_html @response.summary %>
-          <p>Published on <%= @response.published_on.to_s(:long_ordinal) %></p>
+          <p>Published on <%= @response.published_on.to_fs(:long_ordinal) %></p>
         </div>
 
         <ul class="actions">
