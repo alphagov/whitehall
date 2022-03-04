@@ -48,7 +48,7 @@
       <% if @csv_preview %>
         <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
         <div class="csv-preview">
-          <div class="csv-preview__inner" tabindex="0">
+          <div class="csv-preview__inner">
             <%= render "govuk_publishing_components/components/table", {
               head: @csv_preview.headings.map do |heading|
                 {
