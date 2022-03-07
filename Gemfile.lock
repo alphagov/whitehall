@@ -321,7 +321,7 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
-    image_processing (1.12.1)
+    image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     invalid_utf8_rejector (0.0.4)
@@ -604,7 +604,7 @@ GEM
       rexml
     ruby-progressbar (1.10.1)
     ruby-rc4 (0.1.5)
-    ruby-vips (2.1.2)
+    ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.0)
