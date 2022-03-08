@@ -87,11 +87,12 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
-    brakeman (5.0.4)
+    brakeman (5.2.1)
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.35.3)
+    capybara (3.36.0)
       addressable
+      matrix
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
@@ -107,7 +108,7 @@ GEM
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
     carrierwave-i18n (0.2.0)
-    childprocess (3.0.0)
+    childprocess (4.1.0)
     chronic (0.10.2)
     ci_reporter (2.0.0)
       builder (>= 2.1.2)
@@ -289,12 +290,11 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (>= 2.1)
-    govuk_test (2.3.0)
+    govuk_test (3.0.0)
       brakeman (>= 5.0.2)
       capybara
       puma
       selenium-webdriver (>= 3.142)
-      webdrivers (>= 4)
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
@@ -375,6 +375,7 @@ GEM
       notifications-ruby-client (~> 5.1)
       rack (>= 2.1.4)
     marcel (1.0.2)
+    matrix (0.4.2)
     maxitest (3.6.0)
       minitest (>= 5.0.0, < 5.14.0)
     mechanize (2.7.7)
@@ -551,7 +552,7 @@ GEM
     redis (4.5.1)
     redis-namespace (1.8.0)
       redis (>= 3.0.4)
-    regexp_parser (2.2.0)
+    regexp_parser (2.2.1)
     request_store (1.5.1)
       rack (>= 1.4)
     responders (3.0.1)
@@ -625,8 +626,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
+    selenium-webdriver (4.1.0)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     sentry-rails (4.5.2)
       railties (>= 5.0)
@@ -719,10 +721,6 @@ GEM
       rack (>= 2.0.9)
     warden-oauth2 (0.0.1)
       warden
-    webdrivers (4.6.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (>= 3.0, < 4.0)
     webmock (3.8.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
