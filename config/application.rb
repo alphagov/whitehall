@@ -23,7 +23,13 @@ module Whitehall
 
     require "whitehall"
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
+
+    # Disable redirect protection. This is turned on by default in Rails 7.0.
+    config.action_controller.raise_on_open_redirects = false
+
+    # Disable rails 7.0+ button_to behaviour
+    config.action_view.button_to_generates_button_tag = false
 
     # Turn off `belongs_to` associations by default. This is turned on by default in Rails 5.0.
     config.active_record.belongs_to_required_by_default = false
