@@ -166,6 +166,14 @@ class CorporateInformationPage < Edition
     false
   end
 
+  def alternative_format_provider
+    owning_organisation
+  end
+
+  def alternative_format_provider_required?
+    attachments.any? { |a| a.is_a?(FileAttachment) }
+  end
+
 private
 
   def string_for_slug
