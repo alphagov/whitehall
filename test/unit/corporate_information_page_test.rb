@@ -143,10 +143,36 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal email, corporate_information_page.alternative_format_contact_email
   end
 
+  test "#alternative_format_provider should be the owning organisaiton" do
+    corporate_information_page = build(:corporate_information_page)
+
+    assert_equal corporate_information_page.alternative_format_provider, corporate_information_page.owning_organisation
+  end
+
   test "should support attachments" do
     organisation = build(:organisation_with_alternative_format_contact_email)
     corporate_information_page = build(:corporate_information_page, organisation: organisation)
     corporate_information_page.attachments << build(:file_attachment)
+  end
+
+  test "#alternative_format_provider_required? should be true if an attachment is a file attachment" do
+    corporate_information_page = build(:corporate_information_page)
+    corporate_information_page.attachments << build(:file_attachment)
+
+    assert corporate_information_page.alternative_format_provider_required?
+  end
+
+  test "#alternative_format_provider_required? should be false if there are no file attachments" do
+    corporate_information_page = build(:corporate_information_page)
+    corporate_information_page.attachments << build(:html_attachment)
+
+    assert_not corporate_information_page.alternative_format_provider_required?
+  end
+
+  test "#alternative_format_provider_required? should be false if there are no attachments" do
+    corporate_information_page = build(:corporate_information_page)
+
+    assert_not corporate_information_page.alternative_format_provider_required?
   end
 
   test "should be able to get corporate information pages for a particular menu" do
