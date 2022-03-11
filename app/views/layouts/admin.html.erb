@@ -71,14 +71,16 @@
             </ul>
           </div>
         </nav>
-        <div class="container-fluid">
-          <p>
-            <span style="color: #fefefe; display: inline-block; padding: 0 1em;">
-              We've got a new look.
-            </span>
-            <%= link_to "Try it out", admin_toggle_design_system_path, class: "btn btn-primary btn-mini" %>
-          </p>
-        </div>
+        <% if current_user.has_permission?("Preview Design System") %>
+          <div class="container-fluid">
+            <p>
+              <span style="color: #fefefe; display: inline-block; padding: 0 1em;">
+                We've got a new look.
+              </span>
+              <%= link_to "Try it out", admin_toggle_design_system_path, class: "btn btn-primary btn-mini" %>
+            </p>
+          </div>
+        <% end %>
       </div>
 
       <div class="container-fluid">
