@@ -262,7 +262,7 @@ GEM
       jquery-rails (~> 4.3.1)
       plek (>= 2.1.0)
       rails (>= 3.2.0)
-    govuk_app_config (4.4.1)
+    govuk_app_config (4.4.2)
       logstasher (>= 1.2.2, < 2.2.0)
       prometheus_exporter (~> 2.0.2)
       puma (~> 5.0)
@@ -769,7 +769,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk_ab_testing
   govuk_admin_template
-  govuk_app_config (= 4.4.1)
+  govuk_app_config (= 4.4.2)
   govuk_frontend_toolkit
   govuk_publishing_components
   govuk_sidekiq
