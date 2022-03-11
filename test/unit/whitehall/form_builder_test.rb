@@ -7,13 +7,13 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   def hidden_image_cache_field(value = "")
-    %(<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' #{value} />)
+    %(<input autocomplete='off' id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' #{value} />)
   end
 
   def removal_check_box(label_text = "Check to remove image")
     '<div class="checkbox">' \
       '<label for="promotional_feature_item_remove_image">' \
-        '<input name="promotional_feature_item[remove_image]" type="hidden" value="0" />' \
+        '<input name="promotional_feature_item[remove_image]" type="hidden" value="0" autocomplete="off" />' \
         '<input id="promotional_feature_item_remove_image" name="promotional_feature_item[remove_image]" type="checkbox" value="1" />' \
         "#{label_text}" \
       "</label>" \
