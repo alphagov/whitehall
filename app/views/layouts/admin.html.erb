@@ -1,12 +1,117 @@
 <% if session[:design_system] %>
-  <h1>hi</h1>
+  <%# Copied and pasted layout_for_admin component so that we can customise script and stylesheet paths #%>
 
-  <p>
-    <span>
-      Not feeling the new look?
-    </span>
-    <%= link_to "Back to safety", admin_toggle_design_system_path %>
-  </p>
+  <%
+    environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment
+    title_prefix = yield(:browser_title).presence || yield(:title)
+    title = (title_prefix.empty? ? "" : "#{title_prefix} - ") + "GOV.UK Whitehall"
+  %>
+  <!DOCTYPE html>
+  <html lang="en" class="govuk-template">
+    <head>
+      <meta charset="utf-8" />
+      <title><%= title %></title>
+      <meta name="robots" content="noindex,nofollow,noimageindex">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <%= csrf_meta_tags %>
+      <%= favicon_link_tag "govuk_publishing_components/favicon-#{environment}.png" %>
+      <%= stylesheet_link_tag "admin/design-system" %>
+      <%= javascript_include_tag "govuk_publishing_components/vendor/modernizr" %>
+    </head>
+    <body class="gem-c-layout-for-admin govuk-template__body">
+      <script>
+        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+      </script>
+      <%= render "govuk_publishing_components/components/skip_link" %>
+
+      <%
+        navigation_items = [
+          { text: "Switch app", href: Plek.new.external_url_for("signon") },
+        ]
+
+        if current_user
+          navigation_items += [
+            { text: current_user.name, href: Plek.new.external_url_for("signon") },
+            { text: "Log out", href: gds_sign_out_path },
+          ]
+        end
+      %>
+
+      <%= render "govuk_publishing_components/components/layout_header", {
+        environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+        navigation_items: navigation_items,
+      } %>
+
+      <div class="govuk-width-container">
+        <%= render "govuk_publishing_components/components/phase_banner", {
+          app_name: "New Look",
+          phase: "alpha",
+          message: "You're trying out the new look for Whitehall. #{link_to("Switch back", admin_toggle_design_system_path, class: "govuk-link govuk-link--no-visited-state")}".html_safe
+        } %>
+
+        <div class="container-fluid">
+          <ul id="global-nav" class="masthead-tabs list-unstyled">
+            <li class="masthead-tab-item js-create-new create-new">
+              <a href="#new-document-menu" class="toggler" id="new-document-label">New document</a>
+              <%= document_creation_dropdown %>
+            </li>
+            <%= admin_documents_header_link %>
+            <%= admin_statistics_announcements_link %>
+            <%= admin_featured_header_link %>
+            <%= admin_user_organisation_header_link %>
+            <li class="js-more-nav masthead-tab-item">
+              <a href="#more-links-menu" id="more-links-label" class="toggler">More</a>
+              <ul id="more-links-menu" class="masthead-menu masthead-menu-right js-hidden unstyled" role="menu" aria-labelledby="more-links-label">
+                <%= admin_organisations_header_menu_link %>
+                <%= admin_policy_groups_header_menu_link %>
+                <%= admin_roles_header_menu_link %>
+                <%= admin_people_header_menu_link %>
+                <%= admin_topical_events_header_menu_link %>
+                <%= admin_worldwide_organisations_header_menu_link %>
+                <%= admin_world_locations_header_menu_link %>
+                <%= admin_fields_of_operation_header_menu_link %>
+                <%= admin_cabinet_ministers_header_menu_link %>
+                <%= admin_get_involved_header_menu_link %>
+                <%= admin_sitewide_settings_header_menu_link %>
+                <%= admin_governments_header_menu_link %>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <main class="govuk-main-wrapper govuk-main-wrapper--l">
+          <% if yield(:title).present? %>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+              <span class="govuk-caption-l"><%= yield(:context) %></span>
+              <h1 class="govuk-heading-l"><%= yield(:title) %></h1>
+            </div>
+            <div class="govuk-grid-column-one-third app-grid-column--align-right">
+              <%= yield(:title_side) %>
+            </div>
+          </div>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+
+      <%= render "govuk_publishing_components/components/layout_footer", {
+        navigation: [
+          {
+            title: "Support and Feedback",
+            items: [
+              {
+                href: "https://support.publishing.service.gov.uk/technical_fault_report/new",
+                text: "Raise a support request",
+                attributes: { target: "_blank" }
+              },
+            ]
+          }
+        ]
+      } %>
+
+      <%= javascript_include_tag "admin/design-system" %>
+    </body>
+  </html>
 <% else %>
   <% environment_style = GovukAdminTemplate.environment_style %>
   <% environment_label = GovukAdminTemplate.environment_label %>

@@ -1,0 +1,8 @@
+// Components from govuk_publishing_components gem
+@import 'govuk_publishing_components/govuk_frontend_support';
+@import 'govuk_publishing_components/component_support';
+
+@import 'govuk_publishing_components/components/layout-header';
+@import 'govuk_publishing_components/components/layout-for-admin';
+@import 'govuk_publishing_components/components/layout-footer';
+@import 'govuk_publishing_components/components/phase-banner';
