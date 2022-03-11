@@ -176,6 +176,8 @@ Whitehall::Application.routes.draw do
       namespace :admin do
         root to: "dashboard#index", via: :get
 
+        get "design-system/toggle" => "design_system#toggle", as: :toggle_design_system
+
         namespace "export" do
           resources :document, only: %i[show index], defaults: { format: :json } do
             member do
