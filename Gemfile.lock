@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/cucumber/cucumber-rails.git
+  revision: 5bfb4219abc50a5d1c8b2fa0a04c441bbc6e5288
+  ref: 5bfb4219abc50a5d1c8b2fa0a04c441bbc6e5288
+  specs:
+    cucumber-rails (2.5.0)
+      capybara (>= 2.18, < 4)
+      cucumber (>= 3.2, < 8)
+      mime-types (~> 3.3)
+      nokogiri (~> 1.10)
+      railties (>= 5.0, < 8)
+      rexml (~> 3.0)
+      webrick (~> 1.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -161,14 +175,6 @@ GEM
     cucumber-html-formatter (17.0.0)
       cucumber-messages (~> 17.1, >= 17.1.0)
     cucumber-messages (17.1.1)
-    cucumber-rails (2.5.0)
-      capybara (>= 2.18, < 4)
-      cucumber (>= 3.2, < 8)
-      mime-types (~> 3.3)
-      nokogiri (~> 1.10)
-      railties (>= 5.0, < 8)
-      rexml (~> 3.0)
-      webrick (~> 1.7)
     cucumber-tag-expressions (4.1.0)
     cucumber-wire (6.2.1)
       cucumber-core (~> 10.1, >= 10.1.0)
@@ -772,7 +778,7 @@ DEPENDENCIES
   ci_reporter_minitest
   coffee-rails
   cucumber
-  cucumber-rails
+  cucumber-rails!
   dalli
   database_cleaner
   equivalent-xml

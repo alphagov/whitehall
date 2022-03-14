@@ -100,7 +100,8 @@ end
 
 group :cucumber, :test do
   gem "cucumber"
-  gem "cucumber-rails", require: false
+  # using a pre-release version until https://github.com/cucumber/cucumber-rails/pull/535 makes it into a release
+  gem "cucumber-rails", require: false, git: "https://github.com/cucumber/cucumber-rails.git", ref: "5bfb4219abc50a5d1c8b2fa0a04c441bbc6e5288"
   gem "govuk_test"
   gem "launchy"
 end
