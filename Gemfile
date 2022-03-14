@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "6.1.4.6"
+gem "rails", "6.1.5"
 
 gem "activemodel-serializers-xml"
 gem "addressable"
