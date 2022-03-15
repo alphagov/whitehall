@@ -49,6 +49,10 @@ Then(/^I should see the previous prime ministers listed according the century in
   end
 end
 
+Given(/^a government exists called "(.*?)" between dates "(.*?)" and "(.*?)"$/) do |government_name, start_date, end_date|
+  FactoryBot.create(:government, name: government_name, start_date: start_date, end_date: end_date)
+end
+
 When(/^I view the most recent past prime minister$/) do
   # On page check check the most recent past prime minster
   within ".historic-appointments-index" do
