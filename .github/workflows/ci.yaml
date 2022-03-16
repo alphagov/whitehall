@@ -1,4 +1,4 @@
-name: Build and publish to ECR
+name: CI
 
 on:
   workflow_dispatch:
@@ -12,8 +12,15 @@ on:
       - ".git**"
 
 jobs:
-  build-publish-image-to-ecr:
+  build-and-publish-image:
+    name: Build and publish image
     uses: alphagov/govuk-infrastructure/.github/workflows/ci-ecr.yaml@main
     secrets:
       AWS_GOVUK_ECR_ACCESS_KEY_ID: ${{ secrets.AWS_GOVUK_ECR_ACCESS_KEY_ID }}
       AWS_GOVUK_ECR_SECRET_ACCESS_KEY: ${{ secrets.AWS_GOVUK_ECR_SECRET_ACCESS_KEY }}
+  trigger-deploy-to-integration:
+    name: Trigger deploy to integration
+    needs: build-and-publish-image
+    uses: alphagov/govuk-infrastructure/.github/workflows/deploy.yaml@main
+    secrets:
+      GOVUK_CI_GITHUB_API_TOKEN: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
