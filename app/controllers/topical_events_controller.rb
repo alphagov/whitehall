@@ -20,7 +20,7 @@ class TopicalEventsController < ClassificationsController
     @travel_advice = []
     afghanistan_travel_advice if @topical_event.slug == "afghanistan-uk-government-response"
     @detailed_guides = @topical_event.published_detailed_guides.includes(:translations, :document).limit(5)
-    @featurings = decorate_collection(@topical_event.classification_featurings.includes(:image, edition: :document).limit(5), ClassificationFeaturingPresenter)
+    @featurings = decorate_collection(@topical_event.classification_featurings.includes(:image, edition: :document), ClassificationFeaturingPresenter)
 
     set_slimmer_organisations_header(@topical_event.organisations)
     set_slimmer_page_owner_header(@topical_event.lead_organisations.first)
