@@ -27,7 +27,7 @@ private
       redirect_to redirect_url
     elsif attachment_data.replaced?
       expires_headers
-      redirect_to attachment_data.replaced_by.url, status: :moved_permanently
+      redirect_to attachment_data.replaced_by.url, status: :moved_permanently, allow_other_host: true
     elsif incoming_upload_exists?
       redirect_to_placeholder
     else
