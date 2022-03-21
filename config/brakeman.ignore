@@ -34,13 +34,13 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "0e9776bfe5aa3a08c65f6e280826474312b6d1bf9717a26c244aaabe77589ca4",
+      "fingerprint": "48c3e8d9704b6d02991051af1a5c43cf767efd8f9c3f92271775ebc4c5834f97",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/email_signups_controller.rb",
-      "line": 10,
+      "line": 11,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(email_alert_frontend_signup_with_slug(WorldLocationEmailSignup.new(feed_url).slug))",
+      "code": "redirect_to(email_alert_frontend_signup_with_slug(WorldLocationEmailSignup.new(feed_url).slug), :allow_other_host => true)",
       "render_path": null,
       "location": {
         "type": "method",
