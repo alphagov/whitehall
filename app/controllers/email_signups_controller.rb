@@ -8,7 +8,7 @@ class EmailSignupsController < PublicFacingController
       email_signup = WorldLocationEmailSignup.new(feed_url)
       return head :not_found unless email_signup.valid?
 
-      redirect_to email_alert_frontend_signup_with_slug(email_signup.slug), allow_other_host: true
+      redirect_to email_alert_frontend_signup_with_slug(email_signup.slug)
     else
       redirect_to "/"
     end

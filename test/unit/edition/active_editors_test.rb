@@ -18,7 +18,7 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
       edition.open_for_editing_as(user)
     end
     assert_equal user, edition.recent_edition_openings.first.editor
-    assert_equal Time.zone.now.to_fs(:rfc822), edition.recent_edition_openings.first.created_at.in_time_zone.to_fs(:rfc822)
+    assert_equal Time.zone.now.to_s(:rfc822), edition.recent_edition_openings.first.created_at.in_time_zone.to_s(:rfc822)
   end
 
   test "can check exclude a given editor from the list of recent edition openings" do

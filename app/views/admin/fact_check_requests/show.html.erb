@@ -19,7 +19,7 @@
       <p class="details">
         <span class="from"><%= @fact_check_request.email_address %></span>
         on
-        <span class="time"><%= @fact_check_request.updated_at.to_fs(:long_ordinal) %></span>
+        <span class="time"><%= @fact_check_request.updated_at.to_s(:long_ordinal) %></span>
       </p>
 
       <div class="comments">

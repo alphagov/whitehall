@@ -7,7 +7,7 @@ end
 After("@javascript") do
   ENV.delete("USE_SLIMMER")
 
-  errors = page.driver.browser.logs.get(:browser)
+  errors = page.driver.browser.manage.logs.get(:browser)
   if errors.present?
     errors.each do |error|
       warn "javascript: #{error.level}:"

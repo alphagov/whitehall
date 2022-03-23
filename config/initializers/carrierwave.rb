@@ -1,5 +1,5 @@
 require "whitehall/asset_manager_storage"
-require "carrier_wave/sanitized_file"
+require "whitehall/carrier_wave/sanitized_file"
 
 CarrierWave.configure do |config|
   config.storage_engines[:asset_manager] = "Whitehall::AssetManagerStorage"

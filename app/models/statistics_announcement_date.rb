@@ -13,11 +13,11 @@ class StatisticsAnnouncementDate < ApplicationRecord
   def display_date
     case precision
     when PRECISION[:exact]
-      release_date.to_fs(:date_with_time)
+      release_date.to_s(:date_with_time)
     when PRECISION[:one_month]
-      release_date.to_fs(:one_month_precision)
+      release_date.to_s(:one_month_precision)
     when PRECISION[:two_month]
-      release_date.to_fs(:two_month_precision)
+      release_date.to_s(:two_month_precision)
     end
   end
 
