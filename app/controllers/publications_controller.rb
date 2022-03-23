@@ -2,7 +2,6 @@ class PublicationsController < DocumentsController
   enable_request_formats index: %i[json atom]
   before_action :expire_cache_when_next_publication_published
   before_action :redirect_statistics_filtering, only: [:index]
-  before_action :redirect_statistics_documents, only: [:show]
   include PublicationsRoutes
 
   def index
@@ -104,12 +103,6 @@ private
         ),
         status: :moved_permanently,
       )
-    end
-  end
-
-  def redirect_statistics_documents
-    if @document.statistics?
-      redirect_to public_document_path(@document), status: :moved_permanently
     end
   end
 end
