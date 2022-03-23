@@ -1,3 +1,3 @@
 module DataHygiene
-  class HTMLAttachmentsNotFound < StandardError; end
+  class HtmlAttachmentsNotFound < StandardError; end
 end

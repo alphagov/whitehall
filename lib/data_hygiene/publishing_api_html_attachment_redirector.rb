@@ -10,7 +10,7 @@ module DataHygiene
       if document && !unpublished_or_withdrawn
         raise DataHygiene::EditionNotUnpublished
       end
-      raise DataHygiene::HTMLAttachmentsNotFound unless html_attachments.any?
+      raise DataHygiene::HtmlAttachmentsNotFound unless html_attachments.any?
       return dry_run_results if dry_run
 
       send_redirects_to_publishing_api

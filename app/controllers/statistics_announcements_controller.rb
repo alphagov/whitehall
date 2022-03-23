@@ -9,7 +9,7 @@ private
 
   def redirect_to_research_and_statistics
     base_path = "#{Plek.new.website_root}/search/research-and-statistics"
-    redirect_to("#{base_path}?#{research_and_statistics_query_string}")
+    redirect_to("#{base_path}?#{research_and_statistics_query_string}", allow_other_host: true)
   end
 
   def research_and_statistics_query_string

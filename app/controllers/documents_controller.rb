@@ -34,7 +34,7 @@ private
       end
     elsif (@unpublishing = find_unpublishing)
       if @unpublishing.redirect?
-        redirect_to @unpublishing.alternative_url
+        redirect_to @unpublishing.alternative_url, allow_other_host: true
       else
         # NOTE: We should be returning a 410 here, but because 4XX statuses get clobbered upstream,
         # we are forced to return 200 for now.

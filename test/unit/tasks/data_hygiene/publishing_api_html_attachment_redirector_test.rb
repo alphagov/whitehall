@@ -64,7 +64,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
         let(:queried_document_id)    { unattached_document.content_id }
 
         it "raises an exception" do
-          assert_raises DataHygiene::HTMLAttachmentsNotFound do
+          assert_raises DataHygiene::HtmlAttachmentsNotFound do
             call_html_attachment_redirector
           end
         end

@@ -126,7 +126,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it has appointments" do
-    role = create(:role, role_appointments: [create(:role_appointment)])
+    role = create(:role, :occupied)
     assert_not role.destroyable?
     assert_equal false, role.destroy
   end
