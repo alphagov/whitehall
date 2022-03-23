@@ -1,58 +1,56 @@
-Whitehall::Application.config.to_prepare do
-  Whitehall.edition_services.tap do |coordinator|
-    coordinator.subscribe do |_event, edition, _options|
-      ServiceListeners::AttachmentUpdater.call(attachable: edition)
-    end
+Whitehall.edition_services.tap do |coordinator|
+  coordinator.subscribe do |_event, edition, _options|
+    ServiceListeners::AttachmentUpdater.call(attachable: edition)
+  end
 
-    coordinator.subscribe("unpublish") do |_event, edition, _options|
-      # handling edition's dependency on other content
-      edition.edition_dependencies.destroy_all
+  coordinator.subscribe("unpublish") do |_event, edition, _options|
+    # handling edition's dependency on other content
+    edition.edition_dependencies.destroy_all
 
-      # search
-      ServiceListeners::SearchIndexer
-        .new(edition)
-        .remove!
+    # search
+    ServiceListeners::SearchIndexer
+      .new(edition)
+      .remove!
 
-      # Update attachment redirect urls
-      ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
-    end
+    # Update attachment redirect urls
+    ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
+  end
 
-    coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
-      ServiceListeners::EditionDependenciesPopulator
-        .new(edition)
-        .populate!
+  coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
+    ServiceListeners::EditionDependenciesPopulator
+      .new(edition)
+      .populate!
 
-      ServiceListeners::AttachmentDependencyPopulator
-        .new(edition)
-        .populate!
+    ServiceListeners::AttachmentDependencyPopulator
+      .new(edition)
+      .populate!
 
-      # handling edition's dependency on other content
-      edition.republish_dependent_editions
+    # handling edition's dependency on other content
+    edition.republish_dependent_editions
 
-      ServiceListeners::AnnouncementClearer
-        .new(edition)
-        .clear!
+    ServiceListeners::AnnouncementClearer
+      .new(edition)
+      .clear!
 
-      AuthorNotifierWorker.perform_async(edition.id, *[options[:user]&.id].compact)
+    AuthorNotifierWorker.perform_async(edition.id, *[options[:user]&.id].compact)
 
-      # Update attachment redirect urls
-      ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
-    end
+    # Update attachment redirect urls
+    ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
+  end
 
-    coordinator.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) do |_event, edition, _options|
-      ServiceListeners::SearchIndexer
-        .new(edition)
-        .index!
-    end
+  coordinator.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) do |_event, edition, _options|
+    ServiceListeners::SearchIndexer
+      .new(edition)
+      .index!
+  end
 
-    coordinator.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) do |_event, edition, options|
-      ServiceListeners::EditorialRemarker
-        .new(edition, options[:user], options[:remark])
-        .save_remark!
+  coordinator.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) do |_event, edition, options|
+    ServiceListeners::EditorialRemarker
+      .new(edition, options[:user], options[:remark])
+      .save_remark!
 
-      ServiceListeners::FeaturableOrganisationRepublisher
-        .new(edition)
-        .call
-    end
+    ServiceListeners::FeaturableOrganisationRepublisher
+      .new(edition)
+      .call
   end
 end

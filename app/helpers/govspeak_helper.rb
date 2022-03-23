@@ -148,7 +148,7 @@ private
 
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
-        render(partial: "contacts/contact", locals: { contact: contact, heading_tag: heading_tag }, formats: [:html])
+        render(partial: "contacts/contact", locals: { contact: contact, heading_tag: heading_tag }, formats: %w[html])
       else
         ""
       end

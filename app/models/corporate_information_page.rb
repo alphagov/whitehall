@@ -134,7 +134,7 @@ class CorporateInformationPage < Edition
   end
 
   def title(_locale = :en)
-    corporate_information_page_type&.title(owning_organisation)
+    corporate_information_page_type.title(owning_organisation)
   end
 
   def title_lang

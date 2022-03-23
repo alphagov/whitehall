@@ -53,7 +53,7 @@ private
 
   def redirect_to_news_and_communications(format = "")
     base_path = "#{Plek.new.website_root}/search/news-and-communications#{format}"
-    redirect_to("#{base_path}?#{news_and_communications_query_string}", allow_other_host: true)
+    redirect_to("#{base_path}?#{news_and_communications_query_string}")
   end
 
   def news_and_communications_query_string

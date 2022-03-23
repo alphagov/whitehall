@@ -24,10 +24,10 @@ private
   def fail
     if attachment_data.unpublished?
       redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
-      redirect_to redirect_url, allow_other_host: true
+      redirect_to redirect_url
     elsif attachment_data.replaced?
       expires_headers
-      redirect_to attachment_data.replaced_by.url, status: :moved_permanently, allow_other_host: true
+      redirect_to attachment_data.replaced_by.url, status: :moved_permanently
     elsif incoming_upload_exists?
       redirect_to_placeholder
     else
@@ -71,6 +71,6 @@ private
     # Cache is explicitly 1 minute to prevent the virus redirect beng
     # cached by CDNs.
     expires_in(1.minute, public: true)
-    redirect_to placeholder_url, allow_other_host: true
+    redirect_to placeholder_url
   end
 end

@@ -86,11 +86,11 @@ module Admin
 
     def date_range_string
       if from_date && to_date
-        "from #{from_date.to_date.to_fs(:uk_short)} to #{to_date.to_date.to_fs(:uk_short)}"
+        "from #{from_date.to_date.to_s(:uk_short)} to #{to_date.to_date.to_s(:uk_short)}"
       elsif from_date
-        "from #{from_date.to_date.to_fs(:uk_short)}"
+        "from #{from_date.to_date.to_s(:uk_short)}"
       elsif to_date
-        "before #{to_date.to_date.to_fs(:uk_short)}"
+        "before #{to_date.to_date.to_s(:uk_short)}"
       end
     end
 
