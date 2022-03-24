@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "jquery": "1.12.4"
+    "jquery": "3.5.0"
   },
   "devDependencies": {
     "standardx": "^7.0.0",
