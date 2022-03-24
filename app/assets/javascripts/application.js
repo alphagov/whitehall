@@ -8,6 +8,7 @@
 //= require govuk_publishing_components/components/button
 //= require govuk_publishing_components/components/govspeak
 //
+//= require jquery/dist/jquery
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require vendor/jquery/jquery.player.min.js
