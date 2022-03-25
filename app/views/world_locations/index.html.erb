@@ -1,11 +1,11 @@
-<% page_title "Help and services around the world" %>
+<% page_title sanitize(t("world_location.content.heading")) %>
 <% page_class "govuk-width-container world-locations-index index-list-page" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <header class="js-filter-list">
       <%= render "govuk_publishing_components/components/title", {
-        title: sanitize("Help and services around the&nbsp;world")
+        title: sanitize(t("world_location.content.heading"))
       } %>
 
       <p class="govuk-body"><%= t('world_location.content.find_out') %></p>
