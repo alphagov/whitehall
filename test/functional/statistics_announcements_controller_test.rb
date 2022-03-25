@@ -24,6 +24,6 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
       public_timestamp: { from: "01/01/2014", to: "01/01/2014" },
     }.to_query
 
-    assert_redirected_to "#{Plek.new.website_root}/search/research-and-statistics?#{redirect_params_query}"
+    assert_redirected_to "/search/research-and-statistics?#{redirect_params_query}"
   end
 end

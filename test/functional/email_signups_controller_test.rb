@@ -28,7 +28,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
     get :new, params: { email_signup: { feed: atom_feed_url_for(world_location) } }
 
-    assert_redirected_to "https://www.test.gov.uk/email/subscriptions/new?topic_id=some-slug"
+    assert_redirected_to "http://test.host/email/subscriptions/new?topic_id=some-slug"
   end
 
   view_test "GET :new redirects to publications controller if signup is for a publication finder" do

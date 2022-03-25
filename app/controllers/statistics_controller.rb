@@ -24,7 +24,7 @@ private
   end
 
   def redirect_to_research_and_statistics(format = "")
-    base_path = "#{Plek.new.website_root}/search/research-and-statistics#{format}"
+    base_path = "/search/research-and-statistics#{format}"
     redirect_to("#{base_path}?#{research_and_statistics_query_string}")
   end
 

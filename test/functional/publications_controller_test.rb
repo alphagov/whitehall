@@ -49,42 +49,42 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "when locale is English it redirects with params for finder-frontend" do
     get :index, params: @default_params
-    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
+    assert_redirected_to "/search/all?#{@default_converted_params.to_query}"
   end
 
   test "when locale is English it redirects an atom feed request with params for finder-frontend" do
     get :index, params: @default_params, format: :atom
-    assert_redirected_to "#{Plek.new.website_root}/search/all.atom?#{@default_converted_params.to_query}"
+    assert_redirected_to "/search/all.atom?#{@default_converted_params.to_query}"
   end
 
   test "when official_document_status is specified redirects with params for official-documents finder" do
     get :index, params: @default_params.merge(official_document_status: "command_and_act_papers")
-    assert_redirected_to "#{Plek.new.website_root}/official-documents?#{@default_converted_params.to_query}"
+    assert_redirected_to "/official-documents?#{@default_converted_params.to_query}"
   end
 
   test "strips out 'all' taxons from query string in redirect" do
     get :index, params: @default_params.merge(taxons: %w[all])
-    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(level_one_taxon: nil).compact.to_query}"
+    assert_redirected_to "/search/all?#{@default_converted_params.merge(level_one_taxon: nil).compact.to_query}"
   end
 
   test "strips out 'all' subtaxons from query string in redirect" do
     get :index, params: @default_params.merge(subtaxons: %w[all])
-    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(level_two_taxon: nil).compact.to_query}"
+    assert_redirected_to "/search/all?#{@default_converted_params.merge(level_two_taxon: nil).compact.to_query}"
   end
 
   test "strips out 'all' departments from query string in redirect" do
     get :index, params: @default_params.merge(departments: %w[all])
-    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(organisations: nil).compact.to_query}"
+    assert_redirected_to "/search/all?#{@default_converted_params.merge(organisations: nil).compact.to_query}"
   end
 
   test "strips out 'all' people from query string in redirect" do
     get :index, params: @default_params.merge(people: %w[all])
-    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
+    assert_redirected_to "/search/all?#{@default_converted_params.to_query}"
   end
 
   test "strips out 'all' world locations from query string in redirect" do
     get :index, params: @default_params.merge(world_locations: %w[all])
-    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(world_locations: nil).compact.to_query}"
+    assert_redirected_to "/search/all?#{@default_converted_params.merge(world_locations: nil).compact.to_query}"
   end
 
   view_test "#index only displays *published* publications" do

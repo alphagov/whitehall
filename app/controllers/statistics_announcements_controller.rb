@@ -8,7 +8,7 @@ class StatisticsAnnouncementsController < PublicFacingController
 private
 
   def redirect_to_research_and_statistics
-    base_path = "#{Plek.new.website_root}/search/research-and-statistics"
+    base_path = "/search/research-and-statistics"
     redirect_to("#{base_path}?#{research_and_statistics_query_string}")
   end
 

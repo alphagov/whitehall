@@ -71,6 +71,6 @@ private
     # Cache is explicitly 1 minute to prevent the virus redirect beng
     # cached by CDNs.
     expires_in(1.minute, public: true)
-    redirect_to placeholder_url
+    redirect_to placeholder_path
   end
 end
