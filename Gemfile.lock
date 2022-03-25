@@ -283,14 +283,14 @@ GEM
     govuk_personalisation (0.11.2)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (28.9.2)
+    govuk_publishing_components (29.0.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
       plek
       rails (>= 6)
       rouge
-      sprockets (< 4)
+      sprockets (>= 3)
     govuk_sidekiq (5.0.0)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
@@ -364,7 +364,7 @@ GEM
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
     kgio (2.11.4)
-    kramdown (2.3.1)
+    kramdown (2.3.2)
       rexml
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -685,7 +685,7 @@ GEM
       rack
       rest-client
     smart_properties (1.17.0)
-    sprockets (3.7.2)
+    sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.2)
