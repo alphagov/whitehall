@@ -52,7 +52,7 @@ private
   end
 
   def redirect_to_finder_frontend_finder(format = "")
-    base_path = "#{Plek.new.website_root}/#{publications_base_path}#{format}"
+    base_path = "/#{publications_base_path}#{format}"
     if publications_query_string == ""
       redirect_to(base_path)
     else

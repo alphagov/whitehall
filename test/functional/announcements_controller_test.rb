@@ -51,7 +51,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       topical_events: %w[one two],
     }.to_query
 
-    assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications?#{redirect_params_query}"
+    assert_redirected_to "/search/news-and-communications?#{redirect_params_query}"
   end
 
   test "when locale is english it redirects and atom feed with params for finder-frontend" do
@@ -81,7 +81,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       public_timestamp: { from: "01/01/2014", to: "01/01/2014" },
     }.to_query
 
-    assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications.atom?#{redirect_params_query}"
+    assert_redirected_to "/search/news-and-communications.atom?#{redirect_params_query}"
   end
 
   view_test "index with locale shows a mix of news and speeches" do

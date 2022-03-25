@@ -30,10 +30,9 @@ private
   end
 
   def email_alert_frontend_signup_with_slug(slug)
-    base_path = Plek.new.website_root
     path = "/email/subscriptions/new?"
     params = { topic_id: slug }
 
-    base_path + path + params.to_query
+    path + params.to_query
   end
 end
