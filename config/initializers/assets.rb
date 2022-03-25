@@ -5,35 +5,3 @@ Rails.application.config.assets.version = "1.0"
 
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join("node_modules")
-
-# Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-# Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w[
-  admin.css
-  admin-ie8.css
-  admin-ie7.css
-  admin-ie6.css
-  frontend/base.css
-  frontend/base-ie9.css
-  frontend/base-ie8.css
-  frontend/base-ie7.css
-  frontend/base-ie6.css
-  frontend/base-rtl.css
-  frontend/base-rtl-ie9.css
-  frontend/base-rtl-ie8.css
-  frontend/base-rtl-ie7.css
-  frontend/base-rtl-ie6.css
-  frontend/html-publication.css
-  frontend/html-publication-ie9.css
-  frontend/html-publication-ie8.css
-  frontend/html-publication-ie7.css
-  frontend/html-publication-ie6.css
-  frontend/html-publication-rtl.css
-  frontend/html-publication-rtl-ie9.css
-  frontend/html-publication-rtl-ie8.css
-  frontend/html-publication-rtl-ie7.css
-  frontend/html-publication-rtl-ie6.css
-  frontend/print.css
-  admin.js
-]
