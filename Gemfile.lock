@@ -257,7 +257,7 @@ GEM
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
     govuk_ab_testing (2.4.2)
-    govuk_admin_template (6.9.0)
+    govuk_admin_template (6.9.1)
       bootstrap-sass (~> 3.4)
       jquery-rails (~> 4.3)
       plek (>= 2.1)
