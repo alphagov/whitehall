@@ -1,73 +1,87 @@
-function url_matcher(path_fragment) {
-  return function() { return window.location.toString().search(path_fragment) >= 0 }
-};
-function all_matcher() {
-  return true;
-};
+(function() {
+    function callback() {
+        (function($) {
+            var jQuery = $;
+            function url_matcher(path_fragment) {
+              return function() { return window.location.toString().search(path_fragment) >= 0 }
+            };
+            function all_matcher() {
+              return true;
+            };
 
-function id_from_url() {
-  return window.location.toString().split('/').pop();
-};
-function id_from_doc_page() {
-  document_page_id = $('.document-page, [id^=detailed_guide_]');
-  if (document_page_id == null) {
-    return false;
-  } else if (document_page_id.length > 0) {
-    return document_page_id.attr('id').split('_').pop();
-  }
-};
-function content_id_from_meta_tag() {
-  return document.querySelector('meta[name="govuk:content-id"]').content;
-};
+            function id_from_url() {
+              return window.location.toString().split('/').pop();
+            };
+            function id_from_doc_page() {
+              document_page_id = $('.document-page, [id^=detailed_guide_]');
+              if (document_page_id == null) {
+                return false;
+              } else if (document_page_id.length > 0) {
+                return document_page_id.attr('id').split('_').pop();
+              }
+            };
+            function content_id_from_meta_tag() {
+              return document.querySelector('meta[name="govuk:content-id"]').content;
+            };
 
-function path_builder(path_fragment) {
-  return function(id) { return path_fragment + id; };
-};
+            function path_builder(path_fragment) {
+              return function(id) { return path_fragment + id; };
+            };
 
-var mappings = [
-  {
-    matcher: url_matcher("announcements/"),
-    path_builder: path_builder("statistics_announcements/"),
-    id_finder: id_from_url
-  },
-  {
-    matcher: url_matcher("organisations/"),
-    path_builder: path_builder("organisations/"),
-    id_finder: id_from_url
-  },
-  {
-    matcher: url_matcher("topics/"),
-    path_builder: path_builder("topics/"),
-    id_finder: id_from_url
-  },
-  {
-    matcher: url_matcher("world/"),
-    path_builder: path_builder("world_locations/"),
-    id_finder: id_from_url
-  },
-  {
-    matcher: all_matcher,
-    path_builder: path_builder("editions/"),
-    id_finder: id_from_doc_page
-  }
-];
+            var mappings = [
+              {
+                matcher: url_matcher("announcements/"),
+                path_builder: path_builder("statistics_announcements/"),
+                id_finder: id_from_url
+              },
+              {
+                matcher: url_matcher("organisations/"),
+                path_builder: path_builder("organisations/"),
+                id_finder: id_from_url
+              },
+              {
+                matcher: url_matcher("topics/"),
+                path_builder: path_builder("topics/"),
+                id_finder: id_from_url
+              },
+              {
+                matcher: url_matcher("world/"),
+                path_builder: path_builder("world_locations/"),
+                id_finder: id_from_url
+              },
+              {
+                matcher: all_matcher,
+                path_builder: path_builder("editions/"),
+                id_finder: id_from_doc_page
+              }
+            ];
 
-function get_mapping() {
-  for(var i=0; i<mappings.length; i++) {
-    if (mappings[i].matcher()) return mappings[i];
-  }
-}
+            function get_mapping() {
+              for(var i=0; i<mappings.length; i++) {
+                if (mappings[i].matcher()) return mappings[i];
+              }
+            }
 
-function nav_to_backend() {
-  var mapping = get_mapping();
-  if (mapping){
-    admin_path = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin";
-    if(mapping.id_finder()){
-      window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder());
-    }else{
-      window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag();
-    };
-  }
-}
-
-nav_to_backend();
+            function nav_to_backend() {
+              var mapping = get_mapping();
+              if (mapping){
+                admin_path = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin";
+                if(mapping.id_finder()){
+                  window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder());
+                }else{
+                  window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag();
+                };
+              }
+            }
+            nav_to_backend();
+        })(jQuery.noConflict(true))
+    }
+    var s = document.createElement("script");
+    s.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js";
+    if (s.addEventListener) {
+        s.addEventListener("load", callback, false)
+    } else if(s.readyState) {
+        s.onreadystatechange = callback
+    }
+    document.body.appendChild(s);
+})();
