@@ -64,9 +64,9 @@ function nav_to_backend() {
   if (mapping){
     admin_path = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin";
     if(mapping.id_finder()){
-      window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder());
+      window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder()) + "?utm_content=find-in-admin-bookmarklet";
     }else{
-      window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag();
+      window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag() + "?utm_content=find-in-admin-bookmarklet";
     };
   }
 }
