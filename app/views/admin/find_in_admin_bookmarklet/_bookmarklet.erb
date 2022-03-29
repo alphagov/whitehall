@@ -9,13 +9,16 @@ function id_from_url() {
   return window.location.toString().split('/').pop();
 };
 function id_from_doc_page() {
-  document_page_id = $('.document-page, [id^=detailed_guide_]');
-  if (document_page_id.length > 0) {
-    return document_page_id.attr('id').split('_').pop();
+  document_page_id = document.querySelector('.document-page') || document.querySelector('[id^=detailed_guide_]');
+  if (document_page_id) {
+    return document_page_id.getAttribute('id').split('_').pop();
   }
 };
 function content_id_from_meta_tag() {
-  return $("meta[name='govuk:content-id']").attr('content');
+  content_id = document.querySelector("meta[name='govuk:content-id']");
+  if (content_id) {
+    return content_id.getAttribute('content');
+  }
 };
 
 function path_builder(path_fragment) {
@@ -51,19 +54,19 @@ var mappings = [
 ];
 
 function get_mapping() {
-  for(var i=0; i<mappings.length; i++) {
+  for(var i = 0; i < mappings.length; i++) {
     if (mappings[i].matcher()) return mappings[i];
   }
 }
 
 function nav_to_backend() {
   var mapping = get_mapping();
-  if (mapping){ 
+  if (mapping){
     admin_path = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin";
     if(mapping.id_finder()){
-      window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder());
+      window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder()) + "?utm_content=find-in-admin-bookmarklet";
     }else{
-      window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag();
+      window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag() + "?utm_content=find-in-admin-bookmarklet";
     };
   }
 }
