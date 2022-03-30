@@ -567,6 +567,7 @@ es-419:
     content:
       complete_list:
       find_out:
+      heading:
       list_link:
     headings:
       announcements: Nuestros comunicados

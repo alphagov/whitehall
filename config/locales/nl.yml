@@ -564,6 +564,7 @@ nl:
     content:
       complete_list:
       find_out:
+      heading:
       list_link:
     headings:
       announcements: Onze aankondigingen
