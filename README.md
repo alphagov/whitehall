@@ -73,6 +73,6 @@ See the [`docs/`](docs/) directory.
 - [Troubleshooting](docs/troubleshooting.md)
 - [Adding a data migration](db/data_migration/README.md)
 
-## Licence
+## License
 
-[MIT License](LICENCE)
+[MIT License](LICENSE)
