@@ -62,11 +62,11 @@
       }
 
       .play {
-        background-image: image-url('player-icon-play.png');
+        background-image: image-url("player-icon-play.png");
       }
 
       .pause {
-        background-image: image-url('player-icon-pause.png');
+        background-image: image-url("player-icon-pause.png");
       }
 
       .rewind,
@@ -84,13 +84,13 @@
 
       .rewind {
         left: 0;
-        background-image: image-url('player-icon-rewind.png');
+        background-image: image-url("player-icon-rewind.png");
       }
 
       .forward {
         left: $full-width;
         margin-left: -40px;
-        background-image: image-url('player-icon-forward.png');
+        background-image: image-url("player-icon-forward.png");
       }
     }
 
@@ -169,7 +169,7 @@
         line-height: 40px;
         background-repeat: no-repeat;
         background-position: center left;
-        background-image: image-url('player-icon-volume.png');
+        background-image: image-url("player-icon-volume.png");
         @include right-to-left {
           left: $gutter * 2;
           padding: 0 ($gutter + 5) 0 0;

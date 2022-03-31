@@ -4,11 +4,11 @@
 // Whitespace values and maximum site width. These values can be
 // used in any file imported into this document.
 
-$gutter:            10px;
-$gutter-two-thirds: $gutter * .666666; // equivalent to 16px
-$gutter-half:       $gutter * .5; // equivalent to 12px
-$gutter-one-third:  $gutter * .333333; // equivalent to 8px
-$gutter-one-sixth:  $gutter-one-third * .5; // equivalent to 8px
+$gutter: 10px;
+$gutter-two-thirds: $gutter * .666; // equivalent to 16px
+$gutter-half: $gutter * .5; // equivalent to 12px
+$gutter-one-third: $gutter * .333; // equivalent to 8px
+$gutter-one-sixth: $gutter-one-third * .5; // equivalent to 8px
 
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
@@ -16,10 +16,10 @@ $gutter-one-sixth:  $gutter-one-third * .5; // equivalent to 8px
 
 $is-print: true;
 
-@import 'govuk_publishing_components/govuk_frontend_support';
-@import 'govuk_publishing_components/components/print/button';
-@import 'govuk_publishing_components/components/print/govspeak';
-@import 'govuk_publishing_components/components/print/title';
+@import "govuk_publishing_components/govuk_frontend_support";
+@import "govuk_publishing_components/components/print/button";
+@import "govuk_publishing_components/components/print/govspeak";
+@import "govuk_publishing_components/components/print/title";
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
 @import "colours";

@@ -59,7 +59,7 @@
           margin-right: 0;
 
           &:after {
-            content: '';
+            content: "";
             margin-left: 0;
           }
         }
@@ -133,7 +133,7 @@
           cursor: move;
 
           .loading-spinner {
-            background-image: image-url('loading-2b2c2d.gif');
+            background-image: image-url("loading-2b2c2d.gif");
             width: 32px;
             height: 32px;
             position: absolute;
@@ -157,12 +157,12 @@
             padding: 0;
 
             &:after {
-              content: '/';
+              content: "/";
               margin: 0 .4em;
             }
 
             &:last-child:after {
-              content: '';
+              content: "";
               margin: 0;
             }
           }

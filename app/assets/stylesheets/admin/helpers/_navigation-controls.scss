@@ -5,12 +5,12 @@ ul.actions {
     margin-right: .3em;
 
     &:after {
-      content: '|';
+      content: "|";
       margin-left: .3em;
     }
 
     &:last-child:after {
-      content: '';
+      content: "";
     }
   }
 }

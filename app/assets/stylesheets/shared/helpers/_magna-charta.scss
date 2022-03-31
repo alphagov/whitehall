@@ -16,9 +16,9 @@ $key-width: 160px;           // Only used by IE. Other browsers get smallest wid
 
 // CHART COLOUR SCHEME
 
-@import 'colours';          // Cabinet Office colour palette (feel free to choose your own)
+@import "colours";          // Cabinet Office colour palette (feel free to choose your own)
 $chart-border: $white; // Chart border colour
-$key-border:   $white; // Key border colour
+$key-border: $white; // Key border colour
 $bar-colours: $light-blue,
   $turquoise,
   $green,
