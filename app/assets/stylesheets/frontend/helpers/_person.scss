@@ -42,7 +42,7 @@
 
       &:after {
         background: $grey-4;
-        content: '';
+        content: "";
         display: block;
         padding-top: 66.667%; // This percentage allows the .blank-person-inner to have an aspect ratio like an image
         margin-bottom: 8px;

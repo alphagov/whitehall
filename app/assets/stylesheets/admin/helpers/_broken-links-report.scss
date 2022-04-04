@@ -39,12 +39,12 @@
   }
 
   .display-issue-details:before {
-    content: '\25B6';
+    content: "\25B6";
     padding-right: 3px;
   }
 
   details[open] > .display-issue-details:before {
-    content: '\25BC';
+    content: "\25BC";
   }
 
   .draft-admin-links {

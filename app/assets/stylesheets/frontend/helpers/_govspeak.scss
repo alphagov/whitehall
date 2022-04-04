@@ -276,7 +276,7 @@
     content: "info";
     text-indent: -9999px;
     background-color: $inside-gov-brand;
-    background-image: image-url('icon-information-transparent.png');
+    background-image: image-url("icon-information-transparent.png");
     background-position: center;
     height: $gutter;
     width: $gutter;
@@ -289,7 +289,7 @@
 
   @include ie-lte(7) {
     .information-block {
-      background-image: image-url('information-icon.png');
+      background-image: image-url("information-icon.png");
     }
   }
 

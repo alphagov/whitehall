@@ -42,7 +42,7 @@
 }
 
 .stats-document-finder {
-  @include remove-top-margin('!important');
+  @include remove-top-margin("!important");
 
   .document-finder-fields .js-loader {
     right: 6.3em !important; // stylelint-disable-line declaration-no-important

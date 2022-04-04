@@ -921,7 +921,7 @@
     padding-bottom: $gutter-half;
     background-position: $half $gutter-one-third;
     background-image: image_url("executive-office-bars/deputy-prime-ministers-office.png");
-    font-family: 'Times New Roman', serif;
+    font-family: "Times New Roman", serif;
   }
 
   .organisation-header {
@@ -1175,9 +1175,9 @@
 // Used on:
 // organisations#about, corporate_information_page#show
 .organisation-page {
-  @include organisation-brand-colour('nav a', color, $websafe: true);
-  @include organisation-brand-colour('.block-2 a', color, $websafe: true);
-  @include organisation-brand-colour('.body .attachment .accessibility-warning h3 .toggler', color, $websafe: true);
+  @include organisation-brand-colour("nav a", color, $websafe: true);
+  @include organisation-brand-colour(".block-2 a", color, $websafe: true);
+  @include organisation-brand-colour(".body .attachment .accessibility-warning h3 .toggler", color, $websafe: true);
 
   @include media(tablet) {
     .block-1 {
@@ -1280,7 +1280,7 @@
       }
     }
   }
-  @include organisation-brand-colour('.corporate-info h1', border-color);
+  @include organisation-brand-colour(".corporate-info h1", border-color);
 }
 
 .organisations-about {
