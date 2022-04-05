@@ -308,11 +308,11 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (>= 2.1)
-    govuk_test (3.0.0)
+    govuk_test (3.0.1)
       brakeman (>= 5.0.2)
-      capybara
+      capybara (>= 3.36)
       puma
-      selenium-webdriver (>= 3.142)
+      selenium-webdriver (>= 4.0)
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
