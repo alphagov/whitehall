@@ -1,5 +1,7 @@
 # Creates a payload for the topic (formerly specialist sector) select box.
 class LinkableTopics
+  CACHE_OPTIONS = { expires_in: 15.minutes, race_condition_ttl: 30.seconds }.freeze
+
   def topics
     items = raw_topics
     items = group_for_grouped_select(items)
@@ -10,6 +12,7 @@ class LinkableTopics
     items = fetch_linkables_from_publishing_api(document_type: "topic")
     items = change_separator(items)
     items = select_only_subtopics(items)
+    items = filter_browse_topics(items)
     format_for_select_input(items)
   end
 
@@ -39,6 +42,22 @@ private
   # but not https://www.gov.uk/topic/business-tax
   def select_only_subtopics(all_topics)
     all_topics.select { |item| item.fetch("internal_name").include?(": ") }
+  end
+
+  # While we're migrating the Browse pages to topics we will briefly have a combination of the
+  # two in our model. We need to filter out the pages we brought across from the results.
+  def filter_browse_topics(all_topics)
+    return all_topics if all_topics.empty? || all_topics.first.fetch("base_path").exclude?("/topic/")
+
+    # Get topics that are not mainstream browse copies
+    valid_topics ||= Rails.cache.fetch("valid_topics", CACHE_OPTIONS) do
+      Services.publishing_api.get_content_items(document_type: "topic", per_page: 10_000, fields: %w[content_id details])["results"].select do |item|
+        item.dig("details", "mainstream_browse_origin").nil?
+      end
+    end
+
+    # Filter the invalid topics out of the items collection
+    all_topics.select { |item| valid_topics.any? { |topic| topic.fetch("content_id") == item.fetch("content_id") } }
   end
 
   def format_for_select_input(items)
