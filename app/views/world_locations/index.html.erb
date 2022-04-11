@@ -1,4 +1,4 @@
-<% page_title sanitize(t("world_location.content.heading")) %>
+<% page_title sanitize(t("world_location.content.heading").gsub!(/&nbsp;/, " ")) %>
 <% page_class "govuk-width-container world-locations-index index-list-page" %>
 
 <div class="govuk-grid-row">
