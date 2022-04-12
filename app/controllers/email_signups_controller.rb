@@ -3,7 +3,7 @@ class EmailSignupsController < PublicFacingController
     if non_finder_url
       redirect_to email_alert_frontend_signup
     elsif feed_url.match?(%r{/government/(publications|announcements|statistics)\.atom})
-      redirect_to feed_url.sub(".atom", "")
+      redirect_to feed_url.sub(".atom", ""), allow_other_host: true
     elsif feed_url.match?(%r{/world/.*\.atom$})
       email_signup = WorldLocationEmailSignup.new(feed_url)
       return head :not_found unless email_signup.valid?

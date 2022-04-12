@@ -699,6 +699,11 @@ EXISTS (
 
   delegate :locked?, to: :document
 
+  # TODO: this can be removed once rails/rails#44770 is released.
+  def attribute_names
+    @attributes.keys
+  end
+
 private
 
   def date_for_government

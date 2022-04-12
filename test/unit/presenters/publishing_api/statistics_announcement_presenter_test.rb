@@ -121,7 +121,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       update_type: "minor",
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
-        previous_display_date: 7.days.from_now.to_s(:date_with_time),
+        previous_display_date: 7.days.from_now.to_fs(:date_with_time),
         latest_change_note: "Reasons",
         state: statistics_announcement.state,
         format_sub_type: "official",
