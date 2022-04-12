@@ -23,4 +23,5 @@ jobs:
     needs: build-and-publish-image
     uses: alphagov/govuk-infrastructure/.github/workflows/deploy.yaml@main
     secrets:
-      GOVUK_CI_GITHUB_API_TOKEN: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
+      WEBHOOK_TOKEN: ${{ secrets.ARGO_EVENTS_WEBHOOK_TOKEN }}
+      WEBHOOK_URL: ${{ secrets.ARGO_EVENTS_WEBHOOK_URL }}
