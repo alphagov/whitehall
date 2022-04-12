@@ -288,14 +288,14 @@ GEM
       jquery-rails (~> 4.3)
       plek (>= 2.1)
       rails (>= 6)
-    govuk_app_config (4.4.3)
-      logstasher (>= 1.2.2, < 2.2.0)
-      prometheus_exporter (~> 2.0.2)
-      puma (~> 5.0)
-      sentry-rails (~> 4.5.0)
-      sentry-ruby (~> 4.5.0)
-      statsd-ruby (~> 1.5.0)
-      unicorn (>= 5.4, < 5.9)
+    govuk_app_config (4.5.0)
+      logstasher (~> 2.1)
+      prometheus_exporter (~> 2.0)
+      puma (~> 5.6)
+      sentry-rails (~> 5.2)
+      sentry-ruby (~> 5.2)
+      statsd-ruby (~> 1.5)
+      unicorn (~> 6.1)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
     govuk_personalisation (0.11.2)
@@ -666,16 +666,14 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    sentry-rails (4.5.2)
+    sentry-rails (5.2.1)
       railties (>= 5.0)
-      sentry-ruby-core (~> 4.5.0)
-    sentry-ruby (4.5.2)
+      sentry-ruby-core (~> 5.2.1)
+    sentry-ruby (5.2.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      faraday (>= 1.0)
-      sentry-ruby-core (= 4.5.2)
-    sentry-ruby-core (4.5.2)
+      sentry-ruby-core (= 5.2.1)
+    sentry-ruby-core (5.2.1)
       concurrent-ruby
-      faraday
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
       mustache (~> 1.0.2)
@@ -750,7 +748,7 @@ GEM
       unf_ext
     unf_ext (0.0.8.1)
     unicode-display_width (2.1.0)
-    unicorn (5.8.0)
+    unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     validates_email_format_of (1.6.3)
@@ -807,7 +805,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk_ab_testing
   govuk_admin_template
-  govuk_app_config (= 4.4.3)
+  govuk_app_config (= 4.5.0)
   govuk_frontend_toolkit
   govuk_publishing_components
   govuk_sidekiq
