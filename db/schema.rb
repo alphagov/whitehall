@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2021_10_19_095600) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_13_181013) do
 
   create_table "about_pages", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -418,6 +418,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_10_19_095600) do
     t.boolean "read_consultation_principles", default: false
     t.boolean "all_nation_applicability"
     t.string "image_display_option"
+    t.string "auth_bypass_id"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"

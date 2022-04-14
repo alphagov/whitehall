@@ -98,6 +98,7 @@ class Edition < ApplicationRecord
   # @!group Callbacks
   before_save :set_public_timestamp
   before_save { check_if_locked_document(edition: self) }
+  before_save :set_auth_bypass_id
   # @!endgroup
 
   class UnmodifiableValidator < ActiveModel::Validator
@@ -641,6 +642,10 @@ EXISTS (
                             else
                               major_change_published_at
                             end
+  end
+
+  def set_auth_bypass_id
+    self.auth_bypass_id = SecureRandom.uuid
   end
 
   def title_required?
