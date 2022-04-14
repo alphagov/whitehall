@@ -301,7 +301,7 @@ GEM
     govuk_personalisation (0.11.2)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (29.3.0)
+    govuk_publishing_components (29.4.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
