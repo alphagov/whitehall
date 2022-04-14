@@ -2,10 +2,12 @@ require "test_helper"
 
 class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   def present(edition)
+    edition.auth_bypass_id = '52db85fc-0f30-42a6-afdd-c2b31ecc6a67'
     PublishingApi::CaseStudyPresenter.new(edition)
   end
 
   test "case study presentation includes the correct values" do
+
     case_study = create(
       :published_case_study,
       title: "Case study title",
@@ -13,6 +15,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       body: "Some content",
     )
     public_path = Whitehall.url_maker.public_document_path(case_study)
+
     expected_content = {
       base_path: public_path,
       title: "Case study title",
@@ -28,6 +31,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       ],
       update_type: "major",
       redirects: [],
+      auth_bypass_ids: %w[52db85fc-0f30-42a6-afdd-c2b31ecc6a67],
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         format_display_type: "case_study",
