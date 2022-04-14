@@ -5,6 +5,7 @@ module PublishingApi
     include GovukContentSchemaTestHelpers::TestUnit
 
     def present(edition, options = {})
+      edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
       PublishingApi::GenericEditionPresenter.new(edition, options)
     end
 
@@ -33,6 +34,7 @@ module PublishingApi
           { path: public_path, type: "exact" },
         ],
         redirects: [],
+        auth_bypass_ids: %w[52db85fc-0f30-42a6-afdd-c2b31ecc6a67],
         update_type: "major",
         details: {
           tags: {

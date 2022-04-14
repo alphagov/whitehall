@@ -27,6 +27,7 @@ module PublishingApi
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: SCHEMA_NAME,
           links: edition_links,
+          auth_bypass_ids: [consultation.auth_bypass_id],
         )
     end
 

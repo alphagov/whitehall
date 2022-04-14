@@ -27,6 +27,7 @@ module PublishingApi
           rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
           links: edition_links,
+          auth_bypass_ids: [corporate_information_page.auth_bypass_id],
         )
     end
 

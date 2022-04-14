@@ -65,6 +65,10 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
     assert_equal @first_published_at.utc, @presented_content[:first_published_at]
   end
 
+  test "it presents the auth bypass id" do
+    assert_equal [@fatality_notice.auth_bypass_id], @presented_content[:auth_bypass_ids]
+  end
+
   test "it presents edition links" do
     expected_links = {
       field_of_operation: [@fatality_notice.operational_field.content_id],

@@ -25,6 +25,7 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: "speech",
+          auth_bypass_ids: [item.auth_bypass_id],
         )
     end
 

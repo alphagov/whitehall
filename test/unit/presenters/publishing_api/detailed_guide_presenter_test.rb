@@ -5,6 +5,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   def present(edition)
+    edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
     PublishingApi::DetailedGuidePresenter.new(edition)
   end
 
@@ -51,6 +52,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         { path: public_path, type: "exact" },
       ],
       redirects: [],
+      auth_bypass_ids: %w[52db85fc-0f30-42a6-afdd-c2b31ecc6a67],
       update_type: "major",
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",

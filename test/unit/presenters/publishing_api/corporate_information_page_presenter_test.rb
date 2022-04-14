@@ -136,6 +136,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_attribute :document_type, "publication_scheme"
     end
 
+    test "auth bypass id" do
+      assert_attribute :auth_bypass_ids, [corporate_information_page.auth_bypass_id]
+    end
+
     test "links" do
       expected_link_keys = %i[
         organisations
