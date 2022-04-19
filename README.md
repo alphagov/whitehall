@@ -53,10 +53,8 @@ Javascript unit tests can also be run separately:
 
 ```
 # run all the JavaScript tests
-bundle exec rake test:javascript
+bundle exec rake jasmine
 ```
-
-To run or debug individual JavaScript tests, try viewing them in your browser. Start the app as you would normally, and then go to `/teaspoon/default`.
 
 ### Further documentation
 
