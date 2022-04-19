@@ -1,72 +1,54 @@
-module('show-hide: toggles a named element', {
-  setup: function () {
-    this.$link = $('<a href="#my-target-element" class="js-showhide">Show</a>')
-    $('#qunit-fixture').append(this.$link)
+describe('GOVUK.showHide', function () {
+  var container, link, element
 
-    this.$element = $('<div id="my-target-element">element</div>')
-    $('#qunit-fixture').append(this.$element)
-  }
-})
+  beforeEach(function () {
+    link = $('<a href="#my-target-element" class="js-showhide">Show</a>')
+    element = $('<div id="my-target-element">element</div>')
 
-test('should hide element on init', function () {
-  ok(!this.$element.hasClass('js-hidden'), 'is visible')
-  GOVUK.showHide.init()
-  ok(this.$element.hasClass('js-hidden'), 'is hidden')
-})
+    container = $('<div />').append(link, element)
 
-test('should show element', function () {
-  GOVUK.showHide.init()
-  GOVUK.showHide.hideStuff()
-  ok(this.$element.hasClass('js-hidden'), 'is hidden')
-  GOVUK.showHide.showStuff()
-  ok(!this.$element.hasClass('js-hidden'), 'is visible')
-})
+    $(document.body).append(container)
+  })
 
-test('should hide element', function () {
-  GOVUK.showHide.init()
-  GOVUK.showHide.showStuff()
-  ok(!this.$element.hasClass('js-hidden'), 'is visible')
-  GOVUK.showHide.hideStuff()
-  ok(this.$element.hasClass('js-hidden'), 'is hidden')
-})
+  afterEach(function () {
+    container.remove()
+  })
 
-test('should update the toggle on show', function () {
-  GOVUK.showHide.init()
-  GOVUK.showHide.showStuff()
-  ok(!this.$link.hasClass('closed'))
-  equal(this.$link.text(), 'Hide')
-})
+  it('should hide element on init', function () {
+    expect(element.hasClass('js-hidden')).toBeFalse()
+    GOVUK.showHide.init()
+    expect(element.hasClass('js-hidden')).toBeTrue()
+  })
 
-test('should update the toggle on hide', function () {
-  GOVUK.showHide.init()
-  GOVUK.showHide.hideStuff()
-  ok(this.$link.hasClass('closed'))
-  equal(this.$link.text(), 'Show')
-})
+  it('should allow programatically showing', function () {
+    GOVUK.showHide.init()
+    GOVUK.showHide.showStuff()
+    expect(element.hasClass('js-hidden')).toBeFalse()
+    expect(link.hasClass('closed')).toBeFalse()
+    expect(link.text()).toEqual('Hide')
+  })
 
-test('should toggle visibily', function () {
-  GOVUK.showHide.init()
-  GOVUK.showHide.hideStuff()
+  it('should allow programatically hiding', function () {
+    GOVUK.showHide.init()
+    GOVUK.showHide.hideStuff()
+    expect(element.hasClass('js-hidden')).toBeTrue()
+    expect(link.hasClass('closed')).toBeTrue()
+    expect(link.text()).toEqual('Show')
+  })
 
-  GOVUK.showHide.toggle({ preventDefault: function () {} })
-  ok(!this.$link.hasClass('closed'), 'is open')
-  equal(this.$link.text(), 'Hide')
+  it('should toggle visibily programmatically', function () {
+    GOVUK.showHide.init()
+    GOVUK.showHide.toggle({ preventDefault: function () {} })
+    expect(element.hasClass('js-hidden')).toBeFalse()
+    GOVUK.showHide.toggle({ preventDefault: function () {} })
+    expect(element.hasClass('js-hidden')).toBeTrue()
+  })
 
-  GOVUK.showHide.toggle({ preventDefault: function () {} })
-  ok(this.$link.hasClass('closed'), 'is closed')
-  equal(this.$link.text(), 'Show')
-})
-
-test('should toggle visibility on click', function () {
-  GOVUK.showHide.init()
-
-  GOVUK.showHide.hideStuff()
-
-  this.$link.trigger('click')
-  ok(!this.$link.hasClass('closed'), 'is open')
-  equal(this.$link.text(), 'Hide')
-
-  this.$link.trigger('click')
-  ok(this.$link.hasClass('closed'), 'is closed')
-  equal(this.$link.text(), 'Show')
+  it('should toggle visibility on click', function () {
+    GOVUK.showHide.init()
+    link.trigger('click')
+    expect(element.hasClass('js-hidden')).toBeFalse()
+    link.trigger('click')
+    expect(element.hasClass('js-hidden')).toBeTrue()
+  })
 })
