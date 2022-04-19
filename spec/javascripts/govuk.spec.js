@@ -1,17 +1,20 @@
-
-test("GOVUK.init new's the constructor with the params and leaves the returned instance in GOVUK.instances.<constructor's name>", function () {
-  function TestConstructor (params) {
-    this.params = params
-  }
-  GOVUK.init(TestConstructor, { foo: 'bar' })
-  ok(GOVUK.instances.TestConstructor[0].params.foo === 'bar', "was in the right place with it's params.")
-})
-
-test('GOVUK.init calls init on a singleton and returns that singleton', function () {
-  var testSingleton = {
-    init: function init (params) {
-      this.foo = params.foo
+describe('GOVUK.init', function () {
+  it("it initialises a constructor with the params and stores it on GOVUK.instances.<constructor's name>", function () {
+    function TestConstructor (params) {
+      this.params = params
     }
-  }
-  ok(GOVUK.init(testSingleton, { foo: 'bar' }).foo === 'bar', 'initialised the singleton with the params')
+    GOVUK.init(TestConstructor, { foo: 'bar' })
+
+    expect(GOVUK.instances.TestConstructor[0].params.foo).toEqual('bar')
+  })
+
+  it('calls init on a singleton and returns that singleton', function () {
+    var testSingleton = {
+      init: function init (params) {
+        this.foo = params.foo
+      }
+    }
+
+    expect(GOVUK.init(testSingleton, { foo: 'bar' })).toBe(testSingleton)
+  })
 })
