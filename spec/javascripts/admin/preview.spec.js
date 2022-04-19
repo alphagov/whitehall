@@ -1,166 +1,105 @@
-module('Previewing contents of a textarea', {
-  setup: function () {
-    var textarea = $('<textarea id="blah"># preview this</textarea>')
-    var label = $('<label for="blah"></label>')
-    var imageInputs = $('<fieldset class="images">' +
-      '<div class="image lead"><input name="edition[images_attributes][0][id]" type="hidden" value="1"></div>' +
-      '<div class="image"><input name="edition[images_attributes][1][id]" type="hidden" value="2"></div>' +
-      '</fieldset>')
-    var attachmentInputs = $('<fieldset class="attachments">' +
-      '<input id="edition_edition_attachments_attributes_0_attachment_attributes_id" name="edition[edition_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
-      '</fieldset>')
-    var alternativeFormatProviderSelect = $('<select id="edition_alternative_format_provider_id">' +
-      '<option value="1">Ministry of Song</option>' +
-      '<option value="2" selected="selected">Ministry of Silly Walks</option>' +
-      '</select>')
-    $('#qunit-fixture').append(textarea)
-    $('#qunit-fixture').append(label)
-    $('#qunit-fixture').append(imageInputs)
-    $('#qunit-fixture').append(attachmentInputs)
-    $('#qunit-fixture').append(alternativeFormatProviderSelect)
-    textarea.enablePreview()
+describe('jQuery.enablePreview', function () {
+  var form, csrfMeta
 
-    this.stubbingPreviewAjax = function (callback, preventResponse) {
-      var ajax = this.spy(jQuery, 'ajax')
-      var server = this.sandbox.useFakeServer()
-      server.respondWith('POST', '/government/admin/preview',
-        [200, { 'Content-Type': 'text/html' },
-          '<h1>preview this</h1>'])
-      callback()
-      if (!preventResponse) {
-        server.respond()
-      }
-      return ajax
-    }
-  }
+  beforeEach(function () {
+    form = $(
+      '<form>' +
+        '<textarea id="blah"># preview this</textarea>' +
+        '<label for="blah"></label>' +
+        '<fieldset class="images">' +
+          '<div class="image lead"><input name="edition[images_attributes][0][id]" type="hidden" value="1"></div>' +
+          '<div class="image"><input name="edition[images_attributes][1][id]" type="hidden" value="2"></div>' +
+        '</fieldset>' +
+        '<fieldset class="attachments">' +
+          '<input id="edition_edition_attachments_attributes_0_attachment_attributes_id" name="edition[edition_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
+        '</fieldset>' +
+        '<select id="edition_alternative_format_provider_id">' +
+          '<option value="1">Ministry of Song</option>' +
+          '<option value="2" selected="selected">Ministry of Silly Walks</option>' +
+        '</select>' +
+      '</form>'
+    )
+
+    $(document.body).append(form)
+
+    csrfMeta = $('<meta name=csrf-token content=our-csrf-token />')
+    $(document.head).append(csrfMeta)
+    form.find('textarea').enablePreview()
+
+    jasmine.Ajax.install()
+  })
+
+  afterEach(function () {
+    form.remove()
+    csrfMeta.remove()
+    jasmine.Ajax.uninstall()
+  })
+
+  it('should post to generate a preview when the preview button is clicked', function () {
+    form.find('.show-preview').click()
+
+    var request = jasmine.Ajax.requests.mostRecent()
+    request.respondWith({
+      status: 200,
+      contentType: 'text/html',
+      responseText: '<h1>preview this</h1>'
+    })
+
+    expect(request.url).toEqual('/government/admin/preview')
+    expect(request.data()).toEqual({
+      alternative_format_provider_id: ['2'],
+      'attachment_ids[]': ['276'],
+      authenticity_token: ['our-csrf-token'],
+      body: ['# preview this'],
+      'image_ids[]': ['1', '2']
+    })
+  })
+
+  it('should show a loading state while the request is loading', function () {
+    form.find('.show-preview').click()
+    expect(form.find('.preview-controls .loading').is(':visible')).toBeTrue()
+    jasmine.Ajax.requests.mostRecent().respondWith({
+      status: 200,
+      contentType: 'text/html',
+      responseText: '<h1>preview this</h1>'
+    })
+    expect(form.find('.preview-controls .loading').is(':visible')).toBeFalse()
+  })
+
+  it('should hide the textarea when the request is complete and populate a preview', function () {
+    form.find('.show-preview').click()
+    jasmine.Ajax.requests.mostRecent().respondWith({
+      status: 200,
+      contentType: 'text/html',
+      responseText: '<h1>preview this</h1>'
+    })
+    expect(form.find('textarea').is(':visible')).toBeFalse()
+    expect(form.find('#blah_preview').html()).toEqual('<h1>preview this</h1>')
+  })
+
+  it('should empty the preview and show the editor again when clicking edit after previewing', function () {
+    form.find('.show-preview').click()
+    jasmine.Ajax.requests.mostRecent().respondWith({
+      status: 200,
+      contentType: 'text/html',
+      responseText: '<h1>preview this</h1>'
+    })
+    expect(form.find('#blah_preview').children().length).not.toEqual(0)
+    form.find('.show-editor').click()
+    expect(form.find('#blah_preview').children().length).toEqual(0)
+    expect(form.find('textarea').is(':visible')).toBeTrue()
+  })
+
+  it('should alert if the server responds with an error', function () {
+    form.find('.show-preview').click()
+    spyOn(window, 'alert')
+
+    jasmine.Ajax.requests.mostRecent().respondWith({
+      status: 500,
+      contentType: 'text/html',
+      responseText: 'An error message'
+    })
+
+    expect(window.alert).toHaveBeenCalledWith('An error message')
+  })
 })
-
-test('should post the textarea value to the preview controller', sinon.test(function () {
-  var ajax = this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  sinon.assert.calledOnce(ajax)
-  if (jQuery.ajax.getCall(0)) {
-    var callParams = jQuery.ajax.getCall(0).args[0]
-    equal(callParams.url, '/government/admin/preview')
-    equal(callParams.data.body, '# preview this')
-  }
-}))
-
-test('should include the authenticity token in the posted data', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var callParams = jQuery.ajax.getCall(0).args[0]
-  equal(callParams.data.authenticity_token, $('meta[name=csrf-token]').attr('content'))
-}))
-
-test('should include ids of any persisted images', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var callParams = jQuery.ajax.getCall(0).args[0]
-  deepEqual(callParams.data.image_ids, ['1', '2'])
-}))
-
-test('should include ids of any persisted attachments', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var callParams = jQuery.ajax.getCall(0).args[0]
-  deepEqual(callParams.data.attachment_ids, ['276'])
-}))
-
-test('should include alternative_format_provider_id', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var callParams = jQuery.ajax.getCall(0).args[0]
-  deepEqual(callParams.data.alternative_format_provider_id, '2')
-}))
-
-test('should indicate that the preview is loading', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  }, true)
-
-  ok($('.preview-controls .loading').is(':visible'))
-}))
-
-test('should hide the text area', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var editor = $('textarea')
-  ok(!editor.is(':visible'))
-}))
-
-test('should show the preview contents when the server responds', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var previewForTextArea = $('#blah_preview')
-  ok(previewForTextArea.is(':visible'))
-}))
-
-test('should hide the loading indicator when the server responds', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  ok(!$('.preview-controls .loading').is(':visible'))
-}))
-
-test('should show the rendered preview when the server responds', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  var previewForTextArea = $('#blah_preview')
-  equal(previewForTextArea.html(), '<h1>preview this</h1>')
-}))
-
-test('should hide the preview contents when clicking edit again', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  $('a.show-editor').click()
-
-  var previewForTextArea = $('textarea').parent().parent().find('.preview')
-  ok(!previewForTextArea.is(':visible'))
-}))
-
-test('should show the editor when clicking edit again', sinon.test(function () {
-  this.stubbingPreviewAjax(function () {
-    $('a.show-preview').click()
-  })
-
-  $('a.show-editor').click()
-
-  var editor = $('textarea').parent()
-  ok(editor.is(':visible'))
-}))
-
-test('should show an alert if the response was not 200', sinon.test(function () {
-  this.spy(jQuery, 'ajax')
-  var server = this.sandbox.useFakeServer()
-  server.respondWith('POST', '/government/admin/preview',
-    [403, { 'Content-Type': 'text/html' },
-      'Some error message'])
-
-  var alertStub = this.stub(window, 'alert', function (msg) { return false })
-
-  $('a.show-preview').click()
-  server.respond()
-
-  equal(1, alertStub.callCount, 'showing preview should have invoked alert one time')
-  equal('Some error message', alertStub.getCall(0).args[0], 'alert should have shown error from server')
-}))
