@@ -1,19 +1,24 @@
-module('Back to contents', {
-  setup: function () {
-    this.$nav = $('<div class="js-back-to-contents"></div>')
+describe('GOVUK.backToContent', function () {
+  var nav
 
-    $('#qunit-fixture').append(this.$nav)
-  }
-})
+  beforeEach(function () {
+    nav = $('<div class="js-back-to-contents"></div>')
+    $(document.body).append(nav)
+  })
 
-test('should add fixed class on stick', function () {
-  ok(!this.$nav.hasClass('visuallyhidden'))
-  GOVUK.backToContent.hide(this.$nav)
-  ok(this.$nav.hasClass('visuallyhidden'))
-})
+  afterEach(function () {
+    nav.remove()
+  })
 
-test('should remove fixed class on release', function () {
-  this.$nav.addClass('visuallyhidden')
-  GOVUK.backToContent.show(this.$nav)
-  ok(!this.$nav.hasClass('visuallyhidden'))
+  it('should add fixed class on stick', function () {
+    expect(nav.hasClass('visuallyhidden')).toBeFalsy()
+    GOVUK.backToContent.hide(nav)
+    expect(nav.hasClass('visuallyhidden')).toBeTruthy()
+  })
+
+  it('should remove fixed class on release', function () {
+    nav.addClass('visuallyhidden')
+    GOVUK.backToContent.show(nav)
+    expect(nav.hasClass('visuallyhidden')).toBeFalsy()
+  })
 })
