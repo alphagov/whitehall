@@ -1,12 +1,58 @@
-module('Document filter', {
-  setup: function () {
-    this.originalHistoryEnabled = window.GOVUK.support.history
-    this.originalHistoryPushState = history.pushState
+describe('GOVUK.DocumentFilter', function () {
+  var container, filterForm, filterResults, feedLinks, resultsSummary, originalHistoryEnabled, originalHistoryPushState
+
+  var ajaxData = {
+    'next_page?': true,
+    next_page: 2,
+    next_page_url: '/next-page-url',
+    next_page_web_url: '/next-page-url',
+
+    prev_page_url: '/prev-page-url',
+    prev_page_web_url: '/prev-page-url',
+    'more_pages?': true,
+    total_pages: 5,
+
+    atom_feed_url: '/atom-feed',
+    email_signup_url: '/email-signups',
+    'results_any?': true,
+    total_count: 8,
+    result_type: 'publication',
+    results: [
+      {
+        result: {
+          id: 1,
+          type: 'document-type',
+          title: 'document-title',
+          url: '/document-path',
+          organisations: 'organisation-name-1, organisation-name-2',
+          topics: 'topic-name-1, topic-name-2',
+          field_of_operation: 'place-of-war'
+        },
+        index: 1
+      },
+      {
+        result: {
+          id: 2,
+          type: 'document-type-2',
+          title: 'document-title-2',
+          url: '/document-path-2',
+          organisations: 'organisation-name-2, organisation-name-3',
+          publication_collections: 'collection-1'
+        },
+        index: 2
+      }
+    ]
+  }
+
+  beforeEach(function () {
+    originalHistoryEnabled = window.GOVUK.support.history
+    originalHistoryPushState = history.pushState
     history.pushState = function (state, title, url) {
       return true
     }
 
-    this.filterForm = $('<form id="document-filter" action="/foo/bar">' +
+    container = $('<div />')
+    filterForm = $('<form id="document-filter" action="/foo/bar">' +
       '<input type="submit" />' +
       '<select id="departments" multiple="multiple">' +
       '<option value="all" selected="selected">All</option>' +
@@ -17,390 +63,358 @@ module('Document filter', {
       '<input type="radio" id="direction_after" value="after" checked="checked"> ' +
       '<input type="text" id="keywords" value=""> ' +
       '</form>')
-    $('#qunit-fixture').append(this.filterForm)
+    filterResults = $('<div class="js-filter-results" />')
+    feedLinks = $('<div class="feeds"><a class="feed">feed</a> <a class="email-signup">email</a></div>')
+    resultsSummary = $('<div class="filter-results-summary"></div>')
 
-    this.filterResults = $('<div class="js-filter-results" />')
-    $('#qunit-fixture').append(this.filterResults)
+    container.append(filterForm, filterResults, feedLinks, resultsSummary)
+    $(document.body).append(container)
+  })
 
-    this.feedLinks = $('<div class="feeds"><a class="feed">feed</a> <a class="email-signup">email</a></div>')
-    $('#qunit-fixture').append(this.feedLinks)
+  afterEach(function () {
+    window.GOVUK.support.history = originalHistoryEnabled
+    history.pushState = originalHistoryPushState
 
-    this.resultsSummary = $('<div class="filter-results-summary"></div>')
-    $('#qunit-fixture').append(this.resultsSummary)
+    container.remove()
+  })
 
-    this.ajaxData = {
-      'next_page?': true,
-      next_page: 2,
-      next_page_url: '/next-page-url',
-      next_page_web_url: '/next-page-url',
+  it('should render mustache template from ajax data', function () {
+    spyOn($.fn, 'mustache').and.returnValue(true)
 
-      prev_page_url: '/prev-page-url',
-      prev_page_web_url: '/prev-page-url',
-      'more_pages?': true,
-      total_pages: 5,
+    GOVUK.documentFilter.renderTable(ajaxData)
 
-      atom_feed_url: '/atom-feed',
-      email_signup_url: '/email-signups',
-      'results_any?': true,
-      total_count: 8,
-      result_type: 'publication',
-      results: [
+    expect($.fn.mustache).toHaveBeenCalledWith(jasmine.any(String), ajaxData)
+  })
+
+  it('should show message when ajax data is empty', function () {
+    GOVUK.documentFilter.renderTable({ 'results_any?': false })
+
+    expect(filterResults.find('js-document-list').length).toEqual(0)
+    expect(filterResults.find('.no-results').length).toEqual(1)
+  })
+
+  it('should show message when ajax data is empty', function () {
+    GOVUK.documentFilter.renderTable({ 'results_any?': false })
+
+    expect(filterResults.find('js-document-list').length).toEqual(0)
+    expect(filterResults.find('.no-results').length).toEqual(1)
+  })
+
+  it('should update the atom feed url', function () {
+    expect(feedLinks.find('a[href="/atom-feed"]').length).toEqual(0)
+
+    GOVUK.documentFilter.updateAtomFeed(ajaxData)
+
+    expect(feedLinks.find('a[href="/atom-feed"]').length).toEqual(1)
+  })
+
+  it('should update the email signup url', function () {
+    expect(feedLinks.find('a[href="/email-signups"]').length).toEqual(0)
+
+    GOVUK.documentFilter.updateEmailSignup(ajaxData)
+
+    expect(feedLinks.find('a[href="/email-signups"]').length).toEqual(1)
+  })
+
+  it('should make an ajax request on form submission to obtain filtered results', function () {
+    filterForm.enableDocumentFilter()
+
+    spyOn(jQuery, 'ajax')
+    filterForm.trigger('submit')
+
+    expect(jQuery.ajax).toHaveBeenCalled()
+  })
+
+  it('should send ajax request using json form of url in form action', function () {
+    filterForm.enableDocumentFilter()
+
+    spyOn(jQuery, 'ajax')
+
+    filterForm.attr('action', '/specialist')
+
+    filterForm.trigger('submit')
+
+    expect(jQuery.ajax).toHaveBeenCalledWith('/specialist.json', jasmine.any(Object))
+  })
+
+  it('should send filter form parameters in ajax request', function () {
+    filterForm.enableDocumentFilter()
+
+    spyOn(jQuery, 'ajax')
+
+    filterForm.append($('<select name="foo"><option value="bar" /></select>'))
+
+    filterForm.trigger('submit')
+
+    expect(jQuery.ajax).toHaveBeenCalledWith(jasmine.any(String), jasmine.objectContaining({
+      data: [{ name: 'foo', value: 'bar' }]
+    }))
+  })
+
+  it('should render results based on successful ajax response', function () {
+    jasmine.Ajax.withMock(function () {
+      filterForm.enableDocumentFilter()
+      GOVUK.analytics = { trackPageview: function () {} }
+
+      filterForm.trigger('submit')
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: JSON.stringify(ajaxData)
+      })
+
+      expect(filterResults.find('.document-row').length).toEqual(2)
+      expect(filterResults.find('.document-row .document-collections').text()).toEqual('collection-1')
+      expect(filterResults.find('.document-row .topics').text()).toEqual('topic-name-1, topic-name-2')
+      expect(filterResults.find('.document-row .field-of-operation').text()).toEqual('place-of-war')
+    })
+  })
+
+  it('should fire analytics on successful ajax response', function () {
+    jasmine.Ajax.withMock(function () {
+      filterForm.enableDocumentFilter()
+      GOVUK.analytics = { trackPageview: function () {} }
+
+      spyOn(GOVUK.analytics, 'trackPageview')
+      filterForm.trigger('submit')
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: JSON.stringify(ajaxData)
+      })
+      expect(GOVUK.analytics.trackPageview).toHaveBeenCalled()
+    })
+  })
+
+  it('should apply hide class to feed on ajax call', function () {
+    jasmine.Ajax.withMock(function () {
+      filterForm.enableDocumentFilter()
+
+      filterForm.trigger('submit')
+      expect(feedLinks.is('.js-hidden')).toBeTruthy()
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: JSON.stringify(ajaxData)
+      })
+
+      expect(feedLinks.is('.js-hidden')).toBeFalsy()
+    })
+  })
+
+  describe('currentPageState', function () {
+    it('should include the current results', function () {
+      filterForm.enableDocumentFilter()
+      var resultsContent = '<p>Test content</p>'
+      filterResults.html(resultsContent)
+      expect(GOVUK.documentFilter.currentPageState().html).toEqual(resultsContent)
+    })
+
+    it('should include the state of any select boxes', function () {
+      filterForm.enableDocumentFilter()
+      expect(GOVUK.documentFilter.currentPageState().selected).toEqual([{ id: 'departments', value: ['all'], title: ['All'] }])
+    })
+
+    it('should include the state of any radio buttons', function () {
+      filterForm.enableDocumentFilter()
+      expect(GOVUK.documentFilter.currentPageState().checked).toEqual([{ id: 'direction_after', value: 'after' }])
+    })
+
+    it('should include the state of any text inputs', function () {
+      filterForm.enableDocumentFilter()
+      var searchText = 'my example search'
+      filterForm.find('#keywords').val(searchText)
+      expect(GOVUK.documentFilter.currentPageState().text).toEqual([{ id: 'keywords', value: searchText }])
+    })
+  })
+
+  describe('onPopState', function () {
+    it('should restore the state as specified in the event', function () {
+      filterForm.enableDocumentFilter()
+      var event = {
+        state: {
+          html: '<p>Old content</p>',
+          selected: [{ id: 'departments', value: ['dept1'] }],
+          text: [{ id: 'keywords', value: ['some search'] }],
+          checked: ['direction_before']
+        }
+      }
+      GOVUK.documentFilter.onPopState(event)
+      expect(filterResults.html()).toEqual(event.state.html)
+      expect(filterForm.find('#departments').val()).toEqual(['dept1'])
+      expect(filterForm.find('#keywords').val()).toEqual('some search')
+      expect(filterForm.find('#direction_before:checked')).toBeTruthy()
+    })
+  })
+
+  it('should record initial page state in browser history', function () {
+    var oldPageState = window.GOVUK.documentFilter.currentPageState
+    window.GOVUK.documentFilter.currentPageState = function () { return 'INITIALSTATE' }
+
+    spyOn(history, 'replaceState')
+    filterForm.enableDocumentFilter()
+
+    expect(history.replaceState).toHaveBeenCalledWith('INITIALSTATE', null)
+
+    window.GOVUK.documentFilter.currentPageState = oldPageState
+  })
+
+  it('should update browser location on successful ajax response', function () {
+    jasmine.Ajax.withMock(function () {
+      filterForm.enableDocumentFilter()
+
+      var oldPageState = window.GOVUK.documentFilter.currentPageState
+      window.GOVUK.documentFilter.currentPageState = function () { return 'CURRENTSTATE' }
+
+      spyOn(history, 'pushState')
+      filterForm.attr('action', '/specialist')
+      filterForm.append($('<select name="foo"><option value="bar" /></select>'))
+
+      filterForm.trigger('submit')
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: JSON.stringify(ajaxData)
+      })
+
+      expect(history.pushState).toHaveBeenCalledWith('CURRENTSTATE', null, '/specialist?foo=bar')
+
+      window.GOVUK.documentFilter.currentPageState = oldPageState
+    })
+  })
+
+  it('should store new table html on successful ajax response', function () {
+    jasmine.Ajax.withMock(function () {
+      filterForm.enableDocumentFilter()
+      spyOn(history, 'pushState')
+
+      filterForm.trigger('submit')
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: JSON.stringify(ajaxData)
+      })
+
+      expect(history.pushState).toHaveBeenCalledWith(
+        jasmine.objectContaining({ html: jasmine.any(String) }),
+        null,
+        '/foo/bar?'
+      )
+    })
+  })
+
+  it('should not enable ajax filtering if browser does not support HTML5 History API', function () {
+    var oldHistory = window.GOVUK.support.history
+    window.GOVUK.support.history = function () { return false }
+
+    filterForm.enableDocumentFilter()
+
+    spyOn(jQuery, 'ajax')
+
+    filterForm.attr('action', 'javascript:void(0)')
+    filterForm.trigger('submit')
+
+    expect(jQuery.ajax).not.toHaveBeenCalled()
+    window.GOVUK.support.history = oldHistory
+  })
+
+  it('should create live count value', function () {
+    window.GOVUK.documentFilter.$form = filterForm
+
+    var data = { total_count: 1337 }
+
+    window.GOVUK.documentFilter.liveResultSummary(data)
+    expect(resultsSummary.text()).toMatch('1,337 results')
+  })
+
+  it('should update selections to match filters', function () {
+    window.GOVUK.documentFilter.$form = filterForm
+
+    var data = { total_count: 1337 }
+    var formStatus = {
+      selected: [
         {
-          result: {
-            id: 1,
-            type: 'document-type',
-            title: 'document-title',
-            url: '/document-path',
-            organisations: 'organisation-name-1, organisation-name-2',
-            topics: 'topic-name-1, topic-name-2',
-            field_of_operation: 'place-of-war'
-          },
-          index: 1
+          title: ['my-title'],
+          id: 'topics',
+          value: ['my-value']
+        }
+      ],
+      text: [
+        {
+          title: ['from-date'],
+          id: 'from_date',
+          value: ['from-date']
         },
         {
-          result: {
-            id: 2,
-            type: 'document-type-2',
-            title: 'document-title-2',
-            url: '/document-path-2',
-            organisations: 'organisation-name-2, organisation-name-3',
-            publication_collections: 'collection-1'
-          },
-          index: 2
+          title: ['to-date'],
+          id: 'to_date',
+          value: ['to-date']
         }
       ]
     }
-  },
-  tearDown: function () {
-    window.GOVUK.support.history = this.originalHistoryEnabled
-    history.pushState = this.originalHistoryPushState
-  }
-})
 
-test('should render mustache template from ajax data', sinon.test(function () {
-  var stub = this.stub($.fn, 'mustache')
-  stub.returns(true)
-
-  GOVUK.documentFilter.renderTable(this.ajaxData)
-
-  equal(stub.getCall(0).args[1], this.ajaxData)
-}))
-
-test('should show message when ajax data is empty', function () {
-  GOVUK.documentFilter.renderTable({ 'results_any?': false })
-
-  equal(this.filterResults.find('js-document-list').length, 0)
-  equal(this.filterResults.find('.no-results').length, 1)
-})
-
-test('should update the atom feed url', function () {
-  equal(this.feedLinks.find('a[href="/atom-feed"]').length, 0)
-
-  GOVUK.documentFilter.updateAtomFeed(this.ajaxData)
-
-  equal(this.feedLinks.find('a[href="/atom-feed"]').length, 1)
-})
-
-test('should update the email signup url', function () {
-  equal(this.feedLinks.find('a[href="/email-signups"]').length, 0)
-
-  GOVUK.documentFilter.updateEmailSignup(this.ajaxData)
-
-  equal(this.feedLinks.find('a[href="/email-signups"]').length, 1)
-})
-
-test('should make an ajax request on form submission to obtain filtered results', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-
-  var ajax = this.spy(jQuery, 'ajax')
-  var server = this.sandbox.useFakeServer()
-
-  this.filterForm.submit()
-  server.respond()
-
-  sinon.assert.calledOnce(ajax)
-}))
-
-test('should send ajax request using json form of url in form action', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-
-  this.spy(jQuery, 'ajax')
-  var server = this.sandbox.useFakeServer()
-
-  $(this.filterForm).attr('action', '/specialist')
-
-  this.filterForm.submit()
-  server.respond()
-
-  var url = jQuery.ajax.getCall(0).args[0]
-  equal(url, '/specialist.json')
-}))
-
-test('should send filter form parameters in ajax request', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-
-  this.spy(jQuery, 'ajax')
-  var server = this.sandbox.useFakeServer()
-
-  $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'))
-
-  this.filterForm.submit()
-  server.respond()
-
-  var settings = jQuery.ajax.getCall(0).args[1]
-  equal(settings.data[0].name, 'foo')
-  equal(settings.data[0].value, 'bar')
-}))
-
-test('should render results based on successful ajax response', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-  GOVUK.analytics = { trackPageview: function () {} }
-
-  var server = this.sandbox.useFakeServer()
-  server.respondWith(JSON.stringify(this.ajaxData))
-
-  this.filterForm.submit()
-  server.respond()
-
-  equal(this.filterResults.find('.document-row').length, 2)
-  equal(this.filterResults.find('.document-row .document-collections').text(), 'collection-1')
-  equal(this.filterResults.find('.document-row .topics').text(), 'topic-name-1, topic-name-2')
-  equal(this.filterResults.find('.document-row .field-of-operation').text(), 'place-of-war')
-}))
-
-test('should fire analytics on successful ajax response', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-  GOVUK.analytics = { trackPageview: function () {} }
-
-  var analytics = this.spy(GOVUK.analytics, 'trackPageview')
-  var server = this.sandbox.useFakeServer()
-  server.respondWith(JSON.stringify(this.ajaxData))
-
-  this.filterForm.submit()
-  server.respond()
-
-  sinon.assert.callCount(analytics, 1)
-}))
-
-test('should apply hide class to feed on ajax call', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-
-  var server = this.sandbox.useFakeServer()
-  server.respondWith(JSON.stringify(this.ajaxData))
-
-  this.filterForm.submit()
-  ok(this.feedLinks.is('.js-hidden'))
-  server.respond()
-  ok(!this.feedLinks.is('.js-hidden'))
-}))
-
-test('currentPageState should include the current results', function () {
-  this.filterForm.enableDocumentFilter()
-  var resultsContent = '<p>Test content</p>'
-  this.filterResults.html(resultsContent)
-  equal(GOVUK.documentFilter.currentPageState().html, resultsContent)
-})
-
-test('currentPageState should include the state of any select boxes', function () {
-  this.filterForm.enableDocumentFilter()
-  deepEqual(GOVUK.documentFilter.currentPageState().selected, [{ id: 'departments', value: ['all'], title: ['All'] }])
-})
-
-test('currentPageState should include the state of any radio buttons', function () {
-  this.filterForm.enableDocumentFilter()
-  deepEqual(GOVUK.documentFilter.currentPageState().checked, [{ id: 'direction_after', value: 'after' }])
-})
-
-test('currentPageState should include the state of any text inputs', function () {
-  this.filterForm.enableDocumentFilter()
-  var searchText = 'my example search'
-  this.filterForm.find('#keywords').val(searchText)
-  deepEqual(GOVUK.documentFilter.currentPageState().text, [{ id: 'keywords', value: searchText }])
-})
-
-test('onPopState should restore the state as specified in the event', function () {
-  this.filterForm.enableDocumentFilter()
-  var event = {
-    state: {
-      html: '<p>Old content</p>',
-      selected: [{ id: 'departments', value: ['dept1'] }],
-      text: [{ id: 'keywords', value: ['some search'] }],
-      checked: ['direction_before']
-    }
-  }
-  GOVUK.documentFilter.onPopState(event)
-  equal(this.filterResults.html(), event.state.html, 'filter results updated to previous value')
-  deepEqual(this.filterForm.find('#departments').val(), ['dept1'], 'old department selected')
-  equal(this.filterForm.find('#keywords').val(), 'some search', 'filter results updated to previous value')
-  ok(this.filterForm.find('#direction_before:checked'), "date 'before' radio checked")
-})
-
-test('should record initial page state in browser history', sinon.test(function () {
-  var oldPageState = window.GOVUK.documentFilter.currentPageState
-  window.GOVUK.documentFilter.currentPageState = function () { return 'INITIALSTATE' }
-
-  var historyReplaceState = this.spy(history, 'replaceState')
-  this.filterForm.enableDocumentFilter()
-
-  var data = historyReplaceState.getCall(0).args[0]
-  equal(data, 'INITIALSTATE', 'Initial state is stored in history data')
-
-  window.GOVUK.documentFilter.currentPageState = oldPageState
-}))
-
-test('should update browser location on successful ajax response', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-
-  var oldPageState = window.GOVUK.documentFilter.currentPageState
-  window.GOVUK.documentFilter.currentPageState = function () { return 'CURRENTSTATE' }
-
-  var historyPushState = this.spy(history, 'pushState')
-  var server = this.sandbox.useFakeServer()
-  server.respondWith(JSON.stringify(this.ajaxData))
-
-  $(this.filterForm).attr('action', '/specialist')
-  $(this.filterForm).append($('<select name="foo"><option value="bar" /></select>'))
-
-  this.filterForm.submit()
-  server.respond()
-
-  var data = historyPushState.getCall(0).args[0]
-  equal(data, 'CURRENTSTATE', 'Current state is stored in history data')
-
-  var title = historyPushState.getCall(0).args[1]
-  equal(title, null, 'Setting this to null means title stays the same')
-
-  var path = historyPushState.getCall(0).args[2]
-  equal(path, '/specialist?foo=bar', 'Bookmarkable URL path')
-
-  window.GOVUK.documentFilter.currentPageState = oldPageState
-}))
-
-test('should store new table html on successful ajax response', sinon.test(function () {
-  this.filterForm.enableDocumentFilter()
-
-  var historyPushState = this.spy(history, 'pushState')
-  var server = this.sandbox.useFakeServer()
-  server.respondWith(JSON.stringify(this.ajaxData))
-
-  this.filterForm.submit()
-  server.respond()
-
-  var data = historyPushState.getCall(0).args[0]
-  ok(!!data.html.match('document-title'), 'Current state is stored in history data')
-}))
-
-test('should not enable ajax filtering if browser does not support HTML5 History API', sinon.test(function () {
-  var oldHistory = window.GOVUK.support.history
-  window.GOVUK.support.history = function () { return false }
-
-  this.filterForm.enableDocumentFilter()
-
-  var ajax = this.spy(jQuery, 'ajax')
-  var server = this.sandbox.useFakeServer()
-
-  this.filterForm.attr('action', 'javascript:void(0)')
-  this.filterForm.submit()
-  server.respond()
-
-  sinon.assert.callCount(ajax, 0)
-  window.GOVUK.support.history = oldHistory
-}))
-
-test('should create live count value', function () {
-  window.GOVUK.documentFilter.$form = this.filterForm
-
-  var data = { total_count: 1337 }
-
-  window.GOVUK.documentFilter.liveResultSummary(data)
-  ok(this.resultsSummary.text().indexOf('1,337 results') > -1, 'should display 1,337 results')
-})
-
-test('should update selections to match filters', sinon.test(function () {
-  window.GOVUK.documentFilter.$form = this.filterForm
-
-  var data = { total_count: 1337 }
-  var formStatus = {
-    selected: [
-      {
-        title: ['my-title'],
-        id: 'topics',
-        value: ['my-value']
-      }
-    ],
-    text: [
-      {
-        title: ['from-date'],
-        id: 'from_date',
-        value: ['from-date']
-      },
-      {
-        title: ['to-date'],
-        id: 'to_date',
-        value: ['to-date']
-      }
-    ]
-  }
-
-  var stub = this.stub(GOVUK.documentFilter, 'currentPageState')
-  stub.returns(formStatus)
-
-  window.GOVUK.documentFilter.liveResultSummary(data, formStatus)
-
-  ok(this.resultsSummary.find('.topics-selections strong').text().indexOf('my-title') > -1)
-  equal(this.resultsSummary.find('.topics-selections a').attr('data-val'), 'my-value')
-  equal(this.resultsSummary.text().match(/after.from-date/).length, 1, 'not from my-date')
-  equal(this.resultsSummary.text().match(/before.to-date/).length, 1, 'not to my-date')
-}))
-
-test('should request removal from document filters', sinon.test(function () {
-  this.resultsSummary.append('<a href="#" data-field="topics" data-val="something">hello</a>')
-
-  var stub = this.stub(GOVUK.documentFilter, 'removeFilters')
-
-  this.filterForm.enableDocumentFilter()
-
-  this.resultsSummary.find('a').click()
-
-  if (stub.getCall(0)) {
-    equal(stub.getCall(0).args[0], 'topics')
-    equal(stub.getCall(0).args[1], 'something')
-  } else {
-    ok(stub.getCall(0), 'stub not called')
-  }
-}))
-
-test('should remove selection from apropriate filter', function () {
-  this.filterForm.find('option[value="dept1"]').attr('selected', 'selected')
-
-  equal(this.filterForm.find('select option[value="dept1"]:selected').length, 1, 'selected to start')
-  GOVUK.documentFilter.removeFilters('departments', 'dept1')
-  equal(this.filterForm.find('select option[value="dept1"]:selected').length, 0, 'selection removed')
-})
-
-test('should select first item in filter if no item would be selected', function () {
-  this.filterForm.find('option').removeAttr('selected')
-  this.filterForm.find('option[value="dept1"]').attr('selected', 'selected')
-
-  equal(this.filterForm.find('select option:selected').length, 1)
-  GOVUK.documentFilter.removeFilters('departments', 'dept1')
-  equal(this.filterForm.find('select option:first-child:selected').length, 1)
-})
-
-test('#_numberWithDelimiter should add commas', function () {
-  equal(GOVUK.documentFilter._numberWithDelimiter(10), '10')
-  equal(GOVUK.documentFilter._numberWithDelimiter(1000), '1,000')
-  equal(GOVUK.documentFilter._numberWithDelimiter(1000000), '1,000,000')
-})
-
-test('#_pluralize pluralizes basic words', function () {
-  equal(GOVUK.documentFilter._pluralize('badger', 0), 'badgers')
-  equal(GOVUK.documentFilter._pluralize('badger', 1), 'badger')
-  equal(GOVUK.documentFilter._pluralize('badger', 2), 'badgers')
-})
-
-test('#_pluralize pluralizes words ending in y', function () {
-  equal(GOVUK.documentFilter._pluralize('fly', 0), 'flies')
-  equal(GOVUK.documentFilter._pluralize('fly', 1), 'fly')
-  equal(GOVUK.documentFilter._pluralize('fly', 2), 'flies')
+    spyOn(GOVUK.documentFilter, 'currentPageState').and.returnValue(formStatus)
+
+    window.GOVUK.documentFilter.liveResultSummary(data, formStatus)
+
+    expect(resultsSummary.find('.topics-selections strong').text()).toMatch('my-title')
+    expect(resultsSummary.find('.topics-selections a').attr('data-val')).toEqual('my-value')
+    expect(resultsSummary.text()).toMatch(/after.from-date/)
+    expect(resultsSummary.text()).toMatch(/before.to-date/)
+  })
+
+  it('should request removal from document filters', function () {
+    resultsSummary.append('<a href="#" data-field="topics" data-val="something">hello</a>')
+
+    spyOn(GOVUK.documentFilter, 'removeFilters')
+
+    filterForm.enableDocumentFilter()
+
+    resultsSummary.find('a').click()
+
+    expect(GOVUK.documentFilter.removeFilters).toHaveBeenCalledWith('topics', 'something')
+  })
+
+  it('should remove selection from apropriate filter', function () {
+    filterForm.find('option[value="dept1"]').attr('selected', 'selected')
+
+    expect(filterForm.find('select option[value="dept1"]:selected').length).toEqual(1)
+    GOVUK.documentFilter.removeFilters('departments', 'dept1')
+    expect(filterForm.find('select option[value="dept1"]:selected').length).toEqual(0)
+  })
+
+  it('should select first item in filter if no item would be selected', function () {
+    filterForm.find('option').removeAttr('selected')
+    filterForm.find('option[value="dept1"]').attr('selected', 'selected')
+
+    expect(filterForm.find('select option:selected').length).toEqual(1)
+    GOVUK.documentFilter.removeFilters('departments', 'dept1')
+    expect(filterForm.find('select option:first-child:selected').length).toEqual(1)
+  })
+
+  describe('_numberWithDelimiter', function () {
+    it('should add commas', function () {
+      expect(GOVUK.documentFilter._numberWithDelimiter(10)).toEqual('10')
+      expect(GOVUK.documentFilter._numberWithDelimiter(1000)).toEqual('1,000')
+      expect(GOVUK.documentFilter._numberWithDelimiter(1000000)).toEqual('1,000,000')
+    })
+  })
+
+  describe('_pluralize', function () {
+    it('pluralizes basic words', function () {
+      expect(GOVUK.documentFilter._pluralize('badger', 0)).toEqual('badgers')
+      expect(GOVUK.documentFilter._pluralize('badger', 1)).toEqual('badger')
+      expect(GOVUK.documentFilter._pluralize('badger', 2)).toEqual('badgers')
+    })
+
+    it('pluralizes words ending in y', function () {
+      expect(GOVUK.documentFilter._pluralize('fly', 0)).toEqual('flies')
+      expect(GOVUK.documentFilter._pluralize('fly', 1)).toEqual('fly')
+      expect(GOVUK.documentFilter._pluralize('fly', 2)).toEqual('flies')
+    })
+  })
 })
