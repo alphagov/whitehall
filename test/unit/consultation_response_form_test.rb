@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ConsultationResponseFormTest < ActiveSupport::TestCase
+  setup do
+    ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns(["auth bypass id"])
+  end
+
   test "should be invalid without a title" do
     form = build(:consultation_response_form, title: nil)
     assert_not form.valid?

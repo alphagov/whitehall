@@ -150,6 +150,10 @@ class AttachmentData < ApplicationRecord
     attachments.reverse.detect { |a| (a.attachable || Attachable::Null.new).publicly_visible? }
   end
 
+  def auth_bypass_ids
+    attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id] : []
+  end
+
 private
 
   def filtered_attachments(include_deleted_attachables: false)

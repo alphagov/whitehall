@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ConsultationParticipationTest < ActiveSupport::TestCase
+  setup do
+    ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns(["auth bypass id"])
+  end
+
   test "should be invalid with malformed link url" do
     participation = build(:consultation_participation, link_url: "invalid-url")
     assert_not participation.valid?
@@ -82,6 +86,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
 
   test "does not destroy attached file when if more participations are associated" do
     participation = create(:consultation_participation)
+
     form = create(:consultation_response_form, consultation_participation: participation)
     _other_participation = create(:consultation_participation, consultation_response_form: form)
 

@@ -214,6 +214,7 @@ class AssetManagerIntegrationTest
   class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       @filename = "greenpaper.pdf"
+      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.build(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(@filename)),
@@ -243,6 +244,7 @@ class AssetManagerIntegrationTest
     setup do
       filename = "greenpaper.pdf"
       @consultation_response_form_asset_id = "asset-id"
+      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename)),
@@ -270,6 +272,7 @@ class AssetManagerIntegrationTest
     setup do
       filename = "greenpaper.pdf"
       @consultation_response_form_asset_id = "asset-id"
+      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename)),

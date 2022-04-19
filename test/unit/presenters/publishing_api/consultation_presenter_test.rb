@@ -6,6 +6,7 @@ module PublishingApi::ConsultationPresenterTest
 
     setup do
       create(:current_government)
+      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns(["auth bypass id"])
     end
 
     def presented_consultation
