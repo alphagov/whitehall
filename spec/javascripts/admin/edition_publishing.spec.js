@@ -1,72 +1,68 @@
-module('No change note label or field present', {
-  setup: function () {
-    this.publishingForm = $('<form />')
+describe('enableChangeNoteHighlighting', function () {
+  var publishingForm, container
 
-    $('#qunit-fixture').append(this.publishingForm)
-    this.publishingForm.enableChangeNoteHighlighting()
-  }
-})
+  beforeEach(function () {
+    publishingForm = $(
+      '<form>' +
+        '<label for="edition_change_note" />' +
+        '<textarea id="edition_change_note" />' +
+        '<input type="submit" value="Publish" />' +
+      '</form>'
+    )
 
-test('should not hide form', function () {
-  ok($(this.publishingForm).is(':visible'))
-})
+    // use a container element as the JS will insert sibling elements to the form
+    container = $('<div>').append(publishingForm)
+    $(document.body).append(container)
+  })
 
-module('Change note label and field present with publish button', {
-  setup: function () {
-    this.publishingForm = $('<form />')
-    this.changeNoteLabel = $("<label for='edition_change_note' />")
-    this.changeNoteTextarea = $("<textarea id='edition_change_note' />")
-    this.publishingForm.append(this.changeNoteLabel)
-    this.publishingForm.append(this.changeNoteTextarea)
-    this.publishingForm.append("<input type='submit' value='Publish'/>")
+  afterEach(function () {
+    container.remove()
+  })
 
-    $('#qunit-fixture').append(this.publishingForm)
-    this.publishingForm.enableChangeNoteHighlighting()
-  }
-})
+  it('should hide the the form and insert a publish button', function () {
+    publishingForm.enableChangeNoteHighlighting()
 
-test('should hide form', function () {
-  ok($(this.publishingForm).is(':hidden'))
-})
+    expect(publishingForm.is(':hidden')).toBeTrue()
+    expect(publishingForm.prev("a.button[href='#edition_publishing']").text()).toEqual('Publish')
+  })
 
-test('should insert a publish button link before the form', function () {
-  equal(this.publishingForm.prev("a.button[href='#edition_publishing']").text(), 'Publish')
-})
+  it('should name the new button based on the the input value', function () {
+    publishingForm.find('input').val('Force Publish')
 
-test('should hide publish button when the publish button link is clicked', function () {
-  this.publishingForm.prev('a.button').click()
-  ok(this.publishingForm.prev('a.button').is(':hidden'))
-})
+    publishingForm.enableChangeNoteHighlighting()
 
-test('should wrap change note label in validation error class when the publish button link is clicked', function () {
-  this.publishingForm.prev('a.button').click()
-  ok(this.changeNoteLabel.parents().hasClass('field_with_errors'))
-})
+    expect(publishingForm.prev("a.button[href='#edition_publishing']").text()).toEqual('Force Publish')
+  })
 
-test('should wrap change note textarea in validation error class when the publish button link is clicked', function () {
-  this.publishingForm.prev('a.button').click()
-  ok(this.changeNoteTextarea.parents().hasClass('field_with_errors'))
-})
+  describe('when the publish button is clicked', function () {
+    beforeEach(function () {
+      publishingForm.enableChangeNoteHighlighting()
+      publishingForm.prev('a.button').click()
+    })
 
-test('should show form when the publish button link is clicked', function () {
-  this.publishingForm.prev('a.button').click()
-  ok($(this.publishingForm).is(':visible'))
-})
+    it('should hide the publishing button', function () {
+      expect(publishingForm.prev('a.button').is(':hidden')).toBeTrue()
+    })
 
-module('Change note label and field present with force publish button', {
-  setup: function () {
-    this.publishingForm = $('<form />')
-    this.changeNoteLabel = $("<label for='edition_change_note' />")
-    this.changeNoteTextarea = $("<textarea id='edition_change_note' />")
-    this.publishingForm.append(this.changeNoteLabel)
-    this.publishingForm.append(this.changeNoteTextarea)
-    this.publishingForm.append("<input type='submit' value='Force publish'/>")
+    it('should wrap the label and textarea in error indicators', function () {
+      expect(publishingForm.find('label').parent().hasClass('field_with_errors')).toBeTrue()
+      expect(publishingForm.find('textarea').parent().hasClass('field_with_errors')).toBeTrue()
+    })
 
-    $('#qunit-fixture').append(this.publishingForm)
-    this.publishingForm.enableChangeNoteHighlighting()
-  }
-})
+    it('should show the form', function () {
+      expect(publishingForm.is(':visible')).toBeTrue()
+    })
+  })
 
-test('should insert a force publish button link before the form', function () {
-  equal(this.publishingForm.prev("a.button[href='#edition_publishing']").text(), 'Force publish')
+  describe("when there isn't a change note field", function () {
+    beforeEach(function () {
+      publishingForm.find('textarea').remove()
+    })
+
+    it('should not hide the the form', function () {
+      publishingForm.enableChangeNoteHighlighting()
+
+      expect(publishingForm.is(':hidden')).toBeFalse()
+    })
+  })
 })
