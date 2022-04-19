@@ -1,0 +1,14 @@
+{
+  "srcDir": "public/assets/whitehall",
+  "srcFiles": [
+    "all-*.js"
+  ],
+  "specDir": "spec/javascripts",
+  "specFiles": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "helpers/*.js"
+  ],
+  "browser": "headlessChrome"
+}
