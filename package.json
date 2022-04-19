@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "yarn run lint:js && yarn run lint:scss",
-    "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'test/javascripts/**/*.js'",
+    "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'",
     "lint:scss": "stylelint app/assets/stylesheets/",
     "jasmine:prepare": "RAILS_ENV=test bundle exec rails assets:clobber shared_mustache:compile assets:precompile",
     "jasmine:ci": "yarn run jasmine:prepare && yarn run jasmine-browser-runner runSpecs",
@@ -16,18 +16,15 @@
     "env": {
       "browser": true,
       "jquery": true,
-      "qunit": true,
       "jasmine": true
     },
     "globals": [
       "GOVUK",
-      "GOVUKAdmin",
-      "sinon"
+      "GOVUKAdmin"
     ],
     "ignore": [
       "app/assets/javascripts/templates.js",
-      "app/assets/javascripts/vendor/",
-      "test/javascripts/support/"
+      "app/assets/javascripts/vendor/"
     ]
   },
   "eslintConfig": {
