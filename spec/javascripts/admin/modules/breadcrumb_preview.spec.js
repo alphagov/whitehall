@@ -1,35 +1,29 @@
-/* global GOVUKAdmin */
+describe('GOVUKAdmin.Modules.BreadcrumbPreview', function () {
+  var preview
 
-module('BreadcrumbPreview', {
-  setup: function () {
-    this.subject = new GOVUKAdmin.Modules.BreadcrumbPreview()
-  }
-})
+  beforeEach(function () {
+    preview = new GOVUKAdmin.Modules.BreadcrumbPreview()
+  })
 
-test('.filterBreadcrumbs returns an empty array', function () {
-  deepEqual(
-    this.subject.filterBreadcrumbs([]),
-    []
-  )
-})
+  describe('filterBreadcrumbs', function () {
+    it('returns an empty array when given an empty array', function () {
+      expect(preview.filterBreadcrumbs([])).toEqual([])
+    })
 
-test('.filterBreadcrumbs filters out breadcrumbs that are prefixes of other breadcrumbs', function () {
-  deepEqual(
-    this.subject.filterBreadcrumbs([
-      {
-        ancestors: ['foo', 'bar']
-      },
-      {
-        ancestors: ['foo']
-      },
-      {
-        ancestors: ['foo', 'bar', 'baz']
-      }
-    ]),
-    [
-      {
-        ancestors: ['foo', 'bar', 'baz']
-      }
-    ]
-  )
+    it('filters out breadcrumbs that are prefixes of other breadcrumbs', function () {
+      var collection = [
+        {
+          ancestors: ['foo', 'bar']
+        },
+        {
+          ancestors: ['foo']
+        },
+        {
+          ancestors: ['foo', 'bar', 'baz']
+        }
+      ]
+
+      expect(preview.filterBreadcrumbs(collection)).toEqual([{ ancestors: ['foo', 'bar', 'baz'] }])
+    })
+  })
 })
