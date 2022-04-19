@@ -16,6 +16,9 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
         authorised_user_uids = AssetManagerAccessLimitation.for(model)
         asset_options[:access_limited] = authorised_user_uids
       end
+      if model.respond_to?(:auth_bypass_id) && model.auth_bypass_id
+        asset_options[:auth_bypass_ids] = [model.auth_bypass_id]
+      end
     end
 
     asset_manager.create_whitehall_asset(asset_options)

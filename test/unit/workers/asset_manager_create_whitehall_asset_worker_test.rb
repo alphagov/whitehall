@@ -80,6 +80,17 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @legacy_url_path, true, policy_group.class.to_s, policy_group.id)
   end
 
+  test "sends auth bypass ids to asset manager when an attachment's edition has an auth bypass id" do
+    consultation = FactoryBot.create(:consultation)
+    response = FactoryBot.create(:consultation_outcome, consultation: consultation)
+    attachment = FactoryBot.create(:file_attachment, attachable: response)
+    attachment.attachment_data.attachable = consultation
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(auth_bypass_ids: [consultation.auth_bypass_id]))
+
+    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
+  end
+
   test "doesn't run if the file is missing (e.g. job ran twice)" do
     path = @file.path
     FileUtils.rm(@file)
