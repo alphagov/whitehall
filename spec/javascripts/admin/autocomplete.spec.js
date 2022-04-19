@@ -1,163 +1,180 @@
-module('autoComplete', {
-  setup: function () {
-    this.$textarea = $('<textarea id="my-textarea"></textarea>')
-    $('#qunit-fixture').append(this.$textarea)
+describe('GOVUK.autoCompleter', function () {
+  var textarea, allSuggestions
 
-    this.allSuggestions = {
+  beforeEach(function () {
+    textarea = $('<textarea id="my-textarea"></textarea>')
+    $(document.body).append(textarea)
+
+    allSuggestions = {
       contacts: [
         { id: 1, title: 'me', summary: 'about me' },
         { id: 2, title: 'you', summary: 'all you, all the time' },
         { id: 3, title: 'them', summary: 'them includes me and you' }
       ]
     }
-  }
-})
+    GOVUK.autoCompleter.lastValue = undefined
+  })
 
-test('getMatch should find new match', function () {
-  var originalSelectionEnd = GOVUK.autoCompleter.selectionEnd
-  GOVUK.autoCompleter.textarea = this.$textarea[0]
-  GOVUK.autoCompleter.selectionEnd = function () { return 66 }
-  this.$textarea.val('[Contact:me')
+  afterEach(function () {
+    textarea.remove()
+  })
 
-  deepEqual(GOVUK.autoCompleter.getMatch(), { changed: true, type: 'contacts', match: '[Contact:me', query: 'me', position: 66 })
+  describe('getMatch', function () {
+    it('should find new match', function () {
+      var originalSelectionEnd = GOVUK.autoCompleter.selectionEnd
+      GOVUK.autoCompleter.textarea = textarea[0]
+      GOVUK.autoCompleter.selectionEnd = function () { return 66 }
+      textarea.val('[Contact:me')
 
-  GOVUK.autoCompleter.selectionEnd = originalSelectionEnd
-})
+      expect(GOVUK.autoCompleter.getMatch()).toEqual({ changed: true, type: 'contacts', match: '[Contact:me', query: 'me', position: 66 })
 
-test("getMatch should return not changed if value hasn't changed", function () {
-  var originalSelectionEnd = GOVUK.autoCompleter.selectionEnd
-  GOVUK.autoCompleter.textarea = this.$textarea[0]
-  GOVUK.autoCompleter.selectionEnd = function () { return 66 }
-  this.$textarea.val('[Contact:me')
+      GOVUK.autoCompleter.selectionEnd = originalSelectionEnd
+    })
 
-  GOVUK.autoCompleter.getMatch()
-  deepEqual(GOVUK.autoCompleter.getMatch(), { changed: false })
+    it("should return not changed if value hasn't changed", function () {
+      var originalSelectionEnd = GOVUK.autoCompleter.selectionEnd
+      GOVUK.autoCompleter.textarea = textarea[0]
+      GOVUK.autoCompleter.selectionEnd = function () { return 66 }
+      textarea.val('[Contact:me')
 
-  GOVUK.autoCompleter.selectionEnd = originalSelectionEnd
-})
+      GOVUK.autoCompleter.getMatch()
+      expect(GOVUK.autoCompleter.getMatch()).toEqual({ changed: false })
 
-test('getMatch should return false if no match found', function () {
-  var originalSelectionEnd = GOVUK.autoCompleter.selectionEnd
-  GOVUK.autoCompleter.textarea = this.$textarea[0]
-  GOVUK.autoCompleter.selectionEnd = function () { return 66 }
+      GOVUK.autoCompleter.selectionEnd = originalSelectionEnd
+    })
 
-  ok(!GOVUK.autoCompleter.getMatch())
+    it('should return false if no match found', function () {
+      var originalSelectionEnd = GOVUK.autoCompleter.selectionEnd
+      GOVUK.autoCompleter.textarea = textarea[0]
+      GOVUK.autoCompleter.selectionEnd = function () { return 66 }
 
-  GOVUK.autoCompleter.selectionEnd = originalSelectionEnd
-})
+      expect(GOVUK.autoCompleter.getMatch()).toBe(false)
 
-test('search finds correct suggestions', function () {
-  var originalSuggestions = GOVUK.autoCompleter.allSuggestions
-  GOVUK.autoCompleter.allSuggestions = this.allSuggestions
+      GOVUK.autoCompleter.selectionEnd = originalSelectionEnd
+    })
+  })
 
-  deepEqual(GOVUK.autoCompleter.search('contacts', 'about me'), [this.allSuggestions.contacts[0]])
-  deepEqual(GOVUK.autoCompleter.search('contacts', '1'), [this.allSuggestions.contacts[0]])
-  deepEqual(GOVUK.autoCompleter.search('contacts', 'you'), [this.allSuggestions.contacts[1], this.allSuggestions.contacts[2]])
-  deepEqual(GOVUK.autoCompleter.search('contacts', 'nothing'), [])
+  describe('search', function () {
+    it('finds correct suggestions', function () {
+      var originalSuggestions = GOVUK.autoCompleter.allSuggestions
+      GOVUK.autoCompleter.allSuggestions = allSuggestions
 
-  GOVUK.autoCompleter.allSuggestions = originalSuggestions
-})
+      expect(GOVUK.autoCompleter.search('contacts', 'about me')).toEqual([allSuggestions.contacts[0]])
+      expect(GOVUK.autoCompleter.search('contacts', '1')).toEqual([allSuggestions.contacts[0]])
+      expect(GOVUK.autoCompleter.search('contacts', 'you')).toEqual([allSuggestions.contacts[1], allSuggestions.contacts[2]])
+      expect(GOVUK.autoCompleter.search('contacts', 'nothing')).toEqual([])
 
-test('displays matched options', function () {
-  var originalSuggestions = GOVUK.autoCompleter.suggestions
-  GOVUK.autoCompleter.suggestions = this.allSuggestions.contacts
-  var originalSelector = GOVUK.autoCompleter.$selector
-  var selector = $('<div>')
-  GOVUK.autoCompleter.$selector = selector
+      GOVUK.autoCompleter.allSuggestions = originalSuggestions
+    })
+  })
 
-  GOVUK.autoCompleter.displayOptions()
+  it('displays matched options', function () {
+    var originalSuggestions = GOVUK.autoCompleter.suggestions
+    GOVUK.autoCompleter.suggestions = allSuggestions.contacts
+    var originalSelector = GOVUK.autoCompleter.$selector
+    var selector = $('<div>')
+    GOVUK.autoCompleter.$selector = selector
 
-  equal(selector.find('li').length, 3)
-  ok(selector.text().match(/about me/))
-  ok(selector.text().match(/all you, all the time/))
-  ok(selector.text().match(/them includes me and you/))
+    GOVUK.autoCompleter.displayOptions()
 
-  GOVUK.autoCompleter.suggestions = originalSuggestions
-  GOVUK.autoCompleter.$selector = originalSelector
-})
+    expect(selector.find('li').length).toEqual(3)
+    expect(selector.text().match(/about me/)).toBeTruthy()
+    expect(selector.text().match(/all you, all the time/)).toBeTruthy()
+    expect(selector.text().match(/them includes me and you/)).toBeTruthy()
 
-test('sets active selection', function () {
-  var originalSuggestions = GOVUK.autoCompleter.suggestions
-  GOVUK.autoCompleter.suggestions = this.allSuggestions.contacts
-  var originalSelector = GOVUK.autoCompleter.$selector
-  var selector = $('<div>')
-  GOVUK.autoCompleter.$selector = selector
+    GOVUK.autoCompleter.suggestions = originalSuggestions
+    GOVUK.autoCompleter.$selector = originalSelector
+  })
 
-  // make 3 options in the selector
-  GOVUK.autoCompleter.displayOptions()
+  it('sets active selection', function () {
+    var originalSuggestions = GOVUK.autoCompleter.suggestions
+    GOVUK.autoCompleter.suggestions = allSuggestions.contacts
+    var originalSelector = GOVUK.autoCompleter.$selector
+    var selector = $('<div>')
+    GOVUK.autoCompleter.$selector = selector
 
-  GOVUK.autoCompleter.setActiveSelection(1)
-  ok(selector.find('li:eq(1)').hasClass('active'))
-  equal(selector.find('.active').length, 1)
+    // make 3 options in the selector
+    GOVUK.autoCompleter.displayOptions()
 
-  GOVUK.autoCompleter.suggestions = originalSuggestions
-  GOVUK.autoCompleter.$selector = originalSelector
-})
+    GOVUK.autoCompleter.setActiveSelection(1)
+    expect(selector.find('li:eq(1)').hasClass('active')).toBeTruthy()
+    expect(selector.find('.active').length).toEqual(1)
 
-test('sets active selection on mouse move', function () {
-  var originalSelector = GOVUK.autoCompleter.$selector
-  var selector = $('<div>')
-  var li1 = $('<li>')
-  var li2 = $('<li>')
-  selector.append(li1)
-  selector.append(li2)
-  GOVUK.autoCompleter.$selector = selector
+    GOVUK.autoCompleter.suggestions = originalSuggestions
+    GOVUK.autoCompleter.$selector = originalSelector
+  })
 
-  ok(!li1.hasClass('active'), 'not active')
-  GOVUK.autoCompleter.mouseMove({ target: li1 })
-  ok(li1.hasClass('active'), 'active')
-  GOVUK.autoCompleter.$selector = originalSelector
-})
+  it('sets active selection on mouse move', function () {
+    var originalSelector = GOVUK.autoCompleter.$selector
+    var selector = $('<div>')
+    var li1 = $('<li>')
+    var li2 = $('<li>')
+    selector.append(li1)
+    selector.append(li2)
+    GOVUK.autoCompleter.$selector = selector
 
-test('navigateUp decrements the current active if it can', function () {
-  var originalSelector = GOVUK.autoCompleter.$selector
-  GOVUK.autoCompleter.$selector = $('<div> <li></li> <li></li> <li></li> </div>')
-  GOVUK.autoCompleter.active = true
+    expect(li1.hasClass('active')).toBeFalsy()
+    GOVUK.autoCompleter.mouseMove({ target: li1 })
+    expect(li1.hasClass('active')).toBeTruthy()
+    GOVUK.autoCompleter.$selector = originalSelector
+  })
 
-  GOVUK.autoCompleter.activeSelector = 2
-  GOVUK.autoCompleter.navigateUp()
-  equal(GOVUK.autoCompleter.activeSelector, 1)
-  GOVUK.autoCompleter.navigateUp()
-  equal(GOVUK.autoCompleter.activeSelector, 0)
-  GOVUK.autoCompleter.navigateUp()
-  equal(GOVUK.autoCompleter.activeSelector, 0)
+  describe('navigateUp', function () {
+    it('decrements the current active if it can', function () {
+      var originalSelector = GOVUK.autoCompleter.$selector
+      GOVUK.autoCompleter.$selector = $('<div> <li></li> <li></li> <li></li> </div>')
+      GOVUK.autoCompleter.active = true
 
-  GOVUK.autoCompleter.active = false
-  GOVUK.autoCompleter.$selector = originalSelector
-})
+      GOVUK.autoCompleter.activeSelector = 2
+      GOVUK.autoCompleter.navigateUp()
+      expect(GOVUK.autoCompleter.activeSelector).toEqual(1)
+      GOVUK.autoCompleter.navigateUp()
+      expect(GOVUK.autoCompleter.activeSelector).toEqual(0)
+      GOVUK.autoCompleter.navigateUp()
+      expect(GOVUK.autoCompleter.activeSelector).toEqual(0)
 
-test('navigateDown decrements the current active if it can', function () {
-  var originalSelector = GOVUK.autoCompleter.$selector
-  GOVUK.autoCompleter.$selector = $('<div> <li></li> <li></li> <li></li> </div>')
-  GOVUK.autoCompleter.active = true
-  GOVUK.autoCompleter.selectorCount = 3
+      GOVUK.autoCompleter.active = false
+      GOVUK.autoCompleter.$selector = originalSelector
+    })
+  })
 
-  GOVUK.autoCompleter.activeSelector = 0
-  GOVUK.autoCompleter.navigateDown()
-  equal(GOVUK.autoCompleter.activeSelector, 1)
-  GOVUK.autoCompleter.navigateDown()
-  equal(GOVUK.autoCompleter.activeSelector, 2)
-  GOVUK.autoCompleter.navigateDown()
-  equal(GOVUK.autoCompleter.activeSelector, 2)
+  describe('navigateDown', function () {
+    it('decrements the current active if it can', function () {
+      var originalSelector = GOVUK.autoCompleter.$selector
+      GOVUK.autoCompleter.$selector = $('<div> <li></li> <li></li> <li></li> </div>')
+      GOVUK.autoCompleter.active = true
+      GOVUK.autoCompleter.selectorCount = 3
 
-  GOVUK.autoCompleter.active = false
-  GOVUK.autoCompleter.$selector = originalSelector
-})
+      GOVUK.autoCompleter.activeSelector = 0
+      GOVUK.autoCompleter.navigateDown()
+      expect(GOVUK.autoCompleter.activeSelector).toEqual(1)
+      GOVUK.autoCompleter.navigateDown()
+      expect(GOVUK.autoCompleter.activeSelector).toEqual(2)
+      GOVUK.autoCompleter.navigateDown()
+      expect(GOVUK.autoCompleter.activeSelector).toEqual(2)
 
-test('navigateEnter uses the current selected option', function () {
-  var originalSuggestions = GOVUK.autoCompleter.suggestions
-  GOVUK.autoCompleter.suggestions = this.allSuggestions.contacts
-  GOVUK.autoCompleter.activeSelector = 2
-  GOVUK.autoCompleter.active = true
-  GOVUK.autoCompleter.textarea = this.$textarea[0]
-  GOVUK.autoCompleter.match = {
-    position: 10,
-    type: 'contacts'
-  }
-  this.$textarea.val('[Contact:')
+      GOVUK.autoCompleter.active = false
+      GOVUK.autoCompleter.$selector = originalSelector
+    })
+  })
 
-  GOVUK.autoCompleter.navigateEnter()
-  equal(this.$textarea.val(), '[Contact:3] ')
+  describe('navigateEnter', function () {
+    it(' uses the current selected option', function () {
+      var originalSuggestions = GOVUK.autoCompleter.suggestions
+      GOVUK.autoCompleter.suggestions = allSuggestions.contacts
+      GOVUK.autoCompleter.activeSelector = 2
+      GOVUK.autoCompleter.active = true
+      GOVUK.autoCompleter.textarea = textarea[0]
+      GOVUK.autoCompleter.match = {
+        position: 10,
+        type: 'contacts'
+      }
+      textarea.val('[Contact:')
 
-  GOVUK.autoCompleter.suggestions = originalSuggestions
+      GOVUK.autoCompleter.navigateEnter()
+      expect(textarea.val()).toEqual('[Contact:3] ')
+
+      GOVUK.autoCompleter.suggestions = originalSuggestions
+    })
+  })
 })
