@@ -1,44 +1,43 @@
-module('Proxifier test ', {
-  setup: function () {
-  }
-})
-
-test('proxifyMethod should wrap the specified method in a proxy using the object as context', function () {
-  var testObject = {
-    testFunction: function testFunction () {
-      return {
-        calledContext: this
+describe('GOVUK.proxifier', function () {
+  describe('proxifyMethod', function () {
+    it('should wrap the specified method in a proxy using the object as context', function () {
+      var testObject = {
+        testFunction: function () { return { calledContext: this } }
       }
-    }
-  }
 
-  GOVUK.Proxifier.proxifyMethod(testObject, 'testFunction')
+      GOVUK.Proxifier.proxifyMethod(testObject, 'testFunction')
 
-  ok(testObject.testFunction.call({}).calledContext === testObject)
-})
+      expect(testObject.testFunction.call({}).calledContext).toBe(testObject)
+    })
+  })
 
-test('proxifyMethods should call proxify each indicated method', function () {
-  var testObject = {
-    wibbleMethod: function wibbleMethod () { return { calledContext: this } },
-    wobbleMethod: function wobbleMethod () { return { calledContext: this } }
-  }
+  describe('proxifyMethods', function () {
+    it('should call proxify on each indicated method', function () {
+      var testObject = {
+        wibbleMethod: function wibbleMethod () { return { calledContext: this } },
+        wobbleMethod: function wobbleMethod () { return { calledContext: this } }
+      }
 
-  GOVUK.Proxifier.proxifyMethods(testObject, ['wibbleMethod', 'wobbleMethod'])
+      GOVUK.Proxifier.proxifyMethods(testObject, ['wibbleMethod', 'wobbleMethod'])
 
-  ok(testObject.wibbleMethod.call({}).calledContext === testObject)
-  ok(testObject.wobbleMethod.call({}).calledContext === testObject)
-})
+      expect(testObject.wibbleMethod.call({}).calledContext).toBe(testObject)
+      expect(testObject.wibbleMethod.call({}).calledContext).toBe(testObject)
+    })
+  })
 
-test('proxifyAllMethods should proxoify all attributes referencing functions not beginning with an uppercase letter (non-constructors only)', function () {
-  var testObject = {
-    nonMethod: "this isn't a function",
-    methodFunction: function () { return { calledContext: this } },
-    ConstructorFunction: function () { return { calledContext: this } }
-  }
+  describe('proxifyAllMethods', function () {
+    it('should proxoify all attributes referencing functions not beginning with an uppercase letter (non-constructors only)', function () {
+      var testObject = {
+        nonMethod: "this isn't a function",
+        methodFunction: function () { return { calledContext: this } },
+        ConstructorFunction: function () { return { calledContext: this } }
+      }
 
-  GOVUK.Proxifier.proxifyAllMethods(testObject)
+      GOVUK.Proxifier.proxifyAllMethods(testObject)
 
-  ok(typeof testObject.nonMethod !== 'function')
-  ok(testObject.methodFunction.call({}).calledContext === testObject)
-  ok(testObject.ConstructorFunction.call({}).calledContext !== testObject)
+      expect(typeof testObject.nonMethod).not.toEqual('function')
+      expect(testObject.methodFunction.call({}).calledContext).toBe(testObject)
+      expect(testObject.ConstructorFunction.call({}).calledContext).not.toBe(testObject)
+    })
+  })
 })
