@@ -1,25 +1,26 @@
-module('Toggler', {
-  setup: function () {
-    $('#qunit-fixture').append('<div class="changes"><h1>updated 6 days ago</h1><div class="overlay"></div></div>')
-    $.fx.off = true
-  }
-})
+describe('jQuery.toggler', function () {
+  var changes
 
-function initPlugin (options) {
-  options = $.extend({ header: 'h1', content: '.overlay' }, options)
-  $('.changes').toggler(options)
-}
+  beforeEach(function () {
+    changes = $('<div class="changes"><h1>updated 6 days ago</h1><div class="overlay"></div></div>')
+    $(document.body).append(changes)
+  })
 
-test('Should be hidden on load', function () {
-  initPlugin()
-  ok($('.overlay').hasClass('visuallyhidden'))
-})
+  afterEach(function () {
+    changes.remove()
+  })
 
-test('Should make the on click event of the header toggle the overlay element', function () {
-  initPlugin()
-  ok($('.overlay').hasClass('visuallyhidden'))
-  $('.changes h1').click()
-  ok($('.overlay').hasClass('visuallyhidden'))
-  $('.changes h1').click()
-  ok($('.overlay').hasClass('visuallyhidden'))
+  it('should be hidden on initialise', function () {
+    $('.changes').toggler({ header: 'h1', content: '.overlay' })
+    expect($('.overlay').hasClass('visuallyhidden')).toBeTrue()
+  })
+
+  it('should make the on click event of the header toggle the overlay element', function () {
+    $('.changes').toggler({ header: 'h1', content: '.overlay' })
+    expect($('.overlay').hasClass('visuallyhidden')).toBeTrue()
+    $('.changes h1').click()
+    expect($('.overlay').hasClass('visuallyhidden')).toBeTrue()
+    $('.changes h1').click()
+    expect($('.overlay').hasClass('visuallyhidden')).toBeTrue()
+  })
 })
