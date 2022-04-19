@@ -1,55 +1,46 @@
-module('Enhance youbute videos test', {
-  setup: function () {
-    this.container = $('<div id="wrap"><p><a></a></p></div>')
-    $('#qunit-fixture').append(this.container)
-  }
+describe('jQuery.enhanceYoutubeVideoLinks', function () {
+  var container
+  beforeEach(function () {
+    container = $('<div id="wrap"><p><a></a></p></div>')
+    $(document.body).append(container)
+    spyOn($.fn, 'player').and.returnValue(true)
+  })
+
+  afterEach(function () {
+    container.remove()
+  })
+
+  it('should replace tiny youtube links', function () {
+    container.find('a').attr('href', 'http://youtu.be/tinyVideo')
+    container.enhanceYoutubeVideoLinks()
+
+    expect($.fn.player).toHaveBeenCalledWith(jasmine.objectContaining({
+      media: 'tinyVideo'
+    }))
+  })
+
+  it('should replace short youtube links', function () {
+    container.find('a').attr('href', 'http://youtube.com/watch?v=shortVideo')
+    container.enhanceYoutubeVideoLinks()
+
+    expect($.fn.player).toHaveBeenCalledWith(jasmine.objectContaining({
+      media: 'shortVideo'
+    }))
+  })
+
+  it('should replace medium youtube links', function () {
+    container.find('a').attr('href', 'http://youtube.com/watch?v=mediumVideo&source=twitter')
+    container.enhanceYoutubeVideoLinks()
+
+    expect($.fn.player).toHaveBeenCalledWith(jasmine.objectContaining({
+      media: 'mediumVideo'
+    }))
+  })
+
+  it('should do nothing if no video id is found', function () {
+    container.find('a').attr('href', 'http://youtube.com/watch?wrong=parameter')
+    container.enhanceYoutubeVideoLinks()
+
+    expect($.fn.player).not.toHaveBeenCalled()
+  })
 })
-
-test('should replace tiny youtube links', sinon.test(function () {
-  var stub = this.stub($.fn, 'player')
-  stub.returns(true)
-
-  this.container.find('a').attr('href', 'http://youtu.be/tinyVideo')
-
-  $('#wrap').enhanceYoutubeVideoLinks()
-
-  var playerArgs = stub.getCall(0).args[0]
-  equal('tinyVideo', playerArgs.media)
-}))
-
-test('should replace short youtube links', sinon.test(function () {
-  var stub = this.stub($.fn, 'player')
-  stub.returns(true)
-
-  this.container.find('a').attr('href', 'http://youtube.com/watch?v=shortVideo')
-
-  $('#wrap').enhanceYoutubeVideoLinks()
-
-  var playerArgs = stub.getCall(0).args[0]
-  equal('shortVideo', playerArgs.media)
-}))
-
-test('should replace medium youtube links', sinon.test(function () {
-  var stub = this.stub($.fn, 'player')
-  stub.returns(true)
-
-  this.container.find('a').attr('href', 'http://youtube.com/watch?v=mediumVideo&source=twitter')
-
-  $('#wrap').enhanceYoutubeVideoLinks()
-
-  var playerArgs = stub.getCall(0).args[0]
-  equal('mediumVideo', playerArgs.media)
-}))
-
-test('should do nothing if no video id found', sinon.test(function () {
-  var stub = this.stub($.fn, 'player')
-  stub.returns(true)
-
-  this.container.find('a').attr('href', 'http://youtube.com/watch?wrong=parameter')
-  $('#wrap').enhanceYoutubeVideoLinks()
-
-  this.container.find('a').attr('href', 'http://youtube.com/channel_name')
-  $('#wrap').enhanceYoutubeVideoLinks()
-
-  equal(0, stub.callCount)
-}))
