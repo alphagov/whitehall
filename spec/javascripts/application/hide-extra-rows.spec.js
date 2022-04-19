@@ -1,58 +1,68 @@
-module('hide-extra-rows.js: Hide lines past the first', {
-  setup: function () {
-    var elementString = "<ul id='will-wrap' style='width: 400px;'>"
+describe('jQuery.hideExtraRows', function () {
+  var container, list
+
+  beforeEach(function () {
+    var listString = "<ul id='will-wrap' style='width: 400px;'>"
     var i = 0
     while (i < 10) {
       var styles = 'float: left; width: 100px;'
-      elementString += '<li id="item-' + i + '" style="' + styles + '">Text here</li>'
+      listString += '<li id="item-' + i + '" style="' + styles + '">Text here</li>'
       i++
     }
-    elementString += '</ul>'
+    listString += '</ul>'
 
-    this.$element = $(elementString)
-    $('#qunit-fixture').append(this.$element)
-  }
-})
+    list = $(listString)
 
-test('Should add elements past the first line into a js-hidden element', function () {
-  this.$element.hideExtraRows()
-  equal($('.js-hidden', this.$element).children().length, 6)
-})
+    // the script adds sibling elements to the list so we need a parent element
+    // to remove them all
+    container = $('<div />').append(list)
+    $(document.body).append(container)
+  })
 
-test('Should move elements past the second line into a js-hidden element', function () {
-  this.$element.hideExtraRows({ rows: 2 })
-  equal($('.js-hidden', this.$element).children().length, 2)
-})
+  afterEach(function () {
+    container.remove()
+  })
 
-test('Should add a toggle button after the parent of the passed in elements', function () {
-  this.$element.hideExtraRows()
-  equal(this.$element.siblings('.show-other-content').length, 1)
-})
+  it('should add elements past the first line into a js-hidden element', function () {
+    list.hideExtraRows()
+    expect($('.js-hidden', list).children().length).toEqual(6)
+  })
 
-test('Clicking the show button should remove hidden classes', function () {
-  this.$element.hideExtraRows()
-  $('.show-other-content').click()
-  equal($('.js-hidden', this.$element).length, 0)
-})
+  it('should move elements past the second line into a js-hidden element', function () {
+    list.hideExtraRows({ rows: 2 })
+    expect($('.js-hidden', list).children().length).toEqual(2)
+  })
 
-test('Should be able to wrap show button', function () {
-  this.$element.hideExtraRows({ showWrapper: $('<div id="hide-stuff" />') })
-  equal($('#hide-stuff > .show-other-content').length, 1)
-})
+  it('should add a toggle button after the parent of the passed in elements', function () {
+    list.hideExtraRows()
+    expect(list.siblings('.show-other-content').length).toEqual(1)
+  })
 
-test('Should be able to append hide button to parent', function () {
-  this.$element.hideExtraRows({ showWrapper: $('<li />'), appendToParent: true })
-  equal($('> li > .show-other-content', this.$element).length, 1)
-})
+  it('should remove hidden classes when clicking the show button', function () {
+    list.hideExtraRows()
+    $('.show-other-content').click()
+    expect($('.js-hidden', list).length).toEqual(0)
+  })
 
-test('Should clean up button after clicking', function () {
-  this.$element.hideExtraRows()
-  $('.show-other-content').click()
-  equal($('.show-other-content').length, 0)
-})
+  it('should be able to wrap show button', function () {
+    list.hideExtraRows({ showWrapper: $('<div id="hide-stuff" />') })
+    expect($('#hide-stuff > .show-other-content').length).toEqual(1)
+  })
 
-test('Should clear up optional parent container after clicking', function () {
-  this.$element.hideExtraRows({ showWrapper: $('<div id="hide-stuff" />') })
-  $('.show-other-content').click()
-  equal($('#hide-stuff').length, 0)
+  it('should be able to append hide button to parent', function () {
+    list.hideExtraRows({ showWrapper: $('<li />'), appendToParent: true })
+    expect($('> li > .show-other-content', list).length).toEqual(1)
+  })
+
+  it('should clean up button after clicking', function () {
+    list.hideExtraRows()
+    $('.show-other-content').click()
+    expect($('.show-other-content').length).toEqual(0)
+  })
+
+  it('should clear up optional parent container after clicking', function () {
+    list.hideExtraRows({ showWrapper: $('<div id="hide-stuff" />') })
+    $('.show-other-content').click()
+    expect($('#hide-stuff').length).toEqual(0)
+  })
 })
