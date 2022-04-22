@@ -62,7 +62,6 @@ To run or debug individual JavaScript tests, try viewing them in your browser. S
 
 See the [`docs/`](docs/) directory.
 
-- [Contributing guide](CONTRIBUTING.md)
 - [CSS](docs/css.md)
 - [Edition workflow](docs/edition_workflow.md)
 - [How to publish a finder in whitehall](docs/finders.md)
