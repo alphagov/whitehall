@@ -1,8 +1,8 @@
 require "test_helper"
 
 class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
-  def present(model_instance, options = {})
-    PublishingApi::OrganisationPresenter.new(model_instance, options)
+  def present(...)
+    PublishingApi::OrganisationPresenter.new(...)
   end
 
   def govspeak_to_html(govspeak)

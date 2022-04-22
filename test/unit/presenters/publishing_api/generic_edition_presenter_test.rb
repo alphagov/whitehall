@@ -4,8 +4,8 @@ module PublishingApi
   class GenericEditionPresenterTest < ActiveSupport::TestCase
     include GovukContentSchemaTestHelpers::TestUnit
 
-    def present(edition, options = {})
-      PublishingApi::GenericEditionPresenter.new(edition, options)
+    def present(...)
+      PublishingApi::GenericEditionPresenter.new(...)
     end
 
     test "presents an Edition ready for adding to the publishing API" do

@@ -1,8 +1,8 @@
 require "test_helper"
 
 class PublishingApi::RolePresenterTest < ActionView::TestCase
-  def present(model_instance, options = {})
-    PublishingApi::RolePresenter.new(model_instance, options)
+  def present(...)
+    PublishingApi::RolePresenter.new(...)
   end
 
   test "presents a Ministerial Role ready for adding to the Publishing API" do

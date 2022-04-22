@@ -16,9 +16,9 @@ class LocalisedModel < BasicObject
 
   # rubocop:disable Style/MissingRespondToMissing
 
-  def method_missing(method, *args, &block)
+  def method_missing(method, ...)
     ::I18n.with_locale @fixed_locale do
-      response = @model.__send__(method, *args, &block)
+      response = @model.__send__(method, ...)
 
       # Automatically localise any ActiveRecord associations
       if translatable_association?(method, response)

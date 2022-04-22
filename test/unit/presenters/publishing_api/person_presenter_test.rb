@@ -3,8 +3,8 @@ require "test_helper"
 class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  def present(model_instance, options = {})
-    PublishingApi::PersonPresenter.new(model_instance, options)
+  def present(...)
+    PublishingApi::PersonPresenter.new(...)
   end
 
   test "presents a Person ready for adding to the publishing API" do
