@@ -6,12 +6,19 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
   # creates a directory, and the teardown method removes it - it's important
   # that this directory is different in each worker, otherwise the first one to
   # finish will remove the directory the others are still using.
+  class << self
+    attr_writer :worker_number
+
+    def worker_number
+      @worker_number || 0
+    end
+  end
+
   parallelize_setup do |worker|
     # The parallelize_setup block runs in the context of the class, not the
     # instance. So we have to use a class variable rather than an instance
     # variable to store the worker number.
-
-    @@worker_number = worker # rubocop:disable Style/ClassVars
+    self.worker_number = worker
   end
 
   setup do
@@ -231,6 +238,6 @@ private
   end
 
   def reports_dir
-    Rails.root.join("tmp/broken_link_reports/#{@@worker_number}")
+    Rails.root.join("tmp/broken_link_reports/#{self.class.worker_number}")
   end
 end
