@@ -182,7 +182,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should have no associated needs when there are no need ids" do
     document = create(:document)
-    stub_publishing_api_has_links(content_id: document.content_id, links: {})
+    stub_publishing_api_has_links({ content_id: document.content_id, links: {} })
     assert_equal [], document.associated_needs
   end
 
@@ -208,15 +208,19 @@ class DocumentTest < ActiveSupport::TestCase
       },
     ]
     stub_publishing_api_has_links(
-      content_id: document.content_id,
-      links: {
-        meets_user_needs: needs.map { |need| need[:content_id] },
+      {
+        content_id: document.content_id,
+        links: {
+          meets_user_needs: needs.map { |need| need[:content_id] },
+        },
       },
     )
     stub_publishing_api_has_expanded_links(
-      content_id: document.content_id,
-      expanded_links: {
-        meets_user_needs: needs,
+      {
+        content_id: document.content_id,
+        expanded_links: {
+          meets_user_needs: needs,
+        },
       },
     )
 

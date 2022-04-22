@@ -191,34 +191,38 @@ private
 
   def announcement_has_no_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id: content_id,
-      expanded_links: {},
+      {
+        content_id: content_id,
+        expanded_links: {},
+      },
     )
   end
 
   def announcement_has_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id: content_id,
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Primary Education",
-            "content_id" => "aaaa",
-            "base_path" => "i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, Training and Skills",
-                  "content_id" => "bbbb",
-                  "base_path" => "i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: content_id,
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Primary Education",
+              "content_id" => "aaaa",
+              "base_path" => "i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Education, Training and Skills",
+                    "content_id" => "bbbb",
+                    "base_path" => "i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
   end

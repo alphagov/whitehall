@@ -15,11 +15,13 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
 
   def stub_publishing_api_links_with_taxons(content_id, taxons)
     stub_publishing_api_has_links(
-      "content_id" => content_id,
-      "links" => {
-        "taxons" => taxons,
+      {
+        "content_id" => content_id,
+        "links" => {
+          "taxons" => taxons,
+        },
+        "version" => 1,
       },
-      "version" => 1,
     )
   end
 

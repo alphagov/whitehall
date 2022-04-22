@@ -27,8 +27,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns '[]' if there are no taxons" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {},
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {},
+      },
     )
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
@@ -39,17 +41,19 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
     title = "Education, training and skills"
 
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => title,
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {},
-          },
-        ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => title,
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {},
+            },
+          ],
+        },
       },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
@@ -58,27 +62,29 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns a taxon with a parent" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Further Education",
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, training and skills",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Further Education",
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Education, training and skills",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
@@ -88,35 +94,37 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns a taxon with parent and grandparent" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Student Finance",
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Further Education",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {
-                    "parent_taxons" => [
-                      "title" => "Education, training and skills",
-                      "content_id" => "cccc",
-                      "base_path" => "/i-am-a-grand-parent-taxon",
-                      "details" => { "visible_to_departmental_editors" => true },
-                      "links" => {},
-                    ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Student Finance",
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Further Education",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {
+                      "parent_taxons" => [
+                        "title" => "Education, training and skills",
+                        "content_id" => "cccc",
+                        "base_path" => "/i-am-a-grand-parent-taxon",
+                        "details" => { "visible_to_departmental_editors" => true },
+                        "links" => {},
+                      ],
+                    },
                   },
-                },
-              ],
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
@@ -127,44 +135,46 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns paths for multiple taxons" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Further Education",
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, training and skills",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Further Education",
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Education, training and skills",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-          {
-            "title" => "Paying taxes",
-            "content_id" => "cccc",
-            "base_path" => "/i-am-another-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Money",
-                  "content_id" => "dddd",
-                  "base_path" => "/i-am-another-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+            {
+              "title" => "Paying taxes",
+              "content_id" => "cccc",
+              "base_path" => "/i-am-another-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Money",
+                    "content_id" => "dddd",
+                    "base_path" => "/i-am-another-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
@@ -177,34 +187,36 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it sets the first parent taxon if there are multiple parents" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Further Education",
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, training and skills",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-                {
-                  "title" => "Work and pensions",
-                  "content_id" => "cccc",
-                  "base_path" => "/i-am-another-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Further Education",
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Education, training and skills",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                  {
+                    "title" => "Work and pensions",
+                    "content_id" => "cccc",
+                    "base_path" => "/i-am-another-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
@@ -214,61 +226,63 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it only returns published or visible draft taxons" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "I am the published taxon",
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "I am the parent of the published taxon",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "I am the published taxon",
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "I am the parent of the published taxon",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-          {
-            "title" => "I am the visible draft taxon",
-            "content_id" => "cccc",
-            "base_path" => "/i-am-another-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "I am the parent of the visible draft taxon",
-                  "content_id" => "dddd",
-                  "base_path" => "/i-am-another-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+            {
+              "title" => "I am the visible draft taxon",
+              "content_id" => "cccc",
+              "base_path" => "/i-am-another-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "I am the parent of the visible draft taxon",
+                    "content_id" => "dddd",
+                    "base_path" => "/i-am-another-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-          {
-            "title" => "I am the invisible draft taxon",
-            "content_id" => "eeee",
-            "base_path" => "/i-am-yet-another-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "I am the parent of the invisible draft taxon",
-                  "content_id" => "ffff",
-                  "base_path" => "/i-am-yet-another-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => false },
-                  "links" => {},
-                },
-              ],
+            {
+              "title" => "I am the invisible draft taxon",
+              "content_id" => "eeee",
+              "base_path" => "/i-am-yet-another-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "I am the parent of the invisible draft taxon",
+                    "content_id" => "ffff",
+                    "base_path" => "/i-am-yet-another-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => false },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
 
@@ -278,44 +292,46 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it gets world taxons tagged to the edition" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "I am the published taxon",
-            "content_id" => "published-taxon",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "I am the parent of the published taxon",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "I am the published taxon",
+              "content_id" => "published-taxon",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "I am the parent of the published taxon",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-          {
-            "title" => "I am the world taxon",
-            "content_id" => "world-taxon",
-            "base_path" => "/world/i-am-a-world-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "I am the parent of the visible draft taxon",
-                  "content_id" => "dddd",
-                  "base_path" => "/world/all",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+            {
+              "title" => "I am the world taxon",
+              "content_id" => "world-taxon",
+              "base_path" => "/world/i-am-a-world-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "I am the parent of the visible draft taxon",
+                    "content_id" => "dddd",
+                    "base_path" => "/world/all",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
     redis_cache_has_world_taxons([build(:taxon_hash, content_id: "world-taxon")])
@@ -328,26 +344,28 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns legacy mappings" do
     stub_publishing_api_has_expanded_links(
-      content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Further Education",
-            "content_id" => "aaaa",
-            "base_path" => "/i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "legacy_taxons" => [
-                {
-                  "title" => "Something",
-                  "content_id" => "bbbb",
-                  "base_path" => "/i-am-a-policy",
-                  "document_type" => "policy",
-                },
-              ],
+      {
+        content_id: "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Further Education",
+              "content_id" => "aaaa",
+              "base_path" => "/i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "legacy_taxons" => [
+                  {
+                    "title" => "Something",
+                    "content_id" => "bbbb",
+                    "base_path" => "/i-am-a-policy",
+                    "document_type" => "policy",
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
 
