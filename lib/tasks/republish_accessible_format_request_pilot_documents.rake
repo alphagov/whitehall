@@ -1,6 +1,8 @@
 desc "Republish all documents with attachments for organisations in accessible format request pilot"
 task repubish_docs_with_attachments_for_accessible_format_request_pilot: :environment do
-  pilot_emails = %w[different.format@hmrc.gov.uk].freeze
+  pilot_emails = %w[alternative.formats@education.gov.uk
+                    accessible.formats@dwp.gov.uk
+                    gov.uk.publishing@dvsa.gov.uk].freeze
 
   organisations = Organisation.where(alternative_format_contact_email: [pilot_emails])
 
