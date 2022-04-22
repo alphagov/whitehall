@@ -66,10 +66,6 @@ group :development, :test do
   gem "pry-rails"
   gem "rails_translation_manager"
   gem "rubocop-govuk", require: false
-  gem "teaspoon-qunit"
-  # teaspoon has coffee assets that mean we need coffee script in order
-  # to be able to run things
-  gem "coffee-rails"
 end
 
 group :development do
