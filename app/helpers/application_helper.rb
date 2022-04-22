@@ -272,10 +272,10 @@ module ApplicationHelper
     Locale.new(I18n.locale).rtl?
   end
 
-  def content_tag_if_not_empty(name, options = nil, &block)
+  def content_tag_if_not_empty(name, options = {}, &block)
     content = capture(&block)
     if content.present? && content.strip
-      content_tag(name, content, options)
+      content_tag(name, content, **options)
     else
       ""
     end

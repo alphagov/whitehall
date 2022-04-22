@@ -30,7 +30,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     @updated_at = Time.zone.parse("2016-06-23 10:32:00")
     @contact.translation.updated_at = @updated_at
     @contact.contactable = FactoryBot.build(:organisation, content_id: @organisation_content_id)
-    @presented = PublishingApi::ContactPresenter.new(@contact, {})
+    @presented = PublishingApi::ContactPresenter.new(@contact)
   end
 
   test "contact presentation includes the correct values" do

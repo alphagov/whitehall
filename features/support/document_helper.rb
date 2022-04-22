@@ -64,7 +64,7 @@ module DocumentHelper
 
   def begin_drafting_news_article(options)
     begin_drafting_document(options.merge(type: "news_article", previously_published: false))
-    fill_in_news_article_fields(options.slice(:first_published, :announcement_type))
+    fill_in_news_article_fields(**options.slice(:first_published, :announcement_type))
   end
 
   def begin_drafting_consultation(options)
@@ -81,7 +81,7 @@ module DocumentHelper
       alternative_format_provider: create(:alternative_format_provider),
       all_nation_applicability: options.key?(:all_nation_applicability) ? options[:all_nation_applicability] : true,
     )
-    fill_in_publication_fields(options.slice(:first_published, :publication_type))
+    fill_in_publication_fields(**options.slice(:first_published, :publication_type))
   end
 
   def begin_drafting_statistical_data_set(options)
