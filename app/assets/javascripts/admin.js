@@ -1,5 +1,5 @@
 //= require govuk_publishing_components/lib
-//= require jquery.ui.all
+//= require jquery-ui
 //= require extensions/jquery.distinct
 //= require vendor/jquery/chosen.jquery.js
 //= require vendor/jquery/jquery.player.min.js

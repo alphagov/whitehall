@@ -159,8 +159,11 @@ class PublishingApiRake < ActiveSupport::TestCase
       let(:task) { Rake::Task["publishing_api:patch_links:organisations"] }
 
       test "patches links for organisations" do
+        # Organisation needs to be created before the method is stubed
+        organisation = create(:organisation)
+
         Whitehall::PublishingApi.expects(:patch_links).with(
-          create(:organisation), bulk_publishing: true
+          organisation, bulk_publishing: true
         ).once
         task.invoke
       end

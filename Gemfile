@@ -77,7 +77,7 @@ end
 
 group :test do
   gem "ci_reporter_minitest"
-  gem "database_cleaner"
+  gem "database_cleaner-active_record"
   gem "equivalent-xml"
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers"

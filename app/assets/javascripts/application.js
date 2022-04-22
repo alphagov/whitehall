@@ -10,7 +10,7 @@
 //
 //= require jquery/dist/jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
