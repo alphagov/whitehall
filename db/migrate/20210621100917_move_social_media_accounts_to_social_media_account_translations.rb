@@ -11,7 +11,7 @@ class MoveSocialMediaAccountsToSocialMediaAccountTranslations < ActiveRecord::Mi
       )
     end
 
-    change_table :social_media_accounts do |t|
+    change_table :social_media_accounts do |t| # rubocop:disable Rails/BulkChangeTable
       t.remove :url, :title, :locale
     end
   end

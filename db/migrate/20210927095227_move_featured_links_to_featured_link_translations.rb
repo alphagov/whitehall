@@ -11,7 +11,7 @@ class MoveFeaturedLinksToFeaturedLinkTranslations < ActiveRecord::Migration[6.1]
       )
     end
 
-    change_table :featured_links do |t|
+    change_table :featured_links do |t| # rubocop:disable Rails/BulkChangeTable
       t.remove :url, :title
     end
   end
