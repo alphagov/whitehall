@@ -96,6 +96,7 @@ class Edition < ApplicationRecord
   scope :future_scheduled_editions,     -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
 
   # @!group Callbacks
+  before_create :set_auth_bypass_id
   before_save :set_public_timestamp
   before_save { check_if_locked_document(edition: self) }
   # @!endgroup
@@ -641,6 +642,10 @@ EXISTS (
                             else
                               major_change_published_at
                             end
+  end
+
+  def set_auth_bypass_id
+    self.auth_bypass_id = SecureRandom.uuid
   end
 
   def title_required?
