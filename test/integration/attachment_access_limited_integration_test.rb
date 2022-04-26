@@ -78,6 +78,13 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
           )
           AssetManagerCreateWhitehallAssetWorker.drain
         end
+
+        it "passes the auth bypass id from the edition to the attachment" do
+          Services.asset_manager.expects(:create_whitehall_asset).with(
+            has_entry(auth_bypass_ids: [edition.auth_bypass_id])
+          )
+          AssetManagerCreateWhitehallAssetWorker.drain
+        end
       end
 
       context "when bulk uploaded to draft document" do
