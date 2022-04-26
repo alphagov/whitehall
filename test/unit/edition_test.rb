@@ -21,6 +21,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_kind_of Document, edition.document
   end
 
+  test "adds auth bypass id to a newly created edition" do
+    edition = create(:edition)
+    assert_not_nil edition.auth_bypass_id
+  end
+
   test "uses provided document if available" do
     document = build(:document)
     edition = build(:edition, document: document)
