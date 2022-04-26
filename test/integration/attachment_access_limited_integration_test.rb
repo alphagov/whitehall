@@ -40,11 +40,40 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
         it "marks attachment as access limited in Asset Manager" do
           Services.asset_manager
-            .expects(:update_asset)
-            .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
+                  .expects(:update_asset)
+                  .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
 
           AssetManagerAttachmentMetadataWorker.drain
         end
+      end
+    end
+
+    context "given a case study" do
+      let(:edition) { create(:draft_consultation) }
+
+      before do
+        setup_publishing_api_for(edition)
+
+        stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
+
+        visit admin_consultation_path(edition)
+        click_link "Edit draft"
+        click_link "Final outcome"
+        fill_in "consultation_outcome[summary]", with: "Outcome of consultation"
+        click_button "Save"
+        click_link "Upload new file attachment"
+        fill_in "Title", with: "Outcome attachment"
+        attach_file "File", path_to_attachment("logo.png")
+        click_button "Save"
+        assert_text "Attachment 'Outcome attachment' uploaded"
+      end
+
+      it "sends the attachment to asset manager with the case study's auth_bypass_id" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(
+          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
+        )
+
+        AssetManagerCreateWhitehallAssetWorker.drain
       end
     end
 
@@ -81,7 +110,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
         it "passes the auth bypass id from the edition to the attachment" do
           Services.asset_manager.expects(:create_whitehall_asset).with(
-            has_entry(auth_bypass_ids: [edition.auth_bypass_id])
+            has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
           )
           AssetManagerCreateWhitehallAssetWorker.drain
         end
@@ -178,8 +207,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
         it "unmarks attachment as access limited in Asset Manager" do
           Services.asset_manager
-            .expects(:update_asset)
-            .at_least_once.with("asset-id", has_entry("access_limited", []))
+                  .expects(:update_asset)
+                  .at_least_once.with("asset-id", has_entry("access_limited", []))
 
           AssetManagerAttachmentMetadataWorker.drain
         end
@@ -233,8 +262,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     def stub_whitehall_asset(filename, attributes = {})
       url_id = "http://asset-manager/assets/#{attributes[:id]}"
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with(filename))
-        .returns(attributes.merge(id: url_id).stringify_keys)
+              .with(&ends_with(filename))
+              .returns(attributes.merge(id: url_id).stringify_keys)
     end
 
     def ends_with(expected)
