@@ -48,7 +48,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given a case study" do
+    context "given a consultation" do
       let(:edition) { create(:draft_consultation) }
 
       before do
@@ -68,10 +68,33 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         assert_text "Attachment 'Outcome attachment' uploaded"
       end
 
-      it "sends the attachment to asset manager with the case study's auth_bypass_id" do
+      it "sends the attachment to asset manager with the consultation's auth_bypass_id" do
         Services.asset_manager.expects(:create_whitehall_asset).with(
           has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
         )
+
+        AssetManagerCreateWhitehallAssetWorker.drain
+      end
+    end
+
+    context "given a case study" do
+      let(:edition) { create(:draft_case_study) }
+
+      before do
+        setup_publishing_api_for(edition)
+
+        stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
+
+        visit admin_case_study_path(edition)
+        click_link "Edit draft"
+        check "Use a custom image"
+        click_button "Save"
+      end
+
+      it "sends the attachment to asset manager with the case study's auth_bypass_id" do
+        Services.asset_manager.expects(:create_whitehall_asset).with(
+          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
+          )
 
         AssetManagerCreateWhitehallAssetWorker.drain
       end
