@@ -176,6 +176,10 @@ module PublishingApi::NewsArticlePresenterTest
     test "validity" do
       assert_valid_against_schema presented_content, "news_article"
     end
+
+    test "auth bypass id" do
+      assert_attribute :auth_bypass_ids, [news_article.auth_bypass_id]
+    end
   end
 
   class GovernmentResponseTest < TestCase

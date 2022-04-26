@@ -278,6 +278,7 @@ private
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
       },
+      :auth_bypass_id,
     ]
   end
 

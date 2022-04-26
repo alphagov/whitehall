@@ -26,6 +26,7 @@ module PublishingApi
           rendering_app: item.rendering_app,
           schema_name: "document_collection",
           links: edition_links,
+          auth_bypass_ids: [item.auth_bypass_id],
         )
     end
 

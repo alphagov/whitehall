@@ -23,6 +23,7 @@ module PublishingApi
           schema_name: "fatality_notice",
           details: details,
           links: edition_links,
+          auth_bypass_ids: [item.auth_bypass_id],
         )
         content.merge!(PayloadBuilder::AccessLimitation.for(item))
         content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
