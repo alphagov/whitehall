@@ -567,6 +567,7 @@ it:
     content:
       complete_list:
       find_out:
+      heading:
       list_link:
     headings:
       announcements: I nostri annunci
