@@ -279,7 +279,7 @@ GEM
     govuk_personalisation (0.11.2)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (29.5.0)
+    govuk_publishing_components (29.6.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -360,7 +360,7 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     kgio (2.11.4)
-    kramdown (2.3.2)
+    kramdown (2.4.0)
       rexml
     launchy (2.5.0)
       addressable (~> 2.7)
