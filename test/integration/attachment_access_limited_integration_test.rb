@@ -48,6 +48,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    #TODO work out where to move auth bypass id tests
     context "given a consultation" do
       let(:edition) { create(:draft_consultation) }
 
@@ -87,14 +88,14 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
         visit admin_case_study_path(edition)
         click_link "Edit draft"
-        check "Use a custom image"
+        choose "Use a custom image"
+        attach_file "File", path_to_attachment("minister-of-funk.960x640.jpg")
         click_button "Save"
       end
 
       it "sends the attachment to asset manager with the case study's auth_bypass_id" do
-        Services.asset_manager.expects(:create_whitehall_asset).with(
-          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
-          )
+        Services.asset_manager.expects(:create_whitehall_asset).at_least_once.with(
+          has_entry(auth_bypass_ids: [edition.auth_bypass_id]))
 
         AssetManagerCreateWhitehallAssetWorker.drain
       end
