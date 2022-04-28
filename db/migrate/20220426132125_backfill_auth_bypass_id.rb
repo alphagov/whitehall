@@ -4,7 +4,7 @@ class BackfillAuthBypassId < ActiveRecord::Migration[7.0]
   def up
     to_update = Edition.where(auth_bypass_id: nil)
     to_update.find_each do |edition|
-      edition.update!(auth_bypass_id: SecureRandom.uuid)
+      edition.update_column(:auth_bypass_id, SecureRandom.uuid)
     end
   end
 end
