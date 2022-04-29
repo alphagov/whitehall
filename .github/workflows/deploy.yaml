@@ -1,9 +1,13 @@
-name: CI
+name: Deploy
 
 on:
   workflow_dispatch:
-    branches:
-      - main
+    inputs:
+      gitRef:
+        description: 'Commit, tag or branch name to deploy'
+        required: true
+        type: string
+        default: 'main'
   push:
     branches:
       - main
@@ -15,6 +19,8 @@ jobs:
   build-and-publish-image:
     name: Build and publish image
     uses: alphagov/govuk-infrastructure/.github/workflows/ci-ecr.yaml@main
+    with:
+      gitRef: ${{ github.event.inputs.gitRef }}
     secrets:
       AWS_GOVUK_ECR_ACCESS_KEY_ID: ${{ secrets.AWS_GOVUK_ECR_ACCESS_KEY_ID }}
       AWS_GOVUK_ECR_SECRET_ACCESS_KEY: ${{ secrets.AWS_GOVUK_ECR_SECRET_ACCESS_KEY }}
@@ -22,6 +28,9 @@ jobs:
     name: Trigger deploy to integration
     needs: build-and-publish-image
     uses: alphagov/govuk-infrastructure/.github/workflows/deploy.yaml@main
+    with:
+      imageTag: ${{ needs.build-and-publish-image.outputs.imageTag }}
+      manualDeploy: ${{ 'main' != github.event.inputs.gitRef }}
     secrets:
       WEBHOOK_TOKEN: ${{ secrets.ARGO_EVENTS_WEBHOOK_TOKEN }}
       WEBHOOK_URL: ${{ secrets.ARGO_EVENTS_WEBHOOK_URL }}
