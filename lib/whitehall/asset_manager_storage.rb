@@ -11,9 +11,14 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     FileUtils.cp(original_file, temporary_location)
     legacy_url_path = ::File.join("/government/uploads", uploader.store_path)
     draft = uploader.assets_protected?
+    # binding.pry
     if uploader.model.respond_to?(:attachable)
       model_class = uploader.model.attachable && uploader.model.attachable.class.to_s
       model_id = uploader.model.attachable && uploader.model.attachable.id
+    else
+      edition = uploader.model.images.first.edition
+      model_class = edition.class.to_s
+      model_id = edition.id
     end
     AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, draft, model_class, model_id)
     File.new(uploader.store_path)
