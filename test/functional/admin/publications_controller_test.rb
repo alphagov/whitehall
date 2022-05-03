@@ -282,61 +282,67 @@ private
 
   def publication_has_no_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id: content_id,
-      expanded_links: {},
+      {
+        content_id: content_id,
+        expanded_links: {},
+      },
     )
   end
 
   def publication_has_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id: content_id,
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Primary Education",
-            "content_id" => "aaaa",
-            "base_path" => "i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, Training and Skills",
-                  "content_id" => "bbbb",
-                  "base_path" => "i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: content_id,
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Primary Education",
+              "content_id" => "aaaa",
+              "base_path" => "i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Education, Training and Skills",
+                    "content_id" => "bbbb",
+                    "base_path" => "i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
   end
 
   def publication_has_world_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
-      content_id: content_id,
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "World Grandchild Taxon",
-            "content_id" => world_grandchild_taxon_content_id,
-            "base_path" => "i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "World Child Taxon",
-                  "content_id" => world_child_taxon_content_id,
-                  "base_path" => "i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: content_id,
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "World Grandchild Taxon",
+              "content_id" => world_grandchild_taxon_content_id,
+              "base_path" => "i-am-a-taxon",
+              "details" => { "visible_to_departmental_editors" => true },
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "World Child Taxon",
+                    "content_id" => world_child_taxon_content_id,
+                    "base_path" => "i-am-a-parent-taxon",
+                    "details" => { "visible_to_departmental_editors" => true },
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
   end

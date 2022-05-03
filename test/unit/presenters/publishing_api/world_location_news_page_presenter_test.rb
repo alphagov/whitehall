@@ -1,8 +1,8 @@
 require "test_helper"
 
 class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCase
-  def present(model_instance)
-    PublishingApi::WorldLocationNewsPagePresenter.new(model_instance, {})
+  def present(...)
+    PublishingApi::WorldLocationNewsPagePresenter.new(...)
   end
 
   def world_location

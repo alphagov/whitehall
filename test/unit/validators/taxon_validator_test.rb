@@ -9,16 +9,20 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     edition = create(:draft_edition)
 
     stub_publishing_api_has_links(
-      "content_id" => edition.content_id,
-      "links" => {
-        "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+        },
+        "version" => 1,
       },
-      "version" => 1,
     )
 
     stub_publishing_api_has_expanded_links(
-      content_id: edition.content_id,
-      expanded_links: {},
+      {
+        content_id: edition.content_id,
+        expanded_links: {},
+      },
     )
 
     @validator.validate(edition)
@@ -34,30 +38,34 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     edition = create(:draft_edition)
 
     stub_publishing_api_has_links(
-      "content_id" => edition.content_id,
-      "links" => {
-        "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
-        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+          "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
+        },
+        "version" => 1,
       },
-      "version" => 1,
     )
 
     stub_publishing_api_has_expanded_links(
-      content_id: edition.content_id,
-      expanded_links: {
-        "taxons" => [
-          {
-            "title" => "Primary Education",
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, Training and Skills",
-                  "links" => {},
-                },
-              ],
+      {
+        content_id: edition.content_id,
+        expanded_links: {
+          "taxons" => [
+            {
+              "title" => "Primary Education",
+              "links" => {
+                "parent_taxons" => [
+                  {
+                    "title" => "Education, Training and Skills",
+                    "links" => {},
+                  },
+                ],
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     )
 

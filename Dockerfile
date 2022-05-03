@@ -1,5 +1,5 @@
 # (unless we decide to use Bitnami instead)
-ARG base_image=ruby:2.7.6
+ARG base_image=ruby:3.0.4
 
 FROM $base_image AS builder
 # This image is only intended to be able to run this app in a production RAILS_ENV

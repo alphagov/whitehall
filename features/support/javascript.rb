@@ -26,12 +26,12 @@ module Capybara::DSL
       element = find(:select, options[:from], visible: :all).find(:option, value, visible: :all)
       if element.visible?
         from = options.delete(:from)
-        find(:select, from, options).find(:option, value, options).select_option
+        find(:select, from, **options).find(:option, value, **options).select_option
       else
         select_from_chosen(value, options)
       end
     else
-      find(:option, value, options).select_option
+      find(:option, value, **options).select_option
     end
   end
 

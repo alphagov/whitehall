@@ -26,11 +26,13 @@ class WorldTaxonomyTagFormTest < ActiveSupport::TestCase
     taxons = %w[c58fdadd-7743-46d6-9629-90bb3ccc4ef0]
 
     stub_publishing_api_has_links(
-      "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
-      "links" => {
-        "taxons" => taxons,
+      {
+        "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
+        "links" => {
+          "taxons" => taxons,
+        },
+        "version" => 1,
       },
-      "version" => 1,
     )
 
     form = WorldTaxonomyTagForm.load(content_id)

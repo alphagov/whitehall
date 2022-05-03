@@ -4,9 +4,9 @@ class TabPaneState
     @context = rendering_context
   end
 
-  def pane(options = {}, &blk)
+  def pane(**options, &blk)
     tag_options = options.merge(class: classes(options[:class]))
-    @context.tag.section(tag_options, &blk)
+    @context.tag.section(**tag_options, &blk)
   end
 
 private

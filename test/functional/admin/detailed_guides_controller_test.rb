@@ -33,35 +33,39 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     detailed_guide = create(:detailed_guide)
     stub_publishing_api_has_links(
-      content_id: detailed_guide.document.content_id,
-      links: {
-        meets_user_needs: [content_id_a, content_id_b],
+      {
+        content_id: detailed_guide.document.content_id,
+        links: {
+          meets_user_needs: [content_id_a, content_id_b],
+        },
       },
     )
     stub_publishing_api_has_expanded_links(
-      content_id: detailed_guide.document.content_id,
-      expanded_links: {
-        taxons: [],
-        meets_user_needs: [
-          {
-            content_id: content_id_a,
-            details: {
-              role: "x",
-              goal: "y",
-              benefit: "z",
+      {
+        content_id: detailed_guide.document.content_id,
+        expanded_links: {
+          taxons: [],
+          meets_user_needs: [
+            {
+              content_id: content_id_a,
+              details: {
+                role: "x",
+                goal: "y",
+                benefit: "z",
+              },
             },
-          },
-          {
-            content_id: content_id_b,
-            details: {
-              role: "c",
-              goal: "d",
-              benefit: "e",
+            {
+              content_id: content_id_b,
+              details: {
+                role: "c",
+                goal: "d",
+                benefit: "e",
+              },
             },
-          },
-        ],
+          ],
+        },
+        version: 1,
       },
-      version: 1,
     )
 
     get :show, params: { id: detailed_guide.id }

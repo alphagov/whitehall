@@ -5,9 +5,9 @@ module GovspeakHelper
   include Rails.application.routes.url_helpers
   include LocalisedUrlPathHelper
 
-  BARCHART_REGEXP = /{barchart(.*?)}/.freeze
-  SORTABLE_REGEXP = /{sortable}/.freeze
-  FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/.freeze
+  BARCHART_REGEXP = /{barchart(.*?)}/
+  SORTABLE_REGEXP = /{sortable}/
+  FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
 
   def govspeak_to_html(govspeak, images = [], options = {})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
