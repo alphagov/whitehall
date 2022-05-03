@@ -2,26 +2,6 @@ require "csv"
 require "fileutils"
 
 namespace :export do
-  desc "Export mappings (for eg the Transition app to consume)"
-  task mappings: :environment do
-    # Read off the MySQL slave - we want performance here and
-    # non-contention as this job runs for up to 45 minutes.
-    if Rails.env.production?
-      mysql_slave_config = ActiveRecord::Base.configurations["production_slave"]
-      ActiveRecord::Base.establish_connection(mysql_slave_config)
-    end
-
-    exporter = Whitehall::Exporters::Mappings.new
-
-    filename = "public/assets/mappings.csv"
-    temporary_filename = "#{filename}.new"
-    CSV.open(Rails.root.join(temporary_filename), "wb") do |csv_out|
-      exporter.export(csv_out)
-    end
-
-    FileUtils.mv(temporary_filename, filename)
-  end
-
   desc "Export list of documents"
   task document_list: :environment do
     path = "tmp/document_list-#{Time.zone.now.to_i}.csv"
