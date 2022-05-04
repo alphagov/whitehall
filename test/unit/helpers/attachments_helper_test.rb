@@ -17,13 +17,13 @@ class AttachmentsHelperTest < ActionView::TestCase
   end
 
   test "Attachments belonging to organisations taking part in the accessible format request pilot can be identified" do
-    GovukPublishingComponents::Presenters::Attachment.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, ["in_pilot@example.com"]) do
+    GovukPublishingComponents::Presenters::AttachmentHelper.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, ["in_pilot@example.com"]) do
       assert participating_in_accessible_format_request_pilot?("in_pilot@example.com")
     end
   end
 
   test "Attachments belonging to organisations not taking part in the accessible format request pilot can be identified" do
-    GovukPublishingComponents::Presenters::Attachment.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, []) do
+    GovukPublishingComponents::Presenters::AttachmentHelper.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, []) do
       assert_not participating_in_accessible_format_request_pilot?("not_in_pilot@example.com")
     end
   end

@@ -16,7 +16,7 @@ module AttachmentsHelper
   def participating_in_accessible_format_request_pilot?(contact_email)
     # A small number of organisations are taking part in a pilot scheme for accessible
     # format requests to be submitted by a form rather than a direct email
-    pilot_addresses = GovukPublishingComponents::Presenters::Attachment::EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT
+    pilot_addresses = GovukPublishingComponents::Presenters::AttachmentHelper::EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT
     pilot_addresses.include?(contact_email)
   end
 
