@@ -651,6 +651,9 @@ GEM
       sentry-ruby-core (= 5.2.1)
     sentry-ruby-core (5.2.1)
       concurrent-ruby
+    sentry-sidekiq (5.2.1)
+      sentry-ruby-core (~> 5.2.1)
+      sidekiq (>= 3.0)
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
       mustache (~> 1.0.2)
@@ -826,6 +829,7 @@ DEPENDENCIES
   ruby-progressbar
   rubyzip
   sassc-rails
+  sentry-sidekiq
   shared_mustache
   sidekiq-scheduler
   simplecov
