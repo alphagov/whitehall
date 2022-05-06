@@ -8,6 +8,7 @@ FactoryBot.define do
     change_note { "change-note" }
     summary { "edition-summary" }
     previously_published { false }
+    auth_bypass_id { SecureRandom.uuid }
 
     trait(:with_organisations) do
       transient do

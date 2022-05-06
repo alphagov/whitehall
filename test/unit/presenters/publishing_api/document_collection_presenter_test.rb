@@ -66,6 +66,10 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   test "it presents the selected global process wide locale as the locale of the document_collection" do
     assert_equal "de", @presented_content[:locale]
   end
+
+  test "it presents the auth bypass id" do
+    assert_equal [@document_collection.auth_bypass_id], @presented_content[:auth_bypass_ids]
+  end
 end
 
 class PublishingApi::DocumentCollectionPresenterWithPublicTimestampTest < ActiveSupport::TestCase

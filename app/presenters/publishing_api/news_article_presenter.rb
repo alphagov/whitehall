@@ -27,6 +27,7 @@ module PublishingApi
           public_updated_at: public_updated_at,
           rendering_app: news_article.rendering_app,
           schema_name: SCHEMA_NAME,
+          auth_bypass_ids: [news_article.auth_bypass_id],
         )
     end
 

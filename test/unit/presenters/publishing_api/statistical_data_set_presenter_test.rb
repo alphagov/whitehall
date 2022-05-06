@@ -57,6 +57,10 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
   test "it presents the global process wide locale as the locale of the statistical_data_set" do
     assert_equal "de", @presented_content[:locale]
   end
+
+  test "it presents the auth bypass id" do
+    assert_equal [@statistical_data_set.auth_bypass_id], @presented_content[:auth_bypass_ids]
+  end
 end
 
 class PublishingApi::StatisticalDataSetWithPublicTimestampTest < ActiveSupport::TestCase
