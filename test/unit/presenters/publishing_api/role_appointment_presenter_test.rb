@@ -1,8 +1,8 @@
 require "test_helper"
 
 class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
-  def present(model_instance, options = {})
-    PublishingApi::RoleAppointmentPresenter.new(model_instance, options)
+  def present(...)
+    PublishingApi::RoleAppointmentPresenter.new(...)
   end
 
   test "presenter is valid against role appointment schema" do

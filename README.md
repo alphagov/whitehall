@@ -7,7 +7,6 @@ Whitehall is deployed in two modes:
 
 ## Live examples (frontend)
 
-- Get involved page: [https://www.gov.uk/government/get-involved](https://www.gov.uk/government/get-involved)
 - Field of Operation: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
 - World Embassies: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
 - Topical Events: [https://www.gov.uk/government/topical-events/cop26](https://www.gov.uk/government/topical-events/cop26)
@@ -53,16 +52,13 @@ Javascript unit tests can also be run separately:
 
 ```
 # run all the JavaScript tests
-bundle exec rake test:javascript
+bundle exec rake jasmine
 ```
-
-To run or debug individual JavaScript tests, try viewing them in your browser. Start the app as you would normally, and then go to `/teaspoon/default`.
 
 ### Further documentation
 
 See the [`docs/`](docs/) directory.
 
-- [Contributing guide](CONTRIBUTING.md)
 - [CSS](docs/css.md)
 - [Edition workflow](docs/edition_workflow.md)
 - [How to publish a finder in whitehall](docs/finders.md)

@@ -203,8 +203,10 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
     def setup_publishing_api_for(edition)
       stub_publishing_api_has_links(
-        content_id: edition.document.content_id,
-        links: {},
+        {
+          content_id: edition.document.content_id,
+          links: {},
+        },
       )
 
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])

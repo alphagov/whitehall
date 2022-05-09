@@ -15,7 +15,7 @@ module PublishingApi
              :translation,
              to: :contact
 
-    def initialize(model, _options)
+    def initialize(model, **)
       @contact = model
     end
 

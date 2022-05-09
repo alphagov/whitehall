@@ -8,10 +8,6 @@ env :PATH, "/usr/local/bin:/usr/bin:/bin"
 # We need Rake to use our own environment
 job_type :rake, "cd :path && govuk_setenv whitehall bundle exec rake :task --silent :output"
 
-every :day, at: ["3am", "12:45pm"], roles: [:backend] do
-  rake "export:mappings"
-end
-
 def search_index_consultations_cron_rule
   if Whitehall.integration_or_staging?
     # Don't run near midnight, as this is when the data sync will

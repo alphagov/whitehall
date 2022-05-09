@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "7.0.2.3"
+gem "rails", "7.0.2.4"
 
 gem "activemodel-serializers-xml"
 gem "addressable"
@@ -50,6 +50,7 @@ gem "rinku", require: "rails_rinku"
 gem "ruby-progressbar", require: false
 gem "rubyzip"
 gem "sassc-rails"
+gem "sentry-sidekiq"
 gem "shared_mustache"
 gem "sidekiq-scheduler"
 gem "slimmer"
@@ -66,10 +67,6 @@ group :development, :test do
   gem "pry-rails"
   gem "rails_translation_manager"
   gem "rubocop-govuk", require: false
-  gem "teaspoon-qunit"
-  # teaspoon has coffee assets that mean we need coffee script in order
-  # to be able to run things
-  gem "coffee-rails"
 end
 
 group :development do
@@ -81,7 +78,7 @@ end
 
 group :test do
   gem "ci_reporter_minitest"
-  gem "database_cleaner"
+  gem "database_cleaner-active_record"
   gem "equivalent-xml"
   gem "factory_bot"
   gem "govuk-content-schema-test-helpers"

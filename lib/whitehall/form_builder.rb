@@ -197,7 +197,7 @@ module Whitehall
 
     def translated_input(method, input, _options = {})
       options = right_to_left? ? { class: "right-to-left" } : {}
-      @template.tag.fieldset options do
+      @template.tag.fieldset(**options) do
         input + untranslated_text(method)
       end
     end

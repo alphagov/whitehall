@@ -1,7 +1,7 @@
 require "pact/provider/rspec"
 require "webmock/rspec"
 require "factory_bot"
-require "database_cleaner"
+require "database_cleaner/active_record"
 
 require ::File.expand_path("../../config/environment", __dir__)
 

@@ -159,8 +159,11 @@ class PublishingApiRake < ActiveSupport::TestCase
       let(:task) { Rake::Task["publishing_api:patch_links:organisations"] }
 
       test "patches links for organisations" do
+        # Organisation needs to be created before the method is stubed
+        organisation = create(:organisation)
+
         Whitehall::PublishingApi.expects(:patch_links).with(
-          create(:organisation), bulk_publishing: true
+          organisation, bulk_publishing: true
         ).once
         task.invoke
       end
@@ -221,6 +224,46 @@ class PublishingApiRake < ActiveSupport::TestCase
           "bulk_republishing",
           corporate_info.document_id,
           true,
+        )
+
+        task.invoke
+      end
+    end
+
+    describe "#all_drafts" do
+      let(:task) { Rake::Task["publishing_api:bulk_republish:all_drafts"] }
+
+      test "republishes all draft editions" do
+        # A draft document which hasn't been published yet
+        draft_only = create(:draft_detailed_guide).document
+
+        # A published document with no draft edition
+        # This document should *not* be republished
+        create(:published_detailed_guide).document
+
+        # A published document with a newer draft edition
+        published_with_draft = create(:published_detailed_guide).document
+        create(:draft_detailed_guide, document: published_with_draft)
+
+        # A scheduled document which isn't live yet
+        scheduled = create(:scheduled_detailed_guide).document
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          draft_only.id,
+          true, # Publishing API will queue as low priority
+        )
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          published_with_draft.id,
+          true, # Publishing API will queue as low priority
+        )
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          scheduled.id,
+          true, # Publishing API will queue as low priority
         )
 
         task.invoke

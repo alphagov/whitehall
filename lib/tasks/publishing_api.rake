@@ -234,6 +234,18 @@ namespace :publishing_api do
       puts "Finished queuing items for Publishing API"
     end
 
+    desc "Republish all documents with draft editions"
+    task all_drafts: :environment do
+      editions = Edition.in_pre_publication_state.includes(:document)
+
+      puts "Enqueueing #{editions.count} documents"
+      editions.find_each do |edition|
+        document_id = edition.document.id
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+      end
+      puts "Finished enqueueing items for Publishing API"
+    end
+
     desc "Republish all editions which have attachments to the Publishing API"
     task editions_with_attachments: :environment do
       editions = Edition.publicly_visible.where(

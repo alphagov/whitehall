@@ -21,6 +21,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_kind_of Document, edition.document
   end
 
+  test "adds auth bypass id to a newly created edition" do
+    edition = create(:edition)
+    assert_not_nil edition.auth_bypass_id
+  end
+
   test "uses provided document if available" do
     document = build(:document)
     edition = build(:edition, document: document)
@@ -812,11 +817,13 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:edition)
 
     stub_publishing_api_has_links(
-      "content_id" => edition.content_id,
-      "links" => {
-        "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+        },
+        "version" => 1,
       },
-      "version" => 1,
     )
 
     assert_not edition.has_been_tagged?
@@ -826,12 +833,14 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:edition)
 
     stub_publishing_api_has_links(
-      "content_id" => edition.content_id,
-      "links" => {
-        "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
-        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
+      {
+        "content_id" => edition.content_id,
+        "links" => {
+          "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+          "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
+        },
+        "version" => 1,
       },
-      "version" => 1,
     )
 
     assert edition.has_been_tagged?

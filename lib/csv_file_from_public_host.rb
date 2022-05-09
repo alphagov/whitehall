@@ -13,7 +13,7 @@ class CsvFileFromPublicHost
       basic_auth_credentials = env["BASIC_AUTH_CREDENTIALS"].split(":")
       basic_auth_user = basic_auth_credentials[0]
       basic_auth_password = basic_auth_credentials[1]
-      connection.basic_auth(basic_auth_user, basic_auth_password)
+      connection.request(:authorization, :basic, basic_auth_user, basic_auth_password)
     end
 
     connection.get(Addressable::URI.escape(path)) do |req|

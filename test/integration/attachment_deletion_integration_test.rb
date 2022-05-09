@@ -65,10 +65,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     def setup_publishing_api_for(edition)
-      stub_publishing_api_has_links(
-        content_id: edition.document.content_id,
-        links: {},
-      )
+      stub_publishing_api_has_links({ content_id: edition.document.content_id, links: {} })
     end
 
     def path_to_attachment(filename)

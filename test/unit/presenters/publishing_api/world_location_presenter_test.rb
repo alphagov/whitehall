@@ -1,8 +1,8 @@
 require "test_helper"
 
 class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
-  def present(model_instance, options = {})
-    PublishingApi::WorldLocationPresenter.new(model_instance, options)
+  def present(...)
+    PublishingApi::WorldLocationPresenter.new(...)
   end
 
   test "presents a World Location ready for adding to the publishing API" do

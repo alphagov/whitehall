@@ -20,6 +20,7 @@ module PublishingApi
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "placeholder_#{item.class.name.underscore}",
+        auth_bypass_ids: [item.auth_bypass_id],
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))

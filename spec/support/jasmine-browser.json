@@ -1,0 +1,15 @@
+{
+  "srcDir": "public/assets/whitehall",
+  "srcFiles": [
+    "all-*.js"
+  ],
+  "specDir": "spec/javascripts",
+  "specFiles": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "https://unpkg.com/jasmine-ajax@4.0.0/lib/mock-ajax.js",
+    "helpers/*.js"
+  ],
+  "browser": "headlessChrome"
+}

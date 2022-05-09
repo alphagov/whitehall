@@ -1,8 +1,8 @@
 require "test_helper"
 
 class CollectionPageTest < ActiveSupport::TestCase
-  def build(collection_subset, options = {})
-    CollectionPage.new(collection_subset, options)
+  def build(...)
+    CollectionPage.new(...)
   end
 
   test "it should behave like an array" do

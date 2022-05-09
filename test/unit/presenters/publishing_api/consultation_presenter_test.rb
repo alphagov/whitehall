@@ -173,6 +173,10 @@ module PublishingApi::ConsultationPresenterTest
       assert_attribute :schema_name, "consultation"
     end
 
+    test "auth bypass id" do
+      assert_attribute :auth_bypass_ids, [consultation.auth_bypass_id]
+    end
+
     test "tags" do
       assert_details_payload "PublishingApi::PayloadBuilder::TagDetails"
     end

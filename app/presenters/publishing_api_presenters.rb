@@ -3,7 +3,7 @@ module PublishingApiPresenters
 
   class << self
     def presenter_for(model, options = {})
-      presenter_class_for(model).new(model, options)
+      presenter_class_for(model).new(model, **options)
     end
 
   private

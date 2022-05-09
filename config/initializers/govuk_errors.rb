@@ -6,5 +6,6 @@ GovukError.configure do |config|
 
   config.data_sync_excluded_exceptions += [
     "ActiveRecord::Deadlocked",
+    "Mysql2::Error",
   ]
 end

@@ -2,6 +2,7 @@ require "test_helper"
 
 class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   def present(edition)
+    edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
     PublishingApi::PublicationPresenter.new(edition)
   end
 
@@ -31,6 +32,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         { path: public_path, type: "exact" },
       ],
       redirects: [],
+      auth_bypass_ids: %w[52db85fc-0f30-42a6-afdd-c2b31ecc6a67],
       first_published_at: publication.first_public_at,
       update_type: "major",
       details: {
@@ -152,7 +154,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "documents include the alternative format contact email with a direct email link" do
     publication = create(:publication, :with_command_paper)
-    GovukPublishingComponents::Presenters::Attachment.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, []) do
+    GovukPublishingComponents::Presenters::AttachmentHelper.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, []) do
       presented_item = present(publication)
       document = presented_item.content[:details][:documents].first
       assert document.include?("This file may not be suitable for users of assistive technology.")
@@ -163,7 +165,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   test "documents belonging to organisations in the accessible format request pilot include the form link" do
     publication = create(:publication, :with_command_paper)
     email_address = publication.alternative_format_provider.alternative_format_contact_email
-    GovukPublishingComponents::Presenters::Attachment.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, [email_address]) do
+    GovukPublishingComponents::Presenters::AttachmentHelper.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, [email_address]) do
       presented_item = present(publication)
       document = presented_item.content[:details][:documents].first
       assert document.include?("Request an accessible format of this document")
