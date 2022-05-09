@@ -78,18 +78,17 @@ module DocumentHelper
   end
 
   def attachment_thumbnail(attachment)
-    image_url = if attachment.pdf?
-                  attachment.file.thumbnail.url
-                elsif attachment.html?
-                  image_url("pub-cover-html.png", host: Whitehall.public_root)
-                elsif %w[doc docx odt].include? attachment.file_extension
-                  image_url("pub-cover-doc.png", host: Whitehall.public_root)
-                elsif %w[xls xlsx ods csv].include? attachment.file_extension.downcase
-                  image_url("pub-cover-spreadsheet.png", host: Whitehall.public_root)
-                else
-                  image_url("pub-cover.png", host: Whitehall.public_root)
-                end
-    image_tag(image_url, alt: "")
+    if attachment.pdf?
+      image_tag(attachment.file.thumbnail.url, alt: "")
+    elsif attachment.html?
+      render "documents/attachment/thumbnail_document"
+    elsif %w[doc docx odt].include? attachment.file_extension
+      render "documents/attachment/thumbnail_document"
+    elsif %w[xls xlsx ods csv].include? attachment.file_extension.downcase
+      render "documents/attachment/thumbnail_spreadsheet"
+    else
+      render "documents/attachment/thumbnail_generic"
+    end
   end
 
   def alternative_format_order_link(attachment, alternative_format_contact_email)
