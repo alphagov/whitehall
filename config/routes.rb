@@ -71,7 +71,6 @@ Whitehall::Application.routes.draw do
       # helper methods.
       root to: "home#get_involved", as: :get_involved, via: :get
 
-      get "take-part" => redirect("/get-involved#take-part")
       get "take-part/:id", to: "take_part_pages#show", as: "take_part_page"
     end
 
