@@ -13,7 +13,9 @@
   <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' }, required: false %>
   <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
 
-  <%= form.text_area :body, class: "previewable", rows: 20, cols: 9000, required: true %>
+  <%= form.text_area :body, class: "previewable", rows: 20, cols: 9000, required: true, data: {
+    module: "paste-html-to-govspeak"
+  } %>
 
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 <% end %>

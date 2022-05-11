@@ -29,7 +29,9 @@
     <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
     <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
 
-    <%= form.text_area :body, rows: 20, class: "previewable" %>
+    <%= form.text_area :body, rows: 20, class: "previewable", data: {
+      module: "paste-html-to-govspeak"
+    } %>
 
     <%= form.label :lead_organisation_ids, 'Lead Organisations:' %>
     <%= form.select :lead_organisation_ids, options_for_select(taggable_organisations_container, @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose organisations which produced this document…" } %>

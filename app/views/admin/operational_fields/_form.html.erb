@@ -3,7 +3,9 @@
 
   <fieldset>
     <%= operational_field_form.text_field :name %>
-    <%= operational_field_form.text_area :description, rows: 20, class: "previewable" %>
+    <%= operational_field_form.text_area :description, rows: 20, class: "previewable", data: {
+      module: "paste-html-to-govspeak"
+    } %>
   </fieldset>
   <p class="warning">Warning: changes to fields of operation appear instantly on the live site.</p>
   <%= operational_field_form.save_or_cancel cancel: admin_operational_fields_path %>
