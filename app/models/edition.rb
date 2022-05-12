@@ -704,6 +704,25 @@ EXISTS (
     has_primary_sector? || has_secondary_sectors?
   end
 
+  # For more info, see https://docs.publishing.service.gov.uk/manual/content-preview.html#authentication
+  def auth_bypass_token
+    JWT.encode(
+      {
+        "sub" => auth_bypass_id,
+        "content_id" => content_id,
+        "iat" => Time.zone.now.to_i,
+        "exp" => 1.month.from_now.to_i,
+      },
+      Rails.application.secrets.jwt_auth_secret,
+      "HS256",
+    )
+  end
+
+  # conditions for document types will be removed after enabling shareable preview for them
+  def has_enabled_shareable_preview?(user)
+    state == "draft" && user.can_share_previews? && type != "Consultation" && type != "Publication" && type != "DocumentCollection"
+  end
+
   delegate :locked?, to: :document
 
   # TODO: this can be removed once rails/rails#44770 is released.

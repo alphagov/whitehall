@@ -28,6 +28,7 @@ RUN GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
   GOVUK_APP_DOMAIN=www.gov.uk \
   GOVUK_WEBSITE_ROOT=www.gov.uk \
   GOVUK_APP_DOMAIN_EXTERNAL=www.gov.uk \
+  JWT_AUTH_SECRET=secret \
   bundle exec rake shared_mustache:compile assets:precompile
 
 FROM $base_image

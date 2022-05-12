@@ -26,6 +26,61 @@ class EditionTest < ActiveSupport::TestCase
     assert_not_nil edition.auth_bypass_id
   end
 
+  test "generates auth bypass token for edition" do
+    edition = create(:edition)
+    payload = decoded_token_payload(edition.auth_bypass_token)
+
+    assert_equal payload["sub"], edition.auth_bypass_id
+    assert_equal payload["content_id"], edition.content_id
+    assert_equal payload["iat"], Time.zone.now.to_i
+    assert_equal payload["exp"], 1.month.from_now.to_i
+  end
+
+  test "edition has shareable preview enabled if it is in the draft state, user has the permission and the type is not excluded" do
+    edition = create(:draft_case_study)
+    user = create(:gds_editor)
+    user.permissions << "can share previews"
+    assert_equal edition.has_enabled_shareable_preview?(user), true
+  end
+
+  test "edition has shareable preview disabled if it is in the published state" do
+    edition = create(:published_case_study)
+    user = create(:gds_editor)
+    user.permissions << "can share previews"
+    assert_equal edition.has_enabled_shareable_preview?(user), false
+  end
+
+  test "edition has shareable preview disabled if the user does not have a permission" do
+    edition = create(:draft_consultation)
+    user = create(:gds_editor)
+    user.permissions = []
+    assert_equal edition.has_enabled_shareable_preview?(user), false
+  end
+
+  #  test below will be removed after enabling shareable preview for this doccument type
+  test "edition has shareable preview disabled if it has consultation type" do
+    edition = create(:draft_consultation)
+    user = create(:gds_editor)
+    user.permissions << "can share previews"
+    assert_equal edition.has_enabled_shareable_preview?(user), false
+  end
+
+  # test below will be removed after enabling shareable preview for this doccument type
+  test "edition has shareable preview disabled if it has publication type" do
+    edition = create(:draft_publication)
+    user = create(:gds_editor)
+    user.permissions << "can share previews"
+    assert_equal edition.has_enabled_shareable_preview?(user), false
+  end
+
+  # test below will be removed after enabling shareable preview for this doccument type
+  test "edition has shareable preview disabled if it has document collection type" do
+    edition = create(:draft_document_collection)
+    user = create(:gds_editor)
+    user.permissions << "can share previews"
+    assert_equal edition.has_enabled_shareable_preview?(user), false
+  end
+
   test "uses provided document if available" do
     document = build(:document)
     edition = build(:edition, document: document)
@@ -878,5 +933,15 @@ class EditionTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
     edition.update!(title: "some updated title")
+  end
+
+  def decoded_token_payload(token)
+    payload, _header = JWT.decode(
+      token,
+      Rails.application.secrets.jwt_auth_secret,
+      true,
+      { algorithm: "HS256" },
+    )
+    payload
   end
 end

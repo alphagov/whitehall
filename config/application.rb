@@ -90,5 +90,9 @@ module Whitehall
     # allow overriding the asset host with an enironment variable, useful for
     # when router is proxying to this app but asset proxying isn't set up.
     config.asset_host = ENV["ASSET_HOST"]
+
+    unless Rails.application.secrets.jwt_auth_secret
+      raise "JWT auth secret is not configured. See config/secrets.yml"
+    end
   end
 end
