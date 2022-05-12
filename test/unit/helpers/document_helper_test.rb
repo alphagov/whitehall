@@ -3,6 +3,7 @@ require "test_helper"
 class DocumentHelperTest < ActionView::TestCase
   include PublicDocumentRoutesHelper
   include OrganisationHelper
+  include InlineSvg::ActionView::Helpers
 
   test "should return nil for humanized content type when file extension is nil" do
     assert_nil humanized_content_type(nil)
@@ -10,22 +11,22 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "#attachment_thumbnail returns document thumbnails with public URLs for .doc files" do
     attachment = create(:file_attachment, file: upload_fixture("sample.docx", "application/msword"))
-    assert_match %r{<svg class="gem-c-attachment__thumbnail-image"}, attachment_thumbnail(attachment)
+    assert_match inline_svg_tag("attachment-icons/document.svg", aria_hidden: true), attachment_thumbnail(attachment)
   end
 
   test "#attachment_thumbnail returns spreadsheet thumbnails with public URLs for spreadsheet files" do
     attachment = create(:file_attachment, file: upload_fixture("sample-from-excel.csv", "text/csv"))
-    assert_match %r{<svg class="gem-c-attachment__thumbnail-image"}, attachment_thumbnail(attachment)
+    assert_match inline_svg_tag("attachment-icons/spreadsheet.svg", aria_hidden: true), attachment_thumbnail(attachment)
   end
 
   test "#attachment_thumbnail returns HTML thumbnails with public URLs for HTML attachments" do
     publication = create(:published_publication, :with_html_attachment)
-    assert_match %r{<svg class="gem-c-attachment__thumbnail-image"}, attachment_thumbnail(publication.attachments.first)
+    assert_match inline_svg_tag("attachment-icons/html.svg", aria_hidden: true), attachment_thumbnail(publication.attachments.first)
   end
 
   test "#attachment_thumbnail returns generic thumbnails with public URLs for other files" do
     attachment = create(:file_attachment, file: upload_fixture("sample_attachment.zip", "application/zip"))
-    assert_match %r{<svg class="gem-c-attachment__thumbnail-image"}, attachment_thumbnail(attachment)
+    assert_match inline_svg_tag("attachment-icons/generic.svg", aria_hidden: true), attachment_thumbnail(attachment)
   end
 
   test "should return PDF Document for humanized content type" do

@@ -1,5 +1,6 @@
 module DocumentHelper
   include ApplicationHelper
+  include InlineSvg::ActionView::Helpers
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document".freeze
   MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet".freeze
@@ -81,13 +82,13 @@ module DocumentHelper
     if attachment.pdf?
       image_tag(attachment.file.thumbnail.url, alt: "")
     elsif attachment.html?
-      render "documents/attachment/thumbnail_document"
+      inline_svg_tag("attachment-icons/html.svg", aria_hidden: true)
     elsif %w[doc docx odt].include? attachment.file_extension
-      render "documents/attachment/thumbnail_document"
+      inline_svg_tag("attachment-icons/document.svg", aria_hidden: true)
     elsif %w[xls xlsx ods csv].include? attachment.file_extension.downcase
-      render "documents/attachment/thumbnail_spreadsheet"
+      inline_svg_tag("attachment-icons/spreadsheet.svg", aria_hidden: true)
     else
-      render "documents/attachment/thumbnail_generic"
+      inline_svg_tag("attachment-icons/generic.svg", aria_hidden: true)
     end
   end
 
