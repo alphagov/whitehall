@@ -1,9 +1,12 @@
 require "test_helper"
 
 class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
-  test 'presents a valid topical_event content item' do
+  test "presents a valid topical_event content item" do
     topical_event = create(:topical_event, :active, name: "Humans going to Mars")
     public_path = "/government/topical-events/humans-going-to-mars"
+
+    feature = create(:classification_featuring, classification: topical_event, ordering: 1)
+    offsite_feature = create(:offsite_classification_featuring, classification: topical_event, ordering: 0)
 
     expected_hash = {
       base_path: public_path,
@@ -26,6 +29,26 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       details: {
         start_date: topical_event.start_date.rfc3339,
         end_date: topical_event.end_date.rfc3339,
+        ordered_featured_documents: [
+          {
+            title: offsite_feature.title,
+            href: offsite_feature.url,
+            image: {
+              url: offsite_feature.image.file.url(:s465),
+              alt_text: offsite_feature.alt_text,
+            },
+            summary: offsite_feature.summary,
+          },
+          {
+            title: feature.title,
+            href: feature.url,
+            image: {
+              url: feature.image.file.url(:s465),
+              alt_text: feature.alt_text,
+            },
+            summary: feature.summary,
+          },
+        ],
       },
     }
 
@@ -57,7 +80,9 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       update_type: "major",
       redirects: [],
       public_updated_at: topical_event.updated_at,
-      details: {},
+      details: {
+        ordered_featured_documents: [],
+      },
     }
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
@@ -71,7 +96,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
-    assert_equal({ start_date: Time.zone.today.rfc3339 }, presenter.content[:details])
+    assert_equal({ start_date: Time.zone.today.rfc3339, ordered_featured_documents: [] }, presenter.content[:details])
     assert_valid_against_schema(presenter.content, "topical_event")
   end
 end
