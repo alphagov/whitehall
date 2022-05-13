@@ -8,40 +8,57 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   include TaxonomyHelper
 
   describe "attachment deletion" do
-    context "given a draft document with a file attachment" do
+    context "given a draft document with multiple file attachments" do
       let(:managing_editor) { create(:managing_editor) }
 
-      let(:filename) { "sample.docx" }
-      let(:file) { File.open(path_to_attachment(filename)) }
-      let(:attachment) { build(:file_attachment, attachable: edition, file: file) }
-      let(:asset_id) { "asset-id" }
+      let(:first_filename) { "sample.docx" }
+      let(:first_file) { File.open(path_to_attachment(first_filename)) }
+      let(:first_attachment) { build(:file_attachment, attachable: edition, file: first_file) }
+      let(:first_asset_id) { "first-asset-id" }
+
+      let(:second_filename) { "sample.rtf" }
+      let(:second_file) { File.open(path_to_attachment(second_filename)) }
+      let(:second_attachment) { build(:file_attachment, attachable: edition, file: second_file) }
+      let(:second_asset_id) { "second-asset-id" }
 
       let(:edition) { create(:news_article) }
 
       before do
         login_as(managing_editor)
         stub_publishing_api_has_linkables([], document_type: "topic")
-        edition.attachments << attachment
+        edition.attachments << first_attachment
+        edition.attachments << second_attachment
         setup_publishing_api_for(edition)
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-        stub_whitehall_asset(filename, id: asset_id)
-        attachment.attachment_data.uploaded_to_asset_manager!
+        stub_whitehall_asset(first_filename, id: first_asset_id)
+        stub_whitehall_asset(second_filename, id: second_asset_id)
+        first_attachment.attachment_data.uploaded_to_asset_manager!
+        second_attachment.attachment_data.uploaded_to_asset_manager!
         edition.save!
+
+        # clear the queue of jobs resulting from test setup
+        AssetManagerAttachmentMetadataWorker.drain
       end
 
-      context "when attachment is deleted" do
+      context "when one attachment is deleted" do
         before do
           visit admin_news_article_path(edition)
           click_link "Modify attachments"
-          within ".existing-attachments" do
+          within "#attachment_#{first_attachment.id}" do
             click_link "Delete"
           end
           assert_text "Attachment deleted"
         end
 
-        it "deletes corresponding asset(s) in Asset Manager" do
-          Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
+        it "deletes the corresponding asset in Asset Manager" do
+          Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
+          assert_equal AssetManagerAttachmentMetadataWorker.jobs.count, 1
           AssetManagerAttachmentMetadataWorker.drain
+        end
+
+        it "queues one worker to delete the asset" do
+          queued_ids = AssetManagerAttachmentMetadataWorker.jobs.map { |job| job["args"].first }
+          assert_equal queued_ids, [first_attachment.attachment_data.id]
         end
       end
 
@@ -51,8 +68,10 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Discard draft"
         end
 
-        it "deletes corresponding asset(s) in Asset Manager" do
-          Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
+        it "deletes all corresponding assets in Asset Manager" do
+          Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
+          Services.asset_manager.expects(:delete_asset).once.with(second_asset_id)
+          assert_equal AssetManagerAttachmentMetadataWorker.jobs.count, 2
           AssetManagerAttachmentMetadataWorker.drain
         end
       end
