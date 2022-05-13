@@ -5,7 +5,9 @@
     <%= policy_group_form.text_field :name %>
     <%= policy_group_form.text_field :email %>
     <%= policy_group_form.text_area :summary, rows: 20 %>
-    <%= policy_group_form.text_area :description, rows: 20, class: "previewable" %>
+    <%= policy_group_form.text_area :description, rows: 20, class: "previewable", data: {
+      module: "paste-html-to-govspeak"
+    } %>
   </fieldset>
 
   <h3>Attachments</h3>

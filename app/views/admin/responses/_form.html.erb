@@ -5,7 +5,9 @@
 
   <%= form.label :published_on %>
   <%= form.date_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
-  <%= form.text_area :summary, rows: 20, label_text: 'Detail/Summary', class: "previewable" %>
+  <%= form.text_area :summary, rows: 20, label_text: 'Detail/Summary', class: "previewable", data: {
+    module: "paste-html-to-govspeak"
+  } %>
 
   <%= form.save_or_cancel cancel: [:admin, consultation, consultation_response.singular_routing_symbol] %>
 <% end %>

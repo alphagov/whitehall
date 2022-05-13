@@ -33,7 +33,8 @@
     }
   },
   "dependencies": {
-    "jquery": "1.12.4"
+    "jquery": "1.12.4",
+    "paste-html-to-govspeak": "^0.2.6"
   },
   "devDependencies": {
     "jasmine-browser-runner": "^1.0.0",

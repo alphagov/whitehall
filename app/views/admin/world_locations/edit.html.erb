@@ -12,7 +12,9 @@
 
       <%= form.text_field :title %>
 
-      <%= form.text_area :mission_statement, rows: 20, class: "previewable" %>
+      <%= form.text_area :mission_statement, rows: 20, class: "previewable", data: {
+        module: "paste-html-to-govspeak"
+      } %>
 
       <%= form.check_box :active,
                 label_text: "Active (can visitors click through from the world location list?)" %>

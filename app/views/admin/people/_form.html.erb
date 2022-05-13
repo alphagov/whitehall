@@ -23,7 +23,9 @@
     </div>
   </fieldset>
   <fieldset>
-    <%= person_form.text_area :biography, rows: 20, class: "previewable" %>
+    <%= person_form.text_area :biography, rows: 20, class: "previewable", data: {
+      module: "paste-html-to-govspeak"
+    } %>
   </fieldset>
 
   <p class="warning">

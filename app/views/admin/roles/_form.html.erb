@@ -36,7 +36,9 @@
   </fieldset>
 
   <fieldset>
-    <%= form.text_area :responsibilities, rows: 20, class: "previewable" %>
+    <%= form.text_area :responsibilities, rows: 20, class: "previewable", data: {
+      module: "paste-html-to-govspeak"
+    } %>
   </fieldset>
   <p class="warning">
     <% if show_instantly_live_warning %>
