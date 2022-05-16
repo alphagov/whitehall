@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
-  test 'presents a valid placeholder "topical_event" content item' do
+  test 'presents a valid topical_event content item' do
     topical_event = create(:topical_event, :active, name: "Humans going to Mars")
     public_path = "/government/topical-events/humans-going-to-mars"
 
@@ -9,7 +9,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       base_path: public_path,
       publishing_app: "whitehall",
       rendering_app: "whitehall-frontend",
-      schema_name: "placeholder",
+      schema_name: "topical_event",
       document_type: "topical_event",
       title: "Humans going to Mars",
       description: nil,
@@ -32,7 +32,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, "placeholder")
+    assert_valid_against_schema(presenter.content, "topical_event")
   end
 
   test "handles topical events without dates" do
@@ -43,7 +43,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       base_path: public_path,
       publishing_app: "whitehall",
       rendering_app: "whitehall-frontend",
-      schema_name: "placeholder",
+      schema_name: "topical_event",
       document_type: "topical_event",
       title: "Humans going to Mars",
       description: nil,
@@ -63,7 +63,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, "placeholder")
+    assert_valid_against_schema(presenter.content, "topical_event")
   end
 
   test "handles topical events without an end_date" do
@@ -72,6 +72,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal({ start_date: Time.zone.today.rfc3339 }, presenter.content[:details])
-    assert_valid_against_schema(presenter.content, "placeholder")
+    assert_valid_against_schema(presenter.content, "topical_event")
   end
 end
