@@ -18,7 +18,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def create
     if save_attachment
-      attachment_updater
+      attachment_updater(attachment.attachment_data)
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
@@ -31,7 +31,7 @@ class Admin::AttachmentsController < Admin::BaseController
       attachment.attachment_data.attachable = attachable
     end
     if save_attachment
-      attachment_updater
+      attachment_updater(attachment.attachment_data)
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
@@ -45,7 +45,7 @@ class Admin::AttachmentsController < Admin::BaseController
       attachment = attachable.attachments.find(id)
       attachment.assign_attributes(attributes.permit(:title))
       if attachment.save(context: :user_input)
-        attachment_updater
+        attachment_updater(attachment.attachment_data)
       else
         errors[id] = attachment.errors.full_messages
       end
@@ -59,8 +59,9 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def destroy
+    attachment_data = attachment.attachment_data
     attachment.destroy!
-    attachment_updater
+    attachment_updater(attachment_data)
     redirect_to attachable_attachments_path(attachable), notice: "Attachment deleted"
   end
 
@@ -196,7 +197,7 @@ private
     result
   end
 
-  def attachment_updater
-    ServiceListeners::AttachmentUpdater.call(attachable: attachable.reload)
+  def attachment_updater(attachment_data)
+    ServiceListeners::AttachmentUpdater.call(attachment_data: attachment_data)
   end
 end
