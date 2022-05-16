@@ -16,7 +16,11 @@
     <%= form_for @unpublishing, url: admin_edition_unpublishing_path(edition) do |f| %>
       <fieldset>
         <%= f.text_area :explanation, rows: 5, class: "previewable input-md-8", required: true,
-          label_text: %{Public explanation (this is shown on the live site)}.html_safe %>
+          label_text: %{Public explanation (this is shown on the live site)}.html_safe,
+          data: {
+            module: "paste-html-to-govspeak"
+          }
+        %>
       </fieldset>
       <fieldset>
         <%= f.submit "Update #{withdrawal_or_unpublishing} explanation", class: "btn btn-primary" %>
