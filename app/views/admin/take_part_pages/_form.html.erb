@@ -9,7 +9,9 @@
       <%= form.text_field :title %>
       <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 160, 'count-message-selector' => '.summary-length-info' } %>
       <div class="summary-length-info">Summary text should be 160 characters or fewer. <span class="count"></span></div>
-      <%= form.text_area :body, rows: 20, class: "previewable", required: true %>
+      <%= form.text_area :body, rows: 20, class: "previewable", required: true, data: {
+        module: "paste-html-to-govspeak"
+      } %>
       <%= form.upload :image %>
       <%= form.text_field :image_alt_text, label_text: "Image description (alt text)" %>
       <%= form.save_or_cancel cancel: admin_take_part_pages_path %>
