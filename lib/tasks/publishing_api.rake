@@ -108,6 +108,11 @@ namespace :publishing_api do
       puts "Finished republishing Policy Groups"
     end
 
+    desc "Republish all current Topical Events"
+    task all_topical_events: :environment do
+      TopicalEvent.current.each(&:publish_to_publishing_api)
+    end
+
     desc "Republish a person to the Publishing API"
     task :person_by_slug, [:slug] => :environment do |_, args|
       Person.find_by!(slug: args[:slug]).publish_to_publishing_api
