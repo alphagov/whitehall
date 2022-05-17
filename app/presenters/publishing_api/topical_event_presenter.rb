@@ -38,6 +38,7 @@ module PublishingApi
         details[:start_date] = item.start_date.rfc3339 if item.start_date
         details[:end_date] = item.end_date.rfc3339 if item.end_date
         details[:ordered_featured_documents] = ordered_featured_documents
+        details[:social_media_links] = social_media_links
       end
     end
 
@@ -51,6 +52,16 @@ module PublishingApi
             alt_text: feature.alt_text,
           },
           summary: feature.summary,
+        }
+      end
+    end
+
+    def social_media_links
+      item.social_media_accounts.map do |social_media_account|
+        {
+          href: social_media_account.url,
+          service_type: social_media_account.service_name.parameterize,
+          title: social_media_account.display_name,
         }
       end
     end

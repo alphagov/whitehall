@@ -8,6 +8,10 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     feature = create(:classification_featuring, classification: topical_event, ordering: 1)
     offsite_feature = create(:offsite_classification_featuring, classification: topical_event, ordering: 0)
 
+    social_media_service = create(:social_media_service, name: "Facebook")
+    social_media_account = create(:social_media_account, social_media_service: social_media_service)
+    topical_event.social_media_accounts = [social_media_account]
+
     expected_hash = {
       base_path: public_path,
       publishing_app: "whitehall",
@@ -49,6 +53,13 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
             summary: feature.summary,
           },
         ],
+        social_media_links: [
+          {
+            href: social_media_account.url,
+            service_type: social_media_account.service_name.parameterize,
+            title: social_media_account.display_name,
+          },
+        ],
       },
     }
 
@@ -82,6 +93,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       public_updated_at: topical_event.updated_at,
       details: {
         ordered_featured_documents: [],
+        social_media_links: [],
       },
     }
 
@@ -96,7 +108,11 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
-    assert_equal({ start_date: Time.zone.today.rfc3339, ordered_featured_documents: [] }, presenter.content[:details])
+    assert_equal({
+      start_date: Time.zone.today.rfc3339,
+      ordered_featured_documents: [],
+      social_media_links: [],
+    }, presenter.content[:details])
     assert_valid_against_schema(presenter.content, "topical_event")
   end
 end
