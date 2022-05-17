@@ -14,6 +14,9 @@ class ClassificationFeaturing < ApplicationRecord
 
   validates :edition_id, uniqueness: { scope: :classification_id }, unless: :offsite?
 
+  after_save :republish_classification_to_publishing_api
+  after_destroy :republish_classification_to_publishing_api
+
   def title
     if offsite?
       offsite_link.title
@@ -40,5 +43,9 @@ class ClassificationFeaturing < ApplicationRecord
 
   def offsite?
     edition.nil?
+  end
+
+  def republish_classification_to_publishing_api
+    Whitehall::PublishingApi.republish_async(classification)
   end
 end

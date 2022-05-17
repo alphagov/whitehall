@@ -14,4 +14,20 @@ class ClassificationFeaturingTest < ActiveSupport::TestCase
 
     assert_match(/minister-of-funk/, classification_featuring.image.file.url)
   end
+
+  test "republishes a linked Topical Event when the feature is changed" do
+    topical_event = create(:topical_event, :active)
+    feature = create(:classification_featuring, classification: topical_event)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
+    feature.update!(alt_text: "some updated text")
+  end
+
+  test "republishes a linked Topical Event when the feature is deleted" do
+    topical_event = create(:topical_event, :active)
+    feature = create(:classification_featuring, classification: topical_event)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
+    feature.destroy!
+  end
 end

@@ -101,6 +101,8 @@ class Edition < ApplicationRecord
   before_save { check_if_locked_document(edition: self) }
   # @!endgroup
 
+  after_update :republish_classification_to_publishing_api
+
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
       significant_changed_attributes(record).each do |attribute|
@@ -723,5 +725,11 @@ private
 
   def summary_required?
     true
+  end
+
+  def republish_classification_to_publishing_api
+    classification_featurings.each do |classification_featuring|
+      Whitehall::PublishingApi.republish_async(classification_featuring.classification)
+    end
   end
 end

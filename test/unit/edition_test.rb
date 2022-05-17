@@ -870,4 +870,13 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.has_secondary_sectors?
     assert edition.has_legacy_tags?
   end
+
+  test "republishes a linked Topical Event when the edition is changed" do
+    edition = create(:edition, :draft)
+    topical_event = create(:topical_event, :active)
+    create(:classification_featuring, classification: topical_event, edition: edition)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
+    edition.update!(title: "some updated title")
+  end
 end
