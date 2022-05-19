@@ -32,6 +32,18 @@ $thumbnail-width: 99px;
       }
       @include box-shadow(0 2px 2px rgba(0,0,0,.4));
     }
+
+    svg {
+      display: block;
+      width: $thumbnail-width;
+      height: 140px;
+      border: rgba(11, 12, 12, .1);
+      outline: $gutter-one-sixth solid rgba(11, 12, 12, .1);
+      background: #ffffff;
+      box-shadow: 0 2px 2px rgba(11, 12, 12, .4);
+      fill: #b1b4b6;
+      stroke: #b1b4b6;
+    }
   }
 
   .title a {
