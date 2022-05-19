@@ -9,6 +9,8 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg]
   end
 
+  delegate :asset_manager_path, to: :file
+
   version :s960, if: :bitmap? do
     process resize_to_fill: [960, 640]
   end
