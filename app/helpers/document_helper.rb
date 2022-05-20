@@ -1,5 +1,6 @@
 module DocumentHelper
   include ApplicationHelper
+  include InlineSvg::ActionView::Helpers
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document".freeze
   MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet".freeze
@@ -78,18 +79,17 @@ module DocumentHelper
   end
 
   def attachment_thumbnail(attachment)
-    image_url = if attachment.pdf?
-                  attachment.file.thumbnail.url
-                elsif attachment.html?
-                  image_url("pub-cover-html.png", host: Whitehall.public_root)
-                elsif %w[doc docx odt].include? attachment.file_extension
-                  image_url("pub-cover-doc.png", host: Whitehall.public_root)
-                elsif %w[xls xlsx ods csv].include? attachment.file_extension.downcase
-                  image_url("pub-cover-spreadsheet.png", host: Whitehall.public_root)
-                else
-                  image_url("pub-cover.png", host: Whitehall.public_root)
-                end
-    image_tag(image_url, alt: "")
+    if attachment.pdf?
+      image_tag(attachment.file.thumbnail.url, alt: "")
+    elsif attachment.html?
+      inline_svg_tag("attachment-icons/html.svg", aria_hidden: true)
+    elsif %w[doc docx odt].include? attachment.file_extension
+      inline_svg_tag("attachment-icons/document.svg", aria_hidden: true)
+    elsif %w[xls xlsx ods csv].include? attachment.file_extension.downcase
+      inline_svg_tag("attachment-icons/spreadsheet.svg", aria_hidden: true)
+    else
+      inline_svg_tag("attachment-icons/generic.svg", aria_hidden: true)
+    end
   end
 
   def alternative_format_order_link(attachment, alternative_format_contact_email)
