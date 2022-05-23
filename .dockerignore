@@ -1,6 +1,9 @@
+.dockerignore
 .git
 .gitignore
+Dockerfile
 Jenkinsfile
+Procfile
 README.md
 CONTRIBUTING.md
 asset-manager-tmp
@@ -8,6 +11,9 @@ attachment-cache
 bulk-upload-zip-file-tmp
 carrierwave-tmp
 clean-uploads
+docs
+features
 incoming-uploads
 infected-uploads
-tmp/*
+test
+tmp
