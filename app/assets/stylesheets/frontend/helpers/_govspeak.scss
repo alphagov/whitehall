@@ -253,8 +253,7 @@
     vertical-align: top;
   }
 
-  .information-block,
-  .call-to-action {
+  .information-block {
     margin: $gutter 0;
     background: $panel-colour none no-repeat 98% $gutter-two-thirds;
     padding: $gutter-one-third ($gutter * 2) $gutter-one-third $gutter-half;
