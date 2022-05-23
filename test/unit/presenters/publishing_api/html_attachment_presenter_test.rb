@@ -41,6 +41,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
       },
+      auth_bypass_ids: [edition.auth_bypass_id],
     }
     presented_item = present(html_attachment)
 
@@ -109,13 +110,15 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presents primary_publishing_organisation from 1st org when lead_organisations is not implemented" do
-    create(:consultation_outcome, :with_html_attachment)
+    outcome = create(:consultation_outcome, :with_html_attachment)
 
     html_attachment = HtmlAttachment.last
     # if an organisation has multiple translations, pluck returns
     # duplicate content_ids because it constructs a left outer join
 
+    presenter = present(html_attachment)
+    assert_hash_includes presenter.content, { auth_bypass_ids: [outcome.auth_bypass_id] }
     assert_equal [html_attachment.attachable.organisations.first.content_id],
-                 present(html_attachment).links[:primary_publishing_organisation]
+                 presenter.links[:primary_publishing_organisation]
   end
 end

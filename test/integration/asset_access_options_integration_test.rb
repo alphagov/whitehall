@@ -106,6 +106,29 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         end
       end
 
+      context "given an edition with an html attachment" do
+        let(:edition) { create(:publication, :policy_paper) }
+
+        before do
+          setup_publishing_api_for(edition)
+          visit admin_publication_path(edition)
+          click_link "Modify attachments"
+          click_link "Add new HTML attachment"
+          fill_in "Title", with: "html-attachment"
+          fill_in "Body", with: "some html content"
+        end
+
+        it "sends an html attachment to publishing api with its edition's auth_bypass_id" do
+          Services.publishing_api.expects(:put_content)
+                  .with(anything, has_entries(
+                                    title: "html-attachment",
+                                    auth_bypass_ids: [edition.auth_bypass_id],
+                                  ))
+
+          click_button "Save"
+        end
+      end
+
       context "when bulk uploaded to draft document" do
         before do
           visit admin_news_article_path(edition)
