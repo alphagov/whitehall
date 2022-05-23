@@ -23,6 +23,14 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_match %r{empty file}, attachment.errors[:file].first
   end
 
+  test "returns its attachable's auth_bypass_id when it has one" do
+    auth_bypass_id = "86385d6a-f918-4c93-96bf-087218a48ced"
+    attachable = CaseStudy.new(auth_bypass_id: auth_bypass_id)
+    attachment = build(:attachment_data, attachable: attachable)
+
+    assert_equal [auth_bypass_id], attachment.auth_bypass_ids
+  end
+
   test "should return filename even after reloading" do
     attachment = create(:attachment_data)
     assert_not_nil attachment.filename

@@ -1,13 +1,13 @@
 require "test_helper"
 require "capybara/rails"
 
-class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
+class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
 
-  describe "attachment access limited" do
+  describe "attachment access options (auth_bypass_id and access_limiting)" do
     let(:organisation) { create(:organisation) }
     let(:managing_editor) { create(:managing_editor, organisation: organisation, uid: "user-uid") }
 
@@ -40,11 +40,36 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
         it "marks attachment as access limited in Asset Manager" do
           Services.asset_manager
-            .expects(:update_asset)
-            .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
+                  .expects(:update_asset)
+                  .at_least_once.with("asset-id", has_entry("access_limited", %w[user-uid]))
 
           AssetManagerAttachmentMetadataWorker.drain
         end
+      end
+    end
+
+    context "given a draft document with an image uploader" do
+      let(:edition) { create(:draft_case_study) }
+
+      before do
+        setup_publishing_api_for(edition)
+
+        stub_whitehall_asset("minister-of-funk.960x640.jpg", id: "asset-id", draft: true)
+
+        visit admin_case_study_path(edition)
+        click_link "Edit draft"
+        choose "Use a custom image"
+        attach_file "File", path_to_attachment("minister-of-funk.960x640.jpg")
+        click_button "Save"
+      end
+
+      # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
+      it "sends an image to asset manager with the case study's auth_bypass_id" do
+        Services.asset_manager.expects(:create_whitehall_asset).at_least_once.with(
+          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
+        )
+
+        AssetManagerCreateWhitehallAssetWorker.drain
       end
     end
 
@@ -69,11 +94,12 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment 'asset-title' uploaded"
         end
 
-        it "marks attachment as access limited in Asset Manager" do
+        it "marks attachment as access limited and sends it with an auth_bypass_id in Asset Manager" do
           Services.asset_manager.expects(:create_whitehall_asset).with(
             has_entries(
               legacy_url_path: regexp_matches(/logo\.png/),
               access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
             ),
           )
           AssetManagerCreateWhitehallAssetWorker.drain
@@ -97,12 +123,14 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
             has_entries(
               legacy_url_path: regexp_matches(/greenpaper\.pdf/),
               access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
             ),
           )
           Services.asset_manager.expects(:create_whitehall_asset).with(
             has_entries(
               legacy_url_path: regexp_matches(/thumbnail_greenpaper\.pdf\.png/),
               access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
             ),
           )
 
@@ -111,7 +139,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given an outcome on an access-limited draft consultation" do
+    context "given a consultation" do
       # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
       let(:edition) { create(:consultation, organisations: [organisation], access_limited: true) }
       let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
@@ -124,7 +152,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         stub_whitehall_asset("logo.png", id: "asset-id", draft: true)
       end
 
-      context "when an attachment is added to the outcome" do
+      context "when an attachment is added to the consultation's outcome" do
         before do
           visit admin_consultation_path(edition)
           click_link "Edit draft"
@@ -136,15 +164,35 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment 'asset-title' uploaded"
         end
 
-        it "marks attachment as access limited in Asset Manager" do
+        it "marks attachment as access limited in Asset Manager and sends with the consultation's auth_bypass_id" do
           Services.asset_manager.expects(:create_whitehall_asset).with(
             has_entries(
               legacy_url_path: regexp_matches(/logo\.png/),
               access_limited: %w[user-uid],
+              auth_bypass_ids: [edition.auth_bypass_id],
             ),
           )
           AssetManagerCreateWhitehallAssetWorker.drain
         end
+      end
+
+      it "sends a consultation form to asset manager with the consultation's auth_bypass_id" do
+        visit admin_consultation_path(edition)
+        click_link "Edit draft"
+        id_of_form_uploader = "edition_consultation_participation_attributes_consultation_response_form_attributes_consultation_response_form_data_attributes_file"
+        fill_in "edition_consultation_participation_attributes_consultation_response_form_attributes_title", with: "Consultation response form"
+        attach_file id_of_form_uploader, path_to_attachment("simple.pdf")
+        click_button "Save"
+
+        # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
+        Services.asset_manager.expects(:create_whitehall_asset).with(
+          has_entries(
+            legacy_url_path: regexp_matches(/simple\.pdf/),
+            auth_bypass_ids: [edition.auth_bypass_id],
+          ),
+        )
+
+        AssetManagerCreateWhitehallAssetWorker.drain
       end
     end
 
@@ -171,8 +219,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
         it "unmarks attachment as access limited in Asset Manager" do
           Services.asset_manager
-            .expects(:update_asset)
-            .at_least_once.with("asset-id", has_entry("access_limited", []))
+                  .expects(:update_asset)
+                  .at_least_once.with("asset-id", has_entry("access_limited", []))
 
           AssetManagerAttachmentMetadataWorker.drain
         end
@@ -191,7 +239,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         it "marks replacement attachment as access limited in Asset Manager" do
           Services.asset_manager.expects(:create_whitehall_asset).with do |params|
             params[:legacy_url_path] =~ /big-cheese/ &&
-              params[:access_limited] == %w[user-uid]
+              params[:access_limited] == %w[user-uid] &&
+              params[:auth_bypass_ids] == [edition.auth_bypass_id]
           end
 
           AssetManagerCreateWhitehallAssetWorker.drain
@@ -228,8 +277,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     def stub_whitehall_asset(filename, attributes = {})
       url_id = "http://asset-manager/assets/#{attributes[:id]}"
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with(filename))
-        .returns(attributes.merge(id: url_id).stringify_keys)
+              .with(&ends_with(filename))
+              .returns(attributes.merge(id: url_id).stringify_keys)
     end
 
     def ends_with(expected)

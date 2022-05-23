@@ -7,6 +7,7 @@ class Response < ApplicationRecord
   validates :summary, presence: { unless: :has_attachments }
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :summary
+  delegate :auth_bypass_id, to: :consultation
 
   def access_limited_object
     consultation
