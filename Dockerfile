@@ -23,6 +23,7 @@ ENV BUNDLE_IGNORE_MESSAGES=1 \
     MAKEFLAGS=-j12
 
 ENV ASSETS_PREFIX=/assets/whitehall \
+    GOVUK_UPLOADS_ROOT=/tmp/uploads \
     GOVUK_APP_DOMAIN=unused \
     GOVUK_WEBSITE_ROOT=unused
 
@@ -47,7 +48,7 @@ COPY package.json yarn.lock /app/
 RUN yarnpkg install --production --frozen-lockfile --non-interactive --link-duplicates
 COPY . /app
 RUN bundle exec bootsnap precompile --gemfile .
-RUN bundle exec rails assets:precompile && rm -fr log bulk-upload-zip-file-tmp
+RUN bundle exec rails assets:precompile && rm -fr log
 
 
 FROM $base_image
@@ -67,7 +68,7 @@ ENV RAILS_ENV=production \
 
 ENV ASSETS_PREFIX=/assets/whitehall \
     GOVUK_APP_NAME=whitehall \
-    BULK_UPLOAD_ZIPFILE_DIR=/tmp/bulk_uploads
+    GOVUK_UPLOADS_ROOT=/uploads
 
 # TODO: have an up-to-date base image and stop running apt-get here.
 RUN apt-get update -qy && \
