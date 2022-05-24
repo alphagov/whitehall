@@ -67,7 +67,8 @@ ENV RAILS_ENV=production \
 
 ENV ASSETS_PREFIX=/assets/whitehall \
     GOVUK_APP_NAME=whitehall \
-    BULK_UPLOAD_ZIPFILE_DIR=/tmp/bulk_uploads
+    BULK_UPLOAD_ZIPFILE_DIR=/tmp/bulk-uploads \
+    CARRIERWAVE_CACHE_DIR=/tmp/carrierwave-cache
 
 # TODO: have an up-to-date base image and stop running apt-get here.
 RUN apt-get update -qy && \
