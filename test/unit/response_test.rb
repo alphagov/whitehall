@@ -129,6 +129,13 @@ class ResponseTest < ActiveSupport::TestCase
     assert_equal consultation, response.access_limited_object
   end
 
+  test "returns its consultation content_id" do
+    consultation = create(:consultation)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert_equal consultation.content_id, response.content_id
+  end
+
   test "returns no access limited object if its consultation is nil" do
     response = build(:consultation_outcome, consultation: nil)
 
