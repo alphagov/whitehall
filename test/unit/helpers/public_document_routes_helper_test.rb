@@ -131,6 +131,13 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "http://draft-origin.test.gov.uk/government/case-studies/#{edition.slug}", preview_url
   end
 
+  test "Creates a preview URL with auth bypass token" do
+    edition = create(:draft_case_study)
+    token = edition.auth_bypass_token
+    preview_url_with_auth_bypass_token = preview_document_url_with_auth_bypass_token(edition)
+    assert_equal "http://draft-origin.test.gov.uk/government/case-studies/case-study-title?token=#{token}&utm_medium=preview&utm_name=govuk_publishing&utm_source=share", preview_url_with_auth_bypass_token
+  end
+
   test "organisations have the correct path generated" do
     org = create(:organisation)
 
