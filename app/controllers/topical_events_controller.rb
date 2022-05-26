@@ -11,8 +11,8 @@ class TopicalEventsController < ClassificationsController
 
   def show
     @topical_event = TopicalEvent.friendly.find(params[:id])
-    @topical_event_lead_description = ""
-    @topical_event_secondary_description = ""
+    @topical_event_lead_description = @topical_event.summary
+    @topical_event_secondary_description = @topical_event.description
     @content_item = Whitehall.content_store.content_item(@topical_event.base_path)
     @publications =  find_documents(filter_format: "publication", count: 3)
     @consultations = find_documents(filter_format: "consultation", count: 3)
@@ -24,8 +24,7 @@ class TopicalEventsController < ClassificationsController
 
     set_slimmer_organisations_header(@topical_event.organisations)
     set_slimmer_page_owner_header(@topical_event.lead_organisations.first)
-    set_meta_description(@topical_event.description)
-    modify_description(@topical_event.description)
+    set_meta_description(combined_description)
 
     set_expiry 5.minutes
     respond_to do |format|
@@ -73,10 +72,7 @@ private
     )
   end
 
-  def modify_description(description)
-    split_description = description.split(/[\r\n]+/)
-
-    @topical_event_lead_description = split_description[0] if split_description&.any?
-    @topical_event_secondary_description = split_description[1..split_description.length].join("\r\n\r\n") if split_description.length > 1
+  def combined_description
+    [@topical_event.summary, @topical_event.description].join("\r\n")
   end
 end

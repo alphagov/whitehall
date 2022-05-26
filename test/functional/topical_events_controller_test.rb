@@ -85,11 +85,14 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   test "sets a meta description" do
-    topical_event = create_topical_event_and_stub_in_content_store(description: "my description")
+    topical_event = create_topical_event_and_stub_in_content_store(
+      summary: "my summary",
+      description: "my description",
+    )
 
     get :show, params: { id: topical_event }
 
-    assert_equal "my description", assigns(:meta_description)
+    assert_equal "my summary my description", assigns(:meta_description)
   end
 
   view_test "GET :show renders an atom feed" do
