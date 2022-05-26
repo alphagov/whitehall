@@ -54,6 +54,7 @@ private
   def object_params
     params.require(model_name).permit(
       :name,
+      :summary,
       :description,
       :logo,
       :logo_alt_text,
