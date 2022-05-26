@@ -135,7 +135,11 @@ module Whitehall
 
   # The base folder where uploads live.
   def self.uploads_root
-    (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
+    if Rails.env.test?
+      uploads_root_for_test_env.to_s
+    else
+      (ENV["GOVUK_UPLOADS_ROOT"].presence || Rails.root).to_s
+    end
   end
 
   def self.uploads_root_for_test_env
