@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_26_090436) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
   create_table "about_pages", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
     t.string "name"
