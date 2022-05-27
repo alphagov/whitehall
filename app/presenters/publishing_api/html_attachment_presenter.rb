@@ -24,6 +24,7 @@ module PublishingApi
           rendering_app: item.rendering_app,
           schema_name: schema_name,
           links: edition_links,
+          auth_bypass_ids: [parent.auth_bypass_id],
         )
     end
 
