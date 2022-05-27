@@ -47,7 +47,7 @@ COPY package.json yarn.lock /app/
 RUN yarnpkg install --production --frozen-lockfile --non-interactive --link-duplicates
 COPY . /app
 RUN bundle exec bootsnap precompile --gemfile .
-RUN bundle exec rails assets:precompile && rm -fr log bulk-upload-zip-file-tmp
+RUN bundle exec rails assets:precompile && rm -fr log asset-manager-tmp bulk-upload-zip-file-tmp
 
 
 FROM $base_image
