@@ -151,6 +151,10 @@ module Whitehall
     File.join(uploads_root, "asset-manager-tmp")
   end
 
+  def self.bulk_upload_tmp_dir
+    @bulk_upload_tmp_dir ||= FileUtils.mkdir_p(File.join(uploads_root, "bulk-upload-zipfile-tmp"))
+  end
+
   def self.edition_classes
     [
       CaseStudy,

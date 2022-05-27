@@ -107,7 +107,7 @@ private
     end
 
     def temp_dir
-      @temp_dir ||= Dir.mktmpdir(nil, BULK_UPLOAD_ZIPFILE_DEFAULT_ROOT_DIRECTORY)
+      @temp_dir ||= Dir.mktmpdir(nil, Whitehall.bulk_upload_tmp_dir)
     end
 
     def store_temporarily
