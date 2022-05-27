@@ -24,7 +24,8 @@ ENV BUNDLE_IGNORE_MESSAGES=1 \
 
 ENV ASSETS_PREFIX=/assets/whitehall \
     GOVUK_APP_DOMAIN=unused \
-    GOVUK_WEBSITE_ROOT=unused
+    GOVUK_WEBSITE_ROOT=unused \
+    JWT_AUTH_SECRET=unused
 
 # TODO: have an up-to-date builder image and stop running apt-get upgrade.
 # TODO: have a separate builder image which already contains the build-only deps.
