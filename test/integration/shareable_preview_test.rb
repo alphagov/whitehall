@@ -50,35 +50,7 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    #  tests below will be removed after enabling shareable preview for those doccument types
-    context "for excluded type of documents - consultation" do
-      let(:edition) { create(:draft_consultation) }
-
-      before do
-        create_setup(edition)
-        visit admin_consultation_path(edition)
-      end
-
-      test "it does not show shareable preview feature" do
-        get admin_consultation_path(edition)
-        assert_no_selector "section", text: "Share document preview"
-      end
-    end
-
-    context "for excluded type of documents - publication" do
-      let(:edition) { create(:draft_publication) }
-
-      before do
-        create_setup(edition)
-        visit admin_publication_path(edition)
-      end
-
-      test "it does not show shareable preview feature" do
-        get admin_publication_path(edition)
-        assert_no_selector "section", text: "Share document preview"
-      end
-    end
-
+    #  test below will be removed after enabling shareable preview for those doccument types
     context "for excluded type of documents - document collection" do
       let(:edition) { create(:draft_document_collection) }
 
