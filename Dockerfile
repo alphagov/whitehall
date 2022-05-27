@@ -34,7 +34,10 @@ RUN apt-get update -qy && \
         g++ make libc-dev curl yarnpkg libmariadb-dev-compat && \
     ln -s /usr/bin/yarnpkg /usr/bin/yarn
 
-RUN mkdir -p /app && ln -fs /tmp /app/tmp && ln -fs /tmp /home/app
+RUN mkdir /app && \
+    ln -fs /tmp /app/tmp && \
+    ln -fs /tmp /app/asset-manager-tmp && \
+    ln -fs /tmp /home/app
 WORKDIR /app
 RUN echo 'install: --no-document' >> /etc/gemrc && gem update --system --silent && gem cleanup
 COPY Gemfile Gemfile.lock .ruby-version /app/
