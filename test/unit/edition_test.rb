@@ -57,22 +57,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal edition.has_enabled_shareable_preview?(user), false
   end
 
-  #  test below will be removed after enabling shareable preview for this doccument type
-  test "edition has shareable preview disabled if it has consultation type" do
-    edition = create(:draft_consultation)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), false
-  end
-
-  # test below will be removed after enabling shareable preview for this doccument type
-  test "edition has shareable preview disabled if it has publication type" do
-    edition = create(:draft_publication)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), false
-  end
-
   # test below will be removed after enabling shareable preview for this doccument type
   test "edition has shareable preview disabled if it has document collection type" do
     edition = create(:draft_document_collection)
