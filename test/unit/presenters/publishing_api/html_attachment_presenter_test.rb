@@ -12,11 +12,15 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presentation includes the correct values" do
+    government = create(:government)
     edition = create(
       :publication,
       :with_html_attachment,
       :published,
+      political: true,
     )
+
+    edition.stubs(:government).returns(government)
 
     html_attachment = HtmlAttachment.last
 
@@ -40,6 +44,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
           .govspeak_to_html(html_attachment.govspeak_content.body),
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
+        political: true,
       },
       auth_bypass_ids: [edition.auth_bypass_id],
     }
@@ -57,7 +62,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     expected_content = expected_hash.merge(links: presented_item.links)
     assert_equal expected_content, presented_content
 
-    %i[organisations parent primary_publishing_organisation].each { |k| assert_includes(expected_content[:links].keys, k) }
+    %i[organisations parent primary_publishing_organisation government].each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
   test "HtmlAttachment presentation includes the correct locale" do

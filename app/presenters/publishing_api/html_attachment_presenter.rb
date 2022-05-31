@@ -41,6 +41,7 @@ module PublishingApi
         parent: parent_content_ids, # please use the breadcrumb component when migrating document_type to government-frontend
         organisations: parent.organisations.pluck(:content_id).uniq,
         primary_publishing_organisation: primary_publishing_organisation,
+        government: government_id,
       }
     end
 
@@ -59,6 +60,7 @@ module PublishingApi
         body: body,
         public_timestamp: public_timestamp,
         first_published_version: first_published_version?,
+        political: political?,
       }
     end
 
@@ -68,6 +70,10 @@ module PublishingApi
 
     def first_published_version?
       parent.first_published_version?
+    end
+
+    def political?
+      item&.attachable.is_a?(Edition) ? item&.attachable&.political : false
     end
 
     def public_timestamp
@@ -100,6 +106,10 @@ module PublishingApi
 
     def locale
       item.translated_locales.first
+    end
+
+    def government_id
+      [parent.try(:government).try(:content_id)]
     end
   end
 end
