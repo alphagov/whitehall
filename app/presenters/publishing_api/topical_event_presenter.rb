@@ -35,6 +35,7 @@ module PublishingApi
 
     def details
       {}.tap do |details|
+        details[:about_page_link_text] = item.about_page.read_more_link_text if item.about_page && item.about_page.read_more_link_text
         details[:body] = body
         details[:start_date] = item.start_date.rfc3339 if item.start_date
         details[:end_date] = item.end_date.rfc3339 if item.end_date

@@ -8,6 +8,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       name: "Humans going to Mars",
       description: "A topical event description with [a link](http://www.gov.uk)",
     )
+    create(:topical_event_about_page, topical_event: topical_event, read_more_link_text: "Read more about this event")
     public_path = "/government/topical-events/humans-going-to-mars"
 
     feature = create(:classification_featuring, classification: topical_event, ordering: 1)
@@ -36,6 +37,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       redirects: [],
       public_updated_at: topical_event.updated_at,
       details: {
+        about_page_link_text: topical_event.about_page.read_more_link_text,
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
         start_date: topical_event.start_date.rfc3339,
         end_date: topical_event.end_date.rfc3339,
