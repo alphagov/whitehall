@@ -17,7 +17,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        description: nil,
+        description: item.summary,
         details: details,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -35,11 +35,16 @@ module PublishingApi
 
     def details
       {}.tap do |details|
+        details[:body] = body
         details[:start_date] = item.start_date.rfc3339 if item.start_date
         details[:end_date] = item.end_date.rfc3339 if item.end_date
         details[:ordered_featured_documents] = ordered_featured_documents
         details[:social_media_links] = social_media_links
       end
+    end
+
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.description)
     end
 
     def ordered_featured_documents

@@ -3,6 +3,11 @@
 <% content_for :current_tab do %>
   <table class="<%= model_name %> table table-bordered add-top-margin">
     <tr>
+      <th>Summary</th>
+      <td class="summary"><%= @classification.summary %></td>
+    </tr>
+
+    <tr>
       <th>Description</th>
       <td class="description"><%= @classification.description %></td>
     </tr>

@@ -8,7 +8,8 @@
 
   <fieldset>
     <%= classification_form.text_field :name %>
-    <%= classification_form.text_area :description, rows: 20, class: 'previewable', required: true, data: {
+    <%= classification_form.text_area :summary, rows: 3, required: true %>
+    <%= classification_form.text_area :description, rows: 20, class: 'previewable', data: {
       module: "paste-html-to-govspeak"
     } %>
   </fieldset>
