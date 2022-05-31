@@ -1,6 +1,8 @@
 :verbose: true
 :concurrency: 8
-:logfile: ./log/sidekiq.json.log
+<% if ENV.key?('SIDEKIQ_LOGFILE') %>
+:logfile: <%= ENV['SIDEKIQ_LOGFILE'] %>
+<% end %>
 :queues:
   - scheduled_publishing
   - default
