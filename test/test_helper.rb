@@ -54,6 +54,19 @@ class ActiveSupport::TestCase
 
   parallelize(workers: :number_of_processors)
 
+  # Fix the merging of coverage reports from parallel processes when using
+  # Rails 6 parallelization rather than parallel_tests
+  # from https://github.com/simplecov-ruby/simplecov/issues/718#issuecomment-538201587
+  if ENV["COVERAGE"]
+    parallelize_setup do |worker|
+      SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+    end
+
+    parallelize_teardown do |_worker|
+      SimpleCov.result
+    end
+  end
+
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
