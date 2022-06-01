@@ -109,7 +109,7 @@ module PublishingApi
     end
 
     def government_id
-      [parent.try(:government).try(:content_id)]
+      [parent.try(:government).try(:content_id)].compact
     end
   end
 end
