@@ -38,8 +38,8 @@
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>Send the preview link to someone so they can see a preview of how the document will appear on GOV.UK. No password or GOV.UK Signon account is needed.</p>
-            <p>The preview link will expire on <%= Date.today.next_month.strftime('%d-%m-%Y') %> or when the document is published.</p>
-            <p><strong>Select all and copy the link</strong></p>
+            <p>The preview link will expire on <%= Date.today.next_month.strftime('%-d %B %Y') %> or when the document is published.</p>
+            <p><strong>Highlight or 'select all' and copy the link</strong></p>
             <textarea class="form-control" rows="3"><%= utm_uri %></textarea>
           </div>
         </div>
