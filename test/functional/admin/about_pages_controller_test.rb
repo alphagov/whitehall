@@ -22,6 +22,7 @@ class Admin::AboutPagesControllerTest < ActionController::TestCase
     assert_difference "AboutPage.count" do
       post :create, params: { topical_event_id: @topical_event.to_param, about_page: attributes_for(:about_page) }
     end
+    @topical_event.reload
     assert_not_nil @topical_event.about_page, "expected topical event to have an about page"
   end
 
