@@ -132,7 +132,15 @@ module GovspeakHelper
 private
 
   def asset_exists?(path)
-    Rails.application.assets_manifest.files.values.map { |v| v["logical_path"] }.include?(path)
+    # This acts as environment agnostic look-up to Rails.application.assets
+    # to find whether a file is in Sprockets. In a prod environment
+    # Rails.application.assets is nil (and the asset manifest is used instead)
+    # whereas in dev/test using the Rails.application.asset_manifest only
+    # works if the developer has run assets:precompile rake task first (which
+    # can be a point of frustration for devs)
+    # Using the build_environment allows this to flip between either as per:
+    # https://github.com/rails/sprockets-rails/issues/237#issuecomment-308666272
+    Sprockets::Railtie.build_environment(Rails.application).find_asset(path)
   end
 
   def remove_extra_quotes_from_blockquotes(govspeak)
