@@ -21,9 +21,7 @@ class AssetManager::AssetUpdater
     attributes = find_asset_by(legacy_url_path)
     asset_deleted = attributes["deleted"]
 
-    if asset_deleted && asset_data.deleted?
-      return
-    elsif asset_deleted && !asset_data.deleted?
+    if asset_deleted
       raise AssetAlreadyDeleted.new(asset_data.id, legacy_url_path)
     end
 
