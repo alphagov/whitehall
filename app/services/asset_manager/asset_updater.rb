@@ -17,14 +17,12 @@ class AssetManager::AssetUpdater
     new.call(*args)
   end
 
-  def call(attachment_data, legacy_url_path, new_attributes = {})
+  def call(asset_data, legacy_url_path, new_attributes = {})
     attributes = find_asset_by(legacy_url_path)
     asset_deleted = attributes["deleted"]
 
-    if asset_deleted && attachment_data.deleted?
-      return
-    elsif asset_deleted && !attachment_data.deleted?
-      raise AssetAlreadyDeleted.new(attachment_data.id, legacy_url_path)
+    if asset_deleted
+      raise AssetAlreadyDeleted.new(asset_data.id, legacy_url_path)
     end
 
     if (replacement_path = new_attributes.delete("replacement_legacy_url_path"))
@@ -33,7 +31,7 @@ class AssetManager::AssetUpdater
 
     keys = new_attributes.keys
 
-    raise AssetAttributesEmpty.new(attachment_data.id, legacy_url_path) if new_attributes.empty?
+    raise AssetAttributesEmpty.new(asset_data.id, legacy_url_path) if new_attributes.empty?
 
     unless attributes.slice(*keys) == new_attributes.slice(*keys)
       asset_manager.update_asset(attributes["id"], new_attributes)

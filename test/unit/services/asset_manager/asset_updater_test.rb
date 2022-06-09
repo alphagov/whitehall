@@ -10,17 +10,6 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @attachment_data = FactoryBot.build(:attachment_data)
   end
 
-  test "no-op if the attachment_data has been deleted and the asset has been deleted in asset manager" do
-    @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns("id" => @asset_url, "deleted" => true)
-
-    @attachment_data.stubs(:deleted?).returns(true)
-
-    Services.asset_manager.expects(:update_asset).never
-
-    @worker.call(@attachment_data, @legacy_url_path, "draft" => false)
-  end
-
   test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
     @worker.stubs(:find_asset_by).with(@legacy_url_path)
       .returns("id" => @asset_url, "deleted" => true)
