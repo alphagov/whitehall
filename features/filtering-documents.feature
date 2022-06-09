@@ -1,4 +1,4 @@
-@not-quite-as-fake-search
+@not-quite-as-fake-search @javascript
 Feature: Filtering Documents
 
   As a citizen, I want to be able to browse various types of content by filtering down by the following attributes.
@@ -34,4 +34,5 @@ Feature: Filtering Documents
     Given there are some published announcments including a few in French
     When I visit the announcments index in French
     Then I should see only announcements which have French translations
-    And I should be able to filter them by country (or 'Emplacements dans le monde' in French)
+    When I filter them by world location (or 'Emplacements dans le monde' in French)
+    Then I should see only French announcements associated with the world location
