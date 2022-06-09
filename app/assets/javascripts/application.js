@@ -15,9 +15,6 @@
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
 //
-//= require shared_mustache
-//= require templates
-//
 //= require govuk
 //= require_tree ./common
 //= require_tree ./application

@@ -52,7 +52,6 @@ gem "ruby-progressbar", require: false
 gem "rubyzip"
 gem "sassc-rails"
 gem "sentry-sidekiq"
-gem "shared_mustache"
 gem "sidekiq-scheduler"
 gem "slimmer"
 gem "sprockets-rails"
