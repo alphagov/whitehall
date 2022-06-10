@@ -77,7 +77,7 @@
     <% if @edition.imported? %>
       <%= render partial: 'speed_tagging' %>
     <% else %>
-      <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count), class: 'remarks-history' do |tabs| %>
+      <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @document_history.total_count), class: 'remarks-history' do |tabs| %>
         <%= tabs.pane class: "audit-trail", id: "notes" do %>
           <h1>Notes</h1>
           <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
@@ -87,11 +87,11 @@
         <%= tabs.pane class: "audit-trail", id: "history" do %>
           <div class="audit-trail-page">
             <h1>Activity</h1>
-            <%= paginate @edition_history, theme: 'audit_trail' %>
+            <%= paginate @document_history.query, theme: 'audit_trail' %>
             <ul class="list-unstyled">
-              <%= render partial: "audit_trail_entry", collection: @edition_history %>
+              <%= render partial: "audit_trail_entry", collection: @document_history.audit_trail %>
             </ul>
-            <%= paginate @edition_history, theme: 'audit_trail' %>
+            <%= paginate @document_history.query, theme: 'audit_trail' %>
           </div>
         <% end %>
 
