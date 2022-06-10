@@ -68,7 +68,7 @@ class DocumentListExportPresenter
   end
 
   def first_published_on_govuk
-    edition.publication_audit_entry.try(:created_at)
+    edition.document.first_published_on_govuk
   end
 
   def content_type

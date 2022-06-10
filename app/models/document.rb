@@ -40,6 +40,8 @@ class Document < ApplicationRecord
   has_many :document_collections, through: :document_collection_groups
   has_many :features, inverse_of: :document, dependent: :destroy
 
+  has_many :edition_versions, through: :editions, source: :versions
+
   before_save { check_if_locked_document(document: self) unless locked_changed? }
 
   validates :content_id, presence: true
@@ -104,6 +106,10 @@ class Document < ApplicationRecord
 
   def first_published_date
     published_edition.first_public_at if published?
+  end
+
+  def first_published_on_govuk
+    edition_versions.where(state: "published").pick(:created_at)
   end
 
   def change_history

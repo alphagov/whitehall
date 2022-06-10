@@ -14,7 +14,7 @@ module Edition::AuditTrail
   end
 
   included do
-    has_many :versions, -> { order("created_at ASC, id ASC") }, as: :item
+    has_many :versions, -> { order(created_at: :asc, id: :asc) }, as: :item
 
     has_one :most_recent_version,
             -> { order("versions.created_at DESC, versions.id DESC") },
@@ -57,10 +57,6 @@ module Edition::AuditTrail
 
   def document_version_trail(superseded: true)
     document_trail(superseded: superseded, versions: true)
-  end
-
-  def publication_audit_entry
-    document_version_trail.detect { |audit_entry| audit_entry.version.state == "published" }
   end
 
 private
