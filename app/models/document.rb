@@ -41,6 +41,7 @@ class Document < ApplicationRecord
   has_many :features, inverse_of: :document, dependent: :destroy
 
   has_many :edition_versions, through: :editions, source: :versions
+  has_many :editorial_remarks, through: :editions
 
   before_save { check_if_locked_document(document: self) unless locked_changed? }
 

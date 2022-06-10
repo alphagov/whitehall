@@ -1,0 +1,10 @@
+<%= content_tag(:li, class: "version") do %>
+  <% if audit_trail_entry.action == "published" %>
+    <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: audit_trail_entry.version.item_id) %>
+  <% end %>
+
+  <div class="image">
+    <%= gravatar_image(audit_trail_entry.actor, ssl: request.ssl?) %>
+  </div>
+  <%= describe_audit_trail_entry(audit_trail_entry) %>
+<% end %>
