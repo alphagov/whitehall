@@ -99,7 +99,14 @@ private
   end
 
   def document_trail(superseded: true, versions: false, remarks: false)
-    scope = document.editions.order("first_published_at ASC").limit(3)
+    scope = document.editions
+
+    # Temporary fix to limit history on document:
+    # /government/publications/royal-courts-of-justice-cause-list
+    # which is known to cause timeouts due to the size of its history
+    if document.content_id == "c7346901-13fe-47df-a1f0-b583b78bf6e7"
+      scope = scope.order("first_published_at ASC").limit(3)
+    end
 
     scope = scope.includes(versions: [:user]) if versions
     scope = scope.includes(editorial_remarks: [:author]) if remarks
