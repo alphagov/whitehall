@@ -120,13 +120,6 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_not draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
   end
 
-  test "latest_version_audit_entry_for returns most recent entry in a state" do
-    edition = create(:submitted_edition, creator: @user2)
-    edition.body = "updated-body"
-    edition.save!
-    assert_equal @user, edition.latest_version_audit_entry_for("submitted").actor
-  end
-
   test "publication_audit_entry returns entry when first edition was published" do
     Timecop.freeze(Time.zone.now - 3.days)
     edition = create(:submitted_edition)

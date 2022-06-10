@@ -59,10 +59,6 @@ module Edition::AuditTrail
     document_trail(superseded: superseded, versions: true)
   end
 
-  def latest_version_audit_entry_for(state)
-    edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }
-  end
-
   def publication_audit_entry
     document_version_trail.detect { |audit_entry| audit_entry.version.state == "published" }
   end

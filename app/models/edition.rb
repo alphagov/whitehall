@@ -508,18 +508,15 @@ EXISTS (
   end
 
   def rejected_by
-    rejected_event = latest_version_audit_entry_for("rejected")
-    rejected_event && rejected_event.actor
+    versions_desc.where(state: "rejected").first.try(:user)
   end
 
   def published_by
-    published_event = latest_version_audit_entry_for("published")
-    published_event && published_event.actor
+    versions_desc.where(state: "published").first.try(:user)
   end
 
   def scheduled_by
-    scheduled_event = latest_version_audit_entry_for("scheduled")
-    scheduled_event && scheduled_event.actor
+    versions_desc.where(state: "scheduled").first.try(:user)
   end
 
   def submitted_by

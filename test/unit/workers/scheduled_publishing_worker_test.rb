@@ -14,7 +14,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
     ScheduledPublishingWorker.new.perform(edition.id)
 
     assert edition.reload.published?
-    assert_equal @publishing_robot, edition.latest_version_audit_entry_for("published").actor
+    assert_equal @publishing_robot, edition.published_by
   end
 
   test "#perform raises an error if the edition cannot be published" do
