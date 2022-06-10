@@ -300,6 +300,36 @@ class PublishingApiRake < ActiveSupport::TestCase
       end
     end
 
+    describe "#publication_drafts_with_html_attachments" do
+      let(:task) { Rake::Task["publishing_api:bulk_republish:drafts_with_html_attachments"] }
+
+      test "republishes draft publication documents with HMTL attachments" do
+        edition = create(:draft_publication, :with_html_attachment)
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          edition.document_id,
+          true,
+        )
+        task.invoke
+      end
+    end
+
+    describe "#consultation_drafts_with_html_attachments" do
+      let(:task) { Rake::Task["publishing_api:bulk_republish:drafts_with_html_attachments"] }
+
+      test "republishes draft consultation documents with HMTL attachments" do
+        edition = create(:draft_consultation, :with_html_attachment)
+
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          edition.document_id,
+          true,
+        )
+        task.invoke
+      end
+    end
+
     describe "#document_type" do
       let(:task) { Rake::Task["publishing_api:bulk_republish:document_type"] }
 
