@@ -127,13 +127,6 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal @user, edition.latest_version_audit_entry_for("submitted").actor
   end
 
-  test "most_recent_submission_audit_entry returns entry for submission action" do
-    edition = create(:submitted_edition, creator: @user2)
-    edition.body = "updated-body"
-    edition.save!
-    assert_equal @user2, edition.most_recent_submission_audit_entry.actor
-  end
-
   test "publication_audit_entry returns entry when first edition was published" do
     Timecop.freeze(Time.zone.now - 3.days)
     edition = create(:submitted_edition)

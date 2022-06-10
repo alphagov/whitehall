@@ -523,7 +523,24 @@ EXISTS (
   end
 
   def submitted_by
-    most_recent_submission_audit_entry.try(:actor)
+    # Find this edition's most recent state change from non-submitted to submitted.
+    # This will tell us when it was most recently submitted, even if there were subsequent
+    # changes from other users while the document remained in a "submitted" state.
+
+    latest_submitted_version = versions_desc.select("created_at, id")
+                                            .where(state: :submitted)
+                                            .limit(1)
+
+    pre_submitted_version = versions_desc.select("created_at, id")
+                                         .where.not(state: "submitted")
+                                         .where("(created_at, id) < (:submitted_version)", submitted_version: latest_submitted_version)
+                                         .limit(1)
+
+    first_submitted_version = versions_asc.where(state: "submitted")
+                                          .where("(created_at, id) > (:pre_submitted_version)", pre_submitted_version: pre_submitted_version)
+                                          .first
+
+    first_submitted_version.try(:user)
   end
 
   def title_with_state

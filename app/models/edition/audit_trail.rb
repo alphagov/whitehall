@@ -28,6 +28,14 @@ module Edition::AuditTrail
     before_update :record_update
   end
 
+  def versions_asc
+    versions
+  end
+
+  def versions_desc
+    versions.reverse_order
+  end
+
   def edition_remarks_trail(edition_serial_number = 0)
     editorial_remarks.map { |r|
       EditorialRemarkAuditEntry.new(edition_serial_number, self, r)
@@ -53,18 +61,6 @@ module Edition::AuditTrail
 
   def latest_version_audit_entry_for(state)
     edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }
-  end
-
-  def most_recent_submission_audit_entry
-    matching_entry = nil
-    edition_version_trail.reverse.map do |audit_entry|
-      if audit_entry.version.state == "submitted"
-        matching_entry = audit_entry
-      elsif matching_entry.present?
-        break
-      end
-    end
-    matching_entry
   end
 
   def publication_audit_entry
