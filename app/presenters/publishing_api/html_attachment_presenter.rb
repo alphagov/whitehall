@@ -56,12 +56,20 @@ module PublishingApi
     end
 
     def details
-      {
+      details_hash = {
         body: body,
         public_timestamp: public_timestamp,
         first_published_version: first_published_version?,
         political: political?,
       }
+
+      maybe_add_national_applicability(details_hash)
+    end
+
+    def maybe_add_national_applicability(details_hash)
+      return details_hash unless item.attachable.try(:nation_inapplicabilities)&.any?
+
+      details_hash.merge(national_applicability: item.attachable.national_applicability)
     end
 
     def body
