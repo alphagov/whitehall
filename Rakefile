@@ -21,4 +21,4 @@ end
 Whitehall::Application.load_tasks
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test shared_mustache:compile cucumber jasmine pact:verify]
+task default: %i[lint test assets:precompile cucumber jasmine pact:verify]
