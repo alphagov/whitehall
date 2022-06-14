@@ -30,3 +30,5 @@
 /yarn-error.log
 
 spec/reports/pacts
+
+/app/assets/javascripts/templates.js
