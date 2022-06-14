@@ -126,4 +126,46 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     assert_equal [html_attachment.attachable.organisations.first.content_id],
                  presenter.links[:primary_publishing_organisation]
   end
+
+  test "HtmlAttachments parent object has national_applicability exclusions" do
+    scotland_nation_inapplicability = create(
+      :nation_inapplicability,
+      nation: Nation.scotland,
+      alternative_url: "http://scotland.com",
+    )
+    consultation = create(
+      :consultation_with_excluded_nations,
+      nation_inapplicabilities: [
+        scotland_nation_inapplicability,
+      ],
+    )
+
+    html_attachment = create(:html_attachment, attachable: consultation)
+
+    presenter = present(html_attachment)
+    details = presenter.content[:details]
+
+    expected_national_applicability = {
+      england: {
+        label: "England",
+        applicable: true,
+      },
+      northern_ireland: {
+        label: "Northern Ireland",
+        applicable: true,
+      },
+      scotland: {
+        label: "Scotland",
+        applicable: false,
+        alternative_url: "http://scotland.com",
+      },
+      wales: {
+        label: "Wales",
+        applicable: true,
+      },
+    }
+
+    assert_valid_against_schema(presenter.content, "html_publication")
+    assert_equal expected_national_applicability, details[:national_applicability]
+  end
 end
