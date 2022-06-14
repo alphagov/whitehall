@@ -7,6 +7,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       :active,
       name: "Humans going to Mars",
       description: "A topical event description with [a link](http://www.gov.uk)",
+      logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
+      logo_alt_text: "Alternative text",
     )
     create(:topical_event_about_page, topical_event: topical_event, read_more_link_text: "Read more about this event")
     public_path = "/government/topical-events/humans-going-to-mars"
@@ -39,6 +41,10 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       details: {
         about_page_link_text: topical_event.about_page.read_more_link_text,
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+        image: {
+          url: topical_event.logo_url(:s300),
+          alt_text: topical_event.logo_alt_text,
+        },
         start_date: topical_event.start_date.rfc3339,
         end_date: topical_event.end_date.rfc3339,
         ordered_featured_documents: [
