@@ -89,12 +89,10 @@ private
   def document_trail(superseded: true, versions: false, remarks: false)
     scope = document.editions
 
-    # Temporary fix to limit history on document:
-    # /government/publications/royal-courts-of-justice-cause-list
-    # which is known to cause timeouts due to the size of its history
-    if document.content_id == "c7346901-13fe-47df-a1f0-b583b78bf6e7"
-      scope = scope.order("first_published_at ASC").limit(3)
-    end
+    # Temporary fix to limit history on documents with more than 5000 versions.
+    # Large change histories are known to cause `504 Gateway Timeout` errors.
+    # A longer term fix is being worked on here: https://trello.com/c/SKFiAakd
+    scope = scope.limit(50) if document.edition_versions.count > 5000
 
     scope = scope.includes(versions: [:user]) if versions
     scope = scope.includes(editorial_remarks: [:author]) if remarks
