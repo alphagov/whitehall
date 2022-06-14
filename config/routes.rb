@@ -408,7 +408,7 @@ Whitehall::Application.routes.draw do
     get "/placeholder" => "placeholder#show", as: :placeholder
   end
 
-  get "/courts-tribunals(.:locale)", as: "courts", to: "organisations#index", courts_only: true, constraints: { locale: valid_locales_regex }
+  # TODO: the organisations controller has been removed but this route is still required to get the relevant helper methods. This can be removed once new helpers have been created.
   get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: valid_locales_regex }
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
