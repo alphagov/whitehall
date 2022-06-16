@@ -29,4 +29,4 @@ namespace :shared_mustache do
 end
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test assets:precompile cucumber jasmine pact:verify]
+task default: %i[lint test cucumber jasmine pact:verify]
