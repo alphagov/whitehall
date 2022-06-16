@@ -34,6 +34,25 @@ jQuery(function ($) {
 });
 
 (function ($) {
+  var _copyToClipboard = function () {
+    $(this).click(function (e) {
+      e.preventDefault()
+      var input = $(this).siblings('input')[0]
+      input.select()
+      document.execCommand('copy')
+    })
+  }
+
+  $.fn.extend({
+    copyToClipboard: _copyToClipboard
+  })
+})(jQuery)
+
+jQuery(function ($) {
+  $('.copy-to-clipboard').copyToClipboard()
+});
+
+(function ($) {
   var hidePersonOverride = function () {
     if ($('input#person_override_active').prop('checked')) {
       $('.edition_person_override').show()
