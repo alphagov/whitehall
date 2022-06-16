@@ -188,7 +188,7 @@ class Admin::EditionsController < Admin::BaseController
     @edition.save_as(current_user)
     updater.perform!
 
-    redirect_to admin_edition_path(@edition)
+    redirect_to admin_edition_path(@edition), notice: "Sharable preview link has been updated"
   end
 
 private
