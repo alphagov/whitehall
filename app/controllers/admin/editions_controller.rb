@@ -184,9 +184,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update_bypass_id
-    @edition.set_auth_bypass_id
-    @edition.save_as(current_user)
-    updater.perform!
+    EditionAuthBypassUpdater.new(edition: @edition, current_user: current_user, updater: updater).call
 
     redirect_to admin_edition_path(@edition), notice: "Sharable preview link has been updated"
   end
