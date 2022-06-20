@@ -36,12 +36,12 @@
           </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
+          <div class="panel-body" data-module="track-button-click" data-track-category="pageElementInteraction" data-track-action="CopyDocumentPreview">
             <p>Send this preview link to someone so they can see the content and how the document will appear on GOV.UK.</p>
             <p>No password is needed and anyone with the preview link can view it. You're responsible for who you share draft documents with. </p>
             <p>The preview link will expire on <%= Date.today.next_month.strftime('%-d %B %Y') %> or when the document is published.</p>
-            <input class="form-control form-group-lg" type="text" readonly="readonly" value="<%= utm_uri %>" /></br>
-            <%= link_to "Copy link", "#", id: "copy_preview_link", title: "Copy preview link", class: "btn btn-default btn-lg add-left-margin copy-to-clipboard" %></br>
+            <input class="form-control form-group-lg" type="text" readonly="readonly" value="<%= utm_uri %>" /><br>
+            <%= link_to "Copy link", "#", id: "copy_preview_link", title: "Copy preview link", class: "btn btn-default btn-lg add-left-margin copy-to-clipboard" %><br>
           </div>
         </div>
       </div>
