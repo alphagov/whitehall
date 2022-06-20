@@ -1,24 +1,44 @@
 <fieldset class="js-change-notes">
-  <h3 class="remove-top-margin">What sort of change are you making?</h3>
-  
-  <div class="radio">
-    <%= form.label :minor_change_true do %>
-      <%= form.radio_button(:minor_change, true) %>
-      <strong>Fixing a typo or broken link, a style change or similar</strong>
-      <p class="hint">Users signed up to email alerts won't be notified</p>
+  <h3 class="remove-top-margin">Do users need to know the content has changed?</h3>
+  <p class="hint">Choose yes to notify users of the change. Telling users when published information changes is important for transparency</p>
+
+  <div class="alert alert-info">
+    <h4> Attachments you've added, changed or deleted </h4>
+    <ul>
+    <% edition.attachments.each do |attachment| %>
+      <% if attachment.created_at > (edition.created_at + 5.seconds) %>
+        <li><%= "#{attachment.title} has been created" %> <span class="label label-success">Created</span></li>
+      <% end %>
+      <% if attachment.updated_at > attachment.created_at || (attachment.respond_to?(:govspeak_content) && attachment.govspeak_content.updated_at > attachment.govspeak_content.created_at) %>
+        <li><%= "#{attachment.title} has been updated" %> <span class="label label-warning">Updated</span></li>
+      <% end %>
     <% end %>
+
+    <% edition.deleted_attachments.each do |attachment| %>
+      <% if attachment.deleted? %>
+        <li><%= "#{attachment.title} has been deleted" %> <span class="label label-danger">Deleted</span></li>
+      <% end %>
+    <% end %>
+    </ul>
   </div>
+
   <div class="radio">
     <%= form.label :minor_change_false do %>
       <%= form.radio_button(:minor_change, false) %>
-      <strong>A significant edit that affects what users need to do or know</strong>
-      <p class="hint">A change note will be published on the page and emailed to users signed up to alerts</p>
+      <strong>Yes- information has been added, updated or removed</strong>
+      <p class="hint">An update will be published on the page and emailed to subscribers. The 'last updated' date will be change</p>
     <% end %>
   </div>
   <div class="js-change-notes-section">
     <div class="form-group">
-      <%= form.text_area(:change_note, rows: 4, label_text: "Public change note", class: 'form-control') %>
+      <%= form.text_area(:change_note, rows: 4, label_text: "Describe the change for users", class: 'form-control') %>
     </div>
   </div>
   <p>Read the <a href="https://www.gov.uk/guidance/content-design/writing-for-gov-uk#change-notes" target="_blank">guidance about change notes</a> (opens in a new tab).</p>
+  <div class="radio">
+    <%= form.label :minor_change_true do %>
+      <%= form.radio_button(:minor_change, true) %>
+      <strong>No- it's a minor edit that does not change the meaning, for example a style update</strong>
+    <% end %>
+  </div>
 </fieldset>

@@ -15,6 +15,11 @@ module Attachable
              class_name: "HtmlAttachment",
              as: :attachable
 
+    has_many :deleted_attachments,
+             -> { deleted },
+             class_name: "Attachment",
+             as: :attachable
+
     if respond_to?(:add_trait)
       add_trait do
         def process_associations_after_save(edition)
