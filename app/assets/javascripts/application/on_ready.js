@@ -8,8 +8,6 @@ jQuery(function ($) {
   $('.js-toggle-change-notes').toggler({ actLikeLightbox: true })
   $('.js-toggle-footer-change-notes').toggler()
 
-  $('.js-document-filter').enableDocumentFilter()
-
   $('.js-hide-extra-social-media').hideExtraRows({ rows: 5 })
   $('.js-hide-extra-metadata').hideExtraRows({ rows: 2, appendToParent: true })
 
@@ -17,6 +15,7 @@ jQuery(function ($) {
     $('#history .overlay').removeClass('visuallyhidden')
   })
 
+  GOVUK.worldLocationFilter.init()
   GOVUK.hideDepartmentChildren.init()
   GOVUK.filterListItems.init()
   GOVUK.showHide.init()

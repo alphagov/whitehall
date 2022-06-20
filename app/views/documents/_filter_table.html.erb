@@ -1,0 +1,61 @@
+<% if filter[:results].any? %>
+  <ol class="govuk-list document-list" data-module="gem-track-click">
+    <% filter[:results].each.with_index(1) do |result, index| %>
+      <% result = result[:result] %>
+      <li id="<%= result[:type] %>_<%= result[:id] %>" class="document-row">
+        <h3>
+          <a
+            href="<%= result[:url] %>"
+            class="govuk-link"
+            data-category="nav<%= filter[:category] %>LinkClicked"
+            data-action="<%= index %>"
+            data-label="<%= result[:url] %>"
+            data-options='{"dimension28":"<%= filter[:results].count %>","dimension29":"<%= result[:title] %>"}'
+            ><%= result[:title] %></a>
+        </h3>
+        <ul class="attributes">
+          <li><%= result[:display_date_microformat]&.html_safe %></li>
+          <li class="organisations"><%= result[:organisations]&.html_safe %></li>
+          <li class="display-type"><%= result[:display_type] %></li>
+          <% if result[:field_of_operation] %>
+            <li class="field-of-operation"><%= result[:field_of_operation].html_safe %></li>
+          <% end %>
+          <% if result[:topics] %>
+            <li class="topics"><%= result[:topics].html_safe %></li>
+          <% end %>
+          <% if result[:publication_collections] %>
+            <li class="document-collections"><%= result[:publication_collections].html_safe %></li>
+          <% end %>
+        </ul>
+        <% if result[:historic?] && result[:government_name] %>
+          <p class="govuk-body historic">
+            First published during the <%= result[:government_name] %>
+          </p>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+  <% if filter[:more_pages?] %>
+    <nav id="show-more-documents" role="navigation">
+      <ul class="previous-next-navigation">
+        <% if filter[:prev_page?] %>
+          <li class="previous">
+            <a href="<%= filter[:prev_page_web_url] %>" rel="prev" class="govuk-link">Previous <span class="govuk-visually-hidden">page</span> <span class="page-numbers"><%= filter[:prev_page] %> of <%= filter[:total_pages] %></span></a>
+          </li>
+        <% end %>
+        <% if filter[:next_page?] %>
+          <li class="next">
+            <a href="<%= filter[:next_page_web_url] %>" rel="next" class="govuk-link">Next <span class="govuk-visually-hidden">page</span> <span class="page-numbers"><%= filter[:next_page] %> of <%= filter[:total_pages] %></span></a>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  <% end %>
+<% else %>
+  <div class="no-results">
+    <h2 class="govuk-heading-m"><%= t('document_filters.no_results.title') %></h2>
+    <p class="govuk-body"><%= t('document_filters.no_results.description') %></p>
+    <h3 class="govuk-heading-s"><%= t('document_filters.no_results.tna_heading') %></h3>
+    <p class="govuk-body"><%= t('document_filters.no_results.tna_link_html') %></p>
+  </div>
+<% end %>

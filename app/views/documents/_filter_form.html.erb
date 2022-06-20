@@ -9,11 +9,12 @@
     margin_bottom: 8
   } %>
 
-  <form method="get" action="<%= send(:"#{document_type_plural}_path") %>" id="document-filter" class="js-document-filter filter-form">
+  <form method="get" action="<%= send(:"#{document_type_plural}_path") %>" id="document-filter" class="filter-form js-world-location-filter">
     <% if filters.include? :locations %>
       <div class="govuk-!-margin-bottom-8">
         <%= render "govuk_publishing_components/components/select", {
           id: "world_locations",
+          name: "world_locations[]",
           label: t('document_filters.world_locations.label'),
           full_width: true,
           options: locations_options(@filter.selected_locations),

@@ -20,5 +20,13 @@ end
 
 Whitehall::Application.load_tasks
 
+# no-op task to ease removal of shared mustache, to be removed once dependents are amended.
+namespace :shared_mustache do
+  desc "[Temporary] A task that does nothing for any denpendent tools that call this"
+  task compile: :environment do
+    puts "This application no longer depends on shared_mustache and there is no further need to call this task"
+  end
+end
+
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
-task default: %i[lint test assets:precompile cucumber jasmine pact:verify]
+task default: %i[lint test cucumber jasmine pact:verify]
