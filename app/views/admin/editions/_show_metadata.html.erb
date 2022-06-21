@@ -48,7 +48,7 @@
 <%= render partial: '/admin/shared/tagging/show_tags_box', locals: {
   path_to_edit_tags: edit_admin_edition_tags_path(@edition.id),
   selected_taxon_paths: @edition_taxons.map(&:full_path),
-  no_topics_message: 'No topics - please add a topic before publishing'
+  no_topics_message: 'No tags - please add a tag before publishing'
 } %>
 
 

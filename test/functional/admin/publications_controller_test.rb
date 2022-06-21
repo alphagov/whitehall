@@ -150,13 +150,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "show a button to tag to the new taxonomy" do
+  view_test "show a button to tag to the topic taxonomy" do
     publication = create(:publication)
 
     publication_has_no_expanded_links(publication.content_id)
     get :show, params: { id: publication }
 
-    assert_select ".taxonomy-topics .btn", "Add topic"
+    assert_select ".taxonomy-topics .btn", "Add tag"
   end
 
   view_test "when edition is tagged to the new taxonomy" do

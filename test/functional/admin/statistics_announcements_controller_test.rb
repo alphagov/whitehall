@@ -148,7 +148,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     announcement_has_no_expanded_links(announcement.content_id)
     get :show, params: { id: announcement }
 
-    assert_select ".taxonomy-topics .btn", "Add topic"
+    assert_select ".taxonomy-topics .btn", "Add tag"
   end
 
   view_test "when announcement is not tagged to the new taxonomy" do
