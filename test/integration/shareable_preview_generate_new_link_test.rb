@@ -33,7 +33,7 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
         new_query_string = Rack::Utils.parse_query URI(new_preview_url).query
         new_token = new_query_string["token"]
 
-        assert_selector ".flash.notice", text: "Sharable preview link has been updated"
+        assert_selector ".flash.notice", text: "New document preview link generated"
         assert_not_equal current_token, new_token
       end
     end
