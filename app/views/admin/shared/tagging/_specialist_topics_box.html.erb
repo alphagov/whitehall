@@ -1,7 +1,7 @@
 <section>
   <h2>Associations
     <% if edition.pre_publication? %>
-      <%= link_to path_to_edit_associations, class: "btn btn-default pull-right" do %>
+      <%= link_to path_to_edit_specialist_topics, class: "btn btn-default pull-right" do %>
         <% if edition.has_legacy_tags? %>
           <span class="glyphicon glyphicon-edit"></span> Change Associations
         <% else %>

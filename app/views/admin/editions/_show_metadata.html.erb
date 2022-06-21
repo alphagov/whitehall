@@ -52,8 +52,8 @@
 } %>
 
 
-<%= render partial: '/admin/shared/tagging/legacy_associations_box', locals: {
-  path_to_edit_associations: edit_admin_edition_legacy_associations_path(@edition.id),
+<%= render partial: '/admin/shared/tagging/specialist_topics_box', locals: {
+  path_to_edit_specialist_topics: edit_admin_edition_legacy_associations_path(@edition.id),
   edition: @edition,
   no_associations_message: 'No associations'
 } %>
