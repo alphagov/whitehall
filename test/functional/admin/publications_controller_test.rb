@@ -218,7 +218,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :show, params: { id: publication }
 
     assert_selected_specialist_sectors_are_displayed
-    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change specialist topic tags/
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-edit"
   end
 
@@ -239,8 +239,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     refute_select ".policy-areas"
     refute_select ".primary-specialist-sector"
     refute_select ".secondary-specialist-sectors"
-    assert_select ".no-content.no-content-bordered", "No associations"
-    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add Associations/
+    assert_select ".no-content.no-content-bordered", "No specialist topic tags"
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add specialist topic tags/
     assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-plus-sign"
   end
 

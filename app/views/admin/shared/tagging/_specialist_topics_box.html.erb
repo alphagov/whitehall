@@ -3,9 +3,9 @@
     <% if edition.pre_publication? %>
       <%= link_to path_to_edit_specialist_topics, class: "btn btn-default pull-right" do %>
         <% if edition.has_legacy_tags? %>
-          <span class="glyphicon glyphicon-edit"></span> Change Associations
+          <span class="glyphicon glyphicon-edit"></span> Change specialist topic tags
         <% else %>
-          <span class="glyphicon glyphicon-plus-sign"></span> Add Associations
+          <span class="glyphicon glyphicon-plus-sign"></span> Add specialist topic tags
         <% end %>
       <% end %>
     <% end %>
@@ -30,7 +30,7 @@
     </div>
   <% else %>
     <div class="no-content no-content-bordered">
-      <%= no_associations_message %>
+      <%= no_specialist_topics_message %>
     </div>
   <% end %>
 </section>

@@ -55,7 +55,7 @@
 <%= render partial: '/admin/shared/tagging/specialist_topics_box', locals: {
   path_to_edit_specialist_topics: edit_admin_edition_legacy_associations_path(@edition.id),
   edition: @edition,
-  no_associations_message: 'No associations'
+  no_specialist_topics_message: 'No specialist topic tags'
 } %>
 
 <% if @edition.can_be_tagged_to_worldwide_taxonomy? %>
