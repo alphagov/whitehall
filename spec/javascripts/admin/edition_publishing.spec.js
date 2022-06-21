@@ -66,3 +66,26 @@ describe('enableChangeNoteHighlighting', function () {
     })
   })
 })
+
+describe('copyToClipboard', function () {
+  var previewLinkElement, container
+
+  beforeEach(function () {
+    previewLinkElement = $(
+      '<input class="form-control form-group-lg" type="text" readonly="readonly" value="http://draft-origin.dev.gov.uk/government/news/test-share-view-1705?token=eyJh4bFE&amp;utm_campaign=govuk_publishing&amp;utm_medium=preview&amp;utm_source=share" />' +
+      '<a id="copy_preview_link" title="Copy preview link" class="btn btn-default btn-lg add-left-margin copy-to-clipboard" href="#">Copy link</a>'
+    )
+
+    container = $('<div>').append(previewLinkElement)
+    $(document.body).append(container)
+  })
+
+  it('copy the links to the clipboard', function () {
+    spyOn(document, 'execCommand')
+
+    $('.copy-to-clipboard').copyToClipboard()
+    $('#copy_preview_link').trigger('click')
+
+    expect(document.execCommand).toHaveBeenCalledWith('copy')
+  })
+})
