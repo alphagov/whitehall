@@ -19,7 +19,7 @@ Then(/^I can tag it to some specialist sectors$/) do
   click_on "Edit draft"
   check "Applies to all UK nations"
   click_on "Save and continue"
-  click_on "Save and review legacy tagging"
+  click_on "Save and review specialist topic tagging"
 
   expect("WELLS").to eq(find_field("Primary specialist sector").value)
   expect(%w[OFFSHORE FIELDS DISTILL].to_set)

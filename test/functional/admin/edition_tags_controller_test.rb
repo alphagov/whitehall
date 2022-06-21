@@ -53,7 +53,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     )
   end
 
-  test 'should redirect to edition admin page when "Save Topic Changes" is clicked' do
+  test 'should redirect to edition admin page when "Save Tagging Changes" is clicked' do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update,

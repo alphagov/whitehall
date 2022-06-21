@@ -30,7 +30,7 @@
       if (breadcrumbsToDisplay.length === 0) {
         $element.removeClass('content').removeClass('content-bordered')
         $element.addClass('no-content').addClass('no-content-bordered')
-        $element.text('No topics - please add a topic before publishing')
+        $element.text('No topic taxonomy tags - please add a tag before publishing')
       } else {
         $element.addClass('content').addClass('content-bordered')
         $element.removeClass('no-content').removeClass('no-content-bordered')

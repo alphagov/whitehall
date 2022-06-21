@@ -18,7 +18,7 @@ describe('GOVUKAdmin.Modules.TrackSelectedTaxons', function () {
             '</ol>' +
           '</div>' +
         '</div>' +
-        '<input type="button" id="save" name="save" value="Save topic changes" data-module="track-selected-taxons" ' +
+        '<input type="button" id="save" name="save" value="Save tagging changes" data-module="track-selected-taxons" ' +
           'data-track-category="taxonSelection" data-track-label="/government/admin/editions/798947/tags/edit">' +
       '</form>'
     )

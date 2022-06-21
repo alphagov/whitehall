@@ -57,7 +57,7 @@ When(/^I save and publish the amended consultation$/) do
   fill_in_change_note_if_required
   apply_to_all_nations_if_required
   click_button "Save and continue"
-  click_button "Save topic changes"
+  click_button "Save tagging changes"
   publish force: true
 end
 

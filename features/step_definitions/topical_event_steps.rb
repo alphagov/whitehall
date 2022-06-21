@@ -51,7 +51,7 @@ When(/^I draft a new publication "([^"]*)" relating it to topical event "([^"]*)
   select topical_event_name, from: "Topical events"
   check "Applies to all UK nations"
   click_button "Save and continue"
-  click_button "Save topic changes"
+  click_button "Save tagging changes"
   add_external_attachment
 end
 
