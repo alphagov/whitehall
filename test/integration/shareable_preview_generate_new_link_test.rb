@@ -54,7 +54,6 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
 
     def create_setup(edition)
       @user = create(:gds_editor)
-      @user.permissions << "can share previews"
       login_as @user
       topic_taxon = build(:taxon_hash)
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])

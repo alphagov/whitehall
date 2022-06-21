@@ -733,8 +733,8 @@ EXISTS (
   end
 
   # conditions for document types will be removed after enabling shareable preview for them
-  def has_enabled_shareable_preview?(user)
-    state == "draft" && user.can_share_previews? && type != "DocumentCollection"
+  def has_enabled_shareable_preview?
+    state == "draft" && type != "DocumentCollection"
   end
 
   delegate :locked?, to: :document

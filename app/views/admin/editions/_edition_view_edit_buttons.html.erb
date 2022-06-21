@@ -19,7 +19,7 @@
   <% end %>
 </section>
 
-<% if @edition.has_enabled_shareable_preview?(current_user) %>
+<% if @edition.has_enabled_shareable_preview? %>
   <section>
     <%
     utm_uri = preview_document_url_with_auth_bypass_token(@edition)

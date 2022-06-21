@@ -26,7 +26,6 @@ class User < ApplicationRecord
     FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
     GDS_ADMIN = "GDS Admin".freeze
     EXPORT_DATA = "Export data".freeze
-    CAN_SHARE_PREVIEWS = "can share previews".freeze
   end
 
   def role
@@ -90,10 +89,6 @@ class User < ApplicationRecord
 
   def can_force_publish_anything?
     has_permission?(Permissions::FORCE_PUBLISH_ANYTHING)
-  end
-
-  def can_share_previews?
-    has_permission?(Permissions::CAN_SHARE_PREVIEWS)
   end
 
   def organisation_name
