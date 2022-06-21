@@ -305,6 +305,7 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: "edition_workflow#convert_to_draft"
             get  :audit_trail, to: "edition_audit_trail#index"
             get  :show_locked, to: "editions#show_locked"
+            patch :update_bypass_id
           end
           resources :link_check_reports
           resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]
