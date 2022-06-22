@@ -36,33 +36,20 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal payload["exp"], 1.month.from_now.to_i
   end
 
-  test "edition has shareable preview enabled if it is in the draft state, user has the permission and the type is not excluded" do
+  test "edition has shareable preview enabled if it is in the draft state and the type is not excluded" do
     edition = create(:draft_case_study)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), true
+    assert_equal edition.has_enabled_shareable_preview?, true
   end
 
   test "edition has shareable preview disabled if it is in the published state" do
     edition = create(:published_case_study)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), false
+    assert_equal edition.has_enabled_shareable_preview?, false
   end
 
-  test "edition has shareable preview disabled if the user does not have a permission" do
-    edition = create(:draft_consultation)
-    user = create(:gds_editor)
-    user.permissions = []
-    assert_equal edition.has_enabled_shareable_preview?(user), false
-  end
-
-  # test below will be removed after enabling shareable preview for this doccument type
+  # test below will be removed after enabling shareable preview for this document type
   test "edition has shareable preview disabled if it has document collection type" do
     edition = create(:draft_document_collection)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), false
+    assert_equal edition.has_enabled_shareable_preview?, false
   end
 
   test "uses provided document if available" do

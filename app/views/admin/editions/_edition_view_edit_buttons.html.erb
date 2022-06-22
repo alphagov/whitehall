@@ -19,7 +19,7 @@
   <% end %>
 </section>
 
-<% if @edition.has_enabled_shareable_preview?(current_user) %>
+<% if @edition.has_enabled_shareable_preview? %>
   <section>
     <%
     utm_uri = preview_document_url_with_auth_bypass_token(@edition)
@@ -46,7 +46,7 @@
             <% if !@edition.publicly_visible? %>
               <br>
               <p>Reset and generate a new preview link if you've shared the preview with the wrong person or if the link has expired. This will disable the previous preview link.</p>
-              <%= link_to "Generate new link", update_bypass_id_admin_edition_path(@edition), class: 'btn btn-lg btn-default public_version', method: :patch %>
+              <%= link_to "Generate new link", update_bypass_id_admin_edition_path(@edition), class: 'btn btn-lg btn-default', method: :patch %>
             <% end %>
           </div>
         </div>
