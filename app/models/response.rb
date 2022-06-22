@@ -19,8 +19,6 @@ class Response < ApplicationRecord
 
   delegate :alternative_format_contact_email, to: :consultation
 
-  delegate :alternative_format_provider, to: :consultation
-
   delegate :publicly_visible?, to: :parent_attachable
 
   delegate :accessible_to?, to: :parent_attachable
