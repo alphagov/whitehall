@@ -15,9 +15,9 @@ module AdminLegacyAssociationsHelper
 private
 
   def tag_specialist_sectors
-    select "Oil and Gas: Wells", from: "Primary specialist sector tag"
-    select "Oil and Gas: Fields", from: "Additional specialist sectors"
-    select "Oil and Gas: Offshore", from: "Additional specialist sectors"
+    select "Oil and Gas: Wells", from: "Primary specialist topic tag"
+    select "Oil and Gas: Fields", from: "Additional specialist topics"
+    select "Oil and Gas: Offshore", from: "Additional specialist topics"
   end
 
   def check_specialist_sectors
