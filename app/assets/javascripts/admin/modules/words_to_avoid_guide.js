@@ -9,12 +9,8 @@
       return '\\b' + $(wordEl).text() + '\\b'
     })
 
-    if (window.ieVersion === undefined || window.ieVersion > 8) {
-      // in non-IE browsers or IE9+
-      var enableHighlighting = true
-      GOVUK.WordsToAvoidHighlighter(wordsToAvoidRegexps, options)
-    }
-    GOVUK.WordsToAvoidAlerter(wordsToAvoidRegexps, $.extend(options, { highlightingEnabled: enableHighlighting }))
+    GOVUK.WordsToAvoidHighlighter(wordsToAvoidRegexps, options)
+    GOVUK.WordsToAvoidAlerter(wordsToAvoidRegexps, $.extend(options, { highlightingEnabled: true }))
   }
 
   GOVUK.WordsToAvoidGuide = WordsToAvoidGuide

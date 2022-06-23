@@ -25,14 +25,6 @@
     }
   }
 
-  @include ie(6) {
-    &,
-    .overlay {
-      zoom: 1;
-      position: relative;
-    }
-  }
-
   &.open {
     .toggle {
       top: .2em;
@@ -100,25 +92,6 @@
     }
     @include media(desktop) {
       left: -$gutter * 3;
-    }
-  }
-  @include ie(6) {
-    display: block;
-
-    .overlay {
-      display: none;
-      position: static;
-      width: auto;
-
-      .arrow {
-        display: none;
-      }
-    }
-
-    &.open {
-      .overlay {
-        display: block !important; // stylelint-disable-line declaration-no-important
-      }
     }
   }
 }

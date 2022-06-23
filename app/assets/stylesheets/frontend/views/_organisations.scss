@@ -551,9 +551,6 @@
 
           li {
             width: $one-third;
-            @include ie(7) {
-              height: 110px;
-            }
           }
         }
       }
@@ -687,10 +684,6 @@
 
       .email {
         word-break: break-word;
-
-        @include ie(6) {
-          word-break: break-all;
-        }
       }
 
       &.postal-address {
@@ -744,12 +737,6 @@
               background-size: 24px 24px;
             }
           }
-        }
-
-        @include ie-lte(8) {
-          list-style-type: decimal;
-          margin-left: 1.5em;
-          padding-left: 0;
         }
       }
     }
@@ -1144,10 +1131,6 @@
 
       .email {
         word-break: break-word;
-
-        @include ie(6) {
-          word-break: break-all;
-        }
       }
     }
 

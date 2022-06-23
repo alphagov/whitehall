@@ -13,11 +13,7 @@
   */
   Modules.LinkedModal = function () {
     this.start = function (element) {
-      // Bootstrap 3 modals don't work well in IE7
-      // For IE7 just follow the link
-      if (window.ieVersion !== 7) {
-        element.on('click', openModal)
-      }
+      element.on('click', openModal)
 
       function openModal (evt) {
         var $target = $(element.data('target'))
