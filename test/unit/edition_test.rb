@@ -36,9 +36,18 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal payload["exp"], 1.month.from_now.to_i
   end
 
-  test "edition has shareable preview enabled if it is in the draft state and the type is not excluded" do
-    edition = create(:draft_case_study)
-    assert_equal edition.has_enabled_shareable_preview?, true
+  test "edition has shareable preview enabled if it is in the pre-publication state and the type is not excluded" do
+    draft_edition = create(:draft_case_study)
+    imported_edition = create(:imported_case_study)
+    submitted_edition = create(:submitted_case_study)
+    rejected_edition = create(:rejected_case_study)
+    scheduled_edition = create(:scheduled_case_study)
+
+    assert_equal draft_edition.has_enabled_shareable_preview?, true
+    assert_equal imported_edition.has_enabled_shareable_preview?, true
+    assert_equal submitted_edition.has_enabled_shareable_preview?, true
+    assert_equal rejected_edition.has_enabled_shareable_preview?, true
+    assert_equal scheduled_edition.has_enabled_shareable_preview?, true
   end
 
   test "edition has shareable preview disabled if it is in the published state" do

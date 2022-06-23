@@ -734,7 +734,7 @@ EXISTS (
 
   # conditions for document types will be removed after enabling shareable preview for them
   def has_enabled_shareable_preview?
-    state == "draft" && type != "DocumentCollection"
+    PRE_PUBLICATION_STATES.include?(state) && type != "DocumentCollection"
   end
 
   delegate :locked?, to: :document
