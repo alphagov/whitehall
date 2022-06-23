@@ -30,17 +30,6 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   publish(force: true)
 end
 
-Then(/^the change notes should appear in the history for the detailed guide "([^"]*)" in reverse chronological order$/) do |title|
-  detailed_guide = DetailedGuide.find_by!(title: title)
-  visit detailed_guide_path(detailed_guide.document)
-  document_history = detailed_guide.change_history
-  change_notes = find(".change-notes").all(".note")
-  expect(document_history.length).to eq(change_notes.length)
-  document_history.zip(change_notes).each do |history, note|
-    expect(history.note).to eq(note.text.strip)
-  end
-end
-
 When(/^I start drafting a new edition for the detailed guide "([^"]*)"$/) do |guide_title|
   guide = DetailedGuide.latest_edition.find_by!(title: guide_title)
   visit admin_edition_path(guide)
