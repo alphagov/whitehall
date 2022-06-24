@@ -5,11 +5,11 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h2>Topics (new taxonomy)</h2>
-    <p>Topics group content based on what it’s about.</p>
-    <p>Choose the topic or topics that best describe what this content is about.</p>
-    <p>You can use the whole taxonomy. There's no limit to the number of topics you can choose.</p>
-    <p><a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging">Find out more about tagging to topics.</a></p>
+    <h2>Topic taxonomy tags</h2>
+    <p>The topic taxonomy groups content based on what it’s about.</p>
+    <p>Choose the tag or tags that best describe what this content is about.</p>
+    <p>You can use the whole topic taxonomy. There's no limit to the number of tags you can choose.</p>
+    <p><a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging">Find out more about tagging to the topic taxonomy.</a></p>
     <hr>
 
     <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
@@ -28,37 +28,37 @@
       <%= form.hidden_field "invisible_taxons", value: @tag_form.invisible_taxons.join(",") %>
 
       <p>
-        <%= link_to "Suggest a new topic",
+        <%= link_to "Suggest a new tag",
           "#{Whitehall.support_url}/taxonomy_new_topic_request/new",
           class: "feedback-link"
         %>
         or
-        <%= link_to "Suggest a change to a topic",
+        <%= link_to "Suggest a change to a tag",
           "#{Whitehall.support_url}/taxonomy_change_topic_request/new",
           class: "feedback-link"
         %>
       </p>
 
 
-      <h2>Selected topics</h2>
+      <h2>Selected topic taxonomy tags</h2>
       <div class="content content-bordered hidden" data-module="breadcrumb-preview">
       </div>
 
 
       <div class="info alert alert-info" role="alert">
-        <strong>Info:</strong> Topics are applied to all editions of a
-        document. This means changes will be reflected on the live
-        site if there's a published edition.
+        <strong>Info:</strong> Topic taxonomy tags are applied to all editions
+        of a document. This means changes will be reflected on the live site if
+        there's a published edition.
       </div>
       <div class="publishing-controls well">
         <div class="form-actions" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
-          <%= form.submit('Save topic changes', name: "save", class: "btn btn-lg btn-success",
+          <%= form.submit('Save tagging changes', name: "save", class: "btn btn-lg btn-success",
               data: {
                   module: 'track-selected-taxons',
                   track_category: 'taxonSelection',
                   track_label: request.path
               }) %>
-          <%= form.submit('Save and review legacy tagging', name: "legacy_tags", class: "btn btn-lg btn-primary",
+          <%= form.submit('Save and review specialist topic tagging', name: "legacy_tags", class: "btn btn-lg btn-primary",
               data: {
                   module: 'track-selected-taxons',
                   track_category: 'taxonSelection',
