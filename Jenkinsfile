@@ -21,18 +21,12 @@ node {
       }
     },
     overrideTestTask: {
-      stage("Lint") {
-        sh("bundle exec rake lint")
-      }
-
       stage("Run tests") {
         if (params.IS_SCHEMA_TEST) {
           echo "Running a subset of the tests to check the content schema changes"
           govuk.runRakeTask("test:publishing_schemas --trace")
         } else {
-          govuk.runRakeTask("ci:setup:minitest test --trace")
-          sh("bundle exec cucumber")
-          govuk.runRakeTask("jasmine")
+          sh("bundle exec rake")
         }
       }
     }
