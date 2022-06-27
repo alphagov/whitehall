@@ -10,7 +10,6 @@ ENV["LOG_LEVEL"] = "warn"
 ENV["COVERAGE"] = "true"
 
 require File.expand_path("config/application", __dir__)
-require "ci/reporter/rake/minitest" if Rails.env.test?
 
 begin
   require "pact/tasks"

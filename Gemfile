@@ -77,7 +77,6 @@ group :development do
 end
 
 group :test do
-  gem "ci_reporter_minitest"
   gem "database_cleaner-active_record"
   gem "equivalent-xml"
   gem "factory_bot"
