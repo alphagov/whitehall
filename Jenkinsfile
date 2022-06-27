@@ -11,15 +11,6 @@ node {
   govuk.buildProject(
     publishingE2ETests: true,
     brakeman: true,
-    beforeTest: {
-      stage("Generate directories for upload tests") {
-        sh ("mkdir -p ./incoming-uploads")
-        sh ("mkdir -p ./clean-uploads")
-        sh ("mkdir -p ./infected-uploads")
-        sh ("mkdir -p ./attachment-cache")
-        sh ("mkdir -p ./asset-manager-tmp")
-      }
-    },
     overrideTestTask: {
       stage("Run tests") {
         if (params.IS_SCHEMA_TEST) {
