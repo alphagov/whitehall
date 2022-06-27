@@ -60,10 +60,6 @@ class PolicyGroup < ApplicationRecord
     true
   end
 
-  def alternative_format_provider
-    nil
-  end
-
   extend FriendlyId
   friendly_id
 

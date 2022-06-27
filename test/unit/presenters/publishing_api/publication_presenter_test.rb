@@ -154,25 +154,12 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal [location.content_id], presented_item.content[:links][:world_locations]
   end
 
-  test "documents include the alternative format contact email with a direct email link" do
+  test "documents include the alternative format contact email" do
     publication = create(:publication, :with_command_paper)
-    GovukPublishingComponents::Presenters::AttachmentHelper.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, []) do
-      presented_item = present(publication)
-      document = presented_item.content[:details][:documents].first
-      assert document.include?("This file may not be suitable for users of assistive technology.")
-      assert document.include?("mailto:#{publication.alternative_format_provider.alternative_format_contact_email}")
-    end
-  end
-
-  test "documents belonging to organisations in the accessible format request pilot include the form link" do
-    publication = create(:publication, :with_command_paper)
-    email_address = publication.alternative_format_provider.alternative_format_contact_email
-    GovukPublishingComponents::Presenters::AttachmentHelper.stub_const(:EMAILS_IN_ACCESSIBLE_FORMAT_REQUEST_PILOT, [email_address]) do
-      presented_item = present(publication)
-      document = presented_item.content[:details][:documents].first
-      assert document.include?("Request an accessible format of this document")
-      assert document.include?("/contact/govuk/request-accessible-format?content_id=#{publication.content_id}&amp;attachment_id=#{publication.attachments.first.id}")
-    end
+    presented_item = present(publication)
+    document = presented_item.content[:details][:documents].first
+    assert document.include?("This file may not be suitable for users of assistive technology.")
+    assert document.include?("mailto:#{publication.alternative_format_provider.alternative_format_contact_email}")
   end
 
   test "it uses the PayloadBuilder::FirstPublishedAt helper" do
