@@ -8,7 +8,4 @@
     clear: both;
     visibility: hidden;
   }
-  @include ie-lte(7) {
-    zoom: 1;
-  }
 }

@@ -51,16 +51,6 @@ $collapse-tabs-width: 710px;
 .masthead {
   border-top-width: 5px;
   border-bottom-width: 0;
-
-  @include ie-lte(8) {
-    .container-fluid {
-      padding-right: 0;
-    }
-
-    .navbar-container {
-      padding-left: 30px;
-    }
-  }
 }
 
 .masthead .container-fluid .navbar-brand {
@@ -103,12 +93,6 @@ $collapse-tabs-width: 710px;
     margin: 0;
     border-bottom: 1px solid #222222;
   }
-
-  @include ie-lte(8) {
-
-    // Prevent wrapping of tabs
-    width: 16%;
-  }
 }
 
 .masthead-tab-item > a {
@@ -128,10 +112,6 @@ $collapse-tabs-width: 710px;
   @media (max-width: $collapse-tabs-width) {
     text-align: left;
     padding: 5px 15px;
-  }
-
-  @include ie-lte(7) {
-    display: block;
   }
 }
 
