@@ -10,11 +10,12 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
     before do
       updater.expect :perform!, true
-      SecureRandom.stubs(uuid: uid)
     end
 
     test "updates the editions auth_bypass_id, saves it with the current user and calls 'perform!' on the updater" do
       edition = create(:draft_edition)
+      auth_bypass_id_to_revoke = edition.auth_bypass_id
+      SecureRandom.stubs(uuid: uid)
 
       service = EditionAuthBypassUpdater.new(
         edition: edition,
@@ -25,12 +26,15 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       service.call
 
       assert_equal edition.auth_bypass_id, uid
+      assert_not_equal edition.auth_bypass_id, auth_bypass_id_to_revoke
       assert_equal edition.edition_authors.last.user, user
     end
 
     test "updates attachments with auth_bypass_ids" do
       edition = create(:draft_edition)
       file_attachment = create(:file_attachment, attachable: edition)
+
+      SecureRandom.stubs(uuid: uid)
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
@@ -51,6 +55,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
     test "updates an image with auth_bypass_id" do
       edition = create(:draft_case_study)
       image = create(:image, edition: edition)
+
+      SecureRandom.stubs(uuid: uid)
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
@@ -72,6 +78,8 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       edition = create(:draft_edition)
       create(:html_attachment, attachable: edition)
 
+      SecureRandom.stubs(uuid: uid)
+
       service = EditionAuthBypassUpdater.new(
         edition: edition,
         current_user: user,
@@ -88,6 +96,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       participation = create(:consultation_participation, consultation: edition)
       consultation_response_form = create(:consultation_response_form, consultation_participation: participation)
 
+      SecureRandom.stubs(uuid: uid)
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
@@ -110,6 +119,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       outcome = create(:consultation_outcome, consultation: edition)
       file_attachment = create(:file_attachment, attachable: outcome)
 
+      SecureRandom.stubs(uuid: uid)
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
@@ -132,6 +142,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       feedback = create(:consultation_public_feedback, consultation: edition)
       file_attachment = create(:file_attachment, attachable: feedback)
 
+      SecureRandom.stubs(uuid: uid)
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
