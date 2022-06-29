@@ -55,10 +55,9 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal edition.has_enabled_shareable_preview?, false
   end
 
-  # test below will be removed after enabling shareable preview for this document type
-  test "edition has shareable preview disabled if it has document collection type" do
+  test "edition has shareable preview enabled if it has document collection type" do
     edition = create(:draft_document_collection)
-    assert_equal edition.has_enabled_shareable_preview?, false
+    assert_equal edition.has_enabled_shareable_preview?, true
   end
 
   test "uses provided document if available" do

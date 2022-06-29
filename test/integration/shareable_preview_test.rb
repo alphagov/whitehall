@@ -35,21 +35,6 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    #  test below will be removed after enabling shareable preview for those doccument types
-    context "for excluded type of documents - document collection" do
-      let(:edition) { create(:draft_document_collection) }
-
-      before do
-        create_setup(edition)
-        visit admin_document_collection_path(edition)
-      end
-
-      test "it does not show shareable preview feature" do
-        get admin_document_collection_path(edition)
-        assert_no_selector "section", text: "Share document preview"
-      end
-    end
-
     def create_setup(edition)
       @user = create(:gds_editor)
       login_as @user
