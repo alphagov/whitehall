@@ -271,10 +271,10 @@ GEM
       unicorn (~> 6.1)
     govuk_frontend_toolkit (9.0.1)
       railties (>= 3.1.0)
-    govuk_personalisation (0.11.2)
+    govuk_personalisation (0.12.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (29.11.0)
+    govuk_publishing_components (29.12.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -683,7 +683,7 @@ GEM
       rack
       rest-client
     smart_properties (1.17.0)
-    sprockets (4.0.3)
+    sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.4.2)
