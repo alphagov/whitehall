@@ -11,6 +11,12 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       logo_alt_text: "Alternative text",
     )
     create(:topical_event_about_page, topical_event: topical_event, read_more_link_text: "Read more about this event")
+
+    first_lead_org = create(:organisation)
+    first_lead_org.organisation_classifications.create!(classification_id: topical_event.id, lead: true, lead_ordering: 1)
+    second_lead_org = create(:organisation)
+    second_lead_org.organisation_classifications.create!(classification_id: topical_event.id, lead: true, lead_ordering: 2)
+
     public_path = "/government/topical-events/humans-going-to-mars"
 
     feature = create(:classification_featuring, classification: topical_event, ordering: 1)
@@ -41,6 +47,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       details: {
         about_page_link_text: topical_event.about_page.read_more_link_text,
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+        emphasised_organisations: [first_lead_org.content_id, second_lead_org.content_id],
         image: {
           url: topical_event.logo_url(:s300),
           alt_text: topical_event.logo_alt_text,
@@ -107,6 +114,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       public_updated_at: topical_event.updated_at,
       details: {
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+        emphasised_organisations: [],
         ordered_featured_documents: [],
         social_media_links: [],
       },
@@ -126,6 +134,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     assert_equal({
       body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
       start_date: Time.zone.today.rfc3339,
+      emphasised_organisations: [],
       ordered_featured_documents: [],
       social_media_links: [],
     }, presenter.content[:details])
