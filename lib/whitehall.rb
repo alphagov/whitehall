@@ -135,7 +135,11 @@ module Whitehall
 
   # The base folder where uploads live.
   def self.uploads_root
-    (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
+    if Rails.env.test?
+      uploads_root_for_test_env.to_s
+    else
+      (ENV["GOVUK_UPLOADS_ROOT"].presence || Rails.root).to_s
+    end
   end
 
   def self.uploads_root_for_test_env
@@ -145,6 +149,10 @@ module Whitehall
 
   def self.asset_manager_tmp_dir
     File.join(uploads_root, "asset-manager-tmp")
+  end
+
+  def self.bulk_upload_tmp_dir
+    @bulk_upload_tmp_dir ||= FileUtils.mkdir_p(File.join(uploads_root, "bulk-upload-zipfile-tmp"))
   end
 
   def self.edition_classes
