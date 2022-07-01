@@ -40,7 +40,7 @@ jobs:
     with:
       imageTag: ${{ needs.build-and-publish-image.outputs.imageTag }}
       manualDeploy: ${{ 'main' != github.event.inputs.gitRef }}
-      environment: ${{ github.event.inputs.environment }}
+      environment: ${{ github.event.inputs.environment || 'integration' }}
     secrets:
       WEBHOOK_TOKEN: ${{ secrets.ARGO_EVENTS_WEBHOOK_TOKEN }}
       WEBHOOK_URL: ${{ secrets.ARGO_EVENTS_WEBHOOK_URL }}
