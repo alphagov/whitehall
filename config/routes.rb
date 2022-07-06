@@ -26,7 +26,9 @@ Whitehall::Application.routes.draw do
        constraints: lambda { |request|
                       ::Whitehall.admin_host == request.host
                     }
-
+  
+  get "/government/ministers", to: "topical_events_controller#pinchergate"
+  
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace "api" do

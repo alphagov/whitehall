@@ -37,6 +37,10 @@ class TopicalEventsController < ClassificationsController
     end
   end
 
+  def pinchergate
+    render text: "Sorry, there are no more ministers in Her Majesty's Government.", status: 410
+  end
+
 private
 
   def afghanistan_travel_advice
