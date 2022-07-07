@@ -23,14 +23,7 @@ class Document < ApplicationRecord
            inverse_of: :document
 
   has_one  :latest_edition,
-           lambda {
-             where(%(
-               NOT EXISTS (
-               SELECT 1 FROM editions e2
-               WHERE e2.document_id = editions.document_id
-               AND e2.id > editions.id
-               AND e2.state <> 'deleted')))
-           },
+           -> { where.not(state: "deleted").order(id: :desc) },
            class_name: "Edition",
            inverse_of: :document
 
