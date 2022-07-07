@@ -5,7 +5,15 @@ class CsvPreviewController < ApplicationController
     respond_to do |format|
       format.html do
         @csv_response = CsvFileFromPublicHost.csv_response(attachment_data.file.asset_manager_path)
-        if attachment_data.csv? && attachment_visible? && visible_edition
+
+        if attachment_data.csv? && attachment_visible? && hostname_includes_draft_assets?
+          expires_headers
+          @attachment = attachment_data.draft_attachment_for(current_user)
+          @edition = @attachment.attachable
+          @csv_preview = CsvFileFromPublicHost.csv_preview_from(@csv_response)
+          @page_base_href = Plek.new.website_root
+          render layout: "draft_html_attachments"
+        elsif attachment_data.csv? && attachment_visible? && visible_edition
           expires_headers
           @edition = visible_edition
           @attachment = attachment_data.visible_attachment_for(current_user)
@@ -72,5 +80,9 @@ private
     # cached by CDNs.
     expires_in(1.minute, public: true)
     redirect_to placeholder_path
+  end
+
+  def hostname_includes_draft_assets?
+    request.hostname.split(".").first == "draft-assets"
   end
 end
