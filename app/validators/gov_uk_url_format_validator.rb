@@ -1,6 +1,6 @@
 # Accepts options[:message] and options[:allowed_protocols]
 class GovUkUrlFormatValidator < ActiveModel::EachValidator
-  EXTERNAL_HOST_ALLOW_LIST = %w[.gov.uk .judiciary.uk .nhs.uk .ukri.org .nationalhighways.co.uk].freeze
+  EXTERNAL_HOST_ALLOW_LIST = %w[.gov.uk .judiciary.uk .nhs.uk .ukri.org .nationalhighways.co.uk .protectuk.police.uk].freeze
 
   def validate_each(record, attribute, value)
     unless self.class.matches_gov_uk?(value) || matches_allow_list?(value)
