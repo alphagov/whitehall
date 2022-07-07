@@ -542,26 +542,6 @@ ur:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} کی تازہ ترین سرگرمی"
-    lead_organisations:
-      arts_council_england: آرٹس کاؤنسل انگلینڈ
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: برٹش لائبریری
-      commonwealth_war_graves_commission: کامن ویلتھ وار گریوز کمیشن
-      heritage_lottery_fund: ہیریٹیج لاٹری فنڈ
-      historic_england: ہسٹورک انگلینڈ
-      iwm: امپیریل وار میوزیم
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: وار میموریلز ٹرسٹ
   world_location:
     content:
       complete_list:

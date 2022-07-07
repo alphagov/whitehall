@@ -542,26 +542,6 @@ is:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Síðasta virkni í %{event}
-    lead_organisations:
-      arts_council_england: Listaráð England
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Breska bókasafnið
-      commonwealth_war_graves_commission: Stríðsgrafa Umboð Samveldisins
-      heritage_lottery_fund: Heritage Happdrættis Sjóður
-      historic_england: Sögulegt England
-      iwm: Stríðssafn Heimsveldisins
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Stríðsminnisvarða Ráðstöfun
   world_location:
     content:
       complete_list:

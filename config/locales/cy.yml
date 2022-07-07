@@ -846,26 +846,6 @@ cy:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Y gweithgarwch diweddaraf ar %{event}
-    lead_organisations:
-      arts_council_england: Cyngor Celfyddydau Lloegr
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Y Llyfrgell Brydeinig
-      commonwealth_war_graves_commission: Comisiwn Beddau Rhyfel y Gymanwlad
-      heritage_lottery_fund: Cronfa Dreftadaeth y Loteri
-      historic_england: Historic England
-      iwm: Yr Amgueddfa Ryfel Ymerodrol
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Ymddiriedaeth Cofebion Rhyfel
   world_location:
     content:
       complete_list:

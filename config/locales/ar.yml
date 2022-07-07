@@ -844,26 +844,6 @@ ar:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: أحدث نشاط في %{event}
-    lead_organisations:
-      arts_council_england: مجلس الفنون بإنجلترا
-      bbc: هيئة الإذاعة البريطانية
-      birmingham_2022_commonwealth_games:
-      british_library: المكتبة البريطانية
-      commonwealth_war_graves_commission: لجنة الكومنولث لمدافن شهداء الحروب
-      heritage_lottery_fund: صندوق تراث اليانصيب
-      historic_england: إنجلترا التاريخية
-      iwm: متحف الحرب الإمبراطوري
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: صندوق النصب التذكاري للحرب
   world_location:
     content:
       complete_list:

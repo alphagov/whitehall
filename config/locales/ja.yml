@@ -466,26 +466,6 @@ ja:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "％{event} の最新アクティビティ"
-    lead_organisations:
-      arts_council_england: イングランド芸術評議会
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: 英国図書館
-      commonwealth_war_graves_commission: コモンウェルス戦争墓地委員会
-      heritage_lottery_fund: 文化遺産宝くじ基金
-      historic_england: 歴史的なイングランド
-      iwm: 帝国戦争博物館
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: 戦争記念トラスト
   world_location:
     content:
       complete_list:

@@ -692,26 +692,6 @@ be:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Апошняя актыўнасць на %{event}
-    lead_organisations:
-      arts_council_england: Мастацкі савет Брытаніі
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Брытанская бібліятэка
-      commonwealth_war_graves_commission: Камісія па ваенных пахаванняў
-      heritage_lottery_fund: Фонд латарэі Спадчына
-      historic_england: Гістарычная Англія
-      iwm: Імперскі ваенны музей
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Фонд ваенных мемарыялаў
   world_location:
     content:
       complete_list:

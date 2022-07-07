@@ -542,26 +542,6 @@ et:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Viimane tegevus %{event}
-    lead_organisations:
-      arts_council_england: Inglismaa kunstinõukogu
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Briti raamatukogu
-      commonwealth_war_graves_commission: Rahvaste Ühenduse sõjahaudade komisjon
-      heritage_lottery_fund: Pärandi loterii fond
-      historic_england: Ajalooline Inglismaa
-      iwm: Kuninglik sõjamuuseum
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Sõjamälestiste volikogu
   world_location:
     content:
       complete_list:

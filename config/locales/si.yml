@@ -542,26 +542,6 @@ si:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} මත නවතම ක්රියාකාරකම"
-    lead_organisations:
-      arts_council_england: කලා මණ්ඩලය එංගලන්තය
-      bbc: බීබීසී
-      birmingham_2022_commonwealth_games:
-      british_library: බ්රිතාන්ය පුස්තකාලය
-      commonwealth_war_graves_commission: පොදු රාජ්ය මණ්ඩලීය යුද සොහොන් කොමිසම
-      heritage_lottery_fund: උරුම ලොතරැයි අරමුදල
-      historic_england: ඓතිහාසික එංගලන්තය
-      iwm: අධිරාජ්ය යුද කෞතුකාගාරය
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: යුද අනුස්මරණ භාරය
   world_location:
     content:
       complete_list:

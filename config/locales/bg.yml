@@ -542,26 +542,6 @@ bg:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Последна дейност на %{event}
-    lead_organisations:
-      arts_council_england: Съвет по изкуствата в Англия
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Британска библиотека
-      commonwealth_war_graves_commission: Комисия за военните гробове на Британската общност
-      heritage_lottery_fund: Фонд за лотария наследство
-      historic_england: Историческа Англия
-      iwm: Имперски музей на войната
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Тръст за военните паметници
   world_location:
     content:
       complete_list:

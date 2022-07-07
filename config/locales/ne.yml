@@ -542,26 +542,6 @@ ne:
   time:
     formats:
       long_ordinal: "%e %B %Y %l: %M %P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} मा पछिल्लो गतिविधि"
-    lead_organisations:
-      arts_council_england: कला परिषद इंग्ल्यान्ड
-      bbc: बीबीसी
-      birmingham_2022_commonwealth_games:
-      british_library: ब्रिटिश पुस्तकालय
-      commonwealth_war_graves_commission: राष्ट्रमंडल युद्ध समाधि आयोग
-      heritage_lottery_fund: सम्पदा लोटरी कोष
-      historic_england: ऐतिहासिक इंग्ल्यान्ड
-      iwm: शाही युद्ध संग्रहालय
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: युद्ध स्मारक ट्रस्ट
   world_location:
     content:
       complete_list:

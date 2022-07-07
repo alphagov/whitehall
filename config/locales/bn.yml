@@ -542,26 +542,6 @@ bn:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event}-এ সর্বশেষ কার্যক্রম"
-    lead_organisations:
-      arts_council_england: আর্টস কাউন্সিল ইংল্যান্ড
-      bbc: বিবিসি
-      birmingham_2022_commonwealth_games:
-      british_library: ব্রিটিশ লাইব্রেরি
-      commonwealth_war_graves_commission: কমনওয়েলথ ওয়ার গ্রেভস কমিশন
-      heritage_lottery_fund: হ্যারিটেজ লটারি ফান্ড
-      historic_england: হিস্টরিক ইংল্যান্ড
-      iwm: ইম্পেরিয়াল ওয়ার মিউজিয়াম
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: ইম্পেরিয়াল ওয়ার মিউজিয়াম
   world_location:
     content:
       complete_list:

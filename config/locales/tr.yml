@@ -542,26 +542,6 @@ tr:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} üzerindeki en güncel faaliyet"
-    lead_organisations:
-      arts_council_england: İngiltere Sanat Konseyi
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Britanya Kütüphanesi
-      commonwealth_war_graves_commission: İngiliz Milletler Topluluğu Savaş Mezarları Komisyonu
-      heritage_lottery_fund: Miras Piyango Fonu
-      historic_england: İngiltere Tarihi Binalar Komisyonu
-      iwm: İmparatorluk Savaş Müzesi
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Savaş Anıtları Vakfı
   world_location:
     content:
       complete_list:

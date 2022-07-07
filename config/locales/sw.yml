@@ -542,26 +542,6 @@ sw:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Shughuli mpya kwenye %{event}
-    lead_organisations:
-      arts_council_england: Arts Council England
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: British Library
-      commonwealth_war_graves_commission: Commonwealth War Graves Commission
-      heritage_lottery_fund: Heritage Lottery Fund
-      historic_england: Historic England
-      iwm: Imperial War Museum
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: War Memorials Trust
   world_location:
     content:
       complete_list:
