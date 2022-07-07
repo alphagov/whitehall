@@ -10,6 +10,9 @@ class HistoricAppointmentsController < PublicFacingController
 
   def past_chancellors
     @twentyfirst_century_chancellors = {
+      "Rishi Sunak" => {
+        service: "2020 to 2022",
+      },
       "Sajid Javid" => {
         service: "2019 to 2020",
       },
