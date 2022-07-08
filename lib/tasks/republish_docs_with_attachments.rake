@@ -1,8 +1,6 @@
-desc "Republish all documents with attachments for organisations in accessible format request pilot"
-task repubish_docs_with_attachments_for_accessible_format_request_pilot: :environment do
-  pilot_emails = %w[alternative.formats@education.gov.uk].freeze
-
-  organisations = Organisation.where(alternative_format_contact_email: [pilot_emails])
+desc "Republish all documents with attachments for organisations"
+task repubish_docs_with_attachments: :environment do
+  organisations = Organisation.all
 
   organisations.each do |org|
     published_editions_for_org = Edition.latest_published_edition.in_organisation(org)
