@@ -267,4 +267,30 @@ class DocumentTest < ActiveSupport::TestCase
       document.save
     end
   end
+
+  test "#withdrawals returns withdrawals that have happened on editions of the document" do
+    document = create(:document)
+    create_list(:withdrawn_edition, 3, document: document)
+    create(:published_edition, document: document)
+
+    # Create a decoy withdrawal on a different document
+    create(:withdrawn_edition)
+
+    assert_equal 3, document.withdrawals.count
+    assert_equal 4, Unpublishing.count
+  end
+
+  test "#withdrawals are ordered by withdrawal date, ascending" do
+    document = create(:document)
+    create_list(:withdrawn_edition, 10, document: document) do |edition|
+      # Assign random unpublished_at dates in the past
+      random_date = rand(3.years.ago..1.week.ago)
+      edition.unpublishing.update! unpublished_at: random_date
+    end
+
+    withdrawals = document.withdrawals
+
+    assert withdrawals.first.unpublished_at < withdrawals.last.unpublished_at
+    assert_equal withdrawals.sort_by(&:unpublished_at), withdrawals.to_a
+  end
 end
