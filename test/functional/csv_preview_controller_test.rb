@@ -474,6 +474,17 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_template "show", layout: "draft_html_attachments"
   end
 
+  test "responds with 404 if no draft edition is present" do
+    response = build(:consultation_outcome)
+    create(:file_attachment, attachment_data: attachment_data, attachable: response)
+    setup_stubs(accessible?: true, visible_edition: nil)
+    ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
 private
 
   def setup_stubs(attributes = {})
