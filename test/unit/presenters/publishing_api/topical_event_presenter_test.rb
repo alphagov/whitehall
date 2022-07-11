@@ -140,4 +140,13 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     }, presenter.content[:details])
     assert_valid_against_schema(presenter.content, "topical_event")
   end
+
+  test "it limits the number of featured items" do
+    topical_event = create(:topical_event, start_date: Time.zone.today)
+    create_list(:classification_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, classification: topical_event)
+
+    presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
+
+    assert_equal FeaturedLink::DEFAULT_SET_SIZE, presenter.content.dig(:details, :ordered_featured_documents).length
+  end
 end
