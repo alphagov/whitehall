@@ -353,39 +353,4 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert_not attachment_data.deleted?
   end
-
-  test "#draft_attachment_for(user) returns the attachment with a draft edition" do
-    user = build(:user)
-    attachment_data = build(:attachment_data)
-    published_edition = build(:edition, :published)
-    draft_edition = build(:edition)
-    published_attachment = build(:file_attachment, attachment_data: attachment_data, attachable: published_edition)
-    draft_attachment = build(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
-    attachment_data.stubs(:attachments).returns([published_attachment, draft_attachment])
-    attachment_data.stubs(:visible_to?).returns(true)
-
-    assert_equal attachment_data.draft_attachment_for(user), draft_attachment
-  end
-
-  test "#draft_edition_for(user) returns a draft edition when is associated with an attachment" do
-    user = build(:user)
-    attachment_data = build(:attachment_data)
-    draft_edition = build(:edition)
-    attachment = build(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
-    attachment_data.stubs(:attachments).returns([attachment])
-    attachment_data.stubs(:visible_to?).returns(true)
-
-    assert_equal attachment_data.draft_edition_for(user), draft_edition
-  end
-
-  test "#draft_edition_for(user) returns nil when the attachable is not an `Edition`" do
-    user = build(:user)
-    attachment_data = build(:attachment_data)
-    response = build(:consultation_outcome)
-    attachment = build(:file_attachment, attachment_data: attachment_data, attachable: response)
-    attachment_data.stubs(:attachments).returns([attachment])
-    attachment_data.stubs(:visible_to?).returns(true)
-
-    assert_equal attachment_data.draft_edition_for(user), nil
-  end
 end
