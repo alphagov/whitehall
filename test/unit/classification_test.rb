@@ -114,5 +114,39 @@ class ClassificationTest < ActiveSupport::TestCase
     assert_equal topical_event.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
   end
 
+  test "#next_ordering gives a value of 1 when there are no existing features" do
+    topical_event = create(:topical_event)
+
+    assert_equal 1, topical_event.next_ordering
+  end
+
+  test "#next_ordering gives the next value when there are existing features" do
+    topical_event = create(:topical_event)
+
+    news_article_1 = create(:published_news_article)
+    image_1 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_1.id, alt_text: "A thing", image: image_1)
+
+    news_article_2 = create(:published_news_article)
+    image_2 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_2.id, alt_text: "A thing", image: image_2)
+
+    assert_equal 2, topical_event.next_ordering
+  end
+
+  test "#next_ordering gives the next value when there are existing features that have been reordered" do
+    topical_event = create(:topical_event)
+
+    news_article_1 = create(:published_news_article)
+    image_1 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_1.id, alt_text: "A thing", image: image_1, ordering: 1)
+
+    news_article_2 = create(:published_news_article)
+    image_2 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_2.id, alt_text: "A thing", image: image_2, ordering: 0)
+
+    assert_equal 2, topical_event.next_ordering
+  end
+
   should_not_accept_footnotes_in :description
 end
