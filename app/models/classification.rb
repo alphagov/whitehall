@@ -133,7 +133,7 @@ class Classification < ApplicationRecord
 
   def next_ordering
     last = classification_featurings.order("ordering desc").limit(1).last
-    last ? last.ordering + 1 : 1
+    last ? last.ordering + 1 : 0
   end
 
   def to_s
