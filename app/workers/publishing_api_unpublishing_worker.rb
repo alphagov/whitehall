@@ -44,7 +44,7 @@ class PublishingApiUnpublishingWorker < WorkerBase
           unpublishing.explanation,
           locale,
           allow_draft,
-          unpublishing.created_at,
+          unpublishing.unpublished_at,
         )
       end
     end

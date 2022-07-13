@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_11_144922) do
   create_table "about_pages", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
     t.string "name"
@@ -416,7 +416,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
     t.boolean "political", default: false
     t.string "logo_url"
     t.boolean "read_consultation_principles", default: false
-    t.boolean "all_nation_applicability"
+    t.boolean "all_nation_applicability", default: true
     t.string "image_display_option"
     t.string "auth_bypass_id", null: false
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
@@ -483,8 +483,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
     t.text "title"
     t.string "locale", null: false
     t.integer "featured_link_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["featured_link_id"], name: "index_on_featured_link"
     t.index ["locale"], name: "index_on_locale"
   end
@@ -817,8 +817,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
     t.bigint "policy_group_id"
     t.string "dependable_type"
     t.bigint "dependable_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["dependable_id", "dependable_type", "policy_group_id"], name: "index_policy_group_dependencies_on_dependable_and_policy_group", unique: true
     t.index ["dependable_type", "dependable_id"], name: "index_policy_group_dependencies_on_dependable"
     t.index ["policy_group_id"], name: "index_policy_group_dependencies_on_policy_group_id"
@@ -952,8 +952,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
     t.text "title"
     t.string "locale", null: false
     t.integer "social_media_account_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["locale"], name: "index_on_locale"
     t.index ["social_media_account_id"], name: "index_on_social_media_account"
   end
@@ -1074,6 +1074,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_090755) do
     t.string "slug"
     t.boolean "redirect", default: false
     t.string "content_id", null: false
+    t.datetime "unpublished_at", null: false
     t.index ["edition_id"], name: "index_unpublishings_on_edition_id"
     t.index ["unpublishing_reason_id"], name: "index_unpublishings_on_unpublishing_reason_id"
   end

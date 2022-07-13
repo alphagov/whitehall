@@ -67,11 +67,11 @@ module ServiceListeners
       )
 
       Whitehall::PublishingApi.expects(:publish_withdrawal_async)
-        .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.created_at, edition.primary_locale)
+        .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.unpublished_at, edition.primary_locale)
 
       translations.each do |translation|
         Whitehall::PublishingApi.expects(:publish_withdrawal_async)
-          .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.created_at, translation.to_s)
+          .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.unpublished_at, translation.to_s)
       end
 
       stub_html_attachment_pusher(edition, "withdraw")
