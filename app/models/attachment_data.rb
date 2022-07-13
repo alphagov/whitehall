@@ -131,7 +131,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def draft_attachment_for(user)
-    visible_to?(user) ? attachments.find { |attachment| attachment.attachable_type == "Edition" && attachment.attachable.draft? } : nil
+    visible_to?(user) ? attachments.find { |attachment| attachment.attachable_type == "Edition" && attachment.attachable&.draft? } : nil
   end
 
   def draft_edition_for(user)

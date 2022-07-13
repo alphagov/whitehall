@@ -485,6 +485,18 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
+  test "responds with 404 if no attachable is present" do
+    draft_edition = create(:publication, organisations: [organisation1, organisation2])
+    create(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
+    draft_edition.destroy!
+    setup_stubs(accessible?: true, visible_edition: nil)
+    ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
 private
 
   def setup_stubs(attributes = {})

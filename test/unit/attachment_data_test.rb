@@ -386,6 +386,16 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data.stubs(:attachments).returns([attachment])
     attachment_data.stubs(:visible_to?).returns(true)
 
-    assert_equal attachment_data.draft_edition_for(user), nil
+    assert_nil attachment_data.draft_edition_for(user)
+  end
+
+  test "#draft_edition_for(user) returns nil when the attachable is not present" do
+    user = build(:user)
+    attachment_data = build(:attachment_data)
+    attachment = build(:file_attachment, attachment_data: attachment_data, attachable: nil)
+    attachment_data.stubs(:attachments).returns([attachment])
+    attachment_data.stubs(:visible_to?).returns(true)
+
+    assert_nil attachment_data.draft_edition_for(user)
   end
 end
