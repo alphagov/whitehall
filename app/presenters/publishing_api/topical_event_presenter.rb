@@ -58,17 +58,21 @@ module PublishingApi
     end
 
     def ordered_featured_documents
-      item.classification_featurings.includes(:image, edition: :document).map do |feature|
-        {
-          title: feature.title,
-          href: feature.url,
-          image: {
-            url: feature.image.file.url(:s465),
-            alt_text: feature.alt_text,
-          },
-          summary: feature.summary,
-        }
-      end
+      item
+        .classification_featurings
+        .includes(:image, edition: :document)
+        .limit(FeaturedLink::DEFAULT_SET_SIZE)
+        .map do |feature|
+          {
+            title: feature.title,
+            href: feature.url,
+            image: {
+              url: feature.image.file.url(:s465),
+              alt_text: feature.alt_text,
+            },
+            summary: feature.summary,
+          }
+        end
     end
 
     def social_media_links
