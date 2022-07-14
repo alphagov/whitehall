@@ -560,10 +560,6 @@ EXISTS (
     end
   end
 
-  def latest_edition
-    document.editions.latest_edition.first
-  end
-
   def latest_published_edition
     document.editions.latest_published_edition.first
   end
@@ -737,6 +733,7 @@ EXISTS (
   end
 
   delegate :locked?, to: :document
+  delegate :latest_edition, to: :document
 
   # TODO: this can be removed once rails/rails#44770 is released.
   def attribute_names
