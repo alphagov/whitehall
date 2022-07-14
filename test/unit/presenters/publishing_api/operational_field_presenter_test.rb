@@ -13,7 +13,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents a valid placeholder content item" do
-    assert_valid_against_schema @presented_content, "placeholder"
+    assert_valid_against_publisher_schema @presented_content, "placeholder"
   end
 
   test "it delegates the content id" do

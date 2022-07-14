@@ -31,6 +31,6 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal world_location.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, "world_location")
+    assert_valid_against_publisher_schema(presented_item.content, "world_location")
   end
 end

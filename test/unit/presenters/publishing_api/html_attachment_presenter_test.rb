@@ -50,7 +50,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     }
     presented_item = present(html_attachment)
 
-    assert_valid_against_schema(presented_item.content, "html_publication")
+    assert_valid_against_publisher_schema(presented_item.content, "html_publication")
     assert_valid_against_links_schema({ links: presented_item.links }, "html_publication")
 
     # We test for HTML equivalance rather than string equality to get around
@@ -165,7 +165,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       },
     }
 
-    assert_valid_against_schema(presenter.content, "html_publication")
+    assert_valid_against_publisher_schema(presenter.content, "html_publication")
     assert_equal expected_national_applicability, details[:national_applicability]
   end
 end

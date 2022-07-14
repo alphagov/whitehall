@@ -34,6 +34,6 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     assert_equal "major", presented_item.update_type
     assert_equal worldwide_org.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, "placeholder")
+    assert_valid_against_publisher_schema(presented_item.content, "placeholder")
   end
 end

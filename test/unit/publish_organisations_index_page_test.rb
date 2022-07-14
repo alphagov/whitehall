@@ -1,5 +1,5 @@
 require "test_helper"
-require "govuk-content-schema-test-helpers"
+require "govuk_schemas"
 
 class PublishOrganisationsIndexPageTest < ActiveSupport::TestCase
   test "sends the page to publishing api" do
@@ -33,11 +33,11 @@ class PublishOrganisationsIndexPageTest < ActiveSupport::TestCase
   end
 
   def expect_valid_for_schema(presented_page)
-    validator = GovukContentSchemaTestHelpers::Validator.new(
+    validator = GovukSchemas::Validator.new(
       presented_page[:schema_name],
-      "schema",
+      "publisher",
       presented_page,
     )
-    assert validator.valid?, validator.errors.join("\n")
+    assert validator.valid?, validator.error_message
   end
 end

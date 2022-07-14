@@ -9,7 +9,7 @@ class FinderSchemaValidationTest < ActiveSupport::TestCase
     test "the #{name} finder is a valid finder" do
       finder = JSON.parse(File.read(file_path))
 
-      assert_valid_against_schema(finder, "finder")
+      assert_valid_against_publisher_schema(finder, "finder")
     end
   end
 end

@@ -2,7 +2,7 @@ require "test_helper"
 
 module PublishingApi
   class GenericEditionPresenterTest < ActiveSupport::TestCase
-    include GovukContentSchemaTestHelpers::TestUnit
+    include GovukSchemas::AssertMatchers
 
     def present(edition, update_type: nil)
       edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
@@ -46,7 +46,7 @@ module PublishingApi
 
       presented_item = present(edition)
       assert_equal expected_hash, presented_item.content
-      assert_valid_against_schema(presented_item.content, "placeholder")
+      assert_valid_against_publisher_schema(presented_item.content, "placeholder")
     end
 
     test "links hash includes topics and parent if set" do

@@ -9,7 +9,7 @@ class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
     role_appointment = create(:role_appointment)
 
     presented_item = present(role_appointment)
-    assert_valid_against_schema(presented_item.content, "role_appointment")
+    assert_valid_against_publisher_schema(presented_item.content, "role_appointment")
   end
 
   test "presents a role appointment ready for adding to the Publishing API" do

@@ -74,7 +74,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
     presented_item = present(publication)
 
-    assert_valid_against_schema(presented_item.content, "publication")
+    assert_valid_against_publisher_schema(presented_item.content, "publication")
     assert_valid_against_links_schema({ links: presented_item.links }, "publication")
 
     assert_equal expected_content.except(:details),
@@ -133,7 +133,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     create(:government)
     new_edition = create(:published_publication, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
     presented_item = present(new_edition)
-    assert_valid_against_schema(presented_item.content, "publication")
+    assert_valid_against_publisher_schema(presented_item.content, "publication")
     presented_history = presented_item.content[:details][:change_history]
     expected_history = [
       { public_timestamp: new_timestamp, note: "More changes" },

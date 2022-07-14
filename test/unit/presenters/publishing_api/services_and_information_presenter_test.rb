@@ -40,6 +40,6 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     assert_hash_includes presented_item.links, expected_links
     assert_equal expected_update_type, presented_item.update_type
 
-    assert_valid_against_schema(presented_item.content, "generic")
+    assert_valid_against_publisher_schema(presented_item.content, "generic")
   end
 end
