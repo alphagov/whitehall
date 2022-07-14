@@ -1,35 +1,35 @@
 <% page_title "Read more about #{@topical_event.name}" %>
 
 <% content_for :current_tab do %>
-  <% if @about_page.present? %>
+  <% if @topical_event_about_page.present? %>
     <table class="<%= model_name %> table">
       <tr>
         <th>Name</th>
-        <td class="name"><%= @about_page.name %></td>
+        <td class="name"><%= @topical_event_about_page.name %></td>
       </tr>
       <tr>
         <th>Read more link text</th>
-        <td class="read-more-link-text"><%= @about_page.read_more_link_text %></td>
+        <td class="read-more-link-text"><%= @topical_event_about_page.read_more_link_text %></td>
       </tr>
       <tr>
         <th>Summary</th>
-        <td class="summary"><%= @about_page.summary %></td>
+        <td class="summary"><%= @topical_event_about_page.summary %></td>
       </tr>
       <tr>
         <th width="20%">Body</th>
-        <td class="body"><%= govspeak_to_html(@about_page.body) %></td>
+        <td class="body"><%= govspeak_to_html(@topical_event_about_page.body) %></td>
       </tr>
     </table>
 
     <div class="form-actions">
-      <%= link_to "Edit", [:edit, :admin, @topical_event, :about_pages], class: "btn btn-lg btn-primary"%>
+      <%= link_to "Edit", [:edit, :admin, @topical_event, :topical_event_about_pages], class: "btn btn-lg btn-primary"%>
     </div>
   <% else %>
     <p>
       <%= @topical_event.name %> doesn’t yet have a page showing more information about it.
     </p>
     <div class="form-actions">
-      <%= link_to 'Create', new_admin_topical_event_about_pages_path, class: 'btn btn-lg btn-primary' %>
+      <%= link_to 'Create', new_admin_topical_event_topical_event_about_pages_path, class: 'btn btn-lg btn-primary' %>
     </div>
   <% end %>
 <% end %>

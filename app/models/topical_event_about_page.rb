@@ -1,4 +1,4 @@
-class AboutPage < ApplicationRecord
+class TopicalEventAboutPage < ApplicationRecord
   include Searchable
   include PublishesToPublishingApi
 

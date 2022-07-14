@@ -248,7 +248,7 @@ Whitehall::Application.routes.draw do
           resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
-          resource :about_pages, path: "about"
+          resource :topical_event_about_pages, path: "about"
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end

@@ -35,7 +35,7 @@ module PublishingApi
 
     def details
       {}.tap do |details|
-        details[:about_page_link_text] = item.about_page.read_more_link_text if item.about_page && item.about_page.read_more_link_text
+        details[:about_page_link_text] = item.topical_event_about_page.read_more_link_text if item.topical_event_about_page && item.topical_event_about_page.read_more_link_text
         details[:body] = body
         details[:emphasised_organisations] = item.lead_organisations.map(&:content_id)
         details[:image] = image if item.logo_url

@@ -45,7 +45,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       redirects: [],
       public_updated_at: topical_event.updated_at,
       details: {
-        about_page_link_text: topical_event.about_page.read_more_link_text,
+        about_page_link_text: topical_event.topical_event_about_page.read_more_link_text,
         body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
         emphasised_organisations: [first_lead_org.content_id, second_lead_org.content_id],
         image: {
