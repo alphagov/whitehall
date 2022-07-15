@@ -540,26 +540,6 @@ es:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Última actividad en %{event}
-    lead_organisations:
-      arts_council_england: Consejo de Artes de Inglaterra
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Biblioteca Británica
-      commonwealth_war_graves_commission: Comisión de Lápidas de Guerra de la Commonwealth
-      heritage_lottery_fund: Fondo del patrimonio de lotería
-      historic_england: Inglaterra histórica
-      iwm: Museo Imperial de la Guerra
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: War Memorials Trust
   world_location:
     content:
       complete_list:

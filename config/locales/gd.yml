@@ -694,26 +694,6 @@ gd:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Imeacht deireanach ar %{event}
-    lead_organisations:
-      arts_council_england: Comhairle Ealaíon na Breataine
-      bbc: Corparáid Craolacháin na Breataine
-      birmingham_2022_commonwealth_games:
-      british_library: Leabharlann na Breataine
-      commonwealth_war_graves_commission: Cléireach Uaighe Cogaidh an Chomhlathais
-      heritage_lottery_fund: Fondúireacht Oidhreachta an Chrannchuir
-      historic_england: Go stairiúil, an Ríocht Aontaithe
-      iwm: Músaem Cogaidh Impiriúil
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Fondúireacht cuimhneacháin cogaidh
   world_location:
     content:
       complete_list:

@@ -132,10 +132,10 @@ Whitehall::Application.routes.draw do
     get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
     get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
 
+    # Controller removed. Whitehall frontend no longer serves these
+    # pages however the route is needed to generate path and urlgenerate path and url
+    # helper methods.
     resources :topical_events, path: "topical-events", only: [:show] do
-      # Controller removed. Whitehall frontend no longer serves these
-      # pages however the route is needed to generate path and url
-      # helper methods.
       # TODO: Remove when about page paths can be otherwise generated
       resource :about_pages, path: "about", only: [:show]
     end

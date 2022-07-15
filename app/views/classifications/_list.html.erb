@@ -1,7 +1,0 @@
-<ul class="topics group index-list">
-  <% topics.each do |topic| %>
-    <%= content_tag_for(:li, topic, class: 'js-filter-item', 'data-filter-terms' => "#{topic.slug} #{topic.name}") do %>
-      <%= link_to topic.name, topic, class: "govuk-link" %>
-    <% end %>
-  <% end %>
-</ul>

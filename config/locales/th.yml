@@ -466,26 +466,6 @@ th:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: กิจกรรมล่าสุดใน %{event}
-    lead_organisations:
-      arts_council_england: สภาศิลปะอังกฤษ
-      bbc: บีบีซี
-      birmingham_2022_commonwealth_games:
-      british_library: หอสมุดแห่งชาติของอังกฤษ
-      commonwealth_war_graves_commission: คณะกรรมาธิการสุสานสงครามแห่งเครือจักรภพ
-      heritage_lottery_fund: กองทุนสลากเพื่อการบูรณมรดกของชาติ
-      historic_england: อังกฤษยุคประวัติศาสตร์
-      iwm: พิพิธภัณฑ์สงครามจักรวรรดิ
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: ทรัสต์อนุสรณ์สถานสงคราม
   world_location:
     content:
       complete_list:

@@ -540,26 +540,6 @@ lv:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Pēdējā aktivitāte saistībā ar %{event}
-    lead_organisations:
-      arts_council_england: Anglijas Mākslas padome
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Britu bibliotēka
-      commonwealth_war_graves_commission: Sadraudzības valstu Karavīru apbedījumu komisija
-      heritage_lottery_fund: Kultūras mantojuma loterijas fonds
-      historic_england: Vēsturiskā Anglija
-      iwm: Imperiālais Kara muzejs
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Kara memoriālu trasts
   world_location:
     content:
       complete_list:

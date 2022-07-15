@@ -467,26 +467,6 @@ ms:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Aktiviti terkini di %{event}
-    lead_organisations:
-      arts_council_england: Majlis Kesenian England
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Perpustakaan British
-      commonwealth_war_graves_commission: Suruhanjaya Perkuburan Perang Komanwel
-      heritage_lottery_fund: Tabung Warisan Loteri
-      historic_england: England yang bersejarah
-      iwm: Muzium Perang Imperial
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Amanah Peringatan Perang
   world_location:
     content:
       complete_list:

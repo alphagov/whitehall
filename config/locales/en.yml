@@ -543,26 +543,6 @@ en:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance: Detailed guidance
-      documents: Documents
-      featured: Featured
-      organisations: Who's involved
-      travel_advice: Travel advice
-    latest_activity: Latest activity on %{event}
-    lead_organisations:
-      arts_council_england: Arts Council England
-      bbc: BBC
-      birmingham_2022_commonwealth_games: Birmingham 2022 Commonwealth Games
-      british_library: British Library
-      commonwealth_war_graves_commission: Commonwealth War Graves Commission
-      heritage_lottery_fund: Heritage Lottery Fund
-      historic_england: Historic England
-      iwm: Imperial War Museum
-      queens_platinum_jubilee: Queen's Platinum Jubilee
-      unboxed: 'Unboxed: Creativity in the UK'
-      war_memorials_trust: War Memorials Trust
   world_location:
     headings:
       announcements: Our announcements

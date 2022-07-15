@@ -619,26 +619,6 @@ sk:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Posledná aktivita počas  %{event}
-    lead_organisations:
-      arts_council_england: Rada pre umenie v Anglicku
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Britská knižnica
-      commonwealth_war_graves_commission: Komisia pre vojnové hroby Spoločnosti národov
-      heritage_lottery_fund: Heritage Lottery Fund
-      historic_england: Historické Anglicko
-      iwm: Imperiálne vojnové múzeum
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Vojnové pamätníky Trust
   world_location:
     content:
       complete_list:

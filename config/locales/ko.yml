@@ -466,26 +466,6 @@ ko:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: " 의 최근 활동%{Event}"
-    lead_organisations:
-      arts_council_england: 예술위원회 영국
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: 대영 도서관
-      commonwealth_war_graves_commission: 영연방 전쟁 묘지 위원회
-      heritage_lottery_fund: 유산 복권 기금
-      historic_england: 역사적인 영국
-      iwm: 제국 전쟁 박물관
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: 전쟁기념관 신탁
   world_location:
     content:
       complete_list:

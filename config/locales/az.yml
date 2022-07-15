@@ -543,26 +543,6 @@ az:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} üzrə ən son fəaliyyət"
-    lead_organisations:
-      arts_council_england: İngiltərə incəsənət şurası
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Britaniya kitabxanası
-      commonwealth_war_graves_commission: Birliyin müharibə qəbrləri üzrə komissiyası
-      heritage_lottery_fund: Mirasçılıq lotereyası fondu
-      historic_england: Tarixi İngiltərə
-      iwm: İmperiya müharibələri muzeyi
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Müharibədə həlak olanların xatirəsini qoruma tresti
   world_location:
     content:
       complete_list:

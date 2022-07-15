@@ -543,26 +543,6 @@ hy:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Վերջին գործողությունը %{event}-ի ժամանակ
-    lead_organisations:
-      arts_council_england: Անգլիայի արվեստի խորհուրդ (Arts Council England)
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Բրիտանական գրադարան (British Library)
-      commonwealth_war_graves_commission: Պատերազմական գերեզմանների հարցերով համահանձնաժողով (Commonwealth War Graves Commission)
-      heritage_lottery_fund: Վիճակախաղի ժառանգության հիմնադրամ (Heritage Lottery Fund)
-      historic_england: Անգլիայի պատմական շինությունների և հուշարձանների հանձնաժողով (Historic England)
-      iwm: Կայսերական ռազմական թանգարան (Imperial War Museum)
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Պատերազմական հուշահամալիրների հավատարմագրում (War Memorials Trust)
   world_location:
     content:
       complete_list:

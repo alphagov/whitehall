@@ -540,26 +540,6 @@ nl:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Laatste activiteit op %{event}
-    lead_organisations:
-      arts_council_england: Kunstraad Engeland
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Britse Bibliotheek
-      commonwealth_war_graves_commission: Oorlogsgravencommissie van het Gemenebest
-      heritage_lottery_fund: Fonds voor de erfgoedloterij
-      historic_england: Historisch Engeland
-      iwm: Keizerlijk Oorlogsmuseum
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Oorlogsmonumenten Trust
   world_location:
     content:
       complete_list:

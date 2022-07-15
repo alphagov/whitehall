@@ -542,26 +542,6 @@ ta:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event}-ல் சமீபத்திய நடவடிக்கை"
-    lead_organisations:
-      arts_council_england: இங்கிலாந்து கலை மன்றம்
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: பிரிட்டிஷ் நூலகம்
-      commonwealth_war_graves_commission: காமன்வெல்த் போர்க் கல்லறை வாரியம்
-      heritage_lottery_fund: மரபுரிமையுள்ள பரிசுச்சீட்டு நிதி
-      historic_england: வரலாற்றுச் சிறப்புமிக்க இங்கிலாந்து
-      iwm: இம்பீரியல் போர் அருங்காட்சியகம்
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: போர் நினைவுச்சின்ன அறக்கட்டளை
   world_location:
     content:
       complete_list:

@@ -542,26 +542,6 @@ gu:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} પર છેલ્લી પ્રવૃત્તિ"
-    lead_organisations:
-      arts_council_england: આર્ટ્સ કાઉન્સિલ ઈંગ્લેન્ડ
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: બ્રિટિશ વાચનાલય
-      commonwealth_war_graves_commission: કોમનવેલ્થ વોર ગ્રેવ્ઝ કમિશન
-      heritage_lottery_fund: હેરિટેજ લૉટરી ફંડ
-      historic_england: ઐતિહાસિક ઈંગ્લેન્ડ
-      iwm: ઇમ્પીરિયલ વોર મ્યુઝિયમ
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: વોર મેમોરિયલ્સ ટ્રસ્ટ
   world_location:
     content:
       complete_list:
