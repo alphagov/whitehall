@@ -10,12 +10,10 @@ Background:
 Scenario: Adding a new topical event
   When I create a new topical event "An Event" with summary "A topical event" and description "About this topical event"
   Then I should see the topical event "An Event" in the admin interface
-  And I should see the topical event "An Event" on the frontend
 
 Scenario: Archiving a new topical event
   When I create a new topical event "An Event" with summary "A topical event", description "About this topical event" and it ends today
   Then I should see the topical event "An Event" in the admin interface
-  And I should see the topical event "An Event" on the frontend is archived
 
 Scenario: Associating a speech with a topical event
   Given a topical event called "An Event" with summary "A topical event" and description "About this topical event"
