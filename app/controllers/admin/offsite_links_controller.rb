@@ -47,7 +47,7 @@ private
 
   def offsite_link_path(offsite_link)
     if offsite_link.parent.is_a? TopicalEvent
-      polymorphic_path([:admin, offsite_link.parent, :classification_featurings])
+      polymorphic_path([:admin, offsite_link.parent, :topical_event_featurings])
     else
       polymorphic_url([:features, :admin, offsite_link.parent])
     end
@@ -55,7 +55,7 @@ private
 
   def offsite_links_path
     if @parent.is_a? TopicalEvent
-      polymorphic_path([:admin, @parent, :classification_featurings])
+      polymorphic_path([:admin, @parent, :topical_event_featurings])
     else
       polymorphic_path([:features, :admin, @parent])
     end

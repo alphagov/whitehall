@@ -39,7 +39,7 @@ end
 
 And(/^I visit the topical event admin page for "([^"]*)"$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
-  visit admin_topical_event_classification_featurings_path(topical_event)
+  visit admin_topical_event_topical_event_featurings_path(topical_event)
 end
 
 And(/^the document is locked/) do

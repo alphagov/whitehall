@@ -32,19 +32,19 @@ class TopicalEvent < ApplicationRecord
   has_many :organisation_classifications
   has_many :organisations, through: :organisation_classifications
 
-  has_many :classification_featurings,
+  has_many :topical_event_featurings,
            lambda {
-             where("editions.state = 'published' or classification_featurings.edition_id is null")
+             where("editions.state = 'published' or topical_event_featurings.edition_id is null")
                .references(:edition)
                .includes(edition: :translations)
-               .order("classification_featurings.ordering asc")
+               .order("topical_event_featurings.ordering asc")
            },
            foreign_key: :topical_event_id,
            inverse_of: :topical_event
 
   has_many :featured_editions,
-           -> { order("classification_featurings.ordering ASC") },
-           through: :classification_featurings,
+           -> { order("topical_event_featurings.ordering ASC") },
+           through: :topical_event_featurings,
            source: :edition
 
   has_many :published_announcements,
@@ -84,7 +84,7 @@ class TopicalEvent < ApplicationRecord
 
   accepts_nested_attributes_for :classification_memberships
   accepts_nested_attributes_for :organisation_classifications
-  accepts_nested_attributes_for :classification_featurings
+  accepts_nested_attributes_for :topical_event_featurings
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
   mount_uploader :logo, ImageUploader, mount_on: :carrierwave_image
@@ -173,15 +173,15 @@ class TopicalEvent < ApplicationRecord
   end
 
   def featuring_of(edition)
-    classification_featurings.detect { |cf| cf.edition == edition }
+    topical_event_featurings.detect { |cf| cf.edition == edition }
   end
 
   def feature(featuring_params)
-    classification_featurings.create({ ordering: next_ordering }.merge(featuring_params.to_h))
+    topical_event_featurings.create({ ordering: next_ordering }.merge(featuring_params.to_h))
   end
 
   def next_ordering
-    last = classification_featurings.maximum(:ordering)
+    last = topical_event_featurings.maximum(:ordering)
     last ? last + 1 : 0
   end
 

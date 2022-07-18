@@ -242,14 +242,14 @@ Whitehall::Application.routes.draw do
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: %i[edit update]
         resources :topics, path: "topics" do
-          resources :classification_featurings, path: "featurings" do
+          resources :topical_event_featurings, path: "featurings" do
             put :order, on: :collection
           end
           resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
           resource :topical_event_about_pages, path: "about"
-          resources :classification_featurings, path: "featurings" do
+          resources :topical_event_featurings, path: "featurings" do
             put :order, on: :collection
           end
           resources :offsite_links

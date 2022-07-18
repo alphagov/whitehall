@@ -21,7 +21,7 @@
         <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocation) %>
           <%= form.save_or_cancel cancel: polymorphic_path([:features, :admin, @parent]) %>
         <% else %>
-          <%= form.save_or_cancel cancel: polymorphic_path([:admin, @parent, :classification_featurings]) %>
+          <%= form.save_or_cancel cancel: polymorphic_path([:admin, @parent, :topical_event_featurings]) %>
         <% end %>
       </div>
     <% end %>

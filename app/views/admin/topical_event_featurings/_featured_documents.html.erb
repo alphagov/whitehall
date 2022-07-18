@@ -23,7 +23,7 @@
                   <%= f.submit "Unfeature", class: "btn btn-danger" %>
                 <% end %>
               <% else %>
-                <%= link_to "Feature", polymorphic_path([:new, :admin, @topical_event, :classification_featuring], edition_id: edition.id), class: "btn btn-default" %>
+                <%= link_to "Feature", polymorphic_path([:new, :admin, @topical_event, :topical_event_featuring], edition_id: edition.id), class: "btn btn-default" %>
               <% end %>
             </td>
           <% end %>

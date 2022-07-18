@@ -36,7 +36,7 @@ class Edition < ApplicationRecord
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
-  has_many :classification_featurings, inverse_of: :edition
+  has_many :topical_event_featurings, inverse_of: :edition
   has_many :link_check_reports, as: :link_reportable, class_name: "LinkCheckerApiReport"
 
   has_many :edition_dependencies, dependent: :destroy
@@ -760,8 +760,8 @@ private
   end
 
   def republish_topical_event_to_publishing_api
-    topical_event_featurings.each do |classification_featuring|
-      Whitehall::PublishingApi.republish_async(classification_featuring.classification)
+    topical_event_featurings.each do |topical_event_featuring|
+      Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
     end
   end
 end

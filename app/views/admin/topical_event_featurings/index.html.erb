@@ -5,20 +5,20 @@
   <p class="warning">Warning: changes to featured content appear instantly on the live site.</p>
   <p>A maximum of 5 featured items will be displayed on the live site.</p>
 
-  <% if @classification_featurings.many? %>
+  <% if @topical_event_featurings.many? %>
     <p>
       To change the order of your featured documents, drag them up or down and then click "Save ordering".
     </p>
 
-    <%= form_tag [:order, :admin, @topical_event, ClassificationFeaturing], method: :put do %>
+    <%= form_tag [:order, :admin, @topical_event, TopicalEventFeaturing], method: :put do %>
       <fieldset class="sortable">
-        <%= render @classification_featurings %>
+        <%= render @topical_event_featurings %>
       </fieldset>
       <%= submit_tag "Save ordering", class: "btn btn-default" %>
     <% end %>
 
-  <% elsif @classification_featurings.any? %>
-    <%= render @classification_featurings %>
+  <% elsif @topical_event_featurings.any? %>
+    <%= render @topical_event_featurings %>
 
   <% else %>
     <p class="no-content no-content-bordered">Nothing currently featured.</p>
@@ -29,16 +29,16 @@
 
   <div class="row">
     <div class="col-md-3">
-      <%= render partial: 'admin/editions/filter_options', locals: { filter_by: [:title, :type, :author, :organisation], filter_action: admin_topic_classification_featurings_url(@topical_event) } %>
+      <%= render partial: 'admin/editions/filter_options', locals: { filter_by: [:title, :type, :author, :organisation], filter_action: admin_topical_event_topical_event_featurings_url(@topical_event) } %>
     </div>
     <div class="col-md-9" id="search_results">
-      <%= render partial: 'admin/classification_featurings/featured_documents' %>
+      <%= render partial: 'admin/topical_event_featurings/featured_documents' %>
     </div>
   </div>
 
   <h2 class="feature-title">Feature new non-GOV.UK government link</h2>
   <% if @featurable_offsite_links.any? %>
-    <%= render partial: 'admin/classification_featurings/featurable_offsite_links', locals: { classification_featurings: @classification_featurings, featurable_offsite_links: @featurable_offsite_links } %>
+    <%= render partial: 'admin/topical_event_featurings/featurable_offsite_links', locals: { topical_event_featurings: @topical_event_featurings, featurable_offsite_links: @featurable_offsite_links } %>
   <% else %>
     <p class="no-content no-content-bordered">There are currently no non-GOV.UK government links.</p>
   <% end %>

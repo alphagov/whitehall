@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
+class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do
@@ -77,9 +77,9 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "PUT :order saves the new order of featurings" do
-    feature1 = create(:classification_featuring, classification: @topical_event)
-    feature2 = create(:classification_featuring, classification: @topical_event)
-    feature3 = create(:classification_featuring, classification: @topical_event)
+    feature1 = create(:topical_event_featuring, topical_event: @topical_event)
+    feature2 = create(:topical_event_featuring, topical_event: @topical_event)
+    feature3 = create(:topical_event_featuring, topical_event: @topical_event)
 
     put :order,
         params: { topical_event_id: @topical_event,
@@ -90,45 +90,45 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
                   } }
 
     assert_response :redirect
-    assert_equal [feature3, feature1, feature2], @topical_event.reload.classification_featurings
+    assert_equal [feature3, feature1, feature2], @topical_event.reload.topical_event_featurings
   end
 
   view_test "GET :new renders only image fields if featuring an edition" do
     edition = create :edition
     get :new, params: { topical_event_id: @topical_event.id, edition_id: edition.id }
 
-    assert_select "#classification_featuring_image_attributes_file"
-    assert_select "#classification_featuring_alt_text"
+    assert_select "#topical_event_featuring_image_attributes_file"
+    assert_select "#topical_event_featuring_alt_text"
   end
 
   view_test "GET :new renders all fields if not featuring an edition" do
     offsite_link = create :offsite_link
     get :new, params: { topical_event_id: @topical_event.id, offsite_link_id: offsite_link.id }
 
-    assert_select "#classification_featuring_image_attributes_file"
-    assert_select "#classification_featuring_alt_text"
+    assert_select "#topical_event_featuring_image_attributes_file"
+    assert_select "#topical_event_featuring_alt_text"
   end
 
-  test "DELETE :destroy unfeatures edition and redirects to classification" do
-    featuring = create(:classification_featuring,
-                       classification: create(:classification))
+  test "DELETE :destroy unfeatures edition and redirects to topical_event" do
+    featuring = create(:topical_event_featuring,
+                       topical_event: create(:topical_event))
 
-    assert_difference("ClassificationFeaturing.count", -1) do
+    assert_difference("TopicalEventFeaturing.count", -1) do
       delete :destroy, params: {
-        topical_event_id: featuring.classification.id, id: featuring.id
+        topical_event_id: featuring.topical_event.id, id: featuring.id
       }
     end
 
     assert_response :redirect
   end
 
-  test "DELETE :destroy unfeatures offsite link and redirects to classification" do
-    offsite_featuring = create(:offsite_classification_featuring,
-                               classification: create(:classification))
+  test "DELETE :destroy unfeatures offsite link and redirects to topical_event" do
+    offsite_featuring = create(:offsite_topical_event_featuring,
+                               topical_event: create(:topical_event))
 
-    assert_difference("ClassificationFeaturing.count", -1) do
+    assert_difference("TopicalEventFeaturing.count", -1) do
       delete :destroy, params: {
-        topical_event_id: offsite_featuring.classification.id, id: offsite_featuring.id
+        topical_event_id: offsite_featuring.topical_event.id, id: offsite_featuring.id
       }
     end
 

@@ -25,17 +25,17 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_equal topical_event, new_edition.topical_events.first
   end
 
-  test "#destroy should also remove the classification featuring relationship" do
+  test "#destroy should also remove the topical event featuring relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_news_article)
-    _rel = topical_event.feature(edition_id: edition.id, alt_text: "Woooo", image: create(:classification_featuring_image_data))
-    relation = edition.classification_featurings.first
+    _rel = topical_event.feature(edition_id: edition.id, alt_text: "Woooo", image: create(:topical_event_featuring_image_data))
+    relation = edition.topical_event_featurings.first
     edition.destroy!
-    assert_not ClassificationFeaturing.find_by(id: relation.id)
+    assert_not TopicalEventFeaturing.find_by(id: relation.id)
   end
 
   test "new edition of document featured in topical event should remain featured in that topic event with image, alt text and ordering" do
-    featured_image = create(:classification_featuring_image_data)
+    featured_image = create(:topical_event_featuring_image_data)
     topical_event = create(:topical_event)
     edition = create(:published_news_article)
     topical_event.feature(edition_id: edition.id, image: featured_image, alt_text: "alt-text", ordering: 12)
@@ -44,7 +44,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     new_edition.change_note = "change-note"
     force_publish(new_edition)
 
-    featuring = new_edition.classification_featurings.first
+    featuring = new_edition.topical_event_featurings.first
     assert featuring.persisted?
     assert_equal featured_image, featuring.image
     assert_equal "alt-text", featuring.alt_text

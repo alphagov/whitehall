@@ -1,7 +1,7 @@
-class ClassificationFeaturing < ApplicationRecord
-  belongs_to :edition, inverse_of: :classification_featurings
+class TopicalEventFeaturing < ApplicationRecord
+  belongs_to :edition, inverse_of: :topical_event_featurings
   belongs_to :offsite_link
-  belongs_to :topical_event, inverse_of: :classification_featurings
+  belongs_to :topical_event, inverse_of: :topical_event_featurings
   belongs_to :image, class_name: "ClassificationFeaturingImageData", foreign_key: :classification_featuring_image_data_id
 
   accepts_nested_attributes_for :image, reject_if: :all_blank
@@ -10,7 +10,7 @@ class ClassificationFeaturing < ApplicationRecord
   validates :alt_text, presence: true, allow_blank: true
   validates :alt_text, length: { maximum: 255 }
 
-  validates :classification, :ordering, presence: true
+  validates :topical_event, :ordering, presence: true
 
   validates :edition_id, uniqueness: { scope: :topical_event_id }, unless: :offsite?
 
