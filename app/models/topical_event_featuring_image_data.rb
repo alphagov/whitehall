@@ -1,4 +1,4 @@
-class ClassificationFeaturingImageData < ApplicationRecord
+class TopicalEventFeaturingImageData < ApplicationRecord
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
   validates :file, presence: true, if: :image_changed?

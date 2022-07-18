@@ -2,7 +2,7 @@ class TopicalEventFeaturing < ApplicationRecord
   belongs_to :edition, inverse_of: :topical_event_featurings
   belongs_to :offsite_link
   belongs_to :topical_event, inverse_of: :topical_event_featurings
-  belongs_to :image, class_name: "ClassificationFeaturingImageData", foreign_key: :classification_featuring_image_data_id
+  belongs_to :image, class_name: "TopicalEventFeaturingImageData", foreign_key: :topical_event_featuring_image_data_id
 
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
