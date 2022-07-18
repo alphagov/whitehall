@@ -37,9 +37,9 @@
             <%= govspeak_to_html(@topical_event_secondary_description) %>
           <% end %>
 
-          <% if @topical_event.about_page.present? %>
+          <% if @topical_event.topical_event_about_page.present? %>
             <p class="govuk-body">
-              <%= link_to @topical_event.about_page.read_more_link_text, topical_event_about_pages_path(@topical_event), class: "govuk-link" %>
+              <%= link_to @topical_event.topical_event_about_page.read_more_link_text, topical_event_about_pages_path(@topical_event), class: "govuk-link" %>
             </p>
           <% end %>
         </div>
@@ -71,14 +71,14 @@
             border_top: 2,
           } %>
         </div>
-        
+
         <%= render partial: 'classifications/classification_featuring', collection: @featurings %>
       <% end %>
     </div>
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-7">
-        <%= render partial: 'shared/recently_updated', locals: { 
+        <%= render partial: 'shared/recently_updated', locals: {
           recently_updated: @recently_changed_documents,
           atom_url: atom_feed_url_for(@topical_event),
           see_all_link: latest_path(topical_events: [@topical_event]),
@@ -167,9 +167,9 @@
                 </div>
               <% end %>
             </div>
-              
+
             <% if @topical_event.slug == 'first-world-war-centenary' %>
-              <ul class="organisations-list govuk-clearfix">            
+              <ul class="organisations-list govuk-clearfix">
                 <li class="organisations-list__item non-govuk imperial-war-museums">
                   <a href="http://www.iwm.org.uk"><%= t("topical_event.lead_organisations.iwm") %></a>
                 </li>

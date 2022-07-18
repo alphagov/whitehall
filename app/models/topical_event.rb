@@ -12,7 +12,7 @@ class TopicalEvent < Classification
 
   after_commit :republish_feature_organisations_to_publishing_api, if: :features?
 
-  has_one :about_page
+  has_one :topical_event_about_page
 
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
