@@ -49,7 +49,7 @@ FactoryBot.define do
         if evaluator.topical_events.empty?
           edition.classification_memberships.build(
             edition: edition,
-            classification: build(:topical_event),
+            topical_event: build(:topical_event),
           )
         end
       end

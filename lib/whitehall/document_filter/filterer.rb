@@ -53,7 +53,7 @@ module Whitehall::DocumentFilter
     end
 
     def selected_topics
-      find_by_slug(Classification, @topics)
+      find_by_slug(TopicalEvent, @topics)
     end
 
     def selected_organisations
@@ -82,8 +82,7 @@ module Whitehall::DocumentFilter
     end
 
     def selected_topical_events
-      topics = find_by_slug(Classification, @topics)
-      topics.select { |topic| topic.type == "TopicalEvent" }
+      find_by_slug(TopicalEvent, @topics)
     end
 
     def selected_official_document_status

@@ -101,7 +101,7 @@ class Edition < ApplicationRecord
   before_save { check_if_locked_document(edition: self) }
   # @!endgroup
 
-  after_update :republish_classification_to_publishing_api
+  after_update :republish_topical_event_to_publishing_api
 
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
@@ -276,7 +276,7 @@ EXISTS (
   # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
   def self.with_classification(classification)
     joins("INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id")
-      .where("classification_memberships.classification_id" => classification.id)
+      .where("classification_memberships.topical_event_id" => classification.id)
   end
 
   def self.due_for_publication(within_time = 0)
@@ -759,8 +759,8 @@ private
     true
   end
 
-  def republish_classification_to_publishing_api
-    classification_featurings.each do |classification_featuring|
+  def republish_topical_event_to_publishing_api
+    topical_event_featurings.each do |classification_featuring|
       Whitehall::PublishingApi.republish_async(classification_featuring.classification)
     end
   end

@@ -3,7 +3,7 @@
    filter_option = (heading == "Publications") ? "all" : heading.downcase
    world_location_news ||= "0"
    see_all_text ||= "See all #{heading.downcase}"
-   filter_type = @classification || @world_location || @topical_event
+   filter_type = @topical_event || @world_location || @topical_event
 %>
 <section id="<%= heading.downcase.parameterize %>" class="document-block">
   <%= render "govuk_publishing_components/components/heading", {

@@ -1,7 +1,7 @@
 class ClassificationFeaturing < ApplicationRecord
   belongs_to :edition, inverse_of: :classification_featurings
   belongs_to :offsite_link
-  belongs_to :classification, inverse_of: :classification_featurings
+  belongs_to :topical_event, inverse_of: :classification_featurings
   belongs_to :image, class_name: "ClassificationFeaturingImageData", foreign_key: :classification_featuring_image_data_id
 
   accepts_nested_attributes_for :image, reject_if: :all_blank
@@ -12,10 +12,10 @@ class ClassificationFeaturing < ApplicationRecord
 
   validates :classification, :ordering, presence: true
 
-  validates :edition_id, uniqueness: { scope: :classification_id }, unless: :offsite?
+  validates :edition_id, uniqueness: { scope: :topical_event_id }, unless: :offsite?
 
-  after_save :republish_classification_to_publishing_api
-  after_destroy :republish_classification_to_publishing_api
+  after_save :republish_topical_event_to_publishing_api
+  after_destroy :republish_topical_event_to_publishing_api
 
   def title
     if offsite?
@@ -45,7 +45,7 @@ class ClassificationFeaturing < ApplicationRecord
     edition.nil?
   end
 
-  def republish_classification_to_publishing_api
-    Whitehall::PublishingApi.republish_async(classification)
+  def republish_topical_event_to_publishing_api
+    Whitehall::PublishingApi.republish_async(topical_event)
   end
 end

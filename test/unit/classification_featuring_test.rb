@@ -17,7 +17,7 @@ class ClassificationFeaturingTest < ActiveSupport::TestCase
 
   test "republishes a linked Topical Event when the feature is changed" do
     topical_event = create(:topical_event, :active)
-    feature = create(:classification_featuring, classification: topical_event)
+    feature = create(:classification_featuring, topical_event: topical_event)
 
     Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
     feature.update!(alt_text: "some updated text")
@@ -25,7 +25,7 @@ class ClassificationFeaturingTest < ActiveSupport::TestCase
 
   test "republishes a linked Topical Event when the feature is deleted" do
     topical_event = create(:topical_event, :active)
-    feature = create(:classification_featuring, classification: topical_event)
+    feature = create(:classification_featuring, topical_event: topical_event)
 
     Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
     feature.destroy!

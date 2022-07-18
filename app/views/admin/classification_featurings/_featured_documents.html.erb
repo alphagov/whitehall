@@ -15,15 +15,15 @@
             <td class="type"><%= edition.type.titleize %></td>
             <td><%= link_to edition.title, admin_edition_path(edition) %></td>
             <td><%=localize edition.major_change_published_at.to_date %></td>
-            <% featuring = @classification.featuring_of(edition) %>
+            <% featuring = @topical_event.featuring_of(edition) %>
             <td><%= "Featured" if featuring %></td>
             <td>
               <% if featuring %>
-                <%= form_for([:admin, @classification, featuring], method: :delete, html: {class: "button_to"}) do |f| %>
+                <%= form_for([:admin, @topical_event, featuring], method: :delete, html: {class: "button_to"}) do |f| %>
                   <%= f.submit "Unfeature", class: "btn btn-danger" %>
                 <% end %>
               <% else %>
-                <%= link_to "Feature", polymorphic_path([:new, :admin, @classification, :classification_featuring], edition_id: edition.id), class: "btn btn-default" %>
+                <%= link_to "Feature", polymorphic_path([:new, :admin, @topical_event, :classification_featuring], edition_id: edition.id), class: "btn btn-default" %>
               <% end %>
             </td>
           <% end %>

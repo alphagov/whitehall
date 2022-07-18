@@ -270,7 +270,7 @@ module Whitehall::DocumentFilter
 
     def stub_topic(slug)
       topic = stub("topic-#{slug}", slug: slug, name: slug.humanize)
-      Classification.stubs(:where).with(slug: [slug]).returns([topic])
+      TopicalEvent.stubs(:where).with(slug: [slug]).returns([topic])
       topic
     end
 

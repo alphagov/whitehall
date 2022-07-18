@@ -120,7 +120,7 @@ private
       default_news_image_attributes: %i[file file_cache],
       organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
-      organisation_classifications_attributes: %i[classification_id ordering id _destroy],
+      organisation_classifications_attributes: %i[topical_event_id ordering id _destroy],
       featured_links_attributes: %i[title url _destroy id],
     )
   end
@@ -144,7 +144,7 @@ private
       params[:organisation][:organisation_classifications_attributes]
 
     params[:organisation][:organisation_classifications_attributes].each do |p|
-      if p[:classification_id].blank?
+      if p[:topical_event_id].blank?
         p["_destroy"] = true
       end
     end

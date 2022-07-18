@@ -4,13 +4,13 @@
       <% if classification_featuring.offsite? %>
         <div class="title col-md-6">
           <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
-          <%= link_to(classification_featuring.title, polymorphic_path([:edit, :admin, classification_featuring.classification, classification_featuring.offsite_link])) %>
+          <%= link_to(classification_featuring.title, polymorphic_path([:edit, :admin, classification_featuring.topical_event, classification_featuring.offsite_link])) %>
         </div>
         <div class="type col-md-2"><%= classification_featuring.offsite_link.link_type.titleize %> (offsite link)</div>
         <div class="date col-md-2"><%=localize classification_featuring.offsite_link.date.to_date if classification_featuring.offsite_link.date %></div>
         <div class="button col-md-2 text-right">
           <%= link_to('Unfeature',
-                polymorphic_path([:admin, classification_featuring.classification, classification_featuring]),
+                polymorphic_path([:admin, classification_featuring.topical_event, classification_featuring]),
                 data: { confirm: "Unfeature ‘#{classification_featuring.title}’?" },
                 method: :delete,
                 class: "btn btn-danger") %>
@@ -24,7 +24,7 @@
         <div class="date col-md-2"><%=localize classification_featuring.edition.major_change_published_at.to_date %></div>
         <div class="button col-md-2 text-right">
           <%= link_to('Unfeature',
-                polymorphic_path([:admin, classification_featuring.classification, classification_featuring]),
+                polymorphic_path([:admin, classification_featuring.topical_event, classification_featuring]),
                 data: { confirm: "Unfeature ‘#{classification_featuring.title}’?" },
                 method: :delete,
                 class: "btn btn-danger") %>

@@ -49,6 +49,6 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_equal featured_image, featuring.image
     assert_equal "alt-text", featuring.alt_text
     assert_equal 12, featuring.ordering
-    assert_equal topical_event, featuring.classification
+    assert_equal topical_event, featuring.topical_event
   end
 end
