@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_091333) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_111449) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -66,15 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_091333) do
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
     t.index ["ordering"], name: "index_attachments_on_ordering"
-  end
-
-  create_table "classification_policies", id: :integer, charset: "utf8mb3", force: :cascade do |t|
-    t.integer "classification_id"
-    t.string "policy_content_id"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["classification_id"], name: "index_classification_policies_on_classification_id"
-    t.index ["policy_content_id"], name: "index_classification_policies_on_policy_content_id"
   end
 
   create_table "consultation_participations", id: :integer, charset: "utf8mb3", force: :cascade do |t|
