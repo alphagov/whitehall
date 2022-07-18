@@ -6,12 +6,12 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert topical_event.is_a?(PublishesToPublishingApi)
   end
 
-  test "#destroy should also remove the classification memebership relationship" do
+  test "#destroy should also remove the topical event membership relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_news_article, topical_events: [topical_event])
-    relation = edition.classification_memberships.first
+    relation = edition.topical_event_memberships.first
     edition.destroy!
-    assert_not ClassificationMembership.find_by(id: relation.id)
+    assert_not TopicalEventMembership.find_by(id: relation.id)
   end
 
   test "new edition of document that is a member of a topical event should remain a member of that topical event" do

@@ -47,7 +47,7 @@ FactoryBot.define do
     trait(:with_topical_events) do
       after :build do |edition, evaluator|
         if evaluator.topical_events.empty?
-          edition.classification_memberships.build(
+          edition.topical_event_memberships.build(
             edition: edition,
             topical_event: build(:topical_event),
           )

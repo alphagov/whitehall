@@ -16,14 +16,14 @@ class TopicalEvent < ApplicationRecord
 
   has_one :topical_event_about_page
 
-  has_many :classification_memberships, inverse_of: :topical_event
-  has_many :editions, through: :classification_memberships
-  has_many :announcements, through: :classification_memberships
-  has_many :consultations, through: :classification_memberships
-  has_many :detailed_guides, through: :classification_memberships
-  has_many :news_articles, through: :classification_memberships
-  has_many :publications, through: :classification_memberships
-  has_many :speeches, through: :classification_memberships
+  has_many :topical_event_memberships, inverse_of: :topical_event
+  has_many :editions, through: :topical_event_memberships
+  has_many :announcements, through: :topical_event_memberships
+  has_many :consultations, through: :topical_event_memberships
+  has_many :detailed_guides, through: :topical_event_memberships
+  has_many :news_articles, through: :topical_event_memberships
+  has_many :publications, through: :topical_event_memberships
+  has_many :speeches, through: :topical_event_memberships
 
   has_many :features, inverse_of: :topical_event, dependent: :destroy
   has_many :offsite_links, as: :parent
@@ -49,30 +49,30 @@ class TopicalEvent < ApplicationRecord
 
   has_many :published_announcements,
            -> { where("editions.state" => "published") },
-           through: :classification_memberships,
+           through: :topical_event_memberships,
            class_name: "Announcement",
            source: :announcement
 
   has_many :published_publications,
            -> { where("editions.state" => "published") },
-           through: :classification_memberships,
+           through: :topical_event_memberships,
            class_name: "Publication",
            source: :publication
 
   has_many :published_consultations,
            -> { where("editions.state" => "published") },
-           through: :classification_memberships,
+           through: :topical_event_memberships,
            class_name: "Consultation",
            source: :consultation
 
   has_many :editions,
            -> { where("editions.state" => "published") },
-           through: :classification_memberships
+           through: :topical_event_memberships
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :alphabetical, -> { order("name ASC") }
   scope :order_by_start_date, -> { order("start_date DESC") }
-  scope :for_edition, ->(id) { joins(:classification_memberships).where(classification_memberships: { edition_id: id }) }
+  scope :for_edition, ->(id) { joins(:topical_event_memberships).where(topical_event_memberships: { edition_id: id }) }
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
@@ -82,7 +82,7 @@ class TopicalEvent < ApplicationRecord
   validate :start_and_end_dates
   validates :start_date, presence: true, if: ->(topical_event) { topical_event.end_date }
 
-  accepts_nested_attributes_for :classification_memberships
+  accepts_nested_attributes_for :topical_event_memberships
   accepts_nested_attributes_for :organisation_classifications
   accepts_nested_attributes_for :topical_event_featurings
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true

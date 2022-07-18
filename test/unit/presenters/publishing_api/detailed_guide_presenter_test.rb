@@ -35,7 +35,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     EditionPolicy.create!(edition_id: detailed_guide.id, policy_content_id: "dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8")
 
     topical_event = create(:topical_event)
-    detailed_guide.classification_memberships.create!(topical_event_id: topical_event.id)
+    detailed_guide.topical_event_memberships.create!(topical_event_id: topical_event.id)
 
     public_path = Whitehall.url_maker.public_document_path(detailed_guide)
     expected_content = {
