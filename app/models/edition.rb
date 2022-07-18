@@ -248,12 +248,7 @@ EXISTS (
   end
 
   def self.latest_published_edition
-    published.where("NOT EXISTS (
-      SELECT 1
-        FROM editions e2
-       WHERE e2.document_id = editions.document_id
-         AND e2.id > editions.id
-         AND e2.state = 'published')")
+    where(id: where(state: "published").group(:document_id).pluck("Max(editions.id)"))
   end
 
   def self.search_format_type
