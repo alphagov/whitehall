@@ -42,6 +42,7 @@ private
 
   def paginated_documents
     Edition
+      .latest_edition
       .joins("INNER JOIN edition_organisations eo ON eo.edition_id = editions.id
         AND eo.organisation_id = (
           SELECT organisation_id FROM edition_organisations
@@ -55,7 +56,6 @@ private
       .where(o: { content_id: params.require(:lead_organisation) })
       .where(eo: { lead: true })
       .by_type_or_subtypes(document_type, document_subtypes)
-      .latest_edition
       .order(:document_id)
       .page(page_number)
       .per(items_per_page)

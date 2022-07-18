@@ -2,7 +2,7 @@ namespace :asset_manager do
   desc "Update draft file attachments with auth_bypass_ids"
   task update_attachments_with_auth_bypass_ids: :environment do
     # republish assets who's editions are draft with an auth bypass id
-    latest_draft_editions = Edition.in_pre_publication_state.latest_edition
+    latest_draft_editions = Edition.latest_edition.in_pre_publication_state
 
     latest_draft_editions.find_each do |edition|
       next unless edition.respond_to?(:attachments)
@@ -17,7 +17,7 @@ namespace :asset_manager do
 
   desc "Update draft consultation response form attachments with auth_bypass_ids"
   task update_consultation_response_forms_with_auth_bypass_ids: :environment do
-    latest_draft_consultations = Consultation.in_pre_publication_state.latest_edition
+    latest_draft_consultations = Consultation.latest_edition.in_pre_publication_state
 
     latest_draft_consultations.find_each do |consultation|
       if consultation.consultation_participation&.consultation_response_form.present?
@@ -48,7 +48,7 @@ namespace :asset_manager do
 
   desc "Update draft images with auth_bypass_ids"
   task update_images_with_auth_bypass_ids: :environment do
-    latest_draft_editions = Edition.in_pre_publication_state.latest_edition
+    latest_draft_editions = Edition.latest_edition.in_pre_publication_state
 
     latest_draft_editions.find_each do |edition|
       edition.images.each do |image|
