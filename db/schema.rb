@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_18_073429) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_085201) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -68,37 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_073429) do
     t.index ["ordering"], name: "index_attachments_on_ordering"
   end
 
-  create_table "classification_featuring_image_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
-    t.string "carrierwave_image"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-  end
-
-  create_table "classification_featurings", id: :integer, charset: "utf8mb3", force: :cascade do |t|
-    t.integer "edition_id"
-    t.integer "classification_id"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "ordering"
-    t.integer "classification_featuring_image_data_id"
-    t.string "alt_text"
-    t.integer "offsite_link_id"
-    t.index ["classification_featuring_image_data_id"], name: "index_cl_feat_on_edition_org_image_data_id"
-    t.index ["classification_id"], name: "index_cl_feat_on_classification_id"
-    t.index ["edition_id", "classification_id"], name: "index_cl_feat_on_edition_id_and_classification_id", unique: true
-    t.index ["offsite_link_id"], name: "index_classification_featurings_on_offsite_link_id"
-  end
-
-  create_table "classification_memberships", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.integer "classification_id"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "edition_id"
-    t.integer "ordering"
-    t.index ["classification_id"], name: "index_classification_memberships_on_classification_id"
-    t.index ["edition_id"], name: "index_classification_memberships_on_edition_id"
-  end
-
   create_table "classification_policies", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "classification_id"
     t.string "policy_content_id"
@@ -115,23 +84,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_073429) do
     t.datetime "updated_at", precision: nil
     t.index ["classification_id"], name: "index_classification_relations_on_classification_id"
     t.index ["related_classification_id"], name: "index_classification_relations_on_related_classification_id"
-  end
-
-  create_table "classifications", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.text "description"
-    t.string "slug"
-    t.string "state"
-    t.string "type"
-    t.string "carrierwave_image"
-    t.string "logo_alt_text"
-    t.date "start_date"
-    t.date "end_date"
-    t.string "content_id"
-    t.text "summary"
-    t.index ["slug"], name: "index_classifications_on_slug"
   end
 
   create_table "consultation_participations", id: :integer, charset: "utf8mb3", force: :cascade do |t|
@@ -691,19 +643,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_073429) do
     t.index ["slug"], name: "index_operational_fields_on_slug"
   end
 
-  create_table "organisation_classifications", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.integer "organisation_id", null: false
-    t.integer "classification_id", null: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "ordering"
-    t.boolean "lead", default: false, null: false
-    t.integer "lead_ordering"
-    t.index ["classification_id"], name: "index_org_classifications_on_classification_id"
-    t.index ["organisation_id", "ordering"], name: "index_org_classifications_on_organisation_id_and_ordering", unique: true
-    t.index ["organisation_id"], name: "index_org_classifications_on_organisation_id"
-  end
-
   create_table "organisation_roles", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "organisation_id"
     t.integer "role_id"
@@ -1061,6 +1000,67 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_073429) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "content_id"
+  end
+
+  create_table "topical_event_featuring_image_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+    t.string "carrierwave_image"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "topical_event_featurings", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+    t.integer "edition_id"
+    t.integer "topical_event_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "ordering"
+    t.integer "topical_event_featuring_image_data_id"
+    t.string "alt_text"
+    t.integer "offsite_link_id"
+    t.index ["edition_id", "topical_event_id"], name: "index_topical_event_feat_on_edition_id_and_topical_event_id", unique: true
+    t.index ["offsite_link_id"], name: "index_topical_event_featurings_on_offsite_link_id"
+    t.index ["topical_event_featuring_image_data_id"], name: "index_topical_event_feat_on_topical_event_feat_image_data_id"
+    t.index ["topical_event_id"], name: "index_topical_event_feat_on_topical_event_id"
+  end
+
+  create_table "topical_event_memberships", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.integer "topical_event_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "edition_id"
+    t.integer "ordering"
+    t.index ["edition_id"], name: "index_topical_event_memberships_on_edition_id"
+    t.index ["topical_event_id"], name: "index_topical_event_memberships_on_topical_event_id"
+  end
+
+  create_table "topical_event_organisations", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.integer "organisation_id", null: false
+    t.integer "topical_event_id", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "ordering"
+    t.boolean "lead", default: false, null: false
+    t.integer "lead_ordering"
+    t.index ["organisation_id", "ordering"], name: "index_topical_event_org_on_organisation_id_and_ordering", unique: true
+    t.index ["organisation_id"], name: "index_topical_event_org_on_organisation_id"
+    t.index ["topical_event_id"], name: "index_topical_event_org_on_topical_event_id"
+  end
+
+  create_table "topical_events", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.text "description"
+    t.string "slug"
+    t.string "state"
+    t.string "type"
+    t.string "carrierwave_image"
+    t.string "logo_alt_text"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "content_id"
+    t.text "summary"
+    t.index ["slug"], name: "index_topical_events_on_slug"
   end
 
   create_table "unpublishings", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
