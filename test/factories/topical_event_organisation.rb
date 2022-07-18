@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :organisation_classification do
+  factory :topical_event_organisation do
     organisation { FactoryBot.build(:organisation) }
-    classification { FactoryBot.build(:topical_event) }
+    topical_event { FactoryBot.build(:topical_event) }
     lead { false }
   end
 end

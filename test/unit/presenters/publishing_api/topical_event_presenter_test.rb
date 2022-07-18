@@ -13,9 +13,9 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     create(:topical_event_about_page, topical_event: topical_event, read_more_link_text: "Read more about this event")
 
     first_lead_org = create(:organisation)
-    first_lead_org.organisation_classifications.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
+    first_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
     second_lead_org = create(:organisation)
-    second_lead_org.organisation_classifications.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 2)
+    second_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 2)
 
     public_path = "/government/topical-events/humans-going-to-mars"
 

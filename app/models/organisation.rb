@@ -76,14 +76,14 @@ class Organisation < ApplicationRecord
 
   has_many :people, through: :roles
 
-  has_many :organisation_classifications,
-           -> { order("organisation_classifications.ordering") },
+  has_many :topical_event_organisations,
+           -> { order("topical_event_organisations.ordering") },
            dependent: :destroy
-  has_many :topical_events, through: :organisation_classifications
+  has_many :topical_events, through: :topical_event_organisations
 
   has_many :topical_events,
-           -> { order("organisation_classifications.ordering") },
-           through: :organisation_classifications
+           -> { order("topical_event_organisations.ordering") },
+           through: :topical_event_organisations
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
@@ -131,7 +131,7 @@ class Organisation < ApplicationRecord
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
-  accepts_nested_attributes_for :organisation_classifications, reject_if: ->(attributes) { attributes["topical_event_id"].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :topical_event_organisations, reject_if: ->(attributes) { attributes["topical_event_id"].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
 
   validates :slug, presence: true, uniqueness: { case_sensitive: false }

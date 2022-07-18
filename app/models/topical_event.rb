@@ -29,8 +29,8 @@ class TopicalEvent < ApplicationRecord
   has_many :offsite_links, as: :parent
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
-  has_many :organisation_classifications
-  has_many :organisations, through: :organisation_classifications
+  has_many :topical_event_organisations
+  has_many :organisations, through: :topical_event_organisations
 
   has_many :topical_event_featurings,
            lambda {
@@ -83,7 +83,7 @@ class TopicalEvent < ApplicationRecord
   validates :start_date, presence: true, if: ->(topical_event) { topical_event.end_date }
 
   accepts_nested_attributes_for :topical_event_memberships
-  accepts_nested_attributes_for :organisation_classifications
+  accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
@@ -147,15 +147,15 @@ class TopicalEvent < ApplicationRecord
   end
 
   def lead_organisations
-    organisations.where(organisation_classifications: { lead: true }).reorder("organisation_classifications.lead_ordering")
+    organisations.where(topical_event_organisations: { lead: true }).reorder("topical_event_organisations.lead_ordering")
   end
 
-  def lead_organisation_classifications
-    organisation_classifications.where(lead: true).order("organisation_classifications.lead_ordering")
+  def lead_topical_event_organisations
+    topical_event_organisations.where(lead: true).order("topical_event_organisations.lead_ordering")
   end
 
   def importance_ordered_organisations
-    organisations.reorder("organisation_classifications.lead DESC, organisation_classifications.lead_ordering")
+    organisations.reorder("topical_event_organisations.lead DESC, topical_event_organisations.lead_ordering")
   end
 
   def latest(limit = 3)

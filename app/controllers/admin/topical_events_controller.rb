@@ -99,7 +99,7 @@ private
       topical_event_membership_attributes: %i[id ordering],
       social_media_accounts_attributes: %i[social_media_service_id url _destroy id],
       featured_links_attributes: %i[title url _destroy id],
-      organisation_classifications_attributes: %i[id lead lead_ordering],
+      topical_event_organisations_attributes: %i[id lead lead_ordering],
     )
   end
 end

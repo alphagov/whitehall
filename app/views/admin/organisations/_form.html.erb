@@ -78,13 +78,13 @@
     </p>
 
     <h3>Topical events</h3>
-    <% organisation_form.object.organisation_classifications.each do |oc| %>
+    <% organisation_form.object.topical_event_organisations.each do |oc| %>
       <p>
         <%= label_tag "organisation_topical_event_ids_#{oc.ordering}" do %>
           Topical Event <%= oc.ordering + 1 %>
-          <%= select_tag "organisation[organisation_classifications_attributes][][topical_event_id]", options_from_collection_for_select(TopicalEvent.all, 'id', 'name', oc.topical_event_id), include_blank: true, multiple: false, class: 'chzn-select form-control', data: { placeholder: "Choose topical events…"}, id: "organisation_topical_event_ids_#{oc.ordering}" %>
-          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][ordering]", oc.ordering %>
-          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][id]", oc.id %>
+          <%= select_tag "organisation[topical_event_organisations_attributes][][topical_event_id]", options_from_collection_for_select(TopicalEvent.all, 'id', 'name', oc.topical_event_id), include_blank: true, multiple: false, class: 'chzn-select form-control', data: { placeholder: "Choose topical events…"}, id: "organisation_topical_event_ids_#{oc.ordering}" %>
+          <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][ordering]", oc.ordering %>
+          <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][id]", oc.id %>
         <% end %>
       </p>
     <% end %>

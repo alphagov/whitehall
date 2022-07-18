@@ -21,7 +21,7 @@
       <legend>Organisations</legend>
 
       <div id="organisation_sortable">
-        <%= topical_event_form.fields_for :organisation_classifications, topical_event.organisation_classifications.where(lead: false) do |organisation_form| %>
+        <%= topical_event_form.fields_for :topical_event_organisations, topical_event.topical_event_organisations.where(lead: false) do |organisation_form| %>
           <% organisation = organisation_form.object.organisation %>
           <div id="<%= dom_id(organisation) %>" class="well remove-bottom-padding">
             <%= organisation_form.text_field :lead_ordering, label_text: link_to(organisation.name, admin_organisation_path(organisation)), class: "ordering" %>
@@ -35,7 +35,7 @@
       <legend>Lead organisations</legend>
 
       <div id="lead_organisation_sortable">
-        <%= topical_event_form.fields_for :organisation_classifications, topical_event.lead_organisation_classifications do |lead_organisation_form| %>
+        <%= topical_event_form.fields_for :topical_event_organisations, topical_event.lead_topical_event_organisations do |lead_organisation_form| %>
           <% lead_organisation = lead_organisation_form.object.organisation %>
           <div id="<%= dom_id(lead_organisation) %>" class="well">
             <%= lead_organisation_form.text_field :lead_ordering, label_text: link_to(lead_organisation.name, admin_organisation_path(lead_organisation)), class: "ordering" %>

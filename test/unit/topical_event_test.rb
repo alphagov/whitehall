@@ -106,11 +106,11 @@ class TopicalEventTest < ActiveSupport::TestCase
   test "#importance_ordered_organisations" do
     topical_event = create(:topical_event)
     supporting_org = create(:organisation)
-    supporting_org.organisation_topical_events.create!(topical_event_id: topical_event.id, lead: false)
+    supporting_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: false)
     second_lead_org = create(:organisation)
-    second_lead_org.organisation_topical_events.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 2)
+    second_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 2)
     first_lead_org = create(:organisation)
-    first_lead_org.organisation_topical_events.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
+    first_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
     assert_equal topical_event.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
   end
 
