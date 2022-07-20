@@ -63,6 +63,9 @@ RUN GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
   GOVUK_APP_DOMAIN_EXTERNAL=www.gov.uk \
   JWT_AUTH_SECRET=secret \
   bundle exec rake assets:precompile
+<<<<<<< HEAD
+>>>>>>> ed92bb8b4c22b7b560b7a0c143fddd04d8b8a5ae
+=======
 >>>>>>> ed92bb8b4c22b7b560b7a0c143fddd04d8b8a5ae
 
 FROM $base_image

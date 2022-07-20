@@ -39,9 +39,9 @@ jobs:
     uses: alphagov/govuk-infrastructure/.github/workflows/deploy.yaml@main
     with:
       imageTag: ${{ needs.build-and-publish-image.outputs.imageTag }}
-      manualDeploy: ${{ 'main' != github.event.inputs.gitRef }}
-      environment: ${{ github.event.inputs.environment || 'integration' }}
+      workflowTrigger: ${{ github.event_name }}
+      environment: ${{ github.event.inputs.environment }}
     secrets:
-      WEBHOOK_TOKEN: ${{ secrets.ARGO_EVENTS_WEBHOOK_TOKEN }}
-      WEBHOOK_URL: ${{ secrets.ARGO_EVENTS_WEBHOOK_URL }}
+      WEBHOOK_TOKEN: ${{ secrets.GOVUK_INTEGRATION_ARGO_EVENTS_WEBHOOK_TOKEN }}
+      WEBHOOK_URL: ${{ secrets.GOVUK_INTEGRATION_ARGO_EVENTS_WEBHOOK_URL }}
       GOVUK_CI_GITHUB_API_TOKEN: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
