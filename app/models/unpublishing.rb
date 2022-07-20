@@ -12,6 +12,8 @@ class Unpublishing < ApplicationRecord
 
   after_initialize :ensure_presence_of_content_id
 
+  before_save :set_unpublished_at
+
   before_validation :strip_alternative_url
 
   def strip_alternative_url
@@ -88,5 +90,9 @@ private
 
   def ensure_presence_of_content_id
     self.content_id ||= SecureRandom.uuid
+  end
+
+  def set_unpublished_at
+    self.unpublished_at = Time.zone.now if unpublished_at.blank?
   end
 end

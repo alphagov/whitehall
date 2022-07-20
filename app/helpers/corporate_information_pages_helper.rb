@@ -1,7 +1,7 @@
 module CorporateInformationPagesHelper
   def render_corporate_info_header_for(organisation, corporate_information_page = nil)
     render(
-      partial: "#{organisation.class.table_name}/header",
+      partial: "header",
       locals: {
         organisation: organisation,
         link_to_organisation: true,

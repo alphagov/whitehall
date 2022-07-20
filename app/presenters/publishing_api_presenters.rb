@@ -16,7 +16,7 @@ module PublishingApiPresenters
         presenter_class_for_edition(model)
       when Government
         PublishingApi::GovernmentPresenter
-      when AboutPage
+      when TopicalEventAboutPage
         PublishingApi::TopicalEventAboutPagePresenter
       when PolicyGroup
         PublishingApi::WorkingGroupPresenter

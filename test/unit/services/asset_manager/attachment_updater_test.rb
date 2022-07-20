@@ -14,5 +14,17 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
       subject.call(attachment_data, redirect_url: true, draft_status: true)
     end
+
+    context "when the attachment has been deleted" do
+      before do
+        attachment.delete
+      end
+
+      it "does not update the asset" do
+        AssetManager::AssetUpdater.expects(:call).never
+
+        subject.call(attachment_data, redirect_url: true, draft_status: true)
+      end
+    end
   end
 end

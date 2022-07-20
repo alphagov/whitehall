@@ -17,7 +17,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        description: nil,
+        description: item.summary,
         details: details,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -35,6 +35,10 @@ module PublishingApi
 
     def details
       {}.tap do |details|
+        details[:about_page_link_text] = item.topical_event_about_page.read_more_link_text if item.topical_event_about_page && item.topical_event_about_page.read_more_link_text
+        details[:body] = body
+        details[:emphasised_organisations] = item.lead_organisations.map(&:content_id)
+        details[:image] = image if item.logo_url
         details[:start_date] = item.start_date.rfc3339 if item.start_date
         details[:end_date] = item.end_date.rfc3339 if item.end_date
         details[:ordered_featured_documents] = ordered_featured_documents
@@ -42,18 +46,33 @@ module PublishingApi
       end
     end
 
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.description)
+    end
+
+    def image
+      {
+        url: item.logo_url(:s300),
+        alt_text: item.logo_alt_text,
+      }
+    end
+
     def ordered_featured_documents
-      item.classification_featurings.includes(:image, edition: :document).map do |feature|
-        {
-          title: feature.title,
-          href: feature.url,
-          image: {
-            url: feature.image.file.url(:s465),
-            alt_text: feature.alt_text,
-          },
-          summary: feature.summary,
-        }
-      end
+      item
+        .classification_featurings
+        .includes(:image, edition: :document)
+        .limit(FeaturedLink::DEFAULT_SET_SIZE)
+        .map do |feature|
+          {
+            title: feature.title,
+            href: feature.url,
+            image: {
+              url: feature.image.file.url(:s465),
+              alt_text: feature.alt_text,
+            },
+            summary: feature.summary,
+          }
+        end
     end
 
     def social_media_links

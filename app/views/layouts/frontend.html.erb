@@ -2,7 +2,6 @@
   <main id="content" role="main" class="whitehall-content"<%= " lang=#{I18n.locale.to_s}" unless I18n.locale == :en %>>
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>
-      <%= render_mustache_templates if Rails.env.development? %>
     </div>
   </main>
 <% end %>

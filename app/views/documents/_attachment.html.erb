@@ -1,7 +1,6 @@
 <%
   published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
-  help_block_toggle_id = "attachment-#{attachment.id}-accessibility-request"
   thumbnail_link_options = { "aria-hidden" => true, class: 'thumbnail', tabindex: '-1'}
 
   title_link_options = {}
@@ -69,27 +68,23 @@
     <% end %>
 
     <% unless attachment.accessible? %>
-      <% if attachment.attachable.alternative_format_provider.present? && participating_in_accessible_format_request_pilot?(alternative_format_contact_email) %>
-        <%= link_to "Request an accessible format of this document", "/contact/govuk/request-accessible-format?content_id=#{attachment.attachable.content_id}&attachment_id=#{attachment.id}", class: "govuk-link govuk-!-font-size-19" %>
-      <% else %>
-        <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
-          <p class="govuk-body"><%= t('attachment.accessibility.intro') %></p>
-          <%= render "govuk_publishing_components/components/details", {
-            title: t('attachment.accessibility.request_a_different_format'),
-            data_attributes: {
-              track_category: "Accessible Format Request",
-              track_action: "FormatRequestClicked",
-              track_label: attachment.title,
-              module: "govuk-details"
-            }
-          } do %>
-            <%= t('attachment.accessibility.full_help_html',
-            email: alternative_format_order_link(attachment, alternative_format_contact_email),
-            title: attachment.title,
-            references: attachment_references(attachment)) %>
-          <% end %>
-        </div>
-      <% end %>
+      <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
+        <p class="govuk-body"><%= t('attachment.accessibility.intro') %></p>
+        <%= render "govuk_publishing_components/components/details", {
+          title: t('attachment.accessibility.request_a_different_format'),
+          data_attributes: {
+            track_category: "Accessible Format Request",
+            track_action: "FormatRequestClicked",
+            track_label: attachment.title,
+            module: "govuk-details"
+          }
+        } do %>
+          <%= t('attachment.accessibility.full_help_html',
+          email: alternative_format_order_link(attachment, alternative_format_contact_email),
+          title: attachment.title,
+          references: attachment_references(attachment)) %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>

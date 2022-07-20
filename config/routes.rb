@@ -248,7 +248,7 @@ Whitehall::Application.routes.draw do
           resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
-          resource :about_pages, path: "about"
+          resource :topical_event_about_pages, path: "about"
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end
@@ -305,6 +305,7 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: "edition_workflow#convert_to_draft"
             get  :audit_trail, to: "edition_audit_trail#index"
             get  :show_locked, to: "editions#show_locked"
+            patch :update_bypass_id
           end
           resources :link_check_reports
           resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]
@@ -408,7 +409,7 @@ Whitehall::Application.routes.draw do
     get "/placeholder" => "placeholder#show", as: :placeholder
   end
 
-  get "/courts-tribunals(.:locale)", as: "courts", to: "organisations#index", courts_only: true, constraints: { locale: valid_locales_regex }
+  # TODO: the organisations controller has been removed but this route is still required to get the relevant helper methods. This can be removed once new helpers have been created.
   get "/courts-tribunals/:id(.:locale)", as: "court", to: "organisations#show", courts_only: true, constraints: { locale: valid_locales_regex }
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }

@@ -30,22 +30,42 @@
       if (breadcrumbsToDisplay.length === 0) {
         $element.removeClass('content').removeClass('content-bordered')
         $element.addClass('no-content').addClass('no-content-bordered')
-        $element.text('No topics - please add a topic before publishing')
+        $element.text('No topic taxonomy tags - please add a tag before publishing')
       } else {
         $element.addClass('content').addClass('content-bordered')
         $element.removeClass('no-content').removeClass('no-content-bordered')
 
-        $element.mustache(
-          'admin/shared/tagging/_breadcrumb_list',
-          { breadcrumbs: breadcrumbsToDisplay }
-        )
-        $('.deselect-taxon-button').each(function (idx, button) {
-          // Toggle the state of the relevant checkbox
-          $(button).on('click', function () {
-            $(breadcrumbsToDisplay[idx].checkbox).trigger('click')
-          })
-        })
+        preview.appendBreadcrumbsHtml($element, breadcrumbsToDisplay)
       }
+    }
+
+    preview.appendBreadcrumbsHtml = function ($container, breadcrumbs) {
+      $container.empty()
+
+      var breadcrumbElements = $.map(breadcrumbs, function (breadcrumb, index) {
+        var $element = $('<div class="taxon-breadcrumb">' +
+          '<ol></ol>' +
+          '<button type="button" class="close" aria-label="Deselect topic">' +
+            '<span aria-hidden="true">&times;</span>' +
+          '</button>' +
+          '</div>')
+
+        var $ancestors = $.map(breadcrumb.ancestors, function (ancestor) {
+          var $ancestorElement = $('<li />')
+          $ancestorElement.text(ancestor)
+          return $ancestorElement
+        })
+
+        $element.find('ol').append($ancestors)
+
+        $element.find('button').on('click', function () {
+          $(breadcrumbs[index].checkbox).trigger('click')
+        })
+
+        return $element
+      })
+
+      $container.append(breadcrumbElements)
     }
 
     preview.filterBreadcrumbs = function (breadcrumbs) {

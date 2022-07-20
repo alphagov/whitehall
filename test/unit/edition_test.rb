@@ -36,33 +36,28 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal payload["exp"], 1.month.from_now.to_i
   end
 
-  test "edition has shareable preview enabled if it is in the draft state, user has the permission and the type is not excluded" do
-    edition = create(:draft_case_study)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), true
+  test "edition has shareable preview enabled if it is in the pre-publication state and the type is not excluded" do
+    draft_edition = create(:draft_case_study)
+    imported_edition = create(:imported_case_study)
+    submitted_edition = create(:submitted_case_study)
+    rejected_edition = create(:rejected_case_study)
+    scheduled_edition = create(:scheduled_case_study)
+
+    assert_equal draft_edition.has_enabled_shareable_preview?, true
+    assert_equal imported_edition.has_enabled_shareable_preview?, true
+    assert_equal submitted_edition.has_enabled_shareable_preview?, true
+    assert_equal rejected_edition.has_enabled_shareable_preview?, true
+    assert_equal scheduled_edition.has_enabled_shareable_preview?, true
   end
 
   test "edition has shareable preview disabled if it is in the published state" do
     edition = create(:published_case_study)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), false
+    assert_equal edition.has_enabled_shareable_preview?, false
   end
 
-  test "edition has shareable preview disabled if the user does not have a permission" do
-    edition = create(:draft_consultation)
-    user = create(:gds_editor)
-    user.permissions = []
-    assert_equal edition.has_enabled_shareable_preview?(user), false
-  end
-
-  # test below will be removed after enabling shareable preview for this doccument type
-  test "edition has shareable preview disabled if it has document collection type" do
+  test "edition has shareable preview enabled if it has document collection type" do
     edition = create(:draft_document_collection)
-    user = create(:gds_editor)
-    user.permissions << "can share previews"
-    assert_equal edition.has_enabled_shareable_preview?(user), false
+    assert_equal edition.has_enabled_shareable_preview?, true
   end
 
   test "uses provided document if available" do

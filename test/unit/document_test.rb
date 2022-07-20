@@ -147,6 +147,22 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal publication, document.scheduled_edition
   end
 
+  test "#first_published_on_govuk returns first time it was published on GOV.UK" do
+    Timecop.freeze(Time.zone.now - 3.days)
+    edition = create(:submitted_edition)
+    Timecop.freeze(Time.zone.now + 1.day)
+    edition.major_change_published_at = Time.zone.now
+    edition.publish!
+    publication_date = edition.updated_at
+    Timecop.freeze(Time.zone.now + 1.day)
+    new_edition = edition.create_draft(edition.creator)
+    new_edition.change_note = "updated"
+    new_edition.submit!
+    new_edition.publish!
+
+    assert_equal publication_date, new_edition.document.first_published_on_govuk
+  end
+
   test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
     superseded = create(:superseded_edition, document: document)

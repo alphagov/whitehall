@@ -19,7 +19,7 @@
   <% end %>
 </section>
 
-<% if @edition.has_enabled_shareable_preview?(current_user) %>
+<% if @edition.has_enabled_shareable_preview? %>
   <section>
     <%
     utm_uri = preview_document_url_with_auth_bypass_token(@edition)
@@ -36,11 +36,18 @@
           </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <p>Send the preview link to someone so they can see a preview of how the document will appear on GOV.UK. No password or GOV.UK Signon account is needed.</p>
-            <p>The preview link will expire on <%= Date.today.next_month.strftime('%d-%m-%Y') %> or when the document is published.</p>
-            <p><strong>Select all and copy the link</strong></p>
-            <textarea class="form-control" rows="3"><%= utm_uri %></textarea>
+          <div class="panel-body" data-module="track-button-click" data-track-category="pageElementInteraction" data-track-action="CopyDocumentPreview">
+            <p>Send this preview link to someone so they can see the content and how the document will appear on GOV.UK.</p>
+            <p>No password is needed and anyone with the preview link can view it. You're responsible for who you share draft documents with. </p>
+            <p>The preview link will expire on <%= Date.today.next_month.strftime('%-d %B %Y') %> or when the document is published.</p>
+            <input class="form-control form-group-lg" type="text" readonly="readonly" value="<%= utm_uri %>" /><br>
+            <%= link_to "Copy link", "#", id: "copy_preview_link", title: "Copy preview link", class: "btn btn-default btn-lg copy-to-clipboard" %><br>
+
+            <% if !@edition.publicly_visible? %>
+              <br>
+              <p>Reset and generate a new preview link if you've shared the preview with the wrong person or if the link has expired. This will disable the previous preview link.</p>
+              <%= link_to "Generate new link", update_bypass_id_admin_edition_path(@edition), class: 'btn btn-lg btn-default', method: :patch %>
+            <% end %>
           </div>
         </div>
       </div>

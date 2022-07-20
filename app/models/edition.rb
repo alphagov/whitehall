@@ -508,22 +508,36 @@ EXISTS (
   end
 
   def rejected_by
-    rejected_event = latest_version_audit_entry_for("rejected")
-    rejected_event && rejected_event.actor
+    versions_desc.where(state: "rejected").first.try(:user)
   end
 
   def published_by
-    published_event = latest_version_audit_entry_for("published")
-    published_event && published_event.actor
+    versions_desc.where(state: "published").first.try(:user)
   end
 
   def scheduled_by
-    scheduled_event = latest_version_audit_entry_for("scheduled")
-    scheduled_event && scheduled_event.actor
+    versions_desc.where(state: "scheduled").first.try(:user)
   end
 
   def submitted_by
-    most_recent_submission_audit_entry.try(:actor)
+    # Find this edition's most recent state change from non-submitted to submitted.
+    # This will tell us when it was most recently submitted, even if there were subsequent
+    # changes from other users while the document remained in a "submitted" state.
+
+    latest_submitted_version = versions_desc.select("created_at, id")
+                                            .where(state: :submitted)
+                                            .limit(1)
+
+    pre_submitted_version = versions_desc.select("created_at, id")
+                                         .where.not(state: "submitted")
+                                         .where("(created_at, id) < (:submitted_version)", submitted_version: latest_submitted_version)
+                                         .limit(1)
+
+    first_submitted_version = versions_asc.where(state: "submitted")
+                                          .where("(created_at, id) > (:pre_submitted_version)", pre_submitted_version: pre_submitted_version)
+                                          .first
+
+    first_submitted_version.try(:user)
   end
 
   def title_with_state
@@ -718,9 +732,8 @@ EXISTS (
     )
   end
 
-  # conditions for document types will be removed after enabling shareable preview for them
-  def has_enabled_shareable_preview?(user)
-    state == "draft" && user.can_share_previews? && type != "DocumentCollection"
+  def has_enabled_shareable_preview?
+    PRE_PUBLICATION_STATES.include?(state)
   end
 
   delegate :locked?, to: :document

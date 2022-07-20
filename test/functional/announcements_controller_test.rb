@@ -279,7 +279,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index for non-english locales only allows filtering by world location" do
     get :index, params: { locale: "fr" }
 
-    assert_select "select#world_locations"
+    assert_select "select#world_locations[name='world_locations[]']"
   end
 
   view_test "index for non-english locales skips results summary" do

@@ -26,19 +26,8 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   fill_in "edition_change_note", with: change_note
   apply_to_all_nations_if_required
   click_button "Save and continue"
-  click_button "Save topic changes"
+  click_button "Save tagging changes"
   publish(force: true)
-end
-
-Then(/^the change notes should appear in the history for the detailed guide "([^"]*)" in reverse chronological order$/) do |title|
-  detailed_guide = DetailedGuide.find_by!(title: title)
-  visit detailed_guide_path(detailed_guide.document)
-  document_history = detailed_guide.change_history
-  change_notes = find(".change-notes").all(".note")
-  expect(document_history.length).to eq(change_notes.length)
-  document_history.zip(change_notes).each do |history, note|
-    expect(history.note).to eq(note.text.strip)
-  end
 end
 
 When(/^I start drafting a new edition for the detailed guide "([^"]*)"$/) do |guide_title|

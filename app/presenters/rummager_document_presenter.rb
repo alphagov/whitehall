@@ -81,11 +81,6 @@ class RummagerDocumentPresenter < ActionView::Base
     tag.time(class: :public_timestamp, datetime: public_timestamp.iso8601) { publication_date }
   end
 
-  def topics
-    # Retuns nil as topics aren't rendered in the announcements finder.
-    # This method is needed because the shared mustache template expects it to be available.
-  end
-
   def as_hash
     {
       id: content_id,

@@ -27,7 +27,7 @@
           <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
         </aside>
         <% if has_any_transparency_pages?(@organisation) %>
-          <%= render partial: "#{@organisation.class.table_name}/corporate_information",
+          <%= render partial: "corporate_information",
                      locals: { organisation: @organisation, show_access_our_information_header: true } %>
         <% end %>
         <% if @corporate_publications.any? %>

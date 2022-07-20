@@ -2,6 +2,7 @@
   <td class="name">
     <%= link_to topical_event.name, [:admin, topical_event], title: "Edit #{human_friendly_model_name.downcase} #{topical_event.name}" %>
   </td>
+  <td class="summary"><%= truncate(topical_event.summary, length: 130, separator: ' ') %></td>
   <td class="description"><%= truncate(topical_event.description, length: 130, separator: ' ') %></td>
   <td class="details"><%= classification_contents_breakdown(topical_event) %></td>
   <td class="duration">

@@ -20,7 +20,7 @@ Scenario: Featuring a locked document on a world location page
   Then I cannot see the document in the list of featurable documents
 
 Scenario: Featuring a locked document on a topical event page
-  Given a topical event called "Quidditch World Cup" with description "Sporting event"
+  Given a topical event called "Quidditch World Cup" with summary "World cup" and description "Sporting event"
   And the document is tagged to the topical event "Quidditch World Cup"
   And the document is locked
   And I visit the topical event admin page for "Quidditch World Cup"

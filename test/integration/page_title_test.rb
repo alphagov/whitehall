@@ -3,14 +3,15 @@ require "test_helper"
 class PageTitleTest < ActiveSupport::TestCase
   EXCLUDED_TEMPLATES = %w[
     authentications/failure.html.erb
-    admin/about_pages/edit.html.erb
-    admin/about_pages/new.html.erb
+    admin/topical_event_about_pages/edit.html.erb
+    admin/topical_event_about_pages/new.html.erb
     admin/edition_audit_trail/index.html.erb
     admin/preview/preview.html.erb
     layouts/admin.html.erb
     layouts/frontend.html.erb
     layouts/home.html.erb
     layouts/html_attachments.html.erb
+    layouts/draft_html_attachments.html.erb
   ].map do |f|
     File.expand_path(Rails.root.join("app/views/#{f}"))
   end

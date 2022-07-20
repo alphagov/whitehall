@@ -5,7 +5,15 @@
 <%= link_to "Create #{human_friendly_model_name.downcase}", [:new, :admin, model_name.to_sym], class: "btn btn-default new_resource", title: "Create a #{human_friendly_model_name.downcase}" %>
 
 <table class="<%= model_name %> table table-striped table-bordered add-top-margin">
-  <%= render 'table_header' %>
+  <thead>
+    <tr class="table-header">
+      <th width="15%">Name</th>
+      <th>Summary</th>
+      <th>Description</th>
+      <th width="20%">Details</th>
+      <th width="10%">Duration</th>
+    </tr>
+  </thead>
 
   <tbody>
     <%= render @classifications %>

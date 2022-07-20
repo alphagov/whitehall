@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "7.0.3"
+gem "rails", "7.0.3.1"
 
 gem "activemodel-serializers-xml"
 gem "addressable"
@@ -52,7 +52,6 @@ gem "ruby-progressbar", require: false
 gem "rubyzip"
 gem "sassc-rails"
 gem "sentry-sidekiq"
-gem "shared_mustache"
 gem "sidekiq-scheduler"
 gem "slimmer"
 gem "sprockets-rails"
@@ -78,7 +77,6 @@ group :development do
 end
 
 group :test do
-  gem "ci_reporter_minitest"
   gem "database_cleaner-active_record"
   gem "equivalent-xml"
   gem "factory_bot"

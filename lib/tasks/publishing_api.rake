@@ -273,6 +273,17 @@ namespace :publishing_api do
       end
     end
 
+    desc "Republish all draft editions with HTML attachments to the Publishing API"
+    task drafts_with_html_attachments: :environment do
+      document_ids = Edition
+        .in_pre_publication_state
+        .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
+        .pluck(:document_id)
+      document_ids.each do |document_id|
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+      end
+    end
+
     desc "Republish all documents of a given type, eg 'NewsArticle'"
     task :document_type, [:document_type] => :environment do |_, args|
       documents = Document.where(document_type: args[:document_type])

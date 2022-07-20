@@ -17,7 +17,8 @@ $gutter-one-sixth: $gutter-one-third * .5; // equivalent to 8px
 $is-print: true;
 
 @import "govuk_publishing_components/govuk_frontend_support";
-@import "govuk_publishing_components/components/print/button";
+@import "govuk_publishing_components/components/print/contents-list";
+@import "govuk_publishing_components/components/print/organisation-logo";
 @import "govuk_publishing_components/components/print/govspeak";
 @import "govuk_publishing_components/components/print/title";
 
@@ -45,6 +46,5 @@ html {
   @import "print/index-list";
   @import "print/language-support";
   @import "print/ministerial-roles";
-  @import "print/organisations";
   @import "print/print";
 }

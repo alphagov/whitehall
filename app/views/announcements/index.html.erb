@@ -22,14 +22,14 @@
       </div>
 
       <div class="filter-results-block govuk-!-margin-bottom-4">
-        <div class="filter-results js-filter-results" aria-live="polite">
-          <%= render_mustache('documents/filter_table', @filter.as_hash) %>
+        <div class="filter-results js-filter-results">
+          <%= render partial: 'documents/filter_table', locals: { filter: @filter.as_hash } %>
         </div>
       </div>
     </div>
 
     <div class="govuk-grid-column-one-third">
-      <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>    
+      <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
     </div>
   </div>
 </div>

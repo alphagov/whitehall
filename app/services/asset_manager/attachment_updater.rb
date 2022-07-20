@@ -7,6 +7,8 @@ class AssetManager::AttachmentUpdater
     redirect_url: false,
     replacement_id: false
   )
+    return if attachment_data.deleted?
+
     updates = []
 
     updates += AccessLimitedUpdates.call(attachment_data).to_a if access_limited

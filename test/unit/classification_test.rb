@@ -63,7 +63,7 @@ class ClassificationTest < ActiveSupport::TestCase
     topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image: image)
     featuring = topical_event.featuring_of(news_article)
     assert featuring
-    assert_equal 1, featuring.ordering
+    assert_equal 0, featuring.ordering
     assert topical_event.featured?(news_article)
   end
 
@@ -112,6 +112,40 @@ class ClassificationTest < ActiveSupport::TestCase
     first_lead_org = create(:organisation)
     first_lead_org.organisation_classifications.create!(classification_id: topical_event.id, lead: true, lead_ordering: 1)
     assert_equal topical_event.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
+  end
+
+  test "#next_ordering gives a value of 0 when there are no existing features" do
+    topical_event = create(:topical_event)
+
+    assert_equal 0, topical_event.next_ordering
+  end
+
+  test "#next_ordering gives the next value when there are existing features" do
+    topical_event = create(:topical_event)
+
+    news_article_1 = create(:published_news_article)
+    image_1 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_1.id, alt_text: "A thing", image: image_1)
+
+    news_article_2 = create(:published_news_article)
+    image_2 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_2.id, alt_text: "A thing", image: image_2)
+
+    assert_equal 2, topical_event.next_ordering
+  end
+
+  test "#next_ordering gives the next value when there are existing features that have been reordered" do
+    topical_event = create(:topical_event)
+
+    news_article_1 = create(:published_news_article)
+    image_1 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_1.id, alt_text: "A thing", image: image_1, ordering: 1)
+
+    news_article_2 = create(:published_news_article)
+    image_2 = create(:classification_featuring_image_data)
+    topical_event.feature(edition_id: news_article_2.id, alt_text: "A thing", image: image_2, ordering: 0)
+
+    assert_equal 2, topical_event.next_ordering
   end
 
   should_not_accept_footnotes_in :description

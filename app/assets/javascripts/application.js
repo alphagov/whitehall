@@ -5,7 +5,8 @@
 // the compiled file.
 //
 //= require govuk_publishing_components/lib
-//= require govuk_publishing_components/components/button
+//= require govuk_publishing_components/components/details
+//= require govuk_publishing_components/components/metadata
 //= require govuk_publishing_components/components/govspeak
 //
 //= require jquery/dist/jquery
@@ -14,9 +15,6 @@
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
-//
-//= require shared_mustache
-//= require templates
 //
 //= require govuk
 //= require_tree ./common

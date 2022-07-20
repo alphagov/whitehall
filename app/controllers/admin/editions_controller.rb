@@ -4,7 +4,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show show_locked edit update revise diff destroy]
+  before_action :find_edition, only: %i[show show_locked edit update revise diff destroy update_bypass_id]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_edition, only: %i[new create]
@@ -28,7 +28,7 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, edition_class || Edition)
     when "create"
       enforce_permission!(:create, @edition)
-    when "edit", "update", "revise", "diff"
+    when "edit", "update", "revise", "diff", "update_bypass_id"
       enforce_permission!(:update, @edition)
     when "destroy"
       enforce_permission!(:delete, @edition)
@@ -181,6 +181,12 @@ class Admin::EditionsController < Admin::BaseController
     else
       redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
+  end
+
+  def update_bypass_id
+    EditionAuthBypassUpdater.new(edition: @edition, current_user: current_user, updater: updater).call
+
+    redirect_to admin_edition_path(@edition), notice: "New document preview link generated"
   end
 
 private

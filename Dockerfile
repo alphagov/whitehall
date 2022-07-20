@@ -51,9 +51,19 @@ RUN gem install bundler \
 COPY package.json yarn.lock /app/
 RUN yarnpkg install --production --frozen-lockfile --non-interactive --link-duplicates
 COPY . /app
+<<<<<<< HEAD
 RUN bundle exec bootsnap precompile --gemfile .
 RUN bundle exec rails assets:precompile && rm -fr log
 
+=======
+# TODO: We probably don't want assets in the image; remove this once we have a proper deployment process which uploads to (e.g.) S3.
+RUN GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
+  GOVUK_APP_DOMAIN=www.gov.uk \
+  GOVUK_WEBSITE_ROOT=www.gov.uk \
+  GOVUK_APP_DOMAIN_EXTERNAL=www.gov.uk \
+  JWT_AUTH_SECRET=secret \
+  bundle exec rake assets:precompile
+>>>>>>> ed92bb8b4c22b7b560b7a0c143fddd04d8b8a5ae
 
 FROM $base_image
 

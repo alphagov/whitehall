@@ -28,18 +28,6 @@ While this usually results in different routing behaviour, in development [all r
 This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
 
 You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
-### Shared mustache templates
-
-The shared mustache templates must be compiled for JavaScript and functional tests to pass.
-
-```
-bundle exec rake shared_mustache:compile
-bundle exec rake shared_mustache:clean
-```
-
-Shared mustache templates are generated and stored in app/assets/javascripts/templates.js.
-
-In absence of this generated template, shared mustache inlines mustache templates in `<script>` blocks on the page, which enables developers to see changes to mustache without compiling. If this generated template is checked-in, shared mustache uses this file instead of inlining templates. Hence, we don't check-in this file.
 
 ### Running the test suite
 

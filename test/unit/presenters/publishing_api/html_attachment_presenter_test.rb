@@ -12,11 +12,15 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presentation includes the correct values" do
+    government = create(:government)
     edition = create(
       :publication,
       :with_html_attachment,
       :published,
+      political: true,
     )
+
+    edition.stubs(:government).returns(government)
 
     html_attachment = HtmlAttachment.last
 
@@ -40,6 +44,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
           .govspeak_to_html(html_attachment.govspeak_content.body),
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
+        political: true,
       },
       auth_bypass_ids: [edition.auth_bypass_id],
     }
@@ -57,7 +62,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     expected_content = expected_hash.merge(links: presented_item.links)
     assert_equal expected_content, presented_content
 
-    %i[organisations parent primary_publishing_organisation].each { |k| assert_includes(expected_content[:links].keys, k) }
+    %i[organisations parent primary_publishing_organisation government].each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
   test "HtmlAttachment presentation includes the correct locale" do
@@ -120,5 +125,47 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     assert_hash_includes presenter.content, { auth_bypass_ids: [outcome.auth_bypass_id] }
     assert_equal [html_attachment.attachable.organisations.first.content_id],
                  presenter.links[:primary_publishing_organisation]
+  end
+
+  test "HtmlAttachments parent object has national_applicability exclusions" do
+    scotland_nation_inapplicability = create(
+      :nation_inapplicability,
+      nation: Nation.scotland,
+      alternative_url: "http://scotland.com",
+    )
+    consultation = create(
+      :consultation_with_excluded_nations,
+      nation_inapplicabilities: [
+        scotland_nation_inapplicability,
+      ],
+    )
+
+    html_attachment = create(:html_attachment, attachable: consultation)
+
+    presenter = present(html_attachment)
+    details = presenter.content[:details]
+
+    expected_national_applicability = {
+      england: {
+        label: "England",
+        applicable: true,
+      },
+      northern_ireland: {
+        label: "Northern Ireland",
+        applicable: true,
+      },
+      scotland: {
+        label: "Scotland",
+        applicable: false,
+        alternative_url: "http://scotland.com",
+      },
+      wales: {
+        label: "Wales",
+        applicable: true,
+      },
+    }
+
+    assert_valid_against_schema(presenter.content, "html_publication")
+    assert_equal expected_national_applicability, details[:national_applicability]
   end
 end

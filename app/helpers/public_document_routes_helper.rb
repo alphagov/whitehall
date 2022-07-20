@@ -52,7 +52,7 @@ module PublicDocumentRoutesHelper
       token: edition.auth_bypass_token,
       utm_source: :share,
       utm_medium: :preview,
-      utm_name: :govuk_publishing,
+      utm_campaign: :govuk_publishing,
     }.to_query
     "#{preview_document_url(edition)}?#{params}"
   end

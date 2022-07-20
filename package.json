@@ -8,7 +8,7 @@
     "lint": "yarn run lint:js && yarn run lint:scss",
     "lint:js": "standardx 'app/assets/javascripts/**/*.js' 'spec/javascripts/**/*.js'",
     "lint:scss": "stylelint app/assets/stylesheets/",
-    "jasmine:prepare": "RAILS_ENV=test bundle exec rails assets:clobber shared_mustache:compile assets:precompile",
+    "jasmine:prepare": "RAILS_ENV=test bundle exec rails assets:clobber assets:precompile",
     "jasmine:ci": "yarn run jasmine:prepare && yarn run jasmine-browser-runner runSpecs",
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
   },
@@ -37,11 +37,11 @@
     "paste-html-to-govspeak": "^0.2.6"
   },
   "devDependencies": {
-    "jasmine-browser-runner": "^1.0.0",
-    "jasmine-core": "^4.1.1",
+    "jasmine-browser-runner": "^1.1.0",
+    "jasmine-core": "^4.2.0",
     "postcss": "^8.4.12",
     "standardx": "^7.0.0",
-    "stylelint": "^14.8.5",
+    "stylelint": "^14.9.1",
     "stylelint-config-gds": "^0.2.0"
   }
 }

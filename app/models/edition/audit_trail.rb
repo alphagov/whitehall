@@ -14,7 +14,7 @@ module Edition::AuditTrail
   end
 
   included do
-    has_many :versions, -> { order("created_at ASC, id ASC") }, as: :item
+    has_many :versions, -> { order(created_at: :asc, id: :asc) }, as: :item
 
     has_one :most_recent_version,
             -> { order("versions.created_at DESC, versions.id DESC") },
@@ -26,6 +26,14 @@ module Edition::AuditTrail
 
     after_create  :record_create
     before_update :record_update
+  end
+
+  def versions_asc
+    versions
+  end
+
+  def versions_desc
+    versions.reverse_order
   end
 
   def edition_remarks_trail(edition_serial_number = 0)
@@ -49,26 +57,6 @@ module Edition::AuditTrail
 
   def document_version_trail(superseded: true)
     document_trail(superseded: superseded, versions: true)
-  end
-
-  def latest_version_audit_entry_for(state)
-    edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }
-  end
-
-  def most_recent_submission_audit_entry
-    matching_entry = nil
-    edition_version_trail.reverse.map do |audit_entry|
-      if audit_entry.version.state == "submitted"
-        matching_entry = audit_entry
-      elsif matching_entry.present?
-        break
-      end
-    end
-    matching_entry
-  end
-
-  def publication_audit_entry
-    document_version_trail.detect { |audit_entry| audit_entry.version.state == "published" }
   end
 
 private
@@ -100,6 +88,11 @@ private
 
   def document_trail(superseded: true, versions: false, remarks: false)
     scope = document.editions
+
+    # Temporary fix to limit history on documents with more than 5000 versions.
+    # Large change histories are known to cause `504 Gateway Timeout` errors.
+    # A longer term fix is being worked on here: https://trello.com/c/SKFiAakd
+    scope = scope.limit(50) if document.edition_versions.count > 5000
 
     scope = scope.includes(versions: [:user]) if versions
     scope = scope.includes(editorial_remarks: [:author]) if remarks

@@ -16,12 +16,6 @@ class SpecialRoute
         type: "exact",
       },
       {
-        base_path: "/courts-tribunals",
-        content_id: "f990c58c-687a-4baf-b1a0-ec2d02c4d654",
-        title: "Courts and tribunals",
-        description: "Courts and tribunals on GOV.UK.",
-      },
-      {
         base_path: "/api/governments",
         content_id: "2d5bafcc-2c45-4a84-8fbc-525b75dd6d19",
         title: "Governments API",

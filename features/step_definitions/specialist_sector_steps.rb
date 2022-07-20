@@ -7,10 +7,10 @@ When(/^I start editing a draft document$/) do
 end
 
 Then(/^I can tag it to some specialist sectors$/) do
-  select "Oil and Gas: Wells", from: "Primary specialist sector"
-  select "Oil and Gas: Offshore", from: "Additional specialist sectors"
-  select "Oil and Gas: Fields", from: "Additional specialist sectors"
-  select "Oil and Gas: Distillation (draft)", from: "Additional specialist sectors"
+  select "Oil and Gas: Wells", from: "Primary specialist topic tag"
+  select "Oil and Gas: Offshore", from: "Additional specialist topics"
+  select "Oil and Gas: Fields", from: "Additional specialist topics"
+  select "Oil and Gas: Distillation (draft)", from: "Additional specialist topics"
 
   click_button "Save"
 
@@ -19,11 +19,11 @@ Then(/^I can tag it to some specialist sectors$/) do
   click_on "Edit draft"
   check "Applies to all UK nations"
   click_on "Save and continue"
-  click_on "Save and review legacy tagging"
+  click_on "Save and review specialist topic tagging"
 
-  expect("WELLS").to eq(find_field("Primary specialist sector").value)
+  expect("WELLS").to eq(find_field("Primary specialist topic tag").value)
   expect(%w[OFFSHORE FIELDS DISTILL].to_set)
-    .to eq(find_field("Additional specialist sectors").value.to_set)
+    .to eq(find_field("Additional specialist topics").value.to_set)
 end
 
 Given(/^there is a document tagged to specialist sectors$/) do

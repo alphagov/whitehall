@@ -8,6 +8,7 @@
   - default
   - publishing_api
   - asset_manager
+  - asset_manager_updater
   - email_alert_api_signup
   - bulk_republishing
   - link_checks
