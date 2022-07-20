@@ -32,9 +32,19 @@ Feature: Unpublishing published documents
     Given a published publication "Shaving kits for all" exists
     When I withdraw the publication with the explanation "Policy change"
     Then there should be an unpublishing explanation of "Policy change" and a reason of "No longer current government policy/activity"
+    And the withdrawal date should be today
 
   Scenario: Change the public explanation for a withdrawn document
     Given a published publication "Shaving kits for all" exists
     When I withdraw the publication with the explanation "Policy change"
     When I edit the public explanation for withdrawal to "The policy has changed"
     Then there should be an unpublishing explanation of "The policy has changed" and a reason of "No longer current government policy/activity"
+
+  Scenario: Withdraw a document using a previous withdrawal date & explanation
+    Given a published publication "Free ice creams" exists
+    And the publication was withdrawn on 01/12/2020 with the explanation "It's too cold for ice cream"
+    And it was subsequently unwithdrawn
+    When I go to withdraw the publication again
+    And I choose to reuse the withdrawal from 01/12/2020
+    Then there should be an unpublishing explanation of "It's too cold for ice cream" and a reason of "No longer current government policy/activity"
+    And the withdrawal date should be 01/12/2020
