@@ -32,7 +32,7 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
     presented_item = present(topical_event_about_page)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_item.content, "topical_event_about_page")
+    assert_valid_against_publisher_schema(presented_item.content, "topical_event_about_page")
     assert_valid_against_links_schema({ links: presented_item.links }, "topical_event_about_page")
     assert_equal topical_event_about_page.topical_event.content_id, presented_item.links[:parent][0]
 

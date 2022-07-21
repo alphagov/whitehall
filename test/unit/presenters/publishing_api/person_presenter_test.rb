@@ -57,7 +57,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal person.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, "person")
+    assert_valid_against_publisher_schema(presented_item.content, "person")
   end
 
   test "accepts people without an image" do
@@ -72,6 +72,6 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
 
     presented_item = present(person)
 
-    assert_valid_against_schema(presented_item.content, "person")
+    assert_valid_against_publisher_schema(presented_item.content, "person")
   end
 end

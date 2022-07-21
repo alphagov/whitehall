@@ -87,7 +87,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, "topical_event")
+    assert_valid_against_publisher_schema(presenter.content, "topical_event")
   end
 
   test "handles topical events without dates" do
@@ -123,7 +123,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, "topical_event")
+    assert_valid_against_publisher_schema(presenter.content, "topical_event")
   end
 
   test "handles topical events without an end_date" do
@@ -138,7 +138,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       ordered_featured_documents: [],
       social_media_links: [],
     }, presenter.content[:details])
-    assert_valid_against_schema(presenter.content, "topical_event")
+    assert_valid_against_publisher_schema(presenter.content, "topical_event")
   end
 
   test "it limits the number of featured items" do

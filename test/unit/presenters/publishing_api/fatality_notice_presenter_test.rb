@@ -16,7 +16,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents a valid fatality_notice content item" do
-    assert_valid_against_schema @presented_content, "fatality_notice"
+    assert_valid_against_publisher_schema @presented_content, "fatality_notice"
   end
 
   test "it delegates the content id" do

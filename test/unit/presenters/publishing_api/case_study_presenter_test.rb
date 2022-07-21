@@ -59,7 +59,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
     assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
     assert_equal expected_content.except(:details), presented_item.content.except(:details)
     # We test for HTML equivalance rather than string equality to get around
@@ -84,7 +84,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
@@ -99,7 +99,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
@@ -116,7 +116,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
@@ -132,7 +132,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     }
     presented_item = present(case_study)
 
-    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
@@ -175,7 +175,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     new_timestamp = Time.zone.now
     new_edition = create(:published_case_study, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
     presented_item = present(new_edition)
-    assert_valid_against_schema(presented_item.content, "case_study")
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
     presented_history = presented_item.content[:details][:change_history]
     expected_history = [
       { public_timestamp: new_timestamp, note: "More changes" },

@@ -174,7 +174,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
 
     test "auth bypass id" do
@@ -192,7 +192,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -206,7 +206,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -220,7 +220,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -284,7 +284,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -304,7 +304,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -324,7 +324,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -345,7 +345,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 
@@ -391,7 +391,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "news_article"
+      assert_valid_against_publisher_schema presented_content, "news_article"
     end
   end
 end

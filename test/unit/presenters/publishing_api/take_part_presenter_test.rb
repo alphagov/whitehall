@@ -38,7 +38,7 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
     presented_item = present(take_part_page)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, "take_part")
+    assert_valid_against_publisher_schema(presented_content, "take_part")
     assert_valid_against_links_schema({ links: presented_item.links }, "take_part")
 
     # We test for HTML equivalance rather than string equality to get around

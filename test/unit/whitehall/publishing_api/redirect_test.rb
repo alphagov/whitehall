@@ -11,7 +11,7 @@ class Whitehall::PublishingApi::RedirectTest < ActiveSupport::TestCase
   end
 
   test "generates a valid redirect content item" do
-    assert_valid_against_schema(@output_hash, "redirect")
+    assert_valid_against_publisher_schema(@output_hash, "redirect")
   end
 
   test "#base_path returns the base_path" do

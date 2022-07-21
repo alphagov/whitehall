@@ -111,7 +111,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal organisation.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, "organisation")
+    assert_valid_against_publisher_schema(presented_item.content, "organisation")
   end
 
   test "presents an organisation’s custom logo" do

@@ -9,7 +9,7 @@ class PublishingApi::MinistersIndexPresenterTest < ActionView::TestCase
     I18n.with_locale(:en) do
       create(:sitewide_setting, key: :minister_reshuffle_mode, on: true)
 
-      assert_valid_against_schema(presented_item.content, "ministers_index")
+      assert_valid_against_publisher_schema(presented_item.content, "ministers_index")
     end
   end
 

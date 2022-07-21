@@ -24,7 +24,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
     describe "validating against content schemas" do
       it "is valid against the details schema" do
-        assert_valid_against_schema(presented.content, "speech")
+        assert_valid_against_publisher_schema(presented.content, "speech")
       end
 
       it "is valid against the links schema" do

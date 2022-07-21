@@ -40,7 +40,7 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::WorkingGroupPresenter.new(group)
 
     assert_equal expected_hash, presenter.content
-    assert_valid_against_schema(presenter.content, "working_group")
+    assert_valid_against_publisher_schema(presenter.content, "working_group")
   end
 
   test "renders attachments in the body" do

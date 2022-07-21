@@ -39,7 +39,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     presented_item = present(statistics_announcement)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, "statistics_announcement")
+    assert_valid_against_publisher_schema(presented_content, "statistics_announcement")
     assert_valid_against_links_schema({ links: presented_item.links }, "statistics_announcement")
 
     assert_equivalent_html expected_content[:details].delete(:body),
@@ -85,7 +85,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     presented_item = present(statistics_announcement)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, "statistics_announcement")
+    assert_valid_against_publisher_schema(presented_content, "statistics_announcement")
     assert_valid_against_links_schema({ links: presented_item.links }, "statistics_announcement")
 
     assert_equivalent_html expected_content[:details].delete(:body),
@@ -135,7 +135,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     presented_item = present(statistics_announcement)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, "statistics_announcement")
+    assert_valid_against_publisher_schema(presented_content, "statistics_announcement")
     assert_valid_against_links_schema({ links: presented_item.links }, "statistics_announcement")
 
     assert_equivalent_html expected_content[:details].delete(:body),

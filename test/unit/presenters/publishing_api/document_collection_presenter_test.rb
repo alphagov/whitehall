@@ -16,7 +16,7 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents a valid document_collection content item" do
-    assert_valid_against_schema @presented_content, "document_collection"
+    assert_valid_against_publisher_schema @presented_content, "document_collection"
   end
 
   test "it delegates the content id" do
@@ -431,6 +431,6 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
   end
 
   test "is valid against content schemas" do
-    assert_valid_against_schema @presented_document_collection.content, "document_collection"
+    assert_valid_against_publisher_schema @presented_document_collection.content, "document_collection"
   end
 end

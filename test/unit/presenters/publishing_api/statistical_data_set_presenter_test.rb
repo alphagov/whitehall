@@ -15,7 +15,7 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents a valid statistical_data_set content item" do
-    assert_valid_against_schema @presented_content, "statistical_data_set"
+    assert_valid_against_publisher_schema @presented_content, "statistical_data_set"
   end
 
   test "it delegates the content id" do
@@ -196,7 +196,7 @@ class PublishingApi::StatisticalDataSetPresenterAttachmentTest < ActiveSupport::
   end
 
   test "its attachments are valid against the schema" do
-    assert_valid_against_schema @presented_statistical_data_set.content, "statistical_data_set"
+    assert_valid_against_publisher_schema @presented_statistical_data_set.content, "statistical_data_set"
   end
 end
 
@@ -295,6 +295,6 @@ class PublishingApi::StatisticalDataSetAccessLimitedTest < ActiveSupport::TestCa
   end
 
   test "is valid against content schemas" do
-    assert_valid_against_schema @presented_statistical_data_set.content, "statistical_data_set"
+    assert_valid_against_publisher_schema @presented_statistical_data_set.content, "statistical_data_set"
   end
 end

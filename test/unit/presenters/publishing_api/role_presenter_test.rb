@@ -57,7 +57,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal role.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, "role")
+    assert_valid_against_publisher_schema(presented_item.content, "role")
   end
 
   test "presents a Ministerial Whip Role ready for adding to the Publishing API" do
@@ -116,7 +116,7 @@ class PublishingApi::RolePresenterTest < ActionView::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal role.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, "role")
+    assert_valid_against_publisher_schema(presented_item.content, "role")
   end
 
   test "presents a Board Member Role ready for adding to the Publishing API" do

@@ -183,7 +183,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
 
     test "it presents the base_path if locale is :en" do
@@ -239,7 +239,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -298,7 +298,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -312,7 +312,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -388,7 +388,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -451,7 +451,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -496,7 +496,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -516,7 +516,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -536,7 +536,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -555,7 +555,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -595,7 +595,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 
@@ -616,7 +616,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "validity" do
-      assert_valid_against_schema presented_content, "consultation"
+      assert_valid_against_publisher_schema presented_content, "consultation"
     end
   end
 

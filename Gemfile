@@ -80,7 +80,7 @@ group :test do
   gem "database_cleaner-active_record"
   gem "equivalent-xml"
   gem "factory_bot"
-  gem "govuk-content-schema-test-helpers"
+  gem "govuk_schemas"
   gem "i18n-coverage"
   gem "maxitest"
   gem "minitest"

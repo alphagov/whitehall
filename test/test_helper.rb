@@ -17,7 +17,7 @@ require "webmock/minitest"
 require "whitehall/not_quite_as_fake_search"
 require "whitehall/search_index"
 require "sidekiq/testing"
-require "govuk-content-schema-test-helpers/test_unit"
+require "govuk_schemas/assert_matchers"
 
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"
@@ -35,11 +35,6 @@ Mocha.configure do |c|
   c.stubbing_non_existent_method = :prevent
 end
 
-GovukContentSchemaTestHelpers.configure do |config|
-  config.schema_type = "publisher_v2"
-  config.project_root = Rails.root
-end
-
 class ActiveSupport::TestCase
   include AssetManagerTestHelpers
   include FactoryBot::Syntax::Methods
@@ -48,7 +43,7 @@ class ActiveSupport::TestCase
   include HtmlAssertions
   include I18nHelpers
   include PublishingApiTestHelpers
-  include GovukContentSchemaTestHelpers::TestUnit
+  include GovukSchemas::AssertMatchers
   include UrlHelpers
   extend GovspeakValidationTestHelper
 
