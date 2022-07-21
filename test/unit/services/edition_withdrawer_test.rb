@@ -90,9 +90,32 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     assert_equal "Alternative url must be provided to redirect the document", unpublisher.failure_reason
   end
 
+  test "copies the date & explanation from a previous withdrawal if one is given" do
+    document = create(:document)
+
+    previous_edition = create(:withdrawn_edition, document: document).tap do |e|
+      e.unpublishing.update!(
+        explanation: "Some reason for withdrawing",
+        unpublished_at: 1.week.ago,
+      )
+    end
+
+    edition = create(:published_edition, document: document)
+
+    unpublisher = EditionWithdrawer.new(edition,
+                                        previous_withdrawal: previous_edition.unpublishing,
+                                        unpublishing: { unpublishing_reason_id: UnpublishingReason::Withdrawn.id })
+
+    assert unpublisher.perform!
+    assert_equal :withdrawn, edition.reload.current_state
+    assert_equal previous_edition.unpublishing.explanation, edition.unpublishing.explanation
+    assert_equal previous_edition.unpublishing.unpublished_at, edition.unpublishing.unpublished_at
+    assert_not_equal previous_edition.unpublishing, edition.unpublishing
+  end
+
 private
 
   def unpublishing_params
-    { unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: "Published by mistake" }
+    { unpublishing_reason_id: UnpublishingReason::Withdrawn.id, explanation: "Old policy" }
   end
 end
