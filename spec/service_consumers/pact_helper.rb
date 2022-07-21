@@ -1,3 +1,5 @@
+ENV["RAILS_ENV"] = "test"
+
 require "pact/provider/rspec"
 require "webmock/rspec"
 require "factory_bot"
