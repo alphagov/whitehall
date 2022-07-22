@@ -1,4 +1,6 @@
 class Document::PaginatedHistory
+  PER_PAGE = 30
+
   attr_reader :document, :query
   delegate :total_count, to: :query
 
@@ -9,14 +11,15 @@ class Document::PaginatedHistory
                      .where.not(state: :superseded)
                      .reorder(created_at: :desc, id: :desc)
                      .page(page)
-                     .per(30)
+                     .per(PER_PAGE)
   end
 
   def audit_trail
     query.map.with_index do |version, index|
+      # [index - 1] returns next version, as array has newest first
       AuditTrailEntry.new(version,
                           is_first_edition: version.item_id == first_edition&.id,
-                          previous_version: index == 0 ? nil : query[index - 1])
+                          next_version: query[index + 1])
     end
   end
 
@@ -28,31 +31,30 @@ private
   end
 
   class AuditTrailEntry
-    attr_reader :version, :is_first_edition, :preloaded_previous_version
+    attr_reader :version, :is_first_edition, :preloaded_next_version
     delegate :created_at, to: :version
 
-    def initialize(version, is_first_edition:, previous_version: nil)
+    def initialize(version, is_first_edition:, next_version: nil)
       @version = version
       @is_first_edition = is_first_edition
-      @preloaded_previous_version = previous_version
+      @preloaded_next_version = next_version
     end
 
     def actor
       version.user
     end
 
-    def previous_version
-      # we can avoid n+1 queries by using our preloaded_previous_version
-      @previous_version ||= preloaded_previous_version || version.previous
+    def next_version
+      # we can avoid n+1 queries by using our preloaded_next_version
+      @next_version ||= preloaded_next_version || version.next
     end
 
     def action
       case version.event
       when "create"
-        "editioned"
         is_first_edition ? "created" : "editioned"
       else
-        previous_version&.state != version.state ? version.state : "updated"
+        next_version&.state != version.state ? version.state : "updated"
       end
     end
   end
