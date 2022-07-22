@@ -74,7 +74,7 @@ private
   end
 
   def remove_field_link(field, value, text)
-    url = ("#{base_url}?#{filter.valid_filter_params.except(field).to_query}").chomp("?")
+    url = "#{base_url}?#{filter.valid_filter_params.except(field).to_query}".chomp("?")
     link_to "×", url, "data-field" => field, "data-value" => value, "title" => "Remove #{text}"
   end
 end
