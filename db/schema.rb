@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_150124) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_25_152445) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -1053,7 +1053,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_150124) do
     t.text "description"
     t.string "slug"
     t.string "state"
-    t.string "type"
     t.string "carrierwave_image"
     t.string "logo_alt_text"
     t.date "start_date"

@@ -111,7 +111,7 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   test "DELETE :destroy unfeatures edition and redirects to classification" do
     featuring = create(:classification_featuring,
-                       classification: create(:classification, type: "TopicalEvent"))
+                       classification: create(:classification))
 
     assert_difference("ClassificationFeaturing.count", -1) do
       delete :destroy, params: {
@@ -124,7 +124,7 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   test "DELETE :destroy unfeatures offsite link and redirects to classification" do
     offsite_featuring = create(:offsite_classification_featuring,
-                               classification: create(:classification, type: "TopicalEvent"))
+                               classification: create(:classification))
 
     assert_difference("ClassificationFeaturing.count", -1) do
       delete :destroy, params: {
