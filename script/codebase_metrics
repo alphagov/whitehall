@@ -1,0 +1,115 @@
+#!/bin/bash
+
+set -e
+
+REPO_DIR=${REPO_DIR:="/tmp/codebase-metrics"}/$(date +%s)
+REPO_URL=${REPO_URL:="https://github.com/alphagov/whitehall.git"}
+REVISION=${REVISION:="main"}
+LAST_BUILD_URL=${LAST_BUILD_URL:="https://ci.integration.publishing.service.gov.uk/job/whitehall/job/${REVISION}/lastSuccessfulBuild/console"}
+
+
+get_total_size() {
+  du --apparent-size -sb . | cut -f1
+}
+
+get_number_of_items() {
+  find . -type f | wc -l
+}
+
+get_number_of_files_under() {
+  local dir=${1:='.'}
+  find ${dir} | wc -l
+}
+
+get_number_of_routes() {
+    bundle install --quiet
+    bundle exec rails runner "puts Rails.application.routes.routes.map { |r| {path: r.path.spec.to_s}}.uniq.count"
+  if [ $? != "0" ]; then
+    echo "Could not calculate the number of routes in revision #{@revision}"
+    echo "This may be due to some gems from that versions' Gemfile.lock no longer being available"
+  fi
+}
+
+checkout_clean_repo() {
+  git clone --quiet ${REPO_URL}
+  cd ./whitehall
+  git checkout --quiet ${REVISION}
+  # store this so we can echo it back when we report
+  CURRENT_COMMIT_SHA=$(git rev-parse HEAD)
+  rm -rf ./.git 
+  cd ..
+}
+
+report() {
+  echo 
+  echo
+  if [ $REVISION == 'main' ]; then
+    echo "Codebase metrics as of $(date), current revision ${CURRENT_COMMIT_SHA}"
+    echo "--------------------------------------------------------------------------------------------------------------"
+  else
+    echo "Codebase metrics for revision ${CURRENT_COMMIT_SHA}"
+    echo "-------------------------------------------------------------------------------------------------"
+  fi
+
+  echo
+  echo "Total size:                 ${TOTAL_SIZE} bytes"
+  echo "Total size (MB):            ${TOTAL_SIZE_MB}"
+  echo "Number of items in Github:  ${NUMBER_OF_ITEMS}"
+  echo "Number of models:           ${MODELS}"
+  echo "Number of views:            ${VIEWS}"
+  echo "Number of controllers:      ${CONTROLLERS}"
+  echo "Number of presenters:       ${PRESENTERS}"
+  
+  if [ $REVISION == "main" ]; then
+    echo "Number of routes:           ${ROUTES}"
+    echo 
+    echo "You can retrieve 'Test coverage %' and 'Time to build (s)' from the latest"
+    echo "build against 'main' in Jenkins, at:"
+    echo "  ${LAST_BUILD_URL}"
+  else
+    echo 'To get "Number of routes", run this line in a Rails console against this revision:'
+    echo "  Rails.application.routes.routes.map { |r| {path: r.path.spec.to_s}}.uniq.count"
+    echo
+    echo '(Note, this gets less and less likely to work for older revisions, due to'
+    echo 'gem version locks & deprecations, etc)'
+    echo
+    echo 'To get "Test coverage %" and "Time to build (s)", run:'
+    echo "  git checkout ${CURRENT_COMMIT_SHA}"
+    echo "  git push -u origin (some unique branch name)"
+    echo
+    echo 'You can then retrieve those figures from the console output of that build in Jenkins, at:'
+    echo "  $LAST_BUILD_URL" | sed 's/\/main\//\/(your branch name)\//' 
+  fi
+  echo
+  echo 'Developer rating is an average score from 1 to 10 to the question:'
+  echo '"Overall, how difficult is it to make changes to Whitehall publisher?"'
+  echo 'where 1 = terrible, 10 = very easy'
+  echo "It's best asked of @publishing-experience-devs on Slack."
+  echo
+}
+
+gather() {
+  TOTAL_SIZE=$(get_total_size)
+  # have to shell out to Ruby to get floating point rounded to 2 dp
+  TOTAL_SIZE_MB=$(ruby -e  "puts (${TOTAL_SIZE} / (1024.0 * 1024.0)).round(2)")MB
+  NUMBER_OF_ITEMS=$(get_number_of_items)
+  MODELS=$(get_number_of_files_under "./app/models")
+  VIEWS=$(get_number_of_files_under "./app/views")
+  CONTROLLERS=$(get_number_of_files_under "./app/controllers")
+  PRESENTERS=$(get_number_of_files_under "./app/presenters")
+
+  if [ $REVISION=="main" ]; then 
+    ROUTES=$(get_number_of_routes)
+  else
+    ROUTES="N/A unless on main"
+  fi
+}
+
+
+# main flow control here
+mkdir -p $REPO_DIR
+cd $REPO_DIR
+checkout_clean_repo
+cd ./whitehall
+gather
+report
