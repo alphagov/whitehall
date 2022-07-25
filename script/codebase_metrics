@@ -107,7 +107,7 @@ gather() {
 
 
 # main flow control here
-mkdir $REPO_DIR
+mkdir -p $REPO_DIR
 cd $REPO_DIR
 checkout_clean_repo
 cd ./whitehall
