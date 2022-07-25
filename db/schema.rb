@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_18_085201) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_25_150124) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
