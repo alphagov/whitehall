@@ -24,7 +24,7 @@ module PublishingApi
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "topical_event",
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(PayloadBuilder::PolymorphicPath.for(item, additional_routes: %w[atom]))
     end
 
     def links

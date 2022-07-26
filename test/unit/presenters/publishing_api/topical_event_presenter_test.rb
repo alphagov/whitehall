@@ -40,6 +40,10 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
           path: public_path,
           type: "exact",
         },
+        {
+          path: "#{public_path}.atom",
+          type: "exact",
+        },
       ],
       update_type: "major",
       redirects: [],
@@ -106,6 +110,10 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       routes: [
         {
           path: public_path,
+          type: "exact",
+        },
+        {
+          path: "#{public_path}.atom",
           type: "exact",
         },
       ],
