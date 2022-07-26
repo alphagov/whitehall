@@ -90,7 +90,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     get :show, params: { id: world_location }
     assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
-      assert_match(/\/world\/germany\/news/, view_links.first["href"])
+      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/germany/news")}/, view_links.first["href"])
     end
   end
 
@@ -100,7 +100,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
-      assert_match(/\/world\/france\/news/, view_links.first["href"])
+      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news")}/, view_links.first["href"])
     end
   end
 
@@ -110,7 +110,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
-      assert_match(/\/world\/france\/news\.fr/, view_links.first["href"])
+      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news.fr")}/, view_links.first["href"])
     end
   end
 end
