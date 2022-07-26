@@ -1817,10 +1817,10 @@ parseurl@~1.3.3:
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
 
-paste-html-to-govspeak@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/paste-html-to-govspeak/-/paste-html-to-govspeak-0.2.6.tgz#a7bbb5e2b7ce4b38a0fec68febf67001d4764163"
-  integrity sha512-vRF4DbxgVqaI5bCFWrNAxRHSPY1NYNAwKR9M1v0YB928kvrh0TOvPGY9R67nzRm44L8Fn/+TdILA/NldeN2RjQ==
+paste-html-to-govspeak@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/paste-html-to-govspeak/-/paste-html-to-govspeak-0.3.0.tgz#9c4717690f3d6cd290c972c9bf106ead14adb177"
+  integrity sha512-K4jcJkZLQpvpukkiSzXZcXPbV80CDSKTI3zEs0/gVG+jx5H7v2XsdIOEuCZ56cRCCuuIH3rsrJcyoleGqPj6xw==
 
 path-exists@^3.0.0:
   version "3.0.0"
