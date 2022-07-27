@@ -20,7 +20,7 @@ module PublishingApi
         document_type: "placeholder_world_location_news_page",
         public_updated_at: world_location.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "placeholder",
+        schema_name: "world_location_news",
         base_path: path_for_news_page,
       )
       content.merge!(PayloadBuilder::Routes.for(path_for_news_page))

@@ -20,14 +20,18 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       document_type: "placeholder_world_location_news_page",
       public_updated_at: world_location.updated_at,
       rendering_app: "whitehall-frontend",
-      schema_name: "placeholder",
+      schema_name: "world_location_news",
       base_path: "/world/aardistan/news",
       routes: [{ path: "/world/aardistan/news", type: "exact" }],
       analytics_identifier: "WL#{world_location.id}",
       update_type: "major",
     }
 
-    assert_equal expected, present(world_location).content
+    presented_content = present(world_location).content
+
+    assert_equal expected, presented_content
+
+    assert_valid_against_publisher_schema(presented_content, "world_location_news")
   end
 
   test "presents an item for rummager" do
