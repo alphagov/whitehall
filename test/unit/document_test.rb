@@ -58,14 +58,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_not published_publication.document.published?
   end
 
-  test "should ignore deleted editions when finding latest edition" do
-    document = create(:document)
-    original_edition = create(:published_edition, document: document)
-    _deleted_edition = create(:deleted_edition, document: document)
-
-    assert_equal original_edition, document.latest_edition
-  end
-
   test "#pre_publication_edition returns the edition in a pre-publication state" do
     document = create(:document)
     create(:deleted_edition, document: document)

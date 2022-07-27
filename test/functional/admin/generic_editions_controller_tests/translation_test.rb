@@ -86,6 +86,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
       edition.attributes = { title: "french-title", summary: "french-summary", body: "french-body" }
     end
     edition.save!
+    edition.document.update!(latest_edition_id: edition.id, live_edition_id: edition.id)
 
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 

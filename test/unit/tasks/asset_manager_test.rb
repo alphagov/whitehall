@@ -53,12 +53,11 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update attachments where the latest edition isn't draft" do
       document = create(:document)
-      scheduled_edition = create(:scheduled_detailed_guide, document: document)
       published_edition = create(:published_detailed_guide, document: document)
 
       assert_equal published_edition, document.latest_edition
 
-      create(:file_attachment, attachable: scheduled_edition)
+      create(:file_attachment, attachable: published_edition)
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
 
@@ -115,9 +114,8 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update attachments where the latest edition isn't draft" do
       document = create(:document)
-      scheduled_edition = create(:scheduled_consultation, document: document)
       published_edition = create(:published_consultation, document: document)
-      participation = create(:consultation_participation, consultation: scheduled_edition)
+      participation = create(:consultation_participation, consultation: published_edition)
       create(:consultation_response_form, consultation_participation: participation)
 
       assert_equal published_edition, document.latest_edition
@@ -224,12 +222,11 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update image where the latest edition isn't draft" do
       document = create(:document)
-      scheduled_edition = create(:scheduled_case_study, document: document)
       published_edition = create(:published_case_study, document: document)
 
       assert_equal published_edition, document.latest_edition
 
-      create(:image, edition: scheduled_edition)
+      create(:image, edition: published_edition)
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
 
