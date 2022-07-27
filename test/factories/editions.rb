@@ -11,7 +11,7 @@ FactoryBot.define do
     auth_bypass_id { SecureRandom.uuid }
 
     after :create do |edition|
-      UpdateLiveAndLatestEditionId.new(edition).call
+      UpdateLiveAndLatestEditionId.new(edition.document).call
     end
 
     trait(:with_organisations) do
@@ -109,8 +109,7 @@ FactoryBot.define do
       state { "superseded" }
 
       after(:create) do |edition|
-        published_edition = create(:published_edition, document: edition.document)
-        edition.document.update!(latest_edition_id: published_edition.id)
+        create(:published_edition, document: edition.document)
       end
     end
 
