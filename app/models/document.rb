@@ -14,7 +14,7 @@ class Document < ApplicationRecord
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
   has_one  :published_edition,
-           -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
+           -> { joins(:document).where("editions.id = documents.live_edition_id") },
            class_name: "Edition",
            inverse_of: :document
   has_one  :pre_publication_edition,
@@ -23,14 +23,7 @@ class Document < ApplicationRecord
            inverse_of: :document
 
   has_one  :latest_edition,
-           lambda {
-             where(%(
-               NOT EXISTS (
-               SELECT 1 FROM editions e2
-               WHERE e2.document_id = editions.document_id
-               AND e2.id > editions.id
-               AND e2.state <> 'deleted')))
-           },
+           -> { joins(:document).where("editions.id = documents.latest_edition_id") },
            class_name: "Edition",
            inverse_of: :document
 

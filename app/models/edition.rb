@@ -244,21 +244,11 @@ EXISTS (
   end
 
   def self.latest_edition
-    where("NOT EXISTS (
-      SELECT 1
-        FROM editions e2
-       WHERE e2.document_id = editions.document_id
-         AND e2.id > editions.id
-         AND e2.state <> 'deleted')")
+    joins(:document).where("editions.id = documents.latest_edition_id")
   end
 
   def self.latest_published_edition
-    published.where("NOT EXISTS (
-      SELECT 1
-        FROM editions e2
-       WHERE e2.document_id = editions.document_id
-         AND e2.id > editions.id
-         AND e2.state = 'published')")
+    joins(:document).where("editions.id = documents.live_edition_id AND state = 'published'")
   end
 
   def self.search_format_type
@@ -560,12 +550,8 @@ EXISTS (
     end
   end
 
-  def latest_edition
-    document.editions.latest_edition.first
-  end
-
   def latest_published_edition
-    document.editions.latest_published_edition.first
+    document.published_edition
   end
 
   def previous_edition
@@ -737,6 +723,7 @@ EXISTS (
   end
 
   delegate :locked?, to: :document
+  delegate :latest_edition, to: :document
 
   # TODO: this can be removed once rails/rails#44770 is released.
   def attribute_names
