@@ -272,7 +272,7 @@ GEM
     govuk_personalisation (0.12.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (29.15.1)
+    govuk_publishing_components (29.15.2)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -693,7 +693,7 @@ GEM
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
     statsd-ruby (1.5.0)
-    strscan (3.0.3)
+    strscan (3.0.4)
     sync (0.5.0)
     sys-uname (1.2.2)
       ffi (~> 1.1)
