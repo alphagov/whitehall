@@ -18,6 +18,7 @@ module PublishingApi
         description: description,
         details: {
           ordered_featured_links: featured_links,
+          mission_statement: world_location.mission_statement || "",
         },
         document_type: "placeholder_world_location_news_page",
         public_updated_at: world_location.updated_at,

@@ -6,7 +6,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
   end
 
   def world_location
-    @world_location ||= create(:world_location, name: "Aardistan", "title": "Aardistan and the Uk")
+    @world_location ||= create(:world_location, name: "Aardistan", "title": "Aardistan and the Uk", mission_statement: "This is a great mission")
   end
 
   test "presents an item for publishing api" do
@@ -30,6 +30,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
             href: newer_link.url,
           },
         ],
+        mission_statement: "This is a great mission",
       },
       document_type: "placeholder_world_location_news_page",
       public_updated_at: world_location.updated_at,
@@ -46,6 +47,14 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     assert_equal expected, presented_content
 
     assert_valid_against_publisher_schema(presented_content, "world_location_news")
+  end
+
+  test "presents mission statement as an empty string when it is nil" do
+    world_location_without_mission_statement = create(:world_location)
+
+    presented_content = present(world_location_without_mission_statement).content
+
+    assert_equal "", presented_content.dig(:details, :mission_statement)
   end
 
   test "presents an item for rummager" do
