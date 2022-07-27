@@ -7,7 +7,7 @@
       <span class="name"><%= @world_location.name %></span>
     </h1>
     <p>
-    <%= link_to "View on website", world_location_news_index_path(@world_location, cachebust_url_options) %>
+    <%= link_to "View on website", Whitehall.url_maker.world_location_news_index_url(@world_location, cachebust_url_options) %>
   </div>
 
   <section class="world-location-details">

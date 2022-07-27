@@ -76,6 +76,26 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
+  view_test "the 'View on website' link on the show page goes to the news page" do
+    location = create(:world_location, translated_into: [:fr], name: "France")
+    get :index, params: { world_location_id: location }
+
+    assert_select "a" do |links|
+      view_links = links.select { |link| link.text =~ /View on website/ }
+      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news")}/, view_links.first["href"])
+    end
+  end
+
+  view_test "the view buttons for translations link to the new page on the live site" do
+    location = create(:world_location, translated_into: [:fr], name: "France")
+    get :index, params: { world_location_id: location }
+
+    assert_select "a" do |links|
+      view_links = links.select { |link| link.text =~ /view/ }
+      assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news.fr")}/, view_links.first["href"])
+    end
+  end
+
   view_test "update updates translation and redirects back to the index" do
     put :update,
         params: { world_location_id: @location,
