@@ -16,7 +16,9 @@ module PublishingApi
 
       content.merge!(
         description: description,
-        details: {},
+        details: {
+          ordered_featured_links: featured_links,
+        },
         document_type: "placeholder_world_location_news_page",
         public_updated_at: world_location.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
@@ -45,6 +47,15 @@ module PublishingApi
     end
 
   private
+
+    def featured_links
+      world_location.featured_links.map do |link|
+        {
+          title: link.title,
+          href: link.url,
+        }
+      end
+    end
 
     def path_for_news_page
       Whitehall.url_maker.world_location_news_index_path(world_location)

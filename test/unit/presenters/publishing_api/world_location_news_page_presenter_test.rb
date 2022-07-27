@@ -10,13 +10,27 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
   end
 
   test "presents an item for publishing api" do
+    newer_link = create(:featured_link, linkable: world_location, title: "2 days ago", created_at: 2.days.ago)
+    older_link = create(:featured_link, linkable: world_location, title: "12 days ago", created_at: 12.days.ago)
+
     expected = {
       title: "Aardistan and the Uk",
       locale: "en",
       publishing_app: "whitehall",
       redirects: [],
       description: "Updates, news and events from the UK government in Aardistan",
-      details: {},
+      details: {
+        ordered_featured_links: [
+          {
+            title: older_link.title,
+            href: older_link.url,
+          },
+          {
+            title: newer_link.title,
+            href: newer_link.url,
+          },
+        ],
+      },
       document_type: "placeholder_world_location_news_page",
       public_updated_at: world_location.updated_at,
       rendering_app: "whitehall-frontend",
