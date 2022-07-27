@@ -466,26 +466,6 @@ vi:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Hoạt động mới nhất trên %{event}
-    lead_organisations:
-      arts_council_england: Hội đồng Nghệ thuật Anh
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Thư viện Anh
-      commonwealth_war_graves_commission: Ủy ban Mộ Chiến tranh Khối thịnh vượng Chung
-      heritage_lottery_fund: Quỹ Di sản Xổ số
-      historic_england: Historic England
-      iwm: Bảo tàng Chiến tranh Hoàng gia
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: War Memorials Trust
   world_location:
     content:
       complete_list:

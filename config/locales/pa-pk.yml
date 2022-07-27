@@ -542,26 +542,6 @@ pa-pk:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: آخری وار ایندے تے کیہ کم ہویا{event}%
-    lead_organisations:
-      arts_council_england: آرٹس کونسل انگلینڈ
-      bbc: بی بی سی
-      birmingham_2022_commonwealth_games:
-      british_library: برٹش لائبریری
-      commonwealth_war_graves_commission: کامن ویلتھ وار گریوز کمیشن
-      heritage_lottery_fund: ہیریٹیج لاٹری فنڈ
-      historic_england: تاریخی انگلستان
-      iwm: امپریل وار میوزیم
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: وار میموریل ٹرسٹ
   world_location:
     content:
       complete_list:

@@ -618,26 +618,6 @@ ro:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Cea mai recentă activitate de pe %{event}
-    lead_organisations:
-      arts_council_england: Consiliul artiștilor din Anglia
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Biblioteca națională britanică
-      commonwealth_war_graves_commission: Comisia pentru întreținerea cimitirelor de război din Commonwealth
-      heritage_lottery_fund: Fond de loterie din moștenire
-      historic_england: Anglia istorică
-      iwm: Muzeul Războiului imperial
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Trustul Memorialelor de Război
   world_location:
     content:
       complete_list:

@@ -543,26 +543,6 @@ hi:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} पर नवीनतम गतिविधि"
-    lead_organisations:
-      arts_council_england: आर्ट काउंसिल इंग्लैंड
-      bbc: बीबीसी
-      birmingham_2022_commonwealth_games:
-      british_library: ब्रिटिश लाइब्रेरी
-      commonwealth_war_graves_commission: कॉमनवेल्थ वार ग्रेव्स कमीशन
-      heritage_lottery_fund: हेरिटेज लॉटरी फंड
-      historic_england: ऐतिहासिक इंग्लैंड
-      iwm: इम्पीरियल वार म्यूज़ियम
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: वार मेमोरियल ट्रस्ट
   world_location:
     content:
       complete_list:

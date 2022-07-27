@@ -542,26 +542,6 @@ zh-tw:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} 的最新活動"
-    lead_organisations:
-      arts_council_england: 英格蘭藝術委員會
-      bbc: 英國廣播公司
-      birmingham_2022_commonwealth_games:
-      british_library: 大英圖書館
-      commonwealth_war_graves_commission: 大英聯邦戰爭公墓委員會
-      heritage_lottery_fund: 遺產樂透基金
-      historic_england: 英格蘭遺產委員會
-      iwm: 帝國戰爭博物館
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: 戰爭紀念基金會
   world_location:
     content:
       complete_list:

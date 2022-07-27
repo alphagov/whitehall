@@ -695,26 +695,6 @@ sl:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Zadnja aktivnost dne %{event}
-    lead_organisations:
-      arts_council_england: Umetnostni svet Anglije
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Britanska knjižnica
-      commonwealth_war_graves_commission: Komisija za vojna pokopališča Commonwealtha
-      heritage_lottery_fund: Loterijski sklad za ohranjanje dediščine
-      historic_england: Zgodovinska Anglija
-      iwm: Imperial War Museum (Muzej imperialnih vojn)
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: War Memorials Trust (Sklad vojnega spomina)
   world_location:
     content:
       complete_list:

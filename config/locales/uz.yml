@@ -542,26 +542,6 @@ uz:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} даги охирги ҳаракатлар"
-    lead_organisations:
-      arts_council_england: Англиянинг Бадиий кенгаши
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Британия кутубхонаси
-      commonwealth_war_graves_commission: Ҳамдўстликнинг ҳарбий мозорлар бўйича комиссияси
-      heritage_lottery_fund: Мероснинг лотерея фонди
-      historic_england: Англия ҳақида тарихий маълумотлар
-      iwm: Империя ҳарбий музейи
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Ҳарбий мемориаллар трести
   world_location:
     content:
       complete_list:

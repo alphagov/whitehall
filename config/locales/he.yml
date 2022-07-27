@@ -543,26 +543,6 @@ he:
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: הפעילות האחרונה ב- %{event}
-    lead_organisations:
-      arts_council_england: מועצת האמנויות באנגליה
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: הספרייה הבריטית
-      commonwealth_war_graves_commission: ועדת קברי המלחמה של חבר העמים
-      heritage_lottery_fund: קרן מפעל הפיס
-      historic_england: אנגליה ההיסטורית
-      iwm: מוזיאון המלחמה הקיסרית
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: אמון זיכרון המלחמה
   world_location:
     content:
       complete_list:

@@ -542,26 +542,6 @@ so:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Hawshii ugu dambaysay %{event}
-    lead_organisations:
-      arts_council_england: Qaybta latalinta England
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Maktabada Ingiriiska
-      commonwealth_war_graves_commission: Guddiga Qabuuraha Dagaalka Barwaaqo Sooranka
-      heritage_lottery_fund: Lacagta bakhtiyaanasiibka ee Dhaxalka ah
-      historic_england: Taariikhda England
-      iwm: Madxafka Degaalka ee Imperial
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Aaminaada Xasuusaha Degaalka
   world_location:
     content:
       complete_list:

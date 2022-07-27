@@ -543,26 +543,6 @@ ps:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: په%{event} کې وروستي فعالیت
-    lead_organisations:
-      arts_council_england: د هنر شورا انګلستان
-      bbc: بي بي سي
-      birmingham_2022_commonwealth_games:
-      british_library: د برتانیا کتابتون
-      commonwealth_war_graves_commission: د کامن ویلت جنګ قبرونو کمیسیون
-      heritage_lottery_fund: د میراث لاټری فنډ
-      historic_england: تاریخي انګلستان
-      iwm: د امپیریل جنګ میوزیم
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: د جنګ یادګار باور
   world_location:
     content:
       complete_list:

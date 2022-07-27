@@ -542,26 +542,6 @@ kk:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: "%{event} соңғы әрекет"
-    lead_organisations:
-      arts_council_england: Англия көркемөнер кеңесі
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Британдық кітапхана
-      commonwealth_war_graves_commission: Соғыс қабірлері жөніндегі қауымдастық комиссиясы
-      heritage_lottery_fund: Мұра лотерея қоры
-      historic_england: Тарихқа толы Англия
-      iwm: Империялық соғыс мұражайы
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Соғыс мемориалдарының сенімі
   world_location:
     content:
       complete_list:

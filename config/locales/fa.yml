@@ -542,26 +542,6 @@ fa:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: آخرین فعالیت در %{event}
-    lead_organisations:
-      arts_council_england: شورای هنر انگلستان
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: کتابخانه بریتانیا
-      commonwealth_war_graves_commission: کمیسیون آرامستان‌های جنگ کشورهای مشترک المنافع
-      heritage_lottery_fund: صندوق بخت‌ازمایی میراث فرهنگی
-      historic_england: کمیسیون یادمان‌ها و بناهای تاریخی انگلستان
-      iwm: موزه سلطنتی جنگ
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: بنیاد یادبودهای جنگ
   world_location:
     content:
       complete_list:

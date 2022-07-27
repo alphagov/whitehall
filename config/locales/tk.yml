@@ -542,26 +542,6 @@ tk:
   time:
     formats:
       long_ordinal: "%e %B %Y %l:%M%P"
-  topical_event:
-    headings:
-      detailed_guidance:
-      documents:
-      featured:
-      organisations:
-      travel_advice:
-    latest_activity: Iň täze işjeňlik %{event}
-    lead_organisations:
-      arts_council_england: Angliýanyň sungat konsuly
-      bbc: BBC
-      birmingham_2022_commonwealth_games:
-      british_library: Iňlis kitaphanasy
-      commonwealth_war_graves_commission: Umumy uruş mazarlary komissiýasy
-      heritage_lottery_fund: Miras Lotereýa Gaznasy
-      historic_england: Taryhy Angliýa
-      iwm: Imperial Uruş muzeýi
-      queens_platinum_jubilee:
-      unboxed:
-      war_memorials_trust: Uruş ýadygärlikleri ynamy
   world_location:
     content:
       complete_list:
