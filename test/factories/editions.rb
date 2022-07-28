@@ -11,9 +11,7 @@ FactoryBot.define do
     auth_bypass_id { SecureRandom.uuid }
 
     after :create do |edition|
-      document = edition.document
-      document.update!(live_edition_id: edition.id) if edition.state.in?(Edition::PUBLICLY_VISIBLE_STATES)
-      document.update!(latest_edition_id: edition.id) if !edition.deleted? && (document.latest_edition_id.blank? || edition.id == document.editions.where(state: [Edition::PRE_PUBLICATION_STATES]).order(id: :desc).first&.id)
+      UpdateLiveAndLatestEditionId.new(edition).call
     end
 
     trait(:with_organisations) do
