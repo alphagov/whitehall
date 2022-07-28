@@ -27,5 +27,10 @@ private
     edition.save!(validate: false)
     edition.clear_slug
     edition.delete_all_attachments if edition.respond_to?(:delete_all_attachments)
+    update_latest_edition_id
+  end
+
+  def update_latest_edition_id
+    edition.document.update!(latest_edition_id: edition.document.live_edition_id)
   end
 end

@@ -487,6 +487,7 @@ EXISTS (
       self.class.new(draft_attributes).tap do |draft|
         traits.each { |t| t.process_associations_before_save(draft) }
         if (draft.valid? || !draft.errors.key?(:base)) && draft.save(validate: false)
+          document.update!(latest_edition_id: draft.id)
           traits.each { |t| t.process_associations_after_save(draft) }
         end
       end
