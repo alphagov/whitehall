@@ -12,6 +12,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page = create(:corporate_information_page, organisation: test_object)
     corporate_information_page.external = true
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    corporate_information_page.document.update!(latest_edition_id: nil, live_edition_id: nil)
     corporate_information_page.save!
   end
 
@@ -19,6 +20,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     test_object = create(:organisation)
     corporate_information_page = create(:corporate_information_page, organisation: test_object)
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    corporate_information_page.document.update!(latest_edition_id: nil, live_edition_id: nil)
     corporate_information_page.destroy!
   end
 

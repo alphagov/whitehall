@@ -499,6 +499,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#destroy should also remove the relationship to any authors" do
     edition = create(:draft_edition, creator: create(:writer))
     relation = edition.edition_authors.first
+    edition.document.update!(latest_edition_id: nil, live_edition_id: nil)
     edition.destroy!
     assert_not EditionAuthor.find_by(id: relation.id)
   end
@@ -506,6 +507,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#destroy should also remove the relationship to any editorial remarks" do
     edition = create(:draft_edition, editorial_remarks: [create(:editorial_remark)])
     relation = edition.editorial_remarks.first
+    edition.document.update!(latest_edition_id: nil, live_edition_id: nil)
     edition.destroy!
     assert_not EditorialRemark.find_by(id: relation.id)
   end

@@ -199,6 +199,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should destroy associated consultation participation when destroyed" do
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
+    consultation.document.update!(latest_edition_id: nil, live_edition_id: nil)
     consultation.destroy!
     assert_not ConsultationParticipation.exists?(consultation_participation.id)
   end
@@ -206,6 +207,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should destroy the consultation outcome when the consultation is destroyed" do
     consultation = create(:consultation)
     outcome = create(:consultation_outcome, consultation: consultation)
+    consultation.document.update!(latest_edition_id: nil, live_edition_id: nil)
 
     consultation.destroy!
 

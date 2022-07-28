@@ -70,6 +70,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     edition = build(:published_edition, title: "Published edition", document: document)
     with_locale(:es) { edition.title = "spanish-title" }
     edition.save!
+    edition.document.update!(latest_edition_id: edition.id, live_edition_id: edition.id)
 
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: "republish")
     requests = [

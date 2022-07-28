@@ -8,6 +8,7 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
 
   test "#destroy should also remove the relationship" do
     relation = @edition.nation_inapplicabilities.first
+    @edition.document.update!(latest_edition_id: nil, live_edition_id: nil)
     @edition.destroy!
 
     assert_not NationInapplicability.find_by(id: relation.id)

@@ -4,6 +4,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
   test "#destroy removes relationship with organisation" do
     edition = create(:draft_publication, organisations: [create(:organisation)])
     relation = edition.edition_organisations.first
+    edition.document.update!(latest_edition_id: nil, live_edition_id: nil)
     edition.destroy!
     assert_not EditionOrganisation.exists?(relation.id)
   end
