@@ -3,7 +3,7 @@ class DraftEditionUpdater < EditionService
     if can_perform?
       update_publishing_api!
       notify!
-      update_latest_edition
+      update_live_edition_id_and_latest_edition_id
       true
     end
   end
@@ -18,9 +18,5 @@ class DraftEditionUpdater < EditionService
 
   def verb
     "update_draft"
-  end
-
-  def update_latest_edition
-    edition.document.update!(latest_edition_id: edition.id)
   end
 end

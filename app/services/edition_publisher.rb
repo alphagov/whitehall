@@ -39,7 +39,6 @@ private
     super
     supersede_previous_editions!
     delete_unpublishing!
-    update_live_edition_id
   end
 
   def previous_editions
@@ -70,9 +69,5 @@ private
     return if edition.document.published?
 
     edition.political = PoliticalContentIdentifier.political?(edition)
-  end
-
-  def update_live_edition_id
-    edition.document.update!(live_edition_id: edition.id)
   end
 end

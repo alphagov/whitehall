@@ -14,6 +14,7 @@ class EditionService
         prepare_edition
         fire_transition!
         update_publishing_api!
+        update_live_edition_id_and_latest_edition_id
       end
       notify!
       true
@@ -69,5 +70,9 @@ private
 
   def fire_transition!
     edition.public_send("#{verb}!")
+  end
+
+  def update_live_edition_id_and_latest_edition_id
+    UpdateLiveAndLatestEditionId.new(edition.document).call
   end
 end
