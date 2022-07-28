@@ -7,7 +7,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   def setup
-    WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
+    WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
     @rummager = stub
   end
 

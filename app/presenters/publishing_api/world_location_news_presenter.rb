@@ -1,5 +1,5 @@
 module PublishingApi
-  class WorldLocationNewsPagePresenter
+  class WorldLocationNewsPresenter
     include FeaturedDocumentsPresenter
 
     attr_accessor :world_location, :update_type

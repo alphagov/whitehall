@@ -1,10 +1,10 @@
 require "test_helper"
 
-class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCase
+class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
   include PublishingApi::FeaturedDocumentsPresenter
 
   def present(...)
-    PublishingApi::WorldLocationNewsPagePresenter.new(...)
+    PublishingApi::WorldLocationNewsPresenter.new(...)
   end
 
   def world_location
