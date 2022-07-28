@@ -41,6 +41,11 @@ FactoryBot.define do
           manually_numbered_headings: evaluator.manually_numbered_headings,
         )
     end
+
+    after :create do |attachment|
+      attachment.attachable.save!
+      attachment.attachable.document.update!(latest_edition_id: attachment.attachable_id) if attachment.attachable_type == "Edition"
+    end
   end
 
   factory :external_attachment, traits: [:abstract_attachment] do

@@ -10,6 +10,12 @@ FactoryBot.define do
     previously_published { false }
     auth_bypass_id { SecureRandom.uuid }
 
+    after :create do |edition|
+      document = edition.document
+      document.update!(live_edition_id: edition.id) if edition.state.in?(Edition::PUBLICLY_VISIBLE_STATES)
+      document.update!(latest_edition_id: edition.id) if !edition.deleted? && (document.latest_edition_id.blank? || edition.id == document.editions.where(state: [Edition::PRE_PUBLICATION_STATES]).order(id: :desc).first&.id)
+    end
+
     trait(:with_organisations) do
       transient do
         organisations { [] }
@@ -105,7 +111,8 @@ FactoryBot.define do
       state { "superseded" }
 
       after(:create) do |edition|
-        create(:published_edition, document: edition.document)
+        published_edition = create(:published_edition, document: edition.document)
+        edition.document.update!(latest_edition_id: published_edition.id)
       end
     end
 
