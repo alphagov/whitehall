@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCase
+  include PublishingApi::FeaturedDocumentsPresenter
+
   def present(...)
     PublishingApi::WorldLocationNewsPagePresenter.new(...)
   end
@@ -9,9 +11,20 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     @world_location ||= create(:world_location, name: "Aardistan", "title": "Aardistan and the Uk", mission_statement: "This is a great mission")
   end
 
+  def setup_feature_list
+    case_study = create(:published_case_study)
+    news_article = create(:published_news_article)
+    create(:feature_list, featurable: world_location, features:
+      [
+        build(:feature, document: news_article.document, ordering: 2),
+        build(:feature, document: case_study.document, ordering: 1),
+      ])
+  end
+
   test "presents an item for publishing api" do
     newer_link = create(:featured_link, linkable: world_location, title: "2 days ago", created_at: 2.days.ago)
     older_link = create(:featured_link, linkable: world_location, title: "12 days ago", created_at: 12.days.ago)
+    setup_feature_list
 
     expected = {
       title: "Aardistan and the Uk",
@@ -31,6 +44,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
           },
         ],
         mission_statement: "This is a great mission",
+        ordered_featured_documents: featured_documents(world_location),
       },
       document_type: "placeholder_world_location_news_page",
       public_updated_at: world_location.updated_at,
@@ -47,6 +61,17 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     assert_equal expected, presented_content
 
     assert_valid_against_publisher_schema(presented_content, "world_location_news")
+  end
+
+  test "caps number of featured documents at 5" do
+    features = (1..6).to_a.map do |i|
+      created_case_study = create(:published_case_study, title: "case-study-#{i}")
+      build(:feature, document: created_case_study.document, ordering: i)
+    end
+
+    create(:feature_list, featurable: world_location, features: features)
+
+    assert_equal 5, present(world_location).content.dig(:details, :ordered_featured_documents).size
   end
 
   test "presents mission statement as an empty string when it is nil" do

@@ -1,5 +1,7 @@
 module PublishingApi
   class WorldLocationNewsPagePresenter
+    include FeaturedDocumentsPresenter
+
     attr_accessor :world_location, :update_type
 
     def initialize(world_location, update_type: nil)
@@ -19,6 +21,7 @@ module PublishingApi
         details: {
           ordered_featured_links: featured_links,
           mission_statement: world_location.mission_statement || "",
+          ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
         },
         document_type: "placeholder_world_location_news_page",
         public_updated_at: world_location.updated_at,

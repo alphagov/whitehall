@@ -151,4 +151,6 @@ class WorldLocation < ApplicationRecord
   def send_news_page_to_publishing_api_and_rummager
     WorldLocationNewsPageWorker.new.perform(id)
   end
+
+  FEATURED_DOCUMENTS_DISPLAY_LIMIT = 5
 end
