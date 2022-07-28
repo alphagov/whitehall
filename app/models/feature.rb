@@ -28,8 +28,8 @@ class Feature < ApplicationRecord
   end
 
   def to_s
-    if document && document.published_edition
-      LocalisedModel.new(document.published_edition, locale).title
+    if document && document.live_edition
+      LocalisedModel.new(document.live_edition, locale).title
     elsif topical_event
       topical_event.name
     elsif offsite_link
@@ -43,8 +43,8 @@ class Feature < ApplicationRecord
     where(ended_at: nil)
   end
 
-  def self.with_published_edition
-    joins(document: :published_edition)
+  def self.with_live_edition
+    joins(document: :live_edition)
   end
 
   def self.with_topical_events

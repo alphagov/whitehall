@@ -38,8 +38,8 @@ module Edition::Identifiable
     def published_as(slug, locale = I18n.default_locale)
       document = Document.at_slug(document_type, slug)
       if document.present?
-        published_edition = document.published_edition
-        return published_edition if published_edition.present? && published_edition.available_in_locale?(locale)
+        live_edition = document.live_edition
+        return live_edition if live_edition.present? && live_edition.available_in_locale?(locale)
       end
       nil
     end

@@ -24,7 +24,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     check_if_locked_document(document: document)
 
     # this the latest edition in a visible state ie: withdrawn, published
-    @published_edition = document.published_edition
+    @published_edition = document.live_edition
     # this is the latest edition in a non visible state - draft, scheduled
     # unpublished editions (other than withdrawn) will be in draft state with
     # an associated unpublishing

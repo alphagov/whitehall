@@ -9,7 +9,7 @@ class UpdateLiveAndLatestEditionIdTest < ActiveSupport::TestCase
     @document.update!(live_edition_id: nil, latest_edition_id: nil)
   end
 
-  test "updates published_edition_id to the most recent publicly_visible editions id" do
+  test "updates live_edition_id to the most recent publicly_visible editions id" do
     UpdateLiveAndLatestEditionId.new(@document).call
     assert_equal @document.live_edition_id, @withdrawn_edition.id
   end

@@ -6,7 +6,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
   test "it pushes the published and the draft editions of a document if there is a later draft" do
     document = stub(
-      published_edition: published_edition = build(:edition, id: 1),
+      live_edition: published_edition = build(:edition, id: 1),
       id: 1,
       pre_publication_edition: draft_edition = build(:edition, id: 2),
       locked?: false,
@@ -47,7 +47,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   class DraftException < StandardError; end
   test "it pushes the published version first if there is a more recent draft" do
     document = stub(
-      published_edition: build(:edition),
+      live_edition: build(:edition),
       id: 1,
       pre_publication_edition: build(:edition),
       locked?: false,
@@ -104,7 +104,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   test "it publishes and then unpublishes if the published edition is withdrawn" do
     unpublishing = build(:withdrawn_unpublishing, id: 10)
     document = stub(
-      published_edition: published_edition = create(:withdrawn_edition, unpublishing: unpublishing),
+      live_edition: published_edition = create(:withdrawn_edition, unpublishing: unpublishing),
       id: 1,
       pre_publication_edition: nil,
       locked?: false,
@@ -137,7 +137,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
   test "it raises if an unknown combination is encountered" do
     document = stub(
-      published_edition: stub(id: 2, unpublishing: stub(id: 4, unpublishing_reason_id: 100)),
+      live_edition: stub(id: 2, unpublishing: stub(id: 4, unpublishing_reason_id: 100)),
       id: 1,
       pre_publication_edition: nil,
       locked?: false,
@@ -155,7 +155,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     # we want to ignore these and not have to try and avoid passing them in
     # when doing bulk republishing
     document = stub(
-      published_edition: nil,
+      live_edition: nil,
       id: 1,
       pre_publication_edition: nil,
       locked?: false,

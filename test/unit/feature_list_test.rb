@@ -89,7 +89,7 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [new_draft.document], feature_list.features.map(&:document)
   end
 
-  test "#published_features only returns features where there is a published edition" do
+  test "#published_features only returns features where there is a live edition" do
     published = create(:published_news_article)
     draft = create(:draft_news_article)
 

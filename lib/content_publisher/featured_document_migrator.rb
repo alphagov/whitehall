@@ -7,7 +7,7 @@ module ContentPublisher
     end
 
     def call
-      edition = document.published_edition.presence || document.latest_edition
+      edition = document.live_edition.presence || document.latest_edition
 
       public_url = Whitehall.url_maker.public_document_url(edition)
       public_updated_at = (edition.public_timestamp || edition.updated_at)

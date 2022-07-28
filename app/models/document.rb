@@ -13,7 +13,7 @@ class Document < ApplicationRecord
   has_many :editions, inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
-  has_one  :published_edition,
+  has_one  :live_edition,
            -> { joins(:document).where("editions.id = documents.live_edition_id") },
            class_name: "Edition",
            inverse_of: :document
@@ -44,7 +44,7 @@ class Document < ApplicationRecord
   attr_accessor :sluggable_string
 
   def self.published
-    joins(:published_edition)
+    joins(:editions).where(editions: { state: "published" })
   end
 
   def self.at_slug(document_types, slug)
@@ -82,10 +82,7 @@ class Document < ApplicationRecord
   end
 
   def published?
-    Edition.exists?(
-      state: Edition::PUBLICLY_VISIBLE_STATES,
-      document_id: id,
-    )
+    live_edition.present?
   end
 
   # this is to support linking to documents which haven't get been published,
@@ -98,7 +95,7 @@ class Document < ApplicationRecord
   end
 
   def first_published_date
-    published_edition.first_public_at if published?
+    live_edition.first_public_at if published?
   end
 
   def first_published_on_govuk

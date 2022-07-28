@@ -247,8 +247,8 @@ EXISTS (
     joins(:document).where("editions.id = documents.latest_edition_id")
   end
 
-  def self.latest_published_edition
-    joins(:document).where("editions.id = documents.live_edition_id AND state = 'published'")
+  def self.latest_live_edition
+    joins(:document).where("editions.id = documents.live_edition_id")
   end
 
   def self.search_format_type
@@ -551,13 +551,13 @@ EXISTS (
     end
   end
 
-  def latest_published_edition
-    document.published_edition
+  def latest_live_edition
+    document.live_edition
   end
 
   def previous_edition
     if pre_publication?
-      latest_published_edition
+      latest_live_edition
     else
       document.ever_published_editions.reverse.second
     end

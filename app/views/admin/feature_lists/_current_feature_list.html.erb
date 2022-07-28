@@ -15,14 +15,14 @@
         <div class="well feature-list">
           <%= label_tag "ordering-#{feature.id}" do %>
             <div class="row">
-              <% if feature.document && feature.document.published_edition %>
+              <% if feature.document && feature.document.live_edition %>
                 <div class="title col-md-6">
                   <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
-                  <%= link_to(feature, admin_edition_path(feature.document.published_edition)) %>
+                  <%= link_to(feature, admin_edition_path(feature.document.live_edition)) %>
                 </div>
-                <div class="type col-md-2"><%= feature.document.published_edition.type.titleize %> (document)</div>
-                <div class="date col-md-2"><%=localize feature.document.published_edition.major_change_published_at.to_date %></div>
-                <%= content_tag_for :div, feature.document.published_edition, class: "button text-right col-md-2" do %>
+                <div class="type col-md-2"><%= feature.document.live_edition.type.titleize %> (document)</div>
+                <div class="date col-md-2"><%=localize feature.document.live_edition.major_change_published_at.to_date %></div>
+                <%= content_tag_for :div, feature.document.live_edition, class: "button text-right col-md-2" do %>
                   <%= link_to('Unfeature',
                         unfeature_admin_feature_list_feature_path(feature_list, feature),
                         data: { confirm: "Unfeature '#{feature}'?" },

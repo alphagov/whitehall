@@ -287,7 +287,7 @@ module PublishingApi
 
     def featured_documents_editioned(feature)
       # Editioned formats (like news) that have been featured
-      edition = feature.document.published_edition
+      edition = feature.document.live_edition
       {
         title: edition.title,
         href: Whitehall.url_maker.public_document_path(edition),

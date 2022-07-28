@@ -24,7 +24,7 @@ class DocumentTest < ActiveSupport::TestCase
     published_publication = draft_publication
     _new_draft_publication = published_publication.create_draft(user)
 
-    assert_equal published_publication, document.reload.published_edition
+    assert_equal published_publication, document.reload.live_edition
   end
 
   test "should be able to retrieve documents of a certain type at a particular slug" do
@@ -47,15 +47,6 @@ class DocumentTest < ActiveSupport::TestCase
   test "should not be published if no published edition exists" do
     draft_publication = create(:draft_publication)
     assert_not draft_publication.document.published?
-  end
-
-  test "should no longer be published when it's edition is unpublished" do
-    published_publication = create(:published_publication)
-    assert published_publication.document.published?
-
-    published_publication.unpublish!
-
-    assert_not published_publication.document.published?
   end
 
   test "#pre_publication_edition returns the edition in a pre-publication state" do

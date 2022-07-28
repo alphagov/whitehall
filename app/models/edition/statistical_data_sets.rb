@@ -11,7 +11,7 @@ module Edition::StatisticalDataSets
     has_many :edition_statistical_data_sets, foreign_key: :edition_id, dependent: :destroy
     has_many :statistical_data_set_documents, through: :edition_statistical_data_sets, source: :document
     has_many :statistical_data_sets, through: :statistical_data_set_documents, source: :latest_edition
-    has_many :published_statistical_data_sets, through: :statistical_data_set_documents, source: :published_edition, class_name: "StatisticalDataSet"
+    has_many :published_statistical_data_sets, through: :statistical_data_set_documents, source: :live_edition, class_name: "StatisticalDataSet"
 
     add_trait Trait
   end
