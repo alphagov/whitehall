@@ -26,6 +26,7 @@ class User < ApplicationRecord
     FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
     GDS_ADMIN = "GDS Admin".freeze
     EXPORT_DATA = "Export data".freeze
+    VIEW_MOVE_TABS_TO_ENDPOINTS = "View move tabs to endpoints".freeze
   end
 
   def role
@@ -89,6 +90,10 @@ class User < ApplicationRecord
 
   def can_force_publish_anything?
     has_permission?(Permissions::FORCE_PUBLISH_ANYTHING)
+  end
+
+  def can_view_move_tabs_to_endpoints?
+    has_permission?(Permissions::VIEW_MOVE_TABS_TO_ENDPOINTS)
   end
 
   def organisation_name
