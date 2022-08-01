@@ -37,8 +37,7 @@ RUN apt-get update -qy && \
     ln -s /usr/bin/yarnpkg /usr/bin/yarn
 
 WORKDIR /app
-RUN ln -fs /tmp /app/tmp && \
-    ln -fs /tmp /app/asset-manager-tmp
+RUN ln -fs /tmp /app/tmp
 RUN echo 'install: --no-document' >> /etc/gemrc && gem update --system --silent && gem cleanup
 COPY Gemfile Gemfile.lock .ruby-version /app/
 # Make the installed version of bundler match the one that wrote Gemfile.lock.
