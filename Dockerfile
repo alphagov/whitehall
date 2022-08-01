@@ -38,8 +38,7 @@ RUN apt-get update -qy && \
 
 WORKDIR /app
 RUN ln -fs /tmp /app/tmp && \
-    ln -fs /tmp /app/asset-manager-tmp && \
-    ln -fs /tmp /home/app
+    ln -fs /tmp /app/asset-manager-tmp
 RUN echo 'install: --no-document' >> /etc/gemrc && gem update --system --silent && gem cleanup
 COPY Gemfile Gemfile.lock .ruby-version /app/
 # Make the installed version of bundler match the one that wrote Gemfile.lock.
@@ -81,7 +80,7 @@ RUN apt-get update -qy && \
     rm -fr /var/lib/apt/lists
 
 WORKDIR /app
-RUN ln -fs /tmp /app/tmp && ln -fs /tmp /home/app && \
+RUN ln -fs /tmp /app/tmp && \
     echo 'IRB.conf[:HISTORY_FILE] = "/tmp/irb_history"' > irb.rc
 COPY --from=builder /usr/bin/node* /usr/bin/
 COPY --from=builder /usr/lib/nodejs/ /usr/lib/nodejs/
@@ -90,6 +89,6 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /app ./
 
 RUN groupadd -g 1001 app && \
-    useradd -u 1001 -g app app
+    useradd -u 1001 -g app -d /app app
 USER 1001
 CMD ["bundle", "exec", "puma"]
