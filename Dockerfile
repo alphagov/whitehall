@@ -36,8 +36,10 @@ RUN apt-get update -qy && \
         g++ make libc-dev curl yarnpkg libmariadb-dev-compat && \
     ln -s /usr/bin/yarnpkg /usr/bin/yarn
 
-RUN mkdir -p /app && ln -fs /tmp /app/tmp && ln -fs /tmp /home/app
 WORKDIR /app
+RUN ln -fs /tmp /app/tmp && \
+    ln -fs /tmp /app/asset-manager-tmp && \
+    ln -fs /tmp /home/app
 RUN echo 'install: --no-document' >> /etc/gemrc && gem update --system --silent && gem cleanup
 COPY Gemfile Gemfile.lock .ruby-version /app/
 # Make the installed version of bundler match the one that wrote Gemfile.lock.
@@ -79,7 +81,7 @@ RUN apt-get update -qy && \
     rm -fr /var/lib/apt/lists
 
 WORKDIR /app
-RUN mkdir -p /app && ln -fs /tmp /app/tmp && ln -fs /tmp /home/app && \
+RUN ln -fs /tmp /app/tmp && ln -fs /tmp /home/app && \
     echo 'IRB.conf[:HISTORY_FILE] = "/tmp/irb_history"' > irb.rc
 COPY --from=builder /usr/bin/node* /usr/bin/
 COPY --from=builder /usr/lib/nodejs/ /usr/lib/nodejs/
