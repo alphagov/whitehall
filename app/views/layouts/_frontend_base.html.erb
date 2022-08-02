@@ -37,7 +37,7 @@
         <%= yield %>
       </div>
     </div>
-    <%= javascript_include_tag "application", integrity: false %>
+    <%= javascript_include_tag "frontend", integrity: false %>
     <%= javascript_tag(yield :javascript_initialisers) %>
   </body>
 </html>

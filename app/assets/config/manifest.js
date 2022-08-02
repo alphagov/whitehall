@@ -2,5 +2,5 @@
 //= link_directory ../stylesheets .css
 //= link_directory ../stylesheets/frontend .css
 //= link all.js
-//= link application.js
+//= link frontend.js
 //= link admin.js
