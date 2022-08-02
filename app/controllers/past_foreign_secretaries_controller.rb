@@ -45,7 +45,7 @@ class PastForeignSecretariesController < PublicFacingController
       "Sir Geoffrey Howe, Lord Howe of Aberavon" => {
         service: "1983 to 1989",
       },
-      "SFrancis Pym, Lord Pym of Sandy" => {
+      "Francis Pym, Lord Pym of Sandy" => {
         service: "1982 to 1983",
       },
       "Lord Peter Carrington, Baron Carrington" => {
