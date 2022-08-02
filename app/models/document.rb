@@ -42,6 +42,10 @@ class Document < ApplicationRecord
 
   has_many :edition_versions, through: :editions, source: :versions
 
+  has_many :withdrawals,
+           -> { where(unpublishing_reason_id: UnpublishingReason::Withdrawn).order(unpublished_at: :asc, id: :asc) },
+           through: :editions, source: :unpublishing
+
   before_save { check_if_locked_document(document: self) unless locked_changed? }
 
   validates :content_id, presence: true

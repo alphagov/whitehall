@@ -294,6 +294,21 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal publication, assigns(:edition)
   end
 
+  test "confirm_unpublish loads up to the last 50 previous withdrawals" do
+    # arbitrary limit to protect against unexpectedly large result sets that could cause performance issues
+    login_as(create(:managing_editor))
+    publication = create(:published_publication)
+    create_list(:withdrawn_unpublishing, 60, edition: publication)
+    get :confirm_unpublish, params: { id: publication, lock_version: publication.lock_version }
+
+    all_withdrawals = publication.document.withdrawals
+    loaded_withdrawals = assigns(:previous_withdrawals)
+
+    assert_equal 50, loaded_withdrawals.count
+    assert_equal all_withdrawals.last, loaded_withdrawals.last
+    assert_equal all_withdrawals[9], loaded_withdrawals.first
+  end
+
   test "confirm_unpublish redirects back to the edition with an error message if document is locked" do
     login_as create(:managing_editor)
     get :confirm_unpublish, params: { id: locked_edition, lock_version: locked_edition.lock_version }
@@ -326,11 +341,64 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
       unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
       explanation: "No longer government publication",
     }
-    post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
+    post :unpublish, params: { id: published_edition,
+                               lock_version: published_edition.lock_version,
+                               unpublishing: unpublish_params }
 
     assert_redirected_to admin_publication_path(published_edition)
     assert_equal "This document has been marked as withdrawn", flash[:notice]
     assert_equal "No longer government publication", published_edition.reload.unpublishing.explanation
+  end
+
+  test "#unpublish when creating a new withdrawal on a document that has previous withdrawals" do
+    withdrawn = withdrawn_edition
+    published_edition(document: withdrawn.document)
+
+    login_as create(:managing_editor)
+    unpublish_params = {
+      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
+      explanation: "No longer government publication",
+    }
+    post :unpublish, params: { id: published_edition,
+                               lock_version: published_edition.lock_version,
+                               unpublishing: unpublish_params,
+                               previous_withdrawal_id: "new" }
+
+    assert_redirected_to admin_publication_path(published_edition)
+    assert_equal "This document has been marked as withdrawn", flash[:notice]
+    assert_equal "No longer government publication", published_edition.reload.unpublishing.explanation
+  end
+
+  test "#unpublish when reusing a previous withdrawal" do
+    withdrawn = withdrawn_edition
+    published_edition(document: withdrawn.document)
+
+    login_as create(:managing_editor)
+    unpublish_params = { unpublishing_reason_id: UnpublishingReason::Withdrawn.id }
+    post :unpublish, params: { id: published_edition,
+                               lock_version: published_edition.lock_version,
+                               unpublishing: unpublish_params,
+                               previous_withdrawal_id: withdrawn.unpublishing.id }
+
+    assert_redirected_to admin_publication_path(published_edition)
+    assert_equal "This document has been marked as withdrawn", flash[:notice]
+    assert_equal withdrawn_edition.unpublishing.explanation, published_edition.reload.unpublishing.explanation
+  end
+
+  test "#unpublish errors when withdrawing a document that has previous withdrawals but a previous_withdrawal_id wasn't selected" do
+    withdrawn = withdrawn_edition
+    published_edition(document: withdrawn.document)
+
+    login_as create(:managing_editor)
+    unpublish_params = { unpublishing_reason_id: UnpublishingReason::Withdrawn.id }
+    post :unpublish, params: { id: published_edition,
+                               lock_version: published_edition.lock_version,
+                               unpublishing: unpublish_params }
+
+    assert_response :success
+    assert_template :confirm_unpublish
+    assert_equal "Select which withdrawal date you want to use", flash[:alert]
+    assert published_edition.reload.published?
   end
 
   view_test "#unpublish when there are validation errors re-renders the unpublish form" do
@@ -434,8 +502,8 @@ private
     @draft_edition ||= create(:draft_publication)
   end
 
-  def published_edition
-    @published_edition ||= create(:published_publication)
+  def published_edition(options = {})
+    @published_edition ||= create(:published_publication, options)
   end
 
   def imported_edition
@@ -443,7 +511,7 @@ private
   end
 
   def withdrawn_edition
-    @withdrawn_edition ||= create(:withdrawn_edition, major_change_published_at: Time.zone.now)
+    @withdrawn_edition ||= create(:withdrawn_publication, major_change_published_at: Time.zone.now)
   end
 
   def locked_edition

@@ -8,9 +8,11 @@
 
       this.revealCorrectForm()
       this.hideExplanationIfRedirecting()
+      this.revealNewWithdrawalFields()
 
       $("input[name='unpublishing_reason_id']").change(this.revealCorrectForm)
       $('#unpublishing_redirect').change(this.hideExplanationIfRedirecting)
+      $("input[name='previous_withdrawal_id']").change(this.revealNewWithdrawalFields)
     },
 
     revealCorrectForm: function () {
@@ -39,6 +41,14 @@
         $('#published_in_error_explanation').val('').closest('fieldset').hide()
       } else {
         $('#published_in_error_explanation').closest('fieldset').show()
+      }
+    },
+
+    revealNewWithdrawalFields: function () {
+      var withdrawalRadios = $("input[name='previous_withdrawal_id']")
+      if (withdrawalRadios.length > 0) {
+        var selected = withdrawalRadios.filter(':checked').val()
+        $('#new-withdrawal').toggle(selected === 'new')
       }
     }
   }

@@ -21,12 +21,37 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   end
 end
 
-When(/^I withdraw the publication with the explanation "([^"]*)"$/) do |explanation|
+def withdraw_publication(explanation)
   @publication = Publication.last
   visit admin_edition_path(@publication)
   click_on "Withdraw or unpublish"
   choose "Withdraw: no longer current government policy/activity"
   fill_in "Public explanation (this is shown on the live site) *", with: explanation
+  click_button "Withdraw"
+
+  expect(:withdrawn).to eq(@publication.reload.current_state)
+end
+
+When(/^I withdraw the publication with the explanation "([^"]*)"$/) do |explanation|
+  withdraw_publication(explanation)
+end
+
+Given(/^the publication was withdrawn on ([\d\/]+) with the explanation "([^"]*)"$/) do |date, explanation|
+  Timecop.travel date.to_date do
+    withdraw_publication(explanation)
+  end
+end
+
+When("I go to withdraw the publication again") do
+  @publication = Publication.last
+  visit admin_edition_path(@publication)
+  click_on "Withdraw or unpublish"
+  choose "Withdraw: no longer current government policy/activity"
+end
+
+When(/^I choose to reuse the withdrawal from ([\d\/]+)$/) do |date|
+  date_formatted = date.to_date.to_fs(:long_ordinal)
+  choose date_formatted
   click_button "Withdraw"
 
   expect(:withdrawn).to eq(@publication.reload.current_state)
@@ -70,6 +95,19 @@ Then(/^there should be an unpublishing explanation of "([^"]*)" and a reason of 
 
   expect(explanation).to eq(unpublishing.explanation)
   expect(reason_name).to eq(reason.name)
+end
+
+Then(/^the withdrawal date should be (today|[\d\/]+)$/) do |date|
+  edition = Edition.last
+  unpublishing = edition.unpublishing
+
+  date = if date == "today"
+           Time.zone.today
+         else
+           Time.zone.parse(date).to_date
+         end
+
+  expect(unpublishing.unpublished_at.to_date).to eq(date)
 end
 
 When(/^I unpublish the document and ask for a redirect to "([^"]*)"$/) do |url|

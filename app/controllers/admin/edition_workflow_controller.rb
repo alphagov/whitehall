@@ -12,6 +12,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   before_action :set_minor_change_flag
   before_action :ensure_reason_given_for_force_publishing, only: :force_publish
   before_action { check_if_locked_document(edition: @edition) }
+  before_action :set_previous_withdrawals, only: %i[confirm_unpublish unpublish]
 
   rescue_from ActiveRecord::StaleObjectError do
     redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
@@ -98,17 +99,17 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+    @unpublishing = @edition.build_unpublishing
   end
 
   def unpublish
-    @service_object = withdrawer_or_unpublisher_for_edition
+    success, message = withdrawing? ? withdraw_edition : unpublish_edition
 
-    if @service_object.perform!
-      redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
+    if success
+      redirect_to admin_edition_path(@edition), notice: message
     else
-      @unpublishing = @edition.unpublishing
-      flash.now[:alert] = @service_object.failure_reason
+      @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
+      flash.now[:alert] = message
       render :confirm_unpublish
     end
   end
@@ -181,12 +182,52 @@ private
     end
   end
 
-  def withdrawer_or_unpublisher_for_edition
-    if withdrawing?
-      Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Withdrawn", unpublishing: unpublishing_params)
+  def set_previous_withdrawals
+    # The limit here is entirely arbitrary with the purpose of avoiding page-load performance issues on
+    # documents with lots of withdrawals. This scenario is unlikely, but a limit is better than a timeout.
+    @previous_withdrawals = @edition.document.withdrawals.last(50)
+  end
+
+  def withdraw_edition
+    if new_withdrawal? || previous_withdrawal.present?
+      withdrawer = Whitehall.edition_services.withdrawer(
+        @edition,
+        user: current_user,
+        remark: "Withdrawn",
+        unpublishing: unpublishing_params,
+        previous_withdrawal: previous_withdrawal,
+      )
+
+      success = withdrawer.perform!
+      message = if success
+                  "This document has been marked as withdrawn"
+                else
+                  withdrawer.failure_reason
+                end
     else
-      Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft", unpublishing: unpublishing_params)
+      success = false
+      message = "Select which withdrawal date you want to use"
     end
+
+    [success, message]
+  end
+
+  def unpublish_edition
+    unpublisher = Whitehall.edition_services.unpublisher(
+      @edition,
+      user: current_user,
+      remark: "Reset to draft",
+      unpublishing: unpublishing_params,
+    )
+
+    success = unpublisher.perform!
+    message = if success
+                "This document has been unpublished and will no longer appear on the public website"
+              else
+                unpublisher.failure_reason
+              end
+
+    [success, message]
   end
 
   def unpublishing_params
@@ -195,16 +236,22 @@ private
     )
   end
 
-  def unpublish_success_notice
-    if withdrawing?
-      "This document has been marked as withdrawn"
-    else
-      "This document has been unpublished and will no longer appear on the public website"
-    end
-  end
-
   def withdrawing?
     unpublishing_params[:unpublishing_reason_id] == UnpublishingReason::Withdrawn.id.to_s
+  end
+
+  def previous_withdrawal_id
+    params["previous_withdrawal_id"]
+  end
+
+  def previous_withdrawal
+    return if new_withdrawal?
+
+    @previous_withdrawal ||= @edition.document.withdrawals.find_by(id: previous_withdrawal_id)
+  end
+
+  def new_withdrawal?
+    previous_withdrawal_id == "new" || @edition.document.withdrawals.none?
   end
 
   def users_to_notify(edition)
