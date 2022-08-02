@@ -1,17 +1,18 @@
+<% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
+
 <%= render 'govuk_publishing_components/components/layout_for_admin',
   product_name: "Whitehall Publisher",
-  environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+  environment: environment,
   browser_title: yield(:page_title).presence || yield(:title) do %>
 
   <%= render "govuk_publishing_components/components/skip_link" %>
-  <%= render "govuk_publishing_components/components/layout_header", {
-    product_name: "Whitehall Publisher",
-    environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
-    navigation_items: [
-      { text: current_user.name, href: Plek.new.external_url_for("signon") },
-      { text: "Log out", href: gds_sign_out_path }
-    ].delete_if{ |item| item[:user_has_permission_to_see] == false },
-  }%>
+
+  <div class="legacy-whitehall">
+    <div class="environment-<%= environment %>">
+      <%= render "shared/header" %>
+    </div>
+  </div>
+
   <div class="govuk-width-container">
     <%= yield(:back_link) %>
     <%= yield(:breadcrumbs) %>
