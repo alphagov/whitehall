@@ -153,7 +153,6 @@ class Organisation < ApplicationRecord
   validate :exactly_one_superseding_organisation, if: proc { |organisation| organisation.replaced? || organisation.merged? || organisation.changed_name? }
   validate :at_least_two_superseding_organisations, if: :split?
   validate :exactly_one_devolved_superseding_organisation, if: :devolved?
-  validate :exempt_organisation_does_not_have_custom_logo
 
   delegate :ministerial_department?, to: :type
   delegate :devolved_administration?, to: :type
@@ -247,12 +246,6 @@ class Organisation < ApplicationRecord
   def exactly_one_devolved_superseding_organisation
     if superseding_organisations.size != 1 || !superseding_organisations.first.devolved_administration?
       errors.add(:base, "Please add exactly one devolved superseding organisation for this closed status.")
-    end
-  end
-
-  def exempt_organisation_does_not_have_custom_logo
-    if exempt? && organisation_logo_type == OrganisationLogoType::CustomLogo
-      errors.add(:base, "Organisations which are exempt from GOV.UK cannot have a custom logo.")
     end
   end
 

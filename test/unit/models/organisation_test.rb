@@ -39,11 +39,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert new_organisation.valid?
   end
 
-  test "should be invalid if a custom logo is used with an exempt organisation" do
-    assert build(:organisation, govuk_status: "exempt", organisation_logo_type: OrganisationLogoType::NoIdentity).valid?
-    assert_not build(:organisation, govuk_status: "exempt", organisation_logo_type: OrganisationLogoType::CustomLogo).valid?
-  end
-
   test "should be valid if govuk status is transitioning" do
     new_organisation = build(:organisation, govuk_status: "transitioning")
     assert new_organisation.valid?
