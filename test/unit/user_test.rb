@@ -149,6 +149,16 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_view_move_tabs_to_endpoints?
   end
 
+  test "cannot preview the design system by default" do
+    user = build(:user)
+    assert_not user.can_preview_design_system?
+  end
+
+  test "can preview the design system if given permission" do
+    user = build(:user, permissions: [User::Permissions::PREVIEW_DESIGN_SYSTEM])
+    assert user.can_preview_design_system?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

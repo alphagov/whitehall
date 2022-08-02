@@ -27,6 +27,7 @@ class User < ApplicationRecord
     GDS_ADMIN = "GDS Admin".freeze
     EXPORT_DATA = "Export data".freeze
     VIEW_MOVE_TABS_TO_ENDPOINTS = "View move tabs to endpoints".freeze
+    PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
   end
 
   def role
@@ -94,6 +95,10 @@ class User < ApplicationRecord
 
   def can_view_move_tabs_to_endpoints?
     has_permission?(Permissions::VIEW_MOVE_TABS_TO_ENDPOINTS)
+  end
+
+  def can_preview_design_system?
+    has_permission?(Permissions::PREVIEW_DESIGN_SYSTEM)
   end
 
   def organisation_name
