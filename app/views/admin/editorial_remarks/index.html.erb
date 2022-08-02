@@ -1,0 +1,15 @@
+<% page_title "Notes" %>
+
+<div class="row">
+  <section class="col-md-8">
+    <span class="back">
+      <%= link_to 'Back', admin_edition_path(@edition) %>
+    </span>
+
+    <h1>Notes</h1>
+
+    <%= render_editorial_remarks(@edition_remarks, @edition) %>
+
+    <%= link_to "Add note", new_admin_edition_editorial_remark_path(@edition) %>
+  </section>
+</div>

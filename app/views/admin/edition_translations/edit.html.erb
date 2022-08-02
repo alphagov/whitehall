@@ -34,7 +34,7 @@
           <h1>Notes</h1>
           <p>To add a remark, save your changes.</p>
           <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
-          <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
+          <%= render_editorial_remarks(@edition_remarks, @edition) %>
         <% end %>
       <% end %>
 

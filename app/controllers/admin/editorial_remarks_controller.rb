@@ -8,6 +8,10 @@ class Admin::EditorialRemarksController < Admin::BaseController
     enforce_permission!(:make_editorial_remark, @edition)
   end
 
+  def index
+    @edition_remarks = @edition.document_remarks_trail.reverse
+  end
+
   def new
     @editorial_remark = @edition.editorial_remarks.build
   end
@@ -15,7 +19,11 @@ class Admin::EditorialRemarksController < Admin::BaseController
   def create
     @editorial_remark = @edition.editorial_remarks.build(editorial_remark_params)
     if @editorial_remark.save
-      redirect_to admin_edition_path(@edition)
+      if current_user.can_view_move_tabs_to_endpoints?
+        redirect_to admin_edition_editorial_remarks_path(@edition)
+      else
+        redirect_to admin_edition_path(@edition)
+      end
     else
       render "new"
     end

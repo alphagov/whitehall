@@ -26,7 +26,7 @@ module Admin::AuditTrailHelper
     )
   end
 
-  def render_editorial_remarks_in_sidebar(remarks, edition)
+  def render_editorial_remarks(remarks, edition)
     this_edition_remarks, other_edition_remarks = remarks.partition { |r| r.edition == edition }
     out = ""
     if this_edition_remarks.any?
