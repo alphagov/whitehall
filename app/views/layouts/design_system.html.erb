@@ -1,0 +1,64 @@
+<%= render 'govuk_publishing_components/components/layout_for_admin',
+  product_name: "Whitehall Publisher",
+  environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+  browser_title: yield(:page_title).presence || yield(:title) do %>
+
+  <%= render "govuk_publishing_components/components/skip_link" %>
+  <%= render "govuk_publishing_components/components/layout_header", {
+    product_name: "Whitehall Publisher",
+    environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+    navigation_items: [
+      { text: current_user.name, href: Plek.new.external_url_for("signon") },
+      { text: "Log out", href: gds_sign_out_path }
+    ].delete_if{ |item| item[:user_has_permission_to_see] == false },
+  }%>
+  <div class="govuk-width-container">
+    <%= yield(:back_link) %>
+    <%= yield(:breadcrumbs) %>
+
+    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? && yield(:breadcrumbs).blank?%>" id="main-content" role="main">
+      <% if flash["notice"].present? %>
+        <%= render "govuk_publishing_components/components/success_alert", {
+          message: flash["notice"]
+        } %>
+      <% end %>
+
+      <% if flash["alert"].present? %>
+        <%= render "govuk_publishing_components/components/error_alert", {
+          message: flash["alert"]
+        } %>
+      <% end %>
+
+      <% if yield(:title).present? %>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <span class="govuk-caption-l"><%= yield(:context) %></span>
+            <h1 class="govuk-heading-l"><%= yield(:title) %></h1>
+          </div>
+          <div class="govuk-grid-column-one-third app-grid-column--align-right">
+            <%= yield(:title_side) %>
+          </div>
+        </div>
+      <% end %>
+      <%= yield %>
+    </main>
+  </div>
+
+  <%= render "govuk_publishing_components/components/layout_footer", {
+    navigation: [
+      {
+        title: "Support and feedback",
+        items: [
+          {
+            href: Plek.new.external_url_for("support"),
+            text: "Raise a support request"
+          },
+          {
+            href: "https://www.gov.uk/government/content-publishing",
+            text: "How to write, publish, and improve content"
+          }
+        ]
+      }
+    ]
+  } %>
+<% end %>

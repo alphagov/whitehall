@@ -4,3 +4,4 @@
 //= link all.js
 //= link frontend.js
 //= link admin.js
+//= link application.js
