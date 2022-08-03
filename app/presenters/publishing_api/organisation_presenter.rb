@@ -84,7 +84,7 @@ module PublishingApi
         ordered_corporate_information_pages: corporate_information_pages,
         secondary_corporate_information_pages: secondary_corporate_information_pages,
         ordered_featured_links: featured_links,
-        ordered_featured_documents: featured_documents(item),
+        ordered_featured_documents: featured_documents(item, item.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
         ordered_promotional_features: promotional_features,
         important_board_members: important_board_members,
         organisation_featuring_priority: organisation_featuring_priority,

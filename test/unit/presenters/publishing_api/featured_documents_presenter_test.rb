@@ -8,6 +8,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
     first_feature = build(:feature, document: case_study.document, ordering: 1)
     news_article = create(:published_news_article)
     second_feature = build(:feature, document: news_article.document, ordering: 2)
+    featured_documents_display_limit = 5
 
     world_location = create(:world_location)
 
@@ -34,7 +35,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
             document_type: I18n.t("document.type.press_release.one") },
         ]
 
-        assert_equal expected_ordered_featured_documents, featured_documents(world_location)
+        assert_equal expected_ordered_featured_documents, featured_documents(world_location, featured_documents_display_limit)
       end
     end
   end
@@ -42,6 +43,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
   test("determines ordered featured documents in different locales for topical events") do
     topical_event = create(:topical_event, name: "topical_event_1", start_date: 1.year.ago.to_date)
     feature = build(:feature, document: nil, topical_event: topical_event, ordering: 1)
+    featured_documents_display_limit = 5
 
     organisation = create(:organisation)
 
@@ -61,7 +63,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
             document_type: nil },
         ]
 
-        assert_equal expected_ordered_featured_documents, featured_documents(organisation)
+        assert_equal expected_ordered_featured_documents, featured_documents(organisation, featured_documents_display_limit)
       end
     end
   end
@@ -69,6 +71,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
   test("determines ordered featured documents in different locales for offsite links") do
     offsite_link = create(:offsite_link, date: 1.year.ago.to_date)
     feature = build(:feature, document: nil, offsite_link: offsite_link, ordering: 1)
+    featured_documents_display_limit = 5
 
     organisation = create(:organisation)
 
@@ -88,12 +91,12 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
             document_type: offsite_link.display_type },
         ]
 
-        assert_equal expected_ordered_featured_documents, featured_documents(organisation)
+        assert_equal expected_ordered_featured_documents, featured_documents(organisation, featured_documents_display_limit)
       end
     end
   end
 
-  test("caps number of documents when limit provided") do
+  test("caps number of documents at limit when it exceeds this") do
     first_feature = build(:feature, document: create(:published_case_study).document, ordering: 1)
     second_feature = build(:feature, document: create(:published_news_article).document, ordering: 2)
 
