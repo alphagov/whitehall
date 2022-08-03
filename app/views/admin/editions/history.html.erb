@@ -1,0 +1,19 @@
+<% page_title "History" %>
+
+<div class="row">
+  <section class="col-md-8">
+    <span class="back">
+      <%= link_to 'Back', admin_edition_path(@edition) %>
+    </span>
+
+    <div class="audit-trail-page">
+      <h1>History</h1>
+
+      <%= paginate @edition_history, theme: 'audit_trail' %>
+      <ul class="list-unstyled">
+        <%= render partial: "admin/editions/audit_trail_entry", collection: @edition_history %>
+      </ul>
+      <%= paginate @edition_history, theme: 'audit_trail' %>
+    </div>
+  </section>
+</div>

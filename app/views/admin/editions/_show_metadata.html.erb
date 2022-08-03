@@ -29,9 +29,12 @@
 <%= render partial: 'alerts', locals: {edition: @edition}  %>
 
 <% if current_user.can_view_move_tabs_to_endpoints? %>
-  <div class= "add-bottom-margin">
-    <%= link_to "Notes", admin_edition_editorial_remarks_path(@edition) %>
-  </div>
+  <nav class= "add-bottom-margin">
+    <ul class="list-unstyled">
+      <li><%= link_to "Notes", admin_edition_editorial_remarks_path(@edition) %></li>
+      <li><%= link_to "History", history_admin_edition_path(@edition) %></li>
+    </ul>
+  </nav>
 <% end %>
 
 <%= render 'edition_view_edit_buttons' %>
