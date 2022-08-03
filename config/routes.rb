@@ -35,6 +35,7 @@ Whitehall::Application.routes.draw do
       resources :worldwide_organisations, path: "organisations", only: [:index], defaults: { format: :json }
     end
     resources :worldwide_organisations, path: "worldwide-organisations", only: [:show], defaults: { format: :json }
+    resources :licences, only: [:index], defaults: { format: :json }
   end
 
   # World locations and Worldwide organisations
@@ -368,6 +369,7 @@ Whitehall::Application.routes.draw do
           resources :translations, controller: "world_location_translations"
           resources :offsite_links
         end
+        resources :licences, only: %i[index edit update show]
         resources :feature_lists, only: [:show] do
           post :reorder, on: :member
 

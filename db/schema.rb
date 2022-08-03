@@ -583,6 +583,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_24_141116) do
     t.index ["image_data_id"], name: "index_images_on_image_data_id"
   end
 
+  create_table "licences", charset: "utf8mb3", force: :cascade do |t|
+    t.string "link", null: false
+    t.text "title"
+    t.text "sectors"
+    t.text "activities"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "link_checker_api_report_links", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "link_checker_api_report_id"
     t.text "uri", null: false
