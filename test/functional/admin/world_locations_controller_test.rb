@@ -113,4 +113,13 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
       assert_match(/#{Regexp.escape("https://www.test.gov.uk/world/france/news.fr")}/, view_links.first["href"])
     end
   end
+
+  view_test "the featurables tab should display information regarding the maximum number of featurable documents" do
+    first_feature = build(:feature, document: create(:published_case_study).document, ordering: 1)
+    world_location = create(:world_location, slug: "france")
+    create(:feature_list, locale: :en, featurable: world_location, features: [first_feature])
+    get :features, params: { id: world_location }
+
+    assert_match(/Please note that you can only feature a maximum of [\d+] documents.*/, response.body)
+  end
 end

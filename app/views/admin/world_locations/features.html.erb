@@ -9,6 +9,6 @@
   </div>
   <section class="world-location-details">
     <%= tab_navigation_for(@world_location) %>
-    <%= render @feature_list, filter_by: [:title, :type, :world_location] %>
+    <%= render @feature_list, filter_by: [:title, :type, :world_location], maximum_featured_documents: @world_location.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT %>
   </section>
 <% end %>

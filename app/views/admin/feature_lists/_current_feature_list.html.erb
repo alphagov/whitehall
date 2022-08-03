@@ -2,7 +2,9 @@
 <p class="warning">
   Warning: changes to features appear instantly on the live site.
 </p>
-
+<p>
+    Please note that you can only feature a maximum of <%= maximum_featured_documents %> documents. Any featured documents beyond this limit will not appear on the live site.
+</p>
 <% if feature_list.features.current.any? %>
   <% if feature_list.features.current.many? %>
     <p>
