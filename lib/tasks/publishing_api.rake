@@ -85,32 +85,9 @@ namespace :publishing_api do
   end
 
   namespace :republish do
-    desc "Republish all organisations"
-    task all_organisations: :environment do
-      Organisation.find_each(&:publish_to_publishing_api)
-    end
-
     desc "Republish an organisation to the Publishing API"
     task :organisation_by_slug, [:slug] => :environment do |_, args|
       Organisation.find_by!(slug: args[:slug]).publish_to_publishing_api
-    end
-
-    desc "Republish all Take Part pages"
-    task all_take_part_pages: :environment do
-      TakePartPage.find_each(&:publish_to_publishing_api)
-      puts "Finished republishing Take Part pages"
-    end
-
-    desc "Republish all PolicyGroup pages"
-    task all_policy_group: :environment do
-      republisher = DataHygiene::PublishingApiRepublisher.new(PolicyGroup.all)
-      republisher.perform
-      puts "Finished republishing Policy Groups"
-    end
-
-    desc "Republish all current Topical Events"
-    task all_topical_events: :environment do
-      TopicalEvent.current.each(&:publish_to_publishing_api)
     end
 
     desc "Republish a person to the Publishing API"
@@ -118,24 +95,9 @@ namespace :publishing_api do
       Person.find_by!(slug: args[:slug]).publish_to_publishing_api
     end
 
-    desc "Republish all people to the Publishing API"
-    task all_people: :environment do
-      Person.find_each(&:publish_to_publishing_api)
-    end
-
     desc "Republish a role to the Publishing API"
     task :role_by_slug, [:slug] => :environment do |_, args|
       Role.find_by!(slug: args[:slug]).publish_to_publishing_api
-    end
-
-    desc "Republish all roles to the Publishing API"
-    task all_roles: :environment do
-      Role.find_each(&:publish_to_publishing_api)
-    end
-
-    desc "Republish all role appointments to the Publishing API"
-    task all_role_appointments: :environment do
-      RoleAppointment.find_each(&:publish_to_publishing_api)
     end
 
     desc "Republish a document to the Publishing API"

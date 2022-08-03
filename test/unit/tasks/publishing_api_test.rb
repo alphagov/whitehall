@@ -102,56 +102,6 @@ class PublishingApiRake < ActiveSupport::TestCase
         task.invoke(record.slug)
       end
     end
-
-    describe "#all_organisations" do
-      let(:task) { Rake::Task["publishing_api:republish:all_organisations"] }
-
-      test "Republishes all organisations" do
-        create(:organisation)
-        Organisation.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_people" do
-      let(:task) { Rake::Task["publishing_api:republish:all_people"] }
-
-      test "Republishes all people" do
-        create(:person)
-        Person.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_roles" do
-      let(:task) { Rake::Task["publishing_api:republish:all_roles"] }
-
-      test "Republishes all roles" do
-        create(:role)
-        Role.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_take_part_pages" do
-      let(:task) { Rake::Task["publishing_api:republish:all_take_part_pages"] }
-
-      test "Republishes all take part pages" do
-        create(:take_part_page)
-        TakePartPage.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_role_appointments" do
-      let(:task) { Rake::Task["publishing_api:republish:all_role_appointments"] }
-
-      test "Republishes all role appointments" do
-        create(:role_appointment)
-        RoleAppointment.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
   end
 
   describe "patch_links" do
