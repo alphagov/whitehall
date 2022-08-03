@@ -12,6 +12,7 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/home.html.erb
     layouts/html_attachments.html.erb
     layouts/draft_html_attachments.html.erb
+    layouts/design_system.html.erb
   ].map do |f|
     File.expand_path(Rails.root.join("app/views/#{f}"))
   end

@@ -1,5 +1,6 @@
 <% environment_style = GovukAdminTemplate.environment_style %>
 <% environment_label = GovukAdminTemplate.environment_label %>
+
 <% content_for :app_title, 'GOV.UK Whitehall' %>
 <% content_for :page_title, page_title %>
 <% content_for :favicon do %>
@@ -13,87 +14,7 @@
 <% end %>
 
 <% content_for :navbar do %>
-  <header class="
-    masthead
-    navbar
-    navbar-default
-    navbar-inverse
-    navbar-static-top
-    <% if environment_style %>environment-indicator<% end %>
-    add-bottom-margin" role="banner">
-    <div class="navbar-container container-fluid">
-      <div class="navbar-header">
-        <%# Bootstrap toggle for collapsed navbar content, used at smaller widths %>
-        <a class="navbar-toggle" data-toggle="collapse" data-target="header .navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <%= link_to "GOV.UK Whitehall", admin_root_path, :class => 'navbar-brand' %>
-        <% if environment_label %>
-          <div class="environment-label">
-            <%= environment_label %>
-          </div>
-        <% end %>
-      </div>
-      <nav role="navigation" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><%= link_to "Dashboard", admin_root_path %></li>
-          <li><%= link_to "View website", Whitehall.public_root, class: "open_website" %></li>
-        </ul>
-        <div class="navbar-text pull-right remove-bottom-margin">
-          <ul class="list-inline">
-              <li>
-                  <%= signon_link %>
-              </li>
-            <% if user_signed_in? %>
-              <li>
-                <%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %>
-              </li>
-              <li>
-                <%= link_to "Logout", "/auth/gds/sign_out" %>
-              </li>
-            <% end %>
-            <%= admin_users_header_link  %>
-          </ul>
-        </div>
-      </nav>
-    </div>
-
-    <div class="container-fluid">
-      <ul id="global-nav" class="masthead-tabs list-unstyled">
-        <li class="masthead-tab-item js-create-new create-new">
-          <a href="#new-document-menu" class="toggler" id="new-document-label">New document</a>
-          <%= document_creation_dropdown %>
-        </li>
-        <%= admin_documents_header_link %>
-        <%= admin_statistics_announcements_link %>
-        <%= admin_featured_header_link %>
-        <%= admin_user_organisation_header_link %>
-        <li class="js-more-nav masthead-tab-item">
-          <a href="#more-links-menu" id="more-links-label" class="toggler">More</a>
-          <ul id="more-links-menu" class="masthead-menu masthead-menu-right js-hidden unstyled" role="menu" aria-labelledby="more-links-label">
-            <%= admin_organisations_header_menu_link %>
-            <%= admin_policy_groups_header_menu_link %>
-            <%= admin_roles_header_menu_link %>
-            <%= admin_people_header_menu_link %>
-            <%= admin_topical_events_header_menu_link %>
-            <%= admin_worldwide_organisations_header_menu_link %>
-            <%= admin_world_locations_header_menu_link %>
-            <%= admin_fields_of_operation_header_menu_link %>
-            <%= admin_cabinet_ministers_header_menu_link %>
-            <%= admin_get_involved_header_menu_link %>
-            <%= admin_sitewide_settings_header_menu_link %>
-            <%= admin_governments_header_menu_link %>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <section class="notices">
-      <%= render partial: "shared/notices" %>
-    </section>
-  </header>
+  <%= render "shared/header" %>
 <% end %>
 
 <% content_for :content do %>
