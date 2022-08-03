@@ -59,7 +59,7 @@ module PublishingApi
 
     def ordered_featured_documents
       item
-        .classification_featurings
+        .topical_event_featurings
         .includes(:image, edition: :document)
         .limit(FeaturedLink::DEFAULT_SET_SIZE)
         .map do |feature|

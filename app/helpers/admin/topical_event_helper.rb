@@ -3,7 +3,7 @@ module Admin::TopicalEventHelper
     {
       "Details" => url_for([:admin, topical_event]),
       "About page" => url_for([:admin, topical_event, :topical_event_about_pages]),
-      "Features" => url_for([:admin, topical_event, :classification_featurings]),
+      "Features" => url_for([:admin, topical_event, :topical_event_featurings]),
     }
   end
 end

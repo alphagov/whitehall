@@ -1,17 +1,17 @@
 FactoryBot.define do
-  factory :classification_featuring do
+  factory :topical_event_featuring do
     association :edition, factory: :published_edition
-    classification
+    topical_event
     sequence(:ordering) { |index| index }
-    association :image, factory: :classification_featuring_image_data
+    association :image, factory: :topical_event_featuring_image_data
     alt_text { "An accessible description of the image" }
   end
 
-  factory :offsite_classification_featuring, class: ClassificationFeaturing do
+  factory :offsite_topical_event_featuring, class: TopicalEventFeaturing do
     offsite_link
-    classification
+    topical_event
     sequence(:ordering) { |index| index }
-    association :image, factory: :classification_featuring_image_data
+    association :image, factory: :topical_event_featuring_image_data
     edition { nil }
     alt_text { "An accessible description of the image" }
   end

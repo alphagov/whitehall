@@ -36,7 +36,7 @@ class Edition < ApplicationRecord
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
-  has_many :classification_featurings, inverse_of: :edition
+  has_many :topical_event_featurings, inverse_of: :edition
   has_many :link_check_reports, as: :link_reportable, class_name: "LinkCheckerApiReport"
 
   has_many :edition_dependencies, dependent: :destroy
@@ -101,7 +101,7 @@ class Edition < ApplicationRecord
   before_save { check_if_locked_document(edition: self) }
   # @!endgroup
 
-  after_update :republish_classification_to_publishing_api
+  after_update :republish_topical_event_to_publishing_api
 
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
@@ -274,9 +274,9 @@ EXISTS (
   end
 
   # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
-  def self.with_classification(classification)
-    joins("INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id")
-      .where("classification_memberships.classification_id" => classification.id)
+  def self.with_topical_event(topical_event)
+    joins("INNER JOIN topical_event_memberships ON topical_event_memberships.edition_id = editions.id")
+      .where("topical_event_memberships.topical_event_id" => topical_event.id)
   end
 
   def self.due_for_publication(within_time = 0)
@@ -759,9 +759,9 @@ private
     true
   end
 
-  def republish_classification_to_publishing_api
-    classification_featurings.each do |classification_featuring|
-      Whitehall::PublishingApi.republish_async(classification_featuring.classification)
+  def republish_topical_event_to_publishing_api
+    topical_event_featurings.each do |topical_event_featuring|
+      Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
     end
   end
 end

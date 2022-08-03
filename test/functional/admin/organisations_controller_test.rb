@@ -68,8 +68,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisations_path
     assert organisation = Organisation.last
-    assert organisation.organisation_classifications.map(&:ordering).all?(&:present?), "no ordering"
-    assert_equal organisation.organisation_classifications.map(&:ordering).sort, organisation.organisation_classifications.map(&:ordering).uniq.sort
+    assert organisation.topical_event_organisations.map(&:ordering).all?(&:present?), "no ordering"
+    assert_equal organisation.topical_event_organisations.map(&:ordering).sort, organisation.topical_event_organisations.map(&:ordering).uniq.sort
     assert organisation_top_task = organisation.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url
     assert_equal "Something on mainstream", organisation_top_task.title

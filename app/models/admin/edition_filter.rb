@@ -110,7 +110,7 @@ module Admin
       editions = editions.in_state(state) if state
       editions = editions.authored_by(author) if author
       editions = editions.in_organisation(organisation) if organisation
-      editions = editions.with_classification(classification) if classification
+      editions = editions.with_topical_event(topical_event) if topical_event
       editions = editions.with_title_containing(title) if title
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
       editions = editions.from_date(from_date) if from_date
@@ -222,8 +222,8 @@ module Admin
       User.find(options[:author]) if options[:author].present?
     end
 
-    def classification
-      Classification.find(options[:classification]) if options[:classification].present?
+    def topical_event
+      TopicalEvent.find(options[:topical_event]) if options[:topical_event].present?
     end
 
     def location_matches

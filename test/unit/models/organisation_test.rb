@@ -655,7 +655,7 @@ class OrganisationTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     topical_event.organisations << organisation
     organisation.destroy!
-    assert_equal 0, OrganisationClassification.count
+    assert_equal 0, TopicalEventOrganisation.count
   end
 
   test "destroy unsets user organisation" do
@@ -754,8 +754,8 @@ class OrganisationTest < ActiveSupport::TestCase
   test "topical_events are explicitly ordered" do
     topical_events = [create(:topical_event), create(:topical_event)]
     organisation = create(:organisation)
-    organisation.organisation_classifications.create!(classification_id: topical_events[0].id, ordering: 2)
-    organisation.organisation_classifications.create!(classification_id: topical_events[1].id, ordering: 1)
+    organisation.topical_event_organisations.create!(topical_event_id: topical_events[0].id, ordering: 2)
+    organisation.topical_event_organisations.create!(topical_event_id: topical_events[1].id, ordering: 1)
     assert_match %r{order by}i, organisation.topical_events.to_sql
     assert_equal [topical_events[1], topical_events[0]], organisation.topical_events
   end

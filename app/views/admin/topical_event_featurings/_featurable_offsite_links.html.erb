@@ -9,12 +9,12 @@
   </thead>
   <tbody>
     <% featurable_offsite_links.each do |offsite_link| %>
-      <% next if classification_featurings.detect {|f| f.offsite_link == offsite_link } %>
+      <% next if topical_event_featurings.detect {|f| f.offsite_link == offsite_link } %>
       <%= content_tag_for :tr, offsite_link do %>
         <td><%= link_to offsite_link.title, polymorphic_path([:edit, :admin, offsite_link.parent, offsite_link]) %></td>
         <td><%= offsite_link.humanized_link_type %></td>
         <td>
-          <%= link_to("Feature", polymorphic_path([:new, :admin, offsite_link.parent, :classification_featuring], offsite_link_id: offsite_link.id), class: 'btn btn-default') %>
+          <%= link_to("Feature", polymorphic_path([:new, :admin, offsite_link.parent, :topical_event_featuring], offsite_link_id: offsite_link.id), class: 'btn btn-default') %>
         </td>
         <td>
           <%= button_to("Delete", polymorphic_url([:admin, offsite_link.parent, offsite_link]),

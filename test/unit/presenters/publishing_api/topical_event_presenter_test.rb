@@ -13,14 +13,14 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     create(:topical_event_about_page, topical_event: topical_event, read_more_link_text: "Read more about this event")
 
     first_lead_org = create(:organisation)
-    first_lead_org.organisation_classifications.create!(classification_id: topical_event.id, lead: true, lead_ordering: 1)
+    first_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
     second_lead_org = create(:organisation)
-    second_lead_org.organisation_classifications.create!(classification_id: topical_event.id, lead: true, lead_ordering: 2)
+    second_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 2)
 
     public_path = "/government/topical-events/humans-going-to-mars"
 
-    feature = create(:classification_featuring, classification: topical_event, ordering: 1)
-    offsite_feature = create(:offsite_classification_featuring, classification: topical_event, ordering: 0)
+    feature = create(:topical_event_featuring, topical_event: topical_event, ordering: 1)
+    offsite_feature = create(:offsite_topical_event_featuring, topical_event: topical_event, ordering: 0)
 
     social_media_service = create(:social_media_service, name: "Facebook")
     social_media_account = create(:social_media_account, social_media_service: social_media_service)
@@ -151,7 +151,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
   test "it limits the number of featured items" do
     topical_event = create(:topical_event, start_date: Time.zone.today)
-    create_list(:classification_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, classification: topical_event)
+    create_list(:topical_event_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, topical_event: topical_event)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 

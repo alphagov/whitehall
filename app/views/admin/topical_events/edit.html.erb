@@ -1,18 +1,18 @@
-<% page_title "Edit " + @classification.name %>
+<% page_title "Edit " + @topical_event.name %>
 
 <div class="row">
   <section class="col-md-8">
     <h1>Edit <%= human_friendly_model_name.downcase %></h1>
     <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
-    <%= render partial: "form", locals: {classification: @classification, show_instantly_live_warning: true} %>
+    <%= render partial: "form", locals: {topical_event: @topical_event, show_instantly_live_warning: true} %>
   </section>
 
   <section class="sidebar col-md-4 display_heading">
     <h1>Delete <%= human_friendly_model_name.downcase %></h1>
     <%= button_to 'Delete',
-          [:admin, @classification],
+          [:admin, @topical_event],
           method: :delete,
           class: 'btn btn-danger',
-          data: { confirm: "Are you sure you want to delete: #{@classification} ?" } %>
+          data: { confirm: "Are you sure you want to delete: #{@topical_event} ?" } %>
   </section>
 </div>

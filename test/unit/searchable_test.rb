@@ -5,7 +5,7 @@ class SearchableTest < ActiveSupport::TestCase
   # as all the searchable definition is in one place (and it doesn't
   # lend itself to redefinition)
   class SearchableTestTopic < ApplicationRecord
-    self.table_name = "classifications"
+    self.table_name = "topical_events"
 
     include Searchable
     searchable link: :name, only: :publicly_visible, index_after: [:save], unindex_after: [:destroy]

@@ -9,7 +9,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def new
     @organisation = Organisation.new
-    build_organisation_classifications
+    build_topical_event_organisations
   end
 
   def create
@@ -61,12 +61,12 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
-    build_organisation_classifications
+    build_topical_event_organisations
     build_default_news_image
   end
 
   def update
-    delete_absent_organisation_classifications
+    delete_absent_topical_event_organisations
     if @organisation.update(organisation_params)
       publish_services_and_information_page
       redirect_to admin_organisation_path(@organisation)
@@ -120,18 +120,18 @@ private
       default_news_image_attributes: %i[file file_cache],
       organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
-      organisation_classifications_attributes: %i[classification_id ordering id _destroy],
+      topical_event_organisations_attributes: %i[topical_event_id ordering id _destroy],
       featured_links_attributes: %i[title url _destroy id],
     )
   end
 
-  def build_organisation_classifications
-    n = @organisation.organisation_classifications.count
-    @organisation.organisation_classifications.each.with_index do |ot, i|
+  def build_topical_event_organisations
+    n = @organisation.topical_event_organisations.count
+    @organisation.topical_event_organisations.each.with_index do |ot, i|
       ot.ordering = i
     end
     (n...13).each do |i|
-      @organisation.organisation_classifications.build(ordering: i)
+      @organisation.topical_event_organisations.build(ordering: i)
     end
   end
 
@@ -139,12 +139,12 @@ private
     @organisation.build_default_news_image
   end
 
-  def delete_absent_organisation_classifications
+  def delete_absent_topical_event_organisations
     return unless params[:organisation] &&
-      params[:organisation][:organisation_classifications_attributes]
+      params[:organisation][:topical_event_organisations_attributes]
 
-    params[:organisation][:organisation_classifications_attributes].each do |p|
-      if p[:classification_id].blank?
+    params[:organisation][:topical_event_organisations_attributes].each do |p|
+      if p[:topical_event_id].blank?
         p["_destroy"] = true
       end
     end

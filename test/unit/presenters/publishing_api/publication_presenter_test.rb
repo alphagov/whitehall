@@ -56,7 +56,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     }
 
     topical_event = create(:topical_event)
-    publication.classification_memberships.create!(classification_id: topical_event.id)
+    publication.topical_event_memberships.create!(topical_event_id: topical_event.id)
     expected_links = {
       topics: [],
       parent: [],
