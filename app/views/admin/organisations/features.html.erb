@@ -5,6 +5,6 @@
 </div>
 <section class="organisation-details">
   <%= tab_navigation_for(@organisation) do %>
-    <%= render @feature_list, filter_by: [:title, :type, :author, :organisation], maximum_featured_documents: @organisation.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT %>
+    <%= render partial: 'admin/feature_lists/feature_list', locals: {feature_list: @feature_list, filter_by: [:title, :type, :author, :organisation], maximum_featured_documents: @organisation.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT} %>
   <% end %>
 </section>
