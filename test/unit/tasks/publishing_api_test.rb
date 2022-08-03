@@ -333,15 +333,63 @@ class PublishingApiRake < ActiveSupport::TestCase
     describe "#document_type" do
       let(:task) { Rake::Task["publishing_api:bulk_republish:document_type"] }
 
-      test "republishes all documents of the specified document type" do
-        edition = create(:publication)
+      describe "for editionable document types" do
+        document_types = %w[CaseStudy
+                            Consultation
+                            CorporateInformationPage
+                            DetailedGuide
+                            DocumentCollection
+                            FatalityNotice
+                            NewsArticle
+                            Publication
+                            Speech
+                            StatisticalDataSet]
 
-        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
-          "bulk_republishing",
-          edition.document_id,
-          true,
-        )
-        task.invoke("Publication")
+        document_types.each do |document_type|
+          test "republishes all #{document_type} documents" do
+            document = create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
+
+            PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+              "bulk_republishing",
+              document.document_id,
+              true,
+            )
+            task.invoke(document_type)
+          end
+        end
+      end
+
+      describe "for non-editionable document types" do
+        document_types = %w[Contact
+                            Government
+                            OperationalField
+                            Organisation
+                            Person
+                            PolicyGroup
+                            RoleAppointment
+                            Role
+                            StatisticsAnnouncement
+                            TakePartPage
+                            TopicalEventAboutPage
+                            TopicalEvent
+                            WorldLocation
+                            WorldwideOrganisation]
+
+        document_types.each do |document_type|
+          test "republishes all #{document_type} documents" do
+            document = create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
+
+            Whitehall::PublishingApi.expects(:bulk_republish_async).with(document)
+            task.invoke(document_type)
+          end
+        end
+      end
+
+      describe "for non-existent document types" do
+        test "it returns an error" do
+          document_type = "SomeDocumentTypeThatDoesntExist"
+          assert_raises(SystemExit, /Unknown document type #{document_type}/) { task.invoke(document_type) }
+        end
       end
     end
 
