@@ -65,6 +65,6 @@ private
   end
 
   def all_published_editions_in_creation_order
-    document.ever_published_editions.order("created_at")
+    document.ever_published_editions
   end
 end

@@ -10,7 +10,9 @@ class Document < ApplicationRecord
 
   after_destroy :destroy_all_editions
 
-  has_many :editions, inverse_of: :document
+  has_many :editions,
+           -> { order(created_at: :asc, id: :asc) },
+           inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
   has_one  :published_edition,

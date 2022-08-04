@@ -163,6 +163,18 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal publication_date, new_edition.document.first_published_on_govuk
   end
 
+  test "has_many #editions in order of creation" do
+    document = create(:document)
+    [
+      # Create editions in a random order to prove we don't rely on insertion order (i.e. MySQL's auto-incremented IDs)
+      one_hour_ago = build(:published_edition, document: document, created_at: 1.hour.ago),
+      one_day_ago = build(:superseded_edition, document: document, created_at: 1.day.ago),
+      one_week_ago = build(:superseded_edition, document: document, created_at: 1.week.ago),
+    ].shuffle.map(&:save!)
+
+    assert_equal [one_week_ago, one_day_ago, one_hour_ago], document.editions
+  end
+
   test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
     superseded = create(:superseded_edition, document: document)
