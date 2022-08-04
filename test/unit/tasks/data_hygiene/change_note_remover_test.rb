@@ -5,9 +5,9 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
 
   describe DataHygiene::ChangeNoteRemover do
     let(:document)                { create(:document) }
-    let!(:superseded_edition)     { create(:superseded_edition, document: document, change_note: "First change note.", first_published_at: Time.zone.now - 2.days, major_change_published_at: Time.zone.now - 2.days) }
-    let!(:previous_major_edition) { create(:superseded_edition, document: document, change_note: "Second change note.", first_published_at: Time.zone.now - 1.day, major_change_published_at: Time.zone.now - 1.day) }
-    let!(:live_edition)           { create(:published_edition, document: document, change_note: "Third change note.", first_published_at: Time.zone.now, major_change_published_at: Time.zone.now) }
+    let!(:superseded_edition)     { create(:superseded_edition, document: document, change_note: "First change note.", first_published_at: 2.days.ago, created_at: 2.days.ago, major_change_published_at: 2.days.ago) }
+    let!(:previous_major_edition) { create(:superseded_edition, document: document, change_note: "Second change note.", created_at: 1.day.ago, major_change_published_at: 1.day.ago) }
+    let!(:live_edition)           { create(:published_edition, document: document, change_note: "Third change note.", created_at: Time.zone.now, major_change_published_at: Time.zone.now) }
 
     let(:query) { nil }
 
