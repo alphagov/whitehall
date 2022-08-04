@@ -43,6 +43,10 @@ module Admin::UrlHelper
     admin_header_menu_link "Groups", admin_policy_groups_path
   end
 
+  def admin_licences_header_menu_link
+    admin_header_menu_link "Licences", admin_licences_path
+  end
+
   def admin_users_header_link
     tag.li(link_to("All users", admin_users_path))
   end
