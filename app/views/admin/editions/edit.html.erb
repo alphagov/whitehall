@@ -33,14 +33,8 @@
     </div>
 
     <div class="col-md-4">
-      <%= sidebar_tabs edition_tabs(
-        @edition,
-        remarks_count: @edition_remarks.length,
-        history_count: @edition_history.total_count,
-        editing: true
-      ) do |tabs| %>
-
-        <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
+      <% if current_user.can_view_move_tabs_to_endpoints? %>
+        <div class="govspeak_help" id="govspeak_help">
           <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
                                       show_attachments_tab_help: true,
                                       govspeak_link_errors: force_publisher.govspeak_link_errors,
@@ -49,9 +43,26 @@
           <%= render "words_to_avoid_guidance" %>
           <h3 class="style-title">Style</h3>
           <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
-        <% end %>
+        </div>
+      <% else %>
+        <%= sidebar_tabs edition_tabs(
+          @edition,
+          remarks_count: @edition_remarks.length,
+          history_count: @edition_history.total_count,
+          editing: true,
+        ) do |tabs| %>
 
-        <% unless current_user.can_view_move_tabs_to_endpoints? %>
+          <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
+            <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+                                        show_attachments_tab_help: true,
+                                        govspeak_link_errors: force_publisher.govspeak_link_errors,
+                                        link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil %>
+
+            <%= render "words_to_avoid_guidance" %>
+            <h3 class="style-title">Style</h3>
+            <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
+          <% end %>
+
           <%= tabs.pane class: "audit-trail", id: "notes" do %>
             <h1>Notes</h1>
             <p>To add a remark, save your changes.</p>
