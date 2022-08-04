@@ -1,1 +1,7 @@
 <p>Index</p>
+
+<% @licences.each do |licence| %>
+  <p><%=link_to(licence.title, licence.link) %>
+  <p><%= licence.sectors %></p>
+  <p><%= licence.activities %></p>
+<% end %>
