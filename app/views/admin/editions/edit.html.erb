@@ -59,7 +59,6 @@
             <%= render_editorial_remarks(@edition_remarks, @edition) %>
           <% end %>
 
-
           <%= tabs.pane class: "audit-trail", id: "history" do %>
             <div class="audit-trail-page">
               <h1>Activity</h1>
@@ -70,14 +69,13 @@
               <%= paginate @edition_history, theme: 'audit_trail' %>
             </div>
           <% end %>
-        <% end %>
-
-        <% if @edition.can_be_fact_checked? %>
-          <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
-            <h1>Fact checking</h1>
-            <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
-            <p>To send a fact check request, save your changes.</p>
-          <% end %>
+            <% if @edition.can_be_fact_checked? %>
+              <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
+                <h1>Fact checking</h1>
+                <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+                <p>To send a fact check request, save your changes.</p>
+              <% end %>
+            <% end %>
         <% end %>
       <% end %>
     </div>

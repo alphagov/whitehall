@@ -47,14 +47,13 @@
             <%= paginate @edition_history, theme: 'audit_trail' %>
           </div>
         <% end %>
-      <% end %>
-
-      <% if @edition.can_be_fact_checked? %>
-        <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
-          <h1>Fact checking</h1>
-          <%= render partial: 'admin/editions/fact_check_responses', locals: {edition: @edition}  %>
-          <p>To send a fact check request, save your changes.</p>
-        <% end %>
+          <% if @edition.can_be_fact_checked? %>
+            <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
+              <h1>Fact checking</h1>
+              <%= render partial: 'admin/editions/fact_check_responses', locals: {edition: @edition}  %>
+              <p>To send a fact check request, save your changes.</p>
+            <% end %>
+          <% end %>
       <% end %>
     <% end %>
   </div>
