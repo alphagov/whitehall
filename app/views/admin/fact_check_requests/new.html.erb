@@ -1,0 +1,17 @@
+<% page_title "Request fact check" %>
+
+<div class="row">
+  <div class="col-md-8">
+    <span class="back">
+      <%= link_to 'Back', admin_edition_fact_check_requests_path(@edition) %>
+    </span>
+
+    <h1>Request fact check</h1>
+
+    <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
+      <%= f.text_field :email_address %>
+      <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
+      <%= f.submit 'Send request', class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>
