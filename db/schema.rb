@@ -874,6 +874,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_24_141116) do
     t.index ["supports_historical_accounts"], name: "index_roles_on_supports_historical_accounts"
   end
 
+  create_table "sectors", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "parent_sector_id"
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_sector_id"], name: "index_sectors_on_parent_sector_id"
+  end
+
   create_table "sitewide_settings", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "key"
     t.text "description"
