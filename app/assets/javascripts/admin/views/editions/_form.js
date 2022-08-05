@@ -26,14 +26,7 @@
       var $changeNotesSection = $('.js-change-notes-section', $fieldset)
 
       $radioButtons.change(showOrHideChangeNotes)
-      appendHintToFormLabel()
       showOrHideChangeNotes()
-
-      function appendHintToFormLabel () {
-        var $label = $($changeNotesSection).find('label')
-        var exampleText = 'For example, "Edited chapter 6 - centres in Cardiff and Aberystwyth have closed."'
-        $label.append('<p class="hint"; style="font-weight: normal">' + exampleText + '</p>')
-      }
 
       function showOrHideChangeNotes () {
         if ($minorChangeRadioButton.prop('checked')) {
