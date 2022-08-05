@@ -36,7 +36,7 @@ Whitehall::Application.routes.draw do
     end
     resources :worldwide_organisations, path: "worldwide-organisations", only: [:show], defaults: { format: :json }
     resources :licences, only: [:index], defaults: { format: :json }
-    resources :licence_sectors, path: "licence-sectors", only: [:index], defaults: { format: :json }
+    resources :licence_sectors, path: "licence-sectors", only: %i[index show], defaults: { format: :json }
   end
 
   # World locations and Worldwide organisations

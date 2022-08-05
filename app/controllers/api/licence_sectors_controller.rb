@@ -10,4 +10,20 @@ class Api::LicenceSectorsController < PublicFacingController
   def index
     respond_with Api::LicenceSectorsPresenter.paginate(Sector.where(parent_sector_id: nil), view_context)
   end
+
+  def show
+    @sector = Sector.find_by(id: params[:id])
+
+    if @sector
+      respond_with Api::LicenceSectorsPresenter.new(@sector, view_context)
+    else
+      respond_with_not_found
+    end
+  end
+
+private
+
+  def respond_with_not_found
+    respond_with({}, status: :not_found)
+  end
 end
