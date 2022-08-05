@@ -5,6 +5,7 @@ class Api::LicenceSectorsPresenter < Api::BasePresenter
       parent_sector_id: model.parent_sector_id,
       title: model.title,
       sectors: sectors(model.sectors),
+      activities: model.activities,
     }
   end
 
@@ -17,6 +18,7 @@ private
         parent_sector_id: sector.parent_sector_id,
         title: sector.title,
         sectors: sectors(sector.sectors),
+        activities: sector.activities,
       }
     end
   end

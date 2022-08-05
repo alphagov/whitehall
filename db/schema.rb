@@ -20,6 +20,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_24_141116) do
     t.index ["accessible_id", "accessible_type"], name: "accessible_index"
   end
 
+  create_table "activities", charset: "utf8mb3", force: :cascade do |t|
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "activities_sectors", id: false, charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.bigint "sector_id", null: false
+  end
+
   create_table "attachment_data", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "carrierwave_file"
     t.string "content_type"
