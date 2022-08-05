@@ -1,11 +1,13 @@
 module Attachable
   extend ActiveSupport::Concern
+  EDITION_CREATE_GRACE_PERIOD = 30.seconds
 
   included do
     has_many :attachments,
              -> { not_deleted.order("attachments.ordering, attachments.id") },
              as: :attachable,
              inverse_of: :attachable
+
     has_many :html_attachments,
              -> { not_deleted.order("attachments.ordering, attachments.id") },
              as: :attachable
@@ -13,6 +15,11 @@ module Attachable
     has_many :deleted_html_attachments,
              -> { deleted },
              class_name: "HtmlAttachment",
+             as: :attachable
+
+    has_many :deleted_attachments,
+             -> { deleted },
+             class_name: "Attachment",
              as: :attachable
 
     if respond_to?(:add_trait)
@@ -58,6 +65,24 @@ module Attachable
 
   def attachables
     [self]
+  end
+
+  ChangedAttachment = Struct.new(:attachment, :status)
+
+  def changed_attachments
+    created = attachments.where("created_at > ?", created_at + EDITION_CREATE_GRACE_PERIOD)
+
+    updated_attachments = attachments.where("updated_at > created_at")
+
+    # Using a 30 second grace period because GovspeakContent#render_govspeak! historically used to change the updated_at timestamp
+    # when running in an async worker to convert body to HTML. This meant that all HTML attachments ended up with
+    # (updated_at > created_at) so would show as 'changed'.
+    updated_html_attachments = html_attachments.joins(:govspeak_content).where("govspeak_contents.updated_at > DATE_ADD(govspeak_contents.created_at,  INTERVAL 30 SECOND)")
+    updated = (updated_attachments + updated_html_attachments) - created
+
+    created.map { |a| ChangedAttachment.new(a, :created) } +
+      updated.map { |a| ChangedAttachment.new(a, :updated) } +
+      deleted_attachments.map { |a| ChangedAttachment.new(a, :deleted) }
   end
 
   def uploaded_to_asset_manager?
