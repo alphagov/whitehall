@@ -36,17 +36,17 @@
           <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
           <%= render_editorial_remarks(@edition_remarks, @edition) %>
         <% end %>
-      <% end %>
 
-      <%= tabs.pane class: "audit-trail", id: "history" do %>
-        <div class="audit-trail-page">
-          <h1>Activity</h1>
-          <%= paginate @edition_history, theme: 'audit_trail' %>
-          <ul class="list-unstyled">
-            <%= render partial: "admin/editions/audit_trail_entry", collection: @edition_history %>
-          </ul>
-          <%= paginate @edition_history, theme: 'audit_trail' %>
-        </div>
+        <%= tabs.pane class: "audit-trail", id: "history" do %>
+          <div class="audit-trail-page">
+            <h1>Activity</h1>
+            <%= paginate @edition_history, theme: 'audit_trail' %>
+            <ul class="list-unstyled">
+              <%= render partial: "admin/editions/audit_trail_entry", collection: @edition_history %>
+            </ul>
+            <%= paginate @edition_history, theme: 'audit_trail' %>
+          </div>
+        <% end %>
       <% end %>
 
       <% if @edition.can_be_fact_checked? %>

@@ -4,7 +4,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show show_locked edit update revise diff destroy update_bypass_id]
+  before_action :find_edition, only: %i[show show_locked edit update revise diff destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_edition, only: %i[new create]
@@ -20,7 +20,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when "index", "topics"
+    when "index", "topics", "history"
       enforce_permission!(:see, edition_class || Edition)
     when "show", "show_locked"
       enforce_permission!(:see, @edition)
@@ -187,6 +187,10 @@ class Admin::EditionsController < Admin::BaseController
     EditionAuthBypassUpdater.new(edition: @edition, current_user: current_user, updater: updater).call
 
     redirect_to admin_edition_path(@edition), notice: "New document preview link generated"
+  end
+
+  def history
+    @edition_history = Kaminari.paginate_array(@edition.document_version_trail(superseded: false).reverse).page(params[:page]).per(30)
   end
 
 private
