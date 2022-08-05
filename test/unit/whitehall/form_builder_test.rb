@@ -71,4 +71,12 @@ class FormBuilderTest < ActionView::TestCase
 
     assert_dom_equal expected_html, @builder.upload(:image, label_text: "Image upload")
   end
+
+  test "Whitehall::FormBuilder#text_area can produce no label" do
+    expected_html = '<div class="form-group">' \
+                      '<textarea class="form-control" name="promotional_feature_item[summary]" id="promotional_feature_item_summary">
+</textarea></div>'
+
+    assert_dom_equal expected_html, @builder.text_area(:summary, label: false)
+  end
 end

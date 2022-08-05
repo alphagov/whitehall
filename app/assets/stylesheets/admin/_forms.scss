@@ -171,6 +171,11 @@ fieldset.fatality-notice-casualties {
       &.hint {
         margin-top: .2em;
         color: #626a6e;
+
+        &.change-note-hint {
+          margin-bottom: 20px;
+          font-weight: normal;
+        }
       }
     }
 
