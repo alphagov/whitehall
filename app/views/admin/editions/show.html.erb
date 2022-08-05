@@ -77,11 +77,19 @@
     <% if @edition.imported? %>
       <%= render partial: 'speed_tagging' %>
     <% else %>
-      <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count), class: 'remarks-history' do |tabs| %>
-        <%= tabs.pane class: "audit-trail", id: "notes" do %>
-          <h1>Notes</h1>
-          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
-          <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
+      <%= sidebar_tabs edition_tabs(
+        @edition,
+        remarks_count: @edition_remarks.length,
+        history_count: @edition_history.total_count
+        ),
+        class: 'remarks-history' do |tabs| %>
+
+        <% unless current_user.can_view_move_tabs_to_endpoints? %>
+          <%= tabs.pane class: "audit-trail", id: "notes" do %>
+            <h1>Notes</h1>
+            <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
+            <%= render_editorial_remarks(@edition_remarks, @edition) %>
+          <% end %>
         <% end %>
 
         <%= tabs.pane class: "audit-trail", id: "history" do %>

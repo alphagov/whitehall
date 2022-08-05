@@ -20,7 +20,7 @@ module Admin::SidebarHelper
       if options[:editing]
         tabs[:govspeak_help] = "Help"
       end
-      tabs[:notes] = ["Notes", options[:remarks_count]]
+      tabs[:notes] = ["Notes", options[:remarks_count]] unless current_user.can_view_move_tabs_to_endpoints?
       tabs[:history] = ["History", options[:history_count]]
       if edition.can_be_fact_checked?
         tabs[:fact_checking] = ["Fact checking", edition.all_completed_fact_check_requests.count]

@@ -28,6 +28,12 @@
 <%= render partial: "rejected_by", locals: { edition: @edition } %>
 <%= render partial: 'alerts', locals: {edition: @edition}  %>
 
+<% if current_user.can_view_move_tabs_to_endpoints? %>
+  <div class= "add-bottom-margin">
+    <%= link_to "Notes", admin_edition_editorial_remarks_path(@edition) %>
+  </div>
+<% end %>
+
 <%= render 'edition_view_edit_buttons' %>
 
 <% if @edition.change_note_required? %>
