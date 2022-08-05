@@ -1,76 +1,82 @@
-<% page_title "Edit topics: " + @edition.title %>
+<% content_for :page_title, "#{@edition.title}: Topic taxonomy tags" %>
+<% content_for :context, @edition.title %>
+<% content_for :title, "Topic taxonomy tags" %>
 
-<div class="row">
-  <h1><%= @edition.title %></h1>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition)
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-!-margin-bottom-8">
+      <p class="govuk-body">The topic taxonomy groups content based on what it’s about.</p>
+      <p class="govuk-body">Choose the tag or tags that best describe what this content is about.</p>
+      <p class="govuk-body">You can use the whole topic taxonomy. There's no limit to the number of tags you can choose.</p>
+      <p class="govuk-body"><%= link_to "Find out more about tagging to the topic taxonomy", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging", class: "govuk-link", target: "_blank" %> (open in new tab)</p>
+    </div>
+    <div class="govuk-!-margin-bottom-8">
+      <p class="govuk-body"><%= link_to "Suggest a new tag", "#{Whitehall.support_url}/taxonomy_new_topic_request/new", class: "govuk-link", target: "_blank" %> (open in new tab)</p>
+      <p class="govuk-body"><%= link_to "Suggest a change to a tag", "#{Whitehall.support_url}/taxonomy_change_topic_request/new", class: "govuk-link", target: "_blank" %> (open in new tab)</p>
+    </div>
+  </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <h2>Topic taxonomy tags</h2>
-    <p>The topic taxonomy groups content based on what it’s about.</p>
-    <p>Choose the tag or tags that best describe what this content is about.</p>
-    <p>You can use the whole topic taxonomy. There's no limit to the number of tags you can choose.</p>
-    <p><a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging">Find out more about tagging to the topic taxonomy.</a></p>
-    <hr>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/notice", {
+      title: "Topic taxonomy tags are applied to all editions of a document",
+      description_govspeak: sanitize("<p>This means changes will be reflected on the live site if there's a published edition.</p>"),
+      show_banner_title: true,
+      banner_title: "Information"
+    } %>
+
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Selected topics",
+      margin_bottom: 2,
+    } %>
 
     <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>
 
-      <div class="form-group"
-           data-module="taxonomy-tree-checkboxes"
-           data-content-id="<%= @edition.content_id %>"
-           data-content-format="<%= @edition.content_store_document_type %>"
-           data-content-public-path="<%= public_document_path(@edition) %>">
-
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.ordered_taxons } %>
-
-      </div>
+      <% if @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons).count() %>
+        <%= render partial: "/components/miller-columns", locals: {
+          id: "taxonomy_tag_form[taxons]",
+          items: @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons),
+        } %>
+      <% else %>
+        <p class="govuk-body">No taxons available</p>
+      <% end %>
 
       <%= form.hidden_field "invisible_taxons", value: @tag_form.invisible_taxons.join(",") %>
 
-      <p>
-        <%= link_to "Suggest a new tag",
-          "#{Whitehall.support_url}/taxonomy_new_topic_request/new",
-          class: "feedback-link"
-        %>
-        or
-        <%= link_to "Suggest a change to a tag",
-          "#{Whitehall.support_url}/taxonomy_change_topic_request/new",
-          class: "feedback-link"
-        %>
-      </p>
+      <div class="form-actions govuk-button-group govuk-!-margin-top-7" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update tags",
+          name: "save",
+          value: "save",
+          data_attributes: {
+              module: 'track-selected-taxons',
+              track_category: 'taxonSelection',
+              track_label: request.path,
+          }
+        } %>
 
-
-      <h2>Selected topic taxonomy tags</h2>
-      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
-      </div>
-
-
-      <div class="info alert alert-info" role="alert">
-        <strong>Info:</strong> Topic taxonomy tags are applied to all editions
-        of a document. This means changes will be reflected on the live site if
-        there's a published edition.
-      </div>
-      <div class="publishing-controls well">
-        <div class="form-actions" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
-          <%= form.submit('Save tagging changes', name: "save", class: "btn btn-lg btn-success",
-              data: {
-                  module: 'track-selected-taxons',
-                  track_category: 'taxonSelection',
-                  track_label: request.path
-              }) %>
-          <% unless current_user.can_redirect_to_summary_page? %>
-            <%= form.submit('Save and review specialist topic tagging', name: "legacy_tags", class: "btn btn-lg btn-primary",
-                data: {
-                    module: 'track-selected-taxons',
-                    track_category: 'taxonSelection',
-                    track_label: request.path
-                }) %>
-          <% end %>
-          <span class="or_cancel">
-            or
-            <%= link_to('cancel', admin_edition_path(@edition)) %>
-          </span>
-        </div>
+        <% unless current_user.can_redirect_to_summary_page? %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Update and review specialist topic tags",
+            name: "legacy_tags",
+            value: "legacy_tags",
+            secondary_solid: true,
+            data_attributes: {
+              module: 'track-selected-taxons',
+              track_category: 'taxonSelection',
+              track_label: request.path,
+            }
+          } %>
+        <% end %>
       </div>
     <% end %>
   </div>
