@@ -20,12 +20,10 @@ Given(/^an? (world location|international delegation) "([^"]*)" exists$/) do |wo
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/) do |world_location_type, name, mission_statement|
-  WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
   create(world_location_type.tr(" ", "_").to_sym, name: name, active: true, mission_statement: mission_statement)
 end
 
 Given(/^the (world location|international delegation) "([^"]*)" is inactive/) do |world_location_type, name|
-  WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
   world_location = WorldLocation.find_by(name: name) || create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
   world_location.update_column(:active, false)
 end

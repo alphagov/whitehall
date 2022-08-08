@@ -93,19 +93,6 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
     assert_equal "", presented_content.dig(:details, :mission_statement)
   end
 
-  test "presents an item for rummager" do
-    expected = {
-      content_id: "id-123",
-      link: "/world/aardistan/news",
-      format: "world_location_news",
-      title: "Aardistan and the Uk",
-      description: "Updates, news and events from the UK government in Aardistan",
-      indexable_content: "Updates, news and events from the UK government in Aardistan",
-    }
-
-    assert_equal expected, present(@world_location_news).content_for_rummager("id-123")
-  end
-
   test "it builds localised base paths correctly" do
     I18n.with_locale(:fr) do
       presented_item = present(@world_location_news)
@@ -121,15 +108,6 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       rendering_app = presented_item.content[:rendering_app]
 
       assert_equal "whitehall-frontend", rendering_app
-    end
-  end
-
-  test "it doesn't localise the rummager payload" do
-    I18n.with_locale(:fr) do
-      presented_item = present(@world_location_news)
-      base_path = presented_item.content_for_rummager("id-123")[:link]
-
-      assert_equal "/world/aardistan/news", base_path
     end
   end
 end
