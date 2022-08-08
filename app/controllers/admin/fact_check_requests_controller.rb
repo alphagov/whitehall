@@ -1,25 +1,40 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
   before_action :load_fact_check_request, only: %i[show edit update]
-  before_action :load_edition, only: [:create]
-  before_action :enforce_permissions!, only: [:create]
-  before_action :limit_edition_access!, only: [:create]
+  before_action :load_edition, only: %i[index create new]
+  before_action :enforce_permissions!, only: %i[new create]
+  before_action :limit_edition_access!, only: %i[index new create]
   before_action :check_edition_availability, only: %i[show edit]
   skip_before_action :authenticate_user!, only: %i[show edit update]
 
   def show; end
 
+  def index; end
+
+  def new; end
+
   def create
     attributes = fact_check_request_params.merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
+
     if @edition.deleted?
       render "edition_unavailable"
     elsif fact_check_request.save
       MailNotifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
       notice = "The document has been sent to #{fact_check_request.email_address}"
-      redirect_to admin_edition_path(@edition), notice: notice
+
+      if current_user.can_view_move_tabs_to_endpoints?
+        redirect_to admin_edition_fact_check_requests_path(@edition), notice: notice
+      else
+        redirect_to admin_edition_path(@edition), notice: notice
+      end
     else
       alert = "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
-      redirect_to admin_edition_path(@edition), alert: alert
+
+      if current_user.can_view_move_tabs_to_endpoints?
+        redirect_to new_admin_edition_fact_check_request_path(@edition), alert: alert
+      else
+        redirect_to admin_edition_path(@edition), alert: alert
+      end
     end
   end
 

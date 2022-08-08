@@ -1,0 +1,15 @@
+<% page_title "Fact checking" %>
+
+<div class="row">
+  <div class="col-md-8">
+    <span class="back">
+      <%= link_to 'Back', admin_edition_path(@edition) %>
+    </span>
+
+    <h1>Fact checking</h1>
+
+    <%= render partial: 'admin/editions/fact_check_responses', locals: { edition: @edition }  %>
+
+    <%= link_to "Request fact check", new_admin_edition_fact_check_request_path(@edition) %>
+  </div>
+</div>
