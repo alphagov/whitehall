@@ -1,8 +1,8 @@
 <div class="audit-trail-page">
   <h1>Activity</h1>
-  <%= paginate @edition_history, theme: 'audit_trail' %>
+  <%= paginate @document_history.query, theme: 'audit_trail' %>
   <ul class="list-unstyled">
-    <%= render partial: "audit_trail_entry", collection: @edition_history %>
+    <%= render partial: "audit_trail_entry", collection: @document_history.audit_trail %>
   </ul>
-  <%= paginate @edition_history, theme: 'audit_trail' %>
+  <%= paginate @document_history.query, theme: 'audit_trail' %>
 </div>
