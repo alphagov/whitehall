@@ -45,16 +45,32 @@ end
 
 if WorldLocation.where(name: "Test World Location").blank?
   WorldLocation.skip_callback(:commit, :after, :send_news_page_to_publishing_api_and_rummager, raise: false)
-  WorldLocation.create!(
+  world_location = WorldLocation.create!(
     name: "Test World Location",
     world_location_type_id: 1,
+    mission_statement: "Our mission is to test world locations",
+    title: "UK and Test World Location",
+  )
+
+  FeaturedLink.create!(
+    url: "https://www.gov.uk",
+    title: "GOV.UK Homepage",
+    linkable: world_location,
   )
 end
 
 if WorldLocation.where(name: "Test International Delegation").blank?
   WorldLocation.skip_callback(:commit, :after, :send_news_page_to_publishing_api_and_rummager, raise: false)
-  WorldLocation.create!(
+  international_delegation = WorldLocation.create!(
     name: "Test International Delegation",
     world_location_type_id: 3,
+    mission_statement: "Our mission is to test international delegations",
+    title: "UK at Test International Delegation",
+  )
+
+  FeaturedLink.create!(
+    url: "https://www.gov.uk",
+    title: "GOV.UK Homepage",
+    linkable: international_delegation,
   )
 end
