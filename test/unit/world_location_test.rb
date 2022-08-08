@@ -3,10 +3,6 @@ require "test_helper"
 class WorldLocationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :world_location, :name
 
-  def setup
-    WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
-  end
-
   test "should be invalid without a name" do
     world_location = build(:world_location, name: nil)
     assert_not world_location.valid?
@@ -224,12 +220,6 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     assert_equal 1, WorldLocation.search_index.to_a.length
     assert_equal ["/world/hat-land"], (WorldLocation.search_index.map { |search_data| search_data["link"] })
-  end
-
-  test "should call perform on World Location News Page Worker when saving a World Location" do
-    world_location = create(:world_location, slug: "india")
-    WorldLocationNewsWorker.any_instance.expects(:perform).at_least_once.with(world_location.id)
-    world_location.save!
   end
 
   test "only sends en version to the publishing api" do
