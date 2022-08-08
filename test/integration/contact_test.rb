@@ -7,10 +7,15 @@ class ContactTest < ActiveSupport::TestCase
     @organisation_content_id = SecureRandom.uuid
     @world_location_content_id = SecureRandom.uuid
 
+    world_location_news = build(
+      :world_location_news,
+      title: "United Kingdom",
+    )
+
     world_location = FactoryBot.create(
       :world_location,
       content_id: @world_location_content_id,
-      title: "United Kingdom",
+      world_location_news: world_location_news,
     )
 
     @contact = FactoryBot.build(

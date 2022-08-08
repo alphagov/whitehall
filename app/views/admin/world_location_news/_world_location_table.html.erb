@@ -17,13 +17,13 @@
 
         <td>
           <p>
-            <%= link_to world_location.name, [:admin, world_location], class: "name" %>
+            <%= link_to world_location.name, [:admin, world_location.world_location_news], class: "name" %>
           </p>
           <p>
-            <% if world_location.mission_statement.present? %>
-              <span class="mission_statement"><%= format_with_html_line_breaks(world_location.mission_statement) %></span>
+            <% if world_location.world_location_news.mission_statement.present? %>
+              <span class="mission_statement"><%= format_with_html_line_breaks(world_location.world_location_news.mission_statement) %></span>
             <% else %>
-              <em>No mission statement yet</em>, <%= link_to "create one", edit_admin_world_location_path(world_location) %>.
+              <em>No mission statement yet</em>, <%= link_to "create one", edit_admin_world_location_news_path(world_location.world_location_news) %>.
             <% end %>
           </p>
         </td>
@@ -33,7 +33,7 @@
         <td class="translations">
           <% if world_location.non_english_translated_locales.any? %>
             <%= world_location.non_english_translated_locales.map do |locale|
-              link_to "#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_translation_path(world_location, locale.code)
+              link_to "#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_world_location_news_translation_path(world_location, locale.code)
             end.to_sentence.html_safe %>
           <% else %>
             none

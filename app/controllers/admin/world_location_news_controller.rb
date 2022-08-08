@@ -1,4 +1,4 @@
-class Admin::WorldLocationsController < Admin::BaseController
+class Admin::WorldLocationNewsController < Admin::BaseController
   before_action :load_world_location, only: %i[edit update show features]
 
   def edit; end
@@ -10,21 +10,21 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def update
-    if @world_location.update(world_location_params)
-      redirect_to [:admin, @world_location], notice: "World location updated successfully"
+    if @world_location_news.update(world_location_news_params)
+      redirect_to [:admin, @world_location_news], notice: "World location updated successfully"
     else
       render action: :edit
     end
   end
 
   def features
-    @feature_list = @world_location.load_or_create_feature_list(params[:locale])
+    @feature_list = @world_location.world_location_news.load_or_create_feature_list(params[:locale])
 
     filter_params = default_filter_params.merge(optional_filter_params).merge(state: "published")
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
-    @featurable_offsite_links = @world_location.offsite_links
+    @featurable_offsite_links = @world_location.world_location_news.offsite_links
 
     if request.xhr?
       render partial: "admin/feature_lists/search_results", locals: { feature_list: @feature_list }
@@ -46,16 +46,16 @@ private
   end
 
   def load_world_location
-    @world_location = WorldLocation.friendly.find(params[:id] || params[:world_location_id])
+    @world_location = WorldLocation.friendly.find(params[:id])
+    @world_location_news = @world_location.world_location_news
   end
 
-  def world_location_params
-    params.require(:world_location).permit(
-      :world_location_type_id,
-      :title,
-      :active,
+  def world_location_news_params
+    params.require(:world_location_news).permit(
       :mission_statement,
+      :title,
       featured_links_attributes: %i[url title id _destroy],
+      world_location_attributes: %i[active id world_location_type_id],
     )
   end
 end

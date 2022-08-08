@@ -28,7 +28,7 @@
                 none
               <% end %>
           </td>
-          <td><%= worldwide_organisation.world_locations.map {|l| link_to(l.name, [:admin, l])}.to_sentence.html_safe %></td>
+          <td><%= worldwide_organisation.world_locations.map {|l| link_to(l.name, [:admin, l.world_location_news])}.to_sentence.html_safe %></td>
           <td><%= worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.acronym, [:admin, o])}.to_sentence.html_safe %></td>
         <% end %>
       <% end %>

@@ -28,7 +28,7 @@ end
 
 And(/^I visit the world location admin page for "([^"]*)"$/) do |world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  visit admin_world_location_path(world_location)
+  visit admin_world_location_news_path(world_location)
 end
 
 And(/^the document is tagged to the topical event "([^"]*)"$/) do |topical_event_name|

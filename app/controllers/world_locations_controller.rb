@@ -27,7 +27,7 @@ class WorldLocationsController < PublicFacingController
         @non_statistics_publications = latest_presenters(publications.not_statistics, translated: true, count: 2)
         @statistics_publications = latest_presenters(publications.statistics, translated: true, count: 2)
         @announcements = latest_presenters(Announcement.published.in_world_location(@world_location), translated: true, count: 2)
-        @feature_list = FeatureListPresenter.new(@world_location.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
+        @feature_list = FeatureListPresenter.new(@world_location.world_location_news.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
         @worldwide_organisations = @world_location.worldwide_organisations
         set_meta_description("Help and services in #{@world_location.name}.")
         set_slimmer_world_locations_header([@world_location])

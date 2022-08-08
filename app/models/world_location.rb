@@ -13,23 +13,18 @@ class WorldLocation < ApplicationRecord
            source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
-  has_many :offsite_links, as: :parent
 
-  has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
-
-  include Featurable
+  has_one :world_location_news
+  accepts_nested_attributes_for :world_location_news
+  delegate :title, to: :world_location_news
 
   accepts_nested_attributes_for :edition_world_locations
-  accepts_nested_attributes_for :offsite_links
-
-  after_commit :send_news_page_to_publishing_api_and_rummager, on: %i[create update]
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WL"
 
   include TranslatableModel
-  translates :name, :title, :mission_statement
+  translates :name
 
   include Searchable
   searchable title: :title,
@@ -147,10 +142,4 @@ class WorldLocation < ApplicationRecord
 
   extend FriendlyId
   friendly_id
-
-  def send_news_page_to_publishing_api_and_rummager
-    WorldLocationNewsWorker.new.perform(id)
-  end
-
-  FEATURED_DOCUMENTS_DISPLAY_LIMIT = 5
 end
