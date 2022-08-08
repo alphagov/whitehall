@@ -85,32 +85,9 @@ namespace :publishing_api do
   end
 
   namespace :republish do
-    desc "Republish all organisations"
-    task all_organisations: :environment do
-      Organisation.find_each(&:publish_to_publishing_api)
-    end
-
     desc "Republish an organisation to the Publishing API"
     task :organisation_by_slug, [:slug] => :environment do |_, args|
       Organisation.find_by!(slug: args[:slug]).publish_to_publishing_api
-    end
-
-    desc "Republish all Take Part pages"
-    task all_take_part_pages: :environment do
-      TakePartPage.find_each(&:publish_to_publishing_api)
-      puts "Finished republishing Take Part pages"
-    end
-
-    desc "Republish all PolicyGroup pages"
-    task all_policy_group: :environment do
-      republisher = DataHygiene::PublishingApiRepublisher.new(PolicyGroup.all)
-      republisher.perform
-      puts "Finished republishing Policy Groups"
-    end
-
-    desc "Republish all current Topical Events"
-    task all_topical_events: :environment do
-      TopicalEvent.current.each(&:publish_to_publishing_api)
     end
 
     desc "Republish a person to the Publishing API"
@@ -118,24 +95,9 @@ namespace :publishing_api do
       Person.find_by!(slug: args[:slug]).publish_to_publishing_api
     end
 
-    desc "Republish all people to the Publishing API"
-    task all_people: :environment do
-      Person.find_each(&:publish_to_publishing_api)
-    end
-
     desc "Republish a role to the Publishing API"
     task :role_by_slug, [:slug] => :environment do |_, args|
       Role.find_by!(slug: args[:slug]).publish_to_publishing_api
-    end
-
-    desc "Republish all roles to the Publishing API"
-    task all_roles: :environment do
-      Role.find_each(&:publish_to_publishing_api)
-    end
-
-    desc "Republish all role appointments to the Publishing API"
-    task all_role_appointments: :environment do
-      RoleAppointment.find_each(&:publish_to_publishing_api)
     end
 
     desc "Republish a document to the Publishing API"
@@ -284,12 +246,22 @@ namespace :publishing_api do
       end
     end
 
-    desc "Republish all documents of a given type, eg 'NewsArticle'"
+    desc "Republish all documents of a given type, e.g. 'NewsArticle'"
     task :document_type, [:document_type] => :environment do |_, args|
-      documents = Document.where(document_type: args[:document_type])
+      begin
+        document_type = args[:document_type].constantize
+      rescue NameError
+        abort "Unknown document type #{args[:document_type]}\nCheck the GOV.UK developer documentation for a list of acceptable document types: https://docs.publishing.service.gov.uk/manual/republishing-content.html#whitehall"
+      end
+
+      documents = document_type.all
       puts "Enqueueing #{documents.count} documents"
       documents.find_each do |document|
-        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.id, true)
+        if document.respond_to?(:publish_to_publishing_api)
+          Whitehall::PublishingApi.bulk_republish_async(document)
+        else
+          PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document.document_id, true)
+        end
       end
       puts "Finished enqueueing items for Publishing API"
     end

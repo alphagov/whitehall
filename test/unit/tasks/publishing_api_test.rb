@@ -102,56 +102,6 @@ class PublishingApiRake < ActiveSupport::TestCase
         task.invoke(record.slug)
       end
     end
-
-    describe "#all_organisations" do
-      let(:task) { Rake::Task["publishing_api:republish:all_organisations"] }
-
-      test "Republishes all organisations" do
-        create(:organisation)
-        Organisation.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_people" do
-      let(:task) { Rake::Task["publishing_api:republish:all_people"] }
-
-      test "Republishes all people" do
-        create(:person)
-        Person.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_roles" do
-      let(:task) { Rake::Task["publishing_api:republish:all_roles"] }
-
-      test "Republishes all roles" do
-        create(:role)
-        Role.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_take_part_pages" do
-      let(:task) { Rake::Task["publishing_api:republish:all_take_part_pages"] }
-
-      test "Republishes all take part pages" do
-        create(:take_part_page)
-        TakePartPage.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
-
-    describe "#all_role_appointments" do
-      let(:task) { Rake::Task["publishing_api:republish:all_role_appointments"] }
-
-      test "Republishes all role appointments" do
-        create(:role_appointment)
-        RoleAppointment.any_instance.expects(:publish_to_publishing_api)
-        task.invoke
-      end
-    end
   end
 
   describe "patch_links" do
@@ -333,15 +283,63 @@ class PublishingApiRake < ActiveSupport::TestCase
     describe "#document_type" do
       let(:task) { Rake::Task["publishing_api:bulk_republish:document_type"] }
 
-      test "republishes all documents of the specified document type" do
-        edition = create(:publication)
+      describe "for editionable document types" do
+        document_types = %w[CaseStudy
+                            Consultation
+                            CorporateInformationPage
+                            DetailedGuide
+                            DocumentCollection
+                            FatalityNotice
+                            NewsArticle
+                            Publication
+                            Speech
+                            StatisticalDataSet]
 
-        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
-          "bulk_republishing",
-          edition.document_id,
-          true,
-        )
-        task.invoke("Publication")
+        document_types.each do |document_type|
+          test "republishes all #{document_type} documents" do
+            document = create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
+
+            PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+              "bulk_republishing",
+              document.document_id,
+              true,
+            )
+            task.invoke(document_type)
+          end
+        end
+      end
+
+      describe "for non-editionable document types" do
+        document_types = %w[Contact
+                            Government
+                            OperationalField
+                            Organisation
+                            Person
+                            PolicyGroup
+                            RoleAppointment
+                            Role
+                            StatisticsAnnouncement
+                            TakePartPage
+                            TopicalEventAboutPage
+                            TopicalEvent
+                            WorldLocation
+                            WorldwideOrganisation]
+
+        document_types.each do |document_type|
+          test "republishes all #{document_type} documents" do
+            document = create(document_type.underscore.to_sym) # rubocop:disable Rails/SaveBang
+
+            Whitehall::PublishingApi.expects(:bulk_republish_async).with(document)
+            task.invoke(document_type)
+          end
+        end
+      end
+
+      describe "for non-existent document types" do
+        test "it returns an error" do
+          document_type = "SomeDocumentTypeThatDoesntExist"
+          assert_raises(SystemExit, /Unknown document type #{document_type}/) { task.invoke(document_type) }
+        end
       end
     end
 
