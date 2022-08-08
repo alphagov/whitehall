@@ -36,7 +36,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
 private
 
   def load_parent
-    @parent = WorldLocation.friendly.find(params[:world_location_id]) if params[:world_location_id]
+    @parent = WorldLocation.friendly.find(params[:world_location_news_id]).world_location_news if params[:world_location_news_id]
     @parent = Organisation.friendly.find(params[:organisation_id]) if params[:organisation_id]
     @parent = TopicalEvent.friendly.find(params[:topical_event_id]) if params[:topical_event_id]
   end

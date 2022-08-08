@@ -18,7 +18,7 @@ class WorldLocationNewsController < PublicFacingController
                          else
                            latest_presenters(Announcement.published.in_world_location(@world_location), translated: true, count: 2)
                          end
-        @feature_list = FeatureListPresenter.new(@world_location.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
+        @feature_list = FeatureListPresenter.new(@world_location.world_location_news.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
       end
       format.json do
         redirect_to api_world_location_path(@world_location, format: :json)
@@ -37,6 +37,7 @@ private
 
   def load_world_location
     @world_location = WorldLocation.with_translations(I18n.locale).find(params[:world_location_id])
+    @world_location_news = @world_location.world_location_news
   end
 
   def fetch_documents(filter_params = {})

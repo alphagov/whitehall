@@ -35,23 +35,25 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should return a 404 for any world location that isn't an international delegation" do
     world_location = create(
       :world_location,
-      title: "UK in country-name",
       world_location_type: WorldLocationType::WorldLocation,
-      mission_statement: "country-mission-statement",
+      world_location_news: build(:world_location_news,
+                                 mission_statement: "country-mission-statement",
+                                 title: "UK in country-name"),
     )
     assert_raise ActiveRecord::RecordNotFound do
-      get :show, params: { id: world_location }
+      get :show, params: { id: world_location.world_location_news }
     end
   end
 
   view_test "should display world location title and mission statement" do
     world_location = create(
       :world_location,
-      title: "UK mission to the organisation",
       world_location_type: WorldLocationType::InternationalDelegation,
-      mission_statement: "delegation-mission-statement",
+      world_location_news: build(:world_location_news,
+                                 mission_statement: "delegation-mission-statement",
+                                 title: "UK mission to the organisation"),
     )
-    get :show, params: { id: world_location }
+    get :show, params: { id: world_location.world_location_news }
     assert_select "h1", text: "UK mission to the organisation"
     assert_select ".mission_statement", text: "delegation-mission-statement"
   end
@@ -60,9 +62,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
-      mission_statement: "Line 1\n\nLine 2",
+      world_location_news: build(
+        :world_location_news,
+        mission_statement: "Line 1\n\nLine 2",
+      ),
     )
-    get :show, params: { id: world_location }
+    get :show, params: { id: world_location.world_location_news }
     assert_select ".mission_statement p", /Line 1/
     assert_select ".mission_statement p", /Line 2/
     assert_select ".mission_statement p", count: 2
@@ -171,9 +176,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
     news = create(:published_news_article, first_published_at: 2.days.ago)
     editor = create(:departmental_editor)
     _draft = news.create_draft(editor)
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    feature_list = create(:feature_list, featurable: world_location.world_location_news, locale: :en)
     create(:feature, feature_list: feature_list, document: news.document)
-    get :show, params: { id: world_location }
+    get :show, params: { id: world_location.world_location_news }
     assert_featured_editions [news]
   end
 
@@ -186,17 +191,17 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
     more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)
-    english = FeatureList.create!(featurable: world_location, locale: :en)
+    english = FeatureList.create!(featurable: world_location.world_location_news, locale: :en)
     create(:feature, feature_list: english, ordering: 1, document: less_recent_news_article.document)
 
-    french = FeatureList.create!(featurable: world_location, locale: :fr)
+    french = FeatureList.create!(featurable: world_location.world_location_news, locale: :fr)
     create(:feature, feature_list: french, ordering: 1, document: less_recent_news_article.document)
     create(:feature, feature_list: french, ordering: 2, document: more_recent_news_article.document)
 
-    get :show, params: { id: world_location, locale: :fr }
+    get :show, params: { id: world_location.world_location_news, locale: :fr }
     assert_featured_editions [less_recent_news_article, more_recent_news_article]
 
-    get :show, params: { id: world_location, locale: :en }
+    get :show, params: { id: world_location.world_location_news, locale: :en }
     assert_featured_editions [less_recent_news_article]
   end
 
@@ -217,12 +222,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
     )
-    english = FeatureList.create!(featurable: world_location, locale: :en)
+    english = FeatureList.create!(featurable: world_location.world_location_news, locale: :en)
     6.times do
       news_article = create(:published_news_article)
       create(:feature, feature_list: english, document: news_article.document)
     end
-    get :show, params: { id: world_location }
+    get :show, params: { id: world_location.world_location_news }
     assert_equal 5, assigns(:feature_list).current_feature_count
   end
 
@@ -436,8 +441,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation,
     )
-    featured_link = create(:featured_link, linkable: world_location)
-    get :show, params: { id: world_location }
+    featured_link = create(:featured_link, linkable: world_location.world_location_news)
+    get :show, params: { id: world_location.world_location_news }
     assert_select "ul.govuk-list" do
       assert_select "a[href='#{featured_link.url}']", text: featured_link.title
     end

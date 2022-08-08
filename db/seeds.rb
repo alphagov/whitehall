@@ -43,11 +43,16 @@ if Government.where(name: "Test Government").blank?
   )
 end
 
+WorldLocationNews.skip_callback(:commit, :after, :publish_to_publishing_api)
+
 if WorldLocation.where(name: "Test World Location").blank?
-  WorldLocation.skip_callback(:commit, :after, :send_news_page_to_publishing_api_and_rummager, raise: false)
   world_location = WorldLocation.create!(
     name: "Test World Location",
     world_location_type_id: 1,
+  )
+
+  world_location_news = WorldLocationNews.create!(
+    world_location: world_location,
     mission_statement: "Our mission is to test world locations",
     title: "UK and Test World Location",
   )
@@ -55,15 +60,18 @@ if WorldLocation.where(name: "Test World Location").blank?
   FeaturedLink.create!(
     url: "https://www.gov.uk",
     title: "GOV.UK Homepage",
-    linkable: world_location,
+    linkable: world_location_news,
   )
 end
 
 if WorldLocation.where(name: "Test International Delegation").blank?
-  WorldLocation.skip_callback(:commit, :after, :send_news_page_to_publishing_api_and_rummager, raise: false)
   international_delegation = WorldLocation.create!(
     name: "Test International Delegation",
     world_location_type_id: 3,
+  )
+
+  international_delegation_news = WorldLocationNews.create!(
+    world_location: international_delegation,
     mission_statement: "Our mission is to test international delegations",
     title: "UK at Test International Delegation",
   )
@@ -71,6 +79,6 @@ if WorldLocation.where(name: "Test International Delegation").blank?
   FeaturedLink.create!(
     url: "https://www.gov.uk",
     title: "GOV.UK Homepage",
-    linkable: international_delegation,
+    linkable: international_delegation_news,
   )
 end

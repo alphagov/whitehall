@@ -361,13 +361,15 @@ Whitehall::Application.routes.draw do
           resources :role_appointments, only: %i[new create edit update destroy], shallow: true
           resources :translations, controller: "role_translations"
         end
-        resources :world_locations, only: %i[index edit update show] do
+
+        resources :world_location_news, only: %i[index edit update show] do
           member do
-            get "/features(.:locale)", as: "features", to: "world_locations#features", constraints: { locale: valid_locales_regex }
+            get "/features(.:locale)", as: "features", to: "world_location_news#features", constraints: { locale: valid_locales_regex }
           end
-          resources :translations, controller: "world_location_translations"
+          resources :translations, controller: "world_location_news_translations"
           resources :offsite_links
         end
+
         resources :feature_lists, only: [:show] do
           post :reorder, on: :member
 

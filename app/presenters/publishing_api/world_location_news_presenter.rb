@@ -2,16 +2,19 @@ module PublishingApi
   class WorldLocationNewsPresenter
     include FeaturedDocumentsPresenter
 
-    attr_accessor :world_location, :update_type
+    attr_accessor :world_location, :world_location_news, :update_type
 
-    def initialize(world_location, update_type: nil)
-      self.world_location = world_location
+    def initialize(world_location_news, update_type: nil)
+      self.world_location_news = world_location_news
+      self.world_location = world_location_news.world_location
       self.update_type = update_type || "major"
     end
 
+    delegate :content_id, to: :world_location_news
+
     def content
       content = BaseItemPresenter.new(
-        world_location,
+        world_location_news,
         title: title,
         update_type: update_type,
       ).base_attributes
@@ -20,12 +23,12 @@ module PublishingApi
         description: description,
         details: {
           ordered_featured_links: featured_links,
-          mission_statement: world_location.mission_statement || "",
-          ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
+          mission_statement: world_location_news.mission_statement || "",
+          ordered_featured_documents: featured_documents(world_location_news, WorldLocationNews::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
           world_location_news_type: world_location.world_location_type.key,
         },
         document_type: "world_location_news",
-        public_updated_at: world_location.updated_at,
+        public_updated_at: world_location_news.updated_at,
         rendering_app: rendering_app,
         schema_name: "world_location_news",
         base_path: path_for_news_page,
@@ -54,7 +57,7 @@ module PublishingApi
   private
 
     def featured_links
-      world_location.featured_links.limit(FeaturedLink::DEFAULT_SET_SIZE).map do |link|
+      world_location_news.featured_links.limit(FeaturedLink::DEFAULT_SET_SIZE).map do |link|
         {
           title: link.title,
           href: link.url,
@@ -75,7 +78,7 @@ module PublishingApi
     end
 
     def title
-      world_location.title
+      world_location_news.title
     end
   end
 end

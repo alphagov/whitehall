@@ -1,6 +1,6 @@
 def add_translation_to_world_location(location, translation)
   translation = translation.stringify_keys
-  visit admin_world_location_path(location)
+  visit admin_world_location_news_path(location)
   click_link "Translations"
 
   select translation["locale"], from: "Locale"
@@ -12,8 +12,11 @@ def add_translation_to_world_location(location, translation)
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists$/) do |world_location_type, name|
-  WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
-  create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
+  world_location = create(world_location_type.tr(" ", "_").to_sym, name: name)
+  # We cannot at the moment set active to be true directly on the international delegation factory, because this will trigger code for searchable
+  # that requires a world location news to exist, but this has not been created yet at the point of creating the international delegation
+  # Further refactoring of world locations / international delegations should fix this issue
+  world_location.update!(active: true)
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/) do |world_location_type, name, mission_statement|
@@ -28,19 +31,21 @@ Given(/^the (world location|international delegation) "([^"]*)" is inactive/) do
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |world_location_type, name, locale|
-  WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
-  location = create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
+  location = create(world_location_type.tr(" ", "_").to_sym, name: name)
+  # We cannot at the moment set active to be true directly on the international delegation factory, because this will trigger code for searchable
+  # that requires a world location news to exist, but this has not been created yet at the point of creating the international delegation
+  # Further refactoring of world locations / international delegations should fix this issue
+  location.update!(active: true)
   locale = Locale.find_by_language_name(locale)
 
   translation = LocalisedModel.new(location, locale.code)
   translation.name = "Unimportant"
-  translation.title = "Unimportant"
   translation.save!
 end
 
 Given(/^I have an offsite link "(.*?)" for the (?:world location|international delegation) "(.*?)"$/) do |title, world_location_name|
   world_location = WorldLocation.find_by(name: world_location_name)
-  @offsite_link = create :offsite_link, title: title, parent: world_location
+  @offsite_link = create :offsite_link, title: title, parent: world_location.world_location_news
 end
 
 When(/^I view the (?:world location|international delegation) "([^"]*)"$/) do |name|
@@ -55,7 +60,7 @@ end
 def feature_news_article_in_world_location(news_article_title, world_location_name, image_filename = nil, locale = "English")
   image_filename ||= "minister-of-funk.960x640.jpg"
   world_location = WorldLocation.find_by!(name: world_location_name)
-  visit admin_world_location_path(world_location)
+  visit admin_world_location_news_path(world_location)
   click_link "Features (#{locale})"
   locale = Locale.find_by_language_name(locale)
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by(title: news_article_title)
@@ -77,7 +82,7 @@ end
 
 When(/^I feature the offsite link "(.*?)" for (?:world location|international delegation) "(.*?)" with image "(.*?)"$/) do |offsite_link_title, world_location_name, image_filename|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  visit admin_world_location_path(world_location)
+  visit admin_world_location_news_path(world_location)
   click_link "Features"
   offsite_link = OffsiteLink.find_by(title: offsite_link_title)
   within record_css_selector(offsite_link) do
@@ -90,7 +95,7 @@ end
 
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the (?:world location|international delegation) "(.*?)"$/) do |title, type, location_name|
   world_location = WorldLocation.find_by!(name: location_name)
-  visit admin_world_location_path(world_location)
+  visit admin_world_location_news_path(world_location)
   click_link "Features (English)"
   click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
@@ -102,7 +107,7 @@ end
 
 When(/^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/) do |name, table|
   world_location = WorldLocation.find_by!(name: name)
-  visit features_admin_world_location_path(world_location)
+  visit features_admin_world_location_news_path(world_location)
   order_features_from(table)
 end
 
@@ -114,7 +119,7 @@ end
 When(/^I edit the "([^"]*)" translation for "([^"]*)" setting:$/) do |locale, name, table|
   location = WorldLocation.find_by!(name: name)
   translation = table.rows_hash
-  visit admin_world_location_path(location)
+  visit admin_world_location_news_path(location)
   click_link "Translations"
   click_link locale
   fill_in "Name", with: translation["name"]
@@ -186,7 +191,7 @@ end
 
 When(/^I stop featuring the offsite link "(.*?)" for the (?:world location|international delegation) "(.*?)"$/) do |offsite_link_name, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  visit features_admin_world_location_path(world_location)
+  visit features_admin_world_location_news_path(world_location)
   offsite_link = OffsiteLink.find_by!(title: offsite_link_name)
   within record_css_selector(offsite_link) do
     click_on "Unfeature"
@@ -196,8 +201,8 @@ end
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" (?:world location|international delegation) page$/) do |title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   offsite_link = OffsiteLink.find_by!(title: title)
-  visit features_admin_world_location_path(world_location)
-  expect(page).to have_link(title, href: edit_admin_world_location_offsite_link_path(world_location.slug, offsite_link.id))
+  visit features_admin_world_location_news_path(world_location)
+  expect(page).to have_link(title, href: edit_admin_world_location_news_offsite_link_path(world_location.slug, offsite_link.id))
 end
 
 Then(/^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/) do |expected_title, name|

@@ -38,6 +38,8 @@ module PublishingApiPresenters
         PublishingApi::RoleAppointmentPresenter
       when ::WorldLocation
         PublishingApi::WorldLocationPresenter
+      when ::WorldLocationNews
+        PublishingApi::WorldLocationNewsPresenter
       when ::WorldwideOrganisation
         PublishingApi::WorldwideOrganisationPresenter
       when ::Contact
