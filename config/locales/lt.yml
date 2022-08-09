@@ -632,6 +632,9 @@ lt:
       publications: Mūsų publikacijos
       search: Ieškoti pagal šalį ar teritoriją
       statistics: Mūsų statistika
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

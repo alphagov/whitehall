@@ -559,6 +559,9 @@ en:
       publications: Our publications
       search: Search by country or territory
       statistics: Our statistics
+    search_description:
+      international_delegation: Updates, news and events from the UK government in %{name}.
+      world_location: Services if you're visiting, studying, working or living in %{name}. Includes information about trading with and doing business in the UK and %{name}.
     type:
       international_delegation:
         one: International delegation

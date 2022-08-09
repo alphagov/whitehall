@@ -559,6 +559,9 @@ sq:
       publications: Publikimet tona
       search: Kërkoni sipas vendit ose territorit
       statistics: Statistikat tona
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Delegacion ndërkombëtar

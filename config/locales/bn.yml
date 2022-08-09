@@ -558,6 +558,9 @@ bn:
       publications: আমাদের প্রকাশনাসমূহ
       search: দেশ বা অঞ্চল হিসেবে অনুসন্ধান করুন
       statistics: আমাদের পরিসংখ্যান
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: আন্তর্জাতিক প্রতিনিধি

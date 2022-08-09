@@ -558,6 +558,9 @@ fa:
       publications: موارد منتشر شده ما
       search: جستجو بر اساس کشور یا قلمرو
       statistics: آمار ما
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: هیأت بین‌المللی

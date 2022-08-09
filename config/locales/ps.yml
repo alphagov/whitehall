@@ -559,6 +559,9 @@ ps:
       publications: زموږ خپرونې
       search: د هیواد یا سیمې له مخې لټون
       statistics: زموږ احصایه
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: نړیوال پلاوی

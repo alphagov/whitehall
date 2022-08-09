@@ -558,6 +558,9 @@ tk:
       publications: Biziň neşirlerimiz
       search: Döwlet ýa-da territoriýa boýunça gözlemek
       statistics: Biziň statistikamyz
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Halkara delegasiýa

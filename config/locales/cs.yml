@@ -635,6 +635,9 @@ cs:
       publications: Naše publikace
       search: Vyhledávání podle země nebo území
       statistics: Naše statistika
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

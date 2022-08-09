@@ -482,6 +482,9 @@ vi:
       publications: Các ấn phẩm của chúng tôi
       search: Tìm kiếm theo quốc gia hoặc lãnh thổ
       statistics: Thống kê của chúng tôi
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: Phái đoàn quốc tế

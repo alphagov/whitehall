@@ -558,6 +558,9 @@ hu:
       publications: Kiadványaink
       search: Keresés ország vagy terület szerint
       statistics: Statisztikáink
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Nemzetközi delegáció

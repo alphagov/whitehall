@@ -559,6 +559,9 @@ pa:
       publications: ਸਾਡੇ ਪ੍ਰਕਾਸ਼ਨ
       search: ਦੇਸ਼ ਜਾਂ ਖੇਤਰ ਦੁਆਰਾ ਖੋਜ ਕਰੋ
       statistics: ਸਾਡੇ ਅੰਕੜੇ
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਫਦ

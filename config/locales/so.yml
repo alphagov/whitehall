@@ -558,6 +558,9 @@ so:
       publications: Daabacadahayaga
       search: Ku raadi dalka ama dhulka
       statistics: Xog ururinahayaga
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Wafti caalami ah

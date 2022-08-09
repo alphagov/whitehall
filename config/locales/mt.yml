@@ -708,6 +708,9 @@ mt:
       publications: Pubblikazzjonijiet tagħna
       search: Fittex permezz tal-pajjiż jew territorju
       statistics: L-istatistiċi tagħna
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

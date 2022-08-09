@@ -482,6 +482,9 @@ id:
       publications: Publikasi kami
       search: Cari menurut negara atau teritori
       statistics: Statistik kami
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: Delegasi internasional

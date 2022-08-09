@@ -862,6 +862,9 @@ cy:
       publications: Ein cyhoeddiadau
       search: Chwilio yn ôl gwlad neu diriogaeth
       statistics: Ein hystadegau
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

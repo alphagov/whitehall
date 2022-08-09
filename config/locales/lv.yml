@@ -556,6 +556,9 @@ lv:
       publications: Publikācijas
       search: Meklēt pēc valsts vai teritorijas
       statistics: Statistikas dati
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Starptautiskā delegācija

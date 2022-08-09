@@ -559,6 +559,9 @@
       publications: Våre publikasjoner
       search: Søk etter land eller territorium
       statistics: Vår statistikk
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Internasjonal delegasjon

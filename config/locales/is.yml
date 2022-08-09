@@ -558,6 +558,9 @@ is:
       publications: Okkar útgáfur
       search: Leita eftir landi eða landsvæði
       statistics: Okkar tölfræði
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Alþjóðleg sendinefnd

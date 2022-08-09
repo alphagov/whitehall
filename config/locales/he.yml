@@ -559,6 +559,9 @@ he:
       publications: הפרסומים שלנו
       search: חפש לפי מדינה או שטח
       statistics: סטטיסטיקה שלנו
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: משלחת בינלאומית

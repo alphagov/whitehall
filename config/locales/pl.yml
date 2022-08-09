@@ -708,6 +708,9 @@ pl:
       publications: Nasze publikacje
       search: Wyszukiwanie według kraju lub terytorium
       statistics: Nasze statystyki
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

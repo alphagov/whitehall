@@ -558,6 +558,9 @@ el:
       publications: Οι δημοσιεύσεις μας
       search: Αναζήτηση ανά χώρα ή περιοχή
       statistics: Τα στατιστικά μας
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Διεθνής αντιπροσωπεία

@@ -482,6 +482,9 @@ th:
       publications: สิ่งพิมพ์ของเรา
       search: ค้นหาด้วยประเทศหรือดินแดน
       statistics: สถิติของเรา
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: คณะผู้แทนระหว่างประเทศ

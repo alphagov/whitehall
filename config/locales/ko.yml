@@ -482,6 +482,9 @@ ko:
       publications: 출판물
       search: 국가 또는 영토로 검색하기
       statistics: 통계
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: 국제 대표단

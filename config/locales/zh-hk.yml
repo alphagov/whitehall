@@ -558,6 +558,9 @@ zh-hk:
       publications: 我們的出版物
       search: 按國家或地區搜尋
       statistics: 我們的統計資料
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: 國際代表

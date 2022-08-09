@@ -558,6 +558,9 @@ bg:
       publications: Нашите публикации
       search: Търсене по страна или територия
       statistics: Нашата статистика
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Международна делегация
