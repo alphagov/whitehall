@@ -710,6 +710,9 @@ uk:
       publications: Наші публікації
       search: Пошук за країною чи територією
       statistics: Наша статистика
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

@@ -559,6 +559,9 @@ es-419:
       publications: Nuestras publicaciones
       search: Búsqueda por país o territorio
       statistics: Nuestras estadísticas
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Delegación internacional

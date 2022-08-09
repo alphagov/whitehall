@@ -559,6 +559,9 @@ fi:
       publications: Julkaisumme
       search: Hae maan tai alueen mukaan
       statistics: Tilastomme
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Kansainvälinen valtuuskunta

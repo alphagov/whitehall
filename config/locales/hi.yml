@@ -559,6 +559,9 @@ hi:
       publications: हमारे प्रकाशन
       search: देश या क्षेत्र से खोजें
       statistics: हमारे आंकड़े
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: अंतर्राष्ट्रीय प्रतिनिधिमंडल

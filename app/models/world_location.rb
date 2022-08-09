@@ -56,9 +56,9 @@ class WorldLocation < ApplicationRecord
 
   def search_description
     if world_location_type == WorldLocationType::InternationalDelegation
-      "Updates, news and events from the UK government in #{name}."
+      I18n.t("world_location.search_description.international_delegation", name: name)
     else
-      "Services if you're visiting, studying, working or living in #{name}. Includes information about trading with and doing business in the UK and #{name}."
+      I18n.t("world_location.search_description.world_location", name: name)
     end
   end
 

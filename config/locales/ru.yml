@@ -708,6 +708,9 @@ ru:
       publications: Наши публикации
       search: Поиск по стране или территории
       statistics: Наша статистика
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

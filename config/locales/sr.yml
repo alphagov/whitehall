@@ -635,6 +635,9 @@ sr:
       publications: Naše publikacije
       search: Pretraga po zemlji ili teritoriji
       statistics: Naša statistika
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

@@ -558,6 +558,9 @@ gu:
       publications: અમારા પ્રકાશનો
       search: દેશ અથવા ટેરિટરીથી શોધો
       statistics: અમારા આંકડા
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: આંતરરાષ્ટ્રીય પ્રતિનિધિમંડળ

@@ -482,6 +482,9 @@ zh:
       publications: 我们的出版物
       search: 按国家或地区搜索
       statistics: 我们的统计数据
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: 国际代表处

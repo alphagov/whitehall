@@ -860,6 +860,9 @@ ar:
       publications: منشوراتنا
       search: البحث حسب البلد أو الإقليم
       statistics: إحصائياتنا
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

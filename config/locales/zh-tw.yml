@@ -558,6 +558,9 @@ zh-tw:
       publications: 我們的出版
       search: 按國家或地區搜索
       statistics: 我們的數據統計
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: 國際代表團

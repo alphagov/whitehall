@@ -634,6 +634,9 @@ ro:
       publications: Publicațiile noastre
       search: Căutați după țară sau teritoriu
       statistics: Statisticile noastre
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:
