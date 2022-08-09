@@ -76,6 +76,11 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def pdf_thumbnail_command(width, height)
+    # rubocop:disable Rails/Output
+    p `gs -version`
+    p path
+    # rubocop:enable Rails/Output
+
     %(gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1)
   end
 
