@@ -1,6 +1,6 @@
 Given(/^a document that has gone through many changes$/) do
   begin_drafting_publication("An frequently changed publication")
-  click_on "Save and continue"
+  click_button "Save"
   expect(page).to have_content("An frequently changed publication")
   @the_publication = Publication.find_by(title: "An frequently changed publication")
   # fake it

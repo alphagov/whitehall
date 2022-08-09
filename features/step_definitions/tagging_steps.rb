@@ -1,7 +1,9 @@
 When(/^I continue to the tagging page$/) do
-  click_button "Save and continue"
+  click_button "Save"
+  click_link "Add tag"
 end
 
 When(/^I continue to the legacy tagging page$/) do
-  click_button "Save and review specialist topic tagging"
+  click_button "Save"
+  click_link "Add specialist topic tags"
 end

@@ -32,7 +32,7 @@ Then(/^I should be on the legacy tagging page$/) do
   @publication = Publication.last
 
   expect(page).to have_current_path(
-    edit_admin_edition_legacy_associations_path(@publication, return: "tags"),
+    edit_admin_edition_legacy_associations_path(@publication),
   )
 end
 
