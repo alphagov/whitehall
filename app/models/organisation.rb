@@ -5,6 +5,7 @@ class Organisation < ApplicationRecord
   include Organisation::OrganisationTypeConcern
 
   DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
+  FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
   belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
 

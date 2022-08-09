@@ -114,6 +114,18 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_valid_against_publisher_schema(presented_item.content, "organisation")
   end
 
+  test "caps number of featured documents at 6" do
+    features = (1..7).to_a.map do |i|
+      created_case_study = create(:published_case_study, title: "case-study-#{i}")
+      build(:feature, document: created_case_study.document, ordering: i)
+    end
+    organisation = create(:organisation)
+
+    create(:feature_list, featurable: organisation, features: features)
+
+    assert_equal 6, present(organisation).content.dig(:details, :ordered_featured_documents).size
+  end
+
   test "presents an organisation’s custom logo" do
     organisation = create(
       :organisation,

@@ -1,4 +1,4 @@
-class WorldLocationNewsPageWorker < WorkerBase
+class WorldLocationNewsWorker < WorkerBase
   attr_accessor :world_location
 
   def perform(world_location_id)
@@ -25,7 +25,7 @@ private
   end
 
   def presenter
-    PublishingApi::WorldLocationNewsPagePresenter.new(world_location)
+    PublishingApi::WorldLocationNewsPresenter.new(world_location)
   end
 
   def send_news_page_to_rummager

@@ -1,5 +1,7 @@
 module PublishingApi
-  class WorldLocationNewsPagePresenter
+  class WorldLocationNewsPresenter
+    include FeaturedDocumentsPresenter
+
     attr_accessor :world_location, :update_type
 
     def initialize(world_location, update_type: nil)
@@ -16,11 +18,15 @@ module PublishingApi
 
       content.merge!(
         description: description,
-        details: {},
+        details: {
+          ordered_featured_links: featured_links,
+          mission_statement: world_location.mission_statement || "",
+          ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
+        },
         document_type: "placeholder_world_location_news_page",
         public_updated_at: world_location.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "placeholder",
+        schema_name: "world_location_news",
         base_path: path_for_news_page,
       )
       content.merge!(PayloadBuilder::Routes.for(path_for_news_page))
@@ -45,6 +51,15 @@ module PublishingApi
     end
 
   private
+
+    def featured_links
+      world_location.featured_links.map do |link|
+        {
+          title: link.title,
+          href: link.url,
+        }
+      end
+    end
 
     def path_for_news_page
       Whitehall.url_maker.world_location_news_index_path(world_location)
