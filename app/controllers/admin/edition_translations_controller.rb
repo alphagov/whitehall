@@ -31,7 +31,7 @@ private
   end
 
   def load_translated_models
-    @edition_remarks = @edition.document_remarks_trail.reverse
+    @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
     @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
     @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
   end

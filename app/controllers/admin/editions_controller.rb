@@ -202,7 +202,7 @@ private
   end
 
   def fetch_version_and_remark_trails
-    @edition_remarks = @edition.document_remarks_trail.reverse
+    @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:remarks_page])
     @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
   end
 

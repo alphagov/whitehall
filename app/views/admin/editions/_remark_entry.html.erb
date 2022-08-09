@@ -1,0 +1,12 @@
+<%= content_tag(:li, class: "editorial_remark") do %>
+  <div class="image">
+    <%= gravatar_image(remark.author, ssl: request.ssl?) %>
+  </div>
+  <span class="body"><%= remark.body %></span>
+  <% if remark.author %>
+    <span class="actor"><%= linked_author(remark.author) %></span>
+  <% else %>
+    User (removed)
+  <% end %>
+  <%= absolute_time(remark.created_at, class: "created_at") %>
+<% end %>

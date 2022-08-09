@@ -8,7 +8,9 @@
 
     <h1>Notes</h1>
 
-    <%= render_editorial_remarks(@edition_remarks, @edition) %>
+    <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+    <%= render_editorial_remarks(@document_remarks, @edition) %>
+    <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
 
     <%= link_to "Add note", new_admin_edition_editorial_remark_path(@edition) %>
   </section>

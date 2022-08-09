@@ -1,0 +1,1 @@
+<li class="next"><%= link_to_unless current_page.last?, "Older >>", url, data: {'remote-pagination' => paginated_audit_trail_url(current_page + 1) } %></li>

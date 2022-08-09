@@ -25,7 +25,7 @@
     <% else %>
       <%= sidebar_tabs edition_tabs(
         @edition,
-        remarks_count: @edition_remarks.length,
+        remarks_count: @document_remarks.total_count,
         history_count: @document_history.total_count,
         editing: true,
       ) do |tabs| %>
@@ -39,7 +39,9 @@
           <h1>Notes</h1>
           <p>To add a remark, save your changes.</p>
           <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
-          <%= render_editorial_remarks(@edition_remarks, @edition) %>
+          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+          <%= render_editorial_remarks(@document_remarks, @edition) %>
+          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
         <% end %>
 
         <%= tabs.pane class: "audit-trail", id: "history" do %>

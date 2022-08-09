@@ -26,21 +26,25 @@ module Admin::AuditTrailHelper
     )
   end
 
-  def render_editorial_remarks(remarks, edition)
-    this_edition_remarks, other_edition_remarks = remarks.partition { |r| r.edition == edition }
-    out = ""
-    if this_edition_remarks.any?
-      out << tag.h2("On this edition")
-      out << tag.ul(class: "list-unstyled") do
-        render partial: "admin/editions/audit_trail_entry", collection: this_edition_remarks
+  def render_editorial_remarks(paginated_remarks, edition)
+    grouped_remarks = paginated_remarks.query.group_by do |remark|
+      if remark.edition_id > edition.id
+        "On newer editions"
+      elsif remark.edition_id < edition.id
+        "On previous editions"
+      else
+        "On this edition"
       end
     end
-    if other_edition_remarks.any?
-      out << tag.h2("On previous editions", class: "add-top-margin")
-      out << tag.ul(class: "list-unstyled") do
-        render partial: "admin/editions/audit_trail_entry", collection: other_edition_remarks
+
+    html = grouped_remarks.map do |heading, remarks|
+      h2 = tag.h2(heading, class: "add-top-margin")
+      ul = tag.ul(class: "list-unstyled") do
+        render partial: "admin/editions/remark_entry", collection: remarks, as: :remark
       end
+      h2 + ul
     end
-    out.html_safe
+
+    html.join.html_safe
   end
 end
