@@ -13,6 +13,7 @@
       $("input[name='unpublishing_reason_id']").change(this.revealCorrectForm)
       $('#unpublishing_redirect').change(this.hideExplanationIfRedirecting)
       $("input[name='previous_withdrawal_id']").change(this.revealNewWithdrawalFields)
+      $('main form').on('submit', this.trackFormSubmission)
     },
 
     revealCorrectForm: function () {
@@ -49,6 +50,16 @@
       if (withdrawalRadios.length > 0) {
         var selected = withdrawalRadios.filter(':checked').val()
         $('#new-withdrawal').toggle(selected === 'new')
+      }
+    },
+
+    trackFormSubmission: function () {
+      var unpublishType = $("input[name='unpublishing_reason_id']:checked").parent().text().trim()
+      GOVUKAdmin.trackEvent('WithdrawUnpublishSelection', 'WithdrawUnpublish-selection', { label: unpublishType })
+
+      var withdrawalDate = $('input[name=previous_withdrawal_id]:checked').parent().find('strong').text().trim()
+      if (withdrawalDate) {
+        GOVUKAdmin.trackEvent('WithdrawUnpublishSelection', 'Withdraw-selection', { label: withdrawalDate })
       }
     }
   }
