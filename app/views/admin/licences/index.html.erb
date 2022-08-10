@@ -4,4 +4,5 @@
   <p><%=link_to(licence.title, licence.link) %>
   <p><%= licence.sectors %></p>
   <p><%= licence.activities %></p>
+  <p><%= link_to("Edit", edit_admin_licence_path(licence.id)) %></p>
 <% end %>
