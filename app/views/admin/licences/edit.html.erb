@@ -1,6 +1,23 @@
-<p>Edit</p>
+<% page_title "Edit Licence information" %>
 
-<p><%=link_to(@licence.title, @licence.link) %>
-<p><%= @licence.sectors %></p>
-<p><%= @licence.activities %></p>
-<p><%= @licence.external_link %></p>
+<div class="row">
+  <section class="col-md-8">
+    <%= form_for [:admin, nil, @licence], builder: Whitehall::FormBuilder do |form| %>
+      <%= form.text_field :link, label_text: 'Link to licence', required: true %>
+      <%= form.text_field :title, label_text: 'Title', required: false %>
+      <%= form.text_area :description, label_text: 'Description', rows: 3, required: false %>
+
+      <%= form.label :sectors, 'Sectors' %>
+      <%= form.select :sectors,
+                      options_from_collection_for_select(Sector.order(:title), 'id', 'title', @licence.sectors),
+                      {},
+                      multiple: true,
+                      class: 'chzn-select form-control',
+                      data: {
+                          placeholder: "Choose sectors events…",
+                          module: 'track-select-click',
+                          track_category: 'sectorSelection',
+                          track_label: request.path
+                      } %>
+  </section>
+</div>

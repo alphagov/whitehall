@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_10_161026) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_11_112856) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -601,6 +601,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_161026) do
     t.datetime "updated_at", null: false
     t.boolean "external_link"
     t.text "description"
+  end
+
+  create_table "licences_sectors", id: false, charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "sector_id", null: false
+    t.bigint "licence_id", null: false
   end
 
   create_table "link_checker_api_report_links", id: :integer, charset: "utf8mb3", force: :cascade do |t|
