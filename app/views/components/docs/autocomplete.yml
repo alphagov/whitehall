@@ -1,0 +1,177 @@
+name: Autocomplete
+description: An autocomplete component, built to be accessible
+body: |
+  This component is build using [Accessible Autocomplete](https://github.com/alphagov/accessible-autocomplete).
+
+  Typically it is used to enhance a select element with autocomplete options.
+part_of_admin_layout: true
+accessibility_criteria: |
+  [Accessibility acceptance criteria](https://github.com/alphagov/accessible-autocomplete/blob/master/accessibility-criteria.md)
+examples:
+  default:
+    data:
+      id: autocomplete
+      name: autocomplete
+      label:
+        text: Select your country
+      select:
+        options:
+          -
+            -
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+
+  with_selected_value:
+    data:
+      id: autocomplete-selected
+      name: autocomplete-selected
+      label:
+        text: Select your country
+        bold: true
+      hint: Only a few countries are available
+      select:
+        options:
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+        selected: de
+
+  with_error:
+    data:
+      name: autocomplete-with-error
+      label:
+        text: Autocomplete with error
+      select:
+        options:
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+      error_items:
+        - text: There is a problem with this input
+
+  select_multiple:
+    data:
+      id: autocomplete-multiselect
+      name: autocomplete-multiselect
+      label:
+        text: Select your country
+      select:
+        multiple: true
+        options:
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+        selected:
+            - fr
+            - de
+
+  autocomplete_narrow_width:
+    data:
+      id: autocomplete-narrow
+      name: autocomplete-narrow
+      label:
+        text: Status
+      width: narrow
+      select:
+        options:
+          -
+            - Draft
+          -
+            - Published
+          -
+            - Removed
+
+  autocomplete_input:
+    description: |
+      An enhancement to an input element. Options are provided via a datalist.
+      A user can enter a value outside the list of options.
+    data:
+      id: autocomplete-input
+      name: autocomplete-input
+      label:
+        text: Select your country
+      input:
+        value: France
+        options:
+          - France
+          - United Arab Emirates
+          - United Kingdom
+
+  autocomplete_without_narrowing_results:
+    description: |
+      An enhancement to an input element. All options (provided by a datalist)
+      are shown whenever the input is focused. A user can enter a value outside
+      the list of options.
+    data:
+      id: autocomplete-without-narrowing-results
+      name: autocomplete-without-narrowing-results
+      data_attributes:
+        autocomplete-without-narrowing-results: true
+      label:
+        text: Select your country
+        bold: true
+      hint: The full list will show when you interact with the input
+      input:
+        value: France
+        options:
+          - France
+          - United Arab Emirates
+          - United Kingdom
+
+  autocomplete_search:
+    description: |
+      This is used to style the autocomplete as a search. If applied to an
+      input element the underlying input is rendered with type "search" rather
+      than "text".
+    data:
+      id: autocomplete-search
+      name: autocomplete-search
+      label:
+        text: Search
+      search: true
+      input:
+        options:
+          - France
+          - Germany
+          - United Kingdom
+  autocomplete_js_only:
+    description: |
+      Shows an autocomplete component only if JavaScript is enabled.
+      This is used when the search input requires a JavaScript request to return results.
+    data:
+      id: autocomplete-jsonly
+      name: autocomplete-jsonly
+      label:
+        text: Search
+      search: true
+      jsonly: true
+      input:
+        options:
+          - France
+          - Germany
+          - United Kingdom

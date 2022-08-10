@@ -3,5 +3,6 @@
 //= require govuk-admin-template
 //= require admin
 //= require components/miller-columns
+//= require components/autocomplete
 
 window.GOVUK.navBarHelper.init()
