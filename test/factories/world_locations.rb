@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :world_location, traits: [:translated] do
     name { "British Antarctic Territory" }
     world_location_type { WorldLocationType::WorldLocation }
+    title { "British Antarctic Territory and the UK" }
 
     trait(:with_worldwide_organisations) do
       after :create do |world_location, _evaluator|

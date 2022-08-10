@@ -33,6 +33,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
     world_location = FactoryBot.create(
       :world_location,
       name: "France",
+      title: "UK and France",
       news_page_content_id: "id-123",
       translated_into: [:fr],
     )
@@ -42,8 +43,12 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
     end
 
     I18n.with_locale(:fr) do
+      world_location.update!(title: "Le Royaume-Uni et la France")
       @french = PublishingApi::WorldLocationNewsPresenter.new(world_location).content
     end
+
+    assert_equal("UK and France", @english[:title])
+    assert_equal("Le Royaume-Uni et la France", @french[:title])
 
     Services.publishing_api.expects(:put_content).with("id-123", @english)
     Services.publishing_api.expects(:publish).with("id-123", nil, locale: :en)
