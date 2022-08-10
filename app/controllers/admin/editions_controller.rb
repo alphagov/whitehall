@@ -190,7 +190,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def history
-    @edition_history = Kaminari.paginate_array(@edition.document_version_trail(superseded: false).reverse).page(params[:page]).per(30)
+    @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
   end
 
 private
@@ -201,7 +201,7 @@ private
 
   def fetch_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse
-    @edition_history = Kaminari.paginate_array(@edition.document_version_trail(superseded: false).reverse).page(params[:page]).per(30)
+    @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
   end
 
   def edition_class
