@@ -60,7 +60,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_equal govspeak_content.id, job["args"].first
   end
 
-  test "#render_govspeak sets computed_headers_html correctly" do
+  test "#render_govspeak! sets computed_headers_html correctly" do
     govspeak_content = create(
       :html_attachment,
       manually_numbered_headings: false,
@@ -77,7 +77,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_equivalent_html expected_headers_html, govspeak_content.computed_headers_html
   end
 
-  test "#render_govspeak sets computed_headers_html correctly when manually
+  test "#render_govspeak! sets computed_headers_html correctly when manually
     numbered headings is true" do
     govspeak_content = create(
       :html_attachment,
@@ -98,7 +98,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_equivalent_html expected_headers_html, govspeak_content.computed_headers_html
   end
 
-  test "#render_govspeak sets computed_body_html correctly" do
+  test "#render_govspeak! sets computed_body_html correctly" do
     govspeak_content = create(
       :html_attachment,
       manually_numbered_headings: false,
@@ -117,7 +117,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_equivalent_html expected_body_html, govspeak_content.computed_body_html
   end
 
-  test "#render_govspeak adds images from consultations to HTML attachments on the consultation's responses" do
+  test "#render_govspeak! adds images from consultations to HTML attachments on the consultation's responses" do
     consultation = FactoryBot.create(:consultation_with_outcome, images: [FactoryBot.create(:image)])
     consultation_outcome = consultation.outcome
 
@@ -127,6 +127,20 @@ class GovspeakContentTest < ActiveSupport::TestCase
     govspeak_content.render_govspeak!
 
     assert_includes govspeak_content.computed_body_html, "image"
+  end
+
+  test "#render_govspeak! doesn't change the updated_at timestamp" do
+    govspeak_content = create(:html_attachment).govspeak_content
+
+    pre_updated_at = govspeak_content.updated_at
+
+    # When #render_govspeak! is called from govspeak_content it waits 10 seconds to call the job
+    Timecop.travel 10.seconds.from_now
+
+    govspeak_content.render_govspeak!
+    post_updated_at = govspeak_content.reload.updated_at
+
+    assert_equal pre_updated_at, post_updated_at
   end
 
 private
