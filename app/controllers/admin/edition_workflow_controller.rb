@@ -119,7 +119,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def unwithdraw
     edition_unwithdrawer = Whitehall.edition_services.unwithdrawer(@edition, user: current_user)
     if edition_unwithdrawer.perform!
-      new_edition = @edition.document.published_edition
+      new_edition = @edition.document.live_edition
       redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
     else
       flash.now[:alert] = edition_unwithdrawer.failure_reason

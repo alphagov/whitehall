@@ -19,7 +19,7 @@ class FeatureListPresenterTest < PresenterTestCase
 
   def feature
     @feature ||= stub("feature").tap do |feature|
-      document = stub("document", published_edition: stub("published_edition"))
+      document = stub("document", live_edition: stub("live_edition"))
       feature.stubs(:document).returns(document)
     end
   end

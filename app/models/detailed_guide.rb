@@ -134,7 +134,7 @@ private
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides
-    related_documents.published.where(document_type: "DetailedGuide").map(&:published_edition).compact
+    related_documents.published.where(document_type: "DetailedGuide").map(&:live_edition).compact
   end
 
   # Returns the published editions that are related to this edition's document.

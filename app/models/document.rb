@@ -15,7 +15,7 @@ class Document < ApplicationRecord
            inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
-  has_one  :published_edition,
+  has_one  :live_edition,
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
            class_name: "Edition",
            inverse_of: :document
@@ -57,7 +57,7 @@ class Document < ApplicationRecord
   attr_accessor :sluggable_string
 
   def self.published
-    joins(:published_edition)
+    joins(:live_edition)
   end
 
   def self.at_slug(document_types, slug)
@@ -111,7 +111,7 @@ class Document < ApplicationRecord
   end
 
   def first_published_date
-    published_edition.first_public_at if published?
+    live_edition.first_public_at if published?
   end
 
   def first_published_on_govuk

@@ -2,9 +2,9 @@
 document_id = 272_247
 detailed_guide = Document.find(document_id)
 
-if detailed_guide.published_edition
+if detailed_guide.live_edition
   unpublisher = EditionUnpublisher.new(
-    detailed_guide.published_edition,
+    detailed_guide.live_edition,
     unpublishing: {
       unpublishing_reason_id: UnpublishingReason::Consolidated.id,
       explanation: "Unpublished as consolidated into another GOV.UK page. Editorial Board approval received. Redirected.",

@@ -14,7 +14,7 @@ FeaturePresenter = Struct.new(:feature) do
   delegate :document, to: :feature
 
   def edition
-    document.published_edition
+    document.live_edition
   end
 
   delegate :topical_event, to: :feature

@@ -21,7 +21,7 @@ class FeaturePresenterTest < PresenterTestCase
   test "#public_path generates a localized link to the edition" do
     d = stub_record(:document)
     cs = stub_record(:case_study, document: d, create_default_organisation: false)
-    d.stubs(:published_edition).returns(cs)
+    d.stubs(:live_edition).returns(cs)
     f = stub_record(:feature, topical_event: nil, document: d)
     f.stubs(:locale).returns("ar")
     fp = FeaturePresenter.new(f)
@@ -32,7 +32,7 @@ class FeaturePresenterTest < PresenterTestCase
   test "#public_path generates an unlocalized link to the edition if it's not a localizable type" do
     d = stub_record(:document)
     p = stub_record(:consultation, document: d, create_default_organisation: false, alternative_format_provider: nil)
-    d.stubs(:published_edition).returns(p)
+    d.stubs(:live_edition).returns(p)
     f = stub_record(:feature, topical_event: nil, document: d)
     f.stubs(:locale).returns("ar")
     fp = FeaturePresenter.new(f)
@@ -43,7 +43,7 @@ class FeaturePresenterTest < PresenterTestCase
   test "#public_path respects the locale of the feature when generating localized edition links" do
     d = stub_record(:document)
     cs = stub_record(:case_study, document: d, create_default_organisation: false)
-    d.stubs(:published_edition).returns(cs)
+    d.stubs(:live_edition).returns(cs)
     f = stub_record(:feature, topical_event: nil, document: d)
     f.stubs(:locale).returns("ar")
     fp = FeaturePresenter.new(f)
@@ -56,7 +56,7 @@ class FeaturePresenterTest < PresenterTestCase
   test "#public_path forces the global locale to english when generating edition links for a non localizable types" do
     d = stub_record(:document)
     p = stub_record(:consultation, document: d, create_default_organisation: false, alternative_format_provider: nil)
-    d.stubs(:published_edition).returns(p)
+    d.stubs(:live_edition).returns(p)
     f = stub_record(:feature, topical_event: nil, document: d)
     f.stubs(:locale).returns("ar")
     fp = FeaturePresenter.new(f)

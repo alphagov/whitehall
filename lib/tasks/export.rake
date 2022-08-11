@@ -110,7 +110,7 @@ namespace :export do
 
   desc "Exports HTML attachments for a particular publication as JSON"
   task :html_attachments, [:slug] => :environment do |_t, args|
-    edition = Document.find_by(slug: args[:slug]).published_edition
+    edition = Document.find_by(slug: args[:slug]).live_edition
 
     result = edition.html_attachments.map do |a|
       {

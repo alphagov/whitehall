@@ -1,10 +1,10 @@
 # This worker synchronises the state of the editions for a document with the
-# publishing-api. It sends the current published Edition and the draft Edition.
+# publishing-api. It sends the current live Edition and the draft Edition.
 #
 # It is important that the requests are sent in the right order. If the
 # pre_publication_edition is sent and then a publish request is sent, the wrong
 # draft gets published. If the pre_publication_edition is sent and then the
-# published_edition is sent and published, then the pre_publication_edition is
+# live_edition is sent and published, then the pre_publication_edition is
 # lost.
 #
 # The design of the publishing-api means that it is impossible to republish
@@ -14,7 +14,7 @@
 class PublishingApiDocumentRepublishingWorker < WorkerBase
   include LockedDocumentConcern
 
-  attr_reader :published_edition, :pre_publication_edition
+  attr_reader :live_edition, :pre_publication_edition
 
   sidekiq_options queue: "publishing_api"
 
@@ -24,7 +24,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     check_if_locked_document(document: document)
 
     # this the latest edition in a visible state ie: withdrawn, published
-    @published_edition = document.published_edition
+    @live_edition = document.live_edition
     # this is the latest edition in a non visible state - draft, scheduled
     # unpublished editions (other than withdrawn) will be in draft state with
     # an associated unpublishing
@@ -47,12 +47,12 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       elsif there_is_only_a_draft?
         patch_links
         send_draft_edition
-      elsif there_is_only_a_published_edition?
+      elsif there_is_only_a_live_edition?
         patch_links
-        send_published_edition
+        send_live_edition
       elsif there_is_a_newer_draft?
         patch_links
-        send_published_edition
+        send_live_edition
         send_draft_edition
       else
         error_message = <<-ERROR
@@ -60,11 +60,11 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
           the_document_has_been_unpublished? = #{the_document_has_been_unpublished?}
           the_document_has_been_withdrawn? = #{the_document_has_been_withdrawn?}
           there_is_only_a_draft? = #{there_is_only_a_draft?}
-          there_is_only_a_published_edition? = #{there_is_only_a_published_edition?}
+          there_is_only_a_live_edition? = #{there_is_only_a_live_edition?}
           there_is_a_newer_draft? = #{there_is_a_newer_draft?}
-          published_edition.id = #{published_edition.try(:id)}
+          live_edition.id = #{live_edition.try(:id)}
           pre_publication_edition.id = #{pre_publication_edition.try(:id)}
-          published_edition.unpublishing = #{published_edition.try(:unpublishing)}
+          live_edition.unpublishing = #{live_edition.try(:unpublishing)}
           pre_publication_edition.unpublishing = #{pre_publication_edition.try(:unpublishing)}
         ERROR
         raise error_message
@@ -77,7 +77,7 @@ private
   def the_document_has_an_edition_to_check?
     # there are documents in the Whitehall DB with only superseded editions
     # this is mostly legacy data
-    pre_publication_edition || published_edition
+    pre_publication_edition || live_edition
   end
 
   def the_document_has_been_unpublished?
@@ -85,19 +85,19 @@ private
   end
 
   def the_document_has_been_withdrawn?
-    published_edition && published_edition.unpublishing
+    live_edition && live_edition.unpublishing
   end
 
   def there_is_only_a_draft?
-    pre_publication_edition && published_edition.nil?
+    pre_publication_edition && live_edition.nil?
   end
 
-  def there_is_only_a_published_edition?
-    published_edition && pre_publication_edition.nil?
+  def there_is_only_a_live_edition?
+    live_edition && pre_publication_edition.nil?
   end
 
   def there_is_a_newer_draft?
-    pre_publication_edition && published_edition
+    pre_publication_edition && live_edition
   end
 
   def send_draft_and_unpublish
@@ -116,23 +116,23 @@ private
   end
 
   def send_published_and_withdraw
-    send_published_edition
-    send_unpublish(published_edition)
-    handle_attachments_for(published_edition)
+    send_live_edition
+    send_unpublish(live_edition)
+    handle_attachments_for(live_edition)
   end
 
-  def send_published_edition
+  def send_live_edition
     Whitehall::PublishingApi.publish(
-      published_edition,
+      live_edition,
       "republish",
       bulk_publishing: @bulk_publishing,
     )
-    handle_attachments_for(published_edition)
+    handle_attachments_for(live_edition)
   end
 
   def patch_links
     Whitehall::PublishingApi.patch_links(
-      published_edition || pre_publication_edition,
+      live_edition || pre_publication_edition,
       bulk_publishing: @bulk_publishing,
     )
   end

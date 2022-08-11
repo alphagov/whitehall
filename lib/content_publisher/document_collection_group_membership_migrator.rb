@@ -7,7 +7,7 @@ module ContentPublisher
     end
 
     def call
-      edition = document.published_edition || document.latest_edition
+      edition = document.live_edition || document.latest_edition
 
       return unless DocumentCollectionGroupMembership.exists?(document_id: document.id)
 

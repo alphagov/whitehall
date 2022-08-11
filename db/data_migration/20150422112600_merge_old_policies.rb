@@ -7,6 +7,6 @@ SLUG_TO_CONTENT_ID_MAPPING = {
 SLUG_TO_CONTENT_ID_MAPPING.each do |slug, content_id|
   document = Document.at_slug(Policy, slug)
   other_document = Document.find_by(content_id: content_id)
-  puts "\tmerging '#{document.published_edition.title}' into '#{other_document.published_edition.title}'  (setting content_id to '#{content_id}')"
+  puts "\tmerging '#{document.live_edition.title}' into '#{other_document.live_edition.title}'  (setting content_id to '#{content_id}')"
   document.update_column(:content_id, content_id)
 end

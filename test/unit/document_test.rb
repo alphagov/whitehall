@@ -11,7 +11,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [published_publication.document], Document.published
   end
 
-  test "should return the published edition" do
+  test "should return the live edition" do
     user = create(:departmental_editor)
     document = create(:document)
     original_publication = create(:draft_publication, document: document)
@@ -24,7 +24,7 @@ class DocumentTest < ActiveSupport::TestCase
     published_publication = draft_publication
     _new_draft_publication = published_publication.create_draft(user)
 
-    assert_equal published_publication, document.reload.published_edition
+    assert_equal published_publication, document.reload.live_edition
   end
 
   test "should be able to retrieve documents of a certain type at a particular slug" do
