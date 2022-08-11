@@ -63,6 +63,14 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
     assert_valid_against_publisher_schema(presented_content, "world_location_news")
   end
 
+  test "caps number of featured links at 5" do
+    6.times do
+      create(:featured_link, linkable: world_location)
+    end
+
+    assert_equal 5, present(world_location).content.dig(:details, :ordered_featured_links).size
+  end
+
   test "caps number of featured documents at 5" do
     features = (1..6).to_a.map do |i|
       created_case_study = create(:published_case_study, title: "case-study-#{i}")

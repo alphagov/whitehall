@@ -53,7 +53,7 @@ module PublishingApi
   private
 
     def featured_links
-      world_location.featured_links.map do |link|
+      world_location.featured_links.limit(FeaturedLink::DEFAULT_SET_SIZE).map do |link|
         {
           title: link.title,
           href: link.url,
