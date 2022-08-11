@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Test Rails
-    uses: alphagov/govuk-infrastructure/.github/workflows/test-rails.yaml@main
+    uses: alphagov/govuk-infrastructure/.github/workflows/test-rails.yaml@debug-ci-workflow
     with:
       requiresJavaScript: true
       requiresRedis: true
