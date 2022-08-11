@@ -19,5 +19,15 @@
                           track_category: 'sectorSelection',
                           track_label: request.path
                       } %>
+
+      <%= form.label :activity, 'Activity' %>
+      <%= form.select :activity,
+                      options_for_select(@activity_options, selected: @licence.activity),
+                      multiple: false,
+                      class: 'chzn-select form-control' %>
+
+      <%= form.check_box :external_link, label_text: 'Is an external link?', required: true %>
+      <%= form.save_or_cancel cancel: admin_licences_path(@licence) %>
+    <% end %>
   </section>
 </div>
