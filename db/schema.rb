@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_11_112856) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_11_123249) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_112856) do
     t.text "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "licence_id"
   end
 
   create_table "activities_sectors", id: false, charset: "utf8mb3", force: :cascade do |t|
