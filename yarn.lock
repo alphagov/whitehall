@@ -1519,6 +1519,11 @@ micromatch@^4.0.4, micromatch@^4.0.5:
     braces "^3.0.2"
     picomatch "^2.3.1"
 
+miller-columns-element@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/miller-columns-element/-/miller-columns-element-2.0.0.tgz#8487ece2adc8914ca969352503aff7aa62e7a524"
+  integrity sha512-PqCgaaA5VeQWLmPDzzPpRiFjxBIxIRqAztO0HtrsNLNppxMHU3l+uun78gQQZzUoP2Jo8Q5rt2yMzDoaF4XuDw==
+
 mime-db@1.52.0:
   version "1.52.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"

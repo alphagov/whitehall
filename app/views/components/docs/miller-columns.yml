@@ -1,0 +1,45 @@
+name: Miller Columns
+description: Miller columns (cascading lists) for hierarchical topic selection on GOV.UK
+body: |
+  This component is build using [Miller columns](https://github.com/alphagov/miller-columns-element).
+
+  Typically it is used to enhance a nested checklist.
+part_of_admin_layout: true
+accessibility_criteria: |
+  The component must:
+
+  1. Be focusable with a keyboard
+  1. Indicate when it has keyboard focus
+  1. Explain how to users how to navigate the nested lists
+  1. Enable the user to navigate the available checklist items using touch or keyboard
+  1. Inform the user when a checklist item is selected
+  1. Inform the user if a checklist item is pre-selected
+examples:
+  default:
+    data:
+      items:
+        - label: Parenting, childcare and children's services
+          value: parenting-childcare-and-children-s-services
+          items:
+            - label: Divorce, separation and legal issues
+              value: divorce-separation-and-legal-issues
+            - label: Childcare and early years
+              value: childcare-and-early-years
+              items:
+                - label: Childcare vouchers
+                  value: childcare-vouchers
+  pre_selected:
+    data:
+      items:
+        - label: Parenting, childcare and children's services
+          value: parenting-childcare-and-children-s-services
+          checked: true
+          items:
+            - label: Divorce, separation and legal issues
+              value: divorce-separation-and-legal-issues
+              checked: true
+            - label: Childcare and early years
+              value: childcare-and-early-years
+              items:
+                - label: Childcare vouchers
+                  value: childcare-vouchers
