@@ -9,10 +9,11 @@ on:
 jobs:
   test:
     name: Test Rails
-    uses: alphagov/govuk-infrastructure/.github/workflows/test-rails.yaml@debug-ci-workflow
+    uses: alphagov/govuk-infrastructure/.github/workflows/test-rails.yaml@add-gs-to-ci
     with:
       requiresJavaScript: true
       requiresRedis: true
       requiresMySQL: true
       mysqlUsername: whitehall
       mysqlPassword: whitehall
+      extraSystemDependencies: 'ghostscript'
