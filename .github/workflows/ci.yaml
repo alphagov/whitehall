@@ -16,3 +16,4 @@ jobs:
       requiresMySQL: true
       mysqlUsername: whitehall
       mysqlPassword: whitehall
+      extraSystemDependencies: 'ghostscript'
