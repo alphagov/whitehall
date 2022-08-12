@@ -290,7 +290,7 @@ module Admin::EditionsHelper
   end
 
   def show_similar_slugs_warning?(edition)
-    !edition.document.published? && edition.document.similar_slug_exists?
+    !edition.document.live? && edition.document.similar_slug_exists?
   end
 
   def edition_is_a_novel?(edition)

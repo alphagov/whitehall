@@ -86,7 +86,7 @@ class Document < ApplicationRecord
   end
 
   def update_slug_if_possible(new_title)
-    return if published?
+    return if live?
 
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug
@@ -94,7 +94,7 @@ class Document < ApplicationRecord
     end
   end
 
-  def published?
+  def live?
     Edition.exists?(
       state: Edition::PUBLICLY_VISIBLE_STATES,
       document_id: id,
@@ -111,7 +111,7 @@ class Document < ApplicationRecord
   end
 
   def first_published_date
-    live_edition.first_public_at if published?
+    live_edition.first_public_at if live?
   end
 
   def first_published_on_govuk

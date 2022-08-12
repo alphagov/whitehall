@@ -12,7 +12,7 @@ module Edition::Identifiable
   delegate :slug, :change_history, :content_id, to: :document
 
   def linkable?
-    document.published? || document.published_very_soon?
+    document.live? || document.published_very_soon?
   end
 
   def ensure_presence_of_document

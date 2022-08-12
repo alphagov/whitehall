@@ -39,23 +39,28 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal speech.document, Document.at_slug([news.type, speech.type], speech.document.slug)
   end
 
-  test "should be published if a published edition exists" do
+  test "should be live if a published edition exists" do
     published_publication = create(:published_publication)
-    assert published_publication.document.published?
+    assert published_publication.document.live?
   end
 
-  test "should not be published if no published edition exists" do
+  test "should be live if a withdrawn edition exists" do
+    published_publication = create(:withdrawn_publication)
+    assert published_publication.document.live?
+  end
+
+  test "should not be live if no published or withdrawn edition exists" do
     draft_publication = create(:draft_publication)
-    assert_not draft_publication.document.published?
+    assert_not draft_publication.document.live?
   end
 
-  test "should no longer be published when it's edition is unpublished" do
+  test "should no longer be live when it's edition is unpublished" do
     published_publication = create(:published_publication)
-    assert published_publication.document.published?
+    assert published_publication.document.live?
 
     published_publication.unpublish!
 
-    assert_not published_publication.document.published?
+    assert_not published_publication.document.live?
   end
 
   test "should ignore deleted editions when finding latest edition" do

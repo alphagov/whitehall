@@ -18,7 +18,7 @@
 
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 
-  <% if (edition.document and edition.document.published?) and can?(:mark_political, edition) %>
+  <% if (edition.document and edition.document.live?) and can?(:mark_political, edition) %>
     <%= form.check_box :political, label_text: "Associate with government of the time (currently set to #{edition.government&.name}).", class: 'political-status' %>
     <p><a href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode'>Read the history mode guidance</a> for more information as to what this means.</p>
   <% end %>

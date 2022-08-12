@@ -26,7 +26,7 @@ namespace :export do
             document.slug,
             document.display_type,
             document.latest_edition.state,
-            document.published? ? Whitehall.url_maker.public_document_url(edition) : nil,
+            document.live? ? Whitehall.url_maker.public_document_url(edition) : nil,
             edition.id,
             edition.title,
             edition.state,
