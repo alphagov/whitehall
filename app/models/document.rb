@@ -138,6 +138,14 @@ class Document < ApplicationRecord
     document_type.underscore.tr("_", " ")
   end
 
+  def update_edition_references
+    latest = editions.reverse_order
+    update!(
+      latest_edition_id: latest.pick(:id),
+      live_edition_id: latest.where(state: Edition::PUBLICLY_VISIBLE_STATES).pick(:id),
+    )
+  end
+
 private
 
   def destroy_all_editions

@@ -99,6 +99,8 @@ class Edition < ApplicationRecord
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
   before_save { check_if_locked_document(edition: self) }
+  after_create :update_document_edition_references
+  after_update :update_document_edition_references, if: :saved_change_to_state?
   # @!endgroup
 
   after_update :republish_topical_event_to_publishing_api
@@ -763,5 +765,9 @@ private
     topical_event_featurings.each do |topical_event_featuring|
       Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
     end
+  end
+
+  def update_document_edition_references
+    document.update_edition_references
   end
 end

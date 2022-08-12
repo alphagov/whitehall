@@ -21,6 +21,20 @@ class EditionTest < ActiveSupport::TestCase
     assert_kind_of Document, edition.document
   end
 
+  test "when created, updates document edition references" do
+    document = create(:document)
+    document.expects(:update_edition_references).once
+    create(:draft_edition, document: document)
+  end
+
+  test "when state changes, updates document edition references" do
+    edition = create(:draft_edition, major_change_published_at: Time.zone.now)
+    edition.document.expects(:update_edition_references).times(3)
+    edition.submit!
+    edition.publish!
+    edition.unpublish!
+  end
+
   test "adds auth bypass id to a newly created edition" do
     edition = create(:edition)
     assert_not_nil edition.auth_bypass_id
