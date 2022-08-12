@@ -297,8 +297,8 @@ private
   end
 
   def show_or_edit_path
-    if params[:save].present?
-      [:edit, :admin, @edition]
+    if current_user.can_redirect_to_summary_page? || params[:save].present?
+      [:admin, @edition]
     else
       edit_admin_edition_tags_path(@edition.id)
     end

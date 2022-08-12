@@ -28,8 +28,7 @@ When(/^I draft a French-only "World news story" news article associated with "([
   select location_name, from: "Select the world locations this news article is about"
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
   select "", from: "edition_lead_organisation_ids_1"
-  click_button "Save and continue"
-  click_button "Save tagging changes"
+  click_button "Save"
   @news_article = find_news_article_in_locale!(:fr, "French-only news article")
 end
 
@@ -79,8 +78,7 @@ Then("I subsequently change the primary locale") do
   click_button "Create new edition to edit"
   select "Deutsch (German)", from: "edition[primary_locale]"
   choose "edition_minor_change_true"
-  click_button "Save and continue"
-  click_button "Save tagging changes"
+  click_button "Save"
 end
 
 Then("there should exist only one translation") do

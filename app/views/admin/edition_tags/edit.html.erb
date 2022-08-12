@@ -58,12 +58,14 @@
                   track_category: 'taxonSelection',
                   track_label: request.path
               }) %>
-          <%= form.submit('Save and review specialist topic tagging', name: "legacy_tags", class: "btn btn-lg btn-primary",
-              data: {
-                  module: 'track-selected-taxons',
-                  track_category: 'taxonSelection',
-                  track_label: request.path
-              }) %>
+          <% unless current_user.can_redirect_to_summary_page? %>
+            <%= form.submit('Save and review specialist topic tagging', name: "legacy_tags", class: "btn btn-lg btn-primary",
+                data: {
+                    module: 'track-selected-taxons',
+                    track_category: 'taxonSelection',
+                    track_label: request.path
+                }) %>
+          <% end %>
           <span class="or_cancel">
             or
             <%= link_to('cancel', admin_edition_path(@edition)) %>

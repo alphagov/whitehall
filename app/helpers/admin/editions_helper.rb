@@ -220,8 +220,11 @@ module Admin::EditionsHelper
           locals: { form: form, edition: edition },
         )
       end
-
-      concat form.save_or_continue_or_cancel
+      if current_user.can_redirect_to_summary_page?
+        concat form.save_or_cancel
+      else
+        concat form.save_or_continue_or_cancel
+      end
     end
   end
 

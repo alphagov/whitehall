@@ -79,6 +79,14 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     assert_redirected_to edit_admin_edition_legacy_associations_path(@edition, return: :tags)
   end
 
+  view_test "should not render the `Save and review specialist topic tagging` button when the user has the `Redirect to summary page` permission" do
+    @user.permissions << "Redirect to summary page"
+
+    get :edit, params: { edition_id: @edition }
+
+    assert_select ".btn-primary", count: 0
+  end
+
   test "should post empty array to publishing api if no taxons are selected" do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
