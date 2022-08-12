@@ -44,6 +44,7 @@ if Government.where(name: "Test Government").blank?
 end
 
 if WorldLocation.where(name: "Test World Location").blank?
+  WorldLocation.skip_callback(:commit, :after, :send_news_page_to_publishing_api_and_rummager, raise: false)
   WorldLocation.create!(
     name: "Test World Location",
     world_location_type_id: 1,
@@ -51,6 +52,7 @@ if WorldLocation.where(name: "Test World Location").blank?
 end
 
 if WorldLocation.where(name: "Test International Delegation").blank?
+  WorldLocation.skip_callback(:commit, :after, :send_news_page_to_publishing_api_and_rummager, raise: false)
   WorldLocation.create!(
     name: "Test International Delegation",
     world_location_type_id: 3,

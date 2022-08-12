@@ -3,6 +3,7 @@ FactoryBot.define do
     name { "British Antarctic Territory" }
     world_location_type { WorldLocationType::WorldLocation }
     title { "British Antarctic Territory and the UK" }
+    news_page_content_id { SecureRandom.uuid }
 
     trait(:with_worldwide_organisations) do
       after :create do |world_location, _evaluator|
