@@ -3,12 +3,13 @@ require "test_helper"
 class DocumentTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
-  test "should return documents that have published editions" do
+  test "should return documents that have live editions" do
     create(:superseded_publication)
     create(:draft_publication)
     published_publication = create(:published_publication)
+    withdrawn_publication = create(:withdrawn_publication)
 
-    assert_equal [published_publication.document], Document.published
+    assert_equal [published_publication.document, withdrawn_publication.document], Document.live
   end
 
   test "should return the live edition" do

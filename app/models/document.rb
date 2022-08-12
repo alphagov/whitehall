@@ -56,7 +56,7 @@ class Document < ApplicationRecord
 
   attr_accessor :sluggable_string
 
-  def self.published
+  def self.live
     joins(:live_edition)
   end
 

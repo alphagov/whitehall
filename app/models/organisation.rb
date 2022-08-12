@@ -216,10 +216,10 @@ class Organisation < ApplicationRecord
       documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
     end
 
-    # If the alternative format contact rmail is changed, we need to republish
+    # If the alternative format contact email is changed, we need to republish
     # all attachments belonging to the organisation
     if saved_change_to_alternative_format_contact_email?
-      documents = Document.published.where(editions: { alternative_format_provider_id: self })
+      documents = Document.live.where(editions: { alternative_format_provider_id: self })
       documents.find_each { |d| Whitehall::PublishingApi.republish_document_async(d, bulk: true) }
     end
   end
