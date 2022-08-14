@@ -555,10 +555,6 @@ EXISTS (
     end
   end
 
-  def latest_edition
-    document.editions.latest_edition.first
-  end
-
   def latest_published_edition
     document.editions.latest_published_edition.first
   end
@@ -572,7 +568,7 @@ EXISTS (
   end
 
   def is_latest_edition?
-    latest_edition == self
+    document.latest_edition == self
   end
 
   def all_nation_applicability_selected?

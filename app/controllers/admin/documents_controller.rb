@@ -4,7 +4,7 @@ class Admin::DocumentsController < Admin::BaseController
       Document.find_by(content_id: params[:content_id]) ||
       # If the content_id doesn't match a document, it could be a HTML
       # attachment
-      HtmlAttachment.find_by(content_id: params[:content_id])&.attachable
+      HtmlAttachment.find_by(content_id: params[:content_id])&.attachable&.document
     )
 
     url_maker = Whitehall::UrlMaker.new(host: Plek.find("whitehall"))

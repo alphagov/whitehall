@@ -136,7 +136,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def revise
-    if @edition.superseded? && @edition.latest_edition.id == @edition.id
+    if @edition.superseded? && @edition.is_latest_edition?
       # There are a number of documents in Whitehall for which the
       # latest edition is also superseded, something of a
       # contradiction.

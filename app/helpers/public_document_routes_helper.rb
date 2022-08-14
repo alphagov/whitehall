@@ -40,7 +40,7 @@ module PublicDocumentRoutesHelper
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
       options[:host] = URI(Plek.new.external_url_for("draft-origin")).host
     else
-      options[:preview] = edition.latest_edition.id
+      options[:preview] = edition.document.latest_edition_id
       options[:cachebust] = Time.zone.now.getutc.to_i
     end
 
