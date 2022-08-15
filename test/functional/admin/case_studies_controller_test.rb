@@ -30,4 +30,36 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
       assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
     end
   end
+
+  view_test "GET :show renders a side nav bar with notes, history and fact checking" do
+    edition = create(:draft_case_study)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+    get :show, params: { id: edition }
+
+    assert_select ".nav-tabs a", text: "Notes 0"
+    assert_select ".nav-tabs a", text: "History 1"
+  end
+
+  view_test "GET :show editions renders links to history, notes and fact checking endpoints and no sidebar when user has `View move tabs to endpoints` permission" do
+    @current_user.permissions << "View move tabs to endpoints"
+    edition = create(:draft_case_study)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+    get :show, params: { id: edition }
+
+    assert_select "a", text: "Notes", count: 1
+    assert_select "a", text: "History", count: 1
+    assert_select ".nav-tabs a", text: "Notes 0", count: 0
+    assert_select ".nav-tabs a", text: "History 1", count: 0
+  end
+
+  view_test "GET :edit renders a side nav bar with notes, history and fact checking" do
+    edition = create(:draft_case_study)
+
+    get :edit, params: { id: edition }
+
+    assert_select ".nav-tabs a", text: "Notes 0"
+    assert_select ".nav-tabs a", text: "History 1"
+  end
 end

@@ -20,7 +20,7 @@ module Admin::SidebarHelper
       if options[:editing]
         tabs[:govspeak_help] = "Help"
       end
-      unless current_user.can_view_move_tabs_to_endpoints?
+      unless current_user.can_view_move_tabs_to_endpoints? && !edition.is_a?(CorporateInformationPage)
         tabs[:notes] = ["Notes", options[:remarks_count]]
         tabs[:history] = ["History", options[:history_count]]
         if edition.can_be_fact_checked?
