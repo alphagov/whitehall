@@ -1,6 +1,6 @@
 module Attachable
   extend ActiveSupport::Concern
-  EDITION_CREATE_GRACE_PERIOD = 30.seconds
+  EDITION_CREATE_GRACE_PERIOD = 20.seconds
 
   included do
     has_many :attachments,
@@ -77,7 +77,7 @@ module Attachable
     # Using a 30 second grace period because GovspeakContent#render_govspeak! historically used to change the updated_at timestamp
     # when running in an async worker to convert body to HTML. This meant that all HTML attachments ended up with
     # (updated_at > created_at) so would show as 'changed'.
-    updated_html_attachments = html_attachments.joins(:govspeak_content).where("govspeak_contents.updated_at > DATE_ADD(govspeak_contents.created_at,  INTERVAL 30 SECOND)")
+    updated_html_attachments = html_attachments.joins(:govspeak_content).where("govspeak_contents.updated_at > DATE_ADD(govspeak_contents.created_at,  INTERVAL 20 SECOND)")
     updated = (updated_attachments + updated_html_attachments) - created
 
     created.map { |a| ChangedAttachment.new(a, :created) } +
