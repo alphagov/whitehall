@@ -28,7 +28,6 @@
       <% if publisher.can_perform? && can?(:publish, @edition) %>
         <%= publish_edition_form(@edition) %>
       <% elsif force_publisher.can_perform? && can?(:force_publish, @edition) %>
-        <%= render partial: "admin/edition_workflow/force_publish_modal", locals: { modal: true } %>
         <%= publish_edition_form(@edition, force: true) %>
       <% end %>
 

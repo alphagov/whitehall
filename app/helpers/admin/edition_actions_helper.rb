@@ -77,8 +77,6 @@ module Admin::EditionActionsHelper
         confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
         title: button_title,
         class: "btn btn-default force-publish",
-        "data-module" => "linked-modal",
-        "data-target" => "#forcePublishModal",
       )
     else
       button_to(
