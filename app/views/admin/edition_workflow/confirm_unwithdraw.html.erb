@@ -1,3 +1,8 @@
 <% page_title "Unwithdraw: #{@edition.title}" %>
 <% page_class "edition-unwithdraw" %>
-<%= render partial: "unwithdraw_modal" %>
+<h1>Are you sure you want to unwithdraw this?</h1>
+<p class="lead"><%= @edition.title %></p>
+<%= form_tag unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: 'unwithdraw-form' do %>
+  <p>This will create a new edition and publish it immediately. It won’t send an email alert to users.</p>
+  <%= submit_tag 'Unwithdraw', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
+<% end %>

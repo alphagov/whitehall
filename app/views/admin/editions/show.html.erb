@@ -43,8 +43,7 @@
         <% end %>
       <% end %>
       <% if can?(:unwithdraw, @edition) && @edition.can_unwithdraw? %>
-        <%= render partial: "admin/edition_workflow/unwithdraw_modal", locals: { modal: true } %>
-        <%= link_to 'Unwithdraw', confirm_unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger", "data-module" => "linked-modal", "data-target" => "#unwithdraw-modal" %>
+        <%= link_to 'Unwithdraw', confirm_unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
       <% end %>
     </section>
 
