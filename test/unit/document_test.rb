@@ -3,15 +3,16 @@ require "test_helper"
 class DocumentTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
-  test "should return documents that have published editions" do
+  test "should return documents that have live editions" do
     create(:superseded_publication)
     create(:draft_publication)
     published_publication = create(:published_publication)
+    withdrawn_publication = create(:withdrawn_publication)
 
-    assert_equal [published_publication.document], Document.published
+    assert_equal [published_publication.document, withdrawn_publication.document], Document.live
   end
 
-  test "should return the published edition" do
+  test "should return the live edition" do
     user = create(:departmental_editor)
     document = create(:document)
     original_publication = create(:draft_publication, document: document)
@@ -24,7 +25,7 @@ class DocumentTest < ActiveSupport::TestCase
     published_publication = draft_publication
     _new_draft_publication = published_publication.create_draft(user)
 
-    assert_equal published_publication, document.reload.published_edition
+    assert_equal published_publication, document.reload.live_edition
   end
 
   test "should be able to retrieve documents of a certain type at a particular slug" do
@@ -39,23 +40,28 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal speech.document, Document.at_slug([news.type, speech.type], speech.document.slug)
   end
 
-  test "should be published if a published edition exists" do
+  test "should be live if a published edition exists" do
     published_publication = create(:published_publication)
-    assert published_publication.document.published?
+    assert published_publication.document.live?
   end
 
-  test "should not be published if no published edition exists" do
+  test "should be live if a withdrawn edition exists" do
+    published_publication = create(:withdrawn_publication)
+    assert published_publication.document.live?
+  end
+
+  test "should not be live if no published or withdrawn edition exists" do
     draft_publication = create(:draft_publication)
-    assert_not draft_publication.document.published?
+    assert_not draft_publication.document.live?
   end
 
-  test "should no longer be published when it's edition is unpublished" do
+  test "should no longer be live when it's edition is unpublished" do
     published_publication = create(:published_publication)
-    assert published_publication.document.published?
+    assert published_publication.document.live?
 
     published_publication.unpublish!
 
-    assert_not published_publication.document.published?
+    assert_not published_publication.document.live?
   end
 
   test "should ignore deleted editions when finding latest edition" do

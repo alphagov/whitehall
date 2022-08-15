@@ -12,7 +12,7 @@ module Edition::Identifiable
   delegate :slug, :change_history, :content_id, to: :document
 
   def linkable?
-    document.published? || document.published_very_soon?
+    document.live? || document.published_very_soon?
   end
 
   def ensure_presence_of_document
@@ -38,8 +38,8 @@ module Edition::Identifiable
     def published_as(slug, locale = I18n.default_locale)
       document = Document.at_slug(document_type, slug)
       if document.present?
-        published_edition = document.published_edition
-        return published_edition if published_edition.present? && published_edition.available_in_locale?(locale)
+        live_edition = document.live_edition
+        return live_edition if live_edition.present? && live_edition.available_in_locale?(locale)
       end
       nil
     end

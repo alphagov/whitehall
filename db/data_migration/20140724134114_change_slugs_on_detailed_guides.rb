@@ -8,9 +8,9 @@ slug_changes.each do |old_slug, new_slug|
 
   if document
     puts "Changing detailed guide slug #{old_slug} to #{new_slug}"
-    Whitehall::SearchIndex.delete(document.published_edition)
+    Whitehall::SearchIndex.delete(document.live_edition)
     document.update!(slug: new_slug)
-    Whitehall::SearchIndex.add(document.published_edition)
+    Whitehall::SearchIndex.add(document.live_edition)
   else
     puts "Warning: DetailedGuide with slug '#{old_slug}' not found"
   end

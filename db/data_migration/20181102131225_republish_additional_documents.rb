@@ -71,7 +71,7 @@ content_ids = %w[
 documents = Document.where(content_id: content_ids)
 
 documents.find_each do |document|
-  edition = document.published_edition
+  edition = document.live_edition
 
   if edition.respond_to?(:attachments)
     edition.attachments.each do |attachment|

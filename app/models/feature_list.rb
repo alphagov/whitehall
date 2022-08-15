@@ -30,7 +30,7 @@ class FeatureList < ApplicationRecord
   end
 
   def current
-    features.current.includes([:topical_event, { document: :published_edition }])
+    features.current.includes([:topical_event, { document: :live_edition }])
   end
 
   def published_features

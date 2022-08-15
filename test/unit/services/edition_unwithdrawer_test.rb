@@ -64,6 +64,6 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
     edition ||= @edition
     @unwithdrawer = EditionUnwithdrawer.new(edition, user: @user)
     @unwithdrawer.perform!
-    edition.document.published_edition
+    edition.document.live_edition
   end
 end

@@ -15,7 +15,7 @@ csv.each do |row|
 
     if (policy_document = Document.at_slug("Policy", slug))
 
-      [policy_document.latest_edition, policy_document.published_edition].compact.uniq.each do |policy|
+      [policy_document.latest_edition, policy_document.live_edition].compact.uniq.each do |policy|
         old_title = policy.title
         puts %(Updating policy: #{old_title} -> #{new_title})
 

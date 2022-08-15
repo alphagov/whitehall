@@ -26,7 +26,7 @@ namespace :export do
             document.slug,
             document.display_type,
             document.latest_edition.state,
-            document.published? ? Whitehall.url_maker.public_document_url(edition) : nil,
+            document.live? ? Whitehall.url_maker.public_document_url(edition) : nil,
             edition.id,
             edition.title,
             edition.state,
@@ -110,7 +110,7 @@ namespace :export do
 
   desc "Exports HTML attachments for a particular publication as JSON"
   task :html_attachments, [:slug] => :environment do |_t, args|
-    edition = Document.find_by(slug: args[:slug]).published_edition
+    edition = Document.find_by(slug: args[:slug]).live_edition
 
     result = edition.html_attachments.map do |a|
       {

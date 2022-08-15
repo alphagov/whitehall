@@ -1,7 +1,7 @@
 namespace :search do
   desc "Re-index one Document. Takes a `content_id` as argument."
   task :resend_document, [:content_id] => [:environment] do |_, args|
-    Document.find_by(content_id: args[:content_id]).published_edition.update_in_search_index
+    Document.find_by(content_id: args[:content_id]).live_edition.update_in_search_index
   end
 
   desc "Re-index a collection of Documents with specified world location. Takes a `world_location_slug` as argument."
@@ -12,7 +12,7 @@ namespace :search do
       content_ids = Edition.in_world_location(world_location.id).map(&:content_id)
 
       Document.where(content_id: content_ids).each do |document|
-        document.published_edition.try(:update_in_search_index)
+        document.live_edition.try(:update_in_search_index)
       end
     else
       puts "World location for #{args[:world_location_slug]} not found"
@@ -98,9 +98,9 @@ namespace :search do
     desc "indexes all documents which were last updated in the given date range, the time defaults to midnight if only a date is given"
     task :published_between, %i[start_date end_date] => :environment do |_t, args|
       Document
-        .joins(:published_edition)
+        .joins(:live_edition)
         .where(editions: { updated_at: args[:start_date]..args[:end_date] })
-        .find_each { |doc| doc.published_edition&.update_in_search_index }
+        .find_each { |doc| doc.live_edition&.update_in_search_index }
     end
   end
 

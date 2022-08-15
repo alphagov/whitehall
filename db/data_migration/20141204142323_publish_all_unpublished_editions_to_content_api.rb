@@ -6,7 +6,7 @@ non_published_editions_with_unpublishings = Edition.unscoped
 
 # reject any editions that have subsequently been re-published
 unpublished_editions = non_published_editions_with_unpublishings.reject do |edition|
-  edition.document.published_edition.present?
+  edition.document.live_edition.present?
 end
 
 # DataHygiene::PublishingApiRepublisher expects a scope.

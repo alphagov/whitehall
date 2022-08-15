@@ -15,7 +15,7 @@ class Document < ApplicationRecord
            inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
-  has_one  :published_edition,
+  has_one  :live_edition,
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
            class_name: "Edition",
            inverse_of: :document
@@ -56,8 +56,8 @@ class Document < ApplicationRecord
 
   attr_accessor :sluggable_string
 
-  def self.published
-    joins(:published_edition)
+  def self.live
+    joins(:live_edition)
   end
 
   def self.at_slug(document_types, slug)
@@ -86,7 +86,7 @@ class Document < ApplicationRecord
   end
 
   def update_slug_if_possible(new_title)
-    return if published?
+    return if live?
 
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug
@@ -94,7 +94,7 @@ class Document < ApplicationRecord
     end
   end
 
-  def published?
+  def live?
     Edition.exists?(
       state: Edition::PUBLICLY_VISIBLE_STATES,
       document_id: id,
@@ -111,7 +111,7 @@ class Document < ApplicationRecord
   end
 
   def first_published_date
-    published_edition.first_public_at if published?
+    live_edition.first_public_at if live?
   end
 
   def first_published_on_govuk

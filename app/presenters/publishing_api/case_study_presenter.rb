@@ -63,7 +63,7 @@ module PublishingApi
     end
 
     def first_public_at
-      return item.first_public_at if item.document.published?
+      return item.first_public_at if item.document.live?
 
       item.document.created_at.iso8601
     end
