@@ -85,12 +85,20 @@ module Whitehall
 
     def text_area(method, *args)
       options = (args.last || {})
+      label = options.delete(:label)
       add_class_to_options(options, "form-control")
-      label_options = { required: options.delete(:required) }
-      label_text = options.delete(:label_text)
 
-      @template.tag.div(class: "form-group") do
-        label(method, label_text, label_options) + super
+      if label == false
+        @template.tag.div(class: "form-group") do
+          super
+        end
+      else
+        label_options = { required: options.delete(:required) }
+        label_text = options.delete(:label_text)
+
+        @template.tag.div(class: "form-group") do
+          label(method, label_text, label_options) + super
+        end
       end
     end
 

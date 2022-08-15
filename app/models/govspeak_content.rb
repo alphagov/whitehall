@@ -18,7 +18,7 @@ class GovspeakContent < ApplicationRecord
   def render_govspeak!
     self.computed_body_html = generate_govspeak
     self.computed_headers_html = generate_headers
-    save!
+    save!(touch: false)
   end
 
 private
