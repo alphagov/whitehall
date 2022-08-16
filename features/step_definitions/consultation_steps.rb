@@ -31,8 +31,15 @@ end
 When(/^I add an outcome to the consultation$/) do
   visit edit_admin_consultation_path(Consultation.last)
   click_button "Create new edition"
+  if @user.can_remove_edit_tabs?
+    fill_in_change_note_if_required
+    apply_to_all_nations_if_required
+    click_button "Save"
+    click_link "Modify final outcome"
+  else
+    click_link "Final outcome"
+  end
 
-  click_link "Final outcome"
   fill_in "Detail/Summary", with: "Outcome summary"
   click_button "Save"
 
@@ -42,8 +49,15 @@ end
 When(/^I add public feedback to the consultation$/) do
   visit edit_admin_consultation_path(Consultation.last)
   click_button "Create new edition"
+  if @user.can_remove_edit_tabs?
+    fill_in_change_note_if_required
+    apply_to_all_nations_if_required
+    click_button "Save"
+    click_link "Modify public feedback"
+  else
+    click_link "Public feedback"
+  end
 
-  click_link "Public feedback"
   fill_in "Summary", with: "Feedback summary"
   click_button "Save"
 
