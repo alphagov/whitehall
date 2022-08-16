@@ -71,8 +71,13 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
+
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
 
   fill_in "title", with: document_title
   click_on "Find"
@@ -138,8 +143,12 @@ end
 
 Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|
   visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
 
   assert_document_is_part_of_document_collection(document_title)
 end

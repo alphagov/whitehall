@@ -14,6 +14,14 @@ Feature: Grouping documents into a collection
     Then I can see in the admin that "Wombats of Wimbledon" is part of the document collection
 
   @javascript
+  Scenario: Admin creates a document collection with the `Remove edit tabs` permission
+    Given a published document "Wombats of Wimbledon" exists
+    And I have the "Remove edit tabs" permission
+    When I draft a new document collection called "Wildlife of Wimbledon Common"
+    And I add the document "Wombats of Wimbledon" to the document collection
+    Then I can see in the admin that "Wombats of Wimbledon" is part of the document collection
+
+  @javascript
   Scenario: Admin creates a document collection in another language
     Given a published publication "Wombats of Wimbledon" with locale "cy" exists
     When I draft a new "Cymraeg" language document collection called "Wildlife of Wimbledon Common"
