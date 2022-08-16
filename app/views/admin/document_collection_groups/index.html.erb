@@ -4,6 +4,12 @@
 <% initialise_script 'GOVUK.documentFinder' %>
 <% initialise_script 'GOVUK.documentCollectionCheckboxSelector' %>
 
+<% if current_user.can_remove_edit_tabs? %>
+  <span class="back">
+    <%= link_to 'Back', admin_edition_path(@collection) %>
+  </span>
+<% end %>
+
 <h1><%= @collection.title %></h1>
 
 <% if current_user.can_remove_edit_tabs? %>
