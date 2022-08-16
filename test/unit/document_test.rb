@@ -311,4 +311,46 @@ class DocumentTest < ActiveSupport::TestCase
     assert withdrawals.first.unpublished_at < withdrawals.last.unpublished_at
     assert_equal withdrawals.sort_by(&:unpublished_at), withdrawals.to_a
   end
+
+  test "#update_edition_references updates latest_edition_id and live_edition_id" do
+    Edition.any_instance.stubs(:update_document_edition_references)
+
+    # 1. Create a draft
+    document = create(:document)
+    first_edition = create(:draft_edition, document: document)
+    document.update_edition_references
+    assert_equal first_edition.id, document.latest_edition_id
+    assert_nil document.live_edition_id
+
+    # 2. Publish it
+    force_publish(first_edition)
+    document.update_edition_references
+    assert_equal first_edition.id, document.latest_edition_id
+    assert_equal first_edition.id, document.live_edition_id
+
+    # 3. Create a new draft
+    second_edition = first_edition.create_draft(create(:user))
+    document.update_edition_references
+    assert_equal second_edition.id, document.latest_edition_id
+    assert_equal first_edition.id, document.live_edition_id
+
+    # 4. Publish the new draft
+    second_edition.minor_change = true
+    force_publish(second_edition)
+    document.update_edition_references
+    assert_equal second_edition.id, document.latest_edition_id
+    assert_equal second_edition.id, document.live_edition_id
+  end
+
+  test '#update_edition_references ignores "deleted" editions' do
+    Edition.any_instance.stubs(:update_document_edition_references)
+
+    document = create(:document)
+    edition = create(:published_edition, document: document)
+    create(:deleted_edition, document: document)
+
+    document.update_edition_references
+    assert_equal edition.id, document.latest_edition_id
+    assert_equal edition.id, document.live_edition_id
+  end
 end
