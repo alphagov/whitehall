@@ -28,7 +28,6 @@ Feature: Managing attachments on editions
     And I start drafting a new publication "Standard Beard Lengths"
     When I start editing the attachments from the publication page
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example text"
-    When I visit the attachments page
     Then I can see the attachment title "Beard Length Graphs 2012"
     And I can see the preview link to the attachment "HTML attachment"
 
