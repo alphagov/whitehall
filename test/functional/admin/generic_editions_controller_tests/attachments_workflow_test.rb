@@ -9,6 +9,10 @@ class AttachableEditionTest < ActionController::TestCase
     assert_select "ul.nav-tabs li a[href*=?]", path, link_text
   end
 
+  def assert_not_tab(link_text)
+    assert_select "ul.nav-tabs li", text: link_text, count: 0
+  end
+
   view_test 'GET :new displays a "Document" tab' do
     get :new
     assert_tab "Document", new_admin_news_article_path
@@ -19,6 +23,14 @@ class AttachableEditionTest < ActionController::TestCase
     get :edit, params: { id: edition }
     assert_tab "Document", edit_admin_news_article_path(edition)
     assert_tab "Attachments", admin_edition_attachments_path(edition)
+  end
+
+  view_test 'GET :edit does not display "Document" and "Attachments" tabs when user has the `Remove edit tabs` permission' do
+    @current_user.permissions << "Remove edit tabs"
+    edition = create(:news_article)
+    get :edit, params: { id: edition }
+    assert_not_tab "Document"
+    assert_not_tab "Attachments"
   end
 end
 

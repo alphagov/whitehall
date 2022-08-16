@@ -66,7 +66,9 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           stub_publishing_api_has_linkables([], document_type: "topic")
           visit admin_news_article_path(edition)
           click_button "Create new edition to edit"
-          click_link "Attachments 1"
+          fill_in "edition_change_note", with: "changes"
+          click_button "Save"
+          click_link "Modify attachments"
           within ".existing-attachments" do
             click_link "Edit"
           end
