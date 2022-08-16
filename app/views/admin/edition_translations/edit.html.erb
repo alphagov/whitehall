@@ -17,7 +17,7 @@
     </section>
   </div>
   <div class="col-md-4">
-    <% if current_user.can_view_move_tabs_to_endpoints? %>
+    <% if current_user.can_view_move_tabs_to_endpoints? && !@edition.is_a?(CorporateInformationPage) %>
       <div class="govspeak_help" id="govspeak_help">
         <%= render partial: "admin/editions/govspeak_help",
                    locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
