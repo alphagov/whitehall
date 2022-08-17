@@ -12,8 +12,12 @@ module DocumentCollectionStepHelpers
   end
 
   def refute_document_is_part_of_document_collection(document_title)
-    within ".tab-content" do
+    if @user.can_remove_edit_tabs?
       expect(page).to_not have_content(document_title)
+    else
+      within ".tab-content" do
+        expect(page).to_not have_content(document_title)
+      end
     end
   end
 end

@@ -41,8 +41,12 @@ end
 
 When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collection$/) do |url, title|
   visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
 
   base_path = URI.parse(url).path
   content_id = SecureRandom.uuid
@@ -93,8 +97,12 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
 
   # Simulate drag-droping document.
   execute_script %{
@@ -118,8 +126,13 @@ Then(/^I (?:can )?view the document collection in the admin$/) do
   expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
+
   expect(page).to have_selector("h1", text: @document_collection.title)
 end
 
@@ -167,7 +180,15 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
 
   visit admin_document_collection_path(@document_collection)
   click_on "Create new edition to edit"
-  click_on "Collection documents"
+  fill_in_change_note_if_required
+  click_on "Save"
+
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
 
   check document_title
   click_on "Remove"
@@ -184,8 +205,14 @@ end
 
 And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|
   visit admin_document_collection_path(@document_collection)
-  click_on "Edit draft"
-  click_on "Collection documents"
+
+  if @user.can_remove_edit_tabs?
+    click_on "Modify collection documents"
+  else
+    click_on "Edit draft"
+    click_on "Collection documents"
+  end
+
   fill_in "title", with: document_title
   click_on "Find"
 end
