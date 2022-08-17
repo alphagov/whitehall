@@ -31,4 +31,4 @@ Feature: Managing Document Sources
     When I remove the legacy url "http://im-old.com" on the "One must have many urls" publication
     And I visit the list of draft documents
     And I view the publication "One must have many urls"
-    Then I should see that it has no legacy urls
+    Then I should see that "http://im-old.com" has been removed

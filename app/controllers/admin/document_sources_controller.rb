@@ -3,6 +3,8 @@ class Admin::DocumentSourcesController < Admin::BaseController
   before_action :find_edition
   before_action :forbid_editing_of_locked_documents
 
+  def edit; end
+
   def update
     @document_sources = params[:document_sources]
     @edition.document.document_sources.destroy_all
