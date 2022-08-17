@@ -155,6 +155,19 @@
   </section>
 <% end %>
 
+<% if @edition.is_a?(DocumentCollection) && current_user.can_remove_edit_tabs? %>
+  <section>
+    <h2>Collection documents</h2>
+      <% if @edition.editable? %>
+        <span>
+          <%= link_to admin_document_collection_groups_path(@edition), title: "Modify collection documents of #{@edition.title}", class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-edit"></i> Modify collection documents
+          <% end %>
+        </span>
+      <% end %>
+  </section>
+<% end %>
+
 <% if @edition.document.document_sources.any? or current_user.can_import? %>
   <section id="document-sources-section">
     <h2>Legacy URL redirects</h2>
