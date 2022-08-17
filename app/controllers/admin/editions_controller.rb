@@ -4,7 +4,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show show_locked edit update revise diff destroy update_bypass_id history]
+  before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_edition, only: %i[new create]
@@ -30,7 +30,7 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, @edition)
     when "edit", "update", "revise", "diff", "update_bypass_id"
       enforce_permission!(:update, @edition)
-    when "destroy"
+    when "destroy", "confirm_destroy"
       enforce_permission!(:delete, @edition)
     when "export", "confirm_export"
       enforce_permission!(:export, edition_class || Edition)
@@ -173,6 +173,8 @@ class Admin::EditionsController < Admin::BaseController
     audit_trail_entry = edition_class.find(params[:audit_trail_entry_id])
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
   end
+
+  def confirm_destroy; end
 
   def destroy
     edition_deleter = Whitehall.edition_services.deleter(@edition)

@@ -119,7 +119,7 @@ module Admin::EditionActionsHelper
   end
 
   def delete_edition_button(edition)
-    button_to "Discard draft", admin_edition_path(edition), method: :delete, title: "Delete", data: { confirm: "Are you sure you want to discard this draft?" }, class: "btn btn-danger"
+    link_to "Discard draft", confirm_destroy_admin_edition_path(edition), method: :get, class: "btn btn-danger"
   end
 
   # If adding new models also update filter_options_for_edition
