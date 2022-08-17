@@ -11,12 +11,10 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     assert((fragment / "input[type=submit]").first["data-confirm"].blank?)
   end
 
-  test "should generate force-publish modal button" do
+  test "should generate force-publish link button" do
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_edition_form(edition, force: true)
     fragment = Nokogiri::HTML.fragment(html)
-    assert_equal "Force publish", (fragment / "a").first.text
-    assert_equal "linked-modal", (fragment / "a").first["data-module"]
-    assert_equal "#forcePublishModal", (fragment / "a").first["data-target"]
+    assert_equal confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version), (fragment / "a").first["href"]
   end
 end
