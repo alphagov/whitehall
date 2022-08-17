@@ -177,29 +177,7 @@
       <% end %>
     </ul>
     <% if current_user.can_import? %>
-      <p><a href="#document-sources-modal" class="btn btn-default" data-toggle="modal">Edit URL redirects</a></p>
-      <div id="document-sources-modal" class="modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h3 class="modal-title">Edit legacy URL redirects</h3>
-            </div>
-            <%= form_tag admin_edition_document_sources_path(@edition), method: :put do %>
-              <div class="modal-body">
-                <div class="form-group">
-                  <p>Enter one URL per line.</p>
-                  <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 20, class: 'form-control' %>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-default add-right-margin" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <%= submit_tag "Save", class: "btn btn-success" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <%= link_to "Edit URL redirects", edit_admin_edition_document_sources_path(@edition), class: "btn btn-default" %>
     <% end %>
   </section>
 <% end %>
