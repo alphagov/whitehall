@@ -22,6 +22,7 @@ module PublishingApi
           ordered_featured_links: featured_links,
           mission_statement: world_location.mission_statement || "",
           ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
+          world_location_news_type: world_location.world_location_type.key,
         },
         document_type: "placeholder_world_location_news_page",
         public_updated_at: world_location.updated_at,
