@@ -302,6 +302,7 @@ Whitehall::Application.routes.draw do
             get  :show_locked, to: "editions#show_locked"
             patch :update_bypass_id
             get :history, to: "editions#history"
+            get :confirm_destroy
           end
           resources :link_check_reports
           resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]

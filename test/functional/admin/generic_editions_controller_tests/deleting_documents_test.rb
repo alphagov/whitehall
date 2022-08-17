@@ -17,9 +17,8 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, params: { id: draft_edition }
 
-    assert_select "form[action='#{admin_generic_edition_path(draft_edition)}']" do
-      assert_select "input[name='_method'][type='hidden'][value='delete']"
-      assert_select "input[type='submit']"
+    assert_select ".edition-sidebar" do
+      assert_select "a[href=?]", confirm_destroy_admin_edition_path(draft_edition), text: "Discard draft"
     end
   end
 
@@ -29,9 +28,8 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, params: { id: submitted_edition }
 
-    assert_select "form[action='#{admin_generic_edition_path(submitted_edition)}']" do
-      assert_select "input[name='_method'][type='hidden'][value='delete']"
-      assert_select "input[type='submit']"
+    assert_select ".edition-sidebar" do
+      assert_select "a[href=?]", confirm_destroy_admin_edition_path(submitted_edition), text: "Discard draft"
     end
   end
 
