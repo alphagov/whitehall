@@ -194,6 +194,14 @@ private
       Whitehall::PublishingApi.save_draft(attachment)
     end
 
+    if attachable_is_an_edition?
+      @draft_updater ||= Whitehall.edition_services.draft_updater(attachable)
+
+      if @draft_updater.can_perform?
+        @draft_updater.perform!
+      end
+    end
+
     result
   end
 

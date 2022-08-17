@@ -138,6 +138,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_html_attachment_params
 
     Whitehall::PublishingApi
+    .expects(:save_draft)
+    .with(@edition)
+
+    Whitehall::PublishingApi
       .expects(:save_draft)
       .with(instance_of(HtmlAttachment))
 
@@ -146,6 +150,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "POST :create for a FileAttachnment doesnt update the publishing api" do
     attachment = valid_file_attachment_params
+
+    Whitehall::PublishingApi
+    .expects(:save_draft)
+    .with(@edition)
 
     Whitehall::PublishingApi
       .expects(:save_draft)
@@ -339,6 +347,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "PUT :update for HTML attachment updates the publishing api" do
     attachment = create(:html_attachment, attachable: @edition)
+
+    Whitehall::PublishingApi
+    .expects(:save_draft)
+    .with(@edition)
 
     Whitehall::PublishingApi
       .expects(:save_draft)
