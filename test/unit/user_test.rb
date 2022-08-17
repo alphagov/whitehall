@@ -169,6 +169,16 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_redirect_to_summary_page?
   end
 
+  test "cannot remove edit tabs by default" do
+    user = build(:user)
+    assert_not user.can_remove_edit_tabs?
+  end
+
+  test "can remove edit tabs if given permission" do
+    user = build(:user, permissions: [User::Permissions::REMOVE_EDIT_TABS])
+    assert user.can_remove_edit_tabs?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

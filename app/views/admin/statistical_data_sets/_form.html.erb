@@ -4,7 +4,8 @@
   <p>Do <em>not</em> use for: less frequently updated (eg quarterly) data. Use a publication (subtype: statistics) instead.</p>
 </div>
 
-<%= edition_editing_tabs(edition) do %>
+
+<% if current_user.can_remove_edit_tabs? %>
   <%= standard_edition_form(edition, @information) do |form| %>
 
     <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
@@ -13,5 +14,17 @@
       <legend>Associations</legend>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
     </fieldset>
+  <% end %>
+<% else %>
+  <%= edition_editing_tabs(edition) do %>
+    <%= standard_edition_form(edition, @information) do |form| %>
+
+      <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+
+      <fieldset>
+        <legend>Associations</legend>
+        <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      </fieldset>
+    <% end %>
   <% end %>
 <% end %>

@@ -2,16 +2,14 @@
   <p><strong>Use this format for:</strong> Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don’t publish a news story which duplicates this announcement.</p>
 </div>
 
-<%= edition_editing_tabs(edition) do %>
+<% if current_user.can_remove_edit_tabs? %>
   <%= standard_edition_form(edition, @information) do |form| %>
-
     <fieldset>
       <legend>Associations</legend>
       <p>You'll be able to specialist sectors later.</p>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'operational_field_fields', locals: { form: form, edition: edition } %>
-
     </fieldset>
 
     <fieldset class="named fatality-notice-casualties js-duplicate-fields">
@@ -24,5 +22,28 @@
         </div>
       <% end %>
     </fieldset>
+  <% end %>
+<% else %>
+  <%= edition_editing_tabs(edition) do %>
+    <%= standard_edition_form(edition, @information) do |form| %>
+      <fieldset>
+        <legend>Associations</legend>
+        <p>You'll be able to specialist sectors later.</p>
+        <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'operational_field_fields', locals: { form: form, edition: edition } %>
+      </fieldset>
+
+      <fieldset class="named fatality-notice-casualties js-duplicate-fields">
+        <legend>Roll call info (displays on the field of operation)</legend>
+        <%= form.text_area :roll_call_introduction, rows: 2, label_text: 'Introduction' %>
+        <h3>Casualties</h3>
+        <%= form.fields_for :fatality_notice_casualties do |casualty_form| %>
+          <div class="js-duplicate-fields-set well">
+            <%= casualty_form.text_area :personal_details, rows: 2 %>
+          </div>
+        <% end %>
+      </fieldset>
+    <% end %>
   <% end %>
 <% end %>

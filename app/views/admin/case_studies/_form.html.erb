@@ -2,7 +2,7 @@
   <p><strong>Use this format for:</strong> Case studies that show someone’s experience of a process covered on GOV.UK or a policy problem the government is trying to solve.</p>
 </div>
 
-<%= edition_editing_tabs(edition) do %>
+<% if current_user.can_remove_edit_tabs? %>
   <%= standard_edition_form(edition, @information) do |form| %>
     <fieldset>
       <legend>Associations</legend>
@@ -10,5 +10,16 @@
       <%= render 'world_location_fields', form: form, edition: edition %>
       <%= render 'organisation_fields', form: form, edition: edition %>
     </fieldset>
+  <% end %>
+<% else %>
+  <%= edition_editing_tabs(edition) do %>
+    <%= standard_edition_form(edition, @information) do |form| %>
+      <fieldset>
+        <legend>Associations</legend>
+        <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
+        <%= render 'world_location_fields', form: form, edition: edition %>
+        <%= render 'organisation_fields', form: form, edition: edition %>
+      </fieldset>
+    <% end %>
   <% end %>
 <% end %>

@@ -5,7 +5,7 @@
   <p>Do <em>not</em> use for: statements <em>not</em> made to Parliament (use the “news article” format for those).</p>
 </div>
 
-<%= edition_editing_tabs(edition) do %>
+<% if current_user.can_remove_edit_tabs? %>
   <%= standard_edition_form(edition, @information) do |form| %>
     <fieldset>
       <legend>Associations</legend>
@@ -13,5 +13,16 @@
       <%= render 'world_location_fields', form: form, edition: edition %>
       <%= render 'organisation_fields', form: form, edition: edition %>
     </fieldset>
+  <% end %>
+<% else %>
+  <%= edition_editing_tabs(edition) do %>
+    <%= standard_edition_form(edition, @information) do |form| %>
+      <fieldset>
+        <legend>Associations</legend>
+        <%= render 'topical_event_fields', form: form, edition: edition %>
+        <%= render 'world_location_fields', form: form, edition: edition %>
+        <%= render 'organisation_fields', form: form, edition: edition %>
+      </fieldset>
+    <% end %>
   <% end %>
 <% end %>
