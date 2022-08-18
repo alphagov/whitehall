@@ -95,7 +95,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
     expected = {
       content_id: "id-123",
       link: "/world/aardistan/news",
-      format: "world_location_news_page",
+      format: "world_location_news",
       title: "Aardistan and the Uk",
       description: "Updates, news and events from the UK government in Aardistan",
       indexable_content: "Updates, news and events from the UK government in Aardistan",
