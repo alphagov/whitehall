@@ -104,7 +104,7 @@ class Admin::EditionsController < Admin::BaseController
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails
 
-    render :edit_legacy unless preview_design_system_user?
+    render :edit_legacy unless preview_design_system_and_edition_type_in_design_system?
   end
 
   def update
@@ -126,7 +126,11 @@ class Admin::EditionsController < Admin::BaseController
         @information = updater.failure_reason
         build_edition_dependencies
         fetch_version_and_remark_trails
-        render :edit
+        if preview_design_system_and_edition_type_in_design_system?
+          render :edit
+        else
+          render :edit_legacy
+        end
       end
     end
   rescue ActiveRecord::StaleObjectError
@@ -134,7 +138,11 @@ class Admin::EditionsController < Admin::BaseController
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
-    render action: "edit"
+    if preview_design_system_and_edition_type_in_design_system?
+      render :edit
+    else
+      render :edit_legacy
+    end
   end
 
   def revise
@@ -200,14 +208,22 @@ class Admin::EditionsController < Admin::BaseController
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
+    return "admin" unless preview_design_system_and_edition_type_in_design_system?
 
     case action_name
-    when "edit"
+    when "edit", "update"
       "design_system"
     else
       "admin"
     end
+  end
+
+  def edition_type_in_design_system
+    [Publication]
+  end
+
+  def preview_design_system_and_edition_type_in_design_system?
+    preview_design_system_user? && @edition.class.in?(edition_type_in_design_system)
   end
 
   def speed_tagging?
