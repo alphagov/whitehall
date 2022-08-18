@@ -1,0 +1,43 @@
+<div class="format-advice">
+  <p><strong>Use this format for:</strong> Stand-alone government documents, issued on a specified date through GOV.UK for distribution.</p>
+</div>
+
+<% if current_user.can_remove_edit_tabs? %>
+  <%= standard_edition_form(edition, @information) do |form| %>
+    <%= form.hidden_field :statistics_announcement_id %>
+
+    <%= render 'inline_attachments_info', form: form, edition: edition %>
+    <%= render 'html_version_fields', form: form, edition: edition %>
+
+    <fieldset>
+      <legend>Associations</legend>
+      <p>You'll be able to select Topics and Specialist Sectors later.</p>
+      <%= render 'appointment_fields', form: form, edition: edition %>
+      <%= render 'statistical_data_set_fields', form: form, edition: edition %>
+      <%= render 'topical_event_fields', form: form, edition: edition %>
+      <%= render 'world_location_fields', form: form, edition: edition %>
+      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render 'nation_fields', form: form, edition: edition %>
+    </fieldset>
+  <% end %>
+<% else %>
+  <%= edition_editing_tabs(edition) do %>
+    <%= standard_edition_form(edition, @information) do |form| %>
+      <%= form.hidden_field :statistics_announcement_id %>
+
+      <%= render 'inline_attachments_info', form: form, edition: edition %>
+      <%= render 'html_version_fields', form: form, edition: edition %>
+
+      <fieldset>
+        <legend>Associations</legend>
+        <p>You'll be able to select Topics and Specialist Sectors later.</p>
+        <%= render 'appointment_fields', form: form, edition: edition %>
+        <%= render 'statistical_data_set_fields', form: form, edition: edition %>
+        <%= render 'topical_event_fields', form: form, edition: edition %>
+        <%= render 'world_location_fields', form: form, edition: edition %>
+        <%= render 'organisation_fields', form: form, edition: edition %>
+        <%= render 'nation_fields', form: form, edition: edition %>
+      </fieldset>
+    <% end %>
+  <% end %>
+<% end %>
