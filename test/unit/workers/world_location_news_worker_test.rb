@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
+class WorldLocationNewsWorkerTest < ActiveSupport::TestCase
   test "sends to the publishing api" do
     world_location = FactoryBot.create(
       :world_location,
