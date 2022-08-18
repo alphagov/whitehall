@@ -43,7 +43,7 @@ module PublishingApi
         {
           content_id: content_id,
           link: path_for_news_page,
-          format: "world_location_news_page", # Used for the rummager document type
+          format: "world_location_news",
           title: title,
           description: description,
           indexable_content: description,
