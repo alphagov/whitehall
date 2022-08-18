@@ -47,7 +47,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
         ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
         world_location_news_type: "world_location",
       },
-      document_type: "placeholder_world_location_news_page",
+      document_type: "world_location_news",
       public_updated_at: world_location.updated_at,
       rendering_app: "whitehall-frontend",
       schema_name: "world_location_news",
