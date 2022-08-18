@@ -120,6 +120,11 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
         it "sends an html attachment to publishing api with its edition's auth_bypass_id" do
           Services.publishing_api.expects(:put_content)
+                  .with(anything, has_entries(title: edition.title))
+          Services.publishing_api.expects(:put_content)
+                  .with(anything, has_entries(title: edition.attachments.first.title))
+
+          Services.publishing_api.expects(:put_content).at_least_once
                   .with(anything, has_entries(
                                     title: "html-attachment",
                                     auth_bypass_ids: [edition.auth_bypass_id],
