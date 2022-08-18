@@ -45,6 +45,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
         ],
         mission_statement: "This is a great mission",
         ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
+        world_location_news_type: "world_location",
       },
       document_type: "placeholder_world_location_news_page",
       public_updated_at: world_location.updated_at,
