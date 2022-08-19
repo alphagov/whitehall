@@ -2,21 +2,6 @@
 <div class="row">
   <h1><%= @edition.title %></h1>
 </div>
-
-<% if flash[:legacy_associations_changed] %>
-  <div class="row">
-    <div class="alert alert-success" role="alert">
-      <p>
-        Some suggestions have been made based on the taxonomy topics you've selected.
-      </p>
-
-      <p>
-        You can edit these suggestions.
-      </p>
-    </div>
-  </div>
-<% end %>
-
 <div class="row">
   <div class="col-md-12">
     <% initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
