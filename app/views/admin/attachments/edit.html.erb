@@ -1,11 +1,15 @@
-<% page_title "Editing #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
+<% content_for :page_title, "Editing #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
+<% content_for :title, "Edit #{attachment.readable_type} attachment" %>
+<% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", href: attachable_attachments_path(attachable) %>
+<% end %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Editing <%= attachment.attachable_model_name %> <%= attachment.readable_type %> attachment</h1>
-
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
     <%= render partial: 'form', locals: { attachable: attachable, attachment: attachment } %>
   </section>
+
   <% if attachment.html? %>
     <div class="col-md-4">
       <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_footnote_help: true, show_stat_headline_help: true %>

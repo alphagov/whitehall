@@ -28,6 +28,10 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
+  def edit
+    render(preview_design_system_user? ? "edit" : "edit_legacy")
+  end
+
   def update
     attachment.attributes = attachment_params
     if attachment.is_a?(FileAttachment)
@@ -81,7 +85,14 @@ class Admin::AttachmentsController < Admin::BaseController
 private
 
   def get_layout
-    preview_design_system_user? ? "design_system" : "admin"
+    return "admin" unless preview_design_system_user?
+
+    case action_name
+    when "edit", "update", "new", "create"
+      "design_system"
+    else
+      "admin"
+    end
   end
 
   def attachment

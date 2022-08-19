@@ -1,11 +1,21 @@
 <% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
 
 <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
-  <%= form.errors %>
+  <% content_for :error_summary, render('shared/error_summary', object: attachment.becomes(Attachment), class_name: @attachment.class.name.demodulize.underscore.humanize.downcase) %>
 
-  <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
-    <%= form.text_field :title %>
-  <% end %>
+  <div class="govuk-!-margin-bottom-8">
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "Title (required)"
+      },
+      name: "attachment[title]",
+      id: "attachment_title",
+      heading_level: 2,
+      heading_size: "l",
+      value: form.object.title,
+      error_items: errors_for(attachment.errors, :title)
+    } %>
+  </div>
 
   <% if attachable.allows_attachment_references? %>
     <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment %>
@@ -23,7 +33,7 @@
   ### Unnumbered sub-heading
 
   Manually number your headings as appropriate using the above numbering scheme.</pre>
-       </div>
+      </div>
 
       <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
         <%= govspeak_fields.text_area :body, rows: 20, class: "previewable", data: {
@@ -32,12 +42,35 @@
       <% end %>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
-    <%= form.text_field :external_url %>
+    <div class="govuk-!-margin-bottom-8">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "External url (required)"
+        },
+        name: "attachment[external_url]",
+        id: "attachment_external_url",
+        heading_level: 2,
+        heading_size: "l",
+        value: form.object.external_url,
+        error_items: errors_for(attachment.errors, :external_url)
+      } %>
+    </div>
   <% else %>
     <%= render 'attachment_data_fields', form: form %>
   <% end %>
 
   <%= hidden_field_tag :type, params[:type] %>
 
-  <%= form.save_or_cancel cancel: attachable_attachments_path(attachable) %>
+  <% if attachment.is_a?(ExternalAttachment) %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Next"
+    } %>
+  <% else %>
+    <div class="govuk-button-group">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save"
+      } %>
+      <a class="govuk-link" href="attachable_attachments_path(attachable)">Cancel</a>
+    </div>
+  <% end %>
 <% end %>
