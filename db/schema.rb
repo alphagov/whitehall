@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_12_162047) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_19_125630) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -709,7 +709,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_162047) do
     t.boolean "foi_exempt", default: false, null: false
     t.string "organisation_chart_url"
     t.string "govuk_closed_status"
-    t.string "custom_jobs_url"
+    t.text "custom_jobs_url"
     t.string "content_id"
     t.string "homepage_type", default: "news"
     t.boolean "political", default: false
