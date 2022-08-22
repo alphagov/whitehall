@@ -213,6 +213,22 @@ namespace :publishing_api do
       puts "Finished enqueueing items for Publishing API"
     end
 
+    desc "Republish all world location news pages"
+    task all_world_location_news: :environment do
+      search_index_delete_worker = SearchIndexDeleteWorker.new
+
+      world_locations = WorldLocation.all
+
+      puts "Republishing #{world_locations.size} world locations"
+
+      world_locations.each do |world_location|
+        search_index_delete_worker.perform(Whitehall.url_maker.world_location_news_index_path(world_location), :government)
+
+        Whitehall::SearchIndex.delete(world_location)
+        WorldLocationNewsWorker.perform_async_in_queue("bulk_republishing", world_location.id)
+      end
+    end
+
     desc "Republish all editions which have attachments to the Publishing API"
     task editions_with_attachments: :environment do
       editions = Edition.publicly_visible.where(
