@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= form.label :publication_type_id, 'Publication type' %>
+  <%= form.select :publication_type_id,
+        grouped_options_for_select(publication_type_options, edition.publication_type_id),
+        {},
+        class: ['chzn-select', 'form-control', 'js-access-limited-by-default-checkbox', 'subtype'],
+        data: {
+          placeholder: "Choose publication type…",
+          access_limited_by_default_type_ids: form.object.persisted? ? [] : PublicationType.access_limitable.map(&:id),
+          :'format-advice' => PublicationType::FORMAT_ADVICE
+        } %>
+</div>
