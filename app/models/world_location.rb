@@ -23,7 +23,7 @@ class WorldLocation < ApplicationRecord
   accepts_nested_attributes_for :edition_world_locations
   accepts_nested_attributes_for :offsite_links
 
-  after_update :send_news_page_to_publishing_api_and_rummager
+  after_commit :send_news_page_to_publishing_api_and_rummager, on: %i[create update]
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WL"
