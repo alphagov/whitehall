@@ -83,4 +83,15 @@ FactoryBot.define do
       ]
     end
   end
+
+  factory :departmental_editor_with_preview_design_system, parent: :user do
+    permissions do
+      [
+        User::Permissions::SIGNIN,
+        User::Permissions::GDS_EDITOR,
+        User::Permissions::DEPARTMENTAL_EDITOR,
+        User::Permissions::PREVIEW_DESIGN_SYSTEM,
+      ]
+    end
+  end
 end

@@ -6,9 +6,9 @@ module AdminTaxonomyHelper
     check label
   end
 
-  def select_taxon_and_save(label)
+  def select_taxon_and_save(label, save_btn_label)
     select_taxon(label)
-    click_button "Save tagging changes"
+    click_button save_btn_label
   end
 
   def stub_taxonomy_data

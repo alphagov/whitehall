@@ -1,0 +1,20 @@
+<%
+  id ||= "miller-columns-#{SecureRandom.hex(4)}"
+  items ||= []
+%>
+
+<div class="app-c-miller-columns">
+  <p id="navigation-instructions" class="govuk-body govuk-visually-hidden">
+    Use the right arrow to explore sub-topics, use the up and down arrows to find other topics.
+  </p>
+
+  <miller-columns-selected id="selected-items" for="<%= id %>" class="miller-columns-selected"></miller-columns-selected>
+
+  <miller-columns class="miller-columns" for="<%= id %>-list" selected="selected-items" id="<%= id %>" aria-describedby="navigation-instructions">
+    <%= render "components/miller-columns-list", {
+      id: id,
+      name: "#{id}[]",
+      items: items
+    } %>
+  </miller-columns>
+</div>

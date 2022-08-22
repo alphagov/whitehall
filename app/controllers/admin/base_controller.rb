@@ -52,6 +52,10 @@ class Admin::BaseController < ApplicationController
     end
   end
 
+  def preview_design_system_user?
+    current_user.has_permission? "Preview design system"
+  end
+
 private
 
   def forbidden!
