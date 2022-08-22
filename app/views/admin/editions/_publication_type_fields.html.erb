@@ -1,12 +1,22 @@
-<div class="form-group">
-  <%= form.label :publication_type_id, 'Publication type' %>
-  <%= form.select :publication_type_id,
-        grouped_options_for_select(publication_type_options, edition.publication_type_id),
-        {},
-        class: ['chzn-select', 'form-control', 'js-access-limited-by-default-checkbox', 'subtype'],
-        data: {
-          placeholder: "Choose publication type…",
-          access_limited_by_default_type_ids: form.object.persisted? ? [] : PublicationType.access_limitable.map(&:id),
-          :'format-advice' => PublicationType::FORMAT_ADVICE
-        } %>
+<div class="govuk-form-group">
+  <label class="govuk-label" for="publication_type_id">
+    Publication type
+  </label>
+  <select class="govuk-select govuk-select gem-c-select__select--full-width" id="publication_type_id" name="publication_type_id">
+    <optgroup label="Common types">
+      <% PublicationType.primary.each do |publication_type| %>
+        <option value=<%= publication_type.id %>><%=publication_type.singular_name %></option>
+      <% end %>
+    <optgroup/>
+    <optgroup label="Less common types">
+      <% PublicationType.less_common.each do |publication_type| %>
+        <option value=<%= publication_type.id %>><%=publication_type.singular_name %></option>
+      <% end %>
+    <optgroup/>
+    <optgroup label="Use discouraged">
+      <% PublicationType.use_discouraged.each do |publication_type| %>
+        <option value=<%= publication_type.id %>><%=publication_type.singular_name %></option>
+      <% end %>
+    <optgroup/>
+  </select>
 </div>
