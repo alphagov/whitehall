@@ -28,6 +28,10 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
+  def edit
+    render(preview_design_system_user? ? "edit" : "edit_legacy")
+  end
+
   def update
     attachment.attributes = attachment_params
     if attachment.is_a?(FileAttachment)
