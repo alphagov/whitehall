@@ -1,5 +1,5 @@
-<div class=<%= "right-to-left" if edition.rtl? %>>
-  <%= render "subtype_fields", form: form, edition: form.object %>
+<%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
+  <%= render "legacy_subtype_fields", form: form, edition: form.object %>
   <%= render "locale_fields", form: form, edition: edition %>
 
   <%= form.hidden_field :lock_version %>
@@ -22,7 +22,7 @@
     <%= form.check_box :political, label_text: "Associate with government of the time (currently set to #{edition.government&.name}).", class: 'political-status' %>
     <p><a href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode'>Read the history mode guidance</a> for more information as to what this means.</p>
   <% end %>
-</div>
+<% end %>
 
 <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
 
