@@ -50,26 +50,6 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal related_organisations, world_location.worldwide_organisations_with_sponsoring_organisations
   end
 
-  test "#with_announcements should return the world locations with announcements" do
-    world_location = create(:world_location)
-    _other_world_location = create(:world_location)
-
-    create(:published_news_article, world_locations: [world_location])
-    create(:published_news_article, world_locations: [world_location])
-
-    assert_equal [world_location], WorldLocation.with_announcements
-  end
-
-  test "#with_publications should return the world locations with publications" do
-    world_location = create(:world_location)
-    _other_world_location = create(:world_location)
-
-    create(:published_publication, world_locations: [world_location])
-    create(:published_publication, world_locations: [world_location])
-
-    assert_same_elements [world_location], WorldLocation.with_publications
-  end
-
   test "ordered_by_name sorts by the I18n.default_locale translation for name" do
     world_location1 = create(:world_location, name: "Neverland")
     world_location2 = create(:world_location, name: "Middle Earth")

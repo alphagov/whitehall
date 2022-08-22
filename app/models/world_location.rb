@@ -77,26 +77,6 @@ class WorldLocation < ApplicationRecord
     where(active: true, world_location_type_id: WorldLocationType::InternationalDelegation.id)
   end
 
-  def self.with_announcements
-    announcement_conditions = Edition.joins(:edition_world_locations)
-                                            .published
-                                            .where(type: Announcement.sti_names)
-                                            .where("edition_world_locations.world_location_id = world_locations.id")
-                                            .select("*").to_sql
-
-    where("exists (#{announcement_conditions})")
-  end
-
-  def self.with_publications
-    publication_conditions = Edition.joins(:edition_world_locations)
-                                            .published
-                                            .where(type: Publicationesque.sti_names)
-                                            .where("edition_world_locations.world_location_id = world_locations.id")
-                                            .select("*").to_sql
-
-    where("exists (#{publication_conditions})")
-  end
-
   def world_location_type
     WorldLocationType.find_by_id(world_location_type_id)
   end
