@@ -12,7 +12,7 @@ logo_url = "https://assets.digital.cabinet-office.gov.uk/media/55a7cc72ed915d537
 puts "Adding logos to ERDF editions"
 slugs.each do |slug|
   document = Document.find_by(document_type: "DetailedGuide", slug: slug)
-  latest_published_edition = document.editions.latest_published_edition.first
+  latest_published_edition = document.live_edition
   draft_edition = document.editions.latest_edition.draft.first
 
   puts "Updating logo in #{slug} published version"

@@ -51,11 +51,11 @@ class Person < ApplicationRecord
   end
 
   def published_speeches
-    speeches.latest_published_edition.in_reverse_chronological_order
+    speeches.live_edition.published.in_reverse_chronological_order
   end
 
   def published_news_articles
-    news_articles.latest_published_edition.in_reverse_chronological_order
+    news_articles.live_edition.published.in_reverse_chronological_order
   end
 
   def destroyable?

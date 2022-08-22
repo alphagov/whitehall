@@ -61,6 +61,15 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [speech1, speech2], person.speeches
   end
 
+  test "published_speeches only returns published speeches" do
+    person = create(:person)
+    published_speech = create(:published_speech, role_appointment: create(:role_appointment, person: person))
+    create(:draft_speech, role_appointment: create(:role_appointment, person: person))
+    create(:speech, :withdrawn, role_appointment: create(:role_appointment, person: person))
+
+    assert_equal [published_speech], person.published_speeches
+  end
+
   test "can access news_articles associated with ministerial roles of a person" do
     person = create(:person)
     news_articles = 2.times.map { create(:news_article) }
@@ -84,10 +93,11 @@ class PersonTest < ActiveSupport::TestCase
 
   test "published_news_articles only returns published news articles" do
     person = create(:person)
-    news_articles = [create(:published_news_article), create(:draft_news_article)]
+    news_articles = [create(:published_news_article), create(:draft_news_article), create(:news_article, :withdrawn)]
+    news_articles.each do |edition|
+      create(:ministerial_role_appointment, person: person).editions << edition
+    end
 
-    create(:ministerial_role_appointment, person: person).editions << news_articles[0]
-    create(:ministerial_role_appointment, person: person).editions << news_articles[1]
     assert_equal news_articles[0..0], person.published_news_articles
   end
 
