@@ -125,17 +125,28 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
-  def standard_edition_form(edition, information)
-    initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
+  def standard_edition_form(edition, information = nil, preview_design_system: false)
+    if preview_design_system
+      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
+        initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
+        concat render("standard_fields", form: form, edition: edition, preview_design_system: true)
+        yield(form)
+        concat render("access_limiting_fields", form: form, edition: edition)
+        concat render("scheduled_publication_fields", form: form, edition: edition)
+        concat standard_edition_publishing_controls(form, edition)
+      end
+    else
+      initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 
-    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-      concat edition_information(information) if information
-      concat form.errors
-      concat render("standard_fields", form: form, edition: edition)
-      yield(form)
-      concat render("access_limiting_fields", form: form, edition: edition)
-      concat render("scheduled_publication_fields", form: form, edition: edition)
-      concat standard_edition_publishing_controls(form, edition)
+      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
+        concat edition_information(information) if information
+        concat form.errors
+        concat render("legacy_standard_fields", form: form, edition: edition)
+        yield(form)
+        concat render("access_limiting_fields", form: form, edition: edition)
+        concat render("scheduled_publication_fields", form: form, edition: edition)
+        concat standard_edition_publishing_controls(form, edition)
+      end
     end
   end
 
