@@ -13,8 +13,9 @@ Then(/^I should be on the taxonomy tagging page$/) do
   expect(page).to have_current_path(edit_admin_edition_tags_path(@publication))
 end
 
-Then(/^I should be able to update the taxonomy$/) do
-  select_taxon_and_save "School Curriculum"
+Then(/^I should be able to update the taxonomy and click the "([^"]*)" button$/) do |save_btn_label|
+  select_taxon "Education"
+  select_taxon_and_save "School Curriculum", save_btn_label
   check_links_patched_in_publishing_api
   expect(page).to have_current_path(admin_edition_path(Publication.last))
 end
