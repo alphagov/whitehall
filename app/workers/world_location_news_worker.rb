@@ -1,14 +1,16 @@
 class WorldLocationNewsWorker < WorkerBase
   attr_accessor :world_location
 
-  def perform(world_location_id)
+  def perform(world_location_id, send_to_search_api = true)
     self.world_location = WorldLocation.find(world_location_id)
 
     each_locale do
       send_news_page_to_publishing_api
     end
 
-    send_news_page_to_rummager
+    if send_to_search_api
+      send_news_page_to_rummager
+    end
   end
 
 private

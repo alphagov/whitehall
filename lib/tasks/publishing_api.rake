@@ -213,8 +213,20 @@ namespace :publishing_api do
       puts "Finished enqueueing items for Publishing API"
     end
 
-    desc "Republish all world location news pages"
+    desc "Republish all world location news pages without re-sending to search"
     task all_world_location_news: :environment do
+      world_locations = WorldLocation.all
+
+      puts "Republishing #{world_locations.size} world locations"
+
+      world_locations.each do |world_location|
+        WorldLocationNewsWorker.perform_async_in_queue("bulk_republishing", world_location.id, false)
+      end
+    end
+
+    # We expect this just to be needed for the initial republishing of world location news pages where we are changing their document type for search
+    desc "Republish all world location news pages with removal and re-adding to search"
+    task all_world_location_news_and_search_pages: :environment do
       search_index_delete_worker = SearchIndexDeleteWorker.new
 
       world_locations = WorldLocation.all
