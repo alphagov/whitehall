@@ -1,0 +1,101 @@
+<div id="image_fields" class="images multiple_file_uploads <%= ' right-to-left' if edition.rtl? %>">
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Images",
+    heading_size: "l"
+  } do %>
+    <% edition.images.each_with_index do |image, index| %>
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-4"> Image <%= index + 1 %></h3>
+        <div class="govuk-grid-column-one-half">
+          <%= render "govuk_publishing_components/components/input", {
+            label: {
+              text: "Alt text",
+              bold: true
+            },
+            name: "edition[images_attributes][#{index}][alt_text]",
+            id: "edition_images_attributes_#{index}_alt_text",
+            value: image.alt_text
+          } %>
+
+          <%= render "govuk_publishing_components/components/textarea", {
+            label: {
+              text: "Caption",
+              bold: true
+            },
+            name: "edition[images_attributes][#{index}][caption]",
+            id: "edition_images_attributes_#{index}_caption",
+            rows: 5,
+            value: image.caption
+          } %>
+
+          <%= render "govuk_publishing_components/components/checkboxes", {
+            name: "edition[images_attributes][#{index}][_destroy]",
+            id: "edition_images_attributes_0__destroy",
+            items: [
+              {
+                label: "(uncheck to remove)",
+                value: 0,
+                checked: true
+              }
+            ]
+          } %>
+
+          <% if edition.image_disallowed_in_body_text?(index) %>
+            <p class="govuk-body">This image is shown automatically, and is not available for use inline in the body.</p>
+          <% else %>
+            <%= render "govuk_publishing_components/components/input", {
+              label: {
+                text: "Markdown to use:",
+                bold: true,
+              },
+              name: "readonly",
+              value: index + 1,
+              readonly: true,
+            } %>
+          <% end %>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="img-responsive">
+        </div>
+      </div>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "New image",
+      heading_size: "m"
+    } do %>
+
+      <p class="govuk-body">Images must be 960px wide and 640px tall.</p>
+
+      <%= render "govuk_publishing_components/components/file_upload", {
+        label: {
+          text: "File",
+          bold: true,
+        },
+        name: "edition[images_attributes][#{edition.images.count + 1}][image_data_attributes][file]",
+        id: "edition_images_attributes_#{edition.images.count + 1}_image_data_attributes_file",
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Alt text",
+          bold: true
+        },
+        name: "edition[images_attributes][#{edition.images.count + 1}][alt_text]",
+        id: "edition_images_attributes_#{edition.images.count + 1}_alt_text",
+        value: "",
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Caption",
+          bold: true
+        },
+        name: "edition[images_attributes][#{edition.images.count + 1}][caption]",
+        id: "edition_images_attributes_#{edition.images.count + 1}_caption",
+        rows: 5,
+        value: "",
+      } %>
+    <% end %>
+  <% end %>
+</div>
