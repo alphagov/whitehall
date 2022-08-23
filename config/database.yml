@@ -3,11 +3,6 @@ default: &default
   adapter: mysql2
   variables:
     sql_mode: TRADITIONAL
-    # We need to set `sort_buffer_size` to work around a bug in MySQL 8.0.27 [1]
-    # This quadruples the default sort buffer size, which seems to provide enough headroom to allow sorting to work correctly with our dataset.
-    # The bug is fixed in MySQL 8.0.28 (currently unreleased), so we should be able to remove this fix once we're on that version.
-    # [1]: https://bugs.mysql.com/bug.php?id=105304
-    sort_buffer_size: 1048576
 
 development:
   <<: *default
