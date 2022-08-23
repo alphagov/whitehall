@@ -100,6 +100,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def confirm_unpublish
     @unpublishing = @edition.build_unpublishing
+
+    render :confirm_unpublish_legacy
   end
 
   def unpublish
@@ -110,7 +112,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
       flash.now[:alert] = message
-      render :confirm_unpublish
+      render :confirm_unpublish_legacy
     end
   end
 
