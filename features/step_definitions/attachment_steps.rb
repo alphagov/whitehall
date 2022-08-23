@@ -26,7 +26,7 @@ When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/
   click_on "Add new HTML attachment"
   fill_in "Title", with: title
   fill_in "Body", with: body
-  check "Manually numbered headings"
+  check @user.can_preview_design_system? ? "Use manually numbered headings" : "Manually numbered headings"
   click_on "Save"
 end
 
