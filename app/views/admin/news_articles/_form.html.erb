@@ -6,7 +6,7 @@
 
 <% if current_user.can_remove_edit_tabs? %>
   <%= standard_edition_form(edition, @information) do |form| %>
-    <%= render 'inline_attachments_info', form: form, edition: edition %>
+    <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
 
     <fieldset>
       <legend>Associations</legend>
@@ -20,7 +20,7 @@
 <% else %>
   <%= edition_editing_tabs(edition) do %>
     <%= standard_edition_form(edition, @information) do |form| %>
-      <%= render 'inline_attachments_info', form: form, edition: edition %>
+      <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
 
       <fieldset>
         <legend>Associations</legend>
