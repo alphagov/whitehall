@@ -5,7 +5,7 @@
   } do %>
     <% edition.images.each_with_index do |image, index| %>
       <div class="govuk-grid-row govuk-!-margin-bottom-6">
-        <h3 class="govuk-heading-m govuk-!-margin-bottom-4"> Image <%= index + 1 %></h3>
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-4 govuk-!-padding-left-3"> Image <%= index + 1 %></h3>
         <div class="govuk-grid-column-one-half">
           <%= render "govuk_publishing_components/components/input", {
             label: {
