@@ -24,7 +24,7 @@
   <% end %>
 <% end %>
 
-<%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+<%= render partial: 'legacy_first_published_at', locals: { form: form, edition: edition } %>
 
 <% if form.object.allows_image_attachments? %>
   <% if edition.type == "CaseStudy" %>
