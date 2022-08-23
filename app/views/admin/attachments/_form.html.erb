@@ -23,23 +23,36 @@
 
   <% if attachment.is_a?(HtmlAttachment) %>
     <%= form.fields_for :govspeak_content do |govspeak_fields| %>
-
-      <%= govspeak_fields.check_box :manually_numbered_headings %>
-      <div class="js-manual-numbering-help<%= ' js-hidden' unless attachment.manually_numbered_headings? %>">
-        <pre>
-  ## 1. First heading
-  ### 1.1 First sub-heading
-  ### 1.2 Second sub-heading
-  ### Unnumbered sub-heading
-
-  Manually number your headings as appropriate using the above numbering scheme.</pre>
+      <div class="govuk-!-margin-bottom-8">
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: "attachment[govspeak_content_attributes][manually_numbered_headings]",
+          heading: "Manually numbered headings",
+          heading_level: 2,
+          heading_size: "l",
+          hint_text: "",
+          items: [
+            {
+              label: "Use manually numbered headings",
+              value: "1",
+              checked: form.object.govspeak_content.manually_numbered_headings,
+              conditional: sanitize("<p>Manually number your headings using the numbering scheme below.</p><code>## 1. First heading<br />### 1.1 First sub-heading<br />### 1.2 Second sub-heading<br />### Unnumbered sub-heading</code>")
+            }
+          ]
+        } %>
       </div>
 
-      <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
-        <%= govspeak_fields.text_area :body, rows: 20, class: "previewable", data: {
-          module: "paste-html-to-govspeak"
-        } %>
-      <% end %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          heading_size: "l",
+          text: "Body (required)"
+        },
+        name: "attachment[govspeak_content_attributes][body]",
+        rows: 20,
+        id: "attachment_govspeak_content.body",
+        value: form.object.govspeak_content.body,
+        error_items: errors_for(attachment.errors, :"govspeak_content.body"),
+        margin_bottom: 8
+      } %>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
     <div class="govuk-!-margin-bottom-8">
@@ -64,6 +77,10 @@
   <% if attachment.is_a?(ExternalAttachment) %>
     <%= render "govuk_publishing_components/components/button", {
       text: "Next"
+    } %>
+  <% elsif attachment.is_a?(HtmlAttachment) %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save"
     } %>
   <% else %>
     <%= render "govuk_publishing_components/components/button", {
