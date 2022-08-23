@@ -1,0 +1,24 @@
+<%= render "govuk_publishing_components/components/date_input", {
+  name: "first_published_at",
+  id: "first_published_at",
+  items: [
+   {
+     label: "Day",
+     name: "edition[first_published_at(3i)]",
+     width: 2,
+     value: edition.first_published_at&.day
+   },
+   {
+     label: "Month",
+     name: "edition[first_published_at(2i)]",
+     width: 2,
+     value: edition.first_published_at&.month
+   },
+   {
+     label: "Year",
+     name: "edition[first_published_at(1i)]",
+     width: 4,
+     value: edition.first_published_at&.year
+   }
+ ]
+} %>

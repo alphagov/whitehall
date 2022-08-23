@@ -1,0 +1,41 @@
+<% if edition.published_major_version.nil? %>
+  <% if edition.imported? %>
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "First published (required)",
+      heading_size: "s",
+      hint: "For example, 31 3 2000",
+    } do %>
+        <%= render "first_published_at_date_fields", edition: form.object %>
+    <% end %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "Document status (required)",
+      heading_size: "s",
+      } do %>
+        <%= render "govuk_publishing_components/components/radio", {
+          name: "edition[previously_published]",
+          items: [
+            {
+              value: false,
+              text: "has never been published before. It is new.",
+              checked: edition.previously_published == false
+            },
+            {
+              value: true,
+              text: "has previously been published on another website.",
+              checked: edition.previously_published,
+              conditional: (render "first_published_at_date_fields", edition: form.object)
+            }
+          ]
+      } %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "First published (required)",
+    heading_size: "s",
+    hint: "For example, 31 3 2000",
+  } do %>
+      <%= render "first_published_at_date_fields", edition: form.object %>
+  <% end %>
+<% end %>
