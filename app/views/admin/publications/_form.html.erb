@@ -8,14 +8,19 @@
   <%= render 'inline_attachments_info', form: form, edition: edition %>
   <%= render 'html_version_fields', form: form, edition: edition %>
 
-  <fieldset>
-    <legend>Associations</legend>
-    <p>You'll be able to select Topics and Specialist Sectors later.</p>
-    <%= render 'appointment_fields', form: form, edition: edition %>
-    <%= render 'statistical_data_set_fields', form: form, edition: edition %>
-    <%= render 'topical_event_fields', form: form, edition: edition %>
-    <%= render 'world_location_fields', form: form, edition: edition %>
-    <%= render 'organisation_fields', form: form, edition: edition %>
-    <%= render 'nation_fields', form: form, edition: edition %>
-  </fieldset>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <p class="govuk-body">You'll be able to select Topics and Specialist Sectors later.</p>
+
+    <%= render 'legacy_appointment_fields', form: form, edition: edition %>
+    <%= render 'legacy_statistical_data_set_fields', form: form, edition: edition %>
+    <%= render 'legacy_topical_event_fields', form: form, edition: edition %>
+    <%= render 'legacy_world_location_fields', form: form, edition: edition %>
+    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+    <%= render 'legacy_nation_fields', form: form, edition: edition %>
+  <% end %>
 <% end %>

@@ -6,9 +6,9 @@
   <%= standard_edition_form(edition, @information) do |form| %>
     <fieldset>
       <legend>Associations</legend>
-      <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
-      <%= render 'world_location_fields', form: form, edition: edition %>
-      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render 'worldwide_legacy_organisation_fields', form: form, edition: edition %>
+      <%= render 'legacy_world_location_fields', form: form, edition: edition %>
+      <%= render 'legacy_organisation_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% else %>
@@ -16,9 +16,9 @@
     <%= standard_edition_form(edition, @information) do |form| %>
       <fieldset>
         <legend>Associations</legend>
-        <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
-        <%= render 'world_location_fields', form: form, edition: edition %>
-        <%= render 'organisation_fields', form: form, edition: edition %>
+        <%= render 'worldwide_legacy_organisation_fields', form: form, edition: edition %>
+        <%= render 'legacy_world_location_fields', form: form, edition: edition %>
+        <%= render 'legacy_organisation_fields', form: form, edition: edition %>
       </fieldset>
     <% end %>
   <% end %>

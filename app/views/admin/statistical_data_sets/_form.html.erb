@@ -12,7 +12,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'legacy_organisation_fields', locals: { form: form, edition: edition } %>
     </fieldset>
   <% end %>
 <% else %>
@@ -23,7 +23,7 @@
 
       <fieldset>
         <legend>Associations</legend>
-        <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'legacy_organisation_fields', locals: { form: form, edition: edition } %>
       </fieldset>
     <% end %>
   <% end %>
