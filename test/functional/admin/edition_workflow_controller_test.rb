@@ -290,7 +290,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     get :confirm_unpublish, params: { id: publication, lock_version: publication.lock_version }
 
     assert_response :success
-    assert_template :confirm_unpublish
+    assert_template :confirm_unpublish_legacy
     assert_equal publication, assigns(:edition)
   end
 
@@ -396,7 +396,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
                                unpublishing: unpublish_params }
 
     assert_response :success
-    assert_template :confirm_unpublish
+    assert_template :confirm_unpublish_legacy
     assert_equal "Select which withdrawal date you want to use", flash[:alert]
     assert published_edition.reload.published?
   end
@@ -409,7 +409,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     }
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
     assert_response :success
-    assert_template :confirm_unpublish
+    assert_template :confirm_unpublish_legacy
     assert_match %r{Alternative url must be provided}, flash[:alert]
     assert published_edition.reload.published?
   end

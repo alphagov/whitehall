@@ -12,6 +12,5 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$module.addEventListener('paste', window.pasteHtmlToGovspeak.pasteListener)
   }
 
-
   Modules.PasteHtmlToGovspeak = PasteHtmlToGovspeak
 })(window.GOVUK.Modules)

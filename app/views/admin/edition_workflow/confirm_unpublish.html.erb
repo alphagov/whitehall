@@ -1,0 +1,161 @@
+<% content_for :page_title, "#{@edition.title}: Withdraw or unpublish" %>
+<% content_for :title, "Withdraw or unpublish" %>
+<% content_for :context, @edition.title %>
+
+<%
+  public_explanation_field = render("govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Public explanation",
+      bold: true,
+    },
+    hint: "This is shown on the live site",
+    name: "unpublishing[explanation]",
+    value: @unpublishing.explanation,
+    data: {
+      module: "paste-html-to-govspeak"
+    },
+    error_items: (@unpublishing.errors.as_json(full_messages: true)[:explanation].map do |error|
+      {
+        "text": error,
+      }
+    end if @unpublishing.errors[:explanation].present?)
+  })
+%>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds" data-module="unpublish-display-conditions">
+    <%= render "govuk_publishing_components/components/radio", {
+      name: "unpublishing_reason",
+      heading: "Do you want to withdraw or unpublish?",
+      description: sanitize('Learn more about withdrawing and unpublishing content on our <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving" class="govuk-link" target="_blank">publishing guide</a>.'),
+      items: [
+        {
+          value: UnpublishingReason::Withdrawn.id,
+          text: "Withdraw: no longer current government policy/activity",
+          checked: @unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn,
+        },
+        {
+          value: UnpublishingReason::PublishedInError.id,
+          text: "Unpublish: published in error",
+          checked: @unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError,
+        },
+        {
+          value: UnpublishingReason::Consolidated.id,
+          text: "Unpublish: consolidated into another GOV.UK page",
+          checked: @unpublishing.unpublishing_reason == UnpublishingReason::Consolidated,
+        }
+      ]
+    } %>
+
+    <div class="js-unpublish-withdraw-form__withdrawal">
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Withdrawn.id %>
+
+        <% if @previous_withdrawals.any? %>
+          <%
+            items = @previous_withdrawals.map do |withdrawal|
+              {
+                value: withdrawal.id,
+                text: absolute_date(withdrawal.unpublished_at),
+                hint_text: withdrawal.explanation,
+                checked: (params["previous_withdrawal_id"] == withdrawal.id.to_s),
+              }
+            end
+
+            items << {
+              value: "new",
+              text: "This is a new withdrawal",
+              conditional: public_explanation_field,
+              checked: (params["previous_withdrawal_id"] == "new"),
+            }
+          %>
+          <%= render "govuk_publishing_components/components/radio", {
+            name: "previous_withdrawal_id",
+            heading: "Do you need to reuse a previous withdrawal?",
+            description: sanitize("
+              <p class=\"govuk-body\">You should only reuse a previous withdrawal date and public explanation if you have:</p>
+              <ul class=\"govuk-list govuk-list--bullet\">
+                <li>updated file attachments to mark them ‘withdrawn’</li>
+                <li>made a minor edit, for example fixing a broken link</li>
+                <li>fixed an error or mistake in the content which existed when it was originally withdrawn</li>
+              </ul>
+            "),
+            items: items,
+            error_items: (@unpublishing.errors.as_json(full_messages: true)[:previous_withdrawal_id].map do |error|
+              {
+                "text": error,
+              }
+            end if @unpublishing.errors[:previous_withdrawal_id].present?)
+          } %>
+        <% else %>
+          <%= public_explanation_field %>
+        <% end %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Withdraw"
+        } %>
+      <% end %>
+    </div>
+
+    <div class="js-unpublish-withdraw-form__published-in-error">
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::PublishedInError.id %>
+
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Alternative URL",
+            bold: true,
+          },
+          name: "unpublishing[alternative_url]",
+          value: @unpublishing.alternative_url,
+          error_items: (@unpublishing.errors.as_json(full_messages: true)[:alternative_url].map do |error|
+            {
+              "text": error,
+            }
+          end if @unpublishing.errors[:alternative_url].present?)
+        } %>
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: "unpublishing[redirect]",
+          items: [
+            {
+              label: "Redirect to URL automatically?",
+              value: 1,
+              checked: @unpublishing.redirect,
+            }
+          ]
+        } %>
+
+        <%= public_explanation_field %>
+
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Unpublish"
+        } %>
+      <% end %>
+    </div>
+
+    <div class="js-unpublish-withdraw-form__consolidated">
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Consolidated.id %>
+
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Alternative URL",
+            bold: true,
+          },
+          id: "consolidated_alternative_url",
+          name: "unpublishing[alternative_url]",
+          hint: "This will be automatically redirected",
+          value: @unpublishing.alternative_url,
+          error_items: (@unpublishing.errors.as_json(full_messages: true)[:alternative_url].map do |error|
+            {
+              "text": error,
+            }
+          end if @unpublishing.errors[:alternative_url].present?)
+        } %>
+
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Unpublish"
+        } %>
+      <% end %>
+    </div>
+  </div>
+</div>
