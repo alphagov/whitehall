@@ -2,19 +2,18 @@
 # If you're changing it, please consider handling the common case.
 module Taxonomy
   class Taxon
-    attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors, :legacy_mapping
+    attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors
     attr_accessor :parent_node, :children
 
     delegate :map, :each, :count, to: :taxon_list
 
-    def initialize(title:, base_path:, content_id:, legacy_mapping:, phase: "live", visible_to_departmental_editors: true)
+    def initialize(title:, base_path:, content_id:, phase: "live", visible_to_departmental_editors: true)
       @name = title
       @content_id = content_id
       @base_path = base_path
       @phase = phase
       @visible_to_departmental_editors = visible_to_departmental_editors
       @children = []
-      @legacy_mapping = legacy_mapping
     end
 
     def self.from_taxon_hash(taxon_hash)
@@ -26,7 +25,6 @@ module Taxonomy
         visible_to_departmental_editors: taxon_hash.dig(
           "details", "visible_to_departmental_editors"
         ).present?,
-        legacy_mapping: legacy_mapping(taxon_hash),
       )
 
       parent_taxons = taxon_hash.dig("links", "parent_taxons")
@@ -37,24 +35,6 @@ module Taxonomy
       end
 
       taxon
-    end
-
-    def self.legacy_mapping(taxon_hash)
-      legacy_taxon_links = taxon_hash.dig("links", "legacy_taxons") || []
-
-      legacy_taxon_links.each do |legacy_page|
-        # Dealing with placeholders is a pain, so pretend everything
-        # is not a placeholder
-        legacy_page["document_type"] =
-          legacy_page["document_type"].remove("placeholder_")
-      end
-
-      # Because the different types of legacy taxon (policy, policy
-      # area, specialist topic) need to be handled differently,
-      # separate them out by document type here
-      legacy_taxon_links.group_by do |legacy_page|
-        legacy_page["document_type"]
-      end
     end
 
     def taxon_list
