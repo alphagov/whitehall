@@ -24,7 +24,7 @@ module PublishingApi
           ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
           world_location_news_type: world_location.world_location_type.key,
         },
-        document_type: "placeholder_world_location_news_page",
+        document_type: "world_location_news",
         public_updated_at: world_location.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "world_location_news",
@@ -43,7 +43,7 @@ module PublishingApi
         {
           content_id: content_id,
           link: path_for_news_page,
-          format: "world_location_news_page", # Used for the rummager document type
+          format: "world_location_news",
           title: title,
           description: description,
           indexable_content: description,
