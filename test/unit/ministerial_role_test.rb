@@ -20,7 +20,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "should be able to get published news_articles associated with the role" do
-    editions = [create(:draft_news_article), create(:published_news_article)]
+    editions = [create(:draft_news_article), create(:published_news_article), create(:news_article, :withdrawn)]
     ministerial_role = create(:ministerial_role)
     create(:role_appointment, role: ministerial_role, editions: editions)
     assert_equal editions[1..1], ministerial_role.published_news_articles
@@ -41,6 +41,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
       ended_at: nil,
     )
     create(:published_speech, role_appointment: appointment)
+    create(:speech, :withdrawn, role_appointment: appointment)
     create(:draft_speech, role_appointment: appointment)
 
     assert appointment.role.published_speeches.all?(&:published?)

@@ -105,7 +105,7 @@ class EditionTest < ActiveSupport::TestCase
     assert Edition.latest_edition.include?(edition)
   end
 
-  test ".latest_edition includes only latest edition of a edition" do
+  test ".latest_edition includes only latest edition of a document" do
     original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:writer))
     assert_not Edition.latest_edition.include?(original_edition)
@@ -121,13 +121,13 @@ class EditionTest < ActiveSupport::TestCase
     assert_not Edition.latest_edition.include?(deleted_edition)
   end
 
-  test ".latest_published_edition includes only published editions" do
+  test ".live_edition includes only currently live edition of a document" do
     document = create(:document)
-    original_edition = create(:published_edition, document: document)
-    draft_edition = create(:draft_edition, document: document)
+    create(:superseded_edition, document: document)
+    published = create(:published_edition, document: document)
+    create(:draft_edition, document: document)
 
-    assert Edition.latest_published_edition.include?(original_edition)
-    assert_not Edition.latest_published_edition.include?(draft_edition)
+    assert [published], Edition.live_edition
   end
 
   test ".most_recent_change_note returns the most recent change note" do

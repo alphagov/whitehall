@@ -353,4 +353,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal edition.id, document.latest_edition_id
     assert_equal edition.id, document.live_edition_id
   end
+
+  test '#live_edition is a "published" or "withdrawn" edition' do
+    published = create(:published_edition)
+    withdrawn = create(:withdrawn_edition)
+    unpublished = create(:unpublished_edition)
+    draft = create(:draft_edition)
+
+    assert_equal published, published.document.live_edition
+    assert_equal withdrawn, withdrawn.document.live_edition
+    assert_nil unpublished.document.live_edition
+    assert_nil draft.document.live_edition
+  end
 end

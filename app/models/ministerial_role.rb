@@ -6,14 +6,14 @@ class MinisterialRole < Role
 
   def published_speeches(options = {})
     speeches
-      .latest_published_edition
+      .live_edition.published
       .in_reverse_chronological_order
       .limit(options[:limit])
   end
 
   def published_news_articles(options = {})
     news_articles
-      .latest_published_edition
+      .live_edition.published
       .in_reverse_chronological_order
       .limit(options[:limit])
   end

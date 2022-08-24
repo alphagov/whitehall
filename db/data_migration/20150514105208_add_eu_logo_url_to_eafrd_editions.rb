@@ -11,7 +11,7 @@ logo_url = "https://assets.digital.cabinet-office.gov.uk/media/55547b94ed915d15d
 puts "Adding logos to EAFRD editions"
 slugs.each do |slug|
   document = Document.find_by(slug: slug)
-  latest_published_edition = document.editions.latest_published_edition.first
+  latest_published_edition = document.live_edition
   draft_edition = document.editions.latest_edition.draft.first
 
   puts "Updating logo in #{slug} published version"

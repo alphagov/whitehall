@@ -95,6 +95,9 @@ class Edition < ApplicationRecord
 
   scope :future_scheduled_editions,     -> { scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now)) }
 
+  scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
+  scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
+
   # @!group Callbacks
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
@@ -243,24 +246,6 @@ EXISTS (
   def self.without_locked_documents
     joins(:document)
     .where.not("documents.locked = true")
-  end
-
-  def self.latest_edition
-    where("NOT EXISTS (
-      SELECT 1
-        FROM editions e2
-       WHERE e2.document_id = editions.document_id
-         AND e2.id > editions.id
-         AND e2.state <> 'deleted')")
-  end
-
-  def self.latest_published_edition
-    published.where("NOT EXISTS (
-      SELECT 1
-        FROM editions e2
-       WHERE e2.document_id = editions.document_id
-         AND e2.id > editions.id
-         AND e2.state = 'published')")
   end
 
   def self.search_format_type
@@ -562,24 +547,12 @@ EXISTS (
     end
   end
 
-  def latest_edition
-    document.editions.latest_edition.first
-  end
-
-  def latest_published_edition
-    document.editions.latest_published_edition.first
-  end
-
   def previous_edition
-    if pre_publication?
-      latest_published_edition
-    else
-      document.ever_published_editions.reverse.second
-    end
+    document.ever_published_editions.where.not(id: id).last
   end
 
   def is_latest_edition?
-    latest_edition == self
+    document.latest_edition == self
   end
 
   def all_nation_applicability_selected?
