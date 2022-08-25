@@ -55,7 +55,9 @@
           <% end %>
         </div>
         <div class="govuk-grid-column-one-half">
-          <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="img-responsive">
+          <% if image.image_data.present? %>
+            <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="img-responsive">
+          <% end %>
         </div>
       </div>
     <% end %>
