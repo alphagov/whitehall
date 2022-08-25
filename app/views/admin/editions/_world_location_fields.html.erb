@@ -1,0 +1,22 @@
+<% required = false unless defined?(required) %>
+
+<% cache_if edition.world_location_ids.empty?, taggable_statistical_data_sets_cache_digest do %>
+  <%= render "components/autocomplete", {
+    id: "edition_world_location_ids",
+    name: "edition[world_location_ids][]",
+    label: {
+      text: "Select the world locations this #{edition.format_name.titleize.downcase} is about" + "#{' (required)' if required}",
+      bold: true,
+    },
+    select: {
+      options: [""] + taggable_world_locations_container,
+      multiple: true,
+      selected: edition.world_location_ids,
+    },
+    data: {
+        module: 'track-select-click',
+        track_category: 'worldLocationSelection',
+        track_label: request.path
+    },
+  } %>
+<% end %>
