@@ -1,0 +1,96 @@
+<%= content_for :page_title, "Edit publication"%>
+
+<%= render "govuk_publishing_components/components/back_link", {
+  href: admin_edition_path(@edition)
+} %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      context: @edition.title,
+      title: "Editing #{@edition.class.to_s.humanize.downcase}"
+    } %>
+
+    <% if @conflicting_edition %>
+      <%= render "govuk_publishing_components/components/error_alert", {
+        message: "This document has been updated by another user since you started editing it.",
+        description: "Please review conflicts between the two versions and incorporate any changes before pressing save again."
+      } %>
+
+      <h2 class="govuk-heading-l">Your version</h2>
+      <%= render "form", edition: @edition %>
+
+      <h2 class="govuk-heading-l">Current saved version</h2>
+      <% render "conflict", edition: @conflicting_edition %>
+    <% else %>
+      <div class="row">
+        <div class="col-md-8">
+          <section>
+            <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
+            <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
+            <%= render "form", edition: @edition %>
+          </section>
+        </div>
+
+        <div class="col-md-4">
+          <% if current_user.can_view_move_tabs_to_endpoints? && !@edition.is_a?(CorporateInformationPage) %>
+            <div class="govspeak_help" id="govspeak_help">
+              <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+                                          show_attachments_tab_help: true,
+                                          govspeak_link_errors: force_publisher.govspeak_link_errors,
+                                          link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil %>
+
+              <%= render "words_to_avoid_guidance" %>
+              <h3 class="style-title">Style</h3>
+              <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
+            </div>
+          <% else %>
+            <%= sidebar_tabs edition_tabs(
+              @edition,
+              remarks_count: @edition_remarks.length,
+              history_count: @document_history.total_count,
+              editing: true,
+            ) do |tabs| %>
+
+              <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
+                <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+                                            show_attachments_tab_help: true,
+                                            govspeak_link_errors: force_publisher.govspeak_link_errors,
+                                            link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil %>
+
+                <%= render "words_to_avoid_guidance" %>
+                <h3 class="style-title">Style</h3>
+                <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
+              <% end %>
+
+              <%= tabs.pane class: "audit-trail", id: "notes" do %>
+                <h1>Notes</h1>
+                <p>To add a remark, save your changes.</p>
+                <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
+                <%= render_editorial_remarks(@edition_remarks, @edition) %>
+              <% end %>
+
+              <%= tabs.pane class: "audit-trail", id: "history" do %>
+                <div class="audit-trail-page">
+                  <h1>Activity</h1>
+                  <%= paginate @document_history.query, theme: 'audit_trail' %>
+                  <ul class="list-unstyled">
+                    <%= render partial: "audit_trail_entry", collection: @document_history.audit_trail %>
+                  </ul>
+                  <%= paginate @document_history.query, theme: 'audit_trail' %>
+                </div>
+              <% end %>
+                <% if @edition.can_be_fact_checked? %>
+                  <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
+                    <h1>Fact checking</h1>
+                    <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+                    <p>To send a fact check request, save your changes.</p>
+                  <% end %>
+                <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
