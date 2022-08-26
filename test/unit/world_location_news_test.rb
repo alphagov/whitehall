@@ -1,7 +1,7 @@
 require "test_helper"
 
 class WorldLocationNewsTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :mission_statement, :world_location_news_with_stubbed_slug
+  should_protect_against_xss_and_content_attacks_on :world_location_news_with_stubbed_slug, :mission_statement
 
   test "#feature_list_for_locale should return the feature list for the given locale, or build one if not" do
     english = build(:feature_list, locale: :en)

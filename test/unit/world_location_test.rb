@@ -1,7 +1,7 @@
 require "test_helper"
 
 class WorldLocationTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name
+  should_protect_against_xss_and_content_attacks_on :world_location, :name
 
   def setup
     WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)

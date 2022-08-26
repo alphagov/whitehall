@@ -1,7 +1,7 @@
 require "test_helper"
 
 class WorldwideOrganisationTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name
+  should_protect_against_xss_and_content_attacks_on :worldwide_organisation, :name
 
   test "should set a slug from the field name" do
     worldwide_organisation = create(:worldwide_organisation, name: "Office Name")

@@ -5,7 +5,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
 
   should_allow_role_appointments
   should_allow_image_attachments
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :fatality_notice, :title, :body, :summary, :change_note
 
   test "is only valid with a field of operation" do
     assert_not build(:fatality_notice, operational_field: nil).valid?

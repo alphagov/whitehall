@@ -3,7 +3,7 @@ require "test_helper"
 class SpeechTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_allow_a_role_appointment
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :speech, :title, :body, :summary, :change_note
 
   test "should be invalid without a speech type" do
     speech = build(:speech, speech_type: nil)

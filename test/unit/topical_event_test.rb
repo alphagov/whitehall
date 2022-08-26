@@ -1,7 +1,7 @@
 require "test_helper"
 
 class TopicalEventTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name, :description
+  should_protect_against_xss_and_content_attacks_on :topical_event, :name, :description
 
   test "should default to the 'current' state" do
     topical_event = TopicalEvent.new
