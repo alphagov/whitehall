@@ -1,7 +1,7 @@
 require "test_helper"
 
 class OrganisationTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name
+  should_protect_against_xss_and_content_attacks_on :organisation, :name
 
   test "should be invalid without a name" do
     organisation = build(:organisation, name: nil)

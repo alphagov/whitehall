@@ -1,7 +1,7 @@
 require "test_helper"
 
 class DocumentCollectionTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :title, :summary, :body
+  should_protect_against_xss_and_content_attacks_on :document_collection, :title, :summary, :body
 
   test "groups should return related DocumentCollectionGroups ordered by document_collection_group.ordering" do
     doc_collection = create(

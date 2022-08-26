@@ -5,7 +5,7 @@ class PublicationTest < ActiveSupport::TestCase
   should_be_attachable
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :publication, :title, :body, :summary, :change_note
   should_allow_external_attachments
 
   test "imported publications are valid when the publication_type is imported-awaiting-type" do

@@ -5,7 +5,7 @@ class CaseStudyTest < ActiveSupport::TestCase
 
   should_allow_image_attachments
   should_have_first_image_pulled_out
-  should_protect_against_xss_and_content_attacks_on :body
+  should_protect_against_xss_and_content_attacks_on :case_study, :body
 
   test "search_format_types tags the case study as a case-study" do
     case_study = build(:case_study)

@@ -6,7 +6,7 @@ class ConsultationTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_be_attachable
   should_not_allow_inline_attachments
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :consultation, :title, :body, :summary, :change_note
 
   %i[imported deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do
