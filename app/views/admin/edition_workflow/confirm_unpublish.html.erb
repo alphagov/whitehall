@@ -3,6 +3,24 @@
 <% content_for :context, @edition.title %>
 
 <%
+  unpublish_reasons = {
+    withdrawn: {
+      id: UnpublishingReason::Withdrawn.id,
+      value: UnpublishingReason::Withdrawn,
+      label: "Withdraw: no longer current government policy/activity"
+    },
+    published_in_error: {
+      id: UnpublishingReason::PublishedInError.id,
+      value: UnpublishingReason::PublishedInError,
+      label: "Unpublish: published in error",
+    },
+    consolidated: {
+      id: UnpublishingReason::Consolidated.id,
+      value: UnpublishingReason::Consolidated,
+      label: "Unpublish: consolidated into another GOV.UK page",
+    },
+  }
+
   public_explanation_field = render("govuk_publishing_components/components/textarea", {
     label: {
       text: "Public explanation",
@@ -30,26 +48,29 @@
       description: sanitize('Learn more about withdrawing and unpublishing content on our <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving" class="govuk-link" target="_blank">publishing guide</a>.'),
       items: [
         {
-          value: UnpublishingReason::Withdrawn.id,
-          text: "Withdraw: no longer current government policy/activity",
-          checked: @unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn,
+          value: unpublish_reasons[:withdrawn][:id],
+          text: unpublish_reasons[:withdrawn][:label],
+          checked: @unpublishing.unpublishing_reason == unpublish_reasons[:withdrawn][:value],
         },
         {
-          value: UnpublishingReason::PublishedInError.id,
-          text: "Unpublish: published in error",
-          checked: @unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError,
+          value: unpublish_reasons[:published_in_error][:id],
+          text: unpublish_reasons[:published_in_error][:label],
+          checked: @unpublishing.unpublishing_reason == unpublish_reasons[:published_in_error][:value],
         },
         {
-          value: UnpublishingReason::Consolidated.id,
-          text: "Unpublish: consolidated into another GOV.UK page",
-          checked: @unpublishing.unpublishing_reason == UnpublishingReason::Consolidated,
-        }
-      ]
+          value: unpublish_reasons[:consolidated][:id],
+          text: unpublish_reasons[:consolidated][:label],
+          checked: @unpublishing.unpublishing_reason == unpublish_reasons[:consolidated][:value],
+        },
+      ],
     } %>
 
     <div class="js-unpublish-withdraw-form__withdrawal">
-      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Withdrawn.id %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
+        module: "unpublish-tracking",
+        "unpublish-reason-label": unpublish_reasons[:withdrawn][:label],
+      } do |form| %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:withdrawn][:id] %>
 
         <% if @previous_withdrawals.any? %>
           <%
@@ -97,8 +118,11 @@
     </div>
 
     <div class="js-unpublish-withdraw-form__published-in-error">
-      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::PublishedInError.id %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
+        module: "unpublish-tracking",
+        "unpublish-reason-label": unpublish_reasons[:published_in_error][:label],
+      } do |form| %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:published_in_error][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
           label: {
@@ -133,8 +157,11 @@
     </div>
 
     <div class="js-unpublish-withdraw-form__consolidated">
-      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Consolidated.id %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
+        module: "unpublish-tracking",
+        "unpublish-reason-label": unpublish_reasons[:consolidated][:label],
+      } do |form| %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', unpublish_reasons[:consolidated][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
           label: {
