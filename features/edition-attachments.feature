@@ -23,6 +23,26 @@ Feature: Managing attachments on editions
       | Beard Length Statistics 2014 |
       | Beard Length Illustrations   |
 
+  Scenario: Adding and reordering attachments with design system permission
+    Given I am an writer
+    And I have the "Preview design system" permission
+    And I start drafting a new publication "Standard Beard Lengths"
+    When I start editing the attachments from the publication page
+    And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
+    And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example **Govspeak body**"
+    And I add an external attachment with the title "Beard Length Illustrations" and the URL "http://www.beardlengths.gov.uk" with design system permission
+    Then the publication "Standard Beard Lengths" should have 3 attachments
+    When I set the order of attachments to:
+      |         title                | order |
+      | Beard Length Graphs 2012     |   0   |
+      | Beard Length Statistics 2014 |   1   |
+      | Beard Length Illustrations   |   2   |
+    Then the attachments should be in the following order:
+      |         title                |
+      | Beard Length Graphs 2012     |
+      | Beard Length Statistics 2014 |
+      | Beard Length Illustrations   |
+
   Scenario: Previewing HTML attachment
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
