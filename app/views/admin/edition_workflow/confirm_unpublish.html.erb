@@ -121,7 +121,8 @@
           <%= public_explanation_field %>
         <% end %>
         <%= render "govuk_publishing_components/components/button", {
-          text: "Withdraw"
+          text: "Withdraw",
+          destructive: true,
         } %>
       <% end %>
     </div>
@@ -160,7 +161,8 @@
         <%= public_explanation_field %>
 
         <%= render "govuk_publishing_components/components/button", {
-          text: "Unpublish"
+          text: "Unpublish",
+          destructive: true,
         } %>
       <% end %>
     </div>
@@ -189,7 +191,8 @@
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
-          text: "Unpublish"
+          text: "Unpublish",
+          destructive: true,
         } %>
       <% end %>
     </div>
