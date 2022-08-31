@@ -7,8 +7,8 @@
       <%= form.text_field :title, label_text: 'Title', required: false %>
       <%= form.text_area :description, label_text: 'Description', rows: 3, required: false %>
 
-      <%= form.label :sectors, 'Sectors' %>
-      <%= form.select :sectors,
+      <%= form.label :sector_ids, 'Sectors' %>
+      <%= form.select :sector_ids,
                       options_from_collection_for_select(Sector.order(:title), 'id', 'title', @licence.sectors),
                       {},
                       multiple: true,
@@ -20,14 +20,15 @@
                           track_label: request.path
                       } %>
 
-      <%= form.label :activity, 'Activity' %>
-      <%= form.select :activity,
+      <%= form.label :activity_id, 'Activity' %>
+      <%= form.select :activity_id,
                       options_for_select(@activity_options, selected: @licence.activity),
+                      {},
                       multiple: false,
                       class: 'chzn-select form-control' %>
 
       <%= form.check_box :external_link, label_text: 'Is an external link?', required: true %>
-      <%= form.save_or_cancel cancel: admin_licences_path(@licence) %>
+      <%= form.save_or_cancel cancel: admin_licences_path %>
     <% end %>
   </section>
 </div>

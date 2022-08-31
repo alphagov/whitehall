@@ -13,7 +13,7 @@ class Admin::LicencesController < Admin::BaseController
   def update
     @licence = Licence.find(params[:id])
 
-    if @licence.update(licence_field_params)
+    if @licence.update!(licence_field_params)
       redirect_to admin_licences_path, notice: %("#{@licence.title}" saved.)
     else
       render action: "edit"
@@ -23,6 +23,6 @@ class Admin::LicencesController < Admin::BaseController
 private
 
   def licence_field_params
-    params.require(:licence).permit(:link, :title, :description, :activity, :external_link, sectors: [])
+    params.require(:licence).permit(:link, :title, :description, :activity_id, :external_link, sector_ids: [])
   end
 end
