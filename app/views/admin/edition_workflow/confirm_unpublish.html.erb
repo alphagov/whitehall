@@ -2,6 +2,12 @@
 <% content_for :title, "Withdraw or unpublish" %>
 <% content_for :context, @edition.title %>
 
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition)
+  } %>
+<% end %>
+
 <%
   unpublish_reasons = {
     withdrawn: {
