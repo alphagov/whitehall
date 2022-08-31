@@ -1,5 +1,7 @@
-.js-unpublish-withdraw-form__withdrawal,
-.js-unpublish-withdraw-form__published-in-error,
-.js-unpublish-withdraw-form__consolidated {
+.unpublish-withdraw-form-wrapper {
+  @include govuk-responsive-margin(9, "top");
+  @include govuk-responsive-padding(7, "top");
+
+  border-top: 1px solid $govuk-border-colour;
   display: none;
 }
