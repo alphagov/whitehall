@@ -1,7 +1,7 @@
 <% page_title "Licences Index" %>
 
 <% @licences.each do |licence| %>
-  <p><%=link_to(licence.title, licence.link) %>
+  <p><%=licence.title %>
   <%= licence.sectors.each do |sector| %>
     <p><%= sector.title %></p>
   <% end %>
