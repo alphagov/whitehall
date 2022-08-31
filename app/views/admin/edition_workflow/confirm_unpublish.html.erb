@@ -50,14 +50,9 @@
   <div class="govuk-grid-column-two-thirds" data-module="unpublish-display-conditions">
     <%= render "govuk_publishing_components/components/radio", {
       name: "unpublishing_reason",
-      heading: "Do you want to withdraw or unpublish?",
+      heading: "Do you want to unpublish or withdraw this document?",
       description: sanitize('Learn more about withdrawing and unpublishing content on our <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving" class="govuk-link" target="_blank">publishing guide</a>.'),
       items: [
-        {
-          value: unpublish_reasons[:withdrawn][:id],
-          text: unpublish_reasons[:withdrawn][:label],
-          checked: @unpublishing.unpublishing_reason == unpublish_reasons[:withdrawn][:value],
-        },
         {
           value: unpublish_reasons[:published_in_error][:id],
           text: unpublish_reasons[:published_in_error][:label],
@@ -67,6 +62,12 @@
           value: unpublish_reasons[:consolidated][:id],
           text: unpublish_reasons[:consolidated][:label],
           checked: @unpublishing.unpublishing_reason == unpublish_reasons[:consolidated][:value],
+        },
+        :or,
+        {
+          value: unpublish_reasons[:withdrawn][:id],
+          text: unpublish_reasons[:withdrawn][:label],
+          checked: @unpublishing.unpublishing_reason == unpublish_reasons[:withdrawn][:value],
         },
       ],
     } %>
