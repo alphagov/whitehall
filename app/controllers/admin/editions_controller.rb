@@ -1,11 +1,12 @@
 class Admin::EditionsController < Admin::BaseController
   include HistoricContentConcern
 
+  before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :infer_blank_checkbox_params, only: %i[create update]
+  before_action :build_scheduled_publication_time, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_edition, only: %i[new create]
@@ -445,10 +446,18 @@ private
   end
 
   def infer_blank_checkbox_params
-    return if edition_params.empty?
+    return if edition_params.empty? || !preview_design_system_and_edition_type_in_design_system?
 
     edition_params[:access_limited] = "0" if edition_params[:access_limited].blank?
     edition_params[:political] = "0" if edition_params[:political].blank?
+  end
+
+  def build_scheduled_publication_time
+    return unless edition_params["scheduled_publication(4i)"].present? && preview_design_system_and_edition_type_in_design_system?
+
+    date = DateTime.parse(edition_params["scheduled_publication(4i)"]) # rubocop:disable Style/DateTime
+    edition_params["scheduled_publication(4i)"] = date.hour.to_s
+    edition_params["scheduled_publication(5i)"] = date.minute.to_s
   end
 
   def clear_scheduled_publication_if_not_activated

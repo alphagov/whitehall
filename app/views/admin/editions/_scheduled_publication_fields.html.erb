@@ -1,0 +1,49 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Scheduled publication",
+  heading_size: "m"
+} do %>
+  <% publish_time ||= Time.zone.now.tomorrow.change(hour: 9) %>
+
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-2">Date</h3>
+
+  <%= render "govuk_publishing_components/components/date_input", {
+    hint: "For example, 01 08 2027",
+    id: "date",
+    items: [
+      {
+        label: "Day",
+        name: "edition[scheduled_publication(3i)]",
+        width: 2,
+        value: edition.scheduled_publication&.day || publish_time.day,
+      },
+      {
+        label: "Month",
+        name: "edition[scheduled_publication(2i)]",
+        width: 2,
+        value: edition.scheduled_publication&.month || publish_time.month,
+      },
+      {
+        label: "Year",
+        name: "edition[scheduled_publication(1i)]",
+        width: 4,
+        value: edition.scheduled_publication&.year || publish_time.year,
+      }
+    ]
+  } %>
+
+  <%= render "components/autocomplete", {
+    name: "edition[scheduled_publication(4i)]",
+    label: {
+      text: "Time",
+      bold: true,
+    },
+    input: {
+      value: edition.scheduled_publication&.strftime("%I:%M%P") || publish_time.to_s(:time),
+      options: time_options,
+    },
+    data_attributes: {
+      "autocomplete-without-narrowing-results": true,
+    },
+    width: "narrow",
+  } %>
+<% end %>
