@@ -1,0 +1,13 @@
+<h3 class="govuk-heading-m">Access limiting</h3>
+
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "edition[access_limited]",
+  id: "edition_access_limited",
+  items: [
+    {
+      label: "Limit access to producing organisations prior to publication",
+      value: 1,
+      checked: edition.access_limited
+    }
+  ]
+} %>

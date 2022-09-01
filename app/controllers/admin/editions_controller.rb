@@ -3,6 +3,7 @@ class Admin::EditionsController < Admin::BaseController
 
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
+  before_action :infer_blank_checkbox_params, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
@@ -441,6 +442,12 @@ private
 
     edition_params[:title].strip! if edition_params[:title]
     edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank?
+  end
+
+  def infer_blank_checkbox_params
+    return if edition_params.empty?
+
+    edition_params[:access_limited] = "0" if edition_params[:access_limited].blank?
   end
 
   def clear_scheduled_publication_if_not_activated
