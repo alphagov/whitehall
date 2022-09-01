@@ -187,7 +187,7 @@ GEM
     erubi (1.11.0)
     et-orbi (1.2.7)
       tzinfo
-    excon (0.92.2)
+    excon (0.92.4)
     execjs (2.8.1)
     expgen (0.1.1)
       parslet
@@ -200,7 +200,7 @@ GEM
     ffi (1.15.5)
     filelock (1.1.1)
     find_a_port (1.0.1)
-    fog-aws (3.13.0)
+    fog-aws (3.14.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
       fog-xml (~> 0.1)
