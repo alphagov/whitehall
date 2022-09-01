@@ -239,7 +239,7 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    globalize (6.1.0)
+    globalize (6.2.1)
       activemodel (>= 4.2, < 7.1)
       activerecord (>= 4.2, < 7.1)
       request_store (~> 1.0)
