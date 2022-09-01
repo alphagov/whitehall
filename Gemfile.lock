@@ -723,7 +723,7 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    validates_email_format_of (1.6.3)
+    validates_email_format_of (1.7.2)
       i18n
     version_gem (1.1.0)
     warden (1.2.9)
