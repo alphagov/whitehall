@@ -382,7 +382,7 @@ GEM
     matrix (0.4.2)
     maxitest (4.1.0)
       minitest (>= 5.0.0, < 5.15.0)
-    mechanize (2.8.4)
+    mechanize (2.8.5)
       addressable (~> 2.8)
       domain_name (~> 0.5, >= 0.5.20190701)
       http-cookie (~> 1.0, >= 1.0.3)
