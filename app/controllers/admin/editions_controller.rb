@@ -448,6 +448,7 @@ private
     return if edition_params.empty?
 
     edition_params[:access_limited] = "0" if edition_params[:access_limited].blank?
+    edition_params[:political] = "0" if edition_params[:political].blank?
   end
 
   def clear_scheduled_publication_if_not_activated
