@@ -3,6 +3,10 @@ class Admin::LicencesController < Admin::BaseController
     @licences = Licence.all
   end
 
+  def show
+    @licence = Licence.find(params[:id])
+  end
+
   def edit
     @licence = Licence.find(params[:id])
     @activity_options = Activity.order(:title).map do |activity|

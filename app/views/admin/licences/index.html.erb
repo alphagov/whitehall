@@ -6,5 +6,5 @@
     <p><%= sector.title %></p>
   <% end %>
   <p><%= licence.activity %></p>
-  <p><%= link_to("Edit", edit_admin_licence_path(licence.id)) %></p>
+  <p><%= link_to("View", admin_licence_path(licence.id)) %> <%= link_to("Edit", edit_admin_licence_path(licence.id)) %></p>
 <% end %>

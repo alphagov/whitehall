@@ -1,1 +1,12 @@
 <% page_title "Show Licence details" %>
+
+<p><%= @licence.title %></p>
+<p><%= @licence.link %></p>
+<p><%= @licence.description %></p>
+<p>Sectors:</p>
+<% @licence.sectors.each do |sector| %>
+  <li><%= sector.title %></li>
+<% end %>
+<br>
+<p>Activity: <%= @licence.activity.title %></p>
+<p>External Link? <%= @licence.external_link %></p>
