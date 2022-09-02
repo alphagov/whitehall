@@ -4,47 +4,53 @@
   <%= form.select :locale, options_for_locales(attachable.translated_locales), include_blank: 'All languages' %>
 <% end %>
 
-<%= render "govuk_publishing_components/components/input", {
-  label: {
-    text: "ISBN"
-  },
-  name: "attachment[isbn]",
-  heading_level: 2,
-  heading_size: "l"
-} %>
-
-<%= render "govuk_publishing_components/components/input", {
-  label: {
-    text: "Unique reference"
-  },
-  name: "attachment[unique_reference]",
-  heading_level: 2,
-  heading_size: "l"
-} %>
-
-<%= render "govuk_publishing_components/components/radio", {
-  heading: "Command paper number",
-  heading_level: 2,
-  heading_size: "l",
-  name: "attachment[unnumbered_command_paper]",
-  id_prefix: "command_paper_number_conditional",
-  items: [
-    {
-      value: "0",
-      text: "Numbered",
-      conditional: render("govuk_publishing_components/components/input", {
-        label: {
-          text: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
-        },
-        name: "attachment[command_paper_number]"
-      })
+<div class="govuk-!-margin-bottom-8">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "ISBN"
     },
-    {
-      value: "1",
-      text: "Unnumbered",
-    }
-  ]
-} %>
+    name: "attachment[isbn]",
+    heading_level: 2,
+    heading_size: "l"
+  } %>
+</div>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Unique reference"
+    },
+    name: "attachment[unique_reference]",
+    heading_level: 2,
+    heading_size: "l"
+  } %>
+</div>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Command paper number",
+    heading_level: 2,
+    heading_size: "l",
+    name: "attachment[unnumbered_command_paper]",
+    id_prefix: "command_paper_number_conditional",
+    items: [
+      {
+        value: "0",
+        text: "Numbered",
+        conditional: render("govuk_publishing_components/components/input", {
+          label: {
+            text: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+          },
+          name: "attachment[command_paper_number]"
+        })
+      },
+      {
+        value: "1",
+        text: "Unnumbered",
+      }
+    ]
+  } %>
+</div>
 
 <% if attachable.can_have_attached_house_of_commons_papers? %>
   <%= render 'admin/attachments/hoc_reference_fields', form: form %>
