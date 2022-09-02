@@ -11,7 +11,8 @@
     },
     name: "attachment[isbn]",
     heading_level: 2,
-    heading_size: "l"
+    heading_size: "l",
+    value: form.object.isbn.blank? ? "" : form.object.isbn
   } %>
 </div>
 
@@ -22,9 +23,23 @@
     },
     name: "attachment[unique_reference]",
     heading_level: 2,
-    heading_size: "l"
+    heading_size: "l",
+    value: form.object.unique_reference.blank? ? "" : form.object.unique_reference
   } %>
 </div>
+
+<%
+  if form.object.unnumbered_command_paper.eql?(false)
+    numbered_command_paper = true
+    unnumbered_command_paper = false
+  elsif form.object.unnumbered_command_paper.eql?(true)
+    numbered_command_paper = false
+    unnumbered_command_paper = true
+  else
+    numbered_command_paper = false
+    unnumbered_command_paper = false
+  end
+%>
 
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/radio", {
@@ -37,6 +52,7 @@
       {
         value: "0",
         text: "Numbered",
+        checked: numbered_command_paper,
         conditional: render("govuk_publishing_components/components/input", {
           label: {
             text: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
@@ -47,6 +63,7 @@
       {
         value: "1",
         text: "Unnumbered",
+        checked: unnumbered_command_paper,
       }
     ]
   } %>

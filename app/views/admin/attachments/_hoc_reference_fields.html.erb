@@ -1,14 +1,28 @@
+<%
+  if form.object.unnumbered_hoc_paper.eql?(false)
+    numbered_hoc_paper = true
+    unnumbered_hoc_paper = false
+  elsif form.object.unnumbered_hoc_paper.eql?(true)
+    numbered_hoc_paper = false
+    unnumbered_hoc_paper = true
+  else
+    numbered_hoc_paper = false
+    unnumbered_hoc_paper = false
+  end
+%>
+
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/radio", {
     heading: "House of Commons paper number",
     heading_level: 2,
     heading_size: "l",
-    name: "attachment[govspeak_content_attributes][manually_numbered_headings]",
+    name: "attachment[unnumbered_hoc_paper]",
     id_prefix: "hoc_paper_number_conditional",
     items: [
       {
         value: "0",
         text: "Numbered",
+        checked: numbered_hoc_paper,
         conditional: render("govuk_publishing_components/components/input", {
           label: {
             text: "Fill in the command and House of Commons boxes to publish an official document which will appear in the list of official documents."
@@ -19,6 +33,7 @@
       {
         value: "1",
         text: "Unnumbered",
+        checked: unnumbered_hoc_paper,
       }
     ]
   } %>
@@ -26,9 +41,11 @@
 
 <%
   options = [{text: "Choose the right Parliamentary session", value: ""}]
-  options.concat(Attachment.parliamentary_sessions.map do |session| {
+  options.concat(Attachment.parliamentary_sessions.map do |session|
+    {
       text: session,
-      value: session
+      value: session,
+      selected: form.object.parliamentary_session == session ? true : false
     }
   end)
 %>
