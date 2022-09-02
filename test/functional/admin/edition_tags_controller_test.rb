@@ -236,7 +236,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select ".govuk-caption-l", @edition[:title]
+    assert_select ".govuk-caption-xl", @edition[:title]
     assert_select "h1", "Topic taxonomy tags"
   end
 
