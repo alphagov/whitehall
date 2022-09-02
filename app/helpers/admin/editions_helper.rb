@@ -145,7 +145,7 @@ module Admin::EditionsHelper
         yield(form)
         concat render("legacy_access_limiting_fields", form: form, edition: edition)
         concat render("legacy_scheduled_publication_fields", form: form, edition: edition)
-        concat standard_edition_publishing_controls(form, edition)
+        concat legacy_standard_edition_publishing_controls(form, edition)
       end
     end
   end
@@ -223,11 +223,11 @@ module Admin::EditionsHelper
     end
   end
 
-  def standard_edition_publishing_controls(form, edition)
+  def legacy_standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls well") do
       if edition.change_note_required?
         concat render(
-          partial: "change_notes",
+          partial: "legacy_change_notes",
           locals: { form: form, edition: edition },
         )
       end
