@@ -55,6 +55,12 @@ module Whitehall
       end
     end
 
+    def save_button
+      @template.tag.div(class: "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) do
+        @template.concat submit("Update #{object.class.to_s.dasherize.humanize.downcase}", name: "save", class: "gem-c-button govuk-button")
+      end
+    end
+
     def save_or_cancel(options = {})
       form_actions(options.reverse_merge(buttons: { save: "Save" }))
     end

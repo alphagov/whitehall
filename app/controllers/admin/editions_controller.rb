@@ -111,6 +111,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     @edition.assign_attributes(edition_params)
+
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
@@ -442,6 +443,7 @@ private
     return if edition_params.empty?
 
     edition_params[:title].strip! if edition_params[:title]
+    edition_params.delete(:change_note) if edition_params[:minor_change].present?
     edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank?
   end
 

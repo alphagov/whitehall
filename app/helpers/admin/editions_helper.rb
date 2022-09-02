@@ -239,6 +239,17 @@ module Admin::EditionsHelper
     end
   end
 
+  def standard_edition_publishing_controls(form, edition)
+    if edition.change_note_required?
+      concat render(
+        partial: "change_notes",
+        locals: { form: form, edition: edition },
+      )
+    end
+
+    form.save_button
+  end
+
   def warn_about_lack_of_contacts_in_body?(edition)
     if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
       govspeak_embedded_contacts(edition.body).empty?
