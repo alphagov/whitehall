@@ -12,6 +12,8 @@ class Admin::LicencesController < Admin::BaseController
     @activity_options = Activity.order(:title).map do |activity|
       [activity.title, activity.id]
     end
+
+    @selected_sectors = @licence.sectors.map(&:id)
   end
 
   def update

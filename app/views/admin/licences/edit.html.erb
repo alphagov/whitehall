@@ -9,7 +9,7 @@
 
       <%= form.label :sector_ids, 'Sectors' %>
       <%= form.select :sector_ids,
-                      options_from_collection_for_select(Sector.order(:title), 'id', 'title', @licence.sectors),
+                      options_from_collection_for_select(Sector.order(:title), 'id', 'title', selected: @selected_sectors),
                       {},
                       multiple: true,
                       class: 'chzn-select form-control',
