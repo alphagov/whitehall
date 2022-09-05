@@ -3,6 +3,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
   include PublicDocumentRoutesHelper
   include LockedDocumentConcern
 
+  layout :get_layout
+
   before_action :find_edition
   before_action :forbid_editing_of_historic_content!
   before_action :enforce_permissions!
@@ -100,6 +102,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def confirm_unpublish
     @unpublishing = @edition.build_unpublishing
+
+    render preview_design_system_user? ? :confirm_unpublish : :confirm_unpublish_legacy
   end
 
   def unpublish
@@ -110,7 +114,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
       flash.now[:alert] = message
-      render :confirm_unpublish
+      render preview_design_system_user? ? :confirm_unpublish : :confirm_unpublish_legacy
     end
   end
 
@@ -171,6 +175,19 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    return "admin" unless preview_design_system_user?
+
+    case action_name
+    when "confirm_unpublish"
+      "design_system"
+    when "unpublish"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def force_publish_reason
     "Force published: #{params[:reason]}"

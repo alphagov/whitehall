@@ -13,6 +13,13 @@ Feature: Unpublishing published documents
     Then there should be an editorial remark recording the fact that the document was unpublished
     And there should be an unpublishing explanation of "This page should never have existed" and a reason of "Published in error"
 
+  Scenario: Unpublishing a published document with design system permission
+    Given a published document "Published by accident" exists
+    And I have the "Preview design system" permission
+    When I unpublish the document because it was published in error
+    Then there should be an editorial remark recording the fact that the document was unpublished
+    And there should be an unpublishing explanation of "This page should never have existed" and a reason of "Published in error"
+
   Scenario: Draft resulting from an unpublishing should not be deletable
     Given a published document exists with a slug that does not match the title
     When I unpublish the document because it was published in error
@@ -28,8 +35,21 @@ Feature: Unpublishing published documents
     When I unpublish the duplicate, marking it as consolidated into the other page
     Then the unpublishing should redirect to the existing edition
 
+  Scenario: Consolidating a document into another GOV.UK page with design system permission
+    Given there is a published document that is a duplicate of another page
+    And I have the "Preview design system" permission
+    When I unpublish the duplicate, marking it as consolidated into the other page
+    Then the unpublishing should redirect to the existing edition
+
   Scenario: Withdraw a document that is no longer current
     Given a published publication "Shaving kits for all" exists
+    When I withdraw the publication with the explanation "Policy change"
+    Then there should be an unpublishing explanation of "Policy change" and a reason of "No longer current government policy/activity"
+    And the withdrawal date should be today
+
+  Scenario: Withdraw a document that is no longer current with design system permission
+    Given a published publication "Shaving kits for all" exists
+    And I have the "Preview design system" permission
     When I withdraw the publication with the explanation "Policy change"
     Then there should be an unpublishing explanation of "Policy change" and a reason of "No longer current government policy/activity"
     And the withdrawal date should be today
@@ -42,6 +62,16 @@ Feature: Unpublishing published documents
 
   Scenario: Withdraw a document using a previous withdrawal date & explanation
     Given a published publication "Free ice creams" exists
+    And the publication was withdrawn on 01/12/2020 with the explanation "It's too cold for ice cream"
+    And it was subsequently unwithdrawn
+    When I go to withdraw the publication again
+    And I choose to reuse the withdrawal from 01/12/2020
+    Then there should be an unpublishing explanation of "It's too cold for ice cream" and a reason of "No longer current government policy/activity"
+    And the withdrawal date should be 01/12/2020
+
+  Scenario: Withdraw a document using a previous withdrawal date & explanation with design system permission
+    Given a published publication "Free ice creams" exists
+    And I have the "Preview design system" permission
     And the publication was withdrawn on 01/12/2020 with the explanation "It's too cold for ice cream"
     And it was subsequently unwithdrawn
     When I go to withdraw the publication again
