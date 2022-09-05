@@ -90,9 +90,7 @@
                                   govspeak_link_errors: force_publisher.govspeak_link_errors,
                                   link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil %>
 
-      <%= render "words_to_avoid_guidance" %>
-      <h3 class="style-title">Style</h3>
-      <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
+      <%= render "style_guidance" %>
     </div>
   </div>
 </div>
