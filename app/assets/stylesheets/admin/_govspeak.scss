@@ -1,0 +1,14 @@
+.govspeak-design-system-help {
+  @include govuk-font(19);
+
+  pre {
+    padding: govuk-spacing(2);
+    background-color: govuk-colour("light-grey");
+    white-space: pre-line;
+    word-break: break-word;
+  }
+
+  .govuk-accordion__section-heading-text {
+    font-size: 19px; // stylelint-disable-line length-zero-no-unit
+  }
+}

@@ -32,19 +32,8 @@
           </section>
         </div>
 
-        <div class="col-md-4">
-          <% if current_user.can_view_move_tabs_to_endpoints? && !@edition.is_a?(CorporateInformationPage) %>
-            <div class="govspeak_help" id="govspeak_help">
-              <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
-                                          show_attachments_tab_help: true,
-                                          govspeak_link_errors: force_publisher.govspeak_link_errors,
-                                          link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil %>
-
-              <%= render "words_to_avoid_guidance" %>
-              <h3 class="style-title">Style</h3>
-              <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
-            </div>
-          <% else %>
+        <% unless current_user.can_view_move_tabs_to_endpoints? && !@edition.is_a?(CorporateInformationPage) %>
+          <div class="col-md-4">
             <%= sidebar_tabs edition_tabs(
               @edition,
               remarks_count: @edition_remarks.length,
@@ -87,10 +76,23 @@
                     <p>To send a fact check request, save your changes.</p>
                   <% end %>
                 <% end %>
+              </div>
             <% end %>
-          <% end %>
-        </div>
+        <% end %>
       </div>
     <% end %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <div class="govspeak-design-system-help">
+      <%= render "design_system_govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+                                  show_attachments_tab_help: true,
+                                  govspeak_link_errors: force_publisher.govspeak_link_errors,
+                                  link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_reports.last : nil %>
+
+      <%= render "words_to_avoid_guidance" %>
+      <h3 class="style-title">Style</h3>
+      <p>For style, see the <a href="https://www.gov.uk/guidance/style-guide">style guide</a></p>
+    </div>
   </div>
 </div>
