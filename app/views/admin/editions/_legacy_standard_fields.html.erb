@@ -16,7 +16,7 @@
     module: "paste-html-to-govspeak"
   } %>
 
-  <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
+  <%= render partial: "legacy_additional_significant_fields", locals: {form: form, edition: form.object} %>
 
   <% if (edition.document and edition.document.live?) and can?(:mark_political, edition) %>
     <%= form.check_box :political, label_text: "Associate with government of the time (currently set to #{edition.government&.name}).", class: 'political-status' %>
