@@ -37,7 +37,7 @@
         <h1><%= edition_edit_headline(@edition) %></h1>
 
         <%= render('legacy_similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
-        <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
+        <%= render "legacy_recent_openings", edition: @edition, recent_openings: @recent_openings %>
         <%= if @edition.is_a?(Publication) %>
           <%= render "legacy_form", edition: @edition %>
         <% else %>
