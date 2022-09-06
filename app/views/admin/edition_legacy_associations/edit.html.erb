@@ -8,7 +8,7 @@
     <%= form_for @edition, url: admin_edition_legacy_associations_path(@edition), as: :edition, method: :put,
         html: { class: edition_form_classes(@edition) } do |form| %>
 
-      <%= render 'specialist_sector_fields', form: form, edition: @edition %>
+      <%= render 'legacy_specialist_sector_fields', form: form, edition: @edition %>
       <div class="publishing-controls well">
         <%= form.form_actions(buttons: { save: 'Save' }, cancel: @path) %>
       </div>
