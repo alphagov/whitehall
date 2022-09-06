@@ -131,7 +131,7 @@ module Admin::EditionsHelper
     form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
       concat edition_information(information) if information
       concat form.errors
-      concat render("standard_fields", form: form, edition: edition)
+      concat render("legacy_standard_fields", form: form, edition: edition)
       yield(form)
       concat render("access_limiting_fields", form: form, edition: edition)
       concat render("scheduled_publication_fields", form: form, edition: edition)
