@@ -1,0 +1,48 @@
+en:
+  admin:
+    whats_new:
+      title: What’s new in Whitehall Publisher
+      summary: |
+        Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
+      last_updated: Last updated 5 September 2022
+      introduction:
+        heading: Moving to the Design System
+        body_govspeak: |
+          Whitehall Publisher will be moving from the current styling to use the styling and components of the [GOV.UK Design System](https://design-system.service.gov.uk/).
+          This will make Whitehall Publisher more accessible, more user friendly and give you to have a consistent user experience throughout your publishing journey on GOV.UK.
+
+          [Read more about the changes on the content community Basecamp](https://3.basecamp.com/4322319/buckets/15005645/messages/5287245970).
+      recent_changes:
+        heading: Recent changes
+        updates:
+          - heading: Reusing previous withdrawal dates and public explanations
+            area: Creating and updating documents
+            type: improved
+            date: 26 September 2022
+            body_govspeak: |
+              When re-withdrawing content, you can choose to reuse a previous withdrawal date and public explanation in certain circumstances.
+
+              [Read the guidance about when you can reuse previous withdrawal dates and explanations](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving).
+          - heading: Shareable document preview links
+            area: Creating and updating documents
+            type: new
+            date: 22 June 2022
+            body_govspeak: |
+              You can share document preview links for draft content with people who do not have access to Whitehall Publisher.
+
+              [Read the guidance about where and how to use document preview links](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#preview-content).
+          - heading: Paste and convert to Govspeak
+            area: Creating and updating documents
+            type: new
+            date: 18 May 2022
+            body_govspeak: |
+              When you paste text into the body field Whitehall Publisher will try to convert it to markdown. It will recognise headings, links, and lists. Other formatting will be removed and only plain text pasted.
+      guidance:
+        heading: Publisher guidance, updates to GOV.UK and previous changes to Whitehall Publisher
+        body_govspeak: |
+          You can find out more:
+
+          - [How to publish content on GOV.UK guidance](https://www.gov.uk/guidance/how-to-publish-on-gov-uk)
+          - [Planning, writing and managing content guidance](https://www.gov.uk/guidance/content-design)
+          - [Inside GOV.UK blog](https://insidegovuk.blog.gov.uk/)
+          - [Style guide](https://www.gov.uk/guidance/style-guide)
