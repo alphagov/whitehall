@@ -46,7 +46,7 @@
       <% end %>
     </section>
 
-    <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
+    <%= render('legacy_similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
 
     <% if @edition.scheduled_publication %>
       <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
