@@ -11,7 +11,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'legacy_specialist_sector_fields', locals: { form: form, edition: edition } %>
     </fieldset>
   <% end %>
 <% else %>
@@ -24,7 +24,7 @@
 
       <fieldset>
         <legend>Associations</legend>
-        <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'legacy_specialist_sector_fields', locals: { form: form, edition: edition } %>
       </fieldset>
     <% end %>
   <% end %>
