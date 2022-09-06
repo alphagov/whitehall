@@ -19,13 +19,15 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    render :edit_legacy
+  end
 
   def update
     if @response.update(response_params)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
-      render :edit
+      render :edit_legacy
     end
   end
 
