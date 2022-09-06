@@ -3,7 +3,7 @@
 <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
   <% if form.object.errors.any? %>
     <%= render "govuk_publishing_components/components/error_summary", {
-      title: "To save the #{form.object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:",
+      title: "To save the #{attachment.readable_type} attachment please fix the following issues:",
       items: form.object.errors.full_messages.map do |msg| {
           text: msg
         }
