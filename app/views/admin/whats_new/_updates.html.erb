@@ -1,0 +1,24 @@
+<% updates.each do | update | %>
+  <div class="app-view-whats-new__update">
+    <% if update[:area].present? %>
+      <span class="govuk-caption-m"><%= update[:area] %></span>
+    <% end %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: update[:heading],
+          heading_level: 3,
+          margin_bottom: 3,
+          font_size: "s",
+        } %>
+
+        <p class="govuk-body-s app-view-whats-new__update-date"><%= update[:date] %></p>
+
+        <%= render_govspeak(update[:body_govspeak]) %>
+      </div>
+      <div class="govuk-grid-column-one-quarter app-view-whats-new__update-type">
+        <%= render partial: "admin/whats_new/type", locals: { type: update[:type] } %>
+      </div>
+    </div>
+  </div>
+<% end %>

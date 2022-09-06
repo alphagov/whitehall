@@ -322,6 +322,8 @@ Whitehall::Application.routes.draw do
 
         get "/editions/:id" => "editions#show"
 
+        get "/whats-new" => "whats_new#index", as: :whats_new
+
         resources :statistics_announcements, except: [:destroy] do
           member do
             get :cancel
