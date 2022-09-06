@@ -19,7 +19,7 @@
       name: "attachment[title]",
       heading_level: 2,
       heading_size: "l",
-      value: form.object.title.blank? ? "" : form.object.title
+      value: form.object.title
     } %>
   </div>
 
@@ -56,7 +56,7 @@
         name: "attachment[external_url]",
         heading_level: 2,
         heading_size: "l",
-        value: form.object.external_url.blank? ? "" : form.object.external_url
+        value: form.object.external_url
       } %>
     </div>
   <% else %>
