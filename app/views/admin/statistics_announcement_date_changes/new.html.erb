@@ -13,7 +13,7 @@
 
   <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
     <%= form.errors %>
-    <%= render '/admin/statistics_announcements/release_date', form: form %>
+    <%= render '/admin/statistics_announcements/legacy_release_date', form: form %>
     <div class="form-group">
       <% if @statistics_announcement.confirmed? %>
         <%= form.text_area :change_note, required: true, rows: 5, class: 'form-control', label_text: 'Public change note' %>
