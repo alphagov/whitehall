@@ -9,7 +9,7 @@ class Admin::EditorialRemarksController < Admin::BaseController
   end
 
   def index
-    @edition_remarks = @edition.document_remarks_trail.reverse
+    @document_remarks = Document::PaginatedRemarks.new(@edition.document, params[:page])
   end
 
   def new

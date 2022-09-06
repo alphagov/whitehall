@@ -78,7 +78,7 @@
     <% elsif !current_user.can_view_move_tabs_to_endpoints? || @edition.is_a?(CorporateInformationPage) %>
       <%= sidebar_tabs edition_tabs(
         @edition,
-        remarks_count: @edition_remarks.length,
+        remarks_count: @document_remarks.total_count,
         history_count: @document_history.total_count
         ),
         class: 'remarks-history' do |tabs| %>
@@ -86,7 +86,9 @@
         <%= tabs.pane class: "audit-trail", id: "notes" do %>
           <h1>Notes</h1>
           <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
-          <%= render_editorial_remarks(@edition_remarks, @edition) %>
+          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+          <%= render_editorial_remarks(@document_remarks, @edition) %>
+          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
         <% end %>
 
         <%= tabs.pane class: "audit-trail", id: "history" do %>
