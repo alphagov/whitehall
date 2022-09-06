@@ -2,7 +2,7 @@
   <%= standard_edition_form(edition, @information) do |form| %>
 
     <div class="js-external-url-set">
-      <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+      <%= render partial: 'legacy_inline_attachments_info', locals: { form: form, edition: edition } %>
     </div>
   <% end %>
 <% else %>
@@ -10,7 +10,7 @@
     <%= standard_edition_form(edition, @information) do |form| %>
 
       <div class="js-external-url-set">
-        <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+        <%= render partial: 'legacy_inline_attachments_info', locals: { form: form, edition: edition } %>
       </div>
     <% end %>
   <% end %>
