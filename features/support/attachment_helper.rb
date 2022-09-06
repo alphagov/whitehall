@@ -23,16 +23,13 @@ module AttachmentHelper
     Attachment.find_by(title: attachment_title)
   end
 
-  def create_external_attachment(url, attachment_title, permissions)
+  def create_external_attachment(url, attachment_title)
     click_on "Add new external attachment"
     fill_in "Title", with: attachment_title
     fill_in "External url", with: url
 
-    if permissions == "design_system"
-      click_on "Next"
-    else
-      click_on "Save"
-    end
+    design_system = @user.has_permission? "Preview design system"
+    click_on design_system ? "Next" : "Save"
 
     Attachment.find_by(title: attachment_title)
   end
@@ -40,7 +37,7 @@ module AttachmentHelper
   def add_external_attachment
     location = current_url
     click_link "Modify attachments"
-    create_external_attachment("http://www.example.com/example", "Example doc", nil)
+    create_external_attachment("http://www.example.com/example", "Example doc")
     visit location
   end
 

@@ -30,7 +30,7 @@ Feature: Managing attachments on editions
     When I start editing the attachments from the publication page
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example **Govspeak body**"
-    And I add an external attachment with the title "Beard Length Illustrations" and the URL "http://www.beardlengths.gov.uk" with design system permission
+    And I add an external attachment with the title "Beard Length Illustrations" and the URL "http://www.beardlengths.gov.uk"
     Then the publication "Standard Beard Lengths" should have 3 attachments
     When I set the order of attachments to:
       |         title                | order |

@@ -26,11 +26,7 @@ When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/
 end
 
 When(/^I add an external attachment with the title "(.*?)" and the URL "(.*?)"$/) do |title, url|
-  create_external_attachment(url, title, nil)
-end
-
-When(/^I add an external attachment with the title "(.*?)" and the URL "(.*?)" with design system permission$/) do |title, url|
-  create_external_attachment(url, title, "design_system")
+  create_external_attachment(url, title)
 end
 
 When(/^I try and upload an attachment but there are validation errors$/) do
