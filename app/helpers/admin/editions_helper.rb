@@ -216,7 +216,7 @@ module Admin::EditionsHelper
     tag.div(class: "publishing-controls well") do
       if edition.change_note_required?
         concat render(
-          partial: "change_notes",
+          partial: "legacy_change_notes",
           locals: { form: form, edition: edition },
         )
       end
