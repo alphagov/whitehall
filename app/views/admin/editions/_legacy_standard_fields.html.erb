@@ -1,6 +1,6 @@
 <%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
   <%= render "legacy_subtype_fields", form: form, edition: form.object %>
-  <%= render "locale_fields", form: form, edition: edition %>
+  <%= render "legacy_locale_fields", form: form, edition: edition %>
 
   <%= form.hidden_field :lock_version %>
   <% if form.object.document %>
