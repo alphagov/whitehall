@@ -7,7 +7,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'legacy_organisation_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'legacy_topical_event_fields', locals: { form: form, edition: edition } %>
     </fieldset>
   <% end %>
@@ -17,7 +17,7 @@
 
       <fieldset>
         <legend>Associations</legend>
-        <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'legacy_organisation_fields', locals: { form: form, edition: edition } %>
         <%= render partial: 'legacy_topical_event_fields', locals: { form: form, edition: edition } %>
       </fieldset>
     <% end %>
