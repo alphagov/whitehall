@@ -3,6 +3,9 @@ class PastForeignSecretariesController < PublicFacingController
 
   def index
     @twenty_first_century = {
+      "Elizabeth Truss" => {
+        service: "2021 to 2022",
+      },
       "Dominic Raab" => {
         service: "2019 to 2021",
       },
