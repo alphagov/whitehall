@@ -63,7 +63,7 @@
             <%= consulation_response_help_text(@response) %>
           </p>
 
-          <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
+          <%= render partial: 'legacy_form', locals: { consultation: @edition, consultation_response: @response } %>
         <% end %>
       <% end %>
     <% end %>
