@@ -28,7 +28,7 @@
       <%= form.text_field :additional_related_mainstream_content_url %>
     </fieldset>
 
-    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'legacy_nation_fields', locals: { form: form, edition: edition } %>
   <% end %>
 <% else %>
   <%= edition_editing_tabs(edition) do %>
@@ -57,7 +57,7 @@
         <%= form.text_field :additional_related_mainstream_content_url %>
       </fieldset>
 
-      <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'legacy_nation_fields', locals: { form: form, edition: edition } %>
     <% end %>
   <% end %>
 <% end %>
