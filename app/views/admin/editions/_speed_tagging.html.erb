@@ -57,7 +57,7 @@
 
     <% if @edition.can_be_associated_with_world_locations? %>
       <h3>World locations</h3>
-      <%= render partial: 'world_location_fields', locals: { form: form, edition: @edition } %>
+      <%= render partial: 'legacy_world_location_fields', locals: { form: form, edition: @edition } %>
     <% end %>
 
     <%= submit_tag "Save", class: 'btn btn-primary', name: "speed_save" %>
