@@ -128,382 +128,306 @@ hr:
     type:
       about:
         few:
-        many:
         one: O nama
         other: O nama
       about_our_services:
         few:
-        many:
         one: O našim uslugama
         other: O našim uslugama
       access_and_opening:
         few:
-        many:
         one: Pristup i otvaranje
         other: Pristup i otvaranje
       accessible_documents_policy:
         few:
-        many:
         one: Politika pristupačnih dokumenata
         other: Politika pristupačnih dokumenata
       alert:
         few:
-        many:
         one: Upozorenje
         other: Upozorenja
       announcement:
         few:
-        many:
         one: Obavijest
         other: Obavijesti
       authored_article:
         few:
-        many:
         one: Autorski članak
         other: Autorski članci
       blog_post:
         few:
-        many:
         one: Postavka bloga
         other: Postavke bloga
       campaign:
         few:
-        many:
         one: Kampanja
         other: Kampanje
       careers:
         few:
-        many:
         one: Karijere
         other: karijere
       case_study:
         few:
-        many:
         one: Studija slučaja
         other: Studije slučaja
       closed_consultation:
         few:
-        many:
         one: Zatvorena konzultacija
         other: Zatvorene konzultacije
       complaints_procedure:
         few:
-        many:
         one: Postupak prigovora
         other: Postupci prigovora
       consultation:
         few:
-        many:
         one: Konzultacija
         other: Konzultacije
       consultation_outcome:
         few:
-        many:
         one: Ishod konzultacija
         other: Ishodi konzultacija
       corporate_report:
         few:
-        many:
         one: Korporativno izvješće
         other: Korporativna izvješća
       correspondence:
         few:
-        many:
         one: Prepiska
         other: Prepiske
       decision:
         few:
-        many:
         one: Odluka
         other: Odluke
       detailed_guidance:
         few:
-        many:
         one: Upute
         other: Upute
       document_collection:
         few:
-        many:
         one: Kolekcija
         other: Kolekcije
       draft_text:
         few:
-        many:
         one: Nacrt teksta
         other: Nacrt tekstova
       edition:
         few:
-        many:
         one: Izdanje
         other: Izdanja
       edition_with_appointment:
         few:
-        many:
         one: Izdanje sa dogovorom
         other: Izdanja sa dogovorom
       equality_and_diversity:
         few:
-        many:
         one: Jednakost i raznolikost
         other: Jednakost i raznolikost
       fatality_notice:
         few:
-        many:
         one: Obavijest o smrtnom slučaju
         other: Obavijest o smrtnim slučajevima
       foi_release:
         few:
-        many:
         one: Izdanje slobode informacija
         other: Izdanja slobode informacija
       form:
         few:
-        many:
         one: Obrazac
         other: Obrasci
       generic_edition:
         few:
-        many:
         one: Opće izdanje
         other: Opća izdanja
       government_response:
         few:
-        many:
         one: Odgovor vlade
         other: Odgovori vlade
       guidance:
         few:
-        many:
         one: Upute
         other: Upute
       impact_assessment:
         few:
-        many:
         one: Procjena utjecaja
         other: Procjene utjecaja
       imported:
         few:
-        many:
         one: uvezeno - čekajući tip
         other: uvezeno - čekajući tip
       independent_report:
         few:
-        many:
         one: Nezavisno izvješće
         other: Nezavisna izvješća
       international_treaty:
         few:
-        many:
         one: Međunarodni ugovor
         other: Međunarodni ugovori
       manual:
         few:
-        many:
         one: Priručnik
         other: Priručnici
       map:
         few:
-        many:
         one: Karta
         other: Karte
       media_enquiries:
         few:
-        many:
         one: Medijski upit
         other: Upiti za medije
       membership:
         few:
-        many:
         one: Članstvo
         other: Članstvo
       modern_slavery_statement:
         few:
-        many:
         one:
         other:
       national_statistics:
         few:
-        many:
         one: Nacionalna statistika
         other: Nacionalna statistika
       news_article:
         few:
-        many:
         one: Novinski članak
         other: Novinski članci
       news_story:
         few:
-        many:
         one: Novosti
         other: Novosti
       nhs_content:
         few:
-        many:
         one: Sadržaj nacionalne zdravstvene službe
         other: Sadržaj nacionalne zdravstvene službe
       notice:
         few:
-        many:
         one: Obavijest
         other: Obavijesti
       official_statistics:
         few:
-        many:
         one: Službena statistika
         other: Službene statistike
       open_consultation:
         few:
-        many:
         one: Otvorena konzultacija
         other: Otvorene konzultacije
       oral_statement:
         few:
-        many:
         one: Usmena izjava Parlamentu
         other: Usmene izjave Parlamentu
       our_energy_use:
         few:
-        many:
         one: Naša potrošnja energije
         other: Naša potrošnja energije
       our_governance:
         few:
-        many:
         one: Naše upravljanje
         other: Naše upravljanje
       personal_information_charter:
         few:
-        many:
         one: Povelja o osobnim podacima
         other: Povelje o osobnim podacima
       petitions_and_campaigns:
         few:
-        many:
         one: Peticije i kampanje
         other: Peticije i kampanje
       policy_paper:
         few:
-        many:
         one: Dokument o pravilima
         other: Dokument o pravilima
       press_release:
         few:
-        many:
         one: Saopćenje za javnost
         other: Saopćenja za javnost
       procurement:
         few:
-        many:
         one: Nabavka
         other: Nabavka
       promotional:
         few:
-        many:
         one: Promidžbeni materijal
         other: Promidžbeni materijal
       publication:
         few:
-        many:
         one: Izdanje
         other: Izdanja
       publication_scheme:
         few:
-        many:
         one: Shema izdanja
         other: Sheme izdanja
       recruitment:
         few:
-        many:
         one: Zapošljavanje
         other: Zapošljavanje
       regulation:
         few:
-        many:
         one: Regulacija
         other: Regulacije
       research:
         few:
-        many:
         one: Istraživanje
         other: Istraživanje
       service:
         few:
-        many:
         one: Usluga
         other: Usluge
       social_media_use:
         few:
-        many:
         one: Korištenje društvenih medija
         other: Korištenje društvenih medija
       speaking_notes:
         few:
-        many:
         one: Govorne bilješke
         other: Govorne bilješke
       speech:
         few:
-        many:
         one: Govor
         other: Govori
       staff_update:
         few:
-        many:
         one: Ažuriranje osoblja
         other: Ažuriranje osoblja
       standard:
         few:
-        many:
         one: Standard
         other: Standardi
       statement_to_parliament:
         few:
-        many:
         one: Izjava Parlamentu
         other: Izjave Parlamentu
       statistical_data_set:
         few:
-        many:
         one: Skup statističkih podataka
         other: Skupovi statističkih podataka
       statistics:
         few:
-        many:
         one: Statistika
         other: Statistika
       statutory_guidance:
         few:
-        many:
         one: Zakonske smjernice
         other: Zakonske smjernice
       terms_of_reference:
         few:
-        many:
         one: Projektni zadatak
         other: Projektni zadatak
       transcript:
         few:
-        many:
         one: Prijepis
         other: Prijepisi
       transparency:
         few:
-        many:
         one: Podaci o transparentnosti
         other: Podaci o transparentnosti
       welsh_language_scheme:
         few:
-        many:
         one: Shema velškog jezika
         other: Sheme velškog jezika
       world_news_story:
         few:
-        many:
         one: Vijesti širom svijeta
         other: Vijesti širom svijeta
       written_statement:
         few:
-        many:
         one: Pismena izjava Parlamentu
         other: Pismene izjave Parlamentu
     updated: ažurirano
@@ -714,12 +638,10 @@ hr:
     type:
       international_delegation:
         few:
-        many:
         one: Međunarodna delegacija
         other: Međunarodne delegacije
       world_location:
         few:
-        many:
         one: Svjetske lokacije
         other: Lokacije svijeta
   world_news:
