@@ -1,14 +1,20 @@
 <% class_name = class_name.presence || object.class.name.demodulize.underscore.humanize.downcase %>
 
 <% if object.errors.present? %>
-  <%= render "govuk_publishing_components/components/error_summary", {
-    id: "error-summary",
-    title: "To save the #{class_name} please fix the following issues:",
-    items: object.errors.errors.map do |error|
-        {
-          href:"##{object.class.to_s.underscore}_#{error.attribute.to_s}",
-          text: error.full_message || error.type,
-        }
-      end
-  } %>
+  <div class="gem-c-error-summary govuk-error-summary" data-module="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" id="error-summary" data-govuk-error-summary-module-started="true">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      To save the <%= class_name %> please fix the following issues:
+    </h2>
+
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <% object.errors.errors.map do |error| %>
+          <% analytics_action = "#{object.class.name.demodulize.underscore.dasherize}-error" %>
+          <% error_message = error.full_message || error.type %>
+
+          <%= tag.li(tag.a(error_message, href: "##{object.class.to_s.underscore}_#{error.attribute.to_s}", class: "govuk-link"), data: track_analytics_data("form-error", analytics_action, error_message), class: "gem-c-error-summary__list-item") %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
