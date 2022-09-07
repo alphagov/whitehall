@@ -1,24 +1,16 @@
 <% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
 
 <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
-  <% if form.object.errors.any? %>
-    <%= render "govuk_publishing_components/components/error_summary", {
-      title: "To save the #{attachment.readable_type} attachment please fix the following issues:",
-      items: form.object.errors.full_messages.map do |msg| {
-          text: msg
-        }
-      end
-    } %>
-  <% end %>
-
   <div class="govuk-!-margin-bottom-8">
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Title (required)"
       },
       name: "attachment[title]",
+      id: "attachment_title",
       heading_level: 2,
       heading_size: "l",
+      error_message: errors_for_input_field(attachment, :title),
       value: form.object.title
     } %>
   </div>
@@ -54,8 +46,10 @@
           text: "External url (required)"
         },
         name: "attachment[external_url]",
+        name: "attachment_external_url",
         heading_level: 2,
         heading_size: "l",
+        error_message: errors_for_input_field(attachment, :external_url),
         value: form.object.external_url
       } %>
     </div>
