@@ -1,0 +1,12 @@
+<% if object.errors.present? %>
+  <%= render "govuk_publishing_components/components/error_summary", {
+    id: "error-summary",
+    title: "To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:",
+    items: object.errors.errors.map do |error|
+        {
+          href:"##{object.class.to_s.underscore}_#{error.attribute.to_s}",
+          text: error.full_message,
+        }
+      end
+  } %>
+<% end %>
