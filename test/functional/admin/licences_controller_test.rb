@@ -17,4 +17,28 @@ class Admin::LicencesControllerTest < ActionController::TestCase
     assert_template :show
     assert_equal @licence, assigns(:licence)
   end
+
+  test "PUT :update changes licence details" do
+    description = "Licence description"
+
+    patch :update,
+          params: {
+            id: @licence.id,
+            licence: {
+              title: "title",
+              description: description,
+              sector_ids: [@sector.id],
+              activity_id: @activity.id,
+              external_link: true,
+            },
+          }
+
+    @licence.reload
+
+    assert_redirected_to admin_licences_path
+    assert_equal %("#{@licence.title}" saved.), flash[:notice]
+    assert_equal description, @licence.description
+    assert_equal @activity.id, @licence.activity_id
+    assert_equal @sector.title, @licence.sectors.first.title
+  end
 end
