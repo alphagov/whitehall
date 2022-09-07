@@ -4,7 +4,7 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", href: attachable_attachments_path(attachable) %>
 <% end %>
-<% content_for :error_summary, render('shared/error_summary', object: attachment.becomes(Attachment)) %>
+<% content_for :error_summary, render('shared/error_summary', object: attachment.becomes(Attachment), class_name: attachment.class.name.demodulize.underscore.humanize.downcase) %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
