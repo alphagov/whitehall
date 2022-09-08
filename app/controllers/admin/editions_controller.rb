@@ -102,11 +102,12 @@ class Admin::EditionsController < Admin::BaseController
   def edit
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails
-    render :edit
+    render :edit_legacy
   end
 
   def update
     @edition.assign_attributes(edition_params)
+
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
@@ -124,7 +125,7 @@ class Admin::EditionsController < Admin::BaseController
         @information = updater.failure_reason
         build_edition_dependencies
         fetch_version_and_remark_trails
-        render :edit
+        render :edit_legacy
       end
     end
   rescue ActiveRecord::StaleObjectError
@@ -132,7 +133,7 @@ class Admin::EditionsController < Admin::BaseController
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
-    render action: "edit"
+    render :edit_legacy
   end
 
   def revise

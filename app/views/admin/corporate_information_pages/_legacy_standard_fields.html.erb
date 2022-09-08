@@ -1,5 +1,5 @@
 <%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
-  <%= render "subtype_fields", form: form, edition: form.object %>
+  <%= render "legacy_subtype_fields", form: form, edition: form.object %>
 
   <%= form.hidden_field :lock_version %>
 
@@ -17,9 +17,9 @@
     module: "paste-html-to-govspeak"
   } %>
 
-  <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
+  <%= render partial: "legacy_additional_significant_fields", locals: {form: form, edition: form.object} %>
 <% end %>
 
 <% if form.object.allows_image_attachments? %>
-  <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+  <%= render partial: "legacy_image_fields", locals: {form: form, edition: form.object} %>
 <% end %>

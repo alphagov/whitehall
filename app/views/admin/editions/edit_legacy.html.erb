@@ -17,12 +17,12 @@
     <div class="row">
       <div class="conflicting new col-md-6">
         <h2>Your version</h2>
-        <%= render "form", edition: @edition %>
+        <%= render "legacy_form", edition: @edition %>
       </div>
 
       <div class="conflicting latest col-md-6">
         <h2>Current saved version</h2>
-        <%= render "conflict", edition: @conflicting_edition %>
+        <%= render "legacy_conflict", edition: @conflicting_edition %>
       </div>
     </div>
   </section>
@@ -32,9 +32,9 @@
       <section>
         <h1><%= edition_edit_headline(@edition) %></h1>
 
-        <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
+        <%= render('legacy_similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
         <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
-        <%= render "form", edition: @edition %>
+        <%= render "legacy_form", edition: @edition %>
       </section>
     </div>
 

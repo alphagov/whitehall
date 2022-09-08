@@ -6,12 +6,12 @@
   <%= standard_edition_form(edition, @information) do |form| %>
 
     <div class="js-external-url-set">
-      <%= render 'inline_attachments_info', form: form, edition: edition %>
+      <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
     </div>
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'legacy_specialist_sector_fields', locals: { form: form, edition: edition } %>
     </fieldset>
   <% end %>
 <% else %>
@@ -19,12 +19,12 @@
     <%= standard_edition_form(edition, @information) do |form| %>
 
       <div class="js-external-url-set">
-        <%= render 'inline_attachments_info', form: form, edition: edition %>
+        <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
       </div>
 
       <fieldset>
         <legend>Associations</legend>
-        <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'legacy_specialist_sector_fields', locals: { form: form, edition: edition } %>
       </fieldset>
     <% end %>
   <% end %>

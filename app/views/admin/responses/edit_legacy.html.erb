@@ -4,7 +4,7 @@
   <section class="col-md-8">
     <h1>Editing <%= @response.friendly_name %> for consultation</h1>
 
-    <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
+    <%= render partial: 'legacy_form', locals: { consultation: @edition, consultation_response: @response } %>
   </section>
   <div class="col-md-4">
     <%= render partial: "admin/editions/govspeak_help",

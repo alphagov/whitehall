@@ -1,6 +1,6 @@
 <%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
-  <%= render "subtype_fields", form: form, edition: form.object %>
-  <%= render "locale_fields", form: form, edition: edition %>
+  <%= render "legacy_subtype_fields", form: form, edition: form.object %>
+  <%= render "legacy_locale_fields", form: form, edition: edition %>
 
   <%= form.hidden_field :lock_version %>
   <% if form.object.document %>
@@ -16,7 +16,7 @@
     module: "paste-html-to-govspeak"
   } %>
 
-  <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
+  <%= render partial: "legacy_additional_significant_fields", locals: {form: form, edition: form.object} %>
 
   <% if (edition.document and edition.document.live?) and can?(:mark_political, edition) %>
     <%= form.check_box :political, label_text: "Associate with government of the time (currently set to #{edition.government&.name}).", class: 'political-status' %>
@@ -24,12 +24,12 @@
   <% end %>
 <% end %>
 
-<%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+<%= render partial: 'legacy_first_published_at', locals: { form: form, edition: edition } %>
 
 <% if form.object.allows_image_attachments? %>
   <% if edition.type == "CaseStudy" %>
-    <%= render partial: "image_fields_case_studies", locals: {form: form, edition: form.object} %>
+    <%= render partial: "legacy_image_fields_case_studies", locals: {form: form, edition: form.object} %>
   <% else %>
-    <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+    <%= render partial: "legacy_image_fields", locals: {form: form, edition: form.object} %>
   <% end %>
 <% end %>
