@@ -15,7 +15,7 @@ end
 
 When(/^I add a french translation$/) do
   visit admin_edition_path(@edition)
-  click_link "open-add-translation-modal"
+  click_link "Add translation"
   select "Français", from: "Locale"
   click_button "Add translation"
 end

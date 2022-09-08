@@ -3,6 +3,8 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   before_action :forbid_editing_of_locked_documents
 
+  def new; end
+
   def update
     @translated_edition.change_note = "Added translation" if @translated_edition.change_note.blank?
     super

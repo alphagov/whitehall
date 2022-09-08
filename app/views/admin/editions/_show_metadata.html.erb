@@ -83,14 +83,12 @@
     <h2>
       Translations
       <% if @edition.editable? and @edition.missing_translations.any? %>
-        <a href="#add-translation-modal" id="open-add-translation-modal" class="btn btn-default pull-right" data-toggle="modal">
+        <%= link_to new_admin_edition_translation_path(@edition.id), class: "btn btn-default pull-right" do %>
           <i class="glyphicon glyphicon-plus-sign"></i> Add translation
-        </a>
+        <% end %>
       <% end %>
     </h2>
-    <% if @edition.editable? and @edition.missing_translations.any? %>
-      <%= render partial: 'admin/shared/translation_modal', locals: { id: "add-translation-modal", form_path: admin_edition_translations_path(@edition), locales: @edition.missing_translations } %>
-    <% end %>
+
     <% if @edition.non_english_translations.any? %>
       <table class="table">
         <thead>

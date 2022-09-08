@@ -1,0 +1,16 @@
+<% page_title "Add translation" %>
+
+<span class="back">
+  <%= link_to 'Back', admin_edition_path(@edition) %>
+</span>
+
+<h1>Add translation</h1>
+
+<%= form_tag(admin_edition_translations_path(@edition.id)) do %>
+    <div class="form-group">
+      <%= label_tag :translation_locale, 'Locale' %>
+      <%= select_locale :translation_locale, @edition.missing_translations, class: 'form-control input-md-4' %>
+    </div>
+
+    <%= submit_tag "Add translation", class: "btn btn-success" %>
+<% end %>

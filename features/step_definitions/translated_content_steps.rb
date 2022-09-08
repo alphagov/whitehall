@@ -30,7 +30,7 @@ end
 
 When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |french_title, english_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
-  click_link "open-add-translation-modal"
+  click_link "Add translation"
   select "Français", from: "Locale"
   click_button "Add translation"
   fill_in "Title", with: french_title
