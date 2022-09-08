@@ -1,16 +1,32 @@
-<% page_title "Add translation" %>
+<% content_for :page_title, "Add translation" %>
 
-<span class="back">
-  <%= link_to 'Back', admin_edition_path(@edition) %>
-</span>
+<%= render "govuk_publishing_components/components/back_link", {
+  href: admin_edition_path(@edition)
+} %>
 
-<h1>Add translation</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      context: @edition.title,
+      title: "Add translation"
+    } %>
 
-<%= form_tag(admin_edition_translations_path(@edition.id)) do %>
-    <div class="form-group">
-      <%= label_tag :translation_locale, 'Locale' %>
-      <%= select_locale :translation_locale, @edition.missing_translations, class: 'form-control input-md-4' %>
-    </div>
+    <%= form_with url: admin_edition_translations_path(@edition.id) do |form| %>
+      <%= render "govuk_publishing_components/components/select", {
+        id: "translation_locale",
+        label: "Choose language",
+        full_width: true,
+        options: options_for_locales(@edition.missing_translations).map do |language, value|
+          {
+            text: language,
+            value: value,
+          }
+        end
+      } %>
 
-    <%= submit_tag "Add translation", class: "btn btn-success" %>
-<% end %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Next"
+      } %>
+    <% end %>
+  </div>
+</div>
