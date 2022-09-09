@@ -1,6 +1,10 @@
 en:
   whats_new:
     dashboard_link_label: What’s new
+    whats_new_banner:
+      tag_label: Updates
+      content: Whitehall Publisher is changing
+      cta_label: find more about upcoming changes and what's new
     title: What’s new in Whitehall Publisher
     summary: |
       Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.

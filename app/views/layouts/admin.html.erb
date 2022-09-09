@@ -15,6 +15,11 @@
 
 <% content_for :navbar do %>
   <%= render "shared/header" %>
+  <div class="govuk-design-system-styling">
+    <div class="<%= yield(:full_width) === "true" ? "app-width-container--full-width" : "container" %>">
+      <%= render "shared/whats_new_banner" %>
+    </div>
+  </div>
 <% end %>
 
 <% content_for :content do %>

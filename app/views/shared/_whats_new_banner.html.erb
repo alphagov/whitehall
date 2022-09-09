@@ -1,0 +1,14 @@
+<%= render "govuk_publishing_components/components/phase_banner", {
+    phase: t('whats_new.whats_new_banner.tag_label'),
+    message: sanitize("#{t('whats_new.whats_new_banner.content')} - #{
+      link_to(
+        t('whats_new.whats_new_banner.cta_label'),
+        admin_whats_new_path,
+        data: {
+            track_category: 'phaseBanner',
+            track_action: "whats-new-banner-click",
+            track_label: 'Whats new'
+        }
+      )
+    }")
+  } %>
