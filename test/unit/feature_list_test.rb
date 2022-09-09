@@ -44,6 +44,16 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [feature2, feature1], feature_list.features
   end
 
+  test "republishes the organisation after reordering features" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, features: build_list(:feature, 6))
+
+    # the organisation should only be republished once
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
+
+    feature_list.reorder! feature_list.features.pluck(:id).reverse
+  end
+
   test "validation errors when reordering features are propogated" do
     feature1 = create(:feature)
     feature_list = create(:feature_list, locale: :en, features: [feature1])
