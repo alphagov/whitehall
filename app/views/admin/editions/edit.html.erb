@@ -27,7 +27,7 @@
         <div class="col-md-8">
           <section>
             <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
-            <%= render "legacy_recent_openings", edition: @edition, recent_openings: @recent_openings %>
+            <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
             <%= render "legacy_form", edition: @edition %>
           </section>
         </div>

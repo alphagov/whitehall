@@ -1,0 +1,12 @@
+<% if recent_openings.present? %>
+  <%= render "govuk_publishing_components/components/error_alert", {
+    message: "#{edition.format_name.capitalize} is being edited by another user",
+    description: (render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: recent_openings.map do |opening|
+               "#{linked_author(opening.editor)} started editing this #{edition.format_name} #{time_ago_in_words opening.created_at} and ago and hasn’t yet saved their work."
+             end
+      }
+    ) + tag.p("You might want to check if they are still working on it.", class: "govuk-body")
+  } %>
+<% end %>
