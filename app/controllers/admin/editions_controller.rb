@@ -17,6 +17,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :forbid_editing_of_locked_documents, only: %i[edit update revise destroy]
+  layout :get_layout
 
   def enforce_permissions!
     case action_name
@@ -102,7 +103,7 @@ class Admin::EditionsController < Admin::BaseController
   def edit
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails
-    render :edit_legacy
+    render :edit_legacy unless preview_design_system_user?
   end
 
   def update
@@ -118,14 +119,14 @@ class Admin::EditionsController < Admin::BaseController
       @edition.convert_to_draft! if params[:speed_save_convert]
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document"
+      flash.now[:alert] = "There are some problems with the document" unless preview_design_system_user?
       if speed_tagging?
         render :show
       else
         @information = updater.failure_reason
         build_edition_dependencies
         fetch_version_and_remark_trails
-        render :edit_legacy
+        render(preview_design_system_user? ? :edit : :edit_legacy)
       end
     end
   rescue ActiveRecord::StaleObjectError
@@ -133,7 +134,7 @@ class Admin::EditionsController < Admin::BaseController
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
-    render :edit_legacy
+    render(preview_design_system_user? ? :edit : :edit_legacy)
   end
 
   def revise
@@ -197,6 +198,17 @@ class Admin::EditionsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    return "admin" unless preview_design_system_user?
+
+    case action_name
+    when "edit", "update"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def speed_tagging?
     params[:speed_save_convert] || params[:speed_save]
