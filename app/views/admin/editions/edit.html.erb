@@ -1,0 +1,37 @@
+<% content_for :page_title, "Edit publication"%>
+<%= render "govuk_publishing_components/components/back_link", {
+  href: admin_edition_path(@edition)
+} %>
+<% content_for :error_summary, render('shared/error_summary', object: @edition.becomes(Edition), class_name: @edition.class.name.demodulize.underscore.humanize.downcase) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      context: @edition.title,
+      title: "Editing #{@edition.class.name.demodulize.underscore.humanize.downcase}"
+    } %>
+
+    <% if @conflicting_edition %>
+      <%= render "govuk_publishing_components/components/error_alert", {
+        message: "This document has been updated by another user since you started editing it.",
+        description: "Please review conflicts between the two versions and incorporate any changes before pressing save again."
+      } %>
+
+      <h2 class="govuk-heading-l">Your version</h2>
+      <%= render "legacy_form", edition: @edition %>
+
+      <h2 class="govuk-heading-l">Current saved version</h2>
+      <%= render "legacy_conflict", edition: @conflicting_edition %>
+    <% else %>
+      <div class="row">
+        <div class="col-md-8">
+          <section>
+            <%= render('legacy_similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
+            <%= render "legacy_recent_openings", edition: @edition, recent_openings: @recent_openings %>
+            <%= render "legacy_form", edition: @edition %>
+          </section>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
