@@ -18,7 +18,7 @@
       } %>
 
       <h2 class="govuk-heading-l">Your version</h2>
-      <%= render "legacy_form", edition: @edition %>
+      <%= render "form", edition: @edition %>
 
       <h2 class="govuk-heading-l">Current saved version</h2>
       <% render "legacy_conflict", edition: @conflicting_edition %>
@@ -28,7 +28,7 @@
           <section>
             <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
             <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
-            <%= render "legacy_form", edition: @edition %>
+            <%= render "form", edition: @edition %>
           </section>
         </div>
       </div>
