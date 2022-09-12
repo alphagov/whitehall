@@ -1200,10 +1200,27 @@ module AdminEditionControllerTestHelpers
         request.env["HTTPS"] = "on"
         get :edit, params: { id: edition }
 
-        assert_select ".editing_conflict", /Joe Bloggs/ do
-          assert_select "img[src^='https']"
-        end
-        assert_select ".editing_conflict", /1 hour ago/
+        assert_select ".govuk-notification-banner__heading", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work."
+        assert_select ".govuk-notification-banner__content .govuk-govspeak", "Contact joe@example.com if you think they are still working on it."
+        assert_select ".govuk-notification-banner__content a", text: "joe@example.com", href: "mailto:joe@example.com"
+      end
+
+      view_test "should see a warning when editing an edition has been recently edited by multiple people" do
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        other_user = create(:author, name: "Joe Bloggs", email: "joe@example.com")
+        third_user = create(:author, name: "Josie Bloggs", email: "josie@example.com")
+        edition.open_for_editing_as(other_user)
+        edition.open_for_editing_as(third_user)
+        Timecop.travel 1.hour.from_now
+
+        request.env["HTTPS"] = "on"
+        get :edit, params: { id: edition }
+
+        assert_select ".govuk-notification-banner__heading", "Multiple people have started editing this #{edition.format_name}:"
+        assert_select ".govuk-notification-banner__content li", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work.Contact joe@example.com if you think they are still working on it."
+        assert_select ".govuk-notification-banner__content a", text: "joe@example.com", href: "mailto:joe@example.com"
+        assert_equal assert_select(".govuk-notification-banner__content li")[1].text, "Josie Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work.Contact josie@example.com if you think they are still working on it."
+        assert_select ".govuk-notification-banner__content a", text: "josie@example.com", href: "mailto:josie@example.com"
       end
 
       test "saving a #{edition_type} should remove any RecentEditionOpening records for the current user" do
