@@ -13,49 +13,23 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     GenericEdition.translatable = false
   end
 
-  view_test "show displays a form to create missing translations" do
-    edition = create(:draft_edition)
+  view_test "show links to new translation page when the edition is editable" do
+    edition = create(:draft_edition, title: "english-title", summary: "english-summary", body: "english-body")
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }
 
-    assert_select "form[action=?]", admin_edition_translations_path(edition) do
-      assert_select "select[name=translation_locale]"
-      assert_select "input[type=submit]"
-    end
+    assert_select "a[href='#{new_admin_edition_translation_path(edition)}']", text: "Add translation"
   end
 
-  view_test "show omits existing edition translations from create select" do
-    edition = create(:draft_edition)
-    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-    with_locale(:es) { edition.update!(attributes_for("draft_edition")) }
-
-    get :show, params: { id: edition }
-
-    assert_select "select[name=translation_locale]" do
-      assert_select "option[value=es]", count: 0
-    end
-  end
-
-  view_test "show omits create form if no missing translations" do
-    edition = create(:draft_edition)
-    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-    with_locale(:es) { edition.update!(attributes_for("draft_edition")) }
-    Locale.stubs(:non_english).returns([Locale.new(:es)])
-
-    get :show, params: { id: edition }
-
-    assert_select "select[name=translation_locale]", count: 0
-  end
-
-  view_test "show omits create form unless the edition is editable" do
+  view_test "show omits new translation link unless the edition is editable" do
     edition = create(:published_edition)
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
     assert_not edition.editable?
 
     get :show, params: { id: edition }
 
-    assert_select "select[name=translation_locale]", count: 0
+    assert_select "a[href='#{new_admin_edition_translation_path(edition)}']", text: "Add translation", count: 0
   end
 
   view_test "show displays a link to edit an existing translation" do
