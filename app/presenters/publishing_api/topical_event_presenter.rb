@@ -61,7 +61,7 @@ module PublishingApi
       item
         .topical_event_featurings
         .includes(:image, edition: :document)
-        .limit(FeaturedLink::DEFAULT_SET_SIZE)
+        .limit(featured_documents_display_limit)
         .map do |feature|
           {
             title: feature.title,
@@ -83,6 +83,10 @@ module PublishingApi
           title: social_media_account.display_name,
         }
       end
+    end
+
+    def featured_documents_display_limit
+      item.content_id == TopicalEvent::HM_THE_QUEEN_CONTENT_ID ? 9 : FeaturedLink::DEFAULT_SET_SIZE
     end
   end
 end
