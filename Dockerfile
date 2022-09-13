@@ -1,4 +1,4 @@
-ARG ruby_version=3.0.4
+ARG ruby_version=3.1.2
 ARG base_image=ruby:$ruby_version-slim-bullseye
 ARG gem_home=/usr/local/bundle
 
