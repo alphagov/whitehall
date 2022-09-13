@@ -2,14 +2,6 @@
 <% content_for :title, t('admin.whats_new.title') %>
 <% content_for :title_margin_bottom, 0 %>
 
-<%
-  sections = [
-    t('admin.whats_new.introduction'),
-    t('admin.whats_new.recent_changes'),
-    t('admin.whats_new.guidance'),
-  ]
-%>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body-l"><%= t('admin.whats_new.summary') %></p>
@@ -18,17 +10,54 @@
 
     <div id="content-list">
       <%= render "govuk_publishing_components/components/contents_list", {
-        contents: sections.map do | section |
+        contents: [
           {
-            href: "##{section[:heading].parameterize(separator: '-')}",
-            text: section[:heading],
+            href: "##{t('admin.whats_new.introduction.heading').parameterize(separator: '-')}",
+            text: t('admin.whats_new.introduction.heading'),
+          },
+          {
+            href: "##{t('admin.whats_new.recent_changes.heading').parameterize(separator: '-')}",
+            text: t('admin.whats_new.recent_changes.heading'),
+          },
+          {
+            href: "##{t('admin.whats_new.guidance.heading').parameterize(separator: '-')}",
+            text: t('admin.whats_new.guidance.heading'),
           }
-        end
+        ]
       } %>
     </div>
 
-    <% sections.each do | section | %>
-      <%= render partial: "admin/whats_new/section", locals: section %>
-    <% end %>
+    <section class="app-view-whats-new__section" id="<%= t('admin.whats_new.introduction.heading').parameterize(separator: '-')%>">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: t('admin.whats_new.introduction.heading'),
+        font_size: "m",
+        margin_bottom: 3,
+      } %>
+
+      <%= render_govspeak(t('admin.whats_new.introduction.body_govspeak')) %>
+      <%= render partial: "admin/whats_new/back_to_top" %>
+    </section>
+
+    <section class="app-view-whats-new__section" id="<%= t('admin.whats_new.recent_changes.heading').parameterize(separator: '-')%>">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: t('admin.whats_new.recent_changes.heading'),
+        font_size: "m",
+        margin_bottom: 3,
+      } %>
+
+      <%= render(partial: "admin/whats_new/updates", locals: { updates: t('admin.whats_new.recent_changes.updates') }) %>
+      <%= render partial: "admin/whats_new/back_to_top" %>
+    </section>
+
+    <section class="app-view-whats-new__section" id="<%= t('admin.whats_new.guidance.heading').parameterize(separator: '-')%>">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: t('admin.whats_new.guidance.heading'),
+        font_size: "m",
+        margin_bottom: 3,
+      } %>
+
+      <%= render_govspeak(t('admin.whats_new.guidance.body_govspeak')) %>
+      <%= render partial: "admin/whats_new/back_to_top" %>
+    </section>
   </div>
 </div>
