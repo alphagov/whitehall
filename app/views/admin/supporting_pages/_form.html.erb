@@ -1,0 +1,17 @@
+<div class="format-advice">
+  <p class="govuk-body"><strong>Use this format for:</strong> Detailed background or information about an action government is taking in relation to a policy.</p>
+</div>
+
+<%= standard_edition_form(edition, @information) do |form| %>
+  <div class="js-external-url-set">
+    <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+  </div>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <%= render 'legacy_specialist_sector_fields', form: form, edition: edition %>
+  <% end %>
+<% end %>
