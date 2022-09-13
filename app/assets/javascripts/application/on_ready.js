@@ -12,6 +12,6 @@ jQuery(function ($) {
   GOVUK.feeds.init()
 })
 // These want images to be loaded before they run so the page height doesn't change.
-jQuery(window).load(function () {
+jQuery(window).on('load', function () {
   GOVUK.backToContent.init()
 })
