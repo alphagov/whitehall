@@ -49,7 +49,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       },
       document_type: "world_location_news",
       public_updated_at: world_location.updated_at,
-      rendering_app: "whitehall-frontend",
+      rendering_app: "collections",
       schema_name: "world_location_news",
       base_path: "/world/aardistan/news",
       routes: [{ path: "/world/aardistan/news", type: "exact" }],
@@ -110,6 +110,15 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       base_path = presented_item.content[:base_path]
 
       assert_equal "/world/aardistan/news.fr", base_path
+    end
+  end
+
+  test "it uses whitehall as the rendering app for non-english locales" do
+    I18n.with_locale(:fr) do
+      presented_item = present(world_location)
+      rendering_app = presented_item.content[:rendering_app]
+
+      assert_equal "whitehall-frontend", rendering_app
     end
   end
 

@@ -26,7 +26,7 @@ module PublishingApi
         },
         document_type: "world_location_news",
         public_updated_at: world_location.updated_at,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: rendering_app,
         schema_name: "world_location_news",
         base_path: path_for_news_page,
       )
@@ -60,6 +60,10 @@ module PublishingApi
           href: link.url,
         }
       end
+    end
+
+    def rendering_app
+      I18n.locale == :en ? Whitehall::RenderingApp::COLLECTIONS_FRONTEND : Whitehall::RenderingApp::WHITEHALL_FRONTEND
     end
 
     def path_for_news_page
