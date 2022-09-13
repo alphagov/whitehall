@@ -15,9 +15,15 @@ end
 
 When(/^I add a french translation$/) do
   visit admin_edition_path(@edition)
-  click_link "open-add-translation-modal"
-  select "Français", from: "Locale"
-  click_button "Add translation"
+  click_link "Add translation"
+
+  if @user.can_preview_design_system?
+    select "Français", from: "Choose language"
+    click_button "Next"
+  else
+    select "Français", from: "Locale"
+    click_button "Add translation"
+  end
 end
 
 When(/^I add an editorial remark "([^"]*)" to the document$/) do |remark_text|

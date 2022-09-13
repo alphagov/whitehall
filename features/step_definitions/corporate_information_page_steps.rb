@@ -42,9 +42,16 @@ When(/^I translate the "([^"]*)" corporate information page for the worldwide or
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link "Corporate information pages"
   click_link corp_page
-  click_link "open-add-translation-modal"
-  select "Français", from: "Locale"
-  click_button "Add translation"
+  click_link "Add translation"
+
+  if @user.can_preview_design_system?
+    select "Français", from: "Choose language"
+    click_button "Next"
+  else
+    select "Français", from: "Locale"
+    click_button "Add translation"
+  end
+
   fill_in "Summary", with: "Le summary"
   fill_in "Body", with: "Le body"
   click_on "Save"

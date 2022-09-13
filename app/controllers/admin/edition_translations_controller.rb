@@ -1,7 +1,11 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
-
+  layout :get_layout
   before_action :forbid_editing_of_locked_documents
+
+  def new
+    render "legacy_new" unless preview_design_system_user?
+  end
 
   def update
     @translated_edition.change_note = "Added translation" if @translated_edition.change_note.blank?
@@ -9,6 +13,17 @@ class Admin::EditionTranslationsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    return "admin" unless preview_design_system_user?
+
+    case action_name
+    when "new"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def create_redirect_path
     edit_admin_edition_translation_path(@edition, id: translation_locale)

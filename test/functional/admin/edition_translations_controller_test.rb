@@ -7,6 +7,30 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  view_test "new displays a form to create missing translations" do
+    edition = create(:draft_edition)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+    get :new, params: { edition_id: edition }
+
+    assert_select "form[action=?]", admin_edition_translations_path(edition) do
+      assert_select "select[name=translation_locale]"
+      assert_select "input[type=submit]"
+    end
+  end
+
+  view_test "new omits existing edition translations from create select" do
+    edition = create(:draft_edition)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+    with_locale(:es) { edition.update!(attributes_for("draft_edition")) }
+
+    get :new, params: { edition_id: edition }
+
+    assert_select "select[name=translation_locale]" do
+      assert_select "option[value=es]", count: 0
+    end
+  end
+
   test "create redirects to edit for the chosen language" do
     edition = create(:edition)
     post :create, params: { edition_id: edition, translation_locale: "fr" }
