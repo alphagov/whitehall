@@ -149,12 +149,21 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     assert_valid_against_publisher_schema(presenter.content, "topical_event")
   end
 
-  test "it limits the number of featured items" do
+  test "it limits the number of featured items to 5 by default" do
     topical_event = create(:topical_event, start_date: Time.zone.today)
     create_list(:topical_event_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, topical_event: topical_event)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal FeaturedLink::DEFAULT_SET_SIZE, presenter.content.dig(:details, :ordered_featured_documents).length
+  end
+
+  test "it limits the number of featured items to 9 on the Her Majesty Queen Elizabeth II's page" do
+    topical_event = create(:topical_event, content_id: "7feaef73-a6a8-484a-8915-6efbbe4a8269", start_date: Time.zone.today)
+    create_list(:topical_event_featuring, 9, topical_event: topical_event)
+
+    presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
+
+    assert_equal 9, presenter.content.dig(:details, :ordered_featured_documents).length
   end
 end
