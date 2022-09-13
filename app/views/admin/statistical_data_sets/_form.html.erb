@@ -1,0 +1,17 @@
+<div class="format-advice">
+  <p class="govuk-body"><strong>Use this format for:</strong> Frequently updated (“live”) statistical data files.</p>
+  <p class="govuk-body">Do <em>not</em> use for: less frequently updated (eg quarterly) data. Use a publication (subtype: statistics) instead.</p>
+</div>
+
+
+<%= standard_edition_form(edition, @information) do |form| %>
+  <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+  <% end %>
+<% end %>
