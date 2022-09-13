@@ -11,11 +11,10 @@
         <% object.errors.errors.map do |error| %>
           <% analytics_action = "#{class_name}-error" %>
           <% error_message = error.full_message %>
-
           <%= tag.li(
             tag.a(
               error_message,
-              href: "##{object.class.to_s.underscore}_#{error.attribute.to_s}",
+              href: "##{object.class.to_s.underscore}_#{error.attribute.to_s.gsub(".", "_")}",
               class: "govuk-link"
             ),
             data: track_analytics_data("form-error", analytics_action, error_message),
