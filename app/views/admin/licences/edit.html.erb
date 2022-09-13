@@ -2,6 +2,8 @@
 
 <div class="row">
   <section class="col-md-8">
+    <h1>Edit licence</h1>
+
     <%= form_for [:admin, nil, @licence], builder: Whitehall::FormBuilder do |form| %>
       <%= form.text_field :link, label_text: 'Link to licence', required: true %>
       <%= form.text_field :title, label_text: 'Title', required: false %>

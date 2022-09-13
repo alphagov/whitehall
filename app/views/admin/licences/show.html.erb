@@ -1,12 +1,40 @@
 <% page_title "Show Licence details" %>
 
-<p><%= @licence.title %></p>
-<p><%= @licence.link %></p>
-<p><%= @licence.description %></p>
-<p>Sectors:</p>
-<% @licence.sectors.each do |sector| %>
-  <li><%= sector.title %></li>
-<% end %>
-<br>
-<p>Activity: <%= @licence.activity.title %></p>
-<p>External Link? <%= @licence.external_link %></p>
+<h1>Licence details</h1>
+
+<span class="back">
+<%= link_to 'Back', admin_licences_path %>
+</span>
+
+<table class="roles table table-striped table-bordered add-top-margin">
+  <tbody>
+    <tr>
+      <td>Title</td>
+      <td><%= @licence.title %></td>
+    </tr>
+    <tr>
+      <td>Link</td>
+      <td><%= @licence.link %></td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td><%= @licence.description %></td>
+    </tr>
+    <tr>
+      <td>Sectors</td>
+      <td>
+        <% @licence.sectors.each do |sector| %>
+          <p><%= sector.title %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Activity</td>
+      <td><%= @licence.activity.title %></td>
+    </tr>
+    <tr>
+      <td>External Link</td>
+      <td><%= @licence.external_link %></td>
+    </tr>
+  </tbody>
+</table>
