@@ -85,7 +85,9 @@ class Admin::EditionsController < Admin::BaseController
 
   def show_locked; end
 
-  def new; end
+  def new
+    render :new_legacy
+  end
 
   def create
     if updater.can_perform? && @edition.save
@@ -95,7 +97,7 @@ class Admin::EditionsController < Admin::BaseController
       flash.now[:alert] = "There are some problems with the document"
       @information = updater.failure_reason
       build_edition_dependencies
-      render action: "new"
+      render :new_legacy
     end
   end
 
