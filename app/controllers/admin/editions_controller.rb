@@ -86,7 +86,9 @@ class Admin::EditionsController < Admin::BaseController
 
   def show_locked; end
 
-  def new; end
+  def new
+    render :new_legacy unless preview_design_system_user?
+  end
 
   def create
     if updater.can_perform? && @edition.save
@@ -96,7 +98,7 @@ class Admin::EditionsController < Admin::BaseController
       flash.now[:alert] = "There are some problems with the document"
       @information = updater.failure_reason
       build_edition_dependencies
-      render action: "new"
+      render(preview_design_system_user? ? :new : :new_legacy)
     end
   end
 
@@ -203,7 +205,7 @@ private
     return "admin" unless preview_design_system_user?
 
     case action_name
-    when "edit", "update"
+    when "edit", "update", "new", "create"
       "design_system"
     else
       "admin"
