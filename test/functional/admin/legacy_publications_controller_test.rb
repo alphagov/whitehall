@@ -1,30 +1,30 @@
 require "test_helper"
 
-class Admin::PublicationsControllerTest < ActionController::TestCase
+class Admin::LegacyPublicationsControllerTest < ActionController::TestCase
+  tests Admin::PublicationsController
+
   include TaxonomyHelper
   setup do
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
     login_as @user
-    @user.permissions << "Preview design system"
-
     stub_taxonomy_with_world_taxons
   end
 
-  should_be_an_admin_controller
+  legacy_should_be_an_admin_controller
 
-  should_allow_creating_of :publication
-  should_allow_editing_of :publication
+  legacy_should_allow_creating_of :publication
+  legacy_should_allow_editing_of :publication
 
-  should_allow_speed_tagging_of :publication
-  should_allow_organisations_for :publication
-  should_allow_references_to_statistical_data_sets_for :publication
-  should_allow_attached_images_for :publication
-  should_allow_association_between_world_locations_and :publication
-  should_prevent_modification_of_unmodifiable :publication
-  should_allow_alternative_format_provider_for :publication
-  should_allow_scheduled_publication_of :publication
-  should_allow_access_limiting_of :publication
+  legacy_should_allow_speed_tagging_of :publication
+  legacy_should_allow_organisations_for :publication
+  legacy_should_allow_references_to_statistical_data_sets_for :publication
+  legacy_should_allow_attached_images_for :publication
+  legacy_should_allow_association_between_world_locations_and :publication
+  legacy_should_prevent_modification_of_unmodifiable :publication
+  legacy_should_allow_alternative_format_provider_for :publication
+  legacy_should_allow_scheduled_publication_of :publication
+  legacy_should_allow_access_limiting_of :publication
 
   view_test "new displays publication fields" do
     get :new
@@ -118,8 +118,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   view_test "should remove the publish buttons if the edition breaks the rules permitting publishing" do
     # This applies to all editions but can't be tested in the editions controller test due to redirects.
     # After conversation with DH I picked publications arbitrarily.
-    @user = login_as(create(:departmental_editor))
-    @user.permissions << "Preview design system"
+    login_as(create(:departmental_editor))
     publication = create(:draft_publication)
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
@@ -137,8 +136,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "prevents CRUD operations on access-limited publications" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
-    @user = login_as(create(:user, organisation: my_organisation))
-    @user.permissions << "Preview design system"
+    login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
     get :show, params: { id: inaccessible }
@@ -172,8 +170,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       organisations: [world_tagging_organisation],
     )
 
-    @user = login_as(create(:user, organisation: world_tagging_organisation))
-    @user.permissions << "Preview design system"
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_expanded_links(publication.content_id)
 
@@ -194,8 +191,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       organisations: [world_tagging_organisation],
     )
 
-    @user = login_as(create(:user, organisation: world_tagging_organisation))
-    @user.permissions << "Preview design system"
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_world_expanded_links(publication.content_id)
 
@@ -219,8 +215,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
-    @user = login_as(create(:user, organisation: organisation))
-    @user.permissions << "Preview design system"
+    login_as(create(:user, organisation: organisation))
 
     get :show, params: { id: publication }
 
@@ -239,8 +234,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
-    @user = login_as(create(:user, organisation: organisation))
-    @user.permissions << "Preview design system"
+    login_as(create(:user, organisation: organisation))
     get :show, params: { id: publication }
 
     refute_select ".policies"

@@ -1,13 +1,13 @@
 require "test_helper"
 
-class Admin::CorporateInformationPagesControllerTest < ActionController::TestCase
+class Admin::LegacyCorporateInformationPagesControllerTest < ActionController::TestCase
+  tests Admin::CorporateInformationPagesController
   setup do
     login_as :writer
-    @current_user.permissions << "Preview design system"
     @organisation = create(:organisation)
   end
 
-  should_be_an_admin_controller
+  legacy_should_be_an_admin_controller
 
   test "GET :index" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)

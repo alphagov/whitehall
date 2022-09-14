@@ -1,27 +1,27 @@
 require "test_helper"
 
-class Admin::FatalityNoticesControllerTest < ActionController::TestCase
+class Admin::LegacyFatalityNoticesControllerTest < ActionController::TestCase
+  tests Admin::FatalityNoticesController
   include TaxonomyHelper
 
   setup do
     login_as :gds_editor
-    @current_user.permissions << "Preview design system"
   end
 
-  should_be_an_admin_controller
-  should_require_fatality_handling_permission_to_access :fatality_notice, :new, :edit
+  legacy_should_be_an_admin_controller
+  legacy_should_require_fatality_handling_permission_to_access :fatality_notice, :new, :edit
 
-  should_allow_creating_of :fatality_notice
-  should_allow_editing_of :fatality_notice
+  legacy_should_allow_creating_of :fatality_notice
+  legacy_should_allow_editing_of :fatality_notice
 
-  should_allow_organisations_for :fatality_notice
-  should_allow_attached_images_for :fatality_notice
-  should_allow_role_appointments_for :fatality_notice
-  should_prevent_modification_of_unmodifiable :fatality_notice
-  should_allow_overriding_of_first_published_at_for :fatality_notice
-  should_have_summary :fatality_notice
-  should_allow_scheduled_publication_of :fatality_notice
-  should_allow_access_limiting_of :fatality_notice
+  legacy_should_allow_organisations_for :fatality_notice
+  legacy_should_allow_attached_images_for :fatality_notice
+  legacy_should_allow_role_appointments_for :fatality_notice
+  legacy_should_prevent_modification_of_unmodifiable :fatality_notice
+  legacy_should_allow_overriding_of_first_published_at_for :fatality_notice
+  legacy_should_have_summary :fatality_notice
+  legacy_should_allow_scheduled_publication_of :fatality_notice
+  legacy_should_allow_access_limiting_of :fatality_notice
 
   view_test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")
