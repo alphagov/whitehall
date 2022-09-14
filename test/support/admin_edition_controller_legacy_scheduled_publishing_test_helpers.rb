@@ -1,6 +1,6 @@
 require_relative "taxonomy_helper"
 
-module AdminEditionControllerScheduledPublishingTestHelpers
+module AdminEditionControllerLegacyScheduledPublishingTestHelpers
   extend ActiveSupport::Concern
   include TaxonomyHelper
 
