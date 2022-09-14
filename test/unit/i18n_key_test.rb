@@ -44,7 +44,9 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   test "translations for all world location types are present" do
-    assert_translations WorldLocationType, "world_location.type"
+    WorldLocation.world_location_types.keys.each do |world_location_type|
+      assert_translation build(:world_location, world_location_type:), "world_location.type", world_location_type
+    end
   end
 
   test "tranlsations for consultations are present" do
