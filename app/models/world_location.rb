@@ -18,6 +18,8 @@ class WorldLocation < ApplicationRecord
   accepts_nested_attributes_for :world_location_news
   delegate :title, to: :world_location_news
 
+  enum world_location_type: { world_location: 1, international_delegation: 3 }
+
   accepts_nested_attributes_for :edition_world_locations
 
   include AnalyticsIdentifierPopulator
@@ -75,14 +77,6 @@ class WorldLocation < ApplicationRecord
 
   def self.active_international_delegation
     where(active: true, world_location_type_id: WorldLocationType::InternationalDelegation.id)
-  end
-
-  def world_location_type
-    WorldLocationType.find_by_id(world_location_type_id)
-  end
-
-  def world_location_type=(new_world_location_type)
-    self.world_location_type_id = new_world_location_type && new_world_location_type.id
   end
 
   def display_type
