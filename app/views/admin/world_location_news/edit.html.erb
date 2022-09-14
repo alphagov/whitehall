@@ -7,8 +7,8 @@
     <%= form_for([:admin, @world_location_news]) do |form| %>
       <%= form.fields_for :world_location, @world_location do |location_form| %>
         <div class="form-group">
-          <%= location_form.label :world_location_type_id, 'Type' %>
-          <%= location_form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, location_form.object.world_location_type_id), {}, {class: 'form-control input-md-3'} %>
+          <%= location_form.label :world_location_type, 'Type' %>
+          <%= location_form.select :world_location_type, WorldLocation.world_location_types.keys.map {|key| [I18n.t("world_location.type.#{key}", count: 1), key]}, {}, {class: 'form-control input-md-3'} %>
         </div>
 
         <%= form.text_field :title %>
