@@ -2,7 +2,7 @@ module AdminEditionLegacyWorldLocationsBehaviour
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def should_allow_association_between_world_locations_and(document_type)
+    def legacy_should_allow_association_between_world_locations_and(document_type)
       edition_class = class_for(document_type)
 
       view_test "new displays document form with world locations field" do
