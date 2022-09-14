@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_111449) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_144551) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -1122,13 +1122,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_111449) do
     t.datetime "updated_at", precision: nil
     t.string "slug"
     t.boolean "active", default: false, null: false
-    t.integer "world_location_type_id", null: false
+    t.integer "world_location_type", null: false
     t.string "iso2", limit: 2
     t.string "analytics_identifier"
     t.string "content_id"
     t.index ["iso2"], name: "index_world_locations_on_iso2", unique: true
     t.index ["slug"], name: "index_world_locations_on_slug"
-    t.index ["world_location_type_id"], name: "index_world_locations_on_world_location_type_id"
+    t.index ["world_location_type"], name: "index_world_locations_on_world_location_type"
   end
 
   create_table "worldwide_office_worldwide_services", id: :integer, charset: "utf8mb3", force: :cascade do |t|
