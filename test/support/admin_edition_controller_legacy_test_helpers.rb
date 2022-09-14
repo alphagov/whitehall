@@ -1,12 +1,12 @@
 require_relative "taxonomy_helper"
 
-module AdminEditionControllerTestHelpers
+module AdminEditionControllerLegacyTestHelpers
   extend ActiveSupport::Concern
   include ActionMailer::TestHelper
   include TaxonomyHelper
 
   module ClassMethods
-    def should_have_summary(edition_type)
+    def legacy_should_have_summary(edition_type)
       edition_class = class_for(edition_type)
 
       test "create should create a new #{edition_type} with summary" do
@@ -39,7 +39,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_creating_of(edition_type)
+    def legacy_should_allow_creating_of(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new displays edition form" do
@@ -126,7 +126,7 @@ module AdminEditionControllerTestHelpers
              }
 
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
-        assert_template "editions/new"
+        assert_template "editions/new_legacy"
       end
 
       view_test "create with invalid data should indicate there was an error" do
@@ -154,8 +154,8 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_editing_of(edition_type)
-      should_report_editing_conflicts_of(edition_type)
+    def legacy_should_allow_editing_of(edition_type)
+      legacy_should_report_editing_conflicts_of(edition_type)
 
       view_test "edit displays edition form" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
@@ -288,7 +288,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_send_drafts_to_content_preview_environment_for(edition_type)
+    def legacy_should_send_drafts_to_content_preview_environment_for(edition_type)
       test "updating a draft edition sends the draft to the content preview environment" do
         edition = create("draft_#{edition_type}")
 
@@ -361,7 +361,7 @@ module AdminEditionControllerTestHelpers
                }
         end
 
-        assert_template "editions/new"
+        assert_template "editions/new_legacy"
         assert_equal "There are some problems with the document", flash.now[:alert]
         assert_select ".alert", text: /Unable to perform draft update/
       end
@@ -393,7 +393,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_speed_tagging_of(edition_type)
+    def legacy_should_allow_speed_tagging_of(edition_type)
       test "update should convert #{edition_type} to draft when speed tagging" do
         edition = create("imported_#{edition_type}")
 
@@ -413,7 +413,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_attached_images_for(edition_type)
+    def legacy_should_allow_attached_images_for(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new displays edition image fields" do
@@ -824,7 +824,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_references_to_statistical_data_sets_for(edition_type)
+    def legacy_should_allow_references_to_statistical_data_sets_for(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display statistical data sets field" do
@@ -892,7 +892,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_organisations_for(edition_type)
+    def legacy_should_allow_organisations_for(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display edition organisations fields" do
@@ -1025,7 +1025,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_role_appointments_for(edition_type)
+    def legacy_should_allow_role_appointments_for(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display edition role appointments field" do
@@ -1087,7 +1087,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_prevent_modification_of_unmodifiable(edition_type)
+    def legacy_should_prevent_modification_of_unmodifiable(edition_type)
       (Edition::UNMODIFIABLE_STATES - %w[deleted]).each do |state|
         test "edit not allowed for #{state} #{edition_type}" do
           edition = create("#{state}_#{edition_type}")
@@ -1113,7 +1113,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_overriding_of_first_published_at_for(edition_type)
+    def legacy_should_allow_overriding_of_first_published_at_for(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display first_published_at fields" do
@@ -1166,7 +1166,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_setting_first_published_at_during_speed_tagging(edition_type)
+    def legacy_should_allow_setting_first_published_at_during_speed_tagging(edition_type)
       view_test "show should display first_published_at fields when speed tagging" do
         edition = create("imported_#{edition_type}")
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
@@ -1178,7 +1178,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_report_editing_conflicts_of(edition_type)
+    def legacy_should_report_editing_conflicts_of(edition_type)
       test "editing an existing #{edition_type} should record a RecentEditionOpening" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
@@ -1224,7 +1224,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_related_mainstream_content(edition_type)
+    def legacy_should_allow_association_with_related_mainstream_content(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display fields for related mainstream content" do
@@ -1289,7 +1289,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_alternative_format_provider_for(edition_type)
+    def legacy_should_allow_alternative_format_provider_for(edition_type)
       view_test "when creating allow selection of alternative format provider for #{edition_type}" do
         get :new
 
@@ -1325,7 +1325,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_access_limiting_of(edition_type)
+    def legacy_should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 
       test "create should record the access_limited flag" do
@@ -1375,7 +1375,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_relevance_to_local_government_of(edition_type)
+    def legacy_should_allow_relevance_to_local_government_of(edition_type)
       edition_class = class_for(edition_type)
 
       test "create should record the relevant_to_local_government flag" do
@@ -1418,7 +1418,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_topical_events(edition_type)
+    def legacy_should_allow_association_with_topical_events(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display topical events field" do
@@ -1486,7 +1486,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_worldwide_organisations(edition_type)
+    def legacy_should_allow_association_with_worldwide_organisations(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should display worldwide organisations field" do

@@ -13,7 +13,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
   end
 
   module ClassMethods
-    def should_allow_scheduled_publication_of(edition_type)
+    def legacy_should_allow_scheduled_publication_of(edition_type)
       document_type_class = edition_type.to_s.classify.constantize
 
       view_test "new displays scheduled_publication date and time fields" do

@@ -228,9 +228,9 @@ end
 class ActionController::TestCase
   include HtmlAssertions
   include AdminControllerTestHelpers
-  include AdminEditionControllerTestHelpers
+  include AdminEditionControllerLegacyTestHelpers
   include AdminEditionControllerScheduledPublishingTestHelpers
-  include AdminEditionWorldLocationsBehaviour
+  include AdminEditionLegacyWorldLocationsBehaviour
   include DocumentControllerTestHelpers
   include ControllerTestHelpers
   include ResourceTestHelpers
