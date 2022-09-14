@@ -100,7 +100,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.all_by_type
-    ordered_by_name.group_by(&:world_location_type).sort_by { |type, _location| type.sort_order }
+    ordered_by_name.group_by(&:world_location_type)
   end
 
   def self.countries

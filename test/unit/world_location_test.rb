@@ -35,10 +35,8 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "has name of its world location type as display type" do
-    world_location_type = WorldLocationType::WorldLocation
-    world_location_type.stubs(:name).returns("The Moon")
-    world_location = build(:world_location, world_location_type:)
-    assert_equal "The Moon", world_location.display_type
+    world_location = build(:world_location, world_location_type: "world_location")
+    assert_equal "World location", world_location.display_type
   end
 
   test ".worldwide_organisations_with_sponsoring_organisations returns all related organisations" do
@@ -76,14 +74,11 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "all_by_type should group world locations by type sorting the types by their sort order and locations by their name" do
-    world_location_type = WorldLocationType::WorldLocation
-    delegation_type = WorldLocationType::InternationalDelegation
+    location1 = create(:world_location, world_location_type: "world_location", name: "Narnia")
+    location2 = create(:world_location, world_location_type: "international_delegation", name: "Neverland")
+    location3 = create(:world_location, world_location_type: "world_location", name: "Middle Earth")
 
-    location1 = create(:world_location, world_location_type:, name: "Narnia")
-    location2 = create(:world_location, world_location_type: delegation_type, name: "Neverland")
-    location3 = create(:world_location, world_location_type:, name: "Middle Earth")
-
-    assert_equal [[world_location_type, [location3, location1]], [delegation_type, [location2]]], WorldLocation.all_by_type
+    assert_equal [["world_location", [location3, location1]], ["international_delegation", [location2]]], WorldLocation.all_by_type
   end
 
   test "we can find those that are countries" do
