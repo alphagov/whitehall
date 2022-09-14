@@ -47,10 +47,21 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       "http://www.tse-lab-net.eu",
       "http://beisgovuk.citizenspace.com",
       "http://www.nhs.uk",
-      "http://www.royal.uk",
     ]
     whitelisted_urls.each do |url|
       assert build(:offsite_link, url: url).valid?, "#{url} not valid"
+    end
+  end
+
+  test "should always be valid on Her Majesty Queen Elizabeth II's page" do
+    topical_event = create(:topical_event, content_id: "7feaef73-a6a8-484a-8915-6efbbe4a8269")
+    example_urls = [
+      "https://www.royal.uk",
+      "https://youtube.com",
+      "http://example.com",
+    ]
+    example_urls.each do |url|
+      assert build(:offsite_link, url: url, parent: topical_event).valid?, "#{url} not valid"
     end
   end
 
