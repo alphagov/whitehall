@@ -24,6 +24,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   legacy_should_allow_scheduled_publication_of :publication
   legacy_should_allow_access_limiting_of :publication
 
+  should_allow_creating_of :publication
+  should_allow_editing_of :publication
+
+  should_allow_speed_tagging_of :publication
+  should_allow_organisations_for :publication
+  should_allow_references_to_statistical_data_sets_for :publication
+  should_allow_attached_images_for :publication
+  should_allow_association_between_world_locations_and :publication
+  should_prevent_modification_of_unmodifiable :publication
+  should_allow_alternative_format_provider_for :publication
+  should_allow_scheduled_publication_of :publication
+  should_allow_access_limiting_of :publication
+
   view_test "new displays publication fields" do
     get :new
 

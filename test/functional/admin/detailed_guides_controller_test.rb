@@ -27,6 +27,18 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   legacy_should_allow_overriding_of_first_published_at_for :detailed_guide
   legacy_should_allow_access_limiting_of :detailed_guide
 
+  should_allow_creating_of :detailed_guide
+  should_allow_editing_of :detailed_guide
+
+  should_allow_organisations_for :detailed_guide
+  should_allow_attached_images_for :detailed_guide
+  should_prevent_modification_of_unmodifiable :detailed_guide
+  should_allow_association_with_related_mainstream_content :detailed_guide
+  should_allow_alternative_format_provider_for :detailed_guide
+  should_allow_scheduled_publication_of :detailed_guide
+  should_allow_overriding_of_first_published_at_for :detailed_guide
+  should_allow_access_limiting_of :detailed_guide
+
   view_test "user needs associated with a detailed guide" do
     content_id_a = SecureRandom.uuid
     content_id_b = SecureRandom.uuid
