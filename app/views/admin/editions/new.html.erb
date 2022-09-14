@@ -1,0 +1,15 @@
+<% content_for :page_title, "New #{@edition.type.titleize}" %>
+<%= render "govuk_publishing_components/components/back_link", {
+  href: admin_editions_path
+} %>
+<% content_for :error_summary, render('shared/error_summary', object: @edition.becomes(Edition), class_name: @edition.class.name.demodulize.underscore.humanize.downcase) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      title: "New #{@edition.class.name.demodulize.underscore.humanize.downcase}"
+    } %>
+
+    <%= render "form", edition: @edition %>
+  </div>
+</div>
