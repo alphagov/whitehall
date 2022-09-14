@@ -55,7 +55,7 @@ private
       :mission_statement,
       :title,
       featured_links_attributes: %i[url title id _destroy],
-      world_location_attributes: %i[active id world_location_type_id],
+      world_location_attributes: %i[active id world_location_type],
     )
   end
 end
