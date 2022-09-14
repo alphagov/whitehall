@@ -47,6 +47,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       "http://www.tse-lab-net.eu",
       "http://beisgovuk.citizenspace.com",
       "http://www.nhs.uk",
+      "http://www.royal.uk",
     ]
     whitelisted_urls.each do |url|
       assert build(:offsite_link, url: url).valid?, "#{url} not valid"
