@@ -1,4 +1,4 @@
-module AdminEditionWorldLocationsBehaviour
+module AdminEditionLegacyWorldLocationsBehaviour
   extend ActiveSupport::Concern
 
   module ClassMethods
