@@ -1,22 +1,23 @@
 require "test_helper"
 
-class Admin::SpeechesControllerTest < ActionController::TestCase
+class Admin::LegacySpeechesControllerTest < ActionController::TestCase
+  tests Admin::SpeechesController
+
   setup do
     login_as :writer
-    @current_user.permissions << "Preview design system"
   end
 
-  should_be_an_admin_controller
+  legacy_should_be_an_admin_controller
 
-  should_allow_creating_of :speech
-  should_allow_editing_of :speech
+  legacy_should_allow_creating_of :speech
+  legacy_should_allow_editing_of :speech
 
-  should_allow_association_between_world_locations_and :speech
-  should_allow_attached_images_for :speech
-  should_prevent_modification_of_unmodifiable :speech
-  should_allow_scheduled_publication_of :speech
-  should_allow_access_limiting_of :speech
-  should_allow_association_with_topical_events :speech
+  legacy_should_allow_association_between_world_locations_and :speech
+  legacy_should_allow_attached_images_for :speech
+  legacy_should_prevent_modification_of_unmodifiable :speech
+  legacy_should_allow_scheduled_publication_of :speech
+  legacy_should_allow_access_limiting_of :speech
+  legacy_should_allow_association_with_topical_events :speech
 
   view_test "new displays speech fields" do
     get :new
@@ -32,7 +33,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   test "create should create a new speech" do
     role_appointment = create(:role_appointment)
     speech_type = SpeechType::Transcript
-    attributes = controller_attributes_for(:speech, speech_type:, role_appointment_id: role_appointment.id)
+    attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment_id: role_appointment.id)
 
     post :create, params: { edition: attributes }
 
@@ -45,7 +46,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test "create should create a new speech without a real person" do
     speech_type = SpeechType::Transcript
-    attributes = controller_attributes_for(:speech, speech_type:, person_override: "The Queen")
+    attributes = controller_attributes_for(:speech, speech_type: speech_type, person_override: "The Queen")
 
     post :create, params: { edition: attributes }
 
