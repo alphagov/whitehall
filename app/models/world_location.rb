@@ -80,11 +80,15 @@ class WorldLocation < ApplicationRecord
   end
 
   def display_type
-    world_location_type.name
+    if international_delegation?
+      I18n.t("world_location.type.international_delegation", count: 1)
+    else
+      I18n.t("world_location.type.world_location", count: 1)
+    end
   end
 
   def display_type_key
-    world_location_type.key
+    world_location_type
   end
 
   def name_without_prefix
