@@ -13,6 +13,7 @@ class Admin::FeaturesController < Admin::BaseController
     end
 
     if @feature.save
+      @feature.republish_organisation_to_publishing_api
       PublishingApiDocumentRepublishingWorker.perform_async(@feature.document_id) if @feature.document_id.present?
       redirect_to admin_feature_list_path(@feature_list), notice: "The document has been saved"
     else
@@ -23,11 +24,14 @@ class Admin::FeaturesController < Admin::BaseController
 
   def unfeature
     @feature = @feature_list.features.find(params[:id])
-    message = if @feature.end!
-                { notice: "'#{@feature}' unfeatured" }
-              else
-                { alert: "Unable to unfeature '#{@feature}' because #{@feature.errors.full_messages.to_sentence}" }
-              end
+
+    if @feature.end!
+      @feature.republish_organisation_to_publishing_api
+      message = { notice: "'#{@feature}' unfeatured" }
+    else
+      message = { alert: "Unable to unfeature '#{@feature}' because #{@feature.errors.full_messages.to_sentence}" }
+    end
+
     redirect_to admin_feature_list_path(@feature_list), message
   end
 

@@ -28,7 +28,18 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     assert_equal Time.zone.now, feature.ended_at
   end
 
-  test "post :feature creates a feature and republishes the document" do
+  test "post :unfeature republishes the organisation" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    edition = create(:published_speech)
+    feature = create(:feature, document: edition.document, feature_list: feature_list)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
+
+    post :unfeature, params: { feature_list_id: feature_list, id: feature }
+  end
+
+  test "post :feature creates a feature and republishes the document & organisation" do
     organisation = create(:organisation)
     feature_list = create(:feature_list, featurable: organisation, locale: :en)
     edition = create(:published_speech)
@@ -40,6 +51,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     }
 
     PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id)
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
     post :create, params: { feature_list_id: feature_list.id, feature: params }
 
