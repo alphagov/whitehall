@@ -25,13 +25,13 @@
 
 <div class="world-locations">
   <% @world_locations.each do |type, locations| %>
-    <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
+    <section id="<%= I18n.t("world_location.type.#{type}", count: 2).parameterize %>" class="world-location-type js-filter-block">
       <header class="type-heading">
-        <h2 class="world-locations__heading"><%= type.name.pluralize %></h2>
+        <h2 class="world-locations__heading"><%= type.pluralize %></h2>
         <p class="govuk-body"><span class="js-filter-count"><%= locations.length %></span> <span class="govuk-visually-hidden">locations</span></p>
       </header>
       <div class="content">
-        <% if type === WorldLocationType::WorldLocation %>
+        <% if type == "world_location" %>
           <% group_and_sort(locations).each do |letter, locations| %>
             <div class="js-filter-block">
               <h3 class="letter"><%= letter %></h3>
