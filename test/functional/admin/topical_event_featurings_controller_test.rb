@@ -81,6 +81,8 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     feature2 = create(:topical_event_featuring, topical_event: @topical_event)
     feature3 = create(:topical_event_featuring, topical_event: @topical_event)
 
+    Whitehall::PublishingApi.expects(:republish_async).with(@topical_event).once
+
     put :order,
         params: { topical_event_id: @topical_event,
                   ordering: {
