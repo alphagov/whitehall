@@ -98,6 +98,7 @@ private
       "tse-lab-net.eu",
       "beisgovuk.citizenspace.com",
       "nhs.uk",
+      "royal.uk",
     ]
 
     whitelisted_hosts.any? { |whitelisted_host| host =~ /(?:^|\.)#{whitelisted_host}$/ }
