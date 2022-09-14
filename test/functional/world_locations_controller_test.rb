@@ -34,7 +34,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should return a 404 for any world location that isn't an international delegation" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::WorldLocation,
+      world_location_type: "world_location",
       world_location_news: build(:world_location_news,
                                  mission_statement: "country-mission-statement",
                                  title: "UK in country-name"),
@@ -47,7 +47,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display world location title and mission statement" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       world_location_news: build(:world_location_news,
                                  mission_statement: "delegation-mission-statement",
                                  title: "UK mission to the organisation"),
@@ -60,7 +60,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should use govspeak when displaying the mission statement" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       world_location_news: build(
         :world_location_news,
         mission_statement: "Line 1\n\nLine 2",
@@ -75,7 +75,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "show responds with not found if appropriate translation doesn't exist" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     assert_raise(ActiveRecord::RecordNotFound) do
       get :show, params: { id: world_location, locale: "fr" }
@@ -85,7 +85,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "show when asked for json should redirect to the api controller" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     get :show, params: { id: world_location }, format: :json
     assert_redirected_to api_world_location_path(world_location, format: :json)
@@ -94,7 +94,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "show has atom feed autodiscovery link" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     get :show, params: { id: world_location }
     assert_select_autodiscovery_link atom_feed_url_for(world_location)
@@ -103,7 +103,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "show includes a link to the atom feed" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     get :show, params: { id: world_location }
     assert_select ".gem-c-subscription-links__list > .gem-c-subscription-links__list-item:nth-child(2) > [href=?]", atom_feed_url_for(world_location)
@@ -113,7 +113,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       world_location = create(
         :world_location,
-        world_location_type: WorldLocationType::WorldLocation,
+        world_location_type: "world_location",
       )
       documents = [
         { "content_store_document_type" => "news_article", "world_location" => world_location.slug, "public_timestamp" => 1.day.ago },
@@ -142,7 +142,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       world_location = create(
         :world_location,
-        world_location_type: WorldLocationType::InternationalDelegation,
+        world_location_type: "international_delegation",
       )
       documents = [
         { "content_store_document_type" => "news_article", "world_location" => world_location.slug, "public_timestamp" => 1.day.ago },
@@ -170,7 +170,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "shows the latest published edition for a featured document" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     news = create(:published_news_article, first_published_at: 2.days.ago)
     editor = create(:departmental_editor)
@@ -184,7 +184,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "shows featured items in defined order for locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     LocalisedModel.new(world_location, :fr).update!(name: "Territoire antarctique britannique")
 
@@ -207,7 +207,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "excludes ended features" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     news = create(:published_news_article, first_published_at: 2.days.ago)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
@@ -219,7 +219,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "shows a maximum of 5 featured news articles" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     english = FeatureList.create!(featurable: world_location.world_location_news, locale: :en)
     6.times do
@@ -233,7 +233,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "show should set world location slimmer headers" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     get :show, params: { id: world_location.id }
     assert_equal "<#{world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
@@ -243,7 +243,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(
       :world_location,
       :with_worldwide_organisations,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     get :show, params: { id: world_location.id }
     related_organisations = world_location.worldwide_organisations_with_sponsoring_organisations
@@ -253,7 +253,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "GET :show does not set empty slimmer header for locations without an org" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     get :show, params: { id: world_location.id }
     assert_nil response.headers["X-Slimmer-Organisations"]
@@ -262,7 +262,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world_location's latest two announcements in reverse chronological order" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     announcement2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
     _announcement3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -274,7 +274,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     announcement2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
     announcement3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -296,7 +296,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world_location's latest two non-statistics publications in reverse chronological order" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     publication2 = create(:published_publication, world_locations: [world_location], first_published_at: 2.days.ago)
     _publication3 = create(:published_publication, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -309,7 +309,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     publication2 = create(:published_policy_paper, world_locations: [world_location], first_published_at: 2.days.ago.to_date)
     publication3 = create(:published_policy_paper, world_locations: [world_location], first_published_at: 3.days.ago.to_date)
@@ -329,7 +329,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world location's latest two statistics publications in reverse chronological order" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     publication2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago)
     _publication3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago)
@@ -341,7 +341,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     publication2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago.to_date)
     publication3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago.to_date)
@@ -361,7 +361,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display translated page labels when requested in a different locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       translated_into: [:fr],
     )
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
@@ -374,7 +374,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should only display translated announcements when requested for a locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       translated_into: [:fr],
     )
     translated_speech = create(:published_speech, world_locations: [world_location], translated_into: [:fr])
@@ -386,7 +386,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should only display translated publications when requested for a locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       translated_into: [:fr],
     )
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
@@ -398,7 +398,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should only display translated statistics when requested for a locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       translated_into: [:fr],
     )
     translated_statistics = create(:published_statistics, world_locations: [world_location], translated_into: [:fr])
@@ -410,7 +410,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should only display translated recently updated editions when requested for a locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       translated_into: [:fr],
     )
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
@@ -422,7 +422,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "restricts atom feed entries to those with the current locale" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
       translated_into: [:fr],
     )
     translated_edition = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
@@ -438,7 +438,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should show featured links if there are some" do
     world_location = create(
       :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation,
+      world_location_type: "international_delegation",
     )
     featured_link = create(:featured_link, linkable: world_location.world_location_news)
     get :show, params: { id: world_location.world_location_news }
