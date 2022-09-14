@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_24_141116) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_25_093553) do
   create_table "access_and_opening_times", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "body"
     t.string "accessible_type"
@@ -1109,14 +1109,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_24_141116) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "world_location_news", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "world_location_id"
+    t.string "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "world_location_news_translations", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "world_location_news_id"
+    t.string "locale"
+    t.string "title"
+    t.text "mission_statement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "world_location_translations", id: :integer, charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "world_location_id"
     t.string "locale"
     t.string "name"
-    t.text "mission_statement"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.string "title"
     t.index ["locale"], name: "index_world_location_translations_on_locale"
     t.index ["world_location_id"], name: "index_world_location_translations_on_world_location_id"
   end
@@ -1130,7 +1144,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_24_141116) do
     t.string "iso2", limit: 2
     t.string "analytics_identifier"
     t.string "content_id"
-    t.string "news_page_content_id"
     t.index ["iso2"], name: "index_world_locations_on_iso2", unique: true
     t.index ["slug"], name: "index_world_locations_on_slug"
     t.index ["world_location_type_id"], name: "index_world_locations_on_world_location_type_id"
