@@ -45,6 +45,9 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
     params[:ordering].each do |topical_event_featuring_id, ordering|
       @topical_event.topical_event_featurings.find(topical_event_featuring_id).update_column(:ordering, ordering)
     end
+
+    Whitehall::PublishingApi.republish_async(@topical_event)
+
     redirect_to polymorphic_path([:admin, @topical_event, :topical_event_featurings]), notice: "Featured items re-ordered"
   end
 
