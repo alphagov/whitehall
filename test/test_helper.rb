@@ -229,7 +229,7 @@ class ActionController::TestCase
   include HtmlAssertions
   include AdminControllerTestHelpers
   include AdminEditionControllerLegacyTestHelpers
-  include AdminEditionControllerScheduledPublishingTestHelpers
+  include AdminEditionControllerLegacyScheduledPublishingTestHelpers
   include AdminEditionLegacyWorldLocationsBehaviour
   include DocumentControllerTestHelpers
   include ControllerTestHelpers
