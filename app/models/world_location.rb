@@ -57,7 +57,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def search_description
-    if world_location_type == WorldLocationType::InternationalDelegation
+    if international_delegation?
       I18n.t("world_location.search_description.international_delegation", name:)
     else
       I18n.t("world_location.search_description.world_location", name:)
@@ -76,7 +76,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.active_international_delegation
-    where(active: true, world_location_type_id: WorldLocationType::InternationalDelegation.id)
+    where(active: true, world_location_type: "international_delegation")
   end
 
   def display_type
@@ -104,15 +104,15 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.countries
-    where(world_location_type_id: WorldLocationType::WorldLocation.id).ordered_by_name
+    where(world_location_type: "world_location").ordered_by_name
   end
 
   def self.geographical
-    where(world_location_type_id: WorldLocationType.geographic.map(&:id)).ordered_by_name
+    where(world_location_type: "world_location").ordered_by_name
   end
 
   validates_with SafeHtmlValidator
-  validates :name, :world_location_type_id, presence: true
+  validates :name, :world_location_type, presence: true
 
   extend FriendlyId
   friendly_id
