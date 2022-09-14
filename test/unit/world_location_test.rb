@@ -83,7 +83,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     location2 = create(:world_location, world_location_type: "international_delegation", name: "Neverland")
     location3 = create(:world_location, world_location_type: "world_location", name: "Middle Earth")
 
-    assert_equal [["world_location", [location3, location1]], ["international_delegation", [location2]]], WorldLocation.all_by_type
+    assert_equal({ "world_location" => [location3, location1], "international_delegation" => [location2] }, WorldLocation.all_by_type)
   end
 
   test "we can find those that are countries" do
