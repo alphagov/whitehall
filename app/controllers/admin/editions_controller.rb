@@ -95,7 +95,7 @@ class Admin::EditionsController < Admin::BaseController
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document"
+      flash.now[:alert] = "There are some problems with the document" unless preview_design_system_user?
       @information = updater.failure_reason
       build_edition_dependencies
       render(preview_design_system_user? ? :new : :new_legacy)
@@ -121,7 +121,7 @@ class Admin::EditionsController < Admin::BaseController
       @edition.convert_to_draft! if params[:speed_save_convert]
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document"
+      flash.now[:alert] = "There are some problems with the document" unless preview_design_system_user?
       if speed_tagging?
         render :show
       else

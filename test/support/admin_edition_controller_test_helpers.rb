@@ -138,7 +138,7 @@ module AdminEditionControllerTestHelpers
 
         assert_select ".field_with_errors input[name='edition[title]']"
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
-        assert_equal "There are some problems with the document", flash.now[:alert]
+        assert_select ".govuk-error-summary a", text: "Title can't be blank", href: "#edition_title"
       end
 
       test "removes blank space from titles for new editions" do
@@ -236,7 +236,7 @@ module AdminEditionControllerTestHelpers
         assert_equal current_user, edition.edition_authors.reload.last.user
       end
 
-      test "update with invalid data should not save the edition" do
+      view_test "update with invalid data should not save the edition" do
         edition = create(edition_type, title: "A Title")
 
         put :update,
@@ -249,7 +249,7 @@ module AdminEditionControllerTestHelpers
 
         assert_equal "A Title", edition.reload.title
         assert_template "editions/edit"
-        assert_equal "There are some problems with the document", flash.now[:alert]
+        assert_select ".govuk-error-summary a", text: "Title can't be blank", href: "#edition_title"
       end
 
       test "update with a stale edition should render edit page with conflicting edition" do
@@ -362,7 +362,6 @@ module AdminEditionControllerTestHelpers
         end
 
         assert_template "editions/new"
-        assert_equal "There are some problems with the document", flash.now[:alert]
         assert_select ".alert", text: /Unable to perform draft update/
       end
 
@@ -388,7 +387,6 @@ module AdminEditionControllerTestHelpers
 
         assert_equal "Original title", edition.reload.title
         assert_template "editions/edit"
-        assert_equal "There are some problems with the document", flash.now[:alert]
         assert_select ".alert", text: /Unable to perform draft update/
       end
     end
