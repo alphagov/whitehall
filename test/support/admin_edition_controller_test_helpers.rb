@@ -248,7 +248,7 @@ module AdminEditionControllerTestHelpers
             }
 
         assert_equal "A Title", edition.reload.title
-        assert_template "editions/edit_legacy"
+        assert_template "editions/edit"
         assert_equal "There are some problems with the document", flash.now[:alert]
       end
 
@@ -265,7 +265,7 @@ module AdminEditionControllerTestHelpers
               },
             }
 
-        assert_template "edit_legacy"
+        assert_template "edit"
         conflicting_edition = edition.reload
         assert_equal conflicting_edition, assigns(:conflicting_edition)
         assert_equal conflicting_edition.lock_version, assigns(:edition).lock_version
@@ -387,7 +387,7 @@ module AdminEditionControllerTestHelpers
             }
 
         assert_equal "Original title", edition.reload.title
-        assert_template "editions/edit_legacy"
+        assert_template "editions/edit"
         assert_equal "There are some problems with the document", flash.now[:alert]
         assert_select ".alert", text: /Unable to perform draft update/
       end
