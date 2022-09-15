@@ -17,7 +17,7 @@ class Feature < ApplicationRecord
 
   before_validation :set_started_at!, on: :create
 
-  delegate :republish_organisation_to_publishing_api, to: :feature_list
+  delegate :republish_featurable_to_publishing_api, to: :feature_list
 
   def to_s
     if document && document.live_edition
