@@ -1,5 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
   include HistoricContentConcern
+  include Admin::EditionsHelper
 
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
@@ -17,6 +18,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :forbid_editing_of_locked_documents, only: %i[edit update revise destroy]
+  before_action :construct_similar_slug_warning_error, only: %i[edit]
   layout :get_layout
 
   def enforce_permissions!
@@ -128,6 +130,7 @@ class Admin::EditionsController < Admin::BaseController
         @information = updater.failure_reason
         build_edition_dependencies
         fetch_version_and_remark_trails
+        construct_similar_slug_warning_error
         render(preview_design_system_user? ? :edit : :edit_legacy)
       end
     end
@@ -444,6 +447,10 @@ private
     if params[:controller] == "admin/editions"
       redirect_to admin_edition_path(@edition)
     end
+  end
+
+  def construct_similar_slug_warning_error
+    @edition.errors.add(:title, "is already used on GOV.UK. Please create a unique title") if show_similar_slugs_warning?(@edition)
   end
 
   def updater
