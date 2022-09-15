@@ -1,0 +1,16 @@
+<% content_for :page_title, "New corporate information page for #{@organisation.name}" %>
+<% content_for :back_link, (render "govuk_publishing_components/components/back_link", {
+    href: admin_editions_path
+  })
+%>
+<% content_for :error_summary, render('shared/error_summary', object: @edition.becomes(Edition), class_name: @edition.class.name.demodulize.underscore.humanize.downcase) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/title", {
+      title: sanitize("Add new corporate information page to #{link_to(@organisation.name, [:admin, @organisation], class: 'govuk-link')}")
+    } %>
+
+    <%= render "legacy_form", edition: @edition %>
+  </div>
+</div>
