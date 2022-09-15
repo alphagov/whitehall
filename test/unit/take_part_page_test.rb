@@ -1,7 +1,7 @@
 require "test_helper"
 
 class TakePartPageTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :body
+  should_protect_against_xss_and_content_attacks_on :take_part_page, :body
 
   test "invalid without a title" do
     assert_not build(:take_part_page, title: nil).valid?

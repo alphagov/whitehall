@@ -5,7 +5,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   should_allow_image_attachments
   should_have_first_image_pulled_out
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :news_article, :title, :body, :summary, :change_note
 
   test "can associate news articles with topical events" do
     news_article = create(:news_article)

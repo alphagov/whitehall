@@ -556,6 +556,9 @@ yi:
       publications:
       search:
       statistics:
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one:

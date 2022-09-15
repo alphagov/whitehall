@@ -558,6 +558,9 @@ kk:
       publications: Біздің жарияланымдар
       search: Елі немесе территориясы бойынша іздеу
       statistics: Біздің статистика
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Халықаралық делегация

@@ -2,7 +2,7 @@
 <% page_class "world-locations-show" %>
 <% atom_discovery_link_tag atom_feed_url_for(@world_location), t("feeds.latest_activity") %>
 
-<%= content_tag_for(:article, @world_location) do %>
+<%= content_tag_for(:article, @world_location_news) do %>
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
@@ -14,9 +14,9 @@
       <div class="govuk-grid-column-one-third">
         <div class="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
           <aside class="heading-extra">
-              <%= render 'shared/available_languages', object: @world_location %>
+              <%= render 'shared/available_languages', object: @world_location_news %>
               <% lang = "lang=en" unless I18n.locale.eql?(:en) %>
-              <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set, lang: lang %>
+              <%= render 'shared/featured_links', links: @world_location_news.featured_links.only_the_initial_set, lang: lang %>
           </aside>
         </div>
       </div>
@@ -66,7 +66,7 @@
         } %>
         <%= render "govuk_publishing_components/components/govspeak", {
         } do %>
-          <%= govspeak_to_html(@world_location.mission_statement) %>
+          <%= govspeak_to_html(@world_location_news.mission_statement) %>
         <% end %>
       </div>
     </div>

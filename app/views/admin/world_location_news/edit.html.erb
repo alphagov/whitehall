@@ -1,0 +1,30 @@
+<% page_title "Edit " + @world_location_news.name %>
+
+<div class="row">
+  <section class="col-md-8">
+    <h1>Edit world location</h1>
+  <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
+    <%= form_for([:admin, @world_location_news]) do |form| %>
+      <%= form.fields_for :world_location, @world_location do |location_form| %>
+        <div class="form-group">
+          <%= location_form.label :world_location_type_id, 'Type' %>
+          <%= location_form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, location_form.object.world_location_type_id), {}, {class: 'form-control input-md-3'} %>
+        </div>
+
+        <%= form.text_field :title %>
+
+        <%= form.text_area :mission_statement, rows: 20, class: "previewable", data: {
+          module: "paste-html-to-govspeak"
+        } %>
+
+        <%= location_form.check_box :active,
+                  label_text: "Active (can visitors click through from the world location list?)" %>
+
+        <%= render 'admin/shared/featured_link_fields', form: form %>
+      <% end %>
+
+      <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
+      <%= form.save_or_cancel cancel: admin_world_location_news_path(@world_location_news) %>
+    <% end %>
+  </section>
+</div>

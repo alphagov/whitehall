@@ -559,6 +559,9 @@ az:
       publications: Nəşrlərimiz
       search: Ölkəyə və ya əraziyə əsasən axtarın
       statistics: Statistikamız
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Beynəlxalq səlahiyyətin ötürülməsi

@@ -13,23 +13,18 @@ class WorldLocation < ApplicationRecord
            source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
-  has_many :offsite_links, as: :parent
 
-  has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
-
-  include Featurable
+  has_one :world_location_news
+  accepts_nested_attributes_for :world_location_news
+  delegate :title, to: :world_location_news
 
   accepts_nested_attributes_for :edition_world_locations
-  accepts_nested_attributes_for :offsite_links
-
-  after_commit :send_news_page_to_publishing_api_and_rummager, on: %i[create update]
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WL"
 
   include TranslatableModel
-  translates :name, :title, :mission_statement
+  translates :name
 
   include Searchable
   searchable title: :title,
@@ -61,9 +56,9 @@ class WorldLocation < ApplicationRecord
 
   def search_description
     if world_location_type == WorldLocationType::InternationalDelegation
-      "Updates, news and events from the UK government in #{name}."
+      I18n.t("world_location.search_description.international_delegation", name: name)
     else
-      "Services if you're visiting, studying, working or living in #{name}. Includes information about trading with and doing business in the UK and #{name}."
+      I18n.t("world_location.search_description.world_location", name: name)
     end
   end
 
@@ -80,26 +75,6 @@ class WorldLocation < ApplicationRecord
 
   def self.active_international_delegation
     where(active: true, world_location_type_id: WorldLocationType::InternationalDelegation.id)
-  end
-
-  def self.with_announcements
-    announcement_conditions = Edition.joins(:edition_world_locations)
-                                            .published
-                                            .where(type: Announcement.sti_names)
-                                            .where("edition_world_locations.world_location_id = world_locations.id")
-                                            .select("*").to_sql
-
-    where("exists (#{announcement_conditions})")
-  end
-
-  def self.with_publications
-    publication_conditions = Edition.joins(:edition_world_locations)
-                                            .published
-                                            .where(type: Publicationesque.sti_names)
-                                            .where("edition_world_locations.world_location_id = world_locations.id")
-                                            .select("*").to_sql
-
-    where("exists (#{publication_conditions})")
   end
 
   def world_location_type
@@ -147,10 +122,4 @@ class WorldLocation < ApplicationRecord
 
   extend FriendlyId
   friendly_id
-
-  def send_news_page_to_publishing_api_and_rummager
-    WorldLocationNewsWorker.new.perform(id)
-  end
-
-  FEATURED_DOCUMENTS_DISPLAY_LIMIT = 5
 end

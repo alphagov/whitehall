@@ -42,11 +42,16 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   setup do
+    @world_location_news = build(
+      :world_location_news,
+      title: "UK and India",
+      mission_statement: "country-mission-statement",
+    )
+
     @world_location = create(
       :world_location,
-      title: "UK and India",
       slug: "india",
-      mission_statement: "country-mission-statement",
+      world_location_news: @world_location_news,
     )
 
     @translated_world_location = create(:world_location, translated_into: [:fr])
@@ -126,7 +131,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       editor = create(:departmental_editor)
       news.create_draft(editor)
 
-      feature_list = create(:feature_list, featurable: @world_location, locale: :en)
+      feature_list = create(:feature_list, featurable: @world_location_news, locale: :en)
       create(:feature, feature_list: feature_list, document: news.document)
 
       get :index, params: { world_location_id: @world_location }
@@ -137,15 +142,14 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "shows featured items in defined order for locale" do
     with_stubbed_rummager(@rummager) do
-      WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
       LocalisedModel.new(@world_location, :fr).update!(name: "Territoire antarctique britannique")
 
       less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
       more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)
-      english = FeatureList.create!(featurable: @world_location, locale: :en)
+      english = FeatureList.create!(featurable: @world_location_news, locale: :en)
       create(:feature, feature_list: english, ordering: 1, document: less_recent_news_article.document)
 
-      french = FeatureList.create!(featurable: @world_location, locale: :fr)
+      french = FeatureList.create!(featurable: @world_location_news, locale: :fr)
       create(:feature, feature_list: french, ordering: 1, document: less_recent_news_article.document)
       create(:feature, feature_list: french, ordering: 2, document: more_recent_news_article.document)
 
@@ -162,7 +166,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
       news = create(:published_news_article, first_published_at: 2.days.ago)
-      feature_list = create(:feature_list, featurable: @world_location, locale: :en)
+      feature_list = create(:feature_list, featurable: @world_location_news, locale: :en)
       create(:feature, feature_list: feature_list, document: news.document, started_at: 2.days.ago, ended_at: 1.day.ago)
 
       get :index, params: { world_location_id: @world_location }
@@ -173,7 +177,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   test "shows a maximum of 5 featured news articles" do
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
-      english = FeatureList.create!(featurable: @world_location, locale: :en)
+      english = FeatureList.create!(featurable: @world_location_news, locale: :en)
       6.times do
         news_article = create(:published_news_article)
         create(:feature, feature_list: english, document: news_article.document)
@@ -353,7 +357,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   view_test "should show featured links if there are some" do
     with_stubbed_rummager(@rummager) do
       @rummager.expects(:search).returns("results" => []).twice
-      featured_link = create(:featured_link, linkable: @world_location)
+      featured_link = create(:featured_link, linkable: @world_location_news)
 
       get :index, params: { world_location_id: @world_location }
 

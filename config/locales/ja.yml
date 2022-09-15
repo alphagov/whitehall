@@ -480,6 +480,9 @@ ja:
       publications: 出版物
       search: 国または地域で検索
       statistics: 統計
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: 国際代表団

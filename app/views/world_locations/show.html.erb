@@ -1,4 +1,4 @@
-<% page_title @world_location.title, "UK and the world" %>
+<% page_title @world_location.world_location_news.title, "UK and the world" %>
 <% page_class "world-locations-show" %>
 <% atom_discovery_link_tag atom_feed_url_for(@world_location), t("feeds.latest_activity") %>
 
@@ -12,12 +12,12 @@
       <div class="govuk-grid-column-two-thirds">
         <%= render "govuk_publishing_components/components/title", {
           context: t_world_location(@world_location),
-          title: @world_location.title,
+          title: @world_location.world_location_news.title,
         } %>
       </div>
       <aside class="govuk-grid-column-one-third govuk-!-margin-top-8 govuk-!-margin-bottom-8">
           <%= render 'shared/available_languages', object: @world_location %>
-          <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set %>
+          <%= render 'shared/featured_links', links: @world_location.world_location_news.featured_links.only_the_initial_set %>
       </aside>
     </div>
 
@@ -64,7 +64,7 @@
           font_size: "l"
         } %>
         <p class="govuk-body">
-          <span class="mission_statement"><%= govspeak_to_html(@world_location.mission_statement) %></span>
+          <span class="mission_statement"><%= govspeak_to_html(@world_location.world_location_news.mission_statement) %></span>
         </p>
       </div>
     </div>

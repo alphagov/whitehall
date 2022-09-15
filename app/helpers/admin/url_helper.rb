@@ -35,8 +35,8 @@ module Admin::UrlHelper
     admin_header_menu_link "Worldwide organisations", admin_worldwide_organisations_path
   end
 
-  def admin_world_locations_header_menu_link
-    admin_header_menu_link "World location news", admin_world_locations_path
+  def admin_world_location_news_header_menu_link
+    admin_header_menu_link "World location news", admin_world_location_news_index_path
   end
 
   def admin_policy_groups_header_menu_link

@@ -16,7 +16,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     locales.each do |locale|
       I18n.with_locale(locale) do
-        create(:feature_list, locale: locale, featurable: world_location, features: [second_feature, first_feature])
+        create(:feature_list, locale: locale, featurable: world_location.world_location_news, features: [second_feature, first_feature])
 
         expected_ordered_featured_documents = [
           { title: case_study.title,
@@ -35,7 +35,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
             document_type: I18n.t("document.type.press_release.one") },
         ]
 
-        assert_equal expected_ordered_featured_documents, featured_documents(world_location, featured_documents_display_limit)
+        assert_equal expected_ordered_featured_documents, featured_documents(world_location.world_location_news, featured_documents_display_limit)
       end
     end
   end
@@ -102,10 +102,10 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     world_location = create(:world_location)
 
-    create(:feature_list, locale: :en, featurable: world_location, features: [second_feature, first_feature])
+    create(:feature_list, locale: :en, featurable: world_location.world_location_news, features: [second_feature, first_feature])
 
     document_limit = 1
-    presented_locations = featured_documents(world_location, document_limit)
+    presented_locations = featured_documents(world_location.world_location_news, document_limit)
 
     assert_equal [create(:published_case_study).title], (presented_locations.map { |presented_location| presented_location[:title] })
   end

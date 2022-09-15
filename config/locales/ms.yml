@@ -483,6 +483,9 @@ ms:
       publications: Terbitan kami
       search: Cari mengikut negara atau wilayah
       statistics: Statistik kami
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         other: Perwakilan antarabangsa

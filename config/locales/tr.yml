@@ -558,6 +558,9 @@ tr:
       publications: Yayınlarımız
       search: Ülkeye veya bölgeye göre arama yapın
       statistics: İstatistiklerimiz
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Uluslararası delegasyon

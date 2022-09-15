@@ -558,6 +558,9 @@ ta:
       publications: எங்கள் வெளியீடுகள்
       search: நாடு அல்லது பிரதேசம் வாரியாகத் தேடு
       statistics: எங்கள் புள்ளியியல்
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: சர்வதேச தூதுக்குழு

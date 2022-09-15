@@ -710,6 +710,9 @@ gd:
       publications: Ár bhfoilseacháin
       search: Cuardaigh de réir tíre nó réigiúin
       statistics: Ár staitisticí
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

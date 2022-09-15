@@ -559,6 +559,9 @@ fr:
       publications: Nos publications
       search: Recherche par pays ou territoire
       statistics: Nos statistiques
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Délégation internationale

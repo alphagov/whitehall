@@ -558,6 +558,9 @@ si:
       publications: අපේ ප්රකාශන
       search: රට හෝ භූමිය අනුව සොයන්න
       statistics: අපේ සංඛ්යාලේඛන
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: ජාත්යන්තර නියෝජිත පිරිස

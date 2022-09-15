@@ -559,6 +559,9 @@ ka:
       publications: ჩვენი პუბლიკაციები
       search: მოძებნეთ ქვეყნის ან ტერიტორიის მიხედვით
       statistics: ჩვენი სტატისტიკა
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: საერთაშორისო დელეგაცია

@@ -559,6 +559,9 @@ hy:
       publications: Մեր հրապարակումները
       search: Որոնել ըստ երկրի կամ տարածաշրջանի
       statistics: Մեր վիճակագրությունը
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Միջազգային պատվիրակություն

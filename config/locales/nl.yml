@@ -556,6 +556,9 @@ nl:
       publications: Onze publicaties
       search: Zoeken op land of gebied
       statistics: Onze statistieken
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Internationale delegatie

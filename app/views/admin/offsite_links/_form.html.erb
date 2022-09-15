@@ -18,7 +18,7 @@
           </div>
         </div>
         <%= form.text_field :url, label_text: "URL", required: true %>
-        <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocation) %>
+        <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocationNews) %>
           <%= form.save_or_cancel cancel: polymorphic_path([:features, :admin, @parent]) %>
         <% else %>
           <%= form.save_or_cancel cancel: polymorphic_path([:admin, @parent, :topical_event_featurings]) %>

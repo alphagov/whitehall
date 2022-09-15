@@ -558,6 +558,9 @@ sw:
       publications: Machapisho yetu
       search: Tafuta kulingana na nchi au eneo
       statistics: Takwimu zetu
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: Ujumbe wa kimataifa

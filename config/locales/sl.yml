@@ -711,6 +711,9 @@ sl:
       publications: Naše publikacije
       search: Išči po državah ali ozemljih
       statistics: Naša statistika
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         few:

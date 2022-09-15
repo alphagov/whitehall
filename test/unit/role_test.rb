@@ -1,7 +1,7 @@
 require "test_helper"
 
 class RoleTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :responsibilities
+  should_protect_against_xss_and_content_attacks_on :role, :responsibilities
 
   %w[name responsibilities].each do |column_name|
     # These tests ensure that we're excluding the name and responsibilities columns from `Role.columns`.

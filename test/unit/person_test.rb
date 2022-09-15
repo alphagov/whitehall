@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PersonTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :biography
+  should_protect_against_xss_and_content_attacks_on :person, :biography
 
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)

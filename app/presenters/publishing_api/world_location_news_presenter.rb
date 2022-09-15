@@ -2,30 +2,33 @@ module PublishingApi
   class WorldLocationNewsPresenter
     include FeaturedDocumentsPresenter
 
-    attr_accessor :world_location, :update_type
+    attr_accessor :world_location, :world_location_news, :update_type
 
-    def initialize(world_location, update_type: nil)
-      self.world_location = world_location
+    def initialize(world_location_news, update_type: nil)
+      self.world_location_news = world_location_news
+      self.world_location = world_location_news.world_location
       self.update_type = update_type || "major"
     end
 
+    delegate :content_id, to: :world_location_news
+
     def content
       content = BaseItemPresenter.new(
-        world_location,
-        title: title,
+        world_location_news,
+        title: world_location_news.title,
         update_type: update_type,
       ).base_attributes
 
       content.merge!(
-        description: description,
+        description: I18n.t("world_news.uk_updates_in_country", country: world_location.name),
         details: {
           ordered_featured_links: featured_links,
-          mission_statement: world_location.mission_statement || "",
-          ordered_featured_documents: featured_documents(world_location, WorldLocation::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
+          mission_statement: world_location_news.mission_statement || "",
+          ordered_featured_documents: featured_documents(world_location_news, WorldLocationNews::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
           world_location_news_type: world_location.world_location_type.key,
         },
         document_type: "world_location_news",
-        public_updated_at: world_location.updated_at,
+        public_updated_at: world_location_news.updated_at,
         rendering_app: rendering_app,
         schema_name: "world_location_news",
         base_path: path_for_news_page,
@@ -38,23 +41,10 @@ module PublishingApi
       {}
     end
 
-    def content_for_rummager(content_id)
-      I18n.with_locale(:en) do
-        {
-          content_id: content_id,
-          link: path_for_news_page,
-          format: "world_location_news",
-          title: title,
-          description: description,
-          indexable_content: description,
-        }
-      end
-    end
-
   private
 
     def featured_links
-      world_location.featured_links.limit(FeaturedLink::DEFAULT_SET_SIZE).map do |link|
+      world_location_news.featured_links.limit(FeaturedLink::DEFAULT_SET_SIZE).map do |link|
         {
           title: link.title,
           href: link.url,
@@ -68,14 +58,6 @@ module PublishingApi
 
     def path_for_news_page
       Whitehall.url_maker.world_location_news_index_path(world_location)
-    end
-
-    def description
-      I18n.t("world_news.uk_updates_in_country", country: world_location.name)
-    end
-
-    def title
-      world_location.title
     end
   end
 end

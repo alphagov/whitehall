@@ -1,9 +1,8 @@
 require "test_helper"
 
-class Admin::WorldLocationsControllerTest < ActionController::TestCase
+class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
   setup do
     login_as :writer
-    WorldLocationNewsWorker.any_instance.stubs(:perform).returns(true)
   end
 
   should_be_an_admin_controller
@@ -27,28 +26,28 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   view_test "should allow modification of existing world location data" do
     world_location = create(:world_location)
 
-    get :edit, params: { id: world_location }
+    get :edit, params: { id: world_location.world_location_news }
 
-    assert_template "world_locations/edit"
-    assert_select "input[name='world_location[title]']"
-    assert_select "textarea[name='world_location[mission_statement]']"
+    assert_template "world_location_news/edit"
+    assert_select "input[name='world_location_news[title]']"
+    assert_select "textarea[name='world_location_news[mission_statement]']"
   end
 
   test "updating should modify the world location" do
     world_location = create(:world_location)
 
-    put :update, params: { id: world_location, world_location: { mission_statement: "country-mission-statement" } }
+    put :update, params: { id: world_location, world_location_news: { mission_statement: "country-mission-statement" } }
 
     world_location.reload
-    assert_equal "country-mission-statement", world_location.mission_statement
+    assert_equal "country-mission-statement", world_location.world_location_news.mission_statement
   end
 
   test "after updating redirects to world location show page" do
     world_location = create(:world_location)
 
-    put :update, params: { id: world_location, world_location: { mission_statement: "country-mission-statement" } }
+    put :update, params: { id: world_location.world_location_news, world_location_news: { mission_statement: "country-mission-statement" } }
 
-    assert_redirected_to [:admin, world_location]
+    assert_redirected_to [:admin, world_location.world_location_news]
   end
 
   test "updating should be able to create a new featured link" do
@@ -56,30 +55,31 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     post :update,
          params: { id: world_location,
-                   world_location: {
-                     featured_links_attributes: { "0" => {
+                   world_location_news: {
+                     featured_links_attributes: [{
                        url: "http://www.gov.uk/mainstream/something",
                        title: "Something on mainstream",
-                     } },
+                     }],
+                     title: "Something on mainstream",
                    } }
 
     assert world_location = WorldLocation.last
-    assert featured_link = world_location.featured_links.last
+    assert featured_link = world_location.world_location_news.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", featured_link.url
     assert_equal "Something on mainstream", featured_link.title
   end
 
   test "updating should be able to destroy an existing featured link" do
     world_location = create(:world_location)
-    featured_link = create(:featured_link, linkable: world_location)
+    featured_link = create(:featured_link, linkable: world_location.world_location_news)
 
     post :update,
          params: { id: world_location,
-                   world_location: {
-                     featured_links_attributes: { "0" => {
+                   world_location_news: {
+                     featured_links_attributes: [{
                        id: featured_link.id,
                        _destroy: "1",
-                     } },
+                     }],
                    } }
 
     assert_not FeaturedLink.exists?(featured_link.id)
@@ -105,8 +105,9 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "the 'View on website' link on /features.fr goes to the French world location page" do
-    world_location = create(:world_location, slug: "france", translated_into: [:fr])
-    get :features, params: { id: world_location, locale: "fr" }
+    world_location_news = build(:world_location_news, translated_into: [:fr])
+    create(:world_location, slug: "france", translated_into: [:fr], world_location_news: world_location_news)
+    get :features, params: { id: world_location_news, locale: "fr" }
 
     assert_select "a" do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }

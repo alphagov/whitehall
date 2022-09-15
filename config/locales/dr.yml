@@ -563,6 +563,9 @@ dr:
       publications: انتشارات ما
       search: جستجو به اساس کشور یا قلمرو
       statistics: آمار ما
+    search_description:
+      international_delegation:
+      world_location:
     type:
       international_delegation:
         one: هیٔت بین المللی
