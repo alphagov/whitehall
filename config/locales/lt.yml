@@ -43,9 +43,7 @@ lt:
     heading: Skelbimai
   attachment:
     accessibility:
-      full_help_html: 'Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
-
-'
+      full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.
       intro: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato.
     csv:
