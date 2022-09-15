@@ -126,7 +126,7 @@ module AdminEditionControllerTestHelpers
              }
 
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
-        assert_template "editions/new_legacy"
+        assert_template "editions/new"
       end
 
       view_test "create with invalid data should indicate there was an error" do
@@ -361,7 +361,7 @@ module AdminEditionControllerTestHelpers
                }
         end
 
-        assert_template "editions/new_legacy"
+        assert_template "editions/new"
         assert_equal "There are some problems with the document", flash.now[:alert]
         assert_select ".alert", text: /Unable to perform draft update/
       end
