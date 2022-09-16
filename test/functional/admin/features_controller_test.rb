@@ -41,10 +41,10 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
   test "post :unfeature republishes the world location news when the featurable is a world location news" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
     edition = create(:published_speech)
-    feature = create(:feature, document: edition.document, feature_list: feature_list)
+    feature = create(:feature, document: edition.document, feature_list:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(world_location_news).once
 
@@ -72,7 +72,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
   test "post :feature creates a feature and republishes the document & world location news when the featurable is an world location news" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
     edition = create(:published_speech)
 
