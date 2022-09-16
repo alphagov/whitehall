@@ -3,9 +3,18 @@
 Whitehall is deployed in two modes:
 
 - 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
-- 'frontend' for rendering some legacy content (see live examples that follow)
+- 'frontend' for rendering content to the public that has yet to be migrated to using Publishing API (see live examples that follow)
+
+## Live examples (public facing APIs)
+
+- Governments: [https://www.gov.uk/api/governments](https://www.gov.uk/api/governments)
+- World Locations: [https://www.gov.uk/api/world-locations](https://www.gov.uk/api/world-locations)
 
 ## Live examples (public facing frontend)
+
+### CSV Previews
+
+- CSV Preview pages: [https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview)
 
 ### Finders
 
