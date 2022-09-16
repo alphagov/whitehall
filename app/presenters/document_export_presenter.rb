@@ -22,7 +22,7 @@ private
     document_subtype_ids = DOCUMENT_SUB_TYPES.map { |type| "#{type}_id" }
     except = %w[title summary body] + document_subtype_ids
 
-    edition.as_json(except: except).merge(
+    edition.as_json(except:).merge(
       alternative_format_provider_content_id: edition.try(:alternative_format_provider)&.content_id,
       attachments: present_attachments(edition),
       authors: edition.authors.pluck(:id).uniq,
@@ -141,7 +141,7 @@ private
   def present_translations(edition)
     edition.translations.map do |translation|
       base_path = Whitehall.url_maker.public_document_path(edition, locale: translation.locale)
-      translation.as_json(except: :edition_id).merge(base_path: base_path)
+      translation.as_json(except: :edition_id).merge(base_path:)
     end
   end
 

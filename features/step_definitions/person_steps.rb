@@ -3,12 +3,12 @@ Given(/^a person called "([^"]*)"$/) do |name|
 end
 
 Given(/^a person called "([^"]*)" exists with the biography "([^"]*)"$/) do |name, biography|
-  create_person(name, biography: biography)
+  create_person(name, biography:)
 end
 
 Given(/^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, locale|
   person = create_person(name, biography: "Unimportant")
-  add_translation_to_person(person, locale: locale, biography: "Unimportant")
+  add_translation_to_person(person, locale:, biography: "Unimportant")
 end
 
 Given(/^a person called "([^"]*)" exists in the role of "([^"]*)"$/) do |name, role_name|
@@ -43,7 +43,7 @@ end
 
 When(/^I add a new "([^"]*)" translation to the person "([^"]*)" setting biography to "([^"]*)"$/) do |locale, name, text|
   person = find_person(name)
-  add_translation_to_person(person, locale: locale, biography: text)
+  add_translation_to_person(person, locale:, biography: text)
 end
 
 When(/^I edit the "([^"]*)" translation for the person "([^"]*)" updating the biography to "([^"]*)"$/) do |locale, name, text|

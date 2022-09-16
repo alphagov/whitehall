@@ -60,7 +60,7 @@ private
 
     ServiceListeners::PublishingApiPusher
       .new(edition.reload)
-      .push(event: verb, options: options)
+      .push(event: verb, options:)
   end
 
   def prepare_edition

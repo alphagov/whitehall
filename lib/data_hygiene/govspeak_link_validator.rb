@@ -22,7 +22,7 @@ module DataHygiene
                 "This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in publisher (see guidance on creating links) or full URLs for other GOV.UK links."
               end
 
-        { link: link, start: match.begin(0), end: match.end(0), fix: fix } if fix
+        { link:, start: match.begin(0), end: match.end(0), fix: } if fix
       end
     end
 

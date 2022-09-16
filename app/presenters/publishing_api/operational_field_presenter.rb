@@ -22,7 +22,7 @@ module PublishingApi
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: "placeholder",
           title: operational_field.name,
-          update_type: update_type,
+          update_type:,
         )
       end
     end

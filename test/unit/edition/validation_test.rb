@@ -206,7 +206,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test "should raise an exception when attempting to create an edition for a locked document" do
     document = create(:document, locked: true)
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
-      create(:edition, document: document)
+      create(:edition, document:)
     end
   end
 end

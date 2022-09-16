@@ -2,13 +2,13 @@ Api::PagePresenter = Struct.new(:page, :context) do
   def as_json(_options = {})
     {
       results: page.map(&:as_json),
-      previous_page_url: previous_page_url,
-      next_page_url: next_page_url,
+      previous_page_url:,
+      next_page_url:,
       current_page: page.current_page,
       total: page.total_count,
       pages: page.total_pages,
       page_size: page.limit_value,
-      start_index: start_index,
+      start_index:,
     }.reject { |_k, v| v.nil? }
   end
 

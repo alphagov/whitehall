@@ -27,7 +27,7 @@ module GovspeakHelper
     images = edition.respond_to?(:images) ? edition.images : []
     allowed_elements = edition.allows_inline_attachments? ? %w[details] : []
     partially_processed_govspeak = edition_body_with_attachments_and_alt_format_information(edition)
-    bare_govspeak_to_html(partially_processed_govspeak, images, allowed_elements: allowed_elements)
+    bare_govspeak_to_html(partially_processed_govspeak, images, allowed_elements:)
   end
 
   def bare_govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
@@ -69,7 +69,7 @@ module GovspeakHelper
     govspeak_headers(govspeak, 2..3).each do |header|
       case header.level
       when 2
-        headers << { header: header, children: [] }
+        headers << { header:, children: [] }
       when 3
         raise Govspeak::OrphanedHeadingError, header.text if headers.none?
 
@@ -156,7 +156,7 @@ private
 
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
-        render(partial: "contacts/contact", locals: { contact: contact, heading_tag: heading_tag }, formats: [:html])
+        render(partial: "contacts/contact", locals: { contact:, heading_tag: }, formats: [:html])
       else
         ""
       end
@@ -254,14 +254,14 @@ private
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
-        "\n\n#{render(partial: 'documents/attachment', formats: :html, object: attachment, locals: { alternative_format_contact_email: alternative_format_contact_email })}\n\n"
+        "\n\n#{render(partial: 'documents/attachment', formats: :html, object: attachment, locals: { alternative_format_contact_email: })}\n\n"
       else
         "\n\n"
       end
     end
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
-        render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment }).chomp
+        render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: }).chomp
       else
         ""
       end
@@ -275,7 +275,7 @@ private
 
   def build_govspeak_document(govspeak, images = [], allowed_elements = [])
     hosts = [Whitehall.admin_host, Whitehall.public_host]
-    Govspeak::Document.new(govspeak, { document_domains: hosts, allowed_elements: allowed_elements }).tap do |document|
+    Govspeak::Document.new(govspeak, { document_domains: hosts, allowed_elements: }).tap do |document|
       document.images = images
     end
   end

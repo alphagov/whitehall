@@ -12,17 +12,17 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(item, locale: locale, update_type: update_type)
+        .new(item, locale:, update_type:)
         .base_attributes
         .merge(PayloadBuilder::Routes.for(base_path))
         .merge(
-          base_path: base_path,
+          base_path:,
           description: nil,
-          details: details,
+          details:,
           document_type: schema_name,
           public_updated_at: item.updated_at,
           rendering_app: item.rendering_app,
-          schema_name: schema_name,
+          schema_name:,
           links: edition_links,
           auth_bypass_ids: [parent.auth_bypass_id],
         )
@@ -40,7 +40,7 @@ module PublishingApi
       {
         parent: parent_content_ids, # please use the breadcrumb component when migrating document_type to government-frontend
         organisations: parent.organisations.pluck(:content_id).uniq,
-        primary_publishing_organisation: primary_publishing_organisation,
+        primary_publishing_organisation:,
         government: government_id,
       }
     end
@@ -57,8 +57,8 @@ module PublishingApi
 
     def details
       details_hash = {
-        body: body,
-        public_timestamp: public_timestamp,
+        body:,
+        public_timestamp:,
         first_published_version: first_published_version?,
         political: political?,
       }

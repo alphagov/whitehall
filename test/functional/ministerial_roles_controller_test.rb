@@ -184,7 +184,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   view_test "shows the cabinet minister's name and role" do
     person = create(:person, forename: "John", surname: "Doe", image: image_fixture_file)
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
-    create(:role_appointment, person: person, role: ministerial_role)
+    create(:role_appointment, person:, role: ministerial_role)
 
     get :index
 
@@ -198,7 +198,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     org = create(:ministerial_department)
     person = create(:person, forename: "John", surname: "Doe")
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: false, organisations: [org])
-    create(:role_appointment, person: person, role: ministerial_role)
+    create(:role_appointment, person:, role: ministerial_role)
 
     get :index
 
@@ -213,8 +213,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     organisation = create(:ministerial_department)
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
     old_role = create(:ministerial_role, name: "Pharoah", cabinet_member: true, organisations: [organisation])
-    create(:role_appointment, person: person, role: ministerial_role)
-    create(:role_appointment, person: person, role: old_role, started_at: 10.days.ago, ended_at: 5.days.ago)
+    create(:role_appointment, person:, role: ministerial_role)
+    create(:role_appointment, person:, role: old_role, started_at: 10.days.ago, ended_at: 5.days.ago)
 
     get :index
 

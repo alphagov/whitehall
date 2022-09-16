@@ -31,7 +31,7 @@ private
   def fire_transition!
     unwithdrawn_edition = edition.create_draft(user)
     unwithdrawn_edition.minor_change = true
-    unwithdrawn_edition.editorial_remarks << EditorialRemark.create(author: user, edition: edition, body: "Unwithdrawn")
+    unwithdrawn_edition.editorial_remarks << EditorialRemark.create(author: user, edition:, body: "Unwithdrawn")
 
     Edition::AuditTrail.acting_as(user) do
       force_publish! unwithdrawn_edition

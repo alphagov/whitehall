@@ -413,7 +413,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation, name: "HMRC")
 
     page_params = {
-      organisation: organisation,
+      organisation:,
       summary: "A [text-rendered](http://example.org/irrelevant) summary.",
       corporate_information_page_type: CorporateInformationPageType.find("about"),
     }
@@ -655,7 +655,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "destroy unsets user organisation" do
     organisation = create(:organisation)
-    user = create(:writer, organisation: organisation)
+    user = create(:writer, organisation:)
     organisation.destroy!
     assert_nil user.reload.organisation_slug
   end
@@ -700,14 +700,14 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should be able to list unused corporate information types" do
     organisation = create(:organisation)
     types = CorporateInformationPageType.all
-    create(:corporate_information_page, corporate_information_page_type: types.pop, organisation: organisation)
+    create(:corporate_information_page, corporate_information_page_type: types.pop, organisation:)
     organisation.reload
     assert_equal types, organisation.unused_corporate_information_page_types
   end
 
   test "can get a corporate information page with a particular slug" do
     organisation = create(:organisation)
-    tor = create(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, organisation: organisation)
+    tor = create(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, organisation:)
     organisation.reload
     assert_equal tor, organisation.corporate_information_pages.for_slug(tor.slug)
   end
@@ -1015,7 +1015,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     about_page = create(
       :about_corporate_information_page,
-      organisation: organisation,
+      organisation:,
     )
 
     PublishingApiDocumentRepublishingWorker

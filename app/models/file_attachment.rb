@@ -39,12 +39,12 @@ class FileAttachment < Attachment
   def publishing_api_details_for_format
     {
       accessible: accessible?,
-      alternative_format_contact_email: alternative_format_contact_email,
-      content_type: content_type,
-      file_size: file_size,
-      filename: filename,
-      number_of_pages: number_of_pages,
-      preview_url: preview_url,
+      alternative_format_contact_email:,
+      content_type:,
+      file_size:,
+      filename:,
+      number_of_pages:,
+      preview_url:,
     }
   end
 

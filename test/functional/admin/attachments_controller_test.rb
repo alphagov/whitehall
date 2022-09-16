@@ -43,7 +43,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   supported_attachable_types.each do |type, param_name|
     view_test "GET :index handles #{type} as attachable" do
       attachable = create(type) # rubocop:disable Rails/SaveBang
-      create(:file_attachment, isbn: "817525766-0", attachable: attachable)
+      create(:file_attachment, isbn: "817525766-0", attachable:)
 
       get :index, params: { param_name => attachable.id }
 
@@ -73,7 +73,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     test "DELETE :destroy handles file attachments for #{type} as attachable" do
       attachable = create(type) # rubocop:disable Rails/SaveBang
-      attachment = create(:file_attachment, attachable: attachable)
+      attachment = create(:file_attachment, attachable:)
 
       delete :destroy, params: { param_name => attachable.id, id: attachment.id }
 
@@ -130,7 +130,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "POST :create saves an attachment on the draft edition" do
     attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid)
 
-    post :create, params: { edition_id: @edition.id, type: "html", attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "html", attachment: }
     assert_not_nil(Attachment.find_by(title: attachment[:title]))
   end
 
@@ -145,7 +145,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft)
       .with(instance_of(HtmlAttachment))
 
-    post :create, params: { edition_id: @edition.id, type: "html", attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "html", attachment: }
   end
 
   test "POST :create for a FileAttachnment doesnt update the publishing api" do
@@ -159,7 +159,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft)
       .never
 
-    post :create, params: { edition_id: @edition.id, type: "file", attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
 
   test "POST :create ignores html attachments when attachable does not allow them" do
@@ -176,7 +176,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
 
-    post :create, params: { edition_id: @edition.id, type: "file", attachment: attachment }
+    post :create, params: { edition_id: @edition.id, type: "file", attachment: }
   end
 
   test "DELETE :destroy handles html attachments" do
@@ -425,12 +425,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
           edition_id: @edition,
           id: attachment.id,
           attachment: {
-            title: title,
+            title:,
             govspeak_content_attributes: { body: "New body", id: attachment.govspeak_content.id },
           },
         }
 
-    assert_not_nil(Attachment.find_by(title: title))
+    assert_not_nil(Attachment.find_by(title:))
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do

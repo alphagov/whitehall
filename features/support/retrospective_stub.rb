@@ -10,7 +10,7 @@ class RetrospectiveStub
 
   # rubocop:disable Style/MissingRespondToMissing
   def method_missing(method, *args)
-    calls << { method: method, args: args }
+    calls << { method:, args: }
 
     stub = get_matching_stub(method, args)
 
@@ -26,7 +26,7 @@ class RetrospectiveStub
 
   def stub(method, opts = {})
     stubs << {
-      method: method,
+      method:,
       with: opts[:with],
       returns: opts[:returns],
     }

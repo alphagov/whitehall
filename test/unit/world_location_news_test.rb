@@ -8,7 +8,7 @@ class WorldLocationNewsTest < ActiveSupport::TestCase
     french = build(:feature_list, locale: :fr)
 
     world_location_news = build(:world_location_news, feature_lists: [english, french])
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     assert_equal english, world_location_news.feature_list_for_locale(:en)
     assert_equal french, world_location_news.feature_list_for_locale(:fr)
     arabic = world_location_news.feature_list_for_locale(:ar)
@@ -28,7 +28,7 @@ class WorldLocationNewsTest < ActiveSupport::TestCase
     }
 
     world_location_news = build(:world_location_news, params)
-    world_location = create(:world_location, world_location_news: world_location_news)
+    world_location = create(:world_location, world_location_news:)
 
     links = world_location.world_location_news.featured_links
     assert_equal 2, links.count
@@ -46,13 +46,13 @@ class WorldLocationNewsTest < ActiveSupport::TestCase
       ],
     }
     world_location_news = build(:world_location_news, params)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     assert world_location_news.valid?
   end
 
   test "featured links are returned in order of creation" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     link1 = create(:featured_link, linkable: world_location_news, title: "2 days ago", created_at: 2.days.ago)
     link2 = create(:featured_link, linkable: world_location_news, title: "12 days ago", created_at: 12.days.ago)
     link3 = create(:featured_link, linkable: world_location_news, title: "1 hour ago", created_at: 1.hour.ago)

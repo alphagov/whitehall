@@ -48,7 +48,7 @@ publications = [
 ]
 
 collections.each do |(slug, redirect)|
-  unpublishing = Unpublishing.where(slug: slug, document_type: "DocumentCollection").first
+  unpublishing = Unpublishing.where(slug:, document_type: "DocumentCollection").first
 
   unpublishing.redirect = true
   unpublishing.alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{redirect}"
@@ -58,7 +58,7 @@ collections.each do |(slug, redirect)|
 end
 
 detailed_guides.each do |(slug, redirect)|
-  unpublishing = Unpublishing.where(slug: slug, document_type: "DetailedGuide").first
+  unpublishing = Unpublishing.where(slug:, document_type: "DetailedGuide").first
 
   unpublishing.redirect = true
   unpublishing.alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{redirect}"
@@ -68,7 +68,7 @@ detailed_guides.each do |(slug, redirect)|
 end
 
 publications.each do |(slug, redirect)|
-  unpublishing = Unpublishing.where(slug: slug, document_type: "Publication").first
+  unpublishing = Unpublishing.where(slug:, document_type: "Publication").first
 
   unpublishing.redirect = true
   unpublishing.alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{redirect}"

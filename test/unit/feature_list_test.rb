@@ -22,7 +22,7 @@ class FeatureListTest < ActiveSupport::TestCase
       create(:feature, ordering: 3),
       create(:feature, ordering: 1),
     ]
-    feature_list = create(:feature_list, locale: :en, features: features)
+    feature_list = create(:feature_list, locale: :en, features:)
     feature_list.reload
     assert_equal [1, 2, 3], feature_list.features.map(&:ordering)
   end
@@ -87,7 +87,7 @@ class FeatureListTest < ActiveSupport::TestCase
     item_b = create(:published_news_article, world_locations: [world_location])
 
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
-    create(:feature, feature_list: feature_list, document: item_b.document)
+    create(:feature, feature_list:, document: item_b.document)
 
     editor = create(:departmental_editor)
     new_draft = item_b.create_draft(editor)

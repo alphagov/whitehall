@@ -32,7 +32,7 @@ module OrganisationResluggerTest
       content[:base_path] = new_base_path
       content[:routes][0][:path] = new_base_path
       content[:routes][1][:path] = new_atom_base_path unless content[:routes][1].nil?
-      content_item.stubs(content: content)
+      content_item.stubs(content:)
 
       expected_publish_requests = [
         stub_publishing_api_put_content(content_item.content_id, content_item.content),

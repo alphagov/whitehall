@@ -12,7 +12,7 @@ end
 
 Given(/^there is a fatality notice titled "([^"]*)" in the field "([^"]*)"$/) do |title, field_name|
   field = create(:operational_field, name: field_name)
-  create(:published_fatality_notice, title: title, operational_field: field)
+  create(:published_fatality_notice, title:, operational_field: field)
 end
 
 When(/^I link the minister "([^"]*)" to the fatality notice$/) do |minister_name|
@@ -33,7 +33,7 @@ Then(/^I can view the field of operations information from a link in the metadat
 end
 
 Then(/^I can see the roll call introduction of the fatality notice titled "([^"]*)"$/) do |title|
-  notice = FatalityNotice.find_by(title: title)
+  notice = FatalityNotice.find_by(title:)
 
   expect(page).to have_content(notice.roll_call_introduction)
   expect(page).to_not have_content(notice.summary)

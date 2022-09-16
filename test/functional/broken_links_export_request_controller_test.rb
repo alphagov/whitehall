@@ -16,7 +16,7 @@ class BrokenLinksExportRequestControllerTest < ActionController::TestCase
 
     @directory.files.create(key: filename, body: "hello world") # rubocop:disable Rails/SaveBang
 
-    get :show, params: { export_id: export_id }
+    get :show, params: { export_id: }
     assert_equal 200, response.status
     assert_equal "hello world", response.body
   end
@@ -34,7 +34,7 @@ class BrokenLinksExportRequestControllerTest < ActionController::TestCase
 
     @directory.files.create(key: filename, body: "hello world") # rubocop:disable Rails/SaveBang
 
-    get :show, params: { export_id: export_id }
+    get :show, params: { export_id: }
     assert_equal 401, response.status
   end
 end

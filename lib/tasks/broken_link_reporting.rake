@@ -16,7 +16,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
     puts "Generating broken link reports..."
     organisation = Organisation.where(slug: organisation_slug).first if organisation_slug
     LinkReporterCsvService
-      .new(reports_dir: reports_dir, organisation: organisation)
+      .new(reports_dir:, organisation:)
       .generate do |processed, total|
         processed_str = number_with_delimiter(processed)
         total_str = number_with_delimiter(total)

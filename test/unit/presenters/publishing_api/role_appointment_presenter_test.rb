@@ -17,8 +17,8 @@ class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
     role = create(:role)
     role_appointment = create(
       :role_appointment,
-      person: person,
-      role: role,
+      person:,
+      role:,
     )
 
     expected_hash = {

@@ -56,9 +56,9 @@ class WorldLocation < ApplicationRecord
 
   def search_description
     if world_location_type == WorldLocationType::InternationalDelegation
-      I18n.t("world_location.search_description.international_delegation", name: name)
+      I18n.t("world_location.search_description.international_delegation", name:)
     else
-      I18n.t("world_location.search_description.world_location", name: name)
+      I18n.t("world_location.search_description.world_location", name:)
     end
   end
 

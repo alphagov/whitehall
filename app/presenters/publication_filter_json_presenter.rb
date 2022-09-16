@@ -3,8 +3,8 @@ class PublicationFilterJsonPresenter < DocumentFilterPresenter
 
   def as_json(options = nil)
     super.merge(
-      atom_feed_url: atom_feed_url,
-      email_signup_url: email_signup_url,
+      atom_feed_url:,
+      email_signup_url:,
     )
   end
 

@@ -1,10 +1,10 @@
 class RoleTypePresenter
   RoleType = Struct.new(:type, :cabinet_member, :permanent_secretary, :chief_of_the_defence_staff) do
     def attributes
-      { type: type,
-        cabinet_member: cabinet_member,
-        permanent_secretary: permanent_secretary,
-        chief_of_the_defence_staff: chief_of_the_defence_staff }
+      { type:,
+        cabinet_member:,
+        permanent_secretary:,
+        chief_of_the_defence_staff: }
     end
   end
 

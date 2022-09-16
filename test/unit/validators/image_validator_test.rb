@@ -64,7 +64,7 @@ private
   def build_example(file_name)
     if file_name.present?
       File.open(Rails.root.join("test/fixtures/images", file_name)) do |file|
-        EXAMPLE_MODEL.new(file: file).tap do |image_data|
+        EXAMPLE_MODEL.new(file:).tap do |image_data|
           carrierwave_file = image_data.file.file
           carrierwave_file.content_type = content_type(file_name)
         end

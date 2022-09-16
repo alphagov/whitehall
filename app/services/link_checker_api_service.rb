@@ -12,7 +12,7 @@ class LinkCheckerApiService
   end
 
   def self.extract_links(reportable)
-    Govspeak::Document.new(reportable.body).extracted_links(website_root: website_root)
+    Govspeak::Document.new(reportable.body).extracted_links(website_root:)
   end
 
   def self.check_links(reportable, webhook_uri, checked_within: nil)
@@ -23,9 +23,9 @@ class LinkCheckerApiService
     else
       batch_report = Whitehall.link_checker_api_client.create_batch(
         uris,
-        checked_within: checked_within,
-        webhook_uri: webhook_uri,
-        webhook_secret_token: webhook_secret_token,
+        checked_within:,
+        webhook_uri:,
+        webhook_secret_token:,
       )
 
       LinkCheckerApiReport.create_from_batch_report(batch_report, reportable)

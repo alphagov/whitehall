@@ -46,7 +46,7 @@ module Whitehall
     def form_actions(options = {})
       @template.tag.div(class: "form-actions", data: { module: "track-button-click", "track-category" => "form-button", "track-action" => "#{object.class.name.demodulize.underscore.dasherize}-button" }) do
         options[:buttons].each do |name, value|
-          @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
+          @template.concat submit(value, name:, class: "btn btn-primary btn-lg")
         end
         @template.concat @template.tag.span(class: "or_cancel") {
           @template.concat %( or )
@@ -62,7 +62,7 @@ module Whitehall
     def save_or_cancel_buttons(options = {})
       @template.tag.div(class: "form-actions") do
         options[:buttons].each do |name, value|
-          @template.concat submit(value, name: name, class: "btn btn-lg btn-primary")
+          @template.concat submit(value, name:, class: "btn btn-lg btn-primary")
         end
         @template.concat @template.link_to("Cancel", cancel_path(options[:cancel]), class: "btn btn-default btn-lg add-left-margin")
       end
@@ -70,7 +70,7 @@ module Whitehall
 
     def save_or_continue_or_cancel(options = {})
       buttons = { save: "Save", save_and_continue: "Save and continue" }
-      form_actions(options.reverse_merge(buttons: buttons))
+      form_actions(options.reverse_merge(buttons:))
     end
 
     def text_field(method, options = {})

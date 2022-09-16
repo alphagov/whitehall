@@ -23,7 +23,7 @@ private
   end
 
   def replace_report
-    report = LinkCheckerApiReport.find_by!(batch_id: batch_id)
+    report = LinkCheckerApiReport.find_by!(batch_id:)
     report.links.delete_all
     report.update!(link_report_attributes)
     report
@@ -31,7 +31,7 @@ private
 
   def create_report
     LinkCheckerApiReport.create!(
-      batch_id: batch_id,
+      batch_id:,
       **link_report_attributes,
     )
   end

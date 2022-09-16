@@ -8,14 +8,14 @@ class PublishingApiWorker < WorkerBase
               locale = I18n.default_locale.to_s,
               bulk_publishing = false)
 
-    model = class_for(model_name).unscoped.find_by(id: id)
+    model = class_for(model_name).unscoped.find_by(id:)
     return if model.nil?
 
     if model.is_a?(Edition)
       check_if_locked_document(edition: model)
     end
 
-    presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
+    presenter = PublishingApiPresenters.presenter_for(model, update_type:)
 
     I18n.with_locale(locale) do
       send_item(presenter, locale, bulk_publishing)
@@ -41,9 +41,9 @@ private
     Services.publishing_api.patch_links(
       payload.content_id,
       links: payload.links,
-      bulk_publishing: bulk_publishing,
+      bulk_publishing:,
     )
-    Services.publishing_api.publish(payload.content_id, nil, locale: locale)
+    Services.publishing_api.publish(payload.content_id, nil, locale:)
   end
 
   def save_draft(payload, bulk_publishing)
@@ -56,6 +56,6 @@ private
 
   def handle_client_error(error)
     explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
-    GovukError.notify(error, extra: { explanation: explanation })
+    GovukError.notify(error, extra: { explanation: })
   end
 end

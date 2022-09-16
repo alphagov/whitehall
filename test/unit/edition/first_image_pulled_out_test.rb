@@ -16,7 +16,7 @@ class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
   end
 
   def body_text_valid(body)
-    edition_with_first_image_pulled_out(body: body).valid?
+    edition_with_first_image_pulled_out(body:).valid?
   end
 
   test "validates that the first image is not included in the body text" do

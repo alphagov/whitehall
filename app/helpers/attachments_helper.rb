@@ -22,8 +22,8 @@ module AttachmentsHelper
         formats: :html,
         object: attachment,
         locals: {
-          alternative_format_contact_email: alternative_format_contact_email,
-          published_on: published_on,
+          alternative_format_contact_email:,
+          published_on:,
         },
       )
     end

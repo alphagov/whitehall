@@ -13,7 +13,7 @@ end
 
 Given(/^a published speech "([^"]*)" by "([^"]*)" on "([^"]*)" at "([^"]*)"$/) do |title, ministerial_role, delivered_on, location|
   role_appointment = MinisterialRole.all.detect { |mr| mr.name == ministerial_role }.current_role_appointment
-  create(:published_speech, title: title, role_appointment: role_appointment, delivered_on: Date.parse(delivered_on), location: location)
+  create(:published_speech, title:, role_appointment:, delivered_on: Date.parse(delivered_on), location:)
 end
 
 Given(/^a published speech exists$/) do
@@ -49,7 +49,7 @@ When(/^I draft a new speech "([^"]*)"$/) do |title|
 end
 
 When(/^I visit the speech "([^"]*)"$/) do |title|
-  speech = Speech.find_by!(title: title)
+  speech = Speech.find_by!(title:)
   visit public_document_path(speech)
 end
 

@@ -7,8 +7,8 @@ class SplitClassificationDescription < ActiveRecord::Migration[7.0]
       description = split_description[1..split_description.length].join("\r\n\r\n") if split_description.length > 1
 
       classification.update_columns(
-        summary: summary,
-        description: description,
+        summary:,
+        description:,
       )
     end
   end

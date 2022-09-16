@@ -24,7 +24,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
 
   test "#changes on a consultation derives the timestamp from the consultation first published time" do
     first_published_at = 1.day.ago
-    edition = create(:draft_consultation, first_published_at: first_published_at, opening_at: 1.day.from_now, closing_at: 2.days.from_now)
+    edition = create(:draft_consultation, first_published_at:, opening_at: 1.day.from_now, closing_at: 2.days.from_now)
     EditionForcePublisher.new(edition).perform!
     edition.reload
     history = DocumentHistory.new(edition.document)
@@ -36,9 +36,9 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     original_edition = Timecop.travel(3.days.ago) { create(:superseded_edition, first_published_at: Time.zone.now, change_note: nil) }
     document         = original_edition.document
 
-    Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
-    Timecop.travel(2.days.ago) { create(:published_edition,  document: document, published_major_version: 2, published_minor_version: 1, major_change_published_at: Time.zone.now, minor_change: true) }
-    Timecop.travel(1.day.ago)  { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
+    Timecop.travel(2.days.ago) { create(:superseded_edition, document:, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
+    Timecop.travel(2.days.ago) { create(:published_edition,  document:, published_major_version: 2, published_minor_version: 1, major_change_published_at: Time.zone.now, minor_change: true) }
+    Timecop.travel(1.day.ago)  { create(:published_edition,  document:, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
 
     history = DocumentHistory.new(document)
 
@@ -57,7 +57,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     updated_published_time = 6.days.ago
 
     Timecop.travel(1.day) do
-      create(:superseded_edition, document: document, first_published_at: updated_published_time, published_major_version: 1, published_minor_version: 1, minor_change: true)
+      create(:superseded_edition, document:, first_published_at: updated_published_time, published_major_version: 1, published_minor_version: 1, minor_change: true)
     end
     history = DocumentHistory.new(document)
 
@@ -83,9 +83,9 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     original_edition = Timecop.travel(3.days.ago) { create(:superseded_edition, first_published_at: Time.zone.now, change_note: nil) }
     document         = original_edition.document
 
-    Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
-    Timecop.travel(1.day.ago) { create(:published_edition, document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
-    create(:published_edition, document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
+    Timecop.travel(2.days.ago) { create(:superseded_edition, document:, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
+    Timecop.travel(1.day.ago) { create(:published_edition, document:, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
+    create(:published_edition, document:, published_major_version: 2, published_minor_version: 1, minor_change: true)
 
     history = DocumentHistory.new(document)
 
@@ -96,7 +96,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     document = create(:published_edition).document
     assert DocumentHistory.new(document).newly_published?
 
-    create(:superseded_edition, document: document)
+    create(:superseded_edition, document:)
     assert_not DocumentHistory.new(document).newly_published?
   end
 

@@ -6,7 +6,7 @@ SLUGS = %w[
 REDIRECT_PATH = "/government/organisations/scientific-advisory-group-for-emergencies".freeze
 
 SLUGS.each do |slug|
-  group = PolicyGroup.find_by(slug: slug)
+  group = PolicyGroup.find_by(slug:)
   unless group
     puts "could not find #{slug}"
     next

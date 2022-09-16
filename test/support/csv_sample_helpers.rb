@@ -15,8 +15,8 @@ module CsvSampleHelpers
 
   def csv_sample(rows)
     encoding = "UTF-8"
-    heading = CSV.generate_line(rows.first.keys, encoding: encoding)
-    rows = rows.map { |row| CSV.generate_line(row.values, encoding: encoding) }
+    heading = CSV.generate_line(rows.first.keys, encoding:)
+    rows = rows.map { |row| CSV.generate_line(row.values, encoding:) }
 
     heading + rows.join
   end

@@ -1,46 +1,46 @@
 Given(/^a draft (document|publication|news article|consultation|speech) "([^"]*)"(?: with summary "([^"]*)")? exists$/) do |document_type, title, summary|
   document_type = "publication" if document_type == "document"
-  attributes = { title: title }
+  attributes = { title: }
   attributes[:summary] = summary if summary
   create("draft_#{document_class(document_type).name.underscore}".to_sym, attributes)
 end
 
 Given(/^a published (publication|news article|consultation|speech|detailed guide) "([^"]*)" exists$/) do |document_type, title|
   create(:government) if Government.first.nil?
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title)
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title:)
 end
 
 Given(/^a published (publication|news article|consultation|speech|detailed guide) "([^"]*)" with locale "([^"]*)" exists$/) do |document_type, title, locale|
   create(:government) if Government.first.nil?
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, translated_into: [locale.to_sym])
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title:, translated_into: [locale.to_sym])
 end
 
 Given(/^a published document "([^"]*)" exists$/) do |title|
-  create(:published_publication, title: title)
+  create(:published_publication, title:)
 end
 
 Given(/^a draft (publication|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title:, organisations: [organisation])
 end
 
 Given(/^a published (publication|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title:, organisations: [organisation])
 end
 
 Given(/^a published (publication|news article|consultation) "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)"$/) do |document_type, title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, world_locations: [world_location])
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title:, world_locations: [world_location])
 end
 
 Given(/^a published (publication|news article|consultation) "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)" produced (\d+) days ago$/) do |document_type, title, world_location_name, days_ago|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title:, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
 
 Given(/^a submitted (publication|news article|consultation|speech|detailed guide) "([^"]*)" exists$/) do |document_type, title|
-  create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
+  create("submitted_#{document_class(document_type).name.underscore}".to_sym, title:)
 end
 
 Given(/^another user edits the (publication|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/) do |_document_type, original_title, new_title|
@@ -54,26 +54,26 @@ Given(/^another user edits the (publication|news article|consultation|speech) "(
 end
 
 Given(/^a published (publication|news article|consultation|speech) "([^"]*)" that's the responsibility of:$/) do |document_type, title, table|
-  edition = create(:"published_#{document_type}", title: title)
+  edition = create(:"published_#{document_type}", title:)
   table.hashes.each do |row|
     person = find_or_create_person(row["Person"])
     ministerial_role = find_or_create_ministerial_role(row["Ministerial Role"])
     unless RoleAppointment.for_role(ministerial_role).for_person(person).exists?
-      role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+      role_appointment = create(:role_appointment, role: ministerial_role, person:)
     end
     edition.role_appointments << role_appointment
   end
 end
 
 Given(/^a draft publication "(.*?)" with a file attachment exists$/) do |title|
-  @edition = create(:draft_publication, :with_file_attachment, title: title)
+  @edition = create(:draft_publication, :with_file_attachment, title:)
   @attachment = @edition.attachments.first
 end
 
 Given(/^a force published (document|publication|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   document_type = "publication" if document_type == "document"
-  edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title:, organisations: [organisation])
   stub_publishing_api_links_with_taxons(edition.content_id, %w[a-taxon-content-id])
   visit admin_editions_path(state: :draft)
   click_link title
@@ -113,7 +113,7 @@ When(/^I filter by organisation "(.*?)" with javascript enabled$/) do |organisat
 end
 
 When(/^I visit the (publication|consultation) "([^"]*)"$/) do |document_type, title|
-  edition = document_class(document_type).find_by!(title: title)
+  edition = document_class(document_type).find_by!(title:)
   visit public_document_path(edition)
 end
 
@@ -125,7 +125,7 @@ When(/^I filter by title or slug "(.*?)" with javascript enabled$/) do |title_or
 end
 
 When(/^I preview "([^"]*)"$/) do |title|
-  edition = Edition.find_by!(title: title)
+  edition = Edition.find_by!(title:)
   visit preview_document_path(edition)
 end
 
@@ -213,12 +213,12 @@ Then(/^I should see the conflict between the (publication|policy|news article|co
 end
 
 Then(/^my attempt to publish "([^"]*)" should fail$/) do |title|
-  edition = Edition.latest_edition.find_by!(title: title)
+  edition = Edition.latest_edition.find_by!(title:)
   expect(!edition.published?).to be(true)
 end
 
 Then(/^my attempt to publish "([^"]*)" should succeed$/) do |title|
-  edition = Edition.latest_edition.find_by!(title: title)
+  edition = Edition.latest_edition.find_by!(title:)
   expect(edition.published?).to be(true)
 end
 
@@ -232,7 +232,7 @@ end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
   document_type = document_type.tr(" ", "_")
-  document = document_type.classify.constantize.find_by(title: title)
+  document = document_type.classify.constantize.find_by(title:)
   visit send("edit_admin_#{document_type}_path", document)
 end
 
@@ -243,7 +243,7 @@ When(/^I edit the new edition$/) do
 end
 
 When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|
-  edition = Edition.latest_edition.find_by!(title: title)
+  edition = Edition.latest_edition.find_by!(title:)
   edition.read_consultation_principles = true
   edition.save!
 end

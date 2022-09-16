@@ -137,12 +137,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     military_role = create(:military_role)
 
     organisation = create(:organisation)
-    organisation_ministerial_role = create(:organisation_role, organisation: organisation, role: ministerial_role)
-    organisation_board_member_role = create(:organisation_role, organisation: organisation, role: board_member_role)
-    organisation_scientific_role = create(:organisation_role, organisation: organisation, role: chief_scientific_advisor_role)
-    organisation_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: traffic_commissioner_role)
-    organisation_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: chief_professional_officer_role)
-    organisation_military_role = create(:organisation_role, organisation: organisation, role: military_role)
+    organisation_ministerial_role = create(:organisation_role, organisation:, role: ministerial_role)
+    organisation_board_member_role = create(:organisation_role, organisation:, role: board_member_role)
+    organisation_scientific_role = create(:organisation_role, organisation:, role: chief_scientific_advisor_role)
+    organisation_traffic_commissioner_role = create(:organisation_role, organisation:, role: traffic_commissioner_role)
+    organisation_chief_professional_officer_role = create(:organisation_role, organisation:, role: chief_professional_officer_role)
+    organisation_military_role = create(:organisation_role, organisation:, role: military_role)
 
     get :people, params: { id: organisation }
 
@@ -177,7 +177,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   view_test "GET on :people shows ministerial role and current person's name" do
     person = create(:person, forename: "John", surname: "Doe")
     ministerial_role = create(:ministerial_role, name: "Prime Minister")
-    create(:role_appointment, person: person, role: ministerial_role, started_at: 1.day.ago)
+    create(:role_appointment, person:, role: ministerial_role, started_at: 1.day.ago)
     organisation = create(:organisation, roles: [ministerial_role])
 
     get :people, params: { id: organisation }
@@ -190,8 +190,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     junior_ministerial_role = create(:ministerial_role)
     senior_ministerial_role = create(:ministerial_role)
     organisation = create(:organisation)
-    organisation_junior_ministerial_role = create(:organisation_role, organisation: organisation, role: junior_ministerial_role, ordering: 2)
-    organisation_senior_ministerial_role = create(:organisation_role, organisation: organisation, role: senior_ministerial_role, ordering: 1)
+    organisation_junior_ministerial_role = create(:organisation_role, organisation:, role: junior_ministerial_role, ordering: 2)
+    organisation_senior_ministerial_role = create(:organisation_role, organisation:, role: senior_ministerial_role, ordering: 1)
 
     get :people, params: { id: organisation }
 
@@ -204,9 +204,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     chief_scientific_advisor_role = create(:chief_scientific_advisor_role)
 
     organisation = create(:organisation)
-    organisation_chief_scientific_advisor_role = create(:organisation_role, organisation: organisation, role: chief_scientific_advisor_role, ordering: 2)
-    organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role, ordering: 3)
-    organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role, ordering: 1)
+    organisation_chief_scientific_advisor_role = create(:organisation_role, organisation:, role: chief_scientific_advisor_role, ordering: 2)
+    organisation_junior_board_member_role = create(:organisation_role, organisation:, role: junior_board_member_role, ordering: 3)
+    organisation_senior_board_member_role = create(:organisation_role, organisation:, role: senior_board_member_role, ordering: 1)
 
     get :people, params: { id: organisation }
 
@@ -222,8 +222,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     junior_traffic_commissioner_role = create(:traffic_commissioner_role)
     senior_traffic_commissioner_role = create(:traffic_commissioner_role)
     organisation = create(:organisation)
-    organisation_junior_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: junior_traffic_commissioner_role, ordering: 2)
-    organisation_senior_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: senior_traffic_commissioner_role, ordering: 1)
+    organisation_junior_traffic_commissioner_role = create(:organisation_role, organisation:, role: junior_traffic_commissioner_role, ordering: 2)
+    organisation_senior_traffic_commissioner_role = create(:organisation_role, organisation:, role: senior_traffic_commissioner_role, ordering: 1)
 
     get :people, params: { id: organisation }
 
@@ -234,8 +234,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     junior_chief_professional_officer_role = create(:chief_professional_officer_role)
     senior_chief_professional_officer_role = create(:chief_professional_officer_role)
     organisation = create(:organisation)
-    organisation_junior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: junior_chief_professional_officer_role, ordering: 2)
-    organisation_senior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: senior_chief_professional_officer_role, ordering: 1)
+    organisation_junior_chief_professional_officer_role = create(:organisation_role, organisation:, role: junior_chief_professional_officer_role, ordering: 2)
+    organisation_senior_chief_professional_officer_role = create(:organisation_role, organisation:, role: senior_chief_professional_officer_role, ordering: 1)
 
     get :people, params: { id: organisation }
 
@@ -246,8 +246,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     junior_representative_role = create(:special_representative_role)
     senior_representative_role = create(:special_representative_role)
     organisation = create(:organisation)
-    organisation_junior_representative_role = create(:organisation_role, organisation: organisation, role: junior_representative_role, ordering: 2)
-    organisation_senior_representative_role = create(:organisation_role, organisation: organisation, role: senior_representative_role, ordering: 1)
+    organisation_junior_representative_role = create(:organisation_role, organisation:, role: junior_representative_role, ordering: 2)
+    organisation_senior_representative_role = create(:organisation_role, organisation:, role: senior_representative_role, ordering: 1)
 
     get :people, params: { id: organisation }
 
@@ -271,12 +271,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     junior_board_member_role = create(:board_member_role)
     senior_board_member_role = create(:board_member_role)
 
-    create(:organisation_role, organisation: organisation, role: senior_board_member_role)
-    create(:organisation_role, organisation: organisation, role: junior_board_member_role)
+    create(:organisation_role, organisation:, role: senior_board_member_role)
+    create(:organisation_role, organisation:, role: junior_board_member_role)
 
-    managing_editor = create(:managing_editor, organisation: organisation)
-    departmental_editor = create(:departmental_editor, organisation: organisation)
-    world_editor = create(:world_editor, organisation: organisation)
+    managing_editor = create(:managing_editor, organisation:)
+    departmental_editor = create(:departmental_editor, organisation:)
+    world_editor = create(:world_editor, organisation:)
 
     get :edit, params: { id: organisation }
     assert_select "select#organisation_important_board_members option", count: 2
@@ -297,7 +297,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "PUT on :update allows updating of organisation role ordering" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role)
-    organisation_role = create(:organisation_role, organisation: organisation, role: ministerial_role, ordering: 1)
+    organisation_role = create(:organisation_role, organisation:, role: ministerial_role, ordering: 1)
 
     put :update,
         params: { id: organisation.id,
@@ -334,7 +334,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "PUT on :update with bad params does not update the organisation and renders the edit page" do
     ministerial_role = create(:ministerial_role)
     organisation = create(:organisation, name: "org name")
-    create(:organisation_role, organisation: organisation, role: ministerial_role)
+    create(:organisation_role, organisation:, role: ministerial_role)
 
     put :update, params: { id: organisation, organisation: { name: "" } }
 
@@ -396,18 +396,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "Prevents unauthorized management of homepage priority" do
     organisation = create(:organisation)
-    writer = create(:writer, organisation: organisation)
+    writer = create(:writer, organisation:)
     login_as(writer)
 
     get :edit, params: { id: organisation }
     refute_select ".homepage-priority"
 
-    managing_editor = create(:managing_editor, organisation: organisation)
+    managing_editor = create(:managing_editor, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
     assert_select ".homepage-priority"
 
-    gds_editor = create(:gds_editor, organisation: organisation)
+    gds_editor = create(:gds_editor, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
     assert_select ".homepage-priority"
@@ -435,7 +435,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     feature_list = organisation.load_or_create_feature_list("en")
     feature_list.features.create!(
-      topical_event: topical_event,
+      topical_event:,
       image: image_fixture_file,
       alt_text: "Image alternative text",
     )
@@ -456,18 +456,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "GDS Editors can set political status" do
     organisation = create(:organisation)
-    writer = create(:writer, organisation: organisation)
+    writer = create(:writer, organisation:)
     login_as(writer)
 
     get :edit, params: { id: organisation }
     refute_select ".political-status"
 
-    managing_editor = create(:managing_editor, organisation: organisation)
+    managing_editor = create(:managing_editor, organisation:)
     login_as(managing_editor)
     get :edit, params: { id: organisation }
     refute_select ".political-status"
 
-    gds_editor = create(:gds_editor, organisation: organisation)
+    gds_editor = create(:gds_editor, organisation:)
     login_as(gds_editor)
     get :edit, params: { id: organisation }
     assert_select ".political-status"

@@ -31,7 +31,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
 
   test "other states cannot be withdrawn" do
     (Edition.available_states - %i[published withdrawn]).each do |state|
-      edition = create(:edition, state: state, first_published_at: 1.year.ago)
+      edition = create(:edition, state:, first_published_at: 1.year.ago)
       edition.build_unpublishing(unpublishing_params)
       unpublisher = EditionWithdrawer.new(edition)
 
@@ -57,7 +57,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     edition.build_unpublishing(unpublishing_params)
     user = create(:user)
 
-    unpublisher = EditionWithdrawer.new(edition, user: user)
+    unpublisher = EditionWithdrawer.new(edition, user:)
     unpublisher.perform!
     assert_includes edition.authors, user
   end
@@ -93,14 +93,14 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
   test "copies the date & explanation from a previous withdrawal if one is given" do
     document = create(:document)
 
-    previous_edition = create(:withdrawn_edition, document: document).tap do |e|
+    previous_edition = create(:withdrawn_edition, document:).tap do |e|
       e.unpublishing.update!(
         explanation: "Some reason for withdrawing",
         unpublished_at: 1.week.ago,
       )
     end
 
-    edition = create(:published_edition, document: document)
+    edition = create(:published_edition, document:)
 
     unpublisher = EditionWithdrawer.new(edition,
                                         previous_withdrawal: previous_edition.unpublishing,

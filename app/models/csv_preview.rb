@@ -75,7 +75,7 @@ private
     row_sep = :auto
     csv = nil
     begin
-      csv = CSV.open(file_path, encoding: encoding, row_sep: row_sep)
+      csv = CSV.open(file_path, encoding:, row_sep:)
       csv.shift
       csv.rewind
     rescue CSV::MalformedCSVError => e

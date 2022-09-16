@@ -79,7 +79,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
       build(:feature, document: created_case_study.document, ordering: i)
     end
 
-    create(:feature_list, featurable: @world_location_news, features: features)
+    create(:feature_list, featurable: @world_location_news, features:)
 
     assert_equal 5, present(@world_location_news).content.dig(:details, :ordered_featured_documents).size
   end

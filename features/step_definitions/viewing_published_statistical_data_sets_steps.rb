@@ -1,5 +1,5 @@
 Given(/^a document collection "([^"]*)"$/) do |title|
-  @document_collection = create(:document_collection, :with_group, title: title)
+  @document_collection = create(:document_collection, :with_group, title:)
 end
 
 Given(/^a published statistical data set "([^"]*)"$/) do |data_set_title|

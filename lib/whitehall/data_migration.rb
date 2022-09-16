@@ -20,7 +20,7 @@ module Whitehall
     end
 
     def due?
-      DataMigrationRecord.find_by(version: version).nil?
+      DataMigrationRecord.find_by(version:).nil?
     end
 
     def run
@@ -29,7 +29,7 @@ module Whitehall
           @logger.info "============================================="
           @logger.info "Running data migration #{version}: #{name}"
           instance_eval File.read(@path), @path
-          DataMigrationRecord.create!(version: version)
+          DataMigrationRecord.create!(version:)
           @logger.info "Migration complete"
         rescue StandardError => e
           @logger.error "Migration failed due to #{e}"

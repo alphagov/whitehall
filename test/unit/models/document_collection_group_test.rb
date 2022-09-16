@@ -63,12 +63,11 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     group = create(
       :document_collection_group,
       memberships: [
-        build(:document_collection_group_membership, document: document),
+        build(:document_collection_group_membership, document:),
         build(
           :document_collection_group_membership,
           document: nil,
-          non_whitehall_link:
-          non_whitehall_link,
+          non_whitehall_link:,
         ),
       ],
     )

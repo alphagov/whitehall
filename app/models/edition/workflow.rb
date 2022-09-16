@@ -101,7 +101,7 @@ module Edition::Workflow
 
   def save_as(user)
     if save
-      edition_authors.create!(user: user)
+      edition_authors.create!(user:)
       recent_edition_openings.where(editor_id: user).delete_all
     end
   end

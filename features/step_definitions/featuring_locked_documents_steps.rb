@@ -1,5 +1,5 @@
 Given(/^a document titled "([^"]*)"$/) do |title|
-  @edition = create(:published_news_article, title: title)
+  @edition = create(:published_news_article, title:)
 end
 
 And(/^the document is tagged to organisation "([^"]*)"$/) do |organisation_name|

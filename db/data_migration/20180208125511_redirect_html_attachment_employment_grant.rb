@@ -2,7 +2,7 @@ begin
   base_path = "/government/publications/sen-and-disability-reform-s31-grant-determinations/send-preparation-for-employment-grant-2018"
   destination = "/government/publications/send-reform-funding-for-local-authorities/send-preparation-for-employment-grant-allocation-2018-to-2019"
   redirects = [
-    { path: base_path, type: "exact", destination: destination },
+    { path: base_path, type: "exact", destination: },
   ]
   redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
   content_id = SecureRandom.uuid

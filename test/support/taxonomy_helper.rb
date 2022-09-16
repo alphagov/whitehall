@@ -1,7 +1,7 @@
 module TaxonomyHelper
   def taxon(content_id, title)
     ::Taxonomy::Taxon.from_taxon_hash(
-      build(:taxon_hash, content_id: content_id, title: title),
+      build(:taxon_hash, content_id:, title:),
     )
   end
 

@@ -110,7 +110,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
   test "destroying a person which has an appointment" do
     person = create(:person)
-    create(:role_appointment, person: person)
+    create(:role_appointment, person:)
 
     delete :destroy, params: { id: person.id }
     assert_equal "Cannot destroy a person with appointments", flash[:alert]

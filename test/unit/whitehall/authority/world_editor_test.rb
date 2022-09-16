@@ -4,7 +4,7 @@ require "ostruct"
 class WorldEditorTest < ActiveSupport::TestCase
   def world_editor(world_locations, id = 1, gds_editor: false)
     OpenStruct.new(
-      id: id,
+      id:,
       gds_editor?: gds_editor,
       departmental_editor?: false,
       world_editor?: true,

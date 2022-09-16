@@ -25,8 +25,8 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test "returns its attachable's auth_bypass_id when it has one" do
     auth_bypass_id = "86385d6a-f918-4c93-96bf-087218a48ced"
-    attachable = CaseStudy.new(auth_bypass_id: auth_bypass_id)
-    attachment = build(:attachment_data, attachable: attachable)
+    attachable = CaseStudy.new(auth_bypass_id:)
+    attachment = build(:attachment_data, attachable:)
 
     assert_equal [auth_bypass_id], attachment.auth_bypass_ids
   end
@@ -252,7 +252,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "#last_publicly_visible_attachment returns publicly visible attachable" do
     attachable = build(:edition)
     attachable.stubs(:publicly_visible?).returns(true)
-    attachment = build(:file_attachment, attachable: attachable)
+    attachment = build(:file_attachment, attachable:)
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([attachment])
 
@@ -275,7 +275,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "#last_publicly_visible_attachment returns nil if there are no publicly visible attachables" do
     attachable = build(:edition)
     attachable.stubs(:publicly_visible?).returns(false)
-    attachment = build(:file_attachment, attachable: attachable)
+    attachment = build(:file_attachment, attachable:)
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([attachment])
 
@@ -321,7 +321,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "#deleted? returns true if attachment is deleted" do
     attachable = build(:edition)
     attachable.stubs(:publicly_visible?).returns(false)
-    deleted_attachment = build(:file_attachment, attachable: attachable, deleted: true)
+    deleted_attachment = build(:file_attachment, attachable:, deleted: true)
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([deleted_attachment])
 
@@ -331,7 +331,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "#deleted? returns false if attachment is not deleted" do
     attachable = build(:edition)
     attachable.stubs(:publicly_visible?).returns(false)
-    deleted_attachment = build(:file_attachment, attachable: attachable, deleted: false)
+    deleted_attachment = build(:file_attachment, attachable:, deleted: false)
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([deleted_attachment])
 
@@ -359,8 +359,8 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data = build(:attachment_data)
     published_edition = build(:edition, :published)
     draft_edition = build(:edition)
-    published_attachment = build(:file_attachment, attachment_data: attachment_data, attachable: published_edition)
-    draft_attachment = build(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
+    published_attachment = build(:file_attachment, attachment_data:, attachable: published_edition)
+    draft_attachment = build(:file_attachment, attachment_data:, attachable: draft_edition)
     attachment_data.stubs(:attachments).returns([published_attachment, draft_attachment])
     attachment_data.stubs(:visible_to?).returns(true)
 
@@ -371,7 +371,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     user = build(:user)
     attachment_data = build(:attachment_data)
     draft_edition = build(:edition)
-    attachment = build(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
+    attachment = build(:file_attachment, attachment_data:, attachable: draft_edition)
     attachment_data.stubs(:attachments).returns([attachment])
     attachment_data.stubs(:visible_to?).returns(true)
 
@@ -382,7 +382,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     user = build(:user)
     attachment_data = build(:attachment_data)
     response = build(:consultation_outcome)
-    attachment = build(:file_attachment, attachment_data: attachment_data, attachable: response)
+    attachment = build(:file_attachment, attachment_data:, attachable: response)
     attachment_data.stubs(:attachments).returns([attachment])
     attachment_data.stubs(:visible_to?).returns(true)
 
@@ -392,7 +392,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "#draft_edition_for(user) returns nil when the attachable is not present" do
     user = build(:user)
     attachment_data = build(:attachment_data)
-    attachment = build(:file_attachment, attachment_data: attachment_data, attachable: nil)
+    attachment = build(:file_attachment, attachment_data:, attachable: nil)
     attachment_data.stubs(:attachments).returns([attachment])
     attachment_data.stubs(:visible_to?).returns(true)
 

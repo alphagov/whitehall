@@ -7,10 +7,10 @@ class PaginatedRemarksTest < ActiveSupport::TestCase
     @document = create(:document)
     edition = create(:published_edition, document: @document)
     3.times do
-      create(:editorial_remark, edition: edition)
+      create(:editorial_remark, edition:)
       Timecop.travel 1.day.from_now
     end
-    @newest_remark = create(:editorial_remark, edition: edition)
+    @newest_remark = create(:editorial_remark, edition:)
   end
 
   test "#query contains remarks ordered by most recent versions first" do

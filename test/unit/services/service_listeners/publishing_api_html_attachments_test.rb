@@ -64,8 +64,8 @@ module ServiceListeners
         consultation = create(
           :published_consultation,
           :with_html_attachment,
-          outcome: outcome,
-          public_feedback: public_feedback,
+          outcome:,
+          public_feedback:,
         )
 
         attachments = [outcome, public_feedback, consultation].flat_map(&:html_attachments)

@@ -176,7 +176,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     editor = create(:departmental_editor)
     _draft = news.create_draft(editor)
     feature_list = create(:feature_list, featurable: world_location.world_location_news, locale: :en)
-    create(:feature, feature_list: feature_list, document: news.document)
+    create(:feature, feature_list:, document: news.document)
     get :show, params: { id: world_location.world_location_news }
     assert_featured_editions [news]
   end
@@ -211,7 +211,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     )
     news = create(:published_news_article, first_published_at: 2.days.ago)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
-    create(:feature, feature_list: feature_list, document: news.document, started_at: 2.days.ago, ended_at: 1.day.ago)
+    create(:feature, feature_list:, document: news.document, started_at: 2.days.ago, ended_at: 1.day.ago)
     get :show, params: { id: world_location }
     assert_featured_editions []
   end

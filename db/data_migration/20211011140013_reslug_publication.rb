@@ -3,7 +3,7 @@
 slug = "accessing-government-secured-flu-vaccines-guidance-for-gps-for-2021-to-2022"
 new_slug = "accessing-government-secured-flu-vaccines-guidance-for-primary-care-in-England-for-2021-to-2022"
 
-document = Document.find_by(slug: slug)
+document = Document.find_by(slug:)
 edition = document.editions.published.last
 html_attachment = edition.attachments.last
 

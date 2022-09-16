@@ -66,7 +66,7 @@ class Edition < ApplicationRecord
   scope :with_title_or_summary_containing,
         lambda { |*keywords|
           pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-          in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
+          in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern:)
         }
 
   scope :with_title_containing,
@@ -76,7 +76,7 @@ class Edition < ApplicationRecord
 
           in_default_locale
             .includes(:document)
-            .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
+            .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause:, slug: keywords)
             .references(:document)
         }
 
@@ -521,7 +521,7 @@ EXISTS (
                                          .limit(1)
 
     first_submitted_version = versions_asc.where(state: "submitted")
-                                          .where("(created_at, id) > (:pre_submitted_version)", pre_submitted_version: pre_submitted_version)
+                                          .where("(created_at, id) > (:pre_submitted_version)", pre_submitted_version:)
                                           .first
 
     first_submitted_version.try(:user)
@@ -548,7 +548,7 @@ EXISTS (
   end
 
   def previous_edition
-    document.ever_published_editions.where.not(id: id).last
+    document.ever_published_editions.where.not(id:).last
   end
 
   def is_latest_edition?

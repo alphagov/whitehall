@@ -25,7 +25,7 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
   end
 
   setup do
-    @edition = EditionWithStatisticalDataSets.create!(valid_edition_attributes.merge(statistical_data_sets: statistical_data_sets))
+    @edition = EditionWithStatisticalDataSets.create!(valid_edition_attributes.merge(statistical_data_sets:))
   end
 
   test "edition can be created with statistical data sets" do

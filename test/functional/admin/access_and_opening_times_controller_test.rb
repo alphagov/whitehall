@@ -32,7 +32,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "GET on :edit loads the office as accessible if worldwide_office_id is supplied" do
     worldwide_organisation = create(:worldwide_organisation)
-    worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+    worldwide_office = create(:worldwide_office, worldwide_organisation:)
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office }
 
     assert_response :success
@@ -46,7 +46,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "GET on :edit sets the default body for an office if a default is available" do
     worldwide_organisation = create(:worldwide_organisation)
-    worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+    worldwide_office = create(:worldwide_office, worldwide_organisation:)
 
     create(:access_and_opening_times, accessible: worldwide_organisation, body: "default from org")
 
@@ -61,7 +61,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "GET on :edit builds an access and opening times instance for the office, even when the org already has one" do
     worldwide_organisation = create(:worldwide_organisation)
-    worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+    worldwide_office = create(:worldwide_office, worldwide_organisation:)
 
     create(:access_and_opening_times, accessible: worldwide_organisation)
 
@@ -86,7 +86,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "POST on :create saves access info to an office and redirects to the offices page for the organisation" do
     worldwide_organisation = create(:worldwide_organisation)
-    worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+    worldwide_office = create(:worldwide_office, worldwide_organisation:)
     post :create, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, access_and_opening_times: { body: "custom body text" } }
 
     assert access_and_opening_times = worldwide_office.access_and_opening_times
@@ -116,7 +116,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "PUT on :update updates an offices access information and not the organisation" do
     worldwide_organisation = create(:worldwide_organisation)
-    worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+    worldwide_office = create(:worldwide_office, worldwide_organisation:)
     default_access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation, body: "default body")
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_office)
     put :update, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, access_and_opening_times: { body: "custom new body" } }

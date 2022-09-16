@@ -3,7 +3,7 @@ require "test_helper"
 class DocumentExportPresenterTest < ActiveSupport::TestCase
   test "includes basic document and edition information" do
     document = create(:document)
-    edition = create(:edition, document: document)
+    edition = create(:edition, document:)
     result = DocumentExportPresenter.new(document).as_json
 
     assert_equal document.content_id, result[:content_id]
@@ -17,9 +17,9 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     edition = create(:publication)
     author = edition.authors.first
     remarker = create(:user)
-    create(:editorial_remark, author: remarker, edition: edition)
+    create(:editorial_remark, author: remarker, edition:)
     requestor = create(:user)
-    create(:fact_check_request, requestor: requestor, edition: edition)
+    create(:fact_check_request, requestor:, edition:)
 
     result = DocumentExportPresenter.new(edition.document).as_json
     expected = [
@@ -69,7 +69,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
   test "resolves internal Whitehall URLs in edition body with a public URL" do
     body = "Some text which contains an [internal link](/government/admin/news/2) to a public document"
     document = create(:document)
-    create(:edition, document: document, body: body)
+    create(:edition, document:, body:)
 
     linked_document = create(:document, slug: "some-article")
     linked_edition = create(:published_edition, document: linked_document, state: "published")
@@ -265,7 +265,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes editorial remarks" do
     author = create(:user)
-    remark = create(:editorial_remark, body: "My remark", author: author)
+    remark = create(:editorial_remark, body: "My remark", author:)
 
     result = DocumentExportPresenter.new(remark.edition.document).as_json
     expected = { id: remark.id,
@@ -414,7 +414,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
   test "includes unpublishing details for unpublished documents" do
     edition = create(:edition)
-    create(:published_in_error_redirect_unpublishing, edition: edition)
+    create(:published_in_error_redirect_unpublishing, edition:)
     result = DocumentExportPresenter.new(edition.document).as_json
 
     expected = {
@@ -444,7 +444,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     edition = create(
       :corporate_information_page,
       organisation: nil,
-      worldwide_organisation: worldwide_organisation,
+      worldwide_organisation:,
     )
 
     result = DocumentExportPresenter.new(edition.document).as_json

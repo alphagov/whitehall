@@ -5,8 +5,8 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
 
   def as_hash
     super.merge(
-      field_of_operation: field_of_operation,
-      publication_collections: publication_collections,
+      field_of_operation:,
+      publication_collections:,
     )
   end
 

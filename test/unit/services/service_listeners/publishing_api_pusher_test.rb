@@ -60,7 +60,7 @@ module ServiceListeners
     test "withdraw republishes for all translations" do
       translations = %i[es fr]
       document = build(:document)
-      edition = create(:publication, document: document, translated_into: translations)
+      edition = create(:publication, document:, translated_into: translations)
       edition.build_unpublishing(
         explanation: "Old information",
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
@@ -140,7 +140,7 @@ module ServiceListeners
       draft_edition.submit!
 
       {
-        draft_edition: draft_edition,
+        draft_edition:,
         deleted_translation: fr,
       }
     end
@@ -193,7 +193,7 @@ module ServiceListeners
 
     test "raises an error if an edition's document is locked" do
       document = build(:document, locked: true)
-      edition = build(:edition, document: document)
+      edition = build(:edition, document:)
 
       assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
         PublishingApiPusher.new(edition).push(event: "anything")

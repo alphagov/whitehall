@@ -36,12 +36,12 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     create(
       :document,
       document_type: "DetailedGuide",
-      slug: slug,
+      slug:,
     )
     create(
       :document,
       document_type: "Publication",
-      slug: slug,
+      slug:,
     )
 
     assert_output(/ambiguous slug/) do
@@ -56,7 +56,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     CSV
 
     document = create(:document, slug: "this-is-a-slug")
-    edition = create(:published_publication, document: document)
+    edition = create(:published_publication, document:)
     organisation = create(:organisation, slug: "lead-organisation")
 
     process(csv_file)
@@ -73,7 +73,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     CSV
 
     document = create(:document, slug: "this-is-a-slug")
-    edition = create(:published_publication, document: document)
+    edition = create(:published_publication, document:)
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
@@ -94,12 +94,12 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation = create(:organisation, slug: "lead-organisation")
     create(
       :published_publication,
-      document: document,
+      document:,
       lead_organisations: [organisation],
     )
     draft_edition = create(
       :draft_publication,
-      document: document,
+      document:,
     )
 
     Whitehall::PublishingApi.expects(:save_draft).once
@@ -122,7 +122,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     document = create(:document, slug: "this-is-a-slug")
     create(
       :publication,
-      document: document,
+      document:,
       lead_organisations: [lead_organisation],
       supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )

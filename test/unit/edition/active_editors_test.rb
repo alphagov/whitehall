@@ -52,9 +52,9 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
 
   test "RecentEditionOpening#expunge! deletes entries more than 2 hours old" do
     edition = create(:edition)
-    create(:recent_edition_opening, editor: create(:author), edition: edition, created_at: 2.hours.ago + 1.second)
-    create(:recent_edition_opening, editor: create(:author), edition: edition, created_at: 2.hours.ago)
-    create(:recent_edition_opening, editor: create(:author), edition: edition, created_at: 2.hours.ago - 1.second)
+    create(:recent_edition_opening, editor: create(:author), edition:, created_at: 2.hours.ago + 1.second)
+    create(:recent_edition_opening, editor: create(:author), edition:, created_at: 2.hours.ago)
+    create(:recent_edition_opening, editor: create(:author), edition:, created_at: 2.hours.ago - 1.second)
     assert_equal 3, RecentEditionOpening.count
     RecentEditionOpening.expunge!
     assert_equal 2, RecentEditionOpening.count

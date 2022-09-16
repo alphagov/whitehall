@@ -16,10 +16,10 @@ module TranslatableModel
   end
 
   def remove_translations_for(locale)
-    translations.where(locale: locale).each(&:destroy)
+    translations.where(locale:).each(&:destroy)
 
     if respond_to?(:content_id)
-      Whitehall::PublishingApi.discard_translation_async(self, locale: locale)
+      Whitehall::PublishingApi.discard_translation_async(self, locale:)
 
       # This is a bit of a hack to make sure that models _not_ using the
       # edition workflow (i.e. people, roles, organisations) correctly remove

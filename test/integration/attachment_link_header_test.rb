@@ -20,7 +20,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
 
     context "given a file attachment" do
       let(:file) { File.open(path_to_attachment(filename)) }
-      let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
+      let(:attachment) { build(:file_attachment, attachable:, file:) }
       let(:attachable) { edition }
       let(:topic_taxon) { build(:taxon_hash) }
 

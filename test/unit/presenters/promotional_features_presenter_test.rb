@@ -7,12 +7,12 @@ class PromotionalFeaturesPresenterTest < ActionView::TestCase
 
   test "returns a position-aware enumerable collection of PromotionalFeaturePresenters" do
     organisation = create(:executive_office)
-    single_feature = create(:promotional_feature, organisation: organisation)
+    single_feature = create(:promotional_feature, organisation:)
     create(:promotional_feature_item, promotional_feature: single_feature)
-    double_feature = create(:promotional_feature, organisation: organisation)
+    double_feature = create(:promotional_feature, organisation:)
     create(:promotional_feature_item, promotional_feature: double_feature)
     create(:promotional_feature_item, promotional_feature: double_feature)
-    triple_feature = create(:promotional_feature, organisation: organisation)
+    triple_feature = create(:promotional_feature, organisation:)
     create(:promotional_feature_item, promotional_feature: triple_feature)
     create(:promotional_feature_item, promotional_feature: triple_feature)
     create(:promotional_feature_item, promotional_feature: triple_feature)

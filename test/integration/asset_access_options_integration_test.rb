@@ -9,7 +9,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
   describe "attachment access options (auth_bypass_id and access_limiting)" do
     let(:organisation) { create(:organisation) }
-    let(:managing_editor) { create(:managing_editor, organisation: organisation, uid: "user-uid") }
+    let(:managing_editor) { create(:managing_editor, organisation:, uid: "user-uid") }
 
     before do
       login_as managing_editor

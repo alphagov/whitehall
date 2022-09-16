@@ -53,8 +53,8 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update attachments where the latest edition isn't draft" do
       document = create(:document)
-      scheduled_edition = create(:scheduled_detailed_guide, document: document)
-      published_edition = create(:published_detailed_guide, document: document)
+      scheduled_edition = create(:scheduled_detailed_guide, document:)
+      published_edition = create(:published_detailed_guide, document:)
 
       assert_equal published_edition, document.latest_edition
 
@@ -115,8 +115,8 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update attachments where the latest edition isn't draft" do
       document = create(:document)
-      scheduled_edition = create(:scheduled_consultation, document: document)
-      published_edition = create(:published_consultation, document: document)
+      scheduled_edition = create(:scheduled_consultation, document:)
+      published_edition = create(:published_consultation, document:)
       participation = create(:consultation_participation, consultation: scheduled_edition)
       create(:consultation_response_form, consultation_participation: participation)
 
@@ -129,7 +129,7 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update auth bypass ids when no consultation response form exists" do
       document = create(:document)
-      edition = create(:scheduled_consultation, document: document)
+      edition = create(:scheduled_consultation, document:)
       create(:consultation_participation, consultation: edition)
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
@@ -139,7 +139,7 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update auth bypass ids when no consultation participation exists" do
       document = create(:document)
-      create(:scheduled_consultation, document: document)
+      create(:scheduled_consultation, document:)
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
 
@@ -184,7 +184,7 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "updates an image with auth_bypass_id when it is part of the latest edition which is a draft" do
       edition = create(:draft_case_study)
-      image = create(:image, edition: edition)
+      image = create(:image, edition:)
       expected_attributes = { auth_bypass_ids: [edition.auth_bypass_id] }
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
@@ -206,7 +206,7 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update image with auth_bypass_ids when latest edition is not draft" do
       edition = create(:published_case_study)
-      create(:image, edition: edition)
+      create(:image, edition:)
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
 
@@ -215,7 +215,7 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update image with auth_bypass_ids when latest edition is deleted" do
       edition = create(:deleted_case_study)
-      create(:image, edition: edition)
+      create(:image, edition:)
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
 
@@ -224,8 +224,8 @@ class AssetManagerRake < ActiveSupport::TestCase
 
     test "does not update image where the latest edition isn't draft" do
       document = create(:document)
-      scheduled_edition = create(:scheduled_case_study, document: document)
-      published_edition = create(:published_case_study, document: document)
+      scheduled_edition = create(:scheduled_case_study, document:)
+      published_edition = create(:published_case_study, document:)
 
       assert_equal published_edition, document.latest_edition
 

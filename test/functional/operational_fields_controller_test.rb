@@ -64,7 +64,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
   view_test "shows recent casualties" do
     iraq = create(:operational_field)
     fatality_notice = create(:published_fatality_notice, operational_field: iraq)
-    casualty = create(:fatality_notice_casualty, fatality_notice: fatality_notice)
+    casualty = create(:fatality_notice_casualty, fatality_notice:)
 
     get :show, params: { id: iraq }
 

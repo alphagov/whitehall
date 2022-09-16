@@ -25,7 +25,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       if current_user.can_view_move_tabs_to_endpoints?
         redirect_to admin_edition_fact_check_requests_path(@edition), notice: notice
       else
-        redirect_to admin_edition_path(@edition), notice: notice
+        redirect_to admin_edition_path(@edition), notice:
       end
     else
       alert = "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
@@ -33,7 +33,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
       if current_user.can_view_move_tabs_to_endpoints?
         redirect_to new_admin_edition_fact_check_request_path(@edition), alert: alert
       else
-        redirect_to admin_edition_path(@edition), alert: alert
+        redirect_to admin_edition_path(@edition), alert:
       end
     end
   end
@@ -46,7 +46,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
         MailNotifications.fact_check_response(@fact_check_request, mailer_url_options).deliver_now
       end
       notice = "Your feedback has been saved"
-      redirect_to admin_fact_check_request_path(@fact_check_request), notice: notice
+      redirect_to admin_fact_check_request_path(@fact_check_request), notice:
     else
       render "edition_unavailable"
     end

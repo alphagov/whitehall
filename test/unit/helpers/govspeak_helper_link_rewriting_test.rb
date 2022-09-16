@@ -22,7 +22,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test "should not raise exception when link to an admin page for an organisation corporate information is present" do
     organisation = create(:organisation, name: "department-for-communities-and-local-government")
-    page = create(:corporate_information_page, organisation: organisation)
+    page = create(:corporate_information_page, organisation:)
     path = admin_organisation_corporate_information_page_path(organisation, page)
     assert_nothing_raised do
       govspeak_to_html("[text](#{path})")
@@ -31,7 +31,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test "should not raise exception when link to an admin edit page for an organisation corporate information is present" do
     organisation = create(:organisation, name: "department-for-communities-and-local-government")
-    page = create(:corporate_information_page, organisation: organisation)
+    page = create(:corporate_information_page, organisation:)
     path = edit_admin_organisation_corporate_information_page_path(organisation, page)
     assert_nothing_raised do
       govspeak_to_html("[text](#{path})")

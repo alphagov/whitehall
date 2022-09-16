@@ -27,7 +27,7 @@ module Whitehall
       save_draft(
         model_instance,
         update_type_override,
-        bulk_publishing: bulk_publishing,
+        bulk_publishing:,
       )
 
       presenter = PublishingApiPresenters.presenter_for(model_instance)
@@ -51,7 +51,7 @@ module Whitehall
 
     def self.save_draft(model_instance, update_type_override = nil, bulk_publishing: false)
       locales_for(model_instance).each do |locale|
-        save_draft_translation(model_instance, locale, update_type_override, bulk_publishing: bulk_publishing)
+        save_draft_translation(model_instance, locale, update_type_override, bulk_publishing:)
       end
     end
 
@@ -89,8 +89,8 @@ module Whitehall
 
       Services.publishing_api.patch_links(
         presenter.content_id,
-        links: links,
-        bulk_publishing: bulk_publishing,
+        links:,
+        bulk_publishing:,
       )
     end
 
@@ -122,20 +122,20 @@ module Whitehall
     end
 
     def self.schedule_async(edition)
-      check_if_locked_document(edition: edition)
+      check_if_locked_document(edition:)
 
       publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
-        base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
+        base_path = Whitehall.url_maker.public_document_path(edition, locale:)
         PublishingApiScheduleWorker.perform_async(base_path, publish_timestamp)
       end
     end
 
     def self.unschedule_async(edition)
-      check_if_locked_document(edition: edition)
+      check_if_locked_document(edition:)
 
       locales_for(edition).each do |locale|
-        base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
+        base_path = Whitehall.url_maker.public_document_path(edition, locale:)
         PublishingApiUnscheduleWorker.perform_async(base_path)
       end
     end

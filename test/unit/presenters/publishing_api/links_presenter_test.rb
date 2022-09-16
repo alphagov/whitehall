@@ -16,7 +16,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
   test "returns a links hash derived from the edition" do
     edition = create(:edition)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: false)
+    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: false)
 
     links = links_for(edition, %i[topics parent organisations])
 
@@ -34,8 +34,8 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
   test "it treats the primary specialist sector of the item as the parent" do
     edition = create(:edition)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
+    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
+    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
 
     links = links_for(edition, %i[topics parent organisations])
 

@@ -49,7 +49,7 @@ private
   end
 
   def redirect_to_feature(notice = nil)
-    redirect_to [:admin, @organisation, @promotional_feature], notice: notice
+    redirect_to [:admin, @organisation, @promotional_feature], notice:
   end
 
   def promotional_feature_item_params

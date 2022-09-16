@@ -67,7 +67,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
 
   test "create should curtail previous appointments if make_current is present" do
     role = create(:role)
-    _previous_appointment = create(:role_appointment, role: role, started_at: 10.days.ago)
+    _previous_appointment = create(:role_appointment, role:, started_at: 10.days.ago)
     person = create(:person)
     post :create, params: { role_id: role.id, role_appointment: { person_id: person.id, started_at: 3.days.ago, make_current: true } }
     assert_equal person, role.current_person

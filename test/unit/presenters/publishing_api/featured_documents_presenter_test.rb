@@ -16,7 +16,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     locales.each do |locale|
       I18n.with_locale(locale) do
-        create(:feature_list, locale: locale, featurable: world_location.world_location_news, features: [second_feature, first_feature])
+        create(:feature_list, locale:, featurable: world_location.world_location_news, features: [second_feature, first_feature])
 
         expected_ordered_featured_documents = [
           { title: case_study.title,
@@ -42,7 +42,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
   test("determines ordered featured documents in different locales for topical events") do
     topical_event = create(:topical_event, name: "topical_event_1", start_date: 1.year.ago.to_date)
-    feature = build(:feature, document: nil, topical_event: topical_event, ordering: 1)
+    feature = build(:feature, document: nil, topical_event:, ordering: 1)
     featured_documents_display_limit = 5
 
     organisation = create(:organisation)
@@ -51,7 +51,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     locales.each do |locale|
       I18n.with_locale(locale) do
-        create(:feature_list, locale: locale, featurable: organisation, features: [feature])
+        create(:feature_list, locale:, featurable: organisation, features: [feature])
 
         expected_ordered_featured_documents = [
           { title: topical_event.name,
@@ -70,7 +70,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
   test("determines ordered featured documents in different locales for offsite links") do
     offsite_link = create(:offsite_link, date: 1.year.ago.to_date)
-    feature = build(:feature, document: nil, offsite_link: offsite_link, ordering: 1)
+    feature = build(:feature, document: nil, offsite_link:, ordering: 1)
     featured_documents_display_limit = 5
 
     organisation = create(:organisation)
@@ -79,7 +79,7 @@ class PublishingApi::FeaturedDocumentsPresenterTest < ActiveSupport::TestCase
 
     locales.each do |locale|
       I18n.with_locale(locale) do
-        create(:feature_list, locale: locale, featurable: organisation, features: [feature])
+        create(:feature_list, locale:, featurable: organisation, features: [feature])
 
         expected_ordered_featured_documents = [
           { title: offsite_link.title,

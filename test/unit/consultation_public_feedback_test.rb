@@ -5,7 +5,7 @@ class ConsultationPublicFeedbackTest < ActiveSupport::TestCase
 
   test "#access_limited_object returns the parent consultation" do
     consultation = FactoryBot.build(:consultation)
-    public_feedback = FactoryBot.build(:consultation_public_feedback, consultation: consultation)
+    public_feedback = FactoryBot.build(:consultation_public_feedback, consultation:)
 
     assert_equal consultation, public_feedback.access_limited_object
   end
@@ -13,7 +13,7 @@ class ConsultationPublicFeedbackTest < ActiveSupport::TestCase
   test "#access_limited? delegates to the parent consultation" do
     consultation = FactoryBot.build(:consultation)
     consultation.stubs(:access_limited?).returns("access-limited")
-    public_feedback = FactoryBot.build(:consultation_public_feedback, consultation: consultation)
+    public_feedback = FactoryBot.build(:consultation_public_feedback, consultation:)
 
     assert_equal "access-limited", public_feedback.access_limited?
   end

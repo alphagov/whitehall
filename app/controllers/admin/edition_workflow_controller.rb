@@ -212,7 +212,7 @@ private
         user: current_user,
         remark: "Withdrawn",
         unpublishing: unpublishing_params,
-        previous_withdrawal: previous_withdrawal,
+        previous_withdrawal:,
       )
 
       success = withdrawer.perform!

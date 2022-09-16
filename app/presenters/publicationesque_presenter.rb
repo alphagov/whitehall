@@ -4,7 +4,7 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of(*Publicationesque.concrete_descendants)
 
   def as_hash
-    super.merge(publication_collections: publication_collections)
+    super.merge(publication_collections:)
   end
 
   def publication_collections
@@ -26,7 +26,7 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
     when 1
       I18n.t("consultation.closing_tomorrow")
     else
-      I18n.t("consultation.days_left", days_left: days_left)
+      I18n.t("consultation.days_left", days_left:)
     end
   end
 end

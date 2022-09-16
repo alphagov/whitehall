@@ -14,7 +14,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     }.to_json
 
     stub_request(:get, %r{.*/v2/links/#{content_id}.*})
-      .to_return(body: body, status: 404)
+      .to_return(body:, status: 404)
 
     form = TaxonomyTagForm.load(content_id)
 

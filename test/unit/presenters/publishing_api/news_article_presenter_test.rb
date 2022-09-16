@@ -11,7 +11,7 @@ module PublishingApi::NewsArticlePresenterTest
     def presented_news_article
       PublishingApi::NewsArticlePresenter.new(
         news_article,
-        update_type: update_type,
+        update_type:,
       )
     end
 

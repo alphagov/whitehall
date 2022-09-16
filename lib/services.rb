@@ -30,7 +30,7 @@ module Services
     GdsApi::PublishingApi.new(
       Plek.find("publishing-api"),
       bearer_token: ENV.fetch("PUBLISHING_API_BEARER_TOKEN", "example"),
-      timeout: timeout,
+      timeout:,
     )
   end
 end

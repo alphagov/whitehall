@@ -46,7 +46,7 @@ private
 
   def assert_controller_select_main_navigation_path(controller_file)
     controller = File.basename(controller_file).sub("_controller.rb", "")
-    assert current_main_navigation_path(controller: controller),
+    assert current_main_navigation_path(controller:),
            "could not find navigation path for controller: #{controller_file}"
   end
 end

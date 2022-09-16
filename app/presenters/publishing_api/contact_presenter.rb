@@ -21,16 +21,16 @@ module PublishingApi
 
     def content
       {
-        title: title,
+        title:,
         description: comments.presence,
-        schema_name: schema_name,
-        document_type: document_type,
-        locale: locale,
-        public_updated_at: public_updated_at,
+        schema_name:,
+        document_type:,
+        locale:,
+        public_updated_at:,
         publishing_app: "whitehall",
-        details: details,
-        phase: phase,
-        update_type: update_type,
+        details:,
+        phase:,
+        update_type:,
       }
     end
 
@@ -77,9 +77,9 @@ module PublishingApi
 
     def details
       details = {
-        title: title,
+        title:,
         description: comments.presence,
-        contact_type: contact_type,
+        contact_type:,
       }.compact
 
       details[:contact_form_links] = [contact_form_links] if contact_form_url.present?
@@ -125,7 +125,7 @@ module PublishingApi
     def email_address
       {
         title: recipient.presence,
-        email: email,
+        email:,
       }.compact
     end
 

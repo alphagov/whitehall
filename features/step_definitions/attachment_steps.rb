@@ -46,7 +46,7 @@ Then(/^I should be able to submit the attachment without re-uploading the file$/
 end
 
 Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_number_of_attachments|
-  expect(expected_number_of_attachments.to_i).to eq(Edition.find_by(title: title).attachments.count)
+  expect(expected_number_of_attachments.to_i).to eq(Edition.find_by(title:).attachments.count)
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|
@@ -68,11 +68,11 @@ Then(/^the attachments should be in the following order:$/) do |attachment_list|
 end
 
 Given(/^a draft closed consultation "(.*?)" with an outcome exists$/) do |title|
-  create(:consultation_with_outcome, :draft, title: title)
+  create(:consultation_with_outcome, :draft, title:)
 end
 
 When(/^I go to the outcome for the consultation "(.*?)"$/) do |title|
-  consultation = Consultation.find_by(title: title)
+  consultation = Consultation.find_by(title:)
   visit admin_consultation_outcome_path(consultation)
 end
 
@@ -82,7 +82,7 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
 end
 
 Then(/^I can see the attachment title "([^"]*)"$/) do |text|
-  expect(page).to have_selector("li.attachment", text: text)
+  expect(page).to have_selector("li.attachment", text:)
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|

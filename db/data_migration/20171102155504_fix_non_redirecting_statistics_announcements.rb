@@ -4889,7 +4889,7 @@ slugs = [
 ]
 
 slugs.each do |slug|
-  announcement = StatisticsAnnouncement.where.not(publication_id: nil).find_by(slug: slug)
+  announcement = StatisticsAnnouncement.where.not(publication_id: nil).find_by(slug:)
   next if !announcement || !announcement.publication
   next unless %w[published superseded withdrawn].include?(announcement.publication.state)
 

@@ -7,7 +7,7 @@ slugs = %w[
 redirect_path = "/government/organisations/vehicle-and-operator-services-agency/about/our-governance"
 
 slugs.each do |slug|
-  group = PolicyGroup.find_by(slug: slug)
+  group = PolicyGroup.find_by(slug:)
   next unless group
 
   content_id = group.content_id

@@ -4,9 +4,9 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "indicates pre-publication status" do
     pre, post = Edition.state_machine.states.map(&:name).partition do |state|
       if state == :deleted
-        create(:edition, state: state)
+        create(:edition, state:)
       else
-        build(:edition, state: state)
+        build(:edition, state:)
       end.pre_publication?
     end
 

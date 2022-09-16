@@ -106,7 +106,7 @@ class Admin::WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "the 'View on website' link on /features.fr goes to the French world location page" do
     world_location_news = build(:world_location_news, translated_into: [:fr])
-    create(:world_location, slug: "france", translated_into: [:fr], world_location_news: world_location_news)
+    create(:world_location, slug: "france", translated_into: [:fr], world_location_news:)
     get :features, params: { id: world_location_news, locale: "fr" }
 
     assert_select "a" do |links|

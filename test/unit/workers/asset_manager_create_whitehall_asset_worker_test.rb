@@ -45,7 +45,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
   test "marks attachments belonging to consultations as access limited" do
     organisation = FactoryBot.create(:organisation)
-    user = FactoryBot.create(:user, organisation: organisation, uid: "user-uid")
+    user = FactoryBot.create(:user, organisation:, uid: "user-uid")
     consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
     attachment = FactoryBot.create(:file_attachment, attachable: consultation)
     attachment.attachment_data.attachable = consultation
@@ -57,9 +57,9 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
   test "marks attachments belonging to consultation responses as access limited" do
     organisation = FactoryBot.create(:organisation)
-    user = FactoryBot.create(:user, organisation: organisation, uid: "user-uid")
+    user = FactoryBot.create(:user, organisation:, uid: "user-uid")
     consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
-    response = FactoryBot.create(:consultation_outcome, consultation: consultation)
+    response = FactoryBot.create(:consultation_outcome, consultation:)
     attachment = FactoryBot.create(:file_attachment, attachable: response)
     attachment.attachment_data.attachable = consultation
 
@@ -70,7 +70,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
   test "does not mark attachments belonging to policy groups as access limited" do
     organisation = FactoryBot.create(:organisation)
-    FactoryBot.create(:user, organisation: organisation, uid: "user-uid")
+    FactoryBot.create(:user, organisation:, uid: "user-uid")
     policy_group = FactoryBot.create(:policy_group)
     attachment = FactoryBot.create(:file_attachment, attachable: policy_group)
     attachment.attachment_data.attachable = policy_group
@@ -82,7 +82,7 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
   test "sends auth bypass ids to asset manager when these are passed through in the params" do
     consultation = FactoryBot.create(:consultation)
-    response = FactoryBot.create(:consultation_outcome, consultation: consultation)
+    response = FactoryBot.create(:consultation_outcome, consultation:)
     attachment = FactoryBot.create(:file_attachment, attachable: response)
     attachment.attachment_data.attachable = consultation
 

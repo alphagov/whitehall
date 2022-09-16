@@ -13,7 +13,7 @@ module Admin::EditionsHelper
     checked_value = "0"
     unchecked_value = "1"
     checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?
-    [html_args.merge(checked: checked), checked_value, unchecked_value]
+    [html_args.merge(checked:), checked_value, unchecked_value]
   end
 
   def admin_documents_header_link
@@ -131,10 +131,10 @@ module Admin::EditionsHelper
     form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
       concat edition_information(information) if information
       concat form.errors
-      concat render("legacy_standard_fields", form: form, edition: edition)
+      concat render("legacy_standard_fields", form:, edition:)
       yield(form)
-      concat render("legacy_access_limiting_fields", form: form, edition: edition)
-      concat render("legacy_scheduled_publication_fields", form: form, edition: edition)
+      concat render("legacy_access_limiting_fields", form:, edition:)
+      concat render("legacy_scheduled_publication_fields", form:, edition:)
       concat standard_edition_publishing_controls(form, edition)
     end
   end
@@ -217,7 +217,7 @@ module Admin::EditionsHelper
       if edition.change_note_required?
         concat render(
           partial: "legacy_change_notes",
-          locals: { form: form, edition: edition },
+          locals: { form:, edition: },
         )
       end
       if current_user.can_redirect_to_summary_page?
@@ -267,7 +267,7 @@ module Admin::EditionsHelper
     end
 
     links + edition.non_english_translated_locales.map do |locale|
-      [preview_document_url(edition, locale: locale),
+      [preview_document_url(edition, locale:),
        "Language: #{locale.native_and_english_language_name}"]
     end
   end

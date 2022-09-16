@@ -144,7 +144,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
       build(:document_collection_group, documents: [doc]),
       build(:document_collection_group, non_whitehall_links: [non_whitehall_link]),
     ]
-    doc_collection = create(:document_collection, groups: groups)
+    doc_collection = create(:document_collection, groups:)
 
     assert_equal doc_collection.content_ids, [doc.content_id, non_whitehall_link.content_id]
   end

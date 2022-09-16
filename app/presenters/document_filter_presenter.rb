@@ -14,7 +14,7 @@ DocumentFilterPresenter = Struct.new(:filter, :context, :document_decorator) do 
       total_count: documents.total_count,
       results: documents.each_with_index.map { |d, i| { result: d.as_hash, index: i + 1 } },
       results_any?: documents.any?,
-      result_type: result_type,
+      result_type:,
       no_results_title: context.t("document_filters.no_results.title"),
       no_results_description: context.t("document_filters.no_results.description"),
       no_results_tna_heading: context.t("document_filters.no_results.tna_heading"),

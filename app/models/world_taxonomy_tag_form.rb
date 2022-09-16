@@ -18,9 +18,9 @@ class WorldTaxonomyTagForm
     end
 
     new(
-      selected_taxons: selected_taxons,
-      content_id: content_id,
-      previous_version: previous_version,
+      selected_taxons:,
+      content_id:,
+      previous_version:,
     )
   end
 end

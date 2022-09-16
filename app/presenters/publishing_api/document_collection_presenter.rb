@@ -13,15 +13,15 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(item, update_type: update_type)
+        .new(item, update_type:)
         .base_attributes
         .merge(PayloadBuilder::AccessLimitation.for(item))
         .merge(PayloadBuilder::PublicDocumentPath.for(item))
         .merge(PayloadBuilder::FirstPublishedAt.for(item))
         .merge(
           description: item.summary,
-          details: details,
-          document_type: document_type,
+          details:,
+          document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "document_collection",
@@ -57,7 +57,7 @@ module PublishingApi
     def details
       {
         change_history: item.change_history.as_json,
-        collection_groups: collection_groups,
+        collection_groups:,
         body: govspeak_renderer.govspeak_edition_to_html(item),
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }.tap do |details_hash|

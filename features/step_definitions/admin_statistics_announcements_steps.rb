@@ -8,7 +8,7 @@ Given(/^a draft statistics publication called "(.*?)"$/) do |title|
     :draft,
     access_limited: false,
     publication_type_id: PublicationType::OfficialStatistics.id,
-    title: title,
+    title:,
   )
 end
 

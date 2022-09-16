@@ -20,7 +20,7 @@ NOT EXISTS (
     create!(
       batch_id: nil,
       completed_at: Time.zone.now,
-      link_reportable: link_reportable,
+      link_reportable:,
       status: "completed",
     )
   end

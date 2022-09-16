@@ -10,7 +10,7 @@ class Admin::Export::DocumentController < Admin::Export::BaseController
   def index
     respond_with(
       documents: result_set,
-      page_number: page_number,
+      page_number:,
       page_count: result_set.count,
     )
   end

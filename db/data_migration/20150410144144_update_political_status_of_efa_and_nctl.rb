@@ -6,7 +6,7 @@ POLITICAL_ORG_SLUGS = %w[
 PUBLISHED_AND_PUBLISHABLE_STATES = %w[published draft archived submitted rejected scheduled].freeze
 
 POLITICAL_ORG_SLUGS.each do |slug|
-  organsation = Organisation.find_by(slug: slug)
+  organsation = Organisation.find_by(slug:)
   puts "Setting political flag for #{organsation.name}"
   organsation.update!(political: true)
 

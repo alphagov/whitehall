@@ -1,14 +1,14 @@
 Given(/^a topical event called "(.*?)" with summary "([^"]*)" and description "(.*?)"$/) do |name, summary, description|
-  @topical_event = create(:topical_event, name: name, summary: summary, description: description)
+  @topical_event = create(:topical_event, name:, summary:, description:)
   stub_topical_event_in_content_store(name)
 end
 
 When(/^I create a new topical event "([^"]*)" with summary "([^"]*)" and description "([^"]*)"$/) do |name, summary, description|
-  create_topical_event_and_stub_in_content_store(name: name, summary: summary, description: description)
+  create_topical_event_and_stub_in_content_store(name:, summary:, description:)
 end
 
 When(/^I create a new topical event "([^"]*)" with summary "([^"]*)", description "([^"]*)" and it ends today$/) do |name, summary, description|
-  create_topical_event_and_stub_in_content_store(name: name, summary: summary, description: description, start_date: 2.months.ago.to_date.to_s, end_date: Time.zone.today.to_s)
+  create_topical_event_and_stub_in_content_store(name:, summary:, description:, start_date: 2.months.ago.to_date.to_s, end_date: Time.zone.today.to_s)
 end
 
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
@@ -44,7 +44,7 @@ Then(/^I should see the about page is updated$/) do
 end
 
 Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
-  topical_event = TopicalEvent.find_by!(name: name)
+  topical_event = TopicalEvent.find_by!(name:)
   visit admin_topical_event_path(topical_event)
   click_on "Edit"
 

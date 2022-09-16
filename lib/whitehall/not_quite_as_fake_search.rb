@@ -109,7 +109,7 @@ module Whitehall
           when :boolean
             filter_by_boolean_field(field_name, value, new_results)
           when :simple
-            filter_by_simple_field(field_name, value, new_results, announcements_search: announcements_search)
+            filter_by_simple_field(field_name, value, new_results, announcements_search:)
           else
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end

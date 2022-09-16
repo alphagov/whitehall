@@ -63,7 +63,7 @@ class EmbassyTest < ActiveSupport::TestCase
     toytown_org.offices << create(
       :worldwide_office,
       title: "British Consular Services Legoland",
-      contact: contact,
+      contact:,
       worldwide_organisation: toytown_org,
       worldwide_office_type: WorldwideOfficeType::Embassy,
     )

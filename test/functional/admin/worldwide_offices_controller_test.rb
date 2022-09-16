@@ -382,7 +382,7 @@ private
 
   def create_worldwide_organisation_with_main_office
     create(:worldwide_organisation).tap do |worldwide_organisation|
-      create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+      create(:worldwide_office, worldwide_organisation:)
     end
   end
 end

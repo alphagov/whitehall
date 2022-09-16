@@ -5,7 +5,7 @@ module PublishingApi
     class AccessLimitationTest < ActiveSupport::TestCase
       test "returns access limitation data for the item" do
         organisation = create(:organisation)
-        user = create(:user, organisation: organisation)
+        user = create(:user, organisation:)
 
         stubbed_item = stub(
           access_limited?: true,
@@ -23,7 +23,7 @@ module PublishingApi
 
       test "ignores users with no UID" do
         organisation = create(:organisation)
-        create(:user, organisation: organisation, uid: nil)
+        create(:user, organisation:, uid: nil)
 
         stubbed_item = stub(
           access_limited?: true,

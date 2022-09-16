@@ -12,7 +12,7 @@ module PublishingApi::ConsultationPresenterTest
     def presented_consultation
       PublishingApi::ConsultationPresenter.new(
         consultation,
-        update_type: update_type,
+        update_type:,
       )
     end
 
@@ -323,7 +323,7 @@ module PublishingApi::ConsultationPresenterTest
       create(
         :consultation_public_feedback,
         :with_file_attachment,
-        consultation: consultation,
+        consultation:,
         summary: "Public feedback summary",
       )
     end

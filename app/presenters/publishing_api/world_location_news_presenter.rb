@@ -16,7 +16,7 @@ module PublishingApi
       content = BaseItemPresenter.new(
         world_location_news,
         title: world_location_news.title,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
@@ -29,7 +29,7 @@ module PublishingApi
         },
         document_type: "world_location_news",
         public_updated_at: world_location_news.updated_at,
-        rendering_app: rendering_app,
+        rendering_app:,
         schema_name: "world_location_news",
         base_path: path_for_news_page,
       )

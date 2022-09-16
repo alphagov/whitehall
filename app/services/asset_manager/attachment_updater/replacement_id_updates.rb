@@ -23,7 +23,7 @@ class AssetManager::AttachmentUpdater::ReplacementIdUpdates
           AssetManager::AttachmentUpdater::Update.new(
             attachment_data,
             attachment_data.file.thumbnail,
-            replacement_legacy_url_path: replacement_legacy_url_path,
+            replacement_legacy_url_path:,
           ),
         )
       end

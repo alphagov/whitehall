@@ -84,8 +84,8 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
 
   test "should rewrite link to deleted edition with an older published edition in admin preview" do
     document = create(:document)
-    publication = create(:published_publication, document: document)
-    deleted_edition = create(:deleted_publication, document: document)
+    publication = create(:published_publication, document:)
+    deleted_edition = create(:deleted_publication, document:)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_path(deleted_edition)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "published"
   end
@@ -108,7 +108,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     Contact.stubs(:find_by).with(id: "1").returns(contact)
     input = "[Contact:1]"
     output = govspeak_to_admin_html(input)
-    contact_html = render("contacts/contact", contact: contact, heading_tag: "p")
+    contact_html = render("contacts/contact", contact:, heading_tag: "p")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
@@ -116,7 +116,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     contact = build(:contact)
     Contact.stubs(:find_by).with(id: "1").returns(contact)
     input = "[Contact:1]"
-    contact_html = render("contacts/contact", contact: contact, heading_tag: "p")
+    contact_html = render("contacts/contact", contact:, heading_tag: "p")
     @controller.lookup_context.formats = %i[atom]
     assert_nothing_raised do
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_admin_html(input)

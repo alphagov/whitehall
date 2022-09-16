@@ -37,7 +37,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "has name of its world location type as display type" do
     world_location_type = WorldLocationType::WorldLocation
     world_location_type.stubs(:name).returns("The Moon")
-    world_location = build(:world_location, world_location_type: world_location_type)
+    world_location = build(:world_location, world_location_type:)
     assert_equal "The Moon", world_location.display_type
   end
 
@@ -79,9 +79,9 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location_type = WorldLocationType::WorldLocation
     delegation_type = WorldLocationType::InternationalDelegation
 
-    location1 = create(:world_location, world_location_type: world_location_type, name: "Narnia")
+    location1 = create(:world_location, world_location_type:, name: "Narnia")
     location2 = create(:world_location, world_location_type: delegation_type, name: "Neverland")
-    location3 = create(:world_location, world_location_type: world_location_type, name: "Middle Earth")
+    location3 = create(:world_location, world_location_type:, name: "Middle Earth")
 
     assert_equal [[world_location_type, [location3, location1]], [delegation_type, [location2]]], WorldLocation.all_by_type
   end
@@ -171,7 +171,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test "search index data for a world location includes name, description, the correct link and format" do
     world_location_news = build(:world_location_news, title: "hat land and the UK")
-    location = build(:world_location, name: "hat land", slug: "hat-land", world_location_news: world_location_news)
+    location = build(:world_location, name: "hat land", slug: "hat-land", world_location_news:)
 
     assert_equal(
       { "title" => "hat land and the UK",

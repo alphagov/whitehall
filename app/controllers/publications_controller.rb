@@ -77,8 +77,8 @@ private
     level_two_taxon = nil if level_two_taxon == "all"
     {
       keywords: params["keywords"],
-      level_one_taxon: level_one_taxon,
-      level_two_taxon: level_two_taxon,
+      level_one_taxon:,
+      level_two_taxon:,
       organisations: filter_query_array(allowed_params["departments"] || allowed_params["organisations"]),
       people: filter_query_array(allowed_params["people"]),
       world_locations: filter_query_array(allowed_params["world_locations"]),

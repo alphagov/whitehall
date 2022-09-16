@@ -67,7 +67,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
   test "it pushes all locales for the published document" do
     document = create(:document, content_id: SecureRandom.uuid)
-    edition = build(:published_edition, title: "Published edition", document: document)
+    edition = build(:published_edition, title: "Published edition", document:)
     with_locale(:es) { edition.title = "spanish-title" }
     edition.save!
 
@@ -91,7 +91,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
   test "it runs the PublishingApiUnpublishingWorker if the latest edition has an unpublishing" do
     document = create(:document, content_id: SecureRandom.uuid)
-    edition = create(:unpublished_edition, title: "Unpublished edition", document: document)
+    edition = create(:unpublished_edition, title: "Unpublished edition", document:)
     unpublishing = edition.unpublishing
 
     PublishingApiUnpublishingWorker.expects(:new).returns(worker_instance = mock)
@@ -103,7 +103,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   test "it publishes and then unpublishes if the published edition is withdrawn" do
     unpublishing = build(:withdrawn_unpublishing, id: 10)
     document = stub(
-      live_edition: live_edition = create(:withdrawn_edition, unpublishing: unpublishing),
+      live_edition: live_edition = create(:withdrawn_edition, unpublishing:),
       id: 1,
       pre_publication_edition: nil,
       locked?: false,

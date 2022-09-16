@@ -13,14 +13,14 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(item, update_type: update_type)
+        .new(item, update_type:)
         .base_attributes
         .merge(PayloadBuilder::PublicDocumentPath.for(item))
         .merge(PayloadBuilder::AccessLimitation.for(item))
         .merge(
           description: item.summary,
-          details: details,
-          document_type: document_type,
+          details:,
+          document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: "case_study",
@@ -48,10 +48,10 @@ module PublishingApi
 
     def details
       details_hash = {
-        body: body,
+        body:,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
-        first_public_at: first_public_at,
+        first_public_at:,
         format_display_type: item.display_type_key,
       }
       details_hash[:image] = if image_available? && image_required?

@@ -51,7 +51,7 @@ class LocalisedModelTest < ActiveSupport::TestCase
 
   test "ActiveRecord has_many associations are localised" do
     contact = create(:contact)
-    create(:contact_number, contact: contact)
+    create(:contact_number, contact:)
 
     localised_model = LocalisedModel.new(contact, :es, [:contact_numbers])
     assert_equal :es, localised_model.contact_numbers.first.fixed_locale
@@ -59,7 +59,7 @@ class LocalisedModelTest < ActiveSupport::TestCase
 
   test "ActiveRecord belongs_to associations are localised" do
     contact = create(:contact)
-    number = create(:contact_number, contact: contact)
+    number = create(:contact_number, contact:)
 
     localised_model = LocalisedModel.new(number, :es, [:contact])
     assert_equal :es, localised_model.contact.fixed_locale

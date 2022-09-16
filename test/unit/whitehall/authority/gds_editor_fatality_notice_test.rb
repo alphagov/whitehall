@@ -3,7 +3,7 @@ require "ostruct"
 
 class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
   def gds_editor(id = 1)
-    OpenStruct.new(id: id, gds_editor?: true, organisation: nil)
+    OpenStruct.new(id:, gds_editor?: true, organisation: nil)
   end
 
   include AuthorityTestHelper

@@ -13,11 +13,11 @@ module PublishingApi
 
     def base_attributes
       {
-        title: title,
-        locale: locale,
+        title:,
+        locale:,
         publishing_app: "whitehall",
         redirects: [],
-        update_type: update_type,
+        update_type:,
       }
     end
   end

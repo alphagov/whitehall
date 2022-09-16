@@ -42,7 +42,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   test "GET :edit loads the item and its links renders the template" do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
-    link = create(:promotional_feature_link, promotional_feature_item: promotional_feature_item)
+    link = create(:promotional_feature_link, promotional_feature_item:)
     get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_response :success

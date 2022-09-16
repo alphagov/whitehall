@@ -9,7 +9,7 @@ module Admin::OrganisationHelper
         label_text = "<span class='normal'>#{role_name}</span><br/>#{organisation_role_form.object.role.current_person_name}".html_safe
       end
       tag.div(
-        organisation_role_form.text_field(:ordering, label_text: label_text, class: "ordering"),
+        organisation_role_form.text_field(:ordering, label_text:, class: "ordering"),
         class: "well remove-bottom-padding",
       )
     end

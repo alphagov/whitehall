@@ -115,7 +115,7 @@ module Admin::EditionActionsHelper
               unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
               title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
               class: "btn btn-warning",
-              data: { confirm: confirm }
+              data: { confirm: }
   end
 
   def delete_edition_button(edition)

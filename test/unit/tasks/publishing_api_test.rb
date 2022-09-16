@@ -447,7 +447,7 @@ class PublishingApiRake < ActiveSupport::TestCase
           content_id,
           body: {
             type: "redirect",
-            locale: locale,
+            locale:,
             alternative_path: path,
           },
         )

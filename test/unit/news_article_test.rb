@@ -87,7 +87,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     ]
 
     non_world_news_story_news_article_types.each do |news_article_type|
-      news_article = build(:news_article, news_article_type: news_article_type)
+      news_article = build(:news_article, news_article_type:)
       news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
       assert_not news_article.valid?
       assert news_article.errors[:worldwide_organisations].include?("must be blank")

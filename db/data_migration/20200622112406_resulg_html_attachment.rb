@@ -9,7 +9,7 @@ Whitehall::SearchIndex.add(edition)
 base_path = "/government/publications/esa-outcomes-of-work-capability-assessments-including-mandatory-reconsiderations-and-appeals-june-2020/esa-work-capability-assessments-mandatory-reconsiderations-and-appeals-march-2020"
 destination = "/government/publications/esa-outcomes-of-work-capability-assessments-including-mandatory-reconsiderations-and-appeals-june-2020/esa-work-capability-assessments-mandatory-reconsiderations-and-appeals-june-2020"
 redirects = [
-  { path: base_path, type: "exact", destination: destination },
+  { path: base_path, type: "exact", destination: },
 ]
 redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
 content_id = SecureRandom.uuid

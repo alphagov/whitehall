@@ -11,11 +11,11 @@ module PublishingApi
 
     def content
       {
-        title: title,
-        locale: locale,
-        details: details,
+        title:,
+        locale:,
+        details:,
         publishing_app: "whitehall",
-        update_type: update_type,
+        update_type:,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         schema_name: "role_appointment",

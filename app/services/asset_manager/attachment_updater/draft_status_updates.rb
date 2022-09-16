@@ -14,12 +14,12 @@ class AssetManager::AttachmentUpdater::DraftStatusUpdates
 
     Enumerator.new do |enum|
       enum.yield AssetManager::AttachmentUpdater::Update.new(
-        attachment_data, attachment_data.file, draft: draft
+        attachment_data, attachment_data.file, draft:
       )
 
       if attachment_data.pdf?
         enum.yield AssetManager::AttachmentUpdater::Update.new(
-          attachment_data, attachment_data.file.thumbnail, draft: draft
+          attachment_data, attachment_data.file.thumbnail, draft:
         )
       end
     end

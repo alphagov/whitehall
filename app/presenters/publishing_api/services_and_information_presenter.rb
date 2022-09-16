@@ -16,7 +16,7 @@ module PublishingApi
 
     def content_id
       @content_id ||= Services.publishing_api.lookup_content_id(
-        base_path: base_path,
+        base_path:,
       ) || SecureRandom.uuid
     end
 
@@ -24,11 +24,11 @@ module PublishingApi
       content = BaseItemPresenter.new(
         organisation,
         title: "Services and information - #{organisation.name}",
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
-        base_path: base_path,
+        base_path:,
         description: nil,
         details: {},
         document_type: "services_and_information",

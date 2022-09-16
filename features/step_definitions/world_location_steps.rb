@@ -12,7 +12,7 @@ def add_translation_to_world_location(location, translation)
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists$/) do |world_location_type, name|
-  world_location = create(world_location_type.tr(" ", "_").to_sym, name: name)
+  world_location = create(world_location_type.tr(" ", "_").to_sym, name:)
   # We cannot at the moment set active to be true directly on the international delegation factory, because this will trigger code for searchable
   # that requires a world location news to exist, but this has not been created yet at the point of creating the international delegation
   # Further refactoring of world locations / international delegations should fix this issue
@@ -20,16 +20,16 @@ Given(/^an? (world location|international delegation) "([^"]*)" exists$/) do |wo
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/) do |world_location_type, name, mission_statement|
-  create(world_location_type.tr(" ", "_").to_sym, name: name, active: true, mission_statement: mission_statement)
+  create(world_location_type.tr(" ", "_").to_sym, name:, active: true, mission_statement:)
 end
 
 Given(/^the (world location|international delegation) "([^"]*)" is inactive/) do |world_location_type, name|
-  world_location = WorldLocation.find_by(name: name) || create(world_location_type.tr(" ", "_").to_sym, name: name, active: true)
+  world_location = WorldLocation.find_by(name:) || create(world_location_type.tr(" ", "_").to_sym, name:, active: true)
   world_location.update_column(:active, false)
 end
 
 Given(/^an? (world location|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |world_location_type, name, locale|
-  location = create(world_location_type.tr(" ", "_").to_sym, name: name)
+  location = create(world_location_type.tr(" ", "_").to_sym, name:)
   # We cannot at the moment set active to be true directly on the international delegation factory, because this will trigger code for searchable
   # that requires a world location news to exist, but this has not been created yet at the point of creating the international delegation
   # Further refactoring of world locations / international delegations should fix this issue
@@ -43,11 +43,11 @@ end
 
 Given(/^I have an offsite link "(.*?)" for the (?:world location|international delegation) "(.*?)"$/) do |title, world_location_name|
   world_location = WorldLocation.find_by(name: world_location_name)
-  @offsite_link = create :offsite_link, title: title, parent: world_location.world_location_news
+  @offsite_link = create :offsite_link, title:, parent: world_location.world_location_news
 end
 
 When(/^I view the (?:world location|international delegation) "([^"]*)"$/) do |name|
-  world_location = WorldLocation.find_by!(name: name)
+  world_location = WorldLocation.find_by!(name:)
   visit world_location_path(world_location)
 end
 
@@ -104,18 +104,18 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the (?:world location|i
 end
 
 When(/^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/) do |name, table|
-  world_location = WorldLocation.find_by!(name: name)
+  world_location = WorldLocation.find_by!(name:)
   visit features_admin_world_location_news_path(world_location)
   order_features_from(table)
 end
 
 When(/^I add a new translation to the (?:world location|international delegation) "([^"]*)" with:$/) do |name, table|
-  world_location = WorldLocation.find_by!(name: name)
+  world_location = WorldLocation.find_by!(name:)
   add_translation_to_world_location(world_location, table.rows_hash)
 end
 
 When(/^I edit the "([^"]*)" translation for "([^"]*)" setting:$/) do |locale, name, table|
-  location = WorldLocation.find_by!(name: name)
+  location = WorldLocation.find_by!(name:)
   translation = table.rows_hash
   visit admin_world_location_news_path(location)
   click_link "Translations"
@@ -127,7 +127,7 @@ When(/^I edit the "([^"]*)" translation for "([^"]*)" setting:$/) do |locale, na
 end
 
 Then(/^I should see the featured items of the (?:world location|international delegation) "([^"]*)" are:$/) do |name, expected_table|
-  world_location = WorldLocation.find_by!(name: name)
+  world_location = WorldLocation.find_by!(name:)
   visit world_location_path(world_location)
   rows = find(featured_documents_selector).all(".feature")
   table = rows.collect do |row|
@@ -145,7 +145,7 @@ Then(/^I should see a (?:world location|international delegation) called "([^"]*
 end
 
 Then(/^I should not see a link to the (?:world location|international delegation) called "([^"]*)"$/) do |text|
-  expect(page).to_not have_selector(".world_location a", text: text)
+  expect(page).to_not have_selector(".world_location a", text:)
 end
 
 Then(/^I should see that it is an? (world location|international delegation)$/) do |world_location_type|
@@ -172,7 +172,7 @@ Then(/^I should be able to associate "([^"]+)" with the (?:world location|intern
 end
 
 When(/^I click through to see all the announcements for (?:international delegation|world location) "([^"]*)"$/) do |name|
-  visit world_location_path(WorldLocation.find_by!(name: name))
+  visit world_location_path(WorldLocation.find_by!(name:))
   within "#announcements" do
     click_link "See all"
   end
@@ -180,7 +180,7 @@ end
 
 Given(/^an english news article called "([^"]*)" related to the (world location|international delegation)$/) do |title|
   world_location = WorldLocation.last
-  create(:published_news_article, title: title, world_locations: [world_location])
+  create(:published_news_article, title:, world_locations: [world_location])
 end
 
 When(/^I feature "([^"]*)" on the english "([^"]*)" page$/) do |title, overseas_territory_name|
@@ -198,13 +198,13 @@ end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" (?:world location|international delegation) page$/) do |title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
-  offsite_link = OffsiteLink.find_by!(title: title)
+  offsite_link = OffsiteLink.find_by!(title:)
   visit features_admin_world_location_news_path(world_location)
   expect(page).to have_link(title, href: edit_admin_world_location_news_offsite_link_path(world_location.slug, offsite_link.id))
 end
 
 Then(/^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/) do |expected_title, name|
-  visit world_location_path(WorldLocation.find_by!(name: name))
+  visit world_location_path(WorldLocation.find_by!(name:))
   expect(page).to have_selector(".feature h2", text: expected_title)
 end
 

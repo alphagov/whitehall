@@ -1,5 +1,5 @@
 Given(/^a social media service "([^"]*)"$/) do |name|
-  create(:social_media_service, name: name)
+  create(:social_media_service, name:)
 end
 
 When(/^I add a "([^"]*)" social media link "([^"]*)" to the (worldwide organisation|organisation)$/) do |social_service, url, social_container|
@@ -67,10 +67,10 @@ end
 Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website with locale "([^"]*)" for the (worldwide organisation|organisation)$/) do |social_service, title, locale, social_container|
   if social_container == "worldwide organisation"
     social_container = WorldwideOrganisation.last
-    visit worldwide_organisation_path(social_container, locale: locale)
+    visit worldwide_organisation_path(social_container, locale:)
   else
     social_container = Organisation.last
-    visit organisation_path(social_container, locale: locale)
+    visit organisation_path(social_container, locale:)
   end
   expect(page).to have_selector(".gem-c-share-links .gem-c-share-links__link[data-track-action=\"#{social_service.parameterize}\"]", text: title)
 end

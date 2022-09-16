@@ -26,7 +26,7 @@ module LogoHelper
     if organisation.custom_logo_selected?
       linked_logo
     else
-      css_classes = logo_classes(organisation: organisation, size: options[:size], stacked: true)
+      css_classes = logo_classes(organisation:, size: options[:size], stacked: true)
       tag.span(class: css_classes) { tag.span { linked_logo } }
     end
   end

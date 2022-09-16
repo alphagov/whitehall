@@ -31,7 +31,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   test "create should create a new speech" do
     role_appointment = create(:role_appointment)
     speech_type = SpeechType::Transcript
-    attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment_id: role_appointment.id)
+    attributes = controller_attributes_for(:speech, speech_type:, role_appointment_id: role_appointment.id)
 
     post :create, params: { edition: attributes }
 
@@ -44,7 +44,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   test "create should create a new speech without a real person" do
     speech_type = SpeechType::Transcript
-    attributes = controller_attributes_for(:speech, speech_type: speech_type, person_override: "The Queen")
+    attributes = controller_attributes_for(:speech, speech_type:, person_override: "The Queen")
 
     post :create, params: { edition: attributes }
 

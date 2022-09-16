@@ -16,7 +16,7 @@ class MailNotifications < ApplicationMailer
 
     view_mail template_id,
               to: to_address,
-              subject: subject
+              subject:
   end
 
   def fact_check_response(request, url_options)
@@ -29,7 +29,7 @@ class MailNotifications < ApplicationMailer
 
     view_mail template_id,
               to: to_address,
-              subject: subject
+              subject:
   end
 
   def edition_published(author, edition, admin_url, public_url)
@@ -40,7 +40,7 @@ class MailNotifications < ApplicationMailer
     subject = "The #{edition.format_name} '#{edition.title}' has been published"
     view_mail template_id,
               to: @author.email,
-              subject: subject
+              subject:
   end
 
   def edition_rejected(author, edition, admin_url)
@@ -50,7 +50,7 @@ class MailNotifications < ApplicationMailer
     subject = "The #{edition.format_name} '#{edition.title}' was rejected by #{edition.rejected_by.name}"
     view_mail template_id,
               to: @author.email,
-              subject: subject
+              subject:
   end
 
   def edition_published_by_monitored_user(user)
@@ -58,7 +58,7 @@ class MailNotifications < ApplicationMailer
     subject = "Account holder #{@user.name} (#{user.email}) has published to live"
     view_mail template_id,
               to: content_second_line_email_address,
-              subject: subject
+              subject:
   end
 
   def broken_link_reports(public_url, recipient_address)

@@ -7,8 +7,8 @@ Given(/^an unopened consultation exists$/) do
 end
 
 When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
-  document_options = { type: "consultation", title: title, summary: "consultation-summary", alternative_format_provider: create(:alternative_format_provider), all_nation_applicablity: false }
-  document_options.merge!(locale: locale) unless locale == "English"
+  document_options = { type: "consultation", title:, summary: "consultation-summary", alternative_format_provider: create(:alternative_format_provider), all_nation_applicablity: false }
+  document_options.merge!(locale:) unless locale == "English"
   begin_drafting_document document_options
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
@@ -91,7 +91,7 @@ end
 
 And(/^I can see the primary locale for consultation "(.*?)" is "(.*?)"$/) do |title, locale_code|
   I18n.with_locale(locale_code) do
-    consultation = Consultation.find_by!(title: title)
+    consultation = Consultation.find_by!(title:)
     expect(locale_code).to eq(consultation.primary_locale)
   end
 end

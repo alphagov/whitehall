@@ -29,7 +29,7 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
     @edition = EditionWithAppointment.new(
       valid_edition_attributes.merge(
         role_appointment: @appointment,
-        document: document,
+        document:,
       ),
     )
   end

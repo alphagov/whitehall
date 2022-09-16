@@ -1,6 +1,6 @@
 class PublishingApiGoneWorker < PublishingApiWorker
   def perform(content_id, alternative_path, explanation, locale, allow_draft = false)
-    check_if_locked_document(content_id: content_id)
+    check_if_locked_document(content_id:)
 
     if explanation.present?
       rendered_explanation = Whitehall::GovspeakRenderer
@@ -14,8 +14,8 @@ class PublishingApiGoneWorker < PublishingApiWorker
       alternative_path: alternative_path_with_no_trailing_space,
       explanation: rendered_explanation,
       type: "gone",
-      locale: locale,
-      allow_draft: allow_draft,
+      locale:,
+      allow_draft:,
       discard_drafts: !allow_draft,
     )
   rescue GdsApi::HTTPNotFound

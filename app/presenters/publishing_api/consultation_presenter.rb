@@ -15,15 +15,15 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(consultation, update_type: update_type)
+        .new(consultation, update_type:)
         .base_attributes
         .merge(PayloadBuilder::AccessLimitation.for(consultation))
         .merge(PayloadBuilder::PublicDocumentPath.for(consultation))
         .merge(
           description: consultation.summary,
-          details: details,
-          document_type: document_type,
-          public_updated_at: public_updated_at,
+          details:,
+          document_type:,
+          public_updated_at:,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: SCHEMA_NAME,
           links: edition_links,
@@ -58,7 +58,7 @@ module PublishingApi
 
     def base_details
       {
-        body: body,
+        body:,
         closing_date: consultation.closing_at,
         emphasised_organisations: consultation.lead_organisations.map(&:content_id),
         opening_date: consultation.opening_at,
@@ -123,8 +123,8 @@ module PublishingApi
         return {} if consultation.attachments.blank?
 
         {
-          documents: documents,
-          featured_attachments: featured_attachments,
+          documents:,
+          featured_attachments:,
         }
       end
 
@@ -178,9 +178,9 @@ module PublishingApi
         return {} unless consultation.outcome_published?
 
         {
-          final_outcome_detail: final_outcome_detail,
-          final_outcome_documents: final_outcome_documents,
-          final_outcome_attachments: final_outcome_attachments,
+          final_outcome_detail:,
+          final_outcome_documents:,
+          final_outcome_attachments:,
         }.compact
       end
 
@@ -300,10 +300,10 @@ module PublishingApi
 
         {
           ways_to_respond: {
-            email: email,
-            link_url: link_url,
-            postal_address: postal_address,
-            attachment_url: attachment_url,
+            email:,
+            link_url:,
+            postal_address:,
+            attachment_url:,
           }.compact,
         }.compact
       end

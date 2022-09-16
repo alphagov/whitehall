@@ -161,7 +161,7 @@ module DocumentControllerTestHelpers
     def should_display_inline_images_for(document_type)
       view_test "show displays #{document_type} with inline images" do
         images = [create(:image), create(:image)]
-        edition = create("published_#{document_type}", body: "!!2", images: images)
+        edition = create("published_#{document_type}", body: "!!2", images:)
 
         get :show, params: { id: edition.document }
 
@@ -246,7 +246,7 @@ module DocumentControllerTestHelpers
         document = first_edition.document
         draft_edition = create(
           "draft_#{document_type}",
-          document: document,
+          document:,
           body: "Draft information",
           access_limited: false,
         )
@@ -262,7 +262,7 @@ module DocumentControllerTestHelpers
         document = first_edition.document
         draft_edition = create(
           "draft_#{document_type}",
-          document: document,
+          document:,
           body: "Draft information",
           access_limited: false,
         )

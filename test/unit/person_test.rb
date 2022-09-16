@@ -31,41 +31,41 @@ class PersonTest < ActiveSupport::TestCase
 
   test "#organisations includes organisations linked through current ministerial roles" do
     person = create(:person)
-    role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
+    role_appointment = create(:ministerial_role_appointment, person:, started_at: 1.year.ago, ended_at: nil)
     assert_equal role_appointment.role.organisations, person.reload.organisations
   end
 
   test "#organisations excludes organisations linked through past ministerial roles" do
     person = create(:person)
-    create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
+    create(:ministerial_role_appointment, person:, started_at: 1.year.ago, ended_at: 1.day.ago)
     assert_equal [], person.reload.organisations
   end
 
   test "#organisations includes organisations linked through current board member roles" do
     person = create(:person)
-    role_appointment = create(:board_member_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
+    role_appointment = create(:board_member_role_appointment, person:, started_at: 1.year.ago, ended_at: nil)
     assert_equal role_appointment.role.organisations, person.reload.organisations
   end
 
   test "#organisations excludes organisations linked through past board member roles roles" do
     person = create(:person)
-    create(:board_member_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
+    create(:board_member_role_appointment, person:, started_at: 1.year.ago, ended_at: 1.day.ago)
     assert_equal [], person.reload.organisations
   end
 
   test "can access speeches associated via role_appointments" do
     person = create(:person)
-    speech1 = create(:draft_speech, role_appointment: create(:role_appointment, person: person))
-    speech2 = create(:draft_speech, role_appointment: create(:role_appointment, person: person))
+    speech1 = create(:draft_speech, role_appointment: create(:role_appointment, person:))
+    speech2 = create(:draft_speech, role_appointment: create(:role_appointment, person:))
 
     assert_equal [speech1, speech2], person.speeches
   end
 
   test "published_speeches only returns published speeches" do
     person = create(:person)
-    published_speech = create(:published_speech, role_appointment: create(:role_appointment, person: person))
-    create(:draft_speech, role_appointment: create(:role_appointment, person: person))
-    create(:speech, :withdrawn, role_appointment: create(:role_appointment, person: person))
+    published_speech = create(:published_speech, role_appointment: create(:role_appointment, person:))
+    create(:draft_speech, role_appointment: create(:role_appointment, person:))
+    create(:speech, :withdrawn, role_appointment: create(:role_appointment, person:))
 
     assert_equal [published_speech], person.published_speeches
   end
@@ -74,8 +74,8 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person)
     news_articles = 2.times.map { create(:news_article) }
 
-    create(:ministerial_role_appointment, person: person).editions << news_articles[0]
-    create(:ministerial_role_appointment, person: person).editions << news_articles[1]
+    create(:ministerial_role_appointment, person:).editions << news_articles[0]
+    create(:ministerial_role_appointment, person:).editions << news_articles[1]
 
     assert_equal news_articles, person.news_articles
   end
@@ -84,8 +84,8 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person)
     news_articles = 2.times.map { create(:news_article) }
 
-    create(:ministerial_role_appointment, person: person).editions << news_articles[0]
-    create(:ministerial_role_appointment, person: person, started_at: 2.days.ago, ended_at: 1.day.ago)
+    create(:ministerial_role_appointment, person:).editions << news_articles[0]
+    create(:ministerial_role_appointment, person:, started_at: 2.days.ago, ended_at: 1.day.ago)
       .editions << news_articles[1]
 
     assert_equal news_articles, person.news_articles
@@ -95,7 +95,7 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person)
     news_articles = [create(:published_news_article), create(:draft_news_article), create(:news_article, :withdrawn)]
     news_articles.each do |edition|
-      create(:ministerial_role_appointment, person: person).editions << edition
+      create(:ministerial_role_appointment, person:).editions << edition
     end
 
     assert_equal news_articles[0..0], person.published_news_articles
@@ -103,7 +103,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should not be destroyable when it has appointments" do
     person = create(:person)
-    _ = create(:role_appointment, person: person)
+    _ = create(:role_appointment, person:)
     assert_not person.destroyable?
     assert_equal false, person.destroy
   end
@@ -163,16 +163,16 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person)
     assert_not person.can_have_historical_accounts?
 
-    create(:role_appointment, person: person)
+    create(:role_appointment, person:)
     assert_not person.reload.can_have_historical_accounts?
 
-    create(:historic_role_appointment, person: person)
+    create(:historic_role_appointment, person:)
     assert person.reload.can_have_historical_accounts?
   end
 
   test "#name_with_disambiguator returns string with containing a persons name, role and org" do
     person = create(:person)
-    role_appointment = create(:role_appointment, person: person)
+    role_appointment = create(:role_appointment, person:)
 
     assert "#{person.name} - #{role_appointment.role.name} - #{person.organisations.first.name}",
            person.name_with_disambiguator
@@ -180,7 +180,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "touches any person appointments after being updated" do
     person = create(:person)
-    role_appointment = create(:role_appointment, person: person)
+    role_appointment = create(:role_appointment, person:)
 
     Timecop.freeze 1.month do
       person.update!(surname: "Smith")

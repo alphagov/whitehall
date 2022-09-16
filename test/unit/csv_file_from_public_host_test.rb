@@ -8,7 +8,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   def stub_csv_request(status: 206, body: "", path: "some-path")
     stub_request(:get, "#{Plek.new.asset_root}/#{path}")
       .with(headers: { "Range" => "bytes=0-300000" })
-      .to_return(status: status, body: body)
+      .to_return(status:, body:)
   end
 
   test ".new yields a temporary file" do
@@ -58,7 +58,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
 
   test ".new raises an exception if the response status is anything other than 206" do
     [404, 502, 503].each do |status|
-      stub_csv_request(status: status)
+      stub_csv_request(status:)
       assert_raises(CsvFileFromPublicHost::ConnectionError) do
         response = CsvFileFromPublicHost.csv_response("some-path")
         CsvFileFromPublicHost.new(response)
@@ -118,7 +118,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     stub_csv_request.with(basic_auth: %w[user password])
     env = { "BASIC_AUTH_CREDENTIALS" => "user:password" }
 
-    response = CsvFileFromPublicHost.csv_response("some-path", env: env)
+    response = CsvFileFromPublicHost.csv_response("some-path", env:)
     assert_equal 206, response.status
   end
 

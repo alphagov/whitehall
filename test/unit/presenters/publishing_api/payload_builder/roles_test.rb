@@ -21,7 +21,7 @@ module PublishingApi
 
       test "returns the role if a role_appointment_id exists" do
         role_appointment = create(:role_appointment)
-        stubbed_edition = stub(role_appointment: role_appointment)
+        stubbed_edition = stub(role_appointment:)
 
         expected_hash = { roles: [role_appointment.role.content_id] }
 
@@ -41,7 +41,7 @@ module PublishingApi
           create(:role_appointment)
         end
 
-        stubbed_edition = stub(role_appointments: role_appointments)
+        stubbed_edition = stub(role_appointments:)
 
         expected_hash = {
           roles: role_appointments.map do |role_appointment|

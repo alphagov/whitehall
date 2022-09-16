@@ -4,7 +4,7 @@ require "ostruct"
 class ManagingEditorTest < ActiveSupport::TestCase
   def managing_editor(id = 1)
     OpenStruct.new(
-      id: id,
+      id:,
       gds_editor?: false,
       departmental_editor?: false,
       managing_editor?: true,

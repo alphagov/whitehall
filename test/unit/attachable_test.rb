@@ -132,7 +132,7 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "#reorder_attachments should update the ordering of its attachments" do
     attachable = create(:consultation)
-    a, b, c = 3.times.map { create(:file_attachment, attachable: attachable) }
+    a, b, c = 3.times.map { create(:file_attachment, attachable:) }
 
     attachable.reload.reorder_attachments([b.id, a.id, c.id])
 
@@ -141,9 +141,9 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "#reorder_attachments should handle existing negative orderings" do
     attachable = create(:consultation)
-    a = create(:file_attachment, attachable: attachable, ordering: -1)
-    b = create(:file_attachment, attachable: attachable, ordering: 0, file: file_fixture("whitepaper.pdf"))
-    c = create(:file_attachment, attachable: attachable, ordering: 1, file: file_fixture("simple.pdf"))
+    a = create(:file_attachment, attachable:, ordering: -1)
+    b = create(:file_attachment, attachable:, ordering: 0, file: file_fixture("whitepaper.pdf"))
+    c = create(:file_attachment, attachable:, ordering: 1, file: file_fixture("simple.pdf"))
 
     attachable.reload.reorder_attachments([b.id, a.id, c.id])
 
@@ -152,9 +152,9 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "#reorder_attachments handles deleted attachments that had high ordering values" do
     attachable = create(:consultation)
-    a = create(:file_attachment, attachable: attachable, ordering: 0)
-    b = create(:file_attachment, attachable: attachable, ordering: 1)
-    create(:file_attachment, attachable: attachable, ordering: 2, deleted: true)
+    a = create(:file_attachment, attachable:, ordering: 0)
+    b = create(:file_attachment, attachable:, ordering: 1)
+    create(:file_attachment, attachable:, ordering: 2, deleted: true)
 
     attachable.reload.reorder_attachments([b.id, a.id])
 
@@ -163,11 +163,11 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "#reorder_attachments handles deleted attachments that had low ordering values" do
     attachable = create(:consultation)
-    create(:file_attachment, attachable: attachable, ordering: 0, deleted: true)
-    create(:file_attachment, attachable: attachable, ordering: 1, deleted: true)
-    create(:file_attachment, attachable: attachable, ordering: 2, deleted: true)
-    a = create(:file_attachment, attachable: attachable, ordering: 3)
-    b = create(:file_attachment, attachable: attachable, ordering: 4)
+    create(:file_attachment, attachable:, ordering: 0, deleted: true)
+    create(:file_attachment, attachable:, ordering: 1, deleted: true)
+    create(:file_attachment, attachable:, ordering: 2, deleted: true)
+    a = create(:file_attachment, attachable:, ordering: 3)
+    b = create(:file_attachment, attachable:, ordering: 4)
 
     attachable.reload.reorder_attachments([b.id, a.id])
 

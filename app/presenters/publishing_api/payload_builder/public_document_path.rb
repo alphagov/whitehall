@@ -12,7 +12,7 @@ module PublishingApi
       end
 
       def call
-        { base_path: base_path }.merge(PayloadBuilder::Routes.for(base_path))
+        { base_path: }.merge(PayloadBuilder::Routes.for(base_path))
       end
 
     private

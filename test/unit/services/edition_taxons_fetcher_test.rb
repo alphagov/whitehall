@@ -18,7 +18,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
     }.to_json
 
     stub_request(:get, %r{.*/v2/expanded-links/#{content_id}.*})
-      .to_return(body: body, status: 404)
+      .to_return(body:, status: 404)
 
     links_fetcher = EditionTaxonsFetcher.new(content_id)
 

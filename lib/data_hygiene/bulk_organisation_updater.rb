@@ -48,7 +48,7 @@ module DataHygiene
           document = documents.first
         end
       else
-        document = Document.find_by(slug: slug, document_type: document_type)
+        document = Document.find_by(slug:, document_type:)
       end
 
       if document.nil?

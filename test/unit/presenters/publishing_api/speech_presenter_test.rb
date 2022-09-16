@@ -16,10 +16,10 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
     let(:person) { create(:person, forename: "Tony") }
 
     let(:role_appointment) do
-      create(:role_appointment, role: minister, person: person)
+      create(:role_appointment, role: minister, person:)
     end
 
-    let(:speech) { create(:speech, role_appointment: role_appointment) }
+    let(:speech) { create(:speech, role_appointment:) }
     let(:presented) { PublishingApi::SpeechPresenter.new(speech) }
 
     describe "validating against content schemas" do
@@ -49,7 +49,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           title: "Speech title",
           summary: "The description",
           body: "# Woo!\nSome content",
-          role_appointment: role_appointment,
+          role_appointment:,
           location: "A location",
         )
       end
@@ -176,7 +176,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
       [SpeechType::DraftText, SpeechType::SpeakingNotes, SpeechType::Transcript].each do |speech_type|
         context "for #{speech_type.plural_name}" do
-          let(:speech) { FactoryBot.build(:speech, speech_type: speech_type) }
+          let(:speech) { FactoryBot.build(:speech, speech_type:) }
           it "is 'speech' for draft text" do
             assert_equal(presented.content[:document_type], "speech")
           end
@@ -185,7 +185,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
       [SpeechType::AuthoredArticle, SpeechType::OralStatement, SpeechType::WrittenStatement].each do |speech_type|
         context "for #{speech_type.plural_name}" do
-          let(:speech) { FactoryBot.build(:speech, speech_type: speech_type) }
+          let(:speech) { FactoryBot.build(:speech, speech_type:) }
           it "is '#{speech_type.key}'" do
             assert_equal(presented.content[:document_type], speech_type.key)
           end
@@ -210,7 +210,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           title: "Speech title",
           summary: "The description",
           body: "# Woo!\nSome content",
-          role_appointment: role_appointment,
+          role_appointment:,
         )
       end
 

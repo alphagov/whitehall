@@ -54,8 +54,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:ministerial_role)
     alice = create(:person, forename: "Alice")
     bob = create(:person, forename: "Bob")
-    create(:role_appointment, role: role, person: alice, started_at: 3.days.ago, ended_at: 1.day.ago)
-    create(:role_appointment, role: role, person: bob, started_at: 1.day.ago, ended_at: nil, make_current: true)
+    create(:role_appointment, role:, person: alice, started_at: 3.days.ago, ended_at: 1.day.ago)
+    create(:role_appointment, role:, person: bob, started_at: 1.day.ago, ended_at: nil, make_current: true)
 
     assert_equal bob, role.current_person
   end
@@ -79,13 +79,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     role = create(:ministerial_role)
 
-    _original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role:, person: alice, started_at: 3.days.ago)
 
     assert_equal alice, role.current_person, "the minister should be alice"
     assert_equal [role], alice.current_roles, "alice should be the minister"
     assert_equal [], bob.current_roles, "bob should have no roles"
 
-    create(:role_appointment, role: role, person: bob, started_at: 10.days.ago, ended_at: 5.days.ago)
+    create(:role_appointment, role:, person: bob, started_at: 10.days.ago, ended_at: 5.days.ago)
 
     role.reload
     alice.reload
@@ -98,8 +98,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "should prevent creation of overlapping appointments" do
     role = create(:role)
-    create(:role_appointment, role: role, started_at: 10.days.ago, ended_at: 5.days.ago)
-    appointment = build(:role_appointment, role: role, started_at: 10.days.ago, ended_at: 3.days.ago)
+    create(:role_appointment, role:, started_at: 10.days.ago, ended_at: 5.days.ago)
+    appointment = build(:role_appointment, role:, started_at: 10.days.ago, ended_at: 3.days.ago)
     assert_not appointment.valid?
   end
 
@@ -180,7 +180,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   def appointment_attributes_from_dates(dates, role)
-    attributes = { role: role, started_at: dates.first, ended_at: dates.last }
+    attributes = { role:, started_at: dates.first, ended_at: dates.last }
     if dates.last.nil?
       attributes.merge(make_current: true)
     else
@@ -226,13 +226,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     role = create(:ministerial_role)
 
-    _original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role:, person: alice, started_at: 3.days.ago)
 
     assert_equal alice, role.current_person, "the minister should be alice"
     assert_equal [role], alice.current_roles, "alice should be the minister"
     assert_equal [], bob.current_roles, "bob should have no roles"
 
-    create(:role_appointment, role: role, person: bob, started_at: 1.day.ago, make_current: true)
+    create(:role_appointment, role:, person: bob, started_at: 1.day.ago, make_current: true)
 
     role.reload
     alice.reload
@@ -283,14 +283,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "setting make_current should only result in a valid appointment if started_at is greater than all others" do
     role = create(:ministerial_role)
-    _original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
-    assert_not build(:role_appointment, role: role, started_at: 4.days.ago, make_current: true).valid?
+    _original_appointment = create(:role_appointment, role:, started_at: 3.days.ago)
+    assert_not build(:role_appointment, role:, started_at: 4.days.ago, make_current: true).valid?
   end
 
   test "should not overwrite ended_at if ended_at already set" do
     role = create(:role)
-    existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: 10.days.ago)
-    _new_appointment = create(:role_appointment, role: role, started_at: 5.days.ago, ended_at: nil, make_current: true)
+    existing_appointment = create(:role_appointment, role:, started_at: 20.days.ago, ended_at: 10.days.ago)
+    _new_appointment = create(:role_appointment, role:, started_at: 5.days.ago, ended_at: nil, make_current: true)
 
     existing_appointment.reload
     assert_equal 10.days.ago, existing_appointment.ended_at
@@ -298,8 +298,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "should set ended_at on existing appointment to started_at on new appointment" do
     role = create(:role)
-    existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: nil, make_current: true)
-    _new_appointment = create(:role_appointment, role: role, started_at: 10.days.ago, ended_at: nil, make_current: true)
+    existing_appointment = create(:role_appointment, role:, started_at: 20.days.ago, ended_at: nil, make_current: true)
+    _new_appointment = create(:role_appointment, role:, started_at: 10.days.ago, ended_at: nil, make_current: true)
 
     existing_appointment.reload
     assert_equal 10.days.ago, existing_appointment.ended_at
@@ -307,13 +307,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "should be able to get editions associated with this appointment" do
     editions = [create(:published_publication), create(:published_news_article)]
-    appointment = create(:role_appointment, editions: editions)
+    appointment = create(:role_appointment, editions:)
     assert_equal editions, appointment.editions
   end
 
   test "should be able to get news articles associated with this appointment" do
     editions = [create(:published_publication), create(:published_news_article)]
-    appointment = create(:role_appointment, editions: editions)
+    appointment = create(:role_appointment, editions:)
     assert_equal editions[1..1], appointment.news_articles
   end
 

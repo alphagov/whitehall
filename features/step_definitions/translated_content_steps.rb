@@ -9,7 +9,7 @@ Given(/^a worldwide organisation that is translated exists$/) do
   create(
     :about_corporate_information_page,
     organisation: nil,
-    worldwide_organisation: worldwide_organisation,
+    worldwide_organisation:,
     summary: "en-summary",
     translated_into: { fr: { summary: "fr-summary" } },
   )
@@ -62,7 +62,7 @@ Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*
   )
   create(
     :contact_number,
-    contact: contact,
+    contact:,
     label: "English phone",
     number: "0123456789",
   )
@@ -97,8 +97,8 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
     country: create(:world_location, active: true),
     street_address: "123 The Avenue",
   )
-  create(:contact_number, contact: contact, label: "English phone", number: "0123456789")
-  create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
+  create(:contact_number, contact:, label: "English phone", number: "0123456789")
+  create(:worldwide_office, worldwide_organisation: organisation, contact:)
 end
 
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|

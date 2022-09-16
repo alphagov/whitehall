@@ -12,5 +12,5 @@ dodgy_slugs = %w[
 
 dodgy_slugs.each do |slug|
   puts "Republishing #{slug}"
-  Whitehall::PublishingApi.republish_async(Document.where(slug: slug).first.live_edition)
+  Whitehall::PublishingApi.republish_async(Document.where(slug:).first.live_edition)
 end

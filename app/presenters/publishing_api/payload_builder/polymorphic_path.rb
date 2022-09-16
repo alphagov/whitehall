@@ -4,7 +4,7 @@ module PublishingApi
       attr_reader :item, :additional_routes
 
       def self.for(item, additional_routes: [])
-        new(item, additional_routes: additional_routes).call
+        new(item, additional_routes:).call
       end
 
       def initialize(item, additional_routes: [])
@@ -13,8 +13,8 @@ module PublishingApi
       end
 
       def call
-        { base_path: base_path }.merge(
-          PayloadBuilder::Routes.for(base_path, additional_routes: additional_routes),
+        { base_path: }.merge(
+          PayloadBuilder::Routes.for(base_path, additional_routes:),
         )
       end
 

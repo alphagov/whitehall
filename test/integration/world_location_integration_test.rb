@@ -10,7 +10,7 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
 
   before do
     organisation = create(:organisation)
-    managing_editor = create(:managing_editor, organisation: organisation, uid: "user-uid")
+    managing_editor = create(:managing_editor, organisation:, uid: "user-uid")
 
     login_as managing_editor
   end
@@ -46,7 +46,7 @@ class WorldLocationIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def put_content_hash_containing(locale, title, mission_statement)
-    has_entries(locale: locale, title: title, details: has_entries(mission_statement: mission_statement))
+    has_entries(locale:, title:, details: has_entries(mission_statement:))
   end
 
   test "when updating, makes the correct calls to publishing api" do

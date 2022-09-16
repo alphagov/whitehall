@@ -13,11 +13,11 @@ module RoleAppointmentsHelper
       ended_at = nil
     end
 
-    create(:role_appointment, role: role, person: person, started_at: started_at, ended_at: ended_at)
+    create(:role_appointment, role:, person:, started_at:, ended_at:)
   end
 
   def find_or_create_ministerial_role(name)
-    MinisterialRole.find_by(name: name) || create(:ministerial_role, name: name)
+    MinisterialRole.find_by(name:) || create(:ministerial_role, name:)
   end
 end
 

@@ -18,9 +18,9 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       SecureRandom.stubs(uuid: uid)
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       service.call
@@ -38,9 +38,9 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
@@ -54,15 +54,15 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
     test "updates an image with auth_bypass_id" do
       edition = create(:draft_case_study)
-      image = create(:image, edition: edition)
+      image = create(:image, edition:)
 
       SecureRandom.stubs(uuid: uid)
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
@@ -81,9 +81,9 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       SecureRandom.stubs(uuid: uid)
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).never
@@ -100,9 +100,9 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
@@ -123,9 +123,9 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(
@@ -146,9 +146,9 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       expected_attributes = { auth_bypass_ids: [uid] }
 
       service = EditionAuthBypassUpdater.new(
-        edition: edition,
+        edition:,
         current_user: user,
-        updater: updater,
+        updater:,
       )
 
       AssetManagerUpdateWhitehallAssetWorker.expects(:perform_async_in_queue).with(

@@ -12,7 +12,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_two = create(:organisation, name: "org-two")
     person = create(:person, forename: "person-name")
     ministerial_role = create(:ministerial_role, name: "ministerial-role", cabinet_member: true, organisations: [org_one, org_two])
-    create(:role_appointment, role: ministerial_role, person: person)
+    create(:role_appointment, role: ministerial_role, person:)
     management_role = create(:board_member_role, name: "management-role", permanent_secretary: true, organisations: [org_one])
     military_role = create(:military_role, name: "military-role", organisations: [org_two])
     chief_professional_officer_role = create(:chief_professional_officer_role, name: "chief-professional-officer-role", organisations: [org_one])
@@ -334,7 +334,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "destroying an indestructible role" do
     role = create(:role)
-    create(:role_appointment, role: role)
+    create(:role_appointment, role:)
 
     delete :destroy, params: { id: role.id }
 

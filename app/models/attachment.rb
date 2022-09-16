@@ -82,19 +82,19 @@ class Attachment < ApplicationRecord
     attachment_fields = {
       attachment_type: readable_type.downcase,
       id: id.to_s,
-      locale: locale,
-      title: title,
-      url: url,
+      locale:,
+      title:,
+      url:,
     }
 
     if attachable.allows_attachment_references?
       # fields just for "publication_attachment_asset" schema
       attachment_fields.merge!(
-        command_paper_number: command_paper_number,
-        hoc_paper_number: hoc_paper_number,
-        isbn: isbn,
+        command_paper_number:,
+        hoc_paper_number:,
+        isbn:,
         parliamentary_session: nil,
-        unique_reference: unique_reference,
+        unique_reference:,
         unnumbered_command_paper: unnumbered_command_paper?,
         unnumbered_hoc_paper: unnumbered_hoc_paper?,
       )

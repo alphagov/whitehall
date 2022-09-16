@@ -3,11 +3,11 @@ require "ostruct"
 
 class GDSAdminTest < ActiveSupport::TestCase
   def gds_admin(id = 1)
-    OpenStruct.new(id: id, gds_admin?: true, organisation: build(:organisation))
+    OpenStruct.new(id:, gds_admin?: true, organisation: build(:organisation))
   end
 
   def non_gds_admin(id = 2)
-    OpenStruct.new(id: id, gds_admin?: false, organisation: build(:organisation))
+    OpenStruct.new(id:, gds_admin?: false, organisation: build(:organisation))
   end
 
   include AuthorityTestHelper

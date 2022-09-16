@@ -34,7 +34,7 @@ class PublicationesquePresenterTest < PresenterTestCase
     collection = stub_record(:document_collection, title: "SeriesTitle", document: stub_record(:document))
     publication = stub_record(
       :publication,
-      document: document,
+      document:,
       public_timestamp: Time.zone.now,
       attachments: [],
       organisations: [organisation],

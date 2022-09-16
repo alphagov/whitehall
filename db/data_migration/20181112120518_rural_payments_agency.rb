@@ -291,7 +291,7 @@ old = Organisation.find_by(slug: "natural-england")
   "mid-tier-events-2018-countryside-stewardship",
   "tell-the-rural-payments-agency-about-land-changes-and-entitlement-transfers",
 ].each do |slug|
-  document = Document.find_by(slug: slug)
+  document = Document.find_by(slug:)
   edition = document.latest_edition
 
   lead_organisations = edition.lead_organisations.to_a
@@ -310,8 +310,8 @@ old = Organisation.find_by(slug: "natural-england")
   supporting_organisations.delete old
 
   edition.update!(
-    lead_organisations: lead_organisations,
-    supporting_organisations: supporting_organisations,
+    lead_organisations:,
+    supporting_organisations:,
   )
 
   # the migration runs inside a transaction, so delay the

@@ -31,14 +31,14 @@ module Whitehall
 
       def amend(link, changes)
         repeatedly do
-          make_request(:post, documents_url(link: link), changes)
+          make_request(:post, documents_url(link:), changes)
         end
       end
 
       def delete(id, options = {})
         type = options[:type] || "edition"
         repeatedly do
-          make_request(:delete, documents_url(id: id, type: type))
+          make_request(:delete, documents_url(id:, type:))
         end
       end
 
@@ -75,14 +75,14 @@ module Whitehall
       def log_response(method, call_time, response, url, payload = nil)
         time = sprintf("%.03f", call_time)
         result = response.length.positive? ? JSON.parse(response).fetch("result", "UNKNOWN") : "UNKNOWN"
-        log("Rummageable response", method, url, payload, time: time, result: result)
+        log("Rummageable response", method, url, payload, time:, result:)
       end
 
       def log(message, method, url, payload = nil, fields = {})
         if payload.is_a? Hash
-          @logger.info(fields.merge(msg: message, method: method.upcase, url: url, slug: payload[:slug], content_id: payload[:content_id]))
+          @logger.info(fields.merge(msg: message, method: method.upcase, url:, slug: payload[:slug], content_id: payload[:content_id]))
         else
-          @logger.info(fields.merge(msg: message, method: method.upcase, url: url))
+          @logger.info(fields.merge(msg: message, method: method.upcase, url:))
         end
       end
 

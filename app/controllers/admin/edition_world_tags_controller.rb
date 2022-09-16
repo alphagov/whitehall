@@ -11,7 +11,7 @@ class Admin::EditionWorldTagsController < Admin::BaseController
   def update
     EditionWorldTaxonLinkPatcher.new.call(
       content_id: @edition.content_id,
-      selected_taxons: selected_taxons,
+      selected_taxons:,
       invisible_taxons: previously_selected_topic_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )

@@ -89,9 +89,9 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "revising the superseded edition - if it happens to also be the latest edition - should create a new draft edition from the first deleted edition after the superseded one" do
     document = create(:document)
-    buggy_superseded_edition = create(:superseded_edition, document: document, title: "First")
-    create(:deleted_edition, document: document, title: "Second")
-    create(:deleted_edition, document: document, title: "Third")
+    buggy_superseded_edition = create(:superseded_edition, document:, title: "First")
+    create(:deleted_edition, document:, title: "Second")
+    create(:deleted_edition, document:, title: "Third")
 
     post :revise, params: { id: buggy_superseded_edition }
 
@@ -153,7 +153,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
-    get :index, params: { state: :draft, organisation: organisation }
+    get :index, params: { state: :draft, organisation: }
     assert_equal organisation.to_param, session[:document_filters]["organisation"]
   end
 
@@ -169,22 +169,22 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    get :index, params: { organisation: organisation, state: :submitted }
+    get :index, params: { organisation:, state: :submitted }
 
     get :index
-    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, organisation:)
   end
 
   test "index should redirect to remembered filtered options if selected filter is invalid" do
     organisation = create(:organisation)
     session[:document_filters] = { "state" => "submitted", "author" => current_user.to_param, "organisation" => organisation.to_param }
     get :index, params: { author: "invalid" }
-    assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation:)
   end
 
   test "index should redirect to department if logged in with no remembered filters" do
     organisation = create(:organisation)
-    login_as create(:departmental_editor, organisation: organisation)
+    login_as create(:departmental_editor, organisation:)
     get :index
     assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
   end

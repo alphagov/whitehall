@@ -13,15 +13,15 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(item, update_type: update_type)
+        .new(item, update_type:)
         .base_attributes
         .merge(PayloadBuilder::AccessLimitation.for(item))
         .merge(PayloadBuilder::PublicDocumentPath.for(item))
         .merge(PayloadBuilder::FirstPublishedAt.for(item))
         .merge(
           description: item.summary,
-          details: details,
-          document_type: document_type,
+          details:,
+          document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "statistical_data_set",

@@ -10,7 +10,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
   describe "attachment redirect due to unpublishing" do
     let(:filename) { "sample.docx" }
     let(:file) { File.open(path_to_attachment(filename)) }
-    let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
+    let(:attachment) { build(:file_attachment, attachable:, file:) }
     let(:attachable) { edition }
     let(:asset_id) { "asset-id" }
     let(:redirect_path) { Whitehall.url_maker.public_document_path(edition) }
@@ -60,7 +60,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
         unpublish_document_published_in_error
 
         file = File.open(path_to_attachment("sample.csv"))
-        new_attachment = build(:file_attachment, attachable: attachable, file: file)
+        new_attachment = build(:file_attachment, attachable:, file:)
         attachable.attachments << new_attachment
         new_attachment.save!
 
@@ -103,7 +103,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
         unpublish_document_published_in_error
 
         file = File.open(path_to_attachment("sample.csv"))
-        new_attachment = build(:file_attachment, attachable: attachable, file: file)
+        new_attachment = build(:file_attachment, attachable:, file:)
         attachable.attachments << new_attachment
         new_attachment.save!
 

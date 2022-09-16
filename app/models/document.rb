@@ -57,11 +57,11 @@ class Document < ApplicationRecord
 
   def self.at_slug(document_types, slug)
     document_types = Array(document_types).map(&:to_s)
-    find_by(document_type: document_types, slug: slug)
+    find_by(document_type: document_types, slug:)
   end
 
   def similar_slug_exists?
-    scope = Document.where(document_type: document_type)
+    scope = Document.where(document_type:)
     sequence_separator = friendly_id_config.sequence_separator
 
     # slug is a nullable column, so we can't assume that it exists

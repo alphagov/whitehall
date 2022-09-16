@@ -53,7 +53,7 @@ class EmbassiesControllerTest < ActionController::TestCase
       building = special_case.last.fetch(:building)
       building_location = special_case.last.fetch(:location)
 
-      create(:world_location, :with_worldwide_organisations, name: name)
+      create(:world_location, :with_worldwide_organisations, name:)
 
       get :index
 
