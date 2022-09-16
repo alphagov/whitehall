@@ -56,7 +56,7 @@ class FeatureListTest < ActiveSupport::TestCase
 
   test "republishes the world location news after reordering features when featurable is a world location news" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     feature_list = create(:feature_list, featurable: world_location_news, features: build_list(:feature, 6))
 
     Whitehall::PublishingApi.expects(:republish_async).with(world_location_news).once
