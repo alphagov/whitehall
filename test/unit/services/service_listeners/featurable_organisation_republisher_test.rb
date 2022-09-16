@@ -11,7 +11,7 @@ class ServiceListeners::FeaturableOrganisationRepublisherTest < ActiveSupport::T
     feature_list = organisation.feature_lists.first
     published_edition = organisation.published_editions.sample
 
-    create(:feature, document: published_edition.document, feature_list: feature_list)
+    create(:feature, document: published_edition.document, feature_list:)
 
     Sidekiq::Testing.inline! do
       expect_republishing(organisation)

@@ -47,7 +47,7 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
     post :create,
          params: { statistics_announcement_id: @announcement,
                    statistics_announcement: {
-                     redirect_url: redirect_url,
+                     redirect_url:,
                    } }
 
     @announcement.reload

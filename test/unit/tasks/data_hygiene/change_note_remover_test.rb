@@ -5,9 +5,9 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
 
   describe DataHygiene::ChangeNoteRemover do
     let(:document)                { create(:document) }
-    let!(:superseded_edition)     { create(:superseded_edition, document: document, change_note: "First change note.", first_published_at: 2.days.ago, created_at: 2.days.ago, major_change_published_at: 2.days.ago) }
-    let!(:previous_major_edition) { create(:superseded_edition, document: document, change_note: "Second change note.", created_at: 1.day.ago, major_change_published_at: 1.day.ago) }
-    let!(:live_edition)           { create(:published_edition, document: document, change_note: "Third change note.", created_at: Time.zone.now, major_change_published_at: Time.zone.now) }
+    let!(:superseded_edition)     { create(:superseded_edition, document:, change_note: "First change note.", first_published_at: 2.days.ago, created_at: 2.days.ago, major_change_published_at: 2.days.ago) }
+    let!(:previous_major_edition) { create(:superseded_edition, document:, change_note: "Second change note.", created_at: 1.day.ago, major_change_published_at: 1.day.ago) }
+    let!(:live_edition)           { create(:published_edition, document:, change_note: "Third change note.", created_at: Time.zone.now, major_change_published_at: Time.zone.now) }
 
     let(:query) { nil }
 
@@ -16,7 +16,7 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
     end
 
     def call_change_note_remover
-      DataHygiene::ChangeNoteRemover.call(document.content_id, "en", query, dry_run: dry_run)
+      DataHygiene::ChangeNoteRemover.call(document.content_id, "en", query, dry_run:)
     end
 
     context "during a dry run" do

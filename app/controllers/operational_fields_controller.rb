@@ -13,7 +13,7 @@ class OperationalFieldsController < PublicFacingController
       FatalityNoticePresenter.new(fatality_notice)
     end
 
-    render locals: { contents_menu: contents_menu }
+    render locals: { contents_menu: }
   end
 
   def contents_menu

@@ -340,7 +340,7 @@ regulator_social_housing = Organisation.find_by(slug: "regulator-of-social-housi
   "statistical-data-return-2015-to-2016",
   "statistical-data-return-2016-to-2017",
 ].each do |slug|
-  document = Document.find_by(slug: slug)
+  document = Document.find_by(slug:)
   edition = document.latest_edition
 
   lead_organisations = edition.lead_organisations.to_a

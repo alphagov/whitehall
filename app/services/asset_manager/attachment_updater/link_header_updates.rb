@@ -7,12 +7,12 @@ class AssetManager::AttachmentUpdater::LinkHeaderUpdates
 
     Enumerator.new do |enum|
       enum.yield AssetManager::AttachmentUpdater::Update.new(
-        attachment_data, attachment_data.file, parent_document_url: parent_document_url
+        attachment_data, attachment_data.file, parent_document_url:
       )
 
       if attachment_data.pdf?
         enum.yield AssetManager::AttachmentUpdater::Update.new(
-          attachment_data, attachment_data.file.thumbnail, parent_document_url: parent_document_url
+          attachment_data, attachment_data.file.thumbnail, parent_document_url:
         )
       end
     end

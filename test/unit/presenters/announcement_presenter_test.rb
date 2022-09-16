@@ -36,10 +36,10 @@ class AnnouncementPresenterTest < PresenterTestCase
     operational_field = stub_record(:operational_field, name: "Name")
     fatality_notice = stub_record(
       :fatality_notice,
-      document: document,
+      document:,
       public_timestamp: Time.zone.now,
       organisations: [organisation],
-      operational_field: operational_field,
+      operational_field:,
     )
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
@@ -52,7 +52,7 @@ class AnnouncementPresenterTest < PresenterTestCase
 
   test "shows the collection the announcement belongs to" do
     document = stub_record(:document)
-    article = stub_record(:news_article, document: document)
+    article = stub_record(:news_article, document:)
     collection = stub_record(:document_collection, title: "CollectionTitle", document: stub_record(:document))
 
     article.stubs(:part_of_published_collection?).returns(true)

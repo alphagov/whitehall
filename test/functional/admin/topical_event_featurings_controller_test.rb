@@ -50,7 +50,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     create(:published_news_article, topical_events: [@topical_event])
     news_article = create(:published_news_article, topical_events: [@topical_event])
     user = create(:user)
-    create(:edition_author, edition: news_article, user: user)
+    create(:edition_author, edition: news_article, user:)
 
     get :index, params: { topical_event_id: @topical_event, author: user.id }
 

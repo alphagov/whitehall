@@ -4,14 +4,14 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
   # recent edition, we pass it in directly because the `unpublishing` isn't always
   # saved in the database yet when this worker runs.
   def perform(content_id, explanation, locale, allow_draft, unpublished_at)
-    check_if_locked_document(content_id: content_id)
+    check_if_locked_document(content_id:)
 
     Services.publishing_api.unpublish(
       content_id,
       type: "withdrawal",
-      locale: locale,
+      locale:,
       explanation: Whitehall::GovspeakRenderer.new.govspeak_to_html(explanation),
-      allow_draft: allow_draft,
+      allow_draft:,
       unpublished_at: Time.zone.parse(unpublished_at.to_s),
     )
   rescue GdsApi::HTTPNotFound, GdsApi::HTTPUnprocessableEntity

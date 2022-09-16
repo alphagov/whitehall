@@ -88,8 +88,8 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   view_test "#index should render editorial remarks in reverse chronological order" do
     edition = create(:submitted_publication)
 
-    create(:editorial_remark, body: "Should appear second", edition: edition)
-    create(:editorial_remark, body: "Should appear first", edition: edition)
+    create(:editorial_remark, body: "Should appear second", edition:)
+    create(:editorial_remark, body: "Should appear first", edition:)
 
     get :index, params: { edition_id: edition }
 

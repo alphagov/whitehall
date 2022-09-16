@@ -31,12 +31,12 @@ Then(/^I should see that it was rejected by "([^"]*)"$/) do |rejected_by|
 end
 
 Then(/^I can see links to the recently changed document "([^"]*)"$/) do |title|
-  edition = Edition.find_by!(title: title)
+  edition = Edition.find_by!(title:)
   expect(page).to have_selector("#recently-changed #{record_css_selector(edition)} a", text: edition.title)
 end
 
 Then(/^I should see a link to "([^"]*)" in the list of related documents$/) do |title|
-  edition = Edition.find_by(title: title)
+  edition = Edition.find_by(title:)
   expect(admin_edition_path(edition)).to eq(find("#inbound-links a", text: title)[:href])
 end
 
@@ -46,11 +46,11 @@ end
 
 Given(/^a (.*?) policy "([^"]*)" for the organisation "([^"]*)"$/) do |state, title, organisation|
   org = create(:organisation, name: organisation)
-  create("#{state}_policy", title: title, organisations: [org])
+  create("#{state}_policy", title:, organisations: [org])
 end
 
 Given(/^a (.*?) policy "([^"]*)" for the organisations "([^"]*)" and "([^"]*)"$/) do |state, title, organisation1, organisation2|
   organisation1 = create(:organisation, name: organisation1)
   organisation2 = create(:organisation, name: organisation2)
-  create("#{state}_policy", title: title, organisations: [organisation1, organisation2])
+  create("#{state}_policy", title:, organisations: [organisation1, organisation2])
 end

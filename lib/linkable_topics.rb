@@ -22,7 +22,7 @@ class LinkableTopics
 private
 
   def fetch_linkables_from_publishing_api(document_type:)
-    Services.publishing_api.get_linkables(document_type: document_type)
+    Services.publishing_api.get_linkables(document_type:)
   end
 
   # collections-publisher uses a slash to separate the top-level topic name from

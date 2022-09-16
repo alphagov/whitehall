@@ -16,14 +16,14 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(corporate_information_page, update_type: update_type)
+        .new(corporate_information_page, update_type:)
         .base_attributes
         .merge(PayloadBuilder::PublicDocumentPath.for(corporate_information_page))
         .merge(
           description: corporate_information_page.summary,
-          details: details,
-          document_type: document_type,
-          public_updated_at: public_updated_at,
+          details:,
+          document_type:,
+          public_updated_at:,
           rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
           links: edition_links,
@@ -61,7 +61,7 @@ module PublishingApi
 
     def base_details
       {
-        body: body,
+        body:,
       }
     end
 

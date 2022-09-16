@@ -12,13 +12,13 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         item,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
         description: item.summary,
-        details: details,
-        document_type: document_type,
+        details:,
+        document_type:,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "statistics_announcement",
@@ -40,7 +40,7 @@ module PublishingApi
       {
         display_date: item.current_release_date.display_date,
         state: item.state,
-        format_sub_type: format_sub_type,
+        format_sub_type:,
       }.tap do |d|
         if item.cancelled?
           d[:cancellation_reason] = item.cancellation_reason

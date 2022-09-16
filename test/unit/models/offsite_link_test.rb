@@ -49,7 +49,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       "http://www.nhs.uk",
     ]
     whitelisted_urls.each do |url|
-      assert build(:offsite_link, url: url).valid?, "#{url} not valid"
+      assert build(:offsite_link, url:).valid?, "#{url} not valid"
     end
   end
 
@@ -61,7 +61,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       "http://example.com",
     ]
     example_urls.each do |url|
-      assert build(:offsite_link, url: url, parent: topical_event).valid?, "#{url} not valid"
+      assert build(:offsite_link, url:, parent: topical_event).valid?, "#{url} not valid"
     end
   end
 
@@ -73,7 +73,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
       "http://notthenhs.uk",
     ]
     whitelisted_urls.each do |url|
-      assert_not build(:offsite_link, url: url).valid?, "#{url} is valid"
+      assert_not build(:offsite_link, url:).valid?, "#{url} is valid"
     end
   end
 
@@ -129,7 +129,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
 
   test "#destroy also destroys 'featured offsite link' associations" do
     offsite_link = create(:offsite_link)
-    feature = create(:feature, offsite_link: offsite_link)
+    feature = create(:feature, offsite_link:)
     feature_list = create(:feature_list, features: [feature])
 
     feature_list.reload

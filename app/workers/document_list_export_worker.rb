@@ -48,7 +48,7 @@ private
 
   def generate_csv(filter, csv_file)
     headers = DocumentListExportPresenter.header_row
-    csv = CSV.new(csv_file, headers: headers, write_headers: true)
+    csv = CSV.new(csv_file, headers:, write_headers: true)
 
     filter.each_edition_for_csv do |edition|
       presenter = DocumentListExportPresenter.new(edition)

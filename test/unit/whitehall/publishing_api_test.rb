@@ -241,7 +241,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".schedule_async raises an error if the edition belongs to a locked document" do
     document = create(:document, locked: true)
-    edition = build(:edition, document: document)
+    edition = build(:edition, document:)
 
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       Whitehall::PublishingApi.schedule_async(edition)
@@ -285,7 +285,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".unschedule_async raises an error if the edition belongs to a locked document" do
     document = create(:document, locked: true)
-    edition = build(:edition, document: document)
+    edition = build(:edition, document:)
 
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       Whitehall::PublishingApi.unschedule_async(edition)

@@ -17,14 +17,14 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
     ).with_indifferent_access
 
     LinkCheckerApiReport.create!(
-      batch_id: batch_id,
+      batch_id:,
       link_reportable: publication,
       status: "in_progress",
     )
 
     LinkCheckerApiReport.create_from_batch_report(report_payload, publication)
 
-    report = LinkCheckerApiReport.find_by(batch_id: batch_id)
+    report = LinkCheckerApiReport.find_by(batch_id:)
     assert_equal "completed", report.status
   end
 

@@ -13,7 +13,7 @@
 
 def fix_content_id(record)
   content_id = record.content_id
-  record.update_columns(content_id: content_id)
+  record.update_columns(content_id:)
   record
 end
 

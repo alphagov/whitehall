@@ -13,11 +13,11 @@ module PublishingApi
       content = BaseItemPresenter.new(
         item,
         title: item.name,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
-        description: description,
+        description:,
         details: {},
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,

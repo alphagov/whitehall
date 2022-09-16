@@ -111,7 +111,7 @@ class PublishStaticPages
         base_path: page[:base_path],
         publishing_app: "whitehall",
         rendering_app: page.fetch(:rendering_app, Whitehall::RenderingApp::WHITEHALL_FRONTEND),
-        routes: routes,
+        routes:,
         public_updated_at: Time.zone.now.iso8601,
         update_type: "minor",
       },

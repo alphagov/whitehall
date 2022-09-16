@@ -12,19 +12,19 @@ class SpeechTest < ActiveSupport::TestCase
 
   %i[deleted superseded].each do |state|
     test "#{state} editions are valid without a delivered on date" do
-      speech = build(:speech, state: state, delivered_on: nil)
+      speech = build(:speech, state:, delivered_on: nil)
       assert speech.valid?
     end
 
     test "#{state} editions with a blank delivered_on date have no first_public_at" do
-      speech = build(:speech, state: state, delivered_on: nil)
+      speech = build(:speech, state:, delivered_on: nil)
       assert_nil speech.first_public_at
     end
   end
 
   %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without a delivered on date" do
-      edition = build(:speech, state: state, delivered_on: nil)
+      edition = build(:speech, state:, delivered_on: nil)
       assert_not edition.valid?
     end
   end
@@ -83,8 +83,8 @@ class SpeechTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
     person = create(:person)
-    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
-    speech = create(:published_speech, role_appointment: role_appointment)
+    role_appointment = create(:role_appointment, role: ministerial_role, person:)
+    speech = create(:published_speech, role_appointment:)
     new_draft = speech.create_draft(create(:user))
     assert_equal 1, new_draft.edition_organisations.count
   end
@@ -93,8 +93,8 @@ class SpeechTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
     person = create(:person)
-    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
-    speech = create(:speech, role_appointment: role_appointment)
+    role_appointment = create(:role_appointment, role: ministerial_role, person:)
+    speech = create(:speech, role_appointment:)
 
     assert_equal person, speech.person
   end
@@ -110,8 +110,8 @@ class SpeechTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
     person = create(:person)
-    role_appointment = create(:role_appointment, role: ministerial_role, person: person, started_at: 10.days.ago, ended_at: 2.days.ago)
-    speech = create(:speech, role_appointment: role_appointment)
+    role_appointment = create(:role_appointment, role: ministerial_role, person:, started_at: 10.days.ago, ended_at: 2.days.ago)
+    speech = create(:speech, role_appointment:)
     _subsequent_role_appointment = create(:role_appointment, role: ministerial_role, started_at: 1.day.ago)
 
     assert_equal person, speech.person

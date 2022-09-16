@@ -43,7 +43,7 @@ private
   def split_person_name(name)
     if (match = /^(\w+)\s*(.*?)$/.match(name))
       forename, surname = match.captures
-      { title: nil, forename: forename, surname: surname, letters: nil }
+      { title: nil, forename:, surname:, letters: nil }
     else
       raise "couldn't split \"#{name}\""
     end

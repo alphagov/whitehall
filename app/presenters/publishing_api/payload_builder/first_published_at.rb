@@ -6,7 +6,7 @@ module PublishingApi
 
         return {} if first_published_at.nil?
 
-        { first_published_at: first_published_at }
+        { first_published_at: }
       end
     end
   end

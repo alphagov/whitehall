@@ -60,7 +60,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "should render a object's datetime using the datetime microformat" do
     created_at = Time.zone.now
-    object = stub(created_at: created_at)
+    object = stub(created_at:)
     html = render_datetime_microformat(object, :created_at) { "human-friendly" }
     assert_select_within_html(html, "time.created_at[datetime='#{created_at.iso8601}']", text: "human-friendly")
   end
@@ -189,6 +189,6 @@ private
     role_name = attributes.delete(:role)
     role = organisation.ministerial_roles.find_by(name: role_name) || create(:ministerial_role, name: role_name, organisations: [organisation])
     person = create(:person, forename: attributes.delete(:forename), surname: attributes.delete(:surname))
-    create(:role_appointment, attributes.merge(role: role, person: person))
+    create(:role_appointment, attributes.merge(role:, person:))
   end
 end

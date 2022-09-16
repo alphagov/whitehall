@@ -189,7 +189,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update_bypass_id
-    EditionAuthBypassUpdater.new(edition: @edition, current_user: current_user, updater: updater).call
+    EditionAuthBypassUpdater.new(edition: @edition, current_user:, updater:).call
 
     redirect_to admin_edition_path(@edition), notice: "New document preview link generated"
   end

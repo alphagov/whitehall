@@ -31,7 +31,7 @@
  420_936,
  398_547,
  386_766].each do |id|
-  if (edition = Edition.where(id: id).first)
+  if (edition = Edition.where(id:).first)
     if edition.archived?
       if edition.unpublishing.present?
         puts "#{id}: Unpublishing already exists; skipping"

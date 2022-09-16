@@ -6,7 +6,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
   describe AssetManager::AttachmentUpdater do
     let(:subject) { AssetManager::AttachmentUpdater }
     let(:file) { File.open(fixture_path.join("sample.rtf")) }
-    let(:attachment) { FactoryBot.create(:file_attachment, file: file) }
+    let(:attachment) { FactoryBot.create(:file_attachment, file:) }
     let(:attachment_data) { attachment.attachment_data }
 
     it "groups updates together" do

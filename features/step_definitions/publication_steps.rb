@@ -4,12 +4,12 @@ Given(/^a published publication "([^"]*)" exists that is about "([^"]*)"$/) do |
 end
 
 Given(/^a submitted publication "([^"]*)" with a PDF attachment$/) do |title|
-  publication = create(:submitted_publication, :with_file_attachment, title: title, body: "!@1")
+  publication = create(:submitted_publication, :with_file_attachment, title:, body: "!@1")
   @attachment = publication.attachments.first
 end
 
 Given(/^a published publication "([^"]*)" with a PDF attachment$/) do |title|
-  publication = create(:published_publication, :with_file_attachment, title: title, body: "!@1")
+  publication = create(:published_publication, :with_file_attachment, title:, body: "!@1")
   @attachment = publication.attachments.first
 end
 
@@ -122,7 +122,7 @@ When(/^I publish a new publication called "([^"]*)"$/) do |title|
 end
 
 When(/^I publish a new publication of the type "([^"]*)" called "([^"]*)"$/) do |publication_type, title|
-  begin_drafting_publication(title, first_published: Time.zone.today.to_s, publication_type: publication_type)
+  begin_drafting_publication(title, first_published: Time.zone.today.to_s, publication_type:)
   click_button "Save"
   add_external_attachment
   publish(force: true)

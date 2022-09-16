@@ -12,16 +12,16 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         item,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
         description: item.summary,
-        details: details,
+        details:,
         document_type: schema_name,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        schema_name: schema_name,
+        schema_name:,
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
@@ -38,7 +38,7 @@ module PublishingApi
 
     def details
       {
-        body: body,
+        body:,
         image: {
           url: item.image_url(:s300),
           alt_text: item.image_alt_text,

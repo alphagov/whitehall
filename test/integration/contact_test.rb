@@ -15,7 +15,7 @@ class ContactTest < ActiveSupport::TestCase
     world_location = FactoryBot.create(
       :world_location,
       content_id: @world_location_content_id,
-      world_location_news: world_location_news,
+      world_location_news:,
     )
 
     @contact = FactoryBot.build(

@@ -138,8 +138,8 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
   test "links hash includes topics and parent if set" do
     edition = create(:published_case_study)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
+    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
+    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
 
     links = present(edition).links
 

@@ -70,7 +70,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "setting the main office" do
     offices = [create(:worldwide_office), create(:worldwide_office)]
-    worldwide_organisation = create(:worldwide_organisation, offices: offices)
+    worldwide_organisation = create(:worldwide_organisation, offices:)
     put :set_main_office, params: { id: worldwide_organisation.id, worldwide_organisation: { main_office_id: offices.last.id } }
 
     assert_equal offices.last, worldwide_organisation.reload.main_office

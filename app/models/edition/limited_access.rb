@@ -68,6 +68,6 @@ module Edition::LimitedAccess
   end
 
   def accessible_to?(user)
-    user.present? && self.class.accessible_to(user).where(id: id).any?
+    user.present? && self.class.accessible_to(user).where(id:).any?
   end
 end

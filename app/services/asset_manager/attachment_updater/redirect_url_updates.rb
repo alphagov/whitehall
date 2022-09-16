@@ -7,12 +7,12 @@ class AssetManager::AttachmentUpdater::RedirectUrlUpdates
 
     Enumerator.new do |enum|
       enum.yield AssetManager::AttachmentUpdater::Update.new(
-        attachment_data, attachment_data.file, redirect_url: redirect_url
+        attachment_data, attachment_data.file, redirect_url:
       )
 
       if attachment_data.pdf?
         enum.yield AssetManager::AttachmentUpdater::Update.new(
-          attachment_data, attachment_data.file.thumbnail, redirect_url: redirect_url
+          attachment_data, attachment_data.file.thumbnail, redirect_url:
         )
       end
     end

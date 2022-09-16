@@ -123,7 +123,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index with locale shows the date on which a speech was first published" do
     first_published_at = Date.parse("1999-12-31").midnight.iso8601
-    speech = create(:published_speech, first_published_at: first_published_at, translated_into: [:fr])
+    speech = create(:published_speech, first_published_at:, translated_into: [:fr])
 
     get :index, params: { locale: "fr" }
 
@@ -134,7 +134,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index with locale shows the time when a news article was first published" do
     first_published_at = Date.parse("1999-12-31").midnight.iso8601
-    news = create(:published_news_article, first_published_at: first_published_at, translated_into: [:fr])
+    news = create(:published_news_article, first_published_at:, translated_into: [:fr])
     get :index, params: { locale: "fr" }
 
     assert_select "#news_article_#{news.id}" do

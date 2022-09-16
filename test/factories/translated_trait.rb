@@ -23,7 +23,7 @@ FactoryBot.define do
             end
           end
           locale_attributes.each do |attribute, value|
-            object.write_attribute(attribute, value, locale: locale)
+            object.write_attribute(attribute, value, locale:)
           end
         end
       end

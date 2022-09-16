@@ -14,12 +14,12 @@ module PublishingApi
       content = BaseItemPresenter.new(
         nil,
         title: "ministers_index",
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
-        base_path: base_path,
-        details: details,
+        base_path:,
+        details:,
         document_type: "ministers_index",
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "ministers_index",

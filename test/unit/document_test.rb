@@ -15,7 +15,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "should return the live edition" do
     user = create(:departmental_editor)
     document = create(:document)
-    original_publication = create(:draft_publication, document: document)
+    original_publication = create(:draft_publication, document:)
     force_publish(original_publication)
     draft_publication = original_publication.create_draft(user)
     draft_publication.change_note = "change-note"
@@ -66,25 +66,25 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should ignore deleted editions when finding latest edition" do
     document = create(:document)
-    original_edition = create(:published_edition, document: document)
-    _deleted_edition = create(:deleted_edition, document: document)
+    original_edition = create(:published_edition, document:)
+    _deleted_edition = create(:deleted_edition, document:)
 
     assert_equal original_edition, document.latest_edition
   end
 
   test "#pre_publication_edition returns the edition in a pre-publication state" do
     document = create(:document)
-    create(:deleted_edition, document: document)
-    create(:published_edition, document: document)
-    draft_edition = create(:draft_edition, document: document)
+    create(:deleted_edition, document:)
+    create(:published_edition, document:)
+    draft_edition = create(:draft_edition, document:)
 
     assert_equal draft_edition, document.pre_publication_edition
   end
 
   test "#destroy also destroys ALL editions including those marked as deleted" do
     document = create(:document)
-    original_edition = create(:published_edition, document: document)
-    deleted_edition = create(:deleted_edition, document: document)
+    original_edition = create(:published_edition, document:)
+    deleted_edition = create(:deleted_edition, document:)
 
     document.destroy!
     assert_not Edition.unscoped.exists?(original_edition.id)
@@ -93,14 +93,14 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#destroy also destroys relations to other editions" do
     document = create(:document)
-    relationship = create(:edition_relation, document: document)
+    relationship = create(:edition_relation, document:)
     document.destroy!
     assert_nil EditionRelation.find_by(id: relationship.id)
   end
 
   test "#destroy also destroys document sources" do
     document = create(:document)
-    document_source = create(:document_source, document: document)
+    document_source = create(:document_source, document:)
     document.destroy!
     assert_nil DocumentSource.find_by(id: document_source.id)
   end
@@ -118,7 +118,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#destroy also destroys 'featured document' associations" do
     document = create(:document)
-    feature = create(:feature, document: document)
+    feature = create(:feature, document:)
     feature_list = create(:feature_list, features: [feature])
 
     feature_list.reload
@@ -173,9 +173,9 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:document)
     [
       # Create editions in a random order to prove we don't rely on insertion order (i.e. MySQL's auto-incremented IDs)
-      one_hour_ago = build(:published_edition, document: document, created_at: 1.hour.ago),
-      one_day_ago = build(:superseded_edition, document: document, created_at: 1.day.ago),
-      one_week_ago = build(:superseded_edition, document: document, created_at: 1.week.ago),
+      one_hour_ago = build(:published_edition, document:, created_at: 1.hour.ago),
+      one_day_ago = build(:superseded_edition, document:, created_at: 1.day.ago),
+      one_week_ago = build(:superseded_edition, document:, created_at: 1.week.ago),
     ].shuffle.map(&:save!)
 
     assert_equal [one_week_ago, one_day_ago, one_hour_ago], document.editions
@@ -183,9 +183,9 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
-    superseded = create(:superseded_edition, document: document)
-    withdrawn = create(:edition, state: "withdrawn", document: document)
-    current = create(:published_edition, document: document)
+    superseded = create(:superseded_edition, document:)
+    withdrawn = create(:edition, state: "withdrawn", document:)
+    current = create(:published_edition, document:)
 
     assert_equal [superseded, withdrawn, current], document.ever_published_editions
 
@@ -288,8 +288,8 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#withdrawals returns withdrawals that have happened on editions of the document" do
     document = create(:document)
-    create_list(:withdrawn_edition, 3, document: document)
-    create(:published_edition, document: document)
+    create_list(:withdrawn_edition, 3, document:)
+    create(:published_edition, document:)
 
     # Create a decoy withdrawal on a different document
     create(:withdrawn_edition)
@@ -300,7 +300,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#withdrawals are ordered by withdrawal date, ascending" do
     document = create(:document)
-    create_list(:withdrawn_edition, 10, document: document) do |edition|
+    create_list(:withdrawn_edition, 10, document:) do |edition|
       # Assign random unpublished_at dates in the past
       random_date = rand(3.years.ago..1.week.ago)
       edition.unpublishing.update! unpublished_at: random_date
@@ -317,7 +317,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     # 1. Create a draft
     document = create(:document)
-    first_edition = create(:draft_edition, document: document)
+    first_edition = create(:draft_edition, document:)
     document.update_edition_references
     assert_equal first_edition.id, document.latest_edition_id
     assert_nil document.live_edition_id
@@ -346,8 +346,8 @@ class DocumentTest < ActiveSupport::TestCase
     Edition.any_instance.stubs(:update_document_edition_references)
 
     document = create(:document)
-    edition = create(:published_edition, document: document)
-    create(:deleted_edition, document: document)
+    edition = create(:published_edition, document:)
+    create(:deleted_edition, document:)
 
     document.update_edition_references
     assert_equal edition.id, document.latest_edition_id

@@ -84,17 +84,17 @@ class RummagerDocumentPresenter < ActionView::Base
   def as_hash
     {
       id: content_id,
-      type: type,
-      display_type: display_type,
-      title: title,
+      type:,
+      display_type:,
+      title:,
       url: link,
-      organisations: organisations,
-      display_date_microformat: display_date_microformat,
-      public_timestamp: public_timestamp,
+      organisations:,
+      display_date_microformat:,
+      public_timestamp:,
       historic?: historic?,
-      government_name: government_name,
-      field_of_operation: field_of_operation,
-      publication_collections: publication_collections,
+      government_name:,
+      field_of_operation:,
+      publication_collections:,
     }
   end
 

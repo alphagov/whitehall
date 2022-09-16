@@ -12,9 +12,9 @@ class MigrateRoleContentTest < ActiveSupport::TestCase
 
     person = create(:person, forename: "Sluggy", surname: "McSlugson")
     old_role = create(:ministerial_role, slug: "head-slug-and-chief-snail-executive", name: "Head Slug and Chief Snail Executive")
-    old_role_appointment = create(:role_appointment, role: old_role, person: person, speeches: [speech])
+    old_role_appointment = create(:role_appointment, role: old_role, person:, speeches: [speech])
     new_role = create(:ministerial_role, slug: "head-slug", name: "Head Slug")
-    new_role_appointment = create(:role_appointment, role: new_role, person: person)
+    new_role_appointment = create(:role_appointment, role: new_role, person:)
 
     assert_equal old_role, speech.role
 

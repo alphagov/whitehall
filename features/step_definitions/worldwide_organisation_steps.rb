@@ -30,7 +30,7 @@ Then(/^I should see the(?: updated)? worldwide organisation information on the p
 end
 
 Then(/^the "([^"]*)" logo should show correctly with the HMG crest$/) do |name|
-  worldwide_organisation = WorldwideOrganisation.find_by(name: name)
+  worldwide_organisation = WorldwideOrganisation.find_by(name:)
   expect(page).to have_selector(".gem-c-organisation-logo", text: worldwide_organisation.logo_formatted_name)
 end
 
@@ -80,13 +80,13 @@ Then(/^the worldwide organisation should not be visible from the public website$
 end
 
 Given(/^a worldwide organisation "([^"]*)"$/) do |name|
-  worg = create(:worldwide_organisation, name: name)
+  worg = create(:worldwide_organisation, name:)
   worg.main_office = create(:worldwide_office, worldwide_organisation: worg, title: "Main office for #{name}")
 end
 
 Given(/^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/) do |name, _country_name, translation|
   country = create(:world_location, active: true, translated_into: [translation])
-  create(:worldwide_organisation, name: name, world_locations: [country])
+  create(:worldwide_organisation, name:, world_locations: [country])
 end
 
 When(/^I add an "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
@@ -142,8 +142,8 @@ end
 
 Given(/^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |worldwide_organisation_name, contact_1_title, contact_2_title|
   worldwide_organisation = create(:worldwide_organisation, name: worldwide_organisation_name)
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact_2_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_1_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_2_title)))
 end
 
 When(/^I choose "([^"]*)" to be the main office$/) do |contact_title|
@@ -204,7 +204,7 @@ Then(/^I should see the default access information on the public "([^"]*)" offic
 end
 
 Given(/^a worldwide organisation "([^"]*)" with default access information$/) do |name|
-  worldwide_organisation = create(:worldwide_organisation, name: name)
+  worldwide_organisation = create(:worldwide_organisation, name:)
   create(:access_and_opening_times, accessible: worldwide_organisation, body: "Default body information")
 end
 
@@ -219,8 +219,8 @@ end
 
 Given(/^the offices "([^"]*)" and "([^"]*)"$/) do |contact_1_title, contact_2_title|
   worldwide_organisation = WorldwideOrganisation.last
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
-  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact_2_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_1_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation:, contact: create(:contact, title: contact_2_title)))
 end
 
 When(/^I give "([^"]*)" custom access information$/) do |office_name|
@@ -254,15 +254,15 @@ Then(/^I should see the updated default access information$/) do
 end
 
 When(/^I add a new translation to the worldwide organisation "([^"]*)" with:$/) do |name, table|
-  worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
+  worldwide_organisation = WorldwideOrganisation.find_by!(name:)
   add_translation_to_worldwide_organisation(worldwide_organisation, table.rows_hash)
 end
 
 Then(/^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*)" I should see:$/) do |name, locale, table|
-  worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
+  worldwide_organisation = WorldwideOrganisation.find_by!(name:)
   translation = table.rows_hash
 
-  visit worldwide_organisation_path(worldwide_organisation, locale: locale)
+  visit worldwide_organisation_path(worldwide_organisation, locale:)
 
   expect(page).to have_selector(".worldwide-org-summary", text: translation["summary"])
   expect(page).to have_selector(".worldwide-org-description", text: translation["description"])
@@ -272,7 +272,7 @@ end
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|
   locale_code = Locale.find_by_language_name(native_locale_name).code
   country = create(:world_location, active: true, world_location_type: WorldLocationType::WorldLocation)
-  create(:worldwide_organisation, name: name, world_locations: [country], translated_into: [locale_code])
+  create(:worldwide_organisation, name:, world_locations: [country], translated_into: [locale_code])
 end
 
 When(/^I edit the "([^"]*)" translation for the worldwide organisation "([^"]*)" setting:$/) do |locale, name, table|

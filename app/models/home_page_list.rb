@@ -22,7 +22,7 @@ class HomePageList < ApplicationRecord
     build_if_missing = opts.key?(:build_if_missing) ? opts[:build_if_missing] : true
     raise ArgumentError, "Must supply owned_by: and called: options" if owner.nil? || name.nil?
 
-    scoping = where(owner_id: owner.id, owner_type: owner.class.to_s, name: name)
+    scoping = where(owner_id: owner.id, owner_type: owner.class.to_s, name:)
     if (list = scoping.first)
       list
     elsif build_if_missing
@@ -40,7 +40,7 @@ class HomePageList < ApplicationRecord
 
   def add_item(item)
     persist_if_required
-    home_page_list_items.create!(item: item) unless shown_on_home_page?(item)
+    home_page_list_items.create!(item:) unless shown_on_home_page?(item)
   end
 
   def remove_item(item)

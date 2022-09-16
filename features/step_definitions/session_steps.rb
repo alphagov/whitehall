@@ -22,13 +22,13 @@ Given(/^I am (?:an?) (admin|writer|editor|GDS editor) in the organisation "([^"]
   organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   @user = case role
           when "admin"
-            create(:user, organisation: organisation)
+            create(:user, organisation:)
           when "writer"
-            create(:writer, name: "Wally Writer", organisation: organisation)
+            create(:writer, name: "Wally Writer", organisation:)
           when "editor"
-            create(:departmental_editor, name: "Eddie Depteditor", organisation: organisation)
+            create(:departmental_editor, name: "Eddie Depteditor", organisation:)
           when "GDS editor"
-            create(:gds_editor, organisation: organisation)
+            create(:gds_editor, organisation:)
           end
   login_as @user
 end

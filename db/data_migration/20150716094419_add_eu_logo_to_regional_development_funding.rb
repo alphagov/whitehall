@@ -11,7 +11,7 @@ logo_url = "https://assets.digital.cabinet-office.gov.uk/government/assets/erdf-
 
 puts "Adding logos to ERDF editions"
 slugs.each do |slug|
-  document = Document.find_by(document_type: "DetailedGuide", slug: slug)
+  document = Document.find_by(document_type: "DetailedGuide", slug:)
   latest_published_edition = document.live_edition
   draft_edition = document.editions.latest_edition.draft.first
 

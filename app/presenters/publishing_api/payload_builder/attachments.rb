@@ -13,7 +13,7 @@ module PublishingApi
       end
 
       def call
-        { attachments: attachments }
+        { attachments: }
       end
 
       def attachments

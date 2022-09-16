@@ -28,7 +28,7 @@ module DataHygiene
     attr_reader :content_id, :locale, :change_note_search, :dry_run
 
     def document
-      @document ||= Document.find_by(content_id: content_id)
+      @document ||= Document.find_by(content_id:)
     end
 
     def editions

@@ -13,7 +13,7 @@ class DocumentCollectionGroupMembership < ApplicationRecord
 
   before_create :assign_ordering
 
-  before_save { check_if_locked_document(document: document) if document }
+  before_save { check_if_locked_document(document:) if document }
 
   validates :document_collection_group, presence: true
   validate :document_is_of_allowed_type, if: -> { document.present? }

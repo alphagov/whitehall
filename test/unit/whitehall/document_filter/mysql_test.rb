@@ -269,19 +269,19 @@ module Whitehall::DocumentFilter
     end
 
     def stub_topic(slug)
-      topic = stub("topic-#{slug}", slug: slug, name: slug.humanize)
+      topic = stub("topic-#{slug}", slug:, name: slug.humanize)
       TopicalEvent.stubs(:where).with(slug: [slug]).returns([topic])
       topic
     end
 
     def stub_organisation(slug)
-      organisation = stub("organisation-#{slug}", slug: slug, name: slug.humanize)
+      organisation = stub("organisation-#{slug}", slug:, name: slug.humanize)
       Organisation.stubs(:where).with(slug: [slug]).returns([organisation])
       organisation
     end
 
     def stub_publication_type(slug, attributes = {})
-      publication_type = stub("publication-type-#{slug}", { id: slug, slug: slug, pluralized_name: slug.humanize.pluralize }.merge(attributes))
+      publication_type = stub("publication-type-#{slug}", { id: slug, slug:, pluralized_name: slug.humanize.pluralize }.merge(attributes))
       PublicationType.stubs(:find_by_slug).with(slug).returns(publication_type)
       publication_type
     end

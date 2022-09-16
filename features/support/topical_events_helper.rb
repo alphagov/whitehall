@@ -21,7 +21,7 @@ module TopicalEventsHelper
     sample_document_types_and_titles.each.with_index do |(type, title), index|
       create(
         :"published_#{type}",
-        title: title,
+        title:,
         first_published_at: index.days.ago,
         topical_events: [event],
       )
@@ -47,7 +47,7 @@ module TopicalEventsHelper
       title: name,
     }
 
-    base_path = topical_event_path(TopicalEvent.find_by!(name: name))
+    base_path = topical_event_path(TopicalEvent.find_by!(name:))
 
     stub_content_store_has_item(base_path, content_item)
   end

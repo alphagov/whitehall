@@ -5,7 +5,7 @@ module PublishingApi
     class PayloadBuilderFirstPublicAtTest < ActiveSupport::TestCase
       def test_uses_first_published_at
         first_published_at = Object.new
-        item = stub(first_published_at: first_published_at)
+        item = stub(first_published_at:)
 
         assert_equal(
           { first_public_at: first_published_at },

@@ -15,7 +15,7 @@ class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
     end
 
     context "when attachment data exists" do
-      let(:attachment_data) { create(:attachment_data, file: file) }
+      let(:attachment_data) { create(:attachment_data, file:) }
 
       before do
         attachment_data.stubs(:deleted?).returns(deleted)

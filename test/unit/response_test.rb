@@ -12,7 +12,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "should return the alternative_format_contact_email of the consultation" do
     consultation = build(:consultation)
     consultation.stubs(alternative_format_contact_email: "alternative format contact email")
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_equal consultation.alternative_format_contact_email, response.alternative_format_contact_email
   end
@@ -20,7 +20,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "is publicly visible if its consultation is publicly visible" do
     consultation = build(:consultation)
     consultation.stubs(:publicly_visible?).returns(true)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert response.publicly_visible?
   end
@@ -28,7 +28,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "is not publicly visible if its consultation is not publicly visible" do
     consultation = build(:consultation)
     consultation.stubs(:publicly_visible?).returns(false)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_not response.publicly_visible?
   end
@@ -42,7 +42,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "is unpublished if its consultation is unpublished" do
     consultation = build(:consultation)
     consultation.stubs(:unpublished?).returns(true)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert response.unpublished?
   end
@@ -50,7 +50,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "is not unpublished if its consultation is not unpublished" do
     consultation = build(:consultation)
     consultation.stubs(:unpublished?).returns(false)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_not response.unpublished?
   end
@@ -64,7 +64,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "returns unpublished edition from its consultation" do
     consultation = build(:consultation)
     consultation.stubs(:unpublished_edition).returns(consultation)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_equal consultation, response.unpublished_edition
   end
@@ -79,7 +79,7 @@ class ResponseTest < ActiveSupport::TestCase
     user = build(:user)
     consultation = build(:consultation)
     consultation.stubs(:accessible_to?).with(user).returns(true)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert response.accessible_to?(user)
   end
@@ -88,7 +88,7 @@ class ResponseTest < ActiveSupport::TestCase
     user = build(:user)
     consultation = build(:consultation)
     consultation.stubs(:accessible_to?).with(user).returns(false)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_not response.accessible_to?(user)
   end
@@ -103,7 +103,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "is access limited if its consultation is access limited" do
     consultation = build(:consultation)
     consultation.stubs(:access_limited?).returns(true)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert response.access_limited?
   end
@@ -111,7 +111,7 @@ class ResponseTest < ActiveSupport::TestCase
   test "is not access limited if its consultation is not access limited" do
     consultation = build(:consultation)
     consultation.stubs(:access_limited?).returns(false)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_not response.access_limited?
   end
@@ -124,14 +124,14 @@ class ResponseTest < ActiveSupport::TestCase
 
   test "returns consultation as its access limited object" do
     consultation = build(:consultation)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_equal consultation, response.access_limited_object
   end
 
   test "returns its consultation content_id" do
     consultation = create(:consultation)
-    response = build(:consultation_outcome, consultation: consultation)
+    response = build(:consultation_outcome, consultation:)
 
     assert_equal consultation.content_id, response.content_id
   end
@@ -144,8 +144,8 @@ class ResponseTest < ActiveSupport::TestCase
 
   test "returns consultation organisations as its organisations" do
     organisations = create_list(:organisation, 2)
-    consultation = create(:consultation, organisations: organisations)
-    response = build(:consultation_outcome, consultation: consultation)
+    consultation = create(:consultation, organisations:)
+    response = build(:consultation_outcome, consultation:)
 
     assert_equal organisations, response.organisations
   end

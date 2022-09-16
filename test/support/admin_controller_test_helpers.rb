@@ -194,7 +194,7 @@ module AdminControllerTestHelpers
       test "updating with blank numbers destroys those blank numbers" do
         object = create!(type)
         contact = create(:contact, contactable: object)
-        contact_number = create(:contact_number, contact: contact)
+        contact_number = create(:contact_number, contact:)
 
         put :update,
             params: { id: object,

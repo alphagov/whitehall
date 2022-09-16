@@ -10,8 +10,8 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
   def update
     EditionTaxonLinkPatcher.new.call(
       content_id: @statistics_announcement.content_id,
-      selected_taxons: selected_taxons,
-      invisible_taxons: invisible_taxons,
+      selected_taxons:,
+      invisible_taxons:,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )
 

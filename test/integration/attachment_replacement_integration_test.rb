@@ -11,7 +11,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     let(:managing_editor) { create(:managing_editor) }
     let(:filename) { "sample.docx" }
     let(:file) { File.open(path_to_attachment(filename)) }
-    let(:attachment) { build(:file_attachment, title: "attachment-title", attachable: edition, file: file) }
+    let(:attachment) { build(:file_attachment, title: "attachment-title", attachable: edition, file:) }
     let(:asset_id) { "asset-id" }
 
     let(:replacement_filename) { "sample.rtf" }

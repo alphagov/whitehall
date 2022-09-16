@@ -219,7 +219,7 @@ module TestsForNationalApplicability
       lock_version = edition.lock_version
       edition.update!(title: "new title", change_note: "foo")
 
-      stale_attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.example.com/ni" }, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
+      stale_attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.example.com/ni" }, scotland_inapplicability, wales_inapplicability).merge(lock_version:)
 
       put :update, params: { id: edition, edition: stale_attributes }
 

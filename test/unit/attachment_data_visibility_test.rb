@@ -5,15 +5,15 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
   describe "Attachment data visibility" do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:writer, organisation: organisation) }
-    let(:user_in_same_organisation) { create(:writer, organisation: organisation) }
+    let(:user) { create(:writer, organisation:) }
+    let(:user_in_same_organisation) { create(:writer, organisation:) }
     let(:another_organisation) { create(:organisation) }
     let(:user_in_another_organisation) { create(:writer, organisation: another_organisation) }
     let(:anonymous_user) { nil }
 
     context "given an attachment" do
       let(:file) { File.open(fixture_path.join("simple.pdf")) }
-      let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
+      let(:attachment) { build(:file_attachment, attachable:, file:) }
       let(:attachment_data) { attachment.attachment_data }
 
       before do
@@ -301,7 +301,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           context "and edition is unpublished" do
             before do
-              attributes = attributes_for(:unpublishing, edition: edition)
+              attributes = attributes_for(:unpublishing, edition:)
               edition.build_unpublishing(attributes)
               edition.unpublish!
             end
@@ -325,7 +325,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           context "and edition is withdrawn" do
             before do
-              attributes = attributes_for(:unpublishing, edition: edition)
+              attributes = attributes_for(:unpublishing, edition:)
               edition.build_unpublishing(attributes)
               edition.withdraw!
             end

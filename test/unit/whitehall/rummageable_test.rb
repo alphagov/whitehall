@@ -19,7 +19,7 @@ class RummageableTest < ActiveSupport::TestCase
   end
 
   def link_url
-    documents_url(link: link)
+    documents_url(link:)
   end
 
   def status(http_code)
@@ -131,7 +131,7 @@ class RummageableTest < ActiveSupport::TestCase
     failures = attempts = 2
     stub_repeatedly_failing_requests(failures)
     Whitehall::Rummageable::Index.any_instance.stubs(:sleep)
-    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, attempts: attempts)
+    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, attempts:)
     assert_raises RestClient::BadGateway do
       index.add(one_document)
     end
@@ -141,7 +141,7 @@ class RummageableTest < ActiveSupport::TestCase
     stub_successful_request
     logger = stub("logger", debug: true)
     logger.expects(:info).twice
-    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
+    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger:)
     index.add(one_document)
   end
 
@@ -150,7 +150,7 @@ class RummageableTest < ActiveSupport::TestCase
     Whitehall::Rummageable::Index.any_instance.stubs(:sleep)
     logger = stub("logger", debug: true, info: true)
     logger.expects(:warn).once
-    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
+    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger:)
     index.add(one_document)
   end
 
@@ -161,7 +161,7 @@ class RummageableTest < ActiveSupport::TestCase
     logger = stub("logger", debug: true, info: true)
     logger.expects(:info).once.with(has_entry(:result, "UNKNOWN"))
 
-    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
+    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger:)
     index.add(one_document)
   end
 
@@ -224,7 +224,7 @@ class RummageableTest < ActiveSupport::TestCase
     stub_successful_delete_request
     logger = stub("logger")
     logger.expects(:info).twice
-    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
+    index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger:)
     index.delete(document_url)
   end
 end

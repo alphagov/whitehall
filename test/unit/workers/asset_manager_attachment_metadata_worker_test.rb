@@ -5,7 +5,7 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
 
   describe AssetManagerAttachmentMetadataWorker do
     let(:file) { File.open(fixture_path.join("sample.rtf")) }
-    let(:attachment) { FactoryBot.create(:file_attachment, file: file) }
+    let(:attachment) { FactoryBot.create(:file_attachment, file:) }
     let(:attachment_data) { attachment.attachment_data }
     let(:worker) { AssetManagerAttachmentMetadataWorker.new }
 

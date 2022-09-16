@@ -11,8 +11,8 @@ module LinkCheckerApiHelper
 
     stub_request(:post, %r{\A#{link_checker_endpoint}})
       .to_return(
-        body: body,
-        status: status,
+        body:,
+        status:,
         headers: { "Content-Type": "application/json" },
       )
   end

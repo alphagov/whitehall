@@ -13,14 +13,14 @@ module PublishingApi
       BaseItemPresenter.new(
         item,
         title: item.name,
-        update_type: update_type,
+        update_type:,
       ).base_attributes.merge(
-        base_path: base_path,
-        details: details,
+        base_path:,
+        details:,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        schema_name: schema_name,
+        schema_name:,
       ).merge(
         PayloadBuilder::Routes.for(base_path),
       )

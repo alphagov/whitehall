@@ -1,6 +1,6 @@
 module OrganisationTestHelper
   def find_or_create_organisation(name)
-    Organisation.find_by(name: name) || create(:organisation, name: name)
+    Organisation.find_by(name:) || create(:organisation, name:)
   end
 
   def create_org_and_stub_content_store(*args)

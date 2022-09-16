@@ -3,13 +3,13 @@ require "ostruct"
 
 class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
   def fatality_department_editor(id = 1)
-    o = OpenStruct.new(id: id, handles_fatalities?: true)
-    OpenStruct.new(id: id, gds_editor?: false, departmental_editor?: true, organisation: o)
+    o = OpenStruct.new(id:, handles_fatalities?: true)
+    OpenStruct.new(id:, gds_editor?: false, departmental_editor?: true, organisation: o)
   end
 
   def normal_department_editor(id = 1)
-    o = OpenStruct.new(id: id, handles_fatalities?: false)
-    OpenStruct.new(id: id, gds_editor?: false, departmental_editor?: true, organisation: o)
+    o = OpenStruct.new(id:, handles_fatalities?: false)
+    OpenStruct.new(id:, gds_editor?: false, departmental_editor?: true, organisation: o)
   end
 
   include AuthorityTestHelper

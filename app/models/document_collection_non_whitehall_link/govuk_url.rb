@@ -20,7 +20,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
       content_item.slice("base_path", "content_id", "publishing_app", "title"),
     )
 
-    document_collection_group.memberships.create!(non_whitehall_link: non_whitehall_link)
+    document_collection_group.memberships.create!(non_whitehall_link:)
   end
 
   def title

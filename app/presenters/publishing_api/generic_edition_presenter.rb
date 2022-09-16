@@ -12,11 +12,11 @@ module PublishingApi
     delegate :content_id, to: :item
 
     def content
-      content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
+      content = BaseItemPresenter.new(item, update_type:).base_attributes
       content.merge!(
         description: item.summary,
         details: PayloadBuilder::TagDetails.for(item),
-        document_type: document_type,
+        document_type:,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "placeholder_#{item.class.name.underscore}",

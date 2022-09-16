@@ -233,22 +233,22 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test "#show_corporate_information_pages? for live courts with published corporate information pages should be true" do
     organisation = create(:court)
-    create(:published_corporate_information_page, organisation: organisation)
+    create(:published_corporate_information_page, organisation:)
 
     assert show_corporate_information_pages?(organisation)
   end
 
   test "#show_corporate_information_pages? for live courts with only a published about_us page should be false" do
     organisation = create(:court)
-    create(:about_corporate_information_page, organisation: organisation)
+    create(:about_corporate_information_page, organisation:)
 
     assert_not show_corporate_information_pages?(organisation)
   end
 
   test "#show_corporate_information_pages? for live courts with published about_us and other corporate information pages should be true" do
     organisation = create(:court)
-    create(:published_corporate_information_page, organisation: organisation)
-    create(:about_corporate_information_page, organisation: organisation)
+    create(:published_corporate_information_page, organisation:)
+    create(:about_corporate_information_page, organisation:)
 
     assert show_corporate_information_pages?(organisation)
   end

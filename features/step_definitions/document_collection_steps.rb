@@ -1,9 +1,9 @@
 Given(/^a document collection "([^"]*)" exists$/) do |title|
-  @document_collection = create(:document_collection, :with_group, title: title)
+  @document_collection = create(:document_collection, :with_group, title:)
 end
 
 Given(/^a published document collection "([^"]*)" exists$/) do |title|
-  @document_collection = create(:published_document_collection, :with_group, title: title)
+  @document_collection = create(:published_document_collection, :with_group, title:)
 end
 
 Given(/^a published publication called "(.*?)" in the document collection "(.*?)"$/) do |publication_title, collection_title|
@@ -17,24 +17,24 @@ Given(/^a published publication called "(.*?)" in the document collection "(.*?)
 end
 
 When(/^I draft a new document collection called "(.*?)"$/) do |title|
-  begin_drafting_document_collection(title: title)
+  begin_drafting_document_collection(title:)
   click_on "Save"
-  @document_collection = DocumentCollection.find_by!(title: title)
+  @document_collection = DocumentCollection.find_by!(title:)
 end
 
 When(/^I draft a new "(.*?)" language document collection called "(.*?)"$/) do |locale, title|
-  begin_drafting_document_collection(title: title, locale: locale)
+  begin_drafting_document_collection(title:, locale:)
   click_on "Save"
 
   locale_code = Locale.find_by_language_name(locale).code
   I18n.with_locale locale_code do
-    @document_collection = DocumentCollection.find_by!(title: title)
+    @document_collection = DocumentCollection.find_by!(title:)
   end
 end
 
 And(/^I can see the primary locale for document collection "(.*?)" is "(.*?)"$/) do |title, locale_code|
   I18n.with_locale locale_code do
-    @dc = DocumentCollection.find_by!(title: title)
+    @dc = DocumentCollection.find_by!(title:)
   end
   expect(locale_code).to eq(@dc.primary_locale)
 end
@@ -53,10 +53,10 @@ When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collectio
 
   stub_publishing_api_has_lookups(base_path => content_id)
   stub_publishing_api_has_item(
-    content_id: content_id,
-    base_path: base_path,
+    content_id:,
+    base_path:,
     publishing_app: "content-publisher",
-    title: title,
+    title:,
   )
 
   within ".non-whitehall-disclosure" do
@@ -151,7 +151,7 @@ rescue ActionController::RoutingError
 end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
-  expect(page).to have_current_path(public_document_path(DocumentCollection.find_by(title: title)))
+  expect(page).to have_current_path(public_document_path(DocumentCollection.find_by(title:)))
 end
 
 Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|

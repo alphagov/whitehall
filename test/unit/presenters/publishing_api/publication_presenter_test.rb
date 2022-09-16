@@ -92,8 +92,8 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "links hash includes topics and parent if set" do
     edition = create(:published_publication)
-    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
-    create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
+    create(:specialist_sector, topic_content_id: "content_id_1", edition:, primary: true)
+    create(:specialist_sector, topic_content_id: "content_id_2", edition:, primary: false)
 
     presented = present(edition)
     links = presented.links
@@ -175,10 +175,10 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "duplicate roles are only presented once" do
     role = create(:ministerial_role)
-    current_minister = create(:ministerial_role_appointment, role: role)
+    current_minister = create(:ministerial_role_appointment, role:)
     former_minister = create(
       :ministerial_role_appointment,
-      role: role,
+      role:,
       started_at: 2.years.ago,
       ended_at: 1.year.ago,
     )

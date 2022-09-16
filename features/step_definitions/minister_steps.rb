@@ -2,7 +2,7 @@ Given(/^ministers exist:$/) do |table|
   table.hashes.each do |row|
     person = find_or_create_person(row["Person"])
     ministerial_role = find_or_create_ministerial_role(row["Ministerial Role"])
-    create(:role_appointment, role: ministerial_role, person: person)
+    create(:role_appointment, role: ministerial_role, person:)
   end
 end
 
@@ -59,7 +59,7 @@ end
 When(/^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/) do |person_name, ministerial_role|
   person = find_or_create_person(person_name)
   role = MinisterialRole.find_by(name: ministerial_role)
-  create(:role_appointment, role: role, person: person, make_current: true)
+  create(:role_appointment, role:, person:, make_current: true)
 end
 
 Given(/^"([^"]*)" is a commons whip "([^"]*)" for the "([^"]*)"$/) do |person_name, ministerial_role, organisation_name|
@@ -95,12 +95,12 @@ Given(/^two whips "([^"]*)" and "([^"]*)"$/) do |person1, person2|
   create(
     :role_appointment,
     person: create(:person, forename: person1),
-    role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false),
+    role: create(:ministerial_role, whip_organisation_id:, cabinet_member: false),
   )
   create(
     :role_appointment,
     person: create(:person, forename: person2),
-    role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false),
+    role: create(:ministerial_role, whip_organisation_id:, cabinet_member: false),
   )
 end
 

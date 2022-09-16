@@ -360,7 +360,7 @@ class GovspeakHelperTest < ActionView::TestCase
     Contact.stubs(:find_by).with(id: "1").returns(contact)
     input = "[Contact:1]"
     output = govspeak_to_html(input)
-    contact_html = render("contacts/contact", contact: contact, heading_tag: "p")
+    contact_html = render("contacts/contact", contact:, heading_tag: "p")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
@@ -369,7 +369,7 @@ class GovspeakHelperTest < ActionView::TestCase
     Contact.stubs(:find_by).with(id: "1").returns(contact)
     input = "[Contact:1]"
     output = govspeak_to_html(input, [], contact_heading_tag: "p")
-    contact_html = render("contacts/contact", contact: contact, heading_tag: "p")
+    contact_html = render("contacts/contact", contact:, heading_tag: "p")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
@@ -384,7 +384,7 @@ class GovspeakHelperTest < ActionView::TestCase
     contact = build(:contact)
     Contact.stubs(:find_by).with(id: "1").returns(contact)
     input = "[Contact:1]"
-    contact_html = render("contacts/contact", contact: contact, heading_tag: "p")
+    contact_html = render("contacts/contact", contact:, heading_tag: "p")
     @controller.lookup_context.formats = %i[atom]
     assert_nothing_raised do
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
@@ -474,7 +474,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "govspeak_with_attachments_and_alt_format_information" do
     body = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_file_attachment, body: body)
+    document = build(:published_detailed_guide, :with_file_attachment, body:)
     attachments = document.attachments
     html = govspeak_with_attachments_to_html(body, attachments, "batman@wayne.technology")
     assert html.include? ">batman@wayne.technology</a>"
@@ -504,7 +504,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not sanitise Details element for documents with attachments" do
     body = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_file_attachment, body: body)
+    document = build(:published_detailed_guide, :with_file_attachment, body:)
     attachments = document.attachments
     html = govspeak_with_attachments_to_html(body, attachments, "email@example.com")
     assert html.include?("<details class=\"gem-c-details")

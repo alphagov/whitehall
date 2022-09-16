@@ -4,7 +4,7 @@ class DocumentListExportRequestController < ApplicationController
       filename = DocumentListExportPresenter.s3_filename(params[:document_type_slug], params[:export_id])
 
       if (file = S3FileHandler.get_file_from_s3(filename))
-        send_data(file, filename: filename)
+        send_data(file, filename:)
       else
         head :not_found
       end

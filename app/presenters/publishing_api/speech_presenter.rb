@@ -13,15 +13,15 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(item, update_type: update_type)
+        .new(item, update_type:)
         .base_attributes
         .merge(PayloadBuilder::PublicDocumentPath.for(item))
         .merge(PayloadBuilder::AccessLimitation.for(item))
         .merge(PayloadBuilder::FirstPublishedAt.for(item))
         .merge(
           description: item.summary,
-          details: details,
-          document_type: document_type,
+          details:,
+          document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
           schema_name: "speech",
@@ -39,7 +39,7 @@ module PublishingApi
           .select { |change| change[:public_timestamp].present? }
 
       details = {
-        body: body,
+        body:,
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
         change_history: changes_with_public_timestamps.as_json,
@@ -90,7 +90,7 @@ module PublishingApi
     def image_payload
       {
         image: {
-          alt_text: alt_text,
+          alt_text:,
           url: image.url,
         },
       }

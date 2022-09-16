@@ -95,7 +95,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should build a draft copy with copies of consultation participation" do
     consultation_participation = create(:consultation_participation, link_url: "http://link.com")
-    published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    published_consultation = create(:published_consultation, consultation_participation:)
     draft_consultation = published_consultation.create_draft(create(:writer))
     draft_consultation.change_note = "change-note"
 

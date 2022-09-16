@@ -63,28 +63,28 @@ class RoleTest < ActiveSupport::TestCase
   test "should be able to get the current person" do
     bob = create(:person, forename: "Bob")
     role = create(:role)
-    create(:role_appointment, role: role, person: bob)
+    create(:role_appointment, role:, person: bob)
     assert_equal bob, role.current_person
   end
 
   test "should be able to get previous appointments" do
     role = create(:role)
-    create(:role_appointment, role: role, person: create(:person, forename: "Bob"), started_at: 1.day.ago, ended_at: nil)
-    previous = create(:role_appointment, role: role, person: create(:person, forename: "Jane"), started_at: 2.days.ago, ended_at: 1.day.ago)
+    create(:role_appointment, role:, person: create(:person, forename: "Bob"), started_at: 1.day.ago, ended_at: nil)
+    previous = create(:role_appointment, role:, person: create(:person, forename: "Jane"), started_at: 2.days.ago, ended_at: 1.day.ago)
     assert_equal [previous], role.previous_appointments
   end
 
   test "should return the person's name" do
     bob = create(:person, forename: "Bob")
     role = create(:role)
-    create(:role_appointment, role: role, person: bob)
+    create(:role_appointment, role:, person: bob)
     assert_equal "Bob", role.current_person_name
   end
 
   test "should return the person's surname" do
     bob = create(:person, forename: "Bob", surname: "Smith")
     role = create(:role)
-    create(:role_appointment, role: role, person: bob)
+    create(:role_appointment, role:, person: bob)
     assert_equal "Smith", role.current_person_surname
   end
 
@@ -217,7 +217,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "touches any role appointments after being updated" do
     role = create(:role)
-    role_appointment = create(:role_appointment, role: role)
+    role_appointment = create(:role_appointment, role:)
 
     Timecop.freeze 1.month do
       role.update!(name: "Name change")

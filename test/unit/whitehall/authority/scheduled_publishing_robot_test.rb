@@ -4,7 +4,7 @@ require "ostruct"
 class ScheduledPublishingRobotTest < ActiveSupport::TestCase
   def scheduled_publishing_robot(id = 1)
     OpenStruct.new(
-      id: id,
+      id:,
       gds_editor?: false,
       departmental_editor?: false,
       scheduled_publishing_robot?: true,

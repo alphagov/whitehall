@@ -3,7 +3,7 @@ FactoryBot.define do
     transient do
       title { "Contact title" }
     end
-    contact { create :contact_with_country, title: title }
+    contact { create :contact_with_country, title: }
     worldwide_organisation
     worldwide_office_type_id { WorldwideOfficeType.all.sample.id }
   end

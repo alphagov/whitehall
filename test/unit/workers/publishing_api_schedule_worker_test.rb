@@ -8,7 +8,7 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
     publish_time = 2.days.from_now
 
     expected_payload = {
-      publish_time: publish_time,
+      publish_time:,
       publishing_app: "whitehall",
       rendering_app: "government-frontend",
       routes: [{ path: base_path, type: "exact" }],

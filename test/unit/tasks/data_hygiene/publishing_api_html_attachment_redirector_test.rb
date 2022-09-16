@@ -13,7 +13,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       create(
         :unpublished_edition,
         state: "withdrawn",
-        document: document,
+        document:,
         attachments: [attachment],
       )
     end
@@ -24,7 +24,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       DataHygiene::PublishingApiHtmlAttachmentRedirector.call(
         queried_document_id,
         redirection,
-        dry_run: dry_run,
+        dry_run:,
       )
     end
 
@@ -98,7 +98,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
           DataHygiene::PublishingApiHtmlAttachmentRedirector.call(
             attachment.content_id,
             redirection,
-            dry_run: dry_run,
+            dry_run:,
           )
         end
       end

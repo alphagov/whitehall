@@ -3,7 +3,7 @@ require "test_helper"
 class RoleAppointmentPresenterTest < PresenterTestCase
   setup do
     role = stub_translatable_record(:role_without_organisations)
-    @appointment = stub_record(:role_appointment, role: role, person: stub_translatable_record(:person))
+    @appointment = stub_record(:role_appointment, role:, person: stub_translatable_record(:person))
     @presenter = RoleAppointmentPresenter.new(@appointment, @view_context)
   end
 

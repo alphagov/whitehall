@@ -30,12 +30,12 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     create(
       :about_corporate_information_page,
-      organisation: organisation,
+      organisation:,
       summary: "This org is a thing!",
     )
     role = create(:role, organisations: [organisation])
     minister = create(:person)
-    create(:ministerial_role_appointment, role: role, person: minister)
+    create(:ministerial_role_appointment, role:, person: minister)
 
     public_path = Whitehall.url_maker.organisation_path(organisation)
     public_atom_path = "#{public_path}.atom"
@@ -121,7 +121,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     end
     organisation = create(:organisation)
 
-    create(:feature_list, featurable: organisation, features: features)
+    create(:feature_list, featurable: organisation, features:)
 
     assert_equal 6, present(organisation).content.dig(:details, :ordered_featured_documents).size
   end
@@ -283,7 +283,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       name: "An organisation with offsite links",
     )
     offsite_link = create(:offsite_link, link_type: "content_publisher_news_story")
-    feature = create(:feature, document: nil, offsite_link: offsite_link)
+    feature = create(:feature, document: nil, offsite_link:)
     create(:feature_list, features: [feature], featurable: organisation)
     presented_item = present(organisation)
     document_type = presented_item.content.dig(:details, :ordered_featured_documents, 0, :document_type)

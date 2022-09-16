@@ -115,7 +115,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 
   test "#title reflects when the provided user belongs to the filtered organisation" do
     organisation = create(:organisation)
-    user         = create(:writer, organisation: organisation)
+    user         = create(:writer, organisation:)
 
     assert_equal "My organisation’s statistics announcements",
                  filter(organisation_id: organisation.id, user_id: user.id).title

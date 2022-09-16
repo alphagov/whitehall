@@ -184,7 +184,7 @@ private
     duplicate_scope = CorporateInformationPage
       .joins(:edition_organisation)
       .where("edition_organisations.organisation_id = ?", organisation.id)
-      .where(corporate_information_page_type_id: corporate_information_page_type_id)
+      .where(corporate_information_page_type_id:)
       .where("state not like 'superseded'")
     if document_id
       duplicate_scope = duplicate_scope.where("document_id <> ?", document_id)

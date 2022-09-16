@@ -14,7 +14,7 @@ class ConsultationReminder
     def send_deadline_reminder(weeks_left:)
       Consultation.awaiting_response.closed_at_or_within_24_hours_of((PUBLISH_DEADLINE - weeks_left).weeks.ago).each do |consultation|
         log(consultation)
-        MultiNotifications.consultation_deadline_upcoming(consultation, weeks_left: weeks_left).map(&:deliver_now)
+        MultiNotifications.consultation_deadline_upcoming(consultation, weeks_left:).map(&:deliver_now)
       end
     end
 

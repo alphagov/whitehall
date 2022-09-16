@@ -34,7 +34,7 @@ namespace :change_note do
     # rubocop:enable Rails/SkipsModelValidations
 
     EditorialRemark.create!(
-      edition: edition,
+      edition:,
       body: "Updated change note from #{old_change_note} to #{args[:new_change_note]}",
       author: user,
       created_at: Time.zone.now,

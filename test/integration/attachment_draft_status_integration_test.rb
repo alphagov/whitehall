@@ -21,7 +21,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     context "given a file attachment added after unpublishing" do
       let(:file) { File.open(path_to_attachment(filename)) }
       let(:attachable) { edition }
-      let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
+      let(:attachment) { build(:file_attachment, attachable:, file:) }
 
       before do
         setup_publishing_api_for(edition)
@@ -49,7 +49,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
     context "given a file attachment" do
       let(:file) { File.open(path_to_attachment(filename)) }
-      let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
+      let(:attachment) { build(:file_attachment, attachable:, file:) }
       let(:attachable) { edition }
 
       before do

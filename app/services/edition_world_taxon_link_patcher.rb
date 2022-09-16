@@ -5,7 +5,7 @@ class EditionWorldTaxonLinkPatcher
       .patch_links(
         content_id,
         links: { taxons: most_specific_taxons(selected_taxons) + invisible_taxons },
-        previous_version: previous_version,
+        previous_version:,
       )
   end
 

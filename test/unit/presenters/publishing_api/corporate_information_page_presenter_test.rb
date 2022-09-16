@@ -7,7 +7,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     def presented_corporate_information_page
       PublishingApi::CorporateInformationPagePresenter.new(
         corporate_information_page,
-        update_type: update_type,
+        update_type:,
       )
     end
 
@@ -207,60 +207,60 @@ module PublishingApi::CorporateInformationPagePresenterTest
       )
 
       self.corporate_information_page =
-        create(:about_corporate_information_page, organisation: organisation)
+        create(:about_corporate_information_page, organisation:)
 
       @about_our_services_corporate_information_page =
         create(
           :about_our_services_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @complaints_procedure_corporate_information_page =
         create(
           :complaints_procedure_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @our_energy_use_corporate_information_page =
         create(
           :our_energy_use_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @personal_information_charter_corporate_information_page =
         create(
           :personal_information_charter_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @procurement_corporate_information_page =
         create(
           :procurement_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @publication_scheme_corporate_information_page =
         create(
           :publication_scheme_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @recruitment_corporate_information_page =
         create(
           :recruitment_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @social_media_use_information_page =
         create(
           :social_media_use_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       @welsh_language_scheme_corporate_information_page =
         create(
           :welsh_language_scheme_corporate_information_page,
-          organisation: organisation,
+          organisation:,
         )
 
       create_list(

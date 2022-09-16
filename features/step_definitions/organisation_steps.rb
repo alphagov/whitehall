@@ -3,25 +3,25 @@ Given(/^a directory of organisations exists$/) do
 end
 
 Given(/^the organisation "([^"]*)" exists$/) do |name|
-  create_org_and_stub_content_store(:ministerial_department, name: name)
+  create_org_and_stub_content_store(:ministerial_department, name:)
 end
 
 Given(/^the organisation "(.*?)" exists with a featured article$/) do |name|
-  org = create_org_and_stub_content_store(:ministerial_department, name: name)
+  org = create_org_and_stub_content_store(:ministerial_department, name:)
   create(:feature_list, featurable: org, features: [create(:feature, document: create(:published_news_article).document)])
 end
 
 Given(/^the organisation "(.*?)" exists with featured services and guidance$/) do |name|
-  org = create(:organisation, name: name, homepage_type: "service")
+  org = create(:organisation, name:, homepage_type: "service")
   create(:featured_link, linkable: org)
 end
 
 Given(/^the organisation "(.*?)" exists with no featured services and guidance$/) do |name|
-  create(:organisation, name: name)
+  create(:organisation, name:)
 end
 
 Given(/^the executive office "([^"]*)" exists$/) do |name|
-  create(:executive_office, name: name)
+  create(:executive_office, name:)
 end
 
 Given(/^two organisations "([^"]*)" and "([^"]*)" exist$/) do |first_organisation, second_organisation|
@@ -35,13 +35,13 @@ Given(/^the "([^"]*)" organisation is associated with several ministers and civi
     person = create(:person)
     ministerial_role = create(:ministerial_role, cabinet_member: (x == 1))
     organisation.ministerial_roles << ministerial_role
-    create(:role_appointment, role: ministerial_role, person: person)
+    create(:role_appointment, role: ministerial_role, person:)
   end
   3.times do |x|
     person = create(:person)
     role = create(:board_member_role, permanent_secretary: (x == 1))
     organisation.roles << role
-    create(:role_appointment, role: role, person: person)
+    create(:role_appointment, role:, person:)
   end
 end
 
@@ -69,14 +69,14 @@ Given(/^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/) do |p
 end
 
 Given(/^the organisation "([^"]*)" is associated with consultations "([^"]*)" and "([^"]*)"$/) do |name, consultation1, consultation2|
-  organisation = create_org_and_stub_content_store(:organisation, name: name)
+  organisation = create_org_and_stub_content_store(:organisation, name:)
   create(:published_consultation, title: consultation1, organisations: [organisation])
   create(:published_consultation, title: consultation2, organisations: [organisation])
 end
 
 Given(/^a published publication "([^"]*)" with a PDF attachment and alternative format provider "([^"]*)"$/) do |title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  publication = create(:published_publication, :with_file_attachment, title: title, body: "!@1", organisations: [organisation], alternative_format_provider: organisation)
+  publication = create(:published_publication, :with_file_attachment, title:, body: "!@1", organisations: [organisation], alternative_format_provider: organisation)
   @attachment_title = publication.attachments.first.title
   @attachment_filename = publication.attachments.first.filename
 end
@@ -90,7 +90,7 @@ end
 
 Given(/^I have an offsite link "(.*?)" for the organisation "(.*?)"$/) do |title, organisation_name|
   organisation = Organisation.find_by(name: organisation_name)
-  @offsite_link = create :offsite_link, title: title, parent: organisation
+  @offsite_link = create :offsite_link, title:, parent: organisation
 end
 
 When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
@@ -178,7 +178,7 @@ When(/^I stop featuring the news article "([^"]*)" for "([^"]*)"$/) do |news_art
 end
 
 When(/^I order the featured items in the "([^"]*)" organisation as:$/) do |name, table|
-  organisation = Organisation.find_by!(name: name)
+  organisation = Organisation.find_by!(name:)
   visit features_admin_organisation_path(organisation)
   order_features_from(table)
 end
@@ -217,18 +217,18 @@ When(/^I stop featuring the offsite link "([^"]*)" for "([^"]*)"$/) do |offsite_
 end
 
 When(/^I delete the organisation "([^"]*)"$/) do |name|
-  organisation = Organisation.find_by!(name: name)
+  organisation = Organisation.find_by!(name:)
   visit edit_admin_organisation_path(organisation)
   click_button "delete"
 end
 
 Then(/^there should not be an organisation called "([^"]*)"$/) do |name|
-  expect(Organisation.find_by(name: name)).to_not be_present
+  expect(Organisation.find_by(name:)).to_not be_present
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  offsite_link = OffsiteLink.find_by!(title: title)
+  offsite_link = OffsiteLink.find_by!(title:)
   visit admin_organisation_path(organisation)
   click_link "Features"
   expect(page).to have_link(title, href: edit_admin_organisation_offsite_link_path(organisation.slug, offsite_link.id))
@@ -258,7 +258,7 @@ Then(/^I can see a link to "([^"]*)" on the "([^"]*)" about page$/) do |link_tex
 end
 
 When(/^I associate a Transparency data publication to the "([^"]*)"$/) do |name|
-  organisation = Organisation.find_by!(name: name)
+  organisation = Organisation.find_by!(name:)
   create(:published_publication, :transparency_data, organisations: [organisation])
 end
 

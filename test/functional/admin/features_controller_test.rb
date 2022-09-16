@@ -19,7 +19,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
     edition = create(:published_speech)
-    feature = create(:feature, document: edition.document, feature_list: feature_list)
+    feature = create(:feature, document: edition.document, feature_list:)
 
     post :unfeature, params: { feature_list_id: feature_list, id: feature }
 
@@ -32,7 +32,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     feature_list = create(:feature_list, featurable: organisation, locale: :en)
     edition = create(:published_speech)
-    feature = create(:feature, document: edition.document, feature_list: feature_list)
+    feature = create(:feature, document: edition.document, feature_list:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 

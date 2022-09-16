@@ -44,7 +44,7 @@ private
       { uri: "https://www.gov.uk/missing-link" },
     ]
 
-    body = link_checker_api_batch_report_hash(id: 5, links: links)
+    body = link_checker_api_batch_report_hash(id: 5, links:)
 
     stub_request(:post, %r{\A#{@link_checker_endpoint}})
       .with(body: request_body(links))
@@ -57,7 +57,7 @@ private
       { uri: "https://www.gov.uk/another-good-link" },
     ]
 
-    body = link_checker_api_batch_report_hash(id: 6, links: links)
+    body = link_checker_api_batch_report_hash(id: 6, links:)
 
     stub_request(:post, %r{\A#{@link_checker_endpoint}})
       .with(body: request_body(links))
@@ -68,7 +68,7 @@ private
     uris = links.map { |link| link[:uri] }
 
     {
-      uris: uris,
+      uris:,
       webhook_uri: admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")),
       webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token,
     }

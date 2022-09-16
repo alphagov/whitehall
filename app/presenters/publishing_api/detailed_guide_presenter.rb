@@ -13,15 +13,15 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(item, update_type: update_type)
+        .new(item, update_type:)
         .base_attributes
         .merge(PayloadBuilder::PublicDocumentPath.for(item))
         .merge(PayloadBuilder::AccessLimitation.for(item))
         .merge(PayloadBuilder::FirstPublishedAt.for(item))
         .merge(
           description: item.summary,
-          details: details,
-          document_type: document_type,
+          details:,
+          document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "detailed_guide",
@@ -63,7 +63,7 @@ module PublishingApi
 
     def details
       details_hash = {
-        body: body,
+        body:,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
         related_mainstream_content: related_mainstream_content_ids,

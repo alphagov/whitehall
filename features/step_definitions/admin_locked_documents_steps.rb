@@ -1,13 +1,13 @@
 Given(/^a published locked document titled "([^"]*)"$/) do |title|
-  @edition = create(:published_news_article, :with_locked_document, title: title)
+  @edition = create(:published_news_article, :with_locked_document, title:)
 end
 
 Given(/^a draft locked document titled "([^"]*)"$/) do |title|
-  @edition = create(:draft_news_article, :with_locked_document, title: title)
+  @edition = create(:draft_news_article, :with_locked_document, title:)
 end
 
 When(/^I visit the admin page for "([^"]*)"$/) do |title|
-  @edition = Edition.find_by!(title: title)
+  @edition = Edition.find_by!(title:)
   visit admin_edition_path(@edition)
 end
 

@@ -60,7 +60,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     news_article = create(:published_news_article)
     image = create(:topical_event_featuring_image_data)
-    topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image: image)
+    topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image:)
     featuring = topical_event.featuring_of(news_article)
     assert featuring
     assert_equal 0, featuring.ordering
@@ -71,7 +71,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     news_article = create(:published_news_article)
     image = create(:topical_event_featuring_image_data)
-    topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image: image)
+    topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image:)
     news_article.supersede!
 
     featuring = topical_event.reload.featuring_of(news_article)
@@ -202,7 +202,7 @@ class TopicalEventTest < ActiveSupport::TestCase
   test "start and end dates are considered indexable for search" do
     start_date = Date.new(2016, 1, 1)
     end_date = Date.new(2017, 1, 1)
-    topical_event = create(:topical_event, start_date: start_date, end_date: end_date)
+    topical_event = create(:topical_event, start_date:, end_date:)
     rummager_payload = topical_event.search_index
 
     assert_equal start_date, rummager_payload["start_date"]
@@ -211,7 +211,7 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   test "#destroy also destroys 'featured topical event' associations" do
     topical_event = create(:topical_event)
-    feature = create(:feature, topical_event: topical_event)
+    feature = create(:feature, topical_event:)
     feature_list = create(:feature_list, features: [feature])
 
     feature_list.reload
@@ -227,7 +227,7 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     organisation = create(:organisation, :with_feature_list)
 
-    create(:feature, feature_list: organisation.feature_lists.first, topical_event: topical_event)
+    create(:feature, feature_list: organisation.feature_lists.first, topical_event:)
 
     Whitehall::PublishingApi.expects(:publish).with(topical_event).once
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once

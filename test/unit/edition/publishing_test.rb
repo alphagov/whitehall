@@ -139,7 +139,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "#unpublished? returns true if not publicly visible and unpublishing exists" do
     unpublishing = build(:unpublishing)
-    draft_edition_with_unpublishing = build(:draft_edition, unpublishing: unpublishing)
+    draft_edition_with_unpublishing = build(:draft_edition, unpublishing:)
 
     assert draft_edition_with_unpublishing.unpublished?
   end
@@ -152,7 +152,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "#unpublished_edition returns unpublished edition if unpublished" do
     edition = create(:draft_edition, :with_document)
-    edition.build_unpublishing(edition: edition)
+    edition.build_unpublishing(edition:)
 
     assert_equal edition, edition.unpublished_edition
   end

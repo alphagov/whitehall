@@ -76,7 +76,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
       delete :destroy, params: { id: draft_edition }
 
       %w[en es fr].each do |locale|
-        assert_publishing_api_discard_draft(draft_edition.content_id, locale: locale)
+        assert_publishing_api_discard_draft(draft_edition.content_id, locale:)
       end
     end
   end

@@ -13,15 +13,15 @@ module PublishingApi
 
     def content
       {}.tap do |content|
-        content.merge!(BaseItemPresenter.new(item, update_type: update_type).base_attributes)
+        content.merge!(BaseItemPresenter.new(item, update_type:).base_attributes)
         content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
         content.merge!(
           description: item.summary,
-          document_type: document_type,
+          document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
-          details: details,
+          details:,
           links: edition_links,
           auth_bypass_ids: [item.auth_bypass_id],
         )

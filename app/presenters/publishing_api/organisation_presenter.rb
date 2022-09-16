@@ -22,18 +22,18 @@ module PublishingApi
       content = BaseItemPresenter.new(
         item,
         title: item.name,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
         description: text_summary,
-        details: details,
+        details:,
         document_type: item.class.name.underscore,
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
-        schema_name: schema_name,
+        schema_name:,
       )
       content.merge!(
-        PayloadBuilder::PolymorphicPath.for(item, additional_routes: additional_routes),
+        PayloadBuilder::PolymorphicPath.for(item, additional_routes:),
       )
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
@@ -71,27 +71,27 @@ module PublishingApi
 
     def details
       details = {
-        acronym: acronym,
-        alternative_format_contact_email: alternative_format_contact_email,
+        acronym:,
+        alternative_format_contact_email:,
         body: html_summary,
-        brand: brand,
+        brand:,
         logo: {
-          formatted_title: formatted_title,
-          crest: crest,
-          image: image,
+          formatted_title:,
+          crest:,
+          image:,
         }.compact!,
-        foi_exempt: foi_exempt,
+        foi_exempt:,
         ordered_corporate_information_pages: corporate_information_pages,
-        secondary_corporate_information_pages: secondary_corporate_information_pages,
+        secondary_corporate_information_pages:,
         ordered_featured_links: featured_links,
         ordered_featured_documents: featured_documents(item, item.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT),
         ordered_promotional_features: promotional_features,
-        important_board_members: important_board_members,
-        organisation_featuring_priority: organisation_featuring_priority,
-        organisation_govuk_status: organisation_govuk_status,
-        organisation_type: organisation_type,
-        organisation_political: organisation_political,
-        social_media_links: social_media_links,
+        important_board_members:,
+        organisation_featuring_priority:,
+        organisation_govuk_status:,
+        organisation_type:,
+        organisation_political:,
+        social_media_links:,
       }
       details[:default_news_image] = default_news_image if default_news_image
       details

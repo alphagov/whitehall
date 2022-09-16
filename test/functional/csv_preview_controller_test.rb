@@ -5,7 +5,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   setup do
     @file = File.open(fixture_path.join("sample.csv"))
-    @attachment_data = create(:attachment_data, file: file)
+    @attachment_data = create(:attachment_data, file:)
 
     @params = {
       id: attachment_data,
@@ -25,7 +25,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "redirects to unpublished edition if attachment data is unpublished & deleted" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -35,7 +35,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "redirects to unpublished edition if attachment data is unpublished & unscanned" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(file_state: :unscanned, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(file_state: :unscanned, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -45,7 +45,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "redirects to unpublished edition if attachment data is unpublished & infected" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(file_state: :infected, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(file_state: :infected, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -55,7 +55,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "redirects to unpublished edition if attachment data is unpublished & missing" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -65,7 +65,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "redirects to unpublished edition if attachment data is unpublished & not a CSV" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(csv?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(csv?: false, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -75,7 +75,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "redirects to unpublished edition if attachment data is unpublished, draft & not accessible" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -86,7 +86,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test "redirects to unpublished edition if attachment data is unpublished, deleted & replaced" do
     unpublished_edition = create(:unpublished_edition)
     replacement = create(:attachment_data)
-    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition, replaced?: true, replaced_by: replacement)
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition:, replaced?: true, replaced_by: replacement)
 
     get :show, params: params
 
@@ -228,7 +228,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     setup_stubs
     controller.stubs(:attachment_data).raises(ActiveRecord::RecordNotFound)
 
-    assert_raises(ActiveRecord::RecordNotFound) { get :show, params: params }
+    assert_raises(ActiveRecord::RecordNotFound) { get :show, params: }
   end
 
   test "responds with 404 Not Found if file does not exist" do
@@ -299,7 +299,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "responds with 200 OK if attachment data is draft & accessible, even if unpublished" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(draft?: true, accessible?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(draft?: true, accessible?: true, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -308,7 +308,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "responds with 200 OK if attachment data is not draft, even if unpublished" do
     unpublished_edition = create(:unpublished_edition)
-    setup_stubs(draft?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+    setup_stubs(draft?: false, unpublished?: true, unpublished_edition:)
 
     get :show, params: params
 
@@ -462,7 +462,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "responds with 200, assigns the correct variables and renders the draft_html_attachments template" do
     draft_edition = create(:publication, organisations: [organisation1, organisation2])
-    draft_attachment = create(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
+    draft_attachment = create(:file_attachment, attachment_data:, attachable: draft_edition)
     setup_stubs(accessible?: true)
     ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
 
@@ -476,7 +476,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "responds with 404 if no draft edition is present" do
     response = build(:consultation_outcome)
-    create(:file_attachment, attachment_data: attachment_data, attachable: response)
+    create(:file_attachment, attachment_data:, attachable: response)
     setup_stubs(accessible?: true, visible_edition: nil)
     ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")
 
@@ -487,7 +487,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test "responds with 404 if no attachable is present" do
     draft_edition = create(:publication, organisations: [organisation1, organisation2])
-    create(:file_attachment, attachment_data: attachment_data, attachable: draft_edition)
+    create(:file_attachment, attachment_data:, attachable: draft_edition)
     draft_edition.destroy!
     setup_stubs(accessible?: true, visible_edition: nil)
     ActionController::TestRequest.any_instance.stubs(:hostname).returns("draft-assets.integration.publishing.service.gov.uk")

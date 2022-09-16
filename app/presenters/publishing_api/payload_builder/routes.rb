@@ -4,7 +4,7 @@ module PublishingApi
       attr_reader :base_path, :additional_routes
 
       def self.for(base_path, additional_routes: [])
-        new(base_path, additional_routes: additional_routes).call
+        new(base_path, additional_routes:).call
       end
 
       def initialize(base_path, additional_routes: [])
@@ -18,7 +18,7 @@ module PublishingApi
         additional_routes.each do |additional_route|
           routes << { path: "#{base_path}.#{additional_route}", type: "exact" }
         end
-        { routes: routes }
+        { routes: }
       end
     end
   end

@@ -1,6 +1,6 @@
 Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |title, appointee|
   appointment = find_person(appointee).current_role_appointments.last
-  news_article = create(:published_news_article, title: title, role_appointments: [appointment])
+  news_article = create(:published_news_article, title:, role_appointments: [appointment])
 
   stub_any_search.to_return(
     body: {
@@ -57,19 +57,19 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
   if news_type == "World news story"
     create(:worldwide_organisation, name: "Afghanistan embassy")
     create(:world_location, name: "Afghanistan", active: true)
-    begin_drafting_news_article(title: title, first_published: Time.zone.today.to_s, announcement_type: news_type)
+    begin_drafting_news_article(title:, first_published: Time.zone.today.to_s, announcement_type: news_type)
     select "Afghanistan embassy", from: "Select the worldwide organisations associated with this news article"
     select "Afghanistan", from: "Select the world locations this news article is about"
     select "", from: "edition_lead_organisation_ids_1"
   else
-    begin_drafting_news_article(title: title, first_published: Time.zone.today.to_s, announcement_type: news_type)
+    begin_drafting_news_article(title:, first_published: Time.zone.today.to_s, announcement_type: news_type)
   end
 
   click_button "Save"
 end
 
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
-  @news_article = NewsArticle.find_by(title: title)
+  @news_article = NewsArticle.find_by(title:)
   expect(@news_article).to be_present
 end
 

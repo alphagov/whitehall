@@ -52,11 +52,11 @@ module Edition::AuditTrail
   end
 
   def document_remarks_trail(superseded: true)
-    document_trail(superseded: superseded, remarks: true)
+    document_trail(superseded:, remarks: true)
   end
 
   def document_version_trail(superseded: true)
-    document_trail(superseded: superseded, versions: true)
+    document_trail(superseded:, versions: true)
   end
 
 private
@@ -102,7 +102,7 @@ private
       .order("created_at asc, id asc")
       .map.with_index { |edition, i|
         [
-          (edition.edition_version_trail(i, superseded: superseded) if versions),
+          (edition.edition_version_trail(i, superseded:) if versions),
           (edition.edition_remarks_trail(i) if remarks),
         ].compact
       }.flatten

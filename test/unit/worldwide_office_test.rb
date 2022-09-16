@@ -24,7 +24,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
       contact_numbers: [create(:contact_number)],
       country: create(:world_location, iso2: "GB"),
     )
-    office = create(:worldwide_office, contact: contact)
+    office = create(:worldwide_office, contact:)
 
     # attributes
     assert_equal contact.latitude, office.latitude

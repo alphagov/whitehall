@@ -138,7 +138,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     create(
       :news_article,
       :published,
-      document: document,
+      document:,
       organisations: [published_edition_org],
       news_article_type: NewsArticleType::NewsStory,
     )
@@ -146,7 +146,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     create(
       :news_article,
       :draft,
-      document: document,
+      document:,
       organisations: [draft_edition_org],
       news_article_type: NewsArticleType::NewsStory,
     )
@@ -180,7 +180,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     first_lead_org = edition.organisations.first
     create(
       :edition_organisation,
-      edition: edition,
+      edition:,
       organisation: create(:organisation),
       lead: true,
       lead_ordering: 2,
@@ -205,7 +205,7 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     )
 
     second_lead_org = create(:organisation)
-    create(:edition_organisation, edition: edition, organisation: second_lead_org, lead: true, lead_ordering: 2)
+    create(:edition_organisation, edition:, organisation: second_lead_org, lead: true, lead_ordering: 2)
 
     login_as :export_data_user
 

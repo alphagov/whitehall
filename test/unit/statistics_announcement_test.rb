@@ -204,7 +204,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test "#organisations returns organisations associated with the statistics announcement" do
     announcement = create(:statistics_announcement)
     organisation = create(:organisation)
-    StatisticsAnnouncementOrganisation.create!(statistics_announcement: announcement, organisation: organisation)
+    StatisticsAnnouncementOrganisation.create!(statistics_announcement: announcement, organisation:)
 
     assert_includes announcement.reload.organisations, organisation
   end

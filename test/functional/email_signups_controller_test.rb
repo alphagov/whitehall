@@ -33,21 +33,21 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
   view_test "GET :new redirects to publications controller if signup is for a publication finder" do
     feed = "http://test.host/government/publications.atom?departments%5B%5D=org1&departments%5B%5D=org2&publication_filter_option=open-consultations"
-    get :new, params: { email_signup: { feed: feed } }
+    get :new, params: { email_signup: { feed: } }
 
     assert_redirected_to publications_path(publication_filter_option: "open-consultations", departments: %w[org1 org2])
   end
 
   view_test "GET :new redirects to statistics controller if signup is for a statistics finder" do
     feed = "http://test.host/government/statistics.atom?departments%5B%5D=org1&departments%5B%5D=org2"
-    get :new, params: { email_signup: { feed: feed } }
+    get :new, params: { email_signup: { feed: } }
 
     assert_redirected_to statistics_path(departments: %w[org1 org2])
   end
 
   view_test "GET :new redirects to announcements controller if signup is for an announcement finder" do
     feed = "http://test.host/government/announcements.atom?departments%5B%5D=org1&departments%5B%5D=org2"
-    get :new, params: { email_signup: { feed: feed } }
+    get :new, params: { email_signup: { feed: } }
 
     assert_redirected_to announcements_path(departments: %w[org1 org2])
   end

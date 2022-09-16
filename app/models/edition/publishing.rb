@@ -61,7 +61,7 @@ module Edition::Publishing
   end
 
   def build_unpublishing(attributes = {})
-    super(attributes.merge(slug: slug, document_type: type))
+    super(attributes.merge(slug:, document_type: type))
   end
 
   def approve_retrospectively
@@ -76,10 +76,10 @@ module Edition::Publishing
 
   def increment_version_number
     if minor_change?
-      self.published_major_version = Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 1
-      self.published_minor_version = (Edition.unscoped.where(document_id: document_id, published_major_version: published_major_version).maximum(:published_minor_version) || -1) + 1
+      self.published_major_version = Edition.unscoped.where(document_id:).maximum(:published_major_version) || 1
+      self.published_minor_version = (Edition.unscoped.where(document_id:, published_major_version:).maximum(:published_minor_version) || -1) + 1
     else
-      self.published_major_version = (Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 0) + 1
+      self.published_major_version = (Edition.unscoped.where(document_id:).maximum(:published_major_version) || 0) + 1
       self.published_minor_version = 0
     end
   end

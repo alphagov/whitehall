@@ -3,11 +3,11 @@ require "test_helper"
 class Admin::AuditTrailHelperTest < ActionView::TestCase
   setup do
     document = create(:document)
-    first_edition = create(:published_edition, document: document)
+    first_edition = create(:published_edition, document:)
     create(:editorial_remark, body: "First edition remark", edition: first_edition)
-    second_edition = create(:published_edition, document: document)
+    second_edition = create(:published_edition, document:)
     create(:editorial_remark, body: "Second edition remark", edition: second_edition)
-    newest_edition = create(:published_edition, document: document)
+    newest_edition = create(:published_edition, document:)
     create(:editorial_remark, body: "Newest edition remark", edition: newest_edition)
 
     document_remarks = Document::PaginatedRemarks.new(newest_edition.document, 1)

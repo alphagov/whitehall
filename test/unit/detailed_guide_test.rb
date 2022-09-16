@@ -78,13 +78,13 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
   test "should be valid if all level-3 headings have a parent level-2 heading" do
     body = "## Parent1\n\n### Child1\n\n### Child2\n\n## Parent2\n\n### Child3"
-    detailed_guide = build(:detailed_guide, body: body)
+    detailed_guide = build(:detailed_guide, body:)
     assert detailed_guide.valid?
   end
 
   test "should be invalid if level-3 heading has no parent level-2 heading" do
     body = "### Orphan\n\n## Uncle\n\n## Aunt"
-    detailed_guide = build(:detailed_guide, body: body)
+    detailed_guide = build(:detailed_guide, body:)
     assert_not detailed_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
   end

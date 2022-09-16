@@ -23,7 +23,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
   view_test "should link to world location organisation belongs to" do
     world_location = create(:world_location)
     worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
-    corporate_information_page = create(:corporate_information_page, :published, worldwide_organisation: worldwide_organisation, organisation: nil)
+    corporate_information_page = create(:corporate_information_page, :published, worldwide_organisation:, organisation: nil)
 
     get :show, params: { organisation: nil, worldwide_organisation_id: worldwide_organisation, id: corporate_information_page.slug }
 
@@ -33,7 +33,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
   view_test "should show links to the alternate languages for a translated organisation" do
     organisation = create(:organisation, translated_into: [:fr])
-    create(:about_corporate_information_page, organisation: organisation, summary: "organisation-description")
+    create(:about_corporate_information_page, organisation:, summary: "organisation-description")
     get :index, params: { organisation_id: organisation }
     expected_url = organisation_corporate_information_pages_path(organisation, locale: :fr)
     assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
@@ -83,8 +83,8 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
   view_test "should display link to corporate information pages on about-us page" do
     organisation = create(:organisation)
-    corporate_information_page = create(:published_corporate_information_page, organisation: organisation)
-    draft_corporate_information_page = create(:corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
+    corporate_information_page = create(:published_corporate_information_page, organisation:)
+    draft_corporate_information_page = create(:corporate_information_page, organisation:, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
     get :index, params: { organisation_id: organisation }
     assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
     refute_select "a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
@@ -98,9 +98,9 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
 
   test "finds unpublishing for a corporate information page" do
     organisation = create(:organisation)
-    cip = create(:corporate_information_page, :unpublished, organisation: organisation)
+    cip = create(:corporate_information_page, :unpublished, organisation:)
     alternative_url = Whitehall.url_maker.root_url
-    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
+    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url:)
 
     get :show, params: { organisation_id: cip.organisation, id: cip.slug }
     assert_response :redirect
@@ -110,9 +110,9 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
   test "unpublishing is specific to the organisation" do
     organisation = create(:organisation)
     organisation2 = create(:organisation, slug: "another_organisation")
-    cip = create(:corporate_information_page, :unpublished, organisation: organisation)
+    cip = create(:corporate_information_page, :unpublished, organisation:)
     alternative_url = Whitehall.url_maker.root_url
-    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
+    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url:)
     draft_cip = create(:corporate_information_page, organisation: organisation2)
 
     # Even though the Unpublishing has the same slug as the draft CIP, we should

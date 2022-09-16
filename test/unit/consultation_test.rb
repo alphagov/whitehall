@@ -10,46 +10,46 @@ class ConsultationTest < ActiveSupport::TestCase
 
   %i[imported deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do
-      edition = build(:consultation, state: state, opening_at: nil)
+      edition = build(:consultation, state:, opening_at: nil)
       assert edition.valid?
     end
 
     test "#{state} editions are valid without a closing at time" do
-      edition = build(:consultation, state: state, closing_at: nil)
+      edition = build(:consultation, state:, closing_at: nil)
       assert edition.valid?
     end
 
     test "#{state} editions are valid with a non-English primary locale" do
-      edition = build(:consultation, state: state)
+      edition = build(:consultation, state:)
       edition.primary_locale = "cy"
       assert edition.valid?
     end
 
     test "#{state} consultations with a blank opening at time have no first_public_at" do
-      edition = build(:consultation, state: state, opening_at: nil)
+      edition = build(:consultation, state:, opening_at: nil)
       assert_nil edition.first_public_at
     end
 
     test "#{state} consultations with a blank opening at time are not open?, they are not_yet_open?" do
-      edition = build(:consultation, state: state, opening_at: nil)
+      edition = build(:consultation, state:, opening_at: nil)
       assert_not edition.open?
       assert edition.not_yet_open?
     end
 
     test "#{state} consultations with a blank closing at time are closed?" do
-      edition = build(:consultation, state: state, closing_at: nil)
+      edition = build(:consultation, state:, closing_at: nil)
       assert edition.closed?
     end
   end
 
   %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without an opening at time" do
-      edition = build(:consultation, state: state, opening_at: nil)
+      edition = build(:consultation, state:, opening_at: nil)
       assert_not edition.valid?
     end
 
     test "#{state} editions are not valid without a closing at time" do
-      edition = build(:consultation, state: state, closing_at: nil)
+      edition = build(:consultation, state:, closing_at: nil)
       assert_not edition.valid?
     end
   end
@@ -189,7 +189,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should preserve original participation when creating new edition" do
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
-    consultation = create(:published_consultation, consultation_participation: consultation_participation)
+    consultation = create(:published_consultation, consultation_participation:)
 
     new_draft = consultation.create_draft(create(:writer))
 
@@ -198,14 +198,14 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should destroy associated consultation participation when destroyed" do
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
-    consultation = create(:consultation, consultation_participation: consultation_participation)
+    consultation = create(:consultation, consultation_participation:)
     consultation.destroy!
     assert_not ConsultationParticipation.exists?(consultation_participation.id)
   end
 
   test "should destroy the consultation outcome when the consultation is destroyed" do
     consultation = create(:consultation)
-    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome = create(:consultation_outcome, consultation:)
 
     consultation.destroy!
 
@@ -216,7 +216,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:published_consultation)
     outcome = create(
       :consultation_outcome,
-      consultation: consultation,
+      consultation:,
       attachments: [
         attachment = build(:file_attachment, title: "attachment-title"),
       ],
@@ -237,7 +237,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:published_consultation)
     create(
       :consultation_outcome,
-      consultation: consultation,
+      consultation:,
       summary: "",
       attachments: [
         build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
@@ -254,7 +254,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:published_consultation)
     feedback = create(
       :consultation_public_feedback,
-      consultation: consultation,
+      consultation:,
       attachments: [
         attachment = build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
       ],
@@ -277,7 +277,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = create(:published_consultation)
     create(
       :consultation_public_feedback,
-      consultation: consultation,
+      consultation:,
       summary: "",
       attachments: [
         build(:file_attachment, title: "attachment-title", attachment_data_attributes: { file: upload_fixture("greenpaper.pdf") }),
@@ -304,7 +304,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should report that the outcome has been published if the consultation is closed and there is an outcome" do
     consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
-    _outcome = create(:consultation_outcome, consultation: consultation)
+    _outcome = create(:consultation_outcome, consultation:)
 
     assert consultation.outcome_published?
   end
@@ -312,7 +312,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should return the published_on date of the outcome" do
     today = Time.zone.today
     consultation = create(:consultation)
-    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome = create(:consultation_outcome, consultation:)
     outcome.stubs(:published_on).returns(today)
 
     assert_equal today, consultation.outcome_published_on
@@ -341,7 +341,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "display_type when outcome published" do
     consultation = build(:consultation, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
-    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome = create(:consultation_outcome, consultation:)
     outcome.attachments << build(:file_attachment)
     assert_equal "Consultation outcome", consultation.display_type
   end
@@ -364,7 +364,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "when the consultation has published the outcome search_format_types tags the consultation as consultation-outcome" do
     consultation = build(:consultation, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
-    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome = create(:consultation_outcome, consultation:)
     outcome.attachments << build(:file_attachment)
     assert consultation.search_format_types.include?("consultation-outcome")
   end
@@ -431,7 +431,7 @@ class ConsultationTest < ActiveSupport::TestCase
     opening_at = 2.days.from_now
     closing_at = 3.days.from_now
 
-    consultation = create(:consultation, opening_at: opening_at, closing_at: closing_at)
+    consultation = create(:consultation, opening_at:, closing_at:)
 
     PublishingApiDocumentRepublishingWorker
       .expects(:perform_at)
@@ -450,7 +450,7 @@ class ConsultationTest < ActiveSupport::TestCase
     opening_at = 2.days.ago
     closing_at = 3.days.from_now
 
-    consultation = create(:consultation, opening_at: opening_at, closing_at: closing_at)
+    consultation = create(:consultation, opening_at:, closing_at:)
 
     PublishingApiDocumentRepublishingWorker
       .expects(:perform_at)
@@ -472,20 +472,20 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "#attachables returns array including itself & outcome" do
     outcome = build(:consultation_outcome)
-    consultation = build(:consultation, outcome: outcome)
+    consultation = build(:consultation, outcome:)
     assert_equal [consultation, outcome], consultation.attachables
   end
 
   test "#attachables returns array including itself & public feedback" do
     public_feedback = build(:consultation_public_feedback)
-    consultation = build(:consultation, public_feedback: public_feedback)
+    consultation = build(:consultation, public_feedback:)
     assert_equal [consultation, public_feedback], consultation.attachables
   end
 
   test "#attachables returns array including itself, outcome & public feedback" do
     outcome = build(:consultation_outcome)
     public_feedback = build(:consultation_public_feedback)
-    consultation = build(:consultation, outcome: outcome, public_feedback: public_feedback)
+    consultation = build(:consultation, outcome:, public_feedback:)
     assert_equal [consultation, outcome, public_feedback], consultation.attachables
   end
 

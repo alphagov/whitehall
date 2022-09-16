@@ -43,7 +43,7 @@ class Admin::GenericEditionsController::ForcePublishingDocumentsTest < ActionCon
   view_test "show should not display the approve_retrospectively form for the creator" do
     creator = create(:departmental_editor, name: "Fred")
     login_as(creator)
-    edition = create(:published_edition, force_published: true, creator: creator)
+    edition = create(:published_edition, force_published: true, creator:)
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     get :show, params: { id: edition }
@@ -53,7 +53,7 @@ class Admin::GenericEditionsController::ForcePublishingDocumentsTest < ActionCon
   view_test "show should display the approve_retrospectively form for a departmental editor who wasn't the creator" do
     creator = create(:departmental_editor, name: "Fred")
     login_as(creator)
-    edition = create(:published_edition, force_published: true, creator: creator)
+    edition = create(:published_edition, force_published: true, creator:)
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
     login_as(create(:departmental_editor, name: "Another Editor"))

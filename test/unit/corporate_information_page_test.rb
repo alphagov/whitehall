@@ -26,7 +26,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     worldwide_org = create(:worldwide_organisation)
     corporate_information_page = build(
       :corporate_information_page,
-      organisation: organisation,
+      organisation:,
       worldwide_organisation: worldwide_org,
     )
     assert_not corporate_information_page.valid?
@@ -36,7 +36,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     corporate_information_page1 = build(
       :corporate_information_page,
-      organisation: organisation,
+      organisation:,
       corporate_information_page_type: CorporateInformationPageType::AboutUs,
       state: "published",
       major_change_published_at: Time.zone.now,
@@ -45,7 +45,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
     corporate_information_page2 = build(
       :corporate_information_page,
-      organisation: organisation,
+      organisation:,
       corporate_information_page_type: CorporateInformationPageType::AboutUs,
     )
     assert_not corporate_information_page2.valid?
@@ -57,7 +57,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     corporate_information_page1 = build(
       :corporate_information_page,
-      organisation: organisation,
+      organisation:,
       corporate_information_page_type: CorporateInformationPageType::AboutUs,
       state: "published",
       major_change_published_at: Time.zone.now,
@@ -66,7 +66,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
     corporate_information_page2 = build(
       :corporate_information_page,
-      organisation: organisation,
+      organisation:,
       corporate_information_page_type: CorporateInformationPageType::AboutUs,
       document_id: corporate_information_page1.document_id,
       state: "draft",
@@ -79,7 +79,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page = create(
       :corporate_information_page,
       corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
-      organisation: organisation,
+      organisation:,
     )
 
     assert_equal corporate_information_page.content_id, corporate_information_page.search_index["content_id"]
@@ -109,13 +109,13 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test "should derive title from type and interpolate organisation acronym" do
     organisation = build(:organisation, acronym: "DCLG")
-    corporate_information_page = build(:corporate_information_page, organisation: organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
+    corporate_information_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::Recruitment)
     assert_equal "Working for DCLG", corporate_information_page.title
   end
 
   test "should derive title from type and interpolate organisation name if no acronym" do
     organisation = build(:organisation, acronym: nil, name: "Department for Communities and Local Government")
-    corporate_information_page = build(:corporate_information_page, organisation: organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
+    corporate_information_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::Recruitment)
     assert_equal "Working for Department for Communities and Local Government", corporate_information_page.title
   end
 
@@ -138,7 +138,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     email = stub("email")
     organisation = build(:organisation)
     organisation.expects(:alternative_format_contact_email).returns(email)
-    corporate_information_page = build(:corporate_information_page, organisation: organisation)
+    corporate_information_page = build(:corporate_information_page, organisation:)
 
     assert_equal email, corporate_information_page.alternative_format_contact_email
   end
@@ -151,7 +151,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test "should support attachments" do
     organisation = build(:organisation_with_alternative_format_contact_email)
-    corporate_information_page = build(:corporate_information_page, organisation: organisation)
+    corporate_information_page = build(:corporate_information_page, organisation:)
     corporate_information_page.attachments << build(:file_attachment)
   end
 
@@ -205,7 +205,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     }
 
     by_menu_heading.values.flatten.each do |type|
-      create(:corporate_information_page, organisation: organisation, corporate_information_page_type: type)
+      create(:corporate_information_page, organisation:, corporate_information_page_type: type)
     end
 
     by_menu_heading.each_key do |menu_heading|
@@ -237,7 +237,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "will index accessible policy document even if the org is joining gov.uk" do
     organisation = create(:organisation, govuk_status: "joining")
     corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation: organisation
+      :accessible_documents_policy_corporate_information_page, organisation:
     )
     Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
     corporate_information_page.update_in_search_index
@@ -246,7 +246,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "will index accessible policy document even if the org is exempt on gov.uk" do
     organisation = create(:organisation, govuk_status: "exempt")
     corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation: organisation
+      :accessible_documents_policy_corporate_information_page, organisation:
     )
     Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
     corporate_information_page.update_in_search_index
@@ -255,7 +255,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "will index accessible policy document even if the org is transitioning to gov.uk" do
     organisation = create(:organisation, govuk_status: "transitioning")
     corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation: organisation
+      :accessible_documents_policy_corporate_information_page, organisation:
     )
     Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
     corporate_information_page.update_in_search_index
@@ -266,7 +266,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       :closed_organisation, govuk_closed_status: "devolved", superseding_organisations: [create(:devolved_administration)]
     )
     corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation: organisation
+      :accessible_documents_policy_corporate_information_page, organisation:
     )
     Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
     corporate_information_page.update_in_search_index

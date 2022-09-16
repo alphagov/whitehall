@@ -10,7 +10,7 @@ module TranslationHelper
   end
 
   def t_display_type(document, count = 1)
-    t("document.type.#{document.display_type_key}", count: count)
+    t("document.type.#{document.display_type_key}", count:)
   end
 
   def t_see_all_our(type)

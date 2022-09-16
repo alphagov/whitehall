@@ -15,16 +15,16 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(news_article, update_type: update_type)
+        .new(news_article, update_type:)
         .base_attributes
         .merge(PayloadBuilder::AccessLimitation.for(news_article))
         .merge(PayloadBuilder::FirstPublishedAt.for(news_article))
         .merge(PayloadBuilder::PublicDocumentPath.for(news_article))
         .merge(
           description: news_article.summary,
-          details: details,
-          document_type: document_type,
-          public_updated_at: public_updated_at,
+          details:,
+          document_type:,
+          public_updated_at:,
           rendering_app: news_article.rendering_app,
           schema_name: SCHEMA_NAME,
           auth_bypass_ids: [news_article.auth_bypass_id],
@@ -62,8 +62,8 @@ module PublishingApi
 
     def base_details
       {
-        body: body,
-        emphasised_organisations: emphasised_organisations,
+        body:,
+        emphasised_organisations:,
       }
     end
 

@@ -12,7 +12,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     @titles << "Title #{index}"
     {
       title: @titles.last,
-      attachment_data_attributes: { file_cache: file_cache },
+      attachment_data_attributes: { file_cache: },
     }
   end
 

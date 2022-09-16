@@ -5,7 +5,7 @@ slugs = %w[
 ]
 
 slugs.each do |slug|
-  document = Document.find_by!(slug: slug)
+  document = Document.find_by!(slug:)
   edition = document.editions.published.last
 
   Whitehall::SearchIndex.delete(edition)

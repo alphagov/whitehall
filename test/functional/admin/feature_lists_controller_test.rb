@@ -7,7 +7,7 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
   test "get show redirects to the featurable features page" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     feature_list = create(:feature_list, featurable: world_location_news, locale: :fr)
 
     get :show, params: { id: feature_list }
@@ -17,10 +17,10 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
   test "post reorder reorders the feature list" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     feature_list = create(:feature_list, featurable: world_location_news, locale: :fr)
-    feature1 = create(:feature, feature_list: feature_list, ordering: 1)
-    feature2 = create(:feature, feature_list: feature_list, ordering: 2)
+    feature1 = create(:feature, feature_list:, ordering: 1)
+    feature2 = create(:feature, feature_list:, ordering: 2)
 
     post :reorder,
          params: { id: feature_list,
@@ -34,7 +34,7 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
   test "post reorder with no ordering does nothing" do
     world_location_news = build(:world_location_news)
-    create(:world_location, world_location_news: world_location_news)
+    create(:world_location, world_location_news:)
     feature_list = create(:feature_list, featurable: world_location_news, locale: :fr)
 
     post :reorder, params: { id: feature_list }

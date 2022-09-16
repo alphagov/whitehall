@@ -267,7 +267,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should generate page title when filtering by my organisation" do
     organisation = create(:organisation)
-    user = create(:user, organisation: organisation)
+    user = create(:user, organisation:)
     filter = Admin::EditionFilter.new(Edition, user, organisation: organisation.to_param)
     assert_equal "My department’s documents", filter.page_title
   end

@@ -213,7 +213,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
-    login_as(create(:user, organisation: organisation))
+    login_as(create(:user, organisation:))
 
     get :show, params: { id: publication }
 
@@ -232,7 +232,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
-    login_as(create(:user, organisation: organisation))
+    login_as(create(:user, organisation:))
     get :show, params: { id: publication }
 
     refute_select ".policies"
@@ -283,7 +283,7 @@ private
   def publication_has_no_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
       {
-        content_id: content_id,
+        content_id:,
         expanded_links: {},
       },
     )
@@ -292,7 +292,7 @@ private
   def publication_has_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
       {
-        content_id: content_id,
+        content_id:,
         expanded_links: {
           "taxons" => [
             {
@@ -321,7 +321,7 @@ private
   def publication_has_world_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(
       {
-        content_id: content_id,
+        content_id:,
         expanded_links: {
           "taxons" => [
             {

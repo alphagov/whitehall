@@ -39,14 +39,14 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
 
   view_test "edit indicates which language is being translated to" do
     world_location_news = build(:world_location_news, translated_into: [:fr])
-    create(:world_location, translated_into: [:fr], world_location_news: world_location_news)
+    create(:world_location, translated_into: [:fr], world_location_news:)
     get :edit, params: { world_location_news_id: @world_location_news, id: "fr" }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end
 
   view_test "edit presents a form to update an existing translation" do
     world_location_news = build(:world_location_news, translated_into: { fr: { mission_statement: "Enseigner aux gens comment infuser le thé" } })
-    location = create(:world_location, translated_into: { fr: { name: "Afrolasie" } }, world_location_news: world_location_news)
+    location = create(:world_location, translated_into: { fr: { name: "Afrolasie" } }, world_location_news:)
 
     get :edit, params: { world_location_news_id: location.world_location_news, id: "fr" }
 
@@ -61,7 +61,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
 
   view_test "edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages" do
     world_location_news = build(:world_location_news, translated_into: { ar: { mission_statement: "تعليم الناس كيفية تحضير الشاي" } })
-    location = create(:world_location, translated_into: { ar: { name: "الناس" } }, world_location_news: world_location_news)
+    location = create(:world_location, translated_into: { ar: { name: "الناس" } }, world_location_news:)
 
     get :edit, params: { world_location_news_id: location.world_location_news, id: "ar" }
 
@@ -90,7 +90,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
 
   view_test "the view buttons for translations link to the new page on the live site" do
     world_location_news = build(:world_location_news, translated_into: [:fr])
-    location = create(:world_location, translated_into: [:fr], name: "France", world_location_news: world_location_news)
+    location = create(:world_location, translated_into: [:fr], name: "France", world_location_news:)
     get :index, params: { world_location_news_id: location }
 
     assert_select "a" do |links|
@@ -143,7 +143,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
 
   test "destroy removes translation and redirects to list of translations" do
     world_location_news = build(:world_location_news, translated_into: [:fr])
-    location = create(:world_location, translated_into: [:fr], world_location_news: world_location_news)
+    location = create(:world_location, translated_into: [:fr], world_location_news:)
 
     delete :destroy, params: { world_location_news_id: location.world_location_news, id: "fr" }
 

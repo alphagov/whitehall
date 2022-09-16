@@ -18,7 +18,7 @@ module DocumentHelper
   end
 
   def file_abbr_tag(abbr, title)
-    tag.abbr(abbr, title: title)
+    tag.abbr(abbr, title:)
   end
 
   def humanized_content_type(file_extension)

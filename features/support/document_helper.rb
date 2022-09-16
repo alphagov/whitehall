@@ -1,7 +1,7 @@
 ParameterType(
   name: "edition",
   regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/,
-  transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title: title) },
+  transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title:) },
 )
 
 module DocumentHelper
@@ -76,7 +76,7 @@ module DocumentHelper
   def begin_drafting_publication(title, options = {})
     begin_drafting_document(
       type: "publication",
-      title: title,
+      title:,
       summary: "Some summary of the content",
       alternative_format_provider: create(:alternative_format_provider),
       all_nation_applicability: options.key?(:all_nation_applicability) ? options[:all_nation_applicability] : true,
@@ -92,7 +92,7 @@ module DocumentHelper
     organisation = create(:ministerial_department)
     person = create_person("Colonel Mustard")
     role = create(:ministerial_role, name: "Attorney General", organisations: [organisation])
-    create(:role_appointment, person: person, role: role, started_at: Date.parse("2010-01-01"))
+    create(:role_appointment, person:, role:, started_at: Date.parse("2010-01-01"))
     begin_drafting_document options.merge(type: "speech", summary: "Some summary of the content", previously_published: false)
     select SpeechType::Transcript.singular_name, from: "Speech type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
@@ -121,12 +121,12 @@ module DocumentHelper
   end
 
   def visit_edition_admin(title, scope = :all)
-    document = Edition.send(scope).find_by(title: title)
+    document = Edition.send(scope).find_by(title:)
     visit admin_edition_path(document)
   end
 
   def visit_document_preview(title, scope = :all)
-    document = Edition.send(scope).find_by(title: title)
+    document = Edition.send(scope).find_by(title:)
     visit preview_document_path(document)
   end
 
@@ -162,7 +162,7 @@ module DocumentHelper
   end
 
   def speed_tag_publication(title)
-    edition = Edition.find_by(title: title)
+    edition = Edition.find_by(title:)
     visit admin_edition_path(edition)
 
     expect(page).to have_selector(".speed-tag")
@@ -174,7 +174,7 @@ module DocumentHelper
   end
 
   def convert_to_draft(title)
-    edition = Edition.find_by(title: title)
+    edition = Edition.find_by(title:)
     visit admin_edition_path(edition)
 
     click_on "Convert to draft"

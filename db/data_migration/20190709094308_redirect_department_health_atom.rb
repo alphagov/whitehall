@@ -2,7 +2,7 @@ base_path = "/government/organisations/department-of-health"
 destination = "/government/organisations/department-of-health-and-social-care"
 redirects = [
   { path: "#{base_path}.atom", type: "exact", destination: "#{destination}.atom" },
-  { path: base_path, type: "exact", destination: destination },
+  { path: base_path, type: "exact", destination: },
 ]
 redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
 content_id = "b721cee0-b24c-42c0-a8c4-fa215af727eb"

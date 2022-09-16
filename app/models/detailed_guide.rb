@@ -104,7 +104,7 @@ class DetailedGuide < Edition
       base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
       return [] if base_paths.empty?
 
-      response_hash = Services.publishing_api.lookup_content_ids(base_paths: base_paths)
+      response_hash = Services.publishing_api.lookup_content_ids(base_paths:)
       response_hash.values_at(*base_paths)
     end
   end

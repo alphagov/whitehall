@@ -1,9 +1,9 @@
 Given(/^there is a user called "([^"]*)"$/) do |name|
-  @user = create(:writer, name: name)
+  @user = create(:writer, name:)
 end
 
 Given(/^there is a user called "([^"]*)" with email address "([^"]*)"$/) do |name, email|
-  @user = create(:writer, name: name, email: email)
+  @user = create(:writer, name:, email:)
 end
 
 When(/^I view my own user record$/) do
@@ -22,7 +22,7 @@ Then(/^I cannot change my user details/) do
 end
 
 When(/^I visit the admin author page for "([^"]*)"$/) do |name|
-  user = User.find_by(name: name)
+  user = User.find_by(name:)
   visit admin_author_path(user)
 end
 

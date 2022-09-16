@@ -12,11 +12,11 @@ module PublishingApi
     delegate :content_id, to: :item
 
     def content
-      content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
+      content = BaseItemPresenter.new(item, update_type:).base_attributes
       content.merge!(
         description: item.summary,
-        details: details,
-        document_type: document_type,
+        details:,
+        document_type:,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "publication",
@@ -48,7 +48,7 @@ module PublishingApi
       ).merge(
         PayloadBuilder::TopicalEvents.for(item),
       ).merge(
-        related_statistical_data_sets: related_statistical_data_sets,
+        related_statistical_data_sets:,
       ).merge(
         PayloadBuilder::Roles.for(item),
       ).merge(
@@ -70,10 +70,10 @@ module PublishingApi
 
     def details
       details_hash = {
-        body: body,
+        body:,
         change_history: item.change_history.as_json,
-        documents: documents,
-        featured_attachments: featured_attachments,
+        documents:,
+        featured_attachments:,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }
       details_hash = maybe_add_national_applicability(details_hash)

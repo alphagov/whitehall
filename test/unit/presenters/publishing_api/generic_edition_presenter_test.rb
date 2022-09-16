@@ -6,7 +6,7 @@ module PublishingApi
 
     def present(edition, update_type: nil)
       edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
-      PublishingApi::GenericEditionPresenter.new(edition, update_type: update_type)
+      PublishingApi::GenericEditionPresenter.new(edition, update_type:)
     end
 
     test "presents an Edition ready for adding to the publishing API" do

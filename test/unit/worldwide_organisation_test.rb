@@ -67,7 +67,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "destroys associated corporate information page documents and editions" do
     worldwide_organisation = create(:worldwide_organisation)
-    create(:corporate_information_page, worldwide_organisation: worldwide_organisation, organisation: nil)
+    create(:corporate_information_page, worldwide_organisation:, organisation: nil)
 
     assert_difference %w[WorldwideOrganisation.count Document.count CorporateInformationPage.count], -1 do
       worldwide_organisation.destroy
@@ -93,7 +93,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "distinguishes between the main office and other offices" do
     offices = [build(:worldwide_office), build(:worldwide_office)]
-    worldwide_organisation = build(:worldwide_organisation, offices: offices, main_office: offices.last)
+    worldwide_organisation = build(:worldwide_organisation, offices:, main_office: offices.last)
 
     assert worldwide_organisation.is_main_office?(offices.last)
     assert_not worldwide_organisation.is_main_office?(offices.first)
@@ -104,7 +104,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal [], build(:worldwide_organisation, offices: []).other_offices
     assert_equal [], build(:worldwide_organisation, offices: offices.take(1)).other_offices
-    assert_equal [offices.last], build(:worldwide_organisation, offices: offices, main_office: offices.first).other_offices
+    assert_equal [offices.last], build(:worldwide_organisation, offices:, main_office: offices.first).other_offices
   end
 
   test "an ambassadorial role is a primary role and not a secondary one" do
@@ -226,7 +226,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "search index data for a worldwide organisation includes name, summary, the correct link and format" do
     worldwide_organisation = create(:worldwide_organisation, content_id: "7d58b5d8-6d91-4dbb-b3e1-c2a27f131046", name: "British Embassy to Hat land", slug: "british-embassy-to-hat-land")
-    create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find("about"), worldwide_organisation: worldwide_organisation, organisation: nil, summary: "Providing assistance to uk residents in hat land")
+    create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find("about"), worldwide_organisation:, organisation: nil, summary: "Providing assistance to uk residents in hat land")
 
     assert_equal(
       { "title" => worldwide_organisation.name,

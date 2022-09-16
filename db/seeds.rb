@@ -52,7 +52,7 @@ if WorldLocation.where(name: "Test World Location").blank?
   )
 
   world_location_news = WorldLocationNews.create!(
-    world_location: world_location,
+    world_location:,
     mission_statement: "Our mission is to test world locations",
     title: "UK and Test World Location",
   )

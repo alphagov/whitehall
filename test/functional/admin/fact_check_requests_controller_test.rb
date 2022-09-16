@@ -9,8 +9,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   view_test "#index should render previous fact checking requests in the correct order" do
     edition = create(:publication)
-    completed_fact_check = create(:fact_check_request, edition: edition, comments: "comment")
-    pending_fact_check = create(:fact_check_request, edition: edition, comments: nil)
+    completed_fact_check = create(:fact_check_request, edition:, comments: "comment")
+    pending_fact_check = create(:fact_check_request, edition:, comments: nil)
 
     get :index, params: { edition_id: edition }
 
@@ -20,7 +20,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   view_test "should render the content using govspeak markup" do
     edition = create(:edition, body: "body-in-govspeak")
-    fact_check_request = create(:fact_check_request, edition: edition, comments: "comment")
+    fact_check_request = create(:fact_check_request, edition:, comments: "comment")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, params: { id: fact_check_request }
     end
@@ -30,7 +30,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   view_test "should not display the edition if it has been deleted" do
     edition = create(:deleted_edition, title: "deleted-publication-title", body: "deleted-publication-body")
-    fact_check_request = create(:fact_check_request, edition: edition)
+    fact_check_request = create(:fact_check_request, edition:)
 
     get :show, params: { id: fact_check_request }
 
@@ -56,7 +56,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   view_test "it should not be possible to fact check a deleted edition" do
     edition = create(:deleted_edition, title: "deleted-publication-title", body: "deleted-publication-body")
-    fact_check_request = create(:fact_check_request, edition: edition)
+    fact_check_request = create(:fact_check_request, edition:)
 
     get :edit, params: { id: fact_check_request }
 
@@ -67,7 +67,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   view_test "turn govspeak into nice markup when editing" do
     edition = create(:edition, body: "body-in-govspeak")
-    fact_check_request = create(:fact_check_request, edition: edition)
+    fact_check_request = create(:fact_check_request, edition:)
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :edit, params: { id: fact_check_request }
     end
@@ -112,7 +112,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   test "notify a requestor with an email address that the fact checker has added a comment" do
     requestor = create(:fact_check_requestor, email: "fact-check-requestor@example.com")
-    fact_check_request = create(:fact_check_request, requestor: requestor)
+    fact_check_request = create(:fact_check_request, requestor:)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
     ActionMailer::Base.deliveries.clear
 
@@ -131,7 +131,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     MailNotifications.stub(:fact_check_response, raises_exception) do
       requestor = create(:fact_check_requestor, email: "fact-check-requestor@example.com")
-      fact_check_request = create(:fact_check_request, requestor: requestor)
+      fact_check_request = create(:fact_check_request, requestor:)
       attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
       ActionMailer::Base.deliveries.clear
 
@@ -145,7 +145,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   test "do not notify a requestor without an email address that the fact checker has added a comment" do
     requestor = create(:fact_check_requestor, email: nil)
-    fact_check_request = create(:fact_check_request, requestor: requestor)
+    fact_check_request = create(:fact_check_request, requestor:)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
     ActionMailer::Base.deliveries.clear
 
@@ -165,7 +165,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
   view_test "display an apology if comments are submitted for a deleted edition" do
     edition = create(:deleted_edition)
-    fact_check_request = create(:fact_check_request, edition: edition)
+    fact_check_request = create(:fact_check_request, edition:)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
 
     put :update, params: { id: fact_check_request, fact_check_request: attributes }

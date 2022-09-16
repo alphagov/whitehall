@@ -21,7 +21,7 @@ module Whitehall::RandomKey
 
   module ClassMethods
     def key_used?(key)
-      where(key: key).exists?
+      where(key:).exists?
     end
 
     def unique_random_key
@@ -34,7 +34,7 @@ module Whitehall::RandomKey
     end
 
     def from_param(key)
-      where(key: key).first
+      where(key:).first
     end
   end
 end

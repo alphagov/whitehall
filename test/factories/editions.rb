@@ -20,7 +20,7 @@ FactoryBot.define do
       after :build do |edition, evaluator|
         if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
           edition.edition_organisations.build(
-            edition: edition,
+            edition:,
             organisation: FactoryBot.build(:organisation),
             lead_ordering: 1,
             lead: true,
@@ -28,7 +28,7 @@ FactoryBot.define do
         end
         Array.wrap(evaluator.lead_organisations).each.with_index do |org, idx|
           edition.edition_organisations.build(
-            edition: edition,
+            edition:,
             organisation: org,
             lead_ordering: idx + 1,
             lead: true,
@@ -36,7 +36,7 @@ FactoryBot.define do
         end
         Array.wrap(evaluator.supporting_organisations).each do |org|
           edition.edition_organisations.build(
-            edition: edition,
+            edition:,
             organisation: org,
             lead: false,
           )
@@ -48,7 +48,7 @@ FactoryBot.define do
       after :build do |edition, evaluator|
         if evaluator.topical_events.empty?
           edition.topical_event_memberships.build(
-            edition: edition,
+            edition:,
             topical_event: build(:topical_event),
           )
         end
@@ -143,32 +143,32 @@ FactoryBot.define do
 
     trait(:unpublished) do
       after(:create) do |edition|
-        edition.unpublishing = build(:unpublishing, edition: edition)
+        edition.unpublishing = build(:unpublishing, edition:)
       end
     end
 
     trait(:published_in_error_redirect) do
       after(:create) do |edition|
-        edition.unpublishing = build(:published_in_error_redirect_unpublishing, edition: edition)
+        edition.unpublishing = build(:published_in_error_redirect_unpublishing, edition:)
       end
     end
 
     trait(:published_in_error_no_redirect) do
       after(:create) do |edition|
-        edition.unpublishing = build(:published_in_error_no_redirect_unpublishing, edition: edition)
+        edition.unpublishing = build(:published_in_error_no_redirect_unpublishing, edition:)
       end
     end
 
     trait(:consolidated_redirect) do
       after(:create) do |edition|
-        edition.unpublishing = build(:consolidated_unpublishing, edition: edition)
+        edition.unpublishing = build(:consolidated_unpublishing, edition:)
       end
     end
 
     trait(:withdrawn) do
       state { "withdrawn" }
       after(:create) do |edition|
-        edition.unpublishing = build(:withdrawn_unpublishing, edition: edition)
+        edition.unpublishing = build(:withdrawn_unpublishing, edition:)
       end
     end
 

@@ -40,8 +40,8 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test "alternative_url cannot be the same url as the edition" do
     document = create(:document, slug: "document-path")
-    edition = create(:detailed_guide, document: document)
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path", edition: edition)
+    edition = create(:detailed_guide, document:)
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path", edition:)
 
     assert_not unpublishing.valid?
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
@@ -155,7 +155,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     original_path = Whitehall.url_maker.public_document_path(edition)
     unpublishing = create(
       :unpublishing,
-      edition: edition,
+      edition:,
       unpublishing_reason: UnpublishingReason::PublishedInError,
     )
 
@@ -166,7 +166,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, :draft)
     unpublishing = create(
       :unpublishing,
-      edition: edition,
+      edition:,
       unpublishing_reason: UnpublishingReason::PublishedInError,
     )
     unpublishing.update!(slug: "a-different-slug")
@@ -179,7 +179,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     original_url = Whitehall.url_maker.public_document_url(edition)
     unpublishing = create(
       :unpublishing,
-      edition: edition,
+      edition:,
       unpublishing_reason: UnpublishingReason::PublishedInError,
     )
 
@@ -190,7 +190,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, :draft)
     unpublishing = create(
       :unpublishing,
-      edition: edition,
+      edition:,
       unpublishing_reason: UnpublishingReason::PublishedInError,
     )
     unpublishing.update!(slug: "a-different-slug")
@@ -204,7 +204,7 @@ class UnpublishingTest < ActiveSupport::TestCase
       edition.title = "Spanish title"
       edition.save!
     end
-    unpublishing = create(:unpublishing, edition: edition)
+    unpublishing = create(:unpublishing, edition:)
 
     assert_equal %i[en es], unpublishing.translated_locales
   end
@@ -215,7 +215,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test "does not overwrite a provided content ID" do
     content_id = SecureRandom.uuid
-    unpublishing = Unpublishing.new(content_id: content_id)
+    unpublishing = Unpublishing.new(content_id:)
     assert_equal content_id, unpublishing.content_id
   end
 

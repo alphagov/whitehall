@@ -26,7 +26,7 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
     content = content_item.content
     content[:base_path] = new_base_path
     content[:routes][0][:path] = new_base_path
-    content_item.stubs(content: content)
+    content_item.stubs(content:)
 
     expected_publish_requests = [
       stub_publishing_api_put_content(content_item.content_id, content_item.content),
@@ -49,8 +49,8 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
       editions: [published_news, draft_news],
     )
 
-    published_speech = create(:published_speech, role_appointment: role_appointment)
-    draft_speech = create(:draft_speech, role_appointment: role_appointment)
+    published_speech = create(:published_speech, role_appointment:)
+    draft_speech = create(:draft_speech, role_appointment:)
 
     Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.expects(:add).with(published_news)

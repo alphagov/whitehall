@@ -54,7 +54,7 @@ class Admin::AttachmentsController < Admin::BaseController
     if errors.empty?
       render json: { result: :success }
     else
-      render json: { result: :failure, errors: errors }, status: :unprocessable_entity
+      render json: { result: :failure, errors: }, status: :unprocessable_entity
     end
   end
 
@@ -129,7 +129,7 @@ private
       :external_url,
       govspeak_content_attributes: %i[id body manually_numbered_headings],
       attachment_data_attributes: %i[file to_replace_id file_cache],
-    ).merge(attachable: attachable)
+    ).merge(attachable:)
   end
 
   def type
@@ -206,6 +206,6 @@ private
   end
 
   def attachment_updater(attachment_data)
-    ServiceListeners::AttachmentUpdater.call(attachment_data: attachment_data)
+    ServiceListeners::AttachmentUpdater.call(attachment_data:)
   end
 end

@@ -1,5 +1,5 @@
 Given(/^I visit the role page for "(.*?)"$/) do |name|
-  role = Role.find_by(name: name)
+  role = Role.find_by(name:)
   visit polymorphic_path(role)
 end
 
@@ -18,7 +18,7 @@ Given(/^a person called "([^"]*)" appointed as "([^"]*)" with a biography in "([
     },
   )
   role = Role.find_by!(name: role_name)
-  create(:ambassador_role_appointment, role: role, person: person)
+  create(:ambassador_role_appointment, role:, person:)
 end
 
 When(/^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/) do |role_type, role_name, organisation_name|

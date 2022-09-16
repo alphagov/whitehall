@@ -60,7 +60,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     create(:government)
     edition = create(:published_detailed_guide)
-    presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type:)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),

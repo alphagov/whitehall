@@ -6,7 +6,7 @@ Whitehall::SearchIndex.add(edition)
 base_path = "/government/consultations/call-for-evidence-to-identify-uk-interest-in-existing-eu-trade-remedy-measures/test"
 destination = "/government/consultations/call-for-evidence-to-identify-uk-interest-in-existing-eu-trade-remedy-measures/provisional-findings-of-the-call-for-evidence-into-UK-interest-in-existing-EU-trade-remedy-measures"
 redirects = [
-  { path: base_path, type: "exact", destination: destination },
+  { path: base_path, type: "exact", destination: },
 ]
 redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
 content_id = SecureRandom.uuid

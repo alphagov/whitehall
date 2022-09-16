@@ -13,12 +13,12 @@ module PublishingApi
       content = BaseItemPresenter.new(
         item,
         title: item.name,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
         description: item.biography_without_markup,
-        details: details,
+        details:,
         document_type: "person",
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
@@ -41,7 +41,7 @@ module PublishingApi
       details_hash.merge(
         full_name: item.full_name,
         privy_counsellor: item.privy_counsellor?,
-        body: body,
+        body:,
       )
     end
 

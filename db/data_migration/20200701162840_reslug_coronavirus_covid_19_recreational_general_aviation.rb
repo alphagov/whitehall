@@ -3,9 +3,9 @@
 slug = "coronavirus-covid-19-recreational-general-aviation"
 new_slug = "coronavirus-covid-19-general-aviation"
 
-document = Document.find_by(slug: slug)
+document = Document.find_by(slug:)
 edition = document.editions.published.last
-html_attachment = edition.attachments.find_by(slug: slug)
+html_attachment = edition.attachments.find_by(slug:)
 
 html_attachment.update!(slug: new_slug)
 Whitehall::PublishingApi.republish_async(html_attachment)

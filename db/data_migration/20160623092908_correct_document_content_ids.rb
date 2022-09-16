@@ -26,7 +26,7 @@ obsolete_slugs = %w[
 # These appear to be junk documents with no corresponding editions, and can be
 # safely deleted.
 obsolete_slugs.each do |slug|
-  doc = Document.where(slug: slug).first
+  doc = Document.where(slug:).first
   if doc.present?
     doc.destroy!
     puts "Destroyed #{slug}"
@@ -38,9 +38,9 @@ end
 # As for the 'good' documents with incorrect content IDs, we can fetch the
 # correct IDs from the content store and set them accordingly:
 slugs_to_fix.each do |slug|
-  document = Document.find_by(slug: slug)
+  document = Document.find_by(slug:)
   base_path = Whitehall.url_maker.public_document_path(document.live_edition)
-  correct_content_id = Services.publishing_api.lookup_content_id(base_path: base_path)
+  correct_content_id = Services.publishing_api.lookup_content_id(base_path:)
   if correct_content_id.blank?
     raise ArgumentError, "no content id found for #{base_path}"
   end

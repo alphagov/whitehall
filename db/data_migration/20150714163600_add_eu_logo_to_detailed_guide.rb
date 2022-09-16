@@ -1,6 +1,6 @@
 logo_url = " https://assets.digital.cabinet-office.gov.uk/media/5540ab8aed915d15d8000030/european-structural-investment-funds.png"
 slug = "england-2014-to-2020-european-structural-and-investment-funds"
-document = Document.find_by(slug: slug, document_type: "DetailedGuide")
+document = Document.find_by(slug:, document_type: "DetailedGuide")
 latest_published_edition = document.editions.latest_published_edition.first
 draft_edition = document.editions.latest_edition.draft.first
 

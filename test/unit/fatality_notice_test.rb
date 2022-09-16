@@ -11,7 +11,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert_not build(:fatality_notice, operational_field: nil).valid?
 
     operational_field = build(:operational_field)
-    assert build(:fatality_notice, operational_field: operational_field).valid?
+    assert build(:fatality_notice, operational_field:).valid?
   end
 
   test "is not valid without a roll call introduction" do
@@ -38,7 +38,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
 
   test "search_index includes slug of operational field" do
     operational_field = create(:operational_field)
-    fatality_notice = create(:published_fatality_notice, operational_field: operational_field)
+    fatality_notice = create(:published_fatality_notice, operational_field:)
     assert_equal operational_field.slug, fatality_notice.search_index["operational_field"]
   end
 

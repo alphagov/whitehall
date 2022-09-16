@@ -56,7 +56,7 @@ class UnpublishingTest < ActiveSupport::TestCase
         @published_edition.document.content_id,
         type: "gone",
         explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>",
-        locale: locale,
+        locale:,
         discard_drafts: true,
       )
     end
@@ -77,7 +77,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing_redirect_params = unpublishing_params
                                      .merge(
                                        redirect: true,
-                                       alternative_url: alternative_url,
+                                       alternative_url:,
                                      )
 
     Sidekiq::Testing.inline! do
@@ -89,7 +89,7 @@ class UnpublishingTest < ActiveSupport::TestCase
         @published_edition.document.content_id,
         type: "redirect",
         alternative_path: "/government/page",
-        locale: locale,
+        locale:,
         discard_drafts: true,
       )
     end

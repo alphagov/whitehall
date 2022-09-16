@@ -13,16 +13,16 @@ module PublishingApi
       content = BaseItemPresenter.new(
         item,
         title: item.name,
-        update_type: update_type,
+        update_type:,
       ).base_attributes
 
       content.merge!(
         description: item.responsibilities_without_markup,
-        details: details,
+        details:,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
-        schema_name: schema_name,
+        schema_name:,
       )
       content.merge!(polymorphic_path)
     end
@@ -64,7 +64,7 @@ module PublishingApi
 
     def details
       {
-        body: body,
+        body:,
         attends_cabinet_type: item.attends_cabinet_type&.name,
         role_payment_type: item.role_payment_type&.name,
         supports_historical_accounts: item.supports_historical_accounts,

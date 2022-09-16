@@ -52,7 +52,7 @@ class StatisticsAnnouncement < ApplicationRecord
   scope :with_title_containing,
         lambda { |*keywords|
           pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-          where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
+          where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern:, slug: keywords)
         }
   scope :in_organisations,
         lambda { |organisation_ids|
@@ -156,11 +156,11 @@ class StatisticsAnnouncement < ApplicationRecord
   def search_metadata
     {
       confirmed: confirmed?,
-      display_date: display_date,
+      display_date:,
       change_note: last_change_note,
-      previous_display_date: previous_display_date,
-      cancelled_at: cancelled_at,
-      cancellation_reason: cancellation_reason,
+      previous_display_date:,
+      cancelled_at:,
+      cancellation_reason:,
     }
   end
 

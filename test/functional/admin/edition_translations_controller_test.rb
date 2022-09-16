@@ -90,7 +90,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   view_test "edit shows editorial remarks" do
     edition = create(:edition)
-    create(:editorial_remark, edition: edition)
+    create(:editorial_remark, edition:)
 
     get :edit, params: { edition_id: edition, id: "fr" }
 
@@ -100,7 +100,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   view_test "edit shows editorial remarks for corporate_information_pages when the `View move tabs to endpoints` permission is present" do
     @writer.permissions << "View move tabs to endpoints"
     edition = create(:corporate_information_page)
-    create(:editorial_remark, edition: edition)
+    create(:editorial_remark, edition:)
 
     get :edit, params: { edition_id: edition, id: "fr" }
 

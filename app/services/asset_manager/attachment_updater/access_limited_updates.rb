@@ -7,12 +7,12 @@ class AssetManager::AttachmentUpdater::AccessLimitedUpdates
 
     Enumerator.new do |enum|
       enum.yield AssetManager::AttachmentUpdater::Update.new(
-        attachment_data, attachment_data.file, access_limited: access_limited
+        attachment_data, attachment_data.file, access_limited:
       )
 
       if attachment_data.pdf?
         enum.yield AssetManager::AttachmentUpdater::Update.new(
-          attachment_data, attachment_data.file.thumbnail, access_limited: access_limited
+          attachment_data, attachment_data.file.thumbnail, access_limited:
         )
       end
     end

@@ -3,9 +3,9 @@ require "ostruct"
 
 class WorldWriterFatalityNoticeTest < ActiveSupport::TestCase
   def fatality_world_writer(world_locations, id = 1)
-    o = OpenStruct.new(id: id, handles_fatalities?: true)
+    o = OpenStruct.new(id:, handles_fatalities?: true)
     OpenStruct.new(
-      id: id,
+      id:,
       gds_editor?: false,
       departmental_editor?: false,
       world_editor?: false,
@@ -16,9 +16,9 @@ class WorldWriterFatalityNoticeTest < ActiveSupport::TestCase
   end
 
   def normal_world_writer(world_locations, id = 1)
-    o = OpenStruct.new(id: id, handles_fatalities?: false)
+    o = OpenStruct.new(id:, handles_fatalities?: false)
     OpenStruct.new(
-      id: id,
+      id:,
       gds_editor?: false,
       departmental_editor?: false,
       world_editor?: false,

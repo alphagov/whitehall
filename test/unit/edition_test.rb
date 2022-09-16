@@ -24,7 +24,7 @@ class EditionTest < ActiveSupport::TestCase
   test "when created, updates document edition references" do
     document = create(:document)
     document.expects(:update_edition_references).once
-    create(:draft_edition, document: document)
+    create(:draft_edition, document:)
   end
 
   test "when state changes, updates document edition references" do
@@ -76,7 +76,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "uses provided document if available" do
     document = build(:document)
-    edition = build(:edition, document: document)
+    edition = build(:edition, document:)
     assert_equal document, edition.document
   end
 
@@ -114,8 +114,8 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".latest_edition ignores deleted editions" do
     document = create(:document)
-    original_edition = create(:published_edition, document: document)
-    deleted_edition = create(:deleted_edition, document: document)
+    original_edition = create(:published_edition, document:)
+    deleted_edition = create(:deleted_edition, document:)
 
     assert Edition.latest_edition.include?(original_edition)
     assert_not Edition.latest_edition.include?(deleted_edition)
@@ -123,9 +123,9 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".live_edition includes only currently live edition of a document" do
     document = create(:document)
-    create(:superseded_edition, document: document)
-    published = create(:published_edition, document: document)
-    create(:draft_edition, document: document)
+    create(:superseded_edition, document:)
+    published = create(:published_edition, document:)
+    create(:draft_edition, document:)
 
     assert [published], Edition.live_edition
   end
@@ -214,7 +214,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "#creator= builds an edition_author with the given creator for new records" do
     creator = create(:user)
-    edition = build(:edition, creator: creator)
+    edition = build(:edition, creator:)
     assert_equal creator, edition.edition_authors.first.user
   end
 
@@ -299,7 +299,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "#submitted_by gets original submitter even if updates are made while in submitted state" do
     submitter = create(:writer)
-    publication = create(:submitted_publication, submitter: submitter)
+    publication = create(:submitted_publication, submitter:)
     reviewer = create(:writer)
     Edition::AuditTrail.whodunnit = reviewer
     publication.body = "updated body"
@@ -569,8 +569,8 @@ class EditionTest < ActiveSupport::TestCase
   test ".in_reverse_chronological_order works for editions that share the same document and timestamp" do
     edition1 = create(:superseded_edition)
     document = edition1.document
-    edition2 = create(:superseded_edition, document: document)
-    edition3 = create(:superseded_edition, document: document)
+    edition2 = create(:superseded_edition, document:)
+    edition3 = create(:superseded_edition, document:)
 
     assert_equal [edition3, edition2, edition1].collect(&:id), Edition.in_reverse_chronological_order.collect(&:id)
   end
@@ -922,7 +922,7 @@ class EditionTest < ActiveSupport::TestCase
   test "republishes a linked Topical Event when the edition is changed" do
     edition = create(:edition, :draft)
     topical_event = create(:topical_event, :active)
-    create(:topical_event_featuring, topical_event: topical_event, edition: edition)
+    create(:topical_event_featuring, topical_event:, edition:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
     edition.update!(title: "some updated title")

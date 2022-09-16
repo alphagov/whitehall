@@ -19,8 +19,8 @@ class EditionWorldLocationTest < ActiveSupport::TestCase
     world_location = create(:world_location)
     translated_edition = create(:draft_publication, translated_into: [:es])
     untranslated_edition = create(:draft_publication)
-    association_for_translated_edition = create(:edition_world_location, edition: translated_edition, world_location: world_location)
-    _association_for_untranslated_edition = create(:edition_world_location, edition: untranslated_edition, world_location: world_location)
+    association_for_translated_edition = create(:edition_world_location, edition: translated_edition, world_location:)
+    _association_for_untranslated_edition = create(:edition_world_location, edition: untranslated_edition, world_location:)
 
     assert_equal [association_for_translated_edition], EditionWorldLocation.with_translations(:es)
   end

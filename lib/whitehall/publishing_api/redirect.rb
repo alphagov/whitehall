@@ -12,12 +12,12 @@ module Whitehall
 
       def as_json
         {
-          base_path: base_path,
+          base_path:,
           document_type: "redirect",
           schema_name: "redirect",
           publishing_app: "whitehall",
           update_type: "major",
-          redirects: redirects,
+          redirects:,
         }
       end
 

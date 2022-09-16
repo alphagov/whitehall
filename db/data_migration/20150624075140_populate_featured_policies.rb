@@ -34,7 +34,7 @@ policies_to_organisations(policies).each do |organisation|
 
   org_policies.each.with_index do |policy, index|
     FeaturedPolicy.create(
-      organisation: organisation,
+      organisation:,
       policy_content_id: policy_content_id(policies, policy.link),
       ordering: index,
     )

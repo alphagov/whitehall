@@ -22,7 +22,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
     edition = build(
       :published_detailed_guide,
       :with_file_attachment,
-      body: body,
+      body:,
       attachments: [
         attachment1 = build(:file_attachment, id: 1),
         attachment2 = build(:file_attachment, id: 2),
@@ -38,7 +38,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
     edition = create(
       :published_detailed_guide,
       :with_file_attachment,
-      body: body,
+      body:,
       attachments: [
         attachment = build(:file_attachment, id: 1),
       ],

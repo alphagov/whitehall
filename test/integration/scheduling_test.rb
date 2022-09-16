@@ -66,8 +66,8 @@ class SchedulingTest < ActiveSupport::TestCase
 
       schedule(@submitted_edition)
 
-      assert_publishing_api_put_intent(english_path, publish_time: publish_time)
-      assert_publishing_api_put_intent(french_path, publish_time: publish_time)
+      assert_publishing_api_put_intent(english_path, publish_time:)
+      assert_publishing_api_put_intent(french_path, publish_time:)
     end
   end
 

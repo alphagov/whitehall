@@ -1,7 +1,7 @@
 Given(/^a published detailed guide "([^"]*)" for the organisation "([^"]*)"$/) do |title, organisation|
   create(:government)
   organisation = create(:organisation, name: organisation)
-  create(:published_detailed_guide, title: title, organisations: [organisation])
+  create(:published_detailed_guide, title:, organisations: [organisation])
 end
 
 When(/^I draft a new detailed guide "([^"]*)"$/) do |title|

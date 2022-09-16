@@ -6,7 +6,7 @@ class PublishingApiUnpublishingWorker < WorkerBase
   def perform(unpublishing_id, allow_draft = false)
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
     edition = unpublishing.edition
-    check_if_locked_document(edition: edition)
+    check_if_locked_document(edition:)
 
     content_id = Document.where(id: edition.document_id).pick(:content_id)
 

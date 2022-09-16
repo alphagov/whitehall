@@ -20,17 +20,17 @@ module NavigationHelpers
   end
 
   def visit_organisation(name)
-    organisation = Organisation.find_by!(name: name)
+    organisation = Organisation.find_by!(name:)
     visit organisation_path(organisation)
   end
 
   def visit_organisation_about_page(name)
-    organisation = Organisation.find_by!(name: name)
+    organisation = Organisation.find_by!(name:)
     visit organisation_corporate_information_pages_path(organisation)
   end
 
   def visit_worldwide_organisation_page(name)
-    worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
+    worldwide_organisation = WorldwideOrganisation.find_by!(name:)
     visit worldwide_organisation_path(worldwide_organisation)
   end
 

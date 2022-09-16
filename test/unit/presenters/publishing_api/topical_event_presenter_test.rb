@@ -10,7 +10,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       logo: upload_fixture("images/960x640_jpeg.jpg", "image/jpeg"),
       logo_alt_text: "Alternative text",
     )
-    create(:topical_event_about_page, topical_event: topical_event, read_more_link_text: "Read more about this event")
+    create(:topical_event_about_page, topical_event:, read_more_link_text: "Read more about this event")
 
     first_lead_org = create(:organisation)
     first_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
@@ -19,11 +19,11 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
     public_path = "/government/topical-events/humans-going-to-mars"
 
-    feature = create(:topical_event_featuring, topical_event: topical_event, ordering: 1)
-    offsite_feature = create(:offsite_topical_event_featuring, topical_event: topical_event, ordering: 0)
+    feature = create(:topical_event_featuring, topical_event:, ordering: 1)
+    offsite_feature = create(:offsite_topical_event_featuring, topical_event:, ordering: 0)
 
     social_media_service = create(:social_media_service, name: "Facebook")
-    social_media_account = create(:social_media_account, social_media_service: social_media_service)
+    social_media_account = create(:social_media_account, social_media_service:)
     topical_event.social_media_accounts = [social_media_account]
 
     expected_hash = {
@@ -151,7 +151,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
   test "it limits the number of featured items to 5 by default" do
     topical_event = create(:topical_event, start_date: Time.zone.today)
-    create_list(:topical_event_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, topical_event: topical_event)
+    create_list(:topical_event_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, topical_event:)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
@@ -160,7 +160,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
   test "it limits the number of featured items to 9 on the Her Majesty Queen Elizabeth II's page" do
     topical_event = create(:topical_event, content_id: "7feaef73-a6a8-484a-8915-6efbbe4a8269", start_date: Time.zone.today)
-    create_list(:topical_event_featuring, 9, topical_event: topical_event)
+    create_list(:topical_event_featuring, 9, topical_event:)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 

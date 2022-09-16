@@ -27,7 +27,7 @@ module DataHygiene
     attr_reader :content_id, :destination, :dry_run
 
     def document
-      @document ||= Document.find_by(content_id: content_id)
+      @document ||= Document.find_by(content_id:)
     end
 
     def last_edition
@@ -43,7 +43,7 @@ module DataHygiene
     end
 
     def html_attachment
-      @html_attachment ||= HtmlAttachment.find_by(content_id: content_id)
+      @html_attachment ||= HtmlAttachment.find_by(content_id:)
     end
 
     def dry_run_results

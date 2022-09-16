@@ -90,7 +90,7 @@ private
       { uri: "https://www.gov.uk/another-good-link" },
     ]
 
-    body = link_checker_api_batch_report_hash(id: 6, links: links)
+    body = link_checker_api_batch_report_hash(id: 6, links:)
 
     stub_post_request(links, body)
   end
@@ -103,7 +103,7 @@ private
 
     create_published_publication(organisation, links)
 
-    body = link_checker_api_batch_report_hash(id: 7, links: links)
+    body = link_checker_api_batch_report_hash(id: 7, links:)
 
     stub_post_request(links, body)
   end
@@ -118,7 +118,7 @@ private
 
     create(:link_checker_api_report_completed, link_reportable: publication)
 
-    body = link_checker_api_batch_report_hash(id: 8, links: links)
+    body = link_checker_api_batch_report_hash(id: 8, links:)
 
     stub_post_request(links, body)
   end
@@ -133,7 +133,7 @@ private
 
     create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, updated_at: 2.weeks.ago)
 
-    body = link_checker_api_batch_report_hash(id: 9, links: links)
+    body = link_checker_api_batch_report_hash(id: 9, links:)
 
     stub_post_request(links, body)
   end
@@ -160,7 +160,7 @@ private
     uris = links.map { |link| link[:uri] }
 
     {
-      uris: uris,
+      uris:,
       webhook_uri: admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")),
       webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token,
     }
