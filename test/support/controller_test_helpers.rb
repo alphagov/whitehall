@@ -8,6 +8,12 @@ module ControllerTestHelpers
       end
     end
 
+    def legacy_should_be_an_admin_controller
+      test "should be an admin controller" do
+        assert @controller.is_a?(Admin::BaseController), "the controller should be an admin controller"
+      end
+    end
+
     def should_be_a_public_facing_controller
       test "should be a public facing controller" do
         assert @controller.is_a?(PublicFacingController), "the controller should be a public facing controller"
@@ -15,6 +21,17 @@ module ControllerTestHelpers
     end
 
     def should_require_fatality_handling_permission_to_access(edition_type, *actions)
+      test "requires the ability to handle fatalities to access" do
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        login_as :writer
+        actions.each do |action|
+          get action, params: { id: edition.id }
+          assert_response 403
+        end
+      end
+    end
+
+    def legacy_should_require_fatality_handling_permission_to_access(edition_type, *actions)
       test "requires the ability to handle fatalities to access" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
         login_as :writer

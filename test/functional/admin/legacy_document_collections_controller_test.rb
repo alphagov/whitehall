@@ -1,16 +1,18 @@
 require "test_helper"
 
-class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
+class Admin::LegacyDocumentCollectionsControllerTest < ActionController::TestCase
+  tests Admin::DocumentCollectionsController
   include TaxonomyHelper
 
   setup do
     @organisation = create(:organisation)
-    login_as :writer
-    @current_user.permissions << "Preview design system"
+
+    @user = create(:writer)
+    login_as @user
   end
 
-  should_be_an_admin_controller
-  should_allow_organisations_for :document_collection
+  legacy_should_be_an_admin_controller
+  legacy_should_allow_organisations_for :document_collection
 
   view_test "GET #show displays the document collection" do
     collection = create(

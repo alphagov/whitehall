@@ -1,26 +1,26 @@
 require "test_helper"
 
-class Admin::ConsultationsControllerTest < ActionController::TestCase
+class Admin::LegacyConsultationsControllerTest < ActionController::TestCase
+  tests Admin::ConsultationsController
   include TaxonomyHelper
 
   setup do
     login_as :writer
-    @current_user.permissions << "Preview design system"
     ConsultationResponseForm.any_instance.stubs(:consultation_participation).returns(stub(consultation: stub(auth_bypass_id: "auth bypass id")))
   end
 
-  should_be_an_admin_controller
+  legacy_should_be_an_admin_controller
 
-  should_allow_creating_of :consultation
-  should_allow_editing_of :consultation
+  legacy_should_allow_creating_of :consultation
+  legacy_should_allow_editing_of :consultation
 
-  should_allow_speed_tagging_of :consultation
-  should_allow_organisations_for :consultation
-  should_allow_attached_images_for :consultation
-  should_prevent_modification_of_unmodifiable :consultation
-  should_allow_alternative_format_provider_for :consultation
-  should_allow_scheduled_publication_of :consultation
-  should_allow_access_limiting_of :consultation
+  legacy_should_allow_speed_tagging_of :consultation
+  legacy_should_allow_organisations_for :consultation
+  legacy_should_allow_attached_images_for :consultation
+  legacy_should_prevent_modification_of_unmodifiable :consultation
+  legacy_should_allow_alternative_format_provider_for :consultation
+  legacy_should_allow_scheduled_publication_of :consultation
+  legacy_should_allow_access_limiting_of :consultation
 
   view_test "new displays consultation fields" do
     get :new
