@@ -42,7 +42,7 @@ Whitehall is deployed in two modes:
 - World Embassies list: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
 - Worldwide Organisation pages: [https://www.gov.uk/world/organisations/british-embassy-paris](https://www.gov.uk/world/organisations/british-embassy-paris)
 
-### Running the Application
+## Running the Application
 
 **Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
 
