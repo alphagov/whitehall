@@ -53,7 +53,7 @@ class Admin::BaseController < ApplicationController
   end
 
   def preview_design_system_user?
-    current_user.has_permission? "Preview design system"
+    current_user.can_preview_design_system?
   end
 
 private

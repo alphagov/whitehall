@@ -54,13 +54,4 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
     assert_select ".nav-tabs a", text: "Notes 0", count: 0
     assert_select ".nav-tabs a", text: "History 1", count: 0
   end
-
-  view_test "GET :edit renders a side nav bar with notes, history and fact checking" do
-    edition = create(:draft_case_study)
-
-    get :edit, params: { id: edition }
-
-    assert_select ".nav-tabs a", text: "Notes 0"
-    assert_select ".nav-tabs a", text: "History 1"
-  end
 end

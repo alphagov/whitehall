@@ -1,0 +1,12 @@
+<% page_title "New corporate information page for " + @organisation.name %>
+
+<div class="row">
+  <section class="col-md-8">
+    <h1>Add new corporate information page to <%= link_to @organisation.name, [:admin, @organisation] %></h1>
+    <%= render partial: "legacy_form", locals: {edition: @edition} %>
+  </section>
+
+  <div class="col-md-4">
+    <%= simple_formatting_sidebar %>
+  </div>
+</div>

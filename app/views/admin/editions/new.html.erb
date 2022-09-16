@@ -1,4 +1,4 @@
-<% content_for :page_title, "New corporate information page for #{@organisation.name}" %>
+<% content_for :page_title, "New #{@edition.type.titleize}" %>
 <% content_for :back_link, (render "govuk_publishing_components/components/back_link", {
     href: admin_editions_path
   })
@@ -8,7 +8,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
-      title: sanitize("Add new corporate information page to #{link_to(@organisation.name, [:admin, @organisation], class: 'govuk-link')}")
+      title: "New #{@edition.format_name}"
     } %>
 
     <%= render "legacy_form", edition: @edition %>
