@@ -3,15 +3,46 @@
 Whitehall is deployed in two modes:
 
 - 'admin' for publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>)
-- 'frontend' for rendering some legacy content (see live examples that follow)
+- 'frontend' for rendering content to the public that has yet to be migrated to using Publishing API (see live examples that follow)
 
-## Live examples (frontend)
+## Live examples (public facing APIs)
 
-- Field of Operation: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
-- World Embassies: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
-- Topical Events: [https://www.gov.uk/government/topical-events/cop26](https://www.gov.uk/government/topical-events/cop26)
+- Governments: [https://www.gov.uk/api/governments](https://www.gov.uk/api/governments)
+- World Locations: [https://www.gov.uk/api/world-locations](https://www.gov.uk/api/world-locations)
 
-### Running the Application
+## Live examples (public facing frontend)
+
+### CSV Previews
+
+- CSV Preview pages: [https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/560889/LEMPRD_201610180000-CSV-GOVUK.csv/preview)
+
+### Finders
+
+- Non-English finders: [https://www.gov.uk/government/publications.de](https://www.gov.uk/government/publications.de)
+
+### Fields of Operation
+
+- Fields of Operation list: [https://www.gov.uk/government/fields-of-operation](https://www.gov.uk/government/fields-of-operation)
+- Field of Operation pages: [https://www.gov.uk/government/fields-of-operation/iraq](https://www.gov.uk/government/fields-of-operation/iraq)
+
+### Government Information
+
+- How government works page: [https://www.gov.uk/government/how-government-works](https://www.gov.uk/government/how-government-works)
+- Current ministers list: [https://www.gov.uk/government/ministers](https://www.gov.uk/government/ministers)
+- Past Chancellors of the Exchequer list: [https://www.gov.uk/government/history/past-chancellors](https://www.gov.uk/government/history/past-chancellors)
+- Past Foreign Secretaries list: [https://www.gov.uk/government/history/past-foreign-secretaries](https://www.gov.uk/government/history/past-foreign-secretaries)
+- Past Prime Ministers list: [https://www.gov.uk/government/history/past-prime-ministers](https://www.gov.uk/government/history/past-prime-ministers)
+- Past Prime Minister pages: [https://www.gov.uk/government/history/past-prime-ministers/clement-attlee](https://www.gov.uk/government/history/past-prime-ministers/clement-attlee)
+
+### World Information
+
+- Help and services around the world: [https://www.gov.uk/world](https://www.gov.uk/world)
+- Non-English World Location News pages: [https://www.gov.uk/world/brazil/news.pt](https://www.gov.uk/world/brazil/news.pt)
+- UK International Delegation pages: [https://www.gov.uk/world/uk-delegation-to-council-of-europe](https://www.gov.uk/world/uk-delegation-to-council-of-europe)
+- World Embassies list: [https://www.gov.uk/world/embassies](https://www.gov.uk/world/embassies)
+- Worldwide Organisation pages: [https://www.gov.uk/world/organisations/british-embassy-paris](https://www.gov.uk/world/organisations/british-embassy-paris)
+
+## Running the Application
 
 **Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
 
