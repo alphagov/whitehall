@@ -1,4 +1,4 @@
-<% content_for :page_title, "Edit publication"%>
+<% content_for :page_title, "Edit #{@edition.format_name}"%>
 <% content_for :back_link, (render "govuk_publishing_components/components/back_link", {
     href: admin_edition_path(@edition)
   })
@@ -9,7 +9,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render "govuk_publishing_components/components/title", {
       context: @edition.title,
-      title: "Editing #{@edition.class.name.demodulize.underscore.humanize.downcase}"
+      title: "Editing #{@edition.format_name}"
     } %>
 
     <% if @conflicting_edition %>
