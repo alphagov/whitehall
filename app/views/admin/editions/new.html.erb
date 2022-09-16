@@ -11,7 +11,7 @@
       title: "New #{@edition.format_name}"
     } %>
 
-    <% if @edition.is_a?(Publication) %>
+    <% if [Publication, CaseStudy].include?(@edition.class) %>
       <%= render "form", edition: @edition %>
     <% else %>
       <%= render "legacy_form", edition: @edition %>
