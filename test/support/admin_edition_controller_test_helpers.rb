@@ -261,7 +261,7 @@ module AdminEditionControllerTestHelpers
             params: {
               id: edition,
               edition: {
-                lock_version: lock_version,
+                lock_version:,
               },
             }
 
@@ -580,7 +580,7 @@ module AdminEditionControllerTestHelpers
         create(
           :image,
           alt_text: "blah",
-          edition: edition,
+          edition:,
           image_data_attributes: attributes_for(:image_data, file: image),
         )
 
@@ -645,7 +645,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image = create(
           :image,
-          edition: edition,
+          edition:,
           alt_text: "old-alt-text",
           caption: "old-caption",
           image_data_attributes: attributes_for(:image_data, file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg")),
@@ -759,7 +759,7 @@ module AdminEditionControllerTestHelpers
             params: {
               id: edition,
               edition: {
-                lock_version: lock_version,
+                lock_version:,
               },
             }
 
@@ -777,7 +777,7 @@ module AdminEditionControllerTestHelpers
         edition.touch
         attributes = {
           title: "",
-          lock_version: lock_version,
+          lock_version:,
           images_attributes: { "0" => {
             alt_text: "some-alt-text",
             image_data_attributes: attributes_for(:image_data, file: image),
@@ -798,13 +798,13 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
         image1 = create(
           :image,
-          edition: edition,
+          edition:,
           alt_text: "the first image",
           image_data_attributes: attributes_for(:image_data, file: image),
         )
         image2 = create(
           :image,
-          edition: edition,
+          edition:,
           alt_text: "the second image",
           image_data_attributes: attributes_for(:image_data, file: image),
         )
@@ -1157,7 +1157,7 @@ module AdminEditionControllerTestHelpers
             params: {
               id: edition,
               edition: {
-                first_published_at: first_published_at,
+                first_published_at:,
               },
             }
 
