@@ -11,6 +11,10 @@
       title: "New #{@edition.format_name}"
     } %>
 
-    <%= render "legacy_form", edition: @edition %>
+    <% if @edition.is_a?(Publication) %>
+      <%= render "form", edition: @edition %>
+    <% else %>
+      <%= render "legacy_form", edition: @edition %>
+    <% end %>
   </div>
 </div>
