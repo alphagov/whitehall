@@ -1,0 +1,14 @@
+<div class="format-advice">
+  <p class="govuk-body"><strong>Use this format for:</strong> Continuously curated, permanent lists of closely related documents for a specific audience – not just by subject.</p>
+</div>
+
+<%= standard_edition_form(edition, @information) do |form| %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+    <%= render "legacy_topical_event_fields", form: form, edition: edition %>
+  <% end %>
+<% end %>
