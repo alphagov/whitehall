@@ -197,7 +197,7 @@ private
   alias_method :features?, :any?
 
   def republish_feature_organisations_to_publishing_api
-    features.map(&:republish_organisation_to_publishing_api)
+    features.map(&:republish_featurable_to_publishing_api)
   end
 
   def start_and_end_dates

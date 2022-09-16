@@ -44,12 +44,22 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [feature2, feature1], feature_list.features
   end
 
-  test "republishes the organisation after reordering features" do
+  test "republishes the organisation after reordering features when featurable is an organisation" do
     organisation = create(:organisation)
     feature_list = create(:feature_list, featurable: organisation, features: build_list(:feature, 6))
 
     # the organisation should only be republished once
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
+
+    feature_list.reorder! feature_list.features.pluck(:id).reverse
+  end
+
+  test "republishes the world location news after reordering features when featurable is a world location news" do
+    world_location_news = build(:world_location_news)
+    create(:world_location, world_location_news: world_location_news)
+    feature_list = create(:feature_list, featurable: world_location_news, features: build_list(:feature, 6))
+
+    Whitehall::PublishingApi.expects(:republish_async).with(world_location_news).once
 
     feature_list.reorder! feature_list.features.pluck(:id).reverse
   end

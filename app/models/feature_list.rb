@@ -20,7 +20,7 @@ class FeatureList < ApplicationRecord
         feature.save!
       end
     end
-    republish_organisation_to_publishing_api
+    republish_featurable_to_publishing_api
     true
   rescue ActiveRecord::RecordNotFound => e
     errors.add(:base, message: "Can't reorder because '#{e}'")
@@ -44,8 +44,8 @@ class FeatureList < ApplicationRecord
 
   delegate :empty?, to: :current
 
-  def republish_organisation_to_publishing_api
-    if featurable.is_a?(Organisation) && featurable.persisted?
+  def republish_featurable_to_publishing_api
+    if (featurable.is_a?(Organisation) || featurable.is_a?(WorldLocationNews)) && featurable.persisted?
       Whitehall::PublishingApi.republish_async(featurable)
     end
   end
