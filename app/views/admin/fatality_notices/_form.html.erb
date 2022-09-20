@@ -1,0 +1,48 @@
+<div class="format-advice">
+  <p><strong>Use this format for:</strong> Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don’t publish a news story which duplicates this announcement.</p>
+</div>
+
+<%= standard_edition_form(edition, @information) do |form| %>
+  <fieldset>
+    <legend>Associations</legend>
+    <p>You'll be able to specialist sectors later.</p>
+    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+    <%= render 'legacy_appointment_fields', form: form, edition: edition %>
+    <%= render 'legacy_operational_field_fields', form: form, edition: edition %>
+  </fieldset>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Roll call info (displays on the field of operation) (required)",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <%= render "govuk_publishing_components/components/textarea", {
+      label: {
+        text: "Introduction (required)",
+        bold: true,
+        value: edition.roll_call_introduction,
+      },
+      name: "edition[roll_call_introduction]",
+      id: "edition_roll_call_introduction",
+      error_items: errors_for(edition.errors, :roll_call_introduction),
+      rows: 2
+    } %>
+
+    <h4 class="govuk-heading-m">Casualties</h4>
+
+    <% @edition.fatality_notice_casualties.each_with_index do |fatality, index| %>
+      <div class="js-duplicate-fields-set">
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            text: "Personal details (required)",
+            bold: true,
+            value: fatality.personal_details
+          },
+          name: "edition[fatality_notice_casualties_attributes][#{index}][personal_details]",
+          id: "edition_fatality_notice_casualties_#{index}_personal_details",
+          rows: 2
+        } %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -20,7 +20,7 @@
       } %>
 
       <h2 class="govuk-heading-l">Your version</h2>
-      <% if [Publication, CaseStudy, CorporateInformationPage, DocumentCollection, NewsArticle, Speech, StatisticalDataSet, DetailedGuide].include?(@edition.class) %>
+      <% if [Publication, CaseStudy, CorporateInformationPage, DocumentCollection, NewsArticle, Speech, StatisticalDataSet, DetailedGuide, FatalityNotice].include?(@edition.class) %>
         <%= render "form", edition: @edition %>
       <% else %>
         <%= render "legacy_form", edition: @edition %>
@@ -32,7 +32,7 @@
       <div class="row">
         <div class="col-md-8">
           <section>
-            <% if [Publication, CaseStudy, CorporateInformationPage, DocumentCollection, NewsArticle, Speech, StatisticalDataSet, DetailedGuide].include?(@edition.class) %>
+            <% if [Publication, CaseStudy, CorporateInformationPage, DocumentCollection, NewsArticle, Speech, StatisticalDataSet, DetailedGuide, FatalityNotice].include?(@edition.class) %>
               <%= render "form", edition: @edition %>
             <% else %>
               <%= render "legacy_form", edition: @edition %>
