@@ -1,0 +1,16 @@
+.govuk-design-system-styling {
+  @import "govuk_publishing_components/all_components";
+
+  .app-width-container--full-width {
+    margin: 0 govuk-spacing(3);
+  }
+
+  .govuk-phase-banner__content,
+  .govuk-tag {
+    font-size: 16px;
+  }
+
+  .govuk-phase-banner {
+    margin-bottom: 10px;
+  }
+}
