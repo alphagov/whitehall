@@ -1,5 +1,5 @@
 <div role="list">
-  <%= past_chancellors_person.each_slice(4) do |row| %>
+  <% past_chancellors_person.each_slice(4) do |row| %>
   <div class="govuk-grid-row historic-people-index__section-row">
     <% row.each do | name, info| %>    
     <div class="govuk-grid-column-one-quarter" role="listitem">
@@ -19,4 +19,4 @@
     <%end%>
   </div> 
   <% end %> 
-<div>
+</div>
