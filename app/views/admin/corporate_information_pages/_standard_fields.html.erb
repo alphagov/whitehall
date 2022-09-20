@@ -1,0 +1,53 @@
+<div class=<%= "right-to-left" if edition.rtl? %>>
+  <%= render "legacy_subtype_fields", form: form, edition: form.object %>
+  <%= form.hidden_field :lock_version %>
+
+  <% unless form.object.persisted? %>
+    <%= render "govuk_publishing_components/components/select", {
+      id: "edition_corporate_information_page_type_id",
+      name: "edition[corporate_information_page_type_id]",
+      label: "Type",
+      error_items: errors_for(form.object.errors, :corporate_information_page_type_id),
+      options: ([nil] + corporate_information_page_types(@organisation)).map do |type, value|
+        {
+          text: type,
+          value: value,
+        }
+      end
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Summary",
+       bold: true
+    },
+    name: "edition[summary]",
+    id: "edition_summary",
+    value: edition.summary,
+    rows: 4,
+    hint: "Summary text should be 160 characters or fewer.",
+    error_items: errors_for(form.object.errors, :summary),
+  } %>
+
+  <div class="previewable">
+    <%= render "govuk_publishing_components/components/textarea", {
+      label: {
+        text: "Body (required)",
+         bold: true
+      },
+      name: "edition[body]",
+      id: "edition_body",
+      value: edition.body,
+      rows: 20,
+      data: { module: "paste-html-to-govspeak" },
+      error_items: errors_for(form.object.errors, :body),
+    } %>
+  </div>
+
+  <%= render "legacy_additional_significant_fields", form: form, edition: form.object %>
+</div>
+
+<% if form.object.allows_image_attachments? %>
+  <%= render "legacy_image_fields", form: form, edition: form.object %>
+<% end %>
