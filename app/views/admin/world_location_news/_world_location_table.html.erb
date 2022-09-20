@@ -13,7 +13,7 @@
   <tbody>
     <% world_locations.each do |world_location| %>
       <%= content_tag_for(:tr, world_location) do %>
-        <td class="type"><%= world_location.world_location_type.name %></td>
+        <td class="type"><%= world_location.display_type %></td>
 
         <td>
           <p>

@@ -48,7 +48,7 @@ WorldLocationNews.skip_callback(:commit, :after, :publish_to_publishing_api)
 if WorldLocation.where(name: "Test World Location").blank?
   world_location = WorldLocation.create!(
     name: "Test World Location",
-    world_location_type_id: 1,
+    world_location_type: "world_location",
   )
 
   world_location_news = WorldLocationNews.create!(
@@ -67,7 +67,7 @@ end
 if WorldLocation.where(name: "Test International Delegation").blank?
   international_delegation = WorldLocation.create!(
     name: "Test International Delegation",
-    world_location_type_id: 3,
+    world_location_type: "international_delegation",
   )
 
   international_delegation_news = WorldLocationNews.create!(

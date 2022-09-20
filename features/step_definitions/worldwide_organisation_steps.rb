@@ -271,7 +271,7 @@ end
 
 Given(/^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, native_locale_name|
   locale_code = Locale.find_by_language_name(native_locale_name).code
-  country = create(:world_location, active: true, world_location_type: WorldLocationType::WorldLocation)
+  country = create(:world_location, active: true, world_location_type: "world_location")
   create(:worldwide_organisation, name:, world_locations: [country], translated_into: [locale_code])
 end
 

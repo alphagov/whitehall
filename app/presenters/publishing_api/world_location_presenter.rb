@@ -24,7 +24,7 @@ module PublishingApi
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "world_location",
       )
-      if international_delegation?
+      if item.international_delegation?
         content.merge!(PayloadBuilder::PolymorphicPath.for(item))
       end
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
@@ -32,12 +32,6 @@ module PublishingApi
 
     def links
       {}
-    end
-
-  private
-
-    def international_delegation?
-      item.world_location_type_id == WorldLocationType::InternationalDelegation.id
     end
   end
 end

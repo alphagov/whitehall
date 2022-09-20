@@ -18,6 +18,8 @@ class WorldLocation < ApplicationRecord
   accepts_nested_attributes_for :world_location_news
   delegate :title, to: :world_location_news
 
+  enum world_location_type: { world_location: 1, international_delegation: 3 }
+
   accepts_nested_attributes_for :edition_world_locations
 
   include AnalyticsIdentifierPopulator
@@ -55,7 +57,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def search_description
-    if world_location_type == WorldLocationType::InternationalDelegation
+    if international_delegation?
       I18n.t("world_location.search_description.international_delegation", name:)
     else
       I18n.t("world_location.search_description.world_location", name:)
@@ -74,23 +76,19 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.active_international_delegation
-    where(active: true, world_location_type_id: WorldLocationType::InternationalDelegation.id)
-  end
-
-  def world_location_type
-    WorldLocationType.find_by_id(world_location_type_id)
-  end
-
-  def world_location_type=(new_world_location_type)
-    self.world_location_type_id = new_world_location_type && new_world_location_type.id
+    where(active: true, world_location_type: "international_delegation")
   end
 
   def display_type
-    world_location_type.name
+    if international_delegation?
+      I18n.t("world_location.type.international_delegation", count: 1)
+    else
+      I18n.t("world_location.type.world_location", count: 1)
+    end
   end
 
   def display_type_key
-    world_location_type.key
+    world_location_type
   end
 
   def name_without_prefix
@@ -106,19 +104,19 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.all_by_type
-    ordered_by_name.group_by(&:world_location_type).sort_by { |type, _location| type.sort_order }
+    ordered_by_name.in_order_of(:world_location_type, %w[world_location international_delegation]).group_by(&:world_location_type)
   end
 
   def self.countries
-    where(world_location_type_id: WorldLocationType::WorldLocation.id).ordered_by_name
+    where(world_location_type: "world_location").ordered_by_name
   end
 
   def self.geographical
-    where(world_location_type_id: WorldLocationType.geographic.map(&:id)).ordered_by_name
+    where(world_location_type: "world_location").ordered_by_name
   end
 
   validates_with SafeHtmlValidator
-  validates :name, :world_location_type_id, presence: true
+  validates :name, :world_location_type, presence: true
 
   extend FriendlyId
   friendly_id
