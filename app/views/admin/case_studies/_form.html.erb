@@ -2,7 +2,7 @@
   <p class="govuk-body"><strong>Use this format for:</strong> Case studies that show someone’s experience of a process covered on GOV.UK or a policy problem the government is trying to solve.</p>
 </div>
 
-<%= standard_edition_form(edition, @information) do |form| %>
+<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,
