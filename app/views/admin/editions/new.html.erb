@@ -11,10 +11,6 @@
       title: "New #{@edition.format_name}"
     } %>
 
-    <% if [Publication, CaseStudy, DocumentCollection, NewsArticle, Speech, StatisticalDataSet, FatalityNotice].include?(@edition.class) %>
-      <%= render "form", edition: @edition %>
-    <% else %>
-      <%= render "legacy_form", edition: @edition %>
-    <% end %>
+    <%= render "form", edition: @edition %>
   </div>
 </div>
