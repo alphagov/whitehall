@@ -1,0 +1,43 @@
+<% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
+
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
+  <%= form.errors %>
+
+  <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
+    <%= form.text_field :title %>
+  <% end %>
+
+  <% if attachable.allows_attachment_references? %>
+    <%= render 'reference_fields_legacy', attachable: attachable, form: form, attachment: attachment %>
+  <% end %>
+
+  <% if attachment.is_a?(HtmlAttachment) %>
+    <%= form.fields_for :govspeak_content do |govspeak_fields| %>
+
+      <%= govspeak_fields.check_box :manually_numbered_headings %>
+      <div class="js-manual-numbering-help<%= ' js-hidden' unless attachment.manually_numbered_headings? %>">
+        <pre>
+  ## 1. First heading
+  ### 1.1 First sub-heading
+  ### 1.2 Second sub-heading
+  ### Unnumbered sub-heading
+
+  Manually number your headings as appropriate using the above numbering scheme.</pre>
+       </div>
+
+      <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
+        <%= govspeak_fields.text_area :body, rows: 20, class: "previewable", data: {
+          module: "paste-html-to-govspeak"
+        } %>
+      <% end %>
+    <% end %>
+  <% elsif attachment.is_a?(ExternalAttachment) %>
+    <%= form.text_field :external_url %>
+  <% else %>
+    <%= render 'attachment_data_fields', form: form %>
+  <% end %>
+
+  <%= hidden_field_tag :type, params[:type] %>
+
+  <%= form.save_or_cancel cancel: attachable_attachments_path(attachable) %>
+<% end %>

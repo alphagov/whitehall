@@ -24,10 +24,12 @@ module AttachmentHelper
   end
 
   def create_external_attachment(url, attachment_title)
+    design_system = @user.has_permission? "Preview design system"
+
     click_on "Add new external attachment"
     fill_in "Title", with: attachment_title
     fill_in "External url", with: url
-    click_on "Save"
+    click_on design_system ? "Next" : "Save"
     Attachment.find_by(title: attachment_title)
   end
 

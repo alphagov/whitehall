@@ -303,6 +303,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
     post :create, params: { edition_id: @edition, attachment: { attachment_data_attributes: {} } }
+    assert_template :new_legacy
+    assert_equal 0, @edition.reload.attachments.size
+  end
+
+  test "POST :create with bad data does not save the attachment and re-renders the new template when the user has the 'Preview design system' permission" do
+    @current_user.permissions << "Preview design system"
+    post :create, params: { edition_id: @edition, attachment: { attachment_data_attributes: {} } }
     assert_template :new
     assert_equal 0, @edition.reload.attachments.size
   end

@@ -2,6 +2,7 @@ class Admin::AttachmentsController < Admin::BaseController
   before_action :limit_attachable_access, if: :attachable_is_an_edition?
   before_action :check_attachable_allows_attachment_type
   before_action :forbid_editing_of_locked_documents, if: :attachable_is_an_edition?
+  layout :get_layout
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
@@ -14,15 +15,21 @@ class Admin::AttachmentsController < Admin::BaseController
     redirect_to attachable_attachments_path(attachable), notice: "Attachments re-ordered"
   end
 
-  def new; end
+  def new
+    render(preview_design_system_user? ? "new" : "new_legacy")
+  end
 
   def create
     if save_attachment
       attachment_updater(attachment.attachment_data)
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
-      render :new
+      render(preview_design_system_user? ? "new" : "new_legacy")
     end
+  end
+
+  def edit
+    render(preview_design_system_user? ? "edit" : "edit_legacy")
   end
 
   def update
@@ -35,7 +42,7 @@ class Admin::AttachmentsController < Admin::BaseController
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
-      render :edit
+      render(preview_design_system_user? ? "edit" : "edit_legacy")
     end
   end
 
@@ -76,6 +83,17 @@ class Admin::AttachmentsController < Admin::BaseController
   helper_method :attachable_attachments_path
 
 private
+
+  def get_layout
+    return "admin" unless preview_design_system_user?
+
+    case action_name
+    when "edit", "update", "new", "create"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def attachment
     @attachment ||= find_attachment || build_attachment
