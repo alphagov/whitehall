@@ -41,27 +41,27 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert offsite_link.valid?
   end
 
-  test "should be valid with whitelisted urls" do
-    whitelisted_urls = [
+  test "should be valid with permitted urls" do
+    permitted_urls = [
       "http://www.flu-lab-net.eu",
       "http://www.tse-lab-net.eu",
       "http://beisgovuk.citizenspace.com",
       "http://www.nhs.uk",
       "http://www.royal.uk",
     ]
-    whitelisted_urls.each do |url|
+    permitted_urls.each do |url|
       assert build(:offsite_link, url:).valid?, "#{url} not valid"
     end
   end
 
-  test "should not be valid with almost whitelisted urls" do
-    whitelisted_urls = [
+  test "should not be valid with almost permitted urls" do
+    permitted_urls = [
       "http://someotherflu-lab-net.eu",
       "http://a.n.othertse-lab-net.eu",
       "http://almostbeisgovuk.citizenspace.com",
       "http://notthenhs.uk",
     ]
-    whitelisted_urls.each do |url|
+    permitted_urls.each do |url|
       assert_not build(:offsite_link, url:).valid?, "#{url} is valid"
     end
   end
