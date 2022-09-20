@@ -24,6 +24,14 @@
     <h3>Product development</h3>
     <ul>
       <li><a href="https://insidegovuk.blog.gov.uk/">Inside GOV.UK blog</a></li>
+      <li><%= link_to("What's new",
+                      admin_whats_new_path,
+                      data: {
+                          track_category: 'dashboardLink',
+                          track_action: "What's new",
+                          track_label: 'whats-new-click'
+                      })%>
+      </li>
     </ul>
   </div>
   <div class="col-md-4">

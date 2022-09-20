@@ -39,6 +39,7 @@
               context: yield(:context),
               title: yield(:title),
               margin_top: 0,
+              margin_bottom: yield(:title_margin_bottom).present? ? yield(:title_margin_bottom) : nil,
             } %>
           </div>
           <div class="govuk-grid-column-one-third app-grid-column--align-right">
