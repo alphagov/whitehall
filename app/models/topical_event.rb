@@ -92,8 +92,6 @@ class TopicalEvent < ApplicationRecord
   extend FriendlyId
   friendly_id
 
-  HM_THE_QUEEN_CONTENT_ID = "7feaef73-a6a8-484a-8915-6efbbe4a8269".freeze
-
   alias_method :display_name, :to_s
 
   def archived?
