@@ -106,17 +106,4 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     draft_edition = published_edition.create_draft(@user)
     assert_equal previous_events, draft_edition.document_version_trail[0..-2]
   end
-
-  test "can request version only trail or remark only trail" do
-    published_edition = create(:published_edition)
-    writer = create(:writer)
-    Edition::AuditTrail.whodunnit = writer
-    writer = create(:writer)
-    editorial_remark_body = "blah"
-    Timecop.freeze(Time.zone.now + 1.day)
-    published_edition.editorial_remarks.create!(body: editorial_remark_body, author: writer)
-    draft_edition = published_edition.create_draft(writer)
-    assert_not draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
-    assert_not draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
-  end
 end
