@@ -1,0 +1,5 @@
+<%= standard_edition_form(edition, @information) do |form| %>
+  <div class="js-external-url-set">
+    <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+  </div>
+<% end %>

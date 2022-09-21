@@ -1,0 +1,20 @@
+<div class="format-advice">
+  <p class="govuk-body"><strong>Use this format for:</strong> Press releases, news stories and responses to media coverage including official statements.</p>
+
+  <p class="govuk-body">Do <em>not</em> use for: promoting the publication of other content (eg statistics).</p>
+</div>
+
+<%= standard_edition_form(edition, @information) do |form| %>
+  <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <%= render 'legacy_appointment_fields', form: form, edition: edition %>
+    <%= render 'legacy_topical_event_fields', form: form, edition: edition %>
+    <%= render 'legacy_worldwide_organisation_fields', form: form, edition: edition %>
+    <%= render 'legacy_world_location_fields', form: form, edition: edition %>
+    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+  <% end %>
+<% end %>

@@ -104,7 +104,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     assert_select "form#new_edition" do
       assert_select "input[name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]'][value$='two-pages.pdf']"
-      assert_select ".already_uploaded", text: "two-pages.pdf already uploaded"
+      assert_select ".govuk-body.already-uploaded", text: "two-pages.pdf already uploaded"
     end
   end
 

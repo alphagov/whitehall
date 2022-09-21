@@ -20,7 +20,7 @@
       } %>
 
       <h2 class="govuk-heading-l">Your version</h2>
-      <%= render "legacy_form", edition: @edition %>
+      <%= render "form", edition: @edition %>
 
       <h2 class="govuk-heading-l">Current saved version</h2>
       <%= render "legacy_conflict", edition: @conflicting_edition %>
@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-md-8">
           <section>
-            <%= render "legacy_form", edition: @edition %>
+            <%= render "form", edition: @edition %>
           </section>
         </div>
       </div>
