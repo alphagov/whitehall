@@ -51,10 +51,6 @@ module Edition::AuditTrail
     }.sort
   end
 
-  def document_version_trail(superseded: true)
-    document_trail(superseded:, versions: true)
-  end
-
 private
 
   def record_create
