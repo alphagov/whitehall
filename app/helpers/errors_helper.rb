@@ -6,7 +6,9 @@ module ErrorsHelper
       if error.attribute == attribute
         error.full_message
       end
-    }.join("\n")
+    }
+    .join("\n")
+    .presence
   end
 
   def errors_for(errors, attribute)

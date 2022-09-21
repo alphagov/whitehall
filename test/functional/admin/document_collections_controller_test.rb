@@ -63,7 +63,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 0, DocumentCollection.count
 
-    assert_select "form .field_with_errors input[name=?]", "edition[title]"
+    assert_select ".govuk-error-message", "Error: Title can't be blank"
   end
 
   view_test "GET #edit renders the edit form for the document collection" do
@@ -95,7 +95,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     assert_equal "old-title", document_collection.reload.title
 
     assert_select "form" do
-      assert_select ".field_with_errors input[name=?]", "edition[title]"
+      assert_select ".govuk-error-message", "Error: Title can't be blank"
     end
   end
 

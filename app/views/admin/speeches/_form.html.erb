@@ -5,7 +5,7 @@
   <p class="govuk-body">Do <em>not</em> use for: statements <em>not</em> made to Parliament (use the “news article” format for those).</p>
 </div>
 
-<%= standard_edition_form(edition, @information) do |form| %>
+<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,

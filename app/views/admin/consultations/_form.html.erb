@@ -4,7 +4,7 @@
   <p class="govuk-body">Check you have read the current <%= link_to "consultation principles", "https://www.gov.uk/government/publications/consultation-principles-guidance", class: "govuk-link" %>.</p>
 </div>
 
-<%= standard_edition_form(edition, @information) do |form| %>
+<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Held on another website",
     heading_level: 3,

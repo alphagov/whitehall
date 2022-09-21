@@ -4,7 +4,7 @@
   <p class="govuk-body">Do <em>not</em> use for: promoting the publication of other content (eg statistics).</p>
 </div>
 
-<%= standard_edition_form(edition, @information) do |form| %>
+<%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
   <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",

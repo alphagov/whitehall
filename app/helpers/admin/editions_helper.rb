@@ -125,17 +125,27 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
-  def standard_edition_form(edition, information)
+  def standard_edition_form(edition, information = nil, preview_design_system: false)
     initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
-
-    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-      concat edition_information(information) if information
-      concat form.errors
-      concat render("legacy_standard_fields", form:, edition:)
-      yield(form)
-      concat render("legacy_access_limiting_fields", form:, edition:)
-      concat render("legacy_scheduled_publication_fields", form:, edition:)
-      concat standard_edition_publishing_controls(form, edition)
+    if preview_design_system
+      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
+        concat edition_information(information) if information
+        concat render("standard_fields", form:, edition:)
+        yield(form)
+        concat render("legacy_access_limiting_fields", form:, edition:)
+        concat render("legacy_scheduled_publication_fields", form:, edition:)
+        concat standard_edition_publishing_controls(form, edition)
+      end
+    else
+      form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
+        concat edition_information(information) if information
+        concat form.errors
+        concat render("legacy_standard_fields", form:, edition:)
+        yield(form)
+        concat render("legacy_access_limiting_fields", form:, edition:)
+        concat render("legacy_scheduled_publication_fields", form:, edition:)
+        concat standard_edition_publishing_controls(form, edition)
+      end
     end
   end
 
