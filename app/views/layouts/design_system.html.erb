@@ -34,6 +34,15 @@
 
       <%= yield(:error_summary) %>
 
+
+      <% if yield(:error_summary).blank? %>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <%= yield(:banner) %>
+          </div>
+        </div>
+      <% end %>
+
       <% if yield(:title).present? %>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-two-thirds">

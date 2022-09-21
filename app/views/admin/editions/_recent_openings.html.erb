@@ -1,0 +1,23 @@
+<%
+  return unless recent_openings.present?
+  if recent_openings.count > 1
+    title = "Multiple people have started editing this #{edition.format_name}:"
+    description_govspeak = render("govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: recent_openings.map do |opening|
+              render_govspeak("
+                #{opening.editor.name} started editing this #{edition.format_name} #{time_ago_in_words opening.created_at} ago and hasn’t yet saved their work.
+                Contact #{mail_to(opening.editor.email)} if you think they are still working on it.
+              ")
+             end
+    })
+  else
+    title = "#{recent_openings.first.editor.name} started editing this #{edition.format_name} #{time_ago_in_words recent_openings.first.created_at} ago and hasn’t yet saved their work."
+    description_govspeak = sanitize("Contact #{mail_to(recent_openings.first.editor.email)} if you think they are still working on it.")
+  end
+%>
+<%= render "govuk_publishing_components/components/notice", {
+  title: title,
+  description_govspeak: description_govspeak,
+  show_banner_title: true,
+} %>

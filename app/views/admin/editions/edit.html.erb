@@ -4,6 +4,7 @@
   })
 %>
 <% content_for :error_summary, render('shared/error_summary', object: @edition.becomes(Edition), class_name: @edition.class.name.demodulize.underscore.humanize.downcase) %>
+<% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -27,7 +28,6 @@
       <div class="row">
         <div class="col-md-8">
           <section>
-            <%= render "legacy_recent_openings", edition: @edition, recent_openings: @recent_openings %>
             <%= render "legacy_form", edition: @edition %>
           </section>
         </div>

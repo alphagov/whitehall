@@ -9,7 +9,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_edition, only: %i[new create]
-  before_action :detect_other_active_editors, only: [:edit]
+  before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
   before_action :build_edition_dependencies, only: %i[new edit]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
