@@ -129,4 +129,22 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     feature_list.reload
     assert_equal 0, feature_list.features.size
   end
+
+  test "display type translates correctly for different document types and different languages" do
+    locales_and_expected_translations = [
+      [:de, "content_publisher_news_story", "document.type.news_story.one"],
+      [:zh, "content_publisher_news_story", "document.type.news_story.other"],
+      [:de, "content_publisher_press_release", "document.type.press_release.one"],
+      [:zh, "content_publisher_press_release", "document.type.press_release.other"],
+      [:de, "campaign", "document.type.campaign.one"],
+      [:zh, "campaign", "document.type.campaign.other"],
+    ]
+
+    locales_and_expected_translations.each do |locale, link_type, expected_translation_path|
+      with_locale(locale) do
+        offsite_link = create(:offsite_link, link_type:)
+        assert_equal I18n.t(expected_translation_path), offsite_link.display_type
+      end
+    end
+  end
 end
