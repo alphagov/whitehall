@@ -1,6 +1,6 @@
 <div class=<%= "right-to-left" if edition.rtl? %>>
   <%= render "subtype_fields", form: form, edition: form.object %>
-  <%= render "legacy_locale_fields", form: form, edition: edition %>
+  <%= render "locale_fields", form: form, edition: edition %>
   <%= form.hidden_field :lock_version %>
 
   <% if form.object.document %>
