@@ -119,7 +119,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def confirm_unwithdraw
-    render :confirm_unwithdraw_legacy
+    render preview_design_system_user? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy
   end
 
   def unwithdraw
@@ -129,7 +129,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
     else
       flash.now[:alert] = edition_unwithdrawer.failure_reason
-      render :confirm_unwithdraw_legacy
+      render preview_design_system_user? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy
     end
   end
 
@@ -183,6 +183,8 @@ private
 
     case action_name
     when "confirm_unpublish"
+      "design_system"
+    when "confirm_unwithdraw"
       "design_system"
     when "unpublish"
       "design_system"
