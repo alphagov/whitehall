@@ -55,7 +55,7 @@ class OffsiteLink < ApplicationRecord
       host = uri.host
     end
 
-    unless government_or_whitelisted_url?(host) || allow_non_government_url?
+    unless government_or_permitted_url?(host)
       errors.add(:base, "Please enter a valid government URL, such as https://www.gov.uk/jobsearch")
     end
   rescue URI::InvalidURIError
@@ -76,13 +76,8 @@ class OffsiteLink < ApplicationRecord
 
 private
 
-  def allow_non_government_url?
-    # This is a special exception
-    parent.content_id == TopicalEvent::HM_THE_QUEEN_CONTENT_ID
-  end
-
-  def government_or_whitelisted_url?(host)
-    url_is_gov_uk?(host) || url_is_gov_wales?(host) || url_is_gov_scot?(host) || url_is_whitelisted?(host)
+  def government_or_permitted_url?(host)
+    url_is_gov_uk?(host) || url_is_gov_wales?(host) || url_is_gov_scot?(host) || url_is_permitted?(host)
   end
 
   def url_is_gov_scot?(host)
@@ -97,14 +92,15 @@ private
     host&.match?(/gov\.uk$/)
   end
 
-  def url_is_whitelisted?(host)
-    whitelisted_hosts = [
+  def url_is_permitted?(host)
+    permitted_hosts = [
       "flu-lab-net.eu",
       "tse-lab-net.eu",
       "beisgovuk.citizenspace.com",
       "nhs.uk",
+      "royal.uk",
     ]
 
-    whitelisted_hosts.any? { |whitelisted_host| host =~ /(?:^|\.)#{whitelisted_host}$/ }
+    permitted_hosts.any? { |permitted_host| host =~ /(?:^|\.)#{permitted_host}$/ }
   end
 end
