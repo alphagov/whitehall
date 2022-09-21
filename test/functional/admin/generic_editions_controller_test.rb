@@ -20,4 +20,14 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     put :update, params: { id: edition, edition: { title: "New title" }, save_and_continue: "Save and continue editing" }
     assert_redirected_to edit_admin_edition_tags_path(GenericEdition.last.id)
   end
+
+  view_test "GET :edit shows the similar slug warning as an error which links to the input when user has 'Preview design system' permission" do
+    current_user.permissions << "Preview design system"
+    create(:edition, title: "title")
+    edition_with_same_title = create(:edition, title: "title")
+
+    get :edit, params: { id: edition_with_same_title }
+
+    assert_select ".govuk-error-summary a", text: "Title is already used on GOV.UK. Please create a unique title", href: "#edition_title"
+  end
 end
