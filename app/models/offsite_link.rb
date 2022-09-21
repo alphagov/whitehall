@@ -34,11 +34,11 @@ class OffsiteLink < ApplicationRecord
     def self.display_type(link_type)
       case link_type
       when "content_publisher_news_story"
-        I18n.t("document.type.news_story.one")
+        I18n.t("document.type.news_story", count: 1)
       when "content_publisher_press_release"
-        I18n.t("document.type.press_release.one")
+        I18n.t("document.type.press_release", count: 1)
       else
-        I18n.t("document.type.#{link_type}.one")
+        I18n.t("document.type.#{link_type}", count: 1)
       end
     end
   end

@@ -41,9 +41,9 @@ class Speech < Announcement
 
   def display_type
     if speech_type.statement_to_parliament?
-      I18n.t("document.type.statement_to_parliament.one")
+      I18n.t("document.type.statement_to_parliament", count: 1)
     else
-      I18n.t("document.type.speech.one")
+      I18n.t("document.type.speech", count: 1)
     end
   end
 

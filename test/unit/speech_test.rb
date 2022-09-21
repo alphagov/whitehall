@@ -79,6 +79,19 @@ class SpeechTest < ActiveSupport::TestCase
     end
   end
 
+  test "display type translates correctly for languages which do and don't use singular nouns" do
+    locales_and_expected_translations = {
+      de: "document.type.speech.one",
+      zh: "document.type.speech.other",
+    }
+    locales_and_expected_translations.each do |locale, expected_translation_path|
+      with_locale(locale) do
+        speech = create(:speech)
+        assert_equal I18n.t(expected_translation_path), speech.display_type
+      end
+    end
+  end
+
   test "creating a new draft should not associate speech with duplicate organisations" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])

@@ -928,6 +928,19 @@ class EditionTest < ActiveSupport::TestCase
     edition.update!(title: "some updated title")
   end
 
+  test "display type translates correctly for languages which do and don't use singular nouns" do
+    locales_and_expected_translations = {
+      de: "document.type.generic_edition.one",
+      zh: "document.type.generic_edition.other",
+    }
+    locales_and_expected_translations.each do |locale, expected_translation_path|
+      with_locale(locale) do
+        speech = create(:edition)
+        assert_equal I18n.t(expected_translation_path), speech.display_type
+      end
+    end
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

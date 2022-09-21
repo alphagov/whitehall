@@ -577,7 +577,7 @@ EXISTS (
   end
 
   def display_type
-    I18n.t("document.type.#{display_type_key}.one")
+    I18n.t("document.type.#{display_type_key}", count: 1)
   end
 
   def display_type_key

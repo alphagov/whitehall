@@ -266,6 +266,19 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     end
   end
 
+  test "display type translates correctly for languages which do and don't use singular nouns" do
+    locales_and_expected_translations = {
+      de: "document.type.official_statistics.one",
+      zh: "document.type.official_statistics.other",
+    }
+    locales_and_expected_translations.each do |locale, expected_translation_path|
+      with_locale(locale) do
+        speech = create(:statistics_announcement)
+        assert_equal I18n.t(expected_translation_path), speech.display_type
+      end
+    end
+  end
+
 private
 
   def create_announcement_with_changes
