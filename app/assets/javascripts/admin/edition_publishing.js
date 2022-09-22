@@ -53,8 +53,10 @@ jQuery(function ($) {
 });
 
 (function ($) {
+  var overrideInput = $('input#person_override_active')
+
   var hidePersonOverride = function () {
-    if ($('input#person_override_active').prop('checked')) {
+    if (overrideInput.prop('checked')) {
       $('.edition_person_override').show()
       $('.role_appointment').hide()
       $('#edition_role_appointment_id').val('')
@@ -65,8 +67,10 @@ jQuery(function ($) {
     }
   }
 
-  $('input#person_override_active').change(hidePersonOverride)
-  hidePersonOverride()
+  if (overrideInput.length > 0) {
+    overrideInput.change(hidePersonOverride)
+    hidePersonOverride()
+  }
 })(jQuery);
 
 (function ($) {
