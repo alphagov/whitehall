@@ -47,7 +47,8 @@
     } %>
   </div>
 
-  <%= render partial: "legacy_additional_significant_fields", locals: { form: form, edition: form.object } %>
+  <%= render "additional_significant_fields", form: form, edition: form.object %>
+
   <% if edition.document && edition.document.live? && can?(:mark_political, edition) %>
     <%= form.hidden_field :political, value: "0" %>
 

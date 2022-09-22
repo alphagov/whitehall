@@ -1,0 +1,16 @@
+<% cache_if edition.role_appointment_id.nil?, taggable_role_appointments_cache_digest do %>
+  <%= render "govuk_publishing_components/components/select", {
+    id: "edition_role_appointment_id",
+    name: "edition[role_appointment_id]",
+    label: "",
+    error_message: errors_for_input(edition.errors, :role_appointment_id),
+    full_width: true,
+    options: ([nil] + taggable_role_appointments_container).map do |speaker, value|
+      {
+        text: speaker,
+        value: value,
+        selected: value == edition.role_appointment_id
+      }
+    end
+  } %>
+<% end %>
