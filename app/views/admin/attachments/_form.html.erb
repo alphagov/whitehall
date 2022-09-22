@@ -1,7 +1,7 @@
 <% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
 
 <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
-  <% content_for :error_summary, render('shared/error_summary', object: attachment.becomes(Attachment), class_name: @attachment.class.name.demodulize.underscore.humanize.downcase) %>
+  <% content_for :error_summary, render('shared/error_summary', object: attachment, parent_class: "attachment", class_name: @attachment.class.name.demodulize.underscore.humanize.downcase) %>
 
   <div class="govuk-!-margin-bottom-8">
     <%= render "govuk_publishing_components/components/input", {
