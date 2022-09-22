@@ -1,3 +1,12 @@
 <%= render partial: 'delivered_by_fields', locals: { form: form, edition: edition } %>
 <%= render partial: 'delivered_on_fields', locals: { form: form, edition: edition } %>
-<%= form.text_field :location %>
+
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "Location",
+    bold: true,
+  },
+  name: "edition[location]",
+  id: "edition_location",
+  value: edition.location
+} %>
