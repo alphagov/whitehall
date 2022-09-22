@@ -1,0 +1,62 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Delivered on (required)",
+  heading_size: "s",
+  id: "edition_delivered_on",
+} do %>
+  <div class="gem-c-date-input govuk-date-input govuk-datetime <%= 'govuk-form-group--error' if  errors_for_input(edition.errors, :delivered_on).present? %>">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Date</h3>
+
+    <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
+      For example, 01 August 2022
+    </div>
+
+    <% if errors_for_input(edition.errors, :delivered_on).present? %>
+      <p class="gem-c-error-message govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> <%= errors_for_input(edition.errors, :delivered_on) %>
+      </p>
+    <% end %>
+
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label for="edition_delivered_on_3i" class="gem-c-label govuk-label">Day</label>
+        <%= select_day edition.delivered_on&.day, { include_blank: true, prefix: "edition", field_name: "delivered_on(3i)" } %>
+      </div>
+    </div>
+
+    <div class="govuk-date-input__item govuk-datetime-month">
+      <div class="govuk-form-group">
+        <label for="edition_delivered_on_2i" class="gem-c-label govuk-label">Month</label>
+        <%= select_month edition.delivered_on&.month, { include_blank: true, prefix: "edition", field_name: "delivered_on(2i)" } %>
+      </div>
+    </div>
+
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label for="edition_delivered_on_1i" class="gem-c-label govuk-label">Year</label>
+        <%= select_year edition.delivered_on&.year, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5, prefix: "edition", field_name: "delivered_on(1i)" } %>
+      </div>
+    </div>
+
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Time</h3>
+
+    <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
+      For example, 09:30 or 19:30
+    </div>
+
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label for="edition_delivered_on_4i" class="gem-c-label govuk-label">Hour</label>
+        <%= select_hour edition.delivered_on&.hour, { include_blank: true, prefix: "edition", field_name: "delivered_on(4i)" } %>
+      </div>
+    </div>
+
+    <p class="govuk-body govuk-date-input__item"> :</p>
+
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label for="edition_delivered_on_5i" class="gem-c-label govuk-label">Minute</label>
+        <%= select_minute edition.delivered_on&.min, { include_blank: true, prefix: "edition", field_name: "delivered_on(5i)" } %>
+      </div>
+    </div>
+  </div>
+<% end %>
