@@ -1,5 +1,5 @@
-<%= content_tag_for(:li, audit_trail_entry) do %>
-  <% if audit_trail_entry.is_a?(Document::PaginatedHistory::AuditTrailEntry) && audit_trail_entry.action == "published" %>
+<%= content_tag(:li, class: "version") do %>
+  <% if audit_trail_entry.action == "published" %>
     <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: audit_trail_entry.version.item_id) %>
   <% end %>
 
