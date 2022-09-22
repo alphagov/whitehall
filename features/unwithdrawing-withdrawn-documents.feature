@@ -9,3 +9,11 @@ Feature: Unpublishing published documents
     When I withdraw the publication with the explanation "Policy change"
     And I unwithdraw the publication
     Then I should be redirected to the latest edition of the publication
+
+  Scenario: Unwithdrawing a withdrawn document with design system permission
+    Given I am a managing editor
+    And I have the "Preview design system" permission
+    And a published publication "Shaving kits for all" exists
+    When I withdraw the publication with the explanation "Policy change"
+    And I unwithdraw the publication
+    Then I should be redirected to the latest edition of the publication
