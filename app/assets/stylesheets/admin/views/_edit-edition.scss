@@ -1,0 +1,22 @@
+.gem-c-select__select--width-4 {
+  max-width: 4.5em;
+  min-width: 4.5em;
+}
+
+.gem-c-select__select--width-6 {
+  max-width: 6.5em;
+  min-width: 6.5em;
+}
+
+.govuk-datetime {
+  select {
+    @extend .govuk-select;
+    @extend .gem-c-select__select--width-4;
+  }
+}
+
+.govuk-datetime-month {
+  select {
+    @extend .gem-c-select__select--width-6;
+  }
+}
