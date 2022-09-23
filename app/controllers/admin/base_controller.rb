@@ -56,6 +56,10 @@ class Admin::BaseController < ApplicationController
     current_user.can_preview_design_system?
   end
 
+  def user_can_preview_second_release?
+    current_user.can_preview_second_release?
+  end
+
 private
 
   def forbidden!

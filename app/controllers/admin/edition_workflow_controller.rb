@@ -103,7 +103,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def confirm_unpublish
     @unpublishing = @edition.build_unpublishing
 
-    render preview_design_system_user? ? :confirm_unpublish : :confirm_unpublish_legacy
+    render(preview_design_system_user? || user_can_preview_second_release? ? :confirm_unpublish : :confirm_unpublish_legacy)
   end
 
   def unpublish
@@ -114,12 +114,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
       flash.now[:alert] = message
-      render preview_design_system_user? ? :confirm_unpublish : :confirm_unpublish_legacy
+      render(preview_design_system_user? || user_can_preview_second_release? ? :confirm_unpublish : :confirm_unpublish_legacy)
     end
   end
 
   def confirm_unwithdraw
-    render preview_design_system_user? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy
+    render(preview_design_system_user? || user_can_preview_second_release? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy)
   end
 
   def unwithdraw
@@ -129,7 +129,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
     else
       flash.now[:alert] = edition_unwithdrawer.failure_reason
-      render preview_design_system_user? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy
+      render(preview_design_system_user? || user_can_preview_second_release? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy)
     end
   end
 
@@ -179,7 +179,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
+    return "admin" unless preview_design_system_user? || user_can_preview_second_release?
 
     case action_name
     when "confirm_unpublish"
