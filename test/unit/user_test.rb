@@ -179,6 +179,16 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_remove_edit_tabs?
   end
 
+  test "cannot preview second release by default" do
+    user = build(:user)
+    assert_not user.can_preview_second_release?
+  end
+
+  test "can preview second release if given permission" do
+    user = build(:user, permissions: [User::Permissions::PREVIEW_SECOND_RELEASE])
+    assert user.can_preview_second_release?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?
