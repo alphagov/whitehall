@@ -18,7 +18,7 @@
   </div>
 
   <% if attachable.allows_attachment_references? %>
-    <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment %>
+    <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment, heading_size: heading_size %>
   <% end %>
 
   <% if attachment.is_a?(HtmlAttachment) %>

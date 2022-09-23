@@ -1,0 +1,34 @@
+<% page_title "Bulk upload for: #{@edition.title}" %>
+
+<div class="row">
+  <section class="col-md-8">
+    <h1>Set titles for your attachments</h1>
+    <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
+      <%= form.errors %>
+
+      <ol class="uploaded-attachments">
+        <% @bulk_upload.attachments.each do |attachment| %>
+          <%= form.fields_for :attachments, attachment do |attachment_fields| %>
+            <li class="well">
+              <span class="file">File: <%= attachment_fields.object.filename %></span>
+              <%= attachment_fields.text_field :title %>
+
+              <% if @edition.allows_attachment_references? %>
+                <%= render 'admin/attachments/reference_fields_legacy', attachable: @edition, form: attachment_fields, attachment: attachment %>
+              <% end %>
+
+              <%= attachment_fields.fields_for :attachment_data, attachment_fields.object.attachment_data, include_id: false do |attachment_data_fields| %>
+                <%= attachment_data_fields.hidden_field :file_cache %>
+                <% if attachment_data_fields.object.to_replace_id %>
+                  <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ol>
+
+      <%= form.save_or_cancel cancel: admin_edition_attachments_path(@edition) %>
+    <% end %>
+  </section>
+</div>
