@@ -11,7 +11,7 @@ Given(/^there is a published document that is a duplicate of another page$/) do
 end
 
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
-  design_system_layout = @user.has_permission? "Preview design system"
+  design_system_layout = @user.can_preview_design_system? || @user.can_preview_second_release?
 
   visit admin_edition_path(@duplicate_edition)
   click_on "Withdraw or unpublish"
@@ -24,7 +24,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
 end
 
 def withdraw_publication(explanation)
-  design_system_layout = @user.has_permission? "Preview design system"
+  design_system_layout = @user.can_preview_design_system? || @user.can_preview_second_release?
 
   @publication = Publication.last
   visit admin_edition_path(@publication)

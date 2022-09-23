@@ -1,6 +1,6 @@
 module UnpublishingHelpers
   def unpublish_edition(edition)
-    design_system_layout = @user.has_permission? "Preview design system"
+    design_system_layout = @user.can_preview_design_system? || @user.can_preview_second_release?
 
     visit admin_edition_path(edition)
     click_on "Withdraw or unpublish"
