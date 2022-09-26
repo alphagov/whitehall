@@ -1,0 +1,55 @@
+Feature: Fatalities
+
+  As a citizen,
+  I want to see a rolling list of fatalities incurred by armed forces per field of operation,
+  So that this information is fully transparent and comprehensive
+
+  This is a sensitive issue, and MOD have refined a way of publishing it which they are keen to replicate.
+
+  See the following Examples:
+
+    http://www.mod.uk/DefenceInternet/FactSheets/OperationsFactsheets/OperationsInIraqBritishFatalities.htm
+    http://www.mod.uk/DefenceInternet/FactSheets/OperationsFactsheets/OperationsInAfghanistanBritishFatalities.htm
+
+  Detail (confirmed by MOD):
+
+  - MOD need to be able to feature fatality notices prominently on the MOD homepage
+  - There will usually not be a high quality image to use on the homepage or the item itself, but the MOD are going to handle this by photoshopping the images themselves.
+  - There needs to be a list of all fatalities, and lists grouped per field of operation. Eg all Afghanistan fatalities on one page, with an introduction specific to that field of operation - ie there needs to be an admin interface to create a field of operation and input introduction text in markdown.
+  - A Field of Operation may not correspond directly to a country, for example 'horn of africa' - we need a new concept in the system
+  - The fatality notice itself is a short paragraph of text, listed in reverse chronology on the all fatalities list and the relevant field of operations.
+  - 24 hours after, the fatality notice links through to a eulogy per person listed. The eulogy is a lot like a news article (MOD uses their news format), but will need to be a seperate type.
+  - Only MOD writers/editors should be able to create these.
+  - The 24 hour 'delay' is done manually: no pre-scheduling or automation needed.
+
+  Implementation notes:
+
+  - We'll model fatality notices as a new edition type. Fatality Notices will be editioned to add the eulogies later.
+  - We'll create a new FieldOfOperation model in the schema, which can only be associated with Fatality Notices.
+  - Fatalities should show on the announcements index, with a filter
+  - Link ministers too
+  - Introduction text for the fatality notice to be displayed on the Field of Operation page is separate to the Summary
+
+  Background:
+    Given an organisation "MOD" has been assigned to handle fatalities
+    And I am an editor in the organisation "MOD"
+    And I have the "Preview design system" permission
+    And I can navigate to the list of announcements
+
+  Scenario: Editor adds field of operation
+    When I create a new field of operation called "New Field" with description "Description"
+    Then I am able to associate fatality notices with "New Field"
+
+  Scenario: Writer manages casualty entries for a fatality shown on the field of operation page
+    Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
+    When I add a casualty to the fatality notice
+    Then I should see a casualty listed on the field of operation page for "Iraq"
+
+  Scenario: Only editors/writers from organisations which handle fatalities can create fatality notices
+    Given I am a writer in the organisation "DFT"
+    Then I cannot edit fields of operation
+    And I cannot create new fatality notices
+
+  Scenario: GDS editors can also edit fatality notices
+    Given I am a GDS editor
+    Then I can create a fatality notice
