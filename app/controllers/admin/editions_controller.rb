@@ -181,7 +181,9 @@ class Admin::EditionsController < Admin::BaseController
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
   end
 
-  def confirm_destroy; end
+  def confirm_destroy
+    render :confirm_destroy_legacy unless preview_design_system_user?
+  end
 
   def destroy
     edition_deleter = Whitehall.edition_services.deleter(@edition)
