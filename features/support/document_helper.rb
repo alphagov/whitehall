@@ -39,11 +39,20 @@ module DocumentHelper
         select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
       end
 
-      case options[:previously_published]
-      when false
-        choose "has never been published before. It is new."
-      when true
-        choose "has previously been published on another website."
+      if @user.can_preview_design_system?
+        case options[:previously_published]
+        when false
+          choose "This document has never been published before.", allow_label_click: true
+        when true
+          choose "This document has previously been published on another website."
+        end
+      else
+        case options[:previously_published]
+        when false
+          choose "has never been published before. It is new."
+        when true
+          choose "has previously been published on another website."
+        end
       end
 
       if options[:all_nation_applicability]
