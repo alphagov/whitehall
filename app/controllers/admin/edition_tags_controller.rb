@@ -9,7 +9,7 @@ class Admin::EditionTagsController < Admin::BaseController
     @topic_taxonomy = Taxonomy::TopicTaxonomy.new
     @tag_form = TaxonomyTagForm.load(@edition.content_id)
 
-    render(preview_design_system_user? ? "edit" : "edit_legacy")
+    render(preview_design_system_user? || user_can_preview_second_release? ? "edit" : "edit_legacy")
   end
 
   def update
@@ -29,7 +29,7 @@ class Admin::EditionTagsController < Admin::BaseController
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
+    return "admin" unless preview_design_system_user? || user_can_preview_second_release?
 
     case action_name
     when "edit"
