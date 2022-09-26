@@ -3,62 +3,7 @@
   heading_size: "s",
   id: "edition_opening_at",
 } do %>
-  <div class="gem-c-date-input govuk-date-input govuk-datetime <%= 'govuk-form-group--error' if  errors_for_input(edition.errors, :opening_at).present? %>">
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Date</h3>
-
-    <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
-      For example, 01 August 2022
-    </div>
-
-    <% if errors_for_input(edition.errors, :opening_at).present? %>
-      <p class="gem-c-error-message govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> <%= errors_for_input(edition.errors, :opening_at) %>
-      </p>
-    <% end %>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_opening_at_3i" class="gem-c-label govuk-label">Day</label>
-        <%= select_day edition.opening_at&.day, { include_blank: true, prefix: "edition", field_name: "opening_at(3i)" } %>
-      </div>
-    </div>
-
-    <div class="govuk-date-input__item govuk-datetime-month">
-      <div class="govuk-form-group">
-        <label for="edition_opening_at_2i" class="gem-c-label govuk-label">Month</label>
-        <%= select_month edition.opening_at&.month, { include_blank: true, prefix: "edition", field_name: "opening_at(2i)" } %>
-      </div>
-    </div>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_opening_at_1i" class="gem-c-label govuk-label">Year</label>
-        <%= select_year edition.opening_at&.year, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5, prefix: "edition", field_name: "opening_at(1i)" } %>
-      </div>
-    </div>
-
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Time</h3>
-
-    <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
-      For example, 09:30 or 19:30
-    </div>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_opening_at_4i" class="gem-c-label govuk-label">Hour</label>
-        <%= select_hour edition.opening_at&.hour, { include_blank: true, prefix: "edition", field_name: "opening_at(4i)" } %>
-      </div>
-    </div>
-
-    <p class="govuk-body govuk-date-input__item"> :</p>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_opening_at_5i" class="gem-c-label govuk-label">Minute</label>
-        <%= select_minute edition.opening_at&.min, { include_blank: true, prefix: "edition", field_name: "opening_at(5i)" } %>
-      </div>
-    </div>
-  </div>
+  <%= render "datetime_fields", form: form, edition: edition, field_name: "opening_at" %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/fieldset", {
@@ -66,60 +11,5 @@
   heading_size: "s",
   id: "edition_closing_at",
 } do %>
-  <div class="gem-c-date-input govuk-date-input govuk-datetime <%= 'govuk-form-group--error' if  errors_for_input(edition.errors, :closing_at).present? %>">
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Date</h3>
-
-    <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
-      For example, 01 August 2022
-    </div>
-
-    <% if errors_for_input(edition.errors, :closing_at).present? %>
-      <p class="gem-c-error-message govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> <%= errors_for_input(edition.errors, :closing_at) %>
-      </p>
-    <% end %>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_closing_at_3i" class="gem-c-label govuk-label">Day</label>
-        <%= select_day edition.closing_at&.day, { include_blank: true, prefix: "edition", field_name: "closing_at(3i)" } %>
-      </div>
-    </div>
-
-    <div class="govuk-date-input__item govuk-datetime-month">
-      <div class="govuk-form-group">
-        <label for="edition_closing_at_2i" class="gem-c-label govuk-label">Month</label>
-        <%= select_month edition.closing_at&.month, { include_blank: true, prefix: "edition", field_name: "closing_at(2i)" } %>
-      </div>
-    </div>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_closing_at_1i" class="gem-c-label govuk-label">Year</label>
-        <%= select_year edition.closing_at&.year, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5, prefix: "edition", field_name: "closing_at(1i)" } %>
-      </div>
-    </div>
-
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Time</h3>
-
-    <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
-      For example, 09:30 or 19:30
-    </div>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_closing_at_4i" class="gem-c-label govuk-label">Hour</label>
-        <%= select_hour edition.closing_at&.hour, { include_blank: true, prefix: "edition", field_name: "closing_at(4i)" } %>
-      </div>
-    </div>
-
-    <p class="govuk-body govuk-date-input__item"> :</p>
-
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label for="edition_closing_at_5i" class="gem-c-label govuk-label">Minute</label>
-        <%= select_minute edition.closing_at&.min, { include_blank: true, prefix: "edition", field_name: "closing_at(5i)" } %>
-      </div>
-    </div>
-  </div>
+  <%= render "datetime_fields", form: form, edition: edition, field_name: "closing_at" %>
 <% end %>
