@@ -6,11 +6,11 @@
   full_width: true,
   value: edition.news_article_type_id,
   error_message: errors_for(edition.errors, :news_article_type_id),
-  options: NewsArticleType.all.map do |type|
+  options: ([nil]+ NewsArticleType.all).map do |type|
     {
-      text: type.singular_name,
-      value: type.id,
-      selected: edition.news_article_type_id == type.id
+      text: type&.singular_name,
+      value: type&.id,
+      selected: edition.news_article_type_id == type&.id
     }
   end
 } %>

@@ -8,7 +8,8 @@
     </p>
   <% end %>
 
-  <select class="govuk-select govuk-select gem-c-select__select--full-width" id="edition_publication_type_id" name="edition[publication_type_id]" >
+  <select class="govuk-select govuk-select gem-c-select__select--full-width" id="edition_publication_type_id" name="edition[publication_type_id]">
+    <option></option>
     <optgroup label="Common types">
       <% PublicationType.primary.each do |publication_type| %>
         <option value=<%= publication_type.id %> <%= "selected" if edition.publication_type_id == publication_type.id %>><%=publication_type.singular_name %></option>

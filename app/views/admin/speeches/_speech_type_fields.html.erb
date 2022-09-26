@@ -6,11 +6,11 @@
   full_width: true,
   value: edition.speech_type_id,
   error_message: errors_for(edition.errors, :speech_type_id),
-  options: SpeechType.primary.map do |type|
+  options: ([nil] + SpeechType.primary).map do |type|
     {
-      text: type.singular_name,
-      value: type.id,
-      selected: edition.speech_type_id == type.id
+      text: type&.singular_name,
+      value: type&.id,
+      selected: edition.speech_type_id == type&.id
     }
   end
 } %>
