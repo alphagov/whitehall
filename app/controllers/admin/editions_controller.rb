@@ -4,7 +4,6 @@ class Admin::EditionsController < Admin::BaseController
 
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
-  before_action :infer_blank_checkbox_params, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
@@ -425,12 +424,6 @@ private
 
   def remove_blank_parameters
     params.reject! { |_, value| value.blank? }
-  end
-
-  def infer_blank_checkbox_params
-    return if edition_params.empty? || !preview_design_system_user?
-
-    edition_params[:political] = "0" if edition_params[:political].blank?
   end
 
   def clean_edition_parameters
