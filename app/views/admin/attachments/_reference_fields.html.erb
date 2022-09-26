@@ -1,4 +1,5 @@
 <%
+  return unless attachable.respond_to?(:translated_locales) && attachable.translated_locales.many?
   options = [{text: "All languages", value: ""}]
   options.concat(attachable.translated_locales.map do |locale|
     {

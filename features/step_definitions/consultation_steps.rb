@@ -12,8 +12,19 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
   begin_drafting_document document_options
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
-  select_date 1.day.ago.to_s, from: "Opening Date"
-  select_date 6.days.from_now.to_s, from: "Closing Date"
+
+  if @user.can_preview_design_system?
+    within "#edition_opening_at" do
+      fill_in_datetime_field(1.day.ago.to_s)
+    end
+
+    within "#edition_closing_at" do
+      fill_in_datetime_field(6.days.from_now.to_s)
+    end
+  else
+    select_date 1.day.ago.to_s, from: "Opening Date"
+    select_date 6.days.from_now.to_s, from: "Closing Date"
+  end
 
   within record_css_selector(Nation.find_by_name!("Wales")) do
     check "Wales"
@@ -75,7 +86,7 @@ When(/^I save and publish the amended consultation$/) do
 end
 
 When(/^I mark the consultation as offsite$/) do
-  check "This consultation is held on another website"
+  check "This consultation is held on another website", allow_label_click: true
 end
 
 Then(/^the consultation can be associated with topical events$/) do

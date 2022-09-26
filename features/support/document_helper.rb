@@ -24,7 +24,7 @@ module DocumentHelper
     end
 
     if options[:locale]
-      check "Create a foreign language only"
+      check "Create a foreign language only", allow_label_click: true
       select options[:locale], from: "Document language"
     end
 

@@ -40,7 +40,6 @@ Scenario: Adding public feedback to a closed consultation
   And I save and publish the amended consultation
   Then I can see that the consultation has been published
 
-@javascript
 Scenario: Associating an offsite consultation with topical events
   Given I am an editor
   And I have the "Preview design system" permission
