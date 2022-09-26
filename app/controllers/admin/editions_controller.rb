@@ -210,7 +210,7 @@ private
     return "admin" unless preview_design_system_user?
 
     case action_name
-    when "edit", "update", "new", "create"
+    when "edit", "update", "new", "create", "confirm_destroy"
       "design_system"
     else
       "admin"
