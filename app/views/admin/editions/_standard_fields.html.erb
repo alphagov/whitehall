@@ -69,7 +69,8 @@
   <% end %>
 </div>
 
-<%= render partial: 'legacy_first_published_at', locals: { form: form, edition: edition } %>
+<%= render 'first_published_at', form: form, edition: edition %>
+
 <% if form.object.allows_image_attachments? %>
   <% if edition.type == "CaseStudy" %>
     <%= render partial: "legacy_image_fields_case_studies", locals: { form: form, edition: form.object } %>
