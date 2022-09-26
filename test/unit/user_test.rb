@@ -179,6 +179,11 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_remove_edit_tabs?
   end
 
+  test "can remove edit tabs if given 'Preview design system' permission" do
+    user = build(:user, permissions: [User::Permissions::PREVIEW_DESIGN_SYSTEM])
+    assert user.can_remove_edit_tabs?
+  end
+
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?

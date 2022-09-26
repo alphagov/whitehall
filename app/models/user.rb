@@ -108,7 +108,7 @@ class User < ApplicationRecord
   end
 
   def can_remove_edit_tabs?
-    has_permission?(Permissions::REMOVE_EDIT_TABS)
+    has_permission?(Permissions::REMOVE_EDIT_TABS) || can_preview_design_system?
   end
 
   def organisation_name
