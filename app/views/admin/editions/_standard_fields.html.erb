@@ -3,7 +3,7 @@
   <%= render "locale_fields", form: form, edition: edition %>
   <%= form.hidden_field :lock_version %>
 
-  <% if form.object.document %>
+  <% if edition.document&.slug.present? %>
     <label for="edition_slug" class="gem-c-label govuk-label govuk-!-font-weight-bold">Slug (read only)</label>
     <input disabled="disabled" class="gem-c-input govuk-input govuk-body govuk-!-margin-bottom-4" id="edition_slug" name="edition[slug]" readonly="readonly" spellcheck="false" type="text" value=<%= edition.slug %>>
   <% end %>
