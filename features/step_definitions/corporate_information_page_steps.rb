@@ -47,13 +47,15 @@ When(/^I translate the "([^"]*)" corporate information page for the worldwide or
   if @user.can_preview_design_system?
     select "Français", from: "Choose language"
     click_button "Next"
+    fill_in "Translated summary", with: "Le summary"
+    fill_in "Translated body (required)", with: "Le body"
   else
     select "Français", from: "Locale"
     click_button "Add translation"
+    fill_in "Summary", with: "Le summary"
+    fill_in "Body", with: "Le body"
   end
 
-  fill_in "Summary", with: "Le summary"
-  fill_in "Body", with: "Le body"
   click_on "Save"
 end
 
