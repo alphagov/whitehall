@@ -1,0 +1,35 @@
+<% if edition.locale_can_be_changed? %>
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "edition[create_foreign_language_only]",
+    id: "edition_create_foreign_language_only",
+    heading: "Foreign language only #{edition.model_name.human.downcase}",
+    no_hint_text: true,
+    error_items: errors_for_input(edition.errors, :create_foreign_language_only),
+    items: [
+      {
+        label: "Create a foreign language only #{edition.model_name.human.downcase}",
+        value: "1",
+        checked: form.object.primary_locale != "en",
+        conditional: (render "govuk_publishing_components/components/select", {
+          id: "edition_primary_locale",
+          name: "edition[primary_locale]",
+          label: "Document language",
+          full_width: true,
+          allow_blank: true,
+          errors: errors_for(edition.errors, :primary_locale),
+          options: ([nil] + options_for_locales(Locale.non_english)).map do |language, value|
+            {
+              text: language,
+              value: value,
+              selected: edition.primary_locale == value
+            }
+          end
+        })
+      }
+    ]
+  } %>
+
+  <% if edition.is_a?(NewsArticle) %>
+    <p class="govuk-body govuk-!-font-weight-bold">Warning: News stories without an English version cannot have other translations.</p>
+  <% end %>
+<% end %>
