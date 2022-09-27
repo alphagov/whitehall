@@ -88,5 +88,33 @@
         }
       %>
     </section>
+
+    <section>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Topic taxonomy tags",
+        padding: true
+      } %>
+
+      <p class="govuk-body">
+        <%= link_to((@edition_taxons.any? ? "Change tags" : "Add tags"), edit_admin_edition_tags_path(@edition.id), class: "govuk-link") %>
+      </p>
+
+      <% @edition_taxons.map(&:full_path).each do | tag_path | %>
+        <div class="govuk-breadcrumbs">
+          <ol class="govuk-breadcrumbs__list">
+            <% tag_path.each do | path | %>
+              <li class="govuk-breadcrumbs__list-item"><%= path[:title] %></li>
+            <% end %>
+          </ol>
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        </div>
+      <% end %>
+
+      <% unless @edition_taxons.any? %>
+        <%= render "govuk_publishing_components/components/warning_text", {
+          text: "Please add a tag before publishing"
+        } %>
+      <% end %>
+    </section>
   </div>
 </div>
