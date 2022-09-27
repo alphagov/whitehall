@@ -1,4 +1,3 @@
-<% content_for :context, @edition.title %>
 <% content_for :page_title, "Edit legacy URL redirects" %>
 
 <% content_for :back_link do %>
@@ -9,6 +8,7 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-xl"><%= @edition.title %></span>
     <%= form_tag admin_edition_document_sources_path(@edition), method: :patch do %>
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
