@@ -116,5 +116,29 @@
         } %>
       <% end %>
     </section>
+
+    <% if @edition.allows_attachments? %>
+      <section>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Attachments",
+          padding: true
+        } %>
+
+        <p class="govuk-body">
+          <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments", admin_edition_attachments_path(@edition.id), class: "govuk-link") %>
+        </p>
+
+        <% if @edition.attachments.any? %>
+          <%= render "govuk_publishing_components/components/table", {
+            rows: @edition.attachments.map do | attachment |
+              [
+                { text: attachment[:title] },
+                { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:slug]), class: "govuk-link"), format: "numeric" },
+              ]
+            end
+          } %>
+        <% end %>
+      </section>
+    <% end %>
   </div>
 </div>
