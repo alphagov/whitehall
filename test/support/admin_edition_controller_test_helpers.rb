@@ -462,7 +462,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form#new_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
-          assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
+          assert_select "p", text: "minister-of-funk.960x640.jpg already uploaded"
         end
       end
 
@@ -698,7 +698,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][value='some-alt-text']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
-          assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
+          assert_select "p", text: "minister-of-funk.960x640.jpg already uploaded"
         end
       end
 

@@ -75,6 +75,6 @@
   <% if edition.type == "CaseStudy" %>
     <%= render partial: "legacy_image_fields_case_studies", locals: { form: form, edition: form.object } %>
   <% else %>
-    <%= render partial: "legacy_image_fields", locals: { form: form, edition: form.object } %>
+    <%= render partial: "image_fields", locals: { form: form, edition: form.object } %>
   <% end %>
 <% end %>
