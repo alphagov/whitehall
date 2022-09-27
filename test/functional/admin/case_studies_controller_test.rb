@@ -23,9 +23,9 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   view_test "case studies show image display options radio buttons" do
     get :new
     assert_select "form#new_edition" do
-      assert_select "#edition_image_display_option_no_image"
-      assert_select "#edition_image_display_option_organisation_image"
-      assert_select "#edition_image_display_option_custom_image"
+      assert_select "input[type='radio'][name='edition[image_display_option]'][value='no_image']"
+      assert_select "input[type='radio'][name='edition[image_display_option]'][value='organisation_image']"
+      assert_select "input[type='radio'][name='edition[image_display_option]'][value='custom_image']"
       assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
       assert_select "textarea[name='edition[images_attributes][0][caption]']"
       assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"

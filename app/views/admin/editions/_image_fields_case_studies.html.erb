@@ -1,0 +1,29 @@
+<%= render "govuk_publishing_components/components/radio", {
+  heading: "Images",
+  name: "edition[image_display_option]",
+  id: "edition_image_display_option",
+  items: [
+    {
+      value: "no_image",
+      text: "Don't use an image",
+      bold: true,
+      hint_text: "No image will be shown on page",
+      checked: edition.image_display_option == "no_image",
+    },
+    {
+      value: "organisation_image",
+      text: "Use the default organisation image",
+      bold: true,
+      hint_text: "The image set in the organisation page will be shown",
+      checked: edition.image_display_option == "organisation_image",
+    },
+    {
+      value: "custom_image",
+      text: "Use a custom image",
+      bold: true,
+      hint_text: "The image set in the organisation page will be shown",
+      checked: edition.image_display_option == "custom_image",
+      conditional: render("image_template", form: form, edition: edition)
+    }
+  ]
+} %>
