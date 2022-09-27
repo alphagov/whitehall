@@ -64,6 +64,29 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert response_form.consultation_response_form_data.file.present?
   end
 
+  test "create should not persist external_url if the external checkbox is not checked" do
+    attributes = controller_attributes_for(
+      :consultation,
+      external: "0",
+      external_url: "http://participation.com",
+      consultation_participation_attributes: {
+        link_url: "http://participation.com",
+        email: "countmein@participation.com",
+        consultation_response_form_attributes: {
+          title: "the title of the response form",
+          consultation_response_form_data_attributes: {
+            file: upload_fixture("two-pages.pdf"),
+          },
+        },
+      },
+    )
+
+    post :create, params: { edition: attributes }
+
+    consultation = Consultation.last
+    assert consultation.external_url.blank?
+  end
+
   test "create should create a new consultation without consultation participation if participation fields are all blank" do
     attributes = controller_attributes_for(
       :consultation,

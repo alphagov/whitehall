@@ -8,6 +8,8 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "",
   } do %>
+    <%= form.hidden_field :external, value: "0" %>
+
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "edition[external]",
       id: "edition_external",
