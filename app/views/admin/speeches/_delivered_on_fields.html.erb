@@ -1,0 +1,7 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Delivered on (required)",
+  heading_size: "s",
+  id: "edition_delivered_on",
+} do %>
+  <%= render "datetime_fields", form: form, edition: edition, field_name: "delivered_on" %>
+<% end %>

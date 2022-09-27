@@ -1,0 +1,56 @@
+<div class="gem-c-date-input govuk-date-input govuk-datetime <%= 'govuk-form-group--error' if errors_for_input(edition.errors, field_name).present? %>">
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Date</h3>
+
+  <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
+    For example, 01 August 2022
+  </div>
+
+  <% if errors_for_input(edition.errors, field_name).present? %>
+    <p class="gem-c-error-message govuk-error-message">
+      <span class="govuk-visually-hidden">Error:</span> <%= errors_for_input(edition.errors, field_name) %>
+    </p>
+  <% end %>
+
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label for="edition_<%= field_name %>_3i" class="gem-c-label govuk-label">Day</label>
+      <%= select_day edition.public_send(field_name)&.day, { include_blank: true, prefix: "edition", field_name: "#{field_name}(3i)" } %>
+    </div>
+  </div>
+
+  <div class="govuk-date-input__item govuk-datetime-month">
+    <div class="govuk-form-group">
+      <label for="edition_<%= field_name %>_2i" class="gem-c-label govuk-label">Month</label>
+      <%= select_month edition.public_send(field_name)&.month, { include_blank: true, prefix: "edition", field_name: "#{field_name}(2i)" } %>
+    </div>
+  </div>
+
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label for="edition_<%= field_name %>_1i" class="gem-c-label govuk-label">Year</label>
+      <%= select_year edition.public_send(field_name)&.year, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5, prefix: "edition", field_name: "#{field_name}(1i)" } %>
+    </div>
+  </div>
+
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Time</h3>
+
+  <div class="gem-c-hint govuk-hint govuk-!-margin-bottom-2">
+    For example, 09:30 or 19:30
+  </div>
+
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label for="edition_<%= field_name %>_4i" class="gem-c-label govuk-label">Hour</label>
+      <%= select_hour edition.public_send(field_name)&.hour, { include_blank: true, prefix: "edition", field_name: "#{field_name}(4i)" } %>
+    </div>
+  </div>
+
+  <p class="govuk-body govuk-date-input__item"> :</p>
+
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label for="edition_<%= field_name %>_5i" class="gem-c-label govuk-label">Minute</label>
+      <%= select_minute edition.public_send(field_name)&.min, { include_blank: true, prefix: "edition", field_name: "#{field_name}(5i)" } %>
+    </div>
+  </div>
+</div>

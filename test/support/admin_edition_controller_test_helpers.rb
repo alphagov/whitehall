@@ -1123,20 +1123,47 @@ module AdminEditionControllerTestHelpers
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#new_edition[action='#{admin_editions_path}']" do
-          assert_select "label[for=edition_first_published_at]", text: "Its original publication date was *"
+          assert_select "input[name*='edition[previously_published']", count: 2
           assert_select "select[name*='edition[first_published_at']", count: 5
+          assert_select "label[for=edition_first_published_at_1i]", text: "Year"
+          assert_select "label[for=edition_first_published_at_2i]", text: "Month"
+          assert_select "label[for=edition_first_published_at_3i]", text: "Day"
+          assert_select "label[for=edition_first_published_at_4i]", text: "Hour"
+          assert_select "label[for=edition_first_published_at_5i]", text: "Minute"
         end
       end
 
-      view_test "edit should display first_published_at fields" do
+      view_test "edit a documents first edition should display first_published_at fields" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
         get :edit, params: { id: edition }
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
-          assert_select "label[for=edition_first_published_at]", text: "Its original publication date was *"
+          assert_select "input[name*='edition[previously_published']", count: 2
           assert_select "select[name*='edition[first_published_at']", count: 5
+          assert_select "label[for=edition_first_published_at_1i]", text: "Year"
+          assert_select "label[for=edition_first_published_at_2i]", text: "Month"
+          assert_select "label[for=edition_first_published_at_3i]", text: "Day"
+          assert_select "label[for=edition_first_published_at_4i]", text: "Hour"
+          assert_select "label[for=edition_first_published_at_5i]", text: "Minute"
+        end
+      end
+
+      view_test "edit subsequent editions should display first_published_at fields, but not show radio buttons" do
+        edition = create(edition_type, published_major_version: 1)
+
+        get :edit, params: { id: edition }
+
+        admin_edition_path = send("admin_#{edition_type}_path", edition)
+        assert_select "form#edit_edition[action='#{admin_edition_path}']" do
+          assert_select "input[name*='edition[previously_published']", count: 0
+          assert_select "select[name*='edition[first_published_at']", count: 5
+          assert_select "label[for=edition_first_published_at_1i]", text: "Year"
+          assert_select "label[for=edition_first_published_at_2i]", text: "Month"
+          assert_select "label[for=edition_first_published_at_3i]", text: "Day"
+          assert_select "label[for=edition_first_published_at_4i]", text: "Hour"
+          assert_select "label[for=edition_first_published_at_5i]", text: "Minute"
         end
       end
 

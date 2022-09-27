@@ -3,7 +3,7 @@
     href: admin_edition_path(@edition)
   })
 %>
-<% content_for :error_summary, render('shared/error_summary', object: @edition.becomes(Edition), class_name: @edition.class.name.demodulize.underscore.humanize.downcase) %>
+<% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 
 <div class="govuk-grid-row">
