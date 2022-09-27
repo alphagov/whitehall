@@ -64,5 +64,29 @@
         <% end %>
       </section>
     <% end %>
+
+    <section>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Document",
+        padding: true
+      } %>
+
+      <%=
+        list_items = [
+          *(link_to("Edit draft", edit_admin_edition_path(@edition), class: "govuk-link") if @edition.editable?),
+          *(link_to("Create new edition", revise_admin_edition_path(@edition), class: "govuk-link") if @edition.is_latest_edition? and @edition.published?),
+          *(link_to("View data about page", content_data_page_data_url(@edition), class: "govuk-link", data: {
+            module: "gem-track-click",
+            track_category: "external-link-clicked",
+            track_action: content_data_page_data_url(@edition),
+            track_label: "View data about page",
+          }) if @edition.publicly_visible?),
+        ].compact
+
+        render "govuk_publishing_components/components/list", {
+          items: list_items
+        }
+      %>
+    </section>
   </div>
 </div>
