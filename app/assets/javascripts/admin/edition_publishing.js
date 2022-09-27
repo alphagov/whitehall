@@ -74,6 +74,8 @@ jQuery(function ($) {
 })(jQuery);
 
 (function ($) {
+  var govukDesignSystemCheckbox = $('input#edition_external-0')
+
   var externalEdition = function () {
     if ($('input#edition_external').prop('checked')) {
       $('.js-external-url').show()
@@ -85,8 +87,10 @@ jQuery(function ($) {
     }
   }
 
-  $('input#edition_external').change(externalEdition)
-  externalEdition()
+  if (govukDesignSystemCheckbox.length < 1) {
+    $('input#edition_external').change(externalEdition)
+    externalEdition()
+  }
 })(jQuery);
 
 (function ($) {
