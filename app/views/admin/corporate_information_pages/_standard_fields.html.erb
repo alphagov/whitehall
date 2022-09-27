@@ -1,5 +1,5 @@
 <div class=<%= "right-to-left" if edition.rtl? %>>
-  <%= render "legacy_subtype_fields", form: form, edition: form.object %>
+  <%= render "subtype_fields", form: form, edition: form.object %>
   <%= form.hidden_field :lock_version %>
 
   <% unless form.object.persisted? %>
@@ -45,9 +45,9 @@
     } %>
   </div>
 
-  <%= render "legacy_additional_significant_fields", form: form, edition: form.object %>
+  <%= render "additional_significant_fields", form: form, edition: form.object %>
 </div>
 
 <% if form.object.allows_image_attachments? %>
-  <%= render "legacy_image_fields", form: form, edition: form.object %>
+  <%= render "image_fields", form: form, edition: form.object %>
 <% end %>
