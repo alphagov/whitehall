@@ -80,7 +80,7 @@ class Admin::EditionsController < Admin::BaseController
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
 
-    render :show_legacy
+    render preview_design_system_user? ? :show : :show_legacy
   end
 
   def new
@@ -197,7 +197,7 @@ class Admin::EditionsController < Admin::BaseController
 private
 
   def get_layout
-    design_system_actions = %w[edit update new create confirm_destroy]
+    design_system_actions = %w[edit update new create confirm_destroy show]
     if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
