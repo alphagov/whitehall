@@ -3,8 +3,13 @@ When(/^I start editing a draft document which can be tagged to the new taxonomy$
   begin_drafting_publication("The Pub")
   stub_taxonomy_data
   stub_patch_links
-  within(".lead-organisations") do
-    select("Taxon Org", from: "Organisation 1")
+
+  if @user.can_preview_design_system?
+    select("Taxon Org", from: "Lead organisation 1")
+  else
+    within(".lead-organisations") do
+      select("Taxon Org", from: "Organisation 1")
+    end
   end
 end
 

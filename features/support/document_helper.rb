@@ -35,7 +35,7 @@ module DocumentHelper
       fill_in_change_note_if_required
       set_lead_organisation_on_document(Organisation.first)
 
-      if options[:alternative_format_provider]
+      if options[:alternative_format_provider] && !@user.can_preview_design_system?
         select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
       end
 
