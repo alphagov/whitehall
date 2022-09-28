@@ -1,6 +1,11 @@
 class Admin::EditionUnpublishingController < Admin::BaseController
+  layout :get_layout
   before_action :load_unpublishing
   before_action :enforce_permissions!
+
+  def edit
+    render "edit_legacy" unless preview_design_system_user?
+  end
 
   def update
     services = Whitehall.edition_services
@@ -13,11 +18,22 @@ class Admin::EditionUnpublishingController < Admin::BaseController
       redirect_to admin_edition_path(@unpublishing.edition), notice: "The public explanation was updated"
     else
       flash.now[:alert] = "The public explanation could not be updated"
-      render :edit
+      render action: preview_design_system_user? ? "edit" : "edit_legacy"
     end
   end
 
 private
+
+  def get_layout
+    return "admin" unless preview_design_system_user?
+
+    case action_name
+    when "edit", "update", "new"
+      "design_system"
+    else
+      "admin"
+    end
+  end
 
   def load_unpublishing
     @unpublishing = Edition.find(params[:edition_id]).unpublishing
