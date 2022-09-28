@@ -1,0 +1,22 @@
+<% required = false unless defined?(required) %>
+
+<% cache_if edition.worldwide_organisation_ids.empty?, taggable_worldwide_organisations_cache_digest do %>
+  <%= render "components/autocomplete", {
+    id: "edition_worldwide_organisation_ids",
+    name: "edition[worldwide_organisation_ids][]",
+    label: {
+      text:  "Worldwide organisations" + "#{' (required)' if required}",
+      bold: true,
+    },
+    select: {
+      options: [""] + taggable_worldwide_organisations_container,
+      multiple: true,
+      selected: edition.worldwide_organisation_ids,
+    },
+    data: {
+      module: 'track-select-click',
+      track_category: 'worldwideOrganisationSelection',
+      track_label: request.path
+    },
+  } %>
+<% end %>
