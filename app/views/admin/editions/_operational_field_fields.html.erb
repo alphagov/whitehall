@@ -1,0 +1,14 @@
+<%= render "govuk_publishing_components/components/select", {
+  id: "edition_operational_field_id",
+  label: "Field of operation (required)",
+  name: "edition[operational_field_id]",
+  heading_size: "s",
+  error_message: errors_for_input(edition.errors, :operational_field_id),
+  options: ([nil] + OperationalField.all).map do |operation|
+    {
+      text: operation&.name,
+      value: operation&.id,
+      selected: operation&.id == edition.operational_field_id
+    }
+  end
+} %>
