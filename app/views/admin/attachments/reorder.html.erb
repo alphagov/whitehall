@@ -1,0 +1,24 @@
+<% content_for :context, attachable.title %>
+<% content_for :page_title, "Reorder attachments" %>
+<% content_for :title, "Reorder attachments" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: attachable_attachments_path(attachable)
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        items: attachable.attachments.includes(:attachment_data).each
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Update order",
+        margin_bottom: 8,
+      } %>
+    <% end %>
+  </section>
+</div>
