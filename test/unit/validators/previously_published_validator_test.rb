@@ -9,7 +9,7 @@ class PreviouslyPublishedValidatorTest < ActiveSupport::TestCase
     invalid_edition = Edition.new
     @validator.validate(invalid_edition)
     assert_equal "You must specify whether the document has been published before",
-                 invalid_edition.errors[:base].first
+                 invalid_edition.errors[:previously_published].first
   end
 
   test "no-op unless record can be previously published" do

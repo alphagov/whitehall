@@ -5,6 +5,8 @@
   } do %>
     <%= render "govuk_publishing_components/components/radio", {
       name: "edition[previously_published]",
+      id: "edition_previously_published",
+      error_items: errors_for(edition.errors, :previously_published),
       items: [
         {
           value: false,
