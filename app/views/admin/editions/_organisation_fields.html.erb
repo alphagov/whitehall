@@ -1,0 +1,62 @@
+<% if edition.can_be_related_to_organisations? %>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Organisations",
+    heading_level: 3,
+    heading_size: "m",
+    id: "edition_organisations",
+    error_message: errors_for_input(edition.errors, :organisations)
+    } do %>
+
+    <h4 class="govuk-heading-s">Lead organisations</h4>
+
+    <% 0.upto(3) do |index| %>
+      <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
+      <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
+        <%= render "govuk_publishing_components/components/select", {
+            id: "edition_lead_organisation_ids_#{index + 1}",
+            name: "edition[lead_organisation_ids][]",
+            label: "Lead organisation #{index + 1}",
+            heading_size: "s",
+            data: {
+                module: 'track-select-click',
+                track_category: 'leadOrgSelection',
+                track_label: request.path
+            },
+            options: ([""] + taggable_organisations_container).map do |name, id|
+            {
+              text: name,
+              value: id,
+              selected: id == lead_organisation_id
+            }
+           end
+        } %>
+      <% end %>
+    <% end %>
+
+    <h4 class="govuk-heading-s">Supporting organisations</h4>
+
+    <% 0.upto(5) do |index| %>
+      <% supporting_organisation_id = supporting_organisation_id_at_index(edition, index) %>
+      <% cache_if supporting_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
+        <%= render "govuk_publishing_components/components/select", {
+          id: "edition_supporting_organisation_ids_#{index + 1}",
+          name: "edition[supporting_organisation_ids][]",
+          label: "Supporting organisation #{index + 1}",
+          heading_size: "s",
+          data: {
+              module: 'track-select-click',
+              track_category: 'supportingOrgSelection',
+              track_label: request.path
+          },
+          options: ([""] + taggable_organisations_container).map do |name, id|
+          {
+            text: name,
+            value: id,
+            selected: id == supporting_organisation_id
+          }
+         end
+        } %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
