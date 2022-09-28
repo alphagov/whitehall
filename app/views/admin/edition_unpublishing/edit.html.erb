@@ -1,31 +1,38 @@
-<% edition = @unpublishing.edition
-   withdrawal_or_unpublishing = withdrawal_or_unpublishing(@unpublishing.edition)
-%>
+<% content_for :context, @unpublishing.edition.title %>
+<% content_for :page_title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explaination" %>
+<% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explaination" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@unpublishing.edition)
+  } %>
+<% end %>
 
-<% page_title "Edit public explanation for #{withdrawal_or_unpublishing}"  %>
-
-<h1><%= edition.title %></h1>
-<div class="well edit-unpublishing-form add-top-margin">
-  <section>
-    <h2 class="remove-top-margin">Edit public explanation for <%= withdrawal_or_unpublishing %></h2>
-    <p>
-      <strong>Reason for <%= withdrawal_or_unpublishing %></strong><br />
-      <%= @unpublishing.unpublishing_reason.as_sentence.capitalize %>
-    </p>
-
-    <%= form_for @unpublishing, url: admin_edition_unpublishing_path(edition) do |f| %>
-      <fieldset>
-        <%= f.text_area :explanation, rows: 5, class: "previewable input-md-8", required: true,
-          label_text: %{Public explanation (this is shown on the live site)}.html_safe,
-          data: {
-            module: "paste-html-to-govspeak"
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_for @unpublishing, url: admin_edition_unpublishing_path(@unpublishing.edition) do |f| %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          heading_size: "l",
+          text: "Public explanation",
+        },
+        hint: "This is shown on the live site",
+        name: "unpublishing[explanation]",
+        value: @unpublishing.explanation,
+        data: {
+          module: "paste-html-to-govspeak"
+        },
+        error_items: (@unpublishing.errors.as_json(full_messages: true)[:explanation].map do |error|
+          {
+            "text": error,
           }
-        %>
-      </fieldset>
-      <fieldset>
-        <%= f.submit "Update #{withdrawal_or_unpublishing} explanation", class: "btn btn-primary" %>
-        <%= link_to 'Cancel', [:admin, edition], class: 'btn btn-default add-left-margin' %>
-      </fieldset>
+        end if @unpublishing.errors[:explanation].present?)
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save",
+        margin_bottom: 8
+      } %>
     <% end %>
   </section>
 </div>
