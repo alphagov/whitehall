@@ -140,5 +140,39 @@
         <% end %>
       </section>
     <% end %>
+
+    <section>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Specialist Topic tags",
+        padding: true
+      } %>
+
+      <p class="govuk-body">
+        <%= link_to((@edition.has_legacy_tags? ? "Change specialist topic tags" : "Add specialist topic tags"), edit_admin_edition_legacy_associations_path(@edition.id), class: "govuk-link") %>
+      </p>
+
+      <% if @edition.has_legacy_tags? %>
+        <% if @edition.has_primary_sector? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Primary specialist topics",
+            font_size: "s",
+            heading_level: 3,
+            margin_bottom: 3,
+          } %>
+          <p class="govuk-body"><%= specialist_sector_name(@edition.primary_specialist_sector_tag) %></p>
+        <% end %>
+        <% if @edition.has_secondary_sectors? %>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: "Secondary specialist topics",
+            font_size: "s",
+            heading_level: 3,
+            margin_bottom: 3,
+          } %>
+          <%= render "govuk_publishing_components/components/list", {
+            items: specialist_sector_names(@edition.secondary_specialist_sector_tags)
+          } %>
+        <% end %>
+      <% end %>
+    </section>
   </div>
 </div>
