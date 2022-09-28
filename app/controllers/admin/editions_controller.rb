@@ -98,7 +98,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document" unless preview_design_system_user?
-      @information = updater.failure_reason
+      @information = updater.failure_reason unless preview_design_system_user?
       build_edition_dependencies
       render(preview_design_system_user? ? :new : :new_legacy)
     end
@@ -127,7 +127,7 @@ class Admin::EditionsController < Admin::BaseController
       if speed_tagging?
         render :show
       else
-        @information = updater.failure_reason
+        @information = updater.failure_reason unless preview_design_system_user?
         build_edition_dependencies
         fetch_version_and_remark_trails
         construct_similar_slug_warning_error

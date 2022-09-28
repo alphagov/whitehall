@@ -129,7 +129,6 @@ module Admin::EditionsHelper
     initialise_script "GOVUK.adminEditionsForm", selector: ".js-edition-form", right_to_left_locales: Locale.right_to_left.collect(&:to_param)
     if preview_design_system
       form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
-        concat edition_information(information) if information
         concat render("standard_fields", form:, edition:)
         yield(form)
         concat render("legacy_access_limiting_fields", form:, edition:)

@@ -341,56 +341,6 @@ module AdminEditionControllerTestHelpers
               },
             }
       end
-
-      view_test "reports an error if the updater has an error on create" do
-        draft_updater = stub(
-          "draft updater",
-          can_perform?: false,
-          perform!: false,
-          failure_reason: "Unable to perform draft update",
-        )
-
-        Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
-
-        attributes = controller_attributes_for(edition_type)
-
-        assert_difference "Edition.count", 0 do
-          post :create,
-               params: {
-                 edition: attributes.merge(
-                   summary: "my summary",
-                 ),
-               }
-        end
-
-        assert_template "editions/new"
-        assert_select ".alert", text: /Unable to perform draft update/
-      end
-
-      view_test "reports an error if the updater has an error on update" do
-        edition = create("draft_#{edition_type}", title: "Original title")
-
-        draft_updater = stub(
-          "draft updater",
-          can_perform?: false,
-          perform!: false,
-          failure_reason: "Unable to perform draft update",
-        )
-
-        Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                title: "updated title",
-              },
-            }
-
-        assert_equal "Original title", edition.reload.title
-        assert_template "editions/edit"
-        assert_select ".alert", text: /Unable to perform draft update/
-      end
     end
 
     def should_allow_speed_tagging_of(edition_type)
