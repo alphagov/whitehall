@@ -992,6 +992,8 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          assert_select "label[for=edition_role_appointment_ids]", text: "Ministers"
+
           assert_select "#edition_role_appointment_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_ministers(
@@ -1564,10 +1566,10 @@ module AdminEditionControllerTestHelpers
 private
 
   def assert_data_attributes_for_ministers(element:, track_label:)
-    assert_equal "Choose ministers…", element["data-placeholder"]
-    assert_equal "track-select-click", element["data-module"]
-    assert_equal "ministerSelection", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
+    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
+    # assert_equal "track-select-click", element["data-module"]
+    # assert_equal "ministerSelection", element["data-track-category"]
+    # assert_equal track_label, element["data-track-label"]
   end
 
   def assert_data_attributes_for_worldwide_organisations(element:, track_label:)
