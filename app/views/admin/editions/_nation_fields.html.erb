@@ -1,0 +1,75 @@
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][0][id]", edition.nation_inapplicabilities.find_by(nation_id: 1)&.id %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][1][id]", edition.nation_inapplicabilities.find_by(nation_id: 2)&.id %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][2][id]", edition.nation_inapplicabilities.find_by(nation_id: 3)&.id %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][3][id]", edition.nation_inapplicabilities.find_by(nation_id: 4)&.id %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][0][nation_id]", 1 %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][1][nation_id]", 2 %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][2][nation_id]", 3 %>
+<%= hidden_field_tag "edition[nation_inapplicabilities_attributes][3][nation_id]", 4 %>
+
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "edition[all_nation_applicability][]",
+  id: "edition_nation_inapplicabilities",
+  heading: "Excluded nations",
+  error: errors_for_input(edition.errors, :nation_inapplicabilities),
+  no_hint_text: true,
+  items: [
+    {
+      label: "Applies to all UK nations",
+      value: "all_nations",
+      checked: edition.all_nation_applicability_selected?
+    },
+    {
+      label: "Does not apply to England",
+      value: "england",
+      checked: edition.nation_inapplicabilities.map(&:nation_id).include?(1),
+      conditional: (render "govuk_publishing_components/components/input", {
+         label: {
+           text: "URL of corresponding content"
+         },
+         name: "edition[nation_inapplicabilities_attributes][0][alternative_url]",
+         id: "edition_nation_inapplicabilities_attributes_0_alternative_url",
+         value: @edition.nation_inapplicabilities.select { |inapplicability| inapplicability.nation_id == 1 }.first&.alternative_url,
+      })
+    },
+    {
+      label: "Does not apply to Scotland",
+      value: "scotland",
+      checked: edition.nation_inapplicabilities.map(&:nation_id).include?(2),
+      conditional: (render "govuk_publishing_components/components/input", {
+         label: {
+           text: "URL of corresponding content"
+         },
+         name: "edition[nation_inapplicabilities_attributes][1][alternative_url]",
+         id: "edition_nation_inapplicabilities_attributes_1_alternative_url",
+         value: @edition.nation_inapplicabilities.select { |inapplicability| inapplicability.nation_id == 2 }.first&.alternative_url,
+      })
+    },
+    {
+      label: "Does not apply to Wales",
+      value: "wales",
+      checked: edition.nation_inapplicabilities.map(&:nation_id).include?(3).present?,
+      conditional: (render "govuk_publishing_components/components/input", {
+         label: {
+           text: "URL of corresponding content"
+         },
+         name: "edition[nation_inapplicabilities_attributes][2][alternative_url]",
+         id: "edition_nation_inapplicabilities_attributes_2_alternative_url",
+         value: @edition.nation_inapplicabilities.select { |inapplicability| inapplicability.nation_id == 3 }.first&.alternative_url,
+      })
+    },
+    {
+      label: "Does not apply to  Northern Ireland",
+      value: "northern_ireland",
+      checked: edition.nation_inapplicabilities.map(&:nation_id).include?(4),
+      conditional: (render "govuk_publishing_components/components/input", {
+         label: {
+           text: "URL of corresponding content"
+         },
+         name: "edition[nation_inapplicabilities_attributes][3][alternative_url]",
+         id: "edition_nation_inapplicabilities_attributes_3_alternative_url",
+         value: @edition.nation_inapplicabilities.select { |inapplicability| inapplicability.nation_id == 4 }.first&.alternative_url,
+      })
+    }
+  ]
+} %>
