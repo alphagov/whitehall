@@ -1,15 +1,19 @@
 <div class="format-advice">
-  <p><strong>Use this format for:</strong> Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don’t publish a news story which duplicates this announcement.</p>
+  <p class="govuk-body"><strong>Use this format for:</strong> Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don’t publish a news story which duplicates this announcement.</p>
 </div>
 
 <%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
-  <fieldset>
-    <legend>Associations</legend>
-    <p>You'll be able to specialist sectors later.</p>
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Associations",
+    heading_level: 3,
+    heading_size: "l"
+  } do %>
+    <p class="govuk-body">You'll be able to specialist sectors later.</p>
+
     <%= render 'organisation_fields', form: form, edition: edition %>
     <%= render 'appointment_fields', form: form, edition: edition %>
-    <%= render 'legacy_operational_field_fields', form: form, edition: edition %>
-  </fieldset>
+    <%= render 'operational_field_fields', form: form, edition: edition %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Roll call info (displays on the field of operation) (required)",
