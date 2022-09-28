@@ -154,4 +154,19 @@ Please tell us:
 
     link_to native_language_name_for(locale), options, lang: locale, class: "govuk-link"
   end
+
+  def render_timeline(timeline)
+    list_items = timeline.entries.map do |entry|
+      case entry
+      when EditorialRemark
+        render partial: "admin/editions/remark_entry", locals: { remark: entry }
+      when Document::PaginatedHistory::AuditTrailEntry
+        render partial: "admin/editions/audit_trail_entry", locals: { audit_trail_entry: entry }
+      end
+    end
+
+    tag.ul(class: "list-unstyled") do
+      list_items.join.html_safe
+    end
+  end
 end

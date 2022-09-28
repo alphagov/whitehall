@@ -9,11 +9,9 @@
     <div class="audit-trail-page">
       <h1>History</h1>
 
-      <%= paginate @document_history.query, theme: 'audit_trail' %>
-      <ul class="list-unstyled">
-        <%= render partial: "admin/editions/audit_trail_entry", collection: @document_history.audit_trail %>
-      </ul>
-      <%= paginate @document_history.query, theme: 'audit_trail' %>
+      <%= paginate @timeline, theme: 'audit_trail' %>
+      <%= render_timeline @timeline %>
+      <%= paginate @timeline, theme: 'audit_trail' %>
     </div>
   </section>
 </div>

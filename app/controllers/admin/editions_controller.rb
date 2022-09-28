@@ -199,7 +199,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def history
-    @document_history = Document::PaginatedHistory.new(@edition.document, params[:page])
+    @timeline = Document::PaginatedTimeline.new(document: @edition.document, page: params.fetch(:page, 1))
   end
 
 private

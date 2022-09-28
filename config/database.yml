@@ -1,6 +1,7 @@
 default: &default
   encoding: utf8
   adapter: mysql2
+  prepared_statements: true
   variables:
     sql_mode: TRADITIONAL
 
