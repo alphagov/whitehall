@@ -1,0 +1,17 @@
+<% page_title @edition.title, @edition.format_name %>
+<% page_class "edition-show" %>
+<% initialise_script "GOVUK.adminEditionShow" %>
+
+<div class="row">
+  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-8" %> edition-metadata">
+    <h2>Associated user needs</h2>
+    <fieldset class="document-user-needs">
+      <%= form_tag admin_update_needs_path(content_id: @document.content_id), method: :patch do %>
+          <%= label_tag :need_ids, 'Select/deselect needs', required: true %>
+          <%= select_tag :need_ids, options_for_select(taggable_needs_container, @document.need_ids), multiple: true, class: 'chzn-select form-control', data: { placeholder: "Search Maslow user needs by title"} %>
+          <br/>
+          <%= submit_tag "Save needs", class: "btn btn-primary" %>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
