@@ -9,6 +9,7 @@ Before do
   )
 
   stub_request(:any, %r{\A#{publishing_api_v1_endpoint}})
+  GdsApi::PublishingApi.any_instance.stubs(:discard_draft)
   GdsApi::PublishingApi.any_instance.stubs(:publish)
   GdsApi::PublishingApi.any_instance.stubs(:put_content)
   GdsApi::PublishingApi.any_instance.stubs(:patch_links)

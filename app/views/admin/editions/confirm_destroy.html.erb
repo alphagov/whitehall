@@ -1,14 +1,24 @@
-<% page_title "Are you sure you want to discard #{@edition.title}?" %>
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Delete draft" %>
+<% content_for :title, "Delete draft" %>
+<% content_for :title_margin_bottom, 6 %>
 
-<span class="back">
-  <%= link_to 'Back', admin_edition_path(@edition) %>
-</span>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition)
+  } %>
+<% end %>
 
-<div class="row">
-  <div class="col-md-8">
-    <h1 class="add-bottom-margin">Are you sure you want to discard "<%= @edition.title %>"?</h1>
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
     <%= form_tag admin_edition_path(@edition), method: :delete do %>
-      <%= submit_tag 'Discard', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete this draft?</p>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Delete",
+        destructive: true,
+        margin_bottom: 8,
+      } %>
     <% end %>
-  </div>
+  </section>
 </div>
