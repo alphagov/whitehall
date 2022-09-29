@@ -210,5 +210,32 @@
         <% end %>
       </section>
     <% end %>
+
+    <section>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Associated user needs",
+        padding: true
+      } %>
+
+      <% if @edition.id == @edition.document.latest_edition.id %>
+        <p class="govuk-body">
+          <%= link_to("#{@edition.document.associated_needs.any? ? "Modify" : "Add"} associated user needs", admin_edit_needs_path(content_id: @edition.document.content_id), class: "govuk-link") %>
+        </p>
+      <% end %>
+
+      <% if @edition.document.associated_needs.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          rows: @edition.document.associated_needs.map do | need |
+            [
+              { text: need["title"] },
+              {
+                text: link_to("View need in Maslow", need["base_url"], class: "govuk-link"),
+                format: "numeric"
+              }
+            ]
+          end
+        } %>
+      <% end %>
+    </section>
   </div>
 </div>
