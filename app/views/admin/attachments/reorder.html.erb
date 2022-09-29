@@ -12,7 +12,13 @@
   <section class="govuk-grid-column-two-thirds">
     <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
       <%= render "govuk_publishing_components/components/reorderable_list", {
-        items: attachable.attachments.includes(:attachment_data).each
+        items: attachable.attachments.includes(:attachment_data).map do |attachment|
+          {
+            id: attachment.id,
+            title: attachment.title,
+            description: attachment_attributes(attachment)
+          }
+        end
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
