@@ -133,7 +133,7 @@
             rows: @edition.attachments.map do | attachment |
               [
                 { text: attachment[:title] },
-                { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:slug]), class: "govuk-link"), format: "numeric" },
+                { text: link_to("Edit", edit_admin_edition_attachment_path(@edition.id, attachment[:id]), class: "govuk-link"), format: "numeric" },
               ]
             end
           } %>
