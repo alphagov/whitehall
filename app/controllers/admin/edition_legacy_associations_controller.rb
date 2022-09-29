@@ -3,9 +3,11 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :limit_edition_access!
   before_action :forbid_editing_of_locked_documents
+  layout :get_layout
 
   def edit
     @path = get_path
+    render(preview_design_system_user? ? "edit" : "edit_legacy")
   end
 
   def update
@@ -17,6 +19,10 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   end
 
 private
+
+  def get_layout
+    preview_design_system_user? ? "design_system" : "admin"
+  end
 
   def get_path
     paths = {
