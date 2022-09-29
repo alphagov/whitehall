@@ -31,21 +31,14 @@ class Admin::BulkUploadsController < Admin::BaseController
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
     else
-      render :set_titles
+      render(preview_design_system_user? ? "set_titles" : "set_titles_legacy")
     end
   end
 
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
-
-    case action_name
-    when "new", "upload_zip"
-      "design_system"
-    else
-      "admin"
-    end
+    preview_design_system_user? ? "design_system" : "admin"
   end
 
   def find_edition

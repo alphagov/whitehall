@@ -105,6 +105,13 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     assert_equal @titles[1], @edition.attachments[1].title
   end
 
+  view_test "POST :create with invalid attachments re-renders the bulk upload form" do
+    post :create, params: { edition_id: @edition, bulk_upload: invalid_create_params }
+
+    assert_response :success
+    assert_select ".form-errors", text: /enter missing fields/
+  end
+
   view_test "POST :create with invalid attachments re-renders the bulk upload form with design system permission" do
     @current_user.permissions << "Preview design system"
 
