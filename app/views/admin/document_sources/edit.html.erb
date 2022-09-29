@@ -1,19 +1,31 @@
-<% page_title 'Edit legacy URL redirects' %>
+<% content_for :page_title, "Edit legacy URL redirects" %>
 
-<span class="back">
-  <%= link_to 'Back', admin_edition_path(@edition) %>
-</span>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition)
+  } %>
+<% end %>
 
-<h1>Edit legacy URL redirects</h1>
-
-<div class="row">
-  <div class="col-md-8">
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-xl"><%= @edition.title %></span>
     <%= form_tag admin_edition_document_sources_path(@edition), method: :patch do %>
-      <p>Enter one URL per line.</p>
-      <div class="form-group">
-        <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 20, class: 'form-control add-bottom-margin' %>
-        <%= submit_tag "Save", class: "btn btn-success" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
-      </div>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          is_page_heading: true,
+          heading_size: "xl",
+          text: "Edit legacy URL redirects"
+        },
+        hint: "Enter one URL per line.",
+        name: "document_sources",
+        id: "document_sources",
+        value: @edition.document.document_sources.map(&:url).join("\n"),
+        rows: 20
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save",
+        margin_bottom: 8
+      } %>
     <% end %>
   </div>
 </div>
