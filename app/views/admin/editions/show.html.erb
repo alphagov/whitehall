@@ -237,5 +237,50 @@
         } %>
       <% end %>
     </section>
+
+    <section>
+      <% if @edition.imported? %>
+        convert_to_draft_edition_form
+        <%= convert_to_draft_edition_form(@edition) %>
+      <% end %>
+
+      <% if @edition.can_unschedule? && can?(:update, @edition) %>
+        unschedule_edition_button
+        <%= unschedule_edition_button(@edition) %>
+      <% end %>
+
+      <% if scheduler.can_perform? && can?(:publish, @edition) %>
+        schedule_edition_form
+        <%= schedule_edition_form(@edition) %>
+      <% elsif force_scheduler.can_perform? && can?(:force_publish, @edition) %>
+        schedule_edition_form force
+        <%= schedule_edition_form(@edition, force: true) %>
+      <% end %>
+
+      submit_edition_button start
+      <%= submit_edition_button(@edition) if @edition.can_submit? %>
+      submit_edition_button end
+
+      <% if publisher.can_perform? && can?(:publish, @edition) %>
+        publish_edition_form
+        <%= publish_edition_form(@edition) %>
+      <% elsif force_publisher.can_perform? && can?(:force_publish, @edition) %>
+        <%= publish_edition_form(@edition, force: true) %>
+      <% end %>
+
+      <%= reject_edition_button(@edition) if @edition.can_reject? && can?(:reject, @edition) %>
+      <%= # TODO: remove condition based on unpublishing once we have a separate state for unpublished editions
+        delete_edition_button(@edition) if @edition.can_delete? && @edition.unpublishing.nil? %>
+      <% if can?(:unpublish, @edition) %>
+        <% if @edition.published? %>
+          <%= link_to 'Withdraw or unpublish', confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
+        <% elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present? %>
+          <%= link_to "Edit #{withdrawal_or_unpublishing(@edition)} explanation", edit_admin_edition_unpublishing_path(@edition), class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <% if can?(:unwithdraw, @edition) && @edition.can_unwithdraw? %>
+        <%= link_to 'Unwithdraw', confirm_unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
+      <% end %>
+    </section>
   </div>
 </div>
