@@ -6,13 +6,12 @@
 
 <%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "",
+    legend_text: ""
   } do %>
     <%= form.hidden_field :external, value: "0" %>
 
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "edition[external]",
-      id: "edition_external",
       heading: "Held on another website",
       heading_level: 3,
       heading_size: "l",
