@@ -79,18 +79,8 @@ Whitehall::Application.routes.draw do
 
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
 
-    scope "/get-involved" do
-      # Controller removed. Whitehall frontend no longer serves these
-      # pages however the route is needed to generate path and url
-      # helper methods.
-      root to: "home#get_involved", as: :get_involved, via: :get
-      get "take-part/:id", to: "take_part_pages#show", as: "take_part_page"
-    end
-
     resource :email_signups, path: "email-signup", only: %i[create new]
     get "/email-signup", to: redirect("/")
-
-    get "/tour" => redirect("/tour", prefix: "")
 
     get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
     get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
@@ -98,28 +88,22 @@ Whitehall::Application.routes.draw do
     get "/news" => redirect("/announcements"), as: "news_articles"
     get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
 
-    get "/latest" => "latest#index", as: "latest"
-
     get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
-    get "/publications/:id(.:locale)", as: "publication", to: "_#_", constraints: { locale: valid_locales_regex }
-    get "/publications/:publication_id/:id" => "_#_", as: "publication_html_attachment"
-
-    # TODO: Remove when paths can be generated without a routes entry
-    get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
-    get "/speeches/:id(.:locale)", as: "speech", to: "speeches#show", constraints: { locale: valid_locales_regex }
-    resources :statistical_data_sets, path: "statistical-data-sets", only: [:show]
 
     get "/speeches" => redirect("/announcements")
 
-    # Controller removed for stats announce show. Whitehall frontend no longer serves these
-    # pages however the route is needed to generate path and url
-    # helper methods.
-    # TODO: Remove `:show` when stats announcement paths can be otherwise generated
-    resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
-    get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
-    get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
-    get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
+    get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
+    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
 
+    resources :operational_fields, path: "fields-of-operation", only: %i[index show]
+
+    # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
+    get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
+    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
+    get "/collections" => redirect("/publications")
+    get "/consultations/:consultation_id/:id" => "_#_", as: "consultation_html_attachment"
+    get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
+    get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
     get "/consultations/:id(.:locale)", as: "consultation", to: "consultations#show", constraints: { locale: valid_locales_regex }
     resources :consultations, only: %i[index] do
       collection do
@@ -128,25 +112,13 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
-    get "/consultations/:consultation_id/:id" => "_#_", as: "consultation_html_attachment"
-    get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
-    get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
-
-    # Controller removed. Whitehall frontend no longer serves these
-    # pages however the route is needed to generate path and urlgenerate path and url
-    # helper methods.
-    resources :topical_events, path: "topical-events", only: [:show] do
-      # TODO: Remove when about page paths can be otherwise generated
-      resource :about_pages, path: "about", only: [:show]
+    scope "/get-involved" do
+      root to: "home#get_involved", as: :get_involved, via: :get
+      get "take-part/:id", to: "take_part_pages#show", as: "take_part_page"
     end
-
-    # TODO: Remove when paths can be generated without a routes entry
-    get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
-    get "/collections" => redirect("/publications")
-
+    get "/latest" => "latest#index", as: "latest"
     get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: valid_locales_regex }
     resources :organisations, only: [:index]
-
     resources :organisations, only: [] do
       # No need to forward the locale as collections aren't localised.
       get "/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
@@ -159,14 +131,21 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
-
-    get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
-    get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
     get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: valid_locales_regex }
-
-    # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: "groups", only: [:show]
-    resources :operational_fields, path: "fields-of-operation", only: %i[index show]
+    get "/publications/:id(.:locale)", as: "publication", to: "_#_", constraints: { locale: valid_locales_regex }
+    get "/publications/:publication_id/:id" => "_#_", as: "publication_html_attachment"
+    get "/speeches/:id(.:locale)", as: "speech", to: "speeches#show", constraints: { locale: valid_locales_regex }
+    resources :statistical_data_sets, path: "statistical-data-sets", only: [:show]
+    resources :statistics_announcements, path: "statistics/announcements", only: %i[index show]
+    get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
+    get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
+    get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
+    resources :topical_events, path: "topical-events", only: [:show] do
+      resource :about_pages, path: "about", only: [:show]
+    end
+    get "/tour" => redirect("/tour", prefix: "")
+    # End of routes no longer rendered by Whitehall
 
     constraints(AdminRequest) do
       namespace :admin do
