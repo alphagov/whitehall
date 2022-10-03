@@ -1,17 +1,32 @@
-<% page_title @edition.title, @edition.format_name %>
-<% page_class "edition-show" %>
-<% initialise_script "GOVUK.adminEditionShow" %>
+<% content_for :page_title, @edition.title %>
+<% content_for :title, "Associated user needs" %>
+<% content_for :context, @edition.title %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", href: admin_edition_path(@edition) %>
+<% end %>
 
-<div class="row">
-  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-8" %> edition-metadata">
-    <h2>Associated user needs</h2>
-    <fieldset class="document-user-needs">
-      <%= form_tag admin_update_needs_path(content_id: @document.content_id), method: :patch do %>
-          <%= label_tag :need_ids, 'Select/deselect needs', required: true %>
-          <%= select_tag :need_ids, options_for_select(taggable_needs_container, @document.need_ids), multiple: true, class: 'chzn-select form-control', data: { placeholder: "Search Maslow user needs by title"} %>
-          <br/>
-          <%= submit_tag "Save needs", class: "btn btn-primary" %>
-      <% end %>
-    </fieldset>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">      
+    <%= form_tag admin_update_needs_path(content_id: @document.content_id), method: :patch do %>
+      <%= render "components/autocomplete", {
+          id: "need_ids",
+          name: "need_ids[]",
+          label: {
+            text: "Select associated user needs",
+            bold: true,
+            required: true,
+          },
+          heading_size: "l",
+          select: {
+            options: [""] + taggable_needs_container,
+            multiple: true,
+            selected: @document.need_ids,
+          },
+      } %>
+
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save"
+        } %>
+    <% end %>
   </div>
 </div>
