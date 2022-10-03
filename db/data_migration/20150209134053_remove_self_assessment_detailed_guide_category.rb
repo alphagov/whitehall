@@ -1,5 +1,5 @@
 require "gds_api/router"
-router_api = GdsApi::Router.new(Plek.current.find("router-api"))
+router_api = GdsApi::Router.new(Plek.new.find("router-api"))
 
 REDIRECT_TO = "/government/organisations/hm-revenue-customs".freeze
 

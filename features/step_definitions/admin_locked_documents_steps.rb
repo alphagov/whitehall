@@ -22,7 +22,7 @@ Then(/^I can see that the document cannot be edited$/) do
 end
 
 And(/^I can see that the document can be edited in Content Publisher$/) do
-  content_publisher_base_url = Plek.current.external_url_for("content-publisher")
+  content_publisher_base_url = Plek.new.external_url_for("content-publisher")
   content_publisher_link = "#{content_publisher_base_url}/documents/#{@edition.content_id}:#{@edition.primary_locale}"
   expect(page).to have_link("Edit in Content Publisher", href: content_publisher_link)
 end
