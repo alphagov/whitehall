@@ -15,14 +15,17 @@ en:
       upcoming_changes:
         heading: Upcoming changes
         updates:
-          - heading: Reusing previous withdrawal dates and public explanations
+          - heading: Topic taxonomy tagging and unpublishing and withdrawing pages move to the Design System
             area: Creating and updating documents
             type: improved
-            date: 26 September 2022
+            date: 5 October 2022
             body_govspeak: |
-              When re-withdrawing content, you can choose to reuse a previous withdrawal date and public explanation in certain circumstances.
+              The following pages will move to the GOV.UK Design System:
+              
+              * topic taxonomy tagging
+              * unpublishing, withdrawing and unwithdrawing
 
-              [Read the guidance about when you can reuse previous withdrawal dates and explanations](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving).
+              Topics that are tagged to a document will be listed under the ‘Selected topics’ header on the ‘Topic taxonomy tags’ page. You can also remove tags in this section.
       recent_changes:
         heading: Recent changes
         updates:
