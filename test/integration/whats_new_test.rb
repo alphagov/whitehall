@@ -25,7 +25,7 @@ class WhatsNewTest < ActionDispatch::IntegrationTest
     get admin_whats_new_path
 
     assert_select ".gem-c-phase-banner"
-    assert_select ".gem-c-phase-banner .govuk-phase-banner__content__tag", text: "Update"
+    assert_select ".gem-c-phase-banner .govuk-phase-banner__content__tag"
     assert_select ".gem-c-phase-banner .govuk-phase-banner__text"
   end
 end
