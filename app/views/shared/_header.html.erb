@@ -1,7 +1,7 @@
 <% environment_style = GovukAdminTemplate.environment_style %>
 <% environment_label = GovukAdminTemplate.environment_label %>
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
-<% show_notices ||= true %>
+<% show_legacy_notices ||= false %>
 
 <header class="
   masthead
@@ -79,7 +79,7 @@
       </li>
     </ul>
   </div>
-  <% if show_notices %>
+  <% if show_legacy_notices %>
     <section class="notices">
       <%= render partial: "shared/notices" %>
     </section>
