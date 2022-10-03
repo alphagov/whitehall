@@ -2,6 +2,7 @@
 <% content_for :page_title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explaination" %>
 <% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explaination" %>
 <% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render('shared/error_summary', object: @unpublishing, class_name: "#{withdrawal_or_unpublishing(@unpublishing.edition)} explaination") %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
     href: admin_edition_path(@unpublishing.edition)
@@ -10,6 +11,13 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/heading", {
+        text: "Reason for #{withdrawal_or_unpublishing(@unpublishing.edition)}",
+        font_size: "l",
+        margin_bottom: 3
+    } %>
+    <p class="govuk-body govuk-!-margin-bottom-6"><%= @unpublishing.unpublishing_reason.as_sentence.capitalize %></p>
+
     <%= form_for @unpublishing, url: admin_edition_unpublishing_path(@unpublishing.edition) do |f| %>
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
@@ -18,19 +26,16 @@
         },
         hint: "This is shown on the live site",
         name: "unpublishing[explanation]",
+        id: "unpublishing_explanation",
         value: @unpublishing.explanation,
         data: {
           module: "paste-html-to-govspeak"
         },
-        error_items: (@unpublishing.errors.as_json(full_messages: true)[:explanation].map do |error|
-          {
-            "text": error,
-          }
-        end if @unpublishing.errors[:explanation].present?)
+        error_items: errors_for(@unpublishing.errors, :explanation)
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
-        text: "Save",
+        text: "Update #{withdrawal_or_unpublishing(@unpublishing.edition)} explaination",
         margin_bottom: 8
       } %>
     <% end %>

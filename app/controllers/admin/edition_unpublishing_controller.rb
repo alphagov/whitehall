@@ -16,9 +16,11 @@ class Admin::EditionUnpublishingController < Admin::BaseController
         services.unpublisher(@unpublishing.edition).perform!
       end
       redirect_to admin_edition_path(@unpublishing.edition), notice: "The public explanation was updated"
+    elsif preview_design_system_user?
+      render "edit"
     else
       flash.now[:alert] = "The public explanation could not be updated"
-      render action: preview_design_system_user? ? "edit" : "edit_legacy"
+      render "edit_legacy"
     end
   end
 
