@@ -82,13 +82,9 @@ Whitehall::Application.routes.draw do
     resource :email_signups, path: "email-signup", only: %i[create new]
     get "/email-signup", to: redirect("/")
 
-    get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
-    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
     resources :fatality_notices, path: "fatalities", only: [:show]
     get "/news" => redirect("/announcements"), as: "news_articles"
     get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
-
-    get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
 
     get "/speeches" => redirect("/announcements")
 
@@ -96,6 +92,12 @@ Whitehall::Application.routes.draw do
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
 
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
+
+    # Routes that exist solely for the purpose of non-English finders
+    get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
+    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
+    get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
+    # End of routes solely for non-English finders
 
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
