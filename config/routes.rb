@@ -37,30 +37,29 @@ Whitehall::Application.routes.draw do
     resources :worldwide_organisations, path: "worldwide-organisations", only: [:show], defaults: { format: :json }
   end
 
-  # World locations and Worldwide organisations
-  get "/world/organisations/:organisation_id/office" => redirect("/world/organisations/%{organisation_id}", prefix: "")
-  get "/world/organisations/:organisation_id/about" => redirect("/world/organisations/%{organisation_id}", prefix: "")
-  get "/world/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: valid_locales_regex }
-
-  resources :worldwide_organisations, path: "world/organisations", only: [] do
-    get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
-    # Dummy path for the sake of polymorphic_path: will always be directed above.
-    get "/about(.:locale)", as: "about", to: "_#_", constraints: { locale: valid_locales_regex }
-
-    get "/office/:id(.:locale)", to: "worldwide_offices#show", as: :worldwide_office, constraints: { locale: valid_locales_regex }
-  end
-
-  resources :embassies, path: "world/embassies", only: [:index]
-
-  get "/world(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
-  get "/world/:id(.:locale)", as: "world_location", to: "world_locations#show", constraints: { locale: valid_locales_regex }
-  get "/world/:world_location_id/news(.:locale)", as: "world_location_news_index", to: "world_location_news#index", constraints: { locale: valid_locales_regex }
-
   # Override the /auth/failure route in gds-sso, as Slimmer gets
   # involved and causes the page to fail to render
   #
   # This can be removed once Slimmer is removed from Whitehall.
   get "/auth/failure", to: "admin/base#auth_failure", as: "auth_failure_fixed"
+
+  # Routes rendered by Whitehall to the public under the /world scope
+  scope "/world" do
+    get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
+    get "/:id(.:locale)", as: "world_location", to: "world_locations#show", constraints: { locale: valid_locales_regex }
+    get "/:world_location_id/news(.:locale)", as: "world_location_news_index", to: "world_location_news#index", constraints: { locale: valid_locales_regex }
+
+    resources :embassies, path: "embassies", only: [:index]
+
+    get "/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: valid_locales_regex }
+    resources :worldwide_organisations, path: "organisations", only: [] do
+      get "/:organisation_id/about" => redirect("/world/organisations/%{organisation_id}", prefix: "")
+      get "/:organisation_id/office" => redirect("/world/organisations/%{organisation_id}", prefix: "")
+      get "/:organisation_id/about(.:locale)", as: "about", to: "_#_", constraints: { locale: valid_locales_regex }
+      get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
+      get "/office/:id(.:locale)", as: "worldwide_office", to: "worldwide_offices#show", constraints: { locale: valid_locales_regex }
+    end
+  end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
