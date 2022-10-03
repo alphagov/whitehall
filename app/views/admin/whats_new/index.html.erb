@@ -1,6 +1,7 @@
 <% content_for :page_title, t('admin.whats_new.title') %>
 <% content_for :title, t('admin.whats_new.title') %>
 <% content_for :title_margin_bottom, 0 %>
+<% upcoming_changes = t('admin.whats_new.upcoming_changes') %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -15,6 +16,10 @@
             href: "##{t('admin.whats_new.introduction.heading').parameterize(separator: '-')}",
             text: t('admin.whats_new.introduction.heading'),
           },
+          *([
+            href: "##{t('admin.whats_new.upcoming_changes.heading').parameterize(separator: '-')}",
+            text: t('admin.whats_new.upcoming_changes.heading'),
+          ] if upcoming_changes[:updates].present?),
           {
             href: "##{t('admin.whats_new.recent_changes.heading').parameterize(separator: '-')}",
             text: t('admin.whats_new.recent_changes.heading'),
@@ -23,7 +28,7 @@
             href: "##{t('admin.whats_new.guidance.heading').parameterize(separator: '-')}",
             text: t('admin.whats_new.guidance.heading'),
           }
-        ]
+        ].compact
       } %>
     </div>
 
@@ -37,6 +42,19 @@
       <%= render_govspeak(t('admin.whats_new.introduction.body_govspeak')) %>
       <%= render partial: "admin/whats_new/back_to_top" %>
     </section>
+
+    <% if upcoming_changes[:updates].present? %>
+      <section class="app-view-whats-new__section" id="<%= t('admin.whats_new.upcoming_changes.heading').parameterize(separator: '-')%>">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: upcoming_changes[:heading],
+          font_size: "m",
+          margin_bottom: 3,
+        } %>
+
+        <%= render(partial: "admin/whats_new/updates", locals: { updates: upcoming_changes[:updates] }) %>
+        <%= render partial: "admin/whats_new/back_to_top" %>
+      </section>
+    <% end %>
 
     <section class="app-view-whats-new__section" id="<%= t('admin.whats_new.recent_changes.heading').parameterize(separator: '-')%>">
       <%= render "govuk_publishing_components/components/heading", {
