@@ -57,18 +57,6 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_equal PersonPresenter.new(pm_account.person, @controller.view_context), assigns(:person)
   end
 
-  test "GET on :show loads the person, appointment and historical account for previous Chanellors" do
-    chancellor_account = create(:historical_account, roles: [chancellor_role])
-    create(:role_appointment, person: chancellor_account.person, role: chancellor_role)
-    get :show, params: { role: "past-chancellors", id: chancellor_account.person.slug }
-
-    assert_response :success
-    assert_template :show
-    assert_equal chancellor_role, assigns(:role)
-    assert_equal chancellor_account, assigns(:historical_account)
-    assert_equal PersonPresenter.new(chancellor_account.person, @controller.view_context), assigns(:person)
-  end
-
   test "GET on :show raises a 404 if a person does not exist with a historical account in the specified role" do
     chancellor_account = create(:historical_account, roles: [chancellor_role])
 
