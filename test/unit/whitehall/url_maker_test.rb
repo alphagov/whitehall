@@ -24,12 +24,5 @@ module Whitehall
 
       assert_equal "http://gov.uk/world/organisations/#{worldwide_organisation.slug}.atom", maker.url_for(worldwide_organisation)
     end
-
-    test "the default format can be overridden for a non-localised resource" do
-      maker = Whitehall::UrlMaker.new(host: "gov.uk", format: "atom")
-      topical_event = create(:topical_event)
-
-      assert_equal "http://gov.uk/government/topical-events/#{topical_event.slug}.atom", maker.url_for(topical_event)
-    end
   end
 end
