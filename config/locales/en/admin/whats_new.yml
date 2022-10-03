@@ -15,15 +15,12 @@ en:
       upcoming_changes:
         heading: Upcoming changes
         updates:
-          - heading: Topic taxonomy tagging and unpublishing and withdrawing pages move to the Design System
+          - heading: Topic taxonomy tags page moves to the Design System
             area: Creating and updating documents
             type: improved
             date: 5 October 2022
             body_govspeak: |
-              The following pages will move to the GOV.UK Design System:
-              
-              * topic taxonomy tagging
-              * unpublishing, withdrawing and unwithdrawing
+              The topic taxonomy tags page will move to the GOV.UK Design System.
 
               Topics that are tagged to a document will be listed under the ‘Selected topics’ header on the ‘Topic taxonomy tags’ page. You can also remove tags in this section.
       recent_changes:
