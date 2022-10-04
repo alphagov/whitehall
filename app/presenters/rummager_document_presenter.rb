@@ -41,7 +41,7 @@ class RummagerDocumentPresenter < ActionView::Base
   end
 
   def url
-    Plek.current.website_root + link
+    Plek.new.website_root + link
   end
 
   def publication_collections
@@ -103,7 +103,7 @@ private
   def format_link(title, link)
     return unless title.present? && link.present?
 
-    link_to(title, Plek.current.website_root + link, class: "govuk-link")
+    link_to(title, Plek.new.website_root + link, class: "govuk-link")
   end
 
   def operational_field_link(operational_field)

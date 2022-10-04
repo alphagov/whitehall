@@ -9,6 +9,6 @@ module Admin::ContentPublisherRoutesHelper
 private
 
   def content_publisher_base_url
-    Plek.current.external_url_for("content-publisher")
+    Plek.new.external_url_for("content-publisher")
   end
 end
