@@ -493,7 +493,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    plek (4.0.0)
+    plek (4.1.0)
     prometheus_exporter (2.0.3)
       webrick
     pry (0.14.1)
