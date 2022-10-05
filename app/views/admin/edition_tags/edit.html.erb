@@ -50,15 +50,16 @@
         If this content has already been published and you add new topics, then the last published edition will appear on those topic pages immediately, before you publish a new edition.
       <% end %>
 
-      <div class="form-actions govuk-button-group govuk-!-margin-top-7" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
+      <div class="govuk-button-group govuk-!-margin-top-7">
         <%= render "govuk_publishing_components/components/button", {
           text: "Update tags",
           name: "save",
           value: "save",
           data_attributes: {
-              module: 'track-selected-taxons',
-              track_category: 'taxonSelection',
-              track_label: request.path,
+              module: 'gem-track-click',
+              track_category: 'form-button',
+              track_label: "Save tagging changes",
+              track_action: "taxonomy-tag-form-button",
           }
         } %>
 
@@ -69,9 +70,10 @@
             value: "legacy_tags",
             secondary_solid: true,
             data_attributes: {
-              module: 'track-selected-taxons',
-              track_category: 'taxonSelection',
-              track_label: request.path,
+              module: 'gem-track-click',
+              track_category: 'form-button',
+              track_label: "Save and review specialist topic tagging",
+              track_action: "taxonomy-tag-form-button",
             }
           } %>
         <% end %>
