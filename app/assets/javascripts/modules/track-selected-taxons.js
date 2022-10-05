@@ -8,6 +8,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   TrackSelectedTaxons.prototype.init = function () {
     this.form.addEventListener('submit', this.onSubmitListener.bind(this))
+    this.addTaxonSelectionEvent()
   }
 
   TrackSelectedTaxons.prototype.onSubmitListener = function (e) {
@@ -22,6 +23,25 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
       }
 
       GOVUK.analytics.trackEvent('taxonSelection', taxonPath.join(' > '), { label: window.location.pathname })
+    }
+  }
+
+  TrackSelectedTaxons.prototype.addTaxonSelectionEvent = function () {
+    var taxonCheckboxes = this.form.querySelectorAll('.miller-columns__item .govuk-checkboxes__input')
+
+    for (var index = 0; index < taxonCheckboxes.length; index++) {
+      var checkbox = taxonCheckboxes[index]
+
+      checkbox.addEventListener('click', function (e) {
+        var target = e.currentTarget
+        var label = this.form.querySelector('label[for="' + target.id + '"]').innerText.trim()
+
+        GOVUK.analytics.trackEvent(
+          'pageElementInteraction',
+          target.checked ? 'checkboxClickedOn' : 'checkboxClickedOff',
+          { label: label }
+        )
+      })
     }
   }
 
