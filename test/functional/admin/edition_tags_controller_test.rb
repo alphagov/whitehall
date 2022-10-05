@@ -130,8 +130,8 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   def assert_tracking_attributes(element:, track_label:)
-    assert_equal "track-selected-taxons", element["data-module"]
-    assert_equal "taxonSelection", element["data-track-category"]
+    assert_equal "gem-track-click", element["data-module"]
+    assert_equal "form-button", element["data-track-category"]
     assert_equal track_label, element["data-track-label"]
   end
 
@@ -140,11 +140,11 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "input[name*='save']" do |elements|
+    assert_select "button[name*='save']" do |elements|
       assert_equal 1, elements.length
       assert_tracking_attributes(
         element: elements.first,
-        track_label: edit_admin_edition_tags_path(@edition),
+        track_label: "Save tagging changes",
       )
     end
   end
@@ -154,11 +154,11 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "input[name*='legacy_tags']" do |elements|
+    assert_select "button[name*='legacy_tags']" do |elements|
       assert_equal 1, elements.length
       assert_tracking_attributes(
         element: elements.first,
-        track_label: edit_admin_edition_tags_path(@edition),
+        track_label: "Save and review specialist topic tagging",
       )
     end
   end
