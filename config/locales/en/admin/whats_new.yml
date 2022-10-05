@@ -17,7 +17,7 @@ en:
         updates:
           - heading: Topic taxonomy tags page moves to the Design System
             area: Creating and updating documents
-            type: improved
+            type: improvement
             date: 5 October 2022
             body_govspeak: |
               The topic taxonomy tags page will move to the GOV.UK Design System.
@@ -28,7 +28,7 @@ en:
         updates:
           - heading: Reusing previous withdrawal dates and public explanations
             area: Creating and updating documents
-            type: improved
+            type: improvement
             date: 26 September 2022
             body_govspeak: |
               When re-withdrawing content, you can choose to reuse a previous withdrawal date and public explanation in certain circumstances.
