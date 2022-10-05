@@ -4,7 +4,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates to Whitehall Publisher, content design guidance, or the design of GOV.UK.
-      last_updated: Last updated 3 October 2022
+      last_updated: Last updated 6 October 2022
       introduction:
         heading: Moving to the Design System
         body_govspeak: |
@@ -12,24 +12,22 @@ en:
           This will make Whitehall Publisher more accessible, more user friendly and give you a consistent user experience throughout your publishing journey on GOV.UK.
 
           [Read more about the changes on the content community Basecamp](https://3.basecamp.com/4322319/buckets/15005645/messages/5287245970).
-      upcoming_changes:
-        heading: Upcoming changes
+        heading: Recent changes
         updates:
-          - heading: Topic taxonomy tags page moves to the Design System
+          - heading: Topic taxonomy tags page moved to the Design System
             area: Creating and updating documents
             type: improvement
             date: 6 October 2022
             body_govspeak: |
-              The topic taxonomy tags page will move to the GOV.UK Design System.
-
-              Topics that are tagged to a document will be listed under the ‘Selected topics’ header on the ‘Topic taxonomy tags’ page. You can also remove tags in this section.
-      recent_changes:
-        heading: Recent changes
-        updates:
+              The topic taxonomy tags page has moved to the GOV.UK Design System.
+              
+              Topics that are tagged to a document are now listed under the ‘Selected topics’ header on the ‘Topic taxonomy tags’ page. You can also remove tags in this section.
+              
+              You can use the ‘back’ button on these pages to return to a previous page.           
           - heading: Reusing previous withdrawal dates and public explanations
             area: Creating and updating documents
             type: improvement
-            date: 26 September 2022
+            date: 2 August 2022
             body_govspeak: |
               When re-withdrawing content, you can choose to reuse a previous withdrawal date and public explanation in certain circumstances.
 
