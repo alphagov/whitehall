@@ -12,5 +12,6 @@
 //= require modules/paste-html-to-govspeak
 //= require modules/unpublish-display-conditions
 //= require modules/unpublish-tracking
+//= require modules/track-selected-taxons
 
 window.GOVUK.navBarHelper.init()

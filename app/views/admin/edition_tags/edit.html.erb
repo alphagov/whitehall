@@ -30,7 +30,9 @@
       margin_bottom: 2,
     } %>
 
-    <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
+    <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put, data: {
+      module: "track-selected-taxons"
+    } do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <% if @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons).count() %>
