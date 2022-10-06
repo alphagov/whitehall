@@ -37,7 +37,7 @@
 
       <% if @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons).count() %>
         <%= render partial: "/components/miller-columns", locals: {
-          id: "taxonomy_tag_form[taxons]",
+          id: "taxonomy_tag_form-taxons",
           items: @topic_taxonomy.ordered_taxons_transformed(@tag_form.selected_taxons),
         } %>
       <% else %>
