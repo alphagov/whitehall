@@ -62,7 +62,7 @@
         },
         content: {
           html: sanitize(
-            "<pre>## Top level heading – H2<br />### Second level heading – H3<br />#### Third level heading – H4<br />Don’t use a single # – this is H1 and is for the title only</pre>"
+            "<pre class='govspeak_help__pre'>## Top level heading – H2<br />### Second level heading – H3<br />#### Third level heading – H4<br />Don’t use a single # – this is H1 and is for the title only</pre>"
           )
         },
       },
@@ -73,19 +73,19 @@
         content: {
           html: sanitize(
             "<p class='govuk-body'>All documents created in the publisher – publications, news, speeches, detailed guides etc – should be linked to using absolute admin paths or full public URLs:</p>
-            <pre>[an admin path](/government/admin/policies/12345)<br />[a public URL](https://www.gov.uk/government/policies/example-policy)</pre>
+            <pre class='govspeak_help__pre'>[an admin path](/government/admin/policies/12345)<br />[a public URL](https://www.gov.uk/government/policies/example-policy)</pre>
             <p class='govuk-body'>All content created under an organisation tab – collection pages, topics, organisations, people, roles etc – should be linked to using the full, public URLs:</p>
-            <pre>[link text](https://www.gov.uk/government/topics/climate-change)</pre>
+            <pre class='govspeak_help__pre'>[link text](https://www.gov.uk/government/topics/climate-change)</pre>
             <p class='govuk-body'>For external websites, use the full URL including http://:</p>
-            <pre>[link text](http://www.example.com)</pre>
+            <pre class='govspeak_help__pre'>[link text](http://www.example.com)</pre>
             <h4 class='govuk-heading-m'>Linking to paragraphs</h4>
             <p class='govuk-body'>If you want to link to specific paragraphs within a document, you need to mark the paragraph as linkable by placing an anchor tag <strong>below</strong> the paragraph:
             </p>
-            <pre>Stocks of some fish species are very low. For example, stocks of European Eel have declined by about 95% over the last 30 years.<br />{:#eel-decline}</pre>
+            <pre class='govspeak_help__pre'>Stocks of some fish species are very low. For example, stocks of European Eel have declined by about 95% over the last 30 years.<br />{:#eel-decline}</pre>
             <p class='govuk-body'>The paragraph can then be linked to from the same document:</p>
-            <pre>[Sample link text](#eel-decline)</pre>
+            <pre class='govspeak_help__pre'>[Sample link text](#eel-decline)</pre>
             <p class='govuk-body'>or from another document:</p>
-            <pre>[Sample link text](https://www.gov.uk/government/policies/managing-freshwater-fisheries#eel-decline)</pre>"
+            <pre class='govspeak_help__pre'>[Sample link text](https://www.gov.uk/government/policies/managing-freshwater-fisheries#eel-decline)</pre>"
           )
         },
       },
@@ -95,7 +95,7 @@
         },
         content: {
           html: sanitize(
-            "<pre>* item 1<br />* item 2<br />* item 3<br /></pre>"
+            "<pre class='govspeak_help__pre'>* item 1<br />* item 2<br />* item 3<br /></pre>"
           )
         },
       },
@@ -105,7 +105,7 @@
         },
         content: {
           html: sanitize(
-            "<pre>1. item 1<br />2. item 2<br />3. item 3<br /></pre>"
+            "<pre class='govspeak_help__pre'>1. item 1<br />2. item 2<br />3. item 3<br /></pre>"
           )
         }
       },
@@ -116,9 +116,9 @@
         content: {
           html: sanitize(
             "<p class='govuk-body'>First upload your image(s), then:</p>
-            <pre>!!<em>n</em></pre>
+            <pre class='govspeak_help__pre'>!!<em>n</em></pre>
             <p class='govuk-body'>eg for the first image:</p>
-            <pre>!!1</pre>"
+            <pre class='govspeak_help__pre'>!!1</pre>"
           )
         }
       },
@@ -129,9 +129,9 @@
         content: {
           html: sanitize(
             "<p class='govuk-body'>Use the title of the video and the URL of the YouTube page that shows the video for watching. Don’t use the embed code or the ‘Share this video’ URL:</p>
-            <pre>[title of video](youtube-video-url)</pre>
+            <pre class='govspeak_help__pre'>[title of video](youtube-video-url)</pre>
             <p class='govuk-body'>Only YouTube videos will work at present:</p>
-            <pre>[The Queen’s Diamond Jubilee Concert](http://www.youtube.com/watch?v=OXHPWmnycno)</pre>
+            <pre class='govspeak_help__pre'>[The Queen’s Diamond Jubilee Concert](http://www.youtube.com/watch?v=OXHPWmnycno)</pre>
             <p class='govuk-body'>The title text does not show. The video will display in an embedded media player automatically.</p>"
           )
         }
@@ -151,11 +151,11 @@
         content: {
           html: sanitize(
             "<p class='govuk-body'>Insert tables by splitting your content into cells using the pipe (|) character. </p>
-            <pre>|  name   |  colour |<br />|---------|---------|<br />| apple   | green   |<br />| banana  | yellow  |</pre>
+            <pre class='govspeak_help__pre'>|  name   |  colour |<br />|---------|---------|<br />| apple   | green   |<br />| banana  | yellow  |</pre>
             <p class='govuk-body'>Add row titles by putting a hashtag (#) character directly next to the pipe (|) at the start of the row:</p>
-            <pre>|             | Fruit | Vegetables |<br />|-------------|-------|------------|<br />|# per gram   |   5p  |     8p     |<br />|# per kilo   |   7p  |     6p     |</pre>
+            <pre class='govspeak_help__pre'>|             | Fruit | Vegetables |<br />|-------------|-------|------------|<br />|# per gram   |   5p  |     8p     |<br />|# per kilo   |   7p  |     6p     |</pre>
             <p class='govuk-body'>Right align a column by including a colon at the end of a separator, eg <code>|---:|</code>. In the example below the cost column will be right aligned.</p>
-            <pre>|  name   |  cost  |<br />|---------|-------:|<br />| apple   | 0.45   |<br />| banana  | 0.32   |<br />| guava   | 10.32  |</pre>"
+            <pre class='govspeak_help__pre'>|  name   |  cost  |<br />|---------|-------:|<br />| apple   | 0.45   |<br />| banana  | 0.32   |<br />| guava   | 10.32  |</pre>"
           )
         }
       },
@@ -166,13 +166,13 @@
         content: {
           html: sanitize(
             "<p class='govuk-body'>Numeric data can be shown as a simple bar chart. Grouped bars are used for multiple columns.</p>
-            <pre>Department   | Short Speeches | Long Speeches<br />-|-|-<br />Department 1 | 6              | 6<br />Department 2 | 6              | 8<br />Department 3 | 18             | 2<br />{barchart}</pre>
+            <pre class='govspeak_help__pre'>Department   | Short Speeches | Long Speeches<br />-|-|-<br />Department 1 | 6              | 6<br />Department 2 | 6              | 8<br />Department 3 | 18             | 2<br />{barchart}</pre>
             <p class='govuk-body'>Stacked bars can be created. The final column is used to display the total.</p>
-            <pre>Department | Short Speeches | Long Speeches | Total<br />-|-|-|-<br />Dept 1     | 6              | 6             | 12<br />Dept 2     | 6              | 8             | 14<br />Dept 3     | 18             | 2             | 20<br />{barchart stacked}</pre>
+            <pre class='govspeak_help__pre'>Department | Short Speeches | Long Speeches | Total<br />-|-|-|-<br />Dept 1     | 6              | 6             | 12<br />Dept 2     | 6              | 8             | 14<br />Dept 3     | 18             | 2             | 20<br />{barchart stacked}</pre>
             <p class='govuk-body'>Large graphs can be displayed compactly to save space.</p>
-            <pre>Department   | Short Speeches | Long Speeches<br />-|-|-<br />Department 1 | 6              | 6<br />Department 2 | 6              | 8<br />Department 3 | 18             | 2<br />Department 4 | 5              | 4<br />Department 4 | 7              | 7<br />Department 6 | 11             | 1<br />{barchart compact}</pre>
+            <pre class='govspeak_help__pre'>Department   | Short Speeches | Long Speeches<br />-|-|-<br />Department 1 | 6              | 6<br />Department 2 | 6              | 8<br />Department 3 | 18             | 2<br />Department 4 | 5              | 4<br />Department 4 | 7              | 7<br />Department 6 | 11             | 1<br />{barchart compact}</pre>
             <p class='govuk-body'>If you include negative values, you must indicate this.</p>
-            <pre>Department   | Change in Number of Buildings<br />-|-<br />Department 1 | -12<br />Department 1 | 3<br />Department 1 | -4<br />Department 1 | 2<br />{barchart negative}</pre>
+            <pre class='govspeak_help__pre'>Department   | Change in Number of Buildings<br />-|-<br />Department 1 | -12<br />Department 1 | 3<br />Department 1 | -4<br />Department 1 | 2<br />{barchart negative}</pre>
             <p class='govuk-body'>All effects can be combined.</p>"
           )
         }
@@ -183,7 +183,7 @@
         },
         content: {
           html: sanitize(
-            "<pre>$CTA<br />[Use the trade tariff tool to find commodity codes.](https://www.gov.uk/trade-tariff)<br />$CTA</pre>"
+            "<pre class='govspeak_help__pre'>$CTA<br />[Use the trade tariff tool to find commodity codes.](https://www.gov.uk/trade-tariff)<br />$CTA</pre>"
           )
         }
       },
@@ -195,7 +195,7 @@
           html: sanitize(
             "<p class='govuk-body'>The first time you use an abbreviation or acroynm, write it out in full.</p>
             <p class='govuk-body'>Add the <a href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown#acronyms'>acronym Markdown</a> at the end of the body copy leaving one empty line space above it, as in the following example.</p>
-            <pre>Example content that includes a three-letter acronym (TLA).<br />*[TLA]: three-letter acronym</pre>
+            <pre class='govspeak_help__pre'>Example content that includes a three-letter acronym (TLA).<br />*[TLA]: three-letter acronym</pre>
             <p class='govuk-body'>When a user hovers their mouse over a <abbr title='three-letter acronym'>TLA</abbr>, they will see it written in full.</p>"
           )
         }
@@ -206,7 +206,7 @@
         },
         content: {
           html: sanitize(
-            "<pre>Introduction to the quote:<br />> First paragraph of the quote.<br />><br />> Second paragraph of the quote.</pre>
+            "<pre class='govspeak_help__pre'>Introduction to the quote:<br />> First paragraph of the quote.<br />><br />> Second paragraph of the quote.</pre>
             <p class='govuk-body'>The > in the line space is important. If you leave it out you will get 2 separate quotes, not 1 running quote.</p>"
           )
         }
@@ -217,9 +217,9 @@
         },
         content: {
           html: sanitize(
-            "<pre>$A<br />Address<br />Only<br />Here<br />$A</pre>
+            "<pre class='govspeak_help__pre'>$A<br />Address<br />Only<br />Here<br />$A</pre>
             <p class='govuk-body'>You can also embed contact information:</p>
-            <pre>[Contact:<em>n</em>]</pre>
+            <pre class='govspeak_help__pre'>[Contact:<em>n</em>]</pre>
             <p class='govuk-body'>(n is the ID of the contact you want to embed.)</p>
             <p class='govuk-body'>You can find the ID on the list of contacts for an #{link_to 'organisation', admin_organisations_path} or #{link_to 'worldwide organisation', admin_worldwide_organisations_path} or you can type ‘[Contact: ’ and then type a keyword to find your contact (if it exists).</p>
             <p class='govuk-body'>If it doesn’t exist you will have to add it (see your ‘Publishing explained’ guidance). </p>"
@@ -232,14 +232,14 @@
         },
         content: {
           html: sanitize(
-            "<pre>Footnotes can be added[^1].< br/>[^1]: And then later defined.</pre>
+            "<pre class='govspeak_help__pre'>Footnotes can be added[^1].< br/>[^1]: And then later defined.</pre>
             <p class='govuk-body'>
               You can add a footnote marker to a document using [^<em>i</em>] where <em>i</em> is the footnote number or label. Each of these tags should have corresponding footnote content, defined with [^<em>i</em>]: <em>The footnote content</em>. The footnote content will always appear at the end of the document regardless of where they are in the markdown.
             </p>
             <p class='govuk-body'>
               Footnote content can hold more than one paragraph by indenting the content 4 spaces:
             </p>
-            <pre>[^1]:<br />    This is some footnote content and is indented 4 spaces.<br />    This paragraph is also indented, so will be considered part of the footnote content.</pre>"
+            <pre class='govspeak_help__pre'>[^1]:<br />    This is some footnote content and is indented 4 spaces.<br />    This paragraph is also indented, so will be considered part of the footnote content.</pre>"
           )
         }
       }] if show_footnote_help),
@@ -250,7 +250,7 @@
         content: {
           html: sanitize(
             "<p class='govuk-body'>Use statistic headlines to highlight important numbers in your content. Displays a statistic as a large number with a description. The statistic and description must make sense when read aloud.</p>
-            <pre>{stat-headline}<br />*13.8bn* years since the big bang<br />{/stat-headline}</pre>"
+            <pre class='govspeak_help__pre'>{stat-headline}<br />*13.8bn* years since the big bang<br />{/stat-headline}</pre>"
           )
         }
       }] if show_stat_headline_help),
