@@ -11,7 +11,7 @@ class EmailSignupHelperTest < ActionView::TestCase
   test "#email_signup_path returns a whitehall signup url for a world_location" do
     atom_feed_url = "https://www.gov.uk/world/uk-joint-delegation-to-nato.atom"
     result = email_signup_path(atom_feed_url)
-    expected = "/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fworld%2Fuk-joint-delegation-to-nato.atom"
+    expected = "https://www.test.gov.uk/email-signup?topic=uk-joint-delegation-to-nato"
     assert_equal expected, result
   end
 
