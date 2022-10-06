@@ -39,11 +39,7 @@
     data: {
       module: "paste-html-to-govspeak"
     },
-    error_items: (@unpublishing.errors.as_json(full_messages: true)[:explanation].map do |error|
-      {
-        "text": error,
-      }
-    end if @unpublishing.errors[:explanation].present?)
+    error_items: errors_for(@unpublishing.errors, :explanation)
   })
 %>
 
@@ -112,11 +108,7 @@
               </ul>
             "),
             items: items,
-            error_items: (@unpublishing.errors.as_json(full_messages: true)[:previous_withdrawal_id].map do |error|
-              {
-                "text": error,
-              }
-            end if @unpublishing.errors[:previous_withdrawal_id].present?)
+            error_items: errors_for(@unpublishing.errors, :previous_withdrawal_id)
           } %>
         <% else %>
           <%= withdrawal_public_explanation_field %>
@@ -143,11 +135,7 @@
           name: "unpublishing[alternative_url]",
           id: "published_in_error_alternative_url",
           value: @unpublishing.alternative_url,
-          error_items: (@unpublishing.errors.as_json(full_messages: true)[:alternative_url].map do |error|
-            {
-              "text": error,
-            }
-          end if @unpublishing.errors[:alternative_url].present?)
+          error_items: errors_for(@unpublishing.errors, :alternative_url)
         } %>
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: "unpublishing[redirect]",
@@ -172,11 +160,7 @@
           data: {
             module: "paste-html-to-govspeak"
           },
-          error_items: (@unpublishing.errors.as_json(full_messages: true)[:explanation].map do |error|
-            {
-              "text": error,
-            }
-          end if @unpublishing.errors[:explanation].present?)
+          error_items: errors_for(@unpublishing.errors, :explanation)
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
@@ -202,11 +186,7 @@
           name: "unpublishing[alternative_url]",
           hint: "This will be automatically redirected",
           value: @unpublishing.alternative_url,
-          error_items: (@unpublishing.errors.as_json(full_messages: true)[:alternative_url].map do |error|
-            {
-              "text": error,
-            }
-          end if @unpublishing.errors[:alternative_url].present?)
+          error_items: errors_for(@unpublishing.errors, :alternative_url)
         } %>
 
         <%= render "govuk_publishing_components/components/button", {
