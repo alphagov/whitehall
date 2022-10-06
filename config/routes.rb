@@ -137,9 +137,6 @@ Whitehall::Application.routes.draw do
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
     get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
     get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
-    resources :topical_events, path: "topical-events", only: [:show] do
-      resource :about_pages, path: "about", only: [:show]
-    end
     # End of routes no longer rendered by Whitehall
 
     constraints(AdminRequest) do
