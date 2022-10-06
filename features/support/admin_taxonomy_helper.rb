@@ -26,9 +26,9 @@ end
 World(AdminTaxonomyHelper)
 
 Around do |_, block|
-  redis = Redis.current
-  Redis.current = nil
+  redis = Redis.new
+  Redis.new = nil
   block.call
 ensure
-  Redis.current = redis
+  Redis.new = redis
 end
