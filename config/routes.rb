@@ -45,11 +45,11 @@ Whitehall::Application.routes.draw do
 
   # Routes rendered by Whitehall to the public under the /world scope
   scope "/world" do
+    resources :embassies, path: "/embassies", only: [:index]
+
     get "(.:locale)", as: "world_locations", to: "world_locations#index", constraints: { locale: valid_locales_regex }
     get "/:id(.:locale)", as: "world_location", to: "world_locations#show", constraints: { locale: valid_locales_regex }
     get "/:world_location_id/news(.:locale)", as: "world_location_news_index", to: "world_location_news#index", constraints: { locale: valid_locales_regex }
-
-    resources :embassies, path: "embassies", only: [:index]
 
     get "/organisations/:id(.:locale)", as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: valid_locales_regex }
     resources :worldwide_organisations, path: "organisations", only: [] do
