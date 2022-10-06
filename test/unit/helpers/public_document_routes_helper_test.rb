@@ -191,4 +191,56 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test "append_url_options adds cachebust string, format and locale when all present" do
     assert_equal "/government/foo.cy.atom?cachebust=123", append_url_options("/government/foo", cachebust: "123", format: "atom", locale: "cy")
   end
+
+  test "get_involved_path returns the path" do
+    assert_equal "/government/get-involved", get_involved_path
+  end
+
+  test "get_involved_url returns the url" do
+    assert_equal "https://www.test.gov.uk/government/get-involved", get_involved_url
+  end
+
+  test "get_involved_path returns the path and appends options" do
+    assert_equal "/government/get-involved?cachebust=123", get_involved_path(cachebust: "123")
+  end
+
+  test "get_involved_url returns the url and appends options" do
+    assert_equal "https://www.test.gov.uk/government/get-involved?cachebust=123", get_involved_url(cachebust: "123")
+  end
+
+  test "take_part_page_path returns the correct path for a slug" do
+    assert_equal "/government/get-involved/take-part/foo", take_part_page_path("foo")
+  end
+
+  test "take_part_page_path returns the correct path for a slug with options" do
+    assert_equal "/government/get-involved/take-part/foo?cachebust=123", take_part_page_path("foo", cachebust: "123")
+  end
+
+  test "take_part_page_path returns the correct path for a TakePart object" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "/government/get-involved/take-part/foo", take_part_page_path(object)
+  end
+
+  test "take_part_page_path returns the correct path for a TakePart object with options" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "/government/get-involved/take-part/foo?cachebust=123", take_part_page_path(object, cachebust: "123")
+  end
+
+  test "take_part_page_url returns the correct path for a slug" do
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo", take_part_page_url("foo")
+  end
+
+  test "take_part_page_url returns the correct path for a slug with options" do
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", take_part_page_url("foo", cachebust: "123")
+  end
+
+  test "take_part_page_url returns the correct path for a TakePart object" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo", take_part_page_url(object)
+  end
+
+  test "take_part_page_url returns the correct path for a TakePart object with options" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", take_part_page_url(object, cachebust: "123")
+  end
 end

@@ -87,6 +87,31 @@ module PublicDocumentRoutesHelper
     polymorphic_url(organisation, options.merge(host: URI(Plek.new.external_url_for("draft-origin")).host))
   end
 
+  def get_involved_path(options = {})
+    append_url_options("/government/get-involved", options)
+  end
+
+  def get_involved_url(options = {})
+    Plek.new.website_root + get_involved_path(options)
+  end
+
+  def take_part_page_path(object, options = {})
+    slug = case object
+           when String
+             object
+           when TakePartPage
+             object.slug
+           else
+             raise ArgumentError, "Must provide a slug or TakePartPage"
+           end
+
+    append_url_options("/government/get-involved/take-part/#{slug}", options)
+  end
+
+  def take_part_page_url(object, options = {})
+    Plek.new.website_root + take_part_page_path(object, options)
+  end
+
 private
 
   def build_url_for_corporate_information_page(edition, options)
