@@ -7,7 +7,7 @@
 
   <%= form.label :primary_specialist_sector_tag, 'Primary specialist topic tag' %>
   <%= form.select :primary_specialist_sector_tag,
-                  specialist_sector_options_for_select,
+                  legacy_specialist_sector_options_for_select,
                   { include_blank: true },
                   class: 'chzn-select form-control',
                   data: {
@@ -19,7 +19,7 @@
 
   <%= form.label :secondary_specialist_sector_tags, 'Additional specialist topics' %>
   <%= form.select :secondary_specialist_sector_tags,
-                  specialist_sector_options_for_select,
+                  legacy_specialist_sector_options_for_select,
                   {},
                   multiple: true,
                   class: 'chzn-select form-control',

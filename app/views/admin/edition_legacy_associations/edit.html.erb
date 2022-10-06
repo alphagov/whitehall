@@ -1,17 +1,24 @@
-<% page_title "Edit legacy associations: " + @edition.title %>
-<div class="row">
-  <h1><%= @edition.title %></h1>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <% initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Specialist topic tagging" %>
+<% content_for :title, "Specialist topic tagging" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition)
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
     <%= form_for @edition, url: admin_edition_legacy_associations_path(@edition), as: :edition, method: :put,
         html: { class: edition_form_classes(@edition) } do |form| %>
 
-      <%= render 'legacy_specialist_sector_fields', form: form, edition: @edition %>
-      <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save' }, cancel: @path) %>
-      </div>
+      <%= render 'specialist_sector_fields', form: form, edition: @edition %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Update specialist topics",
+        margin_bottom: 8,
+      } %>
     <% end %>
-  </div>
+  </section>
 </div>

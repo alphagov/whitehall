@@ -295,7 +295,11 @@ module Admin::EditionsHelper
   end
 
   def specialist_sector_options_for_select
-    @specialist_sector_options_for_select ||= LinkableTopics.new.topics
+    @specialist_sector_options_for_select ||= LinkableTopics.new.raw_topics.sort
+  end
+
+  def legacy_specialist_sector_options_for_select
+    @legacy_specialist_sector_options_for_select ||= LinkableTopics.new.topics
   end
 
   def specialist_sector_names(sector_content_ids)
