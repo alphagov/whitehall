@@ -22,7 +22,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         taxonPath.push(taxons[i].innerText.trim())
       }
 
-      GOVUK.analytics.trackEvent('taxonSelection', taxonPath.join(' > '), { label: window.location.pathname })
+      GOVUK.analytics.trackEvent('taxonSelection', taxonPath.join(' > '), { label: this.getCurrentPath() })
     }
   }
 
@@ -43,6 +43,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         )
       })
     }
+  }
+
+  TrackSelectedTaxons.prototype.getCurrentPath = function () {
+    return window.location.pathname
   }
 
   Modules.TrackSelectedTaxons = TrackSelectedTaxons

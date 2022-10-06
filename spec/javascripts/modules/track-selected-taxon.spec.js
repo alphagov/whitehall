@@ -1,5 +1,5 @@
 describe('GOVUK.Modules.TrackSelectedTaxons', function () {
-  var form
+  var form, trackSelectedTaxons
 
   beforeEach(function () {
     form = document.createElement('form')
@@ -98,13 +98,14 @@ describe('GOVUK.Modules.TrackSelectedTaxons', function () {
       </div>
     `
 
-    var trackSelectedTaxons = new GOVUK.Modules.TrackSelectedTaxons(form)
+    trackSelectedTaxons = new GOVUK.Modules.TrackSelectedTaxons(form)
     trackSelectedTaxons.init()
   })
 
   it('should send tracking events for each selected taxon when form is submitted', function () {
     spyOn(GOVUK.analytics, 'trackEvent')
-    spyOn(window.location, 'pathname').andReturn('/government/admin/editions/1/tags/edit')
+    spyOn(trackSelectedTaxons, 'getCurrentPath').and.returnValue('/government/admin/editions/1/tags/edit')
+
     form.dispatchEvent(new Event('submit'))
 
     expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
