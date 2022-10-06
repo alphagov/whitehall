@@ -67,7 +67,6 @@ Whitehall::Application.routes.draw do
 
     # Redirects rendered by Whitehall
     get "/collections" => redirect("/publications")
-    get "/email-signup", to: redirect("/")
     get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
     get "/news" => redirect("/announcements"), as: "news_articles"
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
@@ -81,7 +80,6 @@ Whitehall::Application.routes.draw do
     # End of redirects rendered by Whitehall
 
     # Public facing routes still rendered by Whitehall
-    resource :email_signups, path: "email-signup", only: %i[create new]
     resources :fatality_notices, path: "fatalities", only: [:show]
     scope "/history" do
       # Past foreign secretaries are currently hard-coded, so this
