@@ -1,7 +1,7 @@
 <% content_for :page_title, "#{@edition.title}: Withdraw or unpublish" %>
 <% content_for :title, "Withdraw or unpublish" %>
 <% content_for :context, @edition.title %>
-
+<% content_for :error_summary, render('shared/error_summary', object: @unpublishing, parent_class: @unpublishing.reason_as_class, class_name: @unpublishing.edition.format_name, verb: "withdraw or unpublish") %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
     href: admin_edition_path(@edition)
@@ -27,13 +27,14 @@
     },
   }
 
-  public_explanation_field = render("govuk_publishing_components/components/textarea", {
+  withdrawal_public_explanation_field = render("govuk_publishing_components/components/textarea", {
     label: {
       text: "Public explanation",
       bold: true,
     },
     hint: "This is shown on the live site",
     name: "unpublishing[explanation]",
+    id: "withdrawal_explanation",
     value: @unpublishing.explanation,
     data: {
       module: "paste-html-to-govspeak"
@@ -95,7 +96,7 @@
             items << {
               value: "new",
               text: "This is a new withdrawal",
-              conditional: public_explanation_field,
+              conditional: withdrawal_public_explanation_field,
               checked: (params["previous_withdrawal_id"] == "new"),
             }
           %>
@@ -118,7 +119,7 @@
             end if @unpublishing.errors[:previous_withdrawal_id].present?)
           } %>
         <% else %>
-          <%= public_explanation_field %>
+          <%= withdrawal_public_explanation_field %>
         <% end %>
         <%= render "govuk_publishing_components/components/button", {
           text: "Withdraw",
@@ -140,6 +141,7 @@
             bold: true,
           },
           name: "unpublishing[alternative_url]",
+          id: "published_in_error_alternative_url",
           value: @unpublishing.alternative_url,
           error_items: (@unpublishing.errors.as_json(full_messages: true)[:alternative_url].map do |error|
             {
@@ -158,7 +160,24 @@
           ]
         } %>
 
-        <%= public_explanation_field %>
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            text: "Public explanation",
+            bold: true,
+          },
+          hint: "This is shown on the live site",
+          name: "unpublishing[explanation]",
+          id: "published_in_error_explanation",
+          value: @unpublishing.explanation,
+          data: {
+            module: "paste-html-to-govspeak"
+          },
+          error_items: (@unpublishing.errors.as_json(full_messages: true)[:explanation].map do |error|
+            {
+              "text": error,
+            }
+          end if @unpublishing.errors[:explanation].present?)
+        } %>
 
         <%= render "govuk_publishing_components/components/button", {
           text: "Unpublish",

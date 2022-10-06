@@ -1,10 +1,11 @@
 <% class_name = class_name.presence || object.class.name.demodulize.underscore.humanize.downcase %>
 <% input_class_name = parent_class.presence || object.class.to_s.underscore %>
+<% verb = verb || "save" %>
 
 <% if object.errors.present? %>
   <div class="gem-c-error-summary govuk-error-summary" data-module="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" id="error-summary" data-govuk-error-summary-module-started="true">
     <h2 class="govuk-error-summary__title" id="error-summary-title">
-      To save the <%= class_name %> please fix the following issues:
+      To <%= verb %> the <%= class_name %> please fix the following issues:
     </h2>
 
     <div class="govuk-error-summary__body">
