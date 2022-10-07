@@ -37,11 +37,15 @@ module Taxonomy
 
     def transform_taxon(taxons, selected_taxon_content_ids)
       taxons.map do |taxon|
+        checked = taxon.taxon_list.any? do |descendant_taxon|
+          selected_taxon_content_ids.include?(descendant_taxon.content_id)
+        end
+
         {
           label: taxon.name,
           value: taxon.content_id,
           items: (transform_taxon(taxon.children, selected_taxon_content_ids) if taxon.children),
-          checked: selected_taxon_content_ids.include?(taxon.content_id),
+          checked:,
         }
       end
     end

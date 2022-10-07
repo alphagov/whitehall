@@ -7,9 +7,18 @@ class Admin::EditionTranslationsController < Admin::BaseController
     render "legacy_new" unless preview_design_system_user?
   end
 
+  def edit
+    render "edit_legacy" unless preview_design_system_user?
+  end
+
   def update
     @translated_edition.change_note = "Added translation" if @translated_edition.change_note.blank?
-    super
+    if translatable_item.update(translation_params)
+      save_draft_translation if send_downstream?
+      redirect_to update_redirect_path, notice: notice_message("saved")
+    else
+      render action: preview_design_system_user? ? "edit" : "edit_legacy"
+    end
   end
 
 private
@@ -18,7 +27,7 @@ private
     return "admin" unless preview_design_system_user?
 
     case action_name
-    when "new"
+    when "edit", "update", "new"
       "design_system"
     else
       "admin"

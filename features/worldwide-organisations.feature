@@ -107,3 +107,11 @@ Feature: Administering worldwide organisation
     When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site
+
+  Scenario: Translating a corporate information page for a worldwide organisation with design system permission
+    Given a worldwide organisation "Department of Beards in France"
+    And I have the "Preview design system" permission
+    And I add a "Terms of reference" corporate information page to the worldwide organisation
+    When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
+    And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
+    Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site

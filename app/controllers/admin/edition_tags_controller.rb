@@ -3,13 +3,11 @@ class Admin::EditionTagsController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :limit_edition_access!
   before_action :forbid_editing_of_locked_documents
-  layout :get_layout
+  layout "design_system"
 
   def edit
     @topic_taxonomy = Taxonomy::TopicTaxonomy.new
     @tag_form = TaxonomyTagForm.load(@edition.content_id)
-
-    render(preview_design_system_user? || user_can_preview_second_release? ? "edit" : "edit_legacy")
   end
 
   def update
@@ -27,17 +25,6 @@ class Admin::EditionTagsController < Admin::BaseController
   end
 
 private
-
-  def get_layout
-    return "admin" unless preview_design_system_user? || user_can_preview_second_release?
-
-    case action_name
-    when "edit"
-      "design_system"
-    else
-      "admin"
-    end
-  end
 
   def redirect_path
     if params[:save] || current_user.can_redirect_to_summary_page?
