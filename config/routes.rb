@@ -96,7 +96,6 @@ Whitehall::Application.routes.draw do
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
-    get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
     # End of public facing routes still rendered by Whitehall
 
     # Routes that exist solely for the purpose of non-English finders
@@ -405,6 +404,8 @@ Whitehall::Application.routes.draw do
 
   # TODO: Remove when paths for new content can be generated without a route helper
   get "/guidance/:id(.:locale)", as: "detailed_guide", to: "detailed_guides#show", constraints: { id: /[A-z0-9\-]+/, locale: valid_locales_regex }
+
+  get "/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
 
   resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
