@@ -65,21 +65,6 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
-    # Redirects rendered by Whitehall
-    get "/collections" => redirect("/publications")
-    get "/email-signup", to: redirect("/")
-    get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
-    get "/news" => redirect("/announcements"), as: "news_articles"
-    get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organsation_id/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
-    get "/organisations/:organsation_id/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
-    get "/speeches" => redirect("/announcements")
-    get "/tour" => redirect("/tour", prefix: "")
-    # End of redirects rendered by Whitehall
-
     # Public facing routes still rendered by Whitehall
     scope "/history" do
       get "/past-chancellors", to: "historic_appointments#past_chancellors"
@@ -95,8 +80,13 @@ Whitehall::Application.routes.draw do
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
 
     resource :email_signups, path: "email-signup", only: %i[create new]
+    get "/email-signup", to: redirect("/")
 
     resources :fatality_notices, path: "fatalities", only: [:show]
+    get "/news" => redirect("/announcements"), as: "news_articles"
+    get "/fatalities" => redirect("/announcements"), as: "fatality_notices"
+
+    get "/speeches" => redirect("/announcements")
 
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
@@ -112,6 +102,7 @@ Whitehall::Application.routes.draw do
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
     get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }
+    get "/collections" => redirect("/publications")
     get "/consultations/:consultation_id/:id" => "_#_", as: "consultation_html_attachment"
     get "/consultations/:consultation_id/outcome/:id" => "_#_", as: "consultation_outcome_html_attachment"
     get "/consultations/:consultation_id/public-feedback/:id" => "_#_", as: "consultation_public_feedback_html_attachment"
@@ -131,9 +122,16 @@ Whitehall::Application.routes.draw do
     get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: valid_locales_regex }
     resources :organisations, only: [:index]
     resources :organisations, only: [] do
+      # No need to forward the locale as collections aren't localised.
+      get "/series/:slug(.:locale)" => redirect("/collections/%{slug}"), constraints: { locale: valid_locales_regex }
+      get "/series(.:locale)" => redirect("/publications"), constraints: { locale: valid_locales_regex }
       get "/about(.:locale)", as: "corporate_information_pages", to: "corporate_information_pages#index", constraints: { locale: valid_locales_regex }
       get "/about/:id(.:locale)", as: "corporate_information_page", to: "corporate_information_pages#show", constraints: { locale: valid_locales_regex }
     end
+    get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup", to: "mhra_email_signup#show", as: :mhra_email_signup
     get "/people/:id(.:locale)", as: "person", to: "people#show", constraints: { locale: valid_locales_regex }
     resources :policy_groups, path: "groups", only: [:show]
@@ -148,6 +146,7 @@ Whitehall::Application.routes.draw do
     resources :topical_events, path: "topical-events", only: [:show] do
       resource :about_pages, path: "about", only: [:show]
     end
+    get "/tour" => redirect("/tour", prefix: "")
     # End of routes no longer rendered by Whitehall
 
     constraints(AdminRequest) do
