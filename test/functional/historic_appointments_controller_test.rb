@@ -16,7 +16,8 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
       { path: "government/history/past-prime-ministers/barry", method: :get },
       controller: "historic_appointments",
       action: "show",
-      id: "barry",
+      role: "past-prime-ministers",
+      person_id: "barry",
     )
   end
 
@@ -48,7 +49,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :show loads the person, appointment and historical account for previous Prime Ministers" do
     pm_account = create(:historical_account, roles: [pm_role])
     create(:role_appointment, person: pm_account.person, role: pm_role)
-    get :show, params: { role: "past-prime-ministers", id: pm_account.person.slug }
+    get :show, params: { role: "past-prime-ministers", person_id: pm_account.person.slug }
 
     assert_response :success
     assert_template :show
@@ -61,7 +62,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     chancellor_account = create(:historical_account, roles: [chancellor_role])
 
     assert_raise ActiveRecord::RecordNotFound do
-      get :show, params: { role: "past-prime-ministers", id: chancellor_account.person.slug }
+      get :show, params: { role: "past-prime-ministers", person_id: chancellor_account.person.slug }
     end
   end
 
