@@ -2,6 +2,11 @@ When(/^I visit the attachments page$/) do
   first(:link, "Attachments").click
 end
 
+When(/^I visit the reorder attachments page$/) do
+  @edition = Edition.last
+  visit reorder_admin_edition_attachments_path(@edition)
+end
+
 When(/^the attachment has been uploaded to the asset-manager$/) do
   Attachment.last.attachment_data.uploaded_to_asset_manager!
 end
@@ -54,7 +59,7 @@ When(/^I set the order of attachments to:$/) do |attachment_order|
     attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
   end
-  click_on "Save attachment order"
+  click_on @user.can_preview_design_system? ? "Update order" : "Save attachment order"
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|
