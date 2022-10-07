@@ -6,7 +6,7 @@
     <%= historical_account.summary %>
   </td>
   <td class="actions">
-    <%= link_to 'View', historic_appointment_path(historical_account.role.historic_param, person), class: "btn btn-default" %>
+    <%= link_to 'View', historic_appointment_path(person), class: "btn btn-default" %>
     <%= link_to 'Edit', edit_admin_person_historical_account_path(person, historical_account), class: "btn btn-default" %>
     <%= button_to 'Delete',
           admin_person_historical_account_path(person, historical_account),
