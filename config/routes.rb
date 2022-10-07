@@ -81,8 +81,6 @@ Whitehall::Application.routes.draw do
     # End of redirects rendered by Whitehall
 
     # Public facing routes still rendered by Whitehall
-    resource :email_signups, path: "email-signup", only: %i[create new]
-    resources :fatality_notices, path: "fatalities", only: [:show]
     scope "/history" do
       get "/past-chancellors", to: "historic_appointments#past_chancellors"
 
@@ -92,11 +90,18 @@ Whitehall::Application.routes.draw do
       get "/past-prime-ministers", to: "historic_appointments#index"
       get "/past-prime-ministers/:id", to: "historic_appointments#show", as: :historic_appointment
     end
+    # End of public facing routes still rendered by Whitehall
+
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
+
+    resource :email_signups, path: "email-signup", only: %i[create new]
+
+    resources :fatality_notices, path: "fatalities", only: [:show]
+
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
     get "/ministers/:id(.:locale)", as: "ministerial_role", to: "ministerial_roles#show", constraints: { locale: valid_locales_regex }
+
     resources :operational_fields, path: "fields-of-operation", only: %i[index show]
-    # End of public facing routes still rendered by Whitehall
 
     # Routes that exist solely for the purpose of non-English finders
     get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
