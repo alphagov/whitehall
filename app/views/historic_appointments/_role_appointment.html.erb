@@ -2,7 +2,7 @@
 <%= content_tag_for :div, role_appointment, class: 'govuk-grid-column-one-quarter', role: "listitem" do %>
   <% if role_appointment.has_historical_account? %>
     <%= render "govuk_publishing_components/components/image_card", {
-      href: historic_appointment_path(role_appointment.person),
+      href: historic_appointment_path(role.historic_param, role_appointment.person),
       image_src: role_appointment.person.image_url(:s216),
       image_loading: "lazy",
       heading_text: role_appointment.person.name,
