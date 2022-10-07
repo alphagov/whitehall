@@ -61,31 +61,30 @@ Whitehall::Application.routes.draw do
     end
   end
 
-  # Routes rendered by Whitehall to the public under the /government scope (specified in lib/whitehall.rb under the `router_prefix` method)
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
-
-    # Public facing routes still rendered by Whitehall
-    scope "/history" do
-      get "/past-chancellors", to: "historic_appointments#past_chancellors"
-
-      get "/past-foreign-secretaries", to: "past_foreign_secretaries#index"
-      get "/past-foreign-secretaries/:id", to: "past_foreign_secretaries#show"
-
-      get "/past-prime-ministers", to: "historic_appointments#index"
-      get "/past-prime-ministers/:id", to: "historic_appointments#show", as: :historic_appointment
-    end
-    # End of public facing routes still rendered by Whitehall
-
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
-
     scope "/get-involved" do
       # Controller removed. Whitehall frontend no longer serves these
       # pages however the route is needed to generate path and url
       # helper methods.
       root to: "home#get_involved", as: :get_involved, via: :get
+
       get "take-part/:id", to: "take_part_pages#show", as: "take_part_page"
     end
+
+    # Past foreign secretaries are currently hard-coded, so this
+    # resource falls straight through to views.
+    resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: %i[index show]
+    # Past chancellors is also hard-coded
+    get "history/past-chancellors" => "historic_appointments#past_chancellors"
+
+    # Past foreign secretaries and past chancellors are here for the
+    # purposes of reversing URLs in a consistent way from other views.
+
+    # TODO: make these dynamic, they're hard-coded above.
+    get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointments"
+    get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointment"
 
     resource :email_signups, path: "email-signup", only: %i[create new]
     get "/email-signup", to: redirect("/")
