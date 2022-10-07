@@ -84,13 +84,18 @@ Whitehall::Application.routes.draw do
     resource :email_signups, path: "email-signup", only: %i[create new]
     resources :fatality_notices, path: "fatalities", only: [:show]
     scope "/history" do
-      get "/past-chancellors", to: "historic_appointments#past_chancellors"
+      # Past foreign secretaries are currently hard-coded, so this
+      # resource falls straight through to views.
+      resources :past_foreign_secretaries, path: "/past-foreign-secretaries", only: %i[index show]
+      # Past chancellors is also hard-coded
+      get "/past-chancellors" => "historic_appointments#past_chancellors"
 
-      get "/past-foreign-secretaries", to: "past_foreign_secretaries#index"
-      get "/past-foreign-secretaries/:id", to: "past_foreign_secretaries#show"
+      # Past foreign secretaries and past chancellors are here for the
+      # purposes of reversing URLs in a consistent way from other views.
 
-      get "/past-prime-ministers", to: "historic_appointments#index"
-      get "/past-prime-ministers/:id", to: "historic_appointments#show", as: :historic_appointment
+      # TODO: make these dynamic, they're hard-coded above.
+      get "/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointments"
+      get "/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: "historic_appointment"
     end
     get "/how-government-works" => "home#how_government_works", as: "how_government_works"
     get "/ministers(.:locale)", as: "ministerial_roles", to: "ministerial_roles#index", constraints: { locale: valid_locales_regex }
