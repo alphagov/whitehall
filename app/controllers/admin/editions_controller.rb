@@ -98,7 +98,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document" unless preview_design_system_user?
-      @information = updater.failure_reason
+      @information = updater.failure_reason unless preview_design_system_user?
       build_edition_dependencies
       render(preview_design_system_user? ? :new : :new_legacy)
     end
@@ -127,7 +127,7 @@ class Admin::EditionsController < Admin::BaseController
       if speed_tagging?
         render :show
       else
-        @information = updater.failure_reason
+        @information = updater.failure_reason unless preview_design_system_user?
         build_edition_dependencies
         fetch_version_and_remark_trails
         construct_similar_slug_warning_error
@@ -181,7 +181,9 @@ class Admin::EditionsController < Admin::BaseController
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
   end
 
-  def confirm_destroy; end
+  def confirm_destroy
+    render :confirm_destroy_legacy unless preview_design_system_user?
+  end
 
   def destroy
     edition_deleter = Whitehall.edition_services.deleter(@edition)
@@ -208,7 +210,7 @@ private
     return "admin" unless preview_design_system_user?
 
     case action_name
-    when "edit", "update", "new", "create"
+    when "edit", "update", "new", "create", "confirm_destroy"
       "design_system"
     else
       "admin"
@@ -260,6 +262,7 @@ private
       :location,
       :person_override,
       :primary_locale,
+      :create_foreign_language_only,
       :related_mainstream_content_url,
       :additional_related_mainstream_content_url,
       :primary_specialist_sector_tag,
@@ -429,7 +432,8 @@ private
     return if edition_params.empty?
 
     edition_params[:title].strip! if edition_params[:title]
-    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank?
+    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || (preview_design_system_user? && edition_params[:create_foreign_language_only].blank?)
+    edition_params.delete(:create_foreign_language_only)
   end
 
   def clear_scheduled_publication_if_not_activated

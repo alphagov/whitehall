@@ -1,4 +1,5 @@
 <% class_name = class_name.presence || object.class.name.demodulize.underscore.humanize.downcase %>
+<% input_class_name = parent_class.presence || object.class.to_s.underscore %>
 
 <% if object.errors.present? %>
   <div class="gem-c-error-summary govuk-error-summary" data-module="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" id="error-summary" data-govuk-error-summary-module-started="true">
@@ -8,14 +9,14 @@
 
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
-        <% object.errors.errors.map do |error| %>
+        <% object.errors.map do |error| %>
           <% analytics_action = "#{class_name}-error" %>
           <% error_message = error.full_message %>
 
           <%= tag.li(
             tag.a(
               error_message,
-              href: "##{object.class.to_s.underscore}_#{error.attribute.to_s.gsub(".", "_")}",
+              href: "##{input_class_name}_#{error.attribute.to_s.gsub(".", "_")}",
               class: "govuk-link"
             ),
             data: track_analytics_data("form-error", analytics_action, error_message),

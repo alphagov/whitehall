@@ -115,8 +115,13 @@ module DocumentHelper
   end
 
   def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
-    choose "has previously been published on another website."
-    select_date first_published, from: "Its original publication date was *"
+    if @user.can_preview_design_system?
+      choose "This document has previously been published on another website."
+      fill_in_datetime_field(first_published)
+    else
+      choose "has previously been published on another website."
+      select_date first_published, from: "Its original publication date was *"
+    end
     select publication_type, from: "edition_publication_type_id"
   end
 
@@ -184,6 +189,16 @@ module DocumentHelper
   def preview_document_path(edition, options = {})
     query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
     document_path(edition, options.merge(query))
+  end
+
+  def fill_in_datetime_field(date)
+    date = Time.zone.parse(date)
+
+    select date.year, from: "Year"
+    select date.strftime("%B"), from: "Month"
+    select date.day, from: "Day"
+    select date.strftime("%H"), from: "Hour"
+    select date.strftime("%M"), from: "Minute"
   end
 end
 

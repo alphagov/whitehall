@@ -40,9 +40,15 @@ When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |fre
     click_button "Add translation"
   end
 
-  fill_in "Title", with: french_title
-  fill_in "Summary", with: "French summary"
-  fill_in "Body", with: "French body"
+  if @user.can_preview_design_system?
+    fill_in "Translated title (required)", with: french_title
+    fill_in "Translated summary (required)", with: "French summary"
+    fill_in "Translated body (required)", with: "French body"
+  else
+    fill_in "Title", with: french_title
+    fill_in "Summary", with: "French summary"
+    fill_in "Body", with: "French body"
+  end
   click_button "Save"
 end
 

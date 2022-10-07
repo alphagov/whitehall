@@ -192,6 +192,18 @@ module ApplicationHelper
 
   def current_main_navigation_path(parameters)
     case parameters[:controller]
+    when "announcements", "news_articles", "speeches", "fatality_notices", "operational_fields"
+      announcements_path
+    when "consultations", "consultation_responses"
+      publications_path(publication_filter_option: "consultations")
+    when "corporate_information_pages"
+      if parameters.key?(:worldwide_organisation_id)
+        world_locations_path
+      else
+        organisations_path
+      end
+    when "histories", "past_foreign_secretaries", "historic_appointments"
+      how_government_works_path
     when "home"
       case parameters[:action]
       when "home"
@@ -201,14 +213,22 @@ module ApplicationHelper
       else
         how_government_works_path
       end
-    when "histories", "past_foreign_secretaries", "historic_appointments"
-      how_government_works_path
-    when "site"
-      root_path
-    when "announcements", "news_articles", "speeches", "fatality_notices", "operational_fields"
-      announcements_path
-    when "statistics", "statistics_announcements"
-      statistics_path
+    when "latest"
+      if parameters[:departments]
+        organisations_path
+      elsif parameters[:world_locations]
+        world_locations_path
+      else
+        latest_path
+      end
+    when "ministerial_roles"
+      ministerial_roles_path
+    when "organisations", "groups", "email_signup_information"
+      if parameters[:courts_only]
+        courts_path
+      else
+        organisations_path
+      end
     when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == "consultations"
         publications_path(publication_filter_option: "consultations")
@@ -219,34 +239,14 @@ module ApplicationHelper
       else
         publications_path
       end
-    when "consultations", "consultation_responses"
-      publications_path(publication_filter_option: "consultations")
-    when "ministerial_roles"
-      ministerial_roles_path
-    when "organisations", "groups", "email_signup_information"
-      if parameters[:courts_only]
-        courts_path
-      else
-        organisations_path
-      end
-    when "corporate_information_pages"
-      if parameters.key?(:worldwide_organisation_id)
-        world_locations_path
-      else
-        organisations_path
-      end
-    when "world_locations", "worldwide_organisations", "worldwide_offices"
-      world_locations_path(locale: :en)
+    when "site"
+      root_path
+    when "statistics", "statistics_announcements"
+      statistics_path
     when "take_part_pages"
       get_involved_path
-    when "latest"
-      if parameters[:departments]
-        organisations_path
-      elsif parameters[:world_locations]
-        world_locations_path
-      else
-        latest_path
-      end
+    when "world_locations", "worldwide_organisations", "worldwide_offices"
+      world_locations_path(locale: :en)
     end
   end
 

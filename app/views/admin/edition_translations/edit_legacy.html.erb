@@ -1,0 +1,67 @@
+<% page_title "Edit translation for: #{@edition.title}" %>
+
+<h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @edition.title %></h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <section>
+      <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
+        <%= form.errors %>
+
+        <%= form.translated_text_field :title unless @translated_edition.is_a? CorporateInformationPage %>
+        <%= form.translated_text_area :summary, rows: 2, cols: 40 %>
+        <%= form.translated_text_area :body, rows: 20 %>
+
+        <%= form.save_or_cancel %>
+      <% end %>
+    </section>
+  </div>
+  <div class="col-md-4">
+    <% if current_user.can_view_move_tabs_to_endpoints? && !@edition.is_a?(CorporateInformationPage) %>
+      <div class="govspeak_help" id="govspeak_help">
+        <%= render partial: "admin/editions/govspeak_help",
+                   locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+      </div>
+    <% else %>
+      <%= sidebar_tabs edition_tabs(
+        @edition,
+        remarks_count: @document_remarks.total_count,
+        history_count: @document_history.total_count,
+        editing: true,
+      ) do |tabs| %>
+
+        <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
+          <%= render partial: "admin/editions/govspeak_help",
+                     locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+        <% end %>
+
+        <%= tabs.pane class: "audit-trail", id: "notes" do %>
+          <h1>Notes</h1>
+          <p>To add a remark, save your changes.</p>
+          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
+          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+          <%= render_editorial_remarks(@document_remarks, @edition) %>
+          <%= paginate @document_remarks.query, theme: 'remarks', param_name: 'remarks_page' %>
+        <% end %>
+
+        <%= tabs.pane class: "audit-trail", id: "history" do %>
+          <div class="audit-trail-page">
+            <h1>Activity</h1>
+            <%= paginate @document_history.query, theme: 'audit_trail' %>
+            <ul class="list-unstyled">
+              <%= render partial: "admin/editions/audit_trail_entry", collection: @document_history.audit_trail %>
+            </ul>
+            <%= paginate @document_history.query, theme: 'audit_trail' %>
+          </div>
+        <% end %>
+          <% if @edition.can_be_fact_checked? %>
+            <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
+              <h1>Fact checking</h1>
+              <%= render partial: 'admin/editions/fact_check_responses', locals: {edition: @edition}  %>
+              <p>To send a fact check request, save your changes.</p>
+            <% end %>
+          <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -30,7 +30,6 @@ class User < ApplicationRecord
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     REDIRECT_TO_SUMMARY_PAGE = "Redirect to summary page".freeze
     REMOVE_EDIT_TABS = "Remove edit tabs".freeze
-    PREVIEW_SECOND_RELEASE = "Preview second release".freeze
   end
 
   def role
@@ -110,10 +109,6 @@ class User < ApplicationRecord
 
   def can_remove_edit_tabs?
     has_permission?(Permissions::REMOVE_EDIT_TABS)
-  end
-
-  def can_preview_second_release?
-    has_permission?(Permissions::PREVIEW_SECOND_RELEASE)
   end
 
   def organisation_name

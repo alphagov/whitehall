@@ -19,6 +19,14 @@ Feature: Managing Document Sources
     And I view the publication "One must have many urls"
     Then I should see the legacy url "http://im-old.com"
 
+  Scenario: Creating a legacy URL with design system permission
+    Given a draft publication "One must have many urls" exists
+    And I have the "Preview design system" permission
+    When I add "http://im-old.com" as a legacy url to the "One must have many urls" publication
+    And I visit the list of draft documents
+    And I view the publication "One must have many urls"
+    Then I should see the legacy url "http://im-old.com"
+
   Scenario: Editing a legacy URL
     Given a draft publication "One must have many urls" with a legacy url "http://im-old.com"
     When I change the legacy url "http://im-old.com" to "http://im-really-old.com" on the "One must have many urls" publication
@@ -26,8 +34,24 @@ Feature: Managing Document Sources
     And I view the publication "One must have many urls"
     Then I should see the legacy url "http://im-really-old.com"
 
+  Scenario: Editing a legacy URL with design system permission
+    Given a draft publication "One must have many urls" with a legacy url "http://im-old.com"
+    And I have the "Preview design system" permission
+    When I change the legacy url "http://im-old.com" to "http://im-really-old.com" on the "One must have many urls" publication
+    And I visit the list of draft documents
+    And I view the publication "One must have many urls"
+    Then I should see the legacy url "http://im-really-old.com"
+
   Scenario: Removing a legacy URL
     Given a draft publication "One must have many urls" with a legacy url "http://im-old.com"
+    When I remove the legacy url "http://im-old.com" on the "One must have many urls" publication
+    And I visit the list of draft documents
+    And I view the publication "One must have many urls"
+    Then I should see that "http://im-old.com" has been removed
+
+  Scenario: Removing a legacy URL with design system permission
+    Given a draft publication "One must have many urls" with a legacy url "http://im-old.com"
+    And I have the "Preview design system" permission
     When I remove the legacy url "http://im-old.com" on the "One must have many urls" publication
     And I visit the list of draft documents
     And I view the publication "One must have many urls"

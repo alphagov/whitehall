@@ -5,7 +5,7 @@ end
 When(/^I choose the first need in the dropdown$/) do
   option = first("#need_ids option").text
   select option, from: "need_ids"
-  click_button "Save needs"
+  click_button @user.can_preview_design_system? ? "Save" : "Save needs"
 end
 
 Then(/^I should see the first need in the list of associated needs$/) do

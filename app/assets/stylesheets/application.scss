@@ -5,7 +5,9 @@
 
 @import "./modules/unpublish-display-conditions";
 
+@import "./admin/views/edition-translations";
 @import "./admin/views/whats-new";
+@import "./admin/views/edit-edition";
 
 .legacy-whitehall {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

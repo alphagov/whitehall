@@ -1,0 +1,23 @@
+<% content_for :context, attachment.title %>
+<% content_for :page_title, "Delete attachment" %>
+<% content_for :title, "Delete attachment" %>
+<% content_for :title_margin_bottom, 6 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: attachable_attachments_path(attachable)
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_tag [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], method: :delete do %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete this attachment?</p>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Delete attachment",
+        destructive: true,
+        margin_bottom: 8,
+      } %>
+    <% end %>
+  </section>
+</div>

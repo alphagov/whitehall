@@ -1,0 +1,14 @@
+<% page_title "Are you sure you want to discard #{@edition.title}?" %>
+
+<span class="back">
+  <%= link_to 'Back', admin_edition_path(@edition) %>
+</span>
+
+<div class="row">
+  <div class="col-md-8">
+    <h1 class="add-bottom-margin">Are you sure you want to discard "<%= @edition.title %>"?</h1>
+    <%= form_tag admin_edition_path(@edition), method: :delete do %>
+      <%= submit_tag 'Discard', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
+    <% end %>
+  </div>
+</div>
