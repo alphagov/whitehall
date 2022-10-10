@@ -105,8 +105,8 @@ $govuk-include-default-font-face: false;
   @import "helpers/worldwide-organisation-header";
 
   // helpers shared with admin
-  @import "../shared/helpers/magna-charta";
-  @import "../shared/helpers/player-container";
+  @import "../shared_legacy/helpers/magna-charta";
+  @import "../shared_legacy/helpers/player-container";
 }
 
 // VIEWS

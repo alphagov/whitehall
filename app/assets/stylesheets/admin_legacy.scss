@@ -18,9 +18,9 @@
 @import "jquery-ui/tooltip";
 @import "jquery-ui/theme";
 
-@import "vendor/chosen-bootstrap";
-@import "vendor/jquery.highlighttextarea";
-@import "shared/helpers/magna-charta";
-@import "admin/base";
+@import "vendor_legacy/chosen-bootstrap";
+@import "vendor_legacy/jquery.highlighttextarea";
+@import "shared_legacy/helpers/magna-charta";
+@import "admin_legacy/base";
 
-@import "admin/govuk-design-system-overrides";
+@import "admin_legacy/govuk-design-system-overrides";
