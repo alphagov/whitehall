@@ -1,6 +1,10 @@
 module FeedHelper
   def atom_feed_url_for(resource)
-    Whitehall.atom_feed_maker.url_for(resource)
+    if resource.instance_of?(TopicalEvent)
+      Whitehall.url_maker.topical_event_url(resource, format: "atom")
+    else
+      Whitehall.atom_feed_maker.url_for(resource)
+    end
   end
 
   def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.zone.now)
