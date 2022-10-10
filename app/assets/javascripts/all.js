@@ -6,13 +6,13 @@
 //
 //= require govuk-admin-template
 //= require jquery-ui
-//= require vendor_legacy/jquery/jquery.player.min
-//= require vendor_legacy/google-diff-match-patch.js
-//= require vendor_legacy/jquery/chosen.jquery.js
+//= require vendor/jquery/jquery.player.min
+//= require vendor/google-diff-match-patch.js
+//= require vendor/jquery/chosen.jquery.js
 //
 //= require govuk_toolkit
 //
-//= require govuk_legacy
+//= require ./govuk_legacy
 //= require_tree ./common_legacy
 //= require_tree ./application_legacy
 //= require_tree ./admin_legacy
