@@ -1,13 +1,13 @@
 @import "govuk_publishing_components/all_components";
 
-@import "./components/miller-columns";
-@import "./components/autocomplete";
+@import "./admin/components/miller-columns";
+@import "./admin/components/autocomplete";
 
-@import "./modules/unpublish-display-conditions";
+@import "./admin/modules/unpublish-display-conditions";
 
-@import "./admin_legacy/views/edition-translations";
-@import "./admin_legacy/views/whats-new";
-@import "./admin_legacy/views/edit-edition";
+@import "./admin/views/edition-translations";
+@import "./admin/views/whats-new";
+@import "./admin/views/edit-edition";
 
 .legacy-whitehall {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
