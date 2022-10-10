@@ -131,17 +131,16 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       view_test "edit displays scheduled_publication date and time fields when scheduled_publication is nil, defaulting to 09:30 today" do
         edition = create(edition_type, scheduled_publication: nil)
+        date = Time.zone.now
 
-        Timecop.freeze(Time.zone.parse("2012-03-01 11:00")) do
-          get :edit, params: { id: edition }
-        end
+        get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active']"
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']", count: 0
-          assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='2012'][selected='selected']"
-          assert_select "select[name='edition[scheduled_publication(2i)]'] option[value='3'][selected='selected']"
-          assert_select "select[name='edition[scheduled_publication(3i)]'] option[value='1'][selected='selected']"
+          assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='#{date.year}'][selected='selected']"
+          assert_select "select[name='edition[scheduled_publication(2i)]'] option[value='#{date.month}'][selected='selected']"
+          assert_select "select[name='edition[scheduled_publication(3i)]'] option[value='#{date.day}'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(4i)]'] option[value='09'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(5i)]'] option[value='30'][selected='selected']"
         end
