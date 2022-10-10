@@ -126,4 +126,23 @@ private
       self
     end
   end
+
+  def append_url_options(path, options = {})
+    if options[:format] && options[:locale]
+      path = "#{path}.#{options[:locale]}.#{options[:format]}"
+    elsif options[:locale]
+      path = "#{path}.#{options[:locale]}"
+    elsif options[:format]
+      path = "#{path}.#{options[:format]}"
+    end
+
+    if options[:cachebust]
+      query_params = {
+        cachebust: options[:cachebust],
+      }
+      path = "#{path}?#{query_params.to_query}"
+    end
+
+    path
+  end
 end
