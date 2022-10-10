@@ -1,0 +1,31 @@
+<% edition = @unpublishing.edition
+   withdrawal_or_unpublishing = withdrawal_or_unpublishing(@unpublishing.edition)
+%>
+
+<% page_title "Edit public explanation for #{withdrawal_or_unpublishing}"  %>
+
+<h1><%= edition.title %></h1>
+<div class="well edit-unpublishing-form add-top-margin">
+  <section>
+    <h2 class="remove-top-margin">Edit public explanation for <%= withdrawal_or_unpublishing %></h2>
+    <p>
+      <strong>Reason for <%= withdrawal_or_unpublishing %></strong><br />
+      <%= @unpublishing.unpublishing_reason.as_sentence.capitalize %>
+    </p>
+
+    <%= form_for @unpublishing, url: admin_edition_unpublishing_path(edition) do |f| %>
+      <fieldset>
+        <%= f.text_area :explanation, rows: 5, class: "previewable input-md-8", required: true,
+          label_text: %{Public explanation (this is shown on the live site)}.html_safe,
+          data: {
+            module: "paste-html-to-govspeak"
+          }
+        %>
+      </fieldset>
+      <fieldset>
+        <%= f.submit "Update #{withdrawal_or_unpublishing} explanation", class: "btn btn-primary" %>
+        <%= link_to 'Cancel', [:admin, edition], class: 'btn btn-default add-left-margin' %>
+      </fieldset>
+    <% end %>
+  </section>
+</div>
