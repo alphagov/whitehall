@@ -52,7 +52,7 @@
             {
               label: "(uncheck to remove)",
               value: "0",
-              checked: true,
+              checked: params.dig("edition", "images_attributes", index.to_s, "_destroy") != "1",
             }
           ]
         } %>
