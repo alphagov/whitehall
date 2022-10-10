@@ -422,6 +422,12 @@ GEM
     nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri (1.13.8-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.8-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
+      racc (~> 1.4)
     notifications-ruby-client (5.3.0)
       jwt (>= 1.5, < 3)
     null_logger (0.0.1)
@@ -731,7 +737,10 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
+  aarch64-linux
+  arm64-darwin
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   activemodel-serializers-xml
