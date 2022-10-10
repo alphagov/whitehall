@@ -132,7 +132,7 @@ module Admin::EditionsHelper
         concat render("standard_fields", form:, edition:)
         yield(form)
         concat render("access_limiting_fields", form:, edition:)
-        concat render("legacy_scheduled_publication_fields", form:, edition:)
+        concat render("scheduled_publication_fields", form:, edition:)
         concat standard_edition_publishing_controls(form, edition)
       end
     else
