@@ -5,6 +5,9 @@
 <% default_hour = default_date&.hour %>
 <% default_minute = default_date&.min %>
 
+<% start_year = start_year.presence %>
+<% end_year = end_year.presence %>
+
 <div class="gem-c-date-input govuk-date-input govuk-datetime <%= 'govuk-form-group--error' if errors_for_input(edition.errors, field_name).present? %>">
   <h3 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-4">Date</h3>
 
@@ -35,7 +38,7 @@
   <div class="govuk-date-input__item">
     <div class="govuk-form-group">
       <label for="edition_<%= field_name %>_1i" class="gem-c-label govuk-label">Year</label>
-      <%= select_year edition.public_send(field_name)&.year || default_year, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5, prefix: "edition", field_name: "#{field_name}(1i)" } %>
+      <%= select_year edition.public_send(field_name)&.year || default_year, { include_blank: true, start_year: start_year, end_year: end_year, prefix: "edition", field_name: "#{field_name}(1i)" } %>
     </div>
   </div>
 
