@@ -13,5 +13,3 @@
 //= require admin/modules/paste-html-to-govspeak
 //= require admin/modules/unpublish-display-conditions
 //= require admin/modules/unpublish-tracking
-
-window.GOVUK.navBarHelper.init()

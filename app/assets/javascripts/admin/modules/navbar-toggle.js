@@ -10,17 +10,24 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   NavbarToggle.prototype.init = function () {
     this.menu.classList.add('govuk-visually-hidden')
-    this.initToggleListener()
+    this.toggler.setAttribute('tabindex', 0)
+    this.initToggleListeners()
   }
 
-  NavbarToggle.prototype.initToggleListener = function () {
-    this.toggler.addEventListener('click', function (e) {
-      e.stopPropagation()
-      e.preventDefault()
+  NavbarToggle.prototype.initToggleListeners = function () {
+    this.toggler.addEventListener('click', this.toggle.bind(this))
+    this.toggler.addEventListener('keyup', this.toggle.bind(this))
+  }
 
-      this.module.classList.toggle('open')
-      this.menu.classList.toggle('govuk-visually-hidden')
-    }.bind(this))
+  NavbarToggle.prototype.toggle = function (e) {
+    // Toggle menu for users tabbing through the navigation bar
+    if (e.type === 'keyup' && (e.which !== 9 || this.module.classList.contains('open'))) return
+
+    e.stopPropagation()
+    e.preventDefault()
+
+    this.module.classList.toggle('open')
+    this.menu.classList.toggle('govuk-visually-hidden')
   }
 
   Modules.NavbarToggle = NavbarToggle
