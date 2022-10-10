@@ -50,7 +50,7 @@ module AdminEditionControllerTestHelpers
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[summary]']"
           assert_select "textarea[name='edition[body]']"
-          assert_select "input[type='submit']"
+          assert_select "button[type='submit']"
         end
       end
 
@@ -167,7 +167,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[body]']"
-          assert_select "input[type='submit']"
+          assert_select "button[type='submit']"
         end
       end
 

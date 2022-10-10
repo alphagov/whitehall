@@ -1,0 +1,24 @@
+<div class="govuk-button-group">
+  <% data_attributes = {
+      module: "track-button-click",
+      "tracking-category": "form-button",
+      "tracking-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
+    }
+  %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save",
+    value: "save",
+    name: "save",
+    data_attributes: data_attributes
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save and continue",
+    secondary_solid: true,
+    data_attributes: data_attributes
+  } %>
+
+  <span class="govuk-body">
+    or <%= link_to "cancel", edition.persisted? ? admin_edition_path(edition) : admin_editions_path, class: "govuk-link", data_attributes: data_attributes %>
+  </span>
+</div>

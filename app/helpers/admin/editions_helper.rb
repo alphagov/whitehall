@@ -224,13 +224,10 @@ module Admin::EditionsHelper
   def standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls") do
       if edition.change_note_required?
-        concat render(
-          partial: "change_notes",
-          locals: { form:, edition: },
-        )
+        concat render("change_notes", form:, edition:)
       end
-      if current_user.can_redirect_to_summary_page?
-        concat form.save_or_cancel
+      if current_user.can_preview_design_system?
+        concat render("save_or_continue_or_cancel", form:, edition:)
       else
         concat form.save_or_continue_or_cancel
       end
