@@ -2,8 +2,6 @@
 //= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics
 
-//= require govuk-admin-template
-
 //= require admin/components/autocomplete
 //= require admin/components/miller-columns
 
