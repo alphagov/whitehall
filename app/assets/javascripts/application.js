@@ -5,13 +5,13 @@
 //= require govuk-admin-template
 //= require admin_legacy
 
-//= require components/miller-columns
-//= require components/autocomplete
+//= require admin/components/miller-columns
+//= require admin/components/autocomplete
 
-//= require modules/analytics
-//= require modules/paste-html-to-govspeak
-//= require modules/unpublish-display-conditions
-//= require modules/unpublish-tracking
-//= require modules/track-selected-taxons
+//= require admin/modules/analytics
+//= require admin/modules/paste-html-to-govspeak
+//= require admin/modules/unpublish-display-conditions
+//= require admin/modules/unpublish-tracking
+//= require admin/modules/track-selected-taxons
 
 window.GOVUK.navBarHelper.init()
