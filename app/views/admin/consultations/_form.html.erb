@@ -173,6 +173,8 @@
     heading_level: 3,
     heading_size: "l"
   } do %>
+    <%= form.hidden_field :read_consultation_principles, value: "0" %>
+
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "edition[read_consultation_principles]",
       id: "edition_read_consultation_principles",
