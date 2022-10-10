@@ -1,0 +1,20 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Access limiting",
+  heading_level: 3,
+  heading_size: "l"
+} do %>
+  <%= form.hidden_field :access_limited, value: "0" %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "edition[access_limited]",
+    id: "edition_access_limited",
+    error_items: errors_for(edition.errors, :access_limited),
+    items: [
+      {
+        label: "Limit access to producing organisations prior to publication",
+        value: 1,
+        checked: edition.access_limited,
+      }
+    ]
+  } %>
+<% end %>
