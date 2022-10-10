@@ -12,10 +12,10 @@
 //= require jquery/dist/jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require vendor/jquery/jquery.player.min.js
-//= require vendor/sorttable
-//= require vendor/object-create-polyfill
+//= require vendor_legacy/jquery/jquery.player.min.js
+//= require vendor_legacy/sorttable
+//= require vendor_legacy/object-create-polyfill
 //
-//= require govuk
-//= require_tree ./common
-//= require_tree ./application
+//= require govuk_legacy
+//= require_tree ./common_legacy
+//= require_tree ./application_legacy

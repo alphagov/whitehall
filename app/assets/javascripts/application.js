@@ -3,7 +3,7 @@
 //= require govuk_publishing_components/analytics
 
 //= require govuk-admin-template
-//= require admin
+//= require admin_legacy
 
 //= require components/miller-columns
 //= require components/autocomplete

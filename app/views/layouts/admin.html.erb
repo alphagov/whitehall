@@ -35,7 +35,7 @@
 <% end %>
 
 <% content_for :body_end do %>
-  <%= javascript_include_tag "admin" %>
+  <%= javascript_include_tag "admin_legacy" %>
   <% initialise_script "GOVUK.adminGlobalInitialiser" %>
   <%= javascript_tag(yield :javascript_initialisers) %>
 <% end %>
