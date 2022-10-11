@@ -84,23 +84,4 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
-
-  view_test "#index should render editorial remarks in reverse chronological order" do
-    edition = create(:submitted_publication)
-
-    create(:editorial_remark, body: "Should appear second", edition:)
-    create(:editorial_remark, body: "Should appear first", edition:)
-
-    get :index, params: { edition_id: edition }
-
-    assert_equal "Should appear first", css_select("span.body")[0].text
-    assert_equal "Should appear second", css_select("span.body")[1].text
-  end
-
-  view_test "#index should render a link to add a new note" do
-    edition = create(:submitted_publication)
-
-    get :index, params: { edition_id: edition }
-    assert_select "a[href=?]", "/government/admin/editions/#{edition.id}/editorial_remarks/new", text: "Add note"
-  end
 end
