@@ -55,12 +55,10 @@ $govuk-use-legacy-palette: false;
 
   @import "helpers/govspeak";
   @import "helpers/organisations";
-
-  // helpers shared with frontend and admin
-  @import "../shared_legacy/helpers/player-container";
+  @import "helpers/player-container";
 
   // Support for bar charts
-  @import "../shared_legacy/helpers/magna-charta";
+  @import "helpers/magna-charta";
 
   // VIEWS
   // Styles scoped to each template in /views
