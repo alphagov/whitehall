@@ -8,7 +8,7 @@
         {
           title: "Home",
           url: "/"
-        },    
+        },
         {
           title: "History of the UK Government",
           url: "/government/history"
@@ -39,7 +39,9 @@
     <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible govuk-!-margin-bottom-4">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-      <%= image_tag @person.image_url, class: "govuk-!-margin-bottom-4 govuk-!-width-full", alt: "", loading: "lazy"%>
+      <% if @person.image_url %>
+        <%= image_tag @person.image_url, class: "govuk-!-margin-bottom-4 govuk-!-width-full", alt: "", loading: "lazy"%>
+      <% end %>
       </div>
     </div>
 
@@ -73,4 +75,3 @@
     </p>
   </div>
 </div>
-
