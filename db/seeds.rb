@@ -81,4 +81,54 @@ if WorldLocation.where(name: "Test International Delegation").blank?
     title: "GOV.UK Homepage",
     linkable: international_delegation_news,
   )
+
+  if Role.where(slug: "prime-minister").blank?
+    Role.skip_callback(:commit, :after, :publish_to_publishing_api)
+    Person.skip_callback(:commit, :after, :publish_to_publishing_api)
+    RoleAppointment.skip_callback(:commit, :after, :publish_to_publishing_api)
+
+    prime_minister_role = Role.create!(
+      name: "Prime Minister",
+      slug: "prime-minister",
+      type: "MinisterialRole",
+      permanent_secretary: false,
+      cabinet_member: true,
+      chief_of_the_defence_staff: false,
+      supports_historical_accounts: true,
+    )
+
+    previous_prime_minister = Person.create!(
+      forename: "Previous",
+      surname: "Prime Minister",
+      slug: "previous-prime-minister",
+    )
+
+    RoleAppointment.create!(
+      role: prime_minister_role,
+      person: previous_prime_minister,
+      started_at: 2.years.ago,
+      ended_at: 1.year.ago,
+    )
+
+    HistoricalAccount.create!(
+      person: previous_prime_minister,
+      summary: "This person served as the previous Prime Minister",
+      body: "Some information about their work.",
+      political_party_ids: [1],
+      roles: [prime_minister_role],
+    )
+
+    current_prime_minister = Person.create!(
+      forename: "Current",
+      surname: "Prime Minister",
+      slug: "current-prime-minister",
+    )
+
+    RoleAppointment.create!(
+      role: prime_minister_role,
+      person: current_prime_minister,
+      started_at: 1.year.ago,
+      ended_at: nil,
+    )
+  end
 end
