@@ -29,7 +29,6 @@ class User < ApplicationRecord
     VIEW_MOVE_TABS_TO_ENDPOINTS = "View move tabs to endpoints".freeze
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
     REDIRECT_TO_SUMMARY_PAGE = "Redirect to summary page".freeze
-    REMOVE_EDIT_TABS = "Remove edit tabs".freeze
   end
 
   def role
@@ -105,10 +104,6 @@ class User < ApplicationRecord
 
   def can_redirect_to_summary_page?
     has_permission?(Permissions::REDIRECT_TO_SUMMARY_PAGE)
-  end
-
-  def can_remove_edit_tabs?
-    has_permission?(Permissions::REMOVE_EDIT_TABS)
   end
 
   def organisation_name
