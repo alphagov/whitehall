@@ -27,7 +27,6 @@ class User < ApplicationRecord
     GDS_ADMIN = "GDS Admin".freeze
     EXPORT_DATA = "Export data".freeze
     PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
-    REDIRECT_TO_SUMMARY_PAGE = "Redirect to summary page".freeze
   end
 
   def role
@@ -95,10 +94,6 @@ class User < ApplicationRecord
 
   def can_preview_design_system?
     has_permission?(Permissions::PREVIEW_DESIGN_SYSTEM)
-  end
-
-  def can_redirect_to_summary_page?
-    has_permission?(Permissions::REDIRECT_TO_SUMMARY_PAGE)
   end
 
   def organisation_name
