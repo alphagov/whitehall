@@ -1,14 +1,8 @@
 //= require govuk_publishing_components/lib
 //= require jquery-ui
-//= require ./extensions_legacy/jquery.distinct
 //= require vendor/jquery/chosen.jquery.js
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/jquery/jquery.highlighttextarea.js
 //= require vendor/jquery/jquery-debounce.js
 //= require vendor/google-diff-match-patch.js
-//= require ./application_legacy/convert-html-pub-charts
-//= require ./govuk_legacy
-//= require_tree ./common_legacy
-//= require ./application_legacy/hide-extra-rows.js
-//= require ./application_legacy/toggler.js
 //= require_tree ./admin_legacy

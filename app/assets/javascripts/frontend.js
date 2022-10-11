@@ -16,6 +16,4 @@
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
 //
-//= require ./govuk_legacy
-//= require_tree ./common_legacy
-//= require_tree ./application_legacy
+//= require_tree ./frontend
