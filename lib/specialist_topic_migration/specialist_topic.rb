@@ -18,5 +18,9 @@ module SpecialistTopicMigration
         @content_hash[field.to_s]
       end
     end
+
+    def groups
+      details["groups"]
+    end
   end
 end
