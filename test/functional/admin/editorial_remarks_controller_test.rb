@@ -34,13 +34,6 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_redirected_to admin_speech_path(edition)
   end
 
-  test "should redirect to the edition remarks index page when the user has the `View move tabs to endpoints` permission" do
-    @logged_in_user.permissions << "View move tabs to endpoints"
-    edition = create(:submitted_speech)
-    post :create, params: { edition_id: edition, editorial_remark: { body: "editorial-remark-body" } }
-    assert_redirected_to admin_edition_editorial_remarks_path(edition)
-  end
-
   test "should create an editorial remark" do
     edition = create(:submitted_publication)
     post :create, params: { edition_id: edition, editorial_remark: { body: "editorial-remark-body" } }

@@ -234,13 +234,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     assert_redirected_to admin_publication_path(@edition)
   end
 
-  test "redirect back to the fact check index page a fact check has been requested and the user has the `View move tabs to endpoints` permission" do
-    @requestor.permissions << "View move tabs to endpoints"
-    post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
-
-    assert_redirected_to admin_edition_fact_check_requests_path(@edition)
-  end
-
   test "should not send an email if the fact checker's email address is missing" do
     @attributes[:email_address] = ""
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
@@ -260,14 +253,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert_redirected_to admin_publication_path(@edition)
-  end
-
-  test "redirect back to the fact checking new view if the fact checker's email address is missing and the user has the `View move tabs to endpoints` permission" do
-    @requestor.permissions << "View move tabs to endpoints"
-    @attributes[:email_address] = ""
-    post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
-
-    assert_redirected_to new_admin_edition_fact_check_request_path(@edition)
   end
 
   test "should reject invalid email addresses" do
