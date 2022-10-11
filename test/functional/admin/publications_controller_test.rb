@@ -83,7 +83,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "should validate previously_published field on create" do
     post :create, params: { edition: controller_attributes_for(:publication).except(:previously_published) }
-    assert_equal "You must specify whether the document has been published before", assigns(:edition).errors.full_messages.last
+    assert_equal "Previously published You must specify whether the document has been published before", assigns(:edition).errors.full_messages.last
   end
 
   test "should validate first_published_at field on create if previously_published is true" do

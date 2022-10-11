@@ -9,7 +9,8 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,
-    heading_size: "l"
+    heading_size: "l",
+    id: "associations"
   } do %>
     <%= render 'legacy_organisation_fields', form: form, edition: edition %>
   <% end %>
