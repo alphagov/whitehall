@@ -25,7 +25,8 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
   apply_to_all_nations_if_required
-  click_button "Save"
+  click_button "Save and continue"
+  click_button "Update tags"
   publish(force: true)
 end
 

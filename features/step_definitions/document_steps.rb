@@ -160,7 +160,8 @@ When("I force publish {edition}") do |edition|
   click_link "Edit draft"
   fill_in_change_note_if_required
   apply_to_all_nations_if_required
-  click_button "Save"
+  click_button "Save and continue"
+  click_button "Update tags"
   publish(force: true)
 end
 
