@@ -8,6 +8,8 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def index; end
 
+  def reorder; end
+
   def order
     attachment_ids = params.permit!.to_h[:ordering].sort_by { |_, ordering| ordering.to_i }.map { |id, _| id }
     attachable.reorder_attachments(attachment_ids)
@@ -90,7 +92,7 @@ private
     return "admin" unless preview_design_system_user?
 
     case action_name
-    when "edit", "update", "new", "create", "confirm_destroy"
+    when "edit", "update", "new", "create", "confirm_destroy", "reorder"
       "design_system"
     else
       "admin"

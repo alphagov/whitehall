@@ -295,6 +295,7 @@ Whitehall::Application.routes.draw do
           resource :document_sources, path: "document-sources", except: %i[show new]
           resources :attachments, except: [:show] do
             put :order, on: :collection
+            get :reorder, on: :collection
             put :update_many, on: :collection, constraints: { format: "json" }
             get :confirm_destroy, on: :member
           end

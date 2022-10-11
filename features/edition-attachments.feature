@@ -32,7 +32,8 @@ Feature: Managing attachments on editions
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example **Govspeak body**"
     And I add an external attachment with the title "Beard Length Illustrations" and the URL "http://www.beardlengths.gov.uk"
     Then the publication "Standard Beard Lengths" should have 3 attachments
-    When I set the order of attachments to:
+    When I visit the reorder attachments page
+    And I set the order of attachments to:
       |         title                | order |
       | Beard Length Graphs 2012     |   0   |
       | Beard Length Statistics 2014 |   1   |
