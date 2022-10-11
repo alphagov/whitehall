@@ -4,15 +4,9 @@
 <% initialise_script 'GOVUK.documentFinder' %>
 <% initialise_script 'GOVUK.documentCollectionCheckboxSelector' %>
 
-<% if current_user.can_remove_edit_tabs? %>
-  <span class="back">
-    <%= link_to 'Back', admin_edition_path(@collection) %>
-  </span>
-<% end %>
-
 <h1><%= @collection.title %></h1>
 
-<% if current_user.can_remove_edit_tabs? %>
+<%= edition_editing_tabs(@collection) do %>
   <%= render partial: 'collection_size_warning' %>
   <%= form_tag admin_document_collection_new_whitehall_member_path(@collection) do %>
     <h2>Add document to a group</h2>
@@ -109,103 +103,4 @@
       <i class="glyphicon glyphicon-plus"></i> Add a new group
     <% end %>
   </p>
-<% else %>
-  <%= edition_editing_tabs(@collection) do %>
-    <%= render partial: 'collection_size_warning' %>
-    <%= form_tag admin_document_collection_new_whitehall_member_path(@collection) do %>
-      <h2>Add document to a group</h2>
-      <div id="document-finder" class="document-finder form-inline well remove-top-margin">
-        <label for="title">Add</label>
-        <div class="document-finder-fields">
-          <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true, class: 'form-control input-sm' %>
-          <%= button_tag 'Find', type: 'button', id: 'find-documents', class: 'btn btn-default btn-sm add-right-margin' %>
-          <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
-          <p class="tip">
-            Only the first 10 results are returned – be as specific as you can
-          </p>
-        </div>
-        to the
-        <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, session[:document_collection_selected_group_id]), class: 'form-control input-sm' %>
-        group
-        <%= submit_tag 'Add', class: 'btn btn-sm btn-info' %>
-        <%= hidden_field_tag :document_id %>
-      </div>
-    <% end %>
-
-    <details class="non-whitehall-disclosure"<% if flash[:open_non_whitehall] %> open<% end %>>
-      <summary>
-        Add GOV.UK content created outside of Whitehall to a group
-      </summary>
-      <%= form_tag admin_document_collection_new_non_whitehall_member_path(@collection), class: 'document-finder' do %>
-        <div class="document-finder form-inline well remove-top-margin">
-          <label for="url">Add</label>
-          <%= text_field_tag :url, flash[:url], placeholder: 'GOV.UK URL', class: 'form-control input-sm' %>
-          to the
-          <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, session[:document_collection_selected_group_id]), class: 'form-control input-sm' %>
-          group
-          <%= submit_tag 'Add', class: 'btn btn-sm btn-info' %>
-        </div>
-      <% end %>
-    </details>
-
-    <div class="js-group-container">
-      <div class="reorder-buttons">
-        <%= button_tag 'Reorder groups', class: 'btn btn-sm btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-sm btn-success js-finish-reorder' %>
-      </div>
-      <% @groups.each do |group| %>
-        <section class="group">
-          <header class="js-group-header">
-            <h2>
-              <span class="small">Group</span><br/>
-              <%= group.heading %>
-            </h2>
-            <ul class="actions">
-              <li>
-                <%= link_to 'Edit group heading and body', edit_admin_document_collection_group_path(@collection, group) %>
-              </li>
-              <li>
-                <%= link_to 'Delete group', delete_admin_document_collection_group_path(@collection, group) %>
-              </li>
-            </ul>
-          </header>
-          <div class="js-group-body">
-            <% if group.editable_members.empty? %>
-              <p class="no-content no-content-bordered js-document-group" data-group-id="<%= group.id %>">
-                No documents in this group<br />
-                Add documents by searching or dragging them from another group.
-              </p>
-            <% else %>
-              <%= form_tag admin_document_collection_group_members_path(@collection, group), method: 'delete' do %>
-                <ul class="controls list-unstyled">
-                  <li>
-                    <%= check_box_tag :select_all, group.id, false, id: nil, class: 'checkbox' %>
-                  </li>
-                  <li class="remove">
-                    <%= submit_tag 'Remove', class: 'btn btn-sm btn-default' %>
-                  </li>
-                  <% other_groups = @groups - [group] %>
-                  <% if other_groups.size > 0 %>
-                    <li class="move form-inline">
-                      Move selected to
-                      <%= select_tag :new_group_id, options_from_collection_for_select(other_groups, :id, :heading), class: 'form-control input-sm' %>
-                      <%= submit_tag 'Move', class: 'btn btn-sm btn-default' %>
-                    </li>
-                  <% end %>
-                </ul>
-                <ol class="document-list js-document-group list-unstyled" data-group-id="<%= group.id %>">
-                  <%= render partial: 'collection_document', collection: group.editable_members, as: :membership, locals: { document_collection: @collection } %>
-                </ol>
-              <% end %>
-            <% end %>
-          </div>
-        </section>
-      <% end %>
-    </div>
-
-    <p class="add-group">
-      <%= link_to new_admin_document_collection_group_path(@collection), class: 'btn btn-default' do %>
-        <i class="glyphicon glyphicon-plus"></i> Add a new group
-      <% end %>
-    </p>
-  <% end %>
 <% end %>

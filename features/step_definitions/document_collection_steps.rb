@@ -41,12 +41,8 @@ end
 
 When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collection$/) do |url, title|
   visit admin_document_collection_path(@document_collection)
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   base_path = URI.parse(url).path
   content_id = SecureRandom.uuid
@@ -76,12 +72,8 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
 
   visit admin_document_collection_path(@document_collection)
 
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   fill_in "title", with: document_title
   click_on "Find"
@@ -97,12 +89,8 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   # Simulate drag-droping document.
   execute_script %{
@@ -126,12 +114,8 @@ Then(/^I (?:can )?view the document collection in the admin$/) do
   expect(@document_collection).to be_present
 
   visit admin_document_collection_path(@document_collection)
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   expect(page).to have_selector("h1", text: @document_collection.title)
 end
@@ -156,12 +140,8 @@ end
 
 Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|
   visit admin_document_collection_path(@document_collection)
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   assert_document_is_part_of_document_collection(document_title)
 end
@@ -182,13 +162,8 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   click_on "Create new edition to edit"
   fill_in_change_note_if_required
   click_on "Save"
-
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   check document_title
   click_on "Remove"
@@ -205,13 +180,8 @@ end
 
 And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|
   visit admin_document_collection_path(@document_collection)
-
-  if @user.can_remove_edit_tabs?
-    click_on "Modify collection documents"
-  else
-    click_on "Edit draft"
-    click_on "Collection documents"
-  end
+  click_on "Edit draft"
+  click_on "Collection documents"
 
   fill_in "title", with: document_title
   click_on "Find"

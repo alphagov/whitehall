@@ -24,14 +24,6 @@ class AttachableEditionTest < ActionController::TestCase
     assert_tab "Document", edit_admin_news_article_path(edition)
     assert_tab "Attachments", admin_edition_attachments_path(edition)
   end
-
-  view_test 'GET :edit does not display "Document" and "Attachments" tabs when user has the `Remove edit tabs` permission' do
-    @current_user.permissions << "Remove edit tabs"
-    edition = create(:news_article)
-    get :edit, params: { id: edition }
-    assert_not_tab "Document"
-    assert_not_tab "Attachments"
-  end
 end
 
 class AttachableEditionsWithInlineSupportTest < ActionController::TestCase

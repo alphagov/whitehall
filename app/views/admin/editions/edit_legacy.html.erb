@@ -1,9 +1,3 @@
-<% if current_user.can_remove_edit_tabs? %>
-  <span class="back">
-    <%= link_to 'Back', admin_edition_path(@edition) %>
-  </span>
-<% end %>
-
 <% page_title "Editing: #{@edition.title}"  %>
 <% if @conflicting_edition %>
   <section>

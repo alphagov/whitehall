@@ -2,7 +2,7 @@
   <p><strong>Use this format for:</strong> Detailed background or information about an action government is taking in relation to a policy.</p>
 </div>
 
-<% if current_user.can_remove_edit_tabs? %>
+<%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition, @information) do |form| %>
 
     <div class="js-external-url-set">
@@ -13,19 +13,5 @@
       <legend>Associations</legend>
       <%= render partial: 'legacy_specialist_sector_fields', locals: { form: form, edition: edition } %>
     </fieldset>
-  <% end %>
-<% else %>
-  <%= edition_editing_tabs(edition) do %>
-    <%= standard_edition_form(edition, @information) do |form| %>
-
-      <div class="js-external-url-set">
-        <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
-      </div>
-
-      <fieldset>
-        <legend>Associations</legend>
-        <%= render partial: 'legacy_specialist_sector_fields', locals: { form: form, edition: edition } %>
-      </fieldset>
-    <% end %>
   <% end %>
 <% end %>
