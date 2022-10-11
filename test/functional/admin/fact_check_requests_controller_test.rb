@@ -7,17 +7,6 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     login_as_admin
   end
 
-  view_test "#index should render previous fact checking requests in the correct order" do
-    edition = create(:publication)
-    completed_fact_check = create(:fact_check_request, edition:, comments: "comment")
-    pending_fact_check = create(:fact_check_request, edition:, comments: nil)
-
-    get :index, params: { edition_id: edition }
-
-    assert_select ".responses .from", text: completed_fact_check.email_address
-    assert_select ".pending .from", text: pending_fact_check.email_address
-  end
-
   view_test "should render the content using govspeak markup" do
     edition = create(:edition, body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, edition:, comments: "comment")
@@ -245,13 +234,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     assert_redirected_to admin_publication_path(@edition)
   end
 
-  test "redirect back to the fact check index page a fact check has been requested and the user has the `View move tabs to endpoints` permission" do
-    @requestor.permissions << "View move tabs to endpoints"
-    post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
-
-    assert_redirected_to admin_edition_fact_check_requests_path(@edition)
-  end
-
   test "should not send an email if the fact checker's email address is missing" do
     @attributes[:email_address] = ""
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
@@ -271,14 +253,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert_redirected_to admin_publication_path(@edition)
-  end
-
-  test "redirect back to the fact checking new view if the fact checker's email address is missing and the user has the `View move tabs to endpoints` permission" do
-    @requestor.permissions << "View move tabs to endpoints"
-    @attributes[:email_address] = ""
-    post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
-
-    assert_redirected_to new_admin_edition_fact_check_request_path(@edition)
   end
 
   test "should reject invalid email addresses" do

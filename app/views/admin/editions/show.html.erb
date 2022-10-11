@@ -75,7 +75,7 @@
 
     <% if @edition.imported? %>
       <%= render partial: 'speed_tagging' %>
-    <% elsif !current_user.can_view_move_tabs_to_endpoints? || @edition.is_a?(CorporateInformationPage) %>
+    <% else %>
       <%= sidebar_tabs edition_tabs(
         @edition,
         remarks_count: @document_remarks.total_count,

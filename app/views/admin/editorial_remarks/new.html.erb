@@ -15,7 +15,7 @@
     <%= form_for [:admin, @edition, @editorial_remark], url: admin_edition_editorial_remarks_path(@edition) do |feedback_form| %>
       <%= feedback_form.errors %>
       <%= feedback_form.text_area :body, rows: 20, label_text: "Remark" %>
-      <%= feedback_form.submit current_user.can_view_move_tabs_to_endpoints? ? "Add note" : "Submit remark", class: "btn btn-default" %>
+      <%= feedback_form.submit "Submit remark", class: "btn btn-default" %>
     <% end %>
   </div>
 </div>

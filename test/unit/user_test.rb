@@ -139,16 +139,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_force_publish_anything?
   end
 
-  test "cannot view migration of tabs to endpoints by default" do
-    user = build(:user)
-    assert_not user.can_view_move_tabs_to_endpoints?
-  end
-
-  test "can view migration of tabs to endpoints if given permission" do
-    user = build(:user, permissions: [User::Permissions::VIEW_MOVE_TABS_TO_ENDPOINTS])
-    assert user.can_view_move_tabs_to_endpoints?
-  end
-
   test "cannot preview the design system by default" do
     user = build(:user)
     assert_not user.can_preview_design_system?

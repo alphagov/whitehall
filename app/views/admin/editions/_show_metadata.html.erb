@@ -28,18 +28,6 @@
 <%= render partial: "rejected_by", locals: { edition: @edition } %>
 <%= render partial: 'alerts', locals: {edition: @edition}  %>
 
-<% if current_user.can_view_move_tabs_to_endpoints? && !@edition.is_a?(CorporateInformationPage) %>
-  <nav class= "add-bottom-margin">
-    <ul class="list-unstyled">
-      <li><%= link_to "Notes", admin_edition_editorial_remarks_path(@edition) %></li>
-      <li><%= link_to "History", history_admin_edition_path(@edition) %></li>
-      <% if @edition.can_be_fact_checked? %>
-        <li><%= link_to "Fact checking", admin_edition_fact_check_requests_path(@edition) %></li>
-      <% end %>
-    </ul>
-  </nav>
-<% end %>
-
 <%= render 'edition_view_edit_buttons' %>
 
 <% if @edition.change_note_required? %>
