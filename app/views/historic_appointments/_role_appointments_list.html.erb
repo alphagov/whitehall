@@ -11,7 +11,7 @@
         <% previous_appointments_with_unique_people.each do |role_appointment| %>
           <li>
             <% if role_appointment.has_historical_account? %>
-              <%= link_to_unless_current role_appointment.person.name, historic_appointment_path(role.historic_param, role_appointment.person), class: "govuk-link" %>
+              <%= link_to_unless_current role_appointment.person.name, historic_appointment_path(role_appointment.person), class: "govuk-link" %>
             <% else %>
               <%= role_appointment.person.name %>
             <% end %>
