@@ -61,15 +61,7 @@ When(/^I replace the data file of the attachment in a new draft of the publicati
   visit edit_admin_publication_path(@old_edition)
   click_button "Create new edition"
   @new_edition = Publication.last
-
-  if @user.can_remove_edit_tabs?
-    fill_in_change_note_if_required
-    apply_to_all_nations_if_required
-    click_button "Save"
-    click_link "Modify attachments"
-  else
-    click_on "Attachments"
-  end
+  click_on "Attachments"
 
   within record_css_selector(@new_edition.attachments.first.becomes(Attachment)) do
     click_on "Edit"
