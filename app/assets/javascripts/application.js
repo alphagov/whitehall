@@ -2,8 +2,8 @@
 //= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics
 
-//= require admin/components/autocomplete
-//= require admin/components/miller-columns
+//= require components/autocomplete
+//= require components/miller-columns
 
 //= require admin/modules/analytics
 //= require admin/modules/navbar-toggle
