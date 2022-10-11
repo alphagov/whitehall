@@ -6,13 +6,16 @@
 
 <%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Held on another website",
-    heading_level: 3,
-    heading_size: "l"
+    legend_text: ""
   } do %>
+    <%= form.hidden_field :external, value: "0" %>
+
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "edition[external]",
-      id: "edition_external",
+      heading: "Held on another website",
+      heading_level: 3,
+      heading_size: "l",
+      no_hint_text: true,
       error_items: errors_for(edition.errors, :external),
       items: [
         {
@@ -20,22 +23,19 @@
           value: 1,
           checked: edition.external,
           bold: true,
+          conditional: render("govuk_publishing_components/components/input", {
+            label: {
+              text: "External link URL",
+              bold: true,
+            },
+            name: "edition[external_url]",
+            id: "edition_external_url",
+            value: edition.external_url,
+            error_items: errors_for(edition.errors, :external_url)
+          })
         }
       ]
     } %>
-
-    <div class="js-external-url">
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "External link URL",
-          bold: true,
-        },
-        name: "edition[external_url]",
-        id: "edition_external_url",
-        value: edition.external_url,
-        error_items: errors_for(edition.errors, :external_url),
-      } %>
-    </div>
   <% end %>
 
   <div class="js-external-url-set">
