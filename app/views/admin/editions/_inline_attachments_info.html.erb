@@ -1,0 +1,39 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Attachments",
+  heading_size: "l",
+  id: "edition_alternative_format_provider",
+  error_message: errors_for_input(edition.errors, :alternative_format_provider)
+} do %>
+  <% if edition.new_record? %>
+    <p class="govuk-body">
+      If you’d like to add an attachment to this document, please save
+      it first. You’ll then find a new tab at the top of the page that you
+      can use to upload, edit and delete attachments.
+    </p>
+  <% elsif edition.allows_inline_attachments? %>
+    <%= render 'admin/attachments/markdown_codes', attachable: edition %>
+  <% end %>
+  <% if edition.respond_to?(:alternative_format_provider) %>
+    <div class="govuk-form-group gem-c-select">
+      <label class="govuk-label govuk-!-font-weight-bold" for="alternative_format_provider_id">
+        Email address for ordering attachment files in an alternative format <%= "(required)" if edition.alternative_format_provider_required? %>
+      </label>
+
+      <div id="alternative-format-provider-hint" class="gem-c-hint govuk-hint govuk-!-margin-bottom-3">
+        If the email address you need isn’t here, it should be added to the relevant Department or Agency
+      </div>
+
+      <select name="edition[alternative_format_provider_id]" id="edition_alternative_format_provider_id" class="govuk-select" aria-describedby="alternative-format-provider-hint">
+        <option></option>
+        <% taggable_alternative_format_providers_container.each do |name, id| %>
+          <option
+            value="<%= id %>"
+            <%="disabled='disabled'" if name.end_with?('(-)') %>
+            <%="selected" if (id == edition.alternative_format_provider_id || id == current_user.organisation.try(:id)) %>>
+            <%= name %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+<% end %>
