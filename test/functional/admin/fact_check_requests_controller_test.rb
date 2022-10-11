@@ -7,17 +7,6 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     login_as_admin
   end
 
-  view_test "#index should render previous fact checking requests in the correct order" do
-    edition = create(:publication)
-    completed_fact_check = create(:fact_check_request, edition:, comments: "comment")
-    pending_fact_check = create(:fact_check_request, edition:, comments: nil)
-
-    get :index, params: { edition_id: edition }
-
-    assert_select ".responses .from", text: completed_fact_check.email_address
-    assert_select ".pending .from", text: pending_fact_check.email_address
-  end
-
   view_test "should render the content using govspeak markup" do
     edition = create(:edition, body: "body-in-govspeak")
     fact_check_request = create(:fact_check_request, edition:, comments: "comment")

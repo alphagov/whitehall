@@ -291,7 +291,7 @@ Whitehall::Application.routes.draw do
           resource :unpublishing, controller: "edition_unpublishing", only: %i[edit update]
           resources :translations, controller: "edition_translations", except: %i[index show]
           resources :editorial_remarks, only: %i[new create], shallow: true
-          resources :fact_check_requests, only: %i[show index new create edit update], shallow: true
+          resources :fact_check_requests, only: %i[show create edit update], shallow: true
           resource :document_sources, path: "document-sources", except: %i[show new]
           resources :attachments, except: [:show] do
             put :order, on: :collection

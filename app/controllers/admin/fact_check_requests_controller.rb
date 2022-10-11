@@ -8,10 +8,6 @@ class Admin::FactCheckRequestsController < Admin::BaseController
 
   def show; end
 
-  def index; end
-
-  def new; end
-
   def create
     attributes = fact_check_request_params.merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
@@ -21,20 +17,10 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     elsif fact_check_request.save
       MailNotifications.fact_check_request(fact_check_request, mailer_url_options).deliver_now
       notice = "The document has been sent to #{fact_check_request.email_address}"
-
-      if current_user.can_view_move_tabs_to_endpoints?
-        redirect_to admin_edition_fact_check_requests_path(@edition), notice: notice
-      else
-        redirect_to admin_edition_path(@edition), notice:
-      end
+      redirect_to admin_edition_path(@edition), notice:
     else
       alert = "There was a problem: #{fact_check_request.errors.full_messages.to_sentence}"
-
-      if current_user.can_view_move_tabs_to_endpoints?
-        redirect_to new_admin_edition_fact_check_request_path(@edition), alert: alert
-      else
-        redirect_to admin_edition_path(@edition), alert:
-      end
+      redirect_to admin_edition_path(@edition), alert:
     end
   end
 
