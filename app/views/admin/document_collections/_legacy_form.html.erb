@@ -2,7 +2,7 @@
   <p><strong>Use this format for:</strong> Continuously curated, permanent lists of closely related documents for a specific audience – not just by subject.</p>
 </div>
 
-<% if current_user.can_remove_edit_tabs? %>
+<%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition, @information) do |form| %>
 
     <fieldset>
@@ -10,16 +10,5 @@
       <%= render partial: 'legacy_organisation_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'legacy_topical_event_fields', locals: { form: form, edition: edition } %>
     </fieldset>
-  <% end %>
-<% else %>
-  <%= edition_editing_tabs(edition) do %>
-    <%= standard_edition_form(edition, @information) do |form| %>
-
-      <fieldset>
-        <legend>Associations</legend>
-        <%= render partial: 'legacy_organisation_fields', locals: { form: form, edition: edition } %>
-        <%= render partial: 'legacy_topical_event_fields', locals: { form: form, edition: edition } %>
-      </fieldset>
-    <% end %>
   <% end %>
 <% end %>

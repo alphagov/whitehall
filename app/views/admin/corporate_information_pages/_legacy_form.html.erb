@@ -1,17 +1,8 @@
-<% if current_user.can_remove_edit_tabs? %>
+<%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition, @information) do |form| %>
 
     <div class="js-external-url-set">
       <%= render partial: 'legacy_inline_attachments_info', locals: { form: form, edition: edition } %>
     </div>
-  <% end %>
-<% else %>
-  <%= edition_editing_tabs(edition) do %>
-    <%= standard_edition_form(edition, @information) do |form| %>
-
-      <div class="js-external-url-set">
-        <%= render partial: 'legacy_inline_attachments_info', locals: { form: form, edition: edition } %>
-      </div>
-    <% end %>
   <% end %>
 <% end %>

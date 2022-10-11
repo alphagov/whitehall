@@ -153,45 +153,6 @@
   </section>
 <% end %>
 
-<% if @edition.is_a?(DocumentCollection) && current_user.can_remove_edit_tabs? %>
-  <section>
-    <h2>Collection documents</h2>
-      <% if @edition.editable? %>
-        <span>
-          <%= link_to admin_document_collection_groups_path(@edition), title: "Modify collection documents of #{@edition.title}", class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-edit"></i> Modify collection documents
-          <% end %>
-        </span>
-      <% end %>
-  </section>
-<% end %>
-
-<% if @edition.is_a?(Consultation) && current_user.can_remove_edit_tabs? %>
-  <section>
-    <h2>Public feedback</h2>
-      <% if @edition.editable? %>
-        <span>
-          <%= link_to admin_consultation_public_feedback_path(@edition), title: "Modify public feedback for #{@edition.title}", class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-edit"></i> Modify public feedback
-          <% end %>
-        </span>
-      <% end %>
-  </section>
-<% end %>
-
-<% if @edition.is_a?(Consultation) && current_user.can_remove_edit_tabs? %>
-  <section>
-    <h2>Final outcome</h2>
-      <% if @edition.editable? %>
-        <span>
-          <%= link_to admin_consultation_outcome_path(@edition), title: "Modify final outcome of #{@edition.title}", class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-edit"></i> Modify final outcome
-          <% end %>
-        </span>
-      <% end %>
-  </section>
-<% end %>
-
 <% if @edition.document.document_sources.any? or current_user.can_import? %>
   <section id="document-sources-section">
     <h2>Legacy URL redirects</h2>
