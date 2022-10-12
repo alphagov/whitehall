@@ -44,6 +44,17 @@ class Unpublishing < ApplicationRecord
     unpublishing_reason.as_sentence
   end
 
+  def reason_as_class
+    case unpublishing_reason
+    when UnpublishingReason::PublishedInError
+      "published_in_error"
+    when UnpublishingReason::Consolidated
+      "consolidated"
+    when UnpublishingReason::Withdrawn
+      "withdrawn"
+    end
+  end
+
   def document_path
     Whitehall.url_maker.public_document_path(edition, id: slug)
   end
