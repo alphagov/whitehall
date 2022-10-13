@@ -6,9 +6,9 @@
 //= require vendor/jquery/jquery.highlighttextarea.js
 //= require vendor/jquery/jquery-debounce.js
 //= require vendor/google-diff-match-patch.js
-//= require ./application/convert-html-pub-charts
+//= require ./frontend/convert-html-pub-charts
 //= require govuk
 //= require_tree ./common
-//= require ./application/hide-extra-rows.js
-//= require ./application/toggler.js
+//= require ./frontend/hide-extra-rows.js
+//= require ./frontend/toggler.js
 //= require_tree ./admin_legacy
