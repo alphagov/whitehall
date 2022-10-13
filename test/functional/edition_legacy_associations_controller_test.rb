@@ -3,6 +3,10 @@ require "test_helper"
 class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCase
   include Admin::EditionRoutesHelper
 
+  setup do
+    login_as :gds_editor
+  end
+
   should_be_an_admin_controller
 
   view_test "should render edit form correctly populated" do
