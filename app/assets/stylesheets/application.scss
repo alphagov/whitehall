@@ -5,12 +5,12 @@
 
 @import "./modules/unpublish-display-conditions";
 
-@import "./admin/views/edition-translations";
-@import "./admin/views/whats-new";
-@import "./admin/views/edit-edition";
+@import "./admin_legacy/views/edition-translations";
+@import "./admin_legacy/views/whats-new";
+@import "./admin_legacy/views/edit-edition";
 
 .legacy-whitehall {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  @import "admin";
+  @import "admin_legacy";
 }

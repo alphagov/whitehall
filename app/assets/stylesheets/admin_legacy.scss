@@ -21,6 +21,6 @@
 @import "vendor/chosen-bootstrap";
 @import "vendor/jquery.highlighttextarea";
 @import "shared/helpers/magna-charta";
-@import "admin/base";
+@import "admin_legacy/base";
 
-@import "admin/govuk-design-system-overrides";
+@import "admin_legacy/govuk-design-system-overrides";
