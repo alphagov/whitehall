@@ -52,17 +52,17 @@
 
   <div class="container-fluid">
     <ul id="global-nav" class="masthead-tabs list-unstyled">
-      <li class="masthead-tab-item js-create-new create-new">
-        <a href="#new-document-menu" class="toggler" id="new-document-label">New document</a>
+      <li class="masthead-tab-item js-create-new create-new" data-module="navbar-toggle">
+        <a href="#new-document-menu" class="toggler js-navbar-toggle__toggler" id="new-document-label">New document</a>
         <%= document_creation_dropdown %>
       </li>
       <%= admin_documents_header_link %>
       <%= admin_statistics_announcements_link %>
       <%= admin_featured_header_link %>
       <%= admin_user_organisation_header_link %>
-      <li class="js-more-nav masthead-tab-item">
-        <a href="#more-links-menu" id="more-links-label" class="toggler">More</a>
-        <ul id="more-links-menu" class="masthead-menu masthead-menu-right js-hidden unstyled" role="menu" aria-labelledby="more-links-label">
+      <li class="js-more-nav masthead-tab-item" data-module="navbar-toggle">
+        <a href="#more-links-menu" id="more-links-label" class="toggler js-navbar-toggle__toggler">More</a>
+        <ul id="more-links-menu" class="masthead-menu masthead-menu-right js-hidden unstyled js-navbar-toggle__menu" role="menu" aria-labelledby="more-links-label">
           <%= admin_organisations_header_menu_link %>
           <%= admin_policy_groups_header_menu_link %>
           <%= admin_roles_header_menu_link %>
