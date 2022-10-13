@@ -11,4 +11,4 @@
 //= require_tree ./common
 //= require ./application/hide-extra-rows.js
 //= require ./application/toggler.js
-//= require_tree ./admin
+//= require_tree ./admin_legacy

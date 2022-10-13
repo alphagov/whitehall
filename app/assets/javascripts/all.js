@@ -1,6 +1,6 @@
 // This is a manifest file used by the runner for JavaScript unit tests.
 // It is not used in the main application. If you add something to
-// application.js (for whitehall-frontend) or admin.js (for whitehall-admin)
+// application.js (for whitehall-frontend) or admin_legacy.js (for whitehall-admin)
 // make sure to add it here.  Or if you remove something from application.js
 // that you get from static when deployed, then make sure to add it in here.
 //
@@ -15,4 +15,4 @@
 //= require govuk
 //= require_tree ./common
 //= require_tree ./application
-//= require_tree ./admin
+//= require_tree ./admin_legacy
