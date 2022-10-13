@@ -12,7 +12,5 @@
 //
 //= require govuk_toolkit
 //
-//= require govuk
-//= require_tree ./common
 //= require_tree ./frontend
 //= require_tree ./admin_legacy
