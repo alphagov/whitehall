@@ -3,7 +3,7 @@
 @import "./components/miller-columns";
 @import "./components/autocomplete";
 
-@import "./modules/unpublish-display-conditions";
+@import "./admin/modules/unpublish-display-conditions";
 
 @import "./admin/views/edition-translations";
 @import "./admin/views/whats-new";
@@ -12,5 +12,5 @@
 .legacy-whitehall {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  @import "admin";
+  @import "admin_legacy";
 }
