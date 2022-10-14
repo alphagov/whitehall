@@ -1,0 +1,31 @@
+<%
+  label[:bold] ||= false
+  value ||= nil
+  error_items ||= nil
+  rows ||= 12
+  paste_html_to_govspeak ||= false
+
+  data_attributes ||= {}
+  data_attributes[:module] ||= []
+
+  textarea_data_attributes ||= {}
+  textarea_data_attributes[:module] ||= []
+
+  textarea_data_attributes[:module] << "paste-html-to-govspeak" if paste_html_to_govspeak
+  textarea_data_attributes[:module] = textarea_data_attributes[:module].join(' ')
+%>
+
+<%= tag.div class:"app-c-govspeak-editor", data: data_attributes do %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: label[:text],
+      bold: label[:bold]
+    },
+    name: name,
+    id: name,
+    rows: rows,
+    value: value,
+    error_items: error_items,
+    data: textarea_data_attributes,
+  } %>
+<% end %>

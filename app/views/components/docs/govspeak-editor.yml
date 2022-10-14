@@ -1,0 +1,33 @@
+name: Govspeak Editor
+description: |
+  A progressively enhanced textarea with added Govspeak specific functionality
+body: |
+  Typically it is used to enhance a textarea field and add enhancements that help make it easy to
+  edit and publish Govspeak content.
+part_of_admin_layout: true
+accessibility_criteria: |
+  The component must:
+
+  - accept focus
+  - be focusable with a keyboard
+  - be usable with a keyboard
+  - be usable with touch
+  - indicate when they have focus
+  - be recognisable as form textarea elements
+  - have correctly associated labels
+
+  Enhances the [GOVUK Textarea component](https://components.publishing.service.gov.uk/component-guide/textarea)
+examples:
+  default:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "body"
+  with_paste_html_to_govspeak_enabled:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_paste_html_to_govspeak"
+      paste_html_to_govspeak: true
