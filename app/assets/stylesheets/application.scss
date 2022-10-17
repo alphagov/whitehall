@@ -1,7 +1,8 @@
 @import "govuk_publishing_components/all_components";
 
-@import "./components/miller-columns";
 @import "./components/autocomplete";
+@import "./components/govspeak-editor";
+@import "./components/miller-columns";
 
 @import "./admin/modules/unpublish-display-conditions";
 

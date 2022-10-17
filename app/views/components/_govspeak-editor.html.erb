@@ -1,31 +1,62 @@
 <%
+  id ||= "#{name}-#{SecureRandom.hex(4)}"
   label[:bold] ||= false
   value ||= nil
   error_items ||= nil
   rows ||= 12
   paste_html_to_govspeak ||= false
+  preview ||= false
+
+  track_preview_toggle ||= false
+  track_category ||= false
+  track_action ||= false
 
   data_attributes ||= {}
   data_attributes[:module] ||= []
+  data_attributes[:module] << "govspeak-editor"
+  data_attributes[:module] = data_attributes[:module].join(' ')
+  data_attributes[:previewable] = true if preview
 
   textarea_data_attributes ||= {}
   textarea_data_attributes[:module] ||= []
-
   textarea_data_attributes[:module] << "paste-html-to-govspeak" if paste_html_to_govspeak
   textarea_data_attributes[:module] = textarea_data_attributes[:module].join(' ')
+
+  preview_button_data_attributes ||= {}
+  preview_button_data_attributes["content-target"] = "##{id}"
+  preview_button_data_attributes["preview-toggle-tracking"] = "true" if track_preview_toggle
+  preview_button_data_attributes["preview-toggle-track-category"] = track_category if track_category
+  preview_button_data_attributes["preview-toggle-track-action"] = track_action if track_action
 %>
 
 <%= tag.div class:"app-c-govspeak-editor", data: data_attributes do %>
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: label[:text],
-      bold: label[:bold]
-    },
-    name: name,
-    id: name,
-    rows: rows,
-    value: value,
-    error_items: error_items,
-    data: textarea_data_attributes,
-  } %>
+  <div class="govuk-grid-row">
+    <div class="<%= preview ? "govuk-grid-column-three-quarters" : "govuk-grid-column-full" %>">
+      <%= render "govuk_publishing_components/components/label", { html_for: id }.merge(label.symbolize_keys) %>
+    </div>
+    <% if preview %>
+      <div class="govuk-grid-column-one-quarter app-c-govspeak-editor__preview-button-wrapper">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Preview",
+          secondary_quiet: true,
+          margin_bottom: 2,
+          classes: "js-app-c-govspeak-editor__preview-button",
+          data_attributes: preview_button_data_attributes
+        } %>
+      </div>
+    <% end %>
+  </div>
+  <div class="app-c-govspeak-editor__textarea">
+    <%= render "govuk_publishing_components/components/textarea", {
+      name: name,
+      id: id,
+      rows: rows,
+      value: value,
+      error_items: error_items,
+      data: textarea_data_attributes,
+    } %>
+  </div>
+  <div class="app-c-govspeak-editor__preview">
+    <p class="govuk-body">Generating preview, please wait.</p>
+  </div>
 <% end %>

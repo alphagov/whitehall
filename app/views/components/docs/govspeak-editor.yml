@@ -31,3 +31,53 @@ examples:
         bold: true
       name: "with_paste_html_to_govspeak"
       paste_html_to_govspeak: true
+  with_preview_enabled:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_preview"
+      preview: true
+  with_paste_govspeak_and_preview:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_paste_govspeak_and_preview"
+      preview: true
+      paste_html_to_govspeak: true
+  with_tracking:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_tracking"
+      preview: true
+      track_preview_toggle: true
+      track_category: category
+      track_action: action
+  with_data_attributes:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_data_attributes"
+      preview: true
+      data_attributes:
+        some_attribute: "This is for the main component"
+      textarea_data_attributes:
+        some_attribute: "This is for the textarea"
+      preview_button_data_attributes:
+        some_attribute: "This is for the toggle preview button"
+  with_value:
+    data:
+      label:
+        text: "Document content body"
+        bold: true
+      name: "with_value"
+      value: |
+        ## What is Lorem Ipsum?
+
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      preview: true
+      paste_html_to_govspeak: true
