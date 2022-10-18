@@ -31,7 +31,6 @@ Dir[Rails.root.join("test/support/*.rb")].sort.each { |f| require f }
 Whitehall::Application.load_tasks if Rake::Task.tasks.empty?
 
 Mocha.configure do |c|
-  c.reinstate_undocumented_behaviour_from_v1_9 = false
   c.stubbing_non_existent_method = :prevent
 end
 
