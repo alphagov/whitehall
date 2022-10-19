@@ -87,6 +87,63 @@ module PublicDocumentRoutesHelper
     polymorphic_url(organisation, options.merge(host: URI(Plek.new.external_url_for("draft-origin")).host))
   end
 
+  def get_involved_path(options = {})
+    append_url_options("/government/get-involved", options)
+  end
+
+  def get_involved_url(options = {})
+    Plek.new.website_root + get_involved_path(options)
+  end
+
+  def take_part_page_path(object, options = {})
+    slug = case object
+           when String
+             object
+           when TakePartPage
+             object.slug
+           else
+             raise ArgumentError, "Must provide a slug or TakePartPage"
+           end
+
+    append_url_options("/government/get-involved/take-part/#{slug}", options)
+  end
+
+  def take_part_page_url(object, options = {})
+    Plek.new.website_root + take_part_page_path(object, options)
+  end
+
+  def topical_event_path(object, options = {})
+    slug = case object
+           when String
+             object
+           when TopicalEvent
+             object.slug
+           else
+             raise ArgumentError, "Must provide a slug or TopicalEvent"
+           end
+
+    append_url_options("/government/topical-events/#{slug}", options)
+  end
+
+  def topical_event_url(object, options = {})
+    Plek.new.website_root + topical_event_path(object, options)
+  end
+
+  def topical_event_about_pages_path(object, options = {})
+    slug = case object
+           when String
+             object
+           when TopicalEvent
+             object.slug
+           when TopicalEventAboutPage
+             object.topical_event.slug
+           else
+             raise ArgumentError, "Must provide a slug, TopicalEvent or TopicalEventAboutPage"
+           end
+
+    append_url_options("/government/topical-events/#{slug}/about", options)
+  end
+
 private
 
   def build_url_for_corporate_information_page(edition, options)
@@ -125,5 +182,24 @@ private
     def to_model
       self
     end
+  end
+
+  def append_url_options(path, options = {})
+    if options[:format] && options[:locale]
+      path = "#{path}.#{options[:locale]}.#{options[:format]}"
+    elsif options[:locale]
+      path = "#{path}.#{options[:locale]}"
+    elsif options[:format]
+      path = "#{path}.#{options[:format]}"
+    end
+
+    if options[:cachebust]
+      query_params = {
+        cachebust: options[:cachebust],
+      }
+      path = "#{path}?#{query_params.to_query}"
+    end
+
+    path
   end
 end
