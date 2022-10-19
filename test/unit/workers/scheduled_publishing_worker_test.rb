@@ -3,6 +3,21 @@ require "test_helper"
 class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   include SidekiqTestHelpers
 
+  class << self
+    attr_writer :worker_number
+
+    def worker_number
+      @worker_number || 0
+    end
+  end
+
+  parallelize_setup do |worker|
+    # The parallelize_setup block runs in the context of the class, not the
+    # instance. So we have to use a class variable rather than an instance
+    # variable to store the worker number.
+    self.worker_number = worker
+  end
+
   setup do
     @publishing_robot = create(:scheduled_publishing_robot)
   end
@@ -46,7 +61,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
     control = create(:scheduled_edition)
     edition = create(:scheduled_edition)
 
-    with_real_sidekiq do
+    with_real_sidekiq(self.class.worker_number) do
       ScheduledPublishingWorker.queue(edition)
       ScheduledPublishingWorker.queue(control)
 
@@ -67,7 +82,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
     edition1 = create(:scheduled_edition)
     edition2 = create(:scheduled_edition)
 
-    with_real_sidekiq do
+    with_real_sidekiq(self.class.worker_number) do
       ScheduledPublishingWorker.queue(edition1)
       ScheduledPublishingWorker.queue(edition2)
 
@@ -80,7 +95,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test ".queue_size returns the number of queued ScheduledPublishingWorker jobs" do
-    with_real_sidekiq do
+    with_real_sidekiq(self.class.worker_number) do
       ScheduledPublishingWorker.perform_at(1.day.from_now, "null")
       assert_equal 1, ScheduledPublishingWorker.queue_size
 
@@ -90,7 +105,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test ".queued_edition_ids returns the edition ids of the currently queued jobs" do
-    with_real_sidekiq do
+    with_real_sidekiq(self.class.worker_number) do
       ScheduledPublishingWorker.perform_at(1.day.from_now, "3")
       ScheduledPublishingWorker.perform_at(2.days.from_now, "6")
 
