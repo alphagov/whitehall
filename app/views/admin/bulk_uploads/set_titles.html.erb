@@ -1,34 +1,65 @@
-<% page_title "Bulk upload for: #{@edition.title}" %>
+<% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
+<% content_for :title, "Edit file attachments" %>
+<% content_for :context, "Attachments for publication" %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_attachments_path(@edition)
+  } %>
+<% end %>
 
-<div class="row">
-  <section class="col-md-8">
-    <h1>Set titles for your attachments</h1>
-    <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
-      <%= form.errors %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-!-margin-bottom-8">
+      <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
+        <% content_for :error_summary, render('shared/error_summary', object: @bulk_upload, parent_class: "bulk_upload", class_name: @bulk_upload.class.name.demodulize.underscore.humanize.downcase) %>
 
-      <ol class="uploaded-attachments">
-        <% @bulk_upload.attachments.each do |attachment| %>
+        <% @bulk_upload.attachments.each.with_index do |attachment, i| %>
           <%= form.fields_for :attachments, attachment do |attachment_fields| %>
-            <li class="well">
-              <span class="file">File: <%= attachment_fields.object.filename %></span>
-              <%= attachment_fields.text_field :title %>
+            <%= render "govuk_publishing_components/components/heading", {
+              text: "File: " + attachment_fields.object.filename,
+              font_size: "l",
+              padding: true
+            } %>
 
-              <% if @edition.allows_attachment_references? %>
-                <%= render 'admin/attachments/reference_fields', attachable: @edition, form: attachment_fields, attachment: attachment %>
-              <% end %>
+            <%= render "govuk_publishing_components/components/input", {
+              label: {
+                text: "Title (required)"
+              },
+              name: "bulk_upload[attachments_attributes][#{i}][title]",
+              autofocus: true,
+              margin_top: 10,
+              heading_level: 2,
+              heading_size: "m",
+              value: attachment_fields.object.title
+            } %>
 
-              <%= attachment_fields.fields_for :attachment_data, attachment_fields.object.attachment_data, include_id: false do |attachment_data_fields| %>
-                <%= attachment_data_fields.hidden_field :file_cache %>
-                <% if attachment_data_fields.object.to_replace_id %>
-                  <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
-                <% end %>
+            <% if @edition.allows_attachment_references? %>
+              <%= render 'admin/attachments/reference_fields', attachable: @edition, form: attachment_fields, attachment: attachment, heading_size: "m" %>
+            <% end %>
+
+            <%= render "govuk_publishing_components/components/checkboxes", {
+              name: "Attachment is accessible",
+              items: [
+                {
+                  label: "Attachment is accessible",
+                  value: true
+                }
+              ]
+            } %>
+
+            <%= attachment_fields.fields_for :attachment_data, attachment_fields.object.attachment_data, include_id: false do |attachment_data_fields| %>
+              <%= attachment_data_fields.hidden_field :file_cache %>
+              <% if attachment_data_fields.object.to_replace_id %>
+                <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
               <% end %>
-            </li>
+            <% end %>
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
           <% end %>
         <% end %>
-      </ol>
-
-      <%= form.save_or_cancel cancel: admin_edition_attachments_path(@edition) %>
-    <% end %>
-  </section>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+      <% end %>
+    </div>
+  </div>
 </div>
