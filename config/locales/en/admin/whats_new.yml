@@ -17,6 +17,12 @@ en:
       recent_changes:     
         heading: Recent changes
         updates:
+          - heading: Change to saving documents
+            area: Creating and updating documents
+            type: change
+            date: 20 October 2022
+            body_govspeak: |
+              If you select the ‘Save’ button when creating or editing documents, you’ll stay on the edit document page so you can continue working. You’ll no longer be taken to the edition summary page.
           - heading: Topic taxonomy tags page moves to the Design System
             area: Creating and updating documents
             type: improvement
