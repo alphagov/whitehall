@@ -17,6 +17,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 
   UnpublishDisplayConditions.prototype.init = function () {
     this.initUnpublishTypeListener()
+    this.initUnpublishRedirectListener()
+  }
+
+  UnpublishDisplayConditions.prototype.initUnpublishRedirectListener = function () {
+    var checkbox = this.module.querySelector('.govuk-checkboxes__item input[name="unpublishing[redirect]"]')
+
+    checkbox.addEventListener('change', function (e) {
+      var display = e.currentTarget.checked ? 'none' : 'block'
+      this.module.querySelector('.js-unpublish-withdraw-form__published-in-error div.gem-c-textarea').style.display = display
+    }.bind(this))
+
+    if (checkbox.checked) {
+      var event = new Event('change')
+      checkbox.dispatchEvent(event)
+    }
   }
 
   UnpublishDisplayConditions.prototype.initUnpublishTypeListener = function () {
