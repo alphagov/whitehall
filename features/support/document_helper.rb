@@ -116,8 +116,10 @@ module DocumentHelper
 
   def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
     if @user.can_preview_design_system?
-      choose "This document has previously been published on another website."
-      fill_in_datetime_field(first_published)
+      within "#edition_first_published_at" do
+        choose "This document has previously been published on another website."
+        fill_in_datetime_field(first_published)
+      end
     else
       choose "has previously been published on another website."
       select_date first_published, from: "Its original publication date was *"

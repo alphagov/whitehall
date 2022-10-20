@@ -2,6 +2,7 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Document status (required)",
     heading_size: "s",
+    id: "edition_first_published_at"
   } do %>
     <%= render "govuk_publishing_components/components/radio", {
       name: "edition[previously_published]",
@@ -17,7 +18,7 @@
           value: true,
           text: "This document has previously been published on another website.",
           checked: edition.previously_published,
-          conditional: render("datetime_fields", form: form, edition: edition, field_name: "first_published_at")
+          conditional: render("datetime_fields", form: form, edition: edition, field_name: "first_published_at", start_year: Date.today.year, end_year: 1945)
         }
       ]
     } %>
@@ -28,6 +29,6 @@
     heading_size: "s",
     hint: "For example, 31 3 2000",
   } do %>
-    <%= render "datetime_fields", form: form, edition: edition, field_name: "first_published_at" %>
+    <%= render "datetime_fields", form: form, edition: edition, field_name: "first_published_at", start_year: Date.today.year, end_year: 1945 %>
   <% end %>
 <% end %>
