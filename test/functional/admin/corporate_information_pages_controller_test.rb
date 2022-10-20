@@ -29,7 +29,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[body]']"
       assert_select "textarea[name='edition[summary]']"
       assert_select "select[name='edition[corporate_information_page_type_id]']"
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -75,7 +75,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[body]']", corporate_information_page.body
       assert_select "textarea[name='edition[summary]']", corporate_information_page.summary
       assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -103,7 +103,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[body]']", new_attributes[:body]
       assert_select "textarea[name='edition[summary]']", new_attributes[:summary]
       assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 

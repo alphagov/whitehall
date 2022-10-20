@@ -456,6 +456,7 @@ private
     edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || (preview_design_system_user? && edition_params[:create_foreign_language_only].blank?)
     edition_params.delete(:create_foreign_language_only)
     edition_params[:external_url] = nil if edition_params[:external] == "0"
+    edition_params[:change_note] = nil if edition_params[:minor_change] == "true"
   end
 
   def clear_scheduled_publication_if_not_activated

@@ -1,7 +1,7 @@
 <% if edition.published_major_version.nil? && !edition.imported? %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Document status (required)",
-    heading_size: "s",
+    heading_size: "l",
     id: "edition_first_published_at"
   } do %>
     <%= render "govuk_publishing_components/components/radio", {
@@ -26,7 +26,7 @@
 <% else %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "First published (required)",
-    heading_size: "s",
+    heading_size: "l",
     hint: "For example, 31 3 2000",
   } do %>
     <%= render "datetime_fields", form: form, edition: edition, field_name: "first_published_at", start_year: Date.today.year, end_year: 1945 %>
