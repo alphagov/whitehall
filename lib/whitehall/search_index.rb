@@ -46,7 +46,7 @@ module Whitehall
     end
 
     def self.rummager_host
-      Plek.find("search")
+      Plek.find("search-api")
     end
   end
 
