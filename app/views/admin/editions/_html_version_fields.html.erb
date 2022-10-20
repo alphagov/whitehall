@@ -1,0 +1,12 @@
+<h3 class="govuk-heading-l">HTML attachment</h3>
+
+<p class="govuk-body">
+  <% if @edition.persisted? %>
+    You can create and edit HTML attachments in the
+    <%= link_to 'same tab as the other attachments', admin_edition_attachments_path(@edition), class: "govuk-link" %>.
+  <% else %>
+    If you’d like to add an HTML attachment to this document, please save
+    it first. You’ll then find a new tab at the top of the page that you
+    can use to create, edit and delete attachments.
+  <% end %>
+</p>

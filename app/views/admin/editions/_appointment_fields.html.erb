@@ -1,0 +1,20 @@
+<% cache_if edition.role_appointment_ids.empty?, "#{taggable_ministerial_role_appointments_cache_digest}-design-system" do %>
+  <%= render "components/autocomplete", {
+    id: "edition_role_appointment_ids",
+    name: "edition[role_appointment_ids][]",
+    label: {
+      text: "Ministers",
+      bold: true,
+    },
+    select: {
+      options: [""] + taggable_ministerial_role_appointments_container,
+      multiple: true,
+      selected: edition.role_appointment_ids,
+    },
+    data: {
+        module: 'track-select-click',
+        track_category: 'ministerSelection',
+        track_label: request.path
+    },
+  } %>
+<% end %>
