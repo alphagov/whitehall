@@ -1,0 +1,46 @@
+<% page_title "Attachments for #{attachment.attachable_model_name}" %>
+<% page_class "attachments index" %>
+
+<div class="row">
+  <section class="col-md-8">
+    <h1>Attachments for <%= attachment.attachable_model_name %></h1>
+
+    <%= attachable_editing_tabs(attachable) do %>
+      <p class="qa-helper-copy">
+        <strong>Note:</strong>
+        <%= attachment_note(attachment.attachable_model_name) %>
+      </p>
+      <ul class="actions list-unstyled">
+        <li>
+          <%= link_to 'Upload new file attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment]) %>
+        </li>
+        <% if attachable.is_a?(Edition) %>
+          <li>
+            <%= link_to 'Bulk upload from Zip file'.html_safe, new_admin_edition_bulk_upload_path(attachable) %>
+          </li>
+        <% end %>
+        <% if attachable.allows_html_attachments? %>
+          <li>
+            <%= link_to 'Add new HTML attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], type: "html") %>
+          </li>
+        <% end %>
+        <% if attachable.allows_external_attachments? %>
+          <li>
+            <%= link_to 'Add new external attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], type: "external") %>
+          </li>
+        <% end %>
+      </ul>
+
+      <div class="alert alert-warning">
+        <p>
+          You must upload attachments in an <a href="https://www.gov.uk/guidance/content-design/planning-content#open-formats">open standards format</a>.<br/>
+        </p>
+        <p>
+          For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.
+        </p>
+      </div>
+
+      <%= render('attachments', attachable: attachable) if attachable.attachments.any? %>
+      <% end %>
+  </section>
+</div>

@@ -6,7 +6,9 @@ class Admin::AttachmentsController < Admin::BaseController
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
-  def index; end
+  def index
+    render(preview_design_system_user? ? "index" : "index_legacy")
+  end
 
   def reorder; end
 
