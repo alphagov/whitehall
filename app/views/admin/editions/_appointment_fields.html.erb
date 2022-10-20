@@ -1,4 +1,4 @@
-<% cache_if edition.role_appointment_ids.empty?, taggable_ministerial_role_appointments_cache_digest do %>
+<% cache_if edition.role_appointment_ids.empty?, "#{taggable_ministerial_role_appointments_cache_digest}-design-system" do %>
   <%= render "components/autocomplete", {
     id: "edition_role_appointment_ids",
     name: "edition[role_appointment_ids][]",

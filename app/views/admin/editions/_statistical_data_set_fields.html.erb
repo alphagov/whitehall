@@ -1,4 +1,4 @@
-<% cache_if edition.statistical_data_set_document_ids.empty?, taggable_statistical_data_sets_cache_digest do %>
+<% cache_if edition.statistical_data_set_document_ids.empty?, "#{taggable_statistical_data_sets_cache_digest}-design-system" do %>
   <%= render "components/autocomplete", {
     id: "edition_statistical_data_set_document_ids",
     name: "edition[statistical_data_set_document_ids][]",

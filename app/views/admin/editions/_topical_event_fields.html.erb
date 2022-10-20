@@ -1,4 +1,4 @@
-<% cache_if edition.topical_event_ids.empty?, taggable_statistical_data_sets_cache_digest do %>
+<% cache_if edition.topical_event_ids.empty?, "#{taggable_topical_events_cache_digest}-design-system" do %>
   <%= render "components/autocomplete", {
     id: "edition_topical_event_ids",
     name: "edition[topical_event_ids][]",
