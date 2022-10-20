@@ -65,20 +65,18 @@
           }
         } %>
 
-        <% unless current_user.can_redirect_to_summary_page? %>
-          <%= render "govuk_publishing_components/components/button", {
-            text: "Update and review specialist topic tags",
-            name: "legacy_tags",
-            value: "legacy_tags",
-            secondary_solid: true,
-            data_attributes: {
-              module: 'gem-track-click',
-              track_category: 'form-button',
-              track_label: "Save and review specialist topic tagging",
-              track_action: "taxonomy-tag-form-button",
-            }
-          } %>
-        <% end %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update and review specialist topic tags",
+          name: "legacy_tags",
+          value: "legacy_tags",
+          secondary_solid: true,
+          data_attributes: {
+            module: 'gem-track-click',
+            track_category: 'form-button',
+            track_label: "Save and review specialist topic tagging",
+            track_action: "taxonomy-tag-form-button",
+          }
+        } %>
       </div>
     <% end %>
   </div>

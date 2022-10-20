@@ -27,7 +27,7 @@ class Admin::EditionTagsController < Admin::BaseController
 private
 
   def redirect_path
-    if params[:save] || current_user.can_redirect_to_summary_page?
+    if params[:save]
       admin_edition_path(@edition)
     else
       edit_admin_edition_legacy_associations_path(@edition, return: :tags)

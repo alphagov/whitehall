@@ -114,19 +114,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_redirected_to [:admin, @organisation, CorporateInformationPage]
   end
 
-  view_test "GET :show corporate information pages continues to render side nav bar with notes, history and fact checking when user has `Redirect to summary page` permission" do
-    @current_user.permissions << "Redirect to summary page"
-    corporate_information_page = create(:corporate_information_page, :published, organisation: @organisation)
-    stub_publishing_api_expanded_links_with_taxons(corporate_information_page.content_id, [])
-
-    get :show, params: { organisation_id: @organisation, id: corporate_information_page }
-
-    assert_select "a", text: "Notes", count: 0
-    assert_select "a", text: "History", count: 0
-    assert_select ".nav-tabs a", text: "Notes 0"
-    assert_select ".nav-tabs a", text: "History 1"
-  end
-
 private
 
   def corporate_information_page_attributes(overrides = {})
