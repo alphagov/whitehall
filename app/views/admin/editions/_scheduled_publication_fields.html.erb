@@ -12,7 +12,7 @@
       label: "Schedule for publication",
       value: 1,
       checked: edition.scheduled_publication.present?,
-      conditional: render("datetime_fields", form: form, edition: edition, field_name: "scheduled_publication", default_date: Time.zone.parse(Time.zone.now.strftime("%Y-%m-%d 09:30")))
+      conditional: render(Admin::DatetimeComponent.new(object: edition, field_name: "scheduled_publication", prefix: "edition", default_date: Time.zone.parse(Time.zone.now.strftime("%Y-%m-%d 09:30"))))
     }
   ]
 } %>

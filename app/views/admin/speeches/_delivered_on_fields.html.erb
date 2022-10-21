@@ -3,5 +3,5 @@
   heading_size: "l",
   id: "edition_delivered_on",
 } do %>
-  <%= render "datetime_fields", form: form, edition: edition, field_name: "delivered_on" %>
+  <%= render Admin::DatetimeComponent.new(object: edition, field_name: "delivered_on", prefix: "edition") %>
 <% end %>
