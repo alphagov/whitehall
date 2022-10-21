@@ -400,7 +400,7 @@ GEM
     minitest-stub-const (0.6)
     mlanett-redis-lock (0.2.7)
       redis
-    mocha (1.15.0)
+    mocha (1.16.0)
     msgpack (1.5.6)
     multi_json (1.15.0)
     multi_test (1.1.0)
@@ -419,8 +419,14 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8)
+    nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
+    nokogiri (1.13.8-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.8-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (5.3.0)
       jwt (>= 1.5, < 3)
@@ -731,7 +737,10 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
+  aarch64-linux
+  arm64-darwin
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   activemodel-serializers-xml

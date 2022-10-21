@@ -131,8 +131,8 @@ module Admin::EditionsHelper
       form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true } do |form|
         concat render("standard_fields", form:, edition:)
         yield(form)
-        concat render("legacy_access_limiting_fields", form:, edition:)
-        concat render("legacy_scheduled_publication_fields", form:, edition:)
+        concat render("access_limiting_fields", form:, edition:)
+        concat render("scheduled_publication_fields", form:, edition:)
         concat standard_edition_publishing_controls(form, edition)
       end
     else
@@ -143,7 +143,7 @@ module Admin::EditionsHelper
         yield(form)
         concat render("legacy_access_limiting_fields", form:, edition:)
         concat render("legacy_scheduled_publication_fields", form:, edition:)
-        concat standard_edition_publishing_controls(form, edition)
+        concat legacy_standard_edition_publishing_controls(form, edition)
       end
     end
   end
@@ -222,6 +222,19 @@ module Admin::EditionsHelper
   end
 
   def standard_edition_publishing_controls(form, edition)
+    tag.div(class: "publishing-controls") do
+      if edition.change_note_required?
+        concat render("change_notes", form:, edition:)
+      end
+      if current_user.can_preview_design_system?
+        concat render("save_or_continue_or_cancel", form:, edition:)
+      else
+        concat form.save_or_continue_or_cancel
+      end
+    end
+  end
+
+  def legacy_standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls well") do
       if edition.change_note_required?
         concat render(
@@ -229,11 +242,7 @@ module Admin::EditionsHelper
           locals: { form:, edition: },
         )
       end
-      if current_user.can_redirect_to_summary_page?
-        concat form.save_or_cancel
-      else
-        concat form.save_or_continue_or_cancel
-      end
+      concat form.save_or_continue_or_cancel
     end
   end
 

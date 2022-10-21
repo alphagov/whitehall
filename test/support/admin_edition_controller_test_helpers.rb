@@ -50,7 +50,7 @@ module AdminEditionControllerTestHelpers
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[summary]']"
           assert_select "textarea[name='edition[body]']"
-          assert_select "input[type='submit']"
+          assert_select "button[type='submit']"
         end
       end
 
@@ -167,7 +167,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[body]']"
-          assert_select "input[type='submit']"
+          assert_select "button[type='submit']"
         end
       end
 
@@ -783,6 +783,8 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          assert_select "label[for=edition_statistical_data_set_document_ids]", text: "Statistical data sets"
+
           assert_select "#edition_statistical_data_set_document_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_statistical_data_sets(
@@ -815,6 +817,8 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
+          assert_select "label[for=edition_statistical_data_set_document_ids]", text: "Statistical data sets"
+
           assert_select "#edition_statistical_data_set_document_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_statistical_data_sets(
@@ -852,6 +856,8 @@ module AdminEditionControllerTestHelpers
 
         assert_select "form#new_edition" do
           (1..4).each do |i|
+            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+
             assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
               assert_data_attributes_for_lead_org(element: elements.first, track_label: new_edition_path(edition_type))
@@ -859,6 +865,8 @@ module AdminEditionControllerTestHelpers
           end
           refute_select "#edition_lead_organisation_ids_5"
           (1..6).each do |i|
+            assert_select "label[for=edition_supporting_organisation_ids_#{i}]", text: "Supporting organisation #{i}"
+
             assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
               assert_data_attributes_for_supporting_org(element: elements.first, track_label: new_edition_path(edition_type))
@@ -902,6 +910,8 @@ module AdminEditionControllerTestHelpers
 
         assert_select "form#edit_edition" do
           (1..4).each do |i|
+            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+
             assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
               assert_data_attributes_for_lead_org(element: elements.first, track_label: edit_edition_path(edition_type))
@@ -909,6 +919,8 @@ module AdminEditionControllerTestHelpers
           end
           refute_select "#edition_lead_organisation_ids_5"
           (1..6).each do |i|
+            assert_select "label[for=edition_supporting_organisation_ids_#{i}]", text: "Supporting organisation #{i}"
+
             assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
               assert_data_attributes_for_supporting_org(element: elements.first, track_label: edit_edition_path(edition))
@@ -984,6 +996,8 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          assert_select "label[for=edition_role_appointment_ids]", text: "Ministers"
+
           assert_select "#edition_role_appointment_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_ministers(
@@ -1420,6 +1434,8 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          assert_select "label[for=edition_topical_event_ids]", text: "Topical events"
+
           assert_select "#edition_topical_event_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_topical_events(
@@ -1452,6 +1468,8 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
+          assert_select "label[for=edition_topical_event_ids]", text: "Topical events"
+
           assert_select "#edition_topical_event_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_topical_events(
@@ -1556,10 +1574,10 @@ module AdminEditionControllerTestHelpers
 private
 
   def assert_data_attributes_for_ministers(element:, track_label:)
-    assert_equal "Choose ministers…", element["data-placeholder"]
-    assert_equal "track-select-click", element["data-module"]
-    assert_equal "ministerSelection", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
+    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
+    # assert_equal "track-select-click", element["data-module"]
+    # assert_equal "ministerSelection", element["data-track-category"]
+    # assert_equal track_label, element["data-track-label"]
   end
 
   def assert_data_attributes_for_worldwide_organisations(element:, track_label:)
@@ -1570,31 +1588,31 @@ private
   end
 
   def assert_data_attributes_for_statistical_data_sets(element:, track_label:)
-    assert_equal "Choose statistical data sets…", element["data-placeholder"]
-    assert_equal "track-select-click", element["data-module"]
-    assert_equal "statisticalDataSetSelection", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
+    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
+    # assert_equal "track-select-click", element["data-module"]
+    # assert_equal "statisticalDataSetSelection", element["data-track-category"]
+    # assert_equal track_label, element["data-track-label"]
   end
 
   def assert_data_attributes_for_topical_events(element:, track_label:)
-    assert_equal "Choose topical events…", element["data-placeholder"]
-    assert_equal "track-select-click", element["data-module"]
-    assert_equal "topicalEventSelection", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
+    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
+    # assert_equal "track-select-click", element["data-module"]
+    # assert_equal "topicalEventSelection", element["data-track-category"]
+    # assert_equal track_label, element["data-track-label"]
   end
 
   def assert_data_attributes_for_lead_org(element:, track_label:)
-    assert_equal "Choose a lead organisation which produced this document…", element["data-placeholder"]
-    assert_equal "track-select-click", element["data-module"]
-    assert_equal "leadOrgSelection", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
+    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
+    # assert_equal "track-select-click", element["data-module"]
+    # assert_equal "leadOrgSelection", element["data-track-category"]
+    # assert_equal track_label, element["data-track-label"]
   end
 
   def assert_data_attributes_for_supporting_org(element:, track_label:)
-    assert_equal "Choose a supporting organisation which produced this document…", element["data-placeholder"]
-    assert_equal "track-select-click", element["data-module"]
-    assert_equal "supportingOrgSelection", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
+    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
+    # assert_equal "track-select-click", element["data-module"]
+    # assert_equal "supportingOrgSelection", element["data-track-category"]
+    # assert_equal track_label, element["data-track-label"]
   end
 
   def new_edition_path(edition_type)

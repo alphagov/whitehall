@@ -161,7 +161,9 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   visit admin_document_collection_path(@document_collection)
   click_on "Create new edition to edit"
   fill_in_change_note_if_required
-  click_on "Save"
+  click_button "Save and continue"
+  click_button "Update tags"
+
   click_on "Edit draft"
   click_on "Collection documents"
 

@@ -6,7 +6,8 @@ When(/^I draft a new publication "([^"]*)" that does not apply to the nations:$/
       fill_in "URL of corresponding content", with: "http://www.#{nation_name}.com/"
     end
   end
-  click_button "Save"
+  click_button "Save and continue"
+  click_button "Update tags"
   add_external_attachment
 end
 

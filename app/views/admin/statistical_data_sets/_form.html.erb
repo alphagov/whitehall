@@ -5,13 +5,13 @@
 
 
 <%= standard_edition_form(edition, @information, preview_design_system: true) do |form| %>
-  <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+  <%= render 'inline_attachments_info', form: form, edition: edition %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Associations",
     heading_level: 3,
     heading_size: "l",
     id: "associations"
   } do %>
-    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+    <%= render 'organisation_fields', form: form, edition: edition %>
   <% end %>
 <% end %>

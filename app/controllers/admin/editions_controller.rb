@@ -8,6 +8,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :find_edition, only: %i[show show_locked edit update revise diff confirm_destroy destroy update_bypass_id history]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
+  before_action :build_national_exclusion_params, only: %i[create update]
   before_action :build_edition, only: %i[new create]
   before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
@@ -272,6 +273,7 @@ private
       :all_nation_applicability,
       :image_display_option,
       {
+        all_nation_applicability: [],
         secondary_specialist_sector_tags: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
@@ -320,8 +322,8 @@ private
   end
 
   def show_or_edit_path
-    if current_user.can_redirect_to_summary_page? || params[:save].present?
-      [:admin, @edition]
+    if params[:save].present?
+      [:edit, :admin, @edition]
     else
       edit_admin_edition_tags_path(@edition.id)
     end
@@ -345,6 +347,25 @@ private
   def find_edition
     edition = edition_class.find(params[:id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
+  end
+
+  def build_national_exclusion_params
+    return unless %w[consultations detailed_guides publications].include?(controller_name) && preview_design_system_user?
+
+    exclusion_params = edition_params["all_nation_applicability"]
+    return if exclusion_params.blank? || edition_params["nation_inapplicabilities_attributes"].blank?
+
+    edition_params["all_nation_applicability"] = exclusion_params.include?("all_nations") ? "1" : "0"
+
+    build_nation_params(nation_id: 1, checked: exclusion_params.include?("england"))
+    build_nation_params(nation_id: 2, checked: exclusion_params.include?("scotland"))
+    build_nation_params(nation_id: 3, checked: exclusion_params.include?("wales"))
+    build_nation_params(nation_id: 4, checked: exclusion_params.include?("northern_ireland"))
+  end
+
+  def build_nation_params(nation_id:, checked:)
+    edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["excluded"] = checked ? "1" : "0"
+    edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["alternative_url"] = nil unless checked
   end
 
   def build_edition_dependencies
@@ -435,6 +456,7 @@ private
     edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || (preview_design_system_user? && edition_params[:create_foreign_language_only].blank?)
     edition_params.delete(:create_foreign_language_only)
     edition_params[:external_url] = nil if edition_params[:external] == "0"
+    edition_params[:change_note] = nil if edition_params[:minor_change] == "true"
   end
 
   def clear_scheduled_publication_if_not_activated

@@ -29,7 +29,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[body]']"
       assert_select "textarea[name='edition[summary]']"
       assert_select "select[name='edition[corporate_information_page_type_id]']"
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -75,7 +75,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[body]']", corporate_information_page.body
       assert_select "textarea[name='edition[summary]']", corporate_information_page.summary
       assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -103,7 +103,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[body]']", new_attributes[:body]
       assert_select "textarea[name='edition[summary]']", new_attributes[:summary]
       assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
-      assert_select "input[type='submit']"
+      assert_select "button[type='submit']"
     end
   end
 
@@ -112,19 +112,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     put :destroy, params: { organisation_id: @organisation, id: corporate_information_page }
     assert_equal "The document '#{corporate_information_page.title}' has been deleted", flash[:notice]
     assert_redirected_to [:admin, @organisation, CorporateInformationPage]
-  end
-
-  view_test "GET :show corporate information pages continues to render side nav bar with notes, history and fact checking when user has `Redirect to summary page` permission" do
-    @current_user.permissions << "Redirect to summary page"
-    corporate_information_page = create(:corporate_information_page, :published, organisation: @organisation)
-    stub_publishing_api_expanded_links_with_taxons(corporate_information_page.content_id, [])
-
-    get :show, params: { organisation_id: @organisation, id: corporate_information_page }
-
-    assert_select "a", text: "Notes", count: 0
-    assert_select "a", text: "History", count: 0
-    assert_select ".nav-tabs a", text: "Notes 0"
-    assert_select ".nav-tabs a", text: "History 1"
   end
 
 private

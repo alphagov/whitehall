@@ -1,6 +1,8 @@
 require "test_helper"
 
 class FeaturePresenterTest < PresenterTestCase
+  include PublicDocumentRoutesHelper
+
   test "#public_path generates a link to a topical event if that is what has been featured" do
     te = stub_record(:topical_event)
     f = stub_record(:feature, topical_event: te, document: nil)

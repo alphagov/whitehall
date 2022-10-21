@@ -150,8 +150,8 @@
   </div>
 
   <div class="js-external-url-set">
-    <%= render 'legacy_html_version_fields', form: form, edition: edition %>
-    <%= render 'legacy_inline_attachments_info', form: form, edition: edition %>
+    <%= render 'html_version_fields', form: form, edition: edition %>
+    <%= render 'inline_attachments_info', form: form, edition: edition %>
   </div>
 
   <%= render "govuk_publishing_components/components/fieldset", {
@@ -161,18 +161,20 @@
     id: "associations"
   } do %>
     <div class="js-external-url-set">
-      <%= render 'legacy_appointment_fields', form: form, edition: edition %>
+      <%= render 'appointment_fields', form: form, edition: edition %>
     </div>
 
-    <%= render 'legacy_topical_event_fields', form: form, edition: edition %>
-    <%= render 'legacy_nation_fields', form: form, edition: edition %>
-    <%= render 'legacy_organisation_fields', form: form, edition: edition %>
+    <%= render 'topical_event_fields', form: form, edition: edition %>
+    <%= render 'nation_fields', form: form, edition: edition %>
+    <%= render 'organisation_fields', form: form, edition: edition %>
   <% end %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Consultation principles",
     heading_level: 3,
     heading_size: "l"
   } do %>
+    <%= form.hidden_field :read_consultation_principles, value: "0" %>
+
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "edition[read_consultation_principles]",
       id: "edition_read_consultation_principles",

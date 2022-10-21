@@ -3,7 +3,7 @@
   heading_size: "s",
   id: "edition_opening_at",
 } do %>
-  <%= render "datetime_fields", form: form, edition: edition, field_name: "opening_at" %>
+  <%= render "datetime_fields", form: form, edition: edition, field_name: "opening_at", start_year: 1997, end_year: Date.today.year + 5 %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/fieldset", {
@@ -11,5 +11,5 @@
   heading_size: "s",
   id: "edition_closing_at",
 } do %>
-  <%= render "datetime_fields", form: form, edition: edition, field_name: "closing_at" %>
+  <%= render "datetime_fields", form: form, edition: edition, field_name: "closing_at", start_year: 1997, end_year: Date.today.year + 5 %>
 <% end %>

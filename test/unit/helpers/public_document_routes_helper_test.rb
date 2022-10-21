@@ -171,4 +171,124 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "/government/organisations/foobar", organisation_path("foobar")
     assert_equal "http://test.host/government/organisations/foobar", organisation_url("foobar")
   end
+
+  test "append_url_options adds locale" do
+    assert_equal "/government/foo.cy", append_url_options("/government/foo", locale: "cy")
+  end
+
+  test "append_url_options adds format" do
+    assert_equal "/government/foo.atom", append_url_options("/government/foo", format: "atom")
+  end
+
+  test "append_url_options adds locale and format when both present" do
+    assert_equal "/government/foo.cy.atom", append_url_options("/government/foo", format: "atom", locale: "cy")
+  end
+
+  test "append_url_options adds cachebust string when present" do
+    assert_equal "/government/foo?cachebust=123", append_url_options("/government/foo", cachebust: "123")
+  end
+
+  test "append_url_options adds cachebust string, format and locale when all present" do
+    assert_equal "/government/foo.cy.atom?cachebust=123", append_url_options("/government/foo", cachebust: "123", format: "atom", locale: "cy")
+  end
+
+  test "get_involved_path returns the path" do
+    assert_equal "/government/get-involved", get_involved_path
+  end
+
+  test "get_involved_url returns the url" do
+    assert_equal "https://www.test.gov.uk/government/get-involved", get_involved_url
+  end
+
+  test "get_involved_path returns the path and appends options" do
+    assert_equal "/government/get-involved?cachebust=123", get_involved_path(cachebust: "123")
+  end
+
+  test "get_involved_url returns the url and appends options" do
+    assert_equal "https://www.test.gov.uk/government/get-involved?cachebust=123", get_involved_url(cachebust: "123")
+  end
+
+  test "take_part_page_path returns the correct path for a slug" do
+    assert_equal "/government/get-involved/take-part/foo", take_part_page_path("foo")
+  end
+
+  test "take_part_page_path returns the correct path for a slug with options" do
+    assert_equal "/government/get-involved/take-part/foo?cachebust=123", take_part_page_path("foo", cachebust: "123")
+  end
+
+  test "take_part_page_path returns the correct path for a TakePart object" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "/government/get-involved/take-part/foo", take_part_page_path(object)
+  end
+
+  test "take_part_page_path returns the correct path for a TakePart object with options" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "/government/get-involved/take-part/foo?cachebust=123", take_part_page_path(object, cachebust: "123")
+  end
+
+  test "take_part_page_url returns the correct path for a slug" do
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo", take_part_page_url("foo")
+  end
+
+  test "take_part_page_url returns the correct path for a slug with options" do
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", take_part_page_url("foo", cachebust: "123")
+  end
+
+  test "take_part_page_url returns the correct path for a TakePart object" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo", take_part_page_url(object)
+  end
+
+  test "take_part_page_url returns the correct path for a TakePart object with options" do
+    object = create(:take_part_page, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/get-involved/take-part/foo?cachebust=123", take_part_page_url(object, cachebust: "123")
+  end
+
+  test "topical_event_path returns the correct path for a TopicalEvent object" do
+    object = create(:topical_event, slug: "foo")
+    assert_equal "/government/topical-events/foo", topical_event_path(object)
+  end
+
+  test "topical_event_path returns the correct path for a TopicalEvent object with options" do
+    object = create(:topical_event, slug: "foo")
+    assert_equal "/government/topical-events/foo?cachebust=123", topical_event_path(object, cachebust: "123")
+  end
+
+  test "topical_event_url returns the correct path for a slug" do
+    assert_equal "https://www.test.gov.uk/government/topical-events/foo", topical_event_url("foo")
+  end
+
+  test "topical_event_url returns the correct path for a slug with options" do
+    assert_equal "https://www.test.gov.uk/government/topical-events/foo?cachebust=123", topical_event_url("foo", cachebust: "123")
+  end
+
+  test "topical_event_url returns the correct path for a TopicalEvent object" do
+    object = create(:topical_event, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/topical-events/foo", topical_event_url(object)
+  end
+
+  test "topical_event_url returns the correct path for a TopicalEvent object with options" do
+    object = create(:topical_event, slug: "foo")
+    assert_equal "https://www.test.gov.uk/government/topical-events/foo?cachebust=123", topical_event_url(object, cachebust: "123")
+  end
+
+  test "topical_event_about_pages_path returns the correct path for a TopicalEvent object" do
+    object = create(:topical_event, slug: "foo")
+    assert_equal "/government/topical-events/foo/about", topical_event_about_pages_path(object)
+  end
+
+  test "topical_event_about_pages_path returns the correct path for a TopicalEventAboutPage object" do
+    object = create(:topical_event, slug: "foo", topical_event_about_page: create(:topical_event_about_page))
+    assert_equal "/government/topical-events/foo/about", topical_event_about_pages_path(object.topical_event_about_page)
+  end
+
+  test "topical_event_about_pages_path returns the correct path for a TopicalEvent object with options" do
+    object = create(:topical_event, slug: "foo")
+    assert_equal "/government/topical-events/foo/about?cachebust=123", topical_event_about_pages_path(object, cachebust: "123")
+  end
+
+  test "topical_event_about_pages_path returns the correct path for a TopicalEventAboutPage object with options" do
+    object = create(:topical_event, slug: "foo", topical_event_about_page: create(:topical_event_about_page))
+    assert_equal "/government/topical-events/foo/about?cachebust=123", topical_event_about_pages_path(object.topical_event_about_page, cachebust: "123")
+  end
 end

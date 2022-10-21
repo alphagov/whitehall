@@ -1,6 +1,6 @@
 <% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
 
-<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" }, multipart: true do |form| %>
   <% content_for :error_summary, render('shared/error_summary', object: attachment, parent_class: "attachment", class_name: @attachment.class.name.demodulize.underscore.humanize.downcase) %>
 
   <div class="govuk-!-margin-bottom-8">
@@ -18,7 +18,7 @@
   </div>
 
   <% if attachable.allows_attachment_references? %>
-    <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment %>
+    <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment, heading_size: heading_size %>
   <% end %>
 
   <% if attachment.is_a?(HtmlAttachment) %>
@@ -66,11 +66,8 @@
       text: "Next"
     } %>
   <% else %>
-    <div class="govuk-button-group">
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Save"
-      } %>
-      <a class="govuk-link" href="attachable_attachments_path(attachable)">Cancel</a>
-    </div>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save"
+    } %>
   <% end %>
 <% end %>

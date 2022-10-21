@@ -119,10 +119,6 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
-    scope "/get-involved" do
-      root to: "home#get_involved", as: :get_involved, via: :get
-      get "take-part/:id", to: "take_part_pages#show", as: "take_part_page"
-    end
     get "/latest" => "latest#index", as: "latest"
     get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: valid_locales_regex }
     resources :organisations, only: [:index]
@@ -141,9 +137,6 @@ Whitehall::Application.routes.draw do
     get "/statistics(.:locale)", as: "statistics", to: "statistics#index", constraints: { locale: valid_locales_regex }
     get "/statistics/:id(.:locale)", as: "statistic", to: "_#_", constraints: { locale: valid_locales_regex }
     get "/statistics/:statistics_id/:id" => "_#_", as: "statistic_html_attachment"
-    resources :topical_events, path: "topical-events", only: [:show] do
-      resource :about_pages, path: "about", only: [:show]
-    end
     # End of routes no longer rendered by Whitehall
 
     constraints(AdminRequest) do

@@ -7,7 +7,8 @@ Given(/^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/) do |author
   step %(I am a writer called "#{author}")
   visit new_admin_speech_path
   begin_drafting_speech title: title, body: body
-  click_button "Save"
+  click_button "Save and continue"
+  click_button "Update tags"
   click_button "Submit"
 end
 

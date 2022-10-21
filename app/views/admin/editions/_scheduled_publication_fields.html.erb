@@ -1,0 +1,18 @@
+<%= hidden_field_tag :scheduled_publication_active, 0, id: "" %>
+
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "scheduled_publication_active",
+  id: "scheduled_publication_active",
+  heading: "Scheduled publication",
+  heading_size: 'l',
+  error_items: errors_for(edition.errors, :scheduled_publication_active),
+  no_hint_text: true,
+  items: [
+    {
+      label: "Schedule for publication",
+      value: 1,
+      checked: edition.scheduled_publication.present?,
+      conditional: render("datetime_fields", form: form, edition: edition, field_name: "scheduled_publication", default_date: Time.zone.parse(Time.zone.now.strftime("%Y-%m-%d 09:30")))
+    }
+  ]
+} %>

@@ -1,6 +1,8 @@
 require "test_helper"
 
 class RoutingLocaleTest < ActionDispatch::IntegrationTest
+  include PublicDocumentRoutesHelper
+
   test "#index in default locale" do
     assert_equal "/government/ministers", ministerial_roles_path
   end

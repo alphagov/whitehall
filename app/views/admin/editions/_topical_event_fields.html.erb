@@ -1,0 +1,20 @@
+<% cache_if edition.topical_event_ids.empty?, "#{taggable_topical_events_cache_digest}-design-system" do %>
+  <%= render "components/autocomplete", {
+    id: "edition_topical_event_ids",
+    name: "edition[topical_event_ids][]",
+    label: {
+      text: "Topical events",
+      bold: true,
+    },
+    select: {
+      options: [""] + TopicalEvent.order(:name).map { |topical_event| [topical_event.name, topical_event.id]},
+      multiple: true,
+      selected: edition.topical_event_ids,
+    },
+    data: {
+        module: 'track-select-click',
+        track_category: 'topicalEventSelection',
+        track_label: request.path
+    },
+  } %>
+<% end %>

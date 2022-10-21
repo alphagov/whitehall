@@ -28,7 +28,8 @@ When(/^I draft a French-only "World news story" news article associated with "([
   select location_name, from: "Select the world locations this news article is about"
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
   select "", from: "edition_lead_organisation_ids_1"
-  click_button "Save"
+  click_button "Save and continue"
+  click_button "Update tags"
   @news_article = find_news_article_in_locale!(:fr, "French-only news article")
 end
 

@@ -149,16 +149,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_preview_design_system?
   end
 
-  test "cannot redirect to the summary page by default" do
-    user = build(:user)
-    assert_not user.can_redirect_to_summary_page?
-  end
-
-  test "can redirect to the summary page if given permission" do
-    user = build(:user, permissions: [User::Permissions::REDIRECT_TO_SUMMARY_PAGE])
-    assert user.can_redirect_to_summary_page?
-  end
-
   test "can handle fatalities if our organisation is set to handle them" do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     assert_not not_allowed.can_handle_fatalities?
