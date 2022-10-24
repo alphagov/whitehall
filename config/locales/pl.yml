@@ -625,12 +625,6 @@ pl:
       works_with: Pracuje z
     type:
       courts_and_tribunals: Sądy i Trybunały
-  publications:
-    heading: Publikacje
-    recent: Ostatnie publikacje
-    statistics:
-      link_to_published_statistics: Znajdź listę opublikowanych i nadchodzących statystyk rządowych w sekcji %{link} statystyki.
-      moved_notice: Opublikowane statystyki zostały przeniesione.
   roles:
     unassigned: Nikt nie został przypisany do tej roli
   see_all:

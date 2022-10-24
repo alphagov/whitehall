@@ -473,12 +473,6 @@ yi:
       works_with:
     type:
       courts_and_tribunals:
-  publications:
-    heading:
-    recent:
-    statistics:
-      link_to_published_statistics:
-      moved_notice:
   roles:
     unassigned:
   see_all:

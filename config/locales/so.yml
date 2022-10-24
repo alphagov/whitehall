@@ -475,12 +475,6 @@ so:
       works_with: Ee la shaqaysa
     type:
       courts_and_tribunals: Maxkamadaha iyo Xukunada
-  publications:
-    heading: Daabacaado
-    recent: Daabacadihii dhawaa
-    statistics:
-      link_to_published_statistics: Baadh liiska cusboonaysiinta iyo xog ururinta soo socota ee dawlada %{link} qaybta xog ururinta.
-      moved_notice: Daabacaadaha xog ururinaha waa laga saaray.
   roles:
     unassigned: Qofna looma qoondayn doorkan
   see_all:

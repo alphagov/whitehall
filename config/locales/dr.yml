@@ -480,12 +480,6 @@ dr:
       works_with: کار مینماید با
     type:
       courts_and_tribunals: محاکم و دادگاه ها
-  publications:
-    heading: نشریات
-    recent: نشریات جدید
-    statistics:
-      link_to_published_statistics: فهرستی از آمار هایی منتشر شده و آمار های آیندهء حکومت را دربخش آمار%{link} پیدا نمایید
-      moved_notice: انتشارات آمار تغییر کرده است
   roles:
     unassigned: هیچ کسی به این وظیفه گماشته نشده است
   see_all:

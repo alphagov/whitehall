@@ -625,12 +625,6 @@ ru:
       works_with: Работает с
     type:
       courts_and_tribunals: Судами и Трибуналами
-  publications:
-    heading: Публикации
-    recent: Недавние публикации
-    statistics:
-      link_to_published_statistics: Ознакомтесь со списком опубликованной и планируемой к публикации государственной статистики в %{link} разделе статистики.
-      moved_notice: Статистические публикации были перемещены.
   roles:
     unassigned: Никто не назначен на эту роль
   see_all:

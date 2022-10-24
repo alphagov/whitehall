@@ -475,12 +475,6 @@ sw:
       works_with: Hushirikiana na
     type:
       courts_and_tribunals: Mahakama na Mabaraza ya Uamuzi
-  publications:
-    heading: Machapisho
-    recent: Machapisho ya hivi karibuni
-    statistics:
-      link_to_published_statistics: Tafuta orodha ya takwimu zilizochapishwa na zijazo za serikali katika sehemu ya takwimu ya %{link}.
-      moved_notice: Machapisho ya takwimu yamehamishwa.
   roles:
     unassigned: Hakuna mtu aliyekabidhiwa nafasi hii
   see_all:

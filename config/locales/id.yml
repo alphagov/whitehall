@@ -399,12 +399,6 @@ id:
       works_with: Bekerja bersama
     type:
       courts_and_tribunals: Pengadilan dan Persidangan
-  publications:
-    heading: Publikasi
-    recent: Publikasi terbaru
-    statistics:
-      link_to_published_statistics: Temukan daftar statistik pemerintah yang sudah atau akan diterbitkan pada bagian statistik %{link}.
-      moved_notice: Publikasi statistik sudah dipindah.
   roles:
     unassigned: Belum ada yang ditetapkan untuk peran ini
   see_all:

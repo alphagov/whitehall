@@ -97,10 +97,6 @@ Whitehall::Application.routes.draw do
     get "/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview" => "csv_preview#show", as: :csv_preview
     # End of public facing routes still rendered by Whitehall
 
-    # Routes that exist solely for the purpose of non-English finders
-    get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
-    # End of routes solely for non-English finders
-
     # Routes no longer rendered by Whitehall, but retained to maintain the route helpers
     get "/case-studies/:id(.:locale)", as: "case_study", to: "case_studies#show", constraints: { locale: valid_locales_regex }
     get "/collections/:id(.:locale)", as: "document_collection", to: "document_collections#show", constraints: { locale: valid_locales_regex }

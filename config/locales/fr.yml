@@ -476,12 +476,6 @@ fr:
       works_with: Travaille avec
     type:
       courts_and_tribunals: Cours et Tribunaux
-  publications:
-    heading: Publications
-    recent: Publications récentes
-    statistics:
-      link_to_published_statistics: Vous trouverez une liste des statistiques gouvernementales publiées et à venir dans la section %{link} statistiques.
-      moved_notice: Les publications de statistiques ont été transférées.
   roles:
     unassigned: Personne n'est affecté à ce rôle
   see_all:

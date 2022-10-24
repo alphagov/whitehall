@@ -552,12 +552,6 @@ cs:
       works_with: Pracuje se
     type:
       courts_and_tribunals: Soudy a tribunály
-  publications:
-    heading: Publikace
-    recent: Nedávné publikace
-    statistics:
-      link_to_published_statistics: Seznam zveřejněných a připravovaných vládních statistik najdete v sekci %{link} statistiky.
-      moved_notice: Statistické publikace se přesunuly.
   roles:
     unassigned: Tato role není nikomu přidělena
   see_all:

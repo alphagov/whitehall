@@ -475,12 +475,6 @@ ur:
       works_with: شریک کار
     type:
       courts_and_tribunals: عدالتیں اور ٹریبیونلز
-  publications:
-    heading: پبلیکیشنز
-    recent: حالیہ پبلیکیشنز
-    statistics:
-      link_to_published_statistics: "%{link} کے شماریات کے سیکشن میں حکومتی شماریات کی شائع شدہ اور آنے والی فہرست تلاش کریں۔"
-      moved_notice: شماریات کی پبلیکیشنز کو منتقل کر دیا گیا ہے۔
   roles:
     unassigned: کسی کو یہ کردار تفویض نہیں کیا گیا
   see_all:

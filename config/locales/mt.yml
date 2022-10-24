@@ -625,12 +625,6 @@ mt:
       works_with: Jaħdem ma'
     type:
       courts_and_tribunals: Qorti u Tribunali
-  publications:
-    heading: Pubblikazzjonijiet
-    recent: Pubblikazzjonijiet riċenti
-    statistics:
-      link_to_published_statistics: Sib lista tal-istatistiċi tal-gvern ippubblikati u dawk li għad iridu jiġu pubblikati fis-sezzjoni %{link}tal-istatistika.
-      moved_notice: Il-pubblikazzjonijiet tal-istatistiċi imxew.
   roles:
     unassigned: Ħadd m'għandu dan ir-rwol
   see_all:

@@ -475,12 +475,6 @@ bn:
       works_with: যার সাথে কাজ করে
     type:
       courts_and_tribunals: আদালত ও ট্রাইব্যুনাল
-  publications:
-    heading: প্রকাশনাসমূহ
-    recent: সাম্প্রতিক প্রকাশনাসমূহ
-    statistics:
-      link_to_published_statistics: "%{link} পরিসংখ্যান অংশে সরকারি পরিসংখ্যানের একটি প্রকাশিত ও আসন্ন তালিকা খুঁজে দেখুন।"
-      moved_notice: পরিসংখ্যান প্রকাশনাগুলো সরিয়ে ফেলা হয়েছে।
   roles:
     unassigned: এই ভূমিকায় কাউকে দায়িত্ব দেওয়া হয়নি
   see_all:

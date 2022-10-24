@@ -476,12 +476,6 @@
       works_with: Arbeider med
     type:
       courts_and_tribunals: Domstoler og domstoler
-  publications:
-    heading: Publikasjoner
-    recent: Nylige publikasjoner
-    statistics:
-      link_to_published_statistics: Finn en liste over publiserte og kommende statlige statistikker i statistikkdelen på %{link}.
-      moved_notice: Statistikkpublikasjonene har flyttet.
   roles:
     unassigned: Ingen er tildelt denne rollen
   see_all:

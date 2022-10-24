@@ -475,12 +475,6 @@ si:
       works_with: සමඟ වැඩ කරයි
     type:
       courts_and_tribunals: අධිකරණ හා විනිශ්චය මණ්ඩල
-  publications:
-    heading: ප්රකාශන
-    recent: මෑත කාලීන ප්රකාශන
-    statistics:
-      link_to_published_statistics: "%{link} සංඛ්යාලේඛන කොටසේ ඇති ප්රකාශිත සහ ඉදිරියට එ රජයේ සංඛ්යාලේඛන ලැයිස්තුවක් සොයා ගන්න."
-      moved_notice: සංඛ්යාලේඛන ප්රකාශන විතැන් කර ඇත.
   roles:
     unassigned: මෙම භූමිකාව කිසිවෙකුට පවරා නැත
   see_all:

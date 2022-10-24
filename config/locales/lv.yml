@@ -473,12 +473,6 @@ lv:
       works_with: Strādā ar
     type:
       courts_and_tribunals: Tiesas un šķīrējtiesas
-  publications:
-    heading: Publikācijas
-    recent: Jaunākās publikācijas
-    statistics:
-      link_to_published_statistics: Meklējiet publicētās un gaidāmās valdības statistikas sarakstu %{link} statistikas sadaļā.
-      moved_notice: Statistikas publikācijas ir pārvietotas.
   roles:
     unassigned: Neviens šai lomai nav piešķirts
   see_all:

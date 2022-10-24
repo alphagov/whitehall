@@ -399,12 +399,6 @@ zh:
       works_with: 合作者
     type:
       courts_and_tribunals: 法院和法庭
-  publications:
-    heading: 公布
-    recent: 最近出版物
-    statistics:
-      link_to_published_statistics: 在 %{link} 统计数据部分中找到已发布和即将发布的政府统计数据列表。
-      moved_notice: 统计数据发布也发生迁移。
   roles:
     unassigned: 没有人被分配到这个职责
   see_all:

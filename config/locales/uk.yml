@@ -627,12 +627,6 @@ uk:
       works_with: Працює з
     type:
       courts_and_tribunals: Суди та арбітражні суди
-  publications:
-    heading: Публікації
-    recent: Недавні публікації
-    statistics:
-      link_to_published_statistics: Знайдіть список опублікованої та майбутньої урядової статистики у розділі статистики %{link}.
-      moved_notice: Статистичні публікації перенесені.
   roles:
     unassigned: На цю посаду ніхто не призначений
   see_all:

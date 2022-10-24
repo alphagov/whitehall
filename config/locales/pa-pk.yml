@@ -473,12 +473,6 @@ pa-pk:
       works_with: جندے نال کم کر دا اے
     type:
       courts_and_tribunals: کورٹ تے عدالتاں
-  publications:
-    heading: اشاعت
-    recent: تازہ اشاعت
-    statistics:
-      link_to_published_statistics: حکومت دے اون والے تے شائع کردہ اعدادو شمار دی اک فہرست ایتھوں لبھو {link} % اعدادوشمار والے حصے توں
-      moved_notice: اشاعت کردہ اعداوشمار ایتھوں ختم کر دتے گئے نیں۔
   roles:
     unassigned: ایہ کردار کسے نوں نئیں دتا گیا
   see_all:

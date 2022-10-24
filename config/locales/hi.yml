@@ -476,12 +476,6 @@ hi:
       works_with: इसके साथ काम करता है
     type:
       courts_and_tribunals: न्यायालय और न्यायाधिकरण
-  publications:
-    heading: प्रकाशन
-    recent: हालिया प्रकाशन
-    statistics:
-      link_to_published_statistics: "%{link} सांख्यिकी अनुभाग में प्रकाशित और आगामी सरकारी सांख्यिकियों की सूची प्राप्त करें।"
-      moved_notice: सांख्यिकी प्रकाशन मूव हो गए हैं।
   roles:
     unassigned: यह भूमिका किसी को असाइन नहीं की गई है
   see_all:

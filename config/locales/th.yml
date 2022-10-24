@@ -399,12 +399,6 @@ th:
       works_with: ทำงานร่วมกับ
     type:
       courts_and_tribunals: ศาลและตุลาการ
-  publications:
-    heading: สิ่งพิมพ์
-    recent: สิ่งพิมพ์ล่าสุด
-    statistics:
-      link_to_published_statistics: ดูรายการสถิติของรัฐบาลที่เผยแพร่และที่กำลังจะเผยแพร่ได้ในส่วนสถิติ %{link}
-      moved_notice: เอกสารทางสถิติถูกย้ายไปแล้ว
   roles:
     unassigned: ไม่มีใครได้รับการแต่งตั้งในบทบาทนี้
   see_all:

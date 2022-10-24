@@ -475,12 +475,6 @@ zh-hk:
       works_with: 公共機構
     type:
       courts_and_tribunals: 法院及裁判庭
-  publications:
-    heading: 出版物
-    recent: 最近出版
-    statistics:
-      link_to_published_statistics: 在 %{link} 搜尋已發佈及即將發佈之政府統計資料列表。
-      moved_notice: 統計資料出版已轉移。
   roles:
     unassigned: 未有人擔任此一職位
   see_all:

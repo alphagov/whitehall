@@ -475,12 +475,6 @@ fa:
       works_with: همکاری می‌کند با
     type:
       courts_and_tribunals: دادگاه‌ها و محکمه‌ها
-  publications:
-    heading: موارد منتشر شده
-    recent: موارد اخیراً منتشر شده
-    statistics:
-      link_to_published_statistics: در بخش آماری %{link} می‌توانید لیستی از آمار دولتی منتشر شده و آتی را بیابید.
-      moved_notice: مطالب منتشر شده آماری جابجا شده است.
   roles:
     unassigned: هیچ فردی به این نقش تخصیص نیافته است
   see_all:

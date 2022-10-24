@@ -475,12 +475,6 @@ tr:
       works_with: Şununla çalışıyor
     type:
       courts_and_tribunals: Mahkemeler
-  publications:
-    heading: Yayınlar
-    recent: Yakın tarihli yayınlar
-    statistics:
-      link_to_published_statistics: "%{link} istatistik bölümünde yayınlanan ve gelecek kamu istatistiklerinin bir listesini bulabilirsiniz."
-      moved_notice: İstatistik yayınları taşındı.
   roles:
     unassigned: Bu göreve kimse atanmamış
   see_all:

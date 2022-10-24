@@ -551,12 +551,6 @@ ro:
       works_with: Lucrează cu
     type:
       courts_and_tribunals: Instanțe și tribunale
-  publications:
-    heading: Publicații
-    recent: Publicații recente
-    statistics:
-      link_to_published_statistics: Găsiți o listă de statistici guvernamentale publicate și viitoare în secțiunea de statistică %{link}.
-      moved_notice: Publicațiile de statistică s-au mutat.
   roles:
     unassigned: În această funcție nu este repartizată nicio persoană
   see_all:

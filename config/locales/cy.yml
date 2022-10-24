@@ -779,12 +779,6 @@ cy:
       works_with: Yn gweithio gyda
     type:
       courts_and_tribunals: Llysoedd a Thribiwnlysoedd
-  publications:
-    heading: Cyhoeddiadau
-    recent: Cyhoeddiadau diweddar
-    statistics:
-      link_to_published_statistics: Gallwch ddod o hyd i restr o ystadegau'r llywodraeth sydd wedi'u cyhoeddi ac sydd i ddod yn yr adran ystadegau %{link}.
-      moved_notice: Mae cyhoeddiadau ystadegau wedi symud.
   roles:
     unassigned: Does neb wedi'i bennu ar gyfer y rôl hon.
   see_all:

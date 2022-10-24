@@ -476,12 +476,6 @@ sv:
       works_with: Arbetar med
     type:
       courts_and_tribunals: Domstolar och domstolar
-  publications:
-    heading: Publikationer
-    recent: Nya publikationer
-    statistics:
-      link_to_published_statistics: Du hittar en lista över publicerad och kommande statlig statistik i %{link} statistiksektionen.
-      moved_notice: Statistikpublikationer har flyttats.
   roles:
     unassigned: Ingen har tilldelats denna roll
   see_all:

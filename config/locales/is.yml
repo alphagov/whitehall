@@ -475,12 +475,6 @@ is:
       works_with: Starfar með
     type:
       courts_and_tribunals: Réttir og dómstólar
-  publications:
-    heading: Útgáfur
-    recent: Nýlegar útgáfur
-    statistics:
-      link_to_published_statistics: Þú finnur lista yfir útgefna og væntanlega opinbera tölfræði í %{link} tölfræði hlutanum.
-      moved_notice: Útgáfa tölfræði hefur verið færð.
   roles:
     unassigned: Enginn er settur í þetta hlutverk
   see_all:

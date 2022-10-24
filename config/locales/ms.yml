@@ -400,12 +400,6 @@ ms:
       works_with: Bekerja dengan
     type:
       courts_and_tribunals: Mahkamah dan Tribunal
-  publications:
-    heading: Penerbitan
-    recent: Penerbitan terbaharu
-    statistics:
-      link_to_published_statistics: Cari senarai statistik kerajaan yang telah diterbitkan dan akan datang di bahagian statistik %{link}.
-      moved_notice: Penerbitan statistik telah bergerak.
   roles:
     unassigned: Tiada siapa yang ditugaskan untuk peranan ini
   see_all:

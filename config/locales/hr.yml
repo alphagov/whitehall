@@ -552,12 +552,6 @@ hr:
       works_with: Radi s
     type:
       courts_and_tribunals: Sudovi i tribunali
-  publications:
-    heading: Izdanja
-    recent: Nedavne publikacije
-    statistics:
-      link_to_published_statistics: Popis objavljenih i nadolazećih državnih statistika pronađite u odjeljku %{link} statistika.
-      moved_notice: Statističke publikacije su se pomaknule.
   roles:
     unassigned: Nitko nije dodijeljen ovoj ulozi
   see_all:

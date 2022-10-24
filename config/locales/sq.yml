@@ -476,12 +476,6 @@ sq:
       works_with: Punon me
     type:
       courts_and_tribunals: Gjykatat dhe Tribunalet
-  publications:
-    heading: Publikime
-    recent: Publikimet e fundit
-    statistics:
-      link_to_published_statistics: Gjeni një listë të statistikave të publikuara dhe të ardhshme të qeverisë në seksionin e statistikave %{link}.
-      moved_notice: Publikimet e statistikave kanë lëvizur.
   roles:
     unassigned: Askush nuk është caktuar për këtë rol
   see_all:

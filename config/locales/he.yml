@@ -476,12 +476,6 @@ he:
       works_with: עובד עם
     type:
       courts_and_tribunals: בתי משפט ובתי דין
-  publications:
-    heading: פרסומים
-    recent: פרסומים אחרונים
-    statistics:
-      link_to_published_statistics: מצא רשימה של סטטיסטיקות ממשלתיות שפורסמו ועתידות להתפרסם בקטע %{link} נתונים סטטיסטיים.
-      moved_notice: פרסומי הסטטיסטיקה זזו.
   roles:
     unassigned: לאף אחד אין תפקיד זה
   see_all:

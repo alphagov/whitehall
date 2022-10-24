@@ -552,12 +552,6 @@ sr:
       works_with: Sarađuje sa
     type:
       courts_and_tribunals: Sudovi i tribunali
-  publications:
-    heading: Publikacije
-    recent: Nedavne publikacije
-    statistics:
-      link_to_published_statistics: Pronađite listu objavljenih i predstojećih vladinih statističkih podataka u odeljku %{link} statistički podaci.
-      moved_notice: Statističke publikacije su premeštene.
   roles:
     unassigned: Niko nije imenovan za ovu funkciju
   see_all:

@@ -628,12 +628,6 @@ sl:
       works_with: Sodeluje z
     type:
       courts_and_tribunals: Sodišča
-  publications:
-    heading: Publikacije
-    recent: Najnovejše publikacije
-    statistics:
-      link_to_published_statistics: Seznam objavljenih in prihajajočih vladnih statistik najdete na povezavi %{link} v razdelku statistika.
-      moved_notice: Statistične objave so bile premaknjene.
   roles:
     unassigned: Ta vloga ni dodeljena nikomur
   see_all:

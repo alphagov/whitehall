@@ -476,12 +476,6 @@ it:
       works_with: Lavora con
     type:
       courts_and_tribunals: Corti e tribunali
-  publications:
-    heading: Pubblicazioni
-    recent: Pubblicazioni recenti
-    statistics:
-      link_to_published_statistics: Trova un elenco delle statistiche governative pubblicate e imminenti nella sezione delle statistiche %{link}.
-      moved_notice: Le pubblicazioni statistiche sono state spostate.
   roles:
     unassigned: Nessuno è assegnato a questo ruolo
   see_all:

@@ -475,12 +475,6 @@ gu:
       works_with: સાથે કામ કરે છે
     type:
       courts_and_tribunals: ન્યાયાલયો અને ટ્રિબ્યુનલ્સ
-  publications:
-    heading: પ્રકાશનો
-    recent: તાજેતરનાં પ્રકાશનો
-    statistics:
-      link_to_published_statistics: "%{link} આંકડા વિભાગમાં પ્રકાશિત કરાયેલ અને આગામી સરકારી આંકડાની યાદી શોધો."
-      moved_notice: આંકડાકીય પ્રકાશનો ખસેડવામાં આવેલ છે.
   roles:
     unassigned: આ ભૂમિકા કોઈને પણ સોંપવામાં આવેલ નથી
   see_all:

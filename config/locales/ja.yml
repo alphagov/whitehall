@@ -397,12 +397,6 @@ ja:
       works_with: 以下と働：
     type:
       courts_and_tribunals: 裁判所および審判
-  publications:
-    heading: 出版物
-    recent: 最近の出版物
-    statistics:
-      link_to_published_statistics: "％{link} 統計セクションで、公開済みおよび今後の政府統計のリストを検索します。"
-      moved_notice: 統計出版物は移動しました。
   roles:
     unassigned: この役割には誰も割り当てられていません
   see_all:

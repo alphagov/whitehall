@@ -475,12 +475,6 @@ uz:
       works_with: билан ишлар
     type:
       courts_and_tribunals: Судлар ва трибуналлар
-  publications:
-    heading: Нашрлар
-    recent: Яқиндаги нашрлар
-    statistics:
-      link_to_published_statistics: "%{link} статистика бўлимида нашр қилинган ва кутилаётган давлат статистика маълумотлари рўйхатини топиш."
-      moved_notice: Статистика маълумотлари бўйича нашрлар бошқа жойга кўчирилган.
   roles:
     unassigned: Ушбу рольга ҳеч бир шахс тайинланмаган
   see_all:

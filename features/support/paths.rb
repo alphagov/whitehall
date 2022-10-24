@@ -36,8 +36,6 @@ module NavigationHelpers
 
   def public_path_for(edition)
     case edition
-    when Publication
-      publications_path
     when Speech
       announcements_path
     when Consultation

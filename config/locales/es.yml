@@ -473,12 +473,6 @@ es:
       works_with: Funciona con
     type:
       courts_and_tribunals: Juzgados y Tribunales
-  publications:
-    heading: Publicaciones
-    recent: Publicaciones recientes
-    statistics:
-      link_to_published_statistics: Busque una lista de estadísticas gubernamentales publicadas y próximas en la sección de estadísticas %{link}.
-      moved_notice: Las publicaciones estadísticas se han movido.
   roles:
     unassigned: No hay nadie asignado a esta función
   see_all:

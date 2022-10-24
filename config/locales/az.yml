@@ -476,12 +476,6 @@ az:
       works_with: Məhkəmə və məhkəmə kollegiyaları
     type:
       courts_and_tribunals: ilə işlər
-  publications:
-    heading: Nəşrlər
-    recent: Sonuncu nəşrlər
-    statistics:
-      link_to_published_statistics: "%{link} statistika bölməsində dərc edilmiş və gözlənilən dövlət statistikasını tapın."
-      moved_notice: Statistika üzrə nəşrlər köçürülüb.
   roles:
     unassigned: Bu vəzifəyə heç kim təyin edilməyib
   see_all:

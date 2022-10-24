@@ -475,12 +475,6 @@ ne:
       works_with: सँग काम गर्दछ
     type:
       courts_and_tribunals: अदालत र न्यायाधिकरण
-  publications:
-    heading: प्रकाशनहरु
-    recent: हालका प्रकाशनहरु
-    statistics:
-      link_to_published_statistics: "%{link} तथ्याङ्क खण्ड मा प्रकाशित र आगामी सरकारी तथ्याङ्कको एक सूची पाउनुहोस्।"
-      moved_notice: तथ्याङ्क प्रकाशनहरु सारिएका छन्।
   roles:
     unassigned: यो भूमिका को लागी कसैलाई तोकिएको छैन
   see_all:

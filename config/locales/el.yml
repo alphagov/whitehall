@@ -475,12 +475,6 @@ el:
       works_with: Δουλεύει με
     type:
       courts_and_tribunals: Δικαστήρια και Διαιτητικά όργανα
-  publications:
-    heading: Δημοσιεύσεις
-    recent: Πρόσφατες δημοσιεύσεις
-    statistics:
-      link_to_published_statistics: Βρείτε μια λίστα δημοσιευμένων και επερχόμενων κρατικών στατιστικών στοιχείων στην ενότητα στατιστικά %{link}.
-      moved_notice: Οι στατιστικές δημοσιεύσεις έχουν μετακινηθεί.
   roles:
     unassigned: Σε κανέναν δεν έχει ανατεθεί αυτός ο ρόλος
   see_all:

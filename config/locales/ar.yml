@@ -777,12 +777,6 @@ ar:
       works_with: يعمل لدى
     type:
       courts_and_tribunals: المحاكم والهيئات القضائية
-  publications:
-    heading: منشورات
-    recent: المنشورات الحديثة
-    statistics:
-      link_to_published_statistics: ابحث عن قائمة بالإحصائيات الحكومية المنشورة والمرتقبة في قسم إحصائيات %{link}.
-      moved_notice: تم نقل المنشورات الإحصائية.
   roles:
     unassigned: لم يتم تعيين أي شخص لهذا الدور.
   see_all:

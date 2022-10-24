@@ -476,12 +476,6 @@ pa:
       works_with: ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ
     type:
       courts_and_tribunals: ਅਦਾਲਤਾਂ ਅਤੇ ਟ੍ਰਿਬਿਊਨਲ
-  publications:
-    heading: ਪ੍ਰਕਾਸ਼ਨ
-    recent: ਹਾਲੀਆ ਪ੍ਰਕਾਸ਼ਨ
-    statistics:
-      link_to_published_statistics: "%{link} ਅੰਕੜੇ ਭਾਗ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਅਤੇ ਆਉਣ ਵਾਲੇ ਸਰਕਾਰੀ ਅੰਕੜਿਆਂ ਦੀ ਇੱਕ ਸੂਚੀ ਲੱਭੋ।"
-      moved_notice: ਅੰਕੜੇ ਪ੍ਰਕਾਸ਼ਨ ਬਦਲ ਗਏ ਹਨ।
   roles:
     unassigned: ਇਸ ਭੂਮਿਕਾ ਲਈ ਕਿਸੇ ਨੂੰ ਵੀ ਨਿਯੁਕਤ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ
   see_all:

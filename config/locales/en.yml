@@ -476,12 +476,6 @@ en:
       works_with: Works with
     type:
       courts_and_tribunals: Courts and Tribunals
-  publications:
-    heading: Publications
-    recent: Recent publications
-    statistics:
-      link_to_published_statistics: Find a list of published and upcoming government statistics in the %{link} statistics section.
-      moved_notice: Statistics publications have moved.
   roles:
     unassigned: No one is assigned to this role
   see_all:

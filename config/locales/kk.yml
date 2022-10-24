@@ -475,12 +475,6 @@ kk:
       works_with: Мынамен жұмыс істейді
     type:
       courts_and_tribunals: Соттар мен сот орындары
-  publications:
-    heading: Жарияланымдар
-    recent: Жақын арадағы жарияланымдар
-    statistics:
-      link_to_published_statistics: "%{link} статистика бөлімінен жарияланған және алдағы мемлекеттік статистика тізімін табыңыз."
-      moved_notice: Статистикалық басылымдар көшті.
   roles:
     unassigned: Бұл рөлге ешкім тағайындалмаған
   see_all:

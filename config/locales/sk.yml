@@ -552,12 +552,6 @@ sk:
       works_with: Spolupracuje s
     type:
       courts_and_tribunals: Súdy a tribunály
-  publications:
-    heading: Publikácie
-    recent: Nedávne publikácie
-    statistics:
-      link_to_published_statistics: Zoznam zverejnených a pripravovaných vládnych štatistík nájdete v sekcii %{link} štatistiky.
-      moved_notice: Štatistické publikácie sa presunuli.
   roles:
     unassigned: Táto úloha nie je nikomu pridelená
   see_all:

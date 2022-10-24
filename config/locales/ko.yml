@@ -399,12 +399,6 @@ ko:
       works_with: 협업 대상
     type:
       courts_and_tribunals: 상위 법원 및 법원
-  publications:
-    heading: 출판물
-    recent: 최근 출판물
-    statistics:
-      link_to_published_statistics: "%{link} 통계 섹션에서 발행되거나 다가올 정부 통계의 목록을 찾아 보십시오."
-      moved_notice: 통계 출판물이 이동되었습니다.
   roles:
     unassigned: 이 역할에 아무도 할당되지 않았습니다
   see_all:

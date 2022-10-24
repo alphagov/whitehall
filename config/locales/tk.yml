@@ -475,12 +475,6 @@ tk:
       works_with: Bilelikde işleýär
     type:
       courts_and_tribunals: Kazyýet we Kazylar
-  publications:
-    heading: Neşirler
-    recent: Soňky neşirler
-    statistics:
-      link_to_published_statistics: Neşirleriň we ýetip gelýän hökümet statistikasynyň sanawyny %{link} statisika bölüminden tapyp bilersiňiz.
-      moved_notice: Statistika neşirleri göçürildi.
   roles:
     unassigned: Bu wezipä hiç kim bellenmedi
   see_all:

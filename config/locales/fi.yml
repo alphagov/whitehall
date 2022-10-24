@@ -476,12 +476,6 @@ fi:
       works_with: Toimii
     type:
       courts_and_tribunals: Tuomioistuimet
-  publications:
-    heading: Julkaisut
-    recent: Viimeaikaiset julkaisut
-    statistics:
-      link_to_published_statistics: Löydät luettelon julkistetuista ja tulevista valtion tilastoista %{link} tilastot -osiosta.
-      moved_notice: Tilastojulkaisut ovat muuttaneet.
   roles:
     unassigned: Ketään ei ole määrätty tähän rooliin
   see_all:

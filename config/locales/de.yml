@@ -475,12 +475,6 @@ de:
       works_with: Arbeitet mit
     type:
       courts_and_tribunals: Gerichte und Gerichtshöfe
-  publications:
-    heading: Veröffentlichungen
-    recent: Jüngste Veröffentlichungen
-    statistics:
-      link_to_published_statistics: Eine Liste der veröffentlichten und kommenden Regierungsstatistiken finden Sie in der Rubrik %{link} Statistiken.
-      moved_notice: Die statistischen Veröffentlichungen sind verlagert worden.
   roles:
     unassigned: Diese Funktion wurde niemandem zugewiesen
   see_all:

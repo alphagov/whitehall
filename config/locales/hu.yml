@@ -475,12 +475,6 @@ hu:
       works_with: 'A következővel dolgozik:'
     type:
       courts_and_tribunals: Bíróságok
-  publications:
-    heading: Kiadványok
-    recent: Friss kiadványok
-    statistics:
-      link_to_published_statistics: A %{link} statisztika szekcióban megtalálja a közzétett és hamarosan kiadásra kerülő állami statisztikákat.
-      moved_notice: A statisztikai kiadványok áthelyezésre kerültek.
   roles:
     unassigned: Ehhez a szerepkörhöz senki nincs hozzárendelve
   see_all:

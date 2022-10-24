@@ -625,12 +625,6 @@ be:
       works_with: Праца з
     type:
       courts_and_tribunals: Суды і Трыбуналы
-  publications:
-    heading: Публікацыі
-    recent: Апошнія публікацыі
-    statistics:
-      link_to_published_statistics: Знайсці спіс апублікаваных і маючых адбыцца дзяржаўных статыстычных дадзеных у  % {link} раздзеле Статыстыка.
-      moved_notice: Публікацыі статыстыкі перамясціліся.
   roles:
     unassigned: Ніхто не прызначаны на гэтую ролю
   see_all:

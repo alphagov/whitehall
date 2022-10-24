@@ -475,12 +475,6 @@ zh-tw:
       works_with: 共事
     type:
       courts_and_tribunals: 法庭與審裁處
-  publications:
-    heading: 出版
-    recent: 近期發佈
-    statistics:
-      link_to_published_statistics: 在 %{link} 統計部分找到已發布和即將發布的政府統計數據列表。
-      moved_notice: 統計發佈已移除。
   roles:
     unassigned: 該角色未被指派
   see_all:

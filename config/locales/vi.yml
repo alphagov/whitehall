@@ -399,12 +399,6 @@ vi:
       works_with: Làm việc với
     type:
       courts_and_tribunals: Tòa án và Tòa án cấp thấp
-  publications:
-    heading: Ấn phẩm
-    recent: Các ấn phẩm gần đây
-    statistics:
-      link_to_published_statistics: Tìm danh sách thống kê của chính phủ đã xuất bản và sắp xuất bản trong phần thống kê %{link}.
-      moved_notice: Các ấn phẩm thống kê đã được di chuyển.
   roles:
     unassigned: Không ai được bổ nhiệm vai trò này
   see_all:

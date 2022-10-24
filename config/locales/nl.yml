@@ -473,12 +473,6 @@ nl:
       works_with: Werkt samen met
     type:
       courts_and_tribunals: Hoven en rechtbanken
-  publications:
-    heading: Publicaties
-    recent: Recente publicaties
-    statistics:
-      link_to_published_statistics: Een lijst van gepubliceerde en binnenkort te verschijnen overheidsstatistieken vindt u in de sectie %{link} statistieken.
-      moved_notice: Publicaties over statistieken zijn verplaatst.
   roles:
     unassigned: Er is niemand toegewezen aan deze functie
   see_all:

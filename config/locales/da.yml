@@ -476,12 +476,6 @@ da:
       works_with: Virker med
     type:
       courts_and_tribunals: Domstole og domstole
-  publications:
-    heading: Publikationer
-    recent: Seneste publikationer
-    statistics:
-      link_to_published_statistics: Du kan finde en liste over offentliggjorte og kommende offentlige statistikker i afsnittet %{link} statistik.
-      moved_notice: Statistiske publikationer er blevet flyttet.
   roles:
     unassigned: Der er ingen, der er tildelt denne rolle
   see_all:

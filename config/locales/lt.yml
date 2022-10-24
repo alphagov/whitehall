@@ -549,12 +549,6 @@ lt:
       works_with: Dirba su
     type:
       courts_and_tribunals: Teismai ir tribunolai
-  publications:
-    heading: Leidiniai
-    recent: Naujausi leidimai
-    statistics:
-      link_to_published_statistics: Raskite paskelbtos ir būsimos vyriausybės statistikos sąrašą %{link} statistikos skiltyje.
-      moved_notice: Informacija apie statistiką buvo perkelta.
   roles:
     unassigned: Niekam nepriskirta įi funkcija
   see_all:

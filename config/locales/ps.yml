@@ -476,12 +476,6 @@ ps:
       works_with: سره کار کوي
     type:
       courts_and_tribunals: محکمې او محکمې
-  publications:
-    heading: خپرونې
-    recent: وروستي خپرونې
-    statistics:
-      link_to_published_statistics: د %{link} احصایې برخې کې د خپاره شوي او راتلونکي حکومت احصایو لیست ومومئ.
-      moved_notice: د احصایوي خپرونو حرکت شوی.
   roles:
     unassigned: هیڅوک دې رول ته ندي ګمارل شوي
   see_all:

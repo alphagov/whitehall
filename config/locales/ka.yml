@@ -476,12 +476,6 @@ ka:
       works_with: მუშაობს
     type:
       courts_and_tribunals: სასამართლოებთან და ტრიბუნალებთან
-  publications:
-    heading: პუბლიკაციები
-    recent: ბოლო პუბლიკაციები
-    statistics:
-      link_to_published_statistics: იპოვეთ გამოქვეყნებული და მომავალი მთავრობის სტატისტიკის სია %{link} სტატისტიკის განყოფილებაში.
-      moved_notice: სტატისტიკის პუბლიკაციები გადატანილია.
   roles:
     unassigned: არავისთვის არ მიუნიჭებიათ ეს როლი
   see_all:

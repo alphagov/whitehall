@@ -627,12 +627,6 @@ gd:
       works_with: Agus
     type:
       courts_and_tribunals: Cúirteanna agus binsí
-  publications:
-    heading: Foilseacháin
-    recent: Foilseacháin le déanaí
-    statistics:
-      link_to_published_statistics: Tá liosta de na staitisticí rialtais foilsithe agus le teacht agat sa rannán staitisticí %{link}.
-      moved_notice: Bogadh foilseacháin staidrimh.
   roles:
     unassigned: Níl aon duine i gceannas ar an ról seo
   see_all:
