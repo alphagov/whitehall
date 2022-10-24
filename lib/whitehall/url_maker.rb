@@ -2,7 +2,6 @@ module Whitehall
   class UrlMaker
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
-    include FilterRoutesHelper
     include Admin::EditionRoutesHelper
     include LocalisedUrlPathHelper
 

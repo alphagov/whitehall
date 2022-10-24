@@ -19,10 +19,10 @@
           <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page.slug), class: "govuk-link" %></li>
         <% end %>
         <% if show_corporate_reports && organisation.has_published_publications_of_type?(PublicationType::CorporateReport) %>
-          <li><%= link_to t('organisation.headings.corporate_reports'), publications_filter_path(organisation, publication_type: 'corporate-reports'), class: "govuk-link" %></li>
+          <li><%= link_to t('organisation.headings.corporate_reports'), "/search/all?organisations%5B%5D=#{organisation}&content_purpose_supergroup%5B%5D=transparency&order=updated-newest", class: "govuk-link" %></li>
         <% end %>
         <% if organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
-          <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data'), class: "govuk-link" %></li>
+          <li><%= link_to t('organisation.corporate_information.transparency'), "/search/all?organisations%5B%5D=#{organisation}&content_purpose_supergroup%5B%5D=transparency&order=updated-newest", class: "govuk-link" %></li>
         <% end %>
       </ul>
     </nav>
