@@ -4,11 +4,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
 (function (Modules) {
   function GovspeakEditor (module) {
     this.module = module
-    this.preview = module.getAttribute('data-previewable') === 'true'
   }
 
   GovspeakEditor.prototype.init = function () {
-    if (this.preview) this.initPreview()
+    this.initPreview()
   }
 
   GovspeakEditor.prototype.getCsrfToken = function () {
