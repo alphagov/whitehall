@@ -39,8 +39,6 @@ th:
       title: ชื่อเอกสารแนบ
       unique_reference: รหัสอ้างอิงเฉพาะของเอกสารแนบ
       unnumbered_hoc_paper: เอกสารสภาสามัญที่ไม่มีเลขที่
-  announcements:
-    heading: ประกาศ
   attachment:
     accessibility:
       full_help_html: |

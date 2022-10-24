@@ -98,7 +98,6 @@ Whitehall::Application.routes.draw do
     # End of public facing routes still rendered by Whitehall
 
     # Routes that exist solely for the purpose of non-English finders
-    get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
     get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
     # End of routes solely for non-English finders
 

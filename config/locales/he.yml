@@ -39,8 +39,6 @@ he:
       title: כותרת הקובץ המצורף
       unique_reference: 'התייחסות ייחודית לקובץ המצורף '
       unnumbered_hoc_paper: נייר של בית הנבחרים ללא מספר
-  announcements:
-    heading: הודעות
   attachment:
     accessibility:
       full_help_html: |

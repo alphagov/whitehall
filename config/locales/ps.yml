@@ -39,8 +39,6 @@ ps:
       title: د ضمیمې سرلیک
       unique_reference: ضمیمه ځانګړې حواله
       unnumbered_hoc_paper: د کامنز بې شمیره کاغذ
-  announcements:
-    heading: اعلانونه
   attachment:
     accessibility:
       full_help_html: |

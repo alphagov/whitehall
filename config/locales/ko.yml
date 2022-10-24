@@ -39,8 +39,6 @@ ko:
       title: 첨부 제목
       unique_reference: 첨부 고유 참조
       unnumbered_hoc_paper: 번호를 매기지 않은 하원 문서
-  announcements:
-    heading: 공지사항
   attachment:
     accessibility:
       full_help_html: |

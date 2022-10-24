@@ -39,8 +39,6 @@ id:
       title: Judul lampiran
       unique_reference: Referensi unik lampiran
       unnumbered_hoc_paper: Surat House of Commons tidak bernomor
-  announcements:
-    heading: Pengumuman
   attachment:
     accessibility:
       full_help_html: |

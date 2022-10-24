@@ -39,8 +39,6 @@ ka:
       title: დანართის სათაური
       unique_reference: დანართის უნიკალური მითითება
       unnumbered_hoc_paper: თემთა პალატის დაუნომრავი დოკუმენტი
-  announcements:
-    heading: განცხადებები
   attachment:
     accessibility:
       full_help_html: |

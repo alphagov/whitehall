@@ -39,8 +39,6 @@ az:
       title: Əlavənin başlığı
       unique_reference: Əlavə üçün unikal istinad
       unnumbered_hoc_paper: İcmalar palatasının nömrələnməmiş sənədi
-  announcements:
-    heading: Elanlar
   attachment:
     accessibility:
       full_help_html: |

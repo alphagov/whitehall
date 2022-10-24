@@ -39,8 +39,6 @@ en:
       title: Attachment title
       unique_reference: Attachment unique reference
       unnumbered_hoc_paper: Unnumbered House of Commons paper
-  announcements:
-    heading: Announcements
   attachment:
     accessibility:
       full_help_html: |

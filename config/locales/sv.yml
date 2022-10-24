@@ -39,8 +39,6 @@ sv:
       title: Titel på bifogade dokument
       unique_reference: Bilagans unika referens
       unnumbered_hoc_paper: Onumrerad artikel från underhuset
-  announcements:
-    heading: Meddelanden
   attachment:
     accessibility:
       full_help_html: |

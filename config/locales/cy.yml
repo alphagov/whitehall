@@ -39,8 +39,6 @@ cy:
       title: Teitl yr atodiad
       unique_reference: Cyfeirnod unigryw yr atodiad
       unnumbered_hoc_paper: Papur Tŷ'r Cyffredin heb rif
-  announcements:
-    heading: Cyhoeddiadau
   attachment:
     accessibility:
       full_help_html: |

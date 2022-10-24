@@ -39,8 +39,6 @@ gu:
       title: એટેચમેંટ શીર્ષક
       unique_reference: એટેચમેંટ યુનિક સંદર્ભ
       unnumbered_hoc_paper: સંખ્યા વિનાના હાઉસ ઓફ કૉમન્સ પેપર
-  announcements:
-    heading: જાહેરાતો
   attachment:
     accessibility:
       full_help_html: |

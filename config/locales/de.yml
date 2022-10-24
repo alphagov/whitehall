@@ -39,8 +39,6 @@ de:
       title: Anhang Titel
       unique_reference: Anhang eindeutige Referenz
       unnumbered_hoc_paper: Nicht nummeriertes Unterhauspapier
-  announcements:
-    heading: Ankündigungen
   attachment:
     accessibility:
       full_help_html: |

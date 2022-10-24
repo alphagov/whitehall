@@ -17,14 +17,4 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to canonical_path
   end
-
-  # news articles and fatality notices redirect to announcements
-  # index, instead of serving their own
-  test "visiting the announcements index with a spurious locale=en param will redirect to remove it" do
-    canonical_path = announcements_path
-    extra_path = with_locale_param(canonical_path, "en")
-    get extra_path
-
-    assert_redirected_to canonical_path
-  end
 end

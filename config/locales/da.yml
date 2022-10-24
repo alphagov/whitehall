@@ -39,8 +39,6 @@ da:
       title: Titel på vedhæftede fil
       unique_reference: Entydig reference til vedhæftet fil
       unnumbered_hoc_paper: Unummereret dokument fra Underhuset
-  announcements:
-    heading: Meddelelser
   attachment:
     accessibility:
       full_help_html: |

@@ -39,8 +39,6 @@ bn:
       title: সংযুক্তির শিরোনাম
       unique_reference: সংযুক্তির অনন্য সূত্র
       unnumbered_hoc_paper: নম্বরবিহীন হাউজ অব কমন্সের পেপার
-  announcements:
-    heading: ঘোষণা
   attachment:
     accessibility:
       full_help_html: |

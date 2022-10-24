@@ -1,7 +1,7 @@
 require "test_helper"
 
 class FilterRoutesHelperTest < ActionView::TestCase
-  %i[announcements publications].each do |filter|
+  %i[publications].each do |filter|
     test "uses the organisation to generate the route to #{filter} filter" do
       organisation = create(:organisation)
       assert_equal send("#{filter}_path", departments: [organisation.slug]), send("#{filter}_filter_path", organisation)

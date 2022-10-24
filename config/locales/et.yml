@@ -39,8 +39,6 @@ et:
       title: Manuse pealkiri
       unique_reference: Manuse unikaalne viide
       unnumbered_hoc_paper: Nummerdamata alamkoja dokument
-  announcements:
-    heading: Teadaanded
   attachment:
     accessibility:
       full_help_html: |

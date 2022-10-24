@@ -39,8 +39,6 @@ hr:
       title: Naslov privitka
       unique_reference: Jedinstvena referenca privitka
       unnumbered_hoc_paper: Nebrojeni papir Donjeg doma
-  announcements:
-    heading: Obavijesti
   attachment:
     accessibility:
       full_help_html: |-

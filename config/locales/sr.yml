@@ -39,8 +39,6 @@ sr:
       title: Naslov priloga
       unique_reference: Jedinstvena referenca priloga
       unnumbered_hoc_paper: Nenumerisani dokument Donjeg doma skupštine
-  announcements:
-    heading: Najave
   attachment:
     accessibility:
       full_help_html: |

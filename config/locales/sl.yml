@@ -39,8 +39,6 @@ sl:
       title: Naslov priloge
       unique_reference: Edinstvena referenca priloge
       unnumbered_hoc_paper: Neoštevilčen dokument britanskega parlamenta
-  announcements:
-    heading: Razglasi
   attachment:
     accessibility:
       full_help_html: |

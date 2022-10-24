@@ -39,8 +39,6 @@ fa:
       title: عنوان پیوست
       unique_reference: شناسه مرجع یکتای پیوست
       unnumbered_hoc_paper: سند بدون شماره مجلس عوام
-  announcements:
-    heading: اطلاعیه‌ها
   attachment:
     accessibility:
       full_help_html: |

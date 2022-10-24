@@ -39,8 +39,6 @@ ne:
       title: संलग्न शीर्षक
       unique_reference: संलग्न विशिष्ट सन्दर्भ
       unnumbered_hoc_paper: संख्या नभएको हाउस अफ कमन्स पृष्ठ
-  announcements:
-    heading: घोषणाहरु
   attachment:
     accessibility:
       full_help_html: |

@@ -39,8 +39,6 @@ fr:
       title: Titre de la pièce jointe
       unique_reference: Référence unique de la pièce jointe
       unnumbered_hoc_paper: Document non numéroté de la Chambre des Communes
-  announcements:
-    heading: Annonces
   attachment:
     accessibility:
       full_help_html: |-

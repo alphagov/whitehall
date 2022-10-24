@@ -39,8 +39,6 @@ lv:
       title: Pielikuma nosaukums
       unique_reference: Pielikuma unikālā atsauce
       unnumbered_hoc_paper: Pārstāvju palātas dokuments bez numura
-  announcements:
-    heading: Paziņojumi
   attachment:
     accessibility:
       full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā, kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.

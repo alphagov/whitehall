@@ -39,8 +39,6 @@
       title: Vedleggstittel
       unique_reference: Unik referanse for vedlegg
       unnumbered_hoc_paper: Unummerert skriv i Underhuset
-  announcements:
-    heading: Kunngjøringer
   attachment:
     accessibility:
       full_help_html: |

@@ -39,8 +39,6 @@ mt:
       title: Titlu tal-anness
       unique_reference: Referenza unika tal-anness
       unnumbered_hoc_paper: Dokument mhux innumerat tal-House of Commons
-  announcements:
-    heading: Avviżi
   attachment:
     accessibility:
       full_help_html: "Jekk tuża teknoloġija assistiva (bħal qarrej ta' skrin) u għandek bżonn verżjoni ta' dan id-dokument f'format iktar aċċessibbli, jekk jogħġbok ibgħat imejl %{email}. \nJekk jogħġbok igħidilna x'format għandek bżonn.  Ser jgħinna jekk tgħidilna x'teknoloġija assistiva qed tuża'.\n"

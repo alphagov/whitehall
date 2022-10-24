@@ -39,8 +39,6 @@ ja:
       title: 添付タイトル
       unique_reference: 添付固有の参照
       unnumbered_hoc_paper: 番号のない庶民院書類
-  announcements:
-    heading: お知らせ
   attachment:
     accessibility:
       full_help_html: お客様が支援技術（スクリーンリーダーなど）を使用していて、このドキュメントよりアクセスしやすい形式のバージョンが必要な場合は、必要なフォーマットや使用している支援技術を添え％{email}にEメールをお送くりください。

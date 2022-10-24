@@ -39,8 +39,6 @@ ta:
       title: இணைப்பு தலைப்பு
       unique_reference: தலைப்பு பிரத்யேகப் பார்வை
       unnumbered_hoc_paper: எண்ணிடப்படாத கீழ்ச்சபை ஆவணம்
-  announcements:
-    heading: அறிவிப்புகள்
   attachment:
     accessibility:
       full_help_html: |

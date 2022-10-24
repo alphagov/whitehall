@@ -39,8 +39,6 @@ ms:
       title: Tajuk lampiran
       unique_reference: Rujukan unik lampiran
       unnumbered_hoc_paper: Kertas Dewan Rakyat tidak bernombor
-  announcements:
-    heading: Pengumuman
   attachment:
     accessibility:
       full_help_html: |

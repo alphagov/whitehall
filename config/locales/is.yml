@@ -39,8 +39,6 @@ is:
       title: Titill viðhengis
       unique_reference: Einkvæmt auðkenni viðhengis
       unnumbered_hoc_paper: Ónúmerað skjal neðri deildar þingsins
-  announcements:
-    heading: Tilkynningar
   attachment:
     accessibility:
       full_help_html: |

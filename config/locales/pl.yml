@@ -39,8 +39,6 @@ pl:
       title: Tytuł załącznika
       unique_reference: Niepowtarzalny numer referencyjny załącznika
       unnumbered_hoc_paper: Nienumerowany dokument Izby Gmin
-  announcements:
-    heading: Ogłoszenia
   attachment:
     accessibility:
       full_help_html: "Aby otrzymać ten dokument w innym formacie, np. w alfabecie Braille'a. \nw formacie audio lub w innym rodzaju pliku prosimy wysłać email na adres %{email}.\n\n"

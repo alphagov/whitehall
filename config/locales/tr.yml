@@ -39,8 +39,6 @@ tr:
       title: Ek başlığı
       unique_reference: Ek benzersiz referans
       unnumbered_hoc_paper: Sayı Verilmemiş Avam Kamarası evrakı
-  announcements:
-    heading: Duyurular
   attachment:
     accessibility:
       full_help_html: |

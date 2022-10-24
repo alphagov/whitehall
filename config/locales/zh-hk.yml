@@ -39,8 +39,6 @@ zh-hk:
       title: 附件標題
       unique_reference: 附件單一參考
       unnumbered_hoc_paper: 未編號之下議院文書
-  announcements:
-    heading: 公告
   attachment:
     accessibility:
       full_help_html: |

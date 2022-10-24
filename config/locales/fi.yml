@@ -39,8 +39,6 @@ fi:
       title: Liitteen otsikko
       unique_reference: Liitteen yksilöllinen viite
       unnumbered_hoc_paper: Alahuoneen numeroimaton asiakirja
-  announcements:
-    heading: Ilmoitukset
   attachment:
     accessibility:
       full_help_html: |

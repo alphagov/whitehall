@@ -39,8 +39,6 @@ zh:
       title: 附件标题
       unique_reference: 附件唯一参考
       unnumbered_hoc_paper: 未编号的下议院文件
-  announcements:
-    heading: 公告
   attachment:
     accessibility:
       full_help_html: |

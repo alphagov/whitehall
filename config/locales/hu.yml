@@ -39,8 +39,6 @@ hu:
       title: Csatolmány címe
       unique_reference: Csatolmány egyedi referenciája
       unnumbered_hoc_paper: Számozatlan Angol Alsóházi lap
-  announcements:
-    heading: Bejelentések
   attachment:
     accessibility:
       full_help_html: |-

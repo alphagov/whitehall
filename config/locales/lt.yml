@@ -39,8 +39,6 @@ lt:
       title: Priedo pavadinimas
       unique_reference: Unikali priedo nuoroda
       unnumbered_hoc_paper: Nenumeruotas Bendruomenių rūmų dokumentas
-  announcements:
-    heading: Skelbimai
   attachment:
     accessibility:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio, audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną bei leidinio pavadinimą .Prašome pasakyti, kokio formato jums reikia. Mums padės, jei pasakysite, kokią pagalbinę technologiją naudojate.

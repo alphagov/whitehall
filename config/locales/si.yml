@@ -39,8 +39,6 @@ si:
       title: ඇමුණුමේ මාතෘකාව
       unique_reference: ඇමුණුමේ අද්විතීය යොමුව
       unnumbered_hoc_paper: අංකනය නොකළ මහජන මන්ත්‍රී මණ්ඩල පත්‍රිකාව
-  announcements:
-    heading: නිවේදන
   attachment:
     accessibility:
       full_help_html: |

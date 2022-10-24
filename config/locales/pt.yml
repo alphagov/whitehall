@@ -39,8 +39,6 @@ pt:
       title: Título do anexo
       unique_reference: Referência única do anexo
       unnumbered_hoc_paper: Papel não numerado da Câmara dos Comuns
-  announcements:
-    heading: Anúncios
   attachment:
     accessibility:
       full_help_html: |

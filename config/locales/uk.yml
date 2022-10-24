@@ -39,8 +39,6 @@ uk:
       title: Назва додатку
       unique_reference: Унікальний номер додатку
       unnumbered_hoc_paper: Документ Палати громад без номеру
-  announcements:
-    heading: Оголошення
   attachment:
     accessibility:
       full_help_html: |

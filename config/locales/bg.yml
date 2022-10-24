@@ -39,8 +39,6 @@ bg:
       title: Заглавие на прикачения файл
       unique_reference: Уникална референция на прикачения файл
       unnumbered_hoc_paper: Документ без номер на Камарата на общините
-  announcements:
-    heading: Съобщения
   attachment:
     accessibility:
       full_help_html: |

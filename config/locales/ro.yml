@@ -39,8 +39,6 @@ ro:
       title: Titlu atașament
       unique_reference: Referință unică atașament
       unnumbered_hoc_paper: Document nenumerotat de la Camera Comunelor
-  announcements:
-    heading: Anunțuri
   attachment:
     accessibility:
       full_help_html: |

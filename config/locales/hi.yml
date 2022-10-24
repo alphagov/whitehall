@@ -39,8 +39,6 @@ hi:
       title: अनुलग्नक शीर्षक
       unique_reference: अनुलग्नक अनूठा संदर्भ
       unnumbered_hoc_paper: संख्यारहित हाउस ऑफ कॉमन्स पेपर
-  announcements:
-    heading: घोषणाएं
   attachment:
     accessibility:
       full_help_html: |

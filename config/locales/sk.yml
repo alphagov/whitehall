@@ -39,8 +39,6 @@ sk:
       title: Názov prílohy
       unique_reference: Jedinečný odkaz na prílohu
       unnumbered_hoc_paper: Nečíslovaný dokument Dolnej snemovne
-  announcements:
-    heading: Oznámenia
   attachment:
     accessibility:
       full_help_html: |

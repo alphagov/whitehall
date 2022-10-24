@@ -39,8 +39,6 @@ pa:
       title: ਅਟੈਚਮੈਂਟ ਦਾ ਸਿਰਲੇਖ
       unique_reference: ਅਟੈਚਮੈਂਟ ਵਿਲੱਖਣ ਹਵਾਲਾ
       unnumbered_hoc_paper: ਅਣਗਿਣਤ ਹਾਊਸ ਆਫ਼ ਕਾਮਨਜ਼ ਪੇਪਰ
-  announcements:
-    heading: ਘੋਸ਼ਣਾਵਾਂ
   attachment:
     accessibility:
       full_help_html: |

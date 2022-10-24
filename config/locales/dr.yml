@@ -39,8 +39,6 @@ dr:
       title: عنوان ضمیمه
       unique_reference: رفرنس مخصوص ضمیمه
       unnumbered_hoc_paper: مجلس اوراق بدون شماره
-  announcements:
-    heading: اعلامیه ها
   attachment:
     accessibility:
       full_help_html: |-

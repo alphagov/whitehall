@@ -39,8 +39,6 @@ es:
       title: Título adjunto
       unique_reference: Referencia única del adjunto
       unnumbered_hoc_paper: Documento de la Cámara de los Comunes sin numerar
-  announcements:
-    heading: Anuncios
   attachment:
     accessibility:
       full_help_html: Si utiliza tecnología de asistencia (como un lector de pantalla) y necesita una versión de este documento en una formato más accesible, envíe un correo electrónico a %{email}. Díganos qué formato necesita. Para nosotros es importante saber qué tecnología de asistencia utiliza.

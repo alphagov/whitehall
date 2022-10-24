@@ -39,8 +39,6 @@ cs:
       title: Název přílohy
       unique_reference: Jedinečný odkaz na přílohu
       unnumbered_hoc_paper: Nečíslovaný dokument Dolní sněmovny
-  announcements:
-    heading: Oznámení
   attachment:
     accessibility:
       full_help_html: |

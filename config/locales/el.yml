@@ -39,8 +39,6 @@ el:
       title: Τίτλος συνημμένου
       unique_reference: Μοναδική αναφορά συνημμένου
       unnumbered_hoc_paper: Μη αριθμημένο έγγραφο της Βουλής των Κοινοτήτων
-  announcements:
-    heading: Ανακοινώσεις
   attachment:
     accessibility:
       full_help_html: |

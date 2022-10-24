@@ -39,8 +39,6 @@ kk:
       title: Тіркеме тақырыбы
       unique_reference: Тіркеменің бірегей сілтемесі
       unnumbered_hoc_paper: Қауымдар палатасының нөмірленбеген саяси құжаты
-  announcements:
-    heading: Хабарландырулар
   attachment:
     accessibility:
       full_help_html: |

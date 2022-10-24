@@ -39,8 +39,6 @@ es-419:
       title: Título del anexo
       unique_reference: Referencia única del adjunto
       unnumbered_hoc_paper: Documento no numerado de la Cámara de los Comunes
-  announcements:
-    heading: Anuncios
   attachment:
     accessibility:
       full_help_html: |

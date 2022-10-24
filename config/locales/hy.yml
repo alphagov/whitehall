@@ -39,8 +39,6 @@ hy:
       title: Կցորդի անվանումը
       unique_reference: Կցորդի հատուկ հղումը
       unnumbered_hoc_paper: Համայնքների պալատի չհամարակալված փաստաթուղթ
-  announcements:
-    heading: Հայտարարություններ
   attachment:
     accessibility:
       full_help_html: |

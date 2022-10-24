@@ -39,8 +39,6 @@ it:
       title: Titolo dell’allegato
       unique_reference: Riferimento univoco dell’allegato
       unnumbered_hoc_paper: Carta della Camera dei Comuni non numerata
-  announcements:
-    heading: Annunci
   attachment:
     accessibility:
       full_help_html: |

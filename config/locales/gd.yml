@@ -39,8 +39,6 @@ gd:
       title: Teideal astaithe
       unique_reference: Tagairt a bhaineann go sonrach le ceangaltán
       unnumbered_hoc_paper: Doiciméad gan uimhir Theach na dTeachtaí
-  announcements:
-    heading: Fógra
   attachment:
     accessibility:
       full_help_html: |

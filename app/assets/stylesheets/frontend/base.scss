@@ -72,7 +72,6 @@ $govuk-include-default-font-face: false;
 
 #wrapper {
   @import "helpers/activity-nav";
-  @import "helpers/announcements";
   @import "helpers/withdrawal-notice";
   @import "helpers/attachment";
   @import "helpers/available-languages";

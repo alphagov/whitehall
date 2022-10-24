@@ -39,8 +39,6 @@ vi:
       title: Tiêu đề của tệp đính kèm
       unique_reference: Tham chiếu duy nhất của tệp đính kèm
       unnumbered_hoc_paper: Văn kiện của Hạ viện không được đánh số
-  announcements:
-    heading: Thông báo
   attachment:
     accessibility:
       full_help_html: |
