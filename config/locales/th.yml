@@ -473,15 +473,7 @@ th:
       heading:
       list_link:
     headings:
-      announcements: ประกาศของเรา
-      documents: เอกสาร
-      featured:
-      mission: ภารกิจของเรา
-      news: ข่าวสถานที่ทั่วโลก
-      organisations: องค์กร
-      publications: สิ่งพิมพ์ของเรา
       search: ค้นหาด้วยประเทศหรือดินแดน
-      statistics: สถิติของเรา
     search_description:
       international_delegation:
       world_location:

@@ -549,15 +549,7 @@ ne:
       heading:
       list_link:
     headings:
-      announcements: हाम्रा घोषणाहरु
-      documents: कागजातहरु
-      featured:
-      mission: हाम्रो मिशन
-      news: विश्व स्थान समाचार
-      organisations: सङ्गठनहरू
-      publications: हाम्रा प्रकाशनहरु
       search: देश वा क्षेत्रको नामले खोज
-      statistics: हाम्रो तथ्याङ्क
     search_description:
       international_delegation:
       world_location:

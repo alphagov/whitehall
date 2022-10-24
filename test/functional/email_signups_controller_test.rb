@@ -19,18 +19,6 @@ class EmailSignupsControllerTest < ActionController::TestCase
     assert_redirected_to "http://test.host/email-signup?link=#{topical_event.base_path}"
   end
 
-  view_test "GET :new redirects to email-alert-frontend if signup is for a world location" do
-    world_location = create(:world_location)
-    stub_email_alert_api_creates_subscriber_list(
-      "links" => { "world_locations" => [world_location.content_id] },
-      "slug" => "some-slug",
-    )
-
-    get :new, params: { email_signup: { feed: atom_feed_url_for(world_location) } }
-
-    assert_redirected_to "http://test.host/email/subscriptions/new?topic_id=some-slug"
-  end
-
   view_test "GET :new redirects to publications controller if signup is for a publication finder" do
     feed = "http://test.host/government/publications.atom?departments%5B%5D=org1&departments%5B%5D=org2&publication_filter_option=open-consultations"
     get :new, params: { email_signup: { feed: } }
