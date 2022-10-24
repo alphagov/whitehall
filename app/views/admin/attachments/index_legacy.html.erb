@@ -40,7 +40,7 @@
         </p>
       </div>
 
-      <%= render('attachments', attachable: attachable) if attachable.attachments.any? %>
+      <%= render('attachments_legacy', attachable: attachable) if attachable.attachments.any? %>
       <% end %>
   </section>
 </div>
