@@ -4,8 +4,9 @@
 
 //= require govuk-admin-template
 
-//= require components/miller-columns
 //= require components/autocomplete
+//= require components/govspeak-editor
+//= require components/miller-columns
 
 //= require admin/modules/analytics
 //= require admin/modules/navbar-toggle

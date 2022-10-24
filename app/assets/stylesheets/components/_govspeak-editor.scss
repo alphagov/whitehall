@@ -1,0 +1,17 @@
+.app-c-govspeak-editor__preview-button-wrapper {
+  text-align: right;
+}
+
+.app-c-govspeak-editor__textarea--hidden {
+  display: none;
+}
+
+.app-c-govspeak-editor__preview {
+  display: none;
+  border: 1px solid $govuk-border-colour;
+  padding: govuk-spacing(4);
+}
+
+.app-c-govspeak-editor__preview--show {
+  display: block;
+}
