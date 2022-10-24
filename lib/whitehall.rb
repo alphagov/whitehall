@@ -15,7 +15,6 @@ module Whitehall
   mattr_accessor :link_checker_api_client
   mattr_accessor :maslow
   mattr_accessor :publishing_api_client
-  mattr_accessor :search_backend
   mattr_accessor :search_client
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :uploads_cache_max_age

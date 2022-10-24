@@ -14,7 +14,6 @@ require "mocha/minitest"
 require "slimmer/test"
 require "factories"
 require "webmock/minitest"
-require "whitehall/not_quite_as_fake_search"
 require "whitehall/search_index"
 require "sidekiq/testing"
 require "govuk_schemas/assert_matchers"
@@ -63,7 +62,6 @@ class ActiveSupport::TestCase
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
-    Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     Sidekiq::Worker.clear_all
     fake_whodunnit = FactoryBot.build(:user)
     fake_whodunnit.stubs(:id).returns(1000)
@@ -78,21 +76,6 @@ class ActiveSupport::TestCase
     Edition::AuditTrail.whodunnit = nil
     Timecop.return
     Sidekiq::Worker.clear_all
-  end
-
-  def with_stubbed_rummager(stubbed_object)
-    previous_client = Whitehall.search_client
-    previous_government_search_client = Whitehall.government_search_client
-    previous_backend = Whitehall.search_backend
-
-    Whitehall.search_client = stubbed_object
-    Whitehall.government_search_client = stubbed_object
-    Whitehall.search_backend = Whitehall::DocumentFilter::SearchRummager
-    yield
-
-    Whitehall.search_client = previous_client
-    Whitehall.government_search_client = previous_government_search_client
-    Whitehall.search_backend = previous_backend
   end
 
   def acting_as(actor, &block)
@@ -156,16 +139,6 @@ class ActiveSupport::TestCase
 
   def self.factory_name_from_test
     name.sub(/Test$/, "").underscore.to_sym
-  end
-
-  def self.with_not_quite_as_fake_search
-    setup do
-      Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
-    end
-
-    teardown do
-      Whitehall::NotQuiteAsFakeSearch.start_faking_it_again!
-    end
   end
 
   def class_from_test_name

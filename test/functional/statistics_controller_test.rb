@@ -5,7 +5,6 @@ class StatisticsControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::ContentStore
   include TaxonomyHelper
 
-  with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_redirect_json_in_english_locale
 
