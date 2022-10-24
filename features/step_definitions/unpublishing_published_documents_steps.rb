@@ -11,28 +11,36 @@ Given(/^there is a published document that is a duplicate of another page$/) do
 end
 
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
-  design_system_layout = @user.can_preview_design_system?
-
   visit admin_edition_path(@duplicate_edition)
   click_on "Withdraw or unpublish"
   choose "Unpublish: consolidated into another GOV.UK page"
 
-  within(design_system_layout ? ".js-unpublish-withdraw-form__consolidated" : "#js-consolidated-form") do
+  form_container = if using_design_system?
+                     ".js-unpublish-withdraw-form__consolidated"
+                   else
+                     "#js-consolidated-form"
+                   end
+
+  within form_container do
     fill_in "consolidated_alternative_url", with: Whitehall.url_maker.publication_url(@existing_edition.document)
     click_button "Unpublish"
   end
 end
 
 def withdraw_publication(explanation)
-  design_system_layout = @user.can_preview_design_system?
-
   @publication = Publication.last
   visit admin_edition_path(@publication)
   click_on "Withdraw or unpublish"
   choose "Withdraw: no longer current government policy/activity"
 
-  within(design_system_layout ? ".js-unpublish-withdraw-form__withdrawal" : "#js-withdraw-form") do
-    fill_in (design_system_layout ? "Public explanation" : "Public explanation (this is shown on the live site) *"), with: explanation
+  form_container = if using_design_system?
+                     ".js-unpublish-withdraw-form__withdrawal"
+                   else
+                     "#js-withdraw-form"
+                   end
+
+  within form_container do
+    fill_in "Public explanation", with: explanation
     click_button "Withdraw"
   end
 

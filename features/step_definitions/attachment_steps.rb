@@ -59,7 +59,7 @@ When(/^I set the order of attachments to:$/) do |attachment_order|
     attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
   end
-  click_on @user.can_preview_design_system? ? "Update order" : "Save attachment order"
+  click_on using_design_system? ? "Update order" : "Save attachment order"
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|

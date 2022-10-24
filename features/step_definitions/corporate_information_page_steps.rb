@@ -44,7 +44,7 @@ When(/^I translate the "([^"]*)" corporate information page for the worldwide or
   click_link corp_page
   click_link "Add translation"
 
-  if @user.can_preview_design_system?
+  if using_design_system?
     select "Français", from: "Choose language"
     click_button "Next"
     fill_in "Translated summary", with: "Le summary"
