@@ -9,16 +9,6 @@ module FilterRoutesHelper
     "/search/all?#{query_string}"
   end
 
-  def filter_atom_feed_url
-    Whitehall::FeedUrlBuilder.new(
-      params.to_unsafe_hash.merge(document_type: params[:controller].to_s).symbolize_keys,
-    ).url
-  end
-
-  def filter_json_url(args = {})
-    url_for(params.except(:utf8, :_).merge(format: "json").merge(args))
-  end
-
 protected
 
   def path_arguments(objects)
