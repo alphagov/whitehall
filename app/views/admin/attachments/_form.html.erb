@@ -60,14 +60,17 @@
   <% end %>
 
   <%= hidden_field_tag :type, params[:type] %>
-
-  <% if attachment.is_a?(ExternalAttachment) %>
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Next"
-    } %>
-  <% else %>
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Save"
-    } %>
-  <% end %>
+  
+  <div class="govuk-button-group">
+    <% if attachment.is_a?(ExternalAttachment) %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Next"
+      } %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save"
+      } %>
+    <% end %>
+    <a class="govuk-link" href="attachable_attachments_path(attachable)">Cancel</a>
+  </div>
 <% end %>
