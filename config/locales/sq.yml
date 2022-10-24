@@ -354,12 +354,6 @@ sq:
         other: Deklarata me shkrim në Parlament
     updated: përditësuar
   document_filters:
-    description: Ju mund t'i përdorni filtrat për të shfaqur vetëm rezultate që përputhen me interesat tuaja
-    no_results:
-      description: Provoni ta bëni kërkimin tuaj më të gjerë dhe provoni përsëri.
-      title: Nuk ka dokumente që përputhen.
-      tna_heading: Përmbajtje më e vjetër
-      tna_link_html: Jo të gjitha publikimet e departamenteve para majit 2010 u migruan në GOV.UK. Për të gjetur botime para majit 2010 provoni të kërkoni <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arkivat Kombëtare</a>.
     world_locations:
       all: Të gjitha vendndodhjet
       label: Vendndodhjet globale

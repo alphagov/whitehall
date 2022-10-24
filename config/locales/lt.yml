@@ -427,12 +427,6 @@ lt:
         other: Rašytiniai kreipimaisi į parlamentą
     updated: atnaujinta
   document_filters:
-    description: Galite naudoti filtrus, kad būtų pateikiami tik jus dominantys rezultatai
-    no_results:
-      description: Praplėskite paiešką ir bandykite dar kartą.
-      title: Dokumentų  nerasta.
-      tna_heading: Senesnis turinys
-      tna_link_html: Ne visi departameno leidiniai, publikuoti prieš 2010 m. gegužę, buvo perkelti į GOV.UK. Leidinių, publikuotų prieš 2010 m. gegužę, galite ieškoti <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalinis archyvas</a>.
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje

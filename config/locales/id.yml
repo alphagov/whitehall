@@ -277,12 +277,6 @@ id:
         other: Pernyataan tertulis kepada Parlemen
     updated: diperbarui
   document_filters:
-    description: Anda dapat menggunakan filter untuk hanya menampilkan hasil yang sesuai dengan minat Anda
-    no_results:
-      description: Cobalah membuat pencarian Anda lebih lebar dan coba lagi.
-      title: Tidak ada dokumen yang cocok.
-      tna_heading: Konten lebih tua
-      tna_link_html: Tidak semua publikasi departemen sebelum Mei 2010 dimigrasikan ke GOV.UK. Untuk menemukan publikasi sebelum Mei 2010, cobalah mencari di <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Arsip Nasional</a>.
     world_locations:
       all: Semua lokasi
       label: Lokasi dunia

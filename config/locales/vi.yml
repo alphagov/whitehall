@@ -277,12 +277,6 @@ vi:
         other: Tuyên bố bằng văn bản trước Quốc hội
     updated: đã cập nhật
   document_filters:
-    description: Bạn có thể sử dụng các bộ lọc để chỉ hiển thị các kết quả phù hợp với sở thích của mình
-    no_results:
-      description: Hãy thử mở rộng phạm vi tìm kiếm và thử lại.
-      title: Không có tài liệu phù hợp.
-      tna_heading: Nội dung cũ hơn
-      tna_link_html: Không phải tất cả các ấn phẩm của bộ từ trước tháng 5 năm 2010 đều được chuyển sang GOV.UK. Để tìm các ấn phẩm từ trước tháng 5 năm 2010, hãy thử tìm kiếm trong phần <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Cơ quan Lưu trữ Quốc gia</a>.
     world_locations:
       all: Tất cả vị trí
       label: Các vị trí trên thế giới

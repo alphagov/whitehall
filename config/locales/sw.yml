@@ -353,12 +353,6 @@ sw:
         other: Taarifa za Maandishi kwa Bunge
     updated: ilisasishwa
   document_filters:
-    description: Unaweza kutumia vichujio ili kuonyesha matokeo yanayolingana na mambo yanayokuvutia pekee
-    no_results:
-      description: Jaribu kupanua utafutaji wako kisha ujaribu tena.
-      title: Hakuna hati zinazolingana.
-      tna_heading: Maudhui ya zamani
-      tna_link_html: Si machapisho yote ya idara yaliyochapishwa kabla ya mwezi wa Mei 2010 yaliyohamishiwa kwenye tovuti GOV.UK. Ili kupata machapisho yaliyochapishwa kabla ya mwezi wa Mei 2010 jaribu kutafuta <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>.
     world_locations:
       all: Maeneo yote
       label: Maeneo ya kimataifa

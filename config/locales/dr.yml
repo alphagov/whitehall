@@ -356,14 +356,6 @@ dr:
         other: بیانیه هایی کتبی به پارلمان
     updated: آپدیت شد
   document_filters:
-    description: جهت دیدن نتایج مورد علاقهء تان از فلتر ها استفاده نمایید
-    no_results:
-      description: کوشش نمایید که جستجوی خودرا گسترده تر نمایید و دوباره کوشش نمایید
-      title: هیچ سند مرتبطی وجود ندارد
-      tna_heading: محتوای قدیمی تر
-      tna_link_html: |-
-        همه نشریات دیپارتمنت قبل از مام می سال 2010 به GOV.UK منتقل نشده اند.
-        جهت پیدا نمودن نشریه های قبل از ماه می سال 2010 جستجو نمایید<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">آرشیف ملی</a>.
     world_locations:
       all: تمام موقعیت ها
       label: موقعیت هایی جهان

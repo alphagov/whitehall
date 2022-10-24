@@ -354,12 +354,6 @@ hi:
         other: संसद में लिखित बयान
     updated: अपडेट किया गया
   document_filters:
-    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं, जिनमें आप की दिलचस्पी हो
-    no_results:
-      description: 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें।'
-      title: मेल खाने वाले दस्तावेज़ नहीं हैं।
-      tna_heading: पुराने विषय
-      tna_link_html: मई 2010 से पहले के सभी विभागीय प्रकाशन GOV.UK में स्थानांतरित नहीं किए गए थे। मई 2010 से पहले के प्रकाशन खोजने के लिए <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">द नेशनल आर्काइव्स</a> में खोजने की कोशिश करें।
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान

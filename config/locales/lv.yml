@@ -351,12 +351,6 @@ lv:
         other: Rakstiski ziņojumi parlamentam
     updated: atjaunināts
   document_filters:
-    description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp
-    no_results:
-      description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
-      title: Neviens dokuments neatbilst pieprasījumam.
-      tna_heading: Vecāks saturs
-      tna_link_html: Ne visas departamentu publikācijas no perioda pirms 2010. gada maija tika migrētas uz GOV.UK. Lai atrastu publikācijas no perioda pirms 2010. gada maija, mēģiniet meklēt <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Valsts arhīvos</a>.
     world_locations:
       all: Visas vietas
       label: Vietas pasaulē

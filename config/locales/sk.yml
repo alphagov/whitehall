@@ -430,12 +430,6 @@ sk:
         other: Písomné vyhlásenia pre Parlament
     updated: aktualizované
   document_filters:
-    description: Pomocou filtrov môžete zobraziť len výsledky, ktoré zodpovedajú vašim záujmom
-    no_results:
-      description: Skúste rozšíriť vyhľadávanie a skúste to znova.
-      title: Neexistujú žiadne zodpovedajúce dokumenty.
-      tna_heading: Starší obsah
-      tna_link_html: Nie všetky publikácie ministerstva spred mája 2010 boli prenesené na GOV.UK. Ak chcete nájsť publikácie spred mája 2010, skúste vyhľadávanie <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link" >v Národnom archíve</a>.
     world_locations:
       all: Všetky lokality
       label: Svetové lokality

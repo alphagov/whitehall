@@ -430,12 +430,6 @@ cs:
         other: Písemná prohlášení pro Parlament
     updated: aktualizováno
   document_filters:
-    description: Pomocí filtrů můžete zobrazit pouze výsledky, které odpovídají vašim zájmům
-    no_results:
-      description: Zkuste vyhledávání rozšířit a zkuste to znovu.
-      title: Neexistují žádné odpovídající dokumenty.
-      tna_heading: Starší obsah
-      tna_link_html: Ne všechny publikace ministerstva z období před květnem 2010 byly převedeny na GOV.UK. Chcete-li najít publikace z období před květnem 2010, zkuste vyhledat <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Národní archiv</a>.
     world_locations:
       all: Všechna místa
       label: Místa ve světě

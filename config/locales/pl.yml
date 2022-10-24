@@ -503,12 +503,6 @@ pl:
         other: Pisemne oświadczenia przed parlamentem
     updated: Zaktualizowany
   document_filters:
-    description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi są Państwo&nbsp;zainteresowani
-    no_results:
-      description: Spróbuj poszerzyc kryteria wyszukiwania i spróbuj ponownie.
-      title: Nie ma dokumentów odpowiadających kryteriom.
-      tna_heading: Starsza zawartość
-      tna_link_html: Nie wszystkie dokumenty departamentów opublikowane przed majem 2010 r. zostały przeniesione do GOV.UK. Aby znaleźć dokumenty opublikowane przed majem 2010 r. spróbuj przeszukać <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Archiwum Narodowe</a>.
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie

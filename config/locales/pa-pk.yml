@@ -351,12 +351,6 @@ pa-pk:
         other: قومی مجلس دے سامنے تحریری بیانات
     updated: تازہ ترین حال
   document_filters:
-    description: اپنی دلچسپی دے مطابق نتائج ویکھن لئی تسی اینوں چھان سکدے او
-    no_results:
-      description: اپنی کھوج نوں ہو ودان لئی دوبارہ کوشش کرو
-      title: کوئی وی ملدی جلدی دستاویز نئیں اے
-      tna_heading: پُرانا مواد
-      tna_link_html: ساریاں محکمے دیاں اشاعت جہیڑیاں مئی 2010 توں پہلاں ہویاں اوناں ساریاں نیں ہجرت نئیں کیتی۔ ایس اشاعت توں لبھن لئی مئی 2010 توں پہلاں دیاں تاریخ وچ ایندے تے کھوج کرو۔ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">دی نیشنل آرکائیو</a>.
     world_locations:
       all: ساریاں تھاواں
       label: دُنیا دیاں تھاواں

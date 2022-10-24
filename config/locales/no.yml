@@ -354,12 +354,6 @@
         other: Skriftlige uttalelser til Stortinget
     updated: oppdatert
   document_filters:
-    description: Du kan bruke filtrene til å vise kun resultater som samsvarer med dine interesser
-    no_results:
-      description: Prøv å gjøre søket ditt bredere, og prøv igjen.
-      title: Det finnes ingen samsvarende dokumenter.
-      tna_heading: Eldre innhold
-      tna_link_html: Ikke alle avdelingspublikasjoner fra før mai 2010 ble migrert til GOV.UK. For å finne publikasjoner fra før mai 2010, prøv å søke på <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nasjonalarkivene</a>.
     world_locations:
       all: Alle steder
       label: Steder i verden

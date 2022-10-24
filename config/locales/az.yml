@@ -354,12 +354,6 @@ az:
         other: Parlamentə yazılı müraciətlər
     updated: yenilənib
   document_filters:
-    description: Yalnız maraqlarınıza uyğun gələn nəticələrin göstərilməsi üçün süzgəclərdən istifadə edə bilərsiniz
-    no_results:
-      description: Axtarış sahənizi genişləndirməyə çalışın və yenidən cəhd edin.
-      title: Uyğun gələn sənədlər yoxdur.
-      tna_heading: Daha köhnə məzmun
-      tna_link_html: '2010-cu ilin may ayından əvvəlki departament nəşrlərinin hamısı GOV.UK-a köçürülməyib. 2010-cu ilin may ayından əvvəlki nəşrləri tapmaq üçün aşağıdakı ünvanda axtarış etməyə çalışın: <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arxivlər</a>.'
     world_locations:
       all: Bütün yerlər
       label: Dünya üzrə yerləri

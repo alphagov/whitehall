@@ -430,12 +430,6 @@ hr:
         other: Pismene izjave Parlamentu
     updated: ažurirano
   document_filters:
-    description: Pomoću filtara možete prikazati samo rezultate koji odgovaraju vašim interesima
-    no_results:
-      description: Pokušajte proširiti pretraživanje i pokušajte ponovo.
-      title: Nema odgovarajućih dokumenata.
-      tna_heading: Stariji sadržaj
-      tna_link_html: Nisu sve publikacije odjela prije svibnja 2010. migrirane na GOV.UK. Da biste pronašli publikacije prije svibnja 2010. pokušajte pretražiti <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nacionalni arhiv</a>.
     world_locations:
       all: Sve lokacije
       label: Svjetske lokacije

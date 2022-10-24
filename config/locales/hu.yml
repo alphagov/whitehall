@@ -353,12 +353,6 @@ hu:
         other: Írásbeli parlamenti nyilatkozatok
     updated: frissítve
   document_filters:
-    description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények keresésében
-    no_results:
-      description: Próbálja meg kibővíteni a keresési feltételeket.
-      title: Nincs a keresésnek megfelelő dokumentum.
-      tna_heading: Régebbi tartalom
-      tna_link_html: Nem minden 2010. május előtti minisztériumi kiadvány lett migrálva a GOV.UK-ra. Ha 2010. májusa előtti kiadványokat szeretne megtalálni, akkor keressen <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">a Nemzeti Archívumban</a>.
     world_locations:
       all: Minden ország
       label: Helyszínek a világban

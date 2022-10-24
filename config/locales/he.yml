@@ -354,12 +354,6 @@ he:
         other: הצהרות בכתב לפרלמנט
     updated: מעודכן
   document_filters:
-    description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
-    no_results:
-      description: נסי/ה להרחיב את החיפוש וחפש/י שוב.
-      title: אין מסמכים תואמים.
-      tna_heading: תוכן ישן יותר
-      tna_link_html: לא כל פרסומי המחלקה מלפני מאי 2010 הועברו ל- GOV.UK. כדי למצוא פרסומים מלפני מאי 2010 נסה לחפש <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">הארכיון הלאומי</a>.
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים

@@ -655,12 +655,6 @@ ar:
         zero:
     updated: تاريخ التحديث
   document_filters:
-    description: يمكنك استخدام عوامل التصفية لعرض النتائج التي تتطابق مع اهتماماتك فقط
-    no_results:
-      description: حاول توسعة نطاق بحثك ثم حاول مرة أخرى.
-      title: لا توجد مستندات مطابقة.
-      tna_heading: محتوى أقدم
-      tna_link_html: لم يتم ترحيل جميع منشورات الإدارة التي تعود إلى ما قبل مايو 2010 إلى GOV.UK. للعثور على المنشورات التي تعود إلى ما قبل مايو 2010، حاول البحث في <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The الأرشيف الوطني</a>.
     world_locations:
       all: جميع المواقع
       label: المواقع العالمية

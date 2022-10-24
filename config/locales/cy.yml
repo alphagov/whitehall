@@ -657,12 +657,6 @@ cy:
         zero:
     updated: diweddarwyd
   document_filters:
-    description: Gallwch ddefnyddio'r hidlyddion i ddangos dim ond y canlyniadau hynny sy'n cyd-fynd â'ch diddordebau chi
-    no_results:
-      description: Ceisiwch ehangu'ch chwiliad a rhoi cynnig arall arni.
-      title: Does dim dogfennau sy'n cyd-fynd.
-      tna_heading: Cynnwys hŷn
-      tna_link_html: Ni chafodd pob cyhoeddiad adrannol cyn mis Mai 2010 eu mudo i GOV.UK. I ddod o hyd i gyhoeddiadau cyn mis Mai 2010 ceisiwch chwilio'r <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Archifau Gwladol</a>.
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd-eang

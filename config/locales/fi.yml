@@ -354,12 +354,6 @@ fi:
         other: Kirjallinen lausumat parlamentille
     updated: päivitetty
   document_filters:
-    description: Voit käyttää suodattimia näyttääksesi vain kiinnostuksen kohteitasi vastaavat tulokset
-    no_results:
-      description: Yritä laajentaa hakua ja yritä uudelleen.
-      title: Vastaavia asiakirjoja ei ole.
-      tna_heading: Vanhempi sisältö
-      tna_link_html: Kaikkia ennen toukokuuta 2010 julkaistuja osastojulkaisuja ei siirretty GOV.UK. Löytääksesi julkaisuja ennen toukokuuta 2010, yritä etsiä <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Kansallisarkisto</a>.
     world_locations:
       all: Kaikki sijainnit
       label: Maailman sijainnit

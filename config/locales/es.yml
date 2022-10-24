@@ -351,12 +351,6 @@ es:
         other: Declaraciones escritas
     updated: Actualizado
   document_filters:
-    description: Puedes utilizar los filtros para ver sólo los resultados que te interesen
-    no_results:
-      description: Haz una búsqueda más amplio e intentalo de nuevo.
-      title: No se ha producido ningún resultado
-      tna_heading: Contenido antiguo
-      tna_link_html: No todas las publicaciones del departamento de antes de mayo de 2010 se migraron a GOV.UK. Para encontrar publicaciones anteriores a mayo de 2010, intente la búsqueda en <a href='http://webarchive.nationalarchives.gov.uk/adv_search/" class='govuk-link'>los Archivos Nacionales</a>.
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo

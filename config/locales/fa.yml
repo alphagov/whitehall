@@ -353,12 +353,6 @@ fa:
         other: بیانیه‌های کتبی به پارلمان
     updated: بروز شده
   document_filters:
-    description: می‌توانید از فیلترها استفاده کنید تا تنها نتایجی که مطابق با علایق شما هستند، نمایش داده شوند
-    no_results:
-      description: سعی کنید جستجوی خود را گسترده‌تر کرده و دوباره امتحان کنید.
-      title: هیچ سند مطابقی وجود ندارد.
-      tna_heading: محتوای قدیمی‌تر
-      tna_link_html: تمام موارد منتشر شده اداری از قبل از می 2010 به GOV.UK منتقل نشده‌اند برای یافتن موارد منتشر شده قبل از می 2010 عبارت <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives (آرشیوهای ملی)</a> را جستجو کنید.
     world_locations:
       all: تمام مکان‌ها
       label: مکان‌های جهانی

@@ -353,12 +353,6 @@ so:
         other: Bayaanada qoran ee loogu talogalay Baarlamaanka
     updated: la cusboonaysiiyay
   document_filters:
-    description: Waxaad isticmaali kartaa kala saarayaasha si aad u muujiso kaliya maxsuulka waafaqay danahaaga
-    no_results:
-      description: Isku day inaad baadhistaada balaadhiso oo isku day markale.
-      title: Ma jiraan dhokumantiyo is waafaqsan.
-      tna_heading: Qaybtii hore
-      tna_link_html: Maaha dhamaan qaybta daabacaadaha laga bilaabo kahor bisha May 2010 waxa loo wareejiyay GOV.UK. Si aad u raadiso daabacaadaha laga bilaabo bisha May 2010 isku day baadhista <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Kaydka Qaranka</a>.
     world_locations:
       all: Dhamaan goobaha
       label: Goobaha Dunida

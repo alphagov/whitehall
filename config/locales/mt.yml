@@ -503,12 +503,6 @@ mt:
         other: Dikjarazzjonijiet miktuba lill-Parlament
     updated: aġġornat
   document_filters:
-    description: Tista' tuża' l-filtri biex tara biss riżultati li jaqblu mal-interessi tiegħek
-    no_results:
-      description: Ipprova għamel it-tfittxija iktar wiegħsa u erġa' pprova.
-      title: M'hemm l-ebda dokumenti li jaqblu.
-      tna_heading: Kontenut iktar antik
-      tna_link_html: Mhux il-pubblikazzjonijiet kollha tad-dipartiment minn qabel Mejju 2010 ġew migrati lejn GOV.UK. Biex issib pubblikazzjonijiet minn qabel Mejju 2010, ipprova fittex <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">L-Arkivji Nazzjonali</a>.
     world_locations:
       all: Postijiet kollha
       label: Postijiet fid-dinja

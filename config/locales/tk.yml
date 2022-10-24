@@ -353,12 +353,6 @@ tk:
         other: Mejlise ýazmaça beýanlar
     updated: täzelenen
   document_filters:
-    description: Diňe sizi gyzyklandyrýan maglumatlary görmek üçin filtrleri ulanyp bilersiňiz
-    no_results:
-      description: Gözlegleriňizi has giň göwrümli etmeklige çalşyň we gaýtadan synanşyň.
-      title: Gabat gelýän resminamalar ýok.
-      tna_heading: Köneräk mazmun
-      tna_link_html: 2010-njy ýylyň maý aýyndan öňki bölüm neşirleriniň hemmesi GOV.UK-a göçürilmedi. 2010-njy ýylyň maý aýyndan öň neşirleri tapmak üçin <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Milli arhiwi</a> gözläp görüň.
     world_locations:
       all: Ähli ýerler
       label: Dünýä ýerleri

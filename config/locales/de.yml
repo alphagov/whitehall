@@ -353,12 +353,6 @@ de:
         other: Schriftliche Erklärungen vor dem Parlament
     updated: aktualisiert
   document_filters:
-    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihren Interessen entsprechen
-    no_results:
-      description: Formulieren Sie Ihre Suche allgemeiner.
-      title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
-      tna_heading: Älterer Inhalt
-      tna_link_html: Nicht alle Veröffentlichungen der Ministerien aus der Zeit vor Mai 2010 wurden auf GOV.UK übernommen. Um Veröffentlichungen vor Mai 2010 zu finden, suchen Sie im <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nationalarchiv</a>.
     world_locations:
       all: Alle Standorte
       label: Weltweite Standorte

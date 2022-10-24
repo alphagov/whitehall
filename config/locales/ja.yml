@@ -275,12 +275,6 @@ ja:
         other: 議会への書面による声明
     updated: 更新済み
   document_filters:
-    description: フィルタを使用して、興味に一致する結果のみを表示できます
-    no_results:
-      description: 検索範囲を広げて、もう一度やり直してください。
-      title: 一致するドキュメントはありません。
-      tna_heading: 古いコンテンツ
-      tna_link_html: 2010年5月以前のすべての部門の出版物がGOV.UKに移行されたわけではありません。2010年5月より前の出版物を見つけるには、<a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">国立公文書館</a>を検索してみてください。
     world_locations:
       all: すべての場所
       label: 世界の場所

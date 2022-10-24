@@ -351,12 +351,6 @@ nl:
         other: Schriftelijke verklaringen aan het Parlement
     updated: bijgewerkt
   document_filters:
-    description: U kunt de filters gebruiken om alleen resultaten te tonen die overeenkomen met uw interesses
-    no_results:
-      description: Probeer uw zoekopdracht breder te maken en probeer het opnieuw.
-      title: Er zijn geen overeenkomende documenten.
-      tna_heading: Oudere inhoud
-      tna_link_html: Niet alle afdelingspublicaties van voor mei 2010 zijn gemigreerd naar GOV.UK. Om publicaties te vinden van voor mei 2010 probeer dan te zoeken <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">De Nationale Archieven</a>.
     world_locations:
       all: Alle locaties
       label: Wereld locaties

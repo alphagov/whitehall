@@ -354,12 +354,6 @@ pt:
         other: Declarações escritas ao Parlamento
     updated: atualizado em
   document_filters:
-    description: Pode utilizar os filtros para mostrar apenas resultados que correspondam aos seus interesses
-    no_results:
-      description: Faça para tornar a sua pesquisa mais ampla e tente novamente.
-      title: Não existem documentos correspondentes.
-      tna_heading: Conteúdo mais antigo
-      tna_link_html: Nem todas as publicações do departamento anteriores a maio de 2010 migraram para GOV.UK. Para encontrar publicações anteriores a maio de 2010, tente pesquisar <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Os Arquivos Nacionais</a>.
     world_locations:
       all: Todos os locais
       label: Locais mundiais

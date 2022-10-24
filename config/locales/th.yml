@@ -277,12 +277,6 @@ th:
         other: แถลงการณ์เป็นลายลักษณ์อักษรต่อรัฐสภา
     updated: อัปเดตแล้ว
   document_filters:
-    description: คุณสามารถใช้ตัวกรองเพื่อแสดงเฉพาะผลลัพธ์ที่ตรงกับความสนใจของคุณ
-    no_results:
-      description: ลองขยายการค้นหาให้กว้างขึ้นและลองอีกครั้ง
-      title: ไม่มีเอกสารที่ตรงกัน
-      tna_heading: เนื้อหาเก่า
-      tna_link_html: สิ่งพิมพ์ของราชการก่อนเดือนพฤษภาคม 2010 บางส่วนไม่ได้รับการย้ายไปยัง GOV.UK หากต้องการค้นหาสิ่งพิมพ์ตั้งแต่ก่อนเดือนพฤษภาคม 2010 ให้ลองค้นหาที่ <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>
     world_locations:
       all: สถานที่ตั้งทุกแห่ง
       label: สถานที่ทั่วโลก

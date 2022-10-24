@@ -353,12 +353,6 @@ et:
         other: Kirjalikud avaldused parlamendile
     updated: uuendatud
   document_filters:
-    description: Filtrite abil saate kuvada ainult teie huvidele vastavaid tulemusi
-    no_results:
-      description: Proovige oma otsingut laiendada ja proovige uuesti.
-      title: Sobivaid dokumente pole.
-      tna_heading: Vanem sisu
-      tna_link_html: Mitte kõiki osakondade publikatsioone enne 2010. aasta maid ei viidud saidile GOV.UK. 2010 mai eelsete publikatsioonide leidmiseks proovige otsida saidilt <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">riiklikke arhiive</a>.
     world_locations:
       all: Kõik asukohad
       label: Maailma asukohad

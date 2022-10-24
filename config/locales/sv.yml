@@ -354,12 +354,6 @@ sv:
         other: Skriftliga uttalanden till parlamentet
     updated: uppdaterad
   document_filters:
-    description: Du kan använda filtren för att endast visa resultat som motsvarar dina intressen
-    no_results:
-      description: Försök att göra din sökning bredare och försök igen.
-      title: Det finns inga matchande dokument.
-      tna_heading: Äldre innehåll
-      tna_link_html: Alla institutionernas publikationer från före maj 2010 har inte migrerats till GOV.UK. Om du vill hitta publikationer från före maj 2010 kan du söka i <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Nationalarkivet</a>.
     world_locations:
       all: Alla platser
       label: Platser i världen

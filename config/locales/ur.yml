@@ -353,12 +353,6 @@ ur:
         other: پالیمان کے لیے تحریری بیانات
     updated: اپ ڈیٹ کردہ
   document_filters:
-    description: آپ صرف وہ نتائج دیکھنے کے لیے فلٹرز کا استعمال کر سکتے ہیں جو آپ کی دلچسپیوں سے مماثلت رکھتے ہیں
-    no_results:
-      description: اپنی تلاش کو وسیع تر بنانے کی کوشش کریں اور دوبارہ کوشش کریں۔
-      title: کوئی میچ کرنے والی دستاویزات نہیں ہیں۔
-      tna_heading: پرانا مواد
-      tna_link_html: مئی 2010 سے پہلے کی تمام محکماتی پبلیکیشنز کو GOV.UK پر منتقل نہیں کیا گیا تھا۔ مئی 2010 سے پہلے کی پبلیکیشنز کو تلاش کرنے کے لیے <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">قومی آرکائیوز (The National Archives)</a> کو تلاش کرنے کو آزمائیں۔
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات

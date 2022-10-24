@@ -277,12 +277,6 @@ ko:
         other: 국회로 서면 성명
     updated: 업데이트
   document_filters:
-    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
-    no_results:
-      description: 다시 써치해주시기 바랍니다.
-      title: 매치되는 문서가 없습니다.
-      tna_heading: 기존 컨텐츠
-      tna_link_html: 2010년 5월 이전의 모든 부서 발행물이 GOV.UK로 마이그레이션되지는 않습니다. 2010년 5월 이전에 발행물을 찾으려면 <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">The National Archives</a>를 찾아 보십시오.
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션

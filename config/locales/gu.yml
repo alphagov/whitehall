@@ -353,12 +353,6 @@ gu:
         other: સંસદમાં લેખિત નિવેદનો
     updated: અપડેટ કરેલ
   document_filters:
-    description: તમે માત્ર વાંછિત પરિણામો જોવા માટે ફિલ્ટર્સનો ઉપયોગ કરી શકો છો
-    no_results:
-      description: તમારો શોધ વધુ વિસ્તૃત બનાવીને ફરી પ્રયત્ન કરો.
-      title: કોઈ પણ અનુરૂપ દસ્તાવેજ નથી.
-      tna_heading: વધુ જૂની સામગ્રી
-      tna_link_html: મે 2010થી પહેલાના તમામ વિભાગોના પ્રકાશનો GOV.UKમાં સ્થાનાંતરિત કરાયા નથી.મે 2010થી પહેલાના પ્રકાશનો શોધવા માટે <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">ડ નેશનલ આર્કાઇવ્ઝ</a>માં શોધવાનો પ્રયત્ન કરો.
     world_locations:
       all: તમામ લોકેશન્સ
       label: વૈશ્વિક લોકેશન્સ

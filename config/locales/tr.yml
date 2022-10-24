@@ -353,12 +353,6 @@ tr:
         other: Parlamentoya yazılı açıklamalar
     updated: güncellenen
   document_filters:
-    description: Yalnızca ilgi alanlarınızla eşleşen sonuçları göstermesi için filtreleri kullanabilirsiniz
-    no_results:
-      description: Aramanızı genişletmeye çalışın ve yeniden deneyin.
-      title: Eşleşen belge yok.
-      tna_heading: Daha eski içerik
-      tna_link_html: 2010 Mayıs ayından önceki müdürlük yayınlarının tamamı GOV.UK’ye taşınmamıştır. 2010 Mayıs’tan önceki yayınları bulmak için şunu aratmaya çalışın <a href="http://webarchive.nationalarchives.gov.uk/adv_search/" class="govuk-link">Ulusal arşivler</a>.
     world_locations:
       all: Tüm konumlar
       label: Dünya geneli konumlar
