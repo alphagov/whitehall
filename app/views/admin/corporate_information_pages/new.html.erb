@@ -1,5 +1,5 @@
 <% content_for :page_title, "New corporate information page for #{@organisation.name}" %>
-<% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

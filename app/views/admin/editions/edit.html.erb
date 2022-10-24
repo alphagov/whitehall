@@ -1,7 +1,7 @@
 <% content_for :page_title, "Edit #{@edition.format_name}"%>
 <% content_for :title, "Editing #{@edition.format_name}" %>
 <% content_for :context, @edition.title %>
-<% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 
 <div class="govuk-grid-row">
