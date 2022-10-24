@@ -144,6 +144,26 @@ module PublicDocumentRoutesHelper
     append_url_options("/government/topical-events/#{slug}/about", options)
   end
 
+  def world_location_path(object, options = {})
+    slug = world_location_slug(object)
+
+    append_url_options("/world/#{slug}", options)
+  end
+
+  def world_location_url(object, options = {})
+    Plek.new.website_root + world_location_path(object, options)
+  end
+
+  def world_location_news_index_path(object, options = {})
+    slug = world_location_slug(object)
+
+    append_url_options("/world/#{slug}/news", options)
+  end
+
+  def world_location_news_index_url(object, options = {})
+    Plek.new.website_root + world_location_news_index_path(object, options)
+  end
+
 private
 
   def build_url_for_corporate_information_page(edition, options)
@@ -187,7 +207,7 @@ private
   def append_url_options(path, options = {})
     if options[:format] && options[:locale]
       path = "#{path}.#{options[:locale]}.#{options[:format]}"
-    elsif options[:locale]
+    elsif options[:locale] && options[:locale] != I18n.default_locale
       path = "#{path}.#{options[:locale]}"
     elsif options[:format]
       path = "#{path}.#{options[:format]}"
@@ -201,5 +221,18 @@ private
     end
 
     path
+  end
+
+  def world_location_slug(object)
+    case object
+    when String
+      object
+    when WorldLocation
+      object.slug
+    when WorldLocationNews
+      object.world_location.slug
+    else
+      raise ArgumentError, "Must provide a slug, WorldLocation or WorldLocationNews"
+    end
   end
 end

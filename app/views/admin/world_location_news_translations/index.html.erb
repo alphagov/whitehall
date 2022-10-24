@@ -23,7 +23,7 @@
           <% @world_location_news.non_english_translated_locales.each do |locale| %>
             <tr>
               <td class="locale">
-                <%= link_to locale.native_language_name, edit_admin_world_location_news_translation_path(@world_location_news, locale.code) %> (<%= link_to "view", Whitehall.url_maker.world_location_news_index_url(@world_location_news, locale: locale) %>)
+                <%= link_to locale.native_language_name, edit_admin_world_location_news_translation_path(@world_location_news, locale.code) %> (<%= link_to "view", Whitehall.url_maker.world_location_news_index_url(@world_location_news, locale: locale.code) %>)
               </td>
               <td class="actions">
                 <%= button_to 'Delete',
