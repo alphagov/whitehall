@@ -1,9 +1,4 @@
 module FilterRoutesHelper
-  def announcements_filter_path(*objects)
-    query_string = path_arguments(objects).to_query
-    "/search/news-and-communications?#{query_string}"
-  end
-
   def publications_filter_path(*objects)
     query_string = path_arguments(objects).to_query
     "/search/all?#{query_string}"
