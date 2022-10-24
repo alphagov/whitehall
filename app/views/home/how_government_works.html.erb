@@ -7,7 +7,7 @@
       <%= render "govuk_publishing_components/components/title", {
         title: "How government works",
       } %>
-      
+
       <%= render "govuk_publishing_components/components/lead_paragraph", {
         text: sanitize("In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out <a class=\"govuk-link\" href=\"#who-runs-government\">who runs government</a> and <a class=\"govuk-link\" href=\"#how-government-is-run\">how government is run</a>, as well as learning about the <a class=\"govuk-link\" href=\"#history-uk-government\">history of government</a>.")
       } %>
@@ -75,7 +75,7 @@
           font_size: "l",
           margin_bottom: 4,
         } %>
-        
+
         <section class="govuk-!-margin-bottom-9 prime-minister">
           <%= render "govuk_publishing_components/components/heading", {
             text: "The Prime Minister",
@@ -104,7 +104,7 @@
           <p class="govuk-body govuk-!-margin-bottom-8">
             <%= link_to "Read more about the Prime Minister's Office, 10 Downing Street", "/government/organisations/prime-ministers-office-10-downing-street", class: "govuk-link" %>
           </p>
-          
+
           <% if @prime_minister.present? && @prime_minister.image_url(:s465).present? %>
             <%= image_tag @prime_minister.image_url(:s465), { alt: '', width: '465', height: '310' } %>
           <% else %>
@@ -122,7 +122,7 @@
 
           <p class="govuk-body">The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
           <p class="govuk-body govuk-!-margin-bottom-8"><%= link_to("See who is in the Cabinet", "/government/ministers", class: "govuk-link") %></p>
-          
+
           <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: '', width: '465', height: '310' %>
         </section>
       </section>
@@ -160,7 +160,7 @@
 
             <div class="govuk-grid-column-one-half">
               <p class="govuk-!-margin-bottom-1 govuk-heading-s">Cabinet ministers</p>
-              
+
               <a class="govuk-link gem-c-big-number__link cabinet-ministers" href="/government/ministers#cabinet-ministers">
                 <%= render "govuk_publishing_components/components/big_number", {
                   number: @cabinet_minister_count,
@@ -192,7 +192,7 @@
 
             <div class="govuk-grid-column-one-half all-ministers">
               <p class="govuk-!-margin-bottom-1 govuk-heading-s">Total ministers</p>
-              
+
               <a class="govuk-link gem-c-big-number__link all-ministers" href="/government/ministers">
                 <%= render "govuk_publishing_components/components/big_number", {
                   number: @all_ministers_count,
@@ -338,7 +338,7 @@
         } %>
 
         <p class="govuk-body"><%= link_to "Find and apply", "https://civilservicejobs.service.gov.uk/", class: "govuk-link" %> for vacancies in departments, executive agencies and non-departmental public bodies.</p>
-        
+
         <%= render "govuk_publishing_components/components/heading", {
           text: "Work with us",
           font_size: "m",
@@ -417,7 +417,7 @@
           font_size: "l",
           margin_bottom: 4,
         } %>
-        
+
         <%= render "govuk_publishing_components/components/heading", {
           text: "Freedom of information",
           font_size: "m",
@@ -427,7 +427,7 @@
 
         <p class="govuk-body">The Freedom of Information Act gives you the right to ask any public sector organisation for all the recorded information it has on any subject. Anyone can make a request for information – known as a Freedom of Information (or FOI) request.  There are no restrictions on your age, nationality or where you live.</p>
         <p class="govuk-body"><%= link_to "How to make a freedom of information request", "/make-a-freedom-of-information-request", class: "govuk-link" %></p>
-        <p class="govuk-body"><%= link_to "See FOI releases on GOV.UK", publications_filter_path(:publication_filter_option => 'foi-releases'), class: "govuk-link" %></p>
+        <p class="govuk-body"><%= link_to "See FOI releases on GOV.UK", "/search/transparency-and-freedom-of-information-releases?content_store_document_type=foi_release", class: "govuk-link" %></p>
 
         <%= render "govuk_publishing_components/components/heading", {
           text: "Statistics",
@@ -458,7 +458,7 @@
           ]
         } %>
 
-        <p class="govuk-body"><%= link_to 'See transparency releases on GOV.UK', publications_filter_path(:publication_filter_option => 'transparency-data'), class: "govuk-link" %></p>
+        <p class="govuk-body"><%= link_to 'See transparency releases on GOV.UK', "/search/transparency-and-freedom-of-information-releases?content_store_document_type=transparency", class: "govuk-link" %></p>
 
         <%= render "govuk_publishing_components/components/heading", {
           text: "Data",
@@ -525,7 +525,7 @@
             "debate issues and pass new laws",
             "set taxes"
           ]
-        } %>        
+        } %>
 
         <p class="govuk-body">
           <%= link_to "Find out about how Parliament works", "https://www.parliament.uk/", class: "govuk-link", rel: "external" %>
@@ -545,7 +545,7 @@
         <p class="govuk-body">Britain has one of the oldest governments in the world. Find out more about how it has worked and who has shaped it in the <%= link_to "history", "/government/history/", class: "govuk-link" %> section.</p>
         <p class="govuk-body">Read about past Prime Ministers, Chancellors and Foreign Secretaries in <%= link_to "notable people", "/government/history#notable-people", class: "govuk-link" %>. Learn more about historic <%= link_to "government buildings", "/government/history#government-buildings", class: "govuk-link" %> on Whitehall and around the UK.</p>
         <p class="govuk-body govuk-!-margin-bottom-8">You can also find links to <%= link_to "historical research", "/government/history#historical-research", class: "govuk-link" %>, documents and records.</p>
-        
+
         <%= image_tag 'how-gov-works/Churchill_01.jpg', alt: '', width: '465', height: '310' %>
       </section>
     </div>
