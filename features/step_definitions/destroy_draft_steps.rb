@@ -1,7 +1,7 @@
 When("I discard the draft publication") do
   @publication = Publication.last
   visit confirm_destroy_admin_edition_path(@publication)
-  if @user.can_preview_design_system?
+  if using_design_system?
     click_on "Delete"
   else
     click_on "Discard"
