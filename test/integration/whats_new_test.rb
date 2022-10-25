@@ -20,12 +20,14 @@ class WhatsNewTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "shows whats new banner page" do
+  test "uses the show_banner value in the whats_new.yml file to determine whether to render the banner" do
     login_as create(:gds_editor)
     get admin_whats_new_path
 
-    assert_select ".gem-c-phase-banner"
-    assert_select ".gem-c-phase-banner .govuk-phase-banner__content__tag"
-    assert_select ".gem-c-phase-banner .govuk-phase-banner__text"
+    if I18n.t("admin.whats_new.show_banner")
+      assert_select ".gem-c-phase-banner"
+    else
+      assert_select ".gem-c-phase-banner", count: 0
+    end
   end
 end
