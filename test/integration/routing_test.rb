@@ -81,7 +81,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "redirects organisation series URL to publications page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/series"
-    assert_redirected_to publications_path
+    assert_redirected_to "/government/publications"
   end
 
   test "routing to editions#show will redirect to correct edition type" do

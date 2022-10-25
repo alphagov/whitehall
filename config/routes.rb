@@ -101,7 +101,6 @@ Whitehall::Application.routes.draw do
 
     # Routes that exist solely for the purpose of non-English finders
     get "/announcements(.:locale)", as: "announcements", to: "announcements#index", constraints: { locale: valid_locales_regex }
-    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
     get "/publications(.:locale)", as: "publications", to: "publications#index", constraints: { locale: valid_locales_regex }
     # End of routes solely for non-English finders
 
@@ -120,6 +119,7 @@ Whitehall::Application.routes.draw do
       end
     end
     get "/latest" => "latest#index", as: "latest"
+    get "/news/:id(.:locale)", as: "news_article", to: "news_articles#show", constraints: { locale: valid_locales_regex }
     get "/organisations/:id(.:locale)", as: "organisation", to: "organisations#show", constraints: { locale: valid_locales_regex }
     resources :organisations, only: [:index]
     resources :organisations, only: [] do
