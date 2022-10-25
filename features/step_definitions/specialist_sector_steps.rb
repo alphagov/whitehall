@@ -7,12 +7,15 @@ When(/^I start editing a draft document$/) do
 end
 
 Then(/^I can tag it to some specialist sectors$/) do
-  select "Oil and Gas: Wells", from: "Primary specialist topic tag"
-  select "Oil and Gas: Offshore", from: "Additional specialist topics"
-  select "Oil and Gas: Fields", from: "Additional specialist topics"
-  select "Oil and Gas: Distillation (draft)", from: "Additional specialist topics"
+  primary_select = @user.can_preview_design_system? ? "edition[primary_specialist_sector_tag]" : "Primary specialist topic tag"
+  secondary_select = @user.can_preview_design_system? ? "edition[secondary_specialist_sector_tags][]" : "Additional specialist topics"
 
-  click_button "Save"
+  select "Oil and Gas: Wells", from: primary_select
+  select "Oil and Gas: Offshore", from: secondary_select
+  select "Oil and Gas: Fields", from: secondary_select
+  select "Oil and Gas: Distillation (draft)", from: secondary_select
+
+  click_button @user.can_preview_design_system? ? "Update specialist topics" : "Save"
 
   expect(page).to have_selector(".flash.notice")
 
@@ -21,9 +24,9 @@ Then(/^I can tag it to some specialist sectors$/) do
   click_on "Save and continue"
   click_on "Update and review specialist topic tags"
 
-  expect("WELLS").to eq(find_field("Primary specialist topic tag").value)
+  expect("WELLS").to eq(find_field(primary_select).value)
   expect(%w[OFFSHORE FIELDS DISTILL].to_set)
-    .to eq(find_field("Additional specialist topics").value.to_set)
+    .to eq(find_field(secondary_select).value.to_set)
 end
 
 Given(/^there is a document tagged to specialist sectors$/) do

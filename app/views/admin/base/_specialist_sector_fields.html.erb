@@ -1,0 +1,30 @@
+<p class="govuk-body govuk-!-margin-bottom-7">
+  Do not tag to a specialist topic unless your organisation maintains that topic page.
+</p>
+
+<%= render "components/autocomplete", {
+  id: "edition_primary_specialist_sector_tag",
+  name: "edition[primary_specialist_sector_tag]",
+  label: {
+    text: "Primary specialist sector tag",
+    heading_size: "l",
+  },
+  select: {
+    options: [""] + specialist_sector_options_for_select,
+    selected: @edition.primary_specialist_sector_tag,
+  },
+} %>
+
+<%= render "components/autocomplete", {
+  id: "edition_secondary_specialist_sector_tags",
+  name: "edition[secondary_specialist_sector_tags]",
+  label: {
+    text: "Additional specialist sector tags",
+    heading_size: "l",
+  },
+  select: {
+    options: [""] + specialist_sector_options_for_select,
+    multiple: true,
+    selected: @edition.secondary_specialist_sector_tags,
+  },
+} %>
