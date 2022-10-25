@@ -1,12 +1,17 @@
 module UnpublishingHelpers
   def unpublish_edition(edition)
-    design_system_layout = @user.can_preview_design_system?
-
     visit admin_edition_path(edition)
     click_on "Withdraw or unpublish"
     choose "Unpublish: published in error"
-    within(design_system_layout ? ".js-unpublish-withdraw-form__published-in-error" : "#js-published-in-error-form") do
-      fill_in (design_system_layout ? "Public explanation" : "Public explanation (this is shown on the live site)"), with: "This page should never have existed"
+
+    form_container = if using_design_system?
+                       ".js-unpublish-withdraw-form__published-in-error"
+                     else
+                       "#js-published-in-error-form"
+                     end
+
+    within form_container do
+      fill_in "Public explanation", with: "This page should never have existed"
       yield if block_given?
       click_button "Unpublish"
     end

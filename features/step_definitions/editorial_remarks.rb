@@ -17,7 +17,7 @@ When(/^I add a french translation$/) do
   visit admin_edition_path(@edition)
   click_link "Add translation"
 
-  if @user.can_preview_design_system?
+  if using_design_system?
     select "Français", from: "Choose language"
     click_button "Next"
   else

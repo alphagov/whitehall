@@ -14,7 +14,7 @@ en:
           [Read more about the changes on the content community Basecamp](https://3.basecamp.com/4322319/buckets/15005645/messages/5287245970).
       upcoming_changes:
         heading: Upcoming changes
-      recent_changes:     
+      recent_changes:
         heading: Recent changes
         updates:
           - heading: Change to saving documents
@@ -29,10 +29,10 @@ en:
             date: 6 October 2022
             body_govspeak: |
               The topic taxonomy tags page has moved to the GOV.UK Design System.
-              
+
               Topics that are tagged to a document are now listed under the ‘Selected topics’ header on the ‘Topic taxonomy tags’ page. You can also remove tags in this section.
-              
-              You can use the ‘back’ button on these pages to return to a previous page. 
+
+              You can use the ‘back’ button on these pages to return to a previous page.
           - heading: Reusing previous withdrawal dates and public explanations
             area: Creating and updating documents
             type: improvement
