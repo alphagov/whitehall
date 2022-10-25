@@ -15,11 +15,13 @@
 
 <% content_for :navbar do %>
   <%= render "shared/header", show_legacy_notices: true %>
-  <div class="govuk-design-system-styling">
-    <div class="<%= yield(:full_width) === "true" ? "app-width-container--full-width" : "container" %>">
-      <%= render "shared/whats_new_banner", tracking_module: "track-link-click" %>
+  <% if t('admin.whats_new.show_banner') %>
+    <div class="govuk-design-system-styling">
+      <div class="<%= yield(:full_width) === "true" ? "app-width-container--full-width" : "container" %>">
+        <%= render "shared/whats_new_banner", tracking_module: "track-link-click" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <% content_for :content do %>
