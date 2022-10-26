@@ -7,7 +7,7 @@
     <%= render partial: 'legacy_form', locals: { consultation: @edition, consultation_response: @response } %>
   </section>
   <div class="col-md-4">
-    <%= render partial: "admin/editions/govspeak_help",
+    <%= render partial: "admin/editions/legacy_govspeak_help",
     locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
   </div>
 </div>

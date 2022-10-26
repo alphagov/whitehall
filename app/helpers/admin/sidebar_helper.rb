@@ -9,7 +9,7 @@ module Admin::SidebarHelper
       sidebar_tabs govspeak_help: "Help" do |tabs|
         tabs.pane id: "govspeak_help", class: "govspeak_help" do
           tab_content = []
-          tab_content << render("admin/editions/govspeak_help_legacy", options)
+          tab_content << render("admin/editions/legacy_govspeak_help", options)
           tab_content << render("admin/editions/words_to_avoid_guidance")
           tab_content << tag.h3("Style", class: "style-title")
           tab_content << tag.p do

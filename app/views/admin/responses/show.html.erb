@@ -35,7 +35,7 @@
   </section>
   <% unless @response.persisted? %>
     <div class="col-md-4">
-      <%= render partial: "admin/editions/govspeak_help",
+      <%= render partial: "admin/editions/legacy_govspeak_help",
       locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
     </div>
   <% end %>
