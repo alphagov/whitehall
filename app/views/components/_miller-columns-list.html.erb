@@ -1,12 +1,14 @@
 <ul id="<%= id %>-list" class="govuk-list">
   <% items.each_with_index do | item, index | %>
     <li>
-      <input class="govuk-checkboxes__input" type="checkbox" name="<%= name %>" value="<%= item[:value] %>" id="<%= id %>-<%= index %>"
-        <% if item[:checked].present? && item[:checked] %> checked <% end %>
-      >
-      <label class="govuk-label govuk-checkboxes__label" for="<%= id %>-<%= index %>">
-        <%= item[:label] %>
-      </label>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" type="checkbox" name="<%= name %>" value="<%= item[:value] %>" id="<%= id %>-<%= index %>"
+          <% if item[:checked].present? && item[:checked] %> checked <% end %>
+        >
+        <label class="govuk-label govuk-checkboxes__label" for="<%= id %>-<%= index %>">
+          <%= item[:label] %>
+        </label>
+      </div>
       <% if item[:items].present? %>
         <%= render "components/miller-columns-list", {
           id: "#{id}-#{index}",
