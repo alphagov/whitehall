@@ -14,7 +14,7 @@
         destructive: true,
       } %>
 
-      <a class="govuk-link" href="attachable_attachments_path(attachable)">Cancel</a>
+      <%= link_to("Cancel", attachable_attachments_path(attachable), class: "govuk-link") %>
     </div>
     <% end %>
   </section>
