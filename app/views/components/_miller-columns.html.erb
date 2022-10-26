@@ -10,6 +10,18 @@
 
   <miller-columns-selected id="selected-items" for="<%= id %>" class="miller-columns-selected"></miller-columns-selected>
 
+  <%= render "components/autocomplete", {
+    id: "topics-autocomplete",
+    name: "topics-autocomplete",
+    label: {
+      text: "Search topics",
+      bold: true
+    },
+    type: "topics",
+    search: true,
+    jsonly: true
+  } %>
+
   <miller-columns class="miller-columns" for="<%= id %>-list" selected="selected-items" id="<%= id %>" aria-describedby="navigation-instructions">
     <%= render "components/miller-columns-list", {
       id: id,

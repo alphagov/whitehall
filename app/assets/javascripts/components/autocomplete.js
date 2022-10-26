@@ -8,11 +8,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   }
 
   Autocomplete.prototype.init = function () {
+    var type = this.$module.dataset.autocompleteType
+
     var $select = this.$module.querySelector('select')
     var $input = this.$module.querySelector('input')
 
     if ($select) {
       this.initAutoCompleteSelect($select)
+    } else if (type === 'topics') {
+      this.initAutoCompleteSearchTopics()
     } else if ($input) {
       this.initAutoCompleteInput($input)
     }
@@ -83,6 +87,72 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     element.dispatchEvent(event)
+  }
+
+  Autocomplete.prototype.initAutoCompleteSearchTopics = function () {
+    var $input = this.$module.querySelector('input')
+    var $module = this.$module
+    var millerColumns = document.querySelector('miller-columns')
+    var topics = millerColumns.taxonomy.flattenedTopics
+
+    var topicSuggestions = []
+
+    topics.forEach(function (topic) {
+      topicSuggestions.push({
+        topic: topic,
+        highlightedTopicName: topic.topicName.replace(/<\/?mark>/gm, ''), // strip existing <mark> tags
+        breadcrumbs: topic.topicNames
+      })
+    })
+
+    if (!topicSuggestions) {
+      return
+    }
+
+    new window.accessibleAutocomplete({ // eslint-disable-line no-new, new-cap
+      id: $input.id,
+      name: $input.name,
+      element: this.$module,
+      minLength: 3,
+      autoselect: false,
+      source: function (query, syncResults) {
+        var results = topicSuggestions
+        var resultMatcher = function (result) {
+          var topicName = result.topic.topicName
+          var indexOf = topicName.toLowerCase().indexOf(query.toLowerCase())
+          var resultContainsQuery = indexOf !== -1
+          if (resultContainsQuery) {
+            // Wrap query in <mark> tags
+            var queryRegex = new RegExp('(' + query + ')', 'ig')
+            result.highlightedTopicName = topicName.replace(queryRegex, '<mark>$1</mark>')
+          }
+          return resultContainsQuery
+        }
+
+        syncResults(query ? results.filter(resultMatcher) : [])
+      },
+      templates: {
+        inputValue: function (result) {
+          return ''
+        },
+        suggestion: function (result) {
+          var suggestionsBreadcrumbs
+          if (result && result.breadcrumbs) {
+            result.breadcrumbs[result.breadcrumbs.length - 1] = result.highlightedTopicName
+            suggestionsBreadcrumbs = result.breadcrumbs.join(' › ')
+          }
+          return suggestionsBreadcrumbs
+        }
+      },
+      onConfirm: function (result) {
+        if (result && !result.topic.selected && !result.topic.selectedChildren.length) {
+          Autocomplete.prototype.triggerEvent($module, 'search-topic', result.topic)
+          millerColumns.taxonomy.topicClicked(result.topic)
+        }
+      }
+    })
+
+    $input.parentNode.removeChild($input)
   }
 
   Modules.Autocomplete = Autocomplete
