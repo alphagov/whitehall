@@ -2,12 +2,6 @@
 <% content_for :context, @edition.title %>
 <% content_for :title, "Topic taxonomy tags" %>
 
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  } %>
-<% end %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-!-margin-bottom-8">
@@ -77,6 +71,8 @@
             track_action: "taxonomy-tag-form-button",
           }
         } %>
+
+        <a class="govuk-link" href="admin_edition_path(@edition)">Cancel</a>
       </div>
     <% end %>
   </div>

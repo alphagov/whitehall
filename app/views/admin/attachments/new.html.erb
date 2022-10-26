@@ -1,9 +1,6 @@
 <% content_for :page_title, "Adding #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
 <% content_for :title, "Add #{attachment.readable_type} attachment" %>
 <% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", href: attachable_attachments_path(attachable) %>
-<% end %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
