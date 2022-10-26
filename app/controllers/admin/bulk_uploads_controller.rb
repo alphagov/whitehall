@@ -7,7 +7,7 @@ class Admin::BulkUploadsController < Admin::BaseController
 
   def new
     @zip_file = BulkUpload::ZipFile.new
-    render(preview_design_system_user? ? "new" : "new_legacy")
+    render_design_system("new", "new_legacy", next_release: true)
   end
 
   def upload_zip
@@ -16,9 +16,9 @@ class Admin::BulkUploadsController < Admin::BaseController
     if @zip_file.valid?
       @bulk_upload = BulkUpload.from_files(@edition, @zip_file.extracted_file_paths)
       @zip_file.cleanup_extracted_files
-      render(preview_design_system_user? ? "set_titles" : "set_titles_legacy")
+      render_design_system("set_titles", "set_titles_legacy", next_release: true)
     else
-      render(preview_design_system_user? ? "new" : "new_legacy")
+      render_design_system("new", "new_legacy", next_release: true)
     end
   end
 
@@ -31,14 +31,14 @@ class Admin::BulkUploadsController < Admin::BaseController
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
     else
-      render(preview_design_system_user? ? "set_titles" : "set_titles_legacy")
+      render_design_system("set_titles", "set_titles_legacy", next_release: true)
     end
   end
 
 private
 
   def get_layout
-    preview_design_system_user? ? "design_system" : "admin"
+    preview_design_system?(next_release: true) ? "design_system" : "admin"
   end
 
   def find_edition

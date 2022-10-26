@@ -103,7 +103,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def confirm_unpublish
     @unpublishing = @edition.build_unpublishing
 
-    render(preview_design_system_user? ? :confirm_unpublish : :confirm_unpublish_legacy)
+    render_design_system(:confirm_unpublish, :confirm_unpublish_legacy, next_release: true)
   end
 
   def unpublish
@@ -113,17 +113,13 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(@edition), notice: message
     else
       @unpublishing = @edition.unpublishing || @edition.build_unpublishing(unpublishing_params)
-      if preview_design_system_user?
-        render :confirm_unpublish
-      else
-        flash.now[:alert] = message
-        render :confirm_unpublish_legacy
-      end
+      flash.now[:alert] = message unless preview_design_system?(next_release: true)
+      render_design_system("confirm_unpublish", "confirm_unpublish_legacy", next_release: true)
     end
   end
 
   def confirm_unwithdraw
-    render(preview_design_system_user? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy)
+    render_design_system(:confirm_unwithdraw, :confirm_unwithdraw_legacy, next_release: true)
   end
 
   def unwithdraw
@@ -133,7 +129,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
     else
       flash.now[:alert] = edition_unwithdrawer.failure_reason
-      render(preview_design_system_user? ? :confirm_unwithdraw : :confirm_unwithdraw_legacy)
+      render_design_system(:confirm_unwithdraw, :confirm_unwithdraw_legacy, next_release: true)
     end
   end
 
@@ -183,14 +179,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
-
-    case action_name
-    when "confirm_unpublish"
-      "design_system"
-    when "confirm_unwithdraw"
-      "design_system"
-    when "unpublish"
+    design_system_actions = %w[confirm_unpublish confirm_unwithdraw unpublish]
+    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"

@@ -4,7 +4,7 @@ class Admin::NeedsController < Admin::BaseController
   layout :get_layout
 
   def edit
-    render(preview_design_system_user? ? "edit" : "edit_legacy")
+    render_design_system("edit", "edit_legacy", next_release: false)
   end
 
   def update
@@ -17,10 +17,7 @@ class Admin::NeedsController < Admin::BaseController
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
-
-    case action_name
-    when "edit"
+    if preview_design_system?(next_release: false)
       "design_system"
     else
       "admin"
