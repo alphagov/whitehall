@@ -1,7 +1,7 @@
 <% environment_style = GovukAdminTemplate.environment_style %>
 <% environment_label = GovukAdminTemplate.environment_label %>
 <% environment = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment %>
-<% show_legacy_notices ||= false %>
+<% admin_template ||= false %>
 
 <header class="
   masthead
@@ -9,6 +9,7 @@
   navbar-default
   navbar-inverse
   navbar-static-top
+  <% if !t('admin.whats_new.show_banner') && admin_template %>add-bottom-margin<% end %>
   <% if environment_style %>environment-indicator<% end %>" role="banner">
   <div class="navbar-container container-fluid">
     <div class="navbar-header">
@@ -79,7 +80,7 @@
       </li>
     </ul>
   </div>
-  <% if show_legacy_notices %>
+  <% if admin_template %>
     <section class="notices">
       <%= render partial: "shared/notices" %>
     </section>
