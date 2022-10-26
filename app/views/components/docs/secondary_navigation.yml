@@ -1,0 +1,22 @@
+name: Secondary navigation
+description: Displays a secondary navigation with the current page marked accordingly
+accessibility_criteria: |
+  The component must:
+  * indicate that it is navigation landmark
+  * indicate if a navigation item links to the currently-displayed page
+shared_accessibility_criteria:
+  - link
+examples:
+  default:
+    data:
+      aria_label: Document tabs
+      items:
+        - label: Document
+          href: government/admin/editions/:id"
+          current: true
+          data_attributes:
+            gtm: document-tab
+        - label: Attachments
+          href: /government/admin/editions/:id/attachments"
+          data_attributes:
+            gtm: attachments-tab
