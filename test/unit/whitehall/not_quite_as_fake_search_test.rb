@@ -7,7 +7,7 @@ module Whitehall
       setup do
         @store = Store.new
         SearchIndex.indexer_class.store = @store
-        @index = SearchIndex.indexer_class.new("http://search.test", "government")
+        @index = SearchIndex.indexer_class.new("http://search-api.test", "government")
       end
 
       teardown do
