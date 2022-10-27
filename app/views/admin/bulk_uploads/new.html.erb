@@ -19,6 +19,11 @@
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Upload zip",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "zip-file-button"
+          }
         } %>
 
         <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link") %>
