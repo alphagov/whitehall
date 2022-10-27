@@ -6,11 +6,16 @@
 <% content_for :error_summary, render('shared/error_summary', object: @edition, parent_class: "edition", class_name: @edition.format_name) %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/title", {
-      title: "New #{@edition.format_name}"
-    } %>
+  <%= render "govuk_publishing_components/components/title", {
+    title: "New #{@edition.format_name}"
+  } %>
 
+  <%= render "components/secondary_navigation", {
+    aria_label: "Document navigation tabs",
+    items: secondary_navigation_tabs_items(@edition, request.path)
+  } %>
+
+  <div class="govuk-grid-column-two-thirds">
     <%= render "form", edition: @edition %>
   </div>
 </div>
