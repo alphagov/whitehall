@@ -128,10 +128,6 @@ module ApplicationHelper
     render_list_of_roles(ministerial_roles, &block)
   end
 
-  def current_link_class(path_matcher)
-    request.path.match?(path_matcher) ? "current" : ""
-  end
-
   def render_datetime_microformat(object, method, &block)
     tag.time(class: method, datetime: object.send(method).iso8601, &block)
   end
