@@ -128,31 +128,6 @@ module ApplicationHelper
     render_list_of_roles(ministerial_roles, &block)
   end
 
-  def full_width_tabs(tab_data)
-    tag.nav(class: "activity-navigation") do
-      tag.ul do
-        tab_data.map { |tab|
-          tag.li do
-            if tab[:current_when]
-              link_to tab[:label], tab[:link_to], class: ("current" if tab[:current_when])
-            else
-              link_to_with_current(tab[:label], tab[:link_to])
-            end
-          end
-        }.join.html_safe
-      end
-    end
-  end
-
-  def link_to_with_current(name, path, options = {})
-    options = options.dup
-    path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
-    css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
-    options[:class] = css_classes if css_classes.present?
-
-    link_to name, path, options
-  end
-
   def current_link_class(path_matcher)
     request.path.match?(path_matcher) ? "current" : ""
   end
