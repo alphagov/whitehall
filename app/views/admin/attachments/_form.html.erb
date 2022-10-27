@@ -41,7 +41,7 @@
         } %>
       </div>
 
-      <%= render "govuk_publishing_components/components/textarea", {
+      <%= render "components/govspeak-editor", {
         label: {
           heading_size: "l",
           text: "Body (required)"
@@ -51,7 +51,6 @@
         id: "attachment_govspeak_content.body",
         value: form.object.govspeak_content.body,
         error_items: errors_for(attachment.errors, :"govspeak_content.body"),
-        margin_bottom: 8
       } %>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>
