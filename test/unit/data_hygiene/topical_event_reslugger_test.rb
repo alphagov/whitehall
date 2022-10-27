@@ -3,7 +3,6 @@ require "gds_api/test_helpers/search"
 
 class TopicalEventResluggerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Search
-  include FeedHelper
 
   setup do
     @old_slug = "old-slug"

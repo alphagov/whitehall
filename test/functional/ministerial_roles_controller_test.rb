@@ -2,7 +2,6 @@ require "test_helper"
 require "gds_api/test_helpers/search"
 
 class MinisterialRolesControllerTest < ActionController::TestCase
-  include FeedHelper
   include GdsApi::TestHelpers::Search
 
   should_be_a_public_facing_controller
