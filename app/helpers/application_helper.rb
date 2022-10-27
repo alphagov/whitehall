@@ -128,35 +128,6 @@ module ApplicationHelper
     render_list_of_roles(ministerial_roles, &block)
   end
 
-  def full_width_tabs(tab_data)
-    tag.nav(class: "activity-navigation") do
-      tag.ul do
-        tab_data.map { |tab|
-          tag.li do
-            if tab[:current_when]
-              link_to tab[:label], tab[:link_to], class: ("current" if tab[:current_when])
-            else
-              link_to_with_current(tab[:label], tab[:link_to])
-            end
-          end
-        }.join.html_safe
-      end
-    end
-  end
-
-  def link_to_with_current(name, path, options = {})
-    options = options.dup
-    path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
-    css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
-    options[:class] = css_classes if css_classes.present?
-
-    link_to name, path, options
-  end
-
-  def current_link_class(path_matcher)
-    request.path.match?(path_matcher) ? "current" : ""
-  end
-
   def render_datetime_microformat(object, method, &block)
     tag.time(class: method, datetime: object.send(method).iso8601, &block)
   end
@@ -180,74 +151,6 @@ module ApplicationHelper
       datetime: time.iso8601,
       lang: "en",
     )
-  end
-
-  def main_navigation_link_to(name, path, html_options = {}, &block)
-    classes = (html_options[:class] || "").split
-    if current_main_navigation_path(params) == path
-      classes << "active"
-    end
-    link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
-  end
-
-  def current_main_navigation_path(parameters)
-    case parameters[:controller]
-    when "announcements", "news_articles", "speeches", "fatality_notices", "operational_fields"
-      announcements_path
-    when "consultations", "consultation_responses"
-      publications_path(publication_filter_option: "consultations")
-    when "corporate_information_pages"
-      if parameters.key?(:worldwide_organisation_id)
-        world_locations_path
-      else
-        organisations_path
-      end
-    when "histories", "past_foreign_secretaries", "historic_appointments"
-      how_government_works_path
-    when "home"
-      case parameters[:action]
-      when "home"
-        root_path
-      when "get_involved"
-        get_involved_path
-      else
-        how_government_works_path
-      end
-    when "latest"
-      if parameters[:departments]
-        organisations_path
-      elsif parameters[:world_locations]
-        world_locations_path
-      else
-        latest_path
-      end
-    when "ministerial_roles"
-      ministerial_roles_path
-    when "organisations", "groups", "email_signup_information"
-      if parameters[:courts_only]
-        courts_path
-      else
-        organisations_path
-      end
-    when "publications", "statistical_data_sets"
-      if parameters[:publication_filter_option] == "consultations"
-        publications_path(publication_filter_option: "consultations")
-      elsif parameters[:publication_filter_option] == "statistics" ||
-          parameters[:controller] == "statistical_data_sets" ||
-          @document && @document.try(:statistics?) # rubocop:disable Rails/HelperInstanceVariable
-        publications_path(publication_filter_option: "statistics")
-      else
-        publications_path
-      end
-    when "site"
-      root_path
-    when "statistics", "statistics_announcements"
-      statistics_path
-    when "take_part_pages"
-      get_involved_path
-    when "world_locations", "worldwide_organisations", "worldwide_offices"
-      world_locations_path(locale: :en)
-    end
   end
 
   def linked_author(author, link_options = {})
