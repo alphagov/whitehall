@@ -4,11 +4,11 @@ class Admin::EditionTranslationsController < Admin::BaseController
   before_action :forbid_editing_of_locked_documents
 
   def new
-    render "legacy_new" unless preview_design_system_user?
+    render_design_system("new", "legacy_new", next_release: false)
   end
 
   def edit
-    render "edit_legacy" unless preview_design_system_user?
+    render_design_system("edit", "edit_legacy", next_release: false)
   end
 
   def update
@@ -17,17 +17,15 @@ class Admin::EditionTranslationsController < Admin::BaseController
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
     else
-      render action: preview_design_system_user? ? "edit" : "edit_legacy"
+      render_design_system("edit", "edit_legacy", next_release: false)
     end
   end
 
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
-
-    case action_name
-    when "edit", "update", "new"
+    design_system_actions = %w[edit update new]
+    if preview_design_system?(next_release: false) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"

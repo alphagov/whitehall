@@ -18,7 +18,7 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def new
-    render(preview_design_system_user? ? "new" : "new_legacy")
+    render_design_system("new", "new_legacy", next_release: true)
   end
 
   def create
@@ -26,12 +26,12 @@ class Admin::AttachmentsController < Admin::BaseController
       attachment_updater(attachment.attachment_data)
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
-      render(preview_design_system_user? ? "new" : "new_legacy")
+      render_design_system("new", "new_legacy", next_release: true)
     end
   end
 
   def edit
-    render(preview_design_system_user? ? "edit" : "edit_legacy")
+    render_design_system("edit", "edit_legacy", next_release: true)
   end
 
   def update
@@ -44,7 +44,7 @@ class Admin::AttachmentsController < Admin::BaseController
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
-      render(preview_design_system_user? ? "edit" : "edit_legacy")
+      render_design_system("edit", "edit_legacy", next_release: true)
     end
   end
 
@@ -89,10 +89,8 @@ class Admin::AttachmentsController < Admin::BaseController
 private
 
   def get_layout
-    return "admin" unless preview_design_system_user?
-
-    case action_name
-    when "edit", "update", "new", "create", "confirm_destroy", "reorder"
+    design_system_actions = %w[edit update new create confirm_destroy reorder]
+    if preview_design_system?(next_release: true) && design_system_actions.include?(action_name)
       "design_system"
     else
       "admin"

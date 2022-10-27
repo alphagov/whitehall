@@ -5,7 +5,7 @@ class Admin::DocumentSourcesController < Admin::BaseController
   layout :get_layout
 
   def edit
-    render :edit_legacy unless preview_design_system_user?
+    render_design_system("edit", "edit_legacy", next_release: false)
   end
 
   def update
@@ -25,13 +25,6 @@ private
   end
 
   def get_layout
-    return "admin" unless preview_design_system_user?
-
-    case action_name
-    when "edit"
-      "design_system"
-    else
-      "admin"
-    end
+    preview_design_system?(next_release: false) ? "design_system" : "admin"
   end
 end

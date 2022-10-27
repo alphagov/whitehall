@@ -52,8 +52,16 @@ class Admin::BaseController < ApplicationController
     end
   end
 
-  def preview_design_system_user?
-    current_user.can_preview_design_system?
+  def preview_design_system?(next_release: false)
+    current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
+  end
+
+  def render_design_system(design_system_view, legacy_view, next_release: false)
+    if preview_design_system?(next_release:)
+      render design_system_view
+    else
+      render legacy_view
+    end
   end
 
 private
