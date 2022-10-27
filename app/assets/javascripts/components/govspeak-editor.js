@@ -33,6 +33,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     var textarea = this.module.querySelector(previewToggle.getAttribute('data-content-target'))
 
     previewToggle.addEventListener('click', function (e) {
+      e.preventDefault()
+
       var previewMode = previewToggle.innerText === 'Preview'
 
       previewToggle.innerText = previewMode ? 'Back to edit' : 'Preview'
