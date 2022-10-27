@@ -1,8 +1,0 @@
-<% unless atom_url.blank? %>
-  <%= render "govuk_publishing_components/components/subscription_links", {
-    email_signup_link: email_signup_path(atom_url),
-    email_signup_link_text_locale: t_fallback('feeds.email'),
-    feed_link: atom_url,
-    feed_link_text_locale: t_fallback("feeds.feed"),
-  } %>
-<% end %>
