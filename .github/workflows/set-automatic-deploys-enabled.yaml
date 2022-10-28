@@ -1,20 +1,20 @@
-name: Set automatic_deploys_enabled (optionally image_tag too)
+name: Set automatic deploys
+
+run-name: Set automatic deploys to ${{ inputs.setAutomaticDeploys }} in ${{ inputs.environment }}
 
 on:
   workflow_dispatch:
     inputs:
-      resetImageTag:
-        description: 'Reset image tag to main'
+      setAutomaticDeploys:
+        description: 'Set automatic deploys'
         required: false
-        default: false
-        type: boolean
-      automaticDeploysEnabled:
-        description: 'Activate automatic deploys'
-        required: false
-        default: true
-        type: boolean
+        type: choice
+        options:
+        - enabled
+        - disabled
+        default: 'enabled'
       environment:
-        description: 'Environment to deploy to'
+        description: 'Environment'
         required: true
         type: choice
         options:
@@ -24,14 +24,13 @@ on:
         default: 'integration'
 
 jobs:
-  set_automatic_deploys_enabled:
-    name: Set automatic_deploys_enabled to ${{ github.event.inputs.environment }}
-    uses: alphagov/govuk-infrastructure/.github/workflows/set-automatic-deploys-enabled.yaml@main
+  set-automatic-deploys:
+    name: Set automatic deploys
+    uses: alphagov/govuk-infrastructure/.github/workflows/set-automatic-deploys.yaml@main
     with:
-      resetImageTag: ${{ github.event.inputs.resetImageTag == 'true' }}
-      automaticDeploysEnabled: ${{ github.event.inputs.automaticDeploysEnabled == 'true' }}
+      automaticDeploysEnabled: ${{ github.event.inputs.automaticDeploys == 'enabled' }}
       environment: ${{ github.event.inputs.environment }}
     secrets:
-      WEBHOOK_TOKEN: ${{ secrets.GOVUK_INTEGRATION_ARGO_EVENTS_WEBHOOK_TOKEN }}
-      WEBHOOK_URL: ${{ secrets.GOVUK_INTEGRATION_ARGO_EVENTS_WEBHOOK_URL }}
-      GOVUK_CI_GITHUB_API_TOKEN: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
+      WEBHOOK_TOKEN: ${{ secrets.GOVUK_ARGO_EVENTS_WEBHOOK_TOKEN }}
+      WEBHOOK_URL: ${{ secrets.GOVUK_ARGO_EVENTS_WEBHOOK_URL }}
+      GH_TOKEN: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
