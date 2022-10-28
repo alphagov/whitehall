@@ -72,7 +72,7 @@
           }
         } %>
 
-        <a class="govuk-link" href="<%= admin_edition_path(@edition) %>">Cancel</a>
+        <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link") %>
       </div>
     <% end %>
   </div>
