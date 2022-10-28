@@ -27,7 +27,7 @@
     },
   }
 
-  withdrawal_public_explanation_field = render("govuk_publishing_components/components/textarea", {
+  withdrawal_public_explanation_field = render("components/govspeak-editor", {
     label: {
       text: "Public explanation",
       bold: true,
@@ -36,9 +36,6 @@
     name: "unpublishing[explanation]",
     id: "withdrawal_explanation",
     value: @unpublishing.explanation,
-    data: {
-      module: "paste-html-to-govspeak"
-    },
     error_items: errors_for(@unpublishing.errors, :explanation)
   })
 %>
@@ -148,7 +145,7 @@
           ]
         } %>
 
-        <%= render "govuk_publishing_components/components/textarea", {
+        <%= render "components/govspeak-editor", {
           label: {
             text: "Public explanation",
             bold: true,
@@ -157,9 +154,6 @@
           name: "unpublishing[explanation]",
           id: "published_in_error_explanation",
           value: @unpublishing.explanation,
-          data: {
-            module: "paste-html-to-govspeak"
-          },
           error_items: errors_for(@unpublishing.errors, :explanation)
         } %>
 
