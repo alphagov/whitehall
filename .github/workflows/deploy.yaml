@@ -1,5 +1,7 @@
 name: Deploy
 
+run-name: Deploy ${{ inputs.gitRef }} to ${{ inputs.environment }}
+
 on:
   workflow_dispatch:
     inputs:
