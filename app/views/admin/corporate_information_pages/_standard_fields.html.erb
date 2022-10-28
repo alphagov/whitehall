@@ -30,20 +30,17 @@
     error_items: errors_for(form.object.errors, :summary),
   } %>
 
-  <div class="previewable">
-    <%= render "govuk_publishing_components/components/textarea", {
-      label: {
-        text: "Body (required)",
-         bold: true
-      },
-      name: "edition[body]",
-      id: "edition_body",
-      value: edition.body,
-      rows: 20,
-      data: { module: "paste-html-to-govspeak" },
-      error_items: errors_for(form.object.errors, :body),
-    } %>
-  </div>
+  <%= render "components/govspeak-editor", {
+    label: {
+      text: "Body (required)",
+        bold: true
+    },
+    name: "edition[body]",
+    id: "edition_body",
+    value: edition.body,
+    rows: 20,
+    error_items: errors_for(form.object.errors, :body),
+  } %>
 
   <%= render "additional_significant_fields", form: form, edition: form.object %>
 </div>

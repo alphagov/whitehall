@@ -1,6 +1,8 @@
 <%
   id ||= "#{name}-#{SecureRandom.hex(4)}"
   label[:bold] ||= false
+  hint ||= nil
+  hint_id ||= "#{id}-hint"
   value ||= nil
   error_items ||= nil
   rows ||= 12
@@ -12,28 +14,37 @@
   data_attributes ||= {}
   data_attributes[:module] ||= ""
   data_attributes[:module] << " govspeak-editor"
+  data_attributes[:module] = data_attributes[:module].strip!
 
   textarea_data_attributes ||= {}
   textarea_data_attributes[:module] ||= ""
   textarea_data_attributes[:module] << " paste-html-to-govspeak"
+  textarea_data_attributes[:module] = textarea_data_attributes[:module].strip!
 
   preview_button_data_attributes ||= {}
   preview_button_data_attributes["content-target"] = "##{id}"
   preview_button_data_attributes["preview-toggle-tracking"] = "true" if track_preview_toggle
   preview_button_data_attributes["preview-toggle-track-category"] = track_category if track_category
   preview_button_data_attributes["preview-toggle-track-action"] = track_action if track_action
+
+  classes = "app-c-govspeak-editor govuk-form-group"
+  classes << " govuk-form-group--error" if error_items
 %>
 
-<%= tag.div class:"app-c-govspeak-editor", data: data_attributes do %>
+<%= tag.div class: classes, data: data_attributes do %>
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-      <%= render "govuk_publishing_components/components/label", { html_for: id }.merge(label.symbolize_keys) %>
+    <div class="govuk-grid-column-three-quarters ">
+      <%= render "govuk_publishing_components/components/label", {
+        html_for: id,
+        hint_id: hint_id,
+        hint_text: hint,
+      }.merge(label.symbolize_keys) %>
     </div>
     <div class="govuk-grid-column-one-quarter app-c-govspeak-editor__preview-button-wrapper">
       <%= render "govuk_publishing_components/components/button", {
         text: "Preview",
         secondary_quiet: true,
-        margin_bottom: 2,
+        margin_bottom: hint ? 5 : 2,
         classes: "js-app-c-govspeak-editor__preview-button",
         data_attributes: preview_button_data_attributes
       } %>
@@ -47,6 +58,8 @@
       value: value,
       error_items: error_items,
       data: textarea_data_attributes,
+      margin_bottom: 0,
+      describedby: hint_id,
     } %>
   </div>
   <div class="app-c-govspeak-editor__preview">
