@@ -49,36 +49,39 @@
 </div>
 
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/radio", {
-    heading: "Command paper number",
-    heading_level: 2,
-    heading_size: heading_size,
+  <% if attachable.can_have_attached_house_of_commons_papers? %>
+    <h2 class="govuk-heading-<%= heading_size %>">Command and House of Commons papers</h2>
+
+    <p class="govuk-body">Fill in the command or House of Commons box to publish an official document which will appear in the list of official documents.</p>
+  <% end %>
+
+  <%= render("govuk_publishing_components/components/input", {
+    label: {
+      text: "Command paper number"
+    },
+    name: "attachment[command_paper_number]",
+    id: "attachment_command_paper_number",
+    value: form.object.command_paper_number,
+    error_items: errors_for(attachment.errors, :command_paper_number),
+    heading_size: attachable.can_have_attached_house_of_commons_papers? ? subheading_size : heading_size,
+    hint: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
+  }) %>
+
+  <%= form.hidden_field :unnumbered_command_paper, value: "0" %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
     name: "attachment[unnumbered_command_paper]",
-    id_prefix: "command_paper_number_conditional",
+    id: "attachment_unnumbered_command_paper",
     items: [
       {
-        value: "0",
-        text: "Numbered",
-        checked: form.object.unnumbered_command_paper.eql?(false),
-        conditional: render("govuk_publishing_components/components/input", {
-          label: {
-            text: "The number must start with one of " + Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ') + ", followed by a space. If a suffix is provided, it must be a Roman numeral. Example: CP 521-IV"
-          },
-          name: "attachment[command_paper_number]",
-          id: "attachment_command_paper_number",
-          value: form.object.command_paper_number,
-          error_items: errors_for(attachment.errors, :command_paper_number)
-        })
-      },
-      {
+        label: "Unnumbered",
         value: "1",
-        text: "Unnumbered",
-        checked: form.object.unnumbered_command_paper
+        checked: attachment.unnumbered_command_paper
       }
     ]
   } %>
 </div>
 
 <% if attachable.can_have_attached_house_of_commons_papers? %>
-  <%= render 'admin/attachments/hoc_reference_fields', attachable: attachable, form: form, attachment: attachment, heading_size: heading_size %>
+  <%= render 'admin/attachments/hoc_reference_fields', attachable: attachable, form: form, attachment: attachment, heading_size: subheading_size %>
 <% end %>
