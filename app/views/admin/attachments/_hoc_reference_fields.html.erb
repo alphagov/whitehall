@@ -27,7 +27,7 @@
 </div>
 
 <%
-  options = [{text: "Choose the right Parliamentary session", value: ""}]
+  options = [{text: "", value: ""}]
   options.concat(Attachment.parliamentary_sessions.map do |session|
     {
       text: session,
@@ -45,6 +45,7 @@
     heading_level: 3,
     heading_size: heading_size,
     options: options,
+    hint: "Choose the right Parliamentary session",
     error_message: errors_for_input(attachment.errors, :parliamentary_session)
   } %>
 </div>
