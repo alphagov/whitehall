@@ -14,11 +14,15 @@
     <%= form_tag admin_edition_path(@edition), method: :delete do %>
       <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to delete this draft?</p>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Delete",
-        destructive: true,
-        margin_bottom: 8,
-      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Delete",
+          destructive: true,
+          margin_bottom: 8,
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+      </div>
     <% end %>
   </section>
 </div>
