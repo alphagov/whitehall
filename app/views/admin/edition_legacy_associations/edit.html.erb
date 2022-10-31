@@ -15,10 +15,15 @@
         html: { class: edition_form_classes(@edition) } do |form| %>
 
       <%= render 'specialist_sector_fields', form: form, edition: @edition %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Update specialist topics",
-        margin_bottom: 8,
-      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update specialist topics",
+          margin_bottom: 8,
+        } %>
+
+        <%= link_to("Cancel", @path, class: "govuk-link") %>
+      </div>
     <% end %>
   </section>
 </div>
