@@ -1,7 +1,7 @@
 <%= form.fields_for(:attachment_data, include_id: false) do |attachment_data_fields| %>
   <% if attachment_data_fields.object.filename %>
     <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id) %>
-    <p class="govuk-body">Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url %></p>
+    <p class="govuk-body">Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url, class: "govuk-link" %></p>
   <% end %>
 
   <%= render "govuk_publishing_components/components/file_upload", {
@@ -11,7 +11,7 @@
       heading_size: "l",
     },
     name: "attachment[attachment_data_attributes][file]",
-    hint: raw("You must upload attachments in an <a href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>.")
+    hint: raw("You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>.")
   } %>
 
   <% form.hidden_field :accessible, value: "0" %>
