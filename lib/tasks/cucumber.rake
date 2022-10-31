@@ -6,10 +6,16 @@ unless Rails.env.production?
       t.fork = true # You may get faster startup if you set this to false
       t.profile = "default"
     end
+
+    Cucumber::Rake::Task.new({ preview_design_system: "test:prepare" }, "Run features with the 'Preview design system' feature flag enabled") do |t|
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = "preview_design_system"
+    end
   end
 
-  desc "Alias for cucumber:ok"
-  task cucumber: "cucumber:ok"
+  desc "Run all feature tests"
+  # preview_design_system comes first because it's more likely to break tests, so we'll get a faster feedback loop
+  task cucumber: ["cucumber:preview_design_system", "cucumber:ok"]
 
   task default: :cucumber
 end

@@ -5,5 +5,6 @@ rerun_opts = rerun.empty? ? "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} fe
 std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'progress'} --strict --tags 'not @wip'"
 %>
 default: <%= std_opts %> features --publish-quiet
+preview_design_system: <%= std_opts %> CUCUMBER_PREVIEW_DESIGN_SYSTEM=true features --publish-quiet
 wip: --tags @wip:3 --wip features --publish-quiet
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags 'not @wip' --publish-quiet
