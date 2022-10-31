@@ -21,9 +21,13 @@
         error_items: errors_for(@zip_file.errors, :zip_file)
       } %>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Next",
-      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Upload zip",
+        } %>
+
+        <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link") %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -57,9 +57,14 @@
             <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
           <% end %>
         <% end %>
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Save",
-        } %>
+
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Save",
+          } %>
+
+          <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link") %>
+        </div>
       <% end %>
     </div>
   </div>

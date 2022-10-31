@@ -76,25 +76,15 @@
   <%= hidden_field_tag :type, params[:type] %>
 
   <div class="govuk-button-group">
-    <% if attachment.is_a?(ExternalAttachment) %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Next",
-        data_attributes: {
-          module: "track-button-click",
-          "track-category": "form-button",
-          "track-action": "#{attachment.readable_type}-attachment-button"
-        }
-      } %>
-    <% else %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Save",
-        data_attributes: {
-          module: "track-button-click",
-          "track-category": "form-button",
-          "track-action": "#{attachment.readable_type}-attachment-button"
-        }
-      } %>
-    <% end %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      data_attributes: {
+        module: "track-button-click",
+        "track-category": "form-button",
+        "track-action": "#{attachment.readable_type}-attachment-button"
+      }
+    } %>
+
     <%= link_to("Cancel", attachable_attachments_path(attachable), class: "govuk-link") %>
   </div>
 <% end %>
