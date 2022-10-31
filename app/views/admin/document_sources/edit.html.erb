@@ -1,11 +1,5 @@
 <% content_for :page_title, "Edit legacy URL redirects" %>
 
-<% content_for :back_link do %>
-  <%= render "govuk_publishing_components/components/back_link", {
-    href: admin_edition_path(@edition)
-  } %>
-<% end %>
-
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <span class="govuk-caption-xl"><%= @edition.title %></span>
@@ -22,10 +16,14 @@
         value: @edition.document.document_sources.map(&:url).join("\n"),
         rows: 20
       } %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Save",
-        margin_bottom: 8
-      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+
+        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link") %>
+      </div>
     <% end %>
   </div>
 </div>
