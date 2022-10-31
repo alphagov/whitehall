@@ -2,7 +2,7 @@
 <% content_for :page_title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation" %>
 <% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation" %>
 <% content_for :title_margin_bottom, 6 %>
-<% content_for :error_summary, render('shared/error_summary', object: @unpublishing, class_name: "#{withdrawal_or_unpublishing(@unpublishing.edition)} explanation") %>
+<% content_for :error_summary, render('shared/error_summary', object: @unpublishing, parent_class: "edition", class_name: "#{withdrawal_or_unpublishing(@unpublishing.edition)} explanation") %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
     href: admin_edition_path(@unpublishing.edition)
