@@ -2,7 +2,8 @@
 //= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics
 
-//= require govuk-admin-template
+//= require jquery
+//= require bootstrap
 
 //= require components/autocomplete
 //= require components/govspeak-editor
