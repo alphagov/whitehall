@@ -38,11 +38,12 @@
             <% end %>
 
             <%= render "govuk_publishing_components/components/checkboxes", {
-              name: "Attachment is accessible",
+              name: "bulk_upload[attachments_attributes][#{i}][accessible]",
               items: [
                 {
                   label: "Attachment is accessible",
-                  value: true
+                  value: "1",
+                  checked: attachment.accessible
                 }
               ]
             } %>

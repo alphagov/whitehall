@@ -14,12 +14,15 @@
     hint: raw("You must upload attachments in an <a href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>.")
   } %>
 
+  <% form.hidden_field :accessible, value: "0" %>
+
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: "attachment[accessible]",
     items: [
       {
         label: "Attachment is accessible",
-        value: "1"
+        value: "1",
+        checked: attachment.accessible
       }
     ]
   } %>

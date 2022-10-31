@@ -23,6 +23,8 @@
 
   <% if attachment.is_a?(HtmlAttachment) %>
     <%= form.fields_for :govspeak_content do |govspeak_fields| %>
+      <%= hidden_field_tag 'attachment[govspeak_content_attributes][manually_numbered_headings]', "0" %>
+
       <div class="govuk-!-margin-bottom-8">
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: "attachment[govspeak_content_attributes][manually_numbered_headings]",
